@@ -1,0 +1,617 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		128886AD18DC493B00957B22 /* WLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886AC18DC493B00957B22 /* WLSession.m */; };
+		128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886B018DC90E000957B22 /* WLArchivingObject.m */; };
+		12A7A70318DA0945008FF6F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70218DA0945008FF6F0 /* Foundation.framework */; };
+		12A7A70518DA0945008FF6F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */; };
+		12A7A70718DA0945008FF6F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70618DA0945008FF6F0 /* UIKit.framework */; };
+		12A7A70D18DA0946008FF6F0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A70B18DA0946008FF6F0 /* InfoPlist.strings */; };
+		12A7A70F18DA0946008FF6F0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
+		12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */; };
+		12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
+		12A7A71B18DA0946008FF6F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71A18DA0946008FF6F0 /* Images.xcassets */; };
+		12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */; };
+		12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74018DA10DD008FF6F0 /* WLSignUpViewController.m */; };
+		12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
+		12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA5718DAF98C00A4BC44 /* WLAPIManager.m */; };
+		12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA5E18DB0DA700A4BC44 /* WLUser.m */; };
+		12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA6218DB0DEF00A4BC44 /* WLEntry.m */; };
+		12DCBA6718DB0E4A00A4BC44 /* WLWrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA6618DB0E4A00A4BC44 /* WLWrap.m */; };
+		12DCBA6B18DB0E6600A4BC44 /* WLComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA6A18DB0E6600A4BC44 /* WLComment.m */; };
+		12DCBA6F18DB0E7F00A4BC44 /* WLWrapEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA6E18DB0E7F00A4BC44 /* WLWrapEntry.m */; };
+		12DCBA7318DB0E9700A4BC44 /* WLImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7218DB0E9700A4BC44 /* WLImage.m */; };
+		12DCBA7718DB0EB800A4BC44 /* WLConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7618DB0EB800A4BC44 /* WLConversation.m */; };
+		12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */; };
+		12DCBA8418DB18F400A4BC44 /* PGCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* PGCollectionItemCell.m */; };
+		12DCBA8518DB18F400A4BC44 /* PGItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* PGItemCell.m */; };
+		12DCBA8718DB1D4200A4BC44 /* WLDummyWraps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12DCBA8618DB1D4200A4BC44 /* WLDummyWraps.plist */; };
+		12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
+		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		128886AB18DC493B00957B22 /* WLSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSession.h; path = WLSession/WLSession.h; sourceTree = "<group>"; };
+		128886AC18DC493B00957B22 /* WLSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSession.m; path = WLSession/WLSession.m; sourceTree = "<group>"; };
+		128886AF18DC90E000957B22 /* WLArchivingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArchivingObject.h; path = WLArchivingObject/WLArchivingObject.h; sourceTree = "<group>"; };
+		128886B018DC90E000957B22 /* WLArchivingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArchivingObject.m; path = WLArchivingObject/WLArchivingObject.m; sourceTree = "<group>"; };
+		12A7A6FF18DA0945008FF6F0 /* WrapLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WrapLive.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		12A7A70218DA0945008FF6F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		12A7A70618DA0945008FF6F0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		12A7A70A18DA0946008FF6F0 /* WrapLive-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WrapLive-Info.plist"; sourceTree = "<group>"; };
+		12A7A70C18DA0946008FF6F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		12A7A70E18DA0946008FF6F0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		12A7A71018DA0946008FF6F0 /* WrapLive-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WrapLive-Prefix.pch"; sourceTree = "<group>"; };
+		12A7A71118DA0946008FF6F0 /* WLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLAppDelegate.h; sourceTree = "<group>"; };
+		12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLAppDelegate.m; sourceTree = "<group>"; };
+		12A7A71518DA0946008FF6F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		12A7A71A18DA0946008FF6F0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		12A7A72118DA0946008FF6F0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		12A7A73B18DA0A06008FF6F0 /* WLWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWelcomeViewController.h; sourceTree = "<group>"; };
+		12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWelcomeViewController.m; sourceTree = "<group>"; };
+		12A7A73F18DA10DD008FF6F0 /* WLSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSignUpViewController.h; path = WLSignUpViewController/WLSignUpViewController.h; sourceTree = "<group>"; };
+		12A7A74018DA10DD008FF6F0 /* WLSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSignUpViewController.m; path = WLSignUpViewController/WLSignUpViewController.m; sourceTree = "<group>"; };
+		12A7A74318DA180C008FF6F0 /* WLHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLHomeViewController.h; path = WLHomeViewController/WLHomeViewController.h; sourceTree = "<group>"; };
+		12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLHomeViewController.m; path = WLHomeViewController/WLHomeViewController.m; sourceTree = "<group>"; };
+		12DCBA5618DAF98C00A4BC44 /* WLAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAPIManager.h; path = WLAPIManager/WLAPIManager.h; sourceTree = "<group>"; };
+		12DCBA5718DAF98C00A4BC44 /* WLAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAPIManager.m; path = WLAPIManager/WLAPIManager.m; sourceTree = "<group>"; };
+		12DCBA5D18DB0DA700A4BC44 /* WLUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUser.h; path = WLUser/WLUser.h; sourceTree = "<group>"; };
+		12DCBA5E18DB0DA700A4BC44 /* WLUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUser.m; path = WLUser/WLUser.m; sourceTree = "<group>"; };
+		12DCBA6118DB0DEF00A4BC44 /* WLEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntry.h; path = WLEntry/WLEntry.h; sourceTree = "<group>"; };
+		12DCBA6218DB0DEF00A4BC44 /* WLEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEntry.m; path = WLEntry/WLEntry.m; sourceTree = "<group>"; };
+		12DCBA6518DB0E4A00A4BC44 /* WLWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrap.h; path = WLWrap/WLWrap.h; sourceTree = "<group>"; };
+		12DCBA6618DB0E4A00A4BC44 /* WLWrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrap.m; path = WLWrap/WLWrap.m; sourceTree = "<group>"; };
+		12DCBA6918DB0E6600A4BC44 /* WLComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComment.h; path = WLComment/WLComment.h; sourceTree = "<group>"; };
+		12DCBA6A18DB0E6600A4BC44 /* WLComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComment.m; path = WLComment/WLComment.m; sourceTree = "<group>"; };
+		12DCBA6D18DB0E7F00A4BC44 /* WLWrapEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapEntry.h; path = WLWrapEntry/WLWrapEntry.h; sourceTree = "<group>"; };
+		12DCBA6E18DB0E7F00A4BC44 /* WLWrapEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapEntry.m; path = WLWrapEntry/WLWrapEntry.m; sourceTree = "<group>"; };
+		12DCBA7118DB0E9700A4BC44 /* WLImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLImage.h; path = WLImage/WLImage.h; sourceTree = "<group>"; };
+		12DCBA7218DB0E9700A4BC44 /* WLImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLImage.m; path = WLImage/WLImage.m; sourceTree = "<group>"; };
+		12DCBA7518DB0EB800A4BC44 /* WLConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLConversation.h; path = WLConversation/WLConversation.h; sourceTree = "<group>"; };
+		12DCBA7618DB0EB800A4BC44 /* WLConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLConversation.m; path = WLConversation/WLConversation.m; sourceTree = "<group>"; };
+		12DCBA7918DB17D000A4BC44 /* WLWrapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapCell.h; path = WLHomeViewController/WLWrapCell/WLWrapCell.h; sourceTree = "<group>"; };
+		12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapCell.m; path = WLHomeViewController/WLWrapCell/WLWrapCell.m; sourceTree = "<group>"; };
+		12DCBA7F18DB18F400A4BC44 /* PGCollectionItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCollectionItemCell.h; sourceTree = "<group>"; };
+		12DCBA8018DB18F400A4BC44 /* PGCollectionItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCollectionItemCell.m; sourceTree = "<group>"; };
+		12DCBA8118DB18F400A4BC44 /* PGItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGItemCell.h; sourceTree = "<group>"; };
+		12DCBA8218DB18F400A4BC44 /* PGItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGItemCell.m; sourceTree = "<group>"; };
+		12DCBA8318DB18F400A4BC44 /* PGItemCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGItemCellProtocol.h; sourceTree = "<group>"; };
+		12DCBA8618DB1D4200A4BC44 /* WLDummyWraps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLDummyWraps.plist; sourceTree = "<group>"; };
+		12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapViewController.h; path = WLWrapViewController/WLWrapViewController.h; sourceTree = "<group>"; };
+		12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapViewController.m; path = WLWrapViewController/WLWrapViewController.m; sourceTree = "<group>"; };
+		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		12A7A6FC18DA0945008FF6F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12A7A70518DA0945008FF6F0 /* CoreGraphics.framework in Frameworks */,
+				12A7A70718DA0945008FF6F0 /* UIKit.framework in Frameworks */,
+				12A7A70318DA0945008FF6F0 /* Foundation.framework in Frameworks */,
+				607AAB536152441CB1C4F352 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		128886AA18DC492300957B22 /* WLSession */ = {
+			isa = PBXGroup;
+			children = (
+				128886AB18DC493B00957B22 /* WLSession.h */,
+				128886AC18DC493B00957B22 /* WLSession.m */,
+			);
+			name = WLSession;
+			sourceTree = "<group>";
+		};
+		128886AE18DC902700957B22 /* WLArchivingObject */ = {
+			isa = PBXGroup;
+			children = (
+				128886AF18DC90E000957B22 /* WLArchivingObject.h */,
+				128886B018DC90E000957B22 /* WLArchivingObject.m */,
+			);
+			name = WLArchivingObject;
+			sourceTree = "<group>";
+		};
+		12A7A6F618DA0945008FF6F0 = {
+			isa = PBXGroup;
+			children = (
+				12A7A70818DA0945008FF6F0 /* WrapLive */,
+				12A7A70118DA0945008FF6F0 /* Frameworks */,
+				12A7A70018DA0945008FF6F0 /* Products */,
+				98C86618D23B4CC5B2807E94 /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		12A7A70018DA0945008FF6F0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				12A7A6FF18DA0945008FF6F0 /* WrapLive.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		12A7A70118DA0945008FF6F0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				12A7A70218DA0945008FF6F0 /* Foundation.framework */,
+				12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */,
+				12A7A70618DA0945008FF6F0 /* UIKit.framework */,
+				12A7A72118DA0946008FF6F0 /* XCTest.framework */,
+				F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		12A7A70818DA0945008FF6F0 /* WrapLive */ = {
+			isa = PBXGroup;
+			children = (
+				12A7A71118DA0946008FF6F0 /* WLAppDelegate.h */,
+				12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */,
+				12A7A71418DA0946008FF6F0 /* Main.storyboard */,
+				12A7A73718DA09A9008FF6F0 /* Controllers */,
+				12A7A73818DA09A9008FF6F0 /* Models */,
+				12A7A73918DA09A9008FF6F0 /* Views */,
+				12A7A71A18DA0946008FF6F0 /* Images.xcassets */,
+				12DCBA8618DB1D4200A4BC44 /* WLDummyWraps.plist */,
+				12A7A70918DA0946008FF6F0 /* Supporting Files */,
+			);
+			path = WrapLive;
+			sourceTree = "<group>";
+		};
+		12A7A70918DA0946008FF6F0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				12A7A70A18DA0946008FF6F0 /* WrapLive-Info.plist */,
+				12A7A70B18DA0946008FF6F0 /* InfoPlist.strings */,
+				12A7A70E18DA0946008FF6F0 /* main.m */,
+				12A7A71018DA0946008FF6F0 /* WrapLive-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA8818DB399B00A4BC44 /* WLWrapViewController */,
+				12A7A74218DA17F7008FF6F0 /* WLHomeViewController */,
+				12A7A73E18DA109A008FF6F0 /* WLSignUpViewController */,
+				12A7A73A18DA0A06008FF6F0 /* WLWelcomeViewController */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		12A7A73818DA09A9008FF6F0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				128886AE18DC902700957B22 /* WLArchivingObject */,
+				128886AA18DC492300957B22 /* WLSession */,
+				12DCBA7418DB0EA000A4BC44 /* WLConversation */,
+				12DCBA7018DB0E8200A4BC44 /* WLImage */,
+				12DCBA6C18DB0E6A00A4BC44 /* WLWrapEntry */,
+				12DCBA6818DB0E5100A4BC44 /* WLComment */,
+				12DCBA6418DB0E3700A4BC44 /* WLWrap */,
+				12DCBA6018DB0DAA00A4BC44 /* WLEntry */,
+				12DCBA5918DB0D6E00A4BC44 /* WLUser */,
+				12DCBA5218DAF93C00A4BC44 /* WLAPIManager */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		12A7A73918DA09A9008FF6F0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA7E18DB18F400A4BC44 /* Reusing Views */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		12A7A73A18DA0A06008FF6F0 /* WLWelcomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				12A7A73B18DA0A06008FF6F0 /* WLWelcomeViewController.h */,
+				12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */,
+			);
+			path = WLWelcomeViewController;
+			sourceTree = "<group>";
+		};
+		12A7A73E18DA109A008FF6F0 /* WLSignUpViewController */ = {
+			isa = PBXGroup;
+			children = (
+				12A7A73F18DA10DD008FF6F0 /* WLSignUpViewController.h */,
+				12A7A74018DA10DD008FF6F0 /* WLSignUpViewController.m */,
+			);
+			name = WLSignUpViewController;
+			sourceTree = "<group>";
+		};
+		12A7A74218DA17F7008FF6F0 /* WLHomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA7818DB17B000A4BC44 /* WLWrapCell */,
+				12A7A74318DA180C008FF6F0 /* WLHomeViewController.h */,
+				12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */,
+			);
+			name = WLHomeViewController;
+			sourceTree = "<group>";
+		};
+		12DCBA5218DAF93C00A4BC44 /* WLAPIManager */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA5618DAF98C00A4BC44 /* WLAPIManager.h */,
+				12DCBA5718DAF98C00A4BC44 /* WLAPIManager.m */,
+			);
+			name = WLAPIManager;
+			sourceTree = "<group>";
+		};
+		12DCBA5918DB0D6E00A4BC44 /* WLUser */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA5D18DB0DA700A4BC44 /* WLUser.h */,
+				12DCBA5E18DB0DA700A4BC44 /* WLUser.m */,
+			);
+			name = WLUser;
+			sourceTree = "<group>";
+		};
+		12DCBA6018DB0DAA00A4BC44 /* WLEntry */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA6118DB0DEF00A4BC44 /* WLEntry.h */,
+				12DCBA6218DB0DEF00A4BC44 /* WLEntry.m */,
+			);
+			name = WLEntry;
+			sourceTree = "<group>";
+		};
+		12DCBA6418DB0E3700A4BC44 /* WLWrap */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA6518DB0E4A00A4BC44 /* WLWrap.h */,
+				12DCBA6618DB0E4A00A4BC44 /* WLWrap.m */,
+			);
+			name = WLWrap;
+			sourceTree = "<group>";
+		};
+		12DCBA6818DB0E5100A4BC44 /* WLComment */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA6918DB0E6600A4BC44 /* WLComment.h */,
+				12DCBA6A18DB0E6600A4BC44 /* WLComment.m */,
+			);
+			name = WLComment;
+			sourceTree = "<group>";
+		};
+		12DCBA6C18DB0E6A00A4BC44 /* WLWrapEntry */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA6D18DB0E7F00A4BC44 /* WLWrapEntry.h */,
+				12DCBA6E18DB0E7F00A4BC44 /* WLWrapEntry.m */,
+			);
+			name = WLWrapEntry;
+			sourceTree = "<group>";
+		};
+		12DCBA7018DB0E8200A4BC44 /* WLImage */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA7118DB0E9700A4BC44 /* WLImage.h */,
+				12DCBA7218DB0E9700A4BC44 /* WLImage.m */,
+			);
+			name = WLImage;
+			sourceTree = "<group>";
+		};
+		12DCBA7418DB0EA000A4BC44 /* WLConversation */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA7518DB0EB800A4BC44 /* WLConversation.h */,
+				12DCBA7618DB0EB800A4BC44 /* WLConversation.m */,
+			);
+			name = WLConversation;
+			sourceTree = "<group>";
+		};
+		12DCBA7818DB17B000A4BC44 /* WLWrapCell */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA7918DB17D000A4BC44 /* WLWrapCell.h */,
+				12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */,
+			);
+			name = WLWrapCell;
+			sourceTree = "<group>";
+		};
+		12DCBA7E18DB18F400A4BC44 /* Reusing Views */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA7F18DB18F400A4BC44 /* PGCollectionItemCell.h */,
+				12DCBA8018DB18F400A4BC44 /* PGCollectionItemCell.m */,
+				12DCBA8118DB18F400A4BC44 /* PGItemCell.h */,
+				12DCBA8218DB18F400A4BC44 /* PGItemCell.m */,
+				12DCBA8318DB18F400A4BC44 /* PGItemCellProtocol.h */,
+			);
+			path = "Reusing Views";
+			sourceTree = "<group>";
+		};
+		12DCBA8818DB399B00A4BC44 /* WLWrapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */,
+				12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */,
+			);
+			name = WLWrapViewController;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		12A7A6FE18DA0945008FF6F0 /* WrapLive */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 12A7A73118DA0946008FF6F0 /* Build configuration list for PBXNativeTarget "WrapLive" */;
+			buildPhases = (
+				C0F7B8B3D4B64C73B15D49B4 /* Check Pods Manifest.lock */,
+				12A7A6FB18DA0945008FF6F0 /* Sources */,
+				12A7A6FC18DA0945008FF6F0 /* Frameworks */,
+				12A7A6FD18DA0945008FF6F0 /* Resources */,
+				635DA26797604B1F927001E0 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WrapLive;
+			productName = WrapLive;
+			productReference = 12A7A6FF18DA0945008FF6F0 /* WrapLive.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		12A7A6F718DA0945008FF6F0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = WL;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Mobidev;
+			};
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 12A7A6F618DA0945008FF6F0;
+			productRefGroup = 12A7A70018DA0945008FF6F0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				12A7A6FE18DA0945008FF6F0 /* WrapLive */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		12A7A6FD18DA0945008FF6F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12A7A71B18DA0946008FF6F0 /* Images.xcassets in Resources */,
+				12A7A70D18DA0946008FF6F0 /* InfoPlist.strings in Resources */,
+				12DCBA8718DB1D4200A4BC44 /* WLDummyWraps.plist in Resources */,
+				12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		635DA26797604B1F927001E0 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0F7B8B3D4B64C73B15D49B4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		12A7A6FB18DA0945008FF6F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12DCBA8418DB18F400A4BC44 /* PGCollectionItemCell.m in Sources */,
+				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
+				12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */,
+				12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */,
+				12DCBA6718DB0E4A00A4BC44 /* WLWrap.m in Sources */,
+				12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */,
+				12DCBA6B18DB0E6600A4BC44 /* WLComment.m in Sources */,
+				12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */,
+				12DCBA7318DB0E9700A4BC44 /* WLImage.m in Sources */,
+				128886AD18DC493B00957B22 /* WLSession.m in Sources */,
+				128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */,
+				12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */,
+				12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */,
+				12DCBA6F18DB0E7F00A4BC44 /* WLWrapEntry.m in Sources */,
+				12DCBA7718DB0EB800A4BC44 /* WLConversation.m in Sources */,
+				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
+				12DCBA8518DB18F400A4BC44 /* PGItemCell.m in Sources */,
+				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
+				12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		12A7A70B18DA0946008FF6F0 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				12A7A70C18DA0946008FF6F0 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		12A7A71418DA0946008FF6F0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				12A7A71518DA0946008FF6F0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		12A7A72F18DA0946008FF6F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		12A7A73018DA0946008FF6F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		12A7A73218DA0946008FF6F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98C86618D23B4CC5B2807E94 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		12A7A73318DA0946008FF6F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98C86618D23B4CC5B2807E94 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				12A7A72F18DA0946008FF6F0 /* Debug */,
+				12A7A73018DA0946008FF6F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		12A7A73118DA0946008FF6F0 /* Build configuration list for PBXNativeTarget "WrapLive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				12A7A73218DA0946008FF6F0 /* Debug */,
+				12A7A73318DA0946008FF6F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 12A7A6F718DA0945008FF6F0 /* Project object */;
+}

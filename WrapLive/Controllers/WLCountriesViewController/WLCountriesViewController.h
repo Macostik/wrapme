@@ -1,5 +1,5 @@
 //
-//  WLCountiesViewController.h
+//  WLCountriesViewController.h
 //  WrapLive
 //
 //  Created by Sergey Maximenko on 24.03.14.
@@ -10,7 +10,7 @@
 
 @class WLCountry;
 
-@interface WLCountiesViewController : UIViewController
+@interface WLCountriesViewController : UIViewController
 
 + (void)show:(void (^) (WLCountry* country))completion;
 

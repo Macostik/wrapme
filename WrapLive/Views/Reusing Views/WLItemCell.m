@@ -1,7 +1,7 @@
 
-#import "PGCollectionItemCell.h"
+#import "WLItemCell.h"
 
-@implementation PGCollectionItemCell
+@implementation WLItemCell
 
 @synthesize item = _item;
 

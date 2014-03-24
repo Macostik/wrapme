@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		121B1B2E18E07430001F585C /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
+		121B1B3118E0749F001F585C /* WLDummyWraps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3018E0749F001F585C /* WLDummyWraps.plist */; };
+		121B1B3318E074D0001F585C /* WLCountries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3218E074D0001F585C /* WLCountries.plist */; };
+		125D4A4618E06710001B8E7C /* WLCountiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4418E06710001B8E7C /* WLCountiesViewController.m */; };
+		125D4A4718E06710001B8E7C /* WLCountiesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 125D4A4518E06710001B8E7C /* WLCountiesViewController.xib */; };
+		125D4A4B18E0679A001B8E7C /* UILabel+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4A18E0679A001B8E7C /* UILabel+CustomFonts.m */; };
+		125D4A4F18E068E6001B8E7C /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */; };
+		125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A5218E069C6001B8E7C /* UIFont+CustomFonts.m */; };
+		125D4A5818E0729B001B8E7C /* WLCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A5618E0729B001B8E7C /* WLCountryCell.m */; };
+		125D4A5918E0729B001B8E7C /* WLCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 125D4A5718E0729B001B8E7C /* WLCountryCell.xib */; };
 		128886AD18DC493B00957B22 /* WLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886AC18DC493B00957B22 /* WLSession.m */; };
 		128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886B018DC90E000957B22 /* WLArchivingObject.m */; };
 		12A7A70318DA0945008FF6F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70218DA0945008FF6F0 /* Foundation.framework */; };
@@ -28,9 +38,8 @@
 		12DCBA7318DB0E9700A4BC44 /* WLImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7218DB0E9700A4BC44 /* WLImage.m */; };
 		12DCBA7718DB0EB800A4BC44 /* WLConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7618DB0EB800A4BC44 /* WLConversation.m */; };
 		12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */; };
-		12DCBA8418DB18F400A4BC44 /* PGCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* PGCollectionItemCell.m */; };
-		12DCBA8518DB18F400A4BC44 /* PGItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* PGItemCell.m */; };
-		12DCBA8718DB1D4200A4BC44 /* WLDummyWraps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12DCBA8618DB1D4200A4BC44 /* WLDummyWraps.plist */; };
+		12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */; };
+		12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* WLItemCell.m */; };
 		12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
 		12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA3E18E0399700DBDB79 /* WLCameraViewController.m */; };
 		12E3DA4218E03EB000DBDB79 /* WLSupportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA4118E03EB000DBDB79 /* WLSupportFunctions.m */; };
@@ -53,6 +62,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		121B1B2C18E07430001F585C /* WLCountry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCountry.h; path = WLCountry/WLCountry.h; sourceTree = "<group>"; };
+		121B1B2D18E07430001F585C /* WLCountry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCountry.m; path = WLCountry/WLCountry.m; sourceTree = "<group>"; };
+		121B1B3018E0749F001F585C /* WLDummyWraps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLDummyWraps.plist; sourceTree = "<group>"; };
+		121B1B3218E074D0001F585C /* WLCountries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLCountries.plist; sourceTree = "<group>"; };
+		125D4A4318E06710001B8E7C /* WLCountiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCountiesViewController.h; sourceTree = "<group>"; };
+		125D4A4418E06710001B8E7C /* WLCountiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCountiesViewController.m; sourceTree = "<group>"; };
+		125D4A4518E06710001B8E7C /* WLCountiesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCountiesViewController.xib; sourceTree = "<group>"; };
+		125D4A4918E0679A001B8E7C /* UILabel+CustomFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+CustomFonts.h"; path = "UILabel/UILabel+CustomFonts.h"; sourceTree = "<group>"; };
+		125D4A4A18E0679A001B8E7C /* UILabel+CustomFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+CustomFonts.m"; path = "UILabel/UILabel+CustomFonts.m"; sourceTree = "<group>"; };
+		125D4A4D18E068E6001B8E7C /* NSDate+Formatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Formatting.h"; sourceTree = "<group>"; };
+		125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Formatting.m"; sourceTree = "<group>"; };
+		125D4A5118E069C6001B8E7C /* UIFont+CustomFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+CustomFonts.h"; path = "UIFont/UIFont+CustomFonts.h"; sourceTree = "<group>"; };
+		125D4A5218E069C6001B8E7C /* UIFont+CustomFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIFont+CustomFonts.m"; path = "UIFont/UIFont+CustomFonts.m"; sourceTree = "<group>"; };
+		125D4A5518E0729B001B8E7C /* WLCountryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCountryCell.h; path = WLCountryCell/WLCountryCell.h; sourceTree = "<group>"; };
+		125D4A5618E0729B001B8E7C /* WLCountryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCountryCell.m; path = WLCountryCell/WLCountryCell.m; sourceTree = "<group>"; };
+		125D4A5718E0729B001B8E7C /* WLCountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCountryCell.xib; path = WLCountryCell/WLCountryCell.xib; sourceTree = "<group>"; };
 		128886AB18DC493B00957B22 /* WLSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSession.h; path = WLSession/WLSession.h; sourceTree = "<group>"; };
 		128886AC18DC493B00957B22 /* WLSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSession.m; path = WLSession/WLSession.m; sourceTree = "<group>"; };
 		128886AF18DC90E000957B22 /* WLArchivingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArchivingObject.h; path = WLArchivingObject/WLArchivingObject.h; sourceTree = "<group>"; };
@@ -93,12 +118,11 @@
 		12DCBA7618DB0EB800A4BC44 /* WLConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLConversation.m; path = WLConversation/WLConversation.m; sourceTree = "<group>"; };
 		12DCBA7918DB17D000A4BC44 /* WLWrapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapCell.h; path = WLHomeViewController/WLWrapCell/WLWrapCell.h; sourceTree = "<group>"; };
 		12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapCell.m; path = WLHomeViewController/WLWrapCell/WLWrapCell.m; sourceTree = "<group>"; };
-		12DCBA7F18DB18F400A4BC44 /* PGCollectionItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCollectionItemCell.h; sourceTree = "<group>"; };
-		12DCBA8018DB18F400A4BC44 /* PGCollectionItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCollectionItemCell.m; sourceTree = "<group>"; };
-		12DCBA8118DB18F400A4BC44 /* PGItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGItemCell.h; sourceTree = "<group>"; };
-		12DCBA8218DB18F400A4BC44 /* PGItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGItemCell.m; sourceTree = "<group>"; };
-		12DCBA8318DB18F400A4BC44 /* PGItemCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGItemCellProtocol.h; sourceTree = "<group>"; };
-		12DCBA8618DB1D4200A4BC44 /* WLDummyWraps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLDummyWraps.plist; sourceTree = "<group>"; };
+		12DCBA7F18DB18F400A4BC44 /* WLCollectionItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCollectionItemCell.h; sourceTree = "<group>"; };
+		12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCollectionItemCell.m; sourceTree = "<group>"; };
+		12DCBA8118DB18F400A4BC44 /* WLItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLItemCell.h; sourceTree = "<group>"; };
+		12DCBA8218DB18F400A4BC44 /* WLItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLItemCell.m; sourceTree = "<group>"; };
+		12DCBA8318DB18F400A4BC44 /* WLItemCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLItemCellProtocol.h; sourceTree = "<group>"; };
 		12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapViewController.h; path = WLWrapViewController/WLWrapViewController.h; sourceTree = "<group>"; };
 		12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapViewController.m; path = WLWrapViewController/WLWrapViewController.m; sourceTree = "<group>"; };
 		12E3DA3D18E0399700DBDB79 /* WLCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCameraViewController.h; sourceTree = "<group>"; };
@@ -142,6 +166,72 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		121B1B2B18E0741A001F585C /* WLCountry */ = {
+			isa = PBXGroup;
+			children = (
+				121B1B2C18E07430001F585C /* WLCountry.h */,
+				121B1B2D18E07430001F585C /* WLCountry.m */,
+			);
+			name = WLCountry;
+			sourceTree = "<group>";
+		};
+		121B1B2F18E0749F001F585C /* Property Lists */ = {
+			isa = PBXGroup;
+			children = (
+				121B1B3018E0749F001F585C /* WLDummyWraps.plist */,
+				121B1B3218E074D0001F585C /* WLCountries.plist */,
+			);
+			path = "Property Lists";
+			sourceTree = "<group>";
+		};
+		125D4A4218E06710001B8E7C /* WLCountiesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				125D4A5418E07283001B8E7C /* WLCountryCell */,
+				125D4A4318E06710001B8E7C /* WLCountiesViewController.h */,
+				125D4A4418E06710001B8E7C /* WLCountiesViewController.m */,
+				125D4A4518E06710001B8E7C /* WLCountiesViewController.xib */,
+			);
+			path = WLCountiesViewController;
+			sourceTree = "<group>";
+		};
+		125D4A4818E0676E001B8E7C /* UILabel */ = {
+			isa = PBXGroup;
+			children = (
+				125D4A4918E0679A001B8E7C /* UILabel+CustomFonts.h */,
+				125D4A4A18E0679A001B8E7C /* UILabel+CustomFonts.m */,
+			);
+			name = UILabel;
+			sourceTree = "<group>";
+		};
+		125D4A4C18E068E6001B8E7C /* NSDate */ = {
+			isa = PBXGroup;
+			children = (
+				125D4A4D18E068E6001B8E7C /* NSDate+Formatting.h */,
+				125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */,
+			);
+			path = NSDate;
+			sourceTree = "<group>";
+		};
+		125D4A5018E069B3001B8E7C /* UIFont */ = {
+			isa = PBXGroup;
+			children = (
+				125D4A5118E069C6001B8E7C /* UIFont+CustomFonts.h */,
+				125D4A5218E069C6001B8E7C /* UIFont+CustomFonts.m */,
+			);
+			name = UIFont;
+			sourceTree = "<group>";
+		};
+		125D4A5418E07283001B8E7C /* WLCountryCell */ = {
+			isa = PBXGroup;
+			children = (
+				125D4A5518E0729B001B8E7C /* WLCountryCell.h */,
+				125D4A5618E0729B001B8E7C /* WLCountryCell.m */,
+				125D4A5718E0729B001B8E7C /* WLCountryCell.xib */,
+			);
+			name = WLCountryCell;
+			sourceTree = "<group>";
+		};
 		128886AA18DC492300957B22 /* WLSession */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,7 +291,6 @@
 				12A7A73818DA09A9008FF6F0 /* Models */,
 				12A7A73918DA09A9008FF6F0 /* Views */,
 				12E3DA4318E049C300DBDB79 /* Resources */,
-				12DCBA8618DB1D4200A4BC44 /* WLDummyWraps.plist */,
 				12A7A70918DA0946008FF6F0 /* Supporting Files */,
 			);
 			path = WrapLive;
@@ -222,6 +311,7 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				125D4A4218E06710001B8E7C /* WLCountiesViewController */,
 				12E3DA3C18E0399700DBDB79 /* WLCameraViewController */,
 				12DCBA8818DB399B00A4BC44 /* WLWrapViewController */,
 				12A7A74218DA17F7008FF6F0 /* WLHomeViewController */,
@@ -234,6 +324,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				121B1B2B18E0741A001F585C /* WLCountry */,
 				12E3DA4018E03EB000DBDB79 /* WLSupportFunctions.h */,
 				12E3DA4118E03EB000DBDB79 /* WLSupportFunctions.m */,
 				128886AE18DC902700957B22 /* WLArchivingObject */,
@@ -370,11 +461,11 @@
 		12DCBA7E18DB18F400A4BC44 /* Reusing Views */ = {
 			isa = PBXGroup;
 			children = (
-				12DCBA7F18DB18F400A4BC44 /* PGCollectionItemCell.h */,
-				12DCBA8018DB18F400A4BC44 /* PGCollectionItemCell.m */,
-				12DCBA8118DB18F400A4BC44 /* PGItemCell.h */,
-				12DCBA8218DB18F400A4BC44 /* PGItemCell.m */,
-				12DCBA8318DB18F400A4BC44 /* PGItemCellProtocol.h */,
+				12DCBA7F18DB18F400A4BC44 /* WLCollectionItemCell.h */,
+				12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */,
+				12DCBA8118DB18F400A4BC44 /* WLItemCell.h */,
+				12DCBA8218DB18F400A4BC44 /* WLItemCell.m */,
+				12DCBA8318DB18F400A4BC44 /* WLItemCellProtocol.h */,
 			);
 			path = "Reusing Views";
 			sourceTree = "<group>";
@@ -400,6 +491,7 @@
 		12E3DA4318E049C300DBDB79 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				121B1B2F18E0749F001F585C /* Property Lists */,
 				12E3DA4418E049C300DBDB79 /* Fonts */,
 				12E3DA5018E049C300DBDB79 /* Images.xcassets */,
 			);
@@ -434,6 +526,9 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				125D4A5018E069B3001B8E7C /* UIFont */,
+				125D4A4C18E068E6001B8E7C /* NSDate */,
+				125D4A4818E0676E001B8E7C /* UILabel */,
 				12E3DA5D18E04CC400DBDB79 /* UIImage */,
 			);
 			path = Categories;
@@ -523,11 +618,14 @@
 				12A7A71B18DA0946008FF6F0 /* Images.xcassets in Resources */,
 				12A7A70D18DA0946008FF6F0 /* InfoPlist.strings in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
+				125D4A4718E06710001B8E7C /* WLCountiesViewController.xib in Resources */,
 				12E3DA5718E049C300DBDB79 /* OpenSans-LightItalic.ttf in Resources */,
-				12DCBA8718DB1D4200A4BC44 /* WLDummyWraps.plist in Resources */,
+				121B1B3118E0749F001F585C /* WLDummyWraps.plist in Resources */,
+				125D4A5918E0729B001B8E7C /* WLCountryCell.xib in Resources */,
 				12E3DA5118E049C300DBDB79 /* OpenSans-Bold.ttf in Resources */,
 				12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */,
 				12E3DA5A18E049C300DBDB79 /* OpenSans-SemiboldItalic.ttf in Resources */,
+				121B1B3318E074D0001F585C /* WLCountries.plist in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
 				12E3DA5418E049C300DBDB79 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
@@ -574,18 +672,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */,
+				125D4A4F18E068E6001B8E7C /* NSDate+Formatting.m in Sources */,
 				12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */,
-				12DCBA8418DB18F400A4BC44 /* PGCollectionItemCell.m in Sources */,
+				121B1B2E18E07430001F585C /* WLCountry.m in Sources */,
+				12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */,
 				12E3DA4218E03EB000DBDB79 /* WLSupportFunctions.m in Sources */,
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
 				12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */,
 				12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */,
 				12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */,
+				125D4A4618E06710001B8E7C /* WLCountiesViewController.m in Sources */,
 				12DCBA6718DB0E4A00A4BC44 /* WLWrap.m in Sources */,
 				12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */,
 				12DCBA6B18DB0E6600A4BC44 /* WLComment.m in Sources */,
 				12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */,
 				12DCBA7318DB0E9700A4BC44 /* WLImage.m in Sources */,
+				125D4A5818E0729B001B8E7C /* WLCountryCell.m in Sources */,
 				128886AD18DC493B00957B22 /* WLSession.m in Sources */,
 				128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */,
 				12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */,
@@ -595,8 +698,9 @@
 				12DCBA7718DB0EB800A4BC44 /* WLConversation.m in Sources */,
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
-				12DCBA8518DB18F400A4BC44 /* PGItemCell.m in Sources */,
+				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
+				125D4A4B18E0679A001B8E7C /* UILabel+CustomFonts.m in Sources */,
 				12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

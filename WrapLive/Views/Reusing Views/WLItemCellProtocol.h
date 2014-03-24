@@ -1,7 +1,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol PGItemCellProtocol <NSObject>
+@protocol WLItemCellProtocol <NSObject>
 
 @property (nonatomic, strong) id item;
 

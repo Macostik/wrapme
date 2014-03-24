@@ -35,8 +35,11 @@ static WLCountriesViewController* _controller = nil;
 	self.view.frame = superview.bounds;
 	[superview addSubview:self.view];
 	
-	self.countries = [WLCountry arrayOfModelsFromDictionaries:[NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"WLCountries" ofType:@"plist"]]];
+	NSArray* json = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CountryCodes" ofType:@"json"]] options:NSJSONReadingAllowFragments error:NULL];
 	
+	self.countries = [WLCountry arrayOfModelsFromDictionaries:json];
+	
+	self.tableView.rowHeight = roundf(self.tableView.frame.size.height/6);
 	[self.tableView reloadData];
 }
 

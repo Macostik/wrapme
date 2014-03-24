@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		121B1B2E18E07430001F585C /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		121B1B3118E0749F001F585C /* WLDummyWraps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3018E0749F001F585C /* WLDummyWraps.plist */; };
-		121B1B3318E074D0001F585C /* WLCountries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3218E074D0001F585C /* WLCountries.plist */; };
 		121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */; };
 		121B1B4018E0848D001F585C /* WLCountriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3A18E0848D001F585C /* WLCountriesViewController.m */; };
 		121B1B4118E0848D001F585C /* WLCountriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3B18E0848D001F585C /* WLCountriesViewController.xib */; };
 		121B1B4218E0848D001F585C /* WLCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3E18E0848D001F585C /* WLCountryCell.m */; };
 		121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3F18E0848D001F585C /* WLCountryCell.xib */; };
+		121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B4418E08B7E001F585C /* CountryCodes.json */; };
 		125D4A4B18E0679A001B8E7C /* UILabel+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4A18E0679A001B8E7C /* UILabel+CustomFonts.m */; };
 		125D4A4F18E068E6001B8E7C /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */; };
 		125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A5218E069C6001B8E7C /* UIFont+CustomFonts.m */; };
@@ -66,7 +66,6 @@
 		121B1B2C18E07430001F585C /* WLCountry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCountry.h; path = WLCountry/WLCountry.h; sourceTree = "<group>"; };
 		121B1B2D18E07430001F585C /* WLCountry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCountry.m; path = WLCountry/WLCountry.m; sourceTree = "<group>"; };
 		121B1B3018E0749F001F585C /* WLDummyWraps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLDummyWraps.plist; sourceTree = "<group>"; };
-		121B1B3218E074D0001F585C /* WLCountries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLCountries.plist; sourceTree = "<group>"; };
 		121B1B3518E078AF001F585C /* NSObject+NibAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+NibAdditions.h"; sourceTree = "<group>"; };
 		121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+NibAdditions.m"; sourceTree = "<group>"; };
 		121B1B3918E0848D001F585C /* WLCountriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCountriesViewController.h; sourceTree = "<group>"; };
@@ -75,6 +74,7 @@
 		121B1B3D18E0848D001F585C /* WLCountryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCountryCell.h; sourceTree = "<group>"; };
 		121B1B3E18E0848D001F585C /* WLCountryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCountryCell.m; sourceTree = "<group>"; };
 		121B1B3F18E0848D001F585C /* WLCountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCountryCell.xib; sourceTree = "<group>"; };
+		121B1B4418E08B7E001F585C /* CountryCodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountryCodes.json; sourceTree = "<group>"; };
 		125D4A4918E0679A001B8E7C /* UILabel+CustomFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+CustomFonts.h"; path = "UILabel/UILabel+CustomFonts.h"; sourceTree = "<group>"; };
 		125D4A4A18E0679A001B8E7C /* UILabel+CustomFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+CustomFonts.m"; path = "UILabel/UILabel+CustomFonts.m"; sourceTree = "<group>"; };
 		125D4A4D18E068E6001B8E7C /* NSDate+Formatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Formatting.h"; sourceTree = "<group>"; };
@@ -181,8 +181,8 @@
 		121B1B2F18E0749F001F585C /* Property Lists */ = {
 			isa = PBXGroup;
 			children = (
+				121B1B4418E08B7E001F585C /* CountryCodes.json */,
 				121B1B3018E0749F001F585C /* WLDummyWraps.plist */,
-				121B1B3218E074D0001F585C /* WLCountries.plist */,
 			);
 			path = "Property Lists";
 			sourceTree = "<group>";
@@ -199,10 +199,10 @@
 		121B1B3818E0848D001F585C /* WLCountriesViewController */ = {
 			isa = PBXGroup;
 			children = (
+				121B1B3C18E0848D001F585C /* WLCountryCell */,
 				121B1B3918E0848D001F585C /* WLCountriesViewController.h */,
 				121B1B3A18E0848D001F585C /* WLCountriesViewController.m */,
 				121B1B3B18E0848D001F585C /* WLCountriesViewController.xib */,
-				121B1B3C18E0848D001F585C /* WLCountryCell */,
 			);
 			path = WLCountriesViewController;
 			sourceTree = "<group>";
@@ -635,10 +635,10 @@
 				12E3DA5118E049C300DBDB79 /* OpenSans-Bold.ttf in Resources */,
 				12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */,
 				12E3DA5A18E049C300DBDB79 /* OpenSans-SemiboldItalic.ttf in Resources */,
-				121B1B3318E074D0001F585C /* WLCountries.plist in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
 				121B1B4118E0848D001F585C /* WLCountriesViewController.xib in Resources */,
 				121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */,
+				121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
 				12E3DA5418E049C300DBDB79 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 			);
@@ -822,7 +822,7 @@
 				INFOPLIST_FILE = "WrapLive/WrapLive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F1EF947F-E69A-4496-8DCA-5A66210279A0";
+				PROVISIONING_PROFILE = "609F4EF1-615B-46EA-9C45-583BAD19FBB8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -839,7 +839,7 @@
 				INFOPLIST_FILE = "WrapLive/WrapLive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B67B92C9-9519-4E7E-AB3B-E67F806CFF20";
+				PROVISIONING_PROFILE = "447D9865-FB63-4D50-863D-7B14C27B3EAF";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

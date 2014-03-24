@@ -10,4 +10,12 @@
 
 @implementation WLCountry
 
++ (JSONKeyMapper *)keyMapper {
+	return [[JSONKeyMapper alloc] initWithDictionary:@{@"dial_code":@"callingCode"}];
+}
+
++ (BOOL)propertyIsOptional:(NSString *)propertyName {
+	return YES;
+}
+
 @end

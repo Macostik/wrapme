@@ -14,14 +14,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Country" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ful-cz-KEW">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ful-cz-KEW">
                         <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="✓" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0YN-0a-o53">
+                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="✓" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0YN-0a-o53">
                         <rect key="frame" x="267" y="0.0" width="43" height="43"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
@@ -29,6 +29,15 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="0YN-0a-o53" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="CLG-Ob-Ex4"/>
+                    <constraint firstItem="ful-cz-KEW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="E1Y-gT-Ri6"/>
+                    <constraint firstItem="ful-cz-KEW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="G2a-XZ-iWz"/>
+                    <constraint firstAttribute="bottom" secondItem="ful-cz-KEW" secondAttribute="bottom" id="Ntq-SK-o4E"/>
+                    <constraint firstAttribute="trailing" secondItem="0YN-0a-o53" secondAttribute="trailing" constant="10" id="QmY-GU-FnY"/>
+                    <constraint firstAttribute="trailing" secondItem="ful-cz-KEW" secondAttribute="trailing" constant="10" id="tkD-zj-5P3"/>
+                    <constraint firstAttribute="bottom" secondItem="0YN-0a-o53" secondAttribute="bottom" id="x6F-q4-Pm1"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="checkmarkView" destination="0YN-0a-o53" id="ZuE-y4-oHi"/>

@@ -10,6 +10,7 @@
 #import "WLWrap.h"
 #import "WLUser.h"
 #import "WLSession.h"
+#import "NSDate+Formatting.h"
 
 static NSString* WLAPIStageUrl = @"https://dev-api.wraplive.com";
 static NSString* WLAPIProductionUrl = @"";
@@ -30,7 +31,7 @@ static NSString* WLAPIProductionUrl = @"";
 	NSDictionary* parameters = @{@"device_uid" : [WLSession UDID],
 								 @"country_calling_code" : user.countryCallingCode,
 								 @"phone_number" : user.phoneNumber,
-								 @"name" : user.name};
+								 @"dob" : [user.birthdate string]};
 	NSLog(@"%@", parameters);
 	[self POST:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		success(user);
@@ -46,6 +47,12 @@ static NSString* WLAPIProductionUrl = @"";
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 		failure(error);
 	}];
+}
+
+- (NSString *)createDateString:(NSDate *)date {
+	NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateFormat:@"ddMMYYYY"];
+	return [formatter stringFromDate:date];
 }
 
 - (void)signIn:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {

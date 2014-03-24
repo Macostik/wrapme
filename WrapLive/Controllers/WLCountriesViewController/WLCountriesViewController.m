@@ -35,7 +35,7 @@ static WLCountriesViewController* _controller = nil;
 	self.view.frame = superview.bounds;
 	[superview addSubview:self.view];
 	
-	NSArray* json = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CountryCodes_sorted" ofType:@"json"]] options:NSJSONReadingAllowFragments error:NULL];
+	NSArray* json = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CountryCodes" ofType:@"json"]] options:NSJSONReadingAllowFragments error:NULL];
 	
 	self.countries = [WLCountry arrayOfModelsFromDictionaries:json];
 	

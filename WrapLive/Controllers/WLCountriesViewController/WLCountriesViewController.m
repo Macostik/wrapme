@@ -22,6 +22,14 @@
 
 @implementation WLCountriesViewController
 
++ (void)load {
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		[WLCountriesViewController show:^(WLCountry *country) {
+			
+		}];
+	});
+}
+
 static WLCountriesViewController* _controller = nil;
 
 + (void)show:(void (^)(WLCountry *))completion {
@@ -35,7 +43,7 @@ static WLCountriesViewController* _controller = nil;
 	self.view.frame = superview.bounds;
 	[superview addSubview:self.view];
 	
-	NSArray* json = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CountryCodes" ofType:@"json"]] options:NSJSONReadingAllowFragments error:NULL];
+	NSArray* json = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CountryCodes_sorted" ofType:@"json"]] options:NSJSONReadingAllowFragments error:NULL];
 	
 	self.countries = [WLCountry arrayOfModelsFromDictionaries:json];
 	

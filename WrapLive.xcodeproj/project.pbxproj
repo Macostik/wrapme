@@ -49,6 +49,7 @@
 		12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA6118E04CC400DBDB79 /* UIImage+Resize.m */; };
 		12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
+		ACEF699F18E041AF00BA3A3A /* ic_128.png in Resources */ = {isa = PBXBuildFile; fileRef = ACEF699E18E041AF00BA3A3A /* ic_128.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,6 +123,7 @@
 		12E3DA6218E04CC400DBDB79 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
 		12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		ACEF699E18E041AF00BA3A3A /* ic_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_128.png; path = Pictures/ic_128.png; sourceTree = "<group>"; };
 		F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -208,6 +210,7 @@
 		12A7A70918DA0946008FF6F0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				ACEF699D18E0415200BA3A3A /* Pictures */,
 				12A7A70A18DA0946008FF6F0 /* WrapLive-Info.plist */,
 				12A7A70B18DA0946008FF6F0 /* InfoPlist.strings */,
 				12A7A70E18DA0946008FF6F0 /* main.m */,
@@ -449,6 +452,14 @@
 			path = UIImage;
 			sourceTree = "<group>";
 		};
+		ACEF699D18E0415200BA3A3A /* Pictures */ = {
+			isa = PBXGroup;
+			children = (
+				ACEF699E18E041AF00BA3A3A /* ic_128.png */,
+			);
+			name = Pictures;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -508,6 +519,8 @@
 				12E3DA5218E049C300DBDB79 /* OpenSans-BoldItalic.ttf in Resources */,
 				12E3DA5918E049C300DBDB79 /* OpenSans-Semibold.ttf in Resources */,
 				12E3DA5318E049C300DBDB79 /* OpenSans-ExtraBold.ttf in Resources */,
+				ACEF699F18E041AF00BA3A3A /* ic_128.png in Resources */,
+				12A7A71B18DA0946008FF6F0 /* Images.xcassets in Resources */,
 				12A7A70D18DA0946008FF6F0 /* InfoPlist.strings in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
 				12E3DA5718E049C300DBDB79 /* OpenSans-LightItalic.ttf in Resources */,

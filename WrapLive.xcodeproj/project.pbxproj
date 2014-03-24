@@ -10,6 +10,7 @@
 		121B1B2E18E07430001F585C /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		121B1B3118E0749F001F585C /* WLDummyWraps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3018E0749F001F585C /* WLDummyWraps.plist */; };
 		121B1B3318E074D0001F585C /* WLCountries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3218E074D0001F585C /* WLCountries.plist */; };
+		121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */; };
 		125D4A4618E06710001B8E7C /* WLCountiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4418E06710001B8E7C /* WLCountiesViewController.m */; };
 		125D4A4718E06710001B8E7C /* WLCountiesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 125D4A4518E06710001B8E7C /* WLCountiesViewController.xib */; };
 		125D4A4B18E0679A001B8E7C /* UILabel+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4A18E0679A001B8E7C /* UILabel+CustomFonts.m */; };
@@ -65,6 +66,8 @@
 		121B1B2D18E07430001F585C /* WLCountry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCountry.m; path = WLCountry/WLCountry.m; sourceTree = "<group>"; };
 		121B1B3018E0749F001F585C /* WLDummyWraps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLDummyWraps.plist; sourceTree = "<group>"; };
 		121B1B3218E074D0001F585C /* WLCountries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLCountries.plist; sourceTree = "<group>"; };
+		121B1B3518E078AF001F585C /* NSObject+NibAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+NibAdditions.h"; sourceTree = "<group>"; };
+		121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+NibAdditions.m"; sourceTree = "<group>"; };
 		125D4A4318E06710001B8E7C /* WLCountiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCountiesViewController.h; sourceTree = "<group>"; };
 		125D4A4418E06710001B8E7C /* WLCountiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCountiesViewController.m; sourceTree = "<group>"; };
 		125D4A4518E06710001B8E7C /* WLCountiesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCountiesViewController.xib; sourceTree = "<group>"; };
@@ -180,6 +183,15 @@
 				121B1B3218E074D0001F585C /* WLCountries.plist */,
 			);
 			path = "Property Lists";
+			sourceTree = "<group>";
+		};
+		121B1B3418E078AF001F585C /* NSObject */ = {
+			isa = PBXGroup;
+			children = (
+				121B1B3518E078AF001F585C /* NSObject+NibAdditions.h */,
+				121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */,
+			);
+			path = NSObject;
 			sourceTree = "<group>";
 		};
 		125D4A4218E06710001B8E7C /* WLCountiesViewController */ = {
@@ -523,6 +535,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				121B1B3418E078AF001F585C /* NSObject */,
 				125D4A5018E069B3001B8E7C /* UIFont */,
 				125D4A4C18E068E6001B8E7C /* NSDate */,
 				125D4A4818E0676E001B8E7C /* UILabel */,
@@ -684,6 +697,7 @@
 				12DCBA6F18DB0E7F00A4BC44 /* WLWrapEntry.m in Sources */,
 				12DCBA7718DB0EB800A4BC44 /* WLConversation.m in Sources */,
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
+				121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
@@ -790,12 +804,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "DFF5C19A-5A5B-4D6B-B19A-39B3DCBAC638";
+				PROVISIONING_PROFILE = "F1EF947F-E69A-4496-8DCA-5A66210279A0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -806,12 +821,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "DFF5C19A-5A5B-4D6B-B19A-39B3DCBAC638";
+				PROVISIONING_PROFILE = "F1EF947F-E69A-4496-8DCA-5A66210279A0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

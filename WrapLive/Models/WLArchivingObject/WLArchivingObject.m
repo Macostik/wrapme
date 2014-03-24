@@ -11,10 +11,10 @@
 
 static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlock)(NSString* property)) {
 	if (class != [NSObject class]) {
-		NSUInteger count;
+		unsigned int count;
 		objc_property_t *properties = class_copyPropertyList(class, &count);
 		if (count > 0) {
-			for (int i = count - 1; i >= 0; --i) {
+			for (NSInteger i = count - 1; i >= 0; --i) {
 				const char *property_name = property_getName(properties[i]);
 				enumerationBlock([NSString stringWithCString:property_name encoding:NSASCIIStringEncoding]);
 			}

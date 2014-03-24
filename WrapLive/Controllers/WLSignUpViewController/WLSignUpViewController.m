@@ -25,16 +25,6 @@
 	[super viewDidLoad];
 	self.scrollView.contentSize = CGSizeMake(CGRectGetMaxX([[self.stepViews lastObject] frame]), self.scrollView.frame.size.height);
 	[self updateStepLabels];
-	
-	WLUser* user = [[WLUser alloc] init];
-	user.phoneNumber = @"0951383026";
-	user.countryCallingCode = @"+38";
-	user.name = @"Sergey Maximenko";
-	[[WLAPIManager instance] signUp:user success:^(id object) {
-		NSLog(@"%@", object);
-	} failure:^(NSError *error) {
-		NSLog(@"%@", error);
-	}];
 }
 
 #pragma mark - UIScrollViewDelegate

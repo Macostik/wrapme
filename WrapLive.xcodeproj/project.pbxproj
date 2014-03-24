@@ -16,7 +16,6 @@
 		12A7A70F18DA0946008FF6F0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */; };
 		12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
-		12A7A71B18DA0946008FF6F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71A18DA0946008FF6F0 /* Images.xcassets */; };
 		12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */; };
 		12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74018DA10DD008FF6F0 /* WLSignUpViewController.m */; };
 		12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
@@ -33,6 +32,22 @@
 		12DCBA8518DB18F400A4BC44 /* PGItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* PGItemCell.m */; };
 		12DCBA8718DB1D4200A4BC44 /* WLDummyWraps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12DCBA8618DB1D4200A4BC44 /* WLDummyWraps.plist */; };
 		12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
+		12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA3E18E0399700DBDB79 /* WLCameraViewController.m */; };
+		12E3DA4218E03EB000DBDB79 /* WLSupportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA4118E03EB000DBDB79 /* WLSupportFunctions.m */; };
+		12E3DA5118E049C300DBDB79 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4618E049C300DBDB79 /* OpenSans-Bold.ttf */; };
+		12E3DA5218E049C300DBDB79 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4718E049C300DBDB79 /* OpenSans-BoldItalic.ttf */; };
+		12E3DA5318E049C300DBDB79 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4818E049C300DBDB79 /* OpenSans-ExtraBold.ttf */; };
+		12E3DA5418E049C300DBDB79 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4918E049C300DBDB79 /* OpenSans-ExtraBoldItalic.ttf */; };
+		12E3DA5518E049C300DBDB79 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4A18E049C300DBDB79 /* OpenSans-Italic.ttf */; };
+		12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
+		12E3DA5718E049C300DBDB79 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4C18E049C300DBDB79 /* OpenSans-LightItalic.ttf */; };
+		12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
+		12E3DA5918E049C300DBDB79 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4E18E049C300DBDB79 /* OpenSans-Semibold.ttf */; };
+		12E3DA5A18E049C300DBDB79 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4F18E049C300DBDB79 /* OpenSans-SemiboldItalic.ttf */; };
+		12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
+		12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA5F18E04CC400DBDB79 /* UIImage+Alpha.m */; };
+		12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA6118E04CC400DBDB79 /* UIImage+Resize.m */; };
+		12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +67,6 @@
 		12A7A71118DA0946008FF6F0 /* WLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLAppDelegate.h; sourceTree = "<group>"; };
 		12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLAppDelegate.m; sourceTree = "<group>"; };
 		12A7A71518DA0946008FF6F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		12A7A71A18DA0946008FF6F0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		12A7A72118DA0946008FF6F0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		12A7A73B18DA0A06008FF6F0 /* WLWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWelcomeViewController.h; sourceTree = "<group>"; };
 		12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWelcomeViewController.m; sourceTree = "<group>"; };
@@ -86,6 +100,27 @@
 		12DCBA8618DB1D4200A4BC44 /* WLDummyWraps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLDummyWraps.plist; sourceTree = "<group>"; };
 		12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapViewController.h; path = WLWrapViewController/WLWrapViewController.h; sourceTree = "<group>"; };
 		12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapViewController.m; path = WLWrapViewController/WLWrapViewController.m; sourceTree = "<group>"; };
+		12E3DA3D18E0399700DBDB79 /* WLCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCameraViewController.h; sourceTree = "<group>"; };
+		12E3DA3E18E0399700DBDB79 /* WLCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCameraViewController.m; sourceTree = "<group>"; };
+		12E3DA4018E03EB000DBDB79 /* WLSupportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSupportFunctions.h; sourceTree = "<group>"; };
+		12E3DA4118E03EB000DBDB79 /* WLSupportFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSupportFunctions.m; sourceTree = "<group>"; };
+		12E3DA4618E049C300DBDB79 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		12E3DA4718E049C300DBDB79 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		12E3DA4818E049C300DBDB79 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		12E3DA4918E049C300DBDB79 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		12E3DA4A18E049C300DBDB79 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		12E3DA4C18E049C300DBDB79 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		12E3DA4E18E049C300DBDB79 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		12E3DA4F18E049C300DBDB79 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		12E3DA5018E049C300DBDB79 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		12E3DA5E18E04CC400DBDB79 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
+		12E3DA5F18E04CC400DBDB79 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
+		12E3DA6018E04CC400DBDB79 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		12E3DA6118E04CC400DBDB79 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		12E3DA6218E04CC400DBDB79 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -159,10 +194,11 @@
 				12A7A71118DA0946008FF6F0 /* WLAppDelegate.h */,
 				12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */,
 				12A7A71418DA0946008FF6F0 /* Main.storyboard */,
+				12E3DA5C18E04CC400DBDB79 /* Categories */,
 				12A7A73718DA09A9008FF6F0 /* Controllers */,
 				12A7A73818DA09A9008FF6F0 /* Models */,
 				12A7A73918DA09A9008FF6F0 /* Views */,
-				12A7A71A18DA0946008FF6F0 /* Images.xcassets */,
+				12E3DA4318E049C300DBDB79 /* Resources */,
 				12DCBA8618DB1D4200A4BC44 /* WLDummyWraps.plist */,
 				12A7A70918DA0946008FF6F0 /* Supporting Files */,
 			);
@@ -183,6 +219,7 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				12E3DA3C18E0399700DBDB79 /* WLCameraViewController */,
 				12DCBA8818DB399B00A4BC44 /* WLWrapViewController */,
 				12A7A74218DA17F7008FF6F0 /* WLHomeViewController */,
 				12A7A73E18DA109A008FF6F0 /* WLSignUpViewController */,
@@ -194,6 +231,8 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				12E3DA4018E03EB000DBDB79 /* WLSupportFunctions.h */,
+				12E3DA4118E03EB000DBDB79 /* WLSupportFunctions.m */,
 				128886AE18DC902700957B22 /* WLArchivingObject */,
 				128886AA18DC492300957B22 /* WLSession */,
 				12DCBA7418DB0EA000A4BC44 /* WLConversation */,
@@ -346,6 +385,70 @@
 			name = WLWrapViewController;
 			sourceTree = "<group>";
 		};
+		12E3DA3C18E0399700DBDB79 /* WLCameraViewController */ = {
+			isa = PBXGroup;
+			children = (
+				12E3DA3D18E0399700DBDB79 /* WLCameraViewController.h */,
+				12E3DA3E18E0399700DBDB79 /* WLCameraViewController.m */,
+			);
+			path = WLCameraViewController;
+			sourceTree = "<group>";
+		};
+		12E3DA4318E049C300DBDB79 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				12E3DA4418E049C300DBDB79 /* Fonts */,
+				12E3DA5018E049C300DBDB79 /* Images.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		12E3DA4418E049C300DBDB79 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				12E3DA4518E049C300DBDB79 /* Open_Sans */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		12E3DA4518E049C300DBDB79 /* Open_Sans */ = {
+			isa = PBXGroup;
+			children = (
+				12E3DA4618E049C300DBDB79 /* OpenSans-Bold.ttf */,
+				12E3DA4718E049C300DBDB79 /* OpenSans-BoldItalic.ttf */,
+				12E3DA4818E049C300DBDB79 /* OpenSans-ExtraBold.ttf */,
+				12E3DA4918E049C300DBDB79 /* OpenSans-ExtraBoldItalic.ttf */,
+				12E3DA4A18E049C300DBDB79 /* OpenSans-Italic.ttf */,
+				12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */,
+				12E3DA4C18E049C300DBDB79 /* OpenSans-LightItalic.ttf */,
+				12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */,
+				12E3DA4E18E049C300DBDB79 /* OpenSans-Semibold.ttf */,
+				12E3DA4F18E049C300DBDB79 /* OpenSans-SemiboldItalic.ttf */,
+			);
+			path = Open_Sans;
+			sourceTree = "<group>";
+		};
+		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				12E3DA5D18E04CC400DBDB79 /* UIImage */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		12E3DA5D18E04CC400DBDB79 /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				12E3DA5E18E04CC400DBDB79 /* UIImage+Alpha.h */,
+				12E3DA5F18E04CC400DBDB79 /* UIImage+Alpha.m */,
+				12E3DA6018E04CC400DBDB79 /* UIImage+Resize.h */,
+				12E3DA6118E04CC400DBDB79 /* UIImage+Resize.m */,
+				12E3DA6218E04CC400DBDB79 /* UIImage+RoundedCorner.h */,
+				12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */,
+			);
+			path = UIImage;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -401,10 +504,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12A7A71B18DA0946008FF6F0 /* Images.xcassets in Resources */,
+				12E3DA5518E049C300DBDB79 /* OpenSans-Italic.ttf in Resources */,
+				12E3DA5218E049C300DBDB79 /* OpenSans-BoldItalic.ttf in Resources */,
+				12E3DA5918E049C300DBDB79 /* OpenSans-Semibold.ttf in Resources */,
+				12E3DA5318E049C300DBDB79 /* OpenSans-ExtraBold.ttf in Resources */,
 				12A7A70D18DA0946008FF6F0 /* InfoPlist.strings in Resources */,
+				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
+				12E3DA5718E049C300DBDB79 /* OpenSans-LightItalic.ttf in Resources */,
 				12DCBA8718DB1D4200A4BC44 /* WLDummyWraps.plist in Resources */,
+				12E3DA5118E049C300DBDB79 /* OpenSans-Bold.ttf in Resources */,
 				12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */,
+				12E3DA5A18E049C300DBDB79 /* OpenSans-SemiboldItalic.ttf in Resources */,
+				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
+				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
+				12E3DA5418E049C300DBDB79 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,8 +561,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */,
 				12DCBA8418DB18F400A4BC44 /* PGCollectionItemCell.m in Sources */,
+				12E3DA4218E03EB000DBDB79 /* WLSupportFunctions.m in Sources */,
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
+				12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */,
 				12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */,
 				12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */,
 				12DCBA6718DB0E4A00A4BC44 /* WLWrap.m in Sources */,
@@ -461,9 +577,11 @@
 				128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */,
 				12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */,
 				12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */,
+				12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */,
 				12DCBA6F18DB0E7F00A4BC44 /* WLWrapEntry.m in Sources */,
 				12DCBA7718DB0EB800A4BC44 /* WLConversation.m in Sources */,
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
+				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* PGItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
 				12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */,
@@ -571,7 +689,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "DFF5C19A-5A5B-4D6B-B19A-39B3DCBAC638";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -585,7 +705,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "DFF5C19A-5A5B-4D6B-B19A-39B3DCBAC638";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

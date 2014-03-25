@@ -62,6 +62,13 @@
 		12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA6118E04CC400DBDB79 /* UIImage+Resize.m */; };
 		12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
+		ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */; };
+		ACCF9B8A18E185D200A7429F /* WLPhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */; };
+		ACCF9B9118E1868200A7429F /* WLActivationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B8F18E1868200A7429F /* WLActivationViewController.m */; };
+		ACCF9B9218E1868200A7429F /* WLActivationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9018E1868200A7429F /* WLActivationViewController.xib */; };
+		ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B9518E186B800A7429F /* WLProfileInformationViewController.m */; };
+		ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9618E186B800A7429F /* WLProfileInformationViewController.xib */; };
+		ACCF9B9C18E1A1B400A7429F /* default_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9B18E1A1B400A7429F /* default_profile.png */; };
 		ACEF699F18E041AF00BA3A3A /* ic_128.png in Resources */ = {isa = PBXBuildFile; fileRef = ACEF699E18E041AF00BA3A3A /* ic_128.png */; };
 /* End PBXBuildFile section */
 
@@ -159,6 +166,16 @@
 		12E3DA6218E04CC400DBDB79 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
 		12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		ACCF9B8618E185D200A7429F /* WLPhoneNumberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPhoneNumberViewController.h; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.h; sourceTree = "<group>"; };
+		ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPhoneNumberViewController.m; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.m; sourceTree = "<group>"; };
+		ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPhoneNumberViewController.xib; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.xib; sourceTree = "<group>"; };
+		ACCF9B8E18E1868200A7429F /* WLActivationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLActivationViewController.h; path = WLSignUpViewController/SignUpSteps/WLActivationViewController/WLActivationViewController.h; sourceTree = "<group>"; };
+		ACCF9B8F18E1868200A7429F /* WLActivationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLActivationViewController.m; path = WLSignUpViewController/SignUpSteps/WLActivationViewController/WLActivationViewController.m; sourceTree = "<group>"; };
+		ACCF9B9018E1868200A7429F /* WLActivationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLActivationViewController.xib; path = WLSignUpViewController/SignUpSteps/WLActivationViewController/WLActivationViewController.xib; sourceTree = "<group>"; };
+		ACCF9B9418E186B800A7429F /* WLProfileInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLProfileInformationViewController.h; path = WLSignUpViewController/SignUpSteps/WLProfileInformationViewController/WLProfileInformationViewController.h; sourceTree = "<group>"; };
+		ACCF9B9518E186B800A7429F /* WLProfileInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileInformationViewController.m; path = WLSignUpViewController/SignUpSteps/WLProfileInformationViewController/WLProfileInformationViewController.m; sourceTree = "<group>"; };
+		ACCF9B9618E186B800A7429F /* WLProfileInformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLProfileInformationViewController.xib; path = WLSignUpViewController/SignUpSteps/WLProfileInformationViewController/WLProfileInformationViewController.xib; sourceTree = "<group>"; };
+		ACCF9B9B18E1A1B400A7429F /* default_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = default_profile.png; path = Pictures/default_profile.png; sourceTree = "<group>"; };
 		ACEF699E18E041AF00BA3A3A /* ic_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_128.png; path = Pictures/ic_128.png; sourceTree = "<group>"; };
 		F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -394,6 +411,7 @@
 			children = (
 				12A7A73F18DA10DD008FF6F0 /* WLSignUpViewController.h */,
 				12A7A74018DA10DD008FF6F0 /* WLSignUpViewController.m */,
+				ACCF9B8518E17D5E00A7429F /* SignUpSteps */,
 			);
 			name = WLSignUpViewController;
 			sourceTree = "<group>";
@@ -583,10 +601,51 @@
 			path = UIImage;
 			sourceTree = "<group>";
 		};
+		ACCF9B8518E17D5E00A7429F /* SignUpSteps */ = {
+			isa = PBXGroup;
+			children = (
+				ACCF9B8B18E185DB00A7429F /* WLPhoneNumberViewController */,
+				ACCF9B8D18E185F200A7429F /* WLActivationViewController */,
+				ACCF9B9318E1869800A7429F /* WLProfileInformationViewController */,
+			);
+			name = SignUpSteps;
+			sourceTree = "<group>";
+		};
+		ACCF9B8B18E185DB00A7429F /* WLPhoneNumberViewController */ = {
+			isa = PBXGroup;
+			children = (
+				ACCF9B8618E185D200A7429F /* WLPhoneNumberViewController.h */,
+				ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */,
+				ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */,
+			);
+			name = WLPhoneNumberViewController;
+			sourceTree = "<group>";
+		};
+		ACCF9B8D18E185F200A7429F /* WLActivationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				ACCF9B8E18E1868200A7429F /* WLActivationViewController.h */,
+				ACCF9B8F18E1868200A7429F /* WLActivationViewController.m */,
+				ACCF9B9018E1868200A7429F /* WLActivationViewController.xib */,
+			);
+			name = WLActivationViewController;
+			sourceTree = "<group>";
+		};
+		ACCF9B9318E1869800A7429F /* WLProfileInformationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				ACCF9B9418E186B800A7429F /* WLProfileInformationViewController.h */,
+				ACCF9B9518E186B800A7429F /* WLProfileInformationViewController.m */,
+				ACCF9B9618E186B800A7429F /* WLProfileInformationViewController.xib */,
+			);
+			name = WLProfileInformationViewController;
+			sourceTree = "<group>";
+		};
 		ACEF699D18E0415200BA3A3A /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
 				ACEF699E18E041AF00BA3A3A /* ic_128.png */,
+				ACCF9B9B18E1A1B400A7429F /* default_profile.png */,
 			);
 			name = Pictures;
 			sourceTree = "<group>";
@@ -652,14 +711,18 @@
 				12E3DA5318E049C300DBDB79 /* OpenSans-ExtraBold.ttf in Resources */,
 				ACEF699F18E041AF00BA3A3A /* ic_128.png in Resources */,
 				12A7A70D18DA0946008FF6F0 /* InfoPlist.strings in Resources */,
+				ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
+				ACCF9B9218E1868200A7429F /* WLActivationViewController.xib in Resources */,
 				12E3DA5718E049C300DBDB79 /* OpenSans-LightItalic.ttf in Resources */,
 				121B1B3118E0749F001F585C /* WLDummyWraps.plist in Resources */,
+				ACCF9B9C18E1A1B400A7429F /* default_profile.png in Resources */,
 				12E3DA5118E049C300DBDB79 /* OpenSans-Bold.ttf in Resources */,
 				12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */,
 				12E3DA5A18E049C300DBDB79 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
 				121B1B4118E0848D001F585C /* WLCountriesViewController.xib in Resources */,
+				ACCF9B8A18E185D200A7429F /* WLPhoneNumberViewController.xib in Resources */,
 				121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */,
 				121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
@@ -715,8 +778,10 @@
 				12E3DA4218E03EB000DBDB79 /* WLSupportFunctions.m in Sources */,
 				121B1B4218E0848D001F585C /* WLCountryCell.m in Sources */,
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
+				ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */,
 				12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */,
 				12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */,
+				ACCF9B9118E1868200A7429F /* WLActivationViewController.m in Sources */,
 				12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */,
 				12DCBA6718DB0E4A00A4BC44 /* WLWrap.m in Sources */,
 				12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */,
@@ -739,6 +804,7 @@
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
+				ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */,
 				125D4A4B18E0679A001B8E7C /* UILabel+CustomFonts.m in Sources */,
 				12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */,
 			);

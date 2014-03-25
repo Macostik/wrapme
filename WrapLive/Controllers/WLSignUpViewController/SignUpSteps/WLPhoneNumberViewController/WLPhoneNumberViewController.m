@@ -105,10 +105,7 @@
 	}];
 }
 - (IBAction)phoneNumberChanged:(UITextField *)sender {
-	
-	
 	self.signUpButton.enabled = self.phoneNumberTextField.text.length > 0 ? YES : NO;
-//	[self.signUpButton setEnabled:YES];
 }
 
 - (WLUser *)prepareForRequest {

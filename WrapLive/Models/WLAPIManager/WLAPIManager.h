@@ -34,7 +34,7 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (void)activate:(WLUser*)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)activate:(WLUser*)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Login to WrapLive.
@@ -43,7 +43,7 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (void)signIn:(WLUser*)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)signIn:(WLUser*)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Get current authenticated user information. Data is available only after a successful login.

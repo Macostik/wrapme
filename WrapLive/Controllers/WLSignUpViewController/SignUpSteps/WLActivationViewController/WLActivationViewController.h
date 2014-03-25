@@ -11,7 +11,6 @@
 
 @interface WLActivationViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UILabel *phoneNumberLabel;
 @property (strong, nonatomic) WLUser * currentUser;
 
 @end

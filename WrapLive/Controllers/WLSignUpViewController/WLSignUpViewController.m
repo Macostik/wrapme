@@ -55,7 +55,6 @@
 	[navController willMoveToParentViewController:self];
 	[self addChildViewController:navController];
 	[self.signUpStepsView addSubview:navController.view];
-	
 }
 
 - (void)updateStepLabelsWithIndex:(int)index {
@@ -82,9 +81,8 @@
 
 #pragma mark - UINavigationControllerDelegate
 
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-	int index = [navigationController.viewControllers indexOfObject:navigationController.topViewController];
-	NSLog(@"index - %d", index);
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+	NSUInteger index = [navigationController.viewControllers indexOfObject:viewController];
 	[self updateStepLabelsWithIndex:index];
 }
 

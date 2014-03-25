@@ -10,20 +10,26 @@
 #import "WLUser.h"
 #import "WLAPIManager.h"
 #import "WLProfileInformationViewController.h"
+#import "UIColor+CustomColors.h"
+#import "WLInputAccessoryView.h"
 
-@interface WLActivationViewController ()
+static NSInteger WLActivationCodeLimit = 4;
 
-@property (strong, nonatomic) IBOutlet UIView *activationView;
+typedef NS_ENUM(NSInteger, WLActivationPage) {
+	WLActivationPageEntering,
+	WLActivationPageInProgress,
+	WLActivationPageSuccess,
+	WLActivationPageFailure
+};
+
+@interface WLActivationViewController () <UITextFieldDelegate>
+
 @property (strong, nonatomic) IBOutlet UITextField *activationTextField;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *activationViews;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (strong, nonatomic) IBOutlet UILabel *phoneNumberLabel;
 
-@property (strong, nonatomic) IBOutlet UIView *inProgressView;
-@property (strong, nonatomic) IBOutlet UILabel *inProgressPhoneLabel;
-@property (strong, nonatomic) IBOutlet UIView *successfulView;
-@property (strong, nonatomic) IBOutlet UILabel *successfulPhoneLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *successfulImageView;
-@property (strong, nonatomic) IBOutlet UIView *failedView;
-@property (strong, nonatomic) IBOutlet UILabel *failedPhoneLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *failedImageView;
+@property (nonatomic) WLActivationPage currentPage;
 
 @end
 
@@ -33,24 +39,58 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-	self.activationTextField.inputAccessoryView = [self addToolBarWithSelectorsCancel:@selector(activationCancel:) andDone:@selector(activationDone:)];
+	[WLInputAccessoryView inputAccessoryViewWithResponder:self.activationTextField];
+	
+	self.phoneNumberLabel.text = [NSString stringWithFormat:@"+%@ %@", self.currentUser.countryCallingCode, self.currentUser.phoneNumber];
+}
+
+- (void)setCurrentPage:(WLActivationPage)currentPage {
+	[self setCurrentPage:currentPage animated:NO];
+}
+
+- (void)setCurrentPage:(WLActivationPage)currentPage animated:(BOOL)animated {
+	_currentPage = currentPage;
+	for (UIView* view in self.activationViews) {
+		NSInteger index = [self.activationViews indexOfObject:view];
+		view.hidden = (index != currentPage);
+	}
 }
 
 - (IBAction)activateCode:(id)sender {
-	
-	self.activationView.hidden = YES;
-	self.inProgressView.hidden = NO;
-	
-	self.currentUser.activationCode = self.activationTextField.text;
-	//TODO: verify request
-	[[WLAPIManager instance] activate:self.currentUser success:^(id object) {
-		self.inProgressView.hidden = YES;
-		self.successfulView.hidden = NO;
-		self.successfulPhoneLabel.text = self.phoneNumberLabel.text;
+	self.currentPage = WLActivationPageInProgress;
+	__weak typeof(self)weakSelf = self;
+	[self activate:^{
+		weakSelf.currentPage = WLActivationPageSuccess;
 	} failure:^(NSError *error) {
-		self.inProgressView.hidden = YES;
-		self.failedView.hidden = NO;
-		self.failedPhoneLabel.text = self.phoneNumberLabel.text;
+		weakSelf.currentPage = WLActivationPageFailure;
+	}];
+}
+
+- (void)activate:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
+	__weak typeof(self)weakSelf = self;
+	self.currentUser.activationCode = self.activationTextField.text;
+	id operation = [[WLAPIManager instance] activate:self.currentUser success:^(id object) {
+		[weakSelf signIn:completion failure:failure];
+	} failure:failure];
+	[self handleProgressOfOperation:operation];
+}
+
+- (void)signIn:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
+	id operation = [[WLAPIManager instance] signIn:self.currentUser success:^(id object) {
+		completion();
+	} failure:failure];
+	[self handleProgressOfOperation:operation];
+}
+
+- (void)handleProgressOfOperation:(AFHTTPRequestOperation*)operation {
+	__weak typeof(self)weakSelf = self;
+	[operation setUploadProgressBlock:^(NSUInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite) {
+		float progress = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
+		[weakSelf.progressView setProgress:progress animated:YES];
+	}];
+	[operation setDownloadProgressBlock:^(NSUInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
+		float progress = ((float)totalBytesRead/(float)totalBytesExpectedToRead);
+		[weakSelf.progressView setProgress:progress animated:YES];
 	}];
 }
 
@@ -59,9 +99,8 @@
 }
 
 - (IBAction)tryAgain:(id)sender {
-	self.failedView.hidden = YES;
-	self.activationView.hidden = NO;
 	self.activationTextField.text = nil;
+	self.currentPage = WLActivationPageEntering;
 }
 
 - (IBAction)continue:(id)sender {
@@ -69,54 +108,25 @@
 	[self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)activationCancel:(id)sender {
-	self.activationTextField.text = nil;
-	[self.activationTextField resignFirstResponder];
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+	CGFloat translation = textField.frame.origin.y - textField.frame.size.height - 5;
+	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
+	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		self.view.transform = transform;
+	} completion:^(BOOL finished) {}];
 }
 
-- (void)activationDone:(id)sender {
-	
-	[self.activationTextField resignFirstResponder];
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		self.view.transform = CGAffineTransformIdentity;
+	} completion:^(BOOL finished) {}];
 }
 
-- (UIToolbar *) addToolBarWithSelectorsCancel:(SEL)cancel andDone:(SEL)done
-{
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-    UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                           target:self
-                                                                           action:cancel];
-    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                           target:self
-                                                                           action:cancel];
-    UIBarButtonItem *item3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                           target:self
-                                                                           action:done];
-    toolbar.items = @[item1, item2, item3];
-    return toolbar;
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	NSString* resultString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+	return resultString.length <= WLActivationCodeLimit;
 }
-
-//- (void)scrollTextFieldToVisible:(UITextField *)textField
-//{
-//    [self.scrollView setContentOffset:CGPointZero animated:YES];
-//    
-//    if ([textField isFirstResponder])
-//    {
-//		//		float toolBarHeight = textField.inputAccessoryView ? 44 : 0;
-//        CGPoint scrollPoint = CGPointMake(self.scrollView.contentOffset.x, textField.frame.origin.y - 50);
-//        [self.scrollView setContentOffset:scrollPoint animated:YES];
-//    }
-//}
-//
-//#pragma mark - UITextFieldDelegate
-//
-//- (void)textFieldDidBeginEditing:(UITextField *)textField {
-//	
-//	[self scrollTextFieldToVisible:textField];
-//}
-//
-//- (void)textFieldDidEndEditing:(UITextField *)textField {
-//	CGPoint scrollPoint = CGPointMake(self.scrollView.contentOffset.x, 0.0);
-//	[self.scrollView setContentOffset:scrollPoint animated:NO];
-//}
 
 @end

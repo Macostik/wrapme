@@ -98,7 +98,6 @@
 - (IBAction)signUp:(id)sender {
 	[[WLAPIManager instance] signUp:[self prepareForRequest] success:^(id object) {
 		WLActivationViewController * controller = [WLActivationViewController new];
-		controller.phoneNumberLabel.text = [NSString stringWithFormat:@"%@ %@", self.countryCodeLabel.text, self.phoneNumberTextField.text];
 		controller.currentUser = self.user;
 		[self.navigationController pushViewController:controller animated:YES];
 	} failure:^(NSError *error) {

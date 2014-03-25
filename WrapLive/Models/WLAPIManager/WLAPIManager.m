@@ -89,25 +89,29 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	[self POST:@"users" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
 }
 
-- (void)activate:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (id)activate:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	NSDictionary* parameters = @{@"device_uid" : [WLSession UDID],
 								 @"country_calling_code" : user.countryCallingCode,
 								 @"phone_number" : user.phoneNumber,
 								 @"activation_code" : user.activationCode};
 	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
 													  withObject:^id(WLAPIResponse *response) {
-														  return response;
+														  NSString* password = [response.data objectForKey:@"password"];
+														  [WLSession setPassword:password];
+														  return password;
 													  } failure:failure];
-	[self POST:@"users/activate" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
+	return [self POST:@"users/activate" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
 }
 
-- (void)signIn:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	NSDictionary* parameters = @{};
+- (id)signIn:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	NSDictionary* parameters = @{@"country_calling_code" : user.countryCallingCode,
+								 @"phone_number" : user.phoneNumber,
+								 @"password" : [WLSession password]};
 	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
 													  withObject:^id(WLAPIResponse *response) {
 														  return response;
 													  } failure:failure];
-	[self POST:@"users/sign_in" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
+	return [self POST:@"users/sign_in" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
 }
 
 - (void)me:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {

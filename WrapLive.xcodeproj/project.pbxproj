@@ -23,6 +23,8 @@
 		129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E618E1A17300FF43F6 /* WLCreateWrapViewController.m */; };
 		129654EB18E1A5B900FF43F6 /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654EA18E1A5B900FF43F6 /* WLContributorsViewController.m */; };
 		129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654EE18E1A79500FF43F6 /* UIColor+CustomColors.m */; };
+		129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */; };
+		129654F518E1CB3000FF43F6 /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
 		12A7A70318DA0945008FF6F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70218DA0945008FF6F0 /* Foundation.framework */; };
 		12A7A70518DA0945008FF6F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */; };
 		12A7A70718DA0945008FF6F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70618DA0945008FF6F0 /* UIKit.framework */; };
@@ -93,6 +95,9 @@
 		129654EA18E1A5B900FF43F6 /* WLContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorsViewController.m; path = WLContributorsViewController/WLContributorsViewController.m; sourceTree = "<group>"; };
 		129654ED18E1A79500FF43F6 /* UIColor+CustomColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CustomColors.h"; sourceTree = "<group>"; };
 		129654EE18E1A79500FF43F6 /* UIColor+CustomColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CustomColors.m"; sourceTree = "<group>"; };
+		129654F118E1CAF900FF43F6 /* WLInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLInputAccessoryView.h; path = WLInputAccessoryView/WLInputAccessoryView.h; sourceTree = "<group>"; };
+		129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLInputAccessoryView.m; path = WLInputAccessoryView/WLInputAccessoryView.m; sourceTree = "<group>"; };
+		129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLInputAccessoryView.xib; path = WLInputAccessoryView/WLInputAccessoryView.xib; sourceTree = "<group>"; };
 		12A7A6FF18DA0945008FF6F0 /* WrapLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WrapLive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12A7A70218DA0945008FF6F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -301,6 +306,16 @@
 			path = UIColor;
 			sourceTree = "<group>";
 		};
+		129654F018E1CACB00FF43F6 /* WLInputAccessoryView */ = {
+			isa = PBXGroup;
+			children = (
+				129654F118E1CAF900FF43F6 /* WLInputAccessoryView.h */,
+				129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */,
+				129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */,
+			);
+			name = WLInputAccessoryView;
+			sourceTree = "<group>";
+		};
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
@@ -397,6 +412,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				129654F018E1CACB00FF43F6 /* WLInputAccessoryView */,
 				12DCBA7E18DB18F400A4BC44 /* Reusing Views */,
 			);
 			path = Views;
@@ -697,6 +713,7 @@
 				ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
 				ACCF9B9218E1868200A7429F /* WLActivationViewController.xib in Resources */,
+				129654F518E1CB3000FF43F6 /* WLInputAccessoryView.xib in Resources */,
 				121B1B3118E0749F001F585C /* WLDummyWraps.plist in Resources */,
 				12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
@@ -759,6 +776,7 @@
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
 				ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */,
 				12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */,
+				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */,
 				ACCF9B9118E1868200A7429F /* WLActivationViewController.m in Sources */,
 				12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */,

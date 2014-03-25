@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIView *headerWrapView;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapNameLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *noWrapsView;
 
 @property (strong, nonatomic) NSArray* wraps;
 
@@ -30,6 +31,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+	
+	self.tableView.hidden = YES;
+	self.noWrapsView.hidden = YES;
 	
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] wraps:^(id object) {
@@ -47,15 +51,12 @@
 - (void)setWraps:(NSArray *)wraps {
 	_wraps = wraps;
 	
-	if ([_wraps count] > 0) {
-		if (self.headerView.superview == nil) {
-			self.tableView.tableHeaderView = self.headerView;
-		}
+	BOOL hasWraps = [_wraps count] > 0;
+	self.tableView.hidden = !hasWraps;
+	self.noWrapsView.hidden = hasWraps;
+	if (hasWraps) {
 		[self updateHeaderView];
-	} else {
-		self.tableView.tableHeaderView = nil;
 	}
-	
 	[self.tableView reloadData];
 }
 

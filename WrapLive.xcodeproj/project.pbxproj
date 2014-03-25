@@ -21,6 +21,9 @@
 		128886AD18DC493B00957B22 /* WLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886AC18DC493B00957B22 /* WLSession.m */; };
 		128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886B018DC90E000957B22 /* WLArchivingObject.m */; };
 		129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E218E197ED00FF43F6 /* WLAddressBook.m */; };
+		129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E618E1A17300FF43F6 /* WLCreateWrapViewController.m */; };
+		129654EB18E1A5B900FF43F6 /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654EA18E1A5B900FF43F6 /* WLContributorsViewController.m */; };
+		129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654EE18E1A79500FF43F6 /* UIColor+CustomColors.m */; };
 		12A7A70318DA0945008FF6F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70218DA0945008FF6F0 /* Foundation.framework */; };
 		12A7A70518DA0945008FF6F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */; };
 		12A7A70718DA0945008FF6F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70618DA0945008FF6F0 /* UIKit.framework */; };
@@ -47,16 +50,8 @@
 		12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
 		12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA3E18E0399700DBDB79 /* WLCameraViewController.m */; };
 		12E3DA4218E03EB000DBDB79 /* WLSupportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA4118E03EB000DBDB79 /* WLSupportFunctions.m */; };
-		12E3DA5118E049C300DBDB79 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4618E049C300DBDB79 /* OpenSans-Bold.ttf */; };
-		12E3DA5218E049C300DBDB79 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4718E049C300DBDB79 /* OpenSans-BoldItalic.ttf */; };
-		12E3DA5318E049C300DBDB79 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4818E049C300DBDB79 /* OpenSans-ExtraBold.ttf */; };
-		12E3DA5418E049C300DBDB79 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4918E049C300DBDB79 /* OpenSans-ExtraBoldItalic.ttf */; };
-		12E3DA5518E049C300DBDB79 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4A18E049C300DBDB79 /* OpenSans-Italic.ttf */; };
 		12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
-		12E3DA5718E049C300DBDB79 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4C18E049C300DBDB79 /* OpenSans-LightItalic.ttf */; };
 		12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
-		12E3DA5918E049C300DBDB79 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4E18E049C300DBDB79 /* OpenSans-Semibold.ttf */; };
-		12E3DA5A18E049C300DBDB79 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4F18E049C300DBDB79 /* OpenSans-SemiboldItalic.ttf */; };
 		12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
 		12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA5F18E04CC400DBDB79 /* UIImage+Alpha.m */; };
 		12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA6118E04CC400DBDB79 /* UIImage+Resize.m */; };
@@ -97,6 +92,12 @@
 		128886B018DC90E000957B22 /* WLArchivingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArchivingObject.m; path = WLArchivingObject/WLArchivingObject.m; sourceTree = "<group>"; };
 		129654E118E197ED00FF43F6 /* WLAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAddressBook.h; path = WLAddressBook/WLAddressBook.h; sourceTree = "<group>"; };
 		129654E218E197ED00FF43F6 /* WLAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAddressBook.m; path = WLAddressBook/WLAddressBook.m; sourceTree = "<group>"; };
+		129654E518E1A17300FF43F6 /* WLCreateWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCreateWrapViewController.h; path = WLCreateWrapViewController/WLCreateWrapViewController.h; sourceTree = "<group>"; };
+		129654E618E1A17300FF43F6 /* WLCreateWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCreateWrapViewController.m; path = WLCreateWrapViewController/WLCreateWrapViewController.m; sourceTree = "<group>"; };
+		129654E918E1A5B900FF43F6 /* WLContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributorsViewController.h; path = WLContributorsViewController/WLContributorsViewController.h; sourceTree = "<group>"; };
+		129654EA18E1A5B900FF43F6 /* WLContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorsViewController.m; path = WLContributorsViewController/WLContributorsViewController.m; sourceTree = "<group>"; };
+		129654ED18E1A79500FF43F6 /* UIColor+CustomColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CustomColors.h"; sourceTree = "<group>"; };
+		129654EE18E1A79500FF43F6 /* UIColor+CustomColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CustomColors.m"; sourceTree = "<group>"; };
 		12A7A6FF18DA0945008FF6F0 /* WrapLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WrapLive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12A7A70218DA0945008FF6F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -148,16 +149,8 @@
 		12E3DA3E18E0399700DBDB79 /* WLCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCameraViewController.m; sourceTree = "<group>"; };
 		12E3DA4018E03EB000DBDB79 /* WLSupportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSupportFunctions.h; sourceTree = "<group>"; };
 		12E3DA4118E03EB000DBDB79 /* WLSupportFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSupportFunctions.m; sourceTree = "<group>"; };
-		12E3DA4618E049C300DBDB79 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
-		12E3DA4718E049C300DBDB79 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
-		12E3DA4818E049C300DBDB79 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
-		12E3DA4918E049C300DBDB79 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
-		12E3DA4A18E049C300DBDB79 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
 		12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
-		12E3DA4C18E049C300DBDB79 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
-		12E3DA4E18E049C300DBDB79 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
-		12E3DA4F18E049C300DBDB79 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		12E3DA5018E049C300DBDB79 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		12E3DA5E18E04CC400DBDB79 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
 		12E3DA5F18E04CC400DBDB79 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
@@ -297,6 +290,33 @@
 			name = WLAddressBook;
 			sourceTree = "<group>";
 		};
+		129654E418E1A15700FF43F6 /* WLCreateWrapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				129654E518E1A17300FF43F6 /* WLCreateWrapViewController.h */,
+				129654E618E1A17300FF43F6 /* WLCreateWrapViewController.m */,
+			);
+			name = WLCreateWrapViewController;
+			sourceTree = "<group>";
+		};
+		129654E818E1A5A200FF43F6 /* WLContributorsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				129654E918E1A5B900FF43F6 /* WLContributorsViewController.h */,
+				129654EA18E1A5B900FF43F6 /* WLContributorsViewController.m */,
+			);
+			name = WLContributorsViewController;
+			sourceTree = "<group>";
+		};
+		129654EC18E1A79500FF43F6 /* UIColor */ = {
+			isa = PBXGroup;
+			children = (
+				129654ED18E1A79500FF43F6 /* UIColor+CustomColors.h */,
+				129654EE18E1A79500FF43F6 /* UIColor+CustomColors.m */,
+			);
+			path = UIColor;
+			sourceTree = "<group>";
+		};
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
@@ -358,6 +378,8 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				129654E818E1A5A200FF43F6 /* WLContributorsViewController */,
+				129654E418E1A15700FF43F6 /* WLCreateWrapViewController */,
 				121B1B3818E0848D001F585C /* WLCountriesViewController */,
 				12E3DA3C18E0399700DBDB79 /* WLCameraViewController */,
 				12DCBA8818DB399B00A4BC44 /* WLWrapViewController */,
@@ -562,16 +584,8 @@
 		12E3DA4518E049C300DBDB79 /* Open_Sans */ = {
 			isa = PBXGroup;
 			children = (
-				12E3DA4618E049C300DBDB79 /* OpenSans-Bold.ttf */,
-				12E3DA4718E049C300DBDB79 /* OpenSans-BoldItalic.ttf */,
-				12E3DA4818E049C300DBDB79 /* OpenSans-ExtraBold.ttf */,
-				12E3DA4918E049C300DBDB79 /* OpenSans-ExtraBoldItalic.ttf */,
-				12E3DA4A18E049C300DBDB79 /* OpenSans-Italic.ttf */,
 				12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */,
-				12E3DA4C18E049C300DBDB79 /* OpenSans-LightItalic.ttf */,
 				12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */,
-				12E3DA4E18E049C300DBDB79 /* OpenSans-Semibold.ttf */,
-				12E3DA4F18E049C300DBDB79 /* OpenSans-SemiboldItalic.ttf */,
 			);
 			path = Open_Sans;
 			sourceTree = "<group>";
@@ -579,6 +593,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				129654EC18E1A79500FF43F6 /* UIColor */,
 				121B1B3418E078AF001F585C /* NSObject */,
 				125D4A5018E069B3001B8E7C /* UIFont */,
 				125D4A4C18E068E6001B8E7C /* NSDate */,
@@ -705,28 +720,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12E3DA5518E049C300DBDB79 /* OpenSans-Italic.ttf in Resources */,
-				12E3DA5218E049C300DBDB79 /* OpenSans-BoldItalic.ttf in Resources */,
-				12E3DA5918E049C300DBDB79 /* OpenSans-Semibold.ttf in Resources */,
-				12E3DA5318E049C300DBDB79 /* OpenSans-ExtraBold.ttf in Resources */,
 				ACEF699F18E041AF00BA3A3A /* ic_128.png in Resources */,
 				12A7A70D18DA0946008FF6F0 /* InfoPlist.strings in Resources */,
 				ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
 				ACCF9B9218E1868200A7429F /* WLActivationViewController.xib in Resources */,
-				12E3DA5718E049C300DBDB79 /* OpenSans-LightItalic.ttf in Resources */,
 				121B1B3118E0749F001F585C /* WLDummyWraps.plist in Resources */,
 				ACCF9B9C18E1A1B400A7429F /* default_profile.png in Resources */,
-				12E3DA5118E049C300DBDB79 /* OpenSans-Bold.ttf in Resources */,
 				12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */,
-				12E3DA5A18E049C300DBDB79 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
 				121B1B4118E0848D001F585C /* WLCountriesViewController.xib in Resources */,
 				ACCF9B8A18E185D200A7429F /* WLPhoneNumberViewController.xib in Resources */,
 				121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */,
 				121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
-				12E3DA5418E049C300DBDB79 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,6 +778,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */,
+				129654EB18E1A5B900FF43F6 /* WLContributorsViewController.m in Sources */,
 				125D4A4F18E068E6001B8E7C /* NSDate+Formatting.m in Sources */,
 				12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */,
 				121B1B2E18E07430001F585C /* WLCountry.m in Sources */,
@@ -794,6 +802,7 @@
 				121B1B4018E0848D001F585C /* WLCountriesViewController.m in Sources */,
 				12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */,
 				12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */,
+				129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */,
 				12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */,
 				12DCBA6F18DB0E7F00A4BC44 /* WLWrapEntry.m in Sources */,
 				12DCBA7718DB0EB800A4BC44 /* WLConversation.m in Sources */,
@@ -802,6 +811,7 @@
 				121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
+				129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
 				ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */,

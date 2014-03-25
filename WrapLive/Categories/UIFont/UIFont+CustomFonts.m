@@ -39,4 +39,44 @@
 	}
 }
 
++ (UIFont*)lightFontOfSize:(CGFloat)size {
+	return [self fontWithType:WLFontTypeOpenSansLight size:size];
+}
+
++ (UIFont*)lightMicroFont {
+	return [self lightFontOfSize:WLFontSizeMicro];
+}
+
++ (UIFont*)lightSmallFont {
+	return [self lightFontOfSize:WLFontSizeSmall];
+}
+
++ (UIFont*)lightNormalFont {
+	return [self lightFontOfSize:WLFontSizeNormal];
+}
+
++ (UIFont*)lightLargeFont {
+	return [self lightFontOfSize:WLFontSizeLarge];
+}
+
++ (UIFont*)regularFontOfSize:(CGFloat)size {
+	return [self fontWithType:WLFontTypeOpenSansRegular size:size];
+}
+
++ (UIFont*)regularMicroFont {
+	return [self regularFontOfSize:WLFontSizeMicro];
+}
+
++ (UIFont*)regularSmallFont {
+	return [self regularFontOfSize:WLFontSizeSmall];
+}
+
++ (UIFont*)regularNormalFont {
+	return [self regularFontOfSize:WLFontSizeNormal];
+}
+
++ (UIFont*)regularLargeFont {
+	return [self regularFontOfSize:WLFontSizeLarge];
+}
+
 @end

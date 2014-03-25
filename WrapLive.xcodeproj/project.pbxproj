@@ -20,6 +20,7 @@
 		125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A5218E069C6001B8E7C /* UIFont+CustomFonts.m */; };
 		128886AD18DC493B00957B22 /* WLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886AC18DC493B00957B22 /* WLSession.m */; };
 		128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886B018DC90E000957B22 /* WLArchivingObject.m */; };
+		129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E218E197ED00FF43F6 /* WLAddressBook.m */; };
 		12A7A70318DA0945008FF6F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70218DA0945008FF6F0 /* Foundation.framework */; };
 		12A7A70518DA0945008FF6F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */; };
 		12A7A70718DA0945008FF6F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70618DA0945008FF6F0 /* UIKit.framework */; };
@@ -87,6 +88,8 @@
 		128886AC18DC493B00957B22 /* WLSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSession.m; path = WLSession/WLSession.m; sourceTree = "<group>"; };
 		128886AF18DC90E000957B22 /* WLArchivingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArchivingObject.h; path = WLArchivingObject/WLArchivingObject.h; sourceTree = "<group>"; };
 		128886B018DC90E000957B22 /* WLArchivingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArchivingObject.m; path = WLArchivingObject/WLArchivingObject.m; sourceTree = "<group>"; };
+		129654E118E197ED00FF43F6 /* WLAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAddressBook.h; path = WLAddressBook/WLAddressBook.h; sourceTree = "<group>"; };
+		129654E218E197ED00FF43F6 /* WLAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAddressBook.m; path = WLAddressBook/WLAddressBook.m; sourceTree = "<group>"; };
 		12A7A6FF18DA0945008FF6F0 /* WrapLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WrapLive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12A7A70218DA0945008FF6F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -268,6 +271,15 @@
 			name = WLArchivingObject;
 			sourceTree = "<group>";
 		};
+		129654E018E197D700FF43F6 /* WLAddressBook */ = {
+			isa = PBXGroup;
+			children = (
+				129654E118E197ED00FF43F6 /* WLAddressBook.h */,
+				129654E218E197ED00FF43F6 /* WLAddressBook.m */,
+			);
+			name = WLAddressBook;
+			sourceTree = "<group>";
+		};
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
@@ -342,6 +354,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				129654E018E197D700FF43F6 /* WLAddressBook */,
 				121B1B2B18E0741A001F585C /* WLCountry */,
 				12E3DA4018E03EB000DBDB79 /* WLSupportFunctions.h */,
 				12E3DA4118E03EB000DBDB79 /* WLSupportFunctions.m */,
@@ -722,6 +735,7 @@
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
 				12D9F6E318E18DAA001E8323 /* NSError+WLAPIManager.m in Sources */,
 				121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */,
+				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,

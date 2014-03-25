@@ -90,7 +90,10 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (void)activate:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	NSDictionary* parameters = @{};
+	NSDictionary* parameters = @{@"device_uid" : [WLSession UDID],
+								 @"country_calling_code" : user.countryCallingCode,
+								 @"phone_number" : user.phoneNumber,
+								 @"activation_code" : user.activationCode};
 	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
 													  withObject:^id(WLAPIResponse *response) {
 														  return response;

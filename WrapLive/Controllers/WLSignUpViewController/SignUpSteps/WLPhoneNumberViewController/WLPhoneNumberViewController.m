@@ -14,12 +14,14 @@
 #import "WLCountriesViewController.h"
 #import "WLCountry.h"
 
-@interface WLPhoneNumberViewController ()
+@interface WLPhoneNumberViewController () <UITextFieldDelegate>
 
+@property (strong, nonatomic) IBOutlet UIButton *signUpButton;
 @property (strong, nonatomic) UIDatePicker * birthdatePicker;
 @property (strong, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 @property (strong, nonatomic) IBOutlet UITextField *birthdateTextField;
 @property (strong, nonatomic) WLUser * user;
+@property (strong, nonatomic) WLCountry * country;
 @property (strong, nonatomic) IBOutlet UIButton *selectCountryButton;
 @property (strong, nonatomic) IBOutlet UILabel *countryCodeLabel;
 
@@ -32,6 +34,8 @@
 {
     [super viewDidLoad];
 	[self setupPicker];
+	self.country = [WLCountry getCurrentCountry];
+	[self fillCountryFields];
 }
 
 - (void)setupPicker {
@@ -79,10 +83,15 @@
 	[self.phoneNumberTextField resignFirstResponder];
 }
 
+- (void)fillCountryFields {
+	[self.selectCountryButton setTitle:self.country.name forState:UIControlStateNormal];
+	self.countryCodeLabel.text = [NSString stringWithFormat:@"+%@", self.country.callingCode];
+}
+
 - (IBAction)selectCountry:(id)sender {
 	[WLCountriesViewController show:^(WLCountry *country) {
-		[self.selectCountryButton setTitle:country.name forState:UIControlStateNormal];
-		self.countryCodeLabel.text = country.callingCode;
+		self.country = country;
+		[self fillCountryFields];
 	}];
 }
 
@@ -96,37 +105,45 @@
 		
 	}];
 }
+- (IBAction)phoneNumberChanged:(UITextField *)sender {
+	
+	
+	self.signUpButton.enabled = self.phoneNumberTextField.text.length > 0 ? YES : NO;
+//	[self.signUpButton setEnabled:YES];
+}
 
 - (WLUser *)prepareForRequest {
 	self.user = [WLUser new];
 	self.user.phoneNumber = self.phoneNumberTextField.text;
-	self.user.countryCallingCode = self.countryCodeLabel.text;
+	self.user.countryCallingCode = self.country.callingCode;
 	self.user.birthdate = self.birthdatePicker.date;
 	return self.user;
 }
 
-//- (void)scrollTextFieldToVisible:(UITextField *)textField
-//{
-//    [self.scrollView setContentOffset:CGPointZero animated:YES];
-//    
-//    if ([textField isFirstResponder])
-//    {
-//		//		float toolBarHeight = textField.inputAccessoryView ? 44 : 0;
-//        CGPoint scrollPoint = CGPointMake(self.scrollView.contentOffset.x, textField.frame.origin.y - 50);
-//        [self.scrollView setContentOffset:scrollPoint animated:YES];
-//    }
-//}
-//
-//#pragma mark - UITextFieldDelegate
-//
-//- (void)textFieldDidBeginEditing:(UITextField *)textField {
-//	
-//	[self scrollTextFieldToVisible:textField];
-//}
-//
-//- (void)textFieldDidEndEditing:(UITextField *)textField {
-//	CGPoint scrollPoint = CGPointMake(self.scrollView.contentOffset.x, 0.0);
-//	[self.scrollView setContentOffset:scrollPoint animated:NO];
-//}
+- (void)scrollTextFieldToVisible:(UITextField *)textField {
+	CGAffineTransform transform;
+	if (textField == self.phoneNumberTextField) {
+		transform = CGAffineTransformMakeTranslation(0, -40);
+	}
+	else {
+		transform = CGAffineTransformMakeTranslation(0, -140);
+	}
+	
+    [UIView animateWithDuration:0.5 animations:^{
+		self.view.transform = transform;
+	}];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+	[self scrollTextFieldToVisible:textField];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+	[UIView animateWithDuration:0.25 animations:^{
+		self.view.transform = CGAffineTransformIdentity;
+	}];
+}
 
 @end

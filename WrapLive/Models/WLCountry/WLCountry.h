@@ -12,5 +12,9 @@
 
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSString* callingCode;
+@property (strong, nonatomic) NSString* code;
+
++ (NSArray *)getAllCountries;
++ (WLCountry *)getCurrentCountry;
 
 @end

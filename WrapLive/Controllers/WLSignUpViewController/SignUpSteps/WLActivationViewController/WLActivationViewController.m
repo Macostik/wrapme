@@ -59,8 +59,9 @@
 }
 
 - (IBAction)tryAgain:(id)sender {
+	self.failedView.hidden = YES;
+	self.activationView.hidden = NO;
 	self.activationTextField.text = nil;
-	[self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)continue:(id)sender {

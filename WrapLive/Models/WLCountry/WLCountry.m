@@ -18,4 +18,21 @@
 	return YES;
 }
 
++ (NSArray *)getAllCountries {
+	NSArray* json = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CountryCodes" ofType:@"json"]] options:NSJSONReadingAllowFragments error:NULL];
+	
+	return [WLCountry arrayOfModelsFromDictionaries:json];
+}
+
++ (WLCountry *)getCurrentCountry {
+	NSString * code = [[NSLocale componentsFromLocaleIdentifier:[[NSLocale currentLocale] identifier]] objectForKey:NSLocaleCountryCode];
+	
+	for (WLCountry * country in [WLCountry getAllCountries]) {
+		if ([country.code isEqualToString:code]) {
+			return country;
+		}
+	}
+	return nil;
+}
+
 @end

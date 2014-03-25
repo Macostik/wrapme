@@ -48,3 +48,19 @@ typedef NS_ENUM(NSUInteger, WLFontType) {
 + (UIFont*)regularLargeFont;
 
 @end
+
+@interface UILabel (CustomFonts)
+
+@end
+
+@interface UIButton (CustomFonts)
+
+@end
+
+@interface UITextField (CustomFonts)
+
+@end
+
+@interface UITextView (CustomFonts)
+
+@end

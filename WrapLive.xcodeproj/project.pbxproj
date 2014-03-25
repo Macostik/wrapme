@@ -15,7 +15,6 @@
 		121B1B4218E0848D001F585C /* WLCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3E18E0848D001F585C /* WLCountryCell.m */; };
 		121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3F18E0848D001F585C /* WLCountryCell.xib */; };
 		121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B4418E08B7E001F585C /* CountryCodes.json */; };
-		125D4A4B18E0679A001B8E7C /* UILabel+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4A18E0679A001B8E7C /* UILabel+CustomFonts.m */; };
 		125D4A4F18E068E6001B8E7C /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */; };
 		125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A5218E069C6001B8E7C /* UIFont+CustomFonts.m */; };
 		128886AD18DC493B00957B22 /* WLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886AC18DC493B00957B22 /* WLSession.m */; };
@@ -63,8 +62,6 @@
 		ACCF9B9218E1868200A7429F /* WLActivationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9018E1868200A7429F /* WLActivationViewController.xib */; };
 		ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B9518E186B800A7429F /* WLProfileInformationViewController.m */; };
 		ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9618E186B800A7429F /* WLProfileInformationViewController.xib */; };
-		ACCF9B9C18E1A1B400A7429F /* default_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9B18E1A1B400A7429F /* default_profile.png */; };
-		ACEF699F18E041AF00BA3A3A /* ic_128.png in Resources */ = {isa = PBXBuildFile; fileRef = ACEF699E18E041AF00BA3A3A /* ic_128.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,8 +77,6 @@
 		121B1B3E18E0848D001F585C /* WLCountryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCountryCell.m; sourceTree = "<group>"; };
 		121B1B3F18E0848D001F585C /* WLCountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCountryCell.xib; sourceTree = "<group>"; };
 		121B1B4418E08B7E001F585C /* CountryCodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountryCodes.json; sourceTree = "<group>"; };
-		125D4A4918E0679A001B8E7C /* UILabel+CustomFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+CustomFonts.h"; path = "UILabel/UILabel+CustomFonts.h"; sourceTree = "<group>"; };
-		125D4A4A18E0679A001B8E7C /* UILabel+CustomFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+CustomFonts.m"; path = "UILabel/UILabel+CustomFonts.m"; sourceTree = "<group>"; };
 		125D4A4D18E068E6001B8E7C /* NSDate+Formatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Formatting.h"; sourceTree = "<group>"; };
 		125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Formatting.m"; sourceTree = "<group>"; };
 		125D4A5118E069C6001B8E7C /* UIFont+CustomFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+CustomFonts.h"; path = "UIFont/UIFont+CustomFonts.h"; sourceTree = "<group>"; };
@@ -168,8 +163,6 @@
 		ACCF9B9418E186B800A7429F /* WLProfileInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLProfileInformationViewController.h; path = WLSignUpViewController/SignUpSteps/WLProfileInformationViewController/WLProfileInformationViewController.h; sourceTree = "<group>"; };
 		ACCF9B9518E186B800A7429F /* WLProfileInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileInformationViewController.m; path = WLSignUpViewController/SignUpSteps/WLProfileInformationViewController/WLProfileInformationViewController.m; sourceTree = "<group>"; };
 		ACCF9B9618E186B800A7429F /* WLProfileInformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLProfileInformationViewController.xib; path = WLSignUpViewController/SignUpSteps/WLProfileInformationViewController/WLProfileInformationViewController.xib; sourceTree = "<group>"; };
-		ACCF9B9B18E1A1B400A7429F /* default_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = default_profile.png; path = Pictures/default_profile.png; sourceTree = "<group>"; };
-		ACEF699E18E041AF00BA3A3A /* ic_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_128.png; path = Pictures/ic_128.png; sourceTree = "<group>"; };
 		F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -234,15 +227,6 @@
 				121B1B3F18E0848D001F585C /* WLCountryCell.xib */,
 			);
 			path = WLCountryCell;
-			sourceTree = "<group>";
-		};
-		125D4A4818E0676E001B8E7C /* UILabel */ = {
-			isa = PBXGroup;
-			children = (
-				125D4A4918E0679A001B8E7C /* UILabel+CustomFonts.h */,
-				125D4A4A18E0679A001B8E7C /* UILabel+CustomFonts.m */,
-			);
-			name = UILabel;
 			sourceTree = "<group>";
 		};
 		125D4A4C18E068E6001B8E7C /* NSDate */ = {
@@ -366,7 +350,6 @@
 		12A7A70918DA0946008FF6F0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				ACEF699D18E0415200BA3A3A /* Pictures */,
 				12A7A70A18DA0946008FF6F0 /* WrapLive-Info.plist */,
 				12A7A70B18DA0946008FF6F0 /* InfoPlist.strings */,
 				12A7A70E18DA0946008FF6F0 /* main.m */,
@@ -597,7 +580,6 @@
 				121B1B3418E078AF001F585C /* NSObject */,
 				125D4A5018E069B3001B8E7C /* UIFont */,
 				125D4A4C18E068E6001B8E7C /* NSDate */,
-				125D4A4818E0676E001B8E7C /* UILabel */,
 				12E3DA5D18E04CC400DBDB79 /* UIImage */,
 			);
 			path = Categories;
@@ -656,15 +638,6 @@
 			name = WLProfileInformationViewController;
 			sourceTree = "<group>";
 		};
-		ACEF699D18E0415200BA3A3A /* Pictures */ = {
-			isa = PBXGroup;
-			children = (
-				ACEF699E18E041AF00BA3A3A /* ic_128.png */,
-				ACCF9B9B18E1A1B400A7429F /* default_profile.png */,
-			);
-			name = Pictures;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -720,13 +693,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACEF699F18E041AF00BA3A3A /* ic_128.png in Resources */,
 				12A7A70D18DA0946008FF6F0 /* InfoPlist.strings in Resources */,
 				ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
 				ACCF9B9218E1868200A7429F /* WLActivationViewController.xib in Resources */,
 				121B1B3118E0749F001F585C /* WLDummyWraps.plist in Resources */,
-				ACCF9B9C18E1A1B400A7429F /* default_profile.png in Resources */,
 				12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
 				121B1B4118E0848D001F585C /* WLCountriesViewController.xib in Resources */,
@@ -815,7 +786,6 @@
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
 				ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */,
-				125D4A4B18E0679A001B8E7C /* UILabel+CustomFonts.m in Sources */,
 				12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

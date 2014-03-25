@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class WLUser;
 
 @interface WLActivationViewController : UIViewController
 
-@property (strong, nonatomic) WLUser * currentUser;
+- (instancetype)initWithUser:(WLUser*)user;
 
 @end

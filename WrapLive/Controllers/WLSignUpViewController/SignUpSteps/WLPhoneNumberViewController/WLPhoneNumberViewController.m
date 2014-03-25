@@ -96,9 +96,10 @@
 }
 
 - (IBAction)signUp:(id)sender {
-	[[WLAPIManager instance] signUp:[self prepareForRequest] success:^(id object) {
-		WLActivationViewController * controller = [WLActivationViewController new];
-		controller.currentUser = self.user;
+	__weak typeof(self)weakSelf = self;
+	self.user = [self prepareForRequest];
+	[[WLAPIManager instance] signUp:self.user success:^(id object) {
+		WLActivationViewController *controller = [[WLActivationViewController alloc] initWithUser:weakSelf.user];
 		[self.navigationController pushViewController:controller animated:YES];
 	} failure:^(NSError *error) {
 		

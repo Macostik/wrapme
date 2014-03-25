@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *activationViews;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 @property (strong, nonatomic) IBOutlet UILabel *phoneNumberLabel;
+@property (strong, nonatomic) WLUser * user;
 
 @property (nonatomic) WLActivationPage currentPage;
 
@@ -35,13 +36,22 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 
 @implementation WLActivationViewController
 
+- (instancetype)initWithUser:(WLUser *)user
+{
+    self = [super init];
+    if (self) {
+        self.user = user;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	[WLInputAccessoryView inputAccessoryViewWithResponder:self.activationTextField];
 	
-	self.phoneNumberLabel.text = [NSString stringWithFormat:@"+%@ %@", self.currentUser.countryCallingCode, self.currentUser.phoneNumber];
+	self.phoneNumberLabel.text = [NSString stringWithFormat:@"+%@ %@", self.user.countryCallingCode, self.user.phoneNumber];
 }
 
 - (void)setCurrentPage:(WLActivationPage)currentPage {
@@ -68,15 +78,15 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 
 - (void)activate:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
 	__weak typeof(self)weakSelf = self;
-	self.currentUser.activationCode = self.activationTextField.text;
-	id operation = [[WLAPIManager instance] activate:self.currentUser success:^(id object) {
+	self.user.activationCode = self.activationTextField.text;
+	id operation = [[WLAPIManager instance] activate:self.user success:^(id object) {
 		[weakSelf signIn:completion failure:failure];
 	} failure:failure];
 	[self handleProgressOfOperation:operation];
 }
 
 - (void)signIn:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
-	id operation = [[WLAPIManager instance] signIn:self.currentUser success:^(id object) {
+	id operation = [[WLAPIManager instance] signIn:self.user success:^(id object) {
 		completion();
 	} failure:failure];
 	[self handleProgressOfOperation:operation];

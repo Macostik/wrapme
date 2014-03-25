@@ -15,7 +15,7 @@
 
 #import "WLPhoneNumberViewController.h"
 
-@interface WLSignUpViewController () <UIScrollViewDelegate, UITextFieldDelegate>
+@interface WLSignUpViewController () <UIScrollViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *stepLabels;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *stepDoneViews;
@@ -51,21 +51,15 @@
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
 	navController.view.frame = self.signUpStepsView.bounds;
 	navController.navigationBarHidden = YES;
+	navController.delegate = self;
 	[navController willMoveToParentViewController:self];
 	[self addChildViewController:navController];
 	[self.signUpStepsView addSubview:navController.view];
 	
 }
 
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-	[self updateStepLabels];
-	
-}
-
-- (void)updateStepLabels {
-	NSInteger currentStep = roundf(self.scrollView.contentOffset.x / self.scrollView.frame.size.width);
+- (void)updateStepLabelsWithIndex:(int)index {
+	NSInteger currentStep = index + 1;
 	
 	for (UILabel* label in self.stepLabels) {
 		NSUInteger idx = [self.stepLabels indexOfObject:label];
@@ -84,6 +78,14 @@
 
 - (void)reduceScrollOffset {
 	[self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x - self.scrollView.frame.size.width, self.scrollView.contentOffset.y) animated:YES];
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+	int index = [navigationController.viewControllers indexOfObject:navigationController.topViewController];
+	NSLog(@"index - %d", index);
+	[self updateStepLabelsWithIndex:index];
 }
 
 @end

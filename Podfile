@@ -3,3 +3,4 @@ pod "AFNetworking", "~> 2.0"
 pod 'JSONModel'
 pod 'SSKeychain'
 pod 'OpenUDID'
+pod 'CocoaLumberjack'

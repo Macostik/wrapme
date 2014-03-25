@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-CocoaLumberjack.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-JSONModel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>029BD8F7AEFD406BA8B504B9</key>
+		<key>13720A059F064E0CB8EFE414</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>099A9922F44A4EEAA78944EE</key>
+		<key>3E3C491ECA034CB29BC29E13</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>42B227C17A0645E5BE9061D6</key>
+		<key>99695561807D4F5B9A5FE47B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>85412B39FC95453BAF0F29C0</key>
+		<key>C1FA12EF864548B69B49B627</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BACF3444309548C7A4C44C0B</key>
+		<key>C812F326E3B74ACFAD678E35</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D7A1F6BA8B0E41E2B0C47B6C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

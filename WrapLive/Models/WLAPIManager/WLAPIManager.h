@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
+#import "NSError+WLAPIManager.h"
 
 @class WLUser;
 

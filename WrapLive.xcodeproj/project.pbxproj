@@ -30,6 +30,8 @@
 		12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */; };
 		12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74018DA10DD008FF6F0 /* WLSignUpViewController.m */; };
 		12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
+		12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D9F6DF18E185AF001E8323 /* WLAPIResponse.m */; };
+		12D9F6E318E18DAA001E8323 /* NSError+WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D9F6E218E18DAA001E8323 /* NSError+WLAPIManager.m */; };
 		12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA5718DAF98C00A4BC44 /* WLAPIManager.m */; };
 		12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA5E18DB0DA700A4BC44 /* WLUser.m */; };
 		12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA6218DB0DEF00A4BC44 /* WLEntry.m */; };
@@ -103,6 +105,10 @@
 		12A7A74018DA10DD008FF6F0 /* WLSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSignUpViewController.m; path = WLSignUpViewController/WLSignUpViewController.m; sourceTree = "<group>"; };
 		12A7A74318DA180C008FF6F0 /* WLHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLHomeViewController.h; path = WLHomeViewController/WLHomeViewController.h; sourceTree = "<group>"; };
 		12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLHomeViewController.m; path = WLHomeViewController/WLHomeViewController.m; sourceTree = "<group>"; };
+		12D9F6DE18E185AF001E8323 /* WLAPIResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAPIResponse.h; path = WLAPIManager/WLAPIResponse.h; sourceTree = "<group>"; };
+		12D9F6DF18E185AF001E8323 /* WLAPIResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAPIResponse.m; path = WLAPIManager/WLAPIResponse.m; sourceTree = "<group>"; };
+		12D9F6E118E18DAA001E8323 /* NSError+WLAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+WLAPIManager.h"; path = "WLAPIManager/NSError+WLAPIManager.h"; sourceTree = "<group>"; };
+		12D9F6E218E18DAA001E8323 /* NSError+WLAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+WLAPIManager.m"; path = "WLAPIManager/NSError+WLAPIManager.m"; sourceTree = "<group>"; };
 		12DCBA5618DAF98C00A4BC44 /* WLAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAPIManager.h; path = WLAPIManager/WLAPIManager.h; sourceTree = "<group>"; };
 		12DCBA5718DAF98C00A4BC44 /* WLAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAPIManager.m; path = WLAPIManager/WLAPIManager.m; sourceTree = "<group>"; };
 		12DCBA5D18DB0DA700A4BC44 /* WLUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUser.h; path = WLUser/WLUser.h; sourceTree = "<group>"; };
@@ -394,6 +400,10 @@
 			children = (
 				12DCBA5618DAF98C00A4BC44 /* WLAPIManager.h */,
 				12DCBA5718DAF98C00A4BC44 /* WLAPIManager.m */,
+				12D9F6DE18E185AF001E8323 /* WLAPIResponse.h */,
+				12D9F6DF18E185AF001E8323 /* WLAPIResponse.m */,
+				12D9F6E118E18DAA001E8323 /* NSError+WLAPIManager.h */,
+				12D9F6E218E18DAA001E8323 /* NSError+WLAPIManager.m */,
 			);
 			name = WLAPIManager;
 			sourceTree = "<group>";
@@ -706,9 +716,11 @@
 				121B1B4018E0848D001F585C /* WLCountriesViewController.m in Sources */,
 				12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */,
 				12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */,
+				12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */,
 				12DCBA6F18DB0E7F00A4BC44 /* WLWrapEntry.m in Sources */,
 				12DCBA7718DB0EB800A4BC44 /* WLConversation.m in Sources */,
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
+				12D9F6E318E18DAA001E8323 /* NSError+WLAPIManager.m in Sources */,
 				121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,

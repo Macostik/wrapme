@@ -144,11 +144,11 @@
 }
 
 - (IBAction)signUp:(id)sender {
-//	[[WLAPIManager instance] signUp:[self prepareForRequest] success:^(id object) {
-//		[self activation];
-//	} failure:^(NSError *error) {
-//		
-//	}];
+	[[WLAPIManager instance] signUp:[self prepareForRequest] success:^(id object) {
+		[self activation];
+	} failure:^(NSError *error) {
+		
+	}];
 	[self activation];
 }
 

@@ -18,18 +18,25 @@ PODS:
   - AFNetworking/UIKit (2.2.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - CocoaLumberjack (1.8.1):
+    - CocoaLumberjack/Extensions
+  - CocoaLumberjack/Core (1.8.1)
+  - CocoaLumberjack/Extensions (1.8.1):
+    - CocoaLumberjack/Core
   - JSONModel (0.12.0)
   - OpenUDID (1.0.0)
   - SSKeychain (1.2.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - CocoaLumberjack
   - JSONModel
   - OpenUDID
   - SSKeychain
 
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
+  CocoaLumberjack: 020378ec400d658923bf5887178394f65f052c90
   JSONModel: f391da60a15e11f8fa8950fb980b8f799ae3453f
   OpenUDID: 13ab988776ef38dca1e2e799e961448cf83a8111
   SSKeychain: d18926838c2e7cd342e2a49e9f869858e49f035a

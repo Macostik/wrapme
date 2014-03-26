@@ -33,7 +33,15 @@ static WLCountriesViewController* _controller = nil;
 	self.completionBlock = completion;
 	UIView* superview = [UIApplication sharedApplication].keyWindow;
 	self.view.frame = superview.bounds;
+	self.tableView.superview.transform = CGAffineTransformMakeTranslation(0, superview.frame.size.height);
 	[superview addSubview:self.view];
+	self.view.alpha = 0.0f;
+	
+	[UIView animateWithDuration:0.5f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		self.tableView.superview.transform = CGAffineTransformIdentity;
+		self.view.alpha = 1.0f;
+	} completion:^(BOOL finished) {
+	}];
 	
 	self.countries = [WLCountry getAllCountries];
 	
@@ -42,8 +50,13 @@ static WLCountriesViewController* _controller = nil;
 }
 
 - (void)hide {
-	[self.view removeFromSuperview];
-	_controller = nil;
+	[UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		self.tableView.superview.transform = CGAffineTransformMakeTranslation(0, self.view.superview.frame.size.height);
+		self.view.alpha = 0.0f;
+	} completion:^(BOOL finished) {
+		[self.view removeFromSuperview];
+		_controller = nil;
+	}];
 }
 
 #pragma mark - User Actions

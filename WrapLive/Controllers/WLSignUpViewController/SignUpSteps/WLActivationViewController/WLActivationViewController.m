@@ -52,8 +52,6 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 	[WLInputAccessoryView inputAccessoryViewWithResponder:self.activationTextField];
 	
 	self.phoneNumberLabel.text = [NSString stringWithFormat:@"+%@ %@", self.user.countryCallingCode, self.user.phoneNumber];
-	
-	[self signUp];
 }
 
 - (void)setCurrentPage:(WLActivationPage)currentPage {
@@ -76,17 +74,6 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 	} failure:^(NSError *error) {
 		weakSelf.currentPage = WLActivationPageFailure;
 	}];
-}
-
-- (void)signUp {
-	__weak typeof(self)weakSelf = self;
-	self.currentPage = WLActivationPageInProgress;
-	id operation = [[WLAPIManager instance] signUp:self.user success:^(id object) {
-		weakSelf.currentPage = WLActivationPageEntering;
-	} failure:^(NSError *error) {
-		weakSelf.currentPage = WLActivationPageFailure;
-	}];
-	[self handleProgressOfOperation:operation];
 }
 
 - (void)activate:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
@@ -125,7 +112,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 
 - (IBAction)tryAgain:(id)sender {
 	self.activationTextField.text = nil;
-	[self signUp];
+	self.currentPage = WLActivationPageEntering;
 }
 
 - (IBAction)continue:(id)sender {

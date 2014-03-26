@@ -13,6 +13,7 @@
 #import "WLCountriesViewController.h"
 #import "WLCountry.h"
 #import "WLInputAccessoryView.h"
+#import "WLAPIManager.h"
 
 @interface WLPhoneNumberViewController () <UITextFieldDelegate>
 
@@ -63,6 +64,7 @@
 }
 
 - (IBAction)selectCountry:(id)sender {
+	[self.view endEditing:YES];
 	[WLCountriesViewController show:^(WLCountry *country) {
 		self.country = country;
 		[self fillCountryFields];
@@ -71,8 +73,13 @@
 
 - (IBAction)signUp:(id)sender {
 	self.user = [self prepareForRequest];
-	WLActivationViewController *controller = [[WLActivationViewController alloc] initWithUser:self.user];
-	[self.navigationController pushViewController:controller animated:YES];
+	__weak typeof(self)weakSelf = self;
+	[[WLAPIManager instance] signUp:self.user success:^(id object) {
+		WLActivationViewController *controller = [[WLActivationViewController alloc] initWithUser:weakSelf.user];
+		[weakSelf.navigationController pushViewController:controller animated:YES];
+	} failure:^(NSError *error) {
+		[error show];
+	}];
 }
 
 - (IBAction)phoneNumberChanged:(UITextField *)sender {
@@ -98,6 +105,9 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+	if (self.phoneNumberTextField.isFirstResponder || self.birthdateTextField.isFirstResponder) {
+		return;
+	}
 	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		self.view.transform = CGAffineTransformIdentity;
 	} completion:^(BOOL finished) {}];

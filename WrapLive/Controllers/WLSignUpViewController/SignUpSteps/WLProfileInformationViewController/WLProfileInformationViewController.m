@@ -39,15 +39,18 @@
 }
 
 - (IBAction)goToMainScreen:(id)sender {
+	self.view.userInteractionEnabled = NO;
 	[self sendUpdateRequest];
 }
 
 - (void)sendUpdateRequest {
+	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] updateMe:self.user success:^(id object) {
-		[WLSession setUser:self.user];
-		WLHomeViewController * controller = [self.signUpViewController.storyboard instantiateViewControllerWithIdentifier:@"home"];
-		[self.signUpViewController.navigationController pushViewController:controller animated:YES];
+		[WLSession setUser:weakSelf.user];
+		NSArray *navigationArray = @[[weakSelf.signUpViewController.storyboard instantiateViewControllerWithIdentifier:@"home"]];
+		[weakSelf.signUpViewController.navigationController setViewControllers:navigationArray animated:YES];
 	} failure:^(NSError *error) {
+		weakSelf.view.userInteractionEnabled = YES;
 		[error show];
 	}];
 }

@@ -75,12 +75,14 @@
 }
 
 - (IBAction)signUp:(id)sender {
+	self.view.userInteractionEnabled = NO;
 	self.user = [self prepareForRequest];
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] signUp:self.user success:^(id object) {
 		WLActivationViewController *controller = [[WLActivationViewController alloc] initWithUser:weakSelf.user];
 		[weakSelf.navigationController pushViewController:controller animated:YES];
 	} failure:^(NSError *error) {
+		weakSelf.view.userInteractionEnabled = YES;
 		[error show];
 	}];
 }

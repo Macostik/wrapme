@@ -8,7 +8,6 @@
 
 #import "WLPhoneNumberViewController.h"
 #import "WLUser.h"
-#import "WLAPIManager.h"
 #import "NSDate+Formatting.h"
 #import "WLActivationViewController.h"
 #import "WLCountriesViewController.h"

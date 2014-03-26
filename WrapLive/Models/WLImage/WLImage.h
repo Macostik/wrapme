@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLWrapEntry.h"
+#import "WLCandy.h"
 
-@interface WLImage : WLWrapEntry
+@interface WLImage : WLCandy
 
 @property (strong, nonatomic) NSString* url;
 @property (strong, nonatomic) NSString* thumbnail;

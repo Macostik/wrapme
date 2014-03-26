@@ -1,5 +1,5 @@
 //
-//  WLWrapEntry.h
+//  WLCandy.h
 //  WrapLive
 //
 //  Created by Sergey Maximenko on 20.03.14.
@@ -12,7 +12,7 @@
 
 @protocol WLComment @end
 
-@interface WLWrapEntry : WLEntry
+@interface WLCandy : WLEntry
 
 @property (strong, nonatomic) NSArray<WLComment>* comments;
 @property (strong, nonatomic) NSString* cover;

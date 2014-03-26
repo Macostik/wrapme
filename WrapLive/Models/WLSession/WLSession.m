@@ -53,4 +53,8 @@ static WLUser* _user = nil;
 	[SSKeychain setPassword:password forService:WLSessionServiceName account:WLSessionAccountName];
 }
 
++ (BOOL)activated {
+	return [self password].length > 0 && [self user] != nil;
+}
+
 @end

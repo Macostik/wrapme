@@ -8,15 +8,17 @@
 
 #import "WLEntry.h"
 
-@class WLWrapEntry;
+@class WLCandy;
 
-@protocol WLWrapEntry @end
+@protocol WLCandy @end
 
 @interface WLWrap : WLEntry
 
-@property (strong, nonatomic) NSArray<WLWrapEntry>* entries;
+@property (strong, nonatomic) NSArray<WLCandy>* candies;
 @property (strong, nonatomic) NSString* name;
+@property (strong, nonatomic) NSString* cover;
+@property (strong, nonatomic) NSArray* contributors;
 
-- (void)addEntry:(WLWrapEntry*)entry;
+- (void)addEntry:(WLCandy*)entry;
 
 @end

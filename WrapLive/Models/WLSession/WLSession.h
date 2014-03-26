@@ -47,4 +47,6 @@
  */
 + (void)setPassword:(NSString*)password;
 
++ (BOOL)activated;
+
 @end

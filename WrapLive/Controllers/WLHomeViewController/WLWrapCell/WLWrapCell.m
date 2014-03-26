@@ -8,7 +8,7 @@
 
 #import "WLWrapCell.h"
 #import "WLWrap.h"
-#import "WLWrapEntry.h"
+#import "WLCandy.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface WLWrapCell ()
@@ -22,8 +22,7 @@
 
 - (void)setupItemData:(WLWrap*)wrap {
 	self.nameLabel.text = wrap.name;
-	WLWrapEntry* entry = [wrap.entries lastObject];
-	[self.coverView setImageWithURL:[NSURL URLWithString:entry.cover]];
+	[self.coverView setImageWithURL:[NSURL URLWithString:wrap.cover]];
 }
 
 @end

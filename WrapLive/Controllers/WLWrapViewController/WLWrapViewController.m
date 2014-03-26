@@ -7,43 +7,46 @@
 //
 
 #import "WLWrapViewController.h"
+#import "WLWrap.h"
+#import "WLWrapCandiesCell.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface WLWrapViewController ()
+
+@property (strong, nonatomic) IBOutlet UITableView* tableView;
+@property (weak, nonatomic) IBOutlet UIImageView *coverView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 
 @end
 
 @implementation WLWrapViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+	
+	[self.coverView setImageWithURL:[NSURL URLWithString:self.wrap.cover]];
+	self.nameLabel.text = self.wrap.name;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)back:(id)sender {
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - UITableViewDataSource
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
 }
-*/
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WLWrapCandiesCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLWrapCandiesCell reuseIdentifier]];
+    
+    cell.item = self.wrap;
+    
+    return cell;
+}
 
 @end

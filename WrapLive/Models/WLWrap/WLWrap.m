@@ -7,15 +7,24 @@
 //
 
 #import "WLWrap.h"
+#import "WLCandy.h"
 
 @implementation WLWrap
 
-- (void)addEntry:(WLWrapEntry *)entry {
-	if (!self.entries) {
-		self.entries = (id)[NSArray arrayWithObject:entry];
+- (void)addEntry:(WLCandy *)entry {
+	if (!self.candies) {
+		self.candies = (id)[NSArray arrayWithObject:entry];
 	} else {
-		self.entries = (id)[self.entries arrayByAddingObject:entry];
+		self.candies = (id)[self.candies arrayByAddingObject:entry];
 	}
+}
+
+- (NSString *)cover {
+	if (_cover == nil) {
+		WLCandy* candy = [self.candies lastObject];
+		return candy.cover;
+	}
+	return _cover;
 }
 
 @end

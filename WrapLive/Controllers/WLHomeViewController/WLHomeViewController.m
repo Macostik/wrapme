@@ -9,9 +9,10 @@
 #import "WLHomeViewController.h"
 #import "WLWrapCell.h"
 #import "WLWrap.h"
-#import "WLWrapEntry.h"
+#import "WLCandy.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "WLAPIManager.h"
+#import "WLWrapViewController.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -42,12 +43,6 @@
 	}];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	
-	[self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-
 - (void)setWraps:(NSArray *)wraps {
 	_wraps = wraps;
 	
@@ -63,15 +58,22 @@
 - (void)updateHeaderView {
 	WLWrap* wrap = [self.wraps lastObject];
 	self.headerWrapNameLabel.text = wrap.name;
-	[wrap.entries enumerateObjectsUsingBlock:^(WLWrapEntry* entry, NSUInteger idx, BOOL *stop) {
+	[wrap.candies enumerateObjectsUsingBlock:^(WLCandy* candy, NSUInteger idx, BOOL *stop) {
 		if (idx < [self.headerEntryViews count]) {
 			UIImageView* imageView = [self.headerEntryViews objectAtIndex:idx];
 			imageView.image = nil;
-			[imageView setImageWithURL:[NSURL URLWithString:entry.cover]];
+			[imageView setImageWithURL:[NSURL URLWithString:candy.cover]];
 		} else {
 			*stop = YES;
 		}
 	}];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.identifier isEqualToString:@"wrap"]) {
+		WLWrap* wrap = [self.wraps objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+		[(WLWrapViewController* )segue.destinationViewController setWrap:wrap];
+	}
 }
 
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>

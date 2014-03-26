@@ -34,7 +34,9 @@
     
     [self.cameraView.layer addSublayer:self.captureVideoPreviewLayer];
     
-    if (self.backFacingCameraDeviceInput) {
+    if (self.frontFacingCameraDeviceInput) {
+        [self.session addInput:self.frontFacingCameraDeviceInput];
+    } else if (self.backFacingCameraDeviceInput) {
         [self.session addInput:self.backFacingCameraDeviceInput];
     }
     
@@ -48,7 +50,12 @@
 #pragma mark - User Actions
 
 - (IBAction)cancel:(id)sender {
-	[self.delegate cameraViewControllerDidCancel:self];
+	if (self.delegate) {
+		[self.delegate cameraViewControllerDidCancel:self];
+	} else if (self.presentingViewController) {
+		[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+	}
+	
 }
 
 - (IBAction)shot:(id)sender {

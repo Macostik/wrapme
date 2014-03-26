@@ -100,6 +100,7 @@
 	WLActivationViewController *controller = [[WLActivationViewController alloc] initWithUser:self.user];
 	[self.navigationController pushViewController:controller animated:YES];
 }
+
 - (IBAction)phoneNumberChanged:(UITextField *)sender {
 	self.signUpButton.enabled = self.phoneNumberTextField.text.length > 0 ? YES : NO;
 }

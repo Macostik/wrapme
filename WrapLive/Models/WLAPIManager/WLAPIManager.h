@@ -34,7 +34,7 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)activate:(WLUser*)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)activate:(WLUser*)user code:(NSString*)code success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Login to WrapLive.

@@ -26,10 +26,11 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 @implementation WLAPIManager
 
 + (instancetype)instance {
-    static id instance = nil;
+    static WLAPIManager* instance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:WLAPIBaseUrl]];
+//		[instance.requestSerializer setValue:@"application/vnd.ravenpod+json;version=1" forHTTPHeaderField:@"Accept"];
 	});
     return instance;
 }
@@ -79,8 +80,6 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSDictionary* parameters = @{@"device_uid" : [WLSession UDID],
 								 @"country_calling_code" : user.countryCallingCode,
 								 @"phone_number" : user.phoneNumber,
-//								 @"country_calling_code" : @"+38",
-//								 @"phone_number" : @"0679533279",
 								 @"dob" : [user.birthdate string]};
 	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
 													  withObject:^id(WLAPIResponse *response) {
@@ -89,11 +88,12 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	return [self POST:@"users" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
 }
 
-- (id)activate:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (id)activate:(WLUser *)user code:(NSString *)code success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	NSDictionary* parameters = @{@"device_uid" : [WLSession UDID],
 								 @"country_calling_code" : user.countryCallingCode,
 								 @"phone_number" : user.phoneNumber,
-								 @"activation_code" : user.activationCode};
+								 @"activation_code" : code,
+								 @"dob" : [user.birthdate string]};
 	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
 													  withObject:^id(WLAPIResponse *response) {
 														  NSString* password = [response.data objectForKey:@"password"];
@@ -106,7 +106,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 - (id)signIn:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	NSDictionary* parameters = @{@"country_calling_code" : user.countryCallingCode,
 								 @"phone_number" : user.phoneNumber,
-								 @"password" : [WLSession password]};
+								 @"password" : [WLSession password],
+								 @"dob" : [user.birthdate string]};
 	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
 													  withObject:^id(WLAPIResponse *response) {
 														  return response;

@@ -15,6 +15,5 @@
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSDate* birthdate;
 @property (strong, nonatomic) NSString* avatar;
-@property (strong, nonatomic) NSString * activationCode;
 
 @end

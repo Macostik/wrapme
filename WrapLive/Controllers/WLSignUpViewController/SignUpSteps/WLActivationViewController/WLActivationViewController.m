@@ -90,12 +90,14 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 }
 
 - (void)activate:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
-	__weak typeof(self)weakSelf = self;
-	self.user.activationCode = self.activationTextField.text;
-	id operation = [[WLAPIManager instance] activate:self.user success:^(id object) {
-		[weakSelf signIn:completion failure:failure];
-	} failure:failure];
-	[self handleProgressOfOperation:operation];
+	NSString* activationCode = self.activationTextField.text;
+	if (activationCode.length > 0) {
+		__weak typeof(self)weakSelf = self;
+		id operation = [[WLAPIManager instance] activate:self.user code:activationCode success:^(id object) {
+			[weakSelf signIn:completion failure:failure];
+		} failure:failure];
+		[self handleProgressOfOperation:operation];
+	}
 }
 
 - (void)signIn:(void (^)(void))completion failure:(void (^)(NSError* error))failure {

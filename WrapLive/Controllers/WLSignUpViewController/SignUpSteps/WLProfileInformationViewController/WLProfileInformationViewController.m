@@ -30,6 +30,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+	self.user = [WLSession user];
 	[self verifyContinueButton];
 }
 
@@ -60,7 +61,6 @@
 - (void)saveImage:(UIImage *)image {
 	NSString  *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/WrapLiveAvatar.jpg"];
 	[UIImageJPEGRepresentation(image,1.0) writeToFile:path atomically:YES];
-	self.user = [WLSession user];
 	self.user.avatar = path;
 	[self verifyContinueButton];
 }

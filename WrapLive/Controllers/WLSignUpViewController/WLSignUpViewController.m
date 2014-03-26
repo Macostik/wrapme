@@ -18,6 +18,7 @@
 @interface WLSignUpViewController () <UIScrollViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *stepLabels;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *stepViews;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *stepDoneViews;
 @property (strong, nonatomic) IBOutlet UIView *signUpStepsView;
 
@@ -39,11 +40,15 @@
 }
 
 - (void)updateStepLabelsWithIndex:(int)index {
-	NSInteger currentStep = index + 1;
 	
 	for (UILabel* label in self.stepLabels) {
 		NSUInteger idx = [self.stepLabels indexOfObject:label];
-		label.hidden = idx >= currentStep;
+		label.hidden = idx > index;
+	}
+	
+	for (UIView* view in self.stepViews) {
+		NSUInteger idx = [self.stepViews indexOfObject:view];
+		view.hidden = idx <= index;
 	}
 }
 

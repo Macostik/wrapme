@@ -13,6 +13,7 @@
 #import "WLActivationViewController.h"
 #import "WLCountriesViewController.h"
 #import "WLCountry.h"
+#import "WLInputAccessoryView.h"
 
 @interface WLPhoneNumberViewController () <UITextFieldDelegate>
 
@@ -29,7 +30,6 @@
 
 @implementation WLPhoneNumberViewController
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,29 +39,13 @@
 }
 
 - (void)setupPicker {
-	self.phoneNumberTextField.inputAccessoryView = [self addToolBarWithSelectorsCancel:@selector(phoneNumberTextFieldCancel:) andDone:@selector(phoneNumberTextFieldDone:)];
+	[WLInputAccessoryView inputAccessoryViewWithResponder:self.phoneNumberTextField];
 	self.birthdatePicker = [UIDatePicker new];
 	self.birthdatePicker.datePickerMode = UIDatePickerModeDate;
 	self.birthdatePicker.maximumDate = [NSDate date];
 	self.birthdatePicker.backgroundColor = [UIColor whiteColor];
-	self.birthdateTextField.inputAccessoryView = [self addToolBarWithSelectorsCancel:@selector(birthdatePickerCancel:) andDone:@selector(birthdatePickerDone:)];
+	self.birthdateTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(birthdatePickerCancel:) done:@selector(birthdatePickerDone:)];
 	self.birthdateTextField.inputView = self.birthdatePicker;
-}
-
-- (UIToolbar *) addToolBarWithSelectorsCancel:(SEL)cancel andDone:(SEL)done
-{
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-    UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                           target:self
-                                                                           action:cancel];
-    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                           target:self
-                                                                           action:cancel];
-    UIBarButtonItem *item3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                           target:self
-                                                                           action:done];
-    toolbar.items = @[item1, item2, item3];
-    return toolbar;
 }
 
 - (void)birthdatePickerCancel:(id)sender {
@@ -72,15 +56,6 @@
 - (void)birthdatePickerDone:(id)sender {
 	self.birthdateTextField.text = [self.birthdatePicker.date stringWithFormat:@"MMM' 'dd', 'YYYY'"];
 	[self.birthdateTextField resignFirstResponder];
-}
-
-- (void)phoneNumberTextFieldCancel:(id)sender {
-	self.phoneNumberTextField.text = nil;
-	[self.phoneNumberTextField resignFirstResponder];
-}
-
-- (void)phoneNumberTextFieldDone:(id)sender {
-	[self.phoneNumberTextField resignFirstResponder];
 }
 
 - (void)fillCountryFields {

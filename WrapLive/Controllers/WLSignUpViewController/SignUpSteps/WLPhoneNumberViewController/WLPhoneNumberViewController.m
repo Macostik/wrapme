@@ -14,6 +14,7 @@
 #import "WLCountry.h"
 #import "WLInputAccessoryView.h"
 #import "WLAPIManager.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLPhoneNumberViewController () <UITextFieldDelegate>
 
@@ -36,6 +37,8 @@
 	[self setupPicker];
 	self.country = [WLCountry getCurrentCountry];
 	[self fillCountryFields];
+	self.phoneNumberTextField.superview.layer.borderColor = [UIColor WL_grayColor].CGColor;
+	self.birthdateTextField.superview.layer.borderColor = [UIColor WL_grayColor].CGColor;
 }
 
 - (void)setupPicker {
@@ -104,10 +107,15 @@
 	} completion:^(BOOL finished) {}];
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 	if (self.phoneNumberTextField.isFirstResponder || self.birthdateTextField.isFirstResponder) {
-		return;
+		[self.view endEditing:YES];
+		return NO;
 	}
+	return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
 	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		self.view.transform = CGAffineTransformIdentity;
 	} completion:^(BOOL finished) {}];

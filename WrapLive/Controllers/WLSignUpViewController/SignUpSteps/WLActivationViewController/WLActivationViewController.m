@@ -136,7 +136,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-	CGFloat translation = textField.frame.origin.y - textField.frame.size.height - 5;
+	CGFloat translation = textField.frame.origin.y - 0.5 * (self.view.frame.size.height - 260 - textField.frame.size.height) + self.phoneNumberLabel.frame.size.height;
 	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
 	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		self.view.transform = transform;

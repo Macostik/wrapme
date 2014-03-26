@@ -62,4 +62,18 @@
 	return YES;
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+	CGFloat translation = textField.frame.origin.y - 0.5 * (self.view.frame.size.height - 216 - textField.frame.size.height);
+	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
+	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		self.view.transform = transform;
+	} completion:^(BOOL finished) {}];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		self.view.transform = CGAffineTransformIdentity;
+	} completion:^(BOOL finished) {}];
+}
+
 @end

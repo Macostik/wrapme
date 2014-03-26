@@ -87,30 +87,20 @@
 	return self.user;
 }
 
-- (void)scrollTextFieldToVisible:(UITextField *)textField {
-	CGAffineTransform transform;
-	if (textField == self.phoneNumberTextField) {
-		transform = CGAffineTransformMakeTranslation(0, -40);
-	}
-	else {
-		transform = CGAffineTransformMakeTranslation(0, -140);
-	}
-	
-    [UIView animateWithDuration:0.5 animations:^{
-		self.view.transform = transform;
-	}];
-}
-
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-	[self scrollTextFieldToVisible:textField];
+	CGFloat translation = textField.frame.origin.y - 0.5 * (self.view.frame.size.height - 260 - textField.frame.size.height);
+	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
+	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		self.view.transform = transform;
+	} completion:^(BOOL finished) {}];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-	[UIView animateWithDuration:0.25 animations:^{
+	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		self.view.transform = CGAffineTransformIdentity;
-	}];
+	} completion:^(BOOL finished) {}];
 }
 
 @end

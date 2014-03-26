@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-static NSString* WLFontNameOpenSansRegular = @"OpenSans-Regular";
+static NSString* WLFontNameOpenSansRegular = @"OpenSans";
 static NSString* WLFontNameOpenSansLight = @"OpenSans-Light";
 
 static CGFloat WLFontSizeMicro = 12.0f;

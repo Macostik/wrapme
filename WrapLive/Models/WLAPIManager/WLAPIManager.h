@@ -25,7 +25,7 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (void)signUp:(WLUser*)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)signUp:(WLUser*)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Activate a registered account with the activation code received from SMS.

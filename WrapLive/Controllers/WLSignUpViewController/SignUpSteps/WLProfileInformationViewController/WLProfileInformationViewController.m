@@ -9,14 +9,18 @@
 #import "WLProfileInformationViewController.h"
 #import "WLHomeViewController.h"
 #import "WLCameraViewController.h"
+#import "WLAPIManager.h"
+#import "WLUser.h"
+#import "WLSession.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UIButton *createImageButton;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
-
+@property (strong, nonatomic) WLUser * user;
 @property (nonatomic, readonly) UIViewController* signUpViewController;
+@property (strong, nonatomic) IBOutlet UIButton *continueButton;
 
 @end
 
@@ -26,22 +30,43 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-	
+	[self verifyContinueButton];
 }
 
 - (UIViewController *)signUpViewController {
 	return self.navigationController.parentViewController;
 }
 
-- (IBAction)continue:(id)sender {
-	WLHomeViewController * controller = [self.signUpViewController.storyboard instantiateViewControllerWithIdentifier:@"home"];
-	[self.signUpViewController.navigationController pushViewController:controller animated:YES];
+- (IBAction)goToMainScreen:(id)sender {
+	[self sendUpdateRequest];
+}
+
+- (void)sendUpdateRequest {
+	[[WLAPIManager instance] updateMe:self.user success:^(id object) {
+		[WLSession setUser:self.user];
+		WLHomeViewController * controller = [self.signUpViewController.storyboard instantiateViewControllerWithIdentifier:@"home"];
+		[self.signUpViewController.navigationController pushViewController:controller animated:YES];
+	} failure:^(NSError *error) {
+		[error show];
+	}];
 }
 
 - (IBAction)createImage:(id)sender {
 	WLCameraViewController * controller = [self.signUpViewController.storyboard instantiateViewControllerWithIdentifier:@"camera"];
 	controller.delegate = self;
 	[self.signUpViewController presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)saveImage:(UIImage *)image {
+	NSString  *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/WrapLiveAvatar.jpg"];
+	[UIImageJPEGRepresentation(image,1.0) writeToFile:path atomically:YES];
+	self.user = [WLSession user];
+	self.user.avatar = path;
+	[self verifyContinueButton];
+}
+
+- (void)verifyContinueButton {
+	self.continueButton.enabled = (self.user.avatar) && (self.user.name) ? YES : NO;
 }
 
 #pragma mark - WLCameraViewControllerDelegate
@@ -52,6 +77,7 @@
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
 	self.profileImageView.image = image;
+	[self saveImage:image];
 	[self.signUpViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -71,6 +97,8 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+	self.user.name = self.nameTextField.text;
+	[self verifyContinueButton];
 	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		self.view.transform = CGAffineTransformIdentity;
 	} completion:^(BOOL finished) {}];

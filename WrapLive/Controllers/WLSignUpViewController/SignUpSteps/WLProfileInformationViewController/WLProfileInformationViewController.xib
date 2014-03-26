@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLProfileInformationViewController">
             <connections>
+                <outlet property="continueButton" destination="drd-ub-mAD" id="TJD-4y-4Ye"/>
                 <outlet property="createImageButton" destination="7VQ-Qc-wV0" id="eui-lI-j3T"/>
                 <outlet property="nameTextField" destination="gKV-eO-kZ4" id="wMq-8H-OmH"/>
                 <outlet property="profileImageView" destination="ItZ-4A-Bja" id="dMd-Ta-cC0"/>
@@ -27,8 +28,11 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="disabled">
+                        <color key="titleColor" red="0.57647061347961426" green="0.57647061347961426" blue="0.57254904508590698" alpha="1" colorSpace="deviceRGB"/>
+                    </state>
                     <connections>
-                        <action selector="continue:" destination="-1" eventType="touchUpInside" id="N3n-3g-gVA"/>
+                        <action selector="goToMainScreen:" destination="-1" eventType="touchUpInside" id="9U6-d3-ppS"/>
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter you profile information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wgd-KP-AKU">
@@ -66,7 +70,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

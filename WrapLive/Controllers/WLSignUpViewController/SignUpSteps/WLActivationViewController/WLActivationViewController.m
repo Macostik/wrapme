@@ -12,6 +12,7 @@
 #import "WLProfileInformationViewController.h"
 #import "UIColor+CustomColors.h"
 #import "WLInputAccessoryView.h"
+#import "WLSession.h"
 
 static NSInteger WLActivationCodeLimit = 4;
 
@@ -90,6 +91,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 - (void)signIn:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
 	id operation = [[WLAPIManager instance] signIn:self.user success:^(id object) {
 		completion();
+		[WLSession setUser:self.user];
 	} failure:failure];
 	[self handleProgressOfOperation:operation];
 }

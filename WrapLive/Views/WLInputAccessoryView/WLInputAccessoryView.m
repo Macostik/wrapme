@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIButton* cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton* doneButton;
 
+@property (strong, nonatomic) NSString* text;
+
 @end
 
 @implementation WLInputAccessoryView
@@ -38,13 +40,19 @@
 
 - (void)cancel:(id)sender {
 	if ([self.responder respondsToSelector:@selector(setText:)]) {
-		[self.responder performSelector:@selector(setText:) withObject:nil];
+		[self.responder performSelector:@selector(setText:) withObject:self.text];
 	}
 	[self.responder resignFirstResponder];
 }
 
 - (void)done:(id)sender {
 	[self.responder resignFirstResponder];
+}
+
+- (void)didMoveToSuperview {
+	if (self.superview != nil && [self.responder respondsToSelector:@selector(text)]) {
+		self.text = [self.responder performSelector:@selector(text) withObject:nil];
+	}
 }
 
 @end

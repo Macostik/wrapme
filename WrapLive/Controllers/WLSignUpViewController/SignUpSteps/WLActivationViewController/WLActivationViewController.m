@@ -53,6 +53,8 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 	[WLInputAccessoryView inputAccessoryViewWithResponder:self.activationTextField];
 	
 	self.phoneNumberLabel.text = [NSString stringWithFormat:@"+%@ %@", self.user.countryCallingCode, self.user.phoneNumber];
+	self.activationTextField.layer.borderWidth = 0.5;
+	self.activationTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
 }
 
 - (void)setCurrentPage:(WLActivationPage)currentPage {

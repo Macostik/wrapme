@@ -29,6 +29,21 @@
 	});
 }
 
++ (void)phoneNumbers:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure {
+	ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+    ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			if (error) {
+				failure((__bridge NSError *)(error));
+			} else if (granted) {
+				success(WLAddressBookGetPhoneNumbers(addressBook));
+			} else {
+				failure([NSError errorWithDescription:@"Access to your Address Book is not granted."]);
+			}
+		});
+	});
+}
+
 static inline NSString* WLAddressBookGetPhoneNumber(ABRecordRef record) {
     NSString* email = nil;
     ABMultiValueRef emails = ABRecordCopyValue(record,kABPersonPhoneProperty);
@@ -79,6 +94,29 @@ static inline NSArray* WLAddressBookGetUsers(ABAddressBookRef addressBook) {
     CFRelease(records);
     
     return [users copy];
+}
+
+static inline NSArray* WLAddressBookGetPhoneNumbers(ABAddressBookRef addressBook) {
+    CFArrayRef records = ABAddressBookCopyArrayOfAllPeople(addressBook);
+    
+    CFIndex count = ABAddressBookGetPersonCount(addressBook);
+    
+    NSMutableArray* phoneNumbers = [NSMutableArray array];
+    
+    for (int i = 0; i < count; i++) {
+        ABRecordRef record = CFArrayGetValueAtIndex(records, i);
+		ABMultiValueRef _phoneNumbers = ABRecordCopyValue(record,kABPersonPhoneProperty);
+		CFIndex phoneCount = ABMultiValueGetCount(_phoneNumbers);
+		for (NSInteger index = 0; index < phoneCount; ++index) {
+			NSString* phoneNumber = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(_phoneNumbers, index);
+			[phoneNumbers addObject:phoneNumber];
+		}
+		CFRelease(_phoneNumbers);
+    }
+    
+    CFRelease(records);
+    
+    return [phoneNumbers copy];
 }
 
 @end

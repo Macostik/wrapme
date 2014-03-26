@@ -52,7 +52,7 @@
                 </label>
                 <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cD7-Fk-gnm">
                     <rect key="frame" x="41" y="28" width="238" height="30"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="Select Country">
                         <color key="titleColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
@@ -64,7 +64,7 @@
                 </button>
                 <view contentMode="scaleToFill" id="yh3-y3-3k0">
                     <rect key="frame" x="40" y="56" width="240" height="27"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pzB-T8-egw">
                             <rect key="frame" x="0.0" y="0.0" width="48" height="27"/>
@@ -101,7 +101,7 @@
                 </label>
                 <view contentMode="scaleToFill" id="rSB-h5-1C3">
                     <rect key="frame" x="40" y="125" width="240" height="27"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your birthdate" textAlignment="center" minimumFontSize="17" id="6e1-au-LUG">
                             <rect key="frame" x="0.0" y="0.0" width="240" height="27"/>

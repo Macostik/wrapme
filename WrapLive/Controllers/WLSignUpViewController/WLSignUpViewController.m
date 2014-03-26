@@ -19,6 +19,7 @@
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *stepLabels;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *stepViews;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *stepLines;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *stepDoneViews;
 @property (strong, nonatomic) IBOutlet UIView *signUpStepsView;
 
@@ -49,6 +50,11 @@
 	for (UIView* view in self.stepViews) {
 		NSUInteger idx = [self.stepViews indexOfObject:view];
 		view.hidden = idx <= index;
+	}
+	
+	for (UIView* line in self.stepLines) {
+		NSUInteger idx = [self.stepLines indexOfObject:line];
+		line.hidden = idx >= index;
 	}
 }
 

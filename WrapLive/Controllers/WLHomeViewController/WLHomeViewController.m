@@ -96,6 +96,7 @@
 - (void)hideView {
 	self.messageView.hidden = YES;
 	self.tableView.frame = CGRectMake(self.tableView.x, self.tableView.y - self.messageView.height, self.tableView.width, self.tableView.height + self.messageView.height);
+	[self.typeMessageTextField resignFirstResponder];
 	self.typeMessageTextField.text = nil;
 }
 
@@ -124,7 +125,6 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[self hideViewAndSendMessage];
-	[textField resignFirstResponder];
 	return YES;
 }
 

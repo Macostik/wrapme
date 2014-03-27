@@ -11,6 +11,7 @@
 #import "WLWrap.h"
 #import "WLContributorsViewController.h"
 #import "NSArray+Additions.h"
+#import "UIStoryboard+Additions.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate>
 
@@ -38,7 +39,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue.identifier isEqualToString:@"contributors"]) {
+	if ([segue isContributorsSegue]) {
 		WLContributorsViewController* controller = segue.destinationViewController;
 		controller.wrap = self.wrap;
 	}

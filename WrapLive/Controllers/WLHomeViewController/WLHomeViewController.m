@@ -13,6 +13,7 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "WLAPIManager.h"
 #import "WLWrapViewController.h"
+#import "UIStoryboard+Additions.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
@@ -100,7 +101,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue.identifier isEqualToString:@"wrap"]) {
+	if ([segue isWrapSegue]) {
 		WLWrap* wrap = [self.wraps objectAtIndex:[self.tableView indexPathForSelectedRow].row];
 		[(WLWrapViewController* )segue.destinationViewController setWrap:wrap];
 	}

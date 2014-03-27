@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215DC7A18E4421700FCA744 /* NSArray+Additions.m */; };
+		1215DC7F18E4485800FCA744 /* UIStoryboard+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215DC7E18E4485800FCA744 /* UIStoryboard+Additions.m */; };
 		121B1B2E18E07430001F585C /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		121B1B3118E0749F001F585C /* WLDummyWraps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3018E0749F001F585C /* WLDummyWraps.plist */; };
 		121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */; };
@@ -77,6 +78,8 @@
 /* Begin PBXFileReference section */
 		1215DC7918E4421700FCA744 /* NSArray+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Additions.h"; sourceTree = "<group>"; };
 		1215DC7A18E4421700FCA744 /* NSArray+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Additions.m"; sourceTree = "<group>"; };
+		1215DC7D18E4485800FCA744 /* UIStoryboard+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIStoryboard+Additions.h"; path = "UIStoryboard/UIStoryboard+Additions.h"; sourceTree = "<group>"; };
+		1215DC7E18E4485800FCA744 /* UIStoryboard+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIStoryboard+Additions.m"; path = "UIStoryboard/UIStoryboard+Additions.m"; sourceTree = "<group>"; };
 		121B1B2C18E07430001F585C /* WLCountry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCountry.h; path = WLCountry/WLCountry.h; sourceTree = "<group>"; };
 		121B1B2D18E07430001F585C /* WLCountry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCountry.m; path = WLCountry/WLCountry.m; sourceTree = "<group>"; };
 		121B1B3018E0749F001F585C /* WLDummyWraps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLDummyWraps.plist; sourceTree = "<group>"; };
@@ -217,6 +220,15 @@
 				1215DC7A18E4421700FCA744 /* NSArray+Additions.m */,
 			);
 			path = NSArray;
+			sourceTree = "<group>";
+		};
+		1215DC7C18E4484000FCA744 /* UIStoryboard */ = {
+			isa = PBXGroup;
+			children = (
+				1215DC7D18E4485800FCA744 /* UIStoryboard+Additions.h */,
+				1215DC7E18E4485800FCA744 /* UIStoryboard+Additions.m */,
+			);
+			name = UIStoryboard;
 			sourceTree = "<group>";
 		};
 		121B1B2B18E0741A001F585C /* WLCountry */ = {
@@ -694,6 +706,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				1215DC7C18E4484000FCA744 /* UIStoryboard */,
 				1215DC7818E4421700FCA744 /* NSArray */,
 				12D653D318E4326C009CE64C /* UIView */,
 				129654EC18E1A79500FF43F6 /* UIColor */,
@@ -912,6 +925,7 @@
 				1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
+				1215DC7F18E4485800FCA744 /* UIStoryboard+Additions.m in Sources */,
 				129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,

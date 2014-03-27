@@ -12,6 +12,7 @@
 #import "WLAPIManager.h"
 #import "WLUser.h"
 #import "WLSession.h"
+#import "UIStoryboard+Additions.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate>
 
@@ -47,7 +48,7 @@
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] updateMe:self.user success:^(id object) {
 		[WLSession setUser:weakSelf.user];
-		NSArray *navigationArray = @[[weakSelf.signUpViewController.storyboard instantiateViewControllerWithIdentifier:@"home"]];
+		NSArray *navigationArray = @[[weakSelf.signUpViewController.storyboard homeViewController]];
 		[weakSelf.signUpViewController.navigationController setViewControllers:navigationArray animated:YES];
 	} failure:^(NSError *error) {
 		weakSelf.view.userInteractionEnabled = YES;
@@ -56,7 +57,7 @@
 }
 
 - (IBAction)createImage:(id)sender {
-	WLCameraViewController * controller = [self.signUpViewController.storyboard instantiateViewControllerWithIdentifier:@"camera"];
+	WLCameraViewController * controller = [self.signUpViewController.storyboard cameraViewController];
 	controller.delegate = self;
 	[self.signUpViewController presentViewController:controller animated:YES completion:nil];
 }

@@ -17,14 +17,14 @@
  *  @param success block for successful completion
  *  @param failure block for failed completion
  */
-+ (void)users:(void (^)(NSArray* users))success failure:(void (^)(NSError* error))failure;
++ (void)contacts:(void (^)(NSArray* contacts))success failure:(void (^)(NSError* error))failure;
 
-/**
- *  Get the list of phone numbers from Address Book.
- *
- *  @param success block for successful completion
- *  @param failure block for failed completion
- */
-+ (void)phoneNumbers:(void (^)(NSArray* phoneNumbers))success failure:(void (^)(NSError* error))failure;
+@end
+
+@interface WLContact : NSObject
+
+@property (strong, nonatomic) NSDate* birthdate;
+@property (strong, nonatomic) NSString* name;
+@property (strong, nonatomic) NSArray* phoneNumbers;
 
 @end

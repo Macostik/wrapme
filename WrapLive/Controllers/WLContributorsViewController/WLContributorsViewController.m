@@ -29,10 +29,9 @@
     // Do any additional setup after loading the view.
 	
 	__weak typeof(self)weakSelf = self;
-	[WLAddressBook users:^(NSArray *users) {
-		weakSelf.contributors = users;
+	[[WLAPIManager instance] contributors:^(id object) {
+		weakSelf.contributors = object;
 	} failure:^(NSError *error) {
-		
 	}];
 }
 

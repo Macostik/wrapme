@@ -13,6 +13,8 @@
 #import "NSDate+Formatting.h"
 #import "WLAPIResponse.h"
 #import <CocoaLumberjack/DDLog.h>
+#import "NSArray+Additions.h"
+#import "WLAddressBook.h"
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
@@ -136,13 +138,62 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	} success:successBlock failure:[self failureBlock:failure]];
 }
 
-- (void)contributors:(NSArray *)phoneNumbers success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	NSDictionary* parameters = @{@"phone_numbers":phoneNumbers};
-	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
-													  withObject:^id(WLAPIResponse *response) {
-														  return response;
-													  } failure:failure];
-	[self GET:@"users/sign_up_status" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
+- (void)contributors:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	__weak typeof(self)weakSelf = self;
+	[WLAddressBook contacts:^(NSArray *contacts) {
+
+		NSMutableArray* phoneNumbers = [NSMutableArray array];
+		
+		for (WLContact* contact in contacts) {
+			[phoneNumbers addObjectsFromArray:contact.phoneNumbers];
+		}
+				
+		NSDictionary* parameters = @{@"phone_numbers":phoneNumbers};
+		
+		id (^returnBlock) (WLAPIResponse*) = ^id(WLAPIResponse *response) {
+			return [weakSelf contributorsFromResponse:response contacts:contacts];
+		};
+		
+		[weakSelf GET:@"users/sign_up_status"
+		   parameters:parameters
+			  success:[weakSelf successBlock:success withObject:returnBlock failure:failure]
+			  failure:[weakSelf failureBlock:failure]];
+	} failure:failure];
+}
+
+- (NSArray*)contributorsFromResponse:(WLAPIResponse*)response contacts:(NSArray*)contacts {
+	id signUpStatus = [response.data objectForKey:@"sign_up_status"];
+	if ([signUpStatus isKindOfClass:[NSString class]]) {
+		NSData* data = [signUpStatus dataUsingEncoding:NSUTF8StringEncoding];
+		signUpStatus = [NSJSONSerialization JSONObjectWithData:data
+															   options:NSJSONReadingAllowFragments
+																 error:NULL];
+	}
+	
+	NSMutableArray* contributors = [NSMutableArray array];
+	
+	for (NSString* phoneNumber in signUpStatus) {
+		NSDictionary* value = [signUpStatus objectForKey:phoneNumber];
+		if ([[value objectForKey:@"sign_up_status"] boolValue]) {
+			
+			WLContact* contact = [contacts selectObject:^BOOL(WLContact* item) {
+				for (NSString* _phoneNumber in item.phoneNumbers) {
+					if ([_phoneNumber isEqualToString:phoneNumber]) {
+						return YES;
+					}
+				}
+				return NO;
+			}];
+			
+			WLUser* contributor = [[WLUser alloc] init];
+			contributor.name = contact.name;
+			contributor.phoneNumber = [value objectForKey:@"full_phone_number"];
+			contributor.birthdate = contact.birthdate;
+			[contributors addObject:contributor];
+		}
+	}
+	
+	return [contributors copy];
 }
 
 - (void)wraps:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {

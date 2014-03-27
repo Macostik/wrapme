@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-	
+
 	if ([WLSession activated]) {
 		self.continueButton.transform = CGAffineTransformMakeTranslation(0, self.continueButton.frame.size.height);
 		__weak typeof(self)weakSelf = self;

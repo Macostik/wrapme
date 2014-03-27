@@ -64,6 +64,15 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
 - (void)updateMe:(WLUser*)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
+ *  Given an arrray of phone numbers, return the sign up status as well as the full phone number found.
+ *
+ *  @param phoneNumbers phone numbers to be checked for sign-up status.
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (void)contributors:(NSArray*)phoneNumbers success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+/*!
  *  Get current authenticated user wraps.
  *
  *  @param success block that will be invoked on success completion

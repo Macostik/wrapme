@@ -136,6 +136,15 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	} success:successBlock failure:[self failureBlock:failure]];
 }
 
+- (void)contributors:(NSArray *)phoneNumbers success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	NSDictionary* parameters = @{@"phone_numbers":phoneNumbers};
+	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
+													  withObject:^id(WLAPIResponse *response) {
+														  return response;
+													  } failure:failure];
+	[self GET:@"users/sign_up_status" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
+}
+
 - (void)wraps:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	NSArray* wraps = [WLWrap arrayOfModelsFromDictionaries:[NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"WLDummyWraps" ofType:@"plist"]]];
 	success(wraps);

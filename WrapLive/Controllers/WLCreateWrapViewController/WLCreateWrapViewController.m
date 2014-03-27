@@ -19,8 +19,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UITableView *contributorsTableView;
-@property (strong, nonatomic) WLWrap* wrap;
 @property (weak, nonatomic) IBOutlet UIView *noContributorsView;
+
+@property (strong, nonatomic) WLWrap* wrap;
 
 @end
 

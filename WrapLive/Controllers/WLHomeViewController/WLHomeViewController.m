@@ -18,7 +18,6 @@
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
-@property (strong, nonatomic) IBOutlet UIView *headerView;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *headerEntryViews;
 @property (weak, nonatomic) IBOutlet UIView *headerWrapView;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapNameLabel;

@@ -12,6 +12,15 @@
 
 @implementation WLWrap
 
++ (NSMutableArray *)dummyWraps {
+	static NSMutableArray* _wraps = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		_wraps = [[WLWrap arrayOfModelsFromDictionaries:[NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"WLDummyWraps" ofType:@"plist"]]] mutableCopy];
+	});
+	return _wraps;
+}
+
 + (instancetype)wrap {
 	WLWrap* wrap = [[WLWrap alloc] init];
 	wrap.createdAt = [NSDate date];

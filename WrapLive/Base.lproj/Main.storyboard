@@ -104,7 +104,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xaZ-H0-ucD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2207" y="-959"/>
+            <point key="canvasLocation" x="2923" y="-951"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="1af-uD-k4o">
@@ -476,6 +476,9 @@
                                 <state key="normal" title="START NEW WRAP">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="start:" destination="y2d-d2-UUm" eventType="touchUpInside" id="w2z-yo-f56"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" id="P9C-9R-pqO" customClass="WLBorderView">
                                 <rect key="frame" x="10" y="89" width="300" height="40"/>
@@ -523,7 +526,7 @@
                                 <rect key="frame" x="80" y="140" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="wHH-jF-BAZ">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="wHH-jF-BAZ">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="130"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
@@ -538,6 +541,9 @@
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="fS5-iu-bCQ" kind="modal" identifier="camera" id="Bfv-2u-diL"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -589,6 +595,11 @@
                                                     <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="bottom" id="XHg-Ss-ER0" customClass="WLSeparatorView">
+                                                    <rect key="frame" x="49" y="48" width="271" height="1"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                    <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bME-GU-a5P">
                                                     <rect key="frame" x="268" y="0.0" width="52" height="49"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
@@ -724,6 +735,11 @@
                                                     <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="bottom" id="cfN-rd-7HP" customClass="WLSeparatorView">
+                                                    <rect key="frame" x="49" y="48" width="271" height="1"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                    <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -762,12 +778,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Adp-VB-Iup" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2466" y="875"/>
+            <point key="canvasLocation" x="2602" y="875"/>
         </scene>
         <!--Wrap View Controller-->
         <scene sceneID="swT-1e-jus">
             <objects>
-                <viewController id="hUj-RK-zkg" customClass="WLWrapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="wrap" id="hUj-RK-zkg" customClass="WLWrapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f6K-dz-2Hs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -921,7 +937,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUq-C2-qrY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1952" y="126"/>
+            <point key="canvasLocation" x="1956" y="138"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RxP-89-x39">
@@ -950,6 +966,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Gnf-h6-U5W"/>
+        <segue reference="Bfv-2u-diL"/>
     </inferredMetricsTieBreakers>
 </document>

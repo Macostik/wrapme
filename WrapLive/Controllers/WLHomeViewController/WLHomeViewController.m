@@ -37,10 +37,15 @@
 	
 	self.tableView.hidden = YES;
 	self.noWrapsView.hidden = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] wraps:^(id object) {
 		weakSelf.wraps = object;
 	} failure:^(NSError *error) {
+		[error show];
 	}];
 }
 

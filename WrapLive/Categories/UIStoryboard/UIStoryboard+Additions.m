@@ -18,6 +18,10 @@
 	return [self instantiateViewControllerWithIdentifier:WLStoryboardCameraViewControllerIdentifier];
 }
 
+- (id)wrapViewController {
+	return [self instantiateViewControllerWithIdentifier:WLStoryboardWrapViewControllerIdentifier];
+}
+
 @end
 
 @implementation UIStoryboardSegue (Additions)
@@ -28,6 +32,10 @@
 
 - (BOOL)isWrapSegue {
 	return [self.identifier isEqualToString:WLStoryboardSegueWrapIdentifier];
+}
+
+- (BOOL)isCameraSegue {
+	return [self.identifier isEqualToString:WLStoryboardSegueCameraIdentifier];
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "NSError+WLAPIManager.h"
 
 @class WLUser;
+@class WLWrap;
 
 typedef void (^WLAPIManagerSuccessBlock) (id object);
 typedef void (^WLAPIManagerFailureBlock) (NSError* error);
@@ -78,5 +79,13 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param failure block that will be invoked on failure completion
  */
 - (void)wraps:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+/*!
+ *  Creates new wrap
+ *
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (void)createWrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 @end

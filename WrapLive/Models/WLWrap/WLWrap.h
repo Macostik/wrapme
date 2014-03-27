@@ -14,6 +14,8 @@
 
 @interface WLWrap : WLEntry
 
++ (NSMutableArray*)dummyWraps;
+
 @property (strong, nonatomic) NSArray<WLCandy>* candies;
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSString* cover;

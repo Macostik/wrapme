@@ -10,6 +10,7 @@
 
 static NSString* WLStoryboardHomeViewControllerIdentifier = @"home";
 static NSString* WLStoryboardCameraViewControllerIdentifier = @"camera";
+static NSString* WLStoryboardWrapViewControllerIdentifier = @"wrap";
 
 @interface UIStoryboard (Additions)
 
@@ -17,15 +18,20 @@ static NSString* WLStoryboardCameraViewControllerIdentifier = @"camera";
 
 - (id)cameraViewController;
 
+- (id)wrapViewController;
+
 @end
 
 static NSString* WLStoryboardSegueContributorsIdentifier = @"contributors";
 static NSString* WLStoryboardSegueWrapIdentifier = @"wrap";
+static NSString* WLStoryboardSegueCameraIdentifier = @"camera";
 
 @interface UIStoryboardSegue (Additions)
 
 - (BOOL)isContributorsSegue;
 
 - (BOOL)isWrapSegue;
+
+- (BOOL)isCameraSegue;
 
 @end

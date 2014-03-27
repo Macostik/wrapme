@@ -12,8 +12,11 @@
 #import "WLContributorsViewController.h"
 #import "NSArray+Additions.h"
 #import "UIStoryboard+Additions.h"
+#import "WLAPIManager.h"
+#import "WLWrapViewController.h"
+#import "WLCameraViewController.h"
 
-@interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate>
+@interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
@@ -43,6 +46,9 @@
 	if ([segue isContributorsSegue]) {
 		WLContributorsViewController* controller = segue.destinationViewController;
 		controller.wrap = self.wrap;
+	} else if ([segue isCameraSegue]) {
+		WLCameraViewController* controller = segue.destinationViewController;
+		controller.delegate = self;
 	}
 }
 
@@ -62,6 +68,21 @@
 
 - (IBAction)back:(id)sender {
 	[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)start:(id)sender {
+	__weak typeof(self)weakSelf = self;
+	self.wrap.name = self.nameField.text;
+	self.wrap.cover = @"http://placeimg.com/111/111/any";
+	[[WLAPIManager instance] createWrap:self.wrap success:^(id object) {
+		[[WLWrap dummyWraps] addObject:weakSelf.wrap];
+		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
+		wrapController.wrap = weakSelf.wrap;
+		NSArray* controllers = @[[weakSelf.navigationController.viewControllers firstObject],wrapController];
+		[weakSelf.navigationController setViewControllers:controllers animated:YES];
+	} failure:^(NSError *error) {
+		[error show];
+	}];
 }
 
 #pragma mark - UITableViewDataSource
@@ -88,6 +109,23 @@
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
 	self.wrap.contributors = [self.wrap.contributors arrayByRemovingObject:contributor];
 	[self refreshContributorsTableView];
+}
+
+#pragma mark - WLCameraViewControllerDelegate
+
+- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+	self.coverView.image = image;
+	__weak typeof(self)weakSelf = self;
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/WrapLiveAvatar.jpg"];
+		[UIImageJPEGRepresentation(image,1.0) writeToFile:path atomically:YES];
+		weakSelf.wrap.cover = path;
+    });
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

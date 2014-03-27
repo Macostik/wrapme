@@ -14,7 +14,7 @@
 #import "WLAPIManager.h"
 #import "WLWrapViewController.h"
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *headerView;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *headerEntryViews;
@@ -22,7 +22,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapNameLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
-
+@property (strong, nonatomic) IBOutlet UITextField *typeMessageTextField;
+@property (nonatomic) float messageViewHeight;
 @property (strong, nonatomic) NSArray* wraps;
 
 @end
@@ -35,7 +36,7 @@
 	
 	self.tableView.hidden = YES;
 	self.noWrapsView.hidden = YES;
-	
+	self.messageViewHeight = self.typeMessageTextField.superview.frame.size.height;
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] wraps:^(id object) {
 		weakSelf.wraps = object;
@@ -69,6 +70,25 @@
 	}];
 }
 
+- (IBAction)typeMessage:(UIButton *)sender {
+	if (self.typeMessageTextField.superview.hidden) {
+		self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y + self.messageViewHeight, self.tableView.frame.size.width, self.tableView.frame.size.height - self.messageViewHeight);
+	}
+	self.typeMessageTextField.superview.hidden = NO;
+}
+
+- (IBAction)sendMessage:(UIButton *)sender {
+	[self hideViewAndSendMessage];
+}
+
+
+- (void)hideViewAndSendMessage {
+	self.typeMessageTextField.superview.hidden = YES;
+	self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y - self.messageViewHeight, self.tableView.frame.size.width, self.tableView.frame.size.height + self.messageViewHeight);
+	self.typeMessageTextField.text = nil;
+}
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue.identifier isEqualToString:@"wrap"]) {
 		WLWrap* wrap = [self.wraps objectAtIndex:[self.tableView indexPathForSelectedRow].row];
@@ -88,6 +108,14 @@
 													   forIndexPath:indexPath];
 	cell.item = [self.wraps objectAtIndex:indexPath.row];
 	return cell;
+}
+
+#pragma mark - <UITextFieldDelegate>
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	[self hideViewAndSendMessage];
+	[textField resignFirstResponder];
+	return YES;
 }
 
 @end

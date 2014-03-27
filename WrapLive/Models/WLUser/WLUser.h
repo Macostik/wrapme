@@ -16,4 +16,6 @@
 @property (strong, nonatomic) NSDate* birthdate;
 @property (strong, nonatomic) NSString* avatar;
 
+- (BOOL)isEqualToUser:(WLUser*)user;
+
 @end

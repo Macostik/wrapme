@@ -7,43 +7,85 @@
 //
 
 #import "WLCreateWrapViewController.h"
+#import "WLContributorCell.h"
+#import "WLWrap.h"
+#import "WLContributorsViewController.h"
+#import "NSArray+Additions.h"
 
-@interface WLCreateWrapViewController ()
+@interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate>
+
+@property (weak, nonatomic) IBOutlet UITextField *nameField;
+@property (weak, nonatomic) IBOutlet UIButton *startButton;
+@property (weak, nonatomic) IBOutlet UIImageView *coverView;
+@property (weak, nonatomic) IBOutlet UITableView *contributorsTableView;
+@property (strong, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) IBOutlet UIView *noContributorsView;
 
 @end
 
 @implementation WLCreateWrapViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (WLWrap *)wrap {
+	if (!_wrap) {
+		_wrap = [WLWrap wrap];
+	}
+	return _wrap;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.identifier isEqualToString:@"contributors"]) {
+		WLContributorsViewController* controller = segue.destinationViewController;
+		controller.wrap = self.wrap;
+	}
 }
-*/
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[self refreshContributorsTableView];
+}
+
+- (void)refreshContributorsTableView {
+	[self.contributorsTableView reloadData];
+	BOOL hasContributors = [self.wrap.contributors count] > 0;
+	self.noContributorsView.hidden = hasContributors;
+	self.contributorsTableView.hidden = !hasContributors;
+}
+
+#pragma mark - Actions
+
+- (IBAction)back:(id)sender {
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.wrap.contributors count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
+    cell.item = [self.wrap.contributors objectAtIndex:indexPath.row];
+    return cell;
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	[textField resignFirstResponder];
+	return YES;
+}
+
+#pragma mark - WLContributorCellDelegate
+
+- (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
+	self.wrap.contributors = [self.wrap.contributors arrayByRemovingObject:contributor];
+	[self refreshContributorsTableView];
+}
 
 @end

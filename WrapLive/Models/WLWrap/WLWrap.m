@@ -8,8 +8,16 @@
 
 #import "WLWrap.h"
 #import "WLCandy.h"
+#import "WLSession.h"
 
 @implementation WLWrap
+
++ (instancetype)wrap {
+	WLWrap* wrap = [[WLWrap alloc] init];
+	wrap.createdAt = [NSDate date];
+	wrap.author = [WLSession user];
+	return wrap;
+}
 
 - (void)addEntry:(WLCandy *)entry {
 	if (!self.candies) {

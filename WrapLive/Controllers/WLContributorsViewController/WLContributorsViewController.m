@@ -7,43 +7,81 @@
 //
 
 #import "WLContributorsViewController.h"
+#import "WLContributorCell.h"
+#import "WLAPIManager.h"
+#import "WLAddressBook.h"
+#import "WLWrap.h"
+#import "NSArray+Additions.h"
+#import "WLUser.h"
 
-@interface WLContributorsViewController ()
+@interface WLContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContributorCellDelegate, UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITextField *searchField;
+@property (strong, nonatomic) NSArray* contributors;
 
 @end
 
 @implementation WLContributorsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+	
+	__weak typeof(self)weakSelf = self;
+	[WLAddressBook users:^(NSArray *users) {
+		weakSelf.contributors = users;
+	} failure:^(NSError *error) {
+		
+	}];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setContributors:(NSArray *)contributors {
+	_contributors = contributors;
+	
+	[self.tableView reloadData];
+	
+	for (WLUser* contributor in contributors) {
+		for (WLUser* _contributor in self.wrap.contributors) {
+			if ([_contributor isEqualToUser:contributor]) {
+				NSInteger index = [contributors indexOfObject:contributor];
+				[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
+			}
+		}
+	}
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Actions
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)back:(id)sender {
+	[self.navigationController popViewControllerAnimated:YES];
 }
-*/
+
+- (IBAction)done:(id)sender {
+	self.wrap.contributors = [[self.tableView indexPathsForSelectedRows] map:^id(NSIndexPath* indexPath) {
+		return self.contributors[indexPath.row];
+	}];
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.contributors count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
+	WLUser* contributor = [self.contributors objectAtIndex:indexPath.row];
+    cell.item = contributor;
+    return cell;
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	[textField resignFirstResponder];
+	return YES;
+}
 
 @end

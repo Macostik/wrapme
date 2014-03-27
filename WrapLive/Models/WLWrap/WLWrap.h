@@ -19,6 +19,8 @@
 @property (strong, nonatomic) NSString* cover;
 @property (strong, nonatomic) NSArray* contributors;
 
++ (instancetype)wrap;
+
 - (void)addEntry:(WLCandy*)entry;
 
 @end

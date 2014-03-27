@@ -14,4 +14,8 @@
 	return YES;
 }
 
+- (BOOL)isEqualToUser:(WLUser *)user {
+	return [self.phoneNumber isEqualToString:user.phoneNumber];
+}
+
 @end

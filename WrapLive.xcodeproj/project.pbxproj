@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215DC7A18E4421700FCA744 /* NSArray+Additions.m */; };
 		121B1B2E18E07430001F585C /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		121B1B3118E0749F001F585C /* WLDummyWraps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3018E0749F001F585C /* WLDummyWraps.plist */; };
 		121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */; };
@@ -38,6 +39,11 @@
 		12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */; };
 		12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74018DA10DD008FF6F0 /* WLSignUpViewController.m */; };
 		12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
+		12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D518E4326C009CE64C /* UIView+Shorthand.m */; };
+		12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D918E4329F009CE64C /* WLProgressBar.m */; };
+		12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
+		12D653E218E432F2009CE64C /* WLBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653E118E432F2009CE64C /* WLBorderView.m */; };
+		12D653E618E43545009CE64C /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653E518E43545009CE64C /* WLContributorCell.m */; };
 		12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D9F6DF18E185AF001E8323 /* WLAPIResponse.m */; };
 		12D9F6E318E18DAA001E8323 /* NSError+WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D9F6E218E18DAA001E8323 /* NSError+WLAPIManager.m */; };
 		12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA5718DAF98C00A4BC44 /* WLAPIManager.m */; };
@@ -69,6 +75,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1215DC7918E4421700FCA744 /* NSArray+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Additions.h"; sourceTree = "<group>"; };
+		1215DC7A18E4421700FCA744 /* NSArray+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Additions.m"; sourceTree = "<group>"; };
 		121B1B2C18E07430001F585C /* WLCountry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCountry.h; path = WLCountry/WLCountry.h; sourceTree = "<group>"; };
 		121B1B2D18E07430001F585C /* WLCountry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCountry.m; path = WLCountry/WLCountry.m; sourceTree = "<group>"; };
 		121B1B3018E0749F001F585C /* WLDummyWraps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLDummyWraps.plist; sourceTree = "<group>"; };
@@ -124,6 +132,16 @@
 		12A7A74018DA10DD008FF6F0 /* WLSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSignUpViewController.m; path = WLSignUpViewController/WLSignUpViewController.m; sourceTree = "<group>"; };
 		12A7A74318DA180C008FF6F0 /* WLHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLHomeViewController.h; path = WLHomeViewController/WLHomeViewController.h; sourceTree = "<group>"; };
 		12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLHomeViewController.m; path = WLHomeViewController/WLHomeViewController.m; sourceTree = "<group>"; };
+		12D653D418E4326C009CE64C /* UIView+Shorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shorthand.h"; sourceTree = "<group>"; };
+		12D653D518E4326C009CE64C /* UIView+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shorthand.m"; sourceTree = "<group>"; };
+		12D653D818E4329F009CE64C /* WLProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLProgressBar.h; sourceTree = "<group>"; };
+		12D653D918E4329F009CE64C /* WLProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLProgressBar.m; sourceTree = "<group>"; };
+		12D653DB18E4329F009CE64C /* WLSeparatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSeparatorView.h; sourceTree = "<group>"; };
+		12D653DC18E4329F009CE64C /* WLSeparatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSeparatorView.m; sourceTree = "<group>"; };
+		12D653E018E432F2009CE64C /* WLBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBorderView.h; path = WLBorderView/WLBorderView.h; sourceTree = "<group>"; };
+		12D653E118E432F2009CE64C /* WLBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBorderView.m; path = WLBorderView/WLBorderView.m; sourceTree = "<group>"; };
+		12D653E418E43545009CE64C /* WLContributorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributorCell.h; path = WLContributorsViewController/WLContributorCell/WLContributorCell.h; sourceTree = "<group>"; };
+		12D653E518E43545009CE64C /* WLContributorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorCell.m; path = WLContributorsViewController/WLContributorCell/WLContributorCell.m; sourceTree = "<group>"; };
 		12D9F6DE18E185AF001E8323 /* WLAPIResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAPIResponse.h; path = WLAPIManager/WLAPIResponse.h; sourceTree = "<group>"; };
 		12D9F6DF18E185AF001E8323 /* WLAPIResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAPIResponse.m; path = WLAPIManager/WLAPIResponse.m; sourceTree = "<group>"; };
 		12D9F6E118E18DAA001E8323 /* NSError+WLAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+WLAPIManager.h"; path = "WLAPIManager/NSError+WLAPIManager.h"; sourceTree = "<group>"; };
@@ -192,6 +210,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1215DC7818E4421700FCA744 /* NSArray */ = {
+			isa = PBXGroup;
+			children = (
+				1215DC7918E4421700FCA744 /* NSArray+Additions.h */,
+				1215DC7A18E4421700FCA744 /* NSArray+Additions.m */,
+			);
+			path = NSArray;
+			sourceTree = "<group>";
+		};
 		121B1B2B18E0741A001F585C /* WLCountry */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,6 +352,7 @@
 		129654E818E1A5A200FF43F6 /* WLContributorsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				12D653E318E43527009CE64C /* WLContributorCell */,
 				129654E918E1A5B900FF43F6 /* WLContributorsViewController.h */,
 				129654EA18E1A5B900FF43F6 /* WLContributorsViewController.m */,
 			);
@@ -446,6 +474,9 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				12D653DF18E432DA009CE64C /* WLBorderView */,
+				12D653D718E4329F009CE64C /* WLProgressBar */,
+				12D653DA18E4329F009CE64C /* WLSeparatorView */,
 				129654F018E1CACB00FF43F6 /* WLInputAccessoryView */,
 				12DCBA7E18DB18F400A4BC44 /* Reusing Views */,
 			);
@@ -479,6 +510,51 @@
 				12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */,
 			);
 			name = WLHomeViewController;
+			sourceTree = "<group>";
+		};
+		12D653D318E4326C009CE64C /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				12D653D418E4326C009CE64C /* UIView+Shorthand.h */,
+				12D653D518E4326C009CE64C /* UIView+Shorthand.m */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		12D653D718E4329F009CE64C /* WLProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				12D653D818E4329F009CE64C /* WLProgressBar.h */,
+				12D653D918E4329F009CE64C /* WLProgressBar.m */,
+			);
+			path = WLProgressBar;
+			sourceTree = "<group>";
+		};
+		12D653DA18E4329F009CE64C /* WLSeparatorView */ = {
+			isa = PBXGroup;
+			children = (
+				12D653DB18E4329F009CE64C /* WLSeparatorView.h */,
+				12D653DC18E4329F009CE64C /* WLSeparatorView.m */,
+			);
+			path = WLSeparatorView;
+			sourceTree = "<group>";
+		};
+		12D653DF18E432DA009CE64C /* WLBorderView */ = {
+			isa = PBXGroup;
+			children = (
+				12D653E018E432F2009CE64C /* WLBorderView.h */,
+				12D653E118E432F2009CE64C /* WLBorderView.m */,
+			);
+			name = WLBorderView;
+			sourceTree = "<group>";
+		};
+		12D653E318E43527009CE64C /* WLContributorCell */ = {
+			isa = PBXGroup;
+			children = (
+				12D653E418E43545009CE64C /* WLContributorCell.h */,
+				12D653E518E43545009CE64C /* WLContributorCell.m */,
+			);
+			name = WLContributorCell;
 			sourceTree = "<group>";
 		};
 		12DCBA5218DAF93C00A4BC44 /* WLAPIManager */ = {
@@ -618,6 +694,8 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				1215DC7818E4421700FCA744 /* NSArray */,
+				12D653D318E4326C009CE64C /* UIView */,
 				129654EC18E1A79500FF43F6 /* UIColor */,
 				121B1B3418E078AF001F585C /* NSObject */,
 				125D4A5018E069B3001B8E7C /* UIFont */,
@@ -794,6 +872,7 @@
 				125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */,
 				129654EB18E1A5B900FF43F6 /* WLContributorsViewController.m in Sources */,
 				125D4A4F18E068E6001B8E7C /* NSDate+Formatting.m in Sources */,
+				12D653E618E43545009CE64C /* WLContributorCell.m in Sources */,
 				12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */,
 				121B1B2E18E07430001F585C /* WLCountry.m in Sources */,
 				12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */,
@@ -802,6 +881,7 @@
 				1293678318E33A3500527250 /* WLWrapCandyCell.m in Sources */,
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
 				ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */,
+				12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */,
 				12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */,
@@ -811,14 +891,17 @@
 				12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */,
 				1293678718E34A6800527250 /* WLCandy.m in Sources */,
 				12DCBA6B18DB0E6600A4BC44 /* WLComment.m in Sources */,
+				12D653E218E432F2009CE64C /* WLBorderView.m in Sources */,
 				12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */,
 				12DCBA7318DB0E9700A4BC44 /* WLImage.m in Sources */,
+				12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */,
 				128886AD18DC493B00957B22 /* WLSession.m in Sources */,
 				128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */,
 				12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */,
 				121B1B4018E0848D001F585C /* WLCountriesViewController.m in Sources */,
 				12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */,
 				12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */,
+				12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */,
 				1293677F18E337D900527250 /* WLWrapCandiesCell.m in Sources */,
 				129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */,
 				12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */,
@@ -826,6 +909,7 @@
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
 				12D9F6E318E18DAA001E8323 /* NSError+WLAPIManager.m in Sources */,
 				121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */,
+				1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */,

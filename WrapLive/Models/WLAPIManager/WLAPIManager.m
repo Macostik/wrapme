@@ -16,7 +16,7 @@
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
-static NSString* WLAPIStageUrl = @"https://dev-api.wraplive.com";
+static NSString* WLAPIStageUrl = @"https://dev-api.wraplive.com/api";
 static NSString* WLAPIProductionUrl = @"";
 #define WLAPIBaseUrl WLAPIStageUrl
 
@@ -30,8 +30,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:WLAPIBaseUrl]];
-		[instance.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//		[instance.requestSerializer setValue:@"application/vnd.ravenpod+json;version=1" forHTTPHeaderField:@"Accept"];
+		instance.requestSerializer.timeoutInterval = 30;
+		[instance.requestSerializer setValue:@"application/vnd.ravenpod+json;version=1" forHTTPHeaderField:@"Accept"];
 	});
     return instance;
 }

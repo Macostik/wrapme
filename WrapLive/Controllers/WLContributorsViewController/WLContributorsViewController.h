@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class WLWrap;
+
 @interface WLContributorsViewController : UIViewController
+
+@property (nonatomic, strong) WLWrap* wrap;
 
 @end

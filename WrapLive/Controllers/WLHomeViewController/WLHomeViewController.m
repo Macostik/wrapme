@@ -14,6 +14,7 @@
 #import "WLAPIManager.h"
 #import "WLWrapViewController.h"
 #import "UIStoryboard+Additions.h"
+#import "UIView+Shorthand.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
@@ -24,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
 @property (strong, nonatomic) IBOutlet UITextField *typeMessageTextField;
-@property (nonatomic) float messageViewHeight;
+@property (weak, nonatomic) IBOutlet UIView *messageView;
 @property (strong, nonatomic) NSArray* wraps;
 
 @end
@@ -37,7 +38,6 @@
 	
 	self.tableView.hidden = YES;
 	self.noWrapsView.hidden = YES;
-	self.messageViewHeight = self.typeMessageTextField.superview.frame.size.height;
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] wraps:^(id object) {
 		weakSelf.wraps = object;
@@ -72,9 +72,9 @@
 }
 
 - (IBAction)typeMessage:(UIButton *)sender {
-	if (self.typeMessageTextField.superview.hidden) {
-		self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y + self.messageViewHeight, self.tableView.frame.size.width, self.tableView.frame.size.height - self.messageViewHeight);
-		self.typeMessageTextField.superview.hidden = NO;
+	if (self.messageView.hidden) {
+		self.tableView.frame = CGRectMake(self.tableView.x, self.tableView.y + self.messageView.height, self.tableView.width, self.tableView.height - self.messageView.height);
+		self.messageView.hidden = NO;
 	}
 	else {
 		[self hideView];
@@ -95,8 +95,8 @@
 }
 
 - (void)hideView {
-	self.typeMessageTextField.superview.hidden = YES;
-	self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y - self.messageViewHeight, self.tableView.frame.size.width, self.tableView.frame.size.height + self.messageViewHeight);
+	self.messageView.hidden = YES;
+	self.tableView.frame = CGRectMake(self.tableView.x, self.tableView.y - self.messageView.height, self.tableView.width, self.tableView.height + self.messageView.height);
 	self.typeMessageTextField.text = nil;
 }
 

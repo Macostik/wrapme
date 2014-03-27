@@ -278,15 +278,22 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Type your message" minimumFontSize="17" id="NjW-K1-4OP">
+                                    <view contentMode="scaleToFill" id="AW6-bZ-IUf" customClass="WLBorderView">
                                         <rect key="frame" x="10" y="7" width="250" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="send"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="L91-fZ-J9O" id="xoK-TX-j3S"/>
-                                        </connections>
-                                    </textField>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your message" minimumFontSize="17" id="NjW-K1-4OP">
+                                                <rect key="frame" x="0.0" y="0.0" width="250" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="L91-fZ-J9O" id="xoK-TX-j3S"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RHw-xo-3Qi">
                                         <rect key="frame" x="260" y="7" width="40" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
@@ -439,6 +446,7 @@
                         <outlet property="headerView" destination="jJG-aX-3kt" id="jgF-JT-U6V"/>
                         <outlet property="headerWrapNameLabel" destination="Twb-Mn-vNw" id="6ZB-Ct-bd3"/>
                         <outlet property="headerWrapView" destination="8Kg-Jf-uq1" id="jNM-aj-hJD"/>
+                        <outlet property="messageView" destination="vp2-oE-nq7" id="i0H-zm-05r"/>
                         <outlet property="noWrapsView" destination="qRl-9j-QTf" id="Z4q-Kd-Qec"/>
                         <outlet property="tableView" destination="vM9-X0-izB" id="rUS-iX-CGB"/>
                         <outlet property="typeMessageTextField" destination="NjW-K1-4OP" id="iQf-cm-Kc3"/>
@@ -943,6 +951,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="B2J-NP-7RF"/>
+        <segue reference="Gnf-h6-U5W"/>
     </inferredMetricsTieBreakers>
 </document>

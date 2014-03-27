@@ -7,7 +7,7 @@
 //
 
 #import "WLWrapCandiesCell.h"
-#import "WLWrap.h"
+#import "WLWrapDay.h"
 #import "NSDate+Formatting.h"
 #import "WLWrapCandyCell.h"
 
@@ -20,20 +20,20 @@
 
 @implementation WLWrapCandiesCell
 
-- (void)setupItemData:(WLWrap*)entry {
-	self.dateLabel.text = [entry.createdAt stringWithFormat:@"MMM dd, YYYY"];
+- (void)setupItemData:(WLWrapDay*)entry {
+	self.dateLabel.text = entry.modifiedString;
 	[self.collectionView reloadData];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	WLWrap* wrap = self.item;
-	return [wrap.candies count];
+	WLWrapDay* wrapDay = self.item;
+	return [wrapDay.candies count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	WLWrapCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WLWrapCandyCell reuseIdentifier] forIndexPath:indexPath];
-	WLWrap* wrap = self.item;
-	cell.item = [wrap.candies objectAtIndex:indexPath.item];
+	WLWrapDay* wrapDay = self.item;
+	cell.item = [wrapDay.candies objectAtIndex:indexPath.item];
 	return cell;
 }
 

@@ -134,7 +134,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 														  return response;
 													  } failure:failure];
 	[self POST:@"users/update" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-		[formData appendPartWithFileURL:[NSURL fileURLWithPath:user.avatar] name:@"qqfile" error:NULL];
+		[formData appendPartWithFileURL:[NSURL fileURLWithPath:user.avatar] name:@"qqfile" fileName:@"WrapLiveAvatar.jpeg" mimeType:@"image/jpeg" error:NULL];
 	} success:successBlock failure:[self failureBlock:failure]];
 }
 

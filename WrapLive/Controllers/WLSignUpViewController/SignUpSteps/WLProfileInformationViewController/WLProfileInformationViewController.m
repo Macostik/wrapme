@@ -50,6 +50,7 @@
 		[WLSession setUser:weakSelf.user];
 		NSArray *navigationArray = @[[weakSelf.signUpViewController.storyboard homeViewController]];
 		[weakSelf.signUpViewController.navigationController setViewControllers:navigationArray animated:YES];
+		
 	} failure:^(NSError *error) {
 		weakSelf.view.userInteractionEnabled = YES;
 		[error show];

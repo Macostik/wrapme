@@ -73,21 +73,31 @@
 - (IBAction)typeMessage:(UIButton *)sender {
 	if (self.typeMessageTextField.superview.hidden) {
 		self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y + self.messageViewHeight, self.tableView.frame.size.width, self.tableView.frame.size.height - self.messageViewHeight);
+		self.typeMessageTextField.superview.hidden = NO;
 	}
-	self.typeMessageTextField.superview.hidden = NO;
+	else {
+		[self hideView];
+	}
 }
 
 - (IBAction)sendMessage:(UIButton *)sender {
 	[self hideViewAndSendMessage];
 }
 
-
 - (void)hideViewAndSendMessage {
+	[self hideView];
+	[self sendMessage];
+}
+
+- (void)sendMessage {
+	
+}
+
+- (void)hideView {
 	self.typeMessageTextField.superview.hidden = YES;
 	self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y - self.messageViewHeight, self.tableView.frame.size.width, self.tableView.frame.size.height + self.messageViewHeight);
 	self.typeMessageTextField.text = nil;
 }
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue.identifier isEqualToString:@"wrap"]) {

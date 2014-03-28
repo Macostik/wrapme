@@ -15,6 +15,7 @@
 #import "WLInputAccessoryView.h"
 #import "WLAPIManager.h"
 #import "UIColor+CustomColors.h"
+#import "UIView+Shorthand.h"
 
 @interface WLPhoneNumberViewController () <UITextFieldDelegate>
 
@@ -107,7 +108,7 @@
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-	CGFloat translation = textField.superview.frame.origin.y - 0.5 * (self.view.frame.size.height - 260 - textField.superview.frame.size.height);
+	CGFloat translation = textField.superview.y - 0.5 * (self.view.height - 260 - textField.superview.height);
 	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
 	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		self.view.transform = transform;

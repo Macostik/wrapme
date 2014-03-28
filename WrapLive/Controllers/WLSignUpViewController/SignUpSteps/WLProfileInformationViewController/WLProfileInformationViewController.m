@@ -14,6 +14,7 @@
 #import "WLSession.h"
 #import "UIStoryboard+Additions.h"
 #import "WLPicture.h"
+#import "UIView+Shorthand.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate>
 
@@ -95,7 +96,7 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-	CGFloat translation = textField.frame.origin.y - 0.5 * (self.view.frame.size.height - 216 - textField.frame.size.height);
+	CGFloat translation = textField.y - 0.5 * (self.view.height - 216 - textField.height);
 	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
 	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		self.view.transform = transform;

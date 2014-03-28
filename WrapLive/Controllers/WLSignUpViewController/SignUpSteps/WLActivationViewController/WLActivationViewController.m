@@ -13,6 +13,7 @@
 #import "UIColor+CustomColors.h"
 #import "WLInputAccessoryView.h"
 #import "WLSession.h"
+#import "UIView+Shorthand.h"
 
 static NSInteger WLActivationCodeLimit = 4;
 
@@ -127,7 +128,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-	CGFloat translation = textField.frame.origin.y - 0.5 * (self.view.frame.size.height - 260 - textField.frame.size.height) + self.phoneNumberLabel.frame.size.height;
+	CGFloat translation = textField.y - 0.5 * (self.view.height - 260 - textField.height) + self.phoneNumberLabel.height;
 	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
 	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		self.view.transform = transform;

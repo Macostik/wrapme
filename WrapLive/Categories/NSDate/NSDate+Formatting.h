@@ -22,6 +22,10 @@
 
 - (NSString*)string;
 
+- (NSDate *)beginOfDay;
+
+- (NSDate *)endOfDay;
+
 @end
 
 @interface NSDateFormatter (DateFormatting)

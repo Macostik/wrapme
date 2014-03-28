@@ -50,6 +50,36 @@ static NSMutableDictionary* formatters = nil;
     return [self stringWithFormat:[NSDate defaultDateFormat]];
 }
 
+
+- (NSDate *)beginOfDay {
+    return [[NSCalendar currentCalendar] dateFromComponents:[self componentsBeginOfDay]];
+}
+
+- (NSDate *)endOfDay {
+    return [[NSCalendar currentCalendar] dateFromComponents:[self componentsEndOfDay]];
+}
+
+- (NSDateComponents *)componentsBeginOfDay {
+	NSDateComponents* components = [self dayComponents];
+    [components setHour:0];
+    [components setMinute:0];
+    [components setSecond:0];
+    return components;
+}
+
+- (NSDateComponents *)componentsEndOfDay {
+    NSDateComponents* components = [self dayComponents];
+    [components setHour:23];
+    [components setMinute:59];
+    [components setSecond:59];
+    return components;
+}
+
+- (NSDateComponents *)dayComponents {
+	NSCalendarUnit units = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+    return [[NSCalendar currentCalendar] components:units fromDate:self];
+}
+
 @end
 
 @implementation NSDateFormatter (DateFormatting)

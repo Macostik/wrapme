@@ -8,6 +8,19 @@
 
 #import "WLItemCell.h"
 
+@class WLWrapCandiesCell;
+@class WLCandy;
+
+@protocol WLWrapCandiesCellDelegate <NSObject>
+
+@optional
+
+- (void)wrapCandiesCell:(WLWrapCandiesCell*)cell didSelectCandy:(WLCandy*)candy;
+
+@end
+
 @interface WLWrapCandiesCell : WLItemCell
+
+@property (nonatomic, weak) id <WLWrapCandiesCellDelegate> delegate;
 
 @end

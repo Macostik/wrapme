@@ -74,6 +74,7 @@
 	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
 													   forIndexPath:indexPath];
 	
+	
 	return cell;
 }
 

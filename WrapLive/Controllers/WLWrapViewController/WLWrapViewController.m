@@ -17,8 +17,9 @@
 #import "UIStoryboard+Additions.h"
 #import "WLCameraViewController.h"
 #import "WLImage.h"
+#import "WLWrapDataViewController.h"
 
-@interface WLWrapViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate>
+@interface WLWrapViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
@@ -113,6 +114,12 @@
 	}
 }
 
+#pragma mark - WLWrapCandiesCellDelegate
+
+- (void)wrapCandiesCell:(WLWrapCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
+	
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -122,6 +129,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WLWrapCandiesCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLWrapCandiesCell reuseIdentifier]];
 	cell.item = [self.wrapDays objectAtIndex:indexPath.row];
+	cell.delegate = self;
     return cell;
 }
 

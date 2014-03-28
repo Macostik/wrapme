@@ -10,8 +10,9 @@
 #import "WLWrapDay.h"
 #import "NSDate+Formatting.h"
 #import "WLWrapCandyCell.h"
+#import "WLCandy.h"
 
-@interface WLWrapCandiesCell () <UICollectionViewDataSource>
+@interface WLWrapCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -35,6 +36,14 @@
 	WLWrapDay* wrapDay = self.item;
 	cell.item = [wrapDay.candies objectAtIndex:indexPath.item];
 	return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+	WLWrapDay* wrapDay = self.item;
+	WLCandy * candy = [wrapDay.candies objectAtIndex:indexPath.item];
+	[self.delegate wrapCandiesCell:self didSelectCandy:candy];
 }
 
 @end

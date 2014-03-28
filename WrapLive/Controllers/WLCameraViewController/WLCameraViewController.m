@@ -237,7 +237,7 @@
 
 - (void)captureImage:(void (^)(UIImage*image))completion {
 	
-#ifdef TARGET_IPHONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR
 	UIGraphicsBeginImageContext(CGSizeMake(640, 640));
 	[[UIColor brownColor] setFill];
 	[[UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 640, 640)] fill];

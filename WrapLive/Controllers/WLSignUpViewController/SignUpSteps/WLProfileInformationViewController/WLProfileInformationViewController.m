@@ -72,7 +72,7 @@
 }
 
 - (void)verifyContinueButton {
-	self.continueButton.enabled = (self.user.avatar) && (self.user.name) ? YES : NO;
+	self.continueButton.enabled = self.user.name && (![self.user.name isEqualToString:@""]) ? YES : NO;
 }
 
 #pragma mark - WLCameraViewControllerDelegate

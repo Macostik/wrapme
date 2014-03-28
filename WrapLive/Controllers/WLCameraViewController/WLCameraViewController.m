@@ -22,6 +22,11 @@
 @property (weak, nonatomic) IBOutlet UIView *cameraView;
 
 @property (strong, nonatomic) UIView* focusPointView;
+@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UIImageView *acceptImageView;
+@property (weak, nonatomic) IBOutlet UIView *acceptView;
+@property (weak, nonatomic) IBOutlet UIView *acceptButtonsView;
 
 @end
 
@@ -32,19 +37,32 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-    [self.cameraView.layer addSublayer:self.captureVideoPreviewLayer];
-    
-    if (self.frontFacingCameraDeviceInput) {
-        [self.session addInput:self.frontFacingCameraDeviceInput];
-    } else if (self.backFacingCameraDeviceInput) {
-        [self.session addInput:self.backFacingCameraDeviceInput];
-    }
+	if (self.mode == WLCameraModeFullSize) {
+		if (self.backFacingCameraDeviceInput) {
+			[self.session addInput:self.backFacingCameraDeviceInput];
+		} else if (self.frontFacingCameraDeviceInput) {
+			[self.session addInput:self.frontFacingCameraDeviceInput];
+		}
+	} else {
+		if (self.frontFacingCameraDeviceInput) {
+			[self.session addInput:self.frontFacingCameraDeviceInput];
+		} else if (self.backFacingCameraDeviceInput) {
+			[self.session addInput:self.backFacingCameraDeviceInput];
+		}
+	}
     
     [self.session addOutput:[self stillImageOutput]];
     
     [self performSelector:@selector(start) withObject:nil afterDelay:0.0];
     
     self.flashMode = [[NSUserDefaults standardUserDefaults] integerForKey:@"WLCameraFlashMode"];
+	
+	if (self.mode == WLCameraModeFullSize) {
+		self.topView.backgroundColor = [UIColor clearColor];
+		self.bottomView.backgroundColor = [UIColor clearColor];
+		self.cameraView.frame = self.view.bounds;
+	}
+	[self.cameraView.layer addSublayer:self.captureVideoPreviewLayer];
 }
 
 #pragma mark - User Actions
@@ -55,35 +73,69 @@
 	} else if (self.presentingViewController) {
 		[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 	}
-	
 }
 
 - (IBAction)shot:(id)sender {
 	__weak typeof(self)weakSelf = self;
 	[self captureImage:^(UIImage *image) {
 		[weakSelf cropImage:image completion:^(UIImage *croppedImage) {
-			[weakSelf.delegate cameraViewController:weakSelf didFinishWithImage:croppedImage];
+			[weakSelf setAcceptImage:croppedImage animated:YES];
 		}];
 	}];
 }
 
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
-	CGSize viewSize = self.cameraView.bounds.size;
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		CGSize imageSize = image.size;
-		if (image.imageOrientation == UIImageOrientationRight) {
-			imageSize = CGSizeMake(imageSize.height, imageSize.width);
+	if (self.mode == WLCameraModeFullSize) {
+		completion(image);
+	} else {
+		CGSize viewSize = self.cameraView.bounds.size;
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+			
+			UIImage *result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
+																bounds:CGSizeMake(640, 640)
+												  interpolationQuality:kCGInterpolationDefault];
+			
+			CGRect cropRect = CGRectThatFitsSize(result.size, viewSize);
+			result = [result croppedImage:cropRect];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				completion(result);
+			});
+		});
+	}
+}
+
+- (IBAction)retake:(id)sender {
+	[self setAcceptImage:nil animated:YES];
+}
+
+- (IBAction)use:(id)sender {
+	[self.delegate cameraViewController:self didFinishWithImage:self.acceptImageView.image];
+}
+
+- (void)setAcceptImage:(UIImage *)acceptImage animated:(BOOL)animated {
+	
+	if (acceptImage) {
+		self.acceptView.hidden = NO;
+		self.acceptButtonsView.transform = CGAffineTransformMakeTranslation(0, self.acceptButtonsView.frame.size.height);
+		self.acceptView.backgroundColor = [UIColor clearColor];
+	}
+	
+	[UIView animateWithDuration:animated ? 0.25f : 0.0f animations:^{
+		if (acceptImage) {
+			self.acceptButtonsView.transform = CGAffineTransformIdentity;
+			self.acceptView.backgroundColor = [UIColor whiteColor];
+		} else {
+			self.acceptImageView.image = nil;
+			self.acceptButtonsView.transform = CGAffineTransformMakeTranslation(0, self.acceptButtonsView.frame.size.height);
+			self.acceptView.backgroundColor = [UIColor clearColor];
 		}
-		CGRect cropRect = CGRectThatFitsSize(imageSize, viewSize);
-		
-		// TODO: May be orientation should be fixed
-		
-//		UIImage *croppedImage = [image resizedImage:imageSize interpolationQuality:kCGInterpolationDefault];
-		UIImage *croppedImage = [image croppedImage:cropRect];
-        dispatch_async(dispatch_get_main_queue(), ^{
-			completion(croppedImage);
-        });
-    });
+	} completion:^(BOOL finished) {
+		if (!acceptImage) {
+			self.acceptView.hidden = YES;
+		} else {
+			self.acceptImageView.image = acceptImage;
+		}
+	}];
 }
 
 #pragma mark - AVCaptureSession

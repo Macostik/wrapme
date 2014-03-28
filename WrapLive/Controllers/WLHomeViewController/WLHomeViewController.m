@@ -15,6 +15,7 @@
 #import "WLWrapViewController.h"
 #import "UIStoryboard+Additions.h"
 #import "UIView+Shorthand.h"
+#import "WLCameraViewController.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
@@ -109,6 +110,9 @@
 	if ([segue isWrapSegue]) {
 		WLWrap* wrap = [self.wraps objectAtIndex:[self.tableView indexPathForSelectedRow].row];
 		[(WLWrapViewController* )segue.destinationViewController setWrap:wrap];
+	} else if ([segue isCameraSegue]) {
+		WLCameraViewController* cameraController = segue.destinationViewController;
+		cameraController.mode = WLCameraModeFullSize;
 	}
 }
 

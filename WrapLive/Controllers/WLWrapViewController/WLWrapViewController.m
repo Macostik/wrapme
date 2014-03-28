@@ -14,6 +14,8 @@
 #import "NSDate+Formatting.h"
 #import "WLWrapDay.h"
 #import "UIView+Shorthand.h"
+#import "UIStoryboard+Additions.h"
+#import "WLCameraViewController.h"
 
 @interface WLWrapViewController () <UITextFieldDelegate>
 
@@ -95,6 +97,13 @@
 
 - (IBAction)back:(id)sender {
 	[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue isCameraSegue]) {
+		WLCameraViewController* cameraController = segue.destinationViewController;
+		cameraController.mode = WLCameraModeFullSize;
+	}
 }
 
 #pragma mark - UITableViewDataSource

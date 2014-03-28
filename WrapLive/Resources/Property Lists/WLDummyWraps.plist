@@ -10,6 +10,8 @@
 		<key>candies</key>
 		<array>
 			<dict>
+				<key>type</key>
+				<string>image</string>
 				<key>cover</key>
 				<string>http://placeimg.com/100/100/any</string>
 				<key>createdAt</key>
@@ -43,6 +45,8 @@
 			<dict>
 				<key>cover</key>
 				<string>http://placeimg.com/100/100/any</string>
+				<key>type</key>
+				<string>chat</string>
 				<key>createdAt</key>
 				<string>2014-03-19T12:58:33Z</string>
 				<key>modified</key>

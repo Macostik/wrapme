@@ -18,8 +18,15 @@
 
 @end
 
+typedef NS_ENUM(NSInteger, WLCameraMode) {
+	WLCameraModeSquare,
+	WLCameraModeFullSize
+};
+
 @interface WLCameraViewController : UIViewController
 
 @property (nonatomic, weak) id <WLCameraViewControllerDelegate> delegate;
+
+@property (nonatomic) WLCameraMode mode;
 
 @end

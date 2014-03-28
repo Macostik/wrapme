@@ -7,8 +7,28 @@
 //
 
 #import "WLUser.h"
+#import "WLPicture.h"
 
 @implementation WLUser
+
+- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
+	self = [super initWithDictionary:dict error:err];
+	if (self) {
+		self.avatar = [[WLPicture alloc] initWithDictionary:dict error:err];
+	}
+	return self;
+}
+
++ (JSONKeyMapper *)keyMapper {
+	return [[JSONKeyMapper alloc] initWithDictionary:@{@"full_phone_number":@"phoneNumber"}];
+}
+
+- (WLPicture *)avatar {
+	if (!_avatar) {
+		_avatar = [[WLPicture alloc] init];
+	}
+	return _avatar;
+}
 
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 	return YES;

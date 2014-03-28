@@ -15,9 +15,8 @@
 @interface WLCandy : WLEntry
 
 @property (strong, nonatomic) NSArray<WLComment>* comments;
-@property (strong, nonatomic) NSString* cover;
-@property (strong, nonatomic) NSDate * createdAt;
-@property (strong, nonatomic) NSDate * modified;
+@property (strong, nonatomic) NSString *cover;
+@property (strong, nonatomic) NSDate *modified;
 
 - (void)addComment:(WLComment*)comment;
 

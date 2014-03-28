@@ -16,7 +16,8 @@
 	static NSMutableArray* _wraps = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		_wraps = [[WLWrap arrayOfModelsFromDictionaries:[NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"WLDummyWraps" ofType:@"plist"]]] mutableCopy];
+		NSError* error = nil;
+		_wraps = [[WLWrap arrayOfModelsFromDictionaries:[NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"WLDummyWraps" ofType:@"plist"]] error:&error] mutableCopy];
 	});
 	return _wraps;
 }

@@ -13,6 +13,7 @@
 #import "WLUser.h"
 #import "WLSession.h"
 #import "UIStoryboard+Additions.h"
+#import "WLPicture.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate>
 
@@ -66,7 +67,7 @@
 - (void)saveImage:(UIImage *)image {
 	NSString  *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/WrapLiveAvatar.jpg"];
 	[UIImageJPEGRepresentation(image,1.0) writeToFile:path atomically:YES];
-	self.user.avatar = path;
+	self.user.avatar.large = path;
 	[self verifyContinueButton];
 }
 

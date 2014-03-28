@@ -15,6 +15,7 @@
 #import <CocoaLumberjack/DDLog.h>
 #import "NSArray+Additions.h"
 #import "WLAddressBook.h"
+#import "WLPicture.h"
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
@@ -134,7 +135,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 														  return response;
 													  } failure:failure];
 	[self POST:@"users/update" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-		[formData appendPartWithFileURL:[NSURL fileURLWithPath:user.avatar] name:@"qqfile" fileName:@"WrapLiveAvatar.jpeg" mimeType:@"image/jpeg" error:NULL];
+		[formData appendPartWithFileURL:[NSURL fileURLWithPath:user.avatar.large] name:@"qqfile" fileName:@"WrapLiveAvatar.jpeg" mimeType:@"image/jpeg" error:NULL];
 	} success:successBlock failure:[self failureBlock:failure]];
 }
 
@@ -168,6 +169,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		signUpStatus = [NSJSONSerialization JSONObjectWithData:data
 															   options:NSJSONReadingAllowFragments
 																 error:NULL];
+		DDLogDebug(@"%@", signUpStatus);
 	}
 	
 	NSMutableArray* contributors = [NSMutableArray array];
@@ -176,19 +178,20 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		NSDictionary* value = [signUpStatus objectForKey:phoneNumber];
 		if ([[value objectForKey:@"sign_up_status"] boolValue]) {
 			
-			WLContact* contact = [contacts selectObject:^BOOL(WLContact* item) {
-				for (NSString* _phoneNumber in item.phoneNumbers) {
-					if ([_phoneNumber isEqualToString:phoneNumber]) {
-						return YES;
-					}
-				}
-				return NO;
-			}];
+			WLUser* contributor = [[WLUser alloc] initWithDictionary:[value objectForKey:@"user_info"] error:NULL];
 			
-			WLUser* contributor = [[WLUser alloc] init];
-			contributor.name = contact.name;
-			contributor.phoneNumber = [value objectForKey:@"full_phone_number"];
-			contributor.birthdate = contact.birthdate;
+			if (contributor.name.length == 0) {
+				WLContact* contact = [contacts selectObject:^BOOL(WLContact* item) {
+					for (NSString* _phoneNumber in item.phoneNumbers) {
+						if ([_phoneNumber isEqualToString:phoneNumber]) {
+							return YES;
+						}
+					}
+					return NO;
+				}];
+				contributor.name = contact.name;
+			}
+			
 			[contributors addObject:contributor];
 		}
 	}

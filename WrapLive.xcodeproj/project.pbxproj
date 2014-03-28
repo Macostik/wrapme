@@ -45,6 +45,7 @@
 		12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
 		12D653E218E432F2009CE64C /* WLBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653E118E432F2009CE64C /* WLBorderView.m */; };
 		12D653E618E43545009CE64C /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653E518E43545009CE64C /* WLContributorCell.m */; };
+		12D962ED18E5898A00C57CE1 /* WLPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D962EC18E5898A00C57CE1 /* WLPicture.m */; };
 		12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D9F6DF18E185AF001E8323 /* WLAPIResponse.m */; };
 		12D9F6E318E18DAA001E8323 /* NSError+WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D9F6E218E18DAA001E8323 /* NSError+WLAPIManager.m */; };
 		12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA5718DAF98C00A4BC44 /* WLAPIManager.m */; };
@@ -146,6 +147,8 @@
 		12D653E118E432F2009CE64C /* WLBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBorderView.m; path = WLBorderView/WLBorderView.m; sourceTree = "<group>"; };
 		12D653E418E43545009CE64C /* WLContributorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributorCell.h; path = WLContributorsViewController/WLContributorCell/WLContributorCell.h; sourceTree = "<group>"; };
 		12D653E518E43545009CE64C /* WLContributorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorCell.m; path = WLContributorsViewController/WLContributorCell/WLContributorCell.m; sourceTree = "<group>"; };
+		12D962EB18E5898A00C57CE1 /* WLPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPicture.h; path = WLPicture/WLPicture.h; sourceTree = "<group>"; };
+		12D962EC18E5898A00C57CE1 /* WLPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPicture.m; path = WLPicture/WLPicture.m; sourceTree = "<group>"; };
 		12D9F6DE18E185AF001E8323 /* WLAPIResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAPIResponse.h; path = WLAPIManager/WLAPIResponse.h; sourceTree = "<group>"; };
 		12D9F6DF18E185AF001E8323 /* WLAPIResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAPIResponse.m; path = WLAPIManager/WLAPIResponse.m; sourceTree = "<group>"; };
 		12D9F6E118E18DAA001E8323 /* NSError+WLAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+WLAPIManager.h"; path = "WLAPIManager/NSError+WLAPIManager.h"; sourceTree = "<group>"; };
@@ -468,6 +471,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				12D962EA18E5897400C57CE1 /* WLPicture */,
 				ACBE482F18E48F18006A0280 /* WLWrapDay */,
 				129654E018E197D700FF43F6 /* WLAddressBook */,
 				121B1B2B18E0741A001F585C /* WLCountry */,
@@ -571,6 +575,15 @@
 				12D653E518E43545009CE64C /* WLContributorCell.m */,
 			);
 			name = WLContributorCell;
+			sourceTree = "<group>";
+		};
+		12D962EA18E5897400C57CE1 /* WLPicture */ = {
+			isa = PBXGroup;
+			children = (
+				12D962EB18E5898A00C57CE1 /* WLPicture.h */,
+				12D962EC18E5898A00C57CE1 /* WLPicture.m */,
+			);
+			name = WLPicture;
 			sourceTree = "<group>";
 		};
 		12DCBA5218DAF93C00A4BC44 /* WLAPIManager */ = {
@@ -936,6 +949,7 @@
 				12D9F6E318E18DAA001E8323 /* NSError+WLAPIManager.m in Sources */,
 				121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */,
 				1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */,
+				12D962ED18E5898A00C57CE1 /* WLPicture.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				1215DC7F18E4485800FCA744 /* UIStoryboard+Additions.m in Sources */,

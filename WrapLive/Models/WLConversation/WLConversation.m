@@ -9,12 +9,13 @@
 #import "WLConversation.h"
 #import "WLComment.h"
 #import "WLUser.h"
+#import "WLPicture.h"
 
 @implementation WLConversation
 
 - (NSString *)cover {
 	WLComment* comment = [self.comments lastObject];
-	return comment.author.avatar;
+	return comment.author.avatar.thumbnail;
 }
 
 @end

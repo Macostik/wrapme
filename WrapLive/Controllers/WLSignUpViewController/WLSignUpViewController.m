@@ -12,7 +12,7 @@
 #import "NSDate+Formatting.h"
 #import "WLCountriesViewController.h"
 #import "WLCountry.h"
-
+#import "WLProfileInformationViewController.h"
 #import "WLPhoneNumberViewController.h"
 
 @interface WLSignUpViewController () <UIScrollViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate>
@@ -29,8 +29,18 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
-	WLPhoneNumberViewController * controller = [[WLPhoneNumberViewController alloc] init];
+	if (self.registrationNotCompleted) {
+		WLProfileInformationViewController * controller = [[WLProfileInformationViewController alloc] init];
+		[self createNavController:controller];
+		[self updateStepLabelsWithIndex:2];
+	}
+	else {
+		WLPhoneNumberViewController * controller = [[WLPhoneNumberViewController alloc] init];
+		[self createNavController:controller];
+	}
+}
+
+- (void)createNavController:(UIViewController *)controller {
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
 	navController.view.frame = self.signUpStepsView.bounds;
 	navController.navigationBarHidden = YES;
@@ -62,7 +72,9 @@
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
 	NSUInteger index = [navigationController.viewControllers indexOfObject:viewController];
-	[self updateStepLabelsWithIndex:index];
+	if (!self.registrationNotCompleted) {
+		[self updateStepLabelsWithIndex:index];
+	}
 }
 
 @end

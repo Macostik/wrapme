@@ -10,4 +10,6 @@
 
 @interface WLSignUpViewController : UIViewController
 
+@property (nonatomic) BOOL registrationNotCompleted;
+
 @end

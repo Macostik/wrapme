@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSDate* birthdate;
 @property (strong, nonatomic) WLPicture* avatar;
+@property (nonatomic) BOOL registrationCompleted;
 
 - (BOOL)isEqualToUser:(WLUser*)user;
 

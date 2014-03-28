@@ -109,7 +109,7 @@
         <!--Sign Up View Controller-->
         <scene sceneID="1af-uD-k4o">
             <objects>
-                <viewController id="WfW-pu-ue7" customClass="WLSignUpViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="signUp" id="WfW-pu-ue7" customClass="WLSignUpViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mr3-r6-91F">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

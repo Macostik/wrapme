@@ -123,7 +123,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSDictionary* parameters = @{};
 	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
 													  withObject:^id(WLAPIResponse *response) {
-														  return response;
+														  return [[WLUser alloc] initWithDictionary:[response.data objectForKey:@"user"] error:nil];
 													  } failure:failure];
 	[self GET:@"users/me" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
 }

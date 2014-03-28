@@ -22,6 +22,10 @@
 	return [self instantiateViewControllerWithIdentifier:WLStoryboardWrapViewControllerIdentifier];
 }
 
+- (id)signUpViewController {
+	return [self instantiateViewControllerWithIdentifier:WLStoryboardSignUpViewControllerIdentifier];
+}
+
 @end
 
 @implementation UIStoryboardSegue (Additions)

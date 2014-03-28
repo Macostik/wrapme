@@ -11,6 +11,7 @@
 static NSString* WLStoryboardHomeViewControllerIdentifier = @"home";
 static NSString* WLStoryboardCameraViewControllerIdentifier = @"camera";
 static NSString* WLStoryboardWrapViewControllerIdentifier = @"wrap";
+static NSString* WLStoryboardSignUpViewControllerIdentifier = @"signUp";
 
 @interface UIStoryboard (Additions)
 
@@ -19,6 +20,8 @@ static NSString* WLStoryboardWrapViewControllerIdentifier = @"wrap";
 - (id)cameraViewController;
 
 - (id)wrapViewController;
+
+- (id)signUpViewController;
 
 @end
 

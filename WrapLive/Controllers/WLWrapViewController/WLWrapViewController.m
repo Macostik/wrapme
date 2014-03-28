@@ -63,7 +63,7 @@
 	
 	static NSSortDescriptor* sortDescriptor = nil;
 	if (!sortDescriptor) {
-		sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"modified" ascending:YES];
+		sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"modified" ascending:NO];
 	}
 	[wrapDays sortUsingDescriptors:@[sortDescriptor]];
 	

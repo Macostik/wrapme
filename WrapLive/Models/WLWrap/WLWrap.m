@@ -9,6 +9,7 @@
 #import "WLWrap.h"
 #import "WLCandy.h"
 #import "WLSession.h"
+#import "NSArray+Additions.h"
 
 @implementation WLWrap
 
@@ -22,11 +23,21 @@
 	return _wraps;
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
+    self = [super initWithDictionary:dict error:err];
+    if (self) {
+        self.candies = [self.candies map:^id(id item) {
+			return [WLCandy candyWithDictionary:item];
+		}];
+    }
+    return self;
+}
+
 - (void)addCandy:(WLCandy *)candy {
 	if (!self.candies) {
-		self.candies = (id)[NSArray arrayWithObject:candy];
+		self.candies = [NSArray arrayWithObject:candy];
 	} else {
-		self.candies = (id)[self.candies arrayByAddingObject:candy];
+		self.candies = [self.candies arrayByAddingObject:candy];
 	}
 }
 

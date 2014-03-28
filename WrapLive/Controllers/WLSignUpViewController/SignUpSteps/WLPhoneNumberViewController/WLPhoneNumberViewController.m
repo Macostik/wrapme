@@ -41,6 +41,11 @@
 	self.birthdateTextField.superview.layer.borderColor = [UIColor WL_grayColor].CGColor;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	self.view.userInteractionEnabled = YES;
+}
+
 - (void)setupPicker {
 	[WLInputAccessoryView inputAccessoryViewWithResponder:self.phoneNumberTextField];
 	self.birthdatePicker = [UIDatePicker new];

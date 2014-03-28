@@ -28,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UIView *messageView;
 @property (strong, nonatomic) NSMutableArray * wrapDays;
 @property (weak, nonatomic) IBOutlet UITextField *typeMessageTextField;
+@property (weak, nonatomic) IBOutlet UIView *firstContributorView;
+@property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
 
 @end
 
@@ -42,6 +44,11 @@
 	self.nameLabel.text = self.wrap.name;
 	
 	[self sortCandiesInWrap];
+	
+	if ([self.wrap.candies count] == 0) {
+		self.firstContributorView.alpha = 1.0f;
+		self.firstContributorWrapNameLabel.text = self.wrap.name;
+	}
 }
 
 - (void) sortCandiesInWrap {
@@ -102,16 +109,28 @@
 	self.typeMessageTextField.text = nil;
 }
 
+#pragma mark - User Actions
+
 - (IBAction)back:(id)sender {
 	[self.navigationController popViewControllerAnimated:YES];
 }
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isCameraSegue]) {
 		WLCameraViewController* cameraController = segue.destinationViewController;
 		cameraController.mode = WLCameraModeFullSize;
 		cameraController.delegate = self;
+		[UIView beginAnimations:nil context:nil];
+		self.firstContributorView.alpha = 0.0f;
+		[UIView commitAnimations];
 	}
+}
+
+- (IBAction)notNow:(UIButton *)sender {
+	[UIView beginAnimations:nil context:nil];
+	self.firstContributorView.alpha = 0.0f;
+	[UIView commitAnimations];
 }
 
 #pragma mark - WLWrapCandiesCellDelegate

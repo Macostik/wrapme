@@ -16,6 +16,7 @@
 #import "NSArray+Additions.h"
 #import "WLAddressBook.h"
 #import "WLPicture.h"
+#import "NSDictionary+Extended.h"
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
@@ -108,10 +109,11 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)signIn:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	NSDictionary* parameters = @{@"country_calling_code" : user.countryCallingCode,
-								 @"phone_number" : user.phoneNumber,
-								 @"password" : [WLSession password],
-								 @"dob" : [user.birthdate string]};
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:user.countryCallingCode forKey:@"country_calling_code"];
+	[parameters trySetObject:user.phoneNumber forKey:@"phone_number"];
+	[parameters trySetObject:[WLSession password] forKey:@"password"];
+	[parameters trySetObject:[user.birthdate string] forKey:@"dob"];
 	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
 													  withObject:^id(WLAPIResponse *response) {
 														  return response;
@@ -123,7 +125,9 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSDictionary* parameters = @{};
 	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
 													  withObject:^id(WLAPIResponse *response) {
-														  return [[WLUser alloc] initWithDictionary:[response.data objectForKey:@"user"] error:nil];
+														  WLUser* user = [[WLUser alloc] initWithDictionary:[response.data objectForKey:@"user"] error:nil];
+														  [WLSession setUser:user];
+														  return user;
 													  } failure:failure];
 	[self GET:@"users/me" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
 }

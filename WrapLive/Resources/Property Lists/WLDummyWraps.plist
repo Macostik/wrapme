@@ -264,6 +264,8 @@
 			<dict>
 				<key>cover</key>
 				<string>http://placeimg.com/100/100/any</string>
+				<key>type</key>
+				<string>chat</string>
 				<key>createdAt</key>
 				<string>2014-03-20T12:58:33Z</string>
 				<key>modified</key>

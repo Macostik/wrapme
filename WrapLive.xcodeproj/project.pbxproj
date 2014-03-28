@@ -30,6 +30,7 @@
 		129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654EE18E1A79500FF43F6 /* UIColor+CustomColors.m */; };
 		129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */; };
 		129654F518E1CB3000FF43F6 /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
+		12976ECE18E5D6E300C5F2A9 /* NSDictionary+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 12976ECD18E5D6E300C5F2A9 /* NSDictionary+Extended.m */; };
 		12A7A70318DA0945008FF6F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70218DA0945008FF6F0 /* Foundation.framework */; };
 		12A7A70518DA0945008FF6F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */; };
 		12A7A70718DA0945008FF6F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70618DA0945008FF6F0 /* UIKit.framework */; };
@@ -121,6 +122,8 @@
 		129654F118E1CAF900FF43F6 /* WLInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLInputAccessoryView.h; path = WLInputAccessoryView/WLInputAccessoryView.h; sourceTree = "<group>"; };
 		129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLInputAccessoryView.m; path = WLInputAccessoryView/WLInputAccessoryView.m; sourceTree = "<group>"; };
 		129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLInputAccessoryView.xib; path = WLInputAccessoryView/WLInputAccessoryView.xib; sourceTree = "<group>"; };
+		12976ECC18E5D6E300C5F2A9 /* NSDictionary+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extended.h"; sourceTree = "<group>"; };
+		12976ECD18E5D6E300C5F2A9 /* NSDictionary+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extended.m"; sourceTree = "<group>"; };
 		12A7A6FF18DA0945008FF6F0 /* WrapLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WrapLive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12A7A70218DA0945008FF6F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -400,6 +403,15 @@
 				129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */,
 			);
 			name = WLInputAccessoryView;
+			sourceTree = "<group>";
+		};
+		12976ECB18E5D6E300C5F2A9 /* NSDictionary */ = {
+			isa = PBXGroup;
+			children = (
+				12976ECC18E5D6E300C5F2A9 /* NSDictionary+Extended.h */,
+				12976ECD18E5D6E300C5F2A9 /* NSDictionary+Extended.m */,
+			);
+			path = NSDictionary;
 			sourceTree = "<group>";
 		};
 		12A7A6F618DA0945008FF6F0 = {
@@ -730,6 +742,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				12976ECB18E5D6E300C5F2A9 /* NSDictionary */,
 				1215DC7C18E4484000FCA744 /* UIStoryboard */,
 				1215DC7818E4421700FCA744 /* NSArray */,
 				12D653D318E4326C009CE64C /* UIView */,
@@ -963,6 +976,7 @@
 				128886AD18DC493B00957B22 /* WLSession.m in Sources */,
 				128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */,
 				12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */,
+				12976ECE18E5D6E300C5F2A9 /* NSDictionary+Extended.m in Sources */,
 				121B1B4018E0848D001F585C /* WLCountriesViewController.m in Sources */,
 				12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */,
 				12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */,

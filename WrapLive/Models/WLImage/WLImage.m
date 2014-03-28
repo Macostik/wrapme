@@ -11,6 +11,10 @@
 @implementation WLImage
 
 - (NSString *)cover {
+	NSString* cover = [super cover];
+	if (cover.length > 0) {
+		return cover;
+	}
 	return self.url;
 }
 

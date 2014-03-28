@@ -14,6 +14,10 @@
 @implementation WLConversation
 
 - (NSString *)cover {
+	NSString* cover = [super cover];
+	if (cover.length > 0) {
+		return cover;
+	}
 	WLComment* comment = [self.comments lastObject];
 	return comment.author.avatar.thumbnail;
 }

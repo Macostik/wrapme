@@ -951,6 +951,8 @@
 			<dict>
 				<key>cover</key>
 				<string>http://placeimg.com/100/100/any</string>
+				<key>modified</key>
+				<string>2014-03-20T12:35:33Z</string>
 				<key>comments</key>
 				<array>
 					<dict>

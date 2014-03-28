@@ -13,14 +13,17 @@
 #import "WLCandy.h"
 #import "NSDate+Formatting.h"
 #import "WLWrapDay.h"
+#import "UIView+Shorthand.h"
 
-@interface WLWrapViewController ()
+@interface WLWrapViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
+@property (weak, nonatomic) IBOutlet UIView *messageView;
 @property (strong, nonatomic) NSMutableArray * wrapDays;
+@property (weak, nonatomic) IBOutlet UITextField *typeMessageTextField;
 
 @end
 
@@ -60,6 +63,36 @@
 	[self.tableView reloadData];
 }
 
+- (IBAction)typeMessage:(UIButton *)sender {
+	if (self.messageView.hidden) {
+		self.tableView.frame = CGRectMake(self.tableView.x, self.tableView.y + self.messageView.height, self.tableView.width, self.tableView.height - self.messageView.height);
+		self.messageView.hidden = NO;
+	}
+	else {
+		[self hideView];
+	}
+}
+
+- (IBAction)sendMessage:(UIButton *)sender {
+	[self hideViewAndSendMessage];
+}
+
+- (void)hideViewAndSendMessage {
+	[self hideView];
+	[self sendMessage];
+}
+
+- (void)sendMessage {
+	
+}
+
+- (void)hideView {
+	self.messageView.hidden = YES;
+	self.tableView.frame = CGRectMake(self.tableView.x, self.tableView.y - self.messageView.height, self.tableView.width, self.tableView.height + self.messageView.height);
+	[self.typeMessageTextField resignFirstResponder];
+	self.typeMessageTextField.text = nil;
+}
+
 - (IBAction)back:(id)sender {
 	[self.navigationController popViewControllerAnimated:YES];
 }
@@ -75,6 +108,13 @@
     WLWrapDay * selectedWrapDay = [self.wrapDays objectAtIndex:indexPath.row];
 	cell.item = selectedWrapDay;
     return cell;
+}
+
+#pragma mark - <UITextFieldDelegate>
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	[self hideViewAndSendMessage];
+	return YES;
 }
 
 @end

@@ -16,6 +16,7 @@
 #import "UIStoryboard+Additions.h"
 #import "UIView+Shorthand.h"
 #import "WLCameraViewController.h"
+#import "NSArray+Additions.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
@@ -27,6 +28,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *typeMessageTextField;
 @property (weak, nonatomic) IBOutlet UIView *messageView;
 @property (strong, nonatomic) NSArray* wraps;
+@property (strong, nonatomic) WLWrap* topWrap;
 
 @end
 
@@ -50,38 +52,37 @@
 	}];
 }
 
+- (void)setTopWrap:(WLWrap *)topWrap {
+	_topWrap = topWrap;
+	[self updateHeaderViewWithWrap:topWrap];
+}
+
 - (void)setWraps:(NSArray *)wraps {
-	_wraps = wraps;
-	
-	BOOL hasWraps = [_wraps count] > 0;
-	self.tableView.hidden = !hasWraps;
-	self.noWrapsView.hidden = hasWraps;
-	if (hasWraps) {
-		[self updateHeaderView];
-	}
+	WLWrap* topWrap = [wraps firstObject];
+	_wraps = [wraps arrayByRemovingObject:topWrap];
+	self.tableView.hidden = (topWrap == nil);
+	self.noWrapsView.hidden = (topWrap != nil);
+	self.topWrap = topWrap;
 	[self.tableView reloadData];
 }
 
-- (void)updateHeaderView {
-	WLWrap* wrap = [self.wraps lastObject];
+- (void)updateHeaderViewWithWrap:(WLWrap*)wrap {
 	self.headerWrapNameLabel.text = wrap.name;
-	[wrap.candies enumerateObjectsUsingBlock:^(WLCandy* candy, NSUInteger idx, BOOL *stop) {
-		if (idx < [self.headerEntryViews count]) {
-			UIImageView* imageView = [self.headerEntryViews objectAtIndex:idx];
-			imageView.image = nil;
+	for (UIImageView* imageView in self.headerEntryViews) {
+		NSInteger index = [self.headerEntryViews indexOfObject:imageView];
+		imageView.image = nil;
+		if (index < [wrap.candies count]) {
+			WLCandy *candy = [wrap.candies objectAtIndex:index];
 			[imageView setImageWithURL:[NSURL URLWithString:candy.cover]];
-		} else {
-			*stop = YES;
 		}
-	}];
+	}
 }
 
 - (IBAction)typeMessage:(UIButton *)sender {
 	if (self.messageView.hidden) {
 		self.tableView.frame = CGRectMake(self.tableView.x, self.tableView.y + self.messageView.height, self.tableView.width, self.tableView.height - self.messageView.height);
 		self.messageView.hidden = NO;
-	}
-	else {
+	} else {
 		[self hideView];
 	}
 }

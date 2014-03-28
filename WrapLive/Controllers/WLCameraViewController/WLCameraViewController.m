@@ -236,6 +236,17 @@
 }
 
 - (void)captureImage:(void (^)(UIImage*image))completion {
+	
+#ifdef TARGET_IPHONE_SIMULATOR
+	UIGraphicsBeginImageContext(CGSizeMake(640, 640));
+	[[UIColor brownColor] setFill];
+	[[UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 640, 640)] fill];
+	UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	completion(image);
+	return;
+#endif
+	
     AVCaptureConnection *videoConnection = [self videoConnection];
     videoConnection.videoMirrored = self.front;
     [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection

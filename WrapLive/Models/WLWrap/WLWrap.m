@@ -22,18 +22,11 @@
 	return _wraps;
 }
 
-+ (instancetype)wrap {
-	WLWrap* wrap = [[WLWrap alloc] init];
-	wrap.createdAt = [NSDate date];
-	wrap.author = [WLSession user];
-	return wrap;
-}
-
-- (void)addEntry:(WLCandy *)entry {
+- (void)addCandy:(WLCandy *)candy {
 	if (!self.candies) {
-		self.candies = (id)[NSArray arrayWithObject:entry];
+		self.candies = (id)[NSArray arrayWithObject:candy];
 	} else {
-		self.candies = (id)[self.candies arrayByAddingObject:entry];
+		self.candies = (id)[self.candies arrayByAddingObject:candy];
 	}
 }
 

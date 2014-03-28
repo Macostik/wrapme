@@ -21,7 +21,7 @@
 @implementation WLWrapCandiesCell
 
 - (void)setupItemData:(WLWrapDay*)entry {
-	self.dateLabel.text = entry.modifiedString;
+	self.dateLabel.text = [entry.modified stringWithFormat:@"MMM dd, YYYY"];
 	[self.collectionView reloadData];
 }
 

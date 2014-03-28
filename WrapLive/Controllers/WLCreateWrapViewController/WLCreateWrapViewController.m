@@ -37,7 +37,7 @@
 
 - (WLWrap *)wrap {
 	if (!_wrap) {
-		_wrap = [WLWrap wrap];
+		_wrap = [WLWrap entry];
 	}
 	return _wrap;
 }
@@ -74,8 +74,10 @@
 	__weak typeof(self)weakSelf = self;
 	self.wrap.name = self.nameField.text;
 	self.wrap.cover = @"http://placeimg.com/111/111/any";
+	self.wrap.createdAt = [NSDate date];
+	self.wrap.modified = [NSDate date];
 	[[WLAPIManager instance] createWrap:self.wrap success:^(id object) {
-		[[WLWrap dummyWraps] addObject:weakSelf.wrap];
+		[[WLWrap dummyWraps] insertObject:weakSelf.wrap atIndex:0];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
 		wrapController.wrap = weakSelf.wrap;
 		NSArray* controllers = @[[weakSelf.navigationController.viewControllers firstObject],wrapController];

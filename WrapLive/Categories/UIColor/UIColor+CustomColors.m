@@ -66,8 +66,7 @@
 	return [self colorByAddingValue:0.2f];
 }
 
-- (UIColor *)darkerColor
-{
+- (UIColor *)darkerColor {
     return [self colorByAddingValue:-0.2f];
 }
 

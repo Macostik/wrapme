@@ -16,8 +16,9 @@
 #import "UIView+Shorthand.h"
 #import "UIStoryboard+Additions.h"
 #import "WLCameraViewController.h"
+#import "WLImage.h"
 
-@interface WLWrapViewController () <UITextFieldDelegate>
+@interface WLWrapViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
@@ -54,11 +55,17 @@
 		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(modified >= %@) AND (modified <= %@)", startDate, endDate];
 		NSArray *dayCandies = [candies filteredArrayUsingPredicate:predicate];
 		WLWrapDay * wrapDay = [WLWrapDay new];
-		wrapDay.modifiedString = [candy.modified stringWithFormat:@"MMM dd, YYYY"];
+		wrapDay.modified = candy.modified;
 		wrapDay.candies = dayCandies;
 		[wrapDays addObject:wrapDay];
 		[candies removeObjectsInArray:dayCandies];
 	}
+	
+	static NSSortDescriptor* sortDescriptor = nil;
+	if (!sortDescriptor) {
+		sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"modified" ascending:YES];
+	}
+	[wrapDays sortUsingDescriptors:@[sortDescriptor]];
 	
 	self.wrapDays = [wrapDays copy];
 	
@@ -69,8 +76,7 @@
 	if (self.messageView.hidden) {
 		self.tableView.frame = CGRectMake(self.tableView.x, self.tableView.y + self.messageView.height, self.tableView.width, self.tableView.height - self.messageView.height);
 		self.messageView.hidden = NO;
-	}
-	else {
+	} else {
 		[self hideView];
 	}
 }
@@ -103,6 +109,7 @@
 	if ([segue isCameraSegue]) {
 		WLCameraViewController* cameraController = segue.destinationViewController;
 		cameraController.mode = WLCameraModeFullSize;
+		cameraController.delegate = self;
 	}
 }
 
@@ -114,8 +121,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WLWrapCandiesCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLWrapCandiesCell reuseIdentifier]];
-    WLWrapDay * selectedWrapDay = [self.wrapDays objectAtIndex:indexPath.row];
-	cell.item = selectedWrapDay;
+	cell.item = [self.wrapDays objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -124,6 +130,21 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[self hideViewAndSendMessage];
 	return YES;
+}
+
+#pragma mark - WLCameraViewControllerDelegate
+
+- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+	WLImage* candy = [WLImage entry];
+	candy.url = @"http://placeimg.com/135/111/any";
+	candy.thumbnail = @"http://placeimg.com/123/111/any";
+	[self.wrap addCandy:candy];
+	[self sortCandiesInWrap];
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

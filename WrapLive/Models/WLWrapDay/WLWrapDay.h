@@ -10,7 +10,7 @@
 
 @interface WLWrapDay : JSONModel
 
-@property (strong, nonatomic) NSArray * candies;
-@property (strong, nonatomic) NSString * modifiedString;
+@property (strong, nonatomic) NSArray *candies;
+@property (strong, nonatomic) NSDate *modified;
 
 @end

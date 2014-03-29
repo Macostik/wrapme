@@ -23,6 +23,7 @@
 
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *headerEntryViews;
 @property (weak, nonatomic) IBOutlet UIView *headerWrapView;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapCreatedAtLabel;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapAuthorsLabel;
@@ -133,22 +134,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.row == 0) {
-        
         UITableViewCell *theCell = [tableView dequeueReusableCellWithIdentifier:@"LabelCell"];
         return theCell;
     }
-	static NSString* wrapCellIdentifier = @"WLWrapCell";
-	WLWrapCell* cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
-													   forIndexPath:indexPath];
-	cell.item = [self.wraps objectAtIndex:indexPath.row];
-	return cell;
+	else {
+		static NSString* wrapCellIdentifier = @"WLWrapCell";
+		WLWrapCell* cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
+														   forIndexPath:indexPath];
+		cell.item = [self.wraps objectAtIndex:(indexPath.row) - 1];
+		return cell;
+	}
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.row == 0) {
 		return 44;
 	} else {
-		return [WLWrapCell heightForItem:[self.wraps objectAtIndex:indexPath.row]];
+		return [WLWrapCell heightForItem:[self.wraps objectAtIndex:(indexPath.row -1)]];
 	}
 }
 

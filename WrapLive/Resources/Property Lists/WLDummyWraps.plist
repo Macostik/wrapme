@@ -959,8 +959,51 @@
 				<string>http://placeimg.com/100/100/any</string>
 				<key>modified</key>
 				<string>2014-03-20T12:35:33Z</string>
+				<key>type</key>
+				<string>image</string>
+				<key>url</key>
+				<string>http://placeimg.com/100/100/any</string>
 				<key>comments</key>
 				<array>
+					<dict>
+						<key>text</key>
+						<string>Comment Text</string>
+						<key>author</key>
+						<dict>
+							<key>name</key>
+							<string>John Smith</string>
+							<key>thumb_avatar_url</key>
+							<string>http://placeimg.com/100/100/any</string>
+						</dict>
+						<key>createdAt</key>
+						<string>2014-03-20T13:00:51Z</string>
+					</dict>
+					<dict>
+						<key>text</key>
+						<string>Comment Text</string>
+						<key>author</key>
+						<dict>
+							<key>name</key>
+							<string>John Smith</string>
+							<key>thumb_avatar_url</key>
+							<string>http://placeimg.com/100/100/any</string>
+						</dict>
+						<key>createdAt</key>
+						<string>2014-03-20T13:00:51Z</string>
+					</dict>
+					<dict>
+						<key>text</key>
+						<string>Comment Text</string>
+						<key>author</key>
+						<dict>
+							<key>name</key>
+							<string>John Smith</string>
+							<key>thumb_avatar_url</key>
+							<string>http://placeimg.com/100/100/any</string>
+						</dict>
+						<key>createdAt</key>
+						<string>2014-03-20T13:00:51Z</string>
+					</dict>
 					<dict>
 						<key>text</key>
 						<string>Comment Text</string>
@@ -986,8 +1029,51 @@
 			<dict>
 				<key>cover</key>
 				<string>http://placeimg.com/100/100/any</string>
+				<key>modified</key>
+				<string>2014-03-20T12:35:33Z</string>
+				<key>type</key>
+				<string>chat</string>
 				<key>comments</key>
 				<array>
+					<dict>
+						<key>text</key>
+						<string>Comment Text</string>
+						<key>author</key>
+						<dict>
+							<key>name</key>
+							<string>John Smith</string>
+							<key>thumb_avatar_url</key>
+							<string>http://placeimg.com/100/100/any</string>
+						</dict>
+						<key>createdAt</key>
+						<string>2014-03-20T13:00:51Z</string>
+					</dict>
+					<dict>
+						<key>text</key>
+						<string>Comment Text</string>
+						<key>author</key>
+						<dict>
+							<key>name</key>
+							<string>John Smith</string>
+							<key>thumb_avatar_url</key>
+							<string>http://placeimg.com/100/100/any</string>
+						</dict>
+						<key>createdAt</key>
+						<string>2014-03-20T13:00:51Z</string>
+					</dict>
+					<dict>
+						<key>text</key>
+						<string>Comment Text</string>
+						<key>author</key>
+						<dict>
+							<key>name</key>
+							<string>John Smith</string>
+							<key>thumb_avatar_url</key>
+							<string>http://placeimg.com/100/100/any</string>
+						</dict>
+						<key>createdAt</key>
+						<string>2014-03-20T13:00:51Z</string>
+					</dict>
 					<dict>
 						<key>text</key>
 						<string>Comment Text</string>

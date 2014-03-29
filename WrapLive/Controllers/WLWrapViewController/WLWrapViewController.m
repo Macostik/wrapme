@@ -136,7 +136,9 @@
 #pragma mark - WLWrapCandiesCellDelegate
 
 - (void)wrapCandiesCell:(WLWrapCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
-	
+	WLWrapDataViewController * wrapDatacontroller = [self.storyboard wrapDataViewController];
+	wrapDatacontroller.candy = candy;
+	[self.navigationController pushViewController:wrapDatacontroller animated:YES];
 }
 
 #pragma mark - UITableViewDataSource

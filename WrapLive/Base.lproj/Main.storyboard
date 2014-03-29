@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Welcome View Controller-->
@@ -961,7 +961,6 @@
                                                             <connections>
                                                                 <outlet property="commentLabel" destination="uUy-xT-QkN" id="9Yj-N8-LR5"/>
                                                                 <outlet property="coverView" destination="LTc-3d-rPJ" id="EQa-di-5ix"/>
-                                                                <segue destination="eto-O4-OHy" kind="push" id="qfe-3h-irf"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
@@ -1101,7 +1100,7 @@
         <!--Wrap Data View Controller-->
         <scene sceneID="IUe-2p-n08">
             <objects>
-                <viewController id="eto-O4-OHy" customClass="WLWrapDataViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="wrapData" id="eto-O4-OHy" customClass="WLWrapDataViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FUv-v8-MyM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1170,14 +1169,13 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="arL-S1-dVj">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="0.57647061347961426" green="0.57647061347961426" blue="0.57254904508590698" alpha="1" colorSpace="deviceRGB"/>
-                                </view>
+                                <imageView key="tableHeaderView" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Sn5-Ts-kUU">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WLCommentCell" id="PUO-dQ-EKn">
-                                        <rect key="frame" x="0.0" y="222" width="320" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WLCommentCell" id="PUO-dQ-EKn" customClass="WLCommentCell">
+                                        <rect key="frame" x="0.0" y="342" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PUO-dQ-EKn" id="Ci2-WB-9eg">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -1202,6 +1200,11 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="authorImageView" destination="LiT-bh-wDT" id="bxC-4F-J0k"/>
+                                            <outlet property="authorNameLabel" destination="s8v-Pz-wMq" id="ewj-Qd-a3D"/>
+                                            <outlet property="commentLabel" destination="cMQ-Ws-a0u" id="x4C-nD-XBX"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -1214,6 +1217,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="VOw-xU-v7z"/>
                     <connections>
+                        <outlet property="imageView" destination="Sn5-Ts-kUU" id="Bdw-8Z-Pph"/>
                         <outlet property="messageView" destination="H5m-hD-Eet" id="yAi-yF-xRn"/>
                         <outlet property="sendMessageButton" destination="Ekp-JP-0oD" id="lBg-5P-C0q"/>
                         <outlet property="titleLabel" destination="N9a-4s-fUi" id="wBS-tA-c4B"/>
@@ -1250,6 +1254,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Gnf-h6-U5W"/>
+        <segue reference="B2J-NP-7RF"/>
     </inferredMetricsTieBreakers>
 </document>

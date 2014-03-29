@@ -7,25 +7,24 @@
 //
 
 #import "WLCommentCell.h"
+#import "WLComment.h"
+#import "WLUser.h"
+#import "WLPicture.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
+
+@interface WLCommentCell()
+@property (weak, nonatomic) IBOutlet UIImageView *authorImageView;
+@property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+
+@end
 
 @implementation WLCommentCell
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+- (void)setupItemData:(WLComment *)entry {
+	self.authorNameLabel.text = entry.author.name;
+	self.commentLabel.text = entry.text;
+	[self.authorImageView setImageWithURL:[NSURL URLWithString:entry.author.avatar.thumbnail]];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

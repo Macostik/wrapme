@@ -8,11 +8,18 @@
 
 #import "WLWrapDataViewController.h"
 #import "WLCommentCell.h"
+#import "WLCandy.h"
+#import "NSDate+Formatting.h"
+#import "WLImage.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "UIView+Shorthand.h"
+#import "WLUser.h"
 
 @interface WLWrapDataViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *messageView;
 @property (weak, nonatomic) IBOutlet UIButton *sendMessageButton;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @end
 
@@ -22,6 +29,19 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+	if ([self.candy.type isEqualToString:WLCandyTypeImage]) {
+		[self setupImageView:(WLImage*)self.candy];
+		self.titleLabel.text = self.candy.author.name;
+	}
+	else {
+		self.titleLabel.text = [self.candy.modified stringWithFormat:@"MMMM dd, YYYY"];
+		self.imageView.height = 0;
+	}
+}
+
+- (void)setupImageView:(WLImage *)image {
+	self.imageView.height = 320;
+	[self.imageView setImageWithURL:[NSURL URLWithString:image.url]];
 }
 
 #pragma mark - Actions
@@ -66,15 +86,14 @@
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 10;
+	return self.candy.comments.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString* wrapCellIdentifier = @"WLCommentCell";
 	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
 													   forIndexPath:indexPath];
-	
-	
+	cell.item = [self.candy.comments objectAtIndex:indexPath.row];
 	return cell;
 }
 

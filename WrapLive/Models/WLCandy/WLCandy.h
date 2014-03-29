@@ -21,6 +21,7 @@ static NSString* WLCandyTypeConversation = @"chat";
 
 @property (strong, nonatomic) NSArray<WLComment>* comments;
 @property (strong, nonatomic) NSString *cover;
+@property (strong, nonatomic) NSString *type;
 
 - (void)addComment:(WLComment*)comment;
 

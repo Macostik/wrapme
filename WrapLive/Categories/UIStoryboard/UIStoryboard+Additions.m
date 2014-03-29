@@ -26,6 +26,10 @@
 	return [self instantiateViewControllerWithIdentifier:WLStoryboardSignUpViewControllerIdentifier];
 }
 
+- (id)wrapDataViewController {
+	return [self instantiateViewControllerWithIdentifier:WLStoryboardWrapDataViewControllerIdentifier];
+}
+
 @end
 
 @implementation UIStoryboardSegue (Additions)

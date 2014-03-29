@@ -31,7 +31,7 @@
 	// Do any additional setup after loading the view.
 	if ([self.candy.type isEqualToString:WLCandyTypeImage]) {
 		[self setupImageView:(WLImage*)self.candy];
-		self.titleLabel.text = self.candy.author.name;
+		self.titleLabel.text = [NSString stringWithFormat:@"By %@", self.candy.author.name];
 	}
 	else {
 		self.titleLabel.text = [self.candy.modified stringWithFormat:@"MMMM dd, YYYY"];

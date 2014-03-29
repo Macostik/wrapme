@@ -19,7 +19,7 @@
 #import "NSArray+Additions.h"
 #import "NSDate+Formatting.h"
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLCameraViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *headerEntryViews;
 @property (weak, nonatomic) IBOutlet UIView *headerWrapView;
@@ -120,6 +120,7 @@
 		[(WLWrapViewController* )segue.destinationViewController setWrap:self.topWrap];
 	} else if ([segue isCameraSegue]) {
 		WLCameraViewController* cameraController = segue.destinationViewController;
+		cameraController.delegate = self;
 		cameraController.mode = WLCameraModeFullSize;
 	}
 }
@@ -143,6 +144,19 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[self hideViewAndSendMessage];
 	return YES;
+}
+
+#pragma mark - <WLCameraViewControllerDelegate>
+
+- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+
+	//TODO: POST /api/wraps/:id/candies  to add candy to the wrap
+
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

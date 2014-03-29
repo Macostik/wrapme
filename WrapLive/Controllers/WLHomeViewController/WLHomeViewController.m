@@ -115,7 +115,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isWrapSegue]) {
-		WLWrap* wrap = [self.wraps objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+		WLWrap* wrap = [self.wraps objectAtIndex:([self.tableView indexPathForSelectedRow].row -1)];
 		[(WLWrapViewController* )segue.destinationViewController setWrap:wrap];
 	} else if ([segue isTopWrapSegue]) {
 		[(WLWrapViewController* )segue.destinationViewController setWrap:self.topWrap];

@@ -50,4 +50,8 @@
 	return [self.identifier isEqualToString:WLStoryboardSegueTopWrapIdentifier];
 }
 
+- (BOOL)isChangeWrapSegue {
+	return [self.identifier isEqualToString:WLStoryboardSegueChangeWrapIdentifier];
+}
+
 @end

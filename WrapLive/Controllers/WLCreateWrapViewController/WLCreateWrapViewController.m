@@ -20,11 +20,15 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UITableView *contributorsTableView;
 @property (weak, nonatomic) IBOutlet UIView *noContributorsView;
 
 @property (strong, nonatomic) WLWrap* wrap;
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 
 @end
 
@@ -67,6 +71,9 @@
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
+	[self.navigationController popViewControllerAnimated:YES];
+}
+- (IBAction)done:(UIButton *)sender {
 	[self.navigationController popViewControllerAnimated:YES];
 }
 

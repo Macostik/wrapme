@@ -25,4 +25,8 @@
 	[self.coverView setImageWithURL:[NSURL URLWithString:wrap.cover]];
 }
 
++ (CGFloat)heightForItem:(id)item {
+	return 66;
+}
+
 @end

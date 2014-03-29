@@ -132,11 +132,24 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.row == 0) {
+        
+        UITableViewCell *theCell = [tableView dequeueReusableCellWithIdentifier:@"LabelCell"];
+        return theCell;
+    }
 	static NSString* wrapCellIdentifier = @"WLWrapCell";
 	WLWrapCell* cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
 													   forIndexPath:indexPath];
 	cell.item = [self.wraps objectAtIndex:indexPath.row];
 	return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.row == 0) {
+		return 44;
+	} else {
+		return [WLWrapCell heightForItem:[self.wraps objectAtIndex:indexPath.row]];
+	}
 }
 
 #pragma mark - <UITextFieldDelegate>

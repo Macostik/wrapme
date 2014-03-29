@@ -17,12 +17,15 @@
 #import "UIView+Shorthand.h"
 #import "WLCameraViewController.h"
 #import "NSArray+Additions.h"
+#import "NSDate+Formatting.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *headerEntryViews;
 @property (weak, nonatomic) IBOutlet UIView *headerWrapView;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *headerWrapCreatedAtLabel;
+@property (weak, nonatomic) IBOutlet UILabel *headerWrapAuthorsLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
 @property (strong, nonatomic) IBOutlet UITextField *typeMessageTextField;
@@ -68,6 +71,8 @@
 
 - (void)updateHeaderViewWithWrap:(WLWrap*)wrap {
 	self.headerWrapNameLabel.text = wrap.name;
+	self.headerWrapCreatedAtLabel.text = [wrap.createdAt stringWithFormat:@"MMMM dd, yyyy"];
+	self.headerWrapAuthorsLabel.text = @"Who must be here?";
 	for (UIImageView* imageView in self.headerEntryViews) {
 		NSInteger index = [self.headerEntryViews indexOfObject:imageView];
 		imageView.image = nil;
@@ -111,6 +116,8 @@
 	if ([segue isWrapSegue]) {
 		WLWrap* wrap = [self.wraps objectAtIndex:[self.tableView indexPathForSelectedRow].row];
 		[(WLWrapViewController* )segue.destinationViewController setWrap:wrap];
+	} else if ([segue isTopWrapSegue]) {
+		[(WLWrapViewController* )segue.destinationViewController setWrap:self.topWrap];
 	} else if ([segue isCameraSegue]) {
 		WLCameraViewController* cameraController = segue.destinationViewController;
 		cameraController.mode = WLCameraModeFullSize;

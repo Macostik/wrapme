@@ -46,4 +46,8 @@
 	return [self.identifier isEqualToString:WLStoryboardSegueCameraIdentifier];
 }
 
+- (BOOL)isTopWrapSegue {
+	return [self.identifier isEqualToString:WLStoryboardSegueTopWrapIdentifier];
+}
+
 @end

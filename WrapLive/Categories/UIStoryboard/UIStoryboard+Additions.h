@@ -31,6 +31,7 @@ static NSString* WLStoryboardWrapDataViewControllerIdentifier = @"wrapData";
 static NSString* WLStoryboardSegueContributorsIdentifier = @"contributors";
 static NSString* WLStoryboardSegueWrapIdentifier = @"wrap";
 static NSString* WLStoryboardSegueCameraIdentifier = @"camera";
+static NSString* WLStoryboardSegueTopWrapIdentifier= @"topWrap";
 
 @interface UIStoryboardSegue (Additions)
 
@@ -39,5 +40,7 @@ static NSString* WLStoryboardSegueCameraIdentifier = @"camera";
 - (BOOL)isWrapSegue;
 
 - (BOOL)isCameraSegue;
+
+- (BOOL)isTopWrapSegue;
 
 @end

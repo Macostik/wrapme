@@ -12,7 +12,7 @@
 			<dict>
 				<key>type</key>
 				<string>image</string>
-				<key>cover</key>
+				<key>url</key>
 				<string>http://placeimg.com/100/100/any</string>
 				<key>createdAt</key>
 				<string>2014-03-20T12:58:33Z</string>
@@ -22,7 +22,7 @@
 				<array>
 					<dict>
 						<key>text</key>
-						<string>Comment Text</string>
+						<string>Comment Text for Image</string>
 						<key>author</key>
 						<dict>
 							<key>name</key>

@@ -23,7 +23,7 @@
 }
 
 + (id)loadFromNib:(UINib *)nib ownedBy:(id)owner {
-	NSArray *bundleObjects = [nib instantiateWithOwner:nil options:nil];
+	NSArray *bundleObjects = [nib instantiateWithOwner:owner options:nil];
 	for (id obj in bundleObjects) {
 		if ([obj isKindOfClass:[self class]]) {
 			return obj;

@@ -73,6 +73,9 @@
 		12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */; };
 		12E8FF1718E960E000BF1B96 /* StreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1218E960E000BF1B96 /* StreamView.m */; };
 		12E8FF1B18E97D3F00BF1B96 /* UIImageView+ImageLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1A18E97D3F00BF1B96 /* UIImageView+ImageLoading.m */; };
+		12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
+		12E8FF2118E9885F00BF1B96 /* WLComposeBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E8FF2018E9885F00BF1B96 /* WLComposeBar.xib */; };
+		12E8FF2418E98B7100BF1B96 /* WLComposeContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF2318E98B7100BF1B96 /* WLComposeContainer.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		ACAAE6D418E5C3BA000C4775 /* WLWrapDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAAE6D318E5C3BA000C4775 /* WLWrapDataViewController.m */; };
 		ACAAE6D818E5CE71000C4775 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAAE6D718E5CE71000C4775 /* WLCommentCell.m */; };
@@ -209,6 +212,11 @@
 		12E8FF1218E960E000BF1B96 /* StreamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamView.m; sourceTree = "<group>"; };
 		12E8FF1918E97D3F00BF1B96 /* UIImageView+ImageLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+ImageLoading.h"; path = "UIImageView/UIImageView+ImageLoading.h"; sourceTree = "<group>"; };
 		12E8FF1A18E97D3F00BF1B96 /* UIImageView+ImageLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+ImageLoading.m"; path = "UIImageView/UIImageView+ImageLoading.m"; sourceTree = "<group>"; };
+		12E8FF1D18E9885100BF1B96 /* WLComposeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposeBar.h; path = WLComposeBar/WLComposeBar.h; sourceTree = "<group>"; };
+		12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposeBar.m; path = WLComposeBar/WLComposeBar.m; sourceTree = "<group>"; };
+		12E8FF2018E9885F00BF1B96 /* WLComposeBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLComposeBar.xib; path = WLComposeBar/WLComposeBar.xib; sourceTree = "<group>"; };
+		12E8FF2218E98B7100BF1B96 /* WLComposeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposeContainer.h; path = WLComposeBar/WLComposeContainer.h; sourceTree = "<group>"; };
+		12E8FF2318E98B7100BF1B96 /* WLComposeContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposeContainer.m; path = WLComposeBar/WLComposeContainer.m; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		ACAAE6D218E5C3BA000C4775 /* WLWrapDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapDataViewController.h; path = WLWrapDataViewController/WLWrapDataViewController.h; sourceTree = "<group>"; };
 		ACAAE6D318E5C3BA000C4775 /* WLWrapDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapDataViewController.m; path = WLWrapDataViewController/WLWrapDataViewController.m; sourceTree = "<group>"; };
@@ -528,6 +536,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				12E8FF1C18E9883700BF1B96 /* WLComposeBar */,
 				12E8FF0718E960E000BF1B96 /* StreamView */,
 				12D653DF18E432DA009CE64C /* WLBorderView */,
 				12D653D718E4329F009CE64C /* WLProgressBar */,
@@ -817,6 +826,18 @@
 			name = UIImageView;
 			sourceTree = "<group>";
 		};
+		12E8FF1C18E9883700BF1B96 /* WLComposeBar */ = {
+			isa = PBXGroup;
+			children = (
+				12E8FF1D18E9885100BF1B96 /* WLComposeBar.h */,
+				12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */,
+				12E8FF2018E9885F00BF1B96 /* WLComposeBar.xib */,
+				12E8FF2218E98B7100BF1B96 /* WLComposeContainer.h */,
+				12E8FF2318E98B7100BF1B96 /* WLComposeContainer.m */,
+			);
+			name = WLComposeBar;
+			sourceTree = "<group>";
+		};
 		ACAAE6D118E5C393000C4775 /* WLWrapDataViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -953,6 +974,7 @@
 				121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */,
 				121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
+				12E8FF2118E9885F00BF1B96 /* WLComposeBar.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1004,6 +1026,7 @@
 				12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */,
 				121B1B2E18E07430001F585C /* WLCountry.m in Sources */,
 				12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */,
+				12E8FF2418E98B7100BF1B96 /* WLComposeContainer.m in Sources */,
 				12E3DA4218E03EB000DBDB79 /* WLSupportFunctions.m in Sources */,
 				121B1B4218E0848D001F585C /* WLCountryCell.m in Sources */,
 				1293678318E33A3500527250 /* WLWrapCandyCell.m in Sources */,
@@ -1011,6 +1034,7 @@
 				ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */,
 				12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */,
 				12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */,
+				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				12E8FF1718E960E000BF1B96 /* StreamView.m in Sources */,
 				12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */,

@@ -22,8 +22,11 @@
 #import "WLWrapDataViewController.h"
 #import "UIColor+CustomColors.h"
 #import "WLPicture.h"
+#import "WLImage.h"
+#import "WLComposeBar.h"
+#import "WLComposeContainer.h"
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLCameraViewControllerDelegate, StreamViewDelegate>
+@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
 
 @property (weak, nonatomic) IBOutlet StreamView *topWrapStreamView;
 @property (weak, nonatomic) IBOutlet UIView *headerWrapView;
@@ -33,8 +36,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapAuthorsLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
-@property (strong, nonatomic) IBOutlet UITextField *typeMessageTextField;
-@property (weak, nonatomic) IBOutlet UIView *messageView;
+@property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
 @property (strong, nonatomic) NSArray* wraps;
 @property (strong, nonatomic) WLWrap* topWrap;
 
@@ -46,7 +48,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	
-	self.tableView.hidden = YES;
+	self.composeContainer.hidden = YES;
 	self.noWrapsView.hidden = YES;
 	
 	self.topWrapStreamView.reusableViewLoadingType = StreamViewReusableViewLoadingTypeInit;
@@ -71,7 +73,7 @@
 	wraps = [wraps sortedEntries];
 	WLWrap* topWrap = [wraps firstObject];
 	_wraps = [wraps arrayByRemovingObject:topWrap];
-	self.tableView.hidden = (topWrap == nil);
+	self.composeContainer.hidden = (topWrap == nil);
 	self.noWrapsView.hidden = (topWrap != nil);
 	self.topWrap = topWrap;
 	[self.tableView reloadData];
@@ -87,32 +89,11 @@
 }
 
 - (IBAction)typeMessage:(UIButton *)sender {
-	if (self.messageView.hidden) {
-		self.tableView.frame = CGRectMake(self.tableView.x, self.tableView.y + self.messageView.height, self.tableView.width, self.tableView.height - self.messageView.height);
-		self.messageView.hidden = NO;
-	} else {
-		[self hideView];
-	}
-}
-
-- (IBAction)sendMessage:(UIButton *)sender {
-	[self hideViewAndSendMessage];
-}
-
-- (void)hideViewAndSendMessage {
-	[self hideView];
-	[self sendMessage];
+	[self.composeContainer setEditing:!self.composeContainer.editing animated:YES];
 }
 
 - (void)sendMessage {
 	
-}
-
-- (void)hideView {
-	self.messageView.hidden = YES;
-	self.tableView.frame = CGRectMake(self.tableView.x, self.tableView.y - self.messageView.height, self.tableView.width, self.tableView.height + self.messageView.height);
-	[self.typeMessageTextField resignFirstResponder];
-	self.typeMessageTextField.text = nil;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -126,6 +107,13 @@
 		cameraController.delegate = self;
 		cameraController.mode = WLCameraModeFullSize;
 	}
+}
+
+#pragma mark - WLComposeBarDelegate
+
+- (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
+	[self.composeContainer setEditing:NO animated:YES];
+	[self sendMessage];
 }
 
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
@@ -150,18 +138,20 @@
 	return [tableView dequeueReusableCellWithIdentifier:@"LabelCell"];
 }
 
-#pragma mark - <UITextFieldDelegate>
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[self hideViewAndSendMessage];
-	return YES;
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+	if (self.composeContainer.editing) {
+		[self.composeContainer setEditing:NO animated:YES];
+	}
 }
 
 #pragma mark - <WLCameraViewControllerDelegate>
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
 
-	//TODO: POST /api/wraps/:id/candies  to add candy to the wrap
+	WLImage* candy = [WLImage entry];
+	candy.url.large = @"http://placeimg.com/135/122/any";
+	candy.url.thumbnail = @"http://placeimg.com/123/124/any";
+	[self.topWrap addCandy:candy];
 
 	[self dismissViewControllerAnimated:YES completion:nil];
 }

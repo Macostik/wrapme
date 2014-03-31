@@ -98,14 +98,12 @@
 
 - (IBAction)start:(id)sender {
 	__weak typeof(self)weakSelf = self;
-	self.wrap.name = self.nameField.text;
-	self.wrap.cover.large = @"http://placeimg.com/111/111/any";
+//	self.wrap.name = self.nameField.text;
 	self.wrap.createdAt = [NSDate date];
 	self.wrap.updatedAt = [NSDate date];
 	[[WLAPIManager instance] createWrap:self.wrap success:^(id object) {
-		[[WLWrap dummyWraps] insertObject:weakSelf.wrap atIndex:0];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
-		wrapController.wrap = weakSelf.wrap;
+		wrapController.wrap = object;
 		NSArray* controllers = @[[weakSelf.navigationController.viewControllers firstObject],wrapController];
 		[weakSelf.navigationController setViewControllers:controllers animated:YES];
 	} failure:^(NSError *error) {
@@ -127,15 +125,21 @@
 
 #pragma mark - UITextFieldDelegate
 
+- (IBAction)textFieldDidChange:(UITextField *)sender {
+	self.wrap.name = sender.text;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
 	return YES;
 }
 
+
+
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
-	self.wrap.contributors = [self.wrap.contributors arrayByRemovingObject:contributor];
+	self.wrap.contributors = (id)[self.wrap.contributors arrayByRemovingObject:contributor];
 	[self refreshContributorsTableView];
 }
 
@@ -145,7 +149,7 @@
 	self.coverView.image = image;
 	__weak typeof(self)weakSelf = self;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/WrapLiveAvatar.jpg"];
+		NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/WrapCover.jpeg"];
 		[UIImageJPEGRepresentation(image,1.0) writeToFile:path atomically:YES];
 		weakSelf.wrap.cover.large = path;
     });

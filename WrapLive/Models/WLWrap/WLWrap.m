@@ -24,6 +24,10 @@
 	return _wraps;
 }
 
++ (JSONKeyMapper *)keyMapper {
+	return [[JSONKeyMapper alloc] initWithDictionary:@{@"wrap_uid":@"wrapID"}];
+}
+
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
     self = [super initWithDictionary:dict error:err];
     if (self) {
@@ -43,9 +47,8 @@
 }
 
 - (WLPicture *)cover {
-	if (_cover == nil) {
-		WLCandy* candy = [self.candies lastObject];
-		return candy.cover;
+	if (!_cover) {
+		_cover = [[WLPicture alloc] init];
 	}
 	return _cover;
 }

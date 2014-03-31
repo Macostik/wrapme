@@ -23,6 +23,7 @@
 @property (strong, nonatomic) WLPicture* cover;
 @property (strong, nonatomic) NSArray<WLUser>* contributors;
 @property (strong, nonatomic) NSDate* contributedAt;
+@property (strong, nonatomic) NSString * wrapID;
 
 - (void)addCandy:(WLCandy*)candy;
 

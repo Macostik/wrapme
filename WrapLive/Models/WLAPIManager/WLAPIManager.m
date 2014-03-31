@@ -221,7 +221,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSDictionary* parameters = @{@"name" : wrap.name};
 	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
 													  withObject:^id(WLAPIResponse *response) {
-														  return response;
+														  return [[WLWrap alloc] initWithDictionary:response.data[@"wrap"] error:NULL];
 													  } failure:failure];
 	
 	[self POST:@"wraps" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {

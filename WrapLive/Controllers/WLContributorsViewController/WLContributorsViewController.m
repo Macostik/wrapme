@@ -76,7 +76,7 @@
 }
 
 - (IBAction)done:(id)sender {
-	self.wrap.contributors = [[self.tableView indexPathsForSelectedRows] map:^id(NSIndexPath* indexPath) {
+	self.wrap.contributors = (id)[[self.tableView indexPathsForSelectedRows] map:^id(NSIndexPath* indexPath) {
 		return self.filteredContributors[indexPath.row];
 	}];
 	[self.navigationController popViewControllerAnimated:YES];

@@ -20,18 +20,19 @@
 #import "WLWrapDataViewController.h"
 #import "WLCreateWrapViewController.h"
 #import "WLPicture.h"
+#import "WLComposeBar.h"
+#import "WLComposeContainer.h"
 
-@interface WLWrapViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate>
+@interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
-@property (weak, nonatomic) IBOutlet UIView *messageView;
 @property (strong, nonatomic) NSMutableArray * wrapDays;
-@property (weak, nonatomic) IBOutlet UITextField *typeMessageTextField;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
 @property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
+@property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
 
 @end
 
@@ -79,32 +80,11 @@
 }
 
 - (IBAction)typeMessage:(UIButton *)sender {
-	if (self.messageView.hidden) {
-		self.tableView.frame = CGRectMake(self.tableView.x, self.tableView.y + self.messageView.height, self.tableView.width, self.tableView.height - self.messageView.height);
-		self.messageView.hidden = NO;
-	} else {
-		[self hideView];
-	}
-}
-
-- (IBAction)sendMessage:(UIButton *)sender {
-	[self hideViewAndSendMessage];
-}
-
-- (void)hideViewAndSendMessage {
-	[self hideView];
-	[self sendMessage];
+	[self.composeContainer setEditing:!self.composeContainer.editing animated:YES];
 }
 
 - (void)sendMessage {
 	
-}
-
-- (void)hideView {
-	self.messageView.hidden = YES;
-	self.tableView.frame = CGRectMake(self.tableView.x, self.tableView.y - self.messageView.height, self.tableView.width, self.tableView.height + self.messageView.height);
-	[self.typeMessageTextField resignFirstResponder];
-	self.typeMessageTextField.text = nil;
 }
 
 #pragma mark - User Actions
@@ -134,6 +114,13 @@
 	[UIView commitAnimations];
 }
 
+#pragma mark - WLComposeBarDelegate
+
+- (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
+	[self.composeContainer setEditing:NO animated:YES];
+	[self sendMessage];
+}
+
 #pragma mark - WLWrapCandiesCellDelegate
 
 - (void)wrapCandiesCell:(WLWrapCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
@@ -153,13 +140,6 @@
 	cell.item = [self.wrapDays objectAtIndex:indexPath.row];
 	cell.delegate = self;
     return cell;
-}
-
-#pragma mark - <UITextFieldDelegate>
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[self hideViewAndSendMessage];
-	return YES;
 }
 
 #pragma mark - WLCameraViewControllerDelegate

@@ -15,13 +15,13 @@
 #import "UIView+Shorthand.h"
 #import "WLUser.h"
 #import "WLPicture.h"
+#import "WLComposeContainer.h"
+#import "WLComposeBar.h"
 
-@interface WLWrapDataViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface WLWrapDataViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIView *messageView;
-@property (weak, nonatomic) IBOutlet UIButton *sendMessageButton;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-
+@property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
 @end
 
 @implementation WLWrapDataViewController
@@ -30,6 +30,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+	[self.composeContainer setEditing:YES animated:YES];
 	if ([self.candy.type isEqualToString:WLCandyTypeImage]) {
 		[self setupImageView:(WLImage*)self.candy];
 		self.titleLabel.text = [NSString stringWithFormat:@"By %@", self.candy.author.name];
@@ -51,16 +52,15 @@
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)sendMessage:(UIButton *)sender {
-	[self sendMessage];
-}
-
-- (IBAction)messageChanged:(UITextField *)sender {
-	self.sendMessageButton.enabled = sender.text.length > 0;
-}
-
 - (void)sendMessage {
 	[self.view endEditing:YES];
+}
+
+#pragma mark - WLComposeBarDelegate
+
+- (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
+	[self.composeContainer setEditing:NO animated:YES];
+	[self sendMessage];
 }
 
 #pragma mark - <UITextFieldDelegate>

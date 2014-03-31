@@ -28,7 +28,7 @@
 #import "WLComposeContainer.h"
 #import "WLComment.h"
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
+@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
 
 @property (weak, nonatomic) IBOutlet StreamView *topWrapStreamView;
 @property (weak, nonatomic) IBOutlet UIView *headerWrapView;

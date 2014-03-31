@@ -62,7 +62,7 @@
 		WLCandy* candy = [candies firstObject];
 		NSDate* startDate = [candy.updatedAt beginOfDay];
 		NSDate* endDate = [candy.updatedAt endOfDay];
-		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(modified >= %@) AND (modified <= %@)", startDate, endDate];
+		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(updatedAt >= %@) AND (updatedAt <= %@)", startDate, endDate];
 		NSArray *dayCandies = [candies filteredArrayUsingPredicate:predicate];
 		WLWrapDay * wrapDay = [WLWrapDay new];
 		wrapDay.modified = candy.updatedAt;

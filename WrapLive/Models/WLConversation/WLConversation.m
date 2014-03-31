@@ -20,10 +20,6 @@
 }
 
 - (WLPicture *)cover {
-	WLPicture* cover = [super cover];
-	if (cover) {
-		return cover;
-	}
 	WLComment* comment = [self.comments lastObject];
 	return comment.author.avatar;
 }

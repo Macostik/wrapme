@@ -18,10 +18,6 @@
 }
 
 - (WLPicture *)cover {
-	WLPicture* cover = [super cover];
-	if (cover) {
-		return cover;
-	}
 	return self.url;
 }
 

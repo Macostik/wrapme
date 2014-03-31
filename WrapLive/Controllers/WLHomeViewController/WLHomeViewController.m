@@ -23,8 +23,10 @@
 #import "UIColor+CustomColors.h"
 #import "WLPicture.h"
 #import "WLImage.h"
+#import "WLConversation.h"
 #import "WLComposeBar.h"
 #import "WLComposeContainer.h"
+#import "WLComment.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
 
@@ -92,8 +94,13 @@
 	[self.composeContainer setEditing:!self.composeContainer.editing animated:YES];
 }
 
-- (void)sendMessage {
-	
+- (void)sendMessageWithText:(NSString*)text {
+	WLConversation* conversation = [WLConversation entry];
+	WLComment *comment = [WLComment entry];
+	comment.text = text;
+	[conversation addComment:comment];
+	[self.topWrap addCandy:conversation];
+	[self updateHeaderViewWithWrap:self.topWrap];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -113,7 +120,7 @@
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
 	[self.composeContainer setEditing:NO animated:YES];
-	[self sendMessage];
+	[self sendMessageWithText:text];
 }
 
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>

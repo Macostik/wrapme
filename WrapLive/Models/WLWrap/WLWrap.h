@@ -27,4 +27,6 @@
 
 - (void)addCandy:(WLCandy*)candy;
 
+- (void)contributorNames:(void (^)(NSString* names))completion;
+
 @end

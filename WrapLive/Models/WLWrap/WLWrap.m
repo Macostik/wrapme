@@ -11,6 +11,8 @@
 #import "WLSession.h"
 #import "NSArray+Additions.h"
 #import "WLPicture.h"
+#import "NSArray+Additions.h"
+#import "WLUser.h"
 
 @implementation WLWrap
 
@@ -25,7 +27,9 @@
 }
 
 + (JSONKeyMapper *)keyMapper {
-	return [[JSONKeyMapper alloc] initWithDictionary:@{@"wrap_uid":@"wrapID"}];
+	return [[JSONKeyMapper alloc] initWithDictionary:@{@"wrap_uid":@"wrapID",
+													   @"created_at":@"createdAt",
+													   @"updated_at":@"updatedAt"}];
 }
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
@@ -51,6 +55,17 @@
 		_cover = [[WLPicture alloc] init];
 	}
 	return _cover;
+}
+
+- (void)contributorNames:(void (^)(NSString *))completion {
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		NSString* names = [[self.contributors map:^id(WLUser* contributor) {
+			return contributor.name;
+		}] componentsJoinedByString:@", "];
+        dispatch_async(dispatch_get_main_queue(), ^{
+			completion(names);
+        });
+    });
 }
 
 @end

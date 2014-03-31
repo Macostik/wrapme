@@ -84,7 +84,10 @@
 - (void)updateHeaderViewWithWrap:(WLWrap*)wrap {
 	self.headerWrapNameLabel.text = wrap.name;
 	self.headerWrapCreatedAtLabel.text = [wrap.createdAt stringWithFormat:@"MMMM dd, yyyy"];
-	self.headerWrapAuthorsLabel.text = @"Who must be here?";
+	__weak typeof(self)weakSelf = self;
+	[wrap contributorNames:^(NSString *names) {
+		weakSelf.headerWrapAuthorsLabel.text = names;
+	}];
 	self.headerView.height = [wrap.candies count] > 2 ? 212 : 106;
 	self.tableView.tableHeaderView = self.headerView;
 	[self.topWrapStreamView reloadData];

@@ -24,8 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UITableView *contributorsTableView;
 @property (weak, nonatomic) IBOutlet UIView *noContributorsView;
+@property (nonatomic) BOOL isNewWrap;
 
-@property (strong, nonatomic) WLWrap* wrap;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
@@ -42,6 +42,7 @@
 - (WLWrap *)wrap {
 	if (!_wrap) {
 		_wrap = [WLWrap entry];
+		self.isNewWrap = YES;
 	}
 	return _wrap;
 }

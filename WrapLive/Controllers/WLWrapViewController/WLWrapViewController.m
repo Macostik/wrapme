@@ -18,6 +18,7 @@
 #import "WLCameraViewController.h"
 #import "WLImage.h"
 #import "WLWrapDataViewController.h"
+#import "WLCreateWrapViewController.h"
 
 @interface WLWrapViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate>
 
@@ -124,6 +125,9 @@
 		[UIView beginAnimations:nil context:nil];
 		self.firstContributorView.alpha = 0.0f;
 		[UIView commitAnimations];
+	} else if ([segue isChangeWrapSegue]) {
+		WLCreateWrapViewController * createWrapController = segue.destinationViewController;
+		createWrapController.wrap = self.wrap;
 	}
 }
 

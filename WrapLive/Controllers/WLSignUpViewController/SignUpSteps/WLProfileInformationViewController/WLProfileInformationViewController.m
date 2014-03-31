@@ -15,6 +15,7 @@
 #import "UIStoryboard+Additions.h"
 #import "WLPicture.h"
 #import "UIView+Shorthand.h"
+#import "UIImage+WLStoring.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate>
 
@@ -66,9 +67,10 @@
 }
 
 - (void)saveImage:(UIImage *)image {
-	NSString  *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/WrapLiveAvatar.jpg"];
-	[UIImageJPEGRepresentation(image,1.0) writeToFile:path atomically:YES];
-	self.user.avatar.large = path;
+	__weak typeof(self)weakSelf = self;
+	[image storeAsAvatar:^(NSString *path) {
+		weakSelf.user.avatar.large = path;
+	}];
 	[self verifyContinueButton];
 }
 

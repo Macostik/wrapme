@@ -17,6 +17,7 @@
 #import "WLCameraViewController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "WLPicture.h"
+#import "UIImage+WLStoring.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
 
@@ -148,11 +149,10 @@
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
 	self.coverView.image = image;
 	__weak typeof(self)weakSelf = self;
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/WrapCover.jpeg"];
-		[UIImageJPEGRepresentation(image,1.0) writeToFile:path atomically:YES];
+	[image storeAsCover:^(NSString *path) {
 		weakSelf.wrap.cover.large = path;
-    });
+	}];
+	
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

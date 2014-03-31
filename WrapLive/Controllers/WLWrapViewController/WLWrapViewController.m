@@ -22,6 +22,7 @@
 #import "WLPicture.h"
 #import "WLComposeBar.h"
 #import "WLComposeContainer.h"
+#import "UIImage+WLStoring.h"
 
 @interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate>
 

@@ -27,6 +27,7 @@
 #import "WLComposeBar.h"
 #import "WLComposeContainer.h"
 #import "WLComment.h"
+#import "UIImage+WLStoring.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
 

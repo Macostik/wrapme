@@ -139,9 +139,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 														  return response;
 													  } failure:failure];
 	[self POST:@"users/update" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-		if (user.avatar.large) {
-			[formData appendPartWithFileURL:[NSURL fileURLWithPath:user.avatar.large] name:@"qqfile" fileName:@"WrapLiveAvatar.jpeg" mimeType:@"image/jpeg" error:NULL];
-		}
+		[self attachFile:user.avatar.large toFormData:formData];
 	} success:successBlock failure:[self failureBlock:failure]];
 }
 
@@ -213,8 +211,6 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 														  return arr;
 													  } failure:failure];
 	[self GET:@"wraps" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
-
-//	success([WLWrap dummyWraps]);
 }
 
 - (void)createWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
@@ -225,16 +221,18 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 													  } failure:failure];
 	
 	[self POST:@"wraps" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-		if (wrap.cover) {
-			[formData appendPartWithFileURL:[NSURL fileURLWithPath:wrap.cover.large] name:@"qqfile" fileName:@"WrapCover.jpeg" mimeType:@"image/jpeg" error:NULL];
-		}
+		[self attachFile:wrap.cover.large toFormData:formData];
 	} success:successBlock failure:[self failureBlock:failure]];
-
-//	success(nil);
 }
 
 - (void)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	success(nil);
+}
+
+- (void)attachFile:(NSString*)path toFormData:(id <AFMultipartFormData>)formData {
+	if (path) {
+		[formData appendPartWithFileURL:[NSURL fileURLWithPath:path] name:@"qqfile" fileName:[path lastPathComponent] mimeType:@"image/jpeg" error:NULL];
+	}
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import "WLContributorCell.h"
 #import "WLUser.h"
-#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "UIImageView+ImageLoading.h"
 #import "WLPicture.h"
 
 @interface WLContributorCell ()
@@ -23,7 +23,7 @@
 
 - (void)setupItemData:(WLUser*)user {
 	self.nameLabel.text = user.name;
-	[self.avatarView setImageWithURL:[NSURL URLWithString:user.avatar.thumbnail]];
+	self.avatarView.imageUrl = user.avatar.thumbnail;
 }
 
 #pragma mark - Actions

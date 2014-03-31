@@ -11,7 +11,7 @@
 #import "WLCandy.h"
 #import "NSDate+Formatting.h"
 #import "WLImage.h"
-#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "UIImageView+ImageLoading.h"
 #import "UIView+Shorthand.h"
 #import "WLUser.h"
 
@@ -41,7 +41,7 @@
 
 - (void)setupImageView:(WLImage *)image {
 	self.imageView.height = 320;
-	[self.imageView setImageWithURL:[NSURL URLWithString:image.url]];
+	self.imageView.imageUrl = image.url;
 }
 
 #pragma mark - Actions

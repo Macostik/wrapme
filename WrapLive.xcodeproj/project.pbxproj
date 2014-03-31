@@ -72,6 +72,7 @@
 		12E8FF1418E960E000BF1B96 /* StreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0C18E960E000BF1B96 /* StreamLayout.m */; };
 		12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */; };
 		12E8FF1718E960E000BF1B96 /* StreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1218E960E000BF1B96 /* StreamView.m */; };
+		12E8FF1B18E97D3F00BF1B96 /* UIImageView+ImageLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1A18E97D3F00BF1B96 /* UIImageView+ImageLoading.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		ACAAE6D418E5C3BA000C4775 /* WLWrapDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAAE6D318E5C3BA000C4775 /* WLWrapDataViewController.m */; };
 		ACAAE6D818E5CE71000C4775 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAAE6D718E5CE71000C4775 /* WLCommentCell.m */; };
@@ -206,6 +207,8 @@
 		12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerticalStreamLayout.m; sourceTree = "<group>"; };
 		12E8FF1118E960E000BF1B96 /* StreamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamView.h; sourceTree = "<group>"; };
 		12E8FF1218E960E000BF1B96 /* StreamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamView.m; sourceTree = "<group>"; };
+		12E8FF1918E97D3F00BF1B96 /* UIImageView+ImageLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+ImageLoading.h"; path = "UIImageView/UIImageView+ImageLoading.h"; sourceTree = "<group>"; };
+		12E8FF1A18E97D3F00BF1B96 /* UIImageView+ImageLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+ImageLoading.m"; path = "UIImageView/UIImageView+ImageLoading.m"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		ACAAE6D218E5C3BA000C4775 /* WLWrapDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapDataViewController.h; path = WLWrapDataViewController/WLWrapDataViewController.h; sourceTree = "<group>"; };
 		ACAAE6D318E5C3BA000C4775 /* WLWrapDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapDataViewController.m; path = WLWrapDataViewController/WLWrapDataViewController.m; sourceTree = "<group>"; };
@@ -755,6 +758,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				12E8FF1818E97D1F00BF1B96 /* UIImageView */,
 				12976ECB18E5D6E300C5F2A9 /* NSDictionary */,
 				1215DC7C18E4484000FCA744 /* UIStoryboard */,
 				1215DC7818E4421700FCA744 /* NSArray */,
@@ -802,6 +806,15 @@
 				12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */,
 			);
 			path = "Stream Layouts";
+			sourceTree = "<group>";
+		};
+		12E8FF1818E97D1F00BF1B96 /* UIImageView */ = {
+			isa = PBXGroup;
+			children = (
+				12E8FF1918E97D3F00BF1B96 /* UIImageView+ImageLoading.h */,
+				12E8FF1A18E97D3F00BF1B96 /* UIImageView+ImageLoading.m */,
+			);
+			name = UIImageView;
 			sourceTree = "<group>";
 		};
 		ACAAE6D118E5C393000C4775 /* WLWrapDataViewController */ = {
@@ -1041,6 +1054,7 @@
 				ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */,
 				12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */,
 				ACBE483218E48F7A006A0280 /* WLWrapDay.m in Sources */,
+				12E8FF1B18E97D3F00BF1B96 /* UIImageView+ImageLoading.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

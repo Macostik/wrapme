@@ -25,3 +25,27 @@
 }
 
 @end
+
+@implementation NSArray (WLEntrySorting)
+
++ (NSArray*)modifiedDescriptors {
+	static NSArray* descriptors = nil;
+	if (!descriptors) {
+		descriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"modified" ascending:NO]];
+	}
+	return descriptors;
+}
+
+- (NSArray *)sortedEntries {
+	return [self sortedArrayUsingDescriptors:[NSArray modifiedDescriptors]];
+}
+
+@end
+
+@implementation NSMutableArray (WLEntrySorting)
+
+- (void)sortEntries {
+	[self sortUsingDescriptors:[NSArray modifiedDescriptors]];
+}
+
+@end

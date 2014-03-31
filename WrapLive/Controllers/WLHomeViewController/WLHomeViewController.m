@@ -10,7 +10,7 @@
 #import "WLWrapCell.h"
 #import "WLWrap.h"
 #import "WLCandy.h"
-#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "UIImageView+ImageLoading.h"
 #import "WLAPIManager.h"
 #import "WLWrapViewController.h"
 #import "UIStoryboard+Additions.h"
@@ -20,6 +20,7 @@
 #import "NSDate+Formatting.h"
 #import "StreamView.h"
 #import "WLWrapDataViewController.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLCameraViewControllerDelegate, StreamViewDelegate>
 
@@ -66,6 +67,7 @@
 }
 
 - (void)setWraps:(NSArray *)wraps {
+	wraps = [wraps sortedEntries];
 	WLWrap* topWrap = [wraps firstObject];
 	_wraps = [wraps arrayByRemovingObject:topWrap];
 	self.tableView.hidden = (topWrap == nil);
@@ -174,16 +176,26 @@
 }
 
 - (NSInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSInteger)section {
-	return MIN(5, [self.topWrap.candies count]);
+	if ([self.topWrap.candies count] > 2) {
+		return 5;
+	} else {
+		return 2;
+	}
 }
 
 - (UIView*)streamView:(StreamView*)streamView viewForItem:(StreamLayoutItem*)item {
-	UIImageView* imageView = [streamView reusableViewOfClass:[UIImageView class] forItem:item];
-	imageView.contentMode = UIViewContentModeScaleAspectFill;
-	imageView.clipsToBounds = YES;
-	WLCandy* candy = [self.topWrap.candies objectAtIndex:item.index.row];
-	[imageView setImageWithURL:[NSURL URLWithString:candy.cover]];
-	return imageView;
+	if (item.index.row < [self.topWrap.candies count]) {
+		UIImageView* imageView = [streamView reusableViewOfClass:[UIImageView class] forItem:item];
+		imageView.contentMode = UIViewContentModeScaleAspectFill;
+		imageView.clipsToBounds = YES;
+		WLCandy* candy = [self.topWrap.candies objectAtIndex:item.index.row];
+		imageView.imageUrl = candy.cover;
+		return imageView;
+	} else {
+		UILabel* placeholderLabel = [streamView reusableViewOfClass:[UILabel class] forItem:item];
+		placeholderLabel.backgroundColor = [UIColor WL_grayColor];
+		return placeholderLabel;
+	}
 }
 
 - (CGFloat)streamView:(StreamView*)streamView ratioForItemAtIndex:(StreamIndex)index {
@@ -195,9 +207,11 @@
 }
 
 - (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {
-	WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];
-	controller.candy = [self.topWrap.candies objectAtIndex:item.index.row];
-	[self.navigationController pushViewController:controller animated:YES];
+	if (item.index.row < [self.topWrap.candies count]) {
+		WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];
+		controller.candy = [self.topWrap.candies objectAtIndex:item.index.row];
+		[self.navigationController pushViewController:controller animated:YES];
+	}
 }
 
 @end

@@ -10,7 +10,7 @@
 #import "WLComment.h"
 #import "WLUser.h"
 #import "WLPicture.h"
-#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "UIImageView+ImageLoading.h"
 
 @interface WLCommentCell()
 @property (weak, nonatomic) IBOutlet UIImageView *authorImageView;
@@ -24,7 +24,7 @@
 - (void)setupItemData:(WLComment *)entry {
 	self.authorNameLabel.text = entry.author.name;
 	self.commentLabel.text = entry.text;
-	[self.authorImageView setImageWithURL:[NSURL URLWithString:entry.author.avatar.thumbnail]];
+	self.authorImageView.imageUrl = entry.author.avatar.thumbnail;
 }
 
 @end

@@ -20,3 +20,15 @@
 + (instancetype)entry;
 
 @end
+
+@interface NSArray (WLEntrySorting)
+
+- (NSArray*)sortedEntries;
+
+@end
+
+@interface NSMutableArray (WLEntrySorting)
+
+- (void)sortEntries;
+
+@end

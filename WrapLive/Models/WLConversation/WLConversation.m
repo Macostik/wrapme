@@ -13,6 +13,12 @@
 
 @implementation WLConversation
 
++ (instancetype)entry {
+	WLConversation *conversation = [super entry];
+	conversation.type = WLCandyTypeConversation;
+	return conversation;
+}
+
 - (NSString *)cover {
 	NSString* cover = [super cover];
 	if (cover.length > 0) {

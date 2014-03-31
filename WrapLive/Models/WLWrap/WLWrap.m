@@ -34,11 +34,10 @@
 }
 
 - (void)addCandy:(WLCandy *)candy {
-	if (!self.candies) {
-		self.candies = [NSArray arrayWithObject:candy];
-	} else {
-		self.candies = [self.candies arrayByAddingObject:candy];
-	}
+	NSMutableArray* candies = [NSMutableArray arrayWithArray:self.candies];
+	[candies insertObject:candy atIndex:0];
+	self.candies = [candies copy];
+	self.modified = [NSDate date];
 }
 
 - (NSString *)cover {

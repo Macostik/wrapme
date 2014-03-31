@@ -9,7 +9,7 @@
 #import "WLWrapViewController.h"
 #import "WLWrap.h"
 #import "WLWrapCandiesCell.h"
-#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "UIImageView+ImageLoading.h"
 #import "WLCandy.h"
 #import "NSDate+Formatting.h"
 #import "WLWrapDay.h"
@@ -41,7 +41,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	
-	[self.coverView setImageWithURL:[NSURL URLWithString:self.wrap.cover]];
+	self.coverView.imageUrl = self.wrap.cover;
 	self.nameLabel.text = self.wrap.name;
 	
 	[self sortCandiesInWrap];
@@ -69,12 +69,8 @@
 		[wrapDays addObject:wrapDay];
 		[candies removeObjectsInArray:dayCandies];
 	}
-	
-	static NSSortDescriptor* sortDescriptor = nil;
-	if (!sortDescriptor) {
-		sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"modified" ascending:NO];
-	}
-	[wrapDays sortUsingDescriptors:@[sortDescriptor]];
+
+	[wrapDays sortEntries];
 	
 	self.wrapDays = [wrapDays copy];
 	

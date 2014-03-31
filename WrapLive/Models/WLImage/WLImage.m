@@ -10,6 +10,12 @@
 
 @implementation WLImage
 
++ (instancetype)entry {
+	WLImage *image = [super entry];
+	image.type = WLCandyTypeImage;
+	return image;
+}
+
 - (NSString *)cover {
 	NSString* cover = [super cover];
 	if (cover.length > 0) {

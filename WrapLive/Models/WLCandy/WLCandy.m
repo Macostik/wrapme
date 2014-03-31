@@ -25,11 +25,10 @@
 }
 
 - (void)addComment:(WLComment *)comment {
-	if (!self.comments) {
-		self.comments = (id)[NSArray arrayWithObject:comment];
-	} else {
-		self.comments = (id)[self.comments arrayByAddingObject:comment];
-	}
+	NSMutableArray* comments = [NSMutableArray arrayWithArray:self.comments];
+	[comments insertObject:comment atIndex:0];
+	self.comments = [comments copy];
+	self.modified = [NSDate date];
 }
 
 @end

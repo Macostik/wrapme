@@ -19,13 +19,13 @@
 	return conversation;
 }
 
-- (NSString *)cover {
-	NSString* cover = [super cover];
-	if (cover.length > 0) {
+- (WLPicture *)cover {
+	WLPicture* cover = [super cover];
+	if (cover) {
 		return cover;
 	}
 	WLComment* comment = [self.comments lastObject];
-	return comment.author.avatar.thumbnail;
+	return comment.author.avatar;
 }
 
 @end

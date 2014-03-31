@@ -10,6 +10,7 @@
 #import "WLCandy.h"
 #import "WLSession.h"
 #import "NSArray+Additions.h"
+#import "WLPicture.h"
 
 @implementation WLWrap
 
@@ -26,6 +27,7 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
     self = [super initWithDictionary:dict error:err];
     if (self) {
+		self.cover = [[WLPicture alloc] initWithDictionary:dict error:err];
         self.candies = [self.candies map:^id(id item) {
 			return [WLCandy candyWithDictionary:item];
 		}];
@@ -37,10 +39,10 @@
 	NSMutableArray* candies = [NSMutableArray arrayWithArray:self.candies];
 	[candies insertObject:candy atIndex:0];
 	self.candies = [candies copy];
-	self.modified = [NSDate date];
+	self.updatedAt = [NSDate date];
 }
 
-- (NSString *)cover {
+- (WLPicture *)cover {
 	if (_cover == nil) {
 		WLCandy* candy = [self.candies lastObject];
 		return candy.cover;

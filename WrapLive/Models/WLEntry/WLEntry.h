@@ -14,7 +14,7 @@
 
 @property (strong, nonatomic) WLUser* author;
 @property (strong, nonatomic) NSDate* createdAt;
-@property (strong, nonatomic) NSDate *modified;
+@property (strong, nonatomic) NSDate *updatedAt;
 @property (strong, nonatomic) NSString* identifier;
 
 + (instancetype)entry;

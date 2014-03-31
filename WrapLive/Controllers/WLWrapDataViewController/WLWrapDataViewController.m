@@ -14,6 +14,7 @@
 #import "UIImageView+ImageLoading.h"
 #import "UIView+Shorthand.h"
 #import "WLUser.h"
+#import "WLPicture.h"
 
 @interface WLWrapDataViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -34,14 +35,14 @@
 		self.titleLabel.text = [NSString stringWithFormat:@"By %@", self.candy.author.name];
 	}
 	else {
-		self.titleLabel.text = [self.candy.modified stringWithFormat:@"MMMM dd, YYYY"];
+		self.titleLabel.text = [self.candy.updatedAt stringWithFormat:@"MMMM dd, YYYY"];
 		self.imageView.height = 0;
 	}
 }
 
 - (void)setupImageView:(WLImage *)image {
 	self.imageView.height = 320;
-	self.imageView.imageUrl = image.url;
+	self.imageView.imageUrl = image.url.large;
 }
 
 #pragma mark - Actions

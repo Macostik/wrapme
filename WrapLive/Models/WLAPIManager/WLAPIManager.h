@@ -88,4 +88,12 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  */
 - (void)createWrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
+/*!
+ *  Update selected wrap
+ *
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (void)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
 @end

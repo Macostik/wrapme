@@ -9,6 +9,10 @@
 #import "WLEntry.h"
 
 @class WLCandy;
+@class WLUser;
+@class WLPicture;
+
+@protocol WLUser @end
 
 @interface WLWrap : WLEntry
 
@@ -16,8 +20,9 @@
 
 @property (strong, nonatomic) NSArray* candies;
 @property (strong, nonatomic) NSString* name;
-@property (strong, nonatomic) NSString* cover;
-@property (strong, nonatomic) NSArray* contributors;
+@property (strong, nonatomic) WLPicture* cover;
+@property (strong, nonatomic) NSArray<WLUser>* contributors;
+@property (strong, nonatomic) NSDate* contributedAt;
 
 - (void)addCandy:(WLCandy*)candy;
 

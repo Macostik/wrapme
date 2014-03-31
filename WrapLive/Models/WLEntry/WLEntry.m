@@ -15,7 +15,7 @@
 + (instancetype)entry {
 	WLEntry* entry = [[self alloc] init];
 	entry.createdAt = [NSDate date];
-	entry.modified = [NSDate date];
+	entry.updatedAt = [NSDate date];
 	entry.author = [WLSession user];
 	return entry;
 }
@@ -31,7 +31,7 @@
 + (NSArray*)modifiedDescriptors {
 	static NSArray* descriptors = nil;
 	if (!descriptors) {
-		descriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"modified" ascending:NO]];
+		descriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]];
 	}
 	return descriptors;
 }

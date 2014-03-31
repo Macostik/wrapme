@@ -9,6 +9,7 @@
 #import "WLCandy.h"
 #import "WLImage.h"
 #import "WLConversation.h"
+#import "WLPicture.h"
 
 @implementation WLCandy
 
@@ -28,7 +29,14 @@
 	NSMutableArray* comments = [NSMutableArray arrayWithArray:self.comments];
 	[comments insertObject:comment atIndex:0];
 	self.comments = [comments copy];
-	self.modified = [NSDate date];
+	self.updatedAt = [NSDate date];
+}
+
+- (WLPicture *)cover {
+	if (!_cover) {
+		_cover = [[WLPicture alloc] init];
+	}
+	return _cover;
 }
 
 @end

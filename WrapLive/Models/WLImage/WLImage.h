@@ -8,9 +8,10 @@
 
 #import "WLCandy.h"
 
+@class WLPicture;
+
 @interface WLImage : WLCandy
 
-@property (strong, nonatomic) NSString* url;
-@property (strong, nonatomic) NSString* thumbnail;
+@property (strong, nonatomic) WLPicture* url;
 
 @end

@@ -14,7 +14,11 @@
 	return [[JSONKeyMapper alloc] initWithDictionary:@{@"large_avatar_url":@"large",
 													   @"medium_avatar_url":@"medium",
 													   @"small_avatar_url":@"small",
-													   @"thumb_avatar_url":@"thumbnail"}];
+													   @"thumb_avatar_url":@"thumbnail",
+													   @"large_cover_url":@"large",
+													   @"medium_cover_url":@"medium",
+													   @"small_cover_url":@"small",
+													   @"thumb_cover_url":@"thumbnail",}];
 }
 
 + (BOOL)propertyIsOptional:(NSString *)propertyName {

@@ -21,6 +21,7 @@
 #import "StreamView.h"
 #import "WLWrapDataViewController.h"
 #import "UIColor+CustomColors.h"
+#import "WLPicture.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLCameraViewControllerDelegate, StreamViewDelegate>
 
@@ -189,7 +190,7 @@
 		imageView.contentMode = UIViewContentModeScaleAspectFill;
 		imageView.clipsToBounds = YES;
 		WLCandy* candy = [self.topWrap.candies objectAtIndex:item.index.row];
-		imageView.imageUrl = candy.cover;
+		imageView.imageUrl = candy.cover.large;
 		return imageView;
 	} else {
 		UILabel* placeholderLabel = [streamView reusableViewOfClass:[UILabel class] forItem:item];

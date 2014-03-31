@@ -206,10 +206,34 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (void)wraps:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	success([WLWrap dummyWraps]);
+	NSDictionary* parameters = @{};
+	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
+													  withObject:^id(WLAPIResponse *response) {
+														  NSArray * arr = [WLWrap arrayOfModelsFromDictionaries:[response.data objectForKey:@"wraps"]];
+														  return arr;
+													  } failure:failure];
+	[self GET:@"wraps" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
+
+//	success([WLWrap dummyWraps]);
 }
 
 - (void)createWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	NSDictionary* parameters = @{@"name" : wrap.name};
+	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
+													  withObject:^id(WLAPIResponse *response) {
+														  return response;
+													  } failure:failure];
+	
+	[self POST:@"wraps" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+		if (wrap.cover) {
+			[formData appendPartWithFileURL:[NSURL fileURLWithPath:wrap.cover.large] name:@"qqfile" fileName:@"WrapCover.jpeg" mimeType:@"image/jpeg" error:NULL];
+		}
+	} success:successBlock failure:[self failureBlock:failure]];
+
+//	success(nil);
+}
+
+- (void)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	success(nil);
 }
 

@@ -19,6 +19,7 @@
 #import "WLImage.h"
 #import "WLWrapDataViewController.h"
 #import "WLCreateWrapViewController.h"
+#import "WLPicture.h"
 
 @interface WLWrapViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate>
 
@@ -41,7 +42,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	
-	self.coverView.imageUrl = self.wrap.cover;
+	self.coverView.imageUrl = self.wrap.cover.large;
 	self.nameLabel.text = self.wrap.name;
 	
 	[self sortCandiesInWrap];
@@ -59,12 +60,12 @@
 	
 	while ([candies count] > 0) {
 		WLCandy* candy = [candies firstObject];
-		NSDate* startDate = [candy.modified beginOfDay];
-		NSDate* endDate = [candy.modified endOfDay];
+		NSDate* startDate = [candy.updatedAt beginOfDay];
+		NSDate* endDate = [candy.updatedAt endOfDay];
 		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(modified >= %@) AND (modified <= %@)", startDate, endDate];
 		NSArray *dayCandies = [candies filteredArrayUsingPredicate:predicate];
 		WLWrapDay * wrapDay = [WLWrapDay new];
-		wrapDay.modified = candy.modified;
+		wrapDay.modified = candy.updatedAt;
 		wrapDay.candies = dayCandies;
 		[wrapDays addObject:wrapDay];
 		[candies removeObjectsInArray:dayCandies];
@@ -165,8 +166,8 @@
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
 	WLImage* candy = [WLImage entry];
-	candy.url = @"http://placeimg.com/135/111/any";
-	candy.thumbnail = @"http://placeimg.com/123/111/any";
+	candy.url.large = @"http://placeimg.com/135/111/any";
+	candy.url.thumbnail = @"http://placeimg.com/123/111/any";
 	[self.wrap addCandy:candy];
 	[self sortCandiesInWrap];
 	[self dismissViewControllerAnimated:YES completion:nil];

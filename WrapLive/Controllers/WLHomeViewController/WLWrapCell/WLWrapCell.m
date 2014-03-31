@@ -10,6 +10,7 @@
 #import "WLWrap.h"
 #import "WLCandy.h"
 #import "UIImageView+ImageLoading.h"
+#import "WLPicture.h"
 
 @interface WLWrapCell ()
 
@@ -22,7 +23,7 @@
 
 - (void)setupItemData:(WLWrap*)wrap {
 	self.nameLabel.text = wrap.name;
-	self.coverView.imageUrl = wrap.cover;
+	self.coverView.imageUrl = wrap.cover.large;
 }
 
 + (CGFloat)heightForItem:(id)item {

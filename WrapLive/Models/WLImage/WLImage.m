@@ -7,6 +7,7 @@
 //
 
 #import "WLImage.h"
+#import "WLPicture.h"
 
 @implementation WLImage
 
@@ -16,12 +17,19 @@
 	return image;
 }
 
-- (NSString *)cover {
-	NSString* cover = [super cover];
-	if (cover.length > 0) {
+- (WLPicture *)cover {
+	WLPicture* cover = [super cover];
+	if (cover) {
 		return cover;
 	}
 	return self.url;
+}
+
+- (WLPicture *)url {
+	if (!_url) {
+		_url = [[WLPicture alloc] init];
+	}
+	return _url;
 }
 
 @end

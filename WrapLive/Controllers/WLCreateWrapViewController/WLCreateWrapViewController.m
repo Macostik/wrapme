@@ -15,6 +15,8 @@
 #import "WLAPIManager.h"
 #import "WLWrapViewController.h"
 #import "WLCameraViewController.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "WLPicture.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
 
@@ -64,9 +66,18 @@
 
 - (void)refreshContributorsTableView {
 	[self.contributorsTableView reloadData];
+	[self fillDataAndUpdateLabels];
 	BOOL hasContributors = [self.wrap.contributors count] > 0;
 	self.noContributorsView.hidden = hasContributors;
 	self.contributorsTableView.hidden = !hasContributors;
+}
+
+- (void)fillDataAndUpdateLabels {
+	self.nameField.text = self.wrap.name;
+	[self.coverView setImageWithURL:[NSURL URLWithString:self.wrap.cover.large]];
+	self.startButton.hidden = !self.isNewWrap;
+	self.doneButton.hidden = self.isNewWrap;
+	self.titleLabel.text = self.isNewWrap ? @"Create new wrap" : @"Change wrap settings";
 }
 
 #pragma mark - Actions
@@ -75,15 +86,22 @@
 	[self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)done:(UIButton *)sender {
-	[self.navigationController popViewControllerAnimated:YES];
+	__weak typeof(self)weakSelf = self;
+	self.wrap.name = self.nameField.text;
+	self.wrap.updatedAt = [NSDate date];
+	[[WLAPIManager instance] updateWrap:self.wrap success:^(id object) {
+		[weakSelf.navigationController popViewControllerAnimated:YES];
+	} failure:^(NSError *error) {
+		[error show];
+	}];
 }
 
 - (IBAction)start:(id)sender {
 	__weak typeof(self)weakSelf = self;
 	self.wrap.name = self.nameField.text;
-	self.wrap.cover = @"http://placeimg.com/111/111/any";
+	self.wrap.cover.large = @"http://placeimg.com/111/111/any";
 	self.wrap.createdAt = [NSDate date];
-	self.wrap.modified = [NSDate date];
+	self.wrap.updatedAt = [NSDate date];
 	[[WLAPIManager instance] createWrap:self.wrap success:^(id object) {
 		[[WLWrap dummyWraps] insertObject:weakSelf.wrap atIndex:0];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
@@ -129,7 +147,7 @@
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/WrapLiveAvatar.jpg"];
 		[UIImageJPEGRepresentation(image,1.0) writeToFile:path atomically:YES];
-		weakSelf.wrap.cover = path;
+		weakSelf.wrap.cover.large = path;
     });
 	[self dismissViewControllerAnimated:YES completion:nil];
 }

@@ -9,6 +9,7 @@
 #import "WLEntry.h"
 
 @class WLComment;
+@class WLPicture;
 
 @protocol WLComment @end
 
@@ -20,7 +21,7 @@ static NSString* WLCandyTypeConversation = @"chat";
 + (id)candyWithDictionary:(NSDictionary*)dictionary;
 
 @property (strong, nonatomic) NSArray<WLComment>* comments;
-@property (strong, nonatomic) NSString *cover;
+@property (strong, nonatomic) WLPicture *cover;
 @property (strong, nonatomic) NSString *type;
 
 - (void)addComment:(WLComment*)comment;

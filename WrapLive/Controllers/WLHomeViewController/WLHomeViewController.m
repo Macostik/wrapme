@@ -18,10 +18,12 @@
 #import "WLCameraViewController.h"
 #import "NSArray+Additions.h"
 #import "NSDate+Formatting.h"
+#import "StreamView.h"
+#import "WLWrapDataViewController.h"
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLCameraViewControllerDelegate>
+@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLCameraViewControllerDelegate, StreamViewDelegate>
 
-@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *headerEntryViews;
+@property (weak, nonatomic) IBOutlet StreamView *topWrapStreamView;
 @property (weak, nonatomic) IBOutlet UIView *headerWrapView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapNameLabel;
@@ -44,6 +46,8 @@
 	
 	self.tableView.hidden = YES;
 	self.noWrapsView.hidden = YES;
+	
+	self.topWrapStreamView.reusableViewLoadingType = StreamViewReusableViewLoadingTypeInit;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -74,14 +78,9 @@
 	self.headerWrapNameLabel.text = wrap.name;
 	self.headerWrapCreatedAtLabel.text = [wrap.createdAt stringWithFormat:@"MMMM dd, yyyy"];
 	self.headerWrapAuthorsLabel.text = @"Who must be here?";
-	for (UIImageView* imageView in self.headerEntryViews) {
-		NSInteger index = [self.headerEntryViews indexOfObject:imageView];
-		imageView.image = nil;
-		if (index < [wrap.candies count]) {
-			WLCandy *candy = [wrap.candies objectAtIndex:index];
-			[imageView setImageWithURL:[NSURL URLWithString:candy.cover]];
-		}
-	}
+	self.headerView.height = [wrap.candies count] > 2 ? 212 : 106;
+	self.tableView.tableHeaderView = self.headerView;
+	[self.topWrapStreamView reloadData];
 }
 
 - (IBAction)typeMessage:(UIButton *)sender {
@@ -166,6 +165,39 @@
 
 - (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
 	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - StreamViewDelegate
+
+- (NSInteger)streamViewNumberOfColumns:(StreamView *)streamView {
+	return 3;
+}
+
+- (NSInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSInteger)section {
+	return MIN(5, [self.topWrap.candies count]);
+}
+
+- (UIView*)streamView:(StreamView*)streamView viewForItem:(StreamLayoutItem*)item {
+	UIImageView* imageView = [streamView reusableViewOfClass:[UIImageView class] forItem:item];
+	imageView.contentMode = UIViewContentModeScaleAspectFill;
+	imageView.clipsToBounds = YES;
+	WLCandy* candy = [self.topWrap.candies objectAtIndex:item.index.row];
+	[imageView setImageWithURL:[NSURL URLWithString:candy.cover]];
+	return imageView;
+}
+
+- (CGFloat)streamView:(StreamView*)streamView ratioForItemAtIndex:(StreamIndex)index {
+	return 1;
+}
+
+- (CGFloat)streamView:(StreamView *)streamView initialRangeForColumn:(NSInteger)column {
+	return column == 1 ? 106 : 0;
+}
+
+- (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {
+	WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];
+	controller.candy = [self.topWrap.candies objectAtIndex:item.index.row];
+	[self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

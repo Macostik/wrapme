@@ -115,7 +115,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isWrapSegue]) {
-		WLWrap* wrap = [self.wraps objectAtIndex:([self.tableView indexPathForSelectedRow].row -1)];
+		WLWrap* wrap = [self.wraps objectAtIndex:[self.tableView indexPathForSelectedRow].row];
 		[(WLWrapViewController* )segue.destinationViewController setWrap:wrap];
 	} else if ([segue isTopWrapSegue]) {
 		[(WLWrapViewController* )segue.destinationViewController setWrap:self.topWrap];
@@ -133,25 +133,19 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.row == 0) {
-        UITableViewCell *theCell = [tableView dequeueReusableCellWithIdentifier:@"LabelCell"];
-        return theCell;
-    }
-	else {
-		static NSString* wrapCellIdentifier = @"WLWrapCell";
-		WLWrapCell* cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
-														   forIndexPath:indexPath];
-		cell.item = [self.wraps objectAtIndex:(indexPath.row) - 1];
-		return cell;
-	}
+	static NSString* wrapCellIdentifier = @"WLWrapCell";
+	WLWrapCell* cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
+													   forIndexPath:indexPath];
+	cell.item = [self.wraps objectAtIndex:(indexPath.row)];
+	return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.row == 0) {
-		return 44;
-	} else {
-		return [WLWrapCell heightForItem:[self.wraps objectAtIndex:(indexPath.row -1)]];
-	}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+	return 44;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+	return [tableView dequeueReusableCellWithIdentifier:@"LabelCell"];
 }
 
 #pragma mark - <UITextFieldDelegate>

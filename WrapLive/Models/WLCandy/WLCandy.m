@@ -26,4 +26,10 @@
 	self.updatedAt = [NSDate date];
 }
 
+- (WLComment *)addCommentWithText:(NSString *)text {
+	WLComment* comment = [WLComment commentWithText:text];
+	[self addComment:comment];
+	return comment;
+}
+
 @end

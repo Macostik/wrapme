@@ -10,6 +10,8 @@
 
 @interface WLComment : WLWrapEntry
 
++ (instancetype)commentWithText:(NSString*)text;
+
 @property (strong, nonatomic) NSString* text;
 
 @end

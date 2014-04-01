@@ -102,13 +102,10 @@
 }
 
 - (void)sendMessageWithText:(NSString*)text {
-	WLCandy* conversation = [WLCandy entry];
-	conversation.type = WLCandyTypeConversation;
-	WLComment *comment = [WLComment entry];
-	comment.text = text;
-	[conversation addComment:comment];
-	[self.topWrap addCandy:conversation];
-	[self updateHeaderViewWithWrap:self.topWrap];
+	WLWrap* topWrap = self.topWrap;
+	WLCandy* conversation = [topWrap actualConversation];
+	[conversation addCommentWithText:text];
+	[self updateHeaderViewWithWrap:topWrap];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

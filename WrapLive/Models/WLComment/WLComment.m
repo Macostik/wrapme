@@ -11,6 +11,12 @@
 
 @implementation WLComment
 
++ (instancetype)commentWithText:(NSString *)text {
+	WLComment *comment = [WLComment entry];
+	comment.text = text;
+	return comment;
+}
+
 - (WLPicture *)picture {
 	return self.author.picture;
 }

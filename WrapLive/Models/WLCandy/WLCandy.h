@@ -22,4 +22,6 @@ static NSString* WLCandyTypeConversation = @"chat";
 
 - (void)addComment:(WLComment*)comment;
 
+- (WLComment*)addCommentWithText:(NSString*)text;
+
 @end

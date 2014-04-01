@@ -60,10 +60,7 @@
 	
 	while ([candies count] > 0) {
 		WLCandy* candy = [candies firstObject];
-		NSDate* startDate = [candy.updatedAt beginOfDay];
-		NSDate* endDate = [candy.updatedAt endOfDay];
-		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(updatedAt >= %@) AND (updatedAt <= %@)", startDate, endDate];
-		NSArray *dayCandies = [candies filteredArrayUsingPredicate:predicate];
+		NSArray *dayCandies = [WLWrap candiesForDate:candy.updatedAt inArray:candies];
 		WLWrapDay * wrapDay = [WLWrapDay new];
 		wrapDay.modified = candy.updatedAt;
 		wrapDay.candies = dayCandies;

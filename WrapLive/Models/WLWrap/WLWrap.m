@@ -12,6 +12,7 @@
 #import "NSArray+Additions.h"
 #import "NSArray+Additions.h"
 #import "WLUser.h"
+#import "NSDate+Formatting.h"
 
 @implementation WLWrap
 
@@ -48,6 +49,31 @@
 			completion(names);
         });
     });
+}
+
+- (WLCandy *)actualConversation {
+	NSArray* candies = [self candiesForDate:[NSDate date]];
+	for (WLCandy* candy in candies) {
+		if ([candy.type isEqualToString:WLCandyTypeConversation]) {
+			return candy;
+		}
+	}
+	
+	WLCandy* conversation = [WLCandy entry];
+	conversation.type = WLCandyTypeConversation;
+	[self addCandy:conversation];
+	return conversation;
+}
+
+- (NSArray *)candiesForDate:(NSDate *)date {
+	return [WLWrap candiesForDate:date inArray:self.candies];
+}
+
++ (NSArray *)candiesForDate:(NSDate *)date inArray:(NSArray *)candies {
+	NSDate* startDate = [date beginOfDay];
+	NSDate* endDate = [date endOfDay];
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(updatedAt >= %@) AND (updatedAt <= %@)", startDate, endDate];
+	return [candies filteredArrayUsingPredicate:predicate];
 }
 
 @end

@@ -26,4 +26,10 @@
 
 - (void)contributorNames:(void (^)(NSString* names))completion;
 
+- (WLCandy*)actualConversation;
+
+- (NSArray*)candiesForDate:(NSDate*)date;
+
++ (NSArray*)candiesForDate:(NSDate*)date inArray:(NSArray*)candies;
+
 @end

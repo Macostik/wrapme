@@ -39,6 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+	[self verifyStartAndDoneButton];
 }
 
 - (WLWrap *)wrap {
@@ -79,6 +80,12 @@
 	self.startButton.hidden = !self.isNewWrap;
 	self.doneButton.hidden = self.isNewWrap;
 	self.titleLabel.text = self.isNewWrap ? @"Create new wrap" : @"Change wrap settings";
+}
+
+- (void)verifyStartAndDoneButton {
+	BOOL enabled = self.wrap.name && (![self.wrap.name isEqualToString:@""]) ? YES : NO;
+	self.startButton.enabled = enabled;
+	self.doneButton.enabled = enabled;
 }
 
 #pragma mark - Actions
@@ -128,6 +135,7 @@
 
 - (IBAction)textFieldDidChange:(UITextField *)sender {
 	self.wrap.name = sender.text;
+	[self verifyStartAndDoneButton];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

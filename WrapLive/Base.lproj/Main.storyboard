@@ -1166,13 +1166,13 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="deviceRGB"/>
                             </view>
-                            <view contentMode="bottom" id="uPH-H1-fFd" customClass="WLComposeContainer">
+                            <view contentMode="scaleToFill" id="Kjk-ac-eXI">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="0jW-2U-oDt">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <imageView key="tableHeaderView" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Sn5-Ts-kUU">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
@@ -1227,19 +1227,16 @@
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="composeBar" destination="H5m-hD-Eet" id="mUu-SO-R3i"/>
-                                    <outlet property="view" destination="0jW-2U-oDt" id="9Sw-j9-W5r"/>
-                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="VOw-xU-v7z"/>
                     <connections>
-                        <outlet property="composeContainer" destination="uPH-H1-fFd" id="Q8I-qu-Pmo"/>
+                        <outlet property="containerView" destination="Kjk-ac-eXI" id="d4V-y1-cku"/>
                         <outlet property="imageView" destination="Sn5-Ts-kUU" id="Bdw-8Z-Pph"/>
                         <outlet property="titleLabel" destination="N9a-4s-fUi" id="wBS-tA-c4B"/>
+                        <outlet property="topView" destination="Wbg-W9-8Ie" id="GFY-S2-eYl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLM-ad-e36" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1273,8 +1270,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="B2J-NP-7RF"/>
+        <segue reference="Qny-Iz-aTu"/>
         <segue reference="eCX-AU-HQp"/>
-        <segue reference="ZbZ-RM-EhC"/>
-        <segue reference="CYp-yF-bGz"/>
     </inferredMetricsTieBreakers>
 </document>

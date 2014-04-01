@@ -58,6 +58,14 @@
 	return YES;
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+	[self.delegate composeBarDidBeginEditing:self];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+	[self.delegate composeBarDidEndEditing:self];
+}
+
 #pragma mark - UIResponder
 
 - (BOOL)canBecomeFirstResponder {

@@ -45,8 +45,4 @@ static NSDictionary* mapping = nil;
 	return YES;
 }
 
-- (NSString *)large {
-	return @"http://placeimg.com/100/100/any";
-}
-
 @end

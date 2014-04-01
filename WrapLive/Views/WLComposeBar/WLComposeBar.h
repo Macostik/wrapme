@@ -13,6 +13,8 @@
 @protocol WLComposeBarDelegate <NSObject>
 
 - (void)composeBar:(WLComposeBar*)composeBar didFinishWithText:(NSString*)text;
+- (void)composeBarDidBeginEditing:(WLComposeBar*)composeBar;
+- (void)composeBarDidEndEditing:(WLComposeBar*)composeBar;
 
 @end
 

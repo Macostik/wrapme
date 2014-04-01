@@ -26,7 +26,7 @@
 }
 
 + (JSONKeyMapper *)keyMapper {
-	return [[JSONKeyMapper alloc] initWithDictionary:@{@"wrap_uid":@"wrapID",
+	return [[JSONKeyMapper alloc] initWithDictionary:@{@"wrap_uid":@"identifier",
 													   @"created_at_in_epoch":@"createdAt",
 													   @"updated_at_in_epoch":@"updatedAt"}];
 }

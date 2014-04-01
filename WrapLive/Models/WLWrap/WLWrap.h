@@ -21,7 +21,6 @@
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSArray<WLUser>* contributors;
 @property (strong, nonatomic) NSDate* contributedAt;
-@property (strong, nonatomic) NSString * wrapID;
 
 - (void)addCandy:(WLCandy*)candy;
 

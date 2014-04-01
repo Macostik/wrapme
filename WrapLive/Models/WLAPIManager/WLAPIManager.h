@@ -11,6 +11,7 @@
 
 @class WLUser;
 @class WLWrap;
+@class WLCandy;
 
 typedef void (^WLAPIManagerSuccessBlock) (id object);
 typedef void (^WLAPIManagerFailureBlock) (NSError* error);
@@ -95,5 +96,24 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param failure block that will be invoked on failure completion
  */
 - (void)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+/*!
+ *  Adds a candy to the wrap
+ *
+ *  @param candy    WLCandy instance representing candy
+ *  @param wrap    WLWrap instance representing wrap
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (void)addCandy:(WLCandy*)candy toWrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+/*!
+ *  Get candies from the wrap
+ *
+ *  @param wrap    WLWrap instance representing wrap
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (void)candies:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 @end

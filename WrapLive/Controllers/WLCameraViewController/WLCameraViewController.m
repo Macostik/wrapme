@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "WLSupportFunctions.h"
 #import "UIImage+Resize.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLCameraViewController ()
 
@@ -239,7 +240,7 @@
 	
 #if TARGET_IPHONE_SIMULATOR
 	UIGraphicsBeginImageContext(CGSizeMake(640, 640));
-	[[UIColor brownColor] setFill];
+	[[UIColor WL_orangeColor] setFill];
 	[[UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 640, 640)] fill];
 	UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();

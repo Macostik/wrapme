@@ -16,6 +16,7 @@
 #import "NSArray+Additions.h"
 #import "WLAddressBook.h"
 #import "NSDictionary+Extended.h"
+#import "WLCandy.h"
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
@@ -232,6 +233,36 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	if (path) {
 		[formData appendPartWithFileURL:[NSURL fileURLWithPath:path] name:@"qqfile" fileName:[path lastPathComponent] mimeType:@"image/jpeg" error:NULL];
 	}
+}
+
+- (void)addCandy:(WLCandy *)candy
+		  toWrap:(WLWrap *)wrap
+		 success:(WLAPIManagerSuccessBlock)success
+		 failure:(WLAPIManagerFailureBlock)failure {
+	if ([candy.type isEqualToString:WLCandyTypeImage]) {
+		
+		WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
+														  withObject:^id(WLAPIResponse *response) {
+															  return response;
+														  } failure:failure];
+		NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
+		[self POST:path parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+			[self attachFile:candy.picture.large toFormData:formData];
+		} success:successBlock failure:[self failureBlock:failure]];
+	} else {
+		success(candy);
+	}
+}
+
+- (void)candies:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	success(nil);
+	return;
+	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
+													  withObject:^id(WLAPIResponse *response) {
+														  return response;
+													  } failure:failure];
+	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
+	[self GET:path parameters:nil success:successBlock failure:[self failureBlock:failure]];
 }
 
 @end

@@ -90,6 +90,12 @@
 	self.headerView.height = [wrap.candies count] > 2 ? 212 : 106;
 	self.tableView.tableHeaderView = self.headerView;
 	[self.topWrapStreamView reloadData];
+	
+	[[WLAPIManager instance] candies:wrap success:^(id object) {
+		
+	} failure:^(NSError *error) {
+		
+	}];
 }
 
 - (IBAction)typeMessage:(UIButton *)sender {
@@ -156,11 +162,16 @@
 #pragma mark - <WLCameraViewControllerDelegate>
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
-
-	WLCandy* candy = [WLCandy entry];
-	candy.picture.large = @"http://placeimg.com/135/122/any";
-	candy.picture.thumbnail = @"http://placeimg.com/123/124/any";
-	[self.topWrap addCandy:candy];
+	[image storeAsImage:^(NSString *path) {
+		WLCandy* candy = [WLCandy entry];
+		candy.type = WLCandyTypeImage;
+		candy.picture.large = path;
+		[[WLAPIManager instance] addCandy:candy toWrap:self.topWrap success:^(id object) {
+			
+		} failure:^(NSError *error) {
+			
+		}];
+	}];
 
 	[self dismissViewControllerAnimated:YES completion:nil];
 }

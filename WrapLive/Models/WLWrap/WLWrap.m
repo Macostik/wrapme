@@ -39,8 +39,9 @@
 }
 
 - (void)contributorNames:(void (^)(NSString *))completion {
+	__weak typeof(self)weakSelf = self;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		NSString* names = [[self.contributors map:^id(WLUser* contributor) {
+		NSString* names = [[weakSelf.contributors map:^id(WLUser* contributor) {
 			return contributor.name;
 		}] componentsJoinedByString:@", "];
         dispatch_async(dispatch_get_main_queue(), ^{

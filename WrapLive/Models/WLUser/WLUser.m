@@ -24,7 +24,8 @@
 + (JSONKeyMapper *)keyMapper {
 	return [[JSONKeyMapper alloc] initWithDictionary:@{@"phone_number":@"phoneNumber",
 													   @"country_calling_code":@"countryCallingCode",
-													   @"dob":@"birthdate"}];
+													   @"dob":@"birthdate",
+													   @"user_uid":@"identifier"}];
 }
 
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
@@ -32,7 +33,12 @@
 }
 
 - (BOOL)isEqualToUser:(WLUser *)user {
-	return [self.phoneNumber isEqualToString:user.phoneNumber];
+	if (self.identifier.length > 0 && user.identifier.length > 0) {
+		return [self.identifier isEqualToString:user.identifier];
+	}
+	BOOL equalPhoneNumber = [self.phoneNumber isEqualToString:user.phoneNumber];
+	BOOL equalBirthdate = [self.birthdate compare:user.birthdate] == NSOrderedSame;
+	return equalPhoneNumber && equalBirthdate;
 }
 
 @end

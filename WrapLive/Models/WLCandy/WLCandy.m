@@ -7,8 +7,17 @@
 //
 
 #import "WLCandy.h"
+#import "WLComment.h"
 
 @implementation WLCandy
+
+- (WLPicture *)picture {
+	if ([self.type isEqualToString:WLCandyTypeConversation]) {
+		WLComment* comment = [self.comments lastObject];
+		return comment.picture;
+	}
+	return [super picture];
+}
 
 - (void)addComment:(WLComment *)comment {
 	NSMutableArray* comments = [NSMutableArray arrayWithArray:self.comments];

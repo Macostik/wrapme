@@ -79,8 +79,9 @@
 	[self.composeContainer setEditing:!self.composeContainer.editing animated:YES];
 }
 
-- (void)sendMessage {
-	
+- (void)sendMessageWithText:(NSString*)text {
+	[[self.wrap actualConversation] addCommentWithText:text];
+	[self sortCandiesInWrap];
 }
 
 #pragma mark - User Actions
@@ -88,7 +89,6 @@
 - (IBAction)back:(id)sender {
 	[self.navigationController popViewControllerAnimated:YES];
 }
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isCameraSegue]) {
@@ -115,7 +115,7 @@
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
 	[self.composeContainer setEditing:NO animated:YES];
-	[self sendMessage];
+	[self sendMessageWithText:text];
 }
 
 #pragma mark - WLWrapCandiesCellDelegate

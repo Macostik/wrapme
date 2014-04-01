@@ -167,20 +167,17 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (NSArray*)contributorsFromResponse:(WLAPIResponse*)response contacts:(NSArray*)contacts {
-	id signUpStatus = [response.data objectForKey:@"sign_up_status"];
-	if ([signUpStatus isKindOfClass:[NSString class]]) {
-		NSData* data = [signUpStatus dataUsingEncoding:NSUTF8StringEncoding];
-		signUpStatus = [NSJSONSerialization JSONObjectWithData:data
-															   options:NSJSONReadingAllowFragments
-																 error:NULL];
-		DDLogDebug(@"%@", signUpStatus);
-	}
+	NSArray* statuses = [response.data objectForKey:@"results"];
 	
 	NSMutableArray* contributors = [NSMutableArray array];
 	
-	for (NSString* phoneNumber in signUpStatus) {
-		NSDictionary* value = [signUpStatus objectForKey:phoneNumber];
+	for (NSDictionary* status in statuses) {
+		
+		NSDictionary* value = [status objectForKey:@"user"];
+		
 		if ([[value objectForKey:@"sign_up_status"] boolValue]) {
+			
+			NSString* phoneNumber = [value objectForKey:@"phone_number"];
 			
 			WLUser* contributor = [[WLUser alloc] initWithDictionary:[value objectForKey:@"user_info"] error:NULL];
 			
@@ -214,7 +211,11 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (void)createWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	NSDictionary* parameters = @{@"name" : wrap.name};
+	NSArray* contributors = [wrap.contributors map:^id(WLUser* contributor) {
+		return contributor.identifier;
+	}];
+	NSDictionary* parameters = @{@"name" : wrap.name,
+								 @"user_uids":contributors};
 	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
 													  withObject:^id(WLAPIResponse *response) {
 														  return [[WLWrap alloc] initWithDictionary:response.data[@"wrap"] error:NULL];

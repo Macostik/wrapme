@@ -19,41 +19,28 @@
 #import "WLSession.h"
 
 @interface WLWrapDataViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate>
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation WLWrapDataViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-//	self.candy.type = WLCandyTypeConversation;
+	
 	if ([self.candy.type isEqualToString:WLCandyTypeImage]) {
 		[self setupImageView:self.candy];
 		self.titleLabel.text = [NSString stringWithFormat:@"By %@", self.candy.author.name];
-	}
-	else {
+	} else {
 		self.titleLabel.text = [self.candy.updatedAt stringWithFormat:@"MMMM dd, YYYY"];
 		self.imageView.height = 0;
 	}
-	
-	WLComment * comment1 = [[WLComment alloc] init];
-	comment1.text = @"Comment 1";
-	[self.candy addComment:comment1];
-	WLComment * comment2 = [[WLComment alloc] init];
-	comment2.text = @"Comment 2";
-	comment2.author = [WLSession user];
-	[self.candy addComment:comment2];
-	WLComment * comment3 = [[WLComment alloc] init];
-	comment3.text = @"Comment 3";
-	[self.candy addComment:comment3];
-	WLComment * comment4 = [[WLComment alloc] init];
-	comment4.text = @"Comment 4";
-	[self.candy addComment:comment4];
 }
 
 - (void)setupImageView:(WLCandy *)image {
@@ -67,14 +54,15 @@
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)sendMessage {
-
+- (void)sendMessageWithText:(NSString*)text {
+	[self.candy addCommentWithText:text];
+	[self.tableView reloadData];
 }
 
 #pragma mark - WLComposeBarDelegate
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
-	[self sendMessage];
+	[self sendMessageWithText:text];
 }
 
 - (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
@@ -90,27 +78,6 @@
 	} completion:^(BOOL finished) {}];
 }
 
-#pragma mark - <UITextFieldDelegate>
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[self sendMessage];
-	return YES;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-	CGFloat translation = 216;
-	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
-	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.view.transform = transform;
-	} completion:^(BOOL finished) {}];
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.view.transform = CGAffineTransformIdentity;
-	} completion:^(BOOL finished) {}];
-}
-
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -120,12 +87,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLCommentCell* cell = nil;
 	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
-	if ([self.candy.type isEqualToString:WLCandyTypeConversation] && [comment.author isEqualToUser:[WLSession user]]) {
+	if ([self.candy.type isEqualToString:WLCandyTypeConversation] && [comment.author isCurrentUser]) {
 		static NSString* wrapCellIdentifier = @"WLMyCommentCell";
 		cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
 											   forIndexPath:indexPath];
-	}
-	else {
+	} else {
 		static NSString* wrapCellIdentifier = @"WLCommentCell";
 		cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
 															  forIndexPath:indexPath];

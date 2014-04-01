@@ -1231,6 +1231,7 @@
                     <connections>
                         <outlet property="containerView" destination="Kjk-ac-eXI" id="d4V-y1-cku"/>
                         <outlet property="imageView" destination="Sn5-Ts-kUU" id="Bdw-8Z-Pph"/>
+                        <outlet property="tableView" destination="0jW-2U-oDt" id="v6J-eA-rcG"/>
                         <outlet property="titleLabel" destination="N9a-4s-fUi" id="wBS-tA-c4B"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="GFY-S2-eYl"/>
                     </connections>

@@ -38,18 +38,10 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-	if (self.mode == WLCameraModeFullSize) {
-		if (self.backFacingCameraDeviceInput) {
-			[self.session addInput:self.backFacingCameraDeviceInput];
-		} else if (self.frontFacingCameraDeviceInput) {
-			[self.session addInput:self.frontFacingCameraDeviceInput];
-		}
-	} else {
-		if (self.frontFacingCameraDeviceInput) {
-			[self.session addInput:self.frontFacingCameraDeviceInput];
-		} else if (self.backFacingCameraDeviceInput) {
-			[self.session addInput:self.backFacingCameraDeviceInput];
-		}
+	if (self.backfacingByDefault && self.backFacingCameraDeviceInput) {
+		[self.session addInput:self.backFacingCameraDeviceInput];
+	} else if (self.frontFacingCameraDeviceInput) {
+		[self.session addInput:self.frontFacingCameraDeviceInput];
 	}
     
     [self.session addOutput:[self stillImageOutput]];

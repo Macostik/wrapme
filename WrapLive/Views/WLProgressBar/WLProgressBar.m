@@ -8,14 +8,13 @@
 
 #import "WLProgressBar.h"
 #import "UIView+Shorthand.h"
+#import "UIColor+CustomColors.h"
+#import "WLBorderView.h"
 
 @interface WLProgressBar ()
 
-@property (strong, nonatomic) UIImageView *backgroundImageView;
-@property (strong, nonatomic) UIImageView *progressImageView;
-
-@property (nonatomic) CGFloat minimumProgressWidth;
-@property (nonatomic) CGFloat maximumProgressWidth;
+@property (strong, nonatomic) WLBorderView *backgroundView;
+@property (strong, nonatomic) UIView *progressView;
 
 @end
 
@@ -23,32 +22,30 @@
 
 - (void)awakeFromNib{
     [super awakeFromNib];
-    self.backgroundColor = [UIColor clearColor];
-    
-    self.backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
-    self.backgroundImageView.image = [UIImage imageNamed:@"picture_loading_progress_background"];
-    
-    CGRect progressFrame = self.bounds;
-    progressFrame.origin.y = 1;
-    progressFrame.size.height = progressFrame.size.height - 3;
-    progressFrame.origin.x = 2;
-    progressFrame.size.width = 0;
-    self.minimumProgressWidth = 0;
-    self.maximumProgressWidth = self.backgroundImageView.width - 4;
-    self.progressImageView = [[UIImageView alloc] initWithFrame:progressFrame];
-    self.progressImageView.image = [[UIImage imageNamed:@"picture_loading_progress_dynamic_segment"] stretchableImageWithLeftCapWidth:5
-                                                                                                                         topCapHeight:5];
-    [self addSubview:self.backgroundImageView];
-    [self addSubview:self.progressImageView];
+	self.backgroundView = [[WLBorderView alloc] initWithFrame:self.bounds];
+	self.progressView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 5)];
+	self.progressView.backgroundColor = [UIColor WL_orangeColor];
+	[self.backgroundView addSubview:self.progressView];
+	[self addSubview:self.backgroundView];
+	
+	self.progress = 0.0f;
 }
 
-- (void)setProgress:(CGFloat)progress{
-    if(_progress != progress){
-        _progress = progress;
-        [UIView beginAnimations:nil context:nil];
-        self.progressImageView.width = progress *(self.maximumProgressWidth - self.minimumProgressWidth) + self.minimumProgressWidth;
-        [UIView commitAnimations];
-    }
+- (void)setProgress:(CGFloat)progress {
+	[self setProgress:progress animated:NO];
+}
+
+- (void)setProgress:(float)progress animated:(BOOL)animated {
+	
+	if (animated) {
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:0.5*progress];
+		[UIView setAnimationBeginsFromCurrentState:YES];
+	}
+	 self.progressView.width = progress * self.backgroundView.width;
+	if (animated) {
+		[UIView commitAnimations];
+	}
 }
 
 @end

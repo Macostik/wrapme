@@ -9,7 +9,7 @@
             <connections>
                 <outlet property="activationTextField" destination="QAt-iC-Ig0" id="9AA-oY-Mxa"/>
                 <outlet property="phoneNumberLabel" destination="yzG-Lb-q94" id="lqv-wo-vhd"/>
-                <outlet property="progressView" destination="Yy1-79-rlc" id="3Uq-R9-vs7"/>
+                <outlet property="progressBar" destination="SN1-4P-LB1" id="fd7-hY-Tbd"/>
                 <outlet property="view" destination="qg7-3m-dX1" id="ryA-Ar-SfH"/>
                 <outletCollection property="activationViews" destination="Fip-lx-PtU" id="ahM-63-Zi0"/>
                 <outletCollection property="activationViews" destination="m5C-ko-6zU" id="z04-zH-mju"/>
@@ -97,12 +97,11 @@
                             <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" id="Yy1-79-rlc">
-                            <rect key="frame" x="52" y="87" width="216" height="2"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="progressTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="trackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </progressView>
+                        <view contentMode="scaleToFill" id="SN1-4P-LB1" customClass="WLProgressBar">
+                            <rect key="frame" x="52" y="85" width="216" height="5"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sit back and relax. We will notify you when it is done." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mtu-qN-tx7">
                             <rect key="frame" x="35" y="108" width="249" height="71"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>

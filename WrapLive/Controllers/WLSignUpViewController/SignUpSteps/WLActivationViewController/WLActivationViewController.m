@@ -14,6 +14,7 @@
 #import "WLInputAccessoryView.h"
 #import "WLSession.h"
 #import "UIView+Shorthand.h"
+#import "WLProgressBar.h"
 
 static NSInteger WLActivationCodeLimit = 4;
 
@@ -28,7 +29,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 
 @property (strong, nonatomic) IBOutlet UITextField *activationTextField;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *activationViews;
-@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 @property (strong, nonatomic) IBOutlet UILabel *phoneNumberLabel;
 @property (strong, nonatomic) WLUser * user;
 
@@ -103,11 +104,11 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 	__weak typeof(self)weakSelf = self;
 	[operation setUploadProgressBlock:^(NSUInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite) {
 		float progress = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
-		[weakSelf.progressView setProgress:progress animated:YES];
+		[weakSelf.progressBar setProgress:progress animated:YES];
 	}];
 	[operation setDownloadProgressBlock:^(NSUInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
 		float progress = ((float)totalBytesRead/(float)totalBytesExpectedToRead);
-		[weakSelf.progressView setProgress:progress animated:YES];
+		[weakSelf.progressBar setProgress:progress animated:YES];
 	}];
 }
 

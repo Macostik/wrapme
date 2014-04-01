@@ -17,7 +17,6 @@
 	self = [super initWithDictionary:dict error:err];
 	if (self) {
 		self.avatar = [[WLPicture alloc] initWithDictionary:dict error:err];
-		self.birthdate = [dict dateForKey:@"dob" withFormat:@"yyyy-MM-dd'T'HH:mm:ss.000Z"];
 		self.registrationCompleted = ![[dict objectForKey:@"avatar_file_size"] isKindOfClass:[NSNull class]] && ![[dict objectForKey:@"name"] isKindOfClass:[NSNull class]];
 	}
 	return self;

@@ -8,6 +8,7 @@
 
 #import "WLArchivingObject.h"
 #import <objc/runtime.h>
+#import "NSDate+Formatting.h"
 
 static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlock)(NSString* property)) {
 	if (class != [NSObject class]) {
@@ -89,6 +90,26 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 	EnumeratePropertiesOfClass([self class], ^ (NSString* property) {
 		[aCoder encodeObject:[self valueForKey:property] forKey:property];
 	});
+}
+
+@end
+
+@implementation JSONValueTransformer (NSDate)
+
+- (NSDate*)NSDateFromNSString:(NSString*)string {
+	NSDate* date = [string dateWithFormat:@"yyyy-MM-dd'T'HH:mm:ss.000Z"];
+	if (date == nil) {
+		date = [NSDate dateWithTimeIntervalSince1970:[string doubleValue]];
+	}
+	return date;
+}
+
+- (NSString*)JSONObjectFromNSDate:(NSDate*)date {
+	return [NSString stringWithFormat:@"%f",[date timeIntervalSince1970]];
+}
+
+- (NSDate *)NSDateFromNSNumber:(NSNumber *)number {
+	return [NSDate dateWithTimeIntervalSince1970:[number doubleValue]];
 }
 
 @end

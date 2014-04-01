@@ -28,8 +28,8 @@
 
 + (JSONKeyMapper *)keyMapper {
 	return [[JSONKeyMapper alloc] initWithDictionary:@{@"wrap_uid":@"wrapID",
-													   @"created_at":@"createdAt",
-													   @"updated_at":@"updatedAt"}];
+													   @"created_at_in_epoch":@"createdAt",
+													   @"updated_at_in_epoch":@"updatedAt"}];
 }
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {

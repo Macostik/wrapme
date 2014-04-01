@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "JSONModel.h"
+#import "WLArchivingObject.h"
 
 @class WLUser;
 
-@interface WLEntry : JSONModel
+@interface WLEntry : WLArchivingObject
 
 @property (strong, nonatomic) WLUser* author;
 @property (strong, nonatomic) NSDate* createdAt;

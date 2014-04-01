@@ -16,3 +16,13 @@
 + (void)objectWithData:(NSData*)data completion:(void (^)(id object))completion;
 
 @end
+
+@interface JSONValueTransformer (NSDate)
+
+- (NSDate*)NSDateFromNSString:(NSString*)string;
+
+- (NSString*)JSONObjectFromNSDate:(NSDate*)date;
+
+- (NSDate*)NSDateFromNSNumber:(NSNumber*)number;
+
+@end

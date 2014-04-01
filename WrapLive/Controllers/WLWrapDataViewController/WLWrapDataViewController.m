@@ -10,11 +10,9 @@
 #import "WLCommentCell.h"
 #import "WLCandy.h"
 #import "NSDate+Formatting.h"
-#import "WLImage.h"
 #import "UIImageView+ImageLoading.h"
 #import "UIView+Shorthand.h"
 #import "WLUser.h"
-#import "WLPicture.h"
 #import "WLComposeContainer.h"
 #import "WLComposeBar.h"
 #import "WLComment.h"
@@ -37,7 +35,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 	if ([self.candy.type isEqualToString:WLCandyTypeImage]) {
-		[self setupImageView:(WLImage*)self.candy];
+		[self setupImageView:self.candy];
 		self.titleLabel.text = [NSString stringWithFormat:@"By %@", self.candy.author.name];
 	}
 	else {
@@ -56,9 +54,9 @@
 	self.testCommentsArray = @[comment1, comment2, comment3, comment4];
 }
 
-- (void)setupImageView:(WLImage *)image {
+- (void)setupImageView:(WLCandy *)image {
 	self.imageView.height = 320;
-	self.imageView.imageUrl = image.url.large;
+	self.imageView.imageUrl = image.picture.large;
 }
 
 #pragma mark - Actions

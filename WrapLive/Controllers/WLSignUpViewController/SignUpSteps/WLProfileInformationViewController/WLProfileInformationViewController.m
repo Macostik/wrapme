@@ -13,7 +13,6 @@
 #import "WLUser.h"
 #import "WLSession.h"
 #import "UIStoryboard+Additions.h"
-#import "WLPicture.h"
 #import "UIView+Shorthand.h"
 #import "UIImage+WLStoring.h"
 
@@ -69,7 +68,7 @@
 - (void)saveImage:(UIImage *)image {
 	__weak typeof(self)weakSelf = self;
 	[image storeAsAvatar:^(NSString *path) {
-		weakSelf.user.avatar.large = path;
+		weakSelf.user.picture.large = path;
 	}];
 	[self verifyContinueButton];
 }

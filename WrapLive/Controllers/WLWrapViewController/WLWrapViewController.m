@@ -16,10 +16,8 @@
 #import "UIView+Shorthand.h"
 #import "UIStoryboard+Additions.h"
 #import "WLCameraViewController.h"
-#import "WLImage.h"
 #import "WLWrapDataViewController.h"
 #import "WLCreateWrapViewController.h"
-#import "WLPicture.h"
 #import "WLComposeBar.h"
 #import "WLComposeContainer.h"
 #import "UIImage+WLStoring.h"
@@ -44,7 +42,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	
-	self.coverView.imageUrl = self.wrap.cover.large;
+	self.coverView.imageUrl = self.wrap.picture.large;
 	self.nameLabel.text = self.wrap.name;
 	
 	[self sortCandiesInWrap];
@@ -146,9 +144,9 @@
 #pragma mark - WLCameraViewControllerDelegate
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
-	WLImage* candy = [WLImage entry];
-	candy.url.large = @"http://placeimg.com/135/111/any";
-	candy.url.thumbnail = @"http://placeimg.com/123/111/any";
+	WLCandy* candy = [WLCandy entry];
+	candy.picture.large = @"http://placeimg.com/135/111/any";
+	candy.picture.thumbnail = @"http://placeimg.com/123/111/any";
 	[self.wrap addCandy:candy];
 	[self sortCandiesInWrap];
 	[self dismissViewControllerAnimated:YES completion:nil];

@@ -7,16 +7,15 @@
 //
 
 #import "WLUser.h"
-#import "WLPicture.h"
 #import "NSDate+Formatting.h"
 #import "NSDictionary+Extended.h"
+#import "WLSession.h"
 
 @implementation WLUser
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
 	self = [super initWithDictionary:dict error:err];
 	if (self) {
-		self.avatar = [[WLPicture alloc] initWithDictionary:dict error:err];
 		self.registrationCompleted = ![[dict objectForKey:@"avatar_file_size"] isKindOfClass:[NSNull class]] && ![[dict objectForKey:@"name"] isKindOfClass:[NSNull class]];
 	}
 	return self;
@@ -28,19 +27,32 @@
 													   @"dob":@"birthdate"}];
 }
 
-- (WLPicture *)avatar {
-	if (!_avatar) {
-		_avatar = [[WLPicture alloc] init];
-	}
-	return _avatar;
-}
-
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 	return YES;
 }
 
 - (BOOL)isEqualToUser:(WLUser *)user {
 	return [self.phoneNumber isEqualToString:user.phoneNumber];
+}
+
+@end
+
+@implementation WLUser (CurrentUser)
+
++ (WLUser*)currentUser {
+	return [WLSession user];
+}
+
++ (void)setCurrentUser:(WLUser*)user {
+	[WLSession setUser:user];
+}
+
+- (void)setCurrent {
+	[WLUser setCurrentUser:self];
+}
+
+- (BOOL)isCurrentUser {
+	return [[WLUser currentUser] isEqualToUser:self];
 }
 
 @end

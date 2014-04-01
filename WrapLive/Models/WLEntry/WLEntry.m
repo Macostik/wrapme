@@ -7,8 +7,6 @@
 //
 
 #import "WLEntry.h"
-#import "WLSession.h"
-#import "WLUser.h"
 
 @implementation WLEntry
 
@@ -16,8 +14,22 @@
 	WLEntry* entry = [[self alloc] init];
 	entry.createdAt = [NSDate date];
 	entry.updatedAt = [NSDate date];
-	entry.author = [WLSession user];
 	return entry;
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
+	self = [super initWithDictionary:dict error:err];
+	if (self) {
+		self.picture = [[WLPicture alloc] initWithDictionary:dict error:err];
+	}
+	return self;
+}
+
+- (WLPicture *)picture {
+	if (!_picture) {
+		_picture = [[WLPicture alloc] init];
+	}
+	return _picture;
 }
 
 + (BOOL)propertyIsOptional:(NSString *)propertyName {

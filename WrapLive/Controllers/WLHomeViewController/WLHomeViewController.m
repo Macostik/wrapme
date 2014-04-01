@@ -21,13 +21,11 @@
 #import "StreamView.h"
 #import "WLWrapDataViewController.h"
 #import "UIColor+CustomColors.h"
-#import "WLPicture.h"
-#import "WLImage.h"
-#import "WLConversation.h"
 #import "WLComposeBar.h"
 #import "WLComposeContainer.h"
 #import "WLComment.h"
 #import "UIImage+WLStoring.h"
+#import "WLCandy.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
 
@@ -99,7 +97,7 @@
 }
 
 - (void)sendMessageWithText:(NSString*)text {
-	WLConversation* conversation = [WLConversation entry];
+	WLCandy* conversation = [WLCandy entry];
 	WLComment *comment = [WLComment entry];
 	comment.text = text;
 	[conversation addComment:comment];
@@ -159,9 +157,9 @@
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
 
-	WLImage* candy = [WLImage entry];
-	candy.url.large = @"http://placeimg.com/135/122/any";
-	candy.url.thumbnail = @"http://placeimg.com/123/124/any";
+	WLCandy* candy = [WLCandy entry];
+	candy.picture.large = @"http://placeimg.com/135/122/any";
+	candy.picture.thumbnail = @"http://placeimg.com/123/124/any";
 	[self.topWrap addCandy:candy];
 
 	[self dismissViewControllerAnimated:YES completion:nil];
@@ -191,7 +189,7 @@
 		imageView.contentMode = UIViewContentModeScaleAspectFill;
 		imageView.clipsToBounds = YES;
 		WLCandy* candy = [self.topWrap.candies objectAtIndex:item.index.row];
-		imageView.imageUrl = candy.cover.large;
+		imageView.imageUrl = candy.picture.large;
 		return imageView;
 	} else {
 		UILabel* placeholderLabel = [streamView reusableViewOfClass:[UILabel class] forItem:item];

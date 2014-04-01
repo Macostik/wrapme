@@ -10,7 +10,6 @@
 #import "WLCandy.h"
 #import "UIImageView+ImageLoading.h"
 #import "WLComment.h"
-#import "WLPicture.h"
 
 @interface WLWrapCandyCell ()
 
@@ -22,7 +21,7 @@
 @implementation WLWrapCandyCell
 
 - (void)setupItemData:(WLCandy*)entry {
-	self.coverView.imageUrl = entry.cover.large;
+	self.coverView.imageUrl = entry.picture.large;
 	WLComment* comment = [entry.comments lastObject];
 	self.commentLabel.text = comment.text;
 }

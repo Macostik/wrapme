@@ -7,12 +7,11 @@
 //
 
 #import "WLArchivingObject.h"
-
-@class WLUser;
+#import "WLPicture.h"
 
 @interface WLEntry : WLArchivingObject
 
-@property (strong, nonatomic) WLUser* author;
+@property (strong, nonatomic) WLPicture* picture;
 @property (strong, nonatomic) NSDate* createdAt;
 @property (strong, nonatomic) NSDate *updatedAt;
 @property (strong, nonatomic) NSString* identifier;

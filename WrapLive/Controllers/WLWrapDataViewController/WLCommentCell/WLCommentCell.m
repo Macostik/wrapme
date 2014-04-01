@@ -9,7 +9,6 @@
 #import "WLCommentCell.h"
 #import "WLComment.h"
 #import "WLUser.h"
-#import "WLPicture.h"
 #import "UIImageView+ImageLoading.h"
 
 @interface WLCommentCell()
@@ -24,7 +23,7 @@
 - (void)setupItemData:(WLComment *)entry {
 	self.authorNameLabel.text = entry.author.name;
 	self.commentLabel.text = entry.text;
-	self.authorImageView.imageUrl = entry.author.avatar.thumbnail;
+	self.authorImageView.imageUrl = entry.author.picture.thumbnail;
 }
 
 @end

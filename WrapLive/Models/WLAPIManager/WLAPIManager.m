@@ -15,7 +15,6 @@
 #import <CocoaLumberjack/DDLog.h>
 #import "NSArray+Additions.h"
 #import "WLAddressBook.h"
-#import "WLPicture.h"
 #import "NSDictionary+Extended.h"
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
@@ -139,7 +138,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 														  return response;
 													  } failure:failure];
 	[self POST:@"users/update" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-		[self attachFile:user.avatar.large toFormData:formData];
+		[self attachFile:user.picture.large toFormData:formData];
 	} success:successBlock failure:[self failureBlock:failure]];
 }
 
@@ -221,7 +220,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 													  } failure:failure];
 	
 	[self POST:@"wraps" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-		[self attachFile:wrap.cover.large toFormData:formData];
+		[self attachFile:wrap.picture.large toFormData:formData];
 	} success:successBlock failure:[self failureBlock:failure]];
 }
 

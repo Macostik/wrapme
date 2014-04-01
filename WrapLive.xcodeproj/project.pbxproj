@@ -54,8 +54,6 @@
 		12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA6218DB0DEF00A4BC44 /* WLEntry.m */; };
 		12DCBA6718DB0E4A00A4BC44 /* WLWrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA6618DB0E4A00A4BC44 /* WLWrap.m */; };
 		12DCBA6B18DB0E6600A4BC44 /* WLComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA6A18DB0E6600A4BC44 /* WLComment.m */; };
-		12DCBA7318DB0E9700A4BC44 /* WLImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7218DB0E9700A4BC44 /* WLImage.m */; };
-		12DCBA7718DB0EB800A4BC44 /* WLConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7618DB0EB800A4BC44 /* WLConversation.m */; };
 		12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */; };
 		12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */; };
 		12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* WLItemCell.m */; };
@@ -68,6 +66,7 @@
 		12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA5F18E04CC400DBDB79 /* UIImage+Alpha.m */; };
 		12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA6118E04CC400DBDB79 /* UIImage+Resize.m */; };
 		12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */; };
+		12E5BA5518EAB9C40033CE4E /* WLWrapEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E5BA5418EAB9C40033CE4E /* WLWrapEntry.m */; };
 		12E8FF1318E960E000BF1B96 /* HorizontalStreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0A18E960E000BF1B96 /* HorizontalStreamLayout.m */; };
 		12E8FF1418E960E000BF1B96 /* StreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0C18E960E000BF1B96 /* StreamLayout.m */; };
 		12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */; };
@@ -177,10 +176,6 @@
 		12DCBA6618DB0E4A00A4BC44 /* WLWrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrap.m; path = WLWrap/WLWrap.m; sourceTree = "<group>"; };
 		12DCBA6918DB0E6600A4BC44 /* WLComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComment.h; path = WLComment/WLComment.h; sourceTree = "<group>"; };
 		12DCBA6A18DB0E6600A4BC44 /* WLComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComment.m; path = WLComment/WLComment.m; sourceTree = "<group>"; };
-		12DCBA7118DB0E9700A4BC44 /* WLImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLImage.h; path = WLImage/WLImage.h; sourceTree = "<group>"; };
-		12DCBA7218DB0E9700A4BC44 /* WLImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLImage.m; path = WLImage/WLImage.m; sourceTree = "<group>"; };
-		12DCBA7518DB0EB800A4BC44 /* WLConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLConversation.h; path = WLConversation/WLConversation.h; sourceTree = "<group>"; };
-		12DCBA7618DB0EB800A4BC44 /* WLConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLConversation.m; path = WLConversation/WLConversation.m; sourceTree = "<group>"; };
 		12DCBA7918DB17D000A4BC44 /* WLWrapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapCell.h; path = WLHomeViewController/WLWrapCell/WLWrapCell.h; sourceTree = "<group>"; };
 		12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapCell.m; path = WLHomeViewController/WLWrapCell/WLWrapCell.m; sourceTree = "<group>"; };
 		12DCBA7F18DB18F400A4BC44 /* WLCollectionItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCollectionItemCell.h; sourceTree = "<group>"; };
@@ -203,6 +198,8 @@
 		12E3DA6118E04CC400DBDB79 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		12E3DA6218E04CC400DBDB79 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
 		12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
+		12E5BA5318EAB9C40033CE4E /* WLWrapEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapEntry.h; path = WLWrapEntry/WLWrapEntry.h; sourceTree = "<group>"; };
+		12E5BA5418EAB9C40033CE4E /* WLWrapEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapEntry.m; path = WLWrapEntry/WLWrapEntry.m; sourceTree = "<group>"; };
 		12E8FF0918E960E000BF1B96 /* HorizontalStreamLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HorizontalStreamLayout.h; sourceTree = "<group>"; };
 		12E8FF0A18E960E000BF1B96 /* HorizontalStreamLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HorizontalStreamLayout.m; sourceTree = "<group>"; };
 		12E8FF0B18E960E000BF1B96 /* StreamLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamLayout.h; sourceTree = "<group>"; };
@@ -526,11 +523,10 @@
 				12E3DA4118E03EB000DBDB79 /* WLSupportFunctions.m */,
 				128886AE18DC902700957B22 /* WLArchivingObject */,
 				128886AA18DC492300957B22 /* WLSession */,
-				12DCBA7418DB0EA000A4BC44 /* WLConversation */,
-				12DCBA7018DB0E8200A4BC44 /* WLImage */,
 				1293678418E34A6800527250 /* WLCandy */,
 				12DCBA6818DB0E5100A4BC44 /* WLComment */,
 				12DCBA6418DB0E3700A4BC44 /* WLWrap */,
+				12E5BA5218EAB98C0033CE4E /* WLWrapEntry */,
 				12DCBA6018DB0DAA00A4BC44 /* WLEntry */,
 				12DCBA5918DB0D6E00A4BC44 /* WLUser */,
 				12DCBA5218DAF93C00A4BC44 /* WLAPIManager */,
@@ -684,24 +680,6 @@
 			name = WLComment;
 			sourceTree = "<group>";
 		};
-		12DCBA7018DB0E8200A4BC44 /* WLImage */ = {
-			isa = PBXGroup;
-			children = (
-				12DCBA7118DB0E9700A4BC44 /* WLImage.h */,
-				12DCBA7218DB0E9700A4BC44 /* WLImage.m */,
-			);
-			name = WLImage;
-			sourceTree = "<group>";
-		};
-		12DCBA7418DB0EA000A4BC44 /* WLConversation */ = {
-			isa = PBXGroup;
-			children = (
-				12DCBA7518DB0EB800A4BC44 /* WLConversation.h */,
-				12DCBA7618DB0EB800A4BC44 /* WLConversation.m */,
-			);
-			name = WLConversation;
-			sourceTree = "<group>";
-		};
 		12DCBA7818DB17B000A4BC44 /* WLWrapCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,6 +777,15 @@
 				12E8FF2818E9B59200BF1B96 /* UIImage+WLStoring.m */,
 			);
 			path = UIImage;
+			sourceTree = "<group>";
+		};
+		12E5BA5218EAB98C0033CE4E /* WLWrapEntry */ = {
+			isa = PBXGroup;
+			children = (
+				12E5BA5318EAB9C40033CE4E /* WLWrapEntry.h */,
+				12E5BA5418EAB9C40033CE4E /* WLWrapEntry.m */,
+			);
+			name = WLWrapEntry;
 			sourceTree = "<group>";
 		};
 		12E8FF0718E960E000BF1B96 /* StreamView */ = {
@@ -1032,6 +1019,7 @@
 				12D653E618E43545009CE64C /* WLContributorCell.m in Sources */,
 				12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */,
 				121B1B2E18E07430001F585C /* WLCountry.m in Sources */,
+				12E5BA5518EAB9C40033CE4E /* WLWrapEntry.m in Sources */,
 				12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */,
 				12E8FF2418E98B7100BF1B96 /* WLComposeContainer.m in Sources */,
 				12E3DA4218E03EB000DBDB79 /* WLSupportFunctions.m in Sources */,
@@ -1054,7 +1042,6 @@
 				12DCBA6B18DB0E6600A4BC44 /* WLComment.m in Sources */,
 				12D653E218E432F2009CE64C /* WLBorderView.m in Sources */,
 				12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */,
-				12DCBA7318DB0E9700A4BC44 /* WLImage.m in Sources */,
 				12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */,
 				128886AD18DC493B00957B22 /* WLSession.m in Sources */,
 				128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */,
@@ -1069,7 +1056,6 @@
 				12E8FF1318E960E000BF1B96 /* HorizontalStreamLayout.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,
 				12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */,
-				12DCBA7718DB0EB800A4BC44 /* WLConversation.m in Sources */,
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
 				12D9F6E318E18DAA001E8323 /* NSError+WLAPIManager.m in Sources */,
 				121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */,

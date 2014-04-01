@@ -16,7 +16,6 @@
 #import "WLWrapViewController.h"
 #import "WLCameraViewController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import "WLPicture.h"
 #import "UIImage+WLStoring.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
@@ -75,7 +74,7 @@
 
 - (void)fillDataAndUpdateLabels {
 	self.nameField.text = self.wrap.name;
-	[self.coverView setImageWithURL:[NSURL URLWithString:self.wrap.cover.large]];
+	[self.coverView setImageWithURL:[NSURL URLWithString:self.wrap.picture.large]];
 	self.startButton.hidden = !self.isNewWrap;
 	self.doneButton.hidden = self.isNewWrap;
 	self.titleLabel.text = self.isNewWrap ? @"Create new wrap" : @"Change wrap settings";
@@ -99,7 +98,7 @@
 
 - (IBAction)start:(id)sender {
 	__weak typeof(self)weakSelf = self;
-//	self.wrap.name = self.nameField.text;
+	
 	self.wrap.createdAt = [NSDate date];
 	self.wrap.updatedAt = [NSDate date];
 	[[WLAPIManager instance] createWrap:self.wrap success:^(id object) {
@@ -150,7 +149,7 @@
 	self.coverView.image = image;
 	__weak typeof(self)weakSelf = self;
 	[image storeAsCover:^(NSString *path) {
-		weakSelf.wrap.cover.large = path;
+		weakSelf.wrap.picture.large = path;
 	}];
 	
 	[self dismissViewControllerAnimated:YES completion:nil];

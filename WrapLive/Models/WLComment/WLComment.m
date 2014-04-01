@@ -7,7 +7,12 @@
 //
 
 #import "WLComment.h"
+#import "WLUser.h"
 
 @implementation WLComment
+
+- (WLPicture *)picture {
+	return self.author.picture;
+}
 
 @end

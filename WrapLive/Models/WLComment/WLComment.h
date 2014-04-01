@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLEntry.h"
+#import "WLWrapEntry.h"
 
-@interface WLComment : WLEntry
+@interface WLComment : WLWrapEntry
 
 @property (strong, nonatomic) NSString* text;
 

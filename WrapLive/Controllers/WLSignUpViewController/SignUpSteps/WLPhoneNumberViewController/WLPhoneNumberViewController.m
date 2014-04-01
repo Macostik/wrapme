@@ -38,8 +38,6 @@
 	[self setupPicker];
 	self.country = [WLCountry getCurrentCountry];
 	[self fillCountryFields];
-	self.phoneNumberTextField.superview.layer.borderColor = [UIColor WL_grayColor].CGColor;
-	self.birthdateTextField.superview.layer.borderColor = [UIColor WL_grayColor].CGColor;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

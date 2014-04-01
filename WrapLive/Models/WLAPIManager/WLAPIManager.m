@@ -136,7 +136,9 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSDictionary* parameters = @{@"name":user.name};
 	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
 													  withObject:^id(WLAPIResponse *response) {
-														  return response;
+														  WLUser* user = [[WLUser alloc] initWithDictionary:response.data[@"user"] error:NULL];
+														  [user setCurrent];
+														  return user;
 													  } failure:failure];
 	[self POST:@"users/update" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
 		[self attachFile:user.picture.large toFormData:formData];

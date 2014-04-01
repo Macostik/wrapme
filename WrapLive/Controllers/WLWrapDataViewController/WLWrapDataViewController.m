@@ -16,16 +16,13 @@
 #import "WLComposeContainer.h"
 #import "WLComposeBar.h"
 #import "WLComment.h"
-
+#import "WLSession.h"
 
 @interface WLWrapDataViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-
-@property (strong, nonatomic) NSArray * testCommentsArray;
-
 @end
 
 @implementation WLWrapDataViewController
@@ -34,6 +31,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+//	self.candy.type = WLCandyTypeConversation;
 	if ([self.candy.type isEqualToString:WLCandyTypeImage]) {
 		[self setupImageView:self.candy];
 		self.titleLabel.text = [NSString stringWithFormat:@"By %@", self.candy.author.name];
@@ -45,13 +43,17 @@
 	
 	WLComment * comment1 = [[WLComment alloc] init];
 	comment1.text = @"Comment 1";
+	[self.candy addComment:comment1];
 	WLComment * comment2 = [[WLComment alloc] init];
 	comment2.text = @"Comment 2";
+	comment2.author = [WLSession user];
+	[self.candy addComment:comment2];
 	WLComment * comment3 = [[WLComment alloc] init];
 	comment3.text = @"Comment 3";
+	[self.candy addComment:comment3];
 	WLComment * comment4 = [[WLComment alloc] init];
 	comment4.text = @"Comment 4";
-	self.testCommentsArray = @[comment1, comment2, comment3, comment4];
+	[self.candy addComment:comment4];
 }
 
 - (void)setupImageView:(WLCandy *)image {
@@ -112,16 +114,23 @@
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.testCommentsArray.count;
-//	return self.candy.comments.count;
+	return self.candy.comments.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString* wrapCellIdentifier = @"WLCommentCell";
-	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
-													   forIndexPath:indexPath];
-	cell.item = [self.testCommentsArray objectAtIndex:indexPath.row];
-//	cell.item = [self.candy.comments objectAtIndex:indexPath.row];
+	WLCommentCell* cell = nil;
+	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
+	if ([self.candy.type isEqualToString:WLCandyTypeConversation] && [comment.author isEqualToUser:[WLSession user]]) {
+		static NSString* wrapCellIdentifier = @"WLMyCommentCell";
+		cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
+											   forIndexPath:indexPath];
+	}
+	else {
+		static NSString* wrapCellIdentifier = @"WLCommentCell";
+		cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
+															  forIndexPath:indexPath];
+	}
+	cell.item = comment;
 	return cell;
 }
 

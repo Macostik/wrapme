@@ -11,6 +11,7 @@
 #import "NSDate+Formatting.h"
 #import "WLWrapCandyCell.h"
 #import "WLCandy.h"
+#import "NSObject+NibAdditions.h"
 
 @interface WLWrapCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -20,6 +21,11 @@
 @end
 
 @implementation WLWrapCandiesCell
+
+- (void)awakeFromNib {
+	[super awakeFromNib];
+	[self.collectionView registerNib:[WLWrapCandyCell nib] forCellWithReuseIdentifier:[WLWrapCandyCell reuseIdentifier]];
+}
 
 - (void)setupItemData:(WLWrapDay*)entry {
 	self.dateLabel.text = [entry.modified stringWithFormat:@"MMM dd, YYYY"];

@@ -26,6 +26,7 @@
 #import "WLComment.h"
 #import "UIImage+WLStoring.h"
 #import "WLCandy.h"
+#import "WLWrapCandyCell.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
 
@@ -51,8 +52,6 @@
 	
 	self.composeContainer.hidden = YES;
 	self.noWrapsView.hidden = YES;
-	
-	self.topWrapStreamView.reusableViewLoadingType = StreamViewReusableViewLoadingTypeInit;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -104,6 +103,7 @@
 
 - (void)sendMessageWithText:(NSString*)text {
 	WLCandy* conversation = [WLCandy entry];
+	conversation.type = WLCandyTypeConversation;
 	WLComment *comment = [WLComment entry];
 	comment.text = text;
 	[conversation addComment:comment];
@@ -196,14 +196,15 @@
 
 - (UIView*)streamView:(StreamView*)streamView viewForItem:(StreamLayoutItem*)item {
 	if (item.index.row < [self.topWrap.candies count]) {
-		UIImageView* imageView = [streamView reusableViewOfClass:[UIImageView class] forItem:item];
-		imageView.contentMode = UIViewContentModeScaleAspectFill;
-		imageView.clipsToBounds = YES;
-		WLCandy* candy = [self.topWrap.candies objectAtIndex:item.index.row];
-		imageView.imageUrl = candy.picture.large;
-		return imageView;
+		WLWrapCandyCell* candyView = [streamView reusableViewOfClass:[WLWrapCandyCell class]
+															 forItem:item
+														 loadingType:StreamViewReusableViewLoadingTypeNib];
+		candyView.item = [self.topWrap.candies objectAtIndex:item.index.row];
+		return candyView;
 	} else {
-		UILabel* placeholderLabel = [streamView reusableViewOfClass:[UILabel class] forItem:item];
+		UILabel* placeholderLabel = [streamView reusableViewOfClass:[UILabel class]
+															forItem:item
+														loadingType:StreamViewReusableViewLoadingTypeInit];
 		placeholderLabel.backgroundColor = [UIColor WL_grayColor];
 		return placeholderLabel;
 	}

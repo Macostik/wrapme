@@ -288,15 +288,19 @@ static NSString *panGestureRecognizerStatePath = @"panGestureRecognizer.state";
 }
 
 - (id)reusableViewOfClass:(Class)viewClass forItem:(StreamLayoutItem *)item {
+	return [self reusableViewOfClass:viewClass forItem:item loadingType:_reusableViewLoadingType];
+}
+
+- (id)reusableViewOfClass:(Class)viewClass forItem:(StreamLayoutItem *)item loadingType:(StreamViewReusableViewLoadingType)loadingType {
 	for (UIView *view in self.reusableViews) {
 		if (!view.superview && [view isKindOfClass:viewClass]) {
 			return view;
 		}
 	}
-	if (_reusableViewLoadingType == StreamViewReusableViewLoadingTypeInit) {
+	if (loadingType == StreamViewReusableViewLoadingTypeInit) {
 		CGRect frame = item ? item.frame : CGRectMake(0, 0, 100, 100);
 		return [[viewClass alloc] initWithFrame:frame];
-	} else if (_reusableViewLoadingType == StreamViewReusableViewLoadingTypeNib) {
+	} else if (loadingType == StreamViewReusableViewLoadingTypeNib) {
 		NSArray *objects = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(viewClass) owner:nil options:nil];
 		for (id object in objects) {
 			if ([object isKindOfClass:viewClass]) {

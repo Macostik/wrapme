@@ -22,7 +22,7 @@
 
 - (void)setupItemData:(WLWrap*)wrap {
 	self.nameLabel.text = wrap.name;
-	self.coverView.imageUrl = wrap.picture.large;
+	self.coverView.imageUrl = wrap.picture.small;
 }
 
 + (CGFloat)heightForItem:(id)item {

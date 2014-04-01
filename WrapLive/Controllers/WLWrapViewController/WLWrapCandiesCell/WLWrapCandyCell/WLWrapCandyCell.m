@@ -21,9 +21,14 @@
 @implementation WLWrapCandyCell
 
 - (void)setupItemData:(WLCandy*)entry {
-	self.coverView.imageUrl = entry.picture.large;
-	WLComment* comment = [entry.comments lastObject];
-	self.commentLabel.text = comment.text;
+	self.coverView.imageUrl = entry.picture.medium;
+	
+	self.commentLabel.hidden = [entry.comments count] == 0;
+	
+	if (!self.commentLabel.hidden) {
+		WLComment* comment = [entry.comments lastObject];
+		self.commentLabel.text = comment.text;
+	}
 }
 
 @end

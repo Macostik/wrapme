@@ -59,11 +59,15 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-	[self.delegate composeBarDidBeginEditing:self];
+	if ([self.delegate respondsToSelector:@selector(composeBarDidBeginEditing:)]) {
+		[self.delegate composeBarDidBeginEditing:self];
+	}
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-	[self.delegate composeBarDidEndEditing:self];
+	if ([self.delegate respondsToSelector:@selector(composeBarDidEndEditing:)]) {
+		[self.delegate composeBarDidEndEditing:self];
+	}
 }
 
 #pragma mark - UIResponder

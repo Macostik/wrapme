@@ -58,7 +58,8 @@ typedef NS_ENUM(NSUInteger, StreamViewReusableViewLoadingType)
 - (void)reloadData:(BOOL)stop;
 - (void)clearData;
 - (id)reusableViewOfClass:(Class)viewClass;
-- (id)reusableViewOfClass:(Class)viewClass forItem:(StreamLayoutItem*)item;;
+- (id)reusableViewOfClass:(Class)viewClass forItem:(StreamLayoutItem*)item;
+- (id)reusableViewOfClass:(Class)viewClass forItem:(StreamLayoutItem*)item loadingType:(StreamViewReusableViewLoadingType)loadingType;
 
 @end
 

@@ -62,14 +62,15 @@
 }
 
 - (void)setupRefresh {
-	UITableViewController *tableViewController = [[UITableViewController alloc] init];
-	tableViewController.tableView = self.tableView;
-	
 	self.refresh = [[UIRefreshControl alloc] init];
 	self.refresh.tintColor = [UIColor WL_grayColor];
-	self.refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh" attributes:@{NSFontAttributeName : [UIFont lightNormalFont], NSForegroundColorAttributeName : [UIColor WL_grayColor]}];
+	self.refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"
+																   attributes:@{
+																				NSFontAttributeName : [UIFont lightNormalFont],
+																				NSForegroundColorAttributeName : [UIColor WL_grayColor]
+																				}];
 	[self.refresh addTarget:self action:@selector(pullToRefresh) forControlEvents:UIControlEventValueChanged];
-	tableViewController.refreshControl = self.refresh;
+	[self.tableView addSubview:self.refresh];
 }
 
 - (void)pullToRefresh {

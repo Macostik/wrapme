@@ -27,6 +27,7 @@
 #import "UIImage+WLStoring.h"
 #import "WLCandy.h"
 #import "WLWrapCandyCell.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
 
@@ -44,6 +45,7 @@
 @property (nonatomic) BOOL loading;
 @property (strong, nonatomic) IBOutlet UIView *tableFooterView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *footerSpinner;
+@property (strong, nonatomic) UIRefreshControl *refresh;
 
 @end
 
@@ -56,11 +58,27 @@
 	self.noWrapsView.hidden = YES;
 	self.loading = NO;
 	[self fetchWraps];
+	[self setupRefresh];
+}
+
+- (void)setupRefresh {
+	UITableViewController *tableViewController = [[UITableViewController alloc] init];
+	tableViewController.tableView = self.tableView;
 	
+	self.refresh = [[UIRefreshControl alloc] init];
+	self.refresh.tintColor = [UIColor WL_grayColor];
+	self.refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh" attributes:@{NSFontAttributeName : [UIFont lightNormalFont], NSForegroundColorAttributeName : [UIColor WL_grayColor]}];
+	[self.refresh addTarget:self action:@selector(pullToRefresh) forControlEvents:UIControlEventValueChanged];
+	tableViewController.refreshControl = self.refresh;
+}
+
+- (void)pullToRefresh {
+	_wraps = nil;
+	[self fetchWraps];
 }
 
 - (void)fetchWraps {
-	if (self.loading || self.tableView.tableFooterView == nil) {
+	if (self.loading || (self.tableView.tableFooterView == nil && !self.refresh.refreshing)) {
 		return;
 	}
 	self.loading = YES;
@@ -75,8 +93,10 @@
 		}
 		[weakSelf validateFooterWithObjectsCount:object.count];
 		weakSelf.loading = NO;
+		[self.refresh endRefreshing];
 	} failure:^(NSError *error) {
 		weakSelf.loading = NO;
+		[self.refresh endRefreshing];
 	}];
 }
 

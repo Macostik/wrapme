@@ -230,6 +230,7 @@
 		
 		id operation = [[WLAPIManager instance] addCandy:candy toWrap:weakSelf.topWrap success:^(id object) {
 			[WLProgressView dismiss];
+			[weakSelf updateHeaderViewWithWrap:weakSelf.topWrap];
 		} failure:^(NSError *error) {
 			[WLProgressView dismiss];
 			[error show];

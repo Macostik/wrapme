@@ -57,7 +57,7 @@
 	self.composeContainer.hidden = YES;
 	self.noWrapsView.hidden = YES;
 	self.loading = NO;
-	[self fetchWraps];
+	[self fetchWraps:1];
 	[self setupRefresh];
 }
 
@@ -73,16 +73,14 @@
 }
 
 - (void)pullToRefresh {
-	_wraps = nil;
-	[self fetchWraps];
+	[self fetchWraps:1];
 }
 
-- (void)fetchWraps {
+- (void)fetchWraps:(NSInteger)page {
 	if (self.loading || (self.tableView.tableFooterView == nil && !self.refresh.refreshing)) {
 		return;
 	}
 	self.loading = YES;
-	NSInteger page = ((self.wraps.count + 1)/10 + 1);
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] wrapsWithPage:page success:^(NSArray * object) {
 		
@@ -213,7 +211,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	CGFloat maxOffset = (scrollView.contentSize.height - scrollView.height);
 	if (!self.loading  && scrollView.contentSize.height > scrollView.height && scrollView.contentOffset.y >= maxOffset) {
-		[self fetchWraps];
+		[self fetchWraps:((self.wraps.count + 1)/10 + 1)];
 	}
 }
 

@@ -25,6 +25,7 @@
 @property (strong, nonatomic) WLUser * user;
 @property (nonatomic, readonly) UIViewController* signUpViewController;
 @property (strong, nonatomic) IBOutlet UIButton *continueButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
 
@@ -46,6 +47,7 @@
 
 - (IBAction)goToMainScreen:(id)sender {
 	self.view.userInteractionEnabled = NO;
+	[self.spinner startAnimating];
 	[self sendUpdateRequest];
 }
 
@@ -55,8 +57,8 @@
 		[WLSession setUser:weakSelf.user];
 		NSArray *navigationArray = @[[weakSelf.signUpViewController.storyboard homeViewController]];
 		[weakSelf.signUpViewController.navigationController setViewControllers:navigationArray animated:YES];
-		
 	} failure:^(NSError *error) {
+		[self.spinner stopAnimating];
 		weakSelf.view.userInteractionEnabled = YES;
 		[error show];
 	}];

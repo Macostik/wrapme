@@ -27,6 +27,7 @@
 @property (strong, nonatomic) WLCountry * country;
 @property (strong, nonatomic) IBOutlet UIButton *selectCountryButton;
 @property (strong, nonatomic) IBOutlet UILabel *countryCodeLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
 
@@ -79,14 +80,17 @@
 }
 
 - (IBAction)signUp:(id)sender {
+	[self.spinner startAnimating];
 	self.view.userInteractionEnabled = NO;
 	self.user = [self prepareForRequest];
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] signUp:self.user success:^(id object) {
 		WLActivationViewController *controller = [[WLActivationViewController alloc] initWithUser:weakSelf.user];
 		[weakSelf.navigationController pushViewController:controller animated:YES];
+		[weakSelf.spinner stopAnimating];
 	} failure:^(NSError *error) {
 		weakSelf.view.userInteractionEnabled = YES;
+		[weakSelf.spinner stopAnimating];
 		[error show];
 	}];
 }

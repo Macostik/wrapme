@@ -159,6 +159,10 @@
 	[self sendMessageWithText:text];
 }
 
+- (void)composeBarDidReturn:(WLComposeBar *)composeBar {
+	[self.composeContainer setEditing:NO animated:YES];
+}
+
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

@@ -9,8 +9,8 @@
 #import "JSONModel.h"
 
 typedef NS_ENUM(NSInteger, WLAPIResponseCode) {
-	WLAPIResponseCodeSuccess,
-	WLAPIResponseCodeFailure
+	WLAPIResponseCodeSuccess = 0,
+	WLAPIResponseCodeFailure = -1
 };
 
 /*!

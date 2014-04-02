@@ -119,6 +119,10 @@
 	[self sendMessageWithText:text];
 }
 
+- (void)composeBarDidReturn:(WLComposeBar *)composeBar {
+	[self.composeContainer setEditing:NO animated:YES];
+}
+
 #pragma mark - WLWrapCandiesCellDelegate
 
 - (void)wrapCandiesCell:(WLWrapCandiesCell*)cell didSelectCandy:(WLCandy*)candy {

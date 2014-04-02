@@ -71,6 +71,10 @@
 	[self sendMessageWithText:text];
 }
 
+- (void)composeBarDidReturn:(WLComposeBar *)composeBar {
+	[composeBar resignFirstResponder];
+}
+
 - (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
 	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		self.containerView.frame = CGRectMake(self.containerView.x, self.containerView.y, self.containerView.width, self.view.height - self.topView.height - 216);

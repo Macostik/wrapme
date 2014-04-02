@@ -23,7 +23,7 @@
                             <rect key="frame" x="5" y="0.0" width="240" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
+                            <textInputTraits key="textInputTraits"/>
                             <connections>
                                 <action selector="textFieldDidChange:" destination="-1" eventType="editingChanged" id="fgd-JQ-qjc"/>
                                 <outlet property="delegate" destination="-1" id="FEK-1s-Fed"/>

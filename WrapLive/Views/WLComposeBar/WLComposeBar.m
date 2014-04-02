@@ -54,7 +54,7 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[self finish];
+	[self.delegate composeBarDidReturn:self];
 	return YES;
 }
 

@@ -24,7 +24,7 @@
 + (JSONKeyMapper *)keyMapper {
 	return [[JSONKeyMapper alloc] initWithDictionary:@{@"phone_number":@"phoneNumber",
 													   @"country_calling_code":@"countryCallingCode",
-													   @"dob":@"birthdate",
+													   @"dob_in_epoch":@"birthdate",
 													   @"user_uid":@"identifier"}];
 }
 

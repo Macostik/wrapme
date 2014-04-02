@@ -169,37 +169,25 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (NSArray*)contributorsFromResponse:(WLAPIResponse*)response contacts:(NSArray*)contacts {
-	NSArray* statuses = [response.data objectForKey:@"results"];
 	
-	NSMutableArray* contributors = [NSMutableArray array];
-	
-	for (NSDictionary* status in statuses) {
+	return [[response.data arrayForKey:@"users"] map:^id(NSDictionary* userInfo) {
 		
-		NSDictionary* value = [status objectForKey:@"user"];
+		WLUser* contributor = [[WLUser alloc] initWithDictionary:userInfo error:NULL];
 		
-		if ([[value objectForKey:@"sign_up_status"] boolValue]) {
-			
-			NSString* phoneNumber = [value objectForKey:@"phone_number"];
-			
-			WLUser* contributor = [[WLUser alloc] initWithDictionary:[value objectForKey:@"user_info"] error:NULL];
-			
-			if (contributor.name.length == 0) {
-				WLContact* contact = [contacts selectObject:^BOOL(WLContact* item) {
-					for (NSString* _phoneNumber in item.phoneNumbers) {
-						if ([_phoneNumber isEqualToString:phoneNumber]) {
-							return YES;
-						}
+		if (contributor.name.length == 0) {
+			NSString* phoneNumber = [userInfo objectForKey:@"address_book_number"];
+			WLContact* contact = [contacts selectObject:^BOOL(WLContact* item) {
+				for (NSString* _phoneNumber in item.phoneNumbers) {
+					if ([_phoneNumber isEqualToString:phoneNumber]) {
+						return YES;
 					}
-					return NO;
-				}];
-				contributor.name = contact.name;
-			}
-			
-			[contributors addObject:contributor];
+				}
+				return NO;
+			}];
+			contributor.name = contact.name;
 		}
-	}
-	
-	return [contributors copy];
+		return contributor;
+	}];
 }
 
 - (void)wraps:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
@@ -216,8 +204,9 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSArray* contributors = [wrap.contributors map:^id(WLUser* contributor) {
 		return contributor.identifier;
 	}];
-	NSDictionary* parameters = @{@"name" : wrap.name,
-								 @"user_uids":contributors};
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:wrap.name forKey:@"name"];
+	[parameters trySetObject:contributors forKey:@"user_uids"];
 	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
 													  withObject:^id(WLAPIResponse *response) {
 														  return [[WLWrap alloc] initWithDictionary:response.data[@"wrap"] error:NULL];

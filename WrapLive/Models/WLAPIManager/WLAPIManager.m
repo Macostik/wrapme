@@ -237,8 +237,10 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	}];
 }
 
-- (id)wraps:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	NSDictionary* parameters = @{};
+- (id)wrapsWithPage:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:@(page) forKey:@"page"];
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 		return [WLWrap arrayOfModelsFromDictionaries:[response.data arrayForKey:@"wraps"]];

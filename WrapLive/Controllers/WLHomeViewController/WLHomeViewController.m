@@ -41,6 +41,9 @@
 @property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
 @property (strong, nonatomic) NSArray* wraps;
 @property (strong, nonatomic) WLWrap* topWrap;
+@property (nonatomic) BOOL loading;
+@property (strong, nonatomic) IBOutlet UIView *tableFooterView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *footerSpinner;
 
 @end
 
@@ -49,19 +52,41 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	
 	self.composeContainer.hidden = YES;
 	self.noWrapsView.hidden = YES;
+	self.loading = NO;
+	[self fetchWraps];
+	
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
+- (void)fetchWraps {
+	if (self.loading || self.tableView.tableFooterView == nil) {
+		return;
+	}
+	self.loading = YES;
+	NSInteger page = ((self.wraps.count + 1)/10 + 1);
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] wraps:^(id object) {
-		weakSelf.wraps = object;
+	[[WLAPIManager instance] wrapsWithPage:page success:^(NSArray * object) {
+		
+		[weakSelf validateFooterWithObjectsCount:object.count];
+		if (page == 1) {
+			weakSelf.wraps = object;
+		}
+		else {
+			[weakSelf appendWraps:object];
+		}
+		weakSelf.loading = NO;
 	} failure:^(NSError *error) {
-		[error show];
+		weakSelf.loading = NO;
 	}];
+}
+
+- (void) validateFooterWithObjectsCount:(int)count {
+	if (count < 10 || count == 0) {
+		self.tableView.tableFooterView = nil;
+	} else if (self.tableView.tableFooterView == nil) {
+		self.tableView.tableFooterView = self.tableFooterView;;
+	}
 }
 
 - (void)setTopWrap:(WLWrap *)topWrap {
@@ -95,6 +120,11 @@
 	} failure:^(NSError *error) {
 		
 	}];
+}
+
+- (void)appendWraps: (id)object {
+	_wraps = [_wraps arrayByAddingObjectsFromArray:object];
+	[self.tableView reloadData];
 }
 
 - (IBAction)typeMessage:(UIButton *)sender {
@@ -154,6 +184,13 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
 	if (self.composeContainer.editing) {
 		[self.composeContainer setEditing:NO animated:YES];
+	}
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+	CGFloat maxOffset = (scrollView.contentSize.height - scrollView.frame.size.height);
+	if (!self.loading  && scrollView.contentSize.height > scrollView.frame.size.height && scrollView.contentOffset.y >= maxOffset) {
+		[self fetchWraps];
 	}
 }
 

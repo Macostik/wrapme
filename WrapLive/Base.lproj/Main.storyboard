@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Welcome View Controller-->
@@ -417,6 +417,18 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
+                                        <view key="tableFooterView" contentMode="scaleToFill" id="bKJ-wq-ugz">
+                                            <rect key="frame" x="0.0" y="344" width="320" height="60"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" id="WIL-lX-HhZ">
+                                                    <rect key="frame" x="142" y="11" width="37" height="37"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="color" red="0.57647061347961426" green="0.57647061347961426" blue="0.57254904508590698" alpha="1" colorSpace="deviceRGB"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LabelCell" rowHeight="44" id="x7B-H0-N9e">
                                                 <rect key="frame" x="0.0" y="234" width="320" height="44"/>
@@ -534,12 +546,14 @@
                     <navigationItem key="navigationItem" id="cIa-CV-SVl"/>
                     <connections>
                         <outlet property="composeContainer" destination="x1Z-xh-FDY" id="0eb-ga-TRQ"/>
+                        <outlet property="footerSpinner" destination="WIL-lX-HhZ" id="fa6-bP-Pxn"/>
                         <outlet property="headerView" destination="jJG-aX-3kt" id="gxW-6y-4Ni"/>
                         <outlet property="headerWrapAuthorsLabel" destination="XaE-0l-eeL" id="LAB-WQ-dBZ"/>
                         <outlet property="headerWrapCreatedAtLabel" destination="vDq-P9-Hwl" id="hUP-dN-2lf"/>
                         <outlet property="headerWrapNameLabel" destination="Twb-Mn-vNw" id="6ZB-Ct-bd3"/>
                         <outlet property="headerWrapView" destination="8Kg-Jf-uq1" id="jNM-aj-hJD"/>
                         <outlet property="noWrapsView" destination="qRl-9j-QTf" id="Z4q-Kd-Qec"/>
+                        <outlet property="tableFooterView" destination="bKJ-wq-ugz" id="qY1-NS-Gj0"/>
                         <outlet property="tableView" destination="vM9-X0-izB" id="rUS-iX-CGB"/>
                         <outlet property="topWrapStreamView" destination="aGO-dq-qVC" id="29P-8r-07b"/>
                     </connections>

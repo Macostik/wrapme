@@ -82,7 +82,7 @@ typedef id (^WLAPIManagerObjectBlock)(WLAPIResponse* response);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)wraps:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)wrapsWithPage:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Creates new wrap

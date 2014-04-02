@@ -68,13 +68,12 @@
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] wrapsWithPage:page success:^(NSArray * object) {
 		
-		[weakSelf validateFooterWithObjectsCount:object.count];
 		if (page == 1) {
 			weakSelf.wraps = object;
-		}
-		else {
+		} else {
 			[weakSelf appendWraps:object];
 		}
+		[weakSelf validateFooterWithObjectsCount:object.count];
 		weakSelf.loading = NO;
 	} failure:^(NSError *error) {
 		weakSelf.loading = NO;

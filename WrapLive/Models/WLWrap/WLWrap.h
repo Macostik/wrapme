@@ -15,12 +15,9 @@
 
 @interface WLWrap : WLWrapEntry
 
-+ (NSMutableArray*)dummyWraps;
-
 @property (strong, nonatomic) NSArray* candies;
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSArray<WLUser>* contributors;
-@property (strong, nonatomic) NSDate* contributedAt;
 
 - (void)addCandy:(WLCandy*)candy;
 

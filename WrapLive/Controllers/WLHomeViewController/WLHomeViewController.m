@@ -160,11 +160,12 @@
 #pragma mark - <WLCameraViewControllerDelegate>
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+	__weak typeof(self)weakSelf = self;
 	[image storeAsImage:^(NSString *path) {
 		WLCandy* candy = [WLCandy entry];
 		candy.type = WLCandyTypeImage;
 		candy.picture.large = path;
-		[[WLAPIManager instance] addCandy:candy toWrap:self.topWrap success:^(id object) {
+		[[WLAPIManager instance] addCandy:candy toWrap:weakSelf.topWrap success:^(id object) {
 			
 		} failure:^(NSError *error) {
 			

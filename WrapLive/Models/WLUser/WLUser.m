@@ -21,11 +21,13 @@
 	return self;
 }
 
-+ (JSONKeyMapper *)keyMapper {
-	return [[JSONKeyMapper alloc] initWithDictionary:@{@"phone_number":@"phoneNumber",
-													   @"country_calling_code":@"countryCallingCode",
-													   @"dob_in_epoch":@"birthdate",
-													   @"user_uid":@"identifier"}];
++ (NSMutableDictionary *)mapping {
+	NSMutableDictionary* mapping = [super mapping];
+	[mapping addEntriesFromDictionary:@{@"phone_number":@"phoneNumber",
+										@"country_calling_code":@"countryCallingCode",
+										@"dob_in_epoch":@"birthdate",
+										@"user_uid":@"identifier"}];
+	return mapping;
 }
 
 + (BOOL)propertyIsOptional:(NSString *)propertyName {

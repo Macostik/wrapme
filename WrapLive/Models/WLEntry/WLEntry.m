@@ -10,6 +10,13 @@
 
 @implementation WLEntry
 
++ (NSMutableDictionary *)mapping {
+	NSMutableDictionary* mapping = [super mapping];
+	[mapping addEntriesFromDictionary:@{@"created_at_in_epoch":@"createdAt",
+										@"updated_at_in_epoch":@"updatedAt"}];
+	return mapping;
+}
+
 + (instancetype)entry {
 	WLEntry* entry = [[self alloc] init];
 	entry.createdAt = [NSDate date];

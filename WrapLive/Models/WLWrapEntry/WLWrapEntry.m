@@ -11,6 +11,12 @@
 
 @implementation WLWrapEntry
 
++ (NSMutableDictionary *)mapping {
+	NSMutableDictionary* mapping = [super mapping];
+	[mapping addEntriesFromDictionary:@{@"contributed_at_in_epoch":@"contributedAt"}];
+	return mapping;
+}
+
 + (instancetype)entry {
 	WLWrapEntry* entry = [super entry];
 	entry.author = [WLSession user];

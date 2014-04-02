@@ -21,6 +21,7 @@
 #import "WLComposeBar.h"
 #import "WLComposeContainer.h"
 #import "UIImage+WLStoring.h"
+#import "WLAPIManager.h"
 
 @interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate>
 
@@ -123,6 +124,7 @@
 - (void)wrapCandiesCell:(WLWrapCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
 	WLWrapDataViewController * wrapDatacontroller = [self.storyboard wrapDataViewController];
 	wrapDatacontroller.candy = candy;
+	wrapDatacontroller.wrap = self.wrap;
 	[self.navigationController pushViewController:wrapDatacontroller animated:YES];
 }
 
@@ -142,11 +144,18 @@
 #pragma mark - WLCameraViewControllerDelegate
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
-	WLCandy* candy = [WLCandy entry];
-	candy.picture.large = @"http://placeimg.com/135/111/any";
-	candy.picture.thumbnail = @"http://placeimg.com/123/111/any";
-	[self.wrap addCandy:candy];
-	[self sortCandiesInWrap];
+	__weak typeof(self)weakSelf = self;
+	[image storeAsImage:^(NSString *path) {
+		WLCandy* candy = [WLCandy entry];
+		candy.type = WLCandyTypeImage;
+		candy.picture.large = path;
+		[[WLAPIManager instance] addCandy:candy toWrap:weakSelf.wrap success:^(id object) {
+			[weakSelf sortCandiesInWrap];
+		} failure:^(NSError *error) {
+			[error show];
+		}];
+	}];
+	
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

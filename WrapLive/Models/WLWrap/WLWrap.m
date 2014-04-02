@@ -10,26 +10,15 @@
 #import "WLCandy.h"
 #import "WLSession.h"
 #import "NSArray+Additions.h"
-#import "NSArray+Additions.h"
 #import "WLUser.h"
 #import "NSDate+Formatting.h"
 
 @implementation WLWrap
 
-+ (NSMutableArray *)dummyWraps {
-	static NSMutableArray* _wraps = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		NSError* error = nil;
-		_wraps = [[WLWrap arrayOfModelsFromDictionaries:[NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"WLDummyWraps" ofType:@"plist"]] error:&error] mutableCopy];
-	});
-	return _wraps;
-}
-
-+ (JSONKeyMapper *)keyMapper {
-	return [[JSONKeyMapper alloc] initWithDictionary:@{@"wrap_uid":@"identifier",
-													   @"created_at_in_epoch":@"createdAt",
-													   @"updated_at_in_epoch":@"updatedAt"}];
++ (NSMutableDictionary *)mapping {
+	NSMutableDictionary* mapping = [super mapping];
+	[mapping addEntriesFromDictionary:@{@"wrap_uid":@"identifier"}];
+	return mapping;
 }
 
 - (void)addCandy:(WLCandy *)candy {

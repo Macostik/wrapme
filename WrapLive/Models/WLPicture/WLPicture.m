@@ -14,14 +14,10 @@ static NSDictionary* mapping = nil;
 
 + (NSDictionary*)mapping {
 	if (!mapping) {
-		mapping = @{@"large_avatar_url":@"large",
-					@"medium_avatar_url":@"medium",
-					@"small_avatar_url":@"small",
-					@"thumb_avatar_url":@"thumbnail",
-					@"large_cover_url":@"large",
-					@"medium_cover_url":@"medium",
-					@"small_cover_url":@"small",
-					@"thumb_cover_url":@"thumbnail"};
+		mapping = @{@"large":@[@"large_avatar_url",@"large_cover_url",@"large_image_attachment_url"],
+					@"medium":@[@"medium_avatar_url",@"medium_cover_url",@"medium_image_attachment_url"],
+					@"small":@[@"small_avatar_url",@"small_cover_url",@"small_image_attachment_url"],
+					@"thumbnail":@[@"thumb_avatar_url",@"thumb_cover_url",@"thumb_image_attachment_url"]};
 	}
 	return mapping;
 }
@@ -30,11 +26,12 @@ static NSDictionary* mapping = nil;
 {
     self = [super init];
     if (self) {
-		NSDictionary* mapping = [WLPicture mapping];
-        [mapping enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-			id object = [dict objectForKey:key];
-			if (object != nil) {
-				[self setValue:object forKey:[mapping objectForKey:key]];
+        [[WLPicture mapping] enumerateKeysAndObjectsUsingBlock:^(NSString* key, NSArray* obj, BOOL *stop) {
+			for (NSString* urlKey in obj) {
+				id object = [dict objectForKey:urlKey];
+				if (object != nil) {
+					[self setValue:object forKey:key];
+				}
 			}
 		}];
     }

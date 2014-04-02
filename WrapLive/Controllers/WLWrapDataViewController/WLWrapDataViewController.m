@@ -17,6 +17,7 @@
 #import "WLComposeBar.h"
 #import "WLComment.h"
 #import "WLSession.h"
+#import "WLAPIManager.h"
 
 @interface WLWrapDataViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate>
 
@@ -55,8 +56,13 @@
 }
 
 - (void)sendMessageWithText:(NSString*)text {
-	[self.candy addCommentWithText:text];
-	[self.tableView reloadData];
+	__weak typeof(self)weakSelf = self;
+	WLComment* comment = [WLComment commentWithText:text];
+	[[WLAPIManager instance] addComment:comment toCandy:self.candy fromWrap:self.wrap success:^(id object) {
+		[weakSelf.tableView reloadData];
+	} failure:^(NSError *error) {
+		[error show];
+	}];
 }
 
 #pragma mark - WLComposeBarDelegate

@@ -12,9 +12,12 @@
 @class WLUser;
 @class WLWrap;
 @class WLCandy;
+@class WLComment;
+@class WLAPIResponse;
 
 typedef void (^WLAPIManagerSuccessBlock) (id object);
 typedef void (^WLAPIManagerFailureBlock) (NSError* error);
+typedef id (^WLAPIManagerObjectBlock)(WLAPIResponse* response);
 
 @interface WLAPIManager : AFHTTPRequestOperationManager
 
@@ -53,7 +56,7 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (void)me:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)me:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Update the user attributes of the currently logged on user. The following attributes are supported:
@@ -63,7 +66,7 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (void)updateMe:(WLUser*)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)updateMe:(WLUser*)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Given an array of phone numbers, return the sign up status as well as the full phone number found.
@@ -71,7 +74,7 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (void)contributors:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)contributors:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Get current authenticated user wraps.
@@ -79,7 +82,7 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (void)wraps:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)wraps:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Creates new wrap
@@ -87,7 +90,7 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (void)createWrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)createWrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Update selected wrap
@@ -95,7 +98,7 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (void)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Adds a candy to the wrap
@@ -105,7 +108,7 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (void)addCandy:(WLCandy*)candy toWrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)addCandy:(WLCandy*)candy toWrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Get candies from the wrap
@@ -114,6 +117,16 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (void)candies:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)candies:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+/*!
+ *  Add a comment to a candy in a wrap given the wrap and candy uid
+ *
+ *  @param comment    WLComment instance representing comment
+ *  @param wrap    WLWrap instance representing wrap
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (id)addComment:(WLComment*)comment toCandy:(WLCandy*)candy fromWrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 @end

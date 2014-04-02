@@ -17,6 +17,7 @@
 #import "WLAddressBook.h"
 #import "NSDictionary+Extended.h"
 #import "WLCandy.h"
+#import "WLComment.h"
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
@@ -62,7 +63,22 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	return [super POST:URLString parameters:parameters success:success failure:failure];
 }
 
-- (WLAFNetworkingSuccessBlock)successBlock:(WLAPIManagerSuccessBlock)success withObject:(id (^)(WLAPIResponse* response))objectBlock failure:(WLAPIManagerFailureBlock)failure {
+- (AFHTTPRequestOperation *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters filePath:(NSString*)filePath success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+	
+	void (^constructingBlock) (id<AFMultipartFormData>) = ^(id<AFMultipartFormData> formData) {
+		[self attachFile:filePath toFormData:formData];
+	};
+	
+	AFHTTPRequestOperation* operation = [self POST:URLString
+										parameters:parameters
+						 constructingBodyWithBlock:constructingBlock
+										   success:success
+										   failure:failure];
+	
+	return operation;
+}
+
+- (WLAFNetworkingSuccessBlock)successBlock:(WLAPIManagerSuccessBlock)success withObject:(WLAPIManagerObjectBlock)objectBlock failure:(WLAPIManagerFailureBlock)failure {
 	return ^(AFHTTPRequestOperation *operation, id responseObject) {
 		DDLogDebug(@"%@", responseObject);
 		WLAPIResponse* response = [[WLAPIResponse alloc] initWithDictionary:responseObject error:NULL];
@@ -81,71 +97,101 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	};
 }
 
-- (id)signUp:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (id)signUp:(WLUser *)user
+	 success:(WLAPIManagerSuccessBlock)success
+	 failure:(WLAPIManagerFailureBlock)failure {
+	
 	NSDictionary* parameters = @{@"device_uid" : [WLSession UDID],
 								 @"country_calling_code" : user.countryCallingCode,
 								 @"phone_number" : user.phoneNumber,
 								 @"dob" : [user.birthdate string]};
-	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
-													  withObject:^id(WLAPIResponse *response) {
-																   return user;
-															   } failure:failure];
-	return [self POST:@"users" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		return user;
+	};
+	
+	return [self POST:@"users"
+		   parameters:parameters
+			  success:[self successBlock:success withObject:objectBlock failure:failure]
+			  failure:[self failureBlock:failure]];
 }
 
-- (id)activate:(WLUser *)user code:(NSString *)code success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (id)activate:(WLUser *)user
+		  code:(NSString *)code
+	   success:(WLAPIManagerSuccessBlock)success
+	   failure:(WLAPIManagerFailureBlock)failure {
+	
 	NSDictionary* parameters = @{@"device_uid" : [WLSession UDID],
 								 @"country_calling_code" : user.countryCallingCode,
 								 @"phone_number" : user.phoneNumber,
 								 @"activation_code" : code,
 								 @"dob" : [user.birthdate string]};
-	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
-													  withObject:^id(WLAPIResponse *response) {
-														  NSString* password = [response.data objectForKey:@"password"];
-														  [WLSession setPassword:password];
-														  return password;
-													  } failure:failure];
-	return [self POST:@"users/activate" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		NSString* password = [response.data objectForKey:@"password"];
+		[WLSession setPassword:password];
+		return password;
+	};
+	
+	return [self POST:@"users/activate"
+		   parameters:parameters
+			  success:[self successBlock:success withObject:objectBlock failure:failure]
+			  failure:[self failureBlock:failure]];
 }
 
 - (id)signIn:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:user.countryCallingCode forKey:@"country_calling_code"];
 	[parameters trySetObject:user.phoneNumber forKey:@"phone_number"];
 	[parameters trySetObject:[WLSession password] forKey:@"password"];
 	[parameters trySetObject:[user.birthdate string] forKey:@"dob"];
-	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
-													  withObject:^id(WLAPIResponse *response) {
-														  return response;
-													  } failure:failure];
-	return [self POST:@"users/sign_in" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		return response;
+	};
+	
+	return [self POST:@"users/sign_in"
+		   parameters:parameters
+			  success:[self successBlock:success withObject:objectBlock failure:failure]
+			  failure:[self failureBlock:failure]];
 }
 
-- (void)me:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (id)me:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	
 	NSDictionary* parameters = @{};
-	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
-													  withObject:^id(WLAPIResponse *response) {
-														  WLUser* user = [[WLUser alloc] initWithDictionary:[response.data objectForKey:@"user"] error:nil];
-														  [WLSession setUser:user];
-														  return user;
-													  } failure:failure];
-	[self GET:@"users/me" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		WLUser* user = [[WLUser alloc] initWithDictionary:[response.data objectForKey:@"user"] error:nil];
+		[WLSession setUser:user];
+		return user;
+	};
+	
+	return [self GET:@"users/me"
+		  parameters:parameters
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure]];
 }
 
-- (void)updateMe:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	NSDictionary* parameters = @{@"name":user.name};
-	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
-													  withObject:^id(WLAPIResponse *response) {
-														  WLUser* user = [[WLUser alloc] initWithDictionary:response.data[@"user"] error:NULL];
-														  [user setCurrent];
-														  return user;
-													  } failure:failure];
-	[self POST:@"users/update" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-		[self attachFile:user.picture.large toFormData:formData];
-	} success:successBlock failure:[self failureBlock:failure]];
+- (id)updateMe:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:user.name forKey:@"name"];
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		WLUser* user = [[WLUser alloc] initWithDictionary:response.data[@"user"] error:NULL];
+		[user setCurrent];
+		return user;
+	};
+	
+	return [self POST:@"users/update"
+		   parameters:parameters
+			 filePath:user.picture.large
+			  success:[self successBlock:success withObject:objectBlock failure:failure]
+			  failure:[self failureBlock:failure]];
 }
 
-- (void)contributors:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (id)contributors:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
 	[WLAddressBook contacts:^(NSArray *contacts) {
 
@@ -157,15 +203,16 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 				
 		NSDictionary* parameters = @{@"phone_numbers":phoneNumbers};
 		
-		id (^returnBlock) (WLAPIResponse*) = ^id(WLAPIResponse *response) {
+		WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 			return [weakSelf contributorsFromResponse:response contacts:contacts];
 		};
 		
 		[weakSelf GET:@"users/sign_up_status"
 		   parameters:parameters
-			  success:[weakSelf successBlock:success withObject:returnBlock failure:failure]
+			  success:[weakSelf successBlock:success withObject:objectBlock failure:failure]
 			  failure:[weakSelf failureBlock:failure]];
 	} failure:failure];
+	return nil;
 }
 
 - (NSArray*)contributorsFromResponse:(WLAPIResponse*)response contacts:(NSArray*)contacts {
@@ -190,35 +237,41 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	}];
 }
 
-- (void)wraps:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (id)wraps:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	NSDictionary* parameters = @{};
-	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
-													  withObject:^id(WLAPIResponse *response) {
-														  NSArray * arr = [WLWrap arrayOfModelsFromDictionaries:[response.data objectForKey:@"wraps"]];
-														  return arr;
-													  } failure:failure];
-	[self GET:@"wraps" parameters:parameters success:successBlock failure:[self failureBlock:failure]];
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		return [WLWrap arrayOfModelsFromDictionaries:[response.data arrayForKey:@"wraps"]];
+	};
+	
+	return [self GET:@"wraps"
+		  parameters:parameters
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure]];
 }
 
-- (void)createWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (id)createWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	NSArray* contributors = [wrap.contributors map:^id(WLUser* contributor) {
 		return contributor.identifier;
 	}];
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:wrap.name forKey:@"name"];
 	[parameters trySetObject:contributors forKey:@"user_uids"];
-	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
-													  withObject:^id(WLAPIResponse *response) {
-														  return [[WLWrap alloc] initWithDictionary:response.data[@"wrap"] error:NULL];
-													  } failure:failure];
 	
-	[self POST:@"wraps" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-		[self attachFile:wrap.picture.large toFormData:formData];
-	} success:successBlock failure:[self failureBlock:failure]];
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		return [[WLWrap alloc] initWithDictionary:response.data[@"wrap"] error:NULL];
+	};
+	
+	return [self POST:@"wraps"
+		   parameters:parameters
+			 filePath:wrap.picture.large
+			  success:[self successBlock:success withObject:objectBlock failure:failure]
+			  failure:[self failureBlock:failure]];
 }
 
-- (void)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (id)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	success(nil);
+	return nil;
 }
 
 - (void)attachFile:(NSString*)path toFormData:(id <AFMultipartFormData>)formData {
@@ -227,34 +280,68 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	}
 }
 
-- (void)addCandy:(WLCandy *)candy
+- (id)addCandy:(WLCandy *)candy
 		  toWrap:(WLWrap *)wrap
 		 success:(WLAPIManagerSuccessBlock)success
 		 failure:(WLAPIManagerFailureBlock)failure {
 	if ([candy.type isEqualToString:WLCandyTypeImage]) {
 		
-		WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
-														  withObject:^id(WLAPIResponse *response) {
-															  return response;
-														  } failure:failure];
+		WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+			WLCandy* candy = [[WLCandy alloc] initWithDictionary:[response.data dictionaryForKey:@"candy"] error:NULL];
+			[wrap addCandy:candy];
+			return candy;
+		};
+		
 		NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
-		[self POST:path parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-			[self attachFile:candy.picture.large toFormData:formData];
-		} success:successBlock failure:[self failureBlock:failure]];
+		
+		return [self POST:path
+			   parameters:nil
+				 filePath:candy.picture.large
+				  success:[self successBlock:success withObject:objectBlock failure:failure]
+				  failure:[self failureBlock:failure]];
 	} else {
 		success(candy);
+		return nil;
 	}
 }
 
-- (void)candies:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (id)candies:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	success(nil);
-	return;
-	WLAFNetworkingSuccessBlock successBlock = [self successBlock:success
-													  withObject:^id(WLAPIResponse *response) {
-														  return response;
-													  } failure:failure];
+	return nil;
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		return response;
+	};
+	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
-	[self GET:path parameters:nil success:successBlock failure:[self failureBlock:failure]];
+	
+	return [self GET:path
+		  parameters:nil
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure]];
+}
+
+- (id)addComment:(WLComment*)comment
+		   toCandy:(WLCandy *)candy
+		  fromWrap:(WLWrap *)wrap
+		   success:(WLAPIManagerSuccessBlock)success
+		   failure:(WLAPIManagerFailureBlock)failure {
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		WLComment* comment = [[WLComment alloc] initWithDictionary:[response.data dictionaryForKey:@"comment"] error:NULL];
+		[candy addComment:comment];
+		return comment;
+	};
+	
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@/comments", wrap.identifier, candy.identifier];
+	
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:comment.text forKey:@"message"];
+	
+	return [self POST:path
+		  parameters:parameters
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure]];
 }
 
 @end

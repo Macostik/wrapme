@@ -11,9 +11,14 @@
 @interface WLArchivingObject : JSONModel
 
 - (NSData*)data;
+
 - (void)data:(void (^)(NSData* data))completion;
+
 + (id)objectWithData:(NSData*)data;
+
 + (void)objectWithData:(NSData*)data completion:(void (^)(id object))completion;
+
++ (NSMutableDictionary*)mapping;
 
 @end
 

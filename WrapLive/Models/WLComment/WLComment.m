@@ -11,6 +11,13 @@
 
 @implementation WLComment
 
++ (NSMutableDictionary *)mapping {
+	NSMutableDictionary* mapping = [super mapping];
+	[mapping addEntriesFromDictionary:@{@"content":@"text",
+										@"comment_uid":@"identifier"}];
+	return mapping;
+}
+
 + (instancetype)commentWithText:(NSString *)text {
 	WLComment *comment = [WLComment entry];
 	comment.text = text;

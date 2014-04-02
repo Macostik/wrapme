@@ -11,6 +11,15 @@
 
 @implementation WLCandy
 
++ (NSMutableDictionary *)mapping {
+	NSMutableDictionary* mapping = [super mapping];
+	[mapping addEntriesFromDictionary:@{@"phone_number":@"phoneNumber",
+										@"country_calling_code":@"countryCallingCode",
+										@"dob_in_epoch":@"birthdate",
+										@"candy_uid":@"identifier"}];
+	return mapping;
+}
+
 - (WLPicture *)picture {
 	if ([self.type isEqualToString:WLCandyTypeConversation]) {
 		WLComment* comment = [self.comments lastObject];

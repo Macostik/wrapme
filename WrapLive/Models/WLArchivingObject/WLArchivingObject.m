@@ -71,6 +71,14 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 	});
 }
 
++ (NSMutableDictionary *)mapping {
+	return [NSMutableDictionary dictionary];
+}
+
++ (JSONKeyMapper *)keyMapper {
+	return [[JSONKeyMapper alloc] initWithDictionary:[self mapping]];
+}
+
 #pragma mark - NSCoding
 
 - (id)initWithCoder:(NSCoder *)aDecoder {

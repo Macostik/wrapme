@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class WLCandy;
+@class WLWrap;
 
 @interface WLWrapDataViewController : UIViewController
 
-@property (strong, nonatomic) WLCandy * candy;
+@property (strong, nonatomic) WLCandy *candy;
+@property (strong, nonatomic) WLWrap *wrap;
 
 @end

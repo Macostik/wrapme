@@ -192,8 +192,8 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-	CGFloat maxOffset = (scrollView.contentSize.height - scrollView.frame.size.height);
-	if (!self.loading  && scrollView.contentSize.height > scrollView.frame.size.height && scrollView.contentOffset.y >= maxOffset) {
+	CGFloat maxOffset = (scrollView.contentSize.height - scrollView.height);
+	if (!self.loading  && scrollView.contentSize.height > scrollView.height && scrollView.contentOffset.y >= maxOffset) {
 		[self fetchWraps];
 	}
 }

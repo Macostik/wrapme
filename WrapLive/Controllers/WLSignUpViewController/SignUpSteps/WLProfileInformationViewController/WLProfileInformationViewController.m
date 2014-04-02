@@ -15,6 +15,7 @@
 #import "UIStoryboard+Additions.h"
 #import "UIView+Shorthand.h"
 #import "UIImage+WLStoring.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate>
 
@@ -35,6 +36,8 @@
     // Do any additional setup after loading the view from its nib.
 	self.user = [WLSession user];
 	[self verifyContinueButton];
+	self.nameTextField.layer.borderWidth = 0.5;
+	self.nameTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
 }
 
 - (UIViewController *)signUpViewController {

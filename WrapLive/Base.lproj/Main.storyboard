@@ -831,6 +831,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                                 <connections>
+                                                    <action selector="searchTextChanged:" destination="2bk-UF-zkR" eventType="editingChanged" id="s4Q-cw-Q2E"/>
                                                     <outlet property="delegate" destination="2bk-UF-zkR" id="YuN-OU-bRE"/>
                                                 </connections>
                                             </textField>

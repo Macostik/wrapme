@@ -46,7 +46,7 @@
 	__weak typeof(self)weakSelf = self;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		if (text.length > 0) {
-			NSPredicate* predicate = [NSPredicate predicateWithFormat:@"name LIKE %@", text];
+			NSPredicate* predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@", text];
 			weakSelf.filteredContributors = [weakSelf.contributors filteredArrayUsingPredicate:predicate];
 		} else {
 			weakSelf.filteredContributors = weakSelf.contributors;
@@ -82,6 +82,11 @@
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)searchTextChanged:(UITextField *)sender {
+	[self updateFilteredContributors];
+}
+
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -99,6 +104,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
+	[self updateFilteredContributors];
 	return YES;
 }
 

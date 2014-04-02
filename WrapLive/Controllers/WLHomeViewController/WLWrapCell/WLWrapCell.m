@@ -25,6 +25,11 @@
 	self.coverView.imageUrl = wrap.picture.small;
 }
 
+- (void)prepareForReuse {
+	[super prepareForReuse];
+	self.coverView.image = nil;
+}
+
 + (CGFloat)heightForItem:(id)item {
 	return 66;
 }

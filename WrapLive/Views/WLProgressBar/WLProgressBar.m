@@ -23,6 +23,7 @@
 - (void)awakeFromNib{
     [super awakeFromNib];
 	self.backgroundView = [[WLBorderView alloc] initWithFrame:self.bounds];
+	self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
 	self.progressView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 5)];
 	self.progressView.backgroundColor = [UIColor WL_orangeColor];
 	[self.backgroundView addSubview:self.progressView];
@@ -42,7 +43,7 @@
 		[UIView setAnimationDuration:0.5*progress];
 		[UIView setAnimationBeginsFromCurrentState:YES];
 	}
-	 self.progressView.width = progress * self.backgroundView.width;
+	self.progressView.frame = CGRectMake(0, 0, progress * self.backgroundView.width, self.backgroundView.height);
 	if (animated) {
 		[UIView commitAnimations];
 	}

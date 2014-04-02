@@ -17,6 +17,7 @@
 #import "WLCameraViewController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIImage+WLStoring.h"
+#import "WLProgressView.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
 
@@ -109,14 +110,17 @@
 	
 	self.wrap.createdAt = [NSDate date];
 	self.wrap.updatedAt = [NSDate date];
-	[[WLAPIManager instance] createWrap:self.wrap success:^(id object) {
+	id operation = [[WLAPIManager instance] createWrap:self.wrap success:^(id object) {
+		[WLProgressView dismiss];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
 		wrapController.wrap = object;
 		NSArray* controllers = @[[weakSelf.navigationController.viewControllers firstObject],wrapController];
 		[weakSelf.navigationController setViewControllers:controllers animated:YES];
 	} failure:^(NSError *error) {
+		[WLProgressView dismiss];
 		[error show];
 	}];
+	[WLProgressView showWithMessage:@"Creating wrap..." operation:operation];
 }
 
 #pragma mark - UITableViewDataSource

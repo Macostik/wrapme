@@ -231,12 +231,7 @@
 - (void)captureImage:(void (^)(UIImage*image))completion {
 	
 #if TARGET_IPHONE_SIMULATOR
-	UIGraphicsBeginImageContext(CGSizeMake(640, 640));
-	[[UIColor WL_orangeColor] setFill];
-	[[UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 640, 640)] fill];
-	UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	completion(image);
+	completion([[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/640/nature"]]]);
 	return;
 #endif
 	

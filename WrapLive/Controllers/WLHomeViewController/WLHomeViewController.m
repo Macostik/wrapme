@@ -28,6 +28,7 @@
 #import "WLCandy.h"
 #import "WLWrapCandyCell.h"
 #import "UIFont+CustomFonts.h"
+#import "WLProgressView.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
 
@@ -66,11 +67,13 @@
 	self.refresh.tintColor = [UIColor WL_grayColor];
 	self.refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"
 																   attributes:@{
-																				NSFontAttributeName : [UIFont lightNormalFont],
+																				NSFontAttributeName : [UIFont lightSmallFont],
 																				NSForegroundColorAttributeName : [UIColor WL_grayColor]
 																				}];
 	[self.refresh addTarget:self action:@selector(pullToRefresh) forControlEvents:UIControlEventValueChanged];
-	[self.tableView addSubview:self.refresh];
+	[self.tableView insertSubview:self.refresh atIndex:0];
+	[self.refresh beginRefreshing];
+    [self.refresh endRefreshing];
 }
 
 - (void)pullToRefresh {
@@ -92,15 +95,15 @@
 		}
 		[weakSelf validateFooterWithObjectsCount:object.count];
 		weakSelf.loading = NO;
-		[self.refresh endRefreshing];
+		[weakSelf.refresh endRefreshing];
 	} failure:^(NSError *error) {
 		weakSelf.loading = NO;
-		[self.refresh endRefreshing];
+		[weakSelf.refresh endRefreshing];
 	}];
 }
 
 - (void) validateFooterWithObjectsCount:(int)count {
-	if (count < 10 || count == 0) {
+	if (count < 10) {
 		self.tableView.tableFooterView = nil;
 	} else if (self.tableView.tableFooterView == nil) {
 		self.tableView.tableFooterView = self.tableFooterView;;
@@ -224,11 +227,15 @@
 		WLCandy* candy = [WLCandy entry];
 		candy.type = WLCandyTypeImage;
 		candy.picture.large = path;
-		[[WLAPIManager instance] addCandy:candy toWrap:weakSelf.topWrap success:^(id object) {
-			
+		
+		id operation = [[WLAPIManager instance] addCandy:candy toWrap:weakSelf.topWrap success:^(id object) {
+			[WLProgressView dismiss];
 		} failure:^(NSError *error) {
-			
+			[WLProgressView dismiss];
+			[error show];
 		}];
+		
+		[WLProgressView showWithMessage:@"Uploading image..." image:image operation:operation];
 	}];
 
 	[self dismissViewControllerAnimated:YES completion:nil];
@@ -281,6 +288,12 @@
 		WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];
 		controller.candy = [self.topWrap.candies objectAtIndex:item.index.row];
 		[self.navigationController pushViewController:controller animated:YES];
+	} else {
+		WLCameraViewController* cameraController = [self.storyboard cameraViewController];
+		cameraController.delegate = self;
+		cameraController.mode = WLCameraModeFullSize;
+		cameraController.backfacingByDefault = YES;
+		[self presentViewController:cameraController animated:YES completion:nil];
 	}
 }
 

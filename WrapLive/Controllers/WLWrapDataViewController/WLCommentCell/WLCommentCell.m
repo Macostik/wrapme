@@ -21,9 +21,9 @@
 @implementation WLCommentCell
 
 - (void)setupItemData:(WLComment *)entry {
-	self.authorNameLabel.text = entry.author.name;
+	self.authorNameLabel.text = entry.contributor.name;
 	self.commentLabel.text = entry.text;
-	self.authorImageView.imageUrl = entry.author.picture.thumbnail;
+	self.authorImageView.imageUrl = entry.contributor.picture.thumbnail;
 }
 
 @end

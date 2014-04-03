@@ -18,15 +18,24 @@
 
 + (instancetype)entry {
 	WLWrapEntry* entry = [super entry];
-	entry.author = [WLSession user];
+	entry.contributor = [WLSession user];
 	return entry;
 }
 
-- (WLUser *)author {
-	if (!_author) {
-		_author = [[WLUser alloc] init];
+- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
+    self = [super initWithDictionary:dict error:err];
+    if (self) {
+        self.contributor.name = [dict stringForKey:@"contributor_name"];
+		self.contributor.picture = [[WLPicture alloc] initWithDictionary:dict error:NULL];
+    }
+    return self;
+}
+
+- (WLUser *)contributor {
+	if (!_contributor) {
+		_contributor = [[WLUser alloc] init];
 	}
-	return _author;
+	return _contributor;
 }
 
 @end

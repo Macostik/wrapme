@@ -38,7 +38,7 @@
 	
 	if ([self.candy.type isEqualToString:WLCandyTypeImage]) {
 		[self setupImageView:self.candy];
-		self.titleLabel.text = [NSString stringWithFormat:@"By %@", self.candy.author.name];
+		self.titleLabel.text = [NSString stringWithFormat:@"By %@", self.candy.contributor.name];
 	} else {
 		self.titleLabel.text = [self.candy.updatedAt stringWithFormat:@"MMMM dd, YYYY"];
 		self.imageView.height = 0;
@@ -103,7 +103,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLCommentCell* cell = nil;
 	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
-	if ([self.candy.type isEqualToString:WLCandyTypeConversation] && [comment.author isCurrentUser]) {
+	if ([self.candy.type isEqualToString:WLCandyTypeConversation] && [comment.contributor isCurrentUser]) {
 		static NSString* wrapCellIdentifier = @"WLMyCommentCell";
 		cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
 											   forIndexPath:indexPath];

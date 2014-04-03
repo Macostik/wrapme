@@ -12,7 +12,7 @@
 
 @interface WLWrapEntry : WLEntry
 
-@property (strong, nonatomic) WLUser* author;
+@property (strong, nonatomic) WLUser* contributor;
 
 @property (strong, nonatomic) NSDate* contributedAt;
 

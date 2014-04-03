@@ -53,6 +53,10 @@
 
 @implementation WLHomeViewController
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WLWrapChangesNotification object:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -325,11 +329,6 @@
 		cameraController.backfacingByDefault = YES;
 		[self presentViewController:cameraController animated:YES completion:nil];
 	}
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WLWrapChangesNotification object:nil];
 }
 
 @end

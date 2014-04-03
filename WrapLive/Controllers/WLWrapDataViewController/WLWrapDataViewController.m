@@ -43,8 +43,10 @@
 		self.titleLabel.text = [self.candy.updatedAt stringWithFormat:@"MMMM dd, YYYY"];
 		self.imageView.height = 0;
 	}
-	[[WLAPIManager instance] candyInfo:[self.wrap.candies firstObject] forWrap:self.wrap success:^(WLCandy * object) {
-		self.candy = object;
+	__weak typeof(self)weakSelf = self;
+	[[WLAPIManager instance] candyInfo:self.candy forWrap:self.wrap success:^(WLCandy * object) {
+		weakSelf.candy = object;
+		[weakSelf.tableView reloadData];
 	} failure:^(NSError *error) {
 		
 	}];

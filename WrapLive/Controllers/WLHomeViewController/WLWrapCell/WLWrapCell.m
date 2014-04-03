@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 
 @end
 
@@ -23,6 +24,10 @@
 - (void)setupItemData:(WLWrap*)wrap {
 	self.nameLabel.text = wrap.name;
 	self.coverView.imageUrl = wrap.picture.small;
+	__weak typeof(self)weakSelf = self;
+	[wrap contributorNames:^(NSString *names) {
+		weakSelf.contributorsLabel.text = names;
+	}];
 }
 
 - (void)prepareForReuse {

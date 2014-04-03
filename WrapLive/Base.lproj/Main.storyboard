@@ -284,8 +284,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_s" id="Xc8-lY-iUz">
-                                <rect key="frame" x="96" y="33" width="129" height="105"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="screen01_logo" id="Xc8-lY-iUz">
+                                <rect key="frame" x="112" y="46" width="98" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -1300,8 +1300,8 @@
         <image name="13screen_ic_selected" width="22" height="22"/>
         <image name="14screen_ic_photo_enabled" width="84" height="84"/>
         <image name="ic_128" width="64" height="64"/>
-        <image name="logo_s" width="129" height="105"/>
         <image name="screen00_logo" width="182" height="148"/>
+        <image name="screen01_logo" width="98" height="80"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

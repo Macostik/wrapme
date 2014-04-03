@@ -39,6 +39,7 @@
 	[self setupPicker];
 	self.country = [WLCountry getCurrentCountry];
 	[self fillCountryFields];
+	[self validateSignUpButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -96,6 +97,10 @@
 }
 
 - (IBAction)phoneNumberChanged:(UITextField *)sender {
+	[self validateSignUpButton];
+}
+
+- (void)validateSignUpButton {
 	self.signUpButton.enabled = self.phoneNumberTextField.text.length > 0 ? YES : NO;
 }
 

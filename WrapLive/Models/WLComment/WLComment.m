@@ -12,10 +12,18 @@
 @implementation WLComment
 
 + (NSMutableDictionary *)mapping {
-	NSMutableDictionary* mapping = [super mapping];
-	[mapping addEntriesFromDictionary:@{@"content":@"text",
-										@"comment_uid":@"identifier"}];
-	return mapping;
+	return [[super mapping] merge:@{@"content":@"text",
+									@"comment_uid":@"identifier"}];
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err
+{
+    self = [super initWithDictionary:dict error:err];
+    if (self) {
+        self.author.name = [dict stringForKey:@"contributor_name"];
+		self.author.picture = [[WLPicture alloc] initWithDictionary:dict error:NULL];
+    }
+    return self;
 }
 
 + (instancetype)commentWithText:(NSString *)text {

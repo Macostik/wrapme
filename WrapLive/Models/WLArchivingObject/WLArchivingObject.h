@@ -7,6 +7,7 @@
 //
 
 #import <JSONModel/JSONModel.h>
+#import "NSDictionary+Extended.h"
 
 @interface WLArchivingObject : JSONModel
 

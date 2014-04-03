@@ -14,10 +14,22 @@ static NSDictionary* mapping = nil;
 
 + (NSDictionary*)mapping {
 	if (!mapping) {
-		mapping = @{@"large":@[@"large_avatar_url",@"large_cover_url",@"large_image_attachment_url"],
-					@"medium":@[@"medium_avatar_url",@"medium_cover_url",@"medium_image_attachment_url"],
-					@"small":@[@"small_avatar_url",@"small_cover_url",@"small_image_attachment_url"],
-					@"thumbnail":@[@"thumb_avatar_url",@"thumb_cover_url",@"thumb_image_attachment_url"]};
+		mapping = @{@"large":@[@"large_avatar_url",
+							   @"large_cover_url",
+							   @"large_image_attachment_url",
+							   @"contributor_large_avatar_url"],
+					@"medium":@[@"medium_avatar_url",
+								@"medium_cover_url",
+								@"medium_image_attachment_url",
+								@"contributor_medium_avatar_url"],
+					@"small":@[@"small_avatar_url",
+							   @"small_cover_url",
+							   @"small_image_attachment_url",
+							   @"contributor_small_avatar_url"],
+					@"thumbnail":@[@"thumb_avatar_url",
+								   @"thumb_cover_url",
+								   @"thumb_image_attachment_url",
+								   @"contributor_small_avatar_url"]};
 	}
 	return mapping;
 }

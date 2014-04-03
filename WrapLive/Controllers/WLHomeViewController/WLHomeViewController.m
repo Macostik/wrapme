@@ -316,6 +316,7 @@
 	if (item.index.row < [self.topWrap.candies count]) {
 		WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];
 		controller.candy = [self.topWrap.candies objectAtIndex:item.index.row];
+		controller.wrap = self.topWrap;
 		[self.navigationController pushViewController:controller animated:YES];
 	} else {
 		WLCameraViewController* cameraController = [self.storyboard cameraViewController];

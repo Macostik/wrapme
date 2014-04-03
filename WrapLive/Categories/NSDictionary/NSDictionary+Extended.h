@@ -31,6 +31,8 @@
 
 - (NSDictionary *)unnulable;
 
+- (id)merge:(NSDictionary*)dictionary;
+
 @end
 
 @interface NSMutableDictionary (Extended)

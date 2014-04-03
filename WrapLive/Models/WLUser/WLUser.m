@@ -8,7 +8,6 @@
 
 #import "WLUser.h"
 #import "NSDate+Formatting.h"
-#import "NSDictionary+Extended.h"
 #import "WLSession.h"
 
 @implementation WLUser
@@ -22,12 +21,10 @@
 }
 
 + (NSMutableDictionary *)mapping {
-	NSMutableDictionary* mapping = [super mapping];
-	[mapping addEntriesFromDictionary:@{@"phone_number":@"phoneNumber",
-										@"country_calling_code":@"countryCallingCode",
-										@"dob_in_epoch":@"birthdate",
-										@"user_uid":@"identifier"}];
-	return mapping;
+	return [[super mapping] merge:@{@"phone_number":@"phoneNumber",
+									@"country_calling_code":@"countryCallingCode",
+									@"dob_in_epoch":@"birthdate",
+									@"user_uid":@"identifier"}];
 }
 
 + (BOOL)propertyIsOptional:(NSString *)propertyName {

@@ -130,6 +130,12 @@
     return [NSDictionary dictionaryWithDictionary:[replaced copy]];
 }
 
+- (id)merge:(NSDictionary *)dictionary {
+	NSMutableDictionary* _dictionary = [self mutableCopy];
+	[_dictionary addEntriesFromDictionary:dictionary];
+	return [_dictionary copy];
+}
+
 @end
 
 @implementation NSMutableDictionary (Extended)
@@ -141,6 +147,11 @@
     } else {
         return NO;
     }
+}
+
+- (id)merge:(NSDictionary *)dictionary {
+	[self addEntriesFromDictionary:dictionary];
+	return self;
 }
 
 @end

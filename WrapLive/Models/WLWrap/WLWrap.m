@@ -16,9 +16,7 @@
 @implementation WLWrap
 
 + (NSMutableDictionary *)mapping {
-	NSMutableDictionary* mapping = [super mapping];
-	[mapping addEntriesFromDictionary:@{@"wrap_uid":@"identifier"}];
-	return mapping;
+	return [[super mapping] merge:@{@"wrap_uid":@"identifier"}];
 }
 
 - (void)addCandy:(WLCandy *)candy {

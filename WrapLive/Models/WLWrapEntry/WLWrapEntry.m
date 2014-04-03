@@ -8,19 +8,25 @@
 
 #import "WLWrapEntry.h"
 #import "WLSession.h"
+#import "WLUser.h"
 
 @implementation WLWrapEntry
 
 + (NSMutableDictionary *)mapping {
-	NSMutableDictionary* mapping = [super mapping];
-	[mapping addEntriesFromDictionary:@{@"contributed_at_in_epoch":@"contributedAt"}];
-	return mapping;
+	return [[super mapping] merge:@{@"contributed_at_in_epoch":@"contributedAt"}];
 }
 
 + (instancetype)entry {
 	WLWrapEntry* entry = [super entry];
 	entry.author = [WLSession user];
 	return entry;
+}
+
+- (WLUser *)author {
+	if (!_author) {
+		_author = [[WLUser alloc] init];
+	}
+	return _author;
 }
 
 @end

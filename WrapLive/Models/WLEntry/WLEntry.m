@@ -11,10 +11,8 @@
 @implementation WLEntry
 
 + (NSMutableDictionary *)mapping {
-	NSMutableDictionary* mapping = [super mapping];
-	[mapping addEntriesFromDictionary:@{@"created_at_in_epoch":@"createdAt",
-										@"updated_at_in_epoch":@"updatedAt"}];
-	return mapping;
+	return [[super mapping] merge:@{@"created_at_in_epoch":@"createdAt",
+									@"updated_at_in_epoch":@"updatedAt"}];
 }
 
 + (instancetype)entry {

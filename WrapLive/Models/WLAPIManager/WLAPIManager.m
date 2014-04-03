@@ -15,7 +15,6 @@
 #import <CocoaLumberjack/DDLog.h>
 #import "NSArray+Additions.h"
 #import "WLAddressBook.h"
-#import "NSDictionary+Extended.h"
 #import "WLCandy.h"
 #import "WLComment.h"
 

@@ -341,7 +341,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 - (id)candyInfo:(WLCandy *)candy forWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
-		return response;
+		WLCandy * candy = [response.data objectForKey:@"candy"];
+		return candy;
 	};
 	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@", wrap.identifier, candy.identifier];

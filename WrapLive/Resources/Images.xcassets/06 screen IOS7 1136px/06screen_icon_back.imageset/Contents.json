@@ -2,13 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "welcome_bg.png"
-    },
-    {
-      "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "welcome_bg@2x.png"
+      "filename" : "06screen_icon_back@2x.png"
     }
   ],
   "info" : {

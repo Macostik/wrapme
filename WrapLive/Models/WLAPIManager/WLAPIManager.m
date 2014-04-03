@@ -301,7 +301,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		  toWrap:(WLWrap *)wrap
 		 success:(WLAPIManagerSuccessBlock)success
 		 failure:(WLAPIManagerFailureBlock)failure {
-	if ([candy.type isEqualToString:WLCandyTypeImage]) {
+	if (candy.type == WLCandyTypeImage) {
 		
 		WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 			WLCandy* candy = [[WLCandy alloc] initWithDictionary:[response.data dictionaryForKey:@"candy"] error:NULL];

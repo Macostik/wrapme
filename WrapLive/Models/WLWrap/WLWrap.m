@@ -48,7 +48,7 @@
 - (WLCandy *)actualConversation {
 	NSArray* candies = [self candiesForDate:[NSDate date]];
 	for (WLCandy* candy in candies) {
-		if ([candy.type isEqualToString:WLCandyTypeConversation]) {
+		if (candy.type == WLCandyTypeConversation) {
 			return candy;
 		}
 	}

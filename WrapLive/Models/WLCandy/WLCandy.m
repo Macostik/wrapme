@@ -22,11 +22,12 @@
 	return [[super mapping] merge:@{@"phone_number":@"phoneNumber",
 									@"country_calling_code":@"countryCallingCode",
 									@"dob_in_epoch":@"birthdate",
-									@"candy_uid":@"identifier"}];
+									@"candy_uid":@"identifier",
+									@"candy_type":@"type"}];
 }
 
 - (WLPicture *)picture {
-	if ([self.type isEqualToString:WLCandyTypeConversation]) {
+	if (self.type == WLCandyTypeConversation) {
 		WLComment* comment = [self.comments lastObject];
 		return comment.picture;
 	}

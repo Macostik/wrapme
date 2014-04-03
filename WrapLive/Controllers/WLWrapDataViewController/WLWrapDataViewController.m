@@ -36,7 +36,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 	
-	if ([self.candy.type isEqualToString:WLCandyTypeImage]) {
+	if (self.candy.type == WLCandyTypeImage) {
 		[self setupImageView:self.candy];
 		self.titleLabel.text = [NSString stringWithFormat:@"By %@", self.candy.contributor.name];
 	} else {
@@ -103,7 +103,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLCommentCell* cell = nil;
 	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
-	if ([self.candy.type isEqualToString:WLCandyTypeConversation] && [comment.contributor isCurrentUser]) {
+	if (self.candy.type == WLCandyTypeConversation && [comment.contributor isCurrentUser]) {
 		static NSString* wrapCellIdentifier = @"WLMyCommentCell";
 		cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
 											   forIndexPath:indexPath];

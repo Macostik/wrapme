@@ -12,13 +12,13 @@
 
 @protocol WLComment @end
 
-static NSString* WLCandyTypeImage = @"image";
-static NSString* WLCandyTypeConversation = @"chat";
+static NSInteger WLCandyTypeImage = 10;
+static NSInteger WLCandyTypeConversation = 20;
 
 @interface WLCandy : WLWrapEntry
 
 @property (strong, nonatomic) NSArray<WLComment>* comments;
-@property (strong, nonatomic) NSString *type;
+@property (nonatomic) NSInteger type;
 
 - (void)addComment:(WLComment*)comment;
 

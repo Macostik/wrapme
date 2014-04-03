@@ -256,7 +256,10 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
-		return response;
+		NSArray* wraps = [WLWrap arrayOfModelsFromDictionaries:[response.data arrayForKey:@"wraps"]];
+		WLWrap* topWrap = [wraps firstObject];
+		topWrap.candies = [WLCandy arrayOfModelsFromDictionaries:[response.data arrayForKey:@"latest_candies"]];
+		return wraps;
 	};
 	
 	return [self GET:@"wraps/home"
@@ -303,6 +306,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		
 		WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 			WLCandy* candy = [[WLCandy alloc] initWithDictionary:[response.data dictionaryForKey:@"candy"] error:NULL];
+			candy.type = WLCandyTypeImage;
 			[wrap addCandy:candy];
 			return candy;
 		};

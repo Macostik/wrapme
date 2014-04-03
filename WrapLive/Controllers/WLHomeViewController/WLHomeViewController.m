@@ -62,6 +62,7 @@
 	self.loading = NO;
 	[self fetchWraps:1];
 	[self setupRefresh];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newWrapCreated:) name:WLWrapChangesNotification object:nil];
 }
 
 - (void)setupRefresh {
@@ -78,30 +79,47 @@
     [self.refresh endRefreshing];
 }
 
+
+- (void)newWrapCreated:(NSNotification*)notification {
+	BOOL isNeedRequest = [[notification.userInfo objectForKey:@"isNeedRequest"] boolValue];
+	if (isNeedRequest) {
+		[self fetchWraps:1];
+	}
+	else {
+		[self.tableView reloadData];
+	}
+}
+
 - (void)pullToRefresh {
 	[self fetchWraps:1];
 }
 
 - (void)fetchWraps:(NSInteger)page {
-	if (self.loading || (self.tableView.tableFooterView == nil && !self.refresh.refreshing)) {
+	if (self.loading) {
 		return;
 	}
 	self.loading = YES;
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] wrapsWithPage:page success:^(NSArray * object) {
-		
-		if (page == 1) {
+	if (page == 1) {
+		[[WLAPIManager instance] homeWraps:^(NSArray * object) {
 			weakSelf.wraps = object;
-		} else {
+			[weakSelf validateFooterWithObjectsCount:object.count];
+			weakSelf.loading = NO;
+			[weakSelf.refresh endRefreshing];
+		} failure:^(NSError *error) {
+			weakSelf.loading = NO;
+			[weakSelf.refresh endRefreshing];
+		}];
+	}
+	else {
+		[[WLAPIManager instance] wrapsWithPage:page success:^(NSArray * object) {
 			[weakSelf appendWraps:object];
-		}
-		[weakSelf validateFooterWithObjectsCount:object.count];
-		weakSelf.loading = NO;
-		[weakSelf.refresh endRefreshing];
-	} failure:^(NSError *error) {
-		weakSelf.loading = NO;
-		[weakSelf.refresh endRefreshing];
-	}];
+			[weakSelf validateFooterWithObjectsCount:object.count];
+			weakSelf.loading = NO;
+		} failure:^(NSError *error) {
+			weakSelf.loading = NO;
+		}];
+	}
 }
 
 - (void) validateFooterWithObjectsCount:(int)count {
@@ -222,7 +240,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	CGFloat maxOffset = (scrollView.contentSize.height - scrollView.height);
-	if (!self.loading  && scrollView.contentSize.height > scrollView.height && scrollView.contentOffset.y >= maxOffset) {
+	if (!self.loading && self.tableView.tableFooterView != nil && scrollView.contentSize.height > scrollView.height && scrollView.contentOffset.y >= maxOffset) {
 		[self fetchWraps:((self.wraps.count + 1)/10 + 1)];
 	}
 }
@@ -304,6 +322,11 @@
 		cameraController.backfacingByDefault = YES;
 		[self presentViewController:cameraController animated:YES completion:nil];
 	}
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WLWrapChangesNotification object:nil];
 }
 
 @end

@@ -8,6 +8,8 @@
 
 #import "WLWrapEntry.h"
 
+static NSString * WLWrapChangesNotification = @"WLWrapChangesNotification";
+
 @class WLCandy;
 @class WLUser;
 

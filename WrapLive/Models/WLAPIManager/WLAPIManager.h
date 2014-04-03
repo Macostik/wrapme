@@ -128,6 +128,16 @@ typedef id (^WLAPIManagerObjectBlock)(WLAPIResponse* response);
 - (id)candies:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
+ *  Get all the data about a particular candy
+ *
+ *  @param candy   WLCandy instance representing candy
+ *  @param wrap    WLWrap instance representing wrap
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (id)candyInfo:(WLCandy *)candy forWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+/*!
  *  Add a comment to a candy in a wrap given the wrap and candy uid
  *
  *  @param comment    WLComment instance representing comment

@@ -105,8 +105,6 @@
 }
 - (IBAction)done:(UIButton *)sender {
 	__weak typeof(self)weakSelf = self;
-	self.wrap.name = self.nameField.text;
-	self.wrap.updatedAt = [NSDate date];
 	[[WLAPIManager instance] updateWrap:self.wrap success:^(id object) {
 		[weakSelf.navigationController popViewControllerAnimated:YES];
 		[self postNotificationForRequest:NO];
@@ -117,9 +115,6 @@
 
 - (IBAction)start:(id)sender {
 	__weak typeof(self)weakSelf = self;
-	
-	self.wrap.createdAt = [NSDate date];
-	self.wrap.updatedAt = [NSDate date];
 	id operation = [[WLAPIManager instance] createWrap:self.wrap success:^(id object) {
 		[WLProgressView dismiss];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];

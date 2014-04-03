@@ -11,6 +11,13 @@
 
 @implementation WLCandy
 
++ (NSDictionary*)pictureMapping {
+	return @{@"large":@[@"large_image_attachment_url"],
+			 @"medium":@[@"medium_image_attachment_url"],
+			 @"small":@[@"small_image_attachment_url"],
+			 @"thumbnail":@[@"thumb_image_attachment_url"]};
+}
+
 + (NSMutableDictionary *)mapping {
 	return [[super mapping] merge:@{@"phone_number":@"phoneNumber",
 									@"country_calling_code":@"countryCallingCode",

@@ -18,6 +18,8 @@
 
 + (instancetype)entry;
 
++ (NSDictionary*)pictureMapping;
+
 @end
 
 @interface NSArray (WLEntrySorting)

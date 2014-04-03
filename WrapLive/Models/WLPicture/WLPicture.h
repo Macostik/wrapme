@@ -10,6 +10,8 @@
 
 @interface WLPicture : WLArchivingObject
 
++ (instancetype)pictureWithDictionary:(NSDictionary*)dict mapping:(NSDictionary*)mapping;
+
 @property (strong, nonatomic) NSString* large;
 @property (strong, nonatomic) NSString* medium;
 @property (strong, nonatomic) NSString* small;

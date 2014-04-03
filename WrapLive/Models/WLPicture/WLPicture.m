@@ -34,20 +34,29 @@ static NSDictionary* mapping = nil;
 	return mapping;
 }
 
-- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err
-{
++ (instancetype)pictureWithDictionary:(NSDictionary *)dict mapping:(NSDictionary *)mapping {
+	WLPicture* picture = [[self alloc] init];
+	[WLPicture mapPicture:picture withMapping:mapping ? : [WLPicture mapping] dictionary:dict];
+	return picture;
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
     self = [super init];
     if (self) {
-        [[WLPicture mapping] enumerateKeysAndObjectsUsingBlock:^(NSString* key, NSArray* obj, BOOL *stop) {
-			for (NSString* urlKey in obj) {
-				id object = [dict objectForKey:urlKey];
-				if (object != nil) {
-					[self setValue:object forKey:key];
-				}
-			}
-		}];
+		[WLPicture mapPicture:self withMapping:[WLPicture mapping] dictionary:dict];
     }
     return self;
+}
+
++ (void)mapPicture:(WLPicture*)picture withMapping:(NSDictionary*)mapping dictionary:(NSDictionary*)dict {
+	[mapping enumerateKeysAndObjectsUsingBlock:^(NSString* key, NSArray* obj, BOOL *stop) {
+		for (NSString* urlKey in obj) {
+			id object = [dict objectForKey:urlKey];
+			if (object != nil) {
+				[picture setValue:object forKey:key];
+			}
+		}
+	}];
 }
 
 + (BOOL)propertyIsOptional:(NSString *)propertyName {

@@ -26,7 +26,7 @@
     self = [super initWithDictionary:dict error:err];
     if (self) {
         self.contributor.name = [dict stringForKey:@"contributor_name"];
-		self.contributor.picture = [[WLPicture alloc] initWithDictionary:dict error:NULL];
+		self.contributor.picture = [WLPicture pictureWithDictionary:dict mapping:[WLUser pictureMapping]];
     }
     return self;
 }

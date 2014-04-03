@@ -25,7 +25,7 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
 	self = [super initWithDictionary:dict error:err];
 	if (self) {
-		self.picture = [[WLPicture alloc] initWithDictionary:dict error:err];
+		self.picture = [WLPicture pictureWithDictionary:dict mapping:[[self class] pictureMapping]];
 	}
 	return self;
 }
@@ -35,6 +35,10 @@
 		_picture = [[WLPicture alloc] init];
 	}
 	return _picture;
+}
+
++ (NSDictionary *)pictureMapping {
+	return nil;
 }
 
 + (BOOL)propertyIsOptional:(NSString *)propertyName {

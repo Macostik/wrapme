@@ -12,6 +12,13 @@
 
 @implementation WLUser
 
++ (NSDictionary*)pictureMapping {
+	return @{@"large":@[@"large_avatar_url",@"contributor_large_avatar_url"],
+			 @"medium":@[@"medium_avatar_url",@"contributor_medium_avatar_url"],
+			 @"small":@[@"small_avatar_url",@"contributor_small_avatar_url"],
+			 @"thumbnail":@[@"thumb_avatar_url",@"contributor_small_avatar_url"]};
+}
+
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
 	self = [super initWithDictionary:dict error:err];
 	if (self) {

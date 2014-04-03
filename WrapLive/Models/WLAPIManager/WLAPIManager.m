@@ -340,6 +340,19 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			 failure:[self failureBlock:failure]];
 }
 
+- (id)candyInfo:(WLCandy *)candy forWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		return response;
+	};
+	
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@", wrap.identifier, candy.identifier];
+
+	return [self GET:path
+		  parameters:nil
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure]];
+}
+
 - (id)addComment:(WLComment*)comment
 		   toCandy:(WLCandy *)candy
 		  fromWrap:(WLWrap *)wrap

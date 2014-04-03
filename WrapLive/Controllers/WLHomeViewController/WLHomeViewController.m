@@ -87,6 +87,7 @@
 	}
 	else {
 		[self.tableView reloadData];
+		[self.topWrapStreamView reloadData];
 	}
 }
 
@@ -100,27 +101,26 @@
 	}
 	self.loading = YES;
 	__weak typeof(self)weakSelf = self;
-	if (page == 1) {
-		[[WLAPIManager instance] homeWraps:^(NSArray * object) {
+	[self fetchWraps:page success:^(NSArray* object) {
+		if (page == 1) {
 			weakSelf.wraps = object;
-			[weakSelf validateFooterWithObjectsCount:object.count];
-			weakSelf.loading = NO;
-			[weakSelf.refresh endRefreshing];
-		} failure:^(NSError *error) {
-			[error show];
-			weakSelf.loading = NO;
-			[weakSelf.refresh endRefreshing];
-		}];
-	}
-	else {
-		[[WLAPIManager instance] wrapsWithPage:page success:^(NSArray * object) {
+		} else {
 			[weakSelf appendWraps:object];
-			[weakSelf validateFooterWithObjectsCount:object.count];
-			weakSelf.loading = NO;
-		} failure:^(NSError *error) {
-			[error show];
-			weakSelf.loading = NO;
-		}];
+		}
+		[weakSelf validateFooterWithObjectsCount:object.count];
+		weakSelf.loading = NO;
+		[weakSelf.refresh endRefreshing];
+	} failure:^(NSError *error) {
+		weakSelf.loading = NO;
+		[weakSelf.refresh endRefreshing];
+	}];
+}
+
+- (void)fetchWraps:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	if (page == 1) {
+		[[WLAPIManager instance] homeWraps:success failure:failure];
+	} else {
+		[[WLAPIManager instance] wrapsWithPage:page success:success failure:failure];
 	}
 }
 

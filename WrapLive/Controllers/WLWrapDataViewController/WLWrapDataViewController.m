@@ -18,6 +18,7 @@
 #import "WLComment.h"
 #import "WLSession.h"
 #import "WLAPIManager.h"
+#import "WLWrap.h"
 
 @interface WLWrapDataViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate>
 
@@ -42,6 +43,11 @@
 		self.titleLabel.text = [self.candy.updatedAt stringWithFormat:@"MMMM dd, YYYY"];
 		self.imageView.height = 0;
 	}
+	[[WLAPIManager instance] candyInfo:[self.wrap.candies firstObject] forWrap:self.wrap success:^(id object) {
+		
+	} failure:^(NSError *error) {
+		
+	}];
 }
 
 - (void)setupImageView:(WLCandy *)image {

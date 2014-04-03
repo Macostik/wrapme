@@ -107,6 +107,7 @@
 			weakSelf.loading = NO;
 			[weakSelf.refresh endRefreshing];
 		} failure:^(NSError *error) {
+			[error show];
 			weakSelf.loading = NO;
 			[weakSelf.refresh endRefreshing];
 		}];
@@ -117,6 +118,7 @@
 			[weakSelf validateFooterWithObjectsCount:object.count];
 			weakSelf.loading = NO;
 		} failure:^(NSError *error) {
+			[error show];
 			weakSelf.loading = NO;
 		}];
 	}

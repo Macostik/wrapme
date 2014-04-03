@@ -18,7 +18,7 @@
 	[super prepareLayout];
 	_initialRange = CGRectGetMaxY(self.streamView.headerView.frame);
 	_innerSize = (self.streamView.frame.size.width - self.spacing);
-	_size = _innerSize / _numberOfColumns;
+	_size = roundf(_innerSize / _numberOfColumns);
 	[self setRange:_initialRange];
 }
 

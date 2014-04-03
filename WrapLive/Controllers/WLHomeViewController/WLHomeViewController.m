@@ -316,6 +316,10 @@
 	return column == 1 ? 106 : 0;
 }
 
+- (CGFloat)streamViewSpacing:(StreamView *)streamView {
+	return 0;
+}
+
 - (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {
 	if (item.index.row < [self.topWrap.candies count]) {
 		WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];

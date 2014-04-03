@@ -43,8 +43,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	
-	self.coverView.imageUrl = self.wrap.picture.large;
+	self.coverView.imageUrl = self.wrap.picture.thumbnail;
 	self.nameLabel.text = self.wrap.name;
+	__weak typeof(self)weakSelf = self;
+	[self.wrap contributorNames:^(NSString *names) {
+		weakSelf.contributorsLabel.text = names;
+	}];
 	
 	[self sortCandiesInWrap];
 	

@@ -12,7 +12,7 @@
 
 @interface WLContributorCell ()
 
-@property (weak, nonatomic) IBOutlet UIView *selectionView;
+@property (weak, nonatomic) IBOutlet UIImageView *selectionView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarView;
 
@@ -33,7 +33,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
 	[super setSelected:selected animated:animated];
-	self.selectionView.hidden = !selected;
+	self.selectionView.highlighted = selected;
 }
 
 @end

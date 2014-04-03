@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Welcome View Controller-->
@@ -865,13 +865,10 @@
                                                     <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="✓" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zco-cz-vyF">
-                                                    <rect key="frame" x="263" y="1" width="57" height="49"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                    <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="13screen_ic_deselected" highlightedImage="13screen_ic_selected" id="Xmx-Zb-0Eq">
+                                                    <rect key="frame" x="280" y="9" width="22" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                                 <view contentMode="bottom" id="cfN-rd-7HP" customClass="WLSeparatorView">
                                                     <rect key="frame" x="49" y="48" width="271" height="1"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -883,7 +880,7 @@
                                             <outlet property="avatarView" destination="mJu-5P-GF6" id="zWI-Wr-TBl"/>
                                             <outlet property="delegate" destination="2bk-UF-zkR" id="mtv-Tb-JBe"/>
                                             <outlet property="nameLabel" destination="ZaI-gM-W2F" id="j9g-rE-8gb"/>
-                                            <outlet property="selectionView" destination="zco-cz-vyF" id="Veh-BD-OSn"/>
+                                            <outlet property="selectionView" destination="Xmx-Zb-0Eq" id="fwO-QD-WXa"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1299,6 +1296,8 @@
     <resources>
         <image name="00screen_bg" width="320" height="568"/>
         <image name="00screen_ic_arrow" width="8" height="24"/>
+        <image name="13screen_ic_deselected" width="22" height="22"/>
+        <image name="13screen_ic_selected" width="22" height="22"/>
         <image name="ic_128" width="64" height="64"/>
         <image name="logo_s" width="129" height="105"/>
         <image name="screen00_logo" width="182" height="148"/>

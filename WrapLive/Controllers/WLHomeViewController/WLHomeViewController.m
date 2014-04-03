@@ -47,6 +47,7 @@
 @property (strong, nonatomic) IBOutlet UIView *tableFooterView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *footerSpinner;
 @property (strong, nonatomic) UIRefreshControl *refresh;
+@property (weak, nonatomic) IBOutlet UIView *navigationBar;
 
 @end
 
@@ -55,6 +56,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+	self.navigationBar.y = -self.navigationBar.height;
 	self.composeContainer.hidden = YES;
 	self.noWrapsView.hidden = YES;
 	self.loading = NO;
@@ -123,6 +125,12 @@
 	self.noWrapsView.hidden = (topWrap != nil);
 	self.topWrap = topWrap;
 	[self.tableView reloadData];
+	
+	if (topWrap && self.navigationBar.y != 0) {
+		[UIView beginAnimations:nil context:nil];
+		self.navigationBar.y = 0;
+		[UIView commitAnimations];
+	}
 }
 
 - (void)updateHeaderViewWithWrap:(WLWrap*)wrap {

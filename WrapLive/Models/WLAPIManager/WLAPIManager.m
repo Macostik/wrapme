@@ -252,6 +252,19 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			 failure:[self failureBlock:failure]];
 }
 
+- (id)homeWraps:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		return response;
+	};
+	
+	return [self GET:@"wraps/home"
+		  parameters:parameters
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure]];
+}
+
 - (id)createWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	NSArray* contributors = [wrap.contributors map:^id(WLUser* contributor) {
 		return contributor.identifier;

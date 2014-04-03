@@ -552,6 +552,7 @@
                         <outlet property="headerWrapCreatedAtLabel" destination="vDq-P9-Hwl" id="hUP-dN-2lf"/>
                         <outlet property="headerWrapNameLabel" destination="Twb-Mn-vNw" id="6ZB-Ct-bd3"/>
                         <outlet property="headerWrapView" destination="8Kg-Jf-uq1" id="jNM-aj-hJD"/>
+                        <outlet property="navigationBar" destination="9Rl-cW-5hv" id="9kd-xs-4J2"/>
                         <outlet property="noWrapsView" destination="qRl-9j-QTf" id="Z4q-Kd-Qec"/>
                         <outlet property="tableFooterView" destination="bKJ-wq-ugz" id="qY1-NS-Gj0"/>
                         <outlet property="tableView" destination="vM9-X0-izB" id="rUS-iX-CGB"/>

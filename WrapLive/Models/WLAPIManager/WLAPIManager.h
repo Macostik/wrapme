@@ -85,6 +85,14 @@ typedef id (^WLAPIManagerObjectBlock)(WLAPIResponse* response);
 - (id)wrapsWithPage:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
+ *  Retrieving all the data to be displayed on the main screen.
+ *
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (id)homeWraps:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+/*!
  *  Creates new wrap
  *
  *  @param success block that will be invoked on success completion

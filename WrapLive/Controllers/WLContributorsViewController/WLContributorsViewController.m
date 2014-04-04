@@ -33,6 +33,7 @@
 	[[WLAPIManager instance] contributors:^(id object) {
 		weakSelf.contributors = object;
 	} failure:^(NSError *error) {
+		[error show];
 	}];
 }
 

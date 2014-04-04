@@ -25,7 +25,8 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                    <state key="normal" title="CONTINUE">
+                    <inset key="imageEdgeInsets" minX="300" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="CONTINUE" image="00screen_ic_arrow">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -60,7 +61,7 @@
                     <rect key="frame" x="86" y="76" width="148" height="148"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile" id="ItZ-4A-Bja">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="07screen_ic_user" id="ItZ-4A-Bja">
                             <rect key="frame" x="0.0" y="0.0" width="148" height="148"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
@@ -76,6 +77,10 @@
                                 <action selector="createImage:" destination="-1" eventType="touchUpInside" id="Lia-Ot-kEO"/>
                             </connections>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="07screen_btn_edit_enabled" id="Q2F-uD-ieD">
+                            <rect key="frame" x="1" y="110" width="146" height="38"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
@@ -84,6 +89,8 @@
         </view>
     </objects>
     <resources>
-        <image name="default_profile" width="72" height="71"/>
+        <image name="00screen_ic_arrow" width="8" height="24"/>
+        <image name="07screen_btn_edit_enabled" width="148" height="38"/>
+        <image name="07screen_ic_user" width="150" height="150"/>
     </resources>
 </document>

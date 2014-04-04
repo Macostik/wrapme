@@ -157,7 +157,6 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)me:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	
 	NSDictionary* parameters = @{};
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
@@ -245,7 +244,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		return [WLWrap arrayOfModelsFromDictionaries:[response.data arrayForKey:@"wraps"]];
 	};
 	
-	return [self GET:@"wraps/"
+	return [self GET:@"wraps"
 		  parameters:parameters
 			 success:[self successBlock:success withObject:objectBlock failure:failure]
 			 failure:[self failureBlock:failure]];

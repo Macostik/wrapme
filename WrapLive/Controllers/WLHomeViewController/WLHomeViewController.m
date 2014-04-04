@@ -117,6 +117,7 @@
 	} failure:^(NSError *error) {
 		weakSelf.loading = NO;
 		[weakSelf.refresh endRefreshing];
+		[error show];
 	}];
 }
 

@@ -23,7 +23,8 @@
 }
 
 + (NSMutableDictionary *)mapping {
-	return [[super mapping] merge:@{@"wrap_uid":@"identifier"}];
+	return [[super mapping] merge:@{@"wrap_uid":@"identifier",
+									@"latest_candies":@"candies"}];
 }
 
 - (void)addCandy:(WLCandy *)candy {

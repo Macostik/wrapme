@@ -105,7 +105,7 @@
 	}
 	self.loading = YES;
 	__weak typeof(self)weakSelf = self;
-	[self fetchWraps:page success:^(NSArray* object) {
+	[[WLAPIManager instance] wrapsWithPage:page success:^(NSArray * object) {
 		if (page == 1) {
 			weakSelf.wraps = object;
 		} else {
@@ -118,14 +118,6 @@
 		weakSelf.loading = NO;
 		[weakSelf.refresh endRefreshing];
 	}];
-}
-
-- (void)fetchWraps:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	if (page == 1) {
-		[[WLAPIManager instance] homeWraps:success failure:failure];
-	} else {
-		[[WLAPIManager instance] wrapsWithPage:page success:success failure:failure];
-	}
 }
 
 - (void) validateFooterWithObjectsCount:(int)count {

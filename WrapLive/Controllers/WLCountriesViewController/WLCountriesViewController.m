@@ -11,7 +11,7 @@
 #import "WLCountryCell.h"
 #import "NSObject+NibAdditions.h"
 
-@interface WLCountriesViewController ()
+@interface WLCountriesViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) void (^completionBlock) (WLCountry* country);
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -65,15 +65,6 @@ static WLCountriesViewController* _controller = nil;
 	[self hide];
 }
 
-- (IBAction)done:(id)sender {
-	NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
-	if (indexPath) {
-		WLCountry* country = [self.countries objectAtIndex:indexPath.row];
-		self.completionBlock(country);
-	}
-	[self hide];
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -87,6 +78,12 @@ static WLCountriesViewController* _controller = nil;
     }
     cell.item = [self.countries objectAtIndex:indexPath.row];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	WLCountry* country = [self.countries objectAtIndex:indexPath.row];
+	self.completionBlock(country);
+	[self hide];
 }
 
 @end

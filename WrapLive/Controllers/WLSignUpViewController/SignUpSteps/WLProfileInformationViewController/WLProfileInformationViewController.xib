@@ -77,10 +77,17 @@
                                 <action selector="createImage:" destination="-1" eventType="touchUpInside" id="Lia-Ot-kEO"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="07screen_btn_edit_enabled" id="Q2F-uD-ieD">
-                            <rect key="frame" x="1" y="110" width="146" height="38"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        </imageView>
+                        <view alpha="0.5" contentMode="scaleToFill" id="1MX-ov-Odg">
+                            <rect key="frame" x="0.0" y="110" width="148" height="38"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="07screen_ic_edit_enabled" id="Q2F-uD-ieD">
+                                    <rect key="frame" x="60" y="6" width="28" height="26"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" red="0.57647061347961426" green="0.57647061347961426" blue="0.57254904508590698" alpha="1" colorSpace="deviceRGB"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
@@ -90,7 +97,7 @@
     </objects>
     <resources>
         <image name="00screen_ic_arrow" width="8" height="24"/>
-        <image name="07screen_btn_edit_enabled" width="148" height="38"/>
+        <image name="07screen_ic_edit_enabled" width="28" height="26"/>
         <image name="07screen_ic_user" width="150" height="150"/>
     </resources>
 </document>

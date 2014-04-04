@@ -80,10 +80,11 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6qh-b4-dSO">
-                                        <rect key="frame" x="66" y="0.0" width="188" height="184"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="184"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="100"/>
-                                        <state key="normal" title="◉">
+                                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="deviceRGB"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                        <state key="normal" image="15screen_ic_camera_enabled">
                                             <color key="titleColor" red="1" green="0.60000002384185791" blue="0.12549020349979401" alpha="1" colorSpace="deviceRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1341,6 +1342,7 @@
         <image name="13screen_ic_deselected" width="22" height="22"/>
         <image name="13screen_ic_selected" width="22" height="22"/>
         <image name="14screen_ic_photo_enabled" width="84" height="84"/>
+        <image name="15screen_ic_camera_enabled" width="44" height="44"/>
         <image name="ic_128" width="64" height="64"/>
         <image name="screen00_logo" width="182" height="148"/>
         <image name="screen01_logo" width="98" height="80"/>

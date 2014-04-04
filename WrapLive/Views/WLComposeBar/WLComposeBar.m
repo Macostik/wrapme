@@ -9,6 +9,8 @@
 #import "WLComposeBar.h"
 #import "NSObject+NibAdditions.h"
 
+static NSUInteger WLComposeBarDefaultCharactersLimit = 360;
+
 @interface WLComposeBar () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
@@ -68,6 +70,17 @@
 	if ([self.delegate respondsToSelector:@selector(composeBarDidEndEditing:)]) {
 		[self.delegate composeBarDidEndEditing:self];
 	}
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	NSUInteger charactersLimit;
+	if ([self.delegate respondsToSelector:@selector(composeBarCharactersLimit:)]) {
+		charactersLimit = [self.delegate composeBarCharactersLimit:self];
+	} else {
+		charactersLimit = WLComposeBarDefaultCharactersLimit;
+	}
+	NSString* resultString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+	return resultString.length <= charactersLimit;
 }
 
 #pragma mark - UIResponder

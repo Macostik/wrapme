@@ -63,10 +63,16 @@
 	self.navigationBar.y = -self.navigationBar.height;
 	self.composeContainer.hidden = YES;
 	self.noWrapsView.hidden = YES;
-	self.loading = NO;
-	[self fetchWraps:1];
 	[self setupRefresh];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newWrapCreated:) name:WLWrapChangesNotification object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	if (self.composeContainer.hidden) {
+		self.loading = NO;
+		[self fetchWraps:1];
+	}
 }
 
 - (void)setupRefresh {

@@ -12,6 +12,7 @@
 #import "UIImageView+ImageLoading.h"
 
 @interface WLCommentCell()
+
 @property (weak, nonatomic) IBOutlet UIImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;

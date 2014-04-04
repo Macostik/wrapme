@@ -18,6 +18,11 @@
 		121B1B4218E0848D001F585C /* WLCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3E18E0848D001F585C /* WLCountryCell.m */; };
 		121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3F18E0848D001F585C /* WLCountryCell.xib */; };
 		121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B4418E08B7E001F585C /* CountryCodes.json */; };
+		124BD4B918EEE1F50081E41C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 124BD4B418EEE1F50081E41C /* Default-568h@2x.png */; };
+		124BD4BA18EEE1F50081E41C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 124BD4B518EEE1F50081E41C /* Default@2x.png */; };
+		124BD4C118EEE23A0081E41C /* Icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 124BD4BE18EEE23A0081E41C /* Icon-58.png */; };
+		124BD4C218EEE23A0081E41C /* Icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = 124BD4BF18EEE23A0081E41C /* Icon-80.png */; };
+		124BD4C318EEE23A0081E41C /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 124BD4C018EEE23A0081E41C /* Icon-120.png */; };
 		125D4A4F18E068E6001B8E7C /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */; };
 		125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A5218E069C6001B8E7C /* UIFont+CustomFonts.m */; };
 		128886AD18DC493B00957B22 /* WLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886AC18DC493B00957B22 /* WLSession.m */; };
@@ -109,6 +114,11 @@
 		121B1B3E18E0848D001F585C /* WLCountryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCountryCell.m; sourceTree = "<group>"; };
 		121B1B3F18E0848D001F585C /* WLCountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCountryCell.xib; sourceTree = "<group>"; };
 		121B1B4418E08B7E001F585C /* CountryCodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountryCodes.json; sourceTree = "<group>"; };
+		124BD4B418EEE1F50081E41C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		124BD4B518EEE1F50081E41C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		124BD4BE18EEE23A0081E41C /* Icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-58.png"; sourceTree = "<group>"; };
+		124BD4BF18EEE23A0081E41C /* Icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-80.png"; sourceTree = "<group>"; };
+		124BD4C018EEE23A0081E41C /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120.png"; sourceTree = "<group>"; };
 		125D4A4D18E068E6001B8E7C /* NSDate+Formatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Formatting.h"; sourceTree = "<group>"; };
 		125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Formatting.m"; sourceTree = "<group>"; };
 		125D4A5118E069C6001B8E7C /* UIFont+CustomFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+CustomFonts.h"; path = "UIFont/UIFont+CustomFonts.h"; sourceTree = "<group>"; };
@@ -731,6 +741,11 @@
 		12E3DA4318E049C300DBDB79 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				124BD4B418EEE1F50081E41C /* Default-568h@2x.png */,
+				124BD4B518EEE1F50081E41C /* Default@2x.png */,
+				124BD4BE18EEE23A0081E41C /* Icon-58.png */,
+				124BD4BF18EEE23A0081E41C /* Icon-80.png */,
+				124BD4C018EEE23A0081E41C /* Icon-120.png */,
 				121B1B2F18E0749F001F585C /* Property Lists */,
 				12E3DA4418E049C300DBDB79 /* Fonts */,
 				12E3DA5018E049C300DBDB79 /* Images.xcassets */,
@@ -964,18 +979,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				12A7A70D18DA0946008FF6F0 /* InfoPlist.strings in Resources */,
+				124BD4C218EEE23A0081E41C /* Icon-80.png in Resources */,
 				120D651A18EC729F00CBE723 /* WLProgressView.xib in Resources */,
 				ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
 				ACCF9B9218E1868200A7429F /* WLActivationViewController.xib in Resources */,
+				124BD4C118EEE23A0081E41C /* Icon-58.png in Resources */,
 				129654F518E1CB3000FF43F6 /* WLInputAccessoryView.xib in Resources */,
+				124BD4C318EEE23A0081E41C /* Icon-120.png in Resources */,
 				12E5BA5718EADAAC0033CE4E /* WLWrapCandyCell.xib in Resources */,
 				12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
+				124BD4BA18EEE1F50081E41C /* Default@2x.png in Resources */,
 				121B1B4118E0848D001F585C /* WLCountriesViewController.xib in Resources */,
 				ACCF9B8A18E185D200A7429F /* WLPhoneNumberViewController.xib in Resources */,
 				121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */,
 				121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */,
+				124BD4B918EEE1F50081E41C /* Default-568h@2x.png in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
 				12E8FF2118E9885F00BF1B96 /* WLComposeBar.xib in Resources */,
 			);
@@ -1182,8 +1202,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 98C86618D23B4CC5B2807E94 /* Pods.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
@@ -1199,8 +1217,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 98C86618D23B4CC5B2807E94 /* Pods.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";

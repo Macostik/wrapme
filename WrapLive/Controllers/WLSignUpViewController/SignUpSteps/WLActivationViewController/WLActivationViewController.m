@@ -32,6 +32,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 @property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 @property (strong, nonatomic) IBOutlet UILabel *phoneNumberLabel;
 @property (strong, nonatomic) WLUser * user;
+@property (weak, nonatomic) IBOutlet UIButton *continueButton;
 
 @property (nonatomic) WLActivationPage currentPage;
 
@@ -57,6 +58,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 	self.phoneNumberLabel.text = [NSString stringWithFormat:@"+%@ %@", self.user.countryCallingCode, self.user.phoneNumber];
 	self.activationTextField.layer.borderWidth = 0.5;
 	self.activationTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
+	self.continueButton.enabled = NO;
 }
 
 - (void)setCurrentPage:(WLActivationPage)currentPage {
@@ -127,6 +129,10 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 }
 
 #pragma mark - UITextFieldDelegate
+
+- (IBAction)textFieldDidChenge:(UITextField *)sender {
+	self.continueButton.enabled = sender.text.length == WLActivationCodeLimit;
+}
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
 	CGFloat translation = textField.y - 0.5 * (self.view.height - 260 - textField.height);

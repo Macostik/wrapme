@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLActivationViewController">
             <connections>
                 <outlet property="activationTextField" destination="QAt-iC-Ig0" id="9AA-oY-Mxa"/>
+                <outlet property="continueButton" destination="hly-fp-Y4g" id="u5u-oe-xGs"/>
                 <outlet property="phoneNumberLabel" destination="yzG-Lb-q94" id="lqv-wo-vhd"/>
                 <outlet property="progressBar" destination="SN1-4P-LB1" id="fd7-hY-Tbd"/>
                 <outlet property="view" destination="qg7-3m-dX1" id="ryA-Ar-SfH"/>
@@ -47,6 +48,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             <connections>
+                                <action selector="textFieldDidChenge:" destination="-1" eventType="editingDidEnd" id="ErK-Vi-zRT"/>
                                 <outlet property="delegate" destination="-1" id="H5R-sv-mIr"/>
                             </connections>
                         </textField>

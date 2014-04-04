@@ -17,6 +17,8 @@
 #import "UIImage+WLStoring.h"
 #import "UIColor+CustomColors.h"
 
+static NSInteger WLProfileNameLimit = 40;
+
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
@@ -99,6 +101,11 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
 	return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	NSString* resultString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+	return resultString.length <= WLProfileNameLimit;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {

@@ -876,6 +876,10 @@
                                                     <outlet property="delegate" destination="2bk-UF-zkR" id="YuN-OU-bRE"/>
                                                 </connections>
                                             </textField>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="08screen_ic_search_enabled" id="Och-Dy-UMZ">
+                                                <rect key="frame" x="265" y="7" width="16" height="16"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
@@ -1339,6 +1343,7 @@
         <image name="06screen_icon_back" width="8" height="22"/>
         <image name="08screen_ic_camera_enabled" width="30" height="30"/>
         <image name="08screen_ic_chat_enabled" width="30" height="30"/>
+        <image name="08screen_ic_search_enabled" width="16" height="16"/>
         <image name="09screen_ic_back_enabled" width="10" height="24"/>
         <image name="09screen_ic_camera_enabled" width="30" height="30"/>
         <image name="09screen_ic_chat_enabled" width="30" height="30"/>

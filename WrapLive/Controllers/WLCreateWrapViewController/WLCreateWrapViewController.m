@@ -26,7 +26,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UITableView *contributorsTableView;
-@property (weak, nonatomic) IBOutlet UIView *noContributorsView;
+@property (strong, nonatomic) IBOutlet UIView *noContributorsView;
+@property (weak, nonatomic) IBOutlet UIView *separatorView;
 @property (nonatomic) BOOL isNewWrap;
 
 
@@ -71,8 +72,8 @@
 	[self.contributorsTableView reloadData];
 	[self fillDataAndUpdateLabels];
 	BOOL hasContributors = [self.wrap.contributors count] > 0;
-	self.noContributorsView.hidden = hasContributors;
-	self.contributorsTableView.hidden = !hasContributors;
+	self.contributorsTableView.tableFooterView = hasContributors ? nil : self.noContributorsView;
+	self.separatorView.hidden = !hasContributors;
 }
 
 - (void)fillDataAndUpdateLabels {

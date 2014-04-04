@@ -14,13 +14,14 @@
 #import "WLCountry.h"
 #import "WLProfileInformationViewController.h"
 #import "WLPhoneNumberViewController.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLSignUpViewController () <UIScrollViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate>
 
-@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *stepLabels;
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *stepViews;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *stepLines;
-@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *stepDoneViews;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *completedStepViews;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *incompletedStepViews;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *currentStepViews;
 @property (strong, nonatomic) IBOutlet UIView *signUpStepsView;
 
 @end
@@ -29,6 +30,17 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	
+	for (UIView* view in self.incompletedStepViews) {
+		view.layer.borderWidth = 1;
+		view.layer.borderColor = [UIColor WL_grayColor].CGColor;
+	}
+	
+	for (UIView* view in self.currentStepViews) {
+		view.layer.borderWidth = 1;
+		view.layer.borderColor = [UIColor WL_orangeColor].CGColor;
+	}
+	
 	if (self.registrationNotCompleted) {
 		WLProfileInformationViewController * controller = [[WLProfileInformationViewController alloc] init];
 		[self createNavController:controller];
@@ -52,19 +64,26 @@
 
 - (void)updateStepLabelsWithIndex:(int)index {
 	
-	for (UILabel* label in self.stepLabels) {
-		NSUInteger idx = [self.stepLabels indexOfObject:label];
-		label.hidden = idx > index;
-	}
+	[self setHiddenViews:self.incompletedStepViews byBlock:^BOOL(NSUInteger idx) {
+		return idx <= index;
+	}];
 	
-	for (UIView* view in self.stepViews) {
-		NSUInteger idx = [self.stepViews indexOfObject:view];
-		view.hidden = idx <= index;
-	}
+	[self setHiddenViews:self.completedStepViews byBlock:^BOOL(NSUInteger idx) {
+		return idx >= index;
+	}];
 	
-	for (UIView* line in self.stepLines) {
-		NSUInteger idx = [self.stepLines indexOfObject:line];
-		line.hidden = idx >= index;
+	[self setHiddenViews:self.currentStepViews byBlock:^BOOL(NSUInteger idx) {
+		return idx != index;
+	}];
+	
+	[self setHiddenViews:self.stepLines byBlock:^BOOL(NSUInteger idx) {
+		return idx >= index;
+	}];
+}
+
+- (void)setHiddenViews:(NSArray*)views byBlock:(BOOL (^)(NSUInteger idx))block {
+	for (UIView* view in views) {
+		view.hidden = block([views indexOfObject:view]);
 	}
 }
 

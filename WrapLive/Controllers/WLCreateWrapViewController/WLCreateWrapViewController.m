@@ -29,6 +29,7 @@
 @property (strong, nonatomic) IBOutlet UIView *noContributorsView;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
 @property (nonatomic) BOOL isNewWrap;
+@property (strong, nonatomic) NSString * notChangedWrapName;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -48,6 +49,9 @@
 	if (!_wrap) {
 		_wrap = [WLWrap entry];
 		self.isNewWrap = YES;
+	}
+	else {
+		self.notChangedWrapName = _wrap.name;
 	}
 	return _wrap;
 }
@@ -102,6 +106,7 @@
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
+	self.wrap.name = self.notChangedWrapName;
 	[self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)done:(UIButton *)sender {

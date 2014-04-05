@@ -23,7 +23,7 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
 static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
 static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
 static NSString* WLAPIProductionUrl = @"https://api.wraplive.com/api";
-#define WLAPIBaseUrl WLAPIQAUrl
+#define WLAPIBaseUrl WLAPIDevelopmentUrl
 
 typedef void (^WLAFNetworkingSuccessBlock) (AFHTTPRequestOperation *operation, id responseObject);
 typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, NSError *error);
@@ -33,7 +33,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 + (instancetype)instance {
     static WLAPIManager* instance = nil;
 	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
+	dispatch_once(&onceToken, ^{	
 		instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:WLAPIBaseUrl]];
 		instance.requestSerializer.timeoutInterval = 45;
 		[instance.requestSerializer setValue:@"application/vnd.ravenpod+json;version=1" forHTTPHeaderField:@"Accept"];

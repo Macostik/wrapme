@@ -9,7 +9,7 @@
 #import <JSONModel/JSONModel.h>
 #import "NSDictionary+Extended.h"
 
-@interface WLArchivingObject : JSONModel
+@interface WLArchivingObject : JSONModel <NSCoding, NSCopying>
 
 - (NSData*)data;
 
@@ -20,6 +20,8 @@
 + (void)objectWithData:(NSData*)data completion:(void (^)(id object))completion;
 
 + (NSMutableDictionary*)mapping;
+
+- (void)updateWithObject:(id)object;
 
 @end
 

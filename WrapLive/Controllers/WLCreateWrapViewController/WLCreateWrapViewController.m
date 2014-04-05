@@ -18,6 +18,7 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIImage+WLStoring.h"
 #import "WLProgressView.h"
+#import "UIImageView+ImageLoading.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
 
@@ -28,36 +29,45 @@
 @property (weak, nonatomic) IBOutlet UITableView *contributorsTableView;
 @property (strong, nonatomic) IBOutlet UIView *noContributorsView;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
-@property (nonatomic) BOOL isNewWrap;
-@property (strong, nonatomic) NSString * notChangedWrapName;
-
+@property (nonatomic, readonly) BOOL isNewWrap;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
+@property (strong, nonatomic) WLWrap* editingWrap;
 
 @end
 
 @implementation WLCreateWrapViewController
 
+@synthesize wrap = _wrap;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	[self verifyStartAndDoneButton];
-	self.notChangedWrapName = _wrap.name;
+	[self fillDataAndUpdateLabels];
 }
 
-- (WLWrap *)wrap {
-	if (!_wrap) {
-		_wrap = [WLWrap entry];
-		self.isNewWrap = YES;
+- (BOOL)isNewWrap {
+	return self.wrap == nil;
+}
+
+- (WLWrap *)editingWrap {
+	if (!_editingWrap) {
+		_editingWrap = [WLWrap entry];
 	}
-	return _wrap;
+	return _editingWrap;
+}
+
+- (void)setWrap:(WLWrap *)wrap {
+	_wrap = wrap;
+	self.editingWrap = [wrap copy];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isContributorsSegue]) {
 		WLContributorsViewController* controller = segue.destinationViewController;
-		controller.wrap = self.wrap;
+		controller.wrap = self.editingWrap;
 	} else if ([segue isCameraSegue]) {
 		WLCameraViewController* controller = segue.destinationViewController;
 		controller.delegate = self;
@@ -72,22 +82,21 @@
 
 - (void)refreshContributorsTableView {
 	[self.contributorsTableView reloadData];
-	[self fillDataAndUpdateLabels];
-	BOOL hasContributors = [self.wrap.contributors count] > 0;
+	BOOL hasContributors = [self.editingWrap.contributors count] > 0;
 	self.contributorsTableView.tableFooterView = hasContributors ? nil : self.noContributorsView;
 	self.separatorView.hidden = !hasContributors;
 }
 
 - (void)fillDataAndUpdateLabels {
-	self.nameField.text = self.wrap.name;
-	[self.coverView setImageWithURL:[NSURL URLWithString:self.wrap.picture.large]];
+	self.nameField.text = self.editingWrap.name;
+	self.coverView.imageUrl = self.editingWrap.picture.large;
 	self.startButton.hidden = !self.isNewWrap;
 	self.doneButton.hidden = self.isNewWrap;
 	self.titleLabel.text = self.isNewWrap ? @"Create new wrap" : @"Change wrap settings";
 }
 
 - (void)verifyStartAndDoneButton {
-	BOOL enabled = self.wrap.name && (![self.wrap.name isEqualToString:@""]) ? YES : NO;
+	BOOL enabled = self.editingWrap.name.length > 0;
 	self.startButton.enabled = enabled;
 	self.doneButton.enabled = enabled;
 }
@@ -95,12 +104,12 @@
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
-	self.wrap.name = self.notChangedWrapName;
 	[self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)done:(UIButton *)sender {
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] updateWrap:self.wrap success:^(id object) {
+	[[WLAPIManager instance] updateWrap:self.editingWrap success:^(id object) {
+		[weakSelf.wrap updateWithObject:object];
 		[weakSelf.wrap postNotificationForRequest:NO];
 		[weakSelf.navigationController popViewControllerAnimated:YES];
 	} failure:^(NSError *error) {
@@ -110,11 +119,11 @@
 
 - (IBAction)start:(id)sender {
 	__weak typeof(self)weakSelf = self;
-	id operation = [[WLAPIManager instance] createWrap:self.wrap success:^(id object) {
+	id operation = [[WLAPIManager instance] createWrap:self.editingWrap success:^(WLWrap* wrap) {
 		[WLProgressView dismiss];
-		[weakSelf.wrap postNotificationForRequest:YES];
+		[wrap postNotificationForRequest:YES];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
-		wrapController.wrap = object;
+		wrapController.wrap = wrap;
 		NSArray* controllers = @[[weakSelf.navigationController.viewControllers firstObject],wrapController];
 		[weakSelf.navigationController setViewControllers:controllers animated:YES];
 	} failure:^(NSError *error) {
@@ -127,19 +136,19 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.wrap.contributors count];
+    return [self.editingWrap.contributors count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
-    cell.item = [self.wrap.contributors objectAtIndex:indexPath.row];
+    cell.item = [self.editingWrap.contributors objectAtIndex:indexPath.row];
     return cell;
 }
 
 #pragma mark - UITextFieldDelegate
 
 - (IBAction)textFieldDidChange:(UITextField *)sender {
-	self.wrap.name = sender.text;
+	self.editingWrap.name = sender.text;
 	[self verifyStartAndDoneButton];
 }
 
@@ -153,7 +162,7 @@
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
-	self.wrap.contributors = (id)[self.wrap.contributors arrayByRemovingObject:contributor];
+	self.editingWrap.contributors = (id)[self.editingWrap.contributors arrayByRemovingObject:contributor];
 	[self refreshContributorsTableView];
 }
 
@@ -163,7 +172,7 @@
 	self.coverView.image = image;
 	__weak typeof(self)weakSelf = self;
 	[image storeAsCover:^(NSString *path) {
-		weakSelf.wrap.picture.large = path;
+		weakSelf.editingWrap.picture.large = path;
 	}];
 	
 	[self dismissViewControllerAnimated:YES completion:nil];

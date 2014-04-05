@@ -79,6 +79,19 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 	return [[JSONKeyMapper alloc] initWithDictionary:[self mapping]];
 }
 
+- (void)updateWithObject:(id)object {
+	Class class = [object class];
+	__weak typeof(self)weakSelf = self;
+	if (class == [self class]) {
+		EnumeratePropertiesOfClass(class, ^(NSString *property) {
+			id value = [object valueForKey:property];
+			if (value) {
+				[weakSelf setValue:value forKey:property];
+			}
+		});
+	}
+}
+
 #pragma mark - NSCoding
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -98,6 +111,21 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 	EnumeratePropertiesOfClass([self class], ^ (NSString* property) {
 		[aCoder encodeObject:[self valueForKey:property] forKey:property];
 	});
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+	Class class = [self class];
+	__weak typeof(self)weakSelf = self;
+	WLArchivingObject* copy = [[class allocWithZone:zone] init];
+	EnumeratePropertiesOfClass(class, ^(NSString *property) {
+		id value = [weakSelf valueForKey:property];
+		if (value) {
+			[copy setValue:value forKey:property];
+		}
+	});
+	return copy;
 }
 
 @end

@@ -20,9 +20,10 @@
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
-static NSString* WLAPIStageUrl = @"https://dev-api.wraplive.com/api";
-static NSString* WLAPIProductionUrl = @"";
-#define WLAPIBaseUrl WLAPIStageUrl
+static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
+static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
+static NSString* WLAPIProductionUrl = @"https://api.wraplive.com/api";
+#define WLAPIBaseUrl WLAPIQAUrl
 
 typedef void (^WLAFNetworkingSuccessBlock) (AFHTTPRequestOperation *operation, id responseObject);
 typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, NSError *error);

@@ -231,7 +231,11 @@
 - (void)captureImage:(void (^)(UIImage*image))completion {
 	
 #if TARGET_IPHONE_SIMULATOR
-	completion([[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/640/nature"]]]);
+	if (self.mode == WLCameraModeFullSize) {
+		completion([[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/960/nature"]]]);
+	} else {
+		completion([[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/640/nature"]]]);
+	}
 	return;
 #endif
 	

@@ -19,6 +19,7 @@
 #import "WLSession.h"
 #import "WLAPIManager.h"
 #import "WLWrap.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLWrapDataViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate>
 
@@ -115,8 +116,17 @@
 		cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
 															  forIndexPath:indexPath];
 	}
+	[cell configureCellHeightWithComment:comment];
 	cell.item = comment;
 	return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
+	CGFloat commentHeight  = ceilf([comment.text boundingRectWithSize:CGSizeMake(WLCommentLabelLenth, CGFLOAT_MAX)
+														 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightMicroFont]} context:nil].size.height);
+	CGFloat cellHeight = [comment.contributor isCurrentUser] ? commentHeight  : (commentHeight + WLAuthorLabelHeight);
+	return cellHeight > WLMinimumCellHeight ? cellHeight : WLMinimumCellHeight;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

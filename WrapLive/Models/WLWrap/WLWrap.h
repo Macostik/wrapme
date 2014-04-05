@@ -32,4 +32,6 @@ static NSString * WLWrapChangesNotification = @"WLWrapChangesNotification";
 
 + (NSArray*)candiesForDate:(NSDate*)date inArray:(NSArray*)candies;
 
+- (void) postNotificationForRequest:(BOOL)isNeedRequest;
+
 @end

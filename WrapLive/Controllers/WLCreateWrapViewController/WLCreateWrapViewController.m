@@ -92,15 +92,6 @@
 	self.doneButton.enabled = enabled;
 }
 
-- (void) postNotificationForRequest:(BOOL)isNeedRequest {
-	[[NSNotificationCenter defaultCenter] postNotificationName:WLWrapChangesNotification
-														object:nil
-													  userInfo:@{
-																 @"wrap":self.wrap,
-																 @"isNeedRequest":[NSNumber numberWithBool:isNeedRequest]
-																 }];
-}
-
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
@@ -110,8 +101,8 @@
 - (IBAction)done:(UIButton *)sender {
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] updateWrap:self.wrap success:^(id object) {
+		[weakSelf.wrap postNotificationForRequest:NO];
 		[weakSelf.navigationController popViewControllerAnimated:YES];
-		[self postNotificationForRequest:NO];
 	} failure:^(NSError *error) {
 		[error show];
 	}];
@@ -121,11 +112,11 @@
 	__weak typeof(self)weakSelf = self;
 	id operation = [[WLAPIManager instance] createWrap:self.wrap success:^(id object) {
 		[WLProgressView dismiss];
+		[weakSelf.wrap postNotificationForRequest:YES];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
 		wrapController.wrap = object;
 		NSArray* controllers = @[[weakSelf.navigationController.viewControllers firstObject],wrapController];
 		[weakSelf.navigationController setViewControllers:controllers animated:YES];
-		[self postNotificationForRequest:YES];
 	} failure:^(NSError *error) {
 		[WLProgressView dismiss];
 		[error show];

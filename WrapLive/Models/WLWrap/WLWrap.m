@@ -70,4 +70,13 @@
 	return [candies filteredArrayUsingPredicate:predicate];
 }
 
+- (void) postNotificationForRequest:(BOOL)isNeedRequest {
+	[[NSNotificationCenter defaultCenter] postNotificationName:WLWrapChangesNotification
+														object:nil
+													  userInfo:@{
+																 @"wrap":self,
+																 @"isNeedRequest":[NSNumber numberWithBool:isNeedRequest]
+																 }];
+}
+
 @end

@@ -159,6 +159,7 @@
 		candy.type = WLCandyTypeImage;
 		candy.picture.large = path;
 		id operation = [[WLAPIManager instance] addCandy:candy toWrap:weakSelf.wrap success:^(id object) {
+			[weakSelf.wrap postNotificationForRequest:YES];
 			[weakSelf sortCandiesInWrap];
 			[WLProgressView dismiss];
 		} failure:^(NSError *error) {

@@ -68,6 +68,7 @@
 	WLComment* comment = [WLComment commentWithText:text];
 	[[WLAPIManager instance] addComment:comment toCandy:self.candy fromWrap:self.wrap success:^(id object) {
 		[weakSelf.tableView reloadData];
+		[weakSelf.wrap postNotificationForRequest:YES];
 	} failure:^(NSError *error) {
 		[error show];
 	}];

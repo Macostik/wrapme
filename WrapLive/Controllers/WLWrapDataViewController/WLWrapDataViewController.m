@@ -22,6 +22,8 @@
 #import "UIFont+CustomFonts.h"
 
 static CGFloat WLDefaultImageWidth = 320;
+static NSString* WLCommentCellIdentifier = @"WLCommentCell";
+static NSString* WLMyCommentCellIdentifier = @"MyWLCommentCell";
 
 @interface WLWrapDataViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate>
 
@@ -66,7 +68,7 @@ static CGFloat WLDefaultImageWidth = 320;
 
 - (void)setupConversation:(WLCandy*)image {
 	self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", self.wrap.name];
-	[self setTableHeaderViewHeight:0 animated:NO];
+	self.tableView.tableHeaderView = nil;
 }
 
 - (void)setTableHeaderViewHeight:(CGFloat)height animated:(BOOL)animated {
@@ -141,17 +143,10 @@ static CGFloat WLDefaultImageWidth = 320;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLCommentCell* cell = nil;
 	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
-	if (self.candy.type == WLCandyTypeConversation && [comment.contributor isCurrentUser]) {
-		static NSString* wrapCellIdentifier = @"WLMyCommentCell";
-		cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
-											   forIndexPath:indexPath];
-	} else {
-		static NSString* wrapCellIdentifier = @"WLCommentCell";
-		cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
-															  forIndexPath:indexPath];
-	}
+	BOOL isMyComment = (self.candy.type == WLCandyTypeConversation && [comment.contributor isCurrentUser]);
+	NSString* cellIdentifier = isMyComment ? @"WLMyCommentCell" : @"WLCommentCell";
+	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
 	[cell configureCellHeightWithComment:comment];
 	cell.item = comment;
 	return cell;
@@ -162,7 +157,7 @@ static CGFloat WLDefaultImageWidth = 320;
 	CGFloat commentHeight  = ceilf([comment.text boundingRectWithSize:CGSizeMake(WLCommentLabelLenth, CGFLOAT_MAX)
 														 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightMicroFont]} context:nil].size.height);
 	CGFloat cellHeight = [comment.contributor isCurrentUser] ? commentHeight  : (commentHeight + WLAuthorLabelHeight);
-	return cellHeight > WLMinimumCellHeight ? cellHeight : WLMinimumCellHeight;
+	return MAX(WLMinimumCellHeight, cellHeight);
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

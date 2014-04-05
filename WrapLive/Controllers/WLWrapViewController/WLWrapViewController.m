@@ -22,6 +22,7 @@
 #import "WLComposeContainer.h"
 #import "UIImage+WLStoring.h"
 #import "WLAPIManager.h"
+#import "WLProgressView.h"
 
 @interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate>
 
@@ -157,11 +158,14 @@
 		WLCandy* candy = [WLCandy entry];
 		candy.type = WLCandyTypeImage;
 		candy.picture.large = path;
-		[[WLAPIManager instance] addCandy:candy toWrap:weakSelf.wrap success:^(id object) {
+		id operation = [[WLAPIManager instance] addCandy:candy toWrap:weakSelf.wrap success:^(id object) {
 			[weakSelf sortCandiesInWrap];
+			[WLProgressView dismiss];
 		} failure:^(NSError *error) {
+			[WLProgressView dismiss];
 			[error show];
 		}];
+		[WLProgressView showWithMessage:@"Uploading image..." image:image operation:operation];
 	}];
 	
 	[self dismissViewControllerAnimated:YES completion:nil];

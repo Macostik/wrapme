@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Welcome View Controller-->
@@ -59,11 +59,11 @@
                             </view>
                             <view contentMode="scaleToFill" id="ztd-JX-YVg">
                                 <rect key="frame" x="0.0" y="384" width="320" height="184"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6qh-b4-dSO">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="184"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                         <state key="normal" image="ic_camera">
@@ -75,7 +75,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" id="xdm-qG-jtx">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -156,6 +156,7 @@
                         <outlet property="acceptView" destination="xdm-qG-jtx" id="b16-DP-kP9"/>
                         <outlet property="bottomView" destination="ztd-JX-YVg" id="P3J-8p-fkY"/>
                         <outlet property="cameraView" destination="tla-Iu-umV" id="53U-1u-24B"/>
+                        <outlet property="takePhotoButton" destination="6qh-b4-dSO" id="CFx-PZ-CN6"/>
                         <outlet property="topView" destination="eMD-WY-m6L" id="omx-mO-WAX"/>
                     </connections>
                 </viewController>
@@ -1227,10 +1228,32 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <imageView key="tableHeaderView" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Sn5-Ts-kUU">
+                                        <view key="tableHeaderView" contentMode="scaleToFill" id="t88-df-N9V">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="lOt-XR-j24">
+                                                    <rect key="frame" x="150" y="150" width="20" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <color key="color" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </activityIndicatorView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Sn5-Ts-kUU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K5M-sm-Xmi">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <state key="normal">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="toggleImage:" destination="eto-O4-OHy" eventType="touchUpInside" id="BGv-cr-vkO"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WLCommentCell" id="PUO-dQ-EKn" customClass="WLCommentCell">
                                                 <rect key="frame" x="0.0" y="342" width="320" height="44"/>
@@ -1314,6 +1337,7 @@
                     <connections>
                         <outlet property="containerView" destination="Kjk-ac-eXI" id="d4V-y1-cku"/>
                         <outlet property="imageView" destination="Sn5-Ts-kUU" id="Bdw-8Z-Pph"/>
+                        <outlet property="spinner" destination="lOt-XR-j24" id="2z0-2z-ppa"/>
                         <outlet property="tableView" destination="0jW-2U-oDt" id="v6J-eA-rcG"/>
                         <outlet property="titleLabel" destination="N9a-4s-fUi" id="wBS-tA-c4B"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="GFY-S2-eYl"/>
@@ -1358,7 +1382,7 @@
         <image name="14screen_ic_photo_enabled" width="84" height="84"/>
         <image name="Default-568h@2x.png" width="320" height="568"/>
         <image name="ic_128" width="64" height="64"/>
-        <image name="ic_camera" width="125" height="125"/>
+        <image name="ic_camera" width="76" height="76"/>
         <image name="screen01_logo" width="98" height="80"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

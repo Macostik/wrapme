@@ -12,4 +12,6 @@
 
 @property (nonatomic) NSString* imageUrl;
 
+- (void)setImageUrl:(NSString *)imageUrl completion:(void (^)(UIImage* image, BOOL cached))completion;
+
 @end

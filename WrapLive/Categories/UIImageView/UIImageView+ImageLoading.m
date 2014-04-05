@@ -14,6 +14,10 @@
 @dynamic imageUrl;
 
 - (void)setImageUrl:(NSString *)imageUrl {
+	[self setImageUrl:imageUrl completion:nil];
+}
+
+- (void)setImageUrl:(NSString *)imageUrl completion:(void (^)(UIImage* image, BOOL cached))completion {
 	NSURL* url = [NSURL URLWithString:imageUrl];
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
@@ -26,7 +30,13 @@
 			[weakSelf.layer addAnimation:fadeTransition forKey:nil];
 		}
 		weakSelf.image = image;
+		if (completion) {
+			completion(image, request == nil);
+		}
 	} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+		if (completion) {
+			completion(nil, NO);
+		}
 	}];
 }
 

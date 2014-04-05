@@ -21,6 +21,8 @@
 #import "WLWrap.h"
 #import "UIFont+CustomFonts.h"
 
+static CGFloat WLDefaultImageWidth = 320;
+
 @interface WLWrapDataViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -28,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
 
@@ -38,11 +41,9 @@
 	// Do any additional setup after loading the view.
 	
 	if (self.candy.type == WLCandyTypeImage) {
-		[self setupImageView:self.candy];
-		self.titleLabel.text = [NSString stringWithFormat:@"By %@", self.candy.contributor.name];
+		[self setupImage:self.candy];
 	} else {
-		self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", self.wrap.name];
-		self.imageView.height = 0;
+		[self setupConversation:self.candy];
 	}
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] candyInfo:self.candy forWrap:self.wrap success:^(WLCandy * object) {
@@ -53,15 +54,50 @@
 	}];
 }
 
-- (void)setupImageView:(WLCandy *)image {
-	self.imageView.height = 320;
-	self.imageView.imageUrl = image.picture.large;
+- (void)setupImage:(WLCandy*)image {
+	__weak typeof(self)weakSelf = self;
+	[self.imageView setImageUrl:image.picture.large completion:^(UIImage* image, BOOL cached) {
+		[weakSelf.spinner removeFromSuperview];
+		CGFloat height = image.size.height*WLDefaultImageWidth/image.size.width;
+		[weakSelf setTableHeaderViewHeight:MIN(WLDefaultImageWidth, height) animated:!cached];
+	}];
+	self.titleLabel.text = [NSString stringWithFormat:@"By %@", image.contributor.name];
+}
+
+- (void)setupConversation:(WLCandy*)image {
+	self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", self.wrap.name];
+	[self setTableHeaderViewHeight:0 animated:NO];
+}
+
+- (void)setTableHeaderViewHeight:(CGFloat)height animated:(BOOL)animated {
+	UIView* headerView = self.tableView.tableHeaderView;
+	if (headerView.height != height) {
+		if (animated) {
+			[UIView beginAnimations:nil context:nil];
+		}
+		headerView.height = height;
+		self.tableView.tableHeaderView = headerView;
+		if (animated) {
+			[UIView commitAnimations];
+		}
+	}
 }
 
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
 	[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)toggleImage:(id)sender {
+	CGFloat height = self.tableView.tableHeaderView.height;
+	UIImage* image = self.imageView.image;
+	if (height == WLDefaultImageWidth && image) {
+		height = image.size.height*WLDefaultImageWidth/image.size.width;
+	} else {
+		height = WLDefaultImageWidth;
+	}
+	[self setTableHeaderViewHeight:height animated:YES];
 }
 
 - (void)sendMessageWithText:(NSString*)text {

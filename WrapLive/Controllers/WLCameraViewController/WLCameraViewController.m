@@ -12,6 +12,7 @@
 #import "WLSupportFunctions.h"
 #import "UIImage+Resize.h"
 #import "UIColor+CustomColors.h"
+#import "UIView+Shorthand.h"
 
 @interface WLCameraViewController ()
 
@@ -28,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *acceptImageView;
 @property (weak, nonatomic) IBOutlet UIView *acceptView;
 @property (weak, nonatomic) IBOutlet UIView *acceptButtonsView;
+@property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 
 @end
 
@@ -232,7 +234,7 @@
 	
 #if TARGET_IPHONE_SIMULATOR
 	if (self.mode == WLCameraModeFullSize) {
-		completion([[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/960/nature"]]]);
+		completion([[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/480/nature"]]]);
 	} else {
 		completion([[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/640/nature"]]]);
 	}

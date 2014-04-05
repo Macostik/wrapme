@@ -154,6 +154,9 @@
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
 	__weak typeof(self)weakSelf = self;
+	
+	[WLProgressView showWithMessage:@"Uploading image..." image:image operation:nil];
+	
 	[image storeAsImage:^(NSString *path) {
 		WLCandy* candy = [WLCandy entry];
 		candy.type = WLCandyTypeImage;
@@ -166,7 +169,7 @@
 			[WLProgressView dismiss];
 			[error show];
 		}];
-		[WLProgressView showWithMessage:@"Uploading image..." image:image operation:operation];
+		[WLProgressView setOperation:operation];
 	}];
 	
 	[self dismissViewControllerAnimated:YES completion:nil];

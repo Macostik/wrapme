@@ -29,7 +29,15 @@
                             <rect key="frame" x="58" y="32" width="222" height="5"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="delegate" destination="GNb-Cf-OJ6" id="mTa-eO-qWf"/>
+                            </connections>
                         </view>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="Gvo-vG-iNV">
+                            <rect key="frame" x="260" y="8" width="20" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <color key="color" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
@@ -41,6 +49,7 @@
                 <outlet property="imageView" destination="HFm-Yv-X48" id="QbY-hf-MWo"/>
                 <outlet property="messageLabel" destination="ZoW-aQ-2kx" id="ayb-Um-1nv"/>
                 <outlet property="progressBar" destination="ROp-Av-hcD" id="57F-aS-8ez"/>
+                <outlet property="spinner" destination="Gvo-vG-iNV" id="3da-FN-mlZ"/>
             </connections>
         </view>
     </objects>

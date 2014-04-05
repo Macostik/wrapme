@@ -11,27 +11,29 @@
 #import "NSObject+NibAdditions.h"
 #import "UIImage+Resize.h"
 #import "UIView+Shorthand.h"
-#import <AFNetworking/AFURLConnectionOperation.h>
 
 static const CGFloat spacing = 8;
 
-@interface WLProgressView ()
+@interface WLProgressView () <WLProgressBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
 
 @implementation WLProgressView
 
+static WLProgressView *_instance = nil;
+
 + (instancetype)instance {
-    static id instance = nil;
-    if (instance == nil) {
-        instance = [self loadFromNib];
-    }
-    return instance;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		_instance = [self loadFromNib];
+	});
+    return _instance;
 }
 
 + (void)showWithMessage:(NSString*)message image:(UIImage*)image operation:(AFURLConnectionOperation *)operation {
@@ -50,16 +52,7 @@ static const CGFloat spacing = 8;
 		instance.alpha = 1.0f;
 	}];
 	
-	instance.progressBar.progress = 0;
-
-	[operation setUploadProgressBlock:^(NSUInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite) {
-		float progress = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
-		[instance.progressBar setProgress:progress animated:YES];
-	}];
-	[operation setDownloadProgressBlock:^(NSUInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
-		float progress = ((float)totalBytesRead/(float)totalBytesExpectedToRead);
-		[instance.progressBar setProgress:progress animated:YES];
-	}];
+	[WLProgressView setOperation:operation];
 }
 
 + (void)showWithMessage:(NSString*)message operation:(AFURLConnectionOperation *)operation {
@@ -75,6 +68,11 @@ static const CGFloat spacing = 8;
 		instance.messageLabel.text = nil;
 		instance.imageView.image = nil;
 	}];
+}
+
++ (void)setOperation:(AFURLConnectionOperation *)operation {
+	WLProgressView* instance = [self instance];
+	instance.progressBar.operation = operation;
 }
 
 - (void)layoutSubviews {
@@ -95,6 +93,19 @@ static const CGFloat spacing = 8;
 	
 	self.messageLabel.x = x;
 	self.messageLabel.width = width;
+}
+
+#pragma mark - WLProgressBarDelegate
+
+- (void)progressBar:(WLProgressBar *)progressBar didChangeProgress:(float)progress {
+	WLProgressView* instance = _instance;
+	BOOL animating = (progress == 0 || progress == 1);
+	
+	if (animating && ![instance.spinner isAnimating]) {
+		[instance.spinner startAnimating];
+	} else if ([instance.spinner isAnimating]) {
+		[instance.spinner stopAnimating];
+	}
 }
 
 @end

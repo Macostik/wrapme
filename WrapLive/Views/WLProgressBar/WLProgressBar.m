@@ -11,6 +11,7 @@
 #import "UIColor+CustomColors.h"
 #import "WLBorderView.h"
 #import "WLSupportFunctions.h"
+#import <AFNetworking/AFURLConnectionOperation.h>
 
 @interface WLProgressBar ()
 
@@ -49,6 +50,23 @@
 	if (animated) {
 		[UIView commitAnimations];
 	}
+	
+	if ([self.delegate respondsToSelector:@selector(progressBar:didChangeProgress:)]) {
+		[self.delegate progressBar:self didChangeProgress:_progress];
+	}
+}
+
+- (void)setOperation:(AFURLConnectionOperation *)operation {
+	self.progress = 0;
+	__weak typeof(self)weakSelf = self;
+	[operation setUploadProgressBlock:^(NSUInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite) {
+		float progress = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
+		[weakSelf setProgress:progress animated:YES];
+	}];
+	[operation setDownloadProgressBlock:^(NSUInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
+		float progress = ((float)totalBytesRead/(float)totalBytesExpectedToRead);
+		[weakSelf setProgress:progress animated:YES];
+	}];
 }
 
 @end

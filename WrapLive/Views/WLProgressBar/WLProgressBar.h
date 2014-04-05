@@ -8,7 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@class AFURLConnectionOperation;
+@class WLProgressBar;
+
+@protocol WLProgressBarDelegate <NSObject>
+
+- (void)progressBar:(WLProgressBar*)progressBar didChangeProgress:(float)progress;
+
+@end
+
 @interface WLProgressBar : UIView
+
+@property (nonatomic, weak) IBOutlet id <WLProgressBarDelegate> delegate;
+
+@property (nonatomic, weak) AFURLConnectionOperation *operation;
 
 @property (nonatomic) CGFloat progress;
 

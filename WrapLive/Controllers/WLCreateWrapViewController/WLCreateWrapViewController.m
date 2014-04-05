@@ -157,8 +157,6 @@
 	return YES;
 }
 
-
-
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {

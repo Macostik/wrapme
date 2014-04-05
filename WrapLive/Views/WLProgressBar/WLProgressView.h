@@ -18,4 +18,6 @@
 
 + (void)dismiss;
 
++ (void)setOperation:(AFURLConnectionOperation*)operation;
+
 @end

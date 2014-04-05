@@ -36,7 +36,7 @@
 
 - (void)addComment:(WLComment *)comment {
 	NSMutableArray* comments = [NSMutableArray arrayWithArray:self.comments];
-	[comments insertObject:comment atIndex:0];
+	[comments addObject:comment];
 	self.comments = [comments copy];
 	self.updatedAt = [NSDate date];
 }

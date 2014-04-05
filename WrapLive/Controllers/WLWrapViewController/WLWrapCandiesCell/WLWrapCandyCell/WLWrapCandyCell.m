@@ -27,7 +27,7 @@
 	self.commentLabel.hidden = [entry.comments count] == 0;
 	
 	if (!self.commentLabel.hidden) {
-		WLComment* comment = [entry.comments firstObject];
+		WLComment* comment = [entry.comments lastObject];
 		self.commentLabel.text = comment.text;
 	}
 }

@@ -40,7 +40,7 @@
 		[self setupImageView:self.candy];
 		self.titleLabel.text = [NSString stringWithFormat:@"By %@", self.candy.contributor.name];
 	} else {
-		self.titleLabel.text = [self.candy.updatedAt stringWithFormat:@"MMMM dd, YYYY"];
+		self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", self.wrap.name];
 		self.imageView.height = 0;
 	}
 	__weak typeof(self)weakSelf = self;

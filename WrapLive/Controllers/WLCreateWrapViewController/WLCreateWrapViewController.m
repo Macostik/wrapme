@@ -43,15 +43,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	[self verifyStartAndDoneButton];
+	self.notChangedWrapName = _wrap.name;
 }
 
 - (WLWrap *)wrap {
 	if (!_wrap) {
 		_wrap = [WLWrap entry];
 		self.isNewWrap = YES;
-	}
-	else {
-		self.notChangedWrapName = _wrap.name;
 	}
 	return _wrap;
 }

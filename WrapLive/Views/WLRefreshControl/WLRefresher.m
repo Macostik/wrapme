@@ -24,8 +24,13 @@
 	BOOL _refreshing;
 }
 
-static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
-static NSString* WlRefresherPanningStateKeyPath = @"panGestureRecognizer.state";
+- (void)dealloc {
+	[self removeObserver:self forKeyPath:WlRefresherContentOffsetKeyPath context:NULL];
+	[self removeObserver:self forKeyPath:WlRefresherPanningStateKeyPath context:NULL];
+}
+
+static NSString* WlRefresherContentOffsetKeyPath = @"scrollView.contentOffset";
+static NSString* WlRefresherPanningStateKeyPath = @"scrollView.panGestureRecognizer.state";
 
 +(WLRefresher *)refresherWithScrollView:(UIScrollView *)scrollView refreshBlock:(void (^)(WLRefresher *))refreshBlock {
 	WLRefresher* refresher = [self refresherWithScrollView:scrollView];
@@ -53,8 +58,8 @@ static NSString* WlRefresherPanningStateKeyPath = @"panGestureRecognizer.state";
 	refresher.direction = direction;
 	refresher.scrollView = scrollView;
 	refresher.backgroundColor = [UIColor WL_orangeColor];
-	[scrollView addObserver:refresher forKeyPath:WlRefresherContentOffsetKeyPath options:NSKeyValueObservingOptionNew context:NULL];
-	[scrollView addObserver:refresher forKeyPath:WlRefresherPanningStateKeyPath options:NSKeyValueObservingOptionNew context:NULL];
+	[refresher addObserver:refresher forKeyPath:WlRefresherContentOffsetKeyPath options:NSKeyValueObservingOptionNew context:NULL];
+	[refresher addObserver:refresher forKeyPath:WlRefresherPanningStateKeyPath options:NSKeyValueObservingOptionNew context:NULL];
 	[scrollView addSubview:refresher];
 	refresher.spinner.center = spinnerCenter;
 	return refresher;

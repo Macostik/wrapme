@@ -90,10 +90,15 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	};
 }
 
-- (WLAFNetworkingFailureBlock)failureBlock:(WLAPIManagerFailureBlock)failure {
+- (WLAFNetworkingFailureBlock)failureBlock:(WLAPIManagerFailureBlock)failure success:(WLAPIManagerSuccessBlock)success {
 	return ^(AFHTTPRequestOperation *operation, NSError *error) {
 		DDLogDebug(@"%@", error);
-		failure(error);
+		NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
+		if (response && response.statusCode == 401) {
+			[self signIn:[WLSession user] success:success failure:failure];
+		} else {
+			failure(error);
+		}
 	};
 }
 
@@ -113,7 +118,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	return [self POST:@"users"
 		   parameters:parameters
 			  success:[self successBlock:success withObject:objectBlock failure:failure]
-			  failure:[self failureBlock:failure]];
+			  failure:[self failureBlock:failure success:success]];
 }
 
 - (id)activate:(WLUser *)user
@@ -136,7 +141,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	return [self POST:@"users/activate"
 		   parameters:parameters
 			  success:[self successBlock:success withObject:objectBlock failure:failure]
-			  failure:[self failureBlock:failure]];
+			  failure:[self failureBlock:failure success:success]];
 }
 
 - (id)signIn:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
@@ -154,7 +159,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	return [self POST:@"users/sign_in"
 		   parameters:parameters
 			  success:[self successBlock:success withObject:objectBlock failure:failure]
-			  failure:[self failureBlock:failure]];
+			  failure:[self failureBlock:failure success:success]];
 }
 
 - (id)me:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
@@ -169,7 +174,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	return [self GET:@"users/me"
 		  parameters:parameters
 			 success:[self successBlock:success withObject:objectBlock failure:failure]
-			 failure:[self failureBlock:failure]];
+			 failure:[self failureBlock:failure success:success]];
 }
 
 - (id)updateMe:(WLUser *)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
@@ -187,7 +192,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		   parameters:parameters
 			 filePath:user.picture.large
 			  success:[self successBlock:success withObject:objectBlock failure:failure]
-			  failure:[self failureBlock:failure]];
+			  failure:[self failureBlock:failure success:success]];
 }
 
 - (id)contributors:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
@@ -209,7 +214,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		[weakSelf GET:@"users/sign_up_status"
 		   parameters:parameters
 			  success:[weakSelf successBlock:success withObject:objectBlock failure:failure]
-			  failure:[weakSelf failureBlock:failure]];
+			  failure:[weakSelf failureBlock:failure success:success]];
 	} failure:failure];
 	return nil;
 }
@@ -248,7 +253,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	return [self GET:@"wraps"
 		  parameters:parameters
 			 success:[self successBlock:success withObject:objectBlock failure:failure]
-			 failure:[self failureBlock:failure]];
+			 failure:[self failureBlock:failure success:success]];
 }
 
 - (id)createWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
@@ -267,7 +272,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		   parameters:parameters
 			 filePath:wrap.picture.large
 			  success:[self successBlock:success withObject:objectBlock failure:failure]
-			  failure:[self failureBlock:failure]];
+			  failure:[self failureBlock:failure success:success]];
 }
 
 - (id)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
@@ -299,7 +304,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		   parameters:nil
 			 filePath:candy.picture.large
 			  success:[self successBlock:success withObject:objectBlock failure:failure]
-			  failure:[self failureBlock:failure]];
+			  failure:[self failureBlock:failure success:success]];
 }
 
 - (id)candies:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
@@ -315,7 +320,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	return [self GET:path
 		  parameters:nil
 			 success:[self successBlock:success withObject:objectBlock failure:failure]
-			 failure:[self failureBlock:failure]];
+			 failure:[self failureBlock:failure success:success]];
 }
 
 - (id)candyInfo:(WLCandy *)candy forWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
@@ -328,7 +333,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	return [self GET:path
 		  parameters:nil
 			 success:[self successBlock:success withObject:objectBlock failure:failure]
-			 failure:[self failureBlock:failure]];
+			 failure:[self failureBlock:failure success:success]];
 }
 
 - (id)addComment:(WLComment*)comment
@@ -352,7 +357,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		return [self POST:path
 			   parameters:parameters
 				  success:[self successBlock:success withObject:objectBlock failure:failure]
-				  failure:[self failureBlock:failure]];
+				  failure:[self failureBlock:failure success:success]];
 	}
 	else {
 		WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
@@ -366,7 +371,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		return [self POST:path
 			   parameters:parameters
 				  success:[self successBlock:success withObject:objectBlock failure:failure]
-				  failure:[self failureBlock:failure]];
+				  failure:[self failureBlock:failure success:success]];
 	}
 	
 }

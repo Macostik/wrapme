@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Welcome View Controller-->
@@ -679,20 +679,26 @@
                                                     <rect key="frame" x="80" y="71" width="160" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="12screen_img_cover" id="wHH-jF-BAZ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="12screen_img_candy_on_transparent_bg" id="Dbt-xA-QUe">
+                                                            <rect key="frame" x="0.0" y="0.0" width="160" height="130"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        </imageView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="wHH-jF-BAZ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="160" height="130"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" id="RyS-AW-1l2">
-                                                            <rect key="frame" x="0.0" y="125" width="160" height="35"/>
+                                                            <rect key="frame" x="0.0" y="130" width="160" height="30"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <subviews>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="12screen_ic_camera_enable" id="MEB-ll-Gzm">
-                                                                    <rect key="frame" x="120" y="2" width="30" height="30"/>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="12screen_ic_camera_opasity_lens" id="MEB-ll-Gzm">
+                                                                    <rect key="frame" x="120" y="2" width="26" height="26"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                                 </imageView>
                                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cover image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rht-PT-RVO">
-                                                                    <rect key="frame" x="25" y="7" width="87" height="21"/>
+                                                                    <rect key="frame" x="25" y="4" width="87" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
@@ -704,6 +710,7 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="P0k-mt-RDJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <state key="normal">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
@@ -1379,14 +1386,14 @@
         <image name="06screen_icon_back" width="8" height="22"/>
         <image name="08screen_ic_search_enabled" width="16" height="16"/>
         <image name="09screen_ic_back_enabled" width="10" height="24"/>
-        <image name="12screen_ic_camera_enable" width="26" height="26"/>
+        <image name="12screen_ic_camera_opasity_lens" width="26" height="26"/>
         <image name="12screen_ic_plus_enabled" width="16" height="16"/>
         <image name="12screen_ic_remove_user_enabled" width="16" height="16"/>
-        <image name="12screen_img_cover" width="160" height="160"/>
+        <image name="12screen_img_candy_on_transparent_bg" width="96" height="42"/>
         <image name="13screen_ic_deselected" width="22" height="22"/>
         <image name="13screen_ic_selected" width="22" height="22"/>
         <image name="14screen_ic_photo_enabled" width="84" height="84"/>
-        <image name="Default-568h@2x.png" width="8" height="22"/>
+        <image name="Default-568h@2x.png" width="8" height="24"/>
         <image name="ic_128" width="64" height="64"/>
         <image name="ic_camera" width="76" height="76"/>
         <image name="ic_camera_orange" width="30" height="30"/>

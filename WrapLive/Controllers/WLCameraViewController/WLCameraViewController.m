@@ -13,6 +13,7 @@
 #import "UIImage+Resize.h"
 #import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
+#import "ALAssetsLibrary+CustomPhotoAlbum.h"
 
 @interface WLCameraViewController ()
 
@@ -30,6 +31,8 @@
 @property (weak, nonatomic) IBOutlet UIView *acceptView;
 @property (weak, nonatomic) IBOutlet UIView *acceptButtonsView;
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
+
+@property (nonatomic) NSDictionary* metadata;
 
 @end
 
@@ -104,7 +107,9 @@
 }
 
 - (IBAction)use:(id)sender {
-	[self.delegate cameraViewController:self didFinishWithImage:self.acceptImageView.image];
+	UIImage* image = self.acceptImageView.image;
+	[self saveImage:image];
+	[self.delegate cameraViewController:self didFinishWithImage:image];
 }
 
 - (void)setAcceptImage:(UIImage *)acceptImage animated:(BOOL)animated {
@@ -131,6 +136,18 @@
 			self.acceptImageView.image = acceptImage;
 		}
 	}];
+}
+
+- (void)saveImage:(UIImage*)image {
+	__weak typeof(self)weakSelf = self;
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
+		[library saveImage:image
+				   toAlbum:@"WrapLive"
+				  metadata:weakSelf.metadata
+				completion:^(NSURL *assetURL, NSError *error) { }
+				   failure:^(NSError *error) { }];
+    });
 }
 
 #pragma mark - AVCaptureSession
@@ -243,12 +260,14 @@
 	
     AVCaptureConnection *videoConnection = [self videoConnection];
     videoConnection.videoMirrored = self.front;
+	__weak typeof(self)weakSelf = self;
     [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection
                                                        completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
                                                            UIImage* image = nil;
                                                            if (!error) {
                                                                NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
                                                                image = [[UIImage alloc] initWithData:imageData];
+															   weakSelf.metadata = (__bridge NSDictionary *)(CMCopyDictionaryOfAttachments(NULL, imageSampleBuffer, kCMAttachmentMode_ShouldPropagate));
                                                            }
                                                            completion(image);
                                                        }];

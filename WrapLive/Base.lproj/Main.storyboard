@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Welcome View Controller-->
@@ -679,12 +679,7 @@
                                                     <rect key="frame" x="80" y="71" width="160" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="12screen_img_candy_on_transparent_bg" id="Dbt-xA-QUe">
-                                                            <rect key="frame" x="0.0" y="0.0" width="160" height="130"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        </imageView>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="wHH-jF-BAZ">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_candy" id="wHH-jF-BAZ">
                                                             <rect key="frame" x="0.0" y="0.0" width="160" height="130"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1389,7 +1384,6 @@
         <image name="12screen_ic_camera_opasity_lens" width="26" height="26"/>
         <image name="12screen_ic_plus_enabled" width="16" height="16"/>
         <image name="12screen_ic_remove_user_enabled" width="16" height="16"/>
-        <image name="12screen_img_candy_on_transparent_bg" width="96" height="42"/>
         <image name="13screen_ic_deselected" width="22" height="22"/>
         <image name="13screen_ic_selected" width="22" height="22"/>
         <image name="14screen_ic_photo_enabled" width="84" height="84"/>
@@ -1398,6 +1392,7 @@
         <image name="ic_camera" width="76" height="76"/>
         <image name="ic_camera_orange" width="30" height="30"/>
         <image name="ic_camera_white" width="30" height="30"/>
+        <image name="ic_candy" width="160" height="130"/>
         <image name="ic_chat_orange" width="30" height="30"/>
         <image name="ic_chat_white" width="30" height="30"/>
         <image name="screen01_logo" width="98" height="80"/>

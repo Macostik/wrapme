@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		120D651818EC729600CBE723 /* WLProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 120D651718EC729600CBE723 /* WLProgressView.m */; };
 		120D651A18EC729F00CBE723 /* WLProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 120D651918EC729F00CBE723 /* WLProgressView.xib */; };
+		120ED84F18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 120ED84E18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215DC7A18E4421700FCA744 /* NSArray+Additions.m */; };
 		1215DC7F18E4485800FCA744 /* UIStoryboard+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215DC7E18E4485800FCA744 /* UIStoryboard+Additions.m */; };
 		121B1B2E18E07430001F585C /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
@@ -101,6 +102,8 @@
 		120D651618EC729600CBE723 /* WLProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLProgressView.h; sourceTree = "<group>"; };
 		120D651718EC729600CBE723 /* WLProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLProgressView.m; sourceTree = "<group>"; };
 		120D651918EC729F00CBE723 /* WLProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLProgressView.xib; sourceTree = "<group>"; };
+		120ED84D18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
+		120ED84E18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
 		1215DC7918E4421700FCA744 /* NSArray+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Additions.h"; sourceTree = "<group>"; };
 		1215DC7A18E4421700FCA744 /* NSArray+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Additions.m"; sourceTree = "<group>"; };
 		1215DC7D18E4485800FCA744 /* UIStoryboard+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIStoryboard+Additions.h"; path = "UIStoryboard/UIStoryboard+Additions.h"; sourceTree = "<group>"; };
@@ -273,6 +276,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		120ED84C18F2E53700C35505 /* ALAssetsLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				120ED84D18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.h */,
+				120ED84E18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m */,
+			);
+			path = ALAssetsLibrary;
+			sourceTree = "<group>";
+		};
 		1215DC7818E4421700FCA744 /* NSArray */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,6 +811,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				120ED84C18F2E53700C35505 /* ALAssetsLibrary */,
 				12E8FF1818E97D1F00BF1B96 /* UIImageView */,
 				12976ECB18E5D6E300C5F2A9 /* NSDictionary */,
 				1215DC7C18E4484000FCA744 /* UIStoryboard */,
@@ -1102,6 +1115,7 @@
 				12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */,
 				12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */,
 				128886AD18DC493B00957B22 /* WLSession.m in Sources */,
+				120ED84F18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */,
 				12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */,
 				12976ECE18E5D6E300C5F2A9 /* NSDictionary+Extended.m in Sources */,

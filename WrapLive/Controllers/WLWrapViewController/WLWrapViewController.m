@@ -68,7 +68,7 @@
 		WLCandy* candy = [candies firstObject];
 		NSArray *dayCandies = [WLWrap candiesForDate:candy.updatedAt inArray:candies];
 		WLWrapDay * wrapDay = [WLWrapDay new];
-		wrapDay.modified = candy.updatedAt;
+		wrapDay.updatedAt = candy.updatedAt;
 		wrapDay.candies = dayCandies;
 		[wrapDays addObject:wrapDay];
 		[candies removeObjectsInArray:dayCandies];

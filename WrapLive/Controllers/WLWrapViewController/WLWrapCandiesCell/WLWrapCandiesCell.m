@@ -28,7 +28,7 @@
 }
 
 - (void)setupItemData:(WLWrapDay*)entry {
-	self.dateLabel.text = [entry.modified stringWithFormat:@"MMM dd, YYYY"];
+	self.dateLabel.text = [entry.updatedAt stringWithFormat:@"MMM dd, YYYY"];
 	[self.collectionView reloadData];
 }
 

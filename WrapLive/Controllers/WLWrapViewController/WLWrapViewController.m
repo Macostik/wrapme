@@ -59,6 +59,18 @@
 	}
 }
 
+- (UIViewController *)shakePresentedViewController {
+	return [self cameraViewController];
+}
+
+- (WLCameraViewController*)cameraViewController {
+	WLCameraViewController* cameraController = [self.storyboard cameraViewController];
+	cameraController.delegate = self;
+	cameraController.mode = WLCameraModeFullSize;
+	cameraController.backfacingByDefault = YES;
+	return cameraController;
+}
+
 - (void) sortCandiesInWrap {
 	NSMutableArray* candies = [self.wrap.candies mutableCopy];
 	

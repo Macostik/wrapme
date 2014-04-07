@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLShakeViewController.h"
 
 @class WLCandy;
 @class WLWrap;
 
-@interface WLWrapDataViewController : UIViewController
+@interface WLWrapDataViewController : WLShakeViewController
 
 @property (strong, nonatomic) WLCandy *candy;
 @property (strong, nonatomic) WLWrap *wrap;

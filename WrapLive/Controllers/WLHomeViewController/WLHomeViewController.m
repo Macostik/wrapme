@@ -75,6 +75,18 @@
 	}
 }
 
+- (UIViewController *)shakePresentedViewController {
+	return [self cameraViewController];
+}
+
+- (WLCameraViewController*)cameraViewController {
+	WLCameraViewController* cameraController = [self.storyboard cameraViewController];
+	cameraController.delegate = self;
+	cameraController.mode = WLCameraModeFullSize;
+	cameraController.backfacingByDefault = YES;
+	return cameraController;
+}
+
 - (void)setupRefresh {
 	self.refresh = [[UIRefreshControl alloc] init];
 	self.refresh.tintColor = [UIColor WL_grayColor];
@@ -329,11 +341,7 @@
 		controller.wrap = self.topWrap;
 		[self.navigationController pushViewController:controller animated:YES];
 	} else {
-		WLCameraViewController* cameraController = [self.storyboard cameraViewController];
-		cameraController.delegate = self;
-		cameraController.mode = WLCameraModeFullSize;
-		cameraController.backfacingByDefault = YES;
-		[self presentViewController:cameraController animated:YES completion:nil];
+		[self presentViewController:[self cameraViewController] animated:YES completion:nil];
 	}
 }
 

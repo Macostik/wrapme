@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLShakeViewController.h"
 
-@interface WLHomeViewController : UIViewController
+@interface WLHomeViewController : WLShakeViewController
 
 @end

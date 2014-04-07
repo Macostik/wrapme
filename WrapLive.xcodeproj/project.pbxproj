@@ -37,6 +37,7 @@
 		129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */; };
 		129654F518E1CB3000FF43F6 /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
 		12976ECE18E5D6E300C5F2A9 /* NSDictionary+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 12976ECD18E5D6E300C5F2A9 /* NSDictionary+Extended.m */; };
+		12A6BFA818F2A6C900AE3B62 /* WLShakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A6BFA718F2A6C900AE3B62 /* WLShakeViewController.m */; };
 		12A7A70318DA0945008FF6F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70218DA0945008FF6F0 /* Foundation.framework */; };
 		12A7A70518DA0945008FF6F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */; };
 		12A7A70718DA0945008FF6F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70618DA0945008FF6F0 /* UIKit.framework */; };
@@ -146,6 +147,8 @@
 		129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLInputAccessoryView.xib; path = WLInputAccessoryView/WLInputAccessoryView.xib; sourceTree = "<group>"; };
 		12976ECC18E5D6E300C5F2A9 /* NSDictionary+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extended.h"; sourceTree = "<group>"; };
 		12976ECD18E5D6E300C5F2A9 /* NSDictionary+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extended.m"; sourceTree = "<group>"; };
+		12A6BFA618F2A6C900AE3B62 /* WLShakeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLShakeViewController.h; sourceTree = "<group>"; };
+		12A6BFA718F2A6C900AE3B62 /* WLShakeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLShakeViewController.m; sourceTree = "<group>"; };
 		12A7A6FF18DA0945008FF6F0 /* WrapLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WrapLive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12A7A70218DA0945008FF6F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -453,6 +456,15 @@
 			path = NSDictionary;
 			sourceTree = "<group>";
 		};
+		12A6BFA518F2A6C900AE3B62 /* WLShakeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				12A6BFA618F2A6C900AE3B62 /* WLShakeViewController.h */,
+				12A6BFA718F2A6C900AE3B62 /* WLShakeViewController.m */,
+			);
+			path = WLShakeViewController;
+			sourceTree = "<group>";
+		};
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
@@ -514,6 +526,7 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				12A6BFA518F2A6C900AE3B62 /* WLShakeViewController */,
 				ACAAE6D118E5C393000C4775 /* WLWrapDataViewController */,
 				129654E818E1A5A200FF43F6 /* WLContributorsViewController */,
 				129654E418E1A15700FF43F6 /* WLCreateWrapViewController */,
@@ -1062,6 +1075,7 @@
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
 				12E8FF2918E9B59200BF1B96 /* UIImage+WLStoring.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
+				12A6BFA818F2A6C900AE3B62 /* WLShakeViewController.m in Sources */,
 				12E8FF1718E960E000BF1B96 /* StreamView.m in Sources */,
 				12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */,
 				ACCF9B9118E1868200A7429F /* WLActivationViewController.m in Sources */,

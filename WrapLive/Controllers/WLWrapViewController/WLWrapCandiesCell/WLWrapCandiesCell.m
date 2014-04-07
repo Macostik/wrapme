@@ -12,11 +12,14 @@
 #import "WLWrapCandyCell.h"
 #import "WLCandy.h"
 #import "NSObject+NibAdditions.h"
+#import "WLRefresher.h"
 
 @interface WLWrapCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+@property (weak, nonatomic) WLRefresher *refresher;
 
 @end
 
@@ -25,6 +28,9 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	[self.collectionView registerNib:[WLWrapCandyCell nib] forCellWithReuseIdentifier:[WLWrapCandyCell reuseIdentifier]];
+	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
+		[self.refresher performSelector:@selector(endRefreshing) withObject:nil afterDelay:1];
+	}];
 }
 
 - (void)setupItemData:(WLWrapDay*)entry {

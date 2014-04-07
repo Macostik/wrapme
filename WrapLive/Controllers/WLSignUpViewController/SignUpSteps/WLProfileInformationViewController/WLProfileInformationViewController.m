@@ -16,6 +16,7 @@
 #import "UIView+Shorthand.h"
 #import "UIImage+WLStoring.h"
 #import "UIColor+CustomColors.h"
+#import "UIImage+Resize.h"
 
 static NSInteger WLProfileNameLimit = 40;
 
@@ -91,7 +92,9 @@ static NSInteger WLProfileNameLimit = 40;
 }
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
-	self.profileImageView.image = image;
+	self.profileImageView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
+															  bounds:self.profileImageView.retinaSize
+												interpolationQuality:kCGInterpolationDefault];
 	[self saveImage:image];
 	[self.signUpViewController dismissViewControllerAnimated:YES completion:nil];
 }

@@ -19,6 +19,8 @@
 #import "UIImage+WLStoring.h"
 #import "WLProgressView.h"
 #import "UIImageView+ImageLoading.h"
+#import "UIImage+Resize.h"
+#import "UIView+Shorthand.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
 
@@ -167,7 +169,9 @@
 #pragma mark - WLCameraViewControllerDelegate
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
-	self.coverView.image = image;
+	self.coverView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
+													   bounds:self.coverView.retinaSize
+										 interpolationQuality:kCGInterpolationDefault];
 	__weak typeof(self)weakSelf = self;
 	[image storeAsCover:^(NSString *path) {
 		weakSelf.editingWrap.picture.large = path;

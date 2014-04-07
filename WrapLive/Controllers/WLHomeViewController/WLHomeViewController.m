@@ -76,7 +76,7 @@
 }
 
 - (UIViewController *)shakePresentedViewController {
-	return [self cameraViewController];
+	return self.topWrap ? [self cameraViewController] : nil;
 }
 
 - (WLCameraViewController*)cameraViewController {

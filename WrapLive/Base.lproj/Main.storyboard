@@ -18,6 +18,10 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="Xgj-dB-Wxq">
+                                <rect key="frame" x="150" y="374" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0BE-1R-lZi">
                                 <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -38,6 +42,7 @@
                     <connections>
                         <outlet property="backgroundView" destination="RmV-X8-6kT" id="73g-b3-MjL"/>
                         <outlet property="continueButton" destination="0BE-1R-lZi" id="zAA-XY-q9r"/>
+                        <outlet property="spinner" destination="Xgj-dB-Wxq" id="ku1-UN-L6O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -362,6 +367,22 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <view contentMode="scaleToFill" id="y32-ka-yc8">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default-568h@2x.png" id="dmC-Zy-uON">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="J99-QW-R42">
+                                        <rect key="frame" x="150" y="374" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="top" id="x1Z-xh-FDY" customClass="WLComposeContainer">
                                 <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -565,12 +586,14 @@
                     <navigationItem key="navigationItem" id="cIa-CV-SVl"/>
                     <connections>
                         <outlet property="composeContainer" destination="x1Z-xh-FDY" id="0eb-ga-TRQ"/>
+                        <outlet property="createWrapButton" destination="N9L-im-ajd" id="UA9-hL-ZEh"/>
                         <outlet property="footerSpinner" destination="WIL-lX-HhZ" id="fa6-bP-Pxn"/>
                         <outlet property="headerView" destination="jJG-aX-3kt" id="gxW-6y-4Ni"/>
                         <outlet property="headerWrapAuthorsLabel" destination="XaE-0l-eeL" id="LAB-WQ-dBZ"/>
                         <outlet property="headerWrapCreatedAtLabel" destination="vDq-P9-Hwl" id="hUP-dN-2lf"/>
                         <outlet property="headerWrapNameLabel" destination="Twb-Mn-vNw" id="6ZB-Ct-bd3"/>
                         <outlet property="headerWrapView" destination="8Kg-Jf-uq1" id="jNM-aj-hJD"/>
+                        <outlet property="loadingView" destination="y32-ka-yc8" id="K13-ms-CKc"/>
                         <outlet property="navigationBar" destination="9Rl-cW-5hv" id="9kd-xs-4J2"/>
                         <outlet property="noWrapsView" destination="qRl-9j-QTf" id="Z4q-Kd-Qec"/>
                         <outlet property="tableFooterView" destination="bKJ-wq-ugz" id="qY1-NS-Gj0"/>

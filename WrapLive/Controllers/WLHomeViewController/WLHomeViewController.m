@@ -48,6 +48,8 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *footerSpinner;
 @property (strong, nonatomic) UIRefreshControl *refresh;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
+@property (weak, nonatomic) IBOutlet UIView *loadingView;
+@property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 
 @end
 
@@ -60,7 +62,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	self.navigationBar.y = -self.navigationBar.height;
+	self.navigationBar.transform = CGAffineTransformMakeTranslation(0, -self.navigationBar.height);
+	self.createWrapButton.transform = CGAffineTransformMakeTranslation(0, self.createWrapButton.height);
 	self.composeContainer.hidden = YES;
 	self.noWrapsView.hidden = YES;
 	[self setupRefresh];
@@ -132,11 +135,25 @@
 		[weakSelf validateFooterWithObjectsCount:object.count];
 		weakSelf.loading = NO;
 		[weakSelf.refresh endRefreshing];
+		[weakSelf finishLoadingAnimation];
 	} failure:^(NSError *error) {
 		weakSelf.loading = NO;
 		[weakSelf.refresh endRefreshing];
 		[error show];
+		[weakSelf finishLoadingAnimation];
 	}];
+}
+
+- (void)finishLoadingAnimation {
+	if (!CGAffineTransformIsIdentity(self.createWrapButton.transform)) {
+		__weak typeof(self)weakSelf = self;
+		[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+			weakSelf.loadingView.alpha = 0.0f;
+			weakSelf.createWrapButton.transform = CGAffineTransformIdentity;
+		} completion:^(BOOL finished) {
+			[weakSelf.loadingView removeFromSuperview];
+		}];
+	}
 }
 
 - (void) validateFooterWithObjectsCount:(int)count {
@@ -161,10 +178,12 @@
 	self.topWrap = topWrap;
 	[self.tableView reloadData];
 	
-	if (topWrap && self.navigationBar.y != 0) {
-		[UIView beginAnimations:nil context:nil];
-		self.navigationBar.y = 0;
-		[UIView commitAnimations];
+	if (topWrap && !CGAffineTransformIsIdentity(self.navigationBar.transform)) {
+		__weak typeof(self)weakSelf = self;
+		[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+			weakSelf.navigationBar.transform = CGAffineTransformIdentity;
+		} completion:^(BOOL finished) {
+		}];
 	}
 }
 

@@ -16,6 +16,7 @@
 @interface WLWelcomeViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 
 @end
@@ -25,9 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-
-//	NSArray *navigationArray = @[[self.storyboard homeViewController]];
-//	[self.navigationController setViewControllers:navigationArray];
 	
 	if ([WLSession activated]) {
 		self.continueButton.transform = CGAffineTransformMakeTranslation(0, self.continueButton.frame.size.height);
@@ -37,7 +35,10 @@
 			[UIView beginAnimations:nil context:nil];
 			weakSelf.continueButton.transform = CGAffineTransformIdentity;
 			[UIView commitAnimations];
+			[weakSelf.spinner removeFromSuperview];
 		}];
+	} else {
+		[self.spinner removeFromSuperview];
 	}
 }
 

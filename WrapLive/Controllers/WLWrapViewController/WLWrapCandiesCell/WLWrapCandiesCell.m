@@ -13,13 +13,16 @@
 #import "WLCandy.h"
 #import "NSObject+NibAdditions.h"
 #import "WLRefresher.h"
+#import "NSArray+Additions.h"
 
-@interface WLWrapCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface WLWrapCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (weak, nonatomic) WLRefresher *refresher;
+
+@property (nonatomic) BOOL shouldAppendMoreCandies;
 
 @end
 
@@ -34,7 +37,16 @@
 }
 
 - (void)setupItemData:(WLWrapDay*)entry {
+	self.shouldAppendMoreCandies = [entry.candies count] % 10 == 0;
 	self.dateLabel.text = [entry.updatedAt stringWithFormat:@"MMM dd, YYYY"];
+	[self.collectionView reloadData];
+}
+
+- (void)appendCandies {
+	// this is temporary code
+	WLWrapDay* wrapDay = self.item;
+	self.shouldAppendMoreCandies = [wrapDay.candies count] % 10 == 0;
+	wrapDay.candies = [wrapDay.candies arrayByAddingObjectsFromArray:wrapDay.candies];
 	[self.collectionView reloadData];
 }
 
@@ -48,6 +60,24 @@
 	WLWrapDay* wrapDay = self.item;
 	cell.item = [wrapDay.candies objectAtIndex:indexPath.item];
 	return cell;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+	if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
+		[self performSelector:@selector(appendCandies) withObject:nil afterDelay:0.0f];
+		static NSString* WLWrapDayLoadingViewIdentifier = @"WLWrapDayLoadingView";
+		return [collectionView dequeueReusableSupplementaryViewOfKind:kind
+												  withReuseIdentifier:WLWrapDayLoadingViewIdentifier
+														 forIndexPath:indexPath];
+	}
+	return nil;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+	if (self.shouldAppendMoreCandies) {
+		return CGSizeMake(100, 100);
+	}
+	return CGSizeZero;
 }
 
 #pragma mark - UICollectionViewDelegate

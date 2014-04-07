@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLShakeViewController.h"
 
 @class WLWrap;
 
-@interface WLContributorsViewController : UIViewController
+@interface WLContributorsViewController : WLShakeViewController
 
 @property (nonatomic, strong) WLWrap* wrap;
 

@@ -341,7 +341,7 @@
                                         <rect key="frame" x="116" y="20" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" image="08screen_ic_camera_enabled">
+                                        <state key="normal" image="ic_camera_white">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -352,7 +352,7 @@
                                         <rect key="frame" x="160" y="20" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" image="08screen_ic_chat_enabled">
+                                        <state key="normal" image="ic_chat_white">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -979,10 +979,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OPi-5r-EKQ">
-                                <rect key="frame" x="219" y="27" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="212" y="20" width="44" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" image="09screen_ic_camera_enabled">
+                                <state key="normal" image="ic_camera_orange">
                                     <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -991,10 +991,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8kR-VI-DgA">
-                                <rect key="frame" x="263" y="27" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="256" y="20" width="44" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" image="09screen_ic_chat_enabled">
+                                <state key="normal" image="ic_chat_orange">
                                     <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1367,12 +1367,8 @@
         <image name="00screen_ic_arrow" width="8" height="24"/>
         <image name="03screen_complited_step_tick_orange" width="16" height="16"/>
         <image name="06screen_icon_back" width="8" height="22"/>
-        <image name="08screen_ic_camera_enabled" width="30" height="30"/>
-        <image name="08screen_ic_chat_enabled" width="30" height="30"/>
         <image name="08screen_ic_search_enabled" width="16" height="16"/>
         <image name="09screen_ic_back_enabled" width="10" height="24"/>
-        <image name="09screen_ic_camera_enabled" width="30" height="30"/>
-        <image name="09screen_ic_chat_enabled" width="30" height="30"/>
         <image name="12screen_ic_camera_enable" width="26" height="26"/>
         <image name="12screen_ic_plus_enabled" width="16" height="16"/>
         <image name="12screen_ic_remove_user_enabled" width="16" height="16"/>
@@ -1383,6 +1379,10 @@
         <image name="Default-568h@2x.png" width="320" height="568"/>
         <image name="ic_128" width="64" height="64"/>
         <image name="ic_camera" width="76" height="76"/>
+        <image name="ic_camera_orange" width="30" height="30"/>
+        <image name="ic_camera_white" width="30" height="30"/>
+        <image name="ic_chat_orange" width="30" height="30"/>
+        <image name="ic_chat_white" width="30" height="30"/>
         <image name="screen01_logo" width="98" height="80"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

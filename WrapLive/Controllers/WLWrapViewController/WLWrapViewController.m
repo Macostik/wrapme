@@ -23,6 +23,7 @@
 #import "UIImage+WLStoring.h"
 #import "WLAPIManager.h"
 #import "WLProgressView.h"
+#import "WLComment.h"
 
 @interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate>
 
@@ -98,6 +99,14 @@
 }
 
 - (void)sendMessageWithText:(NSString*)text {
+	/*
+	[[WLAPIManager instance] addComment:[WLComment commentWithText:text] toCandy:nil fromWrap:self.wrap success:^(id object) {
+		
+	} failure:^(NSError *error) {
+		[error show];
+	}];
+	 404 Not Found  responce (waiting API)
+	 */
 	[[self.wrap actualConversation] addCommentWithText:text];
 	[self sortCandiesInWrap];
 }

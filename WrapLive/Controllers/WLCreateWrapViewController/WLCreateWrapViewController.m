@@ -110,6 +110,8 @@
 }
 - (IBAction)done:(UIButton *)sender {
 	__weak typeof(self)weakSelf = self;
+	NSError * tempError = [NSError errorWithDescription:@"Sorry, we didn't implement this feature, yet. Try later :)"];
+	[tempError show];
 	[[WLAPIManager instance] updateWrap:self.editingWrap success:^(id object) {
 		[weakSelf.wrap updateWithObject:object];
 		[weakSelf.wrap postNotificationForRequest:NO];

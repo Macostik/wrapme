@@ -224,6 +224,8 @@
 	 
 	 404 Not Found  responce (waiting API)
 	 */
+	NSError * tempError = [NSError errorWithDescription:@"Sorry, for now the chat candy saves only local. It will disappear after refreshing. Try later :)"];
+	[tempError show];
 	WLWrap* topWrap = self.topWrap;
 	WLCandy* conversation = [topWrap actualConversation];
 	[conversation addCommentWithText:text];
@@ -233,6 +235,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isWrapSegue]) {
 		WLWrap* wrap = [self.wraps objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+		NSError * tempError = [NSError errorWithDescription:@"Sorry, for now you can see candies only from latest (top) wrap. Try later :)"];
+		[tempError show];
 		[(WLWrapViewController* )segue.destinationViewController setWrap:wrap];
 	} else if ([segue isTopWrapSegue]) {
 		[(WLWrapViewController* )segue.destinationViewController setWrap:self.topWrap];

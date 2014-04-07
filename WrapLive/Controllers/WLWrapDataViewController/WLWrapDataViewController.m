@@ -115,6 +115,10 @@ static NSString* WLMyCommentCellIdentifier = @"MyWLCommentCell";
 			[error show];
 		}];
 	}
+	else {
+		NSError * tempError = [NSError errorWithDescription:@"Sorry, we didn't implement this feature, yet. Try later :)"];
+		[tempError show];
+	}
 	
 }
 

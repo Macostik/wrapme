@@ -340,11 +340,11 @@
 		candyView.item = [self.latestCandies objectAtIndex:item.index.row];
 		return candyView;
 	} else {
-		UILabel* placeholderLabel = [streamView reusableViewOfClass:[UILabel class]
+		UIImageView * placeholderView = [streamView reusableViewOfClass:[UIImageView class]
 															forItem:item
 														loadingType:StreamViewReusableViewLoadingTypeInit];
-		placeholderLabel.backgroundColor = [UIColor WL_grayColor];
-		return placeholderLabel;
+		placeholderView.image = [UIImage imageNamed:@"ic_candy"];
+		return placeholderView;
 	}
 }
 

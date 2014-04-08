@@ -23,7 +23,8 @@
 									@"country_calling_code":@"countryCallingCode",
 									@"dob_in_epoch":@"birthdate",
 									@"candy_uid":@"identifier",
-									@"candy_type":@"type"}];
+									@"candy_type":@"type",
+									@"chat_message":@"chatMessage"}];
 }
 
 - (WLPicture *)picture {

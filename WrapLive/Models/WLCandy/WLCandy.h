@@ -19,6 +19,7 @@ static NSInteger WLCandyTypeConversation = 20;
 
 @property (strong, nonatomic) NSArray<WLComment>* comments;
 @property (nonatomic) NSInteger type;
+@property (strong, nonatomic) NSString * chatMessage;
 
 - (void)addComment:(WLComment*)comment;
 

@@ -10,6 +10,7 @@
 #import "WLCandy.h"
 #import "UIImageView+ImageLoading.h"
 #import "WLComment.h"
+#import "WLUser.h"
 
 @interface WLWrapCandyCell ()
 
@@ -23,13 +24,26 @@
 
 - (void)setupItemData:(WLCandy*)entry {
 	self.coverView.image = nil;
-	self.coverView.imageUrl = entry.picture.thumbnail;
+	
 	self.chatLabelView.hidden = entry.type == WLCandyTypeImage;
-	self.commentLabel.hidden = [entry.comments count] == 0;
+	if (entry.type == WLCandyTypeImage) {
+		self.commentLabel.hidden = [entry.comments count] == 0;
+		self.coverView.imageUrl = entry.picture.thumbnail;
+	}
+	else {
+		self.commentLabel.hidden = !entry.chatMessage.length > 0;
+		self.coverView.imageUrl = entry.contributor.picture.medium;
+	}
 	
 	if (!self.commentLabel.hidden) {
-		WLComment* comment = [entry.comments lastObject];
-		self.commentLabel.text = comment.text;
+		if (entry.type == WLCandyTypeImage) {
+			WLComment* comment = [entry.comments lastObject];
+			self.commentLabel.text = comment.text;
+		}
+		else {
+			self.commentLabel.text = entry.chatMessage;
+		}
+		
 	}
 }
 

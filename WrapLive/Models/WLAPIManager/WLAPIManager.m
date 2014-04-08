@@ -364,7 +364,6 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		   failure:(WLAPIManagerFailureBlock)failure {
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-	[parameters trySetObject:comment.text forKey:@"message"];
 	
 	if (candy) {
 		WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
@@ -374,6 +373,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		};
 		
 		NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@/comments", wrap.identifier, candy.identifier];
+		
+		[parameters trySetObject:comment.text forKey:@"message"];
 		
 		return [self POST:path
 			   parameters:parameters
@@ -387,7 +388,9 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			return comment;
 		};
 		
-		NSString* path = [NSString stringWithFormat:@"wraps/%@/chats", wrap.identifier];
+		NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
+		
+		[parameters trySetObject:comment.text forKey:@"chat_message"];
 		
 		return [self POST:path
 			   parameters:parameters

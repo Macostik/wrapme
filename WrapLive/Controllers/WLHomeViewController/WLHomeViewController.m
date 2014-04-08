@@ -202,17 +202,12 @@
 }
 
 - (void)sendMessageWithText:(NSString*)text {
-	/*
+
 	[[WLAPIManager instance] addComment:[WLComment commentWithText:text] toCandy:nil fromWrap:self.topWrap success:^(id object) {
-		
+		[self fetchWraps:1];
 	} failure:^(NSError *error) {
 		[error show];
 	}];
-	 
-	 404 Not Found  responce (waiting API)
-	 */
-	NSError * tempError = [NSError errorWithDescription:@"Sorry, for now the chat candy saves only local. It will disappear after refreshing. Try later :)"];
-	[tempError show];
 	WLWrap* topWrap = self.topWrap;
 	WLCandy* conversation = [topWrap actualConversation];
 	[conversation addCommentWithText:text];

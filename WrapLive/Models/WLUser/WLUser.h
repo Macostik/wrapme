@@ -18,6 +18,8 @@
 
 - (BOOL)isEqualToUser:(WLUser*)user;
 
++ (NSArray*)removeCurrentUserFromArray:(NSArray*)users;
+
 @end
 
 @interface WLUser (CurrentUser)

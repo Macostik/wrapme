@@ -95,8 +95,7 @@
 		NSMutableArray *_objects = [self mutableCopy];
 		[_objects removeObjectsAtIndexes:indexes];
 		return [NSArray arrayWithArray:_objects];
-	}
-	else {
+	} else {
 		return self;
 	}
 }

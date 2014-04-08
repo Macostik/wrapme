@@ -21,6 +21,7 @@
 #import "UIImageView+ImageLoading.h"
 #import "UIImage+Resize.h"
 #import "UIView+Shorthand.h"
+#import "WLUser.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
 
@@ -65,6 +66,7 @@
 - (void)setWrap:(WLWrap *)wrap {
 	_wrap = wrap;
 	self.editingWrap = [wrap copy];
+	self.editingWrap.contributors = (id)[WLUser removeCurrentUserFromArray:wrap.contributors];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

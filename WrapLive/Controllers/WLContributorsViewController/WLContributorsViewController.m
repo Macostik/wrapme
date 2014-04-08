@@ -32,10 +32,10 @@
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] contributors:^(id object) {
-		weakSelf.contributors = object;
-		[self.spinner stopAnimating];
+		weakSelf.contributors = [WLUser removeCurrentUserFromArray:object];
+		[weakSelf.spinner stopAnimating];
 	} failure:^(NSError *error) {
-		[self.spinner stopAnimating];
+		[weakSelf.spinner stopAnimating];
 		[error show];
 	}];
 }

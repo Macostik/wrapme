@@ -9,6 +9,7 @@
 #import "WLUser.h"
 #import "NSDate+Formatting.h"
 #import "WLSession.h"
+#import "NSArray+Additions.h"
 
 @implementation WLUser
 
@@ -45,6 +46,12 @@
 	BOOL equalPhoneNumber = [self.phoneNumber isEqualToString:user.phoneNumber];
 	BOOL equalBirthdate = [self.birthdate compare:user.birthdate] == NSOrderedSame;
 	return equalPhoneNumber && equalBirthdate;
+}
+
++ (NSArray *)removeCurrentUserFromArray:(NSArray *)users {
+	return [users arrayByRemovingUniqueObject:[WLUser currentUser] equality:^BOOL(id first, id second) {
+		return [first isEqualToUser:second];
+	}];
 }
 
 @end

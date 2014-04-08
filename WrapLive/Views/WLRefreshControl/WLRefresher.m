@@ -105,7 +105,7 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 - (void)didChangeContentOffset:(CGPoint)offset {
 	if (self.direction == WLRefresherScrollDirectionHorizontal) {
 		if (offset.x < 0) {
-			CGFloat rotation = MIN(66, ABS(offset.x))/66;
+			CGFloat rotation = MIN(88, ABS(offset.x))/88;
 			self.arrowView.transform = CGAffineTransformMakeRotation(M_PI_2 + M_PI*rotation);
 			if (!self.scrollView.dragging) {
 				[self didEndDragging:self.scrollView.contentOffset];
@@ -113,7 +113,7 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 		}
 	} else {
 		if (offset.y < 0) {
-			CGFloat rotation = MIN(66, ABS(offset.y))/66;
+			CGFloat rotation = MIN(88, ABS(offset.y))/88;
 			self.arrowView.transform = CGAffineTransformMakeRotation(M_PI + M_PI*rotation);
 			if (!self.scrollView.dragging) {
 				[self didEndDragging:self.scrollView.contentOffset];
@@ -131,6 +131,7 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 			self.arrowView.hidden = YES;
 			[UIView beginAnimations:nil context:nil];
 			self.scrollView.contentInset = UIEdgeInsetsMake(0, 88, 0, 0);
+			self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 88, 0, 0);
 			[UIView commitAnimations];
 			[self sendActionsForControlEvents:UIControlEventValueChanged];
 		}
@@ -141,6 +142,7 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 			self.arrowView.hidden = YES;
 			[UIView beginAnimations:nil context:nil];
 			self.scrollView.contentInset = UIEdgeInsetsMake(88, 0, 0, 0);
+			self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(88, 0, 0, 0);
 			[UIView commitAnimations];
 			[self sendActionsForControlEvents:UIControlEventValueChanged];
 		}
@@ -151,6 +153,7 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 	_refreshing = NO;
 	[UIView beginAnimations:nil context:nil];
 	self.scrollView.contentInset = UIEdgeInsetsZero;
+	self.scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
 	[UIView commitAnimations];
 	[self.spinner stopAnimating];
 	self.arrowView.hidden = NO;

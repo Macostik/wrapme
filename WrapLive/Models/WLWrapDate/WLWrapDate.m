@@ -7,6 +7,7 @@
 //
 
 #import "WLWrapDate.h"
+#import "WLCandy.h"
 
 @implementation WLWrapDate
 
@@ -19,6 +20,12 @@
 		_candies = (id)[NSArray array];
 	}
 	return _candies;
+}
+
+- (void)addCandy:(WLCandy *)candy {
+	NSMutableArray* candies = [NSMutableArray arrayWithArray:self.candies];
+	[candies insertObject:candy atIndex:0];
+	self.candies = [candies copy];
 }
 
 @end

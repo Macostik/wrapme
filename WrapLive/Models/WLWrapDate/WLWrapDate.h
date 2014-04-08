@@ -8,10 +8,14 @@
 
 #import "WLEntry.h"
 
+@class WLCandy;
+
 @protocol WLCandy @end
 
 @interface WLWrapDate : WLEntry
 
 @property (strong, nonatomic) NSArray<WLCandy> *candies;
+
+- (void)addCandy:(WLCandy *)candy;
 
 @end

@@ -53,12 +53,13 @@
 
 - (void)refreshCandies {
 	__weak typeof(self)weakSelf = self;
-	WLWrapDate* wrapDay = [self.item copy];
+	WLWrapDate* currentWrapDay = self.item;
+	WLWrapDate* wrapDay = [currentWrapDay copy];
 	wrapDay.candies = nil;
 	[[WLAPIManager instance] candies:self.wrap date:wrapDay success:^(id object) {
 		weakSelf.shouldAppendMoreCandies = [object count] == 10;
-		wrapDay.candies = object;
-		weakSelf.item = wrapDay;
+		currentWrapDay.candies = object;
+		[weakSelf.collectionView reloadData];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
 		[error show];
@@ -67,7 +68,6 @@
 }
 
 - (void)appendCandies {
-	// this is temporary code
 	WLWrapDate* wrapDay = self.item;
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] candies:self.wrap date:wrapDay success:^(id object) {

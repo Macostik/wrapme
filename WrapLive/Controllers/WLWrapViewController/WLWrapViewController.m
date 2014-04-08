@@ -24,6 +24,7 @@
 #import "WLAPIManager.h"
 #import "WLProgressView.h"
 #import "WLComment.h"
+#import "WLRefresher.h"
 
 @interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate>
 
@@ -34,6 +35,8 @@
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
 @property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
 @property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
+
+@property (weak, nonatomic) WLRefresher *refresher;
 
 @end
 
@@ -51,14 +54,28 @@
 		weakSelf.contributorsLabel.text = names;
 	}];
 		
-	[[WLAPIManager instance] wrap:self.wrap success:^(WLWrap* wrap) {
+	[self refreshWrap];
+	
+	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
+		[weakSelf refreshWrap];
+	}];
+}
+
+- (void)refreshWrap {
+	__weak typeof(self)weakSelf = self;
+	WLWrap* wrap = [self.wrap copy];
+	wrap.dates = nil;
+	[[WLAPIManager instance] wrap:wrap success:^(WLWrap* wrap) {
 		if ([wrap.dates count] == 0) {
 			weakSelf.firstContributorView.alpha = 1.0f;
 			weakSelf.firstContributorWrapNameLabel.text = wrap.name;
 		}
+		[weakSelf.wrap updateWithObject:wrap];
 		[weakSelf.tableView reloadData];
+		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
 		[error show];
+		[weakSelf.refresher endRefreshing];
 	}];
 }
 

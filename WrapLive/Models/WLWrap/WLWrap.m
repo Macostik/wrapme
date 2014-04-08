@@ -29,9 +29,7 @@
 
 - (void)addCandy:(WLCandy *)candy {
 	WLWrapDate* date = [self actualDate];
-	NSMutableArray* candies = [NSMutableArray arrayWithArray:date.candies];
-	[candies insertObject:candy atIndex:0];
-	date.candies = [candies copy];
+	[date addCandy:candy];
 	self.updatedAt = [NSDate date];
 }
 
@@ -64,19 +62,18 @@
 }
 
 - (WLCandy *)actualConversation {
-	NSArray* dates = [WLEntry entriesForDate:[NSDate date] inArray:self.dates];
+	WLWrapDate* date = [self actualDate];
 	
-	for (WLWrapDate* date in dates) {
-		for (WLCandy* candy in date.candies) {
-			if (candy.type == WLCandyTypeConversation) {
-				return candy;
-			}
+	for (WLCandy* candy in date.candies) {
+		if (candy.type == WLCandyTypeConversation) {
+			return candy;
 		}
 	}
 	
 	WLCandy* conversation = [WLCandy entry];
 	conversation.type = WLCandyTypeConversation;
-	[self addCandy:conversation];
+	[date addCandy:conversation];
+	self.updatedAt = [NSDate date];
 	return conversation;
 }
 

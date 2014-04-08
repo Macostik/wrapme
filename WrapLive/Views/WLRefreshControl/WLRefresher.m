@@ -125,9 +125,9 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 	CGAffineTransform transform;
 	
 	if (self.direction == WLRefresherScrollDirectionHorizontal) {
-		transform = CGAffineTransformMakeRotation(rotated ? (M_PI_2 + M_PI) : M_PI_2);
+		transform = CGAffineTransformMakeRotation(rotated ? M_PI_2 : (M_PI_2 + M_PI));
 	} else {
-		transform = CGAffineTransformMakeRotation(rotated ? 2*M_PI : M_PI);
+		transform = CGAffineTransformMakeRotation(rotated ? M_PI : 2*M_PI);
 	}
 	
 	if (!CGAffineTransformEqualToTransform(self.arrowView.transform, transform)) {
@@ -151,7 +151,6 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 			self.arrowView.hidden = YES;
 			[UIView beginAnimations:nil context:nil];
 			self.scrollView.contentInset = UIEdgeInsetsMake(0, 88, 0, 0);
-			self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 88, 0, 0);
 			[UIView commitAnimations];
 			[self sendActionsForControlEvents:UIControlEventValueChanged];
 		}
@@ -162,7 +161,6 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 			self.arrowView.hidden = YES;
 			[UIView beginAnimations:nil context:nil];
 			self.scrollView.contentInset = UIEdgeInsetsMake(88, 0, 0, 0);
-			self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(88, 0, 0, 0);
 			[UIView commitAnimations];
 			[self sendActionsForControlEvents:UIControlEventValueChanged];
 		}
@@ -173,7 +171,6 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 	_refreshing = NO;
 	[UIView beginAnimations:nil context:nil];
 	self.scrollView.contentInset = UIEdgeInsetsZero;
-	self.scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
 	[UIView commitAnimations];
 	[self.spinner stopAnimating];
 	[self setArrowViewRotated:NO animated:NO];

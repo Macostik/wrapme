@@ -203,8 +203,9 @@
 
 - (void)sendMessageWithText:(NSString*)text {
 
+	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] addComment:[WLComment commentWithText:text] toCandy:nil fromWrap:self.topWrap success:^(id object) {
-		[self fetchWraps:1];
+		[weakSelf fetchWraps:1];
 	} failure:^(NSError *error) {
 		[error show];
 	}];

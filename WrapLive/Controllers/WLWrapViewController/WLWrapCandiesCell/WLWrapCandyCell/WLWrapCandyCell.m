@@ -37,7 +37,7 @@
 	
 	if (!self.commentLabel.hidden) {
 		if (entry.type == WLCandyTypeImage) {
-			WLComment* comment = [entry.comments lastObject];
+			WLComment* comment = [entry.comments firstObject];
 			self.commentLabel.text = comment.text;
 		}
 		else {

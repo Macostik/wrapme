@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *chatLabelView;
 
 @end
 
@@ -23,7 +24,7 @@
 - (void)setupItemData:(WLCandy*)entry {
 	self.coverView.image = nil;
 	self.coverView.imageUrl = entry.picture.thumbnail;
-	
+	self.chatLabelView.hidden = entry.type == WLCandyTypeImage;
 	self.commentLabel.hidden = [entry.comments count] == 0;
 	
 	if (!self.commentLabel.hidden) {

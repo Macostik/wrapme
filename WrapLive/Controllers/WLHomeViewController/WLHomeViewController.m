@@ -93,7 +93,7 @@
 
 - (void)setupRefresh {
 	self.refresh = [[UIRefreshControl alloc] init];
-	self.refresh.tintColor = [UIColor WL_grayColor];
+	self.refresh.tintColor = [UIColor WL_orangeColor];
 	self.refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"
 																   attributes:@{
 																				NSFontAttributeName : [UIFont lightSmallFont],

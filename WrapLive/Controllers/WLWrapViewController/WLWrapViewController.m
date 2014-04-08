@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
 @property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
 @property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (weak, nonatomic) WLRefresher *refresher;
 
@@ -73,9 +74,11 @@
 		[weakSelf.wrap updateWithObject:wrap];
 		[weakSelf.tableView reloadData];
 		[weakSelf.refresher endRefreshing];
+		[weakSelf.spinner removeFromSuperview];
 	} failure:^(NSError *error) {
 		[error show];
 		[weakSelf.refresher endRefreshing];
+		[weakSelf.spinner removeFromSuperview];
 	}];
 }
 

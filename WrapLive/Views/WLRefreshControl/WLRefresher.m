@@ -28,10 +28,14 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
 	
+	[self.superview removeObserver:self
+						forKeyPath:WlRefresherContentOffsetKeyPath
+						   context:NULL];
 	if (newSuperview) {
-		[newSuperview addObserver:self forKeyPath:WlRefresherContentOffsetKeyPath options:NSKeyValueObservingOptionNew context:NULL];
-	} else {
-		[self.superview removeObserver:self forKeyPath:WlRefresherContentOffsetKeyPath context:NULL];
+		[newSuperview addObserver:self
+					   forKeyPath:WlRefresherContentOffsetKeyPath
+						  options:NSKeyValueObservingOptionNew
+						  context:NULL];
 	}
 		
 	[super willMoveToSuperview:newSuperview];

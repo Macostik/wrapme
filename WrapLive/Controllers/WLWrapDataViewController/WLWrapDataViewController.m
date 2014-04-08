@@ -20,6 +20,7 @@
 #import "WLAPIManager.h"
 #import "WLWrap.h"
 #import "UIFont+CustomFonts.h"
+#import "WLRefresher.h"
 
 static CGFloat WLDefaultImageWidth = 320;
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
@@ -34,6 +35,8 @@ static NSString* WLMyCommentCellIdentifier = @"MyWLCommentCell";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
+@property (weak, nonatomic) WLRefresher *refresher;
+
 @end
 
 @implementation WLWrapDataViewController
@@ -47,12 +50,22 @@ static NSString* WLMyCommentCellIdentifier = @"MyWLCommentCell";
 	} else {
 		[self setupConversation:self.candy];
 	}
+	[self refresh];
+	
+	__weak typeof(self)weakSelf = self;
+	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
+		[weakSelf refresh];
+	}];
+}
+
+- (void)refresh {
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] candyInfo:self.candy forWrap:self.wrap success:^(WLCandy * object) {
-		weakSelf.candy = object;
 		[weakSelf.tableView reloadData];
+		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
-		
+		[error show];
+		[weakSelf.refresher endRefreshing];
 	}];
 }
 

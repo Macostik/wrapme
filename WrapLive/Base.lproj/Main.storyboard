@@ -1089,6 +1089,18 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
+                                        <view key="tableFooterView" contentMode="scaleToFill" id="naI-PC-CBN">
+                                            <rect key="frame" x="0.0" y="208" width="320" height="88"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="peM-gx-vFE">
+                                                    <rect key="frame" x="150" y="34" width="20" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WLWrapCandiesCell" id="5DK-lw-xaH" customClass="WLWrapCandiesCell">
                                                 <rect key="frame" x="0.0" y="76" width="320" height="132"/>
@@ -1147,11 +1159,6 @@
                                             <outlet property="delegate" destination="hUj-RK-zkg" id="j0M-rO-2Ey"/>
                                         </connections>
                                     </tableView>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="iM7-CQ-k9I">
-                                        <rect key="frame" x="288" y="58" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
@@ -1230,8 +1237,8 @@
                         <outlet property="coverView" destination="fqx-Hv-79y" id="09W-qP-SsG"/>
                         <outlet property="firstContributorView" destination="cG2-Kb-yF8" id="bLd-ru-dtF"/>
                         <outlet property="firstContributorWrapNameLabel" destination="hBU-KG-zrh" id="jyV-rd-0H3"/>
+                        <outlet property="headerView" destination="naI-PC-CBN" id="6Dl-wp-BZB"/>
                         <outlet property="nameLabel" destination="4iO-X9-Yar" id="8hv-eR-L1i"/>
-                        <outlet property="spinner" destination="iM7-CQ-k9I" id="ehJ-Dh-uIM"/>
                         <outlet property="tableView" destination="BE1-H5-F9x" id="LGp-5z-ORz"/>
                     </connections>
                 </viewController>

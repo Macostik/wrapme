@@ -35,7 +35,8 @@
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
 @property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
 @property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (strong, nonatomic) IBOutlet UIView *headerView;
+@property (nonatomic) BOOL shouldLoadMoreDates;
 
 @property (weak, nonatomic) WLRefresher *refresher;
 
@@ -62,6 +63,11 @@
 	}];
 }
 
+- (void)setShouldLoadMoreDates:(BOOL)shouldLoadMoreDates {
+	_shouldLoadMoreDates = shouldLoadMoreDates;
+	self.tableView.tableFooterView = shouldLoadMoreDates ? self.headerView : nil;
+}
+
 - (void)refreshWrap {
 	__weak typeof(self)weakSelf = self;
 	WLWrap* wrap = [self.wrap copy];
@@ -71,14 +77,26 @@
 			weakSelf.firstContributorView.alpha = 1.0f;
 			weakSelf.firstContributorWrapNameLabel.text = wrap.name;
 		}
+		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == 10);
 		[weakSelf.wrap updateWithObject:wrap];
 		[weakSelf.tableView reloadData];
 		[weakSelf.refresher endRefreshing];
-		[weakSelf.spinner removeFromSuperview];
 	} failure:^(NSError *error) {
+		weakSelf.shouldLoadMoreDates = NO;
 		[error show];
 		[weakSelf.refresher endRefreshing];
-		[weakSelf.spinner removeFromSuperview];
+	}];
+}
+
+- (void)appendDates {
+	__weak typeof(self)weakSelf = self;
+	[[WLAPIManager instance] wrap:self.wrap success:^(WLWrap* wrap) {
+		weakSelf.shouldLoadMoreDates = ([wrap.dates count] != [weakSelf.wrap.dates count]);
+		[weakSelf.wrap updateWithObject:wrap];
+		[weakSelf.tableView reloadData];
+	} failure:^(NSError *error) {
+		weakSelf.shouldLoadMoreDates = NO;
+		[error show];
 	}];
 }
 
@@ -165,9 +183,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WLWrapCandiesCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLWrapCandiesCell reuseIdentifier]];
-	cell.item = [self.wrap.dates objectAtIndex:indexPath.row];
+	
+	WLWrapDate* date = [self.wrap.dates objectAtIndex:indexPath.row];
+	
+	cell.item = date;
 	cell.wrap = self.wrap;
 	cell.delegate = self;
+	
+	if (date == [self.wrap.dates lastObject] && self.shouldLoadMoreDates) {
+		[self appendDates];
+	}
+	
     return cell;
 }
 

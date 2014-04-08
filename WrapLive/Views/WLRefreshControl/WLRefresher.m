@@ -105,16 +105,14 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 - (void)didChangeContentOffset:(CGPoint)offset {
 	if (self.direction == WLRefresherScrollDirectionHorizontal) {
 		if (offset.x < 0) {
-			CGFloat rotation = MIN(88, ABS(offset.x))/88;
-			self.arrowView.transform = CGAffineTransformMakeRotation(M_PI_2 + M_PI*rotation);
+			[self setArrowViewRotated:(offset.x <= -66) animated:YES];
 			if (!self.scrollView.dragging) {
 				[self didEndDragging:self.scrollView.contentOffset];
 			}
 		}
 	} else {
 		if (offset.y < 0) {
-			CGFloat rotation = MIN(88, ABS(offset.y))/88;
-			self.arrowView.transform = CGAffineTransformMakeRotation(M_PI + M_PI*rotation);
+			[self setArrowViewRotated:(offset.y <= -66) animated:YES];
 			if (!self.scrollView.dragging) {
 				[self didEndDragging:self.scrollView.contentOffset];
 			}
@@ -122,10 +120,32 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 	}
 }
 
+- (void)setArrowViewRotated:(BOOL)rotated animated:(BOOL)animated {
+	
+	CGAffineTransform transform;
+	
+	if (self.direction == WLRefresherScrollDirectionHorizontal) {
+		transform = CGAffineTransformMakeRotation(rotated ? (M_PI_2 + M_PI) : M_PI_2);
+	} else {
+		transform = CGAffineTransformMakeRotation(rotated ? 2*M_PI : M_PI);
+	}
+	
+	if (!CGAffineTransformEqualToTransform(self.arrowView.transform, transform)) {
+		if (animated) {
+			[UIView beginAnimations:nil context:nil];
+			[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+		}
+		self.arrowView.transform = transform;
+		if (animated) {
+			[UIView commitAnimations];
+		}
+	}
+}
+
 - (void)didEndDragging:(CGPoint)offset {
 	
 	if (self.direction == WLRefresherScrollDirectionHorizontal) {
-		if (!_refreshing && offset.x < -66) {
+		if (!_refreshing && offset.x <= -66) {
 			_refreshing = YES;
 			[self.spinner startAnimating];
 			self.arrowView.hidden = YES;
@@ -136,7 +156,7 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 			[self sendActionsForControlEvents:UIControlEventValueChanged];
 		}
 	} else {
-		if (!_refreshing && offset.y < -66) {
+		if (!_refreshing && offset.y <= -66) {
 			_refreshing = YES;
 			[self.spinner startAnimating];
 			self.arrowView.hidden = YES;
@@ -156,6 +176,7 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 	self.scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
 	[UIView commitAnimations];
 	[self.spinner stopAnimating];
+	[self setArrowViewRotated:NO animated:NO];
 	self.arrowView.hidden = NO;
 }
 

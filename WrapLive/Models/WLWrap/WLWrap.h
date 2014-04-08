@@ -12,6 +12,7 @@ static NSString * WLWrapChangesNotification = @"WLWrapChangesNotification";
 
 @class WLCandy;
 @class WLUser;
+@class WLWrapDate;
 
 @protocol WLUser @end
 @protocol WLWrapDate @end
@@ -29,10 +30,7 @@ static NSString * WLWrapChangesNotification = @"WLWrapChangesNotification";
 - (void)contributorNames:(void (^)(NSString* names))completion;
 
 - (WLCandy*)actualConversation;
-
-- (NSArray*)candiesForDate:(NSDate*)date;
-
-+ (NSArray*)candiesForDate:(NSDate*)date inArray:(NSArray*)candies;
+- (WLWrapDate*)actualDate;
 
 - (void) postNotificationForRequest:(BOOL)isNeedRequest;
 

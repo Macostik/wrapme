@@ -20,6 +20,8 @@
 
 + (NSDictionary*)pictureMapping;
 
++ (NSArray *)entriesForDate:(NSDate *)date inArray:(NSArray *)entries;
+
 @end
 
 @interface NSArray (WLEntrySorting)

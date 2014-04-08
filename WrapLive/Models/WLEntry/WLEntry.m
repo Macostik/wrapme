@@ -7,6 +7,7 @@
 //
 
 #import "WLEntry.h"
+#import "NSDate+Formatting.h"
 
 @implementation WLEntry
 
@@ -43,6 +44,13 @@
 
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 	return YES;
+}
+
++ (NSArray *)entriesForDate:(NSDate *)date inArray:(NSArray *)entries {
+	NSDate* startDate = [date beginOfDay];
+	NSDate* endDate = [date endOfDay];
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(updatedAt >= %@) AND (updatedAt <= %@)", startDate, endDate];
+	return [entries filteredArrayUsingPredicate:predicate];
 }
 
 @end

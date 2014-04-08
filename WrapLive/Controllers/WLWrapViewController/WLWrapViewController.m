@@ -61,6 +61,7 @@
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refreshWrap];
 	}];
+	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
 }
 
 - (void)setShouldLoadMoreDates:(BOOL)shouldLoadMoreDates {

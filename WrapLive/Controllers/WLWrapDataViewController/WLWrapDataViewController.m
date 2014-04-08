@@ -56,6 +56,7 @@ static NSString* WLMyCommentCellIdentifier = @"MyWLCommentCell";
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refresh];
 	}];
+	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
 }
 
 - (void)refresh {

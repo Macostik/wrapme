@@ -29,6 +29,7 @@
 #import "WLWrapCandyCell.h"
 #import "UIFont+CustomFonts.h"
 #import "WLProgressView.h"
+#import "WLRefresher.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
 
@@ -47,7 +48,7 @@
 @property (nonatomic) BOOL loading;
 @property (strong, nonatomic) IBOutlet UIView *tableFooterView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *footerSpinner;
-@property (strong, nonatomic) UIRefreshControl *refresh;
+@property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet UIView *loadingView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
@@ -92,17 +93,11 @@
 }
 
 - (void)setupRefresh {
-	self.refresh = [[UIRefreshControl alloc] init];
-	self.refresh.tintColor = [UIColor WL_orangeColor];
-	self.refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"
-																   attributes:@{
-																				NSFontAttributeName : [UIFont lightSmallFont],
-																				NSForegroundColorAttributeName : [UIColor WL_grayColor]
-																				}];
-	[self.refresh addTarget:self action:@selector(pullToRefresh) forControlEvents:UIControlEventValueChanged];
-	[self.tableView insertSubview:self.refresh atIndex:0];
-	[self.refresh beginRefreshing];
-    [self.refresh endRefreshing];
+	__weak typeof(self)weakSelf = self;
+	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
+		[weakSelf fetchWraps:1];
+	}];
+	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
 }
 
 
@@ -115,10 +110,6 @@
 		[self.tableView reloadData];
 		[self.topWrapStreamView reloadData];
 	}
-}
-
-- (void)pullToRefresh {
-	[self fetchWraps:1];
 }
 
 - (void)fetchWraps:(NSInteger)page {
@@ -135,11 +126,11 @@
 		}
 		[weakSelf validateFooterWithObjectsCount:object.count];
 		weakSelf.loading = NO;
-		[weakSelf.refresh endRefreshing];
+		[weakSelf.refresher endRefreshing];
 		[weakSelf finishLoadingAnimation];
 	} failure:^(NSError *error) {
 		weakSelf.loading = NO;
-		[weakSelf.refresh endRefreshing];
+		[weakSelf.refresher endRefreshing];
 		[error show];
 		[weakSelf finishLoadingAnimation];
 	}];

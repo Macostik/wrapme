@@ -43,6 +43,7 @@
 	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refreshCandies];
 	}];
+	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
 }
 
 - (void)setupItemData:(WLWrapDate*)entry {

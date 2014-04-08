@@ -13,7 +13,14 @@ typedef NS_ENUM(NSUInteger, WLRefresherScrollDirection) {
 	WLRefresherScrollDirectionHorizontal
 };
 
+typedef NS_ENUM(NSUInteger, WLRefresherColorScheme) {
+	WLRefresherColorSchemeWhite,
+	WLRefresherColorSchemeOrange
+};
+
 @interface WLRefresher : UIControl
+
+@property (nonatomic) WLRefresherColorScheme colorScheme;
 
 + (WLRefresher*)refresherWithScrollView:(UIScrollView*)scrollView refreshBlock:(void (^)(WLRefresher* refresher))refreshBlock;
 + (WLRefresher*)refresherWithScrollView:(UIScrollView*)scrollView;

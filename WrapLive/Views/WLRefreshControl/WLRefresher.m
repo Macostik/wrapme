@@ -18,6 +18,7 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 @property (nonatomic) WLRefresherScrollDirection direction;
 @property (strong, nonatomic) void (^refreshBlock) (WLRefresher *);
 @property (weak, nonatomic) UIActivityIndicatorView* spinner;
+@property (weak, nonatomic) UIImageView* arrowView;
 
 @end
 
@@ -72,6 +73,7 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 	refresher.backgroundColor = [UIColor WL_orangeColor];
 	[scrollView addSubview:refresher];
 	refresher.spinner.center = spinnerCenter;
+	refresher.arrowView.center = spinnerCenter;
 	return refresher;
 }
 
@@ -85,6 +87,15 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 	return _spinner;
 }
 
+- (UIImageView *)arrowView {
+	if (!_arrowView) {
+		UIImageView* arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_refresh_arrow"]];
+		[self addSubview:arrowView];
+		_arrowView = arrowView;
+	}
+	return _arrowView;
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if (keyPath == WlRefresherContentOffsetKeyPath) {
 		[self didChangeContentOffset:self.scrollView.contentOffset];
@@ -94,14 +105,16 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 - (void)didChangeContentOffset:(CGPoint)offset {
 	if (self.direction == WLRefresherScrollDirectionHorizontal) {
 		if (offset.x < 0) {
-			self.alpha = Smoothstep(0, 1, ABS(offset.x/88));
+			CGFloat rotation = MIN(66, ABS(offset.x))/66;
+			self.arrowView.transform = CGAffineTransformMakeRotation(M_PI_2 + M_PI*rotation);
 			if (!self.scrollView.dragging) {
 				[self didEndDragging:self.scrollView.contentOffset];
 			}
 		}
 	} else {
 		if (offset.y < 0) {
-			self.alpha = Smoothstep(0, 1, ABS(offset.y/88));
+			CGFloat rotation = MIN(66, ABS(offset.y))/66;
+			self.arrowView.transform = CGAffineTransformMakeRotation(M_PI + M_PI*rotation);
 			if (!self.scrollView.dragging) {
 				[self didEndDragging:self.scrollView.contentOffset];
 			}
@@ -115,6 +128,7 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 		if (!_refreshing && offset.x < -66) {
 			_refreshing = YES;
 			[self.spinner startAnimating];
+			self.arrowView.hidden = YES;
 			[UIView beginAnimations:nil context:nil];
 			self.scrollView.contentInset = UIEdgeInsetsMake(0, 88, 0, 0);
 			[UIView commitAnimations];
@@ -124,6 +138,7 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 		if (!_refreshing && offset.y < -66) {
 			_refreshing = YES;
 			[self.spinner startAnimating];
+			self.arrowView.hidden = YES;
 			[UIView beginAnimations:nil context:nil];
 			self.scrollView.contentInset = UIEdgeInsetsMake(88, 0, 0, 0);
 			[UIView commitAnimations];
@@ -138,11 +153,25 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 	self.scrollView.contentInset = UIEdgeInsetsZero;
 	[UIView commitAnimations];
 	[self.spinner stopAnimating];
+	self.arrowView.hidden = NO;
 }
 
 - (void)refresh {
 	if (self.refreshBlock) {
 		self.refreshBlock(self);
+	}
+}
+
+- (void)setColorScheme:(WLRefresherColorScheme)colorScheme {
+	_colorScheme = colorScheme;
+	if (colorScheme == WLRefresherColorSchemeOrange) {
+		self.arrowView.image = [UIImage imageNamed:@"ic_refresh_arrow_orange"];
+		self.backgroundColor = [UIColor whiteColor];
+		self.spinner.color = [UIColor WL_orangeColor];
+	} else {
+		self.arrowView.image = [UIImage imageNamed:@"ic_refresh_arrow_white"];
+		self.backgroundColor = [UIColor WL_orangeColor];
+		self.spinner.color = [UIColor whiteColor];
 	}
 }
 

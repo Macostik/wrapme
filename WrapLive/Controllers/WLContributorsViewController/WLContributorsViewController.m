@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
 @property (strong, nonatomic) NSArray* contributors;
 @property (strong, nonatomic) NSArray* filteredContributors;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
 
@@ -28,11 +29,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	
+	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] contributors:^(id object) {
 		weakSelf.contributors = object;
+		[self.spinner stopAnimating];
 	} failure:^(NSError *error) {
+		[self.spinner stopAnimating];
 		[error show];
 	}];
 }

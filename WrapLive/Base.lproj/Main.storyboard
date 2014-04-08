@@ -21,6 +21,7 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="Xgj-dB-Wxq">
                                 <rect key="frame" x="150" y="374" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0BE-1R-lZi">
                                 <rect key="frame" x="0.0" y="518" width="320" height="50"/>
@@ -971,12 +972,18 @@
                                     <action selector="done:" destination="2bk-UF-zkR" eventType="touchUpInside" id="R8t-if-sA3"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="eU0-nK-XkS">
+                                <rect key="frame" x="150" y="274" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="pYh-Kq-wM8"/>
                     <connections>
                         <outlet property="searchField" destination="KDf-WU-v2H" id="eMH-vk-lNZ"/>
+                        <outlet property="spinner" destination="eU0-nK-XkS" id="3qg-cQ-HkS"/>
                         <outlet property="tableView" destination="VJP-b5-s4a" id="B7M-Zh-gQ9"/>
                     </connections>
                 </viewController>

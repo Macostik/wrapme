@@ -28,9 +28,10 @@
 }
 
 - (void)addCandy:(WLCandy *)candy {
-//	NSMutableArray* candies = [NSMutableArray arrayWithArray:self.candies];
-//	[candies insertObject:candy atIndex:0];
-//	self.candies = [candies copy];
+	WLWrapDate* date = [self actualDate];
+	NSMutableArray* candies = [NSMutableArray arrayWithArray:date.candies];
+	[candies insertObject:candy atIndex:0];
+	date.candies = [candies copy];
 	self.updatedAt = [NSDate date];
 }
 
@@ -63,10 +64,13 @@
 }
 
 - (WLCandy *)actualConversation {
-	NSArray* candies = [self candiesForDate:[NSDate date]];
-	for (WLCandy* candy in candies) {
-		if (candy.type == WLCandyTypeConversation) {
-			return candy;
+	NSArray* dates = [WLEntry entriesForDate:[NSDate date] inArray:self.dates];
+	
+	for (WLWrapDate* date in dates) {
+		for (WLCandy* candy in date.candies) {
+			if (candy.type == WLCandyTypeConversation) {
+				return candy;
+			}
 		}
 	}
 	
@@ -76,16 +80,18 @@
 	return conversation;
 }
 
-- (NSArray *)candiesForDate:(NSDate *)date {
-	return nil;
-//	return [WLWrap candiesForDate:date inArray:self.candies];
-}
-
-+ (NSArray *)candiesForDate:(NSDate *)date inArray:(NSArray *)candies {
-	NSDate* startDate = [date beginOfDay];
-	NSDate* endDate = [date endOfDay];
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(updatedAt >= %@) AND (updatedAt <= %@)", startDate, endDate];
-	return [candies filteredArrayUsingPredicate:predicate];
+- (WLWrapDate *)actualDate {
+	NSArray* dates = [WLEntry entriesForDate:[NSDate date] inArray:self.dates];
+	
+	WLWrapDate* date = [dates lastObject];
+	
+	if (!date) {
+		date = [WLWrapDate entry];
+		NSMutableArray* existingDates = [NSMutableArray arrayWithArray:self.dates];
+		[existingDates insertObject:date atIndex:0];
+		self.dates = [existingDates copy];
+	}
+	return date;
 }
 
 - (void) postNotificationForRequest:(BOOL)isNeedRequest {

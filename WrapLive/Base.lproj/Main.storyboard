@@ -1410,7 +1410,7 @@
         <image name="13screen_ic_deselected" width="22" height="22"/>
         <image name="13screen_ic_selected" width="22" height="22"/>
         <image name="14screen_ic_photo_enabled" width="84" height="84"/>
-        <image name="Default-568h@2x.png" width="8" height="22"/>
+        <image name="Default-568h@2x.png" width="8" height="24"/>
         <image name="ic_128" width="64" height="64"/>
         <image name="ic_camera" width="76" height="76"/>
         <image name="ic_camera_orange" width="30" height="30"/>

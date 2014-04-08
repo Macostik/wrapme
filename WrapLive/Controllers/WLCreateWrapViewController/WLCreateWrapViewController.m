@@ -47,6 +47,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	[self verifyStartAndDoneButton];
+	self.coverView.image = self.isNewWrap ? self.coverView.image : nil;
 	[self fillDataAndUpdateLabels];
 }
 

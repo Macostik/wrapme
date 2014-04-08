@@ -12,7 +12,7 @@
 #import "UIImageView+ImageLoading.h"
 #import "WLCandy.h"
 #import "NSDate+Formatting.h"
-#import "WLWrapDay.h"
+#import "WLWrapDate.h"
 #import "UIView+Shorthand.h"
 #import "UIStoryboard+Additions.h"
 #import "WLCameraViewController.h"
@@ -31,7 +31,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
-@property (strong, nonatomic) NSMutableArray * wrapDays;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
 @property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
 @property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
@@ -51,13 +50,16 @@
 	[self.wrap contributorNames:^(NSString *names) {
 		weakSelf.contributorsLabel.text = names;
 	}];
-	
-	[self sortCandiesInWrap];
-	
-	if ([self.wrap.candies count] == 0) {
-		self.firstContributorView.alpha = 1.0f;
-		self.firstContributorWrapNameLabel.text = self.wrap.name;
-	}
+		
+	[[WLAPIManager instance] wrap:self.wrap success:^(WLWrap* wrap) {
+		if ([wrap.dates count] == 0) {
+			weakSelf.firstContributorView.alpha = 1.0f;
+			weakSelf.firstContributorWrapNameLabel.text = wrap.name;
+		}
+		[weakSelf.tableView reloadData];
+	} failure:^(NSError *error) {
+		[error show];
+	}];
 }
 
 - (UIViewController *)shakePresentedViewController {
@@ -70,28 +72,6 @@
 	cameraController.mode = WLCameraModeFullSize;
 	cameraController.backfacingByDefault = YES;
 	return cameraController;
-}
-
-- (void) sortCandiesInWrap {
-	NSMutableArray* candies = [self.wrap.candies mutableCopy];
-	
-	NSMutableArray* wrapDays = [NSMutableArray array];
-	
-	while ([candies count] > 0) {
-		WLCandy* candy = [candies firstObject];
-		NSArray *dayCandies = [WLWrap candiesForDate:candy.updatedAt inArray:candies];
-		WLWrapDay * wrapDay = [WLWrapDay new];
-		wrapDay.updatedAt = candy.updatedAt;
-		wrapDay.candies = dayCandies;
-		[wrapDays addObject:wrapDay];
-		[candies removeObjectsInArray:dayCandies];
-	}
-
-	[wrapDays sortEntries];
-	
-	self.wrapDays = [wrapDays copy];
-	
-	[self.tableView reloadData];
 }
 
 - (IBAction)typeMessage:(UIButton *)sender {
@@ -108,7 +88,6 @@
 	 404 Not Found  responce (waiting API)
 	 */
 	[[self.wrap actualConversation] addCommentWithText:text];
-	[self sortCandiesInWrap];
 }
 
 #pragma mark - User Actions
@@ -161,12 +140,13 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.wrapDays.count;
+    return [self.wrap.dates count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WLWrapCandiesCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLWrapCandiesCell reuseIdentifier]];
-	cell.item = [self.wrapDays objectAtIndex:indexPath.row];
+	cell.item = [self.wrap.dates objectAtIndex:indexPath.row];
+	cell.wrap = self.wrap;
 	cell.delegate = self;
     return cell;
 }
@@ -184,7 +164,7 @@
 		candy.picture.large = path;
 		id operation = [[WLAPIManager instance] addCandy:candy toWrap:weakSelf.wrap success:^(id object) {
 			[weakSelf.wrap postNotificationForRequest:YES];
-			[weakSelf sortCandiesInWrap];
+			[weakSelf.tableView reloadData];
 			[WLProgressView dismiss];
 		} failure:^(NSError *error) {
 			[WLProgressView dismiss];

@@ -21,7 +21,11 @@
 
 + (NSMutableDictionary*)mapping;
 
-- (void)updateWithObject:(id)object;
++ (instancetype)modelWithDictionary:(NSDictionary*)dict;
+
+- (instancetype)updateWithDictionary:(NSDictionary*)dict;
+
+- (instancetype)updateWithObject:(id)object;
 
 @end
 

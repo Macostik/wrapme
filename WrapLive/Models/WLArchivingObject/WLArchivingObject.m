@@ -79,7 +79,15 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 	return [[JSONKeyMapper alloc] initWithDictionary:[self mapping]];
 }
 
-- (void)updateWithObject:(id)object {
++ (instancetype)modelWithDictionary:(NSDictionary *)dict {
+	return [[self alloc] initWithDictionary:dict error:NULL];
+}
+
+- (instancetype)updateWithDictionary:(NSDictionary *)dict {
+	return [self updateWithObject:[[self class] modelWithDictionary:dict]];
+}
+
+- (instancetype)updateWithObject:(id)object {
 	Class class = [object class];
 	__weak typeof(self)weakSelf = self;
 	if (class == [self class]) {
@@ -90,6 +98,7 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 			}
 		});
 	}
+	return self;
 }
 
 #pragma mark - NSCoding

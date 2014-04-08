@@ -14,15 +14,17 @@ static NSString * WLWrapChangesNotification = @"WLWrapChangesNotification";
 @class WLUser;
 
 @protocol WLUser @end
-@protocol WLCandy @end
+@protocol WLWrapDate @end
 
 @interface WLWrap : WLWrapEntry
 
-@property (strong, nonatomic) NSArray<WLCandy>* candies;
+@property (strong, nonatomic) NSArray<WLWrapDate>* dates;
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSArray<WLUser>* contributors;
 
 - (void)addCandy:(WLCandy*)candy;
+
+- (NSArray*)latestCandies:(NSInteger)count;
 
 - (void)contributorNames:(void (^)(NSString* names))completion;
 

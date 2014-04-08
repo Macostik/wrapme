@@ -67,6 +67,7 @@
 		12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */; };
 		12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* WLItemCell.m */; };
 		12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
+		12E33AD118F3E18200E77229 /* WLWrapDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E33AD018F3E18200E77229 /* WLWrapDate.m */; };
 		12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA3E18E0399700DBDB79 /* WLCameraViewController.m */; };
 		12E3DA4218E03EB000DBDB79 /* WLSupportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA4118E03EB000DBDB79 /* WLSupportFunctions.m */; };
 		12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
@@ -89,7 +90,6 @@
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		ACAAE6D418E5C3BA000C4775 /* WLWrapDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAAE6D318E5C3BA000C4775 /* WLWrapDataViewController.m */; };
 		ACAAE6D818E5CE71000C4775 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAAE6D718E5CE71000C4775 /* WLCommentCell.m */; };
-		ACBE483218E48F7A006A0280 /* WLWrapDay.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBE483118E48F79006A0280 /* WLWrapDay.m */; };
 		ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */; };
 		ACCF9B8A18E185D200A7429F /* WLPhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */; };
 		ACCF9B9118E1868200A7429F /* WLActivationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B8F18E1868200A7429F /* WLActivationViewController.m */; };
@@ -208,6 +208,8 @@
 		12DCBA8318DB18F400A4BC44 /* WLItemCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLItemCellProtocol.h; sourceTree = "<group>"; };
 		12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapViewController.h; path = WLWrapViewController/WLWrapViewController.h; sourceTree = "<group>"; };
 		12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapViewController.m; path = WLWrapViewController/WLWrapViewController.m; sourceTree = "<group>"; };
+		12E33ACF18F3E18200E77229 /* WLWrapDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapDate.h; sourceTree = "<group>"; };
+		12E33AD018F3E18200E77229 /* WLWrapDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapDate.m; sourceTree = "<group>"; };
 		12E3DA3D18E0399700DBDB79 /* WLCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCameraViewController.h; sourceTree = "<group>"; };
 		12E3DA3E18E0399700DBDB79 /* WLCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCameraViewController.m; sourceTree = "<group>"; };
 		12E3DA4018E03EB000DBDB79 /* WLSupportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSupportFunctions.h; sourceTree = "<group>"; };
@@ -247,8 +249,6 @@
 		ACAAE6D318E5C3BA000C4775 /* WLWrapDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapDataViewController.m; path = WLWrapDataViewController/WLWrapDataViewController.m; sourceTree = "<group>"; };
 		ACAAE6D618E5CE71000C4775 /* WLCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCommentCell.h; path = WLWrapDataViewController/WLCommentCell/WLCommentCell.h; sourceTree = "<group>"; };
 		ACAAE6D718E5CE71000C4775 /* WLCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCommentCell.m; path = WLWrapDataViewController/WLCommentCell/WLCommentCell.m; sourceTree = "<group>"; };
-		ACBE483018E48F79006A0280 /* WLWrapDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapDay.h; path = WLWrapDay/WLWrapDay.h; sourceTree = "<group>"; };
-		ACBE483118E48F79006A0280 /* WLWrapDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapDay.m; path = WLWrapDay/WLWrapDay.m; sourceTree = "<group>"; };
 		ACCF9B8618E185D200A7429F /* WLPhoneNumberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPhoneNumberViewController.h; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.h; sourceTree = "<group>"; };
 		ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPhoneNumberViewController.m; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.m; sourceTree = "<group>"; };
 		ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPhoneNumberViewController.xib; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.xib; sourceTree = "<group>"; };
@@ -567,8 +567,8 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				12E33ACE18F3E18200E77229 /* WLWrapDate */,
 				12D962EA18E5897400C57CE1 /* WLPicture */,
-				ACBE482F18E48F18006A0280 /* WLWrapDay */,
 				129654E018E197D700FF43F6 /* WLAddressBook */,
 				121B1B2B18E0741A001F585C /* WLCountry */,
 				12E3DA4018E03EB000DBDB79 /* WLSupportFunctions.h */,
@@ -767,6 +767,15 @@
 			name = WLWrapViewController;
 			sourceTree = "<group>";
 		};
+		12E33ACE18F3E18200E77229 /* WLWrapDate */ = {
+			isa = PBXGroup;
+			children = (
+				12E33ACF18F3E18200E77229 /* WLWrapDate.h */,
+				12E33AD018F3E18200E77229 /* WLWrapDate.m */,
+			);
+			path = WLWrapDate;
+			sourceTree = "<group>";
+		};
 		12E3DA3C18E0399700DBDB79 /* WLCameraViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -911,15 +920,6 @@
 				ACAAE6D718E5CE71000C4775 /* WLCommentCell.m */,
 			);
 			name = WLCommentCell;
-			sourceTree = "<group>";
-		};
-		ACBE482F18E48F18006A0280 /* WLWrapDay */ = {
-			isa = PBXGroup;
-			children = (
-				ACBE483018E48F79006A0280 /* WLWrapDay.h */,
-				ACBE483118E48F79006A0280 /* WLWrapDay.m */,
-			);
-			name = WLWrapDay;
 			sourceTree = "<group>";
 		};
 		ACCF9B8518E17D5E00A7429F /* SignUpSteps */ = {
@@ -1105,6 +1105,7 @@
 				12A6BFA818F2A6C900AE3B62 /* WLShakeViewController.m in Sources */,
 				12E8FF1718E960E000BF1B96 /* StreamView.m in Sources */,
 				12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */,
+				12E33AD118F3E18200E77229 /* WLWrapDate.m in Sources */,
 				ACCF9B9118E1868200A7429F /* WLActivationViewController.m in Sources */,
 				12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */,
 				12DCBA6718DB0E4A00A4BC44 /* WLWrap.m in Sources */,
@@ -1143,7 +1144,6 @@
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
 				ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */,
 				12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */,
-				ACBE483218E48F7A006A0280 /* WLWrapDay.m in Sources */,
 				12E8FF1B18E97D3F00BF1B96 /* UIImageView+ImageLoading.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

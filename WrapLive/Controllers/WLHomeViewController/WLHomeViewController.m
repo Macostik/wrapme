@@ -43,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
 @property (strong, nonatomic) NSArray* wraps;
 @property (strong, nonatomic) WLWrap* topWrap;
+@property (strong, nonatomic) NSArray* latestCandies;
 @property (nonatomic) BOOL loading;
 @property (strong, nonatomic) IBOutlet UIView *tableFooterView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *footerSpinner;
@@ -194,15 +195,10 @@
 	[wrap contributorNames:^(NSString *names) {
 		weakSelf.headerWrapAuthorsLabel.text = names;
 	}];
-	self.headerView.height = [wrap.candies count] > 2 ? 212 : 106;
+	self.latestCandies = [wrap latestCandies:5];
+	self.headerView.height = [self.latestCandies count] > 2 ? 212 : 106;
 	self.tableView.tableHeaderView = self.headerView;
 	[self.topWrapStreamView reloadData];
-	
-	[[WLAPIManager instance] candies:wrap success:^(id object) {
-		
-	} failure:^(NSError *error) {
-		
-	}];
 }
 
 - (void)appendWraps: (id)object {
@@ -235,8 +231,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isWrapSegue]) {
 		WLWrap* wrap = [self.wraps objectAtIndex:[self.tableView indexPathForSelectedRow].row];
-		NSError * tempError = [NSError errorWithDescription:@"Sorry, for now you can see candies only from latest (top) wrap. Try later :)"];
-		[tempError show];
 		[(WLWrapViewController* )segue.destinationViewController setWrap:wrap];
 	} else if ([segue isTopWrapSegue]) {
 		[(WLWrapViewController* )segue.destinationViewController setWrap:self.topWrap];
@@ -331,7 +325,7 @@
 }
 
 - (NSInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSInteger)section {
-	if ([self.topWrap.candies count] > 2) {
+	if ([self.latestCandies count] > 2) {
 		return 5;
 	} else {
 		return 2;
@@ -339,11 +333,11 @@
 }
 
 - (UIView*)streamView:(StreamView*)streamView viewForItem:(StreamLayoutItem*)item {
-	if (item.index.row < [self.topWrap.candies count]) {
+	if (item.index.row < [self.latestCandies count]) {
 		WLWrapCandyCell* candyView = [streamView reusableViewOfClass:[WLWrapCandyCell class]
 															 forItem:item
 														 loadingType:StreamViewReusableViewLoadingTypeNib];
-		candyView.item = [self.topWrap.candies objectAtIndex:item.index.row];
+		candyView.item = [self.latestCandies objectAtIndex:item.index.row];
 		return candyView;
 	} else {
 		UILabel* placeholderLabel = [streamView reusableViewOfClass:[UILabel class]
@@ -367,9 +361,9 @@
 }
 
 - (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {
-	if (item.index.row < [self.topWrap.candies count]) {
+	if (item.index.row < [self.latestCandies count]) {
 		WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];
-		controller.candy = [self.topWrap.candies objectAtIndex:item.index.row];
+		controller.candy = [self.latestCandies objectAtIndex:item.index.row];
 		controller.wrap = self.topWrap;
 		[self.navigationController pushViewController:controller animated:YES];
 	} else {

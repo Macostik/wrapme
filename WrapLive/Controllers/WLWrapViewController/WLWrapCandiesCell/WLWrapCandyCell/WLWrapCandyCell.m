@@ -22,7 +22,7 @@
 
 - (void)setupItemData:(WLCandy*)entry {
 	self.coverView.image = nil;
-	self.coverView.imageUrl = entry.picture.medium;
+	self.coverView.imageUrl = entry.picture.thumbnail;
 	
 	self.commentLabel.hidden = [entry.comments count] == 0;
 	

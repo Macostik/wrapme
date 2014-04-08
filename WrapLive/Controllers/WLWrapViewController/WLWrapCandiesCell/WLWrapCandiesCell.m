@@ -7,13 +7,14 @@
 //
 
 #import "WLWrapCandiesCell.h"
-#import "WLWrapDay.h"
+#import "WLWrapDate.h"
 #import "NSDate+Formatting.h"
 #import "WLWrapCandyCell.h"
 #import "WLCandy.h"
 #import "NSObject+NibAdditions.h"
 #import "WLRefresher.h"
 #import "NSArray+Additions.h"
+#import "WLAPIManager.h"
 
 @interface WLWrapCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -28,62 +29,80 @@
 
 @implementation WLWrapCandiesCell
 
+- (void)setShouldAppendMoreCandies:(BOOL)shouldAppendMoreCandies {
+	_shouldAppendMoreCandies = shouldAppendMoreCandies;
+	UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
+	layout.footerReferenceSize = _shouldAppendMoreCandies ? CGSizeMake(100, 100) : CGSizeZero;
+}
+
 - (void)awakeFromNib {
 	[super awakeFromNib];
+	self.shouldAppendMoreCandies = YES;
 	[self.collectionView registerNib:[WLWrapCandyCell nib] forCellWithReuseIdentifier:[WLWrapCandyCell reuseIdentifier]];
+	__weak typeof(self)weakSelf = self;
 	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
-		[self.refresher performSelector:@selector(endRefreshing) withObject:nil afterDelay:1];
+		[weakSelf refreshCandies];
 	}];
 }
 
-- (void)setupItemData:(WLWrapDay*)entry {
-	self.shouldAppendMoreCandies = [entry.candies count] % 10 == 0;
+- (void)setupItemData:(WLWrapDate*)entry {
 	self.dateLabel.text = [entry.updatedAt stringWithFormat:@"MMM dd, YYYY"];
+	self.shouldAppendMoreCandies = [entry.candies count] % 10 == 0;
 	[self.collectionView reloadData];
+}
+
+- (void)refreshCandies {
+	__weak typeof(self)weakSelf = self;
+	WLWrapDate* wrapDay = [self.item copy];
+	wrapDay.candies = nil;
+	[[WLAPIManager instance] candies:self.wrap date:wrapDay success:^(id object) {
+		weakSelf.shouldAppendMoreCandies = [object count] == 10;
+		wrapDay.candies = object;
+		weakSelf.item = wrapDay;
+		[weakSelf.refresher endRefreshing];
+	} failure:^(NSError *error) {
+		[error show];
+		[weakSelf.refresher endRefreshing];
+	}];
 }
 
 - (void)appendCandies {
 	// this is temporary code
-	WLWrapDay* wrapDay = self.item;
-	self.shouldAppendMoreCandies = [wrapDay.candies count] % 10 == 0;
-	wrapDay.candies = [wrapDay.candies arrayByAddingObjectsFromArray:wrapDay.candies];
-	[self.collectionView reloadData];
+	WLWrapDate* wrapDay = self.item;
+	__weak typeof(self)weakSelf = self;
+	[[WLAPIManager instance] candies:self.wrap date:wrapDay success:^(id object) {
+		weakSelf.shouldAppendMoreCandies = [object count] == 10;
+		wrapDay.candies = (id)[wrapDay.candies arrayByAddingObjectsFromArray:object];
+		[weakSelf.collectionView reloadData];
+	} failure:^(NSError *error) {
+		[error show];
+	}];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	WLWrapDay* wrapDay = self.item;
+	WLWrapDate* wrapDay = self.item;
 	return [wrapDay.candies count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	WLWrapCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WLWrapCandyCell reuseIdentifier] forIndexPath:indexPath];
-	WLWrapDay* wrapDay = self.item;
+	WLWrapDate* wrapDay = self.item;
 	cell.item = [wrapDay.candies objectAtIndex:indexPath.item];
 	return cell;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-	if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-		[self performSelector:@selector(appendCandies) withObject:nil afterDelay:0.0f];
-		static NSString* WLWrapDayLoadingViewIdentifier = @"WLWrapDayLoadingView";
-		return [collectionView dequeueReusableSupplementaryViewOfKind:kind
-												  withReuseIdentifier:WLWrapDayLoadingViewIdentifier
-														 forIndexPath:indexPath];
-	}
-	return nil;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-	if (self.shouldAppendMoreCandies) {
-		return CGSizeMake(100, 100);
-	}
-	return CGSizeZero;
+	[self performSelector:@selector(appendCandies) withObject:nil afterDelay:0.0f];
+	static NSString* WLWrapDayLoadingViewIdentifier = @"WLWrapDayLoadingView";
+	return [collectionView dequeueReusableSupplementaryViewOfKind:kind
+											  withReuseIdentifier:WLWrapDayLoadingViewIdentifier
+													 forIndexPath:indexPath];
 }
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLWrapDay* wrapDay = self.item;
+	WLWrapDate* wrapDay = self.item;
 	WLCandy * candy = [wrapDay.candies objectAtIndex:indexPath.item];
 	[self.delegate wrapCandiesCell:self didSelectCandy:candy];
 }

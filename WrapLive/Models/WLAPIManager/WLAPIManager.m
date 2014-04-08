@@ -17,6 +17,7 @@
 #import "WLAddressBook.h"
 #import "WLCandy.h"
 #import "WLComment.h"
+#import "WLWrapDate.h"
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
@@ -256,6 +257,24 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			 failure:[self failureBlock:failure success:success]];
 }
 
+- (id)wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+		
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:@([[NSTimeZone localTimeZone] secondsFromGMT]) forKey:@"utc_offset"];
+	[parameters trySetObject:@(floorf([wrap.dates count] / 10) + 1) forKey:@"group_by_date_page_number"];
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		return [wrap updateWithDictionary:response.data[@"wrap"]];
+	};
+	
+	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
+	
+	return [self GET:path
+		  parameters:parameters
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure success:success]];
+}
+
 - (id)createWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	NSArray* contributors = [wrap.contributors map:^id(WLUser* contributor) {
 		return contributor.identifier;
@@ -307,18 +326,20 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			  failure:[self failureBlock:failure success:success]];
 }
 
-- (id)candies:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	success(nil);
-	return nil;
+- (id)candies:(WLWrap *)wrap date:(WLWrapDate *)date success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:@([date.updatedAt timeIntervalSince1970]) forKey:@"start_date_in_epoch"];
+	[parameters trySetObject:@(floorf([date.candies count] / 10) + 1) forKey:@"candy_page_number"];
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
-		return response;
+		return [WLCandy arrayOfModelsFromDictionaries:response.data[@"candies"]];
 	};
 	
-	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
 	
 	return [self GET:path
-		  parameters:nil
+		  parameters:parameters
 			 success:[self successBlock:success withObject:objectBlock failure:failure]
 			 failure:[self failureBlock:failure success:success]];
 }

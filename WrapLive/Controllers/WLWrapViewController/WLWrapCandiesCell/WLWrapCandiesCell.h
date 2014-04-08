@@ -10,6 +10,7 @@
 
 @class WLWrapCandiesCell;
 @class WLCandy;
+@class WLWrap;
 
 @protocol WLWrapCandiesCellDelegate <NSObject>
 
@@ -20,6 +21,8 @@
 @end
 
 @interface WLWrapCandiesCell : WLItemCell
+
+@property (strong, nonatomic) WLWrap *wrap;
 
 @property (nonatomic, weak) id <WLWrapCandiesCellDelegate> delegate;
 

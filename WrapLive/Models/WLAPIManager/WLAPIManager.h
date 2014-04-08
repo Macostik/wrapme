@@ -14,6 +14,7 @@
 @class WLCandy;
 @class WLComment;
 @class WLAPIResponse;
+@class WLWrapDate;
 
 typedef void (^WLAPIManagerSuccessBlock) (id object);
 typedef void (^WLAPIManagerFailureBlock) (NSError* error);
@@ -85,6 +86,15 @@ typedef id (^WLAPIManagerObjectBlock)(WLAPIResponse* response);
 - (id)wrapsWithPage:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
+ *  Get detailed wrap data
+ *
+ *  @wrap wrap object
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (id)wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+/*!
  *  Creates new wrap
  *
  *  @param success block that will be invoked on success completion
@@ -117,7 +127,7 @@ typedef id (^WLAPIManagerObjectBlock)(WLAPIResponse* response);
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)candies:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)candies:(WLWrap*)wrap date:(WLWrapDate*)date success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Get all the data about a particular candy

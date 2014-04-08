@@ -12,6 +12,7 @@
 #import "NSArray+Additions.h"
 #import "WLUser.h"
 #import "NSDate+Formatting.h"
+#import "WLWrapDate.h"
 
 @implementation WLWrap
 
@@ -27,10 +28,26 @@
 }
 
 - (void)addCandy:(WLCandy *)candy {
-	NSMutableArray* candies = [NSMutableArray arrayWithArray:self.candies];
-	[candies insertObject:candy atIndex:0];
-	self.candies = [candies copy];
+//	NSMutableArray* candies = [NSMutableArray arrayWithArray:self.candies];
+//	[candies insertObject:candy atIndex:0];
+//	self.candies = [candies copy];
 	self.updatedAt = [NSDate date];
+}
+
+- (NSArray *)latestCandies:(NSInteger)count {
+	NSMutableArray* candies = [NSMutableArray array];
+	for (WLWrapDate* date in self.dates) {
+		if ([candies count] == 5) {
+			break;
+		}
+		for (WLCandy* candy in date.candies) {
+			[candies addObject:candy];
+			if ([candies count] == 5) {
+				break;
+			}
+		}
+	}
+	return [candies copy];
 }
 
 - (void)contributorNames:(void (^)(NSString *))completion {
@@ -60,7 +77,8 @@
 }
 
 - (NSArray *)candiesForDate:(NSDate *)date {
-	return [WLWrap candiesForDate:date inArray:self.candies];
+	return nil;
+//	return [WLWrap candiesForDate:date inArray:self.candies];
 }
 
 + (NSArray *)candiesForDate:(NSDate *)date inArray:(NSArray *)candies {

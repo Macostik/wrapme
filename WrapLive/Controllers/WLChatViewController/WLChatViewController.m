@@ -17,7 +17,7 @@
 #import "WLComposeBar.h"
 #import "UIView+Shorthand.h"
 
-@interface WLChatViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface WLChatViewController () <UITableViewDataSource, UITableViewDelegate, WLComposeBarDelegate>
 
 @property (nonatomic, strong) NSMutableArray* messages;
 
@@ -67,9 +67,8 @@
 
 - (void)refreshMessages {
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] chatMessages:self.wrap
-									 page:1
-								  success:^(id object) {
+	[[WLAPIManager instance] chatMessages:self.wrap page:1 success:^(id object) {
+		weakSelf.shouldAppendMoreMessages = [object count] == 10;
 		[weakSelf.messages setArray:object];
 		[weakSelf reloadTableView];
 		[weakSelf.refresher endRefreshing];
@@ -81,9 +80,9 @@
 
 - (void)appendMessages {
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] chatMessages:self.wrap
-									 page:floorf([self.messages count] / 10) + 1
-								  success:^(id object) {
+	NSUInteger page = floorf([self.messages count] / 10) + 1;
+	[[WLAPIManager instance] chatMessages:self.wrap page:page success:^(id object) {
+		weakSelf.shouldAppendMoreMessages = [object count] == 10;
 		[weakSelf.messages addObjectsFromArray:object];
 		[weakSelf reloadTableView];
 	} failure:^(NSError *error) {
@@ -104,8 +103,10 @@
 	if (contentHeight < tableView.height) {
 		inset = tableView.height - contentHeight;
 	}
-	headerView.height = inset;
-	tableView.tableHeaderView = headerView;
+	if (headerView.height != inset) {
+		headerView.height = inset;
+		tableView.tableHeaderView = headerView;
+	}
 }
 
 #pragma mark - Actions
@@ -148,6 +149,10 @@
 	[self updateInsetView];
 }
 
+- (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
+	return NO;
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -165,6 +170,9 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	cell.transform = CGAffineTransformMakeRotation(M_PI);
+	if (self.shouldAppendMoreMessages && indexPath.row == [self.messages count] - 1) {
+		[self appendMessages];
+	}
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -38,7 +38,13 @@ static NSUInteger WLComposeBarDefaultCharactersLimit = 360;
 }
 
 - (void)finish {
-	[self.textField resignFirstResponder];
+	BOOL shouldResign = YES;
+	if ([self.delegate respondsToSelector:@selector(composeBarDidShouldResignOnFinish:)]) {
+		shouldResign = [self.delegate composeBarDidShouldResignOnFinish:self];
+	}
+	if (shouldResign) {
+		[self.textField resignFirstResponder];
+	}
 	[self.delegate composeBar:self didFinishWithText:self.textField.text];
 	self.text = nil;
 }

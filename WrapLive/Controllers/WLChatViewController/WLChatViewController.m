@@ -38,6 +38,9 @@
 @end
 
 @implementation WLChatViewController
+{
+	BOOL loading;
+}
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -80,14 +83,20 @@
 }
 
 - (void)appendMessages {
+	if (loading) {
+		return;
+	}
+	loading = YES;
 	__weak typeof(self)weakSelf = self;
 	NSUInteger page = floorf([self.messages count] / 10) + 1;
 	[[WLAPIManager instance] chatMessages:self.wrap page:page success:^(id object) {
 		weakSelf.shouldAppendMoreMessages = [object count] == 10;
 		[weakSelf.messages addObjectsFromArray:object];
 		[weakSelf reloadTableView];
+		loading = NO;
 	} failure:^(NSError *error) {
 		[error show];
+		loading = NO;
 	}];
 }
 

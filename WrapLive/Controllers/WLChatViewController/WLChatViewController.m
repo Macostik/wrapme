@@ -61,6 +61,8 @@
 	[self refreshMessages];
 	
 	self.tableView.tableFooterView = [WLLoadingView instance];
+	
+	[self.tableView registerNib:[WLMessageGroupCell nib] forHeaderFooterViewReuseIdentifier:[WLMessageGroupCell reuseIdentifier]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -97,25 +99,38 @@
 	while ([_messages count] > 0) {
 		WLCandy* candy = [_messages firstObject];
 		NSArray* dayMessages = [WLEntry entriesForDate:candy.updatedAt inArray:_messages];
+		[self addMessages:dayMessages date:candy.updatedAt];
 		
-		WLWrapDate* date = nil;
-		
-		for (WLWrapDate* _date in self.dates) {
-			if ([_date.updatedAt isSameDay:candy.updatedAt]) {
-				date = _date;
-				break;
-			}
-		}
-		if (!date) {
-			date = [[WLWrapDate alloc] init];
-			date.updatedAt = candy.updatedAt;
-			[self.dates addObject:date];
-		}
-		date.candies = (id)[date.candies arrayByAddingObjectsFromArray:dayMessages];
 		[_messages removeObjectsInArray:dayMessages];
 	}
 	
 	[self reloadTableView];
+}
+
+- (void)addMessages:(NSArray*)messages date:(NSDate*)date {
+	WLWrapDate* dateObject = [self dateObjectWithDate:date];
+	NSMutableArray* candies = [NSMutableArray arrayWithArray:dateObject.candies];
+	[candies addObjectsFromArray:messages];
+	dateObject.candies = [candies copy];
+}
+
+- (void)insertMessage:(WLCandy*)message {
+	WLWrapDate* dateObject = [self dateObjectWithDate:message.updatedAt];
+	NSMutableArray* candies = [NSMutableArray arrayWithArray:dateObject.candies];
+	[candies insertObject:message atIndex:0];
+	dateObject.candies = [candies copy];
+}
+
+- (WLWrapDate*)dateObjectWithDate:(NSDate*)date {
+	for (WLWrapDate* dateObject in self.dates) {
+		if ([dateObject.updatedAt isSameDay:date]) {
+			return dateObject;
+		}
+	}
+	WLWrapDate* dateObject = [[WLWrapDate alloc] init];
+	dateObject.updatedAt = date;
+	[self.dates addObject:dateObject];
+	return dateObject;
 }
 
 - (void)refreshMessages {
@@ -179,7 +194,7 @@
 	[[WLAPIManager instance] addCandy:[WLCandy chatMessageWithText:text]
 							   toWrap:self.wrap
 							  success:^(id object) {
-		[weakSelf addMessages:@[object]];
+		[weakSelf insertMessage:object];
 		[weakSelf reloadTableView];
 	} failure:^(NSError *error) {
 		[error show];
@@ -259,7 +274,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-	WLMessageGroupCell* groupCell = [WLMessageGroupCell loadFromNib];
+	WLMessageGroupCell* groupCell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[WLMessageGroupCell reuseIdentifier]];
 	groupCell.date = [self.dates objectAtIndex:section];
 	groupCell.transform = CGAffineTransformMakeRotation(M_PI);
 	return groupCell;

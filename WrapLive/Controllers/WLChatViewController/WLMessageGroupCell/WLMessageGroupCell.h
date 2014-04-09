@@ -8,7 +8,9 @@
 
 @class WLWrapDate;
 
-@interface WLMessageGroupCell : UIView
+@interface WLMessageGroupCell : UITableViewHeaderFooterView
+
++ (NSString*)reuseIdentifier;
 
 @property (strong, nonatomic) WLWrapDate* date;
 

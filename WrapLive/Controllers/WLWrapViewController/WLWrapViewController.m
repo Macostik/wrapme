@@ -26,6 +26,7 @@
 #import "WLComment.h"
 #import "WLRefresher.h"
 #import "WLChatViewController.h"
+#import "WLLoadingView.h"
 
 @interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate>
 
@@ -36,7 +37,6 @@
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
 @property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
 @property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
-@property (strong, nonatomic) IBOutlet UIView *headerView;
 @property (nonatomic) BOOL shouldLoadMoreDates;
 
 @property (weak, nonatomic) WLRefresher *refresher;
@@ -63,11 +63,13 @@
 		[weakSelf refreshWrap];
 	}];
 	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
+	
+	self.tableView.tableFooterView = [WLLoadingView instance];
 }
 
 - (void)setShouldLoadMoreDates:(BOOL)shouldLoadMoreDates {
 	_shouldLoadMoreDates = shouldLoadMoreDates;
-	self.tableView.tableFooterView = shouldLoadMoreDates ? self.headerView : nil;
+	self.tableView.tableFooterView = shouldLoadMoreDates ? [WLLoadingView instance] : nil;
 }
 
 - (void)refreshWrap {
@@ -79,7 +81,7 @@
 			weakSelf.firstContributorView.alpha = 1.0f;
 			weakSelf.firstContributorWrapNameLabel.text = wrap.name;
 		}
-		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == 10);
+		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
 		[weakSelf.wrap updateWithObject:wrap];
 		[weakSelf.tableView reloadData];
 		[weakSelf.refresher endRefreshing];

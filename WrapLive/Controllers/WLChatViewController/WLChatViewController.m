@@ -16,6 +16,7 @@
 #import "UIFont+CustomFonts.h"
 #import "WLComposeBar.h"
 #import "UIView+Shorthand.h"
+#import "WLLoadingView.h"
 
 @interface WLChatViewController () <UITableViewDataSource, UITableViewDelegate, WLComposeBarDelegate>
 
@@ -24,8 +25,6 @@
 @property (nonatomic, weak) WLRefresher* refresher;
 
 @property (nonatomic) BOOL shouldAppendMoreMessages;
-
-@property (nonatomic, strong) IBOutlet UIView* loadingView;
 
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
 
@@ -55,11 +54,21 @@
 	self.tableView.transform = CGAffineTransformMakeRotation(M_PI);
 	
 	[self refreshMessages];
+	
+	self.tableView.tableFooterView = [WLLoadingView instance];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	if (self.shouldShowKeyboard) {
+		[self.composeBar becomeFirstResponder];
+	}
 }
 
 - (void)setShouldAppendMoreMessages:(BOOL)shouldAppendMoreMessages {
 	_shouldAppendMoreMessages = shouldAppendMoreMessages;
-	self.tableView.tableFooterView = shouldAppendMoreMessages ? self.loadingView : nil;
+	self.tableView.tableFooterView = shouldAppendMoreMessages ? [WLLoadingView instance] : nil;
 }
 
 - (NSMutableArray *)messages {
@@ -72,7 +81,7 @@
 - (void)refreshMessages {
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] chatMessages:self.wrap page:1 success:^(id object) {
-		weakSelf.shouldAppendMoreMessages = [object count] == 10;
+		weakSelf.shouldAppendMoreMessages = [object count] == WLAPIChatPageSize;
 		[weakSelf.messages setArray:object];
 		[weakSelf reloadTableView];
 		[weakSelf.refresher endRefreshing];
@@ -88,9 +97,9 @@
 	}
 	loading = YES;
 	__weak typeof(self)weakSelf = self;
-	NSUInteger page = floorf([self.messages count] / 10) + 1;
+	NSUInteger page = floorf([self.messages count] / WLAPIChatPageSize) + 1;
 	[[WLAPIManager instance] chatMessages:self.wrap page:page success:^(id object) {
-		weakSelf.shouldAppendMoreMessages = [object count] == 10;
+		weakSelf.shouldAppendMoreMessages = [object count] == WLAPIChatPageSize;
 		[weakSelf.messages addObjectsFromArray:object];
 		[weakSelf reloadTableView];
 		loading = NO;

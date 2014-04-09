@@ -31,6 +31,7 @@
 #import "WLProgressView.h"
 #import "WLRefresher.h"
 #import "WLChatViewController.h"
+#import "WLLoadingView.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
 
@@ -47,8 +48,6 @@
 @property (strong, nonatomic) WLWrap* topWrap;
 @property (strong, nonatomic) NSArray* latestCandies;
 @property (nonatomic) BOOL loading;
-@property (strong, nonatomic) IBOutlet UIView *tableFooterView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *footerSpinner;
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet UIView *loadingView;
@@ -71,6 +70,7 @@
 	self.noWrapsView.hidden = YES;
 	[self setupRefresh];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newWrapCreated:) name:WLWrapChangesNotification object:nil];
+	self.tableView.tableFooterView = [WLLoadingView instance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -149,11 +149,11 @@
 	}
 }
 
-- (void) validateFooterWithObjectsCount:(int)count {
-	if (count < 10) {
+- (void)validateFooterWithObjectsCount:(int)count {
+	if (count < WLAPIGeneralPageSize) {
 		self.tableView.tableFooterView = nil;
 	} else if (self.tableView.tableFooterView == nil) {
-		self.tableView.tableFooterView = self.tableFooterView;;
+		self.tableView.tableFooterView = [WLLoadingView instance];
 	}
 }
 
@@ -199,14 +199,8 @@
 	[self.tableView reloadData];
 }
 
-- (IBAction)typeMessage:(UIButton *)sender {
-	[self.composeContainer setEditing:!self.composeContainer.editing animated:YES];
-}
-
 - (void)sendMessageWithText:(NSString*)text {
-	
 	__weak typeof(self)weakSelf = self;
-	
 	[[WLAPIManager instance] addCandy:[WLCandy chatMessageWithText:text]
 							   toWrap:self.topWrap
 							  success:^(id object) {
@@ -228,6 +222,16 @@
 		cameraController.mode = WLCameraModeFullSize;
 		cameraController.backfacingByDefault = YES;
 	}
+}
+
+#pragma mark - Actions
+
+- (IBAction)typeMessage:(UIButton *)sender {
+//	WLChatViewController * chatController = [self.storyboard chatViewController];
+//	chatController.wrap = self.topWrap;
+//	chatController.shouldShowKeyboard = YES;
+//	[self.navigationController pushViewController:chatController animated:YES];
+	[self.composeContainer setEditing:!self.composeContainer.editing animated:YES];
 }
 
 #pragma mark - WLComposeBarDelegate
@@ -272,7 +276,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	CGFloat maxOffset = (scrollView.contentSize.height - scrollView.height);
 	if (!self.loading && self.tableView.tableFooterView != nil && scrollView.contentSize.height > scrollView.height && scrollView.contentOffset.y >= maxOffset) {
-		[self fetchWraps:((self.wraps.count + 1)/10 + 1)];
+		[self fetchWraps:((self.wraps.count + 1)/WLAPIGeneralPageSize + 1)];
 	}
 }
 

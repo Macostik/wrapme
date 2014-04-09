@@ -167,8 +167,7 @@ static NSString* WLMyCommentCellIdentifier = @"MyWLCommentCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
-	BOOL isMyComment = (self.candy.type == WLCandyTypeConversation && [comment.contributor isCurrentUser]);
-	NSString* cellIdentifier = isMyComment ? @"WLMyCommentCell" : @"WLCommentCell";
+	NSString* cellIdentifier = @"WLCommentCell";
 	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
 	[cell configureCellHeightWithComment:comment];
 	cell.item = comment;

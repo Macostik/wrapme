@@ -13,16 +13,26 @@
 @protocol WLComment @end
 
 static NSInteger WLCandyTypeImage = 10;
-static NSInteger WLCandyTypeConversation = 20;
+static NSInteger WLCandyTypeChatMessage = 20;
 
 @interface WLCandy : WLWrapEntry
 
 @property (strong, nonatomic) NSArray<WLComment>* comments;
+
 @property (nonatomic) NSInteger type;
+
 @property (strong, nonatomic) NSString * chatMessage;
+
++ (instancetype)chatMessageWithText:(NSString*)text;
+
++ (instancetype)imageWithFileAtPath:(NSString*)path;
 
 - (void)addComment:(WLComment*)comment;
 
 - (WLComment*)addCommentWithText:(NSString*)text;
+
+- (BOOL)isImage;
+
+- (BOOL)isChatMessage;
 
 @end

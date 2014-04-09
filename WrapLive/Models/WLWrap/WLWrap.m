@@ -65,13 +65,13 @@
 	WLWrapDate* date = [self actualDate];
 	
 	for (WLCandy* candy in date.candies) {
-		if (candy.type == WLCandyTypeConversation) {
+		if (candy.type == WLCandyTypeChatMessage) {
 			return candy;
 		}
 	}
 	
 	WLCandy* conversation = [WLCandy entry];
-	conversation.type = WLCandyTypeConversation;
+	conversation.type = WLCandyTypeChatMessage;
 	[date addCandy:conversation];
 	self.updatedAt = [NSDate date];
 	return conversation;

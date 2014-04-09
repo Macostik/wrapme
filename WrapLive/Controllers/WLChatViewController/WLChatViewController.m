@@ -26,6 +26,7 @@
 @property (nonatomic, strong) IBOutlet UIView* loadingView;
 
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
 
@@ -33,6 +34,8 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	
+	self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", self.wrap.name];
 	
 	__weak typeof(self)weakSelf = self;
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
@@ -79,6 +82,12 @@
 	} failure:^(NSError *error) {
 		[error show];
 	}];
+}
+
+#pragma mark - Actions
+
+- (IBAction)back:(id)sender {
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - UITableViewDataSource

@@ -8,6 +8,7 @@
 
 #import "WLWrapDate.h"
 #import "WLCandy.h"
+#import "NSArray+Additions.h"
 
 @implementation WLWrapDate
 
@@ -24,6 +25,11 @@
 
 - (void)addCandy:(WLCandy *)candy {
 	NSMutableArray* candies = [NSMutableArray arrayWithArray:self.candies];
+	if (candy.type == WLCandyTypeChatMessage) {
+		[candies removeObject:[candies selectObject:^BOOL(WLCandy* candy) {
+			return candy.type == WLCandyTypeChatMessage;
+		}]];
+	}
 	[candies insertObject:candy atIndex:0];
 	self.candies = [candies copy];
 }

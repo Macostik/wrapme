@@ -313,13 +313,12 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		 failure:(WLAPIManagerFailureBlock)failure {
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-	if (candy.type == WLCandyTypeConversation) {
+	if (candy.type == WLCandyTypeChatMessage) {
 		[parameters trySetObject:candy.chatMessage forKey:@"chat_message"];
 	}
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 		WLCandy* candy = [[WLCandy alloc] initWithDictionary:[response.data dictionaryForKey:@"candy"] error:NULL];
-		candy.type = WLCandyTypeImage;
 		[wrap addCandy:candy];
 		return candy;
 	};

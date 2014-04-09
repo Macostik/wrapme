@@ -11,6 +11,20 @@
 
 @implementation WLCandy
 
++ (instancetype)chatMessageWithText:(NSString *)text {
+	WLCandy* candy = [self entry];
+	candy.type = WLCandyTypeChatMessage;
+	candy.chatMessage = text;
+	return candy;
+}
+
++ (instancetype)imageWithFileAtPath:(NSString *)path {
+	WLCandy* candy = [self entry];
+	candy.type = WLCandyTypeImage;
+	candy.picture.large = path;
+	return candy;
+}
+
 + (NSDictionary*)pictureMapping {
 	return @{@"large":@[@"large_image_attachment_url"],
 			 @"medium":@[@"medium_image_attachment_url"],
@@ -28,7 +42,7 @@
 }
 
 - (WLPicture *)picture {
-	if (self.type == WLCandyTypeConversation) {
+	if (self.type == WLCandyTypeChatMessage) {
 		WLComment* comment = [self.comments lastObject];
 		return comment.picture;
 	}
@@ -46,6 +60,14 @@
 	WLComment* comment = [WLComment commentWithText:text];
 	[self addComment:comment];
 	return comment;
+}
+
+- (BOOL)isImage {
+	return self.type == WLCandyTypeImage;
+}
+
+- (BOOL)isChatMessage {
+	return self.type == WLCandyTypeChatMessage;
 }
 
 @end

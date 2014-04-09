@@ -205,7 +205,7 @@
 - (void)sendMessageWithText:(NSString*)text {
 
 	WLCandy* candy = [WLCandy entry];
-	candy.type = WLCandyTypeConversation;
+	candy.type = WLCandyTypeChatMessage;
 	candy.chatMessage = text;
 	
 	__weak typeof(self)weakSelf = self;
@@ -357,7 +357,7 @@
 			controller.candy = candy;
 			controller.wrap = self.topWrap;
 			[self.navigationController pushViewController:controller animated:YES];
-		} else if (candy.type == WLCandyTypeConversation) {
+		} else if (candy.type == WLCandyTypeChatMessage) {
 			WLChatViewController * chatController = [self.storyboard chatViewController];
 			chatController.wrap = self.topWrap;
 			[self.navigationController pushViewController:chatController animated:YES];

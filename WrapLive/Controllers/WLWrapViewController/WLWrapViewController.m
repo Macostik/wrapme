@@ -120,17 +120,15 @@
 
 - (void)sendMessageWithText:(NSString*)text {
 	
-	WLCandy* candy = [WLCandy entry];
-	candy.type = WLCandyTypeConversation;
-	candy.chatMessage = text;
-	
-	[[WLAPIManager instance] addCandy:candy toWrap:self.wrap success:^(id object) {
-		
+	__weak typeof(self)weakSelf = self;
+	[[WLAPIManager instance] addCandy:[WLCandy chatMessageWithText:text]
+							   toWrap:self.wrap
+							  success:^(id object) {
+		[weakSelf.wrap postNotificationForRequest:YES];
+		[weakSelf.tableView reloadData];
 	} failure:^(NSError *error) {
 		[error show];
 	}];
-
-//	[[self.wrap actualConversation] addCommentWithText:text];
 }
 
 #pragma mark - User Actions
@@ -179,7 +177,7 @@
 		wrapDatacontroller.candy = candy;
 		wrapDatacontroller.wrap = self.wrap;
 		[self.navigationController pushViewController:wrapDatacontroller animated:YES];
-	} else if (candy.type == WLCandyTypeConversation) {
+	} else if (candy.type == WLCandyTypeChatMessage) {
 		WLChatViewController * chatController = [self.storyboard chatViewController];
 		chatController.wrap = self.wrap;
 		[self.navigationController pushViewController:chatController animated:YES];
@@ -216,10 +214,9 @@
 	[WLProgressView showWithMessage:@"Uploading image..." image:image operation:nil];
 	
 	[image storeAsImage:^(NSString *path) {
-		WLCandy* candy = [WLCandy entry];
-		candy.type = WLCandyTypeImage;
-		candy.picture.large = path;
-		id operation = [[WLAPIManager instance] addCandy:candy toWrap:weakSelf.wrap success:^(id object) {
+		id operation = [[WLAPIManager instance] addCandy:[WLCandy imageWithFileAtPath:path]
+												  toWrap:weakSelf.wrap
+												 success:^(id object) {
 			[weakSelf.wrap postNotificationForRequest:YES];
 			[weakSelf.tableView reloadData];
 			[WLProgressView dismiss];

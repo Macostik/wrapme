@@ -67,7 +67,9 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 - (AFHTTPRequestOperation *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters filePath:(NSString*)filePath success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
 	
 	void (^constructingBlock) (id<AFMultipartFormData>) = ^(id<AFMultipartFormData> formData) {
-		[self attachFile:filePath toFormData:formData];
+		if (filePath) {
+			[self attachFile:filePath toFormData:formData];
+		}
 	};
 	
 	AFHTTPRequestOperation* operation = [self POST:URLString
@@ -310,6 +312,11 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		 success:(WLAPIManagerSuccessBlock)success
 		 failure:(WLAPIManagerFailureBlock)failure {
 	
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	if (candy.type == WLCandyTypeConversation) {
+		[parameters trySetObject:candy.chatMessage forKey:@"chat_message"];
+	}
+	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 		WLCandy* candy = [[WLCandy alloc] initWithDictionary:[response.data dictionaryForKey:@"candy"] error:NULL];
 		candy.type = WLCandyTypeImage;
@@ -320,8 +327,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
 	
 	return [self POST:path
-		   parameters:nil
-			 filePath:candy.picture.large
+		   parameters:parameters
+			 filePath:(candy.type == WLCandyTypeImage ? candy.picture.large : nil)
 			  success:[self successBlock:success withObject:objectBlock failure:failure]
 			  failure:[self failureBlock:failure success:success]];
 }
@@ -337,6 +344,23 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	};
 	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
+	
+	return [self GET:path
+		  parameters:parameters
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure success:success]];
+}
+
+- (id)chatMessages:(WLWrap *)wrap page:(NSUInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:@(page) forKey:@"page"];
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		return [WLCandy arrayOfModelsFromDictionaries:response.data[@"chat_messages"]];
+	};
+	
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/chat_messages", wrap.identifier];
 	
 	return [self GET:path
 		  parameters:parameters
@@ -364,39 +388,20 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		   failure:(WLAPIManagerFailureBlock)failure {
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:comment.text forKey:@"message"];
 	
-	if (candy) {
-		WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
-			WLComment* comment = [[WLComment alloc] initWithDictionary:[response.data dictionaryForKey:@"comment"] error:NULL];
-			[candy addComment:comment];
-			return comment;
-		};
-		
-		NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@/comments", wrap.identifier, candy.identifier];
-		
-		[parameters trySetObject:comment.text forKey:@"message"];
-		
-		return [self POST:path
-			   parameters:parameters
-				  success:[self successBlock:success withObject:objectBlock failure:failure]
-				  failure:[self failureBlock:failure success:success]];
-	}
-	else {
-		WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
-			WLComment* comment = [[WLComment alloc] initWithDictionary:[response.data dictionaryForKey:@"comment"] error:NULL];
-			[candy addComment:comment];
-			return comment;
-		};
-		
-		NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
-		
-		[parameters trySetObject:comment.text forKey:@"chat_message"];
-		
-		return [self POST:path
-			   parameters:parameters
-				  success:[self successBlock:success withObject:objectBlock failure:failure]
-				  failure:[self failureBlock:failure success:success]];
-	}
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		WLComment* comment = [[WLComment alloc] initWithDictionary:[response.data dictionaryForKey:@"comment"] error:NULL];
+		[candy addComment:comment];
+		return comment;
+	};
+	
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@/comments", wrap.identifier, candy.identifier];
+	
+	return [self POST:path
+		   parameters:parameters
+			  success:[self successBlock:success withObject:objectBlock failure:failure]
+			  failure:[self failureBlock:failure success:success]];
 	
 }
 

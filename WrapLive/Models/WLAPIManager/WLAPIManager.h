@@ -130,6 +130,16 @@ typedef id (^WLAPIManagerObjectBlock)(WLAPIResponse* response);
 - (id)candies:(WLWrap*)wrap date:(WLWrapDate*)date success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
+ *  (Login required) Return the chat messages in a wrap given a wrap UID. Messages are sorted in descending order. Pagination is also supported
+ *
+ *  @param wrap    WLWrap instance representing wrap
+ *  @param page    page number
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (id)chatMessages:(WLWrap*)wrap page:(NSUInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+/*!
  *  Get all the data about a particular candy
  *
  *  @param candy   WLCandy instance representing candy

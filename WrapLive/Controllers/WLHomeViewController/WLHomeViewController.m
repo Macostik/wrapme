@@ -30,6 +30,7 @@
 #import "UIFont+CustomFonts.h"
 #import "WLProgressView.h"
 #import "WLRefresher.h"
+#import "WLChatViewController.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
 
@@ -203,16 +204,17 @@
 
 - (void)sendMessageWithText:(NSString*)text {
 
+	WLCandy* candy = [WLCandy entry];
+	candy.type = WLCandyTypeConversation;
+	candy.chatMessage = text;
+	
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] addComment:[WLComment commentWithText:text] toCandy:nil fromWrap:self.topWrap success:^(id object) {
+	
+	[[WLAPIManager instance] addCandy:candy toWrap:self.topWrap success:^(id object) {
 		[weakSelf fetchWraps:1];
 	} failure:^(NSError *error) {
 		[error show];
 	}];
-	WLWrap* topWrap = self.topWrap;
-	WLCandy* conversation = [topWrap actualConversation];
-	[conversation addCommentWithText:text];
-	[self updateHeaderViewWithWrap:topWrap];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -349,10 +351,18 @@
 
 - (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {
 	if (item.index.row < [self.latestCandies count]) {
-		WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];
-		controller.candy = [self.latestCandies objectAtIndex:item.index.row];
-		controller.wrap = self.topWrap;
-		[self.navigationController pushViewController:controller animated:YES];
+		WLCandy* candy = [self.latestCandies objectAtIndex:item.index.row];
+		if (candy.type == WLCandyTypeImage) {
+			WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];
+			controller.candy = candy;
+			controller.wrap = self.topWrap;
+			[self.navigationController pushViewController:controller animated:YES];
+		} else if (candy.type == WLCandyTypeConversation) {
+			WLChatViewController * chatController = [self.storyboard chatViewController];
+			chatController.wrap = self.topWrap;
+			[self.navigationController pushViewController:chatController animated:YES];
+		}
+		
 	} else {
 		[self presentViewController:[self cameraViewController] animated:YES completion:nil];
 	}

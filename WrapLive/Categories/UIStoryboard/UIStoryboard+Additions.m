@@ -30,6 +30,10 @@
 	return [self instantiateViewControllerWithIdentifier:WLStoryboardWrapDataViewControllerIdentifier];
 }
 
+- (id)chatViewController {
+	return [self instantiateViewControllerWithIdentifier:WLStoryboardChatViewControllerIdentifier];
+}
+
 @end
 
 @implementation UIStoryboardSegue (Additions)

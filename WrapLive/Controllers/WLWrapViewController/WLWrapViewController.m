@@ -25,6 +25,7 @@
 #import "WLProgressView.h"
 #import "WLComment.h"
 #import "WLRefresher.h"
+#import "WLChatViewController.h"
 
 @interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate>
 
@@ -118,8 +119,12 @@
 }
 
 - (void)sendMessageWithText:(NSString*)text {
-
-	[[WLAPIManager instance] addComment:[WLComment commentWithText:text] toCandy:nil fromWrap:self.wrap success:^(id object) {
+	
+	WLCandy* candy = [WLCandy entry];
+	candy.type = WLCandyTypeConversation;
+	candy.chatMessage = text;
+	
+	[[WLAPIManager instance] addCandy:candy toWrap:self.wrap success:^(id object) {
 		
 	} failure:^(NSError *error) {
 		[error show];
@@ -169,10 +174,16 @@
 #pragma mark - WLWrapCandiesCellDelegate
 
 - (void)wrapCandiesCell:(WLWrapCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
-	WLWrapDataViewController * wrapDatacontroller = [self.storyboard wrapDataViewController];
-	wrapDatacontroller.candy = candy;
-	wrapDatacontroller.wrap = self.wrap;
-	[self.navigationController pushViewController:wrapDatacontroller animated:YES];
+	if (candy.type == WLCandyTypeImage) {
+		WLWrapDataViewController * wrapDatacontroller = [self.storyboard wrapDataViewController];
+		wrapDatacontroller.candy = candy;
+		wrapDatacontroller.wrap = self.wrap;
+		[self.navigationController pushViewController:wrapDatacontroller animated:YES];
+	} else if (candy.type == WLCandyTypeConversation) {
+		WLChatViewController * chatController = [self.storyboard chatViewController];
+		chatController.wrap = self.wrap;
+		[self.navigationController pushViewController:chatController animated:YES];
+	}
 }
 
 #pragma mark - UITableViewDataSource

@@ -48,6 +48,7 @@
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refreshMessages];
 	}];
+	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
 	self.tableView.transform = CGAffineTransformMakeRotation(M_PI);
 	
 	[self refreshMessages];

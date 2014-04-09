@@ -80,6 +80,10 @@ static NSMutableDictionary* formatters = nil;
     return [[NSCalendar currentCalendar] components:units fromDate:self];
 }
 
+- (BOOL)isToday {
+	return [[self string] isEqualToString:[[NSDate date] string]];
+}
+
 @end
 
 @implementation NSDateFormatter (DateFormatting)

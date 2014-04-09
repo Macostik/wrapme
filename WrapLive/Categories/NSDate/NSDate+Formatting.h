@@ -26,6 +26,8 @@
 
 - (NSDate *)endOfDay;
 
+- (BOOL)isToday;
+
 @end
 
 @interface NSDateFormatter (DateFormatting)

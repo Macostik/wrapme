@@ -39,17 +39,22 @@
 	[super awakeFromNib];
 	self.shouldAppendMoreCandies = YES;
 	[self.collectionView registerNib:[WLWrapCandyCell nib] forCellWithReuseIdentifier:[WLWrapCandyCell reuseIdentifier]];
-	__weak typeof(self)weakSelf = self;
-	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
-		[weakSelf refreshCandies];
-	}];
-	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
 }
 
 - (void)setupItemData:(WLWrapDate*)entry {
 	self.dateLabel.text = [entry.updatedAt stringWithFormat:@"MMM dd, YYYY"];
 	self.shouldAppendMoreCandies = [entry.candies count] % 10 == 0;
 	[self.collectionView reloadData];
+	
+	[self.refresher removeFromSuperview];
+	
+	if ([entry.updatedAt isToday]) {
+		__weak typeof(self)weakSelf = self;
+		self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
+			[weakSelf refreshCandies];
+		}];
+		self.refresher.colorScheme = WLRefresherColorSchemeOrange;
+	}
 }
 
 - (void)refreshCandies {

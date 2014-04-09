@@ -14,8 +14,10 @@
 #import "WLCandy.h"
 #import "WLUser.h"
 #import "UIFont+CustomFonts.h"
+#import "WLComposeBar.h"
+#import "UIView+Shorthand.h"
 
-@interface WLChatViewController ()
+@interface WLChatViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray* messages;
 
@@ -26,7 +28,12 @@
 @property (nonatomic, strong) IBOutlet UIView* loadingView;
 
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *topView;
+
+@property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 
 @end
 
@@ -41,6 +48,7 @@
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refreshMessages];
 	}];
+	self.tableView.transform = CGAffineTransformMakeRotation(M_PI);
 	
 	[self refreshMessages];
 }
@@ -58,13 +66,12 @@
 }
 
 - (void)refreshMessages {
-	[self.messages removeAllObjects];
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] chatMessages:self.wrap
 									 page:1
 								  success:^(id object) {
-		[weakSelf.messages addObjectsFromArray:object];
-		[weakSelf.tableView reloadData];
+		[weakSelf.messages setArray:object];
+		[weakSelf reloadTableView];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
 		[error show];
@@ -78,16 +85,67 @@
 									 page:floorf([self.messages count] / 10) + 1
 								  success:^(id object) {
 		[weakSelf.messages addObjectsFromArray:object];
-		[weakSelf.tableView reloadData];
+		[weakSelf reloadTableView];
 	} failure:^(NSError *error) {
 		[error show];
 	}];
+}
+
+- (void)reloadTableView {
+	[self.tableView reloadData];
+	[self updateInsetView];
+}
+
+- (void)updateInsetView {
+	UITableView* tableView = self.tableView;
+	UIView* headerView = tableView.tableHeaderView;
+	CGFloat contentHeight = (tableView.contentSize.height - headerView.height);
+	CGFloat inset = 0;
+	if (contentHeight < tableView.height) {
+		inset = tableView.height - contentHeight;
+	}
+	headerView.height = inset;
+	tableView.tableHeaderView = headerView;
 }
 
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
 	[self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - WLComposeBarDelegate
+
+- (void)sendMessageWithText:(NSString*)text {
+	__weak typeof(self)weakSelf = self;
+	[[WLAPIManager instance] addCandy:[WLCandy chatMessageWithText:text]
+							   toWrap:self.wrap
+							  success:^(id object) {
+		[weakSelf.messages insertObject:object atIndex:0];
+		[weakSelf reloadTableView];
+	} failure:^(NSError *error) {
+		[error show];
+	}];
+}
+
+- (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
+	[self sendMessageWithText:text];
+}
+
+- (void)composeBarDidReturn:(WLComposeBar *)composeBar {
+	[composeBar resignFirstResponder];
+}
+
+- (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
+	self.tableView.height = self.view.height - self.topView.height - self.composeBar.height - 216;
+	self.composeBar.y = CGRectGetMaxY(self.tableView.frame);
+	[self updateInsetView];
+}
+
+- (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
+	self.tableView.height = self.view.height - self.topView.height - self.composeBar.height;
+	self.composeBar.y = CGRectGetMaxY(self.tableView.frame);
+	[self updateInsetView];
 }
 
 #pragma mark - UITableViewDataSource
@@ -103,6 +161,10 @@
 	WLMessageCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];;
 	cell.item = comment;
 	return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+	cell.transform = CGAffineTransformMakeRotation(M_PI);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

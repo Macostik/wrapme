@@ -159,7 +159,7 @@
 
 - (void)setTopWrap:(WLWrap *)topWrap {
 	_topWrap = topWrap;
-	[self updateHeaderViewWithWrap:topWrap];
+	[self updateTopWrap];
 }
 
 - (void)setWraps:(NSArray *)wraps {
@@ -180,7 +180,8 @@
 	}
 }
 
-- (void)updateHeaderViewWithWrap:(WLWrap*)wrap {
+- (void)updateTopWrap {
+	WLWrap* wrap = self.topWrap;
 	self.headerWrapNameLabel.text = wrap.name;
 	self.headerWrapCreatedAtLabel.text = [wrap.createdAt stringWithFormat:@"MMMM dd, yyyy"];
 	__weak typeof(self)weakSelf = self;
@@ -203,15 +204,13 @@
 }
 
 - (void)sendMessageWithText:(NSString*)text {
-
-	WLCandy* candy = [WLCandy entry];
-	candy.type = WLCandyTypeChatMessage;
-	candy.chatMessage = text;
 	
 	__weak typeof(self)weakSelf = self;
 	
-	[[WLAPIManager instance] addCandy:candy toWrap:self.topWrap success:^(id object) {
-		[weakSelf fetchWraps:1];
+	[[WLAPIManager instance] addCandy:[WLCandy chatMessageWithText:text]
+							   toWrap:self.topWrap
+							  success:^(id object) {
+		[weakSelf updateTopWrap];
 	} failure:^(NSError *error) {
 		[error show];
 	}];
@@ -285,13 +284,12 @@
 	[WLProgressView showWithMessage:@"Uploading image..." image:image operation:nil];
 	
 	[image storeAsImage:^(NSString *path) {
-		WLCandy* candy = [WLCandy entry];
-		candy.type = WLCandyTypeImage;
-		candy.picture.large = path;
 		
-		id operation = [[WLAPIManager instance] addCandy:candy toWrap:weakSelf.topWrap success:^(id object) {
+		id operation = [[WLAPIManager instance] addCandy:[WLCandy imageWithFileAtPath:path]
+												  toWrap:weakSelf.topWrap
+												 success:^(id object) {
 			[WLProgressView dismiss];
-			[weakSelf updateHeaderViewWithWrap:weakSelf.topWrap];
+			[weakSelf updateTopWrap];
 		} failure:^(NSError *error) {
 			[WLProgressView dismiss];
 			[error show];

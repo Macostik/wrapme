@@ -17,10 +17,14 @@
 #import "WLComposeBar.h"
 #import "UIView+Shorthand.h"
 #import "WLLoadingView.h"
+#import "WLWrapDate.h"
+#import "WLMessageGroupCell.h"
+#import "NSDate+Formatting.h"
+#import "NSObject+NibAdditions.h"
 
 @interface WLChatViewController () <UITableViewDataSource, UITableViewDelegate, WLComposeBarDelegate>
 
-@property (nonatomic, strong) NSMutableArray* messages;
+@property (nonatomic, strong) NSMutableArray* dates;
 
 @property (nonatomic, weak) WLRefresher* refresher;
 
@@ -39,6 +43,7 @@
 @implementation WLChatViewController
 {
 	BOOL loading;
+	NSInteger messagesCount;
 }
 
 - (void)viewDidLoad {
@@ -71,19 +76,53 @@
 	self.tableView.tableFooterView = shouldAppendMoreMessages ? [WLLoadingView instance] : nil;
 }
 
-- (NSMutableArray *)messages {
-	if (!_messages) {
-		_messages = [NSMutableArray array];
+- (NSMutableArray *)dates {
+	if (!_dates) {
+		_dates = [NSMutableArray array];
 	}
-	return _messages;
+	return _dates;
+}
+
+- (void)setMessages:(NSArray*)messages {
+	messagesCount = 0;
+	[self.dates removeAllObjects];
+	[self addMessages:messages];
+}
+
+- (void)addMessages:(NSArray*)messages {
+	messagesCount += [messages count];
+	
+	NSMutableArray* _messages = [NSMutableArray arrayWithArray:messages];
+	
+	while ([_messages count] > 0) {
+		WLCandy* candy = [_messages firstObject];
+		NSArray* dayMessages = [WLEntry entriesForDate:candy.updatedAt inArray:_messages];
+		
+		WLWrapDate* date = nil;
+		
+		for (WLWrapDate* _date in self.dates) {
+			if ([_date.updatedAt isSameDay:candy.updatedAt]) {
+				date = _date;
+				break;
+			}
+		}
+		if (!date) {
+			date = [[WLWrapDate alloc] init];
+			date.updatedAt = candy.updatedAt;
+			[self.dates addObject:date];
+		}
+		date.candies = (id)[date.candies arrayByAddingObjectsFromArray:dayMessages];
+		[_messages removeObjectsInArray:dayMessages];
+	}
+	
+	[self reloadTableView];
 }
 
 - (void)refreshMessages {
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] chatMessages:self.wrap page:1 success:^(id object) {
 		weakSelf.shouldAppendMoreMessages = [object count] == WLAPIChatPageSize;
-		[weakSelf.messages setArray:object];
-		[weakSelf reloadTableView];
+		[weakSelf setMessages:object];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
 		[error show];
@@ -97,11 +136,10 @@
 	}
 	loading = YES;
 	__weak typeof(self)weakSelf = self;
-	NSUInteger page = floorf([self.messages count] / WLAPIChatPageSize) + 1;
+	NSUInteger page = floorf(messagesCount / WLAPIChatPageSize) + 1;
 	[[WLAPIManager instance] chatMessages:self.wrap page:page success:^(id object) {
 		weakSelf.shouldAppendMoreMessages = [object count] == WLAPIChatPageSize;
-		[weakSelf.messages addObjectsFromArray:object];
-		[weakSelf reloadTableView];
+		[weakSelf addMessages:object];
 		loading = NO;
 	} failure:^(NSError *error) {
 		[error show];
@@ -141,7 +179,7 @@
 	[[WLAPIManager instance] addCandy:[WLCandy chatMessageWithText:text]
 							   toWrap:self.wrap
 							  success:^(id object) {
-		[weakSelf.messages insertObject:object atIndex:0];
+		[weakSelf addMessages:@[object]];
 		[weakSelf reloadTableView];
 	} failure:^(NSError *error) {
 		[error show];
@@ -174,32 +212,57 @@
 
 #pragma mark - UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return [self.dates count];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [self.messages count];
+	WLWrapDate* date = [self.dates objectAtIndex:section];
+	return [date.candies count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLCandy* comment = [self.messages objectAtIndex:indexPath.row];
-	BOOL isMyComment = [comment.contributor isCurrentUser];
+	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
+	WLCandy* message = [date.candies objectAtIndex:indexPath.row];
+	BOOL isMyComment = [message.contributor isCurrentUser];
 	NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
 	WLMessageCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];;
-	cell.item = comment;
+	cell.item = message;
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	cell.transform = CGAffineTransformMakeRotation(M_PI);
-	if (self.shouldAppendMoreMessages && indexPath.row == [self.messages count] - 1) {
+	[self handlePaginationWithIndexPath:indexPath];
+}
+
+- (void)handlePaginationWithIndexPath:(NSIndexPath*)indexPath {
+	if (!self.shouldAppendMoreMessages) {
+		return;
+	}
+	if (indexPath.section != [self.dates count] - 1) {
+		return;
+	}
+	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
+	if (indexPath.row == [date.candies count] - 1) {
 		[self appendMessages];
 	}
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLCandy* comment = [self.messages objectAtIndex:indexPath.row];
+	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
+	WLCandy* comment = [date.candies objectAtIndex:indexPath.row];
 	CGFloat commentHeight  = ceilf([comment.chatMessage boundingRectWithSize:CGSizeMake(255, CGFLOAT_MAX)
 															  options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightMicroFont]} context:nil].size.height);
 	CGFloat cellHeight = [comment.contributor isCurrentUser] ? commentHeight  : (commentHeight + 20);
 	return MAX(44, cellHeight);
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+	WLMessageGroupCell* groupCell = [WLMessageGroupCell loadFromNib];
+	groupCell.date = [self.dates objectAtIndex:section];
+	groupCell.transform = CGAffineTransformMakeRotation(M_PI);
+	return groupCell;
 }
 
 @end

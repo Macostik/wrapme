@@ -26,6 +26,8 @@
 
 - (NSDate *)endOfDay;
 
+- (BOOL)isSameDay:(NSDate*)date;
+
 - (BOOL)isToday;
 
 @end

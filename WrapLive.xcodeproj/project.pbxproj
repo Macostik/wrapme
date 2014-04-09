@@ -52,6 +52,8 @@
 		12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
 		12A8AA6D18F5919700F67113 /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
 		12A8AA7018F592B500F67113 /* WLLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12A8AA6F18F592B500F67113 /* WLLoadingView.xib */; };
+		12A8AA7418F59CE000F67113 /* WLMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA7318F59CE000F67113 /* WLMessageGroupCell.m */; };
+		12A8AA7618F5A3B600F67113 /* WLMessageGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12A8AA7518F5A3B600F67113 /* WLMessageGroupCell.xib */; };
 		12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D518E4326C009CE64C /* UIView+Shorthand.m */; };
 		12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D918E4329F009CE64C /* WLProgressBar.m */; };
 		12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
@@ -180,6 +182,9 @@
 		12A8AA6B18F5919700F67113 /* WLLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLoadingView.h; path = WLLoadingView/WLLoadingView.h; sourceTree = "<group>"; };
 		12A8AA6C18F5919700F67113 /* WLLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLoadingView.m; path = WLLoadingView/WLLoadingView.m; sourceTree = "<group>"; };
 		12A8AA6F18F592B500F67113 /* WLLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLLoadingView.xib; path = WLLoadingView/WLLoadingView.xib; sourceTree = "<group>"; };
+		12A8AA7218F59CE000F67113 /* WLMessageGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLMessageGroupCell.h; path = WLChatViewController/WLMessageGroupCell/WLMessageGroupCell.h; sourceTree = "<group>"; };
+		12A8AA7318F59CE000F67113 /* WLMessageGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLMessageGroupCell.m; path = WLChatViewController/WLMessageGroupCell/WLMessageGroupCell.m; sourceTree = "<group>"; };
+		12A8AA7518F5A3B600F67113 /* WLMessageGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLMessageGroupCell.xib; path = WLChatViewController/WLMessageGroupCell/WLMessageGroupCell.xib; sourceTree = "<group>"; };
 		12D653D418E4326C009CE64C /* UIView+Shorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shorthand.h"; sourceTree = "<group>"; };
 		12D653D518E4326C009CE64C /* UIView+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shorthand.m"; sourceTree = "<group>"; };
 		12D653D818E4329F009CE64C /* WLProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLProgressBar.h; sourceTree = "<group>"; };
@@ -653,6 +658,16 @@
 			name = WLLoadingView;
 			sourceTree = "<group>";
 		};
+		12A8AA7118F59CBF00F67113 /* WLMessageGroupCell */ = {
+			isa = PBXGroup;
+			children = (
+				12A8AA7218F59CE000F67113 /* WLMessageGroupCell.h */,
+				12A8AA7318F59CE000F67113 /* WLMessageGroupCell.m */,
+				12A8AA7518F5A3B600F67113 /* WLMessageGroupCell.xib */,
+			);
+			name = WLMessageGroupCell;
+			sourceTree = "<group>";
+		};
 		12D653D318E4326C009CE64C /* UIView */ = {
 			isa = PBXGroup;
 			children = (
@@ -988,6 +1003,7 @@
 		C5947E4E18F5264B00BDF038 /* WLChatViewController */ = {
 			isa = PBXGroup;
 			children = (
+				12A8AA7118F59CBF00F67113 /* WLMessageGroupCell */,
 				C5947E5218F52AC300BDF038 /* WLMessageCell */,
 				C5947E4F18F5271B00BDF038 /* WLChatViewController.h */,
 				C5947E5018F5271B00BDF038 /* WLChatViewController.m */,
@@ -1079,6 +1095,7 @@
 				121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */,
 				124BD4B918EEE1F50081E41C /* Default-568h@2x.png in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
+				12A8AA7618F5A3B600F67113 /* WLMessageGroupCell.xib in Resources */,
 				12E8FF2118E9885F00BF1B96 /* WLComposeBar.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1124,6 +1141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12A6BFAC18F2AE7700AE3B62 /* WLRefresher.m in Sources */,
+				12A8AA7418F59CE000F67113 /* WLMessageGroupCell.m in Sources */,
 				125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */,
 				12A8AA6D18F5919700F67113 /* WLLoadingView.m in Sources */,
 				129654EB18E1A5B900FF43F6 /* WLContributorsViewController.m in Sources */,

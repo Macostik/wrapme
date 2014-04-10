@@ -24,7 +24,6 @@
 
 static CGFloat WLDefaultImageWidth = 320;
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
-static NSString* WLMyCommentCellIdentifier = @"MyWLCommentCell";
 
 @interface WLWrapDataViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate>
 
@@ -149,7 +148,7 @@ static NSString* WLMyCommentCellIdentifier = @"MyWLCommentCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
-	NSString* cellIdentifier = @"WLCommentCell";
+	NSString* cellIdentifier = WLCommentCellIdentifier;
 	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
 	[cell configureCellHeightWithComment:comment];
 	cell.item = comment;

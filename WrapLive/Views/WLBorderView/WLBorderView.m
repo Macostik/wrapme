@@ -11,25 +11,11 @@
 
 @implementation WLBorderView
 
-- (void)awakeFromNib {
-	[super awakeFromNib];
-	[super setBackgroundColor:[UIColor clearColor]];
-}
-
 - (UIColor *)strokeColor {
 	if (!_strokeColor) {
 		_strokeColor = [UIColor WL_grayColor];
 	}
 	return _strokeColor;
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.backgroundColor = [UIColor clearColor];
-    }
-    return self;
 }
 
 - (void)drawRect:(CGRect)rect {

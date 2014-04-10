@@ -9,8 +9,11 @@
 #import "WLRefresher.h"
 #import "WLSupportFunctions.h"
 #import "UIColor+CustomColors.h"
+#import "UIView+Shorthand.h"
 
 static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
+
+static CGFloat WLRefresherContentSize = 88.0f;
 
 @interface WLRefresher ()
 
@@ -19,6 +22,7 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 @property (strong, nonatomic) void (^refreshBlock) (WLRefresher *);
 @property (weak, nonatomic) UIActivityIndicatorView* spinner;
 @property (weak, nonatomic) UIImageView* arrowView;
+@property (weak, nonatomic) UIView* contentView;
 
 @end
 
@@ -60,28 +64,47 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 
 + (WLRefresher*)refresherWithScrollView:(UIScrollView *)scrollView direction:(WLRefresherScrollDirection)direction {
 	CGRect frame;
-	CGPoint spinnerCenter;
+	CGRect contentFrame;
 	if (direction == WLRefresherScrollDirectionHorizontal) {
-		frame = CGRectMake(-scrollView.frame.size.width, 0, scrollView.frame.size.width, scrollView.frame.size.height);
-		spinnerCenter = CGPointMake(scrollView.frame.size.width - 44, scrollView.frame.size.height/2);
+		frame = CGRectMake(-scrollView.width, 0, scrollView.width, scrollView.height);
+		contentFrame = CGRectMake(frame.size.width - WLRefresherContentSize, 0, WLRefresherContentSize, frame.size.height);
 	} else {
-		frame = CGRectMake(0, -scrollView.frame.size.height, scrollView.frame.size.width, scrollView.frame.size.height);
-		spinnerCenter = CGPointMake(scrollView.frame.size.width/2, scrollView.frame.size.height - 44);
+		frame = CGRectMake(0, -scrollView.height, scrollView.width, scrollView.height);
+		contentFrame = CGRectMake(0, frame.size.height - WLRefresherContentSize, frame.size.width, WLRefresherContentSize);
 	}
 	WLRefresher* refresher = [[WLRefresher alloc] initWithFrame:frame];
 	refresher.direction = direction;
 	refresher.backgroundColor = [UIColor WL_orangeColor];
 	[scrollView addSubview:refresher];
-	refresher.spinner.center = spinnerCenter;
-	refresher.arrowView.center = spinnerCenter;
+	refresher.contentView.frame = contentFrame;
+	refresher.contentMode = UIViewContentModeCenter;
 	return refresher;
+}
+
+- (void)setContentMode:(UIViewContentMode)contentMode {
+	[super setContentMode:contentMode];
+	
+	CGPoint center;
+	
+	if (self.direction == WLRefresherScrollDirectionHorizontal) {
+		center = self.contentView.centerBoundary;
+	} else {
+		if (contentMode == UIViewContentModeLeft) {
+			center = CGPointMake(self.contentView.height/2, self.contentView.height/2);
+		} else {
+			center = self.contentView.centerBoundary;
+		}
+	}
+	
+	self.spinner.center = center;
+	self.arrowView.center = center;
 }
 
 - (UIActivityIndicatorView *)spinner {
 	if (!_spinner) {
 		UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 		spinner.hidesWhenStopped = YES;
-		[self addSubview:spinner];
+		[self.contentView addSubview:spinner];
 		_spinner = spinner;
 	}
 	return _spinner;
@@ -90,10 +113,20 @@ static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 - (UIImageView *)arrowView {
 	if (!_arrowView) {
 		UIImageView* arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_refresh_arrow"]];
-		[self addSubview:arrowView];
+		[self.contentView addSubview:arrowView];
 		_arrowView = arrowView;
 	}
 	return _arrowView;
+}
+
+- (UIView *)contentView {
+	if (!_contentView) {
+		UIView* contentView = [[UIView alloc] init];
+		contentView.backgroundColor = [UIColor clearColor];
+		[self addSubview:contentView];
+		_contentView = contentView;
+	}
+	return _contentView;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

@@ -100,7 +100,6 @@
 		WLCandy* candy = [_messages firstObject];
 		NSArray* dayMessages = [WLEntry entriesForDate:candy.updatedAt inArray:_messages];
 		[self addMessages:dayMessages date:candy.updatedAt];
-		
 		[_messages removeObjectsInArray:dayMessages];
 	}
 	

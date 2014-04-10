@@ -98,7 +98,8 @@
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf fetchWraps:1];
 	}];
-	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
+	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
+	self.refresher.contentMode = UIViewContentModeLeft;
 }
 
 
@@ -267,16 +268,10 @@
 	return [tableView dequeueReusableCellWithIdentifier:@"LabelCell"];
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	if (self.composeContainer.editing) {
-		[self.composeContainer setEditing:NO animated:YES];
-	}
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-	CGFloat maxOffset = (scrollView.contentSize.height - scrollView.height);
-	if (!self.loading && self.tableView.tableFooterView != nil && scrollView.contentSize.height > scrollView.height && scrollView.contentOffset.y >= maxOffset) {
-		[self fetchWraps:((self.wraps.count + 1)/WLAPIGeneralPageSize + 1)];
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (!self.loading && self.tableView.tableFooterView != nil && (indexPath.row == [self.wraps count] - 1)) {
+		NSInteger page = ((self.wraps.count + 1)/WLAPIGeneralPageSize + 1);
+		[self fetchWraps:page];
 	}
 }
 
@@ -316,11 +311,7 @@
 }
 
 - (NSInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSInteger)section {
-	if ([self.latestCandies count] > 2) {
-		return 5;
-	} else {
-		return 2;
-	}
+	return ([self.latestCandies count] > 2) ? 5 : 2;
 }
 
 - (UIView*)streamView:(StreamView*)streamView viewForItem:(StreamLayoutItem*)item {
@@ -364,7 +355,6 @@
 			chatController.wrap = self.topWrap;
 			[self.navigationController pushViewController:chatController animated:YES];
 		}
-		
 	} else {
 		[self presentViewController:[self cameraViewController] animated:YES completion:nil];
 	}

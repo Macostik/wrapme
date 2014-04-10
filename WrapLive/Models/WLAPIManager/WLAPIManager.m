@@ -24,7 +24,7 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
 static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
 static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
 static NSString* WLAPIProductionUrl = @"https://api.wraplive.com/api";
-#define WLAPIBaseUrl WLAPIQAUrl
+#define WLAPIBaseUrl WLAPIDevelopmentUrl
 
 typedef void (^WLAFNetworkingSuccessBlock) (AFHTTPRequestOperation *operation, id responseObject);
 typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, NSError *error);
@@ -69,12 +69,38 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 - (AFHTTPRequestOperation *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters filePath:(NSString*)filePath success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
 	
 	void (^constructingBlock) (id<AFMultipartFormData>) = ^(id<AFMultipartFormData> formData) {
-		if (filePath) {
-			[self attachFile:filePath toFormData:formData];
-		}
+		[self attachFile:filePath toFormData:formData];
 	};
 	
 	AFHTTPRequestOperation* operation = [self POST:URLString
+										parameters:parameters
+						 constructingBodyWithBlock:constructingBlock
+										   success:success
+										   failure:failure];
+	
+	return operation;
+}
+
+- (AFHTTPRequestOperation *)PUT:(NSString *)URLString parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+	DDLogDebug(@"%@: %@",URLString, parameters);
+	return [super PUT:URLString parameters:parameters success:success failure:failure];
+}
+
+- (AFHTTPRequestOperation *)PUT:(NSString *)URLString parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+	DDLogDebug(@"%@: %@",URLString, parameters);
+	NSMutableURLRequest *request = [self.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters constructingBodyWithBlock:block error:nil];
+	AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
+	[self.operationQueue addOperation:operation];
+	return operation;
+}
+
+- (AFHTTPRequestOperation *)PUT:(NSString *)URLString parameters:(NSDictionary *)parameters filePath:(NSString*)filePath success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+	
+	void (^constructingBlock) (id<AFMultipartFormData>) = ^(id<AFMultipartFormData> formData) {
+		[self attachFile:filePath toFormData:formData];
+	};
+	
+	AFHTTPRequestOperation* operation = [self PUT:URLString
 										parameters:parameters
 						 constructingBodyWithBlock:constructingBlock
 										   success:success
@@ -192,12 +218,11 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		[user setCurrent];
 		return user;
 	};
-	
-	return [self POST:@"users/update"
-		   parameters:parameters
-			 filePath:user.picture.large
-			  success:[self successBlock:success withObject:objectBlock failure:failure]
-			  failure:[self failureBlock:failure success:success]];
+	return [self PUT:@"users/update"
+		  parameters:parameters
+			filePath:user.picture.large
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure success:success]];
 }
 
 - (id)contributors:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
@@ -216,10 +241,10 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			return [weakSelf contributorsFromResponse:response contacts:contacts];
 		};
 		
-		[weakSelf GET:@"users/sign_up_status"
-		   parameters:parameters
-			  success:[weakSelf successBlock:success withObject:objectBlock failure:failure]
-			  failure:[weakSelf failureBlock:failure success:success]];
+		[weakSelf POST:@"users/sign_up_status"
+			parameters:parameters
+			   success:[weakSelf successBlock:success withObject:objectBlock failure:failure]
+			   failure:[weakSelf failureBlock:failure success:success]];
 	} failure:failure];
 	return nil;
 }
@@ -299,12 +324,27 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	success(wrap);
-	return nil;
+	NSArray* contributors = [wrap.contributors map:^id(WLUser* contributor) {
+		return contributor.identifier;
+	}];
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:wrap.name forKey:@"name"];
+	[parameters trySetObject:contributors forKey:@"user_uids"];
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		return [[WLWrap alloc] initWithDictionary:response.data[@"wrap"] error:NULL];
+	};
+	
+	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
+	return [self PUT:path
+		   parameters:parameters
+			 filePath:wrap.picture.large
+			  success:[self successBlock:success withObject:objectBlock failure:failure]
+			  failure:[self failureBlock:failure success:success]];
 }
 
 - (void)attachFile:(NSString*)path toFormData:(id <AFMultipartFormData>)formData {
-	if (path) {
+	if (path && [path isAbsolutePath]) {
 		[formData appendPartWithFileURL:[NSURL fileURLWithPath:path] name:@"qqfile" fileName:[path lastPathComponent] mimeType:@"image/jpeg" error:NULL];
 	}
 }

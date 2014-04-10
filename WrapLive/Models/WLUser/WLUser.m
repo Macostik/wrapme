@@ -48,12 +48,6 @@
 	return equalPhoneNumber && equalBirthdate;
 }
 
-+ (NSArray *)removeCurrentUserFromArray:(NSArray *)users {
-	return [users arrayByRemovingUniqueObject:[WLUser currentUser] equality:^BOOL(id first, id second) {
-		return [first isEqualToUser:second];
-	}];
-}
-
 @end
 
 @implementation WLUser (CurrentUser)
@@ -72,6 +66,30 @@
 
 - (BOOL)isCurrentUser {
 	return [[WLUser currentUser] isEqualToUser:self];
+}
+
+@end
+
+@implementation NSArray (WLUser)
+
+- (NSArray *)arrayByRemovingCurrentUserAndUser:(WLUser *)user {
+	return [self arrayByRemovingUsers:@[[WLUser currentUser],user]];
+}
+
+- (NSArray*)arrayByRemovingCurrentUser {
+	return [self arrayByRemovingUser:[WLUser currentUser]];
+}
+
+- (NSArray*)arrayByRemovingUser:(WLUser*)user {
+	return [self arrayByRemovingUniqueObject:user equality:^BOOL(id first, id second) {
+		return [first isEqualToUser:second];
+	}];
+}
+
+- (NSArray*)arrayByRemovingUsers:(NSArray*)users {
+	return [self arrayByRemovingUniqueObjects:users equality:^BOOL(id first, id second) {
+		return [first isEqualToUser:second];
+	}];
 }
 
 @end

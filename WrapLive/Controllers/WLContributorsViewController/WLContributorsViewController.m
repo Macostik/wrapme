@@ -32,8 +32,8 @@
     // Do any additional setup after loading the view.
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] contributors:^(id object) {
-		weakSelf.contributors = [WLUser removeCurrentUserFromArray:object];
+	[[WLAPIManager instance] contributors:^(NSArray* contributors) {
+		weakSelf.contributors = [contributors arrayByRemovingCurrentUserAndUser:weakSelf.wrap.contributor];
 		[weakSelf.spinner stopAnimating];
 	} failure:^(NSError *error) {
 		[weakSelf.spinner stopAnimating];

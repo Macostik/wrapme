@@ -21,7 +21,7 @@ typedef void (^WLAPIManagerFailureBlock) (NSError* error);
 typedef id (^WLAPIManagerObjectBlock)(WLAPIResponse* response);
 
 static NSInteger WLAPIGeneralPageSize = 10;
-static NSInteger WLAPIChatPageSize = 10;
+static NSInteger WLAPIChatPageSize = 50;
 
 @interface WLAPIManager : AFHTTPRequestOperationManager
 

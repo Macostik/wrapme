@@ -100,6 +100,22 @@
 	}
 }
 
+- (NSArray *)arrayByRemovingUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality {
+	NSIndexSet *indexes = [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
+	    NSInteger index = [objects indexOfObjectPassingTest: ^BOOL (id object, NSUInteger idx, BOOL *stop) {
+	        return equality(obj, object);
+		}];
+	    return index != NSNotFound;
+	}];
+	if ([indexes count] > 0) {
+		NSMutableArray *_objects = [self mutableCopy];
+		[_objects removeObjectsAtIndexes:indexes];
+		return [NSArray arrayWithArray:_objects];
+	} else {
+		return self;
+	}
+}
+
 - (NSArray *)map:(MapBlock)block {
 	NSMutableArray *result = [NSMutableArray array];
 	for (id element in self) {

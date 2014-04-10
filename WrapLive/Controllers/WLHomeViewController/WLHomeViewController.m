@@ -138,7 +138,9 @@
 	} failure:^(NSError *error) {
 		weakSelf.loading = NO;
 		[weakSelf.refresher endRefreshing];
-		[error show];
+		if (weakSelf.isOnTopOfNagvigation) {
+			[error show];
+		}
 		[weakSelf finishLoadingAnimation];
 	}];
 }

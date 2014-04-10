@@ -31,6 +31,8 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 
 - (NSArray*)arrayByRemovingUniqueObject:(id)object equality:(EqualityBlock)equality;
 
+- (NSArray*)arrayByRemovingUniqueObjects:(NSArray*)objects equality:(EqualityBlock)equality;
+
 - (NSArray*)map:(MapBlock)block;
 
 - (id)selectObject:(SelectBlock)block;

@@ -66,7 +66,8 @@
 - (void)setWrap:(WLWrap *)wrap {
 	_wrap = wrap;
 	self.editingWrap = [wrap copy];
-	self.editingWrap.contributors = (id)[WLUser removeCurrentUserFromArray:wrap.contributors];
+	self.editingWrap.contributors = (id)[wrap.contributors arrayByRemovingCurrentUserAndUser:self.wrap.contributor];
+	self.editingWrap.picture.large = nil;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -113,15 +114,16 @@
 }
 - (IBAction)done:(UIButton *)sender {
 	__weak typeof(self)weakSelf = self;
-	NSError * tempError = [NSError errorWithDescription:@"Sorry, we didn't implement this feature, yet. Try later :)"];
-	[tempError show];
-	[[WLAPIManager instance] updateWrap:self.editingWrap success:^(id object) {
+	id operation = [[WLAPIManager instance] updateWrap:self.editingWrap success:^(id object) {
+		[WLProgressView dismiss];
 		[weakSelf.wrap updateWithObject:object];
 		[weakSelf.wrap postNotificationForRequest:NO];
 		[weakSelf.navigationController popViewControllerAnimated:YES];
 	} failure:^(NSError *error) {
+		[WLProgressView dismiss];
 		[error show];
 	}];
+	[WLProgressView showWithMessage:@"Updating wrap..." operation:operation];
 }
 
 - (IBAction)start:(id)sender {

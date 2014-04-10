@@ -18,8 +18,6 @@
 
 - (BOOL)isEqualToUser:(WLUser*)user;
 
-+ (NSArray*)removeCurrentUserFromArray:(NSArray*)users;
-
 @end
 
 @interface WLUser (CurrentUser)
@@ -31,5 +29,17 @@
 - (void)setCurrent;
 
 - (BOOL)isCurrentUser;
+
+@end
+
+@interface NSArray (WLUser)
+
+- (NSArray*)arrayByRemovingCurrentUserAndUser:(WLUser*)user;
+
+- (NSArray*)arrayByRemovingCurrentUser;
+
+- (NSArray*)arrayByRemovingUser:(WLUser*)user;
+
+- (NSArray*)arrayByRemovingUsers:(NSArray*)users;
 
 @end

@@ -110,21 +110,12 @@ static NSString* WLMyCommentCellIdentifier = @"MyWLCommentCell";
 - (void)sendMessageWithText:(NSString*)text {
 	__weak typeof(self)weakSelf = self;
 	WLComment* comment = [WLComment commentWithText:text];
-	
-//	WLCandy * currentCandy = self.candy.type == WLCandyTypeImage ? self.candy : nil;
-	if (self.candy.type == WLCandyTypeImage) {
-		[[WLAPIManager instance] addComment:comment toCandy:self.candy fromWrap:self.wrap success:^(id object) {
-			[weakSelf.tableView reloadData];
-			[weakSelf.wrap postNotificationForRequest:YES];
-		} failure:^(NSError *error) {
-			[error show];
-		}];
-	}
-	else {
-		NSError * tempError = [NSError errorWithDescription:@"Sorry, we didn't implement this feature, yet. Try later :)"];
-		[tempError show];
-	}
-	
+	[[WLAPIManager instance] addComment:comment toCandy:self.candy fromWrap:self.wrap success:^(id object) {
+		[weakSelf.tableView reloadData];
+		[weakSelf.wrap postNotificationForRequest:YES];
+	} failure:^(NSError *error) {
+		[error show];
+	}];
 }
 
 #pragma mark - WLComposeBarDelegate

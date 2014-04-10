@@ -397,7 +397,7 @@
                                             <outlet property="delegate" destination="L91-fZ-J9O" id="KeE-4K-hmv"/>
                                         </connections>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="66" sectionHeaderHeight="22" sectionFooterHeight="22" id="vM9-X0-izB">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="66" sectionHeaderHeight="44" sectionFooterHeight="22" id="vM9-X0-izB">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -456,7 +456,7 @@
                                         </view>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LabelCell" rowHeight="44" id="x7B-H0-N9e">
-                                                <rect key="frame" x="0.0" y="234" width="320" height="44"/>
+                                                <rect key="frame" x="0.0" y="256" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x7B-H0-N9e" id="V7a-Yu-zBu">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -475,7 +475,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WLWrapCell" rowHeight="66" id="gS1-bo-AjG" customClass="WLWrapCell">
-                                                <rect key="frame" x="0.0" y="278" width="320" height="66"/>
+                                                <rect key="frame" x="0.0" y="300" width="320" height="66"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gS1-bo-AjG" id="L07-LI-8kE">
                                                     <rect key="frame" x="0.0" y="0.0" width="287" height="66"/>

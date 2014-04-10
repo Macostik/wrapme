@@ -233,10 +233,6 @@
 #pragma mark - Actions
 
 - (IBAction)typeMessage:(UIButton *)sender {
-//	WLChatViewController * chatController = [self.storyboard chatViewController];
-//	chatController.wrap = self.topWrap;
-//	chatController.shouldShowKeyboard = YES;
-//	[self.navigationController pushViewController:chatController animated:YES];
 	[self.composeContainer setEditing:!self.composeContainer.editing animated:YES];
 }
 
@@ -263,10 +259,6 @@
 													   forIndexPath:indexPath];
 	cell.item = [self.wraps objectAtIndex:(indexPath.row)];
 	return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	return 44;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -341,10 +333,6 @@
 
 - (CGFloat)streamView:(StreamView *)streamView initialRangeForColumn:(NSInteger)column {
 	return column == 1 ? 106 : 0;
-}
-
-- (CGFloat)streamViewSpacing:(StreamView *)streamView {
-	return 1;
 }
 
 - (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {

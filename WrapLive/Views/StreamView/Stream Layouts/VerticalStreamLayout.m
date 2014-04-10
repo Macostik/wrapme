@@ -23,11 +23,9 @@
 - (CGRect)frameForItemWithRatio:(CGFloat)ratio {
 	NSInteger column = 0;
 	CGFloat range = [self minimumRange:&column];
-	CGFloat scaledWidth = _size;
-	CGFloat scaledHeight = _size / ratio;
-	CGRect frame = CGRectMake(_size * column, range, scaledWidth, scaledHeight);
+	CGRect frame = CGRectMake(_size * column, range, _size, _size / ratio);
 	ranges[column] = CGRectGetMaxY(frame);
-	return CGRectIntegral(frame);
+	return frame;
 }
 
 - (CGSize)contentSize {

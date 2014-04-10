@@ -340,7 +340,7 @@
 }
 
 - (CGFloat)streamViewSpacing:(StreamView *)streamView {
-	return 0;
+	return 1;
 }
 
 - (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {

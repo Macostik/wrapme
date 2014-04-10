@@ -15,25 +15,19 @@
 {
 @protected
     CGFloat _size;
-	CGFloat _innerSize;
-    CGFloat _spacing;
     NSInteger _numberOfColumns;
 	CGFloat* ranges;
-	CGFloat _initialRange;
 }
 
 @property (nonatomic, weak) StreamView* streamView;
 
-@property (nonatomic) CGFloat spacing;
 @property (nonatomic) NSInteger numberOfColumns;
 
 - (void)prepareLayout;
 
 - (NSSet*)layoutItems:(NSUInteger)numberOfItems ratio:(CGFloat (^)(StreamLayoutItem* item, NSUInteger itemIndex))ratio;
-- (StreamLayoutItem*)layoutSupplementaryItem:(CGFloat)ratio;
 
 - (CGRect)frameForItemWithRatio:(CGFloat)ratio;
-- (CGRect)frameForSupplementaryViewWithRatio:(CGFloat)ratio;
 
 @property (nonatomic, readonly) CGSize contentSize;
 
@@ -46,14 +40,6 @@
 - (CGFloat)minimumRange:(NSInteger*)column;
 
 - (CGFloat)maximumRange:(NSInteger*)column;
-
-- (BOOL)shouldLoadData;
-
-- (BOOL)shouldRefreshData;
-
-- (void)beginRefreshingAnimated:(BOOL)animated;
-
-- (void)reloadInsets:(BOOL)stop animated:(BOOL)animated;
 
 @end
 

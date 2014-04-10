@@ -86,32 +86,8 @@
 	return [items copy];
 }
 
-- (StreamLayoutItem *)layoutSupplementaryItem:(CGFloat)ratio {
-	StreamLayoutItem *item = [[StreamLayoutItem alloc] init];
-	item.frame = [self frameForSupplementaryViewWithRatio:ratio];
-	return item;
-}
-
 - (CGRect)frameForItemWithRatio:(CGFloat)ratio {
 	return CGRectZero;
-}
-
-- (CGRect)frameForSupplementaryViewWithRatio:(CGFloat)ratio {
-	return CGRectZero;
-}
-
-- (BOOL)shouldLoadData {
-	return NO;
-}
-
-- (BOOL)shouldRefreshData {
-	return NO;
-}
-
-- (void)beginRefreshingAnimated:(BOOL)animated {
-}
-
-- (void)reloadInsets:(BOOL)stop animated:(BOOL)animated {
 }
 
 @end

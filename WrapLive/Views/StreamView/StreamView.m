@@ -25,10 +25,6 @@ static NSString *panGestureRecognizerStatePath = @"panGestureRecognizer.state";
 
 @implementation StreamView
 {
-	CGPoint panOrigin;
-	BOOL _refreshing;
-	BOOL _loading;
-	BOOL _stopLoadData;
 	StreamLayoutItem *items;
 }
 
@@ -43,59 +39,18 @@ static NSString *panGestureRecognizerStatePath = @"panGestureRecognizer.state";
 	UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
 	[self addGestureRecognizer:tapRecognizer];
 	
-	//        UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
-	//        [self addGestureRecognizer:panRecognizer];
-	
 	[self addObserver:self forKeyPath:contentOffsetPath options:NSKeyValueObservingOptionNew context:NULL];
 	[self addObserver:self forKeyPath:panGestureRecognizerStatePath options:NSKeyValueObservingOptionNew context:NULL];
 }
 
-- (void)beginRefreshing {
-	_refreshing = YES;
-	[self.layout beginRefreshingAnimated:YES];
-}
-
-- (void)reloadInsets {
-	_refreshing = NO;
-	_loading = NO;
-	[self.layout reloadInsets:_stopLoadData animated:YES];
-}
-
-- (void)beginLoading {
-	_loading = YES;
-}
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if (keyPath == contentOffsetPath) {
-		[self handleLoadingData];
 		dispatch_after(DISPATCH_TIME_NOW, dispatch_get_main_queue(), ^(void){
 			CGRect rect = (CGRect){self.contentOffset, self.bounds.size};
 			for (StreamLayoutItem *item in _layoutItems) {
 				item.visible = CGRectIntersectsRect(item.frame, rect);
 			}
 		});
-	} else if (keyPath == panGestureRecognizerStatePath && !_refreshing) {
-		if (self.panGestureRecognizer.state == UIGestureRecognizerStateEnded && [self.layout shouldRefreshData]) {
-			[self handleRefreshingData];
-		}
-	}
-}
-
-- (void)handleLoadingData {
-	if (!_stopLoadData && !_loading) {
-		if ([self.layout shouldLoadData]) {
-			if ([self.delegate respondsToSelector:@selector(streamViewDidLoadData:)]) {
-				[self beginLoading];
-				[self.delegate streamViewDidLoadData:self];
-			}
-		}
-	}
-}
-
-- (void)handleRefreshingData {
-	if ([self.delegate respondsToSelector:@selector(streamViewDidRefreshData:)]) {
-		[self beginRefreshing];
-		[self.delegate streamViewDidRefreshData:self];
 	}
 }
 
@@ -148,16 +103,6 @@ static NSString *panGestureRecognizerStatePath = @"panGestureRecognizer.state";
 	
 	for (NSInteger section = 0; section < self.numberOfSections; ++section) {
 		NSInteger numberOfItems = [self.delegate streamView:self numberOfItemsInSection:section];
-		
-		if ([self.delegate respondsToSelector:@selector(streamView:ratioForSupplementaryViewInSection:)]) {
-			StreamIndex index = { section, 0 };
-			StreamLayoutItem *item = [layout layoutSupplementaryItem:[self.delegate streamView:self ratioForSupplementaryViewInSection:section]];
-			item.index = index;
-			item.isSupplementary = YES;
-			item.delegate = self;
-			[self.layoutItems addObject:item];
-		}
-		
 		[self.layoutItems addObjectsFromArray:[[layout layoutItems:numberOfItems ratio:^CGFloat(StreamLayoutItem* item, NSUInteger itemIndex) {
 			StreamIndex index = { section, itemIndex };
 			item.index = index;
@@ -180,48 +125,6 @@ static NSString *panGestureRecognizerStatePath = @"panGestureRecognizer.state";
 	}
 }
 
-- (void)pan:(UIPanGestureRecognizer *)recognizer {
-	if (recognizer.state == UIGestureRecognizerStateBegan) {
-		self.panItem = [self visibleItemAtPoint:[recognizer locationInView:self]];
-		panOrigin = self.panItem.view.frame.origin;
-		[self bringSubviewToFront:self.panItem.view];
-	}
-	else if (recognizer.state == UIGestureRecognizerStateEnded && self.panItem) {
-		StreamLayoutItem *intersectionItem = [self visibleItemAtPoint:self.panItem.view.center];
-		
-		[UIView beginAnimations:nil context:nil];
-		
-		if (intersectionItem && intersectionItem != self.panItem) {
-			StreamIndex index = self.panItem.index;
-			StreamIndex intersectionIndex = intersectionItem.index;
-			
-			CGRect frame = self.panItem.frame;
-			CGRect intersectionFrame = intersectionItem.frame;
-			
-			self.panItem.index = intersectionIndex;
-			intersectionItem.index = index;
-			
-			self.panItem.frame = intersectionFrame;
-			self.panItem.view.frame = intersectionFrame;
-			
-			intersectionItem.frame = frame;
-			intersectionItem.view.frame = frame;
-		}
-		else {
-			self.panItem.view.frame = self.panItem.frame;
-		}
-		
-		[UIView commitAnimations];
-		
-		self.panItem = nil;
-	} else if (self.panItem) {
-		CGPoint translation = [recognizer translationInView:self];
-		CGRect frame = self.panItem.view.frame;
-		frame.origin = CGPointMake(panOrigin.x + translation.x, panOrigin.y + translation.y);
-		self.panItem.view.frame = frame;
-	}
-}
-
 - (StreamLayoutItem *)visibleItemAtPoint:(CGPoint)point {
 	for (StreamLayoutItem *item in self.layoutItems) {
 		if (CGRectContainsPoint(item.frame, point)) {
@@ -239,13 +142,6 @@ static NSString *panGestureRecognizerStatePath = @"panGestureRecognizer.state";
 }
 
 - (void)reloadData {
-	[self reloadData:YES];
-}
-
-- (void)reloadData:(BOOL)stop {
-	_stopLoadData = stop;
-	
-	[self reloadInsets];
 	
 	[self clearData];
 	
@@ -255,12 +151,6 @@ static NSString *panGestureRecognizerStatePath = @"panGestureRecognizer.state";
 		layout.numberOfColumns = [self.delegate streamViewNumberOfColumns:self];
 	} else {
 		layout.numberOfColumns = 1;
-	}
-	
-	if ([self.delegate respondsToSelector:@selector(streamViewSpacing:)]) {
-		layout.spacing = [self.delegate streamViewSpacing:self];
-	} else {
-		layout.spacing = 5.0f;
 	}
 	
 	[layout prepareLayout];
@@ -345,13 +235,7 @@ static NSString *panGestureRecognizerStatePath = @"panGestureRecognizer.state";
 }
 
 - (void)streamLayoutItemWillBecomeVisible:(StreamLayoutItem *)item {
-	UIView *view = nil;
-	
-	if (item.isSupplementary && [self.delegate respondsToSelector:@selector(streamView:supplementaryViewInSection:)]) {
-		view = [self.delegate streamView:self supplementaryViewInSection:item.index.section];
-	} else {
-		view = [self.delegate streamView:self viewForItem:item];
-	}
+	UIView *view = [self.delegate streamView:self viewForItem:item];
 	
 	if (view) {
 		item.view = view;

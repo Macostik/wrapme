@@ -17,8 +17,7 @@ typedef struct {
     NSInteger row;
 } StreamIndex;
 
-typedef NS_ENUM(NSUInteger, StreamViewReusableViewLoadingType)
-{
+typedef NS_ENUM(NSUInteger, StreamViewReusableViewLoadingType) {
     StreamViewReusableViewLoadingTypeNone,
     StreamViewReusableViewLoadingTypeInit,
     StreamViewReusableViewLoadingTypeNib
@@ -34,20 +33,13 @@ typedef NS_ENUM(NSUInteger, StreamViewReusableViewLoadingType)
 - (NSInteger)streamViewNumberOfColumns:(StreamView*)streamView;
 - (NSInteger)streamViewNumberOfSections:(StreamView*)streamView;
 - (void)streamView:(StreamView*)streamView didSelectItem:(StreamLayoutItem*)item;
-- (CGFloat)streamViewSpacing:(StreamView*)streamView;
-- (void)streamViewDidRefreshData:(StreamView*)streamView;
-- (void)streamViewDidLoadData:(StreamView*)streamView;
-- (UIView*)streamView:(StreamView*)streamView supplementaryViewInSection:(NSInteger)section;
-- (CGFloat)streamView:(StreamView*)streamView ratioForSupplementaryViewInSection:(NSInteger)section;
 - (CGFloat)streamView:(StreamView*)streamView initialRangeForColumn:(NSInteger)column;
 
 @end
 
 @interface StreamView : UIScrollView
 
-@property (nonatomic, unsafe_unretained) IBOutlet id <StreamViewDelegate> delegate;
-
-@property (weak, nonatomic) IBOutlet UIView* headerView;
+@property (nonatomic, weak) IBOutlet id <StreamViewDelegate> delegate;
 
 @property (nonatomic, strong) StreamLayout* layout;
 
@@ -55,7 +47,6 @@ typedef NS_ENUM(NSUInteger, StreamViewReusableViewLoadingType)
 
 - (StreamLayoutItem*)visibleItemAtPoint:(CGPoint)point;
 - (void)reloadData;
-- (void)reloadData:(BOOL)stop;
 - (void)clearData;
 - (id)reusableViewOfClass:(Class)viewClass;
 - (id)reusableViewOfClass:(Class)viewClass forItem:(StreamLayoutItem*)item;
@@ -78,7 +69,5 @@ typedef NS_ENUM(NSUInteger, StreamViewReusableViewLoadingType)
 @property (unsafe_unretained, nonatomic) CGRect frame;
 @property (unsafe_unretained, nonatomic) BOOL visible;
 @property (unsafe_unretained, nonatomic) StreamIndex index;
-
-@property (nonatomic) BOOL isSupplementary;
 
 @end

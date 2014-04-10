@@ -82,7 +82,6 @@
 		12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */; };
 		12E5BA5518EAB9C40033CE4E /* WLWrapEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E5BA5418EAB9C40033CE4E /* WLWrapEntry.m */; };
 		12E5BA5718EADAAC0033CE4E /* WLWrapCandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E5BA5618EADAAC0033CE4E /* WLWrapCandyCell.xib */; };
-		12E8FF1318E960E000BF1B96 /* HorizontalStreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0A18E960E000BF1B96 /* HorizontalStreamLayout.m */; };
 		12E8FF1418E960E000BF1B96 /* StreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0C18E960E000BF1B96 /* StreamLayout.m */; };
 		12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */; };
 		12E8FF1718E960E000BF1B96 /* StreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1218E960E000BF1B96 /* StreamView.m */; };
@@ -239,8 +238,6 @@
 		12E5BA5318EAB9C40033CE4E /* WLWrapEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapEntry.h; path = WLWrapEntry/WLWrapEntry.h; sourceTree = "<group>"; };
 		12E5BA5418EAB9C40033CE4E /* WLWrapEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapEntry.m; path = WLWrapEntry/WLWrapEntry.m; sourceTree = "<group>"; };
 		12E5BA5618EADAAC0033CE4E /* WLWrapCandyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLWrapCandyCell.xib; path = WLWrapViewController/WLWrapCandiesCell/WLWrapCandyCell/WLWrapCandyCell.xib; sourceTree = "<group>"; };
-		12E8FF0918E960E000BF1B96 /* HorizontalStreamLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HorizontalStreamLayout.h; sourceTree = "<group>"; };
-		12E8FF0A18E960E000BF1B96 /* HorizontalStreamLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HorizontalStreamLayout.m; sourceTree = "<group>"; };
 		12E8FF0B18E960E000BF1B96 /* StreamLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamLayout.h; sourceTree = "<group>"; };
 		12E8FF0C18E960E000BF1B96 /* StreamLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamLayout.m; sourceTree = "<group>"; };
 		12E8FF0F18E960E000BF1B96 /* VerticalStreamLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerticalStreamLayout.h; sourceTree = "<group>"; };
@@ -914,8 +911,6 @@
 		12E8FF0818E960E000BF1B96 /* Stream Layouts */ = {
 			isa = PBXGroup;
 			children = (
-				12E8FF0918E960E000BF1B96 /* HorizontalStreamLayout.h */,
-				12E8FF0A18E960E000BF1B96 /* HorizontalStreamLayout.m */,
 				12E8FF0B18E960E000BF1B96 /* StreamLayout.h */,
 				12E8FF0C18E960E000BF1B96 /* StreamLayout.m */,
 				12E8FF0F18E960E000BF1B96 /* VerticalStreamLayout.h */,
@@ -1203,7 +1198,6 @@
 				12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */,
 				1293677F18E337D900527250 /* WLWrapCandiesCell.m in Sources */,
 				129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */,
-				12E8FF1318E960E000BF1B96 /* HorizontalStreamLayout.m in Sources */,
 				C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,
 				12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */,

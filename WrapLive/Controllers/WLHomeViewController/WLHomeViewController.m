@@ -32,6 +32,7 @@
 #import "WLRefresher.h"
 #import "WLChatViewController.h"
 #import "WLLoadingView.h"
+#import "UIViewController+Additions.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
 
@@ -349,11 +350,11 @@
 			WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];
 			controller.candy = candy;
 			controller.wrap = self.topWrap;
-			[self.navigationController pushViewController:controller animated:YES];
+			[self pushViewController:controller animated:YES];
 		} else if (candy.type == WLCandyTypeChatMessage) {
 			WLChatViewController * chatController = [self.storyboard chatViewController];
 			chatController.wrap = self.topWrap;
-			[self.navigationController pushViewController:chatController animated:YES];
+			[self pushViewController:chatController animated:YES];
 		}
 	} else {
 		[self presentViewController:[self cameraViewController] animated:YES completion:nil];

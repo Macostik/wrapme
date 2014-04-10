@@ -61,22 +61,6 @@
     });
 }
 
-- (WLCandy *)actualConversation {
-	WLWrapDate* date = [self actualDate];
-	
-	for (WLCandy* candy in date.candies) {
-		if (candy.type == WLCandyTypeChatMessage) {
-			return candy;
-		}
-	}
-	
-	WLCandy* conversation = [WLCandy entry];
-	conversation.type = WLCandyTypeChatMessage;
-	[date addCandy:conversation];
-	self.updatedAt = [NSDate date];
-	return conversation;
-}
-
 - (WLWrapDate *)actualDate {
 	NSArray* dates = [WLEntry entriesForDate:[NSDate date] inArray:self.dates];
 	

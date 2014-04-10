@@ -29,7 +29,6 @@ static NSString * WLWrapChangesNotification = @"WLWrapChangesNotification";
 
 - (void)contributorNames:(void (^)(NSString* names))completion;
 
-- (WLCandy*)actualConversation;
 - (WLWrapDate*)actualDate;
 
 - (void) postNotificationForRequest:(BOOL)isNeedRequest;

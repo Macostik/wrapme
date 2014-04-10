@@ -57,7 +57,6 @@ static NSInteger WLProfileNameLimit = 40;
 - (void)sendUpdateRequest {
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] updateMe:self.user success:^(id object) {
-		[WLSession setUser:weakSelf.user];
 		NSArray *navigationArray = @[[weakSelf.signUpViewController.storyboard homeViewController]];
 		[weakSelf.signUpViewController.navigationController setViewControllers:navigationArray animated:YES];
 	} failure:^(NSError *error) {

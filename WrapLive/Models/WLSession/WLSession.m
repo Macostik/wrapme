@@ -20,11 +20,9 @@ static NSString* WLSessionUserKey = @"WrapLiveUser";
 static WLUser* _user = nil;
 
 + (WLUser *)user {
-	
 	if (!_user) {
 		_user = [WLUser objectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:WLSessionUserKey]];
 	}
-	
 	return _user;
 }
 

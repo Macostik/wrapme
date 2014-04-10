@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
 @property (strong, nonatomic) NSArray* contributors;
 @property (strong, nonatomic) NSArray* filteredContributors;
+@property (strong, nonatomic) NSMutableArray* selectedContributors;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
@@ -38,6 +39,18 @@
 		[weakSelf.spinner stopAnimating];
 		[error show];
 	}];
+}
+
+- (NSMutableArray *)selectedContributors {
+	if (!_selectedContributors) {
+		_selectedContributors = [NSMutableArray array];
+	}
+	return _selectedContributors;
+}
+
+- (void)setWrap:(WLWrap *)wrap {
+	_wrap = wrap;
+	[self.selectedContributors setArray:wrap.contributors];
 }
 
 - (void)setContributors:(NSArray *)contributors {
@@ -63,8 +76,13 @@
 
 - (void)reloadTableView {
 	[self.tableView reloadData];
+	
+	for (NSIndexPath* indexPath in [self.tableView indexPathsForSelectedRows]) {
+		[self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+	}
+	
 	for (WLUser* contributor in self.filteredContributors) {
-		for (WLUser* _contributor in self.wrap.contributors) {
+		for (WLUser* _contributor in self.selectedContributors) {
 			if ([_contributor isEqualToUser:contributor]) {
 				NSInteger index = [self.filteredContributors indexOfObject:contributor];
 				[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
@@ -80,16 +98,13 @@
 }
 
 - (IBAction)done:(id)sender {
-	self.wrap.contributors = (id)[[self.tableView indexPathsForSelectedRows] map:^id(NSIndexPath* indexPath) {
-		return self.filteredContributors[indexPath.row];
-	}];
+	self.wrap.contributors = [self.selectedContributors copy];
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)searchTextChanged:(UITextField *)sender {
 	[self updateFilteredContributors];
 }
-
 
 #pragma mark - UITableViewDataSource
 
@@ -102,6 +117,20 @@
 	WLUser* contributor = [self.filteredContributors objectAtIndex:indexPath.row];
     cell.item = contributor;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	WLUser* contributor = [self.filteredContributors objectAtIndex:indexPath.row];
+	if (![self.selectedContributors containsObject:contributor]) {
+		[self.selectedContributors addObject:contributor];
+	}
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+	WLUser* contributor = [self.filteredContributors objectAtIndex:indexPath.row];
+	if ([self.selectedContributors containsObject:contributor]) {
+		[self.selectedContributors removeObject:contributor];
+	}
 }
 
 #pragma mark - UITextFieldDelegate

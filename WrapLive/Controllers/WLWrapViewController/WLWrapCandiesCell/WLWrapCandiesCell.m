@@ -15,6 +15,7 @@
 #import "WLRefresher.h"
 #import "NSArray+Additions.h"
 #import "WLAPIManager.h"
+#import "WLWrap.h"
 
 @interface WLWrapCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -29,6 +30,12 @@
 
 @implementation WLWrapCandiesCell
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+													name:WLWrapChangesNotification
+												  object:nil];
+}
+
 - (void)setShouldAppendMoreCandies:(BOOL)shouldAppendMoreCandies {
 	_shouldAppendMoreCandies = shouldAppendMoreCandies;
 	UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
@@ -39,6 +46,9 @@
 	[super awakeFromNib];
 	self.shouldAppendMoreCandies = YES;
 	[self.collectionView registerNib:[WLWrapCandyCell nib] forCellWithReuseIdentifier:[WLWrapCandyCell reuseIdentifier]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeNotificationReceived:)
+												 name:WLWrapChangesNotification
+											   object:nil];
 }
 
 - (void)setupItemData:(WLWrapDate*)entry {
@@ -55,6 +65,10 @@
 		}];
 		self.refresher.colorScheme = WLRefresherColorSchemeOrange;
 	}
+}
+
+- (void)changeNotificationReceived:(NSNotification *)notification {
+	[self.collectionView reloadData];
 }
 
 - (void)refreshCandies {

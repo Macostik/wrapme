@@ -59,7 +59,9 @@
 @implementation WLHomeViewController
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WLWrapChangesNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+													name:WLWrapChangesNotification
+												  object:nil];
 }
 
 - (void)viewDidLoad {
@@ -70,7 +72,9 @@
 	self.composeContainer.hidden = YES;
 	self.noWrapsView.hidden = YES;
 	[self setupRefresh];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newWrapCreated:) name:WLWrapChangesNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeNotificationReceived:)
+												 name:WLWrapChangesNotification
+											   object:nil];
 	self.tableView.tableFooterView = [WLLoadingView instance];
 }
 
@@ -104,7 +108,7 @@
 }
 
 
-- (void)newWrapCreated:(NSNotification*)notification {
+- (void)changeNotificationReceived:(NSNotification*)notification {
 	BOOL isNeedRequest = [[notification.userInfo objectForKey:@"isNeedRequest"] boolValue];
 	if (isNeedRequest) {
 		[self fetchWraps:1];

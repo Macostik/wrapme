@@ -194,6 +194,7 @@
 							   toWrap:self.wrap
 							  success:^(id object) {
 		[weakSelf insertMessage:object];
+		[weakSelf.wrap postNotificationForRequest:YES];
 		[weakSelf reloadTableView];
 	} failure:^(NSError *error) {
 		[error show];

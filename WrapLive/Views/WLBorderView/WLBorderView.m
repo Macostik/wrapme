@@ -18,6 +18,14 @@
 	return _strokeColor;
 }
 
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
+}
+
 - (void)drawRect:(CGRect)rect {
 	[self.strokeColor setStroke];
 	[[UIBezierPath bezierPathWithRect:self.bounds] stroke];

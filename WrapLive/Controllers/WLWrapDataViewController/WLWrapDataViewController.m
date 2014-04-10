@@ -45,11 +45,7 @@ static NSString* WLMyCommentCellIdentifier = @"MyWLCommentCell";
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 	
-	if (self.candy.type == WLCandyTypeImage) {
-		[self setupImage:self.candy];
-	} else {
-		[self setupConversation:self.candy];
-	}
+	[self setupImage:self.candy];
 	[self refresh];
 	
 	__weak typeof(self)weakSelf = self;
@@ -78,11 +74,6 @@ static NSString* WLMyCommentCellIdentifier = @"MyWLCommentCell";
 		[weakSelf setTableHeaderViewHeight:MIN(WLDefaultImageWidth, height) animated:!cached];
 	}];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", image.contributor.name];
-}
-
-- (void)setupConversation:(WLCandy*)image {
-	self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", self.wrap.name];
-	self.tableView.tableHeaderView = nil;
 }
 
 - (void)setTableHeaderViewHeight:(CGFloat)height animated:(BOOL)animated {

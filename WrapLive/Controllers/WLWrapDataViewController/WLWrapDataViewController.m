@@ -131,6 +131,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		self.containerView.frame = CGRectMake(self.containerView.x, self.containerView.y, self.containerView.width, self.view.height - self.topView.height - 216);
 	} completion:^(BOOL finished) {}];
+	[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height - composeBar.y) animated:YES];
 	
 }
 
@@ -161,10 +162,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 														 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightMicroFont]} context:nil].size.height);
 	CGFloat cellHeight = [comment.contributor isCurrentUser] ? commentHeight  : (commentHeight + WLAuthorLabelHeight);
 	return MAX(WLMinimumCellHeight, cellHeight);
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	[self.view endEditing:YES];
 }
 
 @end

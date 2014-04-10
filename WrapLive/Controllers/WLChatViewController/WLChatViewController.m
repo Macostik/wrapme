@@ -208,15 +208,20 @@
 }
 
 - (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
-	self.tableView.height = self.view.height - self.topView.height - self.composeBar.height - 216;
-	self.composeBar.y = CGRectGetMaxY(self.tableView.frame);
-	[self updateInsetView];
+	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		self.tableView.height = self.view.height - self.topView.height - self.composeBar.height - 216;
+		self.composeBar.y = CGRectGetMaxY(self.tableView.frame);
+		[self updateInsetView];
+	} completion:^(BOOL finished) {}];
+	[self.tableView setContentOffset:CGPointZero animated:YES];
 }
 
 - (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
-	self.tableView.height = self.view.height - self.topView.height - self.composeBar.height;
-	self.composeBar.y = CGRectGetMaxY(self.tableView.frame);
-	[self updateInsetView];
+	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		self.tableView.height = self.view.height - self.topView.height - self.composeBar.height;
+		self.composeBar.y = CGRectGetMaxY(self.tableView.frame);
+		[self updateInsetView];
+	} completion:^(BOOL finished) {}];
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {

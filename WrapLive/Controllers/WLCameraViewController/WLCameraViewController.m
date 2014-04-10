@@ -32,7 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIView *acceptButtonsView;
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 
-@property (nonatomic) NSDictionary* metadata;
+@property (nonatomic, strong) NSDictionary* metadata;
 
 @end
 

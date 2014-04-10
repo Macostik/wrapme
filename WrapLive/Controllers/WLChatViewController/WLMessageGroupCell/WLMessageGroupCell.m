@@ -18,15 +18,6 @@
 
 @implementation WLMessageGroupCell
 
-+ (NSString *)reuseIdentifier {
-	static NSString* WLMessageGroupCellReuseIdentifier = @"WLMessageGroupCell";
-	return WLMessageGroupCellReuseIdentifier;
-}
-
-- (NSString *)reuseIdentifier {
-	return [WLMessageGroupCell reuseIdentifier];
-}
-
 - (void)setDate:(WLWrapDate *)date {
 	_date = date;
 	self.dateLabel.text = [date.updatedAt stringWithFormat:@"MMM dd YYYY"];

@@ -12,12 +12,7 @@
 @implementation WLLoadingView
 
 + (instancetype)instance {
-    static id instance = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		instance = [self loadFromNib];
-	});
-    return instance;
+    return [self loadFromNib];
 }
 
 @end

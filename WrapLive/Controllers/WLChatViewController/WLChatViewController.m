@@ -61,8 +61,6 @@
 	[self refreshMessages];
 	
 	self.tableView.tableFooterView = [WLLoadingView instance];
-	
-	[self.tableView registerNib:[WLMessageGroupCell nib] forHeaderFooterViewReuseIdentifier:[WLMessageGroupCell reuseIdentifier]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -274,7 +272,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-	WLMessageGroupCell* groupCell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[WLMessageGroupCell reuseIdentifier]];
+	WLMessageGroupCell* groupCell = [WLMessageGroupCell loadFromNib];
 	groupCell.date = [self.dates objectAtIndex:section];
 	groupCell.transform = CGAffineTransformMakeRotation(M_PI);
 	return groupCell;

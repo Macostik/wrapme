@@ -96,6 +96,7 @@
 		12E8FF2918E9B59200BF1B96 /* UIImage+WLStoring.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF2818E9B59200BF1B96 /* UIImage+WLStoring.m */; };
 		12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EBF8D718F6A6D000EA3185 /* UIViewController+Additions.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
+		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
 		ACAAE6D418E5C3BA000C4775 /* WLWrapDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAAE6D318E5C3BA000C4775 /* WLWrapDataViewController.m */; };
 		ACAAE6D818E5CE71000C4775 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAAE6D718E5CE71000C4775 /* WLCommentCell.m */; };
 		ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */; };
@@ -269,6 +270,8 @@
 		12EBF8D618F6A6D000EA3185 /* UIViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Additions.h"; sourceTree = "<group>"; };
 		12EBF8D718F6A6D000EA3185 /* UIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		AC17ADAF18F8147900F55E17 /* WLCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionViewFlowLayout.h; path = WLChatViewController/WLCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionViewFlowLayout.m; path = WLChatViewController/WLCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		ACAAE6D218E5C3BA000C4775 /* WLWrapDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapDataViewController.h; path = WLWrapDataViewController/WLWrapDataViewController.h; sourceTree = "<group>"; };
 		ACAAE6D318E5C3BA000C4775 /* WLWrapDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapDataViewController.m; path = WLWrapDataViewController/WLWrapDataViewController.m; sourceTree = "<group>"; };
 		ACAAE6D618E5CE71000C4775 /* WLCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCommentCell.h; path = WLWrapDataViewController/WLCommentCell/WLCommentCell.h; sourceTree = "<group>"; };
@@ -1059,6 +1062,8 @@
 				C5947E5218F52AC300BDF038 /* WLMessageCell */,
 				C5947E4F18F5271B00BDF038 /* WLChatViewController.h */,
 				C5947E5018F5271B00BDF038 /* WLChatViewController.m */,
+				AC17ADAF18F8147900F55E17 /* WLCollectionViewFlowLayout.h */,
+				AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */,
 			);
 			name = WLChatViewController;
 			sourceTree = "<group>";
@@ -1256,6 +1261,7 @@
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
 				12A9EFBB18F8026E002CBF75 /* WLCameraAdjustmentView.m in Sources */,
 				ACAAE6D418E5C3BA000C4775 /* WLWrapDataViewController.m in Sources */,
+				AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				1215DC7F18E4485800FCA744 /* UIStoryboard+Additions.m in Sources */,
 				129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */,

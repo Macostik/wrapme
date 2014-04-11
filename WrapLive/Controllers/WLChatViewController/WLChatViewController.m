@@ -22,7 +22,7 @@
 #import "NSDate+Formatting.h"
 #import "NSObject+NibAdditions.h"
 
-@interface WLChatViewController () <UITableViewDataSource, UITableViewDelegate, WLComposeBarDelegate>
+@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSMutableArray* dates;
 
@@ -30,8 +30,7 @@
 
 @property (nonatomic) BOOL shouldAppendMoreMessages;
 
-@property (nonatomic, weak) IBOutlet UITableView* tableView;
-
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
@@ -52,15 +51,17 @@
 	self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", self.wrap.name];
 	
 	__weak typeof(self)weakSelf = self;
-	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
+	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refreshMessages];
 	}];
 	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
-	self.tableView.transform = CGAffineTransformMakeRotation(M_PI);
+	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
+	
+	self.shouldAppendMoreMessages = YES;
 	
 	[self refreshMessages];
 	
-	self.tableView.tableFooterView = [WLLoadingView instance];
+//	self.tableView.tableFooterView = [WLLoadingView instance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -73,7 +74,7 @@
 
 - (void)setShouldAppendMoreMessages:(BOOL)shouldAppendMoreMessages {
 	_shouldAppendMoreMessages = shouldAppendMoreMessages;
-	self.tableView.tableFooterView = shouldAppendMoreMessages ? [WLLoadingView instance] : nil;
+//	self.tableView.tableFooterView = shouldAppendMoreMessages ? [WLLoadingView instance] : nil;
 }
 
 - (NSMutableArray *)dates {
@@ -91,8 +92,7 @@
 
 - (void)addMessages:(NSArray*)messages {
 	messagesCount += [messages count];
-	
-	NSMutableArray* _messages = [NSMutableArray arrayWithArray:messages];
+		NSMutableArray* _messages = [NSMutableArray arrayWithArray:messages];
 	
 	while ([_messages count] > 0) {
 		WLCandy* candy = [_messages firstObject];
@@ -160,22 +160,7 @@
 }
 
 - (void)reloadTableView {
-	[self.tableView reloadData];
-	[self updateInsetView];
-}
-
-- (void)updateInsetView {
-	UITableView* tableView = self.tableView;
-	UIView* headerView = tableView.tableHeaderView;
-	CGFloat contentHeight = (tableView.contentSize.height - headerView.height);
-	CGFloat inset = 0;
-	if (contentHeight < tableView.height) {
-		inset = tableView.height - contentHeight;
-	}
-	if (headerView.height != inset) {
-		headerView.height = inset;
-		tableView.tableHeaderView = headerView;
-	}
+	[self.collectionView reloadData];
 }
 
 #pragma mark - Actions
@@ -197,6 +182,7 @@
 		[weakSelf insertMessage:object];
 		[weakSelf.wrap broadcastChange];
 		[weakSelf reloadTableView];
+		[weakSelf.collectionView setContentOffset:CGPointZero animated:YES];
 	} failure:^(NSError *error) {
 		[error show];
 	}];
@@ -211,50 +197,160 @@
 }
 
 - (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
-	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.tableView.height = self.view.height - self.topView.height - self.composeBar.height - 216;
-		self.composeBar.y = CGRectGetMaxY(self.tableView.frame);
-		[self updateInsetView];
-	} completion:^(BOOL finished) {}];
-	[self.tableView setContentOffset:CGPointZero animated:YES];
+	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - 216;
+	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
 }
 
 - (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
-	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.tableView.height = self.view.height - self.topView.height - self.composeBar.height;
-		self.composeBar.y = CGRectGetMaxY(self.tableView.frame);
-		[self updateInsetView];
-	} completion:^(BOOL finished) {}];
+	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height;
+	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
 	return NO;
 }
+//
+//#pragma mark - UITableViewDataSource
+//
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//	return [self.dates count];
+//}
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//	WLWrapDate* date = [self.dates objectAtIndex:section];
+//	return [date.candies count];
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
+//	WLCandy* message = [date.candies objectAtIndex:indexPath.row];
+//	BOOL isMyComment = [message.contributor isCurrentUser];
+//	NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
+//	WLMessageCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];;
+//	cell.item = message;
+//	return cell;
+//}
+//
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+//	cell.transform = CGAffineTransformMakeRotation(M_PI);
+//	[self handlePaginationWithIndexPath:indexPath];
+//}
+//
+//- (void)handlePaginationWithIndexPath:(NSIndexPath*)indexPath {
+//	if (!self.shouldAppendMoreMessages) {
+//		return;
+//	}
+//	if (indexPath.section != [self.dates count] - 1) {
+//		return;
+//	}
+//	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
+//	if (indexPath.row == [date.candies count] - 1) {
+//		[self appendMessages];
+//	}
+//}
+//
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
+//	WLCandy* comment = [date.candies objectAtIndex:indexPath.row];
+//	CGFloat commentHeight  = ceilf([comment.chatMessage boundingRectWithSize:CGSizeMake(255, CGFLOAT_MAX)
+//															  options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightMicroFont]} context:nil].size.height);
+//	CGFloat cellHeight = [comment.contributor isCurrentUser] ? commentHeight  : (commentHeight + 20);
+//	return MAX(44, cellHeight);
+//}
+//
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+//	WLMessageGroupCell* groupCell = [WLMessageGroupCell loadFromNib];
+//	groupCell.date = [self.dates objectAtIndex:section];
+//	groupCell.transform = CGAffineTransformMakeRotation(M_PI);
+//	return groupCell;
+//}
 
-#pragma mark - UITableViewDataSource
+#pragma mark - UICollectionViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return [self.dates count];
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+	return [self.dates count] + 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	WLWrapDate* date = [self.dates objectAtIndex:section];
-	return [date.candies count];
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+	if (section < [self.dates count]) {
+		WLWrapDate* date = [self.dates objectAtIndex:section];
+		return [date.candies count];
+	} else {
+		return self.shouldAppendMoreMessages;
+	}
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
-	WLCandy* message = [date.candies objectAtIndex:indexPath.row];
-	BOOL isMyComment = [message.contributor isCurrentUser];
-	NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
-	WLMessageCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];;
-	cell.item = message;
-	return cell;
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section < [self.dates count]) {
+		WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
+		WLCandy* message = [date.candies objectAtIndex:indexPath.row];
+		BOOL isMyComment = [message.contributor isCurrentUser];
+		NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
+		WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+		cell.item = message;
+		[self handlePaginationWithIndexPath:indexPath];
+		return cell;
+	} else {
+		return [collectionView dequeueReusableCellWithReuseIdentifier:@"WLMessageLoadingView" forIndexPath:indexPath];
+	}
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-	cell.transform = CGAffineTransformMakeRotation(M_PI);
-	[self handlePaginationWithIndexPath:indexPath];
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+	if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+		return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLMessageSpacingView" forIndexPath:indexPath];
+	}
+	
+	WLMessageGroupCell* groupCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WLMessageGroupCell" forIndexPath:indexPath];
+	groupCell.date = [self.dates objectAtIndex:indexPath.section];
+	return groupCell;
+}
+
+- (CGFloat)heightOfMessageCell:(WLCandy *)comment {
+	CGFloat commentHeight  = ceilf([comment.chatMessage boundingRectWithSize:CGSizeMake(260, CGFLOAT_MAX)
+																	 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightMicroFont]} context:nil].size.height);
+	commentHeight = [comment.contributor isCurrentUser] ? commentHeight  : (commentHeight + 20);
+	return MAX(44, commentHeight);
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section < [self.dates count]) {
+		WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
+		WLCandy* comment = [date.candies objectAtIndex:indexPath.row];
+		return CGSizeMake(collectionView.frame.size.width, MAX(44, [self heightOfMessageCell:comment]));
+	} else {
+		if ([self.dates count] == 0) {
+			return collectionView.frame.size;
+		} else {
+			return CGSizeMake(collectionView.frame.size.width, 66);
+		}
+	}
+		
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+	if (section == 0 && section < [self.dates count]) {
+		CGFloat contentHeight = 0;
+		WLWrapDate* date = [self.dates objectAtIndex:section];
+		for (WLCandy* comment in date.candies) {
+			contentHeight += 32;
+			contentHeight += [self heightOfMessageCell:comment];
+			if (contentHeight > collectionView.height) {
+				return CGSizeZero;
+			}
+		}
+		return CGSizeMake(collectionView.frame.size.width, collectionView.height - contentHeight);
+	}
+	return CGSizeZero;
+}
+
+
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+	if (section < [self.dates count]) {
+		return CGSizeMake(collectionView.frame.size.width, 32);
+	} else {
+		return CGSizeZero;
+	}
 }
 
 - (void)handlePaginationWithIndexPath:(NSIndexPath*)indexPath {
@@ -268,22 +364,6 @@
 	if (indexPath.row == [date.candies count] - 1) {
 		[self appendMessages];
 	}
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
-	WLCandy* comment = [date.candies objectAtIndex:indexPath.row];
-	CGFloat commentHeight  = ceilf([comment.chatMessage boundingRectWithSize:CGSizeMake(255, CGFLOAT_MAX)
-															  options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightMicroFont]} context:nil].size.height);
-	CGFloat cellHeight = [comment.contributor isCurrentUser] ? commentHeight  : (commentHeight + 20);
-	return MAX(44, cellHeight);
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-	WLMessageGroupCell* groupCell = [WLMessageGroupCell loadFromNib];
-	groupCell.date = [self.dates objectAtIndex:section];
-	groupCell.transform = CGAffineTransformMakeRotation(M_PI);
-	return groupCell;
 }
 
 @end

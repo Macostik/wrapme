@@ -8,7 +8,7 @@
 
 @class WLWrapDate;
 
-@interface WLMessageGroupCell : UIView
+@interface WLMessageGroupCell : UICollectionReusableView
 
 @property (strong, nonatomic) WLWrapDate* date;
 

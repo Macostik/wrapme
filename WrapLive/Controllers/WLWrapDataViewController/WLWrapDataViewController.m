@@ -128,17 +128,12 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
-	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.containerView.frame = CGRectMake(self.containerView.x, self.containerView.y, self.containerView.width, self.view.height - self.topView.height - 216);
-	} completion:^(BOOL finished) {}];
+	self.containerView.frame = CGRectMake(self.containerView.x, self.containerView.y, self.containerView.width, self.view.height - self.topView.height - 216);
 	[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height - self.tableView.height) animated:YES];
-	
 }
 
 - (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
-	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.containerView.frame = CGRectMake(self.containerView.x, self.containerView.y, self.containerView.width, self.view.height - self.topView.height);
-	} completion:^(BOOL finished) {}];
+	self.containerView.frame = CGRectMake(self.containerView.x, self.containerView.y, self.containerView.width, self.view.height - self.topView.height);
 }
 
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>

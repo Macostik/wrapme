@@ -187,6 +187,9 @@
 #pragma mark - WLComposeBarDelegate
 
 - (void)sendMessageWithText:(NSString*)text {
+	if (text.length == 0) {
+		return;
+	}
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] addCandy:[WLCandy chatMessageWithText:text]
 							   toWrap:self.wrap

@@ -28,6 +28,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *selectCountryButton;
 @property (strong, nonatomic) IBOutlet UILabel *countryCodeLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet UIView *mainView;
 
 @end
 
@@ -118,7 +119,7 @@
 	CGFloat translation = textField.superview.y - 0.5 * (self.view.height - 260 - textField.superview.height);
 	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
 	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.view.transform = transform;
+		self.mainView.transform = transform;
 	} completion:^(BOOL finished) {}];
 }
 
@@ -132,7 +133,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.view.transform = CGAffineTransformIdentity;
+		self.mainView.transform = CGAffineTransformIdentity;
 	} completion:^(BOOL finished) {}];
 }
 

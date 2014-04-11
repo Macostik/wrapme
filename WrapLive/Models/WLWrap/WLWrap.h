@@ -8,8 +8,6 @@
 
 #import "WLWrapEntry.h"
 
-static NSString * WLWrapChangesNotification = @"WLWrapChangesNotification";
-
 @class WLCandy;
 @class WLUser;
 @class WLWrapDate;
@@ -31,6 +29,10 @@ static NSString * WLWrapChangesNotification = @"WLWrapChangesNotification";
 
 - (WLWrapDate*)actualDate;
 
-- (void) postNotificationForRequest:(BOOL)isNeedRequest;
+- (void)broadcastChange;
+
+- (void)broadcastCreation;
+
+- (BOOL)isEqualToWrap:(WLWrap*)wrap;
 
 @end

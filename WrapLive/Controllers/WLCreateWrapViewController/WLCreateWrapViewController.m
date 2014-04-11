@@ -119,7 +119,7 @@
 	id operation = [[WLAPIManager instance] updateWrap:self.editingWrap success:^(id object) {
 		[WLProgressView dismiss];
 		[weakSelf.wrap updateWithObject:object];
-		[weakSelf.wrap postNotificationForRequest:NO];
+		[weakSelf.wrap broadcastChange];
 		[weakSelf.navigationController popViewControllerAnimated:YES];
 	} failure:^(NSError *error) {
 		[WLProgressView dismiss];
@@ -132,7 +132,7 @@
 	__weak typeof(self)weakSelf = self;
 	id operation = [[WLAPIManager instance] createWrap:self.editingWrap success:^(WLWrap* wrap) {
 		[WLProgressView dismiss];
-		[wrap postNotificationForRequest:YES];
+		[wrap broadcastCreation];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
 		wrapController.wrap = wrap;
 		NSArray* controllers = @[[weakSelf.navigationController.viewControllers firstObject],wrapController];

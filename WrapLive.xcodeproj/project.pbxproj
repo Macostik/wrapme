@@ -54,6 +54,7 @@
 		12A8AA7018F592B500F67113 /* WLLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12A8AA6F18F592B500F67113 /* WLLoadingView.xib */; };
 		12A8AA7418F59CE000F67113 /* WLMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA7318F59CE000F67113 /* WLMessageGroupCell.m */; };
 		12A8AA7618F5A3B600F67113 /* WLMessageGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12A8AA7518F5A3B600F67113 /* WLMessageGroupCell.xib */; };
+		12A9EFB318F7E858002CBF75 /* WLWrapBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9EFB218F7E858002CBF75 /* WLWrapBroadcaster.m */; };
 		12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D518E4326C009CE64C /* UIView+Shorthand.m */; };
 		12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D918E4329F009CE64C /* WLProgressBar.m */; };
 		12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
@@ -185,6 +186,8 @@
 		12A8AA7218F59CE000F67113 /* WLMessageGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLMessageGroupCell.h; path = WLChatViewController/WLMessageGroupCell/WLMessageGroupCell.h; sourceTree = "<group>"; };
 		12A8AA7318F59CE000F67113 /* WLMessageGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLMessageGroupCell.m; path = WLChatViewController/WLMessageGroupCell/WLMessageGroupCell.m; sourceTree = "<group>"; };
 		12A8AA7518F5A3B600F67113 /* WLMessageGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLMessageGroupCell.xib; path = WLChatViewController/WLMessageGroupCell/WLMessageGroupCell.xib; sourceTree = "<group>"; };
+		12A9EFB118F7E858002CBF75 /* WLWrapBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapBroadcaster.h; path = WLWrapBroadcaster/WLWrapBroadcaster.h; sourceTree = "<group>"; };
+		12A9EFB218F7E858002CBF75 /* WLWrapBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapBroadcaster.m; path = WLWrapBroadcaster/WLWrapBroadcaster.m; sourceTree = "<group>"; };
 		12D653D418E4326C009CE64C /* UIView+Shorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shorthand.h"; sourceTree = "<group>"; };
 		12D653D518E4326C009CE64C /* UIView+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shorthand.m"; sourceTree = "<group>"; };
 		12D653D818E4329F009CE64C /* WLProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLProgressBar.h; sourceTree = "<group>"; };
@@ -584,6 +587,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				12A9EFB018F7E818002CBF75 /* WLWrapBroadcaster */,
 				12E33ACE18F3E18200E77229 /* WLWrapDate */,
 				12D962EA18E5897400C57CE1 /* WLPicture */,
 				129654E018E197D700FF43F6 /* WLAddressBook */,
@@ -666,6 +670,15 @@
 				12A8AA7518F5A3B600F67113 /* WLMessageGroupCell.xib */,
 			);
 			name = WLMessageGroupCell;
+			sourceTree = "<group>";
+		};
+		12A9EFB018F7E818002CBF75 /* WLWrapBroadcaster */ = {
+			isa = PBXGroup;
+			children = (
+				12A9EFB118F7E858002CBF75 /* WLWrapBroadcaster.h */,
+				12A9EFB218F7E858002CBF75 /* WLWrapBroadcaster.m */,
+			);
+			name = WLWrapBroadcaster;
 			sourceTree = "<group>";
 		};
 		12D653D318E4326C009CE64C /* UIView */ = {
@@ -1197,6 +1210,7 @@
 				12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */,
 				12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */,
 				1293677F18E337D900527250 /* WLWrapCandiesCell.m in Sources */,
+				12A9EFB318F7E858002CBF75 /* WLWrapBroadcaster.m in Sources */,
 				129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */,
 				C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,

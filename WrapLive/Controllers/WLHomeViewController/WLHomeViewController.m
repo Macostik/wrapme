@@ -33,8 +33,9 @@
 #import "WLChatViewController.h"
 #import "WLLoadingView.h"
 #import "UIViewController+Additions.h"
+#import "WLWrapBroadcaster.h"
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate>
+@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate, WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet StreamView *topWrapStreamView;
 @property (weak, nonatomic) IBOutlet UIView *headerWrapView;
@@ -58,12 +59,6 @@
 
 @implementation WLHomeViewController
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-													name:WLWrapChangesNotification
-												  object:nil];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -72,9 +67,7 @@
 	self.composeContainer.hidden = YES;
 	self.noWrapsView.hidden = YES;
 	[self setupRefresh];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeNotificationReceived:)
-												 name:WLWrapChangesNotification
-											   object:nil];
+	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	self.tableView.tableFooterView = [WLLoadingView instance];
 }
 
@@ -107,16 +100,18 @@
 	self.refresher.contentMode = UIViewContentModeLeft;
 }
 
+#pragma mark - WLWrapBroadcastReceiver
 
-- (void)changeNotificationReceived:(NSNotification*)notification {
-	BOOL isNeedRequest = [[notification.userInfo objectForKey:@"isNeedRequest"] boolValue];
-	if (isNeedRequest) {
-		[self fetchWraps:1];
-	}
-	else {
+- (void)wrapBroadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
+	if ([wrap isEqualToWrap:self.topWrap]) {
+		[self updateTopWrap];
+	} else {
 		[self.tableView reloadData];
-		[self.topWrapStreamView reloadData];
 	}
+}
+
+- (void)wrapBroadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
+	[self fetchWraps:1];
 }
 
 - (void)fetchWraps:(NSInteger)page {

@@ -27,8 +27,9 @@
 #import "WLRefresher.h"
 #import "WLChatViewController.h"
 #import "WLLoadingView.h"
+#import "WLWrapBroadcaster.h"
 
-@interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate>
+@interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate, WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
@@ -50,21 +51,36 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	
-	self.coverView.imageUrl = self.wrap.picture.thumbnail;
-	self.nameLabel.text = self.wrap.name;
-	__weak typeof(self)weakSelf = self;
-	[self.wrap contributorNames:^(NSString *names) {
-		weakSelf.contributorsLabel.text = names;
-	}];
+	[self setWrapData];
 		
 	[self refreshWrap];
-	
+	__weak typeof(self)weakSelf = self;
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refreshWrap];
 	}];
 	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
 	
 	self.tableView.tableFooterView = [WLLoadingView instance];
+	
+	[[WLWrapBroadcaster broadcaster] addReceiver:self];
+}
+
+- (void)setWrapData {
+	self.coverView.imageUrl = self.wrap.picture.thumbnail;
+	self.nameLabel.text = self.wrap.name;
+	__weak typeof(self)weakSelf = self;
+	[self.wrap contributorNames:^(NSString *names) {
+		weakSelf.contributorsLabel.text = names;
+	}];
+}
+
+#pragma mark - WLWrapBroadcastReceiver
+
+- (void)wrapBroadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
+	if ([wrap isEqualToWrap:self.wrap]) {
+		[self setWrapData];
+		[self.tableView reloadData];
+	}
 }
 
 - (void)setShouldLoadMoreDates:(BOOL)shouldLoadMoreDates {
@@ -126,8 +142,7 @@
 	[[WLAPIManager instance] addCandy:[WLCandy chatMessageWithText:text]
 							   toWrap:self.wrap
 							  success:^(id object) {
-		[weakSelf.wrap postNotificationForRequest:YES];
-		[weakSelf.tableView reloadData];
+		[weakSelf.wrap broadcastChange];
 	} failure:^(NSError *error) {
 		[error show];
 	}];
@@ -219,7 +234,7 @@
 		id operation = [[WLAPIManager instance] addCandy:[WLCandy imageWithFileAtPath:path]
 												  toWrap:weakSelf.wrap
 												 success:^(id object) {
-			[weakSelf.wrap postNotificationForRequest:YES];
+			[weakSelf.wrap broadcastChange];
 			[weakSelf.tableView reloadData];
 			[WLProgressView dismiss];
 		} failure:^(NSError *error) {

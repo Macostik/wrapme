@@ -16,8 +16,9 @@
 #import "NSArray+Additions.h"
 #import "WLAPIManager.h"
 #import "WLWrap.h"
+#import "WLWrapBroadcaster.h"
 
-@interface WLWrapCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface WLWrapCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -30,12 +31,6 @@
 
 @implementation WLWrapCandiesCell
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-													name:WLWrapChangesNotification
-												  object:nil];
-}
-
 - (void)setShouldAppendMoreCandies:(BOOL)shouldAppendMoreCandies {
 	_shouldAppendMoreCandies = shouldAppendMoreCandies;
 	UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
@@ -46,9 +41,7 @@
 	[super awakeFromNib];
 	self.shouldAppendMoreCandies = YES;
 	[self.collectionView registerNib:[WLWrapCandyCell nib] forCellWithReuseIdentifier:[WLWrapCandyCell reuseIdentifier]];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeNotificationReceived:)
-												 name:WLWrapChangesNotification
-											   object:nil];
+	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)setupItemData:(WLWrapDate*)entry {
@@ -67,7 +60,9 @@
 	}
 }
 
-- (void)changeNotificationReceived:(NSNotification *)notification {
+#pragma mark - WLWrapBroadcastReceiver
+
+- (void)wrapBroadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
 	[self.collectionView reloadData];
 }
 

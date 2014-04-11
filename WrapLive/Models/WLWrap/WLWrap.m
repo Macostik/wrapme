@@ -13,6 +13,7 @@
 #import "WLUser.h"
 #import "NSDate+Formatting.h"
 #import "WLWrapDate.h"
+#import "WLWrapBroadcaster.h"
 
 @implementation WLWrap
 
@@ -85,13 +86,16 @@
 	return date;
 }
 
-- (void) postNotificationForRequest:(BOOL)isNeedRequest {
-	[[NSNotificationCenter defaultCenter] postNotificationName:WLWrapChangesNotification
-														object:nil
-													  userInfo:@{
-																 @"wrap":self,
-																 @"isNeedRequest":[NSNumber numberWithBool:isNeedRequest]
-																 }];
+- (void)broadcastChange {
+	[[WLWrapBroadcaster broadcaster] broadcastChange:self];
+}
+
+- (void)broadcastCreation {
+	[[WLWrapBroadcaster broadcaster] broadcastCreation:self];
+}
+
+- (BOOL)isEqualToWrap:(WLWrap *)wrap {
+	return [self.identifier isEqualToString:wrap.identifier];
 }
 
 @end

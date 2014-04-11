@@ -192,7 +192,7 @@
 							   toWrap:self.wrap
 							  success:^(id object) {
 		[weakSelf insertMessage:object];
-		[weakSelf.wrap postNotificationForRequest:YES];
+		[weakSelf.wrap broadcastChange];
 		[weakSelf reloadTableView];
 	} failure:^(NSError *error) {
 		[error show];

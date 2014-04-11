@@ -27,6 +27,16 @@
 	return [[super mapping] merge:@{@"wrap_uid":@"identifier"}];
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
+    self = [super initWithDictionary:dict error:err];
+    if (self) {
+        self.contributor = [self.contributors selectObject:^BOOL(WLUser* contributor) {
+			return contributor.isCreator;
+		}];
+    }
+    return self;
+}
+
 - (void)addCandy:(WLCandy *)candy {
 	WLWrapDate* date = [self actualDate];
 	[date addCandy:candy];

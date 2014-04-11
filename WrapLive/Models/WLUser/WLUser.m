@@ -32,7 +32,8 @@
 	return [[super mapping] merge:@{@"phone_number":@"phoneNumber",
 									@"country_calling_code":@"countryCallingCode",
 									@"dob_in_epoch":@"birthdate",
-									@"user_uid":@"identifier"}];
+									@"user_uid":@"identifier",
+									@"is_creator":@"isCreator"}];
 }
 
 + (BOOL)propertyIsOptional:(NSString *)propertyName {

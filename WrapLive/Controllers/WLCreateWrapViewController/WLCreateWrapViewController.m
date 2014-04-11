@@ -38,6 +38,8 @@
 
 @property (strong, nonatomic) WLWrap* editingWrap;
 
+@property (strong, nonatomic) NSArray* contributors;
+
 @end
 
 @implementation WLCreateWrapViewController
@@ -66,7 +68,6 @@
 - (void)setWrap:(WLWrap *)wrap {
 	_wrap = wrap;
 	self.editingWrap = [wrap copy];
-	self.editingWrap.contributors = (id)[wrap.contributors arrayByRemovingCurrentUserAndUser:self.wrap.contributor];
 	self.editingWrap.picture.large = nil;
 }
 
@@ -83,6 +84,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+	self.contributors = [self.editingWrap.contributors arrayByRemovingCurrentUserAndUser:self.wrap.contributor];
 	[self refreshContributorsTableView];
 }
 
@@ -145,12 +147,12 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.editingWrap.contributors count];
+    return [self.contributors count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
-    cell.item = [self.editingWrap.contributors objectAtIndex:indexPath.row];
+    cell.item = [self.contributors objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -169,7 +171,7 @@
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
-	self.editingWrap.contributors = (id)[self.editingWrap.contributors arrayByRemovingObject:contributor];
+	self.contributors = (id)[self.contributors arrayByRemovingObject:contributor];
 	[self refreshContributorsTableView];
 }
 

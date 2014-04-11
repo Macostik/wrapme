@@ -82,13 +82,22 @@
 	}
 	
 	for (WLUser* contributor in self.filteredContributors) {
-		for (WLUser* _contributor in self.selectedContributors) {
-			if ([_contributor isEqualToUser:contributor]) {
-				NSInteger index = [self.filteredContributors indexOfObject:contributor];
-				[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
-			}
+		if ([self selectedContributor:contributor] != nil) {
+			NSInteger index = [self.filteredContributors indexOfObject:contributor];
+			[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
+										animated:YES
+								  scrollPosition:UITableViewScrollPositionNone];
 		}
 	}
+}
+
+- (WLUser*)selectedContributor:(WLUser*)contributor {
+	for (WLUser* _contributor in self.selectedContributors) {
+		if ([_contributor isEqualToUser:contributor]) {
+			return _contributor;
+		}
+	}
+	return nil;
 }
 
 #pragma mark - Actions
@@ -98,7 +107,15 @@
 }
 
 - (IBAction)done:(id)sender {
-	self.wrap.contributors = [self.selectedContributors copy];
+	
+	NSArray* contributors = [self.selectedContributors arrayByAddingUniqueObject:self.wrap.contributor equality:^BOOL(id first, id second) {
+		return [first isEqualToUser:second];
+	}];
+	contributors = [contributors arrayByAddingUniqueObject:[WLUser currentUser] equality:^BOOL(id first, id second) {
+		return [first isEqualToUser:second];
+	}];
+	
+	self.wrap.contributors = (id)contributors;
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -120,15 +137,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLUser* contributor = [self.filteredContributors objectAtIndex:indexPath.row];
-	if (![self.selectedContributors containsObject:contributor]) {
+	WLUser* contributor = self.filteredContributors[indexPath.row];
+	if ([self selectedContributor:contributor] == nil) {
 		[self.selectedContributors addObject:contributor];
 	}
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLUser* contributor = [self.filteredContributors objectAtIndex:indexPath.row];
-	if ([self.selectedContributors containsObject:contributor]) {
+	WLUser* contributor = [self selectedContributor:self.filteredContributors[indexPath.row]];
+	if (contributor != nil) {
 		[self.selectedContributors removeObject:contributor];
 	}
 }

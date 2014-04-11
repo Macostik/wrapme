@@ -73,8 +73,42 @@
 
 @implementation NSArray (WLUser)
 
++ (EqualityBlock)equalityBlock {
+	static EqualityBlock _equalityBlock = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		_equalityBlock = ^BOOL(id first, id second) {
+			return [first isEqualToUser:second];
+		};
+	});
+	return _equalityBlock;
+}
+
+- (NSArray*)arrayByAddingCurrentUserAndUser:(WLUser*)user {
+	return [[self arrayByAddingUser:user] arrayByAddingCurrentUser];
+}
+
+- (NSArray*)arrayByAddingCurrentUser {
+	return [self arrayByAddingUser:[WLUser currentUser]];
+}
+
+- (NSArray *)arrayByAddingUser:(WLUser *)user {
+	if (user) {
+		return [self arrayByAddingUniqueObject:user equality:[NSArray equalityBlock]];
+	}
+	return self;
+}
+
 - (NSArray *)arrayByRemovingCurrentUserAndUser:(WLUser *)user {
-	return [self arrayByRemovingUsers:@[[WLUser currentUser],user]];
+	NSMutableArray* users = [NSMutableArray array];
+	WLUser* currentUser = [WLUser currentUser];
+	if (currentUser) {
+		[users addObject:currentUser];
+	}
+	if (user) {
+		[users addObject:user];
+	}
+	return [self arrayByRemovingUsers:users];
 }
 
 - (NSArray*)arrayByRemovingCurrentUser {
@@ -82,15 +116,11 @@
 }
 
 - (NSArray*)arrayByRemovingUser:(WLUser*)user {
-	return [self arrayByRemovingUniqueObject:user equality:^BOOL(id first, id second) {
-		return [first isEqualToUser:second];
-	}];
+	return [self arrayByRemovingUniqueObject:user equality:[NSArray equalityBlock]];
 }
 
 - (NSArray*)arrayByRemovingUsers:(NSArray*)users {
-	return [self arrayByRemovingUniqueObjects:users equality:^BOOL(id first, id second) {
-		return [first isEqualToUser:second];
-	}];
+	return [self arrayByRemovingUniqueObjects:users equality:[NSArray equalityBlock]];
 }
 
 @end

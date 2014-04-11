@@ -107,15 +107,7 @@
 }
 
 - (IBAction)done:(id)sender {
-	
-	NSArray* contributors = [self.selectedContributors arrayByAddingUniqueObject:self.wrap.contributor equality:^BOOL(id first, id second) {
-		return [first isEqualToUser:second];
-	}];
-	contributors = [contributors arrayByAddingUniqueObject:[WLUser currentUser] equality:^BOOL(id first, id second) {
-		return [first isEqualToUser:second];
-	}];
-	
-	self.wrap.contributors = (id)contributors;
+	self.wrap.contributors = (id)[self.selectedContributors arrayByAddingCurrentUserAndUser:self.wrap.contributor];
 	[self.navigationController popViewControllerAnimated:YES];
 }
 

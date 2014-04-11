@@ -35,6 +35,12 @@
 
 @interface NSArray (WLUser)
 
+- (NSArray*)arrayByAddingCurrentUserAndUser:(WLUser*)user;
+
+- (NSArray*)arrayByAddingCurrentUser;
+
+- (NSArray*)arrayByAddingUser:(WLUser*)user;
+
 - (NSArray*)arrayByRemovingCurrentUserAndUser:(WLUser*)user;
 
 - (NSArray*)arrayByRemovingCurrentUser;

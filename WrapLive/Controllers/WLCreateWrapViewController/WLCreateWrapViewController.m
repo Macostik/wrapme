@@ -84,13 +84,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	self.contributors = [self.editingWrap.contributors arrayByRemovingCurrentUserAndUser:self.wrap.contributor];
+	self.contributors = [self.editingWrap.contributors arrayByRemovingCurrentUserAndUser:self.editingWrap.contributor];
 	[self refreshContributorsTableView];
 }
 
 - (void)refreshContributorsTableView {
 	[self.contributorsTableView reloadData];
-	BOOL hasContributors = [self.editingWrap.contributors count] > 0;
+	BOOL hasContributors = [self.contributors count] > 0;
 	self.contributorsTableView.tableFooterView = hasContributors ? nil : self.noContributorsView;
 	self.separatorView.hidden = !hasContributors;
 }

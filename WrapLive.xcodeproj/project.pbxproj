@@ -55,6 +55,9 @@
 		12A8AA7418F59CE000F67113 /* WLMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA7318F59CE000F67113 /* WLMessageGroupCell.m */; };
 		12A8AA7618F5A3B600F67113 /* WLMessageGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12A8AA7518F5A3B600F67113 /* WLMessageGroupCell.xib */; };
 		12A9EFB318F7E858002CBF75 /* WLWrapBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9EFB218F7E858002CBF75 /* WLWrapBroadcaster.m */; };
+		12A9EFBA18F8026E002CBF75 /* WLCameraInteractionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9EFB618F8026E002CBF75 /* WLCameraInteractionView.m */; };
+		12A9EFBB18F8026E002CBF75 /* WLCameraAdjustmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9EFB918F8026E002CBF75 /* WLCameraAdjustmentView.m */; };
+		12C4416618F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 12C4416518F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m */; };
 		12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D518E4326C009CE64C /* UIView+Shorthand.m */; };
 		12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D918E4329F009CE64C /* WLProgressBar.m */; };
 		12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
@@ -188,6 +191,12 @@
 		12A8AA7518F5A3B600F67113 /* WLMessageGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLMessageGroupCell.xib; path = WLChatViewController/WLMessageGroupCell/WLMessageGroupCell.xib; sourceTree = "<group>"; };
 		12A9EFB118F7E858002CBF75 /* WLWrapBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapBroadcaster.h; path = WLWrapBroadcaster/WLWrapBroadcaster.h; sourceTree = "<group>"; };
 		12A9EFB218F7E858002CBF75 /* WLWrapBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapBroadcaster.m; path = WLWrapBroadcaster/WLWrapBroadcaster.m; sourceTree = "<group>"; };
+		12A9EFB518F8026E002CBF75 /* WLCameraInteractionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCameraInteractionView.h; sourceTree = "<group>"; };
+		12A9EFB618F8026E002CBF75 /* WLCameraInteractionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCameraInteractionView.m; sourceTree = "<group>"; };
+		12A9EFB818F8026E002CBF75 /* WLCameraAdjustmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCameraAdjustmentView.h; sourceTree = "<group>"; };
+		12A9EFB918F8026E002CBF75 /* WLCameraAdjustmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCameraAdjustmentView.m; sourceTree = "<group>"; };
+		12C4416418F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+ImageMetadata.h"; sourceTree = "<group>"; };
+		12C4416518F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+ImageMetadata.m"; sourceTree = "<group>"; };
 		12D653D418E4326C009CE64C /* UIView+Shorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shorthand.h"; sourceTree = "<group>"; };
 		12D653D518E4326C009CE64C /* UIView+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shorthand.m"; sourceTree = "<group>"; };
 		12D653D818E4329F009CE64C /* WLProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLProgressBar.h; sourceTree = "<group>"; };
@@ -486,6 +495,8 @@
 			children = (
 				12976ECC18E5D6E300C5F2A9 /* NSDictionary+Extended.h */,
 				12976ECD18E5D6E300C5F2A9 /* NSDictionary+Extended.m */,
+				12C4416418F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.h */,
+				12C4416518F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m */,
 			);
 			path = NSDictionary;
 			sourceTree = "<group>";
@@ -681,6 +692,25 @@
 			name = WLWrapBroadcaster;
 			sourceTree = "<group>";
 		};
+		12A9EFB418F8026E002CBF75 /* WLCameraInteractionView */ = {
+			isa = PBXGroup;
+			children = (
+				12A9EFB518F8026E002CBF75 /* WLCameraInteractionView.h */,
+				12A9EFB618F8026E002CBF75 /* WLCameraInteractionView.m */,
+				12A9EFB718F8026E002CBF75 /* WLCameraAdjustmentView */,
+			);
+			path = WLCameraInteractionView;
+			sourceTree = "<group>";
+		};
+		12A9EFB718F8026E002CBF75 /* WLCameraAdjustmentView */ = {
+			isa = PBXGroup;
+			children = (
+				12A9EFB818F8026E002CBF75 /* WLCameraAdjustmentView.h */,
+				12A9EFB918F8026E002CBF75 /* WLCameraAdjustmentView.m */,
+			);
+			path = WLCameraAdjustmentView;
+			sourceTree = "<group>";
+		};
 		12D653D318E4326C009CE64C /* UIView */ = {
 			isa = PBXGroup;
 			children = (
@@ -830,6 +860,7 @@
 		12E3DA3C18E0399700DBDB79 /* WLCameraViewController */ = {
 			isa = PBXGroup;
 			children = (
+				12A9EFB418F8026E002CBF75 /* WLCameraInteractionView */,
 				12E3DA3D18E0399700DBDB79 /* WLCameraViewController.h */,
 				12E3DA3E18E0399700DBDB79 /* WLCameraViewController.m */,
 			);
@@ -1174,6 +1205,7 @@
 				12E5BA5518EAB9C40033CE4E /* WLWrapEntry.m in Sources */,
 				12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */,
 				12E8FF2418E98B7100BF1B96 /* WLComposeContainer.m in Sources */,
+				12A9EFBA18F8026E002CBF75 /* WLCameraInteractionView.m in Sources */,
 				12E3DA4218E03EB000DBDB79 /* WLSupportFunctions.m in Sources */,
 				121B1B4218E0848D001F585C /* WLCountryCell.m in Sources */,
 				120D651818EC729600CBE723 /* WLProgressView.m in Sources */,
@@ -1187,6 +1219,7 @@
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */,
 				12A6BFA818F2A6C900AE3B62 /* WLShakeViewController.m in Sources */,
+				12C4416618F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				12E8FF1718E960E000BF1B96 /* StreamView.m in Sources */,
 				12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */,
 				12E33AD118F3E18200E77229 /* WLWrapDate.m in Sources */,
@@ -1221,6 +1254,7 @@
 				1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */,
 				12D962ED18E5898A00C57CE1 /* WLPicture.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
+				12A9EFBB18F8026E002CBF75 /* WLCameraAdjustmentView.m in Sources */,
 				ACAAE6D418E5C3BA000C4775 /* WLWrapDataViewController.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				1215DC7F18E4485800FCA744 /* UIStoryboard+Additions.m in Sources */,

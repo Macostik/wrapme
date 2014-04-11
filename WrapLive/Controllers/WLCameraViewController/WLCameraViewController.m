@@ -14,8 +14,10 @@
 #import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
+#import "WLCameraInteractionView.h"
+#import "NSMutableDictionary+ImageMetadata.h"
 
-@interface WLCameraViewController ()
+@interface WLCameraViewController () <WLCameraInteractionViewDelegate>
 
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;
 @property (nonatomic, strong) AVCaptureSession* session;
@@ -24,7 +26,6 @@
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 @property (weak, nonatomic) IBOutlet UIView *cameraView;
 
-@property (strong, nonatomic) UIView* focusPointView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIImageView *acceptImageView;
@@ -32,7 +33,7 @@
 @property (weak, nonatomic) IBOutlet UIView *acceptButtonsView;
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 
-@property (nonatomic, strong) NSDictionary* metadata;
+@property (nonatomic, strong) NSMutableDictionary* metadata;
 
 @end
 
@@ -60,7 +61,7 @@
 		self.bottomView.backgroundColor = [UIColor clearColor];
 		self.cameraView.frame = self.view.bounds;
 	}
-	[self.cameraView.layer addSublayer:self.captureVideoPreviewLayer];
+	[self.cameraView.layer insertSublayer:self.captureVideoPreviewLayer atIndex:0];
 }
 
 #pragma mark - User Actions
@@ -140,6 +141,7 @@
 
 - (void)saveImage:(UIImage*)image {
 	__weak typeof(self)weakSelf = self;
+	[self.metadata setImageOrientation:image.imageOrientation];
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
 		[library saveImage:image
@@ -267,7 +269,7 @@
                                                            if (!error) {
                                                                NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
                                                                image = [[UIImage alloc] initWithData:imageData];
-															   weakSelf.metadata = (__bridge NSDictionary *)(CMCopyDictionaryOfAttachments(NULL, imageSampleBuffer, kCMAttachmentMode_ShouldPropagate));
+															   weakSelf.metadata = [[NSMutableDictionary alloc] initWithImageSampleBuffer:imageSampleBuffer];
                                                            }
                                                            completion(image);
                                                        }];
@@ -347,48 +349,29 @@
     }
 }
 
-- (void)setFocusPoint:(CGPoint)focusPoint {
-    AVCaptureDeviceInput* input = self.front ? self.frontFacingCameraDeviceInput : self.backFacingCameraDeviceInput;
-    
-    if (input.device.focusPointOfInterestSupported && [input.device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
-        [self.session beginConfiguration];
-        [input.device lockForConfiguration:nil];
-        input.device.focusPointOfInterest = focusPoint;
-        input.device.focusMode = AVCaptureFocusModeAutoFocus;
-        [input.device unlockForConfiguration];
-        [self.session commitConfiguration];
+- (void)autoFocusAtPoint:(CGPoint)point {
+	AVCaptureDeviceInput* input = [self front] ? self.frontFacingCameraDeviceInput : self.backFacingCameraDeviceInput;
+    AVCaptureDevice* inputCamera = input.device;
+    if ([inputCamera isFocusPointOfInterestSupported] && [inputCamera isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+        if ([inputCamera lockForConfiguration:NULL]) {
+            [inputCamera setFocusPointOfInterest:[self pointOfInterestFromPoint:point]];
+            [inputCamera setFocusMode:AVCaptureFocusModeAutoFocus];
+            [inputCamera unlockForConfiguration];
+        }
     }
+    [self autoExposureAtPoint:point];
 }
 
-- (CGPoint)focusPoint {
-    AVCaptureDeviceInput* input = self.front ? self.frontFacingCameraDeviceInput : self.backFacingCameraDeviceInput;
-    return input.device.focusPointOfInterest;
-}
-
-- (UIView *)focusPointView {
-    if (!_focusPointView) {
-        _focusPointView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44.0f, 44.0f)];
-        _focusPointView.layer.borderColor = [UIColor whiteColor].CGColor;
-        _focusPointView.layer.borderWidth = 1.0f;
-        [self.cameraView addSubview:self.focusPointView];
+- (void)autoExposureAtPoint:(CGPoint)point {
+    AVCaptureDeviceInput* input = [self front] ? self.frontFacingCameraDeviceInput : self.backFacingCameraDeviceInput;
+    AVCaptureDevice* inputCamera = input.device;
+    if ([inputCamera isExposurePointOfInterestSupported] && [inputCamera isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+        if ([inputCamera lockForConfiguration:NULL]) {
+            [inputCamera setExposurePointOfInterest:[self pointOfInterestFromPoint:point]];
+            [inputCamera setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
+            [inputCamera unlockForConfiguration];
+        }
     }
-    return _focusPointView;
-}
-
-- (void)animateFocusPoint:(CGPoint)viewPoint {
-    self.focusPointView.center = viewPoint;
-    
-    self.focusPointView.alpha = 1.0f;
-    
-    [UIView animateWithDuration:0.5f delay:0.5f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.focusPointView.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-    }];
-}
-
-- (void)setFocusPointFromViewPoint:(CGPoint)viewPoint {
-    self.focusPoint = [self pointOfInterestFromPoint:viewPoint];
-    [self animateFocusPoint:viewPoint];
 }
 
 - (CGPoint)pointOfInterestFromPoint:(CGPoint)point {
@@ -426,6 +409,22 @@
         }
     }
     return nil;
+}
+
+#pragma mark - PGCameraInteractionViewDelegate
+
+- (void)cameraInteractionView:(WLCameraInteractionView *)view didChangeExposure:(CGPoint)exposure {
+    if(![self.session isRunning]) {
+        return;
+    }
+    [self autoExposureAtPoint:exposure];
+}
+
+- (void)cameraInteractionView:(WLCameraInteractionView *)view didChangeFocus:(CGPoint)focus {
+    if(![self.session isRunning]) {
+        return;
+    }
+    [self autoFocusAtPoint:focus];
 }
 
 @end

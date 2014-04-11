@@ -29,6 +29,7 @@ static NSInteger WLProfileNameLimit = 40;
 @property (nonatomic, readonly) UIViewController* signUpViewController;
 @property (strong, nonatomic) IBOutlet UIButton *continueButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet UIView *mainView;
 
 @end
 
@@ -114,7 +115,7 @@ static NSInteger WLProfileNameLimit = 40;
 	CGFloat translation = textField.y - 0.5 * (self.view.height - 216 - textField.height);
 	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
 	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.view.transform = transform;
+		self.mainView.transform = transform;
 	} completion:^(BOOL finished) {}];
 }
 
@@ -122,7 +123,7 @@ static NSInteger WLProfileNameLimit = 40;
 	self.user.name = self.nameTextField.text;
 	[self verifyContinueButton];
 	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.view.transform = CGAffineTransformIdentity;
+		self.mainView.transform = CGAffineTransformIdentity;
 	} completion:^(BOOL finished) {}];
 }
 

@@ -58,15 +58,11 @@
 	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
 	
 	self.shouldAppendMoreMessages = YES;
-	
 	[self refreshMessages];
-	
-//	self.tableView.tableFooterView = [WLLoadingView instance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
 	if (self.shouldShowKeyboard) {
 		[self.composeBar becomeFirstResponder];
 	}
@@ -74,7 +70,6 @@
 
 - (void)setShouldAppendMoreMessages:(BOOL)shouldAppendMoreMessages {
 	_shouldAppendMoreMessages = shouldAppendMoreMessages;
-//	self.tableView.tableFooterView = shouldAppendMoreMessages ? [WLLoadingView instance] : nil;
 }
 
 - (NSMutableArray *)dates {
@@ -101,7 +96,7 @@
 		[_messages removeObjectsInArray:dayMessages];
 	}
 	
-	[self reloadTableView];
+	[self reloadCollectionView];
 }
 
 - (void)addMessages:(NSArray*)messages date:(NSDate*)date {
@@ -159,7 +154,7 @@
 	}];
 }
 
-- (void)reloadTableView {
+- (void)reloadCollectionView {
 	[self.collectionView reloadData];
 }
 
@@ -181,7 +176,7 @@
 							  success:^(id object) {
 		[weakSelf insertMessage:object];
 		[weakSelf.wrap broadcastChange];
-		[weakSelf reloadTableView];
+		[weakSelf reloadCollectionView];
 		[weakSelf.collectionView setContentOffset:CGPointZero animated:YES];
 	} failure:^(NSError *error) {
 		[error show];
@@ -199,71 +194,18 @@
 - (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
 	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - 216;
 	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
+	[self reloadCollectionView];
 }
 
 - (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
 	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height;
 	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
+	[self reloadCollectionView];
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
 	return NO;
 }
-//
-//#pragma mark - UITableViewDataSource
-//
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//	return [self.dates count];
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//	WLWrapDate* date = [self.dates objectAtIndex:section];
-//	return [date.candies count];
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
-//	WLCandy* message = [date.candies objectAtIndex:indexPath.row];
-//	BOOL isMyComment = [message.contributor isCurrentUser];
-//	NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
-//	WLMessageCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];;
-//	cell.item = message;
-//	return cell;
-//}
-//
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-//	cell.transform = CGAffineTransformMakeRotation(M_PI);
-//	[self handlePaginationWithIndexPath:indexPath];
-//}
-//
-//- (void)handlePaginationWithIndexPath:(NSIndexPath*)indexPath {
-//	if (!self.shouldAppendMoreMessages) {
-//		return;
-//	}
-//	if (indexPath.section != [self.dates count] - 1) {
-//		return;
-//	}
-//	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
-//	if (indexPath.row == [date.candies count] - 1) {
-//		[self appendMessages];
-//	}
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
-//	WLCandy* comment = [date.candies objectAtIndex:indexPath.row];
-//	CGFloat commentHeight  = ceilf([comment.chatMessage boundingRectWithSize:CGSizeMake(255, CGFLOAT_MAX)
-//															  options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightMicroFont]} context:nil].size.height);
-//	CGFloat cellHeight = [comment.contributor isCurrentUser] ? commentHeight  : (commentHeight + 20);
-//	return MAX(44, cellHeight);
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-//	WLMessageGroupCell* groupCell = [WLMessageGroupCell loadFromNib];
-//	groupCell.date = [self.dates objectAtIndex:section];
-//	groupCell.transform = CGAffineTransformMakeRotation(M_PI);
-//	return groupCell;
-//}
 
 #pragma mark - UICollectionViewDataSource
 
@@ -324,18 +266,18 @@
 			return CGSizeMake(collectionView.frame.size.width, 66);
 		}
 	}
-		
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
 	if (section == 0 && section < [self.dates count]) {
 		CGFloat contentHeight = 0;
-		WLWrapDate* date = [self.dates objectAtIndex:section];
-		for (WLCandy* comment in date.candies) {
+		for (WLWrapDate * date in self.dates) {
 			contentHeight += 32;
-			contentHeight += [self heightOfMessageCell:comment];
-			if (contentHeight > collectionView.height) {
-				return CGSizeZero;
+			for (WLCandy* comment in date.candies) {
+				contentHeight += [self heightOfMessageCell:comment];
+				if (contentHeight > collectionView.height) {
+					return CGSizeZero;
+				}
 			}
 		}
 		return CGSizeMake(collectionView.frame.size.width, collectionView.height - contentHeight);

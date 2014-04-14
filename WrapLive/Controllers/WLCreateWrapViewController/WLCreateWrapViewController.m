@@ -78,7 +78,6 @@
 	} else if ([segue isCameraSegue]) {
 		WLCameraViewController* controller = segue.destinationViewController;
 		controller.delegate = self;
-		controller.backfacingByDefault = YES;
 	}
 }
 

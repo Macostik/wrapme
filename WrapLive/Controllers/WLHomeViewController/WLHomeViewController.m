@@ -87,7 +87,6 @@
 	WLCameraViewController* cameraController = [self.storyboard cameraViewController];
 	cameraController.delegate = self;
 	cameraController.mode = WLCameraModeFullSize;
-	cameraController.backfacingByDefault = YES;
 	return cameraController;
 }
 
@@ -223,7 +222,6 @@
 		WLCameraViewController* cameraController = segue.destinationViewController;
 		cameraController.delegate = self;
 		cameraController.mode = WLCameraModeFullSize;
-		cameraController.backfacingByDefault = YES;
 	}
 }
 

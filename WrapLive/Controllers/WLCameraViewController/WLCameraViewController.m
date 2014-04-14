@@ -19,13 +19,16 @@
 
 @interface WLCameraViewController () <WLCameraInteractionViewDelegate>
 
-@property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;
-@property (nonatomic, strong) AVCaptureSession* session;
-@property (nonatomic, strong) AVCaptureDeviceInput* frontFacingCameraDeviceInput;
-@property (nonatomic, strong) AVCaptureDeviceInput* backFacingCameraDeviceInput;
-@property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
-@property (weak, nonatomic) IBOutlet UIView *cameraView;
+#pragma mark - AVCaptureSession interface
 
+@property (strong, nonatomic) AVCaptureStillImageOutput *output;
+@property (strong, nonatomic) AVCaptureDeviceInput *input;
+@property (nonatomic, strong) AVCaptureSession* session;
+@property (nonatomic, weak) AVCaptureConnection* connection;
+
+#pragma mark - UIKit interface
+
+@property (weak, nonatomic) IBOutlet UIView *cameraView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIImageView *acceptImageView;
@@ -43,25 +46,24 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    
-	if (self.backfacingByDefault && self.backFacingCameraDeviceInput) {
-		[self.session addInput:self.backFacingCameraDeviceInput];
-	} else if (self.frontFacingCameraDeviceInput) {
-		[self.session addInput:self.frontFacingCameraDeviceInput];
-	}
-    
-    [self.session addOutput:[self stillImageOutput]];
-    
-    [self performSelector:@selector(start) withObject:nil afterDelay:0.0];
-    
-    self.flashMode = [[NSUserDefaults standardUserDefaults] integerForKey:@"WLCameraFlashMode"];
 	
+	self.position = self.defaultPosition;
+    
 	if (self.mode == WLCameraModeFullSize) {
 		self.topView.backgroundColor = [UIColor clearColor];
 		self.bottomView.backgroundColor = [UIColor clearColor];
 		self.cameraView.frame = self.view.bounds;
 	}
-	[self.cameraView.layer insertSublayer:self.captureVideoPreviewLayer atIndex:0];
+	[self configurePreviewLayer];
+	
+	[self performSelector:@selector(start) withObject:nil afterDelay:0.0];
+}
+
+- (void)configurePreviewLayer {
+	AVCaptureVideoPreviewLayer* previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
+	previewLayer.frame = self.cameraView.bounds;
+	previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+	[self.cameraView.layer insertSublayer:previewLayer atIndex:0];
 }
 
 #pragma mark - User Actions
@@ -165,7 +167,7 @@
     return nil;
 }
 
-- (AVCaptureDeviceInput*)deviceInputWithPosition:(AVCaptureDevicePosition)position {
+- (AVCaptureDeviceInput*)inputWithPosition:(AVCaptureDevicePosition)position {
     AVCaptureDevice *deviceInput = [self deviceWithPosition:position];
     if (deviceInput) {
         [deviceInput lockForConfiguration:nil];
@@ -177,6 +179,22 @@
     return nil;
 }
 
+- (void)setInput:(AVCaptureDeviceInput *)input {
+	AVCaptureSession* session = self.session;
+	[session beginConfiguration];
+	for (AVCaptureDeviceInput* input in session.inputs) {
+		[session removeInput:input];
+	}
+	if ([session canAddInput:input]) {
+		[session addInput:input];
+	}
+	[session commitConfiguration];
+}
+
+- (AVCaptureDeviceInput *)input {
+	return [self.session.inputs lastObject];
+}
+
 - (AVCaptureSession *)session {
 	if (!_session) {
 		_session = [[AVCaptureSession alloc] init];
@@ -185,39 +203,17 @@
 		} else {
 			_session.sessionPreset = AVCaptureSessionPresetMedium;
 		}
+		[_session addOutput:self.output];
 	}
 	return _session;
 }
 
-- (AVCaptureVideoPreviewLayer *)captureVideoPreviewLayer {
-	if (!_captureVideoPreviewLayer) {
-		_captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-		_captureVideoPreviewLayer.frame = self.cameraView.bounds;
-		_captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+- (AVCaptureStillImageOutput *)output {
+	if (!_output) {
+		_output = [[AVCaptureStillImageOutput alloc] init];
+		[_output setOutputSettings:@{AVVideoCodecKey : AVVideoCodecJPEG}];
 	}
-	return _captureVideoPreviewLayer;
-}
-
-- (AVCaptureDeviceInput *)frontFacingCameraDeviceInput {
-	if (!_frontFacingCameraDeviceInput) {
-		_frontFacingCameraDeviceInput = [self deviceInputWithPosition:AVCaptureDevicePositionFront];
-	}
-	return _frontFacingCameraDeviceInput;
-}
-
-- (AVCaptureDeviceInput *)backFacingCameraDeviceInput {
-	if (!_backFacingCameraDeviceInput) {
-		_backFacingCameraDeviceInput = [self deviceInputWithPosition:AVCaptureDevicePositionBack];
-	}
-	return _backFacingCameraDeviceInput;
-}
-
-- (AVCaptureStillImageOutput *)stillImageOutput {
-	if (!_stillImageOutput) {
-		_stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
-		[_stillImageOutput setOutputSettings:@{AVVideoCodecKey : AVVideoCodecJPEG}];
-	}
-	return _stillImageOutput;
+	return _output;
 }
 
 - (void)start {
@@ -232,21 +228,22 @@
     }
 }
 
-- (AVCaptureConnection*)videoConnection {
-    AVCaptureConnection *videoConnection = nil;
-    for (AVCaptureConnection *connection in [self.stillImageOutput connections]) {
-		for (AVCaptureInputPort *port in [connection inputPorts]) {
-			if ([[port mediaType] isEqual:AVMediaTypeVideo]) {
-				videoConnection = connection;
-                videoConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
+- (AVCaptureConnection*)connection {
+	if (!_connection) {
+		for (AVCaptureConnection *connection in [self.output connections]) {
+			for (AVCaptureInputPort *port in [connection inputPorts]) {
+				if ([[port mediaType] isEqual:AVMediaTypeVideo]) {
+					_connection = connection;
+					_connection.videoOrientation = AVCaptureVideoOrientationPortrait;
+					break;
+				}
+			}
+			if (_connection) {
 				break;
 			}
 		}
-		if (videoConnection) {
-            break;
-        }
 	}
-    return videoConnection;
+    return _connection;
 }
 
 - (void)captureImage:(void (^)(UIImage*image))completion {
@@ -260,10 +257,10 @@
 	return;
 #endif
 	
-    AVCaptureConnection *videoConnection = [self videoConnection];
-    videoConnection.videoMirrored = self.front;
+    AVCaptureConnection *videoConnection = self.connection;
+    videoConnection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
 	__weak typeof(self)weakSelf = self;
-    [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection
+    [self.output captureStillImageAsynchronouslyFromConnection:videoConnection
                                                        completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
                                                            UIImage* image = nil;
                                                            if (!error) {
@@ -275,135 +272,100 @@
                                                        }];
 }
 
-- (void)setFront:(BOOL)front {
-    [self setFront:front animated:NO];
+- (AVCaptureDevicePosition)defaultPosition {
+	if (_defaultPosition == AVCaptureDevicePositionUnspecified) {
+		_defaultPosition = AVCaptureDevicePositionBack;
+	}
+	return _defaultPosition;
 }
 
-- (void)setFront:(BOOL)front animated:(BOOL)animated {
-    [self setFront:front animated:animated completion:nil];
+- (AVCaptureDevicePosition)position {
+	return self.input.device.position;
 }
 
-- (void)setFront:(BOOL)front animated:(BOOL)animated completion:(void (^)(void))completion {
-    [UIView animateWithDuration:0.25f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.cameraView.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        if (!self.frontFacingCameraDeviceInput) {
-            completion();
-            return;
-        }
-        [self.session beginConfiguration];
-        if (front && [self.session.inputs containsObject:self.backFacingCameraDeviceInput]) {
-            [self.session removeInput:self.backFacingCameraDeviceInput];
-            [self.session addInput:self.frontFacingCameraDeviceInput];
-        } else {
-            [self.session removeInput:self.frontFacingCameraDeviceInput];
-            [self.session addInput:self.backFacingCameraDeviceInput];
-        }
-        [self.session commitConfiguration];
-        [UIView animateWithDuration:0.25f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.cameraView.alpha = 1.0f;
-        } completion:^(BOOL finished) {
-            if (completion) {
-                completion();
-            }
-        }];
-    }];
+- (void)setPosition:(AVCaptureDevicePosition)position {
+    [self setPosition:position animated:NO];
+}
 
-    [UIView transitionWithView:self.cameraView duration:0.5f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionTransitionFlipFromLeft animations:^{
-    } completion:^(BOOL finished) {
-    }];
+- (void)setPosition:(AVCaptureDevicePosition)position animated:(BOOL)animated {
+	self.input = [self inputWithPosition:position];
+}
+
+- (void)configureSession:(void (^)(AVCaptureSession* session))configuration {
+	AVCaptureSession* session = self.session;
+	[session beginConfiguration];
+	configuration(session);
+	[session commitConfiguration];
+}
+
+- (void)configureDevice:(AVCaptureDevice*)device configuration:(void (^)(AVCaptureDevice* device))configuration {
+	if ([device lockForConfiguration:nil]) {
+		configuration(device);
+		[device unlockForConfiguration];
+	}
+}
+
+- (void)configureCurrentDevice:(void (^)(AVCaptureDevice* device))configuration {
+	[self configureDevice:self.input.device configuration:configuration];
 }
 
 - (void)setFlashMode:(AVCaptureFlashMode)flashMode {
-    if (self.front) {
-        return;
-    }
-    
-    if ([self.backFacingCameraDeviceInput.device isFlashModeSupported:flashMode]) {
-        [self.session beginConfiguration];
-        [self.backFacingCameraDeviceInput.device lockForConfiguration:nil];
-        self.backFacingCameraDeviceInput.device.flashMode = flashMode;
-        [self.backFacingCameraDeviceInput.device unlockForConfiguration];
-        [self.session commitConfiguration];
-        [[NSUserDefaults standardUserDefaults] setInteger:flashMode forKey:@"WLCameraFlashMode"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+	__weak typeof(self)weakSelf = self;
+	[self configureSession:^(AVCaptureSession *session) {
+		[weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
+			if ([device isFlashModeSupported:flashMode]) {
+				device.flashMode = flashMode;
+			}
+		}];
+	}];
 }
 
 - (AVCaptureFlashMode)flashMode {
-    if (self.front) {
-        return AVCaptureFlashModeOff;
-    }
-    return self.backFacingCameraDeviceInput.device.flashMode;
-}
-
-- (BOOL)front {
-    return [self.session.inputs containsObject:self.frontFacingCameraDeviceInput];
+	return self.input.device.flashMode;
 }
 
 - (BOOL)flashSupported {
-    if (self.front) {
-        return NO;
-    } else {
-        return [self.backFacingCameraDeviceInput.device isFlashModeSupported:AVCaptureFlashModeOn];
-    }
+    return self.input.device.hasFlash;
 }
 
 - (void)autoFocusAtPoint:(CGPoint)point {
-	AVCaptureDeviceInput* input = [self front] ? self.frontFacingCameraDeviceInput : self.backFacingCameraDeviceInput;
-    AVCaptureDevice* inputCamera = input.device;
-    if ([inputCamera isFocusPointOfInterestSupported] && [inputCamera isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
-        if ([inputCamera lockForConfiguration:NULL]) {
-            [inputCamera setFocusPointOfInterest:[self pointOfInterestFromPoint:point]];
-            [inputCamera setFocusMode:AVCaptureFocusModeAutoFocus];
-            [inputCamera unlockForConfiguration];
-        }
-    }
-    [self autoExposureAtPoint:point];
+	__weak typeof(self)weakSelf = self;
+	[self configureSession:^(AVCaptureSession *session) {
+		[weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
+			if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+				[device setFocusPointOfInterest:[self pointOfInterestFromPoint:point]];
+				[device setFocusMode:AVCaptureFocusModeAutoFocus];
+			}
+		}];
+	}];
 }
 
 - (void)autoExposureAtPoint:(CGPoint)point {
-    AVCaptureDeviceInput* input = [self front] ? self.frontFacingCameraDeviceInput : self.backFacingCameraDeviceInput;
-    AVCaptureDevice* inputCamera = input.device;
-    if ([inputCamera isExposurePointOfInterestSupported] && [inputCamera isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
-        if ([inputCamera lockForConfiguration:NULL]) {
-            [inputCamera setExposurePointOfInterest:[self pointOfInterestFromPoint:point]];
-            [inputCamera setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
-            [inputCamera unlockForConfiguration];
-        }
-    }
+	__weak typeof(self)weakSelf = self;
+	[self configureSession:^(AVCaptureSession *session) {
+		[weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
+			if ([device isExposurePointOfInterestSupported] && [device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+				[device setExposurePointOfInterest:[self pointOfInterestFromPoint:point]];
+				[device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
+			}
+		}];
+	}];
 }
 
 - (CGPoint)pointOfInterestFromPoint:(CGPoint)point {
     CGSize frameSize = self.cameraView.frame.size;
-    
     CGSize apertureSize = CMVideoFormatDescriptionGetCleanAperture([[self videoPort] formatDescription], YES).size;
-    
     CGRect visibleRect = CGRectThatFitsSize(apertureSize, frameSize);
-    
     point.x += visibleRect.origin.x;
     point.y += visibleRect.origin.y;
-    
-    if ([[self videoCaptureConnection] isVideoMirrored]) {
+    if ([self.connection isVideoMirrored]) {
         point.x = frameSize.width - point.x;
     }
-    
     return CGPointMake(point.x/apertureSize.width, point.y/apertureSize.height);
 }
 
-- (AVCaptureConnection *)videoCaptureConnection {
-    for (AVCaptureConnection *connection in [self.stillImageOutput connections] ) {
-		for ( AVCaptureInputPort *port in [connection inputPorts] ) {
-			if ( [[port mediaType] isEqual:AVMediaTypeVideo] ) {
-				return connection;
-			}
-		}
-	}
-    return nil;
-}
-
 - (AVCaptureInputPort*)videoPort {
-    for (AVCaptureInputPort *port in [[self.session.inputs lastObject] ports]) {
+    for (AVCaptureInputPort *port in [self.input ports]) {
         if ([port mediaType] == AVMediaTypeVideo) {
             return port;
         }

@@ -29,6 +29,10 @@ typedef NS_ENUM(NSInteger, WLCameraMode) {
 
 @property (nonatomic) WLCameraMode mode;
 
-@property (nonatomic) BOOL backfacingByDefault;
+@property (nonatomic) AVCaptureDevicePosition defaultPosition;
+
+@property (nonatomic) AVCaptureDevicePosition position;
+
+- (void)setPosition:(AVCaptureDevicePosition)position animated:(BOOL)animated;
 
 @end

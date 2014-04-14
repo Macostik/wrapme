@@ -25,6 +25,14 @@
 	return candy;
 }
 
+- (id)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
+    self = [super initWithDictionary:dict error:err];
+    if (self) {
+        self.comments = (id)[[self.comments reverseObjectEnumerator] allObjects];
+    }
+    return self;
+}
+
 + (NSDictionary*)pictureMapping {
 	return @{@"large":@[@"large_image_attachment_url"],
 			 @"medium":@[@"medium_image_attachment_url"],

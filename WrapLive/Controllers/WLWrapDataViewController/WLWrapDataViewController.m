@@ -33,6 +33,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
 
 @property (weak, nonatomic) WLRefresher *refresher;
 
@@ -112,6 +113,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[[WLAPIManager instance] addComment:comment toCandy:self.candy fromWrap:self.wrap success:^(id object) {
 		[weakSelf.tableView reloadData];
 		[weakSelf.wrap broadcastChange];
+		[weakSelf.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height - self.tableView.height) animated:YES];
 	} failure:^(NSError *error) {
 		[error show];
 	}];
@@ -129,17 +131,31 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
 	self.containerView.frame = CGRectMake(self.containerView.x, self.containerView.y, self.containerView.width, self.view.height - self.topView.height - 216);
-	[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height - self.tableView.height) animated:YES];
+	CGFloat tableHeight = (self.view.height - self.composeBarView.height - self.topView.height);
+	if (self.tableView.contentSize.height > tableHeight) {
+		[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y + 216) animated:NO];
+	} else {
+		[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y + 216 - (tableHeight - self.tableView.contentSize.height)) animated:NO];
+	}
+	
 }
 
 - (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
 	self.containerView.frame = CGRectMake(self.containerView.x, self.containerView.y, self.containerView.width, self.view.height - self.topView.height);
+	CGFloat tableHeight = (self.view.height - self.composeBarView.height - self.topView.height);
+	if (self.tableView.contentSize.height > tableHeight) {
+		[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height - self.tableView.height) animated:NO];
+	}
 }
 
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return self.candy.comments.count;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+	NSLog(@"contentOffset.y = %f", self.tableView.contentOffset.y);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -183,7 +183,9 @@ static CGFloat WLRefresherContentSize = 88.0f;
 			[self.spinner startAnimating];
 			self.arrowView.hidden = YES;
 			[UIView beginAnimations:nil context:nil];
-			self.scrollView.contentInset = UIEdgeInsetsMake(0, 88, 0, 0);
+			UIEdgeInsets insets = self.scrollView.contentInset;
+			insets.left = 88;
+			self.scrollView.contentInset = insets;
 			[UIView commitAnimations];
 			[self sendActionsForControlEvents:UIControlEventValueChanged];
 		}
@@ -193,7 +195,9 @@ static CGFloat WLRefresherContentSize = 88.0f;
 			[self.spinner startAnimating];
 			self.arrowView.hidden = YES;
 			[UIView beginAnimations:nil context:nil];
-			self.scrollView.contentInset = UIEdgeInsetsMake(88, 0, 0, 0);
+			UIEdgeInsets insets = self.scrollView.contentInset;
+			insets.top = 88;
+			self.scrollView.contentInset = insets;
 			[UIView commitAnimations];
 			[self sendActionsForControlEvents:UIControlEventValueChanged];
 		}
@@ -203,7 +207,10 @@ static CGFloat WLRefresherContentSize = 88.0f;
 - (void)endRefreshing {
 	_refreshing = NO;
 	[UIView beginAnimations:nil context:nil];
-	self.scrollView.contentInset = UIEdgeInsetsZero;
+	UIEdgeInsets insets = self.scrollView.contentInset;
+	insets.left = 0;
+	insets.top = 0;
+	self.scrollView.contentInset = insets;
 	[UIView commitAnimations];
 	[self.spinner stopAnimating];
 	[self setArrowViewRotated:NO animated:NO];

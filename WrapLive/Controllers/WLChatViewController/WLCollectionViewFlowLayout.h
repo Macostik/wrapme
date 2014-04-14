@@ -10,4 +10,8 @@
 
 @interface WLCollectionViewFlowLayout : UICollectionViewFlowLayout
 
+@property (nonatomic) CGFloat inset;
+
+@property (strong, nonatomic) UIView* loadingView;
+
 @end

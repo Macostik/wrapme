@@ -22,6 +22,7 @@
 #import "NSDate+Formatting.h"
 #import "NSObject+NibAdditions.h"
 #import "WLUploadingQueue.h"
+#import "WLCollectionViewFlowLayout.h"
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -38,12 +39,18 @@
 
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 
+@property (nonatomic, readonly) WLCollectionViewFlowLayout* layout;
+
 @end
 
 @implementation WLChatViewController
 {
 	BOOL loading;
 	NSInteger messagesCount;
+}
+
+- (WLCollectionViewFlowLayout *)layout {
+	return (WLCollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
 }
 
 - (void)viewDidLoad {
@@ -71,6 +78,11 @@
 
 - (void)setShouldAppendMoreMessages:(BOOL)shouldAppendMoreMessages {
 	_shouldAppendMoreMessages = shouldAppendMoreMessages;
+	if (shouldAppendMoreMessages) {
+		self.layout.loadingView = [WLLoadingView instance];
+	} else {
+		self.layout.loadingView = nil;
+	}
 }
 
 - (NSMutableArray *)dates {
@@ -97,7 +109,7 @@
 		[_messages removeObjectsInArray:dayMessages];
 	}
 	
-	[self reloadCollectionView];
+	[self.collectionView reloadData];
 }
 
 - (void)addMessages:(NSArray*)messages date:(NSDate*)date {
@@ -155,10 +167,6 @@
 	}];
 }
 
-- (void)reloadCollectionView {
-	[self.collectionView reloadData];
-}
-
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
@@ -174,7 +182,7 @@
 	__weak typeof(self)weakSelf = self;
 	[[WLUploadingQueue instance] uploadMessage:text wrap:self.wrap success:^(id object) {
 		[weakSelf insertMessage:object];
-		[weakSelf reloadCollectionView];
+		[weakSelf.collectionView reloadData];
 		[weakSelf.collectionView setContentOffset:CGPointZero animated:YES];
 	} failure:^(NSError *error) {
 		[error show];
@@ -192,13 +200,13 @@
 - (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
 	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - 216;
 	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
-	[self reloadCollectionView];
+	[self.collectionView reloadData];
 }
 
 - (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
 	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height;
 	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
-	[self reloadCollectionView];
+	[self.collectionView reloadData];
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
@@ -208,38 +216,26 @@
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-	return [self.dates count] + 1;
+	return [self.dates count];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	if (section < [self.dates count]) {
-		WLWrapDate* date = [self.dates objectAtIndex:section];
-		return [date.candies count];
-	} else {
-		return self.shouldAppendMoreMessages;
-	}
+	WLWrapDate* date = [self.dates objectAtIndex:section];
+	return [date.candies count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section < [self.dates count]) {
-		WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
-		WLCandy* message = [date.candies objectAtIndex:indexPath.row];
-		BOOL isMyComment = [message.contributor isCurrentUser];
-		NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
-		WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-		cell.item = message;
-		[self handlePaginationWithIndexPath:indexPath];
-		return cell;
-	} else {
-		return [collectionView dequeueReusableCellWithReuseIdentifier:@"WLMessageLoadingView" forIndexPath:indexPath];
-	}
+	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
+	WLCandy* message = [date.candies objectAtIndex:indexPath.row];
+	BOOL isMyComment = [message.contributor isCurrentUser];
+	NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
+	WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+	cell.item = message;
+	[self handlePaginationWithIndexPath:indexPath];
+	return cell;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-	if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-		return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLMessageSpacingView" forIndexPath:indexPath];
-	}
-	
 	WLMessageGroupCell* groupCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WLMessageGroupCell" forIndexPath:indexPath];
 	groupCell.date = [self.dates objectAtIndex:indexPath.section];
 	return groupCell;
@@ -253,37 +249,10 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section < [self.dates count]) {
-		WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
-		WLCandy* comment = [date.candies objectAtIndex:indexPath.row];
-		return CGSizeMake(collectionView.frame.size.width, MAX(44, [self heightOfMessageCell:comment]));
-	} else {
-		if ([self.dates count] == 0) {
-			return collectionView.frame.size;
-		} else {
-			return CGSizeMake(collectionView.frame.size.width, 66);
-		}
-	}
+	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
+	WLCandy* comment = [date.candies objectAtIndex:indexPath.row];
+	return CGSizeMake(collectionView.frame.size.width, MAX(44, [self heightOfMessageCell:comment]));
 }
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-	if (section == 0 && section < [self.dates count]) {
-		CGFloat contentHeight = 0;
-		for (WLWrapDate * date in self.dates) {
-			contentHeight += 32;
-			for (WLCandy* comment in date.candies) {
-				contentHeight += [self heightOfMessageCell:comment];
-				if (contentHeight > collectionView.height) {
-					return CGSizeZero;
-				}
-			}
-		}
-		return CGSizeMake(collectionView.frame.size.width, collectionView.height - contentHeight);
-	}
-	return CGSizeZero;
-}
-
-
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
 	if (section < [self.dates count]) {

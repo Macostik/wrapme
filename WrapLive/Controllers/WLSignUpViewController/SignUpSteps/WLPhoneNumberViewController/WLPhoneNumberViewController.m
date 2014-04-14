@@ -61,11 +61,13 @@
 - (void)birthdatePickerCancel:(id)sender {
 	self.birthdateTextField.text = nil;
 	[self.birthdateTextField resignFirstResponder];
+	[self validateSignUpButton];
 }
 
 - (void)birthdatePickerDone:(id)sender {
 	self.birthdateTextField.text = [self.birthdatePicker.date stringWithFormat:@"MMM' 'dd', 'YYYY'"];
 	[self.birthdateTextField resignFirstResponder];
+	[self validateSignUpButton];
 }
 
 - (void)fillCountryFields {
@@ -102,7 +104,7 @@
 }
 
 - (void)validateSignUpButton {
-	self.signUpButton.enabled = self.phoneNumberTextField.text.length > 0 ? YES : NO;
+	self.signUpButton.enabled = (self.phoneNumberTextField.text.length > 0 ? YES : NO) && (self.birthdateTextField.text.length > 0 ? YES : NO);
 }
 
 - (WLUser *)prepareForRequest {

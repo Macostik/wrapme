@@ -9,12 +9,10 @@
 #import "WLItemCell.h"
 @class WLComment;
 
-static CGFloat WLCommentLabelLenth = 255.0f;
+static CGFloat WLCommentLabelLenth = 260.0f;
 static CGFloat WLAuthorLabelHeight = 20.0f;
 static CGFloat WLMinimumCellHeight = 44.0f;
 
 @interface WLCommentCell : WLItemCell
-
-- (void)configureCellHeightWithComment:(WLComment*)comment;
 
 @end

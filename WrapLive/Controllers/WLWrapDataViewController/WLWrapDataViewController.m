@@ -137,7 +137,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	} else {
 		[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y + 216 - (tableHeight - self.tableView.contentSize.height)) animated:NO];
 	}
-	
 }
 
 - (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
@@ -154,15 +153,10 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	return self.candy.comments.count;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-	NSLog(@"contentOffset.y = %f", self.tableView.contentOffset.y);
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
 	NSString* cellIdentifier = WLCommentCellIdentifier;
 	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-	[cell configureCellHeightWithComment:comment];
 	cell.item = comment;
 	return cell;
 }
@@ -171,7 +165,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
 	CGFloat commentHeight  = ceilf([comment.text boundingRectWithSize:CGSizeMake(WLCommentLabelLenth, CGFLOAT_MAX)
 														 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightMicroFont]} context:nil].size.height);
-	CGFloat cellHeight = [comment.contributor isCurrentUser] ? commentHeight  : (commentHeight + WLAuthorLabelHeight);
+	CGFloat cellHeight = (commentHeight + WLAuthorLabelHeight);
 	return MAX(WLMinimumCellHeight, cellHeight);
 }
 

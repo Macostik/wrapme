@@ -9,6 +9,7 @@
 #import "WLWrapEntry.h"
 
 @class WLComment;
+@class WLUploadingItem;
 
 @protocol WLComment @end
 
@@ -23,6 +24,8 @@ static NSInteger WLCandyTypeChatMessage = 20;
 
 @property (strong, nonatomic) NSString * chatMessage;
 
+@property (weak, nonatomic) WLUploadingItem* uploadingItem;
+
 + (instancetype)chatMessageWithText:(NSString*)text;
 
 + (instancetype)imageWithFileAtPath:(NSString*)path;
@@ -34,5 +37,7 @@ static NSInteger WLCandyTypeChatMessage = 20;
 - (BOOL)isImage;
 
 - (BOOL)isChatMessage;
+
+- (BOOL)isEqualToCandy:(WLCandy *)candy;
 
 @end

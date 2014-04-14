@@ -34,6 +34,7 @@ typedef NS_ENUM(NSUInteger, StreamViewReusableViewLoadingType) {
 - (NSInteger)streamViewNumberOfSections:(StreamView*)streamView;
 - (void)streamView:(StreamView*)streamView didSelectItem:(StreamLayoutItem*)item;
 - (CGFloat)streamView:(StreamView*)streamView initialRangeForColumn:(NSInteger)column;
+- (CGFloat)streamView:(StreamView*)streamView sizeForColumn:(NSInteger)column;
 
 @end
 

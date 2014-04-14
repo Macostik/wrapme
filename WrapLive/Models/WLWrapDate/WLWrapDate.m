@@ -34,4 +34,8 @@
 	self.candies = [candies copy];
 }
 
+- (void)removeCandy:(WLCandy *)candy {
+	self.candies = (id)[self.candies arrayByRemovingObject:candy];
+}
+
 @end

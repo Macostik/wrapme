@@ -28,6 +28,7 @@
 #import "WLChatViewController.h"
 #import "WLLoadingView.h"
 #import "WLWrapBroadcaster.h"
+#import "WLUploadingQueue.h"
 
 @interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate, WLWrapBroadcastReceiver>
 
@@ -99,6 +100,7 @@
 		}
 		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
 		[weakSelf.wrap updateWithObject:wrap];
+		[[WLUploadingQueue instance] addCandiesToWrapIfNeeded:weakSelf.wrap];
 		[weakSelf.tableView reloadData];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
@@ -136,12 +138,7 @@
 }
 
 - (void)sendMessageWithText:(NSString*)text {
-	
-	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] addCandy:[WLCandy chatMessageWithText:text]
-							   toWrap:self.wrap
-							  success:^(id object) {
-		[weakSelf.wrap broadcastChange];
+	[[WLUploadingQueue instance] uploadMessage:text wrap:self.wrap success:^(id object) {
 	} failure:^(NSError *error) {
 		[error show];
 	}];
@@ -224,24 +221,10 @@
 #pragma mark - WLCameraViewControllerDelegate
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
-	__weak typeof(self)weakSelf = self;
-	
-	[WLProgressView showWithMessage:@"Uploading image..." image:image operation:nil];
-	
-	[image storeAsImage:^(NSString *path) {
-		id operation = [[WLAPIManager instance] addCandy:[WLCandy imageWithFileAtPath:path]
-												  toWrap:weakSelf.wrap
-												 success:^(id object) {
-			[weakSelf.wrap broadcastChange];
-			[weakSelf.tableView reloadData];
-			[WLProgressView dismiss];
-		} failure:^(NSError *error) {
-			[WLProgressView dismiss];
-			[error show];
-		}];
-		[WLProgressView setOperation:operation];
+	[[WLUploadingQueue instance] uploadImage:image wrap:self.wrap success:^(id object) {
+	} failure:^(NSError *error) {
+		[error show];
 	}];
-	
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

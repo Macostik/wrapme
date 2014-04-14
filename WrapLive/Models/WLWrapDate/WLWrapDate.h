@@ -18,4 +18,6 @@
 
 - (void)addCandy:(WLCandy *)candy;
 
+- (void)removeCandy:(WLCandy *)candy;
+
 @end

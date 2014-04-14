@@ -360,8 +360,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	}
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
-		WLCandy* candy = [[WLCandy alloc] initWithDictionary:[response.data dictionaryForKey:@"candy"] error:NULL];
-		[wrap addCandy:candy];
+		[candy updateWithDictionary:[response.data dictionaryForKey:@"candy"]];
+		[wrap broadcastChange];
 		return candy;
 	};
 	

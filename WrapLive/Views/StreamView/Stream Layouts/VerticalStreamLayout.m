@@ -14,17 +14,17 @@
 
 @implementation VerticalStreamLayout
 
-- (void)prepareLayout {
-	[super prepareLayout];
-	_size = ceilf(self.streamView.frame.size.width / _numberOfColumns);
-	[self setRange:0];
+- (void)setNumberOfColumns:(NSInteger)numberOfColumns {
+	[super setNumberOfColumns:numberOfColumns];
+	[self setSize:ceilf(self.streamView.frame.size.width / numberOfColumns)];
 }
 
 - (CGRect)frameForItemWithRatio:(CGFloat)ratio {
 	NSInteger column = 0;
 	CGFloat range = [self minimumRange:&column];
-	CGRect frame = CGRectMake(_size * column, range, _size, _size / ratio);
-	ranges[column] = CGRectGetMaxY(frame);
+	CGFloat size = self.sizes[column];
+	CGRect frame = CGRectMake([self offset:column], range, size, size / ratio);
+	self.ranges[column] = CGRectGetMaxY(frame);
 	return frame;
 }
 

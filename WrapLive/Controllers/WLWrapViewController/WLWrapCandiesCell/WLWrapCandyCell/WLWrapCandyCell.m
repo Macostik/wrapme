@@ -11,12 +11,14 @@
 #import "UIImageView+ImageLoading.h"
 #import "WLComment.h"
 #import "WLUser.h"
+#import "WLProgressBar.h"
 
 @interface WLWrapCandyCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chatLabelView;
+@property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 
 @end
 
@@ -44,6 +46,13 @@
 			self.commentLabel.text = entry.chatMessage;
 		}
 		
+	}
+	
+	if (entry.uploadingItem) {
+		self.progressBar.hidden = NO;
+		self.progressBar.uploadingItem = entry.uploadingItem;
+	} else {
+		self.progressBar.hidden = YES;
 	}
 }
 

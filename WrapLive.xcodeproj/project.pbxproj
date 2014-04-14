@@ -58,6 +58,8 @@
 		12A9EFBA18F8026E002CBF75 /* WLCameraInteractionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9EFB618F8026E002CBF75 /* WLCameraInteractionView.m */; };
 		12A9EFBB18F8026E002CBF75 /* WLCameraAdjustmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9EFB918F8026E002CBF75 /* WLCameraAdjustmentView.m */; };
 		12C4416618F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 12C4416518F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m */; };
+		12D4E94818FBEC5100B8F2AF /* WLUploadingQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4E94718FBEC5100B8F2AF /* WLUploadingQueue.m */; };
+		12D4E94C18FC12DF00B8F2AF /* AsynchronousOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4E94B18FC12DF00B8F2AF /* AsynchronousOperation.m */; };
 		12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D518E4326C009CE64C /* UIView+Shorthand.m */; };
 		12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D918E4329F009CE64C /* WLProgressBar.m */; };
 		12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
@@ -198,6 +200,10 @@
 		12A9EFB918F8026E002CBF75 /* WLCameraAdjustmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCameraAdjustmentView.m; sourceTree = "<group>"; };
 		12C4416418F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+ImageMetadata.h"; sourceTree = "<group>"; };
 		12C4416518F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+ImageMetadata.m"; sourceTree = "<group>"; };
+		12D4E94618FBEC5100B8F2AF /* WLUploadingQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUploadingQueue.h; path = WLUploadingQueue/WLUploadingQueue.h; sourceTree = "<group>"; };
+		12D4E94718FBEC5100B8F2AF /* WLUploadingQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUploadingQueue.m; path = WLUploadingQueue/WLUploadingQueue.m; sourceTree = "<group>"; };
+		12D4E94A18FC12DF00B8F2AF /* AsynchronousOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsynchronousOperation.h; sourceTree = "<group>"; };
+		12D4E94B18FC12DF00B8F2AF /* AsynchronousOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsynchronousOperation.m; sourceTree = "<group>"; };
 		12D653D418E4326C009CE64C /* UIView+Shorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shorthand.h"; sourceTree = "<group>"; };
 		12D653D518E4326C009CE64C /* UIView+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shorthand.m"; sourceTree = "<group>"; };
 		12D653D818E4329F009CE64C /* WLProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLProgressBar.h; sourceTree = "<group>"; };
@@ -601,6 +607,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				12D4E94518FBEC3700B8F2AF /* WLUploadingQueue */,
 				12A9EFB018F7E818002CBF75 /* WLWrapBroadcaster */,
 				12E33ACE18F3E18200E77229 /* WLWrapDate */,
 				12D962EA18E5897400C57CE1 /* WLPicture */,
@@ -712,6 +719,26 @@
 				12A9EFB918F8026E002CBF75 /* WLCameraAdjustmentView.m */,
 			);
 			path = WLCameraAdjustmentView;
+			sourceTree = "<group>";
+		};
+		12D4E94518FBEC3700B8F2AF /* WLUploadingQueue */ = {
+			isa = PBXGroup;
+			children = (
+				12D4E94618FBEC5100B8F2AF /* WLUploadingQueue.h */,
+				12D4E94718FBEC5100B8F2AF /* WLUploadingQueue.m */,
+				12D4E94918FC12DF00B8F2AF /* AsynchronousOperation */,
+			);
+			name = WLUploadingQueue;
+			sourceTree = "<group>";
+		};
+		12D4E94918FC12DF00B8F2AF /* AsynchronousOperation */ = {
+			isa = PBXGroup;
+			children = (
+				12D4E94A18FC12DF00B8F2AF /* AsynchronousOperation.h */,
+				12D4E94B18FC12DF00B8F2AF /* AsynchronousOperation.m */,
+			);
+			name = AsynchronousOperation;
+			path = WLUploadingQueue/AsynchronousOperation;
 			sourceTree = "<group>";
 		};
 		12D653D318E4326C009CE64C /* UIView */ = {
@@ -1233,6 +1260,7 @@
 				12DCBA6718DB0E4A00A4BC44 /* WLWrap.m in Sources */,
 				12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */,
 				1293678718E34A6800527250 /* WLCandy.m in Sources */,
+				12D4E94C18FC12DF00B8F2AF /* AsynchronousOperation.m in Sources */,
 				12DCBA6B18DB0E6600A4BC44 /* WLComment.m in Sources */,
 				12D653E218E432F2009CE64C /* WLBorderView.m in Sources */,
 				12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */,
@@ -1251,6 +1279,7 @@
 				12A9EFB318F7E858002CBF75 /* WLWrapBroadcaster.m in Sources */,
 				129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */,
 				C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */,
+				12D4E94818FBEC5100B8F2AF /* WLUploadingQueue.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,
 				12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */,
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,

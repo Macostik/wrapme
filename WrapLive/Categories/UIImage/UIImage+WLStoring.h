@@ -18,4 +18,8 @@
 
 - (void)storeAsImage:(void (^)(NSString* path))completion;
 
++ (void)removeImageAtPath:(NSString*)path;
+
++ (void)removeAllTemporaryImages;
+
 @end

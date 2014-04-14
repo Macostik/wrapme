@@ -21,6 +21,7 @@
 #import "WLMessageGroupCell.h"
 #import "NSDate+Formatting.h"
 #import "NSObject+NibAdditions.h"
+#import "WLUploadingQueue.h"
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -171,11 +172,8 @@
 		return;
 	}
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] addCandy:[WLCandy chatMessageWithText:text]
-							   toWrap:self.wrap
-							  success:^(id object) {
+	[[WLUploadingQueue instance] uploadMessage:text wrap:self.wrap success:^(id object) {
 		[weakSelf insertMessage:object];
-		[weakSelf.wrap broadcastChange];
 		[weakSelf reloadCollectionView];
 		[weakSelf.collectionView setContentOffset:CGPointZero animated:YES];
 	} failure:^(NSError *error) {

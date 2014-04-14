@@ -34,6 +34,7 @@
 #import "WLLoadingView.h"
 #import "UIViewController+Additions.h"
 #import "WLWrapBroadcaster.h"
+#import "WLUploadingQueue.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate, WLWrapBroadcastReceiver>
 
@@ -184,6 +185,7 @@
 
 - (void)updateTopWrap {
 	WLWrap* wrap = self.topWrap;
+	[[WLUploadingQueue instance] addCandiesToWrapIfNeeded:wrap];
 	self.headerWrapNameLabel.text = wrap.name;
 	self.headerWrapCreatedAtLabel.text = [wrap.createdAt stringWithFormat:@"MMMM dd, yyyy"];
 	__weak typeof(self)weakSelf = self;
@@ -202,11 +204,7 @@
 }
 
 - (void)sendMessageWithText:(NSString*)text {
-	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] addCandy:[WLCandy chatMessageWithText:text]
-							   toWrap:self.topWrap
-							  success:^(id object) {
-		[weakSelf updateTopWrap];
+	[[WLUploadingQueue instance] uploadMessage:text wrap:self.topWrap success:^(id object) {
 	} failure:^(NSError *error) {
 		[error show];
 	}];
@@ -269,24 +267,10 @@
 
 #pragma mark - <WLCameraViewControllerDelegate>
 
-- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
-	__weak typeof(self)weakSelf = self;
-	
-	[WLProgressView showWithMessage:@"Uploading image..." image:image operation:nil];
-	
-	[image storeAsImage:^(NSString *path) {
-		
-		id operation = [[WLAPIManager instance] addCandy:[WLCandy imageWithFileAtPath:path]
-												  toWrap:weakSelf.topWrap
-												 success:^(id object) {
-			[WLProgressView dismiss];
-			[weakSelf updateTopWrap];
-		} failure:^(NSError *error) {
-			[WLProgressView dismiss];
-			[error show];
-		}];
-		
-		[WLProgressView setOperation:operation];
+- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {	
+	[[WLUploadingQueue instance] uploadImage:image wrap:self.topWrap success:^(id object) {
+	} failure:^(NSError *error) {
+		[error show];
 	}];
 
 	[self dismissViewControllerAnimated:YES completion:nil];
@@ -330,10 +314,14 @@
 	return column == 1 ? 106 : 0;
 }
 
+- (CGFloat)streamView:(StreamView *)streamView sizeForColumn:(NSInteger)column {
+	return column == 1 ? 108 : 106;
+}
+
 - (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {
 	if (item.index.row < [self.latestCandies count]) {
 		WLCandy* candy = [self.latestCandies objectAtIndex:item.index.row];
-		if (candy.type == WLCandyTypeImage) {
+		if (candy.type == WLCandyTypeImage && candy.uploadingItem == nil) {
 			WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];
 			controller.candy = candy;
 			controller.wrap = self.topWrap;

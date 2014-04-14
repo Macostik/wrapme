@@ -23,6 +23,10 @@
 
 - (void)addCandy:(WLCandy*)candy;
 
+- (void)removeCandy:(WLCandy*)candy;
+
+- (void)edit:(BOOL (^)(WLWrap* wrap))editing;
+
 - (NSArray*)latestCandies:(NSInteger)count;
 
 - (void)contributorNames:(void (^)(NSString* names))completion;

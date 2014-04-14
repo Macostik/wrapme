@@ -11,9 +11,12 @@
 @implementation UIImage (WLStoring)
 
 - (void)storeWithName:(NSString*)name completion:(void (^)(NSString* path))completion {
+	[self storeAtPath:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.jpg", name]] completion:completion];
+}
+
+- (void)storeAtPath:(NSString*)path completion:(void (^)(NSString* path))completion {
 	__weak typeof(self)weakSelf = self;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.jpg", name]];
 		[UIImageJPEGRepresentation(weakSelf,1.0) writeToFile:path atomically:YES];
 		dispatch_async(dispatch_get_main_queue(), ^{
 			completion(path);
@@ -30,7 +33,19 @@
 }
 
 - (void)storeAsImage:(void (^)(NSString *))completion {
-	[self storeWithName:@"image" completion:completion];
+	[self storeAtPath:[NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.jpg", [[NSProcessInfo processInfo] globallyUniqueString]]] completion:completion];
+}
+
++ (void)removeImageAtPath:(NSString *)path {
+	[[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
+}
+
++ (void)removeAllTemporaryImages {
+	NSString* directoryPath = NSTemporaryDirectory();
+	NSDirectoryEnumerator* enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directoryPath];
+	for (NSString* file in enumerator) {
+		[UIImage removeImageAtPath:[directoryPath stringByAppendingPathComponent:file]];
+	}
 }
 
 @end

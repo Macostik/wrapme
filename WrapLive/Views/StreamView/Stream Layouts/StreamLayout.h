@@ -12,24 +12,26 @@
 @class StreamLayoutItem;
 
 @interface StreamLayout : NSObject
-{
-@protected
-    CGFloat _size;
-    NSInteger _numberOfColumns;
-	CGFloat* ranges;
-}
 
 @property (nonatomic, weak) StreamView* streamView;
 
 @property (nonatomic) NSInteger numberOfColumns;
 
-- (void)prepareLayout;
+@property (nonatomic) CGFloat* ranges;
+
+@property (nonatomic) CGFloat* sizes;
 
 - (NSSet*)layoutItems:(NSUInteger)numberOfItems ratio:(CGFloat (^)(StreamLayoutItem* item, NSUInteger itemIndex))ratio;
 
 - (CGRect)frameForItemWithRatio:(CGFloat)ratio;
 
 @property (nonatomic, readonly) CGSize contentSize;
+
+- (void)setSize:(CGFloat)size;
+
+- (void)setSize:(CGFloat)size atIndex:(NSInteger)index;
+
+- (CGFloat)offset:(NSInteger)column;
 
 - (void)setRange:(CGFloat)range;
 

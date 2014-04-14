@@ -153,12 +153,17 @@ static NSString *panGestureRecognizerStatePath = @"panGestureRecognizer.state";
 		layout.numberOfColumns = 1;
 	}
 	
-	[layout prepareLayout];
-	
 	if ([self.delegate respondsToSelector:@selector(streamViewNumberOfSections:)]) {
 		self.numberOfSections = [self.delegate streamViewNumberOfSections:self];
 	} else {
 		self.numberOfSections = 1;
+	}
+	
+	if ([self.delegate respondsToSelector:@selector(streamView:sizeForColumn:)]) {
+		for (NSInteger column = 0; column < layout.numberOfColumns; ++column) {
+			CGFloat size = [self.delegate streamView:self sizeForColumn:column];
+			[layout setSize:size atIndex:column];
+		}
 	}
 	
 	if ([self.delegate respondsToSelector:@selector(streamView:initialRangeForColumn:)]) {

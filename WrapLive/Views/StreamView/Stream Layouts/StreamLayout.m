@@ -17,24 +17,52 @@
 @implementation StreamLayout
 
 - (void)dealloc {
-    if (ranges != NULL) {
-        free(ranges);
+	self.ranges = NULL;
+	self.sizes = NULL;
+}
+
+- (void)setRanges:(CGFloat *)ranges {
+	if (_ranges != NULL) {
+		free(_ranges);
+		_ranges = NULL;
+	}
+	_ranges = ranges;
+}
+
+- (void)setNumberOfColumns:(NSInteger)numberOfColumns {
+	_numberOfColumns = numberOfColumns;
+	self.sizes = calloc(_numberOfColumns, sizeof(CGFloat));
+	self.ranges = calloc(_numberOfColumns, sizeof(CGFloat));
+	[self setRange:0];
+}
+
+- (void)setSize:(CGFloat)size {
+	for (NSInteger index = 0; index < _numberOfColumns; ++index) {
+        [self setSize:size atIndex:index];
     }
 }
 
-- (void)prepareLayout {
+- (void)setSize:(CGFloat)size atIndex:(NSInteger)index {
+	if (index < _numberOfColumns) {
+		self.sizes[index] = size;
+	}
+}
+
+- (CGFloat)offset:(NSInteger)column {
+	CGFloat offset = 0;
+	for (NSInteger index = 1; index <= column; ++index) {
+        offset += self.sizes[index-1];
+    }
+	return offset;
 }
 
 - (void)setRange:(CGFloat)range {
-	if (ranges != NULL) {
-		free(ranges);
-	}
-	ranges = calloc(_numberOfColumns, sizeof(CGFloat));
+	
 	[self updateRange:range];
 }
 
 - (void)setRange:(CGFloat)range atIndex:(NSInteger)index {
-	ranges[index] = range;
+	self.ranges[index] = range;
 }
 
 - (void)updateRange:(CGFloat)range {
@@ -46,7 +74,7 @@
 - (CGFloat)minimumRange:(NSInteger *)column {
 	CGFloat range = CGFLOAT_MAX;
 	for (int i = 0; i < _numberOfColumns; i++) {
-		CGFloat r = ranges[i];
+		CGFloat r = self.ranges[i];
 		if (r < range) {
 			if (column != NULL) {
 				*column = i;
@@ -60,7 +88,7 @@
 - (CGFloat)maximumRange:(NSInteger *)column {
 	CGFloat range = 0;
 	for (int i = 0; i < _numberOfColumns; i++) {
-		CGFloat r = ranges[i];
+		CGFloat r = self.ranges[i];
 		if (r > range) {
 			if (column != NULL) {
 				*column = i;

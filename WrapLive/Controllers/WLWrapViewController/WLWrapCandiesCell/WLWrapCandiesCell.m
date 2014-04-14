@@ -17,6 +17,7 @@
 #import "WLAPIManager.h"
 #import "WLWrap.h"
 #import "WLWrapBroadcaster.h"
+#import "WLUploadingQueue.h"
 
 @interface WLWrapCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLWrapBroadcastReceiver>
 
@@ -46,7 +47,7 @@
 
 - (void)setupItemData:(WLWrapDate*)entry {
 	self.dateLabel.text = [entry.updatedAt stringWithFormat:@"MMM dd, YYYY"];
-	self.shouldAppendMoreCandies = [entry.candies count] % 10 == 0;
+	self.shouldAppendMoreCandies = [entry.candies count] >= 10;
 	[self.collectionView reloadData];
 	
 	[self.refresher removeFromSuperview];
@@ -74,6 +75,7 @@
 	[[WLAPIManager instance] candies:self.wrap date:wrapDay success:^(id object) {
 		weakSelf.shouldAppendMoreCandies = [object count] == 10;
 		currentWrapDay.candies = object;
+		[[WLUploadingQueue instance] addCandiesToWrapIfNeeded:weakSelf.wrap];
 		[weakSelf.collectionView reloadData];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
@@ -119,7 +121,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 	WLWrapDate* wrapDay = self.item;
 	WLCandy * candy = [wrapDay.candies objectAtIndex:indexPath.item];
-	[self.delegate wrapCandiesCell:self didSelectCandy:candy];
+	if (candy.uploadingItem == nil) {
+		[self.delegate wrapCandiesCell:self didSelectCandy:candy];
+	}
 }
 
 @end

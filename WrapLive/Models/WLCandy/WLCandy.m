@@ -22,6 +22,9 @@
 	WLCandy* candy = [self entry];
 	candy.type = WLCandyTypeImage;
 	candy.picture.large = path;
+	candy.picture.medium = path;
+	candy.picture.small = path;
+	candy.picture.thumbnail = path;
 	return candy;
 }
 
@@ -76,6 +79,18 @@
 
 - (BOOL)isChatMessage {
 	return self.type == WLCandyTypeChatMessage;
+}
+
+- (BOOL)isEqualToCandy:(WLCandy *)candy {
+	if (self.identifier.length > 0 && candy.identifier.length > 0) {
+		return [self.identifier isEqualToString:candy.identifier];
+	}
+	if (self.type == WLCandyTypeImage) {
+		return [self.picture.large isEqualToString:candy.picture.large];
+	} else {
+		return [self.chatMessage isEqualToString:candy.chatMessage] &&
+		[self.updatedAt compare:candy.updatedAt] == NSOrderedSame;
+	}
 }
 
 @end

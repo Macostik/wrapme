@@ -255,7 +255,14 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	return [tableView dequeueReusableCellWithIdentifier:@"LabelCell"];
+	UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.width, tableView.sectionHeaderHeight)];
+	label.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.88];
+	label.text = @"YOUR OTHER WRAPS";
+	label.textAlignment = NSTextAlignmentCenter;
+	label.textColor = [UIColor WL_darkGrayColor];
+	label.font = [UIFont lightSmallFont];
+	label.userInteractionEnabled = YES;
+	return label;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

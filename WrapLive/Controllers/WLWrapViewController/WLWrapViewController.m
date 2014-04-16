@@ -45,6 +45,9 @@
 @end
 
 @implementation WLWrapViewController
+{
+	BOOL loading;
+}
 
 - (void)viewDidLoad
 {
@@ -111,14 +114,20 @@
 }
 
 - (void)appendDates {
+	if (loading){
+		return;
+	}
+	loading = YES;
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] wrap:self.wrap success:^(WLWrap* wrap) {
 		weakSelf.shouldLoadMoreDates = ([wrap.dates count] != [weakSelf.wrap.dates count]);
 		[weakSelf.wrap updateWithObject:wrap];
 		[weakSelf.tableView reloadData];
+		loading = NO;
 	} failure:^(NSError *error) {
 		weakSelf.shouldLoadMoreDates = NO;
 		[error show];
+		loading = NO;
 	}];
 }
 

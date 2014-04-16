@@ -13,7 +13,8 @@
 @implementation WLWrapEntry
 
 + (NSMutableDictionary *)mapping {
-	return [[super mapping] merge:@{@"contributed_at_in_epoch":@"contributedAt"}];
+	return [self mergeMapping:[super mapping] withMapping:@{@"contributed_at_in_epoch":@"createdAt",
+															@"last_touched_at_in_epoch":@"updatedAt"}];
 }
 
 + (instancetype)entry {

@@ -21,6 +21,8 @@
 
 + (NSMutableDictionary*)mapping;
 
++ (NSMutableDictionary*)mergeMapping:(NSMutableDictionary*)_mapping withMapping:(NSDictionary*)mapping;
+
 + (instancetype)modelWithDictionary:(NSDictionary*)dict;
 
 - (instancetype)updateWithDictionary:(NSDictionary*)dict;

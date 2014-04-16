@@ -9,6 +9,7 @@
 #import "WLArchivingObject.h"
 #import <objc/runtime.h>
 #import "NSDate+Formatting.h"
+#import "NSArray+Additions.h"
 
 static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlock)(NSString* property)) {
 	if (class != [NSObject class]) {
@@ -73,6 +74,18 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 
 + (NSMutableDictionary *)mapping {
 	return [NSMutableDictionary dictionary];
+}
+
++ (NSMutableDictionary *)mergeMapping:(NSMutableDictionary *)_mapping withMapping:(NSDictionary *)mapping {
+	NSArray* values = [mapping allValues];
+	NSMutableArray* duplicates = [NSMutableArray array];
+	[_mapping enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		if ([values containsObject:obj]) {
+			[duplicates addObject:key];
+		}
+	}];
+	[_mapping removeObjectsForKeys:duplicates];
+	return [_mapping merge:mapping];;
 }
 
 + (JSONKeyMapper *)keyMapper {

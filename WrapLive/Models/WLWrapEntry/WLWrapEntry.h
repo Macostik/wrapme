@@ -14,6 +14,4 @@
 
 @property (strong, nonatomic) WLUser* contributor;
 
-@property (strong, nonatomic) NSDate* contributedAt;
-
 @end

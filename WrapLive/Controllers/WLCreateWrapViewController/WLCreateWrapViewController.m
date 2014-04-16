@@ -17,11 +17,11 @@
 #import "WLCameraViewController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIImage+WLStoring.h"
-#import "WLProgressView.h"
 #import "UIImageView+ImageLoading.h"
 #import "UIImage+Resize.h"
 #import "UIView+Shorthand.h"
 #import "WLUser.h"
+#import "UIButton+Additions.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
 
@@ -31,7 +31,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UITableView *contributorsTableView;
 @property (strong, nonatomic) IBOutlet UIView *noContributorsView;
-@property (weak, nonatomic) IBOutlet UIView *separatorView;
 @property (nonatomic, readonly) BOOL isNewWrap;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -51,7 +50,9 @@
     // Do any additional setup after loading the view.
 	[self verifyStartAndDoneButton];
 	self.coverView.image = self.isNewWrap ? self.coverView.image : nil;
-	[self fillDataAndUpdateLabels];
+	if (self.wrap != nil) {
+		[self fillDataAndUpdateLabels];
+	}
 }
 
 - (BOOL)isNewWrap {
@@ -91,7 +92,6 @@
 	[self.contributorsTableView reloadData];
 	BOOL hasContributors = [self.contributors count] > 0;
 	self.contributorsTableView.tableFooterView = hasContributors ? nil : self.noContributorsView;
-	self.separatorView.hidden = !hasContributors;
 }
 
 - (void)fillDataAndUpdateLabels {
@@ -104,8 +104,8 @@
 
 - (void)verifyStartAndDoneButton {
 	BOOL enabled = self.editingWrap.name.length > 0;
-	self.startButton.enabled = enabled;
-	self.doneButton.enabled = enabled;
+	self.startButton.active = enabled;
+	self.doneButton.active = enabled;
 }
 
 #pragma mark - Actions
@@ -113,34 +113,35 @@
 - (IBAction)back:(id)sender {
 	[self.navigationController popViewControllerAnimated:YES];
 }
+
 - (IBAction)done:(UIButton *)sender {
+	self.view.userInteractionEnabled = NO;
 	__weak typeof(self)weakSelf = self;
-	id operation = [[WLAPIManager instance] updateWrap:self.editingWrap success:^(id object) {
-		[WLProgressView dismiss];
+	[[WLAPIManager instance] updateWrap:self.editingWrap success:^(id object) {
 		[weakSelf.wrap updateWithObject:object];
 		[weakSelf.wrap broadcastChange];
 		[weakSelf.navigationController popViewControllerAnimated:YES];
+		weakSelf.view.userInteractionEnabled = YES;
 	} failure:^(NSError *error) {
-		[WLProgressView dismiss];
 		[error show];
+		weakSelf.view.userInteractionEnabled = YES;
 	}];
-	[WLProgressView showWithMessage:@"Updating wrap..." operation:operation];
 }
 
 - (IBAction)start:(id)sender {
 	__weak typeof(self)weakSelf = self;
-	id operation = [[WLAPIManager instance] createWrap:self.editingWrap success:^(WLWrap* wrap) {
-		[WLProgressView dismiss];
+	self.view.userInteractionEnabled = NO;
+	[[WLAPIManager instance] createWrap:self.editingWrap success:^(WLWrap* wrap) {
 		[wrap broadcastCreation];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
 		wrapController.wrap = wrap;
 		NSArray* controllers = @[[weakSelf.navigationController.viewControllers firstObject],wrapController];
 		[weakSelf.navigationController setViewControllers:controllers animated:YES];
+		weakSelf.view.userInteractionEnabled = YES;
 	} failure:^(NSError *error) {
-		[WLProgressView dismiss];
 		[error show];
+		weakSelf.view.userInteractionEnabled = YES;
 	}];
-	[WLProgressView showWithMessage:@"Creating wrap..." operation:operation];
 }
 
 #pragma mark - UITableViewDataSource
@@ -170,7 +171,8 @@
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
-	self.contributors = (id)[self.contributors arrayByRemovingObject:contributor];
+	self.contributors = (id)[self.contributors arrayByRemovingUser:contributor];
+	self.editingWrap.contributors = (id)[self.editingWrap.contributors arrayByRemovingUser:contributor];
 	[self refreshContributorsTableView];
 }
 

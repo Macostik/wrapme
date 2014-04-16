@@ -17,6 +17,7 @@
 #import "UIImage+WLStoring.h"
 #import "UIColor+CustomColors.h"
 #import "UIImage+Resize.h"
+#import "UIButton+Additions.h"
 
 static NSInteger WLProfileNameLimit = 40;
 
@@ -83,7 +84,7 @@ static NSInteger WLProfileNameLimit = 40;
 }
 
 - (void)verifyContinueButton {
-	self.continueButton.enabled = self.user.name.length > 0;
+	self.continueButton.active = self.user.name.length > 0;
 }
 
 #pragma mark - WLCameraViewControllerDelegate

@@ -30,6 +30,7 @@
 }
 
 - (void)setImageUrl:(NSString *)imageUrl completion:(void (^)(UIImage* image, BOOL cached))completion {
+	self.image = nil;
 	[self.fileSystemOperation cancel];
 	if ([[NSFileManager defaultManager] fileExistsAtPath:imageUrl]) {
 		[self setFileSystemImageUrl:imageUrl completion:completion];

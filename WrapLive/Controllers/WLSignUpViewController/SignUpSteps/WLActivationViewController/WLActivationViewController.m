@@ -15,6 +15,7 @@
 #import "WLSession.h"
 #import "UIView+Shorthand.h"
 #import "WLProgressBar.h"
+#import "UIButton+Additions.h"
 
 static NSInteger WLActivationCodeLimit = 4;
 
@@ -58,7 +59,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 	self.phoneNumberLabel.text = [NSString stringWithFormat:@"+%@ %@", self.user.countryCallingCode, self.user.phoneNumber];
 	self.activationTextField.layer.borderWidth = 0.5;
 	self.activationTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
-	self.continueButton.enabled = NO;
+	self.continueButton.active = NO;
 }
 
 - (void)setCurrentPage:(WLActivationPage)currentPage {
@@ -117,7 +118,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 #pragma mark - UITextFieldDelegate
 
 - (IBAction)textFieldDidChenge:(UITextField *)sender {
-	self.continueButton.enabled = sender.text.length == WLActivationCodeLimit;
+	self.continueButton.active = sender.text.length == WLActivationCodeLimit;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {

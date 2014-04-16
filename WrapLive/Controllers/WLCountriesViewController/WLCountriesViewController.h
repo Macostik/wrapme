@@ -12,8 +12,6 @@
 
 @interface WLCountriesViewController : UIViewController
 
-+ (void)show:(void (^) (WLCountry* country))completion;
-
-- (void)show:(void (^) (WLCountry* country))completion;
+@property (copy, nonatomic) void (^selectionBlock) (WLCountry* country);
 
 @end

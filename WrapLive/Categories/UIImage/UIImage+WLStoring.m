@@ -17,7 +17,7 @@
 - (void)storeAtPath:(NSString*)path completion:(void (^)(NSString* path))completion {
 	__weak typeof(self)weakSelf = self;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		[UIImageJPEGRepresentation(weakSelf,1.0) writeToFile:path atomically:YES];
+		[UIImageJPEGRepresentation(weakSelf, 1) writeToFile:path atomically:YES];
 		dispatch_async(dispatch_get_main_queue(), ^{
 			completion(path);
 		});

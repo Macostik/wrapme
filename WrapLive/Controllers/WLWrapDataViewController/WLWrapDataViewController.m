@@ -47,7 +47,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	
 	[self setupImage:self.candy];
 	[self refresh];
-	
+	self.composeBarView.placeHolder = @"Write your comment ...";
 	__weak typeof(self)weakSelf = self;
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refresh];
@@ -164,9 +164,9 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
 	CGFloat commentHeight  = ceilf([comment.text boundingRectWithSize:CGSizeMake(WLCommentLabelLenth, CGFLOAT_MAX)
-														 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightMicroFont]} context:nil].size.height);
+														 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[WLCommentCell commentFont]} context:nil].size.height);
 	CGFloat cellHeight = (commentHeight + WLAuthorLabelHeight);
-	return MAX(WLMinimumCellHeight, cellHeight);
+	return MAX(WLMinimumCellHeight, cellHeight + 10);
 }
 
 @end

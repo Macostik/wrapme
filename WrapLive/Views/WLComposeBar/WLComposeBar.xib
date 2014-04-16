@@ -37,7 +37,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                    <state key="normal" image="10screen_ic_send_massage_enabled">
+                    <state key="normal" image="ic_done">
                         <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -56,6 +56,6 @@
         </view>
     </objects>
     <resources>
-        <image name="10screen_ic_send_massage_enabled" width="20" height="14"/>
+        <image name="ic_done" width="22" height="18"/>
     </resources>
 </document>

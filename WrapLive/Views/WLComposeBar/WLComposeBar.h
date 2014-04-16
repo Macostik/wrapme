@@ -30,4 +30,6 @@
 
 @property (strong, nonatomic) NSString* text;
 
+@property (strong, nonatomic) NSString* placeHolder;
+
 @end

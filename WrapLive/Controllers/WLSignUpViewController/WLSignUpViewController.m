@@ -31,16 +31,6 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	for (UIView* view in self.incompletedStepViews) {
-		view.layer.borderWidth = 1;
-		view.layer.borderColor = [UIColor WL_grayColor].CGColor;
-	}
-	
-	for (UIView* view in self.currentStepViews) {
-		view.layer.borderWidth = 1;
-		view.layer.borderColor = [UIColor WL_orangeColor].CGColor;
-	}
-	
 	if (self.registrationNotCompleted) {
 		WLProfileInformationViewController * controller = [[WLProfileInformationViewController alloc] init];
 		[self createNavController:controller];

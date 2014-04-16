@@ -28,7 +28,6 @@
 #import "WLCandy.h"
 #import "WLWrapCandyCell.h"
 #import "UIFont+CustomFonts.h"
-#import "WLProgressView.h"
 #import "WLRefresher.h"
 #import "WLChatViewController.h"
 #import "WLLoadingView.h"
@@ -193,7 +192,7 @@
 		weakSelf.headerWrapAuthorsLabel.text = names;
 	}];
 	self.latestCandies = [wrap latestCandies:5];
-	self.headerView.height = [self.latestCandies count] > 2 ? 212 : 106;
+	self.headerView.height = [self.latestCandies count] > 2 ? 217 : 111;
 	self.tableView.tableHeaderView = self.headerView;
 	[self.topWrapStreamView reloadData];
 }
@@ -257,9 +256,9 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 	UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.width, tableView.sectionHeaderHeight)];
 	label.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.88];
-	label.text = @"YOUR OTHER WRAPS";
+	label.text = @"Your other wraps";
 	label.textAlignment = NSTextAlignmentCenter;
-	label.textColor = [UIColor WL_darkGrayColor];
+	label.textColor = [UIColor WL_orangeColor];
 	label.font = [UIFont lightSmallFont];
 	label.userInteractionEnabled = YES;
 	return label;
@@ -318,11 +317,7 @@
 }
 
 - (CGFloat)streamView:(StreamView *)streamView initialRangeForColumn:(NSInteger)column {
-	return column == 1 ? 106 : 0;
-}
-
-- (CGFloat)streamView:(StreamView *)streamView sizeForColumn:(NSInteger)column {
-	return column == 1 ? 108 : 106;
+	return column == 1 ? (streamView.width / 3.0f) : 0;
 }
 
 - (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {

@@ -23,9 +23,23 @@
 
 @implementation WLCommentCell
 
++ (UIFont *)commentFont {
+	static UIFont* commentFont = nil;
+	if (!commentFont) {
+		commentFont = [UIFont lightFontOfSize:9];
+	}
+	return commentFont;
+}
+
+- (void)awakeFromNib {
+	[super awakeFromNib];
+	self.commentLabel.font = [WLCommentCell commentFont];
+}
+
 - (void)setupItemData:(WLComment *)entry {
 	self.authorNameLabel.text = entry.contributor.name;
 	self.commentLabel.text = entry.text;
+	self.commentLabel.height = [self.commentLabel sizeThatFits:CGSizeMake(self.commentLabel.width, CGFLOAT_MAX)].height;
 	self.authorImageView.imageUrl = entry.contributor.picture.thumbnail;
 }
 

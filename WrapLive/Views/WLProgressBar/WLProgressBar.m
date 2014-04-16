@@ -16,7 +16,7 @@
 
 @interface WLProgressBar ()
 
-@property (strong, nonatomic) WLBorderView *backgroundView;
+@property (strong, nonatomic) UIView *backgroundView;
 @property (strong, nonatomic) UIView *progressView;
 
 @end
@@ -25,15 +25,38 @@
 
 - (void)awakeFromNib{
     [super awakeFromNib];
-	self.backgroundView = [[WLBorderView alloc] initWithFrame:self.bounds];
-	self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-	self.backgroundView.clipsToBounds = YES;
-	self.progressView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 5)];
-	self.progressView.backgroundColor = [UIColor WL_orangeColor];
-	[self.backgroundView addSubview:self.progressView];
-	[self addSubview:self.backgroundView];
-	
+	[self setup];
 	self.progress = 0.0f;
+}
+
+- (void)setBackgroundView:(UIView *)backgroundView {
+	[_backgroundView removeFromSuperview];
+	_backgroundView = backgroundView;
+	[self addSubview:backgroundView];
+}
+
+- (void)setProgressView:(UIView *)progressView {
+	[_progressView removeFromSuperview];
+	_progressView = progressView;
+	[self.backgroundView addSubview:progressView];
+}
+
+- (void)setup {
+	self.backgroundView = [self initializeBackgroundView];
+	self.progressView = [self initializeProgressViewWithBackgroundView:self.backgroundView];
+}
+
+- (UIView *)initializeBackgroundView {
+	WLBorderView *backgroundView = [[WLBorderView alloc] initWithFrame:self.bounds];
+	backgroundView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+	backgroundView.clipsToBounds = YES;
+	return backgroundView;
+}
+
+- (UIView *)initializeProgressViewWithBackgroundView:(UIView *)backgroundView {
+	UIView *progressView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, self.bounds.size.height)];
+	progressView.backgroundColor = [UIColor WL_orangeColor];
+	return progressView;
 }
 
 - (void)setProgress:(CGFloat)progress {
@@ -41,7 +64,13 @@
 }
 
 - (void)setProgress:(float)progress animated:(BOOL)animated {
-	_progress = Smoothstep(0, 1, progress);
+	progress = Smoothstep(0, 1, progress);
+	float difference = ABS(progress - _progress);
+	_progress = progress;
+	[self updateProgressViewAnimated:animated difference:difference];
+}
+
+- (void)updateProgressViewAnimated:(BOOL)animated difference:(float)difference {
 	if (animated) {
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.5*_progress];

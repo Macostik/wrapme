@@ -10,6 +10,7 @@
 #import "WLWrap.h"
 #import "WLCandy.h"
 #import "UIImageView+ImageLoading.h"
+#import "UIView+Shorthand.h"
 
 @interface WLWrapCell ()
 
@@ -27,6 +28,7 @@
 	__weak typeof(self)weakSelf = self;
 	[wrap contributorNames:^(NSString *names) {
 		weakSelf.contributorsLabel.text = names;
+		weakSelf.contributorsLabel.height = MIN(34, [weakSelf.contributorsLabel sizeThatFits:CGSizeMake(weakSelf.contributorsLabel.width, CGFLOAT_MAX)].height);
 	}];
 }
 

@@ -37,6 +37,14 @@ static NSUInteger WLComposeBarDefaultCharactersLimit = 360;
 	self.doneButton.enabled = self.textField.text.length > 0;
 }
 
+- (NSString *)placeHolder {
+	return self.textField.placeholder;
+}
+
+- (void)setPlaceHolder:(NSString *)placeHolder {
+	self.textField.placeholder = placeHolder;
+}
+
 - (void)finish {
 	BOOL shouldResign = YES;
 	if ([self.delegate respondsToSelector:@selector(composeBarDidShouldResignOnFinish:)]) {

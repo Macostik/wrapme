@@ -57,7 +57,7 @@
 	[super viewDidLoad];
 	
 	self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", self.wrap.name];
-	
+	self.composeBar.placeHolder = @"Write your message ...";
 	__weak typeof(self)weakSelf = self;
 	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refreshMessages];
@@ -242,16 +242,16 @@
 }
 
 - (CGFloat)heightOfMessageCell:(WLCandy *)comment {
-	CGFloat commentHeight  = ceilf([comment.chatMessage boundingRectWithSize:CGSizeMake(260, CGFLOAT_MAX)
-																	 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightMicroFont]} context:nil].size.height);
-	commentHeight = [comment.contributor isCurrentUser] ? commentHeight  : (commentHeight + 20);
-	return MAX(44, commentHeight);
+	CGFloat commentHeight  = ceilf([comment.chatMessage boundingRectWithSize:CGSizeMake(240, CGFLOAT_MAX)
+																	 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightFontOfSize:9]} context:nil].size.height);
+	commentHeight = [comment.contributor isCurrentUser] ? commentHeight  : (commentHeight + 14);
+	return MAX(50, commentHeight);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
 	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
 	WLCandy* comment = [date.candies objectAtIndex:indexPath.row];
-	return CGSizeMake(collectionView.frame.size.width, MAX(44, [self heightOfMessageCell:comment]));
+	return CGSizeMake(collectionView.frame.size.width, [self heightOfMessageCell:comment]);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {

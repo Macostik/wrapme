@@ -13,7 +13,6 @@
 
 @interface WLCountriesViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) void (^completionBlock) (WLCountry* country);
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSArray* countries;
@@ -22,47 +21,23 @@
 
 @implementation WLCountriesViewController
 
-static WLCountriesViewController* _controller = nil;
-
-+ (void)show:(void (^)(WLCountry *))completion {
-	_controller = [[WLCountriesViewController alloc] init];
-	[_controller show:completion];
-}
-
-- (void)show:(void (^)(WLCountry *))completion {
-	self.completionBlock = completion;
-	UIView* superview = [UIApplication sharedApplication].keyWindow;
-	self.view.frame = superview.bounds;
-	self.tableView.superview.transform = CGAffineTransformMakeTranslation(0, superview.frame.size.height);
-	[superview addSubview:self.view];
-	self.view.alpha = 0.0f;
+- (void)viewDidLoad {
+	[super viewDidLoad];
 	
-	[UIView animateWithDuration:0.5f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.tableView.superview.transform = CGAffineTransformIdentity;
-		self.view.alpha = 1.0f;
-	} completion:^(BOOL finished) {
-	}];
-	
-	self.countries = [WLCountry getAllCountries];
-	
-	self.tableView.rowHeight = roundf(self.tableView.frame.size.height/6);
-	[self.tableView reloadData];
-}
-
-- (void)hide {
-	[UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.tableView.superview.transform = CGAffineTransformMakeTranslation(0, self.view.superview.frame.size.height);
-		self.view.alpha = 0.0f;
-	} completion:^(BOOL finished) {
-		[self.view removeFromSuperview];
-		_controller = nil;
-	}];
+	__weak typeof(self)weakSelf = self;
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		weakSelf.countries = [WLCountry getAllCountries];
+        dispatch_async(dispatch_get_main_queue(), ^{
+			weakSelf.tableView.contentInset = UIEdgeInsetsZero;
+			[weakSelf.tableView reloadData];
+        });
+    });
 }
 
 #pragma mark - User Actions
 
 - (IBAction)cencel:(id)sender {
-	[self hide];
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - UITableViewDataSource
@@ -82,8 +57,8 @@ static WLCountriesViewController* _controller = nil;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLCountry* country = [self.countries objectAtIndex:indexPath.row];
-	self.completionBlock(country);
-	[self hide];
+	self.selectionBlock(country);
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -16,6 +16,7 @@
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
 #import "WLCameraInteractionView.h"
 #import "NSMutableDictionary+ImageMetadata.h"
+#import "UIButton+Additions.h"
 
 @interface WLCameraViewController () <WLCameraInteractionViewDelegate>
 
@@ -47,13 +48,25 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
+	if (self.presentingViewController) {
+		self.view.frame = self.presentingViewController.view.bounds;
+	}
+	
 	self.position = self.defaultPosition;
     
 	if (self.mode == WLCameraModeFullSize) {
 		self.topView.backgroundColor = [UIColor clearColor];
-		self.bottomView.backgroundColor = [UIColor clearColor];
-		self.cameraView.frame = self.view.bounds;
+		self.cameraView.y = 0;
+		self.cameraView.height = self.view.height - 58;
+	} else {
+		self.cameraView.y = self.topView.bottom;
+		self.cameraView.height = self.cameraView.width;
+		if ([UIScreen mainScreen].bounds.size.height >= 568) {
+			[self.takePhotoButton setImage:[UIImage imageNamed:@"camera_big"] forState:UIControlStateNormal];
+		}
 	}
+	self.bottomView.y = self.cameraView.bottom;
+	self.bottomView.height = self.view.height - self.bottomView.y;
 	[self configurePreviewLayer];
 	
 	[self performSelector:@selector(start) withObject:nil afterDelay:0.0];
@@ -76,11 +89,15 @@
 	}
 }
 
-- (IBAction)shot:(id)sender {
+- (IBAction)shot:(UIButton*)sender {
 	__weak typeof(self)weakSelf = self;
+	self.view.userInteractionEnabled = NO;
+	sender.active = NO;
 	[self captureImage:^(UIImage *image) {
 		[weakSelf cropImage:image completion:^(UIImage *croppedImage) {
 			[weakSelf setAcceptImage:croppedImage animated:YES];
+			weakSelf.view.userInteractionEnabled = YES;
+			sender.active = YES;
 		}];
 	}];
 }
@@ -247,29 +264,32 @@
 }
 
 - (void)captureImage:(void (^)(UIImage*image))completion {
-	
+	__weak typeof(self)weakSelf = self;
 #if TARGET_IPHONE_SIMULATOR
-	if (self.mode == WLCameraModeFullSize) {
-		completion([[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/480/nature"]]]);
-	} else {
-		completion([[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/640/nature"]]]);
-	}
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		UIImage* image = nil;
+		if (self.mode == WLCameraModeFullSize) {
+			image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/480/nature"]]];
+		} else {
+			image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/640/nature"]]];
+		}
+        dispatch_async(dispatch_get_main_queue(), ^{
+			completion(image);
+        });
+    });
 	return;
 #endif
 	
-    AVCaptureConnection *videoConnection = self.connection;
-    videoConnection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
-	__weak typeof(self)weakSelf = self;
-    [self.output captureStillImageAsynchronouslyFromConnection:videoConnection
-                                                       completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
-                                                           UIImage* image = nil;
-                                                           if (!error) {
-                                                               NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-                                                               image = [[UIImage alloc] initWithData:imageData];
-															   weakSelf.metadata = [[NSMutableDictionary alloc] initWithImageSampleBuffer:imageSampleBuffer];
-                                                           }
-                                                           completion(image);
-                                                       }];
+	void (^handler) (CMSampleBufferRef, NSError *) = ^(CMSampleBufferRef buffer, NSError *error) {
+		UIImage* image = nil;
+		if (!error) {
+			NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
+			image = [[UIImage alloc] initWithData:imageData];
+			weakSelf.metadata = [[NSMutableDictionary alloc] initWithImageSampleBuffer:buffer];
+		}
+		completion(image);
+	};
+    [self.output captureStillImageAsynchronouslyFromConnection:self.connection completionHandler:handler];
 }
 
 - (AVCaptureDevicePosition)defaultPosition {

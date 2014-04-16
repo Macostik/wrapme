@@ -12,6 +12,7 @@
 #import "WLComment.h"
 #import "WLUser.h"
 #import "WLProgressBar.h"
+#import "WLBorderView.h"
 
 @interface WLWrapCandyCell ()
 
@@ -19,10 +20,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chatLabelView;
 @property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
+@property (weak, nonatomic) IBOutlet WLBorderView *borderView;
 
 @end
 
 @implementation WLWrapCandyCell
+
+- (void)awakeFromNib {
+	[super awakeFromNib];
+	self.borderView.lineWidth = 0.5f;
+}
 
 - (void)setupItemData:(WLCandy*)entry {
 	self.coverView.image = nil;
@@ -49,10 +56,10 @@
 	}
 	
 	if (entry.uploadingItem) {
-		self.progressBar.hidden = NO;
+		self.progressBar.superview.hidden = NO;
 		self.progressBar.uploadingItem = entry.uploadingItem;
 	} else {
-		self.progressBar.hidden = YES;
+		self.progressBar.superview.hidden = YES;
 	}
 }
 

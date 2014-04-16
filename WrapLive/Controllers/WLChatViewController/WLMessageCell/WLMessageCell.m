@@ -10,6 +10,7 @@
 #import "WLCandy.h"
 #import "UIImageView+ImageLoading.h"
 #import "WLUser.h"
+#import "UIView+Shorthand.h"
 
 @interface WLMessageCell ()
 
@@ -26,6 +27,10 @@
 	self.avatarView.imageUrl = candy.contributor.picture.thumbnail;
 	self.nameLabel.text = candy.contributor.name;
 	self.messageLabel.text = candy.chatMessage;
+	__weak typeof(self)weakSelf = self;
+	[UIView performWithoutAnimation:^{
+		weakSelf.messageLabel.height = [weakSelf.messageLabel sizeThatFits:CGSizeMake(weakSelf.messageLabel.width, CGFLOAT_MAX)].height;
+	}];
 }
 
 @end

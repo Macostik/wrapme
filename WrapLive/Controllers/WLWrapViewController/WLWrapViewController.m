@@ -22,7 +22,6 @@
 #import "WLComposeContainer.h"
 #import "UIImage+WLStoring.h"
 #import "WLAPIManager.h"
-#import "WLProgressView.h"
 #import "WLComment.h"
 #import "WLRefresher.h"
 #import "WLChatViewController.h"
@@ -72,6 +71,7 @@
 	__weak typeof(self)weakSelf = self;
 	[self.wrap contributorNames:^(NSString *names) {
 		weakSelf.contributorsLabel.text = names;
+		weakSelf.contributorsLabel.height = MIN(34, [weakSelf.contributorsLabel sizeThatFits:CGSizeMake(weakSelf.contributorsLabel.width, CGFLOAT_MAX)].height);
 	}];
 }
 

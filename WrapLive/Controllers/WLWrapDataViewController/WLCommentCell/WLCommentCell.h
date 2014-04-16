@@ -7,12 +7,15 @@
 //
 
 #import "WLItemCell.h"
+
 @class WLComment;
 
-static CGFloat WLCommentLabelLenth = 260.0f;
-static CGFloat WLAuthorLabelHeight = 20.0f;
-static CGFloat WLMinimumCellHeight = 44.0f;
+static CGFloat WLCommentLabelLenth = 240.0f;
+static CGFloat WLAuthorLabelHeight = 14.0f;
+static CGFloat WLMinimumCellHeight = 50.0f;
 
 @interface WLCommentCell : WLItemCell
+
++ (UIFont*)commentFont;
 
 @end

@@ -12,4 +12,6 @@
 
 @property (strong, nonatomic) UIColor* strokeColor;
 
+@property (nonatomic) CGFloat lineWidth;
+
 @end

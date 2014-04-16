@@ -99,7 +99,7 @@
 	self.coverView.imageUrl = self.editingWrap.picture.medium;
 	self.startButton.hidden = !self.isNewWrap;
 	self.doneButton.hidden = self.isNewWrap;
-	self.titleLabel.text = self.isNewWrap ? @"Create new wrap" : @"Change wrap settings";
+	self.titleLabel.text = self.isNewWrap ? @"Create new wrap" : @"Edit wrap";
 }
 
 - (void)verifyStartAndDoneButton {

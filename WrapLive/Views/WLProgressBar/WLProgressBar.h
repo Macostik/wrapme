@@ -30,7 +30,7 @@
 
 @property (nonatomic, weak) WLUploadingItem *uploadingItem;
 
-@property (nonatomic) CGFloat progress;
+@property (nonatomic) float progress;
 
 @property (strong, nonatomic, readonly) UIView *backgroundView;
 @property (strong, nonatomic, readonly) UIView *progressView;

@@ -7,11 +7,11 @@
     {
       "idiom" : "iphone",
       "scale" : "2x",
-      "filename" : "Default@2x.png"
+      "filename" : "Splash@2x.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "Default-568h@2x.png",
+      "filename" : "Splash-568h@2x.png",
       "subtype" : "retina4",
       "scale" : "2x"
     }

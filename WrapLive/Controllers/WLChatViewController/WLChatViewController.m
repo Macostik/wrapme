@@ -57,7 +57,6 @@
 	[super viewDidLoad];
 	
 	self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", self.wrap.name];
-	self.composeBar.placeHolder = @"Write your message ...";
 	__weak typeof(self)weakSelf = self;
 	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refreshMessages];

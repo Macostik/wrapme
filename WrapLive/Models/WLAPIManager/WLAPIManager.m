@@ -280,10 +280,14 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		return [WLWrap arrayOfModelsFromDictionaries:[response.data arrayForKey:@"wraps"]];
 	};
 	
-	return [self GET:@"wraps"
-		  parameters:parameters
-			 success:[self successBlock:success withObject:objectBlock failure:failure]
-			 failure:[self failureBlock:failure success:success]];
+	AFHTTPRequestOperation* operation = [self GET:@"wraps"
+									   parameters:parameters
+										  success:[self successBlock:success withObject:objectBlock failure:failure]
+										  failure:[self failureBlock:failure success:success]];
+	[operation setCacheResponseBlock:^NSCachedURLResponse *(NSURLConnection *connection, NSCachedURLResponse *cachedResponse) {
+		return cachedResponse;
+	}];
+	return operation;
 }
 
 - (id)wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {

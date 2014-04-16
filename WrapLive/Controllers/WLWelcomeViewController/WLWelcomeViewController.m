@@ -27,19 +27,26 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 	
+	self.continueButton.hidden = YES;
 	if ([WLSession activated]) {
-		self.continueButton.transform = CGAffineTransformMakeTranslation(0, self.continueButton.frame.size.height);
 		__weak typeof(self)weakSelf = self;
 		[self signIn:^(NSError *error) {
 			[error show];
-			[UIView beginAnimations:nil context:nil];
-			weakSelf.continueButton.transform = CGAffineTransformIdentity;
-			[UIView commitAnimations];
-			[weakSelf.spinner removeFromSuperview];
+			[weakSelf showContinueButton];
 		}];
 	} else {
-		[self.spinner removeFromSuperview];
+		[self showContinueButton];
 	}
+}
+
+- (void)showContinueButton {
+	self.continueButton.transform = CGAffineTransformMakeTranslation(0, self.continueButton.frame.size.height);
+	self.continueButton.hidden = NO;
+	__weak typeof(self)weakSelf = self;
+	[UIView animateWithDuration:0.25f animations:^{
+		weakSelf.continueButton.transform = CGAffineTransformIdentity;
+	}];
+	[self.spinner removeFromSuperview];
 }
 
 - (void)signIn:(void (^)(NSError* error))failure {

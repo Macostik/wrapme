@@ -42,6 +42,14 @@ static NSMutableDictionary* formatters = nil;
     return formatter;
 }
 
++ (NSDate *)defaultBirtday {
+	NSDateComponents* components = [NSDateComponents  new];
+	[components setYear:2013];
+	[components setMonth:06];
+	[components setDay:19];
+	return [[NSCalendar currentCalendar] dateFromComponents:components];
+}
+
 - (NSString *)stringWithFormat:(NSString *)dateFormat {
     return [[NSDate formatterWithDateFormat:dateFormat] stringFromDate:self withFormat:dateFormat];
 }

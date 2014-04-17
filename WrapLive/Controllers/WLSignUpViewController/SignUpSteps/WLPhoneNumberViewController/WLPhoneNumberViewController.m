@@ -43,7 +43,7 @@
 	self.country = [WLCountry getCurrentCountry];
 	[self fillCountryFields];
 	[self validateSignUpButton];
-	self.birthdateTextField.text = [[NSDate date] stringWithFormat:@"MMM' 'dd', 'YYYY'"];
+	self.birthdateTextField.text = [self.birthdatePicker.date stringWithFormat:@"MMM' 'dd', 'YYYY'"];
 }
 
 - (UIViewController *)signUpViewController {
@@ -61,6 +61,7 @@
 	self.birthdatePicker.datePickerMode = UIDatePickerModeDate;
 	self.birthdatePicker.maximumDate = [NSDate date];
 	self.birthdatePicker.backgroundColor = [UIColor whiteColor];
+	self.birthdatePicker.date = [NSDate defaultBirtday];
 	self.birthdateTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(birthdatePickerCancel:) done:@selector(birthdatePickerDone:)];
 	self.birthdateTextField.inputView = self.birthdatePicker;
 }

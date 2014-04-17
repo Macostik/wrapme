@@ -18,6 +18,8 @@
 
 + (NSDateFormatter *)formatterWithDateFormat:(NSString*)dateFormat;
 
++ (NSDate *)defaultBirtday;
+
 - (NSString*)stringWithFormat:(NSString*)dateFormat;
 
 - (NSString*)string;

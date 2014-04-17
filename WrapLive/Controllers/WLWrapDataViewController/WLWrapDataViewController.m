@@ -53,6 +53,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 		[weakSelf refresh];
 	}];
 	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
+	
+	self.backSwipeGestureEnabled = YES;
 }
 
 - (void)refresh {

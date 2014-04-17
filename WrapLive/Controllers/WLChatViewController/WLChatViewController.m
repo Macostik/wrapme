@@ -66,6 +66,8 @@
 	
 	self.shouldAppendMoreMessages = YES;
 	[self refreshMessages];
+	
+	self.backSwipeGestureEnabled = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -7,8 +7,11 @@
 //
 
 #import "WLShakeViewController.h"
+#import "UIViewController+Additions.h"
 
 @interface WLShakeViewController ()
+
+@property (weak, nonatomic) UISwipeGestureRecognizer* backSwipeGestureRecognizer;
 
 @end
 
@@ -52,6 +55,29 @@
 		}
 		
 		[presentingViewController presentViewController:presentedViewController animated:YES completion:nil];
+	}
+}
+
+- (void)setBackSwipeGestureEnabled:(BOOL)backSwipeGestureEnabled {
+	if (backSwipeGestureEnabled) {
+		UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backSwipeGesture)];
+		recognizer.direction = UISwipeGestureRecognizerDirectionRight;
+		[self.view addGestureRecognizer:recognizer];
+		self.backSwipeGestureRecognizer = recognizer;
+	} else if (self.backSwipeGestureRecognizer) {
+		[self.view removeGestureRecognizer:self.backSwipeGestureRecognizer];
+		self.backSwipeGestureRecognizer = nil;
+	}
+}
+
+- (BOOL)backSwipeGestureEnabled {
+	return (self.backSwipeGestureRecognizer != nil);
+}
+
+- (void)backSwipeGesture {
+	if (self.isOnTopOfNagvigation) {
+		self.backSwipeGestureEnabled = NO;
+		[self.navigationController popViewControllerAnimated:YES];
 	}
 }
 

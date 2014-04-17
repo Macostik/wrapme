@@ -14,4 +14,6 @@
 
 - (void)didRecognizeShakeGesture;
 
+@property (nonatomic) BOOL backSwipeGestureEnabled;
+
 @end

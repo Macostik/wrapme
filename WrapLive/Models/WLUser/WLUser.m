@@ -23,7 +23,7 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
 	self = [super initWithDictionary:dict error:err];
 	if (self) {
-		self.registrationCompleted = ![[dict objectForKey:@"avatar_file_size"] isKindOfClass:[NSNull class]] && ![[dict objectForKey:@"name"] isKindOfClass:[NSNull class]];
+		self.registrationCompleted = self.name.length > 0;
 	}
 	return self;
 }

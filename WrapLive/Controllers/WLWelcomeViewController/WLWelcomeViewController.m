@@ -57,7 +57,7 @@
 	} failure:failure];
 }
 
-- (void) checkNameAndAvatar:(void (^)(NSError* error))failure {
+- (void)checkNameAndAvatar:(void (^)(NSError* error))failure {
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] me:^(WLUser* user) {
 		if (user.registrationCompleted) {

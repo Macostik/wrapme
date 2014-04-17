@@ -66,9 +66,9 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="111" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" image="camera">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
-                                            <state key="highlighted" image="camera"/>
+                                            <state key="highlighted" image="camera_darkGray"/>
                                             <connections>
                                                 <action selector="createImage:" destination="-1" eventType="touchUpInside" id="Lia-Ot-kEO"/>
                                             </connections>
@@ -109,6 +109,7 @@
     </objects>
     <resources>
         <image name="camera" width="30" height="30"/>
+        <image name="camera_darkGray" width="30" height="30"/>
         <image name="ic_default_profile" width="148" height="148"/>
         <image name="ic_next_white" width="8" height="24"/>
     </resources>

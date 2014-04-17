@@ -1,21 +1,21 @@
 PODS:
-  - AFNetworking (2.2.1):
+  - AFNetworking (2.2.2):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
     - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.2.1):
+  - AFNetworking/NSURLConnection (2.2.2):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.2.1):
+  - AFNetworking/NSURLSession (2.2.2):
     - AFNetworking/NSURLConnection
-  - AFNetworking/Reachability (2.2.1)
-  - AFNetworking/Security (2.2.1)
-  - AFNetworking/Serialization (2.2.1)
-  - AFNetworking/UIKit (2.2.1):
+  - AFNetworking/Reachability (2.2.2)
+  - AFNetworking/Security (2.2.2)
+  - AFNetworking/Serialization (2.2.2)
+  - AFNetworking/UIKit (2.2.2):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - CocoaLumberjack (1.8.1):
@@ -23,9 +23,9 @@ PODS:
   - CocoaLumberjack/Core (1.8.1)
   - CocoaLumberjack/Extensions (1.8.1):
     - CocoaLumberjack/Core
-  - JSONModel (0.12.0)
+  - JSONModel (0.13.0)
   - OpenUDID (1.0.0)
-  - SSKeychain (1.2.1)
+  - SSKeychain (1.2.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -35,10 +35,10 @@ DEPENDENCIES:
   - SSKeychain
 
 SPEC CHECKSUMS:
-  AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
+  AFNetworking: dd8c1868e57451e3d17ebd3516f2a8c16f9646fe
   CocoaLumberjack: 020378ec400d658923bf5887178394f65f052c90
-  JSONModel: f391da60a15e11f8fa8950fb980b8f799ae3453f
-  OpenUDID: 13ab988776ef38dca1e2e799e961448cf83a8111
-  SSKeychain: d18926838c2e7cd342e2a49e9f869858e49f035a
+  JSONModel: 1ce27c7d59de0ada0048e64f20006ce02e9ce73d
+  OpenUDID: 04a7c560c47869bc5194820e3b529d4504cc0296
+  SSKeychain: 3d0b76c87e7b062a7ad1631a825fddec84367d44
 
 COCOAPODS: 0.29.0

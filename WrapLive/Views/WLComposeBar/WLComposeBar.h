@@ -30,6 +30,10 @@
 
 @property (strong, nonatomic) NSString* text;
 
-@property (strong, nonatomic) NSString* placeHolder;
+@property (strong, nonatomic) NSString* placeholder;
+
+@property (nonatomic) BOOL doneButtonHidden;
+
+- (void)setDoneButtonHidden:(BOOL)hidden animated:(BOOL)animated;
 
 @end

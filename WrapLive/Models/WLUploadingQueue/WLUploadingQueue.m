@@ -131,10 +131,10 @@
 - (void)setOperation:(AFURLConnectionOperation *)operation {
 	_progress = 0;
 	__weak typeof(self)weakSelf = self;
-	[operation setUploadProgressBlock:^(NSUInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite) {
+	[operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
 		weakSelf.progress = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
 	}];
-	[operation setDownloadProgressBlock:^(NSUInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
+	[operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
 		weakSelf.progress = ((float)totalBytesRead/(float)totalBytesExpectedToRead);
 	}];
 }

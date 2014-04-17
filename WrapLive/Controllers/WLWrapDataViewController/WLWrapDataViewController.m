@@ -47,7 +47,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	
 	[self setupImage:self.candy];
 	[self refresh];
-	self.composeBarView.placeHolder = @"Write your comment ...";
+	self.composeBarView.placeholder = @"Write your comment ...";
 	__weak typeof(self)weakSelf = self;
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refresh];

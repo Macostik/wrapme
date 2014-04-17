@@ -68,6 +68,11 @@
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+	[self.composeContainer setEditing:NO];
+	[super viewWillDisappear:animated];
+}
+
 - (void)setWrapData {
 	self.coverView.imageUrl = self.wrap.picture.thumbnail;
 	self.nameLabel.text = self.wrap.name;

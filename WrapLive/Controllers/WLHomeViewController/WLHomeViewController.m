@@ -79,6 +79,11 @@
 	}
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+	[self.composeContainer setEditing:NO];
+	[super viewWillDisappear:animated];
+}
+
 - (UIViewController *)shakePresentedViewController {
 	return self.topWrap ? [self cameraViewController] : nil;
 }

@@ -22,7 +22,7 @@
 
 - (void)setupItemData:(WLUser*)user {
 	self.nameLabel.text = user.name;
-	self.avatarView.imageUrl = user.picture.thumbnail;
+	self.avatarView.imageUrl = user.picture.medium;
 }
 
 #pragma mark - Actions

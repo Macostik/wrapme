@@ -87,9 +87,16 @@
 }
 
 - (void)setOperation:(AFURLConnectionOperation *)operation {
-	WLUploadingItem* uploadingItem = [[WLUploadingItem alloc] init];
-	uploadingItem.operation = operation;
-	self.uploadingItem = uploadingItem;
+	self.progress = 0;
+	__weak typeof(self)weakSelf = self;
+	[operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+		float progress = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
+		[weakSelf setProgress:progress animated:YES];
+	}];
+	[operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+		float progress = ((float)totalBytesRead/(float)totalBytesExpectedToRead);
+		[weakSelf setProgress:progress animated:YES];
+	}];
 }
 
 - (void)setUploadingItem:(WLUploadingItem *)uploadingItem {

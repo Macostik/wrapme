@@ -75,13 +75,15 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 }
 
 - (IBAction)activateCode:(id)sender {
-	self.currentPage = WLActivationPageInProgress;
-	__weak typeof(self)weakSelf = self;
-	[self activate:^{
-		weakSelf.currentPage = WLActivationPageSuccess;
-	} failure:^(NSError *error) {
-		weakSelf.currentPage = WLActivationPageFailure;
-	}];
+	if (self.activationTextField.text.length == WLActivationCodeLimit) {
+		self.currentPage = WLActivationPageInProgress;
+		__weak typeof(self)weakSelf = self;
+		[self activate:^{
+			weakSelf.currentPage = WLActivationPageSuccess;
+		} failure:^(NSError *error) {
+			weakSelf.currentPage = WLActivationPageFailure;
+		}];
+	}
 }
 
 - (void)activate:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
@@ -95,9 +97,10 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 }
 
 - (void)signIn:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
+	__weak typeof(self)weakSelf = self;
 	self.progressBar.operation = [[WLAPIManager instance] signIn:self.user success:^(id object) {
 		completion();
-		[WLSession setUser:self.user];
+		[WLSession setUser:weakSelf.user];
 	} failure:failure];
 }
 

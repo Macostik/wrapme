@@ -55,17 +55,16 @@
 	[self.items removeObject:item];
 }
 
-- (void)addCandiesToWrapIfNeeded:(WLWrap *)wrap {
+- (void)updateWrap:(WLWrap *)wrap {
 	NSMutableArray* candies = [NSMutableArray array];
 	
 	for (WLUploadingItem* item in self.items) {
 		if ([wrap isEqualToWrap:item.wrap]) {
 			WLWrapDate* date = [wrap.dates firstObject];
-			BOOL containsCandy = [date.candies containsObject:item.candy
-													  byBlock:^BOOL(WLCandy* first, WLCandy* second) {
+			BOOL contains = [date.candies containsObject:item.candy byBlock:^BOOL(WLCandy* first, WLCandy* second) {
 														  return [first isEqualToCandy:second];
 													  }];
-			if (!containsCandy) {
+			if (!contains) {
 				[candies addObject:item.candy];
 			}
 		}

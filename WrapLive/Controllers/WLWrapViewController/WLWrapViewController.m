@@ -103,7 +103,7 @@
 		}
 		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
 		[weakSelf.wrap updateWithObject:wrap];
-		[[WLUploadingQueue instance] addCandiesToWrapIfNeeded:weakSelf.wrap];
+		[[WLUploadingQueue instance] updateWrap:weakSelf.wrap];
 		[weakSelf.tableView reloadData];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {

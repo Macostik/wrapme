@@ -75,7 +75,7 @@
 	[[WLAPIManager instance] candies:self.wrap date:wrapDay success:^(id object) {
 		weakSelf.shouldAppendMoreCandies = [object count] == 10;
 		currentWrapDay.candies = object;
-		[[WLUploadingQueue instance] addCandiesToWrapIfNeeded:weakSelf.wrap];
+		[[WLUploadingQueue instance] updateWrap:weakSelf.wrap];
 		[weakSelf.collectionView reloadData];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {

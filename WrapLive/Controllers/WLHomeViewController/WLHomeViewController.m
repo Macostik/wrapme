@@ -102,10 +102,11 @@
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)wrapBroadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-	if ([wrap isEqualToWrap:self.topWrap]) {
-		[self updateTopWrap];
-	} else {
-		[self.tableView reloadData];
+	if (self.topWrap) {
+		NSMutableArray* wraps = [NSMutableArray arrayWithObject:self.topWrap];
+		[wraps addObjectsFromArray:_wraps];
+		self.wraps = [wraps copy];
+		self.tableView.contentOffset = CGPointZero;
 	}
 }
 
@@ -184,7 +185,7 @@
 
 - (void)updateTopWrap {
 	WLWrap* wrap = self.topWrap;
-	[[WLUploadingQueue instance] addCandiesToWrapIfNeeded:wrap];
+	[[WLUploadingQueue instance] updateWrap:wrap];
 	self.headerWrapNameLabel.text = wrap.name;
 	self.headerWrapCreatedAtLabel.text = [wrap.createdAt stringWithFormat:@"MMMM dd, yyyy"];
 	__weak typeof(self)weakSelf = self;

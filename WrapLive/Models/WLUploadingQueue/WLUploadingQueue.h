@@ -22,7 +22,7 @@
 
 - (void)removeItem:(WLUploadingItem*)item;
 
-- (void)addCandiesToWrapIfNeeded:(WLWrap*)wrap;
+- (void)updateWrap:(WLWrap*)wrap;
 
 - (void)uploadImage:(UIImage*)image wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 

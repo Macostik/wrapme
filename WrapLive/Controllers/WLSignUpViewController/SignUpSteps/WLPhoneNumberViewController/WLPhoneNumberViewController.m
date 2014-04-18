@@ -145,6 +145,7 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+	[self validateSignUpButton];
 	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		self.mainView.transform = CGAffineTransformIdentity;
 	} completion:^(BOOL finished) {}];

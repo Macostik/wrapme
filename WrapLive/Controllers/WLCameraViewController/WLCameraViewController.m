@@ -375,13 +375,15 @@
 - (CGPoint)pointOfInterestFromPoint:(CGPoint)point {
     CGSize frameSize = self.cameraView.frame.size;
     CGSize apertureSize = CMVideoFormatDescriptionGetCleanAperture([[self videoPort] formatDescription], YES).size;
-    CGRect visibleRect = CGRectThatFitsSize(apertureSize, frameSize);
-    point.x += visibleRect.origin.x;
-    point.y += visibleRect.origin.y;
+	CGSize scaledImageSize = CGSizeThatFillsSize(frameSize, apertureSize);
+	CGRect visibleViewRect = CGRectThatFitsSize(scaledImageSize, frameSize);
+    point.x += visibleViewRect.origin.x;
+    point.y += visibleViewRect.origin.y;
     if ([self.connection isVideoMirrored]) {
         point.x = frameSize.width - point.x;
     }
-    return CGPointMake(point.x/apertureSize.width, point.y/apertureSize.height);
+	CGPoint pointOfInterest = CGPointMake(point.x/scaledImageSize.width, point.y/scaledImageSize.height);
+    return pointOfInterest;
 }
 
 - (AVCaptureInputPort*)videoPort {

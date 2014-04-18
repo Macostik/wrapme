@@ -8,6 +8,7 @@
 
 #import "NSError+WLAPIManager.h"
 #import <CocoaLumberjack/DDLog.h>
+#import <AFNetworking/AFHTTPRequestOperationManager.h>
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
@@ -44,7 +45,11 @@ static NSDictionary *errorsToIgnore = nil;
 
 - (void)showWithTitle:(NSString *)title callback:(void (^)(void))callback {
 	if (![self ignore]) {
-		[[[UIAlertView alloc] initWithTitle:title message:[self errorMessage] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+		NSString* errorMessage = [self errorMessage];
+		if (!errorMessage) {
+			errorMessage = self.localizedDescription;
+		}
+		[[[UIAlertView alloc] initWithTitle:title message:errorMessage delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
 	}
 }
 
@@ -52,22 +57,19 @@ static NSDictionary *customErrorMessages = nil;
 
 + (NSDictionary*)customErrorMessages {
 	if (!customErrorMessages) {
-		customErrorMessages = @{};
+		customErrorMessages = @{AFNetworkingErrorDomain:@{@(NSURLErrorTimedOut):@"Connection was lost."}};
 	}
 	return customErrorMessages;
 }
 
 - (NSString *)errorMessage {
 	id domainMessageObject = [[NSError customErrorMessages] objectForKey:self.domain];
-	
 	if ([domainMessageObject isKindOfClass:[NSDictionary class]]) {
-		domainMessageObject = [domainMessageObject objectForKey:@(self.code)];
-	}
-	
-	if (domainMessageObject && [domainMessageObject isKindOfClass:[NSString class]]) {
+		return [domainMessageObject objectForKey:@(self.code)];
+	} else if ([domainMessageObject isKindOfClass:[NSString class]]) {
 		return domainMessageObject;
 	} else {
-		return self.localizedDescription;
+		return nil;
 	}
 }
 

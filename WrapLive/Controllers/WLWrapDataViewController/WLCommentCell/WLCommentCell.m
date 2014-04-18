@@ -26,7 +26,7 @@
 + (UIFont *)commentFont {
 	static UIFont* commentFont = nil;
 	if (!commentFont) {
-		commentFont = [UIFont lightFontOfSize:9];
+		commentFont = [UIFont lightFontOfSize:12];
 	}
 	return commentFont;
 }
@@ -40,6 +40,7 @@
 	self.authorNameLabel.text = entry.contributor.name;
 	self.commentLabel.text = entry.text;
 	self.commentLabel.height = [self.commentLabel sizeThatFits:CGSizeMake(self.commentLabel.width, CGFLOAT_MAX)].height;
+	NSLog(@"link:contributor %@", entry.contributor.picture.medium);
 	self.authorImageView.imageUrl = entry.contributor.picture.medium;
 }
 

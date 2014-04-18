@@ -92,6 +92,10 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	}
 }
 
+- (CGFloat)calculateTableHeight {
+	return (self.view.height - self.composeBarView.height - self.topView.height);
+}
+
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
@@ -115,7 +119,9 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[[WLAPIManager instance] addComment:comment toCandy:self.candy fromWrap:self.wrap success:^(id object) {
 		[weakSelf.tableView reloadData];
 		[weakSelf.wrap broadcastChange];
-		[weakSelf.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height - self.tableView.height) animated:YES];
+		if (weakSelf.tableView.contentSize.height > [weakSelf calculateTableHeight]) {
+			[weakSelf.tableView setContentOffset:CGPointMake(0, weakSelf.tableView.contentSize.height - weakSelf.tableView.height) animated:NO];
+		}
 	} failure:^(NSError *error) {
 		[error show];
 	}];
@@ -133,18 +139,16 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
 	self.containerView.frame = CGRectMake(self.containerView.x, self.containerView.y, self.containerView.width, self.view.height - self.topView.height - 216);
-	CGFloat tableHeight = (self.view.height - self.composeBarView.height - self.topView.height);
-	if (self.tableView.contentSize.height > tableHeight) {
+	if (self.tableView.contentSize.height > [self calculateTableHeight]) {
 		[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y + 216) animated:NO];
 	} else {
-		[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y + 216 - (tableHeight - self.tableView.contentSize.height)) animated:NO];
+		[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y + 216 - ([self calculateTableHeight] - self.tableView.contentSize.height)) animated:NO];
 	}
 }
 
 - (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
 	self.containerView.frame = CGRectMake(self.containerView.x, self.containerView.y, self.containerView.width, self.view.height - self.topView.height);
-	CGFloat tableHeight = (self.view.height - self.composeBarView.height - self.topView.height);
-	if (self.tableView.contentSize.height > tableHeight) {
+	if (self.tableView.contentSize.height > [self calculateTableHeight]) {
 		[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height - self.tableView.height) animated:NO];
 	}
 }

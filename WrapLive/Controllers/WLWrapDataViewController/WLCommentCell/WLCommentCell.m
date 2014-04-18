@@ -40,7 +40,7 @@
 	self.authorNameLabel.text = entry.contributor.name;
 	self.commentLabel.text = entry.text;
 	self.commentLabel.height = [self.commentLabel sizeThatFits:CGSizeMake(self.commentLabel.width, CGFLOAT_MAX)].height;
-	self.authorImageView.imageUrl = entry.contributor.picture.thumbnail;
+	self.authorImageView.imageUrl = entry.contributor.picture.medium;
 }
 
 @end

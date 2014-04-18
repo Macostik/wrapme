@@ -24,7 +24,7 @@
 @implementation WLMessageCell
 
 - (void)setupItemData:(WLCandy*)candy {
-	self.avatarView.imageUrl = candy.contributor.picture.thumbnail;
+	self.avatarView.imageUrl = candy.contributor.picture.medium;
 	self.nameLabel.text = candy.contributor.name;
 	self.messageLabel.text = candy.chatMessage;
 	__weak typeof(self)weakSelf = self;

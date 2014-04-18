@@ -329,15 +329,17 @@
 - (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {
 	if (item.index.row < [self.latestCandies count]) {
 		WLCandy* candy = [self.latestCandies objectAtIndex:item.index.row];
-		if (candy.type == WLCandyTypeImage && candy.uploadingItem == nil) {
-			WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];
-			controller.candy = candy;
-			controller.wrap = self.topWrap;
-			[self pushViewController:controller animated:YES];
-		} else if (candy.type == WLCandyTypeChatMessage) {
-			WLChatViewController * chatController = [self.storyboard chatViewController];
-			chatController.wrap = self.topWrap;
-			[self pushViewController:chatController animated:YES];
+		if (candy.uploadingItem == nil) {
+			if (candy.type == WLCandyTypeImage) {
+				WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];
+				controller.candy = candy;
+				controller.wrap = self.topWrap;
+				[self pushViewController:controller animated:YES];
+			} else if (candy.type == WLCandyTypeChatMessage) {
+				WLChatViewController * chatController = [self.storyboard chatViewController];
+				chatController.wrap = self.topWrap;
+				[self pushViewController:chatController animated:YES];
+			}
 		}
 	} else {
 		[self presentViewController:[self cameraViewController] animated:YES completion:nil];

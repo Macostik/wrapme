@@ -72,8 +72,10 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	__weak typeof(self)weakSelf = self;
 	[self.imageView setImageUrl:image.picture.large completion:^(UIImage* image, BOOL cached) {
 		[weakSelf.spinner removeFromSuperview];
-		CGFloat height = image.size.height*WLDefaultImageWidth/image.size.width;
-		[weakSelf setTableHeaderViewHeight:MIN(WLDefaultImageWidth, height) animated:!cached];
+		if (image) {
+			CGFloat height = image.size.height*WLDefaultImageWidth/image.size.width;
+			[weakSelf setTableHeaderViewHeight:MIN(WLDefaultImageWidth, height) animated:!cached];
+		}
 	}];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", image.contributor.name];
 }

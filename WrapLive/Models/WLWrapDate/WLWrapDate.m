@@ -13,7 +13,7 @@
 @implementation WLWrapDate
 
 + (NSMutableDictionary *)mapping {
-	return [[super mapping] merge:@{@"date_in_epoch":@"updatedAt"}];
+	return [self mergeMapping:[super mapping] withMapping:@{@"date_in_epoch":@"updatedAt"}];
 }
 
 - (NSArray<WLCandy> *)candies {

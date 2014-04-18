@@ -32,28 +32,16 @@
 }
 
 - (void)setupItemData:(WLCandy*)entry {
-	self.coverView.image = nil;
-	
 	self.chatLabelView.hidden = entry.type == WLCandyTypeImage;
 	if (entry.type == WLCandyTypeImage) {
-		self.commentLabel.hidden = [entry.comments count] == 0;
-		self.coverView.imageUrl = entry.picture.thumbnail;
-	}
-	else {
-		self.commentLabel.hidden = !entry.chatMessage.length > 0;
+		WLComment* comment = [entry.comments lastObject];
+		self.commentLabel.text = comment.text;
+		self.coverView.imageUrl = entry.picture.medium;
+	} else {
+		self.commentLabel.text = entry.chatMessage;
 		self.coverView.imageUrl = entry.contributor.picture.medium;
 	}
-	
-	if (!self.commentLabel.hidden) {
-		if (entry.type == WLCandyTypeImage) {
-			WLComment* comment = [entry.comments lastObject];
-			self.commentLabel.text = comment.text;
-		}
-		else {
-			self.commentLabel.text = entry.chatMessage;
-		}
-		
-	}
+	self.commentLabel.hidden = !self.commentLabel.text.length > 0;
 	
 	if (entry.uploadingItem) {
 		self.progressBar.superview.hidden = NO;

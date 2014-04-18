@@ -11,13 +11,13 @@
 #import "WLCameraViewController.h"
 #import "WLAPIManager.h"
 #import "WLUser.h"
-#import "WLSession.h"
 #import "UIStoryboard+Additions.h"
 #import "UIView+Shorthand.h"
 #import "UIImage+WLStoring.h"
 #import "UIColor+CustomColors.h"
 #import "UIImage+Resize.h"
 #import "UIButton+Additions.h"
+#import "UIImageView+ImageLoading.h"
 
 static NSInteger WLProfileNameLimit = 40;
 
@@ -40,10 +40,13 @@ static NSInteger WLProfileNameLimit = 40;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-	self.user = [WLSession user];
+	self.user = [[WLUser currentUser] copy];
 	[self verifyContinueButton];
 	self.nameTextField.layer.borderWidth = 0.5;
 	self.nameTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
+	
+	self.nameTextField.text = self.user.name;
+	self.profileImageView.imageUrl = self.user.picture.medium;
 }
 
 - (UIViewController *)signUpViewController {
@@ -51,21 +54,34 @@ static NSInteger WLProfileNameLimit = 40;
 }
 
 - (IBAction)goToMainScreen:(id)sender {
-	self.view.userInteractionEnabled = NO;
-	[self.spinner startAnimating];
-	[self sendUpdateRequest];
-}
-
-- (void)sendUpdateRequest {
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] updateMe:self.user success:^(id object) {
+	[self updateIfNeeded:^{
 		NSArray *navigationArray = @[[weakSelf.signUpViewController.storyboard homeViewController]];
 		[weakSelf.signUpViewController.navigationController setViewControllers:navigationArray animated:YES];
-	} failure:^(NSError *error) {
-		[self.spinner stopAnimating];
-		weakSelf.view.userInteractionEnabled = YES;
-		[error show];
 	}];
+}
+
+- (void)updateIfNeeded:(void (^)(void))completion {
+	WLUser* user = self.user;
+	WLUser* currentUser = [WLUser currentUser];
+	BOOL nameChanged = ![user.name isEqualToString:currentUser.name];
+	BOOL avatarChanged = ![user.picture.large isEqualToString:currentUser.picture.large];
+	if (nameChanged || avatarChanged) {
+		self.view.userInteractionEnabled = NO;
+		[self.spinner startAnimating];
+		__weak typeof(self)weakSelf = self;
+		[[WLAPIManager instance] updateMe:self.user success:^(id object) {
+			[weakSelf.spinner stopAnimating];
+			weakSelf.view.userInteractionEnabled = YES;
+			completion();
+		} failure:^(NSError *error) {
+			[weakSelf.spinner stopAnimating];
+			weakSelf.view.userInteractionEnabled = YES;
+			[error show];
+		}];
+	} else {
+		completion();
+	}
 }
 
 - (IBAction)createImage:(id)sender {

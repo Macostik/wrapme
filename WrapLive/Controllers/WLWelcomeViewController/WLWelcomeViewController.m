@@ -52,23 +52,14 @@
 - (void)signIn:(void (^)(NSError* error))failure {
 	__weak typeof(self)weakSelf = self;
 	WLUser* user = [WLSession user];
-	[[WLAPIManager instance] signIn:user success:^(id object) {
-		[weakSelf checkNameAndAvatar:failure];
-	} failure:failure];
-}
-
-- (void)checkNameAndAvatar:(void (^)(NSError* error))failure {
-	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] me:^(WLUser* user) {
-		if (user.registrationCompleted) {
+	[[WLAPIManager instance] signIn:user success:^(WLUser* user) {
+		if (user.name.length > 0) {
 			NSArray *navigationArray = @[[weakSelf.storyboard homeViewController]];
 			[weakSelf.navigationController setViewControllers:navigationArray];
-		}
-		else {
+		} else {
 			WLSignUpViewController * controller = [weakSelf.storyboard signUpViewController];
 			controller.registrationNotCompleted = YES;
-			NSArray *navigationArray = @[controller];
-			[weakSelf.navigationController setViewControllers:navigationArray];
+			[weakSelf.navigationController setViewControllers:@[controller]];
 		}
 	} failure:failure];
 }

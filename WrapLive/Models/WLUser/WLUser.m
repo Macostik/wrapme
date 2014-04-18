@@ -20,14 +20,6 @@
 			 @"thumbnail":@[@"thumb_avatar_url",@"contributor_small_avatar_url"]};
 }
 
-- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
-	self = [super initWithDictionary:dict error:err];
-	if (self) {
-		self.registrationCompleted = self.name.length > 0;
-	}
-	return self;
-}
-
 + (NSMutableDictionary *)mapping {
 	return [[super mapping] merge:@{@"phone_number":@"phoneNumber",
 									@"country_calling_code":@"countryCallingCode",

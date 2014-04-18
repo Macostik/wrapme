@@ -184,7 +184,9 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	[parameters trySetObject:[user.birthdate string] forKey:@"dob"];
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
-		return response;
+		[user updateWithDictionary:[response.data dictionaryForKey:@"user"]];
+		[WLSession setUser:user];
+		return user;
 	};
 	
 	return [self POST:@"users/sign_in"
@@ -348,7 +350,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (void)attachFile:(NSString*)path toFormData:(id <AFMultipartFormData>)formData {
-	if (path && [path isAbsolutePath]) {
+	if (path && [[NSFileManager defaultManager] fileExistsAtPath:path]) {
 		[formData appendPartWithFileURL:[NSURL fileURLWithPath:path] name:@"qqfile" fileName:[path lastPathComponent] mimeType:@"image/jpeg" error:NULL];
 	}
 }

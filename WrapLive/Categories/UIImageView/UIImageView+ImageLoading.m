@@ -65,7 +65,9 @@
 			BOOL animated = NO;
 			if (!image) {
 				image = [UIImageView thumbnailFromUrl:imageUrl size:100];
-				[[UIImageView fileSystemImagesCache] setObject:image forKey:imageUrl];
+				if (image && imageUrl) {
+					[[UIImageView fileSystemImagesCache] setObject:image forKey:imageUrl];
+				}
 				animated = YES;
 			}
 			

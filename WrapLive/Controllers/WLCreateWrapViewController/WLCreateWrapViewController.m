@@ -39,6 +39,8 @@
 
 @property (strong, nonatomic) NSArray* contributors;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+
 @end
 
 @implementation WLCreateWrapViewController
@@ -116,23 +118,28 @@
 
 - (IBAction)done:(UIButton *)sender {
 	self.view.userInteractionEnabled = NO;
+	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] updateWrap:self.editingWrap success:^(id object) {
 		[weakSelf.wrap updateWithObject:object];
 		[weakSelf.wrap broadcastChange];
+		[weakSelf.spinner stopAnimating];
 		[weakSelf.navigationController popViewControllerAnimated:YES];
 		weakSelf.view.userInteractionEnabled = YES;
 	} failure:^(NSError *error) {
 		[error show];
+		[weakSelf.spinner stopAnimating];
 		weakSelf.view.userInteractionEnabled = YES;
 	}];
 }
 
 - (IBAction)start:(id)sender {
+	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
 	self.view.userInteractionEnabled = NO;
 	[[WLAPIManager instance] createWrap:self.editingWrap success:^(WLWrap* wrap) {
 		[wrap broadcastCreation];
+		[weakSelf.spinner stopAnimating];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
 		wrapController.wrap = wrap;
 		NSArray* controllers = @[[weakSelf.navigationController.viewControllers firstObject],wrapController];
@@ -140,6 +147,7 @@
 		weakSelf.view.userInteractionEnabled = YES;
 	} failure:^(NSError *error) {
 		[error show];
+		[weakSelf.spinner stopAnimating];
 		weakSelf.view.userInteractionEnabled = YES;
 	}];
 }

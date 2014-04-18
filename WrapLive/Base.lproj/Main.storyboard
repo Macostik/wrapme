@@ -615,6 +615,11 @@
                                     <action selector="done:" destination="y2d-d2-UUm" eventType="touchUpInside" id="KDD-oh-wmc"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="pYB-NP-efK">
+                                <rect key="frame" x="280" y="536" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                             <view contentMode="scaleToFill" id="sIS-5j-axT">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -791,6 +796,7 @@
                         <outlet property="doneButton" destination="thl-9L-1YK" id="YAp-Sc-fl0"/>
                         <outlet property="nameField" destination="iXN-AE-cui" id="8pz-go-uWd"/>
                         <outlet property="noContributorsView" destination="X4I-0X-nYZ" id="lyt-93-FUc"/>
+                        <outlet property="spinner" destination="pYB-NP-efK" id="ojb-B1-qvq"/>
                         <outlet property="startButton" destination="Vr6-0y-MU2" id="C0t-zd-WNz"/>
                         <outlet property="titleLabel" destination="PNJ-xX-JcD" id="YRz-6P-N0p"/>
                     </connections>

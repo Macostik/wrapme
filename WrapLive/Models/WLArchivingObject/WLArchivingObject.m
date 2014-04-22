@@ -144,6 +144,9 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 	EnumeratePropertiesOfClass(class, ^(NSString *property) {
 		id value = [weakSelf valueForKey:property];
 		if (value) {
+			if ([value respondsToSelector:@selector(copyWithZone:)]) {
+				value = [value copy];
+			}
 			[copy setValue:value forKey:property];
 		}
 	});

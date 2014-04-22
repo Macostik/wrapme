@@ -33,6 +33,10 @@
  */
 + (NSString*)UDID;
 
++ (NSString *)birthdate;
+
++ (void)setBirthdate:(NSString *)birthdate;
+
 /**
  *  Get password for current authenticated user.
  *

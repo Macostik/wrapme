@@ -192,7 +192,7 @@
 	WLWrap* wrap = self.topWrap;
 	[[WLUploadingQueue instance] updateWrap:wrap];
 	self.headerWrapNameLabel.text = wrap.name;
-	self.headerWrapCreatedAtLabel.text = [wrap.createdAt stringWithFormat:@"MMMM dd, yyyy"];
+	self.headerWrapCreatedAtLabel.text = [wrap.updatedAt stringWithFormat:@"MMMM dd, yyyy"];
 	__weak typeof(self)weakSelf = self;
 	[wrap contributorNames:^(NSString *names) {
 		weakSelf.headerWrapAuthorsLabel.text = names;

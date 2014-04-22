@@ -14,6 +14,9 @@
 static NSString* WLSessionServiceName = @"WrapLive";
 static NSString* WLSessionAccountName = @"WrapLiveAccount";
 static NSString* WLSessionUserKey = @"WrapLiveUser";
+static NSString* WLSessionPhoneNumberKey = @"WrapLivePhoneNumber";
+static NSString* WLSessionCountryCallingCodeKey = @"WrapLiveCountryCallingCode";
+static NSString* WLSessionBirthdateKey = @"WrapLiveBirthdate";
 
 @implementation WLSession
 
@@ -43,6 +46,15 @@ static WLUser* _user = nil;
 	return [OpenUDID value];
 }
 
++ (NSString *)birthdate {
+	return [[NSUserDefaults standardUserDefaults] stringForKey:WLSessionBirthdateKey];
+}
+
++ (void)setBirthdate:(NSString *)birthdate {
+	[[NSUserDefaults standardUserDefaults] setObject:birthdate forKey:WLSessionBirthdateKey];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 + (NSString *)password {
 	return [SSKeychain passwordForService:WLSessionServiceName account:WLSessionAccountName];
 }
@@ -52,7 +64,7 @@ static WLUser* _user = nil;
 }
 
 + (BOOL)activated {
-	return [self password].length > 0 && [self user] != nil;
+	return [self password].length > 0 && [self birthdate].length > 0 && [self user] != nil;
 }
 
 @end

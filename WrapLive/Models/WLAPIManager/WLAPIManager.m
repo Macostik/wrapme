@@ -137,10 +137,14 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	 success:(WLAPIManagerSuccessBlock)success
 	 failure:(WLAPIManagerFailureBlock)failure {
 	
+	NSString* birthdate = [user.birthdate string];
+	
+	[WLSession setBirthdate:birthdate];
+	
 	NSDictionary* parameters = @{@"device_uid" : [WLSession UDID],
 								 @"country_calling_code" : user.countryCallingCode,
 								 @"phone_number" : user.phoneNumber,
-								 @"dob" : [user.birthdate string]};
+								 @"dob" : birthdate};
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 		return user;
@@ -161,10 +165,10 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 								 @"country_calling_code" : user.countryCallingCode,
 								 @"phone_number" : user.phoneNumber,
 								 @"activation_code" : code,
-								 @"dob" : [user.birthdate string]};
+								 @"dob" : [WLSession birthdate]};
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
-		NSString* password = [response.data objectForKey:@"password"];
+		NSString* password = [response.data stringForKey:@"password"];
 		[WLSession setPassword:password];
 		return password;
 	};
@@ -181,7 +185,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	[parameters trySetObject:user.countryCallingCode forKey:@"country_calling_code"];
 	[parameters trySetObject:user.phoneNumber forKey:@"phone_number"];
 	[parameters trySetObject:[WLSession password] forKey:@"password"];
-	[parameters trySetObject:[user.birthdate string] forKey:@"dob"];
+	[parameters trySetObject:[WLSession birthdate] forKey:@"dob"];
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 		[user updateWithDictionary:[response.data dictionaryForKey:@"user"]];

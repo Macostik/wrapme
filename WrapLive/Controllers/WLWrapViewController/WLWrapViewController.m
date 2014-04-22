@@ -124,9 +124,9 @@
 	}
 	loading = YES;
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] wrap:self.wrap success:^(WLWrap* wrap) {
-		weakSelf.shouldLoadMoreDates = ([wrap.dates count] != [weakSelf.wrap.dates count]);
-		[weakSelf.wrap updateWithObject:wrap];
+	[[WLAPIManager instance] wrap:[self.wrap copy] success:^(WLWrap* wrap) {
+		weakSelf.wrap.dates = (id)[weakSelf.wrap.dates arrayByAddingObjectsFromArray:wrap.dates];
+		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
 		[weakSelf.tableView reloadData];
 		loading = NO;
 	} failure:^(NSError *error) {

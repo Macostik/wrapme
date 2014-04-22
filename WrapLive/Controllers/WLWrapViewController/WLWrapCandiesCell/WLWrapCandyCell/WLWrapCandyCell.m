@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chatLabelView;
-@property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
+@property (weak, nonatomic) IBOutlet UIView *lowOpacityView;
 @property (weak, nonatomic) IBOutlet WLBorderView *borderView;
 
 @end
@@ -44,10 +44,9 @@
 	self.commentLabel.hidden = !self.commentLabel.text.length > 0;
 	
 	if (entry.uploadingItem) {
-		self.progressBar.superview.hidden = NO;
-		self.progressBar.uploadingItem = entry.uploadingItem;
+		self.lowOpacityView.hidden = NO;
 	} else {
-		self.progressBar.superview.hidden = YES;
+		self.lowOpacityView.hidden = YES;
 	}
 }
 

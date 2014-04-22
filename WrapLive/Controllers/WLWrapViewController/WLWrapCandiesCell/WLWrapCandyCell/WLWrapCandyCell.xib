@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -28,13 +28,6 @@
                     <view contentMode="scaleToFill" id="BRh-xl-4uL">
                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" id="Ieo-Mu-bUO" customClass="WLCircleProgressBar">
-                                <rect key="frame" x="35" y="35" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_chat2" id="3xN-tP-4zn">
@@ -59,7 +52,7 @@
                 <outlet property="chatLabelView" destination="3xN-tP-4zn" id="ZDW-U4-UNr"/>
                 <outlet property="commentLabel" destination="MIl-aJ-FTV" id="YES-xW-iN9"/>
                 <outlet property="coverView" destination="9s5-TP-mPb" id="aia-8T-I8O"/>
-                <outlet property="progressBar" destination="Ieo-Mu-bUO" id="xYS-YS-bOl"/>
+                <outlet property="lowOpacityView" destination="BRh-xl-4uL" id="8RA-C2-cLF"/>
             </connections>
         </collectionViewCell>
     </objects>

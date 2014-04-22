@@ -313,7 +313,9 @@
 		UIImageView * placeholderView = [streamView reusableViewOfClass:[UIImageView class]
 															forItem:item
 														loadingType:StreamViewReusableViewLoadingTypeInit];
-		placeholderView.image = [UIImage imageNamed:@"ic_candy"];
+		placeholderView.image = [UIImage imageNamed:@"img_just_candy_small"];
+		placeholderView.contentMode = UIViewContentModeCenter;
+		placeholderView.alpha = 0.5;
 		return placeholderView;
 	}
 }

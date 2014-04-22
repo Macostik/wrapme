@@ -29,6 +29,8 @@
 
 - (NSArray*)latestCandies:(NSInteger)count;
 
+- (NSArray*)getAllImages;
+
 - (void)contributorNames:(void (^)(NSString* names))completion;
 
 - (WLWrapDate*)actualDate;

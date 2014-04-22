@@ -50,8 +50,10 @@
 			completion(image, request == nil);
 		}
 	} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-		if (completion) {
-			completion(nil, NO);
+		if (error.code != NSURLErrorCancelled) {
+			if (completion) {
+				completion(nil, NO);
+			}
 		}
 	}];
 }

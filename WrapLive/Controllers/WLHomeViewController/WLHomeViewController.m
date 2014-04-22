@@ -19,7 +19,7 @@
 #import "NSArray+Additions.h"
 #import "NSDate+Formatting.h"
 #import "StreamView.h"
-#import "WLWrapDataViewController.h"
+#import "WLCandyViewController.h"
 #import "UIColor+CustomColors.h"
 #import "WLComposeBar.h"
 #import "WLComposeContainer.h"
@@ -331,9 +331,8 @@
 		WLCandy* candy = [self.latestCandies objectAtIndex:item.index.row];
 		if (candy.uploadingItem == nil) {
 			if (candy.type == WLCandyTypeImage) {
-				WLWrapDataViewController* controller = [self.storyboard wrapDataViewController];
-				controller.candy = candy;
-				controller.wrap = self.topWrap;
+				WLCandyViewController* controller = [self.storyboard wrapDataViewController];
+				[controller setWrap:self.topWrap candy:candy];
 				[self pushViewController:controller animated:YES];
 			} else if (candy.type == WLCandyTypeChatMessage) {
 				WLChatViewController * chatController = [self.storyboard chatViewController];

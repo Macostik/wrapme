@@ -16,7 +16,7 @@
 #import "UIView+Shorthand.h"
 #import "UIStoryboard+Additions.h"
 #import "WLCameraViewController.h"
-#import "WLWrapDataViewController.h"
+#import "WLCandyViewController.h"
 #import "WLCreateWrapViewController.h"
 #import "WLComposeBar.h"
 #import "WLComposeContainer.h"
@@ -199,10 +199,9 @@
 
 - (void)wrapCandiesCell:(WLWrapCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
 	if (candy.type == WLCandyTypeImage) {
-		WLWrapDataViewController * wrapDatacontroller = [self.storyboard wrapDataViewController];
-		wrapDatacontroller.candy = candy;
-		wrapDatacontroller.wrap = self.wrap;
-		[self.navigationController pushViewController:wrapDatacontroller animated:YES];
+		WLCandyViewController *controller = [self.storyboard wrapDataViewController];
+		[controller setWrap:self.wrap candy:candy];
+		[self.navigationController pushViewController:controller animated:YES];
 	} else if (candy.type == WLCandyTypeChatMessage) {
 		WLChatViewController * chatController = [self.storyboard chatViewController];
 		chatController.wrap = self.wrap;

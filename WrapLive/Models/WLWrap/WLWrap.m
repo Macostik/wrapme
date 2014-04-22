@@ -84,6 +84,18 @@
 	return [candies copy];
 }
 
+- (NSArray *)getAllImages {
+	NSMutableArray* images = [NSMutableArray array];
+	for (WLWrapDate* date in self.dates) {
+		for (WLCandy* candy in date.candies) {
+			if (candy.type == WLCandyTypeImage) {
+				[images addObject:candy];
+			}
+		}
+	}
+	return [images copy];
+}
+
 - (void)contributorNames:(void (^)(NSString *))completion {
 	__weak typeof(self)weakSelf = self;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

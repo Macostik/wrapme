@@ -164,7 +164,7 @@
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
 		[library saveImage:image
-				   toAlbum:@"WrapLive"
+				   toAlbum:@"wrapLive"
 				  metadata:weakSelf.metadata
 				completion:^(NSURL *assetURL, NSError *error) { }
 				   failure:^(NSError *error) { }];

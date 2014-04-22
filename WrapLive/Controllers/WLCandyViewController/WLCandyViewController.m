@@ -92,13 +92,14 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	if (!self.spinner.isAnimating) {
 		[self.spinner startAnimating];
 	}
+	[self setTableHeaderViewHeight:self.view.width animated:NO];
 	[self.imageView setImageUrl:image.picture.large completion:^(UIImage* image, BOOL cached) {
 		if (weakSelf.spinner.isAnimating) {
 			[weakSelf.spinner stopAnimating];
 		}
 		if (image) {
 			CGFloat height = image.size.height*WLDefaultImageWidth/image.size.width;
-			[weakSelf setTableHeaderViewHeight:MIN(WLDefaultImageWidth, height) animated:!cached];
+			[weakSelf setTableHeaderViewHeight:height animated:NO];
 		}
 	}];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", image.contributor.name];
@@ -127,19 +128,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (IBAction)back:(id)sender {
 	[self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)toggleImage:(id)sender {
-	UIImage* image = self.imageView.image;
-	if (image) {
-		CGFloat height = self.tableView.tableHeaderView.height;
-		if (height == WLDefaultImageWidth && image) {
-			height = image.size.height*WLDefaultImageWidth/image.size.width;
-		} else {
-			height = WLDefaultImageWidth;
-		}
-		[self setTableHeaderViewHeight:height animated:YES];
-	}
 }
 
 - (void)sendMessageWithText:(NSString*)text {

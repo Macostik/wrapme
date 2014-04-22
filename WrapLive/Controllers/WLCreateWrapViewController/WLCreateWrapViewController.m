@@ -81,6 +81,7 @@
 	} else if ([segue isCameraSegue]) {
 		WLCameraViewController* controller = segue.destinationViewController;
 		controller.delegate = self;
+		controller.mode = WLCameraMode640x640;
 	}
 }
 

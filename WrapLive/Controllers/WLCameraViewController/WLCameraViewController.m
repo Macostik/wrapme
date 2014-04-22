@@ -103,23 +103,26 @@
 }
 
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
-	if (self.mode == WLCameraModeFullSize) {
-		completion(image);
-	} else {
-		CGSize viewSize = self.cameraView.bounds.size;
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-			
-			UIImage *result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
-																bounds:CGSizeMake(640, 640)
-												  interpolationQuality:kCGInterpolationDefault];
-			
-			CGRect cropRect = CGRectThatFitsSize(result.size, viewSize);
-			result = [result croppedImage:cropRect];
-			dispatch_async(dispatch_get_main_queue(), ^{
-				completion(result);
-			});
+	__weak typeof(self)weakSelf = self;
+	CGSize viewSize = self.cameraView.bounds.size;
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		UIImage *result = nil;
+		if (weakSelf.mode == WLCameraMode200x200) {
+			result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
+												 bounds:CGSizeMake(200, 200)
+								   interpolationQuality:kCGInterpolationDefault];
+		} else {
+			result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
+												 bounds:CGSizeMake(640, 640)
+								   interpolationQuality:kCGInterpolationDefault];
+		}
+		if (weakSelf.mode != WLCameraModeFullSize) {
+			result = [result croppedImage:CGRectThatFitsSize(result.size, viewSize)];
+		}
+		dispatch_async(dispatch_get_main_queue(), ^{
+			completion(result);
 		});
-	}
+    });
 }
 
 - (IBAction)retake:(id)sender {

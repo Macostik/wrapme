@@ -41,7 +41,6 @@
 @property (weak, nonatomic) IBOutlet UIView *headerWrapView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *headerWrapCreatedAtLabel;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapAuthorsLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
@@ -192,7 +191,6 @@
 	WLWrap* wrap = self.topWrap;
 	[[WLUploadingQueue instance] updateWrap:wrap];
 	self.headerWrapNameLabel.text = wrap.name;
-	self.headerWrapCreatedAtLabel.text = [wrap.updatedAt stringWithFormat:@"MMMM dd, yyyy"];
 	__weak typeof(self)weakSelf = self;
 	[wrap contributorNames:^(NSString *names) {
 		weakSelf.headerWrapAuthorsLabel.text = names;

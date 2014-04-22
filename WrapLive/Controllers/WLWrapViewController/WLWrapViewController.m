@@ -235,6 +235,7 @@
 #pragma mark - WLCameraViewControllerDelegate
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+	self.firstContributorView.alpha = 0.0f;
 	[[WLUploadingQueue instance] uploadImage:image wrap:self.wrap success:^(id object) {
 	} failure:^(NSError *error) {
 		[error show];

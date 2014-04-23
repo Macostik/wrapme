@@ -213,8 +213,15 @@
 	}];
 	if ([indexes count] > 0) {
 		[self removeObjectsAtIndexes:indexes];
+		NSUInteger index = [indexes firstIndex];
+		if(index <= [self count]) {
+			[self insertObject:object atIndex:index];
+		} else {
+			[self addObject:object];
+		}
+	} else {
+		[self addObject:object];
 	}
-	[self addObject:object];
 }
 
 - (BOOL)removeUniqueObject:(id)object equality:(EqualityBlock)equality {

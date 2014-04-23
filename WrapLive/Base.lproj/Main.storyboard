@@ -795,6 +795,7 @@
                                             <outlet property="avatarView" destination="5AP-1b-DWd" id="6YS-wv-yFD"/>
                                             <outlet property="delegate" destination="y2d-d2-UUm" id="9uj-4J-UZB"/>
                                             <outlet property="nameLabel" destination="CdX-0Z-zWc" id="k7b-aA-XXT"/>
+                                            <outlet property="removeButton" destination="bME-GU-a5P" id="2zk-qe-aUQ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

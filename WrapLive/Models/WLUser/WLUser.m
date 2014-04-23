@@ -9,7 +9,6 @@
 #import "WLUser.h"
 #import "NSDate+Formatting.h"
 #import "WLSession.h"
-#import "NSArray+Additions.h"
 
 @implementation WLUser
 
@@ -41,6 +40,17 @@
 	return equalPhoneNumber && equalBirthdate;
 }
 
++ (EqualityBlock)equalityBlock {
+	static EqualityBlock _equalityBlock = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		_equalityBlock = ^BOOL(id first, id second) {
+			return [first isEqualToUser:second];
+		};
+	});
+	return _equalityBlock;
+}
+
 @end
 
 @implementation WLUser (CurrentUser)
@@ -65,17 +75,6 @@
 
 @implementation NSArray (WLUser)
 
-+ (EqualityBlock)equalityBlock {
-	static EqualityBlock _equalityBlock = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		_equalityBlock = ^BOOL(id first, id second) {
-			return [first isEqualToUser:second];
-		};
-	});
-	return _equalityBlock;
-}
-
 - (NSArray*)arrayByAddingCurrentUserAndUser:(WLUser*)user {
 	return [[self arrayByAddingUser:user] arrayByAddingCurrentUser];
 }
@@ -86,7 +85,7 @@
 
 - (NSArray *)arrayByAddingUser:(WLUser *)user {
 	if (user) {
-		return [self arrayByAddingUniqueObject:user equality:[NSArray equalityBlock]];
+		return [self arrayByAddingUniqueObject:user equality:[WLUser equalityBlock]];
 	}
 	return self;
 }
@@ -108,11 +107,11 @@
 }
 
 - (NSArray*)arrayByRemovingUser:(WLUser*)user {
-	return [self arrayByRemovingUniqueObject:user equality:[NSArray equalityBlock]];
+	return [self arrayByRemovingUniqueObject:user equality:[WLUser equalityBlock]];
 }
 
 - (NSArray*)arrayByRemovingUsers:(NSArray*)users {
-	return [self arrayByRemovingUniqueObjects:users equality:[NSArray equalityBlock]];
+	return [self arrayByRemovingUniqueObjects:users equality:[WLUser equalityBlock]];
 }
 
 @end

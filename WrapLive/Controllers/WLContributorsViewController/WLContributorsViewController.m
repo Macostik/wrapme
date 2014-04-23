@@ -107,7 +107,11 @@
 }
 
 - (IBAction)done:(id)sender {
-	self.wrap.contributors = (id)[self.selectedContributors arrayByAddingCurrentUserAndUser:self.wrap.contributor];
+	NSMutableArray* contributors = [NSMutableArray arrayWithArray:self.wrap.contributors];
+	for (WLUser *user in self.selectedContributors) {
+		[contributors addUniqueObject:user equality:[WLUser equalityBlock]];
+	}
+	self.wrap.contributors = [contributors copy];
 	[self.navigationController popViewControllerAnimated:YES];
 }
 

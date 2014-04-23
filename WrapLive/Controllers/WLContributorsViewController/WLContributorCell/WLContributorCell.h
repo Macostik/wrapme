@@ -22,4 +22,6 @@
 
 @property (nonatomic, weak) IBOutlet id <WLContributorCellDelegate> delegate;
 
+@property (nonatomic) BOOL deletable;
+
 @end

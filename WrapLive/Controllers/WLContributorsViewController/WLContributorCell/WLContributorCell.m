@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *selectionView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarView;
+@property (weak, nonatomic) IBOutlet UIButton *removeButton;
 
 @end
 
@@ -23,6 +24,11 @@
 - (void)setupItemData:(WLUser*)user {
 	self.nameLabel.text = user.name;
 	self.avatarView.imageUrl = user.picture.medium;
+}
+
+- (void)setDeletable:(BOOL)deletable {
+	_deletable = deletable;
+	self.removeButton.hidden = !deletable;
 }
 
 #pragma mark - Actions

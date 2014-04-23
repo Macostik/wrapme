@@ -25,7 +25,6 @@
 #import "UIStoryboard+Additions.h"
 #import "WLImageViewController.h"
 
-static CGFloat WLDefaultImageWidth = 320;
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 @interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate>

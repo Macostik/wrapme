@@ -7,6 +7,7 @@
 //
 
 #import "WLEntry.h"
+#import "NSArray+Additions.h"
 
 @interface WLUser : WLEntry
 
@@ -17,6 +18,8 @@
 @property (nonatomic) BOOL isCreator;
 
 - (BOOL)isEqualToUser:(WLUser*)user;
+
++ (EqualityBlock)equalityBlock;
 
 @end
 

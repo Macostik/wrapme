@@ -22,6 +22,8 @@
 #import "UIFont+CustomFonts.h"
 #import "WLRefresher.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "UIStoryboard+Additions.h"
+#import "WLImageViewController.h"
 
 static CGFloat WLDefaultImageWidth = 320;
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
@@ -92,36 +94,24 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	if (!self.spinner.isAnimating) {
 		[self.spinner startAnimating];
 	}
-	[self setTableHeaderViewHeight:self.view.width animated:NO];
-	[self.imageView setImageUrl:image.picture.large completion:^(UIImage* image, BOOL cached) {
+	[self.imageView setImageUrl:image.picture.medium completion:^(UIImage* image, BOOL cached) {
 		if (weakSelf.spinner.isAnimating) {
 			[weakSelf.spinner stopAnimating];
-		}
-		if (image) {
-			CGFloat height = image.size.height*WLDefaultImageWidth/image.size.width;
-			[weakSelf setTableHeaderViewHeight:height animated:NO];
 		}
 	}];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", image.contributor.name];
 	[self.tableView reloadData];
 }
 
-- (void)setTableHeaderViewHeight:(CGFloat)height animated:(BOOL)animated {
-	UIView* headerView = self.tableView.tableHeaderView;
-	if (headerView.height != height) {
-		if (animated) {
-			[UIView beginAnimations:nil context:nil];
-		}
-		headerView.height = height;
-		self.tableView.tableHeaderView = headerView;
-		if (animated) {
-			[UIView commitAnimations];
-		}
-	}
-}
-
 - (CGFloat)calculateTableHeight {
 	return (self.view.height - self.composeBarView.height - self.topView.height);
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue isImageSegue]) {
+		WLImageViewController* controller = segue.destinationViewController;
+		controller.image = self.candy;
+	}
 }
 
 #pragma mark - Actions

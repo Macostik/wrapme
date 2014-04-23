@@ -19,6 +19,7 @@
 		121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3F18E0848D001F585C /* WLCountryCell.xib */; };
 		121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B4418E08B7E001F585C /* CountryCodes.json */; };
 		1221EA6A18FD372F00C64DAE /* UIButton+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1221EA6918FD372F00C64DAE /* UIButton+Additions.m */; };
+		12317E5A1908096200D1A9EE /* WLImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12317E591908096200D1A9EE /* WLImageViewController.m */; };
 		125D4A4F18E068E6001B8E7C /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */; };
 		125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A5218E069C6001B8E7C /* UIFont+CustomFonts.m */; };
 		128886AD18DC493B00957B22 /* WLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886AC18DC493B00957B22 /* WLSession.m */; };
@@ -130,6 +131,8 @@
 		121B1B4418E08B7E001F585C /* CountryCodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountryCodes.json; sourceTree = "<group>"; };
 		1221EA6818FD372F00C64DAE /* UIButton+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+Additions.h"; path = "UIButton/UIButton+Additions.h"; sourceTree = "<group>"; };
 		1221EA6918FD372F00C64DAE /* UIButton+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+Additions.m"; path = "UIButton/UIButton+Additions.m"; sourceTree = "<group>"; };
+		12317E581908096200D1A9EE /* WLImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLImageViewController.h; path = WLImageViewController/WLImageViewController.h; sourceTree = "<group>"; };
+		12317E591908096200D1A9EE /* WLImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLImageViewController.m; path = WLImageViewController/WLImageViewController.m; sourceTree = "<group>"; };
 		125D4A4D18E068E6001B8E7C /* NSDate+Formatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Formatting.h"; sourceTree = "<group>"; };
 		125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Formatting.m"; sourceTree = "<group>"; };
 		125D4A5118E069C6001B8E7C /* UIFont+CustomFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+CustomFonts.h"; path = "UIFont/UIFont+CustomFonts.h"; sourceTree = "<group>"; };
@@ -403,6 +406,15 @@
 			name = UIButton;
 			sourceTree = "<group>";
 		};
+		12317E57190808B600D1A9EE /* WLImageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				12317E581908096200D1A9EE /* WLImageViewController.h */,
+				12317E591908096200D1A9EE /* WLImageViewController.m */,
+			);
+			name = WLImageViewController;
+			sourceTree = "<group>";
+		};
 		125D4A4C18E068E6001B8E7C /* NSDate */ = {
 			isa = PBXGroup;
 			children = (
@@ -605,6 +617,7 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				12317E57190808B600D1A9EE /* WLImageViewController */,
 				12E1104619067095007DB4AC /* WLCandyViewController */,
 				12E1103F19066C2D007DB4AC /* WLSwipeViewController */,
 				C5947E4E18F5264B00BDF038 /* WLChatViewController */,
@@ -1295,6 +1308,7 @@
 				121B1B4018E0848D001F585C /* WLCountriesViewController.m in Sources */,
 				12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */,
 				12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */,
+				12317E5A1908096200D1A9EE /* WLImageViewController.m in Sources */,
 				12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */,
 				1293677F18E337D900527250 /* WLWrapCandiesCell.m in Sources */,
 				12A9EFB318F7E858002CBF75 /* WLWrapBroadcaster.m in Sources */,

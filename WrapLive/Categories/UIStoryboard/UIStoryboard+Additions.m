@@ -58,4 +58,8 @@
 	return [self.identifier isEqualToString:WLStoryboardSegueChangeWrapIdentifier];
 }
 
+- (BOOL)isImageSegue {
+	return [self.identifier isEqualToString:WLStoryboardSegueImageIdentifier];
+}
+
 @end

@@ -14,6 +14,7 @@ static NSString* WLStoryboardWrapViewControllerIdentifier = @"wrap";
 static NSString* WLStoryboardSignUpViewControllerIdentifier = @"signUp";
 static NSString* WLStoryboardWrapDataViewControllerIdentifier = @"wrapData";
 static NSString* WLStoryboardChatViewControllerIdentifier = @"chat";
+static NSString* WLStoryboardImageViewControllerIdentifier = @"image";
 
 @interface UIStoryboard (Additions)
 
@@ -36,6 +37,7 @@ static NSString* WLStoryboardSegueWrapIdentifier = @"wrap";
 static NSString* WLStoryboardSegueCameraIdentifier = @"camera";
 static NSString* WLStoryboardSegueTopWrapIdentifier = @"topWrap";
 static NSString* WLStoryboardSegueChangeWrapIdentifier = @"changeWrap";
+static NSString* WLStoryboardSegueImageIdentifier = @"image";
 
 @interface UIStoryboardSegue (Additions)
 
@@ -48,5 +50,7 @@ static NSString* WLStoryboardSegueChangeWrapIdentifier = @"changeWrap";
 - (BOOL)isTopWrapSegue;
 
 - (BOOL)isChangeWrapSegue;
+
+- (BOOL)isImageSegue;
 
 @end

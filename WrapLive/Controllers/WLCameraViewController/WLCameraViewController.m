@@ -19,8 +19,9 @@
 #import "UIButton+Additions.h"
 #import "WLFlashModeControl.h"
 #import "WLCameraAdjustmentView.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
-@interface WLCameraViewController () <WLCameraInteractionViewDelegate>
+@interface WLCameraViewController () <WLCameraInteractionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 #pragma mark - AVCaptureSession interface
 
@@ -45,6 +46,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 
 @property (nonatomic, strong) NSMutableDictionary* metadata;
+
+@property (nonatomic) BOOL photoFromLibrary;
 
 @end
 
@@ -111,11 +114,21 @@
 	sender.active = NO;
 	[self captureImage:^(UIImage *image) {
 		[weakSelf cropImage:image completion:^(UIImage *croppedImage) {
+			weakSelf.photoFromLibrary = NO;
 			[weakSelf setAcceptImage:croppedImage animated:YES];
 			weakSelf.view.userInteractionEnabled = YES;
 			sender.active = YES;
 		}];
 	}];
+}
+
+- (IBAction)gallery:(id)sender {
+	UIImagePickerController* galleryController = [[UIImagePickerController alloc] init];
+	galleryController.allowsEditing = NO;
+	galleryController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+	galleryController.mediaTypes = @[(id)kUTTypeImage];
+	galleryController.delegate = self;
+	[self presentViewController:galleryController animated:YES completion:nil];
 }
 
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
@@ -147,7 +160,9 @@
 
 - (IBAction)use:(id)sender {
 	UIImage* image = self.acceptImageView.image;
-	[self saveImage:image];
+	if (!self.photoFromLibrary) {
+		[self saveImage:image];
+	}
 	[self.delegate cameraViewController:self didFinishWithImage:image];
 }
 
@@ -229,6 +244,24 @@
 	} completion:^(BOOL finished) {
 		[focusView removeFromSuperview];
 	}];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
+	__weak typeof(self)weakSelf = self;
+	self.view.userInteractionEnabled = NO;
+	[weakSelf cropImage:image completion:^(UIImage *croppedImage) {
+		weakSelf.photoFromLibrary = YES;
+		[weakSelf setAcceptImage:croppedImage animated:YES];
+		weakSelf.view.userInteractionEnabled = YES;
+	}];
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - AVCaptureSession

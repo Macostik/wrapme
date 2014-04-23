@@ -98,6 +98,18 @@
                                             <action selector="cancel:" destination="fS5-iu-bCQ" eventType="touchUpInside" id="F0V-j1-R5O"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xXB-5v-ARs">
+                                        <rect key="frame" x="257" y="0.0" width="63" height="184"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <state key="normal" title="Gallery">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="gallery:" destination="fS5-iu-bCQ" eventType="touchUpInside" id="SdC-LC-cem"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                             </view>

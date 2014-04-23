@@ -136,6 +136,7 @@
 	WLWrapDate* dateObject = [[WLWrapDate alloc] init];
 	dateObject.updatedAt = date;
 	[self.dates addObject:dateObject];
+	[self.dates sortEntries];
 	return dateObject;
 }
 

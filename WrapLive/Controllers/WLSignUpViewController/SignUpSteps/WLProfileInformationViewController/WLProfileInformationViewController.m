@@ -32,6 +32,8 @@ static NSInteger WLProfileNameLimit = 40;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 
+@property (nonatomic) BOOL hasAvatar;
+
 @end
 
 @implementation WLProfileInformationViewController
@@ -41,6 +43,7 @@ static NSInteger WLProfileNameLimit = 40;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	self.user = [[WLUser currentUser] copy];
+	self.hasAvatar = self.user.name.length > 0;
 	[self verifyContinueButton];
 	self.nameTextField.layer.borderWidth = 0.5;
 	self.nameTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
@@ -101,7 +104,7 @@ static NSInteger WLProfileNameLimit = 40;
 }
 
 - (void)verifyContinueButton {
-	self.continueButton.active = self.user.name.length > 0;
+	self.continueButton.active = (self.user.name.length > 0) && self.hasAvatar;
 }
 
 #pragma mark - WLCameraViewControllerDelegate
@@ -111,6 +114,7 @@ static NSInteger WLProfileNameLimit = 40;
 }
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+	self.hasAvatar = YES;
 	self.profileImageView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
 															  bounds:self.profileImageView.retinaSize
 												interpolationQuality:kCGInterpolationDefault];

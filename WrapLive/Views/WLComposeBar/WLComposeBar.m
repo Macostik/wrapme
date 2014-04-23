@@ -73,7 +73,7 @@ static NSUInteger WLComposeBarDefaultCharactersLimit = 360;
 	CGFloat x = hidden ? self.width : (self.width - self.doneButton.width);
 	if (x != self.doneButton.x) {
 		_doneButtonHidden = hidden;
-		CGFloat width = (x - self.textField.x - (hidden ? 10 : 0));
+		CGFloat width = (x - self.textField.superview.x - (hidden ? 10 : 0));
 		if (animated) {
 			[UIView beginAnimations:nil context:nil];
 		}

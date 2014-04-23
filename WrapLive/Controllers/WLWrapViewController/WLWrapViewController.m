@@ -148,7 +148,10 @@
 }
 
 - (IBAction)typeMessage:(UIButton *)sender {
-	[self.composeContainer setEditing:!self.composeContainer.editing animated:YES];
+	WLChatViewController * chatController = [self.storyboard chatViewController];
+	chatController.wrap = self.wrap;
+	chatController.shouldShowKeyboard = YES;
+	[self.navigationController pushViewController:chatController animated:YES];
 }
 
 - (void)sendMessageWithText:(NSString*)text {

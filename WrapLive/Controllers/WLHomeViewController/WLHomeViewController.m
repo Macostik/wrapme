@@ -229,7 +229,10 @@
 #pragma mark - Actions
 
 - (IBAction)typeMessage:(UIButton *)sender {
-	[self.composeContainer setEditing:!self.composeContainer.editing animated:YES];
+	WLChatViewController * chatController = [self.storyboard chatViewController];
+	chatController.wrap = self.topWrap;
+	chatController.shouldShowKeyboard = YES;
+	[self.navigationController pushViewController:chatController animated:YES];
 }
 
 #pragma mark - WLComposeBarDelegate

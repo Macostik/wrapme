@@ -19,9 +19,9 @@
 @end
 
 typedef NS_ENUM(NSInteger, WLCameraMode) {
-	WLCameraModeFullSize,
-	WLCameraMode200x200,
-	WLCameraMode640x640
+	WLCameraModeCandy,
+	WLCameraModeAvatar,
+	WLCameraModeCover
 };
 
 @interface WLCameraViewController : UIViewController

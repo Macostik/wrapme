@@ -91,7 +91,7 @@ static NSInteger WLProfileNameLimit = 40;
 	WLCameraViewController * controller = [self.signUpViewController.storyboard cameraViewController];
 	controller.delegate = self;
 	controller.defaultPosition = AVCaptureDevicePositionFront;
-	controller.mode = WLCameraMode200x200;
+	controller.mode = WLCameraModeAvatar;
 	[self.signUpViewController presentViewController:controller animated:YES completion:nil];
 }
 

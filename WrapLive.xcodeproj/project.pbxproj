@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		120ED84F18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 120ED84E18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
+		121553E81907DD4A00A507F8 /* WLFlashModeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 121553E71907DD4A00A507F8 /* WLFlashModeControl.m */; };
 		1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215DC7A18E4421700FCA744 /* NSArray+Additions.m */; };
 		1215DC7F18E4485800FCA744 /* UIStoryboard+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215DC7E18E4485800FCA744 /* UIStoryboard+Additions.m */; };
 		121B1B2E18E07430001F585C /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
@@ -110,6 +111,8 @@
 /* Begin PBXFileReference section */
 		120ED84D18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
 		120ED84E18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
+		121553E61907DD4A00A507F8 /* WLFlashModeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLFlashModeControl.h; sourceTree = "<group>"; };
+		121553E71907DD4A00A507F8 /* WLFlashModeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLFlashModeControl.m; sourceTree = "<group>"; };
 		1215DC7918E4421700FCA744 /* NSArray+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Additions.h"; sourceTree = "<group>"; };
 		1215DC7A18E4421700FCA744 /* NSArray+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Additions.m"; sourceTree = "<group>"; };
 		1215DC7D18E4485800FCA744 /* UIStoryboard+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIStoryboard+Additions.h"; path = "UIStoryboard/UIStoryboard+Additions.h"; sourceTree = "<group>"; };
@@ -315,6 +318,15 @@
 				120ED84E18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m */,
 			);
 			path = ALAssetsLibrary;
+			sourceTree = "<group>";
+		};
+		121553E51907DD4A00A507F8 /* WLFlashSettingsControl */ = {
+			isa = PBXGroup;
+			children = (
+				121553E61907DD4A00A507F8 /* WLFlashModeControl.h */,
+				121553E71907DD4A00A507F8 /* WLFlashModeControl.m */,
+			);
+			path = WLFlashSettingsControl;
 			sourceTree = "<group>";
 		};
 		1215DC7818E4421700FCA744 /* NSArray */ = {
@@ -923,6 +935,7 @@
 		12E3DA3C18E0399700DBDB79 /* WLCameraViewController */ = {
 			isa = PBXGroup;
 			children = (
+				121553E51907DD4A00A507F8 /* WLFlashSettingsControl */,
 				12A9EFB418F8026E002CBF75 /* WLCameraInteractionView */,
 				12E3DA3D18E0399700DBDB79 /* WLCameraViewController.h */,
 				12E3DA3E18E0399700DBDB79 /* WLCameraViewController.m */,
@@ -1265,6 +1278,7 @@
 				ACCF9B9118E1868200A7429F /* WLActivationViewController.m in Sources */,
 				12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */,
 				12DCBA6718DB0E4A00A4BC44 /* WLWrap.m in Sources */,
+				121553E81907DD4A00A507F8 /* WLFlashModeControl.m in Sources */,
 				12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */,
 				1293678718E34A6800527250 /* WLCandy.m in Sources */,
 				12D4E94C18FC12DF00B8F2AF /* AsynchronousOperation.m in Sources */,

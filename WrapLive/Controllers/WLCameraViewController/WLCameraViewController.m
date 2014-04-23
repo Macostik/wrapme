@@ -17,6 +17,8 @@
 #import "WLCameraInteractionView.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIButton+Additions.h"
+#import "WLFlashModeControl.h"
+#import "WLCameraAdjustmentView.h"
 
 @interface WLCameraViewController () <WLCameraInteractionViewDelegate>
 
@@ -26,16 +28,21 @@
 @property (strong, nonatomic) AVCaptureDeviceInput *input;
 @property (nonatomic, strong) AVCaptureSession* session;
 @property (nonatomic, weak) AVCaptureConnection* connection;
+@property (nonatomic) AVCaptureFlashMode flashMode;
+@property (nonatomic) CGFloat zoomScale;
 
 #pragma mark - UIKit interface
 
+@property (weak, nonatomic) AVCaptureVideoPreviewLayer* previewLayer;
 @property (weak, nonatomic) IBOutlet UIView *cameraView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet WLFlashModeControl *flashModeControl;
 @property (weak, nonatomic) IBOutlet UIImageView *acceptImageView;
 @property (weak, nonatomic) IBOutlet UIView *acceptView;
 @property (weak, nonatomic) IBOutlet UIView *acceptButtonsView;
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
+@property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 
 @property (nonatomic, strong) NSMutableDictionary* metadata;
 
@@ -53,16 +60,24 @@
 	}
 	
 	self.position = self.defaultPosition;
+	self.flashMode = AVCaptureFlashModeOff;
+	self.flashModeControl.mode = self.flashMode;
     
-	if (self.mode == WLCameraModeFullSize) {
+	if (self.mode == WLCameraModeCandy) {
 		self.topView.backgroundColor = [UIColor clearColor];
 		self.cameraView.y = 0;
 		self.cameraView.height = self.view.height - 58;
+		self.flashModeControl.titleColor = [UIColor WL_orangeColor];
 	} else {
 		self.cameraView.y = self.topView.bottom;
 		self.cameraView.height = self.cameraView.width;
 		if ([UIScreen mainScreen].bounds.size.height >= 568) {
 			[self.takePhotoButton setImage:[UIImage imageNamed:@"camera_big"] forState:UIControlStateNormal];
+		}
+		self.flashModeControl.titleColor = [UIColor whiteColor];
+		
+		if (self.mode == WLCameraModeAvatar) {
+			self.rotateButton.hidden = YES;
 		}
 	}
 	self.bottomView.y = self.cameraView.bottom;
@@ -77,6 +92,7 @@
 	previewLayer.frame = self.cameraView.bounds;
 	previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 	[self.cameraView.layer insertSublayer:previewLayer atIndex:0];
+	_previewLayer = previewLayer;
 }
 
 #pragma mark - User Actions
@@ -107,7 +123,7 @@
 	CGSize viewSize = self.cameraView.bounds.size;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		UIImage *result = nil;
-		if (weakSelf.mode == WLCameraMode200x200) {
+		if (weakSelf.mode == WLCameraModeAvatar) {
 			result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
 												 bounds:CGSizeMake(200, 200)
 								   interpolationQuality:kCGInterpolationDefault];
@@ -116,7 +132,7 @@
 												 bounds:CGSizeMake(640, 640)
 								   interpolationQuality:kCGInterpolationDefault];
 		}
-		if (weakSelf.mode != WLCameraModeFullSize) {
+		if (weakSelf.mode != WLCameraModeCandy) {
 			result = [result croppedImage:CGRectThatFitsSize(result.size, viewSize)];
 		}
 		dispatch_async(dispatch_get_main_queue(), ^{
@@ -174,6 +190,47 @@
     });
 }
 
+- (IBAction)flashModeChanged:(WLFlashModeControl *)sender {
+	self.flashMode = sender.mode;
+	if (self.flashMode != sender.mode) {
+		sender.mode = self.flashMode;
+	}
+}
+
+- (IBAction)rotateCamera:(id)sender {
+	if (self.position == AVCaptureDevicePositionBack) {
+		self.position = AVCaptureDevicePositionFront;
+	} else {
+		self.position = AVCaptureDevicePositionBack;
+	}
+	self.flashMode = self.flashModeControl.mode;
+	self.zoomScale = 1;
+}
+
+- (IBAction)zooming:(UIPinchGestureRecognizer*)sender {
+	if (sender.state == UIGestureRecognizerStateChanged) {
+		self.zoomScale = self.zoomScale * sender.scale;
+		sender.scale = 1;
+	}
+}
+
+- (IBAction)focusing:(UITapGestureRecognizer*)sender {
+	if(![self.session isRunning]) {
+        return;
+    }
+	CGPoint point = [sender locationInView:self.cameraView];
+    [self autoFocusAndExposureAtPoint:point];
+	WLCameraAdjustmentView *focusView = [[WLCameraAdjustmentView alloc] initWithFrame:CGRectMake(0, 0, 67, 67)];
+	focusView.center = point;
+	focusView.userInteractionEnabled = NO;
+	[self.cameraView addSubview:focusView];
+	[UIView animateWithDuration:0.33f delay:0.5f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		focusView.alpha = 0.0f;
+	} completion:^(BOOL finished) {
+		[focusView removeFromSuperview];
+	}];
+}
+
 #pragma mark - AVCaptureSession
 
 - (AVCaptureDevice*)deviceWithPosition:(AVCaptureDevicePosition)position {
@@ -209,6 +266,7 @@
 		[session addInput:input];
 	}
 	[session commitConfiguration];
+	self.flashModeControl.hidden = !self.input.device.hasFlash;
 }
 
 - (AVCaptureDeviceInput *)input {
@@ -271,7 +329,7 @@
 #if TARGET_IPHONE_SIMULATOR
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		UIImage* image = nil;
-		if (self.mode == WLCameraModeFullSize) {
+		if (self.mode == WLCameraModeCandy) {
 			image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/480/nature"]]];
 		} else {
 			image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/640/nature"]]];
@@ -375,6 +433,23 @@
 	}];
 }
 
+- (void)autoFocusAndExposureAtPoint:(CGPoint)point {
+	__weak typeof(self)weakSelf = self;
+	[self configureSession:^(AVCaptureSession *session) {
+		[weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
+			CGPoint pointOfInterest = [self pointOfInterestFromPoint:point];
+			if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+				[device setFocusPointOfInterest:pointOfInterest];
+				[device setFocusMode:AVCaptureFocusModeAutoFocus];
+			}
+			if ([device isExposurePointOfInterestSupported] && [device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+				[device setExposurePointOfInterest:pointOfInterest];
+				[device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
+			}
+		}];
+	}];
+}
+
 - (CGPoint)pointOfInterestFromPoint:(CGPoint)point {
     CGSize frameSize = self.cameraView.frame.size;
     CGSize apertureSize = CMVideoFormatDescriptionGetCleanAperture([[self videoPort] formatDescription], YES).size;
@@ -396,6 +471,13 @@
         }
     }
     return nil;
+}
+
+- (void)setZoomScale:(CGFloat)zoomScale {
+	AVCaptureConnection* connection = self.connection;
+	_zoomScale = Smoothstep(1, connection.videoMaxScaleAndCropFactor, zoomScale);
+	connection.videoScaleAndCropFactor = _zoomScale;
+	self.previewLayer.affineTransform = CGAffineTransformMakeScale(_zoomScale, _zoomScale);
 }
 
 #pragma mark - PGCameraInteractionViewDelegate

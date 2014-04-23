@@ -143,7 +143,7 @@
 - (WLCameraViewController*)cameraViewController {
 	WLCameraViewController* cameraController = [self.storyboard cameraViewController];
 	cameraController.delegate = self;
-	cameraController.mode = WLCameraModeFullSize;
+	cameraController.mode = WLCameraModeCandy;
 	return cameraController;
 }
 
@@ -170,7 +170,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isCameraSegue]) {
 		WLCameraViewController* cameraController = segue.destinationViewController;
-		cameraController.mode = WLCameraModeFullSize;
+		cameraController.mode = WLCameraModeCandy;
 		cameraController.delegate = self;
 		[UIView beginAnimations:nil context:nil];
 		self.firstContributorView.alpha = 0.0f;

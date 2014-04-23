@@ -28,13 +28,13 @@
 
 + (WLCountry *)getCurrentCountry {
 	CTTelephonyNetworkInfo *networkInfo = [[CTTelephonyNetworkInfo alloc] init];
-	NSString *code = [[networkInfo subscriberCellularProvider] isoCountryCode];
+	NSString *code = [[[networkInfo subscriberCellularProvider] isoCountryCode] lowercaseString];
 	if (code.length == 0) {
-		code = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+		code = [[[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] lowercaseString];
 	}
 	NSArray* countries = [WLCountry getAllCountries];
 	for (WLCountry * country in countries) {
-		if ([country.code isEqualToString:code]) {
+		if ([[country.code lowercaseString] isEqualToString:code]) {
 			return country;
 		}
 	}

@@ -90,7 +90,7 @@
 - (WLCameraViewController*)cameraViewController {
 	WLCameraViewController* cameraController = [self.storyboard cameraViewController];
 	cameraController.delegate = self;
-	cameraController.mode = WLCameraModeFullSize;
+	cameraController.mode = WLCameraModeCandy;
 	return cameraController;
 }
 
@@ -222,7 +222,7 @@
 	} else if ([segue isCameraSegue]) {
 		WLCameraViewController* cameraController = segue.destinationViewController;
 		cameraController.delegate = self;
-		cameraController.mode = WLCameraModeFullSize;
+		cameraController.mode = WLCameraModeCandy;
 	}
 }
 

@@ -234,6 +234,13 @@
 	if(![self.session isRunning]) {
         return;
     }
+	
+	for (UIView* subview in self.cameraView.subviews) {
+		if ([subview isKindOfClass:[WLCameraAdjustmentView class]]) {
+			[subview removeFromSuperview];
+		}
+	}
+	
 	CGPoint point = [sender locationInView:self.cameraView];
     [self autoFocusAndExposureAtPoint:point];
 	WLCameraAdjustmentView *focusView = [[WLCameraAdjustmentView alloc] initWithFrame:CGRectMake(0, 0, 67, 67)];

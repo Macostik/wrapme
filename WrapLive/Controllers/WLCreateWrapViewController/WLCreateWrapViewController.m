@@ -196,10 +196,8 @@
     cell.item = contributor;
 	if ([self.editingWrap.contributor isCurrentUser]) {
 		cell.deletable = YES;
-	} else if ([contributor isEqualToUser:self.editingWrap.contributor]) {
-		cell.deletable = NO;
 	} else {
-		cell.deletable = ![self.wrap.contributors containsObject:contributor byBlock:[WLUser equalityBlock]];
+		cell.deletable = ![contributor isEqualToUser:self.editingWrap.contributor];
 	}
     return cell;
 }

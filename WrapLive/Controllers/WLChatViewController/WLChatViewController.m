@@ -23,8 +23,10 @@
 #import "NSObject+NibAdditions.h"
 #import "WLUploadingQueue.h"
 #import "WLCollectionViewFlowLayout.h"
+#import "UIScrollView+Additions.h"
+#import "WLKeyboardBroadcaster.h"
 
-@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout>
+@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver>
 
 @property (nonatomic, strong) NSMutableArray* dates;
 
@@ -68,6 +70,8 @@
 	[self refreshMessages];
 	
 	self.backSwipeGestureEnabled = YES;
+	
+	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -169,6 +173,20 @@
 	}];
 }
 
+#pragma mark - WLKeyboardBroadcastReceiver
+
+- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
+	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height;
+	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
+	[self.collectionView reloadData];
+}
+
+- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(CGFloat)keyboardHeight {
+	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - keyboardHeight;
+	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
+	[self.collectionView reloadData];
+}
+
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
@@ -185,7 +203,7 @@
 	[[WLUploadingQueue instance] uploadMessage:text wrap:self.wrap success:^(id object) {
 		[weakSelf insertMessage:object];
 		[weakSelf.collectionView reloadData];
-		[weakSelf.collectionView setContentOffset:CGPointZero animated:YES];
+		[weakSelf.collectionView scrollToTopAnimated:YES];
 	} failure:^(NSError *error) {
 		[error show];
 	}];
@@ -197,18 +215,6 @@
 
 - (void)composeBarDidReturn:(WLComposeBar *)composeBar {
 	[composeBar resignFirstResponder];
-}
-
-- (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
-	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - 216;
-	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
-	[self.collectionView reloadData];
-}
-
-- (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
-	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height;
-	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
-	[self.collectionView reloadData];
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {

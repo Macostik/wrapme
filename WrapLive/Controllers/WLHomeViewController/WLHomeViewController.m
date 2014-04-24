@@ -105,7 +105,7 @@
 
 #pragma mark - WLWrapBroadcastReceiver
 
-- (void)wrapBroadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
 	if (self.topWrap) {
 		NSMutableArray* wraps = [NSMutableArray arrayWithObject:self.topWrap];
 		[wraps addObjectsFromArray:_wraps];
@@ -114,7 +114,7 @@
 	}
 }
 
-- (void)wrapBroadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
 	[self fetchWraps:1];
 }
 

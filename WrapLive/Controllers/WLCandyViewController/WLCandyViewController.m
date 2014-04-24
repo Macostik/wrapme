@@ -24,10 +24,12 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIStoryboard+Additions.h"
 #import "WLImageViewController.h"
+#import "UIScrollView+Additions.h"
+#import "WLKeyboardBroadcaster.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
-@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate>
+@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -52,6 +54,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 		[weakSelf refresh];
 	}];
 	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
+	
+	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 
 - (UIView *)swipeView {
@@ -113,6 +117,17 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	}
 }
 
+#pragma mark - WLKeyboardBroadcastReceiver
+
+- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
+	self.containerView.height = self.view.height - self.topView.height;
+}
+
+- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(CGFloat)keyboardHeight {
+	self.containerView.height = self.view.height - self.topView.height - keyboardHeight;
+	[self.tableView scrollToBottomAnimated:YES];
+}
+
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
@@ -125,9 +140,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[[WLAPIManager instance] addComment:comment toCandy:self.candy fromWrap:self.wrap success:^(id object) {
 		[weakSelf.tableView reloadData];
 		[weakSelf.wrap broadcastChange];
-		if (weakSelf.tableView.contentSize.height > [weakSelf calculateTableHeight]) {
-			[weakSelf.tableView setContentOffset:CGPointMake(0, weakSelf.tableView.contentSize.height - weakSelf.tableView.height) animated:NO];
-		}
+		[weakSelf.tableView scrollToBottomAnimated:YES];
 	} failure:^(NSError *error) {
 		[error show];
 	}];
@@ -143,20 +156,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[composeBar resignFirstResponder];
 }
 
-- (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
-	self.containerView.frame = CGRectMake(self.containerView.x, self.containerView.y, self.containerView.width, self.view.height - self.topView.height - 216);
-	if (self.tableView.contentSize.height > [self calculateTableHeight]) {
-		[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y + 216) animated:NO];
-	} else {
-		[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y + 216 - ([self calculateTableHeight] - self.tableView.contentSize.height)) animated:NO];
-	}
-}
-
-- (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
-	self.containerView.frame = CGRectMake(self.containerView.x, self.containerView.y, self.containerView.width, self.view.height - self.topView.height);
-	if (self.tableView.contentSize.height > [self calculateTableHeight]) {
-		[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height - self.tableView.height) animated:NO];
-	}
+- (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
+	return NO;
 }
 
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>

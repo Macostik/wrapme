@@ -18,10 +18,11 @@
 #import "UIImage+Resize.h"
 #import "UIButton+Additions.h"
 #import "UIImageView+ImageLoading.h"
+#import "WLKeyboardBroadcaster.h"
 
 static NSInteger WLProfileNameLimit = 40;
 
-@interface WLProfileInformationViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate>
+@interface WLProfileInformationViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UIButton *createImageButton;
@@ -50,6 +51,8 @@ static NSInteger WLProfileNameLimit = 40;
 	
 	self.nameTextField.text = self.user.name;
 	self.profileImageView.imageUrl = self.user.picture.medium;
+	
+	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 
 - (UIViewController *)signUpViewController {
@@ -134,19 +137,29 @@ static NSInteger WLProfileNameLimit = 40;
 	return resultString.length <= WLProfileNameLimit;
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-	CGFloat translation = textField.y - 0.5 * (self.view.height - 216 - textField.height);
-	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
-	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.mainView.transform = transform;
-	} completion:^(BOOL finished) {}];
-}
-
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 	self.user.name = self.nameTextField.text;
 	[self verifyContinueButton];
+}
+
+#pragma mark - WLKeyboardBroadcastReceiver
+
+- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(CGFloat)keyboardHeight {
+	__weak typeof(self)weakSelf = self;
+	CGAffineTransform transform = self.mainView.transform;
+	self.mainView.transform = CGAffineTransformIdentity;
+	CGPoint center = [self.view convertPoint:self.nameTextField.center fromView:self.nameTextField.superview];
+	CGFloat translation = center.y - (self.view.height - keyboardHeight)/2.0f;
+	self.mainView.transform = transform;
+	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		weakSelf.mainView.transform = CGAffineTransformMakeTranslation(0, -translation);
+	} completion:^(BOOL finished) {}];
+}
+
+- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
+	__weak typeof(self)weakSelf = self;
 	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.mainView.transform = CGAffineTransformIdentity;
+		weakSelf.mainView.transform = CGAffineTransformIdentity;
 	} completion:^(BOOL finished) {}];
 }
 

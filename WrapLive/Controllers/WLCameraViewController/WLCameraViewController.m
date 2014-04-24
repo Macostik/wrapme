@@ -44,6 +44,7 @@
 @property (weak, nonatomic) IBOutlet UIView *acceptButtonsView;
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
+@property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
 
 @property (nonatomic, strong) NSMutableDictionary* metadata;
 
@@ -138,7 +139,7 @@
 		UIImage *result = nil;
 		if (weakSelf.mode == WLCameraModeAvatar) {
 			result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
-												 bounds:CGSizeMake(200, 200)
+												 bounds:CGSizeMake(320, 320)
 								   interpolationQuality:kCGInterpolationDefault];
 		} else {
 			result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
@@ -239,7 +240,7 @@
 	focusView.center = point;
 	focusView.userInteractionEnabled = NO;
 	[self.cameraView addSubview:focusView];
-	[UIView animateWithDuration:0.33f delay:0.5f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+	[UIView animateWithDuration:0.33f delay:1.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		focusView.alpha = 0.0f;
 	} completion:^(BOOL finished) {
 		[focusView removeFromSuperview];
@@ -511,6 +512,22 @@
 	_zoomScale = Smoothstep(1, connection.videoMaxScaleAndCropFactor, zoomScale);
 	connection.videoScaleAndCropFactor = _zoomScale;
 	self.previewLayer.affineTransform = CGAffineTransformMakeScale(_zoomScale, _zoomScale);
+	[self showZoomLabel];
+}
+
+- (void)showZoomLabel {
+	self.zoomLabel.text = [NSString stringWithFormat:@"%dx", (int)self.zoomScale];
+	[UIView beginAnimations:nil context:nil];
+	self.zoomLabel.alpha = 1.0f;
+	[UIView commitAnimations];
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideZoomLabel) object:nil];
+	[self performSelector:@selector(hideZoomLabel) withObject:nil afterDelay:1.0f];
+}
+
+- (void)hideZoomLabel {
+	[UIView beginAnimations:nil context:nil];
+	self.zoomLabel.alpha = 0.0f;
+	[UIView commitAnimations];
 }
 
 #pragma mark - PGCameraInteractionViewDelegate

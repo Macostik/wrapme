@@ -63,7 +63,7 @@
 
 #pragma mark - WLWrapBroadcastReceiver
 
-- (void)wrapBroadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
 	[self.collectionView reloadData];
 }
 

@@ -38,6 +38,7 @@
 
 - (void)configureScrollViewWithImage:(UIImage*)image {
 	CGSize imageSize = CGSizeMake(image.size.width*image.scale, image.size.height*image.scale);
+	self.scrollView.contentSize = imageSize;
 	self.scrollView.maximumZoomScale = imageSize.width / CGSizeThatFitsSize(self.view.size, imageSize).width;
 }
 

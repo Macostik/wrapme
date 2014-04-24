@@ -49,7 +49,6 @@
 		12A8AA6D18F5919700F67113 /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
 		12A8AA7018F592B500F67113 /* WLLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12A8AA6F18F592B500F67113 /* WLLoadingView.xib */; };
 		12A8AA7418F59CE000F67113 /* WLMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA7318F59CE000F67113 /* WLMessageGroupCell.m */; };
-		12A9EFB318F7E858002CBF75 /* WLWrapBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9EFB218F7E858002CBF75 /* WLWrapBroadcaster.m */; };
 		12A9EFBA18F8026E002CBF75 /* WLCameraInteractionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9EFB618F8026E002CBF75 /* WLCameraInteractionView.m */; };
 		12A9EFBB18F8026E002CBF75 /* WLCameraAdjustmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9EFB918F8026E002CBF75 /* WLCameraAdjustmentView.m */; };
 		12C4416618F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 12C4416518F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m */; };
@@ -73,6 +72,10 @@
 		12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */; };
 		12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* WLItemCell.m */; };
 		12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
+		12E0F04A1909069200463FEC /* UIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F0491909069200463FEC /* UIScrollView+Additions.m */; };
+		12E0F04E19090B0600463FEC /* WLBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F04D19090B0600463FEC /* WLBroadcaster.m */; };
+		12E0F05A19090B2E00463FEC /* WLWrapBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F05919090B2E00463FEC /* WLWrapBroadcaster.m */; };
+		12E0F05E19090C0900463FEC /* WLKeyboardBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F05D19090C0900463FEC /* WLKeyboardBroadcaster.m */; };
 		12E1104219066C2D007DB4AC /* WLSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104119066C2D007DB4AC /* WLSwipeViewController.m */; };
 		12E1104519066C7C007DB4AC /* UIView+QuatzCoreAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104419066C7C007DB4AC /* UIView+QuatzCoreAnimations.m */; };
 		12E1104C19067095007DB4AC /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
@@ -187,8 +190,6 @@
 		12A8AA6F18F592B500F67113 /* WLLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLLoadingView.xib; path = WLLoadingView/WLLoadingView.xib; sourceTree = "<group>"; };
 		12A8AA7218F59CE000F67113 /* WLMessageGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLMessageGroupCell.h; path = WLChatViewController/WLMessageGroupCell/WLMessageGroupCell.h; sourceTree = "<group>"; };
 		12A8AA7318F59CE000F67113 /* WLMessageGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLMessageGroupCell.m; path = WLChatViewController/WLMessageGroupCell/WLMessageGroupCell.m; sourceTree = "<group>"; };
-		12A9EFB118F7E858002CBF75 /* WLWrapBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapBroadcaster.h; path = WLWrapBroadcaster/WLWrapBroadcaster.h; sourceTree = "<group>"; };
-		12A9EFB218F7E858002CBF75 /* WLWrapBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapBroadcaster.m; path = WLWrapBroadcaster/WLWrapBroadcaster.m; sourceTree = "<group>"; };
 		12A9EFB518F8026E002CBF75 /* WLCameraInteractionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCameraInteractionView.h; sourceTree = "<group>"; };
 		12A9EFB618F8026E002CBF75 /* WLCameraInteractionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCameraInteractionView.m; sourceTree = "<group>"; };
 		12A9EFB818F8026E002CBF75 /* WLCameraAdjustmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCameraAdjustmentView.h; sourceTree = "<group>"; };
@@ -236,6 +237,14 @@
 		12DCBA8318DB18F400A4BC44 /* WLItemCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLItemCellProtocol.h; sourceTree = "<group>"; };
 		12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapViewController.h; path = WLWrapViewController/WLWrapViewController.h; sourceTree = "<group>"; };
 		12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapViewController.m; path = WLWrapViewController/WLWrapViewController.m; sourceTree = "<group>"; };
+		12E0F0481909069200463FEC /* UIScrollView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+Additions.h"; path = "UIScrollView/UIScrollView+Additions.h"; sourceTree = "<group>"; };
+		12E0F0491909069200463FEC /* UIScrollView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+Additions.m"; path = "UIScrollView/UIScrollView+Additions.m"; sourceTree = "<group>"; };
+		12E0F04C19090B0600463FEC /* WLBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBroadcaster.h; path = WLBroadcaster/WLBroadcaster.h; sourceTree = "<group>"; };
+		12E0F04D19090B0600463FEC /* WLBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBroadcaster.m; path = WLBroadcaster/WLBroadcaster.m; sourceTree = "<group>"; };
+		12E0F05819090B2E00463FEC /* WLWrapBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapBroadcaster.h; sourceTree = "<group>"; };
+		12E0F05919090B2E00463FEC /* WLWrapBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapBroadcaster.m; sourceTree = "<group>"; };
+		12E0F05C19090C0900463FEC /* WLKeyboardBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLKeyboardBroadcaster.h; path = WLBroadcaster/WLKeyboardBroadcaster/WLKeyboardBroadcaster.h; sourceTree = "<group>"; };
+		12E0F05D19090C0900463FEC /* WLKeyboardBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLKeyboardBroadcaster.m; path = WLBroadcaster/WLKeyboardBroadcaster/WLKeyboardBroadcaster.m; sourceTree = "<group>"; };
 		12E1104019066C2D007DB4AC /* WLSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSwipeViewController.h; sourceTree = "<group>"; };
 		12E1104119066C2D007DB4AC /* WLSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSwipeViewController.m; sourceTree = "<group>"; };
 		12E1104319066C7C007DB4AC /* UIView+QuatzCoreAnimations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+QuatzCoreAnimations.h"; sourceTree = "<group>"; };
@@ -637,8 +646,8 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				12E0F04B19090AE800463FEC /* WLBroadcaster */,
 				12D4E94518FBEC3700B8F2AF /* WLUploadingQueue */,
-				12A9EFB018F7E818002CBF75 /* WLWrapBroadcaster */,
 				12E33ACE18F3E18200E77229 /* WLWrapDate */,
 				12D962EA18E5897400C57CE1 /* WLPicture */,
 				129654E018E197D700FF43F6 /* WLAddressBook */,
@@ -720,15 +729,6 @@
 				12A8AA7318F59CE000F67113 /* WLMessageGroupCell.m */,
 			);
 			name = WLMessageGroupCell;
-			sourceTree = "<group>";
-		};
-		12A9EFB018F7E818002CBF75 /* WLWrapBroadcaster */ = {
-			isa = PBXGroup;
-			children = (
-				12A9EFB118F7E858002CBF75 /* WLWrapBroadcaster.h */,
-				12A9EFB218F7E858002CBF75 /* WLWrapBroadcaster.m */,
-			);
-			name = WLWrapBroadcaster;
 			sourceTree = "<group>";
 		};
 		12A9EFB418F8026E002CBF75 /* WLCameraInteractionView */ = {
@@ -908,6 +908,45 @@
 			name = WLWrapViewController;
 			sourceTree = "<group>";
 		};
+		12E0F0471909066B00463FEC /* UIScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				12E0F0481909069200463FEC /* UIScrollView+Additions.h */,
+				12E0F0491909069200463FEC /* UIScrollView+Additions.m */,
+			);
+			name = UIScrollView;
+			sourceTree = "<group>";
+		};
+		12E0F04B19090AE800463FEC /* WLBroadcaster */ = {
+			isa = PBXGroup;
+			children = (
+				12E0F05B19090BF000463FEC /* WLKeyboardBroadcaster */,
+				12E0F05719090B2E00463FEC /* WLWrapBroadcaster */,
+				12E0F04C19090B0600463FEC /* WLBroadcaster.h */,
+				12E0F04D19090B0600463FEC /* WLBroadcaster.m */,
+			);
+			name = WLBroadcaster;
+			sourceTree = "<group>";
+		};
+		12E0F05719090B2E00463FEC /* WLWrapBroadcaster */ = {
+			isa = PBXGroup;
+			children = (
+				12E0F05819090B2E00463FEC /* WLWrapBroadcaster.h */,
+				12E0F05919090B2E00463FEC /* WLWrapBroadcaster.m */,
+			);
+			name = WLWrapBroadcaster;
+			path = WLBroadcaster/WLWrapBroadcaster;
+			sourceTree = "<group>";
+		};
+		12E0F05B19090BF000463FEC /* WLKeyboardBroadcaster */ = {
+			isa = PBXGroup;
+			children = (
+				12E0F05C19090C0900463FEC /* WLKeyboardBroadcaster.h */,
+				12E0F05D19090C0900463FEC /* WLKeyboardBroadcaster.m */,
+			);
+			name = WLKeyboardBroadcaster;
+			sourceTree = "<group>";
+		};
 		12E1103F19066C2D007DB4AC /* WLSwipeViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -986,6 +1025,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				12E0F0471909066B00463FEC /* UIScrollView */,
 				1221EA6718FD371C00C64DAE /* UIButton */,
 				12EBF8D518F6A6D000EA3185 /* UIViewController */,
 				120ED84C18F2E53700C35505 /* ALAssetsLibrary */,
@@ -1262,6 +1302,7 @@
 				12E8FF1418E960E000BF1B96 /* StreamLayout.m in Sources */,
 				12D653E618E43545009CE64C /* WLContributorCell.m in Sources */,
 				12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */,
+				12E0F05A19090B2E00463FEC /* WLWrapBroadcaster.m in Sources */,
 				121B1B2E18E07430001F585C /* WLCountry.m in Sources */,
 				12E5BA5518EAB9C40033CE4E /* WLWrapEntry.m in Sources */,
 				12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */,
@@ -1272,12 +1313,14 @@
 				121B1B4218E0848D001F585C /* WLCountryCell.m in Sources */,
 				1293678318E33A3500527250 /* WLWrapCandyCell.m in Sources */,
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
+				12E0F05E19090C0900463FEC /* WLKeyboardBroadcaster.m in Sources */,
 				ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */,
 				12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */,
 				12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */,
 				12E1104C19067095007DB4AC /* WLCandyViewController.m in Sources */,
 				1221EA6A18FD372F00C64DAE /* UIButton+Additions.m in Sources */,
 				12E1104219066C2D007DB4AC /* WLSwipeViewController.m in Sources */,
+				12E0F04A1909069200463FEC /* UIScrollView+Additions.m in Sources */,
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
 				12E8FF2918E9B59200BF1B96 /* UIImage+WLStoring.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
@@ -1311,7 +1354,6 @@
 				12317E5A1908096200D1A9EE /* WLImageViewController.m in Sources */,
 				12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */,
 				1293677F18E337D900527250 /* WLWrapCandiesCell.m in Sources */,
-				12A9EFB318F7E858002CBF75 /* WLWrapBroadcaster.m in Sources */,
 				129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */,
 				C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */,
 				12D4E94818FBEC5100B8F2AF /* WLUploadingQueue.m in Sources */,
@@ -1332,6 +1374,7 @@
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
 				ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */,
+				12E0F04E19090B0600463FEC /* WLBroadcaster.m in Sources */,
 				12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */,
 				12E8FF1B18E97D3F00BF1B96 /* UIImageView+ImageLoading.m in Sources */,
 			);

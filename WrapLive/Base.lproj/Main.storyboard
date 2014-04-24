@@ -73,6 +73,13 @@
                                 <rect key="frame" x="0.0" y="384" width="320" height="184"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8x" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bPd-1S-g8V">
+                                        <rect key="frame" x="278" y="-21" width="42" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6qh-b4-dSO">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="184"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -194,6 +201,7 @@
                         <outlet property="rotateButton" destination="KlN-xP-cqu" id="yyP-Tn-Ehb"/>
                         <outlet property="takePhotoButton" destination="6qh-b4-dSO" id="CFx-PZ-CN6"/>
                         <outlet property="topView" destination="eMD-WY-m6L" id="omx-mO-WAX"/>
+                        <outlet property="zoomLabel" destination="bPd-1S-g8V" id="CDC-Q0-o5P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xaZ-H0-ucD" userLabel="First Responder" sceneMemberID="firstResponder"/>

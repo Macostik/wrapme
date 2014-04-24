@@ -44,7 +44,9 @@ static inline NSString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
 	
 	self.currentModeButton = [self initializeButton:nil action:@selector(changeMode:)];
 	self.currentModeButton.width = self.width/2;
+	[self.currentModeButton setImage:[UIImage imageNamed:@"ic_flash"] forState:UIControlStateNormal];
 	self.onButton = [self initializeButton:WLFlashModeStringValue(AVCaptureFlashModeOn) action:@selector(selectOn:)];
+	[self.onButton setImage:[UIImage imageNamed:@"ic_flash"] forState:UIControlStateNormal];
 	self.offButton = [self initializeButton:WLFlashModeStringValue(AVCaptureFlashModeOff) action:@selector(selectOff:)];
 	self.autoButton = [self initializeButton:WLFlashModeStringValue(AVCaptureFlashModeAuto) action:@selector(selectAuto:)];
 	
@@ -66,9 +68,10 @@ static inline NSString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
 - (UIButton*)initializeButton:(NSString*)title action:(SEL)action {
 	CGRect frame = CGRectMake(0, 0, self.width/3, self.height);
 	UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 	[button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
 	button.frame = frame;
-	[button setTitleColor:[UIColor WL_orangeColor] forState:UIControlStateNormal];
+	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[button setTitle:title forState:UIControlStateNormal];
 	button.titleLabel.font = [UIFont regularSmallFont];
 	[self addSubview:button];
@@ -81,8 +84,7 @@ static inline NSString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
 
 - (void)setMode:(AVCaptureFlashMode)mode animated:(BOOL)animated {
 	_mode = mode;
-	NSString* title = [NSString stringWithFormat:@"⚡️ %@", WLFlashModeStringValue(mode)];
-	[self.currentModeButton setTitle:title forState:UIControlStateNormal];
+	[self.currentModeButton setTitle:WLFlashModeStringValue(mode) forState:UIControlStateNormal];
 }
 
 - (void)setSelecting:(BOOL)selecting {

@@ -25,11 +25,7 @@ static NSDictionary* mapping = nil;
 					@"small":@[@"small_avatar_url",
 							   @"small_cover_url",
 							   @"small_image_attachment_url",
-							   @"contributor_small_avatar_url"],
-					@"thumbnail":@[@"thumb_avatar_url",
-								   @"thumb_cover_url",
-								   @"thumb_image_attachment_url",
-								   @"contributor_small_avatar_url"]};
+							   @"contributor_small_avatar_url"]};
 	}
 	return mapping;
 }

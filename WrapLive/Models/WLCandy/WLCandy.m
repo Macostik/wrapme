@@ -24,7 +24,6 @@
 	candy.picture.large = path;
 	candy.picture.medium = path;
 	candy.picture.small = path;
-	candy.picture.thumbnail = path;
 	return candy;
 }
 
@@ -39,8 +38,7 @@
 + (NSDictionary*)pictureMapping {
 	return @{@"large":@[@"large_image_attachment_url"],
 			 @"medium":@[@"medium_image_attachment_url"],
-			 @"small":@[@"small_image_attachment_url"],
-			 @"thumbnail":@[@"thumb_image_attachment_url"]};
+			 @"small":@[@"small_image_attachment_url"]};
 }
 
 + (NSMutableDictionary *)mapping {

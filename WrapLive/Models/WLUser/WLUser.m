@@ -15,8 +15,7 @@
 + (NSDictionary*)pictureMapping {
 	return @{@"large":@[@"large_avatar_url",@"contributor_large_avatar_url"],
 			 @"medium":@[@"medium_avatar_url",@"contributor_medium_avatar_url"],
-			 @"small":@[@"small_avatar_url",@"contributor_small_avatar_url"],
-			 @"thumbnail":@[@"thumb_avatar_url",@"contributor_small_avatar_url"]};
+			 @"small":@[@"small_avatar_url",@"contributor_small_avatar_url"]};
 }
 
 + (NSMutableDictionary *)mapping {

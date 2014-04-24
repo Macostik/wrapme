@@ -23,8 +23,7 @@
 + (NSDictionary*)pictureMapping {
 	return @{@"large":@[@"large_cover_url"],
 			 @"medium":@[@"medium_cover_url"],
-			 @"small":@[@"small_cover_url"],
-			 @"thumbnail":@[@"thumb_cover_url"]};
+			 @"small":@[@"small_cover_url"]};
 }
 
 + (NSMutableDictionary *)mapping {

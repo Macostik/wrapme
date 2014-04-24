@@ -75,7 +75,7 @@
 }
 
 - (void)setWrapData {
-	self.coverView.imageUrl = self.wrap.picture.thumbnail;
+	self.coverView.imageUrl = self.wrap.picture.small;
 	self.nameLabel.text = self.wrap.name;
 	__weak typeof(self)weakSelf = self;
 	[self.wrap contributorNames:^(NSString *names) {

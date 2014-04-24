@@ -15,6 +15,5 @@
 @property (strong, nonatomic) NSString* large;
 @property (strong, nonatomic) NSString* medium;
 @property (strong, nonatomic) NSString* small;
-@property (strong, nonatomic) NSString* thumbnail;
 
 @end

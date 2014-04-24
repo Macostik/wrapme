@@ -144,7 +144,6 @@ static NSUInteger WLComposeBarDefaultCharactersLimit = 360;
 }
 
 - (BOOL)resignFirstResponder {
-	self.text = nil;
 	return [self.textField resignFirstResponder];
 }
 

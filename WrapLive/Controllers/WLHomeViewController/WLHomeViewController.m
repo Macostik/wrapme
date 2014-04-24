@@ -34,6 +34,10 @@
 #import "UIViewController+Additions.h"
 #import "WLWrapBroadcaster.h"
 #import "WLUploadingQueue.h"
+#import "UILabel+Additions.h"
+
+static NSUInteger WLHomeTopWrapCandiesLimit = 6;
+static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate, WLWrapBroadcastReceiver>
 
@@ -42,6 +46,7 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapAuthorsLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *topWrapCoverView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
 @property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
@@ -99,8 +104,7 @@
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf fetchWraps:1];
 	}];
-	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
-	self.refresher.contentMode = UIViewContentModeLeft;
+	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
 }
 
 #pragma mark - WLWrapBroadcastReceiver
@@ -156,7 +160,7 @@
 	}
 }
 
-- (void)validateFooterWithObjectsCount:(int)count {
+- (void)validateFooterWithObjectsCount:(NSInteger)count {
 	if (count < WLAPIGeneralPageSize) {
 		self.tableView.tableFooterView = nil;
 	} else if (self.tableView.tableFooterView == nil) {
@@ -194,10 +198,12 @@
 	__weak typeof(self)weakSelf = self;
 	[wrap contributorNames:^(NSString *names) {
 		weakSelf.headerWrapAuthorsLabel.text = names;
+		[weakSelf.headerWrapAuthorsLabel sizeToFitHeightWithMinimumHeight:34];
 	}];
-	self.latestCandies = [wrap latestCandies:5];
-	self.headerView.height = [self.latestCandies count] > 2 ? 217 : 111;
+	self.latestCandies = [wrap latestCandies:WLHomeTopWrapCandiesLimit];
+	self.headerView.height = [self.latestCandies count] > 2 ? 280 : 174;
 	self.tableView.tableHeaderView = self.headerView;
+	self.topWrapCoverView.imageUrl = wrap.picture.small;
 	[self.topWrapStreamView reloadData];
 }
 
@@ -300,7 +306,7 @@
 }
 
 - (NSInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSInteger)section {
-	return ([self.latestCandies count] > 2) ? 5 : 2;
+	return ([self.latestCandies count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
 }
 
 - (UIView*)streamView:(StreamView*)streamView viewForItem:(StreamLayoutItem*)item {
@@ -323,10 +329,6 @@
 
 - (CGFloat)streamView:(StreamView*)streamView ratioForItemAtIndex:(StreamIndex)index {
 	return 1;
-}
-
-- (CGFloat)streamView:(StreamView *)streamView initialRangeForColumn:(NSInteger)column {
-	return column == 1 ? (streamView.width / 3.0f) : 0;
 }
 
 - (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {

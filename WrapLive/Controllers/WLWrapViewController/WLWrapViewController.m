@@ -28,6 +28,7 @@
 #import "WLLoadingView.h"
 #import "WLWrapBroadcaster.h"
 #import "WLUploadingQueue.h"
+#import "UILabel+Additions.h"
 
 @interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate, WLWrapBroadcastReceiver>
 
@@ -79,7 +80,7 @@
 	__weak typeof(self)weakSelf = self;
 	[self.wrap contributorNames:^(NSString *names) {
 		weakSelf.contributorsLabel.text = names;
-		weakSelf.contributorsLabel.height = MIN(34, [weakSelf.contributorsLabel sizeThatFits:CGSizeMake(weakSelf.contributorsLabel.width, CGFLOAT_MAX)].height);
+		[weakSelf.contributorsLabel sizeToFitHeightWithMinimumHeight:34];
 	}];
 }
 

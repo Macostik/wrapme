@@ -12,6 +12,7 @@
 #import "UIImageView+ImageLoading.h"
 #import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
+#import "UILabel+Additions.h"
 
 @interface WLCommentCell()
 
@@ -39,7 +40,7 @@
 - (void)setupItemData:(WLComment *)entry {
 	self.authorNameLabel.text = entry.contributor.name;
 	self.commentLabel.text = entry.text;
-	self.commentLabel.height = [self.commentLabel sizeThatFits:CGSizeMake(self.commentLabel.width, CGFLOAT_MAX)].height;
+	[self.commentLabel sizeToFitHeight];
 	self.authorImageView.imageUrl = entry.contributor.picture.medium;
 }
 

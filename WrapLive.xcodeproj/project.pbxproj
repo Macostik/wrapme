@@ -76,6 +76,7 @@
 		12E0F04E19090B0600463FEC /* WLBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F04D19090B0600463FEC /* WLBroadcaster.m */; };
 		12E0F05A19090B2E00463FEC /* WLWrapBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F05919090B2E00463FEC /* WLWrapBroadcaster.m */; };
 		12E0F05E19090C0900463FEC /* WLKeyboardBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F05D19090C0900463FEC /* WLKeyboardBroadcaster.m */; };
+		12E0F0621909249000463FEC /* UILabel+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F0611909249000463FEC /* UILabel+Additions.m */; };
 		12E1104219066C2D007DB4AC /* WLSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104119066C2D007DB4AC /* WLSwipeViewController.m */; };
 		12E1104519066C7C007DB4AC /* UIView+QuatzCoreAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104419066C7C007DB4AC /* UIView+QuatzCoreAnimations.m */; };
 		12E1104C19067095007DB4AC /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
@@ -245,6 +246,8 @@
 		12E0F05919090B2E00463FEC /* WLWrapBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapBroadcaster.m; sourceTree = "<group>"; };
 		12E0F05C19090C0900463FEC /* WLKeyboardBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLKeyboardBroadcaster.h; path = WLBroadcaster/WLKeyboardBroadcaster/WLKeyboardBroadcaster.h; sourceTree = "<group>"; };
 		12E0F05D19090C0900463FEC /* WLKeyboardBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLKeyboardBroadcaster.m; path = WLBroadcaster/WLKeyboardBroadcaster/WLKeyboardBroadcaster.m; sourceTree = "<group>"; };
+		12E0F0601909249000463FEC /* UILabel+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+Additions.h"; path = "UILabel/UILabel+Additions.h"; sourceTree = "<group>"; };
+		12E0F0611909249000463FEC /* UILabel+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+Additions.m"; path = "UILabel/UILabel+Additions.m"; sourceTree = "<group>"; };
 		12E1104019066C2D007DB4AC /* WLSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSwipeViewController.h; sourceTree = "<group>"; };
 		12E1104119066C2D007DB4AC /* WLSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSwipeViewController.m; sourceTree = "<group>"; };
 		12E1104319066C7C007DB4AC /* UIView+QuatzCoreAnimations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+QuatzCoreAnimations.h"; sourceTree = "<group>"; };
@@ -947,6 +950,15 @@
 			name = WLKeyboardBroadcaster;
 			sourceTree = "<group>";
 		};
+		12E0F05F1909247E00463FEC /* UILabel */ = {
+			isa = PBXGroup;
+			children = (
+				12E0F0601909249000463FEC /* UILabel+Additions.h */,
+				12E0F0611909249000463FEC /* UILabel+Additions.m */,
+			);
+			name = UILabel;
+			sourceTree = "<group>";
+		};
 		12E1103F19066C2D007DB4AC /* WLSwipeViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1025,6 +1037,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				12E0F05F1909247E00463FEC /* UILabel */,
 				12E0F0471909066B00463FEC /* UIScrollView */,
 				1221EA6718FD371C00C64DAE /* UIButton */,
 				12EBF8D518F6A6D000EA3185 /* UIViewController */,
@@ -1373,6 +1386,7 @@
 				129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
+				12E0F0621909249000463FEC /* UILabel+Additions.m in Sources */,
 				ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */,
 				12E0F04E19090B0600463FEC /* WLBroadcaster.m in Sources */,
 				12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */,

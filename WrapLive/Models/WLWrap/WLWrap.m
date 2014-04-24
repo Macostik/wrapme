@@ -70,12 +70,12 @@
 - (NSArray *)latestCandies:(NSInteger)count {
 	NSMutableArray* candies = [NSMutableArray array];
 	for (WLWrapDate* date in self.dates) {
-		if ([candies count] == 5) {
+		if ([candies count] == count) {
 			break;
 		}
 		for (WLCandy* candy in date.candies) {
 			[candies addObject:candy];
-			if ([candies count] == 5) {
+			if ([candies count] == count) {
 				break;
 			}
 		}

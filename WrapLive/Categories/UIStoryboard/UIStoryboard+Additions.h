@@ -15,6 +15,7 @@ static NSString* WLStoryboardSignUpViewControllerIdentifier = @"signUp";
 static NSString* WLStoryboardWrapDataViewControllerIdentifier = @"wrapData";
 static NSString* WLStoryboardChatViewControllerIdentifier = @"chat";
 static NSString* WLStoryboardImageViewControllerIdentifier = @"image";
+static NSString* WLStoryboardEditWrapViewControllerIdentifier = @"editWrap";
 
 @interface UIStoryboard (Additions)
 
@@ -29,6 +30,8 @@ static NSString* WLStoryboardImageViewControllerIdentifier = @"image";
 - (id)wrapDataViewController;
 
 - (id)chatViewController;
+
+- (id)editWrapViewController;
 
 @end
 

@@ -597,7 +597,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="y2d-d2-UUm" kind="push" id="Qny-Iz-aTu"/>
+                                    <action selector="createNewWrap:" destination="L91-fZ-J9O" eventType="touchUpInside" id="PFQ-Bd-kR3"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -626,7 +626,7 @@
         <!--Create Wrap View Controller-->
         <scene sceneID="z3r-xS-Rlo">
             <objects>
-                <viewController id="y2d-d2-UUm" customClass="WLCreateWrapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editWrap" id="y2d-d2-UUm" customClass="WLCreateWrapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ekn-NO-6No">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -689,12 +689,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="0w1-Uc-Uox">
                                 <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="top" id="iXt-3a-F0Q">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="284"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -774,10 +774,10 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <label key="tableFooterView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are the only contributor." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="X4I-0X-nYZ">
                                     <rect key="frame" x="0.0" y="356" width="320" height="44"/>
@@ -818,7 +818,9 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="avatarView" destination="5AP-1b-DWd" id="6YS-wv-yFD"/>
@@ -834,7 +836,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="cXB-TA-phm"/>
                     <connections>
@@ -1098,7 +1100,7 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="y2d-d2-UUm" kind="push" identifier="changeWrap" id="CYp-yF-bGz"/>
+                                                        <action selector="editWrap:" destination="hUj-RK-zkg" eventType="touchUpInside" id="gnl-AR-G3B"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -1654,7 +1656,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Hwu-bo-dkN"/>
-        <segue reference="CYp-yF-bGz"/>
         <segue reference="Bfv-2u-diL"/>
     </inferredMetricsTieBreakers>
 </document>

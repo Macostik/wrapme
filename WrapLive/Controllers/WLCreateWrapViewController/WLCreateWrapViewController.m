@@ -39,11 +39,64 @@
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
+@property (nonatomic) WLWrapTransition transition;
+
 @end
 
 @implementation WLCreateWrapViewController
 
 @synthesize wrap = _wrap;
+
+- (void)presentInViewController:(UIViewController *)controller transition:(WLWrapTransition)transition {
+	self.transition = transition;
+	self.view.frame = controller.view.bounds;
+	[controller.view addSubview:self.view];
+	[controller addChildViewController:self];
+	if (transition != WLWrapTransitionWithoutAnimation) {
+		__weak typeof(self)weakSelf = self;
+		if (transition == WLWrapTransitionFromBottom) {
+			self.view.transform = CGAffineTransformMakeTranslation(0, self.view.height);
+			[UIView animateWithDuration:0.33f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+				weakSelf.view.transform = CGAffineTransformIdentity;
+			} completion:^(BOOL finished) {
+			}];
+		} else if (transition == WLWrapTransitionFromRight) {
+			self.view.transform = CGAffineTransformMakeTranslation(self.view.width, 0);
+			[UIView animateWithDuration:0.33f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+				weakSelf.view.transform = CGAffineTransformIdentity;
+			} completion:^(BOOL finished) {
+			}];
+		}
+	}
+}
+
+- (void)dismiss:(WLWrapTransition)transition {
+	if (transition != WLWrapTransitionWithoutAnimation) {
+		__weak typeof(self)weakSelf = self;
+		if (transition == WLWrapTransitionFromBottom) {
+			[UIView animateWithDuration:0.33f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+				weakSelf.view.transform = CGAffineTransformMakeTranslation(0, weakSelf.view.height);
+			} completion:^(BOOL finished) {
+				[weakSelf.view removeFromSuperview];
+				[weakSelf removeFromParentViewController];
+			}];
+		} else if (transition == WLWrapTransitionFromRight) {
+			[UIView animateWithDuration:0.33f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+				weakSelf.view.transform = CGAffineTransformMakeTranslation(weakSelf.view.width, 0);
+			} completion:^(BOOL finished) {
+				[weakSelf.view removeFromSuperview];
+				[weakSelf removeFromParentViewController];
+			}];
+		}
+	} else {
+		[self.view removeFromSuperview];
+		[self removeFromParentViewController];
+	}
+}
+
+- (void)dismiss {
+	[self dismiss:self.transition];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -121,7 +174,7 @@
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
-	[self.navigationController popViewControllerAnimated:YES];
+	[self dismiss];
 }
 
 - (IBAction)done:(UIButton *)sender {
@@ -148,7 +201,7 @@
 			[weakSelf.wrap updateWithObject:object];
 			[weakSelf.wrap broadcastChange];
 			[weakSelf.spinner stopAnimating];
-			[weakSelf.navigationController popViewControllerAnimated:YES];
+			[weakSelf dismiss];
 			weakSelf.view.userInteractionEnabled = YES;
 		} failure:^(NSError *error) {
 			[error show];
@@ -156,7 +209,7 @@
 			weakSelf.view.userInteractionEnabled = YES;
 		}];
 	} else {
-		[self.navigationController popViewControllerAnimated:YES];
+		[self dismiss];
 	}
 }
 
@@ -169,9 +222,9 @@
 		[weakSelf.spinner stopAnimating];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
 		wrapController.wrap = wrap;
-		NSArray* controllers = @[[weakSelf.navigationController.viewControllers firstObject],wrapController];
-		[weakSelf.navigationController setViewControllers:controllers animated:YES];
 		weakSelf.view.userInteractionEnabled = YES;
+		[weakSelf.parentViewController.navigationController pushViewController:wrapController animated:YES];
+		[weakSelf dismiss];
 	} failure:^(NSError *error) {
 		[error show];
 		[weakSelf.spinner stopAnimating];

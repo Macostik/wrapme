@@ -35,6 +35,7 @@
 #import "WLWrapBroadcaster.h"
 #import "WLUploadingQueue.h"
 #import "UILabel+Additions.h"
+#import "WLCreateWrapViewController.h"
 
 static NSUInteger WLHomeTopWrapCandiesLimit = 6;
 static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
@@ -239,6 +240,11 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 	chatController.wrap = self.topWrap;
 	chatController.shouldShowKeyboard = YES;
 	[self.navigationController pushViewController:chatController animated:YES];
+}
+
+- (IBAction)createNewWrap:(id)sender {
+	WLCreateWrapViewController* controller = [self.storyboard editWrapViewController];
+	[controller presentInViewController:self transition:WLWrapTransitionFromBottom];
 }
 
 #pragma mark - WLComposeBarDelegate

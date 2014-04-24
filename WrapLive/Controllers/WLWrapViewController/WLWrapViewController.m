@@ -176,9 +176,6 @@
 		[UIView beginAnimations:nil context:nil];
 		self.firstContributorView.alpha = 0.0f;
 		[UIView commitAnimations];
-	} else if ([segue isChangeWrapSegue]) {
-		WLCreateWrapViewController * createWrapController = segue.destinationViewController;
-		createWrapController.wrap = self.wrap;
 	}
 }
 
@@ -186,6 +183,12 @@
 	[UIView beginAnimations:nil context:nil];
 	self.firstContributorView.alpha = 0.0f;
 	[UIView commitAnimations];
+}
+
+- (IBAction)editWrap:(id)sender {
+	WLCreateWrapViewController* controller = [self.storyboard editWrapViewController];
+	controller.wrap = self.wrap;
+	[controller presentInViewController:self transition:WLWrapTransitionFromRight];
 }
 
 #pragma mark - WLComposeBarDelegate

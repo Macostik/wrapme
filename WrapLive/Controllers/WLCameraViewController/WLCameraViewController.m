@@ -14,14 +14,14 @@
 #import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
-#import "WLCameraInteractionView.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIButton+Additions.h"
 #import "WLFlashModeControl.h"
 #import "WLCameraAdjustmentView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "WLDeviceOrientationBroadcaster.h"
 
-@interface WLCameraViewController () <WLCameraInteractionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface WLCameraViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, WLDeviceOrientationBroadcastReceiver>
 
 #pragma mark - AVCaptureSession interface
 
@@ -89,6 +89,8 @@
 	[self configurePreviewLayer];
 	
 	[self performSelector:@selector(start) withObject:nil afterDelay:0.0];
+	
+	[[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)configurePreviewLayer {
@@ -530,20 +532,18 @@
 	[UIView commitAnimations];
 }
 
-#pragma mark - PGCameraInteractionViewDelegate
+#pragma mark - WLDeviceOrientationBroadcastReceiver
 
-- (void)cameraInteractionView:(WLCameraInteractionView *)view didChangeExposure:(CGPoint)exposure {
-    if(![self.session isRunning]) {
-        return;
-    }
-    [self autoExposureAtPoint:exposure];
-}
-
-- (void)cameraInteractionView:(WLCameraInteractionView *)view didChangeFocus:(CGPoint)focus {
-    if(![self.session isRunning]) {
-        return;
-    }
-    [self autoFocusAtPoint:focus];
+- (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(UIDeviceOrientation)orientation {
+	if (orientation == UIDeviceOrientationLandscapeLeft) {
+		self.connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
+	} else if (orientation == UIDeviceOrientationLandscapeRight) {
+		self.connection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+	} else if (orientation == UIDeviceOrientationPortrait) {
+		self.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
+	} else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
+		self.connection.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
+	}
 }
 
 @end

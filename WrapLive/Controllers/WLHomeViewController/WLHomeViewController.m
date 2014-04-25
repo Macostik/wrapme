@@ -47,7 +47,6 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapAuthorsLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *topWrapCoverView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
 @property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
@@ -204,7 +203,6 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 	self.latestCandies = [wrap latestCandies:WLHomeTopWrapCandiesLimit];
 	self.headerView.height = [self.latestCandies count] > 2 ? 280 : 174;
 	self.tableView.tableHeaderView = self.headerView;
-	self.topWrapCoverView.imageUrl = wrap.picture.small;
 	[self.topWrapStreamView reloadData];
 }
 

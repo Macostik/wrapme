@@ -201,7 +201,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 		[weakSelf.headerWrapAuthorsLabel sizeToFitHeightWithMinimumHeight:34];
 	}];
 	self.latestCandies = [wrap latestCandies:WLHomeTopWrapCandiesLimit];
-	self.headerView.height = [self.latestCandies count] > 2 ? 280 : 174;
+	self.headerView.height = [self.latestCandies count] > WLHomeTopWrapCandiesLimit_2 ? 280 : 174;
 	self.tableView.tableHeaderView = self.headerView;
 	[self.topWrapStreamView reloadData];
 }

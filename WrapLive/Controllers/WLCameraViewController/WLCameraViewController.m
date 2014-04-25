@@ -516,7 +516,7 @@
 
 - (void)setZoomScale:(CGFloat)zoomScale {
 	AVCaptureConnection* connection = self.connection;
-	_zoomScale = Smoothstep(1, connection.videoMaxScaleAndCropFactor, zoomScale);
+	_zoomScale = Smoothstep(1, MIN(8, connection.videoMaxScaleAndCropFactor), zoomScale);
 	connection.videoScaleAndCropFactor = _zoomScale;
 	self.previewLayer.affineTransform = CGAffineTransformMakeScale(_zoomScale, _zoomScale);
 	[self showZoomLabel];

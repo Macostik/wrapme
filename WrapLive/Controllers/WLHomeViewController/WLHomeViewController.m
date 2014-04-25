@@ -340,13 +340,20 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 		WLCandy* candy = [self.latestCandies objectAtIndex:item.index.row];
 		if (candy.uploadingItem == nil) {
 			if (candy.type == WLCandyTypeImage) {
-				WLCandyViewController* controller = [self.storyboard wrapDataViewController];
-				[controller setWrap:self.topWrap candy:candy];
-				[self pushViewController:controller animated:YES];
+				WLWrapViewController* wrapController = [self.storyboard wrapViewController];
+				wrapController.wrap = self.topWrap;
+				WLCandyViewController* candyController = [self.storyboard wrapDataViewController];
+				[candyController setWrap:self.topWrap candy:candy];
+				NSArray* controllers = @[self, wrapController, candyController];
+				[self.navigationController setViewControllers:controllers animated:YES];
 			} else if (candy.type == WLCandyTypeChatMessage) {
-				WLChatViewController * chatController = [self.storyboard chatViewController];
+				WLWrapViewController* wrapController = [self.storyboard wrapViewController];
+				wrapController.wrap = self.topWrap;
+				WLChatViewController *chatController = [self.storyboard chatViewController];
 				chatController.wrap = self.topWrap;
 				[self pushViewController:chatController animated:YES];
+				NSArray* controllers = @[self, wrapController, chatController];
+				[self.navigationController setViewControllers:controllers animated:YES];
 			}
 		}
 	} else {

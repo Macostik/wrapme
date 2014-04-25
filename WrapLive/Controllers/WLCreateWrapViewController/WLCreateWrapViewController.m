@@ -109,6 +109,7 @@
 	
 	self.view.backgroundColor = [UIColor clearColor];
 	UIToolbar* toolbar = [[UIToolbar alloc] initWithFrame:self.view.bounds];
+	toolbar.tintColor = [UIColor whiteColor];
 	toolbar.translucent = YES;
 	[self.view insertSubview:toolbar atIndex:0];
 }

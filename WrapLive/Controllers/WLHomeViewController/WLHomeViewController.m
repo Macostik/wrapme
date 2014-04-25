@@ -351,7 +351,6 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 				wrapController.wrap = self.topWrap;
 				WLChatViewController *chatController = [self.storyboard chatViewController];
 				chatController.wrap = self.topWrap;
-				[self pushViewController:chatController animated:YES];
 				NSArray* controllers = @[self, wrapController, chatController];
 				[self.navigationController setViewControllers:controllers animated:YES];
 			}

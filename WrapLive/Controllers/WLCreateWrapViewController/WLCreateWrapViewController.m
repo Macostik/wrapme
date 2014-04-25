@@ -106,6 +106,11 @@
 	if (!self.isNewWrap) {
 		[self configureWrapEditing];
 	}
+	
+	self.view.backgroundColor = [UIColor clearColor];
+	UIToolbar* toolbar = [[UIToolbar alloc] initWithFrame:self.view.bounds];
+	toolbar.translucent = YES;
+	[self.view insertSubview:toolbar atIndex:0];
 }
 
 - (BOOL)isNewWrap {

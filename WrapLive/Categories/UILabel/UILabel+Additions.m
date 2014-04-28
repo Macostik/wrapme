@@ -15,7 +15,11 @@
 	return [self sizeThatFits:CGSizeMake(self.width, CGFLOAT_MAX)].height;
 }
 
-- (void)sizeToFitHeightWithMinimumHeight:(CGFloat)minimumHeight {
+- (void)sizeToFitHeightWithMaximumHeightToSuperviewBottom {
+	[self sizeToFitHeightWithMaximumHeight:self.superview.height - self.y];
+}
+
+- (void)sizeToFitHeightWithMaximumHeight:(CGFloat)minimumHeight {
 	CGFloat height = self.fitHeight;
 	if (minimumHeight > 0) {
 		height = MIN(minimumHeight, height);
@@ -24,7 +28,7 @@
 }
 
 - (void)sizeToFitHeight {
-	[self sizeToFitHeightWithMinimumHeight:0];
+	[self sizeToFitHeightWithMaximumHeight:0];
 }
 
 @end

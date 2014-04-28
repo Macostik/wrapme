@@ -26,8 +26,8 @@
 	return [self instantiateViewControllerWithIdentifier:WLStoryboardSignUpViewControllerIdentifier];
 }
 
-- (id)wrapDataViewController {
-	return [self instantiateViewControllerWithIdentifier:WLStoryboardWrapDataViewControllerIdentifier];
+- (id)candyViewController {
+	return [self instantiateViewControllerWithIdentifier:WLStoryboardCandyViewControllerIdentifier];
 }
 
 - (id)chatViewController {

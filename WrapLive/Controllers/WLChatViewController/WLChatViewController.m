@@ -251,7 +251,7 @@
 
 - (CGFloat)heightOfMessageCell:(WLCandy *)comment {
 	CGFloat commentHeight  = ceilf([comment.chatMessage boundingRectWithSize:CGSizeMake(250, CGFLOAT_MAX)
-																	 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightFontOfSize:12]} context:nil].size.height);
+																	 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightFontOfSize:14]} context:nil].size.height);
 	commentHeight = [comment.contributor isCurrentUser] ? commentHeight  : (commentHeight + 18);
 	return MAX(50, commentHeight);
 }

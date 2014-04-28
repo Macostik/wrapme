@@ -7,11 +7,11 @@
     {
       "idiom" : "iphone",
       "scale" : "2x",
-      "filename" : "Splash@2x.png"
+      "filename" : "00_screen_Android.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "Splash-568h@2x.png",
+      "filename" : "00-screen-IOS7-1136px-redesign.png",
       "subtype" : "retina4",
       "scale" : "2x"
     }

@@ -12,7 +12,7 @@ static NSString* WLStoryboardHomeViewControllerIdentifier = @"home";
 static NSString* WLStoryboardCameraViewControllerIdentifier = @"camera";
 static NSString* WLStoryboardWrapViewControllerIdentifier = @"wrap";
 static NSString* WLStoryboardSignUpViewControllerIdentifier = @"signUp";
-static NSString* WLStoryboardWrapDataViewControllerIdentifier = @"wrapData";
+static NSString* WLStoryboardCandyViewControllerIdentifier = @"candy";
 static NSString* WLStoryboardChatViewControllerIdentifier = @"chat";
 static NSString* WLStoryboardImageViewControllerIdentifier = @"image";
 static NSString* WLStoryboardEditWrapViewControllerIdentifier = @"editWrap";
@@ -27,7 +27,7 @@ static NSString* WLStoryboardEditWrapViewControllerIdentifier = @"editWrap";
 
 - (id)signUpViewController;
 
-- (id)wrapDataViewController;
+- (id)candyViewController;
 
 - (id)chatViewController;
 

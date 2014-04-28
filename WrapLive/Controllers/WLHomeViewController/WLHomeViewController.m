@@ -198,7 +198,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 	__weak typeof(self)weakSelf = self;
 	[wrap contributorNames:^(NSString *names) {
 		weakSelf.headerWrapAuthorsLabel.text = names;
-		[weakSelf.headerWrapAuthorsLabel sizeToFitHeightWithMinimumHeight:34];
+		[weakSelf.headerWrapAuthorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
 	}];
 	self.latestCandies = [wrap latestCandies:WLHomeTopWrapCandiesLimit];
 	self.headerView.height = [self.latestCandies count] > WLHomeTopWrapCandiesLimit_2 ? 280 : 174;
@@ -276,7 +276,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 	label.text = @"Your other wraps";
 	label.textAlignment = NSTextAlignmentCenter;
 	label.textColor = [UIColor WL_orangeColor];
-	label.font = [UIFont lightSmallFont];
+	label.font = [UIFont lightFontOfSize:20];
 	label.userInteractionEnabled = YES;
 	return label;
 }
@@ -342,7 +342,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 			if (candy.type == WLCandyTypeImage) {
 				WLWrapViewController* wrapController = [self.storyboard wrapViewController];
 				wrapController.wrap = self.topWrap;
-				WLCandyViewController* candyController = [self.storyboard wrapDataViewController];
+				WLCandyViewController* candyController = [self.storyboard candyViewController];
 				[candyController setWrap:self.topWrap candy:candy];
 				NSArray* controllers = @[self, wrapController, candyController];
 				[self.navigationController setViewControllers:controllers animated:YES];

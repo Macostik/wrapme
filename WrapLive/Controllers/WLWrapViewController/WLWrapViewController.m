@@ -80,7 +80,7 @@
 	__weak typeof(self)weakSelf = self;
 	[self.wrap contributorNames:^(NSString *names) {
 		weakSelf.contributorsLabel.text = names;
-		[weakSelf.contributorsLabel sizeToFitHeightWithMinimumHeight:34];
+		[weakSelf.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
 	}];
 }
 
@@ -206,7 +206,7 @@
 
 - (void)wrapCandiesCell:(WLWrapCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
 	if (candy.type == WLCandyTypeImage) {
-		WLCandyViewController *controller = [self.storyboard wrapDataViewController];
+		WLCandyViewController *controller = [self.storyboard candyViewController];
 		[controller setWrap:self.wrap candy:candy];
 		[self.navigationController pushViewController:controller animated:YES];
 	} else if (candy.type == WLCandyTypeChatMessage) {

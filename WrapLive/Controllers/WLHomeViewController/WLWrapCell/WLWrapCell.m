@@ -29,7 +29,7 @@
 	__weak typeof(self)weakSelf = self;
 	[wrap contributorNames:^(NSString *names) {
 		weakSelf.contributorsLabel.text = names;
-		[weakSelf.contributorsLabel sizeToFitHeightWithMinimumHeight:34];
+		[weakSelf.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
 	}];
 }
 

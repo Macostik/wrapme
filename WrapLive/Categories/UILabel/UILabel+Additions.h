@@ -12,7 +12,9 @@
 
 @property (nonatomic, readonly) CGFloat fitHeight;
 
-- (void)sizeToFitHeightWithMinimumHeight:(CGFloat)minimumHeight;
+- (void)sizeToFitHeightWithMaximumHeightToSuperviewBottom;
+
+- (void)sizeToFitHeightWithMaximumHeight:(CGFloat)minimumHeight;
 
 - (void)sizeToFitHeight;
 

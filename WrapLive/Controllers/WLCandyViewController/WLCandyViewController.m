@@ -19,6 +19,7 @@
 #import "WLSession.h"
 #import "WLAPIManager.h"
 #import "WLWrap.h"
+#import "WLWrapDate.h"
 #import "UIFont+CustomFonts.h"
 #import "WLRefresher.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
@@ -40,6 +41,12 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
 
 @property (weak, nonatomic) WLRefresher *refresher;
+
+@property (strong, nonatomic) WLWrapDate* date;
+
+@property (nonatomic) BOOL shouldLoadMoreCandies;
+
+@property (nonatomic) BOOL loading;
 
 @end
 
@@ -64,7 +71,16 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)setWrap:(WLWrap *)wrap candy:(WLCandy *)candy {
 	self.wrap = wrap;
-	[self setItems:[wrap getAllImages] currentItem:candy];
+	for (WLWrapDate* date in wrap.dates) {
+		for (WLCandy* _candy in date.candies) {
+			if (_candy.type == WLCandyTypeImage && [_candy isEqualToCandy:candy]) {
+				self.date = date;
+				self.shouldLoadMoreCandies = [date.candies count] % WLAPIGeneralPageSize == 0;
+				[self setItems:date.candies	currentItem:_candy];
+				return;
+			}
+		}
+	}
 }
 
 - (void)setCandy:(WLCandy *)candy  {
@@ -78,6 +94,20 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (void)willShowItem:(id)item {
 	[self setupImage];
 	[self refresh];
+	
+	__weak typeof(self)weakSelf = self;
+	if (!self.loading && [self.items lastObject] == item && self.shouldLoadMoreCandies) {
+		self.loading = YES;
+		[[WLAPIManager instance] candies:self.wrap date:self.date success:^(id object) {
+			weakSelf.shouldLoadMoreCandies = ([object count] == WLAPIGeneralPageSize);
+			weakSelf.date.candies = (id)[weakSelf.date.candies arrayByAddingObjectsFromArray:object];
+			weakSelf.items = weakSelf.date.candies;
+			weakSelf.loading = NO;
+		} failure:^(NSError *error) {
+			[error show];
+			weakSelf.loading = NO;
+		}];
+	}
 }
 
 - (void)refresh {

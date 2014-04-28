@@ -73,7 +73,7 @@
 	WLWrapDate* wrapDay = [currentWrapDay copy];
 	wrapDay.candies = nil;
 	[[WLAPIManager instance] candies:self.wrap date:wrapDay success:^(id object) {
-		weakSelf.shouldAppendMoreCandies = [object count] == 10;
+		weakSelf.shouldAppendMoreCandies = [object count] == WLAPIGeneralPageSize;
 		currentWrapDay.candies = object;
 		[[WLUploadingQueue instance] updateWrap:weakSelf.wrap];
 		[weakSelf.collectionView reloadData];
@@ -88,7 +88,7 @@
 	WLWrapDate* wrapDay = self.item;
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] candies:self.wrap date:wrapDay success:^(id object) {
-		weakSelf.shouldAppendMoreCandies = [object count] == 10;
+		weakSelf.shouldAppendMoreCandies = [object count] == WLAPIGeneralPageSize;
 		wrapDay.candies = (id)[wrapDay.candies arrayByAddingObjectsFromArray:object];
 		[weakSelf.collectionView reloadData];
 	} failure:^(NSError *error) {

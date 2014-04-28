@@ -308,6 +308,7 @@
 	}
 	[session commitConfiguration];
 	self.flashModeControl.hidden = !self.input.device.hasFlash;
+	[self applyDeviceOrientation:[UIDevice currentDevice].orientation];
 }
 
 - (AVCaptureDeviceInput *)input {
@@ -537,9 +538,7 @@
 	[UIView commitAnimations];
 }
 
-#pragma mark - WLDeviceOrientationBroadcastReceiver
-
-- (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(UIDeviceOrientation)orientation {
+- (void)applyDeviceOrientation:(UIDeviceOrientation)orientation {
 	if (orientation == UIDeviceOrientationLandscapeLeft) {
 		self.connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
 	} else if (orientation == UIDeviceOrientationLandscapeRight) {
@@ -549,6 +548,12 @@
 	} else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
 		self.connection.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
 	}
+}
+
+#pragma mark - WLDeviceOrientationBroadcastReceiver
+
+- (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(UIDeviceOrientation)orientation {
+	[self applyDeviceOrientation:orientation];
 }
 
 @end

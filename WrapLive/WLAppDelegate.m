@@ -11,6 +11,10 @@
 #import <CocoaLumberjack/DDASLLogger.h>
 #import <CocoaLumberjack/DDTTYLogger.h>
 
+@interface WLAppDelegate () <PNDelegate>
+
+@end
+
 @implementation WLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -18,10 +22,28 @@
     // Override point for customization after application launch.
 	[DDLog addLogger:[DDASLLogger sharedInstance]];
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
+	
+//	[PubNub setDelegate:self];
+//	
+//	[PubNub setConfiguration:[PNConfiguration defaultConfiguration]];
+//	
+//	[PubNub connect];
+//	
+//	PNChannel *channel_1 = [PNChannel channelWithName:@"a" shouldObservePresence:YES];
+//	
+//	//Subscribe to the channel
+//	[PubNub subscribeOnChannel:channel_1];
+//	
+//	//Publish on the channel
+//	[PubNub sendMessage:@"Hello from PubNub iOS!" toChannel:channel_1];
 		
     return YES;
 }
-							
+
+- (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
+	NSLog( @"%@", [NSString stringWithFormat:@"received: %@", message.message] );
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
 	// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

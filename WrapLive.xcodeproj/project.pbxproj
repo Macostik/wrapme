@@ -18,6 +18,9 @@
 		121B1B4218E0848D001F585C /* WLCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3E18E0848D001F585C /* WLCountryCell.m */; };
 		121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3F18E0848D001F585C /* WLCountryCell.xib */; };
 		121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B4418E08B7E001F585C /* CountryCodes.json */; };
+		121FC9E3190A93D80034486D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E2190A93D80034486D /* CFNetwork.framework */; };
+		121FC9E5190A93E50034486D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E4190A93E50034486D /* SystemConfiguration.framework */; };
+		121FC9E7190A93EF0034486D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E6190A93EF0034486D /* libz.dylib */; };
 		1221EA6A18FD372F00C64DAE /* UIButton+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1221EA6918FD372F00C64DAE /* UIButton+Additions.m */; };
 		12317E5A1908096200D1A9EE /* WLImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12317E591908096200D1A9EE /* WLImageViewController.m */; };
 		125D4A4F18E068E6001B8E7C /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */; };
@@ -134,6 +137,9 @@
 		121B1B3E18E0848D001F585C /* WLCountryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCountryCell.m; sourceTree = "<group>"; };
 		121B1B3F18E0848D001F585C /* WLCountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCountryCell.xib; sourceTree = "<group>"; };
 		121B1B4418E08B7E001F585C /* CountryCodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountryCodes.json; sourceTree = "<group>"; };
+		121FC9E2190A93D80034486D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		121FC9E4190A93E50034486D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		121FC9E6190A93EF0034486D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		1221EA6818FD372F00C64DAE /* UIButton+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+Additions.h"; path = "UIButton/UIButton+Additions.h"; sourceTree = "<group>"; };
 		1221EA6918FD372F00C64DAE /* UIButton+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+Additions.m"; path = "UIButton/UIButton+Additions.m"; sourceTree = "<group>"; };
 		12317E581908096200D1A9EE /* WLImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLImageViewController.h; path = WLImageViewController/WLImageViewController.h; sourceTree = "<group>"; };
@@ -319,6 +325,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				121FC9E7190A93EF0034486D /* libz.dylib in Frameworks */,
+				121FC9E5190A93E50034486D /* SystemConfiguration.framework in Frameworks */,
+				121FC9E3190A93D80034486D /* CFNetwork.framework in Frameworks */,
 				12A7A70518DA0945008FF6F0 /* CoreGraphics.framework in Frameworks */,
 				12A7A70718DA0945008FF6F0 /* UIKit.framework in Frameworks */,
 				12A7A70318DA0945008FF6F0 /* Foundation.framework in Frameworks */,
@@ -592,6 +601,9 @@
 		12A7A70118DA0945008FF6F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				121FC9E6190A93EF0034486D /* libz.dylib */,
+				121FC9E4190A93E50034486D /* SystemConfiguration.framework */,
+				121FC9E2190A93D80034486D /* CFNetwork.framework */,
 				12E8FF2518E9B33E00BF1B96 /* MobileCoreServices.framework */,
 				12A7A70218DA0945008FF6F0 /* Foundation.framework */,
 				12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */,

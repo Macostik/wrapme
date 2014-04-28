@@ -392,6 +392,7 @@
 		}
 		completion(image);
 	};
+	self.connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
     [self.output captureStillImageAsynchronouslyFromConnection:self.connection completionHandler:handler];
 }
 

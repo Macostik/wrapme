@@ -1,78 +1,127 @@
 //
-//  WLProfileInformationViewController.m
+//  WLChangeProfileViewController.m
 //  WrapLive
 //
-//  Created by Oleg Vyshnivetsky on 3/25/14.
+//  Created by Oleg Vyshnivetsky on 4/24/14.
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLProfileInformationViewController.h"
-#import "WLHomeViewController.h"
+#import "WLChangeProfileViewController.h"
 #import "WLCameraViewController.h"
-#import "WLAPIManager.h"
-#import "WLUser.h"
 #import "UIStoryboard+Additions.h"
+#import "UIImage+Resize.h"
 #import "UIView+Shorthand.h"
 #import "UIImage+WLStoring.h"
-#import "UIColor+CustomColors.h"
-#import "UIImage+Resize.h"
-#import "UIButton+Additions.h"
+#import "WLUser.h"
 #import "UIImageView+ImageLoading.h"
+#import "WLAPIManager.h"
 #import "WLKeyboardBroadcaster.h"
+#import "WLInputAccessoryView.h"
+#import "NSDate+Formatting.h"
 
-//static NSInteger WLProfileNameLimit = 40;
+@interface WLChangeProfileViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
-@interface WLProfileInformationViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLKeyboardBroadcastReceiver>
-
-@property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
-@property (strong, nonatomic) IBOutlet UIButton *createImageButton;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *birthdateTextField;
+@property (strong, nonatomic) UIDatePicker * birthdatePicker;
+@property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) WLUser * user;
-@property (nonatomic, readonly) UIViewController* signUpViewController;
-@property (strong, nonatomic) IBOutlet UIButton *continueButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
-
-@property (nonatomic) BOOL hasAvatar;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 
 @end
 
-@implementation WLProfileInformationViewController
+@implementation WLChangeProfileViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 	self.user = [[WLUser currentUser] copy];
-	self.hasAvatar = self.user.name.length > 0;
-	[self verifyContinueButton];
-	self.nameTextField.layer.borderWidth = 0.5;
-	self.nameTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
-	
+	[self setupPicker];
 	self.nameTextField.text = self.user.name;
-	self.profileImageView.imageUrl = self.user.picture.medium;
-	
+	self.profileImageView.imageUrl = self.user.picture.large;
+	self.birthdateTextField.text = [self.birthdatePicker.date stringWithFormat:@"MMM' 'dd', 'YYYY'"];
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 
-- (UIViewController *)signUpViewController {
-	return self.navigationController.parentViewController;
+- (IBAction)back:(UIButton *)sender {
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)changeImage:(id)sender {
+	WLCameraViewController * controller = [self.storyboard cameraViewController];
+	controller.delegate = self;
+	controller.defaultPosition = AVCaptureDevicePositionFront;
+	controller.mode = WLCameraModeAvatar;
+	[self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)saveImage:(UIImage *)image {
+	__weak typeof(self)weakSelf = self;
+	[image storeAsAvatar:^(NSString *path) {
+		weakSelf.user.picture.large = path;
+		[weakSelf isProfileChanged];
+	}];
 }
 
 - (IBAction)goToMainScreen:(id)sender {
 	__weak typeof(self)weakSelf = self;
 	[self updateIfNeeded:^{
-		NSArray *navigationArray = @[[weakSelf.signUpViewController.storyboard homeViewController]];
-		[weakSelf.signUpViewController.navigationController setViewControllers:navigationArray animated:YES];
+		[weakSelf.navigationController popViewControllerAnimated:YES];
 	}];
 }
 
-- (void)updateIfNeeded:(void (^)(void))completion {
+- (void)setupPicker {
+	self.birthdatePicker = [UIDatePicker new];
+	self.birthdatePicker.datePickerMode = UIDatePickerModeDate;
+	self.birthdatePicker.maximumDate = [NSDate date];
+	self.birthdatePicker.backgroundColor = [UIColor whiteColor];
+	self.birthdatePicker.date = self.user.birthdate;
+	self.birthdateTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(birthdatePickerCancel:) done:@selector(birthdatePickerDone:)];
+	self.birthdateTextField.inputView = self.birthdatePicker;
+}
+
+- (void)birthdatePickerCancel:(id)sender {
+	self.birthdateTextField.text = nil;
+	[self.birthdateTextField resignFirstResponder];
+}
+
+- (void)birthdatePickerDone:(id)sender {
+	self.birthdateTextField.text = [self.birthdatePicker.date stringWithFormat:@"MMM' 'dd', 'YYYY'"];
+	self.user.birthdate = self.birthdatePicker.date;
+	[self isProfileChanged];
+	[self.birthdateTextField resignFirstResponder];
+}
+
+- (BOOL)isProfileChanged {
 	WLUser* user = self.user;
 	WLUser* currentUser = [WLUser currentUser];
 	BOOL nameChanged = ![user.name isEqualToString:currentUser.name];
 	BOOL avatarChanged = ![user.picture.large isEqualToString:currentUser.picture.large];
-	if (nameChanged || avatarChanged) {
+	BOOL birthdateChanged = ![user.birthdate isEqualToDate:currentUser.birthdate];
+	if (nameChanged || avatarChanged || birthdateChanged) {
+		[self willShowDoneButton:YES];
+		return YES;
+	} else {
+		[self willShowDoneButton:NO];
+		return NO;
+	}
+}
+
+- (void)willShowDoneButton:(BOOL)showDone {
+	if (showDone) {
+		self.cancelButton.width = self.view.width/2 - 1;
+		self.doneButton.x = self.view.width/2;
+	} else {
+		self.cancelButton.width = self.view.width;
+		self.doneButton.x = self.view.width;
+	}
+}
+
+- (void)updateIfNeeded:(void (^)(void))completion {
+	if ([self isProfileChanged]) {
 		self.view.userInteractionEnabled = NO;
 		[self.spinner startAnimating];
 		__weak typeof(self)weakSelf = self;
@@ -90,39 +139,18 @@
 	}
 }
 
-- (IBAction)createImage:(id)sender {
-	WLCameraViewController * controller = [self.signUpViewController.storyboard cameraViewController];
-	controller.delegate = self;
-	controller.defaultPosition = AVCaptureDevicePositionFront;
-	controller.mode = WLCameraModeAvatar;
-	[self.signUpViewController presentViewController:controller animated:YES completion:nil];
-}
-
-- (void)saveImage:(UIImage *)image {
-	__weak typeof(self)weakSelf = self;
-	[image storeAsAvatar:^(NSString *path) {
-		weakSelf.user.picture.large = path;
-	}];
-	[self verifyContinueButton];
-}
-
-- (void)verifyContinueButton {
-	self.continueButton.active = (self.user.name.length > 0) && self.hasAvatar;
-}
-
 #pragma mark - WLCameraViewControllerDelegate
 
 - (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
-	[self.signUpViewController dismissViewControllerAnimated:YES completion:nil];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
-	self.hasAvatar = YES;
 	self.profileImageView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
 															  bounds:self.profileImageView.retinaSize
 												interpolationQuality:kCGInterpolationDefault];
 	[self saveImage:image];
-	[self.signUpViewController dismissViewControllerAnimated:YES completion:nil];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -139,7 +167,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 	self.user.name = self.nameTextField.text;
-	[self verifyContinueButton];
+	[self isProfileChanged];
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver

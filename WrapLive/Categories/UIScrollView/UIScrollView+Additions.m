@@ -15,7 +15,9 @@
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animated {
-	[self setContentOffset:CGPointMake(0, self.contentSize.height - self.bounds.size.height) animated:animated];
+	if (self.contentSize.height > self.bounds.size.height) {
+		[self setContentOffset:CGPointMake(0, self.contentSize.height - self.bounds.size.height) animated:animated];
+	}
 }
 
 @end

@@ -219,7 +219,11 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:user.name forKey:@"name"];
 	
+	NSString* birthdate = [user.birthdate string];
+	[parameters trySetObject:birthdate forKey:@"dob"];
+	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		[WLSession setBirthdate:birthdate];
 		WLUser* user = [[WLUser alloc] initWithDictionary:response.data[@"user"] error:NULL];
 		[user setCurrent];
 		return user;

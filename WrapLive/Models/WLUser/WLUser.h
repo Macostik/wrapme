@@ -9,6 +9,8 @@
 #import "WLEntry.h"
 #import "NSArray+Additions.h"
 
+static NSInteger WLProfileNameLimit = 40;
+
 @interface WLUser : WLEntry
 
 @property (strong, nonatomic) NSString* phoneNumber;

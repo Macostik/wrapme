@@ -36,6 +36,7 @@
 #import "WLUploadingQueue.h"
 #import "UILabel+Additions.h"
 #import "WLCreateWrapViewController.h"
+#import "WLUser.h"
 
 static NSUInteger WLHomeTopWrapCandiesLimit = 6;
 static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
@@ -58,6 +59,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet UIView *loadingView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
+@property (weak, nonatomic) IBOutlet UIImageView *avataImageView;
 
 @end
 
@@ -70,6 +72,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 	self.createWrapButton.transform = CGAffineTransformMakeTranslation(0, self.createWrapButton.height);
 	self.composeContainer.hidden = YES;
 	self.noWrapsView.hidden = YES;
+	
 	[self setupRefresh];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	self.tableView.tableFooterView = [WLLoadingView instance];
@@ -77,6 +80,10 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+	self.avataImageView.superview.layer.cornerRadius = self.avataImageView.height/2;
+	self.avataImageView.superview.layer.borderWidth = 1;
+	self.avataImageView.superview.layer.borderColor = [UIColor whiteColor].CGColor;
+	self.avataImageView.imageUrl = [WLUser currentUser].picture.small;
 	if (self.composeContainer.hidden) {
 		self.loading = NO;
 		[self fetchWraps:1];

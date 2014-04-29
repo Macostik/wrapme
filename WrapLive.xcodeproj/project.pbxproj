@@ -106,6 +106,7 @@
 		12E8FF2918E9B59200BF1B96 /* UIImage+WLStoring.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF2818E9B59200BF1B96 /* UIImage+WLStoring.m */; };
 		12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EBF8D718F6A6D000EA3185 /* UIViewController+Additions.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
+		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
 		ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */; };
 		ACCF9B8A18E185D200A7429F /* WLPhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */; };
@@ -302,6 +303,8 @@
 		12EBF8D618F6A6D000EA3185 /* UIViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Additions.h"; sourceTree = "<group>"; };
 		12EBF8D718F6A6D000EA3185 /* UIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
+		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
 		AC17ADAF18F8147900F55E17 /* WLCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionViewFlowLayout.h; path = WLChatViewController/WLCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionViewFlowLayout.m; path = WLChatViewController/WLCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		ACCF9B8618E185D200A7429F /* WLPhoneNumberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPhoneNumberViewController.h; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.h; sourceTree = "<group>"; };
@@ -644,6 +647,7 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */,
 				12317E57190808B600D1A9EE /* WLImageViewController */,
 				12E1104619067095007DB4AC /* WLCandyViewController */,
 				12E1103F19066C2D007DB4AC /* WLSwipeViewController */,
@@ -1156,6 +1160,15 @@
 			path = UIViewController;
 			sourceTree = "<group>";
 		};
+		AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */,
+				AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */,
+			);
+			name = WLChangeProfileViewController;
+			sourceTree = "<group>";
+		};
 		ACCF9B8518E17D5E00A7429F /* SignUpSteps */ = {
 			isa = PBXGroup;
 			children = (
@@ -1331,6 +1344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */,
 				12A6BFAC18F2AE7700AE3B62 /* WLRefresher.m in Sources */,
 				12A8AA7418F59CE000F67113 /* WLMessageGroupCell.m in Sources */,
 				125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */,

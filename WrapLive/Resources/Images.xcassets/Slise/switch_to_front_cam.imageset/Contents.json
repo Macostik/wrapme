@@ -2,6 +2,10 @@
   "images" : [
     {
       "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
       "scale" : "2x",
       "filename" : "15screen_switch_to_front_cam@2x.png"
     }

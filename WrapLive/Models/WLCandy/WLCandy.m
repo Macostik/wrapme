@@ -37,8 +37,8 @@
 
 + (NSDictionary*)pictureMapping {
 	return @{@"large":@[@"large_image_attachment_url"],
-			 @"medium":@[@"medium_image_attachment_url"],
-			 @"small":@[@"small_image_attachment_url"]};
+			 @"medium":@[@"medium_sq_image_attachment_url"],
+			 @"small":@[@"small_sq_image_attachment_url"]};
 }
 
 + (NSMutableDictionary *)mapping {

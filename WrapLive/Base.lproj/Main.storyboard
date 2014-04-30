@@ -8,7 +8,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="WLWelcomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="welcome" id="vXZ-lx-hvc" customClass="WLWelcomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -553,28 +553,18 @@
                                         <rect key="frame" x="15" y="27" width="72" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" id="74B-PF-aEw">
-                                        <rect key="frame" x="280" y="22" width="30" height="30"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Xeq-Fm-DeI">
+                                        <rect key="frame" x="283" y="27" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="XGe-gi-cef">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Xeq-Fm-DeI">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <segue destination="7FG-gC-kPg" kind="push" id="t9y-At-i9h"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                    </view>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <inset key="contentEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
+                                        <state key="normal" backgroundImage="ic_default_profile">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="7FG-gC-kPg" kind="push" id="t9y-At-i9h"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KxF-7g-Abs">
                                         <rect key="frame" x="116" y="40" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
@@ -794,7 +784,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="cIa-CV-SVl"/>
                     <connections>
-                        <outlet property="avataImageView" destination="XGe-gi-cef" id="BvE-fB-uIQ"/>
+                        <outlet property="avatarButton" destination="Xeq-Fm-DeI" id="2Po-57-vBd"/>
                         <outlet property="composeContainer" destination="x1Z-xh-FDY" id="0eb-ga-TRQ"/>
                         <outlet property="createWrapButton" destination="N9L-im-ajd" id="UA9-hL-ZEh"/>
                         <outlet property="headerView" destination="jJG-aX-3kt" id="gxW-6y-4Ni"/>
@@ -994,7 +984,7 @@
                                     <outlet property="delegate" destination="y2d-d2-UUm" id="UVZ-bG-4sv"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="pYB-NP-efK">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="pYB-NP-efK">
                                 <rect key="frame" x="280" y="536" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

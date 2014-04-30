@@ -16,7 +16,7 @@
 #import "WLWrapViewController.h"
 #import "WLCameraViewController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import "UIImage+WLStoring.h"
+#import "WLImageCache.h"
 #import "UIImageView+ImageLoading.h"
 #import "UIImage+Resize.h"
 #import "UIView+Shorthand.h"
@@ -304,7 +304,7 @@
 													   bounds:self.coverView.retinaSize
 										 interpolationQuality:kCGInterpolationDefault];
 	__weak typeof(self)weakSelf = self;
-	[image storeAsCover:^(NSString *path) {
+	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
 		weakSelf.editingWrap.picture.large = path;
 	}];
 	

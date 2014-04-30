@@ -13,7 +13,7 @@
 @protocol WLDeviceOrientationBroadcastReceiver <WLBroadcastReceiver>
 
 @optional
-- (void)broadcaster:(WLDeviceOrientationBroadcaster*)broadcaster didChangeOrientation:(UIDeviceOrientation)orientation;
+- (void)broadcaster:(WLDeviceOrientationBroadcaster*)broadcaster didChangeOrientation:(NSNumber*)orientation;
 
 @end
 

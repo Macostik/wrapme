@@ -52,7 +52,7 @@
 	[self.signUpStepsView addSubview:navController.view];
 }
 
-- (void)updateStepLabelsWithIndex:(int)index {
+- (void)updateStepLabelsWithIndex:(NSUInteger)index {
 	
 	[self setHiddenViews:self.incompletedStepViews byBlock:^BOOL(NSUInteger idx) {
 		return idx <= index;

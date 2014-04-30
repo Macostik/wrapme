@@ -67,34 +67,6 @@
 	}
 }
 
-- (NSArray *)latestCandies:(NSInteger)count {
-	NSMutableArray* candies = [NSMutableArray array];
-	for (WLWrapDate* date in self.dates) {
-		if ([candies count] == count) {
-			break;
-		}
-		for (WLCandy* candy in date.candies) {
-			[candies addObject:candy];
-			if ([candies count] == count) {
-				break;
-			}
-		}
-	}
-	return [candies copy];
-}
-
-- (NSArray *)getAllImages {
-	NSMutableArray* images = [NSMutableArray array];
-	for (WLWrapDate* date in self.dates) {
-		for (WLCandy* candy in date.candies) {
-			if (candy.type == WLCandyTypeImage) {
-				[images addObject:candy];
-			}
-		}
-	}
-	return [images copy];
-}
-
 - (void)contributorNames:(void (^)(NSString *))completion {
 	__weak typeof(self)weakSelf = self;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -137,6 +109,45 @@
 		return [self.identifier isEqualToString:wrap.identifier];
 	}
 	return [self.picture.large isEqualToString:wrap.picture.large];
+}
+
+- (NSArray *)candiesOfType:(NSInteger)type maximumCount:(NSUInteger)maximumCount {
+	NSMutableArray* candies = [NSMutableArray array];
+	for (WLWrapDate* date in self.dates) {
+		if (maximumCount > 0) {
+			[candies addObjectsFromArray:[date candiesOfType:type maximumCount:maximumCount - [candies count]]];
+			if ([candies count] >= maximumCount) {
+				return [candies copy];
+			}
+		} else {
+			[candies addObjectsFromArray:[date candiesOfType:type maximumCount:0]];
+		}
+	}
+	return [candies copy];
+}
+
+- (NSArray *)candies:(NSUInteger)maximumCount {
+	return [self candiesOfType:0 maximumCount:maximumCount];
+}
+
+- (NSArray*)candies {
+	return [self candies:0];
+}
+
+- (NSArray*)images:(NSUInteger)maximumCount {
+	return [self candiesOfType:WLCandyTypeImage maximumCount:maximumCount];
+}
+
+- (NSArray*)messages:(NSUInteger)maximumCount {
+	return [self candiesOfType:WLCandyTypeChatMessage maximumCount:maximumCount];
+}
+
+- (NSArray*)images {
+	return [self images:0];
+}
+
+- (NSArray*)messages {
+	return [self messages:0];
 }
 
 @end

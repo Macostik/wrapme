@@ -50,6 +50,11 @@ static CGFloat WLRefresherContentSize = 88.0f;
 	return (id)self.superview;
 }
 
+- (void)setEnabled:(BOOL)enabled {
+	[super setEnabled:enabled];
+	self.hidden = !enabled;
+}
+
 +(WLRefresher *)refresherWithScrollView:(UIScrollView *)scrollView refreshBlock:(void (^)(WLRefresher *))refreshBlock {
 	WLRefresher* refresher = [self refresherWithScrollView:scrollView];
 	refresher.refreshBlock = refreshBlock;
@@ -130,7 +135,7 @@ static CGFloat WLRefresherContentSize = 88.0f;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (keyPath == WlRefresherContentOffsetKeyPath) {
+	if (self.enabled && keyPath == WlRefresherContentOffsetKeyPath) {
 		[self didChangeContentOffset:self.scrollView.contentOffset];
 	}
 }
@@ -205,16 +210,19 @@ static CGFloat WLRefresherContentSize = 88.0f;
 }
 
 - (void)endRefreshing {
-	_refreshing = NO;
-	[UIView beginAnimations:nil context:nil];
-	UIEdgeInsets insets = self.scrollView.contentInset;
-	insets.left = 0;
-	insets.top = 0;
-	self.scrollView.contentInset = insets;
-	[UIView commitAnimations];
-	[self.spinner stopAnimating];
-	[self setArrowViewRotated:NO animated:NO];
-	self.arrowView.hidden = NO;
+	__weak typeof(self)weakSelf = self;
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		_refreshing = NO;
+		[UIView beginAnimations:nil context:nil];
+		UIEdgeInsets insets = weakSelf.scrollView.contentInset;
+		insets.left = 0;
+		insets.top = 0;
+		weakSelf.scrollView.contentInset = insets;
+		[UIView commitAnimations];
+		[weakSelf.spinner stopAnimating];
+		[weakSelf setArrowViewRotated:NO animated:NO];
+		weakSelf.arrowView.hidden = NO;
+	});
 }
 
 - (void)refresh {

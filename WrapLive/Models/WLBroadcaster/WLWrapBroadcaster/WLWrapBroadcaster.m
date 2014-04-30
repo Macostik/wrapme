@@ -24,19 +24,15 @@
 }
 
 - (void)broadcastChange:(WLWrap *)wrap {
-	for (id <WLWrapBroadcastReceiver> receiver in self.receivers) {
-		if ([receiver respondsToSelector:@selector(broadcaster:wrapChanged:)]) {
-			[receiver broadcaster:self wrapChanged:wrap];
-		}
-	}
+	[self broadcast:@selector(broadcaster:wrapChanged:) object:wrap];
 }
 
 - (void)broadcastCreation:(WLWrap *)wrap {
-	for (id <WLWrapBroadcastReceiver> receiver in self.receivers) {
-		if ([receiver respondsToSelector:@selector(broadcaster:wrapCreated:)]) {
-			[receiver broadcaster:self wrapCreated:wrap];
-		}
-	}
+	[self broadcast:@selector(broadcaster:wrapCreated:) object:wrap];
+}
+
+- (void)broadcastCandyChange:(WLCandy *)candy {
+	[self broadcast:@selector(broadcaster:candyChanged:) object:candy];
 }
 
 @end

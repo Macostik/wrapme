@@ -24,7 +24,7 @@ static WLUser* _user = nil;
 
 + (WLUser *)user {
 	if (!_user) {
-		_user = [WLUser objectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:WLSessionUserKey]];
+		_user = [WLUser unarchive:[[NSUserDefaults standardUserDefaults] objectForKey:WLSessionUserKey]];
 	}
 	return _user;
 }
@@ -32,7 +32,7 @@ static WLUser* _user = nil;
 + (void)setUser:(WLUser *)user {
 	_user = user;
 	if (user) {
-		[user data:^(NSData *data) {
+		[user archive:^(NSData *data) {
 			[[NSUserDefaults standardUserDefaults] setObject:data forKey:WLSessionUserKey];
 			[[NSUserDefaults standardUserDefaults] synchronize];
 		}];

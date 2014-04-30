@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -28,6 +28,29 @@
                     <view contentMode="scaleToFill" id="BRh-xl-4uL">
                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K3n-zv-pW0">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="100"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                <state key="normal" image="ic_close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelUploading:" destination="oYj-dx-vE3" eventType="touchUpInside" id="7rF-9C-BfR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uSe-AI-wyZ">
+                                <rect key="frame" x="50" y="0.0" width="50" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="↻">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="retryUploading:" destination="oYj-dx-vE3" eventType="touchUpInside" id="fo8-8w-AEW"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_chat2" id="3xN-tP-4zn">
@@ -49,14 +72,17 @@
             </view>
             <connections>
                 <outlet property="borderView" destination="hBV-c6-KuT" id="8Yr-h3-ujR"/>
+                <outlet property="cancelButton" destination="K3n-zv-pW0" id="LAD-Au-Ksw"/>
                 <outlet property="chatLabelView" destination="3xN-tP-4zn" id="ZDW-U4-UNr"/>
                 <outlet property="commentLabel" destination="MIl-aJ-FTV" id="YES-xW-iN9"/>
                 <outlet property="coverView" destination="9s5-TP-mPb" id="aia-8T-I8O"/>
                 <outlet property="lowOpacityView" destination="BRh-xl-4uL" id="8RA-C2-cLF"/>
+                <outlet property="retryButton" destination="uSe-AI-wyZ" id="eRP-2U-ZDr"/>
             </connections>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="ic_chat2" width="18" height="16"/>
+        <image name="ic_close" width="16" height="16"/>
     </resources>
 </document>

@@ -27,18 +27,28 @@
 
 - (void)edit:(BOOL (^)(WLWrap* wrap))editing;
 
-- (NSArray*)latestCandies:(NSInteger)count;
-
-- (NSArray*)getAllImages;
-
 - (void)contributorNames:(void (^)(NSString* names))completion;
 
 - (WLWrapDate*)actualDate;
 
+- (BOOL)isEqualToWrap:(WLWrap*)wrap;
+
+- (NSArray*)candiesOfType:(NSInteger)type maximumCount:(NSUInteger)maximumCount;
+
+- (NSArray*)candies:(NSUInteger)maximumCount;
+
+- (NSArray*)candies;
+
+- (NSArray*)images:(NSUInteger)maximumCount;
+
+- (NSArray*)messages:(NSUInteger)maximumCount;
+
+- (NSArray*)images;
+
+- (NSArray*)messages;
+
 - (void)broadcastChange;
 
 - (void)broadcastCreation;
-
-- (BOOL)isEqualToWrap:(WLWrap*)wrap;
 
 @end

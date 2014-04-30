@@ -11,7 +11,8 @@
 #import "WLCandy.h"
 #import "NSArray+Additions.h"
 #import "WLWrapDate.h"
-#import "UIImage+WLStoring.h"
+#import "WLDataCache.h"
+#import "WLImageCache.h"
 
 @interface WLUploadingQueue ()
 
@@ -21,17 +22,21 @@
 
 @implementation WLUploadingQueue
 
+@synthesize items = _items;
+
 + (instancetype)instance {
     static id instance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		instance = [[self alloc] init];
-		[UIImage removeAllTemporaryImages];
 	});
     return instance;
 }
 
 - (NSMutableArray *)items {
+	if (!_items) {
+		_items = [NSMutableArray arrayWithArray:[WLDataCache cache].uploadingItems];
+	}
 	if (!_items) {
 		_items = [NSMutableArray array];
 	}
@@ -40,12 +45,14 @@
 
 - (void)addItem:(WLUploadingItem *)item {
 	[self.items addObject:item];
+	[WLDataCache cache].uploadingItems = self.items;
 }
 
 - (WLUploadingItem*)addItemWithCandy:(WLCandy *)candy wrap:(WLWrap *)wrap {
 	WLUploadingItem* item = [[WLUploadingItem alloc] init];
 	item.wrap = wrap;
 	item.candy = candy;
+	candy.uploadingItem = item;
 	[self addItem:item];
 	return item;
 }
@@ -53,6 +60,7 @@
 - (void)removeItem:(WLUploadingItem *)item {
 	item.candy.uploadingItem = nil;
 	[self.items removeObject:item];
+	[WLDataCache cache].uploadingItems = self.items;
 }
 
 - (void)updateWrap:(WLWrap *)wrap {
@@ -84,22 +92,10 @@
 			   wrap:(WLWrap *)wrap
 			success:(WLAPIManagerSuccessBlock)success
 			failure:(WLAPIManagerFailureBlock)failure {
-	
 	__weak typeof(self)weakSelf = self;
-	[image storeAsImage:^(NSString *path) {
+	[[WLImageCache uploadingCache] setImage:image completion:^(NSString *path) {
 		WLCandy* candy = [WLCandy imageWithFileAtPath:path];
-		WLUploadingItem* item = [weakSelf addItemWithCandy:candy wrap:wrap];
-		item.operation = [[WLAPIManager instance] addCandy:candy toWrap:wrap success:^(id object) {
-			[UIImage removeImageAtPath:path];
-			[weakSelf removeItem:item];
-			success(object);
-		} failure:^(NSError *error) {
-			[UIImage removeImageAtPath:path];
-			[weakSelf removeItem:item];
-			[wrap removeCandy:candy];
-			failure(error);
-		}];
-		candy.uploadingItem = item;
+		[[weakSelf addItemWithCandy:candy wrap:wrap] upload:success failure:failure];
 		[wrap addCandy:candy];
 	}];
 }
@@ -110,32 +106,57 @@
 			  failure:(WLAPIManagerFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
 	WLCandy* candy = [WLCandy chatMessageWithText:message];
-	WLUploadingItem* item = [weakSelf addItemWithCandy:candy wrap:wrap];
-	item.operation = [[WLAPIManager instance] addCandy:candy toWrap:wrap success:^(id object) {
-		[weakSelf removeItem:item];
-		success(object);
-	} failure:^(NSError *error) {
-		[weakSelf removeItem:item];
-		[wrap removeCandy:candy];
-		failure(error);
-	}];
-	candy.uploadingItem = item;
+	[[weakSelf addItemWithCandy:candy wrap:wrap] upload:success failure:failure];
 	[wrap addCandy:candy];
 }
 
 @end
 
 @implementation WLUploadingItem
+{
+	__weak AFURLConnectionOperation* _operation;
+}
+
+- (void)upload:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	__weak typeof(self)weakSelf = self;
+	if (self.candy.type == WLCandyTypeImage) {
+		self.operation = [[WLAPIManager instance] addCandy:self.candy toWrap:self.wrap success:^(id object) {
+			[[WLUploadingQueue instance] removeItem:weakSelf];
+			success(object);
+		} failure:^(NSError *error) {
+			[weakSelf setOperation:nil];
+			[weakSelf.candy broadcastChange];
+			failure(error);
+		}];
+	} else {
+		self.operation = [[WLAPIManager instance] addCandy:self.candy toWrap:self.wrap success:^(id object) {
+			[[WLUploadingQueue instance] removeItem:weakSelf];
+			success(object);
+		} failure:^(NSError *error) {
+			[weakSelf setOperation:nil];
+			[weakSelf.candy broadcastChange];
+			failure(error);
+		}];
+	}
+	[self.candy broadcastChange];
+}
 
 - (void)setOperation:(AFURLConnectionOperation *)operation {
+	_operation = operation;
 	_progress = 0;
-	__weak typeof(self)weakSelf = self;
-	[operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-		weakSelf.progress = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
-	}];
-	[operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-		weakSelf.progress = ((float)totalBytesRead/(float)totalBytesExpectedToRead);
-	}];
+	if (operation) {
+		__weak typeof(self)weakSelf = self;
+		[operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+			weakSelf.progress = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
+		}];
+		[operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+			weakSelf.progress = ((float)totalBytesRead/(float)totalBytesExpectedToRead);
+		}];
+	}
+}
+
+- (AFURLConnectionOperation *)operation {
+	return _operation;
 }
 
 - (void)setProgress:(float)progress {

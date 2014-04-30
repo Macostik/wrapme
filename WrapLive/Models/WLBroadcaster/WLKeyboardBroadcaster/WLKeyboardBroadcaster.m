@@ -36,36 +36,20 @@
 
 - (void)keyboardWillShow:(NSNotification*)notification {
 	CGFloat keyboardHeight = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-	for (id <WLKeyboardBroadcastReceiver> receiver in self.receivers) {
-		if ([receiver respondsToSelector:@selector(broadcaster:willShowKeyboardWithHeight:)]) {
-			[receiver broadcaster:self willShowKeyboardWithHeight:keyboardHeight];
-		}
-	}
+	[self broadcast:@selector(broadcaster:willShowKeyboardWithHeight:) object:@(keyboardHeight)];
 }
 
 - (void)keyboardDidShow:(NSNotification*)notification {
 	CGFloat keyboardHeight = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-	for (id <WLKeyboardBroadcastReceiver> receiver in self.receivers) {
-		if ([receiver respondsToSelector:@selector(broadcaster:didShowKeyboardWithHeight:)]) {
-			[receiver broadcaster:self didShowKeyboardWithHeight:keyboardHeight];
-		}
-	}
+	[self broadcast:@selector(broadcaster:didShowKeyboardWithHeight:) object:@(keyboardHeight)];
 }
 
 - (void)keyboardWillHide:(NSNotification*)notification {
-	for (id <WLKeyboardBroadcastReceiver> receiver in self.receivers) {
-		if ([receiver respondsToSelector:@selector(broadcasterWillHideKeyboard:)]) {
-			[receiver broadcasterWillHideKeyboard:self];
-		}
-	}
+	[self broadcast:@selector(broadcasterWillHideKeyboard:)];
 }
 
 - (void)keyboardDidHide:(NSNotification*)notification {
-	for (id <WLKeyboardBroadcastReceiver> receiver in self.receivers) {
-		if ([receiver respondsToSelector:@selector(broadcasterDidHideKeyboard:)]) {
-			[receiver broadcasterDidHideKeyboard:self];
-		}
-	}
+	[self broadcast:@selector(broadcasterDidHideKeyboard:)];
 }
 
 @end

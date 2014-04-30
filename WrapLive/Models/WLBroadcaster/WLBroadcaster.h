@@ -22,4 +22,8 @@
 
 - (BOOL)containsReceiver:(id <WLBroadcastReceiver>)receiver;
 
+- (void)broadcast:(SEL)selector object:(id)object;
+
+- (void)broadcast:(SEL)selector;
+
 @end

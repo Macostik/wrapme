@@ -63,9 +63,13 @@
 		12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
 		12D653E218E432F2009CE64C /* WLBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653E118E432F2009CE64C /* WLBorderView.m */; };
 		12D653E618E43545009CE64C /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653E518E43545009CE64C /* WLContributorCell.m */; };
+		12D7E0B41910E5380094C376 /* WLDataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D7E0B01910E5380094C376 /* WLDataCache.m */; };
+		12D7E0B51910E5380094C376 /* WLImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D7E0B31910E5380094C376 /* WLImageCache.m */; };
+		12D7E0B81910E5480094C376 /* WLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D7E0B71910E5480094C376 /* WLCache.m */; };
 		12D962ED18E5898A00C57CE1 /* WLPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D962EC18E5898A00C57CE1 /* WLPicture.m */; };
 		12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D9F6DF18E185AF001E8323 /* WLAPIResponse.m */; };
 		12D9F6E318E18DAA001E8323 /* NSError+WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D9F6E218E18DAA001E8323 /* NSError+WLAPIManager.m */; };
+		12DBCD5B190FCD9B00344B52 /* WLDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DBCD5A190FCD9B00344B52 /* WLDataManager.m */; };
 		12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA5718DAF98C00A4BC44 /* WLAPIManager.m */; };
 		12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA5E18DB0DA700A4BC44 /* WLUser.m */; };
 		12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA6218DB0DEF00A4BC44 /* WLEntry.m */; };
@@ -75,6 +79,8 @@
 		12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */; };
 		12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* WLItemCell.m */; };
 		12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
+		12DF5C3B190E614400D7A62F /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DF5C3A190E614400D7A62F /* NSString+MD5.m */; };
+		12DF5C42190E67DE00D7A62F /* NSString+Documents.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DF5C41190E67DD00D7A62F /* NSString+Documents.m */; };
 		12E0F04A1909069200463FEC /* UIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F0491909069200463FEC /* UIScrollView+Additions.m */; };
 		12E0F04E19090B0600463FEC /* WLBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F04D19090B0600463FEC /* WLBroadcaster.m */; };
 		12E0F05A19090B2E00463FEC /* WLWrapBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F05919090B2E00463FEC /* WLWrapBroadcaster.m */; };
@@ -103,7 +109,6 @@
 		12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
 		12E8FF2118E9885F00BF1B96 /* WLComposeBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E8FF2018E9885F00BF1B96 /* WLComposeBar.xib */; };
 		12E8FF2418E98B7100BF1B96 /* WLComposeContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF2318E98B7100BF1B96 /* WLComposeContainer.m */; };
-		12E8FF2918E9B59200BF1B96 /* UIImage+WLStoring.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF2818E9B59200BF1B96 /* UIImage+WLStoring.m */; };
 		12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EBF8D718F6A6D000EA3185 /* UIViewController+Additions.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
@@ -221,12 +226,20 @@
 		12D653E118E432F2009CE64C /* WLBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBorderView.m; path = WLBorderView/WLBorderView.m; sourceTree = "<group>"; };
 		12D653E418E43545009CE64C /* WLContributorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributorCell.h; path = WLContributorsViewController/WLContributorCell/WLContributorCell.h; sourceTree = "<group>"; };
 		12D653E518E43545009CE64C /* WLContributorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorCell.m; path = WLContributorsViewController/WLContributorCell/WLContributorCell.m; sourceTree = "<group>"; };
+		12D7E0AF1910E5380094C376 /* WLDataCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDataCache.h; sourceTree = "<group>"; };
+		12D7E0B01910E5380094C376 /* WLDataCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDataCache.m; sourceTree = "<group>"; };
+		12D7E0B21910E5380094C376 /* WLImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLImageCache.h; sourceTree = "<group>"; };
+		12D7E0B31910E5380094C376 /* WLImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLImageCache.m; sourceTree = "<group>"; };
+		12D7E0B61910E5480094C376 /* WLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCache.h; path = WLCache/WLCache.h; sourceTree = "<group>"; };
+		12D7E0B71910E5480094C376 /* WLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCache.m; path = WLCache/WLCache.m; sourceTree = "<group>"; };
 		12D962EB18E5898A00C57CE1 /* WLPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPicture.h; path = WLPicture/WLPicture.h; sourceTree = "<group>"; };
 		12D962EC18E5898A00C57CE1 /* WLPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPicture.m; path = WLPicture/WLPicture.m; sourceTree = "<group>"; };
 		12D9F6DE18E185AF001E8323 /* WLAPIResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAPIResponse.h; path = WLAPIManager/WLAPIResponse.h; sourceTree = "<group>"; };
 		12D9F6DF18E185AF001E8323 /* WLAPIResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAPIResponse.m; path = WLAPIManager/WLAPIResponse.m; sourceTree = "<group>"; };
 		12D9F6E118E18DAA001E8323 /* NSError+WLAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+WLAPIManager.h"; path = "WLAPIManager/NSError+WLAPIManager.h"; sourceTree = "<group>"; };
 		12D9F6E218E18DAA001E8323 /* NSError+WLAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+WLAPIManager.m"; path = "WLAPIManager/NSError+WLAPIManager.m"; sourceTree = "<group>"; };
+		12DBCD59190FCD9B00344B52 /* WLDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDataManager.h; path = WLDataManager/WLDataManager.h; sourceTree = "<group>"; };
+		12DBCD5A190FCD9B00344B52 /* WLDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDataManager.m; path = WLDataManager/WLDataManager.m; sourceTree = "<group>"; };
 		12DCBA5618DAF98C00A4BC44 /* WLAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAPIManager.h; path = WLAPIManager/WLAPIManager.h; sourceTree = "<group>"; };
 		12DCBA5718DAF98C00A4BC44 /* WLAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAPIManager.m; path = WLAPIManager/WLAPIManager.m; sourceTree = "<group>"; };
 		12DCBA5D18DB0DA700A4BC44 /* WLUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUser.h; path = WLUser/WLUser.h; sourceTree = "<group>"; };
@@ -246,6 +259,10 @@
 		12DCBA8318DB18F400A4BC44 /* WLItemCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLItemCellProtocol.h; sourceTree = "<group>"; };
 		12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapViewController.h; path = WLWrapViewController/WLWrapViewController.h; sourceTree = "<group>"; };
 		12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapViewController.m; path = WLWrapViewController/WLWrapViewController.m; sourceTree = "<group>"; };
+		12DF5C39190E614400D7A62F /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "NSString/NSString+MD5.h"; sourceTree = "<group>"; };
+		12DF5C3A190E614400D7A62F /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+MD5.m"; path = "NSString/NSString+MD5.m"; sourceTree = "<group>"; };
+		12DF5C40190E67DD00D7A62F /* NSString+Documents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Documents.h"; path = "NSString/NSString+Documents.h"; sourceTree = "<group>"; };
+		12DF5C41190E67DD00D7A62F /* NSString+Documents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Documents.m"; path = "NSString/NSString+Documents.m"; sourceTree = "<group>"; };
 		12E0F0481909069200463FEC /* UIScrollView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+Additions.h"; path = "UIScrollView/UIScrollView+Additions.h"; sourceTree = "<group>"; };
 		12E0F0491909069200463FEC /* UIScrollView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+Additions.m"; path = "UIScrollView/UIScrollView+Additions.m"; sourceTree = "<group>"; };
 		12E0F04C19090B0600463FEC /* WLBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBroadcaster.h; path = WLBroadcaster/WLBroadcaster.h; sourceTree = "<group>"; };
@@ -298,8 +315,6 @@
 		12E8FF2218E98B7100BF1B96 /* WLComposeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposeContainer.h; path = WLComposeBar/WLComposeContainer.h; sourceTree = "<group>"; };
 		12E8FF2318E98B7100BF1B96 /* WLComposeContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposeContainer.m; path = WLComposeBar/WLComposeContainer.m; sourceTree = "<group>"; };
 		12E8FF2518E9B33E00BF1B96 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		12E8FF2718E9B59200BF1B96 /* UIImage+WLStoring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WLStoring.h"; sourceTree = "<group>"; };
-		12E8FF2818E9B59200BF1B96 /* UIImage+WLStoring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WLStoring.m"; sourceTree = "<group>"; };
 		12EBF8D618F6A6D000EA3185 /* UIViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Additions.h"; sourceTree = "<group>"; };
 		12EBF8D718F6A6D000EA3185 /* UIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -668,6 +683,8 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				12DBCD58190FCD7F00344B52 /* WLDataManager */,
+				12DF5C3C190E61C700D7A62F /* WLCache */,
 				12E0F04B19090AE800463FEC /* WLBroadcaster */,
 				12D4E94518FBEC3700B8F2AF /* WLUploadingQueue */,
 				12E33ACE18F3E18200E77229 /* WLWrapDate */,
@@ -841,6 +858,26 @@
 			name = WLContributorCell;
 			sourceTree = "<group>";
 		};
+		12D7E0AE1910E5380094C376 /* WLDataCache */ = {
+			isa = PBXGroup;
+			children = (
+				12D7E0AF1910E5380094C376 /* WLDataCache.h */,
+				12D7E0B01910E5380094C376 /* WLDataCache.m */,
+			);
+			name = WLDataCache;
+			path = WLCache/WLDataCache;
+			sourceTree = "<group>";
+		};
+		12D7E0B11910E5380094C376 /* WLImageCache */ = {
+			isa = PBXGroup;
+			children = (
+				12D7E0B21910E5380094C376 /* WLImageCache.h */,
+				12D7E0B31910E5380094C376 /* WLImageCache.m */,
+			);
+			name = WLImageCache;
+			path = WLCache/WLImageCache;
+			sourceTree = "<group>";
+		};
 		12D962EA18E5897400C57CE1 /* WLPicture */ = {
 			isa = PBXGroup;
 			children = (
@@ -848,6 +885,15 @@
 				12D962EC18E5898A00C57CE1 /* WLPicture.m */,
 			);
 			name = WLPicture;
+			sourceTree = "<group>";
+		};
+		12DBCD58190FCD7F00344B52 /* WLDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				12DBCD59190FCD9B00344B52 /* WLDataManager.h */,
+				12DBCD5A190FCD9B00344B52 /* WLDataManager.m */,
+			);
+			name = WLDataManager;
 			sourceTree = "<group>";
 		};
 		12DCBA5218DAF93C00A4BC44 /* WLAPIManager */ = {
@@ -928,6 +974,28 @@
 				12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */,
 			);
 			name = WLWrapViewController;
+			sourceTree = "<group>";
+		};
+		12DF5C38190E612900D7A62F /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				12DF5C39190E614400D7A62F /* NSString+MD5.h */,
+				12DF5C3A190E614400D7A62F /* NSString+MD5.m */,
+				12DF5C40190E67DD00D7A62F /* NSString+Documents.h */,
+				12DF5C41190E67DD00D7A62F /* NSString+Documents.m */,
+			);
+			name = NSString;
+			sourceTree = "<group>";
+		};
+		12DF5C3C190E61C700D7A62F /* WLCache */ = {
+			isa = PBXGroup;
+			children = (
+				12D7E0AE1910E5380094C376 /* WLDataCache */,
+				12D7E0B11910E5380094C376 /* WLImageCache */,
+				12D7E0B61910E5480094C376 /* WLCache.h */,
+				12D7E0B71910E5480094C376 /* WLCache.m */,
+			);
+			name = WLCache;
 			sourceTree = "<group>";
 		};
 		12E0F0471909066B00463FEC /* UIScrollView */ = {
@@ -1066,6 +1134,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				12DF5C38190E612900D7A62F /* NSString */,
 				12E0F05F1909247E00463FEC /* UILabel */,
 				12E0F0471909066B00463FEC /* UIScrollView */,
 				1221EA6718FD371C00C64DAE /* UIButton */,
@@ -1094,8 +1163,6 @@
 				12E3DA6118E04CC400DBDB79 /* UIImage+Resize.m */,
 				12E3DA6218E04CC400DBDB79 /* UIImage+RoundedCorner.h */,
 				12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */,
-				12E8FF2718E9B59200BF1B96 /* UIImage+WLStoring.h */,
-				12E8FF2818E9B59200BF1B96 /* UIImage+WLStoring.m */,
 			);
 			path = UIImage;
 			sourceTree = "<group>";
@@ -1345,6 +1412,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */,
+				12D7E0B41910E5380094C376 /* WLDataCache.m in Sources */,
 				12A6BFAC18F2AE7700AE3B62 /* WLRefresher.m in Sources */,
 				12A8AA7418F59CE000F67113 /* WLMessageGroupCell.m in Sources */,
 				125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */,
@@ -1354,6 +1422,7 @@
 				12E8FF1418E960E000BF1B96 /* StreamLayout.m in Sources */,
 				12D653E618E43545009CE64C /* WLContributorCell.m in Sources */,
 				12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */,
+				12D7E0B81910E5480094C376 /* WLCache.m in Sources */,
 				12E0F05A19090B2E00463FEC /* WLWrapBroadcaster.m in Sources */,
 				121B1B2E18E07430001F585C /* WLCountry.m in Sources */,
 				12E5BA5518EAB9C40033CE4E /* WLWrapEntry.m in Sources */,
@@ -1366,6 +1435,7 @@
 				1293678318E33A3500527250 /* WLWrapCandyCell.m in Sources */,
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
 				12E0F05E19090C0900463FEC /* WLKeyboardBroadcaster.m in Sources */,
+				12DF5C3B190E614400D7A62F /* NSString+MD5.m in Sources */,
 				ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */,
 				12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */,
 				12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */,
@@ -1374,7 +1444,6 @@
 				12E1104219066C2D007DB4AC /* WLSwipeViewController.m in Sources */,
 				12E0F04A1909069200463FEC /* UIScrollView+Additions.m in Sources */,
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
-				12E8FF2918E9B59200BF1B96 /* UIImage+WLStoring.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */,
 				12D563FE18FE7788001C5C06 /* WLCircleProgressBar.m in Sources */,
@@ -1382,6 +1451,7 @@
 				12C4416618F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				12E8FF1718E960E000BF1B96 /* StreamView.m in Sources */,
 				12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */,
+				12DF5C42190E67DE00D7A62F /* NSString+Documents.m in Sources */,
 				12E33AD118F3E18200E77229 /* WLWrapDate.m in Sources */,
 				ACCF9B9118E1868200A7429F /* WLActivationViewController.m in Sources */,
 				12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */,
@@ -1426,6 +1496,8 @@
 				129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
+				12D7E0B51910E5380094C376 /* WLImageCache.m in Sources */,
+				12DBCD5B190FCD9B00344B52 /* WLDataManager.m in Sources */,
 				12E0F0621909249000463FEC /* UILabel+Additions.m in Sources */,
 				ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */,
 				12E0F04E19090B0600463FEC /* WLBroadcaster.m in Sources */,

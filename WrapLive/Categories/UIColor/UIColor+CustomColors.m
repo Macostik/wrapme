@@ -38,7 +38,7 @@
 + (UIColor *)colorWithHexString:(NSString *)str {
     if (str.length > 0) {
         const char *cStr = [str cStringUsingEncoding:NSASCIIStringEncoding];
-        long x = strtol(cStr+1, NULL, 16);
+        UInt32 x = (UInt32)strtol(cStr+1, NULL, 16);
         return [UIColor colorWithHex:x];
     }
     return nil;

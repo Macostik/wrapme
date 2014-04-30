@@ -42,4 +42,26 @@
 	return NO;
 }
 
+- (void)broadcast:(SEL)selector object:(id)object {
+	for (NSObject <WLBroadcastReceiver> *receiver in self.receivers) {
+		if ([receiver respondsToSelector:selector]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+			[receiver performSelector:selector withObject:self withObject:object];
+#pragma clang diagnostic pop
+		}
+	}
+}
+
+- (void)broadcast:(SEL)selector {
+	for (NSObject <WLBroadcastReceiver> *receiver in self.receivers) {
+		if ([receiver respondsToSelector:selector]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+			[receiver performSelector:selector withObject:self];
+#pragma clang diagnostic pop
+		}
+	}
+}
+
 @end

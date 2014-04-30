@@ -7,6 +7,7 @@
 //
 
 #import "WLAPIManager.h"
+#import "WLArchivingObject.h"
 
 @class WLWrap;
 @class WLCandy;
@@ -30,16 +31,20 @@
 
 @end
 
-@interface WLUploadingItem : NSObject
+@interface WLUploadingItem : WLArchivingObject
 
-@property (weak, nonatomic) WLWrap* wrap;
+@property (strong, nonatomic) WLWrap* wrap;
 
-@property (weak, nonatomic) WLCandy* candy;
-
-@property (weak, nonatomic) AFURLConnectionOperation* operation;
+@property (strong, nonatomic) WLCandy* candy;
 
 @property (nonatomic) float progress;
 
 @property (strong, nonatomic) void (^progressChangeBlock) (float progress);
+
+- (void)setOperation:(AFURLConnectionOperation *)operation;
+
+- (AFURLConnectionOperation *)operation;
+
+- (void)upload:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 @end

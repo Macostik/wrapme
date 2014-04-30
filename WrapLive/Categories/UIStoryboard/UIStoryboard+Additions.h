@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+static NSString* WLStoryboardWelcomeViewControllerIdentifier = @"welcome";
 static NSString* WLStoryboardHomeViewControllerIdentifier = @"home";
 static NSString* WLStoryboardCameraViewControllerIdentifier = @"camera";
 static NSString* WLStoryboardWrapViewControllerIdentifier = @"wrap";
@@ -18,6 +19,8 @@ static NSString* WLStoryboardImageViewControllerIdentifier = @"image";
 static NSString* WLStoryboardEditWrapViewControllerIdentifier = @"editWrap";
 
 @interface UIStoryboard (Additions)
+
+- (id)welcomeViewController;
 
 - (id)homeViewController;
 

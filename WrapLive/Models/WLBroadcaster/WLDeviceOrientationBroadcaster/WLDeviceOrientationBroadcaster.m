@@ -32,11 +32,7 @@
 }
 
 - (void)orientationChanged:(NSNotification*)notification {
-	for (id <WLDeviceOrientationBroadcastReceiver> receiver in self.receivers) {
-		if ([receiver respondsToSelector:@selector(broadcaster:didChangeOrientation:)]) {
-			[receiver broadcaster:self didChangeOrientation:[UIDevice currentDevice].orientation];
-		}
-	}
+	[self broadcast:@selector(broadcaster:didChangeOrientation:) object:@([UIDevice currentDevice].orientation)];
 }
 
 @end

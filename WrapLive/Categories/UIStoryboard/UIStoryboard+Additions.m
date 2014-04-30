@@ -10,6 +10,10 @@
 
 @implementation UIStoryboard (Additions)
 
+- (id)welcomeViewController {
+	return [self instantiateViewControllerWithIdentifier:WLStoryboardWelcomeViewControllerIdentifier];
+}
+
 - (id)homeViewController {
 	return [self instantiateViewControllerWithIdentifier:WLStoryboardHomeViewControllerIdentifier];
 }

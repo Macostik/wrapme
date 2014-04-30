@@ -20,4 +20,16 @@
 
 - (void)removeCandy:(WLCandy *)candy;
 
+- (NSArray *)candiesOfType:(NSInteger)type maximumCount:(NSUInteger)maximumCount;
+
+- (NSArray *)candies:(NSUInteger)maximumCount;
+
+- (NSArray*)images:(NSUInteger)maximumCount;
+
+- (NSArray*)messages:(NSUInteger)maximumCount;
+
+- (NSArray*)images;
+
+- (NSArray*)messages;
+
 @end

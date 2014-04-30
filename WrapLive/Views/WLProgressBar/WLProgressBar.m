@@ -59,7 +59,7 @@
 	return progressView;
 }
 
-- (void)setProgress:(CGFloat)progress {
+- (void)setProgress:(float)progress {
 	[self setProgress:progress animated:NO];
 }
 

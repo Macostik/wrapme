@@ -32,46 +32,6 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 
 @implementation WLArchivingObject
 
-- (NSData *)data {
-	return [NSKeyedArchiver archivedDataWithRootObject:self];
-}
-
-- (void)data:(void (^)(NSData *))completion {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-	    NSData *data = [self data];
-	    dispatch_async(dispatch_get_main_queue(), ^{
-	        if (completion) {
-	            completion(data);
-			}
-		});
-	});
-}
-
-+ (id)objectWithData:(NSData *)data {
-	if (data) {
-		id object = nil;
-		@try {
-			object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-		} @catch (NSException *exception) {
-		} @finally { }
-		return object;
-	}
-	else {
-		return nil;
-	}
-}
-
-+ (void)objectWithData:(NSData *)data completion:(void (^)(id))completion {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-	    id object = [self objectWithData:data];
-	    dispatch_async(dispatch_get_main_queue(), ^{
-	        if (completion) {
-	            completion(object);
-			}
-		});
-	});
-}
-
 + (NSMutableDictionary *)mapping {
 	return [NSMutableDictionary dictionary];
 }
@@ -151,6 +111,80 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 		}
 	});
 	return copy;
+}
+
+@end
+
+@implementation NSObject (WLArchivingObject)
+
+- (NSData *)archive {
+	return [NSKeyedArchiver archivedDataWithRootObject:self];
+}
+
+- (void)archive:(void (^)(NSData *))completion {
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+	    NSData *data = [self archive];
+	    dispatch_async(dispatch_get_main_queue(), ^{
+	        if (completion) {
+	            completion(data);
+			}
+		});
+	});
+}
+
+- (void)archiveToFileAtPath:(NSString*)path {
+	[NSKeyedArchiver archiveRootObject:self toFile:path];
+}
+
+- (void)archiveToFileAtPath:(NSString*)path completion:(void (^)(void))completion {
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+	    [self archiveToFileAtPath:path];
+	    dispatch_async(dispatch_get_main_queue(), ^{
+	        if (completion) {
+	            completion();
+			}
+		});
+	});
+}
+
++ (id)unarchive:(NSData *)data {
+	if (data) {
+		id object = nil;
+		@try {
+			object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+		} @catch (NSException *exception) {
+		} @finally { }
+		return object;
+	}
+	else {
+		return nil;
+	}
+}
+
++ (void)unarchive:(NSData *)data completion:(void (^)(id))completion {
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+	    id object = [self unarchive:data];
+	    dispatch_async(dispatch_get_main_queue(), ^{
+	        if (completion) {
+	            completion(object);
+			}
+		});
+	});
+}
+
++ (id)unarchiveFromFileAtPath:(NSString*)path {
+	return [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+}
+
++ (void)unarchiveFromFileAtPath:(NSString*)path completion:(void (^)(id object))completion {
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+	    id object = [self unarchiveFromFileAtPath:path];
+	    dispatch_async(dispatch_get_main_queue(), ^{
+	        if (completion) {
+	            completion(object);
+			}
+		});
+	});
 }
 
 @end

@@ -13,14 +13,19 @@
 #import "WLUser.h"
 #import "WLProgressBar.h"
 #import "WLBorderView.h"
+#import "WLWrapBroadcaster.h"
+#import "WLUploadingQueue.h"
+#import "WLWrap.h"
 
-@interface WLWrapCandyCell ()
+@interface WLWrapCandyCell () <WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chatLabelView;
 @property (weak, nonatomic) IBOutlet UIView *lowOpacityView;
 @property (weak, nonatomic) IBOutlet WLBorderView *borderView;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *retryButton;
 
 @end
 
@@ -29,6 +34,7 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.borderView.lineWidth = 0.5f;
+	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)setupItemData:(WLCandy*)entry {
@@ -43,11 +49,43 @@
 	}
 	self.commentLabel.hidden = !self.commentLabel.text.length > 0;
 	
-	if (entry.uploadingItem) {
+	[self refreshUploadingButtons:entry];
+}
+
+- (void)refreshUploadingButtons:(WLCandy*)candy {
+	if (candy.uploadingItem) {
 		self.lowOpacityView.hidden = NO;
+		self.cancelButton.hidden = (candy.uploadingItem.operation != nil);
+		self.retryButton.hidden = (candy.uploadingItem.operation != nil);
 	} else {
 		self.lowOpacityView.hidden = YES;
+		self.cancelButton.hidden = YES;
+		self.retryButton.hidden = YES;
 	}
+}
+
+#pragma mark - WLWrapBroadcastReceiver
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
+	if ([candy isEqualToCandy:self.item]) {
+		[self refreshUploadingButtons:self.item];
+	}
+}
+
+#pragma mark - Actions
+
+- (IBAction)cancelUploading:(id)sender {
+	WLCandy* candy = self.item;
+	[self.wrap removeCandy:candy];
+	[[WLUploadingQueue instance] removeItem:candy.uploadingItem];
+	[self refreshUploadingButtons:self.item];
+}
+
+- (IBAction)retryUploading:(id)sender {
+	WLCandy* candy = self.item;
+	[candy.uploadingItem upload:^(id object) {
+	} failure:^(NSError *error) {
+	}];
 }
 
 @end

@@ -43,22 +43,18 @@
 	self.shouldAppendMoreCandies = YES;
 	[self.collectionView registerNib:[WLWrapCandyCell nib] forCellWithReuseIdentifier:[WLWrapCandyCell reuseIdentifier]];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
+	__weak typeof(self)weakSelf = self;
+	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
+		[weakSelf refreshCandies];
+	}];
+	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
 }
 
 - (void)setupItemData:(WLWrapDate*)entry {
 	self.dateLabel.text = [[entry.updatedAt stringWithFormat:@"MMM dd, YYYY"] uppercaseString];
 	self.shouldAppendMoreCandies = [entry.candies count] >= 10;
 	[self.collectionView reloadData];
-	
-	[self.refresher removeFromSuperview];
-	
-	if ([entry.updatedAt isToday]) {
-		__weak typeof(self)weakSelf = self;
-		self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
-			[weakSelf refreshCandies];
-		}];
-		self.refresher.colorScheme = WLRefresherColorSchemeOrange;
-	}
+	self.refresher.enabled = [entry.updatedAt isToday];
 }
 
 #pragma mark - WLWrapBroadcastReceiver
@@ -79,6 +75,7 @@
 		[weakSelf.collectionView reloadData];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
+		weakSelf.shouldAppendMoreCandies = NO;
 		[error show];
 		[weakSelf.refresher endRefreshing];
 	}];
@@ -92,6 +89,7 @@
 		wrapDay.candies = (id)[wrapDay.candies arrayByAddingObjectsFromArray:object];
 		[weakSelf.collectionView reloadData];
 	} failure:^(NSError *error) {
+		weakSelf.shouldAppendMoreCandies = NO;
 		[error show];
 	}];
 }
@@ -105,6 +103,7 @@
 	WLWrapCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WLWrapCandyCell reuseIdentifier] forIndexPath:indexPath];
 	WLWrapDate* wrapDay = self.item;
 	cell.item = [wrapDay.candies objectAtIndex:indexPath.item];
+	cell.wrap = self.wrap;
 	return cell;
 }
 

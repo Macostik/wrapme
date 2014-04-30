@@ -97,6 +97,8 @@ static NSInteger WLAPIChatPageSize = 50;
  */
 - (id)wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
+- (id)wrap:(WLWrap*)wrap page:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
 /*!
  *  Creates new wrap
  *

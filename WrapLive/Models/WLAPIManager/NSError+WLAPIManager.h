@@ -21,6 +21,9 @@ typedef NS_ENUM(NSInteger, PGErrorCode) {
 - (void)show;
 - (void)showWithTitle:(NSString*)title;
 - (void)showWithTitle:(NSString*)title callback:(void (^)(void))callback;
+- (void)showIgnoringNetworkError;
+
+- (BOOL)isNetworkError;
 
 - (void)log;
 - (void)log:(NSString*)label;

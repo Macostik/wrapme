@@ -18,8 +18,9 @@
 #import "WLCandy.h"
 #import "WLComment.h"
 #import "WLWrapDate.h"
+#import "UIStoryboard+Additions.h"
 
-static const int ddLogLevel = LOG_LEVEL_DEBUG;
+static const int ddLogLevel = LOG_LEVEL_OFF;
 
 static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
 static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
@@ -126,7 +127,14 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		DDLogDebug(@"%@", error);
 		NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
 		if (response && response.statusCode == 401) {
-			[self signIn:[WLSession user] success:success failure:failure];
+			[self signIn:[WLSession user] success:^(id object) {
+				[self.operationQueue addOperation:[operation copy]];
+			} failure:^(NSError *error) {
+				UINavigationController* navigation = (id)[UIApplication sharedApplication].keyWindow.rootViewController;
+				if ([navigation isKindOfClass:[UINavigationController class]]) {
+					[navigation setViewControllers:@[[navigation.storyboard welcomeViewController]] animated:YES];
+				}
+			}];
 		} else {
 			failure(error);
 		}
@@ -301,10 +309,13 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-		
+	return [self wrap:wrap page:1 success:success failure:failure];
+}
+
+- (id)wrap:(WLWrap *)wrap page:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:@([[NSTimeZone localTimeZone] secondsFromGMT]) forKey:@"utc_offset"];
-	[parameters trySetObject:@(floorf([wrap.dates count] / 10) + 1) forKey:@"group_by_date_page_number"];
+	[parameters trySetObject:@(page) forKey:@"group_by_date_page_number"];
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 		return [wrap updateWithDictionary:response.data[@"wrap"]];

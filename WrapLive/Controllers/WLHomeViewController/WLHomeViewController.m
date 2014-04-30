@@ -11,7 +11,6 @@
 #import "WLWrap.h"
 #import "WLCandy.h"
 #import "UIImageView+ImageLoading.h"
-#import "WLAPIManager.h"
 #import "WLWrapViewController.h"
 #import "UIStoryboard+Additions.h"
 #import "UIView+Shorthand.h"
@@ -24,7 +23,7 @@
 #import "WLComposeBar.h"
 #import "WLComposeContainer.h"
 #import "WLComment.h"
-#import "UIImage+WLStoring.h"
+#import "WLImageCache.h"
 #import "WLCandy.h"
 #import "WLWrapCandyCell.h"
 #import "UIFont+CustomFonts.h"
@@ -37,6 +36,7 @@
 #import "UILabel+Additions.h"
 #import "WLCreateWrapViewController.h"
 #import "WLUser.h"
+#import "WLDataManager.h"
 
 static NSUInteger WLHomeTopWrapCandiesLimit = 6;
 static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
@@ -59,7 +59,9 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet UIView *loadingView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
-@property (weak, nonatomic) IBOutlet UIImageView *avataImageView;
+@property (weak, nonatomic) IBOutlet UIButton *avatarButton;
+
+@property (nonatomic) BOOL shouldAppendMoreWraps;
 
 @end
 
@@ -80,14 +82,23 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	self.avataImageView.superview.layer.cornerRadius = self.avataImageView.height/2;
-	self.avataImageView.superview.layer.borderWidth = 1;
-	self.avataImageView.superview.layer.borderColor = [UIColor whiteColor].CGColor;
-	self.avataImageView.imageUrl = [WLUser currentUser].picture.small;
+	
+	[self updateUserAvatar];
+	
 	if (self.composeContainer.hidden) {
 		self.loading = NO;
-		[self fetchWraps:1];
+		[self fetchWraps:YES];
 	}
+}
+
+- (void)updateUserAvatar {
+	self.avatarButton.layer.cornerRadius = self.avatarButton.height/2.0f;
+	self.avatarButton.layer.borderWidth = 1;
+	self.avatarButton.layer.borderColor = [UIColor whiteColor].CGColor;
+	__weak typeof(self)weakSelf = self;
+	[self.avatarButton.imageView setImageUrl:[WLUser currentUser].picture.small completion:^(UIImage *image, BOOL cached) {
+		[weakSelf.avatarButton setBackgroundImage:image forState:UIControlStateNormal];
+	}];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -109,7 +120,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 - (void)setupRefresh {
 	__weak typeof(self)weakSelf = self;
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
-		[weakSelf fetchWraps:1];
+		[weakSelf fetchWraps:YES];
 	}];
 	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
 }
@@ -126,30 +137,29 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
-	[self fetchWraps:1];
+	[self fetchWraps:YES];
 }
 
-- (void)fetchWraps:(NSInteger)page {
+- (void)fetchWraps:(BOOL)refresh {
 	if (self.loading) {
 		return;
 	}
 	self.loading = YES;
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] wrapsWithPage:page success:^(NSArray * object) {
-		if (page == 1) {
-			weakSelf.wraps = object;
-		} else {
-			[weakSelf appendWraps:object];
+	[WLDataManager wraps:refresh success:^(NSArray* wraps, BOOL cached, BOOL stop) {
+		weakSelf.wraps = wraps;
+		weakSelf.shouldAppendMoreWraps = !stop;
+		if (!cached) {
+			[weakSelf.refresher endRefreshing];
+			weakSelf.loading = NO;
 		}
-		[weakSelf validateFooterWithObjectsCount:object.count];
-		weakSelf.loading = NO;
-		[weakSelf.refresher endRefreshing];
 		[weakSelf finishLoadingAnimation];
 	} failure:^(NSError *error) {
 		weakSelf.loading = NO;
+		weakSelf.shouldAppendMoreWraps = NO;
 		[weakSelf.refresher endRefreshing];
 		if (weakSelf.isOnTopOfNagvigation) {
-			[error show];
+			[error showIgnoringNetworkError];
 		}
 		[weakSelf finishLoadingAnimation];
 	}];
@@ -167,8 +177,9 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 	}
 }
 
-- (void)validateFooterWithObjectsCount:(NSInteger)count {
-	if (count < WLAPIGeneralPageSize) {
+- (void)setShouldAppendMoreWraps:(BOOL)shouldAppendMoreWraps {
+	_shouldAppendMoreWraps = shouldAppendMoreWraps;
+	if (!_shouldAppendMoreWraps) {
 		self.tableView.tableFooterView = nil;
 	} else if (self.tableView.tableFooterView == nil) {
 		self.tableView.tableFooterView = [WLLoadingView instance];
@@ -207,13 +218,13 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 		weakSelf.headerWrapAuthorsLabel.text = names;
 		[weakSelf.headerWrapAuthorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
 	}];
-	self.latestCandies = [wrap latestCandies:WLHomeTopWrapCandiesLimit];
+	self.latestCandies = [wrap candies:WLHomeTopWrapCandiesLimit];
 	self.headerView.height = [self.latestCandies count] > WLHomeTopWrapCandiesLimit_2 ? 280 : 174;
 	self.tableView.tableHeaderView = self.headerView;
 	[self.topWrapStreamView reloadData];
 }
 
-- (void)appendWraps: (id)object {
+- (void)appendWraps:(id)object {
 	_wraps = [_wraps arrayByAddingObjectsFromArray:object];
 	[self.tableView reloadData];
 }
@@ -221,7 +232,6 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 - (void)sendMessageWithText:(NSString*)text {
 	[[WLUploadingQueue instance] uploadMessage:text wrap:self.topWrap success:^(id object) {
 	} failure:^(NSError *error) {
-		[error show];
 	}];
 }
 
@@ -290,8 +300,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.loading && self.tableView.tableFooterView != nil && (indexPath.row == [self.wraps count] - 1)) {
-		NSInteger page = ((self.wraps.count + 1)/WLAPIGeneralPageSize + 1);
-		[self fetchWraps:page];
+		[self fetchWraps:NO];
 	}
 }
 
@@ -300,7 +309,6 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {	
 	[[WLUploadingQueue instance] uploadImage:image wrap:self.topWrap success:^(id object) {
 	} failure:^(NSError *error) {
-		[error show];
 	}];
 
 	[self dismissViewControllerAnimated:YES completion:nil];
@@ -326,6 +334,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 															 forItem:item
 														 loadingType:StreamViewReusableViewLoadingTypeNib];
 		candyView.item = [self.latestCandies objectAtIndex:item.index.row];
+		candyView.wrap = self.topWrap;
 		return candyView;
 	} else {
 		UIImageView * placeholderView = [streamView reusableViewOfClass:[UIImageView class]

@@ -30,9 +30,20 @@
 	self.continueButton.hidden = YES;
 	if ([WLSession activated]) {
 		__weak typeof(self)weakSelf = self;
-		[self signIn:^(NSError *error) {
-			[error show];
-			[weakSelf showContinueButton];
+		WLUser* user = [WLSession user];
+		[[WLAPIManager instance] signIn:user success:^(WLUser* user) {
+			if (user.name.length > 0) {
+				[weakSelf presentHomeViewController];
+			} else {
+				[weakSelf continueSignUp];
+			}
+		} failure:^(NSError *error) {
+			if ([error isNetworkError]) {
+				[weakSelf presentHomeViewController];
+			} else {
+				[error show];
+				[weakSelf showContinueButton];
+			}
 		}];
 	} else {
 		[self showContinueButton];
@@ -49,19 +60,14 @@
 	[self.spinner removeFromSuperview];
 }
 
-- (void)signIn:(void (^)(NSError* error))failure {
-	__weak typeof(self)weakSelf = self;
-	WLUser* user = [WLSession user];
-	[[WLAPIManager instance] signIn:user success:^(WLUser* user) {
-		if (user.name.length > 0) {
-			NSArray *navigationArray = @[[weakSelf.storyboard homeViewController]];
-			[weakSelf.navigationController setViewControllers:navigationArray];
-		} else {
-			WLSignUpViewController * controller = [weakSelf.storyboard signUpViewController];
-			controller.registrationNotCompleted = YES;
-			[weakSelf.navigationController setViewControllers:@[controller]];
-		}
-	} failure:failure];
+- (void)presentHomeViewController {
+	[self.navigationController setViewControllers:@[[self.storyboard homeViewController]]];
+}
+
+- (void)continueSignUp {
+	WLSignUpViewController * controller = [self.storyboard signUpViewController];
+	controller.registrationNotCompleted = YES;
+	[self.navigationController setViewControllers:@[controller]];
 }
 
 @end

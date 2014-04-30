@@ -40,4 +40,6 @@ static NSInteger WLCandyTypeChatMessage = 20;
 
 - (BOOL)isEqualToCandy:(WLCandy *)candy;
 
+- (void)broadcastChange;
+
 @end

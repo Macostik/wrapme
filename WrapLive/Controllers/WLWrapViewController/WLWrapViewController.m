@@ -20,7 +20,6 @@
 #import "WLCreateWrapViewController.h"
 #import "WLComposeBar.h"
 #import "WLComposeContainer.h"
-#import "UIImage+WLStoring.h"
 #import "WLAPIManager.h"
 #import "WLComment.h"
 #import "WLRefresher.h"
@@ -29,6 +28,7 @@
 #import "WLWrapBroadcaster.h"
 #import "WLUploadingQueue.h"
 #import "UILabel+Additions.h"
+#import "WLDataManager.h"
 
 @interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate, WLWrapBroadcastReceiver>
 
@@ -54,9 +54,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	
+	[[WLUploadingQueue instance] updateWrap:self.wrap];
 	[self setWrapData];
-		
 	[self refreshWrap];
 	__weak typeof(self)weakSelf = self;
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
@@ -100,21 +99,18 @@
 
 - (void)refreshWrap {
 	__weak typeof(self)weakSelf = self;
-	WLWrap* wrap = [self.wrap copy];
-	wrap.dates = nil;
-	[[WLAPIManager instance] wrap:wrap success:^(WLWrap* wrap) {
+	[WLDataManager wrap:self.wrap success:^(WLWrap* wrap) {
 		if ([wrap.dates count] == 0) {
 			weakSelf.firstContributorView.alpha = 1.0f;
 			weakSelf.firstContributorWrapNameLabel.text = wrap.name;
 		}
 		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
-		[weakSelf.wrap updateWithObject:wrap];
 		[[WLUploadingQueue instance] updateWrap:weakSelf.wrap];
 		[weakSelf.tableView reloadData];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
 		weakSelf.shouldLoadMoreDates = NO;
-		[error show];
+		[error showIgnoringNetworkError];
 		[weakSelf.refresher endRefreshing];
 	}];
 }
@@ -125,14 +121,15 @@
 	}
 	loading = YES;
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] wrap:[self.wrap copy] success:^(WLWrap* wrap) {
+	NSInteger page = floorf([self.wrap.dates count] / 10) + 1;
+	[[WLAPIManager instance] wrap:[self.wrap copy] page:page success:^(WLWrap* wrap) {
 		weakSelf.wrap.dates = (id)[weakSelf.wrap.dates arrayByAddingObjectsFromArray:wrap.dates];
 		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
 		[weakSelf.tableView reloadData];
 		loading = NO;
 	} failure:^(NSError *error) {
 		weakSelf.shouldLoadMoreDates = NO;
-		[error show];
+		[error showIgnoringNetworkError];
 		loading = NO;
 	}];
 }
@@ -158,7 +155,6 @@
 - (void)sendMessageWithText:(NSString*)text {
 	[[WLUploadingQueue instance] uploadMessage:text wrap:self.wrap success:^(id object) {
 	} failure:^(NSError *error) {
-		[error show];
 	}];
 }
 
@@ -244,7 +240,6 @@
 	self.firstContributorView.alpha = 0.0f;
 	[[WLUploadingQueue instance] uploadImage:image wrap:self.wrap success:^(id object) {
 	} failure:^(NSError *error) {
-		[error show];
 	}];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }

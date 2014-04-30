@@ -8,6 +8,7 @@
 
 #import "WLCandy.h"
 #import "WLComment.h"
+#import "WLWrapBroadcaster.h"
 
 @implementation WLCandy
 
@@ -89,6 +90,10 @@
 		return [self.chatMessage isEqualToString:candy.chatMessage] &&
 		[self.updatedAt compare:candy.updatedAt] == NSOrderedSame;
 	}
+}
+
+- (void)broadcastChange {
+	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCandyChange:) withObject:self afterDelay:0.0f];
 }
 
 @end

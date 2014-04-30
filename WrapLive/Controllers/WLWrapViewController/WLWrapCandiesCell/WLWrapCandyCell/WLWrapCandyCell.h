@@ -8,6 +8,10 @@
 
 #import "WLCollectionItemCell.h"
 
+@class WLWrap;
+
 @interface WLWrapCandyCell : WLCollectionItemCell
+
+@property (strong, nonatomic) WLWrap* wrap;
 
 @end

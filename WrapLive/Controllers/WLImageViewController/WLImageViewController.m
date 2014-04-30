@@ -71,9 +71,9 @@
 
 #pragma mark - WLDeviceOrientationBroadcastReceiver
 
-- (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(UIDeviceOrientation)orientation {
+- (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber*)orientation {
 	self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
-	[self applyDeviceOrientation:orientation animated:YES];
+	[self applyDeviceOrientation:[orientation integerValue] animated:YES];
 	self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
 }
 

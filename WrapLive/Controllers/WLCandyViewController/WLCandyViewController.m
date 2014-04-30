@@ -27,6 +27,7 @@
 #import "WLImageViewController.h"
 #import "UIScrollView+Additions.h"
 #import "WLKeyboardBroadcaster.h"
+#import "WLDataManager.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
@@ -71,16 +72,21 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)setWrap:(WLWrap *)wrap candy:(WLCandy *)candy {
 	self.wrap = wrap;
+	NSMutableArray* candies = [NSMutableArray array];
+	WLCandy* existingCandy = nil;
 	for (WLWrapDate* date in wrap.dates) {
 		for (WLCandy* _candy in date.candies) {
-			if (_candy.type == WLCandyTypeImage && [_candy isEqualToCandy:candy]) {
-				self.date = date;
-				self.shouldLoadMoreCandies = [date.candies count] % WLAPIGeneralPageSize == 0;
-				[self setItems:date.candies	currentItem:_candy];
-				return;
+			if (_candy.type == WLCandyTypeImage) {
+				[candies addObject:_candy];
+				if (existingCandy == nil && [_candy isEqualToCandy:candy]) {
+					existingCandy = _candy;
+					self.date = date;
+				}
 			}
 		}
 	}
+	self.shouldLoadMoreCandies = [self.date.candies count] % WLAPIGeneralPageSize == 0;
+	[self setItems:candies currentItem:existingCandy];
 }
 
 - (void)setCandy:(WLCandy *)candy  {
@@ -101,10 +107,11 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 		[[WLAPIManager instance] candies:self.wrap date:self.date success:^(id object) {
 			weakSelf.shouldLoadMoreCandies = ([object count] == WLAPIGeneralPageSize);
 			weakSelf.date.candies = (id)[weakSelf.date.candies arrayByAddingObjectsFromArray:object];
-			weakSelf.items = weakSelf.date.candies;
+			weakSelf.items = [weakSelf.date images];
 			weakSelf.loading = NO;
 		} failure:^(NSError *error) {
-			[error show];
+			weakSelf.shouldLoadMoreCandies = NO;
+			[error showIgnoringNetworkError];
 			weakSelf.loading = NO;
 		}];
 	}
@@ -112,11 +119,11 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)refresh {
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] candyInfo:self.candy forWrap:self.wrap success:^(WLCandy * object) {
+	[WLDataManager candy:self.candy wrap:self.wrap success:^(id object) {
 		[weakSelf setupImage];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
-		[error show];
+		[error showIgnoringNetworkError];
 		[weakSelf.refresher endRefreshing];
 	}];
 }
@@ -153,8 +160,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	self.containerView.height = self.view.height - self.topView.height;
 }
 
-- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(CGFloat)keyboardHeight {
-	self.containerView.height = self.view.height - self.topView.height - keyboardHeight;
+- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
+	self.containerView.height = self.view.height - self.topView.height - [keyboardHeight floatValue];
 	[self.tableView scrollToBottomAnimated:YES];
 }
 

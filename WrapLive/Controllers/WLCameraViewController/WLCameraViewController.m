@@ -553,8 +553,8 @@
 
 #pragma mark - WLDeviceOrientationBroadcastReceiver
 
-- (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(UIDeviceOrientation)orientation {
-	[self applyDeviceOrientation:orientation];
+- (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber*)orientation {
+	[self applyDeviceOrientation:[orientation integerValue]];
 }
 
 @end

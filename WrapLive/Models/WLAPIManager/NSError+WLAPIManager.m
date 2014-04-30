@@ -53,6 +53,16 @@ static NSDictionary *errorsToIgnore = nil;
 	}
 }
 
+- (void)showIgnoringNetworkError {
+	if (![self isNetworkError]) {
+		[self show];
+	}
+}
+
+- (BOOL)isNetworkError {
+	return self.code == NSURLErrorNetworkConnectionLost || self.code == NSURLErrorNotConnectedToInternet;;
+}
+
 static NSDictionary *customErrorMessages = nil;
 
 + (NSDictionary*)customErrorMessages {

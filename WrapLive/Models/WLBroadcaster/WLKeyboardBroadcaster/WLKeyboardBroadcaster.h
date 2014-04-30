@@ -13,8 +13,8 @@
 @protocol WLKeyboardBroadcastReceiver <WLBroadcastReceiver>
 
 @optional
-- (void)broadcaster:(WLKeyboardBroadcaster*)broadcaster willShowKeyboardWithHeight:(CGFloat)keyboardHeight;
-- (void)broadcaster:(WLKeyboardBroadcaster*)broadcaster didShowKeyboardWithHeight:(CGFloat)keyboardHeight;
+- (void)broadcaster:(WLKeyboardBroadcaster*)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight;
+- (void)broadcaster:(WLKeyboardBroadcaster*)broadcaster didShowKeyboardWithHeight:(NSNumber*)keyboardHeight;
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster*)broadcaster;
 - (void)broadcasterDidHideKeyboard:(WLKeyboardBroadcaster*)broadcaster;
 

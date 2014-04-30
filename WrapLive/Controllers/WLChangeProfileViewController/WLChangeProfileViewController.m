@@ -11,13 +11,13 @@
 #import "UIStoryboard+Additions.h"
 #import "UIImage+Resize.h"
 #import "UIView+Shorthand.h"
-#import "UIImage+WLStoring.h"
 #import "WLUser.h"
 #import "UIImageView+ImageLoading.h"
 #import "WLAPIManager.h"
 #import "WLKeyboardBroadcaster.h"
 #import "WLInputAccessoryView.h"
 #import "NSDate+Formatting.h"
+#import "WLImageCache.h"
 
 @interface WLChangeProfileViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
@@ -60,7 +60,7 @@
 
 - (void)saveImage:(UIImage *)image {
 	__weak typeof(self)weakSelf = self;
-	[image storeAsAvatar:^(NSString *path) {
+	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
 		weakSelf.user.picture.large = path;
 		[weakSelf isProfileChanged];
 	}];
@@ -172,12 +172,12 @@
 
 #pragma mark - WLKeyboardBroadcastReceiver
 
-- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(CGFloat)keyboardHeight {
+- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
 	__weak typeof(self)weakSelf = self;
 	CGAffineTransform transform = self.mainView.transform;
 	self.mainView.transform = CGAffineTransformIdentity;
 	CGPoint center = [self.view convertPoint:self.nameTextField.center fromView:self.nameTextField.superview];
-	CGFloat translation = center.y - (self.view.height - keyboardHeight)/2.0f;
+	CGFloat translation = center.y - (self.view.height - [keyboardHeight floatValue])/2.0f;
 	self.mainView.transform = transform;
 	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		weakSelf.mainView.transform = CGAffineTransformMakeTranslation(0, -translation);

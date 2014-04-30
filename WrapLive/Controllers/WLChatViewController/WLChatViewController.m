@@ -25,6 +25,7 @@
 #import "WLCollectionViewFlowLayout.h"
 #import "UIScrollView+Additions.h"
 #import "WLKeyboardBroadcaster.h"
+#import "WLDataManager.h"
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver>
 
@@ -66,8 +67,13 @@
 	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
 	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
 	
-	self.shouldAppendMoreMessages = YES;
-	[self refreshMessages];
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		NSArray* messages = [weakSelf.wrap messages];
+        dispatch_async(dispatch_get_main_queue(), ^{
+			[weakSelf setMessages:messages];
+			[weakSelf refreshMessages];
+        });
+    });
 	
 	self.backSwipeGestureEnabled = YES;
 	
@@ -114,6 +120,8 @@
 		[_messages removeObjectsInArray:dayMessages];
 	}
 	
+	self.shouldAppendMoreMessages = ([messages count] == WLAPIChatPageSize);
+	
 	[self.collectionView reloadData];
 }
 
@@ -146,12 +154,13 @@
 
 - (void)refreshMessages {
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] chatMessages:self.wrap page:1 success:^(id object) {
+	[WLDataManager messages:self.wrap success:^(id object) {
 		weakSelf.shouldAppendMoreMessages = [object count] == WLAPIChatPageSize;
 		[weakSelf setMessages:object];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
-		[error show];
+		weakSelf.shouldAppendMoreMessages = NO;
+		[error showIgnoringNetworkError];
 		[weakSelf.refresher endRefreshing];
 	}];
 }
@@ -168,7 +177,8 @@
 		[weakSelf addMessages:object];
 		loading = NO;
 	} failure:^(NSError *error) {
-		[error show];
+		weakSelf.shouldAppendMoreMessages = NO;
+		[error showIgnoringNetworkError];
 		loading = NO;
 	}];
 }
@@ -181,8 +191,8 @@
 	[self.collectionView reloadData];
 }
 
-- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(CGFloat)keyboardHeight {
-	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - keyboardHeight;
+- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
+	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - [keyboardHeight floatValue];
 	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
 	[self.collectionView reloadData];
 }
@@ -205,7 +215,6 @@
 		[weakSelf.collectionView reloadData];
 		[weakSelf.collectionView scrollToTopAnimated:YES];
 	} failure:^(NSError *error) {
-		[error show];
 	}];
 }
 

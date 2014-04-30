@@ -252,7 +252,10 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		for (WLContact* contact in contacts) {
 			[phoneNumbers addObjectsFromArray:contact.phoneNumbers];
 		}
-				
+		if (phoneNumbers.count == 0) {
+			success(nil);
+			return;
+		}
 		NSDictionary* parameters = @{@"phone_numbers":phoneNumbers};
 		
 		WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {

@@ -44,6 +44,8 @@
 
 @property (nonatomic, readonly) WLCollectionViewFlowLayout* layout;
 
+@property (nonatomic) CGFloat keyboardHeight;
+
 @end
 
 @implementation WLChatViewController
@@ -66,6 +68,7 @@
 	}];
 	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
 	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
+	self.composeBar.placeholder = @"Write your message ...";
 	
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		NSArray* messages = [weakSelf.wrap messages];
@@ -191,8 +194,9 @@
 	[self.collectionView reloadData];
 }
 
-- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
-	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - [keyboardHeight floatValue];
+- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
+	self.keyboardHeight = [keyboardHeight floatValue];
+	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - self.keyboardHeight;
 	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
 	[self.collectionView reloadData];
 }
@@ -219,11 +223,18 @@
 }
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
+	[self changeDimentionsWithComposeBar:composeBar];
 	[self sendMessageWithText:text];
 }
 
-- (void)composeBarDidReturn:(WLComposeBar *)composeBar {
-	[composeBar resignFirstResponder];
+- (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
+	[self changeDimentionsWithComposeBar:composeBar];
+}
+
+- (void)changeDimentionsWithComposeBar:(WLComposeBar *)composeBar {
+	self.composeBar.height = composeBar.height;
+	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - self.keyboardHeight;
+	self.composeBar.y = self.collectionView.height + self.topView.height;
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {

@@ -30,7 +30,7 @@
 #import "UILabel+Additions.h"
 #import "WLDataManager.h"
 
-@interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLComposeBarDelegate, WLWrapBroadcastReceiver>
+@interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
@@ -38,7 +38,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
 @property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
-@property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
 @property (nonatomic) BOOL shouldLoadMoreDates;
 
 @property (weak, nonatomic) WLRefresher *refresher;
@@ -66,11 +65,6 @@
 	self.tableView.tableFooterView = [WLLoadingView instance];
 	
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[self.composeContainer setEditing:NO];
-	[super viewWillDisappear:animated];
 }
 
 - (void)setWrapData {
@@ -185,17 +179,6 @@
 	WLCreateWrapViewController* controller = [self.storyboard editWrapViewController];
 	controller.wrap = self.wrap;
 	[controller presentInViewController:self transition:WLWrapTransitionFromRight];
-}
-
-#pragma mark - WLComposeBarDelegate
-
-- (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
-	[self.composeContainer setEditing:NO animated:YES];
-	[self sendMessageWithText:text];
-}
-
-- (void)composeBarDidReturn:(WLComposeBar *)composeBar {
-	[self.composeContainer setEditing:NO animated:YES];
 }
 
 #pragma mark - WLWrapCandiesCellDelegate

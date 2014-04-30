@@ -13,10 +13,10 @@
 @protocol WLComposeBarDelegate <NSObject>
 
 - (void)composeBar:(WLComposeBar*)composeBar didFinishWithText:(NSString*)text;
-- (void)composeBarDidReturn:(WLComposeBar*)composeBar;
 
 @optional;
 
+- (void)composeBarHeightDidChanged:(WLComposeBar*)composeBar;
 - (NSUInteger)composeBarCharactersLimit:(WLComposeBar*)composeBar;
 - (void)composeBarDidBeginEditing:(WLComposeBar*)composeBar;
 - (void)composeBarDidEndEditing:(WLComposeBar*)composeBar;
@@ -35,5 +35,11 @@
 @property (nonatomic) BOOL doneButtonHidden;
 
 - (void)setDoneButtonHidden:(BOOL)hidden animated:(BOOL)animated;
+
+@end
+
+@interface WLTextView : UITextView
+
+@property (strong, nonatomic) NSString * placeholder;
 
 @end

@@ -20,8 +20,6 @@
 #import "StreamView.h"
 #import "WLCandyViewController.h"
 #import "UIColor+CustomColors.h"
-#import "WLComposeBar.h"
-#import "WLComposeContainer.h"
 #import "WLComment.h"
 #import "WLImageCache.h"
 #import "WLCandy.h"
@@ -41,7 +39,7 @@
 static NSUInteger WLHomeTopWrapCandiesLimit = 6;
 static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLComposeBarDelegate, WLWrapBroadcastReceiver>
+@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet StreamView *topWrapStreamView;
 @property (weak, nonatomic) IBOutlet UIView *headerWrapView;
@@ -50,7 +48,6 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 @property (weak, nonatomic) IBOutlet UILabel *headerWrapAuthorsLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
-@property (weak, nonatomic) IBOutlet WLComposeContainer *composeContainer;
 @property (strong, nonatomic) NSArray* wraps;
 @property (strong, nonatomic) WLWrap* topWrap;
 @property (strong, nonatomic) NSArray* latestCandies;
@@ -59,7 +56,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet UIView *loadingView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
-@property (weak, nonatomic) IBOutlet UIButton *avatarButton;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 
 @property (nonatomic) BOOL shouldAppendMoreWraps;
 
@@ -72,7 +69,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
     // Do any additional setup after loading the view.
 	self.navigationBar.transform = CGAffineTransformMakeTranslation(0, -self.navigationBar.height);
 	self.createWrapButton.transform = CGAffineTransformMakeTranslation(0, self.createWrapButton.height);
-	self.composeContainer.hidden = YES;
+	self.tableView.hidden = YES;
 	self.noWrapsView.hidden = YES;
 	
 	[self setupRefresh];
@@ -82,28 +79,14 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
-	[self updateUserAvatar];
-	
-	if (self.composeContainer.hidden) {
+	self.avatarImageView.layer.cornerRadius = self.avatarImageView.height/2;
+	self.avatarImageView.layer.borderWidth = 1;
+	self.avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+	self.avatarImageView.imageUrl = [WLUser currentUser].picture.small;
+	if (self.tableView.hidden) {
 		self.loading = NO;
 		[self fetchWraps:YES];
 	}
-}
-
-- (void)updateUserAvatar {
-	self.avatarButton.layer.cornerRadius = self.avatarButton.height/2.0f;
-	self.avatarButton.layer.borderWidth = 1;
-	self.avatarButton.layer.borderColor = [UIColor whiteColor].CGColor;
-	__weak typeof(self)weakSelf = self;
-	[self.avatarButton.imageView setImageUrl:[WLUser currentUser].picture.small completion:^(UIImage *image, BOOL cached) {
-		[weakSelf.avatarButton setBackgroundImage:image forState:UIControlStateNormal];
-	}];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[self.composeContainer setEditing:NO];
-	[super viewWillDisappear:animated];
 }
 
 - (UIViewController *)shakePresentedViewController {
@@ -195,7 +178,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 	wraps = [wraps sortedEntries];
 	WLWrap* topWrap = [wraps firstObject];
 	_wraps = [wraps arrayByRemovingObject:topWrap];
-	self.composeContainer.hidden = (topWrap == nil);
+	self.tableView.hidden = (topWrap == nil);
 	self.noWrapsView.hidden = (topWrap != nil);
 	self.topWrap = topWrap;
 	[self.tableView reloadData];
@@ -260,17 +243,6 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 - (IBAction)createNewWrap:(id)sender {
 	WLCreateWrapViewController* controller = [self.storyboard editWrapViewController];
 	[controller presentInViewController:self transition:WLWrapTransitionFromBottom];
-}
-
-#pragma mark - WLComposeBarDelegate
-
-- (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
-	[self.composeContainer setEditing:NO animated:YES];
-	[self sendMessageWithText:text];
-}
-
-- (void)composeBarDidReturn:(WLComposeBar *)composeBar {
-	[self.composeContainer setEditing:NO animated:YES];
 }
 
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>

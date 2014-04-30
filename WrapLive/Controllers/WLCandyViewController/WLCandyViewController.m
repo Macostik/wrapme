@@ -61,7 +61,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refresh];
 	}];
-	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
+	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
@@ -186,11 +186,19 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 #pragma mark - WLComposeBarDelegate
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
+	[self changeDimentionsWithComposeBar:composeBar];
 	[self sendMessageWithText:text];
 }
 
-- (void)composeBarDidReturn:(WLComposeBar *)composeBar {
-	[composeBar resignFirstResponder];
+- (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
+	[self changeDimentionsWithComposeBar:composeBar];
+}
+
+- (void)changeDimentionsWithComposeBar:(WLComposeBar *)composeBar {
+	self.composeBarView.height = composeBar.height;
+	self.tableView.height = self.containerView.height - self.composeBarView.height;
+	self.composeBarView.y = self.tableView.y + self.tableView.height;
+	[self.tableView scrollToBottomAnimated:YES];
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {

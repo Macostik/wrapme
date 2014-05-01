@@ -20,7 +20,7 @@
 #import "WLWrapDate.h"
 #import "UIStoryboard+Additions.h"
 
-static const int ddLogLevel = LOG_LEVEL_OFF;
+static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
 static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
 static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
@@ -145,7 +145,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	 success:(WLAPIManagerSuccessBlock)success
 	 failure:(WLAPIManagerFailureBlock)failure {
 	
-	NSString* birthdate = [user.birthdate string];
+	NSString* birthdate = [user.birthdate GMTString];
 	
 	[WLSession setBirthdate:birthdate];
 	
@@ -227,7 +227,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:user.name forKey:@"name"];
 	
-	NSString* birthdate = [user.birthdate string];
+	NSString* birthdate = [user.birthdate GMTString];
 	[parameters trySetObject:birthdate forKey:@"dob"];
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {

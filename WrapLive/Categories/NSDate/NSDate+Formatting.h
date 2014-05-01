@@ -22,7 +22,15 @@
 
 - (NSString*)stringWithFormat:(NSString*)dateFormat;
 
+- (NSString*)stringWithFormat:(NSString*)dateFormat timeZone:(NSTimeZone*)timeZone;
+
+- (NSString*)GMTStringWithFormat:(NSString*)dateFormat;
+
 - (NSString*)string;
+
+- (NSString*)stringWithTimeZone:(NSTimeZone*)timeZone;
+
+- (NSString*)GMTString;
 
 - (NSDate *)beginOfDay;
 
@@ -38,7 +46,11 @@
 
 - (NSDate *)dateFromString:(NSString *)string withFormat:(NSString*)dateFormat;
 
+- (NSDate *)dateFromString:(NSString *)string withFormat:(NSString*)dateFormat timeZone:(NSTimeZone*)timeZone;
+
 - (NSString *)stringFromDate:(NSDate *)date withFormat:(NSString*)dateFormat;
+
+- (NSString *)stringFromDate:(NSDate *)date withFormat:(NSString*)dateFormat timeZone:(NSTimeZone*)timeZone;
 
 @end
 
@@ -46,6 +58,14 @@
 
 - (NSDate*)dateWithFormat:(NSString*)dateFormat;
 
+- (NSDate*)dateWithFormat:(NSString*)dateFormat timeZone:(NSTimeZone*)timeZone;
+
+- (NSDate*)GMTDateWithFormat:(NSString*)dateFormat;
+
 - (NSDate*)date;
+
+- (NSDate*)dateWithTimeZone:(NSTimeZone*)timeZone;
+
+- (NSDate*)GMTDate;
 
 @end

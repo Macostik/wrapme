@@ -63,6 +63,7 @@
 		birthdatePicker.maximumDate = [NSDate date];
 		birthdatePicker.backgroundColor = [UIColor whiteColor];
 		birthdatePicker.date = [NSDate defaultBirtday];
+		birthdatePicker.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
 		self.birthdateTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(birthdatePickerCancel:) done:@selector(birthdatePickerDone:)];
 		self.birthdateTextField.inputView = birthdatePicker;
 		_birthdatePicker = birthdatePicker;
@@ -72,7 +73,7 @@
 
 - (void)setBirthdate:(NSDate *)birthdate {
 	_birthdate = birthdate;
-	self.birthdateTextField.text = [birthdate stringWithFormat:@"MMM' 'dd', 'YYYY'"];
+	self.birthdateTextField.text = [birthdate GMTStringWithFormat:@"MMM' 'dd', 'YYYY'"];
 	[self validateSignUpButton];
 }
 

@@ -42,7 +42,7 @@
 	[self setupPicker];
 	self.nameTextField.text = self.user.name;
 	self.profileImageView.imageUrl = self.user.picture.large;
-	self.birthdateTextField.text = [self.birthdatePicker.date stringWithFormat:@"MMM' 'dd', 'YYYY'"];
+	self.birthdateTextField.text = [self.birthdatePicker.date GMTStringWithFormat:@"MMM' 'dd', 'YYYY'"];
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 
@@ -79,6 +79,7 @@
 	self.birthdatePicker.maximumDate = [NSDate date];
 	self.birthdatePicker.backgroundColor = [UIColor whiteColor];
 	self.birthdatePicker.date = self.user.birthdate;
+	self.birthdatePicker.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
 	self.birthdateTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(birthdatePickerCancel:) done:@selector(birthdatePickerDone:)];
 	self.birthdateTextField.inputView = self.birthdatePicker;
 }
@@ -89,7 +90,7 @@
 }
 
 - (void)birthdatePickerDone:(id)sender {
-	self.birthdateTextField.text = [self.birthdatePicker.date stringWithFormat:@"MMM' 'dd', 'YYYY'"];
+	self.birthdateTextField.text = [self.birthdatePicker.date GMTStringWithFormat:@"MMM' 'dd', 'YYYY'"];
 	self.user.birthdate = self.birthdatePicker.date;
 	[self isProfileChanged];
 	[self.birthdateTextField resignFirstResponder];

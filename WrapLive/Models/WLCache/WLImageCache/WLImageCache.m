@@ -13,6 +13,8 @@
 #import "NSDictionary+Extended.h"
 #import "WLSupportFunctions.h"
 
+static NSUInteger WLImageCacheSize = 524288000;
+
 UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 	if (size > 0) {
 		size *= [UIScreen mainScreen].scale;
@@ -76,17 +78,16 @@ UIImage* WLImageFromUrl(NSString* imageUrl) {
     return instance;
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.readObjectBlock = ^id (NSString* path) {
-			return WLImageFromUrl(path);
-		};
-		self.writeObjectBlock = ^(UIImage* image, NSString* path) {
-			[UIImageJPEGRepresentation(image, 1.0f) writeToFile:path atomically:YES];
-		};
-    }
-    return self;
+- (void)configure {
+	self.size = WLImageCacheSize;
+	
+	self.readObjectBlock = ^id (NSString* path) {
+		return WLImageFromUrl(path);
+	};
+	self.writeObjectBlock = ^(UIImage* image, NSString* path) {
+		[UIImageJPEGRepresentation(image, 1.0f) writeToFile:path atomically:YES];
+	};
+	[super configure];
 }
 
 - (NSCache *)systemCache {

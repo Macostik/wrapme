@@ -23,11 +23,15 @@ typedef void (^WLCacheWriteCompletionBlock)(NSString* path);
 
 @property (strong, nonatomic) WLCacheWriteObjectBlock writeObjectBlock;
 
+@property (nonatomic) NSUInteger size;
+
 + (instancetype)cache;
 
 + (instancetype)cacheWithIdentifier:(NSString*)identifier;
 
 + (instancetype)cacheWithIdentifier:(NSString*)identifier relativeCache:(WLCache*)relativeCache;
+
+- (void)configure;
 
 - (NSString*)pathWithIdentifier:(NSString*)identifier;
 
@@ -42,5 +46,7 @@ typedef void (^WLCacheWriteCompletionBlock)(NSString* path);
 - (void)setObject:(id)object withIdentifier:(NSString*)identifier;
 
 - (void)clear;
+
+- (void)enqueueCheckSizePerforming;
 
 @end

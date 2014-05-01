@@ -137,6 +137,10 @@
     [super motionEnded:motion withEvent:event];
 }
 
+- (BOOL)canBecomeFirstResponder {
+	return YES;
+}
+
 - (UIViewController *)shakePresentedViewController {
 	return nil;
 }
@@ -148,6 +152,15 @@
 			return [self presentShakeViewController];
 		}
 	}
+	
+	if (self.presentingViewController == rootNavigationController) {
+		__weak typeof(self)weakSelf = self;
+		[self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+			[weakSelf presentShakeViewControllerWithNavigationController:rootNavigationController];
+		}];
+		return YES;
+	}
+	
 	WLShakeViewController* presentingViewController = (id)self.presentingViewController;
 	if (presentingViewController.navigationController == rootNavigationController) {
 		if ([presentingViewController isKindOfClass:[WLShakeViewController class]]) {
@@ -157,14 +170,15 @@
 			return YES;
 		}
 	}
+	
 	return NO;
 }
 
-- (BOOL)presentShakeViewController {
+- (BOOL)presentShakeViewControllerWithNavigationController:(UINavigationController*)navigationController {
 	WLShakeViewController* presentingViewController = nil;
 	UIViewController* presentedViewController = nil;
 	
-	NSEnumerator* enumerator = [self.navigationController.viewControllers reverseObjectEnumerator];
+	NSEnumerator* enumerator = [navigationController.viewControllers reverseObjectEnumerator];
 	for (WLShakeViewController* viewController in enumerator) {
 		if ([viewController isKindOfClass:[WLShakeViewController class]]) {
 			presentedViewController = [viewController shakePresentedViewController];
@@ -175,15 +189,25 @@
 		}
 	}
 	
-	if (presentingViewController && presentingViewController != self.navigationController.topViewController) {
-		[self.navigationController popToViewController:presentingViewController animated:NO];
+	NSTimeInterval delay = 0.0f;
+	
+	if (presentingViewController && presentingViewController != navigationController.topViewController) {
+		[navigationController popToViewController:presentingViewController animated:YES];
+		delay = 0.5f;
 	}
 	
 	if (presentingViewController && presentedViewController) {
-		[presentingViewController presentViewController:presentedViewController animated:YES completion:nil];
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+			[presentingViewController presentViewController:presentedViewController animated:YES completion:nil];
+		});
 		return YES;
 	}
 	return NO;
+
+}
+
+- (BOOL)presentShakeViewController {
+	return [self presentShakeViewControllerWithNavigationController:self.navigationController];
 }
 
 - (void)setBackSwipeGestureEnabled:(BOOL)backSwipeGestureEnabled {

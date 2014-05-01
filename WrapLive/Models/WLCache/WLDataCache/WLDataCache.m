@@ -14,6 +14,8 @@ static NSString* WLDataCacheWrapsIdentifier = @"mainScreenWraps";
 
 static NSString* WLDataCacheUploadingItemsIdentifier = @"uploadingItems";
 
+static NSUInteger WLWrapCacheSize = 104857600;
+
 @interface WLDataCache ()
 
 @property (strong, nonatomic) WLCache* wrapsCache;
@@ -72,6 +74,7 @@ static NSString* WLDataCacheUploadingItemsIdentifier = @"uploadingItems";
 - (WLCache *)wrapsCache {
 	if (!_wrapsCache) {
 		_wrapsCache = [WLCache cacheWithIdentifier:@"wraps" relativeCache:self];
+		_wrapsCache.size = WLWrapCacheSize;
 	}
 	return _wrapsCache;
 }
@@ -79,6 +82,7 @@ static NSString* WLDataCacheUploadingItemsIdentifier = @"uploadingItems";
 - (WLCache *)candiesCache {
 	if (!_candiesCache) {
 		_candiesCache = [WLCache cacheWithIdentifier:@"candies" relativeCache:self];
+		_candiesCache.size = WLWrapCacheSize;
 	}
 	return _candiesCache;
 }
@@ -91,6 +95,7 @@ static NSString* WLDataCacheUploadingItemsIdentifier = @"uploadingItems";
 - (void)setWrap:(WLWrap*)wrap {
 	WLCache* wrapCache = [WLCache cacheWithIdentifier:wrap.identifier relativeCache:self.wrapsCache];
 	[wrapCache setObject:wrap withIdentifier:@"wrapObject"];
+	[self.wrapsCache enqueueCheckSizePerforming];
 }
 
 - (BOOL)containsWrap:(WLWrap *)wrap {

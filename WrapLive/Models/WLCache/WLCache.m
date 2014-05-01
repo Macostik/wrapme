@@ -9,6 +9,18 @@
 #import "WLCache.h"
 #import "NSString+Documents.h"
 
+@interface WLCacheItem : NSObject
+
+@property (nonatomic, strong) NSString* path;
+
+@property (nonatomic) unsigned long long size;
+
+@property (nonatomic, strong) NSDate* date;
+
+@end
+
+@implementation WLCacheItem @end
+
 @interface WLCache ()
 
 @property (strong, nonatomic) NSString* identifier;
@@ -34,6 +46,25 @@
 	cache.relativeCache = relativeCache;
 	cache.identifier = identifier;
 	return cache;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self configure];
+    }
+    return self;
+}
+
+- (void)configure {
+	
+}
+
+- (void)setSize:(NSUInteger)size {
+	_size = size;
+	if (size > 0) {
+		[self enqueueCheckSizePerforming];
+	}
 }
 
 - (NSString *)directory {
@@ -101,6 +132,7 @@
 				completion(path);
 			}
         });
+		[self checkSizeAndClearIfNeededInBackground];
     });
 }
 
@@ -108,8 +140,59 @@
 	[self setObject:object withIdentifier:identifier completion:nil];
 }
 
+- (void)enqueueCheckSizePerforming {
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(checkSizeAndClearIfNeededInBackground) object:nil];
+	[self performSelector:@selector(checkSizeAndClearIfNeededInBackground) withObject:nil afterDelay:0.5f];
+}
+
+- (void)checkSizeAndClearIfNeededInBackground {
+	[self performSelectorInBackground:@selector(checkSizeAndClearIfNeeded) withObject:nil];
+}
+
+- (void)checkSizeAndClearIfNeeded {
+	if (self.size > 0) {
+		@autoreleasepool {
+			NSString* directory = self.directory;
+			
+			NSDirectoryEnumerator* enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directory];
+			NSUInteger size = 0;
+			
+			NSMutableArray* items = [NSMutableArray array];
+			
+			for (NSString* file in enumerator) {
+				
+				WLCacheItem* item = [[WLCacheItem alloc] init];
+				item.path = [directory stringByAppendingPathComponent:file];
+				
+				NSDictionary* attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:item.path error:NULL];
+				
+				item.size = [attributes fileSize];
+				
+				item.date = [attributes fileCreationDate];
+				
+				size += item.size;
+				
+				[items addObject:item];
+			}
+			
+			[items sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
+			
+			while (size >= self.size) {
+				WLCacheItem* item = [items firstObject];
+				[[NSFileManager defaultManager] removeItemAtPath:item.path error:NULL];
+				size -= item.size;
+				[items removeObject:item];
+			}
+		}
+	}
+}
+
 - (void)clear {
-	
+	NSString* directory = self.directory;
+	NSDirectoryEnumerator* enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directory];
+	for (NSString* file in enumerator) {
+		[[NSFileManager defaultManager] removeItemAtPath:[directory stringByAppendingPathComponent:file] error:NULL];
+	}
 }
 
 @end

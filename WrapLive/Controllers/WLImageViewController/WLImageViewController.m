@@ -66,6 +66,7 @@
 		}
 		self.scrollView.transform = transform;
 		self.scrollView.frame = self.view.bounds;
+		self.errorLabel.transform = transform;
 		if (animated) {
 			[UIView commitAnimations];
 		}

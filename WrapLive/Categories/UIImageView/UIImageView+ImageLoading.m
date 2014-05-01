@@ -24,7 +24,7 @@
 	[self setImageUrl:imageUrl completion:nil];
 }
 
-- (void)setImageUrl:(NSString *)imageUrl completion:(void (^)(UIImage* image, BOOL cached))completion {
+- (void)setImageUrl:(NSString *)imageUrl completion:(void (^)(UIImage* image, BOOL cached, NSError* error))completion {
 	self.image = nil;
 	[self cancelImageRequestOperation];
 	if ([[NSFileManager defaultManager] fileExistsAtPath:imageUrl]) {
@@ -34,7 +34,7 @@
 		[[WLImageCache cache] imageWithUrl:imageUrl completion:^(UIImage *image) {
 			weakSelf.image = image;
 			if (completion) {
-				completion(image, YES);
+				completion(image, YES, nil);
 			}
 		}];
 	} else {
@@ -42,7 +42,7 @@
 	}
 }
 
-- (void)setNetworkImageUrl:(NSString *)imageUrl completion:(void (^)(UIImage* image, BOOL cached))completion {
+- (void)setNetworkImageUrl:(NSString *)imageUrl completion:(void (^)(UIImage* image, BOOL cached, NSError* error))completion {
 	NSURL* url = [NSURL URLWithString:imageUrl];
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
@@ -50,23 +50,23 @@
 	[self setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
 		[weakSelf setImage:image animated:(request != nil)];
 		if (completion) {
-			completion(image, request == nil);
+			completion(image, request == nil, nil);
 		}
 		[[WLImageCache cache] setImage:image withUrl:imageUrl];
 	} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
 		if (error.code != NSURLErrorCancelled) {
 			if (completion) {
-				completion(nil, NO);
+				completion(nil, NO, error);
 			}
 		}
 	}];
 }
 
-- (void)setFileSystemImageUrl:(NSString *)imageUrl completion:(void (^)(UIImage* image, BOOL cached))completion {
+- (void)setFileSystemImageUrl:(NSString *)imageUrl completion:(void (^)(UIImage* image, BOOL cached, NSError* error))completion {
 	[self cancelImageRequestOperation];
 	self.image = WLThumbnailFromUrl(imageUrl, self.height);
 	if (completion) {
-		completion(self.image, YES);
+		completion(self.image, YES, nil);
 	}
 }
 

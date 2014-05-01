@@ -39,81 +39,11 @@
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
-@property (nonatomic) WLWrapTransition transition;
-
 @end
 
 @implementation WLCreateWrapViewController
 
 @synthesize wrap = _wrap;
-
-- (void)presentInViewController:(UIViewController *)controller transition:(WLWrapTransition)transition {
-	self.transition = transition;
-	self.view.frame = controller.view.bounds;
-	[controller.view addSubview:self.view];
-	[controller addChildViewController:self];
-	BOOL animated = transition != WLWrapTransitionWithoutAnimation;
-	[controller viewWillDisappear:animated];
-	if (animated) {
-		__weak typeof(self)weakSelf = self;
-		if (transition == WLWrapTransitionFromBottom) {
-			self.view.transform = CGAffineTransformMakeTranslation(0, self.view.height);
-		} else if (transition == WLWrapTransitionFromRight) {
-			self.view.transform = CGAffineTransformMakeTranslation(self.view.width, 0);
-		}
-		[UIView animateWithDuration:0.33f
-							  delay:0.0f
-							options:UIViewAnimationOptionCurveEaseInOut
-						 animations:^{
-							 weakSelf.view.transform = CGAffineTransformIdentity;
-						 } completion:^(BOOL finished) {
-							 [weakSelf didMoveToParentViewController:controller];
-							 [controller viewDidDisappear:animated];
-						 }];
-	} else {
-		[self didMoveToParentViewController:controller];
-		[controller viewDidDisappear:animated];
-	}
-}
-
-- (void)dismiss:(WLWrapTransition)transition {
-	[self willMoveToParentViewController:nil];
-	BOOL animated = transition != WLWrapTransitionWithoutAnimation;
-	[self.parentViewController viewWillAppear:animated];
-	if (animated) {
-		__weak typeof(self)weakSelf = self;
-		
-		void (^animationBlock)(void) = nil;
-		
-		if (transition == WLWrapTransitionFromBottom) {
-			animationBlock = ^{
-				weakSelf.view.transform = CGAffineTransformMakeTranslation(0, weakSelf.view.height);
-			};
-		} else if (transition == WLWrapTransitionFromRight) {
-			animationBlock = ^{
-				weakSelf.view.transform = CGAffineTransformMakeTranslation(weakSelf.view.width, 0);
-			};
-		}
-		
-		[UIView animateWithDuration:0.33f
-							  delay:0.0f
-							options:UIViewAnimationOptionCurveEaseInOut
-						 animations:animationBlock
-						 completion:^(BOOL finished) {
-			[weakSelf.view removeFromSuperview];
-			[weakSelf removeFromParentViewController];
-			[weakSelf.parentViewController viewDidAppear:animated];
-		}];
-	} else {
-		[self.view removeFromSuperview];
-		[self removeFromParentViewController];
-		[self.parentViewController viewDidAppear:animated];
-	}
-}
-
-- (void)dismiss {
-	[self dismiss:self.transition];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -124,11 +54,7 @@
 		[self configureWrapEditing];
 	}
 	
-	self.view.backgroundColor = [UIColor clearColor];
-	UIToolbar* toolbar = [[UIToolbar alloc] initWithFrame:self.view.bounds];
-	toolbar.tintColor = [UIColor whiteColor];
-	toolbar.translucent = YES;
-	[self.view insertSubview:toolbar atIndex:0];
+	[self setTranslucent];
 }
 
 - (BOOL)isNewWrap {

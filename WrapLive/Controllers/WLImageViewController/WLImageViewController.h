@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLShakeViewController.h"
 
 @class WLCandy;
 
-@interface WLImageViewController : UIViewController
+@interface WLImageViewController : WLShakeViewController
 
 @property (strong, nonatomic) WLCandy* image;
 

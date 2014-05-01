@@ -8,12 +8,30 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, WLWrapTransition) {
+	WLWrapTransitionWithoutAnimation,
+	WLWrapTransitionFromBottom,
+	WLWrapTransitionFromRight
+};
+
 @interface WLShakeViewController : UIViewController
+
+@property (nonatomic) BOOL backSwipeGestureEnabled;
+
+- (void)presentInViewController:(UIViewController*)controller transition:(WLWrapTransition)transition completion:(void (^)(void))completion;
+
+- (void)presentInViewController:(UIViewController*)controller transition:(WLWrapTransition)transition;
+
+- (void)dismiss:(WLWrapTransition)transition completion:(void (^)(void))completion;
+
+- (void)dismiss:(WLWrapTransition)transition;
+
+- (void)dismiss;
 
 - (UIViewController*)shakePresentedViewController;
 
-- (void)didRecognizeShakeGesture;
+- (BOOL)didRecognizeShakeGesture;
 
-@property (nonatomic) BOOL backSwipeGestureEnabled;
+- (void)setTranslucent;
 
 @end

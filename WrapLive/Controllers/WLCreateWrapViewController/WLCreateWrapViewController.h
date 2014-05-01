@@ -10,18 +10,8 @@
 
 @class WLWrap;
 
-typedef NS_ENUM(NSUInteger, WLWrapTransition) {
-	WLWrapTransitionWithoutAnimation,
-	WLWrapTransitionFromBottom,
-	WLWrapTransitionFromRight
-};
-
 @interface WLCreateWrapViewController : WLShakeViewController
 
 @property (strong, nonatomic) WLWrap* wrap;
-
-- (void)presentInViewController:(UIViewController*)controller transition:(WLWrapTransition)transition;
-- (void)dismiss:(WLWrapTransition)transition;
-- (void)dismiss;
 
 @end

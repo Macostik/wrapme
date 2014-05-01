@@ -134,7 +134,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	if (!self.spinner.isAnimating) {
 		[self.spinner startAnimating];
 	}
-	[self.imageView setImageUrl:image.picture.medium completion:^(UIImage* image, BOOL cached) {
+	[self.imageView setImageUrl:image.picture.medium completion:^(UIImage* image, BOOL cached, NSError* error) {
 		if (weakSelf.spinner.isAnimating) {
 			[weakSelf.spinner stopAnimating];
 		}

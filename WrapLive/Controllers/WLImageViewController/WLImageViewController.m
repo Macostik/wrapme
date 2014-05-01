@@ -12,12 +12,14 @@
 #import "UIView+Shorthand.h"
 #import "WLSupportFunctions.h"
 #import "WLDeviceOrientationBroadcaster.h"
+#import "NSError+WLAPIManager.h"
 
 @interface WLImageViewController () <UIScrollViewDelegate, WLDeviceOrientationBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 @end
 
@@ -28,12 +30,13 @@
     // Do any additional setup after loading the view.
 	self.scrollView.userInteractionEnabled = NO;
 	__weak typeof(self)weakSelf = self;
-	[self.imageView setImageUrl:self.image.picture.large completion:^(UIImage *image, BOOL cached) {
+	[self.imageView setImageUrl:self.image.picture.large completion:^(UIImage *image, BOOL cached, NSError* error) {
 		if (image) {
 			[weakSelf configureScrollViewWithImage:image];
 		}
 		[weakSelf.spinner removeFromSuperview];
 		weakSelf.scrollView.userInteractionEnabled = YES;
+		weakSelf.errorLabel.hidden = ![error isNetworkError];
 	}];
 	
 	[self applyDeviceOrientation:[UIDevice currentDevice].orientation animated:NO];

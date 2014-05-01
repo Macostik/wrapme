@@ -69,7 +69,7 @@
                                     <outletCollection property="gestureRecognizers" destination="WHO-a2-L29" appends="YES" id="lHl-MX-Z00"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" id="ztd-JX-YVg">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="ztd-JX-YVg">
                                 <rect key="frame" x="0.0" y="384" width="320" height="184"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -81,8 +81,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6qh-b4-dSO">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="184"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <rect key="frame" x="116" y="48" width="88" height="88"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                         <state key="normal" image="camera_medium">
@@ -94,8 +94,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VWs-al-ota">
-                                        <rect key="frame" x="0.0" y="0.0" width="44" height="184"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                        <rect key="frame" x="0.0" y="70" width="44" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
                                         <state key="normal" image="ic_back_white">
                                             <color key="titleColor" red="0.27843138575553894" green="0.27450981736183167" blue="0.26666668057441711" alpha="1" colorSpace="deviceRGB"/>
@@ -106,8 +106,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xXB-5v-ARs">
-                                        <rect key="frame" x="258" y="0.0" width="63" height="184"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
+                                        <rect key="frame" x="258" y="61" width="63" height="62"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <state key="normal" image="ic_gallery_medium">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

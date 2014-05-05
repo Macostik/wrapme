@@ -13,6 +13,7 @@
 #import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
 #import "UILabel+Additions.h"
+#import "NSDate+Additions.h"
 
 @interface WLCommentCell()
 
@@ -35,10 +36,11 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.commentLabel.font = [WLCommentCell commentFont];
+	self.authorImageView.layer.cornerRadius = self.authorImageView.height/2.0f;
 }
 
 - (void)setupItemData:(WLComment *)entry {
-	self.authorNameLabel.text = entry.contributor.name;
+	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", entry.contributor.name, entry.createdAt.timeAgoString];
 	self.commentLabel.text = entry.text;
 	[self.commentLabel sizeToFitHeight];
 	self.authorImageView.imageUrl = entry.contributor.picture.medium;

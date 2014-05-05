@@ -28,6 +28,7 @@
 #import "UIScrollView+Additions.h"
 #import "WLKeyboardBroadcaster.h"
 #import "WLDataManager.h"
+#import "NSDate+Additions.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
@@ -37,6 +38,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
@@ -115,16 +117,18 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (void)showContentIndicatorView:(BOOL)animated {
-	CGFloat contentRatio = ((CGFloat)[self.items indexOfObject:self.item]) / ((CGFloat)[self.items count] - 1.0f);
-	CGFloat x = (self.view.width - self.contentIndicatorView.width - 2) * contentRatio;
-	if (animated) {
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationBeginsFromCurrentState:YES];
-	}
-	self.contentIndicatorView.alpha = 1.0f;
-	self.contentIndicatorView.x = x + 1;
-	if (animated) {
-		[UIView commitAnimations];
+	if ([self.items count] > 1) {
+		CGFloat contentRatio = ((CGFloat)[self.items indexOfObject:self.item]) / ((CGFloat)[self.items count] - 1.0f);
+		CGFloat x = (self.view.width - self.contentIndicatorView.width - 2) * contentRatio;
+		if (animated) {
+			[UIView beginAnimations:nil context:nil];
+			[UIView setAnimationBeginsFromCurrentState:YES];
+		}
+		self.contentIndicatorView.alpha = 1.0f;
+		self.contentIndicatorView.x = x + 1;
+		if (animated) {
+			[UIView commitAnimations];
+		}
 	}
 	[UIView cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideContentIndicatorView) object:nil];
 	[self performSelector:@selector(hideContentIndicatorView) withObject:nil afterDelay:1.0f];
@@ -180,6 +184,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 			[weakSelf.spinner stopAnimating];
 		}
 	}];
+	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", image.createdAt.timeAgoString];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", image.contributor.name];
 	[self.tableView reloadData];
 }

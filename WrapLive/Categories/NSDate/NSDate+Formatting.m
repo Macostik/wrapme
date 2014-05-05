@@ -10,127 +10,82 @@
 
 @implementation NSDate (Formatting)
 
-static NSString* _defaultDateFormat = @"ddMMYYYY";
+static NSString* _defaultFormat = @"ddMMYYYY";
 
-+ (NSString*)defaultDateFormat {
-	return _defaultDateFormat;
++ (NSString*)defaultFormat {
+	return _defaultFormat;
 }
 
-+ (void)setDefaultDateFormat:(NSString*)dateFormat {
-	_defaultDateFormat = dateFormat;
++ (void)setDefaultFormat:(NSString*)format {
+	_defaultFormat = format;
 }
 
 static NSMutableDictionary* formatters = nil;
 
 + (NSDateFormatter *)formatter {
-    return [self formatterWithDateFormat:_defaultDateFormat];
+    return [self formatterWithDateFormat:_defaultFormat];
 }
 
-+ (NSDateFormatter *)formatterWithDateFormat:(NSString *)dateFormat {
++ (NSDateFormatter *)formatterWithDateFormat:(NSString *)format {
     if (!formatters) {
         formatters = [NSMutableDictionary dictionary];
     }
     
-    NSDateFormatter* formatter = [formatters objectForKey:dateFormat];
+    NSDateFormatter* formatter = [formatters objectForKey:format];
     
     if (!formatter) {
         formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = dateFormat;
-        [formatters setObject:formatter forKey:dateFormat];
+        formatter.dateFormat = format;
+        [formatters setObject:formatter forKey:format];
     }
     
     return formatter;
 }
 
-+ (NSDate *)defaultBirtday {
-	NSDateComponents* components = [NSDateComponents  new];
-	[components setYear:2013];
-	[components setMonth:06];
-	[components setDay:19];
-	return [[NSCalendar currentCalendar] dateFromComponents:components];
+- (NSString *)stringWithFormat:(NSString *)format {
+    return [[NSDate formatterWithDateFormat:format] stringFromDate:self withFormat:format];
 }
 
-- (NSString *)stringWithFormat:(NSString *)dateFormat {
-    return [[NSDate formatterWithDateFormat:dateFormat] stringFromDate:self withFormat:dateFormat];
+- (NSString *)stringWithFormat:(NSString *)format timeZone:(NSTimeZone *)timeZone {
+	return [[NSDate formatterWithDateFormat:format] stringFromDate:self withFormat:format timeZone:timeZone];
 }
 
-- (NSString *)stringWithFormat:(NSString *)dateFormat timeZone:(NSTimeZone *)timeZone {
-	return [[NSDate formatterWithDateFormat:dateFormat] stringFromDate:self withFormat:dateFormat timeZone:timeZone];
-}
-
-- (NSString *)GMTStringWithFormat:(NSString *)dateFormat {
-	return [self stringWithFormat:dateFormat timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+- (NSString *)GMTStringWithFormat:(NSString *)format {
+	return [self stringWithFormat:format timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
 }
 
 - (NSString *)string {
-    return [self stringWithFormat:[NSDate defaultDateFormat]];
+    return [self stringWithFormat:[NSDate defaultFormat]];
 }
 
 - (NSString *)stringWithTimeZone:(NSTimeZone *)timeZone {
-	return [self stringWithFormat:[NSDate defaultDateFormat] timeZone:timeZone];
+	return [self stringWithFormat:[NSDate defaultFormat] timeZone:timeZone];
 }
 
 - (NSString *)GMTString {
 	return [self stringWithTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
 }
 
-- (NSDate *)beginOfDay {
-    return [[NSCalendar currentCalendar] dateFromComponents:[self componentsBeginOfDay]];
-}
-
-- (NSDate *)endOfDay {
-    return [[NSCalendar currentCalendar] dateFromComponents:[self componentsEndOfDay]];
-}
-
-- (NSDateComponents *)componentsBeginOfDay {
-	NSDateComponents* components = [self dayComponents];
-    [components setHour:0];
-    [components setMinute:0];
-    [components setSecond:0];
-    return components;
-}
-
-- (NSDateComponents *)componentsEndOfDay {
-    NSDateComponents* components = [self dayComponents];
-    [components setHour:23];
-    [components setMinute:59];
-    [components setSecond:59];
-    return components;
-}
-
-- (NSDateComponents *)dayComponents {
-	NSCalendarUnit units = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
-    return [[NSCalendar currentCalendar] components:units fromDate:self];
-}
-
-- (BOOL)isSameDay:(NSDate *)date {
-	return [[self string] isEqualToString:[date string]];
-}
-
-- (BOOL)isToday {
-	return [self isSameDay:[NSDate date]];
-}
-
 @end
 
 @implementation NSDateFormatter (DateFormatting)
 
-- (NSDate *)dateFromString:(NSString *)string withFormat:(NSString*)dateFormat {
-	return [self dateFromString:string withFormat:dateFormat timeZone:[NSTimeZone localTimeZone]];
+- (NSDate *)dateFromString:(NSString *)string withFormat:(NSString*)format {
+	return [self dateFromString:string withFormat:format timeZone:[NSTimeZone localTimeZone]];
 }
 
-- (NSDate *)dateFromString:(NSString *)string withFormat:(NSString*)dateFormat timeZone:(NSTimeZone *)timeZone {
-    self.dateFormat = dateFormat;
+- (NSDate *)dateFromString:(NSString *)string withFormat:(NSString*)format timeZone:(NSTimeZone *)timeZone {
+    self.dateFormat = format;
 	self.timeZone = timeZone;
     return [self dateFromString:string];
 }
 
-- (NSString *)stringFromDate:(NSDate *)date withFormat:(NSString*)dateFormat {
-	return [self stringFromDate:date withFormat:dateFormat timeZone:[NSTimeZone localTimeZone]];
+- (NSString *)stringFromDate:(NSDate *)date withFormat:(NSString*)format {
+	return [self stringFromDate:date withFormat:format timeZone:[NSTimeZone localTimeZone]];
 }
 
-- (NSString *)stringFromDate:(NSDate *)date withFormat:(NSString *)dateFormat timeZone:(NSTimeZone *)timeZone {
-	self.dateFormat = dateFormat;
+- (NSString *)stringFromDate:(NSDate *)date withFormat:(NSString *)format timeZone:(NSTimeZone *)timeZone {
+	self.dateFormat = format;
 	self.timeZone = timeZone;
     return [self stringFromDate:date];
 }
@@ -139,24 +94,24 @@ static NSMutableDictionary* formatters = nil;
 
 @implementation NSString (DateFormatting)
 
-- (NSDate *)dateWithFormat:(NSString *)dateFormat {
-    return [[NSDate formatterWithDateFormat:dateFormat] dateFromString:self withFormat:dateFormat];
+- (NSDate *)dateWithFormat:(NSString *)format {
+    return [[NSDate formatterWithDateFormat:format] dateFromString:self withFormat:format];
 }
 
-- (NSDate *)dateWithFormat:(NSString *)dateFormat timeZone:(NSTimeZone *)timeZone {
-	return [[NSDate formatterWithDateFormat:dateFormat] dateFromString:self withFormat:dateFormat timeZone:timeZone];
+- (NSDate *)dateWithFormat:(NSString *)format timeZone:(NSTimeZone *)timeZone {
+	return [[NSDate formatterWithDateFormat:format] dateFromString:self withFormat:format timeZone:timeZone];
 }
 
-- (NSDate *)GMTDateWithFormat:(NSString *)dateFormat {
-	return [self dateWithFormat:dateFormat timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+- (NSDate *)GMTDateWithFormat:(NSString *)format {
+	return [self dateWithFormat:format timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
 }
 
 - (NSDate *)date {
-    return [self dateWithFormat:[NSDate defaultDateFormat]];
+    return [self dateWithFormat:[NSDate defaultFormat]];
 }
 
 - (NSDate *)dateWithTimeZone:(NSTimeZone *)timeZone {
-	return [self dateWithFormat:[NSDate defaultDateFormat] timeZone:timeZone];
+	return [self dateWithFormat:[NSDate defaultFormat] timeZone:timeZone];
 }
 
 - (NSDate *)GMTDate {

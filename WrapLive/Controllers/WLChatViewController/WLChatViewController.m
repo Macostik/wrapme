@@ -26,6 +26,7 @@
 #import "UIScrollView+Additions.h"
 #import "WLKeyboardBroadcaster.h"
 #import "WLDataManager.h"
+#import "NSDate+Additions.h"
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver>
 

@@ -18,6 +18,7 @@
 #import "WLWrap.h"
 #import "WLWrapBroadcaster.h"
 #import "WLUploadingQueue.h"
+#import "NSDate+Additions.h"
 
 @interface WLWrapCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLWrapBroadcastReceiver>
 

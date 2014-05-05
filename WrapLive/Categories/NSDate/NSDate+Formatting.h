@@ -10,15 +10,13 @@
 
 @interface NSDate (Formatting)
 
-+ (NSString*)defaultDateFormat;
++ (NSString*)defaultFormat;
 
-+ (void)setDefaultDateFormat:(NSString*)dateFormat;
++ (void)setDefaultFormat:(NSString*)dateFormat;
 
 + (NSDateFormatter *)formatter;
 
 + (NSDateFormatter *)formatterWithDateFormat:(NSString*)dateFormat;
-
-+ (NSDate *)defaultBirtday;
 
 - (NSString*)stringWithFormat:(NSString*)dateFormat;
 
@@ -31,14 +29,6 @@
 - (NSString*)stringWithTimeZone:(NSTimeZone*)timeZone;
 
 - (NSString*)GMTString;
-
-- (NSDate *)beginOfDay;
-
-- (NSDate *)endOfDay;
-
-- (BOOL)isSameDay:(NSDate*)date;
-
-- (BOOL)isToday;
 
 @end
 

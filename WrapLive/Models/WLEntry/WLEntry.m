@@ -8,6 +8,7 @@
 
 #import "WLEntry.h"
 #import "NSDate+Formatting.h"
+#import "NSDate+Additions.h"
 
 @implementation WLEntry
 

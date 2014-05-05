@@ -43,7 +43,7 @@
 {
     [super viewDidLoad];
 	self.country = [WLCountry getCurrentCountry];
-	[WLInputAccessoryView inputAccessoryViewWithResponder:self.phoneNumberTextField];
+	self.phoneNumberTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(phoneNumberInputCancel:) done:@selector(phoneNumberInputDone:)];
 	self.birthdate = self.birthdatePicker.date;
 }
 
@@ -127,6 +127,15 @@
 								[weakSelf.spinner stopAnimating];
 								[error show];
 							}];
+}
+
+- (void)phoneNumberInputCancel:(id)sender {
+	[self.phoneNumberTextField resignFirstResponder];
+}
+
+- (void)phoneNumberInputDone:(id)sender {
+	[self.phoneNumberTextField resignFirstResponder];
+	[self.birthdateTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.2f];
 }
 
 - (void)birthdatePickerCancel:(id)sender {

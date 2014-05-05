@@ -97,6 +97,8 @@
 		if ([wrap.dates count] == 0) {
 			weakSelf.firstContributorView.alpha = 1.0f;
 			weakSelf.firstContributorWrapNameLabel.text = wrap.name;
+		} else {
+			weakSelf.firstContributorView.alpha = 0.0f;
 		}
 		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
 		[[WLUploadingQueue instance] updateWrap:weakSelf.wrap];

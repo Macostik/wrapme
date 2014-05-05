@@ -58,6 +58,7 @@
 		12D4E94818FBEC5100B8F2AF /* WLUploadingQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4E94718FBEC5100B8F2AF /* WLUploadingQueue.m */; };
 		12D4E94C18FC12DF00B8F2AF /* AsynchronousOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4E94B18FC12DF00B8F2AF /* AsynchronousOperation.m */; };
 		12D563FE18FE7788001C5C06 /* WLCircleProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D563FD18FE7788001C5C06 /* WLCircleProgressBar.m */; };
+		12D578C719178C3400586995 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 12D578C619178C3400586995 /* iTunesArtwork */; };
 		12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D518E4326C009CE64C /* UIView+Shorthand.m */; };
 		12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D918E4329F009CE64C /* WLProgressBar.m */; };
 		12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
@@ -216,6 +217,7 @@
 		12D4E94B18FC12DF00B8F2AF /* AsynchronousOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsynchronousOperation.m; sourceTree = "<group>"; };
 		12D563FC18FE7788001C5C06 /* WLCircleProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCircleProgressBar.h; sourceTree = "<group>"; };
 		12D563FD18FE7788001C5C06 /* WLCircleProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCircleProgressBar.m; sourceTree = "<group>"; };
+		12D578C619178C3400586995 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		12D653D418E4326C009CE64C /* UIView+Shorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shorthand.h"; sourceTree = "<group>"; };
 		12D653D518E4326C009CE64C /* UIView+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shorthand.m"; sourceTree = "<group>"; };
 		12D653D818E4329F009CE64C /* WLProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLProgressBar.h; sourceTree = "<group>"; };
@@ -1107,6 +1109,7 @@
 		12E3DA4318E049C300DBDB79 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				12D578C619178C3400586995 /* iTunesArtwork */,
 				121B1B2F18E0749F001F585C /* Property Lists */,
 				12E3DA4418E049C300DBDB79 /* Fonts */,
 				12E3DA5018E049C300DBDB79 /* Images.xcassets */,
@@ -1368,6 +1371,7 @@
 				121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
 				12E8FF2118E9885F00BF1B96 /* WLComposeBar.xib in Resources */,
+				12D578C719178C3400586995 /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

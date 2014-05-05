@@ -188,8 +188,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	WLUser* contributor = [self.editingWrap.contributors objectAtIndex:section];
-    return [contributor isCurrentUser] ? 0 : 1;
+	return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -197,9 +196,9 @@
 	WLUser* contributor = self.editingWrap.contributors[indexPath.section];
     cell.item = contributor;
 	if ([self.editingWrap.contributor isCurrentUser]) {
-		cell.deletable = YES;
+		cell.deletable = ![contributor isCurrentUser];
 	} else {
-		cell.deletable = ![contributor isEqualToUser:self.editingWrap.contributor];
+		cell.deletable = ![self.wrap.contributors containsObject:contributor byBlock:[WLUser equalityBlock]];
 	}
     return cell;
 }

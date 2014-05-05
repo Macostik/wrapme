@@ -22,7 +22,7 @@
 @implementation WLContributorCell
 
 - (void)setupItemData:(WLUser*)user {
-	self.nameLabel.text = user.name;
+	self.nameLabel.text = [user isCurrentUser] ? @"You" : user.name;
 	self.avatarView.imageUrl = user.picture.medium;
 }
 

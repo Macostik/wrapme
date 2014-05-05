@@ -40,6 +40,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
+@property (weak, nonatomic) IBOutlet UIView *contentIndicatorView;
 
 @property (weak, nonatomic) WLRefresher *refresher;
 
@@ -55,6 +56,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
+	self.contentIndicatorView.layer.cornerRadius = 2;
 
 	self.composeBarView.placeholder = @"Write your comment ...";
 	__weak typeof(self)weakSelf = self;
@@ -64,6 +67,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
+	
+	[self showContentIndicatorView:NO];
 }
 
 - (UIView *)swipeView {
@@ -72,21 +77,23 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)setWrap:(WLWrap *)wrap candy:(WLCandy *)candy {
 	self.wrap = wrap;
-	NSMutableArray* candies = [NSMutableArray array];
 	WLCandy* existingCandy = nil;
 	for (WLWrapDate* date in wrap.dates) {
 		for (WLCandy* _candy in date.candies) {
 			if (_candy.type == WLCandyTypeImage) {
-				[candies addObject:_candy];
 				if (existingCandy == nil && [_candy isEqualToCandy:candy]) {
 					existingCandy = _candy;
 					self.date = date;
+					break;
 				}
 			}
 		}
+		if (existingCandy != nil) {
+			break;
+		}
 	}
 	self.shouldLoadMoreCandies = [self.date.candies count] % WLAPIGeneralPageSize == 0;
-	[self setItems:candies currentItem:existingCandy];
+	[self setItems:[self.date images] currentItem:existingCandy];
 }
 
 - (void)setCandy:(WLCandy *)candy  {
@@ -95,6 +102,39 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (WLCandy *)candy {
 	return self.item;
+}
+
+- (void)didSwipeLeft {
+	[super didSwipeLeft];
+	[self showContentIndicatorView:YES];
+}
+
+- (void)didSwipeRight {
+	[super didSwipeRight];
+	[self showContentIndicatorView:YES];
+}
+
+- (void)showContentIndicatorView:(BOOL)animated {
+	CGFloat contentRatio = ((CGFloat)[self.items indexOfObject:self.item]) / ((CGFloat)[self.items count] - 1.0f);
+	CGFloat x = (self.view.width - self.contentIndicatorView.width - 2) * contentRatio;
+	if (animated) {
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationBeginsFromCurrentState:YES];
+	}
+	self.contentIndicatorView.alpha = 1.0f;
+	self.contentIndicatorView.x = x + 1;
+	if (animated) {
+		[UIView commitAnimations];
+	}
+	[UIView cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideContentIndicatorView) object:nil];
+	[self performSelector:@selector(hideContentIndicatorView) withObject:nil afterDelay:1.0f];
+}
+
+- (void)hideContentIndicatorView {
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationBeginsFromCurrentState:YES];
+	self.contentIndicatorView.alpha = 0.0f;
+	[UIView commitAnimations];
 }
 
 - (void)willShowItem:(id)item {
@@ -109,6 +149,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 			weakSelf.date.candies = (id)[weakSelf.date.candies arrayByAddingObjectsFromArray:object];
 			weakSelf.items = [weakSelf.date images];
 			weakSelf.loading = NO;
+			[weakSelf showContentIndicatorView:NO];
 		} failure:^(NSError *error) {
 			weakSelf.shouldLoadMoreCandies = NO;
 			[error showIgnoringNetworkError];

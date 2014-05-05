@@ -18,6 +18,9 @@ typedef void (^WLSwipeSelectionBlock)(id item);
 
 - (UIView*)swipeView;
 
+- (void)didSwipeLeft;
+- (void)didSwipeRight;
+
 - (void)willShowItem:(id)item;
 - (void)willSelectItem:(id)item;
 

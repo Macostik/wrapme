@@ -68,22 +68,30 @@
     }
 }
 
-#pragma mark - User Actions
-
-- (void)leftSwipe:(UISwipeGestureRecognizer*)recognizer {
-    NSInteger index = [self.items indexOfObject:self.item];
+- (void)didSwipeLeft {
+	NSInteger index = [self.items indexOfObject:self.item];
     if (index != NSNotFound && index < ([self.items count] - 1)) {
         [[self swipeView] leftPush];
         self.item = [self.items objectAtIndex:index + 1];
     }
 }
 
-- (void)rightSwipe:(UISwipeGestureRecognizer*)recognizer {
-    NSInteger index = [self.items indexOfObject:self.item];
+- (void)didSwipeRight {
+	NSInteger index = [self.items indexOfObject:self.item];
     if (index != NSNotFound && index > 0) {
         [[self swipeView] rightPush];
         self.item = [self.items objectAtIndex:index - 1];
     }
+}
+
+#pragma mark - User Actions
+
+- (void)leftSwipe:(UISwipeGestureRecognizer*)recognizer {
+    [self didSwipeLeft];
+}
+
+- (void)rightSwipe:(UISwipeGestureRecognizer*)recognizer {
+    [self didSwipeRight];
 }
 
 - (IBAction)done:(UIButton *)sender {

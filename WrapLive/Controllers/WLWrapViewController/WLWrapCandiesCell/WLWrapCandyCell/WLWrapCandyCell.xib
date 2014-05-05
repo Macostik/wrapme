@@ -70,6 +70,7 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <gestureRecognizers/>
             <connections>
                 <outlet property="borderView" destination="hBV-c6-KuT" id="8Yr-h3-ujR"/>
                 <outlet property="cancelButton" destination="K3n-zv-pW0" id="LAD-Au-Ksw"/>

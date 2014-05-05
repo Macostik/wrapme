@@ -42,4 +42,6 @@ static NSInteger WLCandyTypeChatMessage = 20;
 
 - (void)broadcastChange;
 
+- (void)broadcastRemove;
+
 @end

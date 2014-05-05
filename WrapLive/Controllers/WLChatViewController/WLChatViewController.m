@@ -176,7 +176,7 @@
 	loading = YES;
 	__weak typeof(self)weakSelf = self;
 	NSUInteger page = floorf(messagesCount / WLAPIChatPageSize) + 1;
-	[[WLAPIManager instance] chatMessages:self.wrap page:page success:^(id object) {
+	[[WLAPIManager instance] messages:self.wrap page:page success:^(id object) {
 		weakSelf.shouldAppendMoreMessages = [object count] == WLAPIChatPageSize;
 		[weakSelf addMessages:object];
 		loading = NO;

@@ -122,6 +122,12 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	};
 }
 
+- (WLAFNetworkingSuccessBlock)successBlock:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	return [self successBlock:success withObject:^id(WLAPIResponse *response) {
+		return response;
+	} failure:failure];
+}
+
 - (WLAFNetworkingFailureBlock)failureBlock:(WLAPIManagerFailureBlock)failure success:(WLAPIManagerSuccessBlock)success {
 	return ^(AFHTTPRequestOperation *operation, NSError *error) {
 		DDLogDebug(@"%@", error);
@@ -292,7 +298,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	}];
 }
 
-- (id)wrapsWithPage:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (id)wraps:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:@(page) forKey:@"page"];
@@ -371,16 +377,21 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			  failure:[self failureBlock:failure success:success]];
 }
 
+- (id)removeWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
+	return [self DELETE:path
+			 parameters:nil
+				success:[self successBlock:success failure:failure]
+				failure:[self failureBlock:failure success:success]];
+}
+
 - (void)attachFile:(NSString*)path toFormData:(id <AFMultipartFormData>)formData {
 	if (path && [[NSFileManager defaultManager] fileExistsAtPath:path]) {
 		[formData appendPartWithFileURL:[NSURL fileURLWithPath:path] name:@"qqfile" fileName:[path lastPathComponent] mimeType:@"image/jpeg" error:NULL];
 	}
 }
 
-- (id)addCandy:(WLCandy *)candy
-		  toWrap:(WLWrap *)wrap
-		 success:(WLAPIManagerSuccessBlock)success
-		 failure:(WLAPIManagerFailureBlock)failure {
+- (id)addCandy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	if (candy.type == WLCandyTypeChatMessage) {
@@ -420,7 +431,15 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			 failure:[self failureBlock:failure success:success]];
 }
 
-- (id)chatMessages:(WLWrap *)wrap page:(NSUInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (id)removeCandy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@", wrap.identifier, candy.identifier];
+	return [self DELETE:path
+			 parameters:nil
+				success:[self successBlock:success failure:failure]
+				failure:[self failureBlock:failure success:success]];
+}
+
+- (id)messages:(WLWrap *)wrap page:(NSUInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:@(page) forKey:@"page"];
@@ -437,7 +456,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			 failure:[self failureBlock:failure success:success]];
 }
 
-- (id)candyInfo:(WLCandy *)candy forWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (id)candy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 		return [candy updateWithDictionary:[response.data dictionaryForKey:@"candy"]];
 	};
@@ -451,8 +470,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)addComment:(WLComment*)comment
-		   toCandy:(WLCandy *)candy
-		  fromWrap:(WLWrap *)wrap
+		   candy:(WLCandy *)candy
+		  wrap:(WLWrap *)wrap
 		   success:(WLAPIManagerSuccessBlock)success
 		   failure:(WLAPIManagerFailureBlock)failure {
 	
@@ -472,6 +491,14 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			  success:[self successBlock:success withObject:objectBlock failure:failure]
 			  failure:[self failureBlock:failure success:success]];
 	
+}
+
+- (id)removeComment:(WLComment *)comment candy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@/comments/%@", wrap.identifier, candy.identifier, comment.identifier];
+	return [self DELETE:path
+			 parameters:nil
+				success:[self successBlock:success failure:failure]
+				failure:[self failureBlock:failure success:success]];
 }
 
 @end

@@ -27,7 +27,7 @@ static NSArray* _wraps = nil;
 	} else {
 		page = ((_wraps.count + 1)/WLAPIGeneralPageSize + 1);
 	}
-	[[WLAPIManager instance] wrapsWithPage:page success:^(NSArray *object) {
+	[[WLAPIManager instance] wraps:page success:^(NSArray *object) {
 		_wraps = refresh ? object : [(_wraps ? : @[]) arrayByAddingObjectsFromArray:object];
 		[[WLDataCache cache] setWraps:_wraps completion:^(NSString *path) {
 			if (success) {
@@ -59,7 +59,7 @@ static NSArray* _wraps = nil;
 		}
 	}
 	
-	[[WLAPIManager instance] candyInfo:candy forWrap:wrap success:^(id object) {
+	[[WLAPIManager instance] candy:candy wrap:wrap success:^(id object) {
 		[[WLDataCache cache] setCandy:object];
 		if (success) {
 			success(object);
@@ -73,7 +73,7 @@ static NSArray* _wraps = nil;
 			success([[WLDataCache cache] messages:wrap]);
 		}
 	}
-	[[WLAPIManager instance] chatMessages:wrap page:1 success:^(id object) {
+	[[WLAPIManager instance] messages:wrap page:1 success:^(id object) {
 		[[WLDataCache cache] setMessages:object wrap:wrap];
 		if (success) {
 			success(object);

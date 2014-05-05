@@ -18,6 +18,7 @@
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster wrapChanged:(WLWrap*)wrap;
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster wrapCreated:(WLWrap*)wrap;
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster candyChanged:(WLCandy*)candy;
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster candyRemoved:(WLCandy*)candy;
 
 @end
 
@@ -28,5 +29,7 @@
 - (void)broadcastCreation:(WLWrap*)wrap;
 
 - (void)broadcastCandyChange:(WLCandy*)candy;
+
+- (void)broadcastCandyRemove:(WLCandy*)candy;
 
 @end

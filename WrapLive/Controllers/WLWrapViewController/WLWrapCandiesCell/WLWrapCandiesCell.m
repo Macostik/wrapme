@@ -58,12 +58,6 @@
 	self.refresher.enabled = [entry.updatedAt isToday];
 }
 
-#pragma mark - WLWrapBroadcastReceiver
-
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-	[self.collectionView reloadData];
-}
-
 - (void)refreshCandies {
 	__weak typeof(self)weakSelf = self;
 	WLWrapDate* currentWrapDay = self.item;
@@ -94,6 +88,20 @@
 		[error show];
 	}];
 }
+
+#pragma mark - WLWrapBroadcastReceiver
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
+	[self.collectionView reloadData];
+}
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
+	WLWrapDate* date = self.item;
+	[date removeCandy:candy];
+	[self.collectionView reloadData];
+}
+
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 	WLWrapDate* wrapDay = self.item;

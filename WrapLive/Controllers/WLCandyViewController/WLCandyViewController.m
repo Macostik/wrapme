@@ -220,7 +220,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (void)sendMessageWithText:(NSString*)text {
 	__weak typeof(self)weakSelf = self;
 	WLComment* comment = [WLComment commentWithText:text];
-	[[WLAPIManager instance] addComment:comment toCandy:self.candy fromWrap:self.wrap success:^(id object) {
+	[[WLAPIManager instance] addComment:comment candy:self.candy wrap:self.wrap success:^(id object) {
 		[weakSelf.tableView reloadData];
 		[weakSelf.wrap broadcastChange];
 		[weakSelf.tableView scrollToBottomAnimated:YES];

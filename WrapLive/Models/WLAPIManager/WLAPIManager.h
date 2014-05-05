@@ -86,10 +86,10 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)wrapsWithPage:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)wraps:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
- *  Get detailed wrap data
+ *  Get detailed wrap data. page = 1
  *
  *  @wrap wrap object
  *  @param success block that will be invoked on success completion
@@ -97,11 +97,20 @@ static NSInteger WLAPIChatPageSize = 50;
  */
 - (id)wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
+/*!
+ *  Get detailed wrap data
+ *
+ *  @wrap wrap object
+ *  @page page for dates
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
 - (id)wrap:(WLWrap*)wrap page:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Creates new wrap
  *
+ *  @wrap wrap object
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
@@ -110,10 +119,20 @@ static NSInteger WLAPIChatPageSize = 50;
 /*!
  *  Update selected wrap
  *
+ *  @wrap wrap object
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
 - (id)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+/*!
+ *  Remove wrap
+ *
+ *  @wrap wrap object
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (id)removeWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Adds a candy to the wrap
@@ -123,7 +142,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)addCandy:(WLCandy*)candy toWrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)addCandy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Get candies from the wrap
@@ -142,7 +161,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)chatMessages:(WLWrap*)wrap page:(NSUInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)messages:(WLWrap*)wrap page:(NSUInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Get all the data about a particular candy
@@ -152,16 +171,38 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)candyInfo:(WLCandy *)candy forWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)candy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+/*!
+ *  Remove candy
+ *
+ *  @param candy   WLCandy instance representing candy
+ *  @param wrap    WLWrap instance representing wrap
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (id)removeCandy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
  *  Add a comment to a candy in a wrap given the wrap and candy uid
  *
  *  @param comment    WLComment instance representing comment
+ *  @param candy    WLCandy instance representing candy
  *  @param wrap    WLWrap instance representing wrap
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)addComment:(WLComment*)comment toCandy:(WLCandy*)candy fromWrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)addComment:(WLComment*)comment candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+/*!
+ *  Remove comment
+ *
+ *  @param comment    WLComment instance representing comment
+ *  @param candy    WLCandy instance representing candy
+ *  @param wrap    WLWrap instance representing wrap
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (id)removeComment:(WLComment*)comment candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 @end

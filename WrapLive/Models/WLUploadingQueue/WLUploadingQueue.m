@@ -119,25 +119,14 @@
 
 - (void)upload:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
-	if (self.candy.type == WLCandyTypeImage) {
-		self.operation = [[WLAPIManager instance] addCandy:self.candy toWrap:self.wrap success:^(id object) {
-			[[WLUploadingQueue instance] removeItem:weakSelf];
-			success(object);
-		} failure:^(NSError *error) {
-			[weakSelf setOperation:nil];
-			[weakSelf.candy broadcastChange];
-			failure(error);
-		}];
-	} else {
-		self.operation = [[WLAPIManager instance] addCandy:self.candy toWrap:self.wrap success:^(id object) {
-			[[WLUploadingQueue instance] removeItem:weakSelf];
-			success(object);
-		} failure:^(NSError *error) {
-			[weakSelf setOperation:nil];
-			[weakSelf.candy broadcastChange];
-			failure(error);
-		}];
-	}
+	self.operation = [[WLAPIManager instance] addCandy:self.candy wrap:self.wrap success:^(id object) {
+		[[WLUploadingQueue instance] removeItem:weakSelf];
+		success(object);
+	} failure:^(NSError *error) {
+		[weakSelf setOperation:nil];
+		[weakSelf.candy broadcastChange];
+		failure(error);
+	}];
 	[self.candy broadcastChange];
 }
 

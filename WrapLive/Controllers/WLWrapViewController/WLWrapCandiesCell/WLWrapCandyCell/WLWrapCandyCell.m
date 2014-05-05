@@ -16,6 +16,7 @@
 #import "WLWrapBroadcaster.h"
 #import "WLUploadingQueue.h"
 #import "WLWrap.h"
+#import "UIAlertView+Blocks.h"
 
 @interface WLWrapCandyCell () <WLWrapBroadcastReceiver>
 
@@ -35,6 +36,8 @@
 	[super awakeFromNib];
 	self.borderView.lineWidth = 0.5f;
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
+	UILongPressGestureRecognizer* removeGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(remove:)];
+	[self addGestureRecognizer:removeGestureRecognizer];
 }
 
 - (void)setupItemData:(WLCandy*)entry {
@@ -86,6 +89,23 @@
 	[candy.uploadingItem upload:^(id object) {
 	} failure:^(NSError *error) {
 	}];
+}
+
+- (void)remove:(UILongPressGestureRecognizer*)sender {
+	if (sender.state == UIGestureRecognizerStateBegan && self.userInteractionEnabled) {
+		__weak typeof(self)weakSelf = self;
+		[UIAlertView showWithTitle:@"Delete candy" message:@"Are you sure you want to remove this candy?" action:@"YES" cancel:@"NO" completion:^{
+			weakSelf.userInteractionEnabled = NO;
+			WLCandy* candy = weakSelf.item;
+			[[WLAPIManager instance] removeCandy:candy wrap:self.wrap success:^(id object) {
+				[candy broadcastRemove];
+				weakSelf.userInteractionEnabled = YES;
+			} failure:^(NSError *error) {
+				[error show];
+				weakSelf.userInteractionEnabled = YES;
+			}];
+		}];
+	}
 }
 
 @end

@@ -35,4 +35,8 @@
 	[self broadcast:@selector(broadcaster:candyChanged:) object:candy];
 }
 
+- (void)broadcastCandyRemove:(WLCandy *)candy {
+	[self broadcast:@selector(broadcaster:candyRemoved:) object:candy];
+}
+
 @end

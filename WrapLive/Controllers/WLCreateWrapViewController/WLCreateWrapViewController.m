@@ -112,6 +112,8 @@
 	self.titleLabel.text = @"Edit wrap";
 	self.coverView.superview.userInteractionEnabled = [self.editingWrap.contributor isCurrentUser];
 	self.nameField.userInteractionEnabled = [self.editingWrap.contributor isCurrentUser];
+	self.coverView.superview.alpha = [self.editingWrap.contributor isCurrentUser] ? 1 : 0.5;
+	self.nameField.alpha = [self.editingWrap.contributor isCurrentUser] ? 1 : 0.5;
 }
 
 - (void)verifyStartAndDoneButton {

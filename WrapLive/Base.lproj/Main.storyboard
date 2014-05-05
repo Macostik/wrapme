@@ -55,7 +55,7 @@
         <scene sceneID="REq-s4-83q">
             <objects>
                 <viewController storyboardIdentifier="camera" id="fS5-iu-bCQ" customClass="WLCameraViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Gys-KD-uvh">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="Gys-KD-uvh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -81,11 +81,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6qh-b4-dSO">
-                                        <rect key="frame" x="116" y="48" width="88" height="88"/>
+                                        <rect key="frame" x="114" y="46" width="92" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                        <state key="normal" image="camera_medium">
+                                        <state key="normal" image="camera_big">
                                             <color key="titleColor" red="1" green="0.60000002384185791" blue="0.12549020349979401" alpha="1" colorSpace="deviceRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>

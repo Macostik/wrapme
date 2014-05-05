@@ -70,14 +70,10 @@
 	if (self.mode == WLCameraModeCandy) {
 		self.topView.backgroundColor = [UIColor clearColor];
 		self.cameraView.y = 0;
-		self.cameraView.height = self.view.height - 58;
+		self.cameraView.height = self.view.height - self.takePhotoButton.height;
 	} else {
 		self.cameraView.y = self.topView.bottom;
 		self.cameraView.height = self.cameraView.width;
-		if ([UIScreen mainScreen].bounds.size.height >= 568) {
-			[self.takePhotoButton setImage:[UIImage imageNamed:@"camera_big"] forState:UIControlStateNormal];
-		}
-		
 		if (self.mode == WLCameraModeAvatar) {
 			self.rotateButton.hidden = YES;
 		}

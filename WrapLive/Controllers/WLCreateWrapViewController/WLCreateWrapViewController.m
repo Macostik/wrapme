@@ -95,13 +95,7 @@
 }
 
 - (void)refreshFooterView {
-	for (WLUser* contributor in self.editingWrap.contributors) {
-		if (![contributor isCurrentUser]) {
-			self.contributorsTableView.tableFooterView = nil;
-			return;
-		}
-	}
-	self.contributorsTableView.tableFooterView = self.noContributorsView;
+	self.contributorsTableView.tableFooterView = [self.editingWrap.contributors count] == 0 ? self.noContributorsView : nil;
 }
 
 - (void)configureWrapEditing {

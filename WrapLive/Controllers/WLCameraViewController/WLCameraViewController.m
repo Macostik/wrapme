@@ -69,17 +69,22 @@
     
 	if (self.mode == WLCameraModeCandy) {
 		self.topView.backgroundColor = [UIColor clearColor];
-		self.cameraView.y = 0;
-		self.cameraView.height = self.view.height - self.takePhotoButton.height;
+		self.bottomView.backgroundColor = [self.bottomView.backgroundColor colorWithAlphaComponent:0.5f];
+		[self.cameraView setFullFlexible];
+		self.cameraView.frame = self.view.frame;
+		[self.bottomView setFlexibleBottom];
+		self.bottomView.height = self.takePhotoButton.height;
+		self.bottomView.y = self.view.height - self.bottomView.height;
 	} else {
 		self.cameraView.y = self.topView.bottom;
 		self.cameraView.height = self.cameraView.width;
 		if (self.mode == WLCameraModeAvatar) {
 			self.rotateButton.hidden = YES;
 		}
+		self.bottomView.y = self.cameraView.bottom;
+		self.bottomView.height = self.view.height - self.bottomView.y;
 	}
-	self.bottomView.y = self.cameraView.bottom;
-	self.bottomView.height = self.view.height - self.bottomView.y;
+	
 	[self configurePreviewLayer];
 	
 	[self performSelector:@selector(start) withObject:nil afterDelay:0.0];

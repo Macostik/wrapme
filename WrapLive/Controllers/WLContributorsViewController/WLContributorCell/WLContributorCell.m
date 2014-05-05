@@ -9,6 +9,7 @@
 #import "WLContributorCell.h"
 #import "WLUser.h"
 #import "UIImageView+ImageLoading.h"
+#import "UIView+Shorthand.h"
 
 @interface WLContributorCell ()
 
@@ -20,6 +21,11 @@
 @end
 
 @implementation WLContributorCell
+
+- (void)awakeFromNib {
+	[super awakeFromNib];
+	self.avatarView.circled = YES;
+}
 
 - (void)setupItemData:(WLUser*)user {
 	self.nameLabel.text = [user isCurrentUser] ? @"You" : user.name;

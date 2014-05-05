@@ -24,6 +24,11 @@
 
 @implementation WLMessageCell
 
+- (void)awakeFromNib {
+	[super awakeFromNib];
+	self.avatarView.circled = YES;
+}
+
 - (void)setupItemData:(WLCandy*)candy {
 	self.avatarView.imageUrl = candy.contributor.picture.medium;
 	self.nameLabel.text = candy.contributor.name;

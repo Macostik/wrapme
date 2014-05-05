@@ -166,4 +166,28 @@
 	return CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
+- (CGFloat)cornerRadius {
+	return self.layer.cornerRadius;
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius {
+	self.layer.cornerRadius = cornerRadius;
+}
+
+- (void)setCircled:(BOOL)circled {
+	self.cornerRadius = circled ? self.bounds.size.height/2 : 0;
+}
+
+- (BOOL)circled {
+	return (self.cornerRadius == self.bounds.size.height/2);
+}
+
+- (void)setFullFlexible {
+	self.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+}
+
+- (void)setFlexibleBottom {
+	self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+}
+
 @end

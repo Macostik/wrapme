@@ -143,6 +143,25 @@ UIImage* WLImageFromUrl(NSString* imageUrl) {
 	[self setImage:image withIdentifier:[NSProcessInfo processInfo].globallyUniqueString completion:completion];
 }
 
+- (void)setImageAtPath:(NSString *)path withIdentifier:(NSString *)identifier {
+	
+	if (identifier.length == 0) {
+		return;
+	}
+	
+	if (path.length == 0) {
+		return;
+	}
+	
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+		return;
+	}
+	
+	NSFileManager* manager = [NSFileManager defaultManager];
+	[manager copyItemAtPath:path toPath:[self pathWithIdentifier:identifier] error:NULL];
+	[manager removeItemAtPath:path error:NULL];
+}
+
 @end
 
 @implementation WLImageCache (UrlCache)
@@ -161,6 +180,12 @@ UIImage* WLImageFromUrl(NSString* imageUrl) {
 
 - (BOOL)containsImageWithUrl:(NSString *)url {
 	return [self containsObjectWithIdentifier:[url MD5]];
+}
+
+- (void)setImageAtPath:(NSString*)path withUrl:(NSString*)url {
+	if (url.length > 0) {
+		[self setImageAtPath:path withIdentifier:[url MD5]];
+	}
 }
 
 @end

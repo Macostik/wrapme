@@ -59,10 +59,10 @@ static NSArray* _wraps = nil;
 		}
 	}
 	
-	[[WLAPIManager instance] candy:candy wrap:wrap success:^(id object) {
-		[[WLDataCache cache] setCandy:object];
+	[[WLAPIManager instance] candy:candy wrap:wrap success:^(WLCandy* candy) {
+		[candy cache];
 		if (success) {
-			success(object);
+			success(candy);
 		}
 	} failure:failure];
 }

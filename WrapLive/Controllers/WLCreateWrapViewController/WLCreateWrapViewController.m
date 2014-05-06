@@ -22,6 +22,7 @@
 #import "UIView+Shorthand.h"
 #import "WLUser.h"
 #import "UIButton+Additions.h"
+#import "WLWrapBroadcaster.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
 
@@ -163,7 +164,6 @@
 	__weak typeof(self)weakSelf = self;
 	self.view.userInteractionEnabled = NO;
 	[[WLAPIManager instance] createWrap:self.editingWrap success:^(WLWrap* wrap) {
-		[wrap broadcastCreation];
 		[weakSelf.spinner stopAnimating];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
 		wrapController.wrap = wrap;

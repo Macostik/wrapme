@@ -61,9 +61,13 @@
 		self.cancelButton.hidden = (candy.uploadingItem.operation != nil);
 		self.retryButton.hidden = (candy.uploadingItem.operation != nil);
 	} else {
-		self.lowOpacityView.hidden = YES;
-		self.cancelButton.hidden = YES;
-		self.retryButton.hidden = YES;
+		__weak typeof(self)weakSelf = self;
+		[UIView animateWithDuration:0.3f animations:^{
+			weakSelf.lowOpacityView.alpha = 0.0f;
+		} completion:^(BOOL finished) {
+			weakSelf.lowOpacityView.hidden = YES;
+			weakSelf.lowOpacityView.alpha = 1.0f;
+		}];
 	}
 }
 
@@ -98,7 +102,7 @@
 			weakSelf.userInteractionEnabled = NO;
 			WLCandy* candy = weakSelf.item;
 			[[WLAPIManager instance] removeCandy:candy wrap:self.wrap success:^(id object) {
-				[candy broadcastRemove];
+				[candy broadcastRemoving];
 				weakSelf.userInteractionEnabled = YES;
 			} failure:^(NSError *error) {
 				[error show];

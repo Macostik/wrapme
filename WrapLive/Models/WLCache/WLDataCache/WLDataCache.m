@@ -138,3 +138,11 @@ static NSUInteger WLWrapCacheSize = 104857600;
 }
 
 @end
+
+@implementation WLCandy (WLDataCache)
+
+- (void)cache {
+	[[WLDataCache cache] setCandy:self];
+}
+
+@end

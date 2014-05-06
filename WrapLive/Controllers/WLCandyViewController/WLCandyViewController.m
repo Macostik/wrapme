@@ -29,6 +29,7 @@
 #import "WLKeyboardBroadcaster.h"
 #import "WLDataManager.h"
 #import "NSDate+Additions.h"
+#import "WLWrapBroadcaster.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 

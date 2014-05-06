@@ -55,3 +55,7 @@
 @interface WLWrap (WLDataCache) <WLDataCaching>
 
 @end
+
+@interface WLCandy (WLDataCache) <WLDataCaching>
+
+@end

@@ -25,9 +25,9 @@
 
 - (void)addCandy:(WLCandy*)candy;
 
-- (void)removeCandy:(WLCandy*)candy;
+- (void)addCandies:(NSArray*)candies;
 
-- (void)edit:(BOOL (^)(WLWrap* wrap))editing;
+- (void)removeCandy:(WLCandy*)candy;
 
 - (WLWrapDate*)actualDate;
 
@@ -46,9 +46,5 @@
 - (NSArray*)images;
 
 - (NSArray*)messages;
-
-- (void)broadcastChange;
-
-- (void)broadcastCreation;
 
 @end

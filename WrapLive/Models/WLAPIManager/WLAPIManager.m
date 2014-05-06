@@ -19,6 +19,7 @@
 #import "WLComment.h"
 #import "WLWrapDate.h"
 #import "UIStoryboard+Additions.h"
+#import "WLWrapBroadcaster.h"
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
@@ -347,7 +348,9 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	[parameters trySetObject:contributors forKey:@"user_uids"];
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
-		return [[WLWrap alloc] initWithDictionary:response.data[@"wrap"] error:NULL];
+		WLWrap* _wrap = [wrap updateWithDictionary:response.data[@"wrap"]];
+		[_wrap broadcastCreation];
+		return _wrap;
 	};
 	
 	return [self POST:@"wraps"
@@ -366,7 +369,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	[parameters trySetObject:contributors forKey:@"user_uids"];
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
-		return [[WLWrap alloc] initWithDictionary:response.data[@"wrap"] error:NULL];
+		return [wrap updateWithDictionary:response.data[@"wrap"]];
 	};
 	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
@@ -400,7 +403,6 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 		[candy updateWithDictionary:[response.data dictionaryForKey:@"candy"]];
-		[wrap broadcastChange];
 		return candy;
 	};
 	

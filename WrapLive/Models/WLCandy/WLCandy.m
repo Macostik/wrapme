@@ -19,6 +19,13 @@
 	return candy;
 }
 
++ (instancetype)imageWithPicture:(WLPicture *)picture {
+	WLCandy* candy = [self entry];
+	candy.type = WLCandyTypeImage;
+	candy.picture = picture;
+	return candy;
+}
+
 + (instancetype)imageWithFileAtPath:(NSString *)path {
 	WLCandy* candy = [self entry];
 	candy.type = WLCandyTypeImage;
@@ -92,12 +99,10 @@
 	}
 }
 
-- (void)broadcastChange {
-	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCandyChange:) withObject:self afterDelay:0.0f];
-}
-
-- (void)broadcastRemove {
-	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCandyRemove:) withObject:self afterDelay:0.0f];
+- (instancetype)updateWithObject:(id)object {
+	WLCandy* candy = [super updateWithObject:object];
+	[candy broadcastChange];
+	return candy;
 }
 
 @end

@@ -13,6 +13,8 @@
 #import "WLWrapDate.h"
 #import "WLDataCache.h"
 #import "WLImageCache.h"
+#import "UIImage+Resize.h"
+#import "WLWrapBroadcaster.h"
 
 @interface WLUploadingQueue ()
 
@@ -43,9 +45,13 @@
 	return _items;
 }
 
+- (void)save {
+	[WLDataCache cache].uploadingItems = self.items;
+}
+
 - (void)addItem:(WLUploadingItem *)item {
 	[self.items addObject:item];
-	[WLDataCache cache].uploadingItems = self.items;
+	[self save];
 }
 
 - (WLUploadingItem*)addItemWithCandy:(WLCandy *)candy wrap:(WLWrap *)wrap {
@@ -60,7 +66,7 @@
 - (void)removeItem:(WLUploadingItem *)item {
 	item.candy.uploadingItem = nil;
 	[self.items removeObject:item];
-	[WLDataCache cache].uploadingItems = self.items;
+	[self save];
 }
 
 - (void)updateWrap:(WLWrap *)wrap {
@@ -79,12 +85,7 @@
 	}
 	
 	if ([candies count] > 0) {
-		[wrap edit:^BOOL(WLWrap *wrap) {
-			for (WLCandy* candy in candies) {
-				[wrap addCandy:candy];
-			}
-			return YES;
-		}];
+		[wrap addCandies:candies];
 	}
 }
 
@@ -94,9 +95,17 @@
 			failure:(WLAPIManagerFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
 	[[WLImageCache uploadingCache] setImage:image completion:^(NSString *path) {
-		WLCandy* candy = [WLCandy imageWithFileAtPath:path];
-		[[weakSelf addItemWithCandy:candy wrap:wrap] upload:success failure:failure];
-		[wrap addCandy:candy];
+		WLPicture* picture = [[WLPicture alloc] init];
+		picture.large = path;
+		[[WLImageCache uploadingCache] setImage:[image thumbnailImage:320] completion:^(NSString *path) {
+			picture.medium = path;
+			[[WLImageCache uploadingCache] setImage:[image thumbnailImage:160] completion:^(NSString *path) {
+				picture.small = path;
+				WLCandy* candy = [WLCandy imageWithPicture:picture];
+				[[weakSelf addItemWithCandy:candy wrap:wrap] upload:success failure:failure];
+				[wrap addCandy:candy];
+			}];
+		}];
 	}];
 }
 
@@ -119,9 +128,19 @@
 
 - (void)upload:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
-	self.operation = [[WLAPIManager instance] addCandy:self.candy wrap:self.wrap success:^(id object) {
+	
+	WLPicture* picture = [self.candy.picture copy];
+	
+	self.operation = [[WLAPIManager instance] addCandy:self.candy wrap:self.wrap success:^(WLCandy* candy) {
+		
+		if ([candy isImage]) {
+			[[WLImageCache cache] setImageAtPath:picture.large withUrl:candy.picture.large];
+			[[WLImageCache cache] setImageAtPath:picture.medium withUrl:candy.picture.medium];
+			[[WLImageCache cache] setImageAtPath:picture.small withUrl:candy.picture.small];
+		}
+		
 		[[WLUploadingQueue instance] removeItem:weakSelf];
-		success(object);
+		success(candy);
 	} failure:^(NSError *error) {
 		[weakSelf setOperation:nil];
 		[weakSelf.candy broadcastChange];

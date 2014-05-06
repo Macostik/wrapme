@@ -16,9 +16,6 @@
 #import "WLWrapBroadcaster.h"
 
 @implementation WLWrap
-{
-	BOOL _editing;
-}
 
 + (NSDictionary*)pictureMapping {
 	return @{@"large":@[@"large_cover_url"],
@@ -45,6 +42,16 @@
 	[date addCandy:candy];
 	self.updatedAt = [NSDate date];
 	[self broadcastChange];
+	[candy broadcastCreation];
+}
+
+- (void)addCandies:(NSArray *)candies {
+	WLWrapDate* date = [self actualDate];
+	for (WLCandy* candy in candies) {
+		[date addCandy:candy];
+	}
+	self.updatedAt = [NSDate date];
+	[self broadcastChange];
 }
 
 - (void)removeCandy:(WLCandy *)candy {
@@ -53,17 +60,9 @@
 			if ([_candy isEqualToCandy:candy]) {
 				[date removeCandy:_candy];
 				[self broadcastChange];
+				[candy broadcastRemoving];
 			}
 		}
-	}
-}
-
-- (void)edit:(BOOL (^)(WLWrap *))editing {
-	_editing = YES;
-	BOOL changed = editing(self);
-	_editing = NO;
-	if (changed) {
-		[self broadcastChange];
 	}
 }
 
@@ -79,6 +78,7 @@
 - (instancetype)updateWithObject:(id)object {
 	self.contributorNames = nil;
 	return [super updateWithObject:object];
+	[self broadcastChange];
 }
 
 - (void)setContributors:(NSArray<WLUser> *)contributors {
@@ -98,17 +98,6 @@
 		self.dates = [existingDates copy];
 	}
 	return date;
-}
-
-- (void)broadcastChange {
-	if (_editing) {
-		return;
-	}
-	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastChange:) withObject:self afterDelay:0.0f];
-}
-
-- (void)broadcastCreation {
-	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCreation:) withObject:self afterDelay:0.0f];
 }
 
 - (BOOL)isEqualToWrap:(WLWrap *)wrap {

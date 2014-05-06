@@ -112,6 +112,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
 	if (self.topWrap) {
+		
 		NSMutableArray* wraps = [NSMutableArray arrayWithObject:self.topWrap];
 		[wraps addObjectsFromArray:_wraps];
 		self.wraps = [wraps copy];
@@ -270,6 +271,12 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.loading && self.tableView.tableFooterView != nil && (indexPath.row == [self.wraps count] - 1)) {
 		[self fetchWraps:NO];
+	}
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+	if (self.refresher.refreshing) {
+		[self.refresher endRefreshingAfterDelay:0.0f];
 	}
 }
 

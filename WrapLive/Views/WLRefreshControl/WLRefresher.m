@@ -31,6 +31,8 @@ static CGFloat WLRefresherContentSize = 88.0f;
 	BOOL _refreshing;
 }
 
+@synthesize refreshing = _refreshing;
+
 - (void)willMoveToSuperview:(UIView *)newSuperview {
 	
 	[self.superview removeObserver:self
@@ -55,7 +57,7 @@ static CGFloat WLRefresherContentSize = 88.0f;
 	self.hidden = !enabled;
 }
 
-+(WLRefresher *)refresherWithScrollView:(UIScrollView *)scrollView refreshBlock:(void (^)(WLRefresher *))refreshBlock {
++ (WLRefresher *)refresherWithScrollView:(UIScrollView *)scrollView refreshBlock:(void (^)(WLRefresher *))refreshBlock {
 	WLRefresher* refresher = [self refresherWithScrollView:scrollView];
 	refresher.refreshBlock = refreshBlock;
 	[refresher addTarget:refresher action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
@@ -210,8 +212,14 @@ static CGFloat WLRefresherContentSize = 88.0f;
 }
 
 - (void)endRefreshing {
+	[self endRefreshingAfterDelay:0.5f];
+}
+
+- (void)endRefreshingAfterDelay:(NSTimeInterval)delay {
+	
 	__weak typeof(self)weakSelf = self;
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+	
+	void (^block) (void) = ^{
 		_refreshing = NO;
 		[UIView beginAnimations:nil context:nil];
 		UIEdgeInsets insets = weakSelf.scrollView.contentInset;
@@ -222,7 +230,14 @@ static CGFloat WLRefresherContentSize = 88.0f;
 		[weakSelf.spinner stopAnimating];
 		[weakSelf setArrowViewRotated:NO animated:NO];
 		weakSelf.arrowView.hidden = NO;
-	});
+	};
+	
+	if (delay > 0) {
+		dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC));
+		dispatch_after(time, dispatch_get_main_queue(), block);
+	} else {
+		block();
+	}
 }
 
 - (void)refresh {

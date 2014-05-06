@@ -28,6 +28,8 @@ static NSInteger WLCandyTypeChatMessage = 20;
 
 + (instancetype)chatMessageWithText:(NSString*)text;
 
++ (instancetype)imageWithPicture:(WLPicture*)picture;
+
 + (instancetype)imageWithFileAtPath:(NSString*)path;
 
 - (void)addComment:(WLComment*)comment;
@@ -39,9 +41,5 @@ static NSInteger WLCandyTypeChatMessage = 20;
 - (BOOL)isChatMessage;
 
 - (BOOL)isEqualToCandy:(WLCandy *)candy;
-
-- (void)broadcastChange;
-
-- (void)broadcastRemove;
 
 @end

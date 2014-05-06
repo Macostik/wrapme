@@ -44,6 +44,21 @@
     return [transparentBorderImage roundedCornerImage:cornerRadius borderSize:borderSize];
 }
 
+- (UIImage *)thumbnailImage:(NSInteger)thumbnailSize {
+	UIImage *resizedImage = [self resizedImageWithContentMode:UIViewContentModeScaleAspectFill
+                                                       bounds:CGSizeMake(thumbnailSize, thumbnailSize)
+                                         interpolationQuality:kCGInterpolationDefault];
+    
+    // Crop out any part of the image that's larger than the thumbnail size
+    // The cropped rect must be centered on the resized image
+    // Round the origin points so that the size isn't altered when CGRectIntegral is later invoked
+    CGRect cropRect = CGRectMake(round((resizedImage.size.width - thumbnailSize) / 2),
+                                 round((resizedImage.size.height - thumbnailSize) / 2),
+                                 thumbnailSize,
+                                 thumbnailSize);
+    return [resizedImage croppedImage:cropRect];
+}
+
 // Returns a rescaled copy of the image, taking into account its orientation
 // The image will be scaled disproportionately if necessary to fit the bounds specified by the parameter
 - (UIImage *)resizedImage:(CGSize)newSize interpolationQuality:(CGInterpolationQuality)quality {

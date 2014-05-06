@@ -17,6 +17,7 @@
 #import "WLUploadingQueue.h"
 #import "WLWrap.h"
 #import "UIAlertView+Blocks.h"
+#import "UIActionSheet+Blocks.h"
 
 @interface WLWrapCandyCell () <WLWrapBroadcastReceiver>
 
@@ -100,15 +101,15 @@
 		WLCandy* candy = self.item;
 		if ([candy isImage] && [candy.contributor isCurrentUser]) {
 			__weak typeof(self)weakSelf = self;
-			[UIAlertView showWithTitle:@"Delete candy" message:@"Are you sure you want to delete this candy?" action:@"YES" cancel:@"NO" completion:^{
-				weakSelf.userInteractionEnabled = NO;
-				
-				[[WLAPIManager instance] removeCandy:candy wrap:self.wrap success:^(id object) {
-					[candy broadcastRemoving];
-					weakSelf.userInteractionEnabled = YES;
-				} failure:^(NSError *error) {
-					[error show];
-					weakSelf.userInteractionEnabled = YES;
+			[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" buttons:nil completion:^(NSUInteger index) {
+				[UIActionSheet showWithTitle:@"Are you sure you want to delete this candy?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
+					weakSelf.userInteractionEnabled = NO;
+					[[WLAPIManager instance] removeCandy:candy wrap:self.wrap success:^(id object) {
+						weakSelf.userInteractionEnabled = YES;
+					} failure:^(NSError *error) {
+						[error show];
+						weakSelf.userInteractionEnabled = YES;
+					}];
 				}];
 			}];
 		}

@@ -17,6 +17,7 @@
 #import "UIAlertView+Blocks.h"
 #import "WLAPIManager.h"
 #import "WLWrapBroadcaster.h"
+#import "UIActionSheet+Blocks.h"
 
 @interface WLCommentCell()
 
@@ -56,13 +57,15 @@
 		__weak typeof(self)weakSelf = self;
 		WLComment* comment = weakSelf.item;
 		if ([comment.contributor isCurrentUser]) {
-			[UIAlertView showWithTitle:@"Delete comment" message:@"Are you sure you want to delete this wrap?" action:@"YES" cancel:@"NO" completion:^{
-				weakSelf.userInteractionEnabled = NO;
-				[[WLAPIManager instance] removeComment:comment candy:self.candy wrap:self.wrap success:^(id object) {
-					weakSelf.userInteractionEnabled = YES;
-				} failure:^(NSError *error) {
-					[error show];
-					weakSelf.userInteractionEnabled = YES;
+			[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" buttons:nil completion:^(NSUInteger index) {
+				[UIActionSheet showWithTitle:@"Are you sure you want to delete this comment?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
+					weakSelf.userInteractionEnabled = NO;
+					[[WLAPIManager instance] removeComment:comment candy:self.candy wrap:self.wrap success:^(id object) {
+						weakSelf.userInteractionEnabled = YES;
+					} failure:^(NSError *error) {
+						[error show];
+						weakSelf.userInteractionEnabled = YES;
+					}];
 				}];
 			}];
 		}

@@ -381,10 +381,16 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)removeWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		[wrap broadcastRemoving];
+		return response;
+	};
+	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
 	return [self DELETE:path
 			 parameters:nil
-				success:[self successBlock:success failure:failure]
+				success:[self successBlock:success withObject:objectBlock failure:failure]
 				failure:[self failureBlock:failure success:success]];
 }
 
@@ -434,10 +440,16 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)removeCandy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		[wrap removeCandy:candy];
+		return response;
+	};
+	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@", wrap.identifier, candy.identifier];
 	return [self DELETE:path
 			 parameters:nil
-				success:[self successBlock:success failure:failure]
+				success:[self successBlock:success withObject:objectBlock failure:failure]
 				failure:[self failureBlock:failure success:success]];
 }
 

@@ -38,6 +38,7 @@
 #import "WLWrapDate.h"
 #import "WLDataCache.h"
 #import "UIAlertView+Blocks.h"
+#import "UIActionSheet+Blocks.h"
 
 static NSUInteger WLHomeTopWrapCandiesLimit = 6;
 static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
@@ -153,13 +154,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
-	for (WLWrapDate* date in self.topWrap.dates) {
-		if ([date.candies containsEntry:candy]) {
-			[date removeCandy:candy];
-			[self updateTopWrap];
-			break;
-		}
-	}
+	[self updateTopWrap];
 	[WLDataCache cache].wraps = [self allWraps];
 }
 
@@ -287,14 +282,15 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 		__weak typeof(self)weakSelf = self;
 		WLWrap* wrap = weakSelf.topWrap;
 		if ([wrap.contributor isCurrentUser]) {
-			[UIAlertView showWithTitle:wrap.name message:@"Are you sure you want to delete this wrap?" action:@"YES" cancel:@"NO" completion:^{
-				sender.view.userInteractionEnabled = NO;
-				[[WLAPIManager instance] removeWrap:wrap success:^(id object) {
-					[wrap broadcastRemoving];
-					sender.view.userInteractionEnabled = YES;
-				} failure:^(NSError *error) {
-					[error show];
-					sender.view.userInteractionEnabled = YES;
+			[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" buttons:nil completion:^(NSUInteger index) {
+				[UIActionSheet showWithTitle:@"Are you sure you want to delete this wrap?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
+					sender.view.userInteractionEnabled = NO;
+					[[WLAPIManager instance] removeWrap:wrap success:^(id object) {
+						sender.view.userInteractionEnabled = YES;
+					} failure:^(NSError *error) {
+						[error show];
+						sender.view.userInteractionEnabled = YES;
+					}];
 				}];
 			}];
 		}

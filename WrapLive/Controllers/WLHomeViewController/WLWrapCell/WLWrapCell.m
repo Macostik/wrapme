@@ -16,6 +16,7 @@
 #import "WLAPIManager.h"
 #import "WLWrapBroadcaster.h"
 #import "WLUser.h"
+#import "UIActionSheet+Blocks.h"
 
 @interface WLWrapCell ()
 
@@ -54,14 +55,15 @@
 		__weak typeof(self)weakSelf = self;
 		WLWrap* wrap = weakSelf.item;
 		if ([wrap.contributor isCurrentUser]) {
-			[UIAlertView showWithTitle:wrap.name message:@"Are you sure you want to delete this wrap?" action:@"YES" cancel:@"NO" completion:^{
-				weakSelf.userInteractionEnabled = NO;
-				[[WLAPIManager instance] removeWrap:wrap success:^(id object) {
-					[wrap broadcastRemoving];
-					weakSelf.userInteractionEnabled = YES;
-				} failure:^(NSError *error) {
-					[error show];
-					weakSelf.userInteractionEnabled = YES;
+			[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" buttons:nil completion:^(NSUInteger index) {
+				[UIActionSheet showWithTitle:@"Are you sure you want to delete this wrap?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
+					weakSelf.userInteractionEnabled = NO;
+					[[WLAPIManager instance] removeWrap:wrap success:^(id object) {
+						weakSelf.userInteractionEnabled = YES;
+					} failure:^(NSError *error) {
+						[error show];
+						weakSelf.userInteractionEnabled = YES;
+					}];
 				}];
 			}];
 		}

@@ -97,8 +97,12 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
 	WLWrapDate* date = self.item;
-	[date removeCandy:candy];
-	[self.collectionView reloadData];
+	if ([date.candies containsObject:candy byBlock:^BOOL(id first, id second) {
+		return [first isEqualToCandy:second];
+	}]) {
+		[date removeCandy:candy];
+		[self.collectionView reloadData];
+	}
 }
 
 #pragma mark - UICollectionViewDataSource

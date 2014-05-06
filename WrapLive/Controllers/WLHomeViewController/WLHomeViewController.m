@@ -35,6 +35,8 @@
 #import "WLCreateWrapViewController.h"
 #import "WLUser.h"
 #import "WLDataManager.h"
+#import "WLWrapDate.h"
+#import "WLDataCache.h"
 
 static NSUInteger WLHomeTopWrapCandiesLimit = 6;
 static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
@@ -108,20 +110,50 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
 }
 
+- (NSArray*)allWraps {
+	NSMutableArray* wraps = [NSMutableArray arrayWithObject:self.topWrap];
+	[wraps addObjectsFromArray:_wraps];
+	return [wraps copy];
+}
+
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
 	if (self.topWrap) {
-		
-		NSMutableArray* wraps = [NSMutableArray arrayWithObject:self.topWrap];
-		[wraps addObjectsFromArray:_wraps];
-		self.wraps = [wraps copy];
+		self.wraps = [self allWraps];
 		self.tableView.contentOffset = CGPointZero;
 	}
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
 	[self fetchWraps:YES];
+}
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
+	if ([wrap isEqualToWrap:self.topWrap]) {
+		self.wraps = _wraps;
+	} else {
+		for (WLWrap* _wrap in _wraps) {
+			if ([_wrap isEqualToWrap:wrap]) {
+				_wraps = [_wraps arrayByRemovingObject:_wrap];
+			}
+		}
+		[self.tableView reloadData];
+	}
+	[WLDataCache cache].wraps = [self allWraps];
+}
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
+	for (WLWrapDate* date in self.topWrap.dates) {
+		if ([date.candies containsObject:candy byBlock:^BOOL(id first, id second) {
+			return [first isEqualToCandy:second];
+		}]) {
+			[date removeCandy:candy];
+			[self updateTopWrap];
+			break;
+		}
+	}
+	[WLDataCache cache].wraps = [self allWraps];
 }
 
 - (void)fetchWraps:(BOOL)refresh {

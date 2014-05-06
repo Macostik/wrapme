@@ -12,6 +12,9 @@
 #import "UIImageView+ImageLoading.h"
 #import "UIView+Shorthand.h"
 #import "UILabel+Additions.h"
+#import "UIAlertView+Blocks.h"
+#import "WLAPIManager.h"
+#import "WLWrapBroadcaster.h"
 
 @interface WLWrapCell ()
 
@@ -22,6 +25,12 @@
 @end
 
 @implementation WLWrapCell
+
+- (void)awakeFromNib {
+	[super awakeFromNib];
+	UILongPressGestureRecognizer* removeGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(remove:)];
+	[self addGestureRecognizer:removeGestureRecognizer];
+}
 
 - (void)setupItemData:(WLWrap*)wrap {
 	self.nameLabel.text = wrap.name;
@@ -37,6 +46,23 @@
 
 + (CGFloat)heightForItem:(id)item {
 	return 66;
+}
+
+- (void)remove:(UILongPressGestureRecognizer*)sender {
+	if (sender.state == UIGestureRecognizerStateBegan && self.userInteractionEnabled) {
+		__weak typeof(self)weakSelf = self;
+		WLWrap* wrap = weakSelf.item;
+		[UIAlertView showWithTitle:wrap.name message:@"Are you sure you want to delete this wrap?" action:@"YES" cancel:@"NO" completion:^{
+			weakSelf.userInteractionEnabled = NO;
+			[[WLAPIManager instance] removeWrap:wrap success:^(id object) {
+				[wrap broadcastRemoving];
+				weakSelf.userInteractionEnabled = YES;
+			} failure:^(NSError *error) {
+				[error show];
+				weakSelf.userInteractionEnabled = YES;
+			}];
+		}];
+	}
 }
 
 @end

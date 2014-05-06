@@ -26,12 +26,8 @@
 - (void)setupItemData:(WLWrap*)wrap {
 	self.nameLabel.text = wrap.name;
 	self.coverView.imageUrl = wrap.picture.small;
-	__weak typeof(self)weakSelf = self;
-	self.contributorsLabel.text = nil;
-	[wrap contributorNames:^(NSString *names) {
-		weakSelf.contributorsLabel.text = names;
-		[weakSelf.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
-	}];
+	self.contributorsLabel.text = wrap.contributorNames;
+	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
 }
 
 - (void)prepareForReuse {

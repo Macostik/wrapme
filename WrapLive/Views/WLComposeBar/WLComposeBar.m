@@ -15,6 +15,7 @@
 #import "WLSupportFunctions.h"
 #import "UIFont+CustomFonts.h"
 #import <objc/runtime.h>
+#import "NSString+Additions.h"
 
 static NSUInteger WLComposeBarDefaultCharactersLimit = 360;
 static NSUInteger WLComposeBarMaxHeight = 100;
@@ -70,6 +71,9 @@ static NSUInteger WLComposeBarMinHeight = 44;
 - (void)setText:(NSString *)text {
 	self.textView.text = text;
 	[self updateStateAnimated:YES];
+	if ([self.delegate respondsToSelector:@selector(composeBarHeightDidChanged:)]) {
+		[self.delegate composeBarHeightDidChanged:self];
+	}
 }
 
 - (void)updateStateAnimated:(BOOL)animated {
@@ -93,7 +97,10 @@ static NSUInteger WLComposeBarMinHeight = 44;
 	if (shouldResign) {
 		[self.textView resignFirstResponder];
 	}
-	[self.delegate composeBar:self didFinishWithText:self.textView.text];
+	NSString* text = [self.text trim];
+	if (text.length > 0) {
+		[self.delegate composeBar:self didFinishWithText:self.textView.text];
+	}
 	self.text = nil;
 }
 

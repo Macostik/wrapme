@@ -69,7 +69,7 @@
 }
 
 - (void)didSwipeLeft {
-	NSInteger index = [self.items indexOfObject:self.item];
+	NSInteger index = [self currentIndex];
     if (index != NSNotFound && index < ([self.items count] - 1)) {
         [[self swipeView] leftPush];
         self.item = [self.items objectAtIndex:index + 1];
@@ -77,11 +77,23 @@
 }
 
 - (void)didSwipeRight {
-	NSInteger index = [self.items indexOfObject:self.item];
+	NSInteger index = [self currentIndex];
     if (index != NSNotFound && index > 0) {
         [[self swipeView] rightPush];
         self.item = [self.items objectAtIndex:index - 1];
     }
+}
+
+- (NSUInteger)currentIndex {
+	NSUInteger index = [self.items indexOfObject:self.item];
+    if (index == NSNotFound) {
+        index = [self repairedCurrentIndex];
+    }
+	return index;
+}
+
+- (NSUInteger)repairedCurrentIndex {
+	return NSNotFound;
 }
 
 #pragma mark - User Actions

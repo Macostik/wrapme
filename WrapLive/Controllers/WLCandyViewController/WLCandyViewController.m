@@ -162,6 +162,16 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	}
 }
 
+- (NSUInteger)repairedCurrentIndex {
+	NSArray* items = self.items;
+	for (WLCandy* candy in items) {
+		if ([candy isEqualToCandy:self.candy]) {
+			return [items indexOfObject:candy];
+		}
+	}
+	return NSNotFound;
+}
+
 - (void)refresh {
 	__weak typeof(self)weakSelf = self;
 	[WLDataManager candy:self.candy wrap:self.wrap success:^(id object) {
@@ -232,7 +242,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 #pragma mark - WLComposeBarDelegate
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
-	[self changeDimentionsWithComposeBar:composeBar];
 	[self sendMessageWithText:text];
 }
 

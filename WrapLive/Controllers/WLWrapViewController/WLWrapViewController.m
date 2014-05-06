@@ -70,11 +70,8 @@
 - (void)setWrapData {
 	self.coverView.imageUrl = self.wrap.picture.small;
 	self.nameLabel.text = self.wrap.name;
-	__weak typeof(self)weakSelf = self;
-	[self.wrap contributorNames:^(NSString *names) {
-		weakSelf.contributorsLabel.text = names;
-		[weakSelf.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
-	}];
+	self.contributorsLabel.text = self.wrap.contributorNames;
+	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
 }
 
 #pragma mark - WLWrapBroadcastReceiver

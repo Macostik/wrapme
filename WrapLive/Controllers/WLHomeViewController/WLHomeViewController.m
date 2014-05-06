@@ -196,11 +196,8 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 	WLWrap* wrap = self.topWrap;
 	[[WLUploadingQueue instance] updateWrap:wrap];
 	self.headerWrapNameLabel.text = wrap.name;
-	__weak typeof(self)weakSelf = self;
-	[wrap contributorNames:^(NSString *names) {
-		weakSelf.headerWrapAuthorsLabel.text = names;
-		[weakSelf.headerWrapAuthorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
-	}];
+	self.headerWrapAuthorsLabel.text = wrap.contributorNames;
+	[self.headerWrapAuthorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
 	self.latestCandies = [wrap candies:WLHomeTopWrapCandiesLimit];
 	self.headerView.height = [self.latestCandies count] > WLHomeTopWrapCandiesLimit_2 ? 280 : 174;
 	self.tableView.tableHeaderView = self.headerView;

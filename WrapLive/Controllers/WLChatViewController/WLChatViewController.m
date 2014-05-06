@@ -224,7 +224,6 @@
 }
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
-	[self changeDimentionsWithComposeBar:composeBar];
 	[self sendMessageWithText:text];
 }
 

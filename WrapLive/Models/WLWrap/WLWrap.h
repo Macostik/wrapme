@@ -21,13 +21,13 @@
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSArray<WLUser>* contributors;
 
+@property (strong, nonatomic) NSString* contributorNames;
+
 - (void)addCandy:(WLCandy*)candy;
 
 - (void)removeCandy:(WLCandy*)candy;
 
 - (void)edit:(BOOL (^)(WLWrap* wrap))editing;
-
-- (void)contributorNames:(void (^)(NSString* names))completion;
 
 - (WLWrapDate*)actualDate;
 

@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-typedef id (^WLCacheReadObjectBlock)(NSString* path);
-typedef void (^WLCacheWriteObjectBlock)(id object, NSString* path);
+typedef id (^WLCacheReadObjectBlock)(NSString* identifier, NSString* path);
+typedef void (^WLCacheWriteObjectBlock)(NSString* identifier, id object, NSString* path);
 typedef void (^WLCacheReadCompletionBlock)(id object);
 typedef void (^WLCacheWriteCompletionBlock)(NSString* path);
 

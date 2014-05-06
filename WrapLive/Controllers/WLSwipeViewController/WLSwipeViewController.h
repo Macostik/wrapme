@@ -24,6 +24,8 @@ typedef void (^WLSwipeSelectionBlock)(id item);
 - (void)willShowItem:(id)item;
 - (void)willSelectItem:(id)item;
 
+- (NSUInteger)repairedCurrentIndex;
+
 @property (strong, nonatomic) id item;
 @property (strong, nonatomic) NSArray* items;
 

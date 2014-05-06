@@ -67,16 +67,23 @@
 	}
 }
 
-- (void)contributorNames:(void (^)(NSString *))completion {
-	__weak typeof(self)weakSelf = self;
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		NSString* names = [[weakSelf.contributors map:^id(WLUser* contributor) {
+- (NSString *)contributorNames {
+	if (!_contributorNames) {
+		_contributorNames = [[self.contributors map:^id(WLUser* contributor) {
 			return [contributor isCurrentUser] ? @"You" : contributor.name;
 		}] componentsJoinedByString:@", "];
-        dispatch_async(dispatch_get_main_queue(), ^{
-			completion(names);
-        });
-    });
+	}
+	return _contributorNames;
+}
+
+- (instancetype)updateWithObject:(id)object {
+	self.contributorNames = nil;
+	return [super updateWithObject:object];
+}
+
+- (void)setContributors:(NSArray<WLUser> *)contributors {
+	_contributors = contributors;
+	self.contributorNames = nil;
 }
 
 - (WLWrapDate *)actualDate {

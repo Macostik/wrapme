@@ -27,6 +27,7 @@
 		125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A5218E069C6001B8E7C /* UIFont+CustomFonts.m */; };
 		128886AD18DC493B00957B22 /* WLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886AC18DC493B00957B22 /* WLSession.m */; };
 		128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886B018DC90E000957B22 /* WLArchivingObject.m */; };
+		128E5BE41918EFBD005F2714 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 128E5BE31918EFBD005F2714 /* NSString+Additions.m */; };
 		1293677F18E337D900527250 /* WLWrapCandiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293677E18E337D900527250 /* WLWrapCandiesCell.m */; };
 		1293678318E33A3500527250 /* WLWrapCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293678218E33A3500527250 /* WLWrapCandyCell.m */; };
 		1293678718E34A6800527250 /* WLCandy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293678618E34A6800527250 /* WLCandy.m */; };
@@ -161,6 +162,8 @@
 		128886AC18DC493B00957B22 /* WLSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSession.m; path = WLSession/WLSession.m; sourceTree = "<group>"; };
 		128886AF18DC90E000957B22 /* WLArchivingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArchivingObject.h; path = WLArchivingObject/WLArchivingObject.h; sourceTree = "<group>"; };
 		128886B018DC90E000957B22 /* WLArchivingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArchivingObject.m; path = WLArchivingObject/WLArchivingObject.m; sourceTree = "<group>"; };
+		128E5BE21918EFBD005F2714 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Additions.h"; path = "NSString/NSString+Additions.h"; sourceTree = "<group>"; };
+		128E5BE31918EFBD005F2714 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Additions.m"; path = "NSString/NSString+Additions.m"; sourceTree = "<group>"; };
 		1293677D18E337D900527250 /* WLWrapCandiesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapCandiesCell.h; path = WLWrapViewController/WLWrapCandiesCell/WLWrapCandiesCell.h; sourceTree = "<group>"; };
 		1293677E18E337D900527250 /* WLWrapCandiesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapCandiesCell.m; path = WLWrapViewController/WLWrapCandiesCell/WLWrapCandiesCell.m; sourceTree = "<group>"; };
 		1293678118E33A3500527250 /* WLWrapCandyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapCandyCell.h; path = WLWrapViewController/WLWrapCandiesCell/WLWrapCandyCell/WLWrapCandyCell.h; sourceTree = "<group>"; };
@@ -1002,6 +1005,8 @@
 				12DF5C3A190E614400D7A62F /* NSString+MD5.m */,
 				12DF5C40190E67DD00D7A62F /* NSString+Documents.h */,
 				12DF5C41190E67DD00D7A62F /* NSString+Documents.m */,
+				128E5BE21918EFBD005F2714 /* NSString+Additions.h */,
+				128E5BE31918EFBD005F2714 /* NSString+Additions.m */,
 			);
 			name = NSString;
 			sourceTree = "<group>";
@@ -1451,6 +1456,7 @@
 				12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */,
 				12E8FF2418E98B7100BF1B96 /* WLComposeContainer.m in Sources */,
 				12A9EFBA18F8026E002CBF75 /* WLCameraInteractionView.m in Sources */,
+				128E5BE41918EFBD005F2714 /* NSString+Additions.m in Sources */,
 				12E1104D19067095007DB4AC /* WLCommentCell.m in Sources */,
 				12E3DA4218E03EB000DBDB79 /* WLSupportFunctions.m in Sources */,
 				121B1B4218E0848D001F585C /* WLCountryCell.m in Sources */,

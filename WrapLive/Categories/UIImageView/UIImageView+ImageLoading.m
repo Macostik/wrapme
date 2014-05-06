@@ -11,6 +11,7 @@
 #import "UIImage+Resize.h"
 #import "UIView+Shorthand.h"
 #import "WLImageCache.h"
+#import "UIView+QuatzCoreAnimations.h"
 
 @interface UIImageView ()
 
@@ -63,7 +64,6 @@
 }
 
 - (void)setFileSystemImageUrl:(NSString *)imageUrl completion:(void (^)(UIImage* image, BOOL cached, NSError* error))completion {
-	[self cancelImageRequestOperation];
 	self.image = WLThumbnailFromUrl(imageUrl, self.height);
 	if (completion) {
 		completion(self.image, YES, nil);
@@ -76,10 +76,7 @@
 
 - (void)setImage:(UIImage *)image animated:(BOOL)animated duration:(CGFloat)duration {
 	if (animated) {
-		CATransition* fadeTransition = [CATransition animation];
-		fadeTransition.duration = duration;
-		fadeTransition.type = kCATransitionFade;
-		[self.layer addAnimation:fadeTransition forKey:nil];
+		[self fadeWithDuration:duration delegate:nil];
 	}
 	self.image = image;
 }

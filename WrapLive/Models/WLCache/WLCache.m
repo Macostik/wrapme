@@ -83,7 +83,7 @@
 
 - (WLCacheReadObjectBlock)readObjectBlock {
 	if (!_readObjectBlock) {
-		_readObjectBlock = ^id (NSString* path) {
+		_readObjectBlock = ^id (NSString* identifier, NSString* path) {
 			return [NSKeyedUnarchiver unarchiveObjectWithFile:path];
 		};
 	}
@@ -92,7 +92,7 @@
 
 - (WLCacheWriteObjectBlock)writeObjectBlock {
 	if (!_writeObjectBlock) {
-		_writeObjectBlock = ^(id object, NSString* path) {
+		_writeObjectBlock = ^(NSString* identifier, id object, NSString* path) {
 			[NSKeyedArchiver archiveRootObject:object toFile:path];
 		};
 	}
@@ -108,12 +108,12 @@
 }
 
 - (id)objectWithIdentifier:(NSString*)identifier {
-	return self.readObjectBlock([self pathWithIdentifier:identifier]);
+	return self.readObjectBlock(identifier, [self pathWithIdentifier:identifier]);
 }
 
 - (void)objectWithIdentifier:(NSString*)identifier completion:(WLCacheReadCompletionBlock)completion {
 	__weak typeof(self)weakSelf = self;
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
 		id object = [weakSelf objectWithIdentifier:identifier];
         dispatch_async(dispatch_get_main_queue(), ^{
 			if (completion) {
@@ -126,7 +126,7 @@
 - (void)setObject:(id)object withIdentifier:(NSString*)identifier completion:(WLCacheWriteCompletionBlock)completion {
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		NSString* path = [self pathWithIdentifier:identifier];
-		self.writeObjectBlock(object, path);
+		self.writeObjectBlock(identifier, object, path);
         dispatch_async(dispatch_get_main_queue(), ^{
 			if (completion) {
 				completion(path);

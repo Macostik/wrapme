@@ -81,12 +81,26 @@ UIImage* WLImageFromUrl(NSString* imageUrl) {
 - (void)configure {
 	self.size = WLImageCacheSize;
 	
-	self.readObjectBlock = ^id (NSString* path) {
-		return WLImageFromUrl(path);
+	__weak typeof(self)weakSelf = self;
+	
+	self.readObjectBlock = ^id (NSString* identifier, NSString* path) {
+		UIImage* image = [weakSelf.systemCache objectForKey:identifier];
+		if (image == nil) {
+			image = WLImageFromUrl(path);
+			[weakSelf.systemCache setObject:image forKey:identifier];
+		}
+		return image;
 	};
-	self.writeObjectBlock = ^(UIImage* image, NSString* path) {
+	
+	self.writeObjectBlock = ^(NSString* identifier, UIImage* image, NSString* path) {
 		[UIImageJPEGRepresentation(image, 1.0f) writeToFile:path atomically:YES];
+		[weakSelf.systemCache setObject:image forKey:identifier];
 	};
+	
+	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+		[weakSelf.systemCache removeAllObjects];
+	}];
+	
 	[super configure];
 }
 
@@ -110,15 +124,6 @@ UIImage* WLImageFromUrl(NSString* imageUrl) {
 
 - (UIImage*)imageWithIdentifier:(NSString*)identifier {
 	return [self objectWithIdentifier:identifier];
-}
-
-- (id)objectWithIdentifier:(NSString *)identifier {
-	UIImage* image = [self.systemCache objectForKey:identifier];
-	if (image == nil) {
-		image = [super objectWithIdentifier:identifier];
-		[self.systemCache setObject:image forKey:identifier];
-	}
-	return image;
 }
 
 - (void)imageWithIdentifier:(NSString *)identifier completion:(void (^)(UIImage *))completion {

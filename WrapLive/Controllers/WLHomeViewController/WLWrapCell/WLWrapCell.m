@@ -15,6 +15,7 @@
 #import "UIAlertView+Blocks.h"
 #import "WLAPIManager.h"
 #import "WLWrapBroadcaster.h"
+#import "WLUser.h"
 
 @interface WLWrapCell ()
 
@@ -52,16 +53,18 @@
 	if (sender.state == UIGestureRecognizerStateBegan && self.userInteractionEnabled) {
 		__weak typeof(self)weakSelf = self;
 		WLWrap* wrap = weakSelf.item;
-		[UIAlertView showWithTitle:wrap.name message:@"Are you sure you want to delete this wrap?" action:@"YES" cancel:@"NO" completion:^{
-			weakSelf.userInteractionEnabled = NO;
-			[[WLAPIManager instance] removeWrap:wrap success:^(id object) {
-				[wrap broadcastRemoving];
-				weakSelf.userInteractionEnabled = YES;
-			} failure:^(NSError *error) {
-				[error show];
-				weakSelf.userInteractionEnabled = YES;
+		if ([wrap.contributor isCurrentUser]) {
+			[UIAlertView showWithTitle:wrap.name message:@"Are you sure you want to delete this wrap?" action:@"YES" cancel:@"NO" completion:^{
+				weakSelf.userInteractionEnabled = NO;
+				[[WLAPIManager instance] removeWrap:wrap success:^(id object) {
+					[wrap broadcastRemoving];
+					weakSelf.userInteractionEnabled = YES;
+				} failure:^(NSError *error) {
+					[error show];
+					weakSelf.userInteractionEnabled = YES;
+				}];
 			}];
-		}];
+		}
 	}
 }
 

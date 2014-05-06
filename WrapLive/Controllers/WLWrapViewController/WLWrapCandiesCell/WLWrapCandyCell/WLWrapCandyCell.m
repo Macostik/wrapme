@@ -97,18 +97,21 @@
 
 - (void)remove:(UILongPressGestureRecognizer*)sender {
 	if (sender.state == UIGestureRecognizerStateBegan && self.userInteractionEnabled) {
-		__weak typeof(self)weakSelf = self;
-		[UIAlertView showWithTitle:@"Delete candy" message:@"Are you sure you want to delete this candy?" action:@"YES" cancel:@"NO" completion:^{
-			weakSelf.userInteractionEnabled = NO;
-			WLCandy* candy = weakSelf.item;
-			[[WLAPIManager instance] removeCandy:candy wrap:self.wrap success:^(id object) {
-				[candy broadcastRemoving];
-				weakSelf.userInteractionEnabled = YES;
-			} failure:^(NSError *error) {
-				[error show];
-				weakSelf.userInteractionEnabled = YES;
+		WLCandy* candy = self.item;
+		if ([candy isImage] && [candy.contributor isCurrentUser]) {
+			__weak typeof(self)weakSelf = self;
+			[UIAlertView showWithTitle:@"Delete candy" message:@"Are you sure you want to delete this candy?" action:@"YES" cancel:@"NO" completion:^{
+				weakSelf.userInteractionEnabled = NO;
+				
+				[[WLAPIManager instance] removeCandy:candy wrap:self.wrap success:^(id object) {
+					[candy broadcastRemoving];
+					weakSelf.userInteractionEnabled = YES;
+				} failure:^(NSError *error) {
+					[error show];
+					weakSelf.userInteractionEnabled = YES;
+				}];
 			}];
-		}];
+		}
 	}
 }
 

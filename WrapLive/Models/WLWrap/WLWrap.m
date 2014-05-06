@@ -77,8 +77,9 @@
 
 - (instancetype)updateWithObject:(id)object {
 	self.contributorNames = nil;
-	return [super updateWithObject:object];
-	[self broadcastChange];
+	WLWrap* wrap = [super updateWithObject:object];
+	[wrap broadcastChange];
+	return wrap;
 }
 
 - (void)setContributors:(NSArray<WLUser> *)contributors {

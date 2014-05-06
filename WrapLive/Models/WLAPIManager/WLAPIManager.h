@@ -8,9 +8,9 @@
 
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import "NSError+WLAPIManager.h"
+#import "WLWrap.h"
 
 @class WLUser;
-@class WLWrap;
 @class WLCandy;
 @class WLComment;
 @class WLAPIResponse;
@@ -204,5 +204,11 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param failure block that will be invoked on failure completion
  */
 - (id)removeComment:(WLComment*)comment candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+@end
+
+@interface WLWrap (WLAPIManager)
+
+- (id)update:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 @end

@@ -504,3 +504,11 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 @end
+
+@implementation WLWrap (WLAPIManager)
+
+- (id)update:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	return [[WLAPIManager instance] wrap:self success:success failure:failure];
+}
+
+@end

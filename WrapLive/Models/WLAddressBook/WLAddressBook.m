@@ -9,17 +9,18 @@
 #import "WLAddressBook.h"
 #import <AddressBook/AddressBook.h>
 #import "NSError+WLAPIManager.h"
+#import "NSArray+Additions.h"
+#import "NSString+Additions.h"
 
-@interface WLContact ()
+@interface WLUser (WLAddressBook)
 
-- (instancetype)initWithRecord:(ABRecordRef)record;
++ (NSArray*)usersFromRecord:(ABRecordRef)record;
 
 @end
 
 @implementation WLAddressBook
 
-+ (void)contacts:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure
-{
++ (void)contacts:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure {
     ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
     ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
@@ -40,10 +41,7 @@ static inline NSArray* WLAddressBookGetContacts(ABAddressBookRef addressBook) {
     NSMutableArray* contacts = [NSMutableArray array];
     for (int i = 0; i < count; i++) {
         ABRecordRef record = CFArrayGetValueAtIndex(records, i);
-		WLContact* contact = [[WLContact alloc] initWithRecord:record];
-		if ([contact.phoneNumbers count] > 0) {
-			[contacts addObject:contact];
-		}
+		[contacts addObjectsFromArray:[WLUser usersFromRecord:record]];
     }
     CFRelease(records);
     return [contacts copy];
@@ -51,16 +49,17 @@ static inline NSArray* WLAddressBookGetContacts(ABAddressBookRef addressBook) {
 
 @end
 
-@implementation WLContact
+@implementation WLUser (WLAddressBook)
 
-- (instancetype)initWithRecord:(ABRecordRef)record {
-    self = [super init];
-    if (self) {
-        self.name = WLAddressBookGetName(record);
-		self.phoneNumbers = WLAddressBookGetPhoneNumbers(record);
-		self.birthdate = WLAddressBookGetBirthday(record);
-    }
-    return self;
++ (NSArray*)usersFromRecord:(ABRecordRef)record {
+	NSString* name = WLAddressBookGetName(record);
+	NSArray* phoneNumbers = WLAddressBookGetPhoneNumbers(record);
+	return [phoneNumbers map:^id(NSString* phoneNumber) {
+		WLUser* user = [WLUser entry];
+		user.phoneNumber = phoneNumber;
+		user.name = name;
+		return user;
+	}];
 }
 
 static inline NSArray* WLAddressBookGetPhoneNumbers(ABRecordRef record) {
@@ -94,13 +93,7 @@ static inline NSString* WLAddressBookGetName(ABRecordRef record) {
     NSString* lastName = nil;
     firstName = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonFirstNameProperty);
     lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonLastNameProperty);
-    return [NSString stringWithFormat:@"%@ %@",firstName ? : @"",lastName ? : @""];
-}
-
-static inline NSDate* WLAddressBookGetBirthday(ABRecordRef record) {
-    NSDate* birthday = nil;
-    birthday = (__bridge NSDate *)(ABRecordCopyValue(record, kABPersonBirthdayProperty));
-    return birthday;
+    return [[NSString stringWithFormat:@"%@ %@",firstName ? : @"",lastName ? : @""] trim];
 }
 
 @end

@@ -254,11 +254,10 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	__weak typeof(self)weakSelf = self;
 	[WLAddressBook contacts:^(NSArray *contacts) {
 
-		NSMutableArray* phoneNumbers = [NSMutableArray array];
+		NSArray* phoneNumbers = [contacts map:^id(WLUser* contact) {
+			return contact.phoneNumber;
+		}];
 		
-		for (WLContact* contact in contacts) {
-			[phoneNumbers addObjectsFromArray:contact.phoneNumbers];
-		}
 		if (phoneNumbers.count == 0) {
 			success(nil);
 			return;
@@ -278,25 +277,19 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (NSArray*)contributorsFromResponse:(WLAPIResponse*)response contacts:(NSArray*)contacts {
-	
-	return [[response.data arrayForKey:@"users"] map:^id(NSDictionary* userInfo) {
-		
-		WLUser* contributor = [[WLUser alloc] initWithDictionary:userInfo error:NULL];
-		
-		if (contributor.name.length == 0) {
-			NSString* phoneNumber = [userInfo objectForKey:@"address_book_number"];
-			WLContact* contact = [contacts selectObject:^BOOL(WLContact* item) {
-				for (NSString* _phoneNumber in item.phoneNumbers) {
-					if ([_phoneNumber isEqualToString:phoneNumber]) {
-						return YES;
-					}
+	NSArray* users = response.data[@"users"];
+	[contacts all:^(WLUser* contact) {
+		for (NSDictionary* user in users) {
+			if ([user[@"address_book_number"] isEqualToString:contact.phoneNumber]) {
+				NSString* name = contact.name;
+				[contact updateWithDictionary:user];
+				if (contact.name.length == 0) {
+					contact.name = name;
 				}
-				return NO;
-			}];
-			contributor.name = contact.name;
+			}
 		}
-		return contributor;
 	}];
+	return contacts;
 }
 
 - (id)wraps:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
@@ -343,9 +336,17 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSArray* contributors = [wrap.contributors map:^id(WLUser* contributor) {
 		return contributor.identifier;
 	}];
+	
+	NSArray* invitees = [wrap.contributors map:^id(WLUser* contributor) {
+		if (contributor.identifier == nil) {
+			return @{@"name":contributor.name?:@"",@"phone_number":contributor.phoneNumber};
+		}
+		return nil;
+	}];
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:wrap.name forKey:@"name"];
 	[parameters trySetObject:contributors forKey:@"user_uids"];
+	[parameters trySetObject:invitees forKey:@"invitees"];
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 		WLWrap* _wrap = [wrap updateWithDictionary:response.data[@"wrap"]];

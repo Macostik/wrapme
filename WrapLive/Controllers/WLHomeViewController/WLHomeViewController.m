@@ -125,16 +125,16 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
 	if (self.topWrap) {
 		self.wraps = [self allWraps];
-		self.tableView.contentOffset = CGPointZero;
 	}
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
 	[self fetchWraps:YES];
+	self.tableView.contentOffset = CGPointZero;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-	if ([wrap isEqualToWrap:self.topWrap]) {
+	if ([wrap isEqualToEntry:self.topWrap]) {
 		self.wraps = _wraps;
 		__weak typeof(self)weakSelf = self;
 		[self.topWrap update:^(id object) {
@@ -143,7 +143,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 		}];
 	} else {
 		for (WLWrap* _wrap in _wraps) {
-			if ([_wrap isEqualToWrap:wrap]) {
+			if ([_wrap isEqualToEntry:wrap]) {
 				_wraps = [_wraps arrayByRemovingObject:_wrap];
 			}
 		}
@@ -154,9 +154,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
 	for (WLWrapDate* date in self.topWrap.dates) {
-		if ([date.candies containsObject:candy byBlock:^BOOL(id first, id second) {
-			return [first isEqualToCandy:second];
-		}]) {
+		if ([date.candies containsEntry:candy]) {
 			[date removeCandy:candy];
 			[self updateTopWrap];
 			break;

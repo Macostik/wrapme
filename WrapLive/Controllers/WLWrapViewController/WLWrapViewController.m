@@ -77,7 +77,7 @@
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-	if ([wrap isEqualToWrap:self.wrap]) {
+	if ([wrap isEqualToEntry:self.wrap]) {
 		[self setWrapData];
 		[self.tableView reloadData];
 	}

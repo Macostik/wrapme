@@ -97,9 +97,7 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
 	WLWrapDate* date = self.item;
-	if ([date.candies containsObject:candy byBlock:^BOOL(id first, id second) {
-		return [first isEqualToCandy:second];
-	}]) {
+	if ([date.candies containsEntry:candy]) {
 		[date removeCandy:candy];
 		[self.collectionView reloadData];
 	}

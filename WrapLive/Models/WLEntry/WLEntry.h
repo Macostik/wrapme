@@ -8,6 +8,7 @@
 
 #import "WLArchivingObject.h"
 #import "WLPicture.h"
+#import "NSArray+Additions.h"
 
 @interface WLEntry : WLArchivingObject
 
@@ -22,11 +23,19 @@
 
 + (NSArray *)entriesForDate:(NSDate *)date inArray:(NSArray *)entries;
 
+- (BOOL)isEqualToEntry:(WLEntry*)entry;
+
++ (EqualityBlock)equalityBlock;
+
 @end
 
 @interface NSArray (WLEntrySorting)
 
 - (NSArray*)sortedEntries;
+
+- (NSArray *)arrayByRemovingEntry:(WLEntry*)entry;
+
+- (BOOL)containsEntry:(WLEntry*)entry;
 
 @end
 

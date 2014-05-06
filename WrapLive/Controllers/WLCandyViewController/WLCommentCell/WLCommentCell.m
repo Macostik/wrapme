@@ -14,6 +14,9 @@
 #import "UIFont+CustomFonts.h"
 #import "UILabel+Additions.h"
 #import "NSDate+Additions.h"
+#import "UIAlertView+Blocks.h"
+#import "WLAPIManager.h"
+#import "WLWrapBroadcaster.h"
 
 @interface WLCommentCell()
 
@@ -37,6 +40,8 @@
 	[super awakeFromNib];
 	self.commentLabel.font = [WLCommentCell commentFont];
 	self.authorImageView.layer.cornerRadius = self.authorImageView.height/2.0f;
+	UILongPressGestureRecognizer* removeGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(remove:)];
+	[self addGestureRecognizer:removeGestureRecognizer];
 }
 
 - (void)setupItemData:(WLComment *)entry {
@@ -44,6 +49,24 @@
 	self.commentLabel.text = entry.text;
 	[self.commentLabel sizeToFitHeight];
 	self.authorImageView.imageUrl = entry.contributor.picture.medium;
+}
+
+- (void)remove:(UILongPressGestureRecognizer*)sender {
+	if (sender.state == UIGestureRecognizerStateBegan && self.userInteractionEnabled) {
+		__weak typeof(self)weakSelf = self;
+		WLComment* comment = weakSelf.item;
+		if ([comment.contributor isCurrentUser]) {
+			[UIAlertView showWithTitle:@"Delete comment" message:@"Are you sure you want to delete this wrap?" action:@"YES" cancel:@"NO" completion:^{
+				weakSelf.userInteractionEnabled = NO;
+				[[WLAPIManager instance] removeComment:comment candy:self.candy wrap:self.wrap success:^(id object) {
+					weakSelf.userInteractionEnabled = YES;
+				} failure:^(NSError *error) {
+					[error show];
+					weakSelf.userInteractionEnabled = YES;
+				}];
+			}];
+		}
+	}
 }
 
 @end

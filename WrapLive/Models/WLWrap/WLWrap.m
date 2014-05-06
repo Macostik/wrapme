@@ -57,7 +57,7 @@
 - (void)removeCandy:(WLCandy *)candy {
 	for (WLWrapDate* date in self.dates) {
 		for (WLCandy* _candy in date.candies) {
-			if ([_candy isEqualToCandy:candy]) {
+			if ([_candy isEqualToEntry:candy]) {
 				[date removeCandy:_candy];
 				[self broadcastChange];
 				[candy broadcastRemoving];
@@ -68,7 +68,11 @@
 
 - (NSString *)contributorNames {
 	if (!_contributorNames) {
-		_contributorNames = [[self.contributors map:^id(WLUser* contributor) {
+		NSMutableArray* contributors = [self.contributors mutableCopy];
+		[contributors exchangeObjectAtIndex:[contributors indexOfObjectPassingTest:^BOOL(WLUser* contributor, NSUInteger idx, BOOL *stop) {
+			return [contributor isCurrentUser];
+		}] withObjectAtIndex:0];
+		_contributorNames = [[contributors map:^id(WLUser* contributor) {
 			return [contributor isCurrentUser] ? @"You" : contributor.name;
 		}] componentsJoinedByString:@", "];
 	}
@@ -101,9 +105,9 @@
 	return date;
 }
 
-- (BOOL)isEqualToWrap:(WLWrap *)wrap {
+- (BOOL)isEqualToEntry:(WLWrap *)wrap {
 	if (self.identifier.length > 0 && wrap.identifier.length > 0) {
-		return [self.identifier isEqualToString:wrap.identifier];
+		return [super isEqualToEntry:wrap];
 	}
 	return [self.picture.large isEqualToString:wrap.picture.large];
 }

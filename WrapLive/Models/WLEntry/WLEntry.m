@@ -54,6 +54,21 @@
 	return [entries filteredArrayUsingPredicate:predicate];
 }
 
+- (BOOL)isEqualToEntry:(WLEntry *)entry {
+	return [self.identifier isEqualToString:entry.identifier];
+}
+
++ (EqualityBlock)equalityBlock {
+	static EqualityBlock _equalityBlock = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		_equalityBlock = ^BOOL(id first, id second) {
+			return [first isEqualToEntry:second];
+		};
+	});
+	return _equalityBlock;
+}
+
 @end
 
 @implementation NSArray (WLEntrySorting)
@@ -68,6 +83,14 @@
 
 - (NSArray *)sortedEntries {
 	return [self sortedArrayUsingDescriptors:[NSArray modifiedDescriptors]];
+}
+
+- (NSArray *)arrayByRemovingEntry:(WLEntry*)entry {
+	return [self arrayByRemovingUniqueObject:entry equality:[[entry class] equalityBlock]];
+}
+
+- (BOOL)containsEntry:(WLEntry*)entry {
+	return [self containsObject:entry byBlock:[[entry class] equalityBlock]];
 }
 
 @end

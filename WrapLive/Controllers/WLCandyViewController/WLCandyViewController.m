@@ -33,7 +33,7 @@
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
-@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver>
+@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -71,6 +71,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 	
+	[[WLWrapBroadcaster broadcaster] addReceiver:self];
+	
 	[self showContentIndicatorView:NO];
 }
 
@@ -84,7 +86,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	for (WLWrapDate* date in wrap.dates) {
 		for (WLCandy* _candy in date.candies) {
 			if (_candy.type == WLCandyTypeImage) {
-				if (existingCandy == nil && [_candy isEqualToCandy:candy]) {
+				if (existingCandy == nil && [_candy isEqualToEntry:candy]) {
 					existingCandy = _candy;
 					self.date = date;
 					break;
@@ -166,7 +168,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (NSUInteger)repairedCurrentIndex {
 	NSArray* items = self.items;
 	for (WLCandy* candy in items) {
-		if ([candy isEqualToCandy:self.candy]) {
+		if ([candy isEqualToEntry:self.candy]) {
 			return [items indexOfObject:candy];
 		}
 	}
@@ -209,6 +211,12 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 		WLImageViewController* controller = segue.destinationViewController;
 		controller.image = self.candy;
 	}
+}
+
+#pragma mark - WLWrapBroadcastReceiver
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentRemoved:(WLComment *)comment {
+	[self.tableView reloadData];
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver
@@ -272,6 +280,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	NSString* cellIdentifier = WLCommentCellIdentifier;
 	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
 	cell.item = comment;
+	cell.wrap = self.wrap;
+	cell.candy = self.candy;
 	return cell;
 }
 

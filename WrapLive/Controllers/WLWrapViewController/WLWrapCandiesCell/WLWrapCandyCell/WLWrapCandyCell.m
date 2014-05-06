@@ -74,7 +74,7 @@
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
-	if ([candy isEqualToCandy:self.item]) {
+	if ([candy isEqualToEntry:self.item]) {
 		[self refreshUploadingButtons:self.item];
 	}
 }

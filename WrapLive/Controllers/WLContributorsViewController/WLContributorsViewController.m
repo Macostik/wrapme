@@ -92,12 +92,9 @@
 }
 
 - (WLUser*)selectedContributor:(WLUser*)contributor {
-	for (WLUser* _contributor in self.selectedContributors) {
-		if ([_contributor isEqualToUser:contributor]) {
-			return _contributor;
-		}
-	}
-	return nil;
+	return [self.selectedContributors selectObject:^BOOL(id item) {
+		return [item isEqualToEntry:contributor];
+	}];
 }
 
 #pragma mark - Actions

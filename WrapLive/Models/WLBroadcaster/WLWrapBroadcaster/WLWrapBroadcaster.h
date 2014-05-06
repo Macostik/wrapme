@@ -9,10 +9,9 @@
 #import "WLBroadcaster.h"
 #import "WLWrap.h"
 #import "WLCandy.h"
+#import "WLComment.h"
 
 @class WLWrapBroadcaster;
-@class WLWrap;
-@class WLCandy;
 
 @protocol WLWrapBroadcastObject <NSObject>
 
@@ -39,6 +38,12 @@
 
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster candyRemoved:(WLCandy*)candy;
 
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentCreated:(WLComment*)comment;
+
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentChanged:(WLComment*)comment;
+
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentRemoved:(WLComment*)comment;
+
 @end
 
 @interface WLWrapBroadcaster : WLBroadcaster
@@ -55,6 +60,12 @@
 
 - (void)broadcastCandyRemove:(WLCandy*)candy;
 
+- (void)broadcastCommentCreation:(WLComment*)comment;
+
+- (void)broadcastCommentChange:(WLComment*)comment;
+
+- (void)broadcastCommentRemove:(WLComment*)comment;
+
 @end
 
 @interface WLWrap (WLWrapBroadcaster) <WLWrapBroadcastObject>
@@ -62,5 +73,9 @@
 @end
 
 @interface WLCandy (WLWrapBroadcaster) <WLWrapBroadcastObject>
+
+@end
+
+@interface WLComment (WLWrapBroadcaster) <WLWrapBroadcastObject>
 
 @end

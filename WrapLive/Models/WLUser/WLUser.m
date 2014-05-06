@@ -30,24 +30,13 @@
 	return YES;
 }
 
-- (BOOL)isEqualToUser:(WLUser *)user {
+- (BOOL)isEqualToEntry:(WLUser *)user {
 	if (self.identifier.length > 0 && user.identifier.length > 0) {
-		return [self.identifier isEqualToString:user.identifier];
+		return [super isEqualToEntry:user];
 	}
 	BOOL equalPhoneNumber = [self.phoneNumber isEqualToString:user.phoneNumber];
 	BOOL equalBirthdate = [self.birthdate compare:user.birthdate] == NSOrderedSame;
 	return equalPhoneNumber && equalBirthdate;
-}
-
-+ (EqualityBlock)equalityBlock {
-	static EqualityBlock _equalityBlock = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		_equalityBlock = ^BOOL(id first, id second) {
-			return [first isEqualToUser:second];
-		};
-	});
-	return _equalityBlock;
 }
 
 @end
@@ -67,7 +56,7 @@
 }
 
 - (BOOL)isCurrentUser {
-	return [[WLUser currentUser] isEqualToUser:self];
+	return [[WLUser currentUser] isEqualToEntry:self];
 }
 
 @end

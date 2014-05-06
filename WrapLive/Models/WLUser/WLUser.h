@@ -7,7 +7,6 @@
 //
 
 #import "WLEntry.h"
-#import "NSArray+Additions.h"
 
 static NSInteger WLProfileNameLimit = 40;
 
@@ -18,10 +17,6 @@ static NSInteger WLProfileNameLimit = 40;
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSDate* birthdate;
 @property (nonatomic) BOOL isCreator;
-
-- (BOOL)isEqualToUser:(WLUser*)user;
-
-+ (EqualityBlock)equalityBlock;
 
 @end
 

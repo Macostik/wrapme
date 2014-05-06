@@ -34,12 +34,12 @@ static NSInteger WLCandyTypeChatMessage = 20;
 
 - (void)addComment:(WLComment*)comment;
 
+- (void)removeComment:(WLComment*)comment;
+
 - (WLComment*)addCommentWithText:(NSString*)text;
 
 - (BOOL)isImage;
 
 - (BOOL)isChatMessage;
-
-- (BOOL)isEqualToCandy:(WLCandy *)candy;
 
 @end

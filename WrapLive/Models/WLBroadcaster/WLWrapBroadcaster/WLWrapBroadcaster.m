@@ -47,6 +47,18 @@
 	[self broadcast:@selector(broadcaster:candyRemoved:) object:candy];
 }
 
+- (void)broadcastCommentCreation:(WLComment *)comment {
+	[self broadcast:@selector(broadcaster:commentCreated:) object:comment];
+}
+
+- (void)broadcastCommentChange:(WLComment *)comment {
+	[self broadcast:@selector(broadcaster:commentChanged:) object:comment];
+}
+
+- (void)broadcastCommentRemove:(WLComment *)comment {
+	[self broadcast:@selector(broadcaster:commentRemoved:) object:comment];
+}
+
 @end
 
 @implementation WLWrap (WLWrapBroadcaster)
@@ -77,6 +89,22 @@
 
 - (void)broadcastRemoving {
 	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCandyRemove:) withObject:self afterDelay:0.0f];
+}
+
+@end
+
+@implementation WLComment (WLWrapBroadcaster)
+
+- (void)broadcastCreation {
+	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCommentCreation:) withObject:self afterDelay:0.0f];
+}
+
+- (void)broadcastChange {
+	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCommentChange:) withObject:self afterDelay:0.0f];
+}
+
+- (void)broadcastRemoving {
+	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCommentRemove:) withObject:self afterDelay:0.0f];
 }
 
 @end

@@ -31,8 +31,6 @@
 
 - (WLWrapDate*)actualDate;
 
-- (BOOL)isEqualToWrap:(WLWrap*)wrap;
-
 - (NSArray*)candiesOfType:(NSInteger)type maximumCount:(NSUInteger)maximumCount;
 
 - (NSArray*)candies:(NSUInteger)maximumCount;

@@ -496,10 +496,16 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)removeComment:(WLComment *)comment candy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		[candy removeComment:comment];
+		return response;
+	};
+	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@/comments/%@", wrap.identifier, candy.identifier, comment.identifier];
 	return [self DELETE:path
 			 parameters:nil
-				success:[self successBlock:success failure:failure]
+				success:[self successBlock:success withObject:objectBlock failure:failure]
 				failure:[self failureBlock:failure success:success]];
 }
 

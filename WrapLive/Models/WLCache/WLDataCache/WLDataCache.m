@@ -106,7 +106,7 @@ static NSUInteger WLWrapCacheSize = 104857600;
 	[self.candiesCache setObject:candy withIdentifier:candy.identifier];
 }
 
-- (WLCandy*)candy:(WLCandy*)candy{
+- (WLCandy*)candy:(WLCandy*)candy {
 	return [self.candiesCache objectWithIdentifier:candy.identifier];
 }
 

@@ -9,6 +9,7 @@
 #import "WLCandy.h"
 #import "WLComment.h"
 #import "WLWrapBroadcaster.h"
+#import "NSArray+Additions.h"
 
 @implementation WLCandy
 
@@ -73,6 +74,12 @@
 	self.updatedAt = [NSDate date];
 }
 
+- (void)removeComment:(WLComment *)comment {
+	self.comments = (id)[self.comments arrayByRemovingEntry:comment];
+	self.updatedAt = [NSDate date];
+	[comment broadcastRemoving];
+}
+
 - (WLComment *)addCommentWithText:(NSString *)text {
 	WLComment* comment = [WLComment commentWithText:text];
 	[self addComment:comment];
@@ -87,9 +94,9 @@
 	return self.type == WLCandyTypeChatMessage;
 }
 
-- (BOOL)isEqualToCandy:(WLCandy *)candy {
+- (BOOL)isEqualToEntry:(WLCandy *)candy {
 	if (self.identifier.length > 0 && candy.identifier.length > 0) {
-		return [self.identifier isEqualToString:candy.identifier];
+		return [super isEqualToEntry:candy];
 	}
 	if (self.type == WLCandyTypeImage) {
 		return [self.picture.large isEqualToString:candy.picture.large];

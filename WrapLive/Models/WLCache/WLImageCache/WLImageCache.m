@@ -93,8 +93,12 @@ UIImage* WLImageFromUrl(NSString* imageUrl) {
 		return image;
 	};
 	
-	self.writeObjectBlock = ^(NSString* identifier, UIImage* image, NSString* path) {
-		[UIImageJPEGRepresentation(image, 1.0f) writeToFile:path atomically:YES];
+	self.writeObjectBlock = ^(NSString* identifier, id image, NSString* path) {
+		if ([image isKindOfClass:[UIImage class]]) {
+			[UIImageJPEGRepresentation(image, 1.0f) writeToFile:path atomically:YES];
+		} else if ([image isKindOfClass:[NSData class]]) {
+			[image writeToFile:path atomically:YES];
+		}
 		[weakSelf.systemCache setObject:image forKey:identifier];
 	};
 	
@@ -150,6 +154,14 @@ UIImage* WLImageFromUrl(NSString* imageUrl) {
 		[manager copyItemAtPath:path toPath:[self pathWithIdentifier:identifier] error:NULL];
 		[manager removeItemAtPath:path error:NULL];
 	}
+}
+
+- (void)setImageData:(NSData*)data withIdentifier:(NSString*)identifier completion:(void (^)(NSString* path))completion {
+	[self setObject:data withIdentifier:identifier completion:completion];
+}
+
+- (void)setImageData:(NSData*)data completion:(void (^)(NSString* path))completion {
+	[self setImageData:data withIdentifier:GUID() completion:completion];
 }
 
 @end

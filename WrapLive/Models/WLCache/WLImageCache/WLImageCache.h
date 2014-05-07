@@ -26,6 +26,10 @@ UIImage* WLImageFromUrl(NSString* imageUrl);
 
 - (void)setImageAtPath:(NSString*)path withIdentifier:(NSString*)identifier;
 
+- (void)setImageData:(NSData*)data withIdentifier:(NSString*)identifier completion:(void (^)(NSString* path))completion;
+
+- (void)setImageData:(NSData*)data completion:(void (^)(NSString* path))completion;
+
 @end
 
 @interface WLImageCache (UrlCache)

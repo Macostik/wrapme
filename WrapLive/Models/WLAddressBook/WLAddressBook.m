@@ -11,23 +11,52 @@
 #import "NSError+WLAPIManager.h"
 #import "NSArray+Additions.h"
 #import "NSString+Additions.h"
+#import "WLImageCache.h"
 
 @interface WLUser (WLAddressBook)
 
-+ (NSArray*)usersFromRecord:(ABRecordRef)record;
++ (void)usersFromRecord:(ABRecordRef)record completion:(void (^)(NSArray* users))completion;
 
 @end
 
 @implementation WLAddressBook
 
 + (void)contacts:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure {
-    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+	[self addressBook:^(ABAddressBookRef addressBook) {
+		CFArrayRef records = ABAddressBookCopyArrayOfAllPeople(addressBook);
+		CFIndex count = ABAddressBookGetPersonCount(addressBook);
+		if (count > 0) {
+			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+				NSMutableArray* contacts = [NSMutableArray array];
+				for (int i = 0; i < count; i++) {
+					ABRecordRef record = CFArrayGetValueAtIndex(records, i);
+					[WLUser usersFromRecord:record completion:^(NSArray *users) {
+						[contacts addObjectsFromArray:users];
+						if (i == count - 1) {
+							CFRelease(records);
+							dispatch_async(dispatch_get_main_queue(), ^{
+								success([contacts copy]);
+							});
+						}
+					}];
+				}
+			});
+			
+		} else {
+			CFRelease(records);
+			failure([NSError errorWithDescription:@"You don't have contacts on this device."]);
+		}
+	} failure:failure];
+}
+
++ (void)addressBook:(void (^)(ABAddressBookRef addressBook))success failure:(void (^)(NSError *))failure {
+	ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
     ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			if (error) {
 				failure((__bridge NSError *)(error));
 			} else if (granted) {
-				success(WLAddressBookGetContacts(addressBook));
+				success(addressBook);
 			} else {
 				failure([NSError errorWithDescription:@"Access to your Address Book is not granted."]);
 			}
@@ -35,31 +64,37 @@
 	});
 }
 
-static inline NSArray* WLAddressBookGetContacts(ABAddressBookRef addressBook) {
-    CFArrayRef records = ABAddressBookCopyArrayOfAllPeople(addressBook);
-    CFIndex count = ABAddressBookGetPersonCount(addressBook);
-    NSMutableArray* contacts = [NSMutableArray array];
-    for (int i = 0; i < count; i++) {
-        ABRecordRef record = CFArrayGetValueAtIndex(records, i);
-		[contacts addObjectsFromArray:[WLUser usersFromRecord:record]];
-    }
-    CFRelease(records);
-    return [contacts copy];
-}
-
 @end
 
 @implementation WLUser (WLAddressBook)
 
-+ (NSArray*)usersFromRecord:(ABRecordRef)record {
++ (void)usersFromRecord:(ABRecordRef)record completion:(void (^)(NSArray *))completion {
 	NSString* name = WLAddressBookGetName(record);
 	NSArray* phoneNumbers = WLAddressBookGetPhoneNumbers(record);
-	return [phoneNumbers map:^id(NSString* phoneNumber) {
-		WLUser* user = [WLUser entry];
-		user.phoneNumber = phoneNumber;
-		user.name = name;
-		return user;
-	}];
+	if ([phoneNumbers count] > 0) {
+		void (^mapUsers)(NSString*) = ^ (NSString* imagePath) {
+			completion([phoneNumbers map:^id(NSString* phoneNumber) {
+				WLUser* user = [WLUser entry];
+				user.phoneNumber = phoneNumber;
+				user.name = name;
+				if (imagePath.nonempty) {
+					user.picture.small = imagePath;
+					user.picture.medium = imagePath;
+					user.picture.large = imagePath;
+				}
+				return user;
+			}]);
+		};
+		if (ABPersonHasImageData(record)) {
+			NSData* imageData = (__bridge NSData *)(ABPersonCopyImageData(record));
+			ABRecordID identifier = ABRecordGetRecordID(record);
+			[[WLImageCache cache] setImageData:imageData withIdentifier:[NSString stringWithFormat:@"addressbook_%d", identifier] completion:mapUsers];
+		} else {
+			mapUsers(nil);
+		}
+	} else {
+		completion(nil);
+	}
 }
 
 static inline NSArray* WLAddressBookGetPhoneNumbers(ABRecordRef record) {

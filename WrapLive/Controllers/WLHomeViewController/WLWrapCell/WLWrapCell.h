@@ -8,6 +8,23 @@
 
 #import "WLItemCell.h"
 
+static NSUInteger WLHomeTopWrapCandiesLimit = 6;
+static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
+
+@class WLWrapCell;
+@class WLCandy;
+
+@protocol WLWrapCellDelegate <NSObject>
+
+- (void)wrapCell:(WLWrapCell*)cell didSelectCandy:(WLCandy*)candy;
+- (void)wrapCellDidSelectCandyPlaceholder:(WLWrapCell*)cell;
+
+@end
+
 @interface WLWrapCell : WLItemCell
+
+@property (nonatomic, weak) id <WLWrapCellDelegate> delegate;
+
+@property (strong, nonatomic) NSArray* candies;
 
 @end

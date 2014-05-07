@@ -9,6 +9,7 @@
 #import "NSDictionary+Extended.h"
 #import "NSDate+Formatting.h"
 #import "NSArray+Additions.h"
+#import "NSString+Additions.h"
 
 @implementation NSDictionary (Extended)
 
@@ -54,12 +55,12 @@
         object = [[self objectOfClass:[NSNumber class] forKey:key] stringValue];
     }
     
-    return object ?:@"";
+    return WLString(object);
 }
 
 - (NSURL *)urlForKey:(id)key {
     NSString* urlString = [self stringForKey:key];
-    if (urlString && urlString.length > 0) {
+    if (urlString.nonempty) {
         return [NSURL URLWithString:urlString];
     }
     return nil;
@@ -106,7 +107,7 @@
     
     for (NSString* key in self) {
         
-        if (string.length > 0) {
+        if (string.nonempty) {
             [string appendString:@"&"];
         }
         

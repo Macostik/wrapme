@@ -16,6 +16,7 @@
 #import "UIView+Shorthand.h"
 #import "WLProgressBar.h"
 #import "UIButton+Additions.h"
+#import "NSString+Additions.h"
 
 static NSInteger WLActivationCodeLimit = 4;
 
@@ -88,7 +89,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 
 - (void)activate:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
 	NSString* activationCode = self.activationTextField.text;
-	if (activationCode.length > 0) {
+	if (activationCode.nonempty) {
 		__weak typeof(self)weakSelf = self;
 		self.progressBar.operation = [[WLAPIManager instance] activate:self.user code:activationCode success:^(id object) {
 			[weakSelf signIn:completion failure:failure];

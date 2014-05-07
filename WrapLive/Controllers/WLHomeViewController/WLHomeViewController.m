@@ -17,13 +17,11 @@
 #import "WLCameraViewController.h"
 #import "NSArray+Additions.h"
 #import "NSDate+Formatting.h"
-#import "StreamView.h"
 #import "WLCandyViewController.h"
 #import "UIColor+CustomColors.h"
 #import "WLComment.h"
 #import "WLImageCache.h"
 #import "WLCandy.h"
-#import "WLWrapCandyCell.h"
 #import "UIFont+CustomFonts.h"
 #import "WLRefresher.h"
 #import "WLChatViewController.h"
@@ -40,21 +38,13 @@
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
 
-static NSUInteger WLHomeTopWrapCandiesLimit = 6;
-static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
+@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate>
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, StreamViewDelegate, WLWrapBroadcastReceiver>
-
-@property (weak, nonatomic) IBOutlet StreamView *topWrapStreamView;
-@property (weak, nonatomic) IBOutlet UIView *headerWrapView;
-@property (weak, nonatomic) IBOutlet UIView *headerView;
-@property (weak, nonatomic) IBOutlet UILabel *headerWrapNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *headerWrapAuthorsLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
 @property (strong, nonatomic) NSArray* wraps;
-@property (strong, nonatomic) WLWrap* topWrap;
-@property (strong, nonatomic) NSArray* latestCandies;
+@property (strong, nonatomic) NSArray* candies;
+@property (nonatomic, readonly) WLWrap* topWrap;
 @property (nonatomic) BOOL loading;
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
@@ -79,9 +69,6 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 	[self setupRefresh];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	self.tableView.tableFooterView = [WLLoadingView instance];
-	
-	UILongPressGestureRecognizer* removeGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(removeTopWrap:)];
-	[self.headerWrapNameLabel.superview addGestureRecognizer:removeGestureRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -97,7 +84,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 }
 
 - (UIViewController *)shakePresentedViewController {
-	return self.topWrap ? [self cameraViewController] : nil;
+	return [self.wraps count] > 0 ? [self cameraViewController] : nil;
 }
 
 - (WLCameraViewController*)cameraViewController {
@@ -115,47 +102,33 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
 }
 
-- (NSArray*)allWraps {
-	NSMutableArray* wraps = [NSMutableArray arrayWithObject:self.topWrap];
-	[wraps addObjectsFromArray:_wraps];
-	return [wraps copy];
-}
-
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-	if (self.topWrap) {
-		self.wraps = [self allWraps];
-	}
+	[self updateWraps];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
+	NSMutableArray* wraps = [self.wraps mutableCopy];
+	[wraps insertObject:wrap atIndex:0];
+	self.wraps = [wraps copy];
 	[self fetchWraps:YES];
 	self.tableView.contentOffset = CGPointZero;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-	if ([wrap isEqualToEntry:self.topWrap]) {
-		self.wraps = _wraps;
-		__weak typeof(self)weakSelf = self;
-		[self.topWrap update:^(id object) {
-			[WLDataCache cache].wraps = [weakSelf allWraps];
-		} failure:^(NSError *error) {
-		}];
-	} else {
-		for (WLWrap* _wrap in _wraps) {
-			if ([_wrap isEqualToEntry:wrap]) {
-				_wraps = [_wraps arrayByRemovingObject:_wrap];
-			}
-		}
-		[self.tableView reloadData];
-	}
-	[WLDataCache cache].wraps = [self allWraps];
+	self.wraps = [self.wraps arrayByRemovingEntry:wrap];
+	__weak typeof(self)weakSelf = self;
+	[self.topWrap update:^(id object) {
+		[WLDataCache cache].wraps = weakSelf.wraps;
+	} failure:^(NSError *error) {
+	}];
+	[WLDataCache cache].wraps = self.wraps;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
-	[self updateTopWrap];
-	[WLDataCache cache].wraps = [self allWraps];
+	[self updateWraps];
+	[WLDataCache cache].wraps = self.wraps;
 }
 
 - (void)fetchWraps:(BOOL)refresh {
@@ -204,44 +177,36 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 	}
 }
 
-- (void)setTopWrap:(WLWrap *)topWrap {
-	_topWrap = topWrap;
-	[self updateTopWrap];
+- (void)setWraps:(NSArray *)wraps {
+	_wraps = [wraps sortedEntries];
+	[self updateWraps];
 }
 
-- (void)setWraps:(NSArray *)wraps {
-	wraps = [wraps sortedEntries];
-	WLWrap* topWrap = [wraps firstObject];
-	_wraps = [wraps arrayByRemovingObject:topWrap];
-	self.tableView.hidden = (topWrap == nil);
-	self.noWrapsView.hidden = (topWrap != nil);
-	self.topWrap = topWrap;
+- (WLWrap *)topWrap {
+	return [self.wraps firstObject];
+}
+
+- (void)updateWraps {
+	
+	BOOL hasWraps = [_wraps count] > 0;
+	
+	if (hasWraps) {
+		WLWrap* wrap = self.topWrap;
+		[[WLUploadingQueue instance] updateWrap:wrap];
+		self.candies = [wrap candies:WLHomeTopWrapCandiesLimit];
+	}
+	
+	self.tableView.hidden = !hasWraps;
+	self.noWrapsView.hidden = hasWraps;
 	[self.tableView reloadData];
 	
-	if (topWrap && !CGAffineTransformIsIdentity(self.navigationBar.transform)) {
+	if (hasWraps && !CGAffineTransformIsIdentity(self.navigationBar.transform)) {
 		__weak typeof(self)weakSelf = self;
 		[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 			weakSelf.navigationBar.transform = CGAffineTransformIdentity;
 		} completion:^(BOOL finished) {
 		}];
 	}
-}
-
-- (void)updateTopWrap {
-	WLWrap* wrap = self.topWrap;
-	[[WLUploadingQueue instance] updateWrap:wrap];
-	self.headerWrapNameLabel.text = wrap.name;
-	self.headerWrapAuthorsLabel.text = wrap.contributorNames;
-	[self.headerWrapAuthorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
-	self.latestCandies = [wrap candies:WLHomeTopWrapCandiesLimit];
-	self.headerView.height = [self.latestCandies count] > WLHomeTopWrapCandiesLimit_2 ? 280 : 174;
-	self.tableView.tableHeaderView = self.headerView;
-	[self.topWrapStreamView reloadData];
-}
-
-- (void)appendWraps:(id)object {
-	_wraps = [_wraps arrayByAddingObjectsFromArray:object];
-	[self.tableView reloadData];
 }
 
 - (void)sendMessageWithText:(NSString*)text {
@@ -304,22 +269,26 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString* wrapCellIdentifier = @"WLWrapCell";
-	WLWrapCell* cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier
-													   forIndexPath:indexPath];
-	cell.item = [self.wraps objectAtIndex:(indexPath.row)];
+	WLWrap* wrap = [self.wraps objectAtIndex:(indexPath.row)];
+	WLWrapCell* cell = nil;
+	if (indexPath.row == 0) {
+		static NSString* topWrapCellIdentifier = @"WLTopWrapCell";
+		cell = [tableView dequeueReusableCellWithIdentifier:topWrapCellIdentifier forIndexPath:indexPath];
+		cell.candies = self.candies;
+	} else {
+		static NSString* wrapCellIdentifier = @"WLWrapCell";
+		cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier forIndexPath:indexPath];
+	}
+	cell.item = wrap;
+	cell.delegate = self;
 	return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.width, tableView.sectionHeaderHeight)];
-	label.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.88];
-	label.text = @"Your other wraps";
-	label.textAlignment = NSTextAlignmentCenter;
-	label.textColor = [UIColor WL_orangeColor];
-	label.font = [UIFont lightFontOfSize:20];
-	label.userInteractionEnabled = YES;
-	return label;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.row == 0) {
+		return [self.candies count] > WLHomeTopWrapCandiesLimit_2 ? 324 : 218;
+	}
+	return 50;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -348,62 +317,27 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - StreamViewDelegate
+#pragma mark - WLWrapCellDelegate
 
-- (NSInteger)streamViewNumberOfColumns:(StreamView *)streamView {
-	return 3;
-}
-
-- (NSInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSInteger)section {
-	return ([self.latestCandies count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
-}
-
-- (UIView*)streamView:(StreamView*)streamView viewForItem:(StreamLayoutItem*)item {
-	if (item.index.row < [self.latestCandies count]) {
-		WLWrapCandyCell* candyView = [streamView reusableViewOfClass:[WLWrapCandyCell class]
-															 forItem:item
-														 loadingType:StreamViewReusableViewLoadingTypeNib];
-		candyView.item = [self.latestCandies objectAtIndex:item.index.row];
-		candyView.wrap = self.topWrap;
-		return candyView;
-	} else {
-		UIImageView * placeholderView = [streamView reusableViewOfClass:[UIImageView class]
-															forItem:item
-														loadingType:StreamViewReusableViewLoadingTypeInit];
-		placeholderView.image = [UIImage imageNamed:@"img_just_candy_small"];
-		placeholderView.contentMode = UIViewContentModeCenter;
-		placeholderView.alpha = 0.5;
-		return placeholderView;
+- (void)wrapCell:(WLWrapCell *)cell didSelectCandy:(WLCandy *)candy {
+	WLWrapViewController* wrapController = [self.storyboard wrapViewController];
+	wrapController.wrap = cell.item;
+	UIViewController* controller = nil;
+	if (candy.type == WLCandyTypeImage) {
+		WLCandyViewController* candyController = [self.storyboard candyViewController];
+		[candyController setWrap:cell.item candy:candy];
+		controller = candyController;
+	} else if (candy.type == WLCandyTypeChatMessage) {
+		WLChatViewController *chatController = [self.storyboard chatViewController];
+		chatController.wrap = cell.item;
+		controller = chatController;
 	}
+	NSArray* controllers = @[self, wrapController, controller];
+	[self.navigationController setViewControllers:controllers animated:YES];
 }
 
-- (CGFloat)streamView:(StreamView*)streamView ratioForItemAtIndex:(StreamIndex)index {
-	return 1;
-}
-
-- (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {
-	if (item.index.row < [self.latestCandies count]) {
-		WLCandy* candy = [self.latestCandies objectAtIndex:item.index.row];
-		if (candy.uploadingItem == nil) {
-			if (candy.type == WLCandyTypeImage) {
-				WLWrapViewController* wrapController = [self.storyboard wrapViewController];
-				wrapController.wrap = self.topWrap;
-				WLCandyViewController* candyController = [self.storyboard candyViewController];
-				[candyController setWrap:self.topWrap candy:candy];
-				NSArray* controllers = @[self, wrapController, candyController];
-				[self.navigationController setViewControllers:controllers animated:YES];
-			} else if (candy.type == WLCandyTypeChatMessage) {
-				WLWrapViewController* wrapController = [self.storyboard wrapViewController];
-				wrapController.wrap = self.topWrap;
-				WLChatViewController *chatController = [self.storyboard chatViewController];
-				chatController.wrap = self.topWrap;
-				NSArray* controllers = @[self, wrapController, chatController];
-				[self.navigationController setViewControllers:controllers animated:YES];
-			}
-		}
-	} else {
-		[self presentViewController:[self cameraViewController] animated:YES completion:nil];
-	}
+- (void)wrapCellDidSelectCandyPlaceholder:(WLWrapCell *)cell {
+	[self presentViewController:[self cameraViewController] animated:YES completion:nil];
 }
 
 @end

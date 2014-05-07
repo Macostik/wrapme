@@ -10,6 +10,7 @@
 #import "WLComment.h"
 #import "WLWrapBroadcaster.h"
 #import "NSArray+Additions.h"
+#import "NSString+Additions.h"
 
 @implementation WLCandy
 
@@ -95,7 +96,7 @@
 }
 
 - (BOOL)isEqualToEntry:(WLCandy *)candy {
-	if (self.identifier.length > 0 && candy.identifier.length > 0) {
+	if (self.identifier.nonempty && candy.identifier.nonempty) {
 		return [super isEqualToEntry:candy];
 	}
 	if (self.type == WLCandyTypeImage) {

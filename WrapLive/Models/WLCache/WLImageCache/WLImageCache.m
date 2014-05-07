@@ -12,6 +12,7 @@
 #import <ImageIO/ImageIO.h>
 #import "NSDictionary+Extended.h"
 #import "WLSupportFunctions.h"
+#import "NSString+Additions.h"
 
 static NSUInteger WLImageCacheSize = 524288000;
 
@@ -140,26 +141,15 @@ UIImage* WLImageFromUrl(NSString* imageUrl) {
 }
 
 - (void)setImage:(UIImage *)image completion:(void (^)(NSString *))completion {
-	[self setImage:image withIdentifier:[NSProcessInfo processInfo].globallyUniqueString completion:completion];
+	[self setImage:image withIdentifier:GUID() completion:completion];
 }
 
 - (void)setImageAtPath:(NSString *)path withIdentifier:(NSString *)identifier {
-	
-	if (identifier.length == 0) {
-		return;
+	NSFileManager* manager = self.manager;
+	if (identifier.nonempty && path.nonempty && [manager fileExistsAtPath:path]) {
+		[manager copyItemAtPath:path toPath:[self pathWithIdentifier:identifier] error:NULL];
+		[manager removeItemAtPath:path error:NULL];
 	}
-	
-	if (path.length == 0) {
-		return;
-	}
-	
-	if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-		return;
-	}
-	
-	NSFileManager* manager = [NSFileManager defaultManager];
-	[manager copyItemAtPath:path toPath:[self pathWithIdentifier:identifier] error:NULL];
-	[manager removeItemAtPath:path error:NULL];
 }
 
 @end
@@ -183,7 +173,7 @@ UIImage* WLImageFromUrl(NSString* imageUrl) {
 }
 
 - (void)setImageAtPath:(NSString*)path withUrl:(NSString*)url {
-	if (url.length > 0) {
+	if (url.nonempty) {
 		[self setImageAtPath:path withIdentifier:[url MD5]];
 	}
 }

@@ -93,7 +93,7 @@ static inline NSString* WLAddressBookGetName(ABRecordRef record) {
     NSString* lastName = nil;
     firstName = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonFirstNameProperty);
     lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonLastNameProperty);
-    return [[NSString stringWithFormat:@"%@ %@",firstName ? : @"",lastName ? : @""] trim];
+    return [[NSString stringWithFormat:@"%@ %@",WLString(firstName),WLString(lastName)] trim];
 }
 
 @end

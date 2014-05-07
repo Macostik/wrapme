@@ -18,6 +18,7 @@
 #import "WLWrap.h"
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
+#import "NSString+Additions.h"
 
 @interface WLWrapCandyCell () <WLWrapBroadcastReceiver>
 
@@ -51,7 +52,7 @@
 		self.commentLabel.text = entry.chatMessage;
 		self.coverView.imageUrl = entry.contributor.picture.medium;
 	}
-	self.commentLabel.hidden = !self.commentLabel.text.length > 0;
+	self.commentLabel.hidden = !self.commentLabel.text.nonempty;
 	
 	[self refreshUploadingButtons:entry];
 }

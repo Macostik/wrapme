@@ -25,6 +25,8 @@ typedef void (^WLCacheWriteCompletionBlock)(NSString* path);
 
 @property (nonatomic) NSUInteger size;
 
+@property (nonatomic, readonly) NSFileManager* manager;
+
 + (instancetype)cache;
 
 + (instancetype)cacheWithIdentifier:(NSString*)identifier;

@@ -27,6 +27,7 @@
 #import "WLKeyboardBroadcaster.h"
 #import "WLDataManager.h"
 #import "NSDate+Additions.h"
+#import "NSString+Additions.h"
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver>
 
@@ -211,7 +212,7 @@
 #pragma mark - WLComposeBarDelegate
 
 - (void)sendMessageWithText:(NSString*)text {
-	if (text.length == 0) {
+	if (!text.nonempty) {
 		return;
 	}
 	__weak typeof(self)weakSelf = self;

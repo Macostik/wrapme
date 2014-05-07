@@ -117,8 +117,8 @@
 	NSInteger page = floorf([self.wrap.dates count] / 10) + 1;
 	[[WLAPIManager instance] wrap:[self.wrap copy] page:page success:^(WLWrap* wrap) {
 		weakSelf.wrap.dates = (id)[weakSelf.wrap.dates arrayByAddingObjectsFromArray:wrap.dates];
-		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
 		[weakSelf.tableView reloadData];
+		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
 		loading = NO;
 	} failure:^(NSError *error) {
 		weakSelf.shouldLoadMoreDates = NO;

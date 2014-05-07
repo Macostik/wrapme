@@ -19,6 +19,7 @@
 #import "UIButton+Additions.h"
 #import "UIImageView+ImageLoading.h"
 #import "WLKeyboardBroadcaster.h"
+#import "NSString+Additions.h"
 
 //static NSInteger WLProfileNameLimit = 40;
 
@@ -44,7 +45,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	self.user = [[WLUser currentUser] copy];
-	self.hasAvatar = self.user.name.length > 0;
+	self.hasAvatar = self.user.name.nonempty;
 	[self verifyContinueButton];
 	self.nameTextField.layer.borderWidth = 0.5;
 	self.nameTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
@@ -107,7 +108,7 @@
 }
 
 - (void)verifyContinueButton {
-	self.continueButton.active = (self.user.name.length > 0) && self.hasAvatar;
+	self.continueButton.active = (self.user.name.nonempty) && self.hasAvatar;
 }
 
 #pragma mark - WLCameraViewControllerDelegate

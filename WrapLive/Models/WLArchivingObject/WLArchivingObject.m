@@ -10,27 +10,47 @@
 #import <objc/runtime.h>
 #import "NSDate+Formatting.h"
 #import "NSArray+Additions.h"
-
-static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlock)(NSString* property)) {
-	if (class != [NSObject class]) {
-		unsigned int count;
-		objc_property_t *properties = class_copyPropertyList(class, &count);
-		if (count > 0) {
-			for (NSInteger i = count - 1; i >= 0; --i) {
-				const char *property_name = property_getName(properties[i]);
-				enumerationBlock([NSString stringWithCString:property_name encoding:NSASCIIStringEncoding]);
-			}
-		}
-		
-		if (properties != NULL) {
-			free(properties);
-		}
-		
-		EnumeratePropertiesOfClass(class_getSuperclass(class), enumerationBlock);
-	}
-}
+#import "WLSupportFunctions.h"
 
 @implementation WLArchivingObject
+
++ (NSArray*)properties {
+	NSArray* properties = objc_getAssociatedObject(self, "recursive_archiving_properties");
+	if (!properties) {
+		Class currentClass = self;
+		Class terminatingClass = [WLArchivingObject class];
+		NSMutableArray* _properties = [NSMutableArray array];
+		while (currentClass != terminatingClass) {
+			unsigned int count;
+			objc_property_t *propertyList = class_copyPropertyList(currentClass, &count);
+			if (count > 0) {
+				for (NSInteger i = count - 1; i >= 0; --i) {
+					const char *property_name = property_getName(propertyList[i]);
+					[_properties addObject:((__bridge NSString*)__CFStringMakeConstantString(property_name))];
+				}
+			}
+			if (propertyList != NULL) {
+				free(propertyList);
+			}
+			currentClass = class_getSuperclass(currentClass);
+		}
+		properties = [_properties copy];
+		objc_setAssociatedObject(self, "recursive_archiving_properties", properties, OBJC_ASSOCIATION_RETAIN);
+	}
+	return properties;
+}
+
++ (void)properties:(void (^)(NSString* property))enumerationBlock {
+	[[self properties] all:enumerationBlock];
+}
+
+- (NSArray*)properties {
+	return [[self class] properties];
+}
+
+- (void)properties:(void (^)(NSString* property))enumerationBlock {
+	[[self class] properties:enumerationBlock];
+}
 
 + (NSMutableDictionary *)mapping {
 	return [NSMutableDictionary dictionary];
@@ -64,12 +84,12 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 	Class class = [object class];
 	__weak typeof(self)weakSelf = self;
 	if (class == [self class]) {
-		EnumeratePropertiesOfClass(class, ^(NSString *property) {
+		[self properties:^(NSString *property) {
 			id value = [object valueForKey:property];
 			if (value) {
 				[weakSelf setValue:value forKey:property];
 			}
-		});
+		}];
 	}
 	return self;
 }
@@ -79,20 +99,20 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	self = [self init];
 	if (self) {
-		EnumeratePropertiesOfClass([self class], ^ (NSString* property) {
+		[self properties:^(NSString *property) {
 			id value = [aDecoder decodeObjectForKey:property];
 			if (value) {
 				[self setValue:value forKey:property];
 			}
-		});
+		}];
 	}
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-	EnumeratePropertiesOfClass([self class], ^ (NSString* property) {
+	[self properties:^(NSString *property) {
 		[aCoder encodeObject:[self valueForKey:property] forKey:property];
-	});
+	}];
 }
 
 #pragma mark - NSCopying
@@ -101,7 +121,7 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 	Class class = [self class];
 	__weak typeof(self)weakSelf = self;
 	WLArchivingObject* copy = [[class allocWithZone:zone] init];
-	EnumeratePropertiesOfClass(class, ^(NSString *property) {
+	[self properties:^(NSString *property) {
 		id value = [weakSelf valueForKey:property];
 		if (value) {
 			if ([value respondsToSelector:@selector(copyWithZone:)]) {
@@ -109,7 +129,7 @@ static inline void EnumeratePropertiesOfClass(Class class, void (^enumerationBlo
 			}
 			[copy setValue:value forKey:property];
 		}
-	});
+	}];
 	return copy;
 }
 

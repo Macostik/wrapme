@@ -8,6 +8,7 @@
 
 #import "UIColor+CustomColors.h"
 #import "WLSupportFunctions.h"
+#import "NSString+Additions.h"
 
 @implementation UIColor (CustomColors)
 
@@ -36,7 +37,7 @@
 }
 
 + (UIColor *)colorWithHexString:(NSString *)str {
-    if (str.length > 0) {
+    if (str.nonempty) {
         const char *cStr = [str cStringUsingEncoding:NSASCIIStringEncoding];
         UInt32 x = (UInt32)strtol(cStr+1, NULL, 16);
         return [UIColor colorWithHex:x];

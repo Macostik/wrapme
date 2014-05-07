@@ -11,7 +11,8 @@
 typedef NS_ENUM(NSUInteger, WLWrapTransition) {
 	WLWrapTransitionWithoutAnimation,
 	WLWrapTransitionFromBottom,
-	WLWrapTransitionFromRight
+	WLWrapTransitionFromRight,
+	WLWrapTransitionFromLeft
 };
 
 @interface WLShakeViewController : UIViewController

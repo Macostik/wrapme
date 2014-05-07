@@ -23,6 +23,7 @@
 #import "WLUser.h"
 #import "UIButton+Additions.h"
 #import "WLWrapBroadcaster.h"
+#import "NSString+Additions.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
 
@@ -112,7 +113,7 @@
 }
 
 - (void)verifyStartAndDoneButton {
-	BOOL enabled = self.editingWrap.name.length > 0;
+	BOOL enabled = self.editingWrap.name.nonempty;
 	self.startButton.active = enabled;
 	self.doneButton.active = enabled;
 }
@@ -169,7 +170,7 @@
 		wrapController.wrap = wrap;
 		weakSelf.view.userInteractionEnabled = YES;
 		[weakSelf.parentViewController.navigationController pushViewController:wrapController animated:YES];
-		[weakSelf dismiss];
+		[weakSelf dismiss:WLWrapTransitionFromLeft];
 	} failure:^(NSError *error) {
 		[error show];
 		[weakSelf.spinner stopAnimating];

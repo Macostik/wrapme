@@ -13,6 +13,7 @@
 #import "WLWrap.h"
 #import "NSArray+Additions.h"
 #import "WLUser.h"
+#import "NSString+Additions.h"
 
 @interface WLContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContributorCellDelegate, UITextFieldDelegate>
 
@@ -62,7 +63,7 @@
 	NSString* text = self.searchField.text;
 	__weak typeof(self)weakSelf = self;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		if (text.length > 0) {
+		if (text.nonempty) {
 			NSPredicate* predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@", text];
 			weakSelf.filteredContributors = [weakSelf.contributors filteredArrayUsingPredicate:predicate];
 		} else {

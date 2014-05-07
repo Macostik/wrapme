@@ -14,6 +14,7 @@
 #import "NSDate+Formatting.h"
 #import "WLWrapDate.h"
 #import "WLWrapBroadcaster.h"
+#import "NSString+Additions.h"
 
 @implementation WLWrap
 
@@ -106,7 +107,7 @@
 }
 
 - (BOOL)isEqualToEntry:(WLWrap *)wrap {
-	if (self.identifier.length > 0 && wrap.identifier.length > 0) {
+	if (self.identifier.nonempty && wrap.identifier.nonempty) {
 		return [super isEqualToEntry:wrap];
 	}
 	return [self.picture.large isEqualToString:wrap.picture.large];

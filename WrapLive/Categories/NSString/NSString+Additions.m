@@ -8,19 +8,6 @@
 
 #import "NSString+Additions.h"
 
-NSString* GUID() {
-	return [[NSProcessInfo processInfo] globallyUniqueString];
-}
-
-BOOL NSStringEqual(NSString* string1, NSString* string2) {
-	if (string1 == nil && string2 == nil) {
-		return YES;
-	} else if (string1 == nil || string2 == nil) {
-		return NO;
-	}
-	return [string1 isEqualToString:string2];
-}
-
 @implementation NSString (Additions)
 
 - (BOOL)isValidEmail {
@@ -39,6 +26,14 @@ BOOL NSStringEqual(NSString* string1, NSString* string2) {
 
 - (NSString *)trim {
 	return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+- (BOOL)empty {
+	return (self.length == 0);
+}
+
+- (BOOL)nonempty {
+	return (self.length > 0);
 }
 
 @end

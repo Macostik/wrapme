@@ -75,10 +75,14 @@
 			_directory = NSDocumentsDirectoryPath(self.identifier);
 		}
 	}
-	if (![[NSFileManager defaultManager] fileExistsAtPath:_directory]) {
-		[[NSFileManager defaultManager] createDirectoryAtPath:_directory withIntermediateDirectories:YES attributes:nil error:NULL];
+	if (![self.manager fileExistsAtPath:_directory]) {
+		[self.manager createDirectoryAtPath:_directory withIntermediateDirectories:YES attributes:nil error:NULL];
 	}
 	return _directory;
+}
+
+- (NSFileManager *)manager {
+	return [NSFileManager defaultManager];
 }
 
 - (WLCacheReadObjectBlock)readObjectBlock {
@@ -104,7 +108,7 @@
 }
 
 - (BOOL)containsObjectWithIdentifier:(NSString *)identifier {
-	return [[NSFileManager defaultManager] fileExistsAtPath:[self pathWithIdentifier:identifier]];
+	return [self.manager fileExistsAtPath:[self pathWithIdentifier:identifier]];
 }
 
 - (id)objectWithIdentifier:(NSString*)identifier {
@@ -154,7 +158,7 @@
 		@autoreleasepool {
 			NSString* directory = self.directory;
 			
-			NSDirectoryEnumerator* enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directory];
+			NSDirectoryEnumerator* enumerator = [self.manager enumeratorAtPath:directory];
 			NSUInteger size = 0;
 			
 			NSMutableArray* items = [NSMutableArray array];
@@ -164,7 +168,7 @@
 				WLCacheItem* item = [[WLCacheItem alloc] init];
 				item.path = [directory stringByAppendingPathComponent:file];
 				
-				NSDictionary* attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:item.path error:NULL];
+				NSDictionary* attributes = [self.manager attributesOfItemAtPath:item.path error:NULL];
 				
 				item.size = [attributes fileSize];
 				
@@ -179,7 +183,7 @@
 			
 			while (size >= self.size) {
 				WLCacheItem* item = [items firstObject];
-				[[NSFileManager defaultManager] removeItemAtPath:item.path error:NULL];
+				[self.manager removeItemAtPath:item.path error:NULL];
 				size -= item.size;
 				[items removeObject:item];
 			}
@@ -189,9 +193,9 @@
 
 - (void)clear {
 	NSString* directory = self.directory;
-	NSDirectoryEnumerator* enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directory];
+	NSDirectoryEnumerator* enumerator = [self.manager enumeratorAtPath:directory];
 	for (NSString* file in enumerator) {
-		[[NSFileManager defaultManager] removeItemAtPath:[directory stringByAppendingPathComponent:file] error:NULL];
+		[self.manager removeItemAtPath:[directory stringByAppendingPathComponent:file] error:NULL];
 	}
 }
 

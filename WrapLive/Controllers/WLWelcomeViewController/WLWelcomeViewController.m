@@ -12,6 +12,7 @@
 #import "UIStoryboard+Additions.h"
 #import "WLUser.h"
 #import "WLSignUpViewController.h"
+#import "NSString+Additions.h"
 
 @interface WLWelcomeViewController ()
 
@@ -32,7 +33,7 @@
 		__weak typeof(self)weakSelf = self;
 		WLUser* user = [WLSession user];
 		[[WLAPIManager instance] signIn:user success:^(WLUser* user) {
-			if (user.name.length > 0) {
+			if (user.name.nonempty) {
 				[weakSelf presentHomeViewController];
 			} else {
 				[weakSelf continueSignUp];

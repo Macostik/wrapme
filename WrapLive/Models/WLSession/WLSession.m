@@ -10,6 +10,7 @@
 #import <SSKeychain/SSKeychain.h>
 #import <OpenUDID/OpenUDID.h>
 #import "WLUser.h"
+#import "NSString+Additions.h"
 
 static NSString* WLSessionServiceName = @"WrapLive";
 static NSString* WLSessionAccountName = @"WrapLiveAccount";
@@ -64,7 +65,7 @@ static WLUser* _user = nil;
 }
 
 + (BOOL)activated {
-	return [self password].length > 0 && [self birthdate].length > 0 && [self user] != nil;
+	return [self password].nonempty && [self birthdate].nonempty && [self user] != nil;
 }
 
 @end

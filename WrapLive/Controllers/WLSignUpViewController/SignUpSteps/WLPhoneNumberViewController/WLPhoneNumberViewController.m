@@ -18,6 +18,7 @@
 #import "UIView+Shorthand.h"
 #import "UIButton+Additions.h"
 #import "NSDate+Additions.h"
+#import "NSString+Additions.h"
 
 @interface WLPhoneNumberViewController () <UITextFieldDelegate>
 
@@ -91,7 +92,7 @@
 }
 
 - (void)validateSignUpButton {
-	self.signUpButton.active = (self.phoneNumber.length > 0) && [self.birthdate compare:[NSDate defaultBirtday]] != NSOrderedSame;
+	self.signUpButton.active = self.phoneNumber.nonempty && [self.birthdate compare:[NSDate defaultBirtday]] != NSOrderedSame;
 }
 
 - (WLUser *)prepareForRequest {

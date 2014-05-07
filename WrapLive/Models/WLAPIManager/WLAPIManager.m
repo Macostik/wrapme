@@ -20,6 +20,7 @@
 #import "WLWrapDate.h"
 #import "UIStoryboard+Additions.h"
 #import "WLWrapBroadcaster.h"
+#import "NSString+Additions.h"
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
@@ -283,7 +284,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			if ([user[@"address_book_number"] isEqualToString:contact.phoneNumber]) {
 				NSString* name = contact.name;
 				[contact updateWithDictionary:user];
-				if (contact.name.length == 0) {
+				if (!contact.name.nonempty) {
 					contact.name = name;
 				}
 			}
@@ -332,50 +333,43 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			 failure:[self failureBlock:failure success:success]];
 }
 
-- (id)createWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	NSArray* contributors = [wrap.contributors map:^id(WLUser* contributor) {
-		return contributor.identifier;
-	}];
-	
-	NSArray* invitees = [wrap.contributors map:^id(WLUser* contributor) {
-		if (contributor.identifier == nil) {
-			return @{@"name":contributor.name?:@"",@"phone_number":contributor.phoneNumber};
+- (NSDictionary*)parametersForWrap:(WLWrap*)wrap {
+	NSMutableArray* contributors = [NSMutableArray array];
+	NSMutableArray* invitees = [NSMutableArray array];
+	for (WLUser* contributor in wrap.contributors) {
+		if (contributor.identifier.nonempty) {
+			[contributors addObject:contributor.identifier];
+		} else {
+			[invitees addObject:@{@"name":WLString(contributor.name),@"phone_number":contributor.phoneNumber}];
 		}
-		return nil;
-	}];
+	}
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:wrap.name forKey:@"name"];
 	[parameters trySetObject:contributors forKey:@"user_uids"];
 	[parameters trySetObject:invitees forKey:@"invitees"];
-	
+	return parameters;
+}
+
+- (id)createWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 		WLWrap* _wrap = [wrap updateWithDictionary:response.data[@"wrap"]];
 		[_wrap broadcastCreation];
 		return _wrap;
 	};
-	
 	return [self POST:@"wraps"
-		   parameters:parameters
+		   parameters:[self parametersForWrap:wrap]
 			 filePath:wrap.picture.large
 			  success:[self successBlock:success withObject:objectBlock failure:failure]
 			  failure:[self failureBlock:failure success:success]];
 }
 
 - (id)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
-	NSArray* contributors = [wrap.contributors map:^id(WLUser* contributor) {
-		return contributor.identifier;
-	}];
-	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-	[parameters trySetObject:wrap.name forKey:@"name"];
-	[parameters trySetObject:contributors forKey:@"user_uids"];
-	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
 		return [wrap updateWithDictionary:response.data[@"wrap"]];
 	};
-	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
 	return [self PUT:path
-		   parameters:parameters
+		   parameters:[self parametersForWrap:wrap]
 			 filePath:wrap.picture.large
 			  success:[self successBlock:success withObject:objectBlock failure:failure]
 			  failure:[self failureBlock:failure success:success]];

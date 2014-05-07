@@ -9,6 +9,7 @@
 #import "WLUser.h"
 #import "NSDate+Formatting.h"
 #import "WLSession.h"
+#import "NSString+Additions.h"
 
 @implementation WLUser
 
@@ -31,7 +32,7 @@
 }
 
 - (BOOL)isEqualToEntry:(WLUser *)user {
-	if (self.identifier.length > 0 && user.identifier.length > 0) {
+	if (self.identifier.nonempty && user.identifier.nonempty) {
 		return [super isEqualToEntry:user];
 	}
 	BOOL equalPhoneNumber = [self.phoneNumber isEqualToString:user.phoneNumber];

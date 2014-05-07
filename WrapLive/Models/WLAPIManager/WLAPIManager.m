@@ -375,6 +375,21 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			  failure:[self failureBlock:failure success:success]];
 }
 
+- (id)leaveWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+	wrap = [wrap copy];
+	wrap.contributors = (id)[wrap.contributors arrayByRemovingCurrentUser];
+	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {
+		[wrap broadcastRemoving];
+		return response;
+	};
+	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
+	return [self PUT:path
+		  parameters:[self parametersForWrap:wrap]
+			filePath:wrap.picture.large
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure success:success]];
+}
+
 - (id)removeWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
 	
 	WLAPIManagerObjectBlock objectBlock = ^id(WLAPIResponse *response) {

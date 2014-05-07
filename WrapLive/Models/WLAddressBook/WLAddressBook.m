@@ -86,7 +86,7 @@
 			}]);
 		};
 		if (ABPersonHasImageData(record)) {
-			NSData* imageData = (__bridge NSData *)(ABPersonCopyImageData(record));
+			NSData* imageData = (__bridge_transfer NSData *)ABPersonCopyImageData(record);
 			ABRecordID identifier = ABRecordGetRecordID(record);
 			[[WLImageCache cache] setImageData:imageData withIdentifier:[NSString stringWithFormat:@"addressbook_%d", identifier] completion:mapUsers];
 		} else {
@@ -124,10 +124,8 @@ static inline NSString* WLAddressBookClearPhoneNumber(NSString* phoneNumber) {
 }
 
 static inline NSString* WLAddressBookGetName(ABRecordRef record) {
-    NSString* firstName = nil;
-    NSString* lastName = nil;
-    firstName = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonFirstNameProperty);
-    lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonLastNameProperty);
+    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonFirstNameProperty);
+    NSString* lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonLastNameProperty);
     return [[NSString stringWithFormat:@"%@ %@",WLString(firstName),WLString(lastName)] trim];
 }
 

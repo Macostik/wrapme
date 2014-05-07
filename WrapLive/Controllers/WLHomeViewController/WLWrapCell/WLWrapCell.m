@@ -66,6 +66,18 @@
 					}];
 				}];
 			}];
+		} else {
+			[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Leave" buttons:nil completion:^(NSUInteger index) {
+				[UIActionSheet showWithTitle:@"Are you sure you want to leave this wrap?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
+					weakSelf.userInteractionEnabled = NO;
+					[[WLAPIManager instance] leaveWrap:wrap success:^(id object) {
+						weakSelf.userInteractionEnabled = YES;
+					} failure:^(NSError *error) {
+						[error show];
+						weakSelf.userInteractionEnabled = YES;
+					}];
+				}];
+			}];
 		}
 	}
 }

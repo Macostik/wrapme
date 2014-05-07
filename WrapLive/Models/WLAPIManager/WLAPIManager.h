@@ -126,6 +126,15 @@ static NSInteger WLAPIChatPageSize = 50;
 - (id)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
 
 /*!
+ *  Leave wrap
+ *
+ *  @wrap wrap object
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (id)leaveWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+
+/*!
  *  Remove wrap
  *
  *  @wrap wrap object

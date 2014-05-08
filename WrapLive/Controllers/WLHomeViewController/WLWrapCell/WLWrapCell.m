@@ -55,10 +55,10 @@
 		__weak typeof(self)weakSelf = self;
 		WLWrap* wrap = weakSelf.item;
 		if ([wrap.contributor isCurrentUser]) {
-			[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" buttons:nil completion:^(NSUInteger index) {
-				[UIActionSheet showWithTitle:@"Are you sure you want to delete this wrap?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
+			[UIActionSheet showWithTitle:wrap.name destructive:@"Delete" completion:^(NSUInteger index) {
+				[UIActionSheet showWithCondition:@"Are you sure you want to delete this wrap?" completion:^(NSUInteger index) {
 					weakSelf.userInteractionEnabled = NO;
-					[[WLAPIManager instance] removeWrap:wrap success:^(id object) {
+					[wrap remove:^(id object) {
 						weakSelf.userInteractionEnabled = YES;
 					} failure:^(NSError *error) {
 						[error show];
@@ -67,10 +67,10 @@
 				}];
 			}];
 		} else {
-			[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Leave" buttons:nil completion:^(NSUInteger index) {
-				[UIActionSheet showWithTitle:@"Are you sure you want to leave this wrap?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
+			[UIActionSheet showWithTitle:wrap.name destructive:@"Leave" completion:^(NSUInteger index) {
+				[UIActionSheet showWithCondition:@"Are you sure you want to leave this wrap?" completion:^(NSUInteger index) {
 					weakSelf.userInteractionEnabled = NO;
-					[[WLAPIManager instance] leaveWrap:wrap success:^(id object) {
+					[wrap leave:^(id object) {
 						weakSelf.userInteractionEnabled = YES;
 					} failure:^(NSError *error) {
 						[error show];

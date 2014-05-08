@@ -25,9 +25,9 @@
 
 - (void)updateWrap:(WLWrap*)wrap;
 
-- (void)uploadImage:(UIImage*)image wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (void)uploadImage:(UIImage*)image wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
-- (void)uploadMessage:(NSString*)message wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (void)uploadMessage:(NSString*)message wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 @end
 
@@ -45,6 +45,6 @@
 
 - (AFURLConnectionOperation *)operation;
 
-- (void)upload:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (void)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 @end

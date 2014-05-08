@@ -9,16 +9,13 @@
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import "NSError+WLAPIManager.h"
 #import "WLWrap.h"
+#import "WLCandy.h"
+#import "WLBlocks.h"
 
 @class WLUser;
-@class WLCandy;
 @class WLComment;
 @class WLAPIResponse;
 @class WLWrapDate;
-
-typedef void (^WLAPIManagerSuccessBlock) (id object);
-typedef void (^WLAPIManagerFailureBlock) (NSError* error);
-typedef id (^WLAPIManagerObjectBlock)(WLAPIResponse* response);
 
 static NSInteger WLAPIGeneralPageSize = 10;
 static NSInteger WLAPIChatPageSize = 50;
@@ -34,7 +31,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)signUp:(WLUser*)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)signUp:(WLUser*)user success:(WLUserBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Activate a registered account with the activation code received from SMS.
@@ -43,7 +40,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)activate:(WLUser*)user code:(NSString*)code success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)activate:(WLUser*)user code:(NSString*)code success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Login to WrapLive.
@@ -52,7 +49,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)signIn:(WLUser*)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)signIn:(WLUser*)user success:(WLUserBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Get current authenticated user information. Data is available only after a successful login.
@@ -60,7 +57,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)me:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)me:(WLUserBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Update the user attributes of the currently logged on user. The following attributes are supported:
@@ -70,7 +67,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)updateMe:(WLUser*)user success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)updateMe:(WLUser*)user success:(WLUserBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Given an array of phone numbers, return the sign up status as well as the full phone number found.
@@ -78,7 +75,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)contributors:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)contributors:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Get current authenticated user wraps.
@@ -86,7 +83,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)wraps:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)wraps:(NSInteger)page success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Get detailed wrap data. page = 1
@@ -95,7 +92,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)wrap:(WLWrap*)wrap success:(WLWrapBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Get detailed wrap data
@@ -105,7 +102,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)wrap:(WLWrap*)wrap page:(NSInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)wrap:(WLWrap*)wrap page:(NSInteger)page success:(WLWrapBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Creates new wrap
@@ -114,7 +111,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)createWrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)createWrap:(WLWrap*)wrap success:(WLWrapBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Update selected wrap
@@ -123,7 +120,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)updateWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)updateWrap:(WLWrap *)wrap success:(WLWrapBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Leave wrap
@@ -132,7 +129,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)leaveWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)leaveWrap:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Remove wrap
@@ -141,7 +138,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)removeWrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)removeWrap:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Adds a candy to the wrap
@@ -151,7 +148,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)addCandy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)addCandy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Get candies from the wrap
@@ -160,7 +157,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)candies:(WLWrap*)wrap date:(WLWrapDate*)date success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)candies:(WLWrap*)wrap date:(WLWrapDate*)date success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  (Login required) Return the chat messages in a wrap given a wrap UID. Messages are sorted in descending order. Pagination is also supported
@@ -170,7 +167,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)messages:(WLWrap*)wrap page:(NSUInteger)page success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)messages:(WLWrap*)wrap page:(NSUInteger)page success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Get all the data about a particular candy
@@ -180,7 +177,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)candy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)candy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Remove candy
@@ -190,7 +187,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)removeCandy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)removeCandy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Add a comment to a candy in a wrap given the wrap and candy uid
@@ -201,7 +198,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)addComment:(WLComment*)comment candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)addComment:(WLComment*)comment candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLCommentBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Remove comment
@@ -212,12 +209,42 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)removeComment:(WLComment*)comment candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)removeComment:(WLComment*)comment candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 @end
 
 @interface WLWrap (WLAPIManager)
 
-- (id)update:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure;
+- (id)create:(WLWrapBlock)success failure:(WLFailureBlock)failure;
+
+- (id)update:(WLWrapBlock)success failure:(WLFailureBlock)failure;
+
+- (id)fetch:(WLWrapBlock)success failure:(WLFailureBlock)failure;
+
+- (id)fetch:(NSInteger)page success:(WLWrapBlock)success failure:(WLFailureBlock)failure;
+
+- (id)addCandy:(WLCandy*)candy success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
+
+- (id)candies:(WLWrapDate*)date success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
+- (id)messages:(NSUInteger)page success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
+- (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+
+- (id)leave:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+
+- (id)removeCandy:(WLCandy *)candy success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+
+@end
+
+@interface WLCandy (WLAPIManager)
+
+- (id)addComment:(WLComment*)comment wrap:(WLWrap*)wrap success:(WLCommentBlock)success failure:(WLFailureBlock)failure;
+
+- (id)removeComment:(WLComment*)comment wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+
+- (id)remove:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+
+- (id)fetch:(WLWrap *)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 
 @end

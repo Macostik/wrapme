@@ -144,8 +144,8 @@
 		self.view.userInteractionEnabled = NO;
 		[self.spinner startAnimating];
 		__weak typeof(self)weakSelf = self;
-		[[WLAPIManager instance] updateWrap:self.editingWrap success:^(id object) {
-			[weakSelf.wrap updateWithObject:object];
+		[self.editingWrap update:^(WLWrap *wrap) {
+			[weakSelf.wrap updateWithObject:wrap];
 			[weakSelf.wrap broadcastChange];
 			[weakSelf.spinner stopAnimating];
 			[weakSelf dismiss];
@@ -164,7 +164,7 @@
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
 	self.view.userInteractionEnabled = NO;
-	[[WLAPIManager instance] createWrap:self.editingWrap success:^(WLWrap* wrap) {
+	[self.editingWrap create:^(WLWrap *wrap) {
 		[weakSelf.spinner stopAnimating];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
 		wrapController.wrap = wrap;

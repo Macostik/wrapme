@@ -189,17 +189,14 @@
 		}
 	}
 	
-	NSTimeInterval delay = 0.0f;
-	
 	if (presentingViewController && presentingViewController != navigationController.topViewController) {
-		[navigationController popToViewController:presentingViewController animated:YES];
-		delay = 0.5f;
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+			[navigationController popToViewController:presentingViewController animated:NO];
+		});
 	}
 	
 	if (presentingViewController && presentedViewController) {
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-			[presentingViewController presentViewController:presentedViewController animated:YES completion:nil];
-		});
+		[presentingViewController presentViewController:presentedViewController animated:YES completion:nil];
 		return YES;
 	}
 	return NO;

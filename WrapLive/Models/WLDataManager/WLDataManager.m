@@ -13,7 +13,7 @@
 
 static NSArray* _wraps = nil;
 
-+ (void)wraps:(BOOL)refresh success:(WLDataManagerBlock)success failure:(WLAPIManagerFailureBlock)failure {
++ (void)wraps:(BOOL)refresh success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure {
 	NSInteger page = 1;
 	if (refresh) {
 		if ([[WLDataCache cache] containsWraps]) {
@@ -37,21 +37,21 @@ static NSArray* _wraps = nil;
 	} failure:failure];
 }
 
-+ (void)wrap:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
++ (void)wrap:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
 	if ([[WLDataCache cache] containsWrap:wrap]) {
 		if (success) {
 			success([wrap updateWithObject:[[WLDataCache cache] wrap:wrap]]);
 		}
 	}
-	[[WLAPIManager instance] wrap:wrap success:^(WLWrap* _wrap) {
-		[_wrap cache];
+	[wrap fetch:^(WLWrap *wrap) {
+		[wrap cache];
 		if (success) {
-			success(_wrap);
+			success(wrap);
 		}
 	} failure:failure];
 }
 
-+ (void)candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
++ (void)candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
 	
 	if ([[WLDataCache cache] containsCandy:candy]) {
 		if (success) {
@@ -59,7 +59,7 @@ static NSArray* _wraps = nil;
 		}
 	}
 	
-	[[WLAPIManager instance] candy:candy wrap:wrap success:^(WLCandy* candy) {
+	[candy fetch:wrap success:^(WLCandy *candy) {
 		[candy cache];
 		if (success) {
 			success(candy);
@@ -67,16 +67,16 @@ static NSArray* _wraps = nil;
 	} failure:failure];
 }
 
-+ (void)messages:(WLWrap *)wrap success:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
++ (void)messages:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
 	if ([[WLDataCache cache] containsMessages:wrap]) {
 		if (success) {
 			success([[WLDataCache cache] messages:wrap]);
 		}
 	}
-	[[WLAPIManager instance] messages:wrap page:1 success:^(id object) {
-		[[WLDataCache cache] setMessages:object wrap:wrap];
+	[wrap messages:1 success:^(NSArray *array) {
+		[[WLDataCache cache] setMessages:array wrap:wrap];
 		if (success) {
-			success(object);
+			success(array);
 		}
 	} failure:failure];
 }

@@ -14,4 +14,10 @@ typedef void (^WLActionSheetCompletion)(NSUInteger index);
 
 + (void)showWithTitle:(NSString *)title cancel:(NSString*)cancel destructive:(NSString*)destructive buttons:(NSArray *)buttons completion:(WLActionSheetCompletion)completion;
 
++ (void)showWithTitle:(NSString *)title destructive:(NSString*)destructive completion:(WLActionSheetCompletion)completion;
+
++ (void)showWithTitle:(NSString *)title cancel:(NSString*)cancel destructive:(NSString*)destructive completion:(WLActionSheetCompletion)completion;
+
++ (void)showWithCondition:(NSString *)title completion:(WLActionSheetCompletion)completion;
+
 @end

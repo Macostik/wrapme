@@ -34,12 +34,19 @@
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] contributors:^(NSArray* contributors) {
-		weakSelf.contributors = [contributors arrayByRemovingCurrentUserAndUser:weakSelf.wrap.contributor];
+		weakSelf.contributors = [weakSelf clearContributors:contributors];
 		[weakSelf.spinner stopAnimating];
 	} failure:^(NSError *error) {
 		[weakSelf.spinner stopAnimating];
 		[error show];
 	}];
+}
+
+- (NSArray*)clearContributors:(NSArray*)contributors {
+	for (WLContact* contact in contributors) {
+		contact.users = [contact.users arrayByRemovingCurrentUserAndUser:self.wrap.contributor];
+	}
+	return contributors;
 }
 
 - (NSMutableArray *)selectedContributors {
@@ -64,8 +71,17 @@
 	__weak typeof(self)weakSelf = self;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		if (text.nonempty) {
-			NSPredicate* predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@", text];
-			weakSelf.filteredContributors = [weakSelf.contributors filteredArrayUsingPredicate:predicate];
+			NSMutableArray* filteredContributors = [NSMutableArray array];
+			for (WLContact* contact in weakSelf.contributors) {
+				NSPredicate* predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@", text];
+				NSArray* users = [contact.users filteredArrayUsingPredicate:predicate];
+				if ([users count] > 0) {
+					WLContact* _contact = [WLContact new];
+					_contact.users = users;
+					[filteredContributors addObject:_contact];
+				}
+			}
+			weakSelf.filteredContributors = [filteredContributors copy];
 		} else {
 			weakSelf.filteredContributors = weakSelf.contributors;
 		}
@@ -81,15 +97,17 @@
 	for (NSIndexPath* indexPath in [self.tableView indexPathsForSelectedRows]) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 	}
-	
-	for (WLUser* contributor in self.filteredContributors) {
-		if ([self selectedContributor:contributor] != nil) {
-			NSInteger index = [self.filteredContributors indexOfObject:contributor];
-			[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
-										animated:YES
-								  scrollPosition:UITableViewScrollPositionNone];
-		}
-	}
+	__weak typeof(self)weakSelf = self;
+	[self.filteredContributors all:^(WLContact* contact) {
+		[contact.users all:^(WLUser* user) {
+			if ([weakSelf selectedContributor:user] != nil) {
+				NSInteger index = [contact.users indexOfObject:user];
+				[weakSelf.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
+											animated:YES
+									  scrollPosition:UITableViewScrollPositionNone];
+			}
+		}];
+	}];
 }
 
 - (WLUser*)selectedContributor:(WLUser*)contributor {
@@ -119,26 +137,35 @@
 
 #pragma mark - UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return [self.filteredContributors count];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.filteredContributors count];
+	WLContact* contact = self.filteredContributors[section];
+    return [contact.users count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
-	WLUser* contributor = [self.filteredContributors objectAtIndex:indexPath.row];
+	WLContact* contact = self.filteredContributors[indexPath.section];
+	WLUser* contributor = contact.users[indexPath.row];
     cell.item = contributor;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLUser* contributor = self.filteredContributors[indexPath.row];
+	WLContact* contact = self.filteredContributors[indexPath.section];
+	WLUser* contributor = contact.users[indexPath.row];
 	if ([self selectedContributor:contributor] == nil) {
 		[self.selectedContributors addObject:contributor];
 	}
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLUser* contributor = [self selectedContributor:self.filteredContributors[indexPath.row]];
+	WLContact* contact = self.filteredContributors[indexPath.section];
+	WLUser* contributor = contact.users[indexPath.row];
+	contributor = [self selectedContributor:contributor];
 	if (contributor != nil) {
 		[self.selectedContributors removeObject:contributor];
 	}

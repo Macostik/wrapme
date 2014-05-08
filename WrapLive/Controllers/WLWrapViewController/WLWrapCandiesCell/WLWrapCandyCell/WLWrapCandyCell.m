@@ -105,7 +105,7 @@
 			[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" buttons:nil completion:^(NSUInteger index) {
 				[UIActionSheet showWithTitle:@"Are you sure you want to delete this candy?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
 					weakSelf.userInteractionEnabled = NO;
-					[[WLAPIManager instance] removeCandy:candy wrap:self.wrap success:^(id object) {
+					[candy remove:self.wrap success:^(id object) {
 						weakSelf.userInteractionEnabled = YES;
 					} failure:^(NSError *error) {
 						[error show];

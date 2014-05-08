@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLUser.h"
+#import "WLBlocks.h"
 
 @interface WLAddressBook : NSObject
 
@@ -18,6 +18,12 @@
  *  @param success block for successful completion
  *  @param failure block for failed completion
  */
-+ (void)contacts:(void (^)(NSArray* contacts))success failure:(void (^)(NSError* error))failure;
++ (void)contacts:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
+@end
+
+@interface WLContact : NSObject
+
+@property (strong, nonatomic) NSArray* users;
 
 @end

@@ -10,6 +10,7 @@
 #import "WLUser.h"
 #import "UIImageView+ImageLoading.h"
 #import "UIView+Shorthand.h"
+#import "NSString+Additions.h"
 
 @interface WLContributorCell ()
 
@@ -29,7 +30,11 @@
 
 - (void)setupItemData:(WLUser*)user {
 	self.nameLabel.text = [user isCurrentUser] ? @"You" : user.name;
-	self.avatarView.imageUrl = user.picture.medium;
+	if (user.picture.medium.nonempty) {
+		self.avatarView.imageUrl = user.picture.medium;
+	} else {
+		self.avatarView.image = [UIImage imageNamed:@"ic_default_profile"];
+	}
 }
 
 - (void)setDeletable:(BOOL)deletable {

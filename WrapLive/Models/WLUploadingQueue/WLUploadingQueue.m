@@ -86,8 +86,8 @@
 
 - (void)uploadImage:(UIImage *)image
 			   wrap:(WLWrap *)wrap
-			success:(WLAPIManagerSuccessBlock)success
-			failure:(WLAPIManagerFailureBlock)failure {
+			success:(WLObjectBlock)success
+			failure:(WLFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
 	[[WLImageCache uploadingCache] setImage:image completion:^(NSString *path) {
 		WLPicture* picture = [[WLPicture alloc] init];
@@ -106,8 +106,8 @@
 
 - (void)uploadMessage:(NSString *)message
 				 wrap:(WLWrap *)wrap
-			  success:(WLAPIManagerSuccessBlock)success
-			  failure:(WLAPIManagerFailureBlock)failure {
+			  success:(WLObjectBlock)success
+			  failure:(WLFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
 	WLCandy* candy = [WLCandy chatMessageWithText:message];
 	[[weakSelf addItemWithCandy:candy wrap:wrap] upload:success failure:failure];
@@ -121,19 +121,15 @@
 	__weak AFURLConnectionOperation* _operation;
 }
 
-- (void)upload:(WLAPIManagerSuccessBlock)success failure:(WLAPIManagerFailureBlock)failure {
+- (void)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
-	
 	WLPicture* picture = [self.candy.picture copy];
-	
-	self.operation = [[WLAPIManager instance] addCandy:self.candy wrap:self.wrap success:^(WLCandy* candy) {
-		
+	self.operation = [self.wrap addCandy:self.candy success:^(WLCandy *candy) {
 		if ([candy isImage]) {
 			[[WLImageCache cache] setImageAtPath:picture.large withUrl:candy.picture.large];
 			[[WLImageCache cache] setImageAtPath:picture.medium withUrl:candy.picture.medium];
 			[[WLImageCache cache] setImageAtPath:picture.small withUrl:candy.picture.small];
 		}
-		
 		[[WLUploadingQueue instance] removeItem:weakSelf];
 		success(candy);
 	} failure:^(NSError *error) {

@@ -57,10 +57,10 @@
 		__weak typeof(self)weakSelf = self;
 		WLComment* comment = weakSelf.item;
 		if ([comment.contributor isCurrentUser]) {
-			[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" buttons:nil completion:^(NSUInteger index) {
-				[UIActionSheet showWithTitle:@"Are you sure you want to delete this comment?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
+			[UIActionSheet showWithTitle:[NSString stringWithFormat:@"Comment: %@", comment.text] destructive:@"Delete" completion:^(NSUInteger index) {
+				[UIActionSheet showWithCondition:@"Are you sure you want to delete this comment?" completion:^(NSUInteger index) {
 					weakSelf.userInteractionEnabled = NO;
-					[[WLAPIManager instance] removeComment:comment candy:self.candy wrap:self.wrap success:^(id object) {
+					[weakSelf.candy removeComment:comment wrap:weakSelf.wrap success:^(id object) {
 						weakSelf.userInteractionEnabled = YES;
 					} failure:^(NSError *error) {
 						[error show];

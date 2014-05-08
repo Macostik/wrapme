@@ -27,6 +27,18 @@
 	[actionSheet showInView:[[UIApplication sharedApplication].windows firstObject]];
 }
 
++ (void)showWithTitle:(NSString *)title destructive:(NSString*)destructive completion:(WLActionSheetCompletion)completion {
+	[self showWithTitle:title cancel:@"Cancel" destructive:destructive completion:completion];
+}
+
++ (void)showWithTitle:(NSString *)title cancel:(NSString*)cancel destructive:(NSString*)destructive completion:(WLActionSheetCompletion)completion {
+	[self showWithTitle:title cancel:cancel destructive:destructive buttons:nil completion:completion];
+}
+
++ (void)showWithCondition:(NSString *)title completion:(WLActionSheetCompletion)completion {
+	[self showWithTitle:title cancel:@"No" destructive:@"Yes" completion:completion];
+}
+
 - (WLActionSheetCompletion)completion {
 	return objc_getAssociatedObject(self, "wl_alertview_completion");
 }

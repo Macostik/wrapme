@@ -7,15 +7,15 @@
 //
 
 #import "WLContributorsViewController.h"
-#import "WLContributorCell.h"
 #import "WLAPIManager.h"
 #import "WLAddressBook.h"
 #import "WLWrap.h"
 #import "NSArray+Additions.h"
 #import "WLUser.h"
 #import "NSString+Additions.h"
+#import "WLContactCell.h"
 
-@interface WLContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContributorCellDelegate, UITextFieldDelegate>
+@interface WLContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSArray* filteredContributors;
 @property (strong, nonatomic) NSMutableArray* selectedContributors;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) NSMutableSet* openedRows;
 
 @end
 
@@ -47,6 +48,13 @@
 		contact.users = [contact.users arrayByRemovingCurrentUserAndUser:self.wrap.contributor];
 	}
 	return contributors;
+}
+
+- (NSMutableSet *)openedRows {
+	if (!_openedRows) {
+		_openedRows = [NSMutableSet set];
+	}
+	return _openedRows;
 }
 
 - (NSMutableArray *)selectedContributors {
@@ -76,9 +84,7 @@
 				NSPredicate* predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@", text];
 				NSArray* users = [contact.users filteredArrayUsingPredicate:predicate];
 				if ([users count] > 0) {
-					WLContact* _contact = [WLContact new];
-					_contact.users = users;
-					[filteredContributors addObject:_contact];
+					[filteredContributors addObject:contact];
 				}
 			}
 			weakSelf.filteredContributors = [filteredContributors copy];
@@ -86,34 +92,19 @@
 			weakSelf.filteredContributors = weakSelf.contributors;
 		}
         dispatch_async(dispatch_get_main_queue(), ^{
-			[weakSelf reloadTableView];
+			[weakSelf.tableView reloadData];
         });
     });
-}
-
-- (void)reloadTableView {
-	[self.tableView reloadData];
-	
-	for (NSIndexPath* indexPath in [self.tableView indexPathsForSelectedRows]) {
-		[self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-	}
-	__weak typeof(self)weakSelf = self;
-	[self.filteredContributors all:^(WLContact* contact) {
-		[contact.users all:^(WLUser* user) {
-			if ([weakSelf selectedContributor:user] != nil) {
-				NSInteger index = [contact.users indexOfObject:user];
-				[weakSelf.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
-											animated:YES
-									  scrollPosition:UITableViewScrollPositionNone];
-			}
-		}];
-	}];
 }
 
 - (WLUser*)selectedContributor:(WLUser*)contributor {
 	return [self.selectedContributors selectObject:^BOOL(id item) {
 		return [item isEqualToEntry:contributor];
 	}];
+}
+
+- (BOOL)isSelectedContributor:(WLUser*)contributor {
+	return [self.selectedContributors containsEntry:contributor];
 }
 
 #pragma mark - Actions
@@ -137,38 +128,52 @@
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return [self.filteredContributors count];
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	WLContact* contact = self.filteredContributors[section];
-    return [contact.users count];
+    return [self.filteredContributors count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
-	WLContact* contact = self.filteredContributors[indexPath.section];
-	WLUser* contributor = contact.users[indexPath.row];
-    cell.item = contributor;
+	WLContact* contact = self.filteredContributors[indexPath.row];
+    WLContactCell* cell = [WLContactCell cellWithContact:contact inTableView:tableView indexPath:indexPath];
+	cell.opened = ([contact.users count] > 1 && [self.openedRows containsObject:contact]);
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLContact* contact = self.filteredContributors[indexPath.section];
-	WLUser* contributor = contact.users[indexPath.row];
-	if ([self selectedContributor:contributor] == nil) {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	WLContact* contact = self.filteredContributors[indexPath.row];
+	if ([contact.users count] > 1 && [self.openedRows containsObject:contact]) {
+		return 50 + [contact.users count]*50;
+	}
+	return 50;
+}
+
+#pragma mark - WLContactCellDelegate
+
+- (BOOL)contactCell:(WLContactCell *)cell contributorSelected:(WLUser *)contributor {
+	return [self isSelectedContributor:contributor];
+}
+
+- (void)contactCell:(WLContactCell *)cell didSelectContributor:(WLUser *)contributor {
+	if ([self isSelectedContributor:contributor]) {
+		[self.selectedContributors removeObject:contributor];
+	} else {
 		[self.selectedContributors addObject:contributor];
+	}
+	
+	NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
+	if (indexPath) {
+		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 	}
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLContact* contact = self.filteredContributors[indexPath.section];
-	WLUser* contributor = contact.users[indexPath.row];
-	contributor = [self selectedContributor:contributor];
-	if (contributor != nil) {
-		[self.selectedContributors removeObject:contributor];
+- (void)contactCellDidToggle:(WLContactCell *)cell {
+	if ([self.openedRows containsObject:cell.item]) {
+		[self.openedRows removeObject:cell.item];
+	} else {
+		[self.openedRows addObject:cell.item];
 	}
+	[self.tableView beginUpdates];
+	[self.tableView endUpdates];
 }
 
 #pragma mark - UITextFieldDelegate

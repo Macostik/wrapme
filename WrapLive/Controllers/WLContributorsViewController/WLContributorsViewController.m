@@ -14,16 +14,17 @@
 #import "WLUser.h"
 #import "NSString+Additions.h"
 #import "WLContactCell.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
 @property (strong, nonatomic) NSArray* contributors;
-@property (strong, nonatomic) NSArray* filteredContributors;
 @property (strong, nonatomic) NSMutableArray* selectedContributors;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSMutableSet* openedRows;
+@property (nonatomic) NSInteger separatorSection;
 
 @end
 
@@ -35,7 +36,7 @@
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] contributors:^(NSArray* contributors) {
-		weakSelf.contributors = [weakSelf clearContributors:contributors];
+		weakSelf.contributors = [weakSelf processContributors:contributors];
 		[weakSelf.spinner stopAnimating];
 	} failure:^(NSError *error) {
 		[weakSelf.spinner stopAnimating];
@@ -43,11 +44,34 @@
 	}];
 }
 
-- (NSArray*)clearContributors:(NSArray*)contributors {
+- (NSArray*)processContributors:(NSArray*)contributors {
+	NSMutableArray* signedUp = [NSMutableArray array];
+	NSMutableArray* notSignedUp = [NSMutableArray array];
 	for (WLContact* contact in contributors) {
-		contact.users = [contact.users arrayByRemovingCurrentUserAndUser:self.wrap.contributor];
+		BOOL _signedUp = NO;
+		BOOL _skip = NO;
+		for (WLUser* contributor in contact.users) {
+			if ([contributor isCurrentUser] || [contributor isEqualToEntry:self.wrap.contributor]) {
+				_skip = YES;
+				break;
+			}
+			if (contributor.identifier.nonempty) {
+				_signedUp = YES;
+				break;
+			}
+		}
+		if (!_skip) {
+			[(_signedUp ? signedUp : notSignedUp) addObject:contact];
+		}
 	}
-	return contributors;
+	NSComparator comparator = ^NSComparisonResult(WLContact* contact1, WLContact* contact2) {
+		return [[[contact1.users lastObject] name] compare:[[contact2.users lastObject] name]];
+	};
+	
+	[signedUp sortUsingComparator:comparator];
+	[notSignedUp sortUsingComparator:comparator];
+	self.separatorSection = [signedUp count];
+	return [signedUp arrayByAddingObjectsFromArray:notSignedUp];
 }
 
 - (NSMutableSet *)openedRows {
@@ -71,30 +95,7 @@
 
 - (void)setContributors:(NSArray *)contributors {
 	_contributors = contributors;
-	[self updateFilteredContributors];
-}
-
-- (void)updateFilteredContributors {
-	NSString* text = self.searchField.text;
-	__weak typeof(self)weakSelf = self;
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		if (text.nonempty) {
-			NSMutableArray* filteredContributors = [NSMutableArray array];
-			for (WLContact* contact in weakSelf.contributors) {
-				NSPredicate* predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@", text];
-				NSArray* users = [contact.users filteredArrayUsingPredicate:predicate];
-				if ([users count] > 0) {
-					[filteredContributors addObject:contact];
-				}
-			}
-			weakSelf.filteredContributors = [filteredContributors copy];
-		} else {
-			weakSelf.filteredContributors = weakSelf.contributors;
-		}
-        dispatch_async(dispatch_get_main_queue(), ^{
-			[weakSelf.tableView reloadData];
-        });
-    });
+	[self.tableView reloadData];
 }
 
 - (WLUser*)selectedContributor:(WLUser*)contributor {
@@ -123,28 +124,53 @@
 }
 
 - (IBAction)searchTextChanged:(UITextField *)sender {
-	[self updateFilteredContributors];
+	[self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return [self.contributors count];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.filteredContributors count];
+	NSString* searchText = self.searchField.text;
+	if (searchText.nonempty) {
+		WLContact* contact = self.contributors[section];
+		WLUser* contributor = [contact.users lastObject];
+		if ([contributor.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location == NSNotFound) {
+			return 0;
+		}
+	}
+	return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLContact* contact = self.filteredContributors[indexPath.row];
+	WLContact* contact = self.contributors[indexPath.section];
     WLContactCell* cell = [WLContactCell cellWithContact:contact inTableView:tableView indexPath:indexPath];
 	cell.opened = ([contact.users count] > 1 && [self.openedRows containsObject:contact]);
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLContact* contact = self.filteredContributors[indexPath.row];
+	WLContact* contact = self.contributors[indexPath.section];
 	if ([contact.users count] > 1 && [self.openedRows containsObject:contact]) {
 		return 50 + [contact.users count]*50;
 	}
 	return 50;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+	return self.separatorSection == section ? 0.5f : 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+	if (self.separatorSection == section) {
+		UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 0.5f)];
+		view.backgroundColor = [UIColor WL_orangeColor];
+		return view;
+	}
+	return nil;
 }
 
 #pragma mark - WLContactCellDelegate
@@ -155,7 +181,7 @@
 
 - (void)contactCell:(WLContactCell *)cell didSelectContributor:(WLUser *)contributor {
 	if ([self isSelectedContributor:contributor]) {
-		[self.selectedContributors removeObject:contributor];
+		[self.selectedContributors removeObject:[self selectedContributor:contributor]];
 	} else {
 		[self.selectedContributors addObject:contributor];
 	}
@@ -180,7 +206,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
-	[self updateFilteredContributors];
+	[self.tableView reloadData];
 	return YES;
 }
 

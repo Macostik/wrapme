@@ -20,6 +20,7 @@
 @implementation WLPhoneCell
 
 - (void)setupItemData:(WLUser*)user {
+	self.typeLabel.text = nil; // TODO: need to get this label from somewhere
 	self.phoneLabel.text = user.phoneNumber;
 }
 

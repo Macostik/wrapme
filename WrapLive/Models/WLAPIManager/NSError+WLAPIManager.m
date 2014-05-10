@@ -67,7 +67,10 @@ static NSDictionary *customErrorMessages = nil;
 
 + (NSDictionary*)customErrorMessages {
 	if (!customErrorMessages) {
-		customErrorMessages = @{AFNetworkingErrorDomain:@{@(NSURLErrorTimedOut):@"Connection was lost."}};
+		customErrorMessages = @{AFNetworkingErrorDomain:@{@(NSURLErrorTimedOut):@"Connection was lost.",
+														  @(NSURLErrorInternationalRoamingOff):@"International roaming is off."},
+								NSURLErrorDomain:@{@(NSURLErrorTimedOut):@"Connection was lost.",
+												   @(NSURLErrorInternationalRoamingOff):@"International roaming is off."}};
 	}
 	return customErrorMessages;
 }

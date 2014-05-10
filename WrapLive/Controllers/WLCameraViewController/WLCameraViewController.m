@@ -138,15 +138,15 @@
 	CGSize viewSize = self.cameraView.bounds.size;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		UIImage *result = nil;
+		CGFloat width = 720.0f;
 		if (weakSelf.mode == WLCameraModeAvatar) {
-			result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
-												 bounds:CGSizeMake(320, 320)
-								   interpolationQuality:kCGInterpolationDefault];
-		} else {
-			result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
-												 bounds:CGSizeMake(640, 640)
-								   interpolationQuality:kCGInterpolationDefault];
+			width = 320.0f;
+		} else if (weakSelf.mode == WLCameraModeCover) {
+			width = 640.0f;
 		}
+		result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
+											 bounds:CGSizeMake(width, width)
+							   interpolationQuality:kCGInterpolationDefault];
 		if (weakSelf.mode != WLCameraModeCandy) {
 			result = [result croppedImage:CGRectThatFitsSize(result.size, viewSize)];
 		}

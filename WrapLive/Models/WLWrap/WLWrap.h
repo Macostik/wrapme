@@ -45,4 +45,6 @@
 
 - (NSArray*)messages;
 
+- (void)enumerateCandies:(void (^)(WLCandy* candy, WLWrapDate* date, BOOL *stop))enumerator;
+
 @end

@@ -82,23 +82,17 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)setWrap:(WLWrap *)wrap candy:(WLCandy *)candy {
 	self.wrap = wrap;
-	WLCandy* existingCandy = nil;
-	for (WLWrapDate* date in wrap.dates) {
-		for (WLCandy* _candy in date.candies) {
-			if (_candy.type == WLCandyTypeImage) {
-				if (existingCandy == nil && [_candy isEqualToEntry:candy]) {
-					existingCandy = _candy;
-					self.date = date;
-					break;
-				}
+	__weak typeof(self)weakSelf = self;
+	[wrap enumerateCandies:^(WLCandy *_candy, WLWrapDate *date, BOOL *stop) {
+		if (_candy.type == WLCandyTypeImage) {
+			if ([_candy isEqualToEntry:candy]) {
+				weakSelf.date = date;
+				weakSelf.shouldLoadMoreCandies = [weakSelf.date.candies count] % WLAPIGeneralPageSize == 0;
+				[weakSelf setItems:[date images] currentItem:_candy];
+				*stop = YES;
 			}
 		}
-		if (existingCandy != nil) {
-			break;
-		}
-	}
-	self.shouldLoadMoreCandies = [self.date.candies count] % WLAPIGeneralPageSize == 0;
-	[self setItems:[self.date images] currentItem:existingCandy];
+	}];
 }
 
 - (void)setCandy:(WLCandy *)candy  {

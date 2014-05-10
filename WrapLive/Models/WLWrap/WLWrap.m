@@ -150,4 +150,19 @@
 	return [self messages:0];
 }
 
+- (void)enumerateCandies:(void (^)(WLCandy *candy, WLWrapDate *date, BOOL *))enumerator {
+	BOOL stop = NO;
+	for (WLWrapDate* date in self.dates) {
+		for (WLCandy* candy in date.candies) {
+			enumerator(candy, date, &stop);
+			if (stop) {
+				break;
+			}
+		}
+		if (stop) {
+			break;
+		}
+	}
+}
+
 @end

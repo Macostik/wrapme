@@ -139,6 +139,7 @@
 	__weak typeof(self)weakSelf = self;
 	[WLDataManager wraps:refresh success:^(NSArray* wraps, BOOL cached, BOOL stop) {
 		weakSelf.wraps = wraps;
+		[weakSelf showLatestWrap];
 		weakSelf.shouldAppendMoreWraps = !stop;
 		if (!cached) {
 			[weakSelf.refresher endRefreshing];
@@ -154,6 +155,16 @@
 		}
 		[weakSelf finishLoadingAnimation];
 	}];
+}
+
+- (void)showLatestWrap {
+	WLUser * user = [WLUser currentUser];
+	if (!user.firstWrapShown && [user signInCount] == 1 && self.wraps.count > 0) {
+		[user setFirstWrapShown:YES];
+		WLWrapViewController* wrapController = [self.storyboard wrapViewController];
+		wrapController.wrap = [self.wraps firstObject];
+		[self.navigationController pushViewController:wrapController animated:NO];
+	}
 }
 
 - (void)finishLoadingAnimation {

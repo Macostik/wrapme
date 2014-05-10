@@ -24,6 +24,7 @@
 									@"country_calling_code":@"countryCallingCode",
 									@"dob_in_epoch":@"birthdate",
 									@"user_uid":@"identifier",
+									@"sign_in_count" : @"signInCount",
 									@"is_creator":@"isCreator"}];
 }
 

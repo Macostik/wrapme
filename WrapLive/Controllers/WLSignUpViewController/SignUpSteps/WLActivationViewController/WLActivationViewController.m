@@ -98,7 +98,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 }
 
 - (void)signIn:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
-	self.progressBar.operation = [[WLAPIManager instance] signIn:self.user success:^(id object) {
+	self.progressBar.operation = [[WLAPIManager instance] signIn:self.user success:^(WLUser* user) {
 		completion();
 	} failure:failure];
 }

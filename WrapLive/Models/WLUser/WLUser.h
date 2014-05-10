@@ -17,6 +17,8 @@ static NSInteger WLProfileNameLimit = 40;
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSDate* birthdate;
 @property (nonatomic) BOOL isCreator;
+@property (nonatomic) NSInteger signInCount;
+@property (nonatomic) BOOL firstWrapShown;
 
 @end
 

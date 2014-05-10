@@ -119,7 +119,7 @@
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
 	self.wraps = [self.wraps arrayByRemovingEntry:wrap];
 	__weak typeof(self)weakSelf = self;
-	[self.topWrap update:^(id object) {
+	[self.topWrap fetch:^(WLWrap* wrap) {
 		[WLDataCache cache].wraps = weakSelf.wraps;
 	} failure:^(NSError *error) {
 	}];

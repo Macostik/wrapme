@@ -146,7 +146,6 @@
 		__weak typeof(self)weakSelf = self;
 		[self.editingWrap update:^(WLWrap *wrap) {
 			[weakSelf.wrap updateWithObject:wrap];
-			[weakSelf.wrap broadcastChange];
 			[weakSelf.spinner stopAnimating];
 			[weakSelf dismiss];
 			weakSelf.view.userInteractionEnabled = YES;

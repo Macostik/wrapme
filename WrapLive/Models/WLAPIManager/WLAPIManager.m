@@ -347,7 +347,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		if (contributor.identifier.nonempty) {
 			[contributors addObject:contributor.identifier];
 		} else {
-			[invitees addObject:@{@"name":WLString(contributor.name),@"phone_number":contributor.phoneNumber}];
+			NSData* invitee = [NSJSONSerialization dataWithJSONObject:@{@"name":WLString(contributor.name),@"phone_number":contributor.phoneNumber} options:NSJSONWritingPrettyPrinted error:NULL];
+			[invitees addObject:[[NSString alloc] initWithData:invitee encoding:NSUTF8StringEncoding]];
 		}
 	}
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];

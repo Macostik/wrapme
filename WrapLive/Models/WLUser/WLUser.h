@@ -34,18 +34,18 @@ static NSInteger WLProfileNameLimit = 40;
 
 @interface NSArray (WLUser)
 
-- (NSArray*)arrayByAddingCurrentUserAndUser:(WLUser*)user;
+- (NSArray*)usersByAddingCurrentUserAndUser:(WLUser*)user;
 
-- (NSArray*)arrayByAddingCurrentUser;
+- (NSArray*)usersByAddingCurrentUser;
 
-- (NSArray*)arrayByAddingUser:(WLUser*)user;
+- (NSArray*)usersByAddingUser:(WLUser*)user;
 
-- (NSArray*)arrayByRemovingCurrentUserAndUser:(WLUser*)user;
+- (NSArray*)usersByRemovingCurrentUserAndUser:(WLUser*)user;
 
-- (NSArray*)arrayByRemovingCurrentUser;
+- (NSArray*)usersByRemovingCurrentUser;
 
-- (NSArray*)arrayByRemovingUser:(WLUser*)user;
+- (NSArray*)usersByRemovingUser:(WLUser*)user;
 
-- (NSArray*)arrayByRemovingUsers:(NSArray*)users;
+- (NSArray*)usersByRemovingUsers:(NSArray*)users;
 
 @end

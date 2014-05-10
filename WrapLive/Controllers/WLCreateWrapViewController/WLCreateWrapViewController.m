@@ -133,7 +133,7 @@
 		contributorsChanged = YES;
 	} else {
 		for (WLUser* contributor in self.editingWrap.contributors) {
-			if (![self.wrap.contributors containsObject:contributor byBlock:[WLUser equalityBlock]]) {
+			if (![self.wrap.contributors containsEntry:contributor]) {
 				contributorsChanged = YES;
 				break;
 			}
@@ -195,7 +195,7 @@
 	if ([self.editingWrap.contributor isCurrentUser]) {
 		cell.deletable = ![contributor isCurrentUser];
 	} else {
-		cell.deletable = ![self.wrap.contributors containsObject:contributor byBlock:[WLUser equalityBlock]];
+		cell.deletable = ![self.wrap.contributors containsEntry:contributor];
 	}
     return cell;
 }
@@ -215,7 +215,7 @@
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
-	self.editingWrap.contributors = (id)[self.editingWrap.contributors arrayByRemovingUser:contributor];
+	self.editingWrap.contributors = (id)[self.editingWrap.contributors usersByRemovingUser:contributor];
 	[self refreshContributorsTableView];
 }
 

@@ -117,10 +117,9 @@
 - (void)addMessages:(NSArray*)messages {
 	messagesCount += [messages count];
 		NSMutableArray* _messages = [NSMutableArray arrayWithArray:messages];
-	
 	while ([_messages count] > 0) {
 		WLCandy* candy = [_messages firstObject];
-		NSArray* dayMessages = [WLEntry entriesForDate:candy.updatedAt inArray:_messages];
+		NSArray* dayMessages = [_messages entriesForDay:candy.updatedAt];
 		[self addMessages:dayMessages date:candy.updatedAt];
 		[_messages removeObjectsInArray:dayMessages];
 	}
@@ -153,7 +152,7 @@
 	WLWrapDate* dateObject = [[WLWrapDate alloc] init];
 	dateObject.updatedAt = date;
 	[self.dates addObject:dateObject];
-	[self.dates sortEntries];
+	[self.dates sortEntriesByUpdatingDate];
 	return dateObject;
 }
 

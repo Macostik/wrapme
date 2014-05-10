@@ -384,7 +384,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 - (id)leaveWrap:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
 	wrap = [wrap copy];
-	wrap.contributors = (id)[wrap.contributors arrayByRemovingCurrentUser];
+	wrap.contributors = (id)[wrap.contributors usersByRemovingCurrentUser];
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
 		[wrap broadcastRemoving];
 		return response;

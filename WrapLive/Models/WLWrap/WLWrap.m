@@ -93,10 +93,8 @@
 }
 
 - (WLWrapDate *)actualDate {
-	NSArray* dates = [WLEntry entriesForDate:[NSDate date] inArray:self.dates];
-	
+	NSArray* dates = [self.dates entriesForToday];
 	WLWrapDate* date = [dates lastObject];
-	
 	if (!date) {
 		date = [WLWrapDate entry];
 		NSMutableArray* existingDates = [NSMutableArray arrayWithArray:self.dates];

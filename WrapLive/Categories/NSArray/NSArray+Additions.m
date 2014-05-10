@@ -56,6 +56,10 @@
 }
 
 - (NSArray *)arrayByAddingUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality {
+	objects = [objects uniqueByBlock:equality];
+	if ([objects count] == 0) {
+		return self;
+	}
 	NSIndexSet *indexes = [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
 	    NSInteger index = [objects indexOfObjectPassingTest: ^BOOL (id object, NSUInteger idx, BOOL *stop) {
 	        return equality(obj, object);
@@ -192,6 +196,10 @@
 	
 	objects = [objects uniqueByBlock:equality];
 	
+	if ([objects count] == 0) {
+		return;
+	}
+	
 	NSIndexSet *indexes = [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
 	    NSInteger index = [objects indexOfObjectPassingTest: ^BOOL (id object, NSUInteger idx, BOOL *stop) {
 	        return equality(obj, object);
@@ -239,6 +247,20 @@
 	else {
 		return NO;
 	}
+}
+
+- (BOOL)removeUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality {
+	NSIndexSet *indexes = [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
+	    NSInteger index = [objects indexOfObjectPassingTest: ^BOOL (id object, NSUInteger idx, BOOL *stop) {
+	        return equality(obj, object);
+		}];
+	    return index != NSNotFound;
+	}];
+	if ([indexes count] > 0) {
+		[self removeObjectsAtIndexes:indexes];
+		return YES;
+	}
+	return NO;
 }
 
 @end

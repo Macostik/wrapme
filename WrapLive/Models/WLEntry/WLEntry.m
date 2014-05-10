@@ -47,13 +47,6 @@
 	return YES;
 }
 
-+ (NSArray *)entriesForDate:(NSDate *)date inArray:(NSArray *)entries {
-	NSDate* startDate = [date beginOfDay];
-	NSDate* endDate = [date endOfDay];
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(updatedAt >= %@) AND (updatedAt <= %@)", startDate, endDate];
-	return [entries filteredArrayUsingPredicate:predicate];
-}
-
 - (BOOL)isEqualToEntry:(WLEntry *)entry {
 	return [self.identifier isEqualToString:entry.identifier];
 }
@@ -71,21 +64,31 @@
 
 @end
 
-@implementation NSArray (WLEntrySorting)
+@implementation NSArray (WLEntry)
 
-+ (NSArray*)modifiedDescriptors {
-	static NSArray* descriptors = nil;
-	if (!descriptors) {
-		descriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]];
-	}
-	return descriptors;
+- (NSArray *)entriesSortedByKeys:(NSArray *)keys ascending:(BOOL)ascending {
+	return [self sortedArrayUsingDescriptors:[keys map:^id(id item) {
+		return [NSSortDescriptor sortDescriptorWithKey:item ascending:ascending];
+	}]];
 }
 
-- (NSArray *)sortedEntries {
-	return [self sortedArrayUsingDescriptors:[NSArray modifiedDescriptors]];
+- (NSArray *)entriesSortedByKey:(NSString *)key ascending:(BOOL)ascending {
+	return [self entriesSortedByKeys:@[key] ascending:ascending];
 }
 
-- (NSArray *)arrayByRemovingEntry:(WLEntry*)entry {
+- (NSArray *)entriesSortedByKey:(NSString *)key {
+	return [self entriesSortedByKey:key ascending:NO];
+}
+
+- (NSArray *)entriesSortedByUpdatingDate {
+	return [self entriesSortedByKey:@"updatedAt"];
+}
+
+- (NSArray *)entriesByAddingEntry:(WLEntry *)entry {
+	return [self arrayByAddingUniqueObject:entry equality:[[entry class] equalityBlock]];
+}
+
+- (NSArray *)entriesByRemovingEntry:(WLEntry*)entry {
 	return [self arrayByRemovingUniqueObject:entry equality:[[entry class] equalityBlock]];
 }
 
@@ -93,12 +96,63 @@
 	return [self containsObject:entry byBlock:[[entry class] equalityBlock]];
 }
 
+- (NSArray *)entriesByAddingEntries:(NSArray*)entries {
+	return [self arrayByAddingUniqueObjects:entries equality:[[[entries lastObject] class] equalityBlock]];
+}
+
+- (NSArray *)entriesByRemovingEntries:(NSArray*)entries {
+	return [self arrayByRemovingUniqueObjects:entries equality:[[[entries lastObject] class] equalityBlock]];
+}
+
+- (NSArray *)entriesFrom:(NSDate *)from to:(NSDate *)to {
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(updatedAt >= %@) AND (updatedAt <= %@)", from, to];
+	return [self filteredArrayUsingPredicate:predicate];
+}
+
+- (NSArray *)entriesForDay:(NSDate *)date {
+	return [self entriesFrom:[date beginOfDay] to:[date endOfDay]];
+}
+
+- (NSArray *)entriesForToday {
+	return [self entriesForDay:[NSDate date]];
+}
+
 @end
 
-@implementation NSMutableArray (WLEntrySorting)
+@implementation NSMutableArray (WLEntry)
 
-- (void)sortEntries {
-	[self sortUsingDescriptors:[NSArray modifiedDescriptors]];
+- (void)sortEntriesByKeys:(NSArray *)keys ascending:(BOOL)ascending {
+	[self sortUsingDescriptors:[keys map:^id(id item) {
+		return [NSSortDescriptor sortDescriptorWithKey:item ascending:ascending];
+	}]];
+}
+
+- (void)sortEntriesByKey:(NSString*)key ascending:(BOOL)ascending {
+	[self sortEntriesByKeys:@[key] ascending:ascending];
+}
+
+- (void)sortEntriesByKey:(NSString*)key {
+	[self sortEntriesByKey:key ascending:NO];
+}
+
+- (void)sortEntriesByUpdatingDate {
+	[self sortEntriesByKey:@"updatedAt"];
+}
+
+- (void)addEntry:(WLEntry*)entry {
+	[self addUniqueObject:entry equality:[[entry class] equalityBlock]];
+}
+
+- (void)removeEntry:(WLEntry*)entry {
+	[self removeUniqueObject:entry equality:[[entry class] equalityBlock]];
+}
+
+- (void)addEntries:(NSArray*)entries {
+	[self addUniqueObjects:entries equality:[[[entries lastObject] class] equalityBlock]];
+}
+
+- (void)removeEntries:(NSArray *)entries {
+	[self removeUniqueObjects:entries equality:[[[entries lastObject] class] equalityBlock]];
 }
 
 @end

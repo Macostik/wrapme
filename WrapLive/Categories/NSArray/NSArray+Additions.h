@@ -59,4 +59,6 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 
 - (BOOL)removeUniqueObject:(id)object equality:(EqualityBlock)equality;
 
+- (BOOL)removeUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality;
+
 @end

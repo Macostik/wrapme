@@ -21,26 +21,56 @@
 
 + (NSDictionary*)pictureMapping;
 
-+ (NSArray *)entriesForDate:(NSDate *)date inArray:(NSArray *)entries;
-
 - (BOOL)isEqualToEntry:(WLEntry*)entry;
 
 + (EqualityBlock)equalityBlock;
 
 @end
 
-@interface NSArray (WLEntrySorting)
+@interface NSArray (WLEntry)
 
-- (NSArray*)sortedEntries;
+- (NSArray*)entriesSortedByKeys:(NSArray*)keys ascending:(BOOL)ascending;
 
-- (NSArray *)arrayByRemovingEntry:(WLEntry*)entry;
+- (NSArray*)entriesSortedByKey:(NSString*)key ascending:(BOOL)ascending;
+
+- (NSArray*)entriesSortedByKey:(NSString*)key;
+
+- (NSArray*)entriesSortedByUpdatingDate;
+
+- (NSArray *)entriesByAddingEntry:(WLEntry*)entry;
+
+- (NSArray *)entriesByRemovingEntry:(WLEntry*)entry;
 
 - (BOOL)containsEntry:(WLEntry*)entry;
 
+- (NSArray *)entriesByAddingEntries:(NSArray*)entries;
+
+- (NSArray *)entriesByRemovingEntries:(NSArray*)entries;
+
+- (NSArray *)entriesFrom:(NSDate *)from to:(NSDate*)to;
+
+- (NSArray *)entriesForDay:(NSDate *)date;
+
+- (NSArray *)entriesForToday;
+
 @end
 
-@interface NSMutableArray (WLEntrySorting)
+@interface NSMutableArray (WLEntry)
 
-- (void)sortEntries;
+- (void)sortEntriesByKeys:(NSArray *)keys ascending:(BOOL)ascending;
+
+- (void)sortEntriesByKey:(NSString*)key ascending:(BOOL)ascending;
+
+- (void)sortEntriesByKey:(NSString*)key;
+
+- (void)sortEntriesByUpdatingDate;
+
+- (void)addEntry:(WLEntry*)entry;
+
+- (void)removeEntry:(WLEntry*)entry;
+
+- (void)addEntries:(NSArray*)entries;
+
+- (void)removeEntries:(NSArray*)entries;
 
 @end

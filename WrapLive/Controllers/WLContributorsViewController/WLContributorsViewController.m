@@ -48,9 +48,9 @@
 	NSMutableArray* signedUp = [NSMutableArray array];
 	NSMutableArray* notSignedUp = [NSMutableArray array];
 	for (WLContact* contact in contributors) {
-		contact.users = [contact.users arrayByRemovingCurrentUser];
+		contact.users = [contact.users usersByRemovingCurrentUser];
 		if (self.wrap.contributor) {
-			contact.users = [contact.users arrayByRemovingUser:self.wrap.contributor];
+			contact.users = [contact.users usersByRemovingUser:self.wrap.contributor];
 		}
 		if ([contact.users count] > 0) {
 			[(contact.signedUp ? signedUp : notSignedUp) addObject:contact];
@@ -107,11 +107,7 @@
 }
 
 - (IBAction)done:(id)sender {
-	NSMutableArray* contributors = [NSMutableArray arrayWithArray:self.wrap.contributors];
-	for (WLUser *user in self.selectedContributors) {
-		[contributors addUniqueObject:user equality:[WLUser equalityBlock]];
-	}
-	self.wrap.contributors = [contributors copy];
+	self.wrap.contributors = (id)[self.wrap.contributors?:@[] entriesByAddingEntries:self.selectedContributors];
 	[self.navigationController popViewControllerAnimated:YES];
 }
 

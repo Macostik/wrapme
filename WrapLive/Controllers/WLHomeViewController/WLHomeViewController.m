@@ -117,7 +117,7 @@
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-	self.wraps = [self.wraps arrayByRemovingEntry:wrap];
+	self.wraps = [self.wraps entriesByRemovingEntry:wrap];
 	__weak typeof(self)weakSelf = self;
 	[self.topWrap fetch:^(WLWrap* wrap) {
 		[WLDataCache cache].wraps = weakSelf.wraps;
@@ -178,7 +178,7 @@
 }
 
 - (void)setWraps:(NSArray *)wraps {
-	_wraps = [wraps sortedEntries];
+	_wraps = [wraps entriesSortedByUpdatingDate];
 	[self updateWraps];
 }
 

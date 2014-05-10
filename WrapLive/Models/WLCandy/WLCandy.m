@@ -76,7 +76,7 @@
 }
 
 - (void)removeComment:(WLComment *)comment {
-	self.comments = (id)[self.comments arrayByRemovingEntry:comment];
+	self.comments = (id)[self.comments entriesByRemovingEntry:comment];
 	self.updatedAt = [NSDate date];
 	[comment broadcastRemoving];
 }

@@ -64,22 +64,22 @@
 
 @implementation NSArray (WLUser)
 
-- (NSArray*)arrayByAddingCurrentUserAndUser:(WLUser*)user {
-	return [[self arrayByAddingUser:user] arrayByAddingCurrentUser];
+- (NSArray*)usersByAddingCurrentUserAndUser:(WLUser*)user {
+	return [[self usersByAddingUser:user] usersByAddingCurrentUser];
 }
 
-- (NSArray*)arrayByAddingCurrentUser {
-	return [self arrayByAddingUser:[WLUser currentUser]];
+- (NSArray*)usersByAddingCurrentUser {
+	return [self usersByAddingUser:[WLUser currentUser]];
 }
 
-- (NSArray *)arrayByAddingUser:(WLUser *)user {
+- (NSArray *)usersByAddingUser:(WLUser *)user {
 	if (user) {
-		return [self arrayByAddingUniqueObject:user equality:[WLUser equalityBlock]];
+		return [self entriesByAddingEntry:user];
 	}
 	return self;
 }
 
-- (NSArray *)arrayByRemovingCurrentUserAndUser:(WLUser *)user {
+- (NSArray *)usersByRemovingCurrentUserAndUser:(WLUser *)user {
 	NSMutableArray* users = [NSMutableArray array];
 	WLUser* currentUser = [WLUser currentUser];
 	if (currentUser) {
@@ -88,19 +88,19 @@
 	if (user) {
 		[users addObject:user];
 	}
-	return [self arrayByRemovingUsers:users];
+	return [self usersByRemovingUsers:users];
 }
 
-- (NSArray*)arrayByRemovingCurrentUser {
-	return [self arrayByRemovingUser:[WLUser currentUser]];
+- (NSArray*)usersByRemovingCurrentUser {
+	return [self usersByRemovingUser:[WLUser currentUser]];
 }
 
-- (NSArray*)arrayByRemovingUser:(WLUser*)user {
-	return [self arrayByRemovingUniqueObject:user equality:[WLUser equalityBlock]];
+- (NSArray*)usersByRemovingUser:(WLUser*)user {
+	return [self entriesByRemovingEntry:user];
 }
 
-- (NSArray*)arrayByRemovingUsers:(NSArray*)users {
-	return [self arrayByRemovingUniqueObjects:users equality:[WLUser equalityBlock]];
+- (NSArray*)usersByRemovingUsers:(NSArray*)users {
+	return [self entriesByRemovingEntries:users];
 }
 
 @end

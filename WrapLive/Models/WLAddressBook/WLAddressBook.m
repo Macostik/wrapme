@@ -13,6 +13,7 @@
 #import "NSString+Additions.h"
 #import "WLImageCache.h"
 #import "WLUser.h"
+#import <objc/runtime.h>
 
 @interface WLContact ()
 
@@ -26,8 +27,8 @@
 	NSArray* users = WLAddressBookGetUsers(record);
 	if ([users count] > 0) {
 		WLContact* contact = [WLContact new];
-		NSString* name = WLAddressBookGetName(record);
-		[users makeObjectsPerformSelector:@selector(setName:) withObject:name];
+		contact.name = WLAddressBookGetName(record);
+		[users makeObjectsPerformSelector:@selector(setName:) withObject:contact.name];
 		contact.users = users;
 		if (ABPersonHasImageData(record)) {
 			NSString* identifier = [NSString stringWithFormat:@"addressbook_%d", ABRecordGetRecordID(record)];
@@ -57,6 +58,9 @@ static inline NSArray* WLAddressBookGetUsers(ABRecordRef record) {
 		WLUser* user = [WLUser entry];
 		user.phoneNumber = WLAddressBookClearPhone((__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, index));
 		if (user.phoneNumber.nonempty) {
+			CFStringRef phoneLabel = ABMultiValueCopyLabelAtIndex(phones, index);
+			user.phoneNumber.label = (__bridge_transfer NSString*)ABAddressBookCopyLocalizedLabel(phoneLabel);
+			CFRelease(phoneLabel);
 			[users addObject:user];
 		}
     }
@@ -85,6 +89,27 @@ static inline NSString* WLAddressBookGetName(ABRecordRef record) {
 
 static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 	return (__bridge_transfer NSData *)ABPersonCopyImageData(record);
+}
+
+- (BOOL)signedUp {
+	for (WLUser* contributor in self.users) {
+		if (contributor.identifier.nonempty) {
+			return YES;
+		}
+	}
+	return NO;
+}
+
+@end
+
+@implementation NSString (WLAddressBook)
+
+- (void)setLabel:(NSString *)label {
+	objc_setAssociatedObject(self, "wl_address_book_label", label, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (NSString *)label {
+	return objc_getAssociatedObject(self, "wl_address_book_label");
 }
 
 @end

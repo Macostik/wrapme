@@ -48,24 +48,16 @@
 	NSMutableArray* signedUp = [NSMutableArray array];
 	NSMutableArray* notSignedUp = [NSMutableArray array];
 	for (WLContact* contact in contributors) {
-		BOOL _signedUp = NO;
-		BOOL _skip = NO;
-		for (WLUser* contributor in contact.users) {
-			if ([contributor isCurrentUser] || [contributor isEqualToEntry:self.wrap.contributor]) {
-				_skip = YES;
-				break;
-			}
-			if (contributor.identifier.nonempty) {
-				_signedUp = YES;
-				break;
-			}
+		contact.users = [contact.users arrayByRemovingCurrentUser];
+		if (self.wrap.contributor) {
+			contact.users = [contact.users arrayByRemovingUser:self.wrap.contributor];
 		}
-		if (!_skip) {
-			[(_signedUp ? signedUp : notSignedUp) addObject:contact];
+		if ([contact.users count] > 0) {
+			[(contact.signedUp ? signedUp : notSignedUp) addObject:contact];
 		}
 	}
 	NSComparator comparator = ^NSComparisonResult(WLContact* contact1, WLContact* contact2) {
-		return [[[contact1.users lastObject] name] compare:[[contact2.users lastObject] name]];
+		return [[contact1 name] compare:[contact2 name]];
 	};
 	
 	[signedUp sortUsingComparator:comparator];
@@ -137,8 +129,7 @@
 	NSString* searchText = self.searchField.text;
 	if (searchText.nonempty) {
 		WLContact* contact = self.contributors[section];
-		WLUser* contributor = [contact.users lastObject];
-		if ([contributor.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location == NSNotFound) {
+		if ([contact.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location == NSNotFound) {
 			return 0;
 		}
 	}

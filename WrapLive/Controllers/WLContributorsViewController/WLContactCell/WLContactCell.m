@@ -21,6 +21,7 @@
 @property (nonatomic, weak) IBOutlet UILabel* nameLabel;
 @property (nonatomic, weak) IBOutlet UIImageView* avatarView;
 @property (weak, nonatomic) IBOutlet UIImageView *openView;
+@property (weak, nonatomic) IBOutlet UIImageView *signUpView;
 
 @end
 
@@ -43,18 +44,20 @@
 }
 
 - (void)setupItemData:(WLContact*)contact {
+	self.nameLabel.text = contact.name;
 	WLUser* user = [contact.users lastObject];
-	self.nameLabel.text = user.name;
 	if (user.picture.medium.nonempty) {
 		self.avatarView.imageUrl = user.picture.medium;
 	} else {
 		self.avatarView.image = [UIImage imageNamed:@"ic_default_profile"];
 	}
-	self.checked = [self contributorSelected:user];
 	
 	if (self.tableView) {
 		[self.tableView reloadData];
+	} else {
+		self.checked = [self contributorSelected:user];
 	}
+	self.signUpView.hidden = !contact.signedUp;
 }
 
 - (void)setChecked:(BOOL)checked {

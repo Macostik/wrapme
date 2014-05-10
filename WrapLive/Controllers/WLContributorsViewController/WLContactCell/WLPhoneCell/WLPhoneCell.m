@@ -8,20 +8,24 @@
 
 #import "WLPhoneCell.h"
 #import "WLUser.h"
+#import "NSString+Additions.h"
+#import "WLAddressBook.h"
 
 @interface WLPhoneCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *selectionView;
 @property (nonatomic, weak) IBOutlet UILabel* typeLabel;
 @property (nonatomic, weak) IBOutlet UILabel* phoneLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *signUpView;
 
 @end
 
 @implementation WLPhoneCell
 
 - (void)setupItemData:(WLUser*)user {
-	self.typeLabel.text = nil; // TODO: need to get this label from somewhere
+	self.typeLabel.text = [NSString stringWithFormat:@"%@:", user.phoneNumber.label];
 	self.phoneLabel.text = user.phoneNumber;
+	self.signUpView.hidden = !user.identifier.nonempty;
 }
 
 - (void)setChecked:(BOOL)checked {

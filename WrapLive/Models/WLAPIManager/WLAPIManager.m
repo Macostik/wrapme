@@ -288,7 +288,9 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 				if ([userData[@"address_book_number"] isEqualToString:user.phoneNumber]) {
 					NSString* name = user.name;
 					[user updateWithDictionary:userData];
-					if (!user.name.nonempty) {
+					if (user.name.nonempty) {
+						contact.name = user.name;
+					} else {
 						user.name = name;
 					}
 				}

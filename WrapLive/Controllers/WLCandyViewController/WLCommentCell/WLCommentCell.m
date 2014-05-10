@@ -32,7 +32,7 @@
 + (UIFont *)commentFont {
 	static UIFont* commentFont = nil;
 	if (!commentFont) {
-		commentFont = [UIFont lightFontOfSize:12];
+		commentFont = [UIFont lightFontOfSize:15];
 	}
 	return commentFont;
 }

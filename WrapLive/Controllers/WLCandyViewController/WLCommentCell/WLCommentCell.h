@@ -13,7 +13,7 @@
 @class WLWrap;
 
 static CGFloat WLCommentLabelLenth = 250.0f;
-static CGFloat WLAuthorLabelHeight = 18.0f;
+static CGFloat WLAuthorLabelHeight = 20.0f;
 static CGFloat WLMinimumCellHeight = 50.0f;
 
 @interface WLCommentCell : WLItemCell

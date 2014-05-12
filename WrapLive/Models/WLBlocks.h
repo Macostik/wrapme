@@ -30,3 +30,38 @@ typedef void (^WLContactBlock) (WLContact *contact);
 typedef void (^WLArrayBlock) (NSArray *array);
 typedef void (^WLDictionaryBlock) (NSDictionary *dictionary);
 typedef void (^WLStringBlock) (NSString *string);
+
+static inline void run_in_default_queue(dispatch_block_t block) {
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
+}
+
+static inline void run_in_background_queue(dispatch_block_t block) {
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), block);
+}
+
+static inline void run_in_main_queue(dispatch_block_t block) {
+	dispatch_async(dispatch_get_main_queue(), block);
+}
+
+static inline void run_with_completion(dispatch_block_t block, dispatch_block_t completion) {
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		if (block) {
+			block();
+		}
+		run_in_main_queue(completion);
+	});
+}
+
+static inline void run_getting_object(WLReturnObjectBlock block, WLObjectBlock completion) {
+	run_in_default_queue(^{
+		id object = nil;
+		if (block) {
+			object = block();
+		}
+		if (completion) {
+			run_in_main_queue(^{
+				completion(object);
+			});
+		}
+	});
+}

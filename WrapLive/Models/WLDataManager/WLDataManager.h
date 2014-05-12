@@ -17,10 +17,10 @@ typedef void (^WLDataManagerBlock)(id object, BOOL cached, BOOL stop);
 
 + (void)wraps:(BOOL)refresh success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure;
 
-+ (void)wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
++ (void)wrap:(WLWrap*)wrap success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure;
 
-+ (void)candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
++ (void)candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure;
 
-+ (void)messages:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
++ (void)messages:(WLWrap*)wrap success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure;
 
 @end

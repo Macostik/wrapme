@@ -15,15 +15,11 @@ static NSArray* _wraps = nil;
 
 + (void)wraps:(BOOL)refresh success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure {
 	NSInteger page = 1;
-	if (refresh) {
-		if ([[WLDataCache cache] containsWraps]) {
-			[[WLDataCache cache] wraps:^(NSArray* wraps) {
-				_wraps = wraps;
-				if (success) {
-					success(_wraps, YES, [wraps count] % WLAPIGeneralPageSize != 0);
-				}
-			}];
-		}
+	if (refresh && [[WLDataCache cache] containsWraps] && success) {
+		[[WLDataCache cache] wraps:^(NSArray* wraps) {
+			_wraps = wraps;
+			success(_wraps, YES, [wraps count] % WLAPIGeneralPageSize != 0);
+		}];
 	} else {
 		page = ((_wraps.count + 1)/WLAPIGeneralPageSize + 1);
 	}
@@ -37,46 +33,40 @@ static NSArray* _wraps = nil;
 	} failure:failure];
 }
 
-+ (void)wrap:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-	if ([[WLDataCache cache] containsWrap:wrap]) {
-		if (success) {
-			success([wrap updateWithObject:[[WLDataCache cache] wrap:wrap]]);
-		}
++ (void)wrap:(WLWrap *)wrap success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure {
+	if ([[WLDataCache cache] containsWrap:wrap] && success) {
+		success([wrap updateWithObject:[[WLDataCache cache] wrap:wrap]], YES, YES);
 	}
 	[wrap fetch:^(WLWrap *wrap) {
 		[wrap cache];
 		if (success) {
-			success(wrap);
+			success(wrap, NO, ([wrap.dates count] != WLAPIGeneralPageSize));
 		}
 	} failure:failure];
 }
 
-+ (void)candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
++ (void)candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure {
 	
-	if ([[WLDataCache cache] containsCandy:candy]) {
-		if (success) {
-			success([candy updateWithObject:[[WLDataCache cache] candy:candy]]);
-		}
+	if ([[WLDataCache cache] containsCandy:candy] && success) {
+		success([candy updateWithObject:[[WLDataCache cache] candy:candy]], YES, YES);
 	}
 	
 	[candy fetch:wrap success:^(WLCandy *candy) {
 		[candy cache];
 		if (success) {
-			success(candy);
+			success(candy, NO, YES);
 		}
 	} failure:failure];
 }
 
-+ (void)messages:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-	if ([[WLDataCache cache] containsMessages:wrap]) {
-		if (success) {
-			success([[WLDataCache cache] messages:wrap]);
-		}
++ (void)messages:(WLWrap *)wrap success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure {
+	if ([[WLDataCache cache] containsMessages:wrap] && success) {
+		success([[WLDataCache cache] messages:wrap], YES, YES);
 	}
 	[wrap messages:1 success:^(NSArray *array) {
 		[[WLDataCache cache] setMessages:array wrap:wrap];
 		if (success) {
-			success(array);
+			success(array, NO, YES);
 		}
 	} failure:failure];
 }

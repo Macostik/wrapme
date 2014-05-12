@@ -10,6 +10,7 @@
 #import "WLCountry.h"
 #import "WLCountryCell.h"
 #import "NSObject+NibAdditions.h"
+#import "WLBlocks.h"
 
 @interface WLCountriesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -25,13 +26,12 @@
 	[super viewDidLoad];
 	
 	__weak typeof(self)weakSelf = self;
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+	run_with_completion(^{
 		weakSelf.countries = [WLCountry getAllCountries];
-        dispatch_async(dispatch_get_main_queue(), ^{
-			weakSelf.tableView.contentInset = UIEdgeInsetsZero;
-			[weakSelf.tableView reloadData];
-        });
-    });
+	}, ^{
+		weakSelf.tableView.contentInset = UIEdgeInsetsZero;
+		[weakSelf.tableView reloadData];
+	});
 }
 
 #pragma mark - User Actions

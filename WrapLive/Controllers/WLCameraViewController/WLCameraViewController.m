@@ -20,6 +20,7 @@
 #import "WLCameraAdjustmentView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceOrientationBroadcaster.h"
+#import "WLBlocks.h"
 
 @interface WLCameraViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, WLDeviceOrientationBroadcastReceiver>
 
@@ -136,7 +137,7 @@
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
 	__weak typeof(self)weakSelf = self;
 	CGSize viewSize = self.cameraView.bounds.size;
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+	run_getting_object(^id{
 		UIImage *result = nil;
 		CGFloat width = 720.0f;
 		if (weakSelf.mode == WLCameraModeAvatar) {
@@ -150,10 +151,8 @@
 		if (weakSelf.mode != WLCameraModeCandy) {
 			result = [result croppedImage:CGRectThatFitsSize(result.size, viewSize)];
 		}
-		dispatch_async(dispatch_get_main_queue(), ^{
-			completion(result);
-		});
-    });
+		return result;
+	}, completion);
 }
 
 - (IBAction)retake:(id)sender {
@@ -197,14 +196,14 @@
 - (void)saveImage:(UIImage*)image {
 	__weak typeof(self)weakSelf = self;
 	[self.metadata setImageOrientation:image.imageOrientation];
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
+	run_in_default_queue(^{
+		ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
 		[library saveImage:image
 				   toAlbum:@"wrapLive"
 				  metadata:weakSelf.metadata
 				completion:^(NSURL *assetURL, NSError *error) { }
 				   failure:^(NSError *error) { }];
-    });
+	});
 }
 
 - (IBAction)flashModeChanged:(WLFlashModeControl *)sender {
@@ -370,17 +369,15 @@
 - (void)captureImage:(void (^)(UIImage*image))completion {
 	__weak typeof(self)weakSelf = self;
 #if TARGET_IPHONE_SIMULATOR
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		UIImage* image = nil;
+	run_getting_object(^id{
+		NSString* url = nil;
 		if (self.mode == WLCameraModeCandy) {
-			image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/480/nature"]]];
+			url = @"http://placeimg.com/640/480/nature";
 		} else {
-			image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://placeimg.com/640/640/nature"]]];
+			url = @"http://placeimg.com/640/640/nature";
 		}
-        dispatch_async(dispatch_get_main_queue(), ^{
-			completion(image);
-        });
-    });
+		return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+	}, completion);
 	return;
 #endif
 	

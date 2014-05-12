@@ -8,6 +8,7 @@
 
 #import "WLCache.h"
 #import "NSString+Documents.h"
+#import "WLBlocks.h"
 
 @interface WLCacheItem : NSObject
 
@@ -117,27 +118,22 @@
 
 - (void)objectWithIdentifier:(NSString*)identifier completion:(WLCacheReadCompletionBlock)completion {
 	__weak typeof(self)weakSelf = self;
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-		id object = [weakSelf objectWithIdentifier:identifier];
-        dispatch_async(dispatch_get_main_queue(), ^{
-			if (completion) {
-				completion(object);
-			}
-        });
-    });
+	run_getting_object(^id{
+		return [weakSelf objectWithIdentifier:identifier];
+	}, completion);
 }
 
 - (void)setObject:(id)object withIdentifier:(NSString*)identifier completion:(WLCacheWriteCompletionBlock)completion {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+	run_in_default_queue(^{
 		NSString* path = [self pathWithIdentifier:identifier];
 		self.writeObjectBlock(identifier, object, path);
-        dispatch_async(dispatch_get_main_queue(), ^{
+		run_in_main_queue(^{
 			if (completion) {
 				completion(path);
 			}
-        });
+		});
 		[self checkSizeAndClearIfNeededInBackground];
-    });
+	});
 }
 
 - (void)setObject:(id)object withIdentifier:(NSString*)identifier {

@@ -29,6 +29,7 @@
 #import "WLUploadingQueue.h"
 #import "UILabel+Additions.h"
 #import "WLDataManager.h"
+#import "WLDataCache.h"
 
 @interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLWrapBroadcastReceiver>
 
@@ -49,8 +50,7 @@
 	BOOL loading;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	[[WLUploadingQueue instance] updateWrap:self.wrap];
@@ -83,6 +83,17 @@
 	}
 }
 
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
+	for (WLWrapDate* date in self.wrap.dates) {
+		if ([date.candies count] == 0) {
+			self.wrap.dates = (id)[self.wrap.dates arrayByRemovingObject:date];
+			[self.tableView reloadData];
+			break;
+		}
+	}
+	[[WLDataCache cache] setWrap:self.wrap];
+}
+
 - (void)setShouldLoadMoreDates:(BOOL)shouldLoadMoreDates {
 	_shouldLoadMoreDates = shouldLoadMoreDates;
 	self.tableView.tableFooterView = shouldLoadMoreDates ? [WLLoadingView instance] : nil;
@@ -90,15 +101,17 @@
 
 - (void)refreshWrap {
 	__weak typeof(self)weakSelf = self;
-	[WLDataManager wrap:self.wrap success:^(WLWrap* wrap) {
-		if ([wrap.dates count] == 0) {
-			weakSelf.firstContributorView.alpha = 1.0f;
-			weakSelf.firstContributorWrapNameLabel.text = wrap.name;
-		} else {
-			weakSelf.firstContributorView.alpha = 0.0f;
-		}
-		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
+	[WLDataManager wrap:self.wrap success:^(WLWrap* wrap, BOOL cached, BOOL stop) {
 		[[WLUploadingQueue instance] updateWrap:weakSelf.wrap];
+		if (!cached) {
+			if ([wrap.dates count] == 0) {
+				weakSelf.firstContributorView.alpha = 1.0f;
+				weakSelf.firstContributorWrapNameLabel.text = wrap.name;
+			} else {
+				weakSelf.firstContributorView.alpha = 0.0f;
+			}
+		}
+		weakSelf.shouldLoadMoreDates = !stop;
 		[weakSelf.tableView reloadData];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
@@ -220,7 +233,10 @@
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
 	self.firstContributorView.alpha = 0.0f;
+	__weak typeof(self)weakSelf = self;
 	[[WLUploadingQueue instance] uploadImage:image wrap:self.wrap success:^(id object) {
+		[[WLDataCache cache] setCandy:object];
+		[[WLDataCache cache] setWrap:weakSelf.wrap];
 	} failure:^(NSError *error) {
 	}];
 	[self dismissViewControllerAnimated:YES completion:nil];

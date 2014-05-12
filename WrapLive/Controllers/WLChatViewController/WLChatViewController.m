@@ -28,6 +28,7 @@
 #import "WLDataManager.h"
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
+#import "WLBlocks.h"
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver>
 
@@ -72,13 +73,12 @@
 	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
 	self.composeBar.placeholder = @"Write your message ...";
 	
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		NSArray* messages = [weakSelf.wrap messages];
-        dispatch_async(dispatch_get_main_queue(), ^{
-			[weakSelf setMessages:messages];
-			[weakSelf refreshMessages];
-        });
-    });
+	run_getting_object(^id{
+		return [weakSelf.wrap messages];
+	}, ^(id object) {
+		[weakSelf setMessages:object];
+		[weakSelf refreshMessages];
+	});
 	
 	self.backSwipeGestureEnabled = YES;
 	
@@ -158,7 +158,7 @@
 
 - (void)refreshMessages {
 	__weak typeof(self)weakSelf = self;
-	[WLDataManager messages:self.wrap success:^(id object) {
+	[WLDataManager messages:self.wrap success:^(id object, BOOL cached, BOOL stop) {
 		weakSelf.shouldAppendMoreMessages = [object count] == WLAPIChatPageSize;
 		[weakSelf setMessages:object];
 		[weakSelf.refresher endRefreshing];

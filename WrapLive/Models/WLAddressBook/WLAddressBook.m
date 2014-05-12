@@ -121,7 +121,7 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 		CFArrayRef records = ABAddressBookCopyArrayOfAllPeople(addressBook);
 		CFIndex count = ABAddressBookGetPersonCount(addressBook);
 		if (count > 0) {
-			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+			run_in_default_queue(^{
 				__block CFIndex done = 0;
 				NSMutableArray* contacts = [NSMutableArray array];
 				for (CFIndex i = 0; i < count; i++) {
@@ -132,7 +132,7 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 						}
 						if (done == count) {
 							CFRelease(records);
-							dispatch_async(dispatch_get_main_queue(), ^{
+							run_in_main_queue(^{
 								if ([contacts count] > 0) {
 									success([contacts copy]);
 								} else {
@@ -143,7 +143,6 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 					}];
 				}
 			});
-			
 		} else {
 			CFRelease(records);
 			failure([NSError errorWithDescription:@"You don't have contacts on this device."]);
@@ -154,7 +153,7 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 + (void)addressBook:(void (^)(ABAddressBookRef addressBook))success failure:(void (^)(NSError *))failure {
 	ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
     ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
-		dispatch_async(dispatch_get_main_queue(), ^{
+		run_in_main_queue(^{
 			if (error) {
 				failure((__bridge NSError *)(error));
 			} else if (granted) {

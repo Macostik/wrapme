@@ -85,7 +85,6 @@
 }
 
 - (void)birthdatePickerCancel:(id)sender {
-	self.birthdateTextField.text = nil;
 	[self.birthdateTextField resignFirstResponder];
 }
 

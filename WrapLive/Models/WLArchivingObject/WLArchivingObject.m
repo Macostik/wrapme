@@ -11,6 +11,7 @@
 #import "NSDate+Formatting.h"
 #import "NSArray+Additions.h"
 #import "WLSupportFunctions.h"
+#import "WLBlocks.h"
 
 @implementation WLArchivingObject
 
@@ -142,14 +143,9 @@
 }
 
 - (void)archive:(void (^)(NSData *))completion {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-	    NSData *data = [self archive];
-	    dispatch_async(dispatch_get_main_queue(), ^{
-	        if (completion) {
-	            completion(data);
-			}
-		});
-	});
+	run_getting_object(^id{
+		return [self archive];
+	}, completion);
 }
 
 - (void)archiveToFileAtPath:(NSString*)path {
@@ -157,14 +153,9 @@
 }
 
 - (void)archiveToFileAtPath:(NSString*)path completion:(void (^)(void))completion {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-	    [self archiveToFileAtPath:path];
-	    dispatch_async(dispatch_get_main_queue(), ^{
-	        if (completion) {
-	            completion();
-			}
-		});
-	});
+	run_with_completion(^{
+		[self archiveToFileAtPath:path];
+	}, completion);
 }
 
 + (id)unarchive:(NSData *)data {
@@ -182,14 +173,9 @@
 }
 
 + (void)unarchive:(NSData *)data completion:(void (^)(id))completion {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-	    id object = [self unarchive:data];
-	    dispatch_async(dispatch_get_main_queue(), ^{
-	        if (completion) {
-	            completion(object);
-			}
-		});
-	});
+	run_getting_object(^id{
+		return [self unarchive:data];
+	}, completion);
 }
 
 + (id)unarchiveFromFileAtPath:(NSString*)path {
@@ -197,14 +183,9 @@
 }
 
 + (void)unarchiveFromFileAtPath:(NSString*)path completion:(void (^)(id object))completion {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-	    id object = [self unarchiveFromFileAtPath:path];
-	    dispatch_async(dispatch_get_main_queue(), ^{
-	        if (completion) {
-	            completion(object);
-			}
-		});
-	});
+	run_getting_object(^id{
+		return [self unarchiveFromFileAtPath:path];
+	}, completion);
 }
 
 @end

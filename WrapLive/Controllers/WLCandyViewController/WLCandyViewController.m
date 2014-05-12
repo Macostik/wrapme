@@ -171,7 +171,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)refresh {
 	__weak typeof(self)weakSelf = self;
-	[WLDataManager candy:self.candy wrap:self.wrap success:^(id object) {
+	[WLDataManager candy:self.candy wrap:self.wrap success:^(id object, BOOL cached, BOOL stop) {
 		[weakSelf setupImage];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {

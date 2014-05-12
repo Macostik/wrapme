@@ -43,8 +43,8 @@
 	self.commentLabel.font = [WLCommentCell commentFont];
 	self.authorImageView.layer.cornerRadius = self.authorImageView.height/2.0f;
 	__weak typeof(self)weakSelf = self;
-	[self addLongPressGestureRecognizing:^{
-		[weakSelf remove];
+	[self addLongPressGestureRecognizing:^(CGPoint point){
+		[weakSelf showMenu:point];
 	}];
 }
 
@@ -55,22 +55,37 @@
 	self.authorImageView.imageUrl = entry.contributor.picture.medium;
 }
 
+- (void)showMenu:(CGPoint)point {
+	WLComment* comment = self.item;
+	if ([comment.contributor isCurrentUser]) {
+		UIMenuItem* menuItem = [[UIMenuItem alloc] initWithTitle:@"Delete" action:@selector(remove)];
+		UIMenuController* menuController = [UIMenuController sharedMenuController];
+		[self becomeFirstResponder];
+		menuController.menuItems = @[menuItem];
+		[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
+		[menuController setMenuVisible:YES animated:YES];
+	}
+}
+
 - (void)remove {
 	__weak typeof(self)weakSelf = self;
-	WLComment* comment = weakSelf.item;
-	if ([comment.contributor isCurrentUser]) {
-		[UIActionSheet showWithTitle:[NSString stringWithFormat:@"Comment: %@", comment.text] destructive:@"Delete" completion:^(NSUInteger index) {
-			[UIActionSheet showWithCondition:@"Are you sure you want to delete this comment?" completion:^(NSUInteger index) {
-				weakSelf.userInteractionEnabled = NO;
-				[weakSelf.candy removeComment:comment wrap:weakSelf.wrap success:^(id object) {
-					weakSelf.userInteractionEnabled = YES;
-				} failure:^(NSError *error) {
-					[error show];
-					weakSelf.userInteractionEnabled = YES;
-				}];
-			}];
+	[UIActionSheet showWithCondition:@"Are you sure you want to delete this comment?" completion:^(NSUInteger index) {
+		weakSelf.userInteractionEnabled = NO;
+		[weakSelf.candy removeComment:weakSelf.item wrap:weakSelf.wrap success:^(id object) {
+			weakSelf.userInteractionEnabled = YES;
+		} failure:^(NSError *error) {
+			[error show];
+			weakSelf.userInteractionEnabled = YES;
 		}];
-	}
+	}];
+}
+
+- (BOOL)canPerformAction:(SEL)selector withSender:(id) sender {
+    return (selector == @selector(remove));
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
 }
 
 @end

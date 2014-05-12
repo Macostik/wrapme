@@ -11,10 +11,10 @@
 
 @interface UIView (GestureRecognizing)
 
-- (void)addTapGestureRecognizing:(WLBlock)block;
+- (void)addTapGestureRecognizing:(WLPointBlock)block;
 
 - (void)removeTapGestureRecognizing;
 
-- (void)addLongPressGestureRecognizing:(WLBlock)block;
+- (void)addLongPressGestureRecognizing:(WLPointBlock)block;
 
 @end

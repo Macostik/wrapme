@@ -40,8 +40,8 @@
 	self.borderView.lineWidth = 0.5f;
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	__weak typeof(self)weakSelf = self;
-	[self addLongPressGestureRecognizing:^{
-		[weakSelf remove];
+	[self addLongPressGestureRecognizing:^(CGPoint point){
+		[weakSelf showMenu:point];
 	}];
 }
 
@@ -76,22 +76,38 @@
 	}
 }
 
-- (void)remove {
+- (void)showMenu:(CGPoint)point {
 	WLCandy* candy = self.item;
 	if ([candy isImage] && [candy.contributor isCurrentUser]) {
-		__weak typeof(self)weakSelf = self;
-		[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" buttons:nil completion:^(NSUInteger index) {
-			[UIActionSheet showWithTitle:@"Are you sure you want to delete this candy?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
-				weakSelf.userInteractionEnabled = NO;
-				[candy remove:self.wrap success:^(id object) {
-					weakSelf.userInteractionEnabled = YES;
-				} failure:^(NSError *error) {
-					[error show];
-					weakSelf.userInteractionEnabled = YES;
-				}];
-			}];
-		}];
+		UIMenuItem* menuItem = [[UIMenuItem alloc] initWithTitle:@"Delete" action:@selector(remove)];
+		UIMenuController* menuController = [UIMenuController sharedMenuController];
+		[self becomeFirstResponder];
+		menuController.menuItems = @[menuItem];
+		[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
+		[menuController setMenuVisible:YES animated:YES];
 	}
+}
+
+- (void)remove {
+	WLCandy* candy = self.item;
+	__weak typeof(self)weakSelf = self;
+	[UIActionSheet showWithTitle:@"Are you sure you want to delete this candy?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
+		weakSelf.userInteractionEnabled = NO;
+		[candy remove:self.wrap success:^(id object) {
+			weakSelf.userInteractionEnabled = YES;
+		} failure:^(NSError *error) {
+			[error show];
+			weakSelf.userInteractionEnabled = YES;
+		}];
+	}];
+}
+
+- (BOOL)canPerformAction:(SEL)selector withSender:(id) sender {
+    return (selector == @selector(remove));
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
 }
 
 #pragma mark - WLWrapBroadcastReceiver

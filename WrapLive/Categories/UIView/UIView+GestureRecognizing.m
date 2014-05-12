@@ -12,9 +12,9 @@
 
 @interface UIView ()
 
-@property (strong, nonatomic) WLBlock longPressGestureBlock;
+@property (strong, nonatomic) WLPointBlock longPressGestureBlock;
 
-@property (strong, nonatomic) WLBlock tapGestureBlock;
+@property (strong, nonatomic) WLPointBlock tapGestureBlock;
 
 @property (strong, nonatomic) UITapGestureRecognizer* tapGestureRecognizer;
 
@@ -22,11 +22,11 @@
 
 @implementation UIView (GestureRecognizing)
 
-- (void)setTapGestureBlock:(WLBlock)tapGestureBlock {
+- (void)setTapGestureBlock:(WLPointBlock)tapGestureBlock {
 	[self setAssociatedObject:tapGestureBlock forKey:@"tapGestureBlock"];
 }
 
-- (WLBlock)tapGestureBlock {
+- (WLPointBlock)tapGestureBlock {
 	return [self associatedObjectForKey:@"tapGestureBlock"];
 }
 
@@ -38,15 +38,15 @@
 	return [self associatedObjectForKey:@"tapGestureRecognizer"];
 }
 
-- (void)setLongPressGestureBlock:(WLBlock)longPressGestureBlock {
+- (void)setLongPressGestureBlock:(WLPointBlock)longPressGestureBlock {
 	[self setAssociatedObject:longPressGestureBlock forKey:@"longPressGestureBlock"];
 }
 
-- (WLBlock)longPressGestureBlock {
+- (WLPointBlock)longPressGestureBlock {
 	return [self associatedObjectForKey:@"longPressGestureBlock"];
 }
 
-- (void)addTapGestureRecognizing:(WLBlock)block {
+- (void)addTapGestureRecognizing:(WLPointBlock)block {
 	self.tapGestureBlock = block;
 	UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
 	[self addGestureRecognizer:tapGestureRecognizer];
@@ -60,7 +60,7 @@
 	}
 }
 
-- (void)addLongPressGestureRecognizing:(WLBlock)block {
+- (void)addLongPressGestureRecognizing:(WLPointBlock)block {
 	self.longPressGestureBlock = block;
 	UILongPressGestureRecognizer* longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
 	[self addGestureRecognizer:longPressGestureRecognizer];
@@ -71,17 +71,17 @@
 - (void)longPress:(UILongPressGestureRecognizer*)sender {
 	if (sender.state == UIGestureRecognizerStateBegan && self.userInteractionEnabled) {
 		AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-		WLBlock longPressGestureBlock = self.longPressGestureBlock;
+		WLPointBlock longPressGestureBlock = self.longPressGestureBlock;
 		if (longPressGestureBlock) {
-			longPressGestureBlock();
+			longPressGestureBlock([sender locationInView:self]);
 		}
 	}
 }
 
 - (void)tap:(UITapGestureRecognizer*)sender {
-	WLBlock longPressGestureBlock = self.tapGestureBlock;
+	WLPointBlock longPressGestureBlock = self.tapGestureBlock;
 	if (longPressGestureBlock) {
-		longPressGestureBlock();
+		longPressGestureBlock([sender locationInView:self]);
 	}
 }
 

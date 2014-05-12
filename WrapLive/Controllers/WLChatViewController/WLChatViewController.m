@@ -207,7 +207,7 @@
 	[self.collectionView reloadData];
 	
 	__weak typeof(self)weakSelf = self;
-	[self.view addTapGestureRecognizing:^{
+	[self.view addTapGestureRecognizing:^(CGPoint point){
 		[weakSelf.view endEditing:YES];
 	}];
 }

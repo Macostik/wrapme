@@ -227,7 +227,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[self.tableView scrollToBottomAnimated:YES];
 	
 	__weak typeof(self)weakSelf = self;
-	[self.view addTapGestureRecognizing:^{
+	[self.view addTapGestureRecognizing:^(CGPoint point){
 		[weakSelf.view endEditing:YES];
 	}];
 }

@@ -36,8 +36,8 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	__weak typeof(self)weakSelf = self;
-	[self.nameLabel.superview addLongPressGestureRecognizing:^{
-		[weakSelf remove];
+	[self.nameLabel.superview addLongPressGestureRecognizing:^(CGPoint point){
+		[weakSelf showMenu:point];
 	}];
 }
 
@@ -53,34 +53,56 @@
 	[self.streamView reloadData];
 }
 
-- (void)remove {
+- (void)showMenu:(CGPoint)point {
+	UIMenuItem* menuItem = nil;
 	__weak typeof(self)weakSelf = self;
 	WLWrap* wrap = weakSelf.item;
 	if ([wrap.contributor isCurrentUser]) {
-		[UIActionSheet showWithTitle:wrap.name destructive:@"Delete" completion:^(NSUInteger index) {
-			[UIActionSheet showWithCondition:@"Are you sure you want to delete this wrap?" completion:^(NSUInteger index) {
-				weakSelf.userInteractionEnabled = NO;
-				[wrap remove:^(id object) {
-					weakSelf.userInteractionEnabled = YES;
-				} failure:^(NSError *error) {
-					[error show];
-					weakSelf.userInteractionEnabled = YES;
-				}];
-			}];
-		}];
+		menuItem = [[UIMenuItem alloc] initWithTitle:@"Delete" action:@selector(remove)];
 	} else {
-		[UIActionSheet showWithTitle:wrap.name destructive:@"Leave" completion:^(NSUInteger index) {
-			[UIActionSheet showWithCondition:@"Are you sure you want to leave this wrap?" completion:^(NSUInteger index) {
-				weakSelf.userInteractionEnabled = NO;
-				[wrap leave:^(id object) {
-					weakSelf.userInteractionEnabled = YES;
-				} failure:^(NSError *error) {
-					[error show];
-					weakSelf.userInteractionEnabled = YES;
-				}];
-			}];
-		}];
+		menuItem = [[UIMenuItem alloc] initWithTitle:@"Leave" action:@selector(leave)];
 	}
+	UIMenuController* menuController = [UIMenuController sharedMenuController];
+	[self becomeFirstResponder];
+	menuController.menuItems = @[menuItem];
+	[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
+	[menuController setMenuVisible:YES animated:YES];
+}
+
+- (void)remove {
+	__weak typeof(self)weakSelf = self;
+	WLWrap* wrap = weakSelf.item;
+	[UIActionSheet showWithCondition:@"Are you sure you want to delete this wrap?" completion:^(NSUInteger index) {
+		weakSelf.userInteractionEnabled = NO;
+		[wrap remove:^(id object) {
+			weakSelf.userInteractionEnabled = YES;
+		} failure:^(NSError *error) {
+			[error show];
+			weakSelf.userInteractionEnabled = YES;
+		}];
+	}];
+}
+
+- (void)leave {
+	__weak typeof(self)weakSelf = self;
+	WLWrap* wrap = weakSelf.item;
+	[UIActionSheet showWithCondition:@"Are you sure you want to leave this wrap?" completion:^(NSUInteger index) {
+		weakSelf.userInteractionEnabled = NO;
+		[wrap leave:^(id object) {
+			weakSelf.userInteractionEnabled = YES;
+		} failure:^(NSError *error) {
+			[error show];
+			weakSelf.userInteractionEnabled = YES;
+		}];
+	}];
+}
+
+- (BOOL)canPerformAction:(SEL)selector withSender:(id) sender {
+	return (selector == @selector(remove)) || (selector == @selector(leave));
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
 }
 
 #pragma mark - StreamViewDelegate

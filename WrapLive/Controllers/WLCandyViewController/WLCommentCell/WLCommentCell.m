@@ -18,6 +18,7 @@
 #import "WLAPIManager.h"
 #import "WLWrapBroadcaster.h"
 #import "UIActionSheet+Blocks.h"
+#import "UIView+GestureRecognizing.h"
 
 @interface WLCommentCell()
 
@@ -41,8 +42,10 @@
 	[super awakeFromNib];
 	self.commentLabel.font = [WLCommentCell commentFont];
 	self.authorImageView.layer.cornerRadius = self.authorImageView.height/2.0f;
-	UILongPressGestureRecognizer* removeGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(remove:)];
-	[self addGestureRecognizer:removeGestureRecognizer];
+	__weak typeof(self)weakSelf = self;
+	[self addLongPressGestureRecognizing:^{
+		[weakSelf remove];
+	}];
 }
 
 - (void)setupItemData:(WLComment *)entry {
@@ -52,23 +55,21 @@
 	self.authorImageView.imageUrl = entry.contributor.picture.medium;
 }
 
-- (void)remove:(UILongPressGestureRecognizer*)sender {
-	if (sender.state == UIGestureRecognizerStateBegan && self.userInteractionEnabled) {
-		__weak typeof(self)weakSelf = self;
-		WLComment* comment = weakSelf.item;
-		if ([comment.contributor isCurrentUser]) {
-			[UIActionSheet showWithTitle:[NSString stringWithFormat:@"Comment: %@", comment.text] destructive:@"Delete" completion:^(NSUInteger index) {
-				[UIActionSheet showWithCondition:@"Are you sure you want to delete this comment?" completion:^(NSUInteger index) {
-					weakSelf.userInteractionEnabled = NO;
-					[weakSelf.candy removeComment:comment wrap:weakSelf.wrap success:^(id object) {
-						weakSelf.userInteractionEnabled = YES;
-					} failure:^(NSError *error) {
-						[error show];
-						weakSelf.userInteractionEnabled = YES;
-					}];
+- (void)remove {
+	__weak typeof(self)weakSelf = self;
+	WLComment* comment = weakSelf.item;
+	if ([comment.contributor isCurrentUser]) {
+		[UIActionSheet showWithTitle:[NSString stringWithFormat:@"Comment: %@", comment.text] destructive:@"Delete" completion:^(NSUInteger index) {
+			[UIActionSheet showWithCondition:@"Are you sure you want to delete this comment?" completion:^(NSUInteger index) {
+				weakSelf.userInteractionEnabled = NO;
+				[weakSelf.candy removeComment:comment wrap:weakSelf.wrap success:^(id object) {
+					weakSelf.userInteractionEnabled = YES;
+				} failure:^(NSError *error) {
+					[error show];
+					weakSelf.userInteractionEnabled = YES;
 				}];
 			}];
-		}
+		}];
 	}
 }
 

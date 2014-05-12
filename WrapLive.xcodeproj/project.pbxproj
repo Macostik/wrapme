@@ -86,6 +86,8 @@
 		12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* WLItemCell.m */; };
 		12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
 		12DEC3EF1920F7E0007BE6CC /* WLToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3EE1920F7E0007BE6CC /* WLToast.m */; };
+		12DEC3F21921181B007BE6CC /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3F11921181B007BE6CC /* NSObject+AssociatedObjects.m */; };
+		12DEC3F519211A48007BE6CC /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3F419211A48007BE6CC /* UIView+GestureRecognizing.m */; };
 		12DF5C3B190E614400D7A62F /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DF5C3A190E614400D7A62F /* NSString+MD5.m */; };
 		12DF5C42190E67DE00D7A62F /* NSString+Documents.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DF5C41190E67DD00D7A62F /* NSString+Documents.m */; };
 		12E0F04A1909069200463FEC /* UIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F0491909069200463FEC /* UIScrollView+Additions.m */; };
@@ -283,6 +285,10 @@
 		12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapViewController.m; path = WLWrapViewController/WLWrapViewController.m; sourceTree = "<group>"; };
 		12DEC3ED1920F7E0007BE6CC /* WLToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLToast.h; sourceTree = "<group>"; };
 		12DEC3EE1920F7E0007BE6CC /* WLToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLToast.m; sourceTree = "<group>"; };
+		12DEC3F01921181B007BE6CC /* NSObject+AssociatedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AssociatedObjects.h"; sourceTree = "<group>"; };
+		12DEC3F11921181B007BE6CC /* NSObject+AssociatedObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AssociatedObjects.m"; sourceTree = "<group>"; };
+		12DEC3F319211A48007BE6CC /* UIView+GestureRecognizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GestureRecognizing.h"; sourceTree = "<group>"; };
+		12DEC3F419211A48007BE6CC /* UIView+GestureRecognizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GestureRecognizing.m"; sourceTree = "<group>"; };
 		12DF5C39190E614400D7A62F /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "NSString/NSString+MD5.h"; sourceTree = "<group>"; };
 		12DF5C3A190E614400D7A62F /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+MD5.m"; path = "NSString/NSString+MD5.m"; sourceTree = "<group>"; };
 		12DF5C40190E67DD00D7A62F /* NSString+Documents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Documents.h"; path = "NSString/NSString+Documents.h"; sourceTree = "<group>"; };
@@ -446,6 +452,8 @@
 			children = (
 				121B1B3518E078AF001F585C /* NSObject+NibAdditions.h */,
 				121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */,
+				12DEC3F01921181B007BE6CC /* NSObject+AssociatedObjects.h */,
+				12DEC3F11921181B007BE6CC /* NSObject+AssociatedObjects.m */,
 			);
 			path = NSObject;
 			sourceTree = "<group>";
@@ -872,6 +880,8 @@
 				12D653D518E4326C009CE64C /* UIView+Shorthand.m */,
 				12E1104319066C7C007DB4AC /* UIView+QuatzCoreAnimations.h */,
 				12E1104419066C7C007DB4AC /* UIView+QuatzCoreAnimations.m */,
+				12DEC3F319211A48007BE6CC /* UIView+GestureRecognizing.h */,
+				12DEC3F419211A48007BE6CC /* UIView+GestureRecognizing.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -1521,6 +1531,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12DEC3F519211A48007BE6CC /* UIView+GestureRecognizing.m in Sources */,
 				AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */,
 				12D7E0B41910E5380094C376 /* WLDataCache.m in Sources */,
 				12A6BFAC18F2AE7700AE3B62 /* WLRefresher.m in Sources */,
@@ -1595,6 +1606,7 @@
 				129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */,
 				C59528EE191CD9A6001ECD7C /* WLContactCell.m in Sources */,
 				12D578CE1917E82100586995 /* UIAlertView+Blocks.m in Sources */,
+				12DEC3F21921181B007BE6CC /* NSObject+AssociatedObjects.m in Sources */,
 				C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */,
 				12D4E94818FBEC5100B8F2AF /* WLUploadingQueue.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,

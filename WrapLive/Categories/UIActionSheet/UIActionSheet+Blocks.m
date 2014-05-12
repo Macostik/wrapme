@@ -8,6 +8,7 @@
 
 #import "UIActionSheet+Blocks.h"
 #import <objc/runtime.h>
+#import "NSObject+AssociatedObjects.h"
 
 @interface UIActionSheet () <UIActionSheetDelegate>
 
@@ -40,11 +41,11 @@
 }
 
 - (WLActionSheetCompletion)completion {
-	return objc_getAssociatedObject(self, "wl_alertview_completion");
+	return [self associatedObjectForKey:@"wl_alertview_completion"];
 }
 
 - (void)setCompletion:(WLActionSheetCompletion)completion {
-	objc_setAssociatedObject(self, "wl_alertview_completion", completion, OBJC_ASSOCIATION_RETAIN);
+	[self setAssociatedObject:completion forKey:@"wl_alertview_completion"];
 }
 
 #pragma mark - UIActionSheetDelegate

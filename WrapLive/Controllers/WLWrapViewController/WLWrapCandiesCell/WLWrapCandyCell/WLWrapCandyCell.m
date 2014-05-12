@@ -19,6 +19,7 @@
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
 #import "NSString+Additions.h"
+#import "UIView+GestureRecognizing.h"
 
 @interface WLWrapCandyCell () <WLWrapBroadcastReceiver>
 
@@ -38,8 +39,10 @@
 	[super awakeFromNib];
 	self.borderView.lineWidth = 0.5f;
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-	UILongPressGestureRecognizer* removeGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(remove:)];
-	[self addGestureRecognizer:removeGestureRecognizer];
+	__weak typeof(self)weakSelf = self;
+	[self addLongPressGestureRecognizing:^{
+		[weakSelf remove];
+	}];
 }
 
 - (void)setupItemData:(WLCandy*)entry {
@@ -73,6 +76,24 @@
 	}
 }
 
+- (void)remove {
+	WLCandy* candy = self.item;
+	if ([candy isImage] && [candy.contributor isCurrentUser]) {
+		__weak typeof(self)weakSelf = self;
+		[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" buttons:nil completion:^(NSUInteger index) {
+			[UIActionSheet showWithTitle:@"Are you sure you want to delete this candy?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
+				weakSelf.userInteractionEnabled = NO;
+				[candy remove:self.wrap success:^(id object) {
+					weakSelf.userInteractionEnabled = YES;
+				} failure:^(NSError *error) {
+					[error show];
+					weakSelf.userInteractionEnabled = YES;
+				}];
+			}];
+		}];
+	}
+}
+
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
@@ -95,26 +116,6 @@
 	[candy.uploadingItem upload:^(id object) {
 	} failure:^(NSError *error) {
 	}];
-}
-
-- (void)remove:(UILongPressGestureRecognizer*)sender {
-	if (sender.state == UIGestureRecognizerStateBegan && self.userInteractionEnabled) {
-		WLCandy* candy = self.item;
-		if ([candy isImage] && [candy.contributor isCurrentUser]) {
-			__weak typeof(self)weakSelf = self;
-			[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" buttons:nil completion:^(NSUInteger index) {
-				[UIActionSheet showWithTitle:@"Are you sure you want to delete this candy?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
-					weakSelf.userInteractionEnabled = NO;
-					[candy remove:self.wrap success:^(id object) {
-						weakSelf.userInteractionEnabled = YES;
-					} failure:^(NSError *error) {
-						[error show];
-						weakSelf.userInteractionEnabled = YES;
-					}];
-				}];
-			}];
-		}
-	}
 }
 
 @end

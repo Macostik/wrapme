@@ -20,6 +20,7 @@
 #import "StreamView.h"
 #import "WLWrapCandyCell.h"
 #import "WLUploadingQueue.h"
+#import "UIView+GestureRecognizing.h"
 
 @interface WLWrapCell ()
 
@@ -34,8 +35,10 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	UILongPressGestureRecognizer* removeGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(remove:)];
-	[self.nameLabel.superview addGestureRecognizer:removeGestureRecognizer];
+	__weak typeof(self)weakSelf = self;
+	[self.nameLabel.superview addLongPressGestureRecognizing:^{
+		[weakSelf remove];
+	}];
 }
 
 - (void)setupItemData:(WLWrap*)wrap {
@@ -50,35 +53,33 @@
 	[self.streamView reloadData];
 }
 
-- (void)remove:(UILongPressGestureRecognizer*)sender {
-	if (sender.state == UIGestureRecognizerStateBegan && self.userInteractionEnabled) {
-		__weak typeof(self)weakSelf = self;
-		WLWrap* wrap = weakSelf.item;
-		if ([wrap.contributor isCurrentUser]) {
-			[UIActionSheet showWithTitle:wrap.name destructive:@"Delete" completion:^(NSUInteger index) {
-				[UIActionSheet showWithCondition:@"Are you sure you want to delete this wrap?" completion:^(NSUInteger index) {
-					weakSelf.userInteractionEnabled = NO;
-					[wrap remove:^(id object) {
-						weakSelf.userInteractionEnabled = YES;
-					} failure:^(NSError *error) {
-						[error show];
-						weakSelf.userInteractionEnabled = YES;
-					}];
+- (void)remove {
+	__weak typeof(self)weakSelf = self;
+	WLWrap* wrap = weakSelf.item;
+	if ([wrap.contributor isCurrentUser]) {
+		[UIActionSheet showWithTitle:wrap.name destructive:@"Delete" completion:^(NSUInteger index) {
+			[UIActionSheet showWithCondition:@"Are you sure you want to delete this wrap?" completion:^(NSUInteger index) {
+				weakSelf.userInteractionEnabled = NO;
+				[wrap remove:^(id object) {
+					weakSelf.userInteractionEnabled = YES;
+				} failure:^(NSError *error) {
+					[error show];
+					weakSelf.userInteractionEnabled = YES;
 				}];
 			}];
-		} else {
-			[UIActionSheet showWithTitle:wrap.name destructive:@"Leave" completion:^(NSUInteger index) {
-				[UIActionSheet showWithCondition:@"Are you sure you want to leave this wrap?" completion:^(NSUInteger index) {
-					weakSelf.userInteractionEnabled = NO;
-					[wrap leave:^(id object) {
-						weakSelf.userInteractionEnabled = YES;
-					} failure:^(NSError *error) {
-						[error show];
-						weakSelf.userInteractionEnabled = YES;
-					}];
+		}];
+	} else {
+		[UIActionSheet showWithTitle:wrap.name destructive:@"Leave" completion:^(NSUInteger index) {
+			[UIActionSheet showWithCondition:@"Are you sure you want to leave this wrap?" completion:^(NSUInteger index) {
+				weakSelf.userInteractionEnabled = NO;
+				[wrap leave:^(id object) {
+					weakSelf.userInteractionEnabled = YES;
+				} failure:^(NSError *error) {
+					[error show];
+					weakSelf.userInteractionEnabled = YES;
 				}];
 			}];
-		}
+		}];
 	}
 }
 

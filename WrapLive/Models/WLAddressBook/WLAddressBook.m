@@ -14,6 +14,7 @@
 #import "WLImageCache.h"
 #import "WLUser.h"
 #import <objc/runtime.h>
+#import "NSObject+AssociatedObjects.h"
 
 @interface WLContact ()
 
@@ -130,11 +131,11 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 @implementation NSString (WLAddressBook)
 
 - (void)setLabel:(NSString *)label {
-	objc_setAssociatedObject(self, "wl_address_book_label", label, OBJC_ASSOCIATION_RETAIN);
+	[self setAssociatedObject:label forKey:@"wl_address_book_label"];
 }
 
 - (NSString *)label {
-	return objc_getAssociatedObject(self, "wl_address_book_label");
+	return [self associatedObjectForKey:@"wl_address_book_label"];
 }
 
 @end

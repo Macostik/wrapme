@@ -254,26 +254,6 @@
 	[controller presentInViewController:self transition:WLWrapTransitionFromBottom];
 }
 
-- (void)removeTopWrap:(UILongPressGestureRecognizer*)sender {
-	if (sender.state == UIGestureRecognizerStateBegan && sender.view.userInteractionEnabled) {
-		__weak typeof(self)weakSelf = self;
-		WLWrap* wrap = weakSelf.topWrap;
-		if ([wrap.contributor isCurrentUser]) {
-			[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" buttons:nil completion:^(NSUInteger index) {
-				[UIActionSheet showWithTitle:@"Are you sure you want to delete this wrap?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
-					sender.view.userInteractionEnabled = NO;
-					[[WLAPIManager instance] removeWrap:wrap success:^(id object) {
-						sender.view.userInteractionEnabled = YES;
-					} failure:^(NSError *error) {
-						[error show];
-						sender.view.userInteractionEnabled = YES;
-					}];
-				}];
-			}];
-		}
-	}
-}
-
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

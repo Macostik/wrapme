@@ -29,6 +29,7 @@
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
 #import "WLBlocks.h"
+#import "UIView+GestureRecognizing.h"
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver>
 
@@ -195,6 +196,8 @@
 	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height;
 	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
 	[self.collectionView reloadData];
+	
+	[self.view removeTapGestureRecognizing];
 }
 
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
@@ -202,6 +205,11 @@
 	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - self.keyboardHeight;
 	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
 	[self.collectionView reloadData];
+	
+	__weak typeof(self)weakSelf = self;
+	[self.view addTapGestureRecognizing:^{
+		[weakSelf.view endEditing:YES];
+	}];
 }
 
 #pragma mark - Actions

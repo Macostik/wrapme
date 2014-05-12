@@ -39,6 +39,7 @@
 @property (nonatomic) BOOL shouldAppendMoreMessages;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
@@ -190,6 +191,7 @@
 #pragma mark - WLKeyboardBroadcastReceiver
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
+	self.keyboardHeight = 0;
 	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height;
 	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
 	[self.collectionView reloadData];
@@ -238,7 +240,7 @@
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
-	return NO;
+	return YES;
 }
 
 #pragma mark - UICollectionViewDataSource

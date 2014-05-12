@@ -260,7 +260,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
-	return NO;
+	return YES;
 }
 
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>

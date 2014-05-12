@@ -44,13 +44,13 @@
 }
 
 - (void)setupItemData:(WLContact*)contact {
-	self.nameLabel.text = contact.name;
 	WLUser* user = [contact.users lastObject];
 	if (user.picture.medium.nonempty) {
 		self.avatarView.imageUrl = user.picture.medium;
 	} else {
 		self.avatarView.image = [UIImage imageNamed:@"ic_default_profile"];
 	}
+	self.nameLabel.text = contact.name;
 	
 	if (self.tableView) {
 		[self.tableView reloadData];

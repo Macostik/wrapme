@@ -32,16 +32,23 @@
 		contact.users = users;
 		if (ABPersonHasImageData(record)) {
 			NSString* identifier = [NSString stringWithFormat:@"addressbook_%d", ABRecordGetRecordID(record)];
-			[[WLImageCache cache] setImageData:WLAddressBookGetImage(record)
-								withIdentifier:identifier
-									completion:^(NSString *path) {
-										WLPicture* picture = [WLPicture new];
-										picture.large = path;
-										picture.medium = path;
-										picture.small = path;
-										[contact.users makeObjectsPerformSelector:@selector(setPicture:) withObject:picture];
-										completion(contact);
-									}];
+			
+			WLStringBlock complete = ^(NSString* path) {
+				WLPicture* picture = [WLPicture new];
+				picture.large = path;
+				picture.medium = path;
+				picture.small = path;
+				[contact.users makeObjectsPerformSelector:@selector(setPicture:) withObject:picture];
+				completion(contact);
+			};
+			
+			if ([[WLImageCache cache] containsObjectWithIdentifier:identifier]) {
+				complete([[WLImageCache cache] pathWithIdentifier:identifier]);
+			} else {
+				[[WLImageCache cache] setImageData:WLAddressBookGetImage(record)
+									withIdentifier:identifier
+										completion:complete];
+			}
 		} else {
 			completion(contact);
 		}
@@ -60,11 +67,15 @@ static inline NSArray* WLAddressBookGetUsers(ABRecordRef record) {
 		if (user.phoneNumber.nonempty) {
 			CFStringRef phoneLabel = ABMultiValueCopyLabelAtIndex(phones, index);
 			user.phoneNumber.label = (__bridge_transfer NSString*)ABAddressBookCopyLocalizedLabel(phoneLabel);
-			CFRelease(phoneLabel);
+			if (phoneLabel != NULL) {
+				CFRelease(phoneLabel);
+			}
 			[users addObject:user];
 		}
     }
-    CFRelease(phones);
+	if (phones != NULL) {
+		CFRelease(phones);
+	}
     return [users copy];
 }
 
@@ -98,6 +109,20 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 		}
 	}
 	return NO;
+}
+
+- (NSString *)name {
+	if (!_name.nonempty) {
+		_name = [[self.users selectObject:^BOOL(WLUser* user) {
+			return user.name.nonempty;
+		}] name];
+	}
+	if (!_name.nonempty) {
+		_name = [[self.users selectObject:^BOOL(WLUser* user) {
+			return user.phoneNumber.nonempty;
+		}] phoneNumber];
+	}
+	return _name;
 }
 
 @end
@@ -144,7 +169,9 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 				}
 			});
 		} else {
-			CFRelease(records);
+			if (records != NULL) {
+				CFRelease(records);
+			}
 			failure([NSError errorWithDescription:@"You don't have contacts on this device."]);
 		}
 	} failure:failure];

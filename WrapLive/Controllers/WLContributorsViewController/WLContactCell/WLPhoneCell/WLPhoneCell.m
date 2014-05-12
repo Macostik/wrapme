@@ -14,16 +14,16 @@
 @interface WLPhoneCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *selectionView;
-@property (nonatomic, weak) IBOutlet UILabel* typeLabel;
-@property (nonatomic, weak) IBOutlet UILabel* phoneLabel;
+@property (nonatomic, weak) IBOutlet UILabel *typeLabel;
+@property (nonatomic, weak) IBOutlet UILabel *phoneLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *signUpView;
 
 @end
 
 @implementation WLPhoneCell
 
-- (void)setupItemData:(WLUser*)user {
-	self.typeLabel.text = [NSString stringWithFormat:@"%@:", user.phoneNumber.label];
+- (void)setupItemData:(WLUser *)user {
+	self.typeLabel.text = [NSString stringWithFormat:@"%@:", WLString(user.phoneNumber.label)];
 	self.phoneLabel.text = user.phoneNumber;
 	self.signUpView.hidden = !user.identifier.nonempty;
 }

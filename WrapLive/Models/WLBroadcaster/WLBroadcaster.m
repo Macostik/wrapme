@@ -20,6 +20,18 @@
     return nil;
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup {
+	
+}
+
 - (NSHashTable *)receivers {
 	if (!_receivers) {
 		_receivers = [NSHashTable weakObjectsHashTable];

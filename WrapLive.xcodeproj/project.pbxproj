@@ -85,6 +85,7 @@
 		12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */; };
 		12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* WLItemCell.m */; };
 		12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
+		12DEC3EF1920F7E0007BE6CC /* WLToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3EE1920F7E0007BE6CC /* WLToast.m */; };
 		12DF5C3B190E614400D7A62F /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DF5C3A190E614400D7A62F /* NSString+MD5.m */; };
 		12DF5C42190E67DE00D7A62F /* NSString+Documents.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DF5C41190E67DD00D7A62F /* NSString+Documents.m */; };
 		12E0F04A1909069200463FEC /* UIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F0491909069200463FEC /* UIScrollView+Additions.m */; };
@@ -120,6 +121,7 @@
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
+		ACB029D3191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB029D2191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.m */; };
 		ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */; };
 		ACCF9B8A18E185D200A7429F /* WLPhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */; };
 		ACCF9B9118E1868200A7429F /* WLActivationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B8F18E1868200A7429F /* WLActivationViewController.m */; };
@@ -279,6 +281,8 @@
 		12DCBA8318DB18F400A4BC44 /* WLItemCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLItemCellProtocol.h; sourceTree = "<group>"; };
 		12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapViewController.h; path = WLWrapViewController/WLWrapViewController.h; sourceTree = "<group>"; };
 		12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapViewController.m; path = WLWrapViewController/WLWrapViewController.m; sourceTree = "<group>"; };
+		12DEC3ED1920F7E0007BE6CC /* WLToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLToast.h; sourceTree = "<group>"; };
+		12DEC3EE1920F7E0007BE6CC /* WLToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLToast.m; sourceTree = "<group>"; };
 		12DF5C39190E614400D7A62F /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "NSString/NSString+MD5.h"; sourceTree = "<group>"; };
 		12DF5C3A190E614400D7A62F /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+MD5.m"; path = "NSString/NSString+MD5.m"; sourceTree = "<group>"; };
 		12DF5C40190E67DD00D7A62F /* NSString+Documents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Documents.h"; path = "NSString/NSString+Documents.h"; sourceTree = "<group>"; };
@@ -344,6 +348,8 @@
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
 		AC17ADAF18F8147900F55E17 /* WLCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionViewFlowLayout.h; path = WLChatViewController/WLCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionViewFlowLayout.m; path = WLChatViewController/WLCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		ACB029D1191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLInternetConnectionBroadcaster.h; path = WLBroadcaster/WLInternetConnectionBroadcaster/WLInternetConnectionBroadcaster.h; sourceTree = "<group>"; };
+		ACB029D2191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLInternetConnectionBroadcaster.m; path = WLBroadcaster/WLInternetConnectionBroadcaster/WLInternetConnectionBroadcaster.m; sourceTree = "<group>"; };
 		ACCF9B8618E185D200A7429F /* WLPhoneNumberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPhoneNumberViewController.h; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.h; sourceTree = "<group>"; };
 		ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPhoneNumberViewController.m; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.m; sourceTree = "<group>"; };
 		ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPhoneNumberViewController.xib; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.xib; sourceTree = "<group>"; };
@@ -740,6 +746,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				12DEC3EC1920F7E0007BE6CC /* WLToast */,
 				12A8AA6E18F5919D00F67113 /* WLLoadingView */,
 				12A6BFA918F2AE5F00AE3B62 /* WLRefreshControl */,
 				12E8FF1C18E9883700BF1B96 /* WLComposeBar */,
@@ -1025,6 +1032,15 @@
 			name = WLWrapViewController;
 			sourceTree = "<group>";
 		};
+		12DEC3EC1920F7E0007BE6CC /* WLToast */ = {
+			isa = PBXGroup;
+			children = (
+				12DEC3ED1920F7E0007BE6CC /* WLToast.h */,
+				12DEC3EE1920F7E0007BE6CC /* WLToast.m */,
+			);
+			path = WLToast;
+			sourceTree = "<group>";
+		};
 		12DF5C38190E612900D7A62F /* NSString */ = {
 			isa = PBXGroup;
 			children = (
@@ -1061,6 +1077,7 @@
 		12E0F04B19090AE800463FEC /* WLBroadcaster */ = {
 			isa = PBXGroup;
 			children = (
+				ACB029D0191AA136003A2E0D /* WLInternetConnectionBroadcaster */,
 				12E0F0631909279200463FEC /* WLDeviceOrientationBroadcaster */,
 				12E0F05B19090BF000463FEC /* WLKeyboardBroadcaster */,
 				12E0F05719090B2E00463FEC /* WLWrapBroadcaster */,
@@ -1300,6 +1317,15 @@
 			name = WLChangeProfileViewController;
 			sourceTree = "<group>";
 		};
+		ACB029D0191AA136003A2E0D /* WLInternetConnectionBroadcaster */ = {
+			isa = PBXGroup;
+			children = (
+				ACB029D1191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.h */,
+				ACB029D2191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.m */,
+			);
+			name = WLInternetConnectionBroadcaster;
+			sourceTree = "<group>";
+		};
 		ACCF9B8518E17D5E00A7429F /* SignUpSteps */ = {
 			isa = PBXGroup;
 			children = (
@@ -1509,6 +1535,7 @@
 				12D7E0B81910E5480094C376 /* WLCache.m in Sources */,
 				12E0F05A19090B2E00463FEC /* WLWrapBroadcaster.m in Sources */,
 				121B1B2E18E07430001F585C /* WLCountry.m in Sources */,
+				ACB029D3191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.m in Sources */,
 				12E5BA5518EAB9C40033CE4E /* WLWrapEntry.m in Sources */,
 				12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */,
 				12E8FF2418E98B7100BF1B96 /* WLComposeContainer.m in Sources */,
@@ -1589,6 +1616,7 @@
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
 				12D7E0B51910E5380094C376 /* WLImageCache.m in Sources */,
+				12DEC3EF1920F7E0007BE6CC /* WLToast.m in Sources */,
 				12DBCD5B190FCD9B00344B52 /* WLDataManager.m in Sources */,
 				12E0F0621909249000463FEC /* UILabel+Additions.m in Sources */,
 				ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */,

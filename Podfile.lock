@@ -26,6 +26,7 @@ PODS:
   - JSONModel (0.13.0)
   - OpenUDID (1.0.0)
   - PubNub (3.6.1)
+  - Reachability (3.1.1)
   - SSKeychain (1.2.2)
 
 DEPENDENCIES:
@@ -34,6 +35,7 @@ DEPENDENCIES:
   - JSONModel
   - OpenUDID
   - PubNub (= 3.6.1)
+  - Reachability (~> 3.0)
   - SSKeychain
 
 SPEC CHECKSUMS:
@@ -42,6 +44,7 @@ SPEC CHECKSUMS:
   JSONModel: 1ce27c7d59de0ada0048e64f20006ce02e9ce73d
   OpenUDID: 04a7c560c47869bc5194820e3b529d4504cc0296
   PubNub: 617df10280cca88551f12f5e9a0f4a48fd27272e
+  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
   SSKeychain: 3d0b76c87e7b062a7ad1631a825fddec84367d44
 
 COCOAPODS: 0.32.1

@@ -10,8 +10,10 @@
 #import <CocoaLumberjack/DDLog.h>
 #import <CocoaLumberjack/DDASLLogger.h>
 #import <CocoaLumberjack/DDTTYLogger.h>
+#import "WLInternetConnectionBroadcaster.h"
+#import "WLToast.h"
 
-@interface WLAppDelegate () <PNDelegate>
+@interface WLAppDelegate () <PNDelegate, WLInternetConnectionBroadcastReceiver>
 
 @end
 
@@ -36,6 +38,8 @@
 //	
 //	//Publish on the channel
 //	[PubNub sendMessage:@"Hello from PubNub iOS!" toChannel:channel_1];
+	[[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
+	[self performSelector:@selector(showLostConnectionBannerIfNeeded) withObject:nil afterDelay:0.1f];
 		
     return YES;
 }
@@ -69,6 +73,22 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - WLInternetConnectionBroadcastReceiver
+
+- (void)showLostConnectionBannerIfNeeded {
+	if (![WLInternetConnectionBroadcaster broadcaster].reachable) {
+		[self showLostConnectionBanner];
+	}
+}
+
+- (void)showLostConnectionBanner {
+	[WLToast showWithMessage:@"Lost internet connection"];
+}
+
+- (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
+	[self showLostConnectionBannerIfNeeded];
 }
 
 @end

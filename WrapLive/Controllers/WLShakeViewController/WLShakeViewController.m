@@ -9,6 +9,7 @@
 #import "WLShakeViewController.h"
 #import "UIViewController+Additions.h"
 #import "UIView+Shorthand.h"
+#import "WLBlocks.h"
 
 @interface WLShakeViewController ()
 
@@ -190,7 +191,7 @@
 	}
 	
 	if (presentingViewController && presentingViewController != navigationController.topViewController) {
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		run_after(0.5f, ^{
 			[navigationController popToViewController:presentingViewController animated:NO];
 		});
 	}

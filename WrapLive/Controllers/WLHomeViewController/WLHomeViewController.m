@@ -69,6 +69,7 @@
 	[self setupRefresh];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	self.tableView.tableFooterView = [WLLoadingView instance];
+	
 }
 
 - (void)viewWillAppear:(BOOL)animated {

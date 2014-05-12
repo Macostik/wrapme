@@ -18,6 +18,8 @@
 
 + (instancetype)broadcaster;
 
+- (void)setup;
+
 - (void)addReceiver:(id <WLBroadcastReceiver>)receiver;
 
 - (BOOL)containsReceiver:(id <WLBroadcastReceiver>)receiver;

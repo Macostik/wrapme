@@ -19,15 +19,7 @@
     return instance;
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self subscribeKeyboardNotifications];
-    }
-    return self;
-}
-
-- (void)subscribeKeyboardNotifications {
+- (void)setup {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 

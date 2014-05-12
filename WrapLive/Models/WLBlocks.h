@@ -65,3 +65,7 @@ static inline void run_getting_object(WLReturnObjectBlock block, WLObjectBlock c
 		}
 	});
 }
+
+static inline void run_after(NSTimeInterval after,dispatch_block_t block) {
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(after * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
+}

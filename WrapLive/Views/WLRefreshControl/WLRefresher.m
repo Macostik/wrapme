@@ -10,6 +10,7 @@
 #import "WLSupportFunctions.h"
 #import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
+#import "WLBlocks.h"
 
 static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 
@@ -233,8 +234,7 @@ static CGFloat WLRefresherContentSize = 88.0f;
 	};
 	
 	if (delay > 0) {
-		dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC));
-		dispatch_after(time, dispatch_get_main_queue(), block);
+		run_after(delay, block);
 	} else {
 		block();
 	}

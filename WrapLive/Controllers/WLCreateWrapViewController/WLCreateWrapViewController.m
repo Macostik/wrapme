@@ -24,10 +24,14 @@
 #import "UIButton+Additions.h"
 #import "WLWrapBroadcaster.h"
 #import "NSString+Additions.h"
+#import "WLBorderView.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
+@property (weak, nonatomic) IBOutlet WLBorderView *nameBorderView;
+@property (weak, nonatomic) IBOutlet UIView *coverButtonView;
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
@@ -106,10 +110,12 @@
 	self.startButton.hidden = YES;
 	self.doneButton.hidden = NO;
 	self.titleLabel.text = @"Edit wrap";
-	self.coverView.superview.userInteractionEnabled = [self.editingWrap.contributor isCurrentUser];
-	self.nameField.userInteractionEnabled = [self.editingWrap.contributor isCurrentUser];
-	self.coverView.superview.alpha = [self.editingWrap.contributor isCurrentUser] ? 1 : 0.5;
-	self.nameField.alpha = [self.editingWrap.contributor isCurrentUser] ? 1 : 0.5;
+	if (![self.editingWrap.contributor isCurrentUser]) {
+		self.coverButtonView.hidden = YES;
+		self.coverView.height = self.coverView.width;
+		self.nameField.userInteractionEnabled = NO;
+		self.nameBorderView.strokeColor = [UIColor clearColor];
+	}
 }
 
 - (void)verifyStartAndDoneButton {

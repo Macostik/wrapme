@@ -863,23 +863,30 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </imageView>
-                                                        <view contentMode="scaleToFill" id="RyS-AW-1l2">
-                                                            <rect key="frame" x="0.0" y="123" width="160" height="37"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </view>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="P0k-mt-RDJ">
+                                                        <view contentMode="scaleToFill" id="8vo-FG-vTd">
                                                             <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" id="RyS-AW-1l2">
+                                                                    <rect key="frame" x="0.0" y="123" width="160" height="37"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </view>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="P0k-mt-RDJ">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="124" maxX="0.0" maxY="0.0"/>
+                                                                    <state key="normal" image="camera">
+                                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <segue destination="fS5-iu-bCQ" kind="modal" identifier="camera" id="Bfv-2u-diL"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <inset key="imageEdgeInsets" minX="0.0" minY="124" maxX="0.0" maxY="0.0"/>
-                                                            <state key="normal" image="camera">
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <connections>
-                                                                <segue destination="fS5-iu-bCQ" kind="modal" identifier="camera" id="Bfv-2u-diL"/>
-                                                            </connections>
-                                                        </button>
+                                                        </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <userDefinedRuntimeAttributes>
@@ -1004,8 +1011,10 @@
                     <navigationItem key="navigationItem" id="cXB-TA-phm"/>
                     <connections>
                         <outlet property="contributorsTableView" destination="0w1-Uc-Uox" id="qvF-a4-qfH"/>
+                        <outlet property="coverButtonView" destination="8vo-FG-vTd" id="2pF-RI-u9h"/>
                         <outlet property="coverView" destination="wHH-jF-BAZ" id="a4u-Fi-Zat"/>
                         <outlet property="doneButton" destination="thl-9L-1YK" id="YAp-Sc-fl0"/>
+                        <outlet property="nameBorderView" destination="P9C-9R-pqO" id="6g9-R5-ScR"/>
                         <outlet property="nameField" destination="iXN-AE-cui" id="8pz-go-uWd"/>
                         <outlet property="noContributorsView" destination="X4I-0X-nYZ" id="lyt-93-FUc"/>
                         <outlet property="spinner" destination="pYB-NP-efK" id="ojb-B1-qvq"/>

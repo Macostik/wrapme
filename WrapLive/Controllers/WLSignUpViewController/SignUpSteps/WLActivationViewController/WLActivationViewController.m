@@ -55,12 +55,23 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-	[WLInputAccessoryView inputAccessoryViewWithResponder:self.activationTextField];
+	self.activationTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self
+																							  cancel:@selector(activationCancel:)
+																								done:@selector(activationDone:)];
 	
 	self.phoneNumberLabel.text = [NSString stringWithFormat:@"+%@ %@", self.user.countryCallingCode, self.user.phoneNumber];
 	self.activationTextField.layer.borderWidth = 0.5;
 	self.activationTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
 	self.continueButton.active = NO;
+}
+
+- (void)activationCancel:(id)sender {
+	[self.activationTextField resignFirstResponder];
+}
+
+- (void)activationDone:(id)sender {
+	[self activateCode];
+	[self.activationTextField resignFirstResponder];
 }
 
 - (void)setCurrentPage:(WLActivationPage)currentPage {
@@ -76,6 +87,10 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 }
 
 - (IBAction)activateCode:(id)sender {
+	[self activateCode];
+}
+
+- (void)activateCode {
 	if (self.activationTextField.text.length == WLActivationCodeLimit) {
 		self.currentPage = WLActivationPageInProgress;
 		__weak typeof(self)weakSelf = self;
@@ -109,6 +124,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 
 - (IBAction)tryAgain:(id)sender {
 	self.activationTextField.text = nil;
+	self.continueButton.active = NO;
 	self.currentPage = WLActivationPageEntering;
 }
 
@@ -119,7 +135,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 
 #pragma mark - UITextFieldDelegate
 
-- (IBAction)textFieldDidChenge:(UITextField *)sender {
+- (IBAction)textFieldDidChange:(UITextField *)sender {
 	self.continueButton.active = sender.text.length == WLActivationCodeLimit;
 }
 

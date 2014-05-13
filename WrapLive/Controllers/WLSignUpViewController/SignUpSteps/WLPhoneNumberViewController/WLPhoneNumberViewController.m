@@ -19,6 +19,8 @@
 #import "UIButton+Additions.h"
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
+#import "UIAlertView+Blocks.h"
+#import "WLSession.h"
 
 @interface WLPhoneNumberViewController () <UITextFieldDelegate>
 
@@ -46,7 +48,8 @@
     [super viewDidLoad];
 	self.country = [WLCountry getCurrentCountry];
 	self.phoneNumberTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(phoneNumberInputCancel:) done:@selector(phoneNumberInputDone:)];
-	self.birthdate = self.birthdatePicker.date;
+	self.phoneNumberTextField.text = [WLSession user].phoneNumber;
+	self.birthdate = [[WLSession birthdate] GMTDate] ? : self.birthdatePicker.date;
 }
 
 - (UIViewController *)signUpViewController {
@@ -116,19 +119,30 @@
 }
 
 - (IBAction)signUp:(id)sender {
-	[self.spinner startAnimating];
-	self.view.userInteractionEnabled = NO;
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] signUp:[self prepareForRequest]
-							success:^(id object) {
-								WLActivationViewController *controller = [[WLActivationViewController alloc] initWithUser:object];
-								[weakSelf.navigationController pushViewController:controller animated:YES];
-								[weakSelf.spinner stopAnimating];
-							} failure:^(NSError *error) {
-								weakSelf.view.userInteractionEnabled = YES;
-								[weakSelf.spinner stopAnimating];
-								[error show];
-							}];
+	
+	WLUser* user = [self prepareForRequest];
+	
+	NSString* phoneNumber = [NSString stringWithFormat:@"+%@ %@", user.countryCallingCode, user.phoneNumber];
+	
+	NSString* confirmationMessage = [NSString stringWithFormat:@"%@\n%@\nIs the information above correct?",phoneNumber,[user.birthdate GMTStringWithFormat:@"MMM dd, yyyy"]];
+	
+	[UIAlertView showWithTitle:@"Confirmation" message:confirmationMessage buttons:@[@"Edit",@"Yes"] completion:^(NSUInteger index) {
+		if (index == 1) {
+			[weakSelf.spinner startAnimating];
+			weakSelf.view.userInteractionEnabled = NO;
+			[[WLAPIManager instance] signUp:user
+									success:^(id object) {
+										WLActivationViewController *controller = [[WLActivationViewController alloc] initWithUser:object];
+										[weakSelf.navigationController pushViewController:controller animated:YES];
+										[weakSelf.spinner stopAnimating];
+									} failure:^(NSError *error) {
+										weakSelf.view.userInteractionEnabled = YES;
+										[weakSelf.spinner stopAnimating];
+										[error show];
+									}];
+		}
+	}];
 }
 
 - (void)phoneNumberInputCancel:(id)sender {

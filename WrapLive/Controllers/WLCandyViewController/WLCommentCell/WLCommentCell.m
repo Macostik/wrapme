@@ -69,14 +69,12 @@
 
 - (void)remove {
 	__weak typeof(self)weakSelf = self;
-	[UIActionSheet showWithCondition:@"Are you sure you want to delete this comment?" completion:^(NSUInteger index) {
-		weakSelf.userInteractionEnabled = NO;
-		[weakSelf.candy removeComment:weakSelf.item wrap:weakSelf.wrap success:^(id object) {
-			weakSelf.userInteractionEnabled = YES;
-		} failure:^(NSError *error) {
-			[error show];
-			weakSelf.userInteractionEnabled = YES;
-		}];
+	weakSelf.userInteractionEnabled = NO;
+	[weakSelf.candy removeComment:weakSelf.item wrap:weakSelf.wrap success:^(id object) {
+		weakSelf.userInteractionEnabled = YES;
+	} failure:^(NSError *error) {
+		[error show];
+		weakSelf.userInteractionEnabled = YES;
 	}];
 }
 

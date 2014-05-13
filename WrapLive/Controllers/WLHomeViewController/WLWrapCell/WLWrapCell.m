@@ -46,6 +46,7 @@
 	self.coverView.imageUrl = wrap.picture.small;
 	self.contributorsLabel.text = wrap.contributorNames;
 	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
+	self.nameLabel.superview.vibrateOnLongPressGesture = [wrap.contributor isCurrentUser];
 }
 
 - (void)setCandies:(NSArray *)candies {
@@ -72,14 +73,12 @@
 - (void)remove {
 	__weak typeof(self)weakSelf = self;
 	WLWrap* wrap = weakSelf.item;
-	[UIActionSheet showWithCondition:@"Are you sure you want to delete this wrap?" completion:^(NSUInteger index) {
-		weakSelf.userInteractionEnabled = NO;
-		[wrap remove:^(id object) {
-			weakSelf.userInteractionEnabled = YES;
-		} failure:^(NSError *error) {
-			[error show];
-			weakSelf.userInteractionEnabled = YES;
-		}];
+	weakSelf.userInteractionEnabled = NO;
+	[wrap remove:^(id object) {
+		weakSelf.userInteractionEnabled = YES;
+	} failure:^(NSError *error) {
+		[error show];
+		weakSelf.userInteractionEnabled = YES;
 	}];
 }
 

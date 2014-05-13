@@ -91,14 +91,12 @@
 - (void)remove {
 	WLCandy* candy = self.item;
 	__weak typeof(self)weakSelf = self;
-	[UIActionSheet showWithTitle:@"Are you sure you want to delete this candy?" cancel:@"No" destructive:@"Yes" buttons:nil completion:^(NSUInteger index) {
-		weakSelf.userInteractionEnabled = NO;
-		[candy remove:self.wrap success:^(id object) {
-			weakSelf.userInteractionEnabled = YES;
-		} failure:^(NSError *error) {
-			[error show];
-			weakSelf.userInteractionEnabled = YES;
-		}];
+	weakSelf.userInteractionEnabled = NO;
+	[candy remove:self.wrap success:^(id object) {
+		weakSelf.userInteractionEnabled = YES;
+	} failure:^(NSError *error) {
+		[error show];
+		weakSelf.userInteractionEnabled = YES;
 	}];
 }
 

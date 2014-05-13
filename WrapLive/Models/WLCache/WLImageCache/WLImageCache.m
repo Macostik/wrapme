@@ -30,7 +30,7 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 			[options trySetObject:@(size) forKey:(id)kCGImageSourceThumbnailMaxPixelSize];
 		}
 		[options trySetObject:@YES forKey:(id)kCGImageSourceCreateThumbnailFromImageIfAbsent];
-		[options trySetObject:@NO forKey:(id)kCGImageSourceCreateThumbnailWithTransform];
+		[options trySetObject:@YES forKey:(id)kCGImageSourceCreateThumbnailWithTransform];
 		CGImageRef imageRef = CGImageSourceCreateThumbnailAtIndex(source, 0, (__bridge CFDictionaryRef)(options));
 		image = [UIImage imageWithCGImage:imageRef];
 		
@@ -38,19 +38,6 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 		CFRelease(source);
 	}
 	return image;
-}
-
-UIImage* WLImageFromUrl(NSString* imageUrl) {
-	NSURL* url = [NSURL fileURLWithPath:imageUrl];
-	CGImageSourceRef source = CGImageSourceCreateWithURL((__bridge CFURLRef)(url), NULL);
-	if (source != NULL) {
-		CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);
-		UIImage* image = [UIImage imageWithCGImage:imageRef];
-		CGImageRelease(imageRef);
-		CFRelease(source);
-		return image;
-	}
-	return nil;
 }
 
 @interface WLImageCache ()
@@ -87,7 +74,7 @@ UIImage* WLImageFromUrl(NSString* imageUrl) {
 	self.readObjectBlock = ^id (NSString* identifier, NSString* path) {
 		UIImage* image = [weakSelf.systemCache objectForKey:identifier];
 		if (image == nil) {
-			image = WLImageFromUrl(path);
+			image = [UIImage imageWithContentsOfFile:path];
 			[weakSelf.systemCache setObject:image forKey:identifier];
 		}
 		return image;

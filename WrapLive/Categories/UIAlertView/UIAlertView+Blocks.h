@@ -18,4 +18,6 @@ typedef void (^WLAlertViewCompletion)(NSUInteger index);
 
 + (void)showWithTitle:(NSString *)title message:(NSString *)message action:(NSString *)action cancel:(NSString *)cancel completion:(void (^)(void))completion;
 
+@property (strong, nonatomic) WLAlertViewCompletion completion;
+
 @end

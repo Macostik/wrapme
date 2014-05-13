@@ -12,6 +12,7 @@
 #import "UIView+Shorthand.h"
 #import "WLImageCache.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLBlocks.h"
 
 @interface UIImageView ()
 
@@ -28,9 +29,7 @@
 - (void)setImageUrl:(NSString *)imageUrl completion:(void (^)(UIImage* image, BOOL cached, NSError* error))completion {
 	self.image = nil;
 	[self cancelImageRequestOperation];
-	if ([[NSFileManager defaultManager] fileExistsAtPath:imageUrl]) {
-		[self setFileSystemImageUrl:imageUrl completion:completion];
-	} else if ([[WLImageCache cache] containsImageWithUrl:imageUrl]) {
+	if ([[WLImageCache cache] containsImageWithUrl:imageUrl]) {
 		__weak typeof(self)weakSelf = self;
 		[[WLImageCache cache] imageWithUrl:imageUrl completion:^(UIImage *image) {
 			weakSelf.image = image;
@@ -38,6 +37,8 @@
 				completion(image, YES, nil);
 			}
 		}];
+	} else if ([[NSFileManager defaultManager] fileExistsAtPath:imageUrl]) {
+		[self setFileSystemImageUrl:imageUrl completion:completion];
 	} else {
 		[self setNetworkImageUrl:imageUrl completion:completion];
 	}
@@ -64,10 +65,16 @@
 }
 
 - (void)setFileSystemImageUrl:(NSString *)imageUrl completion:(void (^)(UIImage* image, BOOL cached, NSError* error))completion {
-	self.image = WLThumbnailFromUrl(imageUrl, self.height);
-	if (completion) {
-		completion(self.image, YES, nil);
-	}
+	__weak typeof(self)weakSelf = self;
+	CGFloat height = self.height;
+	run_getting_object(^id{
+		return WLThumbnailFromUrl(imageUrl, height);
+	}, ^(id object) {
+		weakSelf.image = object;
+		if (completion) {
+			completion(object, YES, nil);
+		}
+	});
 }
 
 - (void)setImage:(UIImage *)image animated:(BOOL)animated {

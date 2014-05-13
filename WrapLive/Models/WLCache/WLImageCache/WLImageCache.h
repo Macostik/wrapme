@@ -10,8 +10,6 @@
 
 UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size);
 
-UIImage* WLImageFromUrl(NSString* imageUrl);
-
 @interface WLImageCache : WLCache
 
 + (instancetype)uploadingCache;

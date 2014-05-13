@@ -12,18 +12,16 @@
 
 @interface UIAlertView () <UIAlertViewDelegate>
 
-@property (strong, nonatomic) WLAlertViewCompletion completion;
-
 @end
 
 @implementation UIAlertView (Blocks)
 
 + (void)showWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons completion:(WLAlertViewCompletion)completion {
 	UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+	alertView.cancelButtonIndex = -1;
 	for (NSString* button in buttons) {
 		[alertView addButtonWithTitle:button];
 	}
-	alertView.delegate = alertView;
 	alertView.completion = completion;
 	[alertView show];
 }
@@ -49,6 +47,7 @@
 }
 
 - (void)setCompletion:(WLAlertViewCompletion)completion {
+	self.delegate = self;
 	[self setAssociatedObject:completion forKey:@"wl_alertview_completion"];
 }
 

@@ -29,7 +29,6 @@ static NSString* WLSessionUserPasteboardName = @"w-18b-5780897fh340b57n048y38nt3
 static WLUser* _user = nil;
 
 + (UIPasteboard*)pasteboardWithName:(NSString*)name {
-	return nil;
     UIPasteboard* pasteboard = [UIPasteboard pasteboardWithName:name create:YES];
 	pasteboard.persistent = YES;
     return pasteboard;
@@ -74,7 +73,7 @@ static WLUser* _user = nil;
 	} else {
 		[[NSUserDefaults standardUserDefaults] setObject:nil forKey:WLSessionUserKey];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-		[[self userPasteboard] setValue:nil forPasteboardType:(id)kUTTypeData];
+		[UIPasteboard removePasteboardWithName:WLSessionUserPasteboardName];
 	}
 }
 
@@ -97,7 +96,11 @@ static WLUser* _user = nil;
 + (void)setBirthdate:(NSString *)birthdate {
 	[[NSUserDefaults standardUserDefaults] setObject:birthdate forKey:WLSessionBirthdateKey];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	[self birthdatePasteboard].string = birthdate;
+	if (birthdate) {
+		[self birthdatePasteboard].string = birthdate;
+	} else {
+		[UIPasteboard removePasteboardWithName:WLSessionBirthdatePasteboardName];
+	}
 }
 
 + (NSString *)password {
@@ -113,11 +116,21 @@ static WLUser* _user = nil;
 
 + (void)setPassword:(NSString *)password {
 	[SSKeychain setPassword:password forService:WLSessionServiceName account:WLSessionAccountName];
-	[self passwordPasteboard].string = password;
+	if (password) {
+		[self passwordPasteboard].string = password;
+	} else {
+		[UIPasteboard removePasteboardWithName:WLSessionPasswordPasteboardName];
+	}
 }
 
 + (BOOL)activated {
 	return [self password].nonempty && [self birthdate].nonempty && [self user] != nil;
+}
+
++ (void)clear {
+	[self setBirthdate:nil];
+	[self setPassword:nil];
+	[self setUser:nil];
 }
 
 @end

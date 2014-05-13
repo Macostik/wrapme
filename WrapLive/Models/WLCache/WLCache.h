@@ -27,6 +27,8 @@ typedef void (^WLCacheWriteCompletionBlock)(NSString* path);
 
 @property (nonatomic, readonly) NSFileManager* manager;
 
+@property (strong, nonatomic) dispatch_queue_t queue;
+
 + (instancetype)cache;
 
 + (instancetype)cacheWithIdentifier:(NSString*)identifier;
@@ -50,5 +52,6 @@ typedef void (^WLCacheWriteCompletionBlock)(NSString* path);
 - (void)clear;
 
 - (void)enqueueCheckSizePerforming;
+
 
 @end

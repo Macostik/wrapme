@@ -57,6 +57,13 @@
     return self;
 }
 
+- (dispatch_queue_t)queue {
+	if (!_queue) {
+		_queue = dispatch_queue_create(NULL, NULL);
+	}
+	return _queue;
+}
+
 - (void)configure {
 	
 }
@@ -118,13 +125,13 @@
 
 - (void)objectWithIdentifier:(NSString*)identifier completion:(WLCacheReadCompletionBlock)completion {
 	__weak typeof(self)weakSelf = self;
-	run_getting_object(^id{
+	run_getting_object_in_queue(self.queue, ^id{
 		return [weakSelf objectWithIdentifier:identifier];
 	}, completion);
 }
 
 - (void)setObject:(id)object withIdentifier:(NSString*)identifier completion:(WLCacheWriteCompletionBlock)completion {
-	run_in_default_queue(^{
+	dispatch_async(self.queue, ^{
 		NSString* path = [self pathWithIdentifier:identifier];
 		self.writeObjectBlock(identifier, object, path);
 		run_in_main_queue(^{
@@ -133,7 +140,7 @@
 			}
 		});
 		[self checkSizeAndClearIfNeededInBackground];
-	});
+    });
 }
 
 - (void)setObject:(id)object withIdentifier:(NSString*)identifier {

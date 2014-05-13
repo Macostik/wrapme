@@ -53,8 +53,8 @@ static inline void run_with_completion(dispatch_block_t block, dispatch_block_t 
 	});
 }
 
-static inline void run_getting_object(WLReturnObjectBlock block, WLObjectBlock completion) {
-	run_in_default_queue(^{
+static inline void run_getting_object_in_queue(dispatch_queue_t queue, WLReturnObjectBlock block, WLObjectBlock completion) {
+	dispatch_async(queue, ^{
 		id object = nil;
 		if (block) {
 			object = block();
@@ -64,9 +64,17 @@ static inline void run_getting_object(WLReturnObjectBlock block, WLObjectBlock c
 				completion(object);
 			});
 		}
-	});
+    });
 }
 
-static inline void run_after(NSTimeInterval after,dispatch_block_t block) {
+static inline void run_getting_object(WLReturnObjectBlock block, WLObjectBlock completion) {
+	run_getting_object_in_queue(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block, completion);
+}
+
+static inline void run_getting_object_in_background(WLReturnObjectBlock block, WLObjectBlock completion) {
+	run_getting_object_in_queue(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), block, completion);
+}
+
+static inline void run_after(NSTimeInterval after, dispatch_block_t block) {
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(after * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
 }

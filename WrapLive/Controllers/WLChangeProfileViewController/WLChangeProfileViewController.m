@@ -18,6 +18,7 @@
 #import "WLInputAccessoryView.h"
 #import "NSDate+Formatting.h"
 #import "WLImageCache.h"
+#import "WLSession.h"
 
 @interface WLChangeProfileViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
@@ -137,6 +138,11 @@
 	} else {
 		completion();
 	}
+}
+
+- (IBAction)changeAccount:(id)sender {
+	[WLSession clear];
+	[self.navigationController setViewControllers:@[[self.storyboard welcomeViewController]] animated:YES];
 }
 
 #pragma mark - WLCameraViewControllerDelegate

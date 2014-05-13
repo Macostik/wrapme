@@ -53,4 +53,6 @@
 
 + (BOOL)activated;
 
++ (void)clear;
+
 @end

@@ -49,7 +49,8 @@
 	self.country = [WLCountry getCurrentCountry];
 	self.phoneNumberTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(phoneNumberInputCancel:) done:@selector(phoneNumberInputDone:)];
 	self.phoneNumberTextField.text = [WLSession user].phoneNumber;
-	self.birthdate = [[WLSession birthdate] GMTDate] ? : self.birthdatePicker.date;
+	NSDate* defaultDate = self.birthdatePicker.date;
+	self.birthdate = [[WLSession birthdate] GMTDate] ? : defaultDate;
 }
 
 - (UIViewController *)signUpViewController {

@@ -85,7 +85,7 @@
 
 - (void)showLostConnectionBanner {
 	
-	[WLToast showWithMessage:@"Lost internet connection"];
+	[WLToast showWithMessage:@"Internet connection unavailable"];
 }
 
 - (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {

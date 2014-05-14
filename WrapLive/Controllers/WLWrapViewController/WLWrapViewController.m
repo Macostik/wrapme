@@ -67,6 +67,11 @@
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	loading = NO;
+}
+
 - (void)setWrapData {
 	self.coverView.imageUrl = self.wrap.picture.small;
 	self.nameLabel.text = self.wrap.name;
@@ -188,6 +193,10 @@
 }
 
 - (IBAction)editWrap:(id)sender {
+	if (loading){
+		return;
+	}
+	loading = YES;
 	WLCreateWrapViewController* controller = [self.storyboard editWrapViewController];
 	controller.wrap = self.wrap;
 	[controller presentInViewController:self transition:WLWrapTransitionFromRight];

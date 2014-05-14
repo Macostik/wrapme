@@ -22,7 +22,7 @@
 #import "WLWrapBroadcaster.h"
 #import "NSString+Additions.h"
 
-static const int ddLogLevel = LOG_LEVEL_OFF;
+static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
 static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
 static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
@@ -349,7 +349,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		if (contributor.identifier.nonempty) {
 			[contributors addObject:contributor.identifier];
 		} else {
-			NSData* invitee = [NSJSONSerialization dataWithJSONObject:@{@"name":WLString(contributor.name),@"phone_number":contributor.phoneNumber} options:NSJSONWritingPrettyPrinted error:NULL];
+			NSData* invitee = [NSJSONSerialization dataWithJSONObject:@{@"name":WLString(contributor.name),@"phone_number":contributor.phoneNumber} options:0 error:NULL];
 			[invitees addObject:[[NSString alloc] initWithData:invitee encoding:NSUTF8StringEncoding]];
 		}
 	}

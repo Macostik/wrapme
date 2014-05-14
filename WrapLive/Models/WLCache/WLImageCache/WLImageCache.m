@@ -13,6 +13,7 @@
 #import "NSDictionary+Extended.h"
 #import "WLSupportFunctions.h"
 #import "NSString+Additions.h"
+#import "WLSystemImageCache.h"
 
 static NSUInteger WLImageCacheSize = 524288000;
 
@@ -42,8 +43,6 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 
 @interface WLImageCache ()
 
-@property (strong, nonatomic) NSCache* systemCache;
-
 @end
 
 @implementation WLImageCache
@@ -69,13 +68,11 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 - (void)configure {
 	self.size = WLImageCacheSize;
 	
-	__weak typeof(self)weakSelf = self;
-	
 	self.readObjectBlock = ^id (NSString* identifier, NSString* path) {
-		UIImage* image = [weakSelf.systemCache objectForKey:identifier];
+		UIImage* image = [[WLSystemImageCache instance] objectForKey:identifier];
 		if (image == nil) {
 			image = [UIImage imageWithContentsOfFile:path];
-			[weakSelf.systemCache setObject:image forKey:identifier];
+			[[WLSystemImageCache instance] setObject:image forKey:identifier];
 		}
 		return image;
 	};
@@ -86,21 +83,10 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 		} else if ([image isKindOfClass:[NSData class]]) {
 			[image writeToFile:path atomically:YES];
 		}
-		[weakSelf.systemCache setObject:image forKey:identifier];
+		[[WLSystemImageCache instance] setObject:image forKey:identifier];
 	};
 	
-	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-		[weakSelf.systemCache removeAllObjects];
-	}];
-	
 	[super configure];
-}
-
-- (NSCache *)systemCache {
-	if (!_systemCache) {
-		_systemCache = [[NSCache alloc] init];
-	}
-	return _systemCache;
 }
 
 - (NSString*)pathWithIdentifier:(NSString*)identifier {
@@ -108,7 +94,7 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 }
 
 - (BOOL)containsObjectWithIdentifier:(NSString *)identifier {
-	if ([self.systemCache objectForKey:identifier] != nil) {
+	if ([[WLSystemImageCache instance] objectForKey:identifier] != nil) {
 		return YES;
 	}
 	return [super containsObjectWithIdentifier:identifier];
@@ -119,7 +105,7 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 }
 
 - (void)imageWithIdentifier:(NSString *)identifier completion:(void (^)(UIImage *))completion {
-	UIImage* image = [self.systemCache objectForKey:identifier];
+	UIImage* image = [[WLSystemImageCache instance] objectForKey:identifier];
 	if (image != nil) {
 		completion(image);
 		return;

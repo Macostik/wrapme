@@ -13,6 +13,7 @@
 #import "WLImageCache.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLBlocks.h"
+#import "WLSystemImageCache.h"
 
 @interface UIImageView ()
 
@@ -68,7 +69,12 @@
 	__weak typeof(self)weakSelf = self;
 	CGFloat height = self.height;
 	run_getting_object(^id{
-		return WLThumbnailFromUrl(imageUrl, height);
+		UIImage* image = [[WLSystemImageCache instance] objectForKey:imageUrl];
+		if (!image) {
+			image = WLThumbnailFromUrl(imageUrl, height);
+			[[WLSystemImageCache instance] setObject:image forKey:imageUrl];
+		}
+		return image;
 	}, ^(id object) {
 		weakSelf.image = object;
 		if (completion) {

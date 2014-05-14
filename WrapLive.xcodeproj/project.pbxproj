@@ -109,6 +109,7 @@
 		12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA5F18E04CC400DBDB79 /* UIImage+Alpha.m */; };
 		12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA6118E04CC400DBDB79 /* UIImage+Resize.m */; };
 		12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */; };
+		12E4FBCD1923B8AD00236472 /* WLSystemImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E4FBCC1923B8AD00236472 /* WLSystemImageCache.m */; };
 		12E5BA5518EAB9C40033CE4E /* WLWrapEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E5BA5418EAB9C40033CE4E /* WLWrapEntry.m */; };
 		12E5BA5718EADAAC0033CE4E /* WLWrapCandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E5BA5618EADAAC0033CE4E /* WLWrapCandyCell.xib */; };
 		12E6ABD4191A2B2A00842DB8 /* UIScreen+Diagonal.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E6ABD3191A2B2A00842DB8 /* UIScreen+Diagonal.m */; };
@@ -332,6 +333,8 @@
 		12E3DA6118E04CC400DBDB79 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		12E3DA6218E04CC400DBDB79 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
 		12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
+		12E4FBCB1923B8AD00236472 /* WLSystemImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSystemImageCache.h; sourceTree = "<group>"; };
+		12E4FBCC1923B8AD00236472 /* WLSystemImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSystemImageCache.m; sourceTree = "<group>"; };
 		12E5BA5318EAB9C40033CE4E /* WLWrapEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapEntry.h; path = WLWrapEntry/WLWrapEntry.h; sourceTree = "<group>"; };
 		12E5BA5418EAB9C40033CE4E /* WLWrapEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapEntry.m; path = WLWrapEntry/WLWrapEntry.m; sourceTree = "<group>"; };
 		12E5BA5618EADAAC0033CE4E /* WLWrapCandyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLWrapCandyCell.xib; path = WLWrapViewController/WLWrapCandiesCell/WLWrapCandyCell/WLWrapCandyCell.xib; sourceTree = "<group>"; };
@@ -951,6 +954,8 @@
 			children = (
 				12D7E0B21910E5380094C376 /* WLImageCache.h */,
 				12D7E0B31910E5380094C376 /* WLImageCache.m */,
+				12E4FBCB1923B8AD00236472 /* WLSystemImageCache.h */,
+				12E4FBCC1923B8AD00236472 /* WLSystemImageCache.m */,
 			);
 			name = WLImageCache;
 			path = WLCache/WLImageCache;
@@ -1636,6 +1641,7 @@
 				12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */,
 				12D563FE18FE7788001C5C06 /* WLCircleProgressBar.m in Sources */,
 				12A6BFA818F2A6C900AE3B62 /* WLShakeViewController.m in Sources */,
+				12E4FBCD1923B8AD00236472 /* WLSystemImageCache.m in Sources */,
 				12C4416618F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				12E8FF1718E960E000BF1B96 /* StreamView.m in Sources */,
 				12DCBA6318DB0DEF00A4BC44 /* WLEntry.m in Sources */,

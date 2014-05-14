@@ -58,12 +58,11 @@
 	self.commentLabel.hidden = !self.commentLabel.text.nonempty;
 	
 	[self refreshUploadingButtons:entry];
-	
-	self.vibrateOnLongPressGesture = [entry.contributor isCurrentUser];
 }
 
 - (void)refreshUploadingButtons:(WLCandy*)candy {
 	if (candy.uploadingItem) {
+		self.vibrateOnLongPressGesture = NO;
 		self.lowOpacityView.hidden = NO;
 		self.cancelButton.hidden = (candy.uploadingItem.operation != nil);
 		self.retryButton.hidden = (candy.uploadingItem.operation != nil);
@@ -75,6 +74,7 @@
 			weakSelf.lowOpacityView.hidden = YES;
 			weakSelf.lowOpacityView.alpha = 1.0f;
 		}];
+		self.vibrateOnLongPressGesture = [candy isImage] && [candy.contributor isCurrentUser];
 	}
 }
 

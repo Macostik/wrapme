@@ -259,12 +259,14 @@
 	if (indexPath.row == 0) {
 		static NSString* topWrapCellIdentifier = @"WLTopWrapCell";
 		cell = [tableView dequeueReusableCellWithIdentifier:topWrapCellIdentifier forIndexPath:indexPath];
+		cell.item = wrap;
 		cell.candies = self.candies;
 	} else {
 		static NSString* wrapCellIdentifier = @"WLWrapCell";
 		cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier forIndexPath:indexPath];
+		cell.item = wrap;
 	}
-	cell.item = wrap;
+	
 	cell.delegate = self;
 	return cell;
 }

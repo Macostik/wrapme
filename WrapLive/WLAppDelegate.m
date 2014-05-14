@@ -11,11 +11,11 @@
 #import <CocoaLumberjack/DDASLLogger.h>
 #import <CocoaLumberjack/DDTTYLogger.h>
 #import "WLInternetConnectionBroadcaster.h"
-#import "WLToast.h"
 #import "WLSession.h"
 #import "WLMessageBroadcaster.h"
+#import "WLKeyboardBroadcaster.h"
 
-@interface WLAppDelegate () <WLInternetConnectionBroadcastReceiver>
+@interface WLAppDelegate ()
 
 @end
 
@@ -28,8 +28,8 @@
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
 //	
 //	[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
-	[[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
-	[self performSelector:@selector(showLostConnectionBannerIfNeeded) withObject:nil afterDelay:0.5f];
+	[[WLInternetConnectionBroadcaster broadcaster] configure];
+	[[WLKeyboardBroadcaster broadcaster] configure];
 	
 	return YES;
 }
@@ -70,22 +70,5 @@
 //- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 //	NSLog(@"%@", error);
 //}
-
-#pragma mark - WLInternetConnectionBroadcastReceiver
-
-- (void)showLostConnectionBannerIfNeeded {
-	if (![WLInternetConnectionBroadcaster broadcaster].reachable) {
-		[self showLostConnectionBanner];
-	}
-}
-
-- (void)showLostConnectionBanner {
-	
-	[WLToast showWithMessage:@"Internet connection unavailable"];
-}
-
-- (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
-	[self showLostConnectionBannerIfNeeded];
-}
 
 @end

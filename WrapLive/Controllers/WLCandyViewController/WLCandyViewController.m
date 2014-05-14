@@ -30,7 +30,6 @@
 #import "WLDataManager.h"
 #import "NSDate+Additions.h"
 #import "WLWrapBroadcaster.h"
-#import "UIView+GestureRecognizing.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
@@ -218,18 +217,11 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
 	self.containerView.height = self.view.height - self.topView.height;
-	
-	[self.view removeTapGestureRecognizing];
 }
 
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
 	self.containerView.height = self.view.height - self.topView.height - [keyboardHeight floatValue];
 	[self.tableView scrollToBottomAnimated:YES];
-	
-	__weak typeof(self)weakSelf = self;
-	[self.view addTapGestureRecognizing:^(CGPoint point){
-		[weakSelf.view endEditing:YES];
-	}];
 }
 
 #pragma mark - Actions

@@ -32,6 +32,10 @@
 	
 }
 
+- (void)configure {
+	
+}
+
 - (NSHashTable *)receivers {
 	if (!_receivers) {
 		_receivers = [NSHashTable weakObjectsHashTable];

@@ -20,6 +20,8 @@
 
 - (void)setup;
 
+- (void)configure;
+
 - (void)addReceiver:(id <WLBroadcastReceiver>)receiver;
 
 - (BOOL)containsReceiver:(id <WLBroadcastReceiver>)receiver;

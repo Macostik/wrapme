@@ -9,6 +9,7 @@
 #import "WLInternetConnectionBroadcaster.h"
 #import <Reachability/Reachability.h>
 #import "WLBlocks.h"
+#import "WLToast.h"
 
 @implementation WLInternetConnectionBroadcaster
 
@@ -30,6 +31,10 @@
 	return reachability;
 }
 
+- (void)configure {
+	[self performSelector:@selector(showLostConnectionBannerIfNeeded) withObject:nil afterDelay:0.5f];
+}
+
 - (BOOL)reachable {
 	return [[WLInternetConnectionBroadcaster reachability] isReachable];
 }
@@ -41,10 +46,21 @@
 	NetworkReachable reachabilityChangedBlock = ^(Reachability* reachability) {
 		run_in_main_queue(^{
 			[weakSelf broadcast:@selector(broadcaster:internetConnectionReachable:) object:@(weakSelf.reachable)];
+			[weakSelf showLostConnectionBannerIfNeeded];
 		});
 	};
 	[reachability setReachableBlock:reachabilityChangedBlock];
 	[reachability setUnreachableBlock:reachabilityChangedBlock];
+}
+
+- (void)showLostConnectionBannerIfNeeded {
+	if (![WLInternetConnectionBroadcaster broadcaster].reachable) {
+		[self showLostConnectionBanner];
+	}
+}
+
+- (void)showLostConnectionBanner {
+	[WLToast showWithMessage:@"Internet connection unavailable"];
 }
 
 @end

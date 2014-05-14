@@ -50,16 +50,8 @@
 	return [self.identifier isEqualToString:WLStoryboardSegueContributorsIdentifier];
 }
 
-- (BOOL)isWrapSegue {
-	return [self.identifier isEqualToString:WLStoryboardSegueWrapIdentifier];
-}
-
 - (BOOL)isCameraSegue {
 	return [self.identifier isEqualToString:WLStoryboardSegueCameraIdentifier];
-}
-
-- (BOOL)isTopWrapSegue {
-	return [self.identifier isEqualToString:WLStoryboardSegueTopWrapIdentifier];
 }
 
 - (BOOL)isChangeWrapSegue {

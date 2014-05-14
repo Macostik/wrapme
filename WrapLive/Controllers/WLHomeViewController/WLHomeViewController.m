@@ -228,12 +228,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue isWrapSegue]) {
-		WLWrap* wrap = [self.wraps objectAtIndex:[self.tableView indexPathForSelectedRow].row];
-		[(WLWrapViewController* )segue.destinationViewController setWrap:wrap];
-	} else if ([segue isTopWrapSegue]) {
-		[(WLWrapViewController* )segue.destinationViewController setWrap:self.topWrap];
-	} else if ([segue isCameraSegue]) {
+	if ([segue isCameraSegue]) {
 		WLCameraViewController* cameraController = segue.destinationViewController;
 		cameraController.delegate = self;
 		cameraController.mode = WLCameraModeCandy;
@@ -330,6 +325,12 @@
 
 - (void)wrapCellDidSelectCandyPlaceholder:(WLWrapCell *)cell {
 	[self presentViewController:[self cameraViewController] animated:YES completion:nil];
+}
+
+- (void)wrapCell:(WLWrapCell *)cell didSelectWrap:(WLWrap *)wrap {
+	WLWrapViewController* wrapController = [self.storyboard wrapViewController];
+	wrapController.wrap = wrap;
+	[self.navigationController pushViewController:wrapController animated:YES];
 }
 
 @end

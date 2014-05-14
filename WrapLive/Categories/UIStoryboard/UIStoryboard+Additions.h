@@ -39,9 +39,7 @@ static NSString* WLStoryboardEditWrapViewControllerIdentifier = @"editWrap";
 @end
 
 static NSString* WLStoryboardSegueContributorsIdentifier = @"contributors";
-static NSString* WLStoryboardSegueWrapIdentifier = @"wrap";
 static NSString* WLStoryboardSegueCameraIdentifier = @"camera";
-static NSString* WLStoryboardSegueTopWrapIdentifier = @"topWrap";
 static NSString* WLStoryboardSegueChangeWrapIdentifier = @"changeWrap";
 static NSString* WLStoryboardSegueImageIdentifier = @"image";
 
@@ -49,11 +47,7 @@ static NSString* WLStoryboardSegueImageIdentifier = @"image";
 
 - (BOOL)isContributorsSegue;
 
-- (BOOL)isWrapSegue;
-
 - (BOOL)isCameraSegue;
-
-- (BOOL)isTopWrapSegue;
 
 - (BOOL)isChangeWrapSegue;
 

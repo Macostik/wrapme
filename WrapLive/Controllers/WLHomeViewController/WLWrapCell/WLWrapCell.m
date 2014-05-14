@@ -54,6 +54,11 @@
 	[self.streamView reloadData];
 }
 
+- (IBAction)wrapSelected:(UIButton *)sender {
+	[[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
+	[self.delegate wrapCell:self didSelectWrap:self.item];
+}
+
 - (void)showMenu:(CGPoint)point {
 	UIMenuItem* menuItem = nil;
 	__weak typeof(self)weakSelf = self;
@@ -66,7 +71,7 @@
 	UIMenuController* menuController = [UIMenuController sharedMenuController];
 	[self becomeFirstResponder];
 	menuController.menuItems = @[menuItem];
-	[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
+	[menuController setTargetRect:CGRectMake(point.x, [self.reuseIdentifier isEqualToString:@"WLTopWrapCell"] ? point.y + 12 : point.y, 0, 0) inView:self];
 	[menuController setMenuVisible:YES animated:YES];
 }
 

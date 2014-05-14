@@ -13,11 +13,16 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 @class WLWrapCell;
 @class WLCandy;
+@class WLWrap;
 
 @protocol WLWrapCellDelegate <NSObject>
 
 - (void)wrapCell:(WLWrapCell*)cell didSelectCandy:(WLCandy*)candy;
 - (void)wrapCellDidSelectCandyPlaceholder:(WLWrapCell*)cell;
+
+@optional
+
+- (void)wrapCell:(WLWrapCell *)cell didSelectWrap:(WLWrap *)wrap;
 
 @end
 

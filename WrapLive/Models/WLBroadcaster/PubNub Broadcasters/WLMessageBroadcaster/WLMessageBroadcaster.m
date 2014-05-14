@@ -56,6 +56,10 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 	}
 }
 
++ (void)enablePushNotificationsInSubscribedChannels:(NSData *)deviceToken {
+	[self enablePushNotificationsInChannels:[PubNub subscribedChannels] withDeviceToken:deviceToken];
+}
+
 + (PNConfiguration*)configuration {
 	return [PNConfiguration configurationForOrigin:WLPubNubOrigin
 										publishKey:WLPubNubPublishKey

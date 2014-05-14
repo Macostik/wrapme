@@ -64,7 +64,7 @@
 //- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 //	NSLog(@"deviceToken %@", deviceToken);
 //	[WLSession setDeviceToken:deviceToken];
-//	[WLMessageBroadcaster enablePushNotificationsInChannels:[PubNub subscribedChannels] withDeviceToken:deviceToken];
+//	[WLMessageBroadcaster enablePushNotificationsInSubscribedChannels:deviceToken];
 //}
 //
 //- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {

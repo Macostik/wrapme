@@ -23,6 +23,8 @@
 
 + (void)enablePushNotificationsInChannels:(NSArray*)channels withDeviceToken:(NSData*)deviceToken;
 
++ (void)enablePushNotificationsInSubscribedChannels:(NSData*)deviceToken;
+
 - (void)unsubscribe:(id<WLMessageBroadcastReceiver>)receiver;
 
 - (void)subscribe:(id<WLMessageBroadcastReceiver>)receiver;

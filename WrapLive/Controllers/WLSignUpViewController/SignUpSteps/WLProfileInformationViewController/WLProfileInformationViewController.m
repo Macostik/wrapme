@@ -21,8 +21,6 @@
 #import "WLKeyboardBroadcaster.h"
 #import "NSString+Additions.h"
 
-//static NSInteger WLProfileNameLimit = 40;
-
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;

@@ -181,12 +181,37 @@
 @implementation NSMutableArray (Additions)
 
 - (BOOL)replaceObject:(id)object withObject:(id)replaceObject {
-	NSInteger index = [self indexOfObject:object];
-	if (index != NSNotFound) {
-		[self replaceObjectAtIndex:index withObject:replaceObject];
-		return YES;
+	if (object && replaceObject) {
+		NSInteger index = [self indexOfObject:object];
+		if (index != NSNotFound) {
+			[self replaceObjectAtIndex:index withObject:replaceObject];
+			return YES;
+		}
 	}
 	return NO;
+}
+
+- (BOOL)exchangeObject:(id)object withObjectAtIndex:(NSUInteger)replaceIndex {
+	if (object && replaceIndex < [self count]) {
+		NSUInteger index = [self indexOfObject:object];
+		if (index != NSNotFound) {
+			[self exchangeObjectAtIndex:index withObjectAtIndex:replaceIndex];
+			return YES;
+		}
+	}
+	return NO;
+}
+
+- (BOOL)exchangeObject:(id)object withObject:(id)exchangeObject {
+	return [self exchangeObject:object withObjectAtIndex:[self indexOfObject:exchangeObject]];
+}
+
+- (BOOL)moveObjectAtFirstIndex:(id)object {
+	return [self exchangeObject:object withObjectAtIndex:0];
+}
+
+- (BOOL)moveObjectPassingTestAtFirstIndex:(SelectBlock)block {
+	return [self moveObjectAtFirstIndex:[self selectObject:block]];
 }
 
 - (void)addUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality {

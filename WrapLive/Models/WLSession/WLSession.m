@@ -19,6 +19,7 @@ static NSString* WLSessionUserKey = @"WrapLiveUser";
 static NSString* WLSessionPhoneNumberKey = @"WrapLivePhoneNumber";
 static NSString* WLSessionCountryCallingCodeKey = @"WrapLiveCountryCallingCode";
 static NSString* WLSessionBirthdateKey = @"WrapLiveBirthdate";
+static NSString* WLSessionDeviceTokenKey = @"WrapLiveDeviceToken";
 
 static NSString* WLSessionPasswordPasteboardName = @"w-a237bcfy580qyr47bdyfq807b3t7r5-l";
 static NSString* WLSessionBirthdatePasteboardName = @"w-sdnfvuy7890b4yt9-q8b3t-0yrtv-l";
@@ -131,6 +132,15 @@ static WLUser* _user = nil;
 	[self setBirthdate:nil];
 	[self setPassword:nil];
 	[self setUser:nil];
+}
+
++ (NSData *)deviceToken {
+	return [[NSUserDefaults standardUserDefaults] dataForKey:WLSessionDeviceTokenKey];
+}
+
++ (void)setDeviceToken:(NSData *)deviceToken {
+	[[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:WLSessionDeviceTokenKey];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

@@ -119,6 +119,10 @@
 		12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
 		12E8FF2118E9885F00BF1B96 /* WLComposeBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E8FF2018E9885F00BF1B96 /* WLComposeBar.xib */; };
 		12E8FF2418E98B7100BF1B96 /* WLComposeContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF2318E98B7100BF1B96 /* WLComposeContainer.m */; };
+		12E9488019239090008DED79 /* WLUserChannelBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E9487A19239090008DED79 /* WLUserChannelBroadcaster.m */; };
+		12E9488119239090008DED79 /* WLWrapChannelBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E9487D19239090008DED79 /* WLWrapChannelBroadcaster.m */; };
+		12E9488419239129008DED79 /* WLMessageBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E9488319239129008DED79 /* WLMessageBroadcaster.m */; };
+		12E9488719239140008DED79 /* WLChannelBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E9488619239140008DED79 /* WLChannelBroadcaster.m */; };
 		12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EBF8D718F6A6D000EA3185 /* UIViewController+Additions.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
@@ -347,6 +351,14 @@
 		12E8FF2218E98B7100BF1B96 /* WLComposeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposeContainer.h; path = WLComposeBar/WLComposeContainer.h; sourceTree = "<group>"; };
 		12E8FF2318E98B7100BF1B96 /* WLComposeContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposeContainer.m; path = WLComposeBar/WLComposeContainer.m; sourceTree = "<group>"; };
 		12E8FF2518E9B33E00BF1B96 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		12E9487919239090008DED79 /* WLUserChannelBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUserChannelBroadcaster.h; sourceTree = "<group>"; };
+		12E9487A19239090008DED79 /* WLUserChannelBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUserChannelBroadcaster.m; sourceTree = "<group>"; };
+		12E9487C19239090008DED79 /* WLWrapChannelBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapChannelBroadcaster.h; sourceTree = "<group>"; };
+		12E9487D19239090008DED79 /* WLWrapChannelBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapChannelBroadcaster.m; sourceTree = "<group>"; };
+		12E9488219239129008DED79 /* WLMessageBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessageBroadcaster.h; sourceTree = "<group>"; };
+		12E9488319239129008DED79 /* WLMessageBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMessageBroadcaster.m; sourceTree = "<group>"; };
+		12E9488519239140008DED79 /* WLChannelBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChannelBroadcaster.h; sourceTree = "<group>"; };
+		12E9488619239140008DED79 /* WLChannelBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChannelBroadcaster.m; sourceTree = "<group>"; };
 		12EBF8D618F6A6D000EA3185 /* UIViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Additions.h"; sourceTree = "<group>"; };
 		12EBF8D718F6A6D000EA3185 /* UIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -1087,6 +1099,7 @@
 		12E0F04B19090AE800463FEC /* WLBroadcaster */ = {
 			isa = PBXGroup;
 			children = (
+				12E9487419239090008DED79 /* PubNub Broadcasters */,
 				ACB029D0191AA136003A2E0D /* WLInternetConnectionBroadcaster */,
 				12E0F0631909279200463FEC /* WLDeviceOrientationBroadcaster */,
 				12E0F05B19090BF000463FEC /* WLKeyboardBroadcaster */,
@@ -1307,6 +1320,54 @@
 				12E8FF2318E98B7100BF1B96 /* WLComposeContainer.m */,
 			);
 			name = WLComposeBar;
+			sourceTree = "<group>";
+		};
+		12E9487419239090008DED79 /* PubNub Broadcasters */ = {
+			isa = PBXGroup;
+			children = (
+				12E9487519239090008DED79 /* WLChannelBroadcaster */,
+				12E9487E19239090008DED79 /* WLMessageBroadcaster */,
+			);
+			name = "PubNub Broadcasters";
+			path = "WLBroadcaster/PubNub Broadcasters";
+			sourceTree = "<group>";
+		};
+		12E9487519239090008DED79 /* WLChannelBroadcaster */ = {
+			isa = PBXGroup;
+			children = (
+				12E9487819239090008DED79 /* WLUserChannelBroadcaster */,
+				12E9487B19239090008DED79 /* WLWrapChannelBroadcaster */,
+				12E9488519239140008DED79 /* WLChannelBroadcaster.h */,
+				12E9488619239140008DED79 /* WLChannelBroadcaster.m */,
+			);
+			path = WLChannelBroadcaster;
+			sourceTree = "<group>";
+		};
+		12E9487819239090008DED79 /* WLUserChannelBroadcaster */ = {
+			isa = PBXGroup;
+			children = (
+				12E9487919239090008DED79 /* WLUserChannelBroadcaster.h */,
+				12E9487A19239090008DED79 /* WLUserChannelBroadcaster.m */,
+			);
+			path = WLUserChannelBroadcaster;
+			sourceTree = "<group>";
+		};
+		12E9487B19239090008DED79 /* WLWrapChannelBroadcaster */ = {
+			isa = PBXGroup;
+			children = (
+				12E9487C19239090008DED79 /* WLWrapChannelBroadcaster.h */,
+				12E9487D19239090008DED79 /* WLWrapChannelBroadcaster.m */,
+			);
+			path = WLWrapChannelBroadcaster;
+			sourceTree = "<group>";
+		};
+		12E9487E19239090008DED79 /* WLMessageBroadcaster */ = {
+			isa = PBXGroup;
+			children = (
+				12E9488219239129008DED79 /* WLMessageBroadcaster.h */,
+				12E9488319239129008DED79 /* WLMessageBroadcaster.m */,
+			);
+			path = WLMessageBroadcaster;
 			sourceTree = "<group>";
 		};
 		12EBF8D518F6A6D000EA3185 /* UIViewController */ = {
@@ -1546,8 +1607,10 @@
 				12D7E0B81910E5480094C376 /* WLCache.m in Sources */,
 				12E0F05A19090B2E00463FEC /* WLWrapBroadcaster.m in Sources */,
 				121B1B2E18E07430001F585C /* WLCountry.m in Sources */,
+				12E9488119239090008DED79 /* WLWrapChannelBroadcaster.m in Sources */,
 				ACB029D3191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.m in Sources */,
 				12E5BA5518EAB9C40033CE4E /* WLWrapEntry.m in Sources */,
+				12E9488419239129008DED79 /* WLMessageBroadcaster.m in Sources */,
 				12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */,
 				12E8FF2418E98B7100BF1B96 /* WLComposeContainer.m in Sources */,
 				C59528F2191CDA6A001ECD7C /* WLPhoneCell.m in Sources */,
@@ -1608,6 +1671,7 @@
 				12D578CE1917E82100586995 /* UIAlertView+Blocks.m in Sources */,
 				12DEC3F21921181B007BE6CC /* NSObject+AssociatedObjects.m in Sources */,
 				C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */,
+				12E9488719239140008DED79 /* WLChannelBroadcaster.m in Sources */,
 				12D4E94818FBEC5100B8F2AF /* WLUploadingQueue.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,
 				12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */,
@@ -1622,6 +1686,7 @@
 				12D578CA1917ACE200586995 /* NSDate+Additions.m in Sources */,
 				12A9EFBB18F8026E002CBF75 /* WLCameraAdjustmentView.m in Sources */,
 				AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */,
+				12E9488019239090008DED79 /* WLUserChannelBroadcaster.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				1215DC7F18E4485800FCA744 /* UIStoryboard+Additions.m in Sources */,
 				129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */,
@@ -1695,7 +1760,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "CA34F30E-834A-4C0A-8937-1197AEE0EF9B";
+				PROVISIONING_PROFILE = "6BC32490-B6CB-4F0A-9521-375D0F6AECC8";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1746,7 +1811,7 @@
 				INFOPLIST_FILE = "WrapLive/WrapLive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "CA34F30E-834A-4C0A-8937-1197AEE0EF9B";
+				PROVISIONING_PROFILE = "6BC32490-B6CB-4F0A-9521-375D0F6AECC8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

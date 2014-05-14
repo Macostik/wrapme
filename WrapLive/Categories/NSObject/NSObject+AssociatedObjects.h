@@ -10,8 +10,8 @@
 
 @interface NSObject (AssociatedObjects)
 
-- (id)associatedObjectForKey:(NSString*)key;
+- (id)associatedObjectForKey:(const char *)key;
 
-- (void)setAssociatedObject:(id)object forKey:(NSString*)key;
+- (void)setAssociatedObject:(id)object forKey:(const char *)key;
 
 @end

@@ -46,7 +46,6 @@
 	self.coverView.imageUrl = wrap.picture.small;
 	self.contributorsLabel.text = wrap.contributorNames;
 	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
-	self.nameLabel.superview.vibrateOnLongPressGesture = [wrap.contributor isCurrentUser];
 }
 
 - (void)setCandies:(NSArray *)candies {
@@ -59,7 +58,7 @@
 	[self.delegate wrapCell:self didSelectWrap:self.item];
 }
 
-- (void)showMenu:(CGPoint)point {	
+- (void)showMenu:(CGPoint)point {
 	UIMenuItem* menuItem = nil;
 	__weak typeof(self)weakSelf = self;
 	WLWrap* wrap = weakSelf.item;

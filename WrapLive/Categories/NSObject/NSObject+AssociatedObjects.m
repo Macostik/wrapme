@@ -11,12 +11,12 @@
 
 @implementation NSObject (AssociatedObjects)
 
-- (id)associatedObjectForKey:(NSString*)key {
-	return objc_getAssociatedObject(self, (__bridge const void *)(key));
+- (id)associatedObjectForKey:(const char *)key {
+	return objc_getAssociatedObject(self, key);
 }
 
-- (void)setAssociatedObject:(id)object forKey:(NSString*)key {
-	objc_setAssociatedObject(self, (__bridge const void *)(key), object, OBJC_ASSOCIATION_RETAIN);
+- (void)setAssociatedObject:(id)object forKey:(const char *)key {
+	objc_setAssociatedObject(self, key, object, OBJC_ASSOCIATION_RETAIN);
 }
 
 @end

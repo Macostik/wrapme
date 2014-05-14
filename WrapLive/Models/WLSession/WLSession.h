@@ -55,4 +55,8 @@
 
 + (void)clear;
 
++ (NSData*)deviceToken;
+
++ (void)setDeviceToken:(NSData*)deviceToken;
+
 @end

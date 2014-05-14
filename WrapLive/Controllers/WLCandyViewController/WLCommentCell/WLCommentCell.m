@@ -53,6 +53,7 @@
 	self.commentLabel.text = entry.text;
 	[self.commentLabel sizeToFitHeight];
 	self.authorImageView.imageUrl = entry.contributor.picture.medium;
+	self.vibrateOnLongPressGesture = [entry.contributor isCurrentUser];
 }
 
 - (void)showMenu:(CGPoint)point {

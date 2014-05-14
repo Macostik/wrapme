@@ -65,11 +65,9 @@
 	self.createWrapButton.transform = CGAffineTransformMakeTranslation(0, self.createWrapButton.height);
 	self.tableView.hidden = YES;
 	self.noWrapsView.hidden = YES;
-	
 	[self setupRefresh];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	self.tableView.tableFooterView = [WLLoadingView instance];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {

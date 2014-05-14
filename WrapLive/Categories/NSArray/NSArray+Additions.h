@@ -53,6 +53,14 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 
 - (BOOL)replaceObject:(id)object withObject:(id)replaceObject;
 
+- (BOOL)exchangeObject:(id)object withObjectAtIndex:(NSUInteger)replaceIndex;
+
+- (BOOL)exchangeObject:(id)object withObject:(id)exchangeObject;
+
+- (BOOL)moveObjectAtFirstIndex:(id)object;
+
+- (BOOL)moveObjectPassingTestAtFirstIndex:(SelectBlock)block;
+
 - (void)addUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality;
 
 - (void)addUniqueObject:(id)object equality:(EqualityBlock)equality;

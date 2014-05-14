@@ -23,35 +23,35 @@
 @implementation UIView (GestureRecognizing)
 
 - (void)setTapGestureBlock:(WLPointBlock)tapGestureBlock {
-	[self setAssociatedObject:tapGestureBlock forKey:@"tapGestureBlock"];
+	[self setAssociatedObject:tapGestureBlock forKey:"tapGestureBlock"];
 }
 
 - (WLPointBlock)tapGestureBlock {
-	return [self associatedObjectForKey:@"tapGestureBlock"];
+	return [self associatedObjectForKey:"tapGestureBlock"];
 }
 
 - (void)setTapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
-	[self setAssociatedObject:tapGestureRecognizer forKey:@"tapGestureRecognizer"];
+	[self setAssociatedObject:tapGestureRecognizer forKey:"tapGestureRecognizer"];
 }
 
 - (UITapGestureRecognizer *)tapGestureRecognizer {
-	return [self associatedObjectForKey:@"tapGestureRecognizer"];
+	return [self associatedObjectForKey:"tapGestureRecognizer"];
 }
 
 - (void)setLongPressGestureBlock:(WLPointBlock)longPressGestureBlock {
-	[self setAssociatedObject:longPressGestureBlock forKey:@"longPressGestureBlock"];
+	[self setAssociatedObject:longPressGestureBlock forKey:"longPressGestureBlock"];
 }
 
 - (WLPointBlock)longPressGestureBlock {
-	return [self associatedObjectForKey:@"longPressGestureBlock"];
+	return [self associatedObjectForKey:"longPressGestureBlock"];
 }
 
 - (void)setVibrateOnLongPressGesture:(BOOL)vibrateOnLongPressGesture {
-	[self setAssociatedObject:@(vibrateOnLongPressGesture) forKey:@"vibrateOnLongPressGesture"];
+	[self setAssociatedObject:@(vibrateOnLongPressGesture) forKey:"vibrateOnLongPressGesture"];
 }
 
 - (BOOL)vibrateOnLongPressGesture {
-	return [[self associatedObjectForKey:@"vibrateOnLongPressGesture"] boolValue];
+	return [[self associatedObjectForKey:"vibrateOnLongPressGesture"] boolValue];
 }
 
 - (void)addTapGestureRecognizing:(WLPointBlock)block {
@@ -69,6 +69,7 @@
 }
 
 - (void)addLongPressGestureRecognizing:(WLPointBlock)block {
+	self.vibrateOnLongPressGesture = YES;
 	self.longPressGestureBlock = block;
 	UILongPressGestureRecognizer* longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
 	[self addGestureRecognizer:longPressGestureRecognizer];
@@ -79,7 +80,7 @@
 - (void)longPress:(UILongPressGestureRecognizer*)sender {
 	if (sender.state == UIGestureRecognizerStateBegan && self.userInteractionEnabled) {
 		if (self.vibrateOnLongPressGesture) {
-			AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+			AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 		}
 		WLPointBlock longPressGestureBlock = self.longPressGestureBlock;
 		if (longPressGestureBlock) {

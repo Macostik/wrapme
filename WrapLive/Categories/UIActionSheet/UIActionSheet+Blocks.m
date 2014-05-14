@@ -41,11 +41,11 @@
 }
 
 - (WLActionSheetCompletion)completion {
-	return [self associatedObjectForKey:@"wl_alertview_completion"];
+	return [self associatedObjectForKey:"wl_alertview_completion"];
 }
 
 - (void)setCompletion:(WLActionSheetCompletion)completion {
-	[self setAssociatedObject:completion forKey:@"wl_alertview_completion"];
+	[self setAssociatedObject:completion forKey:"wl_alertview_completion"];
 }
 
 #pragma mark - UIActionSheetDelegate

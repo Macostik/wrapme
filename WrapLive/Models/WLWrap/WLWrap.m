@@ -70,9 +70,9 @@
 - (NSString *)contributorNames {
 	if (!_contributorNames) {
 		NSMutableArray* contributors = [self.contributors mutableCopy];
-		[contributors exchangeObjectAtIndex:[contributors indexOfObjectPassingTest:^BOOL(WLUser* contributor, NSUInteger idx, BOOL *stop) {
+		[contributors moveObjectPassingTestAtFirstIndex:^BOOL(WLUser* contributor) {
 			return [contributor isCurrentUser];
-		}] withObjectAtIndex:0];
+		}];
 		_contributorNames = [[contributors map:^id(WLUser* contributor) {
 			return [contributor isCurrentUser] ? @"You" : contributor.name;
 		}] componentsJoinedByString:@", "];

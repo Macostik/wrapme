@@ -42,6 +42,7 @@
 @property (nonatomic) BOOL shouldLoadMoreDates;
 
 @property (weak, nonatomic) WLRefresher *refresher;
+@property (strong, nonatomic) NSArray *theChannels;
 
 @end
 

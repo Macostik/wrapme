@@ -58,6 +58,8 @@
 	self.commentLabel.hidden = !self.commentLabel.text.nonempty;
 	
 	[self refreshUploadingButtons:entry];
+	
+	self.vibrateOnLongPressGesture = [entry.contributor isCurrentUser];
 }
 
 - (void)refreshUploadingButtons:(WLCandy*)candy {

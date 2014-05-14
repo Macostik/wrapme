@@ -12,8 +12,10 @@
 #import <CocoaLumberjack/DDTTYLogger.h>
 #import "WLInternetConnectionBroadcaster.h"
 #import "WLToast.h"
+#import "WLSession.h"
+#import "WLMessageBroadcaster.h"
 
-@interface WLAppDelegate () <PNDelegate, WLInternetConnectionBroadcastReceiver>
+@interface WLAppDelegate () <WLInternetConnectionBroadcastReceiver>
 
 @end
 
@@ -24,28 +26,12 @@
     // Override point for customization after application launch.
 	[DDLog addLogger:[DDASLLogger sharedInstance]];
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
-	
-//	[PubNub setDelegate:self];
 //	
-//	[PubNub setConfiguration:[PNConfiguration defaultConfiguration]];
-//	
-//	[PubNub connect];
-//	
-//	PNChannel *channel_1 = [PNChannel channelWithName:@"a" shouldObservePresence:YES];
-//	
-//	//Subscribe to the channel
-//	[PubNub subscribeOnChannel:channel_1];
-//	
-//	//Publish on the channel
-//	[PubNub sendMessage:@"Hello from PubNub iOS!" toChannel:channel_1];
+//	[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
 	[[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
 	[self performSelector:@selector(showLostConnectionBannerIfNeeded) withObject:nil afterDelay:0.5f];
-		
-    return YES;
-}
-
-- (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
-	NSLog( @"%@", [NSString stringWithFormat:@"received: %@", message.message] );
+	
+	return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -74,6 +60,16 @@
 {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+//	NSLog(@"deviceToken %@", deviceToken);
+//	[WLSession setDeviceToken:deviceToken];
+//	[WLMessageBroadcaster enablePushNotificationsInChannels:[PubNub subscribedChannels] withDeviceToken:deviceToken];
+//}
+//
+//- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+//	NSLog(@"%@", error);
+//}
 
 #pragma mark - WLInternetConnectionBroadcastReceiver
 

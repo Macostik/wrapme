@@ -43,12 +43,12 @@
 }
 
 - (WLAlertViewCompletion)completion {
-	return [self associatedObjectForKey:@"wl_alertview_completion"];
+	return [self associatedObjectForKey:"wl_alertview_completion"];
 }
 
 - (void)setCompletion:(WLAlertViewCompletion)completion {
 	self.delegate = self;
-	[self setAssociatedObject:completion forKey:@"wl_alertview_completion"];
+	[self setAssociatedObject:completion forKey:"wl_alertview_completion"];
 }
 
 #pragma mark - UIAlertViewDelegate

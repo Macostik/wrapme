@@ -59,7 +59,7 @@
 	[self.delegate wrapCell:self didSelectWrap:self.item];
 }
 
-- (void)showMenu:(CGPoint)point {
+- (void)showMenu:(CGPoint)point {	
 	UIMenuItem* menuItem = nil;
 	__weak typeof(self)weakSelf = self;
 	WLWrap* wrap = weakSelf.item;

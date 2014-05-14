@@ -11,6 +11,8 @@
 #import "UIFont+CustomFonts.h"
 #import "WLBlocks.h"
 
+#import "WLHomeViewController.h"
+
 @interface WLToast ()
 
 @property (weak, nonatomic) UILabel* messageLabel;
@@ -63,15 +65,25 @@
 	[[self toast] showWithMessage:message];
 }
 
+- (UIViewController *)topViewController {
+	UIWindow * window = [[[UIApplication sharedApplication] windows] firstObject];
+	UINavigationController * rootController = (id)[window rootViewController];
+	return [rootController topViewController];
+}
+
 - (void)showWithMessage:(NSString *)message {
 	self.message = message;
 	__weak WLToast* selfWeak = self;
 	if (self.superview == nil) {
-		self.frame = CGRectMake(0, -64, [UIScreen mainScreen].bounds.size.width, 64);
-		self.messageLabel.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 44);
+		NSInteger toastHeight = 64;
+		if ([[self topViewController] isMemberOfClass:[WLHomeViewController class]]) {
+			toastHeight = 84;
+		}
+		self.frame = CGRectMake(0, -toastHeight, [UIScreen mainScreen].bounds.size.width, toastHeight);
+		self.messageLabel.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, toastHeight - 20);
 		[[[[UIApplication sharedApplication] windows] firstObject] addSubview:self];
 		[UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-			selfWeak.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64);
+			selfWeak.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, toastHeight);
 		} completion:^(BOOL finished) {
 		}];
 	}

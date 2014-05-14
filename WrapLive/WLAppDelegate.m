@@ -39,7 +39,7 @@
 //	//Publish on the channel
 //	[PubNub sendMessage:@"Hello from PubNub iOS!" toChannel:channel_1];
 	[[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
-	[self performSelector:@selector(showLostConnectionBannerIfNeeded) withObject:nil afterDelay:0.1f];
+	[self performSelector:@selector(showLostConnectionBannerIfNeeded) withObject:nil afterDelay:0.5f];
 		
     return YES;
 }
@@ -84,6 +84,7 @@
 }
 
 - (void)showLostConnectionBanner {
+	
 	[WLToast showWithMessage:@"Lost internet connection"];
 }
 

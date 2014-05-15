@@ -78,14 +78,17 @@
 
 - (void)showMenu:(CGPoint)point {
 	WLCandy* candy = self.item;
-	if (candy.uploadingItem == nil && [candy isImage] && [candy.contributor isCurrentUser]) {
-		UIMenuItem* menuItem = [[UIMenuItem alloc] initWithTitle:@"Delete" action:@selector(remove)];
-		UIMenuController* menuController = [UIMenuController sharedMenuController];
-		[self becomeFirstResponder];
-		menuController.menuItems = @[menuItem];
-		[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
-		[menuController setMenuVisible:YES animated:YES];
-	}
+	UIMenuItem* menuItem = [[UIMenuItem alloc] init];
+	[menuItem setTitle:([candy isImage] && [candy.contributor isCurrentUser]) ? @"Delete" : @"Cannot delete photo not posted by you."];
+	[menuItem setAction:([candy isImage] && [candy.contributor isCurrentUser]) ? @selector(remove) : @selector(hide)];
+	UIMenuController* menuController = [UIMenuController sharedMenuController];
+	[self becomeFirstResponder];
+	menuController.menuItems = @[menuItem];
+	[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
+	[menuController setMenuVisible:YES animated:YES];
+}
+
+- (void)hide {
 }
 
 - (void)remove {
@@ -101,7 +104,7 @@
 }
 
 - (BOOL)canPerformAction:(SEL)selector withSender:(id) sender {
-    return (selector == @selector(remove));
+    return (selector == @selector(remove) || (selector == @selector(hide)));
 }
 
 - (BOOL)canBecomeFirstResponder {

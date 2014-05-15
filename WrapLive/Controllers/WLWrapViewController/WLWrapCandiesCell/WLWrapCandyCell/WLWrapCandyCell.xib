@@ -29,25 +29,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K3n-zv-pW0">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="100"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                                <state key="normal" image="ic_close">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancelUploading:" destination="oYj-dx-vE3" eventType="touchUpInside" id="7rF-9C-BfR"/>
-                                </connections>
-                            </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uSe-AI-wyZ">
-                                <rect key="frame" x="50" y="0.0" width="50" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
+                                <rect key="frame" x="25" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="↻">
+                                <state key="normal" image="btn_reload_enabled">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="highlighted" image="btn_reload_pressed"/>
                                 <connections>
                                     <action selector="retryUploading:" destination="oYj-dx-vE3" eventType="touchUpInside" id="fo8-8w-AEW"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K3n-zv-pW0">
+                                <rect key="frame" x="25" y="50" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <state key="normal" image="btn_delete_enabled">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" image="btn_delete_pressed"/>
+                                <connections>
+                                    <action selector="cancelUploading:" destination="oYj-dx-vE3" eventType="touchUpInside" id="7rF-9C-BfR"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -83,7 +85,10 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="btn_delete_enabled" width="28" height="28"/>
+        <image name="btn_delete_pressed" width="28" height="28"/>
+        <image name="btn_reload_enabled" width="28" height="28"/>
+        <image name="btn_reload_pressed" width="28" height="28"/>
         <image name="ic_chat2" width="18" height="16"/>
-        <image name="ic_close" width="16" height="16"/>
     </resources>
 </document>

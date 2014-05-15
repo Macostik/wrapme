@@ -73,8 +73,13 @@
 	NSArray* candies = [self.items map:^id(WLUploadingItem* item) {
 		if ([wrap isEqualToEntry:item.wrap]) {
 			WLWrapDate* date = [wrap.dates firstObject];
-			if (![date.candies containsEntry:item.candy]) {
+			WLCandy* candy = [date.candies selectObject:^BOOL(WLCandy* candy) {
+				return [candy isEqualToEntry:item.candy];
+			}];
+			if (candy == nil) {
 				return item.candy;
+			} else {
+				[candy updateWithObject:item.candy];
 			}
 		}
 		return nil;

@@ -20,6 +20,7 @@
 #import "UIActionSheet+Blocks.h"
 #import "NSString+Additions.h"
 #import "UIView+GestureRecognizing.h"
+#import "UIView+QuatzCoreAnimations.h"
 
 @interface WLWrapCandyCell () <WLWrapBroadcastReceiver>
 
@@ -57,30 +58,27 @@
 	}
 	self.commentLabel.hidden = !self.commentLabel.text.nonempty;
 	
-	[self refreshUploadingButtons:entry];
+	[self refreshUploadingButtons:entry animated:NO];
 }
 
-- (void)refreshUploadingButtons:(WLCandy*)candy {
+- (void)refreshUploadingButtons:(WLCandy*)candy animated:(BOOL)animated {
 	if (candy.uploadingItem) {
 		self.vibrateOnLongPressGesture = NO;
 		self.lowOpacityView.hidden = NO;
 		self.cancelButton.hidden = (candy.uploadingItem.operation != nil);
 		self.retryButton.hidden = (candy.uploadingItem.operation != nil);
 	} else {
-		__weak typeof(self)weakSelf = self;
-		[UIView animateWithDuration:0.3f animations:^{
-			weakSelf.lowOpacityView.alpha = 0.0f;
-		} completion:^(BOOL finished) {
-			weakSelf.lowOpacityView.hidden = YES;
-			weakSelf.lowOpacityView.alpha = 1.0f;
-		}];
+		if (animated) {
+			[self.lowOpacityView fade];
+		}
+		self.lowOpacityView.hidden = YES;
 		self.vibrateOnLongPressGesture = [candy isImage] && [candy.contributor isCurrentUser];
 	}
 }
 
 - (void)showMenu:(CGPoint)point {
 	WLCandy* candy = self.item;
-	if ([candy isImage] && [candy.contributor isCurrentUser]) {
+	if (candy.uploadingItem == nil && [candy isImage] && [candy.contributor isCurrentUser]) {
 		UIMenuItem* menuItem = [[UIMenuItem alloc] initWithTitle:@"Delete" action:@selector(remove)];
 		UIMenuController* menuController = [UIMenuController sharedMenuController];
 		[self becomeFirstResponder];
@@ -114,7 +112,7 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
 	if ([candy isEqualToEntry:self.item]) {
-		[self refreshUploadingButtons:self.item];
+		[self refreshUploadingButtons:self.item animated:YES];
 	}
 }
 
@@ -124,7 +122,7 @@
 	WLCandy* candy = self.item;
 	[self.wrap removeCandy:candy];
 	[[WLUploadingQueue instance] removeItem:candy.uploadingItem];
-	[self refreshUploadingButtons:self.item];
+	[self refreshUploadingButtons:self.item animated:YES];
 }
 
 - (IBAction)retryUploading:(id)sender {

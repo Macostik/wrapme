@@ -30,7 +30,7 @@
 
 - (void)setupItemData:(WLUser*)user {
 	NSString * userNameText = [user isCurrentUser] ? @"You" : user.name;
-	self.nameLabel.text = user.isCreator ? [NSString stringWithFormat:@"%@ (Admin)", userNameText] : userNameText;
+	self.nameLabel.text = user.isCreator ? [NSString stringWithFormat:@"%@ (Owner)", userNameText] : userNameText;
 	if (user.picture.medium.nonempty) {
 		self.avatarView.imageUrl = user.picture.medium;
 	} else {

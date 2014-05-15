@@ -20,7 +20,7 @@
 
 - (void)setDate:(WLWrapDate *)date {
 	_date = date;
-	self.dateLabel.text = [date.updatedAt stringWithFormat:@"MMM dd, YYYY"];
+	self.dateLabel.text = [date.updatedAt stringWithFormat:@"MMM d, YYYY"];
 }
 
 @end

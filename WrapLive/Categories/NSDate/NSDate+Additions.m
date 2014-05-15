@@ -72,30 +72,23 @@ static NSString *WLTimeIntervalLessThanMinute = @"less than minute ago";
 }
 
 - (NSString *)timeAgoString {
-	
 	NSTimeInterval interval = ABS([self timeIntervalSinceNow]);
-	
-	NSInteger value = 0;
-	
-	NSString* name = nil;
-	
-	if ((value = interval / WLTimeIntervalYear) >= 1) {
-		name = WLTimeIntervalNameYear;
-	} else if ((value = interval / WLTimeIntervalMonth) >= 1) {
-		name = WLTimeIntervalNameMonth;
-	} else if ((value = interval / WLTimeIntervalWeek) >= 1) {
-		name = WLTimeIntervalNameWeek;
-	} else if ((value = interval / WLTimeIntervalDay) >= 1) {
-		name = WLTimeIntervalNameDay;
-	} else if ((value = interval / WLTimeIntervalHour) >= 1) {
-		name = WLTimeIntervalNameHour;
-	} else if ((value = interval / WLTimeIntervalMinute) >= 1) {
-		name = WLTimeIntervalNameMinute;
+	if (interval >= WLTimeIntervalWeek) {
+		return [self stringWithFormat:@"MMMM d, yyyy 'at' hh:mma"];
 	} else {
-		return WLTimeIntervalLessThanMinute;
+		NSInteger value = 0;
+		NSString* name = nil;
+		if ((value = interval / WLTimeIntervalDay) >= 1) {
+			name = WLTimeIntervalNameDay;
+		} else if ((value = interval / WLTimeIntervalHour) >= 1) {
+			name = WLTimeIntervalNameHour;
+		} else if ((value = interval / WLTimeIntervalMinute) >= 1) {
+			name = WLTimeIntervalNameMinute;
+		} else {
+			return WLTimeIntervalLessThanMinute;
+		}
+		return [NSString stringWithFormat:@"%d %@%@ ago", value, name, (value == 1 ? @"":@"s")];
 	}
-	
-	return [NSString stringWithFormat:@"%d %@%@ ago", value, name, (value == 1 ? @"":@"s")];
 }
 
 @end

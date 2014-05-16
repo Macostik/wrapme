@@ -116,6 +116,7 @@
 				weakSelf.firstContributorView.alpha = 1.0f;
 				weakSelf.firstContributorWrapNameLabel.text = wrap.name;
 				[weakSelf animateHand];
+				[weakSelf performSelector:@selector(animateHand) withObject:nil afterDelay:3];
 			} else {
 				weakSelf.firstContributorView.alpha = 0.0f;
 			}
@@ -134,7 +135,6 @@
 	
 	NSTimeInterval animationDuration = 0.3;
 	CGFloat rotationAngle = M_PI * 15 / 180.0;
-	
 	CGPoint newCenter = CGPointMake(-50, 150);
 	CGAffineTransform transform = CGAffineTransformMakeTranslation(newCenter.x, newCenter.y);
 	transform = CGAffineTransformRotate(transform, -rotationAngle);

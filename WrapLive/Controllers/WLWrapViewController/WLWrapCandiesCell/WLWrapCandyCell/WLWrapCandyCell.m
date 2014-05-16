@@ -47,6 +47,7 @@
 }
 
 - (void)setupItemData:(WLCandy*)entry {
+	self.userInteractionEnabled = YES;
 	self.chatLabelView.hidden = entry.type == WLCandyTypeImage;
 	if (entry.type == WLCandyTypeImage) {
 		WLComment* comment = [entry.comments lastObject];

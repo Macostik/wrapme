@@ -49,6 +49,7 @@
 }
 
 - (void)setupItemData:(WLComment *)entry {
+	self.userInteractionEnabled = YES;
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", entry.contributor.name, entry.createdAt.timeAgoString];
 	self.commentLabel.text = entry.text;
 	[self.commentLabel sizeToFitHeight];

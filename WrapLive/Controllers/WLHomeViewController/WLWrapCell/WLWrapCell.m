@@ -42,6 +42,7 @@
 }
 
 - (void)setupItemData:(WLWrap*)wrap {
+	self.nameLabel.superview.userInteractionEnabled = YES;
 	self.nameLabel.text = wrap.name;
 	self.coverView.imageUrl = wrap.picture.small;
 	self.contributorsLabel.text = wrap.contributorNames;

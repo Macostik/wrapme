@@ -176,6 +176,11 @@
 	}];
 }
 
+- (BOOL)containsIndex:(NSUInteger)index {
+	NSUInteger count = [self count];
+	return count > 0 && IsInBounds(0, count - 1, index);
+}
+
 @end
 
 @implementation NSMutableArray (Additions)

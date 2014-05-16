@@ -37,7 +37,18 @@ CGAffineTransform CGAffineTransformTripleConcat(CGAffineTransform t1, CGAffineTr
 
 CGRect CGRectStruct(CGPoint origin, CGSize size);
 
-CGFloat Smoothstep(CGFloat min, CGFloat max, CGFloat value);
-
 CGFloat CGPointDistanceToPoint(CGPoint fromPoint, CGPoint toPoint);
+
+static inline CGFloat Smoothstep(CGFloat min, CGFloat max, CGFloat value) {
+	if (value < min) {
+		return min;
+	} else if (value > max) {
+		return max;
+	}
+	return value;
+}
+
+static inline BOOL IsInBounds(CGFloat min, CGFloat max, CGFloat value) {
+	return (value >= min && value <= max);
+}
 

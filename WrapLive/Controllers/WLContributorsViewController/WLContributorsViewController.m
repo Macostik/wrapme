@@ -48,12 +48,31 @@
 	NSMutableArray* signedUp = [NSMutableArray array];
 	NSMutableArray* notSignedUp = [NSMutableArray array];
 	for (WLContact* contact in contributors) {
-		contact.users = [contact.users usersByRemovingCurrentUser];
+		
+		NSMutableArray* users = [contact.users mutableCopy];
+		
+		[users removeEntry:[WLUser currentUser]];
+		
 		if (self.wrap.contributor) {
-			contact.users = [contact.users usersByRemovingUser:self.wrap.contributor];
+			[users removeEntry:self.wrap.contributor];
 		}
-		if ([contact.users count] > 0) {
-			[(contact.signedUp ? signedUp : notSignedUp) addObject:contact];
+		
+		NSUInteger index = 0;
+		while ([users containsIndex:index]) {
+			WLUser* user = users[index];
+			if (user.identifier.nonempty) {
+				WLContact* _contact = [[WLContact alloc] init];
+				_contact.users = @[user];
+				[signedUp addObject:_contact];
+				[users removeObject:user];
+			} else {
+				++index;
+			}
+		}
+		
+		if ([users count] > 0) {
+			contact.users = [users copy];
+			[notSignedUp addObject:contact];
 		}
 	}
 	NSComparator comparator = ^NSComparisonResult(WLContact* contact1, WLContact* contact2) {

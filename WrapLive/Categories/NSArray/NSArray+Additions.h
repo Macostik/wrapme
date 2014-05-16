@@ -47,6 +47,8 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 
 - (BOOL)containsObject:(id)target byBlock:(EqualityBlock)block;
 
+- (BOOL)containsIndex:(NSUInteger)index;
+
 @end
 
 @interface NSMutableArray (Additions)

@@ -117,18 +117,6 @@ CGRect CGRectStruct(CGPoint origin, CGSize size) {
     return (CGRect){origin, size};
 }
 
-CGFloat Smoothstep(CGFloat min, CGFloat max, CGFloat value) {
-	if (value < min) {
-		return min;
-	}
-	
-	if (value > max) {
-		return max;
-	}
-	
-	return value;
-}
-
 CGFloat CGPointDistanceToPoint(CGPoint fromPoint, CGPoint toPoint) {
     CGFloat dx = ABS(toPoint.x - fromPoint.x);
     CGFloat dy = ABS(toPoint.y - fromPoint.y);

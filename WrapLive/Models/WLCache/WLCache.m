@@ -59,7 +59,7 @@
 
 - (dispatch_queue_t)queue {
 	if (!_queue) {
-		_queue = dispatch_queue_create(NULL, NULL);
+		_queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_CONCURRENT);
 	}
 	return _queue;
 }

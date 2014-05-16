@@ -103,15 +103,6 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 	return (__bridge_transfer NSData *)ABPersonCopyImageData(record);
 }
 
-- (BOOL)signedUp {
-	for (WLUser* contributor in self.users) {
-		if (contributor.identifier.nonempty) {
-			return YES;
-		}
-	}
-	return NO;
-}
-
 - (NSString *)name {
 	if (!_name.nonempty) {
 		_name = [[self.users selectObject:^BOOL(WLUser* user) {

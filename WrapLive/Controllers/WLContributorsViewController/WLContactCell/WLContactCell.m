@@ -48,7 +48,7 @@
 	if (user.picture.medium.nonempty) {
 		self.avatarView.imageUrl = user.picture.medium;
 	} else {
-		self.avatarView.image = [UIImage imageNamed:@"ic_default_profile"];
+		self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
 	}
 	self.nameLabel.text = contact.name;
 	
@@ -57,7 +57,7 @@
 	} else {
 		self.checked = [self contributorSelected:user];
 	}
-	self.signUpView.hidden = !contact.signedUp;
+	self.signUpView.hidden = !user.identifier.nonempty;
 }
 
 - (void)setChecked:(BOOL)checked {

@@ -28,8 +28,6 @@
 
 @property (strong, nonatomic) NSArray* users;
 
-@property (nonatomic, readonly) BOOL signedUp;
-
 @end
 
 @interface NSString (WLAddressBook)

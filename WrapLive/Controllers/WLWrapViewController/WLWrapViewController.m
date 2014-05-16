@@ -116,7 +116,7 @@
 				weakSelf.firstContributorView.alpha = 1.0f;
 				weakSelf.firstContributorWrapNameLabel.text = wrap.name;
 				[weakSelf animateHand];
-				[weakSelf performSelector:@selector(animateHand) withObject:nil afterDelay:3];
+				
 			} else {
 				weakSelf.firstContributorView.alpha = 0.0f;
 			}
@@ -132,7 +132,9 @@
 }
 
 - (void)animateHand {
-	
+	if (self.firstContributorView.alpha == 0) {
+		return;
+	}
 	NSTimeInterval animationDuration = 0.3;
 	CGFloat rotationAngle = M_PI * 15 / 180.0;
 	CGPoint newCenter = CGPointMake(-50, 150);
@@ -147,9 +149,11 @@
 	} completion:^(BOOL finished) {
 		[UIView animateWithDuration:animationDuration animations:^{
 			weakSelf.shakingHandView.transform = CGAffineTransformIdentity;
+		} completion:^(BOOL finished) {
+			[weakSelf performSelector:@selector(animateHand) withObject:nil afterDelay:5];
 		}];
 	}];
-
+	
 }
 
 - (void)appendDates {

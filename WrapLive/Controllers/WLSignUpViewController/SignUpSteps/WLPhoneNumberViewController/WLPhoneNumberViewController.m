@@ -131,9 +131,9 @@
 	
 	NSString* phoneNumber = [NSString stringWithFormat:@"+%@ %@", user.countryCallingCode, user.phoneNumber];
 	
-	NSString* confirmationMessage = [NSString stringWithFormat:@"%@\n%@\nIs the information above correct?",phoneNumber,[user.birthdate GMTStringWithFormat:@"MMM dd, yyyy"]];
+	NSString* confirmationMessage = [NSString stringWithFormat:@"%@\n%@\nIs this correct?",phoneNumber,[user.birthdate GMTStringWithFormat:@"MMM dd, yyyy"]];
 	
-	[UIAlertView showWithTitle:@"Confirmation" message:confirmationMessage buttons:@[@"Edit",@"Yes"] completion:^(NSUInteger index) {
+	[UIAlertView showWithTitle:@"Confirm your details" message:confirmationMessage buttons:@[@"Edit",@"Yes"] completion:^(NSUInteger index) {
 		if (index == 1) {
 			[weakSelf.spinner startAnimating];
 			weakSelf.view.userInteractionEnabled = NO;

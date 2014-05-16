@@ -89,7 +89,10 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 
 - (UIViewController *)topViewController {
 	UINavigationController *rootController = (id)[self.presentingWindow rootViewController];
-	return [rootController topViewController];
+	if ([rootController isKindOfClass:[UINavigationController class]]) {
+		return [rootController topViewController];
+	}
+	return rootController;
 }
 
 - (void)showWithMessage:(NSString *)message {

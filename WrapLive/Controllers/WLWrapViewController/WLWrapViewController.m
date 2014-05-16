@@ -43,12 +43,14 @@
 
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (strong, nonatomic) NSArray *theChannels;
+@property (weak, nonatomic) IBOutlet UIImageView *shakingHandView;
 
 @end
 
 @implementation WLWrapViewController
 {
 	BOOL loading;
+	BOOL wrapEditing;
 }
 
 - (void)viewDidLoad {
@@ -70,7 +72,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	loading = NO;
+	wrapEditing = NO;
 }
 
 - (void)setWrapData {
@@ -113,6 +115,7 @@
 			if ([wrap.dates count] == 0) {
 				weakSelf.firstContributorView.alpha = 1.0f;
 				weakSelf.firstContributorWrapNameLabel.text = wrap.name;
+				[self animateHand];
 			} else {
 				weakSelf.firstContributorView.alpha = 0.0f;
 			}
@@ -125,6 +128,29 @@
 		[error showIgnoringNetworkError];
 		[weakSelf.refresher endRefreshing];
 	}];
+}
+
+- (void)animateHand {
+	
+	NSTimeInterval animationDuration = 0.3;
+	CGFloat rotationAngle = M_PI * 15 / 180.0;
+	
+	CGPoint newCenter = CGPointMake(-50, 150);
+	NSLog(@"%f, %f", newCenter.x, newCenter.y);
+	CGAffineTransform transform = CGAffineTransformMakeTranslation(newCenter.x, newCenter.y);
+	transform = CGAffineTransformRotate(transform, -rotationAngle);
+	transform = CGAffineTransformTranslate(transform,-newCenter.x,-newCenter.y);
+	__weak typeof(self)weakSelf = self;
+	[UIView animateWithDuration:animationDuration animations:^{
+		[UIView setAnimationRepeatCount:1.5];
+		[UIView setAnimationRepeatAutoreverses:YES];
+		weakSelf.shakingHandView.transform = transform;
+	} completion:^(BOOL finished) {
+		[UIView animateWithDuration:animationDuration animations:^{
+			weakSelf.shakingHandView.transform = CGAffineTransformIdentity;
+		}];
+	}];
+
 }
 
 - (void)appendDates {
@@ -194,10 +220,10 @@
 }
 
 - (IBAction)editWrap:(id)sender {
-	if (loading){
+	if (wrapEditing){
 		return;
 	}
-	loading = YES;
+	wrapEditing = YES;
 	WLCreateWrapViewController* controller = [self.storyboard editWrapViewController];
 	controller.wrap = self.wrap;
 	[controller presentInViewController:self transition:WLWrapTransitionFromRight];

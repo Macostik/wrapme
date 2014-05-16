@@ -9,6 +9,7 @@
 #import "NSError+WLAPIManager.h"
 #import <CocoaLumberjack/DDLog.h>
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
+#import "WLToast.h"
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
@@ -45,11 +46,8 @@ static NSDictionary *errorsToIgnore = nil;
 
 - (void)showWithTitle:(NSString *)title callback:(void (^)(void))callback {
 	if (![self ignore]) {
-		NSString* errorMessage = [self errorMessage];
-		if (!errorMessage) {
-			errorMessage = self.localizedDescription;
-		}
-		[[[UIAlertView alloc] initWithTitle:title message:errorMessage delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+		[WLToast showWithMessage:[self errorMessage]?:self.localizedDescription];
+//		[[[UIAlertView alloc] initWithTitle:title message:errorMessage delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
 	}
 }
 

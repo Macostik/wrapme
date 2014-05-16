@@ -10,9 +10,9 @@
 #import "UIColor+CustomColors.h"
 #import "UIFont+CustomFonts.h"
 #import "WLBlocks.h"
-#import "WLHomeViewController.h"
 #import "UILabel+Additions.h"
 #import "UIView+Shorthand.h"
+#import "WLSupportFunctions.h"
 
 static CGFloat WLToastDefaultHeight = 64.0f;
 static CGFloat WLToastDefaultSpacing = 100.0f;
@@ -21,7 +21,6 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 
 @property (weak, nonatomic) UILabel* messageLabel;
 @property (weak, nonatomic) UIImageView* iconView;
-@property (readonly, nonatomic) UIWindow* presentingWindow;
 
 @end
 
@@ -33,6 +32,58 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 		toast = [[self alloc] init];
 	}
 	return toast;
+}
+
++ (void)showWithMessage:(NSString *)message {
+	[[self toast] showWithMessage:message];
+}
+
++ (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance {
+	[[self toast] showWithMessage:message appearance:appearance];
+}
+
+- (void)showWithMessage:(NSString *)message {
+	[self showWithMessage:message appearance:TopViewController()];
+}
+
+- (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance {
+	
+	self.height = appearance ? [appearance toastAppearanceHeight:self] : WLToastDefaultHeight;
+	
+	self.message = message;
+	
+	if (self.messageLabel.height > self.height - 20) {
+		self.height = self.messageLabel.height + 40;
+		self.messageLabel.y = 30;
+	}
+	
+	if (self.superview == nil) {
+		self.y = -self.height;
+		[MainWindow() addSubview:self];
+	}
+	
+	if (self.y != 0) {
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:0.25f];
+		[UIView setAnimationBeginsFromCurrentState:YES];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+		self.y = 0;
+		[UIView commitAnimations];
+	}
+	
+	[WLToast cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];
+	[WLToast cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeFromSuperview) object:nil];
+	[self performSelector:@selector(dismiss) withObject:nil afterDelay:3];
+}
+
+- (void)dismiss {
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:5];
+	[UIView setAnimationBeginsFromCurrentState:YES];
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	self.y = -self.height;
+	[UIView commitAnimations];
+	[self performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:5];
 }
 
 - (id)init {
@@ -79,57 +130,17 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 	return self.messageLabel.text;
 }
 
-+ (void)showWithMessage:(NSString *)message {
-	[[self toast] showWithMessage:message];
-}
-
-- (UIWindow *)presentingWindow {
-	return [[[UIApplication sharedApplication] windows] firstObject];
-}
-
-- (UIViewController *)topViewController {
-	UINavigationController *rootController = (id)[self.presentingWindow rootViewController];
-	if ([rootController isKindOfClass:[UINavigationController class]]) {
-		return [rootController topViewController];
-	}
-	return rootController;
-}
-
-- (void)showWithMessage:(NSString *)message {
-	
-	if ([[self topViewController] isMemberOfClass:[WLHomeViewController class]]) {
-		self.height = 84;
-	} else {
-		self.height = WLToastDefaultHeight;
-	}
-	
-	self.message = message;
-	
-	__weak WLToast* selfWeak = self;
-	if (self.superview == nil) {
-		self.y = -self.height;
-		[self.presentingWindow addSubview:self];
-		[UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-			selfWeak.y = 0;
-		} completion:^(BOOL finished) {
-		}];
-	}
-	[WLToast cancelPreviousPerformRequestsWithTarget:self];
-	[self performSelector:@selector(dismiss) withObject:nil afterDelay:3];
-}
-
-- (void)dismiss {
-	__weak WLToast* selfWeak = self;
-	[UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		selfWeak.y = -selfWeak.height;
-	} completion:^(BOOL finished) {
-		[selfWeak removeFromSuperview];
-	}];
-}
-
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	[WLToast cancelPreviousPerformRequestsWithTarget:self];
 	[self dismiss];
+}
+
+@end
+
+@implementation UIViewController (WLToast)
+
+- (CGFloat)toastAppearanceHeight:(WLToast *)toast {
+	return WLToastDefaultHeight;
 }
 
 @end

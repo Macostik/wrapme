@@ -37,6 +37,7 @@
 #import "WLDataCache.h"
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
+#import "WLToast.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate>
 
@@ -80,6 +81,10 @@
 		self.loading = NO;
 		[self fetchWraps:YES];
 	}
+}
+
+- (CGFloat)toastAppearanceHeight:(WLToast *)toast {
+	return 84.0f;
 }
 
 - (UIViewController *)shakePresentedViewController {

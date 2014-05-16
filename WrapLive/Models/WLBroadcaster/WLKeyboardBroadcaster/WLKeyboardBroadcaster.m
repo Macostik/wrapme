@@ -8,6 +8,7 @@
 
 #import "WLKeyboardBroadcaster.h"
 #import "UIView+GestureRecognizing.h"
+#import "WLSupportFunctions.h"
 
 @implementation WLKeyboardBroadcaster
 
@@ -35,7 +36,7 @@
 - (void)keyboardDidShow:(NSNotification*)notification {
 	CGFloat keyboardHeight = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
 	[self broadcast:@selector(broadcaster:didShowKeyboardWithHeight:) object:@(keyboardHeight)];
-	__weak UIWindow* window = [[UIApplication sharedApplication].windows firstObject];
+	__weak UIWindow* window = MainWindow();
 	[window addTapGestureRecognizing:^(CGPoint point){
 		[window endEditing:YES];
 	}];
@@ -47,9 +48,7 @@
 
 - (void)keyboardDidHide:(NSNotification*)notification {
 	[self broadcast:@selector(broadcasterDidHideKeyboard:)];
-	
-	UIWindow* window = [[UIApplication sharedApplication].windows firstObject];
-	[window removeTapGestureRecognizing];
+	[MainWindow() removeTapGestureRecognizing];
 }
 
 @end

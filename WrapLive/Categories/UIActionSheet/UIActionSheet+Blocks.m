@@ -9,6 +9,7 @@
 #import "UIActionSheet+Blocks.h"
 #import <objc/runtime.h>
 #import "NSObject+AssociatedObjects.h"
+#import "WLSupportFunctions.h"
 
 @interface UIActionSheet () <UIActionSheetDelegate>
 
@@ -25,7 +26,7 @@
 	}
 	actionSheet.delegate = actionSheet;
 	actionSheet.completion = completion;
-	[actionSheet showInView:[[UIApplication sharedApplication].windows firstObject]];
+	[actionSheet showInView:MainWindow()];
 }
 
 + (void)showWithTitle:(NSString *)title destructive:(NSString*)destructive completion:(WLActionSheetCompletion)completion {

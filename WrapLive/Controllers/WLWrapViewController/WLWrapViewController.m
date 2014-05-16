@@ -115,7 +115,7 @@
 			if ([wrap.dates count] == 0) {
 				weakSelf.firstContributorView.alpha = 1.0f;
 				weakSelf.firstContributorWrapNameLabel.text = wrap.name;
-				[self animateHand];
+				[weakSelf animateHand];
 			} else {
 				weakSelf.firstContributorView.alpha = 0.0f;
 			}
@@ -136,7 +136,6 @@
 	CGFloat rotationAngle = M_PI * 15 / 180.0;
 	
 	CGPoint newCenter = CGPointMake(-50, 150);
-	NSLog(@"%f, %f", newCenter.x, newCenter.y);
 	CGAffineTransform transform = CGAffineTransformMakeTranslation(newCenter.x, newCenter.y);
 	transform = CGAffineTransformRotate(transform, -rotationAngle);
 	transform = CGAffineTransformTranslate(transform,-newCenter.x,-newCenter.y);

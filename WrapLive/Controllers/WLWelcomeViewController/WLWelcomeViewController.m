@@ -42,7 +42,6 @@
 			if ([error isNetworkError]) {
 				[weakSelf presentHomeViewController];
 			} else {
-				[error show];
 				[weakSelf showContinueButton];
 			}
 		}];

@@ -147,39 +147,51 @@
 	}
 	
 	if (nameChanged || coverChanged || contributorsChanged) {
-		self.view.userInteractionEnabled = NO;
+		[self lock];
 		[self.spinner startAnimating];
 		__weak typeof(self)weakSelf = self;
 		[self.editingWrap update:^(WLWrap *wrap) {
 			[weakSelf.wrap updateWithObject:wrap];
 			[weakSelf.spinner stopAnimating];
 			[weakSelf dismiss];
-			weakSelf.view.userInteractionEnabled = YES;
+			[weakSelf unlock];
 		} failure:^(NSError *error) {
 			[error show];
 			[weakSelf.spinner stopAnimating];
-			weakSelf.view.userInteractionEnabled = YES;
+			[weakSelf unlock];
 		}];
 	} else {
 		[self dismiss];
 	}
 }
 
+- (void)lock {
+	for (UIView* subview in self.view.subviews) {
+		subview.userInteractionEnabled = NO;
+	}
+}
+
+- (void)unlock {
+	for (UIView* subview in self.view.subviews) {
+		subview.userInteractionEnabled = YES;
+	}
+}
+
 - (IBAction)start:(id)sender {
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
-	self.view.userInteractionEnabled = NO;
+	[self lock];
 	[self.editingWrap create:^(WLWrap *wrap) {
 		[weakSelf.spinner stopAnimating];
 		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
 		wrapController.wrap = wrap;
-		weakSelf.view.userInteractionEnabled = YES;
+		[weakSelf unlock];
 		[weakSelf.parentViewController.navigationController pushViewController:wrapController animated:YES];
 		[weakSelf dismiss:WLWrapTransitionFromLeft];
 	} failure:^(NSError *error) {
 		[error show];
 		[weakSelf.spinner stopAnimating];
-		weakSelf.view.userInteractionEnabled = YES;
+		[weakSelf unlock];
 	}];
 }
 

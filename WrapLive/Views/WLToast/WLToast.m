@@ -78,7 +78,7 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 
 - (void)dismiss {
 	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:5];
+	[UIView setAnimationDuration:0.25f];
 	[UIView setAnimationBeginsFromCurrentState:YES];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
 	self.y = -self.height;

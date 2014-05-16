@@ -21,6 +21,7 @@
 #import "NSString+Additions.h"
 #import "UIView+GestureRecognizing.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLToast.h"
 
 @interface WLWrapCandyCell () <WLWrapBroadcastReceiver>
 
@@ -79,17 +80,20 @@
 
 - (void)showMenu:(CGPoint)point {
 	WLCandy* candy = self.item;
-	UIMenuItem* menuItem = [[UIMenuItem alloc] init];
-	[menuItem setTitle:([candy isImage] && [candy.contributor isCurrentUser]) ? @"Delete" : @"Cannot delete photo not posted by you."];
-	[menuItem setAction:([candy isImage] && [candy.contributor isCurrentUser]) ? @selector(remove) : @selector(hide)];
-	UIMenuController* menuController = [UIMenuController sharedMenuController];
-	[self becomeFirstResponder];
-	menuController.menuItems = @[menuItem];
-	[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
-	[menuController setMenuVisible:YES animated:YES];
-}
-
-- (void)hide {
+	if ([candy isImage]) {
+		if ([candy.contributor isCurrentUser]) {
+			UIMenuItem* menuItem = [[UIMenuItem alloc] initWithTitle:@"Delete" action:@selector(remove)];
+			UIMenuController* menuController = [UIMenuController sharedMenuController];
+			[self becomeFirstResponder];
+			menuController.menuItems = @[menuItem];
+			[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
+			[menuController setMenuVisible:YES animated:YES];
+		} else {
+			[WLToast showWithMessage:@"Cannot delete photo not posted by you."];
+		}
+	} else {
+		[WLToast showWithMessage:@"Cannot delete chat message already posted."];
+	}
 }
 
 - (void)remove {
@@ -105,7 +109,7 @@
 }
 
 - (BOOL)canPerformAction:(SEL)selector withSender:(id) sender {
-    return (selector == @selector(remove) || (selector == @selector(hide)));
+    return (selector == @selector(remove));
 }
 
 - (BOOL)canBecomeFirstResponder {

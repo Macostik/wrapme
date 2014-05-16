@@ -10,12 +10,18 @@
 #import "UIColor+CustomColors.h"
 #import "UIFont+CustomFonts.h"
 #import "WLBlocks.h"
-
 #import "WLHomeViewController.h"
+#import "UILabel+Additions.h"
+#import "UIView+Shorthand.h"
+
+static CGFloat WLToastDefaultHeight = 64.0f;
+static CGFloat WLToastDefaultSpacing = 100.0f;
 
 @interface WLToast ()
 
 @property (weak, nonatomic) UILabel* messageLabel;
+@property (weak, nonatomic) UIImageView* iconView;
+@property (readonly, nonatomic) UIWindow* presentingWindow;
 
 @end
 
@@ -30,16 +36,16 @@
 }
 
 - (id)init {
-	self = [super init];
+	self = [super initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, WLToastDefaultHeight)];
 	if (self) {
-		self.backgroundColor = [UIColor WL_orangeColor];
+		self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
 	}
 	return self;
 }
 
 - (UILabel *)messageLabel {
 	if (!_messageLabel) {
-		CGRect labelFrame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+		CGRect labelFrame = CGRectMake(0, 0, self.width - WLToastDefaultSpacing, self.bounds.size.height);
 		
 		UILabel* messageLabel = [[UILabel alloc] initWithFrame:labelFrame];
 		messageLabel.textColor = [UIColor whiteColor];
@@ -53,8 +59,20 @@
 	return _messageLabel;
 }
 
+- (UIImageView *)iconView {
+	if (!_iconView) {
+		UIImageView *iconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_alert"]];
+		[self addSubview:iconView];
+		_iconView = iconView;
+	}
+	return _iconView;
+}
+
 - (void)setMessage:(NSString *)message {
 	self.messageLabel.text = message;
+	self.messageLabel.size = [self.messageLabel sizeThatFits:CGSizeMake(self.width - WLToastDefaultSpacing, self.height - 20)];
+	self.messageLabel.center = CGPointMake(self.width/2.0f, self.height/2.0f + 10);
+	self.iconView.center = CGPointMake(self.messageLabel.x - self.iconView.width/2.0f - 5, self.messageLabel.center.y);
 }
 
 - (NSString *)message {
@@ -65,29 +83,34 @@
 	[[self toast] showWithMessage:message];
 }
 
+- (UIWindow *)presentingWindow {
+	return [[[UIApplication sharedApplication] windows] firstObject];
+}
+
 - (UIViewController *)topViewController {
-	UIWindow * window = [[[UIApplication sharedApplication] windows] firstObject];
-	UINavigationController * rootController = (id)[window rootViewController];
+	UINavigationController *rootController = (id)[self.presentingWindow rootViewController];
 	return [rootController topViewController];
 }
 
 - (void)showWithMessage:(NSString *)message {
+	
+	if ([[self topViewController] isMemberOfClass:[WLHomeViewController class]]) {
+		self.height = 84;
+	} else {
+		self.height = WLToastDefaultHeight;
+	}
+	
 	self.message = message;
+	
 	__weak WLToast* selfWeak = self;
 	if (self.superview == nil) {
-		NSInteger toastHeight = 64;
-		if ([[self topViewController] isMemberOfClass:[WLHomeViewController class]]) {
-			toastHeight = 84;
-		}
-		self.frame = CGRectMake(0, -toastHeight, [UIScreen mainScreen].bounds.size.width, toastHeight);
-		self.messageLabel.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, toastHeight - 20);
-		[[[[UIApplication sharedApplication] windows] firstObject] addSubview:self];
+		self.y = -self.height;
+		[self.presentingWindow addSubview:self];
 		[UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-			selfWeak.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, toastHeight);
+			selfWeak.y = 0;
 		} completion:^(BOOL finished) {
 		}];
 	}
-	
 	[WLToast cancelPreviousPerformRequestsWithTarget:self];
 	[self performSelector:@selector(dismiss) withObject:nil afterDelay:3];
 }
@@ -95,7 +118,7 @@
 - (void)dismiss {
 	__weak WLToast* selfWeak = self;
 	[UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		selfWeak.frame = CGRectMake(0, -44, [UIScreen mainScreen].bounds.size.width, 44);
+		selfWeak.y = -selfWeak.height;
 	} completion:^(BOOL finished) {
 		[selfWeak removeFromSuperview];
 	}];

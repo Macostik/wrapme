@@ -90,14 +90,12 @@
 - (void)leave {
 	__weak typeof(self)weakSelf = self;
 	WLWrap* wrap = weakSelf.item;
-	[UIActionSheet showWithCondition:@"Are you sure you want to leave this wrap?" completion:^(NSUInteger index) {
-		weakSelf.userInteractionEnabled = NO;
-		[wrap leave:^(id object) {
-			weakSelf.userInteractionEnabled = YES;
-		} failure:^(NSError *error) {
-			[error show];
-			weakSelf.userInteractionEnabled = YES;
-		}];
+	weakSelf.userInteractionEnabled = NO;
+	[wrap leave:^(id object) {
+		weakSelf.userInteractionEnabled = YES;
+	} failure:^(NSError *error) {
+		[error show];
+		weakSelf.userInteractionEnabled = YES;
 	}];
 }
 

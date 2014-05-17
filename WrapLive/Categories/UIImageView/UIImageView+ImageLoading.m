@@ -69,10 +69,10 @@
 	__weak typeof(self)weakSelf = self;
 	CGFloat height = self.height;
 	run_getting_object(^id{
-		UIImage* image = [[WLSystemImageCache instance] objectForKey:imageUrl];
+		UIImage* image = [WLSystemImageCache imageWithIdentifier:imageUrl];
 		if (!image) {
 			image = WLThumbnailFromUrl(imageUrl, height);
-			[[WLSystemImageCache instance] setObject:image forKey:imageUrl];
+			[WLSystemImageCache setImage:image withIdentifier:imageUrl];
 		}
 		return image;
 	}, ^(id object) {

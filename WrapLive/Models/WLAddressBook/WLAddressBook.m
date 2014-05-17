@@ -46,9 +46,12 @@
 			if ([[WLImageCache cache] containsObjectWithIdentifier:identifier]) {
 				complete([[WLImageCache cache] pathWithIdentifier:identifier]);
 			} else {
-				[[WLImageCache cache] setImageData:WLAddressBookGetImage(record)
-									withIdentifier:identifier
-										completion:complete];
+				NSData* imageData = WLAddressBookGetImage(record);
+				if (imageData) {
+					[[WLImageCache cache] setImageData:imageData withIdentifier:identifier completion:complete];
+				} else {
+					completion(contact);
+				}
 			}
 		} else {
 			completion(contact);

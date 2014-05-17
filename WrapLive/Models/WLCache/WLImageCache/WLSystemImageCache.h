@@ -12,4 +12,12 @@
 
 + (instancetype)instance;
 
++ (UIImage*)imageWithIdentifier:(NSString*)identifier;
+
++ (void)setImage:(UIImage*)image withIdentifier:(NSString*)identifier;
+
+- (UIImage*)imageWithIdentifier:(NSString*)identifier;
+
+- (void)setImage:(UIImage*)image withIdentifier:(NSString*)identifier;
+
 @end

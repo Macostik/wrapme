@@ -69,21 +69,23 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 	self.size = WLImageCacheSize;
 	
 	self.readObjectBlock = ^id (NSString* identifier, NSString* path) {
-		UIImage* image = [[WLSystemImageCache instance] objectForKey:identifier];
+		UIImage* image = [WLSystemImageCache imageWithIdentifier:identifier];
 		if (image == nil) {
 			image = [UIImage imageWithContentsOfFile:path];
-			[[WLSystemImageCache instance] setObject:image forKey:identifier];
+			[WLSystemImageCache setImage:image withIdentifier:identifier];
 		}
 		return image;
 	};
 	
 	self.writeObjectBlock = ^(NSString* identifier, id image, NSString* path) {
-		if ([image isKindOfClass:[UIImage class]]) {
-			[UIImageJPEGRepresentation(image, 1.0f) writeToFile:path atomically:YES];
-		} else if ([image isKindOfClass:[NSData class]]) {
-			[image writeToFile:path atomically:YES];
+		if (image) {
+			if ([image isKindOfClass:[UIImage class]]) {
+				[UIImageJPEGRepresentation(image, 1.0f) writeToFile:path atomically:YES];
+			} else if ([image isKindOfClass:[NSData class]]) {
+				[image writeToFile:path atomically:YES];
+			}
+			[WLSystemImageCache setImage:image withIdentifier:identifier];
 		}
-		[[WLSystemImageCache instance] setObject:image forKey:identifier];
 	};
 	
 	[super configure];
@@ -94,7 +96,7 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 }
 
 - (BOOL)containsObjectWithIdentifier:(NSString *)identifier {
-	if ([[WLSystemImageCache instance] objectForKey:identifier] != nil) {
+	if ([WLSystemImageCache imageWithIdentifier:identifier] != nil) {
 		return YES;
 	}
 	return [super containsObjectWithIdentifier:identifier];
@@ -105,7 +107,7 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 }
 
 - (void)imageWithIdentifier:(NSString *)identifier completion:(void (^)(UIImage *))completion {
-	UIImage* image = [[WLSystemImageCache instance] objectForKey:identifier];
+	UIImage* image = [WLSystemImageCache imageWithIdentifier:identifier];
 	if (image != nil) {
 		completion(image);
 		return;

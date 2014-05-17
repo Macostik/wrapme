@@ -29,4 +29,22 @@
     return self;
 }
 
++ (UIImage*)imageWithIdentifier:(NSString*)identifier {
+	return [[self instance] imageWithIdentifier:identifier];
+}
+
++ (void)setImage:(UIImage*)image withIdentifier:(NSString*)identifier {
+	[[self instance] setImage:image withIdentifier:identifier];
+}
+
+- (UIImage*)imageWithIdentifier:(NSString*)identifier {
+	return [self objectForKey:identifier];
+}
+
+- (void)setImage:(UIImage*)image withIdentifier:(NSString*)identifier {
+	if (image) {
+		[self setObject:image forKey:identifier];
+	}
+}
+
 @end

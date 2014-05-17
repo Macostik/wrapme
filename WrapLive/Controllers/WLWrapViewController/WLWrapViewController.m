@@ -114,9 +114,7 @@
 		if (!cached) {
 			if ([wrap.dates count] == 0) {
 				weakSelf.firstContributorView.alpha = 1.0f;
-				weakSelf.firstContributorWrapNameLabel.text = wrap.name;
-				[weakSelf animateHand];
-				
+				weakSelf.firstContributorWrapNameLabel.text = wrap.name;				
 			} else {
 				weakSelf.firstContributorView.alpha = 0.0f;
 			}
@@ -282,6 +280,7 @@
 }
 
 - (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
+	self.firstContributorView.alpha = 0.0f;
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

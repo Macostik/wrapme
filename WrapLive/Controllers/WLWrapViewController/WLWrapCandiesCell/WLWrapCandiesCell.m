@@ -19,6 +19,7 @@
 #import "WLWrapBroadcaster.h"
 #import "WLUploadingQueue.h"
 #import "NSDate+Additions.h"
+#include "WLSupportFunctions.h"
 
 @interface WLWrapCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLWrapBroadcastReceiver>
 
@@ -83,6 +84,7 @@
 		weakSelf.shouldAppendMoreCandies = [object count] == WLAPIGeneralPageSize;
 		wrapDay.candies = (id)[wrapDay.candies arrayByAddingObjectsFromArray:object];
 		[weakSelf.collectionView reloadData];
+		[weakSelf fixContentOffset];
 	} failure:^(NSError *error) {
 		weakSelf.shouldAppendMoreCandies = NO;
 		[error show];
@@ -122,9 +124,23 @@
 													 forIndexPath:indexPath];
 }
 
-//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-//	if (targetContentOffset->x )
-//}
+- (void)fixContentOffset {
+	CGFloat offset = self.collectionView.contentOffset.x;
+	offset = roundf(offset / 106.0f) * 106.0f;
+	if (IsInBounds(0, self.collectionView.contentSize.width - self.collectionView.bounds.size.width, offset)) {
+		[self.collectionView setContentOffset:CGPointMake(offset, 0) animated:YES];
+	}
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+	if (!decelerate) {
+		[self fixContentOffset];
+	}
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+	[self fixContentOffset];
+}
 
 #pragma mark - UICollectionViewDelegate
 

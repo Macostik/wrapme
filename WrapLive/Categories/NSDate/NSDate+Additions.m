@@ -13,8 +13,6 @@ static const NSTimeInterval WLTimeIntervalMinute = 60;
 static const NSTimeInterval WLTimeIntervalHour = 3600;
 static const NSTimeInterval WLTimeIntervalDay = 86400;
 static const NSTimeInterval WLTimeIntervalWeek = 604800;
-static const NSTimeInterval WLTimeIntervalMonth = 2678400;
-static const NSTimeInterval WLTimeIntervalYear = 31536000;
 
 static NSString *WLTimeIntervalNameMinute = @"minute";
 static NSString *WLTimeIntervalNameHour = @"hour";
@@ -31,6 +29,7 @@ static NSString *WLTimeIntervalLessThanMinute = @"less than minute ago";
 	[components setYear:2013];
 	[components setMonth:06];
 	[components setDay:19];
+	components.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
 	return [[NSCalendar currentCalendar] dateFromComponents:components];
 }
 

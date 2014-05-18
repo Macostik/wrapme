@@ -18,11 +18,11 @@
 #import "WLUser.h"
 #import "UIActionSheet+Blocks.h"
 #import "StreamView.h"
-#import "WLWrapCandyCell.h"
+#import "WLCandyCell.h"
 #import "WLUploadingQueue.h"
 #import "UIView+GestureRecognizing.h"
 
-@interface WLWrapCell ()
+@interface WLWrapCell () <WLCandyCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -119,11 +119,12 @@
 
 - (UIView*)streamView:(StreamView*)streamView viewForItem:(StreamLayoutItem*)item {
 	if (item.index.row < [self.candies count]) {
-		WLWrapCandyCell* candyView = [streamView reusableViewOfClass:[WLWrapCandyCell class]
+		WLCandyCell* candyView = [streamView reusableViewOfClass:[WLCandyCell class]
 															 forItem:item
 														 loadingType:StreamViewReusableViewLoadingTypeNib];
 		candyView.item = [self.candies objectAtIndex:item.index.row];
 		candyView.wrap = self.item;
+		candyView.delegate = self;
 		return candyView;
 	} else {
 		UIImageView * placeholderView = [streamView reusableViewOfClass:[UIImageView class]
@@ -141,14 +142,15 @@
 }
 
 - (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {
-	if (item.index.row < [self.candies count]) {
-		WLCandy* candy = [self.candies objectAtIndex:item.index.row];
-		if (candy.uploadingItem == nil) {
-			[self.delegate wrapCell:self didSelectCandy:candy];
-		}
-	} else {
+	if (item.index.row >= [self.candies count]) {
 		[self.delegate wrapCellDidSelectCandyPlaceholder:self];
 	}
+}
+
+#pragma mark - WLWrapCandyCellDelegate
+
+- (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
+	[self.delegate wrapCell:self didSelectCandy:candy];
 }
 
 @end

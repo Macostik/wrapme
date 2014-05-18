@@ -28,8 +28,8 @@
 		128886AD18DC493B00957B22 /* WLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886AC18DC493B00957B22 /* WLSession.m */; };
 		128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886B018DC90E000957B22 /* WLArchivingObject.m */; };
 		128E5BE41918EFBD005F2714 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 128E5BE31918EFBD005F2714 /* NSString+Additions.m */; };
-		1293677F18E337D900527250 /* WLWrapCandiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293677E18E337D900527250 /* WLWrapCandiesCell.m */; };
-		1293678318E33A3500527250 /* WLWrapCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293678218E33A3500527250 /* WLWrapCandyCell.m */; };
+		1293677F18E337D900527250 /* WLCandiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293677E18E337D900527250 /* WLCandiesCell.m */; };
+		1293678318E33A3500527250 /* WLCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293678218E33A3500527250 /* WLCandyCell.m */; };
 		1293678718E34A6800527250 /* WLCandy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293678618E34A6800527250 /* WLCandy.m */; };
 		129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E218E197ED00FF43F6 /* WLAddressBook.m */; };
 		129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E618E1A17300FF43F6 /* WLCreateWrapViewController.m */; };
@@ -111,7 +111,7 @@
 		12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3DA6318E04CC400DBDB79 /* UIImage+RoundedCorner.m */; };
 		12E4FBCD1923B8AD00236472 /* WLSystemImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E4FBCC1923B8AD00236472 /* WLSystemImageCache.m */; };
 		12E5BA5518EAB9C40033CE4E /* WLWrapEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E5BA5418EAB9C40033CE4E /* WLWrapEntry.m */; };
-		12E5BA5718EADAAC0033CE4E /* WLWrapCandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E5BA5618EADAAC0033CE4E /* WLWrapCandyCell.xib */; };
+		12E5BA5718EADAAC0033CE4E /* WLCandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E5BA5618EADAAC0033CE4E /* WLCandyCell.xib */; };
 		12E6ABD4191A2B2A00842DB8 /* UIScreen+Diagonal.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E6ABD3191A2B2A00842DB8 /* UIScreen+Diagonal.m */; };
 		12E8FF1418E960E000BF1B96 /* StreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0C18E960E000BF1B96 /* StreamLayout.m */; };
 		12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */; };
@@ -178,10 +178,10 @@
 		128886B018DC90E000957B22 /* WLArchivingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArchivingObject.m; path = WLArchivingObject/WLArchivingObject.m; sourceTree = "<group>"; };
 		128E5BE21918EFBD005F2714 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Additions.h"; path = "NSString/NSString+Additions.h"; sourceTree = "<group>"; };
 		128E5BE31918EFBD005F2714 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Additions.m"; path = "NSString/NSString+Additions.m"; sourceTree = "<group>"; };
-		1293677D18E337D900527250 /* WLWrapCandiesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapCandiesCell.h; path = WLWrapViewController/WLWrapCandiesCell/WLWrapCandiesCell.h; sourceTree = "<group>"; };
-		1293677E18E337D900527250 /* WLWrapCandiesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapCandiesCell.m; path = WLWrapViewController/WLWrapCandiesCell/WLWrapCandiesCell.m; sourceTree = "<group>"; };
-		1293678118E33A3500527250 /* WLWrapCandyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapCandyCell.h; path = WLWrapViewController/WLWrapCandiesCell/WLWrapCandyCell/WLWrapCandyCell.h; sourceTree = "<group>"; };
-		1293678218E33A3500527250 /* WLWrapCandyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapCandyCell.m; path = WLWrapViewController/WLWrapCandiesCell/WLWrapCandyCell/WLWrapCandyCell.m; sourceTree = "<group>"; };
+		1293677D18E337D900527250 /* WLCandiesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCandiesCell.h; path = WLWrapViewController/WLWrapCandiesCell/WLCandiesCell.h; sourceTree = "<group>"; };
+		1293677E18E337D900527250 /* WLCandiesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCandiesCell.m; path = WLWrapViewController/WLWrapCandiesCell/WLCandiesCell.m; sourceTree = "<group>"; };
+		1293678118E33A3500527250 /* WLCandyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCandyCell.h; path = WLWrapViewController/WLWrapCandiesCell/WLWrapCandyCell/WLCandyCell.h; sourceTree = "<group>"; };
+		1293678218E33A3500527250 /* WLCandyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCandyCell.m; path = WLWrapViewController/WLWrapCandiesCell/WLWrapCandyCell/WLCandyCell.m; sourceTree = "<group>"; };
 		1293678518E34A6800527250 /* WLCandy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCandy.h; sourceTree = "<group>"; };
 		1293678618E34A6800527250 /* WLCandy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCandy.m; sourceTree = "<group>"; };
 		129654E118E197ED00FF43F6 /* WLAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAddressBook.h; path = WLAddressBook/WLAddressBook.h; sourceTree = "<group>"; };
@@ -337,7 +337,7 @@
 		12E4FBCC1923B8AD00236472 /* WLSystemImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSystemImageCache.m; sourceTree = "<group>"; };
 		12E5BA5318EAB9C40033CE4E /* WLWrapEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapEntry.h; path = WLWrapEntry/WLWrapEntry.h; sourceTree = "<group>"; };
 		12E5BA5418EAB9C40033CE4E /* WLWrapEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapEntry.m; path = WLWrapEntry/WLWrapEntry.m; sourceTree = "<group>"; };
-		12E5BA5618EADAAC0033CE4E /* WLWrapCandyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLWrapCandyCell.xib; path = WLWrapViewController/WLWrapCandiesCell/WLWrapCandyCell/WLWrapCandyCell.xib; sourceTree = "<group>"; };
+		12E5BA5618EADAAC0033CE4E /* WLCandyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCandyCell.xib; path = WLWrapViewController/WLWrapCandiesCell/WLWrapCandyCell/WLCandyCell.xib; sourceTree = "<group>"; };
 		12E6ABD2191A2B2A00842DB8 /* UIScreen+Diagonal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScreen+Diagonal.h"; path = "UIScreen/UIScreen+Diagonal.h"; sourceTree = "<group>"; };
 		12E6ABD3191A2B2A00842DB8 /* UIScreen+Diagonal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScreen+Diagonal.m"; path = "UIScreen/UIScreen+Diagonal.m"; sourceTree = "<group>"; };
 		12E8FF0B18E960E000BF1B96 /* StreamLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamLayout.h; sourceTree = "<group>"; };
@@ -554,8 +554,8 @@
 			isa = PBXGroup;
 			children = (
 				1293678018E33A1B00527250 /* WLWrapCandyCell */,
-				1293677D18E337D900527250 /* WLWrapCandiesCell.h */,
-				1293677E18E337D900527250 /* WLWrapCandiesCell.m */,
+				1293677D18E337D900527250 /* WLCandiesCell.h */,
+				1293677E18E337D900527250 /* WLCandiesCell.m */,
 			);
 			name = WLWrapCandiesCell;
 			sourceTree = "<group>";
@@ -563,9 +563,9 @@
 		1293678018E33A1B00527250 /* WLWrapCandyCell */ = {
 			isa = PBXGroup;
 			children = (
-				1293678118E33A3500527250 /* WLWrapCandyCell.h */,
-				1293678218E33A3500527250 /* WLWrapCandyCell.m */,
-				12E5BA5618EADAAC0033CE4E /* WLWrapCandyCell.xib */,
+				1293678118E33A3500527250 /* WLCandyCell.h */,
+				1293678218E33A3500527250 /* WLCandyCell.m */,
+				12E5BA5618EADAAC0033CE4E /* WLCandyCell.xib */,
 			);
 			name = WLWrapCandyCell;
 			sourceTree = "<group>";
@@ -1544,7 +1544,7 @@
 				ACCF9B9218E1868200A7429F /* WLActivationViewController.xib in Resources */,
 				129654F518E1CB3000FF43F6 /* WLInputAccessoryView.xib in Resources */,
 				12A8AA7018F592B500F67113 /* WLLoadingView.xib in Resources */,
-				12E5BA5718EADAAC0033CE4E /* WLWrapCandyCell.xib in Resources */,
+				12E5BA5718EADAAC0033CE4E /* WLCandyCell.xib in Resources */,
 				12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
 				121B1B4118E0848D001F585C /* WLCountriesViewController.xib in Resources */,
@@ -1625,7 +1625,7 @@
 				12E3DA4218E03EB000DBDB79 /* WLSupportFunctions.m in Sources */,
 				121B1B4218E0848D001F585C /* WLCountryCell.m in Sources */,
 				12E6ABD4191A2B2A00842DB8 /* UIScreen+Diagonal.m in Sources */,
-				1293678318E33A3500527250 /* WLWrapCandyCell.m in Sources */,
+				1293678318E33A3500527250 /* WLCandyCell.m in Sources */,
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
 				12E0F05E19090C0900463FEC /* WLKeyboardBroadcaster.m in Sources */,
 				12DF5C3B190E614400D7A62F /* NSString+MD5.m in Sources */,
@@ -1671,7 +1671,7 @@
 				12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */,
 				12317E5A1908096200D1A9EE /* WLImageViewController.m in Sources */,
 				12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */,
-				1293677F18E337D900527250 /* WLWrapCandiesCell.m in Sources */,
+				1293677F18E337D900527250 /* WLCandiesCell.m in Sources */,
 				129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */,
 				C59528EE191CD9A6001ECD7C /* WLContactCell.m in Sources */,
 				12D578CE1917E82100586995 /* UIAlertView+Blocks.m in Sources */,

@@ -8,7 +8,7 @@
 
 #import "WLWrapViewController.h"
 #import "WLWrap.h"
-#import "WLWrapCandiesCell.h"
+#import "WLCandiesCell.h"
 #import "UIImageView+ImageLoading.h"
 #import "WLCandy.h"
 #import "NSDate+Formatting.h"
@@ -31,7 +31,7 @@
 #import "WLDataManager.h"
 #import "WLDataCache.h"
 
-@interface WLWrapViewController () <WLCameraViewControllerDelegate, WLWrapCandiesCellDelegate, WLWrapBroadcastReceiver>
+@interface WLWrapViewController () <WLCameraViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
@@ -230,9 +230,9 @@
 	[controller presentInViewController:self transition:WLWrapTransitionFromRight];
 }
 
-#pragma mark - WLWrapCandiesCellDelegate
+#pragma mark - WLCandiesCellDelegate
 
-- (void)wrapCandiesCell:(WLWrapCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
+- (void)candiesCell:(WLCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
 	if (candy.type == WLCandyTypeImage) {
 		WLCandyViewController *controller = [self.storyboard candyViewController];
 		[controller setWrap:self.wrap candy:candy];
@@ -251,7 +251,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WLWrapCandiesCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLWrapCandiesCell reuseIdentifier]];
+    WLCandiesCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLCandiesCell reuseIdentifier]];
 	
 	WLWrapDate* date = [self.wrap.dates objectAtIndex:indexPath.row];
 	

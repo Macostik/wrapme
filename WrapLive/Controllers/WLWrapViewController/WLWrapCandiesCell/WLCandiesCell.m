@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLWrapCandiesCell.h"
+#import "WLCandiesCell.h"
 #import "WLWrapDate.h"
 #import "NSDate+Formatting.h"
-#import "WLWrapCandyCell.h"
+#import "WLCandyCell.h"
 #import "WLCandy.h"
 #import "NSObject+NibAdditions.h"
 #import "WLRefresher.h"
@@ -21,7 +21,7 @@
 #import "NSDate+Additions.h"
 #include "WLSupportFunctions.h"
 
-@interface WLWrapCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLWrapBroadcastReceiver>
+@interface WLCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLWrapBroadcastReceiver, WLCandyCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -32,7 +32,7 @@
 
 @end
 
-@implementation WLWrapCandiesCell
+@implementation WLCandiesCell
 
 - (void)setShouldAppendMoreCandies:(BOOL)shouldAppendMoreCandies {
 	_shouldAppendMoreCandies = shouldAppendMoreCandies;
@@ -43,7 +43,7 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.shouldAppendMoreCandies = YES;
-	[self.collectionView registerNib:[WLWrapCandyCell nib] forCellWithReuseIdentifier:[WLWrapCandyCell reuseIdentifier]];
+	[self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:[WLCandyCell reuseIdentifier]];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	__weak typeof(self)weakSelf = self;
 	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
@@ -109,9 +109,10 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLWrapCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WLWrapCandyCell reuseIdentifier] forIndexPath:indexPath];
+	WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WLCandyCell reuseIdentifier] forIndexPath:indexPath];
 	WLWrapDate* wrapDay = self.item;
 	cell.item = [wrapDay.candies objectAtIndex:indexPath.item];
+	cell.delegate = self;
 	cell.wrap = self.wrap;
 	return cell;
 }
@@ -142,13 +143,11 @@
 	[self fixContentOffset];
 }
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark - WLWrapCandyCellDelegate
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLWrapDate* wrapDay = self.item;
-	WLCandy * candy = [wrapDay.candies objectAtIndex:indexPath.item];
+- (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
 	if (candy.uploadingItem == nil) {
-		[self.delegate wrapCandiesCell:self didSelectCandy:candy];
+		[self.delegate candiesCell:self didSelectCandy:candy];
 	}
 }
 

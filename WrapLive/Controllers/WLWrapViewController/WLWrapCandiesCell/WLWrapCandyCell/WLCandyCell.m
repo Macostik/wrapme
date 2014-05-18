@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLWrapCandyCell.h"
+#import "WLCandyCell.h"
 #import "WLCandy.h"
 #import "UIImageView+ImageLoading.h"
 #import "WLComment.h"
@@ -23,7 +23,7 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLToast.h"
 
-@interface WLWrapCandyCell () <WLWrapBroadcastReceiver>
+@interface WLCandyCell () <WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
@@ -35,7 +35,7 @@
 
 @end
 
-@implementation WLWrapCandyCell
+@implementation WLCandyCell
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
@@ -114,6 +114,13 @@
 
 - (BOOL)canBecomeFirstResponder {
     return YES;
+}
+
+- (IBAction)select:(id)sender {
+	WLCandy* candy = self.item;
+	if (candy.uploadingItem == nil) {
+		[self.delegate candyCell:self didSelectCandy:candy];
+	}
 }
 
 #pragma mark - WLWrapBroadcastReceiver

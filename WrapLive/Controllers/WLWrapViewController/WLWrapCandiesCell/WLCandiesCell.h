@@ -8,22 +8,22 @@
 
 #import "WLItemCell.h"
 
-@class WLWrapCandiesCell;
+@class WLCandiesCell;
 @class WLCandy;
 @class WLWrap;
 
-@protocol WLWrapCandiesCellDelegate <NSObject>
+@protocol WLCandiesCellDelegate <NSObject>
 
 @optional
 
-- (void)wrapCandiesCell:(WLWrapCandiesCell*)cell didSelectCandy:(WLCandy*)candy;
+- (void)candiesCell:(WLCandiesCell*)cell didSelectCandy:(WLCandy*)candy;
 
 @end
 
-@interface WLWrapCandiesCell : WLItemCell
+@interface WLCandiesCell : WLItemCell
 
 @property (strong, nonatomic) WLWrap *wrap;
 
-@property (nonatomic, weak) id <WLWrapCandiesCellDelegate> delegate;
+@property (nonatomic, weak) id <WLCandiesCellDelegate> delegate;
 
 @end

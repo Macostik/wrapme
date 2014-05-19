@@ -67,6 +67,7 @@
 	[[WLAPIManager instance] candies:self.wrap date:wrapDay success:^(id object) {
 		weakSelf.shouldAppendMoreCandies = [object count] == WLAPIGeneralPageSize;
 		currentWrapDay.candies = object;
+		[[WLUploadingQueue instance] updateWrap:weakSelf.wrap];
 		[weakSelf.collectionView reloadData];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {

@@ -88,7 +88,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 			if ([_candy isEqualToEntry:candy]) {
 				weakSelf.date = date;
 				weakSelf.shouldLoadMoreCandies = [weakSelf.date.candies count] % WLAPIGeneralPageSize == 0;
-				[weakSelf setItems:[date images] currentItem:_candy];
+				[weakSelf setItems:[weakSelf imagesFromDate:date] currentItem:_candy];
 				*stop = YES;
 			}
 		}
@@ -148,7 +148,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 		[[WLAPIManager instance] candies:self.wrap date:self.date success:^(id object) {
 			weakSelf.shouldLoadMoreCandies = ([object count] == WLAPIGeneralPageSize);
 			weakSelf.date.candies = (id)[weakSelf.date.candies arrayByAddingObjectsFromArray:object];
-			weakSelf.items = [weakSelf.date images];
+			weakSelf.items = [weakSelf imagesFromDate:weakSelf.date];
 			weakSelf.loading = NO;
 			[weakSelf showContentIndicatorView:NO];
 		} failure:^(NSError *error) {
@@ -157,6 +157,12 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 			weakSelf.loading = NO;
 		}];
 	}
+}
+
+- (NSArray*)imagesFromDate:(WLWrapDate*)date {
+	return [[date images] map:^id(WLCandy* image) {
+		return (image.uploadingItem == nil) ? image : nil;
+	}];
 }
 
 - (NSUInteger)repairedCurrentIndex {

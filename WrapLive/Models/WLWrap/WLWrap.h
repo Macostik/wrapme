@@ -8,6 +8,8 @@
 
 #import "WLWrapEntry.h"
 
+
+static NSInteger WLWrapNameLimit = 190;
 @class WLCandy;
 @class WLUser;
 @class WLWrapDate;

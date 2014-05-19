@@ -220,6 +220,9 @@
 #pragma mark - UITextFieldDelegate
 
 - (IBAction)textFieldDidChange:(UITextField *)sender {
+	if (sender.text.length > WLWrapNameLimit) {
+		sender.text = [sender.text substringToIndex:WLWrapNameLimit];
+	}
 	self.editingWrap.name = sender.text;
 	[self verifyStartAndDoneButton];
 }

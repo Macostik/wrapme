@@ -68,19 +68,24 @@
 - (void)setFileSystemImageUrl:(NSString *)imageUrl completion:(void (^)(UIImage* image, BOOL cached, NSError* error))completion {
 	__weak typeof(self)weakSelf = self;
 	CGFloat height = self.height;
-	run_getting_object(^id{
-		UIImage* image = [WLSystemImageCache imageWithIdentifier:imageUrl];
-		if (!image) {
+	__block UIImage* image = [WLSystemImageCache imageWithIdentifier:imageUrl];
+	if (!image) {
+		run_getting_object(^id{
 			image = WLThumbnailFromUrl(imageUrl, height);
 			[WLSystemImageCache setImage:image withIdentifier:imageUrl];
-		}
-		return image;
-	}, ^(id object) {
-		weakSelf.image = object;
+			return image;
+		}, ^(id object) {
+			weakSelf.image = object;
+			if (completion) {
+				completion(object, YES, nil);
+			}
+		});
+	} else {
+		self.image = image;
 		if (completion) {
-			completion(object, YES, nil);
+			completion(image, YES, nil);
 		}
-	});
+	}
 }
 
 - (void)setImage:(UIImage *)image animated:(BOOL)animated {

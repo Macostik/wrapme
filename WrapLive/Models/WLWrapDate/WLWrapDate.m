@@ -24,11 +24,18 @@
 }
 
 - (void)addCandy:(WLCandy *)candy {
+	[self addCandy:candy replaceMessage:YES];
+}
+
+- (void)addCandy:(WLCandy *)candy replaceMessage:(BOOL)replaceMessage {
 	NSMutableArray* candies = [NSMutableArray arrayWithArray:self.candies];
-	if (candy.type == WLCandyTypeChatMessage) {
-		[candies removeObject:[candies selectObject:^BOOL(WLCandy* candy) {
+	if (candy.type == WLCandyTypeChatMessage && replaceMessage) {
+		NSArray* messages = [candies selectObjects:^BOOL(WLCandy* candy) {
 			return candy.type == WLCandyTypeChatMessage;
-		}]];
+		}];
+		if ([messages count] > 0) {
+			[candies removeObjectsInArray:messages];
+		}
 	}
 	[candies insertObject:candy atIndex:0];
 	self.candies = [candies copy];

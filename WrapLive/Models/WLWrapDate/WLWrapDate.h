@@ -18,6 +18,8 @@
 
 - (void)addCandy:(WLCandy *)candy;
 
+- (void)addCandy:(WLCandy *)candy replaceMessage:(BOOL)replaceMessage;
+
 - (void)removeCandy:(WLCandy *)candy;
 
 - (NSArray *)candiesOfType:(NSInteger)type maximumCount:(NSUInteger)maximumCount;

@@ -47,9 +47,13 @@
 }
 
 - (void)addCandies:(NSArray *)candies {
+	[self addCandies:candies replaceMessage:YES];
+}
+
+- (void)addCandies:(NSArray *)candies replaceMessage:(BOOL)replaceMessage {
 	WLWrapDate* date = [self actualDate];
 	for (WLCandy* candy in candies) {
-		[date addCandy:candy];
+		[date addCandy:candy replaceMessage:replaceMessage];
 	}
 	self.updatedAt = [NSDate date];
 	[self broadcastChange];

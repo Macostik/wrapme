@@ -46,7 +46,7 @@
 }
 
 - (void)save {
-	[WLDataCache cache].uploadingItems = self.items;
+	[WLDataCache cache].uploadingItems = [self.items copy];
 }
 
 - (void)addItem:(WLUploadingItem *)item {
@@ -85,7 +85,7 @@
 		return nil;
 	}];
 	if ([candies count] > 0) {
-		[wrap addCandies:candies];
+		[wrap addCandies:candies replaceMessage:NO];
 	}
 }
 

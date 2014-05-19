@@ -27,6 +27,8 @@
 
 - (void)addCandies:(NSArray*)candies;
 
+- (void)addCandies:(NSArray *)candies replaceMessage:(BOOL)replaceMessage;
+
 - (void)removeCandy:(WLCandy*)candy;
 
 - (WLWrapDate*)actualDate;

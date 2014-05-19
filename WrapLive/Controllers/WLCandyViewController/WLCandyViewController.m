@@ -88,7 +88,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 			if ([_candy isEqualToEntry:candy]) {
 				weakSelf.date = date;
 				weakSelf.shouldLoadMoreCandies = [weakSelf.date.candies count] % WLAPIGeneralPageSize == 0;
-				[weakSelf setItems:[weakSelf imagesFromDate:date] currentItem:_candy];
+				[weakSelf setItems:[date images] currentItem:_candy];
 				*stop = YES;
 			}
 		}
@@ -148,7 +148,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 		[[WLAPIManager instance] candies:self.wrap date:self.date success:^(id object) {
 			weakSelf.shouldLoadMoreCandies = ([object count] == WLAPIGeneralPageSize);
 			weakSelf.date.candies = (id)[weakSelf.date.candies arrayByAddingObjectsFromArray:object];
-			weakSelf.items = [weakSelf imagesFromDate:weakSelf.date];
+			weakSelf.items = [weakSelf.date images];
 			weakSelf.loading = NO;
 			[weakSelf showContentIndicatorView:NO];
 		} failure:^(NSError *error) {
@@ -157,12 +157,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 			weakSelf.loading = NO;
 		}];
 	}
-}
-
-- (NSArray*)imagesFromDate:(WLWrapDate*)date {
-	return [[date images] map:^id(WLCandy* image) {
-		return (image.uploadingItem == nil) ? image : nil;
-	}];
 }
 
 - (NSUInteger)repairedCurrentIndex {
@@ -176,14 +170,16 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (void)refresh {
-	__weak typeof(self)weakSelf = self;
-	[WLDataManager candy:self.candy wrap:self.wrap success:^(id object, BOOL cached, BOOL stop) {
-		[weakSelf setupImage];
-		[weakSelf.refresher endRefreshing];
-	} failure:^(NSError *error) {
-		[error showIgnoringNetworkError];
-		[weakSelf.refresher endRefreshing];
-	}];
+	if (self.candy.uploadingItem == nil) {
+		__weak typeof(self)weakSelf = self;
+		[WLDataManager candy:self.candy wrap:self.wrap success:^(id object, BOOL cached, BOOL stop) {
+			[weakSelf setupImage];
+			[weakSelf.refresher endRefreshing];
+		} failure:^(NSError *error) {
+			[error showIgnoringNetworkError];
+			[weakSelf.refresher endRefreshing];
+		}];
+	}
 }
 
 - (void)setupImage {

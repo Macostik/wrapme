@@ -49,7 +49,7 @@
 	self.country = [WLCountry getCurrentCountry];
 	self.phoneNumberTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(phoneNumberInputCancel:) done:@selector(phoneNumberInputDone:)];
 	self.phoneNumberTextField.text = [WLSession user].phoneNumber;
-	
+	self.phoneNumber = self.phoneNumberTextField.text;
 	if ([WLSession birthdate].nonempty) {
 		self.birthdate = [[WLSession birthdate] GMTDate];
 		self.birthdatePicker.date = self.birthdate;

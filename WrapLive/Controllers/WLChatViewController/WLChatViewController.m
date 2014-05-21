@@ -29,8 +29,10 @@
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
 #import "WLBlocks.h"
+#import "WLWrapChannelBroadcaster.h"
+#import "WLEntryState.h"
 
-@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver>
+@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLWrapChannelBroadcastReceiver>
 
 @property (nonatomic, strong) NSMutableArray* dates;
 
@@ -50,6 +52,8 @@
 
 @property (nonatomic) CGFloat keyboardHeight;
 
+@property (strong, nonatomic) WLWrapChannelBroadcaster* wrapChannelBroadcaster;
+
 @end
 
 @implementation WLChatViewController
@@ -60,6 +64,18 @@
 
 - (WLCollectionViewFlowLayout *)layout {
 	return (WLCollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+}
+
+- (WLWrapChannelBroadcaster *)wrapChannelBroadcaster {
+	if (!_wrapChannelBroadcaster) {
+		_wrapChannelBroadcaster = [[WLWrapChannelBroadcaster alloc] initWithReceiver:self];
+	}
+	return _wrapChannelBroadcaster;
+}
+
+- (void)setWrap:(WLWrap *)wrap {
+	_wrap = wrap;
+	self.wrapChannelBroadcaster.wrap = wrap;
 }
 
 - (void)viewDidLoad {
@@ -132,16 +148,12 @@
 
 - (void)addMessages:(NSArray*)messages date:(NSDate*)date {
 	WLWrapDate* dateObject = [self dateObjectWithDate:date];
-	NSMutableArray* candies = [NSMutableArray arrayWithArray:dateObject.candies];
-	[candies addObjectsFromArray:messages];
-	dateObject.candies = [candies copy];
+	dateObject.candies = (id)[dateObject.candies entriesByAddingEntries:messages];
 }
 
 - (void)insertMessage:(WLCandy*)message {
 	WLWrapDate* dateObject = [self dateObjectWithDate:message.updatedAt];
-	NSMutableArray* candies = [NSMutableArray arrayWithArray:dateObject.candies];
-	[candies insertObject:message atIndex:0];
-	dateObject.candies = [candies copy];
+	dateObject.candies = (id)[dateObject.candies entriesByInsertingFirstEntry:message];
 }
 
 - (WLWrapDate*)dateObjectWithDate:(NSDate*)date {
@@ -186,6 +198,14 @@
 		[error showIgnoringNetworkError];
 		loading = NO;
 	}];
+}
+
+#pragma mark - WLWrapChannelBroadcastReceiver
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddChatMessage:(WLCandy *)message {
+	[message setUpdated:NO];
+	[self insertMessage:message];
+	[self.collectionView reloadData];
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver

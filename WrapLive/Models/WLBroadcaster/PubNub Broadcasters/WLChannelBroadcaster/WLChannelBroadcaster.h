@@ -7,20 +7,9 @@
 //
 
 #import "WLBroadcaster.h"
-#import "WLMessageBroadcaster.h"
+#import "WLNotificationBroadcaster.h"
+#import "WLNotification.h"
 
-typedef NS_ENUM(NSUInteger, WLMessageType) {
-	WLMessageContributorAddition  = 100,
-	WLMessageContributorDeletion  = 200,
-	WLMessageImageCandyAddition   = 300,
-	WLMessageImageCandyDeletion   = 400,
-	WLMessageCandyCommentAddition = 500,
-	WLMessageCandyCommentDeletion = 600,
-	WLMessageChatCandyAddition    = 700,
-};
-
-@interface WLChannelBroadcaster : WLBroadcaster <WLMessageBroadcastReceiver>
-
-- (void)didReceiveMessage:(WLMessageType)type data:(NSDictionary*)data;
+@interface WLChannelBroadcaster : WLBroadcaster <WLNotificationReceiver>
 
 @end

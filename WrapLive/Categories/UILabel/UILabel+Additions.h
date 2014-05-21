@@ -12,10 +12,20 @@
 
 @property (nonatomic, readonly) CGFloat fitHeight;
 
+@property (nonatomic, readonly) CGFloat fitWidth;
+
 - (void)sizeToFitHeightWithMaximumHeightToSuperviewBottom;
 
 - (void)sizeToFitHeightWithMaximumHeight:(CGFloat)minimumHeight;
 
 - (void)sizeToFitHeight;
+
+- (void)sizeToFitWidthWithMaximumHeightToSuperviewRight;
+
+- (void)sizeToFitWidthWithSuperviewRightPadding:(CGFloat)padding;
+
+- (void)sizeToFitWidthWithMaximumWidth:(CGFloat)maximumWidth;
+
+- (void)sizeToFitWidth;
 
 @end

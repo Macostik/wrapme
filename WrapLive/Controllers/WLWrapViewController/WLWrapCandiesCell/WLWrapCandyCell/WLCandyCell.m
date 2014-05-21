@@ -22,8 +22,10 @@
 #import "UIView+GestureRecognizing.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLToast.h"
+#import "WLEntryState.h"
+#import "WLWrapChannelBroadcaster.h"
 
-@interface WLCandyCell () <WLWrapBroadcastReceiver>
+@interface WLCandyCell () <WLWrapBroadcastReceiver, WLWrapChannelBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
@@ -32,6 +34,9 @@
 @property (weak, nonatomic) IBOutlet WLBorderView *borderView;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *retryButton;
+@property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
+
+@property (strong, nonatomic) WLWrapChannelBroadcaster* wrapChannelBroadcaster;
 
 @end
 
@@ -47,7 +52,20 @@
 	}];
 }
 
+- (WLWrapChannelBroadcaster *)wrapChannelBroadcaster {
+	if (!_wrapChannelBroadcaster) {
+		_wrapChannelBroadcaster = [[WLWrapChannelBroadcaster alloc] initWithReceiver:self];
+	}
+	return _wrapChannelBroadcaster;
+}
+
+- (void)setWrap:(WLWrap *)wrap {
+	_wrap = wrap;
+	self.wrapChannelBroadcaster.wrap = wrap;
+}
+
 - (void)setupItemData:(WLCandy*)entry {
+	self.wrapChannelBroadcaster.candy = entry;
 	self.userInteractionEnabled = YES;
 	self.chatLabelView.hidden = entry.type == WLCandyTypeImage;
 	if (entry.type == WLCandyTypeImage) {
@@ -61,6 +79,8 @@
 	self.commentLabel.hidden = !self.commentLabel.text.nonempty;
 	
 	[self refreshUploadingButtons:entry animated:NO];
+	
+	self.notifyBulb.hidden = ![entry updated];
 }
 
 - (void)refreshUploadingButtons:(WLCandy*)candy animated:(BOOL)animated {
@@ -119,6 +139,8 @@
 - (IBAction)select:(id)sender {
 	WLCandy* candy = self.item;
 	if (candy.uploadingItem == nil) {
+		self.notifyBulb.hidden = YES;
+		[candy setUpdated:NO];
 		[self.delegate candyCell:self didSelectCandy:candy];
 	}
 }
@@ -128,7 +150,18 @@
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
 	if ([candy isEqualToEntry:self.item]) {
 		[self refreshUploadingButtons:self.item animated:YES];
+		self.notifyBulb.hidden = ![self.item updated];
 	}
+}
+
+#pragma mark - WLWrapChannelBroadcastReceiver
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddChatMessage:(WLCandy *)message {
+	self.notifyBulb.hidden = ![self.item updated];
+}
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddComment:(WLCandy *)candy {
+	self.item = [self.item updateWithObject:candy];
 }
 
 #pragma mark - Actions

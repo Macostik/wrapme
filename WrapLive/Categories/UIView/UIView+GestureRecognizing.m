@@ -16,53 +16,53 @@
 
 @property (strong, nonatomic) WLPointBlock tapGestureBlock;
 
-@property (strong, nonatomic) UITapGestureRecognizer* tapGestureRecognizer;
+@property (strong, nonatomic) UITapGestureRecognizer* wl_tapGestureRecognizer;
 
 @end
 
 @implementation UIView (GestureRecognizing)
 
 - (void)setTapGestureBlock:(WLPointBlock)tapGestureBlock {
-	[self setAssociatedObject:tapGestureBlock forKey:"tapGestureBlock"];
+	[self setAssociatedObject:tapGestureBlock forKey:"wl_tapGestureBlock"];
 }
 
 - (WLPointBlock)tapGestureBlock {
-	return [self associatedObjectForKey:"tapGestureBlock"];
+	return [self associatedObjectForKey:"wl_tapGestureBlock"];
 }
 
-- (void)setTapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
-	[self setAssociatedObject:tapGestureRecognizer forKey:"tapGestureRecognizer"];
+- (void)setWl_tapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
+	[self setAssociatedObject:tapGestureRecognizer forKey:"wl_tapGestureRecognizer"];
 }
 
-- (UITapGestureRecognizer *)tapGestureRecognizer {
-	return [self associatedObjectForKey:"tapGestureRecognizer"];
+- (UITapGestureRecognizer *)wl_tapGestureRecognizer {
+	return [self associatedObjectForKey:"wl_tapGestureRecognizer"];
 }
 
 - (void)setLongPressGestureBlock:(WLPointBlock)longPressGestureBlock {
-	[self setAssociatedObject:longPressGestureBlock forKey:"longPressGestureBlock"];
+	[self setAssociatedObject:longPressGestureBlock forKey:"wl_longPressGestureBlock"];
 }
 
 - (WLPointBlock)longPressGestureBlock {
-	return [self associatedObjectForKey:"longPressGestureBlock"];
+	return [self associatedObjectForKey:"wl_longPressGestureBlock"];
 }
 
 - (void)setVibrateOnLongPressGesture:(BOOL)vibrateOnLongPressGesture {
-	[self setAssociatedObject:@(vibrateOnLongPressGesture) forKey:"vibrateOnLongPressGesture"];
+	[self setAssociatedObject:@(vibrateOnLongPressGesture) forKey:"wl_vibrateOnLongPressGesture"];
 }
 
 - (BOOL)vibrateOnLongPressGesture {
-	return [[self associatedObjectForKey:"vibrateOnLongPressGesture"] boolValue];
+	return [[self associatedObjectForKey:"wl_vibrateOnLongPressGesture"] boolValue];
 }
 
 - (void)addTapGestureRecognizing:(WLPointBlock)block {
 	self.tapGestureBlock = block;
 	UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
 	[self addGestureRecognizer:tapGestureRecognizer];
-	self.tapGestureRecognizer = tapGestureRecognizer;
+	self.wl_tapGestureRecognizer = tapGestureRecognizer;
 }
 
 - (void)removeTapGestureRecognizing {
-	UITapGestureRecognizer* tapGestureRecognizer = self.tapGestureRecognizer;
+	UITapGestureRecognizer* tapGestureRecognizer = self.wl_tapGestureRecognizer;
 	if (tapGestureRecognizer) {
 		[self removeGestureRecognizer:tapGestureRecognizer];
 	}

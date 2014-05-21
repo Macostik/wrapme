@@ -30,10 +30,11 @@
 #import "WLDataManager.h"
 #import "NSDate+Additions.h"
 #import "WLWrapBroadcaster.h"
+#import "WLWrapChannelBroadcaster.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
-@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver>
+@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, WLWrapChannelBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -52,6 +53,10 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 @property (nonatomic) BOOL shouldLoadMoreCandies;
 
 @property (nonatomic) BOOL loading;
+
+@property (strong, nonatomic) WLWrapChannelBroadcaster* wrapChannelBroadcaster;
+
+
 
 @end
 
@@ -76,12 +81,20 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[self showContentIndicatorView:NO];
 }
 
+- (WLWrapChannelBroadcaster *)wrapChannelBroadcaster {
+	if (!_wrapChannelBroadcaster) {
+		_wrapChannelBroadcaster = [[WLWrapChannelBroadcaster alloc] initWithReceiver:self];
+	}
+	return _wrapChannelBroadcaster;
+}
+
 - (UIView *)swipeView {
 	return self.tableView;
 }
 
 - (void)setWrap:(WLWrap *)wrap candy:(WLCandy *)candy {
 	self.wrap = wrap;
+	self.wrapChannelBroadcaster.wrap = wrap;
 	__weak typeof(self)weakSelf = self;
 	[wrap enumerateCandies:^(WLCandy *_candy, WLWrapDate *date, BOOL *stop) {
 		if (_candy.type == WLCandyTypeImage) {
@@ -184,6 +197,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)setupImage {
 	WLCandy* image = self.candy;
+	self.wrapChannelBroadcaster.candy = image;
 	__weak typeof(self)weakSelf = self;
 	if (!self.spinner.isAnimating) {
 		[self.spinner startAnimating];
@@ -213,6 +227,25 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentRemoved:(WLComment *)comment {
 	[self.tableView reloadData];
+}
+
+#pragma mark - WLWrapChannelBroadcastReceiver
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddComment:(WLCandy *)candy {
+	self.candy = [self.candy updateWithObject:candy];
+}
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didDeleteCandy:(WLCandy *)candy {
+	self.items = [self.items entriesByRemovingEntry:candy];
+	if (self.items.nonempty) {
+		self.candy = [self.items lastObject];
+	} else {
+		[self.navigationController popViewControllerAnimated:YES];
+	}
+}
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didDeleteComment:(WLCandy *)candy {
+	self.candy = [self.candy updateWithObject:candy];
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver

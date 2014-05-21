@@ -11,114 +11,84 @@
 
 @implementation NSArray (Additions)
 
+- (BOOL)nonempty {
+	return [self count] > 0;
+}
+
+- (NSArray*)mutate:(void (^)(NSMutableArray* mutableCopy))mutation {
+	NSMutableArray *mutableCopy = [self mutableCopy];
+	mutation(mutableCopy);
+	return [mutableCopy copy];
+}
+
 - (NSArray *)arrayByRemovingObject:(id)object {
-	NSMutableArray *newArray = [NSMutableArray arrayWithArray:self];
-	[newArray removeObject:object];
-	return [NSArray arrayWithArray:newArray];
+	return [self mutate:^void (NSMutableArray *mutableCopy) {
+		[mutableCopy removeObject:object];
+	}];
 }
 
 - (NSArray *)arrayByRemovingObjectsFromArray:(NSArray *)array {
-	NSMutableArray *newArray = [NSMutableArray arrayWithArray:self];
-	
-	for (id object in array) {
-		if ([newArray indexOfObject:object] != NSNotFound) {
-			[newArray removeObject:object];
+	return [self mutate:^void (NSMutableArray *mutableCopy) {
+		for (id object in array) {
+			if ([mutableCopy indexOfObject:object] != NSNotFound) {
+				[mutableCopy removeObject:object];
+			}
 		}
-	}
-	
-	return [NSArray arrayWithArray:newArray];
+	}];;
 }
 
 - (NSArray *)arrayByReplacingObject:(id)object withObject:(id)replaceObject {
-	NSMutableArray *array = [NSMutableArray arrayWithArray:self];
-	[array replaceObject:object withObject:replaceObject];
-	return [NSArray arrayWithArray:array];
+	return [self mutate:^(NSMutableArray *mutableCopy) {
+		[mutableCopy replaceObject:object withObject:replaceObject];
+	}];
 }
 
 - (id)safeObjectAtIndex:(NSInteger)index {
-	return (index >= 0 && index < self.count) ? self[index] : nil;
-}
-
-- (NSArray *)enumerateObj:(id (^)(id obj))enumerateObj {
-	NSMutableArray *array = [NSMutableArray array];
-	
-	for (id object in self) {
-		id resultObject = enumerateObj(object);
-		if (resultObject) {
-			[array addObject:resultObject];
-		}
-	}
-	return array;
-}
-
-+ (instancetype)arrayWithResourcePropertyListNamed:(NSString *)name {
-	return [self arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:@"plist"]];
+	return [self containsIndex:index] ? self[index] : nil;
 }
 
 - (NSArray *)arrayByAddingUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality {
-	objects = [objects uniqueByBlock:equality];
-	if ([objects count] == 0) {
-		return self;
-	}
-	NSIndexSet *indexes = [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
-	    NSInteger index = [objects indexOfObjectPassingTest: ^BOOL (id object, NSUInteger idx, BOOL *stop) {
-	        return equality(obj, object);
-		}];
-	    return index != NSNotFound;
+	return [self mutate:^(NSMutableArray *mutableCopy) {
+		[mutableCopy addUniqueObjects:objects equality:equality];
 	}];
-	
-	NSMutableArray *_objects = [self mutableCopy];
-	
-	if ([indexes count] > 0) {
-		[_objects removeObjectsAtIndexes:indexes];
-	}
-	
-	[_objects addObjectsFromArray:objects];
-	return [NSArray arrayWithArray:_objects];
+}
+
+- (NSArray*)arrayByInsertingUniqueObjects:(NSArray *)objects atIndex:(NSUInteger)index equality:(EqualityBlock)equality {
+	return [self mutate:^(NSMutableArray *mutableCopy) {
+		[mutableCopy insertUniqueObjects:objects atIndex:index equality:equality];
+	}];
+}
+
+- (NSArray*)arrayByInsertingFirstUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality {
+	return [self arrayByInsertingUniqueObjects:objects atIndex:0 equality:equality];
 }
 
 - (NSArray *)arrayByAddingUniqueObject:(id)object equality:(EqualityBlock)equality {
-	NSIndexSet *indexes = [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
-	    return equality(obj, object);
+	return [self mutate:^(NSMutableArray *mutableCopy) {
+		[mutableCopy addUniqueObject:object equality:equality];
 	}];
-	
-	NSMutableArray *_objects = [self mutableCopy];
-	
-	if ([indexes count] > 0) {
-		[_objects removeObjectsAtIndexes:indexes];
-	}
-	
-	[_objects addObject:object];
-	return [NSArray arrayWithArray:_objects];
+}
+
+- (NSArray*)arrayByInsertingUniqueObject:(id)object atIndex:(NSUInteger)index equality:(EqualityBlock)equality {
+	return [self mutate:^(NSMutableArray *mutableCopy) {
+		[mutableCopy insertUniqueObject:object atIndex:index equality:equality];
+	}];
+}
+
+- (NSArray*)arrayByInsertingFirstUniqueObject:(id)object equality:(EqualityBlock)equality {
+	return [self arrayByInsertingUniqueObject:object atIndex:0 equality:equality];
 }
 
 - (NSArray *)arrayByRemovingUniqueObject:(id)object equality:(EqualityBlock)equality {
-	NSIndexSet *indexes = [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
-	    return equality(obj, object);
+	return [self mutate:^(NSMutableArray *mutableCopy) {
+		[mutableCopy removeUniqueObject:object equality:equality];
 	}];
-	if ([indexes count] > 0) {
-		NSMutableArray *_objects = [self mutableCopy];
-		[_objects removeObjectsAtIndexes:indexes];
-		return [NSArray arrayWithArray:_objects];
-	} else {
-		return self;
-	}
 }
 
 - (NSArray *)arrayByRemovingUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality {
-	NSIndexSet *indexes = [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
-	    NSInteger index = [objects indexOfObjectPassingTest: ^BOOL (id object, NSUInteger idx, BOOL *stop) {
-	        return equality(obj, object);
-		}];
-	    return index != NSNotFound;
+	return [self mutate:^(NSMutableArray *mutableCopy) {
+		[mutableCopy removeUniqueObjects:objects equality:equality];
 	}];
-	if ([indexes count] > 0) {
-		NSMutableArray *_objects = [self mutableCopy];
-		[_objects removeObjectsAtIndexes:indexes];
-		return [NSArray arrayWithArray:_objects];
-	} else {
-		return self;
-	}
 }
 
 - (NSArray *)map:(MapBlock)block {
@@ -142,6 +112,45 @@
 - (NSArray *)selectObjects:(SelectBlock)block {
 	return [self map:^id(id item) {
 		return block(item) ? item : nil;
+	}];
+}
+
+- (NSUInteger)indexOfObjectEqualToObject:(id)object equality:(EqualityBlock)equality {
+	return [self indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+		return equality(obj, object);
+	}];
+}
+
+- (id)selectObjectEqualToObject:(id)object equality:(EqualityBlock)equality {
+	return [self selectObject:^BOOL(id item) {
+		return equality(item, object);
+	}];
+}
+
+- (NSIndexSet*)indexesOfObjectsEqualToObject:(id)object equality:(EqualityBlock)equality {
+	return [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
+	    return equality(obj, object);
+	}];
+}
+
+- (NSArray*)selectObjectsEqualToObject:(id)object equality:(EqualityBlock)equality {
+	return [self selectObjects:^BOOL(id item) {
+		return equality(item, object);
+	}];
+}
+
+- (NSIndexSet*)indexesOfObjectsEqualToObjects:(NSArray*)objects equality:(EqualityBlock)equality {
+	return [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
+	    NSInteger index = [objects indexOfObjectPassingTest: ^BOOL (id object, NSUInteger idx, BOOL *stop) {
+	        return equality(obj, object);
+		}];
+	    return index != NSNotFound;
+	}];
+}
+
+- (NSArray*)selectObjectsEqualToObjects:(NSArray*)objects equality:(EqualityBlock)equality {
+	return [self selectObjects:^BOOL(id item) {
+		return [objects containsObject:item byBlock:equality];
 	}];
 }
 
@@ -220,36 +229,33 @@
 }
 
 - (void)addUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality {
-	if (!objects) {
-		return;
-	}
-	
 	objects = [objects uniqueByBlock:equality];
-	
 	if ([objects count] == 0) {
 		return;
 	}
-	
-	NSIndexSet *indexes = [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
-	    NSInteger index = [objects indexOfObjectPassingTest: ^BOOL (id object, NSUInteger idx, BOOL *stop) {
-	        return equality(obj, object);
-		}];
-	    return index != NSNotFound;
-	}];
-		
+	NSIndexSet *indexes = [self indexesOfObjectsEqualToObjects:objects equality:equality];
 	if ([indexes count] > 0) {
 		[self removeObjectsAtIndexes:indexes];
 	}
 	[self addObjectsFromArray:objects];
 }
 
+- (void)insertUniqueObjects:(NSArray *)objects atIndex:(NSUInteger)index equality:(EqualityBlock)equality {
+	if (objects.nonempty) {
+		[self removeUniqueObjects:objects equality:equality];
+		[self insertObjects:objects atIndexes:[NSIndexSet indexSetWithIndex:0]];
+	}
+}
+
+- (void)insertFirstUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality {
+	[self insertUniqueObjects:objects atIndex:0 equality:equality];
+}
+
 - (void)addUniqueObject:(id)object equality:(EqualityBlock)equality {
 	if (!object) {
 		return;
 	}
-	NSIndexSet *indexes = [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
-	    return equality(obj, object);
-	}];
+	NSIndexSet *indexes = [self indexesOfObjectsEqualToObject:object equality:equality];
 	if ([indexes count] > 0) {
 		[self removeObjectsAtIndexes:indexes];
 		NSUInteger index = [indexes firstIndex];
@@ -263,32 +269,35 @@
 	}
 }
 
-- (BOOL)removeUniqueObject:(id)object equality:(EqualityBlock)equality {
-	if (!object) {
-		return NO;
-	}
-	NSIndexSet *indexes = [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
-	    return equality(obj, object);
-	}];
-	if ([indexes count] > 0) {
-		[self removeObjectsAtIndexes:indexes];
-		return YES;
-	}
-	else {
-		return NO;
+- (void)insertUniqueObject:(id)object atIndex:(NSUInteger)index equality:(EqualityBlock)equality {
+	if (object) {
+		[self removeUniqueObject:object equality:equality];
+		[self insertObject:object atIndex:index];
 	}
 }
 
+- (void)insertFirstUniqueObject:(id)object equality:(EqualityBlock)equality {
+	[self insertUniqueObject:object atIndex:0 equality:equality];
+}
+
+- (BOOL)removeUniqueObject:(id)object equality:(EqualityBlock)equality {
+	if (object) {
+		NSIndexSet *indexes = [self indexesOfObjectsEqualToObject:object equality:equality];
+		if ([indexes count] > 0) {
+			[self removeObjectsAtIndexes:indexes];
+			return YES;
+		}
+	}
+	return NO;
+}
+
 - (BOOL)removeUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality {
-	NSIndexSet *indexes = [self indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
-	    NSInteger index = [objects indexOfObjectPassingTest: ^BOOL (id object, NSUInteger idx, BOOL *stop) {
-	        return equality(obj, object);
-		}];
-	    return index != NSNotFound;
-	}];
-	if ([indexes count] > 0) {
-		[self removeObjectsAtIndexes:indexes];
-		return YES;
+	if ([objects count] > 0) {
+		NSIndexSet *indexes = [self indexesOfObjectsEqualToObjects:objects equality:equality];
+		if ([indexes count] > 0) {
+			[self removeObjectsAtIndexes:indexes];
+			return YES;
+		}
 	}
 	return NO;
 }

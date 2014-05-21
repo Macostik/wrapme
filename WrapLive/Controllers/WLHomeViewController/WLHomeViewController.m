@@ -38,8 +38,10 @@
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
 #import "WLToast.h"
+#import "WLUserChannelBroadcaster.h"
+#import "WLNotificationBroadcaster.h"
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate>
+@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLUserChannelBroadcastReceiver, WLNotificationReceiver>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
@@ -68,6 +70,8 @@
 	self.noWrapsView.hidden = YES;
 	[self setupRefresh];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
+	[[WLUserChannelBroadcaster broadcaster] addReceiver:self];
+	[[WLNotificationBroadcaster broadcaster] addReceiver:self];
 	self.tableView.tableFooterView = [WLLoadingView instance];
 }
 
@@ -132,6 +136,45 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
 	[self updateWraps];
+	[WLDataCache cache].wraps = self.wraps;
+}
+
+#pragma mark - WLNotificationReceiver
+
+- (void)handleRemoteNotification:(WLNotification*)notification {
+	__weak typeof(self)weakSelf = self;
+	if (notification.type == WLNotificationContributorAddition) {
+		[notification.wrap fetch:^(WLWrap *wrap) {
+			WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
+			wrapController.wrap = [weakSelf.wraps firstObject];
+			[weakSelf.navigationController pushViewController:wrapController animated:NO];
+		} failure:^(NSError *error) {
+		}];
+	} else if (notification.type == WLNotificationImageCandyAddition || notification.type == WLNotificationChatCandyAddition || notification.type == WLNotificationCandyCommentAddition) {
+		[notification.wrap fetch:^(WLWrap *wrap) {
+			[notification.candy fetch:wrap success:^(WLCandy *candy) {
+				[weakSelf presentCandy:candy fromWrap:wrap];
+			} failure:^(NSError *error) {
+			}];
+		} failure:^(NSError *error) {
+		}];
+	}
+}
+
+- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {
+	[self handleRemoteNotification:notification];
+	broadcaster.pendingRemoteNotification = nil;
+}
+
+#pragma mark - WLUserChannelBroadcastReceiver
+
+- (void)broadcaster:(WLUserChannelBroadcaster *)broadcaster didBecomeContributor:(WLWrap *)wrap {
+	self.wraps = [self.wraps entriesByAddingEntry:wrap];
+	[WLDataCache cache].wraps = self.wraps;
+}
+
+- (void)broadcaster:(WLUserChannelBroadcaster *)broadcaster didResignContributor:(WLWrap *)wrap {
+	self.wraps = [self.wraps entriesByRemovingEntry:wrap];
 	[WLDataCache cache].wraps = self.wraps;
 }
 
@@ -311,21 +354,25 @@
 
 #pragma mark - WLWrapCellDelegate
 
-- (void)wrapCell:(WLWrapCell *)cell didSelectCandy:(WLCandy *)candy {
+- (void)presentCandy:(WLCandy*)candy fromWrap:(WLWrap*)wrap {
 	WLWrapViewController* wrapController = [self.storyboard wrapViewController];
-	wrapController.wrap = cell.item;
+	wrapController.wrap = wrap;
 	UIViewController* controller = nil;
 	if (candy.type == WLCandyTypeImage) {
 		WLCandyViewController* candyController = [self.storyboard candyViewController];
-		[candyController setWrap:cell.item candy:candy];
+		[candyController setWrap:wrap candy:candy];
 		controller = candyController;
 	} else if (candy.type == WLCandyTypeChatMessage) {
 		WLChatViewController *chatController = [self.storyboard chatViewController];
-		chatController.wrap = cell.item;
+		chatController.wrap = wrap;
 		controller = chatController;
 	}
 	NSArray* controllers = @[self, wrapController, controller];
 	[self.navigationController setViewControllers:controllers animated:YES];
+}
+
+- (void)wrapCell:(WLWrapCell *)cell didSelectCandy:(WLCandy *)candy {
+	[self presentCandy:candy fromWrap:cell.item];
 }
 
 - (void)wrapCellDidSelectCandyPlaceholder:(WLWrapCell *)cell {

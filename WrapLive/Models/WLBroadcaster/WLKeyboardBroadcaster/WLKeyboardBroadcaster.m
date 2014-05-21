@@ -10,6 +10,10 @@
 #import "UIView+GestureRecognizing.h"
 #import "WLSupportFunctions.h"
 
+@interface WLKeyboardBroadcaster ()
+
+@end
+
 @implementation WLKeyboardBroadcaster
 
 + (instancetype)broadcaster {

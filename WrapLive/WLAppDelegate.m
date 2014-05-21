@@ -12,7 +12,7 @@
 #import <CocoaLumberjack/DDTTYLogger.h>
 #import "WLInternetConnectionBroadcaster.h"
 #import "WLSession.h"
-#import "WLMessageBroadcaster.h"
+#import "WLNotificationBroadcaster.h"
 #import "WLKeyboardBroadcaster.h"
 
 @interface WLAppDelegate ()
@@ -27,9 +27,12 @@
 	[DDLog addLogger:[DDASLLogger sharedInstance]];
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
 //	
-//	[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+	[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
 	[[WLInternetConnectionBroadcaster broadcaster] configure];
 	[[WLKeyboardBroadcaster broadcaster] configure];
+	[[WLNotificationBroadcaster broadcaster] configure];
+	
+	[[WLNotificationBroadcaster broadcaster] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
 	
 	return YES;
 }
@@ -61,14 +64,20 @@
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-//	NSLog(@"deviceToken %@", deviceToken);
-//	[WLSession setDeviceToken:deviceToken];
-//	[WLMessageBroadcaster enablePushNotificationsInSubscribedChannels:deviceToken];
-//}
-//
-//- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-//	NSLog(@"%@", error);
-//}
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+	NSLog(@"deviceToken %@", deviceToken);
+	[WLSession setDeviceToken:deviceToken];
+	[WLNotificationBroadcaster enablePushNotificationsInSubscribedChannels:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+	NSLog(@"%@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+	if (application.applicationState != UIApplicationStateActive) {
+		[[WLNotificationBroadcaster broadcaster] handleRemoteNotification:userInfo];
+	}
+}
 
 @end

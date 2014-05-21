@@ -37,7 +37,7 @@
 			[candies removeObjectsInArray:messages];
 		}
 	}
-	[candies insertObject:candy atIndex:0];
+	[candies insertFirstEntry:candy];
 	self.candies = [candies copy];
 }
 

@@ -24,7 +24,7 @@ static NSArray* _wraps = nil;
 		page = ((_wraps.count + 1)/WLAPIGeneralPageSize + 1);
 	}
 	[[WLAPIManager instance] wraps:page success:^(NSArray *object) {
-		_wraps = refresh ? object : [(_wraps ? : @[]) arrayByAddingObjectsFromArray:object];
+		_wraps = refresh ? object : [(_wraps ? : @[]) entriesByAddingEntries:object];
 		[[WLDataCache cache] setWraps:_wraps completion:^(NSString *path) {
 			if (success) {
 				success(_wraps, NO, (object.count != WLAPIGeneralPageSize));

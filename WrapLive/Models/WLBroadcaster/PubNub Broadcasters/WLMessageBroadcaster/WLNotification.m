@@ -38,6 +38,10 @@
 		if (identifier.nonempty) {
 			_wrap = [[WLWrap alloc] init];
 			_wrap.identifier = identifier;
+			WLCandy* candy = self.candy;
+			if (candy) {
+				[_wrap addCandy:candy];
+			}
 		}
 	}
 	return _wrap;
@@ -49,6 +53,11 @@
 		if (identifier.nonempty) {
 			_candy = [[WLCandy alloc] init];
 			_candy.identifier = identifier;
+			if (self.type == WLNotificationImageCandyAddition || self.type == WLNotificationImageCandyDeletion || self.type == WLNotificationCandyCommentAddition || self.type == WLNotificationCandyCommentDeletion) {
+				_candy.type = WLCandyTypeImage;
+			} else if (self.type == WLNotificationChatCandyAddition) {
+				_candy.type = WLCandyTypeChatMessage;
+			}
 		}
 	}
 	return _candy;

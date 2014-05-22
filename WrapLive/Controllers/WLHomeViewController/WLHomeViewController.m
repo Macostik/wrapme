@@ -143,21 +143,28 @@
 
 - (void)handleRemoteNotification:(WLNotification*)notification {
 	__weak typeof(self)weakSelf = self;
+//	if (notification.type == WLNotificationContributorAddition) {
+//		[notification.wrap fetch:^(WLWrap *wrap) {
+//			WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
+//			wrapController.wrap = wrap;
+//			[weakSelf.navigationController pushViewController:wrapController animated:YES];
+//		} failure:^(NSError *error) {
+//		}];
+//	} else if (notification.type == WLNotificationImageCandyAddition || notification.type == WLNotificationChatCandyAddition || notification.type == WLNotificationCandyCommentAddition) {
+//		[notification.wrap fetch:^(WLWrap *wrap) {
+//			[notification.candy fetch:wrap success:^(WLCandy *candy) {
+//				[weakSelf presentCandy:candy fromWrap:wrap];
+//			} failure:^(NSError *error) {
+//			}];
+//		} failure:^(NSError *error) {
+//		}];
+//	}
 	if (notification.type == WLNotificationContributorAddition) {
-		[notification.wrap fetch:^(WLWrap *wrap) {
-			WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
-			wrapController.wrap = [weakSelf.wraps firstObject];
-			[weakSelf.navigationController pushViewController:wrapController animated:NO];
-		} failure:^(NSError *error) {
-		}];
+		WLWrapViewController* wrapController = [self.storyboard wrapViewController];
+		wrapController.wrap = notification.wrap;
+		[self.navigationController pushViewController:wrapController animated:YES];
 	} else if (notification.type == WLNotificationImageCandyAddition || notification.type == WLNotificationChatCandyAddition || notification.type == WLNotificationCandyCommentAddition) {
-		[notification.wrap fetch:^(WLWrap *wrap) {
-			[notification.candy fetch:wrap success:^(WLCandy *candy) {
-				[weakSelf presentCandy:candy fromWrap:wrap];
-			} failure:^(NSError *error) {
-			}];
-		} failure:^(NSError *error) {
-		}];
+		[self presentCandy:notification.candy fromWrap:notification.wrap];
 	}
 }
 
@@ -367,8 +374,10 @@
 		chatController.wrap = wrap;
 		controller = chatController;
 	}
-	NSArray* controllers = @[self, wrapController, controller];
-	[self.navigationController setViewControllers:controllers animated:YES];
+	if (controller) {
+		NSArray* controllers = @[self, wrapController, controller];
+		[self.navigationController setViewControllers:controllers animated:YES];
+	}
 }
 
 - (void)wrapCell:(WLWrapCell *)cell didSelectCandy:(WLCandy *)candy {

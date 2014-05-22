@@ -82,7 +82,7 @@
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] candies:self.wrap date:wrapDay success:^(id object) {
 		weakSelf.shouldAppendMoreCandies = [object count] == WLAPIGeneralPageSize;
-		wrapDay.candies = (id)[wrapDay.candies arrayByAddingObjectsFromArray:object];
+		wrapDay.candies = (id)[wrapDay.candies entriesByAddingEntries:object];
 		[weakSelf.collectionView reloadData];
 		[weakSelf fixContentOffset];
 	} failure:^(NSError *error) {

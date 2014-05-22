@@ -21,7 +21,7 @@
 
 + (instancetype)notificationWithData:(NSDictionary *)data {
 	if ([data isKindOfClass:[NSDictionary class]]) {
-		NSString* type = [data objectForKey:@"pn_type"];
+		NSString* type = [data objectForKey:@"wl_pn_type"];
 		if (type) {
 			WLNotification* notification = [[self alloc] init];
 			notification.type = [type integerValue];

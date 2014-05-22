@@ -246,7 +246,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didDeleteComment:(WLCandy *)candy {
 	[self setupImage];
-//	self.candy = [self.candy updateWithObject:candy];
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver

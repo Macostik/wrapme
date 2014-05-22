@@ -142,23 +142,6 @@
 #pragma mark - WLNotificationReceiver
 
 - (void)handleRemoteNotification:(WLNotification*)notification {
-	__weak typeof(self)weakSelf = self;
-//	if (notification.type == WLNotificationContributorAddition) {
-//		[notification.wrap fetch:^(WLWrap *wrap) {
-//			WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
-//			wrapController.wrap = wrap;
-//			[weakSelf.navigationController pushViewController:wrapController animated:YES];
-//		} failure:^(NSError *error) {
-//		}];
-//	} else if (notification.type == WLNotificationImageCandyAddition || notification.type == WLNotificationChatCandyAddition || notification.type == WLNotificationCandyCommentAddition) {
-//		[notification.wrap fetch:^(WLWrap *wrap) {
-//			[notification.candy fetch:wrap success:^(WLCandy *candy) {
-//				[weakSelf presentCandy:candy fromWrap:wrap];
-//			} failure:^(NSError *error) {
-//			}];
-//		} failure:^(NSError *error) {
-//		}];
-//	}
 	if (notification.type == WLNotificationContributorAddition) {
 		WLWrapViewController* wrapController = [self.storyboard wrapViewController];
 		wrapController.wrap = notification.wrap;

@@ -92,7 +92,7 @@
 }
 
 - (UIViewController *)shakePresentedViewController {
-	return [self.wraps count] > 0 ? [self cameraViewController] : nil;
+	return self.wraps.nonempty ? [self cameraViewController] : nil;
 }
 
 - (WLCameraViewController*)cameraViewController {
@@ -246,7 +246,7 @@
 
 - (void)updateWraps {
 	
-	BOOL hasWraps = [_wraps count] > 0;
+	BOOL hasWraps = _wraps.nonempty;
 	
 	if (hasWraps) {
 		WLWrap* wrap = self.topWrap;

@@ -21,8 +21,9 @@
 #import "UIStoryboard+Additions.h"
 #import "WLWrapBroadcaster.h"
 #import "NSString+Additions.h"
+#import "WLAuthorization.h"
 
-static const int ddLogLevel = LOG_LEVEL_OFF;
+static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
 static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
 static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
@@ -117,7 +118,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		DDLogDebug(@"%@", error);
 		NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
 		if (success && response && response.statusCode == 401) {
-			[self signIn:[WLSession user] success:^(id object) {
+			[self signIn:[WLAuthorization currentAuthorization] success:^(id object) {
 				AFHTTPRequestOperation *_operation = [operation copy];
 				[_operation setCompletionBlockWithSuccess:success failure:failure];
 				[self.operationQueue addOperation:_operation];
@@ -159,21 +160,17 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	};
 }
 
-- (id)signUp:(WLUser *)user
-	 success:(WLUserBlock)success
+- (id)signUp:(WLAuthorization*)authorization
+	 success:(WLAuthorizationBlock)success
 	 failure:(WLFailureBlock)failure {
-	
-	NSString* birthdate = [user.birthdate GMTString];
-	
-	[WLSession setBirthdate:birthdate];
-	
-	NSDictionary* parameters = @{@"device_uid" : [WLSession UDID],
-								 @"country_calling_code" : user.countryCallingCode,
-								 @"phone_number" : user.phoneNumber,
-								 @"dob" : birthdate};
+			
+	NSDictionary* parameters = @{@"device_uid" : authorization.deviceUID,
+								 @"country_calling_code" : authorization.countryCode,
+								 @"phone_number" : authorization.phone,
+								 @"dob" : [authorization.birthdate GMTString]};
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		return user;
+		return authorization;
 	};
 	
 	return [self POST:@"users"
@@ -182,21 +179,20 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			  failure:[self failureBlock:failure]];
 }
 
-- (id)activate:(WLUser *)user
-		  code:(NSString *)code
-	   success:(WLObjectBlock)success
+- (id)activate:(WLAuthorization*)authorization
+	   success:(WLAuthorizationBlock)success
 	   failure:(WLFailureBlock)failure {
 	
-	NSDictionary* parameters = @{@"device_uid" : [WLSession UDID],
-								 @"country_calling_code" : user.countryCallingCode,
-								 @"phone_number" : user.phoneNumber,
-								 @"activation_code" : code,
-								 @"dob" : [WLSession birthdate]};
+	NSDictionary* parameters = @{@"device_uid" : authorization.deviceUID,
+								 @"country_calling_code" : authorization.countryCode,
+								 @"phone_number" : authorization.phone,
+								 @"dob" : [authorization.birthdate GMTString],
+								 @"activation_code" : authorization.activationCode};
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		NSString* password = [response.data stringForKey:@"password"];
-		[WLSession setPassword:password];
-		return password;
+		authorization.password = [response.data stringForKey:@"password"];
+		[authorization setCurrent];
+		return authorization;
 	};
 	
 	return [self POST:@"users/activate"
@@ -205,17 +201,18 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			  failure:[self failureBlock:failure]];
 }
 
-- (id)signIn:(WLUser *)user success:(WLUserBlock)success failure:(WLFailureBlock)failure {
+- (id)signIn:(WLAuthorization*)authorization success:(WLUserBlock)success failure:(WLFailureBlock)failure {
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-	[parameters trySetObject:user.countryCallingCode forKey:@"country_calling_code"];
-	[parameters trySetObject:user.phoneNumber forKey:@"phone_number"];
-	[parameters trySetObject:[WLSession password] forKey:@"password"];
-	[parameters trySetObject:[WLSession birthdate] forKey:@"dob"];
+	[parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
+	[parameters trySetObject:authorization.phone forKey:@"phone_number"];
+	[parameters trySetObject:authorization.password forKey:@"password"];
+	[parameters trySetObject:[authorization.birthdate GMTString] forKey:@"dob"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		[user updateWithDictionary:[response.data dictionaryForKey:@"user"]];
+		WLUser* user = [WLUser modelWithDictionary:[response.data dictionaryForKey:@"user"]];
 		[WLSession setUser:user];
+		[authorization setCurrent];
 		return user;
 	};
 	
@@ -245,11 +242,12 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:user.name forKey:@"name"];
 	
-	NSString* birthdate = [user.birthdate GMTString];
-	[parameters trySetObject:birthdate forKey:@"dob"];
+	[parameters trySetObject:[user.birthdate GMTString] forKey:@"dob"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		[WLSession setBirthdate:birthdate];
+		WLAuthorization* authorization = [WLAuthorization currentAuthorization];
+		authorization.birthdate = user.birthdate;
+		[authorization setCurrent];
 		WLUser* user = [[WLUser alloc] initWithDictionary:response.data[@"user"] error:NULL];
 		[user setCurrent];
 		return user;
@@ -609,6 +607,22 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 - (id)fetch:(WLWrap *)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
 	return [[WLAPIManager instance] candy:self wrap:wrap success:success failure:failure];
+}
+
+@end
+
+@implementation WLAuthorization (WLAPIManager)
+
+- (id)signUp:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure {
+	return [[WLAPIManager instance] signUp:self success:success failure:failure];
+}
+
+- (id)activate:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure {
+	return [[WLAPIManager instance] activate:self success:success failure:failure];
+}
+
+- (id)signIn:(WLUserBlock)success failure:(WLFailureBlock)failure {
+	return [[WLAPIManager instance] signIn:self success:success failure:failure];
 }
 
 @end

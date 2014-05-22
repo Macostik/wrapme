@@ -292,7 +292,7 @@
 }
 
 - (BOOL)removeUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality {
-	if ([objects count] > 0) {
+	if (objects.nonempty) {
 		NSIndexSet *indexes = [self indexesOfObjectsEqualToObjects:objects equality:equality];
 		if ([indexes count] > 0) {
 			[self removeObjectsAtIndexes:indexes];

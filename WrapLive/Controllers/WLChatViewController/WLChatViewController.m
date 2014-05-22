@@ -134,7 +134,7 @@
 - (void)addMessages:(NSArray*)messages {
 	messagesCount += [messages count];
 		NSMutableArray* _messages = [NSMutableArray arrayWithArray:messages];
-	while ([_messages count] > 0) {
+	while (_messages.nonempty) {
 		WLCandy* candy = [_messages firstObject];
 		NSArray* dayMessages = [_messages entriesForDay:candy.updatedAt];
 		[self addMessages:dayMessages date:candy.updatedAt];

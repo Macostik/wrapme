@@ -12,6 +12,7 @@
 		121553E81907DD4A00A507F8 /* WLFlashModeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 121553E71907DD4A00A507F8 /* WLFlashModeControl.m */; };
 		1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215DC7A18E4421700FCA744 /* NSArray+Additions.m */; };
 		1215DC7F18E4485800FCA744 /* UIStoryboard+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215DC7E18E4485800FCA744 /* UIStoryboard+Additions.m */; };
+		121907B6192CFF3F00E7C22D /* WLAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 121907B5192CFF3F00E7C22D /* WLAuthorization.m */; };
 		121B1B2E18E07430001F585C /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */; };
 		121B1B4018E0848D001F585C /* WLCountriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3A18E0848D001F585C /* WLCountriesViewController.m */; };
@@ -85,6 +86,9 @@
 		12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */; };
 		12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* WLItemCell.m */; };
 		12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
+		12DE697C192E0494007580AD /* WLTestUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12DE697B192E0494007580AD /* WLTestUsers.plist */; };
+		12DE6980192E04F7007580AD /* NSPropertyListSerialization+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DE697F192E04F7007580AD /* NSPropertyListSerialization+Shorthand.m */; };
+		12DE6983192E0B0F007580AD /* WLTestUserPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DE6982192E0B0F007580AD /* WLTestUserPicker.m */; };
 		12DEC3EF1920F7E0007BE6CC /* WLToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3EE1920F7E0007BE6CC /* WLToast.m */; };
 		12DEC3F21921181B007BE6CC /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3F11921181B007BE6CC /* NSObject+AssociatedObjects.m */; };
 		12DEC3F519211A48007BE6CC /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3F419211A48007BE6CC /* UIView+GestureRecognizing.m */; };
@@ -153,6 +157,8 @@
 		1215DC7A18E4421700FCA744 /* NSArray+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Additions.m"; sourceTree = "<group>"; };
 		1215DC7D18E4485800FCA744 /* UIStoryboard+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIStoryboard+Additions.h"; path = "UIStoryboard/UIStoryboard+Additions.h"; sourceTree = "<group>"; };
 		1215DC7E18E4485800FCA744 /* UIStoryboard+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIStoryboard+Additions.m"; path = "UIStoryboard/UIStoryboard+Additions.m"; sourceTree = "<group>"; };
+		121907B4192CFF3F00E7C22D /* WLAuthorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAuthorization.h; path = WLAuthorization/WLAuthorization.h; sourceTree = "<group>"; };
+		121907B5192CFF3F00E7C22D /* WLAuthorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAuthorization.m; path = WLAuthorization/WLAuthorization.m; sourceTree = "<group>"; };
 		121B1B2C18E07430001F585C /* WLCountry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCountry.h; path = WLCountry/WLCountry.h; sourceTree = "<group>"; };
 		121B1B2D18E07430001F585C /* WLCountry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCountry.m; path = WLCountry/WLCountry.m; sourceTree = "<group>"; };
 		121B1B3518E078AF001F585C /* NSObject+NibAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+NibAdditions.h"; sourceTree = "<group>"; };
@@ -290,6 +296,11 @@
 		12DCBA8318DB18F400A4BC44 /* WLItemCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLItemCellProtocol.h; sourceTree = "<group>"; };
 		12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapViewController.h; path = WLWrapViewController/WLWrapViewController.h; sourceTree = "<group>"; };
 		12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapViewController.m; path = WLWrapViewController/WLWrapViewController.m; sourceTree = "<group>"; };
+		12DE697B192E0494007580AD /* WLTestUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = WLTestUsers.plist; path = WLAuthorization/WLTestUsers.plist; sourceTree = "<group>"; };
+		12DE697E192E04F7007580AD /* NSPropertyListSerialization+Shorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSPropertyListSerialization+Shorthand.h"; path = "NSPropertyListSerialization/NSPropertyListSerialization+Shorthand.h"; sourceTree = "<group>"; };
+		12DE697F192E04F7007580AD /* NSPropertyListSerialization+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPropertyListSerialization+Shorthand.m"; path = "NSPropertyListSerialization/NSPropertyListSerialization+Shorthand.m"; sourceTree = "<group>"; };
+		12DE6981192E0B0F007580AD /* WLTestUserPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTestUserPicker.h; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLTestUserPicker.h; sourceTree = "<group>"; };
+		12DE6982192E0B0F007580AD /* WLTestUserPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTestUserPicker.m; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLTestUserPicker.m; sourceTree = "<group>"; };
 		12DEC3ED1920F7E0007BE6CC /* WLToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLToast.h; sourceTree = "<group>"; };
 		12DEC3EE1920F7E0007BE6CC /* WLToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLToast.m; sourceTree = "<group>"; };
 		12DEC3F01921181B007BE6CC /* NSObject+AssociatedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AssociatedObjects.h"; sourceTree = "<group>"; };
@@ -447,6 +458,16 @@
 				1215DC7E18E4485800FCA744 /* UIStoryboard+Additions.m */,
 			);
 			name = UIStoryboard;
+			sourceTree = "<group>";
+		};
+		121907B3192CFF2500E7C22D /* WLAuthorization */ = {
+			isa = PBXGroup;
+			children = (
+				121907B4192CFF3F00E7C22D /* WLAuthorization.h */,
+				121907B5192CFF3F00E7C22D /* WLAuthorization.m */,
+				12DE697B192E0494007580AD /* WLTestUsers.plist */,
+			);
+			name = WLAuthorization;
 			sourceTree = "<group>";
 		};
 		121B1B2B18E0741A001F585C /* WLCountry */ = {
@@ -761,6 +782,7 @@
 				12E5BA5218EAB98C0033CE4E /* WLWrapEntry */,
 				12DCBA6018DB0DAA00A4BC44 /* WLEntry */,
 				12DCBA5918DB0D6E00A4BC44 /* WLUser */,
+				121907B3192CFF2500E7C22D /* WLAuthorization */,
 				12DCBA5218DAF93C00A4BC44 /* WLAPIManager */,
 				12E3DA4018E03EB000DBDB79 /* WLSupportFunctions.h */,
 				12E3DA4118E03EB000DBDB79 /* WLSupportFunctions.m */,
@@ -1063,6 +1085,15 @@
 			name = WLWrapViewController;
 			sourceTree = "<group>";
 		};
+		12DE697D192E04DD007580AD /* NSPropertyListSerialization */ = {
+			isa = PBXGroup;
+			children = (
+				12DE697E192E04F7007580AD /* NSPropertyListSerialization+Shorthand.h */,
+				12DE697F192E04F7007580AD /* NSPropertyListSerialization+Shorthand.m */,
+			);
+			name = NSPropertyListSerialization;
+			sourceTree = "<group>";
+		};
 		12DEC3EC1920F7E0007BE6CC /* WLToast */ = {
 			isa = PBXGroup;
 			children = (
@@ -1235,6 +1266,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				12DE697D192E04DD007580AD /* NSPropertyListSerialization */,
 				12E6ABD1191A2A7800842DB8 /* UIScreen */,
 				12D4D3DE191938B60025CC18 /* UIActionSheet */,
 				12D578CB1917E7FB00586995 /* UIAlertView */,
@@ -1424,6 +1456,8 @@
 				ACCF9B8618E185D200A7429F /* WLPhoneNumberViewController.h */,
 				ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */,
 				ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */,
+				12DE6981192E0B0F007580AD /* WLTestUserPicker.h */,
+				12DE6982192E0B0F007580AD /* WLTestUserPicker.m */,
 			);
 			name = WLPhoneNumberViewController;
 			sourceTree = "<group>";
@@ -1553,6 +1587,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12DE697C192E0494007580AD /* WLTestUsers.plist in Resources */,
 				ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
 				ACCF9B9218E1868200A7429F /* WLActivationViewController.xib in Resources */,
@@ -1675,6 +1710,7 @@
 				12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */,
 				128886AD18DC493B00957B22 /* WLSession.m in Sources */,
 				120ED84F18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
+				121907B6192CFF3F00E7C22D /* WLAuthorization.m in Sources */,
 				128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */,
 				12BC02CA191B81E100C4FA98 /* WLBlocks.m in Sources */,
 				12E0F066190927B800463FEC /* WLDeviceOrientationBroadcaster.m in Sources */,
@@ -1703,6 +1739,7 @@
 				1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */,
 				12E1104519066C7C007DB4AC /* UIView+QuatzCoreAnimations.m in Sources */,
 				12D962ED18E5898A00C57CE1 /* WLPicture.m in Sources */,
+				12DE6983192E0B0F007580AD /* WLTestUserPicker.m in Sources */,
 				12D4D3E1191938D60025CC18 /* UIActionSheet+Blocks.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
 				12D578CA1917ACE200586995 /* NSDate+Additions.m in Sources */,
@@ -1720,6 +1757,7 @@
 				12E0F0621909249000463FEC /* UILabel+Additions.m in Sources */,
 				ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */,
 				12E0F04E19090B0600463FEC /* WLBroadcaster.m in Sources */,
+				12DE6980192E04F7007580AD /* NSPropertyListSerialization+Shorthand.m in Sources */,
 				12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */,
 				12E8FF1B18E97D3F00BF1B96 /* UIImageView+ImageLoading.m in Sources */,
 			);

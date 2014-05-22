@@ -7,7 +7,6 @@
 //
 
 #import "WLPhoneNumberViewController.h"
-#import "WLUser.h"
 #import "NSDate+Formatting.h"
 #import "WLActivationViewController.h"
 #import "WLCountriesViewController.h"
@@ -21,6 +20,9 @@
 #import "NSString+Additions.h"
 #import "UIAlertView+Blocks.h"
 #import "WLSession.h"
+#import "WLAuthorization.h"
+#import "WLTestUserPicker.h"
+#import "UIStoryboard+Additions.h"
 
 @interface WLPhoneNumberViewController () <UITextFieldDelegate>
 
@@ -48,14 +50,23 @@
     [super viewDidLoad];
 	self.country = [WLCountry getCurrentCountry];
 	self.phoneNumberTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(phoneNumberInputCancel:) done:@selector(phoneNumberInputDone:)];
-	self.phoneNumberTextField.text = [WLSession user].phoneNumber;
+	self.phoneNumberTextField.text = [WLAuthorization currentAuthorization].phone;
 	self.phoneNumber = self.phoneNumberTextField.text;
-	if ([WLSession birthdate].nonempty) {
-		self.birthdate = [[WLSession birthdate] GMTDate];
+	if ([WLAuthorization currentAuthorization].birthdate) {
+		self.birthdate = [WLAuthorization currentAuthorization].birthdate;
 		self.birthdatePicker.date = self.birthdate;
 	} else {
 		self.birthdate = self.birthdatePicker.date;
 	}
+	
+#if DEBUG
+	UIButton* testUserButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	testUserButton.frame = CGRectMake(0, self.view.height - 88, 320, 44);
+	[testUserButton setTitle:@"Test user (debug only)" forState:UIControlStateNormal];
+	[testUserButton setTitleColor:[UIColor WL_orangeColor] forState:UIControlStateNormal];
+	[testUserButton addTarget:self action:@selector(selectTestUser) forControlEvents:UIControlEventTouchUpInside];
+	[self.view addSubview:testUserButton];
+#endif
 }
 
 - (UIViewController *)signUpViewController {
@@ -104,12 +115,12 @@
 	self.signUpButton.active = self.phoneNumber.nonempty && [self.birthdate compare:[NSDate defaultBirtday]] != NSOrderedSame;
 }
 
-- (WLUser *)prepareForRequest {
-	WLUser *user = [WLUser new];
-	user.phoneNumber = self.phoneNumber;
-	user.countryCallingCode = self.country.callingCode;
-	user.birthdate = self.birthdate;
-	return user;
+- (WLAuthorization *)authorization {
+	WLAuthorization *authorization = [WLAuthorization new];
+	authorization.phone = self.phoneNumber;
+	authorization.countryCode = self.country.callingCode;
+	authorization.birthdate = self.birthdate;
+	return authorization;
 }
 
 #pragma mark - Actions
@@ -126,28 +137,48 @@
 
 - (IBAction)signUp:(id)sender {
 	__weak typeof(self)weakSelf = self;
-	
-	WLUser* user = [self prepareForRequest];
-	
-	NSString* phoneNumber = [NSString stringWithFormat:@"+%@ %@", user.countryCallingCode, user.phoneNumber];
-	
-	NSString* confirmationMessage = [NSString stringWithFormat:@"%@\n%@\nIs this correct?",phoneNumber,[user.birthdate GMTStringWithFormat:@"MMM dd, yyyy"]];
-	
+	[self confirmAuthorization:[self authorization] success:^(WLAuthorization *authorization) {
+		[weakSelf signUpAuthorization:authorization];
+	}];
+}
+
+- (void)confirmAuthorization:(WLAuthorization*)authorization success:(void (^)(WLAuthorization *authorization))success {
+	NSString* confirmationMessage = [NSString stringWithFormat:@"%@\n%@\nIs this correct?",[authorization fullPhoneNumber],[authorization.birthdate GMTStringWithFormat:@"MMM dd, yyyy"]];
 	[UIAlertView showWithTitle:@"Confirm your details" message:confirmationMessage buttons:@[@"Edit",@"Yes"] completion:^(NSUInteger index) {
 		if (index == 1) {
-			[weakSelf.spinner startAnimating];
-			weakSelf.view.userInteractionEnabled = NO;
-			[[WLAPIManager instance] signUp:user
-									success:^(id object) {
-										WLActivationViewController *controller = [[WLActivationViewController alloc] initWithUser:object];
-										[weakSelf.navigationController pushViewController:controller animated:YES];
-										[weakSelf.spinner stopAnimating];
-									} failure:^(NSError *error) {
-										weakSelf.view.userInteractionEnabled = YES;
-										[weakSelf.spinner stopAnimating];
-										[error show];
-									}];
+			success(authorization);
 		}
+	}];
+}
+
+- (void)signUpAuthorization:(WLAuthorization*)authorization {
+	__weak typeof(self)weakSelf = self;
+	[weakSelf.spinner startAnimating];
+	weakSelf.view.userInteractionEnabled = NO;
+	[authorization signUp:^(WLAuthorization *authorization) {
+		WLActivationViewController *controller = [[WLActivationViewController alloc] initWithAuthorization:authorization];
+		[weakSelf.navigationController pushViewController:controller animated:YES];
+		[weakSelf.spinner stopAnimating];
+	} failure:^(NSError *error) {
+		weakSelf.view.userInteractionEnabled = YES;
+		[weakSelf.spinner stopAnimating];
+		[error show];
+	}];
+}
+
+- (void)signInAuthorization:(WLAuthorization*)authorization {
+	__weak typeof(self)weakSelf = self;
+	[weakSelf.spinner startAnimating];
+	weakSelf.view.userInteractionEnabled = NO;
+	[authorization signIn:^(WLUser *user) {
+		NSArray *navigationArray = @[[weakSelf.navigationController.parentViewController.storyboard homeViewController]];
+		[weakSelf.navigationController.parentViewController.navigationController setViewControllers:navigationArray animated:YES];
+		weakSelf.view.userInteractionEnabled = YES;
+		[weakSelf.spinner stopAnimating];
+	} failure:^(NSError *error) {
+		weakSelf.view.userInteractionEnabled = YES;
+		[weakSelf.spinner stopAnimating];
+		[error show];
 	}];
 }
 
@@ -171,6 +202,19 @@
 
 - (IBAction)phoneNumberChanged:(UITextField *)sender {
 	self.phoneNumber = sender.text;
+}
+
+- (void)selectTestUser {
+	__weak typeof(self)weakSelf = self;
+	[WLTestUserPicker showInView:self.view selection:^(WLAuthorization *authorization) {
+		[weakSelf confirmAuthorization:authorization success:^(WLAuthorization *authorization) {
+			if (authorization.password.nonempty) {
+				[weakSelf signInAuthorization:authorization];
+			} else {
+				[weakSelf signUpAuthorization:authorization];
+			}
+		}];
+	}];
 }
 
 #pragma mark - UITextFieldDelegate

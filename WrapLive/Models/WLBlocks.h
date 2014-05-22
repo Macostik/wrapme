@@ -15,6 +15,7 @@
 @class WLAPIResponse;
 @class WLComment;
 @class WLContact;
+@class WLAuthorization;
 
 typedef void (^WLBlock) (void);
 typedef void (^WLObjectBlock) (id object);
@@ -22,6 +23,7 @@ typedef id (^WLReturnObjectBlock) (void);
 typedef id (^WLMapObjectBlock) (id object);
 typedef void (^WLFailureBlock) (NSError *error);
 typedef id (^WLMapResponseBlock)(WLAPIResponse* response);
+typedef void (^WLAuthorizationBlock) (WLAuthorization *authorization);
 typedef void (^WLUserBlock) (WLUser *user);
 typedef void (^WLWrapBlock) (WLWrap *wrap);
 typedef void (^WLCandyBlock) (WLCandy *candy);

@@ -37,7 +37,9 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 }
 
 + (void)enablePushNotificationsInChannels:(NSArray *)channels withDeviceToken:(NSData *)deviceToken {
-	[PubNub enablePushNotificationsOnChannels:channels withDevicePushToken:deviceToken];
+	if (channels && deviceToken) {
+		[PubNub enablePushNotificationsOnChannels:channels withDevicePushToken:deviceToken];
+	}
 }
 
 + (void)enablePushNotificationsInSubscribedChannels:(NSData *)deviceToken {

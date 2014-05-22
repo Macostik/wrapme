@@ -84,7 +84,7 @@
 		}
 		return nil;
 	}];
-	if ([candies count] > 0) {
+	if (candies.nonempty) {
 		[wrap addCandies:candies replaceMessage:NO];
 	}
 }

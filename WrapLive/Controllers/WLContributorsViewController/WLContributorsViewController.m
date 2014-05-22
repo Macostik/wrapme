@@ -70,7 +70,7 @@
 			}
 		}
 		
-		if ([users count] > 0) {
+		if (users.nonempty) {
 			contact.users = [users copy];
 			[notSignedUp addObject:contact];
 		}

@@ -10,9 +10,10 @@
 #import "WLSession.h"
 #import "WLAPIManager.h"
 #import "UIStoryboard+Additions.h"
-#import "WLUser.h"
+#import "WLAuthorization.h"
 #import "WLSignUpViewController.h"
 #import "NSString+Additions.h"
+#import "WLUser.h"
 
 @interface WLWelcomeViewController ()
 
@@ -29,10 +30,9 @@
 	// Do any additional setup after loading the view, typically from a nib.
 	
 	self.continueButton.hidden = YES;
-	if ([WLSession activated]) {
+	if ([[WLAuthorization currentAuthorization] canAuthorize]) {
 		__weak typeof(self)weakSelf = self;
-		WLUser* user = [WLSession user];
-		[[WLAPIManager instance] signIn:user success:^(WLUser* user) {
+		[[WLAPIManager instance] signIn:[WLAuthorization currentAuthorization] success:^(WLUser* user) {
 			if (user.name.nonempty) {
 				[weakSelf presentHomeViewController];
 			} else {

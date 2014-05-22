@@ -20,8 +20,7 @@
 }
 
 + (NSMutableDictionary *)mapping {
-	return [[super mapping] merge:@{@"phone_number":@"phoneNumber",
-									@"country_calling_code":@"countryCallingCode",
+	return [[super mapping] merge:@{@"phone_number":@"full_phone_number",
 									@"dob_in_epoch":@"birthdate",
 									@"user_uid":@"identifier",
 									@"sign_in_count" : @"signInCount",

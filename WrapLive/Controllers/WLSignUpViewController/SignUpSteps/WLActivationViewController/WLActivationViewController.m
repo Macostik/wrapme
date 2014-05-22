@@ -7,7 +7,6 @@
 //
 
 #import "WLActivationViewController.h"
-#import "WLUser.h"
 #import "WLAPIManager.h"
 #import "WLProfileInformationViewController.h"
 #import "UIColor+CustomColors.h"
@@ -17,6 +16,7 @@
 #import "WLProgressBar.h"
 #import "UIButton+Additions.h"
 #import "NSString+Additions.h"
+#import "WLAuthorization.h"
 
 static NSInteger WLActivationCodeLimit = 4;
 
@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *activationViews;
 @property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 @property (strong, nonatomic) IBOutlet UILabel *phoneNumberLabel;
-@property (strong, nonatomic) WLUser * user;
+@property (strong, nonatomic) WLAuthorization *authorization;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 
 @property (nonatomic) WLActivationPage currentPage;
@@ -42,11 +42,10 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 
 @implementation WLActivationViewController
 
-- (instancetype)initWithUser:(WLUser *)user
-{
+- (instancetype)initWithAuthorization:(WLAuthorization *)authorization {
     self = [super init];
     if (self) {
-        self.user = user;
+        self.authorization = authorization;
     }
     return self;
 }
@@ -59,7 +58,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 																							  cancel:@selector(activationCancel:)
 																								done:@selector(activationDone:)];
 	
-	self.phoneNumberLabel.text = [NSString stringWithFormat:@"+%@ %@", self.user.countryCallingCode, self.user.phoneNumber];
+	self.phoneNumberLabel.text = [self.authorization fullPhoneNumber];
 	self.activationTextField.layer.borderWidth = 0.5;
 	self.activationTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
 	self.continueButton.active = NO;
@@ -106,14 +105,16 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 	NSString* activationCode = self.activationTextField.text;
 	if (activationCode.nonempty) {
 		__weak typeof(self)weakSelf = self;
-		self.progressBar.operation = [[WLAPIManager instance] activate:self.user code:activationCode success:^(id object) {
+		self.authorization.activationCode = activationCode;
+		self.progressBar.operation = [[WLAPIManager instance] activate:self.authorization
+															   success:^(id object) {
 			[weakSelf signIn:completion failure:failure];
 		} failure:failure];
 	}
 }
 
 - (void)signIn:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
-	self.progressBar.operation = [[WLAPIManager instance] signIn:self.user success:^(WLUser* user) {
+	self.progressBar.operation = [[WLAPIManager instance] signIn:self.authorization success:^(WLUser* user) {
 		completion();
 	} failure:failure];
 }

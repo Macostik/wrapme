@@ -33,7 +33,7 @@
 		NSArray* messages = [candies selectObjects:^BOOL(WLCandy* candy) {
 			return candy.type == WLCandyTypeChatMessage;
 		}];
-		if ([messages count] > 0) {
+		if (messages.nonempty) {
 			[candies removeObjectsInArray:messages];
 		}
 	}

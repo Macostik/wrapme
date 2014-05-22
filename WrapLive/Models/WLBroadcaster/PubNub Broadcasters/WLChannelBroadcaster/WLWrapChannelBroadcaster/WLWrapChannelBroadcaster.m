@@ -37,22 +37,26 @@
 - (void)broadcaster:(WLNotificationBroadcaster *)broadcaster notificationReceived:(WLNotification *)notification {
 	[self.wrap setUpdated:YES];
 	__weak typeof(self)weakSelf = self;
-	[notification.candy fetch:self.wrap success:^(WLCandy *candy) {
-		if (notification.type == WLNotificationImageCandyAddition) {
-			[weakSelf broadcast:@selector(broadcaster:didAddCandy:) object:candy];
-		} else if (notification.type == WLNotificationImageCandyDeletion) {
-			[weakSelf broadcast:@selector(broadcaster:didDeleteCandy:) object:candy];
-		} else if (notification.type == WLNotificationChatCandyAddition) {
-			[candy setUpdated:YES];
-			[weakSelf broadcast:@selector(broadcaster:didAddChatMessage:) object:candy];
-		} else if (notification.type == WLNotificationCandyCommentAddition) {
-			[candy setUpdated:YES];
-			[weakSelf broadcast:@selector(broadcaster:didAddComment:) object:candy];
-		} else if (notification.type == WLNotificationCandyCommentDeletion) {
-			[weakSelf broadcast:@selector(broadcaster:didDeleteComment:) object:candy];
-		}
-	} failure:^(NSError *error) {
-	}];
+	if (notification.type == WLNotificationImageCandyDeletion) {
+		[self.wrap removeCandy:notification.candy];
+		[weakSelf broadcast:@selector(broadcaster:didDeleteCandy:) object:notification.candy];
+	} else if (notification.type == WLNotificationCandyCommentDeletion) {
+		[self.candy removeComment:notification.comment];
+		[weakSelf broadcast:@selector(broadcaster:didDeleteComment:) object:self.candy];
+	} else {
+		[notification.candy fetch:self.wrap success:^(WLCandy *candy) {
+			if (notification.type == WLNotificationImageCandyAddition) {
+				[weakSelf broadcast:@selector(broadcaster:didAddCandy:) object:candy];
+			} else if (notification.type == WLNotificationChatCandyAddition) {
+				[candy setUpdated:YES];
+				[weakSelf broadcast:@selector(broadcaster:didAddChatMessage:) object:candy];
+			} else if (notification.type == WLNotificationCandyCommentAddition) {
+				[candy setUpdated:YES];
+				[weakSelf broadcast:@selector(broadcaster:didAddComment:) object:candy];
+			}
+		} failure:^(NSError *error) {
+		}];
+	}
 }
 
 - (BOOL)broadcaster:(WLNotificationBroadcaster *)broadcaster shouldReceiveNotification:(WLNotification *)notification {

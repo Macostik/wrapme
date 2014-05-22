@@ -149,8 +149,7 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
 	if ([candy isEqualToEntry:self.item]) {
-		[self refreshUploadingButtons:self.item animated:YES];
-		self.notifyBulb.hidden = ![self.item updated];
+		[self setupItemData:self.item];
 	}
 }
 

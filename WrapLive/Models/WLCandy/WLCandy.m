@@ -79,6 +79,7 @@
 	self.comments = (id)[self.comments entriesByRemovingEntry:comment];
 	self.updatedAt = [NSDate date];
 	[comment broadcastRemoving];
+	[self broadcastChange];
 }
 
 - (WLComment *)addCommentWithText:(NSString *)text {

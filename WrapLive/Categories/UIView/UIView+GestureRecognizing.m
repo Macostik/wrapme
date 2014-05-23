@@ -55,16 +55,19 @@
 }
 
 - (void)addTapGestureRecognizing:(WLPointBlock)block {
-	self.tapGestureBlock = block;
-	UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-	[self addGestureRecognizer:tapGestureRecognizer];
-	self.wl_tapGestureRecognizer = tapGestureRecognizer;
+	if (self.wl_tapGestureRecognizer == nil) {
+		self.tapGestureBlock = block;
+		UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+		[self addGestureRecognizer:tapGestureRecognizer];
+		self.wl_tapGestureRecognizer = tapGestureRecognizer;
+	}
 }
 
 - (void)removeTapGestureRecognizing {
 	UITapGestureRecognizer* tapGestureRecognizer = self.wl_tapGestureRecognizer;
 	if (tapGestureRecognizer) {
 		[self removeGestureRecognizer:tapGestureRecognizer];
+		self.wl_tapGestureRecognizer = nil;
 	}
 }
 

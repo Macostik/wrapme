@@ -61,6 +61,17 @@
 		12D4D3E1191938D60025CC18 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4D3E0191938D60025CC18 /* UIActionSheet+Blocks.m */; };
 		12D4E94818FBEC5100B8F2AF /* WLUploadingQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4E94718FBEC5100B8F2AF /* WLUploadingQueue.m */; };
 		12D4E94C18FC12DF00B8F2AF /* AsynchronousOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4E94B18FC12DF00B8F2AF /* AsynchronousOperation.m */; };
+		12D514F7192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EC192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png */; };
+		12D514F8192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514ED192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png */; };
+		12D514F9192F5F15007A1520 /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EE192F5F15007A1520 /* AppIcon29x29.png */; };
+		12D514FA192F5F15007A1520 /* AppIcon29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EF192F5F15007A1520 /* AppIcon29x29@2x.png */; };
+		12D514FB192F5F15007A1520 /* AppIcon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F0192F5F15007A1520 /* AppIcon40x40.png */; };
+		12D514FC192F5F15007A1520 /* AppIcon40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F1192F5F15007A1520 /* AppIcon40x40@2x.png */; };
+		12D514FD192F5F15007A1520 /* AppIcon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */; };
+		12D514FE192F5F15007A1520 /* AppIcon76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F3192F5F15007A1520 /* AppIcon76x76.png */; };
+		12D514FF192F5F15007A1520 /* AppIcon76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F4192F5F15007A1520 /* AppIcon76x76@2x.png */; };
+		12D51500192F5F15007A1520 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F5192F5F15007A1520 /* Default-568h@2x.png */; };
+		12D51501192F5F15007A1520 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F6192F5F15007A1520 /* Default@2x.png */; };
 		12D563FE18FE7788001C5C06 /* WLCircleProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D563FD18FE7788001C5C06 /* WLCircleProgressBar.m */; };
 		12D578C719178C3400586995 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 12D578C619178C3400586995 /* iTunesArtwork */; };
 		12D578CA1917ACE200586995 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D578C91917ACE200586995 /* NSDate+Additions.m */; };
@@ -246,6 +257,17 @@
 		12D4E94718FBEC5100B8F2AF /* WLUploadingQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUploadingQueue.m; path = WLUploadingQueue/WLUploadingQueue.m; sourceTree = "<group>"; };
 		12D4E94A18FC12DF00B8F2AF /* AsynchronousOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsynchronousOperation.h; sourceTree = "<group>"; };
 		12D4E94B18FC12DF00B8F2AF /* AsynchronousOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsynchronousOperation.m; sourceTree = "<group>"; };
+		12D514EC192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-Spotlight29x29@2x.png"; sourceTree = "<group>"; };
+		12D514ED192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-Spotlight40x40@2x.png"; sourceTree = "<group>"; };
+		12D514EE192F5F15007A1520 /* AppIcon29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon29x29.png; sourceTree = "<group>"; };
+		12D514EF192F5F15007A1520 /* AppIcon29x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon29x29@2x.png"; sourceTree = "<group>"; };
+		12D514F0192F5F15007A1520 /* AppIcon40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon40x40.png; sourceTree = "<group>"; };
+		12D514F1192F5F15007A1520 /* AppIcon40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon40x40@2x.png"; sourceTree = "<group>"; };
+		12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon60x60@2x.png"; sourceTree = "<group>"; };
+		12D514F3192F5F15007A1520 /* AppIcon76x76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon76x76.png; sourceTree = "<group>"; };
+		12D514F4192F5F15007A1520 /* AppIcon76x76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon76x76@2x.png"; sourceTree = "<group>"; };
+		12D514F5192F5F15007A1520 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		12D514F6192F5F15007A1520 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		12D563FC18FE7788001C5C06 /* WLCircleProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCircleProgressBar.h; sourceTree = "<group>"; };
 		12D563FD18FE7788001C5C06 /* WLCircleProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCircleProgressBar.m; sourceTree = "<group>"; };
 		12D578C619178C3400586995 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
@@ -1238,6 +1260,17 @@
 		12E3DA4318E049C300DBDB79 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				12D514EC192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png */,
+				12D514ED192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png */,
+				12D514EE192F5F15007A1520 /* AppIcon29x29.png */,
+				12D514EF192F5F15007A1520 /* AppIcon29x29@2x.png */,
+				12D514F0192F5F15007A1520 /* AppIcon40x40.png */,
+				12D514F1192F5F15007A1520 /* AppIcon40x40@2x.png */,
+				12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */,
+				12D514F3192F5F15007A1520 /* AppIcon76x76.png */,
+				12D514F4192F5F15007A1520 /* AppIcon76x76@2x.png */,
+				12D514F5192F5F15007A1520 /* Default-568h@2x.png */,
+				12D514F6192F5F15007A1520 /* Default@2x.png */,
 				12D578C619178C3400586995 /* iTunesArtwork */,
 				121B1B2F18E0749F001F585C /* Property Lists */,
 				12E3DA4418E049C300DBDB79 /* Fonts */,
@@ -1589,20 +1622,31 @@
 			files = (
 				12DE697C192E0494007580AD /* WLTestUsers.plist in Resources */,
 				ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */,
+				12D514F7192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png in Resources */,
+				12D51501192F5F15007A1520 /* Default@2x.png in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
 				ACCF9B9218E1868200A7429F /* WLActivationViewController.xib in Resources */,
+				12D514F8192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png in Resources */,
 				129654F518E1CB3000FF43F6 /* WLInputAccessoryView.xib in Resources */,
 				12A8AA7018F592B500F67113 /* WLLoadingView.xib in Resources */,
 				12E5BA5718EADAAC0033CE4E /* WLCandyCell.xib in Resources */,
 				12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
 				121B1B4118E0848D001F585C /* WLCountriesViewController.xib in Resources */,
+				12D514FD192F5F15007A1520 /* AppIcon60x60@2x.png in Resources */,
+				12D514FC192F5F15007A1520 /* AppIcon40x40@2x.png in Resources */,
 				ACCF9B8A18E185D200A7429F /* WLPhoneNumberViewController.xib in Resources */,
+				12D514FE192F5F15007A1520 /* AppIcon76x76.png in Resources */,
+				12D514FB192F5F15007A1520 /* AppIcon40x40.png in Resources */,
 				121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */,
 				121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
+				12D514FA192F5F15007A1520 /* AppIcon29x29@2x.png in Resources */,
 				12E8FF2118E9885F00BF1B96 /* WLComposeBar.xib in Resources */,
+				12D51500192F5F15007A1520 /* Default-568h@2x.png in Resources */,
+				12D514FF192F5F15007A1520 /* AppIcon76x76@2x.png in Resources */,
 				12D578C719178C3400586995 /* iTunesArtwork in Resources */,
+				12D514F9192F5F15007A1520 /* AppIcon29x29.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1810,7 +1854,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "CC016ADD-DF91-4D05-B5E3-5B4A5AF6F12C";
 				SDKROOT = iphoneos;
@@ -1844,7 +1888,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PROVISIONING_PROFILE = "5D3C4BEE-D67B-4321-85CF-F2AB23A36530";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1855,8 +1899,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 98C86618D23B4CC5B2807E94 /* Pods.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = Default;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
@@ -1864,6 +1906,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "CC016ADD-DF91-4D05-B5E3-5B4A5AF6F12C";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1872,8 +1915,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 98C86618D23B4CC5B2807E94 /* Pods.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = Default;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1882,6 +1923,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "5D3C4BEE-D67B-4321-85CF-F2AB23A36530";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

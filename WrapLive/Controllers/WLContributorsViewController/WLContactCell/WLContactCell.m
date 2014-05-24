@@ -9,7 +9,7 @@
 #import "WLContactCell.h"
 #import "WLAddressBook.h"
 #import "WLUser.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "NSString+Additions.h"
 #import "WLPhoneCell.h"
 #import "UIView+Shorthand.h"
@@ -46,7 +46,7 @@
 - (void)setupItemData:(WLContact*)contact {
 	WLUser* user = [contact.users lastObject];
 	if (user.picture.medium.nonempty) {
-		self.avatarView.imageUrl = user.picture.medium;
+		self.avatarView.url = user.picture.medium;
 	} else {
 		self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
 	}

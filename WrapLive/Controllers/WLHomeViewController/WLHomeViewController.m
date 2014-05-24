@@ -10,7 +10,7 @@
 #import "WLWrapCell.h"
 #import "WLWrap.h"
 #import "WLCandy.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "WLWrapViewController.h"
 #import "UIStoryboard+Additions.h"
 #import "UIView+Shorthand.h"
@@ -80,7 +80,7 @@
 	self.avatarImageView.layer.cornerRadius = self.avatarImageView.height/2;
 	self.avatarImageView.layer.borderWidth = 1;
 	self.avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-	self.avatarImageView.imageUrl = [WLUser currentUser].picture.small;
+	self.avatarImageView.url = [WLUser currentUser].picture.small;
 	if (self.tableView.hidden) {
 		self.loading = NO;
 		[self fetchWraps:YES];

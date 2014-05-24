@@ -17,7 +17,7 @@
 #import "UIColor+CustomColors.h"
 #import "UIImage+Resize.h"
 #import "UIButton+Additions.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "WLKeyboardBroadcaster.h"
 #import "NSString+Additions.h"
 
@@ -49,7 +49,7 @@
 	self.nameTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
 	
 	self.nameTextField.text = self.user.name;
-	self.profileImageView.imageUrl = self.user.picture.medium;
+	self.profileImageView.url = self.user.picture.medium;
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }

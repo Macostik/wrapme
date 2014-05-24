@@ -17,7 +17,7 @@
 #import "WLCameraViewController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "WLImageCache.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "UIImage+Resize.h"
 #import "UIView+Shorthand.h"
 #import "WLUser.h"
@@ -106,7 +106,7 @@
 
 - (void)configureWrapEditing {
 	self.nameField.text = self.editingWrap.name;
-	self.coverView.imageUrl = self.editingWrap.picture.medium;
+	self.coverView.url = self.editingWrap.picture.medium;
 	self.startButton.hidden = YES;
 	self.doneButton.hidden = NO;
 	self.titleLabel.text = @"Edit wrap";

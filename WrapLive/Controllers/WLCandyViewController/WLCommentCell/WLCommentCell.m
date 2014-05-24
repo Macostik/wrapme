@@ -9,7 +9,7 @@
 #import "WLCommentCell.h"
 #import "WLComment.h"
 #import "WLUser.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
 #import "UILabel+Additions.h"
@@ -54,7 +54,7 @@
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", entry.contributor.name, entry.createdAt.timeAgoString];
 	self.commentLabel.text = entry.text;
 	[self.commentLabel sizeToFitHeight];
-	self.authorImageView.imageUrl = entry.contributor.picture.medium;
+	self.authorImageView.url = entry.contributor.picture.medium;
 	self.vibrateOnLongPressGesture = [entry.contributor isCurrentUser];
 }
 

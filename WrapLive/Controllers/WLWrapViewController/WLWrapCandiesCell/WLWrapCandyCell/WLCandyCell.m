@@ -8,7 +8,7 @@
 
 #import "WLCandyCell.h"
 #import "WLCandy.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "WLComment.h"
 #import "WLUser.h"
 #import "WLProgressBar.h"
@@ -24,6 +24,7 @@
 #import "WLToast.h"
 #import "WLEntryState.h"
 #import "WLWrapChannelBroadcaster.h"
+#import "WLImageFetcher.h"
 
 @interface WLCandyCell () <WLWrapBroadcastReceiver, WLWrapChannelBroadcastReceiver>
 
@@ -71,10 +72,10 @@
 	if (entry.type == WLCandyTypeImage) {
 		WLComment* comment = [entry.comments lastObject];
 		self.commentLabel.text = comment.text;
-		self.coverView.imageUrl = entry.picture.medium;
+		self.coverView.url = entry.picture.medium;
 	} else {
 		self.commentLabel.text = entry.chatMessage;
-		self.coverView.imageUrl = entry.contributor.picture.medium;
+		self.coverView.url = entry.contributor.picture.medium;
 	}
 	self.commentLabel.hidden = !self.commentLabel.text.nonempty;
 	

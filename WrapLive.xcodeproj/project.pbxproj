@@ -131,7 +131,6 @@
 		12E8FF1418E960E000BF1B96 /* StreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0C18E960E000BF1B96 /* StreamLayout.m */; };
 		12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */; };
 		12E8FF1718E960E000BF1B96 /* StreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1218E960E000BF1B96 /* StreamView.m */; };
-		12E8FF1B18E97D3F00BF1B96 /* UIImageView+ImageLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1A18E97D3F00BF1B96 /* UIImageView+ImageLoading.m */; };
 		12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
 		12E8FF2118E9885F00BF1B96 /* WLComposeBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E8FF2018E9885F00BF1B96 /* WLComposeBar.xib */; };
 		12E8FF2418E98B7100BF1B96 /* WLComposeContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF2318E98B7100BF1B96 /* WLComposeContainer.m */; };
@@ -155,6 +154,7 @@
 		C59528EE191CD9A6001ECD7C /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59528ED191CD9A6001ECD7C /* WLContactCell.m */; };
 		C59528F2191CDA6A001ECD7C /* WLPhoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59528F1191CDA6A001ECD7C /* WLPhoneCell.m */; };
 		C5D4934C192B87DB00D33B08 /* WLEntryState.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D4934B192B87DB00D33B08 /* WLEntryState.m */; };
+		C5F35CFE1930935200FB99D2 /* WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F35CFD1930935200FB99D2 /* WLImageFetcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -381,8 +381,6 @@
 		12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerticalStreamLayout.m; sourceTree = "<group>"; };
 		12E8FF1118E960E000BF1B96 /* StreamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamView.h; sourceTree = "<group>"; };
 		12E8FF1218E960E000BF1B96 /* StreamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamView.m; sourceTree = "<group>"; };
-		12E8FF1918E97D3F00BF1B96 /* UIImageView+ImageLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+ImageLoading.h"; path = "UIImageView/UIImageView+ImageLoading.h"; sourceTree = "<group>"; };
-		12E8FF1A18E97D3F00BF1B96 /* UIImageView+ImageLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+ImageLoading.m"; path = "UIImageView/UIImageView+ImageLoading.m"; sourceTree = "<group>"; };
 		12E8FF1D18E9885100BF1B96 /* WLComposeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposeBar.h; path = WLComposeBar/WLComposeBar.h; sourceTree = "<group>"; };
 		12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposeBar.m; path = WLComposeBar/WLComposeBar.m; sourceTree = "<group>"; };
 		12E8FF2018E9885F00BF1B96 /* WLComposeBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLComposeBar.xib; path = WLComposeBar/WLComposeBar.xib; sourceTree = "<group>"; };
@@ -425,6 +423,8 @@
 		C59528F1191CDA6A001ECD7C /* WLPhoneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPhoneCell.m; path = WLContributorsViewController/WLContactCell/WLPhoneCell/WLPhoneCell.m; sourceTree = "<group>"; };
 		C5D4934A192B87DB00D33B08 /* WLEntryState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntryState.h; path = WLEntryState/WLEntryState.h; sourceTree = "<group>"; };
 		C5D4934B192B87DB00D33B08 /* WLEntryState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEntryState.m; path = WLEntryState/WLEntryState.m; sourceTree = "<group>"; };
+		C5F35CFC1930935200FB99D2 /* WLImageFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLImageFetcher.h; path = WLImageFetcher/WLImageFetcher.h; sourceTree = "<group>"; };
+		C5F35CFD1930935200FB99D2 /* WLImageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLImageFetcher.m; path = WLImageFetcher/WLImageFetcher.m; sourceTree = "<group>"; };
 		F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -787,6 +787,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C5F35CFB1930933500FB99D2 /* WLImageFetcher */,
 				C5D49349192B876D00D33B08 /* WLEntryState */,
 				12DBCD58190FCD7F00344B52 /* WLDataManager */,
 				12DF5C3C190E61C700D7A62F /* WLCache */,
@@ -1309,7 +1310,6 @@
 				1221EA6718FD371C00C64DAE /* UIButton */,
 				12EBF8D518F6A6D000EA3185 /* UIViewController */,
 				120ED84C18F2E53700C35505 /* ALAssetsLibrary */,
-				12E8FF1818E97D1F00BF1B96 /* UIImageView */,
 				12976ECB18E5D6E300C5F2A9 /* NSDictionary */,
 				1215DC7C18E4484000FCA744 /* UIStoryboard */,
 				1215DC7818E4421700FCA744 /* NSArray */,
@@ -1373,15 +1373,6 @@
 				12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */,
 			);
 			path = "Stream Layouts";
-			sourceTree = "<group>";
-		};
-		12E8FF1818E97D1F00BF1B96 /* UIImageView */ = {
-			isa = PBXGroup;
-			children = (
-				12E8FF1918E97D3F00BF1B96 /* UIImageView+ImageLoading.h */,
-				12E8FF1A18E97D3F00BF1B96 /* UIImageView+ImageLoading.m */,
-			);
-			name = UIImageView;
 			sourceTree = "<group>";
 		};
 		12E8FF1C18E9883700BF1B96 /* WLComposeBar */ = {
@@ -1563,6 +1554,15 @@
 				C5D4934B192B87DB00D33B08 /* WLEntryState.m */,
 			);
 			name = WLEntryState;
+			sourceTree = "<group>";
+		};
+		C5F35CFB1930933500FB99D2 /* WLImageFetcher */ = {
+			isa = PBXGroup;
+			children = (
+				C5F35CFC1930935200FB99D2 /* WLImageFetcher.h */,
+				C5F35CFD1930935200FB99D2 /* WLImageFetcher.m */,
+			);
+			name = WLImageFetcher;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1775,6 +1775,7 @@
 				C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */,
 				12E9488719239140008DED79 /* WLChannelBroadcaster.m in Sources */,
 				12D4E94818FBEC5100B8F2AF /* WLUploadingQueue.m in Sources */,
+				C5F35CFE1930935200FB99D2 /* WLImageFetcher.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,
 				12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */,
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
@@ -1803,7 +1804,6 @@
 				12E0F04E19090B0600463FEC /* WLBroadcaster.m in Sources */,
 				12DE6980192E04F7007580AD /* NSPropertyListSerialization+Shorthand.m in Sources */,
 				12DCBA5F18DB0DA700A4BC44 /* WLUser.m in Sources */,
-				12E8FF1B18E97D3F00BF1B96 /* UIImageView+ImageLoading.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

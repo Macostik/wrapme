@@ -8,7 +8,7 @@
 
 #import "WLMessageCell.h"
 #import "WLCandy.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "WLUser.h"
 #import "UIView+Shorthand.h"
 #import "UILabel+Additions.h"
@@ -30,7 +30,7 @@
 }
 
 - (void)setupItemData:(WLCandy*)candy {
-	self.avatarView.imageUrl = candy.contributor.picture.medium;
+	self.avatarView.url = candy.contributor.picture.medium;
 	self.nameLabel.text = candy.contributor.name;
 	self.messageLabel.text = candy.chatMessage;
 	__weak typeof(self)weakSelf = self;

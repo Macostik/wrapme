@@ -12,7 +12,7 @@
 #import "UIImage+Resize.h"
 #import "UIView+Shorthand.h"
 #import "WLUser.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "WLAPIManager.h"
 #import "WLKeyboardBroadcaster.h"
 #import "WLInputAccessoryView.h"
@@ -42,7 +42,7 @@
 	self.user = [[WLUser currentUser] copy];
 	[self setupPicker];
 	self.nameTextField.text = self.user.name;
-	self.profileImageView.imageUrl = self.user.picture.large;
+	self.profileImageView.url = self.user.picture.large;
 	self.birthdateTextField.text = [self.birthdatePicker.date GMTStringWithFormat:@"MMM' 'dd', 'YYYY'"];
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }

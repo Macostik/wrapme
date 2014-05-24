@@ -9,7 +9,7 @@
 #import "WLWrapCell.h"
 #import "WLWrap.h"
 #import "WLCandy.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "UIView+Shorthand.h"
 #import "UILabel+Additions.h"
 #import "UIAlertView+Blocks.h"
@@ -59,7 +59,7 @@
 	self.nameLabel.text = wrap.name;
 	[self.nameLabel sizeToFitWidthWithSuperviewRightPadding:50];
 	self.notifyBulb.x = self.nameLabel.right + 6;
-	self.coverView.imageUrl = wrap.picture.small;
+	self.coverView.url = wrap.picture.small;
 	self.contributorsLabel.text = wrap.contributorNames;
 	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
 	[self updateNotifyBulbWithWrap:wrap];

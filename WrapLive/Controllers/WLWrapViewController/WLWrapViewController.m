@@ -9,7 +9,7 @@
 #import "WLWrapViewController.h"
 #import "WLWrap.h"
 #import "WLCandiesCell.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "WLCandy.h"
 #import "NSDate+Formatting.h"
 #import "WLWrapDate.h"
@@ -74,7 +74,7 @@
 }
 
 - (void)setWrapData {
-	self.coverView.imageUrl = self.wrap.picture.small;
+	self.coverView.url = self.wrap.picture.small;
 	self.nameLabel.text = self.wrap.name;
 	self.contributorsLabel.text = self.wrap.contributorNames;
 	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];

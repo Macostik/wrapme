@@ -57,6 +57,7 @@
 	self.shouldAppendMoreCandies = [entry.candies count] >= 10;
 	[self.collectionView reloadData];
 	self.refresher.enabled = [entry.updatedAt isToday];
+	self.collectionView.contentOffset = CGPointZero;
 }
 
 - (void)refreshCandies {

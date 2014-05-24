@@ -42,8 +42,6 @@
 @property (nonatomic) BOOL shouldLoadMoreDates;
 
 @property (weak, nonatomic) WLRefresher *refresher;
-@property (strong, nonatomic) NSArray *theChannels;
-@property (weak, nonatomic) IBOutlet UIImageView *shakingHandView;
 
 @end
 
@@ -93,7 +91,7 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
 	for (WLWrapDate* date in self.wrap.dates) {
-		if ([date.candies count] == 0) {
+		if (!date.candies.nonempty) {
 			self.wrap.dates = (id)[self.wrap.dates arrayByRemovingObject:date];
 			[self.tableView reloadData];
 			break;
@@ -112,11 +110,9 @@
 	[WLDataManager wrap:self.wrap success:^(WLWrap* wrap, BOOL cached, BOOL stop) {
 		[[WLUploadingQueue instance] updateWrap:weakSelf.wrap];
 		if (!cached) {
-			if ([wrap.dates count] == 0) {
-				weakSelf.firstContributorView.alpha = 1.0f;
-				weakSelf.firstContributorWrapNameLabel.text = wrap.name;				
-			} else {
-				weakSelf.firstContributorView.alpha = 0.0f;
+			weakSelf.firstContributorView.alpha = wrap.dates.nonempty ? 0.0f : 1.0f;
+			if (weakSelf.firstContributorView.alpha == 1.0f) {
+				weakSelf.firstContributorWrapNameLabel.text = wrap.name;
 			}
 		}
 		weakSelf.shouldLoadMoreDates = !stop;
@@ -129,40 +125,15 @@
 	}];
 }
 
-- (void)animateHand {
-	if (self.firstContributorView.alpha == 0) {
-		return;
-	}
-	NSTimeInterval animationDuration = 0.3;
-	CGFloat rotationAngle = M_PI * 15 / 180.0;
-	CGPoint newCenter = CGPointMake(-50, 150);
-	CGAffineTransform transform = CGAffineTransformMakeTranslation(newCenter.x, newCenter.y);
-	transform = CGAffineTransformRotate(transform, -rotationAngle);
-	transform = CGAffineTransformTranslate(transform,-newCenter.x,-newCenter.y);
-	__weak typeof(self)weakSelf = self;
-	[UIView animateWithDuration:animationDuration animations:^{
-		[UIView setAnimationRepeatCount:1.5];
-		[UIView setAnimationRepeatAutoreverses:YES];
-		weakSelf.shakingHandView.transform = transform;
-	} completion:^(BOOL finished) {
-		[UIView animateWithDuration:animationDuration animations:^{
-			weakSelf.shakingHandView.transform = CGAffineTransformIdentity;
-		} completion:^(BOOL finished) {
-			[weakSelf performSelector:@selector(animateHand) withObject:nil afterDelay:5];
-		}];
-	}];
-	
-}
-
 - (void)appendDates {
-	if (loading){
+	if (loading || !self.wrap.dates.nonempty || [self.wrap.dates count] % WLAPIGeneralPageSize > 0) {
 		return;
 	}
 	loading = YES;
 	__weak typeof(self)weakSelf = self;
-	NSInteger page = floorf([self.wrap.dates count] / 10) + 1;
+	NSInteger page = floorf([self.wrap.dates count] / WLAPIGeneralPageSize) + 1;
 	[[WLAPIManager instance] wrap:[self.wrap copy] page:page success:^(WLWrap* wrap) {
-		weakSelf.wrap.dates = (id)[weakSelf.wrap.dates arrayByAddingObjectsFromArray:wrap.dates];
+		weakSelf.wrap.dates = (id)[weakSelf.wrap.dates entriesByAddingEntries:wrap.dates];
 		[weakSelf.tableView reloadData];
 		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
 		loading = NO;

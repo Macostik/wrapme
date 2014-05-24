@@ -454,5 +454,25 @@
 		<key>password</key>
 		<string>password</string>
 	</dict>
+	<dict>
+		<key>countryCode</key>
+		<string>380</string>
+		<key>phone</key>
+		<string>636467228</string>
+		<key>birthdate</key>
+		<string>604454400</string>
+		<key>password</key>
+		<string>802bcfd9a9</string>
+	</dict>
+	<dict>
+		<key>countryCode</key>
+		<string>380</string>
+		<key>phone</key>
+		<string>951383026</string>
+		<key>birthdate</key>
+		<string>604454400</string>
+		<key>password</key>
+		<string>6665a8101c</string>
+	</dict>
 </array>
 </plist>

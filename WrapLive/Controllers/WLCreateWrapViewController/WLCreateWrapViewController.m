@@ -101,7 +101,7 @@
 }
 
 - (void)refreshFooterView {
-	self.contributorsTableView.tableFooterView = [self.editingWrap.contributors count] == 0 ? self.noContributorsView : nil;
+	self.contributorsTableView.tableFooterView = self.editingWrap.contributors.nonempty ? nil : self.noContributorsView;
 }
 
 - (void)configureWrapEditing {

@@ -95,7 +95,7 @@
 
 - (void)setBirthdate:(NSDate *)birthdate {
 	_birthdate = birthdate;
-	self.birthdateTextField.text = [birthdate GMTStringWithFormat:@"MMM' 'dd', 'YYYY'"];
+	self.birthdateTextField.text = [birthdate GMTStringWithFormat:@"MMM' 'dd', 'yyyy'"];
 	[self validateSignUpButton];
 }
 

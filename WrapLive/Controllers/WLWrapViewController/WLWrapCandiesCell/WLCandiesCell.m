@@ -53,7 +53,7 @@
 }
 
 - (void)setupItemData:(WLWrapDate*)entry {
-	self.dateLabel.text = [[entry.updatedAt stringWithFormat:@"MMM dd, YYYY"] uppercaseString];
+	self.dateLabel.text = [[entry.updatedAt stringWithFormat:@"MMM dd, yyyy"] uppercaseString];
 	self.shouldAppendMoreCandies = [entry.candies count] >= 10;
 	[self.collectionView reloadData];
 	self.refresher.enabled = [entry.updatedAt isToday];

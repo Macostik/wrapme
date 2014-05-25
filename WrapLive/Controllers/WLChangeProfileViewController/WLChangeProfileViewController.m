@@ -43,7 +43,7 @@
 	[self setupPicker];
 	self.nameTextField.text = self.user.name;
 	self.profileImageView.url = self.user.picture.large;
-	self.birthdateTextField.text = [self.birthdatePicker.date GMTStringWithFormat:@"MMM' 'dd', 'YYYY'"];
+	self.birthdateTextField.text = [self.birthdatePicker.date GMTStringWithFormat:@"MMM' 'dd', 'yyyy'"];
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 
@@ -90,7 +90,7 @@
 }
 
 - (void)birthdatePickerDone:(id)sender {
-	self.birthdateTextField.text = [self.birthdatePicker.date GMTStringWithFormat:@"MMM' 'dd', 'YYYY'"];
+	self.birthdateTextField.text = [self.birthdatePicker.date GMTStringWithFormat:@"MMM' 'dd', 'yyyy'"];
 	self.user.birthdate = self.birthdatePicker.date;
 	[self isProfileChanged];
 	[self.birthdateTextField resignFirstResponder];

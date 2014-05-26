@@ -102,6 +102,13 @@
 	_previewLayer = previewLayer;
 }
 
+- (WLCameraMode)mode {
+	if (_mode == 0) {
+		_mode = WLCameraModeCandy;
+	}
+	return _mode;
+}
+
 #pragma mark - User Actions
 
 - (IBAction)cancel:(id)sender {
@@ -140,12 +147,7 @@
 	CGSize viewSize = self.cameraView.bounds.size;
 	run_getting_object(^id{
 		UIImage *result = nil;
-		CGFloat width = 720.0f;
-		if (weakSelf.mode == WLCameraModeAvatar) {
-			width = 320.0f;
-		} else if (weakSelf.mode == WLCameraModeCover) {
-			width = 640.0f;
-		}
+		CGFloat width = weakSelf.mode;
 		result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
 											 bounds:CGSizeMake(width, width)
 							   interpolationQuality:kCGInterpolationDefault];

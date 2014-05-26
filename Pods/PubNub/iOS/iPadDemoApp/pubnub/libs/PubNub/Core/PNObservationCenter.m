@@ -385,7 +385,7 @@ static struct PNObservationObserverDataStruct PNObservationObserverData = {
     if ([filteredObservers count] > 0) {
 
         // Removing first occurrence of observer request in list
-        [observers removeObject:[filteredObservers objectAtIndex:0]];
+        [observers removeObject:[filteredObservers firstObject]];
     }
 }
 

@@ -54,7 +54,7 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 }
 
 - (void)configure {
-	[self connect];
+	[self performSelector:@selector(connect) withObject:nil afterDelay:0.0f];
 }
 
 - (void)setup {

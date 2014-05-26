@@ -4656,7 +4656,7 @@ withCompletionHandlingBlock:(PNClientChannelSubscriptionHandlerBlock)handlerBloc
 
             // Retrieve reference on invocation instance at the start of the list
             // (oldest scheduled instance)
-            methodInvocation = [pendingInvocations objectAtIndex:0];
+            methodInvocation = [pendingInvocations firstObject];
             [pendingInvocations removeObjectAtIndex:0];
         }
 

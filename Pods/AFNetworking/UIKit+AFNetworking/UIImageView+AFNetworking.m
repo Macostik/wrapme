@@ -151,18 +151,22 @@
                     strongSelf.image = responseObject;
                 }
 
-                strongSelf.af_imageRequestOperation = nil;
+                if (operation == strongSelf.af_imageRequestOperation){
+                        strongSelf.af_imageRequestOperation = nil;
+                }
             }
 
             [[[strongSelf class] sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             __strong __typeof(weakSelf)strongSelf = weakSelf;
-            if ([[operation.request URL] isEqual:[strongSelf.af_imageRequestOperation.request URL]]) {
+            if ([[urlRequest URL] isEqual:[operation.request URL]]) {
                 if (failure) {
                     failure(urlRequest, operation.response, error);
                 }
 
-                strongSelf.af_imageRequestOperation = nil;
+                if (operation == strongSelf.af_imageRequestOperation){
+                        strongSelf.af_imageRequestOperation = nil;
+                }
             }
         }];
 
@@ -171,7 +175,6 @@
 }
 
 - (void)cancelImageRequestOperation {
-	[self.af_imageRequestOperation setCompletionBlockWithSuccess:nil failure:nil];
     [self.af_imageRequestOperation cancel];
     self.af_imageRequestOperation = nil;
 }

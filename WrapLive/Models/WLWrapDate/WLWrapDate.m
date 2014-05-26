@@ -9,11 +9,26 @@
 #import "WLWrapDate.h"
 #import "WLCandy.h"
 #import "NSArray+Additions.h"
+#import "NSDate+Additions.h"
 
 @implementation WLWrapDate
 
 + (NSMutableDictionary *)mapping {
 	return [self mergeMapping:[super mapping] withMapping:@{@"date_in_epoch":@"updatedAt"}];
+}
+
++ (NSArray *)datesWithCandies:(NSArray *)candies {
+	NSMutableArray* dates = [NSMutableArray array];
+	NSMutableArray* _candies = [candies mutableCopy];
+	while (_candies.nonempty) {
+		WLCandy* candy = [_candies firstObject];
+		WLWrapDate* date = [[WLWrapDate alloc] init];
+		date.updatedAt = candy.updatedAt;
+		date.candies = (id)[_candies entriesForDay:candy.updatedAt];
+		[dates addObject:date];
+		[_candies removeObjectsInArray:date.candies];
+	}
+	return [dates copy];
 }
 
 - (NSArray<WLCandy> *)candies {

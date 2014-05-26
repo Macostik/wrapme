@@ -14,6 +14,8 @@
 
 @property (nonatomic, readonly) BOOL isToday;
 
+@property (readonly, nonatomic) NSTimeInterval timestamp;
+
 + (NSDate *)defaultBirtday;
 
 - (BOOL)isSameDay:(NSDate*)date;

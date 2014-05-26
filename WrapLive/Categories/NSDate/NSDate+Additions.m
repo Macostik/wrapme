@@ -70,6 +70,10 @@ static NSString *WLTimeIntervalLessThanMinute = @"less than minute ago";
 	return [self isSameDay:[NSDate date]];
 }
 
+- (NSTimeInterval)timestamp {
+	return round([self timeIntervalSince1970]);
+}
+
 - (NSString *)timeAgoString {
 	NSTimeInterval interval = ABS([self timeIntervalSinceNow]);
 	if (interval >= WLTimeIntervalWeek) {

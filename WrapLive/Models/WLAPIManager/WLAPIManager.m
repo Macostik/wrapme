@@ -22,6 +22,7 @@
 #import "WLWrapBroadcaster.h"
 #import "NSString+Additions.h"
 #import "WLAuthorization.h"
+#import "NSDate+Additions.h"
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
@@ -316,7 +317,16 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	[parameters trySetObject:@(page) forKey:@"page"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		return [WLWrap arrayOfModelsFromDictionaries:[response.data arrayForKey:@"wraps"]];
+		NSArray* wraps = [WLWrap arrayOfModelsFromDictionaries:[response.data arrayForKey:@"wraps"]];
+		if (page == 1 && wraps.nonempty) {
+			NSArray* candies = [response.data arrayForKey:@"recent_candies"];
+			if (candies.nonempty) {
+				candies = [WLCandy arrayOfModelsFromDictionaries:candies];
+				WLWrap* wrap = [wraps firstObject];
+				wrap.dates = (id)[WLWrapDate datesWithCandies:candies];
+			}
+		}
+		return wraps;
 	};
 	
 	return [self GET:@"wraps"
@@ -428,6 +438,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:candy.uploadIdentifier forKey:@"upload_uid"];
+	[parameters trySetObject:@(candy.updatedAt.timestamp) forKey:@"contributed_at"];
 	if (candy.type == WLCandyTypeChatMessage) {
 		[parameters trySetObject:candy.chatMessage forKey:@"chat_message"];
 	}
@@ -449,7 +460,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 - (id)candies:(WLWrap *)wrap date:(WLWrapDate *)date success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
 
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-	[parameters trySetObject:@([date.updatedAt timeIntervalSince1970]) forKey:@"start_date_in_epoch"];
+	[parameters trySetObject:@(date.updatedAt.timestamp) forKey:@"start_date_in_epoch"];
 	[parameters trySetObject:@(floorf([date.candies count] / 10) + 1) forKey:@"candy_page_number"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {

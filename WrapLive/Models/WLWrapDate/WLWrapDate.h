@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) NSArray<WLCandy> *candies;
 
++ (NSArray*)datesWithCandies:(NSArray*)candies;
+
 - (void)addCandy:(WLCandy *)candy;
 
 - (void)addCandy:(WLCandy *)candy replaceMessage:(BOOL)replaceMessage;

@@ -13,6 +13,7 @@
 #import "NSString+Additions.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLAuthorization.h"
+#import "WLNotificationBroadcaster.h"
 
 static NSString* WLSessionServiceName = @"WrapLive";
 static NSString* WLSessionAccountName = @"WrapLiveAccount";
@@ -37,6 +38,7 @@ static WLUser* _user = nil;
 + (void)setUser:(WLUser *)user {
 	_user = user;
 	if (user) {
+		[[WLNotificationBroadcaster broadcaster] configure];
 		[user archive:^(NSData *data) {
 			[[NSUserDefaults standardUserDefaults] setObject:data forKey:WLSessionUserKey];
 			[[NSUserDefaults standardUserDefaults] synchronize];

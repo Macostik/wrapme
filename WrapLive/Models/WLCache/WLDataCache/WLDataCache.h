@@ -30,7 +30,7 @@
 
 - (BOOL)containsWraps;
 
-- (BOOL)containsUploadingItems;
+- (BOOL)containsUploadings;
 
 - (WLWrap*)wrap:(WLWrap*)wrap;
 

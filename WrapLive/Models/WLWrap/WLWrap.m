@@ -101,9 +101,9 @@
 	WLWrapDate* date = [dates lastObject];
 	if (!date) {
 		date = [WLWrapDate entry];
-		self.dates = (id)[self.dates mutate:^(NSMutableArray *mutableCopy) {
-			[mutableCopy insertObject:date atIndex:0];
-		}];
+		NSMutableArray* existingDates = [NSMutableArray arrayWithArray:self.dates];
+		[existingDates insertObject:date atIndex:0];
+		self.dates = [existingDates copy];
 	}
 	return date;
 }

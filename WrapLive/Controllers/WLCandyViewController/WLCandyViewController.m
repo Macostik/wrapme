@@ -31,6 +31,7 @@
 #import "NSDate+Additions.h"
 #import "WLWrapBroadcaster.h"
 #import "WLWrapChannelBroadcaster.h"
+#import "NSString+Additions.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
@@ -207,8 +208,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 			[weakSelf.spinner stopAnimating];
 		}
 	}];
-	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", image.createdAt.timeAgoString];
-	self.titleLabel.text = [NSString stringWithFormat:@"By %@", image.contributor.name];
+	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
+	self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
 	[self.tableView reloadData];
 }
 

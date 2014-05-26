@@ -142,6 +142,7 @@
 		12E9488419239129008DED79 /* WLNotificationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E9488319239129008DED79 /* WLNotificationBroadcaster.m */; };
 		12E9488719239140008DED79 /* WLChannelBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E9488619239140008DED79 /* WLChannelBroadcaster.m */; };
 		12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EBF8D718F6A6D000EA3185 /* UIViewController+Additions.m */; };
+		12F0DAF019338C9100F9D898 /* SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F0DAEF19338C9100F9D898 /* SegmentedControl.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
@@ -403,6 +404,8 @@
 		12E9488619239140008DED79 /* WLChannelBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChannelBroadcaster.m; sourceTree = "<group>"; };
 		12EBF8D618F6A6D000EA3185 /* UIViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Additions.h"; sourceTree = "<group>"; };
 		12EBF8D718F6A6D000EA3185 /* UIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
+		12F0DAEE19338C9100F9D898 /* SegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentedControl.h; sourceTree = "<group>"; };
+		12F0DAEF19338C9100F9D898 /* SegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentedControl.m; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
@@ -828,6 +831,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				12F0DAED19338C9100F9D898 /* SegmentedControl */,
 				12DEC3EC1920F7E0007BE6CC /* WLToast */,
 				12A8AA6E18F5919D00F67113 /* WLLoadingView */,
 				12A6BFA918F2AE5F00AE3B62 /* WLRefreshControl */,
@@ -1466,6 +1470,15 @@
 			path = UIViewController;
 			sourceTree = "<group>";
 		};
+		12F0DAED19338C9100F9D898 /* SegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				12F0DAEE19338C9100F9D898 /* SegmentedControl.h */,
+				12F0DAEF19338C9100F9D898 /* SegmentedControl.m */,
+			);
+			path = SegmentedControl;
+			sourceTree = "<group>";
+		};
 		AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1804,6 +1817,7 @@
 				121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */,
 				1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */,
 				12E1104519066C7C007DB4AC /* UIView+QuatzCoreAnimations.m in Sources */,
+				12F0DAF019338C9100F9D898 /* SegmentedControl.m in Sources */,
 				12D962ED18E5898A00C57CE1 /* WLPicture.m in Sources */,
 				12DE6983192E0B0F007580AD /* WLTestUserPicker.m in Sources */,
 				12D4D3E1191938D60025CC18 /* UIActionSheet+Blocks.m in Sources */,

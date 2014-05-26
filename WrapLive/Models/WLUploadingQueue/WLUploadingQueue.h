@@ -39,10 +39,6 @@
 
 @property (strong, nonatomic) WLCandy* candy;
 
-@property (nonatomic) float progress;
-
-@property (strong, nonatomic) void (^progressChangeBlock) (float progress);
-
 - (void)setOperation:(AFURLConnectionOperation *)operation;
 
 - (AFURLConnectionOperation *)operation;

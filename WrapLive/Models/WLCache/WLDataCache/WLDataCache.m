@@ -67,7 +67,7 @@ static NSUInteger WLWrapCacheSize = 104857600;
 	return [self containsObjectWithIdentifier:WLDataCacheWrapsIdentifier];
 }
 
-- (BOOL)containsUploadingItems {
+- (BOOL)containsUploadings {
 	return [self containsObjectWithIdentifier:WLDataCacheUploadingsIdentifier];
 }
 

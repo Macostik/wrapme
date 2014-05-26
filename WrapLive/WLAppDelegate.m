@@ -14,6 +14,7 @@
 #import "WLSession.h"
 #import "WLNotificationBroadcaster.h"
 #import "WLKeyboardBroadcaster.h"
+#import <AviarySDK/AviarySDK.h>
 
 @interface WLAppDelegate ()
 
@@ -33,6 +34,8 @@
 	[[WLNotificationBroadcaster broadcaster] configure];
 	
 	[[WLNotificationBroadcaster broadcaster] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
+	
+	[AFPhotoEditorController setAPIKey:@"400a0c21d96226e6" secret:@"8fe86ddd518dc34b"];
 	
 	return YES;
 }

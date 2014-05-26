@@ -100,6 +100,9 @@
 		12DE697C192E0494007580AD /* WLTestUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12DE697B192E0494007580AD /* WLTestUsers.plist */; };
 		12DE6980192E04F7007580AD /* NSPropertyListSerialization+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DE697F192E04F7007580AD /* NSPropertyListSerialization+Shorthand.m */; };
 		12DE6983192E0B0F007580AD /* WLTestUserPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DE6982192E0B0F007580AD /* WLTestUserPicker.m */; };
+		12DE698C192E4234007580AD /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12DE698A192E4234007580AD /* AviarySDK.framework */; };
+		12DE698D192E4234007580AD /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 12DE698B192E4234007580AD /* AviarySDKResources.bundle */; };
+		12DE698F192E4C6B007580AD /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 12DE698E192E4C6B007580AD /* libsqlite3.0.dylib */; };
 		12DEC3EF1920F7E0007BE6CC /* WLToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3EE1920F7E0007BE6CC /* WLToast.m */; };
 		12DEC3F21921181B007BE6CC /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3F11921181B007BE6CC /* NSObject+AssociatedObjects.m */; };
 		12DEC3F519211A48007BE6CC /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3F419211A48007BE6CC /* UIView+GestureRecognizing.m */; };
@@ -323,6 +326,9 @@
 		12DE697F192E04F7007580AD /* NSPropertyListSerialization+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPropertyListSerialization+Shorthand.m"; path = "NSPropertyListSerialization/NSPropertyListSerialization+Shorthand.m"; sourceTree = "<group>"; };
 		12DE6981192E0B0F007580AD /* WLTestUserPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTestUserPicker.h; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLTestUserPicker.h; sourceTree = "<group>"; };
 		12DE6982192E0B0F007580AD /* WLTestUserPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTestUserPicker.m; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLTestUserPicker.m; sourceTree = "<group>"; };
+		12DE698A192E4234007580AD /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
+		12DE698B192E4234007580AD /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
+		12DE698E192E4C6B007580AD /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		12DEC3ED1920F7E0007BE6CC /* WLToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLToast.h; sourceTree = "<group>"; };
 		12DEC3EE1920F7E0007BE6CC /* WLToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLToast.m; sourceTree = "<group>"; };
 		12DEC3F01921181B007BE6CC /* NSObject+AssociatedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AssociatedObjects.h"; sourceTree = "<group>"; };
@@ -433,11 +439,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12DE698F192E4C6B007580AD /* libsqlite3.0.dylib in Frameworks */,
 				121FC9E7190A93EF0034486D /* libz.dylib in Frameworks */,
 				121FC9E5190A93E50034486D /* SystemConfiguration.framework in Frameworks */,
 				121FC9E3190A93D80034486D /* CFNetwork.framework in Frameworks */,
 				12A7A70518DA0945008FF6F0 /* CoreGraphics.framework in Frameworks */,
 				12A7A70718DA0945008FF6F0 /* UIKit.framework in Frameworks */,
+				12DE698C192E4234007580AD /* AviarySDK.framework in Frameworks */,
 				12A7A70318DA0945008FF6F0 /* Foundation.framework in Frameworks */,
 				607AAB536152441CB1C4F352 /* libPods.a in Frameworks */,
 			);
@@ -724,6 +732,8 @@
 		12A7A70118DA0945008FF6F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				12DE698E192E4C6B007580AD /* libsqlite3.0.dylib */,
+				12DE6989192E4234007580AD /* AviarySDK */,
 				121FC9E6190A93EF0034486D /* libz.dylib */,
 				121FC9E4190A93E50034486D /* SystemConfiguration.framework */,
 				121FC9E2190A93D80034486D /* CFNetwork.framework */,
@@ -1115,6 +1125,16 @@
 				12DE697F192E04F7007580AD /* NSPropertyListSerialization+Shorthand.m */,
 			);
 			name = NSPropertyListSerialization;
+			sourceTree = "<group>";
+		};
+		12DE6989192E4234007580AD /* AviarySDK */ = {
+			isa = PBXGroup;
+			children = (
+				12DE698A192E4234007580AD /* AviarySDK.framework */,
+				12DE698B192E4234007580AD /* AviarySDKResources.bundle */,
+			);
+			name = AviarySDK;
+			path = WrapLive/Frameworks/AviarySDK;
 			sourceTree = "<group>";
 		};
 		12DEC3EC1920F7E0007BE6CC /* WLToast */ = {
@@ -1620,6 +1640,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12DE698D192E4234007580AD /* AviarySDKResources.bundle in Resources */,
 				12DE697C192E0494007580AD /* WLTestUsers.plist in Resources */,
 				ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */,
 				12D514F7192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png in Resources */,
@@ -1900,6 +1921,10 @@
 			baseConfigurationReference = 98C86618D23B4CC5B2807E94 /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/WrapLive/Frameworks/AviarySDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Info.plist";
@@ -1917,6 +1942,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/WrapLive/Frameworks/AviarySDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Info.plist";

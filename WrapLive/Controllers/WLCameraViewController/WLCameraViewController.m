@@ -21,8 +21,9 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceOrientationBroadcaster.h"
 #import "WLBlocks.h"
+#import <AviarySDK/AviarySDK.h>
 
-@interface WLCameraViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, WLDeviceOrientationBroadcastReceiver>
+@interface WLCameraViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, WLDeviceOrientationBroadcastReceiver, AFPhotoEditorControllerDelegate>
 
 #pragma mark - AVCaptureSession interface
 
@@ -160,7 +161,28 @@
 }
 
 - (IBAction)use:(id)sender {
-	UIImage* image = self.acceptImageView.image;
+	[self finishWithImage:self.acceptImageView.image];
+}
+
+- (IBAction)edit:(UIButton *)sender {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		[AFPhotoEditorCustomization setLeftNavigationBarButtonTitle:@"Cancel"];
+		[AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Save"];
+		UIGraphicsBeginImageContext(CGSizeMake(1, 1));
+		[[UIColor WL_orangeColor] setFill];
+		[[UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 1, 1)] fill];
+		UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+		[AFPhotoEditorCustomization setNavBarImage:image];
+		UIGraphicsEndImageContext();
+	});
+	AFPhotoEditorController* aviaryController = [[AFPhotoEditorController alloc] initWithImage:self.acceptImageView.image];
+	aviaryController.delegate = self;
+	[self presentViewController:aviaryController animated:YES completion:nil];
+	aviaryController.view.backgroundColor = [UIColor WL_orangeColor];
+}
+
+- (void)finishWithImage:(UIImage*)image {
 	if (!self.photoFromLibrary) {
 		[self saveImage:image];
 	}
@@ -269,6 +291,18 @@
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - AFPhotoEditorControllerDelegate
+
+- (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
+	self.acceptImageView.image = image;
+	__weak typeof(self)weakSelf = self;
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

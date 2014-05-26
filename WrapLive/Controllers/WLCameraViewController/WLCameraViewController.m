@@ -298,7 +298,6 @@
 
 - (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
 	self.acceptImageView.image = image;
-	__weak typeof(self)weakSelf = self;
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

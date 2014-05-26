@@ -183,7 +183,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (void)refresh {
-	if (self.candy.uploadingItem == nil) {
+	if (self.candy.uploading == nil) {
 		__weak typeof(self)weakSelf = self;
 		[WLDataManager candy:self.candy wrap:self.wrap success:^(id object, BOOL cached, BOOL stop) {
 			[weakSelf setupImage];

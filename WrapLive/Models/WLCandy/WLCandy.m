@@ -11,26 +11,31 @@
 #import "WLWrapBroadcaster.h"
 #import "NSArray+Additions.h"
 #import "NSString+Additions.h"
+#import "WLUploadingQueue.h"
 
 @implementation WLCandy
 
-+ (instancetype)chatMessageWithText:(NSString *)text {
++ (instancetype)candyWithType:(NSInteger)type {
 	WLCandy* candy = [self entry];
-	candy.type = WLCandyTypeChatMessage;
+	candy.uploadIdentifier = GUID();
+	candy.type = type;
+	return candy;
+}
+
++ (instancetype)chatMessageWithText:(NSString *)text {
+	WLCandy* candy = [self candyWithType:WLCandyTypeChatMessage];
 	candy.chatMessage = text;
 	return candy;
 }
 
 + (instancetype)imageWithPicture:(WLPicture *)picture {
-	WLCandy* candy = [self entry];
-	candy.type = WLCandyTypeImage;
+	WLCandy* candy = [self candyWithType:WLCandyTypeImage];
 	candy.picture = picture;
 	return candy;
 }
 
 + (instancetype)imageWithFileAtPath:(NSString *)path {
-	WLCandy* candy = [self entry];
-	candy.type = WLCandyTypeImage;
+	WLCandy* candy = [self candyWithType:WLCandyTypeImage];
 	candy.picture.large = path;
 	candy.picture.medium = path;
 	candy.picture.small = path;
@@ -41,6 +46,7 @@
     self = [super initWithDictionary:dict error:err];
     if (self) {
         self.comments = (id)[[self.comments reverseObjectEnumerator] allObjects];
+		[[WLUploadingQueue instance] reviseCandy:self];
     }
     return self;
 }
@@ -57,7 +63,8 @@
 									@"dob_in_epoch":@"birthdate",
 									@"candy_uid":@"identifier",
 									@"candy_type":@"type",
-									@"chat_message":@"chatMessage"}];
+									@"chat_message":@"chatMessage",
+									@"upload_uid":@"uploadIdentifier"}];
 }
 
 - (WLPicture *)picture {

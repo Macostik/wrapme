@@ -78,10 +78,8 @@
 	return [self messages:0];
 }
 
-+ (EqualityBlock)equalityBlock {
-	return ^BOOL(WLWrapDate* first, WLWrapDate* second) {
-		return [[first updatedAt] isEqualToDate:[second updatedAt]];
-	};
+- (BOOL)isEqualToEntry:(WLEntry *)entry {
+	return [self.updatedAt isEqualToDate:entry.updatedAt];
 }
 
 @end

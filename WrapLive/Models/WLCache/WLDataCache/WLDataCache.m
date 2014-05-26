@@ -12,7 +12,7 @@
 
 static NSString* WLDataCacheWrapsIdentifier = @"mainScreenWraps";
 
-static NSString* WLDataCacheUploadingItemsIdentifier = @"uploadingItems";
+static NSString* WLDataCacheUploadingsIdentifier = @"uploadings";
 
 static NSUInteger WLWrapCacheSize = 104857600;
 
@@ -51,16 +51,16 @@ static NSUInteger WLWrapCacheSize = 104857600;
 	[self objectWithIdentifier:WLDataCacheWrapsIdentifier completion:completion];
 }
 
-- (void)setUploadingItems:(NSArray *)uploadingItems {
-	[self setObject:uploadingItems withIdentifier:WLDataCacheUploadingItemsIdentifier];
+- (void)setUploadings:(NSArray *)uploadings {
+	[self setObject:uploadings withIdentifier:WLDataCacheUploadingsIdentifier];
 }
 
-- (NSArray *)uploadingItems {
-	return [self objectWithIdentifier:WLDataCacheUploadingItemsIdentifier];
+- (NSArray *)uploadings {
+	return [self objectWithIdentifier:WLDataCacheUploadingsIdentifier];
 }
 
-- (void)uploadingItems:(WLCacheReadCompletionBlock)completion {
-	[self objectWithIdentifier:WLDataCacheUploadingItemsIdentifier completion:completion];
+- (void)uploadings:(WLCacheReadCompletionBlock)completion {
+	[self objectWithIdentifier:WLDataCacheUploadingsIdentifier completion:completion];
 }
 
 - (BOOL)containsWraps {
@@ -68,7 +68,7 @@ static NSUInteger WLWrapCacheSize = 104857600;
 }
 
 - (BOOL)containsUploadingItems {
-	return [self containsObjectWithIdentifier:WLDataCacheUploadingItemsIdentifier];
+	return [self containsObjectWithIdentifier:WLDataCacheUploadingsIdentifier];
 }
 
 - (WLCache *)wrapsCache {

@@ -15,16 +15,17 @@
 #import "WLImageCache.h"
 #import "UIImage+Resize.h"
 #import "WLWrapBroadcaster.h"
+#import "NSString+Additions.h"
 
 @interface WLUploadingQueue ()
 
-@property (strong, nonatomic) NSMutableArray* items;
+@property (strong, nonatomic) NSMutableArray* uploadings;
 
 @end
 
 @implementation WLUploadingQueue
 
-@synthesize items = _items;
+@synthesize uploadings = _uploadings;
 
 + (instancetype)instance {
     static id instance = nil;
@@ -35,42 +36,42 @@
     return instance;
 }
 
-- (NSMutableArray *)items {
-	if (!_items) {
-		_items = [NSMutableArray arrayWithArray:[WLDataCache cache].uploadingItems];
+- (NSMutableArray *)uploadings {
+	if (!_uploadings) {
+		_uploadings = [NSMutableArray arrayWithArray:[WLDataCache cache].uploadings];
 	}
-	if (!_items) {
-		_items = [NSMutableArray array];
+	if (!_uploadings) {
+		_uploadings = [NSMutableArray array];
 	}
-	return _items;
+	return _uploadings;
 }
 
 - (void)save {
-	[WLDataCache cache].uploadingItems = [self.items copy];
+	[WLDataCache cache].uploadings = [self.uploadings copy];
 }
 
-- (void)addItem:(WLUploadingItem *)item {
-	[self.items addObject:item];
+- (void)addUploading:(WLUploading *)uploading {
+	[self.uploadings addObject:uploading];
 	[self save];
 }
 
-- (WLUploadingItem*)addItemWithCandy:(WLCandy *)candy wrap:(WLWrap *)wrap {
-	WLUploadingItem* item = [[WLUploadingItem alloc] init];
-	item.wrap = wrap;
-	item.candy = candy;
-	candy.uploadingItem = item;
-	[self addItem:item];
-	return item;
+- (WLUploading*)addUploadingWithCandy:(WLCandy *)candy wrap:(WLWrap *)wrap {
+	WLUploading* uploading = [[WLUploading alloc] init];
+	uploading.wrap = wrap;
+	uploading.candy = candy;
+	candy.uploading = uploading;
+	[self addUploading:uploading];
+	return uploading;
 }
 
-- (void)removeItem:(WLUploadingItem *)item {
-	item.candy.uploadingItem = nil;
-	[self.items removeObject:item];
+- (void)removeUploading:(WLUploading *)uploading {
+	uploading.candy.uploading = nil;
+	[self.uploadings removeObject:uploading];
 	[self save];
 }
 
 - (void)updateWrap:(WLWrap *)wrap {
-	NSArray* candies = [self.items map:^id(WLUploadingItem* item) {
+	NSArray* candies = [self.uploadings map:^id(WLUploading* item) {
 		if ([wrap isEqualToEntry:item.wrap]) {
 			WLWrapDate* date = [wrap.dates firstObject];
 			WLCandy* candy = [date.candies selectObject:^BOOL(WLCandy* candy) {
@@ -89,6 +90,18 @@
 	}
 }
 
+- (void)reviseCandy:(WLCandy *)candy {
+	if (candy.identifier.nonempty && self.uploadings.nonempty) {
+		NSUInteger count = [self.uploadings count];
+		[self.uploadings removeObjectsWhileEnumerating:^BOOL(WLUploading* uploading) {
+			return [candy.uploadIdentifier isEqualToString:uploading.candy.uploadIdentifier];
+		}];
+		if (count != [self.uploadings count]) {
+			[self save];
+		}
+	}
+}
+
 - (void)uploadImage:(UIImage *)image
 			   wrap:(WLWrap *)wrap
 			success:(WLObjectBlock)success
@@ -102,7 +115,7 @@
 			[[WLImageCache uploadingCache] setImage:[image thumbnailImage:160] completion:^(NSString *path) {
 				picture.small = path;
 				WLCandy* candy = [WLCandy imageWithPicture:picture];
-				[[weakSelf addItemWithCandy:candy wrap:wrap] upload:success failure:failure];
+				[[weakSelf addUploadingWithCandy:candy wrap:wrap] upload:success failure:failure];
 				[wrap addCandy:candy];
 			}];
 		}];
@@ -115,13 +128,13 @@
 			  failure:(WLFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
 	WLCandy* candy = [WLCandy chatMessageWithText:message];
-	[[weakSelf addItemWithCandy:candy wrap:wrap] upload:success failure:failure];
+	[[weakSelf addUploadingWithCandy:candy wrap:wrap] upload:success failure:failure];
 	[wrap addCandy:candy];
 }
 
 @end
 
-@implementation WLUploadingItem
+@implementation WLUploading
 {
 	__weak AFURLConnectionOperation* _operation;
 }
@@ -135,7 +148,7 @@
 			[[WLImageCache cache] setImageAtPath:picture.medium withUrl:candy.picture.medium];
 			[[WLImageCache cache] setImageAtPath:picture.small withUrl:candy.picture.small];
 		}
-		[[WLUploadingQueue instance] removeItem:weakSelf];
+		[[WLUploadingQueue instance] removeUploading:weakSelf];
 		success(candy);
 	} failure:^(NSError *error) {
 		[weakSelf setOperation:nil];

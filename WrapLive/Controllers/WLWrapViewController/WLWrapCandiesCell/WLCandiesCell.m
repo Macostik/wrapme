@@ -147,7 +147,7 @@
 #pragma mark - WLWrapCandyCellDelegate
 
 - (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
-	if (candy.uploadingItem == nil) {
+	if (candy.uploading == nil) {
 		[self.delegate candiesCell:self didSelectCandy:candy];
 	}
 }

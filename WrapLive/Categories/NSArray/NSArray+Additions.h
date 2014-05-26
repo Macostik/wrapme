@@ -71,6 +71,8 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 
 - (BOOL)containsIndex:(NSUInteger)index;
 
+- (NSArray*)arrayByRemovingObjectsWhileEnumerating:(SelectBlock)enumerator;
+
 @end
 
 @interface NSMutableArray (Additions)
@@ -100,5 +102,7 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 - (BOOL)removeUniqueObject:(id)object equality:(EqualityBlock)equality;
 
 - (BOOL)removeUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality;
+
+- (void)removeObjectsWhileEnumerating:(SelectBlock)enumerator;
 
 @end

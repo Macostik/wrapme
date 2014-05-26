@@ -85,11 +85,11 @@
 }
 
 - (void)refreshUploadingButtons:(WLCandy*)candy animated:(BOOL)animated {
-	if (candy.uploadingItem) {
+	if (candy.uploading) {
 		self.vibrateOnLongPressGesture = NO;
 		self.lowOpacityView.hidden = NO;
-		self.cancelButton.hidden = (candy.uploadingItem.operation != nil);
-		self.retryButton.hidden = (candy.uploadingItem.operation != nil);
+		self.cancelButton.hidden = (candy.uploading.operation != nil);
+		self.retryButton.hidden = (candy.uploading.operation != nil);
 	} else {
 		if (animated) {
 			[self.lowOpacityView fade];
@@ -139,7 +139,7 @@
 
 - (IBAction)select:(id)sender {
 	WLCandy* candy = self.item;
-	if (candy.uploadingItem == nil) {
+	if (candy.uploading == nil) {
 		self.notifyBulb.hidden = YES;
 		[candy setUpdated:NO];
 		[self.delegate candyCell:self didSelectCandy:candy];
@@ -169,13 +169,13 @@
 - (IBAction)cancelUploading:(id)sender {
 	WLCandy* candy = self.item;
 	[self.wrap removeCandy:candy];
-	[[WLUploadingQueue instance] removeItem:candy.uploadingItem];
+	[[WLUploadingQueue instance] removeUploading:candy.uploading];
 	[self refreshUploadingButtons:self.item animated:YES];
 }
 
 - (IBAction)retryUploading:(id)sender {
 	WLCandy* candy = self.item;
-	[candy.uploadingItem upload:^(id object) {
+	[candy.uploading upload:^(id object) {
 	} failure:^(NSError *error) {
 	}];
 }

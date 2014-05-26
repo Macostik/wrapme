@@ -427,6 +427,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 - (id)addCandy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:candy.uploadIdentifier forKey:@"upload_uid"];
 	if (candy.type == WLCandyTypeChatMessage) {
 		[parameters trySetObject:candy.chatMessage forKey:@"chat_message"];
 	}

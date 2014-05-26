@@ -99,7 +99,7 @@
 	}];
 }
 
-- (void)setUploadingItem:(WLUploadingItem *)uploadingItem {
+- (void)setUploadingItem:(WLUploading *)uploadingItem {
 	self.progress = uploadingItem.progress;
 	__weak typeof(self)weakSelf = self;
 	[uploadingItem setProgressChangeBlock:^(float progress) {

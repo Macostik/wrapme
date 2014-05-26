@@ -10,7 +10,7 @@
 
 @class AFURLConnectionOperation;
 @class WLProgressBar;
-@class WLUploadingItem;
+@class WLUploading;
 
 @protocol WLProgressBarDelegate <NSObject>
 
@@ -28,7 +28,7 @@
 
 @property (nonatomic, weak) AFURLConnectionOperation *operation;
 
-@property (nonatomic, weak) WLUploadingItem *uploadingItem;
+@property (nonatomic, weak) WLUploading *uploadingItem;
 
 @property (nonatomic) float progress;
 

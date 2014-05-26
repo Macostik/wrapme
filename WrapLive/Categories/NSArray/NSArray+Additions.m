@@ -190,6 +190,12 @@
 	return count > 0 && IsInBounds(0, count - 1, index);
 }
 
+- (NSArray*)arrayByRemovingObjectsWhileEnumerating:(SelectBlock)enumerator {
+	return [self mutate:^(NSMutableArray *mutableCopy) {
+		[mutableCopy removeObjectsWhileEnumerating:enumerator];
+	}];
+}
+
 @end
 
 @implementation NSMutableArray (Additions)
@@ -300,6 +306,18 @@
 		}
 	}
 	return NO;
+}
+
+- (void)removeObjectsWhileEnumerating:(SelectBlock)enumerator {
+	NSUInteger index = 0;
+	while ([self containsIndex:index]) {
+		id item = self[index];
+		if (enumerator(item)) {
+			[self removeObject:item];
+		} else {
+			index++;
+		}
+	}
 }
 
 @end

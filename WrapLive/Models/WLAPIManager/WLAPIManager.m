@@ -342,6 +342,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 - (id)wrap:(WLWrap *)wrap page:(NSInteger)page success:(WLWrapBlock)success failure:(WLFailureBlock)failure {
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:@([[NSTimeZone localTimeZone] secondsFromGMT]) forKey:@"utc_offset"];
+	[parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
 	[parameters trySetObject:@(page) forKey:@"group_by_date_page_number"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {

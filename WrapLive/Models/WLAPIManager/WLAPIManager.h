@@ -26,6 +26,8 @@ static NSInteger WLAPIChatPageSize = 50;
 
 + (instancetype)instance;
 
++ (BOOL)developmentEvironment;
+
 /*!
  *  Register an user account in WrapLive. Account cannot be used until activation is completed.
  *

@@ -59,14 +59,17 @@
 		self.birthdate = self.birthdatePicker.date;
 	}
 	
-#if DEBUG
-	UIButton* testUserButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	testUserButton.frame = CGRectMake(0, self.view.height - 88, 320, 44);
-	[testUserButton setTitle:@"Test user (debug only)" forState:UIControlStateNormal];
-	[testUserButton setTitleColor:[UIColor WL_orangeColor] forState:UIControlStateNormal];
-	[testUserButton addTarget:self action:@selector(selectTestUser) forControlEvents:UIControlEventTouchUpInside];
-	[self.view addSubview:testUserButton];
-#endif
+	if ([WLAPIManager developmentEvironment]) {
+		__weak typeof(self)weakSelf = self;
+		run_after(0.1, ^{
+			UIButton* testUserButton = [UIButton buttonWithType:UIButtonTypeCustom];
+			testUserButton.frame = CGRectMake(0, weakSelf.view.height - 88, 320, 44);
+			[testUserButton setTitle:@"Test user (for debug only)" forState:UIControlStateNormal];
+			[testUserButton setTitleColor:[UIColor WL_orangeColor] forState:UIControlStateNormal];
+			[testUserButton addTarget:weakSelf action:@selector(selectTestUser) forControlEvents:UIControlEventTouchUpInside];
+			[weakSelf.view addSubview:testUserButton];
+		});
+	}
 }
 
 - (UIViewController *)signUpViewController {

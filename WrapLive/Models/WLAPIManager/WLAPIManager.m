@@ -49,6 +49,10 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     return instance;
 }
 
++ (BOOL)developmentEvironment {
+	return [WLAPIBaseUrl isEqualToString:WLAPIDevelopmentUrl];
+}
+
 - (AFHTTPRequestOperation *)GET:(NSString *)URLString
 					 parameters:(NSDictionary *)parameters
 						success:(void (^)(AFHTTPRequestOperation *, id))success
@@ -439,7 +443,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:candy.uploadIdentifier forKey:@"upload_uid"];
-	[parameters trySetObject:@(candy.updatedAt.timestamp) forKey:@"contributed_at"];
+	[parameters trySetObject:@(candy.updatedAt.timestamp) forKey:@"contributed_at_in_epoch"];
 	if (candy.type == WLCandyTypeChatMessage) {
 		[parameters trySetObject:candy.chatMessage forKey:@"chat_message"];
 	}

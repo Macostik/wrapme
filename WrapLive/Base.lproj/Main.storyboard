@@ -1977,7 +1977,7 @@ Check your internet connection and try again.</string>
         <image name="ic_next_gray" width="8" height="14"/>
         <image name="ic_next_white" width="8" height="24"/>
         <image name="ic_not_checked" width="22" height="22"/>
-        <image name="ic_notify_bulb" width="10" height="10"/>
+        <image name="ic_notify_bulb" width="9" height="9"/>
         <image name="ic_search" width="16" height="16"/>
         <image name="ic_settings" width="21" height="21"/>
         <image name="ic_sign_up_step1_current" width="16" height="16"/>

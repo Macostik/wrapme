@@ -167,6 +167,10 @@
 }
 
 - (IBAction)edit:(UIButton *)sender {
+	[self editImage:self.acceptImageView.image];
+}
+
+- (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		[AFPhotoEditorCustomization setLeftNavigationBarButtonTitle:@"Cancel"];
@@ -178,10 +182,15 @@
 		[AFPhotoEditorCustomization setNavBarImage:image];
 		UIGraphicsEndImageContext();
 	});
-	AFPhotoEditorController* aviaryController = [[AFPhotoEditorController alloc] initWithImage:self.acceptImageView.image];
+	AFPhotoEditorController* aviaryController = [[AFPhotoEditorController alloc] initWithImage:image];
 	aviaryController.delegate = self;
-	[self presentViewController:aviaryController animated:YES completion:nil];
+	aviaryController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 	aviaryController.view.backgroundColor = [UIColor WL_orangeColor];
+	return aviaryController;
+}
+
+- (void)editImage:(UIImage*)image {
+	[self presentViewController:[self editControllerWithImage:image] animated:YES completion:nil];
 }
 
 - (void)finishWithImage:(UIImage*)image {
@@ -192,7 +201,8 @@
 }
 
 - (void)setAcceptImage:(UIImage *)acceptImage animated:(BOOL)animated {
-	
+	[self editImage:acceptImage];
+	return;
 	if (acceptImage) {
 		self.acceptView.hidden = NO;
 		self.acceptButtonsView.transform = CGAffineTransformMakeTranslation(0, self.acceptButtonsView.frame.size.height);
@@ -284,12 +294,27 @@
 	UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
 	__weak typeof(self)weakSelf = self;
 	self.view.userInteractionEnabled = NO;
-	[weakSelf cropImage:image completion:^(UIImage *croppedImage) {
+	__block UIImage* croppedImage = nil;
+	__block BOOL dismissed = NO;
+	void (^completion)(void) = ^{
 		weakSelf.photoFromLibrary = YES;
 		[weakSelf setAcceptImage:croppedImage animated:YES];
 		weakSelf.view.userInteractionEnabled = YES;
+	};
+	
+	[weakSelf cropImage:image completion:^(UIImage *_croppedImage) {
+		croppedImage = _croppedImage;
+		if (dismissed) {
+			completion();
+		}
 	}];
-	[self dismissViewControllerAnimated:YES completion:nil];
+	
+	[self dismissViewControllerAnimated:YES completion:^{
+		dismissed = YES;
+		if (croppedImage) {
+			completion();
+		}
+	}];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

@@ -30,8 +30,10 @@
 #import "UILabel+Additions.h"
 #import "WLDataManager.h"
 #import "WLDataCache.h"
+#import "WLUserChannelBroadcaster.h"
+#import "WLToast.h"
 
-@interface WLWrapViewController () <WLCameraViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver>
+@interface WLWrapViewController () <WLCameraViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, WLUserChannelBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
@@ -66,6 +68,7 @@
 	self.tableView.tableFooterView = [WLLoadingView instance];
 	
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
+	[[WLUserChannelBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -78,6 +81,14 @@
 	self.nameLabel.text = self.wrap.name;
 	self.contributorsLabel.text = self.wrap.contributorNames;
 	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
+}
+
+#pragma mark - WLUserChannelBroadcastReceiver
+
+- (void)broadcaster:(WLUserChannelBroadcaster *)broadcaster didResignContributor:(WLWrap *)wrap {
+	if ([self.wrap isEqualToEntry:wrap]) {
+		[WLToast showWithMessage:@"This wrap is no longer avaliable."];
+	}
 }
 
 #pragma mark - WLWrapBroadcastReceiver

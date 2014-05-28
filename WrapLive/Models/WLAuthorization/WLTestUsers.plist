@@ -76,7 +76,7 @@
 		<key>email</key>
 		<string>s.maximenko@mobidev.biz</string>
 		<key>password</key>
-		<string>36273948d0</string>
+		<string>39ef364ba8</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>
@@ -86,7 +86,17 @@
 		<key>email</key>
 		<string>s.maximenko@mobidev.biz</string>
 		<key>password</key>
-		<string>fdb6d6885b</string>
+		<string>48a779762b</string>
+	</dict>
+	<dict>
+		<key>countryCode</key>
+		<string>380</string>
+		<key>phone</key>
+		<string>679533279</string>
+		<key>email</key>
+		<string>o.vyshnivetsky@mobidev.biz</string>
+		<key>password</key>
+		<string>d69d3ae740</string>
 	</dict>
 </array>
 </plist>

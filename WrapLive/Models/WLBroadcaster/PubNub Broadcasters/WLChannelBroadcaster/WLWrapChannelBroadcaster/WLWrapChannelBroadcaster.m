@@ -65,7 +65,7 @@
 	if (self.candy && ![notification.candy isEqualToEntry:self.candy]) {
 		return NO;
 	}
-	return (notification.type != WLNotificationContributorAddition && notification.type != WLNotificationContributorDeletion);
+	return (notification.type != WLNotificationContributorAddition && notification.type != WLNotificationContributorDeletion && notification.type != WLNotificationWrapDeletion);
 }
 
 @end

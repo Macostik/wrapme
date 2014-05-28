@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 	WLNotificationCandyCommentAddition = 500,
 	WLNotificationCandyCommentDeletion = 600,
 	WLNotificationChatCandyAddition    = 700,
+	WLNotificationWrapDeletion         = 800,
 };
 
 @interface WLNotification : NSObject

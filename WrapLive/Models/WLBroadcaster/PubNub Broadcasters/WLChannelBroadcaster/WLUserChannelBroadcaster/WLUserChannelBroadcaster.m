@@ -32,19 +32,21 @@
 #pragma mark - WLNotificationReceiver
 
 - (void)broadcaster:(WLNotificationBroadcaster *)broadcaster notificationReceived:(WLNotification *)notification {
-	__weak typeof(self)weakSelf = self;
-	[notification.wrap fetch:^(WLWrap *wrap) {
-		if (notification.type == WLNotificationContributorAddition) {
+	if (notification.type == WLNotificationContributorAddition) {
+		__weak typeof(self)weakSelf = self;
+		[notification.wrap fetch:^(WLWrap *wrap) {
 			[weakSelf broadcast:@selector(broadcaster:didBecomeContributor:) object:wrap];
-		} else if (notification.type == WLNotificationContributorDeletion) {
-			[weakSelf broadcast:@selector(broadcaster:didResignContributor:) object:wrap];
-		}
-	} failure:^(NSError *error) {
-	}];
+		} failure:^(NSError *error) {
+		}];
+	} else if (notification.type == WLNotificationContributorDeletion) {
+		[self broadcast:@selector(broadcaster:didResignContributor:) object:notification.wrap];
+	} else if (notification.type == WLNotificationWrapDeletion) {
+		[self broadcast:@selector(broadcaster:didResignContributor:) object:notification.wrap];
+	}
 }
 
 - (BOOL)broadcaster:(WLNotificationBroadcaster *)broadcaster shouldReceiveNotification:(WLNotification *)notification {
-	return (notification.type == WLNotificationContributorAddition || notification.type == WLNotificationContributorDeletion);
+	return (notification.type == WLNotificationContributorAddition || notification.type == WLNotificationContributorDeletion || notification.type == WLNotificationWrapDeletion);
 }
 
 @end

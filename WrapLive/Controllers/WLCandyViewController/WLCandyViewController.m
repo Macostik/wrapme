@@ -32,6 +32,7 @@
 #import "WLWrapBroadcaster.h"
 #import "WLWrapChannelBroadcaster.h"
 #import "NSString+Additions.h"
+#import "WLToast.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
@@ -237,6 +238,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didDeleteCandy:(WLCandy *)candy {
+	[WLToast showWithMessage:@"This candy is no longer avaliable."];
 	self.items = [self.items entriesByRemovingEntry:candy];
 	if (self.items.nonempty) {
 		self.candy = [self.items lastObject];

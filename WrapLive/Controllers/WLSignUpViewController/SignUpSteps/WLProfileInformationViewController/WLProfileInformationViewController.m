@@ -49,8 +49,11 @@
 	self.nameTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
 	
 	self.nameTextField.text = self.user.name;
-	self.profileImageView.url = self.user.picture.medium;
-	
+	if (!self.hasAvatar) {
+		self.profileImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
+	} else {
+		self.profileImageView.url = self.user.picture.medium;
+	}
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 

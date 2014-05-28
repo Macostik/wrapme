@@ -142,7 +142,7 @@
 		[[WLAPIManager instance] uploadStatus:identifiers success:^(NSArray *array) {
 			NSMutableArray* uploadings = [weakSelf.uploadings mutableCopy];
 			[uploadings removeObjectsWhileEnumerating:^BOOL(WLUploading* uploading) {
-				return ![array containsObject:uploading.candy.uploadIdentifier];
+				return [array containsObject:uploading.candy.uploadIdentifier];
 			}];
 			weakSelf.uploadings = uploadings;
 			[weakSelf save];

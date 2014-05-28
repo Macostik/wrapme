@@ -19,12 +19,13 @@
 #import "NSDate+Formatting.h"
 #import "WLImageCache.h"
 #import "WLSession.h"
+#import "NSString+Additions.h"
+#import "WLToast.h"
 
 @interface WLChangeProfileViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *birthdateTextField;
-@property (strong, nonatomic) UIDatePicker * birthdatePicker;
+@property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) WLUser * user;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
@@ -40,10 +41,9 @@
 {
     [super viewDidLoad];
 	self.user = [[WLUser currentUser] copy];
-	[self setupPicker];
 	self.nameTextField.text = self.user.name;
 	self.profileImageView.url = self.user.picture.large;
-	self.birthdateTextField.text = [self.birthdatePicker.date GMTStringWithFormat:@"MMM' 'dd', 'yyyy'"];
+	self.emailTextField.text = self.user.email;
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 
@@ -74,35 +74,13 @@
 	}];
 }
 
-- (void)setupPicker {
-	self.birthdatePicker = [UIDatePicker new];
-	self.birthdatePicker.datePickerMode = UIDatePickerModeDate;
-	self.birthdatePicker.maximumDate = [NSDate date];
-	self.birthdatePicker.backgroundColor = [UIColor whiteColor];
-	self.birthdatePicker.date = self.user.birthdate;
-	self.birthdatePicker.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-	self.birthdateTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(birthdatePickerCancel:) done:@selector(birthdatePickerDone:)];
-	self.birthdateTextField.inputView = self.birthdatePicker;
-}
-
-- (void)birthdatePickerCancel:(id)sender {
-	[self.birthdateTextField resignFirstResponder];
-}
-
-- (void)birthdatePickerDone:(id)sender {
-	self.birthdateTextField.text = [self.birthdatePicker.date GMTStringWithFormat:@"MMM' 'dd', 'yyyy'"];
-	self.user.birthdate = self.birthdatePicker.date;
-	[self isProfileChanged];
-	[self.birthdateTextField resignFirstResponder];
-}
-
 - (BOOL)isProfileChanged {
 	WLUser* user = self.user;
 	WLUser* currentUser = [WLUser currentUser];
 	BOOL nameChanged = ![user.name isEqualToString:currentUser.name];
 	BOOL avatarChanged = ![user.picture.large isEqualToString:currentUser.picture.large];
-	BOOL birthdateChanged = ![user.birthdate isEqualToDate:currentUser.birthdate];
-	if (nameChanged || avatarChanged || birthdateChanged) {
+	BOOL emailChanged = ![user.email isEqualToString:currentUser.email];
+	if (nameChanged || avatarChanged || emailChanged) {
 		[self willShowDoneButton:YES];
 		return YES;
 	} else {
@@ -123,18 +101,23 @@
 
 - (void)updateIfNeeded:(void (^)(void))completion {
 	if ([self isProfileChanged]) {
-		self.view.userInteractionEnabled = NO;
-		[self.spinner startAnimating];
-		__weak typeof(self)weakSelf = self;
-		[[WLAPIManager instance] updateMe:self.user success:^(id object) {
-			[weakSelf.spinner stopAnimating];
-			weakSelf.view.userInteractionEnabled = YES;
-			completion();
-		} failure:^(NSError *error) {
-			[weakSelf.spinner stopAnimating];
-			weakSelf.view.userInteractionEnabled = YES;
-			[error show];
-		}];
+		if ([self.user.email isValidEmail]) {
+			self.view.userInteractionEnabled = NO;
+			[self.spinner startAnimating];
+			__weak typeof(self)weakSelf = self;
+			[[WLAPIManager instance] updateMe:self.user success:^(id object) {
+				[weakSelf.spinner stopAnimating];
+				weakSelf.view.userInteractionEnabled = YES;
+				completion();
+			} failure:^(NSError *error) {
+				[weakSelf.spinner stopAnimating];
+				weakSelf.view.userInteractionEnabled = YES;
+				[error show];
+			}];
+		} else {
+			[WLToast showWithMessage:@"Your email isn't correct."];
+		}
+		
 	} else {
 		completion();
 	}
@@ -172,7 +155,11 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-	self.user.name = self.nameTextField.text;
+	if (textField == self.nameTextField) {
+		self.user.name = self.nameTextField.text;
+	} else {
+		self.user.email = self.emailTextField.text;
+	}
 	[self isProfileChanged];
 }
 

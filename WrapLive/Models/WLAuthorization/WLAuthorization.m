@@ -20,7 +20,7 @@
 }
 
 - (BOOL)canAuthorize {
-	return self.countryCode.nonempty && self.phone.nonempty && self.birthdate && self.password.nonempty;
+	return self.countryCode.nonempty && self.phone.nonempty && self.email.nonempty && self.password.nonempty;
 }
 
 - (NSString *)fullPhoneNumber {

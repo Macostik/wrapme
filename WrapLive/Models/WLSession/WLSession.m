@@ -21,7 +21,7 @@ static NSString* WLSessionUserKey = @"WrapLiveUser";
 static NSString* WLSessionAuthorizationKey = @"WrapLiveAuthorization";
 static NSString* WLSessionPhoneNumberKey = @"WrapLivePhoneNumber";
 static NSString* WLSessionCountryCallingCodeKey = @"WrapLiveCountryCallingCode";
-static NSString* WLSessionBirthdateKey = @"WrapLiveBirthdate";
+static NSString* WLSessionEmailKey = @"WLSessionEmailKey";
 static NSString* WLSessionDeviceTokenKey = @"WrapLiveDeviceToken";
 
 @implementation WLSession

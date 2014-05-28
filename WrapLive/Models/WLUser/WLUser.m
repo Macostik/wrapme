@@ -21,7 +21,6 @@
 
 + (NSMutableDictionary *)mapping {
 	return [[super mapping] merge:@{@"phone_number":@"full_phone_number",
-									@"dob_in_epoch":@"birthdate",
 									@"user_uid":@"identifier",
 									@"sign_in_count" : @"signInCount",
 									@"is_creator":@"isCreator"}];
@@ -35,9 +34,7 @@
 	if (self.identifier.nonempty && user.identifier.nonempty) {
 		return [super isEqualToEntry:user];
 	}
-	BOOL equalPhoneNumber = [self.phoneNumber isEqualToString:user.phoneNumber];
-	BOOL equalBirthdate = [self.birthdate compare:user.birthdate] == NSOrderedSame;
-	return equalPhoneNumber && equalBirthdate;
+	return [self.phoneNumber isEqualToString:user.phoneNumber] && [self.email isEqualToString:user.email];
 }
 
 @end

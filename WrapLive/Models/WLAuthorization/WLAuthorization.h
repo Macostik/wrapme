@@ -16,7 +16,7 @@
 
 @property (strong, nonatomic) NSString *phone;
 
-@property (strong, nonatomic) NSDate *birthdate;
+@property (strong, nonatomic) NSString *email;
 
 @property (strong, nonatomic) NSString *activationCode;
 

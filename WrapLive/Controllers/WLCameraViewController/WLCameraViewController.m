@@ -325,6 +325,7 @@
 
 - (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
 	self.acceptImageView.image = image;
+	[self finishWithImage:image];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

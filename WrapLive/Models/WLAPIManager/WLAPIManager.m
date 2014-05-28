@@ -172,7 +172,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSDictionary* parameters = @{@"device_uid" : authorization.deviceUID,
 								 @"country_calling_code" : authorization.countryCode,
 								 @"phone_number" : authorization.phone,
-								 @"dob" : [authorization.birthdate GMTString]};
+								 @"email" : authorization.email};
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
 		return authorization;
@@ -191,7 +191,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSDictionary* parameters = @{@"device_uid" : authorization.deviceUID,
 								 @"country_calling_code" : authorization.countryCode,
 								 @"phone_number" : authorization.phone,
-								 @"dob" : [authorization.birthdate GMTString],
+								 @"email" : authorization.email,
 								 @"activation_code" : authorization.activationCode};
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
@@ -212,7 +212,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	[parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
 	[parameters trySetObject:authorization.phone forKey:@"phone_number"];
 	[parameters trySetObject:authorization.password forKey:@"password"];
-	[parameters trySetObject:[authorization.birthdate GMTString] forKey:@"dob"];
+	[parameters trySetObject:authorization.email forKey:@"email"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
 		WLUser* user = [WLUser modelWithDictionary:[response.data dictionaryForKey:@"user"]];
@@ -246,12 +246,11 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:user.name forKey:@"name"];
-	
-	[parameters trySetObject:[user.birthdate GMTString] forKey:@"dob"];
+	[parameters trySetObject:user.email forKey:@"email"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
 		WLAuthorization* authorization = [WLAuthorization currentAuthorization];
-		authorization.birthdate = user.birthdate;
+		authorization.email = user.email;
 		[authorization setCurrent];
 		WLUser* user = [[WLUser alloc] initWithDictionary:response.data[@"user"] error:NULL];
 		[user setCurrent];

@@ -9,20 +9,8 @@
 		<string>1</string>
 		<key>phone</key>
 		<string>9255552001</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552001</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552001</string>
-		<key>birthdate</key>
-		<string>961372800</string>
+		<key>email</key>
+		<string>faker_louisa.gaylord@example.org</string>
 		<key>activationCode</key>
 		<string>9999</string>
 	</dict>
@@ -33,8 +21,8 @@
 		<string>1</string>
 		<key>phone</key>
 		<string>9255552002</string>
-		<key>birthdate</key>
-		<string>961372800</string>
+		<key>email</key>
+		<string>faker_elza@example.org</string>
 		<key>activationCode</key>
 		<string>9999</string>
 	</dict>
@@ -45,212 +33,8 @@
 		<string>1</string>
 		<key>phone</key>
 		<string>9255552003</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552004</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552004</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552005</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552005</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552006</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552006</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552007</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552007</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552008</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552008</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552009</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552009</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552010</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552010</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552011</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552011</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552012</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552012</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552013</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552013</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552014</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552014</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552015</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552015</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552016</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552016</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552017</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552017</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552018</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552018</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552019</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552019</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>activationCode</key>
-		<string>9999</string>
-	</dict>
-	<dict>
-		<key>deviceUID</key>
-		<string>9255552020</string>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255552020</string>
-		<key>birthdate</key>
-		<string>961372800</string>
+		<key>email</key>
+		<string>faker_kattie@example.org</string>
 		<key>activationCode</key>
 		<string>9999</string>
 	</dict>
@@ -259,8 +43,8 @@
 		<string>1</string>
 		<key>phone</key>
 		<string>9255551001</string>
-		<key>birthdate</key>
-		<string>961372800</string>
+		<key>email</key>
+		<string>faker_roderick@example.org</string>
 		<key>password</key>
 		<string>password</string>
 	</dict>
@@ -269,8 +53,8 @@
 		<string>1</string>
 		<key>phone</key>
 		<string>9255551002</string>
-		<key>birthdate</key>
-		<string>961372800</string>
+		<key>email</key>
+		<string>faker_odie@example.org</string>
 		<key>password</key>
 		<string>password</string>
 	</dict>
@@ -279,178 +63,8 @@
 		<string>1</string>
 		<key>phone</key>
 		<string>9255551003</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551004</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551005</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551006</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551007</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551008</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551009</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551010</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551011</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551012</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551013</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551014</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551015</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551016</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551017</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551018</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551019</string>
-		<key>birthdate</key>
-		<string>961372800</string>
-		<key>password</key>
-		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>1</string>
-		<key>phone</key>
-		<string>9255551020</string>
-		<key>birthdate</key>
-		<string>961372800</string>
+		<key>email</key>
+		<string>faker_judah@example.net</string>
 		<key>password</key>
 		<string>password</string>
 	</dict>
@@ -459,8 +73,8 @@
 		<string>380</string>
 		<key>phone</key>
 		<string>636467228</string>
-		<key>birthdate</key>
-		<string>604454400</string>
+		<key>email</key>
+		<string>s.maximenko@mobidev.biz</string>
 		<key>password</key>
 		<string>36273948d0</string>
 	</dict>
@@ -469,8 +83,8 @@
 		<string>380</string>
 		<key>phone</key>
 		<string>951383026</string>
-		<key>birthdate</key>
-		<string>604454400</string>
+		<key>email</key>
+		<string>s.maximenko@mobidev.biz</string>
 		<key>password</key>
 		<string>fdb6d6885b</string>
 	</dict>

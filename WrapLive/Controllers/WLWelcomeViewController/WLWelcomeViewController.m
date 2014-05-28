@@ -19,7 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-@property (weak, nonatomic) IBOutlet UIButton *continueButton;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 
 @end
 
@@ -29,7 +29,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 	
-	self.continueButton.hidden = YES;
+	self.bottomView.hidden = YES;
 	if ([[WLAuthorization currentAuthorization] canAuthorize]) {
 		__weak typeof(self)weakSelf = self;
 		[[WLAPIManager instance] signIn:[WLAuthorization currentAuthorization] success:^(WLUser* user) {
@@ -42,20 +42,20 @@
 			if ([error isNetworkError]) {
 				[weakSelf presentHomeViewController];
 			} else {
-				[weakSelf showContinueButton];
+				[weakSelf showBottomView];
 			}
 		}];
 	} else {
-		[self showContinueButton];
+		[self showBottomView];
 	}
 }
 
-- (void)showContinueButton {
-	self.continueButton.transform = CGAffineTransformMakeTranslation(0, self.continueButton.frame.size.height);
-	self.continueButton.hidden = NO;
+- (void)showBottomView {
+	self.bottomView.transform = CGAffineTransformMakeTranslation(0, self.bottomView.frame.size.height);
+	self.bottomView.hidden = NO;
 	__weak typeof(self)weakSelf = self;
 	[UIView animateWithDuration:0.25f animations:^{
-		weakSelf.continueButton.transform = CGAffineTransformIdentity;
+		weakSelf.bottomView.transform = CGAffineTransformIdentity;
 	}];
 	[self.spinner removeFromSuperview];
 }
@@ -68,6 +68,10 @@
 	WLSignUpViewController * controller = [self.storyboard signUpViewController];
 	controller.registrationNotCompleted = YES;
 	[self.navigationController setViewControllers:@[controller]];
+}
+
+- (IBAction)termsAndConditions:(id)sender {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://wraplive.com/welcome/privacy"]];
 }
 
 @end

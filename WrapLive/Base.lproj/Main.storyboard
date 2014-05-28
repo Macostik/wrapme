@@ -23,27 +23,46 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
-                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0BE-1R-lZi">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                            <view contentMode="scaleToFill" id="N3J-CT-Lq4">
+                                <rect key="frame" x="0.0" y="480" width="320" height="88"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <inset key="imageEdgeInsets" minX="300" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Continue" image="ic_next_white">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="WfW-pu-ue7" kind="push" id="xzK-pU-QyL"/>
-                                </connections>
-                            </button>
+                                <subviews>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PkY-qd-z05">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="Terms and Conditions">
+                                            <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="termsAndConditions:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hVh-p2-Hpx"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0BE-1R-lZi">
+                                        <rect key="frame" x="0.0" y="44" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <inset key="imageEdgeInsets" minX="300" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Continue" image="ic_next_white">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="WfW-pu-ue7" kind="push" id="xzK-pU-QyL"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="mRG-Wg-0mw"/>
                     <connections>
                         <outlet property="backgroundView" destination="RmV-X8-6kT" id="73g-b3-MjL"/>
-                        <outlet property="continueButton" destination="0BE-1R-lZi" id="zAA-XY-q9r"/>
+                        <outlet property="bottomView" destination="N3J-CT-Lq4" id="XOW-co-mxL"/>
                         <outlet property="spinner" destination="Xgj-dB-Wxq" id="ku1-UN-L6O"/>
                     </connections>
                 </viewController>

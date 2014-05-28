@@ -132,6 +132,25 @@
 	[wrap addCandy:candy];
 }
 
+- (void)checkStatus {
+	NSArray* identifiers = [self.uploadings map:^id(WLUploading* uploading) {
+		return uploading.candy.uploadIdentifier;
+	}];
+	
+	if (identifiers.nonempty) {
+		__weak typeof(self)weakSelf = self;
+		[[WLAPIManager instance] uploadStatus:identifiers success:^(NSArray *array) {
+			NSMutableArray* uploadings = [weakSelf.uploadings mutableCopy];
+			[uploadings removeObjectsWhileEnumerating:^BOOL(WLUploading* uploading) {
+				return ![array containsObject:uploading.candy.uploadIdentifier];
+			}];
+			weakSelf.uploadings = uploadings;
+			[weakSelf save];
+		} failure:^(NSError *error) {
+		}];
+	}
+}
+
 @end
 
 @implementation WLUploading

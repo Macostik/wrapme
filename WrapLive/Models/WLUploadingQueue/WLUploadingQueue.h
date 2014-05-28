@@ -31,6 +31,8 @@
 
 - (void)uploadMessage:(NSString*)message wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
+- (void)checkStatus;
+
 @end
 
 @interface WLUploading : WLArchivingObject

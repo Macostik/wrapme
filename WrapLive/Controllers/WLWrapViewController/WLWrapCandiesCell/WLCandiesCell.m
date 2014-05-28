@@ -61,6 +61,7 @@
 }
 
 - (void)refreshCandies {
+	[[WLUploadingQueue instance] checkStatus];
 	__weak typeof(self)weakSelf = self;
 	WLWrapDate* currentWrapDay = self.item;
 	WLWrapDate* wrapDay = [currentWrapDay copy];

@@ -215,6 +215,15 @@ static NSInteger WLAPIChatPageSize = 50;
  */
 - (id)removeComment:(WLComment*)comment candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
+/*!
+ *  Remove comment
+ *
+ *  @param identifiers   array of identifiers that should be checked
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (id)uploadStatus:(NSArray*)identifiers success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
 @end
 
 @interface WLWrap (WLAPIManager)

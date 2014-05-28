@@ -562,6 +562,18 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 				failure:[self failureBlock:failure]];
 }
 
+- (id)uploadStatus:(NSArray *)identifiers success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:identifiers forKey:@"upload_uids"];
+	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
+		return [response.data arrayForKey:@"upload_status"];
+	};
+	return [self POST:@"candies/upload_status"
+		   parameters:parameters
+			  success:[self successBlock:success withObject:objectBlock failure:failure]
+			  failure:[self failureBlock:failure]];
+}
+
 @end
 
 @implementation WLWrap (WLAPIManager)

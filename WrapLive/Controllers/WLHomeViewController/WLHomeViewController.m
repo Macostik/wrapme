@@ -174,6 +174,11 @@
 	}
 	self.loading = YES;
 	__weak typeof(self)weakSelf = self;
+	
+	if (refresh) {
+		[[WLUploadingQueue instance] checkStatus];
+	}
+	
 	[WLDataManager wraps:refresh success:^(NSArray* wraps, BOOL cached, BOOL stop) {
 		weakSelf.wraps = wraps;
 		[weakSelf showLatestWrap];

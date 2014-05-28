@@ -107,6 +107,7 @@
 
 - (void)refreshWrap {
 	__weak typeof(self)weakSelf = self;
+	[[WLUploadingQueue instance] checkStatus];
 	[WLDataManager wrap:self.wrap success:^(WLWrap* wrap, BOOL cached, BOOL stop) {
 		[[WLUploadingQueue instance] updateWrap:weakSelf.wrap];
 		if (!cached) {

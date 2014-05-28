@@ -448,7 +448,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	}
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		[candy updateWithDictionary:[response.data dictionaryForKey:@"candy"]];
+		[candy updateWithDictionary:[response.data dictionaryForKey:@"candy"] broadcast:NO];
 		return candy;
 	};
 	

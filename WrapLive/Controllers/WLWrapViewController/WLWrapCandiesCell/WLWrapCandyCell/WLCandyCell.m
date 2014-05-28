@@ -66,6 +66,10 @@
 }
 
 - (void)setupItemData:(WLCandy*)entry {
+	[self setupItemData:entry animated:NO];
+}
+
+- (void)setupItemData:(WLCandy*)entry animated:(BOOL)animated {
 	self.wrapChannelBroadcaster.candy = entry;
 	self.userInteractionEnabled = YES;
 	self.chatLabelView.hidden = entry.type == WLCandyTypeImage;
@@ -79,7 +83,7 @@
 	}
 	self.commentLabel.hidden = !self.commentLabel.text.nonempty;
 	
-	[self refreshUploadingButtons:entry animated:NO];
+	[self refreshUploadingButtons:entry animated:animated];
 	
 	self.notifyBulb.hidden = ![entry updated];
 }
@@ -150,7 +154,7 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
 	if ([candy isEqualToEntry:self.item]) {
-		[self setupItemData:self.item];
+		[self setupItemData:self.item animated:YES];
 	}
 }
 

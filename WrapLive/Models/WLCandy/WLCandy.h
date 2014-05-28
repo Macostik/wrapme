@@ -46,4 +46,8 @@ static NSInteger WLCandyTypeChatMessage = 20;
 
 - (BOOL)isChatMessage;
 
+- (instancetype)updateWithObject:(id)object broadcast:(BOOL)broadcast;
+
+- (instancetype)updateWithDictionary:(NSDictionary *)dict broadcast:(BOOL)broadcast;
+
 @end

@@ -14,6 +14,7 @@
 #import "WLSupportFunctions.h"
 #import "NSString+Additions.h"
 #import "WLSystemImageCache.h"
+#import "WLBlocks.h"
 
 static NSUInteger WLImageCacheSize = 524288000;
 
@@ -126,7 +127,9 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 - (void)setImageAtPath:(NSString *)path withIdentifier:(NSString *)identifier {
 	NSFileManager* manager = self.manager;
 	if (identifier.nonempty && path.nonempty && [manager fileExistsAtPath:path]) {
-		[manager copyItemAtPath:path toPath:[self pathWithIdentifier:identifier] error:NULL];
+		NSString* cachePath = [self pathWithIdentifier:identifier];
+		[manager copyItemAtPath:path toPath:cachePath error:NULL];
+		[[WLSystemImageCache instance] setImage:[UIImage imageWithContentsOfFile:cachePath] withIdentifier:identifier];
 		[manager removeItemAtPath:path error:NULL];
 	}
 }
@@ -163,6 +166,13 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 	if (url.nonempty) {
 		[self setImageAtPath:path withIdentifier:[url MD5]];
 	}
+}
+
+- (void)setImageAtPath:(NSString *)path withUrl:(NSString *)url completion:(void (^)(void))completion {
+	__weak typeof(self)weakSelf = self;
+	run_with_completion(^{
+		[weakSelf setImageAtPath:path withUrl:url];
+	}, completion);
 }
 
 @end

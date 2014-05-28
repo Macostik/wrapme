@@ -42,4 +42,6 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size);
 
 - (void)setImageAtPath:(NSString*)path withUrl:(NSString*)url;
 
+- (void)setImageAtPath:(NSString*)path withUrl:(NSString*)url completion:(void (^)(void))completion;
+
 @end

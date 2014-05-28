@@ -162,13 +162,38 @@
 	__weak typeof(self)weakSelf = self;
 	WLPicture* picture = [self.candy.picture copy];
 	self.operation = [self.wrap addCandy:self.candy success:^(WLCandy *candy) {
+		
+		void (^completion)(void) = ^{
+			[[WLUploadingQueue instance] removeUploading:weakSelf];
+			[candy broadcastChange];
+			success(candy);
+		};
+		
 		if ([candy isImage]) {
-			[[WLImageCache cache] setImageAtPath:picture.large withUrl:candy.picture.large];
-			[[WLImageCache cache] setImageAtPath:picture.medium withUrl:candy.picture.medium];
-			[[WLImageCache cache] setImageAtPath:picture.small withUrl:candy.picture.small];
+			
+			__block NSUInteger count = 3;
+			
+			[[WLImageCache cache] setImageAtPath:picture.medium withUrl:candy.picture.medium completion:^{
+				--count;
+				if (count == 0) {
+					completion();
+				}
+			}];
+			[[WLImageCache cache] setImageAtPath:picture.small withUrl:candy.picture.small completion:^{
+				--count;
+				if (count == 0) {
+					completion();
+				}
+			}];
+			[[WLImageCache cache] setImageAtPath:picture.large withUrl:candy.picture.large completion:^{
+				--count;
+				if (count == 0) {
+					completion();
+				}
+			}];
+		} else {
+			completion();
 		}
-		[[WLUploadingQueue instance] removeUploading:weakSelf];
-		success(candy);
 	} failure:^(NSError *error) {
 		[weakSelf setOperation:nil];
 		[weakSelf.candy broadcastChange];

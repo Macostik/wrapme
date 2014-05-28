@@ -115,9 +115,19 @@
 }
 
 - (instancetype)updateWithObject:(id)object {
+	return [self updateWithObject:object broadcast:YES];
+}
+
+- (instancetype)updateWithObject:(id)object broadcast:(BOOL)broadcast {
 	WLCandy* candy = [super updateWithObject:object];
-	[candy broadcastChange];
+	if (broadcast) {
+		[candy broadcastChange];
+	}
 	return candy;
+}
+
+- (instancetype)updateWithDictionary:(NSDictionary *)dict broadcast:(BOOL)broadcast {
+	return [self updateWithObject:[[self class] modelWithDictionary:dict] broadcast:broadcast];
 }
 
 @end

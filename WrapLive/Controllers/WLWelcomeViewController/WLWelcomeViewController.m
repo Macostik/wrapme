@@ -15,6 +15,8 @@
 #import "NSString+Additions.h"
 #import "WLUser.h"
 #import "WLHomeViewController.h"
+#import "UIFont+CustomFonts.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLWelcomeViewController ()
 
@@ -65,7 +67,10 @@
 
 - (void)underlineLicenseButton {
 	NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:@"Terms and Conditions"];
-	[titleString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(0, [titleString length])];
+	NSDictionary * attributes = @{NSUnderlineStyleAttributeName : [NSNumber numberWithInteger:NSUnderlineStyleSingle],
+								  NSFontAttributeName : [UIFont lightFontOfSize:15],
+								  NSForegroundColorAttributeName : [UIColor WL_orangeColor]};
+	[titleString addAttributes:attributes range:NSMakeRange(0, [titleString length])];
 	[self.licenseButton setAttributedTitle: titleString forState:UIControlStateNormal];
 }
 

@@ -31,6 +31,9 @@
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="select:" destination="oYj-dx-vE3" eventType="touchUpInside" id="tXr-cV-0BX"/>
                         </connections>

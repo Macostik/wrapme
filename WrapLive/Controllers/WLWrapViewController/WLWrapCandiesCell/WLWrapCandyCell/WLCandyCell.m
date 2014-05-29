@@ -86,6 +86,15 @@
 	[self refreshUploadingButtons:entry animated:animated];
 	
 	self.notifyBulb.hidden = ![entry updated];
+	if ([entry isChatMessage] && !self.notifyBulb.hidden) {
+		__weak typeof(self)weakSelf = self;
+		[UIView animateWithDuration:0.4f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState animations:^{
+			weakSelf.notifyBulb.alpha = 0.0f;
+		} completion:^(BOOL finished) {
+		}];
+	} else {
+		self.notifyBulb.alpha = 1.0f;
+	}
 }
 
 - (void)refreshUploadingButtons:(WLCandy*)candy animated:(BOOL)animated {

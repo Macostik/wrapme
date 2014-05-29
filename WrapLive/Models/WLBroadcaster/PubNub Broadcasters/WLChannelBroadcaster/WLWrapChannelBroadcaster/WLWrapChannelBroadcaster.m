@@ -45,6 +45,7 @@
 		[weakSelf broadcast:@selector(broadcaster:didDeleteComment:) object:self.candy];
 	} else {
 		[notification.candy fetch:self.wrap success:^(WLCandy *candy) {
+			[weakSelf.wrap addCandy:candy];
 			[candy setUpdated:YES];
 			if (notification.type == WLNotificationImageCandyAddition) {
 				[weakSelf broadcast:@selector(broadcaster:didAddCandy:) object:candy];

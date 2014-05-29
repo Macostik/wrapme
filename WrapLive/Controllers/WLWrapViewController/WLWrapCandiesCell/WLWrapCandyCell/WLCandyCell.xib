@@ -79,8 +79,8 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_notify_bulb" id="oZD-6b-pTA">
-                        <rect key="frame" x="4" y="5" width="12" height="12"/>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_small_candy" id="oZD-6b-pTA">
+                        <rect key="frame" x="4" y="4" width="18" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                 </subviews>
@@ -105,6 +105,6 @@
         <image name="btn_reload_enabled" width="28" height="28"/>
         <image name="btn_reload_pressed" width="28" height="28"/>
         <image name="ic_chat2" width="18" height="16"/>
-        <image name="ic_notify_bulb" width="10" height="10"/>
+        <image name="ic_small_candy" width="18" height="18"/>
     </resources>
 </document>

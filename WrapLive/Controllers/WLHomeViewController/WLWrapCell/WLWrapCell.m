@@ -184,8 +184,7 @@
 #pragma mark - WLWrapChannelBroadcastReceiver
 
 - (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddCandy:(WLCandy *)candy {
-	WLWrap* wrap = self.item;
-	[wrap addCandy:candy];
+	
 }
 
 - (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddComment:(WLCandy *)candy {
@@ -193,8 +192,7 @@
 }
 
 - (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddChatMessage:(WLCandy *)message {
-	WLWrap* wrap = self.item;
-	[wrap addCandy:message];
+	
 }
 
 @end

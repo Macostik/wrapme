@@ -34,6 +34,7 @@
 	if (user.picture.medium.nonempty) {
 		self.avatarView.url = user.picture.medium;
 	} else {
+		self.avatarView.url = nil;
 		self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
 	}
 }

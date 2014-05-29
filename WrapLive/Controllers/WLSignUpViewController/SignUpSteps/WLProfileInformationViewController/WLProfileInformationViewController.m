@@ -50,6 +50,7 @@
 	
 	self.nameTextField.text = self.user.name;
 	if (!self.hasAvatar) {
+		self.profileImageView.url = nil;
 		self.profileImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
 	} else {
 		self.profileImageView.url = self.user.picture.medium;

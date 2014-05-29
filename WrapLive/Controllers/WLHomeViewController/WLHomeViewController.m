@@ -12,7 +12,7 @@
 #import "WLCandy.h"
 #import "WLImageFetcher.h"
 #import "WLWrapViewController.h"
-#import "UIStoryboard+Additions.h"
+#import "WLNavigation.h"
 #import "UIView+Shorthand.h"
 #import "WLCameraViewController.h"
 #import "NSArray+Additions.h"
@@ -96,10 +96,10 @@
 }
 
 - (WLCameraViewController*)cameraViewController {
-	WLCameraViewController* cameraController = [self.storyboard cameraViewController];
-	cameraController.delegate = self;
-	cameraController.mode = WLCameraModeCandy;
-	return cameraController;
+	return [WLCameraViewController instantiate:^(WLCameraViewController* controller) {
+		controller.delegate = self;
+		controller.mode = WLCameraModeCandy;
+	}];
 }
 
 - (void)setupRefresh {
@@ -145,9 +145,9 @@
 
 - (void)handleRemoteNotification:(WLNotification*)notification {
 	if (notification.type == WLNotificationContributorAddition) {
-		WLWrapViewController* wrapController = [self.storyboard wrapViewController];
-		wrapController.wrap = notification.wrap;
-		[self.navigationController pushViewController:wrapController animated:YES];
+		[self.navigationController pushViewController:[WLWrapViewController instantiate:^(WLWrapViewController *controller) {
+			controller.wrap = notification.wrap;
+		}] animated:YES];
 	} else if (notification.type == WLNotificationImageCandyAddition || notification.type == WLNotificationChatCandyAddition || notification.type == WLNotificationCandyCommentAddition) {
 		[self presentCandy:notification.candy fromWrap:notification.wrap];
 	}
@@ -205,7 +205,7 @@
 	WLUser * user = [WLUser currentUser];
 	if (!user.firstWrapShown && [user signInCount] == 1 && self.wraps.count > 0) {
 		[user setFirstWrapShown:YES];
-		WLWrapViewController* wrapController = [self.storyboard wrapViewController];
+		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 		wrapController.wrap = [self.wraps firstObject];
 		[self.navigationController pushViewController:wrapController animated:NO];
 	}
@@ -281,14 +281,14 @@
 #pragma mark - Actions
 
 - (IBAction)typeMessage:(UIButton *)sender {
-	WLChatViewController * chatController = [self.storyboard chatViewController];
+	WLChatViewController * chatController = [WLChatViewController instantiate];
 	chatController.wrap = self.topWrap;
 	chatController.shouldShowKeyboard = YES;
 	[self.navigationController pushViewController:chatController animated:YES];
 }
 
 - (IBAction)createNewWrap:(id)sender {
-	WLCreateWrapViewController* controller = [self.storyboard editWrapViewController];
+	WLCreateWrapViewController* controller = [WLCreateWrapViewController instantiate];
 	[controller presentInViewController:self transition:WLWrapTransitionFromBottom];
 }
 
@@ -352,17 +352,17 @@
 #pragma mark - WLWrapCellDelegate
 
 - (void)presentCandy:(WLCandy*)candy fromWrap:(WLWrap*)wrap {
-	WLWrapViewController* wrapController = [self.storyboard wrapViewController];
+	WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 	wrapController.wrap = wrap;
 	UIViewController* controller = nil;
 	if (candy.type == WLCandyTypeImage) {
-		WLCandyViewController* candyController = [self.storyboard candyViewController];
-		[candyController setWrap:wrap candy:candy];
-		controller = candyController;
+		controller = [WLCandyViewController instantiate:^(WLCandyViewController *controller) {
+			[controller setWrap:wrap candy:candy];
+		}];
 	} else if (candy.type == WLCandyTypeChatMessage) {
-		WLChatViewController *chatController = [self.storyboard chatViewController];
-		chatController.wrap = wrap;
-		controller = chatController;
+		controller = [WLChatViewController instantiate:^(WLChatViewController *controller) {
+			controller.wrap = wrap;
+		}];
 	}
 	if (controller) {
 		NSArray* controllers = @[self, wrapController, controller];
@@ -379,7 +379,7 @@
 }
 
 - (void)wrapCell:(WLWrapCell *)cell didSelectWrap:(WLWrap *)wrap {
-	WLWrapViewController* wrapController = [self.storyboard wrapViewController];
+	WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 	wrapController.wrap = wrap;
 	[self.navigationController pushViewController:wrapController animated:YES];
 }

@@ -51,16 +51,3 @@ static inline CGFloat Smoothstep(CGFloat min, CGFloat max, CGFloat value) {
 static inline BOOL IsInBounds(CGFloat min, CGFloat max, CGFloat value) {
 	return (value >= min && value <= max);
 }
-
-
-static inline UIWindow *MainWindow() {
-	return [[[UIApplication sharedApplication] windows] firstObject];
-}
-
-static inline UIViewController *TopViewController() {
-	UINavigationController *rootController = (id)[MainWindow() rootViewController];
-	if ([rootController isKindOfClass:[UINavigationController class]]) {
-		return [rootController topViewController];
-	}
-	return rootController;
-};

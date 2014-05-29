@@ -18,11 +18,12 @@
 #import "WLCandy.h"
 #import "WLComment.h"
 #import "WLWrapDate.h"
-#import "UIStoryboard+Additions.h"
+#import "WLNavigation.h"
 #import "WLWrapBroadcaster.h"
 #import "NSString+Additions.h"
 #import "WLAuthorization.h"
 #import "NSDate+Additions.h"
+#import "WLWelcomeViewController.h"
 
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
@@ -128,10 +129,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 				[_operation setCompletionBlockWithSuccess:success failure:failure];
 				[self.operationQueue addOperation:_operation];
 			} failure:^(NSError *error) {
-				UINavigationController* navigation = (id)[UIApplication sharedApplication].keyWindow.rootViewController;
-				if ([navigation isKindOfClass:[UINavigationController class]]) {
-					[navigation setViewControllers:@[[navigation.storyboard welcomeViewController]] animated:YES];
-				}
+				[WLWelcomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
 			}];
 		} else {
 			failure(operation, error);

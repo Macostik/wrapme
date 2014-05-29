@@ -81,7 +81,9 @@
 	self.notifyBulb.hidden = YES;
 	WLWrap* wrap = self.item;
 	[wrap setRead:YES updated:NO];
-	[[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
+	if ([UIMenuController sharedMenuController].menuVisible) {
+		[[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
+	}
 	[self.delegate wrapCell:self didSelectWrap:self.item];
 }
 

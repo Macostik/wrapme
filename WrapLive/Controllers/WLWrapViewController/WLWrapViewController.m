@@ -14,7 +14,7 @@
 #import "NSDate+Formatting.h"
 #import "WLWrapDate.h"
 #import "UIView+Shorthand.h"
-#import "UIStoryboard+Additions.h"
+#import "WLNavigation.h"
 #import "WLCameraViewController.h"
 #import "WLCandyViewController.h"
 #import "WLCreateWrapViewController.h"
@@ -163,14 +163,14 @@
 }
 
 - (WLCameraViewController*)cameraViewController {
-	WLCameraViewController* cameraController = [self.storyboard cameraViewController];
-	cameraController.delegate = self;
-	cameraController.mode = WLCameraModeCandy;
-	return cameraController;
+	return [WLCameraViewController instantiate:^(WLCameraViewController *controller) {
+		controller.delegate = self;
+		controller.mode = WLCameraModeCandy;
+	}];
 }
 
 - (IBAction)typeMessage:(UIButton *)sender {
-	WLChatViewController * chatController = [self.storyboard chatViewController];
+	WLChatViewController * chatController = [WLChatViewController instantiate];
 	chatController.wrap = self.wrap;
 	chatController.shouldShowKeyboard = YES;
 	[self.navigationController pushViewController:chatController animated:YES];
@@ -210,7 +210,7 @@
 		return;
 	}
 	wrapEditing = YES;
-	WLCreateWrapViewController* controller = [self.storyboard editWrapViewController];
+	WLCreateWrapViewController* controller = [WLCreateWrapViewController instantiate];
 	controller.wrap = self.wrap;
 	[controller presentInViewController:self transition:WLWrapTransitionFromRight];
 }
@@ -219,11 +219,11 @@
 
 - (void)candiesCell:(WLCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
 	if (candy.type == WLCandyTypeImage) {
-		WLCandyViewController *controller = [self.storyboard candyViewController];
+		WLCandyViewController *controller = [WLCandyViewController instantiate];
 		[controller setWrap:self.wrap candy:candy];
 		[self.navigationController pushViewController:controller animated:YES];
 	} else if (candy.type == WLCandyTypeChatMessage) {
-		WLChatViewController * chatController = [self.storyboard chatViewController];
+		WLChatViewController * chatController = [WLChatViewController instantiate];
 		chatController.wrap = self.wrap;
 		[self.navigationController pushViewController:chatController animated:YES];
 	}

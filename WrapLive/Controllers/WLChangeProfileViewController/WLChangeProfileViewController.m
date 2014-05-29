@@ -8,7 +8,7 @@
 
 #import "WLChangeProfileViewController.h"
 #import "WLCameraViewController.h"
-#import "UIStoryboard+Additions.h"
+#import "WLNavigation.h"
 #import "UIImage+Resize.h"
 #import "UIView+Shorthand.h"
 #import "WLUser.h"
@@ -21,6 +21,7 @@
 #import "WLSession.h"
 #import "NSString+Additions.h"
 #import "WLToast.h"
+#import "WLWelcomeViewController.h"
 
 @interface WLChangeProfileViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
@@ -52,7 +53,7 @@
 }
 
 - (IBAction)changeImage:(id)sender {
-	WLCameraViewController * controller = [self.storyboard cameraViewController];
+	WLCameraViewController *controller = [WLCameraViewController instantiate];
 	controller.delegate = self;
 	controller.defaultPosition = AVCaptureDevicePositionFront;
 	controller.mode = WLCameraModeAvatar;
@@ -125,7 +126,7 @@
 
 - (IBAction)changeAccount:(id)sender {
 	[WLSession clear];
-	[self.navigationController setViewControllers:@[[self.storyboard welcomeViewController]] animated:YES];
+	[WLWelcomeViewController instantiateAndMakeRootViewControllerAnimated:YES];
 }
 
 #pragma mark - WLCameraViewControllerDelegate

@@ -11,7 +11,7 @@
 #import "WLCameraViewController.h"
 #import "WLAPIManager.h"
 #import "WLUser.h"
-#import "UIStoryboard+Additions.h"
+#import "WLNavigation.h"
 #import "UIView+Shorthand.h"
 #import "WLImageCache.h"
 #import "UIColor+CustomColors.h"
@@ -62,10 +62,8 @@
 }
 
 - (IBAction)goToMainScreen:(id)sender {
-	__weak typeof(self)weakSelf = self;
 	[self updateIfNeeded:^{
-		NSArray *navigationArray = @[[weakSelf.signUpViewController.storyboard homeViewController]];
-		[weakSelf.signUpViewController.navigationController setViewControllers:navigationArray animated:YES];
+		[WLHomeViewController instantiateAndMakeRootViewControllerAnimated:YES];
 	}];
 }
 
@@ -93,7 +91,7 @@
 }
 
 - (IBAction)createImage:(id)sender {
-	WLCameraViewController * controller = [self.signUpViewController.storyboard cameraViewController];
+	WLCameraViewController *controller = [WLCameraViewController instantiate];
 	controller.delegate = self;
 	controller.defaultPosition = AVCaptureDevicePositionFront;
 	controller.mode = WLCameraModeAvatar;

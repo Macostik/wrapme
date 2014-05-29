@@ -9,11 +9,12 @@
 #import "WLWelcomeViewController.h"
 #import "WLSession.h"
 #import "WLAPIManager.h"
-#import "UIStoryboard+Additions.h"
+#import "WLNavigation.h"
 #import "WLAuthorization.h"
 #import "WLSignUpViewController.h"
 #import "NSString+Additions.h"
 #import "WLUser.h"
+#import "WLHomeViewController.h"
 
 @interface WLWelcomeViewController ()
 
@@ -69,13 +70,13 @@
 }
 
 - (void)presentHomeViewController {
-	[self.navigationController setViewControllers:@[[self.storyboard homeViewController]]];
+	[WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
 }
 
 - (void)continueSignUp {
-	WLSignUpViewController * controller = [self.storyboard signUpViewController];
-	controller.registrationNotCompleted = YES;
-	[self.navigationController setViewControllers:@[controller]];
+	[WLSignUpViewController instantiate:^(WLSignUpViewController *controller) {
+		controller.registrationNotCompleted = YES;
+	} makeRootViewControllerAnimated:NO];
 }
 
 - (IBAction)termsAndConditions:(id)sender {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -8,7 +8,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController storyboardIdentifier="welcome" id="vXZ-lx-hvc" customClass="WLWelcomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLWelcomeViewController" id="vXZ-lx-hvc" customClass="WLWelcomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -73,7 +73,7 @@
         <!--Camera View Controller-->
         <scene sceneID="REq-s4-83q">
             <objects>
-                <viewController storyboardIdentifier="camera" id="fS5-iu-bCQ" customClass="WLCameraViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLCameraViewController" id="fS5-iu-bCQ" customClass="WLCameraViewController" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="Gys-KD-uvh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -259,7 +259,7 @@
         <!--Sign Up View Controller-->
         <scene sceneID="1af-uD-k4o">
             <objects>
-                <viewController storyboardIdentifier="signUp" id="WfW-pu-ue7" customClass="WLSignUpViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLSignUpViewController" id="WfW-pu-ue7" customClass="WLSignUpViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mr3-r6-91F">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -411,7 +411,7 @@
         <!--Change Profile View Controller-->
         <scene sceneID="zxY-Lu-ZtN">
             <objects>
-                <viewController id="7FG-gC-kPg" customClass="WLChangeProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLChangeProfileViewController" id="7FG-gC-kPg" customClass="WLChangeProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yja-9u-DOv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -576,7 +576,7 @@
         <!--Home View Controller-->
         <scene sceneID="MbJ-3V-1SB">
             <objects>
-                <viewController storyboardIdentifier="home" id="L91-fZ-J9O" customClass="WLHomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLHomeViewController" id="L91-fZ-J9O" customClass="WLHomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L5N-Xm-IFu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -841,7 +841,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
         <!--Create Wrap View Controller-->
         <scene sceneID="z3r-xS-Rlo">
             <objects>
-                <viewController storyboardIdentifier="editWrap" id="y2d-d2-UUm" customClass="WLCreateWrapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLCreateWrapViewController" id="y2d-d2-UUm" customClass="WLCreateWrapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ekn-NO-6No">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1081,7 +1081,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
         <!--Contributors View Controller-->
         <scene sceneID="eJ4-7I-sOa">
             <objects>
-                <viewController id="2bk-UF-zkR" customClass="WLContributorsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLContributorsViewController" id="2bk-UF-zkR" customClass="WLContributorsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BJb-s8-wGU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1355,7 +1355,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
         <!--Wrap View Controller-->
         <scene sceneID="swT-1e-jus">
             <objects>
-                <viewController storyboardIdentifier="wrap" id="hUj-RK-zkg" customClass="WLWrapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLWrapViewController" id="hUj-RK-zkg" customClass="WLWrapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f6K-dz-2Hs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1585,7 +1585,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
         <!--Candy View Controller-->
         <scene sceneID="IUe-2p-n08">
             <objects>
-                <viewController storyboardIdentifier="candy" id="eto-O4-OHy" customClass="WLCandyViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLCandyViewController" id="eto-O4-OHy" customClass="WLCandyViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FUv-v8-MyM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1735,7 +1735,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
         <!--Image View Controller-->
         <scene sceneID="sH9-FC-VK3">
             <objects>
-                <viewController storyboardIdentifier="image" automaticallyAdjustsScrollViewInsets="NO" id="Mj2-iK-bpQ" customClass="WLImageViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLImageViewController" automaticallyAdjustsScrollViewInsets="NO" id="Mj2-iK-bpQ" customClass="WLImageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wNL-dU-90c">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1794,7 +1794,7 @@ Check your internet connection and try again.</string>
         <!--Chat View Controller-->
         <scene sceneID="JRm-Kq-Yqc">
             <objects>
-                <viewController storyboardIdentifier="chat" id="ef1-h7-yay" customClass="WLChatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLChatViewController" id="ef1-h7-yay" customClass="WLChatViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hIQ-pE-cV8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2017,6 +2017,6 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="B2J-NP-7RF"/>
+        <segue reference="Gbz-eQ-8QE"/>
     </inferredMetricsTieBreakers>
 </document>

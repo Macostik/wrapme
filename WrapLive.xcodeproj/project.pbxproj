@@ -11,7 +11,7 @@
 		120ED84F18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 120ED84E18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		121553E81907DD4A00A507F8 /* WLFlashModeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 121553E71907DD4A00A507F8 /* WLFlashModeControl.m */; };
 		1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215DC7A18E4421700FCA744 /* NSArray+Additions.m */; };
-		1215DC7F18E4485800FCA744 /* UIStoryboard+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215DC7E18E4485800FCA744 /* UIStoryboard+Additions.m */; };
+		1215DC7F18E4485800FCA744 /* WLNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215DC7E18E4485800FCA744 /* WLNavigation.m */; };
 		121907B6192CFF3F00E7C22D /* WLAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 121907B5192CFF3F00E7C22D /* WLAuthorization.m */; };
 		121B1B2E18E07430001F585C /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */; };
@@ -170,8 +170,8 @@
 		121553E71907DD4A00A507F8 /* WLFlashModeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLFlashModeControl.m; sourceTree = "<group>"; };
 		1215DC7918E4421700FCA744 /* NSArray+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Additions.h"; sourceTree = "<group>"; };
 		1215DC7A18E4421700FCA744 /* NSArray+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Additions.m"; sourceTree = "<group>"; };
-		1215DC7D18E4485800FCA744 /* UIStoryboard+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIStoryboard+Additions.h"; path = "UIStoryboard/UIStoryboard+Additions.h"; sourceTree = "<group>"; };
-		1215DC7E18E4485800FCA744 /* UIStoryboard+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIStoryboard+Additions.m"; path = "UIStoryboard/UIStoryboard+Additions.m"; sourceTree = "<group>"; };
+		1215DC7D18E4485800FCA744 /* WLNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLNavigation.h; path = UIStoryboard/WLNavigation.h; sourceTree = "<group>"; };
+		1215DC7E18E4485800FCA744 /* WLNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLNavigation.m; path = UIStoryboard/WLNavigation.m; sourceTree = "<group>"; };
 		121907B4192CFF3F00E7C22D /* WLAuthorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAuthorization.h; path = WLAuthorization/WLAuthorization.h; sourceTree = "<group>"; };
 		121907B5192CFF3F00E7C22D /* WLAuthorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAuthorization.m; path = WLAuthorization/WLAuthorization.m; sourceTree = "<group>"; };
 		121B1B2C18E07430001F585C /* WLCountry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCountry.h; path = WLCountry/WLCountry.h; sourceTree = "<group>"; };
@@ -487,8 +487,8 @@
 		1215DC7C18E4484000FCA744 /* UIStoryboard */ = {
 			isa = PBXGroup;
 			children = (
-				1215DC7D18E4485800FCA744 /* UIStoryboard+Additions.h */,
-				1215DC7E18E4485800FCA744 /* UIStoryboard+Additions.m */,
+				1215DC7D18E4485800FCA744 /* WLNavigation.h */,
+				1215DC7E18E4485800FCA744 /* WLNavigation.m */,
 			);
 			name = UIStoryboard;
 			sourceTree = "<group>";
@@ -1827,7 +1827,7 @@
 				AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */,
 				12E9488019239090008DED79 /* WLUserChannelBroadcaster.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
-				1215DC7F18E4485800FCA744 /* UIStoryboard+Additions.m in Sources */,
+				1215DC7F18E4485800FCA744 /* WLNavigation.m in Sources */,
 				129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,

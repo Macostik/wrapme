@@ -13,6 +13,7 @@
 #import "UILabel+Additions.h"
 #import "UIView+Shorthand.h"
 #import "WLSupportFunctions.h"
+#import "WLNavigation.h"
 
 static CGFloat WLToastDefaultHeight = 64.0f;
 static CGFloat WLToastDefaultSpacing = 100.0f;
@@ -43,7 +44,7 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 }
 
 - (void)showWithMessage:(NSString *)message {
-	[self showWithMessage:message appearance:TopViewController()];
+	[self showWithMessage:message appearance:[UINavigationController topViewController]];
 }
 
 - (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance {
@@ -59,7 +60,7 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 	
 	if (self.superview == nil) {
 		self.y = -self.height;
-		[MainWindow() addSubview:self];
+		[[UIWindow mainWindow] addSubview:self];
 	}
 	
 	if (self.y != 0) {

@@ -11,7 +11,7 @@
 #import "WLWrap.h"
 #import "WLContributorsViewController.h"
 #import "NSArray+Additions.h"
-#import "UIStoryboard+Additions.h"
+#import "WLNavigation.h"
 #import "WLAPIManager.h"
 #import "WLWrapViewController.h"
 #import "WLCameraViewController.h"
@@ -183,7 +183,7 @@
 	[self lock];
 	[self.editingWrap create:^(WLWrap *wrap) {
 		[weakSelf.spinner stopAnimating];
-		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
+		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 		wrapController.wrap = wrap;
 		[weakSelf unlock];
 		[weakSelf.parentViewController.navigationController pushViewController:wrapController animated:YES];

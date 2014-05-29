@@ -22,9 +22,10 @@
 #import "WLSession.h"
 #import "WLAuthorization.h"
 #import "WLTestUserPicker.h"
-#import "UIStoryboard+Additions.h"
+#import "WLNavigation.h"
 #import "NSString+Additions.h"
 #import "WLToast.h"
+#import "WLHomeViewController.h"
 
 @interface WLPhoneNumberViewController () <UITextFieldDelegate>
 
@@ -161,8 +162,7 @@
 	[weakSelf.spinner startAnimating];
 	weakSelf.view.userInteractionEnabled = NO;
 	[authorization signIn:^(WLUser *user) {
-		NSArray *navigationArray = @[[weakSelf.navigationController.parentViewController.storyboard homeViewController]];
-		[weakSelf.navigationController.parentViewController.navigationController setViewControllers:navigationArray animated:YES];
+		[WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
 		weakSelf.view.userInteractionEnabled = YES;
 		[weakSelf.spinner stopAnimating];
 	} failure:^(NSError *error) {

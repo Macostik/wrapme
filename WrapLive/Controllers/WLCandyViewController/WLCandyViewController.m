@@ -23,7 +23,7 @@
 #import "UIFont+CustomFonts.h"
 #import "WLRefresher.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import "UIStoryboard+Additions.h"
+#import "WLNavigation.h"
 #import "WLImageViewController.h"
 #import "UIScrollView+Additions.h"
 #import "WLKeyboardBroadcaster.h"

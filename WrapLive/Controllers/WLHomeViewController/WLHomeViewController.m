@@ -144,16 +144,29 @@
 #pragma mark - WLNotificationReceiver
 
 - (void)handleRemoteNotification:(WLNotification*)notification {
-	if (notification.type == WLNotificationContributorAddition) {
-		[self.navigationController pushViewController:[WLWrapViewController instantiate:^(WLWrapViewController *controller) {
-			controller.wrap = notification.wrap;
-		}] animated:YES];
-	} else if (notification.type == WLNotificationImageCandyAddition || notification.type == WLNotificationChatCandyAddition || notification.type == WLNotificationCandyCommentAddition) {
-		[self presentCandy:notification.candy fromWrap:notification.wrap];
-	}
+	void (^showNotificationBlock)(void) = ^{
+		if (notification.type == WLNotificationContributorAddition) {
+			[self.navigationController pushViewController:[WLWrapViewController instantiate:^(WLWrapViewController *controller) {
+				controller.wrap = notification.wrap;
+			}] animated:YES];
+		} else if (notification.type == WLNotificationImageCandyAddition || notification.type == WLNotificationChatCandyAddition || notification.type == WLNotificationCandyCommentAddition) {
+			[self presentCandy:notification.candy fromWrap:notification.wrap];
+		}
+	};
 	
-	if (self.navigationController.presentedViewController) {
-		[self.navigationController dismissViewControllerAnimated:YES completion:nil];
+	UIViewController* presentedViewController = self.navigationController.presentedViewController;
+	if (presentedViewController) {
+		__weak typeof(self)weakSelf = self;
+		[UIAlertView showWithTitle:@"View notification"
+						   message:@"Incompleted data can be lost. Do you want to continue?"
+							action:@"Continue"
+							cancel:@"Cancel"
+						completion:^{
+			[weakSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
+			showNotificationBlock();
+		}];
+	} else {
+		showNotificationBlock();
 	}
 }
 

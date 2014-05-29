@@ -57,7 +57,7 @@
 	controller.delegate = self;
 	controller.defaultPosition = AVCaptureDevicePositionFront;
 	controller.mode = WLCameraModeAvatar;
-	[self presentViewController:controller animated:YES completion:nil];
+	[self.navigationController presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)saveImage:(UIImage *)image {

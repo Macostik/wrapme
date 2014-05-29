@@ -151,6 +151,10 @@
 	} else if (notification.type == WLNotificationImageCandyAddition || notification.type == WLNotificationChatCandyAddition || notification.type == WLNotificationCandyCommentAddition) {
 		[self presentCandy:notification.candy fromWrap:notification.wrap];
 	}
+	
+	if (self.navigationController.presentedViewController) {
+		[self.navigationController dismissViewControllerAnimated:YES completion:nil];
+	}
 }
 
 - (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {
@@ -375,7 +379,7 @@
 }
 
 - (void)wrapCellDidSelectCandyPlaceholder:(WLWrapCell *)cell {
-	[self presentViewController:[self cameraViewController] animated:YES completion:nil];
+	[self.navigationController presentViewController:[self cameraViewController] animated:YES completion:nil];
 }
 
 - (void)wrapCell:(WLWrapCell *)cell didSelectWrap:(WLWrap *)wrap {

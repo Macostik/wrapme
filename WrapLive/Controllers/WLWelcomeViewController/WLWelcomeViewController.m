@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UIButton *licenseButton;
 
 @end
 
@@ -53,11 +54,18 @@
 - (void)showBottomView {
 	self.bottomView.transform = CGAffineTransformMakeTranslation(0, self.bottomView.frame.size.height);
 	self.bottomView.hidden = NO;
+	[self underlineLicenseButton];
 	__weak typeof(self)weakSelf = self;
 	[UIView animateWithDuration:0.25f animations:^{
 		weakSelf.bottomView.transform = CGAffineTransformIdentity;
 	}];
 	[self.spinner removeFromSuperview];
+}
+
+- (void)underlineLicenseButton {
+	NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:@"Terms and Conditions"];
+	[titleString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(0, [titleString length])];
+	[self.licenseButton setAttributedTitle: titleString forState:UIControlStateNormal];
 }
 
 - (void)presentHomeViewController {

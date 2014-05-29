@@ -32,6 +32,7 @@
 #import "WLDataCache.h"
 #import "WLUserChannelBroadcaster.h"
 #import "WLToast.h"
+#import "WLEntryState.h"
 
 @interface WLWrapViewController () <WLCameraViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, WLUserChannelBroadcastReceiver>
 
@@ -74,6 +75,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	wrapEditing = NO;
+	[self.wrap setUpdated:NO];
 }
 
 - (void)setWrapData {

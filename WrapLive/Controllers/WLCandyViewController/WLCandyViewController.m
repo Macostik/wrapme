@@ -33,6 +33,7 @@
 #import "WLWrapChannelBroadcaster.h"
 #import "NSString+Additions.h"
 #import "WLToast.h"
+#import "WLEntryState.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
@@ -212,6 +213,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
 	[self.tableView reloadData];
+	[image setUpdated:NO];
 }
 
 - (CGFloat)calculateTableHeight {
@@ -232,6 +234,10 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 #pragma mark - WLWrapChannelBroadcastReceiver
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddCandy:(WLCandy *)candy {
+	[candy setUpdated:NO];
+}
 
 - (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddComment:(WLCandy *)candy {
 	self.candy = [self.candy updateWithObject:candy];

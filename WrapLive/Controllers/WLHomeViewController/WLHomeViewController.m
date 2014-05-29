@@ -114,6 +114,7 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
 	self.wraps = self.wraps;
+	[WLDataCache cache].wraps = self.wraps;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
@@ -122,6 +123,7 @@
 	self.wraps = [wraps copy];
 	[self fetchWraps:YES];
 	self.tableView.contentOffset = CGPointZero;
+	[WLDataCache cache].wraps = self.wraps;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {

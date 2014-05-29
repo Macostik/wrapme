@@ -81,7 +81,15 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", self.wrap.name];
+	if (self.wrap.name.nonempty) {
+		self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(self.wrap.name)];
+	} else {
+		__weak typeof(self)weakSelf = self;
+		[self.wrap fetch:^(WLWrap *wrap) {
+			weakSelf.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(wrap.name)];
+		} failure:^(NSError *error) {
+		}];
+	}
 	__weak typeof(self)weakSelf = self;
 	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refreshMessages];
@@ -277,6 +285,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
 	WLCandy* message = [date.candies objectAtIndex:indexPath.row];
+	[message setUpdated:NO];
 	BOOL isMyComment = [message.contributor isCurrentUser];
 	NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
 	WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];

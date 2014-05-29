@@ -34,7 +34,7 @@
 	if (self.identifier.nonempty && user.identifier.nonempty) {
 		return [super isEqualToEntry:user];
 	}
-	return [self.phoneNumber isEqualToString:user.phoneNumber] && [self.email isEqualToString:user.email];
+	return NSStringEqual(self.phoneNumber, user.phoneNumber) && NSStringEqual(self.email, user.email);
 }
 
 @end

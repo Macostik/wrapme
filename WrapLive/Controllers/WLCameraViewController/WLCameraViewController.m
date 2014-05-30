@@ -41,9 +41,6 @@
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet WLFlashModeControl *flashModeControl;
-@property (weak, nonatomic) IBOutlet UIImageView *acceptImageView;
-@property (weak, nonatomic) IBOutlet UIView *acceptView;
-@property (weak, nonatomic) IBOutlet UIView *acceptButtonsView;
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
@@ -126,7 +123,7 @@
 	[self captureImage:^(UIImage *image) {
 		[weakSelf cropImage:image completion:^(UIImage *croppedImage) {
 			weakSelf.photoFromLibrary = NO;
-			[weakSelf setAcceptImage:croppedImage animated:YES];
+			[weakSelf editImage:croppedImage];
 			weakSelf.view.userInteractionEnabled = YES;
 			sender.active = YES;
 		}];
@@ -158,34 +155,15 @@
 	}, completion);
 }
 
-- (IBAction)retake:(id)sender {
-	[self setAcceptImage:nil animated:YES];
-}
-
-- (IBAction)use:(id)sender {
-	[self finishWithImage:self.acceptImageView.image];
-}
-
-- (IBAction)edit:(UIButton *)sender {
-	[self editImage:self.acceptImageView.image];
-}
-
 - (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		[AFPhotoEditorCustomization setLeftNavigationBarButtonTitle:@"Cancel"];
 		[AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Save"];
-		UIGraphicsBeginImageContext(CGSizeMake(1, 1));
-		[[UIColor WL_orangeColor] setFill];
-		[[UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 1, 1)] fill];
-		UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-		[AFPhotoEditorCustomization setNavBarImage:image];
-		UIGraphicsEndImageContext();
 	});
 	AFPhotoEditorController* aviaryController = [[AFPhotoEditorController alloc] initWithImage:image];
 	aviaryController.delegate = self;
 	aviaryController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-	aviaryController.view.backgroundColor = [UIColor WL_orangeColor];
 	return aviaryController;
 }
 
@@ -198,33 +176,6 @@
 		[self saveImage:image];
 	}
 	[self.delegate cameraViewController:self didFinishWithImage:image];
-}
-
-- (void)setAcceptImage:(UIImage *)acceptImage animated:(BOOL)animated {
-	[self editImage:acceptImage];
-	return;
-	if (acceptImage) {
-		self.acceptView.hidden = NO;
-		self.acceptButtonsView.transform = CGAffineTransformMakeTranslation(0, self.acceptButtonsView.frame.size.height);
-		self.acceptView.backgroundColor = [UIColor clearColor];
-	}
-	
-	[UIView animateWithDuration:animated ? 0.25f : 0.0f animations:^{
-		if (acceptImage) {
-			self.acceptButtonsView.transform = CGAffineTransformIdentity;
-			self.acceptView.backgroundColor = [UIColor whiteColor];
-		} else {
-			self.acceptImageView.image = nil;
-			self.acceptButtonsView.transform = CGAffineTransformMakeTranslation(0, self.acceptButtonsView.frame.size.height);
-			self.acceptView.backgroundColor = [UIColor clearColor];
-		}
-	} completion:^(BOOL finished) {
-		if (!acceptImage) {
-			self.acceptView.hidden = YES;
-		} else {
-			self.acceptImageView.image = acceptImage;
-		}
-	}];
 }
 
 - (void)saveImage:(UIImage*)image {
@@ -298,7 +249,7 @@
 	__block BOOL dismissed = NO;
 	void (^completion)(void) = ^{
 		weakSelf.photoFromLibrary = YES;
-		[weakSelf setAcceptImage:croppedImage animated:YES];
+		[weakSelf editImage:croppedImage];
 		weakSelf.view.userInteractionEnabled = YES;
 	};
 	
@@ -324,7 +275,6 @@
 #pragma mark - AFPhotoEditorControllerDelegate
 
 - (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
-	self.acceptImageView.image = image;
 	[self finishWithImage:image];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }

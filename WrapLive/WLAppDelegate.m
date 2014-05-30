@@ -35,7 +35,8 @@
 	
 	[[WLNotificationBroadcaster broadcaster] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
 	
-	[AFPhotoEditorController setAPIKey:@"400a0c21d96226e6" secret:@"8fe86ddd518dc34b"];
+	[AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
+	[AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
 	
 	return YES;
 }

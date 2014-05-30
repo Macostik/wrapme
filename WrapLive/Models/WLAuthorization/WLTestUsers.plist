@@ -98,5 +98,15 @@
 		<key>password</key>
 		<string>ac2dd6ace4</string>
 	</dict>
+	<dict>
+		<key>countryCode</key>
+		<string>380</string>
+		<key>phone</key>
+		<string>951383026</string>
+		<key>email</key>
+		<string>s.maximenko.mobidev@gmail.com</string>
+		<key>password</key>
+		<string>9fc15703bb</string>
+	</dict>
 </array>
 </plist>

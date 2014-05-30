@@ -222,11 +222,11 @@
 - (void)showLatestWrap {
 	WLUser * user = [WLUser currentUser];
 	if (!user.firstWrapShown && [user signInCount] == 1 && self.wraps.count > 0) {
-		[user setFirstWrapShown:YES];
 		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 		wrapController.wrap = [self.wraps firstObject];
 		[self.navigationController pushViewController:wrapController animated:NO];
 	}
+	[user setFirstWrapShown:YES];
 }
 
 - (void)finishLoadingAnimation {

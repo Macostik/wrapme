@@ -187,7 +187,7 @@
 		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 		wrapController.wrap = wrap;
 		[weakSelf unlock];
-		[weakSelf.parentViewController.navigationController pushViewController:wrapController animated:YES];
+		[UINavigationController pushViewController:wrapController animated:YES];
 		[weakSelf dismiss:WLWrapTransitionFromLeft];
 	} failure:^(NSError *error) {
 		[error show];

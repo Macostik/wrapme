@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -167,6 +167,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="0dY-fM-ERU"/>
                     <connections>
                         <outlet property="bottomView" destination="ztd-JX-YVg" id="P3J-8p-fkY"/>
                         <outlet property="cameraView" destination="tla-Iu-umV" id="53U-1u-24B"/>
@@ -189,7 +190,19 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2923" y="-951"/>
+            <point key="canvasLocation" x="3763" y="-1120"/>
+        </scene>
+        <!--Still Picture View Controller-->
+        <scene sceneID="g0p-C2-IZA">
+            <objects>
+                <navigationController storyboardIdentifier="WLStillPictureViewController" definesPresentationContext="YES" navigationBarHidden="YES" id="LCB-Vp-qkd" customClass="WLStillPictureViewController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="W04-ZL-9xe">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kTF-4K-ACu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2937" y="-1120"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="1af-uD-k4o">
@@ -547,7 +560,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="fS5-iu-bCQ" kind="modal" identifier="camera" id="B2J-NP-7RF"/>
+                                            <segue destination="LCB-Vp-qkd" kind="modal" identifier="camera" id="QDv-Yw-H57"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sfX-vy-DXa">
@@ -868,7 +881,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <connections>
-                                                                        <segue destination="fS5-iu-bCQ" kind="modal" identifier="camera" id="Bfv-2u-diL"/>
+                                                                        <segue destination="LCB-Vp-qkd" kind="modal" identifier="camera" id="g2G-dh-8El"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -1324,7 +1337,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="fS5-iu-bCQ" kind="modal" identifier="camera" id="Gnf-h6-U5W"/>
+                                    <segue destination="LCB-Vp-qkd" kind="modal" identifier="camera" id="Sbw-6n-Vdt"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8kR-VI-DgA">
@@ -1475,7 +1488,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="fS5-iu-bCQ" kind="modal" identifier="camera" id="Gbz-eQ-8QE"/>
+                                                    <segue destination="LCB-Vp-qkd" kind="modal" identifier="camera" id="JtR-DS-Him"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap here or shake your device from anywhere in the app to take a photo" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ujI-SW-vPr">
@@ -1973,6 +1986,6 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Bfv-2u-diL"/>
+        <segue reference="g2G-dh-8El"/>
     </inferredMetricsTieBreakers>
 </document>

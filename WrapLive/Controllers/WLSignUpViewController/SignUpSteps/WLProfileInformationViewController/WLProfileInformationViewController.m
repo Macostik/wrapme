@@ -20,8 +20,9 @@
 #import "WLImageFetcher.h"
 #import "WLKeyboardBroadcaster.h"
 #import "NSString+Additions.h"
+#import "WLStillPictureViewController.h"
 
-@interface WLProfileInformationViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLKeyboardBroadcastReceiver>
+@interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UIButton *createImageButton;
@@ -92,11 +93,12 @@
 }
 
 - (IBAction)createImage:(id)sender {
-	WLCameraViewController *controller = [WLCameraViewController instantiate];
-	controller.delegate = self;
-	controller.defaultPosition = AVCaptureDevicePositionFront;
-	controller.mode = WLCameraModeAvatar;
-	[self.signUpViewController presentViewController:controller animated:YES completion:nil];
+	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
+		controller.delegate = self;
+		controller.defaultPosition = AVCaptureDevicePositionFront;
+		controller.mode = WLCameraModeAvatar;
+	}];
+	[self.signUpViewController presentViewController:cameraNavigation animated:YES completion:nil];
 }
 
 - (void)saveImage:(UIImage *)image {
@@ -111,13 +113,13 @@
 	self.continueButton.active = (self.user.name.nonempty) && self.hasAvatar;
 }
 
-#pragma mark - WLCameraViewControllerDelegate
+#pragma mark - WLStillPictureViewControllerDelegate
 
-- (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
+- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self.signUpViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
 	self.hasAvatar = YES;
 	self.profileImageView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
 															  bounds:self.profileImageView.retinaSize

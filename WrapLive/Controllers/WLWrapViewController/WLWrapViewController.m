@@ -33,8 +33,9 @@
 #import "WLUserChannelBroadcaster.h"
 #import "WLToast.h"
 #import "WLEntryState.h"
+#import "WLStillPictureViewController.h"
 
-@interface WLWrapViewController () <WLCameraViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, WLUserChannelBroadcastReceiver>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, WLUserChannelBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
@@ -162,8 +163,8 @@
 	return [self cameraViewController];
 }
 
-- (WLCameraViewController*)cameraViewController {
-	return [WLCameraViewController instantiate:^(WLCameraViewController *controller) {
+- (id)cameraViewController {
+	return [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
 		controller.delegate = self;
 		controller.mode = WLCameraModeCandy;
 	}];
@@ -190,9 +191,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isCameraSegue]) {
-		WLCameraViewController* cameraController = segue.destinationViewController;
-		cameraController.mode = WLCameraModeCandy;
-		cameraController.delegate = self;
+		WLStillPictureViewController* controller = segue.destinationViewController;
+		controller.mode = WLCameraModeCandy;
+		controller.delegate = self;
 		[UIView beginAnimations:nil context:nil];
 		self.firstContributorView.alpha = 0.0f;
 		[UIView commitAnimations];
@@ -251,9 +252,9 @@
     return cell;
 }
 
-#pragma mark - WLCameraViewControllerDelegate
+#pragma mark - WLStillPictureViewControllerDelegate
 
-- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
 	self.firstContributorView.alpha = 0.0f;
 	__weak typeof(self)weakSelf = self;
 	[[WLUploadingQueue instance] uploadImage:image wrap:self.wrap success:^(id object) {
@@ -264,7 +265,7 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
+- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	self.firstContributorView.alpha = 0.0f;
 	[self dismissViewControllerAnimated:YES completion:nil];
 }

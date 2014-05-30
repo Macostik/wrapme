@@ -26,8 +26,9 @@
 #import "NSString+Additions.h"
 #import "WLBorderView.h"
 #import "UIColor+CustomColors.h"
+#import "WLStillPictureViewController.h"
 
-@interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
+@interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLStillPictureViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet WLBorderView *nameBorderView;
@@ -84,7 +85,7 @@
 		WLContributorsViewController* controller = segue.destinationViewController;
 		controller.wrap = self.editingWrap;
 	} else if ([segue isCameraSegue]) {
-		WLCameraViewController* controller = segue.destinationViewController;
+		WLStillPictureViewController* controller = segue.destinationViewController;
 		controller.delegate = self;
 		controller.mode = WLCameraModeCover;
 	}
@@ -239,9 +240,9 @@
 	[self refreshContributorsTableView];
 }
 
-#pragma mark - WLCameraViewControllerDelegate
+#pragma mark - WLStillPictureViewControllerDelegate
 
-- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
 	self.coverView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
 													   bounds:self.coverView.retinaSize
 										 interpolationQuality:kCGInterpolationDefault];
@@ -253,7 +254,7 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
+- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

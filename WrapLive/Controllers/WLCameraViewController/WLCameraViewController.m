@@ -21,9 +21,9 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceOrientationBroadcaster.h"
 #import "WLBlocks.h"
-#import <AviarySDK/AviarySDK.h>
+#import "ALAssetsLibrary+Additions.h"
 
-@interface WLCameraViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, WLDeviceOrientationBroadcastReceiver, AFPhotoEditorControllerDelegate>
+@interface WLCameraViewController () <WLDeviceOrientationBroadcastReceiver>
 
 #pragma mark - AVCaptureSession interface
 
@@ -46,8 +46,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
 
 @property (nonatomic, strong) NSMutableDictionary* metadata;
-
-@property (nonatomic) BOOL photoFromLibrary;
 
 @end
 
@@ -91,6 +89,11 @@
 	[[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	self.takePhotoButton.active = YES;
+}
+
 - (void)configurePreviewLayer {
 	AVCaptureVideoPreviewLayer* previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
 	previewLayer.frame = self.cameraView.bounds;
@@ -104,6 +107,10 @@
 		_mode = WLCameraModeCandy;
 	}
 	return _mode;
+}
+
+- (CGSize)viewSize {
+	return self.cameraView.bounds.size;
 }
 
 #pragma mark - User Actions
@@ -121,60 +128,17 @@
 	self.view.userInteractionEnabled = NO;
 	sender.active = NO;
 	[self captureImage:^(UIImage *image) {
-		[weakSelf cropImage:image completion:^(UIImage *croppedImage) {
-			weakSelf.photoFromLibrary = NO;
-			[weakSelf editImage:croppedImage];
-			weakSelf.view.userInteractionEnabled = YES;
-			sender.active = YES;
-		}];
+		[weakSelf finishWithImage:image];
+		weakSelf.view.userInteractionEnabled = YES;
 	}];
 }
 
 - (IBAction)gallery:(id)sender {
-	UIImagePickerController* galleryController = [[UIImagePickerController alloc] init];
-	galleryController.allowsEditing = NO;
-	galleryController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-	galleryController.mediaTypes = @[(id)kUTTypeImage];
-	galleryController.delegate = self;
-	[self presentViewController:galleryController animated:YES completion:nil];
-}
-
-- (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
-	__weak typeof(self)weakSelf = self;
-	CGSize viewSize = self.cameraView.bounds.size;
-	run_getting_object(^id{
-		UIImage *result = nil;
-		CGFloat width = weakSelf.mode;
-		result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
-											 bounds:CGSizeMake(width, width)
-							   interpolationQuality:kCGInterpolationDefault];
-		if (weakSelf.mode != WLCameraModeCandy) {
-			result = [result croppedImage:CGRectThatFitsSize(result.size, viewSize)];
-		}
-		return result;
-	}, completion);
-}
-
-- (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		[AFPhotoEditorCustomization setLeftNavigationBarButtonTitle:@"Cancel"];
-		[AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Save"];
-	});
-	AFPhotoEditorController* aviaryController = [[AFPhotoEditorController alloc] initWithImage:image];
-	aviaryController.delegate = self;
-	aviaryController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-	return aviaryController;
-}
-
-- (void)editImage:(UIImage*)image {
-	[self presentViewController:[self editControllerWithImage:image] animated:YES completion:nil];
+	[self.delegate cameraViewControllerDidSelectGallery:self];
 }
 
 - (void)finishWithImage:(UIImage*)image {
-	if (!self.photoFromLibrary) {
-		[self saveImage:image];
-	}
+	[self saveImage:image];
 	[self.delegate cameraViewController:self didFinishWithImage:image];
 }
 
@@ -237,50 +201,6 @@
 	} completion:^(BOOL finished) {
 		[focusView removeFromSuperview];
 	}];
-}
-
-#pragma mark - UIImagePickerControllerDelegate
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-	UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
-	__weak typeof(self)weakSelf = self;
-	self.view.userInteractionEnabled = NO;
-	__block UIImage* croppedImage = nil;
-	__block BOOL dismissed = NO;
-	void (^completion)(void) = ^{
-		weakSelf.photoFromLibrary = YES;
-		[weakSelf editImage:croppedImage];
-		weakSelf.view.userInteractionEnabled = YES;
-	};
-	
-	[weakSelf cropImage:image completion:^(UIImage *_croppedImage) {
-		croppedImage = _croppedImage;
-		if (dismissed) {
-			completion();
-		}
-	}];
-	
-	[self dismissViewControllerAnimated:YES completion:^{
-		dismissed = YES;
-		if (croppedImage) {
-			completion();
-		}
-	}];
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - AFPhotoEditorControllerDelegate
-
-- (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
-	[self finishWithImage:image];
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
-	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - AVCaptureSession

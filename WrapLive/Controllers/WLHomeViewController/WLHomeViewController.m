@@ -40,8 +40,9 @@
 #import "WLToast.h"
 #import "WLUserChannelBroadcaster.h"
 #import "WLNotificationBroadcaster.h"
+#import "WLStillPictureViewController.h"
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLCameraViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLUserChannelBroadcastReceiver, WLNotificationReceiver>
+@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLUserChannelBroadcastReceiver, WLNotificationReceiver>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
@@ -95,8 +96,8 @@
 	return self.wraps.nonempty ? [self cameraViewController] : nil;
 }
 
-- (WLCameraViewController*)cameraViewController {
-	return [WLCameraViewController instantiate:^(WLCameraViewController* controller) {
+- (id)cameraViewController {
+	return [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
 		controller.delegate = self;
 		controller.mode = WLCameraModeCandy;
 	}];
@@ -289,9 +290,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isCameraSegue]) {
-		WLCameraViewController* cameraController = segue.destinationViewController;
-		cameraController.delegate = self;
-		cameraController.mode = WLCameraModeCandy;
+		WLStillPictureViewController* controller = segue.destinationViewController;
+		controller.delegate = self;
+		controller.mode = WLCameraModeCandy;
 	}
 }
 
@@ -352,9 +353,9 @@
 	}
 }
 
-#pragma mark - <WLCameraViewControllerDelegate>
+#pragma mark - WLStillPictureViewControllerDelegate
 
-- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {	
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
 	[[WLUploadingQueue instance] uploadImage:image wrap:self.topWrap success:^(id object) {
 	} failure:^(NSError *error) {
 	}];
@@ -362,7 +363,7 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
+- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

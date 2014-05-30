@@ -31,6 +31,8 @@ static NSString* WLStoryboardSegueImageIdentifier = @"image";
 
 @end
 
+static NSString* WLCameraNavigationControllerIdentifier = @"WLCameraNavigationController";
+
 @interface UIViewController (StoryboardAdditions)
 
 + (instancetype)instantiateWithIdentifier:(NSString*)identifier;

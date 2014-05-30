@@ -27,6 +27,7 @@
 		12317E5A1908096200D1A9EE /* WLImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12317E591908096200D1A9EE /* WLImageViewController.m */; };
 		125D4A4F18E068E6001B8E7C /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */; };
 		125D4A5318E069C6001B8E7C /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A5218E069C6001B8E7C /* UIFont+CustomFonts.m */; };
+		128156AB1938A1DA00035F89 /* WLStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */; };
 		128886AD18DC493B00957B22 /* WLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886AC18DC493B00957B22 /* WLSession.m */; };
 		128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886B018DC90E000957B22 /* WLArchivingObject.m */; };
 		128E5BE41918EFBD005F2714 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 128E5BE31918EFBD005F2714 /* NSString+Additions.m */; };
@@ -143,6 +144,15 @@
 		12E9488719239140008DED79 /* WLChannelBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E9488619239140008DED79 /* WLChannelBroadcaster.m */; };
 		12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EBF8D718F6A6D000EA3185 /* UIViewController+Additions.m */; };
 		12F0DAF019338C9100F9D898 /* SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F0DAEF19338C9100F9D898 /* SegmentedControl.m */; };
+		12F3ED561934B183009C1DC3 /* WLAssetsGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED441934B183009C1DC3 /* WLAssetsGroupViewController.m */; };
+		12F3ED571934B183009C1DC3 /* WLAssetsGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED451934B183009C1DC3 /* WLAssetsGroupViewController.xib */; };
+		12F3ED5A1934B183009C1DC3 /* WLAssetsGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED4C1934B183009C1DC3 /* WLAssetsGroupCell.m */; };
+		12F3ED5B1934B183009C1DC3 /* WLAssetsGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED4D1934B183009C1DC3 /* WLAssetsGroupCell.xib */; };
+		12F3ED5C1934B183009C1DC3 /* WLAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED501934B183009C1DC3 /* WLAssetsViewController.m */; };
+		12F3ED5D1934B183009C1DC3 /* WLAssetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED511934B183009C1DC3 /* WLAssetsViewController.xib */; };
+		12F3ED5E1934B183009C1DC3 /* WLAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED541934B183009C1DC3 /* WLAssetCell.m */; };
+		12F3ED5F1934B183009C1DC3 /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED551934B183009C1DC3 /* WLAssetCell.xib */; };
+		12F3ED621934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED611934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
@@ -198,6 +208,8 @@
 		125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Formatting.m"; sourceTree = "<group>"; };
 		125D4A5118E069C6001B8E7C /* UIFont+CustomFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+CustomFonts.h"; path = "UIFont/UIFont+CustomFonts.h"; sourceTree = "<group>"; };
 		125D4A5218E069C6001B8E7C /* UIFont+CustomFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIFont+CustomFonts.m"; path = "UIFont/UIFont+CustomFonts.m"; sourceTree = "<group>"; };
+		128156A91938A1DA00035F89 /* WLStillPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStillPictureViewController.h; path = WLStillPictureViewController/WLStillPictureViewController.h; sourceTree = "<group>"; };
+		128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLStillPictureViewController.m; path = WLStillPictureViewController/WLStillPictureViewController.m; sourceTree = "<group>"; };
 		128886AB18DC493B00957B22 /* WLSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSession.h; path = WLSession/WLSession.h; sourceTree = "<group>"; };
 		128886AC18DC493B00957B22 /* WLSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSession.m; path = WLSession/WLSession.m; sourceTree = "<group>"; };
 		128886AF18DC90E000957B22 /* WLArchivingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArchivingObject.h; path = WLArchivingObject/WLArchivingObject.h; sourceTree = "<group>"; };
@@ -408,6 +420,20 @@
 		12EBF8D718F6A6D000EA3185 /* UIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
 		12F0DAEE19338C9100F9D898 /* SegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentedControl.h; sourceTree = "<group>"; };
 		12F0DAEF19338C9100F9D898 /* SegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentedControl.m; sourceTree = "<group>"; };
+		12F3ED431934B183009C1DC3 /* WLAssetsGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAssetsGroupViewController.h; sourceTree = "<group>"; };
+		12F3ED441934B183009C1DC3 /* WLAssetsGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAssetsGroupViewController.m; sourceTree = "<group>"; };
+		12F3ED451934B183009C1DC3 /* WLAssetsGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAssetsGroupViewController.xib; sourceTree = "<group>"; };
+		12F3ED4B1934B183009C1DC3 /* WLAssetsGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAssetsGroupCell.h; sourceTree = "<group>"; };
+		12F3ED4C1934B183009C1DC3 /* WLAssetsGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAssetsGroupCell.m; sourceTree = "<group>"; };
+		12F3ED4D1934B183009C1DC3 /* WLAssetsGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAssetsGroupCell.xib; sourceTree = "<group>"; };
+		12F3ED4F1934B183009C1DC3 /* WLAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAssetsViewController.h; sourceTree = "<group>"; };
+		12F3ED501934B183009C1DC3 /* WLAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAssetsViewController.m; sourceTree = "<group>"; };
+		12F3ED511934B183009C1DC3 /* WLAssetsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAssetsViewController.xib; sourceTree = "<group>"; };
+		12F3ED531934B183009C1DC3 /* WLAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAssetCell.h; sourceTree = "<group>"; };
+		12F3ED541934B183009C1DC3 /* WLAssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAssetCell.m; sourceTree = "<group>"; };
+		12F3ED551934B183009C1DC3 /* WLAssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAssetCell.xib; sourceTree = "<group>"; };
+		12F3ED601934B1E6009C1DC3 /* ALAssetsLibrary+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+Additions.h"; sourceTree = "<group>"; };
+		12F3ED611934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+Additions.m"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
@@ -468,6 +494,8 @@
 			children = (
 				120ED84D18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.h */,
 				120ED84E18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m */,
+				12F3ED601934B1E6009C1DC3 /* ALAssetsLibrary+Additions.h */,
+				12F3ED611934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m */,
 			);
 			path = ALAssetsLibrary;
 			sourceTree = "<group>";
@@ -594,6 +622,15 @@
 				125D4A5218E069C6001B8E7C /* UIFont+CustomFonts.m */,
 			);
 			name = UIFont;
+			sourceTree = "<group>";
+		};
+		128156A81938A0BF00035F89 /* WLStillPictureViewController */ = {
+			isa = PBXGroup;
+			children = (
+				128156A91938A1DA00035F89 /* WLStillPictureViewController.h */,
+				128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */,
+			);
+			name = WLStillPictureViewController;
 			sourceTree = "<group>";
 		};
 		128886AA18DC492300957B22 /* WLSession */ = {
@@ -786,6 +823,9 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				128156A81938A0BF00035F89 /* WLStillPictureViewController */,
+				12F3ED421934B183009C1DC3 /* WLAssetsGroupViewController */,
+				12F3ED4E1934B183009C1DC3 /* WLAssetsViewController */,
 				AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */,
 				12317E57190808B600D1A9EE /* WLImageViewController */,
 				12E1104619067095007DB4AC /* WLCandyViewController */,
@@ -1487,6 +1527,48 @@
 			path = SegmentedControl;
 			sourceTree = "<group>";
 		};
+		12F3ED421934B183009C1DC3 /* WLAssetsGroupViewController */ = {
+			isa = PBXGroup;
+			children = (
+				12F3ED431934B183009C1DC3 /* WLAssetsGroupViewController.h */,
+				12F3ED441934B183009C1DC3 /* WLAssetsGroupViewController.m */,
+				12F3ED451934B183009C1DC3 /* WLAssetsGroupViewController.xib */,
+				12F3ED4A1934B183009C1DC3 /* WLAssetsGroupCell */,
+			);
+			path = WLAssetsGroupViewController;
+			sourceTree = "<group>";
+		};
+		12F3ED4A1934B183009C1DC3 /* WLAssetsGroupCell */ = {
+			isa = PBXGroup;
+			children = (
+				12F3ED4B1934B183009C1DC3 /* WLAssetsGroupCell.h */,
+				12F3ED4C1934B183009C1DC3 /* WLAssetsGroupCell.m */,
+				12F3ED4D1934B183009C1DC3 /* WLAssetsGroupCell.xib */,
+			);
+			path = WLAssetsGroupCell;
+			sourceTree = "<group>";
+		};
+		12F3ED4E1934B183009C1DC3 /* WLAssetsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				12F3ED4F1934B183009C1DC3 /* WLAssetsViewController.h */,
+				12F3ED501934B183009C1DC3 /* WLAssetsViewController.m */,
+				12F3ED511934B183009C1DC3 /* WLAssetsViewController.xib */,
+				12F3ED521934B183009C1DC3 /* WLAssetCell */,
+			);
+			path = WLAssetsViewController;
+			sourceTree = "<group>";
+		};
+		12F3ED521934B183009C1DC3 /* WLAssetCell */ = {
+			isa = PBXGroup;
+			children = (
+				12F3ED531934B183009C1DC3 /* WLAssetCell.h */,
+				12F3ED541934B183009C1DC3 /* WLAssetCell.m */,
+				12F3ED551934B183009C1DC3 /* WLAssetCell.xib */,
+			);
+			path = WLAssetCell;
+			sourceTree = "<group>";
+		};
 		AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1671,6 +1753,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12DE698D192E4234007580AD /* AviarySDKResources.bundle in Resources */,
+				12F3ED571934B183009C1DC3 /* WLAssetsGroupViewController.xib in Resources */,
 				12DE697C192E0494007580AD /* WLTestUsers.plist in Resources */,
 				ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */,
 				12D514F7192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png in Resources */,
@@ -1681,12 +1764,15 @@
 				129654F518E1CB3000FF43F6 /* WLInputAccessoryView.xib in Resources */,
 				12A8AA7018F592B500F67113 /* WLLoadingView.xib in Resources */,
 				12E5BA5718EADAAC0033CE4E /* WLCandyCell.xib in Resources */,
+				12F3ED5B1934B183009C1DC3 /* WLAssetsGroupCell.xib in Resources */,
 				12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
 				121B1B4118E0848D001F585C /* WLCountriesViewController.xib in Resources */,
+				12F3ED5F1934B183009C1DC3 /* WLAssetCell.xib in Resources */,
 				12D514FD192F5F15007A1520 /* AppIcon60x60@2x.png in Resources */,
 				12D514FC192F5F15007A1520 /* AppIcon40x40@2x.png in Resources */,
 				ACCF9B8A18E185D200A7429F /* WLPhoneNumberViewController.xib in Resources */,
+				12F3ED5D1934B183009C1DC3 /* WLAssetsViewController.xib in Resources */,
 				12D514FE192F5F15007A1520 /* AppIcon76x76.png in Resources */,
 				12D514FB192F5F15007A1520 /* AppIcon40x40.png in Resources */,
 				121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */,
@@ -1771,6 +1857,7 @@
 				12E6ABD4191A2B2A00842DB8 /* UIScreen+Diagonal.m in Sources */,
 				1293678318E33A3500527250 /* WLCandyCell.m in Sources */,
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
+				12F3ED561934B183009C1DC3 /* WLAssetsGroupViewController.m in Sources */,
 				12E0F05E19090C0900463FEC /* WLKeyboardBroadcaster.m in Sources */,
 				12DF5C3B190E614400D7A62F /* NSString+MD5.m in Sources */,
 				ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */,
@@ -1795,6 +1882,7 @@
 				ACCF9B9118E1868200A7429F /* WLActivationViewController.m in Sources */,
 				12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */,
 				12DCBA6718DB0E4A00A4BC44 /* WLWrap.m in Sources */,
+				12F3ED5E1934B183009C1DC3 /* WLAssetCell.m in Sources */,
 				121553E81907DD4A00A507F8 /* WLFlashModeControl.m in Sources */,
 				12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */,
 				1293678718E34A6800527250 /* WLCandy.m in Sources */,
@@ -1811,6 +1899,7 @@
 				12BC02CA191B81E100C4FA98 /* WLBlocks.m in Sources */,
 				12E0F066190927B800463FEC /* WLDeviceOrientationBroadcaster.m in Sources */,
 				12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */,
+				12F3ED5C1934B183009C1DC3 /* WLAssetsViewController.m in Sources */,
 				C5D4934C192B87DB00D33B08 /* WLEntryState.m in Sources */,
 				12976ECE18E5D6E300C5F2A9 /* NSDictionary+Extended.m in Sources */,
 				C5947E5518F52AE000BDF038 /* WLMessageCell.m in Sources */,
@@ -1829,6 +1918,7 @@
 				12D4E94818FBEC5100B8F2AF /* WLUploadingQueue.m in Sources */,
 				C5F35CFE1930935200FB99D2 /* WLImageFetcher.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,
+				128156AB1938A1DA00035F89 /* WLStillPictureViewController.m in Sources */,
 				12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */,
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
 				12D9F6E318E18DAA001E8323 /* NSError+WLAPIManager.m in Sources */,
@@ -1843,7 +1933,9 @@
 				12D578CA1917ACE200586995 /* NSDate+Additions.m in Sources */,
 				12A9EFBB18F8026E002CBF75 /* WLCameraAdjustmentView.m in Sources */,
 				AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */,
+				12F3ED621934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m in Sources */,
 				12E9488019239090008DED79 /* WLUserChannelBroadcaster.m in Sources */,
+				12F3ED5A1934B183009C1DC3 /* WLAssetsGroupCell.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				1215DC7F18E4485800FCA744 /* WLNavigation.m in Sources */,
 				129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */,

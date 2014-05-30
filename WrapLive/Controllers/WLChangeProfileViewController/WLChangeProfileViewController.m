@@ -22,8 +22,9 @@
 #import "NSString+Additions.h"
 #import "WLToast.h"
 #import "WLWelcomeViewController.h"
+#import "WLStillPictureViewController.h"
 
-@interface WLChangeProfileViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLKeyboardBroadcastReceiver>
+@interface WLChangeProfileViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
@@ -53,11 +54,12 @@
 }
 
 - (IBAction)changeImage:(id)sender {
-	WLCameraViewController *controller = [WLCameraViewController instantiate];
-	controller.delegate = self;
-	controller.defaultPosition = AVCaptureDevicePositionFront;
-	controller.mode = WLCameraModeAvatar;
-	[self.navigationController presentViewController:controller animated:YES completion:nil];
+	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
+		controller.delegate = self;
+		controller.defaultPosition = AVCaptureDevicePositionFront;
+		controller.mode = WLCameraModeAvatar;
+	}];
+	[self.navigationController presentViewController:cameraNavigation animated:YES completion:nil];
 }
 
 - (void)saveImage:(UIImage *)image {
@@ -129,13 +131,13 @@
 	[WLWelcomeViewController instantiateAndMakeRootViewControllerAnimated:YES];
 }
 
-#pragma mark - WLCameraViewControllerDelegate
+#pragma mark - WLStillPictureViewControllerDelegate
 
-- (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
+- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
 	self.profileImageView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
 															  bounds:self.profileImageView.retinaSize
 												interpolationQuality:kCGInterpolationDefault];

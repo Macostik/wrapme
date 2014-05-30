@@ -69,31 +69,40 @@
 	[self setupItemData:entry animated:NO];
 }
 
-- (void)setupItemData:(WLCandy*)entry animated:(BOOL)animated {
-	self.wrapChannelBroadcaster.candy = entry;
+- (void)setupItemData:(WLCandy*)candy animated:(BOOL)animated {
+	self.wrapChannelBroadcaster.candy = candy;
 	self.userInteractionEnabled = YES;
-	self.chatLabelView.hidden = entry.type == WLCandyTypeImage;
-	if (entry.type == WLCandyTypeImage) {
-		WLComment* comment = [entry.comments lastObject];
+	
+	if ([candy isImage]) {
+		WLComment* comment = [candy.comments lastObject];
 		self.commentLabel.text = comment.text;
-		self.coverView.url = entry.picture.medium;
+		self.coverView.url = candy.picture.medium;
 	} else {
-		self.commentLabel.text = entry.chatMessage;
-		self.coverView.url = entry.contributor.picture.medium;
+		self.commentLabel.text = candy.chatMessage;
+		self.coverView.url = candy.contributor.picture.medium;
 	}
 	self.commentLabel.hidden = !self.commentLabel.text.nonempty;
 	
-	[self refreshUploadingButtons:entry animated:animated];
+	[self refreshUploadingButtons:candy animated:animated];
 	
-	self.notifyBulb.hidden = ![entry updated];
-	if ([entry isChatMessage] && !self.notifyBulb.hidden) {
-		__weak typeof(self)weakSelf = self;
-		[UIView animateWithDuration:0.4f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState animations:^{
-			weakSelf.notifyBulb.alpha = 0.0f;
-		} completion:^(BOOL finished) {
-		}];
+	[self refreshNotifyBulb:candy];
+}
+
+- (void)refreshNotifyBulb:(WLCandy*)candy {
+	self.chatLabelView.hidden = [candy isImage];
+	self.chatLabelView.alpha = 1.0f;
+	if ([candy updated]) {
+		self.notifyBulb.hidden = [candy isChatMessage];
+		if ([candy isChatMessage]) {
+			__weak typeof(self)weakSelf = self;
+			[self.chatLabelView.layer removeAllAnimations];
+			[UIView animateWithDuration:0.4f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState animations:^{
+				weakSelf.chatLabelView.alpha = 0.0f;
+			} completion:^(BOOL finished) {
+			}];
+		}
 	} else {
-		self.notifyBulb.alpha = 1.0f;
+		self.notifyBulb.hidden = YES;
 	}
 }
 

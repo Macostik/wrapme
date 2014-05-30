@@ -25,6 +25,7 @@
 #import "WLEntryState.h"
 #import "WLWrapChannelBroadcaster.h"
 #import "WLImageFetcher.h"
+#import "MFMailComposeViewController+Additions.h"
 
 @interface WLCandyCell () <WLWrapBroadcastReceiver, WLWrapChannelBroadcastReceiver>
 
@@ -132,7 +133,12 @@
 			[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
 			[menuController setMenuVisible:YES animated:YES];
 		} else {
-			[WLToast showWithMessage:@"Cannot delete photo not posted by you."];
+			UIMenuItem* menuItem = [[UIMenuItem alloc] initWithTitle:@"Report" action:@selector(report)];
+			UIMenuController* menuController = [UIMenuController sharedMenuController];
+			[self becomeFirstResponder];
+			menuController.menuItems = @[menuItem];
+			[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
+			[menuController setMenuVisible:YES animated:YES];
 		}
 	} else {
 		[WLToast showWithMessage:@"Cannot delete chat message already posted."];
@@ -151,8 +157,12 @@
 	}];
 }
 
+- (void)report {
+	[MFMailComposeViewController messageWithCandy:self.item andWrap:self.wrap];
+}
+
 - (BOOL)canPerformAction:(SEL)selector withSender:(id) sender {
-    return (selector == @selector(remove));
+    return (selector == @selector(remove) || selector == @selector(report));
 }
 
 - (BOOL)canBecomeFirstResponder {

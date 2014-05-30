@@ -146,6 +146,8 @@
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
+		AC1A179D1937694B002B3737 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1A179C1937694B002B3737 /* MessageUI.framework */; };
+		AC1A17A01937891E002B3737 /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1A179F1937891E002B3737 /* MFMailComposeViewController+Additions.m */; };
 		ACB029D3191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB029D2191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.m */; };
 		ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */; };
 		ACCF9B8A18E185D200A7429F /* WLPhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */; };
@@ -411,6 +413,9 @@
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
 		AC17ADAF18F8147900F55E17 /* WLCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionViewFlowLayout.h; path = WLChatViewController/WLCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionViewFlowLayout.m; path = WLChatViewController/WLCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		AC1A179C1937694B002B3737 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		AC1A179E1937891E002B3737 /* MFMailComposeViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MFMailComposeViewController+Additions.h"; path = "MFMailComposeViewController/MFMailComposeViewController+Additions.h"; sourceTree = "<group>"; };
+		AC1A179F1937891E002B3737 /* MFMailComposeViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MFMailComposeViewController+Additions.m"; path = "MFMailComposeViewController/MFMailComposeViewController+Additions.m"; sourceTree = "<group>"; };
 		ACB029D1191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLInternetConnectionBroadcaster.h; path = WLBroadcaster/WLInternetConnectionBroadcaster/WLInternetConnectionBroadcaster.h; sourceTree = "<group>"; };
 		ACB029D2191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLInternetConnectionBroadcaster.m; path = WLBroadcaster/WLInternetConnectionBroadcaster/WLInternetConnectionBroadcaster.m; sourceTree = "<group>"; };
 		ACCF9B8618E185D200A7429F /* WLPhoneNumberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPhoneNumberViewController.h; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.h; sourceTree = "<group>"; };
@@ -442,6 +447,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC1A179D1937694B002B3737 /* MessageUI.framework in Frameworks */,
 				12DE698F192E4C6B007580AD /* libsqlite3.0.dylib in Frameworks */,
 				121FC9E7190A93EF0034486D /* libz.dylib in Frameworks */,
 				121FC9E5190A93E50034486D /* SystemConfiguration.framework in Frameworks */,
@@ -735,6 +741,7 @@
 		12A7A70118DA0945008FF6F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC1A179C1937694B002B3737 /* MessageUI.framework */,
 				12DE698E192E4C6B007580AD /* libsqlite3.0.dylib */,
 				12DE6989192E4234007580AD /* AviarySDK */,
 				121FC9E6190A93EF0034486D /* libz.dylib */,
@@ -1324,6 +1331,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				AC1A17A11937897D002B3737 /* MFMailComposeViewController */,
 				12DE697D192E04DD007580AD /* NSPropertyListSerialization */,
 				12E6ABD1191A2A7800842DB8 /* UIScreen */,
 				12D4D3DE191938B60025CC18 /* UIActionSheet */,
@@ -1486,6 +1494,15 @@
 				AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */,
 			);
 			name = WLChangeProfileViewController;
+			sourceTree = "<group>";
+		};
+		AC1A17A11937897D002B3737 /* MFMailComposeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AC1A179E1937891E002B3737 /* MFMailComposeViewController+Additions.h */,
+				AC1A179F1937891E002B3737 /* MFMailComposeViewController+Additions.m */,
+			);
+			name = MFMailComposeViewController;
 			sourceTree = "<group>";
 		};
 		ACB029D0191AA136003A2E0D /* WLInternetConnectionBroadcaster */ = {
@@ -1783,6 +1800,7 @@
 				1293678718E34A6800527250 /* WLCandy.m in Sources */,
 				12D4E94C18FC12DF00B8F2AF /* AsynchronousOperation.m in Sources */,
 				12DCBA6B18DB0E6600A4BC44 /* WLComment.m in Sources */,
+				AC1A17A01937891E002B3737 /* MFMailComposeViewController+Additions.m in Sources */,
 				12D653E218E432F2009CE64C /* WLBorderView.m in Sources */,
 				12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */,
 				12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */,

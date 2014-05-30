@@ -34,10 +34,13 @@
 #import "NSString+Additions.h"
 #import "WLToast.h"
 #import "WLEntryState.h"
+#import "UIAlertView+Blocks.h"
+#import "MFMailComposeViewController+Additions.h"
+#import "UIActionSheet+Blocks.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
-@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, WLWrapChannelBroadcastReceiver>
+@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, WLWrapChannelBroadcastReceiver, MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -59,6 +62,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 @property (strong, nonatomic) WLWrapChannelBroadcaster* wrapChannelBroadcaster;
 
+@property (weak, nonatomic) IBOutlet UIButton *reportButton;
 
 
 @end
@@ -82,6 +86,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	
 	[self showContentIndicatorView:NO];
+//	self.reportButton.hidden = [self.candy.contributor isCurrentUser] ? YES : NO;
 }
 
 - (WLWrapChannelBroadcaster *)wrapChannelBroadcaster {
@@ -210,6 +215,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 			[weakSelf.spinner stopAnimating];
 		}
 	}];
+	self.reportButton.hidden = [self.candy.contributor isCurrentUser];
 	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
 	[self.tableView reloadData];
@@ -274,6 +280,17 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)report:(UIButton *)sender {
+	
+	[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Report as inappropriate" completion:^(NSUInteger index) {
+		if (index == 0) {
+			[MFMailComposeViewController messageWithCandy:self.candy andWrap:self.wrap];
+		}
+	}];
+
+}
+
+
 - (void)sendMessageWithText:(NSString*)text {
 	__weak typeof(self)weakSelf = self;
 	WLComment* comment = [WLComment commentWithText:text];
@@ -329,6 +346,54 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 														 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[WLCommentCell commentFont]} context:nil].size.height);
 	CGFloat cellHeight = (commentHeight + WLAuthorLabelHeight);
 	return MAX(WLMinimumCellHeight, cellHeight + 10);
+}
+
+#pragma mark UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0) {
+		// Email Subject
+		NSString *emailTitle = @"Reporting inappropriate content on wrapLive";
+		// Email Content
+		NSString *messageBody = [NSString stringWithFormat:@"I'd like to report the following item as inappropriate content:\nImage URL - %@,\nWrap ID - %@,\nCandy ID - %@", self.candy.picture.medium, self.wrap.identifier, self.candy.identifier];
+		// To address
+		NSArray *toRecipents = [NSArray arrayWithObject:@"help@ravenpod.com"];
+		
+		MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+		mc.mailComposeDelegate = self;
+		[mc setSubject:emailTitle];
+		[mc setMessageBody:messageBody isHTML:NO];
+		[mc setToRecipients:toRecipents];
+		
+		// Present mail view controller on screen
+		[self presentViewController:mc animated:YES completion:NULL];
+	}
+	
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent");
+			[WLToast showWithMessage:@"Mail sent"];
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

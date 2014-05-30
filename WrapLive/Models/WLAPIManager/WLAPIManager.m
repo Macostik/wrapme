@@ -27,6 +27,7 @@
 
 static const int ddLogLevel = LOG_LEVEL_OFF;
 
+static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
 static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
 static NSString* WLAPIProductionUrl = @"https://api.wraplive.com/api";

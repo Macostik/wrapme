@@ -97,7 +97,7 @@
 		if ([candy isChatMessage]) {
 			__weak typeof(self)weakSelf = self;
 			[self.chatLabelView.layer removeAllAnimations];
-			[UIView animateWithDuration:0.4f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState animations:^{
+			[UIView animateWithDuration:1.5f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState animations:^{
 				weakSelf.chatLabelView.alpha = 0.0f;
 			} completion:^(BOOL finished) {
 			}];

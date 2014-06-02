@@ -9,20 +9,21 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+typedef NS_ENUM(NSInteger, WLCameraMode) {
+	WLCameraModeCandy = 720,
+	WLCameraModeAvatar = 480,
+	WLCameraModeCover = 480
+};
+
 @class WLCameraViewController;
 
 @protocol WLCameraViewControllerDelegate <NSObject>
 
 - (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image;
 - (void)cameraViewControllerDidCancel:(WLCameraViewController*)controller;
+- (void)cameraViewControllerDidSelectGallery:(WLCameraViewController*)controller;
 
 @end
-
-typedef NS_ENUM(NSInteger, WLCameraMode) {
-	WLCameraModeCandy,
-	WLCameraModeAvatar,
-	WLCameraModeCover
-};
 
 @interface WLCameraViewController : UIViewController
 
@@ -33,6 +34,8 @@ typedef NS_ENUM(NSInteger, WLCameraMode) {
 @property (nonatomic) AVCaptureDevicePosition defaultPosition;
 
 @property (nonatomic) AVCaptureDevicePosition position;
+
+@property (readonly, nonatomic) CGSize viewSize;
 
 - (void)setPosition:(AVCaptureDevicePosition)position animated:(BOOL)animated;
 

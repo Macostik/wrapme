@@ -15,6 +15,10 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 
 @interface NSArray (Additions)
 
+@property (readonly, nonatomic) BOOL nonempty;
+
+- (NSArray*)mutate:(void (^)(NSMutableArray* mutableCopy))mutation;
+
 - (NSArray*)arrayByRemovingObject:(id)object;
 
 - (NSArray*)arrayByRemovingObjectsFromArray:(NSArray *)array;
@@ -23,11 +27,17 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 
 - (id)safeObjectAtIndex:(NSInteger)index;
 
-+ (instancetype)arrayWithResourcePropertyListNamed:(NSString*)name;
-
 - (NSArray*)arrayByAddingUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality;
 
+- (NSArray*)arrayByInsertingUniqueObjects:(NSArray *)objects atIndex:(NSUInteger)index equality:(EqualityBlock)equality;
+
+- (NSArray*)arrayByInsertingFirstUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality;
+
 - (NSArray*)arrayByAddingUniqueObject:(id)object equality:(EqualityBlock)equality;
+
+- (NSArray*)arrayByInsertingUniqueObject:(id)object atIndex:(NSUInteger)index equality:(EqualityBlock)equality;
+
+- (NSArray*)arrayByInsertingFirstUniqueObject:(id)object equality:(EqualityBlock)equality;
 
 - (NSArray*)arrayByRemovingUniqueObject:(id)object equality:(EqualityBlock)equality;
 
@@ -39,6 +49,18 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 
 - (NSArray*)selectObjects:(SelectBlock)block;
 
+- (NSUInteger)indexOfObjectEqualToObject:(id)object equality:(EqualityBlock)equality;
+
+- (id)selectObjectEqualToObject:(id)object equality:(EqualityBlock)equality;
+
+- (NSIndexSet*)indexesOfObjectsEqualToObject:(id)object equality:(EqualityBlock)equality;
+
+- (NSArray*)selectObjectsEqualToObject:(id)object equality:(EqualityBlock)equality;
+
+- (NSIndexSet*)indexesOfObjectsEqualToObjects:(NSArray*)objects equality:(EqualityBlock)equality;
+
+- (NSArray*)selectObjectsEqualToObjects:(NSArray*)objects equality:(EqualityBlock)equality;
+
 - (void)all:(EnumBlock)block;
 
 - (NSArray*)unique;
@@ -48,6 +70,8 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 - (BOOL)containsObject:(id)target byBlock:(EqualityBlock)block;
 
 - (BOOL)containsIndex:(NSUInteger)index;
+
+- (NSArray*)arrayByRemovingObjectsWhileEnumerating:(SelectBlock)enumerator;
 
 @end
 
@@ -65,10 +89,20 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 
 - (void)addUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality;
 
+- (void)insertUniqueObjects:(NSArray *)objects atIndex:(NSUInteger)index equality:(EqualityBlock)equality;
+
+- (void)insertFirstUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality;
+
 - (void)addUniqueObject:(id)object equality:(EqualityBlock)equality;
+
+- (void)insertUniqueObject:(id)object atIndex:(NSUInteger)index equality:(EqualityBlock)equality;
+
+- (void)insertFirstUniqueObject:(id)object equality:(EqualityBlock)equality;
 
 - (BOOL)removeUniqueObject:(id)object equality:(EqualityBlock)equality;
 
 - (BOOL)removeUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality;
+
+- (void)removeObjectsWhileEnumerating:(SelectBlock)enumerator;
 
 @end

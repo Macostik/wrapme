@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class WLUser;
+@class WLAuthorization;
 
 @interface WLSession : NSObject
 
@@ -27,31 +28,25 @@
 + (void)setUser:(WLUser*)user;
 
 /**
+ *  Get current authorization.
+ *
+ *  @return WLAuthorization object
+ */
++ (WLAuthorization*)authorization;
+
+/**
+ *  Set current authorization.
+ *
+ *  @param authorization WLAuthorization object
+ */
++ (void)setAuthorization:(WLAuthorization*)authorization;
+
+/**
  *  Get UDID for current device.
  *
  *  @return string object with UDID
  */
 + (NSString*)UDID;
-
-+ (NSString *)birthdate;
-
-+ (void)setBirthdate:(NSString *)birthdate;
-
-/**
- *  Get password for current authenticated user.
- *
- *  @return string object with password
- */
-+ (NSString*)password;
-
-/**
- *  Set password for current authenticated user.
- *
- *  @param password string object with password
- */
-+ (void)setPassword:(NSString*)password;
-
-+ (BOOL)activated;
 
 + (void)clear;
 

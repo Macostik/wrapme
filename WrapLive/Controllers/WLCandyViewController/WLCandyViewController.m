@@ -10,7 +10,7 @@
 #import "WLCommentCell.h"
 #import "WLCandy.h"
 #import "NSDate+Formatting.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "UIView+Shorthand.h"
 #import "WLUser.h"
 #import "WLComposeContainer.h"
@@ -23,17 +23,24 @@
 #import "UIFont+CustomFonts.h"
 #import "WLRefresher.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import "UIStoryboard+Additions.h"
+#import "WLNavigation.h"
 #import "WLImageViewController.h"
 #import "UIScrollView+Additions.h"
 #import "WLKeyboardBroadcaster.h"
 #import "WLDataManager.h"
 #import "NSDate+Additions.h"
 #import "WLWrapBroadcaster.h"
+#import "WLWrapChannelBroadcaster.h"
+#import "NSString+Additions.h"
+#import "WLToast.h"
+#import "WLEntryState.h"
+#import "UIAlertView+Blocks.h"
+#import "MFMailComposeViewController+Additions.h"
+#import "UIActionSheet+Blocks.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
-@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver>
+@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, WLWrapChannelBroadcastReceiver, MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -52,6 +59,11 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 @property (nonatomic) BOOL shouldLoadMoreCandies;
 
 @property (nonatomic) BOOL loading;
+
+@property (strong, nonatomic) WLWrapChannelBroadcaster* wrapChannelBroadcaster;
+
+@property (weak, nonatomic) IBOutlet UIButton *reportButton;
+
 
 @end
 
@@ -74,6 +86,14 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	
 	[self showContentIndicatorView:NO];
+//	self.reportButton.hidden = [self.candy.contributor isCurrentUser] ? YES : NO;
+}
+
+- (WLWrapChannelBroadcaster *)wrapChannelBroadcaster {
+	if (!_wrapChannelBroadcaster) {
+		_wrapChannelBroadcaster = [[WLWrapChannelBroadcaster alloc] initWithReceiver:self];
+	}
+	return _wrapChannelBroadcaster;
 }
 
 - (UIView *)swipeView {
@@ -82,6 +102,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)setWrap:(WLWrap *)wrap candy:(WLCandy *)candy {
 	self.wrap = wrap;
+	self.wrapChannelBroadcaster.wrap = wrap;
 	__weak typeof(self)weakSelf = self;
 	[wrap enumerateCandies:^(WLCandy *_candy, WLWrapDate *date, BOOL *stop) {
 		if (_candy.type == WLCandyTypeImage) {
@@ -170,30 +191,35 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (void)refresh {
-	__weak typeof(self)weakSelf = self;
-	[WLDataManager candy:self.candy wrap:self.wrap success:^(id object, BOOL cached, BOOL stop) {
-		[weakSelf setupImage];
-		[weakSelf.refresher endRefreshing];
-	} failure:^(NSError *error) {
-		[error showIgnoringNetworkError];
-		[weakSelf.refresher endRefreshing];
-	}];
+	if (self.candy.uploading == nil) {
+		__weak typeof(self)weakSelf = self;
+		[WLDataManager candy:self.candy wrap:self.wrap success:^(id object, BOOL cached, BOOL stop) {
+			[weakSelf setupImage];
+			[weakSelf.refresher endRefreshing];
+		} failure:^(NSError *error) {
+			[error showIgnoringNetworkError];
+			[weakSelf.refresher endRefreshing];
+		}];
+	}
 }
 
 - (void)setupImage {
 	WLCandy* image = self.candy;
+	self.wrapChannelBroadcaster.candy = image;
 	__weak typeof(self)weakSelf = self;
 	if (!self.spinner.isAnimating) {
 		[self.spinner startAnimating];
 	}
-	[self.imageView setImageUrl:image.picture.medium completion:^(UIImage* image, BOOL cached, NSError* error) {
+	[self.imageView setUrl:image.picture.medium completion:^(UIImage* image, BOOL cached, NSError* error) {
 		if (weakSelf.spinner.isAnimating) {
 			[weakSelf.spinner stopAnimating];
 		}
 	}];
-	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", image.createdAt.timeAgoString];
-	self.titleLabel.text = [NSString stringWithFormat:@"By %@", image.contributor.name];
+	self.reportButton.hidden = [self.candy.contributor isCurrentUser];
+	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
+	self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
 	[self.tableView reloadData];
+	[image setUpdated:NO];
 }
 
 - (CGFloat)calculateTableHeight {
@@ -213,6 +239,30 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[self.tableView reloadData];
 }
 
+#pragma mark - WLWrapChannelBroadcastReceiver
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddCandy:(WLCandy *)candy {
+	[candy setUpdated:NO];
+}
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddComment:(WLCandy *)candy {
+	self.candy = [self.candy updateWithObject:candy];
+}
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didDeleteCandy:(WLCandy *)candy {
+	[WLToast showWithMessage:@"This candy is no longer avaliable."];
+	self.items = [self.items entriesByRemovingEntry:candy];
+	if (self.items.nonempty) {
+		self.candy = [self.items lastObject];
+	} else {
+		[self.navigationController popViewControllerAnimated:YES];
+	}
+}
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didDeleteComment:(WLCandy *)candy {
+	[self setupImage];
+}
+
 #pragma mark - WLKeyboardBroadcastReceiver
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
@@ -229,6 +279,17 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (IBAction)back:(id)sender {
 	[self.navigationController popViewControllerAnimated:YES];
 }
+
+- (IBAction)report:(UIButton *)sender {
+	
+	[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Report as inappropriate" completion:^(NSUInteger index) {
+		if (index == 0) {
+			[MFMailComposeViewController messageWithCandy:self.candy andWrap:self.wrap];
+		}
+	}];
+
+}
+
 
 - (void)sendMessageWithText:(NSString*)text {
 	__weak typeof(self)weakSelf = self;
@@ -285,6 +346,54 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 														 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[WLCommentCell commentFont]} context:nil].size.height);
 	CGFloat cellHeight = (commentHeight + WLAuthorLabelHeight);
 	return MAX(WLMinimumCellHeight, cellHeight + 10);
+}
+
+#pragma mark UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0) {
+		// Email Subject
+		NSString *emailTitle = @"Reporting inappropriate content on wrapLive";
+		// Email Content
+		NSString *messageBody = [NSString stringWithFormat:@"I'd like to report the following item as inappropriate content:\nImage URL - %@,\nWrap ID - %@,\nCandy ID - %@", self.candy.picture.medium, self.wrap.identifier, self.candy.identifier];
+		// To address
+		NSArray *toRecipents = [NSArray arrayWithObject:@"help@ravenpod.com"];
+		
+		MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+		mc.mailComposeDelegate = self;
+		[mc setSubject:emailTitle];
+		[mc setMessageBody:messageBody isHTML:NO];
+		[mc setToRecipients:toRecipents];
+		
+		// Present mail view controller on screen
+		[self presentViewController:mc animated:YES completion:NULL];
+	}
+	
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent");
+			[WLToast showWithMessage:@"Mail sent"];
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

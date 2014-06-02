@@ -9,16 +9,21 @@
 #import "WLWelcomeViewController.h"
 #import "WLSession.h"
 #import "WLAPIManager.h"
-#import "UIStoryboard+Additions.h"
-#import "WLUser.h"
+#import "WLNavigation.h"
+#import "WLAuthorization.h"
 #import "WLSignUpViewController.h"
 #import "NSString+Additions.h"
+#import "WLUser.h"
+#import "WLHomeViewController.h"
+#import "UIFont+CustomFonts.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLWelcomeViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-@property (weak, nonatomic) IBOutlet UIButton *continueButton;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UIButton *licenseButton;
 
 @end
 
@@ -28,11 +33,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 	
-	self.continueButton.hidden = YES;
-	if ([WLSession activated]) {
+	self.bottomView.hidden = YES;
+	if ([[WLAuthorization currentAuthorization] canAuthorize]) {
 		__weak typeof(self)weakSelf = self;
-		WLUser* user = [WLSession user];
-		[[WLAPIManager instance] signIn:user success:^(WLUser* user) {
+		[[WLAPIManager instance] signIn:[WLAuthorization currentAuthorization] success:^(WLUser* user) {
 			if (user.name.nonempty) {
 				[weakSelf presentHomeViewController];
 			} else {
@@ -42,32 +46,46 @@
 			if ([error isNetworkError]) {
 				[weakSelf presentHomeViewController];
 			} else {
-				[weakSelf showContinueButton];
+				[weakSelf showBottomView];
 			}
 		}];
 	} else {
-		[self showContinueButton];
+		[self showBottomView];
 	}
 }
 
-- (void)showContinueButton {
-	self.continueButton.transform = CGAffineTransformMakeTranslation(0, self.continueButton.frame.size.height);
-	self.continueButton.hidden = NO;
+- (void)showBottomView {
+	self.bottomView.transform = CGAffineTransformMakeTranslation(0, self.bottomView.frame.size.height);
+	self.bottomView.hidden = NO;
+	[self underlineLicenseButton];
 	__weak typeof(self)weakSelf = self;
 	[UIView animateWithDuration:0.25f animations:^{
-		weakSelf.continueButton.transform = CGAffineTransformIdentity;
+		weakSelf.bottomView.transform = CGAffineTransformIdentity;
 	}];
 	[self.spinner removeFromSuperview];
 }
 
+- (void)underlineLicenseButton {
+	NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:@"Terms and Conditions"];
+	NSDictionary * attributes = @{NSUnderlineStyleAttributeName : [NSNumber numberWithInteger:NSUnderlineStyleSingle],
+								  NSFontAttributeName : [UIFont lightFontOfSize:15],
+								  NSForegroundColorAttributeName : [UIColor WL_orangeColor]};
+	[titleString addAttributes:attributes range:NSMakeRange(0, [titleString length])];
+	[self.licenseButton setAttributedTitle: titleString forState:UIControlStateNormal];
+}
+
 - (void)presentHomeViewController {
-	[self.navigationController setViewControllers:@[[self.storyboard homeViewController]]];
+	[WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
 }
 
 - (void)continueSignUp {
-	WLSignUpViewController * controller = [self.storyboard signUpViewController];
-	controller.registrationNotCompleted = YES;
-	[self.navigationController setViewControllers:@[controller]];
+	[WLSignUpViewController instantiate:^(WLSignUpViewController *controller) {
+		controller.registrationNotCompleted = YES;
+	} makeRootViewControllerAnimated:NO];
+}
+
+- (IBAction)termsAndConditions:(id)sender {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://wraplive.com/welcome/privacy"]];
 }
 
 @end

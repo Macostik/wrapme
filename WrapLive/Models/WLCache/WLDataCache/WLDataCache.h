@@ -20,17 +20,17 @@
 
 @property (nonatomic) NSArray* wraps;
 
-@property (nonatomic) NSArray* uploadingItems;
+@property (nonatomic) NSArray* uploadings;
 
 - (void)wraps:(WLCacheReadCompletionBlock)completion;
 
 - (void)setWraps:(NSArray *)wraps completion:(WLCacheWriteCompletionBlock)completion;
 
-- (void)uploadingItems:(WLCacheReadCompletionBlock)completion;
+- (void)uploadings:(WLCacheReadCompletionBlock)completion;
 
 - (BOOL)containsWraps;
 
-- (BOOL)containsUploadingItems;
+- (BOOL)containsUploadings;
 
 - (WLWrap*)wrap:(WLWrap*)wrap;
 

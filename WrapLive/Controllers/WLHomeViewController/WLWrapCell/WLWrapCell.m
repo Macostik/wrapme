@@ -9,7 +9,7 @@
 #import "WLWrapCell.h"
 #import "WLWrap.h"
 #import "WLCandy.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "UIView+Shorthand.h"
 #import "UILabel+Additions.h"
 #import "UIAlertView+Blocks.h"
@@ -21,13 +21,18 @@
 #import "WLCandyCell.h"
 #import "WLUploadingQueue.h"
 #import "UIView+GestureRecognizing.h"
+#import "WLWrapChannelBroadcaster.h"
+#import "WLEntryState.h"
 
-@interface WLWrapCell () <WLCandyCellDelegate>
+@interface WLWrapCell () <WLCandyCellDelegate, WLWrapChannelBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
+@property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
+
+@property (strong, nonatomic) WLWrapChannelBroadcaster* wrapChannelBroadcaster;
 
 @end
 
@@ -41,12 +46,30 @@
 	}];
 }
 
+- (WLWrapChannelBroadcaster *)wrapChannelBroadcaster {
+	if (!_wrapChannelBroadcaster) {
+		_wrapChannelBroadcaster = [[WLWrapChannelBroadcaster alloc] initWithReceiver:self];
+	}
+	return _wrapChannelBroadcaster;
+}
+
 - (void)setupItemData:(WLWrap*)wrap {
+	self.wrapChannelBroadcaster.wrap = wrap;
 	self.nameLabel.superview.userInteractionEnabled = YES;
 	self.nameLabel.text = wrap.name;
-	self.coverView.imageUrl = wrap.picture.small;
+	[self.nameLabel sizeToFitWidthWithSuperviewRightPadding:50];
+	self.notifyBulb.x = self.nameLabel.right + 6;
+	self.coverView.url = wrap.picture.small;
 	self.contributorsLabel.text = wrap.contributorNames;
 	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
+	[self updateNotifyBulbWithWrap:wrap];
+}
+
+- (void)updateNotifyBulbWithWrap:(WLWrap *)wrap {
+	__weak typeof(self)weakSelf = self;
+	[wrap getState:^(BOOL read, BOOL updated) {
+		weakSelf.notifyBulb.hidden = read && !updated;
+	}];
 }
 
 - (void)setCandies:(NSArray *)candies {
@@ -55,7 +78,12 @@
 }
 
 - (IBAction)wrapSelected:(UIButton *)sender {
-	[[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
+	self.notifyBulb.hidden = YES;
+	WLWrap* wrap = self.item;
+	[wrap setRead:YES updated:NO];
+	if ([UIMenuController sharedMenuController].menuVisible) {
+		[[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
+	}
 	[self.delegate wrapCell:self didSelectWrap:self.item];
 }
 
@@ -151,6 +179,20 @@
 
 - (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
 	[self.delegate wrapCell:self didSelectCandy:candy];
+}
+
+#pragma mark - WLWrapChannelBroadcastReceiver
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddCandy:(WLCandy *)candy {
+	
+}
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddComment:(WLCandy *)candy {
+	[self updateNotifyBulbWithWrap:self.item];
+}
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddChatMessage:(WLCandy *)message {
+	
 }
 
 @end

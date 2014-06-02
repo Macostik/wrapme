@@ -8,7 +8,7 @@
 
 #import "WLCandyCell.h"
 #import "WLCandy.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "WLComment.h"
 #import "WLUser.h"
 #import "WLProgressBar.h"
@@ -22,8 +22,12 @@
 #import "UIView+GestureRecognizing.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLToast.h"
+#import "WLEntryState.h"
+#import "WLWrapChannelBroadcaster.h"
+#import "WLImageFetcher.h"
+#import "MFMailComposeViewController+Additions.h"
 
-@interface WLCandyCell () <WLWrapBroadcastReceiver>
+@interface WLCandyCell () <WLWrapBroadcastReceiver, WLWrapChannelBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
@@ -32,6 +36,9 @@
 @property (weak, nonatomic) IBOutlet WLBorderView *borderView;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *retryButton;
+@property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
+
+@property (strong, nonatomic) WLWrapChannelBroadcaster* wrapChannelBroadcaster;
 
 @end
 
@@ -47,28 +54,65 @@
 	}];
 }
 
+- (WLWrapChannelBroadcaster *)wrapChannelBroadcaster {
+	if (!_wrapChannelBroadcaster) {
+		_wrapChannelBroadcaster = [[WLWrapChannelBroadcaster alloc] initWithReceiver:self];
+	}
+	return _wrapChannelBroadcaster;
+}
+
+- (void)setWrap:(WLWrap *)wrap {
+	_wrap = wrap;
+	self.wrapChannelBroadcaster.wrap = wrap;
+}
+
 - (void)setupItemData:(WLCandy*)entry {
+	[self setupItemData:entry animated:NO];
+}
+
+- (void)setupItemData:(WLCandy*)candy animated:(BOOL)animated {
+	self.wrapChannelBroadcaster.candy = candy;
 	self.userInteractionEnabled = YES;
-	self.chatLabelView.hidden = entry.type == WLCandyTypeImage;
-	if (entry.type == WLCandyTypeImage) {
-		WLComment* comment = [entry.comments lastObject];
+	
+	if ([candy isImage]) {
+		WLComment* comment = [candy.comments lastObject];
 		self.commentLabel.text = comment.text;
-		self.coverView.imageUrl = entry.picture.medium;
+		self.coverView.url = candy.picture.medium;
 	} else {
-		self.commentLabel.text = entry.chatMessage;
-		self.coverView.imageUrl = entry.contributor.picture.medium;
+		self.commentLabel.text = candy.chatMessage;
+		self.coverView.url = candy.contributor.picture.medium;
 	}
 	self.commentLabel.hidden = !self.commentLabel.text.nonempty;
 	
-	[self refreshUploadingButtons:entry animated:NO];
+	[self refreshUploadingButtons:candy animated:animated];
+	
+	[self refreshNotifyBulb:candy];
+}
+
+- (void)refreshNotifyBulb:(WLCandy*)candy {
+	self.chatLabelView.hidden = [candy isImage];
+	self.chatLabelView.alpha = 1.0f;
+	if ([candy updated]) {
+		self.notifyBulb.hidden = [candy isChatMessage];
+		if ([candy isChatMessage]) {
+			__weak typeof(self)weakSelf = self;
+			[self.chatLabelView.layer removeAllAnimations];
+			[UIView animateWithDuration:0.4f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState animations:^{
+				weakSelf.chatLabelView.alpha = 0.0f;
+			} completion:^(BOOL finished) {
+			}];
+		}
+	} else {
+		self.notifyBulb.hidden = YES;
+	}
 }
 
 - (void)refreshUploadingButtons:(WLCandy*)candy animated:(BOOL)animated {
-	if (candy.uploadingItem) {
+	if (candy.uploading) {
 		self.vibrateOnLongPressGesture = NO;
 		self.lowOpacityView.hidden = NO;
-		self.cancelButton.hidden = (candy.uploadingItem.operation != nil);
-		self.retryButton.hidden = (candy.uploadingItem.operation != nil);
+		self.cancelButton.hidden = (candy.uploading.operation != nil);
+		self.retryButton.hidden = (candy.uploading.operation != nil);
 	} else {
 		if (animated) {
 			[self.lowOpacityView fade];
@@ -89,7 +133,12 @@
 			[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
 			[menuController setMenuVisible:YES animated:YES];
 		} else {
-			[WLToast showWithMessage:@"Cannot delete photo not posted by you."];
+			UIMenuItem* menuItem = [[UIMenuItem alloc] initWithTitle:@"Report" action:@selector(report)];
+			UIMenuController* menuController = [UIMenuController sharedMenuController];
+			[self becomeFirstResponder];
+			menuController.menuItems = @[menuItem];
+			[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
+			[menuController setMenuVisible:YES animated:YES];
 		}
 	} else {
 		[WLToast showWithMessage:@"Cannot delete chat message already posted."];
@@ -108,8 +157,12 @@
 	}];
 }
 
+- (void)report {
+	[MFMailComposeViewController messageWithCandy:self.item andWrap:self.wrap];
+}
+
 - (BOOL)canPerformAction:(SEL)selector withSender:(id) sender {
-    return (selector == @selector(remove));
+    return (selector == @selector(remove) || selector == @selector(report));
 }
 
 - (BOOL)canBecomeFirstResponder {
@@ -118,7 +171,9 @@
 
 - (IBAction)select:(id)sender {
 	WLCandy* candy = self.item;
-	if (candy.uploadingItem == nil) {
+	if (candy.uploading == nil) {
+		self.notifyBulb.hidden = YES;
+		[candy setUpdated:NO];
 		[self.delegate candyCell:self didSelectCandy:candy];
 	}
 }
@@ -127,8 +182,18 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
 	if ([candy isEqualToEntry:self.item]) {
-		[self refreshUploadingButtons:self.item animated:YES];
+		[self setupItemData:self.item animated:YES];
 	}
+}
+
+#pragma mark - WLWrapChannelBroadcastReceiver
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddChatMessage:(WLCandy *)message {
+	self.notifyBulb.hidden = ![self.item updated];
+}
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddComment:(WLCandy *)candy {
+	self.item = [self.item updateWithObject:candy];
 }
 
 #pragma mark - Actions
@@ -136,13 +201,13 @@
 - (IBAction)cancelUploading:(id)sender {
 	WLCandy* candy = self.item;
 	[self.wrap removeCandy:candy];
-	[[WLUploadingQueue instance] removeItem:candy.uploadingItem];
+	[[WLUploadingQueue instance] removeUploading:candy.uploading];
 	[self refreshUploadingButtons:self.item animated:YES];
 }
 
 - (IBAction)retryUploading:(id)sender {
 	WLCandy* candy = self.item;
-	[candy.uploadingItem upload:^(id object) {
+	[candy.uploading upload:^(id object) {
 	} failure:^(NSError *error) {
 	}];
 }

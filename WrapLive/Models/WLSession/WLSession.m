@@ -12,13 +12,16 @@
 #import "WLUser.h"
 #import "NSString+Additions.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "WLAuthorization.h"
+#import "WLNotificationBroadcaster.h"
 
 static NSString* WLSessionServiceName = @"WrapLive";
 static NSString* WLSessionAccountName = @"WrapLiveAccount";
 static NSString* WLSessionUserKey = @"WrapLiveUser";
+static NSString* WLSessionAuthorizationKey = @"WrapLiveAuthorization";
 static NSString* WLSessionPhoneNumberKey = @"WrapLivePhoneNumber";
 static NSString* WLSessionCountryCallingCodeKey = @"WrapLiveCountryCallingCode";
-static NSString* WLSessionBirthdateKey = @"WrapLiveBirthdate";
+static NSString* WLSessionEmailKey = @"WLSessionEmailKey";
 static NSString* WLSessionDeviceTokenKey = @"WrapLiveDeviceToken";
 
 @implementation WLSession
@@ -35,6 +38,7 @@ static WLUser* _user = nil;
 + (void)setUser:(WLUser *)user {
 	_user = user;
 	if (user) {
+		[[WLNotificationBroadcaster broadcaster] configure];
 		[user archive:^(NSData *data) {
 			[[NSUserDefaults standardUserDefaults] setObject:data forKey:WLSessionUserKey];
 			[[NSUserDefaults standardUserDefaults] synchronize];
@@ -45,46 +49,52 @@ static WLUser* _user = nil;
 	}
 }
 
+static WLAuthorization* _authorization = nil;
+
++ (WLAuthorization *)authorization {
+	if (!_authorization) {
+		_authorization = [WLAuthorization unarchive:[[NSUserDefaults standardUserDefaults] objectForKey:WLSessionAuthorizationKey]];
+	}
+	return _authorization;
+}
+
++ (void)setAuthorization:(WLAuthorization *)authorization {
+	_authorization = authorization;
+	if (authorization) {
+		[authorization archive:^(NSData *data) {
+			[[NSUserDefaults standardUserDefaults] setObject:data forKey:WLSessionAuthorizationKey];
+			[[NSUserDefaults standardUserDefaults] synchronize];
+		}];
+	} else {
+		[[NSUserDefaults standardUserDefaults] setObject:nil forKey:WLSessionAuthorizationKey];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
+}
+
 + (NSString *)UDID {
 	return [OpenUDID value];
 }
 
-+ (NSString *)birthdate {
-	NSString* birthdate = [[NSUserDefaults standardUserDefaults] stringForKey:WLSessionBirthdateKey];
-	return birthdate;
-}
-
-+ (void)setBirthdate:(NSString *)birthdate {
-	[[NSUserDefaults standardUserDefaults] setObject:birthdate forKey:WLSessionBirthdateKey];
-	[[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-+ (NSString *)password {
-	NSString* password = [SSKeychain passwordForService:WLSessionServiceName account:WLSessionAccountName];
-	return password;
-}
-
-+ (void)setPassword:(NSString *)password {
-	[SSKeychain setPassword:password forService:WLSessionServiceName account:WLSessionAccountName];
-}
-
-+ (BOOL)activated {
-	return [self password].nonempty && [self birthdate].nonempty && [self user] != nil;
-}
-
 + (void)clear {
-	[self setBirthdate:nil];
-	[self setPassword:nil];
 	[self setUser:nil];
+	[self setAuthorization:nil];
 }
+
+static NSData* _deviceToken = nil;
 
 + (NSData *)deviceToken {
-	return [[NSUserDefaults standardUserDefaults] dataForKey:WLSessionDeviceTokenKey];
+	if (!_deviceToken) {
+		_deviceToken = [[NSUserDefaults standardUserDefaults] dataForKey:WLSessionDeviceTokenKey];
+	}
+	return _deviceToken;
 }
 
 + (void)setDeviceToken:(NSData *)deviceToken {
-	[[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:WLSessionDeviceTokenKey];
-	[[NSUserDefaults standardUserDefaults] synchronize];
+	_deviceToken = deviceToken;
+	if (deviceToken) {
+		[[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:WLSessionDeviceTokenKey];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
 }
 
 @end

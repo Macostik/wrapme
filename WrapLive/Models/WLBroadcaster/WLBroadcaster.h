@@ -18,11 +18,15 @@
 
 + (instancetype)broadcaster;
 
+- (instancetype)initWithReceiver:(id <WLBroadcastReceiver>)receiver;
+
 - (void)setup;
 
 - (void)configure;
 
 - (void)addReceiver:(id <WLBroadcastReceiver>)receiver;
+
+- (void)removeReceiver:(id <WLBroadcastReceiver>)receiver;
 
 - (BOOL)containsReceiver:(id <WLBroadcastReceiver>)receiver;
 

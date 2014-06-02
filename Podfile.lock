@@ -1,27 +1,31 @@
 PODS:
-  - AFNetworking (2.2.3):
+  - AFNetworking (2.2.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
     - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.2.3):
+  - AFNetworking/NSURLConnection (2.2.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.2.3):
+  - AFNetworking/NSURLSession (2.2.4):
     - AFNetworking/NSURLConnection
-  - AFNetworking/Reachability (2.2.3)
-  - AFNetworking/Security (2.2.3)
-  - AFNetworking/Serialization (2.2.3)
-  - AFNetworking/UIKit (2.2.3):
+  - AFNetworking/Reachability (2.2.4)
+  - AFNetworking/Security (2.2.4)
+  - AFNetworking/Serialization (2.2.4)
+  - AFNetworking/UIKit (2.2.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - CocoaLumberjack (1.8.1):
+  - CocoaLumberjack (1.9.0):
+    - CocoaLumberjack/CLI
+    - CocoaLumberjack/Core
     - CocoaLumberjack/Extensions
-  - CocoaLumberjack/Core (1.8.1)
-  - CocoaLumberjack/Extensions (1.8.1):
+  - CocoaLumberjack/CLI (1.9.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Core (1.9.0)
+  - CocoaLumberjack/Extensions (1.9.0):
     - CocoaLumberjack/Core
   - JSONModel (0.13.0)
   - OpenUDID (1.0.0)
@@ -39,12 +43,12 @@ DEPENDENCIES:
   - SSKeychain
 
 SPEC CHECKSUMS:
-  AFNetworking: ae513199cca79e9d7af2708ccabe2ed075550c42
-  CocoaLumberjack: 020378ec400d658923bf5887178394f65f052c90
-  JSONModel: 1ce27c7d59de0ada0048e64f20006ce02e9ce73d
-  OpenUDID: 04a7c560c47869bc5194820e3b529d4504cc0296
-  PubNub: 617df10280cca88551f12f5e9a0f4a48fd27272e
-  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
-  SSKeychain: 3d0b76c87e7b062a7ad1631a825fddec84367d44
+  AFNetworking: ab63e259fe91eef4519b371ef0a4955af0e73e64
+  CocoaLumberjack: 5766cdd1d0a24bcf15a133c6023747346bf786dd
+  JSONModel: 62ea96b49ea18a8b91ef89c249dba291d8601d82
+  OpenUDID: 5a23b7477755efc2d7871b57aa79ba3089c40b74
+  PubNub: 7dfc5d20f1419aa60ef66b267b34e80ffbc4d517
+  Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
+  SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
 
 COCOAPODS: 0.32.1

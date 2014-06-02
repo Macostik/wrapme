@@ -7,7 +7,6 @@
 //
 
 #import "WLPhoneNumberViewController.h"
-#import "WLUser.h"
 #import "NSDate+Formatting.h"
 #import "WLActivationViewController.h"
 #import "WLCountriesViewController.h"
@@ -21,20 +20,26 @@
 #import "NSString+Additions.h"
 #import "UIAlertView+Blocks.h"
 #import "WLSession.h"
+#import "WLAuthorization.h"
+#import "WLTestUserPicker.h"
+#import "WLNavigation.h"
+#import "NSString+Additions.h"
+#import "WLToast.h"
+#import "WLHomeViewController.h"
 
 @interface WLPhoneNumberViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
-@property (weak, nonatomic) UIDatePicker *birthdatePicker;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
-@property (weak, nonatomic) IBOutlet UITextField *birthdateTextField;
+@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+
 @property (weak, nonatomic) IBOutlet UIButton *selectCountryButton;
 @property (weak, nonatomic) IBOutlet UILabel *countryCodeLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 
 @property (strong, nonatomic) WLCountry *country;
-@property (strong, nonatomic) NSDate *birthdate;
+@property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *phoneNumber;
 
 @property (nonatomic, readonly) UIViewController* signUpViewController;
@@ -48,13 +53,22 @@
     [super viewDidLoad];
 	self.country = [WLCountry getCurrentCountry];
 	self.phoneNumberTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(phoneNumberInputCancel:) done:@selector(phoneNumberInputDone:)];
-	self.phoneNumberTextField.text = [WLSession user].phoneNumber;
+	self.phoneNumberTextField.text = [WLAuthorization currentAuthorization].phone;
+	self.phoneNumber = self.phoneNumberTextField.text;
+	self.emailTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(emailInputCancel:) done:@selector(emailInputDone:)];
+	self.emailTextField.text = [WLAuthorization currentAuthorization].email;
+	self.email = self.emailTextField.text;
 	
-	if ([WLSession birthdate].nonempty) {
-		self.birthdate = [[WLSession birthdate] GMTDate];
-		self.birthdatePicker.date = self.birthdate;
-	} else {
-		self.birthdate = self.birthdatePicker.date;
+	if ([WLAPIManager developmentEvironment]) {
+		__weak typeof(self)weakSelf = self;
+		run_after(0.1, ^{
+			UIButton* testUserButton = [UIButton buttonWithType:UIButtonTypeCustom];
+			testUserButton.frame = CGRectMake(0, weakSelf.view.height - 88, 320, 44);
+			[testUserButton setTitle:@"Test user (for debug only)" forState:UIControlStateNormal];
+			[testUserButton setTitleColor:[UIColor WL_orangeColor] forState:UIControlStateNormal];
+			[testUserButton addTarget:weakSelf action:@selector(selectTestUser) forControlEvents:UIControlEventTouchUpInside];
+			[weakSelf.view addSubview:testUserButton];
+		});
 	}
 }
 
@@ -65,27 +79,6 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	self.view.userInteractionEnabled = YES;
-}
-
-- (UIDatePicker *)birthdatePicker {
-	if (!_birthdatePicker) {
-		UIDatePicker *birthdatePicker = [UIDatePicker new];
-		birthdatePicker.datePickerMode = UIDatePickerModeDate;
-		birthdatePicker.maximumDate = [NSDate date];
-		birthdatePicker.backgroundColor = [UIColor whiteColor];
-		birthdatePicker.date = [NSDate defaultBirtday];
-		birthdatePicker.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-		self.birthdateTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(birthdatePickerCancel:) done:@selector(birthdatePickerDone:)];
-		self.birthdateTextField.inputView = birthdatePicker;
-		_birthdatePicker = birthdatePicker;
-	}
-	return _birthdatePicker;
-}
-
-- (void)setBirthdate:(NSDate *)birthdate {
-	_birthdate = birthdate;
-	self.birthdateTextField.text = [birthdate GMTStringWithFormat:@"MMM' 'dd', 'YYYY'"];
-	[self validateSignUpButton];
 }
 
 - (void)setCountry:(WLCountry *)country {
@@ -100,16 +93,21 @@
 	[self validateSignUpButton];
 }
 
-- (void)validateSignUpButton {
-	self.signUpButton.active = self.phoneNumber.nonempty && [self.birthdate compare:[NSDate defaultBirtday]] != NSOrderedSame;
+- (void)setEmail:(NSString *)email {
+	_email = email;
+	[self validateSignUpButton];
 }
 
-- (WLUser *)prepareForRequest {
-	WLUser *user = [WLUser new];
-	user.phoneNumber = self.phoneNumber;
-	user.countryCallingCode = self.country.callingCode;
-	user.birthdate = self.birthdate;
-	return user;
+- (void)validateSignUpButton {
+	self.signUpButton.active = self.phoneNumber.nonempty && self.email.nonempty;
+}
+
+- (WLAuthorization *)authorization {
+	WLAuthorization *authorization = [WLAuthorization new];
+	authorization.phone = self.phoneNumber;
+	authorization.countryCode = self.country.callingCode;
+	authorization.email = self.email;
+	return authorization;
 }
 
 #pragma mark - Actions
@@ -125,29 +123,52 @@
 }
 
 - (IBAction)signUp:(id)sender {
-	__weak typeof(self)weakSelf = self;
-	
-	WLUser* user = [self prepareForRequest];
-	
-	NSString* phoneNumber = [NSString stringWithFormat:@"+%@ %@", user.countryCallingCode, user.phoneNumber];
-	
-	NSString* confirmationMessage = [NSString stringWithFormat:@"%@\n%@\nIs this correct?",phoneNumber,[user.birthdate GMTStringWithFormat:@"MMM dd, yyyy"]];
-	
+	if ([self.email isValidEmail]) {
+		__weak typeof(self)weakSelf = self;
+		[self confirmAuthorization:[self authorization] success:^(WLAuthorization *authorization) {
+			[weakSelf signUpAuthorization:authorization];
+		}];
+	} else {
+		[WLToast showWithMessage:@"Your email isn't correct."];
+	}
+}
+
+- (void)confirmAuthorization:(WLAuthorization*)authorization success:(void (^)(WLAuthorization *authorization))success {
+	NSString* confirmationMessage = [NSString stringWithFormat:@"%@\n%@\nIs this correct?",[authorization fullPhoneNumber], [authorization email]];
 	[UIAlertView showWithTitle:@"Confirm your details" message:confirmationMessage buttons:@[@"Edit",@"Yes"] completion:^(NSUInteger index) {
 		if (index == 1) {
-			[weakSelf.spinner startAnimating];
-			weakSelf.view.userInteractionEnabled = NO;
-			[[WLAPIManager instance] signUp:user
-									success:^(id object) {
-										WLActivationViewController *controller = [[WLActivationViewController alloc] initWithUser:object];
-										[weakSelf.navigationController pushViewController:controller animated:YES];
-										[weakSelf.spinner stopAnimating];
-									} failure:^(NSError *error) {
-										weakSelf.view.userInteractionEnabled = YES;
-										[weakSelf.spinner stopAnimating];
-										[error show];
-									}];
+			success(authorization);
 		}
+	}];
+}
+
+- (void)signUpAuthorization:(WLAuthorization*)authorization {
+	__weak typeof(self)weakSelf = self;
+	[weakSelf.spinner startAnimating];
+	weakSelf.view.userInteractionEnabled = NO;
+	[authorization signUp:^(WLAuthorization *authorization) {
+		WLActivationViewController *controller = [[WLActivationViewController alloc] initWithAuthorization:authorization];
+		[weakSelf.navigationController pushViewController:controller animated:YES];
+		[weakSelf.spinner stopAnimating];
+	} failure:^(NSError *error) {
+		weakSelf.view.userInteractionEnabled = YES;
+		[weakSelf.spinner stopAnimating];
+		[error show];
+	}];
+}
+
+- (void)signInAuthorization:(WLAuthorization*)authorization {
+	__weak typeof(self)weakSelf = self;
+	[weakSelf.spinner startAnimating];
+	weakSelf.view.userInteractionEnabled = NO;
+	[authorization signIn:^(WLUser *user) {
+		[WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
+		weakSelf.view.userInteractionEnabled = YES;
+		[weakSelf.spinner stopAnimating];
+	} failure:^(NSError *error) {
+		weakSelf.view.userInteractionEnabled = YES;
+		[weakSelf.spinner stopAnimating];
+		[error show];
 	}];
 }
 
@@ -157,20 +178,37 @@
 
 - (void)phoneNumberInputDone:(id)sender {
 	[self.phoneNumberTextField resignFirstResponder];
-	[self.birthdateTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.2f];
+	[self.emailTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.2f];
 }
 
-- (void)birthdatePickerCancel:(id)sender {
-	[self.birthdateTextField resignFirstResponder];
+- (void)emailInputCancel:(id)sender {
+	[self.emailTextField resignFirstResponder];
 }
 
-- (void)birthdatePickerDone:(id)sender {
-	self.birthdate = self.birthdatePicker.date;
-	[self.birthdateTextField resignFirstResponder];
+- (void)emailInputDone:(id)sender {
+	[self.emailTextField resignFirstResponder];
 }
 
 - (IBAction)phoneNumberChanged:(UITextField *)sender {
 	self.phoneNumber = sender.text;
+}
+
+- (IBAction)emailChanged:(UITextField *)sender {
+	self.email = sender.text;
+}
+
+
+- (void)selectTestUser {
+	__weak typeof(self)weakSelf = self;
+	[WLTestUserPicker showInView:self.view selection:^(WLAuthorization *authorization) {
+		[weakSelf confirmAuthorization:authorization success:^(WLAuthorization *authorization) {
+			if (authorization.password.nonempty) {
+				[weakSelf signInAuthorization:authorization];
+			} else {
+				[weakSelf signUpAuthorization:authorization];
+			}
+		}];
+	}];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -185,7 +223,7 @@
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-	if (self.phoneNumberTextField.isFirstResponder || self.birthdateTextField.isFirstResponder) {
+	if (self.phoneNumberTextField.isFirstResponder || self.emailTextField.isFirstResponder) {
 		[self.view endEditing:YES];
 		return NO;
 	}
@@ -193,7 +231,11 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-	self.phoneNumber = self.phoneNumberTextField.text;
+	if (textField == self.phoneNumberTextField) {
+		self.phoneNumber = self.phoneNumberTextField.text;
+	} else {
+		self.email = self.emailTextField.text;
+	}
 	__weak typeof(self)weakSelf = self;
 	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		weakSelf.mainView.transform = CGAffineTransformIdentity;

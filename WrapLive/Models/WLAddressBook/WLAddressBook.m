@@ -26,7 +26,7 @@
 
 + (void)contact:(ABRecordRef)record completion:(WLContactBlock)completion {
 	NSArray* users = WLAddressBookGetUsers(record);
-	if ([users count] > 0) {
+	if (users.nonempty) {
 		WLContact* contact = [WLContact new];
 		contact.name = WLAddressBookGetName(record);
 		[users makeObjectsPerformSelector:@selector(setName:) withObject:contact.name];
@@ -153,7 +153,7 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 						if (done == count) {
 							CFRelease(records);
 							run_in_main_queue(^{
-								if ([contacts count] > 0) {
+								if (contacts.nonempty) {
 									success([contacts copy]);
 								} else {
 									failure([NSError errorWithDescription:@"You don't have contacts with phone numbers on this device."]);

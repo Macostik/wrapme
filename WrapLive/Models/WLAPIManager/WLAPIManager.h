@@ -10,12 +10,14 @@
 #import "NSError+WLAPIManager.h"
 #import "WLWrap.h"
 #import "WLCandy.h"
+#import "WLAuthorization.h"
 #import "WLBlocks.h"
 
 @class WLUser;
 @class WLComment;
 @class WLAPIResponse;
 @class WLWrapDate;
+@class WLAuthorization;
 
 static NSInteger WLAPIGeneralPageSize = 10;
 static NSInteger WLAPIChatPageSize = 50;
@@ -24,23 +26,25 @@ static NSInteger WLAPIChatPageSize = 50;
 
 + (instancetype)instance;
 
++ (BOOL)developmentEvironment;
+
 /*!
  *  Register an user account in WrapLive. Account cannot be used until activation is completed.
  *
- *  @param user    WLUser instance with profile information
+ *  @param user    WLAuthorization instance with profile information
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)signUp:(WLUser*)user success:(WLUserBlock)success failure:(WLFailureBlock)failure;
+- (id)signUp:(WLAuthorization*)authorization success:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Activate a registered account with the activation code received from SMS.
  *
- *  @param user    WLUser instance with profile information
+ *  @param user    WLAuthorization instance with profile information
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)activate:(WLUser*)user code:(NSString*)code success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+- (id)activate:(WLAuthorization*)authorization success:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Login to WrapLive.
@@ -49,7 +53,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)signIn:(WLUser*)user success:(WLUserBlock)success failure:(WLFailureBlock)failure;
+- (id)signIn:(WLAuthorization*)authorization success:(WLUserBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Get current authenticated user information. Data is available only after a successful login.
@@ -211,6 +215,15 @@ static NSInteger WLAPIChatPageSize = 50;
  */
 - (id)removeComment:(WLComment*)comment candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
+/*!
+ *  Remove comment
+ *
+ *  @param identifiers   array of identifiers that should be checked
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (id)uploadStatus:(NSArray*)identifiers success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
 @end
 
 @interface WLWrap (WLAPIManager)
@@ -246,5 +259,15 @@ static NSInteger WLAPIChatPageSize = 50;
 - (id)remove:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (id)fetch:(WLWrap *)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
+
+@end
+
+@interface WLAuthorization (WLAPIManager)
+
+- (id)signUp:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure;
+
+- (id)activate:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure;
+
+- (id)signIn:(WLUserBlock)success failure:(WLFailureBlock)failure;
 
 @end

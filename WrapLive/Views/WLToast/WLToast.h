@@ -12,7 +12,21 @@
 
 @protocol WLToastAppearance <NSObject>
 
+@optional
+
 - (CGFloat)toastAppearanceHeight:(WLToast*)toast;
+
+- (BOOL)toastAppearanceShouldShowIcon:(WLToast*)toast;
+
+@end
+
+@interface WLToastAppearance : NSObject <WLToastAppearance>
+
++ (instancetype)appearance;
+
+@property (nonatomic) CGFloat height;
+
+@property (nonatomic) BOOL shouldShowIcon;
 
 @end
 

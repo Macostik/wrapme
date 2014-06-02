@@ -11,13 +11,13 @@
 #import "WLWrap.h"
 #import "WLContributorsViewController.h"
 #import "NSArray+Additions.h"
-#import "UIStoryboard+Additions.h"
+#import "WLNavigation.h"
 #import "WLAPIManager.h"
 #import "WLWrapViewController.h"
 #import "WLCameraViewController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "WLImageCache.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "UIImage+Resize.h"
 #import "UIView+Shorthand.h"
 #import "WLUser.h"
@@ -26,8 +26,9 @@
 #import "NSString+Additions.h"
 #import "WLBorderView.h"
 #import "UIColor+CustomColors.h"
+#import "WLStillPictureViewController.h"
 
-@interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLCameraViewControllerDelegate>
+@interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLStillPictureViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet WLBorderView *nameBorderView;
@@ -84,7 +85,7 @@
 		WLContributorsViewController* controller = segue.destinationViewController;
 		controller.wrap = self.editingWrap;
 	} else if ([segue isCameraSegue]) {
-		WLCameraViewController* controller = segue.destinationViewController;
+		WLStillPictureViewController* controller = segue.destinationViewController;
 		controller.delegate = self;
 		controller.mode = WLCameraModeCover;
 	}
@@ -101,12 +102,12 @@
 }
 
 - (void)refreshFooterView {
-	self.contributorsTableView.tableFooterView = [self.editingWrap.contributors count] == 0 ? self.noContributorsView : nil;
+	self.contributorsTableView.tableFooterView = self.editingWrap.contributors.nonempty ? nil : self.noContributorsView;
 }
 
 - (void)configureWrapEditing {
 	self.nameField.text = self.editingWrap.name;
-	self.coverView.imageUrl = self.editingWrap.picture.medium;
+	self.coverView.url = self.editingWrap.picture.medium;
 	self.startButton.hidden = YES;
 	self.doneButton.hidden = NO;
 	self.titleLabel.text = @"Edit wrap";
@@ -183,10 +184,10 @@
 	[self lock];
 	[self.editingWrap create:^(WLWrap *wrap) {
 		[weakSelf.spinner stopAnimating];
-		WLWrapViewController* wrapController = [weakSelf.storyboard wrapViewController];
+		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 		wrapController.wrap = wrap;
 		[weakSelf unlock];
-		[weakSelf.parentViewController.navigationController pushViewController:wrapController animated:YES];
+		[UINavigationController pushViewController:wrapController animated:YES];
 		[weakSelf dismiss:WLWrapTransitionFromLeft];
 	} failure:^(NSError *error) {
 		[error show];
@@ -220,6 +221,9 @@
 #pragma mark - UITextFieldDelegate
 
 - (IBAction)textFieldDidChange:(UITextField *)sender {
+	if (sender.text.length > WLWrapNameLimit) {
+		sender.text = [sender.text substringToIndex:WLWrapNameLimit];
+	}
 	self.editingWrap.name = sender.text;
 	[self verifyStartAndDoneButton];
 }
@@ -236,9 +240,9 @@
 	[self refreshContributorsTableView];
 }
 
-#pragma mark - WLCameraViewControllerDelegate
+#pragma mark - WLStillPictureViewControllerDelegate
 
-- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
 	self.coverView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
 													   bounds:self.coverView.retinaSize
 										 interpolationQuality:kCGInterpolationDefault];
@@ -250,7 +254,7 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
+- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -8,6 +8,8 @@
 
 #import "WLWrapEntry.h"
 
+
+static NSInteger WLWrapNameLimit = 190;
 @class WLCandy;
 @class WLUser;
 @class WLWrapDate;
@@ -26,6 +28,8 @@
 - (void)addCandy:(WLCandy*)candy;
 
 - (void)addCandies:(NSArray*)candies;
+
+- (void)addCandies:(NSArray *)candies replaceMessage:(BOOL)replaceMessage;
 
 - (void)removeCandy:(WLCandy*)candy;
 

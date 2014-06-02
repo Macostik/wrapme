@@ -29,8 +29,10 @@
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
 #import "WLBlocks.h"
+#import "WLWrapChannelBroadcaster.h"
+#import "WLEntryState.h"
 
-@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver>
+@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLWrapChannelBroadcastReceiver>
 
 @property (nonatomic, strong) NSMutableArray* dates;
 
@@ -50,6 +52,8 @@
 
 @property (nonatomic) CGFloat keyboardHeight;
 
+@property (strong, nonatomic) WLWrapChannelBroadcaster* wrapChannelBroadcaster;
+
 @end
 
 @implementation WLChatViewController
@@ -62,10 +66,30 @@
 	return (WLCollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
 }
 
+- (WLWrapChannelBroadcaster *)wrapChannelBroadcaster {
+	if (!_wrapChannelBroadcaster) {
+		_wrapChannelBroadcaster = [[WLWrapChannelBroadcaster alloc] initWithReceiver:self];
+	}
+	return _wrapChannelBroadcaster;
+}
+
+- (void)setWrap:(WLWrap *)wrap {
+	_wrap = wrap;
+	self.wrapChannelBroadcaster.wrap = wrap;
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", self.wrap.name];
+	if (self.wrap.name.nonempty) {
+		self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(self.wrap.name)];
+	} else {
+		__weak typeof(self)weakSelf = self;
+		[self.wrap fetch:^(WLWrap *wrap) {
+			weakSelf.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(wrap.name)];
+		} failure:^(NSError *error) {
+		}];
+	}
 	__weak typeof(self)weakSelf = self;
 	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
 		[weakSelf refreshMessages];
@@ -118,7 +142,7 @@
 - (void)addMessages:(NSArray*)messages {
 	messagesCount += [messages count];
 		NSMutableArray* _messages = [NSMutableArray arrayWithArray:messages];
-	while ([_messages count] > 0) {
+	while (_messages.nonempty) {
 		WLCandy* candy = [_messages firstObject];
 		NSArray* dayMessages = [_messages entriesForDay:candy.updatedAt];
 		[self addMessages:dayMessages date:candy.updatedAt];
@@ -132,16 +156,12 @@
 
 - (void)addMessages:(NSArray*)messages date:(NSDate*)date {
 	WLWrapDate* dateObject = [self dateObjectWithDate:date];
-	NSMutableArray* candies = [NSMutableArray arrayWithArray:dateObject.candies];
-	[candies addObjectsFromArray:messages];
-	dateObject.candies = [candies copy];
+	dateObject.candies = (id)[dateObject.candies entriesByAddingEntries:messages];
 }
 
 - (void)insertMessage:(WLCandy*)message {
 	WLWrapDate* dateObject = [self dateObjectWithDate:message.updatedAt];
-	NSMutableArray* candies = [NSMutableArray arrayWithArray:dateObject.candies];
-	[candies insertObject:message atIndex:0];
-	dateObject.candies = [candies copy];
+	dateObject.candies = (id)[dateObject.candies entriesByInsertingFirstEntry:message];
 }
 
 - (WLWrapDate*)dateObjectWithDate:(NSDate*)date {
@@ -186,6 +206,14 @@
 		[error showIgnoringNetworkError];
 		loading = NO;
 	}];
+}
+
+#pragma mark - WLWrapChannelBroadcastReceiver
+
+- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddChatMessage:(WLCandy *)message {
+	[message setUpdated:NO];
+	[self insertMessage:message];
+	[self.collectionView reloadData];
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver
@@ -257,6 +285,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
 	WLCandy* message = [date.candies objectAtIndex:indexPath.row];
+	[message setUpdated:NO];
 	BOOL isMyComment = [message.contributor isCurrentUser];
 	NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
 	WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];

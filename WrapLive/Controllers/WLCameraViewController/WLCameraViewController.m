@@ -21,8 +21,9 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceOrientationBroadcaster.h"
 #import "WLBlocks.h"
+#import "ALAssetsLibrary+Additions.h"
 
-@interface WLCameraViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, WLDeviceOrientationBroadcastReceiver>
+@interface WLCameraViewController () <WLDeviceOrientationBroadcastReceiver>
 
 #pragma mark - AVCaptureSession interface
 
@@ -40,16 +41,11 @@
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet WLFlashModeControl *flashModeControl;
-@property (weak, nonatomic) IBOutlet UIImageView *acceptImageView;
-@property (weak, nonatomic) IBOutlet UIView *acceptView;
-@property (weak, nonatomic) IBOutlet UIView *acceptButtonsView;
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
 
 @property (nonatomic, strong) NSMutableDictionary* metadata;
-
-@property (nonatomic) BOOL photoFromLibrary;
 
 @end
 
@@ -93,12 +89,28 @@
 	[[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	self.takePhotoButton.active = YES;
+}
+
 - (void)configurePreviewLayer {
 	AVCaptureVideoPreviewLayer* previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
 	previewLayer.frame = self.cameraView.bounds;
 	previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 	[self.cameraView.layer insertSublayer:previewLayer atIndex:0];
 	_previewLayer = previewLayer;
+}
+
+- (WLCameraMode)mode {
+	if (_mode == 0) {
+		_mode = WLCameraModeCandy;
+	}
+	return _mode;
+}
+
+- (CGSize)viewSize {
+	return self.cameraView.bounds.size;
 }
 
 #pragma mark - User Actions
@@ -116,81 +128,18 @@
 	self.view.userInteractionEnabled = NO;
 	sender.active = NO;
 	[self captureImage:^(UIImage *image) {
-		[weakSelf cropImage:image completion:^(UIImage *croppedImage) {
-			weakSelf.photoFromLibrary = NO;
-			[weakSelf setAcceptImage:croppedImage animated:YES];
-			weakSelf.view.userInteractionEnabled = YES;
-			sender.active = YES;
-		}];
+		[weakSelf finishWithImage:image];
+		weakSelf.view.userInteractionEnabled = YES;
 	}];
 }
 
 - (IBAction)gallery:(id)sender {
-	UIImagePickerController* galleryController = [[UIImagePickerController alloc] init];
-	galleryController.allowsEditing = NO;
-	galleryController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-	galleryController.mediaTypes = @[(id)kUTTypeImage];
-	galleryController.delegate = self;
-	[self presentViewController:galleryController animated:YES completion:nil];
+	[self.delegate cameraViewControllerDidSelectGallery:self];
 }
 
-- (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
-	__weak typeof(self)weakSelf = self;
-	CGSize viewSize = self.cameraView.bounds.size;
-	run_getting_object(^id{
-		UIImage *result = nil;
-		CGFloat width = 720.0f;
-		if (weakSelf.mode == WLCameraModeAvatar) {
-			width = 320.0f;
-		} else if (weakSelf.mode == WLCameraModeCover) {
-			width = 640.0f;
-		}
-		result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
-											 bounds:CGSizeMake(width, width)
-							   interpolationQuality:kCGInterpolationDefault];
-		if (weakSelf.mode != WLCameraModeCandy) {
-			result = [result croppedImage:CGRectThatFitsSize(result.size, viewSize)];
-		}
-		return result;
-	}, completion);
-}
-
-- (IBAction)retake:(id)sender {
-	[self setAcceptImage:nil animated:YES];
-}
-
-- (IBAction)use:(id)sender {
-	UIImage* image = self.acceptImageView.image;
-	if (!self.photoFromLibrary) {
-		[self saveImage:image];
-	}
+- (void)finishWithImage:(UIImage*)image {
+	[self saveImage:image];
 	[self.delegate cameraViewController:self didFinishWithImage:image];
-}
-
-- (void)setAcceptImage:(UIImage *)acceptImage animated:(BOOL)animated {
-	
-	if (acceptImage) {
-		self.acceptView.hidden = NO;
-		self.acceptButtonsView.transform = CGAffineTransformMakeTranslation(0, self.acceptButtonsView.frame.size.height);
-		self.acceptView.backgroundColor = [UIColor clearColor];
-	}
-	
-	[UIView animateWithDuration:animated ? 0.25f : 0.0f animations:^{
-		if (acceptImage) {
-			self.acceptButtonsView.transform = CGAffineTransformIdentity;
-			self.acceptView.backgroundColor = [UIColor whiteColor];
-		} else {
-			self.acceptImageView.image = nil;
-			self.acceptButtonsView.transform = CGAffineTransformMakeTranslation(0, self.acceptButtonsView.frame.size.height);
-			self.acceptView.backgroundColor = [UIColor clearColor];
-		}
-	} completion:^(BOOL finished) {
-		if (!acceptImage) {
-			self.acceptView.hidden = YES;
-		} else {
-			self.acceptImageView.image = acceptImage;
-		}
-	}];
 }
 
 - (void)saveImage:(UIImage*)image {
@@ -252,24 +201,6 @@
 	} completion:^(BOOL finished) {
 		[focusView removeFromSuperview];
 	}];
-}
-
-#pragma mark - UIImagePickerControllerDelegate
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-	UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
-	__weak typeof(self)weakSelf = self;
-	self.view.userInteractionEnabled = NO;
-	[weakSelf cropImage:image completion:^(UIImage *croppedImage) {
-		weakSelf.photoFromLibrary = YES;
-		[weakSelf setAcceptImage:croppedImage animated:YES];
-		weakSelf.view.userInteractionEnabled = YES;
-	}];
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - AVCaptureSession

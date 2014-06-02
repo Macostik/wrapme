@@ -9,11 +9,26 @@
 #import "WLWrapDate.h"
 #import "WLCandy.h"
 #import "NSArray+Additions.h"
+#import "NSDate+Additions.h"
 
 @implementation WLWrapDate
 
 + (NSMutableDictionary *)mapping {
 	return [self mergeMapping:[super mapping] withMapping:@{@"date_in_epoch":@"updatedAt"}];
+}
+
++ (NSArray *)datesWithCandies:(NSArray *)candies {
+	NSMutableArray* dates = [NSMutableArray array];
+	NSMutableArray* _candies = [candies mutableCopy];
+	while (_candies.nonempty) {
+		WLCandy* candy = [_candies firstObject];
+		WLWrapDate* date = [[WLWrapDate alloc] init];
+		date.updatedAt = candy.updatedAt;
+		date.candies = (id)[_candies entriesForDay:candy.updatedAt];
+		[dates addObject:date];
+		[_candies removeObjectsInArray:date.candies];
+	}
+	return [dates copy];
 }
 
 - (NSArray<WLCandy> *)candies {
@@ -24,13 +39,20 @@
 }
 
 - (void)addCandy:(WLCandy *)candy {
+	[self addCandy:candy replaceMessage:YES];
+}
+
+- (void)addCandy:(WLCandy *)candy replaceMessage:(BOOL)replaceMessage {
 	NSMutableArray* candies = [NSMutableArray arrayWithArray:self.candies];
-	if (candy.type == WLCandyTypeChatMessage) {
-		[candies removeObject:[candies selectObject:^BOOL(WLCandy* candy) {
+	if (candy.type == WLCandyTypeChatMessage && replaceMessage) {
+		NSArray* messages = [candies selectObjects:^BOOL(WLCandy* candy) {
 			return candy.type == WLCandyTypeChatMessage;
-		}]];
+		}];
+		if (messages.nonempty) {
+			[candies removeObjectsInArray:messages];
+		}
 	}
-	[candies insertObject:candy atIndex:0];
+	[candies insertFirstEntry:candy];
 	self.candies = [candies copy];
 }
 
@@ -69,6 +91,10 @@
 
 - (NSArray*)messages {
 	return [self messages:0];
+}
+
+- (BOOL)isEqualToEntry:(WLEntry *)entry {
+	return [self.updatedAt isEqualToDate:entry.updatedAt];
 }
 
 @end

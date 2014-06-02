@@ -13,9 +13,37 @@
 #import "UILabel+Additions.h"
 #import "UIView+Shorthand.h"
 #import "WLSupportFunctions.h"
+#import "WLNavigation.h"
 
 static CGFloat WLToastDefaultHeight = 64.0f;
 static CGFloat WLToastDefaultSpacing = 100.0f;
+
+@implementation WLToastAppearance
+
++ (instancetype)appearance {
+	return [[self alloc] init];
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.height = WLToastDefaultHeight;
+		self.shouldShowIcon = YES;
+    }
+    return self;
+}
+
+#pragma mark - WLToastAppearance
+
+- (CGFloat)toastAppearanceHeight:(WLToast *)toast {
+	return self.height;
+}
+
+- (BOOL)toastAppearanceShouldShowIcon:(WLToast *)toast {
+	return self.shouldShowIcon;
+}
+
+@end
 
 @interface WLToast ()
 
@@ -43,12 +71,14 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 }
 
 - (void)showWithMessage:(NSString *)message {
-	[self showWithMessage:message appearance:TopViewController()];
+	[self showWithMessage:message appearance:[UINavigationController topViewController]];
 }
 
 - (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance {
 	
-	self.height = appearance ? [appearance toastAppearanceHeight:self] : WLToastDefaultHeight;
+	self.height = [appearance respondsToSelector:@selector(toastAppearanceHeight:)] ? [appearance toastAppearanceHeight:self] : WLToastDefaultHeight;
+	
+	self.iconView.hidden = [appearance respondsToSelector:@selector(toastAppearanceShouldShowIcon:)] ? ![appearance toastAppearanceShouldShowIcon:self] : YES;
 	
 	self.message = message;
 	
@@ -59,7 +89,7 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 	
 	if (self.superview == nil) {
 		self.y = -self.height;
-		[MainWindow() addSubview:self];
+		[[UIWindow mainWindow] addSubview:self];
 	}
 	
 	if (self.y != 0) {
@@ -141,6 +171,10 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 
 - (CGFloat)toastAppearanceHeight:(WLToast *)toast {
 	return WLToastDefaultHeight;
+}
+
+- (BOOL)toastAppearanceShouldShowIcon:(WLToast *)toast {
+	return YES;
 }
 
 @end

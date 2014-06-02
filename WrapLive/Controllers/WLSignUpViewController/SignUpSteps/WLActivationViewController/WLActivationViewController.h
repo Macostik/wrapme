@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class WLUser;
+@class WLAuthorization;
 
 @interface WLActivationViewController : UIViewController
 
-- (instancetype)initWithUser:(WLUser*)user;
+- (instancetype)initWithAuthorization:(WLAuthorization*)authorization;
 
 @end

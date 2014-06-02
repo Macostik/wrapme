@@ -11,35 +11,35 @@
 
 @class WLWrap;
 @class WLCandy;
-@class WLUploadingItem;
+@class WLUploading;
 
 @interface WLUploadingQueue : NSObject
 
 + (instancetype)instance;
 
-- (void)addItem:(WLUploadingItem*)item;
+- (void)addUploading:(WLUploading*)uploading;
 
-- (WLUploadingItem*)addItemWithCandy:(WLCandy*)candy wrap:(WLWrap*)wrap;
+- (WLUploading*)addUploadingWithCandy:(WLCandy*)candy wrap:(WLWrap*)wrap;
 
-- (void)removeItem:(WLUploadingItem*)item;
+- (void)removeUploading:(WLUploading*)uploading;
 
 - (void)updateWrap:(WLWrap*)wrap;
+
+- (void)reviseCandy:(WLCandy*)candy;
 
 - (void)uploadImage:(UIImage*)image wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (void)uploadMessage:(NSString*)message wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
+- (void)checkStatus;
+
 @end
 
-@interface WLUploadingItem : WLArchivingObject
+@interface WLUploading : WLArchivingObject
 
 @property (strong, nonatomic) WLWrap* wrap;
 
 @property (strong, nonatomic) WLCandy* candy;
-
-@property (nonatomic) float progress;
-
-@property (strong, nonatomic) void (^progressChangeBlock) (float progress);
 
 - (void)setOperation:(AFURLConnectionOperation *)operation;
 

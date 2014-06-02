@@ -57,20 +57,17 @@
 			[users removeEntry:self.wrap.contributor];
 		}
 		
-		NSUInteger index = 0;
-		while ([users containsIndex:index]) {
-			WLUser* user = users[index];
+		[users removeObjectsWhileEnumerating:^BOOL(WLUser *user) {
 			if (user.identifier.nonempty) {
 				WLContact* _contact = [[WLContact alloc] init];
 				_contact.users = @[user];
 				[signedUp addObject:_contact];
-				[users removeObject:user];
-			} else {
-				++index;
+				return YES;
 			}
-		}
+			return NO;
+		}];
 		
-		if ([users count] > 0) {
+		if (users.nonempty) {
 			contact.users = [users copy];
 			[notSignedUp addObject:contact];
 		}

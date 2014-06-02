@@ -12,8 +12,9 @@
 #import <CocoaLumberjack/DDTTYLogger.h>
 #import "WLInternetConnectionBroadcaster.h"
 #import "WLSession.h"
-#import "WLMessageBroadcaster.h"
+#import "WLNotificationBroadcaster.h"
 #import "WLKeyboardBroadcaster.h"
+#import <AviarySDK/AviarySDK.h>
 
 @interface WLAppDelegate ()
 
@@ -27,9 +28,15 @@
 	[DDLog addLogger:[DDASLLogger sharedInstance]];
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
 //	
-//	[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+	[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
 	[[WLInternetConnectionBroadcaster broadcaster] configure];
 	[[WLKeyboardBroadcaster broadcaster] configure];
+	[[WLNotificationBroadcaster broadcaster] configure];
+	
+	[[WLNotificationBroadcaster broadcaster] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
+	
+	[AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
+	[AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
 	
 	return YES;
 }
@@ -61,14 +68,20 @@
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-//	NSLog(@"deviceToken %@", deviceToken);
-//	[WLSession setDeviceToken:deviceToken];
-//	[WLMessageBroadcaster enablePushNotificationsInSubscribedChannels:deviceToken];
-//}
-//
-//- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-//	NSLog(@"%@", error);
-//}
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+	NSLog(@"deviceToken %@", deviceToken);
+	[WLSession setDeviceToken:deviceToken];
+	[WLNotificationBroadcaster enablePushNotificationsInSubscribedChannels:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+	NSLog(@"%@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+	if (application.applicationState != UIApplicationStateActive) {
+		[[WLNotificationBroadcaster broadcaster] handleRemoteNotification:userInfo];
+	}
+}
 
 @end

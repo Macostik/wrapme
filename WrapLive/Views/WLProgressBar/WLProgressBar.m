@@ -12,7 +12,6 @@
 #import "WLBorderView.h"
 #import "WLSupportFunctions.h"
 #import <AFNetworking/AFURLConnectionOperation.h>
-#import "WLUploadingQueue.h"
 
 @interface WLProgressBar ()
 
@@ -95,14 +94,6 @@
 	}];
 	[operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
 		float progress = ((float)totalBytesRead/(float)totalBytesExpectedToRead);
-		[weakSelf setProgress:progress animated:YES];
-	}];
-}
-
-- (void)setUploadingItem:(WLUploadingItem *)uploadingItem {
-	self.progress = uploadingItem.progress;
-	__weak typeof(self)weakSelf = self;
-	[uploadingItem setProgressChangeBlock:^(float progress) {
 		[weakSelf setProgress:progress animated:YES];
 	}];
 }

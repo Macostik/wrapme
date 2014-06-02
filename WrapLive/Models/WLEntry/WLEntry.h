@@ -39,11 +39,19 @@
 
 - (NSArray *)entriesByAddingEntry:(WLEntry*)entry;
 
+- (NSArray *)entriesByInsertingEntry:(WLEntry*)entry atIndex:(NSUInteger)index;
+
+- (NSArray *)entriesByInsertingFirstEntry:(WLEntry*)entry;
+
 - (NSArray *)entriesByRemovingEntry:(WLEntry*)entry;
 
 - (BOOL)containsEntry:(WLEntry*)entry;
 
 - (NSArray *)entriesByAddingEntries:(NSArray*)entries;
+
+- (NSArray *)entriesByInsertingEntries:(NSArray*)entries atIndex:(NSUInteger)index;
+
+- (NSArray *)entriesByInsertingFirstEntries:(NSArray*)entries;
 
 - (NSArray *)entriesByRemovingEntries:(NSArray*)entries;
 
@@ -67,9 +75,17 @@
 
 - (void)addEntry:(WLEntry*)entry;
 
+- (void)insertEntry:(WLEntry*)entry atIndex:(NSUInteger)index;
+
+- (void)insertFirstEntry:(WLEntry*)entry;
+
 - (void)removeEntry:(WLEntry*)entry;
 
 - (void)addEntries:(NSArray*)entries;
+
+- (void)insertEntries:(NSArray*)entries atIndex:(NSUInteger)index;
+
+- (void)insertFirstEntries:(NSArray*)entries;
 
 - (void)removeEntries:(NSArray*)entries;
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -8,7 +8,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController storyboardIdentifier="welcome" id="vXZ-lx-hvc" customClass="WLWelcomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLWelcomeViewController" id="vXZ-lx-hvc" customClass="WLWelcomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -23,27 +23,46 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
-                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0BE-1R-lZi">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                            <view contentMode="scaleToFill" id="N3J-CT-Lq4">
+                                <rect key="frame" x="0.0" y="480" width="320" height="88"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <inset key="imageEdgeInsets" minX="300" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Continue" image="ic_next_white">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="WfW-pu-ue7" kind="push" id="xzK-pU-QyL"/>
-                                </connections>
-                            </button>
+                                <subviews>
+                                    <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PkY-qd-z05">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="14"/>
+                                        <state key="normal" title="Terms and Conditions">
+                                            <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="termsAndConditions:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hVh-p2-Hpx"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0BE-1R-lZi">
+                                        <rect key="frame" x="0.0" y="44" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <inset key="imageEdgeInsets" minX="300" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Agree and Continue" image="ic_next_white">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="WfW-pu-ue7" kind="push" id="xzK-pU-QyL"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="mRG-Wg-0mw"/>
                     <connections>
                         <outlet property="backgroundView" destination="RmV-X8-6kT" id="73g-b3-MjL"/>
-                        <outlet property="continueButton" destination="0BE-1R-lZi" id="zAA-XY-q9r"/>
+                        <outlet property="bottomView" destination="N3J-CT-Lq4" id="XOW-co-mxL"/>
+                        <outlet property="licenseButton" destination="PkY-qd-z05" id="LeC-9p-Qwy"/>
                         <outlet property="spinner" destination="Xgj-dB-Wxq" id="ku1-UN-L6O"/>
                     </connections>
                 </viewController>
@@ -54,7 +73,7 @@
         <!--Camera View Controller-->
         <scene sceneID="REq-s4-83q">
             <objects>
-                <viewController storyboardIdentifier="camera" id="fS5-iu-bCQ" customClass="WLCameraViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLCameraViewController" id="fS5-iu-bCQ" customClass="WLCameraViewController" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="Gys-KD-uvh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -145,58 +164,11 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" id="xdm-qG-jtx">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="6El-CF-PEf">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </imageView>
-                                    <view contentMode="scaleToFill" id="wM6-8g-Uow">
-                                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <subviews>
-                                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OU9-6H-cKk">
-                                                <rect key="frame" x="0.0" y="0.0" width="159" height="44"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                                <state key="normal" title="Cancel">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="retake:" destination="fS5-iu-bCQ" eventType="touchUpInside" id="GsC-93-ZJE"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="45g-eY-MLa">
-                                                <rect key="frame" x="160" y="0.0" width="160" height="44"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
-                                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                                <state key="normal" title="Save">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="use:" destination="fS5-iu-bCQ" eventType="touchUpInside" id="rbe-NZ-Pfa"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="0dY-fM-ERU"/>
                     <connections>
-                        <outlet property="acceptButtonsView" destination="wM6-8g-Uow" id="1mw-go-qXB"/>
-                        <outlet property="acceptImageView" destination="6El-CF-PEf" id="7ZQ-Nz-d4y"/>
-                        <outlet property="acceptView" destination="xdm-qG-jtx" id="b16-DP-kP9"/>
                         <outlet property="bottomView" destination="ztd-JX-YVg" id="P3J-8p-fkY"/>
                         <outlet property="cameraView" destination="tla-Iu-umV" id="53U-1u-24B"/>
                         <outlet property="flashModeControl" destination="bKH-Jp-1R6" id="dWF-fI-t8P"/>
@@ -218,12 +190,24 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2923" y="-951"/>
+            <point key="canvasLocation" x="3763" y="-1120"/>
+        </scene>
+        <!--Still Picture View Controller-->
+        <scene sceneID="g0p-C2-IZA">
+            <objects>
+                <navigationController storyboardIdentifier="WLStillPictureViewController" definesPresentationContext="YES" navigationBarHidden="YES" id="LCB-Vp-qkd" customClass="WLStillPictureViewController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="W04-ZL-9xe">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kTF-4K-ACu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2937" y="-1120"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="1af-uD-k4o">
             <objects>
-                <viewController storyboardIdentifier="signUp" id="WfW-pu-ue7" customClass="WLSignUpViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLSignUpViewController" id="WfW-pu-ue7" customClass="WLSignUpViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mr3-r6-91F">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -375,7 +359,7 @@
         <!--Change Profile View Controller-->
         <scene sceneID="zxY-Lu-ZtN">
             <objects>
-                <viewController id="7FG-gC-kPg" customClass="WLChangeProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLChangeProfileViewController" id="7FG-gC-kPg" customClass="WLChangeProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yja-9u-DOv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -436,44 +420,44 @@
                                         <rect key="frame" x="0.0" y="240" width="320" height="220"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" id="Adb-ID-rCh" customClass="WLBorderView">
-                                                <rect key="frame" x="60" y="45" width="200" height="32"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <view contentMode="scaleToFill" id="ehC-Ir-fts">
+                                                <rect key="frame" x="20" y="20" width="280" height="93"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your name" textAlignment="center" minimumFontSize="17" id="D1N-1e-psu">
-                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="32"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                        <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="7FG-gC-kPg" id="Y9Y-BY-tWb"/>
-                                                        </connections>
-                                                    </textField>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" id="gYb-uK-pdT">
-                                                <rect key="frame" x="20" y="119" width="280" height="32"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" id="82E-k4-0WJ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="280" height="32"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                        <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="7FG-gC-kPg" id="g6t-g3-m1S"/>
-                                                        </connections>
-                                                    </textField>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your birth date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JB4-Tg-pwW">
-                                                        <rect key="frame" x="0.0" y="0.0" width="280" height="32"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                    <view contentMode="scaleToFill" id="Adb-ID-rCh" customClass="WLBorderView">
+                                                        <rect key="frame" x="20" y="4" width="240" height="32"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your name" textAlignment="center" minimumFontSize="17" id="D1N-1e-psu">
+                                                                <rect key="frame" x="0.0" y="0.0" width="240" height="32"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                                <connections>
+                                                                    <outlet property="delegate" destination="7FG-gC-kPg" id="Y9Y-BY-tWb"/>
+                                                                </connections>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" id="gYb-uK-pdT" customClass="WLBorderView">
+                                                        <rect key="frame" x="20" y="58" width="240" height="32"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" textAlignment="center" minimumFontSize="17" id="82E-k4-0WJ">
+                                                                <rect key="frame" x="0.0" y="0.0" width="240" height="32"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                                <connections>
+                                                                    <outlet property="delegate" destination="7FG-gC-kPg" id="g6t-g3-m1S"/>
+                                                                </connections>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             </view>
@@ -524,9 +508,9 @@
                     <navigationItem key="navigationItem" id="jjK-sb-Bg6"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="birthdateTextField" destination="82E-k4-0WJ" id="Vve-oR-fYI"/>
                         <outlet property="cancelButton" destination="Efj-27-0UK" id="f9c-Po-yLm"/>
                         <outlet property="doneButton" destination="GkU-w3-rTK" id="CSh-K5-pPH"/>
+                        <outlet property="emailTextField" destination="82E-k4-0WJ" id="U5o-Rv-VFw"/>
                         <outlet property="mainView" destination="5U6-9C-YuK" id="18g-yQ-oUB"/>
                         <outlet property="nameTextField" destination="D1N-1e-psu" id="aFX-at-9U5"/>
                         <outlet property="profileImageView" destination="AYn-Zt-xUG" id="Rhk-L2-OgO"/>
@@ -540,7 +524,7 @@
         <!--Home View Controller-->
         <scene sceneID="MbJ-3V-1SB">
             <objects>
-                <viewController storyboardIdentifier="home" id="L91-fZ-J9O" customClass="WLHomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLHomeViewController" id="L91-fZ-J9O" customClass="WLHomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L5N-Xm-IFu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -576,7 +560,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="fS5-iu-bCQ" kind="modal" identifier="camera" id="B2J-NP-7RF"/>
+                                            <segue destination="LCB-Vp-qkd" kind="modal" identifier="camera" id="QDv-Yw-H57"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sfX-vy-DXa">
@@ -633,6 +617,10 @@
                                                     <rect key="frame" x="0.0" y="13" width="320" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_small_smile" id="atR-md-y2O">
+                                                            <rect key="frame" x="302" y="4" width="12" height="12"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Twb-Mn-vNw">
                                                             <rect key="frame" x="10" y="-5" width="290" height="30"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -686,6 +674,7 @@
                                         <connections>
                                             <outlet property="contributorsLabel" destination="XaE-0l-eeL" id="Yzo-Ic-TvO"/>
                                             <outlet property="nameLabel" destination="Twb-Mn-vNw" id="ztz-oX-jxj"/>
+                                            <outlet property="notifyBulb" destination="atR-md-y2O" id="8Lx-Ih-FVh"/>
                                             <outlet property="streamView" destination="aGO-dq-qVC" id="dyw-tO-lai"/>
                                         </connections>
                                     </tableViewCell>
@@ -696,6 +685,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_small_smile" id="yBm-n0-4Jo">
+                                                    <rect key="frame" x="302" y="4" width="12" height="12"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="N8I-t6-aKU">
                                                     <rect key="frame" x="70" y="0.0" width="230" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -735,6 +728,7 @@
                                             <outlet property="contributorsLabel" destination="b7g-bc-eWy" id="pke-NZ-blL"/>
                                             <outlet property="coverView" destination="HLY-EW-9Wa" id="H6f-Lt-n2Q"/>
                                             <outlet property="nameLabel" destination="N8I-t6-aKU" id="RVP-99-Yo8"/>
+                                            <outlet property="notifyBulb" destination="yBm-n0-4Jo" id="edG-Ig-eFY"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -795,7 +789,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
         <!--Create Wrap View Controller-->
         <scene sceneID="z3r-xS-Rlo">
             <objects>
-                <viewController storyboardIdentifier="editWrap" id="y2d-d2-UUm" customClass="WLCreateWrapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLCreateWrapViewController" id="y2d-d2-UUm" customClass="WLCreateWrapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ekn-NO-6No">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -887,7 +881,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <connections>
-                                                                        <segue destination="fS5-iu-bCQ" kind="modal" identifier="camera" id="Bfv-2u-diL"/>
+                                                                        <segue destination="LCB-Vp-qkd" kind="modal" identifier="camera" id="g2G-dh-8El"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -1035,7 +1029,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
         <!--Contributors View Controller-->
         <scene sceneID="eJ4-7I-sOa">
             <objects>
-                <viewController id="2bk-UF-zkR" customClass="WLContributorsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLContributorsViewController" id="2bk-UF-zkR" customClass="WLContributorsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BJb-s8-wGU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1051,6 +1045,9 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         <state key="normal" image="ic_back_orange">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="back:" destination="2bk-UF-zkR" eventType="touchUpInside" id="ggg-rE-vem"/>
                                         </connections>
@@ -1271,6 +1268,9 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                 <state key="normal" title="Cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="back:" destination="2bk-UF-zkR" eventType="touchUpInside" id="HrD-3j-ekN"/>
                                 </connections>
@@ -1283,6 +1283,9 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="done:" destination="2bk-UF-zkR" eventType="touchUpInside" id="R8t-if-sA3"/>
                                 </connections>
@@ -1309,7 +1312,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
         <!--Wrap View Controller-->
         <scene sceneID="swT-1e-jus">
             <objects>
-                <viewController storyboardIdentifier="wrap" id="hUj-RK-zkg" customClass="WLWrapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLWrapViewController" id="hUj-RK-zkg" customClass="WLWrapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f6K-dz-2Hs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1334,7 +1337,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="fS5-iu-bCQ" kind="modal" identifier="camera" id="Gnf-h6-U5W"/>
+                                    <segue destination="LCB-Vp-qkd" kind="modal" identifier="camera" id="Sbw-6n-Vdt"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8kR-VI-DgA">
@@ -1357,10 +1360,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_settings" id="pCc-MF-WZw">
-                                            <rect key="frame" x="288" y="10" width="32" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="fqx-Hv-79y">
                                             <rect key="frame" x="2" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1380,11 +1379,11 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VhN-Bw-wjI">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VhN-Bw-wjI">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <inset key="imageEdgeInsets" minX="287" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="7" maxY="0.0"/>
                                             <state key="normal" image="ic_settings">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -1489,7 +1488,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="fS5-iu-bCQ" kind="modal" identifier="camera" id="Gbz-eQ-8QE"/>
+                                                    <segue destination="LCB-Vp-qkd" kind="modal" identifier="camera" id="JtR-DS-Him"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap here or shake your device from anywhere in the app to take a photo" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ujI-SW-vPr">
@@ -1543,7 +1542,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
         <!--Candy View Controller-->
         <scene sceneID="IUe-2p-n08">
             <objects>
-                <viewController storyboardIdentifier="candy" id="eto-O4-OHy" customClass="WLCandyViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLCandyViewController" id="eto-O4-OHy" customClass="WLCandyViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FUv-v8-MyM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1564,12 +1563,22 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="N9a-4s-fUi">
-                                        <rect key="frame" x="40" y="20" width="250" height="44"/>
+                                        <rect key="frame" x="40" y="20" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sPd-Ai-V8F">
+                                        <rect key="frame" x="276" y="20" width="44" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="ic_dot_dot_dot_round">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="report:" destination="eto-O4-OHy" eventType="touchUpInside" id="xN8-Lx-BAe"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -1680,6 +1689,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                         <outlet property="contentIndicatorView" destination="1jo-1I-6a8" id="1eB-8A-gf9"/>
                         <outlet property="dateLabel" destination="JE5-jO-MER" id="f9u-st-TAB"/>
                         <outlet property="imageView" destination="Sn5-Ts-kUU" id="Bdw-8Z-Pph"/>
+                        <outlet property="reportButton" destination="sPd-Ai-V8F" id="zJ7-te-f2i"/>
                         <outlet property="spinner" destination="lOt-XR-j24" id="2z0-2z-ppa"/>
                         <outlet property="tableView" destination="0jW-2U-oDt" id="v6J-eA-rcG"/>
                         <outlet property="titleLabel" destination="N9a-4s-fUi" id="wBS-tA-c4B"/>
@@ -1693,7 +1703,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
         <!--Image View Controller-->
         <scene sceneID="sH9-FC-VK3">
             <objects>
-                <viewController storyboardIdentifier="image" automaticallyAdjustsScrollViewInsets="NO" id="Mj2-iK-bpQ" customClass="WLImageViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLImageViewController" automaticallyAdjustsScrollViewInsets="NO" id="Mj2-iK-bpQ" customClass="WLImageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wNL-dU-90c">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1752,7 +1762,7 @@ Check your internet connection and try again.</string>
         <!--Chat View Controller-->
         <scene sceneID="JRm-Kq-Yqc">
             <objects>
-                <viewController storyboardIdentifier="chat" id="ef1-h7-yay" customClass="WLChatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLChatViewController" id="ef1-h7-yay" customClass="WLChatViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hIQ-pE-cV8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1949,6 +1959,7 @@ Check your internet connection and try again.</string>
         <image name="ic_check" width="22" height="22"/>
         <image name="ic_default_profile" width="148" height="148"/>
         <image name="ic_delete" width="16" height="16"/>
+        <image name="ic_dot_dot_dot_round" width="6" height="26"/>
         <image name="ic_gallery_medium" width="50" height="50"/>
         <image name="ic_logo_wo_candy" width="72" height="20"/>
         <image name="ic_next_gray" width="8" height="14"/>
@@ -1963,6 +1974,7 @@ Check your internet connection and try again.</string>
         <image name="ic_sign_up_step3_incompleted" width="16" height="16"/>
         <image name="ic_sign_up_step_completed" width="16" height="16"/>
         <image name="ic_signed_up_user" width="15" height="7"/>
+        <image name="ic_small_smile" width="18" height="18"/>
         <image name="ic_wrapLive" width="104" height="90"/>
         <image name="ic_wrap_arrow" width="24" height="12"/>
         <image name="img_just_candy" width="76" height="34"/>
@@ -1974,6 +1986,6 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Gbz-eQ-8QE"/>
+        <segue reference="g2G-dh-8El"/>
     </inferredMetricsTieBreakers>
 </document>

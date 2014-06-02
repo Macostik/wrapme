@@ -88,6 +88,14 @@
 	return [self arrayByAddingUniqueObject:entry equality:[[entry class] equalityBlock]];
 }
 
+- (NSArray *)entriesByInsertingEntry:(WLEntry*)entry atIndex:(NSUInteger)index {
+	return [self arrayByInsertingUniqueObject:entry atIndex:index equality:[[entry class] equalityBlock]];
+}
+
+- (NSArray *)entriesByInsertingFirstEntry:(WLEntry*)entry {
+	return [self entriesByInsertingEntry:entry atIndex:0];
+}
+
 - (NSArray *)entriesByRemovingEntry:(WLEntry*)entry {
 	return [self arrayByRemovingUniqueObject:entry equality:[[entry class] equalityBlock]];
 }
@@ -98,6 +106,14 @@
 
 - (NSArray *)entriesByAddingEntries:(NSArray*)entries {
 	return [self arrayByAddingUniqueObjects:entries equality:[[[entries lastObject] class] equalityBlock]];
+}
+
+- (NSArray *)entriesByInsertingEntries:(NSArray*)entries atIndex:(NSUInteger)index {
+	return [self arrayByInsertingUniqueObjects:entries atIndex:index equality:[[[entries lastObject] class] equalityBlock]];
+}
+
+- (NSArray *)entriesByInsertingFirstEntries:(NSArray*)entries {
+	return [self entriesByInsertingEntries:entries atIndex:0];
 }
 
 - (NSArray *)entriesByRemovingEntries:(NSArray*)entries {
@@ -143,12 +159,28 @@
 	[self addUniqueObject:entry equality:[[entry class] equalityBlock]];
 }
 
+- (void)insertEntry:(WLEntry*)entry atIndex:(NSUInteger)index {
+	[self insertUniqueObject:entry atIndex:index equality:[[entry class] equalityBlock]];
+}
+
+- (void)insertFirstEntry:(WLEntry*)entry {
+	[self insertEntry:entry atIndex:0];
+}
+
 - (void)removeEntry:(WLEntry*)entry {
 	[self removeUniqueObject:entry equality:[[entry class] equalityBlock]];
 }
 
 - (void)addEntries:(NSArray*)entries {
 	[self addUniqueObjects:entries equality:[[[entries lastObject] class] equalityBlock]];
+}
+
+- (void)insertEntries:(NSArray*)entries atIndex:(NSUInteger)index {
+	[self insertUniqueObjects:entries atIndex:index equality:[[[entries lastObject] class] equalityBlock]];
+}
+
+- (void)insertFirstEntries:(NSArray*)entries {
+	[self insertEntries:entries atIndex:0];
 }
 
 - (void)removeEntries:(NSArray *)entries {

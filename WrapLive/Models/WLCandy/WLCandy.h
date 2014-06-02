@@ -9,7 +9,7 @@
 #import "WLWrapEntry.h"
 
 @class WLComment;
-@class WLUploadingItem;
+@class WLUploading;
 
 @protocol WLComment @end
 
@@ -22,9 +22,13 @@ static NSInteger WLCandyTypeChatMessage = 20;
 
 @property (nonatomic) NSInteger type;
 
-@property (strong, nonatomic) NSString * chatMessage;
+@property (strong, nonatomic) NSString *chatMessage;
 
-@property (weak, nonatomic) WLUploadingItem* uploadingItem;
+@property (weak, nonatomic) WLUploading* uploading;
+
+@property (strong, nonatomic) NSString *uploadIdentifier;
+
++ (instancetype)candyWithType:(NSInteger)type;
 
 + (instancetype)chatMessageWithText:(NSString*)text;
 
@@ -41,5 +45,9 @@ static NSInteger WLCandyTypeChatMessage = 20;
 - (BOOL)isImage;
 
 - (BOOL)isChatMessage;
+
+- (instancetype)updateWithObject:(id)object broadcast:(BOOL)broadcast;
+
+- (instancetype)updateWithDictionary:(NSDictionary *)dict broadcast:(BOOL)broadcast;
 
 @end

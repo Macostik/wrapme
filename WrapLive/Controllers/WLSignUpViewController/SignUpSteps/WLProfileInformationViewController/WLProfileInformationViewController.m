@@ -11,17 +11,18 @@
 #import "WLCameraViewController.h"
 #import "WLAPIManager.h"
 #import "WLUser.h"
-#import "UIStoryboard+Additions.h"
+#import "WLNavigation.h"
 #import "UIView+Shorthand.h"
 #import "WLImageCache.h"
 #import "UIColor+CustomColors.h"
 #import "UIImage+Resize.h"
 #import "UIButton+Additions.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "WLKeyboardBroadcaster.h"
 #import "NSString+Additions.h"
+#import "WLStillPictureViewController.h"
 
-@interface WLProfileInformationViewController () <UITextFieldDelegate, WLCameraViewControllerDelegate, WLKeyboardBroadcastReceiver>
+@interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UIButton *createImageButton;
@@ -49,8 +50,12 @@
 	self.nameTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
 	
 	self.nameTextField.text = self.user.name;
-	self.profileImageView.imageUrl = self.user.picture.medium;
-	
+	if (!self.hasAvatar) {
+		self.profileImageView.url = nil;
+		self.profileImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
+	} else {
+		self.profileImageView.url = self.user.picture.medium;
+	}
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 
@@ -59,10 +64,8 @@
 }
 
 - (IBAction)goToMainScreen:(id)sender {
-	__weak typeof(self)weakSelf = self;
 	[self updateIfNeeded:^{
-		NSArray *navigationArray = @[[weakSelf.signUpViewController.storyboard homeViewController]];
-		[weakSelf.signUpViewController.navigationController setViewControllers:navigationArray animated:YES];
+		[WLHomeViewController instantiateAndMakeRootViewControllerAnimated:YES];
 	}];
 }
 
@@ -90,11 +93,12 @@
 }
 
 - (IBAction)createImage:(id)sender {
-	WLCameraViewController * controller = [self.signUpViewController.storyboard cameraViewController];
-	controller.delegate = self;
-	controller.defaultPosition = AVCaptureDevicePositionFront;
-	controller.mode = WLCameraModeAvatar;
-	[self.signUpViewController presentViewController:controller animated:YES completion:nil];
+	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
+		controller.delegate = self;
+		controller.defaultPosition = AVCaptureDevicePositionFront;
+		controller.mode = WLCameraModeAvatar;
+	}];
+	[self.signUpViewController presentViewController:cameraNavigation animated:YES completion:nil];
 }
 
 - (void)saveImage:(UIImage *)image {
@@ -109,13 +113,13 @@
 	self.continueButton.active = (self.user.name.nonempty) && self.hasAvatar;
 }
 
-#pragma mark - WLCameraViewControllerDelegate
+#pragma mark - WLStillPictureViewControllerDelegate
 
-- (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
+- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self.signUpViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
 	self.hasAvatar = YES;
 	self.profileImageView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
 															  bounds:self.profileImageView.retinaSize

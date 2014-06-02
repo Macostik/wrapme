@@ -8,7 +8,7 @@
 
 #import "WLContributorCell.h"
 #import "WLUser.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "UIView+Shorthand.h"
 #import "NSString+Additions.h"
 
@@ -32,8 +32,9 @@
 	NSString * userNameText = [user isCurrentUser] ? @"You" : user.name;
 	self.nameLabel.text = user.isCreator ? [NSString stringWithFormat:@"%@ (Owner)", userNameText] : userNameText;
 	if (user.picture.medium.nonempty) {
-		self.avatarView.imageUrl = user.picture.medium;
+		self.avatarView.url = user.picture.medium;
 	} else {
+		self.avatarView.url = nil;
 		self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
 	}
 }

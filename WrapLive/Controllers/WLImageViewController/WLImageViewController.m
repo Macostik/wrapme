@@ -7,7 +7,7 @@
 //
 
 #import "WLImageViewController.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "WLCandy.h"
 #import "UIView+Shorthand.h"
 #import "WLSupportFunctions.h"
@@ -30,7 +30,7 @@
     // Do any additional setup after loading the view.
 	self.scrollView.userInteractionEnabled = NO;
 	__weak typeof(self)weakSelf = self;
-	[self.imageView setImageUrl:self.image.picture.large completion:^(UIImage *image, BOOL cached, NSError* error) {
+	[self.imageView setUrl:self.image.picture.large completion:^(UIImage *image, BOOL cached, NSError* error) {
 		if (image) {
 			[weakSelf configureScrollViewWithImage:image];
 		}

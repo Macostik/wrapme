@@ -9,12 +9,12 @@
 #import "WLWrapViewController.h"
 #import "WLWrap.h"
 #import "WLCandiesCell.h"
-#import "UIImageView+ImageLoading.h"
+#import "WLImageFetcher.h"
 #import "WLCandy.h"
 #import "NSDate+Formatting.h"
 #import "WLWrapDate.h"
 #import "UIView+Shorthand.h"
-#import "UIStoryboard+Additions.h"
+#import "WLNavigation.h"
 #import "WLCameraViewController.h"
 #import "WLCandyViewController.h"
 #import "WLCreateWrapViewController.h"
@@ -30,8 +30,12 @@
 #import "UILabel+Additions.h"
 #import "WLDataManager.h"
 #import "WLDataCache.h"
+#import "WLUserChannelBroadcaster.h"
+#import "WLToast.h"
+#import "WLEntryState.h"
+#import "WLStillPictureViewController.h"
 
-@interface WLWrapViewController () <WLCameraViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, WLUserChannelBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
@@ -42,8 +46,6 @@
 @property (nonatomic) BOOL shouldLoadMoreDates;
 
 @property (weak, nonatomic) WLRefresher *refresher;
-@property (strong, nonatomic) NSArray *theChannels;
-@property (weak, nonatomic) IBOutlet UIImageView *shakingHandView;
 
 @end
 
@@ -68,18 +70,28 @@
 	self.tableView.tableFooterView = [WLLoadingView instance];
 	
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
+	[[WLUserChannelBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	wrapEditing = NO;
+	[self.wrap setUpdated:NO];
 }
 
 - (void)setWrapData {
-	self.coverView.imageUrl = self.wrap.picture.small;
+	self.coverView.url = self.wrap.picture.small;
 	self.nameLabel.text = self.wrap.name;
 	self.contributorsLabel.text = self.wrap.contributorNames;
 	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
+}
+
+#pragma mark - WLUserChannelBroadcastReceiver
+
+- (void)broadcaster:(WLUserChannelBroadcaster *)broadcaster didResignContributor:(WLWrap *)wrap {
+	if ([self.wrap isEqualToEntry:wrap]) {
+		[WLToast showWithMessage:@"This wrap is no longer avaliable."];
+	}
 }
 
 #pragma mark - WLWrapBroadcastReceiver
@@ -93,7 +105,7 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
 	for (WLWrapDate* date in self.wrap.dates) {
-		if ([date.candies count] == 0) {
+		if (!date.candies.nonempty) {
 			self.wrap.dates = (id)[self.wrap.dates arrayByRemovingObject:date];
 			[self.tableView reloadData];
 			break;
@@ -109,14 +121,13 @@
 
 - (void)refreshWrap {
 	__weak typeof(self)weakSelf = self;
+	[[WLUploadingQueue instance] checkStatus];
 	[WLDataManager wrap:self.wrap success:^(WLWrap* wrap, BOOL cached, BOOL stop) {
 		[[WLUploadingQueue instance] updateWrap:weakSelf.wrap];
 		if (!cached) {
-			if ([wrap.dates count] == 0) {
-				weakSelf.firstContributorView.alpha = 1.0f;
-				weakSelf.firstContributorWrapNameLabel.text = wrap.name;				
-			} else {
-				weakSelf.firstContributorView.alpha = 0.0f;
+			weakSelf.firstContributorView.alpha = wrap.dates.nonempty ? 0.0f : 1.0f;
+			if (weakSelf.firstContributorView.alpha == 1.0f) {
+				weakSelf.firstContributorWrapNameLabel.text = wrap.name;
 			}
 		}
 		weakSelf.shouldLoadMoreDates = !stop;
@@ -129,40 +140,15 @@
 	}];
 }
 
-- (void)animateHand {
-	if (self.firstContributorView.alpha == 0) {
-		return;
-	}
-	NSTimeInterval animationDuration = 0.3;
-	CGFloat rotationAngle = M_PI * 15 / 180.0;
-	CGPoint newCenter = CGPointMake(-50, 150);
-	CGAffineTransform transform = CGAffineTransformMakeTranslation(newCenter.x, newCenter.y);
-	transform = CGAffineTransformRotate(transform, -rotationAngle);
-	transform = CGAffineTransformTranslate(transform,-newCenter.x,-newCenter.y);
-	__weak typeof(self)weakSelf = self;
-	[UIView animateWithDuration:animationDuration animations:^{
-		[UIView setAnimationRepeatCount:1.5];
-		[UIView setAnimationRepeatAutoreverses:YES];
-		weakSelf.shakingHandView.transform = transform;
-	} completion:^(BOOL finished) {
-		[UIView animateWithDuration:animationDuration animations:^{
-			weakSelf.shakingHandView.transform = CGAffineTransformIdentity;
-		} completion:^(BOOL finished) {
-			[weakSelf performSelector:@selector(animateHand) withObject:nil afterDelay:5];
-		}];
-	}];
-	
-}
-
 - (void)appendDates {
-	if (loading){
+	if (loading || !self.wrap.dates.nonempty || [self.wrap.dates count] % WLAPIGeneralPageSize > 0) {
 		return;
 	}
 	loading = YES;
 	__weak typeof(self)weakSelf = self;
-	NSInteger page = floorf([self.wrap.dates count] / 10) + 1;
+	NSInteger page = floorf([self.wrap.dates count] / WLAPIGeneralPageSize) + 1;
 	[[WLAPIManager instance] wrap:[self.wrap copy] page:page success:^(WLWrap* wrap) {
-		weakSelf.wrap.dates = (id)[weakSelf.wrap.dates arrayByAddingObjectsFromArray:wrap.dates];
+		weakSelf.wrap.dates = (id)[weakSelf.wrap.dates entriesByAddingEntries:wrap.dates];
 		[weakSelf.tableView reloadData];
 		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
 		loading = NO;
@@ -177,15 +163,15 @@
 	return [self cameraViewController];
 }
 
-- (WLCameraViewController*)cameraViewController {
-	WLCameraViewController* cameraController = [self.storyboard cameraViewController];
-	cameraController.delegate = self;
-	cameraController.mode = WLCameraModeCandy;
-	return cameraController;
+- (id)cameraViewController {
+	return [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
+		controller.delegate = self;
+		controller.mode = WLCameraModeCandy;
+	}];
 }
 
 - (IBAction)typeMessage:(UIButton *)sender {
-	WLChatViewController * chatController = [self.storyboard chatViewController];
+	WLChatViewController * chatController = [WLChatViewController instantiate];
 	chatController.wrap = self.wrap;
 	chatController.shouldShowKeyboard = YES;
 	[self.navigationController pushViewController:chatController animated:YES];
@@ -205,9 +191,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isCameraSegue]) {
-		WLCameraViewController* cameraController = segue.destinationViewController;
-		cameraController.mode = WLCameraModeCandy;
-		cameraController.delegate = self;
+		WLStillPictureViewController* controller = segue.destinationViewController;
+		controller.mode = WLCameraModeCandy;
+		controller.delegate = self;
 		[UIView beginAnimations:nil context:nil];
 		self.firstContributorView.alpha = 0.0f;
 		[UIView commitAnimations];
@@ -225,7 +211,7 @@
 		return;
 	}
 	wrapEditing = YES;
-	WLCreateWrapViewController* controller = [self.storyboard editWrapViewController];
+	WLCreateWrapViewController* controller = [WLCreateWrapViewController instantiate];
 	controller.wrap = self.wrap;
 	[controller presentInViewController:self transition:WLWrapTransitionFromRight];
 }
@@ -234,11 +220,11 @@
 
 - (void)candiesCell:(WLCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
 	if (candy.type == WLCandyTypeImage) {
-		WLCandyViewController *controller = [self.storyboard candyViewController];
+		WLCandyViewController *controller = [WLCandyViewController instantiate];
 		[controller setWrap:self.wrap candy:candy];
 		[self.navigationController pushViewController:controller animated:YES];
 	} else if (candy.type == WLCandyTypeChatMessage) {
-		WLChatViewController * chatController = [self.storyboard chatViewController];
+		WLChatViewController * chatController = [WLChatViewController instantiate];
 		chatController.wrap = self.wrap;
 		[self.navigationController pushViewController:chatController animated:YES];
 	}
@@ -266,9 +252,9 @@
     return cell;
 }
 
-#pragma mark - WLCameraViewControllerDelegate
+#pragma mark - WLStillPictureViewControllerDelegate
 
-- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
 	self.firstContributorView.alpha = 0.0f;
 	__weak typeof(self)weakSelf = self;
 	[[WLUploadingQueue instance] uploadImage:image wrap:self.wrap success:^(id object) {
@@ -279,7 +265,7 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
+- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	self.firstContributorView.alpha = 0.0f;
 	[self dismissViewControllerAnimated:YES completion:nil];
 }

@@ -101,7 +101,7 @@
             }
             // Check whether first element in array is array as well (which will mean that response holds set of
             // events for set of channels or at least one channel).
-            else if ([[responseData objectAtIndex:0] isKindOfClass:[NSArray class]]) {
+            else if ([[responseData firstObject] isKindOfClass:[NSArray class]]) {
 
                 // Check whether there is 3 elements in response array or not (depending on whether two last elements
                 // is number or not, this will mean whether response is for history or not).

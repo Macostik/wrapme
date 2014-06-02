@@ -13,9 +13,8 @@ static NSInteger WLProfileNameLimit = 40;
 @interface WLUser : WLEntry
 
 @property (strong, nonatomic) NSString* phoneNumber;
-@property (strong, nonatomic) NSString* countryCallingCode;
 @property (strong, nonatomic) NSString* name;
-@property (strong, nonatomic) NSDate* birthdate;
+@property (strong, nonatomic) NSString* email;
 @property (nonatomic) BOOL isCreator;
 @property (nonatomic) NSInteger signInCount;
 @property (nonatomic) BOOL firstWrapShown;

@@ -197,7 +197,7 @@
 	}
 	
 	if (presentingViewController && presentedViewController) {
-		[presentingViewController presentViewController:presentedViewController animated:YES completion:nil];
+		[presentingViewController.navigationController presentViewController:presentedViewController animated:YES completion:nil];
 		return YES;
 	}
 	return NO;

@@ -33,6 +33,9 @@
 @end
 
 @implementation WLCandiesCell
+{
+	BOOL loading;
+}
 
 - (void)setShouldAppendMoreCandies:(BOOL)shouldAppendMoreCandies {
 	_shouldAppendMoreCandies = shouldAppendMoreCandies;
@@ -53,13 +56,16 @@
 }
 
 - (void)setupItemData:(WLWrapDate*)entry {
-	self.dateLabel.text = [[entry.updatedAt stringWithFormat:@"MMM dd, YYYY"] uppercaseString];
+	self.dateLabel.text = [[entry.updatedAt stringWithFormat:@"MMM dd, yyyy"] uppercaseString];
 	self.shouldAppendMoreCandies = [entry.candies count] >= 10;
 	[self.collectionView reloadData];
 	self.refresher.enabled = [entry.updatedAt isToday];
+	self.collectionView.contentOffset = CGPointZero;
+	loading = NO;
 }
 
 - (void)refreshCandies {
+	[[WLUploadingQueue instance] checkStatus];
 	__weak typeof(self)weakSelf = self;
 	WLWrapDate* currentWrapDay = self.item;
 	WLWrapDate* wrapDay = [currentWrapDay copy];
@@ -78,16 +84,22 @@
 }
 
 - (void)appendCandies {
+	if (loading) {
+		return;
+	}
+	loading = YES;
 	WLWrapDate* wrapDay = self.item;
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] candies:self.wrap date:wrapDay success:^(id object) {
 		weakSelf.shouldAppendMoreCandies = [object count] == WLAPIGeneralPageSize;
-		wrapDay.candies = (id)[wrapDay.candies arrayByAddingObjectsFromArray:object];
+		wrapDay.candies = (id)[wrapDay.candies entriesByAddingEntries:object];
 		[weakSelf.collectionView reloadData];
 		[weakSelf fixContentOffset];
+		loading = NO;
 	} failure:^(NSError *error) {
 		weakSelf.shouldAppendMoreCandies = NO;
 		[error show];
+		loading = NO;
 	}];
 }
 
@@ -146,7 +158,7 @@
 #pragma mark - WLWrapCandyCellDelegate
 
 - (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
-	if (candy.uploadingItem == nil) {
+	if (candy.uploading == nil) {
 		[self.delegate candiesCell:self didSelectCandy:candy];
 	}
 }

@@ -20,6 +20,14 @@
     return nil;
 }
 
+- (instancetype)initWithReceiver:(id<WLBroadcastReceiver>)receiver {
+    self = [self init];
+    if (self) {
+        [self addReceiver:receiver];
+    }
+    return self;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -46,6 +54,12 @@
 - (void)addReceiver:(id<WLBroadcastReceiver>)receiver {
 	if (![self containsReceiver:receiver]) {
 		[self.receivers addObject:receiver];
+	}
+}
+
+- (void)removeReceiver:(id<WLBroadcastReceiver>)receiver {
+	if ([self containsReceiver:receiver]) {
+		[self.receivers removeObject:receiver];
 	}
 }
 

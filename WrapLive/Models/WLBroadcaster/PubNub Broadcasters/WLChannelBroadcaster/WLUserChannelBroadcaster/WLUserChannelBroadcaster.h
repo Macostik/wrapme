@@ -9,14 +9,15 @@
 #import "WLChannelBroadcaster.h"
 
 @class WLUserChannelBroadcaster;
+@class WLWrap;
 
 @protocol WLUserChannelBroadcastReceiver <NSObject>
 
 @optional
 
-- (void)broadcasterDidAddContributor:(WLUserChannelBroadcaster*)broadcaster;
+- (void)broadcaster:(WLUserChannelBroadcaster*)broadcaster didBecomeContributor:(WLWrap*)wrap;
 
-- (void)broadcasterDidDeleteContributor:(WLUserChannelBroadcaster*)broadcaster;
+- (void)broadcaster:(WLUserChannelBroadcaster*)broadcaster didResignContributor:(WLWrap*)wrap;
 
 @end
 

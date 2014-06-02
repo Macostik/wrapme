@@ -9,28 +9,33 @@
 #import "WLChannelBroadcaster.h"
 
 @class WLWrap;
+@class WLCandy;
 
 @class WLWrapChannelBroadcaster;
 
-@protocol WLWrapChannelBroadcastReceiver <NSObject>
+@protocol WLWrapChannelBroadcastReceiver <WLBroadcastReceiver>
 
 @optional
 
-- (void)broadcasterDidAddCandy:(WLWrapChannelBroadcaster*)broadcaster;
+- (void)broadcaster:(WLWrapChannelBroadcaster*)broadcaster didAddCandy:(WLCandy*)candy;
 
-- (void)broadcasterDidDeleteCandy:(WLWrapChannelBroadcaster*)broadcaster;
+- (void)broadcaster:(WLWrapChannelBroadcaster*)broadcaster didDeleteCandy:(WLCandy*)candy;
 
-- (void)broadcasterDidAddChatMessage:(WLWrapChannelBroadcaster*)broadcaster;
+- (void)broadcaster:(WLWrapChannelBroadcaster*)broadcaster didAddChatMessage:(WLCandy*)message;
 
-- (void)broadcasterDidAddComment:(WLWrapChannelBroadcaster*)broadcaster;
+- (void)broadcaster:(WLWrapChannelBroadcaster*)broadcaster didAddComment:(WLCandy*)candy;
 
-- (void)broadcasterDidDeleteComment:(WLWrapChannelBroadcaster*)broadcaster;
+- (void)broadcaster:(WLWrapChannelBroadcaster*)broadcaster didDeleteComment:(WLCandy*)candy;
 
 @end
 
 @interface WLWrapChannelBroadcaster : WLChannelBroadcaster
 
 @property (strong, nonatomic) WLWrap *wrap;
+
+@property (strong, nonatomic) WLCandy *candy;
+
+- (instancetype)initWithReceiver:(id<WLWrapChannelBroadcastReceiver>)receiver wrap:(WLWrap*)wrap;
 
 - (void)addReceiver:(id<WLWrapChannelBroadcastReceiver>)receiver withWrap:(WLWrap*)wrap;
 

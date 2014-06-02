@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 #import "NSObject+AssociatedObjects.h"
 #import "WLSupportFunctions.h"
+#import "WLNavigation.h"
 
 @interface UIActionSheet () <UIActionSheetDelegate>
 
@@ -26,7 +27,7 @@
 	}
 	actionSheet.delegate = actionSheet;
 	actionSheet.completion = completion;
-	[actionSheet showInView:MainWindow()];
+	[actionSheet showInView:[UIWindow mainWindow]];
 }
 
 + (void)showWithTitle:(NSString *)title destructive:(NSString*)destructive completion:(WLActionSheetCompletion)completion {

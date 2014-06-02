@@ -8,6 +8,11 @@
 
 #import "WLUserChannelBroadcaster.h"
 #import "WLUser.h"
+#import "WLAPIManager.h"
+#import "NSString+Additions.h"
+#import "WLToast.h"
+#import "WLWrapChannelBroadcaster.h"
+#import "WLEntryState.h"
 
 @interface WLUserChannelBroadcaster ()
 
@@ -15,18 +20,33 @@
 
 @implementation WLUserChannelBroadcaster
 
-- (void)didReceiveMessage:(WLMessageType)type data:(NSDictionary *)data {
-	if (type == WLMessageContributorAddition) {
-		[self broadcast:@selector(broadcasterDidAddContributor:)];
-	} else if (type == WLMessageContributorDeletion) {
-		[self broadcast:@selector(broadcasterDidDeleteContributor:)];
++ (instancetype)broadcaster {
+    static id instance = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		instance = [[self alloc] init];
+	});
+    return instance;
+}
+
+#pragma mark - WLNotificationReceiver
+
+- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster notificationReceived:(WLNotification *)notification {
+	if (notification.type == WLNotificationContributorAddition) {
+		__weak typeof(self)weakSelf = self;
+		[notification.wrap fetch:^(WLWrap *wrap) {
+			[weakSelf broadcast:@selector(broadcaster:didBecomeContributor:) object:wrap];
+		} failure:^(NSError *error) {
+		}];
+	} else if (notification.type == WLNotificationContributorDeletion) {
+		[self broadcast:@selector(broadcaster:didResignContributor:) object:notification.wrap];
+	} else if (notification.type == WLNotificationWrapDeletion) {
+		[self broadcast:@selector(broadcaster:didResignContributor:) object:notification.wrap];
 	}
 }
 
-#pragma mark - WLMessageBroadcastReceiver
-
-- (NSString *)broadcasterChannelName:(WLMessageBroadcaster *)broadcaster {
-	return [WLUser currentUser].identifier;
+- (BOOL)broadcaster:(WLNotificationBroadcaster *)broadcaster shouldReceiveNotification:(WLNotification *)notification {
+	return (notification.type == WLNotificationContributorAddition || notification.type == WLNotificationContributorDeletion || notification.type == WLNotificationWrapDeletion);
 }
 
 @end

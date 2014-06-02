@@ -85,7 +85,7 @@
 }
 
 - (IBAction)termsAndConditions:(id)sender {
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://wraplive.com/welcome/privacy"]];
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.wraplive.com/welcome/terms_and_conditions"]];
 }
 
 @end

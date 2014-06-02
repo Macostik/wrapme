@@ -80,14 +80,6 @@
 	return cell;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(320, 78);
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 3;
-}
-
 #pragma mark - PGAssetsGroupCellDelegate
 
 - (void)assetsGroupCell:(WLAssetsGroupCell *)cell didSelectGroup:(ALAssetsGroup *)group {

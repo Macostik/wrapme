@@ -164,7 +164,9 @@
 }
 
 - (id)cameraViewController {
+	__weak typeof(self)weakSelf = self;
 	return [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
+		controller.wrap = weakSelf.wrap;
 		controller.delegate = self;
 		controller.mode = WLCameraModeCandy;
 	}];
@@ -192,6 +194,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isCameraSegue]) {
 		WLStillPictureViewController* controller = segue.destinationViewController;
+		controller.wrap = self.wrap;
 		controller.mode = WLCameraModeCandy;
 		controller.delegate = self;
 		[UIView beginAnimations:nil context:nil];
@@ -255,13 +258,17 @@
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
+	WLWrap* wrap = controller.wrap ? : self.wrap;
+	if (wrap) {
+		__weak typeof(self)weakSelf = self;
+		[[WLUploadingQueue instance] uploadImage:image wrap:wrap success:^(id object) {
+			[[WLDataCache cache] setCandy:object];
+			[[WLDataCache cache] setWrap:weakSelf.wrap];
+		} failure:^(NSError *error) {
+		}];
+	}
 	self.firstContributorView.alpha = 0.0f;
-	__weak typeof(self)weakSelf = self;
-	[[WLUploadingQueue instance] uploadImage:image wrap:self.wrap success:^(id object) {
-		[[WLDataCache cache] setCandy:object];
-		[[WLDataCache cache] setWrap:weakSelf.wrap];
-	} failure:^(NSError *error) {
-	}];
+	
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

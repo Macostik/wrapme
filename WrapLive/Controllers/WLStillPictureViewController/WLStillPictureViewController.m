@@ -15,6 +15,8 @@
 #import "UIImage+Resize.h"
 #import "WLSupportFunctions.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "NSMutableDictionary+ImageMetadata.h"
+#import "ALAssetsLibrary+CustomPhotoAlbum.h"
 
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -26,6 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	self.cameraViewController.wrap = self.wrap;
 	[self setViewControllers:@[self.cameraViewController]];
 }
 
@@ -87,13 +90,26 @@
 
 #pragma mark - WLCameraViewControllerDelegate
 
-- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image {
+- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image metadata:(NSMutableDictionary *)metadata {
 	self.view.userInteractionEnabled = NO;
 	__weak typeof(self)weakSelf = self;
 	[self cropImage:image completion:^(UIImage *croppedImage) {
+		[weakSelf saveImage:croppedImage metadata:metadata];
 		[weakSelf editImage:croppedImage];
 		weakSelf.view.userInteractionEnabled = YES;
 	}];
+}
+
+- (void)saveImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata {
+	[metadata setImageOrientation:image.imageOrientation];
+	run_in_default_queue(^{
+		ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
+		[library saveImage:image
+				   toAlbum:@"wrapLive"
+				  metadata:metadata
+				completion:^(NSURL *assetURL, NSError *error) { }
+				   failure:^(NSError *error) { }];
+	});
 }
 
 - (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {

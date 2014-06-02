@@ -16,10 +16,11 @@ typedef NS_ENUM(NSInteger, WLCameraMode) {
 };
 
 @class WLCameraViewController;
+@class WLWrap;
 
 @protocol WLCameraViewControllerDelegate <NSObject>
 
-- (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image;
+- (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image metadata:(NSMutableDictionary*)metadata;
 - (void)cameraViewControllerDidCancel:(WLCameraViewController*)controller;
 - (void)cameraViewControllerDidSelectGallery:(WLCameraViewController*)controller;
 
@@ -36,6 +37,8 @@ typedef NS_ENUM(NSInteger, WLCameraMode) {
 @property (nonatomic) AVCaptureDevicePosition position;
 
 @property (readonly, nonatomic) CGSize viewSize;
+
+@property (weak, nonatomic) WLWrap* wrap;
 
 - (void)setPosition:(AVCaptureDevicePosition)position animated:(BOOL)animated;
 

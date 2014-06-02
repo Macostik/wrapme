@@ -11,6 +11,7 @@
 
 @class WLStillPictureViewController;
 @class WLCameraViewController;
+@class WLWrap;
 
 @protocol WLStillPictureViewControllerDelegate <UINavigationControllerDelegate>
 
@@ -29,5 +30,7 @@
 @property (nonatomic) WLCameraMode mode;
 
 @property (nonatomic) AVCaptureDevicePosition defaultPosition;
+
+@property (strong, nonatomic) WLWrap* wrap;
 
 @end

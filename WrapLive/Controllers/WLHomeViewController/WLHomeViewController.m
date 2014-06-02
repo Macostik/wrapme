@@ -97,7 +97,9 @@
 }
 
 - (id)cameraViewController {
+	__weak typeof(self)weakSelf = self;
 	return [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
+		controller.wrap = weakSelf.topWrap;
 		controller.delegate = self;
 		controller.mode = WLCameraModeCandy;
 	}];
@@ -291,6 +293,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isCameraSegue]) {
 		WLStillPictureViewController* controller = segue.destinationViewController;
+		controller.wrap = self.topWrap;
 		controller.delegate = self;
 		controller.mode = WLCameraModeCandy;
 	}
@@ -356,9 +359,12 @@
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
-	[[WLUploadingQueue instance] uploadImage:image wrap:self.topWrap success:^(id object) {
-	} failure:^(NSError *error) {
-	}];
+	WLWrap* wrap = controller.wrap ? : self.topWrap;
+	if (wrap) {
+		[[WLUploadingQueue instance] uploadImage:image wrap:wrap success:^(id object) {
+		} failure:^(NSError *error) {
+		}];
+	}
 
 	[self dismissViewControllerAnimated:YES completion:nil];
 }

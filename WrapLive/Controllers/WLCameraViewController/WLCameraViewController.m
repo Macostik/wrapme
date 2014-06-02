@@ -13,7 +13,6 @@
 #import "UIImage+Resize.h"
 #import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
-#import "ALAssetsLibrary+CustomPhotoAlbum.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIButton+Additions.h"
 #import "WLFlashModeControl.h"
@@ -22,6 +21,8 @@
 #import "WLDeviceOrientationBroadcaster.h"
 #import "WLBlocks.h"
 #import "ALAssetsLibrary+Additions.h"
+#import "WLImageFetcher.h"
+#import "WLWrap.h"
 
 @interface WLCameraViewController () <WLDeviceOrientationBroadcastReceiver>
 
@@ -45,7 +46,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
 
-@property (nonatomic, strong) NSMutableDictionary* metadata;
+@property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *wrapCoverView;
 
 @end
 
@@ -92,6 +94,14 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	self.takePhotoButton.active = YES;
+	
+	if (self.wrap) {
+		self.wrapNameLabel.superview.hidden = NO;
+		self.wrapNameLabel.text = self.wrap.name;
+		self.wrapCoverView.url = self.wrap.picture.small;
+	} else {
+		self.wrapNameLabel.superview.hidden = YES;
+	}
 }
 
 - (void)configurePreviewLayer {
@@ -127,8 +137,8 @@
 	__weak typeof(self)weakSelf = self;
 	self.view.userInteractionEnabled = NO;
 	sender.active = NO;
-	[self captureImage:^(UIImage *image) {
-		[weakSelf finishWithImage:image];
+	[self captureImage:^(UIImage *image, NSMutableDictionary* metadata) {
+		[weakSelf finishWithImage:image metadata:metadata];
 		weakSelf.view.userInteractionEnabled = YES;
 	}];
 }
@@ -137,22 +147,8 @@
 	[self.delegate cameraViewControllerDidSelectGallery:self];
 }
 
-- (void)finishWithImage:(UIImage*)image {
-	[self saveImage:image];
-	[self.delegate cameraViewController:self didFinishWithImage:image];
-}
-
-- (void)saveImage:(UIImage*)image {
-	__weak typeof(self)weakSelf = self;
-	[self.metadata setImageOrientation:image.imageOrientation];
-	run_in_default_queue(^{
-		ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
-		[library saveImage:image
-				   toAlbum:@"wrapLive"
-				  metadata:weakSelf.metadata
-				completion:^(NSURL *assetURL, NSError *error) { }
-				   failure:^(NSError *error) { }];
-	});
+- (void)finishWithImage:(UIImage*)image metadata:(NSMutableDictionary*)metadata {
+	[self.delegate cameraViewController:self didFinishWithImage:image metadata:metadata];
 }
 
 - (IBAction)flashModeChanged:(WLFlashModeControl *)sender {
@@ -297,29 +293,26 @@
     return _connection;
 }
 
-- (void)captureImage:(void (^)(UIImage*image))completion {
-	__weak typeof(self)weakSelf = self;
+- (void)captureImage:(void (^)(UIImage*image, NSMutableDictionary* metadata))completion {
 #if TARGET_IPHONE_SIMULATOR
 	run_getting_object(^id{
-		NSString* url = nil;
-		if (self.mode == WLCameraModeCandy) {
-			url = @"http://placeimg.com/640/480/nature";
-		} else {
-			url = @"http://placeimg.com/640/640/nature";
-		}
+		NSString* url = url = @"http://placeimg.com/720/720/nature";
 		return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
-	}, completion);
+	}, ^ (UIImage* image) {
+		completion(image, nil);
+	});
 	return;
 #endif
 	
 	void (^handler) (CMSampleBufferRef, NSError *) = ^(CMSampleBufferRef buffer, NSError *error) {
 		UIImage* image = nil;
+		NSMutableDictionary* metadata = nil;
 		if (!error) {
 			NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
 			image = [[UIImage alloc] initWithData:imageData];
-			weakSelf.metadata = [[NSMutableDictionary alloc] initWithImageSampleBuffer:buffer];
+			metadata = [[NSMutableDictionary alloc] initWithImageSampleBuffer:buffer];
 		}
-		completion(image);
+		completion(image, metadata);
 	};
 	self.connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
     [self.output captureStillImageAsynchronouslyFromConnection:self.connection completionHandler:handler];

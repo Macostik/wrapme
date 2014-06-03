@@ -126,6 +126,9 @@
 				 wrap:(WLWrap *)wrap
 			  success:(WLObjectBlock)success
 			  failure:(WLFailureBlock)failure {
+    if (!message.nonempty) {
+		return;
+	}
 	__weak typeof(self)weakSelf = self;
 	WLCandy* candy = [WLCandy chatMessageWithText:message];
 	[[weakSelf addUploadingWithCandy:candy wrap:wrap] upload:success failure:failure];

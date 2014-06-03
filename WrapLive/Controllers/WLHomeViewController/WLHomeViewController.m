@@ -41,8 +41,11 @@
 #import "WLUserChannelBroadcaster.h"
 #import "WLNotificationBroadcaster.h"
 #import "WLStillPictureViewController.h"
+#import "WLComposeBar.h"
+#import "WLSupportFunctions.h"
+#import "NSString+Additions.h"
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLUserChannelBroadcastReceiver, WLNotificationReceiver>
+@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLUserChannelBroadcastReceiver, WLNotificationReceiver, WLComposeBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
@@ -55,8 +58,16 @@
 @property (weak, nonatomic) IBOutlet UIView *loadingView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (weak, nonatomic) IBOutlet UIView *quickChatView;
+@property (weak, nonatomic) IBOutlet UIImageView *quickChatAvatarView;
+@property (weak, nonatomic) IBOutlet UILabel *quickChatMessageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *quickChatContributorNameLabel;
+@property (weak, nonatomic) IBOutlet UIView *quickChatContentView;
+@property (weak, nonatomic) IBOutlet WLComposeBar *quickChatComposeBar;
 
 @property (nonatomic) BOOL shouldAppendMoreWraps;
+
+@property (strong, nonatomic) UIView *headerView;
 
 @end
 
@@ -74,6 +85,10 @@
 	[[WLUserChannelBroadcaster broadcaster] addReceiver:self];
 	[[WLNotificationBroadcaster broadcaster] addReceiver:self];
 	self.tableView.tableFooterView = [WLLoadingView instance];
+    [self.tableView addSubview:self.quickChatView];
+    [self.tableView setContentOffset:CGPointMake(0, self.quickChatView.height) animated:NO];
+    self.quickChatAvatarView.circled = YES;
+    self.quickChatComposeBar.placeholder = @"Write your message ...";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -265,10 +280,24 @@
 	
 	BOOL hasWraps = _wraps.nonempty;
 	
+    self.quickChatView.hidden = !hasWraps;
+    
 	if (hasWraps) {
 		WLWrap* wrap = self.topWrap;
 		[[WLUploadingQueue instance] updateWrap:wrap];
 		self.candies = [wrap candies:WLHomeTopWrapCandiesLimit];
+        WLCandy* message = [[wrap messages:1] lastObject];
+        if (message) {
+            self.quickChatContentView.hidden = NO;
+            self.quickChatAvatarView.url = message.contributor.picture.small;
+            self.quickChatMessageLabel.text = message.chatMessage;
+            [self.quickChatMessageLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
+            self.quickChatContributorNameLabel.text = message.contributor.name;
+        } else {
+            self.quickChatContentView.hidden = YES;
+        }
+        
+        [self updateQuickChatViewHeight];
 	}
 	
 	self.tableView.hidden = !hasWraps;
@@ -282,6 +311,16 @@
 		} completion:^(BOOL finished) {
 		}];
 	}
+}
+
+- (void)updateQuickChatViewHeight {
+    if (!self.quickChatContentView.hidden) {
+        self.quickChatView.height = self.quickChatContentView.height + self.quickChatComposeBar.height;
+        self.quickChatComposeBar.y = self.quickChatContentView.height;
+    } else {
+        self.quickChatView.height = self.quickChatComposeBar.height;
+        self.quickChatComposeBar.y = 0;
+    }
 }
 
 - (void)sendMessageWithText:(NSString*)text {
@@ -350,10 +389,62 @@
 	}
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return self.quickChatView.height;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (!self.headerView) {
+        UIButton* headerView = [UIButton buttonWithType:UIButtonTypeCustom];
+        [headerView addTarget:self action:@selector(showQuickChat) forControlEvents:UIControlEventTouchUpInside];
+        headerView.userInteractionEnabled = NO;
+        headerView.backgroundColor = [UIColor clearColor];
+        self.headerView = headerView;
+    }
+    return self.headerView;
+}
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
 	if (self.refresher.refreshing) {
 		[self.refresher endRefreshingAfterDelay:0.0f];
 	}
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        [self onEndScrolling];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self onEndScrolling];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offset = scrollView.contentOffset.y;
+    if (offset > 0) {
+        self.quickChatView.transform = CGAffineTransformMakeTranslation(0, offset);
+        [scrollView sendSubviewToBack:self.quickChatView];
+        self.headerView.userInteractionEnabled = YES;
+    } else {
+        self.quickChatView.transform = CGAffineTransformIdentity;
+        [scrollView bringSubviewToFront:self.quickChatView];
+        self.headerView.userInteractionEnabled = NO;
+    }
+}
+
+- (void)onEndScrolling {
+    CGFloat offset = self.tableView.contentOffset.y;
+    CGFloat height = self.quickChatView.height;
+    if (IsInBounds(0, height/2.0f, offset)) {
+        [self showQuickChat];
+    } else if (IsInBounds(height/2.0f, height, offset)) {
+        [self.tableView setContentOffset:CGPointMake(0, height) animated:YES];
+    }
+}
+
+- (void)showQuickChat {
+    [self.tableView setContentOffset:CGPointZero animated:YES];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate
@@ -406,6 +497,20 @@
 	WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 	wrapController.wrap = wrap;
 	[self.navigationController pushViewController:wrapController animated:YES];
+}
+
+#pragma mark - WLComposeBarDelegate
+
+- (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
+	[[WLUploadingQueue instance] uploadMessage:text wrap:self.topWrap success:^(id object) {
+	} failure:^(NSError *error) {
+	}];
+}
+
+- (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
+    [self updateQuickChatViewHeight];
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
 }
 
 @end

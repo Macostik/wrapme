@@ -11,6 +11,12 @@
 
 @implementation NSArray (Additions)
 
++ (id)arrayWithContentsOfPlist:(NSString *)plistName
+{
+    NSString* path = [[NSBundle mainBundle] pathForResource:plistName ofType:@"plist"];
+    return [NSArray arrayWithContentsOfFile:path];
+}
+
 - (BOOL)nonempty {
 	return [self count] > 0;
 }

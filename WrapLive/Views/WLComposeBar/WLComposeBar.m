@@ -16,18 +16,19 @@
 #import "UIFont+CustomFonts.h"
 #import <objc/runtime.h>
 #import "NSString+Additions.h"
-#import "NSString+Additions.h"
+#import "WLEmojiView.h"
 
 static NSUInteger WLComposeBarDefaultCharactersLimit = 360;
 static NSUInteger WLComposeBarMaxHeight = 100;
 static NSUInteger WLComposeBarMinHeight = 44;
 
-@interface WLComposeBar () <UITextViewDelegate>
+@interface WLComposeBar () <UITextViewDelegate, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet WLTextView *textView;
 @property (strong, nonatomic) UIView *composeView;
 @property (nonatomic) CGRect defaultSize;
+@property (strong, nonatomic) WLEmojiView * emojiView;
 
 @end
 
@@ -47,21 +48,22 @@ static NSUInteger WLComposeBarMinHeight = 44;
 	self.textView.superview.layer.borderWidth = 0.5f;
 	self.textView.textContainerInset = UIEdgeInsetsMake(5, 0, 6, 0);
 	[self updateStateAnimated:NO];
-	
 	[self.textView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:@"contentSize"]) {
-		CGFloat height = self.textView.contentSize.height + self.textView.textContainerInset.top + self.textView.textContainerInset.bottom;
-		height = Smoothstep(WLComposeBarMinHeight, WLComposeBarMaxHeight, height);
-		if (ABS(height - self.height) > 5) {
-			self.height = height;
-			self.composeView.height = self.height;
-			if ([self.delegate respondsToSelector:@selector(composeBarHeightDidChanged:)]) {
-				[self.delegate composeBarHeightDidChanged:self];
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+			CGFloat height = self.textView.contentSize.height + self.textView.textContainerInset.top + self.textView.textContainerInset.bottom;
+			height = Smoothstep(WLComposeBarMinHeight, WLComposeBarMaxHeight, height);
+			if (ABS(height - self.height) > 10) {
+				self.height = height;
+				self.composeView.height = self.height;
+				if ([self.delegate respondsToSelector:@selector(composeBarHeightDidChanged:)]) {
+					[self.delegate composeBarHeightDidChanged:self];
+				}
 			}
-		}
+		});
 	}
 }
 
@@ -125,12 +127,50 @@ static NSUInteger WLComposeBarMinHeight = 44;
 	}
 }
 
+- (WLEmojiView *)emojiView {
+	__weak typeof(self)weakSelf = self;
+	if (!_emojiView) {
+		_emojiView = [[WLEmojiView alloc] initWithSelectionBlock:^(NSString *emoji) {
+			NSRange selectedRange =  NSMakeRange(weakSelf.textView.selectedRange.location, weakSelf.textView.selectedRange.length);
+			weakSelf.text = [weakSelf.text stringByReplacingCharactersInRange:weakSelf.textView.selectedRange withString:emoji];
+			weakSelf.textView.selectedRange = NSMakeRange(selectedRange.location + emoji.length, 0);
+		} andReturnBlock:^{
+			if (weakSelf.textView.selectedRange.length > 0) {
+				NSRange selectedRange =  NSMakeRange(weakSelf.textView.selectedRange.location, weakSelf.textView.selectedRange.length);
+				weakSelf.text = [weakSelf.text stringByReplacingCharactersInRange:weakSelf.textView.selectedRange withString:@""];
+				weakSelf.textView.selectedRange = NSMakeRange(selectedRange.location, 0);
+			} else if (weakSelf.textView.selectedRange.location > 0){
+				[weakSelf.textView.text enumerateSubstringsInRange:NSMakeRange(0, weakSelf.textView.text.length) options:
+				 NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+					 if (substringRange.location + substringRange.length == weakSelf.textView.selectedRange.location) {
+						 weakSelf.text = [weakSelf.text stringByReplacingCharactersInRange:substringRange withString:@""];
+						 weakSelf.textView.selectedRange = NSMakeRange(substringRange.location, 0);
+					 }
+				 }];
+			}
+		}];
+	}
+	return _emojiView;
+}
+
 #pragma mark - Actions
 
 - (IBAction)done:(id)sender {
 	self.height = self.defaultSize.size.height;
 	self.composeView.height = self.defaultSize.size.height;
 	[self finish];
+}
+
+- (IBAction)selectEmoji:(UIButton *)sender {
+	sender.selected = !sender.selected;
+	self.textView.inputView = nil;
+	if (sender.selected) {
+		self.textView.inputView = self.emojiView;
+	}
+	if (![self isFirstResponder]) {
+		[self becomeFirstResponder];
+	}
+	[self.textView reloadInputViews];
 }
 
 #pragma mark - UITextViewDelegate

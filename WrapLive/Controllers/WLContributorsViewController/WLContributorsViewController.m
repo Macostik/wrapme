@@ -15,6 +15,7 @@
 #import "NSString+Additions.h"
 #import "WLContactCell.h"
 #import "UIColor+CustomColors.h"
+#import "WLInviteViewController.h"
 
 @interface WLContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate>
 
@@ -57,19 +58,27 @@
 			[users removeEntry:self.wrap.contributor];
 		}
 		
-		[users removeObjectsWhileEnumerating:^BOOL(WLUser *user) {
+		if ([contact.users count] == 1) {
+			WLUser* user = [contact.users lastObject];
 			if (user.identifier.nonempty) {
-				WLContact* _contact = [[WLContact alloc] init];
-				_contact.users = @[user];
-				[signedUp addObject:_contact];
-				return YES;
+				[signedUp addObject:contact];
+			} else {
+				[notSignedUp addObject:contact];
 			}
-			return NO;
-		}];
-		
-		if (users.nonempty) {
-			contact.users = [users copy];
-			[notSignedUp addObject:contact];
+		} else {
+			[users removeObjectsWhileEnumerating:^BOOL(WLUser *user) {
+				if (user.identifier.nonempty) {
+					WLContact* _contact = [[WLContact alloc] init];
+					_contact.users = @[user];
+					[signedUp addObject:_contact];
+					return YES;
+				}
+				return NO;
+			}];
+			if (users.nonempty) {
+				contact.users = [users copy];
+				[notSignedUp addObject:contact];
+			}
 		}
 	}
 	NSComparator comparator = ^NSComparisonResult(WLContact* contact1, WLContact* contact2) {
@@ -117,6 +126,21 @@
 }
 
 #pragma mark - Actions
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	WLInviteViewController *controller = segue.destinationViewController;
+	__weak typeof(self)weakSelf = self;
+	[controller setPhoneNumberBlock:^(NSArray *contacts) {
+		for (WLContact *contact in contacts) {
+			[self.selectedContributors addObjectsFromArray:contact.users];
+		}
+		NSArray *contributors = [contacts arrayByAddingObjectsFromArray:weakSelf.contributors];
+		weakSelf.contributors = [weakSelf processContributors:contributors];
+		
+		NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:[weakSelf.contributors indexOfObject:[contacts firstObject]]];
+		[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+	}];
+}
 
 - (IBAction)back:(id)sender {
 	[self.navigationController popViewControllerAnimated:YES];

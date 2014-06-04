@@ -25,7 +25,7 @@
 #import "NSDate+Additions.h"
 #import "WLWelcomeViewController.h"
 
-static const int ddLogLevel = LOG_LEVEL_OFF;
+static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
@@ -265,30 +265,33 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 - (id)contributors:(WLArrayBlock)success failure:(WLFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
 	[WLAddressBook contacts:^(NSArray *contacts) {
-
-		if (contacts.count == 0) {
-			success(nil);
-			return;
-		}
-		
-		NSMutableArray* phones = [NSMutableArray array];
-		
-		[contacts all:^(WLContact* contact) {
-			[contact.users all:^(WLUser* user) {
-				[phones addObject:user.phoneNumber];
-			}];
-		}];
-		
-		WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-			return [weakSelf contributorsFromResponse:response contacts:contacts];
-		};
-		
-		[weakSelf POST:@"users/sign_up_status"
-			parameters:@{@"phone_numbers":phones}
-			   success:[weakSelf successBlock:success withObject:objectBlock failure:failure]
-			   failure:[weakSelf failureBlock:failure]];
+		[weakSelf contributors:contacts success:success failure:failure];
 	} failure:failure];
 	return nil;
+}
+
+- (id)contributors:(NSArray*)contacts success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+	if (contacts.count == 0) {
+		success(nil);
+		return nil;
+	}
+	
+	NSMutableArray* phones = [NSMutableArray array];
+	
+	[contacts all:^(WLContact* contact) {
+		[contact.users all:^(WLUser* user) {
+			[phones addObject:user.phoneNumber];
+		}];
+	}];
+	
+	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
+		return [self contributorsFromResponse:response contacts:contacts];
+	};
+	
+	return [self POST:@"users/sign_up_status"
+		parameters:@{@"phone_numbers":phones}
+		   success:[self successBlock:success withObject:objectBlock failure:failure]
+		   failure:[self failureBlock:failure]];
 }
 
 - (NSArray*)contributorsFromResponse:(WLAPIResponse*)response contacts:(NSArray*)contacts {

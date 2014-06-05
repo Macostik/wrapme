@@ -10,6 +10,14 @@
 
 @interface WLLoadingView : UIView
 
+@property (nonatomic) BOOL animating;
+
 + (instancetype)instance;
+
++ (instancetype)splash;
+
+- (instancetype)showInView:(UIView*)view;
+
+- (void)hide;
 
 @end

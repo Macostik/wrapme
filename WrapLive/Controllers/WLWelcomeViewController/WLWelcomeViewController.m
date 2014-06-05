@@ -17,11 +17,11 @@
 #import "WLHomeViewController.h"
 #import "UIFont+CustomFonts.h"
 #import "UIColor+CustomColors.h"
+#import "WLLoadingView.h"
 
 @interface WLWelcomeViewController ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) WLLoadingView *splash;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIButton *licenseButton;
 
@@ -32,6 +32,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    WLLoadingView* splash = [WLLoadingView splash];
+    splash.frame = self.view.bounds;
+    [self.view insertSubview:splash atIndex:0];
+    self.splash = splash;
 	
 	self.bottomView.hidden = YES;
 	if ([[WLAuthorization currentAuthorization] canAuthorize]) {
@@ -62,7 +67,7 @@
 	[UIView animateWithDuration:0.25f animations:^{
 		weakSelf.bottomView.transform = CGAffineTransformIdentity;
 	}];
-	[self.spinner removeFromSuperview];
+    self.splash.animating = NO;
 }
 
 - (void)underlineLicenseButton {

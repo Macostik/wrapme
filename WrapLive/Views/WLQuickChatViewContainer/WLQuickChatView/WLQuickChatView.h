@@ -12,14 +12,18 @@
 
 @interface WLQuickChatView : UIView
 
++ (instancetype)quickChatView:(UITableView*)tableView;
+
 @property (strong, nonatomic) WLWrap* wrap;
-
-@property (nonatomic) BOOL editing;
-
-- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 
 - (void)onEndScrolling;
 
 - (void)onScroll;
+
+@end
+
+@interface UITableView (WLQuickChatView)
+
+- (void)reloadDataAndFixBottomInset:(WLQuickChatView*)quickChatView;
 
 @end

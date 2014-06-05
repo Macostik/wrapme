@@ -55,10 +55,10 @@
 @property (nonatomic) BOOL loading;
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
-@property (weak, nonatomic) IBOutlet UIView *loadingView;
+@property (weak, nonatomic) WLLoadingView *splash;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
-@property (weak, nonatomic) WLQuickChatView *quickChatView;
+@property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
 
 @property (nonatomic) BOOL shouldAppendMoreWraps;
 
@@ -69,6 +69,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.splash = [[WLLoadingView splash] showInView:self.view];
+    
 	self.navigationBar.transform = CGAffineTransformMakeTranslation(0, -self.navigationBar.height);
 	self.createWrapButton.transform = CGAffineTransformMakeTranslation(0, self.createWrapButton.height);
 	self.tableView.hidden = YES;
@@ -78,7 +81,6 @@
 	[[WLUserChannelBroadcaster broadcaster] addReceiver:self];
 	[[WLNotificationBroadcaster broadcaster] addReceiver:self];
 	self.tableView.tableFooterView = [WLLoadingView instance];
-    self.quickChatView = [WLQuickChatView quickChatView:self.tableView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -240,10 +242,10 @@
 	if (!CGAffineTransformIsIdentity(self.createWrapButton.transform)) {
 		__weak typeof(self)weakSelf = self;
 		[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-			weakSelf.loadingView.alpha = 0.0f;
+			weakSelf.splash.alpha = 0.0f;
 			weakSelf.createWrapButton.transform = CGAffineTransformIdentity;
 		} completion:^(BOOL finished) {
-			[weakSelf.loadingView removeFromSuperview];
+			[weakSelf.splash hide];
 		}];
 	}
 }

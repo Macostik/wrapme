@@ -49,7 +49,7 @@
 
 @property (weak, nonatomic) WLRefresher *refresher;
 
-@property (weak, nonatomic) WLQuickChatView *quickChatView;
+@property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
 
 @end
 
@@ -63,7 +63,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	[[WLUploadingQueue instance] updateWrap:self.wrap];
-	[self setWrapData];
+	self.quickChatView.wrap = self.wrap;
 	[self refreshWrap];
 	__weak typeof(self)weakSelf = self;
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
@@ -76,7 +76,6 @@
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	[[WLUserChannelBroadcaster broadcaster] addReceiver:self];
     
-    self.quickChatView = [WLQuickChatView quickChatView:self.tableView];
     self.quickChatView.wrap = self.wrap;
 }
 
@@ -84,14 +83,6 @@
 	[super viewWillAppear:animated];
 	wrapEditing = NO;
 	[self.wrap setUpdated:NO];
-}
-
-- (void)setWrapData {
-	self.coverView.url = self.wrap.picture.small;
-	self.nameLabel.text = self.wrap.name;
-	self.contributorsLabel.text = self.wrap.contributorNames;
-	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
-    self.quickChatView.wrap = self.wrap;
 }
 
 #pragma mark - WLUserChannelBroadcastReceiver
@@ -106,8 +97,8 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
 	if ([wrap isEqualToEntry:self.wrap]) {
-		[self setWrapData];
-		[self.tableView reloadDataAndFixBottomInset:self.quickChatView];
+		self.quickChatView.wrap = self.wrap;
+		[self.tableView reloadData];
 	}
 }
 
@@ -115,7 +106,7 @@
 	for (WLWrapDate* date in self.wrap.dates) {
 		if (!date.candies.nonempty) {
 			self.wrap.dates = (id)[self.wrap.dates arrayByRemovingObject:date];
-			[self.tableView reloadDataAndFixBottomInset:self.quickChatView];
+			[self.tableView reloadData];
 			break;
 		}
 	}
@@ -139,7 +130,7 @@
 			}
 		}
 		weakSelf.shouldLoadMoreDates = !stop;
-		[weakSelf.tableView reloadDataAndFixBottomInset:weakSelf.quickChatView];
+		[weakSelf.tableView reloadData];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
 		weakSelf.shouldLoadMoreDates = NO;
@@ -157,7 +148,7 @@
 	NSInteger page = floorf([self.wrap.dates count] / WLAPIGeneralPageSize) + 1;
 	[[WLAPIManager instance] wrap:[self.wrap copy] page:page success:^(WLWrap* wrap) {
 		weakSelf.wrap.dates = (id)[weakSelf.wrap.dates entriesByAddingEntries:wrap.dates];
-		[weakSelf.tableView reloadDataAndFixBottomInset:weakSelf.quickChatView];
+		[weakSelf.tableView reloadData];
 		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
 		loading = NO;
 	} failure:^(NSError *error) {

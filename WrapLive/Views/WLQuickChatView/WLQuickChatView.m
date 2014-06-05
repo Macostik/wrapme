@@ -16,57 +16,26 @@
 #import "WLCandy.h"
 #import "UILabel+Additions.h"
 #import "WLSupportFunctions.h"
+#import "UIView+AnimationHelper.h"
 
 @interface WLQuickChatView () <WLComposeBarDelegate, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet WLUserView *contributorView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
-@property (weak, nonatomic) UITableView *tableView;
-@property (weak, nonatomic) UIView *headerView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) UIView* headerView;
 
 @end
 
 @implementation WLQuickChatView
 
-+ (instancetype)quickChatView:(UITableView *)tableView {
-    WLQuickChatView* quickChatView = [WLQuickChatView loadFromNib];
-    quickChatView.tableView = tableView;
-    return quickChatView;
-}
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.composeBar performSelector:@selector(setPlaceholder:) withObject:@"Write your message..." afterDelay:0.0f];
-}
-
-- (void)setTableView:(UITableView *)tableView {
-    _tableView = tableView;
-    [tableView addSubview:self];
-}
-
-- (UIView *)headerView {
-    UIView* headerView = self.tableView.tableHeaderView;
-    if (!headerView) {
-        UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button addTarget:self action:@selector(show) forControlEvents:UIControlEventTouchUpInside];
-        button.userInteractionEnabled = NO;
-        button.backgroundColor = [UIColor clearColor];
-        button.frame = self.bounds;
-        headerView = button;
-        self.headerView = headerView;
-    }
-    return headerView;
-}
-
-- (void)setHeaderView:(UIView *)headerView {
-    self.tableView.tableHeaderView = headerView;
-}
-
-- (void)setHeight:(CGFloat)height {
-    [super setHeight:height];
-    UIView* headerView = self.headerView;
-    headerView.height = height;
+    UIView* headerView = [UIView loadFromNibNamed:@"WLQuickChatView" ownedBy:self];
+    headerView.y = -headerView.height;
+    [self addSubview:headerView];
     self.headerView = headerView;
 }
 
@@ -86,57 +55,70 @@
         }
         [weakSelf updateHeight];
         if (changed) {
-            [weakSelf setOffset:weakSelf.height animated:NO];
         }
     });
 }
 
 - (void)updateHeight {
-    CATransform3D t = self.layer.transform;
-    self.layer.transform = CATransform3DIdentity;
     if (!self.contributorView.hidden) {
-        self.height = self.contributorView.height + self.composeBar.height;
+        self.headerView.height = self.contributorView.height + self.composeBar.height;
         self.composeBar.y = self.contributorView.height;
     } else {
-        self.height = self.composeBar.height;
+        self.headerView.height = self.composeBar.height;
         self.composeBar.y = 0;
     }
-    self.layer.transform = t;
+    
+    [self setEditing:self.editing animated:YES];
 }
 
-- (void)setOffset:(CGFloat)offset animated:(BOOL)animated {
-    [self.tableView setContentOffset:CGPointMake(0, offset) animated:animated];
+- (void)setEditing:(BOOL)editing {
+    [self setEditing:editing animated:NO];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    _editing = editing;
+    self.tableView.userInteractionEnabled = !editing;
+    CGFloat height = editing ? self.height - self.headerView.height : self.height;
+    __weak typeof(self)weakSelf = self;
+    [UIView performAnimated:animated animation:^{
+        weakSelf.tableView.height = height;
+        weakSelf.tableView.y = weakSelf.height - height;
+        weakSelf.headerView.y = weakSelf.tableView.y - weakSelf.headerView.height;
+    }];
+    if (editing && !self.composeBar.isFirstResponder) {
+        [self.composeBar becomeFirstResponder];
+    } else if (self.composeBar.isFirstResponder) {
+        [self.composeBar resignFirstResponder];
+    }
 }
 
 #pragma mark - UITableViewDelegate
 
 - (void)onScroll {
     CGFloat offset = self.tableView.contentOffset.y;
-    if (offset > 0) {
-        self.transform = CGAffineTransformMakeTranslation(0, offset);
-        [self.tableView sendSubviewToBack:self];
-        self.headerView.userInteractionEnabled = YES;
-    } else {
-        self.transform = CGAffineTransformIdentity;
-        [self.tableView bringSubviewToFront:self];
-        self.headerView.userInteractionEnabled = NO;
+//    if (offset > 0 && self.self.tableView.height != self.height) {
+//        self.tableView.height = MIN(self.height, self.tableView.height + offset);
+//    } else if (offset < 0 && self.self.tableView.height != (self.height - self.headerView.height)) {
+//        
+//    }
+    CGFloat height = self.tableView.height;
+    height = Smoothstep(self.height - self.headerView.height, self.height, height + offset);
+    NSLog(@"%f", height);
+    if (height != self.tableView.height) {
+        self.tableView.height = height;
+        self.tableView.y = self.height - height;
+        self.headerView.y = self.tableView.y - self.headerView.height;
     }
 }
 
 - (void)onEndScrolling {
-    CGFloat offset = self.tableView.contentOffset.y;
-    CGFloat height = self.height;
+    CGFloat offset = self.height - self.tableView.height;
+    CGFloat height = self.headerView.height;
     if (IsInBounds(0, height/2.0f, offset)) {
-        [self show];
+        [self setEditing:NO animated:YES];
     } else if (IsInBounds(height/2.0f, height, offset)) {
-        [self setOffset:height animated:YES];
-        [self.composeBar resignFirstResponder];
+        [self setEditing:YES animated:YES];
     }
-}
-
-- (void)show {
-    [self setOffset:0 animated:YES];
-    [self.composeBar becomeFirstResponder];
 }
 
 #pragma mark - WLComposeBarDelegate
@@ -147,28 +129,19 @@
 	}];
 }
 
+- (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
+    [self setEditing:NO animated:YES];
+}
+
 - (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
     [self updateHeight];
     [self.tableView reloadData];
 }
 
-@end
-
-@implementation UITableView (WLQuickChatView)
-
-- (void)reloadDataAndFixBottomInset:(WLQuickChatView*)quickChatView {
-    CGPoint offset = self.contentOffset;
-    UIEdgeInsets insets = self.contentInset;
-    insets.bottom = 0;
-    self.contentInset = insets;
-    [self reloadData];
-    CGFloat dy = (self.height + quickChatView.height) - self.contentSize.height;
-    if (dy > 0) {
-        UIEdgeInsets insets = self.contentInset;
-        insets.bottom = dy;
-        self.contentInset = insets;
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (self.editing) {
+        [self setEditing:NO animated:YES];
     }
-    self.contentOffset = offset;
 }
 
 @end

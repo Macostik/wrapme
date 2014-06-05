@@ -17,8 +17,6 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 
 @property (readonly, nonatomic) BOOL nonempty;
 
-+ (id)arrayWithContentsOfPlist:(NSString *)plistName;
-
 + (instancetype)arrayWithBlock:(void (^)(NSMutableArray* array))block;
 
 - (NSArray*)mutate:(void (^)(NSMutableArray* mutableCopy))mutation;

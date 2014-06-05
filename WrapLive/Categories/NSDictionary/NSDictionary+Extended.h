@@ -10,8 +10,6 @@
 
 @interface NSDictionary (Extended)
 
-+ (id)dictionaryWithContentsOfPlist:(NSString *)plistName;
-
 - (id)tryObjectForKey:(id)key;
 
 - (id)objectForPossibleKeys:(id)key, ... NS_REQUIRES_NIL_TERMINATION;

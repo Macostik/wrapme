@@ -13,11 +13,6 @@
 
 @implementation NSDictionary (Extended)
 
-+ (id)dictionaryWithContentsOfPlist:(NSString *)plistName {
-    NSString* path = [[NSBundle mainBundle] pathForResource:plistName ofType:@"plist"];
-    return [self dictionaryWithContentsOfFile:path];
-}
-
 - (id)tryObjectForKey:(id)key {
     id object = [self objectForKey:key];
     

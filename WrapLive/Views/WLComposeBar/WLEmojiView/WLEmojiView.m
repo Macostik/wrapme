@@ -13,7 +13,7 @@
 #import "UIColor+CustomColors.h"
 #import "NSObject+NibAdditions.h"
 #import "NSArray+Additions.h"
-
+#import "NSPropertyListSerialization+Shorthand.h"
 
 @interface WLEmojiView () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SegmentedControlDelegate>
 
@@ -35,7 +35,7 @@
 		self.emojiView.frame = self.bounds;
 		[self addSubview:self.emojiView];
 		[self.collectionView registerClass:[WLEmojiCell class] forCellWithReuseIdentifier:@"WLEmojiCell"];
-		self.emojis = [NSArray arrayWithContentsOfPlist:@"smiles"];
+		self.emojis = [NSArray resourcePropertyListNamed:@"smiles"];
     }
     return self;
 }
@@ -75,15 +75,15 @@
 
 - (void)segmentedControl:(SegmentedControl*)control didSelectSegment:(NSInteger)segment {
 	if (segment == 0) {
-		self.emojis = [NSArray arrayWithContentsOfPlist:@"smiles"];
+		self.emojis = [NSArray resourcePropertyListNamed:@"smiles"];
 	} else if (segment == 1) {
-		self.emojis = [NSArray arrayWithContentsOfPlist:@"flowers"];
+		self.emojis = [NSArray resourcePropertyListNamed:@"flowers"];
 	} else if (segment == 2){
-		self.emojis = [NSArray arrayWithContentsOfPlist:@"rings"];
+		self.emojis = [NSArray resourcePropertyListNamed:@"rings"];
 	} else if (segment == 3){
-		self.emojis = [NSArray arrayWithContentsOfPlist:@"cars"];
+		self.emojis = [NSArray resourcePropertyListNamed:@"cars"];
 	} else {
-		self.emojis = [NSArray arrayWithContentsOfPlist:@"numbers"];
+		self.emojis = [NSArray resourcePropertyListNamed:@"numbers"];
 	}
 	[self.collectionView setContentOffset:CGPointZero];
 	[self.collectionView reloadData];

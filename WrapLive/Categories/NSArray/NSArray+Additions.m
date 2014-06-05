@@ -11,12 +11,6 @@
 
 @implementation NSArray (Additions)
 
-+ (id)arrayWithContentsOfPlist:(NSString *)plistName
-{
-    NSString* path = [[NSBundle mainBundle] pathForResource:plistName ofType:@"plist"];
-    return [NSArray arrayWithContentsOfFile:path];
-}
-
 + (instancetype)arrayWithBlock:(void (^)(NSMutableArray *array))block {
 	return [[NSMutableArray arrayWithBlock:block] copy];
 }

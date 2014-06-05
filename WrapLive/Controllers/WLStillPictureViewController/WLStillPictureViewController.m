@@ -19,6 +19,7 @@
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
 #import "WLWrap.h"
 #import "UIView+Shorthand.h"
+#import "WLImageFetcher.h"
 
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate>
 
@@ -27,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIView* wrapView;
 @property (weak, nonatomic) IBOutlet UIView *navigationView;
 @property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *wrapCoverView;
 
 @end
 
@@ -41,6 +43,7 @@
     if (self.wrap) {
         self.wrapView.hidden = NO;
         self.wrapNameLabel.text = self.wrap.name;
+        self.wrapCoverView.url = self.wrap.picture.small;
         self.navigationView.height = self.view.height - self.wrapView.height;
     } else {
         self.wrapView.hidden = YES;

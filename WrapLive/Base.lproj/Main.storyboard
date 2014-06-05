@@ -218,12 +218,16 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Z6g-MM-5eu">
-                                        <rect key="frame" x="10" y="0.0" width="300" height="32"/>
+                                        <rect key="frame" x="48" y="0.0" width="262" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="o2R-3E-1Uv">
+                                        <rect key="frame" x="13" y="4" width="24" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -232,6 +236,7 @@
                     </view>
                     <connections>
                         <outlet property="navigationView" destination="gF6-1q-azT" id="otI-VS-sgr"/>
+                        <outlet property="wrapCoverView" destination="o2R-3E-1Uv" id="XCg-1H-PJm"/>
                         <outlet property="wrapNameLabel" destination="Z6g-MM-5eu" id="ENG-qL-i6f"/>
                         <outlet property="wrapView" destination="xrc-me-aUT" id="XMb-iB-6Vp"/>
                     </connections>

@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>5B642395-CB69-42EE-B070-A0C2478EE2D4</string>
+	<string>3EC7E4DB-51ED-41C0-8FB2-D26678D09E81</string>
 	<key>IDESourceControlProjectName</key>
 	<string>WrapLive</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>265C64F3-D9B2-40EF-ADA3-31162535E93D</key>
-		<string>https://github.com/ravengit/wraplive-ios</string>
+		<key>5015D8A8-DB1A-4F94-A994-01C0A2722362</key>
+		<string>ssh://github.com/ravengit/wraplive-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>WrapLive.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>265C64F3-D9B2-40EF-ADA3-31162535E93D</key>
+		<key>5015D8A8-DB1A-4F94-A994-01C0A2722362</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/ravengit/wraplive-ios</string>
+	<string>ssh://github.com/ravengit/wraplive-ios.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>265C64F3-D9B2-40EF-ADA3-31162535E93D</string>
+	<string>5015D8A8-DB1A-4F94-A994-01C0A2722362</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>265C64F3-D9B2-40EF-ADA3-31162535E93D</string>
+			<string>5015D8A8-DB1A-4F94-A994-01C0A2722362</string>
 			<key>IDESourceControlWCCName</key>
 			<string>wraplive-ios</string>
 		</dict>

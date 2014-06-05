@@ -67,8 +67,13 @@
         self.headerView.height = self.composeBar.height;
         self.composeBar.y = 0;
     }
+    [self updateHeaderPosition];
     
     [self setEditing:self.editing animated:YES];
+}
+
+- (void)updateHeaderPosition {
+    self.headerView.y = self.tableView.y - self.headerView.height;
 }
 
 - (void)setEditing:(BOOL)editing {
@@ -83,11 +88,11 @@
     [UIView performAnimated:animated animation:^{
         weakSelf.tableView.height = height;
         weakSelf.tableView.y = weakSelf.height - height;
-        weakSelf.headerView.y = weakSelf.tableView.y - weakSelf.headerView.height;
+        [weakSelf updateHeaderPosition];
     }];
     if (editing && !self.composeBar.isFirstResponder) {
         [self.composeBar becomeFirstResponder];
-    } else if (self.composeBar.isFirstResponder) {
+    } else if (!editing && self.composeBar.isFirstResponder) {
         [self.composeBar resignFirstResponder];
     }
 }
@@ -96,14 +101,8 @@
 
 - (void)onScroll {
     CGFloat offset = self.tableView.contentOffset.y;
-//    if (offset > 0 && self.self.tableView.height != self.height) {
-//        self.tableView.height = MIN(self.height, self.tableView.height + offset);
-//    } else if (offset < 0 && self.self.tableView.height != (self.height - self.headerView.height)) {
-//        
-//    }
     CGFloat height = self.tableView.height;
     height = Smoothstep(self.height - self.headerView.height, self.height, height + offset);
-    NSLog(@"%f", height);
     if (height != self.tableView.height) {
         self.tableView.height = height;
         self.tableView.y = self.height - height;
@@ -116,7 +115,7 @@
     CGFloat height = self.headerView.height;
     if (IsInBounds(0, height/2.0f, offset)) {
         [self setEditing:NO animated:YES];
-    } else if (IsInBounds(height/2.0f, height, offset)) {
+    } else if (self.tableView.contentOffset.y >= 0 && IsInBounds(height/2.0f, height, offset)) {
         [self setEditing:YES animated:YES];
     }
 }
@@ -135,7 +134,6 @@
 
 - (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
     [self updateHeight];
-    [self.tableView reloadData];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

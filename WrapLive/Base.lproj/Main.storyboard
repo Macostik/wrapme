@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -213,16 +213,44 @@
             <point key="canvasLocation" x="3461" y="-1120"/>
         </scene>
         <!--Still Picture View Controller-->
-        <scene sceneID="g0p-C2-IZA">
+        <scene sceneID="VhP-qe-VLJ">
             <objects>
-                <navigationController storyboardIdentifier="WLStillPictureViewController" definesPresentationContext="YES" navigationBarHidden="YES" id="LCB-Vp-qkd" customClass="WLStillPictureViewController" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="W04-ZL-9xe">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kTF-4K-ACu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="WLStillPictureViewController" id="PLV-Iu-pRL" customClass="WLStillPictureViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JqM-Hj-ZlY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="gF6-1q-azT">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="536"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="xrc-me-aUT">
+                                <rect key="frame" x="0.0" y="536" width="320" height="32"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Z6g-MM-5eu">
+                                        <rect key="frame" x="10" y="0.0" width="300" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="navigationView" destination="gF6-1q-azT" id="otI-VS-sgr"/>
+                        <outlet property="wrapNameLabel" destination="Z6g-MM-5eu" id="ENG-qL-i6f"/>
+                        <outlet property="wrapView" destination="xrc-me-aUT" id="XMb-iB-6Vp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TDW-XJ-aeR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2937" y="-1120"/>
+            <point key="canvasLocation" x="2971" y="-1120"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="1af-uD-k4o">
@@ -765,7 +793,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="LCB-Vp-qkd" kind="modal" identifier="camera" id="QDv-Yw-H57"/>
+                                            <segue destination="PLV-Iu-pRL" kind="modal" identifier="camera" id="oao-Rm-gch"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sfX-vy-DXa">
@@ -906,7 +934,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <connections>
-                                                                        <segue destination="LCB-Vp-qkd" kind="modal" identifier="camera" id="g2G-dh-8El"/>
+                                                                        <segue destination="PLV-Iu-pRL" kind="modal" identifier="camera" id="Mcp-Wh-cB2"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -1460,7 +1488,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="LCB-Vp-qkd" kind="modal" identifier="camera" id="Sbw-6n-Vdt"/>
+                                    <segue destination="PLV-Iu-pRL" kind="modal" identifier="camera" id="WjR-f7-d7j"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8kR-VI-DgA">
@@ -1618,7 +1646,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="LCB-Vp-qkd" kind="modal" identifier="camera" id="JtR-DS-Him"/>
+                                                    <segue destination="PLV-Iu-pRL" kind="modal" identifier="camera" id="LkF-8a-8pE"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap here or shake your device from anywhere in the app to take a photo" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ujI-SW-vPr">
@@ -2113,6 +2141,6 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Sbw-6n-Vdt"/>
+        <segue reference="Mcp-Wh-cB2"/>
     </inferredMetricsTieBreakers>
 </document>

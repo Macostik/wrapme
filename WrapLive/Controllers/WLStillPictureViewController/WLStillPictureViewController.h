@@ -13,7 +13,7 @@
 @class WLCameraViewController;
 @class WLWrap;
 
-@protocol WLStillPictureViewControllerDelegate <UINavigationControllerDelegate>
+@protocol WLStillPictureViewControllerDelegate <NSObject>
 
 - (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithImage:(UIImage*)image;
 
@@ -21,7 +21,7 @@
 
 @end
 
-@interface WLStillPictureViewController : UINavigationController
+@interface WLStillPictureViewController : UIViewController
 
 @property (nonatomic, weak) id <WLStillPictureViewControllerDelegate> delegate;
 

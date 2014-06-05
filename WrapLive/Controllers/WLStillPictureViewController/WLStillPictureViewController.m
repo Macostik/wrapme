@@ -17,8 +17,16 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
+#import "WLWrap.h"
+#import "UIView+Shorthand.h"
 
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate>
+
+@property (weak, nonatomic) UINavigationController* cameraNavigationController;
+
+@property (weak, nonatomic) IBOutlet UIView* wrapView;
+@property (weak, nonatomic) IBOutlet UIView *navigationView;
+@property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
 
 @end
 
@@ -29,7 +37,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.cameraViewController.wrap = self.wrap;
-	[self setViewControllers:@[self.cameraViewController]];
+    
+    if (self.wrap) {
+        self.wrapView.hidden = NO;
+        self.wrapNameLabel.text = self.wrap.name;
+        self.navigationView.height = self.view.height - self.wrapView.height;
+    } else {
+        self.wrapView.hidden = YES;
+        self.navigationView.height = self.view.height;
+    }
+    
+    self.cameraNavigationController.view.frame = self.navigationView.bounds;
+    [self.navigationView addSubview:self.cameraNavigationController.view];
+    
+	[self.cameraNavigationController setViewControllers:@[self.cameraViewController]];
+}
+
+- (UINavigationController *)cameraNavigationController {
+    if (!_cameraNavigationController) {
+        UINavigationController* controller = [[UINavigationController alloc] init];
+        controller.navigationBarHidden = YES;
+        [self addChildViewController:controller];
+        [controller didMoveToParentViewController:self];
+        _cameraNavigationController = controller;
+    }
+    return _cameraNavigationController;
 }
 
 - (WLCameraViewController *)cameraViewController {
@@ -85,7 +117,7 @@
 }
 
 - (void)editImage:(UIImage*)image {
-	[self pushViewController:[self editControllerWithImage:image] animated:YES];
+	[self.cameraNavigationController pushViewController:[self editControllerWithImage:image] animated:YES];
 }
 
 #pragma mark - WLCameraViewControllerDelegate
@@ -127,7 +159,7 @@
 			weakSelf.view.userInteractionEnabled = YES;
 		}];
 	}];
-	[self pushViewController:gallery animated:YES];
+	[self.cameraNavigationController pushViewController:gallery animated:YES];
 }
 
 #pragma mark - AFPhotoEditorControllerDelegate
@@ -137,7 +169,7 @@
 }
 
 - (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
-	[self popViewControllerAnimated:YES];
+	[self.cameraNavigationController popViewControllerAnimated:YES];
 }
 
 @end

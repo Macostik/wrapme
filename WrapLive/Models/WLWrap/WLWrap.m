@@ -159,9 +159,11 @@
         __block BOOL hasMessage = NO;
         [self enumerateCandies:^(WLCandy *candy, WLWrapDate *date, BOOL *stop) {
             if ([candies count] < maximumCount) {
-                if ([candy isChatMessage] && !hasMessage) {
-                    hasMessage = YES;
-                    [candies addObject:candy];
+                if ([candy isChatMessage]) {
+                    if (!hasMessage) {
+                        hasMessage = YES;
+                        [candies addObject:candy];
+                    }
                 } else {
                     [candies addObject:candy];
                 }

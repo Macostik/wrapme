@@ -95,13 +95,14 @@
 	[super viewWillAppear:animated];
 	self.takePhotoButton.active = YES;
 	
-	if (self.wrap) {
-		self.wrapNameLabel.superview.hidden = NO;
-		self.wrapNameLabel.text = self.wrap.name;
-		self.wrapCoverView.url = self.wrap.picture.small;
-	} else {
-		self.wrapNameLabel.superview.hidden = YES;
-	}
+    self.wrapNameLabel.superview.hidden = YES;
+//	if (self.wrap) {
+//		self.wrapNameLabel.superview.hidden = NO;
+//		self.wrapNameLabel.text = self.wrap.name;
+//		self.wrapCoverView.url = self.wrap.picture.small;
+//	} else {
+//		self.wrapNameLabel.superview.hidden = YES;
+//	}
 }
 
 - (void)configurePreviewLayer {

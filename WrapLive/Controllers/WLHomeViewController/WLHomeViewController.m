@@ -275,7 +275,7 @@
 	if (hasWraps) {
 		WLWrap* wrap = self.topWrap;
 		[[WLUploadingQueue instance] updateWrap:wrap];
-		self.candies = [wrap candies:WLHomeTopWrapCandiesLimit];
+		self.candies = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
         self.quickChatView.wrap = wrap;
 	}
 	

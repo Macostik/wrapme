@@ -116,18 +116,18 @@
 }
 
 - (NSArray *)candiesOfType:(NSInteger)type maximumCount:(NSUInteger)maximumCount {
-	NSMutableArray* candies = [NSMutableArray array];
-	for (WLWrapDate* date in self.dates) {
-		if (maximumCount > 0) {
-			[candies addObjectsFromArray:[date candiesOfType:type maximumCount:maximumCount - [candies count]]];
-			if ([candies count] >= maximumCount) {
-				return [candies copy];
-			}
-		} else {
-			[candies addObjectsFromArray:[date candiesOfType:type maximumCount:0]];
-		}
-	}
-	return [candies copy];
+    return [NSArray arrayWithBlock:^(NSMutableArray *candies) {
+        for (WLWrapDate* date in self.dates) {
+            if (maximumCount > 0) {
+                [candies addObjectsFromArray:[date candiesOfType:type maximumCount:maximumCount - [candies count]]];
+                if ([candies count] >= maximumCount) {
+                    break;
+                }
+            } else {
+                [candies addObjectsFromArray:[date candiesOfType:type maximumCount:0]];
+            }
+        }
+    }];
 }
 
 - (NSArray *)candies:(NSUInteger)maximumCount {
@@ -152,6 +152,24 @@
 
 - (NSArray*)messages {
 	return [self messages:0];
+}
+
+- (NSArray *)recentCandies:(NSUInteger)maximumCount {
+    return [NSArray arrayWithBlock:^(NSMutableArray *candies) {
+        __block BOOL hasMessage = NO;
+        [self enumerateCandies:^(WLCandy *candy, WLWrapDate *date, BOOL *stop) {
+            if ([candies count] < maximumCount) {
+                if ([candy isChatMessage] && !hasMessage) {
+                    hasMessage = YES;
+                    [candies addObject:candy];
+                } else {
+                    [candies addObject:candy];
+                }
+            } else {
+                *stop = YES;
+            }
+        }];
+    }];
 }
 
 - (void)enumerateCandies:(void (^)(WLCandy *candy, WLWrapDate *date, BOOL *))enumerator {

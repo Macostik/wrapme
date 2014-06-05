@@ -17,6 +17,10 @@
     return [NSArray arrayWithContentsOfFile:path];
 }
 
++ (instancetype)arrayWithBlock:(void (^)(NSMutableArray *array))block {
+	return [[NSMutableArray arrayWithBlock:block] copy];
+}
+
 - (BOOL)nonempty {
 	return [self count] > 0;
 }
@@ -205,6 +209,12 @@
 @end
 
 @implementation NSMutableArray (Additions)
+
++ (instancetype)arrayWithBlock:(void (^)(NSMutableArray *array))block {
+    NSMutableArray* array = [NSMutableArray array];
+	block(array);
+	return array;
+}
 
 - (BOOL)replaceObject:(id)object withObject:(id)replaceObject {
 	if (object && replaceObject) {

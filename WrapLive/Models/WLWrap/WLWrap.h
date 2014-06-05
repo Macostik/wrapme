@@ -49,6 +49,8 @@ static NSInteger WLWrapNameLimit = 190;
 
 - (NSArray*)messages;
 
+- (NSArray*)recentCandies:(NSUInteger)maximumCount;
+
 - (void)enumerateCandies:(void (^)(WLCandy* candy, WLWrapDate* date, BOOL *stop))enumerator;
 
 @end

@@ -68,7 +68,7 @@ static inline NSArray* WLAddressBookGetUsers(ABRecordRef record) {
 	for (CFIndex index = 0; index < count; ++index) {
 		WLUser* user = [WLUser entry];
 		user.phoneNumber = WLAddressBookClearPhone((__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, index));
-		if (user.phoneNumber.length > 5) {
+		if (user.phoneNumber.length >= WLMinPhoneLenth) {
 			CFStringRef phoneLabel = ABMultiValueCopyLabelAtIndex(phones, index);
 			user.phoneNumber.label = (__bridge_transfer NSString*)ABAddressBookCopyLocalizedLabel(phoneLabel);
 			if (phoneLabel != NULL) {

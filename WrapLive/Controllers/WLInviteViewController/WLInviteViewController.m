@@ -11,12 +11,14 @@
 #import "WLAPIManager.h"
 #import "WLUser.h"
 #import "NSString+Additions.h"
+#import "UIButton+Additions.h"
 
-@interface WLInviteViewController ()
-
+@interface WLInviteViewController () <UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 @property (strong, nonatomic) NSMutableArray *contacts;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet UIButton *addUserButton;
 
 @end
 
@@ -26,7 +28,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	[self.phoneNumberTextField becomeFirstResponder];
+	[self.userNameTextField becomeFirstResponder];
+    [self validateAddUserButton];
 }
 
 - (NSMutableArray *)contacts {
@@ -44,9 +47,10 @@
 
 - (IBAction)addContact:(UIButton *)sender {
 	WLContact * contact = [WLContact new];
-	contact.name = @"";
+	contact.name = self.userNameTextField.text;
 	WLUser * user = [WLUser new];
 	user.phoneNumber = self.phoneNumberTextField.text;
+    user.name = contact.name;
 	contact.users = @[user];
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
@@ -63,6 +67,24 @@
 		[weakSelf.spinner stopAnimating];
 		[error show];
 	}];
+}
+
+- (void)validateAddUserButton {
+    self.addUserButton.active = self.userNameTextField.text.nonempty && self.phoneNumberTextField.text.length >= WLMinPhoneLenth;
+}
+
+- (IBAction)textChanged:(UITextField *)sender {
+    [self validateAddUserButton];
+}
+
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == self.userNameTextField) {
+        [self.phoneNumberTextField becomeFirstResponder];
+    }
+    return YES;
 }
 
 @end

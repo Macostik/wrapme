@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "WLBlocks.h"
 
+static NSInteger WLMinPhoneLenth = 6;
+
 @interface WLAddressBook : NSObject
 
 /**

@@ -82,6 +82,15 @@ static NSInteger WLAPIChatPageSize = 50;
 - (id)contributors:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 /*!
+ *  Given an array of phone numbers, return the sign up status as well as the full phone number found.
+ *
+ *  @param contacts array of WLContact
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (id)contributors:(NSArray*)contacts success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
+/*!
  *  Get current authenticated user wraps.
  *
  *  @param success block that will be invoked on success completion

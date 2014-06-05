@@ -20,7 +20,7 @@
 }
 
 + (NSMutableDictionary *)mapping {
-	return [[super mapping] merge:@{@"phone_number":@"full_phone_number",
+	return [[super mapping] merge:@{@"full_phone_number":@"phoneNumber",
 									@"user_uid":@"identifier",
 									@"sign_in_count" : @"signInCount",
 									@"is_creator":@"isCreator"}];

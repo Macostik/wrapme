@@ -241,9 +241,6 @@
 #pragma mark - WLComposeBarDelegate
 
 - (void)sendMessageWithText:(NSString*)text {
-	if (!text.nonempty) {
-		return;
-	}
 	__weak typeof(self)weakSelf = self;
 	[[WLUploadingQueue instance] uploadMessage:text wrap:self.wrap success:^(id object) {
 		[weakSelf insertMessage:object];

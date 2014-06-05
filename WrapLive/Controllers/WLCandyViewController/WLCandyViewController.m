@@ -228,6 +228,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isImageSegue]) {
+		[self.composeBarView endEditing:YES];
 		WLImageViewController* controller = segue.destinationViewController;
 		controller.image = self.candy;
 	}

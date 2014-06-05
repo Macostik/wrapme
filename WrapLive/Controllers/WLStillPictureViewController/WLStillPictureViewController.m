@@ -18,7 +18,7 @@
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
 
-@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate>
 
 @end
 
@@ -117,55 +117,17 @@
 }
 
 - (void)cameraViewControllerDidSelectGallery:(WLCameraViewController *)controller {
-//	WLAssetsGroupViewController* gallery = [[WLAssetsGroupViewController alloc] init];
-//	__weak typeof(self)weakSelf = self;
-//	[gallery setSelectionBlock:^(ALAsset *asset) {
-//		UIImage* image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage];
-//		weakSelf.view.userInteractionEnabled = NO;
-//		[weakSelf cropImage:image completion:^(UIImage *croppedImage) {
-//			[weakSelf editImage:croppedImage];
-//			weakSelf.view.userInteractionEnabled = YES;
-//		}];
-//	}];
-//	[self pushViewController:gallery animated:YES];
-	UIImagePickerController* galleryController = [[UIImagePickerController alloc] init];
-	galleryController.allowsEditing = NO;
-	galleryController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-	galleryController.mediaTypes = @[(id)kUTTypeImage];
-	galleryController.delegate = self;
-	[self presentViewController:galleryController animated:YES completion:nil];
-}
-
-#pragma mark - UIImagePickerControllerDelegate
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-	UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
+	WLAssetsGroupViewController* gallery = [[WLAssetsGroupViewController alloc] init];
 	__weak typeof(self)weakSelf = self;
-	self.view.userInteractionEnabled = NO;
-	__block UIImage* croppedImage = nil;
-	__block BOOL dismissed = NO;
-	void (^completion)(void) = ^{
-		[weakSelf editImage:croppedImage];
-		weakSelf.view.userInteractionEnabled = YES;
-	};
-	
-	[weakSelf cropImage:image completion:^(UIImage *_croppedImage) {
-		croppedImage = _croppedImage;
-		if (dismissed) {
-			completion();
-		}
+	[gallery setSelectionBlock:^(ALAsset *asset) {
+		UIImage* image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage];
+		weakSelf.view.userInteractionEnabled = NO;
+		[weakSelf cropImage:image completion:^(UIImage *croppedImage) {
+			[weakSelf editImage:croppedImage];
+			weakSelf.view.userInteractionEnabled = YES;
+		}];
 	}];
-	
-	[self dismissViewControllerAnimated:YES completion:^{
-		dismissed = YES;
-		if (croppedImage) {
-			completion();
-		}
-	}];
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-	[self dismissViewControllerAnimated:YES completion:nil];
+	[self pushViewController:gallery animated:YES];
 }
 
 #pragma mark - AFPhotoEditorControllerDelegate

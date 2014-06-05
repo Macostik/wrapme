@@ -34,8 +34,10 @@
 #import "WLToast.h"
 #import "WLEntryState.h"
 #import "WLStillPictureViewController.h"
+#import "WLQuickChatView.h"
+#import "WLWrapCell.h"
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, WLUserChannelBroadcastReceiver>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, WLUserChannelBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
@@ -46,6 +48,8 @@
 @property (nonatomic) BOOL shouldLoadMoreDates;
 
 @property (weak, nonatomic) WLRefresher *refresher;
+
+@property (weak, nonatomic) WLQuickChatView *quickChatView;
 
 @end
 
@@ -71,6 +75,9 @@
 	
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	[[WLUserChannelBroadcaster broadcaster] addReceiver:self];
+    
+    self.quickChatView = [WLQuickChatView quickChatView:self.tableView];
+    self.quickChatView.wrap = self.wrap;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -84,6 +91,7 @@
 	self.nameLabel.text = self.wrap.name;
 	self.contributorsLabel.text = self.wrap.contributorNames;
 	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
+    self.quickChatView.wrap = self.wrap;
 }
 
 #pragma mark - WLUserChannelBroadcastReceiver
@@ -99,7 +107,7 @@
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
 	if ([wrap isEqualToEntry:self.wrap]) {
 		[self setWrapData];
-		[self.tableView reloadData];
+		[self.tableView reloadDataAndFixBottomInset:self.quickChatView];
 	}
 }
 
@@ -107,7 +115,7 @@
 	for (WLWrapDate* date in self.wrap.dates) {
 		if (!date.candies.nonempty) {
 			self.wrap.dates = (id)[self.wrap.dates arrayByRemovingObject:date];
-			[self.tableView reloadData];
+			[self.tableView reloadDataAndFixBottomInset:self.quickChatView];
 			break;
 		}
 	}
@@ -131,7 +139,7 @@
 			}
 		}
 		weakSelf.shouldLoadMoreDates = !stop;
-		[weakSelf.tableView reloadData];
+		[weakSelf.tableView reloadDataAndFixBottomInset:weakSelf.quickChatView];
 		[weakSelf.refresher endRefreshing];
 	} failure:^(NSError *error) {
 		weakSelf.shouldLoadMoreDates = NO;
@@ -149,7 +157,7 @@
 	NSInteger page = floorf([self.wrap.dates count] / WLAPIGeneralPageSize) + 1;
 	[[WLAPIManager instance] wrap:[self.wrap copy] page:page success:^(WLWrap* wrap) {
 		weakSelf.wrap.dates = (id)[weakSelf.wrap.dates entriesByAddingEntries:wrap.dates];
-		[weakSelf.tableView reloadData];
+		[weakSelf.tableView reloadDataAndFixBottomInset:weakSelf.quickChatView];
 		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
 		loading = NO;
 	} failure:^(NSError *error) {
@@ -235,24 +243,53 @@
 
 #pragma mark - UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.wrap.dates count];
+    return section == 0 ? 1 : [self.wrap.dates count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WLCandiesCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLCandiesCell reuseIdentifier]];
-	
-	WLWrapDate* date = [self.wrap.dates objectAtIndex:indexPath.row];
-	
-	cell.item = date;
-	cell.wrap = self.wrap;
-	cell.delegate = self;
-	
-	if (date == [self.wrap.dates lastObject] && self.shouldLoadMoreDates) {
-		[self appendDates];
-	}
-	
-    return cell;
+    if (indexPath.section == 0) {
+        static NSString* wrapCellIdentifier = @"WLWrapCell";
+        WLWrapCell* cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier forIndexPath:indexPath];
+        cell.item = self.wrap;
+        return cell;
+    } else {
+        WLCandiesCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLCandiesCell reuseIdentifier]];
+        
+        WLWrapDate* date = [self.wrap.dates objectAtIndex:indexPath.row];
+        
+        cell.item = date;
+        cell.wrap = self.wrap;
+        cell.delegate = self;
+        
+        if (date == [self.wrap.dates lastObject] && self.shouldLoadMoreDates) {
+            [self appendDates];
+        }
+        
+        return cell;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return (indexPath.section == 0) ? 50 : 134;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        [self.quickChatView onEndScrolling];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self.quickChatView onEndScrolling];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.quickChatView onScroll];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate
@@ -275,6 +312,14 @@
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	self.firstContributorView.alpha = 0.0f;
 	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - WLWrapCellDelegate
+
+- (void)wrapCell:(WLWrapCell *)cell didSelectWrap:(WLWrap *)wrap {
+	WLWrapViewController* wrapController = [WLWrapViewController instantiate];
+	wrapController.wrap = wrap;
+	[self.navigationController pushViewController:wrapController animated:YES];
 }
 
 @end

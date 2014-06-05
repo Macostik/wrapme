@@ -41,6 +41,9 @@
 #import "WLUserChannelBroadcaster.h"
 #import "WLNotificationBroadcaster.h"
 #import "WLStillPictureViewController.h"
+#import "WLSupportFunctions.h"
+#import "NSString+Additions.h"
+#import "WLQuickChatView.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLUserChannelBroadcastReceiver, WLNotificationReceiver>
 
@@ -55,6 +58,7 @@
 @property (weak, nonatomic) IBOutlet UIView *loadingView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (weak, nonatomic) WLQuickChatView *quickChatView;
 
 @property (nonatomic) BOOL shouldAppendMoreWraps;
 
@@ -74,6 +78,7 @@
 	[[WLUserChannelBroadcaster broadcaster] addReceiver:self];
 	[[WLNotificationBroadcaster broadcaster] addReceiver:self];
 	self.tableView.tableFooterView = [WLLoadingView instance];
+    self.quickChatView = [WLQuickChatView quickChatView:self.tableView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -265,10 +270,13 @@
 	
 	BOOL hasWraps = _wraps.nonempty;
 	
+    self.quickChatView.hidden = !hasWraps;
+    
 	if (hasWraps) {
 		WLWrap* wrap = self.topWrap;
 		[[WLUploadingQueue instance] updateWrap:wrap];
 		self.candies = [wrap candies:WLHomeTopWrapCandiesLimit];
+        self.quickChatView.wrap = wrap;
 	}
 	
 	self.tableView.hidden = !hasWraps;
@@ -354,6 +362,20 @@
 	if (self.refresher.refreshing) {
 		[self.refresher endRefreshingAfterDelay:0.0f];
 	}
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        [self.quickChatView onEndScrolling];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self.quickChatView onEndScrolling];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.quickChatView onScroll];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate

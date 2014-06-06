@@ -37,7 +37,7 @@
 #import "WLQuickChatView.h"
 #import "WLWrapCell.h"
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, WLUserChannelBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, WLUserChannelBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate, WLQuickChatViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
@@ -226,9 +226,7 @@
 		[controller setWrap:self.wrap candy:candy];
 		[self.navigationController pushViewController:controller animated:YES];
 	} else if (candy.type == WLCandyTypeChatMessage) {
-		WLChatViewController * chatController = [WLChatViewController instantiate];
-		chatController.wrap = self.wrap;
-		[self.navigationController pushViewController:chatController animated:YES];
+		[self openChat];
 	}
 }
 
@@ -311,6 +309,18 @@
 	WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 	wrapController.wrap = wrap;
 	[self.navigationController pushViewController:wrapController animated:YES];
+}
+
+#pragma mark - WLQuickChatViewDelegate
+
+- (void)openChat {
+    WLChatViewController * chatController = [WLChatViewController instantiate];
+    chatController.wrap = self.wrap;
+    [self.navigationController pushViewController:chatController animated:YES];
+}
+
+- (void)quickChatView:(WLQuickChatView *)view didOpenChat:(WLWrap *)wrap {
+    [self openChat];
 }
 
 @end

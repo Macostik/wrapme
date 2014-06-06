@@ -80,24 +80,6 @@
                                 <rect key="frame" x="0.0" y="384" width="320" height="184"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" id="lye-C6-QGO">
-                                        <rect key="frame" x="0.0" y="-44" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="0to-lR-VKL">
-                                                <rect key="frame" x="6" y="6" width="32" height="32"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                            </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3xY-PL-bv2">
-                                                <rect key="frame" x="44" y="0.0" width="270" height="44"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.5" colorSpace="calibratedRGB"/>
-                                    </view>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8x" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bPd-1S-g8V">
                                         <rect key="frame" x="278" y="-21" width="42" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
@@ -181,8 +163,6 @@
                         <outlet property="rotateButton" destination="KlN-xP-cqu" id="yyP-Tn-Ehb"/>
                         <outlet property="takePhotoButton" destination="6qh-b4-dSO" id="CFx-PZ-CN6"/>
                         <outlet property="topView" destination="eMD-WY-m6L" id="omx-mO-WAX"/>
-                        <outlet property="wrapCoverView" destination="0to-lR-VKL" id="M0R-aC-tZ9"/>
-                        <outlet property="wrapNameLabel" destination="3xY-PL-bv2" id="hwC-Dn-xz1"/>
                         <outlet property="zoomLabel" destination="bPd-1S-g8V" id="CDC-Q0-o5P"/>
                     </connections>
                 </viewController>
@@ -208,25 +188,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="gF6-1q-azT">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="536"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
                             <view contentMode="scaleToFill" id="xrc-me-aUT">
-                                <rect key="frame" x="0.0" y="536" width="320" height="32"/>
+                                <rect key="frame" x="0.0" y="538" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Z6g-MM-5eu">
-                                        <rect key="frame" x="48" y="0.0" width="262" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <rect key="frame" x="48" y="0.0" width="262" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="o2R-3E-1Uv">
-                                        <rect key="frame" x="13" y="4" width="24" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <rect key="frame" x="13" y="3" width="24" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
@@ -235,7 +210,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="navigationView" destination="gF6-1q-azT" id="otI-VS-sgr"/>
                         <outlet property="wrapCoverView" destination="o2R-3E-1Uv" id="XCg-1H-PJm"/>
                         <outlet property="wrapNameLabel" destination="Z6g-MM-5eu" id="ENG-qL-i6f"/>
                         <outlet property="wrapView" destination="xrc-me-aUT" id="XMb-iB-6Vp"/>
@@ -745,6 +719,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
+                                    <outlet property="delegate" destination="L91-fZ-J9O" id="xgv-SW-L80"/>
                                     <outlet property="tableView" destination="vM9-X0-izB" id="ZRH-5d-Kfy"/>
                                 </connections>
                             </view>
@@ -1640,6 +1615,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
+                                    <outlet property="delegate" destination="hUj-RK-zkg" id="w2S-xj-H3d"/>
                                     <outlet property="tableView" destination="BE1-H5-F9x" id="GHm-YW-nJ2"/>
                                 </connections>
                             </view>

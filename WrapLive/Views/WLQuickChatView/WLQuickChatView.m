@@ -17,6 +17,9 @@
 #import "UILabel+Additions.h"
 #import "WLSupportFunctions.h"
 #import "UIView+AnimationHelper.h"
+#import "WLNavigation.h"
+#import "WLWrapViewController.h"
+#import "WLChatViewController.h"
 
 @interface WLQuickChatView () <WLComposeBarDelegate, UITableViewDelegate>
 
@@ -95,6 +98,12 @@
     } else if (!editing && self.composeBar.isFirstResponder) {
         [self.composeBar resignFirstResponder];
     }
+}
+
+#pragma mark - Actions
+
+- (IBAction)openChat:(id)sender {
+    [self.delegate quickChatView:self didOpenChat:self.wrap];
 }
 
 #pragma mark - UITableViewDelegate

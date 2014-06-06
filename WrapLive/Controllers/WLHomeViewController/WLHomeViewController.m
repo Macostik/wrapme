@@ -45,7 +45,7 @@
 #import "NSString+Additions.h"
 #import "WLQuickChatView.h"
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLUserChannelBroadcastReceiver, WLNotificationReceiver>
+@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLUserChannelBroadcastReceiver, WLNotificationReceiver, WLQuickChatViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
@@ -430,6 +430,17 @@
 	WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 	wrapController.wrap = wrap;
 	[self.navigationController pushViewController:wrapController animated:YES];
+}
+
+#pragma mark - WLQuickChatViewDelegate
+
+- (void)quickChatView:(WLQuickChatView *)view didOpenChat:(WLWrap *)wrap {
+    WLWrapViewController* wrapController = [WLWrapViewController instantiate];
+	wrapController.wrap = wrap;
+	NSArray* controllers = @[self, wrapController, [WLChatViewController instantiate:^(WLChatViewController *controller) {
+        controller.wrap = wrap;
+    }]];
+    [self.navigationController setViewControllers:controllers animated:YES];
 }
 
 @end

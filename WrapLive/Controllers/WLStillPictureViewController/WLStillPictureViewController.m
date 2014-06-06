@@ -20,13 +20,13 @@
 #import "WLWrap.h"
 #import "UIView+Shorthand.h"
 #import "WLImageFetcher.h"
+#import "UIView+AnimationHelper.h"
 
-@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate>
+@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) UINavigationController* cameraNavigationController;
 
 @property (weak, nonatomic) IBOutlet UIView* wrapView;
-@property (weak, nonatomic) IBOutlet UIView *navigationView;
 @property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *wrapCoverView;
 
@@ -44,16 +44,22 @@
         self.wrapView.hidden = NO;
         self.wrapNameLabel.text = self.wrap.name;
         self.wrapCoverView.url = self.wrap.picture.small;
-        self.navigationView.height = self.view.height - self.wrapView.height;
     } else {
         self.wrapView.hidden = YES;
-        self.navigationView.height = self.view.height;
     }
     
-    self.cameraNavigationController.view.frame = self.navigationView.bounds;
-    [self.navigationView addSubview:self.cameraNavigationController.view];
+    self.cameraNavigationController.view.frame = self.view.bounds;
+    [self.view insertSubview:self.cameraNavigationController.view atIndex:0];
     
 	[self.cameraNavigationController setViewControllers:@[self.cameraViewController]];
+}
+
+- (void)setTranslucent:(BOOL)translucent animated:(BOOL)animated {
+    UIColor* color = [self.wrapView.backgroundColor colorWithAlphaComponent:translucent ? 0.5f : 1.0f];
+    __weak typeof(self)weakSelf = self;
+    [UIView performAnimated:animated animation:^{
+        weakSelf.wrapView.backgroundColor = color;
+    }];
 }
 
 - (UINavigationController *)cameraNavigationController {
@@ -62,6 +68,7 @@
         controller.navigationBarHidden = YES;
         [self addChildViewController:controller];
         [controller didMoveToParentViewController:self];
+        controller.delegate = self;
         _cameraNavigationController = controller;
     }
     return _cameraNavigationController;
@@ -120,6 +127,7 @@
 }
 
 - (void)editImage:(UIImage*)image {
+    [self setTranslucent:NO animated:YES];
 	[self.cameraNavigationController pushViewController:[self editControllerWithImage:image] animated:YES];
 }
 
@@ -163,6 +171,7 @@
 			weakSelf.view.userInteractionEnabled = YES;
 		}];
 	}];
+    [self setTranslucent:NO animated:YES];
 	[self.cameraNavigationController pushViewController:gallery animated:YES];
 }
 
@@ -174,6 +183,16 @@
 
 - (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
 	[self.cameraNavigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if (self.wrap) {
+        if (viewController == self.cameraViewController) {
+            [self setTranslucent:YES animated:YES];
+        }
+    }
 }
 
 @end

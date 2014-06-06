@@ -9,8 +9,17 @@
 #import <UIKit/UIKit.h>
 
 @class WLWrap;
+@class WLQuickChatView;
+
+@protocol WLQuickChatViewDelegate <NSObject>
+
+- (void)quickChatView:(WLQuickChatView*)view didOpenChat:(WLWrap*)wrap;
+
+@end
 
 @interface WLQuickChatView : UIView
+
+@property (nonatomic, weak) IBOutlet id <WLQuickChatViewDelegate> delegate;
 
 @property (strong, nonatomic) WLWrap* wrap;
 

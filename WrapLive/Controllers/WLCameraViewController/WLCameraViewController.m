@@ -46,9 +46,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *wrapCoverView;
-
 @end
 
 @implementation WLCameraViewController
@@ -73,7 +70,7 @@
 		self.cameraView.frame = self.view.frame;
 		[self.bottomView setFlexibleBottom];
 		self.bottomView.height = self.takePhotoButton.height;
-		self.bottomView.y = self.view.height - self.bottomView.height;
+		self.bottomView.y = self.view.height - self.bottomView.height - (self.wrap ? 30 : 0);
 	} else {
 		self.cameraView.y = self.topView.bottom;
 		self.cameraView.height = self.cameraView.width;
@@ -94,15 +91,6 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	self.takePhotoButton.active = YES;
-	
-    self.wrapNameLabel.superview.hidden = YES;
-//	if (self.wrap) {
-//		self.wrapNameLabel.superview.hidden = NO;
-//		self.wrapNameLabel.text = self.wrap.name;
-//		self.wrapCoverView.url = self.wrap.picture.small;
-//	} else {
-//		self.wrapNameLabel.superview.hidden = YES;
-//	}
 }
 
 - (void)configurePreviewLayer {

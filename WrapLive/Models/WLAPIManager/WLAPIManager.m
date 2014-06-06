@@ -33,6 +33,10 @@ static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
 static NSString* WLAPIProductionUrl = @"https://api.wraplive.com/api";
 #define WLAPIBaseUrl WLAPIDevelopmentUrl
 
+static NSString* WLAPIVersion = @"2";
+
+#define WLAcceptHeader [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", WLAPIVersion]
+
 typedef void (^WLAFNetworkingSuccessBlock) (AFHTTPRequestOperation *operation, id responseObject);
 typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, NSError *error);
 
@@ -46,7 +50,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		DDLogDebug(@"WebService Environment: %@", baseUrl);
 		instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
 		instance.requestSerializer.timeoutInterval = 45;
-		[instance.requestSerializer setValue:@"application/vnd.ravenpod+json;version=1" forHTTPHeaderField:@"Accept"];
+		[instance.requestSerializer setValue:WLAcceptHeader forHTTPHeaderField:@"Accept"];
 	});
     return instance;
 }

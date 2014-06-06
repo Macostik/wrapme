@@ -48,7 +48,6 @@
 		12A7A70718DA0945008FF6F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70618DA0945008FF6F0 /* UIKit.framework */; };
 		12A7A70F18DA0946008FF6F0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */; };
-		12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
 		12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */; };
 		12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74018DA10DD008FF6F0 /* WLSignUpViewController.m */; };
 		12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
@@ -154,6 +153,9 @@
 		12F3ED5F1934B183009C1DC3 /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED551934B183009C1DC3 /* WLAssetCell.xib */; };
 		12F3ED621934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED611934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m */; };
 		14A04F8B1940CB5E005DA4CE /* WLEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A04F8A1940CB5E005DA4CE /* WLEmoji.m */; };
+		14ACAE0519421A79006BD3B3 /* WLQuickChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ACAE0319421A79006BD3B3 /* WLQuickChatView.m */; };
+		14ACAE0619421A79006BD3B3 /* WLQuickChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14ACAE0419421A79006BD3B3 /* WLQuickChatView.xib */; };
+		14ACAE0719421AE5006BD3B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
@@ -175,8 +177,6 @@
 		ACF8D9141934B4460001E570 /* flowers.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9131934B4460001E570 /* flowers.plist */; };
 		ACF8D9161934B44D0001E570 /* rings.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9151934B44D0001E570 /* rings.plist */; };
 		ACF8D9181934B45C0001E570 /* cars.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* cars.plist */; };
-		C5032EAD1940BBC700753D07 /* WLQuickChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5032EAB1940BBC700753D07 /* WLQuickChatView.m */; };
-		C5032EAE1940BBC700753D07 /* WLQuickChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAC1940BBC700753D07 /* WLQuickChatView.xib */; };
 		C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */; };
 		C5032EB31940CEE700753D07 /* UIView+AnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5032EB21940CEE700753D07 /* UIView+AnimationHelper.m */; };
 		C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5018F5271B00BDF038 /* WLChatViewController.m */; };
@@ -451,6 +451,9 @@
 		12F3ED611934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+Additions.m"; sourceTree = "<group>"; };
 		14A04F891940CB5E005DA4CE /* WLEmoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEmoji.h; path = WLEmoji/WLEmoji.h; sourceTree = "<group>"; };
 		14A04F8A1940CB5E005DA4CE /* WLEmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEmoji.m; path = WLEmoji/WLEmoji.m; sourceTree = "<group>"; };
+		14ACAE0219421A79006BD3B3 /* WLQuickChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLQuickChatView.h; sourceTree = "<group>"; };
+		14ACAE0319421A79006BD3B3 /* WLQuickChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLQuickChatView.m; sourceTree = "<group>"; };
+		14ACAE0419421A79006BD3B3 /* WLQuickChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLQuickChatView.xib; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
@@ -482,9 +485,6 @@
 		ACF8D9131934B4460001E570 /* flowers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = flowers.plist; sourceTree = "<group>"; };
 		ACF8D9151934B44D0001E570 /* rings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = rings.plist; sourceTree = "<group>"; };
 		ACF8D9171934B45C0001E570 /* cars.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cars.plist; sourceTree = "<group>"; };
-		C5032EAA1940BBC700753D07 /* WLQuickChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLQuickChatView.h; sourceTree = "<group>"; };
-		C5032EAB1940BBC700753D07 /* WLQuickChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLQuickChatView.m; sourceTree = "<group>"; };
-		C5032EAC1940BBC700753D07 /* WLQuickChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLQuickChatView.xib; sourceTree = "<group>"; };
 		C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLSplashLoadingView.xib; path = WLLoadingView/WLSplashLoadingView.xib; sourceTree = "<group>"; };
 		C5032EB11940CEE700753D07 /* UIView+AnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AnimationHelper.h"; sourceTree = "<group>"; };
 		C5032EB21940CEE700753D07 /* UIView+AnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AnimationHelper.m"; sourceTree = "<group>"; };
@@ -922,7 +922,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C5032EA91940BBC700753D07 /* WLQuickChatView */,
+				14ACAE0119421A79006BD3B3 /* WLQuickChatView */,
 				C59ACBE0193F2378002941C4 /* WLUserView */,
 				12F0DAED19338C9100F9D898 /* SegmentedControl */,
 				12DEC3EC1920F7E0007BE6CC /* WLToast */,
@@ -1628,6 +1628,16 @@
 			name = WLEmoji;
 			sourceTree = "<group>";
 		};
+		14ACAE0119421A79006BD3B3 /* WLQuickChatView */ = {
+			isa = PBXGroup;
+			children = (
+				14ACAE0219421A79006BD3B3 /* WLQuickChatView.h */,
+				14ACAE0319421A79006BD3B3 /* WLQuickChatView.m */,
+				14ACAE0419421A79006BD3B3 /* WLQuickChatView.xib */,
+			);
+			path = WLQuickChatView;
+			sourceTree = "<group>";
+		};
 		AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1864,9 +1874,9 @@
 				12A8AA7018F592B500F67113 /* WLLoadingView.xib in Resources */,
 				12E5BA5718EADAAC0033CE4E /* WLCandyCell.xib in Resources */,
 				12F3ED5B1934B183009C1DC3 /* WLAssetsGroupCell.xib in Resources */,
-				C5032EAE1940BBC700753D07 /* WLQuickChatView.xib in Resources */,
-				12A7A71618DA0946008FF6F0 /* Main.storyboard in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
+				14ACAE0719421AE5006BD3B3 /* Main.storyboard in Resources */,
+				14ACAE0619421A79006BD3B3 /* WLQuickChatView.xib in Resources */,
 				121B1B4118E0848D001F585C /* WLCountriesViewController.xib in Resources */,
 				ACF8D90E19347B9E0001E570 /* WLEmojiView.xib in Resources */,
 				12F3ED5F1934B183009C1DC3 /* WLAssetCell.xib in Resources */,
@@ -2010,7 +2020,6 @@
 				12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */,
 				12F3ED5C1934B183009C1DC3 /* WLAssetsViewController.m in Sources */,
 				ACDE2BAA193DFF4E003702D4 /* WLInviteViewController.m in Sources */,
-				C5032EAD1940BBC700753D07 /* WLQuickChatView.m in Sources */,
 				C5D4934C192B87DB00D33B08 /* WLEntryState.m in Sources */,
 				12976ECE18E5D6E300C5F2A9 /* NSDictionary+Extended.m in Sources */,
 				C5947E5518F52AE000BDF038 /* WLMessageCell.m in Sources */,
@@ -2051,6 +2060,7 @@
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				1215DC7F18E4485800FCA744 /* WLNavigation.m in Sources */,
 				129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */,
+				14ACAE0519421A79006BD3B3 /* WLQuickChatView.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
 				12D7E0B51910E5380094C376 /* WLImageCache.m in Sources */,

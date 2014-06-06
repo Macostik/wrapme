@@ -138,11 +138,6 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
 	self.wraps = [self.wraps entriesByRemovingEntry:wrap];
-	__weak typeof(self)weakSelf = self;
-	[self.topWrap fetch:^(WLWrap* wrap) {
-		[WLDataCache cache].wraps = weakSelf.wraps;
-	} failure:^(NSError *error) {
-	}];
 	[WLDataCache cache].wraps = self.wraps;
 }
 
@@ -279,6 +274,13 @@
 		[[WLUploadingQueue instance] updateWrap:wrap];
 		self.candies = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
         self.quickChatView.wrap = wrap;
+        if ([self.candies count] < WLHomeTopWrapCandiesLimit) {
+            __weak typeof(self)weakSelf = self;
+            [wrap fetch:^(WLWrap* wrap) {
+                [WLDataCache cache].wraps = weakSelf.wraps;
+            } failure:^(NSError *error) {
+            }];
+        }
 	}
 	
 	self.tableView.hidden = !hasWraps;

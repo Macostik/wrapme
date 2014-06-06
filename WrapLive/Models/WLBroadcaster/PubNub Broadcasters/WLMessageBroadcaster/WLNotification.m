@@ -74,4 +74,9 @@
 	return _comment;
 }
 
+- (BOOL)deletion {
+    WLNotificationType type = self.type;
+    return type == WLNotificationCandyCommentDeletion || type == WLNotificationContributorDeletion || type == WLNotificationImageCandyDeletion || type == WLNotificationWrapDeletion;
+}
+
 @end

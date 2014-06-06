@@ -15,6 +15,10 @@
 #import "WLUser.h"
 #import "NSString+Additions.h"
 #import "WLNotification.h"
+#import "WLWrap.h"
+#import "WLCandy.h"
+#import "WLEntryState.h"
+#import "WLAPIManager.h"
 
 static NSString* WLPubNubOrigin = @"pubsub.pubnub.com";
 static NSString* WLPubNubPublishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
@@ -103,23 +107,40 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 	}
 }
 
+- (void)broadcastNotification:(WLNotification*)notification {
+    NSArray* receivers = [self.receivers copy];
+    for (NSObject <WLNotificationReceiver> *receiver in receivers) {
+        BOOL shouldReceiveNotification = YES;
+        if ([receiver respondsToSelector:@selector(broadcaster:shouldReceiveNotification:)]) {
+            shouldReceiveNotification = [receiver broadcaster:self shouldReceiveNotification:notification];
+        }
+        if (shouldReceiveNotification && [receiver respondsToSelector:@selector(broadcaster:notificationReceived:)]) {
+            [receiver broadcaster:self notificationReceived:notification];
+        }
+    }
+}
+
 #pragma mark - PNDelegate
 
 - (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
 	NSLog(@"PubNub message received %@", message);
 	WLNotification* notification = [WLNotification notificationWithMessage:message];
 	if (notification) {
-		NSArray* receivers = [self.receivers copy];
-		for (NSObject <WLNotificationReceiver> *receiver in receivers) {
-			BOOL shouldReceiveNotification = YES;
-			if ([receiver respondsToSelector:@selector(broadcaster:shouldReceiveNotification:)]) {
-				shouldReceiveNotification = [receiver broadcaster:self shouldReceiveNotification:notification];
-			}
-			if (shouldReceiveNotification && [receiver respondsToSelector:@selector(broadcaster:notificationReceived:)]) {
-				NSLog(@"PubNub message sent %@", message);
-				[receiver broadcaster:self notificationReceived:notification];
-			}
-		}
+        __weak typeof(self)weakSelf = self;
+        WLObjectBlock block = ^(id object) {
+            [weakSelf broadcastNotification:notification];
+        };
+        if (![notification deletion]) {
+            if (notification.type == WLNotificationContributorAddition) {
+                [notification.wrap setUpdated:YES];
+                [notification.wrap fetch:block failure:block];
+            } else {
+                [notification.candy setUpdated:YES];
+                [notification.candy fetch:notification.wrap success:block failure:block];
+            }
+        } else {
+            block(nil);
+        }
 	}
 }
 

@@ -33,11 +33,7 @@
 
 - (void)broadcaster:(WLNotificationBroadcaster *)broadcaster notificationReceived:(WLNotification *)notification {
 	if (notification.type == WLNotificationContributorAddition) {
-		__weak typeof(self)weakSelf = self;
-		[notification.wrap fetch:^(WLWrap *wrap) {
-			[weakSelf broadcast:@selector(broadcaster:didBecomeContributor:) object:wrap];
-		} failure:^(NSError *error) {
-		}];
+		[self broadcast:@selector(broadcaster:didBecomeContributor:) object:notification.wrap];
 	} else if (notification.type == WLNotificationContributorDeletion) {
 		[self broadcast:@selector(broadcaster:didResignContributor:) object:notification.wrap];
 	} else if (notification.type == WLNotificationWrapDeletion) {

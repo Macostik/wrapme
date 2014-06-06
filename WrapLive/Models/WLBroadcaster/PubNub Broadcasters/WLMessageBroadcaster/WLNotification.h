@@ -39,4 +39,6 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 + (instancetype)notificationWithData:(NSDictionary*)data;
 
+- (BOOL)deletion;
+
 @end

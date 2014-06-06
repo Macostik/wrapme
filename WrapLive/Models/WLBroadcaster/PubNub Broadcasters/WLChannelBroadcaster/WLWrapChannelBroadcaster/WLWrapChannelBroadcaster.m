@@ -36,27 +36,22 @@
 
 - (void)broadcaster:(WLNotificationBroadcaster *)broadcaster notificationReceived:(WLNotification *)notification {
 	[self.wrap setUpdated:YES];
-	__weak typeof(self)weakSelf = self;
 	if (notification.type == WLNotificationImageCandyDeletion) {
 		[self.wrap removeCandy:notification.candy];
-		[weakSelf broadcast:@selector(broadcaster:didDeleteCandy:) object:notification.candy];
+		[self broadcast:@selector(broadcaster:didDeleteCandy:) object:notification.candy];
 	} else if (notification.type == WLNotificationCandyCommentDeletion) {
 		[self.candy removeComment:notification.comment];
-		[weakSelf broadcast:@selector(broadcaster:didDeleteComment:) object:self.candy];
+		[self broadcast:@selector(broadcaster:didDeleteComment:) object:self.candy];
 	} else {
-		[notification.candy fetch:self.wrap success:^(WLCandy *candy) {
-			[weakSelf.wrap addCandy:candy];
-			[candy setUpdated:YES];
-			if (notification.type == WLNotificationImageCandyAddition) {
-				[weakSelf broadcast:@selector(broadcaster:didAddCandy:) object:candy];
-			} else if (notification.type == WLNotificationChatCandyAddition) {
-				[weakSelf broadcast:@selector(broadcaster:didAddChatMessage:) object:candy];
-			} else if (notification.type == WLNotificationCandyCommentAddition) {
-				[weakSelf broadcast:@selector(broadcaster:didAddComment:) object:candy];
-			}
-		} failure:^(NSError *error) {
-		}];
-	}
+        [self.wrap addCandy:notification.candy];
+        if (notification.type == WLNotificationImageCandyAddition) {
+            [self broadcast:@selector(broadcaster:didAddCandy:) object:notification.candy];
+        } else if (notification.type == WLNotificationChatCandyAddition) {
+            [self broadcast:@selector(broadcaster:didAddChatMessage:) object:notification.candy];
+        } else if (notification.type == WLNotificationCandyCommentAddition) {
+            [self broadcast:@selector(broadcaster:didAddComment:) object:notification.candy];
+        }
+    }
 }
 
 - (BOOL)broadcaster:(WLNotificationBroadcaster *)broadcaster shouldReceiveNotification:(WLNotification *)notification {

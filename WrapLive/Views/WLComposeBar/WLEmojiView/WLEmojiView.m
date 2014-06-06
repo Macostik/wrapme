@@ -13,14 +13,15 @@
 #import "UIColor+CustomColors.h"
 #import "NSObject+NibAdditions.h"
 #import "NSArray+Additions.h"
-#import "NSPropertyListSerialization+Shorthand.h"
+#import "WLEmoji.h"
 
 @interface WLEmojiView () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SegmentedControlDelegate>
 
-@property (strong, nonatomic)  UIView * emojiView;
+@property (strong, nonatomic) UIView * emojiView;
 @property (strong, nonatomic) NSArray * emojis;
 @property (strong, nonatomic) IBOutlet UICollectionView * collectionView;
 @property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 
 @end
 
@@ -35,7 +36,13 @@
 		self.emojiView.frame = self.bounds;
 		[self addSubview:self.emojiView];
 		[self.collectionView registerClass:[WLEmojiCell class] forCellWithReuseIdentifier:@"WLEmojiCell"];
-		self.emojis = [NSArray resourcePropertyListNamed:@"smiles"];
+        if ([[WLEmoji recentEmoji] nonempty]) {
+            self.emojis = [WLEmoji recentEmoji];
+        } else {
+            self.emojis = [WLEmoji emojiByType:WLEmojiTypeSmiles];
+            self.segmentedControl.selectedSegment = 1;
+        }
+        [self setScrollDirection];
     }
     return self;
 }
@@ -44,6 +51,14 @@
 	if (self.returnBlock) {
 		self.returnBlock();
 	}
+}
+
+- (void)setScrollDirection {
+    if (self.segmentedControl.selectedSegment == 0) {
+        self.flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    } else {
+        self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    }
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -59,7 +74,8 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return CGSizeMake(collectionView.frame.size.width/8, collectionView.frame.size.height/4);
+//    return CGSizeMake(50, 50);
+	return CGSizeMake(collectionView.frame.size.width/7, collectionView.frame.size.height/3);
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -67,6 +83,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.selectionBlock) {
 		NSString * selectedEmoji = [self.emojis objectAtIndex:indexPath.item];
+        [WLEmoji saveAsRecent:selectedEmoji];
 		self.selectionBlock(selectedEmoji);
 	}
 }
@@ -75,16 +92,19 @@
 
 - (void)segmentedControl:(SegmentedControl*)control didSelectSegment:(NSInteger)segment {
 	if (segment == 0) {
-		self.emojis = [NSArray resourcePropertyListNamed:@"smiles"];
+		self.emojis = [WLEmoji recentEmoji];
 	} else if (segment == 1) {
-		self.emojis = [NSArray resourcePropertyListNamed:@"flowers"];
+		self.emojis = [WLEmoji emojiByType:WLEmojiTypeSmiles];
 	} else if (segment == 2){
-		self.emojis = [NSArray resourcePropertyListNamed:@"rings"];
+		self.emojis = [WLEmoji emojiByType:WLEmojiTypeFlowers];
 	} else if (segment == 3){
-		self.emojis = [NSArray resourcePropertyListNamed:@"cars"];
-	} else {
-		self.emojis = [NSArray resourcePropertyListNamed:@"numbers"];
+		self.emojis = [WLEmoji emojiByType:WLEmojiTypeRings];
+	} else if (segment == 4){
+		self.emojis = [WLEmoji emojiByType:WLEmojiTypeCars];
+    } else {
+		self.emojis = [WLEmoji emojiByType:WLEmojiTypeNumbers];
 	}
+    [self setScrollDirection];
 	[self.collectionView setContentOffset:CGPointZero];
 	[self.collectionView reloadData];
 }

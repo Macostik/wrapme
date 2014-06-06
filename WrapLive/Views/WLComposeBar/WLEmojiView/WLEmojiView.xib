@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLEmojiView">
             <connections>
                 <outlet property="collectionView" destination="yP5-XG-0Yb" id="vxL-Rh-xf7"/>
+                <outlet property="flowLayout" destination="2JZ-xD-Nwz" id="8fz-zc-c9Y"/>
                 <outlet property="segmentedControl" destination="mPs-gu-yq8" id="DrJ-Ea-uVP"/>
             </connections>
         </placeholder>
@@ -16,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
             <subviews>
                 <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" id="yP5-XG-0Yb">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="166"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="2JZ-xD-Nwz">
@@ -32,13 +33,13 @@
                     </connections>
                 </collectionView>
                 <view contentMode="scaleToFill" id="mPs-gu-yq8" customClass="SegmentedControl">
-                    <rect key="frame" x="0.0" y="166" width="320" height="50"/>
+                    <rect key="frame" x="0.0" y="162" width="320" height="54"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DU3-Bg-H1Y" customClass="SegmentButton">
-                            <rect key="frame" x="0.0" y="0.0" width="45" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="45" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="ic_emoji_smile">
+                            <state key="normal" image="ic_emoji_clock">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -50,8 +51,23 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ul8-uu-tv9" customClass="SegmentButton">
+                            <rect key="frame" x="45" y="0.0" width="45" height="54"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="ic_emoji_smile">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                    <color key="value" red="0.87853558389999997" green="0.4155166515" blue="0.10928946170000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                    <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KiB-8u-Fte" customClass="SegmentButton">
-                            <rect key="frame" x="45" y="0.0" width="45" height="50"/>
+                            <rect key="frame" x="90" y="0.0" width="45" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="ic_emoji_flower">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -66,7 +82,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vMa-M9-Pb2" customClass="SegmentButton">
-                            <rect key="frame" x="90" y="0.0" width="45" height="50"/>
+                            <rect key="frame" x="135" y="0.0" width="45" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="ic_emoji_ring">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -81,7 +97,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="h1K-iZ-g1b" customClass="SegmentButton">
-                            <rect key="frame" x="135" y="0.0" width="45" height="50"/>
+                            <rect key="frame" x="180" y="0.0" width="45" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="ic_emoji_car">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -96,7 +112,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pV1-Lb-zVf" customClass="SegmentButton">
-                            <rect key="frame" x="180" y="0.0" width="45" height="50"/>
+                            <rect key="frame" x="225" y="0.0" width="45" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="LucidaGrande-Bold" family="Lucida Grande" pointSize="15"/>
                             <state key="normal" image="ic_emoji_symbol"/>
@@ -116,7 +132,7 @@
                     </connections>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7mm-YS-WVN">
-                    <rect key="frame" x="265" y="168" width="45" height="50"/>
+                    <rect key="frame" x="265" y="162" width="45" height="54"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <state key="normal" image="ic_backspace">
@@ -133,6 +149,7 @@
     <resources>
         <image name="ic_backspace" width="26" height="26"/>
         <image name="ic_emoji_car" width="26" height="26"/>
+        <image name="ic_emoji_clock" width="26" height="26"/>
         <image name="ic_emoji_flower" width="26" height="26"/>
         <image name="ic_emoji_ring" width="26" height="26"/>
         <image name="ic_emoji_smile" width="26" height="26"/>

@@ -155,7 +155,8 @@
 	WLAssetsGroupViewController* gallery = [[WLAssetsGroupViewController alloc] init];
 	__weak typeof(self)weakSelf = self;
 	[gallery setSelectionBlock:^(ALAsset *asset) {
-		UIImage* image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage];
+        ALAssetRepresentation* representation = asset.defaultRepresentation;
+		UIImage* image = [UIImage imageWithCGImage:representation.fullResolutionImage scale:representation.scale orientation:(UIImageOrientation)representation.orientation];
 		weakSelf.view.userInteractionEnabled = NO;
 		[weakSelf cropImage:image completion:^(UIImage *croppedImage) {
 			[weakSelf editImage:croppedImage];

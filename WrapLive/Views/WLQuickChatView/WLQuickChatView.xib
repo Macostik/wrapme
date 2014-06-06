@@ -63,6 +63,16 @@
                         <outlet property="delegate" destination="-1" id="LZa-gw-HQ5"/>
                     </connections>
                 </view>
+                <view contentMode="top" id="rpt-tr-tlU" customClass="WLSeparatorView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view contentMode="bottom" id="3YA-u1-9LS" customClass="WLSeparatorView">
+                    <rect key="frame" x="0.0" y="89" width="320" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
         </view>

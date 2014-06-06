@@ -155,6 +155,9 @@ static NSUInteger WLComposeBarMinHeight = 44;
 #pragma mark - UITextViewDelegate
 
 - (void)textViewDidChange:(UITextView *)textView {
+    if ([self.delegate respondsToSelector:@selector(composeBarDidChangeText:)]) {
+        [self.delegate composeBarDidChangeText:self];
+    }
     [self checkHeight];
 	[self updateStateAnimated:YES];
 }

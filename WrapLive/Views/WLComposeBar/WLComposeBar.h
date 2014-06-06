@@ -17,6 +17,7 @@
 @optional;
 
 - (void)composeBarHeightDidChanged:(WLComposeBar*)composeBar;
+- (void)composeBarDidChangeText:(WLComposeBar*)composeBar;
 - (NSUInteger)composeBarCharactersLimit:(WLComposeBar*)composeBar;
 - (void)composeBarDidBeginEditing:(WLComposeBar*)composeBar;
 - (void)composeBarDidEndEditing:(WLComposeBar*)composeBar;

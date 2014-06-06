@@ -20,6 +20,7 @@
 #import "WLNavigation.h"
 #import "WLWrapViewController.h"
 #import "WLChatViewController.h"
+#import "NSString+Additions.h"
 
 @interface WLQuickChatView () <WLComposeBarDelegate, UITableViewDelegate>
 
@@ -131,6 +132,21 @@
 
 #pragma mark - WLComposeBarDelegate
 
+- (void)cancelDelayEndEditing {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(onDelayedEndEditing) object:nil];
+}
+
+- (void)delayEndEditing {
+    [self cancelDelayEndEditing];
+    [self performSelector:@selector(onDelayedEndEditing) withObject:nil afterDelay:5.0f];
+}
+
+- (void)onDelayedEndEditing {
+    if (!self.composeBar.text.nonempty) {
+        [self.composeBar resignFirstResponder];
+    }
+}
+
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
 	[[WLUploadingQueue instance] uploadMessage:text wrap:self.wrap success:^(id object) {
 	} failure:^(NSError *error) {
@@ -139,10 +155,19 @@
 
 - (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
     [self setEditing:NO animated:YES];
+    [self cancelDelayEndEditing];
+}
+
+- (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
+    [self delayEndEditing];
 }
 
 - (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
     [self updateHeight];
+}
+
+- (void)composeBarDidChangeText:(WLComposeBar *)composeBar {
+    [self delayEndEditing];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

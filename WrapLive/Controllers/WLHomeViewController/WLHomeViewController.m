@@ -274,13 +274,7 @@
 		[[WLUploadingQueue instance] updateWrap:wrap];
 		self.candies = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
         self.quickChatView.wrap = wrap;
-        if ([self.candies count] < WLHomeTopWrapCandiesLimit) {
-            __weak typeof(self)weakSelf = self;
-            [wrap fetch:^(WLWrap* wrap) {
-                [WLDataCache cache].wraps = weakSelf.wraps;
-            } failure:^(NSError *error) {
-            }];
-        }
+        [self fetchTopWrapIfNeeded:wrap];
 	}
 	
 	self.tableView.hidden = !hasWraps;
@@ -294,6 +288,24 @@
 		} completion:^(BOOL finished) {
 		}];
 	}
+}
+
+- (void)fetchTopWrapIfNeeded:(WLWrap*)wrap {
+    static BOOL fetching = NO;
+    if (!fetching && [self.candies count] < WLHomeTopWrapCandiesLimit) {
+        fetching = YES;
+        __weak typeof(self)weakSelf = self;
+        [wrap fetch:^(WLWrap* wrap) {
+            [WLDataCache cache].wraps = weakSelf.wraps;
+            run_after(0.2, ^{
+                fetching = NO;
+            });
+        } failure:^(NSError *error) {
+            run_after(0.2, ^{
+                fetching = NO;
+            });
+        }];
+    }
 }
 
 - (void)sendMessageWithText:(NSString*)text {

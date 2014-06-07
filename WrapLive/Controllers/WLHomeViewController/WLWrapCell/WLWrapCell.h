@@ -22,6 +22,8 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 - (void)wrapCell:(WLWrapCell*)cell didSelectCandy:(WLCandy*)candy;
 - (void)wrapCellDidSelectCandyPlaceholder:(WLWrapCell*)cell;
 - (void)wrapCell:(WLWrapCell *)cell didSelectWrap:(WLWrap *)wrap;
+- (BOOL)wrapCellShouldShowMenu:(WLWrapCell*)cell;
+- (void)wrapCell:(WLWrapCell*)cell didDeleteOrLeaveWrap:(WLWrap*)wrap;
 
 @end
 

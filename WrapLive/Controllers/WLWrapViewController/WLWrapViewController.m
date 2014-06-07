@@ -245,6 +245,7 @@
         static NSString* wrapCellIdentifier = @"WLWrapCell";
         WLWrapCell* cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier forIndexPath:indexPath];
         cell.item = self.wrap;
+        cell.delegate = self;
         return cell;
     } else {
         WLCandiesCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLCandiesCell reuseIdentifier]];
@@ -305,10 +306,8 @@
 
 #pragma mark - WLWrapCellDelegate
 
-- (void)wrapCell:(WLWrapCell *)cell didSelectWrap:(WLWrap *)wrap {
-	WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-	wrapController.wrap = wrap;
-	[self.navigationController pushViewController:wrapController animated:YES];
+- (void)wrapCell:(WLWrapCell *)cell didDeleteOrLeaveWrap:(WLWrap *)wrap {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - WLQuickChatViewDelegate

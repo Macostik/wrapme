@@ -41,8 +41,14 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	__weak typeof(self)weakSelf = self;
-	[self.nameLabel.superview addLongPressGestureRecognizing:^(CGPoint point){
-		[weakSelf showMenu:point];
+	[self.nameLabel.superview addLongPressGestureRecognizing:^(CGPoint point) {
+        BOOL showMenu = YES;
+        if ([weakSelf.delegate respondsToSelector:@selector(wrapCellShouldShowMenu:)]) {
+            showMenu = [weakSelf.delegate wrapCellShouldShowMenu:self];
+        }
+        if (showMenu) {
+            [weakSelf showMenu:point];
+        }
 	}];
 }
 
@@ -84,7 +90,9 @@
 	if ([UIMenuController sharedMenuController].menuVisible) {
 		[[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
 	}
-	[self.delegate wrapCell:self didSelectWrap:self.item];
+    if ([self.delegate respondsToSelector:@selector(wrapCell:didSelectWrap:)]) {
+        [self.delegate wrapCell:self didSelectWrap:self.item];
+    }
 }
 
 - (void)showMenu:(CGPoint)point {
@@ -109,6 +117,9 @@
 	weakSelf.userInteractionEnabled = NO;
 	[wrap remove:^(id object) {
 		weakSelf.userInteractionEnabled = YES;
+        if ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteOrLeaveWrap:)]) {
+            [weakSelf.delegate wrapCell:weakSelf didDeleteOrLeaveWrap:wrap];
+        }
 	} failure:^(NSError *error) {
 		[error show];
 		weakSelf.userInteractionEnabled = YES;
@@ -121,6 +132,9 @@
 	weakSelf.userInteractionEnabled = NO;
 	[wrap leave:^(id object) {
 		weakSelf.userInteractionEnabled = YES;
+        if ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteOrLeaveWrap:)]) {
+            [weakSelf.delegate wrapCell:weakSelf didDeleteOrLeaveWrap:wrap];
+        }
 	} failure:^(NSError *error) {
 		[error show];
 		weakSelf.userInteractionEnabled = YES;

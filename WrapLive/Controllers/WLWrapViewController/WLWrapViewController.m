@@ -30,14 +30,13 @@
 #import "UILabel+Additions.h"
 #import "WLDataManager.h"
 #import "WLDataCache.h"
-#import "WLUserChannelBroadcaster.h"
 #import "WLToast.h"
 #import "WLEntryState.h"
 #import "WLStillPictureViewController.h"
 #import "WLQuickChatView.h"
 #import "WLWrapCell.h"
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, WLUserChannelBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate, WLQuickChatViewDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate, WLQuickChatViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
@@ -73,7 +72,6 @@
 	self.tableView.tableFooterView = [WLLoadingView instance];
 	
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-	[[WLUserChannelBroadcaster broadcaster] addReceiver:self];
     
     self.quickChatView.wrap = self.wrap;
 }
@@ -81,34 +79,6 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self.wrap setUpdated:NO];
-}
-
-#pragma mark - WLUserChannelBroadcastReceiver
-
-- (void)broadcaster:(WLUserChannelBroadcaster *)broadcaster didResignContributor:(WLWrap *)wrap {
-	if ([self.wrap isEqualToEntry:wrap]) {
-		[WLToast showWithMessage:@"This wrap is no longer avaliable."];
-	}
-}
-
-#pragma mark - WLWrapBroadcastReceiver
-
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-	if ([wrap isEqualToEntry:self.wrap]) {
-		self.quickChatView.wrap = self.wrap;
-		[self.tableView reloadData];
-	}
-}
-
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
-	for (WLWrapDate* date in self.wrap.dates) {
-		if (!date.candies.nonempty) {
-			self.wrap.dates = (id)[self.wrap.dates arrayByRemovingObject:date];
-			[self.tableView reloadData];
-			break;
-		}
-	}
-	[[WLDataCache cache] setWrap:self.wrap];
 }
 
 - (void)setShouldLoadMoreDates:(BOOL)shouldLoadMoreDates {
@@ -180,6 +150,28 @@
 	[[WLUploadingQueue instance] uploadMessage:text wrap:self.wrap success:^(id object) {
 	} failure:^(NSError *error) {
 	}];
+}
+
+#pragma mark - WLWrapBroadcastReceiver
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
+	self.quickChatView.wrap = self.wrap;
+    [self.tableView reloadData];
+}
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
+    [WLToast showWithMessage:@"This wrap is no longer avaliable."];
+}
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
+	if (![candy belongsToWrap:self.wrap]) {
+        [self.tableView reloadData];
+        [[WLDataCache cache] setWrap:self.wrap];
+    }
+}
+
+- (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
+    return self.wrap;
 }
 
 #pragma mark - User Actions

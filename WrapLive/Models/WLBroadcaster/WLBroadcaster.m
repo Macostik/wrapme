@@ -73,9 +73,13 @@
 }
 
 - (void)broadcast:(SEL)selector object:(id)object {
+	[self broadcast:selector object:object select:nil];
+}
+
+- (void)broadcast:(SEL)selector object:(id)object select:(WLBroadcastSelectReceiver)select {
 	NSArray* receivers = [self.receivers copy];
 	for (NSObject <WLBroadcastReceiver> *receiver in receivers) {
-		if ([receiver respondsToSelector:selector]) {
+		if ((select ? select(receiver) : YES) && [receiver respondsToSelector:selector]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 			[receiver performSelector:selector withObject:self withObject:object];
@@ -85,9 +89,13 @@
 }
 
 - (void)broadcast:(SEL)selector {
+	[self broadcast:selector select:nil];
+}
+
+- (void)broadcast:(SEL)selector select:(WLBroadcastSelectReceiver)select {
 	NSArray* receivers = [self.receivers copy];
 	for (NSObject <WLBroadcastReceiver> *receiver in receivers) {
-		if ([receiver respondsToSelector:selector]) {
+		if ((select ? select(receiver) : YES) && [receiver respondsToSelector:selector]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 			[receiver performSelector:selector withObject:self];

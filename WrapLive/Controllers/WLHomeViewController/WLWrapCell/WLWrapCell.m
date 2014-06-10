@@ -21,18 +21,15 @@
 #import "WLCandyCell.h"
 #import "WLUploadingQueue.h"
 #import "UIView+GestureRecognizing.h"
-#import "WLWrapChannelBroadcaster.h"
 #import "WLEntryState.h"
 
-@interface WLWrapCell () <WLCandyCellDelegate, WLWrapChannelBroadcastReceiver>
+@interface WLWrapCell () <WLCandyCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
-
-@property (strong, nonatomic) WLWrapChannelBroadcaster* wrapChannelBroadcaster;
 
 @end
 
@@ -52,15 +49,7 @@
 	}];
 }
 
-- (WLWrapChannelBroadcaster *)wrapChannelBroadcaster {
-	if (!_wrapChannelBroadcaster) {
-		_wrapChannelBroadcaster = [[WLWrapChannelBroadcaster alloc] initWithReceiver:self];
-	}
-	return _wrapChannelBroadcaster;
-}
-
 - (void)setupItemData:(WLWrap*)wrap {
-	self.wrapChannelBroadcaster.wrap = wrap;
 	self.nameLabel.superview.userInteractionEnabled = YES;
 	self.nameLabel.text = wrap.name;
 	[self.nameLabel sizeToFitWidthWithSuperviewRightPadding:50];
@@ -192,20 +181,6 @@
 
 - (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
 	[self.delegate wrapCell:self didSelectCandy:candy];
-}
-
-#pragma mark - WLWrapChannelBroadcastReceiver
-
-- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddCandy:(WLCandy *)candy {
-	
-}
-
-- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddComment:(WLCandy *)candy {
-	[self updateNotifyBulbWithWrap:self.item];
-}
-
-- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddChatMessage:(WLCandy *)message {
-	
 }
 
 @end

@@ -64,8 +64,12 @@
 		for (WLCandy* _candy in date.candies) {
 			if ([_candy isEqualToEntry:candy]) {
 				[date removeCandy:_candy];
+                if (!date.candies.nonempty) {
+                    self.dates = (id)[self.dates arrayByRemovingObject:date];
+                }
 				[self broadcastChange];
 				[candy broadcastRemoving];
+                return;
 			}
 		}
 	}
@@ -187,6 +191,17 @@
 			break;
 		}
 	}
+}
+
+- (BOOL)containsCandy:(WLCandy *)candy {
+    __block BOOL contains = NO;
+    [self enumerateCandies:^(WLCandy *_candy, WLWrapDate *date, BOOL *stop) {
+        if ([_candy isEqualToEntry:candy]) {
+            contains = YES;
+            *stop = YES;
+        }
+    }];
+    return contains;
 }
 
 @end

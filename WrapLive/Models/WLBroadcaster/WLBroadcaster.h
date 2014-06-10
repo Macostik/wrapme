@@ -12,6 +12,8 @@
 
 @end
 
+typedef BOOL (^WLBroadcastSelectReceiver)(NSObject <WLBroadcastReceiver> *receiver);
+
 @interface WLBroadcaster : NSObject
 
 @property (strong, nonatomic, readonly) NSHashTable* receivers;
@@ -32,6 +34,10 @@
 
 - (void)broadcast:(SEL)selector object:(id)object;
 
+- (void)broadcast:(SEL)selector object:(id)object select:(WLBroadcastSelectReceiver)select;
+
 - (void)broadcast:(SEL)selector;
+
+- (void)broadcast:(SEL)selector select:(WLBroadcastSelectReceiver)select;
 
 @end

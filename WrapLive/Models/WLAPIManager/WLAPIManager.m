@@ -25,7 +25,11 @@
 #import "NSDate+Additions.h"
 #import "WLWelcomeViewController.h"
 
+#if DEBUG
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
+#else
+static const int ddLogLevel = LOG_LEVEL_OFF;
+#endif
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";

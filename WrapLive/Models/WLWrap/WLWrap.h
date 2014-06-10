@@ -53,4 +53,6 @@ static NSInteger WLWrapNameLimit = 190;
 
 - (void)enumerateCandies:(void (^)(WLCandy* candy, WLWrapDate* date, BOOL *stop))enumerator;
 
+- (BOOL)containsCandy:(WLCandy*)candy;
+
 @end

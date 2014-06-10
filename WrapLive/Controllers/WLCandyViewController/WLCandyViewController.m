@@ -30,7 +30,6 @@
 #import "WLDataManager.h"
 #import "NSDate+Additions.h"
 #import "WLWrapBroadcaster.h"
-#import "WLWrapChannelBroadcaster.h"
 #import "NSString+Additions.h"
 #import "WLToast.h"
 #import "WLEntryState.h"
@@ -40,7 +39,7 @@
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
-@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, WLWrapChannelBroadcastReceiver, MFMailComposeViewControllerDelegate>
+@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -59,8 +58,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 @property (nonatomic) BOOL shouldLoadMoreCandies;
 
 @property (nonatomic) BOOL loading;
-
-@property (strong, nonatomic) WLWrapChannelBroadcaster* wrapChannelBroadcaster;
 
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
 
@@ -86,14 +83,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	
 	[self showContentIndicatorView:NO];
-//	self.reportButton.hidden = [self.candy.contributor isCurrentUser] ? YES : NO;
-}
-
-- (WLWrapChannelBroadcaster *)wrapChannelBroadcaster {
-	if (!_wrapChannelBroadcaster) {
-		_wrapChannelBroadcaster = [[WLWrapChannelBroadcaster alloc] initWithReceiver:self];
-	}
-	return _wrapChannelBroadcaster;
 }
 
 - (UIView *)swipeView {
@@ -102,7 +91,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)setWrap:(WLWrap *)wrap candy:(WLCandy *)candy {
 	self.wrap = wrap;
-	self.wrapChannelBroadcaster.wrap = wrap;
 	__weak typeof(self)weakSelf = self;
 	[wrap enumerateCandies:^(WLCandy *_candy, WLWrapDate *date, BOOL *stop) {
 		if (_candy.type == WLCandyTypeImage) {
@@ -205,7 +193,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)setupImage {
 	WLCandy* image = self.candy;
-	self.wrapChannelBroadcaster.candy = image;
 	__weak typeof(self)weakSelf = self;
 	if (!self.spinner.isAnimating) {
 		[self.spinner startAnimating];
@@ -240,28 +227,23 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[self.tableView reloadData];
 }
 
-#pragma mark - WLWrapChannelBroadcastReceiver
-
-- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddCandy:(WLCandy *)candy {
-	[candy setUpdated:NO];
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
+    if ([candy belongsToWrap:self.wrap]) {
+        if ([self.candy isEqualToEntry:candy]) {
+            [WLToast showWithMessage:@"This candy is no longer avaliable."];
+        }
+        
+        self.items = [self.items entriesByRemovingEntry:candy];
+        if (self.items.nonempty) {
+            self.candy = [self.items lastObject];
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
 
-- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddComment:(WLCandy *)candy {
-	self.candy = [self.candy updateWithObject:candy];
-}
-
-- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didDeleteCandy:(WLCandy *)candy {
-	[WLToast showWithMessage:@"This candy is no longer avaliable."];
-	self.items = [self.items entriesByRemovingEntry:candy];
-	if (self.items.nonempty) {
-		self.candy = [self.items lastObject];
-	} else {
-		[self.navigationController popViewControllerAnimated:YES];
-	}
-}
-
-- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didDeleteComment:(WLCandy *)candy {
-	[self setupImage];
+- (WLCandy *)broadcasterPreferedCandy:(WLWrapBroadcaster *)broadcaster {
+    return self.candy;
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver
@@ -333,8 +315,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
-	NSString* cellIdentifier = WLCommentCellIdentifier;
-	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:WLCommentCellIdentifier forIndexPath:indexPath];
 	cell.item = comment;
 	cell.wrap = self.wrap;
 	cell.candy = self.candy;
@@ -347,54 +328,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 														 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[WLCommentCell commentFont]} context:nil].size.height);
 	CGFloat cellHeight = (commentHeight + WLAuthorLabelHeight);
 	return MAX(WLMinimumCellHeight, cellHeight + 10);
-}
-
-#pragma mark UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0) {
-		// Email Subject
-		NSString *emailTitle = @"Reporting inappropriate content on wrapLive";
-		// Email Content
-		NSString *messageBody = [NSString stringWithFormat:@"I'd like to report the following item as inappropriate content:\nImage URL - %@,\nWrap ID - %@,\nCandy ID - %@", self.candy.picture.medium, self.wrap.identifier, self.candy.identifier];
-		// To address
-		NSArray *toRecipents = [NSArray arrayWithObject:@"help@ravenpod.com"];
-		
-		MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-		mc.mailComposeDelegate = self;
-		[mc setSubject:emailTitle];
-		[mc setMessageBody:messageBody isHTML:NO];
-		[mc setToRecipients:toRecipents];
-		
-		// Present mail view controller on screen
-		[self presentViewController:mc animated:YES completion:NULL];
-	}
-	
-}
-
-#pragma mark - MFMailComposeViewControllerDelegate
-
-- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-{
-    switch (result)
-    {
-        case MFMailComposeResultCancelled:
-            NSLog(@"Mail cancelled");
-            break;
-        case MFMailComposeResultSaved:
-            NSLog(@"Mail saved");
-            break;
-        case MFMailComposeResultSent:
-            NSLog(@"Mail sent");
-			[WLToast showWithMessage:@"Mail sent"];
-            break;
-        case MFMailComposeResultFailed:
-            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
-            break;
-        default:
-            break;
-    }
-	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

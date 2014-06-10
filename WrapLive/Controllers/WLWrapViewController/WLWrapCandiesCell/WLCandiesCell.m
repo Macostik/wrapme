@@ -109,8 +109,8 @@
 	[self.collectionView reloadData];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
-	[self.collectionView reloadData];
+- (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
+    return self.wrap;
 }
 
 #pragma mark - UICollectionViewDataSource

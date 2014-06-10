@@ -26,8 +26,8 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
     self = [super initWithDictionary:dict error:err];
     if (self) {
+        self.contributor = [WLUser entryWithIdentifier:[dict stringForKey:@"contributor_uid"]];
         self.contributor.name = [dict stringForKey:@"contributor_name"];
-		self.contributor.identifier = [dict stringForKey:@"contributor_uid"];
 		self.contributor.picture = [WLPicture pictureWithDictionary:dict mapping:[WLUser pictureMapping]];
     }
     return self;

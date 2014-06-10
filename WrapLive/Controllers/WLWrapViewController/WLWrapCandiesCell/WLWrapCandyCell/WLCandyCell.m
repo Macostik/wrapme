@@ -23,11 +23,10 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLToast.h"
 #import "WLEntryState.h"
-#import "WLWrapChannelBroadcaster.h"
 #import "WLImageFetcher.h"
 #import "MFMailComposeViewController+Additions.h"
 
-@interface WLCandyCell () <WLWrapBroadcastReceiver, WLWrapChannelBroadcastReceiver>
+@interface WLCandyCell () <WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
@@ -37,8 +36,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *retryButton;
 @property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
-
-@property (strong, nonatomic) WLWrapChannelBroadcaster* wrapChannelBroadcaster;
 
 @end
 
@@ -54,16 +51,8 @@
 	}];
 }
 
-- (WLWrapChannelBroadcaster *)wrapChannelBroadcaster {
-	if (!_wrapChannelBroadcaster) {
-		_wrapChannelBroadcaster = [[WLWrapChannelBroadcaster alloc] initWithReceiver:self];
-	}
-	return _wrapChannelBroadcaster;
-}
-
 - (void)setWrap:(WLWrap *)wrap {
 	_wrap = wrap;
-	self.wrapChannelBroadcaster.wrap = wrap;
 }
 
 - (void)setupItemData:(WLCandy*)entry {
@@ -71,7 +60,6 @@
 }
 
 - (void)setupItemData:(WLCandy*)candy animated:(BOOL)animated {
-	self.wrapChannelBroadcaster.candy = candy;
 	self.userInteractionEnabled = YES;
 	
 	if ([candy isImage]) {
@@ -181,19 +169,11 @@
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
-	if ([candy isEqualToEntry:self.item]) {
-		[self setupItemData:self.item animated:YES];
-	}
+	[self setupItemData:self.item animated:YES];
 }
 
-#pragma mark - WLWrapChannelBroadcastReceiver
-
-- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddChatMessage:(WLCandy *)message {
-	self.notifyBulb.hidden = ![self.item updated];
-}
-
-- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddComment:(WLCandy *)candy {
-	self.item = [self.item updateWithObject:candy];
+- (WLCandy *)broadcasterPreferedCandy:(WLWrapBroadcaster *)broadcaster {
+    return self.item;
 }
 
 #pragma mark - Actions

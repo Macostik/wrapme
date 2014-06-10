@@ -41,4 +41,6 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 - (BOOL)deletion;
 
+- (void)fetch:(void (^)(void))completion;
+
 @end

@@ -66,7 +66,7 @@
 		}
 	}];
 	[_mapping removeObjectsForKeys:duplicates];
-	return [_mapping merge:mapping];;
+	return [_mapping merge:mapping];
 }
 
 + (JSONKeyMapper *)keyMapper {

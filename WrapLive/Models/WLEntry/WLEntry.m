@@ -9,6 +9,7 @@
 #import "WLEntry.h"
 #import "NSDate+Formatting.h"
 #import "NSDate+Additions.h"
+#import "WLEntryFactory.h"
 
 @implementation WLEntry
 
@@ -24,12 +25,22 @@
 	return entry;
 }
 
++ (instancetype)entryWithIdentifier:(NSString*)identifier {
+    WLEntry* entry = [self entry];
+    entry.identifier = identifier;
+    return [WLEntryFactory entry:entry];
+}
+
+- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder {
+    return [WLEntryFactory entry:self];
+}
+
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err {
 	self = [super initWithDictionary:dict error:err];
 	if (self) {
 		self.picture = [WLPicture pictureWithDictionary:dict mapping:[[self class] pictureMapping]];
 	}
-	return self;
+	return [WLEntryFactory entry:self];
 }
 
 - (WLPicture *)picture {
@@ -60,6 +71,10 @@
 		};
 	});
 	return _equalityBlock;
+}
+
+- (instancetype)updateWithObject:(id)object broadcast:(BOOL)broadcast {
+    return [self updateWithObject:object];
 }
 
 @end

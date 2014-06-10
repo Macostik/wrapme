@@ -38,20 +38,21 @@
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
 #import "WLToast.h"
-#import "WLUserChannelBroadcaster.h"
 #import "WLNotificationBroadcaster.h"
 #import "WLStillPictureViewController.h"
 #import "WLSupportFunctions.h"
 #import "NSString+Additions.h"
 #import "WLQuickChatView.h"
+#import "WLNotificationBroadcaster.h"
+#import "WLNotification.h"
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLUserChannelBroadcastReceiver, WLNotificationReceiver, WLQuickChatViewDelegate>
+@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLNotificationReceiver, WLQuickChatViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
 @property (strong, nonatomic) NSArray* wraps;
 @property (strong, nonatomic) NSArray* candies;
-@property (nonatomic, readonly) WLWrap* topWrap;
+@property (nonatomic, strong) WLWrap* topWrap;
 @property (nonatomic) BOOL loading;
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
@@ -78,7 +79,6 @@
 	self.noWrapsView.hidden = YES;
 	[self setupRefresh];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-	[[WLUserChannelBroadcaster broadcaster] addReceiver:self];
 	[[WLNotificationBroadcaster broadcaster] addReceiver:self];
 	self.tableView.tableFooterView = [WLLoadingView instance];
 }
@@ -120,6 +120,134 @@
 	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
 }
 
+- (void)fetchWraps:(BOOL)refresh {
+	if (self.loading) {
+		return;
+	}
+	self.loading = YES;
+	__weak typeof(self)weakSelf = self;
+	
+	if (refresh) {
+		[[WLUploadingQueue instance] checkStatus];
+	}
+	
+	[WLDataManager wraps:refresh success:^(NSArray* wraps, BOOL cached, BOOL stop) {
+		weakSelf.wraps = wraps;
+		[weakSelf showLatestWrap];
+		weakSelf.shouldAppendMoreWraps = !stop;
+		if (!cached) {
+			[weakSelf.refresher endRefreshing];
+			weakSelf.loading = NO;
+		}
+		[weakSelf finishLoadingAnimation];
+	} failure:^(NSError *error) {
+		weakSelf.loading = NO;
+		weakSelf.shouldAppendMoreWraps = NO;
+		[weakSelf.refresher endRefreshing];
+		if (weakSelf.isOnTopOfNagvigation) {
+			[error showIgnoringNetworkError];
+		}
+		[weakSelf finishLoadingAnimation];
+	}];
+}
+
+- (void)showLatestWrap {
+    static BOOL firstWrapShown = NO;
+	WLUser *user = [WLUser currentUser];
+	if (!firstWrapShown && [user signInCount] == 1 && self.wraps.nonempty) {
+		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
+		wrapController.wrap = [self.wraps firstObject];
+		[self.navigationController pushViewController:wrapController animated:NO];
+	}
+    firstWrapShown = YES;
+}
+
+- (void)finishLoadingAnimation {
+	if (!CGAffineTransformIsIdentity(self.createWrapButton.transform)) {
+		__weak typeof(self)weakSelf = self;
+		[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+			weakSelf.splash.alpha = 0.0f;
+			weakSelf.createWrapButton.transform = CGAffineTransformIdentity;
+		} completion:^(BOOL finished) {
+			[weakSelf.splash hide];
+		}];
+	}
+}
+
+- (void)setShouldAppendMoreWraps:(BOOL)shouldAppendMoreWraps {
+	_shouldAppendMoreWraps = shouldAppendMoreWraps;
+	if (!_shouldAppendMoreWraps) {
+		self.tableView.tableFooterView = nil;
+	} else if (self.tableView.tableFooterView == nil) {
+		self.tableView.tableFooterView = [WLLoadingView instance];
+	}
+}
+
+- (void)setWraps:(NSArray *)wraps {
+	_wraps = [wraps entriesSortedByUpdatingDate];
+	[self updateWraps];
+}
+
+- (void)updateWraps {
+	
+	BOOL hasWraps = _wraps.nonempty;
+	
+    self.quickChatView.hidden = !hasWraps;
+    
+    self.topWrap = [self.wraps firstObject];
+	
+	self.tableView.hidden = !hasWraps;
+	self.noWrapsView.hidden = hasWraps;
+	[self.tableView reloadData];
+	
+	if (hasWraps && !CGAffineTransformIsIdentity(self.navigationBar.transform)) {
+		__weak typeof(self)weakSelf = self;
+		[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+			weakSelf.navigationBar.transform = CGAffineTransformIdentity;
+		} completion:^(BOOL finished) {
+		}];
+	}
+}
+
+- (void)setTopWrap:(WLWrap *)topWrap {
+    if (_topWrap != topWrap) {
+        _topWrap = topWrap;
+        if (_topWrap) {
+            [self fetchTopWrapIfNeeded:_topWrap];
+        }
+    }
+    if (_topWrap) {
+        [[WLUploadingQueue instance] updateWrap:_topWrap];
+        self.candies = [_topWrap recentCandies:WLHomeTopWrapCandiesLimit];
+        self.quickChatView.wrap = _topWrap;
+    }
+}
+
+- (void)fetchTopWrapIfNeeded:(WLWrap*)wrap {
+    static BOOL fetching = NO;
+    if (!fetching && [self.candies count] < WLHomeTopWrapCandiesLimit) {
+        fetching = YES;
+        __weak typeof(self)weakSelf = self;
+        [wrap fetch:^(WLWrap* wrap) {
+            [[WLUploadingQueue instance] updateWrap:wrap];
+            [WLDataCache cache].wraps = weakSelf.wraps;
+            run_after(0.2, ^{
+                fetching = NO;
+            });
+        } failure:^(NSError *error) {
+            run_after(0.2, ^{
+                fetching = NO;
+            });
+        }];
+    }
+}
+
+- (void)sendMessageWithText:(NSString*)text {
+	[[WLUploadingQueue instance] uploadMessage:text wrap:self.topWrap success:^(id object) {
+	} failure:^(NSError *error) {
+	}];
+}
+
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
@@ -128,10 +256,7 @@
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
-	NSMutableArray* wraps = [self.wraps mutableCopy];
-	[wraps insertObject:wrap atIndex:0];
-	self.wraps = [wraps copy];
-	[self fetchWraps:YES];
+	self.wraps = [self.wraps entriesByInsertingFirstEntry:wrap];
 	self.tableView.contentOffset = CGPointZero;
 	[WLDataCache cache].wraps = self.wraps;
 }
@@ -180,139 +305,7 @@
 	broadcaster.pendingRemoteNotification = nil;
 }
 
-#pragma mark - WLUserChannelBroadcastReceiver
-
-- (void)broadcaster:(WLUserChannelBroadcaster *)broadcaster didBecomeContributor:(WLWrap *)wrap {
-	self.wraps = [self.wraps entriesByAddingEntry:wrap];
-	[WLDataCache cache].wraps = self.wraps;
-}
-
-- (void)broadcaster:(WLUserChannelBroadcaster *)broadcaster didResignContributor:(WLWrap *)wrap {
-	self.wraps = [self.wraps entriesByRemovingEntry:wrap];
-	[WLDataCache cache].wraps = self.wraps;
-}
-
-- (void)fetchWraps:(BOOL)refresh {
-	if (self.loading) {
-		return;
-	}
-	self.loading = YES;
-	__weak typeof(self)weakSelf = self;
-	
-	if (refresh) {
-		[[WLUploadingQueue instance] checkStatus];
-	}
-	
-	[WLDataManager wraps:refresh success:^(NSArray* wraps, BOOL cached, BOOL stop) {
-		weakSelf.wraps = wraps;
-		[weakSelf showLatestWrap];
-		weakSelf.shouldAppendMoreWraps = !stop;
-		if (!cached) {
-			[weakSelf.refresher endRefreshing];
-			weakSelf.loading = NO;
-		}
-		[weakSelf finishLoadingAnimation];
-	} failure:^(NSError *error) {
-		weakSelf.loading = NO;
-		weakSelf.shouldAppendMoreWraps = NO;
-		[weakSelf.refresher endRefreshing];
-		if (weakSelf.isOnTopOfNagvigation) {
-			[error showIgnoringNetworkError];
-		}
-		[weakSelf finishLoadingAnimation];
-	}];
-}
-
-- (void)showLatestWrap {
-	WLUser * user = [WLUser currentUser];
-	if (!user.firstWrapShown && [user signInCount] == 1 && self.wraps.count > 0) {
-		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-		wrapController.wrap = [self.wraps firstObject];
-		[self.navigationController pushViewController:wrapController animated:NO];
-	}
-	[user setFirstWrapShown:YES];
-}
-
-- (void)finishLoadingAnimation {
-	if (!CGAffineTransformIsIdentity(self.createWrapButton.transform)) {
-		__weak typeof(self)weakSelf = self;
-		[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-			weakSelf.splash.alpha = 0.0f;
-			weakSelf.createWrapButton.transform = CGAffineTransformIdentity;
-		} completion:^(BOOL finished) {
-			[weakSelf.splash hide];
-		}];
-	}
-}
-
-- (void)setShouldAppendMoreWraps:(BOOL)shouldAppendMoreWraps {
-	_shouldAppendMoreWraps = shouldAppendMoreWraps;
-	if (!_shouldAppendMoreWraps) {
-		self.tableView.tableFooterView = nil;
-	} else if (self.tableView.tableFooterView == nil) {
-		self.tableView.tableFooterView = [WLLoadingView instance];
-	}
-}
-
-- (void)setWraps:(NSArray *)wraps {
-	_wraps = [wraps entriesSortedByUpdatingDate];
-	[self updateWraps];
-}
-
-- (WLWrap *)topWrap {
-	return [self.wraps firstObject];
-}
-
-- (void)updateWraps {
-	
-	BOOL hasWraps = _wraps.nonempty;
-	
-    self.quickChatView.hidden = !hasWraps;
-    
-	if (hasWraps) {
-		WLWrap* wrap = self.topWrap;
-		[[WLUploadingQueue instance] updateWrap:wrap];
-		self.candies = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
-        self.quickChatView.wrap = wrap;
-        [self fetchTopWrapIfNeeded:wrap];
-	}
-	
-	self.tableView.hidden = !hasWraps;
-	self.noWrapsView.hidden = hasWraps;
-	[self.tableView reloadData];
-	
-	if (hasWraps && !CGAffineTransformIsIdentity(self.navigationBar.transform)) {
-		__weak typeof(self)weakSelf = self;
-		[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-			weakSelf.navigationBar.transform = CGAffineTransformIdentity;
-		} completion:^(BOOL finished) {
-		}];
-	}
-}
-
-- (void)fetchTopWrapIfNeeded:(WLWrap*)wrap {
-    static BOOL fetching = NO;
-    if (!fetching && [self.candies count] < WLHomeTopWrapCandiesLimit) {
-        fetching = YES;
-        __weak typeof(self)weakSelf = self;
-        [wrap fetch:^(WLWrap* wrap) {
-            [WLDataCache cache].wraps = weakSelf.wraps;
-            run_after(0.2, ^{
-                fetching = NO;
-            });
-        } failure:^(NSError *error) {
-            run_after(0.2, ^{
-                fetching = NO;
-            });
-        }];
-    }
-}
-
-- (void)sendMessageWithText:(NSString*)text {
-	[[WLUploadingQueue instance] uploadMessage:text wrap:self.topWrap success:^(id object) {
-	} failure:^(NSError *error) {
-	}];
-}
+#pragma mark - Actions
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isCameraSegue]) {
@@ -322,8 +315,6 @@
 		controller.mode = WLCameraModeCandy;
 	}
 }
-
-#pragma mark - Actions
 
 - (IBAction)typeMessage:(UIButton *)sender {
 	WLChatViewController * chatController = [WLChatViewController instantiate];

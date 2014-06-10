@@ -58,7 +58,25 @@ static NSDictionary *errorsToIgnore = nil;
 }
 
 - (BOOL)isNetworkError {
-	return self.code == NSURLErrorNetworkConnectionLost || self.code == NSURLErrorNotConnectedToInternet;;
+    NSInteger code = self.code;
+    switch (code) {
+        case NSURLErrorCannotFindHost:
+        case NSURLErrorCannotConnectToHost:
+        case NSURLErrorNetworkConnectionLost:
+        case NSURLErrorDNSLookupFailed:
+        case NSURLErrorHTTPTooManyRedirects:
+        case NSURLErrorResourceUnavailable:
+        case NSURLErrorNotConnectedToInternet:
+        case NSURLErrorRedirectToNonExistentLocation:
+        case NSURLErrorInternationalRoamingOff:
+        case NSURLErrorSecureConnectionFailed:
+        case NSURLErrorCannotLoadFromNetwork:
+            return YES;
+            break;
+        default:
+            return NO;
+            break;
+    }
 }
 
 static NSDictionary *customErrorMessages = nil;

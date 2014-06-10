@@ -19,11 +19,15 @@
 
 + (instancetype)entry;
 
++ (instancetype)entryWithIdentifier:(NSString*)identifier;
+
 + (NSDictionary*)pictureMapping;
+
++ (EqualityBlock)equalityBlock;
 
 - (BOOL)isEqualToEntry:(WLEntry*)entry;
 
-+ (EqualityBlock)equalityBlock;
+- (instancetype)updateWithObject:(id)object broadcast:(BOOL)broadcast;
 
 @end
 

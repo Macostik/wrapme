@@ -10,6 +10,7 @@
 
 @class WLComment;
 @class WLUploading;
+@class WLWrap;
 
 @protocol WLComment @end
 
@@ -27,6 +28,8 @@ static NSInteger WLCandyTypeChatMessage = 20;
 @property (weak, nonatomic) WLUploading* uploading;
 
 @property (strong, nonatomic) NSString *uploadIdentifier;
+
+@property (strong, nonatomic) NSString* wrapIdentifier;
 
 + (instancetype)candyWithType:(NSInteger)type;
 
@@ -46,7 +49,7 @@ static NSInteger WLCandyTypeChatMessage = 20;
 
 - (BOOL)isChatMessage;
 
-- (instancetype)updateWithObject:(id)object broadcast:(BOOL)broadcast;
+- (BOOL)belongsToWrap:(WLWrap*)wrap;
 
 - (instancetype)updateWithDictionary:(NSDictionary *)dict broadcast:(BOOL)broadcast;
 

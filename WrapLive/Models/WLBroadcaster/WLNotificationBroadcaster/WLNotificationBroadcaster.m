@@ -108,16 +108,12 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 }
 
 - (void)broadcastNotification:(WLNotification*)notification {
-    NSArray* receivers = [self.receivers copy];
-    for (NSObject <WLNotificationReceiver> *receiver in receivers) {
-        BOOL shouldReceiveNotification = YES;
+    [self broadcast:@selector(broadcaster:notificationReceived:) object:notification select:^BOOL(NSObject<WLNotificationReceiver> *receiver) {
         if ([receiver respondsToSelector:@selector(broadcaster:shouldReceiveNotification:)]) {
-            shouldReceiveNotification = [receiver broadcaster:self shouldReceiveNotification:notification];
+            return [receiver broadcaster:self shouldReceiveNotification:notification];
         }
-        if (shouldReceiveNotification && [receiver respondsToSelector:@selector(broadcaster:notificationReceived:)]) {
-            [receiver broadcaster:self notificationReceived:notification];
-        }
-    }
+        return YES;
+    }];
 }
 
 #pragma mark - PNDelegate
@@ -125,23 +121,10 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 - (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
 	NSLog(@"PubNub message received %@", message);
 	WLNotification* notification = [WLNotification notificationWithMessage:message];
-	if (notification) {
-        __weak typeof(self)weakSelf = self;
-        WLObjectBlock block = ^(id object) {
-            [weakSelf broadcastNotification:notification];
-        };
-        if (![notification deletion]) {
-            if (notification.type == WLNotificationContributorAddition) {
-                [notification.wrap setUpdated:YES];
-                [notification.wrap fetch:block failure:block];
-            } else {
-                [notification.candy setUpdated:YES];
-                [notification.candy fetch:notification.wrap success:block failure:block];
-            }
-        } else {
-            block(nil);
-        }
-	}
+	__weak typeof(self)weakSelf = self;
+    [notification fetch:^{
+        [weakSelf broadcastNotification:notification];
+    }];
 }
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {

@@ -17,7 +17,6 @@ static NSInteger WLProfileNameLimit = 40;
 @property (strong, nonatomic) NSString* email;
 @property (nonatomic) BOOL isCreator;
 @property (nonatomic) NSInteger signInCount;
-@property (nonatomic) BOOL firstWrapShown;
 
 @end
 

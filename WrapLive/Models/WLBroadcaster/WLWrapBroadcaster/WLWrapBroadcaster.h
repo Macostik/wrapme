@@ -26,6 +26,10 @@
 @protocol WLWrapBroadcastReceiver <WLBroadcastReceiver>
 
 @optional
+- (WLWrap*)broadcasterPreferedWrap:(WLWrapBroadcaster*)broadcaster;
+
+- (WLCandy*)broadcasterPreferedCandy:(WLWrapBroadcaster*)broadcaster;
+
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster wrapCreated:(WLWrap*)wrap;
 
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster wrapChanged:(WLWrap*)wrap;

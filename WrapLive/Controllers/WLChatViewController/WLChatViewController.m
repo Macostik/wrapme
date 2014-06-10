@@ -29,10 +29,10 @@
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
 #import "WLBlocks.h"
-#import "WLWrapChannelBroadcaster.h"
 #import "WLEntryState.h"
+#import "WLWrapBroadcaster.h"
 
-@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLWrapChannelBroadcastReceiver>
+@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver>
 
 @property (nonatomic, strong) NSMutableArray* dates;
 
@@ -52,8 +52,6 @@
 
 @property (nonatomic) CGFloat keyboardHeight;
 
-@property (strong, nonatomic) WLWrapChannelBroadcaster* wrapChannelBroadcaster;
-
 @end
 
 @implementation WLChatViewController
@@ -64,18 +62,6 @@
 
 - (WLCollectionViewFlowLayout *)layout {
 	return (WLCollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-}
-
-- (WLWrapChannelBroadcaster *)wrapChannelBroadcaster {
-	if (!_wrapChannelBroadcaster) {
-		_wrapChannelBroadcaster = [[WLWrapChannelBroadcaster alloc] initWithReceiver:self];
-	}
-	return _wrapChannelBroadcaster;
-}
-
-- (void)setWrap:(WLWrap *)wrap {
-	_wrap = wrap;
-	self.wrapChannelBroadcaster.wrap = wrap;
 }
 
 - (void)viewDidLoad {
@@ -108,6 +94,7 @@
 	self.backSwipeGestureEnabled = YES;
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
+    [[WLWrapBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -208,12 +195,14 @@
 	}];
 }
 
-#pragma mark - WLWrapChannelBroadcastReceiver
+#pragma mark - WLWrapBroadcastReceiver
 
-- (void)broadcaster:(WLWrapChannelBroadcaster *)broadcaster didAddChatMessage:(WLCandy *)message {
-	[message setUpdated:NO];
-	[self insertMessage:message];
-	[self.collectionView reloadData];
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
+    if ([candy belongsToWrap:self.wrap] && [candy isChatMessage]) {
+        [candy setUpdated:NO];
+        [self insertMessage:candy];
+        [self.collectionView reloadData];
+    }
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver

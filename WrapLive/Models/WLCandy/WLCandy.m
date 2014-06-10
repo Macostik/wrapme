@@ -12,6 +12,7 @@
 #import "NSArray+Additions.h"
 #import "NSString+Additions.h"
 #import "WLUploadingQueue.h"
+#import "WLWrap.h"
 
 @implementation WLCandy
 
@@ -63,7 +64,8 @@
 									@"candy_uid":@"identifier",
 									@"candy_type":@"type",
 									@"chat_message":@"chatMessage",
-									@"upload_uid":@"uploadIdentifier"}];
+									@"upload_uid":@"uploadIdentifier",
+                                    @"wrap_uid":@"wrapIdentifier"}];
 }
 
 - (WLPicture *)picture {
@@ -100,6 +102,10 @@
 
 - (BOOL)isChatMessage {
 	return self.type == WLCandyTypeChatMessage;
+}
+
+- (BOOL)belongsToWrap:(WLWrap *)wrap {
+    return [self.wrapIdentifier isEqualToString:wrap.identifier];
 }
 
 - (BOOL)isEqualToEntry:(WLCandy *)candy {

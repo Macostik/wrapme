@@ -56,7 +56,6 @@
 @implementation WLWrapViewController
 {
 	BOOL loading;
-	BOOL wrapEditing;
 }
 
 - (void)viewDidLoad {
@@ -81,7 +80,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	wrapEditing = NO;
 	[self.wrap setUpdated:NO];
 }
 
@@ -208,11 +206,7 @@
 	[UIView commitAnimations];
 }
 
-- (IBAction)editWrap:(id)sender {
-	if (wrapEditing){
-		return;
-	}
-	wrapEditing = YES;
+- (IBAction)editWrap:(id)sender { 
 	WLCreateWrapViewController* controller = [WLCreateWrapViewController instantiate];
 	controller.wrap = self.wrap;
 	[controller presentInViewController:self transition:WLWrapTransitionFromRight];

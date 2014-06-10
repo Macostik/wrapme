@@ -10,6 +10,7 @@
 #import "UIViewController+Additions.h"
 #import "UIView+Shorthand.h"
 #import "WLBlocks.h"
+#import "WLNavigation.h"
 
 @interface WLShakeViewController ()
 
@@ -24,6 +25,7 @@
 @implementation WLShakeViewController
 
 - (void)presentInViewController:(UIViewController *)controller transition:(WLWrapTransition)transition completion:(void (^)(void))completion {
+    [UIWindow mainWindow].userInteractionEnabled = NO;
 	self.transition = transition;
 	self.view.frame = controller.view.bounds;
 	[controller.view addSubview:self.view];
@@ -38,6 +40,7 @@
 		if (completion) {
 			completion();
 		}
+        [UIWindow mainWindow].userInteractionEnabled = YES;
 	};
 	
 	if (animated) {

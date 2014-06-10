@@ -134,11 +134,27 @@
 		for (WLContact *contact in contacts) {
 			[self.selectedContributors addObjectsFromArray:contact.users];
 		}
-		NSArray *contributors = [contacts arrayByAddingObjectsFromArray:weakSelf.contributors];
+        
+		NSArray *contributors = [weakSelf.contributors?:@[] arrayByAddingUniqueObjects:contacts equality:^BOOL(WLContact* first, WLContact* second) {
+            for (WLUser* user in first.users) {
+                for (WLUser* _user in second.users) {
+                    if ([user isEqualToEntry:_user]) {
+                        return YES;
+                    }
+                }
+            }
+            return NO;
+        }];
+        
 		weakSelf.contributors = [weakSelf processContributors:contributors];
 		
-		NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:[weakSelf.contributors indexOfObject:[contacts firstObject]]];
-		[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        NSUInteger index = [weakSelf.contributors indexOfObject:[contacts firstObject]];
+        if (index != NSNotFound) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:index]
+                                  atScrollPosition:UITableViewScrollPositionMiddle
+                                          animated:YES];
+        }
+		
 	}];
 }
 

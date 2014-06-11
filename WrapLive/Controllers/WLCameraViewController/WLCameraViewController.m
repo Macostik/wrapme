@@ -70,7 +70,7 @@
 		self.cameraView.frame = self.view.frame;
 		[self.bottomView setFlexibleBottom];
 		self.bottomView.height = self.takePhotoButton.height;
-		self.bottomView.y = self.view.height - self.bottomView.height - (self.wrap ? 30 : 0);
+		self.bottomView.y = self.view.height - self.bottomView.height - (self.wrap ? 36 : 0);
 	} else {
 		self.cameraView.y = self.topView.bottom;
 		self.cameraView.height = self.cameraView.width;

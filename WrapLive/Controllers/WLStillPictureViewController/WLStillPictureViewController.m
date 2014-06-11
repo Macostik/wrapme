@@ -55,11 +55,15 @@
 }
 
 - (void)setTranslucent:(BOOL)translucent animated:(BOOL)animated {
-    UIColor* color = [self.wrapView.backgroundColor colorWithAlphaComponent:translucent ? 0.5f : 1.0f];
-    __weak typeof(self)weakSelf = self;
-    [UIView performAnimated:animated animation:^{
-        weakSelf.wrapView.backgroundColor = color;
-    }];
+    if (self.wrap) {
+        UIColor* color = [self.wrapView.backgroundColor colorWithAlphaComponent:translucent ? 0.5f : 1.0f];
+        __weak typeof(self)weakSelf = self;
+        [UIView performAnimated:animated animation:^{
+            weakSelf.wrapView.backgroundColor = color;
+        }];
+        
+        weakSelf.cameraNavigationController.view.height = weakSelf.view.height - (translucent ? 0 : weakSelf.wrapView.height);
+    }
 }
 
 - (UINavigationController *)cameraNavigationController {

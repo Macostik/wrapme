@@ -47,7 +47,9 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 }
 
 + (void)enablePushNotificationsInSubscribedChannels:(NSData *)deviceToken {
-	[self enablePushNotificationsInChannels:[PubNub subscribedChannels] withDeviceToken:deviceToken];
+    if ([[PubNub sharedInstance] isConnected]) {
+        [self enablePushNotificationsInChannels:[PubNub subscribedChannels] withDeviceToken:deviceToken];
+    }
 }
 
 + (PNConfiguration*)configuration {
@@ -82,11 +84,7 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 	if ([[PubNub sharedInstance] isConnected]) {
 		[self subscribe];
 	} else {
-		__weak typeof(self)weakSelf = self;
-		[PubNub connectWithSuccessBlock:^(NSString *state) {
-			[weakSelf subscribe];
-		} errorBlock:^(PNError *error) {
-		}];
+		[PubNub connect];
 	}
 }
 
@@ -129,6 +127,7 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {
 	NSLog(@"PubNub connected");
+    [self subscribe];
 }
 
 - (void)pubnubClient:(PubNub *)client connectionDidFailWithError:(PNError *)error {

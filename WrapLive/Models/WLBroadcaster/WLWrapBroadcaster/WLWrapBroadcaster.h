@@ -72,14 +72,10 @@
 
 @end
 
-@interface WLWrap (WLWrapBroadcaster) <WLWrapBroadcastObject>
+@interface WLEntry (WLWrapBroadcaster) <WLWrapBroadcastObject> @end
 
-@end
+@interface WLWrap (WLWrapBroadcaster) @end
 
-@interface WLCandy (WLWrapBroadcaster) <WLWrapBroadcastObject>
+@interface WLCandy (WLWrapBroadcaster) @end
 
-@end
-
-@interface WLComment (WLWrapBroadcaster) <WLWrapBroadcastObject>
-
-@end
+@interface WLComment (WLWrapBroadcaster) @end

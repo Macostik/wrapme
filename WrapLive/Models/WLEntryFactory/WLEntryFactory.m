@@ -37,14 +37,18 @@
 
 + (WLEntry *)entry:(WLEntry *)entry {
     NSHashTable* entries = [self entries:entry];
-    for (WLEntry* _entry in entries) {
-        if ([_entry isEqualToEntry:entry]) {
-            [_entry updateWithObject:entry broadcast:NO];
-            return _entry;
+    @synchronized(entries) {
+        for (WLEntry* _entry in entries) {
+            if ([_entry.identifier isEqualToString:entry.identifier]) {
+                if (_entry != entry) {
+                    [_entry updateWithObject:entry broadcast:NO];
+                }
+                return _entry;
+            }
         }
+        [entries addObject:entry];
+        return entry;
     }
-    [entries addObject:entry];
-    return entry;
 }
 
 @end

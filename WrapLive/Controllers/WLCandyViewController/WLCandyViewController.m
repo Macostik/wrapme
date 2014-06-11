@@ -279,7 +279,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	WLComment* comment = [WLComment commentWithText:text];
 	[[WLAPIManager instance] addComment:comment candy:self.candy wrap:self.wrap success:^(id object) {
 		[weakSelf.tableView reloadData];
-		[weakSelf.wrap broadcastChange];
 		[weakSelf.tableView scrollToBottomAnimated:YES];
 	} failure:^(NSError *error) {
 		[error show];

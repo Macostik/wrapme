@@ -14,7 +14,6 @@
 #import "UILabel+Additions.h"
 #import "UIAlertView+Blocks.h"
 #import "WLAPIManager.h"
-#import "WLWrapBroadcaster.h"
 #import "WLUser.h"
 #import "UIActionSheet+Blocks.h"
 #import "StreamView.h"

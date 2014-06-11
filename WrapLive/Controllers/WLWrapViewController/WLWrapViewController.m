@@ -72,8 +72,6 @@
 	self.tableView.tableFooterView = [WLLoadingView instance];
 	
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-    
-    self.quickChatView.wrap = self.wrap;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

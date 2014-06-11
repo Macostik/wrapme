@@ -545,6 +545,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
 		WLComment* comment = [[WLComment alloc] initWithDictionary:[response.data dictionaryForKey:@"comment"] error:NULL];
 		[candy addComment:comment];
+        wrap.updatedAt = [NSDate date];
+        [wrap broadcastChange];
 		return comment;
 	};
 	

@@ -42,7 +42,10 @@
 }
 
 + (void)properties:(void (^)(NSString* property))enumerationBlock {
-	[[self properties] all:enumerationBlock];
+    NSArray* properties = [self properties];
+    @synchronized(properties) {
+        [properties all:enumerationBlock];
+    }
 }
 
 - (NSArray*)properties {
@@ -100,19 +103,25 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	self = [self init];
 	if (self) {
+        __weak typeof(self)weakSelf = self;
 		[self properties:^(NSString *property) {
-			id value = [aDecoder decodeObjectForKey:property];
-			if (value) {
-				[self setValue:value forKey:property];
-			}
+            if (weakSelf) {
+                id value = [aDecoder decodeObjectForKey:property];
+                if (value) {
+                    [weakSelf setValue:value forKey:property];
+                }
+            }
 		}];
 	}
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
+    __weak typeof(self)weakSelf = self;
 	[self properties:^(NSString *property) {
-		[aCoder encodeObject:[self valueForKey:property] forKey:property];
+        if (weakSelf) {
+            [aCoder encodeObject:[weakSelf valueForKey:property] forKey:property];
+        }
 	}];
 }
 

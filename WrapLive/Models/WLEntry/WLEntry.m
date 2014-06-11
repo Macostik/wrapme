@@ -10,6 +10,7 @@
 #import "NSDate+Formatting.h"
 #import "NSDate+Additions.h"
 #import "WLEntryFactory.h"
+#import "WLWrapBroadcaster.h"
 
 @implementation WLEntry
 
@@ -59,7 +60,7 @@
 }
 
 - (BOOL)isEqualToEntry:(WLEntry *)entry {
-	return [self.identifier isEqualToString:entry.identifier];
+	return self == entry || [self.identifier isEqualToString:entry.identifier];
 }
 
 + (EqualityBlock)equalityBlock {
@@ -73,8 +74,20 @@
 	return _equalityBlock;
 }
 
+- (instancetype)updateWithObject:(id)object {
+    return [self updateWithObject:object broadcast:YES];
+}
+
 - (instancetype)updateWithObject:(id)object broadcast:(BOOL)broadcast {
-    return [self updateWithObject:object];
+    WLEntry* entry = [super updateWithObject:object];
+    if (broadcast) {
+        [entry broadcastChange];
+    }
+    return entry;
+}
+
+- (NSString *)description {
+    return self.identifier;
 }
 
 @end

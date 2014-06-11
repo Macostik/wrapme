@@ -1505,6 +1505,70 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" id="Hxo-FQ-kwN" userLabel="headerView">
+                                        <rect key="frame" x="0.0" y="64" width="320" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" id="Qdc-ku-biK" customClass="WLUserView">
+                                                <rect key="frame" x="0.0" y="1" width="320" height="46"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="6ib-bD-I6M">
+                                                        <rect key="frame" x="9" y="9" width="36" height="36"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Doe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="P9Q-2E-gDa">
+                                                        <rect key="frame" x="54" y="1" width="260" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vr6-zn-FIb">
+                                                        <rect key="frame" x="54" y="23" width="260" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VpD-gp-UyZ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <state key="normal">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="openChat:" destination="HA7-Qk-nWH" eventType="touchUpInside" id="Wt1-hb-ydD"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <outlet property="avatarView" destination="6ib-bD-I6M" id="paX-aR-FMw"/>
+                                                    <outlet property="nameLabel" destination="P9Q-2E-gDa" id="jwa-yl-VHw"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" id="zAu-MJ-sDe" customClass="WLComposeBar">
+                                                <rect key="frame" x="0.0" y="46" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="HA7-Qk-nWH" id="sDG-sL-Yf8"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="top" id="cmb-77-thg" colorLabel="IBBuiltInLabel-Orange">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                            <view contentMode="bottom" id="QxY-yf-Vq5">
+                                                <rect key="frame" x="0.0" y="86" width="320" height="4"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="134" sectionHeaderHeight="22" sectionFooterHeight="22" id="BE1-H5-F9x">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1561,34 +1625,34 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                     <outlet property="dateLabel" destination="Y3q-sy-dzY" id="yY4-Qm-hga"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WLWrapCell" rowHeight="50" id="sDZ-hA-IAs" customClass="WLWrapCell">
-                                                <rect key="frame" x="0.0" y="156" width="320" height="50"/>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WLWrapCell" rowHeight="60" id="sDZ-hA-IAs" customClass="WLWrapCell">
+                                                <rect key="frame" x="0.0" y="156" width="320" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sDZ-hA-IAs" id="Qw2-sP-TkN">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="irm-8j-xhe">
-                                                            <rect key="frame" x="63" y="0.0" width="237" height="20"/>
+                                                            <rect key="frame" x="63" y="10" width="237" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                             <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6dW-gY-pJQ">
-                                                            <rect key="frame" x="63" y="20" width="237" height="30"/>
+                                                            <rect key="frame" x="63" y="30" width="237" height="30"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                                             <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="tcg-oc-PSs">
-                                                            <rect key="frame" x="1" y="1" width="50" height="49"/>
+                                                            <rect key="frame" x="1" y="11" width="50" height="49"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3F6-Kp-Py8">
-                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="7" maxY="0.0"/>
                                                             <state key="normal" image="ic_settings">
@@ -1598,6 +1662,15 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                 <action selector="editWrap:" destination="hUj-RK-zkg" eventType="touchUpInside" id="f1K-Fb-Egd"/>
                                                             </connections>
                                                         </button>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_wrap_arrow" id="QcA-pf-q93">
+                                                            <rect key="frame" x="148" y="0.0" width="24" height="12"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
+                                                        <view contentMode="top" id="aNs-kJ-EzZ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </view>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
@@ -1615,7 +1688,11 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
+                                    <outlet property="composeBar" destination="zAu-MJ-sDe" id="A50-Vx-YMJ"/>
+                                    <outlet property="contributorView" destination="Qdc-ku-biK" id="hBe-WS-m6Z"/>
                                     <outlet property="delegate" destination="hUj-RK-zkg" id="w2S-xj-H3d"/>
+                                    <outlet property="headerView" destination="Hxo-FQ-kwN" id="pRA-F1-Mcp"/>
+                                    <outlet property="messageLabel" destination="vr6-zn-FIb" id="I64-NK-887"/>
                                     <outlet property="tableView" destination="BE1-H5-F9x" id="GHm-YW-nJ2"/>
                                 </connections>
                             </view>
@@ -2151,6 +2228,6 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Mcp-Wh-cB2"/>
+        <segue reference="oao-Rm-gch"/>
     </inferredMetricsTieBreakers>
 </document>

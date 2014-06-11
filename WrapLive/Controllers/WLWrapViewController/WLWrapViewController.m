@@ -76,7 +76,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self.wrap setUpdated:NO];
+	[self.wrap setRead:YES updated:NO];
     [self.tableView reloadData];
 }
 

@@ -28,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet WLUserView *contributorView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) UIView* headerView;
+@property (weak, nonatomic) IBOutlet UIView* headerView;
 
 @end
 
@@ -36,11 +36,14 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    if (self.headerView == nil) {
+        UIView* headerView = [UIView loadFromNibNamed:@"WLQuickChatView" ownedBy:self];
+        [self addSubview:headerView];
+        self.headerView = headerView;
+    }
     [self.composeBar performSelector:@selector(setPlaceholder:) withObject:@"Write your message..." afterDelay:0.0f];
-    UIView* headerView = [UIView loadFromNibNamed:@"WLQuickChatView" ownedBy:self];
-    headerView.y = -headerView.height;
-    [self addSubview:headerView];
-    self.headerView = headerView;
+    self.headerView.y = -self.headerView.height;
 }
 
 - (void)setWrap:(WLWrap *)wrap {

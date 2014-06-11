@@ -77,6 +77,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self.wrap setUpdated:NO];
+    [self.tableView reloadData];
 }
 
 - (void)setShouldLoadMoreDates:(BOOL)shouldLoadMoreDates {

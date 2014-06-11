@@ -93,6 +93,7 @@
 		self.loading = NO;
 		[self fetchWraps:YES];
 	}
+    [self.tableView reloadData];
 }
 
 - (CGFloat)toastAppearanceHeight:(WLToast *)toast {

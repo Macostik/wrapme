@@ -275,16 +275,24 @@
 #pragma mark - WLNotificationReceiver
 
 - (void)handleRemoteNotification:(WLNotification*)notification {
-	void (^showNotificationBlock)(void) = ^{
+	
+    if ([notification deletion]) {
+        return;
+    }
+    
+    void (^showNotificationBlock)(void) = ^{
+        WLWrap* wrap = notification.wrap;
 		if (notification.type == WLNotificationContributorAddition) {
 			[self.navigationController pushViewController:[WLWrapViewController instantiate:^(WLWrapViewController *controller) {
-				controller.wrap = notification.wrap;
+				controller.wrap = wrap;
 			}] animated:YES];
 		} else if (notification.type == WLNotificationImageCandyAddition || notification.type == WLNotificationChatCandyAddition || notification.type == WLNotificationCandyCommentAddition) {
-			[self presentCandy:notification.candy fromWrap:notification.wrap];
+            WLCandy* candy = notification.candy;
+            [wrap addCandy:candy];
+			[self presentCandy:candy fromWrap:wrap];
 		}
 	};
-	
+    
 	UIViewController* presentedViewController = self.navigationController.presentedViewController;
 	if (presentedViewController) {
 		__weak typeof(self)weakSelf = self;

@@ -112,17 +112,15 @@
 	}
 	loading = YES;
 	__weak typeof(self)weakSelf = self;
-	NSInteger page = floorf([self.wrap.dates count] / WLAPIGeneralPageSize) + 1;
-	[[WLAPIManager instance] wrap:[self.wrap copy] page:page success:^(WLWrap* wrap) {
-		weakSelf.wrap.dates = (id)[weakSelf.wrap.dates entriesByAddingEntries:wrap.dates];
+    [[WLAPIManager instance] dates:self.wrap refresh:NO success:^(WLWrap *wrap) {
 		[weakSelf.tableView reloadData];
 		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
 		loading = NO;
-	} failure:^(NSError *error) {
-		weakSelf.shouldLoadMoreDates = NO;
+    } failure:^(NSError *error) {
+        weakSelf.shouldLoadMoreDates = NO;
 		[error showIgnoringNetworkError];
 		loading = NO;
-	}];
+    }];
 }
 
 - (UIViewController *)shakePresentedViewController {

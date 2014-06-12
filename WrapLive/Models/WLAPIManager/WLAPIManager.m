@@ -26,7 +26,7 @@
 #import "WLWelcomeViewController.h"
 
 #if DEBUG
-static const int ddLogLevel = LOG_LEVEL_OFF;
+static const int ddLogLevel = LOG_LEVEL_DEBUG;
 #else
 static const int ddLogLevel = LOG_LEVEL_OFF;
 #endif
@@ -360,6 +360,31 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
 		return [wrap updateWithDictionary:response.data[@"wrap"]];
+	};
+	
+	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
+	
+	return [self GET:path
+		  parameters:parameters
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure]];
+}
+
+- (id)dates:(WLWrap *)wrap refresh:(BOOL)refresh success:(WLWrapBlock)success failure:(WLFailureBlock)failure {
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:@([[NSTimeZone localTimeZone] secondsFromGMT]) forKey:@"utc_offset"];
+	[parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
+    NSInteger page = refresh ? 1 : floorf([wrap.dates count] / WLAPIGeneralPageSize) + 1;
+	[parameters trySetObject:@(page) forKey:@"group_by_date_page_number"];
+	
+	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
+        NSArray* dates = [WLWrapDate arrayOfModelsFromDictionaries:response.data[@"wrap"][@"dates"]];
+        if (refresh) {
+            wrap.dates = (id)dates;
+        } else {
+            wrap.dates = (id)[wrap.dates entriesByAddingEntries:dates];
+        }
+		return wrap;
 	};
 	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];

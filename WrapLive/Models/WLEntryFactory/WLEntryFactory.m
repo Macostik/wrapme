@@ -8,6 +8,7 @@
 
 #import "WLEntryFactory.h"
 #import "WLEntry.h"
+#import "NSString+Additions.h"
 
 @implementation WLEntryFactory
 
@@ -36,19 +37,22 @@
 }
 
 + (WLEntry *)entry:(WLEntry *)entry {
-    NSHashTable* entries = [self entries:entry];
-    @synchronized(entries) {
-        for (WLEntry* _entry in entries) {
-            if ([_entry.identifier isEqualToString:entry.identifier]) {
-                if (_entry != entry) {
-                    [_entry updateWithObject:entry broadcast:NO];
+    if (entry.identifier.nonempty) {
+        NSHashTable* entries = [self entries:entry];
+        @synchronized(entries) {
+            for (WLEntry* _entry in entries) {
+                if ([_entry.identifier isEqualToString:entry.identifier]) {
+                    if (_entry != entry) {
+                        [_entry updateWithObject:entry broadcast:NO];
+                    }
+                    return _entry;
                 }
-                return _entry;
             }
+            [entries addObject:entry];
+            return entry;
         }
-        [entries addObject:entry];
-        return entry;
     }
+    return entry;
 }
 
 @end

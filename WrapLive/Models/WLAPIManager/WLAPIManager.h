@@ -118,6 +118,16 @@ static NSInteger WLAPIChatPageSize = 50;
 - (id)wrap:(WLWrap*)wrap page:(NSInteger)page success:(WLWrapBlock)success failure:(WLFailureBlock)failure;
 
 /*!
+ *  Get wrap dates
+ *
+ *  @wrap wrap object
+ *  @refresh refresh key
+ *  @param success block that will be invoked on success completion
+ *  @param failure block that will be invoked on failure completion
+ */
+- (id)dates:(WLWrap *)wrap refresh:(BOOL)refresh success:(WLWrapBlock)success failure:(WLFailureBlock)failure;
+
+/*!
  *  Creates new wrap
  *
  *  @wrap wrap object

@@ -15,6 +15,7 @@
 #import "WLNotificationBroadcaster.h"
 #import "WLKeyboardBroadcaster.h"
 #import <AviarySDK/AviarySDK.h>
+#import "WLGestureBroadcaster.h"
 
 @interface WLAppDelegate ()
 
@@ -32,6 +33,7 @@
 	[[WLInternetConnectionBroadcaster broadcaster] configure];
 	[[WLKeyboardBroadcaster broadcaster] configure];
 	[[WLNotificationBroadcaster broadcaster] configure];
+//    [[WLGestureBroadcaster broadcaster] configure];
 	
 	[[WLNotificationBroadcaster broadcaster] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
 	

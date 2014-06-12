@@ -39,15 +39,10 @@
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate, WLQuickChatViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
-@property (weak, nonatomic) IBOutlet UIImageView *coverView;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
 @property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
 @property (nonatomic) BOOL shouldLoadMoreDates;
-
 @property (weak, nonatomic) WLRefresher *refresher;
-
 @property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
 
 @end
@@ -157,7 +152,7 @@
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-    [WLToast showWithMessage:@"This wrap is no longer avaliable."];
+    [WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.", wrap.name]];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
@@ -290,6 +285,7 @@
 #pragma mark - WLWrapCellDelegate
 
 - (void)wrapCell:(WLWrapCell *)cell didDeleteOrLeaveWrap:(WLWrap *)wrap {
+    [[WLWrapBroadcaster broadcaster] removeReceiver:self];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

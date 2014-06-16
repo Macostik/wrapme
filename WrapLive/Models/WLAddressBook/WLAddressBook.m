@@ -67,7 +67,7 @@ static inline NSArray* WLAddressBookGetUsers(ABRecordRef record) {
 	CFIndex count = ABMultiValueGetCount(phones);
 	for (CFIndex index = 0; index < count; ++index) {
 		WLUser* user = [WLUser entry];
-		user.phoneNumber = WLAddressBookClearPhone((__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, index));
+		user.phoneNumber = phoneNumberClearing((__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, index));
 		if (user.phoneNumber.length >= WLMinPhoneLenth) {
 			CFStringRef phoneLabel = ABMultiValueCopyLabelAtIndex(phones, index);
 			user.phoneNumber.label = (__bridge_transfer NSString*)ABAddressBookCopyLocalizedLabel(phoneLabel);
@@ -81,19 +81,6 @@ static inline NSArray* WLAddressBookGetUsers(ABRecordRef record) {
 		CFRelease(phones);
 	}
     return [users copy];
-}
-
-static inline NSString* WLAddressBookClearPhone(NSString* phone) {
-	NSMutableString* _phone = [NSMutableString string];
-	for (NSInteger index = 0; index < phone.length; ++index) {
-		NSString* character = [phone substringWithRange:NSMakeRange(index, 1)];
-		if ([character rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location != NSNotFound) {
-			[_phone appendString:character];
-		} else if ([character rangeOfString:@"+"].location != NSNotFound) {
-			[_phone appendString:character];
-		}
-	}
-	return [_phone copy];
 }
 
 static inline NSString* WLAddressBookGetName(ABRecordRef record) {

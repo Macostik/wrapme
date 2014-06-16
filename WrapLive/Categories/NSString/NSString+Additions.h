@@ -25,6 +25,19 @@ static inline NSString* WLString(NSString* string) {
 	return string?:@"";
 };
 
+static inline NSString* phoneNumberClearing (NSString* phone) {
+	NSMutableString* _phone = [NSMutableString string];
+	for (NSInteger index = 0; index < phone.length; ++index) {
+		NSString* character = [phone substringWithRange:NSMakeRange(index, 1)];
+		if ([character rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location != NSNotFound) {
+			[_phone appendString:character];
+		} else if ([character rangeOfString:@"+"].location != NSNotFound) {
+			[_phone appendString:character];
+		}
+	}
+	return [_phone copy];
+}
+
 @interface NSString (Additions)
 
 @property (nonatomic, readonly) BOOL empty;

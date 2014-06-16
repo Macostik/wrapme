@@ -23,9 +23,9 @@
 #import "WLAuthorization.h"
 #import "WLTestUserPicker.h"
 #import "WLNavigation.h"
-#import "NSString+Additions.h"
 #import "WLToast.h"
 #import "WLHomeViewController.h"
+#import "RMPhoneFormat.h"
 
 @interface WLPhoneNumberViewController () <UITextFieldDelegate>
 
@@ -44,14 +44,20 @@
 
 @property (nonatomic, readonly) UIViewController* signUpViewController;
 
+@property (strong, nonatomic) RMPhoneFormat *phoneFormat;
+
 @end
 
-@implementation WLPhoneNumberViewController
+@implementation WLPhoneNumberViewController {
+    NSMutableCharacterSet *_phoneChars;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	self.country = [WLCountry getCurrentCountry];
+    _phoneChars = [[NSCharacterSet decimalDigitCharacterSet] mutableCopy];
+    [_phoneChars addCharactersInString:@"+*#,"];
 	self.phoneNumberTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(phoneNumberInputCancel:) done:@selector(phoneNumberInputDone:)];
 	self.phoneNumberTextField.text = [WLAuthorization currentAuthorization].phone;
 	self.phoneNumber = self.phoneNumberTextField.text;
@@ -85,11 +91,17 @@
 	_country = country;
 	[self.selectCountryButton setTitle:self.country.name forState:UIControlStateNormal];
 	self.countryCodeLabel.text = [NSString stringWithFormat:@"+%@", self.country.callingCode];
+    self.phoneFormat = [[RMPhoneFormat alloc] initWithDefaultCountry:[self.country.code lowercaseString]];
+    if (self.phoneNumberTextField.text.nonempty) {
+        NSString *text = self.phoneNumberTextField.text;
+        NSString *phone = [self.phoneFormat format:text];
+        self.phoneNumberTextField.text = phone;
+    }
 	[self validateSignUpButton];
 }
 
 - (void)setPhoneNumber:(NSString *)phoneNumber {
-	_phoneNumber = phoneNumber;
+    _phoneNumber = phoneNumberClearing (phoneNumber);
 	[self validateSignUpButton];
 }
 
@@ -104,6 +116,7 @@
 
 - (WLAuthorization *)authorization {
 	WLAuthorization *authorization = [WLAuthorization new];
+    authorization.formattedPhone = self.phoneNumberTextField.text;
 	authorization.phone = self.phoneNumber;
 	authorization.countryCode = self.country.callingCode;
 	authorization.email = self.email;
@@ -189,10 +202,6 @@
 	[self.emailTextField resignFirstResponder];
 }
 
-- (IBAction)phoneNumberChanged:(UITextField *)sender {
-	self.phoneNumber = sender.text;
-}
-
 - (IBAction)emailChanged:(UITextField *)sender {
 	self.email = sender.text;
 }
@@ -212,6 +221,77 @@
 }
 
 #pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == self.phoneNumberTextField) {
+        // For some reason, the 'range' parameter isn't always correct when backspacing through a phone number
+        // This calculates the proper range from the text field's selection range.
+        UITextRange *selRange = textField.selectedTextRange;
+        UITextPosition *selStartPos = selRange.start;
+        UITextPosition *selEndPos = selRange.end;
+        NSInteger start = [textField offsetFromPosition:textField.beginningOfDocument toPosition:selStartPos];
+        NSInteger end = [textField offsetFromPosition:textField.beginningOfDocument toPosition:selEndPos];
+        NSRange repRange;
+        if (start == end) {
+            if (string.length == 0) {
+                repRange = NSMakeRange(start - 1, 1);
+            } else {
+                repRange = NSMakeRange(start, end - start);
+            }
+        } else {
+            repRange = NSMakeRange(start, end - start);
+        }
+        
+        // This is what the new text will be after adding/deleting 'string'
+        NSString *txt = [textField.text stringByReplacingCharactersInRange:repRange withString:string];
+        // This is the newly formatted version of the phone number
+        NSString *phone = [_phoneFormat format:txt];
+//        BOOL valid = [_phoneFormat isPhoneNumberValid:phone];
+//        
+//        textField.textColor = valid ? [UIColor blackColor] : [UIColor redColor];
+        
+        // If these are the same then just let the normal text changing take place
+        if ([phone isEqualToString:txt]) {
+            return YES;
+        } else {
+            // The two are different which means the adding/removal of a character had a bigger effect
+            // from adding/removing phone number formatting based on the new number of characters in the text field
+            // The trick now is to ensure the cursor stays after the same character despite the change in formatting.
+            // So first let's count the number of non-formatting characters up to the cursor in the unchanged text.
+            int cnt = 0;
+            for (NSUInteger i = 0; i < repRange.location + string.length; i++) {
+                if ([_phoneChars characterIsMember:[txt characterAtIndex:i]]) {
+                    cnt++;
+                }
+            }
+            
+            // Now let's find the position, in the newly formatted string, of the same number of non-formatting characters.
+            int pos = [phone length];
+            int cnt2 = 0;
+            for (NSUInteger i = 0; i < [phone length]; i++) {
+                if ([_phoneChars characterIsMember:[phone characterAtIndex:i]]) {
+                    cnt2++;
+                }
+                
+                if (cnt2 == cnt) {
+                    pos = i + 1;
+                    break;
+                }
+            }
+            
+            // Replace the text with the updated formatting
+            textField.text = phone;
+
+            // Make sure the caret is in the right place
+            UITextPosition *startPos = [textField positionFromPosition:textField.beginningOfDocument offset:pos];
+            UITextRange *textRange = [textField textRangeFromPosition:startPos toPosition:startPos];
+            textField.selectedTextRange = textRange;
+            return NO;
+        }
+    } else {
+        return YES;
+    }
+}
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
 	CGFloat translation = textField.superview.y - 0.5 * (self.view.height - 260 - textField.superview.height);

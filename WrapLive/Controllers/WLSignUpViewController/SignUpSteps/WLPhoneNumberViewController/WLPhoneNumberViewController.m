@@ -162,9 +162,9 @@
 	[weakSelf.spinner startAnimating];
 	weakSelf.view.userInteractionEnabled = NO;
 	[authorization signIn:^(WLUser *user) {
-		[WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
 		weakSelf.view.userInteractionEnabled = YES;
 		[weakSelf.spinner stopAnimating];
+        [WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
 	} failure:^(NSError *error) {
 		weakSelf.view.userInteractionEnabled = YES;
 		[weakSelf.spinner stopAnimating];

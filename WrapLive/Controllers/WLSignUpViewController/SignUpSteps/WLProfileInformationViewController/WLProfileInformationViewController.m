@@ -65,7 +65,7 @@
 
 - (IBAction)goToMainScreen:(id)sender {
 	[self updateIfNeeded:^{
-		[WLHomeViewController instantiateAndMakeRootViewControllerAnimated:YES];
+		[WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
 	}];
 }
 

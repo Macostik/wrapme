@@ -226,10 +226,7 @@
         if (!firstWrapShown && [user signInCount] == 1 && self.wraps.count > 0) {
             WLWrapViewController* wrapController = [WLWrapViewController instantiate];
             wrapController.wrap = [self.wraps firstObject];
-            __weak typeof(self)weakSelf = self;
-            run_after(0.1f, ^{
-                [weakSelf.navigationController pushViewController:wrapController animated:YES];
-            });
+            [self.navigationController pushViewController:wrapController animated:YES];
         }
     }
     firstWrapShown = YES;

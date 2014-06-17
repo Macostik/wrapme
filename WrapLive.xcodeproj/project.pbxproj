@@ -147,6 +147,8 @@
 		12F3ED5E1934B183009C1DC3 /* WLAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED541934B183009C1DC3 /* WLAssetCell.m */; };
 		12F3ED5F1934B183009C1DC3 /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED551934B183009C1DC3 /* WLAssetCell.xib */; };
 		12F3ED621934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED611934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m */; };
+		1409DA631949B24E00358BD4 /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1409DA601949B24E00358BD4 /* PhoneFormats.dat */; };
+		1409DA641949B24E00358BD4 /* RMPhoneFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1409DA621949B24E00358BD4 /* RMPhoneFormat.m */; };
 		14A04F8B1940CB5E005DA4CE /* WLEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A04F8A1940CB5E005DA4CE /* WLEmoji.m */; };
 		14ACAE0519421A79006BD3B3 /* WLQuickChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ACAE0319421A79006BD3B3 /* WLQuickChatView.m */; };
 		14ACAE0619421A79006BD3B3 /* WLQuickChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14ACAE0419421A79006BD3B3 /* WLQuickChatView.xib */; };
@@ -438,6 +440,9 @@
 		12F3ED551934B183009C1DC3 /* WLAssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAssetCell.xib; sourceTree = "<group>"; };
 		12F3ED601934B1E6009C1DC3 /* ALAssetsLibrary+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+Additions.h"; sourceTree = "<group>"; };
 		12F3ED611934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+Additions.m"; sourceTree = "<group>"; };
+		1409DA601949B24E00358BD4 /* PhoneFormats.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = PhoneFormats.dat; path = WrapLive/Frameworks/RMPhoneFormat/PhoneFormats.dat; sourceTree = "<group>"; };
+		1409DA611949B24E00358BD4 /* RMPhoneFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMPhoneFormat.h; path = WrapLive/Frameworks/RMPhoneFormat/RMPhoneFormat.h; sourceTree = "<group>"; };
+		1409DA621949B24E00358BD4 /* RMPhoneFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMPhoneFormat.m; path = WrapLive/Frameworks/RMPhoneFormat/RMPhoneFormat.m; sourceTree = "<group>"; };
 		14A04F891940CB5E005DA4CE /* WLEmoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEmoji.h; path = WLEmoji/WLEmoji.h; sourceTree = "<group>"; };
 		14A04F8A1940CB5E005DA4CE /* WLEmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEmoji.m; path = WLEmoji/WLEmoji.m; sourceTree = "<group>"; };
 		14ACAE0219421A79006BD3B3 /* WLQuickChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLQuickChatView.h; sourceTree = "<group>"; };
@@ -817,6 +822,7 @@
 		12A7A70118DA0945008FF6F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1409DA5F1949B23600358BD4 /* RMPhoneFormat */,
 				AC1A179C1937694B002B3737 /* MessageUI.framework */,
 				12DE698E192E4C6B007580AD /* libsqlite3.0.dylib */,
 				12DE6989192E4234007580AD /* AviarySDK */,
@@ -1568,6 +1574,16 @@
 			path = WLAssetCell;
 			sourceTree = "<group>";
 		};
+		1409DA5F1949B23600358BD4 /* RMPhoneFormat */ = {
+			isa = PBXGroup;
+			children = (
+				1409DA601949B24E00358BD4 /* PhoneFormats.dat */,
+				1409DA611949B24E00358BD4 /* RMPhoneFormat.h */,
+				1409DA621949B24E00358BD4 /* RMPhoneFormat.m */,
+			);
+			name = RMPhoneFormat;
+			sourceTree = "<group>";
+		};
 		14A04F851940CAFF005DA4CE /* WLEmoji */ = {
 			isa = PBXGroup;
 			children = (
@@ -1857,6 +1873,7 @@
 				14ACAE0719421AE5006BD3B3 /* Main.storyboard in Resources */,
 				14ACAE0619421A79006BD3B3 /* WLQuickChatView.xib in Resources */,
 				121B1B4118E0848D001F585C /* WLCountriesViewController.xib in Resources */,
+				1409DA631949B24E00358BD4 /* PhoneFormats.dat in Resources */,
 				ACF8D90E19347B9E0001E570 /* WLEmojiView.xib in Resources */,
 				12F3ED5F1934B183009C1DC3 /* WLAssetCell.xib in Resources */,
 				12D514FD192F5F15007A1520 /* AppIcon60x60@2x.png in Resources */,
@@ -1966,6 +1983,7 @@
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */,
+				1409DA641949B24E00358BD4 /* RMPhoneFormat.m in Sources */,
 				12D563FE18FE7788001C5C06 /* WLCircleProgressBar.m in Sources */,
 				12A6BFA818F2A6C900AE3B62 /* WLShakeViewController.m in Sources */,
 				12E4FBCD1923B8AD00236472 /* WLSystemImageCache.m in Sources */,

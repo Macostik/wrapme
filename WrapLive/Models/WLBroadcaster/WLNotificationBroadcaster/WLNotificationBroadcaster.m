@@ -19,6 +19,7 @@
 #import "WLCandy.h"
 #import "WLEntryState.h"
 #import "WLAPIManager.h"
+#import "WLAuthorization.h"
 
 static NSString* WLPubNubOrigin = @"pubsub.pubnub.com";
 static NSString* WLPubNubPublishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
@@ -47,7 +48,7 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 }
 
 + (void)enablePushNotificationsInSubscribedChannels:(NSData *)deviceToken {
-    if ([[PubNub sharedInstance] isConnected]) {
+    if ([WLUser currentUser].identifier.nonempty && [[PubNub sharedInstance] isConnected]) {
         [self enablePushNotificationsInChannels:[PubNub subscribedChannels] withDeviceToken:deviceToken];
     }
 }

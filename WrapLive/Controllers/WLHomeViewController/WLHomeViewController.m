@@ -134,9 +134,9 @@
 	
 	[WLDataManager wraps:refresh success:^(NSArray* wraps, BOOL cached, BOOL stop) {
 		weakSelf.wraps = wraps;
-		[weakSelf showLatestWrap];
 		weakSelf.shouldAppendMoreWraps = !stop;
 		if (!cached) {
+            [weakSelf showLatestWrap];
 			[weakSelf.refresher endRefreshing];
 			weakSelf.loading = NO;
 		}
@@ -153,13 +153,15 @@
 }
 
 - (void)showLatestWrap {
+    WLUser * user = [WLUser currentUser];
     static BOOL firstWrapShown = NO;
-	WLUser *user = [WLUser currentUser];
-	if (!firstWrapShown && [user signInCount] == 1 && self.wraps.nonempty) {
-		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-		wrapController.wrap = [self.wraps firstObject];
-		[self.navigationController pushViewController:wrapController animated:NO];
-	}
+    if (self.isOnTopOfNagvigation) {
+        if (!firstWrapShown && [user signInCount] == 1 && self.wraps.count > 0) {
+            WLWrapViewController* wrapController = [WLWrapViewController instantiate];
+            wrapController.wrap = [self.wraps firstObject];
+            [self.navigationController pushViewController:wrapController animated:YES];
+        }
+    }
     firstWrapShown = YES;
 }
 

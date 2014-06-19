@@ -98,6 +98,7 @@ static NSUInteger WLComposeBarMinHeight = 44;
 		[self.delegate composeBar:self didFinishWithText:self.textView.text];
 	}
 	self.text = nil;
+    [self checkHeight];
 }
 
 - (void)setDoneButtonHidden:(BOOL)doneButtonHidden {

@@ -46,6 +46,7 @@
 }
 
 - (void)setWrap:(WLWrap *)wrap {
+    BOOL changed = ![_wrap isEqualToEntry:wrap];
     _wrap = wrap;
     __weak typeof(self)weakSelf = self;
     WLCandyBlock setup = ^ (WLCandy* message) {
@@ -59,7 +60,7 @@
     WLCandy* message = [[wrap messages:1] lastObject];
     if (message) {
         setup(message);
-    } else {
+    } else if (changed) {
         [wrap latestMessage:setup failure:^(NSError *error) {
             setup(nil);
         }];

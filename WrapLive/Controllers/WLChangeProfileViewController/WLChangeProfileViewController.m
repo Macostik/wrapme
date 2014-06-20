@@ -23,6 +23,7 @@
 #import "WLWelcomeViewController.h"
 #import "WLStillPictureViewController.h"
 #import "WLEntryManager.h"
+#import "UIButton+Additions.h"
 
 @interface WLChangeProfileViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
@@ -50,21 +51,6 @@
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 
-- (IBAction)back:(UIButton *)sender {
-    [[WLEntryManager manager].context refreshObject:self.user mergeChanges:NO];
-    [[WLEntryManager manager] unlock];
-	[self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)changeImage:(id)sender {
-	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
-		controller.delegate = self;
-		controller.defaultPosition = AVCaptureDevicePositionFront;
-		controller.mode = WLCameraModeAvatar;
-	}];
-	[self.navigationController presentViewController:cameraNavigation animated:YES completion:nil];
-}
-
 - (void)saveImage:(UIImage *)image {
 	__weak typeof(self)weakSelf = self;
 	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
@@ -72,14 +58,6 @@
         picture.large = path;
 		weakSelf.user.picture = picture;
 		[weakSelf isProfileChanged];
-	}];
-}
-
-- (IBAction)goToMainScreen:(id)sender {
-	__weak typeof(self)weakSelf = self;
-	[self updateIfNeeded:^{
-        [[WLEntryManager manager] unlock];
-		[weakSelf.navigationController popViewControllerAnimated:YES];
 	}];
 }
 
@@ -93,6 +71,7 @@
 	if (showDone) {
 		self.cancelButton.width = self.view.width/2 - 1;
 		self.doneButton.x = self.view.width/2;
+        [self validateDoneButton];
 	} else {
 		self.cancelButton.width = self.view.width;
 		self.doneButton.x = self.view.width;
@@ -122,6 +101,36 @@
 	} else {
 		completion();
 	}
+}
+
+- (void)validateDoneButton {
+    NSString * email = self.emailTextField.text;
+    self.doneButton.active = self.nameTextField.text.nonempty && email.nonempty && email.isValidEmail;
+}
+
+#pragma mark - User actions
+
+- (IBAction)back:(UIButton *)sender {
+    [[WLEntryManager manager].context refreshObject:self.user mergeChanges:NO];
+    [[WLEntryManager manager] unlock];
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)changeImage:(id)sender {
+	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
+		controller.delegate = self;
+		controller.defaultPosition = AVCaptureDevicePositionFront;
+		controller.mode = WLCameraModeAvatar;
+	}];
+	[self.navigationController presentViewController:cameraNavigation animated:YES completion:nil];
+}
+
+- (IBAction)goToMainScreen:(id)sender {
+	__weak typeof(self)weakSelf = self;
+	[self updateIfNeeded:^{
+        [[WLEntryManager manager] unlock];
+		[weakSelf.navigationController popViewControllerAnimated:YES];
+	}];
 }
 
 - (IBAction)changeAccount:(id)sender {

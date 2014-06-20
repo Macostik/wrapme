@@ -88,7 +88,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	self.avatarImageView.layer.cornerRadius = self.avatarImageView.height/2;
+    self.avatarImageView.circled = YES;
 	self.avatarImageView.layer.borderWidth = 1;
 	self.avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
 	self.avatarImageView.url = [WLUser currentUser].picture.small;

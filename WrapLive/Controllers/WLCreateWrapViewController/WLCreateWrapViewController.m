@@ -44,8 +44,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
-//@property (strong, nonatomic) WLWrap* editingWrap;
-
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) NSOrderedSet *existingContributors;

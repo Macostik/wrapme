@@ -201,6 +201,8 @@ static NSInteger WLAPIChatPageSize = 50;
  */
 - (id)messages:(WLWrap*)wrap page:(NSUInteger)page success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
+- (id)latestMessage:(WLWrap*)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
+
 /*!
  *  Get all the data about a particular candy
  *
@@ -283,6 +285,8 @@ static NSInteger WLAPIChatPageSize = 50;
 - (id)freshCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 - (id)messages:(NSUInteger)page success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
+- (id)latestMessage:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 
 - (id)leave:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 

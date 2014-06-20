@@ -596,7 +596,33 @@ static BOOL signedIn = NO;
 	[parameters trySetObject:@(page) forKey:@"page"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		return [WLCandy API_entries:response.data[@"chat_messages"]];
+        NSOrderedSet* messages = [WLCandy API_entries:response.data[@"chat_messages"] relatedEntry:wrap];
+        if (messages.nonempty) {
+            [wrap addCandies:messages];
+            [wrap broadcastChange];
+        }
+		return messages;
+	};
+	
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/chat_messages", wrap.identifier];
+	
+	return [self GET:path
+		  parameters:parameters
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure]];
+}
+
+- (id)latestMessage:(WLWrap *)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+    NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:@YES forKey:@"latest"];
+	
+	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
+		NSOrderedSet* messages = [WLCandy API_entries:response.data[@"chat_messages"] relatedEntry:wrap];
+        if (messages.nonempty) {
+            [wrap addCandies:messages];
+            [wrap broadcastChange];
+        }
+		return [messages firstObject];
 	};
 	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@/chat_messages", wrap.identifier];
@@ -746,6 +772,10 @@ static BOOL signedIn = NO;
 
 - (id)messages:(NSUInteger)page success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
 	return [[WLAPIManager instance] messages:self page:page success:success failure:failure];
+}
+
+- (id)latestMessage:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] latestMessage:self success:success failure:failure];
 }
 
 - (id)leave:(WLObjectBlock)success failure:(WLFailureBlock)failure {

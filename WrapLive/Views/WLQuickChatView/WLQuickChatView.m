@@ -19,6 +19,7 @@
 #import "WLWrapViewController.h"
 #import "WLChatViewController.h"
 #import "NSString+Additions.h"
+#import "WLAPIManager.h"
 
 @interface WLQuickChatView () <WLComposeBarDelegate, UITableViewDelegate>
 
@@ -45,19 +46,24 @@
 }
 
 - (void)setWrap:(WLWrap *)wrap {
-    BOOL changed = ![_wrap isEqualToEntry:wrap];
     _wrap = wrap;
     __weak typeof(self)weakSelf = self;
+    WLCandyBlock setup = ^ (WLCandy* message) {
+        weakSelf.contributorView.hidden = (message == nil);
+        if (message) {
+            weakSelf.contributorView.user = message.contributor;
+            weakSelf.messageLabel.text = message.message;
+        }
+        [weakSelf updateHeight];
+    };
     WLCandy* message = [[wrap messages:1] lastObject];
     if (message) {
-        weakSelf.contributorView.hidden = NO;
-        weakSelf.contributorView.user = message.contributor;
-        weakSelf.messageLabel.text = message.message;
+        setup(message);
     } else {
-        weakSelf.contributorView.hidden = YES;
-    }
-    [weakSelf updateHeight];
-    if (changed) {
+        [wrap latestMessage:setup failure:^(NSError *error) {
+            setup(nil);
+        }];
+        setup(nil);
     }
 }
 

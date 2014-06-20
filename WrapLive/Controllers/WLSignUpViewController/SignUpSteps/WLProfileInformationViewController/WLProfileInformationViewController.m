@@ -100,6 +100,7 @@
 - (void)saveImage:(UIImage *)image {
 	__weak typeof(self)weakSelf = self;
 	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
+        weakSelf.user.picture = [WLPicture new];
 		weakSelf.user.picture.large = path;
 	}];
 	[self verifyContinueButton];

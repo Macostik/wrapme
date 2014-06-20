@@ -133,6 +133,7 @@
 - (IBAction)back:(id)sender {
     if (self.editing) {
         [[WLEntryManager manager].context refreshObject:self.wrap mergeChanges:NO];
+//        [WLUser currentUser].name;
     } else {
         [self.wrap remove];
     }
@@ -276,13 +277,11 @@
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
 	self.coverView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
-													   bounds:self.coverView.retinaSize
-										 interpolationQuality:kCGInterpolationDefault];
+                                                       bounds:self.coverView.retinaSize
+                                         interpolationQuality:kCGInterpolationDefault];
 	__weak typeof(self)weakSelf = self;
 	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
-        if (weakSelf.wrap.picture == nil) {
-            weakSelf.wrap.picture = [[WLPicture alloc] init];
-        }
+        weakSelf.wrap.picture = [[WLPicture alloc] init];
 		weakSelf.wrap.picture.large = path;
 	}];
 	

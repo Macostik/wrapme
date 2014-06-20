@@ -7,7 +7,7 @@
 //
 
 #import "WLCandiesCell.h"
-#import "WLWrapDate.h"
+#import "WLDate.h"
 #import "NSDate+Formatting.h"
 #import "WLCandyCell.h"
 #import "WLCandy.h"
@@ -17,7 +17,6 @@
 #import "WLAPIManager.h"
 #import "WLWrap.h"
 #import "WLWrapBroadcaster.h"
-#import "WLUploadingQueue.h"
 #import "NSDate+Additions.h"
 #include "WLSupportFunctions.h"
 
@@ -48,39 +47,30 @@
 	self.shouldAppendMoreCandies = YES;
 	[self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:[WLCandyCell reuseIdentifier]];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-	__weak typeof(self)weakSelf = self;
-	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
-		[weakSelf refreshCandies];
-	}];
-	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
+	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshCandies) colorScheme:WLRefresherColorSchemeOrange];
 }
 
-- (void)setupItemData:(WLWrapDate*)entry {
-	self.dateLabel.text = [[entry.updatedAt stringWithFormat:@"MMM dd, yyyy"] uppercaseString];
-	self.shouldAppendMoreCandies = [entry.candies count] >= 10;
+- (void)setupItemData:(WLDate*)date {
+	self.dateLabel.text = [date.dateString uppercaseString];
+	self.shouldAppendMoreCandies = [date.candies count] >= 10;
 	[self.collectionView reloadData];
-	self.refresher.enabled = [entry.updatedAt isToday];
+	self.refresher.enabled = [date.date isToday];
 	self.collectionView.contentOffset = CGPointZero;
 	loading = NO;
 }
 
 - (void)refreshCandies {
-	[[WLUploadingQueue instance] checkStatus];
 	__weak typeof(self)weakSelf = self;
-	WLWrapDate* currentWrapDay = self.item;
-	WLWrapDate* wrapDay = [currentWrapDay copy];
-	wrapDay.candies = nil;
-	[[WLAPIManager instance] candies:self.wrap date:wrapDay success:^(id object) {
-		weakSelf.shouldAppendMoreCandies = [object count] == WLAPIGeneralPageSize;
-		currentWrapDay.candies = object;
-		[[WLUploadingQueue instance] updateWrap:weakSelf.wrap];
+    WLDate* date = self.item;
+    WLCandy* candy = [[date candies] firstObject];
+    [candy newerCandies:YES success:^(NSOrderedSet *array) {
+        [date addCandies:array];
 		[weakSelf.collectionView reloadData];
 		[weakSelf.refresher endRefreshing];
-	} failure:^(NSError *error) {
-		weakSelf.shouldAppendMoreCandies = NO;
+    } failure:^(NSError *error) {
 		[error show];
 		[weakSelf.refresher endRefreshing];
-	}];
+    }];
 }
 
 - (void)appendCandies {
@@ -88,19 +78,20 @@
 		return;
 	}
 	loading = YES;
-	WLWrapDate* wrapDay = self.item;
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] candies:self.wrap date:wrapDay success:^(id object) {
-		weakSelf.shouldAppendMoreCandies = [object count] == WLAPIGeneralPageSize;
-		wrapDay.candies = (id)[wrapDay.candies entriesByAddingEntries:object];
+    WLDate* date = self.item;
+    WLCandy* candy = [[date candies] lastObject];
+    [candy olderCandies:YES success:^(NSOrderedSet *array) {
+        weakSelf.shouldAppendMoreCandies = array.nonempty;
+        [date addCandies:array];
 		[weakSelf.collectionView reloadData];
 		[weakSelf fixContentOffset];
 		loading = NO;
-	} failure:^(NSError *error) {
-		weakSelf.shouldAppendMoreCandies = NO;
+    } failure:^(NSError *error) {
+        weakSelf.shouldAppendMoreCandies = NO;
 		[error show];
 		loading = NO;
-	}];
+    }];
 }
 
 #pragma mark - WLWrapBroadcastReceiver
@@ -110,22 +101,23 @@
 }
 
 - (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
-    return self.wrap;
+    WLDate* date = self.item;
+    WLCandy* candy = [[date candies] firstObject];
+    return candy.wrap;
 }
 
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	WLWrapDate* wrapDay = self.item;
+	WLDate* wrapDay = self.item;
 	return [wrapDay.candies count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WLCandyCell reuseIdentifier] forIndexPath:indexPath];
-	WLWrapDate* wrapDay = self.item;
+	WLDate* wrapDay = self.item;
 	cell.item = [wrapDay.candies objectAtIndex:indexPath.item];
 	cell.delegate = self;
-	cell.wrap = self.wrap;
 	return cell;
 }
 

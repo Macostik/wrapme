@@ -22,8 +22,6 @@
 
 @interface WLCandiesCell : WLItemCell
 
-@property (strong, nonatomic) WLWrap *wrap;
-
 @property (nonatomic, weak) id <WLCandiesCellDelegate> delegate;
 
 @end

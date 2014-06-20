@@ -14,7 +14,6 @@
 #import "NSString+Additions.h"
 #import "WLBlocks.h"
 #import "WLAPIManager.h"
-#import "WLEntryState.h"
 #import "WLWrapBroadcaster.h"
 
 @implementation WLNotification
@@ -40,7 +39,10 @@
 	if (!_wrap) {
 		NSString* identifier = [self.data stringForKey:@"wrap_uid"];
 		if (identifier.nonempty) {
-			_wrap = [WLWrap entryWithIdentifier:identifier];
+			_wrap = [WLWrap entry:identifier create:YES];
+            if (self.candy) {
+                [_wrap addCandy:self.candy];
+            }
 		}
 	}
 	return _wrap;
@@ -50,12 +52,18 @@
 	if (!_candy) {
 		NSString* identifier = [self.data stringForKey:@"candy_uid"];
 		if (identifier.nonempty) {
-			_candy = [WLCandy entryWithIdentifier:identifier];
+			_candy = [WLCandy entry:identifier create:YES];
+            _candy.wrap = self.wrap;
+            
 			if (self.type == WLNotificationImageCandyAddition || self.type == WLNotificationImageCandyDeletion || self.type == WLNotificationCandyCommentAddition || self.type == WLNotificationCandyCommentDeletion) {
-				_candy.type = WLCandyTypeImage;
+				_candy.type = @(WLCandyTypeImage);
 			} else if (self.type == WLNotificationChatCandyAddition) {
-				_candy.type = WLCandyTypeChatMessage;
+				_candy.type = @(WLCandyTypeMessage);
 			}
+            
+            if (self.comment) {
+                [_candy addComment:self.comment];
+            }
 		}
 	}
 	return _candy;
@@ -65,7 +73,8 @@
 	if (!_comment) {
 		NSString* identifier = [self.data stringForKey:@"comment_uid"];
 		if (identifier.nonempty) {
-			_comment = [WLComment entryWithIdentifier:identifier];
+			_comment = [WLComment entry:identifier create:YES];
+            _comment.candy = self.candy;
 		}
 	}
 	return _comment;
@@ -81,15 +90,16 @@
     WLObjectBlock block = ^(id object) {
         WLNotificationType type = self.type;
         if (type == WLNotificationContributorAddition) {
+            [[WLUser currentUser] addWrap:weakSelf.wrap];
             [weakSelf.wrap broadcastCreation];
         } else if (type == WLNotificationContributorDeletion) {
-            [weakSelf.wrap broadcastRemoving];
+            [weakSelf.wrap remove];
         } else if (type == WLNotificationWrapDeletion) {
-            [weakSelf.wrap broadcastRemoving];
+            [weakSelf.wrap remove];
         } else if (type == WLNotificationImageCandyDeletion) {
-            [weakSelf.wrap removeCandy:weakSelf.candy];
+            [weakSelf.candy remove];
         } else if (type == WLNotificationCandyCommentDeletion) {
-            [weakSelf.candy removeComment:weakSelf.comment];
+            [weakSelf.comment remove];
         } else if (type == WLNotificationImageCandyAddition) {
             [weakSelf.wrap addCandy:weakSelf.candy];
         } else if (type == WLNotificationChatCandyAddition) {
@@ -101,12 +111,12 @@
     };
     
     if (![self deletion]) {
+        self.wrap.unread = @YES;
         if (self.type == WLNotificationContributorAddition) {
-            [self.wrap setUpdated:YES];
             [self.wrap fetch:block failure:block];
         } else {
-            [self.candy setUpdated:YES];
-            [self.candy fetch:self.wrap success:block failure:block];
+            self.candy.unread = @YES;
+            [self.candy fetch:block failure:block];
         }
     } else {
         block(nil);

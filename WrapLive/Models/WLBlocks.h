@@ -30,9 +30,15 @@ typedef void (^WLCandyBlock) (WLCandy *candy);
 typedef void (^WLCommentBlock) (WLComment *comment);
 typedef void (^WLContactBlock) (WLContact *contact);
 typedef void (^WLArrayBlock) (NSArray *array);
+typedef void (^WLOrderedSetBlock) (NSOrderedSet *orderedSet);
 typedef void (^WLDictionaryBlock) (NSDictionary *dictionary);
 typedef void (^WLStringBlock) (NSString *string);
 typedef void (^WLPointBlock) (CGPoint point);
+typedef void (^WLBooleanBlock) (BOOL flag);
+typedef id(^MapBlock)(id item);
+typedef BOOL(^SelectBlock)(id item);
+typedef void(^EnumBlock)(id item);
+typedef BOOL(^EqualityBlock)(id first, id second);
 
 static inline void run_in_default_queue(dispatch_block_t block) {
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);

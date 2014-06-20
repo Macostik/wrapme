@@ -13,6 +13,6 @@
 
 @interface MFMailComposeViewController (Additions)
 
-+ (void)messageWithCandy:(WLCandy *)candy andWrap:(WLWrap *)wrap;
++ (void)messageWithCandy:(WLCandy *)candy;
 
 @end

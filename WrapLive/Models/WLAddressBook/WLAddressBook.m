@@ -15,6 +15,7 @@
 #import "WLUser.h"
 #import <objc/runtime.h>
 #import "NSObject+AssociatedObjects.h"
+#import "WLEntry+Extended.h"
 
 @interface WLContact ()
 
@@ -25,24 +26,22 @@
 @implementation WLContact
 
 + (void)contact:(ABRecordRef)record completion:(WLContactBlock)completion {
-	NSArray* users = WLAddressBookGetUsers(record);
-	if (users.nonempty) {
+	NSArray* phones = WLAddressBookGetPhones(record);
+	if (phones.nonempty) {
 		WLContact* contact = [WLContact new];
 		contact.name = WLAddressBookGetName(record);
-		[users makeObjectsPerformSelector:@selector(setName:) withObject:contact.name];
-		contact.users = users;
+		contact.phones = phones;
+        [contact.phones makeObjectsPerformSelector:@selector(setName:) withObject:contact.name];
 		if (ABPersonHasImageData(record)) {
 			NSString* identifier = [NSString stringWithFormat:@"addressbook_%d", ABRecordGetRecordID(record)];
-			
 			WLStringBlock complete = ^(NSString* path) {
 				WLPicture* picture = [WLPicture new];
 				picture.large = path;
 				picture.medium = path;
 				picture.small = path;
-				[contact.users makeObjectsPerformSelector:@selector(setPicture:) withObject:picture];
+				[contact.phones makeObjectsPerformSelector:@selector(setPicture:) withObject:picture];
 				completion(contact);
 			};
-			
 			if ([[WLImageCache cache] containsObjectWithIdentifier:identifier]) {
 				complete([[WLImageCache cache] pathWithIdentifier:identifier]);
 			} else {
@@ -61,26 +60,26 @@
 	}
 }
 
-static inline NSArray* WLAddressBookGetUsers(ABRecordRef record) {
-	NSMutableArray* users = [NSMutableArray array];
+static inline NSArray* WLAddressBookGetPhones(ABRecordRef record) {
+	NSMutableArray* wlphones = [NSMutableArray array];
     ABMultiValueRef phones = ABRecordCopyValue(record,kABPersonPhoneProperty);
 	CFIndex count = ABMultiValueGetCount(phones);
 	for (CFIndex index = 0; index < count; ++index) {
-		WLUser* user = [WLUser entry];
-		user.phoneNumber = phoneNumberClearing((__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, index));
-		if (user.phoneNumber.length >= WLMinPhoneLenth) {
+		WLPhone* phone = [[WLPhone alloc] init];
+		phone.number = phoneNumberClearing((__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, index));
+		if (phone.number.length >= WLMinPhoneLenth) {
 			CFStringRef phoneLabel = ABMultiValueCopyLabelAtIndex(phones, index);
-			user.phoneNumber.label = (__bridge_transfer NSString*)ABAddressBookCopyLocalizedLabel(phoneLabel);
+			phone.number.label = (__bridge_transfer NSString*)ABAddressBookCopyLocalizedLabel(phoneLabel);
 			if (phoneLabel != NULL) {
 				CFRelease(phoneLabel);
 			}
-			[users addObject:user];
+			[wlphones addObject:phone];
 		}
     }
 	if (phones != NULL) {
 		CFRelease(phones);
 	}
-    return [users copy];
+    return [wlphones copy];
 }
 
 static inline NSString* WLAddressBookGetName(ABRecordRef record) {
@@ -95,16 +94,28 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 
 - (NSString *)name {
 	if (!_name.nonempty) {
-		_name = [[self.users selectObject:^BOOL(WLUser* user) {
-			return user.name.nonempty;
+		_name = [[self.phones selectObject:^BOOL(WLPhone* phone) {
+			return phone.user.name.nonempty;
 		}] name];
 	}
 	if (!_name.nonempty) {
-		_name = [[self.users selectObject:^BOOL(WLUser* user) {
-			return user.phoneNumber.nonempty;
+		_name = [[self.phones selectObject:^BOOL(WLPhone* phone) {
+			return phone.number.nonempty;
 		}] phoneNumber];
 	}
 	return _name;
+}
+
+@end
+
+@implementation WLPhone
+
+- (BOOL)isEqualToPhone:(WLPhone *)phone {
+    if (self.user) {
+        return [self.user isEqualToEntry:phone.user];
+    } else {
+        return [self.number isEqualToString:phone.number];
+    }
 }
 
 @end

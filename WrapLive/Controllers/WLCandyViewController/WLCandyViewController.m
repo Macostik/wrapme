@@ -19,7 +19,7 @@
 #import "WLSession.h"
 #import "WLAPIManager.h"
 #import "WLWrap.h"
-#import "WLWrapDate.h"
+#import "WLDate.h"
 #import "UIFont+CustomFonts.h"
 #import "WLRefresher.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
@@ -32,7 +32,6 @@
 #import "WLWrapBroadcaster.h"
 #import "NSString+Additions.h"
 #import "WLToast.h"
-#import "WLEntryState.h"
 #import "UIAlertView+Blocks.h"
 #import "MFMailComposeViewController+Additions.h"
 #import "UIActionSheet+Blocks.h"
@@ -53,18 +52,19 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 @property (weak, nonatomic) WLRefresher *refresher;
 
-@property (strong, nonatomic) WLWrapDate* date;
-
 @property (nonatomic) BOOL shouldLoadMoreCandies;
-
-@property (nonatomic) BOOL loading;
 
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
 
+@property (strong, nonatomic) NSMutableOrderedSet* candies;
 
 @end
 
 @implementation WLCandyViewController
+{
+    BOOL canFetchNewer:YES;
+    BOOL canFetchOlder:YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -72,11 +72,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	self.contentIndicatorView.layer.cornerRadius = 2;
 
 	self.composeBarView.placeholder = @"Write your comment ...";
-	__weak typeof(self)weakSelf = self;
-	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
-		[weakSelf refresh];
-	}];
-	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
+	self.refresher = [WLRefresher refresherWithScrollView:self.tableView target:self action:@selector(refresh) colorScheme:WLRefresherColorSchemeOrange];
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 	
@@ -85,41 +81,88 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[self showContentIndicatorView:NO];
 }
 
+- (NSMutableOrderedSet *)candies {
+    if (!_candies) {
+        _candies = [NSMutableOrderedSet orderedSet];
+    }
+    return _candies;
+}
+
 - (UIView *)swipeView {
 	return self.tableView;
 }
 
-- (void)setWrap:(WLWrap *)wrap candy:(WLCandy *)candy {
-	self.wrap = wrap;
-	__weak typeof(self)weakSelf = self;
-	[wrap enumerateCandies:^(WLCandy *_candy, WLWrapDate *date, BOOL *stop) {
-		if (_candy.type == WLCandyTypeImage) {
-			if ([_candy isEqualToEntry:candy]) {
-				weakSelf.date = date;
-				weakSelf.shouldLoadMoreCandies = [weakSelf.date.candies count] % WLAPIGeneralPageSize == 0;
-				[weakSelf setItems:[date images] currentItem:_candy];
-				*stop = YES;
-			}
-		}
-	}];
+- (NSOrderedSet *)items {
+    return self.candies;
 }
 
 - (void)setCandy:(WLCandy *)candy  {
-	self.item = candy;
+    [self setItems:nil currentItem:candy];
+    self.candies = [NSMutableOrderedSet orderedSetWithObject:candy];
+    canFetchNewer = YES;
+    canFetchOlder = YES;
+    [self fetchNewer];
+    [self fetchOlder];
+}
+
+- (void)fetchNewer {
+    __weak typeof(self)weakSelf = self;
+    if (canFetchNewer) {
+        canFetchNewer = NO;
+        [self.candy newerCandies:NO success:^(NSOrderedSet *candies) {
+            if (candies.nonempty) {
+                [weakSelf.candies unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
+                    return [item isImage];
+                }]];
+                [weakSelf.candies sortEntries];
+            }
+            canFetchNewer = YES;
+        } failure:^(NSError *error) {
+            [weakSelf.candies unionOrderedSet:[weakSelf.candy.wrap images]];
+            [weakSelf.candies sortEntries];
+            canFetchNewer = YES;
+        }];
+    }
+}
+
+- (void)fetchOlder {
+    __weak typeof(self)weakSelf = self;
+    if (canFetchOlder) {
+        canFetchOlder = NO;
+        [self.candy olderCandies:NO success:^(NSOrderedSet *candies) {
+            if (candies.nonempty) {
+                [weakSelf.candies unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
+                    return [item isImage];
+                }]];
+                [weakSelf.candies sortEntries];
+            }
+            canFetchOlder = YES;
+        } failure:^(NSError *error) {
+            [weakSelf.candies unionOrderedSet:[weakSelf.candy.wrap images]];
+            [weakSelf.candies sortEntries];
+            canFetchOlder = YES;
+        }];
+    }
 }
 
 - (WLCandy *)candy {
 	return self.item;
 }
 
-- (void)didSwipeLeft {
-	[super didSwipeLeft];
+- (void)didSwipeLeft:(NSUInteger)currentIndex {
+	[super didSwipeLeft:currentIndex];
 	[self showContentIndicatorView:YES];
+    if ([self.candies lastObject] == self.candy) {
+		[self fetchOlder];
+	}
 }
 
-- (void)didSwipeRight {
-	[super didSwipeRight];
+- (void)didSwipeRight:(NSUInteger)currentIndex {
+	[super didSwipeRight:currentIndex];
 	[self showContentIndicatorView:YES];
+    if ([self.candies firstObject] == self.candy) {
+		[self fetchNewer];
+	}
 }
 
 - (void)showContentIndicatorView:(BOOL)animated {
@@ -150,26 +193,14 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (void)willShowItem:(id)item {
 	[self setupImage];
 	[self refresh];
-	
-	__weak typeof(self)weakSelf = self;
-	if (!self.loading && [self.items lastObject] == item && self.shouldLoadMoreCandies) {
-		self.loading = YES;
-		[[WLAPIManager instance] candies:self.wrap date:self.date success:^(id object) {
-			weakSelf.shouldLoadMoreCandies = ([object count] == WLAPIGeneralPageSize);
-			weakSelf.date.candies = (id)[weakSelf.date.candies arrayByAddingObjectsFromArray:object];
-			weakSelf.items = [weakSelf.date images];
-			weakSelf.loading = NO;
-			[weakSelf showContentIndicatorView:NO];
-		} failure:^(NSError *error) {
-			weakSelf.shouldLoadMoreCandies = NO;
-			[error showIgnoringNetworkError];
-			weakSelf.loading = NO;
-		}];
-	}
+}
+
+- (BOOL)shouldSwipeToItem:(WLCandy*)item {
+    return [item isImage];
 }
 
 - (NSUInteger)repairedCurrentIndex {
-	NSArray* items = self.items;
+	NSOrderedSet* items = self.items;
 	for (WLCandy* candy in items) {
 		if ([candy isEqualToEntry:self.candy]) {
 			return [items indexOfObject:candy];
@@ -181,7 +212,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (void)refresh {
 	if (self.candy.uploading == nil) {
 		__weak typeof(self)weakSelf = self;
-		[WLDataManager candy:self.candy wrap:self.wrap success:^(id object, BOOL cached, BOOL stop) {
+		[WLDataManager candy:self.candy success:^(id object, BOOL stop) {
 			[weakSelf setupImage];
 			[weakSelf.refresher endRefreshing];
 		} failure:^(NSError *error) {
@@ -206,7 +237,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
 	[self.tableView reloadData];
-	[image setUpdated:NO];
+    image.unread = @NO;
 }
 
 - (CGFloat)calculateTableHeight {
@@ -228,18 +259,16 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
-    if ([candy belongsToWrap:self.wrap]) {
-        if ([self.candy isEqualToEntry:candy]) {
-            [WLToast showWithMessage:@"This candy is no longer avaliable."];
-        }
-        
-        self.items = [self.items entriesByRemovingEntry:candy];
-        if (self.items.nonempty) {
-            self.candy = [self.items lastObject];
-        } else {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
+    [WLToast showWithMessage:@"This candy is no longer avaliable."];
+    if (self.items.nonempty) {
+        self.item = [self.items firstObject];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+- (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
+    return self.candy.wrap;
 }
 
 - (WLCandy *)broadcasterPreferedCandy:(WLWrapBroadcaster *)broadcaster {
@@ -264,25 +293,23 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (IBAction)report:(UIButton *)sender {
-	
+    __weak typeof(self)weakSelf = self;
 	[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Report as inappropriate" completion:^(NSUInteger index) {
 		if (index == 0) {
-			[MFMailComposeViewController messageWithCandy:self.candy andWrap:self.wrap];
+			[MFMailComposeViewController messageWithCandy:weakSelf.candy];
 		}
 	}];
-
 }
-
 
 - (void)sendMessageWithText:(NSString*)text {
 	__weak typeof(self)weakSelf = self;
-	WLComment* comment = [WLComment commentWithText:text];
-	[[WLAPIManager instance] addComment:comment candy:self.candy wrap:self.wrap success:^(id object) {
-		[weakSelf.tableView reloadData];
-		[weakSelf.tableView scrollToBottomAnimated:YES];
-	} failure:^(NSError *error) {
-		[error show];
-	}];
+    [self.candy uploadComment:text success:^(WLComment *comment) {
+        [weakSelf.tableView reloadData];
+    } failure:^(NSError *error) {
+        [error show];
+    }];
+    [weakSelf.tableView reloadData];
+    [weakSelf.tableView scrollToBottomAnimated:YES];
 }
 
 #pragma mark - WLComposeBarDelegate
@@ -316,8 +343,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
 	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:WLCommentCellIdentifier forIndexPath:indexPath];
 	cell.item = comment;
-	cell.wrap = self.wrap;
-	cell.candy = self.candy;
 	return cell;
 }
 

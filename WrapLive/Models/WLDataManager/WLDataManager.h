@@ -11,7 +11,7 @@
 
 @class WLWrap;
 
-typedef void (^WLDataManagerBlock)(id object, BOOL cached, BOOL stop);
+typedef void (^WLDataManagerBlock)(id object, BOOL stop);
 
 @interface WLDataManager : NSObject
 
@@ -19,7 +19,7 @@ typedef void (^WLDataManagerBlock)(id object, BOOL cached, BOOL stop);
 
 + (void)wrap:(WLWrap*)wrap success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure;
 
-+ (void)candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure;
++ (void)candy:(WLCandy*)candy success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure;
 
 + (void)messages:(WLWrap*)wrap success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure;
 

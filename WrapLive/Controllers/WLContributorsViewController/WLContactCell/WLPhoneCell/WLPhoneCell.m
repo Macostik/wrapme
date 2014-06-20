@@ -22,10 +22,10 @@
 
 @implementation WLPhoneCell
 
-- (void)setupItemData:(WLUser *)user {
-	self.typeLabel.text = [NSString stringWithFormat:@"%@:", WLString(user.phoneNumber.label)];
-	self.phoneLabel.text = user.phoneNumber;
-	self.signUpView.hidden = !user.identifier.nonempty;
+- (void)setupItemData:(WLPhone *)phone {
+	self.typeLabel.text = [NSString stringWithFormat:@"%@:", WLString(phone.number.label)];
+	self.phoneLabel.text = phone.number;
+	self.signUpView.hidden = !phone.user;
 }
 
 - (void)setChecked:(BOOL)checked {
@@ -36,7 +36,8 @@
 }
 
 - (IBAction)select:(id)sender {
-	[self.delegate phoneCell:self didSelectContributor:self.item];
+    WLPhone *phone = self.item;
+	[self.delegate phoneCell:self didSelectPhone:phone];
 }
 
 @end

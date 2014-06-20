@@ -65,6 +65,17 @@ static CGFloat WLRefresherContentSize = 88.0f;
 	return refresher;
 }
 
++ (WLRefresher *)refresherWithScrollView:(UIScrollView *)scrollView target:(id)target action:(SEL)action {
+    return [self refresherWithScrollView:scrollView target:target action:action colorScheme:WLRefresherColorSchemeWhite];
+}
+
++ (WLRefresher *)refresherWithScrollView:(UIScrollView *)scrollView target:(id)target action:(SEL)action colorScheme:(WLRefresherColorScheme)colorScheme {
+    WLRefresher* refresher = [self refresherWithScrollView:scrollView];
+	[refresher addTarget:target action:action forControlEvents:UIControlEventValueChanged];
+    refresher.colorScheme = colorScheme;
+	return refresher;
+}
+
 + (WLRefresher*)refresherWithScrollView:(UIScrollView *)scrollView {
 	WLRefresherScrollDirection direction = scrollView.frame.size.height > scrollView.frame.size.width ? WLRefresherScrollDirectionVertical : WLRefresherScrollDirectionHorizontal;
 	return [self refresherWithScrollView:scrollView direction:direction];

@@ -12,14 +12,11 @@
 #import "WLSession.h"
 #import "UIAlertView+Blocks.h"
 #import "WLToast.h"
-#import "WLUser.h"
 #import "NSString+Additions.h"
 #import "WLNotification.h"
-#import "WLWrap.h"
-#import "WLCandy.h"
-#import "WLEntryState.h"
 #import "WLAPIManager.h"
 #import "WLAuthorization.h"
+#import "WLEntryManager.h"
 
 static NSString* WLPubNubOrigin = @"pubsub.pubnub.com";
 static NSString* WLPubNubPublishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";

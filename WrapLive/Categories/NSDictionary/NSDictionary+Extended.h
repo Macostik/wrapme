@@ -25,6 +25,7 @@
 - (CGFloat)floatForKey:(id)key;
 - (BOOL)boolForKey:(id)key;
 - (NSInteger)integerForKey:(id)key;
+- (double)doubleForKey:(id)key;
 - (NSString*)queryString;
 
 - (NSDictionary *)unnulable;

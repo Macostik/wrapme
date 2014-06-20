@@ -32,7 +32,7 @@
 - (void)setupItemData:(WLCandy*)candy {
 	self.avatarView.url = candy.contributor.picture.medium;
 	self.nameLabel.text = candy.contributor.name;
-	self.messageLabel.text = candy.chatMessage;
+	self.messageLabel.text = candy.message;
 	__weak typeof(self)weakSelf = self;
 	[UIView performWithoutAnimation:^{
 		[weakSelf.messageLabel sizeToFitHeight];

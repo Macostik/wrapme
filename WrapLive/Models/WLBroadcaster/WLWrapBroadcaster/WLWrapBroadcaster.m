@@ -7,6 +7,7 @@
 //
 
 #import "WLWrapBroadcaster.h"
+#import "WLEntryManager.h"
 
 @interface WLWrapBroadcaster ()
 
@@ -38,8 +39,13 @@
 - (WLBroadcastSelectReceiver)candySelectBlock:(WLCandy*)candy {
     __weak typeof(self)weakSelf = self;
     return ^BOOL (NSObject <WLWrapBroadcastReceiver> *receiver) {
+        if (![weakSelf wrapSelectBlock:candy.wrap](receiver)) {
+            return NO;
+        }
         if ([receiver respondsToSelector:@selector(broadcasterPreferedCandy:)]) {
-            return [[receiver broadcasterPreferedCandy:weakSelf] isEqualToEntry:candy];
+            if (![[receiver broadcasterPreferedCandy:weakSelf] isEqualToEntry:candy]) {
+                return NO;
+            }
         }
         return YES;
     };
@@ -85,6 +91,13 @@
 
 @implementation WLEntry (WLWrapBroadcaster)
 
+- (instancetype)update:(NSDictionary *)dictionary {
+	[self API_setup:dictionary];
+	[self broadcastChange];
+    [self save];
+	return self;
+}
+
 - (void)broadcastCreation {
 	
 }
@@ -102,15 +115,21 @@
 @implementation WLWrap (WLWrapBroadcaster)
 
 - (void)broadcastCreation {
-	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastWrapCreation:) withObject:self afterDelay:0.0f];
+    run_after(0.0, ^{
+        [[WLWrapBroadcaster broadcaster] broadcastWrapCreation:self];
+    });
 }
 
 - (void)broadcastChange {
-	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastWrapChange:) withObject:self afterDelay:0.0f];
+    run_after(0.0, ^{
+        [[WLWrapBroadcaster broadcaster] broadcastWrapChange:self];
+    });
 }
 
 - (void)broadcastRemoving {
-	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastWrapRemoving:) withObject:self afterDelay:0.0f];
+    run_after(0.0, ^{
+        [[WLWrapBroadcaster broadcaster] broadcastWrapRemoving:self];
+    });
 }
 
 @end
@@ -118,15 +137,21 @@
 @implementation WLCandy (WLWrapBroadcaster)
 
 - (void)broadcastCreation {
-	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCandyCreation:) withObject:self afterDelay:0.0f];
+    run_after(0.0, ^{
+        [[WLWrapBroadcaster broadcaster] broadcastCandyCreation:self];
+    });
 }
 
 - (void)broadcastChange {
-	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCandyChange:) withObject:self afterDelay:0.0f];
+    run_after(0.0, ^{
+        [[WLWrapBroadcaster broadcaster] broadcastCandyChange:self];
+    });
 }
 
 - (void)broadcastRemoving {
-	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCandyRemove:) withObject:self afterDelay:0.0f];
+    run_after(0.0, ^{
+        [[WLWrapBroadcaster broadcaster] broadcastCandyRemove:self];
+    });
 }
 
 @end
@@ -134,15 +159,21 @@
 @implementation WLComment (WLWrapBroadcaster)
 
 - (void)broadcastCreation {
-	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCommentCreation:) withObject:self afterDelay:0.0f];
+    run_after(0.0, ^{
+        [[WLWrapBroadcaster broadcaster] broadcastCommentCreation:self];
+    });
 }
 
 - (void)broadcastChange {
-	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCommentChange:) withObject:self afterDelay:0.0f];
+    run_after(0.0, ^{
+        [[WLWrapBroadcaster broadcaster] broadcastCommentChange:self];
+    });
 }
 
 - (void)broadcastRemoving {
-	[[WLWrapBroadcaster broadcaster] performSelector:@selector(broadcastCommentRemove:) withObject:self afterDelay:0.0f];
+    run_after(0.0, ^{
+        [[WLWrapBroadcaster broadcaster] broadcastCommentRemove:self];
+    });
 }
 
 @end

@@ -7,20 +7,17 @@
 //
 
 #import "WLWrapCell.h"
-#import "WLWrap.h"
-#import "WLCandy.h"
 #import "WLImageFetcher.h"
 #import "UIView+Shorthand.h"
 #import "UILabel+Additions.h"
 #import "UIAlertView+Blocks.h"
 #import "WLAPIManager.h"
-#import "WLUser.h"
 #import "UIActionSheet+Blocks.h"
 #import "StreamView.h"
 #import "WLCandyCell.h"
-#import "WLUploadingQueue.h"
 #import "UIView+GestureRecognizing.h"
-#import "WLEntryState.h"
+#import "WLEntryManager.h"
+#import "WLWrapBroadcaster.h"
 
 @interface WLWrapCell () <WLCandyCellDelegate>
 
@@ -53,20 +50,22 @@
 	self.nameLabel.text = wrap.name;
 	[self.nameLabel sizeToFitWidthWithSuperviewRightPadding:50];
 	self.notifyBulb.x = self.nameLabel.right + 6;
-	self.coverView.url = wrap.picture.small;
-	self.contributorsLabel.text = wrap.contributorNames;
+    NSString* url = [wrap.picture anyUrl];
+    self.coverView.url = url;
+    if (!url) {
+        self.coverView.image = [UIImage imageNamed:@"default-small-cover"];
+    }
+	
+	self.contributorsLabel.text = [wrap contributorNames];
 	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
 	[self updateNotifyBulbWithWrap:wrap];
 }
 
 - (void)updateNotifyBulbWithWrap:(WLWrap *)wrap {
-	__weak typeof(self)weakSelf = self;
-	[wrap getState:^(BOOL read, BOOL updated) {
-		weakSelf.notifyBulb.hidden = read && !updated;
-	}];
+    self.notifyBulb.hidden = ![wrap.unread boolValue];
 }
 
-- (void)setCandies:(NSArray *)candies {
+- (void)setCandies:(NSOrderedSet *)candies {
 	_candies = candies;
 	[self.streamView reloadData];
 }
@@ -74,7 +73,7 @@
 - (IBAction)wrapSelected:(UIButton *)sender {
 	self.notifyBulb.hidden = YES;
 	WLWrap* wrap = self.item;
-	[wrap setRead:YES updated:NO];
+    wrap.unread = @NO;
 	if ([UIMenuController sharedMenuController].menuVisible) {
 		[[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
 	}
@@ -102,16 +101,20 @@
 - (void)remove {
 	__weak typeof(self)weakSelf = self;
 	WLWrap* wrap = weakSelf.item;
-	weakSelf.userInteractionEnabled = NO;
-	[wrap remove:^(id object) {
-		weakSelf.userInteractionEnabled = YES;
-        if ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteOrLeaveWrap:)]) {
-            [weakSelf.delegate wrapCell:weakSelf didDeleteOrLeaveWrap:wrap];
-        }
-	} failure:^(NSError *error) {
-		[error show];
-		weakSelf.userInteractionEnabled = YES;
-	}];
+    if (wrap.uploading) {
+        [wrap remove];
+    } else {
+        weakSelf.userInteractionEnabled = NO;
+        [wrap remove:^(id object) {
+            weakSelf.userInteractionEnabled = YES;
+            if ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteOrLeaveWrap:)]) {
+                [weakSelf.delegate wrapCell:weakSelf didDeleteOrLeaveWrap:wrap];
+            }
+        } failure:^(NSError *error) {
+            [error show];
+            weakSelf.userInteractionEnabled = YES;
+        }];
+    }
 }
 
 - (void)leave {
@@ -153,7 +156,6 @@
 															 forItem:item
 														 loadingType:StreamViewReusableViewLoadingTypeNib];
 		candyView.item = [self.candies objectAtIndex:item.index.row];
-		candyView.wrap = self.item;
 		candyView.delegate = self;
 		return candyView;
 	} else {

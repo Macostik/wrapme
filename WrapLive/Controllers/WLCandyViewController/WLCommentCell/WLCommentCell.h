@@ -18,10 +18,6 @@ static CGFloat WLMinimumCellHeight = 50.0f;
 
 @interface WLCommentCell : WLItemCell
 
-@property (weak, nonatomic) WLWrap* wrap;
-
-@property (weak, nonatomic) WLCandy* candy;
-
 + (UIFont*)commentFont;
 
 @end

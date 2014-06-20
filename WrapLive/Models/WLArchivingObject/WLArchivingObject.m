@@ -56,34 +56,6 @@
 	[[self class] properties:enumerationBlock];
 }
 
-+ (NSMutableDictionary *)mapping {
-	return [NSMutableDictionary dictionary];
-}
-
-+ (NSMutableDictionary *)mergeMapping:(NSMutableDictionary *)_mapping withMapping:(NSDictionary *)mapping {
-	NSArray* values = [mapping allValues];
-	NSMutableArray* duplicates = [NSMutableArray array];
-	[_mapping enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-		if ([values containsObject:obj]) {
-			[duplicates addObject:key];
-		}
-	}];
-	[_mapping removeObjectsForKeys:duplicates];
-	return [_mapping merge:mapping];
-}
-
-+ (JSONKeyMapper *)keyMapper {
-	return [[JSONKeyMapper alloc] initWithDictionary:[self mapping]];
-}
-
-+ (instancetype)modelWithDictionary:(NSDictionary *)dict {
-	return [[self alloc] initWithDictionary:dict error:NULL];
-}
-
-- (instancetype)updateWithDictionary:(NSDictionary *)dict {
-	return [self updateWithObject:[[self class] modelWithDictionary:dict]];
-}
-
 - (instancetype)updateWithObject:(id)object {
 	Class class = [object class];
 	__weak typeof(self)weakSelf = self;
@@ -195,26 +167,6 @@
 	run_getting_object(^id{
 		return [self unarchiveFromFileAtPath:path];
 	}, completion);
-}
-
-@end
-
-@implementation JSONValueTransformer (NSDate)
-
-- (NSDate*)NSDateFromNSString:(NSString*)string {
-	NSDate* date = [string dateWithFormat:@"yyyy-MM-dd'T'HH:mm:ss.000Z"];
-	if (date == nil) {
-		date = [NSDate dateWithTimeIntervalSince1970:[string doubleValue]];
-	}
-	return date;
-}
-
-- (NSString*)JSONObjectFromNSDate:(NSDate*)date {
-	return [NSString stringWithFormat:@"%f",[date timeIntervalSince1970]];
-}
-
-- (NSDate *)NSDateFromNSNumber:(NSNumber *)number {
-	return [NSDate dateWithTimeIntervalSince1970:[number doubleValue]];
 }
 
 @end

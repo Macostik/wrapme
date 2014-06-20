@@ -97,6 +97,10 @@
     return [[self tryObjectForKey:key] integerValue];
 }
 
+- (double)doubleForKey:(id)key {
+    return [[self tryObjectForKey:key] doubleValue];
+}
+
 - (NSString *)queryString {
     NSMutableString* string = [NSMutableString string];
     

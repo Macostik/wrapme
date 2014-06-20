@@ -8,8 +8,7 @@
 
 #import "WLHomeViewController.h"
 #import "WLWrapCell.h"
-#import "WLWrap.h"
-#import "WLCandy.h"
+#import "WLEntryManager.h"
 #import "WLImageFetcher.h"
 #import "WLWrapViewController.h"
 #import "WLNavigation.h"
@@ -21,20 +20,16 @@
 #import "UIColor+CustomColors.h"
 #import "WLComment.h"
 #import "WLImageCache.h"
-#import "WLCandy.h"
 #import "UIFont+CustomFonts.h"
 #import "WLRefresher.h"
 #import "WLChatViewController.h"
 #import "WLLoadingView.h"
 #import "UIViewController+Additions.h"
 #import "WLWrapBroadcaster.h"
-#import "WLUploadingQueue.h"
 #import "UILabel+Additions.h"
 #import "WLCreateWrapViewController.h"
-#import "WLUser.h"
 #import "WLDataManager.h"
-#import "WLWrapDate.h"
-#import "WLDataCache.h"
+#import "WLDate.h"
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
 #import "WLToast.h"
@@ -50,8 +45,8 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
-@property (strong, nonatomic) NSArray* wraps;
-@property (strong, nonatomic) NSArray* candies;
+@property (strong, nonatomic) NSOrderedSet* wraps;
+@property (strong, nonatomic) NSOrderedSet* candies;
 @property (nonatomic, strong) WLWrap* topWrap;
 @property (nonatomic) BOOL loading;
 @property (weak, nonatomic) WLRefresher *refresher;
@@ -61,7 +56,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
 
-@property (nonatomic) BOOL shouldAppendMoreWraps;
+@property (strong, nonatomic) WLLoadingView* loadingView;
 
 @end
 
@@ -80,7 +75,15 @@
 	[self setupRefresh];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	[[WLNotificationBroadcaster broadcaster] addReceiver:self];
-	self.tableView.tableFooterView = [WLLoadingView instance];
+	self.loadingView = [WLLoadingView instance];
+}
+
+- (void)setLoadingView:(WLLoadingView *)loadingView {
+    self.tableView.tableFooterView = loadingView;
+}
+
+- (WLLoadingView *)loadingView {
+    return (WLLoadingView*)self.tableView.tableFooterView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -89,11 +92,16 @@
 	self.avatarImageView.layer.borderWidth = 1;
 	self.avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
 	self.avatarImageView.url = [WLUser currentUser].picture.small;
+    NSOrderedSet* wraps = [WLUser currentUser].wraps;
 	if (self.tableView.hidden) {
 		self.loading = NO;
 		[self fetchWraps:YES];
-	}
-    [self.tableView reloadData];
+        if (wraps.nonempty) {
+            self.wraps = wraps;
+        }
+	} else {
+        self.wraps = wraps;
+    }
 }
 
 - (CGFloat)toastAppearanceHeight:(WLToast *)toast {
@@ -126,24 +134,19 @@
 		return;
 	}
 	self.loading = YES;
+    self.loadingView.error = NO;
 	__weak typeof(self)weakSelf = self;
-	
-	if (refresh) {
-		[[WLUploadingQueue instance] checkStatus];
-	}
-	
-	[WLDataManager wraps:refresh success:^(NSArray* wraps, BOOL cached, BOOL stop) {
+	[WLDataManager wraps:refresh success:^(NSOrderedSet* wraps, BOOL stop) {
 		weakSelf.wraps = wraps;
-		weakSelf.shouldAppendMoreWraps = !stop;
-		if (!cached) {
-            [weakSelf showLatestWrap];
-			[weakSelf.refresher endRefreshing];
-			weakSelf.loading = NO;
-		}
-		[weakSelf finishLoadingAnimation];
+		[weakSelf showLatestWrap];
+        if (stop) {
+            weakSelf.loadingView = nil;
+        }
+		[weakSelf.refresher endRefreshing];
+        weakSelf.loading = NO;
 	} failure:^(NSError *error) {
+        weakSelf.loadingView.error = YES;
 		weakSelf.loading = NO;
-		weakSelf.shouldAppendMoreWraps = NO;
 		[weakSelf.refresher endRefreshing];
 		if (weakSelf.isOnTopOfNagvigation) {
 			[error showIgnoringNetworkError];
@@ -155,13 +158,11 @@
 - (void)showLatestWrap {
     WLUser * user = [WLUser currentUser];
     static BOOL firstWrapShown = NO;
-    if (self.isOnTopOfNagvigation) {
-        if (!firstWrapShown && [user signInCount] == 1 && self.wraps.count > 0) {
-            WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-            wrapController.wrap = [self.wraps firstObject];
-            [self.navigationController pushViewController:wrapController animated:YES];
-        }
-    }
+	if (!firstWrapShown && user.signInCount.integerValue == 1 && self.wraps.nonempty) {
+		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
+		wrapController.wrap = [self.wraps firstObject];
+		[self.navigationController pushViewController:wrapController animated:NO];
+	}
     firstWrapShown = YES;
 }
 
@@ -177,17 +178,8 @@
 	}
 }
 
-- (void)setShouldAppendMoreWraps:(BOOL)shouldAppendMoreWraps {
-	_shouldAppendMoreWraps = shouldAppendMoreWraps;
-	if (!_shouldAppendMoreWraps) {
-		self.tableView.tableFooterView = nil;
-	} else if (self.tableView.tableFooterView == nil) {
-		self.tableView.tableFooterView = [WLLoadingView instance];
-	}
-}
-
-- (void)setWraps:(NSArray *)wraps {
-	_wraps = [wraps entriesSortedByUpdatingDate];
+- (void)setWraps:(NSOrderedSet *)wraps {
+	_wraps = wraps;
 	[self updateWraps];
 }
 
@@ -210,6 +202,8 @@
 		} completion:^(BOOL finished) {
 		}];
 	}
+    
+    [self finishLoadingAnimation];
 }
 
 - (void)setTopWrap:(WLWrap *)topWrap {
@@ -220,7 +214,6 @@
         }
     }
     if (_topWrap) {
-        [[WLUploadingQueue instance] updateWrap:_topWrap];
         self.candies = [_topWrap recentCandies:WLHomeTopWrapCandiesLimit];
         self.quickChatView.wrap = _topWrap;
     }
@@ -230,10 +223,7 @@
     static BOOL fetching = NO;
     if (!fetching && [self.candies count] < WLHomeTopWrapCandiesLimit) {
         fetching = YES;
-        __weak typeof(self)weakSelf = self;
         [wrap fetch:^(WLWrap* wrap) {
-            [[WLUploadingQueue instance] updateWrap:wrap];
-            [WLDataCache cache].wraps = weakSelf.wraps;
             run_after(0.2, ^{
                 fetching = NO;
             });
@@ -245,33 +235,19 @@
     }
 }
 
-- (void)sendMessageWithText:(NSString*)text {
-	[[WLUploadingQueue instance] uploadMessage:text wrap:self.topWrap success:^(id object) {
-	} failure:^(NSError *error) {
-	}];
-}
-
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-	self.wraps = self.wraps;
-	[WLDataCache cache].wraps = self.wraps;
+	self.wraps = [WLUser currentUser].wraps;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
-	self.wraps = [self.wraps entriesByInsertingFirstEntry:wrap];
+	self.wraps = [WLUser currentUser].wraps;
 	self.tableView.contentOffset = CGPointZero;
-	[WLDataCache cache].wraps = self.wraps;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-	self.wraps = [self.wraps entriesByRemovingEntry:wrap];
-	[WLDataCache cache].wraps = self.wraps;
-}
-
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
-	[self updateWraps];
-	[WLDataCache cache].wraps = self.wraps;
+	self.wraps = [WLUser currentUser].wraps;
 }
 
 #pragma mark - WLNotificationReceiver
@@ -371,7 +347,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.loading && self.tableView.tableFooterView != nil && (indexPath.row == [self.wraps count] - 1)) {
+	if (!self.loading && self.loadingView != nil && (indexPath.row == [self.wraps count] - 1)) {
 		[self fetchWraps:NO];
 	}
 }
@@ -400,11 +376,9 @@
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
 	WLWrap* wrap = controller.wrap ? : self.topWrap;
-	if (wrap) {
-		[[WLUploadingQueue instance] uploadImage:image wrap:wrap success:^(id object) {
-		} failure:^(NSError *error) {
-		}];
-	}
+	[wrap uploadImage:image success:^(WLCandy *candy) {
+    } failure:^(NSError *error) {
+    }];
 
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -419,11 +393,11 @@
 	WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 	wrapController.wrap = wrap;
 	UIViewController* controller = nil;
-	if (candy.type == WLCandyTypeImage) {
+	if ([candy isImage]) {
 		controller = [WLCandyViewController instantiate:^(WLCandyViewController *controller) {
-			[controller setWrap:wrap candy:candy];
+            controller.candy = candy;
 		}];
-	} else if (candy.type == WLCandyTypeChatMessage) {
+	} else if ([candy isMessage]) {
 		controller = [WLChatViewController instantiate:^(WLChatViewController *controller) {
 			controller.wrap = wrap;
 		}];

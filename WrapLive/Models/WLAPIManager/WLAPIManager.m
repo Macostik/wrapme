@@ -7,23 +7,20 @@
 //
 
 #import "WLAPIManager.h"
-#import "WLWrap.h"
-#import "WLUser.h"
 #import "WLSession.h"
 #import "NSDate+Formatting.h"
 #import "WLAPIResponse.h"
 #import <CocoaLumberjack/DDLog.h>
 #import "NSArray+Additions.h"
 #import "WLAddressBook.h"
-#import "WLCandy.h"
-#import "WLComment.h"
-#import "WLWrapDate.h"
+#import "WLDate.h"
 #import "WLNavigation.h"
 #import "WLWrapBroadcaster.h"
 #import "NSString+Additions.h"
 #import "WLAuthorization.h"
 #import "NSDate+Additions.h"
 #import "WLWelcomeViewController.h"
+#import "WLImageCache.h"
 
 #if DEBUG
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
@@ -37,7 +34,7 @@ static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
 static NSString* WLAPIProductionUrl = @"https://api.wraplive.com/api";
 #define WLAPIBaseUrl WLAPIDevelopmentUrl
 
-static NSString* WLAPIVersion = @"1";
+static NSString* WLAPIVersion = @"2";
 
 #define WLAcceptHeader [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", WLAPIVersion]
 
@@ -61,6 +58,12 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 + (BOOL)developmentEvironment {
 	return [WLAPIBaseUrl isEqualToString:WLAPIDevelopmentUrl];
+}
+
+static BOOL signedIn = NO;
+
++ (BOOL)signedIn {
+    return signedIn;
 }
 
 - (AFHTTPRequestOperation *)GET:(NSString *)URLString
@@ -151,7 +154,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		DDLogDebug(@"%@", responseObject);
 		WLAPIResponse* response = [[WLAPIResponse alloc] initWithDictionary:responseObject error:NULL];
 		if (response.code == WLAPIResponseCodeSuccess) {
-			success(objectBlock(response));
+#warning need to think how to perform it in background
+            success(objectBlock(response));
 		} else {
 			failure([NSError errorWithDescription:response.message]);
 		}
@@ -222,8 +226,13 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	[parameters trySetObject:authorization.email forKey:@"email"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		WLUser* user = [WLUser modelWithDictionary:[response.data dictionaryForKey:@"user"]];
-		[WLSession setUser:user];
+        if (!signedIn) {
+            signedIn = YES;
+            [WLUploading enqueueAutomaticUploading:^{ }];
+        }
+        
+		WLUser* user = [WLUser API_entry:[response.data dictionaryForKey:@"user"]];
+		[user setCurrent];
 		[authorization setCurrent];
 		return user;
 	};
@@ -238,8 +247,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSDictionary* parameters = @{};
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		WLUser* user = [[WLUser alloc] initWithDictionary:[response.data objectForKey:@"user"] error:nil];
-		[WLSession setUser:user];
+		WLUser* user = [WLUser API_entry:[response.data objectForKey:@"user"]];
+		[user setCurrent];
 		return user;
 	};
 	
@@ -259,7 +268,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		WLAuthorization* authorization = [WLAuthorization currentAuthorization];
 		authorization.email = user.email;
 		[authorization setCurrent];
-		WLUser* user = [[WLUser alloc] initWithDictionary:response.data[@"user"] error:NULL];
+		WLUser* user = [WLUser API_entry:response.data[@"user"]];
 		[user setCurrent];
 		return user;
 	};
@@ -287,8 +296,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	NSMutableArray* phones = [NSMutableArray array];
 	
 	[contacts all:^(WLContact* contact) {
-		[contact.users all:^(WLUser* user) {
-			[phones addObject:user.phoneNumber];
+		[contact.phones all:^(WLPhone* phone) {
+			[phones addObject:phone.number];
 		}];
 	}];
 	
@@ -305,18 +314,19 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 - (NSArray*)contributorsFromResponse:(WLAPIResponse*)response contacts:(NSArray*)contacts {
 	NSArray* users = response.data[@"users"];
 	[contacts all:^(WLContact* contact) {
-		[contact.users all:^(WLUser* user) {
+		[contact.phones all:^(WLPhone* phone) {
 			for (NSDictionary* userData in users) {
-				if ([userData[@"address_book_number"] isEqualToString:user.phoneNumber]) {
-					NSString* name = user.name;
-					NSString* label = user.phoneNumber.label;
-					[user updateWithDictionary:userData];
+				if ([userData[@"address_book_number"] isEqualToString:phone.number]) {
+					NSString* label = phone.number.label;
+                    WLUser * user = [WLUser API_entry:userData];
+                    phone.user = user;
+					[phone.user update:userData];
 					if (user.name.nonempty) {
 						contact.name = user.name;
 					} else {
-						user.name = name;
+						user.name = contact.name;
 					}
-					user.phoneNumber.label = label;
+					user.phone.label = label;
 				}
 			}
 		}];
@@ -324,19 +334,19 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	return contacts;
 }
 
-- (id)wraps:(NSInteger)page success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)wraps:(NSInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
 
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:@(page) forKey:@"page"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		NSArray* wraps = [WLWrap arrayOfModelsFromDictionaries:[response.data arrayForKey:@"wraps"]];
+		NSOrderedSet* wraps = [WLWrap API_entries:[response.data arrayForKey:@"wraps"]];
 		if (page == 1 && wraps.nonempty) {
-			NSArray* candies = [response.data arrayForKey:@"recent_candies"];
+			NSOrderedSet* candies = [WLCandy API_entries:[response.data arrayForKey:@"recent_candies"]];
 			if (candies.nonempty) {
-				candies = [WLCandy arrayOfModelsFromDictionaries:candies];
 				WLWrap* wrap = [wraps firstObject];
-				wrap.dates = (id)[WLWrapDate datesWithCandies:candies];
+                [wrap addCandies:candies];
+				[wrap save];
 			}
 		}
 		return wraps;
@@ -359,7 +369,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	[parameters trySetObject:@(page) forKey:@"group_by_date_page_number"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		return [wrap updateWithDictionary:response.data[@"wrap"]];
+		return [wrap update:response.data[@"wrap"]];
 	};
 	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
@@ -370,21 +380,14 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			 failure:[self failureBlock:failure]];
 }
 
-- (id)dates:(WLWrap *)wrap refresh:(BOOL)refresh success:(WLWrapBlock)success failure:(WLFailureBlock)failure {
+- (id)dates:(WLWrap *)wrap page:(NSUInteger)page success:(WLWrapBlock)success failure:(WLFailureBlock)failure {
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:@([[NSTimeZone localTimeZone] secondsFromGMT]) forKey:@"utc_offset"];
 	[parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
-    NSInteger page = refresh ? 1 : floorf([wrap.dates count] / WLAPIGeneralPageSize) + 1;
 	[parameters trySetObject:@(page) forKey:@"group_by_date_page_number"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-        NSArray* dates = [WLWrapDate arrayOfModelsFromDictionaries:response.data[@"wrap"][@"dates"]];
-        if (refresh) {
-            wrap.dates = (id)dates;
-        } else {
-            wrap.dates = (id)[wrap.dates entriesByAddingEntries:dates];
-        }
-		return wrap;
+		return [wrap update:response.data[@"wrap"]];
 	};
 	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
@@ -395,17 +398,22 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			 failure:[self failureBlock:failure]];
 }
 
-- (NSDictionary*)parametersForWrap:(WLWrap*)wrap {
+- (NSDictionary*)parametersForWrap:(WLWrap*)wrap creation:(BOOL)creation {
 	NSMutableArray* contributors = [NSMutableArray array];
 	NSMutableArray* invitees = [NSMutableArray array];
 	for (WLUser* contributor in wrap.contributors) {
-		if (contributor.identifier.nonempty) {
-			[contributors addObject:contributor.identifier];
-		} else {
-			NSData* invitee = [NSJSONSerialization dataWithJSONObject:@{@"name":WLString(contributor.name),@"phone_number":contributor.phoneNumber} options:0 error:NULL];
-			[invitees addObject:[[NSString alloc] initWithData:invitee encoding:NSUTF8StringEncoding]];
-		}
+		if (creation) {
+            if (![contributor isCurrentUser]) {
+                [contributors addObject:contributor.identifier];
+            }
+        } else {
+            [contributors addObject:contributor.identifier];
+        }
 	}
+    for (WLPhone * phone in wrap.invitees) {
+        NSData* invitee = [NSJSONSerialization dataWithJSONObject:@{@"name":WLString(phone.name),@"phone_number":phone.number} options:0 error:NULL];
+        [invitees addObject:[[NSString alloc] initWithData:invitee encoding:NSUTF8StringEncoding]];
+    }
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:wrap.name forKey:@"name"];
 	[parameters trySetObject:contributors forKey:@"user_uids"];
@@ -415,12 +423,12 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 - (id)createWrap:(WLWrap *)wrap success:(WLWrapBlock)success failure:(WLFailureBlock)failure {
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		WLWrap* _wrap = [wrap updateWithDictionary:response.data[@"wrap"]];
+		WLWrap* _wrap = [wrap update:response.data[@"wrap"]];
 		[_wrap broadcastCreation];
 		return _wrap;
 	};
 	return [self POST:@"wraps"
-		   parameters:[self parametersForWrap:wrap]
+		   parameters:[self parametersForWrap:wrap creation:YES]
 			 filePath:wrap.picture.large
 			  success:[self successBlock:success withObject:objectBlock failure:failure]
 			  failure:[self failureBlock:failure]];
@@ -428,26 +436,25 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 - (id)updateWrap:(WLWrap *)wrap success:(WLWrapBlock)success failure:(WLFailureBlock)failure {
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		return [wrap updateWithDictionary:response.data[@"wrap"]];
+		return [wrap update:response.data[@"wrap"]];
 	};
 	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
 	return [self PUT:path
-		   parameters:[self parametersForWrap:wrap]
+          parameters:[self parametersForWrap:wrap creation:NO]
 			 filePath:wrap.picture.large
 			  success:[self successBlock:success withObject:objectBlock failure:failure]
 			  failure:[self failureBlock:failure]];
 }
 
 - (id)leaveWrap:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-	wrap = [wrap copy];
 	wrap.contributors = (id)[wrap.contributors usersByRemovingCurrentUser];
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		[wrap broadcastRemoving];
+        [wrap remove];
 		return response;
 	};
 	NSString* path = [NSString stringWithFormat:@"wraps/%@", wrap.identifier];
 	return [self PUT:path
-		  parameters:[self parametersForWrap:wrap]
+		  parameters:[self parametersForWrap:wrap creation:NO]
 			filePath:wrap.picture.large
 			 success:[self successBlock:success withObject:objectBlock failure:failure]
 			 failure:[self failureBlock:failure]];
@@ -456,7 +463,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 - (id)removeWrap:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		[wrap broadcastRemoving];
+        [wrap remove];
 		return response;
 	};
 	
@@ -473,37 +480,47 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	}
 }
 
-- (id)addCandy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+- (id)addCandy:(WLCandy *)candy success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:candy.uploadIdentifier forKey:@"upload_uid"];
 	[parameters trySetObject:@(candy.updatedAt.timestamp) forKey:@"contributed_at_in_epoch"];
-	if (candy.type == WLCandyTypeChatMessage) {
-		[parameters trySetObject:candy.chatMessage forKey:@"chat_message"];
+	if ([candy isMessage]) {
+		[parameters trySetObject:candy.message forKey:@"chat_message"];
 	}
-	
+    
+    WLPicture* picture = [candy.picture copy];
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		[candy updateWithDictionary:[response.data dictionaryForKey:@"candy"] broadcast:NO];
+        [candy API_setup:[response.data dictionaryForKey:@"candy"]];
+        if ([candy isImage]) {
+			[[WLImageCache cache] setImageAtPath:picture.medium withUrl:candy.picture.medium];
+			[[WLImageCache cache] setImageAtPath:picture.small withUrl:candy.picture.small];
+			[[WLImageCache cache] setImageAtPath:picture.large withUrl:candy.picture.large];
+		}
 		return candy;
 	};
 	
-	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", candy.wrap.identifier];
 	
 	return [self POST:path
 		   parameters:parameters
-			 filePath:(candy.type == WLCandyTypeImage ? candy.picture.large : nil)
+			 filePath:([candy isImage] ? candy.picture.large : nil)
 			  success:[self successBlock:success withObject:objectBlock failure:failure]
 			  failure:[self failureBlock:failure]];
 }
 
-- (id)candies:(WLWrap *)wrap date:(WLWrapDate *)date success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)olderCandies:(WLWrap *)wrap referenceCandy:(WLCandy *)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
 
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-	[parameters trySetObject:@(date.updatedAt.timestamp) forKey:@"start_date_in_epoch"];
-	[parameters trySetObject:@(floorf([date.candies count] / 10) + 1) forKey:@"candy_page_number"];
+	[parameters trySetObject:withinDay ? @"true" : @"false" forKey:@"same_day"];
+	[parameters trySetObject:@(referenceCandy.updatedAt.timestamp) forKey:@"offset_x_in_epoch"];
+    [parameters trySetObject:@(referenceCandy.updatedAt.timestamp) forKey:@"offset_y_in_epoch"];
+    [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		return [WLCandy arrayOfModelsFromDictionaries:response.data[@"candies"]];
+        NSOrderedSet* candies = [WLCandy API_entries:response.data[@"candies"]];
+        [wrap addCandies:candies];
+		return candies;
 	};
 	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
@@ -514,14 +531,59 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			 failure:[self failureBlock:failure]];
 }
 
-- (id)removeCandy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (id)olderCandies:(WLWrap *)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self olderCandies:wrap referenceCandy:[wrap.candies lastObject] withinDay:NO success:success failure:failure];
+}
+
+- (id)newerCandies:(WLWrap *)wrap referenceCandy:(WLCandy *)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+	[parameters trySetObject:withinDay ? @"true" : @"false" forKey:@"same_day"];
+	[parameters trySetObject:@(referenceCandy.updatedAt.timestamp) forKey:@"offset_x_in_epoch"];
+    [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		[wrap removeCandy:candy];
+		NSOrderedSet* candies = [WLCandy API_entries:response.data[@"candies"]];
+        [wrap addCandies:candies];
+		return candies;
+	};
+	
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
+	
+	return [self GET:path
+		  parameters:parameters
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure]];
+}
+
+- (id)newerCandies:(WLWrap *)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self newerCandies:wrap referenceCandy:[wrap.candies firstObject] withinDay:NO success:success failure:failure];
+}
+
+- (id)freshCandies:(WLWrap *)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+    [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
+	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
+        NSOrderedSet* candies = [WLCandy API_entries:response.data[@"candies"]];
+        [wrap addCandies:candies];
+		return candies;
+	};
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
+	return [self GET:path
+		  parameters:parameters
+			 success:[self successBlock:success withObject:objectBlock failure:failure]
+			 failure:[self failureBlock:failure]];
+}
+
+- (id)removeCandy:(WLCandy *)candy success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+	
+	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
+		[candy.wrap removeCandy:candy];
+        [candy remove];
 		return response;
 	};
 	
-	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@", wrap.identifier, candy.identifier];
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@", candy.wrap.identifier, candy.identifier];
 	return [self DELETE:path
 			 parameters:nil
 				success:[self successBlock:success withObject:objectBlock failure:failure]
@@ -534,7 +596,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	[parameters trySetObject:@(page) forKey:@"page"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		return [WLCandy arrayOfModelsFromDictionaries:response.data[@"chat_messages"]];
+		return [WLCandy API_entries:response.data[@"chat_messages"]];
 	};
 	
 	NSString* path = [NSString stringWithFormat:@"wraps/%@/chat_messages", wrap.identifier];
@@ -545,12 +607,12 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			 failure:[self failureBlock:failure]];
 }
 
-- (id)candy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+- (id)candy:(WLCandy *)candy success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		return [candy updateWithDictionary:[response.data dictionaryForKey:@"candy"]];
+		return [candy update:[response.data dictionaryForKey:@"candy"]];
 	};
 	
-	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@", wrap.identifier, candy.identifier];
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@", candy.wrap.identifier, candy.identifier];
 
 	return [self GET:path
 		  parameters:nil
@@ -559,8 +621,6 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)addComment:(WLComment*)comment
-		   candy:(WLCandy *)candy
-		  wrap:(WLWrap *)wrap
 		   success:(WLCommentBlock)success
 		   failure:(WLFailureBlock)failure {
 	
@@ -568,14 +628,14 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	[parameters trySetObject:comment.text forKey:@"message"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		WLComment* comment = [[WLComment alloc] initWithDictionary:[response.data dictionaryForKey:@"comment"] error:NULL];
-		[candy addComment:comment];
-        wrap.updatedAt = [NSDate date];
-        [wrap broadcastChange];
+        [comment API_setup:[response.data dictionaryForKey:@"comment"]];
+		[comment.candy addComment:comment];
+        [comment.candy.wrap touch];
+        [comment.candy.wrap broadcastChange];
 		return comment;
 	};
 	
-	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@/comments", wrap.identifier, candy.identifier];
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@/comments", comment.candy.wrap.identifier, comment.candy.identifier];
 	
 	return [self POST:path
 		   parameters:parameters
@@ -584,14 +644,14 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	
 }
 
-- (id)removeComment:(WLComment *)comment candy:(WLCandy *)candy wrap:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (id)removeComment:(WLComment *)comment success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		[candy removeComment:comment];
+        [comment remove];
 		return response;
 	};
 	
-	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@/comments/%@", wrap.identifier, candy.identifier, comment.identifier];
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies/%@/comments/%@", comment.candy.wrap.identifier, comment.candy.identifier, comment.identifier];
 	return [self DELETE:path
 			 parameters:nil
 				success:[self successBlock:success withObject:objectBlock failure:failure]
@@ -610,68 +670,122 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 			  failure:[self failureBlock:failure]];
 }
 
+- (id)checkUploading:(WLUploading *)uploading success:(WLBooleanBlock)success failure:(WLFailureBlock)failure {
+    if (uploading.identifier.nonempty) {
+        return [self uploadStatus:@[uploading.identifier] success:^(NSArray *array) {
+            success([array containsObject:uploading.identifier]);
+        } failure:failure];
+    } else {
+        failure([NSError errorWithDescription:@"Uploading is invalid."]);
+        return nil;
+    }
+}
+
+@end
+
+@implementation WLEntry (WLAPIManager)
+
+- (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    success(self);
+    return nil;
+}
+
+- (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    success(self);
+    return nil;
+}
+
+- (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    success(self);
+    return nil;
+}
+
 @end
 
 @implementation WLWrap (WLAPIManager)
 
-- (id)create:(WLWrapBlock)success failure:(WLFailureBlock)failure {
+- (id)add:(WLWrapBlock)success failure:(WLFailureBlock)failure {
 	return [[WLAPIManager instance] createWrap:self success:success failure:failure];
-}
-
-- (id)update:(WLWrapBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] updateWrap:self success:success failure:failure];
-}
-
-- (id)fetch:(WLWrapBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] wrap:self success:success failure:failure];
-}
-
-- (id)fetch:(NSInteger)page success:(WLWrapBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] wrap:self page:page success:success failure:failure];
-}
-
-- (id)addCandy:(WLCandy *)candy success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] addCandy:candy wrap:self success:success failure:failure];
-}
-
-- (id)candies:(WLWrapDate *)date success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] candies:self date:date success:success failure:failure];
-}
-
-- (id)messages:(NSUInteger)page success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] messages:self page:page success:success failure:failure];
 }
 
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
 	return [[WLAPIManager instance] removeWrap:self success:success failure:failure];
 }
 
-- (id)leave:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] leaveWrap:self success:success failure:failure];
+- (id)fetch:(WLWrapBlock)success failure:(WLFailureBlock)failure {
+	return [[WLAPIManager instance] wrap:self success:success failure:failure];
 }
 
-- (id)removeCandy:(WLCandy *)candy success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] removeCandy:candy wrap:self success:success failure:failure];
+- (id)update:(WLWrapBlock)success failure:(WLFailureBlock)failure {
+	return [[WLAPIManager instance] updateWrap:self success:success failure:failure];
+}
+
+- (id)fetch:(NSInteger)page success:(WLWrapBlock)success failure:(WLFailureBlock)failure {
+	return [[WLAPIManager instance] wrap:self page:page success:success failure:failure];
+}
+
+- (id)olderCandies:(WLCandy*)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] olderCandies:self referenceCandy:referenceCandy withinDay:withinDay success:success failure:failure];
+}
+
+- (id)olderCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self olderCandies:[self.candies lastObject] withinDay:NO success:success failure:failure];
+}
+
+- (id)newerCandies:(WLCandy*)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] newerCandies:self referenceCandy:referenceCandy withinDay:withinDay success:success failure:failure];
+}
+
+- (id)newerCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self newerCandies:[self.candies firstObject] withinDay:NO success:success failure:failure];
+}
+
+- (id)freshCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] freshCandies:self success:success failure:failure];
+}
+
+- (id)messages:(NSUInteger)page success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+	return [[WLAPIManager instance] messages:self page:page success:success failure:failure];
+}
+
+- (id)leave:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+	return [[WLAPIManager instance] leaveWrap:self success:success failure:failure];
 }
 
 @end
 
 @implementation WLCandy (WLAPIManager)
 
-- (id)addComment:(WLComment *)comment wrap:(WLWrap *)wrap success:(WLCommentBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] addComment:comment candy:self wrap:wrap success:success failure:failure];
+- (id)add:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] addCandy:self success:success failure:failure];
 }
 
-- (id)removeComment:(WLComment*)comment wrap:(WLWrap*)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] removeComment:comment candy:self wrap:wrap success:success failure:failure];
+- (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+	return [[WLAPIManager instance] removeCandy:self success:success failure:failure];
 }
 
-- (id)remove:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] removeCandy:self wrap:wrap success:success failure:failure];
+- (id)fetch:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+	return [[WLAPIManager instance] candy:self success:success failure:failure];
 }
 
-- (id)fetch:(WLWrap *)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] candy:self wrap:wrap success:success failure:failure];
+- (id)olderCandies:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] olderCandies:self.wrap referenceCandy:self withinDay:withinDay success:success failure:failure];
+}
+
+- (id)newerCandies:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] newerCandies:self.wrap referenceCandy:self withinDay:withinDay success:success failure:failure];
+}
+
+@end
+
+@implementation WLComment (WLAPIManager)
+
+- (id)add:(WLCommentBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] addComment:self success:success failure:failure];
+}
+
+- (id)remove:(WLCommentBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] removeComment:self success:success failure:failure];
 }
 
 @end
@@ -688,6 +802,14 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 - (id)signIn:(WLUserBlock)success failure:(WLFailureBlock)failure {
 	return [[WLAPIManager instance] signIn:self success:success failure:failure];
+}
+
+@end
+
+@implementation WLUploading (WLAPIManager)
+
+- (id)check:(WLBooleanBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] checkUploading:self success:success failure:failure];
 }
 
 @end

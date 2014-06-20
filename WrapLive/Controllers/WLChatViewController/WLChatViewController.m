@@ -17,11 +17,10 @@
 #import "WLComposeBar.h"
 #import "UIView+Shorthand.h"
 #import "WLLoadingView.h"
-#import "WLWrapDate.h"
+#import "WLDate.h"
 #import "WLMessageGroupCell.h"
 #import "NSDate+Formatting.h"
 #import "NSObject+NibAdditions.h"
-#import "WLUploadingQueue.h"
 #import "WLCollectionViewFlowLayout.h"
 #import "UIScrollView+Additions.h"
 #import "WLKeyboardBroadcaster.h"
@@ -29,12 +28,11 @@
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
 #import "WLBlocks.h"
-#import "WLEntryState.h"
 #import "WLWrapBroadcaster.h"
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver>
 
-@property (nonatomic, strong) NSMutableArray* dates;
+@property (nonatomic, strong) NSMutableOrderedSet* dates;
 
 @property (nonatomic, weak) WLRefresher* refresher;
 
@@ -77,10 +75,7 @@
 		}];
 	}
 	__weak typeof(self)weakSelf = self;
-	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView refreshBlock:^(WLRefresher *refresher) {
-		[weakSelf refreshMessages];
-	}];
-	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
+	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshMessages) colorScheme:WLRefresherColorSchemeOrange];
 	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
 	self.composeBar.placeholder = @"Write your message ...";
 	
@@ -113,27 +108,27 @@
 	}
 }
 
-- (NSMutableArray *)dates {
+- (NSMutableOrderedSet *)dates {
 	if (!_dates) {
-		_dates = [NSMutableArray array];
+		_dates = [NSMutableOrderedSet orderedSet];
 	}
 	return _dates;
 }
 
-- (void)setMessages:(NSArray*)messages {
+- (void)setMessages:(NSOrderedSet*)messages {
 	messagesCount = 0;
 	[self.dates removeAllObjects];
 	[self addMessages:messages];
 }
 
-- (void)addMessages:(NSArray*)messages {
+- (void)addMessages:(NSOrderedSet*)messages {
 	messagesCount += [messages count];
-		NSMutableArray* _messages = [NSMutableArray arrayWithArray:messages];
+		NSMutableOrderedSet* _messages = [NSMutableOrderedSet orderedSetWithOrderedSet:messages];
 	while (_messages.nonempty) {
 		WLCandy* candy = [_messages firstObject];
-		NSArray* dayMessages = [_messages entriesForDay:candy.updatedAt];
+		NSOrderedSet* dayMessages = [_messages entriesForDay:candy.updatedAt];
 		[self addMessages:dayMessages date:candy.updatedAt];
-		[_messages removeObjectsInArray:dayMessages];
+		[_messages minusOrderedSet:dayMessages];
 	}
 	
 	self.shouldAppendMoreMessages = ([messages count] == WLAPIChatPageSize);
@@ -141,32 +136,35 @@
 	[self.collectionView reloadData];
 }
 
-- (void)addMessages:(NSArray*)messages date:(NSDate*)date {
-	WLWrapDate* dateObject = [self dateObjectWithDate:date];
-	dateObject.candies = (id)[dateObject.candies entriesByAddingEntries:messages];
+- (void)addMessages:(NSOrderedSet*)messages date:(NSDate*)date {
+	WLDate* dateObject = [self dateObjectWithDate:date];
+	[dateObject.candies unionOrderedSet:messages];
 }
 
 - (void)insertMessage:(WLCandy*)message {
-	WLWrapDate* dateObject = [self dateObjectWithDate:message.updatedAt];
-	dateObject.candies = (id)[dateObject.candies entriesByInsertingFirstEntry:message];
+	WLDate* dateObject = [self dateObjectWithDate:message.updatedAt];
+	[dateObject.candies insertFirstObject:message];
 }
 
-- (WLWrapDate*)dateObjectWithDate:(NSDate*)date {
-	for (WLWrapDate* dateObject in self.dates) {
-		if ([dateObject.updatedAt isSameDay:date]) {
+- (WLDate*)dateObjectWithDate:(NSDate*)date {
+	for (WLDate* dateObject in self.dates) {
+		if ([dateObject.date isSameDay:date]) {
 			return dateObject;
 		}
 	}
-	WLWrapDate* dateObject = [[WLWrapDate alloc] init];
-	dateObject.updatedAt = date;
+	WLDate* dateObject = [WLDate dateWithDate:date];
 	[self.dates addObject:dateObject];
-	[self.dates sortEntriesByUpdatingDate];
+    static NSArray* descriptors = nil;
+    if (!descriptors) {
+        descriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
+    }
+	[self.dates sortUsingDescriptors:descriptors];
 	return dateObject;
 }
 
 - (void)refreshMessages {
 	__weak typeof(self)weakSelf = self;
-	[WLDataManager messages:self.wrap success:^(id object, BOOL cached, BOOL stop) {
+	[WLDataManager messages:self.wrap success:^(id object, BOOL stop) {
 		weakSelf.shouldAppendMoreMessages = [object count] == WLAPIChatPageSize;
 		[weakSelf setMessages:object];
 		[weakSelf.refresher endRefreshing];
@@ -198,11 +196,15 @@
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
-    if ([candy belongsToWrap:self.wrap] && [candy isChatMessage]) {
-        [candy setUpdated:NO];
+    if ([candy isMessage]) {
+        candy.unread = @NO;
         [self insertMessage:candy];
         [self.collectionView reloadData];
     }
+}
+
+- (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
+    return self.wrap;
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver
@@ -230,13 +232,13 @@
 #pragma mark - WLComposeBarDelegate
 
 - (void)sendMessageWithText:(NSString*)text {
-	__weak typeof(self)weakSelf = self;
-	[[WLUploadingQueue instance] uploadMessage:text wrap:self.wrap success:^(id object) {
-		[weakSelf insertMessage:object];
+    __weak typeof(self)weakSelf = self;
+    [self.wrap uploadMessage:text success:^(WLCandy *candy) {
+        [weakSelf insertMessage:candy];
 		[weakSelf.collectionView reloadData];
 		[weakSelf.collectionView scrollToTopAnimated:YES];
-	} failure:^(NSError *error) {
-	}];
+    } failure:^(NSError *error) {
+    }];
 }
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
@@ -264,14 +266,14 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	WLWrapDate* date = [self.dates objectAtIndex:section];
+	WLDate* date = [self.dates objectAtIndex:section];
 	return [date.candies count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
+	WLDate* date = [self.dates objectAtIndex:indexPath.section];
 	WLCandy* message = [date.candies objectAtIndex:indexPath.row];
-	[message setUpdated:NO];
+    message.unread = @NO;
 	BOOL isMyComment = [message.contributor isCurrentUser];
 	NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
 	WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -287,14 +289,14 @@
 }
 
 - (CGFloat)heightOfMessageCell:(WLCandy *)comment {
-	CGFloat commentHeight  = ceilf([comment.chatMessage boundingRectWithSize:CGSizeMake(250, CGFLOAT_MAX)
+	CGFloat commentHeight  = ceilf([comment.message boundingRectWithSize:CGSizeMake(250, CGFLOAT_MAX)
 																	 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightFontOfSize:15]} context:nil].size.height);
 	commentHeight += WLMessageAuthorLabelHeight;
 	return MAX(WLMessageMinimumCellHeight, commentHeight);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
+	WLDate* date = [self.dates objectAtIndex:indexPath.section];
 	WLCandy* comment = [date.candies objectAtIndex:indexPath.row];
 	return CGSizeMake(collectionView.frame.size.width, [self heightOfMessageCell:comment]);
 }
@@ -314,7 +316,7 @@
 	if (indexPath.section != [self.dates count] - 1) {
 		return;
 	}
-	WLWrapDate* date = [self.dates objectAtIndex:indexPath.section];
+	WLDate* date = [self.dates objectAtIndex:indexPath.section];
 	if (indexPath.row == [date.candies count] - 1) {
 		[self appendMessages];
 	}

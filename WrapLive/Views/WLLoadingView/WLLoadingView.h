@@ -12,6 +12,8 @@
 
 @property (nonatomic) BOOL animating;
 
+@property (nonatomic) BOOL error;
+
 + (instancetype)instance;
 
 + (instancetype)splash;

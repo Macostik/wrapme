@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "WLBlocks.h"
 
+@class WLPicture;
+
 static NSInteger WLMinPhoneLenth = 6;
 
 @interface WLAddressBook : NSObject
@@ -26,14 +28,28 @@ static NSInteger WLMinPhoneLenth = 6;
 
 @interface WLContact : NSObject
 
-@property (strong, nonatomic) NSString* name;
+@property (strong, nonatomic) NSString *name;
 
-@property (strong, nonatomic) NSArray* users;
+@property (strong, nonatomic) NSArray *phones;
+
+@end
+
+@interface WLPhone : NSObject
+
+@property (strong, nonatomic) NSString *number;
+
+@property (strong, nonatomic) NSString *name;
+
+@property (strong, nonatomic) WLUser *user;
+
+@property (strong, nonatomic) WLPicture *picture;
+
+- (BOOL)isEqualToPhone:(WLPhone*)phone;
 
 @end
 
 @interface NSString (WLAddressBook)
 
-@property (nonatomic, strong) NSString* label;
+@property (nonatomic, strong) NSString *label;
 
 @end

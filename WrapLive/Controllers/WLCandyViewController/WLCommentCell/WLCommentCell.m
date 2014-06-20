@@ -7,8 +7,6 @@
 //
 
 #import "WLCommentCell.h"
-#import "WLComment.h"
-#import "WLUser.h"
 #import "WLImageFetcher.h"
 #import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
@@ -20,6 +18,7 @@
 #import "UIActionSheet+Blocks.h"
 #import "UIView+GestureRecognizing.h"
 #import "WLToast.h"
+#import "WLEntryManager.h"
 
 @interface WLCommentCell()
 
@@ -76,7 +75,7 @@
 - (void)remove {
 	__weak typeof(self)weakSelf = self;
 	weakSelf.userInteractionEnabled = NO;
-	[weakSelf.candy removeComment:weakSelf.item wrap:weakSelf.wrap success:^(id object) {
+	[weakSelf.item remove:^(id object) {
 		weakSelf.userInteractionEnabled = YES;
 	} failure:^(NSError *error) {
 		[error show];

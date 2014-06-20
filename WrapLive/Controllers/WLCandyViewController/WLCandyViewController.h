@@ -14,8 +14,5 @@
 @interface WLCandyViewController : WLSwipeViewController
 
 @property (strong, nonatomic) WLCandy *candy;
-@property (strong, nonatomic) WLWrap *wrap;
-
-- (void)setWrap:(WLWrap *)wrap candy:(WLCandy*)candy;
 
 @end

@@ -7,11 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-typedef id(^MapBlock)(id item);
-typedef BOOL(^SelectBlock)(id item);
-typedef void(^EnumBlock)(id item);
-typedef BOOL(^EqualityBlock)(id first, id second);
+#import "WLBlocks.h"
 
 @interface NSArray (Additions)
 

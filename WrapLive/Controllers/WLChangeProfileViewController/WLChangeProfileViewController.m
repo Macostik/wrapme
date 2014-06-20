@@ -11,7 +11,6 @@
 #import "WLNavigation.h"
 #import "UIImage+Resize.h"
 #import "UIView+Shorthand.h"
-#import "WLUser.h"
 #import "WLImageFetcher.h"
 #import "WLAPIManager.h"
 #import "WLKeyboardBroadcaster.h"
@@ -23,6 +22,7 @@
 #import "WLToast.h"
 #import "WLWelcomeViewController.h"
 #import "WLStillPictureViewController.h"
+#import "WLEntryManager.h"
 
 @interface WLChangeProfileViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
@@ -42,7 +42,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.user = [[WLUser currentUser] copy];
+    [[WLEntryManager manager] lock];
+	self.user = [WLUser currentUser];
 	self.nameTextField.text = self.user.name;
 	self.profileImageView.url = self.user.picture.large;
 	self.emailTextField.text = self.user.email;
@@ -50,6 +51,8 @@
 }
 
 - (IBAction)back:(UIButton *)sender {
+    [[WLEntryManager manager].context refreshObject:self.user mergeChanges:NO];
+    [[WLEntryManager manager] unlock];
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -65,7 +68,9 @@
 - (void)saveImage:(UIImage *)image {
 	__weak typeof(self)weakSelf = self;
 	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
-		weakSelf.user.picture.large = path;
+        WLPicture * picture = [WLPicture new];
+        picture.large = path;
+		weakSelf.user.picture = picture;
 		[weakSelf isProfileChanged];
 	}];
 }
@@ -73,23 +78,15 @@
 - (IBAction)goToMainScreen:(id)sender {
 	__weak typeof(self)weakSelf = self;
 	[self updateIfNeeded:^{
+        [[WLEntryManager manager] unlock];
 		[weakSelf.navigationController popViewControllerAnimated:YES];
 	}];
 }
 
 - (BOOL)isProfileChanged {
-	WLUser* user = self.user;
-	WLUser* currentUser = [WLUser currentUser];
-	BOOL nameChanged = ![user.name isEqualToString:currentUser.name];
-	BOOL avatarChanged = ![user.picture.large isEqualToString:currentUser.picture.large];
-	BOOL emailChanged = ![user.email isEqualToString:currentUser.email];
-	if (nameChanged || avatarChanged || emailChanged) {
-		[self willShowDoneButton:YES];
-		return YES;
-	} else {
-		[self willShowDoneButton:NO];
-		return NO;
-	}
+    BOOL changed = [[WLUser currentUser] hasChanges];
+    [self willShowDoneButton:changed];
+    return changed;
 }
 
 - (void)willShowDoneButton:(BOOL)showDone {
@@ -104,6 +101,7 @@
 
 - (void)updateIfNeeded:(void (^)(void))completion {
 	if ([self isProfileChanged]) {
+        
 		if ([self.user.email isValidEmail]) {
 			self.view.userInteractionEnabled = NO;
 			[self.spinner startAnimating];
@@ -158,9 +156,9 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-	if (textField == self.nameTextField) {
-		self.user.name = self.nameTextField.text;
-	} else {
+	if (textField == self.nameTextField && ![self.user.name isEqualToString:self.nameTextField.text]) {
+        self.user.name = self.nameTextField.text;
+	} else if (![self.user.email isEqualToString:self.emailTextField.text]) {
 		self.user.email = self.emailTextField.text;
 	}
 	[self isProfileChanged];

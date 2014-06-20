@@ -22,6 +22,4 @@
 
 @property (weak, nonatomic) IBOutlet id <WLCandyCellDelegate> delegate;
 
-@property (strong, nonatomic) WLWrap* wrap;
-
 @end

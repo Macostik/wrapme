@@ -7,7 +7,7 @@
 //
 
 #import "WLMessageGroupCell.h"
-#import "WLWrapDate.h"
+#import "WLDate.h"
 #import "NSDate+Formatting.h"
 
 @interface WLMessageGroupCell ()
@@ -18,9 +18,9 @@
 
 @implementation WLMessageGroupCell
 
-- (void)setDate:(WLWrapDate *)date {
+- (void)setDate:(WLDate *)date {
 	_date = date;
-	self.dateLabel.text = [date.updatedAt stringWithFormat:@"MMM d, yyyy"];
+	self.dateLabel.text = [date.date stringWithFormat:@"MMM d, yyyy"];
 }
 
 @end

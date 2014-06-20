@@ -1,0 +1,214 @@
+//
+//  WLWrap.m
+//  CoreData1
+//
+//  Created by Sergey Maximenko on 13.06.14.
+//  Copyright (c) 2014 Mobidev. All rights reserved.
+//
+
+#import "WLWrap+Extended.h"
+#import "WLWrapBroadcaster.h"
+#import "NSString+Additions.h"
+#import "NSOrderedSet+Additions.h"
+#import "WLEntryManager.h"
+#import "WLImageCache.h"
+#import "UIImage+Resize.h"
+
+@implementation WLWrap (Extended)
+
++ (NSNumber *)uploadingOrder {
+    return @1;
+}
+
++ (instancetype)wrap {
+    WLWrap* wrap = [self contribution];
+    [wrap.contributor addWrap:wrap];
+    [wrap save];
+    return wrap;
+}
+
++ (NSString *)API_identifier:(NSDictionary *)dictionary {
+	return [dictionary stringForKey:@"wrap_uid"];
+}
+
+- (void)awakeFromInsert {
+    self.unread = @YES;
+}
+
+- (void)remove {
+    [self.contributor removeWrap:self];
+    [self broadcastRemoving];
+    [super remove];
+}
+
+- (void)touch {
+    [super touch];
+    [[WLUser currentUser] sortWraps];
+}
+
+- (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
+    [super API_setup:dictionary relatedEntry:relatedEntry];
+    self.name = [dictionary stringForKey:@"name"];
+    NSOrderedSet* candies = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
+        for (NSDictionary* date in dictionary[@"dates"]) {
+            [set unionOrderedSet:[WLCandy API_entries:[date arrayForKey:@"candies"] relatedEntry:self]];
+        }
+    }];
+    [self addCandies:candies];
+    
+    NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSet];
+    for (NSDictionary* contributor in [dictionary arrayForKey:@"contributors"]) {
+        WLUser* user = [WLUser API_entry:contributor];
+        if (user) {
+            [contributors addObject:user];
+        }
+        if ([contributor boolForKey:@"is_creator"]) {
+            self.contributor = user;
+        }
+    }
+    self.contributors = [contributors copy];
+    
+	WLPicture* picture = [[WLPicture alloc] init];
+	picture.large = [dictionary stringForKey:@"large_cover_url"];
+	picture.medium = [dictionary stringForKey:@"medium_cover_url"];
+	picture.small = [dictionary stringForKey:@"small_cover_url"];
+	self.picture = picture;
+    return self;
+}
+
+- (void)addCandies:(NSOrderedSet *)candies {
+    __weak typeof(self)weakSelf = self;
+    self.candies = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
+        [set unionOrderedSet:weakSelf.candies];
+        [set unionOrderedSet:candies];
+        [set sortEntries];
+    }];
+}
+
+- (NSString *)contributorNames {
+    if (self.contributors.nonempty) {
+        NSMutableString* contributorNames = [NSMutableString string];
+        for (WLUser* contributor in self.contributors) {
+            if (contributorNames.nonempty) {
+                [contributorNames appendString:@", "];
+            }
+            [contributorNames appendString:contributor.name];
+        }
+        return [contributorNames copy];
+    }
+    return nil;
+}
+
+- (void)addCandy:(WLCandy *)candy {
+    candy.wrap = self;
+    __weak typeof(self)weakSelf = self;
+    self.candies = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
+        [set unionOrderedSet:weakSelf.candies];
+        [set addObject:candy];
+        [set sortEntries];
+    }];
+	[self save];
+	[self touch];
+	[self broadcastChange];
+	[candy broadcastCreation];
+}
+
+- (BOOL)containsCandy:(WLCandy *)candy {
+    return [candy belongsToWrap:self];
+}
+
+- (void)sortCandies {
+    self.candies = [self.candies sortedEntries];
+}
+
+- (void)removeCandy:(WLCandy *)candy {
+    self.candies = [self.candies orderedSetByRemovingObject:candy];
+	[self broadcastChange];
+	[candy broadcastRemoving];
+}
+
+- (NSOrderedSet *)candiesOfType:(NSInteger)type maximumCount:(NSUInteger)maximumCount {
+    return [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *candies) {
+        for (WLCandy* candy in self.candies) {
+            if (type == 0 || [candy isCandyOfType:type]) {
+                [candies addObject:candy];
+            }
+            if (maximumCount > 0 && [candies count] >= maximumCount) {
+                break;
+            }
+        }
+    }];
+}
+
+- (NSOrderedSet*)candies:(NSUInteger)maximumCount {
+	return [self candiesOfType:0 maximumCount:maximumCount];
+}
+
+- (NSOrderedSet*)images:(NSUInteger)maximumCount {
+	return [self candiesOfType:WLCandyTypeImage maximumCount:maximumCount];
+}
+
+- (NSOrderedSet*)messages:(NSUInteger)maximumCount {
+	return [self candiesOfType:WLCandyTypeMessage maximumCount:maximumCount];
+}
+
+- (NSOrderedSet*)images {
+	return [self images:0];
+}
+
+- (NSOrderedSet*)messages {
+	return [self messages:0];
+}
+
+- (NSOrderedSet*)recentCandies:(NSUInteger)maximumCount {
+    return [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *candies) {
+        __block BOOL hasMessage = NO;
+        for (WLCandy* candy in self.candies) {
+            if ([candies count] < maximumCount) {
+                if ([candy isMessage]) {
+                    if (!hasMessage) {
+                        hasMessage = YES;
+                        [candies addObject:candy];
+                    }
+                } else {
+                    [candies addObject:candy];
+                }
+            } else {
+                break;
+            }
+        }
+    }];
+}
+
+- (void)uploadMessage:(NSString *)message success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+    WLCandy* candy = [WLCandy candyWithType:WLCandyTypeMessage wrap:self];
+    candy.message = message;
+    [[WLUploading uploading:candy] upload:success failure:failure];
+    [candy save];
+}
+
+- (void)uploadImage:(UIImage *)image success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+	[[WLImageCache uploadingCache] setImage:image completion:^(NSString *path) {
+		WLPicture* picture = [[WLPicture alloc] init];
+		picture.large = path;
+		[[WLImageCache uploadingCache] setImage:[image thumbnailImage:320] completion:^(NSString *path) {
+			picture.medium = path;
+			[[WLImageCache uploadingCache] setImage:[image thumbnailImage:160] completion:^(NSString *path) {
+				picture.small = path;
+                WLCandy* candy = [WLCandy candyWithType:WLCandyTypeImage wrap:self];
+                candy.picture = picture;
+                [[WLUploading uploading:candy] upload:success failure:failure];
+                [candy save];
+			}];
+		}];
+	}];
+}
+
+- (BOOL)shouldStartUploadingAutomatically {
+    return YES;
+}
+
+@end
+
+
+

@@ -14,20 +14,6 @@
 @interface WLSession : NSObject
 
 /**
- *  Get current authenticated user.
- *
- *  @return WLUser object
- */
-+ (WLUser*)user;
-
-/**
- *  Set current authenticated user.
- *
- *  @param user WLUser object
- */
-+ (void)setUser:(WLUser*)user;
-
-/**
  *  Get current authorization.
  *
  *  @return WLAuthorization object

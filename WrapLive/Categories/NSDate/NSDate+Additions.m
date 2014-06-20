@@ -8,6 +8,8 @@
 
 #import "NSDate+Additions.h"
 #import "NSDate+Formatting.h"
+#import "WLSupportFunctions.h"
+#import <objc/runtime.h>
 
 static const NSTimeInterval WLTimeIntervalMinute = 60;
 static const NSTimeInterval WLTimeIntervalHour = 3600;
@@ -20,7 +22,7 @@ static NSString *WLTimeIntervalNameDay = @"day";
 static NSString *WLTimeIntervalNameWeek = @"week";
 static NSString *WLTimeIntervalNameMonth = @"month";
 static NSString *WLTimeIntervalNameYear = @"year";
-static NSString *WLTimeIntervalLessThanMinute = @"less than minute ago";
+static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
 
 @implementation NSDate (Additions)
 
@@ -63,7 +65,9 @@ static NSString *WLTimeIntervalLessThanMinute = @"less than minute ago";
 }
 
 - (BOOL)isSameDay:(NSDate *)date {
-	return [[self string] isEqualToString:[date string]];
+    NSDateComponents* c1 = [self dayComponents];
+    NSDateComponents* c2 = [date dayComponents];
+	return c1.year == c2.year && c1.month == c2.month && c1.day == c2.day;
 }
 
 - (BOOL)isToday {

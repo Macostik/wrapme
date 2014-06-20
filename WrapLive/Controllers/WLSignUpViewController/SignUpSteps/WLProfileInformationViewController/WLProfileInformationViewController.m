@@ -10,7 +10,6 @@
 #import "WLHomeViewController.h"
 #import "WLCameraViewController.h"
 #import "WLAPIManager.h"
-#import "WLUser.h"
 #import "WLNavigation.h"
 #import "UIView+Shorthand.h"
 #import "WLImageCache.h"
@@ -21,6 +20,7 @@
 #import "WLKeyboardBroadcaster.h"
 #import "NSString+Additions.h"
 #import "WLStillPictureViewController.h"
+#import "WLEntryManager.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
@@ -43,7 +43,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-	self.user = [[WLUser currentUser] copy];
+	self.user = [WLUser currentUser];
 	self.hasAvatar = self.user.name.nonempty;
 	[self verifyContinueButton];
 	self.nameTextField.layer.borderWidth = 0.5;
@@ -70,11 +70,7 @@
 }
 
 - (void)updateIfNeeded:(void (^)(void))completion {
-	WLUser* user = self.user;
-	WLUser* currentUser = [WLUser currentUser];
-	BOOL nameChanged = ![user.name isEqualToString:currentUser.name];
-	BOOL avatarChanged = ![user.picture.large isEqualToString:currentUser.picture.large];
-	if (nameChanged || avatarChanged) {
+    if ([[WLEntryManager manager].context hasChanges]) {
 		self.view.userInteractionEnabled = NO;
 		[self.spinner startAnimating];
 		__weak typeof(self)weakSelf = self;

@@ -26,29 +26,6 @@ static NSString* WLSessionDeviceTokenKey = @"WrapLiveDeviceToken";
 
 @implementation WLSession
 
-static WLUser* _user = nil;
-
-+ (WLUser *)user {
-	if (!_user) {
-		_user = [WLUser unarchive:[[NSUserDefaults standardUserDefaults] objectForKey:WLSessionUserKey]];
-	}
-	return _user;
-}
-
-+ (void)setUser:(WLUser *)user {
-	_user = user;
-	if (user) {
-		[[WLNotificationBroadcaster broadcaster] configure];
-		[user archive:^(NSData *data) {
-			[[NSUserDefaults standardUserDefaults] setObject:data forKey:WLSessionUserKey];
-			[[NSUserDefaults standardUserDefaults] synchronize];
-		}];
-	} else {
-		[[NSUserDefaults standardUserDefaults] setObject:nil forKey:WLSessionUserKey];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-	}
-}
-
 static WLAuthorization* _authorization = nil;
 
 + (WLAuthorization *)authorization {
@@ -76,7 +53,6 @@ static WLAuthorization* _authorization = nil;
 }
 
 + (void)clear {
-	[self setUser:nil];
 	[self setAuthorization:nil];
 }
 

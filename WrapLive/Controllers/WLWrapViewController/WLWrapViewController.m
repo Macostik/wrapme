@@ -12,7 +12,7 @@
 #import "WLImageFetcher.h"
 #import "WLCandy.h"
 #import "NSDate+Formatting.h"
-#import "WLWrapDate.h"
+#import "WLDate.h"
 #import "UIView+Shorthand.h"
 #import "WLNavigation.h"
 #import "WLCameraViewController.h"
@@ -26,24 +26,25 @@
 #import "WLChatViewController.h"
 #import "WLLoadingView.h"
 #import "WLWrapBroadcaster.h"
-#import "WLUploadingQueue.h"
 #import "UILabel+Additions.h"
 #import "WLDataManager.h"
-#import "WLDataCache.h"
 #import "WLToast.h"
-#import "WLEntryState.h"
 #import "WLStillPictureViewController.h"
 #import "WLQuickChatView.h"
 #import "WLWrapCell.h"
+#import "UIView+AnimationHelper.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate, WLQuickChatViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
 @property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
-@property (nonatomic) BOOL shouldLoadMoreDates;
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
+
+@property (strong, nonatomic) NSMutableOrderedSet* dates;
+
+@property (strong, nonatomic) WLLoadingView* loadingView;
 
 @end
 
@@ -55,66 +56,72 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	[[WLUploadingQueue instance] updateWrap:self.wrap];
 	self.quickChatView.wrap = self.wrap;
 	[self refreshWrap];
-	__weak typeof(self)weakSelf = self;
-	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
-		[weakSelf refreshWrap];
-	}];
-	self.refresher.colorScheme = WLRefresherColorSchemeOrange;
-	
-	self.tableView.tableFooterView = [WLLoadingView instance];
+	self.refresher = [WLRefresher refresherWithScrollView:self.tableView target:self action:@selector(refreshWrap) colorScheme:WLRefresherColorSchemeOrange];
 	
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
+    
+    self.dates = [WLDate dates:self.wrap.candies];
+    
+    self.loadingView = [WLLoadingView instance];
+}
+
+- (void)setLoadingView:(WLLoadingView *)loadingView {
+    self.tableView.tableFooterView = loadingView;
+}
+
+- (WLLoadingView *)loadingView {
+    return (WLLoadingView*)self.tableView.tableFooterView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self.wrap setRead:YES updated:NO];
+    self.wrap.unread = @NO;
     [self.tableView reloadData];
 }
 
-- (void)setShouldLoadMoreDates:(BOOL)shouldLoadMoreDates {
-	_shouldLoadMoreDates = shouldLoadMoreDates;
-	self.tableView.tableFooterView = shouldLoadMoreDates ? [WLLoadingView instance] : nil;
-}
-
 - (void)refreshWrap {
+    self.loadingView.error = NO;
 	__weak typeof(self)weakSelf = self;
-	[[WLUploadingQueue instance] checkStatus];
-	[WLDataManager wrap:self.wrap success:^(WLWrap* wrap, BOOL cached, BOOL stop) {
-		[[WLUploadingQueue instance] updateWrap:weakSelf.wrap];
-		if (!cached) {
-			weakSelf.firstContributorView.alpha = wrap.dates.nonempty ? 0.0f : 1.0f;
-			if (weakSelf.firstContributorView.alpha == 1.0f) {
-				weakSelf.firstContributorWrapNameLabel.text = wrap.name;
-			}
-		}
-		weakSelf.shouldLoadMoreDates = !stop;
-		[weakSelf.tableView reloadData];
+	[WLDataManager wrap:self.wrap success:^(WLWrap* wrap, BOOL stop) {
+		[weakSelf reloadData];
+        [weakSelf setFirstContributorViewHidden:wrap.candies.nonempty animated:YES];
 		[weakSelf.refresher endRefreshing];
+        if (stop) {
+            weakSelf.loadingView = nil;
+        }
 	} failure:^(NSError *error) {
-		weakSelf.shouldLoadMoreDates = NO;
+        weakSelf.loadingView.error = YES;
 		[error showIgnoringNetworkError];
 		[weakSelf.refresher endRefreshing];
 	}];
 }
 
+- (void)reloadData {
+    self.dates = [WLDate dates:self.wrap.candies];
+    [self.tableView reloadData];
+}
+
 - (void)appendDates {
-	if (loading || !self.wrap.dates.nonempty || [self.wrap.dates count] % WLAPIGeneralPageSize > 0) {
+	if (loading || !self.wrap.candies.nonempty) {
 		return;
 	}
 	loading = YES;
+    self.loadingView.error = NO;
 	__weak typeof(self)weakSelf = self;
-    [[WLAPIManager instance] dates:self.wrap refresh:NO success:^(WLWrap *wrap) {
-		[weakSelf.tableView reloadData];
-		weakSelf.shouldLoadMoreDates = ([wrap.dates count] == WLAPIGeneralPageSize);
+    NSUInteger page = ((self.dates.count + 1)/WLAPIGeneralPageSize + 1);
+    NSUInteger count = self.wrap.candies.count;
+    [[WLAPIManager instance] dates:self.wrap page:page success:^(WLWrap *wrap) {
+		[weakSelf reloadData];
 		loading = NO;
+        if (count == weakSelf.wrap.candies.count) {
+            weakSelf.loadingView = nil;
+        }
     } failure:^(NSError *error) {
-        weakSelf.shouldLoadMoreDates = NO;
 		[error showIgnoringNetworkError];
 		loading = NO;
+        weakSelf.loadingView.error = YES;
     }];
 }
 
@@ -138,28 +145,32 @@
 	[self.navigationController pushViewController:chatController animated:YES];
 }
 
-- (void)sendMessageWithText:(NSString*)text {
-	[[WLUploadingQueue instance] uploadMessage:text wrap:self.wrap success:^(id object) {
-	} failure:^(NSError *error) {
-	}];
+- (NSMutableOrderedSet *)dates {
+    if (!_dates) {
+        _dates = [NSMutableOrderedSet orderedSet];
+    }
+    return _dates;
+}
+
+- (void)setFirstContributorViewHidden:(BOOL)hidden animated:(BOOL)animated {
+    __weak typeof(self)weakSelf = self;
+    [UIView performAnimated:animated animation:^{
+        weakSelf.firstContributorView.alpha = hidden ? 0.0f : 1.0f;
+    }];
+    if (!hidden) {
+        self.firstContributorWrapNameLabel.text = self.wrap.name;
+    }
 }
 
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
 	self.quickChatView.wrap = self.wrap;
-    [self.tableView reloadData];
+    [self reloadData];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
     [WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.", wrap.name]];
-}
-
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
-	if (![candy belongsToWrap:self.wrap]) {
-        [self.tableView reloadData];
-        [[WLDataCache cache] setWrap:self.wrap];
-    }
 }
 
 - (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
@@ -178,16 +189,12 @@
 		controller.wrap = self.wrap;
 		controller.mode = WLCameraModeCandy;
 		controller.delegate = self;
-		[UIView beginAnimations:nil context:nil];
-		self.firstContributorView.alpha = 0.0f;
-		[UIView commitAnimations];
+        [self setFirstContributorViewHidden:YES animated:YES];
 	}
 }
 
 - (IBAction)notNow:(UIButton *)sender {
-	[UIView beginAnimations:nil context:nil];
-	self.firstContributorView.alpha = 0.0f;
-	[UIView commitAnimations];
+	[self setFirstContributorViewHidden:YES animated:YES];
 }
 
 - (IBAction)editWrap:(id)sender { 
@@ -199,11 +206,11 @@
 #pragma mark - WLCandiesCellDelegate
 
 - (void)candiesCell:(WLCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
-	if (candy.type == WLCandyTypeImage) {
+	if ([candy isImage]) {
 		WLCandyViewController *controller = [WLCandyViewController instantiate];
-		[controller setWrap:self.wrap candy:candy];
+        controller.candy = candy;
 		[self.navigationController pushViewController:controller animated:YES];
-	} else if (candy.type == WLCandyTypeChatMessage) {
+	} else if ([candy isMessage]) {
 		[self openChat];
 	}
 }
@@ -215,7 +222,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 1 : [self.wrap.dates count];
+    return section == 0 ? 1 : [self.dates count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -227,17 +234,12 @@
         return cell;
     } else {
         WLCandiesCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLCandiesCell reuseIdentifier]];
-        
-        WLWrapDate* date = [self.wrap.dates objectAtIndex:indexPath.row];
-        
+        WLDate* date = [self.dates objectAtIndex:indexPath.row];
         cell.item = date;
-        cell.wrap = self.wrap;
         cell.delegate = self;
-        
-        if (date == [self.wrap.dates lastObject] && self.shouldLoadMoreDates) {
+        if (date == [self.dates lastObject] && self.tableView.tableFooterView != nil) {
             [self appendDates];
         }
-        
         return cell;
     }
 }
@@ -264,21 +266,15 @@
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
 	WLWrap* wrap = controller.wrap ? : self.wrap;
-	if (wrap) {
-		__weak typeof(self)weakSelf = self;
-		[[WLUploadingQueue instance] uploadImage:image wrap:wrap success:^(id object) {
-			[[WLDataCache cache] setCandy:object];
-			[[WLDataCache cache] setWrap:weakSelf.wrap];
-		} failure:^(NSError *error) {
-		}];
-	}
-	self.firstContributorView.alpha = 0.0f;
-	
+	[wrap uploadImage:image success:^(WLCandy *candy) {
+    } failure:^(NSError *error) {
+    }];
+	[self setFirstContributorViewHidden:YES animated:NO];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-	self.firstContributorView.alpha = 0.0f;
+	[self setFirstContributorViewHidden:YES animated:NO];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

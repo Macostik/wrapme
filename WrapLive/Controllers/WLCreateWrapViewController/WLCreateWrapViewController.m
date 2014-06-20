@@ -27,8 +27,10 @@
 #import "WLBorderView.h"
 #import "UIColor+CustomColors.h"
 #import "WLStillPictureViewController.h"
+#import "WLAddressBook.h"
+#import "WLInviteeCell.h"
 
-@interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLStillPictureViewControllerDelegate>
+@interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLInviteeCellDelegate, WLStillPictureViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet WLBorderView *nameBorderView;
@@ -38,13 +40,15 @@
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UITableView *contributorsTableView;
 @property (strong, nonatomic) IBOutlet UIView *noContributorsView;
-@property (nonatomic, readonly) BOOL isNewWrap;
+@property (nonatomic) BOOL editing;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
-@property (strong, nonatomic) WLWrap* editingWrap;
+//@property (strong, nonatomic) WLWrap* editingWrap;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+
+@property (strong, nonatomic) NSOrderedSet *existingContributors;
 
 @end
 
@@ -55,35 +59,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[WLEntryManager manager] lock];
 	[self verifyStartAndDoneButton];
-	self.coverView.image = self.isNewWrap ? self.coverView.image : nil;
-	if (!self.isNewWrap) {
+	if (self.editing) {
+        self.coverView.image = nil;
 		[self configureWrapEditing];
 	}
-	
 	[self setTranslucent];
 }
 
-- (BOOL)isNewWrap {
-	return self.wrap == nil;
-}
-
-- (WLWrap *)editingWrap {
-	if (!_editingWrap) {
-		_editingWrap = [WLWrap entry];
+- (WLWrap *)wrap {
+	if (!_wrap) {
+		_wrap = [WLWrap wrap];
 	}
-	return _editingWrap;
+	return _wrap;
 }
 
 - (void)setWrap:(WLWrap *)wrap {
-	_wrap = wrap;
-	self.editingWrap = [wrap copy];
+    _wrap = wrap;
+    self.editing = YES;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isContributorsSegue]) {
 		WLContributorsViewController* controller = segue.destinationViewController;
-		controller.wrap = self.editingWrap;
+		controller.wrap = self.wrap;
 	} else if ([segue isCameraSegue]) {
 		WLStillPictureViewController* controller = segue.destinationViewController;
 		controller.delegate = self;
@@ -102,16 +102,21 @@
 }
 
 - (void)refreshFooterView {
-	self.contributorsTableView.tableFooterView = self.editingWrap.contributors.nonempty ? nil : self.noContributorsView;
+	self.contributorsTableView.tableFooterView = self.wrap.contributors.nonempty ? nil : self.noContributorsView;
 }
 
 - (void)configureWrapEditing {
-	self.nameField.text = self.editingWrap.name;
-	self.coverView.url = self.editingWrap.picture.medium;
+	self.nameField.text = self.wrap.name;
+    NSString* url = [self.wrap.picture anyUrl];
+    self.coverView.url = url;
+    if (!url) {
+        self.coverView.image = [UIImage imageNamed:@"default-medium-cover"];
+    }
 	self.startButton.hidden = YES;
 	self.doneButton.hidden = NO;
 	self.titleLabel.text = @"Edit wrap";
-	if (![self.editingWrap.contributor isCurrentUser]) {
+    self.existingContributors = self.wrap.contributors;
+	if (![self.wrap.contributor isCurrentUser]) {
 		self.coverButtonView.hidden = YES;
 		self.coverView.height = self.coverView.width;
 		self.nameField.userInteractionEnabled = NO;
@@ -120,7 +125,7 @@
 }
 
 - (void)verifyStartAndDoneButton {
-	BOOL enabled = self.editingWrap.name.nonempty;
+	BOOL enabled = self.wrap.name.nonempty;
 	self.startButton.active = enabled;
 	self.doneButton.active = enabled;
 }
@@ -128,40 +133,39 @@
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
+    if (self.editing) {
+        [[WLEntryManager manager].context refreshObject:self.wrap mergeChanges:NO];
+    } else {
+        [self.wrap remove];
+    }
+    [[WLEntryManager manager] unlock];
 	[self dismiss];
 }
 
 - (IBAction)done:(UIButton *)sender {
-	BOOL nameChanged = ![self.wrap.name isEqualToString:self.editingWrap.name];
-	BOOL coverChanged = ![self.wrap.picture.large isEqualToString:self.editingWrap.picture.large];
-	BOOL contributorsChanged = NO;
-	
-	if ([self.wrap.contributors count] != [self.editingWrap.contributors count]) {
-		contributorsChanged = YES;
-	} else {
-		for (WLUser* contributor in self.editingWrap.contributors) {
-			if (![self.wrap.contributors containsEntry:contributor]) {
-				contributorsChanged = YES;
-				break;
-			}
-		}
-	}
-	
-	if (nameChanged || coverChanged || contributorsChanged) {
+	if ([self.wrap hasChanges]) {
 		[self lock];
 		[self.spinner startAnimating];
 		__weak typeof(self)weakSelf = self;
-		[self.editingWrap update:^(WLWrap *wrap) {
-			[weakSelf.wrap updateWithObject:wrap];
+		[self.wrap update:^(WLWrap *wrap) {
+            [[WLEntryManager manager] unlock];
 			[weakSelf.spinner stopAnimating];
 			[weakSelf dismiss];
+            weakSelf.wrap.invitees = nil;
 			[weakSelf unlock];
 		} failure:^(NSError *error) {
-			[error show];
+            if ([error isNetworkError] && weakSelf.wrap.uploading) {
+                [[WLEntryManager manager] unlock];
+                [weakSelf.wrap broadcastChange];
+                [weakSelf dismiss];
+            } else {
+                [error show];
+            }
 			[weakSelf.spinner stopAnimating];
 			[weakSelf unlock];
 		}];
 	} else {
+        [[WLEntryManager manager] unlock];
 		[self dismiss];
 	}
 }
@@ -182,40 +186,59 @@
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
 	[self lock];
-	[self.editingWrap create:^(WLWrap *wrap) {
-		[weakSelf.spinner stopAnimating];
-		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
+	[self.wrap save];
+    [self.wrap broadcastCreation];
+    void (^completion) (WLWrap*) = ^ (WLWrap* wrap) {
+        [[WLEntryManager manager] unlock];
+        WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 		wrapController.wrap = wrap;
-		[weakSelf unlock];
 		[UINavigationController pushViewController:wrapController animated:YES];
 		[weakSelf dismiss:WLWrapTransitionFromLeft];
-	} failure:^(NSError *error) {
-		[error show];
-		[weakSelf.spinner stopAnimating];
+    };
+    
+    [[WLUploading uploading:self.wrap] upload:^(id object) {
+        [weakSelf.spinner stopAnimating];
+        [weakSelf unlock];
+        weakSelf.wrap.invitees = nil;
+		completion(object);
+    } failure:^(NSError *error) {
+        [weakSelf.spinner stopAnimating];
 		[weakSelf unlock];
-	}];
+        if ([error isNetworkError]) {
+            completion(weakSelf.wrap);
+        } else {
+            [error show];
+        }
+    }];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return [self.editingWrap.contributors count];
+	return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 1;
+	return section == 0 ? [self.wrap.contributors count] : [self.wrap.invitees count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
-	WLUser* contributor = self.editingWrap.contributors[indexPath.section];
-    cell.item = contributor;
-	if ([self.editingWrap.contributor isCurrentUser]) {
-		cell.deletable = ![contributor isCurrentUser];
-	} else {
-		cell.deletable = ![self.wrap.contributors containsEntry:contributor];
-	}
-    return cell;
+    if (indexPath.section == 0) {
+        WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
+        WLUser* contributor = self.wrap.contributors[indexPath.row];
+        cell.item = contributor;
+        if ([self.wrap.contributor isCurrentUser]) {
+            cell.deletable = ![contributor isCurrentUser];
+        } else {
+            cell.deletable = ![self.existingContributors containsObject:contributor];
+        }
+        return cell;
+    } else {
+        WLInviteeCell *cell = [tableView dequeueReusableCellWithIdentifier:[WLInviteeCell reuseIdentifier]];
+        WLPhone *phone = self.wrap.invitees[indexPath.row];
+        cell.item = phone;
+        return cell;
+    }
 }
 
 #pragma mark - UITextFieldDelegate
@@ -224,7 +247,7 @@
 	if (sender.text.length > WLWrapNameLimit) {
 		sender.text = [sender.text substringToIndex:WLWrapNameLimit];
 	}
-	self.editingWrap.name = sender.text;
+	self.wrap.name = sender.text;
 	[self verifyStartAndDoneButton];
 }
 
@@ -236,8 +259,19 @@
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
-	self.editingWrap.contributors = (id)[self.editingWrap.contributors usersByRemovingUser:contributor];
+	self.wrap.contributors = (id)[self.wrap.contributors orderedSetByRemovingObject:contributor];
 	[self refreshContributorsTableView];
+}
+
+- (BOOL)contributorCell:(WLContributorCell *)cell isCreator:(WLUser *)contributor {
+    return [self.wrap.contributor isEqualToEntry:contributor];
+}
+
+#pragma mark - WLInviteeCellDelegate
+
+- (void)inviteeCell:(WLInviteeCell *)cell didRemovePhone:(WLPhone *)phone {
+    self.wrap.invitees = (id)[self.wrap.invitees arrayByRemovingObject:phone];
+    [self refreshContributorsTableView];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate
@@ -248,7 +282,10 @@
 										 interpolationQuality:kCGInterpolationDefault];
 	__weak typeof(self)weakSelf = self;
 	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
-		weakSelf.editingWrap.picture.large = path;
+        if (weakSelf.wrap.picture == nil) {
+            weakSelf.wrap.picture = [[WLPicture alloc] init];
+        }
+		weakSelf.wrap.picture.large = path;
 	}];
 	
 	[self dismissViewControllerAnimated:YES completion:nil];

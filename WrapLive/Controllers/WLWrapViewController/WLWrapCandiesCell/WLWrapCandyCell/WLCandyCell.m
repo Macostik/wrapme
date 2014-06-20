@@ -7,24 +7,22 @@
 //
 
 #import "WLCandyCell.h"
-#import "WLCandy.h"
 #import "WLImageFetcher.h"
-#import "WLComment.h"
-#import "WLUser.h"
 #import "WLProgressBar.h"
 #import "WLBorderView.h"
 #import "WLWrapBroadcaster.h"
-#import "WLUploadingQueue.h"
-#import "WLWrap.h"
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
 #import "NSString+Additions.h"
 #import "UIView+GestureRecognizing.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLToast.h"
-#import "WLEntryState.h"
 #import "WLImageFetcher.h"
 #import "MFMailComposeViewController+Additions.h"
+#import "WLUploading.h"
+#import "WLUser.h"
+#import "WLAPIManager.h"
+#import "WLEntryManager.h"
 
 @interface WLCandyCell () <WLWrapBroadcastReceiver>
 
@@ -51,10 +49,6 @@
 	}];
 }
 
-- (void)setWrap:(WLWrap *)wrap {
-	_wrap = wrap;
-}
-
 - (void)setupItemData:(WLCandy*)entry {
 	[self setupItemData:entry animated:NO];
 }
@@ -67,7 +61,7 @@
 		self.commentLabel.text = comment.text;
 		self.coverView.url = candy.picture.medium;
 	} else {
-		self.commentLabel.text = candy.chatMessage;
+		self.commentLabel.text = candy.message;
 		self.coverView.url = candy.contributor.picture.medium;
 	}
 	self.commentLabel.hidden = !self.commentLabel.text.nonempty;
@@ -80,9 +74,9 @@
 - (void)refreshNotifyBulb:(WLCandy*)candy {
 	self.chatLabelView.hidden = [candy isImage];
 	self.chatLabelView.alpha = 1.0f;
-	if ([candy updated]) {
-		self.notifyBulb.hidden = [candy isChatMessage];
-		if ([candy isChatMessage]) {
+	if ([[candy unread] boolValue]) {
+		self.notifyBulb.hidden = [candy isMessage];
+		if ([candy isMessage]) {
 			__weak typeof(self)weakSelf = self;
 			[self.chatLabelView.layer removeAllAnimations];
 			[UIView animateWithDuration:1.5f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState animations:^{
@@ -137,7 +131,7 @@
 	WLCandy* candy = self.item;
 	__weak typeof(self)weakSelf = self;
 	weakSelf.userInteractionEnabled = NO;
-	[candy remove:self.wrap success:^(id object) {
+	[candy remove:^(id object) {
 		weakSelf.userInteractionEnabled = YES;
 	} failure:^(NSError *error) {
 		[error show];
@@ -146,7 +140,7 @@
 }
 
 - (void)report {
-	[MFMailComposeViewController messageWithCandy:self.item andWrap:self.wrap];
+	[MFMailComposeViewController messageWithCandy:self.item];
 }
 
 - (BOOL)canPerformAction:(SEL)selector withSender:(id) sender {
@@ -161,7 +155,7 @@
 	WLCandy* candy = self.item;
 	if (candy.uploading == nil) {
 		self.notifyBulb.hidden = YES;
-		[candy setUpdated:NO];
+        candy.unread = @NO;
 		[self.delegate candyCell:self didSelectCandy:candy];
 	}
 }
@@ -180,9 +174,7 @@
 
 - (IBAction)cancelUploading:(id)sender {
 	WLCandy* candy = self.item;
-	[self.wrap removeCandy:candy];
-	[[WLUploadingQueue instance] removeUploading:candy.uploading];
-	[self refreshUploadingButtons:self.item animated:YES];
+	[candy remove];
 }
 
 - (IBAction)retryUploading:(id)sender {

@@ -8,6 +8,7 @@
 
 #import "WLSwipeViewController.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "NSOrderedSet+Additions.h"
 
 @interface WLSwipeViewController ()
 
@@ -17,7 +18,7 @@
 
 @implementation WLSwipeViewController
 
-- (id)initWithItems:(NSArray *)items currentItem:(id)item {
+- (id)initWithItems:(NSOrderedSet *)items currentItem:(id)item {
     self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil];
     if (self) {
         [self setItems:items currentItem:item];
@@ -25,7 +26,7 @@
     return self;
 }
 
-- (void)setItems:(NSArray *)items currentItem:(id)item {
+- (void)setItems:(NSOrderedSet *)items currentItem:(id)item {
 	self.items = items;
 	_item = item;
 }
@@ -68,20 +69,34 @@
     }
 }
 
-- (void)didSwipeLeft {
-	NSInteger index = [self currentIndex];
-    if (index != NSNotFound && index < ([self.items count] - 1)) {
-        [[self swipeView] leftPush];
-        self.item = [self.items objectAtIndex:index + 1];
+- (void)didSwipeLeft:(NSUInteger)currentIndex {
+	NSUInteger index = currentIndex + 1;
+    if ([self.items containsIndex:index]) {
+        id item = [self.items objectAtIndex:index];
+        if ([self shouldSwipeToItem:item]) {
+            [[self swipeView] leftPush];
+            self.item = item;
+        } else {
+            [self didSwipeLeft:index];
+        }
     }
 }
 
-- (void)didSwipeRight {
-	NSInteger index = [self currentIndex];
-    if (index != NSNotFound && index > 0) {
-        [[self swipeView] rightPush];
-        self.item = [self.items objectAtIndex:index - 1];
+- (void)didSwipeRight:(NSUInteger)currentIndex {
+    NSUInteger index = currentIndex - 1;
+    if ([self.items containsIndex:index]) {
+        id item = [self.items objectAtIndex:index];
+        if ([self shouldSwipeToItem:item]) {
+            [[self swipeView] rightPush];
+            self.item = item;
+        } else {
+            [self didSwipeRight:index];
+        }
     }
+}
+
+- (BOOL)shouldSwipeToItem:(id)item {
+    return YES;
 }
 
 - (NSUInteger)currentIndex {
@@ -99,11 +114,11 @@
 #pragma mark - User Actions
 
 - (void)leftSwipe:(UISwipeGestureRecognizer*)recognizer {
-    [self didSwipeLeft];
+    [self didSwipeLeft:[self currentIndex]];
 }
 
 - (void)rightSwipe:(UISwipeGestureRecognizer*)recognizer {
-    [self didSwipeRight];
+    [self didSwipeRight:[self currentIndex]];
 }
 
 - (IBAction)done:(UIButton *)sender {

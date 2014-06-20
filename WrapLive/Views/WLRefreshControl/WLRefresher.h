@@ -25,8 +25,11 @@ typedef NS_ENUM(NSUInteger, WLRefresherColorScheme) {
 @property (nonatomic) BOOL refreshing;
 
 + (WLRefresher*)refresherWithScrollView:(UIScrollView*)scrollView refreshBlock:(void (^)(WLRefresher* refresher))refreshBlock;
++ (WLRefresher*)refresherWithScrollView:(UIScrollView*)scrollView target:(id)target action:(SEL)action colorScheme:(WLRefresherColorScheme)colorScheme;
++ (WLRefresher*)refresherWithScrollView:(UIScrollView*)scrollView target:(id)target action:(SEL)action;
 + (WLRefresher*)refresherWithScrollView:(UIScrollView*)scrollView;
 + (WLRefresher*)refresherWithScrollView:(UIScrollView*)scrollView direction:(WLRefresherScrollDirection)direction;
+
 
 - (void)endRefreshing;
 

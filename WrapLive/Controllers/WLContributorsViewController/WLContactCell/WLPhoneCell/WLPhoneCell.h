@@ -9,11 +9,11 @@
 #import "WLItemCell.h"
 
 @class WLPhoneCell;
-@class WLUser;
+@class WLPhone;
 
 @protocol WLPhoneCellDelegate <NSObject>
 
-- (void)phoneCell:(WLPhoneCell*)cell didSelectContributor:(WLUser*)contributor;
+- (void)phoneCell:(WLPhoneCell*)cell didSelectPhone:(WLPhone *)phone;
 
 @end
 

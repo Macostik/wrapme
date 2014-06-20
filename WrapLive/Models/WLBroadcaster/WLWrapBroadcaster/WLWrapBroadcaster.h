@@ -72,7 +72,11 @@
 
 @end
 
-@interface WLEntry (WLWrapBroadcaster) <WLWrapBroadcastObject> @end
+@interface WLEntry (WLWrapBroadcaster) <WLWrapBroadcastObject>
+
+- (instancetype)update:(NSDictionary*)dictionary;
+
+@end
 
 @interface WLWrap (WLWrapBroadcaster) @end
 

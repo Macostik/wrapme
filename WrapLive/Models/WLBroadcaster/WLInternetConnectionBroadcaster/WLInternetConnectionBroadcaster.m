@@ -10,6 +10,7 @@
 #import <Reachability/Reachability.h>
 #import "WLBlocks.h"
 #import "WLToast.h"
+#import "WLUploading+Extended.h"
 
 @implementation WLInternetConnectionBroadcaster
 
@@ -45,8 +46,14 @@
 	[reachability startNotifier];
 	NetworkReachable reachabilityChangedBlock = ^(Reachability* reachability) {
 		run_in_main_queue(^{
-			[weakSelf broadcast:@selector(broadcaster:internetConnectionReachable:) object:@(weakSelf.reachable)];
+            BOOL reachable = weakSelf.reachable;
+			[weakSelf broadcast:@selector(broadcaster:internetConnectionReachable:) object:@(reachable)];
 			[weakSelf showLostConnectionBannerIfNeeded];
+            if (reachable) {
+                [WLUploading enqueueAutomaticUploading:^{
+                    NSLog(@"enqueueAutomaticUploading completed");
+                }];
+            }
 		});
 	};
 	[reachability setReachableBlock:reachabilityChangedBlock];

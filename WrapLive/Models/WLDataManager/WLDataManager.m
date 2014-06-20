@@ -7,66 +7,52 @@
 //
 
 #import "WLDataManager.h"
-#import "WLDataCache.h"
 
 @implementation WLDataManager
 
-static NSArray* _wraps = nil;
-
 + (void)wraps:(BOOL)refresh success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure {
 	NSInteger page = 1;
-	if (refresh && [[WLDataCache cache] containsWraps] && success) {
-		[[WLDataCache cache] wraps:^(NSArray* wraps) {
-			_wraps = wraps;
-			success(_wraps, YES, [wraps count] % WLAPIGeneralPageSize != 0);
-		}];
-	} else {
-		page = ((_wraps.count + 1)/WLAPIGeneralPageSize + 1);
+    WLUser* user = [WLUser currentUser];
+	if (!refresh) {
+        page = ((user.wraps.count + 1)/WLAPIGeneralPageSize + 1);
 	}
-	[[WLAPIManager instance] wraps:page success:^(NSArray *object) {
-		_wraps = refresh ? object : [(_wraps ? : @[]) entriesByAddingEntries:object];
-		[[WLDataCache cache] setWraps:_wraps completion:^(NSString *path) {
-			if (success) {
-				success(_wraps, NO, (object.count != WLAPIGeneralPageSize));
-			}
-		}];
+	[[WLAPIManager instance] wraps:page success:^(NSOrderedSet *object) {
+        user.wraps = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
+            [set unionOrderedSet:user.wraps];
+            [set unionOrderedSet:object];
+            [set sortEntries];
+        }];
+		[[WLEntryManager manager] save];
+        if (success) {
+            success(user.wraps, (object.count != WLAPIGeneralPageSize));
+        }
 	} failure:failure];
 }
 
 + (void)wrap:(WLWrap *)wrap success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure {
-	if ([[WLDataCache cache] containsWrap:wrap] && success) {
-		success([wrap updateWithObject:[[WLDataCache cache] wrap:wrap]], YES, YES);
-	}
+//    NSUInteger count = [wrap.candies count];
 	[wrap fetch:^(WLWrap *wrap) {
-		[wrap cache];
+        [[WLEntryManager manager] save];
 		if (success) {
-			success(wrap, NO, ([wrap.dates count] != WLAPIGeneralPageSize));
+			success(wrap, !wrap.candies.nonempty);
 		}
 	} failure:failure];
 }
 
-+ (void)candy:(WLCandy*)candy wrap:(WLWrap*)wrap success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure {
-	
-	if ([[WLDataCache cache] containsCandy:candy] && success) {
-		success([candy updateWithObject:[[WLDataCache cache] candy:candy]], YES, YES);
-	}
-	
-	[candy fetch:wrap success:^(WLCandy *candy) {
-		[candy cache];
++ (void)candy:(WLCandy*)candy success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure {
+	[candy fetch:^(WLCandy *candy) {
+        [[WLEntryManager manager] save];
 		if (success) {
-			success(candy, NO, YES);
+			success(candy, YES);
 		}
 	} failure:failure];
 }
 
 + (void)messages:(WLWrap *)wrap success:(WLDataManagerBlock)success failure:(WLFailureBlock)failure {
-	if ([[WLDataCache cache] containsMessages:wrap] && success) {
-		success([[WLDataCache cache] messages:wrap], YES, YES);
-	}
 	[wrap messages:1 success:^(NSArray *array) {
-		[[WLDataCache cache] setMessages:array wrap:wrap];
+        [[WLEntryManager manager] save];
 		if (success) {
-			success(array, NO, YES);
+			success(array, YES);
 		}
 	} failure:failure];
 }

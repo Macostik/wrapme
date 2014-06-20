@@ -11,14 +11,6 @@
 
 @interface WLArchivingObject : JSONModel <NSCoding, NSCopying>
 
-+ (NSMutableDictionary*)mapping;
-
-+ (NSMutableDictionary*)mergeMapping:(NSMutableDictionary*)_mapping withMapping:(NSDictionary*)mapping;
-
-+ (instancetype)modelWithDictionary:(NSDictionary*)dict;
-
-- (instancetype)updateWithDictionary:(NSDictionary*)dict;
-
 - (instancetype)updateWithObject:(id)object;
 
 @end
@@ -40,15 +32,5 @@
 + (id)unarchiveFromFileAtPath:(NSString*)path;
 
 + (void)unarchiveFromFileAtPath:(NSString*)path completion:(void (^)(id object))completion;
-
-@end
-
-@interface JSONValueTransformer (NSDate)
-
-- (NSDate*)NSDateFromNSString:(NSString*)string;
-
-- (NSString*)JSONObjectFromNSDate:(NSDate*)date;
-
-- (NSDate*)NSDateFromNSNumber:(NSNumber*)number;
 
 @end

@@ -18,14 +18,11 @@
 
 @implementation MFMailComposeViewController (Additions)
 
-+ (void)messageWithCandy:(WLCandy *)candy andWrap:(WLWrap *)wrap {
-	
-	
-	// Present mail view controller on screen
++ (void)messageWithCandy:(WLCandy *)candy {
     if ([MFMailComposeViewController canSendMail]) {
         NSString *emailTitle = @"Reporting inappropriate content on wrapLive";
         // Email Content
-        NSString *messageBody = [NSString stringWithFormat:@"I'd like to report the following item as inappropriate content:\nImage URL - %@,\nWrap ID - %@,\nCandy ID - %@", candy.picture.medium, wrap.identifier, candy.identifier];
+        NSString *messageBody = [NSString stringWithFormat:@"I'd like to report the following item as inappropriate content:\nImage URL - %@,\nWrap ID - %@,\nCandy ID - %@", candy.picture.medium, candy.wrap.identifier, candy.identifier];
         // To address
         NSArray *toRecipents = [NSArray arrayWithObject:@"help@ravenpod.com"];
         

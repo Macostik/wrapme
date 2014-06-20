@@ -10,10 +10,8 @@
 #import "WLComposeBar.h"
 #import "UIView+Shorthand.h"
 #import "WLUserView.h"
-#import "WLUploadingQueue.h"
 #import "NSObject+NibAdditions.h"
-#import "WLWrap.h"
-#import "WLCandy.h"
+#import "WLEntryManager.h"
 #import "UILabel+Additions.h"
 #import "WLSupportFunctions.h"
 #import "UIView+AnimationHelper.h"
@@ -50,20 +48,17 @@
     BOOL changed = ![_wrap isEqualToEntry:wrap];
     _wrap = wrap;
     __weak typeof(self)weakSelf = self;
-    run_getting_object(^id{
-        return [[wrap messages:1] lastObject];
-    }, ^(WLCandy* message) {
-        if (message) {
-            weakSelf.contributorView.hidden = NO;
-            weakSelf.contributorView.user = message.contributor;
-            weakSelf.messageLabel.text = message.chatMessage;
-        } else {
-            weakSelf.contributorView.hidden = YES;
-        }
-        [weakSelf updateHeight];
-        if (changed) {
-        }
-    });
+    WLCandy* message = [[wrap messages:1] lastObject];
+    if (message) {
+        weakSelf.contributorView.hidden = NO;
+        weakSelf.contributorView.user = message.contributor;
+        weakSelf.messageLabel.text = message.message;
+    } else {
+        weakSelf.contributorView.hidden = YES;
+    }
+    [weakSelf updateHeight];
+    if (changed) {
+    }
 }
 
 - (void)updateHeight {
@@ -151,9 +146,11 @@
 }
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
-	[[WLUploadingQueue instance] uploadMessage:text wrap:self.wrap success:^(id object) {
-	} failure:^(NSError *error) {
-	}];
+    [self.wrap uploadMessage:text success:^(WLCandy *candy) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {

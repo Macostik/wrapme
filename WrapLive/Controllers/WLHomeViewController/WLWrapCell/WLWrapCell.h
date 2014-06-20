@@ -31,6 +31,6 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 @property (nonatomic, weak) id <WLWrapCellDelegate> delegate;
 
-@property (strong, nonatomic) NSArray* candies;
+@property (strong, nonatomic) NSOrderedSet* candies;
 
 @end

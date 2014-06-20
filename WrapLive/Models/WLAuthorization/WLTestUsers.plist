@@ -10,7 +10,7 @@
 		<key>phone</key>
 		<string>9255552001</string>
 		<key>email</key>
-		<string>faker_louisa.gaylord@example.org</string>
+		<string>faker_teagan@example.com</string>
 		<key>activationCode</key>
 		<string>9999</string>
 	</dict>
@@ -22,7 +22,7 @@
 		<key>phone</key>
 		<string>9255552002</string>
 		<key>email</key>
-		<string>faker_elza@example.org</string>
+		<string>faker_victor_hegmann@example.net</string>
 		<key>activationCode</key>
 		<string>9999</string>
 	</dict>
@@ -34,7 +34,7 @@
 		<key>phone</key>
 		<string>9255552003</string>
 		<key>email</key>
-		<string>faker_kattie@example.org</string>
+		<string>faker_mara.oreilly@example.net</string>
 		<key>activationCode</key>
 		<string>9999</string>
 	</dict>
@@ -44,7 +44,7 @@
 		<key>phone</key>
 		<string>9255551001</string>
 		<key>email</key>
-		<string>faker_roderick@example.org</string>
+		<string>faker_katlyn_von@example.com</string>
 		<key>password</key>
 		<string>password</string>
 	</dict>
@@ -54,7 +54,7 @@
 		<key>phone</key>
 		<string>9255551002</string>
 		<key>email</key>
-		<string>faker_odie@example.org</string>
+		<string>faker_maximo@example.net</string>
 		<key>password</key>
 		<string>password</string>
 	</dict>
@@ -64,7 +64,7 @@
 		<key>phone</key>
 		<string>9255551003</string>
 		<key>email</key>
-		<string>faker_judah@example.net</string>
+		<string>faker_juvenal@example.com</string>
 		<key>password</key>
 		<string>password</string>
 	</dict>
@@ -76,7 +76,7 @@
 		<key>email</key>
 		<string>s.maximenko@mobidev.biz</string>
 		<key>password</key>
-		<string>d473cbd6f0</string>
+		<string>d308d50dab</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>
@@ -86,7 +86,7 @@
 		<key>email</key>
 		<string>s.maximenko@mobidev.biz</string>
 		<key>password</key>
-		<string>48a779762b</string>
+		<string>a1b434df50</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>
@@ -106,7 +106,7 @@
 		<key>email</key>
 		<string>s.maximenko.mobidev@gmail.com</string>
 		<key>password</key>
-		<string>9fc15703bb</string>
+		<string>aa550ca5b2</string>
 	</dict>
 </array>
 </plist>

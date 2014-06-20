@@ -10,13 +10,13 @@
 
 @class WLContact;
 @class WLContactCell;
-@class WLUser;
+@class WLPhone;
 
 @protocol WLContactCellDelegate <NSObject>
 
-- (void)contactCell:(WLContactCell*)cell didSelectContributor:(WLUser*)contributor;
+- (void)contactCell:(WLContactCell*)cell didSelectPhone:(WLPhone*)phone;
 
-- (BOOL)contactCell:(WLContactCell*)cell contributorSelected:(WLUser*)contributor;
+- (BOOL)contactCell:(WLContactCell*)cell phoneSelected:(WLPhone*)phone;
 
 - (void)contactCellDidToggle:(WLContactCell*)cell;
 

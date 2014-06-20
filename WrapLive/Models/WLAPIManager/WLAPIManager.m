@@ -320,7 +320,6 @@ static BOOL signedIn = NO;
 					NSString* label = phone.number.label;
                     WLUser * user = [WLUser API_entry:userData];
                     phone.user = user;
-					[phone.user update:userData];
 					if (user.name.nonempty) {
 						contact.name = user.name;
 					} else {
@@ -512,7 +511,7 @@ static BOOL signedIn = NO;
 - (id)olderCandies:(WLWrap *)wrap referenceCandy:(WLCandy *)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
 
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-	[parameters trySetObject:withinDay ? @"true" : @"false" forKey:@"same_day"];
+	[parameters trySetObject:withinDay ? @"true" : nil forKey:@"same_day"];
 	[parameters trySetObject:@(referenceCandy.updatedAt.timestamp) forKey:@"offset_x_in_epoch"];
     [parameters trySetObject:@(referenceCandy.updatedAt.timestamp) forKey:@"offset_y_in_epoch"];
     [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
@@ -538,7 +537,7 @@ static BOOL signedIn = NO;
 - (id)newerCandies:(WLWrap *)wrap referenceCandy:(WLCandy *)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-	[parameters trySetObject:withinDay ? @"true" : @"false" forKey:@"same_day"];
+	[parameters trySetObject:withinDay ? @"true" : nil forKey:@"same_day"];
 	[parameters trySetObject:@(referenceCandy.updatedAt.timestamp) forKey:@"offset_x_in_epoch"];
     [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
 	
@@ -614,7 +613,7 @@ static BOOL signedIn = NO;
 
 - (id)latestMessage:(WLWrap *)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-	[parameters trySetObject:@YES forKey:@"latest"];
+	[parameters trySetObject:@"latest" forKey:@"latest"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
 		NSOrderedSet* messages = [WLCandy API_entries:response.data[@"chat_messages"] relatedEntry:wrap];

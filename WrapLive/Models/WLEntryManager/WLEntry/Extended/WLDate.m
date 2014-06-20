@@ -25,15 +25,17 @@
 + (NSMutableOrderedSet *)dates:(NSOrderedSet *)entries dates:(NSMutableOrderedSet *)dates {
     NSMutableDictionary* ds = [NSMutableDictionary dictionary];
     for (WLCandy* candy in entries) {
-        NSString* dateString = [candy.updatedAt stringWithFormat:@"MMM dd, yyyy"];
-        WLDate* date = [ds objectForKey:dateString];
-        if (!date) {
-            date = [WLDate dateWithDate:candy.updatedAt];
-            date.dateString = dateString;
-            [ds setObject:date forKey:dateString];
-            [dates addObject:date];
+        if (candy.updatedAt) {
+            NSString* dateString = [candy.updatedAt stringWithFormat:@"MMM dd, yyyy"];
+            WLDate* date = [ds objectForKey:dateString];
+            if (!date) {
+                date = [WLDate dateWithDate:candy.updatedAt];
+                date.dateString = dateString;
+                [ds setObject:date forKey:dateString];
+                [dates addObject:date];
+            }
+            [date addCandy:candy];
         }
-        [date addCandy:candy];
     }
     return dates;
 }

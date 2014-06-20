@@ -24,7 +24,7 @@
 }
 
 - (NSString *)fullPhoneNumber {
-	return [NSString stringWithFormat:@"+%@ %@", self.countryCode, self.formattedPhone];
+	return [NSString stringWithFormat:@"+%@ %@", self.countryCode, self.formattedPhone ? : self.phone];
 }
 
 + (BOOL)propertyIsOptional:(NSString *)propertyName {

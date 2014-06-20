@@ -448,7 +448,7 @@
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                 <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                                 <connections>
                                                                     <outlet property="delegate" destination="7FG-gC-kPg" id="Y9Y-BY-tWb"/>
                                                                 </connections>

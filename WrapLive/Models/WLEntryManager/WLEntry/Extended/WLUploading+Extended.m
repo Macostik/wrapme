@@ -99,7 +99,11 @@
             }];
             [weakSelf.contribution broadcastChange];
         }
-    } failure:failure];
+    } failure:^(NSError *error) {
+        [weakSelf setOperation:nil];
+        [weakSelf.contribution broadcastChange];
+        failure(error);
+    }];
     return self.operation;
 }
 

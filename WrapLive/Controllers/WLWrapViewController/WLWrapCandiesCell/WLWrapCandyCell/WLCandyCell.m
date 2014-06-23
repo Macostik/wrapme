@@ -92,13 +92,8 @@
 - (void)refreshUploadingButtons:(WLCandy*)candy animated:(BOOL)animated {
 	if (candy.uploading) {
 		self.vibrateOnLongPressGesture = NO;
-		self.lowOpacityView.hidden = NO;
-		self.cancelButton.hidden = (candy.uploading.operation != nil);
-		self.retryButton.hidden = (candy.uploading.operation != nil);
+		self.lowOpacityView.hidden = (candy.uploading.operation != nil);
 	} else {
-		if (animated) {
-			[self.lowOpacityView fade];
-		}
 		self.lowOpacityView.hidden = YES;
 		self.vibrateOnLongPressGesture = [candy isImage] && [candy.contributor isCurrentUser];
 	}

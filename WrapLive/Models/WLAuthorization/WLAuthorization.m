@@ -27,10 +27,6 @@
 	return [NSString stringWithFormat:@"+%@ %@", self.countryCode, self.formattedPhone ? : self.phone];
 }
 
-+ (BOOL)propertyIsOptional:(NSString *)propertyName {
-	return YES;
-}
-
 @end
 
 @implementation WLAuthorization (CurrentAuthorization)

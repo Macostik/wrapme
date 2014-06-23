@@ -24,4 +24,6 @@
 
 @property (nonatomic, weak) id <WLCandiesCellDelegate> delegate;
 
+@property (nonatomic) BOOL refreshable;
+
 @end

@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "JSONModel.h"
-
 typedef NS_ENUM(NSInteger, WLAPIResponseCode) {
 	WLAPIResponseCodeSuccess = 0,
 	WLAPIResponseCodeFailure = -1
@@ -16,7 +14,9 @@ typedef NS_ENUM(NSInteger, WLAPIResponseCode) {
 /*!
  *  Class, that contains response from the WrapLive API including data, code and message
  */
-@interface WLAPIResponse : JSONModel
+@interface WLAPIResponse : NSObject
+
++ (instancetype)response:(NSDictionary*)dictionary;
 
 /*!
  *  Dictionary representing the data from the returned response

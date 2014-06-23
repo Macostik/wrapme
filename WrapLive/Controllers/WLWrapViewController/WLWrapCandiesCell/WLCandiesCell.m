@@ -54,9 +54,12 @@
 	self.dateLabel.text = [date.dateString uppercaseString];
 	self.shouldAppendMoreCandies = [date.candies count] >= 10;
 	[self.collectionView reloadData];
-	self.refresher.enabled = [date.date isToday];
 	self.collectionView.contentOffset = CGPointZero;
 	loading = NO;
+}
+
+- (void)setRefreshable:(BOOL)refreshable {
+    self.refresher.enabled = refreshable;
 }
 
 - (void)refreshCandies {
@@ -114,7 +117,8 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WLCandyCell reuseIdentifier] forIndexPath:indexPath];
+    static NSString* WLCandyCellIdentifier = @"WLCandyCell";
+	WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCandyCellIdentifier forIndexPath:indexPath];
 	WLDate* wrapDay = self.item;
 	cell.item = [wrapDay.candies objectAtIndex:indexPath.item];
 	cell.delegate = self;

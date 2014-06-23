@@ -7,9 +7,6 @@
 //
 
 #import "WLAppDelegate.h"
-#import <CocoaLumberjack/DDLog.h>
-#import <CocoaLumberjack/DDASLLogger.h>
-#import <CocoaLumberjack/DDTTYLogger.h>
 #import "WLInternetConnectionBroadcaster.h"
 #import "WLSession.h"
 #import "WLNotificationBroadcaster.h"
@@ -27,8 +24,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-	[DDLog addLogger:[DDASLLogger sharedInstance]];
-	[DDLog addLogger:[DDTTYLogger sharedInstance]];
 //	
 	[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
 	[[WLInternetConnectionBroadcaster broadcaster] configure];

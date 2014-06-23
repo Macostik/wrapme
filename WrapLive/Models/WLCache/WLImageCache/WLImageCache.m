@@ -68,32 +68,23 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 
 - (void)configure {
 	self.size = WLImageCacheSize;
-	
-	self.readObjectBlock = ^id (NSString* identifier, NSString* path) {
-		UIImage* image = [WLSystemImageCache imageWithIdentifier:identifier];
-		if (image == nil) {
-			image = [UIImage imageWithContentsOfFile:path];
-			[WLSystemImageCache setImage:image withIdentifier:identifier];
-		}
-		return image;
-	};
-	
-	self.writeObjectBlock = ^(NSString* identifier, id image, NSString* path) {
-		if (image) {
-			if ([image isKindOfClass:[UIImage class]]) {
-				[UIImageJPEGRepresentation(image, 1.0f) writeToFile:path atomically:YES];
-			} else if ([image isKindOfClass:[NSData class]]) {
-				[image writeToFile:path atomically:YES];
-			}
-			[WLSystemImageCache setImage:image withIdentifier:identifier];
-		}
-	};
-	
 	[super configure];
 }
 
-- (NSString*)pathWithIdentifier:(NSString*)identifier {
-	return [[super pathWithIdentifier:identifier] stringByAppendingPathExtension:@"jpg"];
+- (id)read:(NSString *)identifier path:(NSString *)path {
+    UIImage* image = [WLSystemImageCache imageWithIdentifier:identifier];
+    if (image == nil) {
+        image = [UIImage imageWithContentsOfFile:path];
+        [WLSystemImageCache setImage:image withIdentifier:identifier];
+    }
+    return image;
+}
+
+- (void)write:(NSString *)identifier object:(id)image path:(NSString *)path {
+    if (image) {
+        [UIImageJPEGRepresentation(image, 1.0f) writeToFile:path atomically:NO];
+        [WLSystemImageCache setImage:image withIdentifier:identifier];
+    }
 }
 
 - (BOOL)containsObjectWithIdentifier:(NSString *)identifier {
@@ -135,7 +126,22 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 }
 
 - (void)setImageData:(NSData*)data withIdentifier:(NSString*)identifier completion:(void (^)(NSString* path))completion {
-	[self setObject:data withIdentifier:identifier completion:completion];
+	if (!data) {
+		return;
+	}
+	dispatch_async(self.queue, ^{
+		NSString* path = [self pathWithIdentifier:identifier];
+        [data writeToFile:path atomically:NO];
+        if (![self.identifiers containsObject:identifier]) {
+            [self.identifiers addObject:identifier];
+        }
+		run_in_main_queue(^{
+			if (completion) {
+				completion(path);
+			}
+		});
+		[self checkSizeAndClearIfNeededInBackground];
+    });
 }
 
 - (void)setImageData:(NSData*)data completion:(void (^)(NSString* path))completion {

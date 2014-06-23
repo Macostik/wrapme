@@ -7,15 +7,16 @@
 //
 
 #import "WLAPIResponse.h"
+#import "NSDictionary+Extended.h"
 
 @implementation WLAPIResponse
 
-+ (JSONKeyMapper *)keyMapper {
-	return [[JSONKeyMapper alloc] initWithDictionary:@{@"return_code":@"code"}];
-}
-
-+ (BOOL)propertyIsOptional:(NSString *)propertyName {
-	return YES;
++ (instancetype)response:(NSDictionary *)dictionary {
+    WLAPIResponse* response = [[self alloc] init];
+    response.data = [dictionary dictionaryForKey:@"data"];
+    response.code = [dictionary integerForKey:@"return_code"];
+    response.message = [dictionary stringForKey:@"message"];
+    return response;
 }
 
 @end

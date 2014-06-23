@@ -30,6 +30,10 @@
 
 @end
 
+@interface WLCache ()
+
+@end
+
 @implementation WLCache
 
 @synthesize directory = _directory;
@@ -64,8 +68,18 @@
 	return _queue;
 }
 
+- (NSMutableArray *)identifiers {
+    if (!_identifiers) {
+        NSString* directory = self.directory;
+        if (directory) {
+            _identifiers = [[[[NSFileManager defaultManager] enumeratorAtPath:directory] allObjects] mutableCopy];
+        }
+    }
+    return _identifiers;
+}
+
 - (void)configure {
-	
+    
 }
 
 - (void)setSize:(NSUInteger)size {
@@ -93,22 +107,12 @@
 	return [NSFileManager defaultManager];
 }
 
-- (WLCacheReadObjectBlock)readObjectBlock {
-	if (!_readObjectBlock) {
-		_readObjectBlock = ^id (NSString* identifier, NSString* path) {
-			return [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-		};
-	}
-	return _readObjectBlock;
+- (id)read:(NSString *)identifier path:(NSString *)path {
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:path];
 }
 
-- (WLCacheWriteObjectBlock)writeObjectBlock {
-	if (!_writeObjectBlock) {
-		_writeObjectBlock = ^(NSString* identifier, id object, NSString* path) {
-			[NSKeyedArchiver archiveRootObject:object toFile:path];
-		};
-	}
-	return _writeObjectBlock;
+- (void)write:(NSString *)identifier object:(id)object path:(NSString *)path {
+    [NSKeyedArchiver archiveRootObject:object toFile:path];
 }
 
 - (NSString*)pathWithIdentifier:(NSString*)identifier {
@@ -116,11 +120,11 @@
 }
 
 - (BOOL)containsObjectWithIdentifier:(NSString *)identifier {
-	return [self.manager fileExistsAtPath:[self pathWithIdentifier:identifier]];
+    return [self.identifiers containsObject:identifier];
 }
 
 - (id)objectWithIdentifier:(NSString*)identifier {
-	return self.readObjectBlock(identifier, [self pathWithIdentifier:identifier]);
+    return [self read:identifier path:[self pathWithIdentifier:identifier]];
 }
 
 - (void)objectWithIdentifier:(NSString*)identifier completion:(WLCacheReadCompletionBlock)completion {
@@ -136,7 +140,10 @@
 	}
 	dispatch_async(self.queue, ^{
 		NSString* path = [self pathWithIdentifier:identifier];
-		self.writeObjectBlock(identifier, object, path);
+        [self write:identifier object:object path:path];
+        if (![self.identifiers containsObject:identifier]) {
+            [self.identifiers addObject:identifier];
+        }
 		run_in_main_queue(^{
 			if (completion) {
 				completion(path);
@@ -193,6 +200,8 @@
 				size -= item.size;
 				[items removeObject:item];
 			}
+            
+            self.identifiers = [[[[NSFileManager defaultManager] enumeratorAtPath:directory] allObjects] mutableCopy];
 		}
 	}
 }
@@ -203,6 +212,7 @@
 	for (NSString* file in enumerator) {
 		[self.manager removeItemAtPath:[directory stringByAppendingPathComponent:file] error:NULL];
 	}
+    self.identifiers = [[[[NSFileManager defaultManager] enumeratorAtPath:directory] allObjects] mutableCopy];
 }
 
 @end

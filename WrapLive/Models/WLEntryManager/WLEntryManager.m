@@ -87,6 +87,15 @@
     [entries setObject:entry forKey:identifier];
 }
 
+- (void)registerEntries:(NSOrderedSet *)entries forClass:(Class)entryClass {
+    if (entries.nonempty) {
+        NSMapTable* cachedEntries = [self.cachedEntries objectForKey:NSStringFromClass(entryClass)];
+        for (WLEntry* entry in entries) {
+            [cachedEntries setObject:entry forKey:entry.identifier];
+        }
+    }
+}
+
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString *)identifier create:(BOOL)create {
 	if (!identifier.nonempty) {
 		return nil;

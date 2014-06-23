@@ -10,21 +10,19 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
 #import "NSString+Additions.h"
+#import "NSArray+Additions.h"
 
 @implementation WLCountry
 
-+ (JSONKeyMapper *)keyMapper {
-	return [[JSONKeyMapper alloc] initWithDictionary:@{@"dial_code":@"callingCode"}];
-}
-
-+ (BOOL)propertyIsOptional:(NSString *)propertyName {
-	return YES;
-}
-
 + (NSArray *)getAllCountries {
 	NSArray* json = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CountryCodes" ofType:@"json"]] options:NSJSONReadingAllowFragments error:NULL];
-	
-	return [WLCountry arrayOfModelsFromDictionaries:json];
+    return [json map:^id(NSDictionary* item) {
+        WLCountry* country = [[WLCountry alloc] init];
+        country.name = [item objectForKey:@"name"];
+        country.callingCode = [item objectForKey:@"dial_code"];
+        country.code = [item objectForKey:@"code"];
+        return country;
+    }];
 }
 
 + (WLCountry *)getCurrentCountry {

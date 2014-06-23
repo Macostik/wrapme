@@ -10,7 +10,6 @@
 #import "WLSession.h"
 #import "NSDate+Formatting.h"
 #import "WLAPIResponse.h"
-#import <CocoaLumberjack/DDLog.h>
 #import "NSArray+Additions.h"
 #import "WLAddressBook.h"
 #import "WLDate.h"
@@ -21,12 +20,6 @@
 #import "NSDate+Additions.h"
 #import "WLWelcomeViewController.h"
 #import "WLImageCache.h"
-
-#if DEBUG
-static const int ddLogLevel = LOG_LEVEL_DEBUG;
-#else
-static const int ddLogLevel = LOG_LEVEL_OFF;
-#endif
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
@@ -48,7 +41,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		NSString* baseUrl = WLAPIBaseUrl;
-		DDLogDebug(@"WebService Environment: %@", baseUrl);
+        WLLog(@"API environment initialized", baseUrl);
 		instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
 		instance.requestSerializer.timeoutInterval = 45;
 		[instance.requestSerializer setValue:WLAcceptHeader forHTTPHeaderField:@"Accept"];
@@ -70,7 +63,7 @@ static BOOL signedIn = NO;
 					 parameters:(NSDictionary *)parameters
 						success:(void (^)(AFHTTPRequestOperation *, id))success
 						failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-	DDLogDebug(@"%@: %@",URLString, parameters);
+    WLLog(URLString, parameters);
 	return [super GET:URLString parameters:parameters success:success failure:failure];
 }
 
@@ -79,12 +72,12 @@ static BOOL signedIn = NO;
 	   constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block
 						 success:(void (^)(AFHTTPRequestOperation *, id))success
 						 failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-	DDLogDebug(@"%@: %@",URLString, parameters);
+    WLLog(URLString, parameters);
 	return [super POST:URLString parameters:parameters constructingBodyWithBlock:block success:success failure:failure];
 }
 
 - (AFHTTPRequestOperation *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-	DDLogDebug(@"%@: %@",URLString, parameters);
+    WLLog(URLString, parameters);
 	return [super POST:URLString parameters:parameters success:success failure:failure];
 }
 
@@ -104,12 +97,12 @@ static BOOL signedIn = NO;
 }
 
 - (AFHTTPRequestOperation *)PUT:(NSString *)URLString parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-	DDLogDebug(@"%@: %@",URLString, parameters);
+    WLLog(URLString, parameters);
 	return [super PUT:URLString parameters:parameters success:success failure:failure];
 }
 
 - (AFHTTPRequestOperation *)PUT:(NSString *)URLString parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-	DDLogDebug(@"%@: %@",URLString, parameters);
+    WLLog(URLString, parameters);
 	NSMutableURLRequest *request = [self.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters constructingBodyWithBlock:block error:nil];
 	AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
 	[self.operationQueue addOperation:operation];
@@ -133,7 +126,7 @@ static BOOL signedIn = NO;
 
 - (AFHTTPRequestOperation *)HTTPRequestOperationWithRequest:(NSURLRequest *)request success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
 	return [super HTTPRequestOperationWithRequest:request success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		DDLogDebug(@"%@", error);
+        WLLog([operation.request.URL lastPathComponent], error);
 		NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
 		if (success && response && response.statusCode == 401) {
 			[self signIn:[WLAuthorization currentAuthorization] success:^(id object) {
@@ -151,8 +144,8 @@ static BOOL signedIn = NO;
 
 - (WLAFNetworkingSuccessBlock)successBlock:(WLObjectBlock)success withObject:(WLMapResponseBlock)objectBlock failure:(WLFailureBlock)failure {
 	return ^(AFHTTPRequestOperation *operation, id responseObject) {
-		DDLogDebug(@"%@", responseObject);
-		WLAPIResponse* response = [[WLAPIResponse alloc] initWithDictionary:responseObject error:NULL];
+        WLLog([operation.request.URL lastPathComponent], responseObject);
+		WLAPIResponse* response = [WLAPIResponse response:responseObject];
 		if (response.code == WLAPIResponseCodeSuccess) {
 #warning need to think how to perform it in background
             success(objectBlock(response));

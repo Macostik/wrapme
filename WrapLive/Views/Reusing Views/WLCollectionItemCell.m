@@ -1,5 +1,6 @@
 
 #import "WLCollectionItemCell.h"
+#import <objc/runtime.h>
 
 @implementation WLCollectionItemCell
 

@@ -33,6 +33,7 @@
 #import "WLQuickChatView.h"
 #import "WLWrapCell.h"
 #import "UIView+AnimationHelper.h"
+#import "NSDate+Additions.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate, WLQuickChatViewDelegate>
 
@@ -237,6 +238,11 @@
         WLDate* date = [self.dates objectAtIndex:indexPath.row];
         cell.item = date;
         cell.delegate = self;
+        if (indexPath.row > 0) {
+            cell.refreshable = NO;
+        } else {
+            cell.refreshable = [date.date isToday];
+        }
         if (date == [self.dates lastObject] && self.tableView.tableFooterView != nil) {
             [self appendDates];
         }

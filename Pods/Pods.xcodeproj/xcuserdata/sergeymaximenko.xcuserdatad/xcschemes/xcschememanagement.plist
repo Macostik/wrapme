@@ -2,44 +2,67 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-OpenUDID.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-PubNub.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Reachability.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SSKeychain.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1342E7ACCBFC433DAF0343CD</key>
+		<key>017D615C369A4AD5BA6F746D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1B5A854D0B884024B204B812</key>
+		<key>156F6F6F728848E5822FC1FB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4F0D4BC21A8B41D587C9F78B</key>
+		<key>5DCE1590077C4769A320E696</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>57294A77D80041AFAE32BEB6</key>
+		<key>651E16B8A623486C806059AA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A6716F89B09347FD8A4965C7</key>
+		<key>662370CE55854F6A95EDBC0A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A6ADB955838A4E01AB41D65B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D880966511AF4C3BB3A93B22</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E4CEA097B1844A5FB3F320D4</key>
+		<key>E1FA3435F6064317AFA43751</key>
 		<dict>
 			<key>primary</key>
 			<true/>

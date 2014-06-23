@@ -6,10 +6,9 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <JSONModel/JSONModel.h>
 #import "NSDictionary+Extended.h"
 
-@interface WLArchivingObject : JSONModel <NSCoding, NSCopying>
+@interface WLArchivingObject : NSObject <NSCoding, NSCopying>
 
 - (instancetype)updateWithObject:(id)object;
 

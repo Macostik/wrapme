@@ -9,6 +9,7 @@
 #import "WLTestUserPicker.h"
 #import "NSPropertyListSerialization+Shorthand.h"
 #import "WLAuthorization.h"
+#import "NSArray+Additions.h"
 
 @interface WLTestUserPicker () <UITableViewDataSource, UITableViewDelegate>
 
@@ -31,7 +32,16 @@
 		self.selection = selection;
         self.dataSource = self;
 		self.delegate = self;
-		self.users = [WLAuthorization arrayOfModelsFromDictionaries:[NSArray resourcePropertyListNamed:@"WLTestUsers"]];
+		self.users = [[NSArray resourcePropertyListNamed:@"WLTestUsers"] map:^id(id item) {
+            WLAuthorization* authorization = [[WLAuthorization alloc] init];
+            authorization.deviceUID = [item objectForKey:@"deviceUID"];
+            authorization.countryCode = [item objectForKey:@"countryCode"];
+            authorization.phone = [item objectForKey:@"phone"];
+            authorization.email = [item objectForKey:@"email"];
+            authorization.activationCode = [item objectForKey:@"activationCode"];
+            authorization.password = [item objectForKey:@"password"];
+            return authorization;
+        }];
 		[self performSelector:@selector(reloadData) withObject:nil afterDelay:0.0f];
     }
     return self;

@@ -31,6 +31,8 @@
 
 + (instancetype)manager;
 
+- (void)registerEntries:(NSOrderedSet*)entries forClass:(Class)entryClass;
+
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier create:(BOOL)create;
 
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier;

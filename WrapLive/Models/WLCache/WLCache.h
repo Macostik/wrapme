@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef id (^WLCacheReadObjectBlock)(NSString* identifier, NSString* path);
-typedef void (^WLCacheWriteObjectBlock)(NSString* identifier, id object, NSString* path);
 typedef void (^WLCacheReadCompletionBlock)(id object);
 typedef void (^WLCacheWriteCompletionBlock)(NSString* path);
 
@@ -19,15 +17,13 @@ typedef void (^WLCacheWriteCompletionBlock)(NSString* path);
 
 @property (nonatomic, readonly) NSString* directory;
 
-@property (strong, nonatomic) WLCacheReadObjectBlock readObjectBlock;
-
-@property (strong, nonatomic) WLCacheWriteObjectBlock writeObjectBlock;
-
 @property (nonatomic) NSUInteger size;
 
 @property (nonatomic, readonly) NSFileManager* manager;
 
 @property (strong, nonatomic) dispatch_queue_t queue;
+
+@property (strong, nonatomic) NSMutableArray* identifiers;
 
 + (instancetype)cache;
 
@@ -36,6 +32,10 @@ typedef void (^WLCacheWriteCompletionBlock)(NSString* path);
 + (instancetype)cacheWithIdentifier:(NSString*)identifier relativeCache:(WLCache*)relativeCache;
 
 - (void)configure;
+
+- (id)read:(NSString*)identifier path:(NSString*)path;
+
+- (void)write:(NSString*)identifier object:(id)object path:(NSString*)path;
 
 - (NSString*)pathWithIdentifier:(NSString*)identifier;
 
@@ -53,5 +53,6 @@ typedef void (^WLCacheWriteCompletionBlock)(NSString* path);
 
 - (void)enqueueCheckSizePerforming;
 
+- (void)checkSizeAndClearIfNeededInBackground;
 
 @end

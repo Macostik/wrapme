@@ -6,9 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "JSONModel.h"
-
-@interface WLCountry : JSONModel
+@interface WLCountry : NSObject
 
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSString* callingCode;

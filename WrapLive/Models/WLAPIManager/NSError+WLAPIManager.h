@@ -14,6 +14,18 @@ typedef NS_ENUM(NSInteger, PGErrorCode) {
     kWLErrorCodeUnknown = 0,
 };
 
+static const BOOL detailedLog = NO;
+
+static inline void WLLog(NSString* label, id object) {
+#if DEBUG
+    if (detailedLog) {
+        NSLog(@"%@: %@", label, object);
+    } else {
+        NSLog(@"%@", label);
+    }
+#endif
+}
+
 @interface NSError (WLAPIManager)
 
 + (NSError*)errorWithDescription:(NSString*)description code:(NSInteger)code;

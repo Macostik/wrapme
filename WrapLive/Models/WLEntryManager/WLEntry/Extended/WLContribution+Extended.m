@@ -28,20 +28,24 @@
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
-    self.contributor = [self contributor:dictionary];
+    [self parseContributor:dictionary];
     self.uploadIdentifier = [dictionary stringForKey:@"upload_uid"];
     return [super API_setup:dictionary relatedEntry:relatedEntry];
 }
 
-- (WLUser*)contributor:(NSDictionary*)dictionary {
-	WLUser* contributor = [WLUser entry:[dictionary stringForKey:@"contributor_uid"] create:YES];
+- (void)parseContributor:(NSDictionary*)dictionary {
+    NSString* identifier = [dictionary stringForKey:@"contributor_uid"];
+    WLUser* contributor = self.contributor;
+    if (![contributor.identifier isEqualToString:identifier]) {
+        contributor = [WLUser entry:[dictionary stringForKey:@"contributor_uid"] create:YES];
+        self.contributor = contributor;
+    }
     contributor.name = [dictionary stringForKey:@"contributor_name"];
 	WLPicture* picture = [[WLPicture alloc] init];
 	picture.large = [dictionary stringForKey:@"contributor_large_avatar_url"];
 	picture.medium = [dictionary stringForKey:@"contributor_medium_avatar_url"];
 	picture.small = [dictionary stringForKey:@"contributor_small_avatar_url"];
 	contributor.picture = picture;
-	return contributor;
 }
 
 - (BOOL)shouldStartUploadingAutomatically {

@@ -7,11 +7,8 @@
 //
 
 #import "NSError+WLAPIManager.h"
-#import <CocoaLumberjack/DDLog.h>
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import "WLToast.h"
-
-static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
 @implementation NSError (WLAPIManager)
 
@@ -83,9 +80,7 @@ static NSDictionary *customErrorMessages = nil;
 
 + (NSDictionary*)customErrorMessages {
 	if (!customErrorMessages) {
-		customErrorMessages = @{AFNetworkingErrorDomain:@{@(NSURLErrorTimedOut):@"Connection was lost.",
-														  @(NSURLErrorInternationalRoamingOff):@"International roaming is off."},
-								NSURLErrorDomain:@{@(NSURLErrorTimedOut):@"Connection was lost.",
+		customErrorMessages = @{NSURLErrorDomain:@{@(NSURLErrorTimedOut):@"Connection was lost.",
 												   @(NSURLErrorInternationalRoamingOff):@"International roaming is off."}};
 	}
 	return customErrorMessages;
@@ -109,7 +104,7 @@ static NSDictionary *customErrorMessages = nil;
 - (void)log:(NSString *)label {
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 	    if (![self ignore])
-			DDLogDebug(@"%@: %@", label, self);
+            WLLog(label, self);
 	});
 }
 

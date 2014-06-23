@@ -84,7 +84,9 @@
 @implementation UILabel (CustomFonts)
 
 - (void)awakeFromNib {
-	self.font = [self.font fontWithType:self.tag];
+    if (self.tag > 0) {
+        self.font = [self.font fontWithType:self.tag];
+    }
 }
 
 @end
@@ -92,7 +94,9 @@
 @implementation UIButton (CustomFonts)
 
 - (void)awakeFromNib {
-	self.titleLabel.font = [self.titleLabel.font fontWithType:self.tag];
+    if (self.tag > 0) {
+        self.titleLabel.font = [self.titleLabel.font fontWithType:self.tag];
+    }
 }
 
 @end
@@ -100,7 +104,9 @@
 @implementation UITextField (CustomFonts)
 
 - (void)awakeFromNib {
-	self.font = [self.font fontWithType:self.tag];
+    if (self.tag > 0) {
+        self.font = [self.font fontWithType:self.tag];
+    }
 }
 
 @end
@@ -108,7 +114,9 @@
 @implementation UITextView (CustomFonts)
 
 - (void)awakeFromNib {
-	self.font = [self.font fontWithType:self.tag];
+    if (self.tag > 0) {
+        self.font = [self.font fontWithType:self.tag];
+    }
 }
 
 @end

@@ -37,39 +37,23 @@
 }
 
 - (void)setup {
-	
+	self.receivers = [NSHashTable weakObjectsHashTable];
 }
 
 - (void)configure {
 	
 }
 
-- (NSHashTable *)receivers {
-	if (!_receivers) {
-		_receivers = [NSHashTable weakObjectsHashTable];
-	}
-	return _receivers;
-}
-
 - (void)addReceiver:(id<WLBroadcastReceiver>)receiver {
-	if (![self containsReceiver:receiver]) {
-		[self.receivers addObject:receiver];
-	}
+	[self.receivers addObject:receiver];
 }
 
 - (void)removeReceiver:(id<WLBroadcastReceiver>)receiver {
-	if ([self containsReceiver:receiver]) {
-		[self.receivers removeObject:receiver];
-	}
+	[self.receivers removeObject:receiver];
 }
 
 - (BOOL)containsReceiver:(id<WLBroadcastReceiver>)receiver {
-	for (id <WLBroadcastReceiver> _receiver in self.receivers) {
-		if (_receiver == receiver) {
-			return YES;
-		}
-	}
-	return NO;
+	return [self.receivers containsObject:receiver];
 }
 
 - (void)broadcast:(SEL)selector object:(id)object {
@@ -77,15 +61,17 @@
 }
 
 - (void)broadcast:(SEL)selector object:(id)object select:(WLBroadcastSelectReceiver)select {
-	NSArray* receivers = [self.receivers copy];
-	for (NSObject <WLBroadcastReceiver> *receiver in receivers) {
-		if ((select ? select(receiver) : YES) && [receiver respondsToSelector:selector]) {
+    NSHashTable* receivers = self.receivers;
+    @synchronized (receivers) {
+        for (NSObject <WLBroadcastReceiver> *receiver in receivers) {
+            if ((select ? select(receiver) : YES) && [receiver respondsToSelector:selector]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-			[receiver performSelector:selector withObject:self withObject:object];
+                [receiver performSelector:selector withObject:self withObject:object];
 #pragma clang diagnostic pop
-		}
-	}
+            }
+        }
+    }
 }
 
 - (void)broadcast:(SEL)selector {
@@ -93,15 +79,17 @@
 }
 
 - (void)broadcast:(SEL)selector select:(WLBroadcastSelectReceiver)select {
-	NSArray* receivers = [self.receivers copy];
-	for (NSObject <WLBroadcastReceiver> *receiver in receivers) {
-		if ((select ? select(receiver) : YES) && [receiver respondsToSelector:selector]) {
+    NSHashTable* receivers = self.receivers;
+    @synchronized (receivers) {
+        for (NSObject <WLBroadcastReceiver> *receiver in receivers) {
+            if ((select ? select(receiver) : YES) && [receiver respondsToSelector:selector]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-			[receiver performSelector:selector withObject:self];
+                [receiver performSelector:selector withObject:self];
 #pragma clang diagnostic pop
-		}
-	}
+            }
+        }
+    }
 }
 
 @end

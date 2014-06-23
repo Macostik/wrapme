@@ -101,7 +101,7 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 	if (!_name.nonempty) {
 		_name = [[self.phones selectObject:^BOOL(WLPhone* phone) {
 			return phone.number.nonempty;
-		}] phoneNumber];
+		}] number];
 	}
 	return _name;
 }
@@ -183,6 +183,45 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 			}
 		});
 	});
+}
+
++ (void)test:(ABAddressBookRef)addressBook {
+    NSString* data = @"http://www.json-generator.com/api/json/get/cvUceAdHVK?indent=2";
+    NSArray* users = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:data]] options:NSJSONReadingAllowFragments error:NULL];
+    for (NSDictionary* user in users)
+    {
+        NSString* picture = [user objectForKey:@"picture"];
+        // create an ABRecordRef
+        ABRecordRef record = ABPersonCreate();
+        
+        // add the first name
+        ABRecordSetValue(record, kABPersonFirstNameProperty, (__bridge CFTypeRef)([user objectForKey:@"fname"]), NULL);
+        
+        // add the last name
+        ABRecordSetValue(record, kABPersonLastNameProperty, (__bridge CFTypeRef)([user objectForKey:@"lname"]), NULL);
+        
+        ABMutableMultiValueRef email = ABMultiValueCreateMutable(kABStringPropertyType);
+        
+        ABMultiValueAddValueAndLabel(email, (__bridge CFTypeRef)([user objectForKey:@"email"]), kABHomeLabel, NULL);
+        
+        // add the home email
+        ABRecordSetValue(record, kABPersonEmailProperty, email, NULL);
+        
+        ABMutableMultiValueRef phone = ABMultiValueCreateMutable(kABStringPropertyType);
+        
+        for (NSString* p in [user objectForKey:@"phones"]) {
+            ABMultiValueAddValueAndLabel(phone, (__bridge CFTypeRef)(p), kABHomeLabel, NULL);
+        }
+        
+        ABRecordSetValue(record, kABPersonPhoneProperty, phone, NULL);
+        
+        ABPersonSetImageData(record, (__bridge CFDataRef)([NSData dataWithContentsOfURL:[NSURL URLWithString:picture]]), NULL);
+
+        ABAddressBookAddRecord(addressBook, record, NULL);
+    }
+    
+    // save the address book
+    ABAddressBookSave(addressBook, NULL);
 }
 
 @end

@@ -128,7 +128,7 @@
 				[WLSystemImageCache setImage:image withIdentifier:url];
 				return image;
 			}, ^ (UIImage* image) {
-				completion(image, YES, nil);
+				completion(image, NO, nil);
 			});
 		}
 	}

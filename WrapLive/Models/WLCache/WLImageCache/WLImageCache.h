@@ -16,7 +16,7 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size);
 
 - (UIImage*)imageWithIdentifier:(NSString*)identifier;
 
-- (void)imageWithIdentifier:(NSString*)identifier completion:(void (^)(UIImage* image))completion;
+- (void)imageWithIdentifier:(NSString*)identifier completion:(void (^)(UIImage* image, BOOL cached))completion;
 
 - (void)setImage:(UIImage*)image withIdentifier:(NSString*)identifier completion:(void (^)(NSString* path))completion;
 
@@ -34,7 +34,7 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size);
 
 - (UIImage*)imageWithUrl:(NSString*)url;
 
-- (void)imageWithUrl:(NSString*)url completion:(void (^)(UIImage* image))completion;
+- (void)imageWithUrl:(NSString*)url completion:(void (^)(UIImage* image, BOOL cached))completion;
 
 - (void)setImage:(UIImage*)image withUrl:(NSString*)url;
 

@@ -138,6 +138,7 @@
 	if (!object) {
 		return;
 	}
+    
 	dispatch_async(self.queue, ^{
 		NSString* path = [self pathWithIdentifier:identifier];
         [self write:identifier object:object path:path];

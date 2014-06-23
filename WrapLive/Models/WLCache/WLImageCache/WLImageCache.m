@@ -98,13 +98,17 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 	return [self objectWithIdentifier:identifier];
 }
 
-- (void)imageWithIdentifier:(NSString *)identifier completion:(void (^)(UIImage *))completion {
+- (void)imageWithIdentifier:(NSString *)identifier completion:(void (^)(UIImage *image, BOOL cached))completion {
 	UIImage* image = [WLSystemImageCache imageWithIdentifier:identifier];
 	if (image != nil) {
-		completion(image);
+		completion(image, YES);
 		return;
 	}
-	[self objectWithIdentifier:identifier completion:completion];
+	[self objectWithIdentifier:identifier completion:^(id object) {
+        if (completion) {
+            completion(object, NO);
+        }
+    }];
 }
 
 - (void)setImage:(UIImage*)image withIdentifier:(NSString*)identifier completion:(void (^)(NSString *))completion {
@@ -156,7 +160,7 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 	return [self imageWithIdentifier:[url MD5]];
 }
 
-- (void)imageWithUrl:(NSString *)url completion:(void (^)(UIImage *))completion {
+- (void)imageWithUrl:(NSString *)url completion:(void (^)(UIImage *, BOOL cached))completion {
 	return [self imageWithIdentifier:[url MD5] completion:completion];
 }
 

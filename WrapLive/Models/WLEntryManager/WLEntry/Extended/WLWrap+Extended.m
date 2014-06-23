@@ -34,12 +34,6 @@
 - (void)awakeFromInsert {
     [super awakeFromInsert];
     self.unread = @YES;
-    [[WLEntryManager manager] registerEntries:self.candies forClass:[WLCandy class]];
-}
-
-- (void)awakeFromFetch {
-    [super awakeFromFetch];
-    [[WLEntryManager manager] registerEntries:self.candies forClass:[WLCandy class]];
 }
 
 - (void)remove {

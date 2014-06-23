@@ -72,22 +72,32 @@
 		[self.urls addObject:url];
 		__weak typeof(self)weakSelf = self;
 		WLImageFetcherBlock completion = ^(UIImage *image, BOOL cached, NSError* error) {
-			NSArray* receivers = [weakSelf.receivers copy];
-			for (NSObject <WLImageFetching> *receiver in receivers) {
-				if ([receiver respondsToSelector:@selector(fetcherTargetUrl:)] && [[receiver fetcherTargetUrl:weakSelf] isEqualToString:url]) {
-					if (error && [receiver respondsToSelector:@selector(fetcher:didFailWithError:)]) {
-						[receiver fetcher:weakSelf didFailWithError:error];
-					} else if ([receiver respondsToSelector:@selector(fetcher:didFinishWithImage:cached:)]) {
-						[receiver fetcher:weakSelf didFinishWithImage:image cached:cached];
-					}
-				}
-			}
+            NSHashTable* receivers = weakSelf.receivers;
+            @synchronized (receivers) {
+                if (error) {
+                    for (NSObject <WLImageFetching> *receiver in receivers) {
+                        if ([receiver respondsToSelector:@selector(fetcherTargetUrl:)] && [[receiver fetcherTargetUrl:weakSelf] isEqualToString:url]) {
+                            if ([receiver respondsToSelector:@selector(fetcher:didFailWithError:)]) {
+                                [receiver fetcher:weakSelf didFailWithError:error];
+                            }
+                        }
+                    }
+                } else {
+                    for (NSObject <WLImageFetching> *receiver in receivers) {
+                        if ([receiver respondsToSelector:@selector(fetcherTargetUrl:)] && [[receiver fetcherTargetUrl:weakSelf] isEqualToString:url]) {
+                            if ([receiver respondsToSelector:@selector(fetcher:didFinishWithImage:cached:)]) {
+                                [receiver fetcher:weakSelf didFinishWithImage:image cached:cached];
+                            }
+                        }
+                    }
+                }
+            }
 			[weakSelf.urls removeObject:url];
 		};
 		
 		if ([[WLImageCache cache] containsImageWithUrl:url]) {
-			[[WLImageCache cache] imageWithUrl:url completion:^(UIImage *image) {
-				completion(image, YES, nil);
+			[[WLImageCache cache] imageWithUrl:url completion:^(UIImage *image, BOOL cached) {
+				completion(image, cached, nil);
 			}];
 		} else if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
 			[self setFileSystemUrl:url completion:completion];

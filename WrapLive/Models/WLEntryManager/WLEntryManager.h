@@ -33,6 +33,8 @@
 
 - (void)registerEntries:(NSOrderedSet*)entries forClass:(Class)entryClass;
 
+- (void)registerEntry:(WLEntry*)entry;
+
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier create:(BOOL)create;
 
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier;

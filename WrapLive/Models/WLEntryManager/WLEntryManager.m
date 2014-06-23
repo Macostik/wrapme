@@ -96,6 +96,13 @@
     }
 }
 
+- (void)registerEntry:(WLEntry *)entry {
+    if (entry.identifier) {
+        NSMapTable* entries = [self.cachedEntries objectForKey:[entry entity].name];
+        [entries setObject:entry forKey:entry.identifier];
+    }
+}
+
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString *)identifier create:(BOOL)create {
 	if (!identifier.nonempty) {
 		return nil;
@@ -239,6 +246,16 @@ static NSString *WLEntryIdentifierKey = @"identifier";
 
 - (void)remove {
     [[WLEntryManager manager] deleteEntry:self];
+}
+
+- (void)awakeFromInsert {
+    [super awakeFromInsert];
+    [[WLEntryManager manager] registerEntry:self];
+}
+
+- (void)awakeFromFetch {
+    [super awakeFromFetch];
+    [[WLEntryManager manager] registerEntry:self];
 }
 
 @end

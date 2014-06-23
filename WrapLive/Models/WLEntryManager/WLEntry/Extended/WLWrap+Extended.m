@@ -85,18 +85,28 @@
     }];
 }
 
-- (NSString *)contributorNames {
+- (NSString *)contributorNamesWithCount:(NSInteger)numberOfUsers {
     if (self.contributors.nonempty) {
         NSMutableString* contributorNames = [NSMutableString string];
-        for (WLUser* contributor in self.contributors) {
+        BOOL moreUsers = self.contributors.count > numberOfUsers;
+        NSInteger count = moreUsers ? numberOfUsers : self.contributors.count;
+        for (NSInteger i = 0; i < count; i++) {
+            WLUser* contributor = self.contributors[i];
             if (contributorNames.nonempty) {
                 [contributorNames appendString:@", "];
             }
-            [contributorNames appendString:contributor.name];
+            [contributorNames appendString:[contributor isCurrentUser] ? @"You" : contributor.name];
+        }
+        if (moreUsers) {
+            [contributorNames appendString:@"..."];
         }
         return [contributorNames copy];
     }
     return nil;
+}
+
+- (NSString *)contributorNames {
+    return [self contributorNamesWithCount:4];
 }
 
 - (void)addCandy:(WLCandy *)candy {

@@ -59,9 +59,11 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 
 - (void)configure {
 	[self performSelector:@selector(connect) withObject:nil afterDelay:0.0f];
+    [super configure];
 }
 
 - (void)setup {
+    [super setup];
 	[PubNub setupWithConfiguration:[WLNotificationBroadcaster configuration] andDelegate:self];
 }
 
@@ -95,11 +97,10 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 	}
 }
 
-- (void)addReceiver:(id<WLBroadcastReceiver>)receiver {
+- (void)addReceiver:(id<WLNotificationReceiver>)receiver {
 	[super addReceiver:receiver];
-	
 	if (self.pendingRemoteNotification && [receiver respondsToSelector:@selector(broadcaster:didReceiveRemoteNotification:)]) {
-		[receiver performSelector:@selector(broadcaster:didReceiveRemoteNotification:) withObject:self withObject:self.pendingRemoteNotification];
+		[receiver broadcaster:self didReceiveRemoteNotification:self.pendingRemoteNotification];
 	}
 }
 

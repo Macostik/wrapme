@@ -33,7 +33,6 @@
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
 #import "WLToast.h"
-#import "WLNotificationBroadcaster.h"
 #import "WLStillPictureViewController.h"
 #import "WLSupportFunctions.h"
 #import "NSString+Additions.h"

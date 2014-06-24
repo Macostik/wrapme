@@ -84,6 +84,7 @@ static inline BOOL GyroIsRotating(CMRotationRate rotation, double t) {
 }
 
 - (void)setup {
+    [super setup];
     [self addReceiver:self];
     __weak typeof(self)weakSelf = self;
     [self.manager startAccelerometerUpdatesToQueue:self.queue withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {

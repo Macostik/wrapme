@@ -41,6 +41,7 @@
 }
 
 - (void)setup {
+    [super setup];
 	__weak typeof(self)weakSelf = self;
 	Reachability* reachability = [WLInternetConnectionBroadcaster reachability];
 	[reachability startNotifier];

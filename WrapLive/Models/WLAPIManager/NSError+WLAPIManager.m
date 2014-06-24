@@ -44,7 +44,6 @@ static NSDictionary *errorsToIgnore = nil;
 - (void)showWithTitle:(NSString *)title callback:(void (^)(void))callback {
 	if (![self ignore]) {
 		[WLToast showWithMessage:[self errorMessage]?:self.localizedDescription];
-//		[[[UIAlertView alloc] initWithTitle:title message:errorMessage delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
 	}
 }
 

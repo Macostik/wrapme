@@ -118,8 +118,8 @@
         [set addObject:candy];
         [set sortEntries];
     }];
-	[self save];
 	[self touch];
+    [self save];
 	[self broadcastChange];
 	[candy broadcastCreation];
 }

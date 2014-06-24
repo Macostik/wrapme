@@ -6,10 +6,17 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
+#import "WLBlocks.h"
+
 @class WLWrap;
+@class WLTempWrap;
+
+typedef void (^WLContactsBlock) (NSOrderedSet *contributors, NSArray *invitees);
 
 @interface WLContributorsViewController : UIViewController
 
-@property (nonatomic, strong) WLWrap* wrap;
+@property (strong, nonatomic) NSOrderedSet *contributors;
+@property (strong, nonatomic) NSArray *invitees;
+@property (strong, nonatomic) WLContactsBlock contactsBlock;
 
 @end

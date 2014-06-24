@@ -51,6 +51,7 @@
 	contact.name = self.userNameTextField.text;
 	WLPhone * phone = [WLPhone new];
 	phone.number = self.phoneNumberTextField.text;
+    phone.name = self.userNameTextField.text;
 	contact.phones = @[phone];
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;

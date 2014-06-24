@@ -15,6 +15,7 @@
 #import "UIColor+CustomColors.h"
 #import "WLInviteViewController.h"
 #import "WLEntryManager.h"
+#import "WLTempWrap.h"
 
 @interface WLContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate>
 
@@ -51,7 +52,12 @@
 		
 		NSMutableArray *phones = [contact.phones mutableCopy];
         [phones removeObjectsWhileEnumerating:^BOOL(WLPhone *phone) {
-            return ([phone.user isEqualToEntry:[WLUser currentUser]] || (self.wrap.contributor && [phone.user isEqualToEntry:self.wrap.contributor]));
+            if (phone.user) {
+                return [self.contributors containsObject:phone.user];
+            }
+            return [self.invitees containsObject:phone byBlock:^BOOL(WLPhone* first, WLPhone* second) {
+                return [first isEqualToPhone:second];
+            }];
         }];
         
         if (!phones.nonempty) {
@@ -104,17 +110,20 @@
 	return _selectedPhones;
 }
 
-- (void)setWrap:(WLWrap *)wrap {
-	_wrap = wrap;
-    NSOrderedSet* phones = [wrap.contributors map:^id(WLUser* contributor) {
-        WLPhone* phone = [[WLPhone alloc] init];
-        phone.number = contributor.phone;
-        phone.name = contributor.name;
-        phone.user = contributor;
-        return phone;
-    }];
-	[self.selectedPhones setSet:[phones set]];
-}
+//- (void)setTempWrap:(WLTempWrap *)tempWrap {
+//    _tempWrap = tempWrap;
+//    NSOrderedSet* phones = [tempWrap.contributors map:^id(WLUser* contributor) {
+//        WLPhone* phone = [[WLPhone alloc] init];
+//        phone.number = contributor.phone;
+//        phone.name = contributor.name;
+//        phone.user = contributor;
+//        return phone;
+//    }];
+//    [self.selectedPhones addObjectsFromArray:tempWrap.invitees];
+//	[self.selectedPhones setSet:[phones set]];
+//}
+
+
 
 -(void)setContacts:(NSArray *)contacts {
     _contacts = contacts;
@@ -137,22 +146,20 @@
 	__weak typeof(self)weakSelf = self;
 	[controller setPhoneNumberBlock:^(NSArray *contacts) {
         WLContact* contact = [contacts lastObject];
+        WLPhone* phone = [contact.phones lastObject];
 
         [self.selectedPhones addObjectsFromArray:contact.phones];
         
         WLContact* existingContact = [weakSelf.contacts selectObject:^BOOL(WLContact* item) {
-            for (WLPhone* phone in item.phones) {
-                for (WLPhone* _phone in contact.phones) {
-                    if ([_phone isEqualToPhone:phone]) {
-                        return YES;
-                    }
+            for (WLPhone* _phone in item.phones) {
+                if ([_phone isEqualToPhone:phone]) {
+                    phone.name = item.name;
+                    return YES;
                 }
             }
             return NO;
         }];
-        
         NSMutableArray* aContacts = [NSMutableArray arrayWithArray:weakSelf.contacts];
-        
         if (!existingContact) {
             [aContacts addObject:contact];
             existingContact = contact;
@@ -175,10 +182,9 @@
 }
 
 - (IBAction)done:(id)sender {
-    NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSetWithOrderedSet:self.wrap.contributors];
     
-    NSMutableArray* invitees = [NSMutableArray array];
-    
+    NSMutableOrderedSet * contributors = [NSMutableOrderedSet orderedSetWithOrderedSet:self.contributors];
+    NSMutableArray* invitees = [NSMutableArray arrayWithArray:self.invitees];
     for (WLPhone* phone in self.selectedPhones) {
         if (phone.user) {
             [contributors addObject:phone.user];
@@ -186,8 +192,7 @@
             [invitees addObject:phone];
         }
     }
-	self.wrap.contributors = [contributors copy];
-    self.wrap.invitees = [invitees copy];
+    self.contactsBlock([contributors copy], [invitees copy]);
 	[self.navigationController popViewControllerAnimated:YES];
 }
 

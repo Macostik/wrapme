@@ -29,6 +29,7 @@
 #import "WLStillPictureViewController.h"
 #import "WLAddressBook.h"
 #import "WLInviteeCell.h"
+#import "WLTempWrap.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLContributorCellDelegate, WLInviteeCellDelegate, WLStillPictureViewControllerDelegate>
 
@@ -46,7 +47,7 @@
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
-@property (strong, nonatomic) NSOrderedSet *existingContributors;
+@property (strong, nonatomic) WLTempWrap *tempWrap;
 
 @end
 
@@ -59,6 +60,7 @@
     // Do any additional setup after loading the view.
     [[WLEntryManager manager] lock];
 	[self verifyStartAndDoneButton];
+    self.tempWrap = [[WLTempWrap alloc] initWithWrap:self.wrap];
 	if (self.editing) {
         self.coverView.image = nil;
 		[self configureWrapEditing];
@@ -81,7 +83,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isContributorsSegue]) {
 		WLContributorsViewController* controller = segue.destinationViewController;
-		controller.wrap = self.wrap;
+        controller.contributors = self.tempWrap.contributors;
+        controller.invitees = self.tempWrap.invitees;
+        __weak typeof(self)weakSelf = self;
+        [controller setContactsBlock:^(NSOrderedSet *contributors, NSArray *invitees) {
+            weakSelf.tempWrap.contributors = contributors;
+            weakSelf.tempWrap.invitees = invitees;
+        }];
 	} else if ([segue isCameraSegue]) {
 		WLStillPictureViewController* controller = segue.destinationViewController;
 		controller.delegate = self;
@@ -113,7 +121,6 @@
 	self.startButton.hidden = YES;
 	self.doneButton.hidden = NO;
 	self.titleLabel.text = @"Edit wrap";
-    self.existingContributors = self.wrap.contributors;
 	if (![self.wrap.contributor isCurrentUser]) {
 		self.coverButtonView.hidden = YES;
 		self.coverView.height = self.coverView.width;
@@ -131,20 +138,38 @@
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
-    if (self.editing) {
-        [[WLEntryManager manager].context refreshObject:self.wrap mergeChanges:NO];
-//        [WLUser currentUser].name;
-    } else {
+    if (!self.editing) {
         [self.wrap remove];
     }
     [[WLEntryManager manager] unlock];
 	[self dismiss];
 }
 
+- (BOOL)isWrapChanged {
+    BOOL nameChanged = ![self.tempWrap.name isEqualToString:self.wrap.name];
+	BOOL coverChanged = ![self.tempWrap.picture.large isEqualToString:self.wrap.picture.large];
+	BOOL contributorsChanged = NO;
+	
+	if ([self.tempWrap.contributors count] != [self.wrap.contributors count]) {
+		contributorsChanged = YES;
+	} else {
+        contributorsChanged = ![self.tempWrap.contributors isSubsetOfOrderedSet:self.wrap.contributors];
+	}
+    return (nameChanged || coverChanged || contributorsChanged);
+}
+
+- (void) applyChanges {
+    self.wrap.name = self.tempWrap.name;
+    self.wrap.picture = self.tempWrap.picture;
+    self.wrap.contributors = self.tempWrap.contributors;
+    self.wrap.invitees = self.tempWrap.invitees;
+}
+
 - (IBAction)done:(UIButton *)sender {
-	if ([self.wrap hasChanges]) {
+	if ([self isWrapChanged]) {
 		[self lock];
 		[self.spinner startAnimating];
+        [self applyChanges];
 		__weak typeof(self)weakSelf = self;
 		[self.wrap update:^(WLWrap *wrap) {
             [[WLEntryManager manager] unlock];
@@ -159,6 +184,7 @@
                 [weakSelf dismiss];
             } else {
                 [error show];
+                [[WLEntryManager manager].context refreshObject:self.wrap mergeChanges:NO];
             }
 			[weakSelf.spinner stopAnimating];
 			[weakSelf unlock];
@@ -185,6 +211,7 @@
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
 	[self lock];
+    [self applyChanges];
 	[self.wrap save];
     [self.wrap broadcastCreation];
     void (^completion) (WLWrap*) = ^ (WLWrap* wrap) {
@@ -207,6 +234,7 @@
             completion(weakSelf.wrap);
         } else {
             [error show];
+            [[WLEntryManager manager].context refreshObject:self.wrap mergeChanges:NO];
         }
     }];
 }
@@ -218,23 +246,23 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return section == 0 ? [self.wrap.contributors count] : [self.wrap.invitees count];
+    return section == 0 ? [self.tempWrap.contributors count] : [self.tempWrap.invitees count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
-        WLUser* contributor = self.wrap.contributors[indexPath.row];
+        WLUser* contributor = self.tempWrap.contributors[indexPath.row];
         cell.item = contributor;
-        if ([self.wrap.contributor isCurrentUser]) {
+        if ([self.tempWrap.contributor isCurrentUser]) {
             cell.deletable = ![contributor isCurrentUser];
         } else {
-            cell.deletable = ![self.existingContributors containsObject:contributor];
+            cell.deletable = ![self.wrap.contributors containsObject:contributor];
         }
         return cell;
     } else {
         WLInviteeCell *cell = [tableView dequeueReusableCellWithIdentifier:[WLInviteeCell reuseIdentifier]];
-        WLPhone *phone = self.wrap.invitees[indexPath.row];
+        WLPhone *phone = self.tempWrap.invitees[indexPath.row];
         cell.item = phone;
         return cell;
     }
@@ -246,7 +274,7 @@
 	if (sender.text.length > WLWrapNameLimit) {
 		sender.text = [sender.text substringToIndex:WLWrapNameLimit];
 	}
-	self.wrap.name = sender.text;
+	self.tempWrap.name = sender.text;
 	[self verifyStartAndDoneButton];
 }
 
@@ -258,7 +286,7 @@
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
-	self.wrap.contributors = (id)[self.wrap.contributors orderedSetByRemovingObject:contributor];
+	self.tempWrap.contributors = (id)[self.tempWrap.contributors orderedSetByRemovingObject:contributor];
 	[self refreshContributorsTableView];
 }
 
@@ -269,7 +297,7 @@
 #pragma mark - WLInviteeCellDelegate
 
 - (void)inviteeCell:(WLInviteeCell *)cell didRemovePhone:(WLPhone *)phone {
-    self.wrap.invitees = (id)[self.wrap.invitees arrayByRemovingObject:phone];
+    self.tempWrap.invitees = (id)[self.tempWrap.invitees arrayByRemovingObject:phone];
     [self refreshContributorsTableView];
 }
 
@@ -281,8 +309,7 @@
                                          interpolationQuality:kCGInterpolationDefault];
 	__weak typeof(self)weakSelf = self;
 	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
-        weakSelf.wrap.picture = [[WLPicture alloc] init];
-		weakSelf.wrap.picture.large = path;
+		weakSelf.tempWrap.picture.large = path;
 	}];
 	
 	[self dismissViewControllerAnimated:YES completion:nil];

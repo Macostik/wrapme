@@ -504,7 +504,7 @@ static BOOL signedIn = NO;
 - (id)olderCandies:(WLWrap *)wrap referenceCandy:(WLCandy *)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
 
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-	[parameters trySetObject:withinDay ? @"true" : nil forKey:@"same_day"];
+	[parameters trySetObject:@(withinDay) forKey:@"same_day"];
 	[parameters trySetObject:@(referenceCandy.updatedAt.timestamp) forKey:@"offset_x_in_epoch"];
     [parameters trySetObject:@(referenceCandy.updatedAt.timestamp) forKey:@"offset_y_in_epoch"];
     [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
@@ -530,7 +530,7 @@ static BOOL signedIn = NO;
 - (id)newerCandies:(WLWrap *)wrap referenceCandy:(WLCandy *)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-	[parameters trySetObject:withinDay ? @"true" : nil forKey:@"same_day"];
+	[parameters trySetObject:@(withinDay) forKey:@"same_day"];
 	[parameters trySetObject:@(referenceCandy.updatedAt.timestamp) forKey:@"offset_x_in_epoch"];
     [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
 	

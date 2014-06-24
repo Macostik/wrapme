@@ -52,7 +52,6 @@
 			[weakSelf showLostConnectionBannerIfNeeded];
             if (reachable) {
                 [WLUploading enqueueAutomaticUploading:^{
-                    NSLog(@"enqueueAutomaticUploading completed");
                 }];
             }
 		});

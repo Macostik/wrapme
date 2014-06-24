@@ -58,6 +58,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 @property (strong, nonatomic) NSMutableOrderedSet* candies;
 
+@property (strong, nonatomic) NSOrderedSet* comments;
+
 @end
 
 @implementation WLCandyViewController
@@ -236,8 +238,13 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	self.reportButton.hidden = [self.candy.contributor isCurrentUser];
 	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
-	[self.tableView reloadData];
+	[self reloadComments];
     image.unread = @NO;
+}
+
+- (void)reloadComments {
+    self.comments = self.candy.comments;
+    [self.tableView reloadData];
 }
 
 - (CGFloat)calculateTableHeight {
@@ -255,7 +262,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentRemoved:(WLComment *)comment {
-	[self.tableView reloadData];
+	[self reloadComments];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
@@ -304,11 +311,11 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (void)sendMessageWithText:(NSString*)text {
 	__weak typeof(self)weakSelf = self;
     [self.candy uploadComment:text success:^(WLComment *comment) {
-        [weakSelf.tableView reloadData];
+        [weakSelf reloadComments];
     } failure:^(NSError *error) {
         [error show];
     }];
-    [weakSelf.tableView reloadData];
+    [self reloadComments];
     [weakSelf.tableView scrollToBottomAnimated:YES];
 }
 
@@ -336,18 +343,18 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.candy.comments.count;
+	return self.comments.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
+	WLComment* comment = [self.comments objectAtIndex:indexPath.row];
 	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:WLCommentCellIdentifier forIndexPath:indexPath];
 	cell.item = comment;
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLComment* comment = [self.candy.comments objectAtIndex:indexPath.row];
+	WLComment* comment = [self.comments objectAtIndex:indexPath.row];
 	CGFloat commentHeight  = ceilf([comment.text boundingRectWithSize:CGSizeMake(WLCommentLabelLenth, CGFLOAT_MAX)
 														 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[WLCommentCell commentFont]} context:nil].size.height);
 	CGFloat cellHeight = (commentHeight + WLAuthorLabelHeight);

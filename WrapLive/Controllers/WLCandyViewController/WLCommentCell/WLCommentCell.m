@@ -19,12 +19,14 @@
 #import "UIView+GestureRecognizing.h"
 #import "WLToast.h"
 #import "WLEntryManager.h"
+#import "WLMenu.h"
 
-@interface WLCommentCell()
+@interface WLCommentCell () <WLMenuDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+@property (strong, nonatomic) WLMenu* menu;
 
 @end
 
@@ -42,10 +44,7 @@
 	[super awakeFromNib];
 	self.commentLabel.font = [WLCommentCell commentFont];
 	self.authorImageView.layer.cornerRadius = self.authorImageView.height/2.0f;
-	__weak typeof(self)weakSelf = self;
-	[self addLongPressGestureRecognizing:^(CGPoint point){
-		[weakSelf showMenu:point];
-	}];
+    self.menu = [WLMenu menuWithView:self delegate:self];
 }
 
 - (void)setupItemData:(WLComment *)entry {
@@ -54,23 +53,10 @@
 	self.commentLabel.text = entry.text;
 	[self.commentLabel sizeToFitHeight];
 	self.authorImageView.url = entry.contributor.picture.medium;
-	self.vibrateOnLongPressGesture = [entry.contributor isCurrentUser];
+	self.menu.vibrate = [entry.contributor isCurrentUser];
 }
 
-- (void)showMenu:(CGPoint)point {
-	WLComment* comment = self.item;
-	if ([comment.contributor isCurrentUser]) {
-		UIMenuItem* menuItem = [[UIMenuItem alloc] initWithTitle:@"Delete" action:@selector(remove)];
-		UIMenuController* menuController = [UIMenuController sharedMenuController];
-		[self becomeFirstResponder];
-		menuController.menuItems = @[menuItem];
-		[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
-		[menuController setMenuVisible:YES animated:YES];
-	} else {
-		[WLToast showWithMessage:@"Cannot delete comment not posted by you."];
-	}
-	
-}
+#pragma mark - WLMenuDelegate
 
 - (void)remove {
 	__weak typeof(self)weakSelf = self;
@@ -83,12 +69,22 @@
 	}];
 }
 
-- (BOOL)canPerformAction:(SEL)selector withSender:(id) sender {
-    return (selector == @selector(remove));
+- (BOOL)menuShouldBePresented:(WLMenu *)menu {
+    WLComment* comment = self.item;
+	if ([comment.contributor isCurrentUser]) {
+		return YES;
+	} else {
+		[WLToast showWithMessage:@"Cannot delete comment not posted by you."];
+        return NO;
+	}
 }
 
-- (BOOL)canBecomeFirstResponder {
-    return YES;
+- (NSString *)menu:(WLMenu *)menu titleForItem:(NSUInteger)item {
+    return @"Delete";
+}
+
+- (SEL)menu:(WLMenu *)menu actionForItem:(NSUInteger)item {
+    return @selector(remove);
 }
 
 @end

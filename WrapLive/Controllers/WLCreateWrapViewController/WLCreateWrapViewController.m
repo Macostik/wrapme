@@ -130,7 +130,7 @@
 }
 
 - (void)verifyStartAndDoneButton {
-	BOOL enabled = self.wrap.name.nonempty;
+	BOOL enabled = self.tempWrap.name.nonempty;
 	self.startButton.active = enabled;
 	self.doneButton.active = enabled;
 }

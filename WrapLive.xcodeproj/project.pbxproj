@@ -178,6 +178,7 @@
 		C50445BC1951AA8F003C2251 /* WLWrap+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C50445B41951AA8F003C2251 /* WLWrap+Extended.m */; };
 		C507B9E91948947D00CCB3FE /* WLGestureBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C507B9E81948947D00CCB3FE /* WLGestureBroadcaster.m */; };
 		C5110B7A1952DE55008F236E /* AsynchronousOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5110B791952DE55008F236E /* AsynchronousOperation.m */; };
+		C514A82C1959BCF5007D631B /* WLMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C514A82B1959BCF5007D631B /* WLMenu.m */; };
 		C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5018F5271B00BDF038 /* WLChatViewController.m */; };
 		C5947E5518F52AE000BDF038 /* WLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5418F52AE000BDF038 /* WLMessageCell.m */; };
 		C59528EE191CD9A6001ECD7C /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59528ED191CD9A6001ECD7C /* WLContactCell.m */; };
@@ -495,6 +496,8 @@
 		C507B9E81948947D00CCB3FE /* WLGestureBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLGestureBroadcaster.m; path = WLBroadcaster/WLGestureBroadcaster/WLGestureBroadcaster.m; sourceTree = "<group>"; };
 		C5110B781952DE55008F236E /* AsynchronousOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsynchronousOperation.h; sourceTree = "<group>"; };
 		C5110B791952DE55008F236E /* AsynchronousOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsynchronousOperation.m; sourceTree = "<group>"; };
+		C514A82A1959BCF5007D631B /* WLMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLMenu.h; path = WLMenu/WLMenu.h; sourceTree = "<group>"; };
+		C514A82B1959BCF5007D631B /* WLMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLMenu.m; path = WLMenu/WLMenu.m; sourceTree = "<group>"; };
 		C5947E4F18F5271B00BDF038 /* WLChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChatViewController.h; path = WLChatViewController/WLChatViewController.h; sourceTree = "<group>"; };
 		C5947E5018F5271B00BDF038 /* WLChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChatViewController.m; path = WLChatViewController/WLChatViewController.m; sourceTree = "<group>"; };
 		C5947E5318F52AE000BDF038 /* WLMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLMessageCell.h; path = WLChatViewController/WLMessageCell/WLMessageCell.h; sourceTree = "<group>"; };
@@ -911,6 +914,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C514A8291959BCD8007D631B /* WLMenu */,
 				14B369D419595C8600CAF814 /* WLTempWrap */,
 				C5110B771952DE55008F236E /* AsynchronousOperation */,
 				C5A21DF9194AF54000F3A554 /* WLEntryManager */,
@@ -1687,6 +1691,15 @@
 			path = AsynchronousOperation;
 			sourceTree = "<group>";
 		};
+		C514A8291959BCD8007D631B /* WLMenu */ = {
+			isa = PBXGroup;
+			children = (
+				C514A82A1959BCF5007D631B /* WLMenu.h */,
+				C514A82B1959BCF5007D631B /* WLMenu.m */,
+			);
+			name = WLMenu;
+			sourceTree = "<group>";
+		};
 		C5947E4E18F5264B00BDF038 /* WLChatViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1830,7 +1843,7 @@
 			attributes = {
 				CLASSPREFIX = WL;
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = Mobidev;
+				ORGANIZATIONNAME = Ravenpod;
 			};
 			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1977,6 +1990,7 @@
 				ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */,
 				12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */,
 				12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */,
+				C514A82C1959BCF5007D631B /* WLMenu.m in Sources */,
 				12E1104C19067095007DB4AC /* WLCandyViewController.m in Sources */,
 				1221EA6A18FD372F00C64DAE /* UIButton+Additions.m in Sources */,
 				12E1104219066C2D007DB4AC /* WLSwipeViewController.m in Sources */,

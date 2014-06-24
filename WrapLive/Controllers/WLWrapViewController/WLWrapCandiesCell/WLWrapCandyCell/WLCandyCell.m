@@ -23,17 +23,16 @@
 #import "WLUser.h"
 #import "WLAPIManager.h"
 #import "WLEntryManager.h"
+#import "WLMenu.h"
 
-@interface WLCandyCell () <WLWrapBroadcastReceiver>
+@interface WLCandyCell () <WLWrapBroadcastReceiver, WLMenuDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chatLabelView;
-@property (weak, nonatomic) IBOutlet UIView *lowOpacityView;
-@property (weak, nonatomic) IBOutlet WLBorderView *borderView;
-@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-@property (weak, nonatomic) IBOutlet UIButton *retryButton;
 @property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
+
+@property (strong, nonatomic) WLMenu* menu;
 
 @end
 
@@ -41,33 +40,24 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	self.borderView.lineWidth = 0.5f;
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-	__weak typeof(self)weakSelf = self;
-	[self addLongPressGestureRecognizing:^(CGPoint point){
-		[weakSelf showMenu:point];
-	}];
+    self.menu = [WLMenu menuWithView:self delegate:self];
 }
 
-- (void)setupItemData:(WLCandy*)entry {
-	[self setupItemData:entry animated:NO];
-}
-
-- (void)setupItemData:(WLCandy*)candy animated:(BOOL)animated {
+- (void)setupItemData:(WLCandy*)candy {
 	self.userInteractionEnabled = YES;
-	
 	if ([candy isImage]) {
 		WLComment* comment = [candy.comments lastObject];
 		self.commentLabel.text = comment.text;
 		self.coverView.url = candy.picture.medium;
+        self.menu.vibrate = YES;
 	} else {
 		self.commentLabel.text = candy.message;
 		self.coverView.url = candy.contributor.picture.medium;
+        self.menu.vibrate = NO;
 	}
 	self.commentLabel.hidden = !self.commentLabel.text.nonempty;
-	
-	[self refreshUploadingButtons:candy animated:animated];
-	
+    
 	[self refreshNotifyBulb:candy];
 }
 
@@ -89,38 +79,16 @@
 	}
 }
 
-- (void)refreshUploadingButtons:(WLCandy*)candy animated:(BOOL)animated {
-	if (candy.uploading) {
-		self.vibrateOnLongPressGesture = NO;
-		self.lowOpacityView.hidden = (candy.uploading.operation != nil);
-	} else {
-		self.lowOpacityView.hidden = YES;
-		self.vibrateOnLongPressGesture = [candy isImage] && [candy.contributor isCurrentUser];
+- (IBAction)select:(id)sender {
+	WLCandy* candy = self.item;
+	if (candy.uploading == nil) {
+		self.notifyBulb.hidden = YES;
+        candy.unread = @NO;
+		[self.delegate candyCell:self didSelectCandy:candy];
 	}
 }
 
-- (void)showMenu:(CGPoint)point {
-	WLCandy* candy = self.item;
-	if ([candy isImage]) {
-		if ([candy.contributor isCurrentUser]) {
-			UIMenuItem* menuItem = [[UIMenuItem alloc] initWithTitle:@"Delete" action:@selector(remove)];
-			UIMenuController* menuController = [UIMenuController sharedMenuController];
-			[self becomeFirstResponder];
-			menuController.menuItems = @[menuItem];
-			[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
-			[menuController setMenuVisible:YES animated:YES];
-		} else {
-			UIMenuItem* menuItem = [[UIMenuItem alloc] initWithTitle:@"Report" action:@selector(report)];
-			UIMenuController* menuController = [UIMenuController sharedMenuController];
-			[self becomeFirstResponder];
-			menuController.menuItems = @[menuItem];
-			[menuController setTargetRect:CGRectMake(point.x, point.y, 0, 0) inView:self];
-			[menuController setMenuVisible:YES animated:YES];
-		}
-	} else {
-		[WLToast showWithMessage:@"Cannot delete chat message already posted."];
-	}
-}
+#pragma mark - WLMenuDelegate
 
 - (void)remove {
 	WLCandy* candy = self.item;
@@ -138,45 +106,34 @@
 	[MFMailComposeViewController messageWithCandy:self.item];
 }
 
-- (BOOL)canPerformAction:(SEL)selector withSender:(id) sender {
-    return (selector == @selector(remove) || selector == @selector(report));
+- (BOOL)menuShouldBePresented:(WLMenu *)menu {
+    WLCandy* candy = self.item;
+    if ([candy isImage]) {
+        return YES;
+    } else {
+        [WLToast showWithMessage:@"Cannot delete chat message already posted."];
+        return NO;
+    }
 }
 
-- (BOOL)canBecomeFirstResponder {
-    return YES;
+- (NSString *)menu:(WLMenu *)menu titleForItem:(NSUInteger)item {
+    WLCandy* candy = self.item;
+    return [candy.contributor isCurrentUser] ? @"Delete" : @"Report";
 }
 
-- (IBAction)select:(id)sender {
-	WLCandy* candy = self.item;
-	if (candy.uploading == nil) {
-		self.notifyBulb.hidden = YES;
-        candy.unread = @NO;
-		[self.delegate candyCell:self didSelectCandy:candy];
-	}
+- (SEL)menu:(WLMenu *)menu actionForItem:(NSUInteger)item {
+    WLCandy* candy = self.item;
+    return [candy.contributor isCurrentUser] ? @selector(remove) : @selector(report);
 }
 
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
-	[self setupItemData:self.item animated:YES];
+	[self setupItemData:self.item];
 }
 
 - (WLCandy *)broadcasterPreferedCandy:(WLWrapBroadcaster *)broadcaster {
     return self.item;
-}
-
-#pragma mark - Actions
-
-- (IBAction)cancelUploading:(id)sender {
-	WLCandy* candy = self.item;
-	[candy remove];
-}
-
-- (IBAction)retryUploading:(id)sender {
-	WLCandy* candy = self.item;
-	[candy.uploading upload:^(id object) {
-	} failure:^(NSError *error) {
-	}];
 }
 
 @end

@@ -15,8 +15,4 @@
 
 - (void)removeTapGestureRecognizing;
 
-- (void)addLongPressGestureRecognizing:(WLPointBlock)block;
-
-@property (nonatomic) BOOL vibrateOnLongPressGesture;
-
 @end

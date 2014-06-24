@@ -18,14 +18,16 @@
 #import "UIView+GestureRecognizing.h"
 #import "WLEntryManager.h"
 #import "WLWrapBroadcaster.h"
+#import "WLMenu.h"
 
-@interface WLWrapCell () <WLCandyCellDelegate>
+@interface WLWrapCell () <WLCandyCellDelegate, WLMenuDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
+@property (strong, nonatomic) WLMenu* menu;
 
 @end
 
@@ -33,16 +35,7 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	__weak typeof(self)weakSelf = self;
-	[self.nameLabel.superview addLongPressGestureRecognizing:^(CGPoint point) {
-        BOOL showMenu = YES;
-        if ([weakSelf.delegate respondsToSelector:@selector(wrapCellShouldShowMenu:)]) {
-            showMenu = [weakSelf.delegate wrapCellShouldShowMenu:self];
-        }
-        if (showMenu) {
-            [weakSelf showMenu:point];
-        }
-	}];
+    self.menu = [WLMenu menuWithView:self delegate:self];
 }
 
 - (void)setupItemData:(WLWrap*)wrap {
@@ -82,21 +75,7 @@
     }
 }
 
-- (void)showMenu:(CGPoint)point {
-	UIMenuItem* menuItem = nil;
-	__weak typeof(self)weakSelf = self;
-	WLWrap* wrap = weakSelf.item;
-	if ([wrap.contributor isCurrentUser]) {
-		menuItem = [[UIMenuItem alloc] initWithTitle:@"Delete" action:@selector(remove)];
-	} else {
-		menuItem = [[UIMenuItem alloc] initWithTitle:@"Leave" action:@selector(leave)];
-	}
-	UIMenuController* menuController = [UIMenuController sharedMenuController];
-	[self becomeFirstResponder];
-	menuController.menuItems = @[menuItem];
-	[menuController setTargetRect:CGRectMake(point.x, [self.reuseIdentifier isEqualToString:@"WLTopWrapCell"] ? point.y + 12 : point.y, 0, 0) inView:self];
-	[menuController setMenuVisible:YES animated:YES];
-}
+#pragma mark - WLMenuDelegate
 
 - (void)remove {
 	__weak typeof(self)weakSelf = self;
@@ -132,12 +111,14 @@
 	}];
 }
 
-- (BOOL)canPerformAction:(SEL)selector withSender:(id) sender {
-	return (selector == @selector(remove)) || (selector == @selector(leave));
+- (NSString *)menu:(WLMenu *)menu titleForItem:(NSUInteger)item {
+    WLWrap* wrap = self.item;
+    return [wrap.contributor isCurrentUser] ? @"Delete" : @"Leave";
 }
 
-- (BOOL)canBecomeFirstResponder {
-    return YES;
+- (SEL)menu:(WLMenu *)menu actionForItem:(NSUInteger)item {
+    WLWrap* wrap = self.item;
+    return [wrap.contributor isCurrentUser] ? @selector(remove) : @selector(leave);
 }
 
 #pragma mark - StreamViewDelegate

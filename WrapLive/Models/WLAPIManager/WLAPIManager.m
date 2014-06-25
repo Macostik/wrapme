@@ -642,6 +642,7 @@ static BOOL signedIn = NO;
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:comment.text forKey:@"message"];
     [parameters trySetObject:comment.uploadIdentifier forKey:@"upload_uid"];
+    [parameters trySetObject:@(comment.updatedAt.timestamp) forKey:@"contributed_at_in_epoch"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
         [comment.candy.wrap touch];

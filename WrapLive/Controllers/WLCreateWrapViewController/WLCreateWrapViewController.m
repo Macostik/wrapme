@@ -108,7 +108,7 @@
 }
 
 - (void)refreshFooterView {
-	self.contributorsTableView.tableFooterView = self.wrap.contributors.nonempty ? nil : self.noContributorsView;
+	self.contributorsTableView.tableFooterView = self.wrapEditSession.changedWrap.contributors.nonempty ? nil : self.noContributorsView;
 }
 
 - (void)configureWrapEditing {
@@ -287,8 +287,8 @@
 	__weak typeof(self)weakSelf = self;
 	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
         weakSelf.wrapEditSession.changedWrap.picture.large = path;
-        self.coverView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
-                                                           bounds:self.coverView.retinaSize
+        weakSelf.coverView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
+                                                           bounds:weakSelf.coverView.retinaSize
                                              interpolationQuality:kCGInterpolationDefault];
 	}];
 	

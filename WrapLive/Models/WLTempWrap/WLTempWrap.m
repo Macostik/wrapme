@@ -22,7 +22,7 @@
         WLPicture *picture = [WLPicture new];
         picture.large = wrap.picture.large;
         self.picture = picture;
-        self.contributors = wrap.contributors;
+        self.contributors = [NSOrderedSet orderedSetWithOrderedSet:wrap.contributors];
         self.contributor = wrap.contributor;
     }
     return self;

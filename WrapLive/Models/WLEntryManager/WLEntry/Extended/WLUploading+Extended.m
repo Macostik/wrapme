@@ -72,7 +72,7 @@
 
 - (id)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (self.operation || ![self.contribution canBeUploaded]) {
-        failure(failure);
+        failure(nil);
         return nil;
     }
     __weak typeof(self)weakSelf = self;

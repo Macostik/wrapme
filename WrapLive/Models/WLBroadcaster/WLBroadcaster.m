@@ -7,6 +7,8 @@
 //
 
 #import "WLBroadcaster.h"
+#import <objc/message.h>
+#import "WLSupportFunctions.h"
 
 @interface WLBroadcaster ()
 
@@ -20,7 +22,7 @@
     return nil;
 }
 
-- (instancetype)initWithReceiver:(id<WLBroadcastReceiver>)receiver {
+- (instancetype)initWithReceiver:(id)receiver {
     self = [self init];
     if (self) {
         [self addReceiver:receiver];
@@ -44,15 +46,15 @@
 	
 }
 
-- (void)addReceiver:(id<WLBroadcastReceiver>)receiver {
+- (void)addReceiver:(id)receiver {
 	[self.receivers addObject:receiver];
 }
 
-- (void)removeReceiver:(id<WLBroadcastReceiver>)receiver {
+- (void)removeReceiver:(id)receiver {
 	[self.receivers removeObject:receiver];
 }
 
-- (BOOL)containsReceiver:(id<WLBroadcastReceiver>)receiver {
+- (BOOL)containsReceiver:(id)receiver {
 	return [self.receivers containsObject:receiver];
 }
 
@@ -63,7 +65,7 @@
 - (void)broadcast:(SEL)selector object:(id)object select:(WLBroadcastSelectReceiver)select {
     NSHashTable* receivers = self.receivers;
     @synchronized (receivers) {
-        for (NSObject <WLBroadcastReceiver> *receiver in receivers) {
+        for (id receiver in receivers) {
             if ((select ? select(receiver) : YES) && [receiver respondsToSelector:selector]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -79,17 +81,7 @@
 }
 
 - (void)broadcast:(SEL)selector select:(WLBroadcastSelectReceiver)select {
-    NSHashTable* receivers = self.receivers;
-    @synchronized (receivers) {
-        for (NSObject <WLBroadcastReceiver> *receiver in receivers) {
-            if ((select ? select(receiver) : YES) && [receiver respondsToSelector:selector]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                [receiver performSelector:selector withObject:self];
-#pragma clang diagnostic pop
-            }
-        }
-    }
+    [self broadcast:selector object:nil select:select];
 }
 
 @end

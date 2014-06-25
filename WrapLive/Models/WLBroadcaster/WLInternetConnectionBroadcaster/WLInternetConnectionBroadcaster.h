@@ -10,7 +10,7 @@
 
 @class WLInternetConnectionBroadcaster;
 
-@protocol WLInternetConnectionBroadcastReceiver <WLBroadcastReceiver>
+@protocol WLInternetConnectionBroadcastReceiver
 
 @optional
 - (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable;

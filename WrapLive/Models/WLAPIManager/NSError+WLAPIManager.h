@@ -16,12 +16,12 @@ typedef NS_ENUM(NSInteger, PGErrorCode) {
 
 static const BOOL detailedLog = NO;
 
-static inline void WLLog(NSString* label, id object) {
+static inline void WLLog(NSString* label, NSString* action, id object) {
 #if DEBUG
-    if (detailedLog) {
-        NSLog(@"%@: %@", label, object);
+    if (detailedLog && object) {
+        NSLog(@"%@ - %@: %@", label, action, object);
     } else {
-        NSLog(@"%@", label);
+        NSLog(@"%@ - %@", label, action);
     }
 #endif
 }

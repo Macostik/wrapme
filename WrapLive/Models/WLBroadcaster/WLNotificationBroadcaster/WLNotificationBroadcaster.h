@@ -11,7 +11,7 @@
 @class WLNotificationBroadcaster;
 @class WLNotification;
 
-@protocol WLNotificationReceiver <WLBroadcastReceiver>
+@protocol WLNotificationReceiver
 
 @optional
 

@@ -23,7 +23,7 @@
 
 @end
 
-@protocol WLWrapBroadcastReceiver <WLBroadcastReceiver>
+@protocol WLWrapBroadcastReceiver
 
 @optional
 - (WLWrap*)broadcasterPreferedWrap:(WLWrapBroadcaster*)broadcaster;

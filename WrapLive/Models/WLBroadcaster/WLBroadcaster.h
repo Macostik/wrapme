@@ -8,11 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol WLBroadcastReceiver <NSObject>
-
-@end
-
-typedef BOOL (^WLBroadcastSelectReceiver)(NSObject <WLBroadcastReceiver> *receiver);
+typedef BOOL (^WLBroadcastSelectReceiver)(id receiver);
 
 @interface WLBroadcaster : NSObject
 
@@ -20,17 +16,17 @@ typedef BOOL (^WLBroadcastSelectReceiver)(NSObject <WLBroadcastReceiver> *receiv
 
 + (instancetype)broadcaster;
 
-- (instancetype)initWithReceiver:(id <WLBroadcastReceiver>)receiver;
+- (instancetype)initWithReceiver:(id)receiver;
 
 - (void)setup;
 
 - (void)configure;
 
-- (void)addReceiver:(id <WLBroadcastReceiver>)receiver;
+- (void)addReceiver:(id)receiver;
 
-- (void)removeReceiver:(id <WLBroadcastReceiver>)receiver;
+- (void)removeReceiver:(id)receiver;
 
-- (BOOL)containsReceiver:(id <WLBroadcastReceiver>)receiver;
+- (BOOL)containsReceiver:(id)receiver;
 
 - (void)broadcast:(SEL)selector object:(id)object;
 

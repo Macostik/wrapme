@@ -10,7 +10,7 @@
 
 @class WLKeyboardBroadcaster;
 
-@protocol WLKeyboardBroadcastReceiver <WLBroadcastReceiver>
+@protocol WLKeyboardBroadcastReceiver
 
 @optional
 - (void)broadcaster:(WLKeyboardBroadcaster*)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight;

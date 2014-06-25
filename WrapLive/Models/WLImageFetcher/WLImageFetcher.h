@@ -12,7 +12,7 @@ typedef void (^WLImageFetcherBlock)(UIImage*, BOOL, NSError*);
 
 @class WLImageFetcher;
 
-@protocol WLImageFetching <WLBroadcastReceiver>
+@protocol WLImageFetching
 
 - (NSString*)fetcherTargetUrl:(WLImageFetcher*)fetcher;
 

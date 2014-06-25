@@ -10,7 +10,7 @@
 
 @class WLGestureBroadcaster;
 
-@protocol WLGestureBroadcastReceiver <WLBroadcastReceiver>
+@protocol WLGestureBroadcastReceiver
 
 @optional
 

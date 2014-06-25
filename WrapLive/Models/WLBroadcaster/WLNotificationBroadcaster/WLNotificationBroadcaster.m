@@ -97,7 +97,7 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 	}
 }
 
-- (void)addReceiver:(id<WLNotificationReceiver>)receiver {
+- (void)addReceiver:(id)receiver {
 	[super addReceiver:receiver];
 	if (self.pendingRemoteNotification && [receiver respondsToSelector:@selector(broadcaster:didReceiveRemoteNotification:)]) {
 		[receiver broadcaster:self didReceiveRemoteNotification:self.pendingRemoteNotification];

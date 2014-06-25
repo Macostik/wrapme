@@ -41,7 +41,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		NSString* baseUrl = WLAPIBaseUrl;
-        WLLog(@"API environment initialized", baseUrl);
+        WLLog(baseUrl,@"API environment initialized", nil);
 		instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
 		instance.requestSerializer.timeoutInterval = 45;
 		[instance.requestSerializer setValue:WLAcceptHeader forHTTPHeaderField:@"Accept"];
@@ -63,7 +63,7 @@ static BOOL signedIn = NO;
 					 parameters:(NSDictionary *)parameters
 						success:(void (^)(AFHTTPRequestOperation *, id))success
 						failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-    WLLog(URLString, parameters);
+    WLLog(@"GET",URLString, parameters);
 	return [super GET:URLString parameters:parameters success:success failure:failure];
 }
 
@@ -72,12 +72,12 @@ static BOOL signedIn = NO;
 	   constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block
 						 success:(void (^)(AFHTTPRequestOperation *, id))success
 						 failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-    WLLog(URLString, parameters);
+    WLLog(@"POST",URLString, parameters);
 	return [super POST:URLString parameters:parameters constructingBodyWithBlock:block success:success failure:failure];
 }
 
 - (AFHTTPRequestOperation *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-    WLLog(URLString, parameters);
+    WLLog(@"POST",URLString, parameters);
 	return [super POST:URLString parameters:parameters success:success failure:failure];
 }
 
@@ -97,12 +97,12 @@ static BOOL signedIn = NO;
 }
 
 - (AFHTTPRequestOperation *)PUT:(NSString *)URLString parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-    WLLog(URLString, parameters);
+    WLLog(@"PUT",URLString, parameters);
 	return [super PUT:URLString parameters:parameters success:success failure:failure];
 }
 
 - (AFHTTPRequestOperation *)PUT:(NSString *)URLString parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-    WLLog(URLString, parameters);
+    WLLog(@"PUT",URLString, parameters);
 	NSMutableURLRequest *request = [self.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters constructingBodyWithBlock:block error:nil];
 	AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
 	[self.operationQueue addOperation:operation];
@@ -126,7 +126,7 @@ static BOOL signedIn = NO;
 
 - (AFHTTPRequestOperation *)HTTPRequestOperationWithRequest:(NSURLRequest *)request success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
 	return [super HTTPRequestOperationWithRequest:request success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        WLLog([operation.request.URL lastPathComponent], error);
+        WLLog(@"ERROR",[operation.request.URL relativeString], error);
 		NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
 		if (success && response && response.statusCode == 401) {
 			[self signIn:[WLAuthorization currentAuthorization] success:^(id object) {
@@ -144,12 +144,13 @@ static BOOL signedIn = NO;
 
 - (WLAFNetworkingSuccessBlock)successBlock:(WLObjectBlock)success withObject:(WLMapResponseBlock)objectBlock failure:(WLFailureBlock)failure {
 	return ^(AFHTTPRequestOperation *operation, id responseObject) {
-        WLLog([operation.request.URL lastPathComponent], responseObject);
 		WLAPIResponse* response = [WLAPIResponse response:responseObject];
 		if (response.code == WLAPIResponseCodeSuccess) {
+            WLLog(@"RESPONSE",[operation.request.URL relativeString], responseObject);
 #warning need to think how to perform it in background
             success(objectBlock(response));
 		} else {
+            WLLog(@"API ERROR",[operation.request.URL relativeString], responseObject);
 			failure([NSError errorWithDescription:response.message]);
 		}
 	};
@@ -638,18 +639,16 @@ static BOOL signedIn = NO;
 			 failure:[self failureBlock:failure]];
 }
 
-- (id)addComment:(WLComment*)comment
-		   success:(WLCommentBlock)success
-		   failure:(WLFailureBlock)failure {
-	
+- (id)addComment:(WLComment*)comment success:(WLCommentBlock)success failure:(WLFailureBlock)failure {
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:comment.text forKey:@"message"];
+    [parameters trySetObject:comment.uploadIdentifier forKey:@"upload_uid"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-        [comment API_setup:[response.data dictionaryForKey:@"comment"]];
-		[comment.candy addComment:comment];
         [comment.candy.wrap touch];
+        [comment update:[response.data dictionaryForKey:@"comment"]];
         [comment.candy.wrap broadcastChange];
+        [comment save];
 		return comment;
 	};
 	

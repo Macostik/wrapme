@@ -56,6 +56,7 @@ static NSDictionary *errorsToIgnore = nil;
 - (BOOL)isNetworkError {
     NSInteger code = self.code;
     switch (code) {
+        case NSURLErrorTimedOut:
         case NSURLErrorCannotFindHost:
         case NSURLErrorCannotConnectToHost:
         case NSURLErrorNetworkConnectionLost:
@@ -103,7 +104,7 @@ static NSDictionary *customErrorMessages = nil;
 - (void)log:(NSString *)label {
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 	    if (![self ignore])
-            WLLog(label, self);
+            WLLog(@"ERROR",label, self);
 	});
 }
 

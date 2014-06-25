@@ -81,11 +81,9 @@
 
 - (IBAction)select:(id)sender {
 	WLCandy* candy = self.item;
-	if (candy.uploading == nil) {
-		self.notifyBulb.hidden = YES;
-        candy.unread = @NO;
-		[self.delegate candyCell:self didSelectCandy:candy];
-	}
+	self.notifyBulb.hidden = YES;
+    candy.unread = @NO;
+    [self.delegate candyCell:self didSelectCandy:candy];
 }
 
 #pragma mark - WLMenuDelegate

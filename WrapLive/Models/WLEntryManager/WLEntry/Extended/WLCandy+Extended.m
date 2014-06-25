@@ -33,7 +33,12 @@
 	[super API_setup:dictionary relatedEntry:relatedEntry];
 	self.type = [dictionary numberForKey:@"candy_type"];
 	self.message = [dictionary stringForKey:@"chat_message"];
-    NSOrderedSet* comments = [WLComment API_entries:[dictionary arrayForKey:@"comments"] relatedEntry:self];
+    __weak typeof(self)weakSelf = self;
+    NSOrderedSet* comments = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
+        [set unionOrderedSet:weakSelf.comments];
+        [set unionOrderedSet:[WLComment API_entries:[dictionary arrayForKey:@"comments"] relatedEntry:self]];
+        [set sortEntries];
+    }];
     self.comments = [comments reversedOrderedSet];
 	WLPicture* picture = [[WLPicture alloc] init];
 	picture.large = [dictionary stringForKey:@"large_image_attachment_url"];

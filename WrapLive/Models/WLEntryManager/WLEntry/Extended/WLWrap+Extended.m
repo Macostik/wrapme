@@ -130,6 +130,7 @@
 
 - (void)sortCandies {
     self.candies = [self.candies sortedEntries];
+    [self save];
 }
 
 - (void)removeCandy:(WLCandy *)candy {

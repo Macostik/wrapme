@@ -120,4 +120,12 @@
 	[self sortUsingDescriptors:descriptors];
 }
 
+- (void)sortEntriesByCreationAscending {
+    static NSArray* descriptors = nil;
+    if (!descriptors) {
+        descriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
+    }
+    [self sortUsingDescriptors:descriptors];
+}
+
 @end

@@ -1611,7 +1611,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WLCandiesCell" id="5DK-lw-xaH" customClass="WLCandiesCell">
                                                 <rect key="frame" x="0.0" y="22" width="320" height="134"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5DK-lw-xaH" id="dbJ-0S-Zfe">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="134"/>
                                                     <autoresizingMask key="autoresizingMask"/>

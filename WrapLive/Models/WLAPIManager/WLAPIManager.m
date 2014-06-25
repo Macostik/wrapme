@@ -511,8 +511,9 @@ static BOOL signedIn = NO;
     [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-        NSOrderedSet* candies = [WLCandy API_entries:response.data[@"candies"]];
+        NSOrderedSet* candies = [WLCandy API_entries:response.data[@"candies"] relatedEntry:wrap];
         [wrap addCandies:candies];
+        [wrap save];
 		return candies;
 	};
 	
@@ -536,7 +537,7 @@ static BOOL signedIn = NO;
     [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		NSOrderedSet* candies = [WLCandy API_entries:response.data[@"candies"]];
+		NSOrderedSet* candies = [WLCandy API_entries:response.data[@"candies"] relatedEntry:wrap];
         [wrap addCandies:candies];
 		return candies;
 	};

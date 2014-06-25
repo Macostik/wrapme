@@ -251,7 +251,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return (indexPath.section == 0) ? 60 : 134;
+    return (indexPath.section == 0) ? 60 : (tableView.width/2.5 + 28);
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {

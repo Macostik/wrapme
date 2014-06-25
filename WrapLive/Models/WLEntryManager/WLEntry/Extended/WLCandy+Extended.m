@@ -33,12 +33,11 @@
 	self.type = [dictionary numberForKey:@"candy_type"];
 	self.message = [dictionary stringForKey:@"chat_message"];
     __weak typeof(self)weakSelf = self;
-    NSOrderedSet* comments = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
+    self.comments = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
         [set unionOrderedSet:weakSelf.comments];
         [set unionOrderedSet:[WLComment API_entries:[dictionary arrayForKey:@"comments"] relatedEntry:self]];
-        [set sortEntries];
+        [set sortEntriesByCreationAscending];
     }];
-    self.comments = [comments reversedOrderedSet];
 	WLPicture* picture = [[WLPicture alloc] init];
 	picture.large = [dictionary stringForKey:@"large_image_attachment_url"];
 	picture.medium = [dictionary stringForKey:@"medium_sq_image_attachment_url"];
@@ -79,7 +78,7 @@
     comment.candy = self;
 	NSMutableOrderedSet* comments = [NSMutableOrderedSet orderedSetWithOrderedSet:self.comments];
 	[comments addObject:comment];
-    [comments sortEntriesAscending];
+    [comments sortEntriesByCreationAscending];
 	self.comments = [comments copy];
 	[self touch];
     [self.wrap broadcastChange];
@@ -88,6 +87,7 @@
 
 - (void)removeComment:(WLComment *)comment {
 	self.comments = [self.comments orderedSetByRemovingObject:comment];
+    [self save];
     [self.wrap broadcastChange];
 	[self broadcastChange];
 }

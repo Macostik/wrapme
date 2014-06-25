@@ -56,4 +56,6 @@
 
 - (void)sortEntriesAscending;
 
+- (void)sortEntriesByCreationAscending;
+
 @end

@@ -250,6 +250,8 @@ static NSString *WLEntryIdentifierKey = @"identifier";
 
 - (void)awakeFromInsert {
     [super awakeFromInsert];
+    self.updatedAt = [NSDate date];
+    self.createdAt = [NSDate date];
     [[WLEntryManager manager] registerEntry:self];
 }
 

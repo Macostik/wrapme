@@ -39,7 +39,8 @@
 - (void)setShouldAppendMoreCandies:(BOOL)shouldAppendMoreCandies {
 	_shouldAppendMoreCandies = shouldAppendMoreCandies;
 	UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-	layout.footerReferenceSize = _shouldAppendMoreCandies ? CGSizeMake(100, 100) : CGSizeZero;
+    CGFloat size = self.collectionView.bounds.size.width/2.5;
+	layout.footerReferenceSize = _shouldAppendMoreCandies ? CGSizeMake(size, size) : CGSizeZero;
 }
 
 - (void)awakeFromNib {
@@ -133,9 +134,15 @@
 													 forIndexPath:indexPath];
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat size = collectionView.bounds.size.width/2.5;
+    return CGSizeMake(size, size);
+}
+
 - (void)fixContentOffset {
 	CGFloat offset = self.collectionView.contentOffset.x;
-	offset = roundf(offset / 106.0f) * 106.0f;
+    CGFloat size = self.collectionView.bounds.size.width/2.5;
+	offset = roundf(offset / size) * size;
 	if (IsInBounds(0, self.collectionView.contentSize.width - self.collectionView.bounds.size.width, offset)) {
 		[self.collectionView setContentOffset:CGPointMake(offset, 0) animated:YES];
 	}

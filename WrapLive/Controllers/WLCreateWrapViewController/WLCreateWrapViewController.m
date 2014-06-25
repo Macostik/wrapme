@@ -59,8 +59,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [[WLEntryManager manager] lock];
-	[self verifyStartAndDoneButton];
     self.tempWrap = [[WLTempWrap alloc] initWithWrap:self.wrap];
+    [self verifyStartAndDoneButton];
 	if (self.editing) {
         self.coverView.image = nil;
 		[self configureWrapEditing];

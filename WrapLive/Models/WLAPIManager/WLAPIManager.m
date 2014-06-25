@@ -571,7 +571,6 @@ static BOOL signedIn = NO;
 - (id)removeCandy:(WLCandy *)candy success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		[candy.wrap removeCandy:candy];
         [candy remove];
 		return response;
 	};
@@ -782,7 +781,13 @@ static BOOL signedIn = NO;
 }
 
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] removeCandy:self success:success failure:failure];
+    if (self.uploading && self.uploading.operation == nil) {
+        [self remove];
+        success(nil);
+        return nil;
+    } else {
+        return [[WLAPIManager instance] removeCandy:self success:success failure:failure];
+    }
 }
 
 - (id)fetch:(WLCandyBlock)success failure:(WLFailureBlock)failure {
@@ -806,7 +811,13 @@ static BOOL signedIn = NO;
 }
 
 - (id)remove:(WLCommentBlock)success failure:(WLFailureBlock)failure {
-    return [[WLAPIManager instance] removeComment:self success:success failure:failure];
+    if (self.uploading && self.uploading.operation == nil) {
+        [self remove];
+        success(nil);
+        return nil;
+    } else {
+        return [[WLAPIManager instance] removeComment:self success:success failure:failure];
+    }
 }
 
 @end

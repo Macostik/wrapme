@@ -19,7 +19,6 @@
 
 + (instancetype)candyWithType:(WLCandyType)type wrap:(WLWrap*)wrap {
     WLCandy* candy = [self contribution];
-    candy.wrap = wrap;
     [wrap addCandy:candy];
     candy.type = @(type);
     return candy;

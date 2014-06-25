@@ -9,6 +9,7 @@
 #import "WLUser.h"
 
 static NSUInteger WLProfileNameLimit = 40;
+static NSUInteger WLPhoneNumberLimit = 15;
 
 @interface WLUser (Extended)
 

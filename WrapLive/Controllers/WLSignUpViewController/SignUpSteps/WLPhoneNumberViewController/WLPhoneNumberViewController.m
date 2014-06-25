@@ -26,8 +26,9 @@
 #import "WLToast.h"
 #import "WLHomeViewController.h"
 #import "RMPhoneFormat.h"
+#import "WLKeyboardBroadcaster.h"
 
-@interface WLPhoneNumberViewController () <UITextFieldDelegate>
+@interface WLPhoneNumberViewController () <UITextFieldDelegate, WLKeyboardBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
@@ -64,7 +65,7 @@
 	self.emailTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(emailInputCancel:) done:@selector(emailInputDone:)];
 	self.emailTextField.text = [WLAuthorization currentAuthorization].email;
 	self.email = self.emailTextField.text;
-	
+	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 	if ([WLAPIManager developmentEvironment]) {
 		__weak typeof(self)weakSelf = self;
 		run_after(0.1, ^{
@@ -190,7 +191,7 @@
 }
 
 - (void)phoneNumberInputDone:(id)sender {
-	[self.phoneNumberTextField resignFirstResponder];
+//	[self.phoneNumberTextField resignFirstResponder];
 	[self.emailTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.2f];
 }
 
@@ -249,7 +250,9 @@
 //        BOOL valid = [_phoneFormat isPhoneNumberValid:phone];
 //        
 //        textField.textColor = valid ? [UIColor blackColor] : [UIColor redColor];
-        
+        if (phone.length > WLPhoneNumberLimit) {
+            return NO;
+        }
         // If these are the same then just let the normal text changing take place
         if ([phone isEqualToString:txt]) {
             return YES;
@@ -289,25 +292,9 @@
             return NO;
         }
     } else {
-        return YES;
+        NSString* resultString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        return resultString.length <= WLProfileNameLimit;
     }
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-	CGFloat translation = textField.superview.y - 0.5 * (self.view.height - 260 - textField.superview.height);
-	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
-	__weak typeof(self)weakSelf = self;
-	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		weakSelf.mainView.transform = transform;
-	} completion:^(BOOL finished) {}];
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-	if (self.phoneNumberTextField.isFirstResponder || self.emailTextField.isFirstResponder) {
-		[self.view endEditing:YES];
-		return NO;
-	}
-	return YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
@@ -316,7 +303,25 @@
 	} else {
 		self.email = self.emailTextField.text;
 	}
-	__weak typeof(self)weakSelf = self;
+}
+
+#pragma mark - WLKeyboardBroadcastReceiver
+
+- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
+    UITextField *textField = [self.phoneNumberTextField isFirstResponder] ? self.phoneNumberTextField : self.emailTextField;
+    __weak typeof(self)weakSelf = self;
+	CGAffineTransform transform = self.mainView.transform;
+	self.mainView.transform = CGAffineTransformIdentity;
+	CGPoint center = [self.view convertPoint:textField.center fromView:textField.superview];
+	CGFloat translation = center.y - (self.view.height - [keyboardHeight floatValue])/2.0f;
+	self.mainView.transform = transform;
+	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		weakSelf.mainView.transform = CGAffineTransformMakeTranslation(0, -translation);
+	} completion:^(BOOL finished) {}];
+}
+
+- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
+    __weak typeof(self)weakSelf = self;
 	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		weakSelf.mainView.transform = CGAffineTransformIdentity;
 	} completion:^(BOOL finished) {}];

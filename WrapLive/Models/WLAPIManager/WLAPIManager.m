@@ -725,7 +725,13 @@ static BOOL signedIn = NO;
 }
 
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] removeWrap:self success:success failure:failure];
+    if (self.uploading && self.uploading.operation == nil) {
+        [self remove];
+        success(nil);
+        return nil;
+    } else {
+        return [[WLAPIManager instance] removeWrap:self success:success failure:failure];
+    }
 }
 
 - (id)fetch:(WLWrapBlock)success failure:(WLFailureBlock)failure {

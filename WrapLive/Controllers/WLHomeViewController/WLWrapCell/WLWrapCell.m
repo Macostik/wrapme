@@ -80,20 +80,16 @@
 - (void)remove {
 	__weak typeof(self)weakSelf = self;
 	WLWrap* wrap = weakSelf.item;
-    if (wrap.uploading) {
-        [wrap remove];
-    } else {
-        weakSelf.userInteractionEnabled = NO;
-        [wrap remove:^(id object) {
-            weakSelf.userInteractionEnabled = YES;
-            if ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteOrLeaveWrap:)]) {
-                [weakSelf.delegate wrapCell:weakSelf didDeleteOrLeaveWrap:wrap];
-            }
-        } failure:^(NSError *error) {
-            [error show];
-            weakSelf.userInteractionEnabled = YES;
-        }];
-    }
+    weakSelf.userInteractionEnabled = NO;
+    [wrap remove:^(id object) {
+        weakSelf.userInteractionEnabled = YES;
+        if ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteOrLeaveWrap:)]) {
+            [weakSelf.delegate wrapCell:weakSelf didDeleteOrLeaveWrap:wrap];
+        }
+    } failure:^(NSError *error) {
+        [error show];
+        weakSelf.userInteractionEnabled = YES;
+    }];
 }
 
 - (void)leave {

@@ -164,7 +164,7 @@
                 [weakSelf dismiss];
             } else {
                 [error show];
-                [self.wrapEditSession resetChanges:self.wrap];
+                [weakSelf.wrapEditSession resetChanges:weakSelf.wrap];
             }
 			[weakSelf.spinner stopAnimating];
 			[weakSelf unlock];

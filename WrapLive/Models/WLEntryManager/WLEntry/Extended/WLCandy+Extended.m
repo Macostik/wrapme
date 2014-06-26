@@ -70,8 +70,8 @@
 
 - (void)remove {
     [self.wrap removeCandy:self];
-    [self broadcastRemoving];
     [super remove];
+    [self broadcastRemoving];
 }
 
 - (void)addComment:(WLComment *)comment {

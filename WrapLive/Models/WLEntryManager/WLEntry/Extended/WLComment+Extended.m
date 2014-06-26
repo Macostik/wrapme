@@ -28,8 +28,8 @@
 
 - (void)remove {
     [self.candy removeComment:self];
-    [self broadcastRemoving];
     [super remove];
+    [self broadcastRemoving];
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {

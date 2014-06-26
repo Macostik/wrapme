@@ -37,9 +37,9 @@
 }
 
 - (void)remove {
-    [self.contributor removeWrap:self];
-    [self broadcastRemoving];
+    [[WLUser currentUser] removeWrap:self];
     [super remove];
+    [self broadcastRemoving];
 }
 
 - (void)touch {

@@ -1604,16 +1604,16 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="134" sectionHeaderHeight="22" sectionFooterHeight="22" id="BE1-H5-F9x">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="156" sectionHeaderHeight="22" sectionFooterHeight="22" id="BE1-H5-F9x">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WLCandiesCell" id="5DK-lw-xaH" customClass="WLCandiesCell">
-                                                <rect key="frame" x="0.0" y="22" width="320" height="134"/>
+                                                <rect key="frame" x="0.0" y="22" width="320" height="156"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5DK-lw-xaH" id="dbJ-0S-Zfe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="134"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="156"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y3q-sy-dzY">
@@ -1625,22 +1625,22 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="xa9-c0-7Xl">
-                                                            <rect key="frame" x="0.0" y="28" width="320" height="106"/>
+                                                            <rect key="frame" x="0.0" y="28" width="320" height="128"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="XgF-G9-7Yg">
-                                                                <size key="itemSize" width="106" height="106"/>
+                                                                <size key="itemSize" width="128" height="128"/>
                                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                                <size key="footerReferenceSize" width="106" height="106"/>
+                                                                <size key="footerReferenceSize" width="128" height="128"/>
                                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                             </collectionViewFlowLayout>
                                                             <cells/>
                                                             <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLWrapDayLoadingView" id="2o8-i4-kSy">
-                                                                <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="nea-7C-aoB">
-                                                                        <rect key="frame" x="43" y="44" width="20" height="20"/>
+                                                                        <rect key="frame" x="54" y="55" width="20" height="20"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                         <color key="tintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
@@ -1661,7 +1661,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WLWrapCell" rowHeight="60" id="sDZ-hA-IAs" customClass="WLWrapCell">
-                                                <rect key="frame" x="0.0" y="156" width="320" height="60"/>
+                                                <rect key="frame" x="0.0" y="178" width="320" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sDZ-hA-IAs" id="Qw2-sP-TkN">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>

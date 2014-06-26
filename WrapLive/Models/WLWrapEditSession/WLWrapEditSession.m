@@ -9,6 +9,7 @@
 #import "WLWrapEditSession.h"
 #import "WLPicture.h"
 #import "WLWrap.h"
+#import "NSArray+Additions.h"
 
 @implementation WLWrapEditSession
 
@@ -22,16 +23,17 @@
 }
 
 - (BOOL)hasChanges {
-    BOOL nameChanged = ![self.changedWrap.name isEqualToString:self.originalWrap.name];
-	BOOL coverChanged = ![self.changedWrap.picture.large isEqualToString:self.originalWrap.picture.large];
-	BOOL contributorsChanged = NO;
-	
-	if ([self.changedWrap.contributors count] != [self.originalWrap.contributors count]) {
-		contributorsChanged = YES;
+    if (![self.changedWrap.name isEqualToString:self.originalWrap.name]) {
+        return YES;
+    } else if (![self.changedWrap.picture.large isEqualToString:self.originalWrap.picture.large]) {
+        return YES;
+    } else if (self.changedWrap.invitees.nonempty) {
+        return YES;
+    } else if ([self.changedWrap.contributors count] != [self.originalWrap.contributors count]) {
+		return YES;
 	} else {
-        contributorsChanged = ![self.changedWrap.contributors isSubsetOfOrderedSet:self.originalWrap.contributors];
+        return ![self.changedWrap.contributors isSubsetOfOrderedSet:self.originalWrap.contributors];
 	}
-    return (nameChanged || coverChanged || contributorsChanged);
 }
 
 - (void)applyChanges:(WLWrap *)wrap {

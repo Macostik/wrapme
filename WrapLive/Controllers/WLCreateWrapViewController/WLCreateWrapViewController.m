@@ -112,8 +112,8 @@
 }
 
 - (void)configureWrapEditing {
-	self.nameField.text = self.wrap.name;
-    NSString* url = [self.wrap.picture anyUrl];
+	self.nameField.text = self.wrapEditSession.changedWrap.name;
+    NSString* url = [self.wrapEditSession.changedWrap.picture anyUrl];
     self.coverView.url = url;
     if (!url) {
         self.coverView.image = [UIImage imageNamed:@"default-medium-cover"];
@@ -285,11 +285,12 @@
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
 	__weak typeof(self)weakSelf = self;
-	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
-        weakSelf.wrapEditSession.changedWrap.picture.large = path;
-        weakSelf.coverView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
+    weakSelf.coverView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
                                                            bounds:weakSelf.coverView.retinaSize
                                              interpolationQuality:kCGInterpolationDefault];
+	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
+        weakSelf.wrapEditSession.changedWrap.picture.large = path;
+        
 	}];
 	
 	[self dismissViewControllerAnimated:YES completion:nil];

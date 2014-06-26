@@ -38,6 +38,7 @@
     if (coordinator != nil) {
         _context = [[NSManagedObjectContext alloc] init];
         [_context setPersistentStoreCoordinator:coordinator];
+        _context.mergePolicy = NSOverwriteMergePolicy;
     }
     return _context;
 }
@@ -78,28 +79,30 @@
     return [entries objectForKey:identifier];
 }
 
-- (void)cacheEntry:(WLEntry*)entry name:(NSString*)name identifier:(NSString*)identifier {
+- (void)cacheEntry:(WLEntry*)entry name:(NSString*)name {
     NSMapTable* entries = [self.cachedEntries objectForKey:name];
     if (!entries) {
         entries = [NSMapTable strongToWeakObjectsMapTable];
         [self.cachedEntries setObject:entries forKey:name];
     }
-    [entries setObject:entry forKey:identifier];
+    [entries setObject:entry forKey:entry.identifier];
 }
 
-- (void)registerEntries:(NSOrderedSet *)entries forClass:(Class)entryClass {
+- (void)cacheEntry:(WLEntry*)entry {
+    [self cacheEntry:entry name:entry.entity.name];
+}
+
+- (void)cacheEntries:(NSOrderedSet *)entries forClass:(Class)entryClass {
     if (entries.nonempty) {
-        NSMapTable* cachedEntries = [self.cachedEntries objectForKey:NSStringFromClass(entryClass)];
+        NSString* name = NSStringFromClass(entryClass);
+        NSMapTable* cachedEntries = [self.cachedEntries objectForKey:name];
+        if (!cachedEntries) {
+            cachedEntries = [NSMapTable strongToWeakObjectsMapTable];
+            [self.cachedEntries setObject:entries forKey:name];
+        }
         for (WLEntry* entry in entries) {
             [cachedEntries setObject:entry forKey:entry.identifier];
         }
-    }
-}
-
-- (void)registerEntry:(WLEntry *)entry {
-    if (entry.identifier) {
-        NSMapTable* entries = [self.cachedEntries objectForKey:[entry entity].name];
-        [entries setObject:entry forKey:entry.identifier];
     }
 }
 
@@ -117,9 +120,6 @@
         if (!entry) {
             entry = [[WLEntry alloc] initWithEntity:entity insertIntoManagedObjectContext:self.context];
             entry.identifier = identifier;
-        }
-        if (entry) {
-            [self cacheEntry:entry name:entity.name identifier:identifier];
         }
     }
     return entry;
@@ -149,7 +149,11 @@
 
 - (void)save {
     if (!locked) {
-        [self.context save:NULL];
+        NSError* error = nil;
+        [self.context save:&error];
+        if (error) {
+            NSLog(@"!!! %@", error);
+        }
     }
 }
 
@@ -244,12 +248,12 @@ static NSString *WLEntryIdentifierKey = @"identifier";
     [super awakeFromInsert];
     self.updatedAt = [NSDate date];
     self.createdAt = [NSDate date];
-    [[WLEntryManager manager] registerEntry:self];
+    [[WLEntryManager manager] cacheEntry:self];
 }
 
 - (void)awakeFromFetch {
     [super awakeFromFetch];
-    [[WLEntryManager manager] registerEntry:self];
+    [[WLEntryManager manager] cacheEntry:self];
 }
 
 @end

@@ -35,6 +35,7 @@
         [set addObject:wrap];
         [set sortEntries];
     }];
+    [self save];
 }
 
 - (void)removeWrap:(WLWrap *)wrap {

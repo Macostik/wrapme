@@ -88,7 +88,7 @@
 - (void)fetch:(void (^)(void))completion {
     __weak typeof(self)weakSelf = self;
     WLObjectBlock block = ^(id object) {
-        WLNotificationType type = self.type;
+        WLNotificationType type = weakSelf.type;
         if (type == WLNotificationContributorAddition) {
             [[WLUser currentUser] addWrap:weakSelf.wrap];
             [weakSelf.wrap broadcastCreation];

@@ -28,7 +28,7 @@
 
 - (void)removeReceiver:(id)receiver {
     [super removeReceiver:receiver];
-    if ([self.receivers anyObject] == 0) {
+    if ([self.receivers anyObject] == nil) {
         [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
     }
 }
@@ -40,7 +40,7 @@
 }
 
 - (void)orientationChanged:(NSNotification*)notification {
-    if ([self.receivers anyObject] == 0) {
+    if ([self.receivers anyObject] == nil) {
         [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
     } else {
         [self broadcast:@selector(broadcaster:didChangeOrientation:) object:@([UIDevice currentDevice].orientation)];

@@ -31,9 +31,9 @@
 
 + (instancetype)manager;
 
-- (void)registerEntries:(NSOrderedSet*)entries forClass:(Class)entryClass;
+- (void)cacheEntries:(NSOrderedSet*)entries forClass:(Class)entryClass;
 
-- (void)registerEntry:(WLEntry*)entry;
+- (void)cacheEntry:(WLEntry*)entry;
 
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier;
 

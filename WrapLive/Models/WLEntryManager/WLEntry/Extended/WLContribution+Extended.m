@@ -37,7 +37,7 @@
     NSString* identifier = [dictionary stringForKey:@"contributor_uid"];
     WLUser* contributor = self.contributor;
     if (![contributor.identifier isEqualToString:identifier]) {
-        contributor = [WLUser entry:[dictionary stringForKey:@"contributor_uid"] create:YES];
+        contributor = [WLUser entry:[dictionary stringForKey:@"contributor_uid"]];
         self.contributor = contributor;
     }
     contributor.name = [dictionary stringForKey:@"contributor_name"];

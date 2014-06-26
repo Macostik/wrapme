@@ -43,7 +43,7 @@
 	picture.medium = [dictionary stringForKey:@"medium_sq_image_attachment_url"];
 	picture.small = [dictionary stringForKey:@"small_sq_image_attachment_url"];
 	self.picture = picture;
-    self.wrap = relatedEntry ? : (self.wrap ? : [WLWrap entry:[dictionary stringForKey:@"wrap_uid"] create:YES]);
+    self.wrap = relatedEntry ? : (self.wrap ? : [WLWrap entry:[dictionary stringForKey:@"wrap_uid"]]);
     return self;
 }
 

@@ -35,8 +35,6 @@
 
 - (void)registerEntry:(WLEntry*)entry;
 
-- (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier create:(BOOL)create;
-
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier;
 
 - (NSOrderedSet*)entriesOfClass:(Class)entryClass;
@@ -62,8 +60,6 @@
 + (NSPredicate*)predicate:(NSString*)identifier;
 
 + (NSDictionary*)substitutionVariables:(NSString*)identifier;
-
-+ (instancetype)entry:(NSString*)identifier create:(BOOL)create;
 
 + (instancetype)entry:(NSString*)identifier;
 

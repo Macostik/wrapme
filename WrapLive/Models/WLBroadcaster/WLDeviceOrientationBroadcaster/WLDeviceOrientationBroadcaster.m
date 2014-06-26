@@ -19,13 +19,32 @@
     return instance;
 }
 
+- (void)addReceiver:(id)receiver {
+    [super addReceiver:receiver];
+    if (![UIDevice currentDevice].generatesDeviceOrientationNotifications) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    }
+}
+
+- (void)removeReceiver:(id)receiver {
+    [super removeReceiver:receiver];
+    if ([self.receivers anyObject] == 0) {
+        [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    }
+}
+
 - (void)setup {
     [super setup];
+    
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 - (void)orientationChanged:(NSNotification*)notification {
-	[self broadcast:@selector(broadcaster:didChangeOrientation:) object:@([UIDevice currentDevice].orientation)];
+    if ([self.receivers anyObject] == 0) {
+        [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    } else {
+        [self broadcast:@selector(broadcaster:didChangeOrientation:) object:@([UIDevice currentDevice].orientation)];
+    }
 }
 
 @end

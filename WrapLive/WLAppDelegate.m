@@ -14,6 +14,7 @@
 #import <AviarySDK/AviarySDK.h>
 #import "WLGestureBroadcaster.h"
 #import "WLUploading+Extended.h"
+#import "WLEntryManager.h"
 
 @interface WLAppDelegate ()
 
@@ -66,6 +67,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [[WLEntryManager manager] save];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {

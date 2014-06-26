@@ -34,7 +34,7 @@
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
     self.text = [dictionary stringForKey:@"content"];
-    self.candy = relatedEntry ? : (self.candy ? : [WLCandy entry:[dictionary stringForKey:@"candy_uid"] create:YES]);
+    self.candy = relatedEntry ? : (self.candy ? : [WLCandy entry:[dictionary stringForKey:@"candy_uid"]]);
     return [super API_setup:dictionary relatedEntry:relatedEntry];
 }
 

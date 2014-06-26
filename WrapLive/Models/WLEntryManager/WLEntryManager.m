@@ -103,7 +103,7 @@
     }
 }
 
-- (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString *)identifier create:(BOOL)create {
+- (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString *)identifier {
 	if (!identifier.nonempty) {
 		return nil;
 	}
@@ -114,7 +114,7 @@
         request.entity = entity;
         request.predicate = [NSPredicate predicateWithFormat:@"identifier == %@",identifier];
         entry = [[self.context executeFetchRequest:request error:NULL] lastObject];
-        if (!entry && create) {
+        if (!entry) {
             entry = [[WLEntry alloc] initWithEntity:entity insertIntoManagedObjectContext:self.context];
             entry.identifier = identifier;
         }
@@ -123,10 +123,6 @@
         }
     }
     return entry;
-}
-
-- (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString *)identifier {
-    return [self entryOfClass:entryClass identifier:identifier create:NO];
 }
 
 - (NSOrderedSet *)entriesOfClass:(Class)entryClass {
@@ -207,12 +203,8 @@ static NSString *WLEntryIdentifierKey = @"identifier";
     return substitutionVariables;
 }
 
-+ (instancetype)entry:(NSString *)identifier create:(BOOL)create {
-	return [[WLEntryManager manager] entryOfClass:self identifier:identifier create:create];
-}
-
 + (instancetype)entry:(NSString *)identifier {
-	return [self entry:identifier create:NO];
+	return [[WLEntryManager manager] entryOfClass:self identifier:identifier];
 }
 
 + (NSOrderedSet*)entries {

@@ -14,7 +14,7 @@
 @implementation WLEntry (Extended)
 
 + (instancetype)entry {
-    WLEntry* entry = [self entry:GUID() create:YES];
+    WLEntry* entry = [self entry:GUID()];
     entry.createdAt = [NSDate date];
     entry.updatedAt = [NSDate date];
     return entry;
@@ -41,7 +41,7 @@
 
 + (instancetype)API_entry:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
 	NSString* identifier = [self API_identifier:dictionary];
-	return [[self entry:identifier create:YES] API_setup:dictionary relatedEntry:relatedEntry];
+	return [[self entry:identifier] API_setup:dictionary relatedEntry:relatedEntry];
 }
 
 + (NSString *)API_identifier:(NSDictionary *)dictionary {

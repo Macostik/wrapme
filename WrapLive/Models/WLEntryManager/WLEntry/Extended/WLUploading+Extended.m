@@ -15,7 +15,7 @@
 @implementation WLUploading (Extended)
 
 + (instancetype)uploading:(WLContribution *)contribution {
-    WLUploading* uploading = [WLUploading entry:contribution.uploadIdentifier create:YES];
+    WLUploading* uploading = [WLUploading entry:contribution.uploadIdentifier];
     uploading.contribution = contribution;
     contribution.uploading = uploading;
     return uploading;

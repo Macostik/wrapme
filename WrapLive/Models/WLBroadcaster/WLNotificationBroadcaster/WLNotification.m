@@ -39,7 +39,7 @@
 	if (!_wrap) {
 		NSString* identifier = [self.data stringForKey:@"wrap_uid"];
 		if (identifier.nonempty) {
-			_wrap = [WLWrap entry:identifier create:YES];
+			_wrap = [WLWrap entry:identifier];
             if (self.candy) {
                 [_wrap addCandy:self.candy];
             }
@@ -52,7 +52,7 @@
 	if (!_candy) {
 		NSString* identifier = [self.data stringForKey:@"candy_uid"];
 		if (identifier.nonempty) {
-			_candy = [WLCandy entry:identifier create:YES];
+			_candy = [WLCandy entry:identifier];
             _candy.wrap = self.wrap;
             
 			if (self.type == WLNotificationImageCandyAddition || self.type == WLNotificationImageCandyDeletion || self.type == WLNotificationCandyCommentAddition || self.type == WLNotificationCandyCommentDeletion) {
@@ -73,7 +73,7 @@
 	if (!_comment) {
 		NSString* identifier = [self.data stringForKey:@"comment_uid"];
 		if (identifier.nonempty) {
-			_comment = [WLComment entry:identifier create:YES];
+			_comment = [WLComment entry:identifier];
             _comment.candy = self.candy;
 		}
 	}

@@ -39,6 +39,7 @@
 #import "WLQuickChatView.h"
 #import "WLNotificationBroadcaster.h"
 #import "WLNotification.h"
+#import "UIView+AnimationHelper.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLNotificationReceiver, WLQuickChatViewDelegate>
 
@@ -67,7 +68,7 @@
     
     self.splash = [[WLLoadingView splash] showInView:self.view];
     
-	self.navigationBar.transform = CGAffineTransformMakeTranslation(0, -self.navigationBar.height);
+    [self setNavigationBarHidden:YES animated:NO];
 	self.createWrapButton.transform = CGAffineTransformMakeTranslation(0, self.createWrapButton.height);
 	self.tableView.hidden = YES;
 	self.noWrapsView.hidden = YES;
@@ -194,15 +195,19 @@
 	self.noWrapsView.hidden = hasWraps;
 	[self.tableView reloadData];
 	
-	if (hasWraps && !CGAffineTransformIsIdentity(self.navigationBar.transform)) {
-		__weak typeof(self)weakSelf = self;
-		[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-			weakSelf.navigationBar.transform = CGAffineTransformIdentity;
-		} completion:^(BOOL finished) {
-		}];
-	}
+	[self setNavigationBarHidden:!hasWraps animated:YES];
     
     [self finishLoadingAnimation];
+}
+
+- (void)setNavigationBarHidden:(BOOL)hidden animated:(BOOL)animated {
+    __weak typeof(self)weakSelf = self;
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(0, hidden ? -weakSelf.navigationBar.height : 0);
+    if (!CGAffineTransformEqualToTransform(self.navigationBar.transform, transform)) {
+        [UIView performAnimated:animated animation:^{
+            weakSelf.navigationBar.transform = transform;
+        }];
+    }
 }
 
 - (void)setTopWrap:(WLWrap *)topWrap {

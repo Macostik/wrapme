@@ -8,6 +8,7 @@
 
 #import "WLUser+Extended.h"
 #import "WLEntryManager.h"
+#import "WLNotificationBroadcaster.h"
 
 @implementation WLUser (Extended)
 
@@ -70,6 +71,9 @@ static WLUser *currentUser = nil;
 	}];
 	user.current = @YES;
 	[user save];
+    if (user) {
+        [[WLNotificationBroadcaster broadcaster] configure];
+    }
 }
 
 - (void)setCurrent {

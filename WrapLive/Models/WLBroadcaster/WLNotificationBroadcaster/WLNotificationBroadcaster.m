@@ -72,12 +72,7 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 	if (!name.nonempty) {
 		return;
 	}
-	PNChannel* channel = [[PubNub subscribedChannels] selectObject:^BOOL(PNChannel* channel) {
-		return [channel.name isEqualToString:name];
-	}];
-	if (!channel) {
-		[PubNub subscribeOnChannel:[PNChannel channelWithName:name]];
-	}
+    [PubNub subscribeOnChannel:[PNChannel channelWithName:name]];
 }
 
 - (void)connect {

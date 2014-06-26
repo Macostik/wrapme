@@ -44,6 +44,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *uploadIcon;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
@@ -212,7 +213,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (void)refresh {
-	if (self.candy.uploading == nil) {
+	if (self.candy.uploaded) {
 		__weak typeof(self)weakSelf = self;
 		[WLDataManager candy:self.candy success:^(id object, BOOL stop) {
 			[weakSelf setupImage];
@@ -221,7 +222,9 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 			[error showIgnoringNetworkError];
 			[weakSelf.refresher endRefreshing];
 		}];
-	}
+	} else {
+        [self.refresher endRefreshing];
+    }
 }
 
 - (void)setupImage {
@@ -238,6 +241,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	self.reportButton.hidden = [self.candy.contributor isCurrentUser];
 	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
+    self.uploadIcon.hidden = image.uploaded;
 	[self reloadComments];
     image.unread = @NO;
 }
@@ -260,6 +264,10 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 #pragma mark - WLWrapBroadcastReceiver
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
+    [self setupImage];
+}
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentRemoved:(WLComment *)comment {
 	[self reloadComments];

@@ -326,7 +326,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLWrap* wrap = [self.wraps objectAtIndex:(indexPath.row)];
+	WLWrap* wrap = [self.wraps tryObjectAtIndex:indexPath.row];
 	WLWrapCell* cell = nil;
 	if (indexPath.row == 0) {
 		static NSString* topWrapCellIdentifier = @"WLTopWrapCell";
@@ -338,7 +338,6 @@
 		cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier forIndexPath:indexPath];
 		cell.item = wrap;
 	}
-	
 	cell.delegate = self;
 	return cell;
 }

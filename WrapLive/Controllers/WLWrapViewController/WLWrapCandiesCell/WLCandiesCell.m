@@ -155,7 +155,9 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-	[self fixContentOffset];
+    if (!scrollView.tracking) {
+        [self fixContentOffset];
+    }
 }
 
 #pragma mark - WLWrapCandyCellDelegate

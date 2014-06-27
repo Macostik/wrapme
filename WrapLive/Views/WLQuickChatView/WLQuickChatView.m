@@ -132,6 +132,8 @@
         [self setEditing:NO animated:YES];
     } else if (self.tableView.contentOffset.y >= 0 && IsInBounds(height/2.0f, height, offset)) {
         [self setEditing:YES animated:YES];
+    } else {
+        [self setEditing:NO animated:YES];
     }
 }
 

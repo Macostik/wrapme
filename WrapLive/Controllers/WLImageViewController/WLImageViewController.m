@@ -39,9 +39,8 @@
 		weakSelf.errorLabel.hidden = ![error isNetworkError];
 	}];
 	
+    [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
 	[self applyDeviceOrientation:[UIDevice currentDevice].orientation animated:NO];
-	
-	[[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)configureScrollViewWithImage:(UIImage*)image {

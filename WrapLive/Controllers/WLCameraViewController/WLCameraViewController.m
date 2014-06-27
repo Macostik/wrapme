@@ -55,6 +55,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
+    [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
+    
 	if (self.presentingViewController) {
 		self.view.frame = self.presentingViewController.view.bounds;
 	}
@@ -84,8 +86,6 @@
 	[self configurePreviewLayer];
 	
 	[self performSelector:@selector(start) withObject:nil afterDelay:0.0];
-	
-	[[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

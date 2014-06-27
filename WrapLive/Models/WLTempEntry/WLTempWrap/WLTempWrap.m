@@ -14,18 +14,14 @@
 
 @implementation WLTempWrap
 
-- (instancetype)initWithWrap:(WLWrap *)wrap {
-    self = [super init];
-    if (self) {
-        self.wrap = wrap;
-        self.name = wrap.name;
-        WLPicture *picture = [WLPicture new];
-        picture.large = wrap.picture.large;
-        self.picture = picture;
-        self.contributors = [NSOrderedSet orderedSetWithOrderedSet:wrap.contributors];
-        self.contributor = wrap.contributor;
-    }
-    return self;
+- (void)setupEntry:(WLWrap *)wrap {
+    self.wrap = wrap;
+    self.name = wrap.name;
+    WLPicture *picture = [WLPicture new];
+    picture.large = wrap.picture.large;
+    self.picture = picture;
+    self.contributors = [NSOrderedSet orderedSetWithOrderedSet:wrap.contributors];
+    self.contributor = wrap.contributor;
 }
 
 - (void)setContributors:(NSOrderedSet *)contributors {

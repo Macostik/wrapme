@@ -45,10 +45,6 @@
 
 - (void)save;
 
-- (void)lock;
-
-- (void)unlock;
-
 @end
 
 @interface WLEntry (WLEntryManager)

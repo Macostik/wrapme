@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WLTempEntry.h"
 
 @class WLPicture;
 @class WLWrap;
 @class WLUser;
 
-@interface WLTempWrap : NSObject
+@interface WLTempWrap : WLTempEntry
 
 @property (weak, nonatomic) WLWrap *wrap;
 @property (strong, nonatomic) NSString *name;
@@ -22,6 +23,6 @@
 
 @property (strong, nonatomic) WLUser *contributor;
 
-- (instancetype)initWithWrap:(WLWrap *)wrap;
+
 
 @end

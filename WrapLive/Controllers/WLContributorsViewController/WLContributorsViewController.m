@@ -15,7 +15,6 @@
 #import "UIColor+CustomColors.h"
 #import "WLInviteViewController.h"
 #import "WLEntryManager.h"
-#import "WLTempWrap.h"
 
 @interface WLContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate>
 
@@ -109,21 +108,6 @@
 	}
 	return _selectedPhones;
 }
-
-//- (void)setTempWrap:(WLTempWrap *)tempWrap {
-//    _tempWrap = tempWrap;
-//    NSOrderedSet* phones = [tempWrap.contributors map:^id(WLUser* contributor) {
-//        WLPhone* phone = [[WLPhone alloc] init];
-//        phone.number = contributor.phone;
-//        phone.name = contributor.name;
-//        phone.user = contributor;
-//        return phone;
-//    }];
-//    [self.selectedPhones addObjectsFromArray:tempWrap.invitees];
-//	[self.selectedPhones setSet:[phones set]];
-//}
-
-
 
 -(void)setContacts:(NSArray *)contacts {
     _contacts = contacts;

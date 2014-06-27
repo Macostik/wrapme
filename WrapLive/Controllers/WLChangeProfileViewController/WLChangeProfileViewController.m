@@ -24,6 +24,7 @@
 #import "WLStillPictureViewController.h"
 #import "WLEntryManager.h"
 #import "UIButton+Additions.h"
+#import "WLProfileEditSession.h"
 
 @interface WLChangeProfileViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
@@ -35,6 +36,7 @@
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (strong, nonatomic) WLProfileEditSession *profileEditSession;
 
 @end
 
@@ -43,11 +45,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[WLEntryManager manager] lock];
 	self.user = [WLUser currentUser];
-	self.nameTextField.text = self.user.name;
-	self.profileImageView.url = self.user.picture.large;
-	self.emailTextField.text = self.user.email;
+    self.profileEditSession = [[WLProfileEditSession alloc] initWithEntry:self.user];
+	self.nameTextField.text = self.profileEditSession.changedEntry.name;
+	self.profileImageView.url = self.profileEditSession.changedEntry.picture.large;
+	self.emailTextField.text = self.profileEditSession.changedEntry.email;
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 
@@ -56,13 +58,13 @@
 	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
         WLPicture * picture = [WLPicture new];
         picture.large = path;
-		weakSelf.user.picture = picture;
+		weakSelf.profileEditSession.changedEntry.picture = picture;
 		[weakSelf isProfileChanged];
 	}];
 }
 
 - (BOOL)isProfileChanged {
-    BOOL changed = [[WLUser currentUser] hasChanges];
+    BOOL changed = [self.profileEditSession hasChanges];
     [self willShowDoneButton:changed];
     return changed;
 }
@@ -81,15 +83,17 @@
 - (void)updateIfNeeded:(void (^)(void))completion {
 	if ([self isProfileChanged]) {
         
-		if ([self.user.email isValidEmail]) {
+		if ([self.profileEditSession.changedEntry.email isValidEmail]) {
 			self.view.userInteractionEnabled = NO;
 			[self.spinner startAnimating];
 			__weak typeof(self)weakSelf = self;
+            [self.profileEditSession applyChanges:self.user];
 			[[WLAPIManager instance] updateMe:self.user success:^(id object) {
 				[weakSelf.spinner stopAnimating];
 				weakSelf.view.userInteractionEnabled = YES;
 				completion();
 			} failure:^(NSError *error) {
+                [self.profileEditSession resetChanges:self.user];
 				[weakSelf.spinner stopAnimating];
 				weakSelf.view.userInteractionEnabled = YES;
 				[error show];
@@ -111,8 +115,6 @@
 #pragma mark - User actions
 
 - (IBAction)back:(UIButton *)sender {
-    [[WLEntryManager manager].context refreshObject:self.user mergeChanges:NO];
-    [[WLEntryManager manager] unlock];
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -128,7 +130,6 @@
 - (IBAction)goToMainScreen:(id)sender {
 	__weak typeof(self)weakSelf = self;
 	[self updateIfNeeded:^{
-        [[WLEntryManager manager] unlock];
 		[weakSelf.navigationController popViewControllerAnimated:YES];
 	}];
 }
@@ -165,10 +166,10 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-	if (textField == self.nameTextField && ![self.user.name isEqualToString:self.nameTextField.text]) {
-        self.user.name = self.nameTextField.text;
-	} else if (![self.user.email isEqualToString:self.emailTextField.text]) {
-		self.user.email = self.emailTextField.text;
+	if (textField == self.nameTextField && ![self.profileEditSession.changedEntry.name isEqualToString:self.nameTextField.text]) {
+        self.profileEditSession.changedEntry.name = self.nameTextField.text;
+	} else if (![self.profileEditSession.changedEntry.email isEqualToString:self.emailTextField.text]) {
+		self.profileEditSession.changedEntry.email = self.emailTextField.text;
 	}
 	[self isProfileChanged];
 }

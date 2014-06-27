@@ -18,9 +18,6 @@
 @end
 
 @implementation WLEntryManager
-{
-    BOOL locked;
-}
 
 + (instancetype)manager {
     static id instance = nil;
@@ -148,22 +145,11 @@
 }
 
 - (void)save {
-    if (!locked) {
-        NSError* error = nil;
-        [self.context save:&error];
-        if (error) {
-            NSLog(@"!!! %@", error);
-        }
+    NSError* error = nil;
+    [self.context save:&error];
+    if (error) {
+        NSLog(@"!!! %@", error);
     }
-}
-
-- (void)lock {
-    locked = YES;
-}
-
-- (void)unlock {
-    locked = NO;
-    [self save];
 }
 
 @end

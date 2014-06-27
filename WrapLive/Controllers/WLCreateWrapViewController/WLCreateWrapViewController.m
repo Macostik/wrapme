@@ -58,8 +58,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[WLEntryManager manager] lock];
-    self.wrapEditSession = [[WLWrapEditSession alloc] initWithWrap:self.wrap];
+    self.wrapEditSession = [[WLWrapEditSession alloc] initWithEntry:self.wrap];
     [self verifyStartAndDoneButton];
 	if (self.editing) {
         self.coverView.image = nil;
@@ -83,12 +82,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isContributorsSegue]) {
 		WLContributorsViewController* controller = segue.destinationViewController;
-        controller.contributors = self.wrapEditSession.changedWrap.contributors;
-        controller.invitees = self.wrapEditSession.changedWrap.invitees;
+        controller.contributors = self.wrapEditSession.changedEntry.contributors;
+        controller.invitees = self.wrapEditSession.changedEntry.invitees;
         __weak typeof(self)weakSelf = self;
         [controller setContactsBlock:^(NSOrderedSet *contributors, NSArray *invitees) {
-            weakSelf.wrapEditSession.changedWrap.contributors = contributors;
-            weakSelf.wrapEditSession.changedWrap.invitees = invitees;
+            weakSelf.wrapEditSession.changedEntry.contributors = contributors;
+            weakSelf.wrapEditSession.changedEntry.invitees = invitees;
         }];
 	} else if ([segue isCameraSegue]) {
 		WLStillPictureViewController* controller = segue.destinationViewController;
@@ -108,12 +107,12 @@
 }
 
 - (void)refreshFooterView {
-	self.contributorsTableView.tableFooterView = self.wrapEditSession.changedWrap.contributors.nonempty ? nil : self.noContributorsView;
+	self.contributorsTableView.tableFooterView = self.wrapEditSession.changedEntry.contributors.nonempty ? nil : self.noContributorsView;
 }
 
 - (void)configureWrapEditing {
-	self.nameField.text = self.wrapEditSession.changedWrap.name;
-    NSString* url = [self.wrapEditSession.changedWrap.picture anyUrl];
+	self.nameField.text = self.wrapEditSession.changedEntry.name;
+    NSString* url = [self.wrapEditSession.changedEntry.picture anyUrl];
     self.coverView.url = url;
     if (!url) {
         self.coverView.image = [UIImage imageNamed:@"default-medium-cover"];
@@ -130,7 +129,7 @@
 }
 
 - (void)verifyStartAndDoneButton {
-	BOOL enabled = self.wrapEditSession.changedWrap.name.nonempty;
+	BOOL enabled = self.wrapEditSession.changedEntry.name.nonempty;
 	self.startButton.active = enabled;
 	self.doneButton.active = enabled;
 }
@@ -141,7 +140,6 @@
     if (!self.editing) {
         [self.wrap remove];
     }
-    [[WLEntryManager manager] unlock];
 	[self dismiss];
 }
 
@@ -152,14 +150,12 @@
         [self.wrapEditSession applyChanges:self.wrap];
 		__weak typeof(self)weakSelf = self;
 		[self.wrap update:^(WLWrap *wrap) {
-            [[WLEntryManager manager] unlock];
 			[weakSelf.spinner stopAnimating];
 			[weakSelf dismiss];
             weakSelf.wrap.invitees = nil;
 			[weakSelf unlock];
 		} failure:^(NSError *error) {
             if ([error isNetworkError] && weakSelf.wrap.uploading) {
-                [[WLEntryManager manager] unlock];
                 [weakSelf.wrap broadcastChange];
                 [weakSelf dismiss];
             } else {
@@ -170,7 +166,6 @@
 			[weakSelf unlock];
 		}];
 	} else {
-        [[WLEntryManager manager] unlock];
 		[self dismiss];
 	}
 }
@@ -195,7 +190,6 @@
 	[self.wrap save];
     [self.wrap broadcastCreation];
     void (^completion) (WLWrap*) = ^ (WLWrap* wrap) {
-        [[WLEntryManager manager] unlock];
         WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 		wrapController.wrap = wrap;
 		[UINavigationController pushViewController:wrapController animated:YES];
@@ -226,15 +220,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? [self.wrapEditSession.changedWrap.contributors count] : [self.wrapEditSession.changedWrap.invitees count];
+    return section == 0 ? [self.wrapEditSession.changedEntry.contributors count] : [self.wrapEditSession.changedEntry.invitees count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
-        WLUser* contributor = self.wrapEditSession.changedWrap.contributors[indexPath.row];
+        WLUser* contributor = self.wrapEditSession.changedEntry.contributors[indexPath.row];
         cell.item = contributor;
-        if ([self.wrapEditSession.changedWrap.contributor isCurrentUser]) {
+        if ([self.wrapEditSession.changedEntry.contributor isCurrentUser]) {
             cell.deletable = ![contributor isCurrentUser];
         } else {
             cell.deletable = ![self.wrap.contributors containsObject:contributor];
@@ -242,7 +236,7 @@
         return cell;
     } else {
         WLInviteeCell *cell = [tableView dequeueReusableCellWithIdentifier:[WLInviteeCell reuseIdentifier]];
-        WLPhone *phone = self.wrapEditSession.changedWrap.invitees[indexPath.row];
+        WLPhone *phone = self.wrapEditSession.changedEntry.invitees[indexPath.row];
         cell.item = phone;
         return cell;
     }
@@ -254,7 +248,7 @@
 	if (sender.text.length > WLWrapNameLimit) {
 		sender.text = [sender.text substringToIndex:WLWrapNameLimit];
 	}
-	self.wrapEditSession.changedWrap.name = sender.text;
+	self.wrapEditSession.changedEntry.name = sender.text;
 	[self verifyStartAndDoneButton];
 }
 
@@ -266,7 +260,7 @@
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
-	self.wrapEditSession.changedWrap.contributors = (id)[self.wrapEditSession.changedWrap.contributors orderedSetByRemovingObject:contributor];
+	self.wrapEditSession.changedEntry.contributors = (id)[self.wrapEditSession.changedEntry.contributors orderedSetByRemovingObject:contributor];
 	[self refreshContributorsTableView];
 }
 
@@ -277,7 +271,7 @@
 #pragma mark - WLInviteeCellDelegate
 
 - (void)inviteeCell:(WLInviteeCell *)cell didRemovePhone:(WLPhone *)phone {
-    self.wrapEditSession.changedWrap.invitees = (id)[self.wrapEditSession.changedWrap.invitees arrayByRemovingObject:phone];
+    self.wrapEditSession.changedEntry.invitees = (id)[self.wrapEditSession.changedEntry.invitees arrayByRemovingObject:phone];
     [self refreshContributorsTableView];
 }
 
@@ -289,7 +283,7 @@
                                                            bounds:weakSelf.coverView.retinaSize
                                              interpolationQuality:kCGInterpolationDefault];
 	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
-        weakSelf.wrapEditSession.changedWrap.picture.large = path;
+        weakSelf.wrapEditSession.changedEntry.picture.large = path;
         
 	}];
 	

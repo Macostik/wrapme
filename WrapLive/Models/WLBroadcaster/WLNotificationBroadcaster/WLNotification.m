@@ -39,9 +39,10 @@
 	if (!_wrap) {
 		NSString* identifier = [self.data stringForKey:@"wrap_uid"];
 		if (identifier.nonempty) {
-			_wrap = [WLWrap entry:identifier];
-            if (self.candy) {
-                [_wrap addCandy:self.candy];
+			WLWrap *wrap = [WLWrap entry:identifier];
+            if (wrap.managedObjectContext) {
+                _wrap = wrap;
+                [wrap addCandy:self.candy];
             }
 		}
 	}
@@ -52,17 +53,17 @@
 	if (!_candy) {
 		NSString* identifier = [self.data stringForKey:@"candy_uid"];
 		if (identifier.nonempty) {
-			_candy = [WLCandy entry:identifier];
-            _candy.wrap = self.wrap;
-            
-			if (self.type == WLNotificationImageCandyAddition || self.type == WLNotificationImageCandyDeletion || self.type == WLNotificationCandyCommentAddition || self.type == WLNotificationCandyCommentDeletion) {
-				_candy.type = @(WLCandyTypeImage);
-			} else if (self.type == WLNotificationChatCandyAddition) {
-				_candy.type = @(WLCandyTypeMessage);
-			}
-            
-            if (self.comment) {
-                [_candy addComment:self.comment];
+			WLCandy *candy = [WLCandy entry:identifier];
+            if (candy.managedObjectContext) {
+                _candy = candy;
+                WLNotificationType type = self.type;
+                if (type == WLNotificationImageCandyAddition || type == WLNotificationImageCandyDeletion || type == WLNotificationCandyCommentAddition || type == WLNotificationCandyCommentDeletion) {
+                    candy.type = @(WLCandyTypeImage);
+                } else if (type == WLNotificationChatCandyAddition) {
+                    candy.type = @(WLCandyTypeMessage);
+                }
+                [candy addComment:self.comment];
+                candy.wrap = self.wrap;
             }
 		}
 	}
@@ -73,8 +74,11 @@
 	if (!_comment) {
 		NSString* identifier = [self.data stringForKey:@"comment_uid"];
 		if (identifier.nonempty) {
-			_comment = [WLComment entry:identifier];
-            _comment.candy = self.candy;
+            WLComment *comment = [WLComment entry:identifier];
+            if (comment.managedObjectContext) {
+                _comment = comment;
+                comment.candy = self.candy;
+            }
 		}
 	}
 	return _comment;
@@ -86,37 +90,41 @@
 }
 
 - (void)fetch:(void (^)(void))completion {
-    __weak typeof(self)weakSelf = self;
+    WLNotificationType type = self.type;
+    WLWrap* wrap = self.wrap;
+    WLCandy* candy = self.candy;
+    WLComment* comment = self.comment;
     WLObjectBlock block = ^(id object) {
-        WLNotificationType type = weakSelf.type;
         if (type == WLNotificationContributorAddition) {
-            [[WLUser currentUser] addWrap:weakSelf.wrap];
-            [weakSelf.wrap broadcastCreation];
+            [[WLUser currentUser] addWrap:wrap];
+            [wrap broadcastCreation];
         } else if (type == WLNotificationContributorDeletion) {
-            [weakSelf.wrap remove];
+            [wrap remove];
         } else if (type == WLNotificationWrapDeletion) {
-            [weakSelf.wrap remove];
+            [wrap remove];
         } else if (type == WLNotificationImageCandyDeletion) {
-            [weakSelf.candy remove];
+            [candy remove];
         } else if (type == WLNotificationCandyCommentDeletion) {
-            [weakSelf.comment remove];
+            [comment remove];
         } else if (type == WLNotificationImageCandyAddition) {
-            [weakSelf.wrap addCandy:weakSelf.candy];
+            [wrap addCandy:candy];
         } else if (type == WLNotificationChatCandyAddition) {
-            [weakSelf.wrap addCandy:weakSelf.candy];
+            [wrap addCandy:candy];
         } else if (type == WLNotificationCandyCommentAddition) {
-            [weakSelf.wrap addCandy:weakSelf.candy];
+            [wrap addCandy:candy];
         }
         completion();
     };
     
     if (![self deletion]) {
-        self.wrap.unread = @YES;
-        if (self.type == WLNotificationContributorAddition) {
-            [self.wrap fetch:block failure:block];
+        wrap.unread = @YES;
+        if (type == WLNotificationContributorAddition) {
+            [wrap fetch:block failure:^(NSError *error) {
+            }];
         } else {
-            self.candy.unread = @YES;
-            [self.candy fetch:block failure:block];
+            candy.unread = @YES;
+            [candy fetch:block failure:^(NSError *error) {
+            }];
         }
     } else {
         block(nil);

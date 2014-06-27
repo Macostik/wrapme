@@ -111,6 +111,9 @@
 }
 
 - (void)addCandy:(WLCandy *)candy {
+    if (!candy) {
+        return;
+    }
     candy.wrap = self;
     __weak typeof(self)weakSelf = self;
     self.candies = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {

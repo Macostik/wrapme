@@ -30,6 +30,9 @@
 }
 
 - (void)addWrap:(WLWrap *)wrap {
+    if (!wrap) {
+        return;
+    }
     __weak typeof(self)weakSelf = self;
     self.wraps = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
         [set unionOrderedSet:weakSelf.wraps];

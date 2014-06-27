@@ -75,6 +75,9 @@
 }
 
 - (void)addComment:(WLComment *)comment {
+    if (!comment) {
+        return;
+    }
     comment.candy = self;
 	NSMutableOrderedSet* comments = [NSMutableOrderedSet orderedSetWithOrderedSet:self.comments];
 	[comments addObject:comment];

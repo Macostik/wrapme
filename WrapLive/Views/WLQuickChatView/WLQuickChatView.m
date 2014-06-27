@@ -32,6 +32,9 @@
 @end
 
 @implementation WLQuickChatView
+{
+    BOOL refresh;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -125,14 +128,21 @@
     }
 }
 
+- (void)onEndDragging {
+    refresh = self.tableView.contentOffset.y < -66;
+}
+
 - (void)onEndScrolling {
     CGFloat offset = self.height - self.tableView.height;
     CGFloat height = self.headerView.height;
     if (IsInBounds(0, height/2.0f, offset)) {
         [self setEditing:NO animated:YES];
-    } else if (self.tableView.contentOffset.y >= 0 && IsInBounds(height/2.0f, height, offset)) {
+        NSLog(@"setEditing:NO 1");
+    } else if (!refresh && self.tableView.contentOffset.y >= 0 && IsInBounds(height/2.0f, height, offset)) {
+        NSLog(@"setEditing:YES");
         [self setEditing:YES animated:YES];
     } else {
+        NSLog(@"setEditing:NO 3");
         [self setEditing:NO animated:YES];
     }
 }

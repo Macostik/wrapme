@@ -29,6 +29,8 @@
 
 - (void)onEndScrolling;
 
+- (void)onEndDragging;
+
 - (void)onScroll;
 
 @end

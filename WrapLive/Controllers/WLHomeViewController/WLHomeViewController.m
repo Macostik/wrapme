@@ -362,6 +362,7 @@
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    [self.quickChatView onEndDragging];
     if (!decelerate) {
         [self.quickChatView onEndScrolling];
     }

@@ -25,6 +25,8 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 
 @interface WLNotificationBroadcaster () <PNDelegate>
 
+@property (strong, nonatomic) NSDate* date;
+
 @end
 
 @implementation WLNotificationBroadcaster
@@ -65,6 +67,15 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 - (void)setup {
     [super setup];
 	[PubNub setupWithConfiguration:[WLNotificationBroadcaster configuration] andDelegate:self];
+}
+
+- (NSDate *)date {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"pubnub_history_date"];
+}
+
+- (void)setDate:(NSDate *)date {
+    [[NSUserDefaults standardUserDefaults] setObject:date forKey:@"pubnub_history_date"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)subscribe {
@@ -117,6 +128,7 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
     [notification fetch:^{
         [weakSelf broadcastNotification:notification];
     }];
+    self.date = [NSDate date];
 }
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {
@@ -134,6 +146,12 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 	if (deviceToken) {
 		[WLNotificationBroadcaster enablePushNotificationsInChannels:channels withDeviceToken:deviceToken];
 	}
+//    PNChannel* channel = [channels lastObject];
+//    PNDate* date = [PNDate dateWithDate:self.date];
+//    if (channel && date) {
+//        [PubNub requestHistoryForChannel:channel from:date];
+//    }
+    self.date = [NSDate date];
 }
 
 - (void)pubnubClient:(PubNub *)client didUnsubscribeOnChannels:(NSArray *)channels {

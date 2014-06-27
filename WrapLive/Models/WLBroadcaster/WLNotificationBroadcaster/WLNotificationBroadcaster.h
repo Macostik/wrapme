@@ -33,4 +33,6 @@
 
 - (void)handleRemoteNotification:(NSDictionary*)data;
 
+- (void)connect;
+
 @end

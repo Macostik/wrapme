@@ -374,6 +374,10 @@ static BOOL signedIn = NO;
 }
 
 - (id)dates:(WLWrap *)wrap page:(NSUInteger)page success:(WLWrapBlock)success failure:(WLFailureBlock)failure {
+    if (!wrap.uploaded) {
+        success(wrap);
+        return nil;
+    }
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:@([[NSTimeZone localTimeZone] secondsFromGMT]) forKey:@"utc_offset"];
 	[parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
@@ -477,7 +481,7 @@ static BOOL signedIn = NO;
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:candy.uploadIdentifier forKey:@"upload_uid"];
-	[parameters trySetObject:@(candy.updatedAt.timestamp) forKey:@"contributed_at_in_epoch"];
+	[parameters trySetObject:@([candy.updatedAt timestamp]) forKey:@"contributed_at_in_epoch"];
 	if ([candy isMessage]) {
 		[parameters trySetObject:candy.message forKey:@"chat_message"];
 	}
@@ -737,7 +741,12 @@ static BOOL signedIn = NO;
 }
 
 - (id)fetch:(WLWrapBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] wrap:self success:success failure:failure];
+    if (self.uploaded) {
+        return [[WLAPIManager instance] wrap:self success:success failure:failure];
+    } else {
+        success(self);
+        return nil;
+    }
 }
 
 - (id)update:(WLWrapBlock)success failure:(WLFailureBlock)failure {

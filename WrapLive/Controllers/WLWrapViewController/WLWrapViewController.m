@@ -57,6 +57,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.loadingView = [WLLoadingView instance];
 	self.quickChatView.wrap = self.wrap;
 	[self refreshWrap];
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView target:self action:@selector(refreshWrap) colorScheme:WLRefresherColorSchemeOrange];
@@ -64,8 +65,6 @@
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
     
     self.dates = [WLDate dates:self.wrap.candies];
-    
-    self.loadingView = [WLLoadingView instance];
 }
 
 - (void)setLoadingView:(WLLoadingView *)loadingView {

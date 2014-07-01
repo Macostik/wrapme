@@ -17,6 +17,7 @@
 #import "WLAPIManager.h"
 #import "WLAuthorization.h"
 #import "WLEntryManager.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 static NSString* WLPubNubOrigin = @"pubsub.pubnub.com";
 static NSString* WLPubNubPublishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
@@ -24,6 +25,9 @@ static NSString* WLPubNubSubscribeKey = @"sub-c-bc5bfa70-d166-11e3-8d06-02ee2dda
 static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzgwYjdkNWNkMmFl";
 
 @interface WLNotificationBroadcaster () <PNDelegate>
+{
+    SystemSoundID soundID;
+}
 
 @property (strong, nonatomic) NSDate* date;
 
@@ -66,7 +70,13 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 
 - (void)setup {
     [super setup];
+    [self setupMessageSound];
 	[PubNub setupWithConfiguration:[WLNotificationBroadcaster configuration] andDelegate:self];
+}
+
+- (void)setupMessageSound {
+    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"triade" ofType:@"aif"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)([NSURL fileURLWithPath: soundPath]), &soundID);
 }
 
 - (NSDate *)date {
@@ -127,6 +137,8 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 	__weak typeof(self)weakSelf = self;
     [notification fetch:^{
         [weakSelf broadcastNotification:notification];
+
+        AudioServicesPlaySystemSound (soundID);
     }];
     self.date = [NSDate date];
 }

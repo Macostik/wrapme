@@ -68,7 +68,7 @@
             self.contributor = user;
         }
     }
-    self.contributors = [contributors copy];
+    self.contributors = contributors;
     
 	WLPicture* picture = [[WLPicture alloc] init];
 	picture.large = [dictionary stringForKey:@"large_cover_url"];

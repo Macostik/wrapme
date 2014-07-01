@@ -26,12 +26,12 @@
     NSMutableDictionary* ds = [NSMutableDictionary dictionary];
     for (WLCandy* candy in entries) {
         if (candy.updatedAt) {
-            NSString* dateString = [candy.updatedAt stringWithFormat:@"MMM dd, yyyy"];
-            WLDate* date = [ds objectForKey:dateString];
+            NSString* name = [candy.updatedAt stringWithFormat:@"MMM dd, yyyy"];
+            WLDate* date = [ds objectForKey:name];
             if (!date) {
                 date = [WLDate dateWithDate:candy.updatedAt];
-                date.dateString = dateString;
-                [ds setObject:date forKey:dateString];
+                date.name = name;
+                [ds setObject:date forKey:name];
                 [dates addObject:date];
             }
             [date addCandy:candy];

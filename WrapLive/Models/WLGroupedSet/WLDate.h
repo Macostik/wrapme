@@ -14,7 +14,7 @@
 
 @property (strong, nonatomic) NSDate* date;
 
-@property (strong, nonatomic) NSString* dateString;
+@property (strong, nonatomic) NSString* name;
 
 @property (nonatomic, retain) NSMutableOrderedSet* candies;
 

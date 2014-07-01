@@ -12,7 +12,6 @@
 #import "WLImageFetcher.h"
 #import "WLCandy.h"
 #import "NSDate+Formatting.h"
-#import "WLDate.h"
 #import "UIView+Shorthand.h"
 #import "WLNavigation.h"
 #import "WLCameraViewController.h"
@@ -34,8 +33,9 @@
 #import "WLWrapCell.h"
 #import "UIView+AnimationHelper.h"
 #import "NSDate+Additions.h"
+#import "WLGroupedSet.h"
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate, WLQuickChatViewDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate, WLQuickChatViewDelegate, WLGroupedSetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
@@ -43,7 +43,7 @@
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
 
-@property (strong, nonatomic) NSMutableOrderedSet* dates;
+@property (strong, nonatomic) WLGroupedSet* groups;
 
 @property (strong, nonatomic) WLLoadingView* loadingView;
 
@@ -57,14 +57,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.groups = [[WLGroupedSet alloc] init];
+    self.groups.delegate = self;
+    
     self.loadingView = [WLLoadingView instance];
 	self.quickChatView.wrap = self.wrap;
 	[self refreshWrap];
 	self.refresher = [WLRefresher refresherWithScrollView:self.tableView target:self action:@selector(refreshWrap) colorScheme:WLRefresherColorSchemeOrange];
 	
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-    
-    self.dates = [WLDate dates:self.wrap.candies];
+    [self.groups addCandies:self.wrap.candies];
 }
 
 - (void)setLoadingView:(WLLoadingView *)loadingView {
@@ -78,7 +81,16 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     self.wrap.unread = @NO;
-    [self.tableView reloadData];
+    NSArray* cells = [self.tableView visibleCells];
+    if (cells.nonempty) {
+        for (WLCandiesCell* cell in cells) {
+            if ([cell isKindOfClass:[WLCandiesCell class]]) {
+                [cell.collectionView reloadData];
+            }
+        }
+    } else {
+        [self.tableView reloadData];
+    }
 }
 
 - (void)refreshWrap {
@@ -99,8 +111,7 @@
 }
 
 - (void)reloadData {
-    self.dates = [WLDate dates:self.wrap.candies];
-    [self.tableView reloadData];
+    [self.groups setCandies:self.wrap.candies];
 }
 
 - (void)appendDates {
@@ -110,10 +121,10 @@
 	loading = YES;
     self.loadingView.error = NO;
 	__weak typeof(self)weakSelf = self;
-    NSUInteger page = ((self.dates.count + 1)/WLAPIGeneralPageSize + 1);
+    NSUInteger page = ((self.groups.set.count + 1)/WLAPIGeneralPageSize + 1);
     NSUInteger count = self.wrap.candies.count;
     [[WLAPIManager instance] dates:self.wrap page:page success:^(WLWrap *wrap) {
-		[weakSelf reloadData];
+		[weakSelf.groups addCandies:wrap.candies];
 		loading = NO;
         if (count == weakSelf.wrap.candies.count) {
             weakSelf.loadingView = nil;
@@ -145,13 +156,6 @@
 	[self.navigationController pushViewController:chatController animated:YES];
 }
 
-- (NSMutableOrderedSet *)dates {
-    if (!_dates) {
-        _dates = [NSMutableOrderedSet orderedSet];
-    }
-    return _dates;
-}
-
 - (void)setFirstContributorViewHidden:(BOOL)hidden animated:(BOOL)animated {
     __weak typeof(self)weakSelf = self;
     [UIView performAnimated:animated animation:^{
@@ -166,7 +170,18 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
 	self.quickChatView.wrap = self.wrap;
-    [self reloadData];
+}
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
+    [self.groups addCandy:candy];
+}
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
+    [self.groups removeCandy:candy];
+}
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
+    [self.groups sort:candy];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
@@ -175,6 +190,12 @@
 
 - (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
     return self.wrap;
+}
+
+#pragma mark - WLGroupedSetDelegate
+
+- (void)groupedSetGroupsChanged:(WLGroupedSet *)set {
+    [self.tableView reloadData];
 }
 
 #pragma mark - User Actions
@@ -222,7 +243,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 1 : [self.dates count];
+    return section == 0 ? 1 : [self.groups.set count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -234,15 +255,15 @@
         return cell;
     } else {
         WLCandiesCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLCandiesCell reuseIdentifier]];
-        WLDate* date = [self.dates objectAtIndex:indexPath.row];
+        WLGroup* date = [self.groups.set tryObjectAtIndex:indexPath.row];
         cell.item = date;
         cell.delegate = self;
         if (indexPath.row > 0) {
             cell.refreshable = NO;
         } else {
-            cell.refreshable = [date.date isToday];
+            cell.refreshable = [date.name isEqualToString:[[NSDate date] stringWithFormat:self.groups.dateFormat]];
         }
-        if (date == [self.dates lastObject] && self.tableView.tableFooterView != nil) {
+        if (date == [self.groups.set lastObject] && self.tableView.tableFooterView != nil) {
             [self appendDates];
         }
         return cell;

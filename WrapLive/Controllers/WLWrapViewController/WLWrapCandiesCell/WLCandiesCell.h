@@ -26,4 +26,6 @@
 
 @property (nonatomic) BOOL refreshable;
 
+@property (weak, nonatomic, readonly) UICollectionView *collectionView;
+
 @end

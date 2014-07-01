@@ -39,7 +39,7 @@
 - (WLBroadcastSelectReceiver)candySelectBlock:(WLCandy*)candy {
     __weak typeof(self)weakSelf = self;
     return ^BOOL (NSObject <WLWrapBroadcastReceiver> *receiver) {
-        if (![weakSelf wrapSelectBlock:candy.wrap](receiver)) {
+        if (candy.wrap && ![weakSelf wrapSelectBlock:candy.wrap](receiver)) {
             return NO;
         }
         if ([receiver respondsToSelector:@selector(broadcasterPreferedCandy:)]) {

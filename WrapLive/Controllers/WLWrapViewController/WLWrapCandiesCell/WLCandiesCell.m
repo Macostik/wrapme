@@ -7,7 +7,6 @@
 //
 
 #import "WLCandiesCell.h"
-#import "WLDate.h"
 #import "NSDate+Formatting.h"
 #import "WLCandyCell.h"
 #import "WLCandy.h"
@@ -16,11 +15,11 @@
 #import "NSArray+Additions.h"
 #import "WLAPIManager.h"
 #import "WLWrap.h"
-#import "WLWrapBroadcaster.h"
 #import "NSDate+Additions.h"
 #include "WLSupportFunctions.h"
+#import "WLGroupedSet.h"
 
-@interface WLCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLWrapBroadcastReceiver, WLCandyCellDelegate>
+@interface WLCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLCandyCellDelegate, WLGroupDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -47,13 +46,13 @@
 	[super awakeFromNib];
 	self.shouldAppendMoreCandies = YES;
 	[self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:[WLCandyCell reuseIdentifier]];
-	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshCandies) colorScheme:WLRefresherColorSchemeOrange];
 }
 
-- (void)setupItemData:(WLDate*)date {
-	self.dateLabel.text = [date.dateString uppercaseString];
-	self.shouldAppendMoreCandies = [date.candies count] >= 10;
+- (void)setupItemData:(WLGroup*)group {
+    group.delegate = self;
+	self.dateLabel.text = [group.name uppercaseString];
+	self.shouldAppendMoreCandies = [group.candies count] >= 10;
 	[self.collectionView reloadData];
 	self.collectionView.contentOffset = CGPointZero;
 	loading = NO;
@@ -65,11 +64,10 @@
 
 - (void)refreshCandies {
 	__weak typeof(self)weakSelf = self;
-    WLDate* date = self.item;
-    WLCandy* candy = [[date candies] firstObject];
+    WLGroup* group = self.item;
+    WLCandy* candy = [[group candies] firstObject];
     [candy newerCandies:YES success:^(NSOrderedSet *array) {
-        [date addCandies:array];
-		[weakSelf.collectionView reloadData];
+        [group addCandies:array];
 		[weakSelf.refresher endRefreshing];
     } failure:^(NSError *error) {
 		[error show];
@@ -83,12 +81,11 @@
 	}
 	loading = YES;
 	__weak typeof(self)weakSelf = self;
-    WLDate* date = self.item;
-    WLCandy* candy = [[date candies] lastObject];
+    WLGroup* group = self.item;
+    WLCandy* candy = [[group candies] lastObject];
     [candy olderCandies:YES success:^(NSOrderedSet *array) {
         weakSelf.shouldAppendMoreCandies = array.nonempty;
-        [date addCandies:array];
-		[weakSelf.collectionView reloadData];
+        [group addCandies:array];
 		[weakSelf fixContentOffset];
 		loading = NO;
     } failure:^(NSError *error) {
@@ -98,30 +95,24 @@
     }];
 }
 
-#pragma mark - WLWrapBroadcastReceiver
+#pragma mark - WLGroupDelegate
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-	[self.collectionView reloadData];
-}
-
-- (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
-    WLDate* date = self.item;
-    WLCandy* candy = [[date candies] firstObject];
-    return candy.wrap;
+- (void)groupsChanged:(WLGroup *)group {
+    [self.collectionView reloadData];
 }
 
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	WLDate* wrapDay = self.item;
-	return [wrapDay.candies count];
+	WLGroup* group = self.item;
+	return [group.candies count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* WLCandyCellIdentifier = @"WLCandyCell";
 	WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCandyCellIdentifier forIndexPath:indexPath];
-	WLDate* wrapDay = self.item;
-	cell.item = [wrapDay.candies objectAtIndex:indexPath.item];
+	WLGroup* group = self.item;
+	cell.item = [group.candies tryObjectAtIndex:indexPath.item];
 	cell.delegate = self;
 	return cell;
 }

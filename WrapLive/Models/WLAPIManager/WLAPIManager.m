@@ -444,7 +444,7 @@ static BOOL signedIn = NO;
 }
 
 - (id)leaveWrap:(WLWrap *)wrap success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-	wrap.contributors = (id)[wrap.contributors usersByRemovingCurrentUser];
+	[wrap.contributors removeObject:[WLUser currentUser]];
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
         [wrap remove];
 		return response;

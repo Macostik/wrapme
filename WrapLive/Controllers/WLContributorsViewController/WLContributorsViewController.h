@@ -11,7 +11,7 @@
 @class WLWrap;
 @class WLTempWrap;
 
-typedef void (^WLContactsBlock) (NSOrderedSet *contributors, NSArray *invitees);
+typedef void (^WLContactsBlock) (NSMutableOrderedSet *contributors, NSArray *invitees);
 
 @interface WLContributorsViewController : UIViewController
 

@@ -18,7 +18,7 @@
 @property (weak, nonatomic) WLWrap *wrap;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) WLPicture *picture;
-@property (strong, nonatomic) NSOrderedSet *contributors;
+@property (strong, nonatomic) NSMutableOrderedSet *contributors;
 @property (strong, nonatomic) NSArray *invitees;
 
 @property (strong, nonatomic) WLUser *contributor;

@@ -15,8 +15,8 @@
 @interface WLWrap : WLContribution
 
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSOrderedSet *candies;
-@property (nonatomic, retain) NSOrderedSet *contributors;
+@property (nonatomic, retain) NSMutableOrderedSet *candies;
+@property (nonatomic, retain) NSMutableOrderedSet *contributors;
 @property (strong, nonatomic) NSArray* invitees;
 @end
 

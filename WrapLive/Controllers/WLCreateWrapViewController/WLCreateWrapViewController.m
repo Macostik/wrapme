@@ -85,7 +85,7 @@
         controller.contributors = self.wrapEditSession.changedEntry.contributors;
         controller.invitees = self.wrapEditSession.changedEntry.invitees;
         __weak typeof(self)weakSelf = self;
-        [controller setContactsBlock:^(NSOrderedSet *contributors, NSArray *invitees) {
+        [controller setContactsBlock:^(NSMutableOrderedSet *contributors, NSArray *invitees) {
             weakSelf.wrapEditSession.changedEntry.contributors = contributors;
             weakSelf.wrapEditSession.changedEntry.invitees = invitees;
         }];
@@ -260,7 +260,7 @@
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
-	self.wrapEditSession.changedEntry.contributors = (id)[self.wrapEditSession.changedEntry.contributors orderedSetByRemovingObject:contributor];
+	[self.wrapEditSession.changedEntry.contributors removeObject:contributor];
 	[self refreshContributorsTableView];
 }
 

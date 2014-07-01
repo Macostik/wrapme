@@ -17,11 +17,7 @@
         page = ((user.wraps.count + 1)/WLAPIGeneralPageSize + 1);
 	}
 	[[WLAPIManager instance] wraps:page success:^(NSOrderedSet *object) {
-        user.wraps = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
-            [set unionOrderedSet:user.wraps];
-            [set unionOrderedSet:object];
-            [set sortEntries];
-        }];
+        [user addWraps:object];
 		[[WLEntryManager manager] save];
         if (success) {
             success(user.wraps, (object.count != WLAPIGeneralPageSize));

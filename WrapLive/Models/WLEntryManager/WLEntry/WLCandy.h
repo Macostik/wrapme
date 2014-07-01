@@ -17,7 +17,7 @@
 @property (nonatomic, retain) NSString * message;
 @property (nonatomic, retain) NSNumber * type;
 @property (nonatomic, retain) WLWrap *wrap;
-@property (nonatomic, retain) NSOrderedSet *comments;
+@property (nonatomic, retain) NSMutableOrderedSet *comments;
 @end
 
 @interface WLCandy (CoreDataGeneratedAccessors)

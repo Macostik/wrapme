@@ -25,14 +25,20 @@
 }
 
 + (NSOrderedSet *)API_entries:(NSArray *)array relatedEntry:(id)relatedEntry {
-	NSMutableOrderedSet* entries = [NSMutableOrderedSet orderedSet];
-	for (NSDictionary* dictionary in array) {
+	return [[self API_entries:array relatedEntry:relatedEntry container:[NSMutableOrderedSet orderedSet]] copy];
+}
+
++ (NSMutableOrderedSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry container:(NSMutableOrderedSet*)container {
+    if (!container) {
+        container = [NSMutableOrderedSet orderedSet];
+    }
+    for (NSDictionary* dictionary in array) {
 		WLEntry* entry = [self API_entry:dictionary relatedEntry:relatedEntry];
 		if (entry) {
-			[entries addObject:entry];
+			[container addObject:entry];
 		}
 	}
-	return [entries copy];
+    return container;
 }
 
 + (instancetype)API_entry:(NSDictionary*)dictionary {

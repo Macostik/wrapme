@@ -30,24 +30,33 @@
 }
 
 - (void)addWrap:(WLWrap *)wrap {
-    if (!wrap) {
+    if (!wrap || [self.wraps containsObject:wrap]) {
         return;
     }
-    __weak typeof(self)weakSelf = self;
-    self.wraps = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
-        [set unionOrderedSet:weakSelf.wraps];
-        [set addObject:wrap];
-        [set sortEntries];
-    }];
+    if (!self.wraps) {
+        self.wraps = [NSMutableOrderedSet orderedSet];
+    }
+    [self.wraps addObject:wrap];
+    [self.wraps sortEntries];
     [self save];
 }
 
+- (void)addWraps:(NSOrderedSet *)wraps {
+    if (!self.wraps) {
+        self.wraps = [NSMutableOrderedSet orderedSet];
+    }
+    [self.wraps unionOrderedSet:wraps];
+    [self.wraps sortEntries];
+}
+
 - (void)removeWrap:(WLWrap *)wrap {
-    self.wraps = [self.wraps orderedSetByRemovingObject:wrap];
+    if ([self.wraps containsObject:wrap]) {
+        [self.wraps removeObject:wrap];
+    }
 }
 
 - (void)sortWraps {
-    [WLUser currentUser].wraps = [[WLUser currentUser].wraps sortedEntries];
+    [[WLUser currentUser].wraps sortEntries];
 }
 
 @end

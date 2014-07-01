@@ -19,8 +19,8 @@
 @property (nonatomic, retain) NSString * phone;
 @property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSNumber * signInCount;
-@property (nonatomic, retain) NSOrderedSet *contributions;
-@property (nonatomic, retain) NSOrderedSet *wraps;
+@property (nonatomic, retain) NSMutableOrderedSet *contributions;
+@property (nonatomic, retain) NSMutableOrderedSet *wraps;
 
 @end
 

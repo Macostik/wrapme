@@ -20,6 +20,8 @@
 
 + (NSOrderedSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry;
 
++ (NSMutableOrderedSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry container:(NSMutableOrderedSet*)container;
+
 + (instancetype)API_entry:(NSDictionary*)dictionary relatedEntry:(id)relatedEntry;
 
 + (NSString*)API_identifier:(NSDictionary*)dictionary;

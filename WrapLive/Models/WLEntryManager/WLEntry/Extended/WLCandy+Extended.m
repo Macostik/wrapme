@@ -32,12 +32,11 @@
 	[super API_setup:dictionary relatedEntry:relatedEntry];
 	self.type = [dictionary numberForKey:@"candy_type"];
 	self.message = [dictionary stringForKey:@"chat_message"];
-    __weak typeof(self)weakSelf = self;
-    self.comments = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
-        [set unionOrderedSet:weakSelf.comments];
-        [set unionOrderedSet:[WLComment API_entries:[dictionary arrayForKey:@"comments"] relatedEntry:self]];
-        [set sortEntriesByCreationAscending];
-    }];
+    if (!self.comments) {
+        self.comments = [NSMutableOrderedSet orderedSet];
+    }
+    [WLComment API_entries:[dictionary arrayForKey:@"comments"] relatedEntry:self container:self.comments];
+    [self.comments sortEntriesByCreationAscending];
 	WLPicture* picture = [[WLPicture alloc] init];
 	picture.large = [dictionary stringForKey:@"large_image_attachment_url"];
 	picture.medium = [dictionary stringForKey:@"medium_sq_image_attachment_url"];
@@ -75,24 +74,24 @@
 }
 
 - (void)addComment:(WLComment *)comment {
-    if (!comment) {
+    if (!comment || [self.comments containsObject:comment]) {
         return;
     }
     comment.candy = self;
-	NSMutableOrderedSet* comments = [NSMutableOrderedSet orderedSetWithOrderedSet:self.comments];
-	[comments addObject:comment];
-    [comments sortEntriesByCreationAscending];
-	self.comments = [comments copy];
-	[self touch];
+    [self.comments addObject:comment];
+    [self.comments sortEntriesByCreationAscending];
+    [self touch];
     [self.wrap broadcastChange];
     [self broadcastChange];
 }
 
 - (void)removeComment:(WLComment *)comment {
-	self.comments = [self.comments orderedSetByRemovingObject:comment];
-    [self save];
-    [self.wrap broadcastChange];
-	[self broadcastChange];
+    if ([self.comments containsObject:comment]) {
+        [self.comments removeObject:comment];
+        [self save];
+        [self.wrap broadcastChange];
+        [self broadcastChange];
+    }
 }
 
 - (void)uploadComment:(NSString *)text success:(WLCommentBlock)success failure:(WLFailureBlock)failure {

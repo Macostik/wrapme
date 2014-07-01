@@ -50,12 +50,13 @@
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
     [super API_setup:dictionary relatedEntry:relatedEntry];
     self.name = [dictionary stringForKey:@"name"];
-    NSOrderedSet* candies = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
-        for (NSDictionary* date in dictionary[@"dates"]) {
-            [set unionOrderedSet:[WLCandy API_entries:[date arrayForKey:@"candies"] relatedEntry:self]];
-        }
-    }];
-    [self addCandies:candies];
+    if (!self.candies) {
+        self.candies = [NSMutableOrderedSet orderedSet];
+    }
+    for (NSDictionary* date in dictionary[@"dates"]) {
+        [WLCandy API_entries:[date arrayForKey:@"candies"] relatedEntry:self container:self.candies];
+    }
+    [self.candies sortEntries];
     
     NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSet];
     for (NSDictionary* contributor in [dictionary arrayForKey:@"contributors"]) {
@@ -78,12 +79,11 @@
 }
 
 - (void)addCandies:(NSOrderedSet *)candies {
-    __weak typeof(self)weakSelf = self;
-    self.candies = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
-        [set unionOrderedSet:weakSelf.candies];
-        [set unionOrderedSet:candies];
-        [set sortEntries];
-    }];
+    if (!self.candies) {
+        self.candies = [NSMutableOrderedSet orderedSet];
+    }
+    [self.candies unionOrderedSet:candies];
+    [self.candies sortEntries];
 }
 
 - (NSString *)contributorNamesWithCount:(NSInteger)numberOfUsers {
@@ -111,16 +111,15 @@
 }
 
 - (void)addCandy:(WLCandy *)candy {
-    if (!candy) {
+    if (!candy || [self.candies containsObject:candy]) {
         return;
     }
     candy.wrap = self;
-    __weak typeof(self)weakSelf = self;
-    self.candies = [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
-        [set unionOrderedSet:weakSelf.candies];
-        [set addObject:candy];
-        [set sortEntries];
-    }];
+    if (!self.candies) {
+        self.candies = [NSMutableOrderedSet orderedSet];
+    }
+    [self.candies addObject:candy];
+    [self.candies sortEntries];
 	[self touch];
     [self save];
 	[self broadcastChange];
@@ -132,14 +131,16 @@
 }
 
 - (void)sortCandies {
-    self.candies = [self.candies sortedEntries];
+    [self.candies sortEntries];
     [self save];
 }
 
 - (void)removeCandy:(WLCandy *)candy {
-    self.candies = [self.candies orderedSetByRemovingObject:candy];
-	[self broadcastChange];
-	[candy broadcastRemoving];
+    if ([self.candies containsObject:candy]) {
+        [self.candies removeObject:candy];
+        [self broadcastChange];
+        [candy broadcastRemoving];
+    }
 }
 
 - (NSOrderedSet *)candiesOfType:(NSInteger)type maximumCount:(NSUInteger)maximumCount {

@@ -176,7 +176,7 @@
             [invitees addObject:phone];
         }
     }
-    self.contactsBlock([contributors copy], [invitees copy]);
+    self.contactsBlock(contributors, [invitees copy]);
 	[self.navigationController popViewControllerAnimated:YES];
 }
 

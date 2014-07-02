@@ -34,6 +34,7 @@
 #import "UIView+AnimationHelper.h"
 #import "NSDate+Additions.h"
 #import "WLGroupedSet.h"
+#import "NSString+Additions.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate, WLQuickChatViewDelegate, WLGroupedSetDelegate>
 
@@ -186,7 +187,11 @@
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-    [WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.", wrap.name]];
+    WLWrapCell* cell = (id)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if ([cell isKindOfClass:[WLWrapCell class]]) {
+        [WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.", WLString(cell.nameLabel.text)]];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {

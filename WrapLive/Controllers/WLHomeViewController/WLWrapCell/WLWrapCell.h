@@ -32,4 +32,6 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 @property (strong, nonatomic) NSOrderedSet* candies;
 
+@property (weak, nonatomic, readonly) UILabel *nameLabel;
+
 @end

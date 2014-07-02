@@ -125,6 +125,7 @@
         self.tableView.height = height;
         self.tableView.y = self.height - height;
         self.headerView.y = self.tableView.y - self.headerView.height;
+        self.tableView.contentOffset = CGPointZero;
     }
 }
 
@@ -137,12 +138,9 @@
     CGFloat height = self.headerView.height;
     if (IsInBounds(0, height/2.0f, offset)) {
         [self setEditing:NO animated:YES];
-        NSLog(@"setEditing:NO 1");
     } else if (!refresh && self.tableView.contentOffset.y >= 0 && IsInBounds(height/2.0f, height, offset)) {
-        NSLog(@"setEditing:YES");
         [self setEditing:YES animated:YES];
     } else {
-        NSLog(@"setEditing:NO 3");
         [self setEditing:NO animated:YES];
     }
 }

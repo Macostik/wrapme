@@ -208,9 +208,6 @@ static CTCallCenter *callCenter;
 	return NO;
 }
 
-
-
-
 - (BOOL)presentShakeViewControllerWithNavigationController:(UINavigationController*)navigationController {
 	WLShakeViewController* presentingViewController = nil;
 	UIViewController* presentedViewController = nil;

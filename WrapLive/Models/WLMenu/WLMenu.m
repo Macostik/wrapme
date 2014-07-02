@@ -26,6 +26,13 @@
     return [[self alloc] initWithView:view delegate:delegate];
 }
 
++ (void)hide {
+    UIMenuController* controller = [UIMenuController sharedMenuController];
+    if (controller.menuVisible) {
+        [controller setMenuVisible:NO animated:YES];
+    }
+}
+
 - (instancetype)initWithView:(UIView *)view delegate:(UIResponder<WLMenuDelegate> *)delegate {
     self = [super init];
     if (self) {

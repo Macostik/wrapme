@@ -39,6 +39,7 @@
 }
 
 - (void)setupItemData:(WLWrap*)wrap {
+    [WLMenu hide];
 	self.nameLabel.superview.userInteractionEnabled = YES;
 	self.nameLabel.text = wrap.name;
 	[self.nameLabel sizeToFitWidthWithSuperviewRightPadding:50];

@@ -731,9 +731,13 @@ static BOOL signedIn = NO;
 }
 
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    if (self.uploading && self.uploading.operation == nil) {
-        [self remove];
-        success(nil);
+    if (self.uploading) {
+        if (self.uploading.operation == nil) {
+            [self remove];
+            success(nil);
+        } else {
+            failure([NSError errorWithDescription:@"Wrap is uploading, wait a moment..."]);
+        }
         return nil;
     } else {
         return [[WLAPIManager instance] removeWrap:self success:success failure:failure];
@@ -798,9 +802,13 @@ static BOOL signedIn = NO;
 }
 
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    if (self.uploading && self.uploading.operation == nil) {
-        [self remove];
-        success(nil);
+    if (self.uploading) {
+        if (self.uploading.operation == nil) {
+            [self remove];
+            success(nil);
+        } else {
+            failure([NSError errorWithDescription:@"Photo is uploading, wait a moment..."]);
+        }
         return nil;
     } else {
         return [[WLAPIManager instance] removeCandy:self success:success failure:failure];
@@ -828,9 +836,13 @@ static BOOL signedIn = NO;
 }
 
 - (id)remove:(WLCommentBlock)success failure:(WLFailureBlock)failure {
-    if (self.uploading && self.uploading.operation == nil) {
-        [self remove];
-        success(nil);
+    if (self.uploading) {
+        if (self.uploading.operation == nil) {
+            [self remove];
+            success(nil);
+        } else {
+            failure([NSError errorWithDescription:@"Comment is uploading, wait a moment..."]);
+        }
         return nil;
     } else {
         return [[WLAPIManager instance] removeComment:self success:success failure:failure];

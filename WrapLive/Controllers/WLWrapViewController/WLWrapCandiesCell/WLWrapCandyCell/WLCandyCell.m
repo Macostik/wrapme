@@ -45,6 +45,7 @@
 }
 
 - (void)setupItemData:(WLCandy*)candy {
+    [WLMenu hide];
 	self.userInteractionEnabled = YES;
 	if ([candy isImage]) {
 		WLComment* comment = [candy.comments lastObject];

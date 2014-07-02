@@ -28,8 +28,10 @@
 
 @property (weak, nonatomic) UIResponder<WLMenuDelegate> *delegate;
 
+@property (nonatomic) BOOL vibrate;
+
 + (instancetype)menuWithView:(UIView*)view delegate:(UIResponder<WLMenuDelegate> *)delegate;
 
-@property (nonatomic) BOOL vibrate;
++ (void)hide;
 
 @end

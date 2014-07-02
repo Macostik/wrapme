@@ -48,6 +48,7 @@
 }
 
 - (void)setupItemData:(WLComment *)entry {
+    [WLMenu hide];
 	self.userInteractionEnabled = YES;
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", entry.contributor.name, entry.createdAt.timeAgoString];
 	self.commentLabel.text = entry.text;

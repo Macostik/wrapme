@@ -11,6 +11,10 @@
 #import "UIView+Shorthand.h"
 #import "WLBlocks.h"
 #import "WLNavigation.h"
+#import <CoreTelephony/CTCallCenter.h>
+#import <CoreTelephony/CTCall.h>
+
+static CTCallCenter *callCenter;
 
 @interface WLShakeViewController ()
 
@@ -20,9 +24,15 @@
 
 @property (nonatomic, strong) UIView* translucentView;
 
+@property (nonatomic, readonly) BOOL isCalling;
+
 @end
 
 @implementation WLShakeViewController
+
+-(void)setCallCenter:(CTCallCenter *)callCenter {
+    
+}
 
 - (void)presentInViewController:(UIViewController *)controller transition:(WLWrapTransition)transition completion:(void (^)(void))completion {
     [UIWindow mainWindow].userInteractionEnabled = NO;
@@ -50,6 +60,7 @@
 	} else {
 		transitionCompleted();
 	}
+    
 }
 
 - (void)performTransition:(CGAffineTransform)transform fromTransform:(CGAffineTransform)fromTransform completion:(void (^)(void))completion {
@@ -116,7 +127,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+}
+
+- (BOOL)isCalling {
+    CTCallCenter *callCenter = [[CTCallCenter alloc] init];
+    for (CTCall* call in callCenter.currentCalls) {
+        if ([call.callState isEqualToString: CTCallStateConnected]) {
+            NSLog(@"isCalling");
+            return YES;
+        } else if ([call.callState isEqualToString: CTCallStateIncoming]) {
+            NSLog(@"isCalling");
+            return YES;
+        }
+    }
+    NSLog(@"!isCalling");
+    return NO;
 }
 
 - (UIView *)translucentView {
@@ -150,6 +175,11 @@
 }
 
 - (BOOL)didRecognizeShakeGesture {
+
+    if (self.isCalling) {
+        return NO;
+    }
+    
 	UINavigationController* rootNavigationController = (id)[UIApplication sharedApplication].keyWindow.rootViewController;
 	if (self.navigationController == rootNavigationController) {
 		if ([self.childViewControllers count] == 0 && self.parentViewController.navigationController != rootNavigationController) {
@@ -177,6 +207,9 @@
 	
 	return NO;
 }
+
+
+
 
 - (BOOL)presentShakeViewControllerWithNavigationController:(UINavigationController*)navigationController {
 	WLShakeViewController* presentingViewController = nil;

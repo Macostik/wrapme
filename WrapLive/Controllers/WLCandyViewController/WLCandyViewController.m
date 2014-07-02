@@ -267,6 +267,13 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
     [self setupImage];
+    for (WLComment* comment in candy.comments) {
+        if (!comment.uploaded) {
+            [WLUploading enqueueAutomaticUploading:^{
+            }];
+            break;
+        }
+    }
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentRemoved:(WLComment *)comment {

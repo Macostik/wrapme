@@ -20,6 +20,8 @@
 #import "WLGroupedSet.h"
 #import "UIScrollView+Additions.h"
 
+static CGFloat WLCandiesCellSpacing = 0.5f;
+
 @interface WLCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLCandyCellDelegate, WLGroupDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -45,6 +47,9 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
+    UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
+    layout.minimumLineSpacing = WLCandiesCellSpacing;
+    layout.sectionInset = UIEdgeInsetsMake(0, WLCandiesCellSpacing, 0, WLCandiesCellSpacing);
 	self.shouldAppendMoreCandies = YES;
 	[self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:[WLCandyCell reuseIdentifier]];
 	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshCandies) colorScheme:WLRefresherColorSchemeOrange];
@@ -132,12 +137,19 @@
 }
 
 - (void)fixContentOffset {
-	CGFloat offset = self.collectionView.contentOffset.x;
-    CGFloat size = self.collectionView.bounds.size.width/2.5;
-	offset = roundf(offset / size) * size;
-	if (IsInBounds(0, self.collectionView.contentSize.width - self.collectionView.bounds.size.width, offset)) {
-		[self.collectionView setContentOffset:CGPointMake(offset, 0) animated:YES];
+    CGFloat offset = self.collectionView.contentOffset.x;
+    if (offset <= 0 || offset >= self.collectionView.maximumContentOffset.x) {
+		return;
 	}
+    CGFloat size = self.collectionView.bounds.size.width/2.5;
+    CGFloat x = CGFLOAT_MAX;
+    for (UICollectionViewCell* cell in [self.collectionView visibleCells]) {
+        if (cell.frame.origin.x < x) {
+            x = cell.frame.origin.x;
+        }
+    }
+    offset = offset - x > size/2 ? (x + size) : (x - WLCandiesCellSpacing);
+    [self.collectionView setContentOffset:CGPointMake(offset, 0) animated:YES];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {

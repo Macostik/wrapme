@@ -135,7 +135,7 @@
 }
 
 - (BOOL)addCandies:(NSOrderedSet *)candies {
-    return [self addCandies:candies sort:NO];
+    return [self addCandies:candies sort:YES];
 }
 
 - (BOOL)addCandies:(NSOrderedSet *)candies sort:(BOOL)sort {
@@ -147,9 +147,8 @@
     }
     if (sort) {
         [self sort];
-        if (added) {
-            [self.delegate groupsChanged:self];
-        }
+    } else if (added) {
+        [self.delegate groupsChanged:self];
     }
     return added;
 }

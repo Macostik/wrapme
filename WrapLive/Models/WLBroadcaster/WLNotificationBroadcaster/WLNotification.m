@@ -63,7 +63,6 @@
                     candy.type = @(WLCandyTypeMessage);
                 }
                 [candy addComment:self.comment];
-                candy.wrap = self.wrap;
             }
 		}
 	}
@@ -77,7 +76,6 @@
             WLComment *comment = [WLComment entry:identifier];
             if (comment.managedObjectContext) {
                 _comment = comment;
-                comment.candy = self.candy;
             }
 		}
 	}

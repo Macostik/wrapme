@@ -168,6 +168,7 @@
         } else if ([self.message.updatedAt compare:candy.updatedAt] == NSOrderedAscending) {
             [self.candies removeObject:self.message];
             [self.candies addObject:candy];
+            self.message = candy;
         }
     } else {
         [self.candies addObject:candy];

@@ -31,13 +31,14 @@
 
 - (void)addWrap:(WLWrap *)wrap {
     if (!wrap || [self.wraps containsObject:wrap]) {
+        [self sortWraps];
         return;
     }
     if (!self.wraps) {
         self.wraps = [NSMutableOrderedSet orderedSet];
     }
     [self.wraps addObject:wrap];
-    [self.wraps sortEntries];
+    [self sortWraps];
     [self save];
 }
 
@@ -46,7 +47,7 @@
         self.wraps = [NSMutableOrderedSet orderedSet];
     }
     [self.wraps unionOrderedSet:wraps];
-    [self.wraps sortEntries];
+    [self sortWraps];
 }
 
 - (void)removeWrap:(WLWrap *)wrap {
@@ -56,7 +57,7 @@
 }
 
 - (void)sortWraps {
-    [[WLUser currentUser].wraps sortEntries];
+    [self.wraps sortEntries];
 }
 
 @end

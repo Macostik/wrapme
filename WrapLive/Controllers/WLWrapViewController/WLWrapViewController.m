@@ -81,12 +81,13 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     self.wrap.unread = @NO;
-    NSArray* cells = [self.tableView visibleCells];
+    NSArray* cells = [[self.tableView visibleCells] selectObjects:^BOOL(id item) {
+        return [item isKindOfClass:[WLCandiesCell class]];
+    }];
     if (cells.nonempty) {
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
         for (WLCandiesCell* cell in cells) {
-            if ([cell isKindOfClass:[WLCandiesCell class]]) {
-                [cell.collectionView reloadData];
-            }
+            [cell.collectionView reloadData];
         }
     } else {
         [self.tableView reloadData];

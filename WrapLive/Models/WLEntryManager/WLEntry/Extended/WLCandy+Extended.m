@@ -75,6 +75,7 @@
 
 - (void)addComment:(WLComment *)comment {
     if (!comment || [self.comments containsObject:comment]) {
+        [self.comments sortEntriesByCreationAscending];
         return;
     }
     comment.candy = self;

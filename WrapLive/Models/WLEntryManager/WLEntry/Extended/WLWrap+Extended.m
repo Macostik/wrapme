@@ -23,6 +23,9 @@
 + (instancetype)wrap {
     WLWrap* wrap = [self contribution];
     [wrap.contributor addWrap:wrap];
+    if (wrap.contributor) {
+        wrap.contributors = [NSMutableOrderedSet orderedSetWithObject:wrap.contributor];
+    }
     [wrap save];
     return wrap;
 }
@@ -112,6 +115,7 @@
 
 - (void)addCandy:(WLCandy *)candy {
     if (!candy || [self.candies containsObject:candy]) {
+        [self.candies sortEntries];
         return;
     }
     candy.wrap = self;

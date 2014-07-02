@@ -10,8 +10,12 @@
 
 @interface UIScrollView (Additions)
 
+@property (nonatomic, readonly) CGPoint maximumContentOffset;
+
 - (void)scrollToTopAnimated:(BOOL)animated;
 
 - (void)scrollToBottomAnimated:(BOOL)animated;
+
+- (void)trySetContentOffset:(CGPoint)contentOffset;
 
 @end

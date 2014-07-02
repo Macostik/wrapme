@@ -129,6 +129,7 @@
     self = [super init];
     if (self) {
         self.candies = [NSMutableOrderedSet orderedSet];
+        self.offset = CGPointZero;
     }
     return self;
 }

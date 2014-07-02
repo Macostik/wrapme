@@ -60,6 +60,8 @@
 
 @property (nonatomic, weak) WLCandy* message;
 
+@property (nonatomic) CGPoint offset;
+
 + (instancetype)date;
 
 - (BOOL)addCandies:(NSOrderedSet *)candies;

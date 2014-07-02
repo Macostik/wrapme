@@ -18,6 +18,7 @@
 #import "NSDate+Additions.h"
 #include "WLSupportFunctions.h"
 #import "WLGroupedSet.h"
+#import "UIScrollView+Additions.h"
 
 @interface WLCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLCandyCellDelegate, WLGroupDelegate>
 
@@ -54,7 +55,7 @@
 	self.dateLabel.text = [group.name uppercaseString];
 	self.shouldAppendMoreCandies = [group.candies count] >= 10;
 	[self.collectionView reloadData];
-	self.collectionView.contentOffset = CGPointZero;
+    [self.collectionView trySetContentOffset:group.offset];
 	loading = NO;
 }
 
@@ -149,6 +150,11 @@
     if (!scrollView.tracking) {
         [self fixContentOffset];
     }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    WLGroup* group = self.item;
+    group.offset = scrollView.contentOffset;
 }
 
 #pragma mark - WLWrapCandyCellDelegate

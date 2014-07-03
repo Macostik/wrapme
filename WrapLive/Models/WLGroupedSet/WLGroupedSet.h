@@ -22,9 +22,13 @@
 
 @property (strong, nonatomic) NSString* dateFormat;
 
+@property (nonatomic) BOOL singleMessage;
+
 @property (strong, nonatomic) NSMutableOrderedSet *set;
 
 @property (nonatomic, weak) id <WLGroupedSetDelegate> delegate;
+
+@property (readonly, nonatomic) NSUInteger count;
 
 - (WLGroup*)groupNamed:(NSString*)name;
 
@@ -51,6 +55,8 @@
 @end
 
 @interface WLGroup : NSObject
+
+@property (nonatomic) BOOL singleMessage;
 
 @property (nonatomic, weak) id <WLGroupDelegate> delegate;
 

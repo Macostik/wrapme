@@ -145,6 +145,11 @@
 }
 
 - (void)save {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(enqueueSaving) object:nil];
+    [self performSelector:@selector(enqueueSaving) withObject:nil afterDelay:1.0f];
+}
+
+- (void)enqueueSaving {
     NSError* error = nil;
     [self.context save:&error];
     if (error) {

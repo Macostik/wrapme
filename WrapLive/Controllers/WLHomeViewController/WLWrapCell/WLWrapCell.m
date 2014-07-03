@@ -13,19 +13,19 @@
 #import "UIAlertView+Blocks.h"
 #import "WLAPIManager.h"
 #import "UIActionSheet+Blocks.h"
-#import "StreamView.h"
 #import "WLCandyCell.h"
 #import "UIView+GestureRecognizing.h"
 #import "WLEntryManager.h"
 #import "WLWrapBroadcaster.h"
 #import "WLMenu.h"
+#import "NSObject+NibAdditions.h"
 
-@interface WLWrapCell () <WLCandyCellDelegate, WLMenuDelegate>
+@interface WLWrapCell () <WLCandyCellDelegate, WLMenuDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
-@property (weak, nonatomic) IBOutlet StreamView *streamView;
+@property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
 @property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
 @property (strong, nonatomic) WLMenu* menu;
 
@@ -36,6 +36,12 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
     self.menu = [WLMenu menuWithView:self delegate:self];
+    [self.candiesView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:WLCandyCellIdentifier];
+    UICollectionViewFlowLayout* layout = (id)self.candiesView.collectionViewLayout;
+    CGFloat size = self.candiesView.bounds.size.width/3.0f - 0.5f;
+    layout.itemSize = CGSizeMake(size, size);
+    layout.minimumLineSpacing = WLCandyCellSpacing;
+    layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
 }
 
 - (void)setupItemData:(WLWrap*)wrap {
@@ -61,7 +67,7 @@
 
 - (void)setCandies:(NSOrderedSet *)candies {
 	_candies = candies;
-	[self.streamView reloadData];
+	[self.candiesView reloadData];
 }
 
 - (IBAction)wrapSelected:(UIButton *)sender {
@@ -118,41 +124,20 @@
     return [wrap.contributor isCurrentUser] ? @selector(remove) : @selector(leave);
 }
 
-#pragma mark - StreamViewDelegate
+#pragma mark - UICollectionViewDelegate
 
-- (NSInteger)streamViewNumberOfColumns:(StreamView *)streamView {
-	return 3;
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+	return ([self.candies count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
 }
 
-- (NSInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSInteger)section {
-	return ([self.candies count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;;
-}
-
-- (UIView*)streamView:(StreamView*)streamView viewForItem:(StreamLayoutItem*)item {
-	if (item.index.row < [self.candies count]) {
-		WLCandyCell* candyView = [streamView reusableViewOfClass:[WLCandyCell class]
-															 forItem:item
-														 loadingType:StreamViewReusableViewLoadingTypeNib];
-		candyView.item = [self.candies objectAtIndex:item.index.row];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.item < [self.candies count]) {
+		WLCandyCell* candyView = [collectionView dequeueReusableCellWithReuseIdentifier:WLCandyCellIdentifier forIndexPath:indexPath];
+		candyView.item = [self.candies objectAtIndex:indexPath.item];
 		candyView.delegate = self;
 		return candyView;
 	} else {
-		UIImageView * placeholderView = [streamView reusableViewOfClass:[UIImageView class]
-																forItem:item
-															loadingType:StreamViewReusableViewLoadingTypeInit];
-		placeholderView.image = [UIImage imageNamed:@"ic_photo_placeholder"];
-		placeholderView.contentMode = UIViewContentModeCenter;
-		return placeholderView;
-	}
-}
-
-- (CGFloat)streamView:(StreamView*)streamView ratioForItemAtIndex:(StreamIndex)index {
-	return 1;
-}
-
-- (void)streamView:(StreamView *)streamView didSelectItem:(StreamLayoutItem *)item {
-	if (item.index.row >= [self.candies count]) {
-		[self.delegate wrapCellDidSelectCandyPlaceholder:self];
+        return [collectionView dequeueReusableCellWithReuseIdentifier:@"CandyPlaceholderCell" forIndexPath:indexPath];
 	}
 }
 

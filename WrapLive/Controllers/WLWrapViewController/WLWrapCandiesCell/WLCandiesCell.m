@@ -20,8 +20,6 @@
 #import "WLGroupedSet.h"
 #import "UIScrollView+Additions.h"
 
-static CGFloat WLCandiesCellSpacing = 0.5f;
-
 @interface WLCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLCandyCellDelegate, WLGroupDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -48,10 +46,10 @@ static CGFloat WLCandiesCellSpacing = 0.5f;
 - (void)awakeFromNib {
 	[super awakeFromNib];
     UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-    layout.minimumLineSpacing = WLCandiesCellSpacing;
-    layout.sectionInset = UIEdgeInsetsMake(0, WLCandiesCellSpacing, 0, WLCandiesCellSpacing);
+    layout.minimumLineSpacing = WLCandyCellSpacing;
+    layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
 	self.shouldAppendMoreCandies = YES;
-	[self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:[WLCandyCell reuseIdentifier]];
+	[self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:WLCandyCellIdentifier];
 	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshCandies) colorScheme:WLRefresherColorSchemeOrange];
 }
 
@@ -115,7 +113,6 @@ static CGFloat WLCandiesCellSpacing = 0.5f;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString* WLCandyCellIdentifier = @"WLCandyCell";
 	WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCandyCellIdentifier forIndexPath:indexPath];
 	WLGroup* group = self.item;
 	cell.item = [group.candies tryObjectAtIndex:indexPath.item];
@@ -148,7 +145,7 @@ static CGFloat WLCandiesCellSpacing = 0.5f;
             x = cell.frame.origin.x;
         }
     }
-    offset = offset - x > size/2 ? (x + size) : (x - WLCandiesCellSpacing);
+    offset = offset - x > size/2 ? (x + size) : (x - WLCandyCellSpacing);
     [self.collectionView setContentOffset:CGPointMake(offset, 0) animated:YES];
 }
 

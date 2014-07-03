@@ -7,8 +7,7 @@
 //
 
 #import "WLMessageGroupCell.h"
-#import "WLDate.h"
-#import "NSDate+Formatting.h"
+#import "WLGroupedSet.h"
 
 @interface WLMessageGroupCell ()
 
@@ -18,9 +17,9 @@
 
 @implementation WLMessageGroupCell
 
-- (void)setDate:(WLDate *)date {
-	_date = date;
-	self.dateLabel.text = [date.date stringWithFormat:@"MMM d, yyyy"];
+- (void)setGroup:(WLGroup *)group {
+	_group = group;
+	self.dateLabel.text = group.name;
 }
 
 @end

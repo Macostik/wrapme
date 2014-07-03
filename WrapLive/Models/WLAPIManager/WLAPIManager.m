@@ -12,7 +12,6 @@
 #import "WLAPIResponse.h"
 #import "NSArray+Additions.h"
 #import "WLAddressBook.h"
-#import "WLDate.h"
 #import "WLNavigation.h"
 #import "WLWrapBroadcaster.h"
 #import "NSString+Additions.h"

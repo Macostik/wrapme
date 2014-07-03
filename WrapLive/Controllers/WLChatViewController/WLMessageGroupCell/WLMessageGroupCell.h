@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-@class WLDate;
+@class WLGroup;
 
 @interface WLMessageGroupCell : UICollectionReusableView
 
-@property (strong, nonatomic) WLDate* date;
+@property (strong, nonatomic) WLGroup* group;
 
 @end

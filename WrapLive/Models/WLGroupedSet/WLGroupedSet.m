@@ -20,6 +20,9 @@
 @end
 
 @implementation WLGroupedSet
+{
+    NSUInteger _count;
+}
 
 - (instancetype)init {
     self = [super init];
@@ -27,8 +30,13 @@
         self.set = [NSMutableOrderedSet orderedSet];
         self.keyedGroups = [NSMutableDictionary dictionary];
         self.dateFormat = @"MMM dd, yyyy";
+        self.singleMessage = YES;
     }
     return self;
+}
+
+- (NSUInteger)count {
+    return _count;
 }
 
 - (void)setCandies:(NSOrderedSet *)candies {
@@ -44,6 +52,7 @@
     WLGroup* group = [self.keyedGroups objectForKey:name];
     if (!group) {
         group = [WLGroup date];
+        group.singleMessage = self.singleMessage;
         group.name = name;
         [self.keyedGroups setObject:group forKey:name];
         [self.set addObject:group];
@@ -78,7 +87,11 @@
     if (candy.updatedAt) {
         NSString* name = [candy.updatedAt stringWithFormat:@"MMM dd, yyyy"];
         WLGroup* group = [self groupNamed:name created:created];
+        NSUInteger count = [group.candies count];
         [group addCandy:candy];
+        if ([group.candies count] > count) {
+            ++_count;
+        }
     }
 }
 
@@ -96,10 +109,9 @@
 }
 
 - (void)clear {
-    for (WLGroup* group in self.set) {
-        group.message = nil;
-        [group.candies removeAllObjects];
-    }
+    _count = 0;
+    [self.set removeAllObjects];
+    [self.keyedGroups removeAllObjects];
 }
 
 - (void)sort:(WLCandy*)candy {
@@ -161,7 +173,7 @@
     if ([self.candies containsObject:candy]) {
         return NO;
     }
-    if ([candy isMessage]) {
+    if (self.singleMessage && [candy isMessage]) {
         if (!self.message) {
             [self.candies addObject:candy];
             self.message = candy;

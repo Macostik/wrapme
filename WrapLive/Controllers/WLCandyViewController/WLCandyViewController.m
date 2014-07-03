@@ -19,7 +19,6 @@
 #import "WLSession.h"
 #import "WLAPIManager.h"
 #import "WLWrap.h"
-#import "WLDate.h"
 #import "UIFont+CustomFonts.h"
 #import "WLRefresher.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>

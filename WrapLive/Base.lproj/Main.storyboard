@@ -580,13 +580,38 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="324"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="aGO-dq-qVC" customClass="StreamView">
+                                                        <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="lRI-cr-Q4O">
                                                             <rect key="frame" x="0.0" y="63" width="320" height="212"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Ft6-GB-b11">
+                                                                <size key="itemSize" width="106" height="106"/>
+                                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            </collectionViewFlowLayout>
+                                                            <cells>
+                                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CandyPlaceholderCell" id="XQb-fA-jxI">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <subviews>
+                                                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_photo_placeholder" id="xUV-iq-VYt">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                            </imageView>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                    </view>
+                                                                </collectionViewCell>
+                                                            </cells>
                                                             <connections>
-                                                                <outlet property="delegate" destination="rll-aS-Nv0" id="hhA-sx-qcJ"/>
+                                                                <outlet property="dataSource" destination="rll-aS-Nv0" id="k8Z-Su-Cpc"/>
+                                                                <outlet property="delegate" destination="rll-aS-Nv0" id="Uge-p5-EIe"/>
                                                             </connections>
-                                                        </scrollView>
+                                                        </collectionView>
                                                         <view contentMode="scaleToFill" id="8Kg-Jf-uq1">
                                                             <rect key="frame" x="0.0" y="13" width="320" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -651,10 +676,10 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="candiesView" destination="lRI-cr-Q4O" id="Ubn-xs-SsL"/>
                                                     <outlet property="contributorsLabel" destination="XaE-0l-eeL" id="Yzo-Ic-TvO"/>
                                                     <outlet property="nameLabel" destination="Twb-Mn-vNw" id="ztz-oX-jxj"/>
                                                     <outlet property="notifyBulb" destination="atR-md-y2O" id="8Lx-Ih-FVh"/>
-                                                    <outlet property="streamView" destination="aGO-dq-qVC" id="dyw-tO-lai"/>
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WLWrapCell" rowHeight="50" id="gS1-bo-AjG" customClass="WLWrapCell">
@@ -2247,6 +2272,7 @@ Check your internet connection and try again.</string>
         <image name="ic_next_gray" width="8" height="14"/>
         <image name="ic_next_white" width="8" height="24"/>
         <image name="ic_not_checked" width="22" height="22"/>
+        <image name="ic_photo_placeholder" width="60" height="48"/>
         <image name="ic_search" width="16" height="16"/>
         <image name="ic_settings" width="21" height="21"/>
         <image name="ic_sign_up_step1_current" width="16" height="16"/>

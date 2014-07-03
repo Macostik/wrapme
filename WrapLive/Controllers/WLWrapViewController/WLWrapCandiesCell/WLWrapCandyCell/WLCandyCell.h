@@ -8,6 +8,9 @@
 
 #import "WLCollectionItemCell.h"
 
+static NSString* WLCandyCellIdentifier = @"WLCandyCell";
+static CGFloat WLCandyCellSpacing = 0.5f;
+
 @class WLWrap;
 @class WLCandy;
 @class WLCandyCell;

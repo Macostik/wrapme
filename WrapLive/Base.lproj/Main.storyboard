@@ -573,10 +573,10 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WLTopWrapCell" rowHeight="324" id="rll-aS-Nv0" customClass="WLWrapCell">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WLTopWrapCell" rowHeight="324" id="rll-aS-Nv0" customClass="WLWrapCell">
                                                 <rect key="frame" x="0.0" y="44" width="320" height="324"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rll-aS-Nv0" id="iql-Vg-FMH">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rll-aS-Nv0" id="iql-Vg-FMH">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="324"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>

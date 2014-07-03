@@ -11,6 +11,7 @@
 #import "WLImageCache.h"
 #import "WLWrapBroadcaster.h"
 #import "AsynchronousOperation.h"
+#import "WLAPIResponse.h"
 
 @implementation WLUploading (Extended)
 
@@ -76,34 +77,27 @@
         return nil;
     }
     __weak typeof(self)weakSelf = self;
-    self.operation = [self check:^(BOOL uploaded){
-        if (uploaded) {
-            [weakSelf setOperation:nil];
+    self.operation = [self.contribution add:^(WLContribution *contribution) {
+        [weakSelf setOperation:nil];
+        [weakSelf remove];
+        contribution.uploading = nil;
+        [contribution save];
+        [contribution broadcastChange];
+        success(contribution);
+    } failure:^(NSError *error) {
+        [weakSelf setOperation:nil];
+        if ([error.domain isEqualToString:WLErrorDomain] && error.code == WLAPIResponseCodeDuplicatedUploading) {
             weakSelf.contribution.uploading = nil;
             [weakSelf.contribution remove];
             [weakSelf.contribution broadcastRemoving];
             [weakSelf remove];
             failure([NSError errorWithDescription:@"This item is already uploaded."]);
         } else {
-            weakSelf.operation = [weakSelf.contribution add:^(WLContribution *contribution) {
-                [weakSelf setOperation:nil];
-                [weakSelf remove];
-                contribution.uploading = nil;
-                [contribution save];
-                [contribution broadcastChange];
-                success(contribution);
-            } failure:^(NSError *error) {
-                [weakSelf setOperation:nil];
-                [weakSelf.contribution broadcastChange];
-                failure(error);
-            }];
             [weakSelf.contribution broadcastChange];
+            failure(error);
         }
-    } failure:^(NSError *error) {
-        [weakSelf setOperation:nil];
-        [weakSelf.contribution broadcastChange];
-        failure(error);
     }];
+    [self.contribution broadcastChange];
     return self.operation;
 }
 

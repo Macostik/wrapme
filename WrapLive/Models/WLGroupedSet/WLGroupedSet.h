@@ -30,13 +30,15 @@
 
 @property (readonly, nonatomic) NSUInteger count;
 
-- (WLGroup*)groupNamed:(NSString*)name;
+- (WLGroup*)group:(NSDate*)date;
 
 - (void)setCandies:(NSOrderedSet*)candies;
 
 - (void)addCandies:(NSOrderedSet*)candies;
 
 - (void)addCandy:(WLCandy*)candy;
+
+- (void)addCandy:(WLCandy *)candy created:(BOOL *)created;
 
 - (void)removeCandy:(WLCandy*)candy;
 
@@ -61,6 +63,8 @@
 @property (nonatomic, weak) id <WLGroupDelegate> delegate;
 
 @property (strong, nonatomic) NSString* name;
+
+@property (strong, nonatomic) NSDate* date;
 
 @property (nonatomic, retain) NSMutableOrderedSet* candies;
 

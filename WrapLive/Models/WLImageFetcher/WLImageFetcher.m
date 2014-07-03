@@ -176,7 +176,11 @@
 
 - (void)setImage:(UIImage *)image animated:(BOOL)animated {
 	if (animated) {
-		[self fade];
+		self.alpha = 0.0f;
+        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.alpha = 1.0f;
+        } completion:^(BOOL finished) {
+        }];
 	}
 	self.image = image;
 }

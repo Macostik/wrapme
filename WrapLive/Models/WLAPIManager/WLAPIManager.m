@@ -150,7 +150,7 @@ static BOOL signedIn = NO;
             success(objectBlock(response));
 		} else {
             WLLog(@"API ERROR",[operation.request.URL relativeString], responseObject);
-			failure([NSError errorWithDescription:response.message]);
+			failure([NSError errorWithDescription:response.message code:response.code]);
 		}
 	};
 }

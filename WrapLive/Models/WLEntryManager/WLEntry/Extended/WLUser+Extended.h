@@ -17,6 +17,7 @@ static NSUInteger WLPhoneNumberLimit = 15;
 - (void)addWraps:(NSOrderedSet*)wraps;
 - (void)removeWrap:(WLWrap*)wrap;
 - (void)sortWraps;
+- (NSMutableOrderedSet*)sortedWraps;
 
 @end
 

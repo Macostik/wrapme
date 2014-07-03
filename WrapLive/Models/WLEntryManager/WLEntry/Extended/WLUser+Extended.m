@@ -60,6 +60,11 @@
     [self.wraps sortEntries];
 }
 
+- (NSMutableOrderedSet *)sortedWraps {
+    [self sortWraps];
+    return self.wraps;
+}
+
 @end
 
 @implementation WLUser (CurrentUser)

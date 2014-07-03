@@ -44,18 +44,21 @@
     [self addCandies:candies];
 }
 
-- (WLGroup *)groupNamed:(NSString *)name {
-    return [self groupNamed:name created:NULL];
+- (WLGroup *)group:(NSDate *)date {
+    return [self group:date created:NULL];
 }
 
-- (WLGroup *)groupNamed:(NSString *)name created:(BOOL *)created {
+- (WLGroup *)group:(NSDate *)date created:(BOOL *)created {
+    NSString* name = [date stringWithFormat:self.dateFormat];
     WLGroup* group = [self.keyedGroups objectForKey:name];
     if (!group) {
         group = [WLGroup date];
+        group.date = date;
         group.singleMessage = self.singleMessage;
         group.name = name;
         [self.keyedGroups setObject:group forKey:name];
         [self.set addObject:group];
+        [self.set sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];
         if (created != NULL) {
             *created = YES;
         }
@@ -85,8 +88,7 @@
 
 - (void)addCandy:(WLCandy *)candy created:(BOOL *)created {
     if (candy.updatedAt) {
-        NSString* name = [candy.updatedAt stringWithFormat:@"MMM dd, yyyy"];
-        WLGroup* group = [self groupNamed:name created:created];
+        WLGroup* group = [self group:candy.updatedAt created:created];
         NSUInteger count = [group.candies count];
         [group addCandy:candy];
         if ([group.candies count] > count) {
@@ -96,13 +98,20 @@
 }
 
 - (void)removeCandy:(WLCandy *)candy {
-    BOOL removed = NO;
-    for (WLGroup* group in self.set) {
+    __block BOOL removed = NO;
+    __weak typeof(self)weakSelf = self;
+    [self.set removeObjectsWhileEnumerating:^BOOL(WLGroup* group) {
         if ([group.candies containsObject:candy]) {
             [group.candies removeObject:candy];
             removed = YES;
+            if (group.candies.nonempty) {
+                return NO;
+            }
+            [weakSelf.keyedGroups removeObjectForKey:group.name];
+            return YES;
         }
-    }
+        return NO;
+    }];
     if (removed) {
         [self.delegate groupedSetGroupsChanged:self];
     }

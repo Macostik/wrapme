@@ -91,7 +91,7 @@
 	self.avatarImageView.layer.borderWidth = 1;
 	self.avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
 	self.avatarImageView.url = [WLUser currentUser].picture.small;
-    NSOrderedSet* wraps = [WLUser currentUser].wraps;
+    NSOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
 	if (self.tableView.hidden) {
 		self.loading = NO;
 		[self fetchWraps:YES];
@@ -241,16 +241,16 @@
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-	self.wraps = [WLUser currentUser].wraps;
+	self.wraps = [[WLUser currentUser] sortedWraps];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
-	self.wraps = [WLUser currentUser].wraps;
+	self.wraps = [[WLUser currentUser] sortedWraps];
 	self.tableView.contentOffset = CGPointZero;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-	self.wraps = [WLUser currentUser].wraps;
+	self.wraps = [[WLUser currentUser] sortedWraps];
 }
 
 #pragma mark - WLNotificationReceiver

@@ -80,17 +80,13 @@
     self.operation = [self.contribution add:^(WLContribution *contribution) {
         [weakSelf setOperation:nil];
         [weakSelf remove];
-        contribution.uploading = nil;
         [contribution save];
         [contribution broadcastChange];
         success(contribution);
     } failure:^(NSError *error) {
         [weakSelf setOperation:nil];
         if ([error.domain isEqualToString:WLErrorDomain] && error.code == WLAPIResponseCodeDuplicatedUploading) {
-            weakSelf.contribution.uploading = nil;
             [weakSelf.contribution remove];
-            [weakSelf.contribution broadcastRemoving];
-            [weakSelf remove];
             failure([NSError errorWithDescription:@"This item is already uploaded."]);
         } else {
             [weakSelf.contribution broadcastChange];
@@ -99,6 +95,11 @@
     }];
     [self.contribution broadcastChange];
     return self.operation;
+}
+
+- (void)remove {
+    self.contribution.uploading = nil;
+    [super remove];
 }
 
 @end

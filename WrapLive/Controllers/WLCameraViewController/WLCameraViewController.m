@@ -285,7 +285,7 @@
 - (void)captureImage:(void (^)(UIImage*image, NSMutableDictionary* metadata))completion {
 #if TARGET_IPHONE_SIMULATOR
 	run_getting_object(^id{
-		NSString* url = url = @"http://placeimg.com/720/720/nature";
+		NSString* url = url = @"http://placeimg.com/720/720/any";
 		return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
 	}, ^ (UIImage* image) {
 		completion(image, nil);
@@ -368,7 +368,7 @@
 	[self configureSession:^(AVCaptureSession *session) {
 		[weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
 			if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
-				[device setFocusPointOfInterest:[self pointOfInterestFromPoint:point]];
+				[device setFocusPointOfInterest:[weakSelf pointOfInterestFromPoint:point]];
 				[device setFocusMode:AVCaptureFocusModeAutoFocus];
 			}
 		}];
@@ -380,7 +380,7 @@
 	[self configureSession:^(AVCaptureSession *session) {
 		[weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
 			if ([device isExposurePointOfInterestSupported] && [device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
-				[device setExposurePointOfInterest:[self pointOfInterestFromPoint:point]];
+				[device setExposurePointOfInterest:[weakSelf pointOfInterestFromPoint:point]];
 				[device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
 			}
 		}];
@@ -391,7 +391,7 @@
 	__weak typeof(self)weakSelf = self;
 	[self configureSession:^(AVCaptureSession *session) {
 		[weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
-			CGPoint pointOfInterest = [self pointOfInterestFromPoint:point];
+			CGPoint pointOfInterest = [weakSelf pointOfInterestFromPoint:point];
 			if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
 				[device setFocusPointOfInterest:pointOfInterest];
 				[device setFocusMode:AVCaptureFocusModeAutoFocus];

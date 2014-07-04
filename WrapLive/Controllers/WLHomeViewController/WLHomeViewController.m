@@ -211,15 +211,17 @@
 }
 
 - (void)setTopWrap:(WLWrap *)topWrap {
+    BOOL changed = NO;
     if (_topWrap != topWrap) {
+        changed = YES;
         _topWrap = topWrap;
-        if (_topWrap) {
-            [self fetchTopWrapIfNeeded:_topWrap];
-        }
     }
     if (_topWrap) {
         self.candies = [_topWrap recentCandies:WLHomeTopWrapCandiesLimit];
         self.quickChatView.wrap = _topWrap;
+        if (changed) {
+            [self fetchTopWrapIfNeeded:_topWrap];
+        }
     }
 }
 

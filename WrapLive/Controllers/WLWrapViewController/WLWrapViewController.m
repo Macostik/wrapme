@@ -191,7 +191,10 @@
     if ([cell isKindOfClass:[WLWrapCell class]]) {
         [WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.", WLString(cell.nameLabel.text)]];
     }
-    [self.navigationController popViewControllerAnimated:YES];
+    __weak typeof(self)weakSelf = self;
+    run_after(0.5f, ^{
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    });
 }
 
 - (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {

@@ -115,21 +115,15 @@
 @implementation WLWrap (WLWrapBroadcaster)
 
 - (void)broadcastCreation {
-    run_after(0.0, ^{
-        [[WLWrapBroadcaster broadcaster] broadcastWrapCreation:self];
-    });
+    [[WLWrapBroadcaster broadcaster] broadcastWrapCreation:self];
 }
 
 - (void)broadcastChange {
-    run_after(0.0, ^{
-        [[WLWrapBroadcaster broadcaster] broadcastWrapChange:self];
-    });
+    [[WLWrapBroadcaster broadcaster] broadcastWrapChange:self];
 }
 
 - (void)broadcastRemoving {
-    run_after(0.0, ^{
-        [[WLWrapBroadcaster broadcaster] broadcastWrapRemoving:self];
-    });
+    [[WLWrapBroadcaster broadcaster] broadcastWrapRemoving:self];
 }
 
 @end
@@ -137,21 +131,18 @@
 @implementation WLCandy (WLWrapBroadcaster)
 
 - (void)broadcastCreation {
-    run_after(0.0, ^{
-        [[WLWrapBroadcaster broadcaster] broadcastCandyCreation:self];
-    });
+    [[WLWrapBroadcaster broadcaster] broadcastCandyCreation:self];
+    [self.wrap broadcastChange];
 }
 
 - (void)broadcastChange {
-    run_after(0.0, ^{
-        [[WLWrapBroadcaster broadcaster] broadcastCandyChange:self];
-    });
+    [[WLWrapBroadcaster broadcaster] broadcastCandyChange:self];
+    [self.wrap broadcastChange];
 }
 
 - (void)broadcastRemoving {
-    run_after(0.0, ^{
-        [[WLWrapBroadcaster broadcaster] broadcastCandyRemove:self];
-    });
+    [[WLWrapBroadcaster broadcaster] broadcastCandyRemove:self];
+    [self.wrap broadcastChange];
 }
 
 @end
@@ -159,21 +150,18 @@
 @implementation WLComment (WLWrapBroadcaster)
 
 - (void)broadcastCreation {
-    run_after(0.0, ^{
-        [[WLWrapBroadcaster broadcaster] broadcastCommentCreation:self];
-    });
+    [[WLWrapBroadcaster broadcaster] broadcastCommentCreation:self];
+    [self.candy broadcastChange];
 }
 
 - (void)broadcastChange {
-    run_after(0.0, ^{
-        [[WLWrapBroadcaster broadcaster] broadcastCommentChange:self];
-    });
+    [[WLWrapBroadcaster broadcaster] broadcastCommentChange:self];
+    [self.candy broadcastChange];
 }
 
 - (void)broadcastRemoving {
-    run_after(0.0, ^{
-        [[WLWrapBroadcaster broadcaster] broadcastCommentRemove:self];
-    });
+    [[WLWrapBroadcaster broadcaster] broadcastCommentRemove:self];
+    [self.candy broadcastChange];
 }
 
 @end

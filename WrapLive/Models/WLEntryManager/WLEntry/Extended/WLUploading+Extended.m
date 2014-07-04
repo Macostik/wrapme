@@ -78,13 +78,9 @@
     }
     __weak typeof(self)weakSelf = self;
     self.operation = [self.contribution add:^(WLContribution *contribution) {
-        [weakSelf setOperation:nil];
         [weakSelf remove];
-        [contribution save];
-        [contribution broadcastChange];
         success(contribution);
     } failure:^(NSError *error) {
-        [weakSelf setOperation:nil];
         if ([error.domain isEqualToString:WLErrorDomain] && error.code == WLAPIResponseCodeDuplicatedUploading) {
             [weakSelf.contribution remove];
             failure([NSError errorWithDescription:@"This item is already uploaded."]);

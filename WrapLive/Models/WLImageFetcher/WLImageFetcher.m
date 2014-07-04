@@ -177,8 +177,9 @@
 - (void)setImage:(UIImage *)image animated:(BOOL)animated {
 	if (animated) {
 		self.alpha = 0.0f;
-        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            self.alpha = 1.0f;
+        __weak typeof(self)weakSelf = self;
+        [UIView animateWithDuration:0.33f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            weakSelf.alpha = 1.0f;
         } completion:^(BOOL finished) {
         }];
 	}

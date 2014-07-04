@@ -126,7 +126,6 @@
     [self.candies sortEntries];
 	[self touch];
     [self save];
-	[self broadcastChange];
 	[candy broadcastCreation];
 }
 
@@ -142,8 +141,6 @@
 - (void)removeCandy:(WLCandy *)candy {
     if ([self.candies containsObject:candy]) {
         [self.candies removeObject:candy];
-        [self broadcastChange];
-        [candy broadcastRemoving];
     }
 }
 

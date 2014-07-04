@@ -69,8 +69,8 @@
 
 - (void)remove {
     [self.wrap removeCandy:self];
-    [super remove];
     [self broadcastRemoving];
+    [super remove];
 }
 
 - (void)addComment:(WLComment *)comment {
@@ -82,7 +82,6 @@
     [self.comments addObject:comment];
     [self.comments sortEntriesByCreationAscending];
     [self touch];
-    [self.wrap broadcastChange];
     [self broadcastChange];
 }
 
@@ -90,8 +89,6 @@
     if ([self.comments containsObject:comment]) {
         [self.comments removeObject:comment];
         [self save];
-        [self.wrap broadcastChange];
-        [self broadcastChange];
     }
 }
 

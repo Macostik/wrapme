@@ -487,7 +487,7 @@ static BOOL signedIn = NO;
     
     WLPicture* picture = [candy.picture copy];
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-        [candy API_setup:[response.data dictionaryForKey:@"candy"]];
+        [candy update:[response.data dictionaryForKey:@"candy"]];
         if ([candy isImage]) {
 			[[WLImageCache cache] setImageAtPath:picture.medium withUrl:candy.picture.medium];
 			[[WLImageCache cache] setImageAtPath:picture.small withUrl:candy.picture.small];
@@ -651,7 +651,6 @@ static BOOL signedIn = NO;
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
         [comment.candy.wrap touch];
         [comment update:[response.data dictionaryForKey:@"comment"]];
-        [comment.candy.wrap broadcastChange];
         [comment save];
 		return comment;
 	};

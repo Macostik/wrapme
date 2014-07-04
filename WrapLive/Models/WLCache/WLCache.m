@@ -9,8 +9,11 @@
 #import "WLCache.h"
 #import "NSString+Documents.h"
 #import "WLBlocks.h"
+#import "NSArray+Additions.h"
 
 @interface WLCacheItem : NSObject
+
+@property (strong, nonatomic) NSString* identifier;
 
 @property (nonatomic, strong) NSString* path;
 
@@ -47,39 +50,34 @@
 }
 
 + (instancetype)cacheWithIdentifier:(NSString *)identifier relativeCache:(WLCache *)relativeCache {
-	WLCache* cache = [[self alloc] init];
-	cache.relativeCache = relativeCache;
-	cache.identifier = identifier;
-	return cache;
+	return [[self alloc] initWithIdentifier:identifier relativeCache:relativeCache];
 }
 
-- (instancetype)init {
+- (instancetype)initWithIdentifier:(NSString *)identifier relativeCache:(WLCache *)relativeCache {
     self = [super init];
     if (self) {
+        _manager = [NSFileManager defaultManager];
+        self.relativeCache = relativeCache;
+        self.identifier = identifier;
         [self configure];
     }
     return self;
 }
 
-- (dispatch_queue_t)queue {
-	if (!_queue) {
-		_queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_CONCURRENT);
-	}
-	return _queue;
-}
-
-- (NSMutableArray *)identifiers {
-    if (!_identifiers) {
-        NSString* directory = self.directory;
-        if (directory) {
-            _identifiers = [[[[NSFileManager defaultManager] enumeratorAtPath:directory] allObjects] mutableCopy];
-        }
-    }
-    return _identifiers;
-}
-
 - (void)configure {
-    
+    NSString* identifier = self.identifier;
+    if (identifier) {
+        _queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_CONCURRENT);
+        if (self.relativeCache) {
+            _directory = [self.relativeCache.directory stringByAppendingPathComponent:identifier];
+        } else {
+            _directory = NSDocumentsDirectoryPath(identifier);
+        }
+        if (![_manager fileExistsAtPath:_directory]) {
+            [_manager createDirectoryAtPath:_directory withIntermediateDirectories:YES attributes:nil error:NULL];
+        }
+        _identifiers = [NSMutableSet setWithArray:[[_manager enumeratorAtPath:_directory] allObjects]];
+    }
 }
 
 - (void)setSize:(NSUInteger)size {
@@ -87,24 +85,6 @@
 	if (size > 0) {
 		[self enqueueCheckSizePerforming];
 	}
-}
-
-- (NSString *)directory {
-	if (!_directory) {
-		if (self.relativeCache) {
-			_directory = [self.relativeCache.directory stringByAppendingPathComponent:self.identifier];
-		} else {
-			_directory = NSDocumentsDirectoryPath(self.identifier);
-		}
-	}
-	if (![self.manager fileExistsAtPath:_directory]) {
-		[self.manager createDirectoryAtPath:_directory withIntermediateDirectories:YES attributes:nil error:NULL];
-	}
-	return _directory;
-}
-
-- (NSFileManager *)manager {
-	return [NSFileManager defaultManager];
 }
 
 - (id)read:(NSString *)identifier path:(NSString *)path {
@@ -150,7 +130,7 @@
 				completion(path);
 			}
 		});
-		[self checkSizeAndClearIfNeededInBackground];
+		[self enqueueCheckSizePerforming];
     });
 }
 
@@ -168,21 +148,21 @@
 }
 
 - (void)checkSizeAndClearIfNeeded {
-	if (self.size > 0) {
+    NSString* directory = self.directory;
+	if (self.size > 0 && directory) {
 		@autoreleasepool {
-			NSString* directory = self.directory;
-			
-			NSDirectoryEnumerator* enumerator = [self.manager enumeratorAtPath:directory];
-			NSUInteger size = 0;
+			NSDirectoryEnumerator* enumerator = [_manager enumeratorAtPath:directory];
+			unsigned long long size = 0;
 			
 			NSMutableArray* items = [NSMutableArray array];
 			
 			for (NSString* file in enumerator) {
 				
 				WLCacheItem* item = [[WLCacheItem alloc] init];
+                item.identifier = file;
 				item.path = [directory stringByAppendingPathComponent:file];
 				
-				NSDictionary* attributes = [self.manager attributesOfItemAtPath:item.path error:NULL];
+				NSDictionary* attributes = [_manager attributesOfItemAtPath:item.path error:NULL];
 				
 				item.size = [attributes fileSize];
 				
@@ -197,23 +177,26 @@
 			
 			while (size >= self.size) {
 				WLCacheItem* item = [items firstObject];
-				[self.manager removeItemAtPath:item.path error:NULL];
+				[_manager removeItemAtPath:item.path error:NULL];
 				size -= item.size;
 				[items removeObject:item];
 			}
             
-            self.identifiers = [[[[NSFileManager defaultManager] enumeratorAtPath:directory] allObjects] mutableCopy];
+            [self.identifiers removeAllObjects];
+            [self.identifiers addObjectsFromArray:[items map:^id(WLCacheItem* item) {
+                return item.identifier;
+            }]];
 		}
 	}
 }
 
 - (void)clear {
 	NSString* directory = self.directory;
-	NSDirectoryEnumerator* enumerator = [self.manager enumeratorAtPath:directory];
+	NSDirectoryEnumerator* enumerator = [_manager enumeratorAtPath:directory];
 	for (NSString* file in enumerator) {
-		[self.manager removeItemAtPath:[directory stringByAppendingPathComponent:file] error:NULL];
+		[_manager removeItemAtPath:[directory stringByAppendingPathComponent:file] error:NULL];
 	}
-    self.identifiers = [[[[NSFileManager defaultManager] enumeratorAtPath:directory] allObjects] mutableCopy];
+    [self.identifiers removeAllObjects];
 }
 
 @end

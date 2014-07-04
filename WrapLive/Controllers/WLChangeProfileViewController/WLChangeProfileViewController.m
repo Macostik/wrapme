@@ -42,23 +42,20 @@
 
 @implementation WLChangeProfileViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	self.user = [WLUser currentUser];
     self.profileEditSession = [[WLProfileEditSession alloc] initWithEntry:self.user];
-	self.nameTextField.text = self.profileEditSession.changedEntry.name;
-	self.profileImageView.url = self.profileEditSession.changedEntry.picture.large;
-	self.emailTextField.text = self.profileEditSession.changedEntry.email;
+	self.nameTextField.text = self.user.name;
+	self.profileImageView.url = self.user.picture.large;
+	self.emailTextField.text = self.user.email;
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)saveImage:(UIImage *)image {
 	__weak typeof(self)weakSelf = self;
 	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
-        WLPicture * picture = [WLPicture new];
-        picture.large = path;
-		weakSelf.profileEditSession.changedEntry.picture = picture;
+		weakSelf.profileEditSession.url = path;
 		[weakSelf isProfileChanged];
 	}];
 }
@@ -83,17 +80,17 @@
 - (void)updateIfNeeded:(void (^)(void))completion {
 	if ([self isProfileChanged]) {
         
-		if ([self.profileEditSession.changedEntry.email isValidEmail]) {
+		if ([self.profileEditSession.email isValidEmail]) {
 			self.view.userInteractionEnabled = NO;
 			[self.spinner startAnimating];
 			__weak typeof(self)weakSelf = self;
-            [self.profileEditSession applyChanges:self.user];
+            [self.profileEditSession apply:self.user];
 			[[WLAPIManager instance] updateMe:self.user success:^(id object) {
 				[weakSelf.spinner stopAnimating];
 				weakSelf.view.userInteractionEnabled = YES;
 				completion();
 			} failure:^(NSError *error) {
-                [self.profileEditSession resetChanges:self.user];
+                [weakSelf.profileEditSession reset:weakSelf.user];
 				[weakSelf.spinner stopAnimating];
 				weakSelf.view.userInteractionEnabled = YES;
 				[error show];
@@ -166,10 +163,10 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-	if (textField == self.nameTextField && ![self.profileEditSession.changedEntry.name isEqualToString:self.nameTextField.text]) {
-        self.profileEditSession.changedEntry.name = self.nameTextField.text;
-	} else if (![self.profileEditSession.changedEntry.email isEqualToString:self.emailTextField.text]) {
-		self.profileEditSession.changedEntry.email = self.emailTextField.text;
+	if (textField == self.nameTextField && ![self.profileEditSession.name isEqualToString:self.nameTextField.text]) {
+        self.profileEditSession.name = self.nameTextField.text;
+	} else if (![self.profileEditSession.email isEqualToString:self.emailTextField.text]) {
+		self.profileEditSession.email = self.emailTextField.text;
 	}
 	[self isProfileChanged];
 }

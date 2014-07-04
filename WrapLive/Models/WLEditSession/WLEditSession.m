@@ -7,11 +7,8 @@
 //
 
 #import "WLEditSession.h"
-#import "WLTempEntry.h"
 
 @interface WLEditSession ()
-
-- (void)setupSessionWithEntry:(WLEntry *)entry;
 
 @end
 
@@ -20,29 +17,33 @@
 - (id)initWithEntry:(WLEntry *)entry {
     self = [super init];
     if (self) {
-        [self setupSessionWithEntry:(WLEntry *)entry];
+        self.original = [NSMutableDictionary dictionary];
+        self.changed = [NSMutableDictionary dictionary];
+        self.entry = entry;
+        [self setup:self.original entry:entry];
+        [self setup:self.changed entry:entry];
     }
     return self;
 }
 
-- (void)setupSessionWithEntry:(WLEntry *)entry {
+- (void)setup:(NSMutableDictionary *)dictionary entry:(WLEntry *)entry {
     
+}
+
+- (void)apply:(NSMutableDictionary *)dictionary entry:(WLEntry *)entry {
+    
+}
+
+- (void)apply:(WLEntry *)entry {
+    [self apply:self.changed entry:entry];
+}
+
+- (void)reset:(WLEntry *)entry {
+    [self apply:self.original entry:entry];
 }
 
 - (BOOL)hasChanges {
     return NO;
-}
-
-- (void)applyChanges:(WLEntry *)entry {
-    [self applyTempEntry:self.changedEntry intoEntry:entry];
-}
-
-- (void)resetChanges:(WLEntry *)entry {
-    [self applyTempEntry:self.originalEntry intoEntry:entry];
-}
-
-- (void)applyTempEntry:(WLTempEntry *)tempEntry intoEntry:(WLEntry *)entry {
-    
 }
 
 @end

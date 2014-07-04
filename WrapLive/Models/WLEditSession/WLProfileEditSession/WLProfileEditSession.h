@@ -7,11 +7,13 @@
 //
 
 #import "WLEditSession.h"
-#import "WLTempProfile.h"
 
 @interface WLProfileEditSession : WLEditSession
 
-@property (strong, nonatomic) WLTempProfile *originalEntry;
-@property (strong, nonatomic) WLTempProfile *changedEntry;
+@property (strong, nonatomic) NSString *name;
+
+@property (strong, nonatomic) NSString *email;
+
+@property (strong, nonatomic) NSString *url;
 
 @end

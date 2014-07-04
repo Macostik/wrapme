@@ -148,9 +148,6 @@
 		14B2429D195C4CEB00C5D208 /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
 		14B242A0195C4D3500C5D208 /* WLWrapEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429F195C4D3500C5D208 /* WLWrapEditSession.m */; };
 		14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
-		14B242A8195C503800C5D208 /* WLTempEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A7195C503800C5D208 /* WLTempEntry.m */; };
-		14B242AB195C507800C5D208 /* WLTempWrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242AA195C507800C5D208 /* WLTempWrap.m */; };
-		14B242AF195C50B400C5D208 /* WLTempProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242AE195C50B400C5D208 /* WLTempProfile.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
@@ -454,12 +451,6 @@
 		14B2429F195C4D3500C5D208 /* WLWrapEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapEditSession.m; path = WLEditSession/WLWrapEditSession/WLWrapEditSession.m; sourceTree = "<group>"; };
 		14B242A2195C4D9200C5D208 /* WLProfileEditSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLProfileEditSession.h; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.h; sourceTree = "<group>"; };
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
-		14B242A6195C503800C5D208 /* WLTempEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTempEntry.h; path = WLTempEntry/WLTempEntry.h; sourceTree = "<group>"; };
-		14B242A7195C503800C5D208 /* WLTempEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTempEntry.m; path = WLTempEntry/WLTempEntry.m; sourceTree = "<group>"; };
-		14B242A9195C507800C5D208 /* WLTempWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTempWrap.h; path = WLTempEntry/WLTempWrap/WLTempWrap.h; sourceTree = "<group>"; };
-		14B242AA195C507800C5D208 /* WLTempWrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTempWrap.m; path = WLTempEntry/WLTempWrap/WLTempWrap.m; sourceTree = "<group>"; };
-		14B242AD195C50B400C5D208 /* WLTempProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTempProfile.h; path = WLTempEntry/WLTempProfile/WLTempProfile.h; sourceTree = "<group>"; };
-		14B242AE195C50B400C5D208 /* WLTempProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTempProfile.m; path = WLTempEntry/WLTempProfile/WLTempProfile.m; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
@@ -937,7 +928,6 @@
 			children = (
 				C537F8211962BADF00600B42 /* WLGroupedSet */,
 				14B2429A195C4CBC00C5D208 /* WLEditSession */,
-				14B242A5195C4FE000C5D208 /* WLTempEntry */,
 				C514A8291959BCD8007D631B /* WLMenu */,
 				C5110B771952DE55008F236E /* AsynchronousOperation */,
 				C5A21DF9194AF54000F3A554 /* WLEntryManager */,
@@ -1587,26 +1577,6 @@
 			name = WLProfileEditSession;
 			sourceTree = "<group>";
 		};
-		14B242A5195C4FE000C5D208 /* WLTempEntry */ = {
-			isa = PBXGroup;
-			children = (
-				14B242A6195C503800C5D208 /* WLTempEntry.h */,
-				14B242A7195C503800C5D208 /* WLTempEntry.m */,
-				14B242AC195C508000C5D208 /* WLTempProfile */,
-				14B369D419595C8600CAF814 /* WLTempWrap */,
-			);
-			name = WLTempEntry;
-			sourceTree = "<group>";
-		};
-		14B242AC195C508000C5D208 /* WLTempProfile */ = {
-			isa = PBXGroup;
-			children = (
-				14B242AD195C50B400C5D208 /* WLTempProfile.h */,
-				14B242AE195C50B400C5D208 /* WLTempProfile.m */,
-			);
-			name = WLTempProfile;
-			sourceTree = "<group>";
-		};
 		14B271D4195AD73A008E8300 /* WLWrapEditSession */ = {
 			isa = PBXGroup;
 			children = (
@@ -1614,15 +1584,6 @@
 				14B2429F195C4D3500C5D208 /* WLWrapEditSession.m */,
 			);
 			name = WLWrapEditSession;
-			sourceTree = "<group>";
-		};
-		14B369D419595C8600CAF814 /* WLTempWrap */ = {
-			isa = PBXGroup;
-			children = (
-				14B242A9195C507800C5D208 /* WLTempWrap.h */,
-				14B242AA195C507800C5D208 /* WLTempWrap.m */,
-			);
-			name = WLTempWrap;
 			sourceTree = "<group>";
 		};
 		AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */ = {
@@ -2092,7 +2053,6 @@
 				1221EA6A18FD372F00C64DAE /* UIButton+Additions.m in Sources */,
 				12E1104219066C2D007DB4AC /* WLSwipeViewController.m in Sources */,
 				12E0F04A1909069200463FEC /* UIScrollView+Additions.m in Sources */,
-				14B242A8195C503800C5D208 /* WLTempEntry.m in Sources */,
 				C50445B71951AA8F003C2251 /* WLContribution+Extended.m in Sources */,
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
@@ -2116,7 +2076,6 @@
 				12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */,
 				AC1A17A01937891E002B3737 /* MFMailComposeViewController+Additions.m in Sources */,
 				12D653E218E432F2009CE64C /* WLBorderView.m in Sources */,
-				14B242AB195C507800C5D208 /* WLTempWrap.m in Sources */,
 				12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */,
 				C5F3E6BD1947262A00B8422A /* WLNotificationBroadcaster.m in Sources */,
 				C5A21E0F194AF54000F3A554 /* WLEntryManager.m in Sources */,
@@ -2164,7 +2123,6 @@
 				12D962ED18E5898A00C57CE1 /* WLPicture.m in Sources */,
 				12DE6983192E0B0F007580AD /* WLTestUserPicker.m in Sources */,
 				12D4D3E1191938D60025CC18 /* UIActionSheet+Blocks.m in Sources */,
-				14B242AF195C50B400C5D208 /* WLTempProfile.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
 				12D578CA1917ACE200586995 /* NSDate+Additions.m in Sources */,
 				C50445B91951AA8F003C2251 /* WLEntry+Extended.m in Sources */,

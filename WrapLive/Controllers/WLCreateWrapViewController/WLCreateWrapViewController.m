@@ -82,12 +82,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isContributorsSegue]) {
 		WLContributorsViewController* controller = segue.destinationViewController;
-        controller.contributors = self.wrapEditSession.changedEntry.contributors;
-        controller.invitees = self.wrapEditSession.changedEntry.invitees;
+        controller.contributors = self.wrapEditSession.contributors;
+        controller.invitees = self.wrapEditSession.invitees;
         __weak typeof(self)weakSelf = self;
         [controller setContactsBlock:^(NSMutableOrderedSet *contributors, NSArray *invitees) {
-            weakSelf.wrapEditSession.changedEntry.contributors = contributors;
-            weakSelf.wrapEditSession.changedEntry.invitees = invitees;
+            weakSelf.wrapEditSession.contributors = contributors;
+            weakSelf.wrapEditSession.invitees = invitees;
         }];
 	} else if ([segue isCameraSegue]) {
 		WLStillPictureViewController* controller = segue.destinationViewController;
@@ -107,12 +107,12 @@
 }
 
 - (void)refreshFooterView {
-	self.contributorsTableView.tableFooterView = self.wrapEditSession.changedEntry.contributors.nonempty ? nil : self.noContributorsView;
+	self.contributorsTableView.tableFooterView = self.wrapEditSession.contributors.nonempty ? nil : self.noContributorsView;
 }
 
 - (void)configureWrapEditing {
-	self.nameField.text = self.wrapEditSession.changedEntry.name;
-    NSString* url = [self.wrapEditSession.changedEntry.picture anyUrl];
+	self.nameField.text = self.wrap.name;
+    NSString* url = [self.wrap.picture anyUrl];
     self.coverView.url = url;
     if (!url) {
         self.coverView.image = [UIImage imageNamed:@"default-medium-cover"];
@@ -129,7 +129,7 @@
 }
 
 - (void)verifyStartAndDoneButton {
-	BOOL enabled = self.wrapEditSession.changedEntry.name.nonempty;
+	BOOL enabled = self.wrapEditSession.name.nonempty;
 	self.startButton.active = enabled;
 	self.doneButton.active = enabled;
 }
@@ -147,7 +147,7 @@
 	if ([self.wrapEditSession hasChanges]) {
 		[self lock];
 		[self.spinner startAnimating];
-        [self.wrapEditSession applyChanges:self.wrap];
+        [self.wrapEditSession apply:self.wrap];
 		__weak typeof(self)weakSelf = self;
 		[self.wrap update:^(WLWrap *wrap) {
 			[weakSelf.spinner stopAnimating];
@@ -160,7 +160,7 @@
                 [weakSelf dismiss];
             } else {
                 [error show];
-                [weakSelf.wrapEditSession resetChanges:weakSelf.wrap];
+                [weakSelf.wrapEditSession reset:weakSelf.wrap];
             }
 			[weakSelf.spinner stopAnimating];
 			[weakSelf unlock];
@@ -186,7 +186,7 @@
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
 	[self lock];
-    [self.wrapEditSession applyChanges:self.wrap];
+    [self.wrapEditSession apply:self.wrap];
 	[self.wrap save];
     [self.wrap broadcastCreation];
     void (^completion) (WLWrap*) = ^ (WLWrap* wrap) {
@@ -220,15 +220,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? [self.wrapEditSession.changedEntry.contributors count] : [self.wrapEditSession.changedEntry.invitees count];
+    return section == 0 ? [self.wrapEditSession.contributors count] : [self.wrapEditSession.invitees count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
-        WLUser* contributor = self.wrapEditSession.changedEntry.contributors[indexPath.row];
+        WLUser* contributor = self.wrapEditSession.contributors[indexPath.row];
         cell.item = contributor;
-        if ([self.wrapEditSession.changedEntry.contributor isCurrentUser]) {
+        if ([self.wrap.contributor isCurrentUser]) {
             cell.deletable = ![contributor isCurrentUser];
         } else {
             cell.deletable = ![self.wrap.contributors containsObject:contributor];
@@ -236,7 +236,7 @@
         return cell;
     } else {
         WLInviteeCell *cell = [tableView dequeueReusableCellWithIdentifier:[WLInviteeCell reuseIdentifier]];
-        WLPhone *phone = self.wrapEditSession.changedEntry.invitees[indexPath.row];
+        WLPhone *phone = self.wrapEditSession.invitees[indexPath.row];
         cell.item = phone;
         return cell;
     }
@@ -248,7 +248,7 @@
 	if (sender.text.length > WLWrapNameLimit) {
 		sender.text = [sender.text substringToIndex:WLWrapNameLimit];
 	}
-	self.wrapEditSession.changedEntry.name = sender.text;
+	self.wrapEditSession.name = sender.text;
 	[self verifyStartAndDoneButton];
 }
 
@@ -260,7 +260,7 @@
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
-	[self.wrapEditSession.changedEntry.contributors removeObject:contributor];
+	[self.wrapEditSession.contributors removeObject:contributor];
 	[self refreshContributorsTableView];
 }
 
@@ -271,7 +271,7 @@
 #pragma mark - WLInviteeCellDelegate
 
 - (void)inviteeCell:(WLInviteeCell *)cell didRemovePhone:(WLPhone *)phone {
-    self.wrapEditSession.changedEntry.invitees = (id)[self.wrapEditSession.changedEntry.invitees arrayByRemovingObject:phone];
+    self.wrapEditSession.invitees = (id)[self.wrapEditSession.invitees arrayByRemovingObject:phone];
     [self refreshContributorsTableView];
 }
 
@@ -283,8 +283,8 @@
                                                            bounds:weakSelf.coverView.retinaSize
                                              interpolationQuality:kCGInterpolationDefault];
 	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
-        weakSelf.wrapEditSession.changedEntry.picture.large = path;
-        
+        weakSelf.wrapEditSession.url = path;
+        weakSelf.coverView.url = path;
 	}];
 	
 	[self dismissViewControllerAnimated:YES completion:nil];

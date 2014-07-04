@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-static NSTimeInterval QCDefaultAnimationDuration = 1.0f;
+static NSTimeInterval QCDefaultAnimationDuration = 0.33f;
 static NSString* QCFadeAnimationKey = @"Fade";
 static NSString* QCLeftPushAnimationKey = @"LeftPush";
 static NSString* QCRightPushAnimationKey = @"RightPush";

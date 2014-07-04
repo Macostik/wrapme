@@ -39,6 +39,7 @@
 #import "WLNotificationBroadcaster.h"
 #import "WLNotification.h"
 #import "UIView+AnimationHelper.h"
+#import "AsynchronousOperation.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLNotificationReceiver, WLQuickChatViewDelegate>
 
@@ -54,8 +55,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
-
-@property (strong, nonatomic) WLLoadingView* loadingView;
+@property (strong, nonatomic) WLLoadingView *loadingView;
+@property (strong, nonatomic) NSOperationQueue *loadingQueue;
 
 @end
 
@@ -222,17 +223,23 @@
     }
 }
 
+- (NSOperationQueue *)loadingQueue {
+    if (!_loadingQueue) {
+        _loadingQueue = [[NSOperationQueue alloc] init];
+        _loadingQueue.maxConcurrentOperationCount = 1;
+    }
+    return _loadingQueue;
+}
+
 - (void)fetchTopWrapIfNeeded:(WLWrap*)wrap {
-    static BOOL fetching = NO;
-    if (!fetching && [self.candies count] < WLHomeTopWrapCandiesLimit) {
-        fetching = YES;
-        [wrap fetch:^(WLWrap* wrap) {
-            run_after(0.2, ^{
-                fetching = NO;
-            });
-        } failure:^(NSError *error) {
-            run_after(0.2, ^{
-                fetching = NO;
+    if ([self.candies count] < WLHomeTopWrapCandiesLimit) {
+        [self.loadingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+            run_in_main_queue(^{
+                [wrap fetch:^(WLWrap* wrap) {
+                    [operation finish];
+                } failure:^(NSError *error) {
+                    [operation finish];
+                }];
             });
         }];
     }

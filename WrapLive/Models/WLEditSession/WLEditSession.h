@@ -13,12 +13,22 @@
 
 @interface WLEditSession : NSObject
 
-@property (strong, nonatomic) WLTempEntry *originalEntry;
-@property (strong, nonatomic) WLTempEntry *changedEntry;
+@property (strong, nonatomic) NSMutableDictionary *original;
+
+@property (strong, nonatomic) NSMutableDictionary *changed;
+
+@property (weak, nonatomic) WLEntry* entry;
 
 - (instancetype)initWithEntry:(WLEntry *)entry;
+
+- (void)setup:(NSMutableDictionary *)dictionary entry:(WLEntry *)entry;
+
+- (void)apply:(NSMutableDictionary *)dictionary entry:(WLEntry *)entry;
+
+- (void)apply:(WLEntry *)entry;
+
+- (void)reset:(WLEntry *)entry;
+
 - (BOOL)hasChanges;
-- (void)applyChanges:(WLEntry *)entry;
-- (void)resetChanges:(WLEntry *)entry;
 
 @end

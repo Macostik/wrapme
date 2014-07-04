@@ -12,18 +12,20 @@ typedef void (^WLCacheReadCompletionBlock)(id object);
 typedef void (^WLCacheWriteCompletionBlock)(NSString* path);
 
 @interface WLCache : NSObject
+{
+@protected
+    NSFileManager *_manager;
+}
 
 @property (strong, nonatomic, readonly) NSString* identifier;
 
-@property (nonatomic, readonly) NSString* directory;
+@property (nonatomic, strong) NSString* directory;
 
 @property (nonatomic) NSUInteger size;
 
-@property (nonatomic, readonly) NSFileManager* manager;
-
 @property (strong, nonatomic) dispatch_queue_t queue;
 
-@property (strong, nonatomic) NSMutableArray* identifiers;
+@property (strong, nonatomic) NSMutableSet* identifiers;
 
 + (instancetype)cache;
 

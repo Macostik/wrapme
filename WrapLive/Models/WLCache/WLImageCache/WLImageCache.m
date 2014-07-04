@@ -120,12 +120,11 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 }
 
 - (void)setImageAtPath:(NSString *)path withIdentifier:(NSString *)identifier {
-	NSFileManager* manager = self.manager;
-	if (identifier.nonempty && path.nonempty && [manager fileExistsAtPath:path]) {
+	if (identifier.nonempty && path.nonempty && [_manager fileExistsAtPath:path]) {
 		NSString* cachePath = [self pathWithIdentifier:identifier];
-		[manager copyItemAtPath:path toPath:cachePath error:NULL];
+		[_manager copyItemAtPath:path toPath:cachePath error:NULL];
 		[[WLSystemImageCache instance] setImage:[UIImage imageWithContentsOfFile:cachePath] withIdentifier:identifier];
-		[manager removeItemAtPath:path error:NULL];
+		[_manager removeItemAtPath:path error:NULL];
 	}
 }
 
@@ -144,7 +143,7 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 				completion(path);
 			}
 		});
-		[self checkSizeAndClearIfNeededInBackground];
+		[self enqueueCheckSizePerforming];
     });
 }
 

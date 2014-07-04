@@ -7,11 +7,18 @@
 //
 
 #import "WLEditSession.h"
-#import "WLTempWrap.h"
+#import "WLWrap.h"
 
 @interface WLWrapEditSession : WLEditSession
 
-@property (strong, nonatomic) WLTempWrap *originalEntry;
-@property (strong, nonatomic) WLTempWrap *changedEntry;
+@property (weak, nonatomic) WLWrap* entry;
+
+@property (strong, nonatomic) NSString *name;
+
+@property (strong, nonatomic) NSString *url;
+
+@property (strong, nonatomic) NSMutableOrderedSet *contributors;
+
+@property (strong, nonatomic) NSArray *invitees;
 
 @end

@@ -7,32 +7,57 @@
 //
 
 #import "WLProfileEditSession.h"
-#import "WLTempProfile.h"
 #import "WlUser.h"
+#import "NSDictionary+Extended.h"
 
 @implementation WLProfileEditSession
 
-- (void) setupSessionWithEntry:(WLUser *)user {
-    self.originalEntry = [[WLTempProfile alloc] initWithEntry:user];
-    self.changedEntry = [[WLTempProfile alloc] initWithEntry:user];
+- (void)setName:(NSString *)name {
+    [self.changed trySetObject:name forKey:@"name"];
+}
+
+- (NSString *)name {
+    return [self.changed objectForKey:@"name"];
+}
+
+- (void)setEmail:(NSString *)email {
+    [self.changed trySetObject:email forKey:@"email"];
+}
+
+- (NSString *)email {
+    return [self.changed objectForKey:@"email"];
+}
+
+- (void)setUrl:(NSString *)url {
+    [self.changed trySetObject:url forKey:@"url"];
+}
+
+- (NSString *)url {
+    return [self.changed objectForKey:@"url"];
+}
+
+- (void)setup:(NSMutableDictionary *)dictionary entry:(WLUser *)user {
+    [dictionary trySetObject:user.name forKey:@"name"];
+    [dictionary trySetObject:user.email forKey:@"email"];
+    [dictionary trySetObject:user.picture.large forKey:@"url"];
 }
 
 - (BOOL)hasChanges {
-    if (![self.changedEntry.name isEqualToString:self.originalEntry.name]) {
+    if (![self.name isEqualToString:[self.original objectForKey:@"name"]]) {
         return YES;
-    } else if (![self.changedEntry.email isEqualToString:self.originalEntry.email]) {
+    } else if (![self.email isEqualToString:[self.original objectForKey:@"email"]]) {
         return YES;
-    } else if (![self.changedEntry.picture.large isEqualToString:self.originalEntry.picture.large]) {
+    } else if (![self.url isEqualToString:[self.original objectForKey:@"url"]]) {
         return YES;
     } else {
         return NO;
     }
 }
 
-- (void)applyTempEntry:(WLTempProfile *)tempProfile intoEntry:(WLUser *)user {
-    user.name = tempProfile.name;
-    user.email = tempProfile.email;
-    user.picture.large = tempProfile.picture.large;
+- (void)apply:(NSMutableDictionary *)dictionary entry:(WLUser *)user {
+    user.name = [dictionary objectForKey:@"name"];
+    user.email = [dictionary objectForKey:@"email"];
+    user.picture.large = [dictionary objectForKey:@"url"];
 }
 
 @end

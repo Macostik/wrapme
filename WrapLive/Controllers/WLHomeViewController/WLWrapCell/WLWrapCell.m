@@ -141,6 +141,12 @@
 	}
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.item >= [self.candies count]) {
+		[self.delegate wrapCellDidSelectCandyPlaceholder:self];
+	}
+}
+
 #pragma mark - WLWrapCandyCellDelegate
 
 - (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {

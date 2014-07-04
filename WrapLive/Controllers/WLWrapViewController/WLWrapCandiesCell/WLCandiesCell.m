@@ -88,8 +88,9 @@
     WLGroup* group = self.item;
     WLCandy* candy = [[group candies] lastObject];
     [candy olderCandies:YES success:^(NSOrderedSet *array) {
-        weakSelf.shouldAppendMoreCandies = array.nonempty;
+        NSUInteger count = [group.candies count];
         [group addCandies:array];
+        weakSelf.shouldAppendMoreCandies = ([group.candies count] > count);
 		[weakSelf fixContentOffset];
 		loading = NO;
     } failure:^(NSError *error) {
@@ -146,7 +147,7 @@
         }
     }
     offset = offset - x > size/2 ? (x + size) : (x - WLCandyCellSpacing);
-    [self.collectionView setContentOffset:CGPointMake(offset, 0) animated:YES];
+    [self.collectionView trySetContentOffset:CGPointMake(offset, 0) animated:YES];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {

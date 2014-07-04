@@ -60,7 +60,7 @@
 
 - (instancetype)API_setup:(NSDictionary*)dictionary relatedEntry:(id)relatedEntry {
     NSDate* updatedAt = [NSDate dateWithTimeIntervalSince1970:[dictionary doubleForKey:@"last_touched_at_in_epoch"]];
-    if ([self.updatedAt compare:updatedAt] == NSOrderedAscending) {
+    if (self.updatedAt == nil || [self.updatedAt compare:updatedAt] == NSOrderedAscending) {
         self.updatedAt = updatedAt;
     }
     self.createdAt = [NSDate dateWithTimeIntervalSince1970:[dictionary doubleForKey:@"contributed_at_in_epoch"]];
@@ -78,6 +78,9 @@
 
 - (void)touch {
     self.updatedAt = [NSDate date];
+    if (self.createdAt == nil) {
+        self.createdAt = self.updatedAt;
+    }
 }
 
 @end

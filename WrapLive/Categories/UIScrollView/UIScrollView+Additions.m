@@ -21,10 +21,20 @@
 	}
 }
 
-- (void)trySetContentOffset:(CGPoint)contentOffset {
+- (BOOL)isPossibleContentOffset:(CGPoint)contentOffset {
     CGPoint maximumContentOffset = self.maximumContentOffset;
-    if (IsInBounds(0, maximumContentOffset.x, contentOffset.x) && IsInBounds(0, maximumContentOffset.y, contentOffset.y)) {
+    return IsInBounds(0, maximumContentOffset.x, contentOffset.x) && IsInBounds(0, maximumContentOffset.y, contentOffset.y);
+}
+
+- (void)trySetContentOffset:(CGPoint)contentOffset {
+    if ([self isPossibleContentOffset:contentOffset]) {
         self.contentOffset = contentOffset;
+    }
+}
+
+- (void)trySetContentOffset:(CGPoint)contentOffset animated:(BOOL)animated {
+    if ([self isPossibleContentOffset:contentOffset]) {
+        [self setContentOffset:contentOffset animated:animated];
     }
 }
 

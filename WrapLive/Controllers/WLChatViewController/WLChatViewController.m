@@ -169,6 +169,10 @@
     }
 }
 
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
+    [self.collectionView reloadData];
+}
+
 - (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
     return self.wrap;
 }

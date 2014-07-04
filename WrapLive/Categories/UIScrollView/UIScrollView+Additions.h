@@ -16,6 +16,10 @@
 
 - (void)scrollToBottomAnimated:(BOOL)animated;
 
+- (BOOL)isPossibleContentOffset:(CGPoint)contentOffset;
+
 - (void)trySetContentOffset:(CGPoint)contentOffset;
+
+- (void)trySetContentOffset:(CGPoint)contentOffset animated:(BOOL)animated;
 
 @end

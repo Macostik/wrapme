@@ -20,6 +20,7 @@
 #import "WLToast.h"
 #import "WLEntryManager.h"
 #import "WLMenu.h"
+#import "NSString+Additions.h"
 
 @interface WLCommentCell () <WLMenuDelegate>
 
@@ -50,7 +51,7 @@
 - (void)setupItemData:(WLComment *)entry {
     [WLMenu hide];
 	self.userInteractionEnabled = YES;
-	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", entry.contributor.name, entry.createdAt.timeAgoString];
+	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", WLString(entry.contributor.name), WLString(entry.createdAt.timeAgoString)];
 	self.commentLabel.text = entry.text;
 	[self.commentLabel sizeToFitHeight];
 	self.authorImageView.url = entry.contributor.picture.medium;

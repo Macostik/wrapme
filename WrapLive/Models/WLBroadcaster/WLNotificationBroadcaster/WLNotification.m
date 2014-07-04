@@ -55,6 +55,7 @@
 		if (identifier.nonempty) {
 			WLCandy *candy = [WLCandy entry:identifier];
             if (candy.managedObjectContext) {
+                [candy touch];
                 _candy = candy;
                 WLNotificationType type = self.type;
                 if (type == WLNotificationImageCandyAddition || type == WLNotificationImageCandyDeletion || type == WLNotificationCandyCommentAddition || type == WLNotificationCandyCommentDeletion) {

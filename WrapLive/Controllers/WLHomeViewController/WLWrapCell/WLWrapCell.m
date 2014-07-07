@@ -20,7 +20,7 @@
 #import "WLMenu.h"
 #import "NSObject+NibAdditions.h"
 
-@interface WLWrapCell () <WLCandyCellDelegate, WLMenuDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface WLWrapCell () <WLCandyCellDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -35,7 +35,38 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    self.menu = [WLMenu menuWithView:self delegate:self];
+    __weak typeof(self)weakSelf = self;
+    self.menu = [WLMenu menuWithView:self configuration:^BOOL(WLMenu *menu) {
+        WLWrap* wrap = weakSelf.item;
+        if ([wrap.contributor isCurrentUser]) {
+            [menu addItem:@"Delete" block:^{
+                weakSelf.userInteractionEnabled = NO;
+                [wrap remove:^(id object) {
+                    weakSelf.userInteractionEnabled = YES;
+                    if ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteOrLeaveWrap:)]) {
+                        [weakSelf.delegate wrapCell:weakSelf didDeleteOrLeaveWrap:wrap];
+                    }
+                } failure:^(NSError *error) {
+                    [error show];
+                    weakSelf.userInteractionEnabled = YES;
+                }];
+            }];
+        } else {
+            [menu addItem:@"Leave" block:^{
+                weakSelf.userInteractionEnabled = NO;
+                [wrap leave:^(id object) {
+                    weakSelf.userInteractionEnabled = YES;
+                    if ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteOrLeaveWrap:)]) {
+                        [weakSelf.delegate wrapCell:weakSelf didDeleteOrLeaveWrap:wrap];
+                    }
+                } failure:^(NSError *error) {
+                    [error show];
+                    weakSelf.userInteractionEnabled = YES;
+                }];
+            }];
+        }
+        return YES;
+    }];
     [self.candiesView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:WLCandyCellIdentifier];
     UICollectionViewFlowLayout* layout = (id)self.candiesView.collectionViewLayout;
     CGFloat size = self.candiesView.bounds.size.width/3.0f - 0.5f;
@@ -45,7 +76,6 @@
 }
 
 - (void)setupItemData:(WLWrap*)wrap {
-    [WLMenu hide];
 	self.nameLabel.superview.userInteractionEnabled = YES;
 	self.nameLabel.text = wrap.name;
 	[self.nameLabel sizeToFitWidthWithSuperviewRightPadding:50];
@@ -74,54 +104,9 @@
 	self.notifyBulb.hidden = YES;
 	WLWrap* wrap = self.item;
     wrap.unread = @NO;
-	if ([UIMenuController sharedMenuController].menuVisible) {
-		[[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
-	}
     if ([self.delegate respondsToSelector:@selector(wrapCell:didSelectWrap:)]) {
         [self.delegate wrapCell:self didSelectWrap:self.item];
     }
-}
-
-#pragma mark - WLMenuDelegate
-
-- (void)remove {
-	__weak typeof(self)weakSelf = self;
-	WLWrap* wrap = weakSelf.item;
-    weakSelf.userInteractionEnabled = NO;
-    [wrap remove:^(id object) {
-        weakSelf.userInteractionEnabled = YES;
-        if ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteOrLeaveWrap:)]) {
-            [weakSelf.delegate wrapCell:weakSelf didDeleteOrLeaveWrap:wrap];
-        }
-    } failure:^(NSError *error) {
-        [error show];
-        weakSelf.userInteractionEnabled = YES;
-    }];
-}
-
-- (void)leave {
-	__weak typeof(self)weakSelf = self;
-	WLWrap* wrap = weakSelf.item;
-	weakSelf.userInteractionEnabled = NO;
-	[wrap leave:^(id object) {
-		weakSelf.userInteractionEnabled = YES;
-        if ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteOrLeaveWrap:)]) {
-            [weakSelf.delegate wrapCell:weakSelf didDeleteOrLeaveWrap:wrap];
-        }
-	} failure:^(NSError *error) {
-		[error show];
-		weakSelf.userInteractionEnabled = YES;
-	}];
-}
-
-- (NSString *)menu:(WLMenu *)menu titleForItem:(NSUInteger)item {
-    WLWrap* wrap = self.item;
-    return [wrap.contributor isCurrentUser] ? @"Delete" : @"Leave";
-}
-
-- (SEL)menu:(WLMenu *)menu actionForItem:(NSUInteger)item {
-    WLWrap* wrap = self.item;
-    return [wrap.contributor isCurrentUser] ? @selector(remove) : @selector(leave);
 }
 
 #pragma mark - UICollectionViewDelegate

@@ -7,31 +7,42 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WLBlocks.h"
 
 @class WLMenu;
 
-@protocol WLMenuDelegate <NSObject>
+@interface WLMenuItem : NSObject
 
-- (NSString*)menu:(WLMenu*)menu titleForItem:(NSUInteger)item;
+@property (strong, nonatomic) NSString* title;
 
-- (SEL)menu:(WLMenu*)menu actionForItem:(NSUInteger)item;
-
-@optional
-
-- (BOOL)menuShouldBePresented:(WLMenu*)menu;
-
-- (NSUInteger)menuNumberOfItems:(WLMenu*)menu;
+@property (strong, nonatomic) WLBlock block;
 
 @end
 
-@interface WLMenu : UIResponder
-
-@property (weak, nonatomic) UIResponder<WLMenuDelegate> *delegate;
+@interface WLMenu : UIControl
 
 @property (nonatomic) BOOL vibrate;
 
-+ (instancetype)menuWithView:(UIView*)view delegate:(UIResponder<WLMenuDelegate> *)delegate;
+@property (strong, nonatomic) BOOL (^configuration) (WLMenu *menu);
+
+@property (weak, nonatomic) UIView* view;
+
++ (instancetype)menuWithView:(UIView*)view configuration:(BOOL (^)(WLMenu* menu))configuration;
+
++ (instancetype)menuWithView:(UIView*)view title:(NSString*)title block:(WLBlock)block;
 
 + (void)hide;
+
+- (instancetype)initWithView:(UIView*)view configuration:(BOOL (^)(WLMenu* menu))configuration;
+
+- (instancetype)initWithView:(UIView*)view title:(NSString*)title block:(WLBlock)block;
+
+- (void)hide;
+
+- (void)show;
+
+- (void)show:(CGPoint)point;
+
+- (void)addItem:(NSString*)title block:(WLBlock)block;
 
 @end

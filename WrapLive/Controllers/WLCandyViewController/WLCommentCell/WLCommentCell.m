@@ -22,7 +22,7 @@
 #import "WLMenu.h"
 #import "NSString+Additions.h"
 
-@interface WLCommentCell () <WLMenuDelegate>
+@interface WLCommentCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
@@ -45,48 +45,34 @@
 	[super awakeFromNib];
 	self.commentLabel.font = [WLCommentCell commentFont];
 	self.authorImageView.layer.cornerRadius = self.authorImageView.height/2.0f;
-    self.menu = [WLMenu menuWithView:self delegate:self];
+    __weak typeof(self)weakSelf = self;
+    self.menu = [WLMenu menuWithView:self configuration:^BOOL(WLMenu *menu) {
+        WLComment* comment = weakSelf.item;
+        if ([comment.contributor isCurrentUser]) {
+            [menu addItem:@"Delete" block:^{
+                weakSelf.userInteractionEnabled = NO;
+                [weakSelf.item remove:^(id object) {
+                    weakSelf.userInteractionEnabled = YES;
+                } failure:^(NSError *error) {
+                    [error show];
+                    weakSelf.userInteractionEnabled = YES;
+                }];
+            }];
+            return YES;
+        } else {
+            [WLToast showWithMessage:@"Cannot delete comment not posted by you."];
+            return NO;
+        }
+    }];
 }
 
 - (void)setupItemData:(WLComment *)entry {
-    [WLMenu hide];
 	self.userInteractionEnabled = YES;
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", WLString(entry.contributor.name), WLString(entry.createdAt.timeAgoString)];
 	self.commentLabel.text = entry.text;
 	[self.commentLabel sizeToFitHeight];
 	self.authorImageView.url = entry.contributor.picture.medium;
 	self.menu.vibrate = [entry.contributor isCurrentUser];
-}
-
-#pragma mark - WLMenuDelegate
-
-- (void)remove {
-	__weak typeof(self)weakSelf = self;
-	weakSelf.userInteractionEnabled = NO;
-	[weakSelf.item remove:^(id object) {
-		weakSelf.userInteractionEnabled = YES;
-	} failure:^(NSError *error) {
-		[error show];
-		weakSelf.userInteractionEnabled = YES;
-	}];
-}
-
-- (BOOL)menuShouldBePresented:(WLMenu *)menu {
-    WLComment* comment = self.item;
-	if ([comment.contributor isCurrentUser]) {
-		return YES;
-	} else {
-		[WLToast showWithMessage:@"Cannot delete comment not posted by you."];
-        return NO;
-	}
-}
-
-- (NSString *)menu:(WLMenu *)menu titleForItem:(NSUInteger)item {
-    return @"Delete";
-}
-
-- (SEL)menu:(WLMenu *)menu actionForItem:(NSUInteger)item {
-    return @selector(remove);
 }
 
 @end

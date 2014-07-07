@@ -25,7 +25,7 @@
 #import "WLEntryManager.h"
 #import "WLMenu.h"
 
-@interface WLCandyCell () <WLWrapBroadcastReceiver, WLMenuDelegate>
+@interface WLCandyCell () <WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
@@ -41,11 +41,40 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-    self.menu = [WLMenu menuWithView:self delegate:self];
+    __weak typeof(self)weakSelf = self;
+    self.menu = [WLMenu menuWithView:self configuration:^BOOL (WLMenu *menu) {
+        WLCandy* candy = weakSelf.item;
+        if ([candy isImage]) {
+            if ([candy.contributor isCurrentUser]) {
+                [menu addItem:@"Delete" block:^{
+                    weakSelf.userInteractionEnabled = NO;
+                    [candy remove:^(id object) {
+                        weakSelf.userInteractionEnabled = YES;
+                    } failure:^(NSError *error) {
+                        [error show];
+                        weakSelf.userInteractionEnabled = YES;
+                    }];
+                }];
+            } else {
+                [menu addItem:@"Report" block:^{
+                    [MFMailComposeViewController messageWithCandy:candy];
+                }];
+                [menu addItem:@"Report" block:^{
+                    [MFMailComposeViewController messageWithCandy:candy];
+                }];
+                [menu addItem:@"Report" block:^{
+                    [MFMailComposeViewController messageWithCandy:candy];
+                }];
+            }
+            return YES;
+        } else {
+            [WLToast showWithMessage:@"Cannot delete chat message already posted."];
+            return NO;
+        }
+    }];
 }
 
 - (void)setupItemData:(WLCandy*)candy {
-    [WLMenu hide];
 	self.userInteractionEnabled = YES;
 	if ([candy isImage]) {
 		WLComment* comment = [candy.comments lastObject];
@@ -85,44 +114,6 @@
 	self.notifyBulb.hidden = YES;
     candy.unread = @NO;
     [self.delegate candyCell:self didSelectCandy:candy];
-}
-
-#pragma mark - WLMenuDelegate
-
-- (void)remove {
-	WLCandy* candy = self.item;
-	__weak typeof(self)weakSelf = self;
-	weakSelf.userInteractionEnabled = NO;
-	[candy remove:^(id object) {
-		weakSelf.userInteractionEnabled = YES;
-	} failure:^(NSError *error) {
-		[error show];
-		weakSelf.userInteractionEnabled = YES;
-	}];
-}
-
-- (void)report {
-	[MFMailComposeViewController messageWithCandy:self.item];
-}
-
-- (BOOL)menuShouldBePresented:(WLMenu *)menu {
-    WLCandy* candy = self.item;
-    if ([candy isImage]) {
-        return YES;
-    } else {
-        [WLToast showWithMessage:@"Cannot delete chat message already posted."];
-        return NO;
-    }
-}
-
-- (NSString *)menu:(WLMenu *)menu titleForItem:(NSUInteger)item {
-    WLCandy* candy = self.item;
-    return [candy.contributor isCurrentUser] ? @"Delete" : @"Report";
-}
-
-- (SEL)menu:(WLMenu *)menu actionForItem:(NSUInteger)item {
-    WLCandy* candy = self.item;
-    return [candy.contributor isCurrentUser] ? @selector(remove) : @selector(report);
 }
 
 #pragma mark - WLWrapBroadcastReceiver

@@ -59,12 +59,6 @@
                 [menu addItem:@"Report" block:^{
                     [MFMailComposeViewController messageWithCandy:candy];
                 }];
-                [menu addItem:@"Report" block:^{
-                    [MFMailComposeViewController messageWithCandy:candy];
-                }];
-                [menu addItem:@"Report" block:^{
-                    [MFMailComposeViewController messageWithCandy:candy];
-                }];
             }
             return YES;
         } else {

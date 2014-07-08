@@ -11,6 +11,7 @@
 #import "WLBlocks.h"
 #import "WLToast.h"
 #import "WLUploading+Extended.h"
+#import "WLAPIManager.h"
 
 @implementation WLInternetConnectionBroadcaster
 
@@ -51,8 +52,15 @@
 			[weakSelf broadcast:@selector(broadcaster:internetConnectionReachable:) object:@(reachable)];
 			[weakSelf showLostConnectionBannerIfNeeded];
             if (reachable) {
-                [WLUploading enqueueAutomaticUploading:^{
-                }];
+                if ([WLAPIManager signedIn]) {
+                    [WLUploading enqueueAutomaticUploading:^{
+                    }];
+                } else {
+                    [[WLAPIManager instance] signIn:[WLAuthorization currentAuthorization] success:^(WLUser *user) {
+                    } failure:^(NSError *error) {
+                    }];
+                }
+                
             }
 		});
 	};

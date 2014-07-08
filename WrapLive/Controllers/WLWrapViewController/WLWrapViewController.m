@@ -114,6 +114,11 @@
 
 - (void)reloadData {
     [self.groups setCandies:self.wrap.candies];
+    if ([self.groups.set count] < WLAPIGeneralPageSize) {
+        self.loadingView = nil;
+    } else {
+        self.loadingView = [WLLoadingView instance];
+    }
 }
 
 - (void)appendDates {

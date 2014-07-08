@@ -120,16 +120,14 @@
             button.item = item;
             [self addSubview:button];
             [button addTarget:self action:@selector(selectedItem:) forControlEvents:UIControlEventTouchUpInside];
-            button.frame = CGRectMake(0, 0, 52, 52);
+            button.frame = CGRectMake(0, 0, 88, 44);
             button.center = _point;
-            button.backgroundColor = [UIColor whiteColor];
+            button.backgroundColor = [UIColor blackColor];
             button.clipsToBounds = YES;
             [button setTitle:item.title forState:UIControlStateNormal];
-            [button setTitleColor:[UIColor WL_orangeColor] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [button.titleLabel setFont:[UIFont regularSmallFont]];
-            button.layer.cornerRadius = 25;
-            button.layer.borderColor = [UIColor WL_orangeColor].CGColor;
-            button.layer.borderWidth = 2;
+            button.layer.cornerRadius = 10;
         }
         self.alpha = 0.0f;
         [superview addSubview:self];
@@ -138,8 +136,7 @@
             weakSelf.alpha = 1.0f;
             CGFloat count = [weakSelf.subviews count];
             [weakSelf.subviews enumerateObjectsUsingBlock:^(UIView* subview, NSUInteger idx, BOOL *stop) {
-                CGFloat angle = 2*M_PI*((float)idx/count) - M_PI_2;
-//                subview.transform = CGAffineTransformMakeTranslation(44*cosf(angle), 44*sinf(angle));
+                CGFloat angle = 2*M_PI*((float)idx/count) - M_PI_4;
                 CGPoint center = subview.center;
                 center.x += 44*cosf(angle);
                 center.y += 44*sinf(angle);
@@ -180,31 +177,6 @@
         block();
     }
     [self hide];
-}
-
-- (void)drawRect:(CGRect)rect {
-    UIBezierPath* path = [UIBezierPath bezierPathWithRect:self.bounds];
-    [[UIColor colorWithWhite:0.000 alpha:0.750] set];
-    [path fill];
-    CGRect frame = [self.view convertRect:self.view.bounds toView:self.view.window];
-    path = [UIBezierPath bezierPathWithRect:CGRectInset(frame, 1, 1)];
-    [path fillWithBlendMode:kCGBlendModeClear alpha:0.5f];
-    [path addClip];
-    path = [UIBezierPath bezierPathWithRect:CGRectInset(frame, -4, -4)];
-    path.lineWidth = 10;
-    CGContextSaveGState(UIGraphicsGetCurrentContext());
-    CGContextSetShadowWithColor(UIGraphicsGetCurrentContext(), CGSizeZero, 5, [UIColor blackColor].CGColor);
-    [path stroke];
-    CGContextRestoreGState(UIGraphicsGetCurrentContext());
-    path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(_point.x - 8, _point.y - 8, 16, 16)];
-    [[UIColor WL_orangeColor] set];
-    [path fill];
-    for (UIView* subview in self.subviews) {
-        path = [UIBezierPath bezierPath];
-        [path moveToPoint:_point];
-        [path addLineToPoint:subview.center];
-        [path stroke];
-    }
 }
 
 @end

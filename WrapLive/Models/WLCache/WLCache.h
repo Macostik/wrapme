@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef void (^WLCacheReadCompletionBlock)(id object);
-typedef void (^WLCacheWriteCompletionBlock)(NSString* path);
+typedef void (^WLCacheWriteCompletionBlock)(NSString* identifier);
 
 @interface WLCache : NSObject
 {
@@ -35,9 +35,9 @@ typedef void (^WLCacheWriteCompletionBlock)(NSString* path);
 
 - (void)configure;
 
-- (id)read:(NSString*)identifier path:(NSString*)path;
+- (id)read:(NSString*)identifier;
 
-- (void)write:(NSString*)identifier object:(id)object path:(NSString*)path;
+- (void)write:(NSString*)identifier object:(id)object;
 
 - (NSString*)pathWithIdentifier:(NSString*)identifier;
 

@@ -205,13 +205,14 @@
 }
 
 - (void)uploadImage:(UIImage *)image success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
-	[[WLImageCache uploadingCache] setImage:image completion:^(NSString *path) {
+    __weak WLImageCache *imageCache = [WLImageCache uploadingCache];
+	[imageCache setImage:image completion:^(NSString *identifier) {
 		WLPicture* picture = [[WLPicture alloc] init];
-		picture.large = path;
-		[[WLImageCache uploadingCache] setImage:[image thumbnailImage:320] completion:^(NSString *path) {
-			picture.medium = path;
-			[[WLImageCache uploadingCache] setImage:[image thumbnailImage:160] completion:^(NSString *path) {
-				picture.small = path;
+		picture.large = [imageCache pathWithIdentifier:identifier];
+		[imageCache setImage:[image thumbnailImage:320] completion:^(NSString *identifier) {
+			picture.medium = [imageCache pathWithIdentifier:identifier];
+			[imageCache setImage:[image thumbnailImage:160] completion:^(NSString *identifier) {
+				picture.small = [imageCache pathWithIdentifier:identifier];
                 WLCandy* candy = [WLCandy candyWithType:WLCandyTypeImage wrap:self];
                 candy.picture = picture;
                 [[WLUploading uploading:candy] upload:success failure:failure];

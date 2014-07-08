@@ -71,18 +71,18 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 	[super configure];
 }
 
-- (id)read:(NSString *)identifier path:(NSString *)path {
+- (id)read:(NSString *)identifier {
     UIImage* image = [WLSystemImageCache imageWithIdentifier:identifier];
     if (image == nil) {
-        image = [UIImage imageWithContentsOfFile:path];
+        image = [UIImage imageWithData:[_manager contentsAtPath:identifier]];
         [WLSystemImageCache setImage:image withIdentifier:identifier];
     }
     return image;
 }
 
-- (void)write:(NSString *)identifier object:(id)image path:(NSString *)path {
+- (void)write:(NSString *)identifier object:(id)image {
     if (image) {
-        [UIImageJPEGRepresentation(image, 1.0f) writeToFile:path atomically:NO];
+        [_manager createFileAtPath:identifier contents:UIImageJPEGRepresentation(image, 1.0f) attributes:nil];
         [WLSystemImageCache setImage:image withIdentifier:identifier];
     }
 }
@@ -111,7 +111,7 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
     }];
 }
 
-- (void)setImage:(UIImage*)image withIdentifier:(NSString*)identifier completion:(void (^)(NSString *))completion {
+- (void)setImage:(UIImage*)image withIdentifier:(NSString*)identifier completion:(void (^)(NSString *identifier))completion {
 	[self setObject:image withIdentifier:identifier completion:completion];
 }
 
@@ -121,26 +121,24 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 
 - (void)setImageAtPath:(NSString *)path withIdentifier:(NSString *)identifier {
 	if (identifier.nonempty && path.nonempty && [_manager fileExistsAtPath:path]) {
-		NSString* cachePath = [self pathWithIdentifier:identifier];
-		[_manager copyItemAtPath:path toPath:cachePath error:NULL];
-		[[WLSystemImageCache instance] setImage:[UIImage imageWithContentsOfFile:cachePath] withIdentifier:identifier];
-		[_manager removeItemAtPath:path error:NULL];
+        [_manager copyItemAtPath:path toPath:identifier error:NULL];
+        [[WLSystemImageCache instance] setImage:[self objectWithIdentifier:identifier] withIdentifier:identifier];
+        [_manager removeItemAtPath:path error:NULL];
 	}
 }
 
-- (void)setImageData:(NSData*)data withIdentifier:(NSString*)identifier completion:(void (^)(NSString* path))completion {
+- (void)setImageData:(NSData*)data withIdentifier:(NSString*)identifier completion:(void (^)(NSString* identifier))completion {
 	if (!data) {
 		return;
 	}
 	dispatch_async(self.queue, ^{
-		NSString* path = [self pathWithIdentifier:identifier];
-        [data writeToFile:path atomically:NO];
+       [_manager createFileAtPath:identifier contents:data attributes:nil];
         if (![self.identifiers containsObject:identifier]) {
             [self.identifiers addObject:identifier];
         }
 		run_in_main_queue(^{
 			if (completion) {
-				completion(path);
+				completion(identifier);
 			}
 		});
 		[self enqueueCheckSizePerforming];

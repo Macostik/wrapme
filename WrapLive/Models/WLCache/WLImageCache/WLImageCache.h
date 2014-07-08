@@ -18,13 +18,13 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size);
 
 - (void)imageWithIdentifier:(NSString*)identifier completion:(void (^)(UIImage* image, BOOL cached))completion;
 
-- (void)setImage:(UIImage*)image withIdentifier:(NSString*)identifier completion:(void (^)(NSString* path))completion;
+- (void)setImage:(UIImage*)image withIdentifier:(NSString*)identifier completion:(WLCacheWriteCompletionBlock)completion;
 
 - (void)setImage:(UIImage*)image completion:(void (^)(NSString* path))completion;
 
 - (void)setImageAtPath:(NSString*)path withIdentifier:(NSString*)identifier;
 
-- (void)setImageData:(NSData*)data withIdentifier:(NSString*)identifier completion:(void (^)(NSString* path))completion;
+- (void)setImageData:(NSData*)data withIdentifier:(NSString*)identifier completion:(WLCacheWriteCompletionBlock)completion;
 
 - (void)setImageData:(NSData*)data completion:(void (^)(NSString* path))completion;
 

@@ -126,7 +126,14 @@
 - (void)sort:(WLCandy*)candy {
     for (WLGroup* group in self.set) {
         if ([group.candies containsObject:candy]) {
-            [group sort];
+            if ([group.date isSameDay:candy.updatedAt]) {
+                [group sort];
+            } else {
+                [group.candies removeObject:candy];
+                [self addCandy:candy];
+                [self sort];
+                break;
+            }
         }
     }
 }

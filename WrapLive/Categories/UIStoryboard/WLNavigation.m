@@ -119,8 +119,17 @@
 
 @implementation UIWindow (StoryboardAdditions)
 
+static UIWindow* mainWindow = nil;
+
 + (instancetype)mainWindow {
-	return [[[UIApplication sharedApplication] windows] firstObject];
+    if (mainWindow == nil) {
+        mainWindow = [[[UIApplication sharedApplication] windows] firstObject];
+    }
+	return mainWindow;
+}
+
++ (void)setMainWindow:(UIWindow *)window {
+    mainWindow = window;
 }
 
 @end

@@ -11,6 +11,7 @@
 #import "UIFont+CustomFonts.h"
 #import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
+#import "WLSupportFunctions.h"
 
 @implementation WLMenuItem @end
 
@@ -143,17 +144,12 @@
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [button.titleLabel setFont:[UIFont regularSmallFont]];
             button.layer.cornerRadius = 10;
-            CGFloat angle = 2*M_PI*((float)[buttons count]/count) - M_PI_4;
-            CGPoint center = button.center;
-            center.x += 44*cosf(angle);
-            center.y += 44*sinf(angle);
-            button.center = center;
             button.alpha = 0.0f;
             [buttons addObject:button];
             
             UIImageView* arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_menu_arrow"]];
             arrow.x = button.width/2.0f - arrow.width/2.0f;
-            arrow.y = button.height;
+            arrow.y = button.height - 1;
             [button addSubview:arrow];
         }
         self.buttons = [buttons copy];
@@ -161,6 +157,11 @@
         [UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [weakSelf.buttons enumerateObjectsUsingBlock:^(UIView* subview, NSUInteger idx, BOOL *stop) {
                 subview.alpha = 1.0f;
+                CGFloat angle = 2*M_PI*((float)idx/count) - M_PI_4;
+                CGPoint center = subview.center;
+                center.x = Smoothstep(subview.width/2, superview.width - subview.width/2, center.x + 44*cosf(angle));;
+                center.y = Smoothstep(subview.height/2, superview.height - subview.height/2, center.y + 44*sinf(angle));
+                subview.center = center;
             }];
         } completion:^(BOOL finished) {
         }];

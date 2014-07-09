@@ -17,6 +17,7 @@
 #import "WLEntryManager.h"
 #import <Crashlytics/Crashlytics.h>
 #import "WLMenu.h"
+#import "WLNavigation.h"
 
 @interface WLAppDelegate ()
 
@@ -31,6 +32,7 @@
     UIViewController* vc = self.window.rootViewController;
     self.window = [[WLWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = vc;
+    [UIWindow setMainWindow:self.window];
 //	
 	[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
 	[[WLInternetConnectionBroadcaster broadcaster] configure];

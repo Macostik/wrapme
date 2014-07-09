@@ -143,9 +143,13 @@
 }
 
 - (void)checkSizeAndClearIfNeededInBackground {
-    if (self.size > 0) {
+    static BOOL checking = NO;
+    NSUInteger limitSize = self.size;
+    if (limitSize > 0) {
+        checking = YES;
+        __weak typeof(self)weakSelf = self;
         run_in_background_queue(^{
-            NSDirectoryEnumerator* identifiers = [_manager enumeratorAtPath:_directory];
+            NSMutableSet* identifiers = [weakSelf.identifiers mutableCopy];
             unsigned long long size = 0;
             NSMutableArray* items = [NSMutableArray array];
             for (NSString* identifier in identifiers) {
@@ -159,17 +163,21 @@
             }
             [items sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
             BOOL removed = NO;
-            while (size >= self.size) {
+            while (size >= limitSize) {
                 WLCacheItem* item = [items firstObject];
                 [_manager removeItemAtPath:item.identifier error:NULL];
                 size -= item.size;
                 [items removeObject:item];
                 removed = YES;
+                [identifiers removeObject:item.identifier];
             }
             if (removed) {
                 run_in_main_queue(^{
-                    _identifiers = [NSMutableSet setWithArray:[[_manager enumeratorAtPath:_directory] allObjects]];
+                    _identifiers = identifiers;
+                    checking = NO;
                 });
+            } else {
+                checking = NO;
             }
         });
     }

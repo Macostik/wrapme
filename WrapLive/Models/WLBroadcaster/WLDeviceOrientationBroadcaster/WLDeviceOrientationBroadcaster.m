@@ -21,30 +21,23 @@
 
 - (void)addReceiver:(id)receiver {
     [super addReceiver:receiver];
-    if (![UIDevice currentDevice].generatesDeviceOrientationNotifications) {
-        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    }
 }
 
 - (void)removeReceiver:(id)receiver {
     [super removeReceiver:receiver];
-    if ([self.receivers anyObject] == nil) {
-        [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
-    }
 }
 
 - (void)setup {
     [super setup];
-    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    });
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 - (void)orientationChanged:(NSNotification*)notification {
-    if ([self.receivers anyObject] == nil) {
-        [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
-    } else {
-        [self broadcast:@selector(broadcaster:didChangeOrientation:) object:@([UIDevice currentDevice].orientation)];
-    }
+    [self broadcast:@selector(broadcaster:didChangeOrientation:) object:@([UIDevice currentDevice].orientation)];
 }
 
 @end

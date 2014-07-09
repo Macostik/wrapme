@@ -36,7 +36,7 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
     __weak typeof(self)weakSelf = self;
-    self.menu = [WLMenu menuWithView:self configuration:^BOOL(WLMenu *menu) {
+    self.menu = [WLMenu menuWithView:self.candiesView ? self.nameLabel.superview : self configuration:^BOOL(WLMenu *menu) {
         WLWrap* wrap = weakSelf.item;
         if ([wrap.contributor isCurrentUser]) {
             [menu addItem:@"Delete" block:^{

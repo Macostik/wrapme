@@ -37,6 +37,9 @@
 @end
 
 @implementation WLCandyCell
+{
+    CGPoint _point;
+}
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
@@ -45,7 +48,7 @@
     self.menu = [WLMenu menuWithView:self configuration:^BOOL (WLMenu *menu) {
         WLCandy* candy = weakSelf.item;
         if ([candy isImage]) {
-            if ([candy.contributor isCurrentUser]) {
+            if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
                 [menu addItem:@"Delete" block:^{
                     weakSelf.userInteractionEnabled = NO;
                     [candy remove:^(id object) {

@@ -487,12 +487,14 @@ static BOOL signedIn = NO;
     
     WLPicture* picture = [candy.picture copy];
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-        [candy update:[response.data dictionaryForKey:@"candy"]];
+        [candy API_setup:[response.data dictionaryForKey:@"candy"]];
         if ([candy isImage]) {
 			[[WLImageCache cache] setImageAtPath:picture.medium withUrl:candy.picture.medium];
 			[[WLImageCache cache] setImageAtPath:picture.small withUrl:candy.picture.small];
 			[[WLImageCache cache] setImageAtPath:picture.large withUrl:candy.picture.large];
 		}
+        [candy broadcastChange];
+        [candy save];
 		return candy;
 	};
 	

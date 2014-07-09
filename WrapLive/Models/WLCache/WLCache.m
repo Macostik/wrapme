@@ -123,9 +123,7 @@
     
 	dispatch_async(self.queue, ^{
         [self write:identifier object:object];
-        if (![self.identifiers containsObject:identifier]) {
-            [self.identifiers addObject:identifier];
-        }
+        [self.identifiers addObject:identifier];
 		run_in_main_queue(^{
 			if (completion) {
 				completion(identifier);
@@ -145,36 +143,44 @@
 }
 
 - (void)checkSizeAndClearIfNeededInBackground {
-	[self performSelectorInBackground:@selector(checkSizeAndClearIfNeeded) withObject:nil];
-}
-
-- (void)checkSizeAndClearIfNeeded {
-	if (self.size > 0) {
-		@autoreleasepool {
-            NSMutableSet* identifiers = self.identifiers;
-            @synchronized (identifiers) {
-                unsigned long long size = 0;
-                NSMutableArray* items = [NSMutableArray array];
-                for (NSString* identifier in identifiers) {
-                    WLCacheItem* item = [[WLCacheItem alloc] init];
-                    item.identifier = identifier;
-                    NSDictionary* attributes = [_manager attributesOfItemAtPath:identifier error:NULL];
-                    item.size = [attributes fileSize];
-                    item.date = [attributes fileCreationDate];
-                    size += item.size;
-                    [items addObject:item];
-                }
-                [items sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
-                while (size >= self.size) {
-                    WLCacheItem* item = [items firstObject];
-                    [_manager removeItemAtPath:item.identifier error:NULL];
-                    size -= item.size;
-                    [items removeObject:item];
-                    [identifiers removeObject:item.identifier];
-                }
+    static BOOL checking = NO;
+    NSUInteger limitSize = self.size;
+    if (limitSize > 0) {
+        checking = YES;
+        __weak typeof(self)weakSelf = self;
+        run_in_background_queue(^{
+            NSMutableSet* identifiers = [weakSelf.identifiers mutableCopy];
+            unsigned long long size = 0;
+            NSMutableArray* items = [NSMutableArray array];
+            for (NSString* identifier in identifiers) {
+                WLCacheItem* item = [[WLCacheItem alloc] init];
+                item.identifier = identifier;
+                NSDictionary* attributes = [_manager attributesOfItemAtPath:identifier error:NULL];
+                item.size = [attributes fileSize];
+                item.date = [attributes fileCreationDate];
+                size += item.size;
+                [items addObject:item];
             }
-		}
-	}
+            [items sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
+            BOOL removed = NO;
+            while (size >= limitSize) {
+                WLCacheItem* item = [items firstObject];
+                [_manager removeItemAtPath:item.identifier error:NULL];
+                size -= item.size;
+                [items removeObject:item];
+                removed = YES;
+                [identifiers removeObject:item.identifier];
+            }
+            if (removed) {
+                run_in_main_queue(^{
+                    _identifiers = identifiers;
+                    checking = NO;
+                });
+            } else {
+                checking = NO;
+            }
+        });
+    }
 }
 
 - (void)clear {

@@ -12,8 +12,6 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size);
 
 @interface WLImageCache : WLCache
 
-+ (instancetype)uploadingCache;
-
 - (UIImage*)imageWithIdentifier:(NSString*)identifier;
 
 - (void)imageWithIdentifier:(NSString*)identifier completion:(void (^)(UIImage* image, BOOL cached))completion;

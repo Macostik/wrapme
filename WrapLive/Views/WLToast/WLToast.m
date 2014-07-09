@@ -106,6 +106,10 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 	[self performSelector:@selector(dismiss) withObject:nil afterDelay:3];
 }
 
+- (void)removeFromSuperview {
+    [super removeFromSuperview];
+}
+
 - (void)dismiss {
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.25f];

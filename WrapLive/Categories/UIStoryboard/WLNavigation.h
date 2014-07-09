@@ -73,4 +73,6 @@ static NSString* WLCameraNavigationControllerIdentifier = @"WLCameraNavigationCo
 
 + (instancetype)mainWindow;
 
++ (void)setMainWindow:(UIWindow*)window;
+
 @end

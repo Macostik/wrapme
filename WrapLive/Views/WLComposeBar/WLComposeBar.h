@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLBlocks.h"
 
 @class WLComposeBar;
 
@@ -34,6 +35,8 @@
 @property (strong, nonatomic) NSString* placeholder;
 
 @property (nonatomic) BOOL doneButtonHidden;
+
+@property (strong, nonatomic) WLIntegerBlock segmentSelectedBlock;
 
 - (void)setDoneButtonHidden:(BOOL)hidden animated:(BOOL)animated;
 

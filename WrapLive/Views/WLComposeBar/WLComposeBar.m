@@ -126,8 +126,12 @@ static NSUInteger WLComposeBarMinHeight = 44;
 	if (!_emojiView) {
 		_emojiView = [[WLEmojiView alloc] initWithSelectionBlock:^(NSString *emoji) {
             [weakSelf.textView insertText:emoji];
-		} andReturnBlock:^{
+		} returnBlock:^{
             [weakSelf.textView deleteBackward];
+		} andSegmentSelectionBlock:^(NSInteger index) {
+			if (self.segmentSelectedBlock) {
+				self.segmentSelectedBlock(index);
+			}
 		}];
 	}
 	return _emojiView;

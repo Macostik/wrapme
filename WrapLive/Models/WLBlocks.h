@@ -35,6 +35,7 @@ typedef void (^WLDictionaryBlock) (NSDictionary *dictionary);
 typedef void (^WLStringBlock) (NSString *string);
 typedef void (^WLPointBlock) (CGPoint point);
 typedef void (^WLBooleanBlock) (BOOL flag);
+typedef void(^WLIntegerBlock) (NSInteger index);
 typedef id(^MapBlock)(id item);
 typedef BOOL(^SelectBlock)(id item);
 typedef void(^EnumBlock)(id item);

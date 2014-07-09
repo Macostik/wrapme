@@ -27,11 +27,14 @@
 
 @implementation WLEmojiView
 
-- (instancetype)initWithSelectionBlock:(WLEmojiSelectionBlock)selectionBlock andReturnBlock:(WLEmojiReturnBlock)returnBlock {
+- (instancetype)initWithSelectionBlock:(WLStringBlock)selectionBlock
+						   returnBlock:(WLBlock)returnBlock
+			  andSegmentSelectionBlock:(WLIntegerBlock)segmentSelectionBlock {
     self = [super initWithFrame:CGRectMake(0, 0, 320, 216)];
     if (self) {
 		self.selectionBlock = selectionBlock;
 		self.returnBlock = returnBlock;
+		self.segmentSelectionBlock = segmentSelectionBlock;
 		self.emojiView = [UIView loadFromNibNamed:@"WLEmojiView" ownedBy:self];
 		self.emojiView.frame = self.bounds;
 		[self addSubview:self.emojiView];
@@ -103,6 +106,9 @@
 		self.emojis = [WLEmoji emojiByType:WLEmojiTypeCars];
     } else {
 		self.emojis = [WLEmoji emojiByType:WLEmojiTypeNumbers];
+	}
+	if (self.segmentSelectionBlock) {
+		self.segmentSelectionBlock(segment);
 	}
     [self setScrollDirection];
 	[self.collectionView setContentOffset:CGPointZero];

@@ -45,6 +45,10 @@
         self.headerView = headerView;
     }
     [self.composeBar performSelector:@selector(setPlaceholder:) withObject:@"Write your message..." afterDelay:0.0f];
+	__weak __typeof(self)weakSelf = self;
+	self.composeBar.segmentSelectedBlock = ^(__unused NSInteger index) {
+		[weakSelf delayEndEditing];
+	};
     self.headerView.y = -self.headerView.height;
 }
 

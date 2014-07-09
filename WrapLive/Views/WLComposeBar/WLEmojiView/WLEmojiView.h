@@ -7,16 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef void (^WLEmojiSelectionBlock)(NSString* emoji);
-
-typedef void (^WLEmojiReturnBlock)();
+#import "WLBlocks.h"
 
 @interface WLEmojiView : UIView
 
-@property (strong, nonatomic) WLEmojiSelectionBlock selectionBlock;
-@property (strong, nonatomic) WLEmojiReturnBlock returnBlock;
+@property (strong, nonatomic) WLStringBlock selectionBlock;
+@property (strong, nonatomic) WLBlock returnBlock;
+@property (strong, nonatomic) WLIntegerBlock segmentSelectionBlock;
 
-- (instancetype)initWithSelectionBlock:(WLEmojiSelectionBlock)selectionBlock andReturnBlock:(WLEmojiReturnBlock)returnBlock;
+- (instancetype)initWithSelectionBlock:(WLStringBlock)selectionBlock
+						   returnBlock:(WLBlock)returnBlock
+			  andSegmentSelectionBlock:(WLIntegerBlock)segmentSelectionBlock;
 
 @end

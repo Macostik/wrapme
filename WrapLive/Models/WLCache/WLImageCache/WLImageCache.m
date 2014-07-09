@@ -57,15 +57,6 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
     return instance;
 }
 
-+ (instancetype)uploadingCache {
-    static id instance = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		instance = [self cacheWithIdentifier:@"wl_uploadingImagesCache"];
-	});
-    return instance;
-}
-
 - (void)configure {
 	self.size = WLImageCacheSize;
 	[super configure];
@@ -121,9 +112,8 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 
 - (void)setImageAtPath:(NSString *)path withIdentifier:(NSString *)identifier {
 	if (identifier.nonempty && path.nonempty && [_manager fileExistsAtPath:path]) {
-        [_manager copyItemAtPath:path toPath:identifier error:NULL];
+        [_manager moveItemAtPath:path toPath:identifier error:NULL];
         [[WLSystemImageCache instance] setImage:[self objectWithIdentifier:identifier] withIdentifier:identifier];
-        [_manager removeItemAtPath:path error:NULL];
 	}
 }
 
@@ -133,9 +123,7 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 	}
 	dispatch_async(self.queue, ^{
        [_manager createFileAtPath:identifier contents:data attributes:nil];
-        if (![self.identifiers containsObject:identifier]) {
-            [self.identifiers addObject:identifier];
-        }
+        [self.identifiers addObject:identifier];
 		run_in_main_queue(^{
 			if (completion) {
 				completion(identifier);

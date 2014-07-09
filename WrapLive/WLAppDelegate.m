@@ -45,40 +45,6 @@
     
     [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
     
-    UIGraphicsBeginImageContext(CGSizeMake(20, 10));
-    
-    UIBezierPath* path = [UIBezierPath bezierPath];
-    
-    [path moveToPoint:CGPointMake(0, 0)];
-    [path addLineToPoint:CGPointMake(20, 0)];
-    [path addLineToPoint:CGPointMake(10, 10)];
-    [path closePath];
-    
-    [[UIColor blackColor] setFill];
-    
-    [path fill];
-    
-    [UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext()) writeToFile:@"/Users/sergeymaximenko/Downloads/ic_menu_arrow.png" atomically:YES];
-    
-    UIGraphicsEndImageContext();
-    
-    UIGraphicsBeginImageContext(CGSizeMake(40, 20));
-    
-    path = [UIBezierPath bezierPath];
-    
-    [path moveToPoint:CGPointMake(0, 0)];
-    [path addLineToPoint:CGPointMake(40, 0)];
-    [path addLineToPoint:CGPointMake(20, 20)];
-    [path closePath];
-    
-    [[UIColor blackColor] setFill];
-    
-    [path fill];
-    
-    [UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext()) writeToFile:@"/Users/sergeymaximenko/Downloads/ic_menu_arrow@2x.png" atomically:YES];
-    
-    UIGraphicsEndImageContext();
-    
 	return YES;
 }
 

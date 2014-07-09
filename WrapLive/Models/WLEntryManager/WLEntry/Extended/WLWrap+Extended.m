@@ -205,7 +205,7 @@
 }
 
 - (void)uploadImage:(UIImage *)image success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
-    __weak WLImageCache *imageCache = [WLImageCache uploadingCache];
+    __weak WLImageCache *imageCache = [WLImageCache cache];
 	[imageCache setImage:image completion:^(NSString *identifier) {
 		WLPicture* picture = [[WLPicture alloc] init];
 		picture.large = [imageCache pathWithIdentifier:identifier];

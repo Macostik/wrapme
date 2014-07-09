@@ -123,9 +123,7 @@
     
 	dispatch_async(self.queue, ^{
         [self write:identifier object:object];
-        if (![self.identifiers containsObject:identifier]) {
-            [self.identifiers addObject:identifier];
-        }
+        [self.identifiers addObject:identifier];
 		run_in_main_queue(^{
 			if (completion) {
 				completion(identifier);
@@ -147,29 +145,32 @@
 - (void)checkSizeAndClearIfNeededInBackground {
     if (self.size > 0) {
         run_in_background_queue(^{
-            NSMutableSet* identifiers = [self.identifiers mutableCopy];
-            @synchronized (self.identifiers) {
-                unsigned long long size = 0;
-                NSMutableArray* items = [NSMutableArray array];
-                for (NSString* identifier in identifiers) {
-                    WLCacheItem* item = [[WLCacheItem alloc] init];
-                    item.identifier = identifier;
-                    NSDictionary* attributes = [_manager attributesOfItemAtPath:identifier error:NULL];
-                    item.size = [attributes fileSize];
-                    item.date = [attributes fileCreationDate];
-                    size += item.size;
-                    [items addObject:item];
-                }
-                [items sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
-                while (size >= self.size) {
-                    WLCacheItem* item = [items firstObject];
-                    [_manager removeItemAtPath:item.identifier error:NULL];
-                    size -= item.size;
-                    [items removeObject:item];
-                    [identifiers removeObject:item.identifier];
-                }
+            NSDirectoryEnumerator* identifiers = [_manager enumeratorAtPath:_directory];
+            unsigned long long size = 0;
+            NSMutableArray* items = [NSMutableArray array];
+            for (NSString* identifier in identifiers) {
+                WLCacheItem* item = [[WLCacheItem alloc] init];
+                item.identifier = identifier;
+                NSDictionary* attributes = [_manager attributesOfItemAtPath:identifier error:NULL];
+                item.size = [attributes fileSize];
+                item.date = [attributes fileCreationDate];
+                size += item.size;
+                [items addObject:item];
             }
-            self.identifiers = identifiers;
+            [items sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
+            BOOL removed = NO;
+            while (size >= self.size) {
+                WLCacheItem* item = [items firstObject];
+                [_manager removeItemAtPath:item.identifier error:NULL];
+                size -= item.size;
+                [items removeObject:item];
+                removed = YES;
+            }
+            if (removed) {
+                run_in_main_queue(^{
+                    _identifiers = [NSMutableSet setWithArray:[[_manager enumeratorAtPath:_directory] allObjects]];
+                });
+            }
         });
     }
 }

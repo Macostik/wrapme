@@ -237,7 +237,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 			[weakSelf.spinner stopAnimating];
 		}
 	}];
-	self.reportButton.hidden = [self.candy.contributor isCurrentUser];
+	self.reportButton.hidden = ([self.candy.contributor isCurrentUser] || [self.candy.wrap.contributor isCurrentUser]);
 	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
     self.uploadIcon.hidden = image.uploaded;

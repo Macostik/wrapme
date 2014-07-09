@@ -145,14 +145,10 @@
 }
 
 - (void)checkSizeAndClearIfNeededInBackground {
-	[self performSelectorInBackground:@selector(checkSizeAndClearIfNeeded) withObject:nil];
-}
-
-- (void)checkSizeAndClearIfNeeded {
-	if (self.size > 0) {
-		@autoreleasepool {
-            NSMutableSet* identifiers = self.identifiers;
-            @synchronized (identifiers) {
+    if (self.size > 0) {
+        run_in_background_queue(^{
+            NSMutableSet* identifiers = [self.identifiers mutableCopy];
+            @synchronized (self.identifiers) {
                 unsigned long long size = 0;
                 NSMutableArray* items = [NSMutableArray array];
                 for (NSString* identifier in identifiers) {
@@ -173,8 +169,9 @@
                     [identifiers removeObject:item.identifier];
                 }
             }
-		}
-	}
+            self.identifiers = identifiers;
+        });
+    }
 }
 
 - (void)clear {

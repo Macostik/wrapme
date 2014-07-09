@@ -37,6 +37,9 @@
 @end
 
 @implementation WLCandyCell
+{
+    CGPoint _point;
+}
 
 - (void)awakeFromNib {
 	[super awakeFromNib];

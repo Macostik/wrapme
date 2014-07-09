@@ -20,13 +20,29 @@
 
 @end
 
-@implementation WlMenuItemButton @end
+@implementation WlMenuItemButton
+
++ (id)buttonWithType:(UIButtonType)buttonType {
+    WlMenuItemButton *button = [super buttonWithType:buttonType];
+    return button;
+}
+
+- (void)setHighlighted:(BOOL)highlighted {
+    [super setHighlighted:highlighted];
+    self.backgroundColor = highlighted ? [UIColor WL_darkGrayColor] : [UIColor blackColor];
+}
+
+@end
 
 @interface WLMenu ()
 
 @property (strong, nonatomic) NSMutableArray* items;
 
+@property (strong, nonatomic) NSArray* buttons;
+
 @property (weak, nonatomic) UILongPressGestureRecognizer* longPressGestureRecognizer;
+
+@property (nonatomic) BOOL hiding;
 
 @end
 
@@ -65,7 +81,6 @@
     self = [super init];
     if (self) {
         self.view = view;
-        self.backgroundColor = [UIColor clearColor];
         self.configuration = configuration;
         [[WLMenu menus] addObject:self];
         UILongPressGestureRecognizer* longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(present:)];
@@ -82,18 +97,17 @@
     }];
 }
 
-- (void)setEnabled:(BOOL)enabled {
-    [super setEnabled:enabled];
-    self.longPressGestureRecognizer.enabled = enabled;
-}
-
 - (void)hide {
+    self.hiding = YES;
     __weak typeof(self)weakSelf = self;
-    [UIView animateWithDuration:0.33 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        weakSelf.alpha = 0.0f;
+    [UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [weakSelf.buttons enumerateObjectsUsingBlock:^(UIView* subview, NSUInteger idx, BOOL *stop) {
+            subview.alpha = 0.0f;
+        }];
     } completion:^(BOOL finished) {
         [weakSelf.items removeAllObjects];
-        [weakSelf removeFromSuperview];
+        [self.buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        weakSelf.hiding = NO;
     }];
 }
 
@@ -112,39 +126,44 @@
         [self.items removeAllObjects];
     }
     if (self.configuration && self.configuration(self)) {
-        self.frame = superview.bounds;
         _point = [self.view convertPoint:point toView:superview];
-        [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [self.buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        CGFloat count = [self.items count];
+        NSMutableArray* buttons = [NSMutableArray array];
         for (WLMenuItem* item in self.items) {
             WlMenuItemButton* button = [WlMenuItemButton buttonWithType:UIButtonTypeCustom];
             button.item = item;
-            [self addSubview:button];
+            [superview addSubview:button];
             [button addTarget:self action:@selector(selectedItem:) forControlEvents:UIControlEventTouchUpInside];
-            button.frame = CGRectMake(0, 0, 88, 44);
+            button.frame = CGRectMake(0, 0, 88, 40);
             button.center = _point;
             button.backgroundColor = [UIColor blackColor];
-            button.clipsToBounds = YES;
+            button.clipsToBounds = NO;
             [button setTitle:item.title forState:UIControlStateNormal];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [button.titleLabel setFont:[UIFont regularSmallFont]];
             button.layer.cornerRadius = 10;
+            CGFloat angle = 2*M_PI*((float)[buttons count]/count) - M_PI_4;
+            CGPoint center = button.center;
+            center.x += 44*cosf(angle);
+            center.y += 44*sinf(angle);
+            button.center = center;
+            button.alpha = 0.0f;
+            [buttons addObject:button];
+            
+            UIImageView* arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_menu_arrow"]];
+            arrow.x = button.width/2.0f - arrow.width/2.0f;
+            arrow.y = button.height;
+            [button addSubview:arrow];
         }
-        self.alpha = 0.0f;
-        [superview addSubview:self];
+        self.buttons = [buttons copy];
         __weak typeof(self)weakSelf = self;
-        [UIView animateWithDuration:0.33 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            weakSelf.alpha = 1.0f;
-            CGFloat count = [weakSelf.subviews count];
-            [weakSelf.subviews enumerateObjectsUsingBlock:^(UIView* subview, NSUInteger idx, BOOL *stop) {
-                CGFloat angle = 2*M_PI*((float)idx/count) - M_PI_4;
-                CGPoint center = subview.center;
-                center.x += 44*cosf(angle);
-                center.y += 44*sinf(angle);
-                subview.center = center;
+        [UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [weakSelf.buttons enumerateObjectsUsingBlock:^(UIView* subview, NSUInteger idx, BOOL *stop) {
+                subview.alpha = 1.0f;
             }];
         } completion:^(BOOL finished) {
         }];
-        [self setNeedsDisplay];
     }
 }
 
@@ -163,12 +182,10 @@
 		if (self.vibrate) {
 			AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 		}
+        sender.view.userInteractionEnabled = NO;
         [self show:[sender locationInView:sender.view]];
+        sender.view.userInteractionEnabled = YES;
 	}
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self hide];
 }
 
 - (void)selectedItem:(WlMenuItemButton*)sender {
@@ -177,6 +194,41 @@
         block();
     }
     [self hide];
+}
+
+@end
+
+@implementation WLWindow
+
+- (void)sendEvent:(UIEvent *)event {
+    [super sendEvent:event];
+    if (event.type != UIEventTypeTouches) {
+        return;
+    }
+    NSSet* touches = [event allTouches];
+    if ([touches count] != 1) {
+        return;
+    }
+    UITouch* touch = [touches anyObject];
+    if (touch.phase != UITouchPhaseBegan) {
+        return;
+    }
+    for (WLMenu* menu in [WLMenu menus]) {
+        if (menu.hiding) {
+            continue;
+        }
+        BOOL hide = YES;
+        
+        for (UIButton* button in menu.buttons) {
+            if (CGRectContainsPoint(button.frame, [touch locationInView:self])) {
+                hide = NO;
+                break;
+            }
+        }
+        if (hide) {
+            [menu hide];
+        }
+    }
 }
 
 @end

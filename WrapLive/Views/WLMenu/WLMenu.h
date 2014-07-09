@@ -19,7 +19,7 @@
 
 @end
 
-@interface WLMenu : UIControl
+@interface WLMenu : NSObject
 
 @property (nonatomic) BOOL vibrate;
 
@@ -44,5 +44,9 @@
 - (void)show:(CGPoint)point;
 
 - (void)addItem:(NSString*)title block:(WLBlock)block;
+
+@end
+
+@interface WLWindow : UIWindow
 
 @end

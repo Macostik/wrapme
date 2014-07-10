@@ -49,7 +49,6 @@
 
 @implementation WLMenu
 {
-    BOOL _vibrate:YES;
     CGPoint _point;
 }
 
@@ -81,6 +80,7 @@
 - (instancetype)initWithView:(UIView *)view configuration:(BOOL (^)(WLMenu *))configuration {
     self = [super init];
     if (self) {
+        self.vibrate = YES;
         self.view = view;
         self.configuration = configuration;
         [[WLMenu menus] addObject:self];

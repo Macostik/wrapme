@@ -211,7 +211,7 @@
     }
     __weak typeof(self)weakSelf = self;
     run_after(0.5f, ^{
-        [weakSelf.navigationController popViewControllerAnimated:YES];
+        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
     });
 }
 

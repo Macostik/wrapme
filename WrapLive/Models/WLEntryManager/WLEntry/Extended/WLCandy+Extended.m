@@ -48,6 +48,7 @@
 
 - (void)touch {
     [super touch];
+    [self.wrap touch];
     [self.wrap sortCandies];
 }
 

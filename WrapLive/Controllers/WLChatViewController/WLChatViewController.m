@@ -196,7 +196,11 @@
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
-	[self.navigationController popViewControllerAnimated:YES];
+    if (self.wrap.valid) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - WLComposeBarDelegate

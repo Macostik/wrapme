@@ -59,10 +59,7 @@
 }
 
 - (instancetype)API_setup:(NSDictionary*)dictionary relatedEntry:(id)relatedEntry {
-    NSDate* updatedAt = [NSDate dateWithTimeIntervalSince1970:[dictionary doubleForKey:@"last_touched_at_in_epoch"]];
-    if (self.updatedAt == nil || [self.updatedAt compare:updatedAt] == NSOrderedAscending) {
-        self.updatedAt = updatedAt;
-    }
+    self.updatedAt = [NSDate dateWithTimeIntervalSince1970:[dictionary doubleForKey:@"last_touched_at_in_epoch"]];
     self.createdAt = [NSDate dateWithTimeIntervalSince1970:[dictionary doubleForKey:@"contributed_at_in_epoch"]];
     self.identifier = [[self class] API_identifier:dictionary];
 	return self;

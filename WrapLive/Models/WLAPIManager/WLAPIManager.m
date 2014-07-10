@@ -493,6 +493,7 @@ static BOOL signedIn = NO;
 			[[WLImageCache cache] setImageAtPath:picture.small withUrl:candy.picture.small];
 			[[WLImageCache cache] setImageAtPath:picture.large withUrl:candy.picture.large];
 		}
+        candy.wrap.updatedAt = candy.updatedAt;
         [candy broadcastChange];
         [candy save];
 		return candy;

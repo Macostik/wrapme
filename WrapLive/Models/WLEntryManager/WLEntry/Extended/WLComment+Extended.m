@@ -42,4 +42,9 @@
     return self.candy.uploading == nil;
 }
 
+- (void)touch {
+    [self.candy touch];
+    [super touch];
+}
+
 @end

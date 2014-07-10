@@ -124,18 +124,27 @@
 }
 
 - (void)sort:(WLCandy*)candy {
-    for (WLGroup* group in self.set) {
-        if ([group.candies containsObject:candy]) {
-            if ([group.date isSameDay:candy.updatedAt]) {
-                [group sort];
-            } else {
-                [group.candies removeObject:candy];
-                [self addCandy:candy];
-                [self sort];
-                break;
-            }
-        }
+    BOOL created = NO;
+    WLGroup* group = [self group:candy.updatedAt created:&created];
+    if (!created && [group.candies containsObject:candy]) {
+        [group sort];
+        return;
     }
+    __weak typeof(self)weakSelf = self;
+    [self.set removeObjectsWhileEnumerating:^BOOL(WLGroup* group) {
+        if ([group.candies containsObject:candy]) {
+            [group.candies removeObject:candy];
+            if (group.candies.nonempty) {
+                return NO;
+            }
+            [weakSelf.keyedGroups removeObjectForKey:group.name];
+            return YES;
+        }
+        return NO;
+    }];
+    [group addCandy:candy];
+    [group sort];
+    [self.delegate groupedSetGroupsChanged:self];
 }
 
 - (void)sort {

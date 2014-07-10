@@ -245,4 +245,8 @@ static NSString *WLEntryIdentifierKey = @"identifier";
     [[WLEntryManager manager] cacheEntry:self];
 }
 
+- (BOOL)valid {
+    return self.managedObjectContext != nil;
+}
+
 @end

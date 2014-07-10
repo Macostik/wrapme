@@ -40,7 +40,7 @@
 		NSString* identifier = [self.data stringForKey:@"wrap_uid"];
 		if (identifier.nonempty) {
 			WLWrap *wrap = [WLWrap entry:identifier];
-            if (wrap.managedObjectContext) {
+            if (wrap.valid) {
                 _wrap = wrap;
                 [wrap addCandy:self.candy];
             }
@@ -54,7 +54,7 @@
 		NSString* identifier = [self.data stringForKey:@"candy_uid"];
 		if (identifier.nonempty) {
 			WLCandy *candy = [WLCandy entry:identifier];
-            if (candy.managedObjectContext) {
+            if (candy.valid) {
                 [candy touch];
                 _candy = candy;
                 WLNotificationType type = self.type;
@@ -75,7 +75,7 @@
 		NSString* identifier = [self.data stringForKey:@"comment_uid"];
 		if (identifier.nonempty) {
             WLComment *comment = [WLComment entry:identifier];
-            if (comment.managedObjectContext) {
+            if (comment.valid) {
                 _comment = comment;
             }
 		}

@@ -49,6 +49,8 @@
 
 @interface WLEntry (WLEntryManager)
 
+@property (readonly, nonatomic) BOOL valid;
+
 + (NSEntityDescription*)entity;
 
 + (NSPredicate*)predicate;

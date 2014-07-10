@@ -59,15 +59,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    if (!self.wrap.valid) {
+        return;
+    }
+    
     self.groups = [[WLGroupedSet alloc] init];
     self.groups.delegate = self;
     
     self.loadingView = [WLLoadingView instance];
-	self.quickChatView.wrap = self.wrap;
-	[self refreshWrap];
-	self.refresher = [WLRefresher refresherWithScrollView:self.tableView target:self action:@selector(refreshWrap) colorScheme:WLRefresherColorSchemeOrange];
-	
-	[[WLWrapBroadcaster broadcaster] addReceiver:self];
+    self.quickChatView.wrap = self.wrap;
+    [self refreshWrap];
+    self.refresher = [WLRefresher refresherWithScrollView:self.tableView target:self action:@selector(refreshWrap) colorScheme:WLRefresherColorSchemeOrange];
+    
+    [[WLWrapBroadcaster broadcaster] addReceiver:self];
     [self.groups addCandies:self.wrap.candies];
 }
 
@@ -81,6 +85,15 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    
+    if (!self.wrap.valid) {
+        __weak typeof(self)weakSelf = self;
+        run_after(0.5f, ^{
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        });
+        return;
+    }
+    
     self.wrap.unread = @NO;
     NSArray* cells = [[self.tableView visibleCells] selectObjects:^BOOL(id item) {
         return [item isKindOfClass:[WLCandiesCell class]];

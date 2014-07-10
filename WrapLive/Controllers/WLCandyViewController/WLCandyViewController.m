@@ -310,7 +310,12 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
-	[self.navigationController popViewControllerAnimated:YES];
+    WLCandy* candy = self.candy;
+    if (candy.valid && candy.wrap.valid) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 - (IBAction)report:(UIButton *)sender {

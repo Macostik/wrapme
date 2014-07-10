@@ -108,9 +108,11 @@
 
 - (IBAction)select:(id)sender {
 	WLCandy* candy = self.item;
-	self.notifyBulb.hidden = YES;
-    candy.unread = @NO;
-    [self.delegate candyCell:self didSelectCandy:candy];
+    if (candy.valid) {
+        self.notifyBulb.hidden = YES;
+        candy.unread = @NO;
+        [self.delegate candyCell:self didSelectCandy:candy];
+    }
 }
 
 #pragma mark - WLWrapBroadcastReceiver

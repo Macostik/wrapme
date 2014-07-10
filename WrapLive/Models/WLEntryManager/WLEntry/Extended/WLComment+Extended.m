@@ -42,9 +42,9 @@
     return self.candy.uploading == nil;
 }
 
-- (void)touch {
-    [self.candy touch];
-    [super touch];
+- (void)touch:(NSDate *)date {
+    [self.candy touch:date];
+    [super touch:date];
 }
 
 @end

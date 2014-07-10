@@ -74,9 +74,13 @@
 }
 
 - (void)touch {
-    self.updatedAt = [NSDate date];
+    [self touch:[NSDate date]];
+}
+
+- (void)touch:(NSDate *)date {
+    self.updatedAt = date;
     if (self.createdAt == nil) {
-        self.createdAt = self.updatedAt;
+        self.createdAt = date;
     }
 }
 

@@ -45,8 +45,8 @@
     [self broadcastRemoving];
 }
 
-- (void)touch {
-    [super touch];
+- (void)touch:(NSDate *)date {
+    [super touch:date];
     [[WLUser currentUser] sortWraps];
 }
 

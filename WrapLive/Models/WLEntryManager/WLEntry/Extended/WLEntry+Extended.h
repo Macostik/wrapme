@@ -36,6 +36,8 @@
 
 - (void)touch;
 
+- (void)touch:(NSDate*)date;
+
 @end
 
 @interface NSOrderedSet (WLEntry)

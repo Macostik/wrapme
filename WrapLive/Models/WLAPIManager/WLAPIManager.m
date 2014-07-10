@@ -652,8 +652,9 @@ static BOOL signedIn = NO;
     [parameters trySetObject:@(comment.updatedAt.timestamp) forKey:@"contributed_at_in_epoch"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-        [comment.candy.wrap touch];
-        [comment update:[response.data dictionaryForKey:@"comment"]];
+        [comment API_setup:[response.data dictionaryForKey:@"comment"]];
+        [comment.candy touch:comment.createdAt];
+        [comment broadcastChange];
         [comment save];
 		return comment;
 	};

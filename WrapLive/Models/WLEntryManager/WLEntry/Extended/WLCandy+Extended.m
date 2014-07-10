@@ -46,9 +46,9 @@
     return self;
 }
 
-- (void)touch {
-    [super touch];
-    [self.wrap touch];
+- (void)touch:(NSDate *)date {
+    [super touch:date];
+    [self.wrap touch:date];
     [self.wrap sortCandies];
 }
 

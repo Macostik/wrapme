@@ -12,6 +12,7 @@
 @interface WLAssetCell()
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *acceptView;
 
 @end
 
@@ -23,6 +24,14 @@
 
 - (IBAction)select:(id)sender {
 	[self.delegate assetCell:self didSelectAsset:self.item];
+}
+
+- (void)setChecked:(BOOL)checked {
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    self.acceptView.hidden = !checked;
+    self.imageView.alpha = checked ? 0.5f : 1.0f;
+    [UIView commitAnimations];
 }
 
 @end

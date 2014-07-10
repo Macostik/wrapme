@@ -7,11 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WLBlocks.h"
+#import "WLCameraViewController.h"
 
 @class ALAsset;
 
 @interface WLAssetsGroupViewController : UIViewController
 
-@property (copy, nonatomic) void (^selectionBlock) (ALAsset* asset);
+@property (copy, nonatomic) WLArrayBlock selectionBlock;
+
+@property (nonatomic) WLCameraMode mode;
 
 @end

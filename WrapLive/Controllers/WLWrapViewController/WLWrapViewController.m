@@ -327,6 +327,17 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+    WLWrap* wrap = controller.wrap ? : self.wrap;
+    for (WLPicture* picture in pictures) {
+        [wrap uploadPicture:picture success:^(WLCandy *candy) {
+        } failure:^(NSError *error) {
+        }];
+    }
+    [self setFirstContributorViewHidden:YES animated:NO];
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self setFirstContributorViewHidden:YES animated:NO];
 	[self dismissViewControllerAnimated:YES completion:nil];

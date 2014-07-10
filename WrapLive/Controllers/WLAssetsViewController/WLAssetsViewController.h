@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WLBlocks.h"
+#import "WLCameraViewController.h"
 
 @class ALAssetsGroup;
 @class ALAsset;
@@ -17,6 +19,8 @@
 
 @property (strong, nonatomic) ALAssetsGroup* group;
 
-@property (copy, nonatomic) void (^selectionBlock) (ALAsset* asset);
+@property (copy, nonatomic) WLArrayBlock selectionBlock;
+
+@property (nonatomic) WLCameraMode mode;
 
 @end

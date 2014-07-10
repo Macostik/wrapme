@@ -19,6 +19,10 @@
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController*)controller;
 
+@optional
+
+- (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithPictures:(NSArray*)pictures;
+
 @end
 
 @interface WLStillPictureViewController : UIViewController

@@ -21,6 +21,8 @@
 #import "UIView+Shorthand.h"
 #import "WLImageFetcher.h"
 #import "UIView+AnimationHelper.h"
+#import "WLEntryManager.h"
+#import "AsynchronousOperation.h"
 
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate>
 
@@ -165,24 +167,70 @@
 
 - (void)cameraViewControllerDidSelectGallery:(WLCameraViewController *)controller {
 	WLAssetsGroupViewController* gallery = [[WLAssetsGroupViewController alloc] init];
+    gallery.mode = self.mode;
 	__weak typeof(self)weakSelf = self;
-	[gallery setSelectionBlock:^(ALAsset *asset) {
-        ALAssetRepresentation* representation = asset.defaultRepresentation;
-		UIImage* image = [UIImage imageWithCGImage:representation.fullResolutionImage scale:representation.scale orientation:(UIImageOrientation)representation.orientation];
-		weakSelf.view.userInteractionEnabled = NO;
-		[weakSelf cropImage:image completion:^(UIImage *croppedImage) {
-			[weakSelf editImage:croppedImage];
-			weakSelf.view.userInteractionEnabled = YES;
-		}];
+	[gallery setSelectionBlock:^(NSArray *assets) {
+        if ([assets count] == 1) {
+            [weakSelf handleAsset:[assets firstObject]];
+        } else {
+            [weakSelf handleAssets:assets];
+        }
 	}];
     [self setTranslucent:NO animated:YES];
 	[self.cameraNavigationController pushViewController:gallery animated:YES];
 }
 
+- (void)handleAsset:(ALAsset*)asset {
+    ALAssetRepresentation* representation = asset.defaultRepresentation;
+    UIImage* image = [UIImage imageWithCGImage:representation.fullResolutionImage scale:representation.scale orientation:(UIImageOrientation)representation.orientation];
+    self.view.userInteractionEnabled = NO;
+    __weak typeof(self)weakSelf = self;
+    [self cropImage:image completion:^(UIImage *croppedImage) {
+        [weakSelf editImage:croppedImage];
+        weakSelf.view.userInteractionEnabled = YES;
+    }];
+}
+
+- (void)handleAssets:(NSArray*)assets {
+    __weak typeof(self)weakSelf = self;
+    self.view.userInteractionEnabled = NO;
+    NSOperationQueue* preparingQueue = [[NSOperationQueue alloc] init];
+    preparingQueue.maxConcurrentOperationCount = 3;
+    NSMutableArray* pictures = [NSMutableArray array];
+    for (ALAsset* asset in assets) {
+        [preparingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+            ALAssetRepresentation* representation = asset.defaultRepresentation;
+            UIImage* image = [UIImage imageWithCGImage:representation.fullResolutionImage scale:representation.scale orientation:(UIImageOrientation)representation.orientation];
+            [weakSelf cropImage:image completion:^(UIImage *croppedImage) {
+                [WLWrap preparePicture:croppedImage completion:^(id object) {
+                    [pictures addObject:object];
+                    [operation finish:^{
+                        run_in_main_queue(^{
+                            weakSelf.view.userInteractionEnabled = YES;
+                            if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
+                                [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithPictures:pictures];
+                            }
+                        });
+                    }];
+                }];
+            }];
+        }];
+    }
+}
+
 #pragma mark - AFPhotoEditorControllerDelegate
 
 - (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
-	[self.delegate stillPictureViewController:self didFinishWithImage:image];
+    if (self.mode == WLCameraModeCandy) {
+        __weak typeof(self)weakSelf = self;
+        [WLWrap preparePicture:image completion:^(id object) {
+            if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
+                [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithPictures:@[object]];
+            }
+        }];
+    } else {
+        [self.delegate stillPictureViewController:self didFinishWithImage:image];
+    }
 }
 
 - (void)photoEditorCanceled:(AFPhotoEditorController *)editor {

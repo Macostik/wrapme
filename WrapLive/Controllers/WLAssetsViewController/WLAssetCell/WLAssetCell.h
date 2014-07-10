@@ -21,4 +21,6 @@
 
 @property (nonatomic, weak) id <WLAssetCellDelegate> delegate;
 
+@property (nonatomic) BOOL checked;
+
 @end

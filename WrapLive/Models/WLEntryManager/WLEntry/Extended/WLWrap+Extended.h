@@ -15,6 +15,8 @@ static NSUInteger WLWrapNameLimit = 190;
 
 + (instancetype)wrap;
 
++ (void)preparePicture:(UIImage *)image completion:(WLObjectBlock)completion;
+
 - (NSString*)contributorNames;
 
 - (void)addCandy:(WLCandy *)candy;
@@ -42,6 +44,8 @@ static NSUInteger WLWrapNameLimit = 190;
 - (NSOrderedSet*)recentCandies:(NSUInteger)maximumCount;
 
 - (void)uploadMessage:(NSString*)message success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
+
+- (void)uploadPicture:(WLPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 
 - (void)uploadImage:(UIImage *)image success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 

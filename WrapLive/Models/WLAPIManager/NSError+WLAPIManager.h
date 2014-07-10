@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, PGErrorCode) {
     kWLErrorCodeUnknown = 0,
 };
 
-static const BOOL detailedLog = NO;
+static const BOOL detailedLog = YES;
 
 static inline void WLLog(NSString* label, NSString* action, id object) {
 #if DEBUG

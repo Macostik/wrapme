@@ -29,12 +29,21 @@
                             <action selector="select:" destination="FMQ-LX-ypU" eventType="touchUpInside" id="I7S-nL-8E4"/>
                         </connections>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_accepted" id="li1-xy-rdd">
+                        <rect key="frame" x="50" y="50" width="28" height="28"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="acceptView" destination="li1-xy-rdd" id="mrQ-Rc-ngl"/>
                 <outlet property="imageView" destination="cqb-Xt-l9h" id="rfO-cp-LAS"/>
             </connections>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="ic_accepted" width="20" height="20"/>
+    </resources>
 </document>

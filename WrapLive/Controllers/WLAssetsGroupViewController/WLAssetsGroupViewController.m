@@ -85,6 +85,7 @@
 - (void)assetsGroupCell:(WLAssetsGroupCell *)cell didSelectGroup:(ALAssetsGroup *)group {
 	WLAssetsViewController* controller = [[WLAssetsViewController alloc] initWithGroup:group];
 	controller.selectionBlock = self.selectionBlock;
+    controller.mode = self.mode;
 	[self pushViewController:controller animated:YES];
 }
 

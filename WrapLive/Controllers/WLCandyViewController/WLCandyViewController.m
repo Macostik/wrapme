@@ -332,7 +332,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     [self.candy uploadComment:text success:^(WLComment *comment) {
         [weakSelf reloadComments];
     } failure:^(NSError *error) {
-        [error show];
     }];
     [self reloadComments];
     [weakSelf.tableView scrollToBottomAnimated:YES];

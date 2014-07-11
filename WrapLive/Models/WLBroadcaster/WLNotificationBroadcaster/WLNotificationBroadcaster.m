@@ -75,7 +75,7 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 }
 
 - (void)setupMessageSound {
-    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"triade" ofType:@"aif"];
+    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"interfacealertsound3" ofType:@"wav"];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)([NSURL fileURLWithPath: soundPath]), &soundID);
 }
 
@@ -137,7 +137,6 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 	__weak typeof(self)weakSelf = self;
     [notification fetch:^{
         [weakSelf broadcastNotification:notification];
-
         AudioServicesPlaySystemSound (soundID);
     }];
     self.date = [NSDate date];

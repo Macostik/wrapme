@@ -211,6 +211,19 @@
     [candy save];
 }
 
+- (void)uploadPictures:(NSArray *)pictures {
+    NSTimeInterval time = [pictures count]/2.0f;
+    __weak typeof(self)weakSelf = self;
+    for (WLPicture* picture in pictures) {
+        NSTimeInterval delay = time*((CGFloat)[pictures indexOfObject:picture]/(CGFloat)([pictures count] - 1));
+        run_after(delay, ^{
+            [weakSelf uploadPicture:picture success:^(WLCandy *candy) {
+            } failure:^(NSError *error) {
+            }];
+        });
+    }
+}
+
 - (void)uploadImage:(UIImage *)image success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [WLPicture picture:image completion:^(id object) {

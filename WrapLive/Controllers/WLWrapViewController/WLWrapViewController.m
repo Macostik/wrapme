@@ -329,11 +329,7 @@
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
     WLWrap* wrap = controller.wrap ? : self.wrap;
-    for (WLPicture* picture in pictures) {
-        [wrap uploadPicture:picture success:^(WLCandy *candy) {
-        } failure:^(NSError *error) {
-        }];
-    }
+    [wrap uploadPictures:pictures];
     [self setFirstContributorViewHidden:YES animated:NO];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }

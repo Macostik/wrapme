@@ -45,6 +45,8 @@ static NSUInteger WLWrapNameLimit = 190;
 
 - (void)uploadPicture:(WLPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 
+- (void)uploadPictures:(NSArray *)pictures;
+
 - (void)uploadImage:(UIImage *)image success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 
 @end

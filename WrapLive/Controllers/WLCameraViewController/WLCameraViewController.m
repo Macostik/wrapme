@@ -101,13 +101,6 @@
 	_previewLayer = previewLayer;
 }
 
-- (WLCameraMode)mode {
-	if (_mode == 0) {
-		_mode = WLCameraModeCandy;
-	}
-	return _mode;
-}
-
 - (CGSize)viewSize {
 	return self.cameraView.bounds.size;
 }

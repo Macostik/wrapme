@@ -10,9 +10,9 @@
 #import <AVFoundation/AVFoundation.h>
 
 typedef NS_ENUM(NSInteger, WLCameraMode) {
-	WLCameraModeCandy = 720,
-	WLCameraModeAvatar = 480,
-	WLCameraModeCover = 480
+	WLCameraModeCandy,
+	WLCameraModeAvatar,
+	WLCameraModeCover
 };
 
 @class WLCameraViewController;

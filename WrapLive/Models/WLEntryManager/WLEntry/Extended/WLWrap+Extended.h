@@ -15,8 +15,6 @@ static NSUInteger WLWrapNameLimit = 190;
 
 + (instancetype)wrap;
 
-+ (void)preparePicture:(UIImage *)image completion:(WLObjectBlock)completion;
-
 - (NSString*)contributorNames;
 
 - (void)addCandy:(WLCandy *)candy;

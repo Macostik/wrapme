@@ -104,20 +104,32 @@
 	self.cameraViewController.defaultPosition = defaultPosition;
 }
 
+- (CGFloat)imageWidthForCurrentMode {
+    WLCameraMode mode = self.mode;
+    if (mode == WLCameraModeCandy) {
+        return 720;
+    } else {
+        return 480;
+    }
+}
+
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
 	__weak typeof(self)weakSelf = self;
 	CGSize viewSize = self.cameraViewController.viewSize;
 	run_getting_object(^id{
-		UIImage *result = nil;
-		CGFloat width = weakSelf.mode;
-		result = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
-											 bounds:CGSizeMake(width, width)
-							   interpolationQuality:kCGInterpolationDefault];
+		CGFloat width = [weakSelf imageWidthForCurrentMode];
+        UIImage *result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(width, width)];
 		if (weakSelf.mode != WLCameraModeCandy) {
 			result = [result croppedImage:CGRectThatFitsSize(result.size, viewSize)];
 		}
 		return result;
 	}, completion);
+}
+
+- (void)cropAsset:(ALAsset*)asset completion:(void (^)(UIImage *croppedImage))completion {
+    ALAssetRepresentation* r = asset.defaultRepresentation;
+    UIImage* image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:(UIImageOrientation)r.orientation];
+    [self cropImage:image completion:completion];
 }
 
 - (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
@@ -181,11 +193,9 @@
 }
 
 - (void)handleAsset:(ALAsset*)asset {
-    ALAssetRepresentation* representation = asset.defaultRepresentation;
-    UIImage* image = [UIImage imageWithCGImage:representation.fullResolutionImage scale:representation.scale orientation:(UIImageOrientation)representation.orientation];
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
-    [self cropImage:image completion:^(UIImage *croppedImage) {
+    [self cropAsset:asset completion:^(UIImage *croppedImage) {
         [weakSelf editImage:croppedImage];
         weakSelf.view.userInteractionEnabled = YES;
     }];
@@ -194,15 +204,13 @@
 - (void)handleAssets:(NSArray*)assets {
     __weak typeof(self)weakSelf = self;
     self.view.userInteractionEnabled = NO;
-    NSOperationQueue* preparingQueue = [[NSOperationQueue alloc] init];
-    preparingQueue.maxConcurrentOperationCount = 3;
+    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
+    queue.maxConcurrentOperationCount = 3;
     NSMutableArray* pictures = [NSMutableArray array];
     for (ALAsset* asset in assets) {
-        [preparingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
-            ALAssetRepresentation* representation = asset.defaultRepresentation;
-            UIImage* image = [UIImage imageWithCGImage:representation.fullResolutionImage scale:representation.scale orientation:(UIImageOrientation)representation.orientation];
-            [weakSelf cropImage:image completion:^(UIImage *croppedImage) {
-                [WLWrap preparePicture:croppedImage completion:^(id object) {
+        [queue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+            [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
+                [WLPicture picture:croppedImage completion:^(id object) {
                     [pictures addObject:object];
                     [operation finish:^{
                         run_in_main_queue(^{
@@ -223,7 +231,7 @@
 - (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
     if (self.mode == WLCameraModeCandy) {
         __weak typeof(self)weakSelf = self;
-        [WLWrap preparePicture:image completion:^(id object) {
+        [WLPicture picture:image completion:^(id object) {
             if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
                 [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithPictures:@[object]];
             }

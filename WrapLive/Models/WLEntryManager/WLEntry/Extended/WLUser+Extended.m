@@ -81,12 +81,18 @@ static WLUser *currentUser = nil;
 }
 
 + (void)setCurrentUser:(WLUser*)user {
+    if (currentUser) {
+        if (![currentUser isEqualToEntry:user]) {
+            currentUser.current = @NO;
+        }
+    } else {
+        [[WLUser entries:^(NSFetchRequest *request) {
+            request.predicate = [NSPredicate predicateWithFormat:@"current == TRUE"];
+        }] all:^(WLUser* _user) {
+            _user.current = @NO;
+        }];
+    }
 	currentUser = user;
-	[[WLUser entries:^(NSFetchRequest *request) {
-		request.predicate = [NSPredicate predicateWithFormat:@"current == TRUE"];
-	}] all:^(WLUser* _user) {
-		_user.current = @NO;
-	}];
 	user.current = @YES;
 	[user save];
     if (user) {

@@ -414,6 +414,9 @@ static BOOL signedIn = NO;
 	[parameters trySetObject:wrap.name forKey:@"name"];
 	[parameters trySetObject:contributors forKey:@"user_uids"];
 	[parameters trySetObject:invitees forKey:@"invitees"];
+    if (creation) {
+        [parameters trySetObject:wrap.uploadIdentifier forKey:@"upload_uid"];
+    }
 	return parameters;
 }
 

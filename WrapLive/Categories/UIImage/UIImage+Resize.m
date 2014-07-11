@@ -108,6 +108,14 @@
     return [self resizedImage:newSize interpolationQuality:quality];
 }
 
+- (UIImage *)resizedImageWithContentModeScaleAspectFill:(CGSize)bounds {
+    return [self resizedImageWithContentMode:UIViewContentModeScaleAspectFill bounds:bounds interpolationQuality:kCGInterpolationDefault];
+}
+
+- (UIImage *)resizedImageWithContentModeScaleAspectFit:(CGSize)bounds {
+    return [self resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:bounds interpolationQuality:kCGInterpolationDefault];
+}
+
 #pragma mark -
 #pragma mark Private helper methods
 

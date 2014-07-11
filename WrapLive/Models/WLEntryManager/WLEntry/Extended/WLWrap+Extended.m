@@ -34,24 +34,6 @@
 	return [dictionary stringForKey:@"wrap_uid"];
 }
 
-+ (void)preparePicture:(UIImage *)image completion:(WLObjectBlock)completion {
-    if (!completion) {
-        return;
-    }
-    __weak WLImageCache *imageCache = [WLImageCache cache];
-	[imageCache setImage:image completion:^(NSString *identifier) {
-		WLPicture* picture = [[WLPicture alloc] init];
-		picture.large = [imageCache pathWithIdentifier:identifier];
-		[imageCache setImage:[image thumbnailImage:320] completion:^(NSString *identifier) {
-			picture.medium = [imageCache pathWithIdentifier:identifier];
-			[imageCache setImage:[image thumbnailImage:160] completion:^(NSString *identifier) {
-				picture.small = [imageCache pathWithIdentifier:identifier];
-                completion(picture);
-			}];
-		}];
-	}];
-}
-
 - (void)awakeFromInsert {
     [super awakeFromInsert];
     self.unread = @YES;
@@ -231,8 +213,8 @@
 
 - (void)uploadImage:(UIImage *)image success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
-    [[self class] preparePicture:image completion:^(WLPicture* picture) {
-        [weakSelf uploadPicture:picture success:success failure:failure];
+    [WLPicture picture:image completion:^(id object) {
+        [weakSelf uploadPicture:object success:success failure:failure];
     }];
 }
 

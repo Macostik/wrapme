@@ -91,20 +91,20 @@
 
 - (NSString *)contributorNamesWithCount:(NSInteger)numberOfUsers {
     if (self.contributors.nonempty) {
-        NSMutableString* contributorNames = [NSMutableString string];
-        BOOL moreUsers = self.contributors.count > numberOfUsers;
-        NSInteger count = moreUsers ? numberOfUsers : self.contributors.count;
-        for (NSInteger i = 0; i < count; i++) {
-            WLUser* contributor = self.contributors[i];
-            if (contributorNames.nonempty) {
-                [contributorNames appendString:@", "];
+        if (self.contributors.count == 1) {
+            return @"You";
+        }
+        NSMutableArray *contributorsArray = [NSMutableArray new];
+        for (WLUser *contributor in self.contributors) {
+            if (![contributor isCurrentUser]) {
+                [contributorsArray addObject:contributor.name];
             }
-            [contributorNames appendString:[contributor isCurrentUser] ? @"You" : contributor.name];
+            if (contributorsArray.count == numberOfUsers) {
+                break;
+            }
         }
-        if (moreUsers) {
-            [contributorNames appendString:@"..."];
-        }
-        return [contributorNames copy];
+        [contributorsArray addObject:(self.contributors.count > numberOfUsers) ? @"You ..." : @"You"];
+        return [contributorsArray componentsJoinedByString:@", "];
     }
     return nil;
 }

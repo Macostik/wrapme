@@ -21,22 +21,20 @@
 #import "NSString+Additions.h"
 #import "WLToast.h"
 #import "WLWelcomeViewController.h"
-#import "WLStillPictureViewController.h"
 #import "WLEntryManager.h"
 #import "UIButton+Additions.h"
 #import "WLProfileEditSession.h"
 
-@interface WLChangeProfileViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
+@interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver>
 
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
-@property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) WLUser * user;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
-@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-@property (weak, nonatomic) IBOutlet UIButton *doneButton;
-@property (strong, nonatomic) WLProfileEditSession *profileEditSession;
+
+@property (strong, nonatomic) WLProfileEditSession *editSession;
+
 
 @end
 
@@ -45,63 +43,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.user = [WLUser currentUser];
-    self.profileEditSession = [[WLProfileEditSession alloc] initWithEntry:self.user];
+    self.editSession = [[WLProfileEditSession alloc] initWithEntry:self.user];
 	self.nameTextField.text = self.user.name;
-	self.profileImageView.url = self.user.picture.large;
+	self.imageView.url = self.user.picture.large;
 	self.emailTextField.text = self.user.email;
+	self.stillPictureCameraPosition = AVCaptureDevicePositionFront;
+	self.stillPictureMode = WLCameraModeAvatar;
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
-}
-
-- (void)saveImage:(UIImage *)image {
-	__weak typeof(self)weakSelf = self;
-	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
-		weakSelf.profileEditSession.url = path;
-		[weakSelf isProfileChanged];
-	}];
-}
-
-- (BOOL)isProfileChanged {
-    BOOL changed = [self.profileEditSession hasChanges];
-    [self willShowDoneButton:changed];
-    return changed;
-}
-
-- (void)willShowDoneButton:(BOOL)showDone {
-	if (showDone) {
-		self.cancelButton.width = self.view.width/2 - 1;
-		self.doneButton.x = self.view.width/2;
-        [self validateDoneButton];
-	} else {
-		self.cancelButton.width = self.view.width;
-		self.doneButton.x = self.view.width;
-	}
-}
-
-- (void)updateIfNeeded:(void (^)(void))completion {
-	if ([self isProfileChanged]) {
-        
-		if ([self.profileEditSession.email isValidEmail]) {
-			self.view.userInteractionEnabled = NO;
-			[self.spinner startAnimating];
-			__weak typeof(self)weakSelf = self;
-            [self.profileEditSession apply:self.user];
-			[[WLAPIManager instance] updateMe:self.user success:^(id object) {
-				[weakSelf.spinner stopAnimating];
-				weakSelf.view.userInteractionEnabled = YES;
-				completion();
-			} failure:^(NSError *error) {
-                [weakSelf.profileEditSession reset:weakSelf.user];
-				[weakSelf.spinner stopAnimating];
-				weakSelf.view.userInteractionEnabled = YES;
-				[error show];
-			}];
-		} else {
-			[WLToast showWithMessage:@"Your email isn't correct."];
-		}
-		
-	} else {
-		completion();
-	}
 }
 
 - (void)validateDoneButton {
@@ -115,47 +63,12 @@
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)changeImage:(id)sender {
-	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
-		controller.delegate = self;
-		controller.defaultPosition = AVCaptureDevicePositionFront;
-		controller.mode = WLCameraModeAvatar;
-	}];
-	[self.navigationController presentViewController:cameraNavigation animated:YES completion:nil];
-}
-
-- (IBAction)goToMainScreen:(id)sender {
-	__weak typeof(self)weakSelf = self;
-	[self updateIfNeeded:^{
-		[weakSelf.navigationController popViewControllerAnimated:YES];
-	}];
-}
-
 - (IBAction)changeAccount:(id)sender {
 	[WLSession clear];
 	[WLWelcomeViewController instantiateAndMakeRootViewControllerAnimated:YES];
 }
 
-#pragma mark - WLStillPictureViewControllerDelegate
-
-- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
-	self.profileImageView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
-															  bounds:self.profileImageView.retinaSize
-												interpolationQuality:kCGInterpolationDefault];
-	[self saveImage:image];
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
 #pragma mark - UITextFieldDelegate
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[textField resignFirstResponder];
-	return YES;
-}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 	NSString* resultString = [textField.text stringByReplacingCharactersInRange:range withString:string];
@@ -163,12 +76,12 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-	if (textField == self.nameTextField && ![self.profileEditSession.name isEqualToString:self.nameTextField.text]) {
-        self.profileEditSession.name = self.nameTextField.text;
-	} else if (![self.profileEditSession.email isEqualToString:self.emailTextField.text]) {
-		self.profileEditSession.email = self.emailTextField.text;
+	if (textField == self.nameTextField && ![self.editSession.name isEqualToString:self.nameTextField.text]) {
+        self.editSession.name = self.nameTextField.text;
+	} else if (![self.editSession.email isEqualToString:self.emailTextField.text]) {
+		self.editSession.email = self.emailTextField.text;
 	}
-	[self isProfileChanged];
+	[self isAtObjectSessionChanged];
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver
@@ -190,6 +103,42 @@
 	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		weakSelf.mainView.transform = CGAffineTransformIdentity;
 	} completion:^(BOOL finished) {}];
+}
+
+#pragma mark override base method
+
+- (void)updateIfNeeded:(void (^)(void))completion {
+	if ([self isAtObjectSessionChanged]) {
+        
+		if ([self.editSession.email isValidEmail]) {
+			[super updateIfNeeded:completion];
+			__weak typeof(self)weakSelf = self;
+            [self.editSession apply:self.user];
+			[[WLAPIManager instance] updateMe:self.user success:^(id object) {
+				[self.spinner stopAnimating];
+				[weakSelf unlock];
+				completion();
+			} failure:^(NSError *error) {
+                [weakSelf.editSession reset:weakSelf.user];
+				[self.spinner stopAnimating];
+				[weakSelf unlock];
+				[error show];
+			}];
+		} else {
+			[WLToast showWithMessage:@"Your email isn't correct."];
+		}
+		
+	} else {
+		completion();
+	}
+}
+
+- (void)saveImage:(UIImage *)image {
+	__weak typeof(self)weakSelf = self;
+	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
+		weakSelf.editSession.url = path;
+		[weakSelf isAtObjectSessionChanged];
+	}];
 }
 
 @end

@@ -203,6 +203,7 @@
 		C5F3E6BD1947262A00B8422A /* WLNotificationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F3E6BB1947262A00B8422A /* WLNotificationBroadcaster.m */; };
 		C5F99B6F196BEB0C00A3FB19 /* WLMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */; };
 		C5FD0EE0194B4410004DAB1B /* NSOrderedSet+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FD0EDF194B4410004DAB1B /* NSOrderedSet+Additions.m */; };
+		CE1FEAC2196EB76700BF1B22 /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1FEAC1196EB76700BF1B22 /* WLEditViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -547,6 +548,8 @@
 		C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMenu.m; sourceTree = "<group>"; };
 		C5FD0EDE194B4410004DAB1B /* NSOrderedSet+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSOrderedSet+Additions.h"; path = "NSOrderedSet/NSOrderedSet+Additions.h"; sourceTree = "<group>"; };
 		C5FD0EDF194B4410004DAB1B /* NSOrderedSet+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSOrderedSet+Additions.m"; path = "NSOrderedSet/NSOrderedSet+Additions.m"; sourceTree = "<group>"; };
+		CE1FEAC0196EB76700BF1B22 /* WLEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEditViewController.h; sourceTree = "<group>"; };
+		CE1FEAC1196EB76700BF1B22 /* WLEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditViewController.m; sourceTree = "<group>"; };
 		F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -905,6 +908,7 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE1FEABF196EB73000BF1B22 /* WLEditViewController */,
 				ACDE2BA4193DFE85003702D4 /* WLInviteViewController */,
 				128156A81938A0BF00035F89 /* WLStillPictureViewController */,
 				12F3ED421934B183009C1DC3 /* WLAssetsGroupViewController */,
@@ -1868,6 +1872,15 @@
 			name = NSOrderedSet;
 			sourceTree = "<group>";
 		};
+		CE1FEABF196EB73000BF1B22 /* WLEditViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CE1FEAC0196EB76700BF1B22 /* WLEditViewController.h */,
+				CE1FEAC1196EB76700BF1B22 /* WLEditViewController.m */,
+			);
+			name = WLEditViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2069,6 +2082,7 @@
 				12E1104219066C2D007DB4AC /* WLSwipeViewController.m in Sources */,
 				12E0F04A1909069200463FEC /* UIScrollView+Additions.m in Sources */,
 				C50445B71951AA8F003C2251 /* WLContribution+Extended.m in Sources */,
+				CE1FEAC2196EB76700BF1B22 /* WLEditViewController.m in Sources */,
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */,
@@ -2272,7 +2286,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "63CBD9F5-383E-403F-90BB-0A285CE32C74";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2294,7 +2308,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "C548F358-49E8-4CBE-9E7B-8A7F61D01DDC";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

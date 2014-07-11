@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -425,7 +425,7 @@
                                                 </state>
                                                 <state key="highlighted" image="camera_darkGray"/>
                                                 <connections>
-                                                    <action selector="changeImage:" destination="7FG-gC-kPg" eventType="touchUpInside" id="gfh-JC-Gom"/>
+                                                    <segue destination="PLV-Iu-pRL" kind="modal" identifier="camera" id="3Yu-Mo-fdB"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -526,15 +526,15 @@
                         <outlet property="cancelButton" destination="Efj-27-0UK" id="f9c-Po-yLm"/>
                         <outlet property="doneButton" destination="GkU-w3-rTK" id="CSh-K5-pPH"/>
                         <outlet property="emailTextField" destination="82E-k4-0WJ" id="U5o-Rv-VFw"/>
+                        <outlet property="imageView" destination="AYn-Zt-xUG" id="RLi-hY-DCv"/>
                         <outlet property="mainView" destination="5U6-9C-YuK" id="18g-yQ-oUB"/>
                         <outlet property="nameTextField" destination="D1N-1e-psu" id="aFX-at-9U5"/>
-                        <outlet property="profileImageView" destination="AYn-Zt-xUG" id="Rhk-L2-OgO"/>
                         <outlet property="spinner" destination="8k3-gm-bYX" id="a3x-LE-KRb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j3e-xO-oCt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1383" y="-648"/>
+            <point key="canvasLocation" x="1913" y="-843"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="MbJ-3V-1SB">
@@ -848,19 +848,34 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                     <action selector="start:" destination="y2d-d2-UUm" eventType="touchUpInside" id="w2z-yo-f56"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="thl-9L-1YK">
+                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Dnc-Ox-Gw9">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" red="0.95294117647058818" green="0.45882352941176469" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="back:" destination="y2d-d2-UUm" eventType="touchUpInside" id="UPV-Xb-JC3"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="z8s-VD-dlr">
+                                <rect key="frame" x="320" y="524" width="160" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="disabled">
-                                    <color key="titleColor" red="0.57647061347961426" green="0.57647061347961426" blue="0.57254904508590698" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="done:" destination="y2d-d2-UUm" eventType="touchUpInside" id="KDD-oh-wmc"/>
+                                    <action selector="goToMainScreen:" destination="y2d-d2-UUm" eventType="touchUpInside" id="Tez-PB-iZw"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="0w1-Uc-Uox">
@@ -1091,10 +1106,11 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                     </view>
                     <navigationItem key="navigationItem" id="cXB-TA-phm"/>
                     <connections>
+                        <outlet property="cancelButton" destination="Dnc-Ox-Gw9" id="tep-oP-w5Q"/>
                         <outlet property="contributorsTableView" destination="0w1-Uc-Uox" id="qvF-a4-qfH"/>
                         <outlet property="coverButtonView" destination="8vo-FG-vTd" id="2pF-RI-u9h"/>
-                        <outlet property="coverView" destination="wHH-jF-BAZ" id="a4u-Fi-Zat"/>
-                        <outlet property="doneButton" destination="thl-9L-1YK" id="YAp-Sc-fl0"/>
+                        <outlet property="doneButton" destination="z8s-VD-dlr" id="PHG-TG-6Pf"/>
+                        <outlet property="imageView" destination="wHH-jF-BAZ" id="Rgd-CU-vVw"/>
                         <outlet property="nameBorderView" destination="P9C-9R-pqO" id="6g9-R5-ScR"/>
                         <outlet property="nameField" destination="iXN-AE-cui" id="8pz-go-uWd"/>
                         <outlet property="noContributorsView" destination="X4I-0X-nYZ" id="lyt-93-FUc"/>

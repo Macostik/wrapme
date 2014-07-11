@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLEditViewController.h"
 
-@interface WLChangeProfileViewController : UIViewController
+@interface WLChangeProfileViewController : WLEditViewController
 
 @end

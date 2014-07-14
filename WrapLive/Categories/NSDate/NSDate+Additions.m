@@ -75,7 +75,7 @@ static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
 }
 
 - (NSTimeInterval)timestamp {
-	return round([self timeIntervalSince1970]);
+	return [self timeIntervalSince1970];
 }
 
 - (NSString *)timeAgoString {

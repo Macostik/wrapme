@@ -416,6 +416,7 @@ static BOOL signedIn = NO;
 	[parameters trySetObject:invitees forKey:@"invitees"];
     if (creation) {
         [parameters trySetObject:wrap.uploadIdentifier forKey:@"upload_uid"];
+        [parameters trySetObject:@(wrap.updatedAt.timestamp) forKey:@"contributed_at_in_epoch"];
     }
 	return parameters;
 }

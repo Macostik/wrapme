@@ -13,6 +13,9 @@
 #import "WLEntryManager.h"
 #import "WLImageCache.h"
 #import "UIImage+Resize.h"
+#import "WLAPIManager.h"
+#import "WLAPIResponse.h"
+#import "WLInternetConnectionBroadcaster.h"
 
 @implementation WLWrap (Extended)
 
@@ -198,10 +201,20 @@
 }
 
 - (void)uploadMessage:(NSString *)message success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
-    WLCandy* candy = [WLCandy candyWithType:WLCandyTypeMessage wrap:self];
-    candy.message = message;
-    [[WLUploading uploading:candy] upload:success failure:failure];
-    [candy save];
+	
+	if (![WLInternetConnectionBroadcaster broadcaster].reachable) {
+		failure([NSError errorWithDescription:@"Internet connection is not reachable."]);
+		return;
+	}
+	
+	__weak WLCandy* candy = [WLCandy candyWithType:WLCandyTypeMessage wrap:self];
+	candy.message = message;
+	[candy add:success failure:^(NSError *error) {
+		[candy remove];
+	}];
+//	[[WLUploading uploading:candy] upload:success failure:failure];
+	[candy save];
+	
 }
 
 - (void)uploadPicture:(WLPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure {

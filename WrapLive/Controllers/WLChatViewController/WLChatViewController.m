@@ -211,6 +211,7 @@
         [weakSelf insertMessage:candy];
 		[weakSelf.collectionView scrollToTopAnimated:YES];
     } failure:^(NSError *error) {
+		[error show];
     }];
 }
 

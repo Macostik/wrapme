@@ -170,7 +170,7 @@
     [self.wrap uploadMessage:text success:^(WLCandy *candy) {
         
     } failure:^(NSError *error) {
-        
+        [error show];
     }];
 }
 

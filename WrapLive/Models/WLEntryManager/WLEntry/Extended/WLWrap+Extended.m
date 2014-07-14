@@ -91,20 +91,20 @@
 
 - (NSString *)contributorNamesWithCount:(NSInteger)numberOfUsers {
     if (self.contributors.nonempty) {
-        NSMutableString* contributorNames = [NSMutableString string];
-        BOOL moreUsers = self.contributors.count > numberOfUsers;
-        NSInteger count = moreUsers ? numberOfUsers : self.contributors.count;
-        for (NSInteger i = 0; i < count; i++) {
-            WLUser* contributor = self.contributors[i];
-            if (contributorNames.nonempty) {
-                [contributorNames appendString:@", "];
+        if (self.contributors.count == 1) {
+            return @"You";
+        }
+        NSMutableArray *contributorsArray = [NSMutableArray new];
+        for (WLUser *contributor in self.contributors) {
+            if (![contributor isCurrentUser]) {
+                [contributorsArray addObject:contributor.name];
             }
-            [contributorNames appendString:[contributor isCurrentUser] ? @"You" : contributor.name];
+            if (contributorsArray.count == numberOfUsers) {
+                break;
+            }
         }
-        if (moreUsers) {
-            [contributorNames appendString:@"..."];
-        }
-        return [contributorNames copy];
+        [contributorsArray addObject:(self.contributors.count > numberOfUsers) ? @"You ..." : @"You"];
+        return [contributorsArray componentsJoinedByString:@", "];
     }
     return nil;
 }
@@ -211,17 +211,18 @@
     [candy save];
 }
 
+- (void)uploadPicture:(WLPicture *)picture {
+    [self uploadPicture:picture success:^(WLCandy *candy) { } failure:^(NSError *error) { }];
+}
+
 - (void)uploadPictures:(NSArray *)pictures {
-    NSTimeInterval time = [pictures count]/2.0f;
+    NSUInteger count = [pictures count];
+    NSTimeInterval time = count/2.0f;
     __weak typeof(self)weakSelf = self;
-    for (WLPicture* picture in pictures) {
-        NSTimeInterval delay = time*((CGFloat)[pictures indexOfObject:picture]/(CGFloat)([pictures count] - 1));
-        run_after(delay, ^{
-            [weakSelf uploadPicture:picture success:^(WLCandy *candy) {
-            } failure:^(NSError *error) {
-            }];
-        });
-    }
+    [pictures enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSTimeInterval delay = time*((CGFloat)idx/(CGFloat)(count - 1));
+        [weakSelf performSelector:@selector(uploadPicture:) withObject:obj afterDelay:delay];
+    }];
 }
 
 - (void)uploadImage:(UIImage *)image success:(WLCandyBlock)success failure:(WLFailureBlock)failure {

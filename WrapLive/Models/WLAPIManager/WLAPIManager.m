@@ -24,7 +24,7 @@ static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
 static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
 static NSString* WLAPIProductionUrl = @"https://api.wraplive.com/api";
-#define WLAPIBaseUrl WLAPIQAUrl
+#define WLAPIBaseUrl WLAPIDevelopmentUrl
 
 static NSString* WLAPIVersion = @"2";
 

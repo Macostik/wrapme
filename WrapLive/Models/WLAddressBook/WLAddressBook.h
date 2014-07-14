@@ -30,21 +30,7 @@ static NSInteger WLMinPhoneLenth = 6;
 
 @property (strong, nonatomic) NSString *name;
 
-@property (strong, nonatomic) NSArray *phones;
-
-@end
-
-@interface WLPhone : NSObject
-
-@property (strong, nonatomic) NSString *number;
-
-@property (strong, nonatomic) NSString *name;
-
-@property (strong, nonatomic) WLUser *user;
-
-@property (strong, nonatomic) WLPicture *picture;
-
-- (BOOL)isEqualToPhone:(WLPhone*)phone;
+@property (strong, nonatomic) NSArray *persons;
 
 @end
 

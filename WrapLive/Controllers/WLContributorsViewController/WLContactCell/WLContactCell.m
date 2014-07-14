@@ -11,10 +11,11 @@
 #import "WLUser.h"
 #import "WLImageFetcher.h"
 #import "NSString+Additions.h"
-#import "WLPhoneCell.h"
+#import "WLPersonCell.h"
 #import "UIView+Shorthand.h"
+#import "WLPerson.h"
 
-@interface WLContactCell () <UITableViewDataSource, UITableViewDelegate, WLPhoneCellDelegate>
+@interface WLContactCell () <UITableViewDataSource, UITableViewDelegate, WLPersonCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *selectionView;
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
@@ -34,7 +35,7 @@
 
 + (instancetype)cellWithContact:(WLContact *)contact inTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
 	WLContactCell* cell = nil;
-	if ([contact.phones count] > 1) {
+	if ([contact.persons count] > 1) {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"WLMultipleContactCell" forIndexPath:indexPath];
 	} else {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"WLContactCell" forIndexPath:indexPath];
@@ -44,15 +45,15 @@
 }
 
 - (void)setupItemData:(WLContact*)contact {
-	WLPhone* phone = [contact.phones lastObject];
-    if (phone.user) {
+	WLPerson* person = [contact.persons lastObject];
+    if (person.user) {
         self.signUpView.hidden = NO;
-        self.avatarView.url = phone.user.picture.medium;
+        self.avatarView.url = person.user.picture.medium;
     } else {
         self.signUpView.hidden = YES;
         self.avatarView.url = nil;
-        if (phone.picture) {
-            self.avatarView.url = phone.picture.medium;
+        if (person.picture) {
+            self.avatarView.url = person.picture.medium;
         } else {
             self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
         }
@@ -62,7 +63,7 @@
 	if (self.tableView) {
 		[self.tableView reloadData];
 	} else {
-		self.checked = [self phoneSelected:phone];
+		self.checked = [self personSelected:person];
 	}
 }
 
@@ -80,16 +81,16 @@
 	[UIView commitAnimations];
 }
 
-- (BOOL)phoneSelected:(WLPhone*)phone {
-	return [self.delegate contactCell:self phoneSelected:phone];
+- (BOOL)personSelected:(WLPerson*)person {
+	return [self.delegate contactCell:self personSelected:person];
 }
 
 #pragma mark - Actions
 
 - (IBAction)select:(id)sender {
 	WLContact* contact = self.item;
-    WLPhone *phone = [contact.phones lastObject];
-	[self.delegate contactCell:self didSelectPhone:phone];
+    WLPerson *person = [contact.persons lastObject];
+	[self.delegate contactCell:self didSelectPerson:person];
 }
 
 - (IBAction)open:(id)sender {
@@ -101,21 +102,21 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	WLContact* contact = self.item;
-	return [contact.phones count];
+	return [contact.persons count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLPhoneCell* cell = [tableView dequeueReusableCellWithIdentifier:@"WLPhoneCell" forIndexPath:indexPath];
+	WLPersonCell* cell = [tableView dequeueReusableCellWithIdentifier:@"WLPersonCell" forIndexPath:indexPath];
 	WLContact* contact = self.item;
-	cell.item = contact.phones[indexPath.row];
-	cell.checked = [self phoneSelected:cell.item];
+	cell.item = contact.persons[indexPath.row];
+	cell.checked = [self personSelected:cell.item];
 	return cell;
 }
 
-#pragma mark - WLPhoneCellDelegate
+#pragma mark - WLPersonCellDelegate
 
-- (void)phoneCell:(WLPhoneCell *)cell didSelectPhone:(WLPhone *)phone {
-	[self.delegate contactCell:self didSelectPhone:phone];
+- (void)personCell:(WLPersonCell *)cell didSelectPerson:(WLPerson *)person {
+	[self.delegate contactCell:self didSelectPerson:person];
 }
 
 @end

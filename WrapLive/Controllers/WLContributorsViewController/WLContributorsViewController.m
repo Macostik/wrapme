@@ -15,6 +15,7 @@
 #import "UIColor+CustomColors.h"
 #import "WLInviteViewController.h"
 #import "WLEntryManager.h"
+#import "WLPerson.h"
 
 @interface WLContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate>
 
@@ -49,38 +50,38 @@
 	NSMutableArray* notSignedUp = [NSMutableArray array];
 	for (WLContact* contact in contacts) {
 		
-		NSMutableArray *phones = [contact.phones mutableCopy];
-        [phones removeObjectsWhileEnumerating:^BOOL(WLPhone *phone) {
-            if (phone.user) {
-                return [self.contributors containsObject:phone.user];
+		NSMutableArray *persons = [contact.persons mutableCopy];
+        [persons removeObjectsWhileEnumerating:^BOOL(WLPerson *person) {
+            if (person.user) {
+                return [self.contributors containsObject:person.user];
             }
-            return [self.invitees containsObject:phone byBlock:^BOOL(WLPhone* first, WLPhone* second) {
-                return [first isEqualToPhone:second];
+            return [self.invitees containsObject:person byBlock:^BOOL(WLPerson* first, WLPerson* second) {
+                return [first isEqualToPerson:second];
             }];
         }];
         
-        if (!phones.nonempty) {
+        if (!persons.nonempty) {
             continue;
-        } else if ([phones count] == 1) {
-			WLPhone* phone = [phones lastObject];
-            contact.phones = [phones copy];
-			if (phone.user) {
+        } else if ([persons count] == 1) {
+			WLPerson* person = [persons lastObject];
+            contact.persons = [persons copy];
+			if (person.user) {
 				[signedUp addObject:contact];
 			} else {
 				[notSignedUp addObject:contact];
 			}
 		} else {
-			[phones removeObjectsWhileEnumerating:^BOOL(WLPhone *phone) {
-				if (phone.user) {
+			[persons removeObjectsWhileEnumerating:^BOOL(WLPerson *person) {
+				if (person.user) {
 					WLContact* _contact = [[WLContact alloc] init];
-					_contact.phones = @[phone];
+					_contact.persons = @[person];
 					[signedUp addObject:_contact];
 					return YES;
 				}
 				return NO;
 			}];
-			if (phones.nonempty) {
-				contact.phones = [phones copy];
+			if (persons.nonempty) {
+				contact.persons = [persons copy];
 				[notSignedUp addObject:contact];
 			}
 		}
@@ -114,10 +115,10 @@
     [self.tableView reloadData];
 }
 
-- (WLPhone*)selectedPhone:(WLPhone*)phone {
-    for (WLPhone* _phone in self.selectedPhones) {
-        if ([_phone isEqualToPhone:phone]) {
-            return _phone;
+- (WLPerson*)selectedPerson:(WLPerson*)person {
+    for (WLPerson* _person in self.selectedPhones) {
+        if ([_person isEqualToPerson:person]) {
+            return _person;
         }
 	}
 	return nil;
@@ -130,14 +131,14 @@
 	__weak typeof(self)weakSelf = self;
 	[controller setPhoneNumberBlock:^(NSArray *contacts) {
         WLContact* contact = [contacts lastObject];
-        WLPhone* phone = [contact.phones lastObject];
+        WLPerson* person = [contact.persons lastObject];
 
-        [self.selectedPhones addObjectsFromArray:contact.phones];
+        [self.selectedPhones addObjectsFromArray:contact.persons];
         
         WLContact* existingContact = [weakSelf.contacts selectObject:^BOOL(WLContact* item) {
-            for (WLPhone* _phone in item.phones) {
-                if ([_phone isEqualToPhone:phone]) {
-                    phone.name = item.name;
+            for (WLPerson* _person in item.persons) {
+                if ([_person isEqualToPerson:person]) {
+                    person.name = item.name;
                     return YES;
                 }
             }
@@ -169,11 +170,11 @@
     
     NSMutableOrderedSet * contributors = [NSMutableOrderedSet orderedSetWithOrderedSet:self.contributors];
     NSMutableArray* invitees = [NSMutableArray arrayWithArray:self.invitees];
-    for (WLPhone* phone in self.selectedPhones) {
-        if (phone.user) {
-            [contributors addObject:phone.user];
+    for (WLPerson* person in self.selectedPhones) {
+        if (person.user) {
+            [contributors addObject:person.user];
         } else {
-            [invitees addObject:phone];
+            [invitees addObject:person];
         }
     }
     self.contactsBlock(contributors, [invitees copy]);
@@ -204,14 +205,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLContact* contact = self.contacts[indexPath.section];
     WLContactCell* cell = [WLContactCell cellWithContact:contact inTableView:tableView indexPath:indexPath];
-	cell.opened = ([contact.phones count] > 1 && [self.openedRows containsObject:contact]);
+	cell.opened = ([contact.persons count] > 1 && [self.openedRows containsObject:contact]);
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLContact* contact = self.contacts[indexPath.section];
-	if ([contact.phones count] > 1 && [self.openedRows containsObject:contact]) {
-		return 50 + [contact.phones count]*50;
+	if ([contact.persons count] > 1 && [self.openedRows containsObject:contact]) {
+		return 50 + [contact.persons count]*50;
 	}
 	return 50;
 }
@@ -231,17 +232,17 @@
 
 #pragma mark - WLContactCellDelegate
 
-- (BOOL)contactCell:(WLContactCell *)cell phoneSelected:(WLPhone *)phone {
-	return [self selectedPhone:phone] != nil;
+- (BOOL)contactCell:(WLContactCell *)cell personSelected:(WLPerson *)person {
+	return [self selectedPerson:person] != nil;
 }
 
-- (void)contactCell:(WLContactCell *)cell didSelectPhone:(WLPhone *)phone {
+- (void)contactCell:(WLContactCell *)cell didSelectPerson:(WLPerson *)person {
     
-    WLPhone* _phone = [self selectedPhone:phone];
-	if (_phone) {
-		[self.selectedPhones removeObject:_phone];
+    WLPerson* _person = [self selectedPerson:person];
+	if (_person) {
+		[self.selectedPhones removeObject:_person];
 	} else {
-		[self.selectedPhones addObject:phone];
+		[self.selectedPhones addObject:person];
 	}
 	
 	NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];

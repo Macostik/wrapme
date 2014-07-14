@@ -150,6 +150,8 @@
 		14B2429D195C4CEB00C5D208 /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
 		14B242A0195C4D3500C5D208 /* WLWrapEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429F195C4D3500C5D208 /* WLWrapEditSession.m */; };
 		14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
+		14F668641973DDAA008D5081 /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
+		14F668681974031C008D5081 /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668671974031C008D5081 /* WLPersonCell.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
@@ -187,7 +189,6 @@
 		C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5018F5271B00BDF038 /* WLChatViewController.m */; };
 		C5947E5518F52AE000BDF038 /* WLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5418F52AE000BDF038 /* WLMessageCell.m */; };
 		C59528EE191CD9A6001ECD7C /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59528ED191CD9A6001ECD7C /* WLContactCell.m */; };
-		C59528F2191CDA6A001ECD7C /* WLPhoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59528F1191CDA6A001ECD7C /* WLPhoneCell.m */; };
 		C59ACBE3193F238C002941C4 /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C59ACBE2193F238C002941C4 /* WLUserView.m */; };
 		C5A21E0F194AF54000F3A554 /* WLEntryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E08194AF54000F3A554 /* WLEntryManager.m */; };
 		C5A21E12194AFA7400F3A554 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E10194AFA7400F3A554 /* CoreData.xcdatamodeld */; };
@@ -446,6 +447,7 @@
 		14AE4FEF19700B5E002EEF3F /* interfacealertsound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = interfacealertsound.wav; path = Sounds/interfacealertsound.wav; sourceTree = "<group>"; };
 		14AE4FF019700B5E002EEF3F /* interfacealertsound3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = interfacealertsound3.wav; path = Sounds/interfacealertsound3.wav; sourceTree = "<group>"; };
 		14AE4FF119700B5E002EEF3F /* triade.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = triade.aif; path = Sounds/triade.aif; sourceTree = "<group>"; };
+		14AE4FF6197042AB002EEF3F /* WLContributor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributor.h; path = WLContributor/WLContributor.h; sourceTree = "<group>"; };
 		14B134DB1952FD1E004F86AC /* WLContributorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributorCell.h; path = WLCreateWrapViewController/WLContributorCell/WLContributorCell.h; sourceTree = "<group>"; };
 		14B134DC1952FD1E004F86AC /* WLContributorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorCell.m; path = WLCreateWrapViewController/WLContributorCell/WLContributorCell.m; sourceTree = "<group>"; };
 		14B134DF1952FEB2004F86AC /* WLInviteeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLInviteeCell.h; path = WLCreateWrapViewController/WLInviteeCell/WLInviteeCell.h; sourceTree = "<group>"; };
@@ -456,6 +458,10 @@
 		14B2429F195C4D3500C5D208 /* WLWrapEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapEditSession.m; path = WLEditSession/WLWrapEditSession/WLWrapEditSession.m; sourceTree = "<group>"; };
 		14B242A2195C4D9200C5D208 /* WLProfileEditSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLProfileEditSession.h; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.h; sourceTree = "<group>"; };
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
+		14F668621973DDAA008D5081 /* WLPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPerson.h; path = Person/WLPerson.h; sourceTree = "<group>"; };
+		14F668631973DDAA008D5081 /* WLPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPerson.m; path = Person/WLPerson.m; sourceTree = "<group>"; };
+		14F668661974031C008D5081 /* WLPersonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPersonCell.h; path = WLContributorsViewController/WLContactCell/WLPersonCell/WLPersonCell.h; sourceTree = "<group>"; };
+		14F668671974031C008D5081 /* WLPersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPersonCell.m; path = WLContributorsViewController/WLContactCell/WLPersonCell/WLPersonCell.m; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
@@ -517,8 +523,6 @@
 		C5947E5418F52AE000BDF038 /* WLMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLMessageCell.m; path = WLChatViewController/WLMessageCell/WLMessageCell.m; sourceTree = "<group>"; };
 		C59528EC191CD9A6001ECD7C /* WLContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContactCell.h; path = WLContributorsViewController/WLContactCell/WLContactCell.h; sourceTree = "<group>"; };
 		C59528ED191CD9A6001ECD7C /* WLContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContactCell.m; path = WLContributorsViewController/WLContactCell/WLContactCell.m; sourceTree = "<group>"; };
-		C59528F0191CDA6A001ECD7C /* WLPhoneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPhoneCell.h; path = WLContributorsViewController/WLContactCell/WLPhoneCell/WLPhoneCell.h; sourceTree = "<group>"; };
-		C59528F1191CDA6A001ECD7C /* WLPhoneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPhoneCell.m; path = WLContributorsViewController/WLContactCell/WLPhoneCell/WLPhoneCell.m; sourceTree = "<group>"; };
 		C59ACBE1193F238C002941C4 /* WLUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUserView.h; path = WLUserView/WLUserView.h; sourceTree = "<group>"; };
 		C59ACBE2193F238C002941C4 /* WLUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUserView.m; path = WLUserView/WLUserView.m; sourceTree = "<group>"; };
 		C5A21E07194AF54000F3A554 /* WLEntryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryManager.h; sourceTree = "<group>"; };
@@ -934,6 +938,8 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				14F668651973DDC6008D5081 /* WLPerson */,
+				14AE4FF519703A76002EEF3F /* WLContributor */,
 				C537F8211962BADF00600B42 /* WLGroupedSet */,
 				14B2429A195C4CBC00C5D208 /* WLEditSession */,
 				C5110B771952DE55008F236E /* AsynchronousOperation */,
@@ -1566,6 +1572,14 @@
 			name = Sounds;
 			sourceTree = "<group>";
 		};
+		14AE4FF519703A76002EEF3F /* WLContributor */ = {
+			isa = PBXGroup;
+			children = (
+				14AE4FF6197042AB002EEF3F /* WLContributor.h */,
+			);
+			name = WLContributor;
+			sourceTree = "<group>";
+		};
 		14B134DE1952FDE6004F86AC /* WLInviteeCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1602,6 +1616,15 @@
 				14B2429F195C4D3500C5D208 /* WLWrapEditSession.m */,
 			);
 			name = WLWrapEditSession;
+			sourceTree = "<group>";
+		};
+		14F668651973DDC6008D5081 /* WLPerson */ = {
+			isa = PBXGroup;
+			children = (
+				14F668621973DDAA008D5081 /* WLPerson.h */,
+				14F668631973DDAA008D5081 /* WLPerson.m */,
+			);
+			name = WLPerson;
 			sourceTree = "<group>";
 		};
 		AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */ = {
@@ -1775,20 +1798,20 @@
 		C59528EB191CD97F001ECD7C /* WLContactCell */ = {
 			isa = PBXGroup;
 			children = (
-				C59528EF191CDA53001ECD7C /* WLPhoneCell */,
+				C59528EF191CDA53001ECD7C /* WLPersonCell */,
 				C59528EC191CD9A6001ECD7C /* WLContactCell.h */,
 				C59528ED191CD9A6001ECD7C /* WLContactCell.m */,
 			);
 			name = WLContactCell;
 			sourceTree = "<group>";
 		};
-		C59528EF191CDA53001ECD7C /* WLPhoneCell */ = {
+		C59528EF191CDA53001ECD7C /* WLPersonCell */ = {
 			isa = PBXGroup;
 			children = (
-				C59528F0191CDA6A001ECD7C /* WLPhoneCell.h */,
-				C59528F1191CDA6A001ECD7C /* WLPhoneCell.m */,
+				14F668661974031C008D5081 /* WLPersonCell.h */,
+				14F668671974031C008D5081 /* WLPersonCell.m */,
 			);
-			name = WLPhoneCell;
+			name = WLPersonCell;
 			sourceTree = "<group>";
 		};
 		C59ACBE0193F2378002941C4 /* WLUserView */ = {
@@ -2056,7 +2079,6 @@
 				ACB029D3191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.m in Sources */,
 				12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */,
 				12E8FF2418E98B7100BF1B96 /* WLComposeContainer.m in Sources */,
-				C59528F2191CDA6A001ECD7C /* WLPhoneCell.m in Sources */,
 				ACDE2A0E192CB38B00CA0803 /* WLEmojiView.m in Sources */,
 				C5A21E6F194B0ED600F3A554 /* WLEntry.m in Sources */,
 				C5032EB31940CEE700753D07 /* UIView+AnimationHelper.m in Sources */,
@@ -2097,7 +2119,9 @@
 				14B242A0195C4D3500C5D208 /* WLWrapEditSession.m in Sources */,
 				C59ACBE3193F238C002941C4 /* WLUserView.m in Sources */,
 				C5A21E12194AFA7400F3A554 /* CoreData.xcdatamodeld in Sources */,
+				14F668681974031C008D5081 /* WLPersonCell.m in Sources */,
 				C5A21E63194B0ED500F3A554 /* WLComment.m in Sources */,
+				14F668641973DDAA008D5081 /* WLPerson.m in Sources */,
 				12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */,
 				12F3ED5E1934B183009C1DC3 /* WLAssetCell.m in Sources */,
 				121553E81907DD4A00A507F8 /* WLFlashModeControl.m in Sources */,

@@ -16,6 +16,7 @@
 #import <objc/runtime.h>
 #import "NSObject+AssociatedObjects.h"
 #import "WLEntry+Extended.h"
+#import "WLPerson.h"
 
 @interface WLContact ()
 
@@ -30,8 +31,8 @@
 	if (phones.nonempty) {
 		WLContact* contact = [WLContact new];
 		contact.name = WLAddressBookGetName(record);
-		contact.phones = phones;
-        [contact.phones makeObjectsPerformSelector:@selector(setName:) withObject:contact.name];
+		contact.persons = phones;
+        [contact.persons makeObjectsPerformSelector:@selector(setName:) withObject:contact.name];
 		if (ABPersonHasImageData(record)) {
 			NSString* identifier = [NSString stringWithFormat:@"addressbook_%d", ABRecordGetRecordID(record)];
 			WLStringBlock complete = ^(NSString* path) {
@@ -39,7 +40,7 @@
 				picture.large = path;
 				picture.medium = path;
 				picture.small = path;
-				[contact.phones makeObjectsPerformSelector:@selector(setPicture:) withObject:picture];
+				[contact.persons makeObjectsPerformSelector:@selector(setPicture:) withObject:picture];
 				completion(contact);
 			};
 			if ([[WLImageCache cache] containsObjectWithIdentifier:identifier]) {
@@ -61,25 +62,25 @@
 }
 
 static inline NSArray* WLAddressBookGetPhones(ABRecordRef record) {
-	NSMutableArray* wlphones = [NSMutableArray array];
+	NSMutableArray* wlpersons = [NSMutableArray array];
     ABMultiValueRef phones = ABRecordCopyValue(record,kABPersonPhoneProperty);
 	CFIndex count = ABMultiValueGetCount(phones);
 	for (CFIndex index = 0; index < count; ++index) {
-		WLPhone* phone = [[WLPhone alloc] init];
-		phone.number = phoneNumberClearing((__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, index));
-		if (phone.number.length >= WLMinPhoneLenth) {
+		WLPerson* person = [[WLPerson alloc] init];
+		person.phone = phoneNumberClearing((__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, index));
+		if (person.phone.length >= WLMinPhoneLenth) {
 			CFStringRef phoneLabel = ABMultiValueCopyLabelAtIndex(phones, index);
-			phone.number.label = (__bridge_transfer NSString*)ABAddressBookCopyLocalizedLabel(phoneLabel);
+			person.phone.label = (__bridge_transfer NSString*)ABAddressBookCopyLocalizedLabel(phoneLabel);
 			if (phoneLabel != NULL) {
 				CFRelease(phoneLabel);
 			}
-			[wlphones addObject:phone];
+			[wlpersons addObject:person];
 		}
     }
 	if (phones != NULL) {
 		CFRelease(phones);
 	}
-    return [wlphones copy];
+    return [wlpersons copy];
 }
 
 static inline NSString* WLAddressBookGetName(ABRecordRef record) {
@@ -94,28 +95,16 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 
 - (NSString *)name {
 	if (!_name.nonempty) {
-		_name = [[self.phones selectObject:^BOOL(WLPhone* phone) {
-			return phone.user.name.nonempty;
+		_name = [[self.persons selectObject:^BOOL(WLPerson* person) {
+			return person.user.name.nonempty;
 		}] name];
 	}
 	if (!_name.nonempty) {
-		_name = [[self.phones selectObject:^BOOL(WLPhone* phone) {
-			return phone.number.nonempty;
-		}] number];
+		_name = [[self.persons selectObject:^BOOL(WLPerson* person) {
+			return person.phone.nonempty;
+		}] phone];
 	}
 	return _name;
-}
-
-@end
-
-@implementation WLPhone
-
-- (BOOL)isEqualToPhone:(WLPhone *)phone {
-    if (self.user) {
-        return [self.user isEqualToEntry:phone.user];
-    } else {
-        return [self.number isEqualToString:phone.number];
-    }
 }
 
 @end

@@ -19,6 +19,7 @@
 #import "NSDate+Additions.h"
 #import "WLWelcomeViewController.h"
 #import "WLImageCache.h"
+#import "WLPerson.h"
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
@@ -289,8 +290,8 @@ static BOOL signedIn = NO;
 	NSMutableArray* phones = [NSMutableArray array];
 	
 	[contacts all:^(WLContact* contact) {
-		[contact.phones all:^(WLPhone* phone) {
-			[phones addObject:phone.number];
+		[contact.persons all:^(WLPerson* person) {
+			[phones addObject:person.phone];
 		}];
 	}];
 	
@@ -307,12 +308,12 @@ static BOOL signedIn = NO;
 - (NSArray*)contributorsFromResponse:(WLAPIResponse*)response contacts:(NSArray*)contacts {
 	NSArray* users = response.data[@"users"];
 	[contacts all:^(WLContact* contact) {
-		[contact.phones all:^(WLPhone* phone) {
+		[contact.persons all:^(WLPerson* person) {
 			for (NSDictionary* userData in users) {
-				if ([userData[@"address_book_number"] isEqualToString:phone.number]) {
-					NSString* label = phone.number.label;
+				if ([userData[@"address_book_number"] isEqualToString:person.phone]) {
+					NSString* label = person.phone.label;
                     WLUser * user = [WLUser API_entry:userData];
-                    phone.user = user;
+                    person.user = user;
 					if (user.name.nonempty) {
 						contact.name = user.name;
 					} else {
@@ -406,8 +407,8 @@ static BOOL signedIn = NO;
             [contributors addObject:contributor.identifier];
         }
 	}
-    for (WLPhone * phone in wrap.invitees) {
-        NSData* invitee = [NSJSONSerialization dataWithJSONObject:@{@"name":WLString(phone.name),@"phone_number":phone.number} options:0 error:NULL];
+    for (WLPerson * person in wrap.invitees) {
+        NSData* invitee = [NSJSONSerialization dataWithJSONObject:@{@"name":WLString(person.name),@"phone_number":person.phone} options:0 error:NULL];
         [invitees addObject:[[NSString alloc] initWithData:invitee encoding:NSUTF8StringEncoding]];
     }
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];

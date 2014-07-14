@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "WLEntry.h"
+#import "WLContributor.h"
 
 @class WLWrap, WLContribution;
 
-@interface WLUser : WLEntry
+@interface WLUser : WLEntry <WLContributor>
 
 @property (nonatomic, retain) NSNumber * current;
 @property (nonatomic, retain) NSString * name;

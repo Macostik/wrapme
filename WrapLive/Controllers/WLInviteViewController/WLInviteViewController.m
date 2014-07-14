@@ -13,6 +13,7 @@
 #import "NSString+Additions.h"
 #import "UIButton+Additions.h"
 #import "NSArray+Additions.h"
+#import "WLPerson.h"
 
 @interface WLInviteViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
@@ -49,10 +50,10 @@
 - (IBAction)addContact:(UIButton *)sender {
 	WLContact * contact = [WLContact new];
 	contact.name = self.userNameTextField.text;
-	WLPhone * phone = [WLPhone new];
-	phone.number = self.phoneNumberTextField.text;
-    phone.name = self.userNameTextField.text;
-	contact.phones = @[phone];
+	WLPerson * person = [WLPerson new];
+	person.phone = self.phoneNumberTextField.text;
+    person.name = self.userNameTextField.text;
+	contact.persons = @[person];
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
 	[[WLAPIManager instance] contributors:[NSArray arrayWithObject:contact] success:^(NSArray *array) {

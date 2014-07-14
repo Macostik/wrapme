@@ -30,6 +30,8 @@
 #import "WLInviteeCell.h"
 #import "WLWrapEditSession.h"
 #import "WLToast.h"
+#import "WLContributor.h"
+#import "WLPerson.h"
 
 @interface WLCreateWrapViewController () <UITableViewDataSource, UITableViewDelegate, WLContributorCellDelegate, WLInviteeCellDelegate>
 
@@ -44,6 +46,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (strong, nonatomic) WLWrapEditSession *editSession;
+
+@property (strong, nonatomic) NSMutableOrderedSet *existingContributors;
+@property (strong, nonatomic) NSMutableOrderedSet *addedContributors;
 
 @end
 
@@ -180,11 +185,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? [self.editSession.contributors count] : [self.editSession.invitees count];
+    return section == 1 ? [self.editSession.contributors count] : [self.editSession.invitees count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 1) {
         WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
         WLUser* contributor = self.editSession.contributors[indexPath.row];
         cell.item = contributor;
@@ -196,8 +201,8 @@
         return cell;
     } else {
         WLInviteeCell *cell = [tableView dequeueReusableCellWithIdentifier:[WLInviteeCell reuseIdentifier]];
-        WLPhone *phone = self.editSession.invitees[indexPath.row];
-        cell.item = phone;
+        WLPerson *person = self.editSession.invitees[indexPath.row];
+        cell.item = person;
         return cell;
     }
 }
@@ -232,8 +237,8 @@
 
 #pragma mark - WLInviteeCellDelegate
 
-- (void)inviteeCell:(WLInviteeCell *)cell didRemovePhone:(WLPhone *)phone {
-    self.editSession.invitees = (id)[self.editSession.invitees arrayByRemovingObject:phone];
+- (void)inviteeCell:(WLInviteeCell *)cell didRemovePerson:(WLPerson *)person {
+    self.editSession.invitees = (id)[self.editSession.invitees arrayByRemovingObject:person];
     [self refreshContributorsTableView];
 }
 

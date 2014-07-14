@@ -8,10 +8,10 @@
 
 #import "WLInviteeCell.h"
 #import "UIView+Shorthand.h"
-#import "WLAddressBook.h"
 #import "NSString+Additions.h"
 #import "WLImageFetcher.h"
 #import "WLPicture.h"
+#import "WLPerson.h"
 
 @interface WLInviteeCell ()
 
@@ -28,13 +28,13 @@
 	self.avatarView.circled = YES;
 }
 
-- (void)setupItemData:(WLPhone*)phone {
-	self.nameLabel.text = phone.name;
+- (void)setupItemData:(WLPerson*)person {
+	self.nameLabel.text = person.name;
 	if (self.nameLabel.text.empty) {
-		self.nameLabel.text = phone.number;
+		self.nameLabel.text = person.phone;
 	}
-	if (phone.picture.medium.nonempty) {
-		self.avatarView.url = phone.picture.medium;
+	if (person.picture.medium.nonempty) {
+		self.avatarView.url = person.picture.medium;
 	} else {
 		self.avatarView.url = nil;
 		self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
@@ -49,7 +49,7 @@
 #pragma mark - Actions
 
 - (IBAction)remove:(id)sender {
-	[self.delegate inviteeCell:self didRemovePhone:self.item];
+	[self.delegate inviteeCell:self didRemovePerson:self.item];
 }
 
 @end

@@ -27,7 +27,7 @@ static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
 static NSString* WLAPIProductionUrl = @"https://api.wraplive.com/api";
 #define WLAPIBaseUrl WLAPIDevelopmentUrl
 
-static NSString* WLAPIVersion = @"2";
+static NSString* WLAPIVersion = @"3";
 
 #define WLAcceptHeader [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", WLAPIVersion]
 
@@ -327,20 +327,23 @@ static BOOL signedIn = NO;
 	return contacts;
 }
 
-- (id)wraps:(NSInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)wraps:(void (^)(NSMutableDictionary* parameters))configure success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
 
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-	[parameters trySetObject:@(page) forKey:@"page"];
+    if (configure) {
+        configure(parameters);
+    }
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
 		NSOrderedSet* wraps = [WLWrap API_entries:[response.data arrayForKey:@"wraps"]];
-		if (page == 1 && wraps.nonempty) {
-			NSOrderedSet* candies = [WLCandy API_entries:[response.data arrayForKey:@"recent_candies"]];
-			if (candies.nonempty) {
-				WLWrap* wrap = [wraps firstObject];
-                [wrap addCandies:candies];
-				[wrap save];
-			}
+		if (wraps.nonempty) {
+            [[WLUser currentUser] addWraps:wraps];
+            id candies = [response.data arrayForKey:@"recent_candies"];
+            if (candies) {
+                WLWrap* wrap = [wraps firstObject];
+                [wrap addCandies:[WLCandy API_entries:candies relatedEntry:wrap]];
+            }
+            [[WLEntryManager manager] save];
 		}
 		return wraps;
 	};
@@ -349,6 +352,23 @@ static BOOL signedIn = NO;
 		  parameters:parameters
 			 success:[self successBlock:success withObject:objectBlock failure:failure]
 			 failure:[self failureBlock:failure]];
+}
+
+- (id)wraps:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self wraps:nil success:success failure:failure];
+}
+
+- (id)newerWraps:(WLWrap *)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self wraps:^(NSMutableDictionary *parameters) {
+        [parameters trySetObject:@(wrap.updatedAt.timestamp) forKey:@"offset_x_in_epoch"];
+    } success:success failure:failure];
+}
+
+- (id)olderWraps:(WLWrap *)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self wraps:^(NSMutableDictionary *parameters) {
+        [parameters trySetObject:@(wrap.updatedAt.timestamp) forKey:@"offset_x_in_epoch"];
+        [parameters trySetObject:@(wrap.updatedAt.timestamp) forKey:@"offset_y_in_epoch"];
+    } success:success failure:failure];
 }
 
 - (id)wrap:(WLWrap *)wrap success:(WLWrapBlock)success failure:(WLFailureBlock)failure {
@@ -513,22 +533,22 @@ static BOOL signedIn = NO;
 			  failure:[self failureBlock:failure]];
 }
 
-- (id)olderCandies:(WLWrap *)wrap referenceCandy:(WLCandy *)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)olderCandies:(WLCandy *)candy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
 
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:@(withinDay) forKey:@"same_day"];
-	[parameters trySetObject:@(referenceCandy.updatedAt.timestamp) forKey:@"offset_x_in_epoch"];
-    [parameters trySetObject:@(referenceCandy.updatedAt.timestamp) forKey:@"offset_y_in_epoch"];
+	[parameters trySetObject:@(candy.updatedAt.timestamp) forKey:@"offset_x_in_epoch"];
+    [parameters trySetObject:@(candy.updatedAt.timestamp) forKey:@"offset_y_in_epoch"];
     [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-        NSOrderedSet* candies = [WLCandy API_entries:response.data[@"candies"] relatedEntry:wrap];
-        [wrap addCandies:candies];
-        [wrap save];
+        NSOrderedSet* candies = [WLCandy API_entries:response.data[@"candies"] relatedEntry:candy.wrap];
+        [candy.wrap addCandies:candies];
+        [candy.wrap save];
 		return candies;
 	};
 	
-	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", candy.wrap.identifier];
 	
 	return [self GET:path
 		  parameters:parameters
@@ -536,24 +556,21 @@ static BOOL signedIn = NO;
 			 failure:[self failureBlock:failure]];
 }
 
-- (id)olderCandies:(WLWrap *)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    return [self olderCandies:wrap referenceCandy:[wrap.candies lastObject] withinDay:NO success:success failure:failure];
-}
-
-- (id)newerCandies:(WLWrap *)wrap referenceCandy:(WLCandy *)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)newerCandies:(WLCandy *)candy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:@(withinDay) forKey:@"same_day"];
-	[parameters trySetObject:@(referenceCandy.updatedAt.timestamp) forKey:@"offset_x_in_epoch"];
+	[parameters trySetObject:@(candy.updatedAt.timestamp) forKey:@"offset_x_in_epoch"];
     [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
-		NSOrderedSet* candies = [WLCandy API_entries:response.data[@"candies"] relatedEntry:wrap];
-        [wrap addCandies:candies];
+		NSOrderedSet* candies = [WLCandy API_entries:response.data[@"candies"] relatedEntry:candy.wrap];
+        [candy.wrap addCandies:candies];
+        [candy.wrap save];
 		return candies;
 	};
 	
-	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
+	NSString* path = [NSString stringWithFormat:@"wraps/%@/candies", candy.wrap.identifier];
 	
 	return [self GET:path
 		  parameters:parameters
@@ -561,11 +578,7 @@ static BOOL signedIn = NO;
 			 failure:[self failureBlock:failure]];
 }
 
-- (id)newerCandies:(WLWrap *)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    return [self newerCandies:wrap referenceCandy:[wrap.candies firstObject] withinDay:NO success:success failure:failure];
-}
-
-- (id)freshCandies:(WLWrap *)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)candies:(WLWrap *)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
     [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
@@ -594,7 +607,7 @@ static BOOL signedIn = NO;
 				failure:[self failureBlock:failure]];
 }
 
-- (id)messages:(WLWrap *)wrap page:(NSUInteger)page success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)messages:(WLWrap *)wrap page:(NSUInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
 	[parameters trySetObject:@(page) forKey:@"page"];
@@ -605,6 +618,7 @@ static BOOL signedIn = NO;
             [wrap addCandies:messages];
             [wrap broadcastChange];
         }
+        [wrap save];
 		return messages;
 	};
 	
@@ -719,6 +733,11 @@ static BOOL signedIn = NO;
     return nil;
 }
 
+- (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    success(self);
+    return nil;
+}
+
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     success(self);
     return nil;
@@ -727,6 +746,24 @@ static BOOL signedIn = NO;
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     success(self);
     return nil;
+}
+
+- (id)older:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    success(nil);
+    return nil;
+}
+
+- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self older:NO success:success failure:failure];
+}
+
+- (id)newer:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    success(nil);
+    return nil;
+}
+
+- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self newer:NO success:success failure:failure];
 }
 
 @end
@@ -768,27 +805,29 @@ static BOOL signedIn = NO;
 	return [[WLAPIManager instance] wrap:self page:page success:success failure:failure];
 }
 
-- (id)olderCandies:(WLCandy*)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    return [[WLAPIManager instance] olderCandies:self referenceCandy:referenceCandy withinDay:withinDay success:success failure:failure];
+- (id)older:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] olderWraps:self success:success failure:failure];
+}
+
+- (id)newer:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] newerWraps:self success:success failure:failure];
 }
 
 - (id)olderCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    return [self olderCandies:[self.candies lastObject] withinDay:NO success:success failure:failure];
-}
-
-- (id)newerCandies:(WLCandy*)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    return [[WLAPIManager instance] newerCandies:self referenceCandy:referenceCandy withinDay:withinDay success:success failure:failure];
+    WLCandy* candy = [self.candies lastObject];
+    return [candy older:success failure:failure];
 }
 
 - (id)newerCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    return [self newerCandies:[self.candies firstObject] withinDay:NO success:success failure:failure];
+    WLCandy* candy = [self.candies firstObject];
+    return [candy newer:success failure:failure];
 }
 
-- (id)freshCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    return [[WLAPIManager instance] freshCandies:self success:success failure:failure];
+- (id)candies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] candies:self success:success failure:failure];
 }
 
-- (id)messages:(NSUInteger)page success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)messages:(NSUInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
 	return [[WLAPIManager instance] messages:self page:page success:success failure:failure];
 }
 
@@ -826,12 +865,12 @@ static BOOL signedIn = NO;
 	return [[WLAPIManager instance] candy:self success:success failure:failure];
 }
 
-- (id)olderCandies:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    return [[WLAPIManager instance] olderCandies:self.wrap referenceCandy:self withinDay:withinDay success:success failure:failure];
+- (id)older:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] olderCandies:self withinDay:withinDay success:success failure:failure];
 }
 
-- (id)newerCandies:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    return [[WLAPIManager instance] newerCandies:self.wrap referenceCandy:self withinDay:withinDay success:success failure:failure];
+- (id)newer:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] newerCandies:self withinDay:withinDay success:success failure:failure];
 }
 
 @end

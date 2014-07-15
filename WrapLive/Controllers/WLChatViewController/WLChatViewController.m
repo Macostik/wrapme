@@ -23,7 +23,6 @@
 #import "WLCollectionViewFlowLayout.h"
 #import "UIScrollView+Additions.h"
 #import "WLKeyboardBroadcaster.h"
-#import "WLDataManager.h"
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
 #import "WLBlocks.h"
@@ -131,15 +130,15 @@
 
 - (void)refreshMessages {
 	__weak typeof(self)weakSelf = self;
-	[WLDataManager messages:self.wrap success:^(id object, BOOL stop) {
-		weakSelf.shouldAppendMoreMessages = ([object count] == WLAPIChatPageSize);
-		[weakSelf setMessages:object];
+    [self.wrap messages:1 success:^(NSOrderedSet *messages) {
+        weakSelf.shouldAppendMoreMessages = ([messages count] == WLAPIChatPageSize);
+		[weakSelf setMessages:messages];
 		[weakSelf.refresher endRefreshing];
-	} failure:^(NSError *error) {
-		weakSelf.shouldAppendMoreMessages = NO;
+    } failure:^(NSError *error) {
+        weakSelf.shouldAppendMoreMessages = NO;
 		[error showIgnoringNetworkError];
 		[weakSelf.refresher endRefreshing];
-	}];
+    }];
 }
 
 - (void)appendMessages {

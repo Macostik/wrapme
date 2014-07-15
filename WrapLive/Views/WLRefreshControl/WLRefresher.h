@@ -33,6 +33,4 @@ typedef NS_ENUM(NSUInteger, WLRefresherColorScheme) {
 
 - (void)endRefreshing;
 
-- (void)endRefreshingAfterDelay:(NSTimeInterval)delay;
-
 @end

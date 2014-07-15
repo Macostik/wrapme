@@ -28,7 +28,6 @@
 #import "WLWrapBroadcaster.h"
 #import "UILabel+Additions.h"
 #import "WLCreateWrapViewController.h"
-#import "WLDataManager.h"
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
 #import "WLToast.h"
@@ -40,12 +39,14 @@
 #import "WLNotification.h"
 #import "UIView+AnimationHelper.h"
 #import "AsynchronousOperation.h"
+#import "WLPaginatedSet.h"
+#import "WLAPIManager.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLNotificationReceiver, WLQuickChatViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
-@property (strong, nonatomic) NSOrderedSet* wraps;
+@property (strong, nonatomic) WLPaginatedSet* wraps;
 @property (strong, nonatomic) NSOrderedSet* candies;
 @property (nonatomic, strong) WLWrap* topWrap;
 @property (nonatomic) BOOL loading;
@@ -65,6 +66,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    if (!self.wraps) {
+        self.wraps = [[WLPaginatedSet alloc] init];
+    }
+    [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
     
     self.splash = [[WLLoadingView splash] showInView:self.view];
     
@@ -97,10 +103,12 @@
 		self.loading = NO;
 		[self fetchWraps:YES];
         if (wraps.nonempty) {
-            self.wraps = wraps;
+            [self.wraps resetEntries:wraps];
+            [self updateWraps];
         }
 	} else {
-        self.wraps = wraps;
+        [self.wraps resetEntries:wraps];
+        [self updateWraps];
     }
 }
 
@@ -109,7 +117,7 @@
 }
 
 - (UIViewController *)shakePresentedViewController {
-	return self.wraps.nonempty ? [self cameraViewController] : nil;
+	return self.wraps.entries.nonempty ? [self cameraViewController] : nil;
 }
 
 - (id)cameraViewController {
@@ -136,31 +144,57 @@
 	self.loading = YES;
     self.loadingView.error = NO;
 	__weak typeof(self)weakSelf = self;
-	[WLDataManager wraps:refresh success:^(NSOrderedSet* wraps, BOOL stop) {
-		weakSelf.wraps = wraps;
-		[weakSelf showLatestWrap];
-        if (stop) {
-            weakSelf.loadingView = nil;
-        }
-		[weakSelf.refresher endRefreshing];
-        weakSelf.loading = NO;
-	} failure:^(NSError *error) {
-        weakSelf.loadingView.error = YES;
-		weakSelf.loading = NO;
-		[weakSelf.refresher endRefreshing];
-		if (weakSelf.isOnTopOfNagvigation) {
-			[error showIgnoringNetworkError];
-		}
-		[weakSelf finishLoadingAnimation];
-	}];
+    if (!self.wraps.entries.nonempty) {
+        [[WLAPIManager instance] wraps:^(NSOrderedSet *orderedSet) {
+            [weakSelf.wraps resetEntries:orderedSet];
+            [weakSelf showLatestWrap];
+            [weakSelf updateWraps];
+            if ([orderedSet count] != 50) {
+                weakSelf.loadingView = nil;
+            }
+        } failure:^(NSError *error) {
+            if (weakSelf.isOnTopOfNagvigation) {
+                [error showIgnoringNetworkError];
+            }
+        }];
+    } else if (refresh) {
+        [self.wraps newer:^(NSOrderedSet *orderedSet) {
+            [weakSelf updateWraps];
+            [weakSelf.refresher endRefreshing];
+            weakSelf.loading = NO;
+        } failure:^(NSError *error) {
+            weakSelf.loadingView.error = YES;
+            weakSelf.loading = NO;
+            [weakSelf.refresher endRefreshing];
+            if (weakSelf.isOnTopOfNagvigation) {
+                [error showIgnoringNetworkError];
+            }
+            [weakSelf finishLoadingAnimation];
+        }];
+    } else {
+        [self.wraps older:^(NSOrderedSet *orderedSet) {
+            [weakSelf updateWraps];
+            if (weakSelf.wraps.completed) {
+                weakSelf.loadingView = nil;
+            }
+            weakSelf.loading = NO;
+        } failure:^(NSError *error) {
+            weakSelf.loadingView.error = YES;
+            weakSelf.loading = NO;
+            if (weakSelf.isOnTopOfNagvigation) {
+                [error showIgnoringNetworkError];
+            }
+            [weakSelf finishLoadingAnimation];
+        }];
+    }
 }
 
 - (void)showLatestWrap {
     WLUser * user = [WLUser currentUser];
     static BOOL firstWrapShown = NO;
-	if (!firstWrapShown && user.signInCount.integerValue == 1 && self.wraps.nonempty) {
+	if (!firstWrapShown && user.signInCount.integerValue == 1 && self.wraps.entries.nonempty) {
 		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-		wrapController.wrap = [self.wraps firstObject];
+		wrapController.wrap = [self.wraps.entries firstObject];
 		[self.navigationController pushViewController:wrapController animated:NO];
 	}
     firstWrapShown = YES;
@@ -178,18 +212,18 @@
 	}
 }
 
-- (void)setWraps:(NSOrderedSet *)wraps {
+- (void)setWraps:(WLPaginatedSet *)wraps {
 	_wraps = wraps;
 	[self updateWraps];
 }
 
 - (void)updateWraps {
 	
-	BOOL hasWraps = _wraps.nonempty;
+	BOOL hasWraps = _wraps.entries.nonempty;
 	
     self.quickChatView.hidden = !hasWraps;
     
-    self.topWrap = [self.wraps firstObject];
+    self.topWrap = [self.wraps.entries firstObject];
 	
 	self.tableView.hidden = !hasWraps;
 	self.noWrapsView.hidden = hasWraps;
@@ -250,16 +284,19 @@
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-	self.wraps = [[WLUser currentUser] sortedWraps];
+    [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
+    [self updateWraps];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
-	self.wraps = [[WLUser currentUser] sortedWraps];
+    [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
+    [self updateWraps];
 	self.tableView.contentOffset = CGPointZero;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-	self.wraps = [[WLUser currentUser] sortedWraps];
+    [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
+    [self updateWraps];
 }
 
 #pragma mark - WLNotificationReceiver
@@ -330,11 +367,11 @@
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [self.wraps count];
+	return [self.wraps.entries count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLWrap* wrap = [self.wraps tryObjectAtIndex:indexPath.row];
+	WLWrap* wrap = [self.wraps.entries tryObjectAtIndex:indexPath.row];
 	WLWrapCell* cell = nil;
 	if (indexPath.row == 0) {
 		static NSString* topWrapCellIdentifier = @"WLTopWrapCell";
@@ -358,14 +395,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.loading && self.loadingView != nil && (indexPath.row == [self.wraps count] - 1)) {
+	if (!self.loading && self.loadingView != nil && (indexPath.row == [self.wraps.entries count] - 1)) {
 		[self fetchWraps:NO];
 	}
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
 	if (self.refresher.refreshing) {
-		[self.refresher endRefreshingAfterDelay:0.0f];
+		[self.refresher endRefreshing];
 	}
 }
 

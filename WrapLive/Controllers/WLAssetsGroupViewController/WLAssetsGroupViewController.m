@@ -47,9 +47,9 @@
 }
 
 - (void)loadGroups {
+    __weak typeof(self)weakSelf = self;
 	dispatch_async(dispatch_get_main_queue(), ^{
-		[self.collectionView reloadData];
-		__weak typeof(self)weakSelf = self;
+		[weakSelf.collectionView reloadData];
 		[[ALAssetsLibrary library] groups:^(NSArray *groups) {
 			weakSelf.groups = groups;
 			[weakSelf.collectionView reloadData];

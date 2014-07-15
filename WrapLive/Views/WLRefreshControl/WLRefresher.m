@@ -207,6 +207,7 @@ static CGFloat WLRefresherContentSize = 88.0f;
 			self.scrollView.contentInset = insets;
 			[UIView commitAnimations];
 			[self sendActionsForControlEvents:UIControlEventValueChanged];
+            [self.scrollView setContentOffset:CGPointMake(-88, 0) animated:YES];
 		}
 	} else {
 		if (!_refreshing && offset.y <= -66) {
@@ -219,36 +220,26 @@ static CGFloat WLRefresherContentSize = 88.0f;
 			self.scrollView.contentInset = insets;
 			[UIView commitAnimations];
 			[self sendActionsForControlEvents:UIControlEventValueChanged];
+            [self.scrollView setContentOffset:CGPointMake(0, -88) animated:YES];
 		}
 	}
 }
 
 - (void)endRefreshing {
-	[self endRefreshingAfterDelay:0.5f];
+	[self performSelector:@selector(endRefreshingAfterDelay) withObject:nil afterDelay:0.2f];
 }
 
-- (void)endRefreshingAfterDelay:(NSTimeInterval)delay {
-	
-	__weak typeof(self)weakSelf = self;
-	
-	void (^block) (void) = ^{
-		_refreshing = NO;
-		[UIView beginAnimations:nil context:nil];
-		UIEdgeInsets insets = weakSelf.scrollView.contentInset;
-		insets.left = 0;
-		insets.top = 0;
-		weakSelf.scrollView.contentInset = insets;
-		[UIView commitAnimations];
-		[weakSelf.spinner stopAnimating];
-		[weakSelf setArrowViewRotated:NO animated:NO];
-		weakSelf.arrowView.hidden = NO;
-	};
-	
-	if (delay > 0) {
-		run_after(delay, block);
-	} else {
-		block();
-	}
+- (void)endRefreshingAfterDelay {
+	_refreshing = NO;
+    [UIView beginAnimations:nil context:nil];
+    UIEdgeInsets insets = self.scrollView.contentInset;
+    insets.left = 0;
+    insets.top = 0;
+    self.scrollView.contentInset = insets;
+    [UIView commitAnimations];
+    [self.spinner stopAnimating];
+    [self setArrowViewRotated:NO animated:NO];
+    self.arrowView.hidden = NO;
 }
 
 - (void)refresh {

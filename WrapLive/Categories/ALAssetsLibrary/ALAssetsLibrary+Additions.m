@@ -23,19 +23,34 @@
 	return _library;
 }
 
-- (void)groups:(void (^)(NSArray *groups))finish failure:(ALAssetsLibraryAccessFailureBlock)failure {
-	NSMutableArray *groups = [NSMutableArray array];
-	[[ALAssetsLibrary library] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock: ^(ALAssetsGroup *group, BOOL *stop) {
+- (void)enumerateGroups:(void (^)(ALAssetsGroup *))finish failure:(ALAssetsLibraryAccessFailureBlock)failure {
+    [[ALAssetsLibrary library] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock: ^(ALAssetsGroup *group, BOOL *stop) {
 	    if (group) {
 	        [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-	        if ([group numberOfAssets] > 0)
-				[groups addObject:group];
+	        if ([group numberOfAssets] > 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    finish(group);
+                });
+            }
+		} else {
+	        dispatch_async(dispatch_get_main_queue(), ^{
+	            finish(nil);
+			});
+		}
+	} failureBlock:failure];
+}
+
+- (void)groups:(void (^)(NSArray *groups))finish failure:(ALAssetsLibraryAccessFailureBlock)failure {
+	NSMutableArray *groups = [NSMutableArray array];
+    [self enumerateGroups:^(ALAssetsGroup *group) {
+        if (group) {
+	        [groups addObject:group];
 		} else {
 	        dispatch_async(dispatch_get_main_queue(), ^{
 	            finish([groups copy]);
 			});
 		}
-	} failureBlock:failure];
+    } failure:failure];
 }
 
 - (void)assets:(void (^)(NSArray *))finish failure:(ALAssetsLibraryAccessFailureBlock)failure {

@@ -78,6 +78,20 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     return _selectedAssets;
 }
 
+- (void)setAssets:(NSArray *)assets {
+    _assets = assets;
+    if (self.selectedAssets.nonempty) {
+        [self.selectedAssets setArray:[self.assets map:^id(ALAsset* asset) {
+            for (ALAsset* selectedAsset in self.selectedAssets) {
+                if ([selectedAsset isEqualToAsset:asset]) {
+                    return asset;
+                }
+            }
+            return nil;
+        }]];
+    }
+}
+
 - (void)assetsLibraryChanged:(NSNotification*)notifiection
 {
     __weak WLAssetsViewController* selfWeak = self;
@@ -150,8 +164,9 @@ static NSUInteger WLAssetsSelectionLimit = 10;
             } else if (self.selectedAssets.count < WLAssetsSelectionLimit) {
                 [self.selectedAssets addObject:asset];
             }
-            [self.collectionView reloadItemsAtIndexPaths:@[[self.collectionView indexPathForCell:cell]]];
             [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationBeginsFromCurrentState:YES];
+            [self.collectionView reloadItemsAtIndexPaths:@[[self.collectionView indexPathForCell:cell]]];
             self.doneButton.x = self.selectedAssets.nonempty ? self.view.width - self.doneButton.width : self.view.width;
             [UIView commitAnimations];
         } else if (self.selectionBlock) {

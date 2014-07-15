@@ -97,7 +97,11 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)wraps:(NSInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)wraps:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)olderWraps:(WLWrap*)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)newerWraps:(WLWrap*)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  Get detailed wrap data. page = 1
@@ -181,15 +185,11 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)olderCandies:(WLWrap*)wrap referenceCandy:(WLCandy*)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)olderCandies:(WLCandy*)candy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)olderCandies:(WLWrap*)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)newerCandies:(WLCandy*)candy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)newerCandies:(WLWrap*)wrap referenceCandy:(WLCandy*)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
-- (id)newerCandies:(WLWrap*)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
-- (id)freshCandies:(WLWrap*)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)candies:(WLWrap*)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 /*!
  *  (Login required) Return the chat messages in a wrap given a wrap UID. Messages are sorted in descending order. Pagination is also supported
@@ -199,7 +199,7 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)messages:(WLWrap*)wrap page:(NSUInteger)page success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+- (id)messages:(WLWrap*)wrap page:(NSUInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 - (id)latestMessage:(WLWrap*)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 
@@ -262,29 +262,33 @@ static NSInteger WLAPIChatPageSize = 50;
 
 - (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
+- (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+
+- (id)older:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)newer:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 @end
 
 @interface WLWrap (WLAPIManager)
 
-- (id)update:(WLWrapBlock)success failure:(WLFailureBlock)failure;
-
 - (id)fetch:(NSInteger)page success:(WLWrapBlock)success failure:(WLFailureBlock)failure;
-
-- (id)olderCandies:(WLCandy*)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 - (id)olderCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)newerCandies:(WLCandy*)referenceCandy withinDay:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
 - (id)newerCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)freshCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)candies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)messages:(NSUInteger)page success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+- (id)messages:(NSUInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 - (id)latestMessage:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 
@@ -293,10 +297,6 @@ static NSInteger WLAPIChatPageSize = 50;
 @end
 
 @interface WLCandy (WLAPIManager)
-
-- (id)olderCandies:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
-- (id)newerCandies:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 @end
 

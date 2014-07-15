@@ -26,7 +26,6 @@
 #import "WLImageViewController.h"
 #import "UIScrollView+Additions.h"
 #import "WLKeyboardBroadcaster.h"
-#import "WLDataManager.h"
 #import "NSDate+Additions.h"
 #import "WLWrapBroadcaster.h"
 #import "NSString+Additions.h"
@@ -111,7 +110,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     __weak typeof(self)weakSelf = self;
     if (canFetchNewer) {
         canFetchNewer = NO;
-        [self.candy newerCandies:NO success:^(NSOrderedSet *candies) {
+        [self.candy newer:NO success:^(NSOrderedSet *candies) {
             if (candies.nonempty) {
                 [weakSelf.candies unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
                     return [item isImage];
@@ -131,7 +130,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     __weak typeof(self)weakSelf = self;
     if (canFetchOlder) {
         canFetchOlder = NO;
-        [self.candy olderCandies:NO success:^(NSOrderedSet *candies) {
+        [self.candy older:NO success:^(NSOrderedSet *candies) {
             if (candies.nonempty) {
                 [weakSelf.candies unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
                     return [item isImage];
@@ -214,13 +213,13 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (void)refresh {
 	if (self.candy.uploaded) {
 		__weak typeof(self)weakSelf = self;
-		[WLDataManager candy:self.candy success:^(id object, BOOL stop) {
-			[weakSelf setupImage];
+        [self.candy fetch:^(id object) {
+            [weakSelf setupImage];
 			[weakSelf.refresher endRefreshing];
-		} failure:^(NSError *error) {
-			[error showIgnoringNetworkError];
+        } failure:^(NSError *error) {
+            [error showIgnoringNetworkError];
 			[weakSelf.refresher endRefreshing];
-		}];
+        }];
 	} else {
         [self.refresher endRefreshing];
     }

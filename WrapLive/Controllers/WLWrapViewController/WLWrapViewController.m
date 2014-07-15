@@ -26,7 +26,6 @@
 #import "WLLoadingView.h"
 #import "WLWrapBroadcaster.h"
 #import "UILabel+Additions.h"
-#import "WLDataManager.h"
 #import "WLToast.h"
 #import "WLStillPictureViewController.h"
 #import "WLQuickChatView.h"
@@ -111,18 +110,18 @@
 - (void)refreshWrap {
     self.loadingView.error = NO;
 	__weak typeof(self)weakSelf = self;
-	[WLDataManager wrap:self.wrap success:^(WLWrap* wrap, BOOL stop) {
-		[weakSelf reloadData];
+    [self.wrap fetch:^(WLWrap* wrap) {
+        [weakSelf reloadData];
         [weakSelf setFirstContributorViewHidden:wrap.candies.nonempty animated:YES];
 		[weakSelf.refresher endRefreshing];
-        if (stop) {
+        if (!wrap.candies.nonempty) {
             weakSelf.loadingView = nil;
         }
-	} failure:^(NSError *error) {
+    } failure:^(NSError *error) {
         weakSelf.loadingView.error = YES;
 		[error showIgnoringNetworkError];
 		[weakSelf.refresher endRefreshing];
-	}];
+    }];
 }
 
 - (void)reloadData {

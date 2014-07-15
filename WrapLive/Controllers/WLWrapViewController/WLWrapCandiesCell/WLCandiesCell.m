@@ -70,7 +70,7 @@
 	__weak typeof(self)weakSelf = self;
     WLGroup* group = self.item;
     WLCandy* candy = [[group candies] firstObject];
-    [candy newerCandies:YES success:^(NSOrderedSet *array) {
+    [candy newer:YES success:^(NSOrderedSet *array) {
         [group addCandies:array];
 		[weakSelf.refresher endRefreshing];
     } failure:^(NSError *error) {
@@ -87,7 +87,7 @@
 	__weak typeof(self)weakSelf = self;
     WLGroup* group = self.item;
     WLCandy* candy = [[group candies] lastObject];
-    [candy olderCandies:YES success:^(NSOrderedSet *array) {
+    [candy older:YES success:^(NSOrderedSet *array) {
         NSUInteger count = [group.candies count];
         [group addCandies:array];
         weakSelf.shouldAppendMoreCandies = ([group.candies count] > count);

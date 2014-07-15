@@ -15,6 +15,8 @@
 
 + (instancetype)library;
 
+- (void)enumerateGroups:(void(^)(ALAssetsGroup *group))finish failure:(ALAssetsLibraryAccessFailureBlock)failure;
+
 - (void)groups:(void(^)(NSArray *groups))finish failure:(ALAssetsLibraryAccessFailureBlock)failure;
 - (void)assets:(void(^)(NSArray *assets))finish failure:(ALAssetsLibraryAccessFailureBlock)failure;
 - (void)groups:(void(^)(NSArray *groups))groupsBlock assets:(void(^)(NSArray *assets))assetsBlock failure:(ALAssetsLibraryAccessFailureBlock)failure;

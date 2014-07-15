@@ -49,12 +49,11 @@
 
 @property (nonatomic) CGFloat keyboardHeight;
 
+@property (weak, nonatomic) id operation;
+
 @end
 
 @implementation WLChatViewController
-{
-	BOOL loading;
-}
 
 - (WLCollectionViewFlowLayout *)layout {
 	return (WLCollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
@@ -85,7 +84,7 @@
 		return [weakSelf.wrap messages];
 	}, ^(id object) {
 		[weakSelf setMessages:object];
-		[weakSelf refreshMessages];
+		[weakSelf loadMessages:nil];
 	});
 	
 	self.backSwipeGestureEnabled = YES;
@@ -130,32 +129,51 @@
 
 - (void)refreshMessages {
 	__weak typeof(self)weakSelf = self;
-    [self.wrap messages:1 success:^(NSOrderedSet *messages) {
+    WLGroup* group = [self.groups.set firstObject];
+    WLCandy* candy = [group.candies firstObject];
+    if (!candy) {
+        [self loadMessages:^{
+            [weakSelf.refresher endRefreshing];
+        }];
+        return;
+    }
+    self.operation = [self.wrap messagesNewer:candy.updatedAt success:^(NSOrderedSet *messages) {
         weakSelf.shouldAppendMoreMessages = ([messages count] == WLAPIChatPageSize);
-		[weakSelf setMessages:messages];
+		[weakSelf addMessages:messages];
 		[weakSelf.refresher endRefreshing];
     } failure:^(NSError *error) {
-        weakSelf.shouldAppendMoreMessages = NO;
 		[error showIgnoringNetworkError];
 		[weakSelf.refresher endRefreshing];
     }];
 }
 
+- (void)loadMessages:(WLBlock)completion {
+    __weak typeof(self)weakSelf = self;
+    self.operation = [self.wrap messages:^(NSOrderedSet *messages) {
+        weakSelf.shouldAppendMoreMessages = ([messages count] == WLAPIChatPageSize);
+		[weakSelf setMessages:messages];
+        if (completion) {
+            completion();
+        }
+    } failure:^(NSError *error) {
+		[error showIgnoringNetworkError];
+        if (completion) {
+            completion();
+        }
+    }];
+}
+
 - (void)appendMessages {
-	if (loading) {
-		return;
-	}
-	loading = YES;
+	if (self.operation) return;
 	__weak typeof(self)weakSelf = self;
-	NSUInteger page = floorf(self.groups.count / WLAPIChatPageSize) + 1;
-	[[WLAPIManager instance] messages:self.wrap page:page success:^(id object) {
+    WLGroup* group = [self.groups.set lastObject];
+    WLCandy* candy = [group.candies lastObject];
+	self.operation = [self.wrap messagesOlder:candy.updatedAt success:^(id object) {
 		weakSelf.shouldAppendMoreMessages = ([object count] == WLAPIChatPageSize);
 		[weakSelf addMessages:object];
-		loading = NO;
 	} failure:^(NSError *error) {
 		weakSelf.shouldAppendMoreMessages = NO;
 		[error showIgnoringNetworkError];
-		loading = NO;
 	}];
 }
 

@@ -607,10 +607,15 @@ static BOOL signedIn = NO;
 				failure:[self failureBlock:failure]];
 }
 
-- (id)messages:(WLWrap *)wrap page:(NSUInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)messages:(WLWrap *)wrap newer:(NSDate *)newer older:(NSDate *)older success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
 	
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-	[parameters trySetObject:@(page) forKey:@"page"];
+    if (newer) {
+        [parameters trySetObject:@(newer.timestamp) forKey:@"offset_x_in_epoch"];
+    } else if (older) {
+        [parameters trySetObject:@(older.timestamp) forKey:@"offset_x_in_epoch"];
+        [parameters trySetObject:@(older.timestamp) forKey:@"offset_y_in_epoch"];
+    }
 	
 	WLMapResponseBlock objectBlock = ^id(WLAPIResponse *response) {
         NSOrderedSet* messages = [WLCandy API_entries:response.data[@"chat_messages"] relatedEntry:wrap];
@@ -628,6 +633,18 @@ static BOOL signedIn = NO;
 		  parameters:parameters
 			 success:[self successBlock:success withObject:objectBlock failure:failure]
 			 failure:[self failureBlock:failure]];
+}
+
+- (id)messages:(WLWrap*)wrap newer:(NSDate*)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self messages:wrap newer:newer older:nil success:success failure:failure];
+}
+
+- (id)messages:(WLWrap*)wrap older:(NSDate*)older success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self messages:wrap newer:nil older:older success:success failure:failure];
+}
+
+- (id)messages:(WLWrap*)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self messages:wrap newer:nil success:success failure:failure];
 }
 
 - (id)latestMessage:(WLWrap *)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
@@ -836,8 +853,20 @@ static BOOL signedIn = NO;
     return [[WLAPIManager instance] candies:self success:success failure:failure];
 }
 
-- (id)messages:(NSUInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAPIManager instance] messages:self page:page success:success failure:failure];
+- (id)messages:(NSDate *)newer older:(NSDate *)older success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+	return [[WLAPIManager instance] messages:self newer:newer older:older success:success failure:failure];
+}
+
+- (id)messagesNewer:(NSDate *)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self messages:newer older:nil success:success failure:failure];
+}
+
+- (id)messagesOlder:(NSDate *)older success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self messages:nil older:older success:success failure:failure];
+}
+
+- (id)messages:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self messagesNewer:nil success:success failure:failure];
 }
 
 - (id)latestMessage:(WLCandyBlock)success failure:(WLFailureBlock)failure {

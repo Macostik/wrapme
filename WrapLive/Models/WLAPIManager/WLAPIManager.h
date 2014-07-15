@@ -199,7 +199,13 @@ static NSInteger WLAPIChatPageSize = 50;
  *  @param success block that will be invoked on success completion
  *  @param failure block that will be invoked on failure completion
  */
-- (id)messages:(WLWrap*)wrap page:(NSUInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)messages:(WLWrap*)wrap newer:(NSDate*)newer older:(NSDate*)older success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)messages:(WLWrap*)wrap newer:(NSDate*)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)messages:(WLWrap*)wrap older:(NSDate*)older success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)messages:(WLWrap*)wrap success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 - (id)latestMessage:(WLWrap*)wrap success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 
@@ -290,7 +296,13 @@ static NSInteger WLAPIChatPageSize = 50;
 
 - (id)candies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)messages:(NSUInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)messages:(NSDate*)newer older:(NSDate*)older success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)messagesNewer:(NSDate*)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)messagesOlder:(NSDate*)older success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)messages:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 - (id)latestMessage:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 

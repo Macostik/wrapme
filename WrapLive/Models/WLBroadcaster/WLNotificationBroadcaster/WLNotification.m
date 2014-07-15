@@ -63,7 +63,7 @@
                 } else if (type == WLNotificationChatCandyAddition) {
                     candy.type = @(WLCandyTypeMessage);
                 }
-                [candy addComment:self.comment];
+//                [candy addComment:self.comment];
             }
 		}
 	}

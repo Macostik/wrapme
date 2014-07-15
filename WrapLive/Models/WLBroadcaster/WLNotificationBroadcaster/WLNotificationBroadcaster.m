@@ -131,15 +131,25 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 
 #pragma mark - PNDelegate
 
+static BOOL isPlayed = NO;
+
 - (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
 	NSLog(@"PubNub message received %@", message);
 	WLNotification* notification = [WLNotification notificationWithMessage:message];
 	__weak typeof(self)weakSelf = self;
     [notification fetch:^{
         [weakSelf broadcastNotification:notification];
-        AudioServicesPlaySystemSound (soundID);
+        if (!isPlayed) {
+            isPlayed = YES;
+            AudioServicesPlaySystemSound (soundID);
+            AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, completionCallback, NULL);
+        }
     }];
     self.date = [NSDate date];
+}
+
+static void completionCallback (SystemSoundID  mySSID, void *myself) {
+    isPlayed = NO;
 }
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {
@@ -157,11 +167,6 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 	if (deviceToken) {
 		[WLNotificationBroadcaster enablePushNotificationsInChannels:channels withDeviceToken:deviceToken];
 	}
-//    PNChannel* channel = [channels lastObject];
-//    PNDate* date = [PNDate dateWithDate:self.date];
-//    if (channel && date) {
-//        [PubNub requestHistoryForChannel:channel from:date];
-//    }
     self.date = [NSDate date];
 }
 

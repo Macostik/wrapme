@@ -728,6 +728,11 @@ static BOOL signedIn = NO;
 
 @implementation WLEntry (WLAPIManager)
 
++ (id)fresh:(id)relatedEntry success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    success(nil);
+    return nil;
+}
+
 - (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     success(self);
     return nil;
@@ -769,6 +774,10 @@ static BOOL signedIn = NO;
 @end
 
 @implementation WLWrap (WLAPIManager)
+
++ (id)fresh:(id)relatedEntry success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] wraps:success failure:failure];
+}
 
 - (id)add:(WLWrapBlock)success failure:(WLFailureBlock)failure {
 	return [[WLAPIManager instance] createWrap:self success:success failure:failure];
@@ -842,6 +851,10 @@ static BOOL signedIn = NO;
 @end
 
 @implementation WLCandy (WLAPIManager)
+
++ (id)fresh:(id)relatedEntry success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [[WLAPIManager instance] candies:relatedEntry success:success failure:failure];
+}
 
 - (id)add:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     return [[WLAPIManager instance] addCandy:self success:success failure:failure];

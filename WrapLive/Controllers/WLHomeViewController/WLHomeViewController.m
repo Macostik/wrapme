@@ -49,7 +49,6 @@
 @property (strong, nonatomic) WLPaginatedSet* wraps;
 @property (strong, nonatomic) NSOrderedSet* candies;
 @property (nonatomic, strong) WLWrap* topWrap;
-@property (nonatomic) BOOL loading;
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) WLLoadingView *splash;
@@ -58,6 +57,8 @@
 @property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
 @property (strong, nonatomic) WLLoadingView *loadingView;
 @property (strong, nonatomic) NSOperationQueue *loadingQueue;
+
+@property (weak, nonatomic) id operation;
 
 @end
 
@@ -68,7 +69,7 @@
     // Do any additional setup after loading the view.
     
     if (!self.wraps) {
-        self.wraps = [[WLPaginatedSet alloc] init];
+        self.wraps = [WLPaginatedSet setWithEntryClass:[WLWrap class]];
     }
     [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
     
@@ -100,7 +101,6 @@
 	self.avatarImageView.url = [WLUser currentUser].picture.small;
     NSOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
 	if (self.tableView.hidden) {
-		self.loading = NO;
 		[self fetchWraps:YES];
         if (wraps.nonempty) {
             [self.wraps resetEntries:wraps];
@@ -130,63 +130,74 @@
 }
 
 - (void)setupRefresh {
-	__weak typeof(self)weakSelf = self;
-	self.refresher = [WLRefresher refresherWithScrollView:self.tableView refreshBlock:^(WLRefresher *refresher) {
-		[weakSelf fetchWraps:YES];
-	}];
+	self.refresher = [WLRefresher refresherWithScrollView:self.tableView target:self action:@selector(refreshWraps)];
 	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
 }
 
 - (void)fetchWraps:(BOOL)refresh {
-	if (self.loading) {
-		return;
-	}
-	self.loading = YES;
-    self.loadingView.error = NO;
-	__weak typeof(self)weakSelf = self;
     if (!self.wraps.entries.nonempty) {
-        [[WLAPIManager instance] wraps:^(NSOrderedSet *orderedSet) {
-            [weakSelf.wraps resetEntries:orderedSet];
-            [weakSelf showLatestWrap];
-            [weakSelf updateWraps];
-            if ([orderedSet count] != 50) {
-                weakSelf.loadingView = nil;
-            }
-        } failure:^(NSError *error) {
-            if (weakSelf.isOnTopOfNagvigation) {
-                [error showIgnoringNetworkError];
-            }
-        }];
+        [self fetchFreshWraps];
     } else if (refresh) {
-        [self.wraps newer:^(NSOrderedSet *orderedSet) {
-            [weakSelf updateWraps];
-            [weakSelf.refresher endRefreshing];
-            weakSelf.loading = NO;
-        } failure:^(NSError *error) {
-            weakSelf.loadingView.error = YES;
-            weakSelf.loading = NO;
-            [weakSelf.refresher endRefreshing];
-            if (weakSelf.isOnTopOfNagvigation) {
-                [error showIgnoringNetworkError];
-            }
-            [weakSelf finishLoadingAnimation];
-        }];
+        [self refreshWraps];
     } else {
-        [self.wraps older:^(NSOrderedSet *orderedSet) {
-            [weakSelf updateWraps];
-            if (weakSelf.wraps.completed) {
-                weakSelf.loadingView = nil;
-            }
-            weakSelf.loading = NO;
-        } failure:^(NSError *error) {
-            weakSelf.loadingView.error = YES;
-            weakSelf.loading = NO;
-            if (weakSelf.isOnTopOfNagvigation) {
-                [error showIgnoringNetworkError];
-            }
-            [weakSelf finishLoadingAnimation];
-        }];
+        [self appendWraps];
     }
+}
+
+- (void)setOperation:(id)operation {
+    _operation = operation;
+    if (operation) {
+        self.loadingView.error = NO;
+    }
+}
+
+- (void)fetchFreshWraps {
+    if (self.operation) return;
+    __weak typeof(self)weakSelf = self;
+    self.operation = [self.wraps fresh:^(NSOrderedSet *orderedSet) {
+        [weakSelf showLatestWrap];
+        [weakSelf updateWraps];
+        if ([orderedSet count] != 50) {
+            weakSelf.loadingView = nil;
+        }
+    } failure:^(NSError *error) {
+        if (weakSelf.isOnTopOfNagvigation) {
+            [error showIgnoringNetworkError];
+        }
+    }];
+}
+
+- (void)refreshWraps {
+    if (self.operation) return;
+    __weak typeof(self)weakSelf = self;
+    self.operation = [self.wraps newer:^(NSOrderedSet *orderedSet) {
+        [weakSelf updateWraps];
+        [weakSelf.refresher endRefreshing];
+    } failure:^(NSError *error) {
+        weakSelf.loadingView.error = YES;
+        [weakSelf.refresher endRefreshing];
+        if (weakSelf.isOnTopOfNagvigation) {
+            [error showIgnoringNetworkError];
+        }
+        [weakSelf finishLoadingAnimation];
+    }];
+}
+
+- (void)appendWraps {
+    if (self.operation) return;
+    __weak typeof(self)weakSelf = self;
+    self.operation = [self.wraps older:^(NSOrderedSet *orderedSet) {
+        [weakSelf updateWraps];
+        if (weakSelf.wraps.completed) {
+            weakSelf.loadingView = nil;
+        }
+    } failure:^(NSError *error) {
+        weakSelf.loadingView.error = YES;
+        if (weakSelf.isOnTopOfNagvigation) {
+            [error showIgnoringNetworkError];
+        }
+        [weakSelf finishLoadingAnimation];
+    }];
 }
 
 - (void)showLatestWrap {
@@ -307,16 +318,17 @@
         return;
     }
     
+    __weak typeof(self)weakSelf = self;
     void (^showNotificationBlock)(void) = ^{
         WLWrap* wrap = notification.wrap;
 		if (notification.type == WLNotificationContributorAddition) {
-			[self.navigationController pushViewController:[WLWrapViewController instantiate:^(WLWrapViewController *controller) {
+			[weakSelf.navigationController pushViewController:[WLWrapViewController instantiate:^(WLWrapViewController *controller) {
 				controller.wrap = wrap;
 			}] animated:YES];
 		} else if (notification.type == WLNotificationImageCandyAddition || notification.type == WLNotificationChatCandyAddition || notification.type == WLNotificationCandyCommentAddition) {
             WLCandy* candy = notification.candy;
             [wrap addCandy:candy];
-			[self presentCandy:candy fromWrap:wrap];
+			[weakSelf presentCandy:candy fromWrap:wrap];
 		}
 	};
     
@@ -395,8 +407,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.loading && self.loadingView != nil && (indexPath.row == [self.wraps.entries count] - 1)) {
-		[self fetchWraps:NO];
+	if (self.loadingView != nil && (indexPath.row == [self.wraps.entries count] - 1)) {
+		[self appendWraps];
 	}
 }
 

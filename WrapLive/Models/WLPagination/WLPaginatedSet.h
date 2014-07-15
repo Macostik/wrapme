@@ -17,12 +17,24 @@
 
 @property (nonatomic) BOOL completed;
 
-+ (instancetype)setWithEntries:(NSOrderedSet*)entries;
+@property (strong, nonatomic) id relatedEntry;
+
+@property (strong, nonatomic) Class entryClass;
+
++ (instancetype)setWithEntries:(NSOrderedSet*)entries entryClass:(Class)entryClass;
+
++ (instancetype)setWithEntries:(NSOrderedSet*)entries entryClass:(Class)entryClass relatedEntry:(id)relatedEntry;
+
++ (instancetype)setWithEntryClass:(Class)entryClass;
+
++ (instancetype)setWithEntryClass:(Class)entryClass relatedEntry:(id)relatedEntry;
 
 - (void)resetEntries:(NSOrderedSet*)entries;
 
-- (void)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
-- (void)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 @end

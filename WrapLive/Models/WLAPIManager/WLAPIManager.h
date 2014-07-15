@@ -260,6 +260,8 @@ static NSInteger WLAPIChatPageSize = 50;
 
 @interface WLEntry (WLAPIManager)
 
++ (id)fresh:(id)relatedEntry success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
 - (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure;

@@ -12,10 +12,24 @@
 
 @implementation WLPaginatedSet
 
-+ (instancetype)setWithEntries:(NSOrderedSet *)entries {
++ (instancetype)setWithEntries:(NSOrderedSet *)entries entryClass:(__unsafe_unretained Class)entryClass relatedEntry:(id)relatedEntry {
     WLPaginatedSet* set = [[WLPaginatedSet alloc] init];
+    set.entryClass = entryClass;
+    set.relatedEntry = relatedEntry;
     [set resetEntries:entries];
     return set;
+}
+
++ (instancetype)setWithEntries:(NSOrderedSet *)entries entryClass:(Class)entryClass {
+    return [self setWithEntries:entries entryClass:entryClass relatedEntry:nil];
+}
+
++ (instancetype)setWithEntryClass:(Class)entryClass {
+    return [self setWithEntries:nil entryClass:entryClass relatedEntry:nil];
+}
+
++ (instancetype)setWithEntryClass:(Class)entryClass relatedEntry:(id)relatedEntry {
+    return [self setWithEntries:nil entryClass:entryClass relatedEntry:relatedEntry];
 }
 
 - (instancetype)init {
@@ -31,10 +45,10 @@
     [self.entries unionOrderedSet:entries];
 }
 
-- (void)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     WLEntry* entry = [self.entries firstObject];
     __weak typeof(self)weakSelf = self;
-    [entry newer:self.sameDay success:^(NSOrderedSet *orderedSet) {
+    return [entry newer:self.sameDay success:^(NSOrderedSet *orderedSet) {
         if (orderedSet.nonempty) {
             [weakSelf.entries unionOrderedSet:orderedSet];
             [weakSelf.entries sortEntries];
@@ -45,10 +59,25 @@
     } failure:failure];
 }
 
-- (void)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     WLEntry* entry = [self.entries lastObject];
     __weak typeof(self)weakSelf = self;
-    [entry older:self.sameDay success:^(NSOrderedSet *orderedSet) {
+    return [entry older:self.sameDay success:^(NSOrderedSet *orderedSet) {
+        if (orderedSet.nonempty) {
+            [weakSelf.entries unionOrderedSet:orderedSet];
+            [weakSelf.entries sortEntries];
+        } else {
+            weakSelf.completed = YES;
+        }
+        if(success) {
+            success(orderedSet);
+        }
+    } failure:failure];
+}
+
+- (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    __weak typeof(self)weakSelf = self;
+    return [self.entryClass fresh:self.relatedEntry success:^(NSOrderedSet *orderedSet) {
         if (orderedSet.nonempty) {
             [weakSelf.entries unionOrderedSet:orderedSet];
             [weakSelf.entries sortEntries];

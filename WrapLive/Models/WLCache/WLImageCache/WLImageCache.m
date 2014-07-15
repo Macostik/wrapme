@@ -107,7 +107,7 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 }
 
 - (void)setImage:(UIImage *)image completion:(void (^)(NSString *))completion {
-	[self setImage:image withIdentifier:GUID() completion:completion];
+	[self setImage:image withIdentifier:[GUID() stringByAppendingPathExtension:@"jpg"] completion:completion];
 }
 
 - (void)setImageAtPath:(NSString *)path withIdentifier:(NSString *)identifier {
@@ -134,7 +134,7 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 }
 
 - (void)setImageData:(NSData*)data completion:(void (^)(NSString* path))completion {
-	[self setImageData:data withIdentifier:GUID() completion:completion];
+	[self setImageData:data withIdentifier:[GUID() stringByAppendingPathExtension:@"jpg"] completion:completion];
 }
 
 @end

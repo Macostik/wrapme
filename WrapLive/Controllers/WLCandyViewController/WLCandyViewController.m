@@ -33,6 +33,7 @@
 #import "UIAlertView+Blocks.h"
 #import "MFMailComposeViewController+Additions.h"
 #import "UIActionSheet+Blocks.h"
+#import "WLGroupedSet.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
@@ -99,20 +100,30 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     return self.candies;
 }
 
-- (void)setCandy:(WLCandy *)candy  {
+- (void)setCandy:(WLCandy *)candy candies:(NSOrderedSet *)candies {
     [self setItems:nil currentItem:candy];
-    self.candies = [NSMutableOrderedSet orderedSetWithObject:candy];
+    if (candies.nonempty) {
+        [self.candies unionOrderedSet:candies];
+    } else {
+        [self.candies unionOrderedSet:[candy.wrap.candies selectObjects:^BOOL(WLCandy* item) {
+            return [item isImage] && [item.updatedAt isSameDay:candy.updatedAt];
+        }]];
+    }
     canFetchNewer = YES;
     canFetchOlder = YES;
     [self fetchNewer];
     [self fetchOlder];
 }
 
+- (void)setCandy:(WLCandy *)candy {
+    [self setCandy:candy candies:nil];
+}
+
 - (void)fetchNewer {
     __weak typeof(self)weakSelf = self;
-    if (canFetchNewer) {
+    if (canFetchNewer && [self.candies indexOfObject:self.candy] < 3) {
         canFetchNewer = NO;
-        [self.candy newer:NO success:^(NSOrderedSet *candies) {
+        [self.candy newer:YES success:^(NSOrderedSet *candies) {
             if (candies.nonempty) {
                 [weakSelf.candies unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
                     return [item isImage];
@@ -130,9 +141,9 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)fetchOlder {
     __weak typeof(self)weakSelf = self;
-    if (canFetchOlder) {
+    if (canFetchOlder && [self.candies indexOfObject:self.candy] > [self.candies count] - 3) {
         canFetchOlder = NO;
-        [self.candy older:NO success:^(NSOrderedSet *candies) {
+        [self.candy older:YES success:^(NSOrderedSet *candies) {
             if (candies.nonempty) {
                 [weakSelf.candies unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
                     return [item isImage];
@@ -155,17 +166,13 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (void)didSwipeLeft:(NSUInteger)currentIndex {
 	[super didSwipeLeft:currentIndex];
 	[self showContentIndicatorView:YES];
-    if ([self.candies lastObject] == self.candy) {
-		[self fetchOlder];
-	}
+    [self fetchOlder];
 }
 
 - (void)didSwipeRight:(NSUInteger)currentIndex {
 	[super didSwipeRight:currentIndex];
 	[self showContentIndicatorView:YES];
-    if ([self.candies firstObject] == self.candy) {
-		[self fetchNewer];
-	}
+    [self fetchNewer];
 }
 
 - (void)showContentIndicatorView:(BOOL)animated {

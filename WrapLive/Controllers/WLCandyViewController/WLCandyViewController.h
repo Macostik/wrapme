@@ -15,4 +15,6 @@
 
 @property (strong, nonatomic) WLCandy *candy;
 
+- (void)setCandy:(WLCandy *)candy candies:(NSOrderedSet*)candies;
+
 @end

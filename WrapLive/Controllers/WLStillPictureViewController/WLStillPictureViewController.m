@@ -231,10 +231,12 @@
 - (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
     if (self.mode == WLCameraModeCandy) {
         __weak typeof(self)weakSelf = self;
+        self.view.userInteractionEnabled = NO;
         [WLPicture picture:image completion:^(id object) {
             if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
                 [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithPictures:@[object]];
             }
+            weakSelf.view.userInteractionEnabled = YES;
         }];
     } else {
         [self.delegate stillPictureViewController:self didFinishWithImage:image];

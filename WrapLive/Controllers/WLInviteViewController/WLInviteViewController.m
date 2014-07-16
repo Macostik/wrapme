@@ -90,4 +90,13 @@
     return YES;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	NSString* resultString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (textField == self.userNameTextField) {
+        return resultString.length <= WLProfileNameLimit;
+    } else {
+        return resultString.length <= WLPhoneNumberLimit;
+    }
+}
+
 @end

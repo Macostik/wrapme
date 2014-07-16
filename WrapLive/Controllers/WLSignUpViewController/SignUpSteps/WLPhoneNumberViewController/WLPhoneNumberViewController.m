@@ -27,6 +27,7 @@
 #import "WLHomeViewController.h"
 #import "RMPhoneFormat.h"
 #import "WLKeyboardBroadcaster.h"
+#import "WLAuthorizationRequest.h"
 
 @interface WLPhoneNumberViewController () <UITextFieldDelegate, WLKeyboardBroadcastReceiver>
 

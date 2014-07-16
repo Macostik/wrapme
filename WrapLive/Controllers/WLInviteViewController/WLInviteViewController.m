@@ -14,6 +14,7 @@
 #import "UIButton+Additions.h"
 #import "NSArray+Additions.h"
 #import "WLPerson.h"
+#import "WLContributorsRequest.h"
 
 @interface WLInviteViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
@@ -56,8 +57,8 @@
 	contact.persons = @[person];
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] contributors:[NSArray arrayWithObject:contact] success:^(NSArray *array) {
-		for (WLContact * cont in array) {
+    [[WLContributorsRequest request:@[contact]] send:^(id object) {
+        for (WLContact * cont in object) {
 			[weakSelf.contacts addObject:cont];
 		}
 		if (weakSelf.phoneNumberBlock && weakSelf.contacts.nonempty) {
@@ -65,10 +66,10 @@
 		}
 		[weakSelf.spinner stopAnimating];
 		[weakSelf.navigationController popViewControllerAnimated:YES];
-	} failure:^(NSError *error) {
-		[weakSelf.spinner stopAnimating];
+    } failure:^(NSError *error) {
+        [weakSelf.spinner stopAnimating];
 		[error show];
-	}];
+    }];
 }
 
 - (void)validateAddUserButton {

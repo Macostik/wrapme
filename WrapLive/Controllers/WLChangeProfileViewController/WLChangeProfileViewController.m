@@ -24,6 +24,7 @@
 #import "WLEntryManager.h"
 #import "UIButton+Additions.h"
 #import "WLProfileEditSession.h"
+#import "WLUpdateUserRequest.h"
 
 @interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver>
 
@@ -114,16 +115,16 @@
 			[super updateIfNeeded:completion];
 			__weak typeof(self)weakSelf = self;
             [self.editSession apply:self.user];
-			[[WLAPIManager instance] updateMe:self.user success:^(id object) {
-				[self.spinner stopAnimating];
+            [[WLUpdateUserRequest request:self.user] send:^(id object) {
+                [weakSelf.spinner stopAnimating];
 				[weakSelf unlock];
 				completion();
-			} failure:^(NSError *error) {
+            } failure:^(NSError *error) {
                 [weakSelf.editSession reset:weakSelf.user];
-				[self.spinner stopAnimating];
+				[weakSelf.spinner stopAnimating];
 				[weakSelf unlock];
 				[error show];
-			}];
+            }];
 		} else {
 			[WLToast showWithMessage:@"Your email isn't correct."];
 		}

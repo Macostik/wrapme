@@ -16,6 +16,7 @@
 #import "WLInviteViewController.h"
 #import "WLEntryManager.h"
 #import "WLPerson.h"
+#import "WLContributorsRequest.h"
 
 @interface WLContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate>
 
@@ -36,13 +37,13 @@
     // Do any additional setup after loading the view.
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
-	[[WLAPIManager instance] contributors:^(NSArray* contacts) {
-		weakSelf.contacts = [weakSelf processContacts:contacts];
+    [[WLContributorsRequest request] send:^(id object) {
+        weakSelf.contacts = [weakSelf processContacts:object];
 		[weakSelf.spinner stopAnimating];
-	} failure:^(NSError *error) {
-		[weakSelf.spinner stopAnimating];
+    } failure:^(NSError *error) {
+        [weakSelf.spinner stopAnimating];
 		[error show];
-	}];
+    }];
 }
 
 - (NSArray*)processContacts:(NSArray*)contacts {

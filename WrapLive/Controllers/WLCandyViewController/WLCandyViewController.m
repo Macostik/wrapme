@@ -59,6 +59,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 @property (strong, nonatomic) NSOrderedSet* comments;
 
+@property (nonatomic) BOOL autoenqueueUploading;
+
 @end
 
 @implementation WLCandyViewController
@@ -265,11 +267,15 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
     [self setupImage];
-    for (WLComment* comment in candy.comments) {
-        if (!comment.uploaded) {
-            [WLUploading enqueueAutomaticUploading:^{
-            }];
-            break;
+    
+    if (self.autoenqueueUploading) {
+        self.autoenqueueUploading = NO;
+        for (WLComment* comment in candy.comments) {
+            if (!comment.uploaded) {
+                [WLUploading enqueueAutomaticUploading:^{
+                }];
+                break;
+            }
         }
     }
 }
@@ -327,6 +333,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (void)sendMessageWithText:(NSString*)text {
+    self.autoenqueueUploading = !self.candy.uploaded;
 	__weak typeof(self)weakSelf = self;
     [self.candy uploadComment:text success:^(WLComment *comment) {
         [weakSelf reloadComments];

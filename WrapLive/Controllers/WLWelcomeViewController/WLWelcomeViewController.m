@@ -18,6 +18,7 @@
 #import "UIFont+CustomFonts.h"
 #import "UIColor+CustomColors.h"
 #import "WLLoadingView.h"
+#import "WLAuthorizationRequest.h"
 
 @interface WLWelcomeViewController ()
 
@@ -39,21 +40,22 @@
     self.splash = splash;
 	
 	self.bottomView.hidden = YES;
-	if ([[WLAuthorization currentAuthorization] canAuthorize]) {
+    WLAuthorization* authorization = [WLAuthorization currentAuthorization];
+	if ([authorization canAuthorize]) {
 		__weak typeof(self)weakSelf = self;
-		[[WLAPIManager instance] signIn:[WLAuthorization currentAuthorization] success:^(WLUser* user) {
-			if (user.name.nonempty) {
+        [authorization signIn:^(WLUser *user) {
+            if (user.name.nonempty) {
 				[weakSelf presentHomeViewController];
 			} else {
 				[weakSelf continueSignUp];
 			}
-		} failure:^(NSError *error) {
-			if ([error isNetworkError]) {
+        } failure:^(NSError *error) {
+            if ([error isNetworkError]) {
 				[weakSelf presentHomeViewController];
 			} else {
 				[weakSelf showBottomView];
 			}
-		}];
+        }];
 	} else {
 		[self showBottomView];
 	}

@@ -12,6 +12,7 @@
 #import "WLWrapBroadcaster.h"
 #import "AsynchronousOperation.h"
 #import "WLAPIResponse.h"
+#import "WLAuthorizationRequest.h"
 
 @implementation WLUploading (Extended)
 
@@ -32,7 +33,7 @@
 }
 
 + (void)enqueueAutomaticUploading:(WLBlock)completion {
-    if (![WLAPIManager signedIn]) {
+    if (![WLAuthorizationRequest authorized]) {
         if (completion) {
             completion();
         }

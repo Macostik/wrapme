@@ -21,6 +21,7 @@
 #import "NSString+Additions.h"
 #import "WLStillPictureViewController.h"
 #import "WLEntryManager.h"
+#import "WLUpdateUserRequest.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
@@ -74,15 +75,15 @@
 		self.view.userInteractionEnabled = NO;
 		[self.spinner startAnimating];
 		__weak typeof(self)weakSelf = self;
-		[[WLAPIManager instance] updateMe:self.user success:^(id object) {
-			[weakSelf.spinner stopAnimating];
+        [[WLUpdateUserRequest request:self.user] send:^(id object) {
+            [weakSelf.spinner stopAnimating];
 			weakSelf.view.userInteractionEnabled = YES;
 			completion();
-		} failure:^(NSError *error) {
-			[weakSelf.spinner stopAnimating];
+        } failure:^(NSError *error) {
+            [weakSelf.spinner stopAnimating];
 			weakSelf.view.userInteractionEnabled = YES;
 			[error show];
-		}];
+        }];
 	} else {
 		completion();
 	}

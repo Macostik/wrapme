@@ -17,6 +17,7 @@
 #import "UIButton+Additions.h"
 #import "NSString+Additions.h"
 #import "WLAuthorization.h"
+#import "WLAuthorizationRequest.h"
 
 static NSInteger WLActivationCodeLimit = 4;
 
@@ -106,17 +107,16 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 	if (activationCode.nonempty) {
 		__weak typeof(self)weakSelf = self;
 		self.authorization.activationCode = activationCode;
-		self.progressBar.operation = [[WLAPIManager instance] activate:self.authorization
-															   success:^(id object) {
-			[weakSelf signIn:completion failure:failure];
-		} failure:failure];
+        self.progressBar.operation = [self.authorization activate:^(id object) {
+            [weakSelf signIn:completion failure:failure];
+        } failure:failure];
 	}
 }
 
 - (void)signIn:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
-	self.progressBar.operation = [[WLAPIManager instance] signIn:self.authorization success:^(WLUser* user) {
-		completion();
-	} failure:failure];
+    self.progressBar.operation = [self.authorization signIn:^(id object) {
+        completion();
+    } failure:failure];
 }
 
 - (IBAction)editNumber:(id)sender {

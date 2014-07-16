@@ -34,6 +34,7 @@
 #import "NSDate+Additions.h"
 #import "WLGroupedSet.h"
 #import "NSString+Additions.h"
+#import "WLWrapRequest.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate, WLQuickChatViewDelegate, WLGroupedSetDelegate>
 
@@ -142,14 +143,14 @@
 	__weak typeof(self)weakSelf = self;
     NSUInteger page = ((self.groups.set.count + 1)/WLAPIGeneralPageSize + 1);
     NSUInteger count = self.wrap.candies.count;
-    [[WLAPIManager instance] dates:self.wrap page:page success:^(WLWrap *wrap) {
-		[weakSelf.groups addCandies:wrap.candies];
+    [[WLWrapRequest request:self.wrap page:page] send:^(WLWrap* wrap) {
+        [weakSelf.groups addCandies:wrap.candies];
 		loading = NO;
         if (count == weakSelf.wrap.candies.count) {
             weakSelf.loadingView = nil;
         }
     } failure:^(NSError *error) {
-		[error showIgnoringNetworkError];
+        [error showIgnoringNetworkError];
 		loading = NO;
         weakSelf.loadingView.error = YES;
     }];

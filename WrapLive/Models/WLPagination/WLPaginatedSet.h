@@ -8,33 +8,22 @@
 
 #import <Foundation/Foundation.h>
 #import "WLBlocks.h"
+#import "WLPaginatedRequest.h"
 
 @interface WLPaginatedSet : NSObject
 
 @property (strong, nonatomic) NSMutableOrderedSet* entries;
 
-@property (nonatomic) BOOL sameDay;
-
 @property (nonatomic) BOOL completed;
 
-@property (strong, nonatomic) id relatedEntry;
+@property (strong, nonatomic) WLPaginatedRequest* request;
 
-@property (strong, nonatomic) Class entryClass;
++ (instancetype)setWithEntries:(NSOrderedSet*)entries request:(WLPaginatedRequest*)request;
 
-+ (instancetype)setWithEntries:(NSOrderedSet*)entries entryClass:(Class)entryClass;
-
-+ (instancetype)setWithEntries:(NSOrderedSet*)entries entryClass:(Class)entryClass relatedEntry:(id)relatedEntry;
-
-+ (instancetype)setWithEntryClass:(Class)entryClass;
-
-+ (instancetype)setWithEntryClass:(Class)entryClass relatedEntry:(id)relatedEntry;
++ (instancetype)setWithRequest:(WLPaginatedRequest*)request;
 
 - (void)resetEntries:(NSOrderedSet*)entries;
 
-- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
-- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
-- (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 @end

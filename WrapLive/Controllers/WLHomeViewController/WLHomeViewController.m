@@ -41,6 +41,7 @@
 #import "AsynchronousOperation.h"
 #import "WLPaginatedSet.h"
 #import "WLAPIManager.h"
+#import "WLWrapsRequest.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLNotificationReceiver, WLQuickChatViewDelegate>
 
@@ -69,7 +70,7 @@
     // Do any additional setup after loading the view.
     
     if (!self.wraps) {
-        self.wraps = [WLPaginatedSet setWithEntryClass:[WLWrap class]];
+        self.wraps = [WLPaginatedSet setWithRequest:[WLWrapsRequest new]];
     }
     [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
     
@@ -154,7 +155,8 @@
 - (void)fetchFreshWraps {
     if (self.operation) return;
     __weak typeof(self)weakSelf = self;
-    self.operation = [self.wraps fresh:^(NSOrderedSet *orderedSet) {
+    self.wraps.request.type = WLPaginatedRequestTypeFresh;
+    self.operation = [self.wraps send:^(NSOrderedSet *orderedSet) {
         [weakSelf showLatestWrap];
         [weakSelf updateWraps];
         if ([orderedSet count] != 50) {
@@ -170,7 +172,8 @@
 - (void)refreshWraps {
     if (self.operation) return;
     __weak typeof(self)weakSelf = self;
-    self.operation = [self.wraps newer:^(NSOrderedSet *orderedSet) {
+    self.wraps.request.type = WLPaginatedRequestTypeNewer;
+    self.operation = [self.wraps send:^(NSOrderedSet *orderedSet) {
         [weakSelf updateWraps];
         [weakSelf.refresher endRefreshing];
     } failure:^(NSError *error) {
@@ -186,7 +189,8 @@
 - (void)appendWraps {
     if (self.operation) return;
     __weak typeof(self)weakSelf = self;
-    self.operation = [self.wraps older:^(NSOrderedSet *orderedSet) {
+    self.wraps.request.type = WLPaginatedRequestTypeOlder;
+    self.operation = [self.wraps send:^(NSOrderedSet *orderedSet) {
         [weakSelf updateWraps];
         if (weakSelf.wraps.completed) {
             weakSelf.loadingView = nil;

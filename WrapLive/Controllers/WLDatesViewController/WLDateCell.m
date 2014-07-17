@@ -28,7 +28,7 @@
     }];
     self.pictureView.url = [candy isMessage] ? candy.contributor.picture.medium : candy.picture.medium;
     self.dayLabel.text = [group.date stringWithFormat:@"d"];
-    self.monthLabel.text = [group.date stringWithFormat:@"MM"];
+    self.monthLabel.text = [group.date stringWithFormat:@"MMM"];
 }
 
 - (IBAction)select:(id)sender {

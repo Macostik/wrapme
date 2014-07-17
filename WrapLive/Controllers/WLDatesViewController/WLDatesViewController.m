@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) NSMutableArray* sections;
 
 @end
 
@@ -23,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.sections = [NSMutableArray array];
     
     self.titleLabel.text = self.wrap.name;
     

@@ -28,6 +28,7 @@
 #import "WLBlocks.h"
 #import "WLWrapBroadcaster.h"
 #import "WLGroupedSet.h"
+#import "WLSignificantTimeBroadcaster.h"
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver>
 
@@ -91,6 +92,7 @@
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
+    [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -186,8 +188,11 @@
     }
 }
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentRemoved:(WLComment *)comment {
-    
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
+    if ([candy isMessage]) {
+        [self setMessages:[self.wrap messages]];
+        [self.collectionView reloadData];
+    }
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
@@ -212,6 +217,12 @@
 	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - self.keyboardHeight;
 	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
 	[self.collectionView reloadData];
+}
+
+#pragma mark - WlSignificantTimeBroadcasterReceiver
+
+- (void)broadcaster:(WLSignificantTimeBroadcaster *)broadcaster didChangeSignificantTime:(id)object {
+    [self setMessages:[self.wrap messages]];
 }
 
 #pragma mark - Actions

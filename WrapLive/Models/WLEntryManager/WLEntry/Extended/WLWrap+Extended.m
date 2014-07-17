@@ -211,6 +211,7 @@
 	candy.message = message;
 	[candy add:success failure:^(NSError *error) {
 		[candy remove];
+        failure(error);
 	}];
 //	[[WLUploading uploading:candy] upload:success failure:failure];
 	[candy save];

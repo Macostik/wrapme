@@ -19,14 +19,6 @@
     return instance;
 }
 
-- (void)addReceiver:(id)receiver {
-    [super addReceiver:receiver];
-}
-
-- (void)removeReceiver:(id)receiver {
-    [super removeReceiver:receiver];
-}
-
 - (void)setup {
     [super setup];
     static dispatch_once_t onceToken;

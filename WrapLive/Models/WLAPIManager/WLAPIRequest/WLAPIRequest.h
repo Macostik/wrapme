@@ -29,6 +29,8 @@
 
 @property (weak, nonatomic) AFHTTPRequestOperation *operation;
 
+@property (readonly, nonatomic) BOOL loading;
+
 + (instancetype)request;
 
 + (NSString*)defaultMethod;

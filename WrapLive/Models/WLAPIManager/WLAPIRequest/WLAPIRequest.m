@@ -118,4 +118,8 @@
     [self.operation cancel];
 }
 
+- (BOOL)loading {
+    return self.operation != nil;
+}
+
 @end

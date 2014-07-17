@@ -130,7 +130,7 @@
 - (void)refreshMessages {
 	__weak typeof(self)weakSelf = self;
     WLGroup* group = [self.groups.set firstObject];
-    WLCandy* candy = [group.candies firstObject];
+    WLCandy* candy = [group.entries firstObject];
     if (!candy) {
         [self loadMessages:^{
             [weakSelf.refresher endRefreshing];
@@ -167,7 +167,7 @@
 	if (self.operation) return;
 	__weak typeof(self)weakSelf = self;
     WLGroup* group = [self.groups.set lastObject];
-    WLCandy* candy = [group.candies lastObject];
+    WLCandy* candy = [group.entries lastObject];
 	self.operation = [self.wrap messagesOlder:candy.updatedAt success:^(id object) {
 		weakSelf.shouldAppendMoreMessages = ([object count] == WLAPIChatPageSize);
 		[weakSelf addMessages:object];
@@ -258,12 +258,12 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 	WLGroup* group = [self.groups.set tryObjectAtIndex:section];
-	return [group.candies count];
+	return [group.entries count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	WLGroup* group = [self.groups.set tryObjectAtIndex:indexPath.section];
-	WLCandy* message = [group.candies objectAtIndex:indexPath.row];
+	WLCandy* message = [group.entries objectAtIndex:indexPath.row];
     message.unread = @NO;
 	BOOL isMyComment = [message.contributor isCurrentUser];
 	NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
@@ -288,7 +288,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
 	WLGroup* group = [self.groups.set tryObjectAtIndex:indexPath.section];
-	WLCandy* message = [group.candies tryObjectAtIndex:indexPath.row];
+	WLCandy* message = [group.entries tryObjectAtIndex:indexPath.row];
 	return CGSizeMake(collectionView.frame.size.width, [self heightOfMessageCell:message]);
 }
 

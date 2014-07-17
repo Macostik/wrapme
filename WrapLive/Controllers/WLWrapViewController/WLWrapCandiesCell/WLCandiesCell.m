@@ -20,7 +20,7 @@
 #import "WLGroupedSet.h"
 #import "UIScrollView+Additions.h"
 
-@interface WLCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLCandyCellDelegate, WLGroupDelegate>
+@interface WLCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLCandyCellDelegate, WLPaginatedSetDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -32,9 +32,6 @@
 @end
 
 @implementation WLCandiesCell
-{
-	BOOL loading;
-}
 
 - (void)setShouldAppendMoreCandies:(BOOL)shouldAppendMoreCandies {
 	_shouldAppendMoreCandies = shouldAppendMoreCandies;
@@ -56,10 +53,10 @@
 - (void)setupItemData:(WLGroup*)group {
     group.delegate = self;
 	self.dateLabel.text = [group.name uppercaseString];
-	self.shouldAppendMoreCandies = [group.candies count] >= 10;
+	self.shouldAppendMoreCandies = [group.entries count] >= 10;
 	[self.collectionView reloadData];
     [self.collectionView trySetContentOffset:group.offset];
-	loading = NO;
+    [group.request cancel];
 }
 
 - (void)setRefreshable:(BOOL)refreshable {
@@ -69,9 +66,9 @@
 - (void)refreshCandies {
 	__weak typeof(self)weakSelf = self;
     WLGroup* group = self.item;
-    WLCandy* candy = [[group candies] firstObject];
-    [candy newer:YES success:^(NSOrderedSet *array) {
-        [group addCandies:array];
+    group.request.type = WLPaginatedRequestTypeNewer;
+    [group send:^(NSOrderedSet *array) {
+        [group addEntries:array];
 		[weakSelf.refresher endRefreshing];
     } failure:^(NSError *error) {
 		[error show];
@@ -80,29 +77,22 @@
 }
 
 - (void)appendCandies {
-	if (loading) {
-		return;
-	}
-	loading = YES;
-	__weak typeof(self)weakSelf = self;
     WLGroup* group = self.item;
-    WLCandy* candy = [[group candies] lastObject];
-    [candy older:YES success:^(NSOrderedSet *array) {
-        NSUInteger count = [group.candies count];
-        [group addCandies:array];
-        weakSelf.shouldAppendMoreCandies = ([group.candies count] > count);
+	if (group.request.loading) return;
+	__weak typeof(self)weakSelf = self;
+    group.request.type = WLPaginatedRequestTypeOlder;
+    [group send:^(NSOrderedSet *orderedSet) {
+        weakSelf.shouldAppendMoreCandies = !group.completed;
 		[weakSelf fixContentOffset];
-		loading = NO;
     } failure:^(NSError *error) {
         weakSelf.shouldAppendMoreCandies = NO;
 		[error show];
-		loading = NO;
     }];
 }
 
-#pragma mark - WLGroupDelegate
+#pragma mark - WLPaginatedSetDelegate
 
-- (void)groupsChanged:(WLGroup *)group {
+- (void)paginatedSetChanged:(WLPaginatedSet *)group {
     [self.collectionView reloadData];
 }
 
@@ -110,13 +100,13 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 	WLGroup* group = self.item;
-	return [group.candies count];
+	return [group.entries count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCandyCellIdentifier forIndexPath:indexPath];
 	WLGroup* group = self.item;
-	cell.item = [group.candies tryObjectAtIndex:indexPath.item];
+	cell.item = [group.entries tryObjectAtIndex:indexPath.item];
 	cell.delegate = self;
 	return cell;
 }

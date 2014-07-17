@@ -160,22 +160,6 @@ static BOOL signedIn = NO;
     return [[WLWrapRequest request:self page:page] send:success failure:failure];
 }
 
-- (id)olderCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    WLCandy* candy = [self.candies lastObject];
-    return [candy older:success failure:failure];
-}
-
-- (id)newerCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    WLCandy* candy = [self.candies firstObject];
-    return [candy newer:success failure:failure];
-}
-
-- (id)candies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    WLCandiesRequest* request = [WLCandiesRequest request:self];
-    request.type = WLPaginatedRequestTypeFresh;
-    return [request send:success failure:failure];
-}
-
 - (id)messagesNewer:(NSDate *)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     WLMessagesRequest* request = [WLMessagesRequest request:self];
     request.type = WLPaginatedRequestTypeNewer;
@@ -242,24 +226,6 @@ static BOOL signedIn = NO;
 
 - (id)fetch:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     return [[WLCandyRequest request:self] send:success failure:failure];
-}
-
-- (id)older:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    WLCandiesRequest* request = [WLCandiesRequest request:self.wrap];
-    request.type = WLPaginatedRequestTypeOlder;
-    request.newer = self.updatedAt;
-    request.older = self.updatedAt;
-    request.sameDay = withinDay;
-    return [request send:success failure:failure];
-}
-
-- (id)newer:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    WLCandiesRequest* request = [WLCandiesRequest request:self.wrap];
-    request.type = WLPaginatedRequestTypeNewer;
-    request.newer = self.updatedAt;
-    request.older = self.updatedAt;
-    request.sameDay = withinDay;
-    return [request send:success failure:failure];
 }
 
 @end

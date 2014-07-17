@@ -34,6 +34,7 @@
 #import "MFMailComposeViewController+Additions.h"
 #import "UIActionSheet+Blocks.h"
 #import "WLGroupedSet.h"
+#import "WLCandiesRequest.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
@@ -62,17 +63,15 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 @property (nonatomic) BOOL autoenqueueUploading;
 
+@property (strong, nonatomic) WLCandiesRequest *candiesRequest;
+
 @end
 
 @implementation WLCandyViewController
-{
-    BOOL canFetchNewer:YES;
-    BOOL canFetchOlder:YES;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+    
 	self.contentIndicatorView.layer.cornerRadius = 2;
 
 	self.composeBarView.placeholder = @"Write your comment ...";
@@ -109,9 +108,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
             return [item isImage] && [item.updatedAt isSameDay:candy.updatedAt];
         }]];
     }
-    canFetchNewer = YES;
-    canFetchOlder = YES;
-    [self fetchNewer];
     [self fetchOlder];
 }
 
@@ -119,44 +115,46 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     [self setCandy:candy candies:nil];
 }
 
+- (WLCandiesRequest *)candiesRequest {
+    if (!_candiesRequest) {
+        _candiesRequest = [WLCandiesRequest request];
+    }
+    return _candiesRequest;
+}
+
 - (void)fetchNewer {
-    __weak typeof(self)weakSelf = self;
-    if (canFetchNewer && [self.candies indexOfObject:self.candy] < 3) {
-        canFetchNewer = NO;
-        [self.candy newer:YES success:^(NSOrderedSet *candies) {
-            if (candies.nonempty) {
-                [weakSelf.candies unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
-                    return [item isImage];
-                }]];
-                [weakSelf.candies sortEntries];
-            }
-            canFetchNewer = YES;
-        } failure:^(NSError *error) {
-            [weakSelf.candies unionOrderedSet:[weakSelf.candy.wrap images]];
-            [weakSelf.candies sortEntries];
-            canFetchNewer = YES;
-        }];
+    WLCandy* candy = self.candy;
+    if (!self.candiesRequest.loading && [self.candies indexOfObject:candy] < 3) {
+        self.candiesRequest.wrap = candy.wrap;
+        self.candiesRequest.type = WLPaginatedRequestTypeNewer;
+        self.candiesRequest.newer = candy.updatedAt;
+        [self fetchCandies];
     }
 }
 
 - (void)fetchOlder {
-    __weak typeof(self)weakSelf = self;
-    if (canFetchOlder && [self.candies indexOfObject:self.candy] > [self.candies count] - 3) {
-        canFetchOlder = NO;
-        [self.candy older:YES success:^(NSOrderedSet *candies) {
-            if (candies.nonempty) {
-                [weakSelf.candies unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
-                    return [item isImage];
-                }]];
-                [weakSelf.candies sortEntries];
-            }
-            canFetchOlder = YES;
-        } failure:^(NSError *error) {
-            [weakSelf.candies unionOrderedSet:[weakSelf.candy.wrap images]];
-            [weakSelf.candies sortEntries];
-            canFetchOlder = YES;
-        }];
+    WLCandy* candy = self.candy;
+    if (!self.candiesRequest.loading && [self.candies indexOfObject:candy] > [self.candies count] - 3) {
+        self.candiesRequest.wrap = candy.wrap;
+        self.candiesRequest.type = WLPaginatedRequestTypeOlder;
+        self.candiesRequest.newer = candy.updatedAt;
+        self.candiesRequest.older = candy.updatedAt;
+        [self fetchCandies];
     }
+}
+
+- (void)fetchCandies {
+    __weak typeof(self)weakSelf = self;
+    [self.candiesRequest send:^(NSOrderedSet *candies) {
+        if (candies.nonempty) {
+            WLCandy* candy = weakSelf.candy;
+            [weakSelf.candies unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
+                return [item isImage] && [item.updatedAt isSameDay:candy.updatedAt];
+            }]];
+            [weakSelf.candies sortEntries];
+        }
+    } failure:^(NSError *error) {
+    }];
 }
 
 - (WLCandy *)candy {

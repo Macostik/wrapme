@@ -27,6 +27,7 @@
     self = [super init];
     if (self) {
         self.entries = [NSMutableOrderedSet orderedSet];
+        self.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]];
     }
     return self;
 }
@@ -43,8 +44,7 @@
     self.request.older = [[self.entries lastObject] updatedAt];
     return [self.request send:^(NSOrderedSet *orderedSet) {
         if (orderedSet.nonempty) {
-            [weakSelf.entries unionOrderedSet:orderedSet];
-            [weakSelf.entries sortEntries];
+            [weakSelf addEntries:orderedSet];
         } else if (weakSelf.request.type != WLPaginatedRequestTypeNewer) {
             weakSelf.completed = YES;
         }
@@ -52,6 +52,51 @@
             success(orderedSet);
         }
     } failure:failure];
+}
+
+- (BOOL)addEntries:(NSOrderedSet *)entries sort:(BOOL)sort {
+    BOOL added = NO;
+    for (id entry in entries) {
+        if ([self addEntry:entry sort:NO]) {
+            added = YES;
+        }
+    }
+    if (added) {
+        if (sort) {
+            [self sort];
+        } else {
+            [self.delegate paginatedSetChanged:self];
+        }
+    }
+    return added;
+}
+
+- (BOOL)addEntries:(NSOrderedSet *)entries {
+    return [self addEntries:entries sort:YES];
+}
+
+- (BOOL)addEntry:(id)entry {
+    return [self addEntry:entry sort:YES];
+}
+
+- (BOOL)addEntry:(id)entry sort:(BOOL)sort {
+    if ([self.entries containsObject:entry] || ![self shouldAddEntry:entry]) {
+        return NO;
+    }
+    [self.entries addObject:entry];
+    if (sort) {
+        [self sort];
+    }
+    return YES;
+}
+
+- (BOOL)shouldAddEntry:(id)entry {
+    return YES;
+}
+
+- (void)sort {
+    [self.entries sortUsingDescriptors:self.sortDescriptors];
+    [self.delegate paginatedSetChanged:self];
 }
 
 @end

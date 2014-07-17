@@ -41,25 +41,11 @@ static NSInteger WLAPIChatPageSize = 50;
 
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
-- (id)older:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
-- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
-- (id)newer:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
-- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
 @end
 
 @interface WLWrap (WLAPIManager)
 
 - (id)fetch:(NSInteger)page success:(WLWrapBlock)success failure:(WLFailureBlock)failure;
-
-- (id)olderCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
-- (id)newerCandies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
-- (id)candies:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 - (id)messagesNewer:(NSDate*)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 

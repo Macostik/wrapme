@@ -12,6 +12,7 @@
 #import "NSDate+Formatting.h"
 #import "NSOrderedSet+Additions.h"
 #import "NSDate+Additions.h"
+#import "WLCandiesRequest.h"
 
 @interface WLGroupedSet ()
 
@@ -20,9 +21,6 @@
 @end
 
 @implementation WLGroupedSet
-{
-    NSUInteger _count;
-}
 
 - (instancetype)init {
     self = [super init];
@@ -33,10 +31,6 @@
         self.singleMessage = YES;
     }
     return self;
-}
-
-- (NSUInteger)count {
-    return _count;
 }
 
 - (void)setCandies:(NSOrderedSet *)candies {
@@ -89,11 +83,7 @@
 - (void)addCandy:(WLCandy *)candy created:(BOOL *)created {
     if (candy.updatedAt) {
         WLGroup* group = [self group:candy.updatedAt created:created];
-        NSUInteger count = [group.candies count];
-        [group addCandy:candy];
-        if ([group.candies count] > count) {
-            ++_count;
-        }
+        [group addEntry:candy];
     }
 }
 
@@ -101,10 +91,10 @@
     __block BOOL removed = NO;
     __weak typeof(self)weakSelf = self;
     [self.set removeObjectsWhileEnumerating:^BOOL(WLGroup* group) {
-        if ([group.candies containsObject:candy]) {
-            [group.candies removeObject:candy];
+        if ([group.entries containsObject:candy]) {
+            [group.entries removeObject:candy];
             removed = YES;
-            if (group.candies.nonempty) {
+            if (group.entries.nonempty) {
                 return NO;
             }
             [weakSelf.keyedGroups removeObjectForKey:group.name];
@@ -118,7 +108,6 @@
 }
 
 - (void)clear {
-    _count = 0;
     [self.set removeAllObjects];
     [self.keyedGroups removeAllObjects];
 }
@@ -126,15 +115,15 @@
 - (void)sort:(WLCandy*)candy {
     BOOL created = NO;
     WLGroup* group = [self group:candy.updatedAt created:&created];
-    if (!created && [group.candies containsObject:candy]) {
+    if (!created && [group.entries containsObject:candy]) {
         [group sort];
         return;
     }
     __weak typeof(self)weakSelf = self;
     [self.set removeObjectsWhileEnumerating:^BOOL(WLGroup* group) {
-        if ([group.candies containsObject:candy]) {
-            [group.candies removeObject:candy];
-            if (group.candies.nonempty) {
+        if ([group.entries containsObject:candy]) {
+            [group.entries removeObject:candy];
+            if (group.entries.nonempty) {
                 return NO;
             }
             [weakSelf.keyedGroups removeObjectForKey:group.name];
@@ -142,7 +131,7 @@
         }
         return NO;
     }];
-    [group addCandy:candy];
+    [group addEntry:candy];
     [group sort];
     [self.delegate groupedSetGroupsChanged:self];
 }
@@ -158,67 +147,39 @@
 @implementation WLGroup
 
 + (instancetype)date {
-    WLGroup* _date = [[self alloc] init];
-    return _date;
+    return [[self alloc] init];
 }
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.candies = [NSMutableOrderedSet orderedSet];
         self.offset = CGPointZero;
+        self.request = [WLCandiesRequest request];
+        self.request.sameDay = YES;
     }
     return self;
 }
 
-- (BOOL)addCandies:(NSOrderedSet *)candies {
-    return [self addCandies:candies sort:YES];
+- (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    WLCandiesRequest* request = (id)self.request;
+    request.wrap = [[self.entries firstObject] wrap];
+    return [super send:success failure:failure];
 }
 
-- (BOOL)addCandies:(NSOrderedSet *)candies sort:(BOOL)sort {
-    BOOL added = NO;
-    for (WLCandy *candy in candies) {
-        if ([self addCandy:candy]) {
-            added = YES;
-        }
-    }
-    if (sort) {
-        [self sort];
-    } else if (added) {
-        [self.delegate groupsChanged:self];
-    }
-    return added;
-}
-
-- (BOOL)addCandy:(WLCandy *)candy {
-    return [self addCandy:candy sort:NO];
-}
-
-- (BOOL)addCandy:(WLCandy *)candy sort:(BOOL)sort {
-    if ([self.candies containsObject:candy]) {
-        return NO;
-    }
-    if (self.singleMessage && [candy isMessage]) {
+- (BOOL)shouldAddEntry:(WLCandy*)entry {
+    if (self.singleMessage && [entry isMessage]) {
         if (!self.message) {
-            [self.candies addObject:candy];
-            self.message = candy;
-        } else if ([self.message.updatedAt compare:candy.updatedAt] == NSOrderedAscending) {
-            [self.candies removeObject:self.message];
-            [self.candies addObject:candy];
-            self.message = candy;
+            self.message = entry;
+            return YES;
+        } else if ([self.message.updatedAt compare:entry.updatedAt] == NSOrderedAscending) {
+            [self.entries removeObject:self.message];
+            self.message = entry;
+            return YES;
         }
+        return NO;
     } else {
-        [self.candies addObject:candy];
+        return YES;
     }
-    if (sort) {
-        [self sort];
-    }
-    return YES;
-}
-
-- (void)sort {
-    [self.candies sortEntries];
-    [self.delegate groupsChanged:self];
 }
 
 @end

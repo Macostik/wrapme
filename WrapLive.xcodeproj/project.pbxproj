@@ -205,6 +205,7 @@
 		C51496471975872D009F0743 /* WLPaginatedRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C51496461975872D009F0743 /* WLPaginatedRequest.m */; };
 		C51C6FA41977E478003924AB /* WLDatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51C6FA31977E478003924AB /* WLDatesViewController.m */; };
 		C51C6FA71977E5A0003924AB /* WLDateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C51C6FA61977E5A0003924AB /* WLDateCell.m */; };
+		C51C6FAA1978262A003924AB /* WLDateHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51C6FA91978262A003924AB /* WLDateHeaderView.m */; };
 		C537F8241962BB1B00600B42 /* WLGroupedSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C537F8231962BB1B00600B42 /* WLGroupedSet.m */; };
 		C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5018F5271B00BDF038 /* WLChatViewController.m */; };
 		C5947E5518F52AE000BDF038 /* WLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5418F52AE000BDF038 /* WLMessageCell.m */; };
@@ -575,6 +576,8 @@
 		C51C6FA31977E478003924AB /* WLDatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDatesViewController.m; path = WLDatesViewController/WLDatesViewController.m; sourceTree = "<group>"; };
 		C51C6FA51977E5A0003924AB /* WLDateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDateCell.h; path = WLDatesViewController/WLDateCell.h; sourceTree = "<group>"; };
 		C51C6FA61977E5A0003924AB /* WLDateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDateCell.m; path = WLDatesViewController/WLDateCell.m; sourceTree = "<group>"; };
+		C51C6FA81978262A003924AB /* WLDateHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDateHeaderView.h; path = WLDatesViewController/WLDateHeaderView.h; sourceTree = "<group>"; };
+		C51C6FA91978262A003924AB /* WLDateHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDateHeaderView.m; path = WLDatesViewController/WLDateHeaderView.m; sourceTree = "<group>"; };
 		C537F8221962BB1B00600B42 /* WLGroupedSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLGroupedSet.h; path = WLGroupedSet/WLGroupedSet.h; sourceTree = "<group>"; };
 		C537F8231962BB1B00600B42 /* WLGroupedSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLGroupedSet.m; path = WLGroupedSet/WLGroupedSet.m; sourceTree = "<group>"; };
 		C5947E4F18F5271B00BDF038 /* WLChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChatViewController.h; path = WLChatViewController/WLChatViewController.h; sourceTree = "<group>"; };
@@ -1884,6 +1887,8 @@
 				C51C6FA31977E478003924AB /* WLDatesViewController.m */,
 				C51C6FA51977E5A0003924AB /* WLDateCell.h */,
 				C51C6FA61977E5A0003924AB /* WLDateCell.m */,
+				C51C6FA81978262A003924AB /* WLDateHeaderView.h */,
+				C51C6FA91978262A003924AB /* WLDateHeaderView.m */,
 			);
 			name = WLDatesViewController;
 			sourceTree = "<group>";
@@ -2251,6 +2256,7 @@
 				C59ACBE3193F238C002941C4 /* WLUserView.m in Sources */,
 				C50AF41E1976A71800761F38 /* WLCandiesRequest.m in Sources */,
 				C5A21E12194AFA7400F3A554 /* CoreData.xcdatamodeld in Sources */,
+				C51C6FAA1978262A003924AB /* WLDateHeaderView.m in Sources */,
 				14F668681974031C008D5081 /* WLPersonCell.m in Sources */,
 				C51C6FA71977E5A0003924AB /* WLDateCell.m in Sources */,
 				C5A21E63194B0ED500F3A554 /* WLComment.m in Sources */,

@@ -10,6 +10,8 @@
 #import "WLDateCell.h"
 #import "WLCandyViewController.h"
 #import "WLNavigation.h"
+#import "NSDate+Formatting.h"
+#import "WLDateHeaderView.h"
 
 @interface WLDatesViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLDateCellDelegate>
 
@@ -41,17 +43,49 @@
 
 #pragma mark - UICollectionViewDataSource
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    [self.sections removeAllObjects];
+    for (WLGroup* group in self.dates.set) {
+        NSMutableArray* section = nil;
+        for (NSMutableArray* _section in self.sections) {
+            WLGroup* _group = [_section firstObject];
+            if ([[[_group date] stringWithFormat:@"yyyy"] isEqualToString:[[group date] stringWithFormat:@"yyyy"]]) {
+                section = _section;
+                break;
+            }
+        }
+        if (!section) {
+            section = [NSMutableArray arrayWithObject:group];
+            [self.sections addObject:section];
+        } else {
+            [section addObject:group];
+        }
+    }
+    return [self.sections count];
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	return [self.dates.set count];
+    NSMutableArray* sectionArray = [self.sections objectAtIndex:section];
+	return [sectionArray count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* WLDateCellIdentifier = @"WLDateCell";
 	WLDateCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLDateCellIdentifier forIndexPath:indexPath];
-	WLGroup* group = [self.dates.set objectAtIndex:indexPath.item];
+    NSMutableArray* sectionArray = [self.sections objectAtIndex:indexPath.section];
+	WLGroup* group = [sectionArray objectAtIndex:indexPath.item];
 	cell.item = group;
 	cell.delegate = self;
 	return cell;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    static NSString* WLDateHeaderViewIdentifier = @"WLDateHeaderView";
+    WLDateHeaderView* headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:WLDateHeaderViewIdentifier forIndexPath:indexPath];
+    NSMutableArray* sectionArray = [self.sections objectAtIndex:indexPath.section];
+	WLGroup* group = [sectionArray objectAtIndex:indexPath.item];
+    headerView.dateLabel.text = [[group date] stringWithFormat:@"yyyy"];
+    return headerView;
 }
 
 #pragma mark - WLDateCellDelegate

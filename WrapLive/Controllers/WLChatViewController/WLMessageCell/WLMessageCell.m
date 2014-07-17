@@ -12,13 +12,18 @@
 #import "WLUser.h"
 #import "UIView+Shorthand.h"
 #import "UILabel+Additions.h"
+#import "UIFont+CustomFonts.h"
+#import "WLUser+Extended.h"
+#import "NSString+Additions.h"
+#import "NSDate+Additions.h"
 
 @interface WLMessageCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-
+@property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
+@property (strong, nonatomic) UIImage *bubbleImage;
 
 @end
 
@@ -27,16 +32,31 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.avatarView.circled = YES;
+    
+    self.bubbleImageView.image = [[UIImage imageNamed:@"gray_Bubble"] resizableImageWithCapInsets:UIEdgeInsetsMake(WLPadding, WLPadding, WLBottomIdent, 18)];
+    self.bubbleImageView.highlightedImage = [[UIImage imageNamed:@"red_Bubble"] resizableImageWithCapInsets:UIEdgeInsetsMake(WLPadding, 18, WLBottomIdent, WLPadding)];
 }
 
 - (void)setupItemData:(WLCandy*)candy {
 	self.avatarView.url = candy.contributor.picture.medium;
-	self.nameLabel.text = candy.contributor.name;
+	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(candy.contributor.name), WLString(candy.createdAt.timeAgoString)];
 	self.messageLabel.text = candy.message;
 	__weak typeof(self)weakSelf = self;
 	[UIView performWithoutAnimation:^{
-		[weakSelf.messageLabel sizeToFitHeight];
+        weakSelf.messageLabel.size = [weakSelf.messageLabel sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)];
+        if (weakSelf.avatarView.x > weakSelf.messageLabel.x) {
+            weakSelf.messageLabel.x = weakSelf.avatarView.x - weakSelf.messageLabel.width - WLMessageAuthorLabelHeight;
+        }
 	}];
+    [self drawMessageBubbleForCandy:candy];
+}
+
+- (void)drawMessageBubbleForCandy:(WLCandy *)candy {
+    self.bubbleImageView.highlighted = ![candy.contributor isCurrentUser];
+    self.bubbleImageView.frame = self.messageLabel.frame;
+    self.bubbleImageView.x -= WLPadding;
+    self.bubbleImageView.height += WLBottomIdent;
+    self.bubbleImageView.width += 2*WLPadding;
 }
 
 @end

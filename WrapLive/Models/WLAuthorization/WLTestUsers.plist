@@ -118,5 +118,15 @@
 		<key>password</key>
 		<string>da78b36e6c</string>
 	</dict>
+	<dict>
+		<key>countryCode</key>
+		<string>380</string>
+		<key>phone</key>
+		<string>632124353</string>
+		<key>email</key>
+		<string>e.ustimenko@mobidev.biz</string>
+		<key>password</key>
+		<string>cf3aa76fae</string>
+	</dict>
 </array>
 </plist>

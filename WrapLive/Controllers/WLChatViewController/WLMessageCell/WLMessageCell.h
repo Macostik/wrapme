@@ -10,6 +10,9 @@
 
 static CGFloat WLMessageAuthorLabelHeight = 20.0f;
 static CGFloat WLMessageMinimumCellHeight = 50.0f;
+static CGFloat WLBottomIdent = 12.0f;
+static CGFloat WLPadding = 4.0f;
+
 
 @interface WLMessageCell : WLCollectionItemCell
 

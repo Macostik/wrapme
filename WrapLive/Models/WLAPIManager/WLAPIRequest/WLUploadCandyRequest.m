@@ -30,10 +30,11 @@
     self.filePath = self.candy.picture.large;
     WLCandy* candy = self.candy;
     [parameters trySetObject:candy.uploadIdentifier forKey:@"upload_uid"];
-	[parameters trySetObject:@([candy.updatedAt timestamp]) forKey:@"contributed_at_in_epoch"];
 	if ([candy isMessage]) {
 		[parameters trySetObject:candy.message forKey:@"chat_message"];
-	}
+	} else {
+        [parameters trySetObject:@([candy.updatedAt timestamp]) forKey:@"contributed_at_in_epoch"];
+    }
     return parameters;
 }
 

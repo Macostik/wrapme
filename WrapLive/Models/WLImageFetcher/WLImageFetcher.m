@@ -176,10 +176,11 @@
 
 - (void)setImage:(UIImage *)image animated:(BOOL)animated {
 	if (animated) {
+        CGFloat alpha = self.alpha;
 		self.alpha = 0.0f;
         __weak typeof(self)weakSelf = self;
         [UIView animateWithDuration:0.33f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            weakSelf.alpha = 1.0f;
+            weakSelf.alpha = alpha;
         } completion:^(BOOL finished) {
         }];
 	}

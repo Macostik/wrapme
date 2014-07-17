@@ -42,6 +42,7 @@
 #import "WLPaginatedSet.h"
 #import "WLAPIManager.h"
 #import "WLWrapsRequest.h"
+#import "WLDatesViewController.h"
 
 @interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLNotificationReceiver, WLQuickChatViewDelegate>
 
@@ -460,22 +461,25 @@
 #pragma mark - WLWrapCellDelegate
 
 - (void)presentCandy:(WLCandy*)candy fromWrap:(WLWrap*)wrap {
-	WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-	wrapController.wrap = wrap;
-	UIViewController* controller = nil;
+    NSMutableArray* controllers = [NSMutableArray arrayWithObject:self];
+    [controllers addObject:[WLWrapViewController instantiate:^(WLWrapViewController* controller) {
+        controller.wrap = wrap;
+    }]];
 	if ([candy isImage]) {
-		controller = [WLCandyViewController instantiate:^(WLCandyViewController *controller) {
+        [controllers addObject:[WLDatesViewController instantiate:^(WLDatesViewController *controller) {
+            controller.wrap = wrap;
+		}]];
+        __weak typeof(self)weakSelf = self;
+        [controllers addObject:[WLCandyViewController instantiate:^(WLCandyViewController *controller) {
             controller.candy = candy;
-		}];
+            controller.backViewController = weakSelf;
+		}]];
 	} else if ([candy isMessage]) {
-		controller = [WLChatViewController instantiate:^(WLChatViewController *controller) {
+        [controllers addObject:[WLChatViewController instantiate:^(WLChatViewController *controller) {
 			controller.wrap = wrap;
-		}];
+		}]];
 	}
-	if (controller) {
-		NSArray* controllers = @[self, wrapController, controller];
-		[self.navigationController setViewControllers:controllers animated:YES];
-	}
+	[self.navigationController setViewControllers:controllers animated:YES];
 }
 
 - (void)wrapCell:(WLWrapCell *)cell didSelectCandy:(WLCandy *)candy {

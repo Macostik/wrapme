@@ -10,11 +10,16 @@
 
 @class WLCandy;
 @class WLWrap;
+@class WLGroup;
 
 @interface WLCandyViewController : WLSwipeViewController
 
+@property (weak, nonatomic) UIViewController *backViewController;
+
 @property (strong, nonatomic) WLCandy *candy;
 
-- (void)setCandy:(WLCandy *)candy candies:(NSOrderedSet*)candies;
+@property (strong, nonatomic) WLGroup *group;
+
+- (void)setCandy:(WLCandy *)candy group:(WLGroup*)group;
 
 @end

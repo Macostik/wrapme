@@ -63,11 +63,11 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 @property (nonatomic) BOOL autoenqueueUploading;
 
-@property (strong, nonatomic) WLCandiesRequest *candiesRequest;
-
 @end
 
 @implementation WLCandyViewController
+
+@synthesize group = _group;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -99,53 +99,61 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     return self.candies;
 }
 
-- (void)setCandy:(WLCandy *)candy candies:(NSOrderedSet *)candies {
-    [self setItems:nil currentItem:candy];
-    if (candies.nonempty) {
-        [self.candies unionOrderedSet:candies];
-    } else {
-        [self.candies unionOrderedSet:[candy.wrap.candies selectObjects:^BOOL(WLCandy* item) {
-            return [item isImage] && [item.updatedAt isSameDay:candy.updatedAt];
-        }]];
+- (WLGroup *)group {
+    if (!_group) {
+        _group = [WLGroup date];
+        [_group resetEntries:self.candies];
     }
+    return _group;
+}
+
+- (void)setGroup:(WLGroup *)group {
+    [self setCandy:[group.entries selectObject:^BOOL(WLCandy* item) {
+        return [item isImage];
+    }] group:group];
+}
+
+- (void)setCandy:(WLCandy *)candy group:(WLGroup *)group {
+    [self setItems:nil currentItem:candy];
+    NSOrderedSet* candies = nil;
+    if (group) {
+        _group = group;
+        candies = group.entries;
+    } else {
+        candies = candy.wrap.candies;
+    }
+    [self.candies unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
+        return [item isImage] && [item.updatedAt isSameDay:candy.updatedAt];
+    }]];
     [self fetchOlder];
 }
 
 - (void)setCandy:(WLCandy *)candy {
-    [self setCandy:candy candies:nil];
-}
-
-- (WLCandiesRequest *)candiesRequest {
-    if (!_candiesRequest) {
-        _candiesRequest = [WLCandiesRequest request];
-    }
-    return _candiesRequest;
+    [self setCandy:candy group:nil];
 }
 
 - (void)fetchNewer {
     WLCandy* candy = self.candy;
-    if (!self.candiesRequest.loading && [self.candies indexOfObject:candy] < 3) {
-        self.candiesRequest.wrap = candy.wrap;
-        self.candiesRequest.type = WLPaginatedRequestTypeNewer;
-        self.candiesRequest.newer = candy.updatedAt;
+    if (!self.group.request.loading && [self.candies indexOfObject:candy] < 3) {
+        self.group.request.type = WLPaginatedRequestTypeNewer;
         [self fetchCandies];
     }
 }
 
 - (void)fetchOlder {
     WLCandy* candy = self.candy;
-    if (!self.candiesRequest.loading && [self.candies indexOfObject:candy] > [self.candies count] - 3) {
-        self.candiesRequest.wrap = candy.wrap;
-        self.candiesRequest.type = WLPaginatedRequestTypeOlder;
-        self.candiesRequest.newer = candy.updatedAt;
-        self.candiesRequest.older = candy.updatedAt;
+    NSUInteger count = [self.candies count];
+    NSUInteger index = [self.candies indexOfObject:candy];
+    BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
+    if (!self.group.request.loading && shouldAppendCandies) {
+        self.group.request.type = WLPaginatedRequestTypeOlder;
         [self fetchCandies];
     }
 }
 
 - (void)fetchCandies {
     __weak typeof(self)weakSelf = self;
-    [self.candiesRequest send:^(NSOrderedSet *candies) {
+    [self.group send:^(NSOrderedSet *candies) {
         if (candies.nonempty) {
             WLCandy* candy = weakSelf.candy;
             [weakSelf.candies unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
@@ -162,15 +170,22 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (void)didSwipeLeft:(NSUInteger)currentIndex {
-	[super didSwipeLeft:currentIndex];
-	[self showContentIndicatorView:YES];
-    [self fetchOlder];
+    if (self.group.completed && self.candy == [self.candies lastObject]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [super didSwipeLeft:currentIndex];
+        [self showContentIndicatorView:YES];
+        [self fetchOlder];
+    }
 }
 
 - (void)didSwipeRight:(NSUInteger)currentIndex {
-	[super didSwipeRight:currentIndex];
-	[self showContentIndicatorView:YES];
-    [self fetchNewer];
+    if (self.candy == [self.candies firstObject]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [super didSwipeRight:currentIndex];
+        [self showContentIndicatorView:YES];
+    }
 }
 
 - (void)showContentIndicatorView:(BOOL)animated {
@@ -322,7 +337,11 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (IBAction)back:(id)sender {
     WLCandy* candy = self.candy;
     if (candy.valid && candy.wrap.valid) {
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.backViewController) {
+            [self.navigationController popToViewController:self.backViewController animated:YES];
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     } else {
         [self.navigationController popToRootViewControllerAnimated:YES];
     }

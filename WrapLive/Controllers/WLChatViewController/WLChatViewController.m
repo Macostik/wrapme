@@ -186,6 +186,10 @@
     }
 }
 
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentRemoved:(WLComment *)comment {
+    
+}
+
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
     [self.collectionView reloadData];
 }

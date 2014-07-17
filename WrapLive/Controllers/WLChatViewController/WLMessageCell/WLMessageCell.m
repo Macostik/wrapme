@@ -23,8 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
-@property (strong, nonatomic) UIImage *bubbleImage;
-
+@property (strong, nonatomic) NSArray *bubbleImages;
 @end
 
 @implementation WLMessageCell
@@ -33,8 +32,8 @@
 	[super awakeFromNib];
 	self.avatarView.circled = YES;
     
-    self.bubbleImageView.image = [[UIImage imageNamed:@"gray_Bubble"] resizableImageWithCapInsets:UIEdgeInsetsMake(WLPadding, WLPadding, WLBottomIdent, 18)];
-    self.bubbleImageView.highlightedImage = [[UIImage imageNamed:@"red_Bubble"] resizableImageWithCapInsets:UIEdgeInsetsMake(WLPadding, 18, WLBottomIdent, WLPadding)];
+    self.bubbleImages = @[[[UIImage imageNamed:@"gray_Bubble"] resizableImageWithCapInsets:UIEdgeInsetsMake(WLPadding, WLPadding, WLBottomIdent, 18)],
+                          [[UIImage imageNamed:@"red_Bubble"] resizableImageWithCapInsets:UIEdgeInsetsMake(WLPadding, 18, WLBottomIdent, WLPadding)]];
 }
 
 - (void)setupItemData:(WLCandy*)candy {
@@ -52,7 +51,7 @@
 }
 
 - (void)drawMessageBubbleForCandy:(WLCandy *)candy {
-    self.bubbleImageView.highlighted = ![candy.contributor isCurrentUser];
+    self.bubbleImageView.image = self.bubbleImages[![candy.contributor isCurrentUser]];
     self.bubbleImageView.frame = self.messageLabel.frame;
     self.bubbleImageView.x -= WLPadding;
     self.bubbleImageView.height += WLBottomIdent;

@@ -2161,7 +2161,6 @@ Check your internet connection and try again.</string>
                                         <size key="customSize" width="320" height="50"/>
                                         <connections>
                                             <outlet property="avatarView" destination="6cK-uC-aMZ" id="dNR-ll-d5X"/>
-                                            <outlet property="bubbleImage" destination="acW-kf-dhe" id="aS6-s8-h37"/>
                                             <outlet property="bubbleImageView" destination="acW-kf-dhe" id="gVO-Y6-e3G"/>
                                             <outlet property="messageLabel" destination="d5F-zj-DWY" id="g2Z-Mm-ag2"/>
                                             <outlet property="nameLabel" destination="1wE-ap-jeT" id="5p4-0f-ssd"/>
@@ -2201,7 +2200,6 @@ Check your internet connection and try again.</string>
                                         <size key="customSize" width="320" height="50"/>
                                         <connections>
                                             <outlet property="avatarView" destination="YII-6v-9r6" id="rdb-ks-OqQ"/>
-                                            <outlet property="bubbleImage" destination="i75-tl-ISy" id="OPg-sL-MqT"/>
                                             <outlet property="bubbleImageView" destination="i75-tl-ISy" id="bek-hF-aEF"/>
                                             <outlet property="messageLabel" destination="g9v-6l-x1S" id="8Xk-lC-dEt"/>
                                             <outlet property="nameLabel" destination="MrZ-rw-wZA" id="lRV-Il-yIR"/>

@@ -55,7 +55,7 @@
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) WLLoadingView *splash;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
-@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
 @property (strong, nonatomic) WLLoadingView *loadingView;
 @property (strong, nonatomic) NSOperationQueue *loadingQueue;

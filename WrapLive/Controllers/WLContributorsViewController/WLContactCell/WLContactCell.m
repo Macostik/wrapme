@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *selectionView;
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
 @property (nonatomic, weak) IBOutlet UILabel* nameLabel;
-@property (nonatomic, weak) IBOutlet UIImageView* avatarView;
+@property (nonatomic, weak) IBOutlet WLImageView* avatarView;
 @property (weak, nonatomic) IBOutlet UIImageView *openView;
 @property (weak, nonatomic) IBOutlet UIImageView *signUpView;
 

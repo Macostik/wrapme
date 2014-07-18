@@ -27,7 +27,7 @@
 
 @interface WLCandyCell () <WLWrapBroadcastReceiver>
 
-@property (weak, nonatomic) IBOutlet UIImageView *coverView;
+@property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chatLabelView;
 @property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
@@ -43,6 +43,7 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
+    self.coverView.placeholderName = @"ic_photo_placeholder";
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self configuration:^BOOL (WLMenu *menu) {

@@ -7,8 +7,7 @@
 //
 
 #import "WLBroadcaster.h"
-
-typedef void (^WLImageFetcherBlock)(UIImage*, BOOL, NSError*);
+#import "WLImageView.h"
 
 @class WLImageFetcher;
 
@@ -31,15 +30,5 @@ typedef void (^WLImageFetcherBlock)(UIImage*, BOOL, NSError*);
 - (void)enqueueImageWithUrl:(NSString*)url;
 
 - (void)addReceiver:(id<WLImageFetching>)receiver;
-
-@end
-
-@interface UIImageView (WLImageFetcher) <WLImageFetching>
-
-@property (nonatomic) NSString* url;
-
-- (void)setUrl:(NSString *)url completion:(WLImageFetcherBlock)completion;
-
-@property (strong, nonatomic) WLImageFetcherBlock completionBlock;
 
 @end

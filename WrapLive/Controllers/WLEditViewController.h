@@ -10,12 +10,13 @@
 #import "WLCameraViewController.h"
 #import "WLStillPictureViewController.h"
 #import "WLEditSession.h"
+#import "WLImageFetcher.h"
 
 @interface WLEditViewController : WLShakeViewController 
 
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) WLEditSession *editSession;

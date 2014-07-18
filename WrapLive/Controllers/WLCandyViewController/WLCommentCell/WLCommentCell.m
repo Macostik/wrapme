@@ -24,7 +24,7 @@
 
 @interface WLCommentCell ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *authorImageView;
+@property (weak, nonatomic) IBOutlet WLImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (strong, nonatomic) WLMenu* menu;

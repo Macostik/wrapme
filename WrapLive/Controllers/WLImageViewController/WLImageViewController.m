@@ -16,7 +16,7 @@
 
 @interface WLImageViewController () <UIScrollViewDelegate, WLDeviceOrientationBroadcastReceiver>
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
@@ -36,7 +36,17 @@
 		}
 		[weakSelf.spinner removeFromSuperview];
 		weakSelf.scrollView.userInteractionEnabled = YES;
-		weakSelf.errorLabel.hidden = ![error isNetworkError];
+        if (error) {
+            if ([error isNetworkError]) {
+                weakSelf.errorLabel.hidden = NO;
+            } else {
+                weakSelf.errorLabel.hidden = YES;
+                weakSelf.imageView.contentMode = UIViewContentModeCenter;
+                weakSelf.imageView.image = [UIImage imageNamed:@"ic_photo_placeholder"];
+            }
+        } else {
+            weakSelf.errorLabel.hidden = YES;
+        }
 	}];
 	
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];

@@ -30,7 +30,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView* wrapView;
 @property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *wrapCoverView;
+@property (weak, nonatomic) IBOutlet WLImageView *wrapCoverView;
 
 @end
 

@@ -45,7 +45,7 @@
         if (orderedSet.nonempty) {
             NSUInteger count = [weakSelf.entries count];
             [weakSelf addEntries:orderedSet];
-            if (weakSelf.request.type != WLPaginatedRequestTypeNewer && count != [weakSelf.entries count]) {
+            if (weakSelf.request.type != WLPaginatedRequestTypeNewer && count == [weakSelf.entries count]) {
                 weakSelf.completed = YES;
             }
         } else if (weakSelf.request.type != WLPaginatedRequestTypeNewer) {

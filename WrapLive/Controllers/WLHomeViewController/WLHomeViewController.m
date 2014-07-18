@@ -167,6 +167,7 @@
         if (weakSelf.isOnTopOfNagvigation) {
             [error showIgnoringNetworkError];
         }
+        [weakSelf updateWraps];
     }];
 }
 
@@ -183,7 +184,6 @@
         if (weakSelf.isOnTopOfNagvigation) {
             [error showIgnoringNetworkError];
         }
-        [weakSelf finishLoadingAnimation];
     }];
 }
 
@@ -201,7 +201,6 @@
         if (weakSelf.isOnTopOfNagvigation) {
             [error showIgnoringNetworkError];
         }
-        [weakSelf finishLoadingAnimation];
     }];
 }
 

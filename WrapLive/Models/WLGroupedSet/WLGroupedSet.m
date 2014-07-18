@@ -52,7 +52,9 @@
         group.name = name;
         [self.keyedGroups setObject:group forKey:name];
         [self.set addObject:group];
-        [self.set sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];
+        [self.set sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(WLGroup* obj1, WLGroup* obj2) {
+            return [obj2.date compare:obj1.date];
+        }];
         if (created != NULL) {
             *created = YES;
         }
@@ -180,6 +182,15 @@
     } else {
         return YES;
     }
+}
+
+- (BOOL)hasAtLeastOneImage {
+    for (WLCandy* candy in self.entries) {
+        if ([candy isImage]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end

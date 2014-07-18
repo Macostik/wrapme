@@ -161,7 +161,9 @@
                 size += item.size;
                 [items addObject:item];
             }
-            [items sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
+            [items sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(WLCacheItem* obj1, WLCacheItem* obj2) {
+                return [obj1.date compare:obj2.date];
+            }];
             BOOL removed = NO;
             while (size >= limitSize) {
                 WLCacheItem* item = [items firstObject];

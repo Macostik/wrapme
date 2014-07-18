@@ -63,6 +63,8 @@
 
 + (instancetype)date;
 
+- (BOOL)hasAtLeastOneImage;
+
 @end
 
 

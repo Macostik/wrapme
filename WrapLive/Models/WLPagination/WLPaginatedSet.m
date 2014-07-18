@@ -27,7 +27,6 @@
     self = [super init];
     if (self) {
         self.entries = [NSMutableOrderedSet orderedSet];
-        self.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]];
     }
     return self;
 }
@@ -99,7 +98,7 @@
 }
 
 - (void)sort {
-    [self.entries sortUsingDescriptors:self.sortDescriptors];
+    [self.entries sortEntries];
     [self.delegate paginatedSetChanged:self];
 }
 

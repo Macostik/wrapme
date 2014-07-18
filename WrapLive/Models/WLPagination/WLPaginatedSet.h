@@ -28,8 +28,6 @@
 
 @property (nonatomic, weak) id <WLPaginatedSetDelegate> delegate;
 
-@property (strong, nonatomic) NSArray* sortDescriptors;
-
 + (instancetype)setWithEntries:(NSOrderedSet*)entries request:(WLPaginatedRequest*)request;
 
 + (instancetype)setWithRequest:(WLPaginatedRequest*)request;

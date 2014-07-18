@@ -46,6 +46,9 @@
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     [self.sections removeAllObjects];
     for (WLGroup* group in self.dates.set) {
+        if (![group hasAtLeastOneImage]) {
+            continue;
+        }
         NSMutableArray* section = nil;
         for (NSMutableArray* _section in self.sections) {
             WLGroup* _group = [_section firstObject];

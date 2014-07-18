@@ -117,28 +117,32 @@
 
 @implementation NSMutableOrderedSet (WLEntry)
 
+NSComparator comparatorByUpdatedAtAscending = ^NSComparisonResult(WLEntry* obj1, WLEntry* obj2) {
+    return [obj1.updatedAt compare:obj2.updatedAt];
+};
+
+NSComparator comparatorByUpdatedAtDescending = ^NSComparisonResult(WLEntry* obj1, WLEntry* obj2) {
+    return [obj2.updatedAt compare:obj1.updatedAt];
+};
+
+NSComparator comparatorByCreatedAtAscending = ^NSComparisonResult(WLEntry* obj1, WLEntry* obj2) {
+    return [obj1.createdAt compare:obj2.createdAt];
+};
+
+NSComparator comparatorByCreatedAtDescending = ^NSComparisonResult(WLEntry* obj1, WLEntry* obj2) {
+    return [obj2.createdAt compare:obj1.createdAt];
+};
+
 - (void)sortEntries {
-    static NSArray* descriptors = nil;
-    if (!descriptors) {
-        descriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]];
-    }
-	[self sortUsingDescriptors:descriptors];
+    [self sortWithOptions:NSSortStable usingComparator:comparatorByUpdatedAtDescending];
 }
 
 - (void)sortEntriesAscending {
-    static NSArray* descriptors = nil;
-    if (!descriptors) {
-        descriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:YES]];
-    }
-	[self sortUsingDescriptors:descriptors];
+	[self sortWithOptions:NSSortStable usingComparator:comparatorByUpdatedAtAscending];
 }
 
 - (void)sortEntriesByCreationAscending {
-    static NSArray* descriptors = nil;
-    if (!descriptors) {
-        descriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
-    }
-    [self sortUsingDescriptors:descriptors];
+    [self sortWithOptions:NSSortStable usingComparator:comparatorByCreatedAtAscending];
 }
 
 @end

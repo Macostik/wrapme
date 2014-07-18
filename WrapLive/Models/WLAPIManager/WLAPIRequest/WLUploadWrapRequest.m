@@ -63,4 +63,12 @@
     return wrap;
 }
 
+- (void)handleFailure:(NSError *)error {
+    if (!self.creation && [error.domain isEqualToString:WLErrorDomain] && error.code == WLAPIResponseCodeContentUnavaliable) {
+        [self.wrap remove];
+        self.wrap = nil;
+    }
+    [super handleFailure:error];
+}
+
 @end

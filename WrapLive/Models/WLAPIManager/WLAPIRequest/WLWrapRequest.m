@@ -40,4 +40,12 @@
     return [self.wrap update:response.data[@"wrap"]];
 }
 
+- (void)handleFailure:(NSError *)error {
+    if ([error.domain isEqualToString:WLErrorDomain] && error.code == WLAPIResponseCodeContentUnavaliable) {
+        [self.wrap remove];
+        self.wrap = nil;
+    }
+    [super handleFailure:error];
+}
+
 @end

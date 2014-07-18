@@ -25,4 +25,12 @@
     return [self.candy update:[response.data dictionaryForKey:@"candy"]];
 }
 
+- (void)handleFailure:(NSError *)error {
+    if ([error.domain isEqualToString:WLErrorDomain] && error.code == WLAPIResponseCodeContentUnavaliable) {
+        [self.candy remove];
+        self.candy = nil;
+    }
+    [super handleFailure:error];
+}
+
 @end

@@ -152,6 +152,7 @@
 		14F668641973DDAA008D5081 /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
 		14F668681974031C008D5081 /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668671974031C008D5081 /* WLPersonCell.m */; };
 		5B450F8B19780D8000FC339A /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */; };
+		5BB2221219796D7300782B72 /* UIView+Extentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2221119796D7300782B72 /* UIView+Extentions.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
@@ -484,6 +485,8 @@
 		14F668671974031C008D5081 /* WLPersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPersonCell.m; path = WLContributorsViewController/WLContactCell/WLPersonCell/WLPersonCell.m; sourceTree = "<group>"; };
 		5B450F8919780D8000FC339A /* WLSignificantTimeBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignificantTimeBroadcaster.h; sourceTree = "<group>"; };
 		5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignificantTimeBroadcaster.m; sourceTree = "<group>"; };
+		5BB2221019796D7300782B72 /* UIView+Extentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extentions.h"; sourceTree = "<group>"; };
+		5BB2221119796D7300782B72 /* UIView+Extentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extentions.m"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
@@ -1141,6 +1144,8 @@
 		12D653D318E4326C009CE64C /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				5BB2221019796D7300782B72 /* UIView+Extentions.h */,
+				5BB2221119796D7300782B72 /* UIView+Extentions.m */,
 				12D653D418E4326C009CE64C /* UIView+Shorthand.h */,
 				12D653D518E4326C009CE64C /* UIView+Shorthand.m */,
 				12E1104319066C7C007DB4AC /* UIView+QuatzCoreAnimations.h */,
@@ -2265,6 +2270,7 @@
 				14F668681974031C008D5081 /* WLPersonCell.m in Sources */,
 				C51C6FA71977E5A0003924AB /* WLDateCell.m in Sources */,
 				C5A21E63194B0ED500F3A554 /* WLComment.m in Sources */,
+				5BB2221219796D7300782B72 /* UIView+Extentions.m in Sources */,
 				14F668641973DDAA008D5081 /* WLPerson.m in Sources */,
 				12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */,
 				12F3ED5E1934B183009C1DC3 /* WLAssetCell.m in Sources */,

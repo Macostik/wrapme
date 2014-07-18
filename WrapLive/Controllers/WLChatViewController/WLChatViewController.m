@@ -124,6 +124,11 @@
 }
 
 - (void)insertMessage:(WLCandy*)message {
+    for (WLGroup* group in self.groups.set) {
+        if ([group.entries containsObject:message] && ![group.date isSameDay:message.updatedAt]) {
+            [group.entries removeObject:message];
+        }
+    }
 	[self.groups addCandy:message];
     [self.groups sort];
     [self.collectionView reloadData];
@@ -240,7 +245,7 @@
 - (void)sendMessageWithText:(NSString*)text {
     __weak typeof(self)weakSelf = self;
     [self.wrap uploadMessage:text success:^(WLCandy *candy) {
-        [weakSelf insertMessage:candy];
+//        [weakSelf insertMessage:candy];
 		[weakSelf.collectionView scrollToTopAnimated:YES];
     } failure:^(NSError *error) {
 		[error show];

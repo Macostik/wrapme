@@ -15,7 +15,7 @@
 #import "UIFont+CustomFonts.h"
 #import "WLUser+Extended.h"
 #import "NSString+Additions.h"
-#import "NSDate+Additions.h"
+#import "NSDate+Formatting.h"
 
 @interface WLMessageCell ()
 
@@ -38,7 +38,7 @@
 
 - (void)setupItemData:(WLCandy*)candy {
 	self.avatarView.url = candy.contributor.picture.medium;
-	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(candy.contributor.name), WLString(candy.createdAt.timeAgoString)];
+	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(candy.contributor.name), WLString([candy.createdAt stringWithFormat:@"HH:mm"])];
 	self.messageLabel.text = candy.message;
 	__weak typeof(self)weakSelf = self;
 	[UIView performWithoutAnimation:^{

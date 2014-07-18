@@ -1,0 +1,28 @@
+//
+//  UIView+Extentions.m
+//  
+//  Created by Yuriy Granchenko on 28.05.14.
+//  Copyright (c) 2014 Roman. All rights reserved.
+//
+#import "UIView+Extentions.h"
+#import "NSError+WLAPIManager.h"
+#import "NSObject+AssociatedObjects.h"
+
+@implementation UIView (Extentions)
+
+- (UIView *)parentView {
+	return [self associatedObjectForKey:"parentView"];
+}
+
+- (void)setParentView:(UIView *)parentView{
+	[self setAssociatedObject:parentView forKey:"parentView"];
+}
+
+- (void)logSubviewsHierarchy {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+#ifdef DEBUG
+	WLLog(@"SubviewsHierarchy \n\n", [self performSelector:@selector(recursiveDescription)], nil);
+#endif
+}
+@end

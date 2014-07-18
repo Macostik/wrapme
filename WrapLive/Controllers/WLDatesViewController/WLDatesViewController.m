@@ -12,12 +12,14 @@
 #import "WLNavigation.h"
 #import "NSDate+Formatting.h"
 #import "WLDateHeaderView.h"
+#import "WLWrapRequest.h"
 
 @interface WLDatesViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLDateCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) NSMutableArray* sections;
+@property (nonatomic) BOOL completed;
 
 @end
 
@@ -35,6 +37,28 @@
         self.dates = [[WLGroupedSet alloc] init];
         [self.dates addCandies:self.wrap.candies];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self appendDates];
+}
+
+- (void)appendDates {
+    if (self.completed) return;
+    __weak typeof(self)weakSelf = self;
+    NSUInteger page = ((self.dates.set.count + 1)/WLAPIGeneralPageSize + 1);
+    NSUInteger count = self.wrap.candies.count;
+    [[WLWrapRequest request:self.wrap page:page] send:^(WLWrap* wrap) {
+        if (count != wrap.candies.count) {
+            [weakSelf.dates addCandies:wrap.candies];
+            [weakSelf.collectionView reloadData];
+            [weakSelf appendDates];
+        } else {
+            weakSelf.completed = YES;
+        }
+    } failure:^(NSError *error) {
+    }];
 }
 
 - (IBAction)back:(id)sender {

@@ -60,8 +60,6 @@
 @property (strong, nonatomic) WLLoadingView *loadingView;
 @property (strong, nonatomic) NSOperationQueue *loadingQueue;
 
-@property (weak, nonatomic) id operation;
-
 @end
 
 @implementation WLHomeViewController
@@ -146,18 +144,11 @@
     }
 }
 
-- (void)setOperation:(id)operation {
-    _operation = operation;
-    if (operation) {
-        self.loadingView.error = NO;
-    }
-}
-
 - (void)fetchFreshWraps {
-    if (self.operation) return;
+    if (self.wraps.request.loading) return;
     __weak typeof(self)weakSelf = self;
     self.wraps.request.type = WLPaginatedRequestTypeFresh;
-    self.operation = [self.wraps send:^(NSOrderedSet *orderedSet) {
+    [self.wraps send:^(NSOrderedSet *orderedSet) {
         [weakSelf showLatestWrap];
         [weakSelf updateWraps];
         if ([orderedSet count] != 50) {
@@ -169,13 +160,14 @@
         }
         [weakSelf updateWraps];
     }];
+    self.loadingView.error = NO;
 }
 
 - (void)refreshWraps {
-    if (self.operation) return;
+    if (self.wraps.request.loading) return;
     __weak typeof(self)weakSelf = self;
     self.wraps.request.type = WLPaginatedRequestTypeNewer;
-    self.operation = [self.wraps send:^(NSOrderedSet *orderedSet) {
+    [self.wraps send:^(NSOrderedSet *orderedSet) {
         [weakSelf updateWraps];
         [weakSelf.refresher endRefreshing];
     } failure:^(NSError *error) {
@@ -185,13 +177,14 @@
             [error showIgnoringNetworkError];
         }
     }];
+    self.loadingView.error = NO;
 }
 
 - (void)appendWraps {
-    if (self.operation) return;
+    if (self.wraps.request.loading) return;
     __weak typeof(self)weakSelf = self;
     self.wraps.request.type = WLPaginatedRequestTypeOlder;
-    self.operation = [self.wraps send:^(NSOrderedSet *orderedSet) {
+    [self.wraps send:^(NSOrderedSet *orderedSet) {
         [weakSelf updateWraps];
         if (weakSelf.wraps.completed) {
             weakSelf.loadingView = nil;
@@ -202,6 +195,7 @@
             [error showIgnoringNetworkError];
         }
     }];
+    self.loadingView.error = NO;
 }
 
 - (void)showLatestWrap {

@@ -49,12 +49,11 @@
 
 @property (strong, nonatomic) WLLoadingView* loadingView;
 
+@property (strong, nonatomic) WLWrapRequest* wrapRequest;
+
 @end
 
 @implementation WLWrapViewController
-{
-	BOOL loading;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -82,6 +81,14 @@
 
 - (WLLoadingView *)loadingView {
     return (WLLoadingView*)self.tableView.tableFooterView;
+}
+
+- (WLWrapRequest *)wrapRequest {
+    if (!_wrapRequest) {
+        _wrapRequest = [WLWrapRequest request];
+    }
+    _wrapRequest.wrap = self.wrap;
+    return _wrapRequest;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -112,7 +119,8 @@
 - (void)refreshWrap {
     self.loadingView.error = NO;
 	__weak typeof(self)weakSelf = self;
-    [self.wrap fetch:^(WLWrap* wrap) {
+    self.wrapRequest.page = 1;
+    [self.wrapRequest send:^(WLWrap* wrap) {
         [weakSelf reloadData];
         [weakSelf setFirstContributorViewHidden:wrap.candies.nonempty animated:YES];
 		[weakSelf.refresher endRefreshing];
@@ -136,23 +144,20 @@
 }
 
 - (void)appendDates {
-	if (loading || !self.wrap.candies.nonempty) {
+	if (self.wrapRequest.loading || !self.wrap.candies.nonempty) {
 		return;
 	}
-	loading = YES;
     self.loadingView.error = NO;
 	__weak typeof(self)weakSelf = self;
-    NSUInteger page = ((self.groups.set.count + 1)/WLAPIGeneralPageSize + 1);
+    self.wrapRequest.page = ((self.groups.set.count + 1)/WLAPIGeneralPageSize + 1);
     NSUInteger count = self.wrap.candies.count;
-    [[WLWrapRequest request:self.wrap page:page] send:^(WLWrap* wrap) {
+    [self.wrapRequest send:^(WLWrap* wrap) {
         [weakSelf.groups addCandies:wrap.candies];
-		loading = NO;
-        if (count == weakSelf.wrap.candies.count) {
+        if (count == wrap.candies.count) {
             weakSelf.loadingView = nil;
         }
     } failure:^(NSError *error) {
         [error showIgnoringNetworkError];
-		loading = NO;
         weakSelf.loadingView.error = YES;
     }];
 }

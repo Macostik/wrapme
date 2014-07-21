@@ -33,8 +33,7 @@
     self.window = [[WLWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = vc;
     [UIWindow setMainWindow:self.window];
-//	
-	[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+//
 	[[WLInternetConnectionBroadcaster broadcaster] configure];
 	[[WLKeyboardBroadcaster broadcaster] configure];
 	[[WLNotificationBroadcaster broadcaster] configure];
@@ -77,12 +76,10 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [[WLEntryManager manager].context save:NULL];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-	[WLSession setDeviceToken:deviceToken];
-	[WLNotificationBroadcaster enablePushNotificationsInSubscribedChannels:deviceToken];
+	[WLNotificationBroadcaster setDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {

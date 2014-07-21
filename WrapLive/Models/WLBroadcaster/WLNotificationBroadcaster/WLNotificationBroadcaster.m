@@ -29,8 +29,6 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
     SystemSoundID soundID;
 }
 
-@property (strong, nonatomic) NSDate* date;
-
 @end
 
 @implementation WLNotificationBroadcaster
@@ -44,15 +42,48 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
     return instance;
 }
 
-+ (void)enablePushNotificationsInChannels:(NSArray *)channels withDeviceToken:(NSData *)deviceToken {
-	if (channels && deviceToken && [[PubNub sharedInstance] isConnected]) {
-		[PubNub enablePushNotificationsOnChannels:channels withDevicePushToken:deviceToken];
-	}
++ (void)enablePushNotifications {
+    [self deviceToken:^(NSData *deviceToken) {
+        if (![[PubNub sharedInstance] isConnected]) {
+            return;
+        }
+        [PubNub removeAllPushNotificationsForDevicePushToken:deviceToken withCompletionHandlingBlock:^(PNError *error) {
+            if (!error) {
+                if ([WLUser currentUser].identifier.nonempty) {
+                    NSArray* channels = [PubNub subscribedChannels];
+                    if (channels && deviceToken && [[PubNub sharedInstance] isConnected]) {
+                        [PubNub enablePushNotificationsOnChannels:channels withDevicePushToken:deviceToken];
+                    }
+                }
+            }
+        }];
+    }];
 }
 
-+ (void)enablePushNotificationsInSubscribedChannels:(NSData *)deviceToken {
-    if ([WLUser currentUser].identifier.nonempty && [[PubNub sharedInstance] isConnected]) {
-        [self enablePushNotificationsInChannels:[PubNub subscribedChannels] withDeviceToken:deviceToken];
++ (void)disablePushNotifications {
+    [WLSession setDeviceToken:nil];
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeNone];
+}
+
+static WLDataBlock deviceTokenCompletion = nil;
+
++ (void)deviceToken:(WLDataBlock)completion {
+    NSData* deviceToken = [WLSession deviceToken];
+    if (deviceToken) {
+        completion(deviceToken);
+    } else {
+        NSLog(@"registerForRemoteNotificationTypes");
+        deviceTokenCompletion = completion;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+    }
+}
+
++ (void)setDeviceToken:(NSData *)deviceToken {
+    NSLog(@"setDeviceToken");
+    [WLSession setDeviceToken:deviceToken];
+    if (deviceTokenCompletion) {
+        deviceTokenCompletion(deviceToken);
+        deviceTokenCompletion = nil;
     }
 }
 
@@ -72,20 +103,14 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
     [super setup];
     [self setupMessageSound];
 	[PubNub setupWithConfiguration:[WLNotificationBroadcaster configuration] andDelegate:self];
+//    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+//        [WLNotificationBroadcaster disablePushNotifications];
+//    }];
 }
 
 - (void)setupMessageSound {
     NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"interfacealertsound3" ofType:@"wav"];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)([NSURL fileURLWithPath: soundPath]), &soundID);
-}
-
-- (NSDate *)date {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"pubnub_history_date"];
-}
-
-- (void)setDate:(NSDate *)date {
-    [[NSUserDefaults standardUserDefaults] setObject:date forKey:@"pubnub_history_date"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)subscribe {
@@ -145,7 +170,6 @@ static BOOL isPlayed = NO;
             AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, completionCallback, NULL);
         }
     }];
-    self.date = [NSDate date];
 }
 
 static void completionCallback (SystemSoundID  mySSID, void *myself) {
@@ -163,11 +187,7 @@ static void completionCallback (SystemSoundID  mySSID, void *myself) {
 
 - (void)pubnubClient:(PubNub *)client didSubscribeOnChannels:(NSArray *)channels {
 	NSLog(@"PubNub subscribed on channels %@", channels);
-	NSData* deviceToken = [WLSession deviceToken];
-	if (deviceToken) {
-		[WLNotificationBroadcaster enablePushNotificationsInChannels:channels withDeviceToken:deviceToken];
-	}
-    self.date = [NSDate date];
+	[WLNotificationBroadcaster enablePushNotifications];
 }
 
 - (void)pubnubClient:(PubNub *)client didUnsubscribeOnChannels:(NSArray *)channels {
@@ -177,6 +197,14 @@ static void completionCallback (SystemSoundID  mySSID, void *myself) {
 - (void)pubnubClient:(PubNub *)client didDisconnectFromOrigin:(NSString *)origin withError:(PNError *)error {
 	NSLog(@"PubNub will disconnect with error : %@", error);
 	[self connect];
+}
+
+- (void)pubnubClient:(PubNub *)client didEnablePushNotificationsOnChannels:(NSArray *)channels {
+    NSLog(@"PubNub didEnablePushNotificationsOnChannels %@", channels);
+}
+
+- (void)pubnubClientDidRemovePushNotifications:(PubNub *)client {
+    NSLog(@"pubnubClientDidRemovePushNotifications");
 }
 
 @end

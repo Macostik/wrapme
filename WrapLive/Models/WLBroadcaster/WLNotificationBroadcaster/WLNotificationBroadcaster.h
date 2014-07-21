@@ -27,9 +27,11 @@
 
 @property (strong, nonatomic) WLNotification* pendingRemoteNotification;
 
-+ (void)enablePushNotificationsInChannels:(NSArray*)channels withDeviceToken:(NSData*)deviceToken;
++ (void)enablePushNotifications;
 
-+ (void)enablePushNotificationsInSubscribedChannels:(NSData*)deviceToken;
++ (void)disablePushNotifications;
+
++ (void)setDeviceToken:(NSData*)deviceToken;
 
 - (void)handleRemoteNotification:(NSDictionary*)data;
 

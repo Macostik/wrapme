@@ -67,10 +67,8 @@ static NSData* _deviceToken = nil;
 
 + (void)setDeviceToken:(NSData *)deviceToken {
 	_deviceToken = deviceToken;
-	if (deviceToken) {
-		[[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:WLSessionDeviceTokenKey];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-	}
+	[[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:WLSessionDeviceTokenKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

@@ -262,13 +262,9 @@
 - (void)candiesCell:(WLCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
 	if ([candy isImage]) {
         NSMutableArray* controllers = [[self.navigationController viewControllers] mutableCopy];
-        WLDatesViewController *datesController = [WLDatesViewController instantiate];
-        datesController.wrap = self.wrap;
-        datesController.dates = self.groups;
-        [controllers addObject:datesController];
 		WLCandyViewController *candyController = [WLCandyViewController instantiate];
         candyController.backViewController = self;
-        [candyController setCandy:candy group:cell.item];
+        candyController.candy = candy;
         [controllers addObject:candyController];
         [self.navigationController setViewControllers:controllers animated:YES];
 	} else if ([candy isMessage]) {

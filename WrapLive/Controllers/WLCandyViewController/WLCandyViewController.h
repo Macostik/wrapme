@@ -11,6 +11,7 @@
 @class WLCandy;
 @class WLWrap;
 @class WLGroup;
+@class WLGroupedSet;
 
 @interface WLCandyViewController : WLSwipeViewController
 
@@ -20,6 +21,6 @@
 
 @property (strong, nonatomic) WLGroup *group;
 
-- (void)setCandy:(WLCandy *)candy group:(WLGroup*)group;
+@property (strong, nonatomic) WLGroupedSet *groups;
 
 @end

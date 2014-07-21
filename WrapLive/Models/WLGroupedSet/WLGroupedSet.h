@@ -47,6 +47,8 @@
 
 - (void)sort;
 
+- (WLGroup*)groupWithCandy:(WLCandy*)candy;
+
 @end
 
 @interface WLGroup : WLPaginatedSet

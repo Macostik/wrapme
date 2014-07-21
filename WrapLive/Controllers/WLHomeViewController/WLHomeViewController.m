@@ -459,9 +459,6 @@
         controller.wrap = wrap;
     }]];
 	if ([candy isImage]) {
-        [controllers addObject:[WLDatesViewController instantiate:^(WLDatesViewController *controller) {
-            controller.wrap = wrap;
-		}]];
         __weak typeof(self)weakSelf = self;
         [controllers addObject:[WLCandyViewController instantiate:^(WLCandyViewController *controller) {
             controller.candy = candy;

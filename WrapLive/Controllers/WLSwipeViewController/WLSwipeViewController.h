@@ -29,7 +29,7 @@ typedef void (^WLSwipeSelectionBlock)(id item);
 - (NSUInteger)repairedCurrentIndex;
 
 @property (strong, nonatomic) id item;
-@property (strong, nonatomic) NSOrderedSet* items;
+@property (strong, nonatomic) NSMutableOrderedSet* items;
 
 - (void)setSelectionBlock:(WLSwipeSelectionBlock)selectionBlock;
 

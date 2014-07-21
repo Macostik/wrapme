@@ -26,8 +26,15 @@
     return self;
 }
 
+- (NSMutableOrderedSet *)items {
+    if (!_items) {
+        _items = [NSMutableOrderedSet orderedSet];
+    }
+    return _items;
+}
+
 - (void)setItems:(NSOrderedSet *)items currentItem:(id)item {
-	self.items = items;
+	self.items = [NSMutableOrderedSet orderedSetWithOrderedSet:items];
 	_item = item;
 }
 

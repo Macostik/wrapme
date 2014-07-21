@@ -35,6 +35,7 @@
 #import "UIActionSheet+Blocks.h"
 #import "WLGroupedSet.h"
 #import "WLCandiesRequest.h"
+#import "UIView+QuatzCoreAnimations.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
@@ -57,8 +58,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
 
-@property (strong, nonatomic) NSMutableOrderedSet* candies;
-
 @property (strong, nonatomic) NSOrderedSet* comments;
 
 @property (nonatomic) BOOL autoenqueueUploading;
@@ -67,10 +66,15 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 @implementation WLCandyViewController
 
-@synthesize group = _group;
-
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
+    if (!self.groups) {
+        self.groups = [[WLGroupedSet alloc] init];
+        [self.groups addCandies:[self.candy.wrap images]];
+        self.group = [self.groups groupWithCandy:self.candy];
+    }
     
 	self.contentIndicatorView.layer.cornerRadius = 2;
 
@@ -82,59 +86,35 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	
 	[self showContentIndicatorView:NO];
+    
+    [self fetchOlder];
 }
 
-- (NSMutableOrderedSet *)candies {
-    if (!_candies) {
-        _candies = [NSMutableOrderedSet orderedSet];
+- (void)setGroup:(WLGroup *)group {
+    _group = group;
+    self.items = [[group.entries selectObjects:^BOOL(id item) {
+        return [item isImage];
+    }] mutableCopy];
+    if (![self.items containsObject:self.item]) {
+        self.item = [self.items firstObject];
     }
-    return _candies;
 }
 
 - (UIView *)swipeView {
 	return self.tableView;
 }
 
-- (NSOrderedSet *)items {
-    return self.candies;
-}
-
-- (WLGroup *)group {
-    if (!_group) {
-        _group = [WLGroup date];
-        [_group resetEntries:self.candies];
-    }
-    return _group;
-}
-
-- (void)setGroup:(WLGroup *)group {
-    [self setCandy:[group.entries selectObject:^BOOL(WLCandy* item) {
-        return [item isImage];
-    }] group:group];
-}
-
-- (void)setCandy:(WLCandy *)candy group:(WLGroup *)group {
-    [self setItems:nil currentItem:candy];
-    NSOrderedSet* candies = nil;
-    if (group) {
-        _group = group;
-        candies = group.entries;
-    } else {
-        candies = candy.wrap.candies;
-    }
-    [self.candies unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
-        return [item isImage] && [item.updatedAt isSameDay:candy.updatedAt];
-    }]];
-    [self fetchOlder];
-}
-
 - (void)setCandy:(WLCandy *)candy {
-    [self setCandy:candy group:nil];
+    [self setItems:nil currentItem:candy];
+}
+
+- (WLCandy *)candy {
+	return self.item;
 }
 
 - (void)fetchNewer {
     WLCandy* candy = self.candy;
-    if (!self.group.request.loading && [self.candies indexOfObject:candy] < 3) {
+    if (!self.group.request.loading && [self.items indexOfObject:candy] < 3) {
         self.group.request.type = WLPaginatedRequestTypeNewer;
         [self fetchCandies];
     }
@@ -142,8 +122,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)fetchOlder {
     WLCandy* candy = self.candy;
-    NSUInteger count = [self.candies count];
-    NSUInteger index = [self.candies indexOfObject:candy];
+    NSUInteger count = [self.items count];
+    NSUInteger index = [self.items indexOfObject:candy];
     BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
     if (!self.group.request.loading && shouldAppendCandies) {
         self.group.request.type = WLPaginatedRequestTypeOlder;
@@ -156,36 +136,59 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     [self.group send:^(NSOrderedSet *candies) {
         if (candies.nonempty) {
             WLCandy* candy = weakSelf.candy;
-            [weakSelf.candies unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
+            [weakSelf.items unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
                 return [item isImage] && [item.updatedAt isSameDay:candy.updatedAt];
             }]];
-            [weakSelf.candies sortEntries];
+            [weakSelf.items sortEntries];
         }
     } failure:^(NSError *error) {
     }];
 }
 
-- (WLCandy *)candy {
-	return self.item;
-}
-
 - (void)didSwipeLeft:(NSUInteger)currentIndex {
-    if (self.group.completed && self.candy == [self.candies lastObject]) {
-        [self.navigationController popViewControllerAnimated:YES];
+    if (self.group.completed && self.candy == [self.items lastObject]) {
+        
+        NSUInteger (^operationBlock)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
+            return index + 1;
+        };
+        
+        if ([self swipeToGroupAtIndex:operationBlock([self.groups.set indexOfObject:self.group]) operationBlock:operationBlock]) {
+            [[self swipeView] leftPush];
+        }
     } else {
         [super didSwipeLeft:currentIndex];
-        [self showContentIndicatorView:YES];
         [self fetchOlder];
     }
+    [self showContentIndicatorView:YES];
 }
 
 - (void)didSwipeRight:(NSUInteger)currentIndex {
-    if (self.candy == [self.candies firstObject]) {
-        [self.navigationController popViewControllerAnimated:YES];
+    if (self.candy == [self.items firstObject]) {
+        
+        NSUInteger (^operationBlock)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
+            return index - 1;
+        };
+        
+        if ([self swipeToGroupAtIndex:operationBlock([self.groups.set indexOfObject:self.group]) operationBlock:operationBlock]) {
+            [[self swipeView] rightPush];
+        }
     } else {
         [super didSwipeRight:currentIndex];
-        [self showContentIndicatorView:YES];
     }
+    [self showContentIndicatorView:YES];
+}
+
+- (BOOL)swipeToGroupAtIndex:(NSUInteger)index operationBlock:(NSUInteger (^)(NSUInteger index))operationBlock {
+    if ([self.groups.set containsIndex:index]) {
+        WLGroup* group = [self.groups.set objectAtIndex:index];
+        if ([group hasAtLeastOneImage]) {
+            self.group = group;
+            return YES;
+        } else {
+            return [self swipeToGroupAtIndex:operationBlock(index) operationBlock:operationBlock];
+        }
+    }
+    return NO;
 }
 
 - (void)showContentIndicatorView:(BOOL)animated {
@@ -222,16 +225,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     return [item isImage];
 }
 
-- (NSUInteger)repairedCurrentIndex {
-	NSOrderedSet* items = self.items;
-	for (WLCandy* candy in items) {
-		if ([candy isEqualToEntry:self.candy]) {
-			return [items indexOfObject:candy];
-		}
-	}
-	return NSNotFound;
-}
-
 - (void)refresh {
 	if (self.candy.uploaded) {
 		__weak typeof(self)weakSelf = self;
@@ -258,7 +251,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 			[weakSelf.spinner stopAnimating];
 		}
 	}];
-	self.reportButton.hidden = ([self.candy.contributor isCurrentUser] || [self.candy.wrap.contributor isCurrentUser]);
 	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
     self.uploadIcon.hidden = image.uploaded;
@@ -306,10 +298,20 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
     [WLToast showWithMessage:@"This candy is no longer avaliable."];
-    if (self.items.nonempty) {
-        self.item = [self.items firstObject];
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
+    NSUInteger index = [self.items indexOfObject:candy];
+    if (index != NSNotFound) {
+        [self.items removeObject:candy];
+        if (self.items.nonempty) {
+             if ([self.items containsIndex:index - 1]) {
+                self.item = [self.items objectAtIndex:index - 1];
+             } else if ([self.items containsIndex:index + 1]) {
+                 self.item = [self.items objectAtIndex:index + 1];
+             } else {
+                self.item = [self.items firstObject];
+            }
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
@@ -348,12 +350,22 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (IBAction)report:(UIButton *)sender {
-    __weak typeof(self)weakSelf = self;
-	[UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Report as inappropriate" completion:^(NSUInteger index) {
-		if (index == 0) {
-			[MFMailComposeViewController messageWithCandy:weakSelf.candy];
-		}
-	}];
+    WLCandy* candy = self.candy;
+    if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
+        [UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Report as inappropriate" completion:^(NSUInteger index) {
+            if (index == 0) {
+                [candy remove:^(id object) {
+                } failure:^(NSError *error) {
+                }];
+            }
+        }];
+    } else {
+        [UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Report as inappropriate" completion:^(NSUInteger index) {
+            if (index == 0) {
+                [MFMailComposeViewController messageWithCandy:candy];
+            }
+        }];
+    }
 }
 
 - (void)sendMessageWithText:(NSString*)text {

@@ -144,6 +144,15 @@
     }
 }
 
+- (WLGroup *)groupWithCandy:(WLCandy *)candy {
+    for (WLGroup* group in self.set) {
+        if ([group.entries containsObject:candy]) {
+            return group;
+        }
+    }
+    return nil;
+}
+
 @end
 
 @implementation WLGroup

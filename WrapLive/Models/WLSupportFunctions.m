@@ -62,6 +62,10 @@ CGSize CGSizeThatFillsSize(CGSize sizeToFill, CGSize originalSize) {
     return CGSizeMake(originalSize.width * scale, originalSize.height * scale);
 }
 
+CGSize CGSizeLargerSize(CGSize sizeFirst, CGSize sizeSecond) {
+    return (CGSize){MAX(sizeFirst.width, sizeSecond.width), MAX(sizeFirst.height, sizeSecond.height)};
+}
+
 CGRect CGRectCenteredInSize(CGRect rect, CGSize size) {
     rect.origin = CGPointMake(size.width/2 - rect.size.width/2, size.height/2 - rect.size.height/2);
     return rect;

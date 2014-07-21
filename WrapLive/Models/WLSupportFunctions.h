@@ -23,6 +23,7 @@ CGFloat CGAngleBetweenLines(CGLine l1, CGLine l2);
 CGSize CGRetinaSize(CGSize size);
 CGSize CGSizeThatFitsSize(CGSize sizeToFit, CGSize originalSize);
 CGSize CGSizeThatFillsSize(CGSize sizeToFill, CGSize originalSize);
+CGSize CGSizeLargerSize(CGSize sizeFirst, CGSize sizeSecond);
 CGRect CGRectCenteredInSize(CGRect rect, CGSize size);
 CGRect CGRectThatFitsSize(CGSize sizeToFit, CGSize originalSize);
 CGRect CGRectThatFillsSize(CGSize sizeToFill, CGSize originalSize);

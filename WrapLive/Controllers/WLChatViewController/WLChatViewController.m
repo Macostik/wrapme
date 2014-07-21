@@ -124,11 +124,6 @@
 }
 
 - (void)insertMessage:(WLCandy*)message {
-    for (WLGroup* group in self.groups.set) {
-        if ([group.entries containsObject:message] && ![group.date isSameDay:message.updatedAt]) {
-            [group.entries removeObject:message];
-        }
-    }
 	[self.groups addCandy:message];
     [self.groups sort];
     [self.collectionView reloadData];
@@ -201,7 +196,20 @@
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
-    [self.collectionView reloadData];
+    if ([candy isMessage]) {
+        for (WLGroup* group in self.groups.set) {
+            if ([group.entries containsObject:candy] && ![group.date isSameDay:candy.updatedAt]) {
+                [group.entries removeObject:candy];
+                if (![group.entries count]) {
+                    [self.groups.set removeObject:group];
+                    break;
+                }
+            }
+        }
+        [self.groups addCandy:candy];
+        [self.groups sort];
+        [self.collectionView reloadData];
+    }
 }
 
 - (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
@@ -245,7 +253,7 @@
 - (void)sendMessageWithText:(NSString*)text {
     __weak typeof(self)weakSelf = self;
     [self.wrap uploadMessage:text success:^(WLCandy *candy) {
-//        [weakSelf insertMessage:candy];
+        [weakSelf insertMessage:candy];
 		[weakSelf.collectionView scrollToTopAnimated:YES];
     } failure:^(NSError *error) {
 		[error show];

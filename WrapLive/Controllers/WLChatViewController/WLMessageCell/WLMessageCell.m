@@ -16,6 +16,7 @@
 #import "WLUser+Extended.h"
 #import "NSString+Additions.h"
 #import "NSDate+Formatting.h"
+#import "WLSupportFunctions.h"
 
 @interface WLMessageCell ()
 
@@ -42,7 +43,8 @@
 	self.messageLabel.text = candy.message;
 	__weak typeof(self)weakSelf = self;
 	[UIView performWithoutAnimation:^{
-        weakSelf.messageLabel.size = [weakSelf.messageLabel sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)];
+        weakSelf.messageLabel.size = CGSizeLargerSize([weakSelf.messageLabel sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)],
+                                                      (CGSize){WLMinBubbleWidth, weakSelf.messageLabel.height});
         if (weakSelf.avatarView.x > weakSelf.messageLabel.x) {
             weakSelf.messageLabel.x = weakSelf.avatarView.x - weakSelf.messageLabel.width - WLMessageAuthorLabelHeight;
         }
@@ -56,6 +58,7 @@
     self.bubbleImageView.x -= WLPadding;
     self.bubbleImageView.height += WLBottomIdent;
     self.bubbleImageView.width += 2*WLPadding;
+    self.messageLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 @end

@@ -46,7 +46,7 @@
         weakSelf.messageLabel.size = CGSizeLargerSize([weakSelf.messageLabel sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)],
                                                       (CGSize){WLMinBubbleWidth, weakSelf.messageLabel.height});
         if (weakSelf.avatarView.x > weakSelf.messageLabel.x) {
-            weakSelf.messageLabel.x = weakSelf.avatarView.x - weakSelf.messageLabel.width - WLMessageAuthorLabelHeight;
+            weakSelf.messageLabel.x = weakSelf.avatarView.x - weakSelf.messageLabel.width - WLMessageAuthorLabelHeight/2;
         }
 	}];
     [self drawMessageBubbleForCandy:candy];

@@ -19,6 +19,6 @@
 
 @property (strong, nonatomic) NSMutableOrderedSet *contributors;
 
-@property (strong, nonatomic) NSArray *invitees;
+@property (strong, nonatomic) NSMutableArray *invitees;
 
 @end

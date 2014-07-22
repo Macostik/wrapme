@@ -36,4 +36,8 @@
 	return (self.length > 0);
 }
 
+- (BOOL)isContainSubstring:(NSString *)subString {
+	return ([self rangeOfString:subString options:NSCaseInsensitiveSearch].location != NSNotFound);
+}
+
 @end

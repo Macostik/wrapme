@@ -13,6 +13,13 @@
 
 @implementation WLWrapEditSession
 
+- (id)initWithEntry:(WLEntry *)entry {
+    if(self = [super initWithEntry:entry]) {
+        [self sortContributors:self.contributors];
+    }
+    return self;
+}
+
 - (void)setName:(NSString *)name {
     [self.changed trySetObject:name forKey:@"name"];
 }
@@ -29,21 +36,14 @@
     return [self.changed objectForKey:@"url"];
 }
 
-- (void)setContributors:(NSMutableOrderedSet *)contributors {
+- (void)sortContributors:(NSMutableOrderedSet *)contributors {
     [contributors sortUsingComparator:^NSComparisonResult(WLUser *contributor1, WLUser *contributor2) {
         if ([contributor1 isCurrentUser]) {
-            return NSOrderedAscending;
+            return NSOrderedDescending;
         } else if ([contributor2 isCurrentUser]) {
-            return NSOrderedDescending;
-        } else if (![self.entry.contributors containsObject:contributor1] && ![self.entry.contributors containsObject:contributor2]) {
-            return [contributor1.name compare:contributor2.name];
-        } else if (![self.entry.contributors containsObject:contributor1]) {
-            return NSOrderedDescending;
-        } else if (![self.entry.contributors containsObject:contributor2]) {
             return NSOrderedAscending;
-        } else {
-            return [contributor1.name compare:contributor2.name];
         }
+        return [contributor1.name compare:contributor2.name options:NSCaseInsensitiveSearch];
     }];
     [self.changed trySetObject:contributors forKey:@"contributors"];
 }
@@ -52,11 +52,11 @@
     return [self.changed objectForKey:@"contributors"];
 }
 
-- (void)setInvitees:(NSArray *)invitees {
+- (void)setInvitees:(NSMutableArray *)invitees {
     [self.changed trySetObject:invitees forKey:@"invitees"];
 }
 
-- (NSArray *)invitees {
+- (NSMutableArray *)invitees {
     return [self.changed objectForKey:@"invitees"];
 }
 

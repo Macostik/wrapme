@@ -97,16 +97,19 @@
         if (self.contributors.count == 1) {
             return @"You";
         }
-        NSMutableArray *contributorsArray = [NSMutableArray new];
-        for (WLUser *contributor in self.contributors) {
-            if (![contributor isCurrentUser]) {
+        NSMutableArray *contributorsArray = @[].mutableCopy;
+        __block int i = 1;
+        [self.contributors all:^(WLUser *contributor) {
+            if (![contributor isCurrentUser] && i <= numberOfUsers) {
                 [contributorsArray addObject:contributor.name];
+                i++;
             }
-            if (contributorsArray.count == numberOfUsers) {
-                break;
-            }
-        }
-        [contributorsArray addObject:(self.contributors.count > numberOfUsers) ? @"You ..." : @"You"];
+        }];
+        [contributorsArray sortUsingComparator:^NSComparisonResult(NSString * user1, NSString *user2) {
+            return [user1 compare:user2 options:NSCaseInsensitiveSearch];
+        }];
+        [contributorsArray insertObject:(self.contributors.count > numberOfUsers + 1) ? @"You ..." : @"You"
+                                atIndex:contributorsArray.count];
         return [contributorsArray componentsJoinedByString:@", "];
     }
     return nil;

@@ -56,7 +56,7 @@
     self.bubbleImageView.image = self.bubbleImages[![candy.contributor isCurrentUser]];
     self.bubbleImageView.frame = self.messageLabel.frame;
     self.bubbleImageView.x -= WLPadding;
-    self.bubbleImageView.height += WLBottomIdent;
+    self.bubbleImageView.height += 10;
     self.bubbleImageView.width += 2*WLPadding;
     self.messageLabel.textAlignment = NSTextAlignmentCenter;
 }

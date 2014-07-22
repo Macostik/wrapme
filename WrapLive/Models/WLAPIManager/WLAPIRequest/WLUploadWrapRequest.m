@@ -42,8 +42,12 @@
         }
 	}
     for (WLPerson * person in wrap.invitees) {
-        NSData* invitee = [NSJSONSerialization dataWithJSONObject:@{@"name":WLString(person.name),@"phone_number":person.phone} options:0 error:NULL];
-        [invitees addObject:[[NSString alloc] initWithData:invitee encoding:NSUTF8StringEncoding]];
+        if (person.user) {
+            [contributors addObject:person.user.identifier];
+        } else {
+            NSData* invitee = [NSJSONSerialization dataWithJSONObject:@{@"name":WLString(person.name),@"phone_number":person.phone} options:0 error:NULL];
+            [invitees addObject:[[NSString alloc] initWithData:invitee encoding:NSUTF8StringEncoding]];
+        }
     }
 	[parameters trySetObject:wrap.name forKey:@"name"];
 	[parameters trySetObject:contributors forKey:@"user_uids"];

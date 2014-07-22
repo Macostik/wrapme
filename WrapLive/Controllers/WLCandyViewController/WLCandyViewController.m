@@ -352,7 +352,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (IBAction)report:(UIButton *)sender {
     WLCandy* candy = self.candy;
     if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
-        [UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Report as inappropriate" completion:^(NSUInteger index) {
+        [UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" completion:^(NSUInteger index) {
             if (index == 0) {
                 [candy remove:^(id object) {
                 } failure:^(NSError *error) {

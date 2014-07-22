@@ -12,6 +12,7 @@
 #import "WLImageFetcher.h"
 #import "WLPicture.h"
 #import "WLPerson.h"
+#import "WLUser.h"
 
 @interface WLInviteeCell ()
 
@@ -33,12 +34,16 @@
 	if (self.nameLabel.text.empty) {
 		self.nameLabel.text = person.phone;
 	}
-	if (person.picture.medium.nonempty) {
-		self.avatarView.url = person.picture.medium;
-	} else {
-		self.avatarView.url = nil;
-		self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
-	}
+    if (person.user) {
+        self.avatarView.url = person.user.picture.medium;
+    } else {
+        if(person.picture.medium.nonempty) {
+            self.avatarView.url = person.picture.medium;
+        } else {
+            self.avatarView.url = nil;
+            self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
+        }
+    }
 }
 
 - (void)setDeletable:(BOOL)deletable {

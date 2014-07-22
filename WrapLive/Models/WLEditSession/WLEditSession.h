@@ -19,7 +19,7 @@
 
 @property (weak, nonatomic) WLEntry* entry;
 
-- (instancetype)initWithEntry:(WLEntry *)entry;
+- (id)initWithEntry:(WLEntry *)entry;
 
 - (void)setup:(NSMutableDictionary *)dictionary entry:(WLEntry *)entry;
 

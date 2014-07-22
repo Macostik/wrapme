@@ -48,4 +48,6 @@ static inline NSString* phoneNumberClearing (NSString* phone) {
 
 - (NSString*)trim;
 
+- (BOOL)isContainSubstring:(NSString *)subString;
+
 @end

@@ -46,7 +46,7 @@
         weakSelf.messageLabel.size = CGSizeLargerSize([weakSelf.messageLabel sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)],
                                                       (CGSize){WLMinBubbleWidth, weakSelf.messageLabel.height});
         if (weakSelf.avatarView.x > weakSelf.messageLabel.x) {
-            weakSelf.messageLabel.x = weakSelf.avatarView.x - weakSelf.messageLabel.width - WLMessageAuthorLabelHeight;
+            weakSelf.messageLabel.x = weakSelf.avatarView.x - weakSelf.messageLabel.width - WLMessageAuthorLabelHeight/2;
         }
 	}];
     [self drawMessageBubbleForCandy:candy];
@@ -56,7 +56,7 @@
     self.bubbleImageView.image = self.bubbleImages[![candy.contributor isCurrentUser]];
     self.bubbleImageView.frame = self.messageLabel.frame;
     self.bubbleImageView.x -= WLPadding;
-    self.bubbleImageView.height += WLBottomIdent;
+    self.bubbleImageView.height += 10;
     self.bubbleImageView.width += 2*WLPadding;
     self.messageLabel.textAlignment = NSTextAlignmentCenter;
 }

@@ -310,7 +310,7 @@
 - (CGFloat)heightOfMessageCell:(WLCandy *)comment {
 	CGFloat commentHeight  = ceilf([comment.message boundingRectWithSize:CGSizeMake(250, CGFLOAT_MAX)
 																	 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightFontOfSize:15]} context:nil].size.height);
-	commentHeight += WLMessageAuthorLabelHeight + WLBottomIdent;
+	commentHeight += 2*WLMessageAuthorLabelHeight;
 	return MAX(WLMessageMinimumCellHeight, commentHeight);
 }
 

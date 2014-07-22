@@ -56,9 +56,7 @@
             if (person.user) {
                 return [self.contributors containsObject:person.user];
             }
-            return [self.invitees containsObject:person byBlock:^BOOL(WLPerson* first, WLPerson* second) {
-                return [first isEqualToPerson:second];
-            }];
+            return [self.invitees containsObject:person.user];
         }];
         
         if (!persons.nonempty) {
@@ -168,17 +166,7 @@
 }
 
 - (IBAction)done:(id)sender {
-    
-    NSMutableOrderedSet * contributors = [NSMutableOrderedSet orderedSetWithOrderedSet:self.contributors];
-    NSMutableArray* invitees = [NSMutableArray arrayWithArray:self.invitees];
-    for (WLPerson* person in self.selectedPhones) {
-        if (person.user) {
-            [contributors addObject:person.user];
-        } else {
-            [invitees addObject:person];
-        }
-    }
-    self.contactsBlock(contributors, [invitees copy]);
+    self.contactsBlock([self.selectedPhones allObjects]);
 	[self.navigationController popViewControllerAnimated:YES];
 }
 

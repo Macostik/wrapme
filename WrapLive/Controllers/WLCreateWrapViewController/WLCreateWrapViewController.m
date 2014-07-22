@@ -90,9 +90,11 @@
         controller.contributors = self.editSession.contributors;
         controller.invitees = self.editSession.invitees;
         __weak typeof(self)weakSelf = self;
-        [controller setContactsBlock:^(NSMutableOrderedSet *contributors, NSArray *invitees) {
-            weakSelf.editSession.contributors = contributors;
-            weakSelf.editSession.invitees = invitees;
+        [controller setContactsBlock:^(NSArray *invitees) {
+            if (!weakSelf.editSession.invitees.nonempty) {
+                weakSelf.editSession.invitees = @[].mutableCopy;
+            }
+            [weakSelf.editSession.invitees addObjectsFromArray:invitees];
         }];
 	}
 }
@@ -206,6 +208,19 @@
         cell.item = person;
         return cell;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return section && [self.editSession.invitees count] ? 5.0f : .0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if ([self.editSession.invitees count] && section) {
+        UIView *view = [UIView new];
+        view.backgroundColor = [UIColor WL_orangeColor];
+        return view;
+    }
+    return nil;
 }
 
 #pragma mark - UITextFieldDelegate

@@ -9,7 +9,6 @@
 #import "WLAPIManager.h"
 #import "WLSession.h"
 #import "NSDate+Formatting.h"
-#import "WLAPIResponse.h"
 #import "NSArray+Additions.h"
 #import "WLAddressBook.h"
 #import "WLNavigation.h"

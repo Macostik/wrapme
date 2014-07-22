@@ -8,11 +8,7 @@
 
 typedef NS_ENUM(NSInteger, WLAPIResponseCode) {
 	WLAPIResponseCodeSuccess = 0,
-	WLAPIResponseCodeFailure = -1,
-    WLAPIResponseCodeDuplicatedUploading = 10,
-    WLAPIResponseCodeInvalidAttributes = 20,
-    WLAPIResponseCodeContentUnavaliable = 30,
-    WLAPIResponseCodeMaxTimeLagExceeded = 40
+	WLAPIResponseCodeFailure = -1
 };
 
 /*!

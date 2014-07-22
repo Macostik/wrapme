@@ -30,7 +30,7 @@
 }
 
 - (void)handleFailure:(NSError *)error {
-    if ([error.domain isEqualToString:WLErrorDomain] && error.code == WLAPIResponseCodeContentUnavaliable) {
+    if (self.candy.uploaded && error.isContentUnavaliable) {
         [self.candy remove];
         self.candy = nil;
     }

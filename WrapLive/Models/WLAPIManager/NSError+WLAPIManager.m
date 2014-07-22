@@ -26,7 +26,7 @@ static NSDictionary *errorsToIgnore = nil;
 }
 
 + (NSError *)errorWithDescription:(NSString *)description {
-	return [NSError errorWithDescription:description code:kWLErrorCodeUnknown];
+	return [NSError errorWithDescription:description code:WLErrorUnknown];
 }
 
 - (BOOL)ignore {
@@ -106,6 +106,18 @@ static NSDictionary *customErrorMessages = nil;
 	    if (![self ignore])
             WLLog(@"ERROR",label, self);
 	});
+}
+
+- (BOOL)isError:(WLErrorCode)code {
+    return [self.domain isEqualToString:WLErrorDomain] && self.code == code;
+}
+
+- (BOOL)isDuplicatedUploading {
+    return [self isError:WLErrorDuplicatedUploading];
+}
+
+- (BOOL)isContentUnavaliable {
+    return [self isError:WLErrorContentUnavaliable];
 }
 
 @end

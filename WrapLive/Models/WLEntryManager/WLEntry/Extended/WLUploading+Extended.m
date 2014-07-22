@@ -82,7 +82,7 @@
         [weakSelf remove];
         success(contribution);
     } failure:^(NSError *error) {
-        if ([error.domain isEqualToString:WLErrorDomain] && error.code == WLAPIResponseCodeDuplicatedUploading) {
+        if (error.isDuplicatedUploading) {
             [weakSelf.contribution remove];
             failure([NSError errorWithDescription:@"This item is already uploaded."]);
         } else {

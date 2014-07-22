@@ -64,7 +64,7 @@
 }
 
 - (void)handleFailure:(NSError *)error {
-    if (!self.creation && [error.domain isEqualToString:WLErrorDomain] && error.code == WLAPIResponseCodeContentUnavaliable) {
+    if (!self.creation && self.wrap.uploaded && error.isContentUnavaliable) {
         [self.wrap remove];
         self.wrap = nil;
     }

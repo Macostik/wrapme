@@ -71,12 +71,12 @@
 	[self setTranslucent];
 }
 
-- (WLWrap *)wrap {
-	if (!_wrap) {
-		_wrap = [WLWrap wrap];
-	}
-	return _wrap;
-}
+//- (WLWrap *)wrap {
+//	if (!_wrap) {
+//		_wrap = [WLWrap wrap];
+//	}
+//	return _wrap;
+//}
 
 - (void)setWrap:(WLWrap *)wrap {
     _wrap = wrap;
@@ -151,9 +151,10 @@
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
 	[self lock];
-    [self.editSession apply:self.wrap];
-	[self.wrap save];
-    [self.wrap broadcastCreation];
+    WLWrap* wrap = [WLWrap wrap];
+    [self.editSession apply:wrap];
+	[wrap save];
+    [wrap broadcastCreation];
     void (^completion) (WLWrap*) = ^ (WLWrap* wrap) {
         WLWrapViewController* wrapController = [WLWrapViewController instantiate];
 		wrapController.wrap = wrap;
@@ -161,16 +162,16 @@
 		[weakSelf dismiss:WLWrapTransitionFromLeft];
     };
     
-    [[WLUploading uploading:self.wrap] upload:^(id object) {
+    [[WLUploading uploading:wrap] upload:^(id object) {
         [weakSelf.spinner stopAnimating];
         [weakSelf unlock];
-        weakSelf.wrap.invitees = nil;
+        wrap.invitees = nil;
 		completion(object);
     } failure:^(NSError *error) {
         [weakSelf.spinner stopAnimating];
 		[weakSelf unlock];
         if ([error isNetworkError]) {
-            completion(weakSelf.wrap);
+            completion(wrap);
         } else {
             [error show];
             [[WLEntryManager manager].context refreshObject:self.wrap mergeChanges:NO];

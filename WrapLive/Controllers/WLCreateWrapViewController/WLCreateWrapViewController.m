@@ -110,7 +110,7 @@
 }
 
 - (void)refreshFooterView {
-	self.contributorsTableView.tableFooterView = self.editSession.contributors.nonempty ? nil : self.noContributorsView;
+	self.contributorsTableView.tableFooterView = (self.editSession.contributors.nonempty || self.editSession.invitees.nonempty) ? nil : self.noContributorsView;
 	[self isAtObjectSessionChanged];
 }
 

@@ -22,5 +22,7 @@
 @property (strong, nonatomic) WLPicture *picture;
 
 - (BOOL)isEqualToPerson:(WLPerson*)person;
+- (NSString *)prioritetName;
+- (WLPicture *)prioritetPicture;
 
 @end

@@ -46,18 +46,11 @@
 
 - (void)setupItemData:(WLContact*)contact {
 	WLPerson* person = [contact.persons lastObject];
-    if (person.user) {
-        self.signUpView.hidden = NO;
-        self.avatarView.url = person.user.picture.medium;
-    } else {
-        self.signUpView.hidden = YES;
-        self.avatarView.url = nil;
-        if (person.picture) {
-            self.avatarView.url = person.picture.medium;
-        } else {
-            self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
-        }
+     self.avatarView.url = person.prioritetPicture.medium;
+    if (!self.avatarView.url.nonempty) {
+        self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }
+    self.signUpView.hidden = (person.user) ? NO : YES;
 	self.nameLabel.text = contact.name;
 	
 	if (self.tableView) {

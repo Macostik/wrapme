@@ -10,11 +10,16 @@
 #import "NSArray+Additions.h"
 #import "WLUser+Extended.h"
 #import "NSDictionary+Extended.h"
+#import "WLPerson.h"
+#import "NSString+Additions.h"
 
 @implementation WLWrapEditSession
 
 - (id)initWithEntry:(WLEntry *)entry {
     if(self = [super initWithEntry:entry]) {
+        if (![self.contributors count]) {
+            [self.contributors addObject:[WLUser currentUser]];
+        }
         [self sortContributors:self.contributors];
     }
     return self;
@@ -45,6 +50,10 @@
         }
         return [contributor1.name compare:contributor2.name options:NSCaseInsensitiveSearch];
     }];
+}
+
+- (void)setContributors:(NSMutableOrderedSet *)contributors {
+    [self sortContributors:contributors];
     [self.changed trySetObject:contributors forKey:@"contributors"];
 }
 
@@ -88,6 +97,15 @@
     wrap.picture.large = [dictionary objectForKey:@"url"];
     wrap.contributors = [dictionary objectForKey:@"contributors"];
     wrap.invitees = [dictionary objectForKey:@"invitees"];
+}
+
+- (void)addObjectToInvitees:(NSArray *)invitees {
+    NSMutableArray* _invitees = self.invitees;
+    [_invitees addObjectsFromArray:invitees];
+    [_invitees sortUsingComparator:^NSComparisonResult(WLPerson *firstPerson, WLPerson *secondPerson) {
+        return [firstPerson.prioritetName compare:secondPerson.prioritetName options:NSCaseInsensitiveSearch];
+    }];
+    self.invitees = _invitees;
 }
 
 @end

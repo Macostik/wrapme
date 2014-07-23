@@ -30,20 +30,10 @@
 }
 
 - (void)setupItemData:(WLPerson*)person {
-    if (person.user) {
-        self.avatarView.url = person.user.picture.medium;
-        self.nameLabel.text = person.user.name;
-    } else {
-        self.nameLabel.text = person.name;
-        if (self.nameLabel.text.empty) {
-            self.nameLabel.text = person.phone;
-        }
-        if(person.picture.medium.nonempty) {
-            self.avatarView.url = person.picture.medium;
-        } else {
-            self.avatarView.url = nil;
-            self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
-        }
+    self.nameLabel.text = person.prioritetName;
+    self.avatarView.url = person.prioritetPicture.medium;
+    if(!self.avatarView.url.nonempty) {
+        self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }
 }
 

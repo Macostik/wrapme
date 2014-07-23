@@ -94,7 +94,7 @@
             if (!weakSelf.editSession.invitees.nonempty) {
                 weakSelf.editSession.invitees = @[].mutableCopy;
             }
-            [weakSelf.editSession.invitees addObjectsFromArray:invitees];
+            [weakSelf.editSession addObjectToInvitees:invitees];
         }];
 	}
 }
@@ -110,7 +110,6 @@
 }
 
 - (void)refreshFooterView {
-	self.contributorsTableView.tableFooterView = (self.editSession.contributors.nonempty || self.editSession.invitees.nonempty) ? nil : self.noContributorsView;
 	[self isAtObjectSessionChanged];
 }
 
@@ -196,7 +195,7 @@
         WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
         WLUser* contributor = self.editSession.contributors[indexPath.row];
         cell.item = contributor;
-        if ([self.wrap.contributor isCurrentUser]) {
+        if (!self.wrap ||[self.wrap.contributor isCurrentUser]) {
             cell.deletable = ![contributor isCurrentUser];
         } else {
             cell.deletable = ![self.wrap.contributors containsObject:contributor];
@@ -248,7 +247,7 @@
 }
 
 - (BOOL)contributorCell:(WLContributorCell *)cell isCreator:(WLUser *)contributor {
-    return [self.wrap.contributor isEqualToEntry:contributor];
+    return !self.wrap || [self.wrap.contributor isEqualToEntry:contributor];
 }
 
 #pragma mark - WLInviteeCellDelegate

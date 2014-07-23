@@ -37,12 +37,10 @@
 	if (self.nameLabel.text.empty) {
 		self.nameLabel.text = user.phone;
 	}
-	if (user.picture.medium.nonempty) {
-		self.avatarView.url = user.picture.medium;
-	} else {
-		self.avatarView.url = nil;
-		self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
-	}
+    self.avatarView.url = user.picture.medium;
+    if (!self.avatarView.url.nonempty) {
+        self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
+    }
 }
 
 - (void)setDeletable:(BOOL)deletable {

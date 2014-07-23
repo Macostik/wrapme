@@ -21,4 +21,6 @@
 
 @property (strong, nonatomic) NSMutableArray *invitees;
 
+- (void)addObjectToInvitees:(NSArray *)invitees ;
+
 @end

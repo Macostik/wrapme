@@ -54,9 +54,13 @@
 		NSMutableArray *persons = [contact.persons mutableCopy];
         [persons removeObjectsWhileEnumerating:^BOOL(WLPerson *person) {
             if (person.user) {
-                return [self.contributors containsObject:person.user];
+                if ([self.contributors containsObject:person.user]) {
+                    return YES;
+                }
             }
-            return [self.invitees containsObject:person.user];
+            return [self.invitees containsObject:person byBlock:^BOOL(WLPerson* first, WLPerson* second) {
+                return [first isEqualToPerson:second];
+            }];
         }];
         
         if (!persons.nonempty) {

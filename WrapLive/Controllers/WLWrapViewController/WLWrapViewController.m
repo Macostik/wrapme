@@ -36,6 +36,7 @@
 #import "NSString+Additions.h"
 #import "WLWrapRequest.h"
 #import "WLDatesViewController.h"
+#import "UIViewController+Additions.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate, WLQuickChatViewDelegate, WLGroupedSetDelegate>
 
@@ -204,6 +205,9 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
     [self.groups removeCandy:candy];
+    if (!self.wrap.candies.nonempty) {
+        [self setFirstContributorViewHidden:NO animated:self.isOnTopOfNagvigation];
+    }
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {

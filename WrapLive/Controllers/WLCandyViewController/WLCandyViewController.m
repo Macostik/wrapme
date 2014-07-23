@@ -355,6 +355,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
         [UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" completion:^(NSUInteger index) {
             if (index == 0) {
                 [candy remove:^(id object) {
+                    [WLToast showWithMessage:@"Candy was deleted successfully."];
                 } failure:^(NSError *error) {
                 }];
             }

@@ -30,13 +30,14 @@
 }
 
 - (void)setupItemData:(WLPerson*)person {
-	self.nameLabel.text = person.name;
-	if (self.nameLabel.text.empty) {
-		self.nameLabel.text = person.phone;
-	}
     if (person.user) {
         self.avatarView.url = person.user.picture.medium;
+        self.nameLabel.text = person.user.name;
     } else {
+        self.nameLabel.text = person.name;
+        if (self.nameLabel.text.empty) {
+            self.nameLabel.text = person.phone;
+        }
         if(person.picture.medium.nonempty) {
             self.avatarView.url = person.picture.medium;
         } else {

@@ -43,8 +43,8 @@
 	self.messageLabel.text = candy.message;
 	__weak typeof(self)weakSelf = self;
 	[UIView performWithoutAnimation:^{
-        weakSelf.messageLabel.size = CGSizeLargerSize([weakSelf.messageLabel sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)],
-                                                      (CGSize){WLMinBubbleWidth, weakSelf.messageLabel.height});
+        CGSize size = [weakSelf.messageLabel sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)];
+        weakSelf.messageLabel.size = CGSizeMake(MAX(WLMinBubbleWidth, size.width), size.height);
         if (weakSelf.avatarView.x > weakSelf.messageLabel.x) {
             weakSelf.messageLabel.x = weakSelf.avatarView.x - weakSelf.messageLabel.width - WLMessageAuthorLabelHeight/2;
         }
@@ -58,7 +58,6 @@
     self.bubbleImageView.x -= WLPadding;
     self.bubbleImageView.height += 10;
     self.bubbleImageView.width += 2*WLPadding;
-    self.messageLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 @end

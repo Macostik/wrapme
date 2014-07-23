@@ -40,7 +40,6 @@
 @property (weak, nonatomic) IBOutlet UIView *coverButtonView;
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UITableView *contributorsTableView;
-@property (strong, nonatomic) IBOutlet UIView *noContributorsView;
 @property (nonatomic) BOOL editing;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;

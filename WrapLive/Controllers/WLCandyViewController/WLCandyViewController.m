@@ -187,7 +187,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     appearance.shouldShowIcon = NO;
     appearance.height = 44;
     appearance.contentMode = UIViewContentModeCenter;
-    appearance.backgroundColor = [UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:1.000];
+    appearance.backgroundColor = [UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:0.75];
     [WLToast showWithMessage:self.group.name appearance:appearance inView:self.containerView];
     self.rightArrow.hidden = NO;
     __weak typeof(self)weakSelf = self;

@@ -51,6 +51,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
 @property (weak, nonatomic) IBOutlet UIView *contentIndicatorView;
+@property (weak, nonatomic) IBOutlet UIImageView *leftArrow;
+@property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 
 @property (weak, nonatomic) WLRefresher *refresher;
 
@@ -148,12 +150,13 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (void)didSwipeLeft:(NSUInteger)currentIndex {
     if (self.group.completed && self.candy == [self.items lastObject]) {
         
-        NSUInteger (^operationBlock)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
+        NSUInteger (^increment)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
             return index + 1;
         };
         
-        if ([self swipeToGroupAtIndex:operationBlock([self.groups.set indexOfObject:self.group]) operationBlock:operationBlock]) {
+        if ([self swipeToGroupAtIndex:increment([self.groups.set indexOfObject:self.group]) operationBlock:increment]) {
             [[self swipeView] leftPush];
+            [self onDateChanged];
         }
     } else {
         [super didSwipeLeft:currentIndex];
@@ -165,17 +168,37 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (void)didSwipeRight:(NSUInteger)currentIndex {
     if (self.candy == [self.items firstObject]) {
         
-        NSUInteger (^operationBlock)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
+        NSUInteger (^decrement)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
             return index - 1;
         };
         
-        if ([self swipeToGroupAtIndex:operationBlock([self.groups.set indexOfObject:self.group]) operationBlock:operationBlock]) {
+        if ([self swipeToGroupAtIndex:decrement([self.groups.set indexOfObject:self.group]) operationBlock:decrement]) {
             [[self swipeView] rightPush];
+            [self onDateChanged];
         }
     } else {
         [super didSwipeRight:currentIndex];
     }
     [self showContentIndicatorView:YES];
+}
+
+- (void)onDateChanged {
+    WLToastAppearance* appearance = [WLToastAppearance appearance];
+    appearance.shouldShowIcon = NO;
+    appearance.height = 44;
+    appearance.contentMode = UIViewContentModeCenter;
+    appearance.backgroundColor = [UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:1.000];
+    [WLToast showWithMessage:self.group.name appearance:appearance inView:self.containerView];
+    self.rightArrow.hidden = NO;
+    __weak typeof(self)weakSelf = self;
+    [UIView animateWithDuration:0.25f delay:1.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        weakSelf.rightArrow.alpha = 0.0f;
+        weakSelf.rightArrow.transform = CGAffineTransformMakeTranslation(44, 0);
+    } completion:^(BOOL finished) {
+        weakSelf.rightArrow.hidden = YES;
+        weakSelf.rightArrow.alpha = 1.0f;
+        weakSelf.rightArrow.transform = CGAffineTransformIdentity;
+    }];
 }
 
 - (BOOL)swipeToGroupAtIndex:(NSUInteger)index operationBlock:(NSUInteger (^)(NSUInteger index))operationBlock {
@@ -256,6 +279,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     self.uploadIcon.hidden = image.uploaded;
 	[self reloadComments];
     image.unread = @NO;
+//    self.leftArrow.hidden = image == [self.items firstObject];
+//    self.rightArrow.hidden = image == [self.items lastObject];
 }
 
 - (void)reloadComments {
@@ -326,11 +351,11 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 #pragma mark - WLKeyboardBroadcastReceiver
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-	self.containerView.height = self.view.height - self.topView.height;
+	self.containerView.height = self.view.height - self.containerView.y;
 }
 
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
-	self.containerView.height = self.view.height - self.topView.height - [keyboardHeight floatValue];
+	self.containerView.height = self.view.height - self.containerView.y - [keyboardHeight floatValue];
 	[self.tableView scrollToBottomAnimated:YES];
 }
 

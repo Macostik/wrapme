@@ -29,6 +29,9 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
     if (self) {
         self.height = WLToastDefaultHeight;
 		self.shouldShowIcon = YES;
+        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
+        self.textColor = [UIColor whiteColor];
+        self.contentMode = UIViewContentModeBottom;
     }
     return self;
 }
@@ -41,6 +44,18 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 
 - (BOOL)toastAppearanceShouldShowIcon:(WLToast *)toast {
 	return self.shouldShowIcon;
+}
+
+- (UIColor*)toastAppearanceBackgroundColor:(WLToast*)toast {
+    return self.backgroundColor;
+}
+
+- (UIColor*)toastAppearanceTextColor:(WLToast*)toast {
+    return self.textColor;
+}
+
+- (UIViewContentMode)toastAppearanceContentMode:(WLToast *)toast {
+    return self.contentMode;
 }
 
 @end
@@ -70,26 +85,55 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 	[[self toast] showWithMessage:message appearance:appearance];
 }
 
++ (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance inView:(UIView *)view {
+	[[self toast] showWithMessage:message appearance:appearance inView:view];
+}
+
 - (void)showWithMessage:(NSString *)message {
 	[self showWithMessage:message appearance:[UINavigationController topViewController]];
 }
 
 - (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance {
+    [self showWithMessage:message appearance:appearance inView:[UIWindow mainWindow]];
+}
+
+- (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance inView:(UIView *)view {
 	
 	self.height = [appearance respondsToSelector:@selector(toastAppearanceHeight:)] ? [appearance toastAppearanceHeight:self] : WLToastDefaultHeight;
 	
 	self.iconView.hidden = [appearance respondsToSelector:@selector(toastAppearanceShouldShowIcon:)] ? ![appearance toastAppearanceShouldShowIcon:self] : YES;
+    
+    if ([appearance respondsToSelector:@selector(toastAppearanceBackgroundColor:)]) {
+        self.backgroundColor = [appearance toastAppearanceBackgroundColor:self];
+    } else {
+        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
+    }
+    
+    if ([appearance respondsToSelector:@selector(toastAppearanceTextColor:)]) {
+        self.messageLabel.textColor = [appearance toastAppearanceTextColor:self];
+    } else {
+        self.messageLabel.textColor = [UIColor whiteColor];
+    }
 	
 	self.message = message;
 	
 	if (self.messageLabel.height > self.height - 20) {
 		self.height = self.messageLabel.height + 40;
-		self.messageLabel.y = 30;
+        self.messageLabel.y = 30;
 	}
+    
+    UIViewContentMode contentMode = UIViewContentModeBottom;
+    if ([appearance respondsToSelector:@selector(toastAppearanceContentMode:)]) {
+        contentMode = [appearance toastAppearanceContentMode:self];
+    }
+    
+    if (contentMode == UIViewContentModeCenter) {
+        self.messageLabel.y = self.height/2 - self.messageLabel.height/2;
+    }
 	
 	if (self.superview == nil) {
 		self.y = -self.height;
-		[[UIWindow mainWindow] addSubview:self];
+		[view addSubview:self];
 	}
 	
 	if (self.y != 0) {

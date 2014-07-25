@@ -18,6 +18,12 @@
 
 - (BOOL)toastAppearanceShouldShowIcon:(WLToast*)toast;
 
+- (UIColor*)toastAppearanceBackgroundColor:(WLToast*)toast;
+
+- (UIColor*)toastAppearanceTextColor:(WLToast*)toast;
+
+- (UIViewContentMode)toastAppearanceContentMode:(WLToast*)toast;
+
 @end
 
 @interface WLToastAppearance : NSObject <WLToastAppearance>
@@ -27,6 +33,12 @@
 @property (nonatomic) CGFloat height;
 
 @property (nonatomic) BOOL shouldShowIcon;
+
+@property (strong, nonatomic) UIColor* backgroundColor;
+
+@property (strong, nonatomic) UIColor* textColor;
+
+@property (nonatomic) UIViewContentMode contentMode;
 
 @end
 
@@ -38,9 +50,13 @@
 
 + (void)showWithMessage:(NSString*)message appearance:(id <WLToastAppearance>)appearance;
 
++ (void)showWithMessage:(NSString*)message appearance:(id <WLToastAppearance>)appearance inView:(UIView*)view;
+
 - (void)showWithMessage:(NSString*)message;
 
 - (void)showWithMessage:(NSString*)message appearance:(id <WLToastAppearance>)appearance;
+
+- (void)showWithMessage:(NSString*)message appearance:(id <WLToastAppearance>)appearance inView:(UIView*)view;
 
 @property (nonatomic) NSString* message;
 

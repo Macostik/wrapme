@@ -10,6 +10,7 @@
 #import "NSDate+Formatting.h"
 #import "WLSupportFunctions.h"
 #import <objc/runtime.h>
+#import "WLServerTime.h"
 
 static const NSTimeInterval WLTimeIntervalMinute = 60;
 static const NSTimeInterval WLTimeIntervalHour = 3600;
@@ -71,7 +72,7 @@ static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
 }
 
 - (BOOL)isToday {
-	return [self isSameDay:[NSDate date]];
+	return [self isSameDay:[NSDate serverTime]];
 }
 
 - (NSTimeInterval)timestamp {

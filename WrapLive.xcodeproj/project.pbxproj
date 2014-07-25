@@ -208,6 +208,7 @@
 		C51C6FA41977E478003924AB /* WLDatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51C6FA31977E478003924AB /* WLDatesViewController.m */; };
 		C51C6FA71977E5A0003924AB /* WLDateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C51C6FA61977E5A0003924AB /* WLDateCell.m */; };
 		C51C6FAA1978262A003924AB /* WLDateHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51C6FA91978262A003924AB /* WLDateHeaderView.m */; };
+		C5206E5F1982864B00AA3F8E /* WLServerTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C5206E5E1982864B00AA3F8E /* WLServerTime.m */; };
 		C537F8241962BB1B00600B42 /* WLGroupedSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C537F8231962BB1B00600B42 /* WLGroupedSet.m */; };
 		C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5018F5271B00BDF038 /* WLChatViewController.m */; };
 		C5947E5518F52AE000BDF038 /* WLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5418F52AE000BDF038 /* WLMessageCell.m */; };
@@ -584,6 +585,8 @@
 		C51C6FA61977E5A0003924AB /* WLDateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDateCell.m; path = WLDatesViewController/WLDateCell.m; sourceTree = "<group>"; };
 		C51C6FA81978262A003924AB /* WLDateHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDateHeaderView.h; path = WLDatesViewController/WLDateHeaderView.h; sourceTree = "<group>"; };
 		C51C6FA91978262A003924AB /* WLDateHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDateHeaderView.m; path = WLDatesViewController/WLDateHeaderView.m; sourceTree = "<group>"; };
+		C5206E5D1982864B00AA3F8E /* WLServerTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLServerTime.h; path = WLAPIManager/WLServerTime.h; sourceTree = "<group>"; };
+		C5206E5E1982864B00AA3F8E /* WLServerTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLServerTime.m; path = WLAPIManager/WLServerTime.m; sourceTree = "<group>"; };
 		C537F8221962BB1B00600B42 /* WLGroupedSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLGroupedSet.h; path = WLGroupedSet/WLGroupedSet.h; sourceTree = "<group>"; };
 		C537F8231962BB1B00600B42 /* WLGroupedSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLGroupedSet.m; path = WLGroupedSet/WLGroupedSet.m; sourceTree = "<group>"; };
 		C5947E4F18F5271B00BDF038 /* WLChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChatViewController.h; path = WLChatViewController/WLChatViewController.h; sourceTree = "<group>"; };
@@ -1227,6 +1230,8 @@
 				12D9F6DF18E185AF001E8323 /* WLAPIResponse.m */,
 				12D9F6E118E18DAA001E8323 /* NSError+WLAPIManager.h */,
 				12D9F6E218E18DAA001E8323 /* NSError+WLAPIManager.m */,
+				C5206E5D1982864B00AA3F8E /* WLServerTime.h */,
+				C5206E5E1982864B00AA3F8E /* WLServerTime.m */,
 			);
 			name = WLAPIManager;
 			sourceTree = "<group>";
@@ -2303,6 +2308,7 @@
 				121B1B4018E0848D001F585C /* WLCountriesViewController.m in Sources */,
 				12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */,
 				12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */,
+				C5206E5F1982864B00AA3F8E /* WLServerTime.m in Sources */,
 				12317E5A1908096200D1A9EE /* WLImageViewController.m in Sources */,
 				14B2429D195C4CEB00C5D208 /* WLEditSession.m in Sources */,
 				14B134DD1952FD1E004F86AC /* WLContributorCell.m in Sources */,

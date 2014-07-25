@@ -10,6 +10,8 @@
 #import "WLAuthorizationRequest.h"
 #import "WLWelcomeViewController.h"
 #import "WLNavigation.h"
+#import "NSDate+Formatting.h"
+#import "WLServerTime.h"
 
 @implementation WLAPIRequest
 
@@ -71,6 +73,7 @@
             WLLog(@"API ERROR",[operation.request.URL relativeString], responseObject);
             [strongSelf handleFailure:[NSError errorWithDescription:response.message code:response.code]];
 		}
+        [strongSelf trackServerTime:operation.response];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         WLLog(@"ERROR",[operation.request.URL relativeString], error);
         [strongSelf handleFailure:error];
@@ -120,6 +123,15 @@
 
 - (BOOL)loading {
     return self.operation != nil;
+}
+
+- (void)trackServerTime:(NSHTTPURLResponse*)response {
+    run_in_background_queue(^{
+        NSDictionary* headers = [response allHeaderFields];
+        NSString* serverTimeString = [headers objectForKey:@"Date"];
+        NSDate* serverTime = [serverTimeString GMTDateWithFormat:@"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"];
+        [WLServerTime track:serverTime];
+    });
 }
 
 @end

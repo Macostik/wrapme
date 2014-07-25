@@ -10,13 +10,14 @@
 #import "WLEntryManager.h"
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
+#import "WLServerTime.h"
 
 @implementation WLEntry (Extended)
 
 + (instancetype)entry {
     WLEntry* entry = [self entry:GUID()];
-    entry.createdAt = [NSDate date];
-    entry.updatedAt = [NSDate date];
+    entry.createdAt = [NSDate serverTime];
+    entry.updatedAt = entry.createdAt;
     return entry;
 }
 
@@ -74,7 +75,7 @@
 }
 
 - (void)touch {
-    [self touch:[NSDate date]];
+    [self touch:[NSDate serverTime]];
 }
 
 - (void)touch:(NSDate *)date {
@@ -110,7 +111,7 @@
 }
 
 - (NSOrderedSet *)entriesForToday {
-	return [self entriesForDay:[NSDate date]];
+	return [self entriesForDay:[NSDate serverTime]];
 }
 
 @end

@@ -37,6 +37,7 @@
 #import "WLWrapRequest.h"
 #import "WLDatesViewController.h"
 #import "UIViewController+Additions.h"
+#import "WLServerTime.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate, WLQuickChatViewDelegate, WLGroupedSetDelegate>
 
@@ -301,7 +302,7 @@
         if (indexPath.row > 0) {
             cell.refreshable = NO;
         } else {
-            cell.refreshable = [date.name isEqualToString:[[NSDate date] stringWithFormat:self.groups.dateFormat]];
+            cell.refreshable = [date.name isEqualToString:[[NSDate serverTime] stringWithFormat:self.groups.dateFormat]];
         }
         if (date == [self.groups.set lastObject] && self.tableView.tableFooterView != nil) {
             [self appendDates];

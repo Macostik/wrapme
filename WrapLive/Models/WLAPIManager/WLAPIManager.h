@@ -18,8 +18,8 @@
 @class WLDate;
 @class WLAuthorization;
 
-static NSInteger WLAPIGeneralPageSize = 10;
-static NSInteger WLAPIChatPageSize = 50;
+static NSInteger WLAPIDatePageSize = 10;
+static NSInteger WLAPIPageSize = 50;
 
 @interface WLAPIManager : AFHTTPRequestOperationManager
 

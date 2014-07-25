@@ -22,6 +22,7 @@
 
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
     [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
+    [parameters trySetObject:self.orderBy forKey:@"order_by"];
     return [super configure:parameters];
 }
 

@@ -18,6 +18,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import "WLMenu.h"
 #import "WLNavigation.h"
+#import "NSPropertyListSerialization+Shorthand.h"
 
 @interface WLAppDelegate ()
 
@@ -43,7 +44,7 @@
 	
 	[AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
 	[AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
-    
+        
     [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
     
 	return YES;

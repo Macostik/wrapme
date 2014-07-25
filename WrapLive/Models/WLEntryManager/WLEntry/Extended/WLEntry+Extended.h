@@ -9,6 +9,7 @@
 #import "WLEntry.h"
 #import "NSDictionary+Extended.h"
 #import "NSArray+Additions.h"
+#import "NSMutableOrderedSet+Sorting.h"
 
 @interface WLEntry (Extended)
 
@@ -37,29 +38,5 @@
 - (void)touch;
 
 - (void)touch:(NSDate*)date;
-
-@end
-
-@interface NSOrderedSet (WLEntry)
-
-- (NSOrderedSet *)sortedEntries;
-
-- (NSOrderedSet *)sortedEntriesAscending;
-
-- (NSOrderedSet *)entriesFrom:(NSDate *)from to:(NSDate *)to;
-
-- (NSOrderedSet *)entriesForDay:(NSDate *)date;
-
-- (NSOrderedSet *)entriesForToday;
-
-@end
-
-@interface NSMutableOrderedSet (WLEntry)
-
-- (void)sortEntries;
-
-- (void)sortEntriesAscending;
-
-- (void)sortEntriesByCreationAscending;
 
 @end

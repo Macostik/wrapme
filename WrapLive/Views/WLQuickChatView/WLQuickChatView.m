@@ -26,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet WLUserView *contributorView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView* headerView;
 
 @end
@@ -89,7 +89,7 @@
 }
 
 - (void)updateHeaderPosition {
-    self.headerView.y = self.tableView.y - self.headerView.height;
+    self.headerView.y = self.scrollView.y - self.headerView.height;
 }
 
 - (void)setEditing:(BOOL)editing {
@@ -98,12 +98,12 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     _editing = editing;
-    self.tableView.userInteractionEnabled = !editing;
+    self.scrollView.userInteractionEnabled = !editing;
     CGFloat height = editing ? self.height - self.headerView.height : self.height;
     __weak typeof(self)weakSelf = self;
     [UIView performAnimated:animated animation:^{
-        weakSelf.tableView.height = height;
-        weakSelf.tableView.y = weakSelf.height - height;
+        weakSelf.scrollView.height = height;
+        weakSelf.scrollView.y = weakSelf.height - height;
         [weakSelf updateHeaderPosition];
     }];
     if (editing && !self.composeBar.isFirstResponder) {
@@ -122,27 +122,27 @@
 #pragma mark - UITableViewDelegate
 
 - (void)onScroll {
-    CGFloat offset = self.tableView.contentOffset.y;
-    CGFloat height = self.tableView.height;
+    CGFloat offset = self.scrollView.contentOffset.y;
+    CGFloat height = self.scrollView.height;
     height = Smoothstep(self.height - self.headerView.height, self.height, height + offset);
-    if (height != self.tableView.height) {
-        self.tableView.height = height;
-        self.tableView.y = self.height - height;
-        self.headerView.y = self.tableView.y - self.headerView.height;
-        self.tableView.contentOffset = CGPointZero;
+    if (height != self.scrollView.height) {
+        self.scrollView.height = height;
+        self.scrollView.y = self.height - height;
+        self.headerView.y = self.scrollView.y - self.headerView.height;
+        self.scrollView.contentOffset = CGPointZero;
     }
 }
 
 - (void)onEndDragging {
-    refresh = self.tableView.contentOffset.y < -66;
+    refresh = self.scrollView.contentOffset.y < -66;
 }
 
 - (void)onEndScrolling {
-    CGFloat offset = self.height - self.tableView.height;
+    CGFloat offset = self.height - self.scrollView.height;
     CGFloat height = self.headerView.height;
     if (IsInBounds(0, height/2.0f, offset)) {
         [self setEditing:NO animated:YES];
-    } else if (!refresh && self.tableView.contentOffset.y >= 0 && IsInBounds(height/2.0f, height, offset)) {
+    } else if (!refresh && self.scrollView.contentOffset.y >= 0 && IsInBounds(height/2.0f, height, offset)) {
         [self setEditing:YES animated:YES];
     } else {
         [self setEditing:NO animated:YES];

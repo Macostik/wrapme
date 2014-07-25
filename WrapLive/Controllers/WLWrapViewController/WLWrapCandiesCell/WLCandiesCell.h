@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLItemCell.h"
+#import "WLCollectionItemCell.h"
 
 @class WLCandiesCell;
 @class WLCandy;
@@ -20,7 +20,7 @@
 
 @end
 
-@interface WLCandiesCell : WLItemCell
+@interface WLCandiesCell : WLCollectionItemCell
 
 @property (nonatomic, weak) id <WLCandiesCellDelegate> delegate;
 

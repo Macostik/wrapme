@@ -223,6 +223,7 @@
 		C5A21E6C194B0ED600F3A554 /* WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E6B194B0ED600F3A554 /* WLContribution.m */; };
 		C5A21E6F194B0ED600F3A554 /* WLEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E6E194B0ED600F3A554 /* WLEntry.m */; };
 		C5A21E72194B0ED600F3A554 /* WLUploading.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E71194B0ED600F3A554 /* WLUploading.m */; };
+		C5AC1E54197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AC1E53197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.m */; };
 		C5F35CFE1930935200FB99D2 /* WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F35CFD1930935200FB99D2 /* WLImageFetcher.m */; };
 		C5F3E6BC1947262A00B8422A /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F3E6B91947262A00B8422A /* WLNotification.m */; };
 		C5F3E6BD1947262A00B8422A /* WLNotificationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F3E6BB1947262A00B8422A /* WLNotificationBroadcaster.m */; };
@@ -614,6 +615,8 @@
 		C5A21E6E194B0ED600F3A554 /* WLEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntry.m; sourceTree = "<group>"; };
 		C5A21E70194B0ED600F3A554 /* WLUploading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUploading.h; sourceTree = "<group>"; };
 		C5A21E71194B0ED600F3A554 /* WLUploading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploading.m; sourceTree = "<group>"; };
+		C5AC1E52197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableOrderedSet+Sorting.h"; path = "NSOrderedSet/NSMutableOrderedSet+Sorting.h"; sourceTree = "<group>"; };
+		C5AC1E53197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableOrderedSet+Sorting.m"; path = "NSOrderedSet/NSMutableOrderedSet+Sorting.m"; sourceTree = "<group>"; };
 		C5F35CFC1930935200FB99D2 /* WLImageFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLImageFetcher.h; path = WLImageFetcher/WLImageFetcher.h; sourceTree = "<group>"; };
 		C5F35CFD1930935200FB99D2 /* WLImageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLImageFetcher.m; path = WLImageFetcher/WLImageFetcher.m; sourceTree = "<group>"; };
 		C5F3E6B81947262A00B8422A /* WLNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotification.h; sourceTree = "<group>"; };
@@ -2035,6 +2038,8 @@
 			children = (
 				C5FD0EDE194B4410004DAB1B /* NSOrderedSet+Additions.h */,
 				C5FD0EDF194B4410004DAB1B /* NSOrderedSet+Additions.m */,
+				C5AC1E52197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.h */,
+				C5AC1E53197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.m */,
 			);
 			name = NSOrderedSet;
 			sourceTree = "<group>";
@@ -2264,6 +2269,7 @@
 				12A6BFA818F2A6C900AE3B62 /* WLShakeViewController.m in Sources */,
 				12E4FBCD1923B8AD00236472 /* WLSystemImageCache.m in Sources */,
 				12C4416618F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m in Sources */,
+				C5AC1E54197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.m in Sources */,
 				12E8FF1718E960E000BF1B96 /* StreamView.m in Sources */,
 				12DF5C42190E67DE00D7A62F /* NSString+Documents.m in Sources */,
 				ACCF9B9118E1868200A7429F /* WLActivationViewController.m in Sources */,

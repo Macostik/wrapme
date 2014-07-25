@@ -36,12 +36,21 @@
 #import "NSString+Additions.h"
 #import "WLWrapRequest.h"
 #import "WLDatesViewController.h"
-#import "UIViewController+Additions.h"
 #import "WLServerTime.h"
+#import "SegmentedControl.h"
+#import "WLCandyCell.h"
+#import "NSObject+NibAdditions.h"
+#import "WLCandiesRequest.h"
+#import "UIViewController+Additions.h"
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UITableViewDataSource, UITableViewDelegate, WLWrapCellDelegate, WLQuickChatViewDelegate, WLGroupedSetDelegate>
+typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
+    WLWrapViewTabLive,
+    WLWrapViewTabHistory
+};
 
-@property (weak, nonatomic) IBOutlet UITableView* tableView;
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLWrapCellDelegate, WLQuickChatViewDelegate, WLGroupedSetDelegate, WLCandyCellDelegate>
+
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
 @property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
 @property (weak, nonatomic) WLRefresher *refresher;
@@ -49,9 +58,17 @@
 
 @property (strong, nonatomic) WLGroupedSet* groups;
 
-@property (strong, nonatomic) WLLoadingView* loadingView;
+@property (strong, nonatomic) NSMutableOrderedSet* candies;
+
+@property (nonatomic) BOOL showLoadingView;
 
 @property (strong, nonatomic) WLWrapRequest* wrapRequest;
+
+@property (strong, nonatomic) WLCandiesRequest* candiesRequest;
+
+@property (nonatomic) WLWrapViewTab viewTab;
+
+@property (nonatomic, readonly) BOOL isLive;
 
 @end
 
@@ -65,30 +82,36 @@
         return;
     }
     
-    self.groups = [[WLGroupedSet alloc] init];
+    self.groups = [WLGroupedSet groupsOrderedBy:WLCandiesOrderByCreation];
+    self.groups.skipToday = YES;
     self.groups.delegate = self;
     
-    self.loadingView = [WLLoadingView instance];
+    self.showLoadingView = YES;
     self.quickChatView.wrap = self.wrap;
     [self refreshWrap];
-    self.refresher = [WLRefresher refresherWithScrollView:self.tableView target:self action:@selector(refreshWrap) colorScheme:WLRefresherColorSchemeOrange];
+    self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshWrap) colorScheme:WLRefresherColorSchemeOrange];
     
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     [self.groups addCandies:self.wrap.candies];
+    self.candies = [self.wrap liveCandies];
+    
+    [self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:WLCandyCellIdentifier];
 }
 
-- (void)setLoadingView:(WLLoadingView *)loadingView {
-    self.tableView.tableFooterView = loadingView;
+- (BOOL)isLive {
+    return self.viewTab == WLWrapViewTabLive;
 }
 
-- (WLLoadingView *)loadingView {
-    return (WLLoadingView*)self.tableView.tableFooterView;
+- (void)setShowLoadingView:(BOOL)showLoadingView {
+    _showLoadingView = showLoadingView;
+    [self.collectionView reloadData];
 }
 
 - (WLWrapRequest *)wrapRequest {
     if (!_wrapRequest) {
         _wrapRequest = [WLWrapRequest request];
     }
+    _wrapRequest.contentType = self.isLive ? WLWrapContentTypeLive : WLWrapContentTypeHistory;
     _wrapRequest.wrap = self.wrap;
     return _wrapRequest;
 }
@@ -105,21 +128,20 @@
     }
     
     self.wrap.unread = @NO;
-    NSArray* cells = [[self.tableView visibleCells] selectObjects:^BOOL(id item) {
+    NSArray* cells = [[self.collectionView visibleCells] selectObjects:^BOOL(id item) {
         return [item isKindOfClass:[WLCandiesCell class]];
     }];
     if (cells.nonempty) {
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
         for (WLCandiesCell* cell in cells) {
             [cell.collectionView reloadData];
         }
     } else {
-        [self.tableView reloadData];
+        [self.collectionView reloadData];
     }
 }
 
 - (void)refreshWrap {
-    self.loadingView.error = NO;
 	__weak typeof(self)weakSelf = self;
     self.wrapRequest.page = 1;
     [self.wrapRequest send:^(WLWrap* wrap) {
@@ -127,10 +149,9 @@
         [weakSelf setFirstContributorViewHidden:wrap.candies.nonempty animated:YES];
 		[weakSelf.refresher endRefreshing];
         if (!wrap.candies.nonempty) {
-            weakSelf.loadingView = nil;
+            weakSelf.showLoadingView = NO;
         }
     } failure:^(NSError *error) {
-        weakSelf.loadingView.error = YES;
 		[error showIgnoringNetworkError];
 		[weakSelf.refresher endRefreshing];
     }];
@@ -138,30 +159,64 @@
 
 - (void)reloadData {
     [self.groups setCandies:self.wrap.candies];
-    if ([self.groups.set count] < WLAPIGeneralPageSize) {
-        self.loadingView = nil;
+    if (self.isLive) {
+        self.candies = [self.wrap liveCandies];
+        self.showLoadingView = [self.candies count] >= WLAPIPageSize;
     } else {
-        self.loadingView = [WLLoadingView instance];
+        self.showLoadingView = [self.groups.set count] >= WLAPIDatePageSize;
     }
 }
 
 - (void)appendDates {
-	if (self.wrapRequest.loading || !self.wrap.candies.nonempty) {
-		return;
-	}
-    self.loadingView.error = NO;
-	__weak typeof(self)weakSelf = self;
-    self.wrapRequest.page = ((self.groups.set.count + 1)/WLAPIGeneralPageSize + 1);
-    NSUInteger count = self.wrap.candies.count;
-    [self.wrapRequest send:^(WLWrap* wrap) {
-        [weakSelf.groups addCandies:wrap.candies];
-        if (count == wrap.candies.count) {
-            weakSelf.loadingView = nil;
+    __weak typeof(self)weakSelf = self;
+    if (self.isLive) {
+        if (self.candiesRequest.loading) {
+            __weak typeof(self)weakSelf = self;
+            run_after(0.0f, ^{
+                weakSelf.showLoadingView = NO;
+            });
+            return;
         }
-    } failure:^(NSError *error) {
-        [error showIgnoringNetworkError];
-        weakSelf.loadingView.error = YES;
-    }];
+        if (!self.candies.nonempty) {
+            [self refreshWrap];
+            return;
+        }
+        self.candiesRequest = [WLCandiesRequest request:self.wrap];
+        self.candiesRequest.newer = [[self.candies firstObject] updatedAt];
+        self.candiesRequest.older = [[self.candies lastObject] updatedAt];
+        self.candiesRequest.type = WLPaginatedRequestTypeOlder;
+        self.candiesRequest.sameDay = YES;
+        NSUInteger count = self.candies.count;
+        [self.candiesRequest send:^(NSOrderedSet* candies) {
+            [weakSelf.candies unionOrderedSet:candies];
+            [weakSelf.groups addCandies:candies];
+            weakSelf.showLoadingView = weakSelf.candies.count != count;
+        } failure:^(NSError *error) {
+            [error showIgnoringNetworkError];
+        }];
+    } else {
+        if (self.wrapRequest.loading) {
+            __weak typeof(self)weakSelf = self;
+            run_after(0.0f, ^{
+                weakSelf.showLoadingView = NO;
+            });
+            return;
+        }
+        if (!self.wrap.candies.nonempty) {
+            [self refreshWrap];
+            return;
+        }
+        self.wrapRequest.page = ((self.groups.set.count + 1)/WLAPIDatePageSize + 1);
+        NSUInteger count = self.wrap.candies.count;
+        [self.wrapRequest send:^(WLWrap* wrap) {
+            [weakSelf.groups addCandies:wrap.candies];
+            if (count == wrap.candies.count) {
+                weakSelf.showLoadingView = NO;
+            }
+        } failure:^(NSError *error) {
+            [error showIgnoringNetworkError];
+        }];
+    }
 }
 
 - (UIViewController *)shakePresentedViewController {
@@ -198,6 +253,13 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
 	self.quickChatView.wrap = self.wrap;
+    __weak typeof(self)weakSelf = self;
+    run_after(0.0, ^{
+        if (weakSelf.isLive) {
+            weakSelf.candies = [weakSelf.wrap liveCandies];
+            [weakSelf.collectionView reloadData];
+        }
+    });
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
@@ -216,7 +278,7 @@
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-    WLWrapCell* cell = (id)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    WLWrapCell* cell = (id)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     if ([cell isKindOfClass:[WLWrapCell class]]) {
         [WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.", WLString(cell.nameLabel.text)]];
     }
@@ -233,7 +295,7 @@
 #pragma mark - WLGroupedSetDelegate
 
 - (void)groupedSetGroupsChanged:(WLGroupedSet *)set {
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
 }
 
 #pragma mark - User Actions
@@ -256,20 +318,30 @@
 	[self setFirstContributorViewHidden:YES animated:YES];
 }
 
-- (IBAction)editWrap:(id)sender { 
+- (IBAction)editWrap:(id)sender {
 	WLCreateWrapViewController* controller = [WLCreateWrapViewController instantiate];
 	controller.wrap = self.wrap;
 	[controller presentInViewController:self transition:WLWrapTransitionFromRight];
 }
 
+- (IBAction)tabChanged:(SegmentedControl *)sender {
+    self.viewTab = sender.selectedSegment;
+    if (self.isLive) {
+        self.candies = [self.wrap liveCandies];
+    }
+    self.showLoadingView = YES;
+    self.collectionView.contentOffset = CGPointZero;
+}
+
 #pragma mark - WLCandiesCellDelegate
 
-- (void)candiesCell:(WLCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
-	if ([candy isImage]) {
+- (void)presentCandy:(WLCandy*)candy {
+    if ([candy isImage]) {
         NSMutableArray* controllers = [[self.navigationController viewControllers] mutableCopy];
 		WLCandyViewController *candyController = [WLCandyViewController instantiate];
         candyController.backViewController = self;
         candyController.candy = candy;
+        candyController.orderBy = self.isLive ? WLCandiesOrderByUpdating : WLCandiesOrderByCreation;
         [controllers addObject:candyController];
         [self.navigationController setViewControllers:controllers animated:YES];
 	} else if ([candy isMessage]) {
@@ -277,26 +349,41 @@
 	}
 }
 
+- (void)candiesCell:(WLCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
+	[self presentCandy:candy];
+}
+
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 2;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 1 : [self.groups.set count];
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    if (section == 0) {
+        return 1;
+    } else {
+        return self.isLive ? [self.candies count] : [self.groups.set count];
+    }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         static NSString* wrapCellIdentifier = @"WLWrapCell";
-        WLWrapCell* cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier forIndexPath:indexPath];
+        WLWrapCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:wrapCellIdentifier forIndexPath:indexPath];
         cell.item = self.wrap;
+        cell.delegate = self;
+        cell.tabControl.selectedSegment = self.viewTab;
+        return cell;
+    } else if (self.isLive) {
+        WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCandyCellIdentifier forIndexPath:indexPath];
+        WLCandy* candy = [self.candies tryObjectAtIndex:indexPath.item];
+        cell.item = candy;
         cell.delegate = self;
         return cell;
     } else {
-        WLCandiesCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLCandiesCell reuseIdentifier]];
-        WLGroup* date = [self.groups.set tryObjectAtIndex:indexPath.row];
+        WLCandiesCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WLCandiesCell reuseIdentifier] forIndexPath:indexPath];
+        WLGroup* date = [self.groups.set tryObjectAtIndex:indexPath.item];
         cell.item = date;
         cell.delegate = self;
         if (indexPath.row > 0) {
@@ -304,15 +391,37 @@
         } else {
             cell.refreshable = [date.name isEqualToString:[[NSDate serverTime] stringWithFormat:self.groups.dateFormat]];
         }
-        if (date == [self.groups.set lastObject] && self.tableView.tableFooterView != nil) {
-            [self appendDates];
-        }
         return cell;
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return (indexPath.section == 0) ? 60 : (tableView.width/2.5 + 28);
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    [self appendDates];
+    static NSString* identifier = @"WLLoadingView";
+    return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return CGSizeMake(collectionView.width, 112);
+    } else if (self.isLive) {
+        CGFloat size = collectionView.width/3.0f - 0.5f;
+        return CGSizeMake(size, size);
+    } else {
+        return CGSizeMake(collectionView.width, (collectionView.width/2.5 + 28));
+    }
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return (section != 0 && self.isLive) ? WLCandyCellSpacing : 0;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return (section != 0 && self.isLive) ? UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing) : UIEdgeInsetsZero;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    return (section == 0 || !self.showLoadingView) ? CGSizeZero : CGSizeMake(collectionView.width, 60);
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
@@ -358,6 +467,12 @@
 - (void)wrapCell:(WLWrapCell *)cell didDeleteOrLeaveWrap:(WLWrap *)wrap {
     [[WLWrapBroadcaster broadcaster] removeReceiver:self];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - WLCandyCellDelegate
+
+- (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
+    [self presentCandy:candy];
 }
 
 #pragma mark - WLQuickChatViewDelegate

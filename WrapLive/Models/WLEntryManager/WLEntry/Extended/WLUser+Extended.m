@@ -57,7 +57,7 @@
 }
 
 - (void)sortWraps {
-    [self.wraps sortEntries];
+    [self.wraps sortByUpdatedAtDescending];
 }
 
 - (NSMutableOrderedSet *)sortedWraps {

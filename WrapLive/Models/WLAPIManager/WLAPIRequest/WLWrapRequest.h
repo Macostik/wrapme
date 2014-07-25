@@ -8,11 +8,17 @@
 
 #import "WLAPIRequest.h"
 
+static NSString* WLWrapContentTypeAuto = @"auto";
+static NSString* WLWrapContentTypeLive = @"live";
+static NSString* WLWrapContentTypeHistory = @"history";
+
 @interface WLWrapRequest : WLAPIRequest
 
 @property (strong, nonatomic) WLWrap* wrap;
 
 @property (nonatomic) NSInteger page;
+
+@property (nonatomic) NSString* contentType;
 
 + (instancetype)request:(WLWrap*)wrap;
 

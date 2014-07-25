@@ -44,9 +44,9 @@
 #import "WLWrapsRequest.h"
 #import "WLDatesViewController.h"
 
-@interface WLHomeViewController () <UITableViewDataSource, UITableViewDelegate, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLNotificationReceiver, WLQuickChatViewDelegate>
+@interface WLHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLNotificationReceiver, WLQuickChatViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
 @property (strong, nonatomic) WLPaginatedSet* wraps;
 @property (strong, nonatomic) NSOrderedSet* candies;
@@ -57,8 +57,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
-@property (strong, nonatomic) WLLoadingView *loadingView;
 @property (strong, nonatomic) NSOperationQueue *loadingQueue;
+
+@property (nonatomic) BOOL showLoadingView;
 
 @end
 
@@ -77,20 +78,18 @@
     
     [self setNavigationBarHidden:YES animated:NO];
 	self.createWrapButton.transform = CGAffineTransformMakeTranslation(0, self.createWrapButton.height);
-	self.tableView.hidden = YES;
+	self.collectionView.hidden = YES;
 	self.noWrapsView.hidden = YES;
 	[self setupRefresh];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	[[WLNotificationBroadcaster broadcaster] addReceiver:self];
-	self.loadingView = [WLLoadingView instance];
+    self.showLoadingView = YES;
 }
 
-- (void)setLoadingView:(WLLoadingView *)loadingView {
-    self.tableView.tableFooterView = loadingView;
-}
-
-- (WLLoadingView *)loadingView {
-    return (WLLoadingView*)self.tableView.tableFooterView;
+- (void)setShowLoadingView:(BOOL)showLoadingView {
+    _showLoadingView = showLoadingView;
+    UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
+    layout.footerReferenceSize = showLoadingView ? CGSizeMake(320, 60) : CGSizeZero;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -100,7 +99,7 @@
 	self.avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
 	self.avatarImageView.url = [WLUser currentUser].picture.small;
     NSOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
-	if (self.tableView.hidden) {
+	if (self.collectionView.hidden) {
 		[self fetchWraps:YES];
         if (wraps.nonempty) {
             [self.wraps resetEntries:wraps];
@@ -130,7 +129,7 @@
 }
 
 - (void)setupRefresh {
-	self.refresher = [WLRefresher refresherWithScrollView:self.tableView target:self action:@selector(refreshWraps)];
+	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshWraps)];
 	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
 }
 
@@ -152,7 +151,7 @@
         [weakSelf showLatestWrap];
         [weakSelf updateWraps];
         if ([orderedSet count] != 50) {
-            weakSelf.loadingView = nil;
+            weakSelf.showLoadingView = NO;
         }
     } failure:^(NSError *error) {
         if (weakSelf.isOnTopOfNagvigation) {
@@ -160,7 +159,6 @@
         }
         [weakSelf updateWraps];
     }];
-    self.loadingView.error = NO;
 }
 
 - (void)refreshWraps {
@@ -171,13 +169,11 @@
         [weakSelf updateWraps];
         [weakSelf.refresher endRefreshing];
     } failure:^(NSError *error) {
-        weakSelf.loadingView.error = YES;
         [weakSelf.refresher endRefreshing];
         if (weakSelf.isOnTopOfNagvigation) {
             [error showIgnoringNetworkError];
         }
     }];
-    self.loadingView.error = NO;
 }
 
 - (void)appendWraps {
@@ -187,15 +183,13 @@
     [self.wraps send:^(NSOrderedSet *orderedSet) {
         [weakSelf updateWraps];
         if (weakSelf.wraps.completed) {
-            weakSelf.loadingView = nil;
+            weakSelf.showLoadingView = NO;
         }
     } failure:^(NSError *error) {
-        weakSelf.loadingView.error = YES;
         if (weakSelf.isOnTopOfNagvigation) {
             [error showIgnoringNetworkError];
         }
     }];
-    self.loadingView.error = NO;
 }
 
 - (void)showLatestWrap {
@@ -234,9 +228,9 @@
     
     self.topWrap = [self.wraps.entries firstObject];
 	
-	self.tableView.hidden = !hasWraps;
+	self.collectionView.hidden = !hasWraps;
 	self.noWrapsView.hidden = hasWraps;
-	[self.tableView reloadData];
+	[self.collectionView reloadData];
 	
 	[self setNavigationBarHidden:!hasWraps animated:YES];
     
@@ -300,7 +294,7 @@
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
     [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
     [self updateWraps];
-	self.tableView.contentOffset = CGPointZero;
+	self.collectionView.contentOffset = CGPointZero;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
@@ -374,40 +368,41 @@
 	[controller presentInViewController:self transition:WLWrapTransitionFromBottom];
 }
 
-#pragma mark - <UITableViewDataSource, UITableViewDelegate>
+#pragma mark - UICollectionViewDelegate
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 	return [self.wraps.entries count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	WLWrap* wrap = [self.wraps.entries tryObjectAtIndex:indexPath.row];
 	WLWrapCell* cell = nil;
 	if (indexPath.row == 0) {
 		static NSString* topWrapCellIdentifier = @"WLTopWrapCell";
-		cell = [tableView dequeueReusableCellWithIdentifier:topWrapCellIdentifier forIndexPath:indexPath];
+		cell = [collectionView dequeueReusableCellWithReuseIdentifier:topWrapCellIdentifier forIndexPath:indexPath];
 		cell.item = wrap;
 		cell.candies = self.candies;
 	} else {
 		static NSString* wrapCellIdentifier = @"WLWrapCell";
-		cell = [tableView dequeueReusableCellWithIdentifier:wrapCellIdentifier forIndexPath:indexPath];
+		cell = [collectionView dequeueReusableCellWithReuseIdentifier:wrapCellIdentifier forIndexPath:indexPath];
 		cell.item = wrap;
 	}
 	cell.delegate = self;
 	return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat height = 50;
 	if (indexPath.row == 0) {
-		return [self.candies count] > WLHomeTopWrapCandiesLimit_2 ? 324 : 218;
+		height = [self.candies count] > WLHomeTopWrapCandiesLimit_2 ? 324 : 218;
 	}
-	return 50;
+	return CGSizeMake(collectionView.width, height);
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.loadingView != nil && (indexPath.row == [self.wraps.entries count] - 1)) {
-		[self appendWraps];
-	}
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+	[self appendWraps];
+    static NSString* identifier = @"WLLoadingView";
+    return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

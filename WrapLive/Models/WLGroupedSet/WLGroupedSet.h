@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WLPaginatedSet.h"
+#import "WLCandiesRequest.h"
 
 @class WLCandy;
 @class WLGroup;
@@ -25,9 +26,21 @@
 
 @property (nonatomic) BOOL singleMessage;
 
+@property (nonatomic) BOOL skipToday;
+
 @property (strong, nonatomic) NSMutableOrderedSet *set;
 
 @property (nonatomic, weak) id <WLGroupedSetDelegate> delegate;
+
+@property (nonatomic, strong) NSComparator sortComparator;
+
+@property (nonatomic, strong) NSComparator groupSortComparator;
+
+@property (nonatomic, strong) WLDateFromEntryBlock dateBlock;
+
+@property (strong, nonatomic) NSString* orderBy;
+
++ (instancetype)groupsOrderedBy:(NSString*)orderBy;
 
 - (WLGroup*)group:(NSDate*)date;
 
@@ -49,9 +62,13 @@
 
 - (WLGroup*)groupWithCandy:(WLCandy*)candy;
 
+- (WLGroup*)groupForDate:(NSDate*)date;
+
 @end
 
 @interface WLGroup : WLPaginatedSet
+
+@property (nonatomic, strong) WLDateFromEntryBlock dateBlock;
 
 @property (nonatomic) BOOL singleMessage;
 
@@ -63,7 +80,11 @@
 
 @property (nonatomic) CGPoint offset;
 
-+ (instancetype)date;
+@property (strong, nonatomic) WLCandiesRequest* request;
+
++ (instancetype)group;
+
++ (instancetype)groupOrderedBy:(NSString*)orderBy;
 
 - (BOOL)hasAtLeastOneImage;
 

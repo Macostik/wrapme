@@ -71,7 +71,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     [super viewDidLoad];
     
     if (!self.groups) {
-        self.groups = [[WLGroupedSet alloc] init];
+        self.groups = [WLGroupedSet groupsOrderedBy:self.orderBy];
         [self.groups addCandies:[self.candy.wrap images]];
         self.group = [self.groups groupWithCandy:self.candy];
     }
@@ -139,7 +139,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
             [weakSelf.items unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
                 return [item isImage] && [item.updatedAt isSameDay:candy.updatedAt];
             }]];
-            [weakSelf.items sortEntries];
+            [weakSelf.items sortByUpdatedAtDescending];
         }
     } failure:^(NSError *error) {
     }];

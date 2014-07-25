@@ -16,6 +16,7 @@
 @class WLComment;
 @class WLContact;
 @class WLAuthorization;
+@class WLEntry;
 
 typedef void (^WLBlock) (void);
 typedef void (^WLObjectBlock) (id object);
@@ -42,6 +43,7 @@ typedef BOOL(^SelectBlock)(id item);
 typedef void(^EnumBlock)(id item);
 typedef BOOL(^EqualityBlock)(id first, id second);
 typedef void (^WLImageFetcherBlock)(UIImage*, BOOL, NSError*);
+typedef NSDate* (^WLDateFromEntryBlock)(WLEntry*);
 
 static inline void run_in_default_queue(dispatch_block_t block) {
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);

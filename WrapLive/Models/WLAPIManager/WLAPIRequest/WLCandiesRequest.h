@@ -8,9 +8,14 @@
 
 #import "WLPaginatedRequest.h"
 
+static NSString* WLCandiesOrderByCreation = @"contributed_at";
+static NSString* WLCandiesOrderByUpdating = @"last_touched_at";
+
 @interface WLCandiesRequest : WLPaginatedRequest
 
 @property (strong, nonatomic) WLWrap* wrap;
+
+@property (strong, nonatomic) NSString* orderBy;
 
 + (instancetype)request:(WLWrap*)wrap;
 

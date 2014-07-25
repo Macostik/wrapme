@@ -12,7 +12,6 @@
 #import "NSDate+Formatting.h"
 #import "NSOrderedSet+Additions.h"
 #import "NSDate+Additions.h"
-#import "WLCandiesRequest.h"
 
 @interface WLGroupedSet ()
 
@@ -22,6 +21,18 @@
 
 @implementation WLGroupedSet
 
++ (instancetype)groupsOrderedBy:(NSString *)orderBy {
+    WLGroupedSet* groups = [[WLGroupedSet alloc] init];
+    if ([orderBy isEqualToString:WLCandiesOrderByCreation]) {
+        groups.groupSortComparator = comparatorByCreatedAtDescending;
+        groups.dateBlock = ^NSDate* (WLEntry* entry) {
+            return [entry createdAt];
+        };
+        groups.orderBy = WLCandiesOrderByCreation;
+    }
+    return groups;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -29,6 +40,12 @@
         self.keyedGroups = [NSMutableDictionary dictionary];
         self.dateFormat = @"MMM dd, yyyy";
         self.singleMessage = YES;
+        self.sortComparator = comparatorByDateDescending;
+        self.groupSortComparator = comparatorByUpdatedAtDescending;
+        self.dateBlock = ^NSDate* (WLEntry* entry) {
+            return [entry updatedAt];
+        };
+        self.orderBy = WLCandiesOrderByUpdating;
     }
     return self;
 }
@@ -43,18 +60,21 @@
 }
 
 - (WLGroup *)group:(NSDate *)date created:(BOOL *)created {
+    if (self.skipToday && [date isToday]) {
+        return nil;
+    }
     NSString* name = [date stringWithFormat:self.dateFormat];
     WLGroup* group = [self.keyedGroups objectForKey:name];
     if (!group) {
-        group = [WLGroup date];
+        group = [WLGroup groupOrderedBy:self.orderBy];
+        group.sortComparator = self.groupSortComparator;
+        group.dateBlock = self.dateBlock;
         group.date = date;
         group.singleMessage = self.singleMessage;
         group.name = name;
         [self.keyedGroups setObject:group forKey:name];
         [self.set addObject:group];
-        [self.set sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(WLGroup* obj1, WLGroup* obj2) {
-            return [obj2.date compare:obj1.date];
-        }];
+        [self.set sort:self.sortComparator];
         if (created != NULL) {
             *created = YES;
         }
@@ -65,7 +85,7 @@
 - (void)addCandies:(NSOrderedSet *)candies {
     BOOL created = NO;
     for (WLCandy* candy in candies) {
-        if (candy.updatedAt) {
+        if (self.dateBlock(candy)) {
             [self addCandy:candy created:&created];
         }
     }
@@ -83,8 +103,9 @@
 }
 
 - (void)addCandy:(WLCandy *)candy created:(BOOL *)created {
-    if (candy.updatedAt) {
-        WLGroup* group = [self group:candy.updatedAt created:created];
+    NSDate* date = self.dateBlock(candy);
+    if (date) {
+        WLGroup* group = [self group:date created:created];
         [group addEntry:candy];
     }
 }
@@ -116,7 +137,7 @@
 
 - (void)sort:(WLCandy*)candy {
     BOOL created = NO;
-    WLGroup* group = [self group:candy.updatedAt created:&created];
+    WLGroup* group = [self group:self.dateBlock(candy) created:&created];
     if (!created && [group.entries containsObject:candy]) {
         [group sort];
         return;
@@ -145,20 +166,29 @@
 }
 
 - (WLGroup *)groupWithCandy:(WLCandy *)candy {
-    for (WLGroup* group in self.set) {
-        if ([group.entries containsObject:candy]) {
-            return group;
-        }
-    }
-    return nil;
+    return [self.set selectObject:^BOOL(WLGroup* item) {
+        return [item.entries containsObject:candy];
+    }];
+}
+
+- (WLGroup *)groupForDate:(NSDate *)date {
+    return [self.set selectObject:^BOOL(WLGroup* item) {
+        return [item.date isSameDay:date];
+    }];
 }
 
 @end
 
 @implementation WLGroup
 
-+ (instancetype)date {
++ (instancetype)group {
     return [[self alloc] init];
+}
+
++ (instancetype)groupOrderedBy:(NSString *)orderBy {
+    WLGroup* group = [self group];
+    group.request.orderBy = orderBy;
+    return group;
 }
 
 - (instancetype)init {
@@ -182,7 +212,7 @@
         if (!self.message) {
             self.message = entry;
             return YES;
-        } else if ([self.message.updatedAt compare:entry.updatedAt] == NSOrderedAscending) {
+        } else if ([self.dateBlock(self.message) compare:self.dateBlock(entry)] == NSOrderedAscending) {
             [self.entries removeObject:self.message];
             self.message = entry;
             return YES;

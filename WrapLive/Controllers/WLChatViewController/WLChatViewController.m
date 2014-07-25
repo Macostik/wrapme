@@ -140,7 +140,7 @@
         return;
     }
     self.operation = [self.wrap messagesNewer:candy.updatedAt success:^(NSOrderedSet *messages) {
-        weakSelf.shouldAppendMoreMessages = ([messages count] == WLAPIChatPageSize);
+        weakSelf.shouldAppendMoreMessages = ([messages count] == WLAPIPageSize);
 		[weakSelf addMessages:messages];
 		[weakSelf.refresher endRefreshing];
     } failure:^(NSError *error) {
@@ -152,7 +152,7 @@
 - (void)loadMessages:(WLBlock)completion {
     __weak typeof(self)weakSelf = self;
     self.operation = [self.wrap messages:^(NSOrderedSet *messages) {
-        weakSelf.shouldAppendMoreMessages = ([messages count] == WLAPIChatPageSize);
+        weakSelf.shouldAppendMoreMessages = ([messages count] == WLAPIPageSize);
 		[weakSelf setMessages:messages];
         if (completion) {
             completion();
@@ -171,7 +171,7 @@
     WLGroup* group = [self.groups.set lastObject];
     WLCandy* candy = [group.entries lastObject];
 	self.operation = [self.wrap messagesOlder:candy.updatedAt success:^(id object) {
-		weakSelf.shouldAppendMoreMessages = ([object count] == WLAPIChatPageSize);
+		weakSelf.shouldAppendMoreMessages = ([object count] == WLAPIPageSize);
 		[weakSelf addMessages:object];
 	} failure:^(NSError *error) {
 		weakSelf.shouldAppendMoreMessages = NO;

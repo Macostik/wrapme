@@ -47,7 +47,7 @@
 - (void)appendDates {
     if (self.completed) return;
     __weak typeof(self)weakSelf = self;
-    NSUInteger page = ((self.dates.set.count + 1)/WLAPIGeneralPageSize + 1);
+    NSUInteger page = ((self.dates.set.count + 1)/WLAPIDatePageSize + 1);
     NSUInteger count = self.wrap.candies.count;
     [[WLWrapRequest request:self.wrap page:page] send:^(WLWrap* wrap) {
         if (count != wrap.candies.count) {

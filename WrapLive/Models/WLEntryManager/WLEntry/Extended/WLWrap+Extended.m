@@ -16,6 +16,7 @@
 #import "WLAPIManager.h"
 #import "WLAPIResponse.h"
 #import "WLInternetConnectionBroadcaster.h"
+#import "NSDate+Additions.h"
 
 @implementation WLWrap (Extended)
 
@@ -62,7 +63,7 @@
     for (NSDictionary* date in dictionary[@"dates"]) {
         [WLCandy API_entries:[date arrayForKey:@"candies"] relatedEntry:self container:self.candies];
     }
-    [self.candies sortEntries];
+    [self.candies sortByUpdatedAtDescending];
     
     NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSet];
     for (NSDictionary* contributor in [dictionary arrayForKey:@"contributors"]) {
@@ -89,7 +90,7 @@
         self.candies = [NSMutableOrderedSet orderedSet];
     }
     [self.candies unionOrderedSet:candies];
-    [self.candies sortEntries];
+    [self.candies sortByUpdatedAtDescending];
 }
 
 - (NSString *)contributorNamesWithCount:(NSInteger)numberOfUsers {
@@ -121,7 +122,7 @@
 
 - (void)addCandy:(WLCandy *)candy {
     if (!candy || [self.candies containsObject:candy]) {
-        [self.candies sortEntries];
+        [self.candies sortByUpdatedAtDescending];
         return;
     }
     candy.wrap = self;
@@ -129,7 +130,7 @@
         self.candies = [NSMutableOrderedSet orderedSet];
     }
     [self.candies addObject:candy];
-    [self.candies sortEntries];
+    [self.candies sortByUpdatedAtDescending];
 	[self touch];
     [self save];
 	[candy broadcastCreation];
@@ -140,7 +141,7 @@
 }
 
 - (void)sortCandies {
-    [self.candies sortEntries];
+    [self.candies sortByUpdatedAtDescending];
     [self save];
 }
 
@@ -201,6 +202,26 @@
             }
         }
     }];
+}
+
+- (NSMutableOrderedSet *)liveCandies {
+    NSMutableOrderedSet* candies = [NSMutableOrderedSet orderedSet];
+    __block BOOL hasMessage = NO;
+    for (WLCandy* candy in self.candies) {
+        if ([candy.updatedAt isToday]) {
+            if ([candy isMessage]) {
+                if (!hasMessage) {
+                    hasMessage = YES;
+                    [candies addObject:candy];
+                }
+            } else {
+                [candies addObject:candy];
+            }
+        } else {
+            break;
+        }
+    }
+    return candies;
 }
 
 - (void)uploadMessage:(NSString *)message success:(WLCandyBlock)success failure:(WLFailureBlock)failure {

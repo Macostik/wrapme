@@ -27,6 +27,7 @@
     self = [super init];
     if (self) {
         self.entries = [NSMutableOrderedSet orderedSet];
+        self.sortComparator = comparatorByUpdatedAtDescending;
     }
     return self;
 }
@@ -34,7 +35,7 @@
 - (void)resetEntries:(NSOrderedSet *)entries {
     [self.entries removeAllObjects];
     [self.entries unionOrderedSet:entries];
-    [self.entries sortEntries];
+    [self.entries sortByUpdatedAtDescending];
 }
 
 - (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
@@ -98,7 +99,7 @@
 }
 
 - (void)sort {
-    [self.entries sortEntries];
+    [self.entries sort:self.sortComparator];
     [self.delegate paginatedSetChanged:self];
 }
 

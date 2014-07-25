@@ -28,6 +28,8 @@
 
 @property (nonatomic, weak) id <WLPaginatedSetDelegate> delegate;
 
+@property (nonatomic, strong) NSComparator sortComparator;
+
 + (instancetype)setWithEntries:(NSOrderedSet*)entries request:(WLPaginatedRequest*)request;
 
 + (instancetype)setWithRequest:(WLPaginatedRequest*)request;

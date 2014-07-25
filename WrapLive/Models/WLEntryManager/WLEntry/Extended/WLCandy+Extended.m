@@ -36,7 +36,7 @@
         self.comments = [NSMutableOrderedSet orderedSet];
     }
     [WLComment API_entries:[dictionary arrayForKey:@"comments"] relatedEntry:self container:self.comments];
-    [self.comments sortEntriesByCreationAscending];
+    [self.comments sortByCreatedAtAscending];
 	WLPicture* picture = [[WLPicture alloc] init];
 	picture.large = [dictionary stringForKey:@"large_image_attachment_url"];
 	picture.medium = [dictionary stringForKey:@"medium_sq_image_attachment_url"];
@@ -76,12 +76,12 @@
 
 - (void)addComment:(WLComment *)comment {
     if (!comment || [self.comments containsObject:comment]) {
-        [self.comments sortEntriesByCreationAscending];
+        [self.comments sortByCreatedAtAscending];
         return;
     }
     comment.candy = self;
     [self.comments addObject:comment];
-    [self.comments sortEntriesByCreationAscending];
+    [self.comments sortByCreatedAtAscending];
     [self touch];
     [self broadcastChange];
 }

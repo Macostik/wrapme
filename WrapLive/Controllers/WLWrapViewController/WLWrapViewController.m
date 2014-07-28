@@ -275,6 +275,10 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
     [self.groups sort:candy];
+    if (self.isLive) {
+        [self.candies sortByUpdatedAtDescending];
+        [self.collectionView reloadData];
+    }
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {

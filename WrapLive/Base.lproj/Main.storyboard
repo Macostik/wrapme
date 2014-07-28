@@ -1777,11 +1777,13 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                    <state key="normal" title="LIVE">
+                                                                    <inset key="titleEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="6" maxY="0.0"/>
+                                                                    <state key="normal" title="LIVE" image="ic_live_disabled">
                                                                         <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
-                                                                    <state key="selected">
+                                                                    <state key="selected" image="ic_live_enabled">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
@@ -1794,15 +1796,17 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </button>
                                                                 <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mIc-Fz-DNh" customClass="SegmentButton">
-                                                                    <rect key="frame" x="160" y="0.0" width="160" height="36"/>
+                                                                    <rect key="frame" x="161" y="0.0" width="160" height="36"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                    <state key="normal" title="HISTORY">
+                                                                    <inset key="titleEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="6" maxY="0.0"/>
+                                                                    <state key="normal" title="HISTORY" image="ic_history_disabled">
                                                                         <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
-                                                                    <state key="selected">
+                                                                    <state key="selected" image="ic_history_enabled">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
@@ -2531,6 +2535,10 @@ Check your internet connection and try again.</string>
         <image name="ic_delete" width="16" height="16"/>
         <image name="ic_dot_dot_dot_round" width="6" height="26"/>
         <image name="ic_gallery_medium" width="50" height="50"/>
+        <image name="ic_history_disabled" width="26" height="26"/>
+        <image name="ic_history_enabled" width="26" height="26"/>
+        <image name="ic_live_disabled" width="26" height="26"/>
+        <image name="ic_live_enabled" width="26" height="26"/>
         <image name="ic_logo_wo_candy" width="72" height="20"/>
         <image name="ic_next_gray" width="8" height="14"/>
         <image name="ic_next_white" width="8" height="24"/>

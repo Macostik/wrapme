@@ -326,6 +326,10 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
 
 - (IBAction)tabChanged:(SegmentedControl *)sender {
     self.viewTab = sender.selectedSegment;
+    [self didChangeViewTab];
+}
+
+- (void)didChangeViewTab {
     if (self.isLive) {
         self.candies = [self.wrap liveCandies];
     }
@@ -451,6 +455,10 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+    if (self.viewTab != WLWrapViewTabLive) {
+        self.viewTab = WLWrapViewTabLive;
+        [self didChangeViewTab];
+    }
     WLWrap* wrap = controller.wrap ? : self.wrap;
     [wrap uploadPictures:pictures];
     [self setFirstContributorViewHidden:YES animated:NO];

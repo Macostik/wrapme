@@ -64,6 +64,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 @property (nonatomic) BOOL autoenqueueUploading;
 
+@property (strong, nonatomic) WLToast* dateChangeToast;
+
 @end
 
 @implementation WLCandyViewController
@@ -144,6 +146,9 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
             [weakSelf.items sortByUpdatedAtDescending];
         }
     } failure:^(NSError *error) {
+        if (error.isNetworkError) {
+            weakSelf.group.completed = YES;
+        }
     }];
 }
 
@@ -182,13 +187,20 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     [self showContentIndicatorView:YES];
 }
 
+- (WLToast *)dateChangeToast {
+    if (!_dateChangeToast) {
+        _dateChangeToast = [[WLToast alloc] init];
+    }
+    return _dateChangeToast;
+}
+
 - (void)onDateChanged {
     WLToastAppearance* appearance = [WLToastAppearance appearance];
     appearance.shouldShowIcon = NO;
     appearance.height = 44;
     appearance.contentMode = UIViewContentModeCenter;
     appearance.backgroundColor = [UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:0.75];
-    [WLToast showWithMessage:self.group.name appearance:appearance inView:self.containerView];
+    [self.dateChangeToast showWithMessage:self.group.name appearance:appearance inView:self.containerView];
     self.rightArrow.hidden = NO;
     __weak typeof(self)weakSelf = self;
     [UIView animateWithDuration:0.25f delay:1.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{

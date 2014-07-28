@@ -6,6 +6,13 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
+#define kRegisterContacts   self.contacts[0]
+#define kUnregisterContacts self.contacts[1]
+#define kWeakRegisterContacts   weakSelf.contacts[0]
+#define kWeakUnregisterContacts weakSelf.contacts[1]
+#define kWeakFilteredContactsFirstSection weakSelf.filteredContacts[0]
+#define kWeakFilteredContactsSecondSection weakSelf.filteredContacts[1]
+
 #import "WLContributorsViewController.h"
 #import "WLAPIManager.h"
 #import "WLAddressBook.h"
@@ -22,11 +29,11 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
-@property (strong, nonatomic) NSArray* contacts;
+@property (strong, nonatomic) NSMutableArray* contacts;
+@property (strong, nonatomic) NSMutableArray* filteredContacts;
 @property (strong, nonatomic) NSMutableSet* selectedPhones;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSMutableSet* openedRows;
-@property (nonatomic) NSInteger separatorSection;
 
 @end
 
@@ -35,10 +42,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.contacts = [NSMutableArray array];
+    kRegisterContacts = [NSMutableArray array];
+    kUnregisterContacts = [NSMutableArray array];
+    self.filteredContacts = [NSMutableArray array];
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
     [[WLContributorsRequest request] send:^(id object) {
-        weakSelf.contacts = [weakSelf processContacts:object];
+        [weakSelf processContacts:object];
 		[weakSelf.spinner stopAnimating];
     } failure:^(NSError *error) {
         [weakSelf.spinner stopAnimating];
@@ -46,57 +57,80 @@
     }];
 }
 
-- (NSArray*)processContacts:(NSArray*)contacts {
-	NSMutableArray* signedUp = [NSMutableArray array];
-	NSMutableArray* notSignedUp = [NSMutableArray array];
-	for (WLContact* contact in contacts) {
-		
-		NSMutableArray *persons = [contact.persons mutableCopy];
+- (void)addContact:(WLContact*)contact {
+    NSMutableArray *registerContactsArray = kRegisterContacts;
+    NSMutableArray *unregisterContactsArray = kUnregisterContacts;
+    NSMutableArray *persons = [contact.persons mutableCopy];
+    
+    [self willRemoveDoublePersons:persons];
+    
+    if (!persons.nonempty) {
+        return;
+    } else if ([persons count] == 1) {
+        WLPerson* person = [persons lastObject];
+        contact.persons = [persons copy];
+        if (person.user) {
+            [registerContactsArray addObject:contact];
+        } else {
+            [unregisterContactsArray addObject:contact];
+        }
+    } else {
         [persons removeObjectsWhileEnumerating:^BOOL(WLPerson *person) {
             if (person.user) {
-                if ([self.contributors containsObject:person.user]) {
-                    return YES;
-                }
+                WLContact* _contact = [[WLContact alloc] init];
+                _contact.persons = @[person];
+                [registerContactsArray addObject:_contact];
+                return YES;
             }
-            return [self.invitees containsObject:person byBlock:^BOOL(WLPerson* first, WLPerson* second) {
-                return [first isEqualToPerson:second];
-            }];
+            return NO;
         }];
-        
-        if (!persons.nonempty) {
-            continue;
-        } else if ([persons count] == 1) {
-			WLPerson* person = [persons lastObject];
+        if (persons.nonempty) {
             contact.persons = [persons copy];
-			if (person.user) {
-				[signedUp addObject:contact];
-			} else {
-				[notSignedUp addObject:contact];
-			}
-		} else {
-			[persons removeObjectsWhileEnumerating:^BOOL(WLPerson *person) {
-				if (person.user) {
-					WLContact* _contact = [[WLContact alloc] init];
-					_contact.persons = @[person];
-					[signedUp addObject:_contact];
-					return YES;
-				}
-				return NO;
-			}];
-			if (persons.nonempty) {
-				contact.persons = [persons copy];
-				[notSignedUp addObject:contact];
-			}
-		}
-	}
-	NSComparator comparator = ^NSComparisonResult(WLContact* contact1, WLContact* contact2) {
-		return [[contact1 name] compare:[contact2 name]];
-	};
-	
-	[signedUp sortUsingComparator:comparator];
-	[notSignedUp sortUsingComparator:comparator];
-	self.separatorSection = [signedUp count];
-	return [signedUp arrayByAddingObjectsFromArray:notSignedUp];
+            [unregisterContactsArray addObject:contact];
+        }
+    }
+}
+
+- (void)willRemoveDoublePersons:(NSMutableArray *)persons {
+    [persons removeObjectsWhileEnumerating:^BOOL(WLPerson *person) {
+        if (person.user) {
+            if ([self.contributors containsObject:person.user]) {
+                return YES;
+            }
+        }
+        return [self.invitees containsObject:person byBlock:^BOOL(WLPerson* first, WLPerson* second) {
+            return [first isEqualToPerson:second];
+        }];
+    }];
+}
+
+- (void)checkFewPhonesPersons:(NSMutableArray *)persons {
+    
+}
+
+- (void)processContacts:(NSArray*)contacts {
+    for (WLContact* contact in contacts) {
+        [self addContact:contact];
+    }
+    [self sortContacts];
+    [self filterContacts];
+}
+
+- (void)sortContacts {
+    NSComparator comparator = ^NSComparisonResult(WLContact* contact1, WLContact* contact2) {
+        return [[contact1 name] compare:[contact2 name]];
+    };
+    [kRegisterContacts sortUsingComparator:comparator];
+    [kUnregisterContacts sortUsingComparator:comparator];
+}
+
+- (void)filterContacts {
+    if ([self.searchField.text nonempty]) {
+        self.filteredContacts  = [self filteredContactsByString:self.searchField.text];
+    } else {
+        self.filteredContacts = self.contacts;
+    }
+    [self.tableView reloadData];
 }
 
 - (NSMutableSet *)openedRows {
@@ -113,8 +147,13 @@
 	return _selectedPhones;
 }
 
--(void)setContacts:(NSArray *)contacts {
+-(void)setContacts:(NSMutableArray *)contacts {
     _contacts = contacts;
+    [self.tableView reloadData];
+}
+
+-(void)setFilteredContacts:(NSMutableArray *)filteredContacts {
+    _filteredContacts = filteredContacts;
     [self.tableView reloadData];
 }
 
@@ -132,37 +171,46 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	WLInviteViewController *controller = segue.destinationViewController;
 	__weak typeof(self)weakSelf = self;
-	[controller setPhoneNumberBlock:^(NSArray *contacts) {
-        WLContact* contact = [contacts lastObject];
-        WLPerson* person = [contact.persons lastObject];
-
-        [self.selectedPhones addObjectsFromArray:contact.persons];
+	controller.contactBlock = ^(WLContact *contacts) {
+        WLPerson *person = [contacts.persons lastObject];
+        [self.selectedPhones addObjectsFromArray:contacts.persons];
         
-        WLContact* existingContact = [weakSelf.contacts selectObject:^BOOL(WLContact* item) {
+        SelectBlock selectBlock = ^BOOL(WLContact* item) {
             for (WLPerson* _person in item.persons) {
                 if ([_person isEqualToPerson:person]) {
                     person.name = item.name;
                     return YES;
                 }
             }
-            return NO;
-        }];
-        NSMutableArray* aContacts = [NSMutableArray arrayWithArray:weakSelf.contacts];
-        if (!existingContact) {
-            [aContacts addObject:contact];
-            existingContact = contact;
-        }
+             return NO;
+        };
         
-		weakSelf.contacts = [weakSelf processContacts:[aContacts copy]];
-		
-        NSUInteger index = [weakSelf.contacts indexOfObject:existingContact];
+        WLContact* existingContact = [kWeakRegisterContacts selectObject:selectBlock] ? :
+                                     [kWeakUnregisterContacts selectObject:selectBlock];
+        
+        if (!existingContact) {
+            existingContact = contacts;
+            [weakSelf addContact:contacts];
+        }
+       
+        [weakSelf sortContacts];
+        [weakSelf filterContacts];
+        
+        NSUInteger index = NSNotFound;
+        NSUInteger section = 0;
+		if ([weakSelf.filteredContacts[0] containsObject:existingContact]) {
+            index = [kWeakFilteredContactsFirstSection indexOfObject:existingContact];
+        } else {
+            index = [kWeakFilteredContactsSecondSection indexOfObject:existingContact];
+            section = 1;
+        }
+       
         if (index != NSNotFound) {
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:index]
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:section]
                                   atScrollPosition:UITableViewScrollPositionMiddle
                                           animated:YES];
         }
-		
-	}];
+	};
 }
 
 - (IBAction)back:(id)sender {
@@ -174,36 +222,25 @@
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)searchTextChanged:(UITextField *)sender {
-	[self.tableView reloadData];
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return [self.contacts count];
+	return [self.filteredContacts count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSString* searchText = self.searchField.text;
-	if (searchText.nonempty) {
-		WLContact* contact = self.contacts[section];
-		if ([contact.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location == NSNotFound) {
-			return 0;
-		}
-	}
-	return 1;
+	return [self.filteredContacts[section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLContact* contact = self.contacts[indexPath.section];
+	WLContact* contact = self.filteredContacts[indexPath.section][indexPath.row];
     WLContactCell* cell = [WLContactCell cellWithContact:contact inTableView:tableView indexPath:indexPath];
 	cell.opened = ([contact.persons count] > 1 && [self.openedRows containsObject:contact]);
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLContact* contact = self.contacts[indexPath.section];
+	WLContact* contact = self.filteredContacts[indexPath.section][indexPath.row];
 	if ([contact.persons count] > 1 && [self.openedRows containsObject:contact]) {
 		return 50 + [contact.persons count]*50;
 	}
@@ -211,16 +248,16 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	return self.separatorSection == section ? 0.5f : 0;
+	return section ? 0.5f : 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	if (self.separatorSection == section) {
-		UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 0.5f)];
-		view.backgroundColor = [UIColor WL_orangeColor];
-		return view;
-	}
-	return nil;
+	if (section) {
+        UIView *view = [UIView new];
+        view.backgroundColor = [UIColor WL_orangeColor];
+        return view;
+    }
+    return nil;
 }
 
 #pragma mark - WLContactCellDelegate
@@ -256,10 +293,28 @@
 
 #pragma mark - UITextFieldDelegate
 
+- (IBAction)searchTextChanged:(UITextField *)sender {
+    if ([sender.text nonempty]) {
+        self.filteredContacts = [self filteredContactsByString:sender.text];
+    } else {
+        self.filteredContacts = self.contacts.mutableCopy;
+    }
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self filterContacts];
 	[textField resignFirstResponder];
-	[self.tableView reloadData];
 	return YES;
+}
+
+- (NSMutableArray *)filteredContactsByString:(NSString *)searchString {
+    return [NSMutableArray arrayWithObjects:[kRegisterContacts filteredArrayUsingPredicate:[self searchText:searchString]],
+                                            [kUnregisterContacts filteredArrayUsingPredicate:[self searchText:searchString]], nil];
+}
+
+- (NSPredicate *)searchText:(NSString *)searchText{
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
+	return predicate;
 }
 
 @end

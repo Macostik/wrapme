@@ -58,11 +58,8 @@
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
     [[WLContributorsRequest request:@[contact]] send:^(id object) {
-        for (WLContact * cont in object) {
-			[weakSelf.contacts addObject:cont];
-		}
-		if (weakSelf.phoneNumberBlock && weakSelf.contacts.nonempty) {
-			weakSelf.phoneNumberBlock (weakSelf.contacts);
+		if (weakSelf.contactBlock && [object count]) {
+			weakSelf.contactBlock(contact);
 		}
 		[weakSelf.spinner stopAnimating];
 		[weakSelf.navigationController popViewControllerAnimated:YES];

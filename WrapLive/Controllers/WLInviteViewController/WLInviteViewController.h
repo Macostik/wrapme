@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef void (^WLPhoneNumbersBlock) (NSArray *contacts);
+#import "WLBlocks.h"
 
 @interface WLInviteViewController : UIViewController
 
-@property (strong, nonatomic) WLPhoneNumbersBlock phoneNumberBlock;
+@property (strong, nonatomic) WLContactBlock contactBlock;
 
 @end

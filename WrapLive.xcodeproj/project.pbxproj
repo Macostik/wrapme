@@ -185,6 +185,8 @@
 		C50445BB1951AA8F003C2251 /* WLUser+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C50445B21951AA8F003C2251 /* WLUser+Extended.m */; };
 		C50445BC1951AA8F003C2251 /* WLWrap+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C50445B41951AA8F003C2251 /* WLWrap+Extended.m */; };
 		C507B9E91948947D00CCB3FE /* WLGestureBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C507B9E81948947D00CCB3FE /* WLGestureBroadcaster.m */; };
+		C508E7D31987A396002998CE /* WLCollectionViewDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C508E7D21987A396002998CE /* WLCollectionViewDataProvider.m */; };
+		C508E7D61987A696002998CE /* WLCollectionViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C508E7D51987A696002998CE /* WLCollectionViewSection.m */; };
 		C50AF40619766C3700761F38 /* WLUploadAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF40519766C3700761F38 /* WLUploadAPIRequest.m */; };
 		C50AF40919767CAF00761F38 /* WLUploadWrapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF40819767CAF00761F38 /* WLUploadWrapRequest.m */; };
 		C50AF40C19768ADE00761F38 /* WLAuthorizationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF40B19768ADE00761F38 /* WLAuthorizationRequest.m */; };
@@ -541,6 +543,10 @@
 		C50445B41951AA8F003C2251 /* WLWrap+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLWrap+Extended.m"; sourceTree = "<group>"; };
 		C507B9E71948947D00CCB3FE /* WLGestureBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLGestureBroadcaster.h; path = WLBroadcaster/WLGestureBroadcaster/WLGestureBroadcaster.h; sourceTree = "<group>"; };
 		C507B9E81948947D00CCB3FE /* WLGestureBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLGestureBroadcaster.m; path = WLBroadcaster/WLGestureBroadcaster/WLGestureBroadcaster.m; sourceTree = "<group>"; };
+		C508E7D11987A396002998CE /* WLCollectionViewDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionViewDataProvider.h; path = WLCollectionViewDataProvider/WLCollectionViewDataProvider.h; sourceTree = "<group>"; };
+		C508E7D21987A396002998CE /* WLCollectionViewDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionViewDataProvider.m; path = WLCollectionViewDataProvider/WLCollectionViewDataProvider.m; sourceTree = "<group>"; };
+		C508E7D41987A696002998CE /* WLCollectionViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionViewSection.h; path = WLCollectionViewDataProvider/WLCollectionViewSection.h; sourceTree = "<group>"; };
+		C508E7D51987A696002998CE /* WLCollectionViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionViewSection.m; path = WLCollectionViewDataProvider/WLCollectionViewSection.m; sourceTree = "<group>"; };
 		C50AF40419766C3700761F38 /* WLUploadAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUploadAPIRequest.h; path = WLAPIManager/WLAPIRequest/WLUploadAPIRequest.h; sourceTree = "<group>"; };
 		C50AF40519766C3700761F38 /* WLUploadAPIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUploadAPIRequest.m; path = WLAPIManager/WLAPIRequest/WLUploadAPIRequest.m; sourceTree = "<group>"; };
 		C50AF40719767CAF00761F38 /* WLUploadWrapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUploadWrapRequest.h; path = WLAPIManager/WLAPIRequest/WLUploadWrapRequest.h; sourceTree = "<group>"; };
@@ -1014,6 +1020,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C508E7D01987A37A002998CE /* WLCollectionViewDataProvider */,
 				14F668651973DDC6008D5081 /* WLPerson */,
 				14AE4FF519703A76002EEF3F /* WLContributor */,
 				C50F48361973EF6800929AA9 /* WLPagination */,
@@ -1837,6 +1844,17 @@
 			name = WLGestureBroadcaster;
 			sourceTree = "<group>";
 		};
+		C508E7D01987A37A002998CE /* WLCollectionViewDataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				C508E7D11987A396002998CE /* WLCollectionViewDataProvider.h */,
+				C508E7D21987A396002998CE /* WLCollectionViewDataProvider.m */,
+				C508E7D41987A696002998CE /* WLCollectionViewSection.h */,
+				C508E7D51987A696002998CE /* WLCollectionViewSection.m */,
+			);
+			name = WLCollectionViewDataProvider;
+			sourceTree = "<group>";
+		};
 		C50F48361973EF6800929AA9 /* WLPagination */ = {
 			isa = PBXGroup;
 			children = (
@@ -2218,6 +2236,7 @@
 				C5A21E69194B0ED600F3A554 /* WLCandy.m in Sources */,
 				C50AF412197694EE00761F38 /* WLContributorsRequest.m in Sources */,
 				14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */,
+				C508E7D31987A396002998CE /* WLCollectionViewDataProvider.m in Sources */,
 				12A8AA6D18F5919700F67113 /* WLLoadingView.m in Sources */,
 				C50AF42A1976B43A00761F38 /* WLPostCommentRequest.m in Sources */,
 				129654EB18E1A5B900FF43F6 /* WLContributorsViewController.m in Sources */,
@@ -2283,6 +2302,7 @@
 				C5A21E63194B0ED500F3A554 /* WLComment.m in Sources */,
 				5BB2221219796D7300782B72 /* UIView+Extentions.m in Sources */,
 				14F668641973DDAA008D5081 /* WLPerson.m in Sources */,
+				C508E7D61987A696002998CE /* WLCollectionViewSection.m in Sources */,
 				12DCBA7C18DB17D000A4BC44 /* WLWrapCell.m in Sources */,
 				12F3ED5E1934B183009C1DC3 /* WLAssetCell.m in Sources */,
 				121553E81907DD4A00A507F8 /* WLFlashModeControl.m in Sources */,

@@ -44,11 +44,7 @@
 	if ([authorization canAuthorize]) {
 		__weak typeof(self)weakSelf = self;
         [authorization signIn:^(WLUser *user) {
-            if (user.name.nonempty) {
-				[weakSelf presentHomeViewController];
-			} else {
-				[weakSelf continueSignUp];
-			}
+            [weakSelf presentHomeViewController];
         } failure:^(NSError *error) {
             if ([error isNetworkError]) {
 				[weakSelf presentHomeViewController];
@@ -82,7 +78,11 @@
 }
 
 - (void)presentHomeViewController {
-	[WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
+    if ([WLUser currentUser].name.nonempty) {
+        [WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
+    } else {
+        [self continueSignUp];
+    }
 }
 
 - (void)continueSignUp {

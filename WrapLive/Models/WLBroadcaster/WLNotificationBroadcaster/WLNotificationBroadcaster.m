@@ -74,7 +74,6 @@ static WLDataBlock deviceTokenCompletion = nil;
     } else {
         NSLog(@"registerForRemoteNotificationTypes");
         deviceTokenCompletion = completion;
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
     }
 }
 
@@ -97,6 +96,9 @@ static WLDataBlock deviceTokenCompletion = nil;
 - (void)configure {
 	[self performSelector:@selector(connect) withObject:nil afterDelay:0.0f];
     [super configure];
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert |
+                                                                          UIRemoteNotificationTypeBadge |
+                                                                          UIRemoteNotificationTypeSound];
 }
 
 - (void)setup {

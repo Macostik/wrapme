@@ -47,16 +47,23 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
         if (![[PubNub sharedInstance] isConnected]) {
             return;
         }
-        [PubNub removeAllPushNotificationsForDevicePushToken:deviceToken withCompletionHandlingBlock:^(PNError *error) {
+        
+        [PubNub requestParticipantsListWithCompletionBlock:^(NSArray *participants, PNChannel *channel, PNError *error) {
             if (!error) {
-                if ([WLUser currentUser].identifier.nonempty) {
-                    NSArray* channels = [PubNub subscribedChannels];
-                    if (channels && deviceToken && [[PubNub sharedInstance] isConnected]) {
-                        [PubNub enablePushNotificationsOnChannels:channels withDevicePushToken:deviceToken];
+                for (PNClient *client in participants) {
+                    if (![client.channel.name isEqualToString:[WLUser currentUser].identifier]) {
+                        [PubNub disablePushNotificationsOnChannel:client.channel withDevicePushToken:deviceToken];
                     }
                 }
             }
         }];
+        
+        if ([WLUser currentUser].identifier.nonempty) {
+            NSArray* channels = [PubNub subscribedChannels];
+            if (channels && deviceToken && [[PubNub sharedInstance] isConnected]) {
+                [PubNub enablePushNotificationsOnChannels:channels withDevicePushToken:deviceToken];
+            }
+        }
     }];
 }
 

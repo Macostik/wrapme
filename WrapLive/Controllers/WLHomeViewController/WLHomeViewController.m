@@ -43,23 +43,21 @@
 #import "WLAPIManager.h"
 #import "WLWrapsRequest.h"
 #import "WLDatesViewController.h"
+#import "WLCollectionViewDataProvider.h"
+#import "WLHomeViewSection.h"
 
-@interface WLHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLNotificationReceiver, WLQuickChatViewDelegate>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLNotificationReceiver, WLQuickChatViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
-@property (strong, nonatomic) WLPaginatedSet* wraps;
-@property (strong, nonatomic) NSOrderedSet* candies;
-@property (nonatomic, strong) WLWrap* topWrap;
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) WLLoadingView *splash;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
-@property (strong, nonatomic) NSOperationQueue *loadingQueue;
-
-@property (nonatomic) BOOL showLoadingView;
+@property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
+@property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
 
 @end
 
@@ -69,10 +67,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    if (!self.wraps) {
-        self.wraps = [WLPaginatedSet setWithRequest:[WLWrapsRequest new]];
-    }
-    [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
+    self.section.entries.request = [WLWrapsRequest new];
+    [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
     
     self.splash = [[WLLoadingView splash] showInView:self.view];
     
@@ -83,13 +79,17 @@
 	[self setupRefresh];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	[[WLNotificationBroadcaster broadcaster] addReceiver:self];
-    self.showLoadingView = YES;
-}
-
-- (void)setShowLoadingView:(BOOL)showLoadingView {
-    _showLoadingView = showLoadingView;
-    UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-    layout.footerReferenceSize = showLoadingView ? CGSizeMake(320, 60) : CGSizeZero;
+    
+    __weak typeof(self)weakSelf = self;
+    [self.section setChangeBlock:^(WLPaginatedSet* entries) {
+        weakSelf.quickChatView.wrap = weakSelf.section.wrap;
+        BOOL hasWraps = entries.entries.nonempty;
+        weakSelf.quickChatView.hidden = !hasWraps;
+        weakSelf.collectionView.hidden = !hasWraps;
+        weakSelf.noWrapsView.hidden = hasWraps;
+        [weakSelf setNavigationBarHidden:!hasWraps animated:YES];
+        [weakSelf finishLoadingAnimation];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -100,14 +100,15 @@
 	self.avatarImageView.url = [WLUser currentUser].picture.small;
     NSOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
 	if (self.collectionView.hidden) {
-		[self fetchWraps:YES];
+        self.section.entries.request.type = WLPaginatedRequestTypeNewer;
+		[self.section.entries send:^(NSOrderedSet *orderedSet) {
+        } failure:^(NSError *error) {
+        }];
         if (wraps.nonempty) {
-            [self.wraps resetEntries:wraps];
-            [self updateWraps];
+            [self.section.entries resetEntries:wraps];
         }
 	} else {
-        [self.wraps resetEntries:wraps];
-        [self updateWraps];
+        [self.section.entries resetEntries:wraps];
     }
 }
 
@@ -116,13 +117,13 @@
 }
 
 - (UIViewController *)shakePresentedViewController {
-	return self.wraps.entries.nonempty ? [self cameraViewController] : nil;
+	return self.section.entries.entries.nonempty ? [self cameraViewController] : nil;
 }
 
 - (id)cameraViewController {
 	__weak typeof(self)weakSelf = self;
 	return [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
-		controller.wrap = weakSelf.topWrap;
+		controller.wrap = weakSelf.section.wrap;
 		controller.delegate = self;
 		controller.mode = WLCameraModeCandy;
 	}];
@@ -133,71 +134,71 @@
 	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
 }
 
-- (void)fetchWraps:(BOOL)refresh {
-    if (!self.wraps.entries.nonempty) {
-        [self fetchFreshWraps];
-    } else if (refresh) {
-        [self refreshWraps];
-    } else {
-        [self appendWraps];
-    }
-}
+//- (void)fetchWraps:(BOOL)refresh {
+//    if (!self.section.entries.entries.nonempty) {
+//        [self fetchFreshWraps];
+//    } else if (refresh) {
+//        [self refreshWraps];
+//    } else {
+//        [self appendWraps];
+//    }
+//}
 
-- (void)fetchFreshWraps {
-    if (self.wraps.request.loading) return;
-    __weak typeof(self)weakSelf = self;
-    self.wraps.request.type = WLPaginatedRequestTypeFresh;
-    [self.wraps send:^(NSOrderedSet *orderedSet) {
-        [weakSelf showLatestWrap];
-        [weakSelf updateWraps];
-        if ([orderedSet count] != 50) {
-            weakSelf.showLoadingView = NO;
-        }
-    } failure:^(NSError *error) {
-        if (weakSelf.isOnTopOfNagvigation) {
-            [error showIgnoringNetworkError];
-        }
-        [weakSelf updateWraps];
-    }];
-}
-
-- (void)refreshWraps {
-    if (self.wraps.request.loading) return;
-    __weak typeof(self)weakSelf = self;
-    self.wraps.request.type = WLPaginatedRequestTypeNewer;
-    [self.wraps send:^(NSOrderedSet *orderedSet) {
-        [weakSelf updateWraps];
-        [weakSelf.refresher endRefreshing];
-    } failure:^(NSError *error) {
-        [weakSelf.refresher endRefreshing];
-        if (weakSelf.isOnTopOfNagvigation) {
-            [error showIgnoringNetworkError];
-        }
-    }];
-}
-
-- (void)appendWraps {
-    if (self.wraps.request.loading) return;
-    __weak typeof(self)weakSelf = self;
-    self.wraps.request.type = WLPaginatedRequestTypeOlder;
-    [self.wraps send:^(NSOrderedSet *orderedSet) {
-        [weakSelf updateWraps];
-        if (weakSelf.wraps.completed) {
-            weakSelf.showLoadingView = NO;
-        }
-    } failure:^(NSError *error) {
-        if (weakSelf.isOnTopOfNagvigation) {
-            [error showIgnoringNetworkError];
-        }
-    }];
-}
+//- (void)fetchFreshWraps {
+//    if (self.section.entries.request.loading) return;
+//    __weak typeof(self)weakSelf = self;
+//    self.section.entries.request.type = WLPaginatedRequestTypeFresh;
+//    [self.section.entries send:^(NSOrderedSet *orderedSet) {
+//        [weakSelf showLatestWrap];
+//        [weakSelf updateWraps];
+//        if ([orderedSet count] != 50) {
+//            weakSelf.showLoadingView = NO;
+//        }
+//    } failure:^(NSError *error) {
+//        if (weakSelf.isOnTopOfNagvigation) {
+//            [error showIgnoringNetworkError];
+//        }
+//        [weakSelf updateWraps];
+//    }];
+//}
+//
+//- (void)refreshWraps {
+//    if (self.section.entries.request.loading) return;
+//    __weak typeof(self)weakSelf = self;
+//    self.section.entries.request.type = WLPaginatedRequestTypeNewer;
+//    [self.section.entries send:^(NSOrderedSet *orderedSet) {
+//        [weakSelf updateWraps];
+//        [weakSelf.refresher endRefreshing];
+//    } failure:^(NSError *error) {
+//        [weakSelf.refresher endRefreshing];
+//        if (weakSelf.isOnTopOfNagvigation) {
+//            [error showIgnoringNetworkError];
+//        }
+//    }];
+//}
+//
+//- (void)appendWraps {
+//    if (self.section.entries.request.loading) return;
+//    __weak typeof(self)weakSelf = self;
+//    self.section.entries.request.type = WLPaginatedRequestTypeOlder;
+//    [self.section.entries send:^(NSOrderedSet *orderedSet) {
+//        [weakSelf updateWraps];
+//        if (weakSelf.section.entries.completed) {
+//            weakSelf.showLoadingView = NO;
+//        }
+//    } failure:^(NSError *error) {
+//        if (weakSelf.isOnTopOfNagvigation) {
+//            [error showIgnoringNetworkError];
+//        }
+//    }];
+//}
 
 - (void)showLatestWrap {
     WLUser * user = [WLUser currentUser];
     static BOOL firstWrapShown = NO;
-	if (!firstWrapShown && user.signInCount.integerValue == 1 && self.wraps.entries.nonempty) {
+	if (!firstWrapShown && user.signInCount.integerValue == 1 && self.section.entries.entries.nonempty) {
 		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-		wrapController.wrap = [self.wraps.entries firstObject];
+		wrapController.wrap = [self.section.entries.entries firstObject];
 		[self.navigationController pushViewController:wrapController animated:NO];
 	}
     firstWrapShown = YES;
@@ -214,28 +215,23 @@
 		}];
 	}
 }
-
-- (void)setWraps:(WLPaginatedSet *)wraps {
-	_wraps = wraps;
-	[self updateWraps];
-}
-
-- (void)updateWraps {
-	
-	BOOL hasWraps = _wraps.entries.nonempty;
-	
-    self.quickChatView.hidden = !hasWraps;
-    
-    self.topWrap = [self.wraps.entries firstObject];
-	
-	self.collectionView.hidden = !hasWraps;
-	self.noWrapsView.hidden = hasWraps;
-	[self.collectionView reloadData];
-	
-	[self setNavigationBarHidden:!hasWraps animated:YES];
-    
-    [self finishLoadingAnimation];
-}
+//
+//- (void)updateWraps {
+//	
+//	BOOL hasWraps = _wraps.entries.nonempty;
+//	
+//    self.quickChatView.hidden = !hasWraps;
+//    
+//    self.topWrap = [self.wraps.entries firstObject];
+//	
+//	self.collectionView.hidden = !hasWraps;
+//	self.noWrapsView.hidden = hasWraps;
+//	[self.collectionView reloadData];
+//	
+//	[self setNavigationBarHidden:!hasWraps animated:YES];
+//    
+//    [self finishLoadingAnimation];
+//}
 
 - (void)setNavigationBarHidden:(BOOL)hidden animated:(BOOL)animated {
     __weak typeof(self)weakSelf = self;
@@ -247,59 +243,19 @@
     }
 }
 
-- (void)setTopWrap:(WLWrap *)topWrap {
-    BOOL changed = NO;
-    if (_topWrap != topWrap) {
-        changed = YES;
-        _topWrap = topWrap;
-    }
-    if (_topWrap) {
-        self.candies = [_topWrap recentCandies:WLHomeTopWrapCandiesLimit];
-        self.quickChatView.wrap = _topWrap;
-        if (changed) {
-            [self fetchTopWrapIfNeeded:_topWrap];
-        }
-    }
-}
-
-- (NSOperationQueue *)loadingQueue {
-    if (!_loadingQueue) {
-        _loadingQueue = [[NSOperationQueue alloc] init];
-        _loadingQueue.maxConcurrentOperationCount = 1;
-    }
-    return _loadingQueue;
-}
-
-- (void)fetchTopWrapIfNeeded:(WLWrap*)wrap {
-    if ([self.candies count] < WLHomeTopWrapCandiesLimit) {
-        [self.loadingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
-            run_in_main_queue(^{
-                [wrap fetch:^(WLWrap* wrap) {
-                    [operation finish];
-                } failure:^(NSError *error) {
-                    [operation finish];
-                }];
-            });
-        }];
-    }
-}
-
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-    [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
-    [self updateWraps];
+    [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
-    [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
-    [self updateWraps];
+    [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
 	self.collectionView.contentOffset = CGPointZero;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-    [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
-    [self updateWraps];
+    [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
 }
 
 #pragma mark - WLNotificationReceiver
@@ -349,7 +305,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isCameraSegue]) {
 		WLStillPictureViewController* controller = segue.destinationViewController;
-		controller.wrap = self.topWrap;
+		controller.wrap = self.section.wrap;
 		controller.delegate = self;
 		controller.mode = WLCameraModeCandy;
 	}
@@ -357,7 +313,7 @@
 
 - (IBAction)typeMessage:(UIButton *)sender {
 	WLChatViewController * chatController = [WLChatViewController instantiate];
-	chatController.wrap = self.topWrap;
+	chatController.wrap = self.section.wrap;
 	chatController.shouldShowKeyboard = YES;
 	[self.navigationController pushViewController:chatController animated:YES];
 }
@@ -369,40 +325,40 @@
 
 #pragma mark - UICollectionViewDelegate
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	return [self.wraps.entries count];
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLWrap* wrap = [self.wraps.entries tryObjectAtIndex:indexPath.row];
-	WLWrapCell* cell = nil;
-	if (indexPath.row == 0) {
-		static NSString* topWrapCellIdentifier = @"WLTopWrapCell";
-		cell = [collectionView dequeueReusableCellWithReuseIdentifier:topWrapCellIdentifier forIndexPath:indexPath];
-		cell.item = wrap;
-		cell.candies = self.candies;
-	} else {
-		static NSString* wrapCellIdentifier = @"WLWrapCell";
-		cell = [collectionView dequeueReusableCellWithReuseIdentifier:wrapCellIdentifier forIndexPath:indexPath];
-		cell.item = wrap;
-	}
-	cell.delegate = self;
-	return cell;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = 50;
-	if (indexPath.row == 0) {
-		height = [self.candies count] > WLHomeTopWrapCandiesLimit_2 ? 324 : 218;
-	}
-	return CGSizeMake(collectionView.width, height);
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-	[self appendWraps];
-    static NSString* identifier = @"WLLoadingView";
-    return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
-}
+//- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+//	return [self.wraps.entries count];
+//}
+//
+//- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+//	WLWrap* wrap = [self.wraps.entries tryObjectAtIndex:indexPath.row];
+//	WLWrapCell* cell = nil;
+//	if (indexPath.row == 0) {
+//		static NSString* topWrapCellIdentifier = @"WLTopWrapCell";
+//		cell = [collectionView dequeueReusableCellWithReuseIdentifier:topWrapCellIdentifier forIndexPath:indexPath];
+//		cell.item = wrap;
+//		cell.candies = self.candies;
+//	} else {
+//		static NSString* wrapCellIdentifier = @"WLWrapCell";
+//		cell = [collectionView dequeueReusableCellWithReuseIdentifier:wrapCellIdentifier forIndexPath:indexPath];
+//		cell.item = wrap;
+//	}
+//	cell.delegate = self;
+//	return cell;
+//}
+//
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    CGFloat height = 50;
+//	if (indexPath.row == 0) {
+//		height = [self.candies count] > WLHomeTopWrapCandiesLimit_2 ? 324 : 218;
+//	}
+//	return CGSizeMake(collectionView.width, height);
+//}
+//
+//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+//	[self appendWraps];
+//    static NSString* identifier = @"WLLoadingView";
+//    return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
+//}
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
 	if (self.refresher.refreshing) {
@@ -428,7 +384,7 @@
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
-	WLWrap* wrap = controller.wrap ? : self.topWrap;
+	WLWrap* wrap = controller.wrap ? : self.section.wrap;
 	[wrap uploadImage:image success:^(WLCandy *candy) {
     } failure:^(NSError *error) {
     }];
@@ -436,7 +392,7 @@
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-    WLWrap* wrap = controller.wrap ? : self.topWrap;
+    WLWrap* wrap = controller.wrap ? : self.section.wrap;
     [wrap uploadPictures:pictures];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -467,7 +423,7 @@
 }
 
 - (void)wrapCell:(WLWrapCell *)cell didSelectCandy:(WLCandy *)candy {
-	[self presentCandy:candy fromWrap:cell.item];
+	[self presentCandy:candy fromWrap:cell.entry];
 }
 
 - (void)wrapCellDidSelectCandyPlaceholder:(WLWrapCell *)cell {

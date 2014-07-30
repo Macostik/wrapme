@@ -37,7 +37,7 @@
 	[super awakeFromNib];
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self.candiesView ? self.nameLabel.superview : self configuration:^BOOL(WLMenu *menu) {
-        WLWrap* wrap = weakSelf.item;
+        WLWrap* wrap = weakSelf.entry;
         if ([wrap.contributor isCurrentUser]) {
             [menu addItem:@"Delete" block:^{
                 weakSelf.userInteractionEnabled = NO;
@@ -75,7 +75,7 @@
     layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
 }
 
-- (void)setupItemData:(WLWrap*)wrap {
+- (void)setup:(WLWrap*)wrap {
 	self.nameLabel.superview.userInteractionEnabled = YES;
 	self.nameLabel.text = wrap.name;
 	[self.nameLabel sizeToFitWidthWithSuperviewRightPadding:50];
@@ -102,10 +102,10 @@
 
 - (IBAction)wrapSelected:(UIButton *)sender {
 	self.notifyBulb.hidden = YES;
-	WLWrap* wrap = self.item;
+	WLWrap* wrap = self.entry;
     wrap.unread = @NO;
     if ([self.delegate respondsToSelector:@selector(wrapCell:didSelectWrap:)]) {
-        [self.delegate wrapCell:self didSelectWrap:self.item];
+        [self.delegate wrapCell:self didSelectWrap:self.entry];
     }
 }
 

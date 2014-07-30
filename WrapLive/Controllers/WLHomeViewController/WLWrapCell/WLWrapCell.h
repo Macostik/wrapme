@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLCollectionItemCell.h"
+#import "WLEntryCell.h"
 
 static NSUInteger WLHomeTopWrapCandiesLimit = 6;
 static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
@@ -16,7 +16,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 @class WLWrap;
 @class SegmentedControl;
 
-@protocol WLWrapCellDelegate <NSObject>
+@protocol WLWrapCellDelegate <WLEntryCellDelegate>
 
 @optional
 
@@ -27,7 +27,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 @end
 
-@interface WLWrapCell : WLCollectionItemCell
+@interface WLWrapCell : WLEntryCell
 
 @property (nonatomic, weak) id <WLWrapCellDelegate> delegate;
 

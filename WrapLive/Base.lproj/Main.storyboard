@@ -758,8 +758,8 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             </subviews>
                                         </collectionReusableView>
                                         <connections>
-                                            <outlet property="dataSource" destination="L91-fZ-J9O" id="Tkp-kK-dN5"/>
-                                            <outlet property="delegate" destination="L91-fZ-J9O" id="a5X-Va-pWX"/>
+                                            <outlet property="dataSource" destination="5hc-ZE-poP" id="Gcb-Tb-19z"/>
+                                            <outlet property="delegate" destination="5hc-ZE-poP" id="NMR-B2-bda"/>
                                         </connections>
                                     </collectionView>
                                 </subviews>
@@ -835,14 +835,27 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                     <navigationItem key="navigationItem" id="cIa-CV-SVl"/>
                     <connections>
                         <outlet property="avatarImageView" destination="Etf-XM-273" id="ZuB-zG-TTX"/>
-                        <outlet property="collectionView" destination="y7O-GH-Q4Y" id="b4K-YN-Dlk"/>
+                        <outlet property="collectionView" destination="y7O-GH-Q4Y" id="5cB-EH-3pL"/>
                         <outlet property="createWrapButton" destination="N9L-im-ajd" id="UA9-hL-ZEh"/>
+                        <outlet property="dataProvider" destination="5hc-ZE-poP" id="TGs-fS-2pE"/>
                         <outlet property="navigationBar" destination="9Rl-cW-5hv" id="9kd-xs-4J2"/>
                         <outlet property="noWrapsView" destination="qRl-9j-QTf" id="Z4q-Kd-Qec"/>
                         <outlet property="quickChatView" destination="O0Z-qt-XCr" id="Rn6-xb-2a9"/>
+                        <outlet property="section" destination="fHn-3G-fGW" id="Wch-lJ-dd2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfT-C3-6mj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="5hc-ZE-poP" customClass="WLCollectionViewDataProvider">
+                    <connections>
+                        <outlet property="collectionView" destination="y7O-GH-Q4Y" id="hWo-I8-leU"/>
+                        <outletCollection property="sections" destination="fHn-3G-fGW" collectionClass="NSMutableArray" id="c3o-N5-KR2"/>
+                    </connections>
+                </customObject>
+                <customObject id="fHn-3G-fGW" customClass="WLHomeViewSection">
+                    <connections>
+                        <outlet property="collectionView" destination="y7O-GH-Q4Y" id="QUX-wt-D3B"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="1378" y="118"/>
         </scene>

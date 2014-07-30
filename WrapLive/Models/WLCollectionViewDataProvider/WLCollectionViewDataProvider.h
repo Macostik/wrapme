@@ -13,11 +13,13 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 
-@property (strong, nonatomic) IBOutlet NSMutableOrderedSet* sections;
+@property (strong, nonatomic) IBOutletCollection(WLCollectionViewSection) NSMutableArray* sections;
 
 - (void)reload;
 
 - (void)reload:(WLCollectionViewSection*)section;
+
+- (void)connect;
 
 @end
 

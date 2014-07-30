@@ -7,17 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLCollectionItemCell.h"
+#import "WLEntryCell.h"
+#import "WLEntriesCollection.h"
 
 @class WLCollectionViewDataProvider;
 
-@interface WLCollectionViewSection : NSObject
+@interface WLCollectionViewSection : NSObject <WLEntryCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 
 @property (weak, nonatomic) WLCollectionViewDataProvider *dataProvider;
 
-@property (strong, nonatomic) NSMutableOrderedSet* entries;
+@property (strong, nonatomic) WLEntriesCollection entries;
 
 @property (strong, nonatomic) NSString* reuseCellIdentifier;
 
@@ -31,7 +32,13 @@
 
 @property (nonatomic) BOOL registerFooterAfterAwakeFromNib;
 
-@property (strong, nonatomic) void (^configureCellBlock) (WLCollectionItemCell* cell, id entry);
+@property (strong, nonatomic) void (^configureCellBlock) (WLEntryCell* cell, id entry);
+
+@property (strong, nonatomic) void (^selectionBlock) (id entry);
+
+@property (strong, nonatomic) void (^changeBlock) (WLEntriesCollection entries);
+
+- (id)cellWithIdentifier:(NSString*)identifier indexPath:(NSIndexPath*)indexPath;
 
 - (id)cell:(NSIndexPath*)indexPath;
 
@@ -41,14 +48,18 @@
 
 - (id)footer:(NSIndexPath*)indexPath;
 
-- (CGSize)headerSize:(NSIndexPath*)indexPath;
+- (CGSize)headerSize:(NSUInteger)section;
 
-- (CGSize)footerSize:(NSIndexPath*)indexPath;
+- (CGSize)footerSize:(NSUInteger)section;
 
 - (NSUInteger)numberOfEntries;
 
 - (CGFloat)minimumLineSpacing:(NSUInteger)section;
 
 - (UIEdgeInsets)sectionInsets:(NSUInteger)section;
+
+- (void)willChangeEntries:(WLEntriesCollection)entries;
+
+- (void)didChangeEntries:(WLEntriesCollection)entries;
 
 @end

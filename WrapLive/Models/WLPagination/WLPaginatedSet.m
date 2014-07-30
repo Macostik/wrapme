@@ -36,12 +36,17 @@
     [self.entries removeAllObjects];
     [self.entries unionOrderedSet:entries];
     [self.entries sortByUpdatedAtDescending];
+    [self.delegate paginatedSetChanged:self];
 }
 
 - (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    if (!self.entries.nonempty) {
+        self.request.type = WLPaginatedRequestTypeFresh;
+    } else {
+        self.request.newer = [[self.entries firstObject] updatedAt];
+        self.request.older = [[self.entries lastObject] updatedAt];
+    }
     __weak typeof(self)weakSelf = self;
-    self.request.newer = [[self.entries firstObject] updatedAt];
-    self.request.older = [[self.entries lastObject] updatedAt];
     return [self.request send:^(NSOrderedSet *orderedSet) {
         if (orderedSet.nonempty) {
             NSUInteger count = [weakSelf.entries count];

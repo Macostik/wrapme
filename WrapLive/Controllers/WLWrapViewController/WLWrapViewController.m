@@ -400,7 +400,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     if (indexPath.section == 0) {
         static NSString* wrapCellIdentifier = @"WLWrapCell";
         WLWrapCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:wrapCellIdentifier forIndexPath:indexPath];
-        cell.item = self.wrap;
+        cell.entry = self.wrap;
         cell.delegate = self;
         cell.tabControl.selectedSegment = self.viewTab;
         cell.liveNotifyBulb.hidden = !self.showLiveNotifyBulb;

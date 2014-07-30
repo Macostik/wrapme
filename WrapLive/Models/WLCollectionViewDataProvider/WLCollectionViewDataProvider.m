@@ -10,6 +10,13 @@
 
 @implementation WLCollectionViewDataProvider
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    for (WLCollectionViewSection* section in self.sections) {
+        section.dataProvider = self;
+    }
+}
+
 - (void)reload {
     [self.collectionView reloadData];
 }
@@ -19,6 +26,11 @@
     if (index != NSNotFound) {
         [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:index]];
     }
+}
+
+- (void)connect {
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -34,7 +46,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLCollectionViewSection* _section = self.sections[indexPath.section];
-    WLCollectionItemCell* cell = [_section cell:indexPath];
+    WLEntryCell* cell = [_section cell:indexPath];
     return cell;
 }
 
@@ -45,6 +57,16 @@
     } else {
         return [_section footer:indexPath];
     }
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    WLCollectionViewSection* _section = self.sections[section];
+    return [_section headerSize:section];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    WLCollectionViewSection* _section = self.sections[section];
+    return [_section footerSize:section];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {

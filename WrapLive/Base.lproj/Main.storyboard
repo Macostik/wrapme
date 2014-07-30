@@ -1795,6 +1795,10 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </button>
+                                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_small_smile" id="iTC-HV-kpT">
+                                                                    <rect key="frame" x="7" y="8" width="20" height="20"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                </imageView>
                                                                 <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mIc-Fz-DNh" customClass="SegmentButton">
                                                                     <rect key="frame" x="161" y="0.0" width="160" height="36"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
@@ -1840,6 +1844,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                 <connections>
                                                     <outlet property="contributorsLabel" destination="6dW-gY-pJQ" id="ejH-we-NlQ"/>
                                                     <outlet property="coverView" destination="tcg-oc-PSs" id="TLA-fv-NTl"/>
+                                                    <outlet property="liveNotifyBulb" destination="iTC-HV-kpT" id="Yv8-4G-FYi"/>
                                                     <outlet property="nameLabel" destination="irm-8j-xhe" id="ZkJ-eg-Wdl"/>
                                                     <outlet property="tabControl" destination="qAr-B5-dMa" id="a4W-i7-gc5"/>
                                                 </connections>

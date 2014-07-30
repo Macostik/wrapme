@@ -305,7 +305,6 @@
 #pragma mark - WLNotificationReceiver
 
 - (void)handleRemoteNotification:(WLNotification*)notification {
-	
     if ([notification deletion]) {
         return;
     }

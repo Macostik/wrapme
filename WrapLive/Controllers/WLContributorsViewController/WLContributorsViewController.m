@@ -198,7 +198,7 @@
         
         NSUInteger index = NSNotFound;
         NSUInteger section = 0;
-		if ([weakSelf.filteredContacts[0] containsObject:existingContact]) {
+		if ([kWeakFilteredContactsFirstSection containsObject:existingContact]) {
             index = [kWeakFilteredContactsFirstSection indexOfObject:existingContact];
         } else {
             index = [kWeakFilteredContactsSecondSection indexOfObject:existingContact];

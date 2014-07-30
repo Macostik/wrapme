@@ -169,9 +169,7 @@
 }
 
 - (void)updateSelection {
-	[UIView beginAnimations:nil context:nil];
 	self.backgroundColor = self.selected ? self.selectedColor : self.normalColor;
-	[UIView commitAnimations];
 }
 
 - (void)setNormalColor:(UIColor *)normalColor {

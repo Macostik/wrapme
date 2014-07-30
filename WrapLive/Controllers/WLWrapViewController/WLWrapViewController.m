@@ -48,6 +48,8 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
     WLWrapViewTabHistory
 };
 
+static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
+
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLWrapCellDelegate, WLQuickChatViewDelegate, WLGroupedSetDelegate, WLCandyCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -70,6 +72,8 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
 
 @property (nonatomic, readonly) BOOL isLive;
 
+@property (nonatomic) BOOL showLiveNotifyBulb;
+
 @end
 
 @implementation WLWrapViewController
@@ -82,14 +86,21 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
         return;
     }
     
+    NSNumber* defaultTab = [[NSUserDefaults standardUserDefaults] objectForKey:WLWrapViewDefaultTabKey];
+    if (defaultTab) {
+        self.viewTab = [defaultTab integerValue];
+    } else {
+        self.viewTab = WLWrapViewTabHistory;
+    }
+    
     self.groups = [WLGroupedSet groupsOrderedBy:WLCandiesOrderByCreation];
     self.groups.skipToday = YES;
     self.groups.delegate = self;
     
     self.showLoadingView = YES;
     self.quickChatView.wrap = self.wrap;
-    [self refreshWrap];
-    self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshWrap) colorScheme:WLRefresherColorSchemeOrange];
+    [self refreshWrap:WLWrapContentTypeAuto];
+    self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshAction) colorScheme:WLRefresherColorSchemeOrange];
     
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     [self.groups addCandies:self.wrap.candies];
@@ -111,7 +122,6 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
     if (!_wrapRequest) {
         _wrapRequest = [WLWrapRequest request];
     }
-    _wrapRequest.contentType = self.isLive ? WLWrapContentTypeLive : WLWrapContentTypeHistory;
     _wrapRequest.wrap = self.wrap;
     return _wrapRequest;
 }
@@ -141,10 +151,18 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
     }
 }
 
-- (void)refreshWrap {
+- (void)refreshAction {
+    [self refreshWrap:self.isLive ? WLWrapContentTypeLive : WLWrapContentTypeHistory];
+}
+
+- (void)refreshWrap:(NSString*)contentType {
 	__weak typeof(self)weakSelf = self;
     self.wrapRequest.page = 1;
+    self.wrapRequest.contentType = contentType;
     [self.wrapRequest send:^(WLWrap* wrap) {
+        if (contentType == WLWrapContentTypeAuto && [weakSelf.wrapRequest.contentType isEqualToString:WLWrapContentTypeLive] && weakSelf.viewTab == WLWrapViewTabHistory) {
+            weakSelf.showLiveNotifyBulb = YES;
+        }
         [weakSelf reloadData];
         [weakSelf setFirstContributorViewHidden:wrap.candies.nonempty animated:YES];
 		[weakSelf.refresher endRefreshing];
@@ -178,7 +196,7 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
             return;
         }
         if (!self.candies.nonempty) {
-            [self refreshWrap];
+            [self refreshWrap:WLWrapContentTypeLive];
             return;
         }
         self.candiesRequest = [WLCandiesRequest request:self.wrap];
@@ -203,7 +221,7 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
             return;
         }
         if (!self.wrap.candies.nonempty) {
-            [self refreshWrap];
+            [self refreshWrap:WLWrapContentTypeHistory];
             return;
         }
         self.wrapRequest.page = ((self.groups.set.count + 1)/WLAPIDatePageSize + 1);
@@ -330,11 +348,14 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
 
 - (IBAction)tabChanged:(SegmentedControl *)sender {
     self.viewTab = sender.selectedSegment;
+    [[NSUserDefaults standardUserDefaults] setObject:@(self.viewTab) forKey:WLWrapViewDefaultTabKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [self didChangeViewTab];
 }
 
 - (void)didChangeViewTab {
     if (self.isLive) {
+        self.showLiveNotifyBulb = NO;
         self.candies = [self.wrap liveCandies];
     }
     self.showLoadingView = YES;
@@ -382,6 +403,7 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
         cell.item = self.wrap;
         cell.delegate = self;
         cell.tabControl.selectedSegment = self.viewTab;
+        cell.liveNotifyBulb.hidden = !self.showLiveNotifyBulb;
         return cell;
     } else if (self.isLive) {
         WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCandyCellIdentifier forIndexPath:indexPath];

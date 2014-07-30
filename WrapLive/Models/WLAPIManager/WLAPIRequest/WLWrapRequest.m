@@ -38,7 +38,12 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    return [self.wrap update:response.data[@"wrap"]];
+    NSDictionary* data = response.data[@"wrap"];
+    NSString* contentType = [data stringForKey:@"pick"];
+    if (contentType.nonempty) {
+        self.contentType = contentType;
+    }
+    return [self.wrap update:data];
 }
 
 - (void)handleFailure:(NSError *)error {

@@ -102,7 +102,7 @@
         __block int i = 1;
         [self.contributors all:^(WLUser *contributor) {
             if (![contributor isCurrentUser] && i <= numberOfUsers) {
-                [contributorsArray addObject:contributor.name];
+                [contributorsArray addObject:contributor.name.nonempty ? contributor.name : contributor.phone];
                 i++;
             }
         }];

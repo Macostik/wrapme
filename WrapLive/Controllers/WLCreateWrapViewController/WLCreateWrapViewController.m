@@ -194,10 +194,10 @@
         WLContributorCell* cell = [tableView dequeueReusableCellWithIdentifier:[WLContributorCell reuseIdentifier]];
         WLUser* contributor = self.editSession.contributors[indexPath.row];
         cell.item = contributor;
-        if (!self.wrap ||[self.wrap.contributor isCurrentUser]) {
-            cell.deletable = ![contributor isCurrentUser];
+        if (!self.wrap || [self.wrap.contributor isCurrentUser]) {
+            cell.deletable = [contributor isCurrentUser];
         } else {
-            cell.deletable = ![self.wrap.contributors containsObject:contributor];
+            cell.deletable = [self.wrap.contributors containsObject:contributor];
         }
         return cell;
     } else {

@@ -116,7 +116,7 @@
 		<key>email</key>
 		<string>y.granchenko@mobidev.biz</string>
 		<key>password</key>
-		<string>5e7adaa4db</string>
+		<string>a6b5ac1fc</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>
@@ -127,6 +127,16 @@
 		<string>e.ustimenko@mobidev.ru</string>
 		<key>password</key>
 		<string>edf8ee8cc8</string>
+	</dict>
+	<dict>
+		<key>countryCode</key>
+		<string>380</string>
+		<key>phone</key>
+		<string>956213431</string>
+		<key>email</key>
+		<string>y.granchenko@gmail.com</string>
+		<key>password</key>
+		<string>ed4e5cb2d7</string>
 	</dict>
 </array>
 </plist>

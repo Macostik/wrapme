@@ -1076,7 +1076,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             <outlet property="avatarView" destination="8s0-G4-zCu" id="qHo-Mr-DZB"/>
                                             <outlet property="delegate" destination="y2d-d2-UUm" id="jzx-Rz-rhO"/>
                                             <outlet property="nameLabel" destination="bEg-Da-CME" id="tra-vN-eiP"/>
-                                            <outlet property="removeButton" destination="nvC-U6-v7w" id="ux1-rL-Wv5"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2029,10 +2028,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="placeholderName" value="ic_photo_placeholder"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_upload" id="oUn-Rg-3zR">
-                                                    <rect key="frame" x="260" y="276" width="60" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fVr-6C-pxk">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2050,6 +2045,11 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                     <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" id="saf-0Z-94Q" customClass="WLProgressBar">
+                                                    <rect key="frame" x="0.0" y="318" width="320" height="4"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
@@ -2128,13 +2128,13 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                         <outlet property="dateLabel" destination="JE5-jO-MER" id="f9u-st-TAB"/>
                         <outlet property="imageView" destination="Sn5-Ts-kUU" id="Bdw-8Z-Pph"/>
                         <outlet property="leftArrow" destination="hzp-4h-Ls3" id="TJS-jC-cPK"/>
+                        <outlet property="progressBar" destination="saf-0Z-94Q" id="3JI-6S-tDw"/>
                         <outlet property="reportButton" destination="sPd-Ai-V8F" id="zJ7-te-f2i"/>
                         <outlet property="rightArrow" destination="kR2-wp-una" id="oOr-gf-dnD"/>
                         <outlet property="spinner" destination="lOt-XR-j24" id="2z0-2z-ppa"/>
                         <outlet property="tableView" destination="0jW-2U-oDt" id="v6J-eA-rcG"/>
                         <outlet property="titleLabel" destination="N9a-4s-fUi" id="wBS-tA-c4B"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="GFY-S2-eYl"/>
-                        <outlet property="uploadIcon" destination="oUn-Rg-3zR" id="XeZ-lt-Uy1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLM-ad-e36" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2561,7 +2561,6 @@ Check your internet connection and try again.</string>
         <image name="ic_small_smile" width="18" height="18"/>
         <image name="ic_swipe_arrow_left" width="6" height="10"/>
         <image name="ic_swipe_arrow_right" width="6" height="10"/>
-        <image name="ic_upload" width="40" height="26"/>
         <image name="ic_wrapLive" width="104" height="90"/>
         <image name="ic_wrap_arrow" width="24" height="12"/>
         <image name="img_just_candy" width="76" height="34"/>

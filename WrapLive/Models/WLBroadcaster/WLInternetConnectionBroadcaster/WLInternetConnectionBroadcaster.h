@@ -7,6 +7,7 @@
 //
 
 #import "WLBroadcaster.h"
+#import <Reachability/Reachability.h>
 
 @class WLInternetConnectionBroadcaster;
 

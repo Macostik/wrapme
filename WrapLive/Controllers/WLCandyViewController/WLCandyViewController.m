@@ -6,65 +6,63 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLCandyViewController.h"
-#import "WLCommentCell.h"
-#import "WLCandy.h"
-#import "NSDate+Formatting.h"
-#import "WLImageFetcher.h"
-#import "UIView+Shorthand.h"
-#import "WLUser.h"
-#import "WLComposeContainer.h"
-#import "WLComposeBar.h"
-#import "WLComment.h"
-#import "WLSession.h"
-#import "WLAPIManager.h"
-#import "WLWrap.h"
-#import "UIFont+CustomFonts.h"
-#import "WLRefresher.h"
-#import <AFNetworking/UIImageView+AFNetworking.h>
-#import "WLNavigation.h"
-#import "WLImageViewController.h"
-#import "UIScrollView+Additions.h"
-#import "WLKeyboardBroadcaster.h"
-#import "NSDate+Additions.h"
-#import "WLWrapBroadcaster.h"
-#import "NSString+Additions.h"
-#import "WLToast.h"
-#import "UIAlertView+Blocks.h"
 #import "MFMailComposeViewController+Additions.h"
+#import "NSDate+Additions.h"
+#import "NSDate+Formatting.h"
+#import "NSString+Additions.h"
 #import "UIActionSheet+Blocks.h"
-#import "WLGroupedSet.h"
-#import "WLCandiesRequest.h"
+#import "UIAlertView+Blocks.h"
+#import "UIFont+CustomFonts.h"
+#import "UIScrollView+Additions.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "UIView+Shorthand.h"
+#import "WLAPIManager.h"
+#import "WLCandiesRequest.h"
+#import "WLCandy.h"
+#import "WLCandyViewController.h"
+#import "WLComment.h"
+#import "WLCommentCell.h"
+#import "WLComposeBar.h"
+#import "WLComposeContainer.h"
+#import "WLGroupedSet.h"
+#import "WLImageFetcher.h"
+#import "WLImageViewController.h"
+#import "WLKeyboardBroadcaster.h"
+#import "WLNavigation.h"
+#import "WLProgressBar.h"
+#import "WLRefresher.h"
+#import "WLSession.h"
+#import "WLToast.h"
+#import "WLUser.h"
+#import "WLWrap.h"
+#import "WLWrapBroadcaster.h"
+#import "WLInternetConnectionBroadcaster.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "WLWrap+Extended.h"
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
-@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, MFMailComposeViewControllerDelegate>
+@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, MFMailComposeViewControllerDelegate, WLProgressBarDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIView *containerView;
-@property (weak, nonatomic) IBOutlet UIView *topView;
-@property (weak, nonatomic) IBOutlet WLImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIImageView *uploadIcon;
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-@property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
-@property (weak, nonatomic) IBOutlet UIView *contentIndicatorView;
+@property (weak, nonatomic) IBOutlet UIButton *reportButton;
 @property (weak, nonatomic) IBOutlet UIImageView *leftArrow;
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
-
-@property (weak, nonatomic) WLRefresher *refresher;
-
-@property (nonatomic) BOOL shouldLoadMoreCandies;
-
-@property (weak, nonatomic) IBOutlet UIButton *reportButton;
-
-@property (strong, nonatomic) NSOrderedSet* comments;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIView *contentIndicatorView;
+@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
+@property (weak, nonatomic) IBOutlet WLImageView *imageView;
+@property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 
 @property (nonatomic) BOOL autoenqueueUploading;
-
+@property (nonatomic) BOOL shouldLoadMoreCandies;
+@property (strong, nonatomic) NSOrderedSet* comments;
 @property (strong, nonatomic) WLToast* dateChangeToast;
+@property (weak, nonatomic) WLRefresher *refresher;
 
 @end
 
@@ -88,6 +86,8 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 	
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
+    
+    [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
 	
 	[self showContentIndicatorView:NO];
     
@@ -278,6 +278,14 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (void)setupImage {
 	WLCandy* image = self.candy;
 	__weak typeof(self)weakSelf = self;
+    
+    if (![WLInternetConnectionBroadcaster broadcaster].reachable) {
+        self.progressBar.progress = .2f;
+    } else {
+        self.progressBar.operation = self.candy.uploading.operation;
+        self.progressBar.delegate = self;
+    }
+
 	if (!self.spinner.isAnimating) {
 		[self.spinner startAnimating];
 	}
@@ -288,9 +296,11 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	}];
 	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
-    self.uploadIcon.hidden = image.uploaded;
+    self.progressBar.hidden = image.uploaded;
 	[self reloadComments];
     image.unread = @NO;
+    
+    
 //    self.leftArrow.hidden = image == [self.items firstObject];
 //    self.rightArrow.hidden = image == [self.items lastObject];
 }
@@ -369,6 +379,14 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
 	self.containerView.height = self.view.height - self.containerView.y - [keyboardHeight floatValue];
 	[self.tableView scrollToBottomAnimated:YES];
+}
+
+#pragma mark - WLInternetConnectionBroadcaster
+
+- (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
+    if (reachable.intValue == NotReachable) {
+        self.progressBar.progress = .2f;
+    }
 }
 
 #pragma mark - Actions
@@ -457,6 +475,14 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 														 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[WLCommentCell commentFont]} context:nil].size.height);
 	CGFloat cellHeight = (commentHeight + WLAuthorLabelHeight);
 	return MAX(WLMinimumCellHeight, cellHeight + 10);
+}
+
+#pragma mark - WLProgressBarDelegate
+
+- (void)progressBar:(WLProgressBar*)progressBar didChangeProgress:(float)progress {
+    if (progress == 1.0f) {
+        self.progressBar.hidden = YES;
+    }
 }
 
 @end

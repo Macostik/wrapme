@@ -32,6 +32,10 @@
     return [self gray:153];
 }
 
++ (UIColor *)WL_clearColor {
+    return [[self r:.0f g:.0f b:.0f] colorWithAlphaComponent:.0f];
+}
+
 + (UIColor*)WL_darkGrayColor {
     return [self gray:51];
 }

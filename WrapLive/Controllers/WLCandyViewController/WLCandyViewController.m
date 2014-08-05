@@ -29,7 +29,7 @@
 #import "WLImageViewController.h"
 #import "WLKeyboardBroadcaster.h"
 #import "WLNavigation.h"
-#import "WLProgressBar.h"
+#import "WLClearProgressBar.h"
 #import "WLRefresher.h"
 #import "WLSession.h"
 #import "WLToast.h"
@@ -56,7 +56,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
-@property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
+@property (weak, nonatomic) IBOutlet WLClearProgressBar *progressBar;
 
 @property (nonatomic) BOOL autoenqueueUploading;
 @property (nonatomic) BOOL shouldLoadMoreCandies;

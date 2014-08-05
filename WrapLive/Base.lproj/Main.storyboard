@@ -2045,7 +2045,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                     <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" id="saf-0Z-94Q" customClass="WLProgressBar">
+                                                <view contentMode="scaleToFill" id="saf-0Z-94Q" customClass="WLClearProgressBar">
                                                     <rect key="frame" x="0.0" y="318" width="320" height="4"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -2578,6 +2578,6 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="LkF-8a-8pE"/>
+        <segue reference="Mcp-Wh-cB2"/>
     </inferredMetricsTieBreakers>
 </document>

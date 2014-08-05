@@ -42,7 +42,7 @@
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
-@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, MFMailComposeViewControllerDelegate, WLProgressBarDelegate>
+@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
@@ -348,10 +348,10 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     if (index != NSNotFound) {
         [self.items removeObject:candy];
         if (self.items.nonempty) {
-             if ([self.items containsIndex:index - 1]) {
-                self.item = [self.items objectAtIndex:index - 1];
-             } else if ([self.items containsIndex:index + 1]) {
-                 self.item = [self.items objectAtIndex:index + 1];
+             if ([self.items containsIndex:index]) {
+                self.item = [self.items objectAtIndex:index];
+             } else if ([self.items containsIndex:index - 1]) {
+                 self.item = [self.items objectAtIndex:index - 1];
              } else {
                 self.item = [self.items firstObject];
             }

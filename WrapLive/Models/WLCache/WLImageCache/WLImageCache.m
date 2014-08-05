@@ -72,9 +72,12 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 }
 
 - (void)write:(NSString *)identifier object:(id)image {
-    if (image) {
-        [_manager createFileAtPath:identifier contents:UIImageJPEGRepresentation(image, 1.0f) attributes:nil];
-        [WLSystemImageCache setImage:image withIdentifier:identifier];
+    if (image && identifier.nonempty) {
+        NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+        if ([imageData length] > 0) {                                                   // Check crash
+            [_manager createFileAtPath:identifier contents:imageData attributes:nil];
+            [WLSystemImageCache setImage:image withIdentifier:identifier];
+        }
     }
 }
 

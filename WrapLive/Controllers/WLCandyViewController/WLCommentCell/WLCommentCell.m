@@ -77,9 +77,9 @@
 	self.authorImageView.url = entry.contributor.picture.medium;
 	self.menu.vibrate = [entry.contributor isCurrentUser];
     self.circleProgressBar.operation = entry.uploading.operation;
-        if (![WLInternetConnectionBroadcaster broadcaster].reachable && !entry.uploaded) {
-            self.circleProgressBar.progress = .15f;
-        }
+    if (![WLInternetConnectionBroadcaster broadcaster].reachable && !entry.uploaded) {
+        self.circleProgressBar.progress = .15f;
+    }
 }
 
 @end

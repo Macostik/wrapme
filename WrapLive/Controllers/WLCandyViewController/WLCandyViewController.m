@@ -283,9 +283,10 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
         self.progressBar.progress = .2f;
     } else {
         self.progressBar.operation = self.candy.uploading.operation;
-        self.progressBar.delegate = self;
+        self.progressBar.operation.completionBlock = ^ {
+            weakSelf.progressBar.hidden = YES;
+        };
     }
-
 	if (!self.spinner.isAnimating) {
 		[self.spinner startAnimating];
 	}
@@ -296,11 +297,9 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	}];
 	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
 	self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
-    self.progressBar.hidden = image.uploaded;
+    self.progressBar.hidden = image.uploading.operation ? image.uploading.operation.isFinished : image.uploaded;
 	[self reloadComments];
     image.unread = @NO;
-    
-    
 //    self.leftArrow.hidden = image == [self.items firstObject];
 //    self.rightArrow.hidden = image == [self.items lastObject];
 }
@@ -385,7 +384,9 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
     if (reachable.intValue == NotReachable) {
-        self.progressBar.progress = .2f;
+        run_in_main_queue(^{
+            self.progressBar.progress = .2f;
+        });
     }
 }
 
@@ -427,7 +428,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 - (void)sendMessageWithText:(NSString*)text {
     self.autoenqueueUploading = !self.candy.uploaded;
 	__weak typeof(self)weakSelf = self;
-    [self.candy uploadComment:text success:^(WLComment *comment) {
+     [self.candy uploadComment:text success:^(WLComment *comment) {
         [weakSelf reloadComments];
     } failure:^(NSError *error) {
     }];
@@ -475,14 +476,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 														 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[WLCommentCell commentFont]} context:nil].size.height);
 	CGFloat cellHeight = (commentHeight + WLAuthorLabelHeight);
 	return MAX(WLMinimumCellHeight, cellHeight + 10);
-}
-
-#pragma mark - WLProgressBarDelegate
-
-- (void)progressBar:(WLProgressBar*)progressBar didChangeProgress:(float)progress {
-    if (progress == 1.0f) {
-        self.progressBar.hidden = YES;
-    }
 }
 
 @end

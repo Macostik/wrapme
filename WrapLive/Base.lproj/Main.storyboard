@@ -2062,7 +2062,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="LiT-bh-wDT" customClass="WLImageView">
-                                                            <rect key="frame" x="9" y="3" width="36" height="36"/>
+                                                            <rect key="frame" x="7" y="2" width="40" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="s8v-Pz-wMq">
@@ -2079,11 +2079,17 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                             <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" id="exs-Mo-yvf" customClass="WLCircleProgressBar">
+                                                            <rect key="frame" x="5" y="0.0" width="43" height="43"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        </view>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="authorImageView" destination="LiT-bh-wDT" id="bxC-4F-J0k"/>
                                                     <outlet property="authorNameLabel" destination="s8v-Pz-wMq" id="ewj-Qd-a3D"/>
+                                                    <outlet property="circleProgressBar" destination="exs-Mo-yvf" id="cIz-qx-FGa"/>
                                                     <outlet property="commentLabel" destination="cMQ-Ws-a0u" id="x4C-nD-XBX"/>
                                                 </connections>
                                             </tableViewCell>
@@ -2572,6 +2578,6 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Mcp-Wh-cB2"/>
+        <segue reference="LkF-8a-8pE"/>
     </inferredMetricsTieBreakers>
 </document>

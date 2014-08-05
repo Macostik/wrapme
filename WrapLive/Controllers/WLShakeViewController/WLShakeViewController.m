@@ -180,6 +180,10 @@ static CTCallCenter *callCenter;
         return NO;
     }
     
+    if (self.notPresentShakeViewController) {
+        return NO;
+    }
+    
 	UINavigationController* rootNavigationController = (id)[UIApplication sharedApplication].keyWindow.rootViewController;
 	if (self.navigationController == rootNavigationController) {
 		if ([self.childViewControllers count] == 0 && self.parentViewController.navigationController != rootNavigationController) {

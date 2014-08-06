@@ -74,8 +74,12 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 - (void)write:(NSString *)identifier object:(id)image {
     if (image && identifier.nonempty) {
         NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
-        if ([imageData length] > 0) {                                                   // Check crash
-            [_manager createFileAtPath:identifier contents:imageData attributes:nil];
+        if ([imageData length] > 0) {
+            if([UIDevice currentDevice].systemVersion.floatValue <= 7.1) { // Crash only on the iOS 8 
+                [_manager createFileAtPath:identifier contents:imageData attributes:nil];
+            } else {
+                [imageData writeToFile:[[_manager currentDirectoryPath] stringByAppendingPathComponent:identifier] atomically:YES];
+            }
             [WLSystemImageCache setImage:image withIdentifier:identifier];
         }
     }

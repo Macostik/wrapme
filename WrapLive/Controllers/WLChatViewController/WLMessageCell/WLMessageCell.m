@@ -50,6 +50,7 @@
         }
 	}];
     [self drawMessageBubbleForCandy:candy];
+    self.bubbleImageView.hidden = !candy.message.nonempty;
 }
 
 - (void)drawMessageBubbleForCandy:(WLCandy *)candy {

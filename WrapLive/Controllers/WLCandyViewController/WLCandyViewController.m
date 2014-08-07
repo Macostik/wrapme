@@ -413,6 +413,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
                 [candy remove:^(id object) {
                     [WLToast showWithMessage:@"Candy was deleted successfully."];
                 } failure:^(NSError *error) {
+                    [error show];
                 }];
             }
         }];

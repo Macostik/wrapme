@@ -175,6 +175,7 @@
 		ACF8D9141934B4460001E570 /* flowers.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9131934B4460001E570 /* flowers.plist */; };
 		ACF8D9161934B44D0001E570 /* rings.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9151934B44D0001E570 /* rings.plist */; };
 		ACF8D9181934B45C0001E570 /* cars.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* cars.plist */; };
+		C500942A1998D353007EE33A /* WLDetailedCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C50094291998D353007EE33A /* WLDetailedCandyCell.m */; };
 		C50236141979032400996D07 /* WLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50236131979032400996D07 /* WLImageView.m */; };
 		C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */; };
 		C5032EB31940CEE700753D07 /* UIView+AnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5032EB21940CEE700753D07 /* UIView+AnimationHelper.m */; };
@@ -523,6 +524,8 @@
 		ACF8D9131934B4460001E570 /* flowers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = flowers.plist; sourceTree = "<group>"; };
 		ACF8D9151934B44D0001E570 /* rings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = rings.plist; sourceTree = "<group>"; };
 		ACF8D9171934B45C0001E570 /* cars.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cars.plist; sourceTree = "<group>"; };
+		C50094281998D353007EE33A /* WLDetailedCandyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDetailedCandyCell.h; path = WLDetailedCandyCell/WLDetailedCandyCell.h; sourceTree = "<group>"; };
+		C50094291998D353007EE33A /* WLDetailedCandyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDetailedCandyCell.m; path = WLDetailedCandyCell/WLDetailedCandyCell.m; sourceTree = "<group>"; };
 		C50236121979032400996D07 /* WLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLImageView.h; path = WLImageFetcher/WLImageView.h; sourceTree = "<group>"; };
 		C50236131979032400996D07 /* WLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLImageView.m; path = WLImageFetcher/WLImageView.m; sourceTree = "<group>"; };
 		C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLSplashLoadingView.xib; path = WLLoadingView/WLSplashLoadingView.xib; sourceTree = "<group>"; };
@@ -1400,6 +1403,7 @@
 		12E1104619067095007DB4AC /* WLCandyViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C500942B1998D356007EE33A /* WLDetailedCandyCell */,
 				12E1104719067095007DB4AC /* WLCandyViewController.h */,
 				12E1104819067095007DB4AC /* WLCandyViewController.m */,
 				12E1104919067095007DB4AC /* WLCommentCell */,
@@ -1810,6 +1814,15 @@
 				ACDE2BA9193DFF4E003702D4 /* WLInviteViewController.m */,
 			);
 			name = WLInviteViewController;
+			sourceTree = "<group>";
+		};
+		C500942B1998D356007EE33A /* WLDetailedCandyCell */ = {
+			isa = PBXGroup;
+			children = (
+				C50094281998D353007EE33A /* WLDetailedCandyCell.h */,
+				C50094291998D353007EE33A /* WLDetailedCandyCell.m */,
+			);
+			name = WLDetailedCandyCell;
 			sourceTree = "<group>";
 		};
 		C50445A41951AA8F003C2251 /* Extended */ = {
@@ -2330,6 +2343,7 @@
 				129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */,
 				AC79ED381934791600D7031F /* WLEmojiCell.m in Sources */,
 				C5FD0EE0194B4410004DAB1B /* NSOrderedSet+Additions.m in Sources */,
+				C500942A1998D353007EE33A /* WLDetailedCandyCell.m in Sources */,
 				C59528EE191CD9A6001ECD7C /* WLContactCell.m in Sources */,
 				C50AF4271976B42500761F38 /* WLDeleteCandyRequest.m in Sources */,
 				12D578CE1917E82100586995 /* UIAlertView+Blocks.m in Sources */,

@@ -9,6 +9,7 @@
 #import "PNWhereNowResponseParser+Protected.h"
 #import "PNResponse+Protected.h"
 #import "PNWhereNow+Protected.h"
+#import "PNChannel.h"
 
 
 // ARC check
@@ -31,6 +32,23 @@
 
 
     return nil;
+}
+
++ (BOOL)isResponseConformToRequiredStructure:(PNResponse *)response {
+
+    // Checking base requirement about payload data type.
+    BOOL conforms = [response.response isKindOfClass:[NSDictionary class]];
+
+    // Checking base components
+    if (conforms) {
+
+        conforms = ([response.additionalData isKindOfClass:[NSString class]]);
+        id channels = [(NSDictionary *)response.response objectForKey:kPNResponseChannelsKey];
+        conforms = ((conforms && channels) ? [channels isKindOfClass:[NSArray class]] : conforms);
+    }
+
+
+    return conforms;
 }
 
 

@@ -10,7 +10,10 @@
 //
 
 #import "PNCryptoHelper.h"
+#import <CommonCrypto/CommonCryptor.h>
+#import <CommonCrypto/CommonHMAC.h>
 #import "NSString+PNAddition.h"
+#import "NSData+PNAdditions.h"
 #import "PNPrivateImports.h"
 
 
@@ -582,7 +585,7 @@ static NSData *_cryptorKeyData = nil;
 
 - (void)dealloc {
 
-    PNLog(PNLogGeneralLevel, self, @"Destroyed");
+    [PNLogger logGeneralMessageFrom:self message:^NSString * { return @"Destroyed"; }];
 }
 
 #pragma mark -

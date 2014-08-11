@@ -9,6 +9,7 @@
 
 #import "PNHereNowRequest.h"
 #import "PNChannel+Protected.h"
+#import "NSString+PNAddition.h"
 #import "PNRequestsImport.h"
 #import "PubNub+Protected.h"
 
@@ -82,13 +83,13 @@
 
 - (NSString *)resourcePath {
 
-    return [NSString stringWithFormat:@"/v2/presence/sub-key/%@%@?callback=%@_%@&disable_uuids=%@&state=%@%@",
+    return [NSString stringWithFormat:@"/v2/presence/sub-key/%@%@?callback=%@_%@&disable_uuids=%@&state=%@%@&pnsdk=%@",
                                       [[PubNub sharedInstance].configuration.subscriptionKey percentEscapedString],
                                       (self.channel ? [NSString stringWithFormat:@"/channel/%@", [self.channel escapedName]] : @""),
-                                      [self callbackMethodName],
-                                      self.shortIdentifier, (self.isClientIdentifiersRequired ? @"0" : @"1"),
+                                      [self callbackMethodName], self.shortIdentifier, (self.isClientIdentifiersRequired ? @"0" : @"1"),
                                       (self.shouldFetchClientState ? @"1" : @"0"),
-                                      ([self authorizationField]?[NSString stringWithFormat:@"&%@", [self authorizationField]]:@"")];
+                                      ([self authorizationField]?[NSString stringWithFormat:@"&%@", [self authorizationField]]:@""),
+                                      [self clientInformationField]];
 }
 
 - (NSString *)debugResourcePath {

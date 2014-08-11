@@ -21,6 +21,7 @@
 #import "PubNub+Protected.h"
 #import "PNCryptoHelper.h"
 #import "PNConstants.h"
+#import "PNHelper.h"
 
 
 // ARC check
@@ -126,11 +127,12 @@
             message = [PubNub AESEncrypt:message error:&encryptionError];
             
             if (encryptionError != nil) {
-                
-                PNLog(PNLogCommunicationChannelLayerErrorLevel,
-                      self,
-                      @"Message encryption failed with error: %@\nUnencrypted message will be sent.",
-                      encryptionError);
+
+                [PNLogger logCommunicationChannelErrorMessageFrom:self message:^NSString * {
+
+                    return [NSString stringWithFormat:@"Message encryption failed with error: %@\nUnencrypted message"
+                            " will be sent.", encryptionError];
+                }];
             }
         }
         
@@ -167,8 +169,9 @@
         [resourcePath appendFormat:@"/%@", self.preparedMessage];
     }
     
-    [resourcePath appendFormat:@"?uuid=%@%@", self.clientIdentifier,
-                               ([self authorizationField] ? [NSString stringWithFormat:@"&%@", [self authorizationField]] : @"")];
+    [resourcePath appendFormat:@"?uuid=%@%@&pnsdk=%@", self.clientIdentifier,
+                               ([self authorizationField] ? [NSString stringWithFormat:@"&%@", [self authorizationField]] : @""),
+                               [self clientInformationField]];
 
     return resourcePath;
 }
@@ -191,13 +194,13 @@
 
         NSString *signedRequestPath = [NSString stringWithFormat:@"%@/%@/%@/%@/%@%@",
                         [PubNub sharedInstance].configuration.publishKey,
-                        [PubNub sharedInstance].configuration.subscriptionKey,
-                        secretKey,
-                        [self.message.channel escapedName],
-                        self.message.message,
-                        ([self authorizationField]?[NSString stringWithFormat:@"?%@", [self authorizationField]]:@"")];
-
-        signature = PNHMACSHA256String(secretKey, signedRequestPath);
+                        [PubNub sharedInstance].configuration.subscriptionKey, secretKey,
+                        [self.message.channel escapedName], self.message.message,
+                        ([self authorizationField] ? [NSString stringWithFormat:@"?%@", [self authorizationField]] : @""),
+                        ([self authorizationField] ? [NSString stringWithFormat:@"&pnsdk=%@", [self clientInformationField]] :
+                                                     [NSString stringWithFormat:@"?pnsdk=%@", [self clientInformationField]])];
+        
+        signature = [PNEncryptionHelper HMACSHA256FromString:signedRequestPath withKey:secretKey];
     }
 #endif
 

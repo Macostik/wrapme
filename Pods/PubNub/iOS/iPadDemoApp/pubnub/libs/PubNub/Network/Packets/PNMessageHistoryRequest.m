@@ -11,7 +11,9 @@
 #import "PNServiceResponseCallbacks.h"
 #import "PNBaseRequest+Protected.h"
 #import "PNChannel+Protected.h"
+#import "NSString+PNAddition.h"
 #import "PubNub+Protected.h"
+#import "PNDate.h"
 
 
 // ARC check
@@ -128,11 +130,10 @@
     [parameters appendFormat:@"&include_token=%@", self.shouldIncludeTimeToken?@"true":@"false"];
 
 
-    return [NSString stringWithFormat:@"/v2/history/sub-key/%@/channel/%@%@%@",
-                    [[PubNub sharedInstance].configuration.subscriptionKey percentEscapedString],
-                    [self.channel escapedName],
-                    parameters,
-                    ([self authorizationField]?[NSString stringWithFormat:@"&%@", [self authorizationField]]:@"")];
+    return [NSString stringWithFormat:@"/v2/history/sub-key/%@/channel/%@%@%@&pnsdk=%@",
+                    [[PubNub sharedInstance].configuration.subscriptionKey percentEscapedString], [self.channel escapedName],
+                    parameters, ([self authorizationField]?[NSString stringWithFormat:@"&%@", [self authorizationField]]:@""),
+                    [self clientInformationField]];
 }
 
 - (NSString *)debugResourcePath {

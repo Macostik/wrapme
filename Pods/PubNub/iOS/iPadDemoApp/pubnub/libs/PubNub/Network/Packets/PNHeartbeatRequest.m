@@ -8,6 +8,7 @@
 
 #import "PNBaseRequest+Protected.h"
 #import "PNServiceResponseCallbacks.h"
+#import "NSString+PNAddition.h"
 #import "PNHeartbeatRequest.h"
 #import "PubNub+Protected.h"
 
@@ -98,11 +99,12 @@
                         [[PNJSONSerialization stringFromJSONObject:self.state] percentEscapedString]];
     }
 
-    return [NSString stringWithFormat:@"/v2/presence/sub-key/%@/channel/%@/heartbeat?uuid=%@%@%@%@",
+    return [NSString stringWithFormat:@"/v2/presence/sub-key/%@/channel/%@/heartbeat?uuid=%@%@%@%@&pnsdk=%@",
                                       [[PubNub sharedInstance].configuration.subscriptionKey percentEscapedString],
                                       [[self.channels valueForKey:@"escapedName"] componentsJoinedByString:@","],
                                       self.clientIdentifier, state, heartbeatValue,
-                                      ([self authorizationField] ? [NSString stringWithFormat:@"&%@", [self authorizationField]] : @"")];
+                                      ([self authorizationField] ? [NSString stringWithFormat:@"&%@", [self authorizationField]] : @""),
+                                      [self clientInformationField]];
 }
 
 - (NSString *)debugResourcePath {

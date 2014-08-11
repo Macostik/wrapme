@@ -135,15 +135,31 @@
     }
     else if ([errorMessage rangeOfString:@"Storage"].location != NSNotFound){
         
-        // Check whether storage & hostory is not enabled
+        // Check whether storage & history is not enabled
         if ([errorMessage rangeOfString:@"not enabled"].location != NSNotFound) {
             
             errorCode = kPNStorageNotEnabledError;
         }
     }
+    else if ([errorMessage rangeOfString:@"Signature"].location != NSNotFound){
+
+        // Check whether PAM API reported about issue because of signature has been created using wrong secret key.
+        if ([errorMessage rangeOfString:@"Not Match"].location != NSNotFound) {
+
+            errorCode = kPNSecretKeyNotSpecifiedError;
+        }
+    }
+    else if ([errorMessage rangeOfString:@"API"].location != NSNotFound){
+        
+        // Check whether developer used concrete API too much and server decide to postpone
+        if ([errorMessage rangeOfString:@"rate limited"].location != NSNotFound) {
+            
+            errorCode = kPNAPIRateExceededError;
+        }
+    }
 
     PNError *error = nil;
-    if (errorCode == kPNUnknownError) {
+    if (errorCode == kPNUnknownError || errorCode == kPNAPIRateExceededError) {
 
         error = [PNError errorWithMessage:errorMessage code:errorCode];
     }
@@ -245,6 +261,7 @@
                 break;
             case kPNAPIUnauthorizedAccessError:
             case kPNAPIAccessForbiddenError:
+            case kPNAPIRateExceededError:
 
                 errorDescription = @"PubNub API access denied";
                 break;
@@ -409,6 +426,10 @@
 
             failureReason = @"Looks like API which you try to used is not enabled or require for payment.";
             break;
+        case kPNAPIRateExceededError:
+            
+            failureReason = @"Looks like you used API too frequently and exceeded access rate.";
+            break;
         case kPNMessageHasNoContentError:
 
             failureReason = @"Looks like message has an empty or non-existant body";
@@ -441,7 +462,8 @@
             break;
         case kPNSecretKeyNotSpecifiedError:
 
-            failureReason = @"Looks like PubNub client 'secret' key not specified during configuration.";
+            failureReason = @"Looks like PubNub client 'secret' key not specified during configuration or doesn't "
+                             "correspond to the key which is provided for you at http://admin.pubnub.com.";
             break;
         case kPNDevicePushTokenIsEmptyError:
             
@@ -583,6 +605,10 @@
 
             fixSuggestion = @"Please visit https://admin.pubnub.com and check whether your application has access "
                              "(API enabled) to the API which you tried to use.";
+            break;
+        case kPNAPIRateExceededError:
+            
+            fixSuggestion = @"Please, optimize your code and requests in a way, which will allow to use API less and reduce usage rate.";
             break;
         case kPNMessageHasNoContentError:
 

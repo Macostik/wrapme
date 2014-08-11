@@ -15,6 +15,8 @@
 #import "PNPushNotificationsStateChangeRequest.h"
 #import "PNServiceResponseCallbacks.h"
 #import "PNBaseRequest+Protected.h"
+#import "NSString+PNAddition.h"
+#import "NSData+PNAdditions.h"
 #import "PubNub+Protected.h"
 
 
@@ -47,6 +49,7 @@ struct PNPushNotificationsStateStruct PNPushNotificationsState = {
 
 // Stores reference on stringified push notification token
 @property (nonatomic, strong) NSString *pushToken;
+@property (nonatomic, strong) NSData *devicePushToken;
 
 // Stores reference on state which should be set for specified
 // channel(s)
@@ -95,6 +98,7 @@ struct PNPushNotificationsStateStruct PNPushNotificationsState = {
         self.sendingByUserRequest = YES;
         self.channels = [NSArray arrayWithArray:channels];
         self.targetState = state;
+        self.devicePushToken = pushToken;
         self.pushToken = [[pushToken HEXPushToken] lowercaseString];
     }
 
@@ -121,15 +125,12 @@ struct PNPushNotificationsStateStruct PNPushNotificationsState = {
 
 - (NSString *)resourcePath {
 
-    return [NSString stringWithFormat:@"/v1/push/sub-key/%@/devices/%@?%@=%@&callback=%@_%@&uuid=%@%@",
+    return [NSString stringWithFormat:@"/v1/push/sub-key/%@/devices/%@?%@=%@&callback=%@_%@&uuid=%@%@&pnsdk=%@",
             [[PubNub sharedInstance].configuration.subscriptionKey percentEscapedString],
-            self.pushToken,
-            self.targetState,
-            [[self.channels valueForKey:@"escapedName"] componentsJoinedByString:@","],
-            [self callbackMethodName],
-            self.shortIdentifier,
-            [PubNub escapedClientIdentifier],
-            ([self authorizationField]?[NSString stringWithFormat:@"&%@", [self authorizationField]]:@"")];
+            self.pushToken, self.targetState, [[self.channels valueForKey:@"escapedName"] componentsJoinedByString:@","],
+            [self callbackMethodName], self.shortIdentifier, [PubNub escapedClientIdentifier],
+            ([self authorizationField]?[NSString stringWithFormat:@"&%@", [self authorizationField]]:@""),
+            [self clientInformationField]];
 }
 
 - (NSString *)debugResourcePath {

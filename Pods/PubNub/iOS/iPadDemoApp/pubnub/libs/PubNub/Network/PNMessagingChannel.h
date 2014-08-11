@@ -16,12 +16,15 @@
 
 #import "PNConnectionChannel.h"
 #import "PNMessageChannelDelegate.h"
+#import "PNMacro.h"
 
 
 #pragma mark Class forward
 
 @class PNChannel;
 
+
+#pragma mark - Public interface declaration
 
 @interface PNMessagingChannel : PNConnectionChannel
 
@@ -100,6 +103,15 @@
 #pragma mark - Presence observation management
 
 - (BOOL)isPresenceObservationEnabledForChannel:(PNChannel *)channel;
+
+/**
+ Method will retrieve list of channels for which presence observation has been enabled at this moment.
+ 
+ @return List may contain channels at which client not subscribed at this moment (it is not required it to be subscribed
+ on those channels, but presence can be enabled on them).
+ */
+- (NSArray *)presenceEnabledChannels;
+
 - (void)enablePresenceObservationForChannels:(NSArray *)channels;
 - (void)disablePresenceObservationForChannels:(NSArray *)channels;
 

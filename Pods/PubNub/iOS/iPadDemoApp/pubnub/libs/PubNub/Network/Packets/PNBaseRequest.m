@@ -13,9 +13,12 @@
 
 #import <Foundation/Foundation.h>
 #import "PNBaseRequest+Protected.h"
+#import "NSString+PNAddition.h"
+#import "NSData+PNAdditions.h"
 #import "PubNub+Protected.h"
 #import "PNWriteBuffer.h"
 #import "PNConstants.h"
+#import "PNHelper.h"
 
 
 // ARC check
@@ -70,8 +73,8 @@
     // Check whether initialization is successful or not
     if((self = [super init])) {
         
-        self.identifier = PNUniqueIdentifier();
-        self.shortIdentifier = PNShortenedIdentifierFromUUID(self.identifier);
+        self.identifier = [PNHelper UUID];
+        self.shortIdentifier = [PNHelper shortenedUUIDFromUUID:self.identifier];
     }
     
     
@@ -89,8 +92,11 @@
 }
 
 - (NSString *)resourcePath {
-    
-    PNLog(PNLogCommunicationChannelLayerWarnLevel, self, @" THIS METHOD SHOULD BE RELOADED IN SUBCLASS");
+
+    [PNLogger logCommunicationChannelWarnMessageFrom:self message:^NSString * {
+
+        return @"THIS METHOD SHOULD BE RELOADED IN SUBCLASS";
+    }];
     
     return [self resourcePath:NO];
 }
@@ -102,7 +108,11 @@
 
 - (NSString *)resourcePath:(BOOL)forConsole {
 
-    PNLog(PNLogCommunicationChannelLayerWarnLevel, self, @" THIS METHOD SHOULD BE RELOADED IN SUBCLASS");
+    [PNLogger logCommunicationChannelWarnMessageFrom:self message:^NSString * {
+
+        return @"THIS METHOD SHOULD BE RELOADED IN SUBCLASS";
+    }];
+
 
     return @"/";
 }
@@ -163,6 +173,19 @@
     return authorizationKey;
 }
 
+- (NSString *)clientInformationField {
+    
+    static NSString *clientInformation;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        clientInformation = [NSString stringWithFormat:@"PubNub-%@%%2F%@", kPNClientName, kPNLibraryVersion];
+    });
+    
+    
+    return clientInformation;
+}
+
 - (NSString *)requestPath {
     
     return [NSString stringWithFormat:@"http://%@%@", [PubNub sharedInstance].configuration.origin, [self resourcePath]];
@@ -206,9 +229,8 @@
         }
     }
     
-    [plainPayload appendFormat:@"%@ %@ HTTP/1.1\r\nHost: %@\r\nV: %@\r\nUser-Agent: %@\r\nAccept: */*\r\n%@",
-     HTTPMethod, [self resourcePath], [PubNub sharedInstance].configuration.origin, kPNClientVersion, kPNClientName,
-     acceptEncoding];
+    [plainPayload appendFormat:@"%@ %@ HTTP/1.1\r\nHost: %@\r\nAccept: */*\r\n%@",
+     HTTPMethod, [self resourcePath], [PubNub sharedInstance].configuration.origin, acceptEncoding];
     
     if (postBody) {
         

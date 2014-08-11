@@ -15,6 +15,7 @@
 #import "NSString+Additions.h"
 #import "NSDate+Additions.h"
 #import "WLCommentCell.h"
+#import "UIView+Shorthand.h"
 
 @interface WLDetailedCandyCell () <UITableViewDataSource, UITableViewDelegate>
 
@@ -31,6 +32,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.refresher = [WLRefresher refresherWithScrollView:self.tableView target:self action:@selector(refresh) colorScheme:WLRefresherColorSchemeOrange];
+    [self setFullFlexible];
 }
 
 - (void)refresh {

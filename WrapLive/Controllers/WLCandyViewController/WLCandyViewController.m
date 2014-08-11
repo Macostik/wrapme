@@ -81,19 +81,26 @@
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
     
     [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
-	   
-    [self fetchOlder];
+
     [self.collectionView reloadData];
     if (_candy && [self.group.entries containsObject:_candy]) {
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[self.group.entries indexOfObject:_candy]] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     }
-    [self.candyCell refresh];
-    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height, 0);
+    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 6, 0);
+    
+    [self updateTitle];
+}
+
+- (void)updateTitle {
+    WLDetailedCandyCell* cell = self.candyCell;
+    WLCandy* candy = cell.item ? : _candy;
+    self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(candy.contributor.name)];
+    [cell refresh];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height, 0);
+    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 6, 0);
 }
 
 - (void)setGroup:(WLGroup *)group {
@@ -124,8 +131,7 @@
     }
 }
 
-- (void)fetchOlder {
-    WLCandy* candy = self.candy;
+- (void)fetchOlder:(WLCandy*)candy {
     NSUInteger count = [self.group.entries count];
     NSUInteger index = [self.group.entries indexOfObject:candy];
     BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
@@ -158,7 +164,7 @@
             [self onDateChanged];
         }
     } else {
-        [self fetchOlder];
+//        [self fetchOlder];
     }
 }
 
@@ -279,11 +285,16 @@
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
 	self.containerView.height = self.view.height - self.containerView.y;
+    [self.collectionView reloadData];
 }
 
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
 	self.containerView.height = self.view.height - self.containerView.y - [keyboardHeight floatValue];
-	[self.candyCell.tableView scrollToBottomAnimated:YES];
+    __weak typeof(self)weakSelf = self;
+    [self.collectionView reloadData];
+    run_after(0.0f, ^{
+        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
+    });
 }
 
 #pragma mark - WLInternetConnectionBroadcaster
@@ -351,14 +362,13 @@
 }
 
 - (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
-	[self changeDimentionsWithComposeBar:composeBar];
-}
-
-- (void)changeDimentionsWithComposeBar:(WLComposeBar *)composeBar {
-	self.composeBarView.height = composeBar.height;
-	self.collectionView.height = self.containerView.height - self.composeBarView.height;
-	self.composeBarView.y = self.collectionView.y + self.collectionView.height;
-	[self.candyCell.tableView scrollToBottomAnimated:YES];
+	self.collectionView.height = self.containerView.height - composeBar.height;
+	composeBar.y = self.collectionView.bottom;
+    __weak typeof(self)weakSelf = self;
+    [self.collectionView reloadData];
+    run_after(0.0f, ^{
+        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
+    });
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
@@ -379,6 +389,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLDetailedCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLDetailedCandyCellIdentifier forIndexPath:indexPath];
     cell.item = [self.group.entries tryObjectAtIndex:indexPath.section];
+    [self fetchOlder:cell.item];
     return cell;
 }
 
@@ -387,12 +398,12 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self.candyCell refresh];
+    [self updateTitle];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (!decelerate) {
-        [self.candyCell refresh];
+        [self updateTitle];
     }
 }
 

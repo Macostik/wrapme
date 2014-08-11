@@ -57,7 +57,7 @@
 }
 
 - (CGFloat)width {
-	return self.frame.size.width;
+	return self.bounds.size.width;
 }
 
 - (void)setWidth:(CGFloat)newWidth {
@@ -67,7 +67,7 @@
 }
 
 - (CGFloat)height {
-	return self.frame.size.height;
+	return self.bounds.size.height;
 }
 
 - (void)setHeight:(CGFloat)newHeight {
@@ -77,7 +77,7 @@
 }
 
 - (CGSize)size {
-	return self.frame.size;
+	return self.bounds.size;
 }
 
 - (void)setSize:(CGSize)newSize {
@@ -91,7 +91,7 @@
 }
 
 - (CGFloat)right {
-	return self.frame.origin.x + self.frame.size.width;
+    return CGRectGetMaxX(self.frame);
 }
 
 - (void)setRight:(CGFloat)right {
@@ -101,7 +101,7 @@
 }
 
 - (CGFloat)bottom {
-	return self.frame.origin.y + self.frame.size.height;
+    return CGRectGetMaxY(self.frame);
 }
 
 - (void)setBottom:(CGFloat)bottom {

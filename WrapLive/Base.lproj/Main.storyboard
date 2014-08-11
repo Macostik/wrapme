@@ -2021,7 +2021,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLDetailedCandyCell" id="YzT-ge-Jjl" customClass="WLDetailedCandyCell">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                                     <autoresizingMask key="autoresizingMask"/>

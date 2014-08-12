@@ -134,7 +134,12 @@
 }
 
 - (WLCandy *)candy {
-	return [self candyCell].item;
+    WLDetailedCandyCell* cell = self.candyCell;
+    if (cell) {
+        return cell.item;
+    }
+    NSUInteger index = floorf(self.collectionView.contentOffset.x/self.collectionView.width);
+    return [self.group.entries tryObjectAtIndex:index];
 }
 
 - (WLDetailedCandyCell *)candyCell {
@@ -341,11 +346,7 @@
 - (IBAction)back:(id)sender {
     WLCandy* candy = self.candy;
     if (candy.valid && candy.wrap.valid) {
-        if (self.backViewController) {
-            [self.navigationController popToViewController:self.backViewController animated:YES];
-        } else {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
+        [self.navigationController popViewControllerAnimated:YES];
     } else {
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
@@ -376,11 +377,10 @@
     WLCandy* image = self.candy;
     self.autoenqueueUploading = !image.uploaded;
 	__weak typeof(self)weakSelf = self;
-     [image uploadComment:text success:^(WLComment *comment) {
+    [image uploadComment:text success:^(WLComment *comment) {
         [weakSelf.candyCell reloadComments];
     } failure:^(NSError *error) {
     }];
-    [self.candyCell reloadComments];
     [self.candyCell.tableView scrollToBottomAnimated:YES];
 }
 

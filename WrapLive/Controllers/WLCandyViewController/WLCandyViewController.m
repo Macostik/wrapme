@@ -41,7 +41,7 @@
 #import "WLWrap+Extended.h"
 #import "WLDetailedCandyCell.h"
 
-@interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, MFMailComposeViewControllerDelegate>
+@interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
 @property (weak, nonatomic) IBOutlet UIImageView *leftArrow;
@@ -57,6 +57,9 @@
 @property (strong, nonatomic) WLToast* dateChangeToast;
 
 @property (readonly, nonatomic) WLDetailedCandyCell* candyCell;
+
+@property (weak, nonatomic) UISwipeGestureRecognizer* leftSwipeGestureRecognizer;
+@property (weak, nonatomic) UISwipeGestureRecognizer* rightSwipeGestureRecognizer;
 
 @end
 
@@ -88,6 +91,20 @@
     }
     self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 6, 0);
     
+    UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];
+    leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
+    leftSwipe.delegate = self;
+    [self.collectionView addGestureRecognizer:leftSwipe];
+    self.leftSwipeGestureRecognizer = leftSwipe;
+    [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:leftSwipe];
+    
+    UISwipeGestureRecognizer* rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeRight)];
+    rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
+    rightSwipe.delegate = self;
+    [self.collectionView addGestureRecognizer:rightSwipe];
+    self.rightSwipeGestureRecognizer = rightSwipe;
+    [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:rightSwipe];
+    
     [self updateTitle];
 }
 
@@ -106,6 +123,7 @@
 - (void)setGroup:(WLGroup *)group {
     _group = group;
     [self.collectionView reloadData];
+    self.collectionView.contentOffset = CGPointZero;
 }
 
 - (void)setCandy:(WLCandy *)candy {
@@ -155,7 +173,7 @@
 }
 
 - (void)didSwipeLeft {
-    if (self.group.completed && self.candy == [self.group.entries lastObject]) {
+    if (self.group.completed) {
         NSUInteger (^increment)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
             return index + 1;
         };
@@ -164,21 +182,17 @@
             [self onDateChanged];
         }
     } else {
-//        [self fetchOlder];
+        [self fetchOlder:self.candy];
     }
 }
 
 - (void)didSwipeRight {
-    if (self.candy == [self.group.entries firstObject]) {
-        
-        NSUInteger (^decrement)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
-            return index - 1;
-        };
-        
-        if ([self swipeToGroupAtIndex:decrement([self.groups.set indexOfObject:self.group]) operationBlock:decrement]) {
-            [self.collectionView rightPush];
-            [self onDateChanged];
-        }
+    NSUInteger (^decrement)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
+        return index - 1;
+    };
+    if ([self swipeToGroupAtIndex:decrement([self.groups.set indexOfObject:self.group]) operationBlock:decrement]) {
+        [self.collectionView rightPush];
+        [self onDateChanged];
     }
 }
 
@@ -231,6 +245,21 @@
 		WLImageViewController* controller = segue.destinationViewController;
 		controller.image = self.candy;
 	}
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return otherGestureRecognizer == self.collectionView.panGestureRecognizer;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer == self.leftSwipeGestureRecognizer) {
+        return self.collectionView.contentOffset.x == self.collectionView.maximumContentOffset.x;
+    } else if (gestureRecognizer == self.rightSwipeGestureRecognizer) {
+        return self.collectionView.contentOffset.x == 0;
+    }
+    return YES;
 }
 
 #pragma mark - WLWrapBroadcastReceiver

@@ -40,7 +40,6 @@
 	if (candy.uploaded) {
 		__weak typeof(self)weakSelf = self;
         [candy fetch:^(id object) {
-            [weakSelf setupItemData:candy];
 			[weakSelf.refresher endRefreshing];
         } failure:^(NSError *error) {
             [error showIgnoringNetworkError];
@@ -57,9 +56,6 @@
         self.progressBar.progress = .2f;
     } else {
         self.progressBar.operation = image.uploading.operation;
-        self.progressBar.operation.completionBlock = ^ {
-            weakSelf.progressBar.hidden = YES;
-        };
     }
 	if (!self.spinner.isAnimating) {
 		[self.spinner startAnimating];
@@ -70,7 +66,7 @@
 		}
 	}];
 	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
-    self.progressBar.hidden = image.uploading.operation ? image.uploading.operation.isFinished : image.uploaded;
+    self.progressBar.hidden = image.uploaded;
 	[self reloadComments];
     image.unread = @NO;
 }

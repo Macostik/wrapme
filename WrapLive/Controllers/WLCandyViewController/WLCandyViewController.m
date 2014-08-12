@@ -123,7 +123,6 @@
 - (void)setGroup:(WLGroup *)group {
     _group = group;
     [self.collectionView reloadData];
-    self.collectionView.contentOffset = CGPointZero;
 }
 
 - (void)setCandy:(WLCandy *)candy {
@@ -155,6 +154,7 @@
 }
 
 - (void)fetchOlder:(WLCandy*)candy {
+    if (self.group.completed) return;
     NSUInteger count = [self.group.entries count];
     NSUInteger index = [self.group.entries indexOfObject:candy];
     BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
@@ -232,6 +232,7 @@
         WLGroup* group = [self.groups.set objectAtIndex:index];
         if ([group hasAtLeastOneImage]) {
             self.group = group;
+            self.collectionView.contentOffset = CGPointZero;
             return YES;
         } else {
             return [self swipeToGroupAtIndex:operationBlock(index) operationBlock:operationBlock];

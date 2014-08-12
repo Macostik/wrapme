@@ -90,6 +90,7 @@
     _showLoadingView = showLoadingView;
     UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
     layout.footerReferenceSize = showLoadingView ? CGSizeMake(320, 60) : CGSizeZero;
+    [self.collectionView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

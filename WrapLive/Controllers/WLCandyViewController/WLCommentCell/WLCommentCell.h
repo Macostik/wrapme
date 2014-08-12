@@ -16,6 +16,8 @@ static CGFloat WLCommentLabelLenth = 250.0f;
 static CGFloat WLAuthorLabelHeight = 20.0f;
 static CGFloat WLMinimumCellHeight = 50.0f;
 
+static NSString* WLCommentCellIdentifier = @"WLCommentCell";
+
 @interface WLCommentCell : WLItemCell
 
 + (UIFont*)commentFont;

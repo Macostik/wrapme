@@ -39,34 +39,33 @@
 #import "WLInternetConnectionBroadcaster.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "WLWrap+Extended.h"
+#import "WLDetailedCandyCell.h"
 
-static NSString* WLCommentCellIdentifier = @"WLCommentCell";
+@interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate>
 
-@interface WLCandyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, MFMailComposeViewControllerDelegate>
-
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
 @property (weak, nonatomic) IBOutlet UIImageView *leftArrow;
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
-@property (weak, nonatomic) IBOutlet UIView *contentIndicatorView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
-@property (weak, nonatomic) IBOutlet WLImageView *imageView;
-@property (weak, nonatomic) IBOutlet WLClearProgressBar *progressBar;
+@property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 
 @property (nonatomic) BOOL autoenqueueUploading;
 @property (nonatomic) BOOL shouldLoadMoreCandies;
-@property (strong, nonatomic) NSOrderedSet* comments;
 @property (strong, nonatomic) WLToast* dateChangeToast;
-@property (weak, nonatomic) WLRefresher *refresher;
+
+@property (readonly, nonatomic) WLDetailedCandyCell* candyCell;
+
+@property (weak, nonatomic) UISwipeGestureRecognizer* leftSwipeGestureRecognizer;
+@property (weak, nonatomic) UISwipeGestureRecognizer* rightSwipeGestureRecognizer;
 
 @end
 
 @implementation WLCandyViewController
+
+@synthesize candy = _candy;
 
 - (void)viewDidLoad {
     
@@ -74,60 +73,85 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     
     if (!self.groups) {
         self.groups = [WLGroupedSet groupsOrderedBy:self.orderBy];
-        [self.groups addCandies:[self.candy.wrap images]];
-        self.group = [self.groups groupWithCandy:self.candy];
+        [self.groups addCandies:[_candy.wrap images]];
+        self.group = [self.groups groupWithCandy:_candy];
     }
     
-	self.contentIndicatorView.layer.cornerRadius = 2;
-
 	self.composeBarView.placeholder = @"Write your comment ...";
-	self.refresher = [WLRefresher refresherWithScrollView:self.tableView target:self action:@selector(refresh) colorScheme:WLRefresherColorSchemeOrange];
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 	
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
     
     [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
-	
-	[self showContentIndicatorView:NO];
+
+    [self.collectionView reloadData];
+    if (_candy && [self.group.entries containsObject:_candy]) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[self.group.entries indexOfObject:_candy]] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    }
+    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 6, 0);
     
-    [self fetchOlder];
+    UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];
+    leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
+    leftSwipe.delegate = self;
+    [self.collectionView addGestureRecognizer:leftSwipe];
+    self.leftSwipeGestureRecognizer = leftSwipe;
+    [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:leftSwipe];
+    
+    UISwipeGestureRecognizer* rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeRight)];
+    rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
+    rightSwipe.delegate = self;
+    [self.collectionView addGestureRecognizer:rightSwipe];
+    self.rightSwipeGestureRecognizer = rightSwipe;
+    [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:rightSwipe];
+    
+    [self updateTitle];
+}
+
+- (void)updateTitle {
+    WLDetailedCandyCell* cell = self.candyCell;
+    WLCandy* candy = cell.item ? : _candy;
+    self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(candy.contributor.name)];
+    [cell refresh];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 6, 0);
 }
 
 - (void)setGroup:(WLGroup *)group {
     _group = group;
-    self.items = [[group.entries selectObjects:^BOOL(id item) {
-        return [item isImage];
-    }] mutableCopy];
-    if (![self.items containsObject:self.item]) {
-        self.item = [self.items firstObject];
-    }
-}
-
-- (UIView *)swipeView {
-	return self.tableView;
+    [self.collectionView reloadData];
+    self.collectionView.contentOffset = CGPointZero;
 }
 
 - (void)setCandy:(WLCandy *)candy {
-    [self setItems:nil currentItem:candy];
+    _candy = candy;
+    if (self.isViewLoaded && [self.group.entries containsObject:candy]) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:[self.group.entries indexOfObject:candy]] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    }
 }
 
 - (WLCandy *)candy {
-	return self.item;
+	return [self candyCell].item;
+}
+
+- (WLDetailedCandyCell *)candyCell {
+    return [[self.collectionView visibleCells] lastObject];
 }
 
 - (void)fetchNewer {
     WLCandy* candy = self.candy;
-    if (!self.group.request.loading && [self.items indexOfObject:candy] < 3) {
+    if (!self.group.request.loading && [self.group.entries indexOfObject:candy] < 3) {
         self.group.request.type = WLPaginatedRequestTypeNewer;
         [self fetchCandies];
     }
 }
 
-- (void)fetchOlder {
-    WLCandy* candy = self.candy;
-    NSUInteger count = [self.items count];
-    NSUInteger index = [self.items indexOfObject:candy];
+- (void)fetchOlder:(WLCandy*)candy {
+    NSUInteger count = [self.group.entries count];
+    NSUInteger index = [self.group.entries indexOfObject:candy];
     BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
     if (!self.group.request.loading && shouldAppendCandies) {
         self.group.request.type = WLPaginatedRequestTypeOlder;
@@ -139,11 +163,7 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     __weak typeof(self)weakSelf = self;
     [self.group send:^(NSOrderedSet *candies) {
         if (candies.nonempty) {
-            WLCandy* candy = weakSelf.candy;
-            [weakSelf.items unionOrderedSet:[candies selectObjects:^BOOL(WLCandy* item) {
-                return [item isImage] && [item.updatedAt isSameDay:candy.updatedAt];
-            }]];
-            [weakSelf.items sortByUpdatedAtDescending];
+            [weakSelf.collectionView reloadData];
         }
     } failure:^(NSError *error) {
         if (error.isNetworkError) {
@@ -152,39 +172,28 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     }];
 }
 
-- (void)didSwipeLeft:(NSUInteger)currentIndex {
-    if (self.group.completed && self.candy == [self.items lastObject]) {
-        
+- (void)didSwipeLeft {
+    if (self.group.completed) {
         NSUInteger (^increment)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
             return index + 1;
         };
-        
         if ([self swipeToGroupAtIndex:increment([self.groups.set indexOfObject:self.group]) operationBlock:increment]) {
-            [[self swipeView] leftPush];
+            [self.collectionView leftPush];
             [self onDateChanged];
         }
     } else {
-        [super didSwipeLeft:currentIndex];
-        [self fetchOlder];
+        [self fetchOlder:self.candy];
     }
-    [self showContentIndicatorView:YES];
 }
 
-- (void)didSwipeRight:(NSUInteger)currentIndex {
-    if (self.candy == [self.items firstObject]) {
-        
-        NSUInteger (^decrement)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
-            return index - 1;
-        };
-        
-        if ([self swipeToGroupAtIndex:decrement([self.groups.set indexOfObject:self.group]) operationBlock:decrement]) {
-            [[self swipeView] rightPush];
-            [self onDateChanged];
-        }
-    } else {
-        [super didSwipeRight:currentIndex];
+- (void)didSwipeRight {
+    NSUInteger (^decrement)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
+        return index - 1;
+    };
+    if ([self swipeToGroupAtIndex:decrement([self.groups.set indexOfObject:self.group]) operationBlock:decrement]) {
+        [self.collectionView rightPush];
+        [self onDateChanged];
     }
-    [self showContentIndicatorView:YES];
 }
 
 - (WLToast *)dateChangeToast {
@@ -226,89 +235,6 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
     return NO;
 }
 
-- (void)showContentIndicatorView:(BOOL)animated {
-	if ([self.items count] > 1) {
-		CGFloat contentRatio = ((CGFloat)[self.items indexOfObject:self.item]) / ((CGFloat)[self.items count] - 1.0f);
-		CGFloat x = (self.view.width - self.contentIndicatorView.width - 2) * contentRatio;
-		if (animated) {
-			[UIView beginAnimations:nil context:nil];
-			[UIView setAnimationBeginsFromCurrentState:YES];
-		}
-		self.contentIndicatorView.alpha = 1.0f;
-		self.contentIndicatorView.x = x + 1;
-		if (animated) {
-			[UIView commitAnimations];
-		}
-	}
-	[UIView cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideContentIndicatorView) object:nil];
-	[self performSelector:@selector(hideContentIndicatorView) withObject:nil afterDelay:1.0f];
-}
-
-- (void)hideContentIndicatorView {
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationBeginsFromCurrentState:YES];
-	self.contentIndicatorView.alpha = 0.0f;
-	[UIView commitAnimations];
-}
-
-- (void)willShowItem:(id)item {
-	[self setupImage];
-	[self refresh];
-}
-
-- (BOOL)shouldSwipeToItem:(WLCandy*)item {
-    return [item isImage];
-}
-
-- (void)refresh {
-	if (self.candy.uploaded) {
-		__weak typeof(self)weakSelf = self;
-        [self.candy fetch:^(id object) {
-            [weakSelf setupImage];
-			[weakSelf.refresher endRefreshing];
-        } failure:^(NSError *error) {
-            [error showIgnoringNetworkError];
-			[weakSelf.refresher endRefreshing];
-        }];
-	} else {
-        [self.refresher endRefreshing];
-    }
-}
-
-- (void)setupImage {
-	WLCandy* image = self.candy;
-	__weak typeof(self)weakSelf = self;
-    
-    if (![WLInternetConnectionBroadcaster broadcaster].reachable) {
-        self.progressBar.progress = .2f;
-    } else {
-        self.progressBar.operation = self.candy.uploading.operation;
-        self.progressBar.operation.completionBlock = ^ {
-            weakSelf.progressBar.hidden = YES;
-        };
-    }
-	if (!self.spinner.isAnimating) {
-		[self.spinner startAnimating];
-	}
-	[self.imageView setUrl:image.picture.medium completion:^(UIImage* image, BOOL cached, NSError* error) {
-		if (weakSelf.spinner.isAnimating) {
-			[weakSelf.spinner stopAnimating];
-		}
-	}];
-	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
-	self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
-    self.progressBar.hidden = image.uploading.operation ? image.uploading.operation.isFinished : image.uploaded;
-	[self reloadComments];
-    image.unread = @NO;
-//    self.leftArrow.hidden = image == [self.items firstObject];
-//    self.rightArrow.hidden = image == [self.items lastObject];
-}
-
-- (void)reloadComments {
-    self.comments = self.candy.comments;
-    [self.tableView reloadData];
-}
-
 - (CGFloat)calculateTableHeight {
 	return (self.view.height - self.composeBarView.height - self.topView.height);
 }
@@ -321,11 +247,25 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 	}
 }
 
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return otherGestureRecognizer == self.collectionView.panGestureRecognizer;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer == self.leftSwipeGestureRecognizer) {
+        return self.collectionView.contentOffset.x == self.collectionView.maximumContentOffset.x;
+    } else if (gestureRecognizer == self.rightSwipeGestureRecognizer) {
+        return self.collectionView.contentOffset.x == 0;
+    }
+    return YES;
+}
+
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
-    [self setupImage];
-    
+    [self.collectionView reloadData];
     if (self.autoenqueueUploading) {
         self.autoenqueueUploading = NO;
         for (WLComment* comment in candy.comments) {
@@ -339,21 +279,22 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentRemoved:(WLComment *)comment {
-	[self reloadComments];
+	[self.collectionView reloadData];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
     [WLToast showWithMessage:@"This candy is no longer avaliable."];
-    NSUInteger index = [self.items indexOfObject:candy];
+    NSMutableOrderedSet* candies = self.group.entries;
+    NSUInteger index = [candies indexOfObject:candy];
     if (index != NSNotFound) {
-        [self.items removeObject:candy];
-        if (self.items.nonempty) {
-             if ([self.items containsIndex:index]) {
-                self.item = [self.items objectAtIndex:index];
-             } else if ([self.items containsIndex:index - 1]) {
-                 self.item = [self.items objectAtIndex:index - 1];
+        [candies removeObject:candy];
+        if (candies.nonempty) {
+             if ([candies containsIndex:index]) {
+                self.candy = [candies objectAtIndex:index];
+             } else if ([candies containsIndex:index - 1]) {
+                 self.candy = [candies objectAtIndex:index - 1];
              } else {
-                self.item = [self.items firstObject];
+                self.candy = [candies firstObject];
             }
         } else {
             [self.navigationController popViewControllerAnimated:YES];
@@ -373,19 +314,24 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
 	self.containerView.height = self.view.height - self.containerView.y;
+    [self.collectionView reloadData];
 }
 
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
 	self.containerView.height = self.view.height - self.containerView.y - [keyboardHeight floatValue];
-	[self.tableView scrollToBottomAnimated:YES];
+    __weak typeof(self)weakSelf = self;
+    [self.collectionView reloadData];
+    run_after(0.0f, ^{
+        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
+    });
 }
 
 #pragma mark - WLInternetConnectionBroadcaster
 
 - (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
-    if (reachable.intValue == NotReachable) {
+    if (![reachable boolValue]) {
         run_in_main_queue(^{
-            self.progressBar.progress = .2f;
+            self.candyCell.progressBar.progress = .2f;
         });
     }
 }
@@ -427,14 +373,15 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (void)sendMessageWithText:(NSString*)text {
-    self.autoenqueueUploading = !self.candy.uploaded;
+    WLCandy* image = self.candy;
+    self.autoenqueueUploading = !image.uploaded;
 	__weak typeof(self)weakSelf = self;
-     [self.candy uploadComment:text success:^(WLComment *comment) {
-        [weakSelf reloadComments];
+     [image uploadComment:text success:^(WLComment *comment) {
+        [weakSelf.candyCell reloadComments];
     } failure:^(NSError *error) {
     }];
-    [self reloadComments];
-    [weakSelf.tableView scrollToBottomAnimated:YES];
+    [self.candyCell reloadComments];
+    [self.candyCell.tableView scrollToBottomAnimated:YES];
 }
 
 #pragma mark - WLComposeBarDelegate
@@ -444,39 +391,49 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 }
 
 - (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
-	[self changeDimentionsWithComposeBar:composeBar];
-}
-
-- (void)changeDimentionsWithComposeBar:(WLComposeBar *)composeBar {
-	self.composeBarView.height = composeBar.height;
-	self.tableView.height = self.containerView.height - self.composeBarView.height;
-	self.composeBarView.y = self.tableView.y + self.tableView.height;
-	[self.tableView scrollToBottomAnimated:YES];
+	self.collectionView.height = self.containerView.height - composeBar.height;
+	composeBar.y = self.collectionView.bottom;
+    __weak typeof(self)weakSelf = self;
+    [self.collectionView reloadData];
+    run_after(0.0f, ^{
+        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
+    });
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
 	return YES;
 }
 
-#pragma mark - <UITableViewDataSource, UITableViewDelegate>
+#pragma mark - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.comments.count;
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return [self.group.entries count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLComment* comment = [self.comments objectAtIndex:indexPath.row];
-	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:WLCommentCellIdentifier forIndexPath:indexPath];
-	cell.item = comment;
-	return cell;
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    WLCandy* candy = [self.group.entries tryObjectAtIndex:section];
+    return candy.isImage ? 1 : 0;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLComment* comment = [self.comments objectAtIndex:indexPath.row];
-	CGFloat commentHeight  = ceilf([comment.text boundingRectWithSize:CGSizeMake(WLCommentLabelLenth, CGFLOAT_MAX)
-														 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[WLCommentCell commentFont]} context:nil].size.height);
-	CGFloat cellHeight = (commentHeight + WLAuthorLabelHeight);
-	return MAX(WLMinimumCellHeight, cellHeight + 10);
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    WLDetailedCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLDetailedCandyCellIdentifier forIndexPath:indexPath];
+    cell.item = [self.group.entries tryObjectAtIndex:indexPath.section];
+    [self fetchOlder:cell.item];
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return collectionView.size;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self updateTitle];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        [self updateTitle];
+    }
 }
 
 @end

@@ -22,4 +22,6 @@
 
 @interface WLKeyboardBroadcaster : WLBroadcaster
 
+@property (strong, nonatomic) NSNumber* keyboardHeight;
+
 @end

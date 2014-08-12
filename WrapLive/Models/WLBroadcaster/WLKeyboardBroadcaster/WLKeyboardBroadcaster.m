@@ -36,12 +36,14 @@
 
 - (void)keyboardWillShow:(NSNotification*)notification {
 	CGFloat keyboardHeight = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-	[self broadcast:@selector(broadcaster:willShowKeyboardWithHeight:) object:@(keyboardHeight)];
+    self.keyboardHeight = @(keyboardHeight);
+	[self broadcast:@selector(broadcaster:willShowKeyboardWithHeight:) object:self.keyboardHeight];
 }
 
 - (void)keyboardDidShow:(NSNotification*)notification {
 	CGFloat keyboardHeight = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-	[self broadcast:@selector(broadcaster:didShowKeyboardWithHeight:) object:@(keyboardHeight)];
+    self.keyboardHeight = @(keyboardHeight);
+	[self broadcast:@selector(broadcaster:didShowKeyboardWithHeight:) object:self.keyboardHeight];
 	__weak UIWindow* window = [UIWindow mainWindow];
 	[window addTapGestureRecognizing:^(CGPoint point){
 		[window endEditing:YES];
@@ -53,6 +55,7 @@
 }
 
 - (void)keyboardDidHide:(NSNotification*)notification {
+    self.keyboardHeight = nil;
 	[self broadcast:@selector(broadcasterDidHideKeyboard:)];
 	[[UIWindow mainWindow] removeTapGestureRecognizing];
 }

@@ -90,6 +90,12 @@
         [weakSelf setNavigationBarHidden:!hasWraps animated:YES];
         [weakSelf finishLoadingAnimation];
     }];
+    
+    [self.section setSelectionBlock:^(id entry) {
+        WLWrapViewController* wrapController = [WLWrapViewController instantiate];
+        wrapController.wrap = entry;
+        [weakSelf.navigationController pushViewController:wrapController animated:YES];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -430,12 +436,6 @@
 
 - (void)wrapCellDidSelectCandyPlaceholder:(WLWrapCell *)cell {
 	[self.navigationController presentViewController:[self cameraViewController] animated:YES completion:nil];
-}
-
-- (void)wrapCell:(WLWrapCell *)cell didSelectWrap:(WLWrap *)wrap {
-	WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-	wrapController.wrap = wrap;
-	[self.navigationController pushViewController:wrapController animated:YES];
 }
 
 #pragma mark - WLQuickChatViewDelegate

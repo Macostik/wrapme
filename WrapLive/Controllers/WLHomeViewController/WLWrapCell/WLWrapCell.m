@@ -100,13 +100,11 @@
 	[self.candiesView reloadData];
 }
 
-- (IBAction)wrapSelected:(UIButton *)sender {
+- (IBAction)select:(id)sender {
 	self.notifyBulb.hidden = YES;
 	WLWrap* wrap = self.entry;
     wrap.unread = @NO;
-    if ([self.delegate respondsToSelector:@selector(wrapCell:didSelectWrap:)]) {
-        [self.delegate wrapCell:self didSelectWrap:self.entry];
-    }
+    [super select:sender];
 }
 
 #pragma mark - UICollectionViewDelegate

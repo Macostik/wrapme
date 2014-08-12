@@ -651,7 +651,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <connections>
-                                                                        <action selector="wrapSelected:" destination="Pq6-uP-780" eventType="touchUpInside" id="BCT-gC-jHb"/>
+                                                                        <action selector="select:" destination="Pq6-uP-780" eventType="touchUpInside" id="Jhk-dI-zf3"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -731,7 +731,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="wrapSelected:" destination="N5C-9U-WOe" eventType="touchUpInside" id="wwm-nt-cef"/>
+                                                                <action selector="select:" destination="N5C-9U-WOe" eventType="touchUpInside" id="aTs-mT-IrW"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>

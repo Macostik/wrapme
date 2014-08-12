@@ -22,6 +22,8 @@
 
 + (UIColor*)WL_darkGrayColor;
 
++ (UIColor *)WL_clearColor;
+
 + (UIColor *)colorWithHexString:(NSString *)str;
 
 - (UIColor *)colorByAddingValue:(CGFloat)value;

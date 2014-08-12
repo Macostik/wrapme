@@ -19,8 +19,6 @@
 
 @interface WLInviteeCell : WLItemCell
 
-@property (nonatomic) BOOL deletable;
-
 @property (nonatomic, weak) IBOutlet id <WLInviteeCellDelegate> delegate;
 
 @end

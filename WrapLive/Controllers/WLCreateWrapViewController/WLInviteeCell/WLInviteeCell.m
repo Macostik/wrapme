@@ -18,7 +18,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
-@property (weak, nonatomic) IBOutlet UIButton *removeButton;
 
 @end
 
@@ -35,11 +34,6 @@
     if(!self.avatarView.url.nonempty) {
         self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }
-}
-
-- (void)setDeletable:(BOOL)deletable {
-	_deletable = deletable;
-	self.removeButton.hidden = !deletable;
 }
 
 #pragma mark - Actions

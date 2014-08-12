@@ -9,8 +9,9 @@
 
 #import "PNActionResponseParser.h"
 #import "PNActionResponseParser+Protected.h"
-#import "PNResponse.h"
 #import "PNServiceResponseCallbacks.h"
+#import "PNStructures.h"
+#import "PNResponse.h"
 
 
 // ARC check
@@ -47,6 +48,22 @@
 
 
     return nil;
+}
+
++ (BOOL)isResponseConformToRequiredStructure:(PNResponse *)response {
+
+    // Checking base requirement about payload data type.
+    BOOL conforms = [response.response isKindOfClass:[NSDictionary class]];
+
+    // Checking base components
+    if (conforms) {
+
+        id actionName = [response.response objectForKey:kPNResponseActionKey];
+        conforms = (actionName && [actionName isKindOfClass:[NSString class]]);
+    }
+
+
+    return conforms;
 }
 
 

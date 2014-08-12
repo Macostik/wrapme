@@ -15,6 +15,7 @@
 #import "PNPresenceEvent+Protected.h"
 #import "PNClient+Protected.h"
 #import "PNClient.h"
+#import "PNDate.h"
 
 
 // ARC check
@@ -72,8 +73,15 @@ struct PNPresenceEventDataKeysStruct PNPresenceEventDataKeys = {
 
 + (BOOL)isPresenceEventObject:(NSDictionary *)event {
 
-    return [event objectForKey:PNPresenceEventDataKeys.timestamp] != nil &&
-           [event objectForKey:PNPresenceEventDataKeys.occupancy] != nil;
+    BOOL isPresenceEventObject = ([event objectForKey:PNPresenceEventDataKeys.timestamp] != nil &&
+                                  [event objectForKey:PNPresenceEventDataKeys.occupancy] != nil);
+    if (!isPresenceEventObject) {
+
+        isPresenceEventObject = ([event objectForKey:PNPresenceEventDataKeys.action] != nil &&
+                                 [event objectForKey:PNPresenceEventDataKeys.uuid] != nil);
+    }
+
+    return isPresenceEventObject;
 }
 
 
@@ -94,6 +102,10 @@ struct PNPresenceEventDataKeysStruct PNPresenceEventDataKeys = {
         else if ([type isEqualToString:@"timeout"]) {
 
             self.type = PNPresenceEventTimeout;
+        }
+        else if ([type isEqualToString:@"state-change"]){
+
+            self.type = PNPresenceEventStateChanged;
         }
         else if (type == nil){
 
@@ -143,9 +155,13 @@ struct PNPresenceEventDataKeysStruct PNPresenceEventDataKeys = {
 
         action = @"timeout";
     }
+    else if (self.type == PNPresenceEventStateChanged) {
+
+        action = @"state changed";
+    }
     else if (self.type == PNPresenceEventChanged) {
 
-        action = @"changed";
+        action = @"occupancy changed";
     }
 
 

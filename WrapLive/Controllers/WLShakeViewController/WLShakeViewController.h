@@ -18,6 +18,7 @@ typedef NS_ENUM(NSUInteger, WLWrapTransition) {
 @interface WLShakeViewController : UIViewController
 
 @property (nonatomic) BOOL backSwipeGestureEnabled;
+@property (nonatomic) BOOL notPresentShakeViewController;
 
 - (void)presentInViewController:(UIViewController*)controller transition:(WLWrapTransition)transition completion:(void (^)(void))completion;
 

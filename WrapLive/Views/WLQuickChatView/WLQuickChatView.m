@@ -142,7 +142,7 @@
     CGFloat height = self.headerView.height;
     if (IsInBounds(0, height/2.0f, offset)) {
         [self setEditing:NO animated:YES];
-    } else if (!refresh && self.scrollView.contentOffset.y >= 0 && IsInBounds(height/2.0f, height, offset)) {
+    } else if (self.scrollView.contentOffset.y <= 0 && IsInBounds(height/2.0f, height, offset)) {
         [self setEditing:YES animated:YES];
     } else {
         [self setEditing:NO animated:YES];

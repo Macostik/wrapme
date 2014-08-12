@@ -27,6 +27,10 @@
     return @"GET";
 }
 
++ (NSTimeInterval)timeout {
+    return 6;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -61,6 +65,7 @@
     NSMutableDictionary* parameters = [self configure:[NSMutableDictionary dictionary]];
     NSString* url = [self.manager urlWithPath:self.path];
     NSMutableURLRequest *request = [self request:parameters url:url];
+    request.timeoutInterval = [[self class] timeout];
     WLLog(self.method, url, parameters);
     
     __strong typeof(self)strongSelf = self;

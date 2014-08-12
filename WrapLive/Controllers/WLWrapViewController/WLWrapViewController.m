@@ -161,7 +161,11 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     self.wrapRequest.contentType = contentType;
     [self.wrapRequest send:^(WLWrap* wrap) {
         if (contentType == WLWrapContentTypeAuto && [weakSelf.wrapRequest.contentType isEqualToString:WLWrapContentTypeLive] && weakSelf.viewTab == WLWrapViewTabHistory) {
-            weakSelf.showLiveNotifyBulb = YES;
+            if ([[[[wrap liveCandies] firstObject] contributor] isEqualToEntry:[WLUser currentUser]]) {
+                weakSelf.showLiveNotifyBulb = NO;
+            } else  {
+                weakSelf.showLiveNotifyBulb = YES;
+            }
         }
         [weakSelf reloadData];
         [weakSelf setFirstContributorViewHidden:wrap.candies.nonempty animated:YES];

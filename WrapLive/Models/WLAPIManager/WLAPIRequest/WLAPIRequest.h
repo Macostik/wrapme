@@ -35,6 +35,8 @@
 
 + (NSString*)defaultMethod;
 
++ (NSTimeInterval)timeout;
+
 - (NSMutableDictionary *)configure:(NSMutableDictionary*)parameters;
 
 - (NSMutableURLRequest*)request:(NSMutableDictionary*)parameters url:(NSString*)url;

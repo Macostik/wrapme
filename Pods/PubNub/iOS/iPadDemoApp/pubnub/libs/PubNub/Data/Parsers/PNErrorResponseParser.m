@@ -9,8 +9,9 @@
 
 #import "PNErrorResponseParser.h"
 #import "PNErrorResponseParser+Protected.h"
-#import "PNResponse.h"
 #import "PNError+Protected.h"
+#import "PNResponse.h"
+#import "PNChannel.h"
 
 
 // ARC check
@@ -45,6 +46,35 @@
 
 
     return nil;
+}
+
++ (BOOL)isResponseConformToRequiredStructure:(PNResponse *)response {
+
+    // Checking base requirement about payload data type.
+    BOOL conforms = YES;
+
+    // Checking base components
+    if ([response.response isKindOfClass:[NSDictionary class]]) {
+
+        NSDictionary *responseData = response.response;
+        id errorMessage = [responseData valueForKey:kPNResponseErrorMessageKey];
+        errorMessage = (!errorMessage ? response.message : errorMessage);
+        conforms = (errorMessage ? ([errorMessage isKindOfClass:[NSNumber class]] || [errorMessage isKindOfClass:[NSString class]]) : conforms);
+        if (![errorMessage isKindOfClass:[NSString class]] && [responseData valueForKey:kPNResponseErrorAdditionalMessageKey]) {
+
+            errorMessage = [responseData valueForKey:kPNResponseErrorAdditionalMessageKey];
+            conforms = ((conforms && errorMessage) ? [errorMessage isKindOfClass:[NSString class]] : conforms);
+        }
+
+        if ([responseData valueForKeyPath:kPNResponseErrorChannelsKey]) {
+
+            id channelNames = [responseData valueForKeyPath:kPNResponseErrorChannelsKey];
+            conforms = ((conforms && channelNames) ? [channelNames isKindOfClass:[NSArray class]] : conforms);
+        }
+    }
+
+
+    return conforms;
 }
 
 

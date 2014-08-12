@@ -21,12 +21,15 @@
 #import "WLEntryManager.h"
 #import "WLMenu.h"
 #import "NSString+Additions.h"
+#import "WLCircleProgressBar.h"
+#import "WLInternetConnectionBroadcaster.h"
 
 @interface WLCommentCell ()
 
 @property (weak, nonatomic) IBOutlet WLImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+@property (weak, nonatomic) IBOutlet WLCircleProgressBar *circleProgressBar;
 @property (strong, nonatomic) WLMenu* menu;
 
 @end
@@ -73,6 +76,10 @@
 	[self.commentLabel sizeToFitHeight];
 	self.authorImageView.url = entry.contributor.picture.medium;
 	self.menu.vibrate = [entry.contributor isCurrentUser];
+    self.circleProgressBar.operation = entry.uploading.operation;
+    if (![WLInternetConnectionBroadcaster broadcaster].reachable && !entry.uploaded) {
+        self.circleProgressBar.progress = .15f;
+    }
 }
 
 @end

@@ -45,7 +45,9 @@
 
 - (void)setDeletable:(BOOL)deletable {
 	_deletable = deletable;
-	self.removeButton.hidden = !deletable;
+    if (deletable) {
+        [self.removeButton removeFromSuperview];
+    }
 }
 
 #pragma mark - Actions

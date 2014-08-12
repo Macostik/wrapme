@@ -12,6 +12,7 @@
 //
 
 #import "PNJSONSerialization.h"
+#import "PNLogger.h"
 
 
 // ARC check
@@ -216,7 +217,7 @@
     }
     else {
 
-        PNLog(PNLogGeneralLevel, self, @"JSON string is empty");
+        [PNLogger logGeneralMessageFrom:self message:^NSString * { return @"JSON string is empty"; }];
     }
 }
 

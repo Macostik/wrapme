@@ -50,6 +50,7 @@
 	self.emailTextField.text = self.user.email;
 	self.stillPictureCameraPosition = AVCaptureDevicePositionFront;
 	self.stillPictureMode = WLCameraModeAvatar;
+    self.notPresentShakeViewController = YES;
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 

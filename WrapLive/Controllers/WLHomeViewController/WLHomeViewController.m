@@ -360,6 +360,8 @@
 //    return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
 //}
 
+#pragma mark - UIScrollViewDelegate
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
 	if (self.refresher.refreshing) {
 		[self.refresher endRefreshing];

@@ -53,7 +53,7 @@
 - (void)setupItemData:(WLGroup*)group {
     group.delegate = self;
 	self.dateLabel.text = [group.name uppercaseString];
-	self.shouldAppendMoreCandies = [group.entries count] >= 10;
+	self.shouldAppendMoreCandies = [group.entries count] >= 3;
 	[self.collectionView reloadData];
     [self.collectionView trySetContentOffset:group.offset];
     [group.request cancel];

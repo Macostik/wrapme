@@ -16,6 +16,7 @@
 #import "PNHereNow+Protected.h"
 #import "PNError+Protected.h"
 #import "PubNub+Protected.h"
+#import "PNNotifications.h"
 #import "PNClient.h"
 
 
@@ -385,7 +386,7 @@ static struct PNObservationObserverDataStruct PNObservationObserverData = {
     if ([filteredObservers count] > 0) {
 
         // Removing first occurrence of observer request in list
-        [observers removeObject:[filteredObservers firstObject]];
+        [observers removeObject:[filteredObservers objectAtIndex:0]];
     }
 }
 
@@ -1822,7 +1823,7 @@ static struct PNObservationObserverDataStruct PNObservationObserverData = {
     [notificationCenter removeObserver:self name:kPNClientDidReceiveParticipantChannelsListNotification object:nil];
     [notificationCenter removeObserver:self name:kPNClientParticipantChannelsListDownloadFailedWithErrorNotification object:nil];
 
-    PNLog(PNLogGeneralLevel, self, @"Destroyed");
+    [PNLogger logGeneralMessageFrom:self message:^NSString * { return @"Destroyed"; }];
 }
 
 #pragma mark -

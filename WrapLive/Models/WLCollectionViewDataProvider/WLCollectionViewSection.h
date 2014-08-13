@@ -38,6 +38,12 @@
 
 @property (strong, nonatomic) void (^changeBlock) (WLEntriesCollection entries);
 
+- (void)registerCell;
+
+- (void)registerHeader;
+
+- (void)registerFooter;
+
 - (id)cellWithIdentifier:(NSString*)identifier indexPath:(NSIndexPath*)indexPath;
 
 - (id)cell:(NSIndexPath*)indexPath;

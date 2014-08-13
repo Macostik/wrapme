@@ -18,12 +18,12 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 @interface WLWrapCell : WLEntryCell
 
-@property (strong, nonatomic) NSOrderedSet* candies;
-
 @property (weak, nonatomic, readonly) UILabel *nameLabel;
 
 @property (weak, nonatomic) IBOutlet SegmentedControl *tabControl;
 
 @property (weak, nonatomic) IBOutlet UIImageView *liveNotifyBulb;
+
+- (void)setCandies:(NSMutableOrderedSet *)candies;
 
 @end

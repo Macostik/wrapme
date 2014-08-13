@@ -6,23 +6,11 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLCollectionItemCell.h"
+#import "WLEntryCell.h"
 
 static NSString* WLCandyCellIdentifier = @"WLCandyCell";
 static CGFloat WLCandyCellSpacing = 0.5f;
 
-@class WLWrap;
-@class WLCandy;
-@class WLCandyCell;
-
-@protocol WLCandyCellDelegate <NSObject>
-
-- (void)candyCell:(WLCandyCell*)cell didSelectCandy:(WLCandy*)candy;
-
-@end
-
-@interface WLCandyCell : WLCollectionItemCell
-
-@property (weak, nonatomic) IBOutlet id <WLCandyCellDelegate> delegate;
+@interface WLCandyCell : WLEntryCell
 
 @end

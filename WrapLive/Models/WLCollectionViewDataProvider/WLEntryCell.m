@@ -27,7 +27,17 @@
     
 }
 
-- (IBAction)select:(id)sender {
+- (void)resetup {
+    [self setup:self.entry];
+}
+
+- (void)select:(id)entry {
+    if ([self.delegate respondsToSelector:@selector(entryCell:didSelectEntry:)]) {
+        [self.delegate entryCell:self didSelectEntry:self.entry];
+    }
+}
+
+- (IBAction)select {
     if ([self.delegate respondsToSelector:@selector(entryCell:didSelectEntry:)]) {
         [self.delegate entryCell:self didSelectEntry:self.entry];
     }

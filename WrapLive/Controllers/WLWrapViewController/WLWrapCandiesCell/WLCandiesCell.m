@@ -19,8 +19,10 @@
 #include "WLSupportFunctions.h"
 #import "WLGroupedSet.h"
 #import "UIScrollView+Additions.h"
+#import "WLCollectionViewDataProvider.h"
+#import "WLCollectionViewSection.h"
 
-@interface WLCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLCandyCellDelegate, WLPaginatedSetDelegate>
+@interface WLCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLPaginatedSetDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -48,6 +50,15 @@
 	self.shouldAppendMoreCandies = YES;
 	[self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:WLCandyCellIdentifier];
 	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshCandies) colorScheme:WLRefresherColorSchemeOrange];
+    
+    WLHomeCandiesViewSection* section = [[WLHomeCandiesViewSection alloc] init];
+    section.reuseCellIdentifier = WLCandyCellIdentifier;
+    [section registerCell];
+    [section setSelectionBlock:^(id entry) {
+        [weakSelf.delegate entryCell:weakSelf didSelectEntry:entry];
+    }];
+    self.candiesDataSection = section;
+    self.candiesDataProvider = [WLCollectionViewDataProvider dataProvider:self.candiesView section:section];
 }
 
 - (void)setupItemData:(WLGroup*)group {

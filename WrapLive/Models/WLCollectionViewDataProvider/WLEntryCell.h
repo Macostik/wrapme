@@ -29,4 +29,8 @@
 
 - (void)setup:(id)entry;
 
+- (void)resetup;
+
+- (void)select:(id)entry;
+
 @end

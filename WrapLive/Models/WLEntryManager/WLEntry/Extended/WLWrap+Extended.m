@@ -17,6 +17,7 @@
 #import "WLAPIResponse.h"
 #import "WLInternetConnectionBroadcaster.h"
 #import "NSDate+Additions.h"
+#import "WLSupportFunctions.h"
 
 @implementation WLWrap (Extended)
 
@@ -184,24 +185,24 @@
 	return [self messages:0];
 }
 
-- (NSOrderedSet*)recentCandies:(NSUInteger)maximumCount {
-    return [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *candies) {
-        __block BOOL hasMessage = NO;
-        for (WLCandy* candy in self.candies) {
-            if ([candies count] < maximumCount) {
-                if ([candy isMessage]) {
-                    if (!hasMessage) {
-                        hasMessage = YES;
-                        [candies addObject:candy];
-                    }
-                } else {
+- (NSMutableOrderedSet*)recentCandies:(NSUInteger)maximumCount {
+    NSMutableOrderedSet* candies = [NSMutableOrderedSet orderedSet];
+    BOOL hasMessage = NO;
+    for (WLCandy* candy in self.candies) {
+        if ([candies count] < maximumCount) {
+            if ([candy isMessage]) {
+                if (!hasMessage) {
+                    hasMessage = YES;
                     [candies addObject:candy];
                 }
             } else {
-                break;
+                [candies addObject:candy];
             }
+        } else {
+            break;
         }
-    }];
+    }
+    return candies;
 }
 
 - (NSMutableOrderedSet *)liveCandies {

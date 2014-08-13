@@ -37,9 +37,6 @@
 @end
 
 @implementation WLCandyCell
-{
-    CGPoint _point;
-}
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
@@ -47,7 +44,7 @@
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self configuration:^BOOL (WLMenu *menu) {
-        WLCandy* candy = weakSelf.item;
+        WLCandy* candy = weakSelf.entry;
         if ([candy isImage]) {
             if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
                 [menu addItem:@"Delete" block:^{
@@ -72,7 +69,7 @@
     }];
 }
 
-- (void)setupItemData:(WLCandy*)candy {
+- (void)setup:(WLCandy*)candy {
 	self.userInteractionEnabled = YES;
 	if ([candy isImage]) {
 		WLComment* comment = [candy.comments lastObject];
@@ -108,22 +105,22 @@
 }
 
 - (IBAction)select:(id)sender {
-	WLCandy* candy = self.item;
+	WLCandy* candy = self.entry;
     if (candy.valid) {
         self.notifyBulb.hidden = YES;
         candy.unread = @NO;
-        [self.delegate candyCell:self didSelectCandy:candy];
+        [super select:sender];
     }
 }
 
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
-	[self setupItemData:self.item];
+	[self setup:self.entry];
 }
 
 - (WLCandy *)broadcasterPreferedCandy:(WLWrapBroadcaster *)broadcaster {
-    return self.item;
+    return self.entry;
 }
 
 @end

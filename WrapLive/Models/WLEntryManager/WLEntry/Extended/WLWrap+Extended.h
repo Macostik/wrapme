@@ -39,7 +39,7 @@ static NSUInteger WLWrapNameLimit = 190;
 
 - (NSOrderedSet*)messages;
 
-- (NSOrderedSet*)recentCandies:(NSUInteger)maximumCount;
+- (NSMutableOrderedSet*)recentCandies:(NSUInteger)maximumCount;
 
 - (NSMutableOrderedSet*)liveCandies;
 

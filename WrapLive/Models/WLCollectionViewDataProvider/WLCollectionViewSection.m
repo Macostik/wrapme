@@ -26,20 +26,37 @@
 }
 
 - (void)setup {
+    if (self.registerCellAfterAwakeFromNib) {
+        [self registerCell];
+    }
+    if (self.registerHeaderAfterAwakeFromNib) {
+        [self registerHeader];
+    }
+    if (self.registerFooterAfterAwakeFromNib) {
+        [self registerFooter];
+    }
+}
+
+- (void)registerCell {
     UICollectionView *cv = self.collectionView;
     NSString* identifier = self.reuseCellIdentifier;
-    BOOL registerNib = self.registerCellAfterAwakeFromNib;
-    if (registerNib && identifier) {
+    if (identifier) {
         [cv registerNib:[UINib nibWithNibName:identifier bundle:nil] forCellWithReuseIdentifier:identifier];
     }
-    identifier = self.reuseHeaderViewIdentifier;
-    registerNib = self.registerHeaderAfterAwakeFromNib;
-    if (registerNib && identifier) {
+}
+
+- (void)registerHeader {
+    UICollectionView *cv = self.collectionView;
+    NSString* identifier = self.reuseHeaderViewIdentifier;
+    if (identifier) {
         [cv registerNib:[UINib nibWithNibName:identifier bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:identifier];
     }
-    identifier = self.reuseFooterViewIdentifier;
-    registerNib = self.registerFooterAfterAwakeFromNib;
-    if (registerNib && identifier) {
+}
+
+- (void)registerFooter {
+    UICollectionView *cv = self.collectionView;
+    NSString* identifier = self.reuseFooterViewIdentifier;
+    if (identifier) {
         [cv registerNib:[UINib nibWithNibName:identifier bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier];
     }
 }

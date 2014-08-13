@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
 
 static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLQuickChatViewDelegate, WLGroupedSetDelegate, WLCandyCellDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLQuickChatViewDelegate, WLGroupedSetDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;

@@ -25,6 +25,8 @@
 
 + (CGFloat)size:(NSIndexPath*)indexPath entry:(id)entry;
 
++ (CGFloat)size:(NSIndexPath*)indexPath entry:(id)entry defaultSize:(CGSize)defaultSize;
+
 - (void)setup:(id)entry;
 
 @end

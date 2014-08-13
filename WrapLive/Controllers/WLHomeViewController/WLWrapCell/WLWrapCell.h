@@ -16,19 +16,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 @class WLWrap;
 @class SegmentedControl;
 
-@protocol WLWrapCellDelegate <WLEntryCellDelegate>
-
-@optional
-
-- (void)wrapCell:(WLWrapCell*)cell didSelectCandy:(WLCandy*)candy;
-- (void)wrapCellDidSelectCandyPlaceholder:(WLWrapCell*)cell;
-- (void)wrapCell:(WLWrapCell*)cell didDeleteOrLeaveWrap:(WLWrap*)wrap;
-
-@end
-
 @interface WLWrapCell : WLEntryCell
-
-@property (nonatomic, weak) id <WLWrapCellDelegate> delegate;
 
 @property (strong, nonatomic) NSOrderedSet* candies;
 

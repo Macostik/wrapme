@@ -8,8 +8,12 @@
 
 #import "WLNavigation.h"
 #import "WLSupportFunctions.h"
+#import "WLWrapViewController.h"
+#import "WLCandyViewController.h"
+#import "WLChatViewController.h"
+#import "NSArray+Additions.h"
 
-@implementation UIStoryboard (Additions)
+@implementation UIStoryboard (WLNavigation)
 
 + (instancetype)mainStoryboard {
 	UIWindow* window = [[[UIApplication sharedApplication] windows] firstObject];
@@ -18,7 +22,7 @@
 
 @end
 
-@implementation UIStoryboardSegue (Additions)
+@implementation UIStoryboardSegue (WLNavigation)
 
 - (BOOL)isContributorsSegue {
 	return [self.identifier isEqualToString:WLStoryboardSegueContributorsIdentifier];
@@ -38,7 +42,7 @@
 
 @end
 
-@implementation UIViewController (StoryboardAdditions)
+@implementation UIViewController (WLNavigation)
 
 + (instancetype)instantiateWithIdentifier:(NSString*)identifier confiure:(void (^)(id controller))confiure {
 	id controller = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:identifier];
@@ -77,7 +81,7 @@
 
 @end
 
-@implementation UINavigationController (StoryboardAdditions)
+@implementation UINavigationController (WLNavigation)
 
 + (instancetype)mainNavigationController {
 	UINavigationController *mainNavigationController = (id)[[UIWindow mainWindow] rootViewController];
@@ -117,7 +121,7 @@
 
 @end
 
-@implementation UIWindow (StoryboardAdditions)
+@implementation UIWindow (WLNavigation)
 
 static UIWindow* mainWindow = nil;
 
@@ -130,6 +134,60 @@ static UIWindow* mainWindow = nil;
 
 + (void)setMainWindow:(UIWindow *)window {
     mainWindow = window;
+}
+
+@end
+
+@implementation WLEntry (WLNavigation)
+
+- (UIViewController *)viewController {
+    return nil;
+}
+
+- (void)presentInViewController:(UIViewController*)controller {
+    [self presentInViewController:controller animated:YES];
+}
+
+- (void)presentInViewController:(UIViewController*)controller animated:(BOOL)animated {
+    UIViewController* entryViewController = [self viewController];
+    if (entryViewController) {
+        [controller.navigationController pushViewController:entryViewController animated:animated];
+    }
+}
+
+@end
+
+@implementation WLCandy (WLNavigation)
+
+- (UIViewController *)viewController {
+    __weak typeof(self)weakSelf = self;
+    if (self.isImage) {
+        return [WLCandyViewController instantiate:^(WLCandyViewController *controller) {
+            controller.candy = weakSelf;
+		}];
+	} else if (self.isMessage) {
+        return [WLChatViewController instantiate:^(WLChatViewController *controller) {
+			controller.wrap = weakSelf.wrap;
+		}];
+	}
+    return nil;
+}
+
+- (void)presentInViewController:(UIViewController*)controller animated:(BOOL)animated {
+    NSMutableArray* controllers = [NSMutableArray arrayWithObject:controller];
+    [controllers tryAddObjects:[self.wrap viewController],[self viewController],nil];
+	[controller.navigationController setViewControllers:controllers animated:animated];
+}
+
+@end
+
+@implementation WLWrap (WLNavigation)
+
+- (UIViewController *)viewController {
+    __weak typeof(self)weakSelf = self;
+    return [WLWrapViewController instantiate:^(WLWrapViewController *controller) {
+        controller.wrap = weakSelf;
+    }];
 }
 
 @end

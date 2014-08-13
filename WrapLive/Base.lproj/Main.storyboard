@@ -604,19 +604,21 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
-                                                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_photo_placeholder" id="xUV-iq-VYt">
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="e5x-p2-opN">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                            </imageView>
+                                                                                <state key="normal" image="ic_photo_placeholder">
+                                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                                </state>
+                                                                                <connections>
+                                                                                    <segue destination="PLV-Iu-pRL" kind="modal" identifier="camera" id="PQ6-0M-1al"/>
+                                                                                </connections>
+                                                                            </button>
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     </view>
                                                                 </collectionViewCell>
                                                             </cells>
-                                                            <connections>
-                                                                <outlet property="dataSource" destination="Pq6-uP-780" id="ah4-w9-yda"/>
-                                                                <outlet property="delegate" destination="Pq6-uP-780" id="Adn-ia-v5X"/>
-                                                            </connections>
                                                         </collectionView>
                                                         <view contentMode="scaleToFill" id="8Kg-Jf-uq1">
                                                             <rect key="frame" x="0.0" y="13" width="320" height="50"/>
@@ -2616,6 +2618,6 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WjR-f7-d7j"/>
+        <segue reference="PQ6-0M-1al"/>
     </inferredMetricsTieBreakers>
 </document>

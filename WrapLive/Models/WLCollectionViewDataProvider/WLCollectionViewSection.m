@@ -12,9 +12,20 @@
 
 @implementation WLCollectionViewSection
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+    [self setup];
+}
+
+- (void)setup {
     UICollectionView *cv = self.collectionView;
     NSString* identifier = self.reuseCellIdentifier;
     BOOL registerNib = self.registerCellAfterAwakeFromNib;

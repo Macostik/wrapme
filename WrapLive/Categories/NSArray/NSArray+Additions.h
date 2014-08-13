@@ -75,6 +75,10 @@
 
 @interface NSMutableArray (Additions)
 
+- (BOOL)tryAddObject:(id)object;
+
+- (void)tryAddObjects:(id)object, ... NS_REQUIRES_NIL_TERMINATION;
+
 - (BOOL)replaceObject:(id)object withObject:(id)replaceObject;
 
 - (BOOL)exchangeObject:(id)object withObjectAtIndex:(NSUInteger)replaceIndex;

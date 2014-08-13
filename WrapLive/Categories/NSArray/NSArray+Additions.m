@@ -210,6 +210,23 @@
 	return array;
 }
 
+- (BOOL)tryAddObject:(id)object {
+    if (object) {
+        [self addObject:object];
+        return YES;
+    }
+    return NO;
+}
+
+- (void)tryAddObjects:(id)object, ... {
+	va_list args;
+    va_start(args, object);
+    for (; object != nil; object = va_arg(args, id)) {
+		[self tryAddObject:object];
+	}
+    va_end(args);
+}
+
 - (BOOL)replaceObject:(id)object withObject:(id)replaceObject {
 	if (object && replaceObject) {
 		NSInteger index = [self indexOfObject:object];

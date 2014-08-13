@@ -11,7 +11,7 @@
 #import "AsynchronousOperation.h"
 #import "UIView+Shorthand.h"
 
-@interface WLHomeViewSection () <WLWrapCellDelegate>
+@interface WLHomeViewSection ()
 
 @property (strong, nonatomic) NSOperationQueue *loadingQueue;
 

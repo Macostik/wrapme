@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
 
 static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLWrapCellDelegate, WLQuickChatViewDelegate, WLGroupedSetDelegate, WLCandyCellDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLQuickChatViewDelegate, WLGroupedSetDelegate, WLCandyCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
@@ -372,7 +372,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     if ([candy isImage]) {
         NSMutableArray* controllers = [[self.navigationController viewControllers] mutableCopy];
 		WLCandyViewController *candyController = [WLCandyViewController instantiate];
-        candyController.backViewController = self;
         candyController.candy = candy;
         candyController.orderBy = self.isLive ? WLCandiesOrderByUpdating : WLCandiesOrderByCreation;
         [controllers addObject:candyController];
@@ -405,7 +404,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         static NSString* wrapCellIdentifier = @"WLWrapCell";
         WLWrapCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:wrapCellIdentifier forIndexPath:indexPath];
         cell.entry = self.wrap;
-        cell.delegate = self;
         cell.tabControl.selectedSegment = self.viewTab;
         cell.liveNotifyBulb.hidden = !self.showLiveNotifyBulb;
         return cell;
@@ -498,13 +496,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self setFirstContributorViewHidden:YES animated:NO];
 	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - WLWrapCellDelegate
-
-- (void)wrapCell:(WLWrapCell *)cell didDeleteOrLeaveWrap:(WLWrap *)wrap {
-    [[WLWrapBroadcaster broadcaster] removeReceiver:self];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - WLCandyCellDelegate

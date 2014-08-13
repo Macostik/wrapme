@@ -10,6 +10,24 @@
 
 @implementation WLCollectionViewDataProvider
 
++ (instancetype)dataProvider:(UICollectionView*)collectionView {
+    return [self dataProvider:collectionView sections:nil];
+}
+
++ (instancetype)dataProvider:(UICollectionView*)collectionView sections:(NSArray*)sections {
+    WLCollectionViewDataProvider* dataProvider = [[WLCollectionViewDataProvider alloc] init];
+    dataProvider.sections = [NSMutableArray arrayWithArray:sections];
+    dataProvider.collectionView = collectionView;
+    [sections makeObjectsPerformSelector:@selector(setCollectionView:) withObject:collectionView];
+    collectionView.delegate = dataProvider;
+    collectionView.dataSource = dataProvider;
+    return dataProvider;
+}
+
++ (instancetype)dataProvider:(UICollectionView*)collectionView section:(WLCollectionViewSection*)section {
+    return [self dataProvider:collectionView sections:@[section]];
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     for (WLCollectionViewSection* section in self.sections) {

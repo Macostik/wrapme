@@ -45,8 +45,9 @@
 #import "WLDatesViewController.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLHomeViewSection.h"
+#import "WLNavigation.h"
 
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLNotificationReceiver, WLQuickChatViewDelegate>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver, WLQuickChatViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
@@ -92,9 +93,7 @@
     }];
     
     [self.section setSelectionBlock:^(id entry) {
-        WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-        wrapController.wrap = entry;
-        [weakSelf.navigationController pushViewController:wrapController animated:YES];
+        [entry presentInViewController:weakSelf];
     }];
 }
 
@@ -274,14 +273,11 @@
     __weak typeof(self)weakSelf = self;
     void (^showNotificationBlock)(void) = ^{
         WLWrap* wrap = notification.wrap;
-		if (notification.type == WLNotificationContributorAddition) {
-			[weakSelf.navigationController pushViewController:[WLWrapViewController instantiate:^(WLWrapViewController *controller) {
-				controller.wrap = wrap;
-			}] animated:YES];
-		} else if (notification.type == WLNotificationImageCandyAddition || notification.type == WLNotificationChatCandyAddition || notification.type == WLNotificationCandyCommentAddition) {
-            WLCandy* candy = notification.candy;
-            [wrap addCandy:candy];
-			[weakSelf presentCandy:candy fromWrap:wrap];
+        WLNotificationType type = notification.type;
+		if (type == WLNotificationContributorAddition) {
+            [wrap presentInViewController:weakSelf];
+		} else if (type == WLNotificationImageCandyAddition || type == WLNotificationChatCandyAddition || type == WLNotificationCandyCommentAddition) {
+            [notification.candy presentInViewController:weakSelf];
 		}
 	};
     
@@ -407,35 +403,6 @@
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - WLWrapCellDelegate
-
-- (void)presentCandy:(WLCandy*)candy fromWrap:(WLWrap*)wrap {
-    NSMutableArray* controllers = [NSMutableArray arrayWithObject:self];
-    [controllers addObject:[WLWrapViewController instantiate:^(WLWrapViewController* controller) {
-        controller.wrap = wrap;
-    }]];
-	if ([candy isImage]) {
-        __weak typeof(self)weakSelf = self;
-        [controllers addObject:[WLCandyViewController instantiate:^(WLCandyViewController *controller) {
-            controller.candy = candy;
-            controller.backViewController = weakSelf;
-		}]];
-	} else if ([candy isMessage]) {
-        [controllers addObject:[WLChatViewController instantiate:^(WLChatViewController *controller) {
-			controller.wrap = wrap;
-		}]];
-	}
-	[self.navigationController setViewControllers:controllers animated:YES];
-}
-
-- (void)wrapCell:(WLWrapCell *)cell didSelectCandy:(WLCandy *)candy {
-	[self presentCandy:candy fromWrap:cell.entry];
-}
-
-- (void)wrapCellDidSelectCandyPlaceholder:(WLWrapCell *)cell {
-	[self.navigationController presentViewController:[self cameraViewController] animated:YES completion:nil];
 }
 
 #pragma mark - WLQuickChatViewDelegate

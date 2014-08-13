@@ -19,6 +19,8 @@
 #import "WLWrapBroadcaster.h"
 #import "WLMenu.h"
 #import "NSObject+NibAdditions.h"
+#import "WLCollectionViewDataProvider.h"
+#import "WLHomeCandiesViewSection.h"
 
 @interface WLWrapCell () <WLCandyCellDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -28,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
 @property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
 @property (strong, nonatomic) WLMenu* menu;
+@property (strong, nonatomic) WLCollectionViewDataProvider* candiesDataProvider;
 
 @end
 
@@ -43,9 +46,6 @@
                 weakSelf.userInteractionEnabled = NO;
                 [wrap remove:^(id object) {
                     weakSelf.userInteractionEnabled = YES;
-                    if ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteOrLeaveWrap:)]) {
-                        [weakSelf.delegate wrapCell:weakSelf didDeleteOrLeaveWrap:wrap];
-                    }
                 } failure:^(NSError *error) {
                     [error show];
                     weakSelf.userInteractionEnabled = YES;
@@ -56,9 +56,6 @@
                 weakSelf.userInteractionEnabled = NO;
                 [wrap leave:^(id object) {
                     weakSelf.userInteractionEnabled = YES;
-                    if ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteOrLeaveWrap:)]) {
-                        [weakSelf.delegate wrapCell:weakSelf didDeleteOrLeaveWrap:wrap];
-                    }
                 } failure:^(NSError *error) {
                     [error show];
                     weakSelf.userInteractionEnabled = YES;
@@ -73,6 +70,11 @@
     layout.itemSize = CGSizeMake(size, size);
     layout.minimumLineSpacing = WLCandyCellSpacing;
     layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
+    
+    WLHomeCandiesViewSection* section = [[WLHomeCandiesViewSection alloc] init];
+    section.reuseCellIdentifier = WLCandyCellIdentifier;
+    section.registerCellAfterAwakeFromNib = YES;
+    self.candiesDataProvider = [WLCollectionViewDataProvider dataProvider:self.candiesView section:section];
 }
 
 - (void)setup:(WLWrap*)wrap {
@@ -124,16 +126,10 @@
 	}
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.item >= [self.candies count]) {
-		[self.delegate wrapCellDidSelectCandyPlaceholder:self];
-	}
-}
-
 #pragma mark - WLWrapCandyCellDelegate
 
 - (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
-	[self.delegate wrapCell:self didSelectCandy:candy];
+	[self.delegate entryCell:self didSelectEntry:candy];
 }
 
 @end

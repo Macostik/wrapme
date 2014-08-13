@@ -15,8 +15,6 @@
 
 @interface WLCandyViewController : WLShakeViewController
 
-@property (weak, nonatomic) UIViewController *backViewController;
-
 @property (strong, nonatomic) WLCandy *candy;
 
 @property (strong, nonatomic) WLGroup *group;

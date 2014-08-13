@@ -10,8 +10,12 @@
 
 @implementation WLEntryCell
 
-+ (CGFloat)size:(NSIndexPath *)indexPath entry:(id)entry {
++ (CGFloat)size:(NSIndexPath *)indexPath entry:(id)entry defaultSize:(CGSize)defaultSize {
     return 0;
+}
+
++ (CGFloat)size:(NSIndexPath *)indexPath entry:(id)entry {
+    return [self size:indexPath entry:entry defaultSize:CGSizeZero];
 }
 
 - (void)setEntry:(id)entry {

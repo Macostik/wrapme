@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLEntryManager.h"
 
-@interface UIStoryboard (Additions)
+@interface UIStoryboard (WLNavigation)
 
 + (instancetype)mainStoryboard;
 
@@ -19,7 +20,7 @@ static NSString* WLStoryboardSegueCameraIdentifier = @"camera";
 static NSString* WLStoryboardSegueChangeWrapIdentifier = @"changeWrap";
 static NSString* WLStoryboardSegueImageIdentifier = @"image";
 
-@interface UIStoryboardSegue (Additions)
+@interface UIStoryboardSegue (WLNavigation)
 
 - (BOOL)isContributorsSegue;
 
@@ -33,7 +34,7 @@ static NSString* WLStoryboardSegueImageIdentifier = @"image";
 
 static NSString* WLCameraNavigationControllerIdentifier = @"WLCameraNavigationController";
 
-@interface UIViewController (StoryboardAdditions)
+@interface UIViewController (WLNavigation)
 
 + (instancetype)instantiateWithIdentifier:(NSString*)identifier;
 
@@ -49,7 +50,7 @@ static NSString* WLCameraNavigationControllerIdentifier = @"WLCameraNavigationCo
 
 @end
 
-@interface UINavigationController (StoryboardAdditions)
+@interface UINavigationController (WLNavigation)
 
 + (instancetype)mainNavigationController;
 
@@ -69,10 +70,24 @@ static NSString* WLCameraNavigationControllerIdentifier = @"WLCameraNavigationCo
 
 @end
 
-@interface UIWindow (StoryboardAdditions)
+@interface UIWindow (WLNavigation)
 
 + (instancetype)mainWindow;
 
 + (void)setMainWindow:(UIWindow*)window;
 
 @end
+
+@interface WLEntry (WLNavigation)
+
+- (UIViewController*)viewController;
+
+- (void)presentInViewController:(UIViewController*)controller;
+
+- (void)presentInViewController:(UIViewController*)controller animated:(BOOL)animated;
+
+@end
+
+@interface WLCandy (WLNavigation) @end
+
+@interface WLWrap (WLNavigation) @end

@@ -15,6 +15,12 @@
 
 @property (strong, nonatomic) IBOutletCollection(WLCollectionViewSection) NSMutableArray* sections;
 
++ (instancetype)dataProvider:(UICollectionView*)collectionView;
+
++ (instancetype)dataProvider:(UICollectionView*)collectionView sections:(NSArray*)sections;
+
++ (instancetype)dataProvider:(UICollectionView*)collectionView section:(WLCollectionViewSection*)section;
+
 - (void)reload;
 
 - (void)reload:(WLCollectionViewSection*)section;

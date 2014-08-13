@@ -26,12 +26,6 @@
 
 @property (strong, nonatomic) NSString* reuseFooterViewIdentifier;
 
-@property (nonatomic) BOOL registerCellAfterAwakeFromNib;
-
-@property (nonatomic) BOOL registerHeaderAfterAwakeFromNib;
-
-@property (nonatomic) BOOL registerFooterAfterAwakeFromNib;
-
 @property (strong, nonatomic) void (^configure) (id cell, id entry);
 
 @property (strong, nonatomic) WLObjectBlock selection;
@@ -56,11 +50,9 @@
 
 @property (strong, nonatomic) CGFloat (^minimumLineSpacing) (NSUInteger section);
 
-- (void)registerCell;
+- (instancetype)initWithCollectionView:(UICollectionView*)collectionView;
 
-- (void)registerHeader;
-
-- (void)registerFooter;
+- (void)setup;
 
 - (id)cellWithIdentifier:(NSString*)identifier indexPath:(NSIndexPath*)indexPath;
 

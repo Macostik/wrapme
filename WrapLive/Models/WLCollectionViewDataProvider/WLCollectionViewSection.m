@@ -12,12 +12,17 @@
 
 @implementation WLCollectionViewSection
 
-- (instancetype)init {
+- (instancetype)initWithCollectionView:(UICollectionView *)collectionView {
     self = [super init];
     if (self) {
         [self setup];
+        self.collectionView = collectionView;
     }
     return self;
+}
+
+- (instancetype)init {
+    return [self initWithCollectionView:nil];
 }
 
 - (void)awakeFromNib {
@@ -26,39 +31,7 @@
 }
 
 - (void)setup {
-    if (self.registerCellAfterAwakeFromNib) {
-        [self registerCell];
-    }
-    if (self.registerHeaderAfterAwakeFromNib) {
-        [self registerHeader];
-    }
-    if (self.registerFooterAfterAwakeFromNib) {
-        [self registerFooter];
-    }
-}
-
-- (void)registerCell {
-    UICollectionView *cv = self.collectionView;
-    NSString* identifier = self.reuseCellIdentifier;
-    if (identifier) {
-        [cv registerNib:[UINib nibWithNibName:identifier bundle:nil] forCellWithReuseIdentifier:identifier];
-    }
-}
-
-- (void)registerHeader {
-    UICollectionView *cv = self.collectionView;
-    NSString* identifier = self.reuseHeaderViewIdentifier;
-    if (identifier) {
-        [cv registerNib:[UINib nibWithNibName:identifier bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:identifier];
-    }
-}
-
-- (void)registerFooter {
-    UICollectionView *cv = self.collectionView;
-    NSString* identifier = self.reuseFooterViewIdentifier;
-    if (identifier) {
-        [cv registerNib:[UINib nibWithNibName:identifier bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier];
-    }
+    
 }
 
 - (void)setEntries:(WLEntriesCollection)entries {

@@ -44,8 +44,10 @@
 
 - (void)reload:(WLCollectionViewSection*)section {
     NSUInteger index = [self.sections indexOfObject:section];
-    if (index != NSNotFound) {
-        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:index]];
+    if (index != NSNotFound && index < self.collectionView.numberOfSections) {
+        [UIView performWithoutAnimation:^{
+            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:index]];
+        }];
     }
 }
 

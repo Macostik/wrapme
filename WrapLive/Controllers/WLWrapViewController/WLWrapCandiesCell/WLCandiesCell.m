@@ -56,9 +56,8 @@
 	[self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:WLCandyCellIdentifier];
 	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshCandies) colorScheme:WLRefresherColorSchemeOrange];
     
-    WLPaginatedViewSection* section = [[WLPaginatedViewSection alloc] init];
+    WLPaginatedViewSection* section = [[WLPaginatedViewSection alloc] initWithCollectionView:self.collectionView];
     section.reuseCellIdentifier = WLCandyCellIdentifier;
-    [section registerCell];
     section.selection = self.selection;
     self.dataSection = section;
     self.dataProvider = [WLCollectionViewDataProvider dataProvider:self.collectionView section:section];

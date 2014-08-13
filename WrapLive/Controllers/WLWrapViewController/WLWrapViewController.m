@@ -63,10 +63,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 @property (strong, nonatomic) WLGroupedSet* groups;
 
-@property (strong, nonatomic) NSMutableOrderedSet* candies;
-
-@property (nonatomic) BOOL showLoadingView;
-
 @property (strong, nonatomic) WLWrapRequest* wrapRequest;
 
 @property (strong, nonatomic) WLCandiesRequest* candiesRequest;
@@ -93,9 +89,14 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         return;
     }
     
+    self.liveViewSection.entries.request = [WLCandiesRequest request:self.wrap];
+    self.liveViewSection.entries.request.sameDay = YES;
+    
     [self.wrapViewSection setFooterSize:^CGSize(NSUInteger section) {
         return CGSizeZero;
     }];
+    
+    self.wrapViewSection.entries = [NSMutableOrderedSet orderedSetWithObject:self.wrap];
     
     NSNumber* defaultTab = [[NSUserDefaults standardUserDefaults] objectForKey:WLWrapViewDefaultTabKey];
     if (defaultTab) {
@@ -108,14 +109,13 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     self.groups.skipToday = YES;
     self.groups.delegate = self;
     
-    self.showLoadingView = YES;
     self.quickChatView.wrap = self.wrap;
     [self refreshWrap:WLWrapContentTypeAuto];
     self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshAction) colorScheme:WLRefresherColorSchemeOrange];
     
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     [self.groups addCandies:self.wrap.candies];
-    self.candies = [self.wrap liveCandies];
+    [self.liveViewSection.entries resetEntries:[self.wrap liveCandies]];
     
     [self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:WLCandyCellIdentifier];
     
@@ -128,17 +128,10 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     [self.wrapViewSection setSelection:^ (id entry) {
         
     }];
-    
-    
 }
 
 - (BOOL)isLive {
     return self.viewTab == WLWrapViewTabLive;
-}
-
-- (void)setShowLoadingView:(BOOL)showLoadingView {
-    _showLoadingView = showLoadingView;
-    [self.collectionView reloadData];
 }
 
 - (WLWrapRequest *)wrapRequest {
@@ -193,9 +186,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         [weakSelf reloadData];
         [weakSelf setFirstContributorViewHidden:wrap.candies.nonempty animated:YES];
 		[weakSelf.refresher endRefreshing];
-        if (!wrap.candies.nonempty) {
-            weakSelf.showLoadingView = NO;
-        }
     } failure:^(NSError *error) {
 		[error showIgnoringNetworkError];
 		[weakSelf.refresher endRefreshing];
@@ -204,60 +194,35 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 - (void)reloadData {
     [self.groups setCandies:self.wrap.candies];
-    if (self.isLive) {
-        self.candies = [self.wrap liveCandies];
-        self.showLoadingView = [self.candies count] >= WLAPIPageSize;
-    } else {
-        self.showLoadingView = [self.groups.set count] >= WLAPIDatePageSize;
-    }
+    [self.liveViewSection.entries resetEntries:[self.wrap liveCandies]];
 }
 
 - (void)appendDates {
     __weak typeof(self)weakSelf = self;
     if (self.isLive) {
-        if (self.candiesRequest.loading) {
-            __weak typeof(self)weakSelf = self;
-            run_after(0.0f, ^{
-                weakSelf.showLoadingView = NO;
-            });
-            return;
-        }
-        if (!self.candies.nonempty) {
+        if (!self.liveViewSection.entries.entries.nonempty) {
             [self refreshWrap:WLWrapContentTypeLive];
             return;
         }
         self.candiesRequest = [WLCandiesRequest request:self.wrap];
-        self.candiesRequest.newer = [[self.candies firstObject] updatedAt];
-        self.candiesRequest.older = [[self.candies lastObject] updatedAt];
+        self.candiesRequest.newer = [[self.liveViewSection.entries.entries firstObject] updatedAt];
+        self.candiesRequest.older = [[self.liveViewSection.entries.entries lastObject] updatedAt];
         self.candiesRequest.type = WLPaginatedRequestTypeOlder;
         self.candiesRequest.sameDay = YES;
-        NSUInteger count = self.candies.count;
         [self.candiesRequest send:^(NSOrderedSet* candies) {
-            [weakSelf.candies unionOrderedSet:candies];
+            [weakSelf.liveViewSection.entries.entries unionOrderedSet:candies];
             [weakSelf.groups addCandies:candies];
-            weakSelf.showLoadingView = weakSelf.candies.count != count;
         } failure:^(NSError *error) {
             [error showIgnoringNetworkError];
         }];
     } else {
-        if (self.wrapRequest.loading) {
-            __weak typeof(self)weakSelf = self;
-            run_after(0.0f, ^{
-                weakSelf.showLoadingView = NO;
-            });
-            return;
-        }
         if (!self.wrap.candies.nonempty) {
             [self refreshWrap:WLWrapContentTypeHistory];
             return;
         }
         self.wrapRequest.page = ((self.groups.set.count + 1)/WLAPIDatePageSize + 1);
-        NSUInteger count = self.wrap.candies.count;
         [self.wrapRequest send:^(WLWrap* wrap) {
             [weakSelf.groups addCandies:wrap.candies];
-            if (count == wrap.candies.count) {
-                weakSelf.showLoadingView = NO;
-            }
         } failure:^(NSError *error) {
             [error showIgnoringNetworkError];
         }];
@@ -301,7 +266,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     __weak typeof(self)weakSelf = self;
     run_after(0.0, ^{
         if (weakSelf.isLive) {
-            weakSelf.candies = [weakSelf.wrap liveCandies];
+            [weakSelf.liveViewSection.entries resetEntries:[weakSelf.wrap liveCandies]];
             [weakSelf.collectionView reloadData];
         }
     });
@@ -321,7 +286,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
     [self.groups sort:candy];
     if (self.isLive) {
-        [self.candies sortByUpdatedAtDescending];
+        [self.liveViewSection.entries.entries sortByUpdatedAtDescending];
         [self.collectionView reloadData];
     }
 }
@@ -392,9 +357,10 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 - (void)didChangeViewTab {
     if (self.isLive) {
         self.showLiveNotifyBulb = NO;
-        self.candies = [self.wrap liveCandies];
+        [self.liveViewSection.entries resetEntries:[self.wrap liveCandies]];
     }
-    self.showLoadingView = YES;
+    self.liveViewSection.completed = NO;
+    self.historyViewSection.completed = NO;
     self.collectionView.contentOffset = CGPointZero;
 }
 
@@ -427,7 +393,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     if (section == 0) {
         return 1;
     } else {
-        return self.isLive ? [self.candies count] : [self.groups.set count];
+        return self.isLive ? [self.liveViewSection.entries.entries count] : [self.groups.set count];
     }
 }
 
@@ -441,7 +407,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         return cell;
     } else if (self.isLive) {
         WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCandyCellIdentifier forIndexPath:indexPath];
-        WLCandy* candy = [self.candies tryObjectAtIndex:indexPath.item];
+        WLCandy* candy = [self.liveViewSection.entries.entries tryObjectAtIndex:indexPath.item];
         cell.entry = candy;
         return cell;
     } else {
@@ -483,7 +449,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return (section == 0 || !self.showLoadingView) ? CGSizeZero : CGSizeMake(collectionView.width, 60);
+    return (section == 0) ? CGSizeZero : CGSizeMake(collectionView.width, 60);
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {

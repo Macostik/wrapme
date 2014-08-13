@@ -72,10 +72,8 @@
     layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
     
     if (self.candiesView) {
-        WLHomeCandiesViewSection* section = [[WLHomeCandiesViewSection alloc] init];
-        section.collectionView = self.candiesView;
+        WLHomeCandiesViewSection* section = [[WLHomeCandiesViewSection alloc] initWithCollectionView:self.candiesView];
         section.reuseCellIdentifier = WLCandyCellIdentifier;
-        [section registerCell];
         section.selection = self.selection;
         self.candiesDataSection = section;
         self.candiesDataProvider = [WLCollectionViewDataProvider dataProvider:self.candiesView section:section];

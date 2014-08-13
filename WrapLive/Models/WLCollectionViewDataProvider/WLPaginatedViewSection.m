@@ -31,14 +31,16 @@
 }
 
 - (id)footer:(NSIndexPath *)indexPath {
-    self.entries.request.type = WLPaginatedRequestTypeOlder;
-    __weak typeof(self)weakSelf = self;
-    [self.entries send:^(NSOrderedSet *orderedSet) {
-        [weakSelf didChangeEntries:weakSelf.entries];
-        weakSelf.completed = weakSelf.entries.completed;
-    } failure:^(NSError *error) {
-        [error showIgnoringNetworkError];
-    }];
+    if (!self.entries.request.loading) {
+        self.entries.request.type = WLPaginatedRequestTypeOlder;
+        __weak typeof(self)weakSelf = self;
+        [self.entries send:^(NSOrderedSet *orderedSet) {
+            [weakSelf didChangeEntries:weakSelf.entries];
+            weakSelf.completed = weakSelf.entries.completed;
+        } failure:^(NSError *error) {
+            [error showIgnoringNetworkError];
+        }];
+    }
     static NSString* identifier = @"WLLoadingView";
     return [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier forIndexPath:indexPath];
 }

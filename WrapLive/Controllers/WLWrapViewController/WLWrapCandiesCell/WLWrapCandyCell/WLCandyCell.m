@@ -104,12 +104,12 @@
 	}
 }
 
-- (IBAction)select:(id)sender {
+- (IBAction)select:(id)entry {
 	WLCandy* candy = self.entry;
     if (candy.valid) {
         self.notifyBulb.hidden = YES;
         candy.unread = @NO;
-        [super select:sender];
+        [super select:entry];
     }
 }
 

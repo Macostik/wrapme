@@ -32,15 +32,12 @@
 }
 
 - (void)select:(id)entry {
-    if ([self.delegate respondsToSelector:@selector(entryCell:didSelectEntry:)]) {
-        [self.delegate entryCell:self didSelectEntry:self.entry];
-    }
+    WLObjectBlock selection = self.selection;
+    if (selection) selection(entry);
 }
 
 - (IBAction)select {
-    if ([self.delegate respondsToSelector:@selector(entryCell:didSelectEntry:)]) {
-        [self.delegate entryCell:self didSelectEntry:self.entry];
-    }
+    [self select:self.entry];
 }
 
 @end

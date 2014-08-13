@@ -12,7 +12,7 @@
 
 @class WLCollectionViewDataProvider;
 
-@interface WLCollectionViewSection : NSObject <WLEntryCellDelegate>
+@interface WLCollectionViewSection : NSObject
 
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 
@@ -32,11 +32,29 @@
 
 @property (nonatomic) BOOL registerFooterAfterAwakeFromNib;
 
-@property (strong, nonatomic) void (^configureCellBlock) (WLEntryCell* cell, id entry);
+@property (strong, nonatomic) void (^configure) (id cell, id entry);
 
-@property (strong, nonatomic) void (^selectionBlock) (id entry);
+@property (strong, nonatomic) WLObjectBlock selection;
 
-@property (strong, nonatomic) void (^changeBlock) (WLEntriesCollection entries);
+@property (strong, nonatomic) void (^change) (WLEntriesCollection entries);
+
+@property (strong, nonatomic) NSUInteger (^entriesNumber) (void);
+
+@property (strong, nonatomic) id (^cell) (NSString* identifier, NSIndexPath* indexPath);
+
+@property (strong, nonatomic) CGSize (^size) (NSIndexPath* indexPath);
+
+@property (strong, nonatomic) id (^header) (NSString* identifier, NSIndexPath* indexPath);
+
+@property (strong, nonatomic) CGSize (^headerSize) (NSUInteger section);
+
+@property (strong, nonatomic) id (^footer) (NSString* identifier, NSIndexPath* indexPath);
+
+@property (strong, nonatomic) CGSize (^footerSize) (NSUInteger section);
+
+@property (strong, nonatomic) UIEdgeInsets (^sectionInsets) (NSUInteger section);
+
+@property (strong, nonatomic) CGFloat (^minimumLineSpacing) (NSUInteger section);
 
 - (void)registerCell;
 

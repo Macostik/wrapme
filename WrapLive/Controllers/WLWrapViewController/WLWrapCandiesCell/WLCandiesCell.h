@@ -6,23 +6,9 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLCollectionItemCell.h"
+#import "WLEntryCell.h"
 
-@class WLCandiesCell;
-@class WLCandy;
-@class WLWrap;
-
-@protocol WLCandiesCellDelegate <NSObject>
-
-@optional
-
-- (void)candiesCell:(WLCandiesCell*)cell didSelectCandy:(WLCandy*)candy;
-
-@end
-
-@interface WLCandiesCell : WLCollectionItemCell
-
-@property (nonatomic, weak) id <WLCandiesCellDelegate> delegate;
+@interface WLCandiesCell : WLEntryCell
 
 @property (nonatomic) BOOL refreshable;
 

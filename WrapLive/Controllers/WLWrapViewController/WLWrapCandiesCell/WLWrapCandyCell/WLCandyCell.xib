@@ -39,7 +39,7 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
-                            <action selector="select:" destination="oYj-dx-vE3" eventType="touchUpInside" id="tXr-cV-0BX"/>
+                            <action selector="select" destination="oYj-dx-vE3" eventType="touchUpInside" id="Rqm-Zh-0oB"/>
                         </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_chat2" id="3xN-tP-4zn">

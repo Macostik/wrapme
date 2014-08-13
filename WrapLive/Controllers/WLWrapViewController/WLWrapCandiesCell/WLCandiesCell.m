@@ -20,7 +20,7 @@
 #import "WLGroupedSet.h"
 #import "UIScrollView+Additions.h"
 #import "WLCollectionViewDataProvider.h"
-#import "WLCollectionViewSection.h"
+#import "WLPaginatedViewSection.h"
 
 @interface WLCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLPaginatedSetDelegate>
 
@@ -30,6 +30,11 @@
 @property (weak, nonatomic) WLRefresher *refresher;
 
 @property (nonatomic) BOOL shouldAppendMoreCandies;
+
+@property (strong, nonatomic) WLCollectionViewDataProvider* dataProvider;
+
+@property (strong, nonatomic) WLCollectionViewSection* dataSection;
+
 
 @end
 
@@ -51,14 +56,12 @@
 	[self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:WLCandyCellIdentifier];
 	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshCandies) colorScheme:WLRefresherColorSchemeOrange];
     
-    WLHomeCandiesViewSection* section = [[WLHomeCandiesViewSection alloc] init];
+    WLPaginatedViewSection* section = [[WLPaginatedViewSection alloc] init];
     section.reuseCellIdentifier = WLCandyCellIdentifier;
     [section registerCell];
-    [section setSelectionBlock:^(id entry) {
-        [weakSelf.delegate entryCell:weakSelf didSelectEntry:entry];
-    }];
-    self.candiesDataSection = section;
-    self.candiesDataProvider = [WLCollectionViewDataProvider dataProvider:self.candiesView section:section];
+    section.selection = self.selection;
+    self.dataSection = section;
+    self.dataProvider = [WLCollectionViewDataProvider dataProvider:self.collectionView section:section];
 }
 
 - (void)setupItemData:(WLGroup*)group {
@@ -76,7 +79,7 @@
 
 - (void)refreshCandies {
 	__weak typeof(self)weakSelf = self;
-    WLGroup* group = self.item;
+    WLGroup* group = self.entry;
     group.request.type = WLPaginatedRequestTypeNewer;
     [group send:^(NSOrderedSet *array) {
         [group addEntries:array];
@@ -88,7 +91,7 @@
 }
 
 - (void)appendCandies {
-    WLGroup* group = self.item;
+    WLGroup* group = self.entry;
 	if (group.request.loading) return;
 	__weak typeof(self)weakSelf = self;
     group.request.type = WLPaginatedRequestTypeOlder;
@@ -110,15 +113,14 @@
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	WLGroup* group = self.item;
+	WLGroup* group = self.entry;
 	return [group.entries count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCandyCellIdentifier forIndexPath:indexPath];
-	WLGroup* group = self.item;
-	cell.item = [group.entries tryObjectAtIndex:indexPath.item];
-	cell.delegate = self;
+	WLGroup* group = self.entry;
+	cell.entry = [group.entries tryObjectAtIndex:indexPath.item];
 	return cell;
 }
 
@@ -164,14 +166,8 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    WLGroup* group = self.item;
+    WLGroup* group = self.entry;
     group.offset = scrollView.contentOffset;
-}
-
-#pragma mark - WLWrapCandyCellDelegate
-
-- (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
-	[self.delegate candiesCell:self didSelectCandy:candy];
 }
 
 @end

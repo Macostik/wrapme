@@ -653,7 +653,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <connections>
-                                                                        <action selector="select:" destination="Pq6-uP-780" eventType="touchUpInside" id="Jhk-dI-zf3"/>
+                                                                        <action selector="select" destination="Pq6-uP-780" eventType="touchUpInside" id="nBI-Mq-iAw"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -733,7 +733,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="select:" destination="N5C-9U-WOe" eventType="touchUpInside" id="aTs-mT-IrW"/>
+                                                                <action selector="select" destination="N5C-9U-WOe" eventType="touchUpInside" id="Ug9-aO-oGc"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -1876,8 +1876,8 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             </subviews>
                                         </collectionReusableView>
                                         <connections>
-                                            <outlet property="dataSource" destination="hUj-RK-zkg" id="AE8-i5-cl3"/>
-                                            <outlet property="delegate" destination="hUj-RK-zkg" id="5zj-uh-0By"/>
+                                            <outlet property="dataSource" destination="6Bj-MV-XWG" id="OZB-JA-yAD"/>
+                                            <outlet property="delegate" destination="8Jq-RA-xUo" id="wQX-Ys-5nm"/>
                                         </connections>
                                     </collectionView>
                                 </subviews>
@@ -1967,12 +1967,48 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="collectionView" destination="p36-27-cbv" id="GPJ-l7-lNJ"/>
+                        <outlet property="dataProvider" destination="6Bj-MV-XWG" id="Xhg-9l-P7S"/>
                         <outlet property="firstContributorView" destination="XbK-Pu-Gi8" id="gl2-at-TdT"/>
                         <outlet property="firstContributorWrapNameLabel" destination="ZDC-SW-d39" id="LMR-JN-6mU"/>
+                        <outlet property="historyViewSection" destination="u9r-1x-r06" id="nZ4-U4-0Zk"/>
+                        <outlet property="liveViewSection" destination="S3V-Yu-cKm" id="yYL-RM-Z5H"/>
                         <outlet property="quickChatView" destination="HA7-Qk-nWH" id="6Xb-QY-QSP"/>
+                        <outlet property="wrapViewSection" destination="8Jq-RA-xUo" id="iJ7-S7-uWX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUq-C2-qrY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="6Bj-MV-XWG" customClass="WLCollectionViewDataProvider">
+                    <connections>
+                        <outlet property="collectionView" destination="p36-27-cbv" id="yIe-Sg-EMn"/>
+                        <outletCollection property="sections" destination="8Jq-RA-xUo" collectionClass="NSMutableArray" id="khW-iK-ZjV"/>
+                        <outletCollection property="sections" destination="S3V-Yu-cKm" collectionClass="NSMutableArray" id="VMa-Eh-wtq"/>
+                    </connections>
+                </customObject>
+                <customObject id="8Jq-RA-xUo" customClass="WLCollectionViewSection">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLWrapCell"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="collectionView" destination="p36-27-cbv" id="eTr-j4-tNz"/>
+                    </connections>
+                </customObject>
+                <customObject id="S3V-Yu-cKm" customClass="WLCandiesLiveViewSection">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="registerCellAfterAwakeFromNib" value="YES"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLCandyCell"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="collectionView" destination="p36-27-cbv" id="Rhp-6p-P4m"/>
+                    </connections>
+                </customObject>
+                <customObject id="u9r-1x-r06" customClass="WLCandiesHistoryViewSection">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLCandiesCell"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="collectionView" destination="p36-27-cbv" id="Acb-vS-cov"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="1956" y="118"/>
         </scene>
@@ -2618,6 +2654,6 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="PQ6-0M-1al"/>
+        <segue reference="WjR-f7-d7j"/>
     </inferredMetricsTieBreakers>
 </document>

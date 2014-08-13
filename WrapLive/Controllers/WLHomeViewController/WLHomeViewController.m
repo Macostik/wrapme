@@ -82,7 +82,7 @@
 	[[WLNotificationBroadcaster broadcaster] addReceiver:self];
     
     __weak typeof(self)weakSelf = self;
-    [self.section setChangeBlock:^(WLPaginatedSet* entries) {
+    [self.section setChange:^(WLPaginatedSet* entries) {
         weakSelf.quickChatView.wrap = weakSelf.section.wrap;
         BOOL hasWraps = entries.entries.nonempty;
         weakSelf.quickChatView.hidden = !hasWraps;
@@ -92,7 +92,7 @@
         [weakSelf finishLoadingAnimation];
     }];
     
-    [self.section setSelectionBlock:^(id entry) {
+    [self.section setSelection:^(id entry) {
         [entry presentInViewController:weakSelf];
     }];
 }

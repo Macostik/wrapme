@@ -7,21 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLBlocks.h"
 
 @class WLEntryCell;
-
-@protocol WLEntryCellDelegate <NSObject>
-
-@optional
-- (void)entryCell:(WLEntryCell*)cell didSelectEntry:(id)entry;
-
-@end
 
 @interface WLEntryCell : UICollectionViewCell
 
 @property (strong, nonatomic) id entry;
 
-@property (nonatomic, weak) id <WLEntryCellDelegate> delegate;
+@property (strong, nonatomic) WLObjectBlock selection;
 
 + (CGFloat)size:(NSIndexPath*)indexPath entry:(id)entry;
 

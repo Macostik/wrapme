@@ -73,24 +73,32 @@
 }
 
 - (void)didChangeEntries:(WLEntriesCollection)entries {
-    if (self.changeBlock) {
-        self.changeBlock(entries);
+    if (self.change) {
+        self.change(entries);
     }
 }
 
 - (NSUInteger)numberOfEntries {
-    return [self.entries.entries count];
+    if (self.entriesNumber) {
+        return self.entriesNumber();
+    } else {
+        return [self.entries.entries count];
+    }
 }
 
 - (id)cellWithIdentifier:(NSString *)identifier indexPath:(NSIndexPath *)indexPath {
-    WLEntryCell* cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    cell.delegate = self;
-    id entry = self.entries.entries[indexPath.item];
-    cell.entry = entry;
-    if (self.configureCellBlock) {
-        self.configureCellBlock(cell, entry);
+    if (self.cell) {
+        return self.cell(identifier, indexPath);
+    } else {
+        WLEntryCell* cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+        cell.selection = self.selection;
+        id entry = self.entries.entries[indexPath.item];
+        cell.entry = entry;
+        if (self.configure) {
+            self.configure(cell, entry);
+        }
+        return cell;
     }
-    return cell;
 }
 
 - (id)cell:(NSIndexPath *)indexPath {
@@ -98,43 +106,63 @@
 }
 
 - (CGSize)size:(NSIndexPath*)indexPath {
-    UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-    return layout.itemSize;
+    if (self.size) {
+        return self.size(indexPath);
+    } else {
+        UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
+        return layout.itemSize;
+    }
 }
 
 - (id)header:(NSIndexPath*)indexPath {
-    return [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:self.reuseFooterViewIdentifier forIndexPath:indexPath];
+    if (self.header) {
+        return self.header(self.reuseHeaderViewIdentifier, indexPath);
+    } else {
+        return [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:self.reuseFooterViewIdentifier forIndexPath:indexPath];
+    }
 }
 
 - (id)footer:(NSIndexPath*)indexPath {
-    return [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:self.reuseFooterViewIdentifier forIndexPath:indexPath];
+    if (self.footer) {
+        return self.footer(self.reuseFooterViewIdentifier, indexPath);
+    } else {
+        return [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:self.reuseFooterViewIdentifier forIndexPath:indexPath];
+    }
 }
 
 - (CGSize)headerSize:(NSUInteger)section {
-    UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-    return layout.headerReferenceSize;
+    if (self.headerSize) {
+        return self.headerSize(section);
+    } else {
+        UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
+        return layout.headerReferenceSize;
+    }
 }
 
 - (CGSize)footerSize:(NSUInteger)section {
-    UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-    return layout.footerReferenceSize;
+    if (self.footerSize) {
+        return self.footerSize(section);
+    } else {
+        UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
+        return layout.footerReferenceSize;
+    }
 }
 
 - (CGFloat)minimumLineSpacing:(NSUInteger)section {
-    UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-    return layout.minimumLineSpacing;
+    if (self.minimumLineSpacing) {
+        return self.minimumLineSpacing(section);
+    } else {
+        UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
+        return layout.minimumLineSpacing;
+    }
 }
 
 - (UIEdgeInsets)sectionInsets:(NSUInteger)section {
-    UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-    return layout.sectionInset;
-}
-
-#pragma mark - WLEntryCellDelegate
-
-- (void)entryCell:(WLEntryCell *)cell didSelectEntry:(id)entry {
-    if (self.selectionBlock) {
-        self.selectionBlock(entry);
+    if (self.sectionInsets) {
+        return self.sectionInsets(section);
+    } else {
+        UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
+        return layout.sectionInset;
     }
 }
 

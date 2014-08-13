@@ -73,14 +73,18 @@
     
     if (self.candiesView) {
         WLHomeCandiesViewSection* section = [[WLHomeCandiesViewSection alloc] init];
+        section.collectionView = self.candiesView;
         section.reuseCellIdentifier = WLCandyCellIdentifier;
         [section registerCell];
-        [section setSelectionBlock:^(id entry) {
-            [weakSelf.delegate entryCell:weakSelf didSelectEntry:entry];
-        }];
+        section.selection = self.selection;
         self.candiesDataSection = section;
         self.candiesDataProvider = [WLCollectionViewDataProvider dataProvider:self.candiesView section:section];
     }
+}
+
+- (void)setSelection:(WLObjectBlock)selection {
+    [super setSelection:selection];
+    self.candiesDataSection.selection = selection;
 }
 
 - (void)setup:(WLWrap*)wrap {

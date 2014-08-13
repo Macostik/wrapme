@@ -42,6 +42,9 @@
 #import "NSObject+NibAdditions.h"
 #import "WLCandiesRequest.h"
 #import "UIViewController+Additions.h"
+#import "WLCandiesHistoryViewSection.h"
+#import "WLCandiesLiveViewSection.h"
+#import "WLCollectionViewDataProvider.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
     WLWrapViewTabLive,
@@ -50,7 +53,7 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
 
 static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLCandiesCellDelegate, WLWrapBroadcastReceiver, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLQuickChatViewDelegate, WLGroupedSetDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLQuickChatViewDelegate, WLGroupedSetDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
@@ -73,6 +76,10 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 @property (nonatomic, readonly) BOOL isLive;
 
 @property (nonatomic) BOOL showLiveNotifyBulb;
+@property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
+@property (strong, nonatomic) IBOutlet WLCollectionViewSection *wrapViewSection;
+@property (strong, nonatomic) IBOutlet WLCandiesLiveViewSection *liveViewSection;
+@property (strong, nonatomic) IBOutlet WLCandiesHistoryViewSection *historyViewSection;
 
 @end
 
@@ -85,6 +92,10 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     if (!self.wrap.valid) {
         return;
     }
+    
+    [self.wrapViewSection setFooterSize:^CGSize(NSUInteger section) {
+        return CGSizeZero;
+    }];
     
     NSNumber* defaultTab = [[NSUserDefaults standardUserDefaults] objectForKey:WLWrapViewDefaultTabKey];
     if (defaultTab) {
@@ -107,6 +118,18 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     self.candies = [self.wrap liveCandies];
     
     [self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:WLCandyCellIdentifier];
+    
+    __weak typeof(self)weakSelf = self;
+    [self.wrapViewSection setConfigure:^(WLWrapCell *cell, id entry) {
+        cell.tabControl.selectedSegment = weakSelf.viewTab;
+        cell.liveNotifyBulb.hidden = !weakSelf.showLiveNotifyBulb;
+    }];
+    
+    [self.wrapViewSection setSelection:^ (id entry) {
+        
+    }];
+    
+    
 }
 
 - (BOOL)isLive {
@@ -350,6 +373,15 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 	[controller presentInViewController:self transition:WLWrapTransitionFromRight];
 }
 
+- (void)setViewTab:(WLWrapViewTab)viewTab {
+    _viewTab = viewTab;
+    if (self.isLive) {
+        self.dataProvider.sections = [NSMutableArray arrayWithObjects:self.wrapViewSection, self.liveViewSection, nil];
+    } else {
+        self.dataProvider.sections = [NSMutableArray arrayWithObjects:self.wrapViewSection, self.historyViewSection, nil];
+    }
+}
+
 - (IBAction)tabChanged:(SegmentedControl *)sender {
     self.viewTab = sender.selectedSegment;
     [[NSUserDefaults standardUserDefaults] setObject:@(self.viewTab) forKey:WLWrapViewDefaultTabKey];
@@ -410,14 +442,12 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     } else if (self.isLive) {
         WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCandyCellIdentifier forIndexPath:indexPath];
         WLCandy* candy = [self.candies tryObjectAtIndex:indexPath.item];
-        cell.item = candy;
-        cell.delegate = self;
+        cell.entry = candy;
         return cell;
     } else {
-        WLCandiesCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WLCandiesCell reuseIdentifier] forIndexPath:indexPath];
+        WLCandiesCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WLCandiesCell" forIndexPath:indexPath];
         WLGroup* date = [self.groups.set tryObjectAtIndex:indexPath.item];
-        cell.item = date;
-        cell.delegate = self;
+        cell.entry = date;
         if (indexPath.row > 0) {
             cell.refreshable = NO;
         } else {

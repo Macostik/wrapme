@@ -19,8 +19,7 @@
     dataProvider.sections = [NSMutableArray arrayWithArray:sections];
     dataProvider.collectionView = collectionView;
     [sections makeObjectsPerformSelector:@selector(setCollectionView:) withObject:collectionView];
-    collectionView.delegate = dataProvider;
-    collectionView.dataSource = dataProvider;
+    [dataProvider connect];
     return dataProvider;
 }
 
@@ -30,9 +29,13 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    for (WLCollectionViewSection* section in self.sections) {
-        section.dataProvider = self;
-    }
+    [self.sections makeObjectsPerformSelector:@selector(setDataProvider:) withObject:self];
+}
+
+- (void)setSections:(NSMutableArray *)sections {
+    _sections = sections;
+    [sections makeObjectsPerformSelector:@selector(setDataProvider:) withObject:self];
+    [self reload];
 }
 
 - (void)reload {
@@ -64,8 +67,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLCollectionViewSection* _section = self.sections[indexPath.section];
-    WLEntryCell* cell = [_section cell:indexPath];
-    return cell;
+    return [_section cell:indexPath];
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {

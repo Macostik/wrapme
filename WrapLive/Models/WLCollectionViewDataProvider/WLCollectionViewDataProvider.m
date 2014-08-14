@@ -43,12 +43,7 @@
 }
 
 - (void)reload:(WLCollectionViewSection*)section {
-    NSUInteger index = [self.sections indexOfObject:section];
-    if (index != NSNotFound && index < self.collectionView.numberOfSections) {
-        [UIView performWithoutAnimation:^{
-            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:index]];
-        }];
-    }
+    [self reload];
 }
 
 - (void)connect {
@@ -63,17 +58,17 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    WLCollectionViewSection* _section = self.sections[section];
+    WLCollectionViewSection* _section = _sections[section];
     return [_section numberOfEntries];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLCollectionViewSection* _section = self.sections[indexPath.section];
+    WLCollectionViewSection* _section = _sections[indexPath.section];
     return [_section cell:indexPath];
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    WLCollectionViewSection* _section = self.sections[indexPath.section];
+    WLCollectionViewSection* _section = _sections[indexPath.section];
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         return [_section header:indexPath];
     } else {
@@ -82,27 +77,27 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    WLCollectionViewSection* _section = self.sections[section];
+    WLCollectionViewSection* _section = _sections[section];
     return [_section headerSize:section];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    WLCollectionViewSection* _section = self.sections[section];
+    WLCollectionViewSection* _section = _sections[section];
     return [_section footerSize:section];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLCollectionViewSection* _section = self.sections[indexPath.section];
+    WLCollectionViewSection* _section = _sections[indexPath.section];
     return [_section size:indexPath];
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    WLCollectionViewSection* _section = self.sections[section];
+    WLCollectionViewSection* _section = _sections[section];
     return [_section minimumLineSpacing:section];
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    WLCollectionViewSection* _section = self.sections[section];
+    WLCollectionViewSection* _section = _sections[section];
     return [_section sectionInsets:section];
 }
 

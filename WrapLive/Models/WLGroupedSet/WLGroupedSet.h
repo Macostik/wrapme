@@ -19,8 +19,6 @@
 
 @property (nonatomic) BOOL singleMessage;
 
-@property (nonatomic) BOOL skipToday;
-
 @property (nonatomic, strong) NSComparator sortComparator;
 
 @property (nonatomic, strong) NSComparator groupSortComparator;

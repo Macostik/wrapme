@@ -64,6 +64,8 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 @property (strong, nonatomic) WLCandiesRequest* candiesRequest;
 
+@property (strong, nonatomic) WLGroupedSet *groups;
+
 @property (nonatomic) WLWrapViewTab viewTab;
 
 @property (nonatomic, readonly) BOOL isLive;
@@ -102,21 +104,18 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         self.viewTab = WLWrapViewTabHistory;
     }
     
-    WLGroupedSet *groups = [WLGroupedSet groupsOrderedBy:WLCandiesOrderByCreation];
-    groups.skipToday = YES;
-    groups.delegate = self;
-    self.historyViewSection.entries = groups;
+    self.groups = [WLGroupedSet groupsOrderedBy:WLCandiesOrderByCreation];
+    self.groups.delegate = self;
+    [self.groups addEntries:self.wrap.candies];
+    self.historyViewSection.entries = self.groups;
     self.historyViewSection.entries.request = self.wrapRequest;
+    self.liveViewSection.entries = [self.groups group:[NSDate date]];
     
     self.quickChatView.wrap = self.wrap;
     [self refreshWrap:WLWrapContentTypeAuto];
     self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshAction) colorScheme:WLRefresherColorSchemeOrange];
     
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
-    [self.historyViewSection.entries addEntries:self.wrap.candies];
-    [self.liveViewSection.entries resetEntries:[self.wrap liveCandies]];
-    
-    [self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:WLCandyCellIdentifier];
     
     __weak typeof(self)weakSelf = self;
     [self.wrapViewSection setConfigure:^(WLWrapCell *cell, id entry) {
@@ -153,17 +152,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     }
     
     self.wrap.unread = @NO;
-    NSArray* cells = [[self.collectionView visibleCells] selectObjects:^BOOL(id item) {
-        return [item isKindOfClass:[WLCandiesCell class]];
-    }];
-    if (cells.nonempty) {
-        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-        for (WLCandiesCell* cell in cells) {
-            [cell.collectionView reloadData];
-        }
-    } else {
-        [self.collectionView reloadData];
-    }
+    [self.collectionView reloadData];
 }
 
 - (void)refreshAction {

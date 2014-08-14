@@ -59,9 +59,6 @@
 }
 
 - (WLGroup *)group:(NSDate *)date created:(BOOL *)created {
-    if (self.skipToday && [date isToday]) {
-        return nil;
-    }
     NSString* name = [date stringWithFormat:self.dateFormat];
     WLGroup* group = [self.keyedGroups objectForKey:name];
     if (!group) {

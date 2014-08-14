@@ -24,4 +24,6 @@ static NSString* WLWrapContentTypeHistory = @"history";
 
 + (instancetype)request:(WLWrap*)wrap page:(NSInteger)page;
 
+- (BOOL)isContentType:(NSString*)contentType;
+
 @end

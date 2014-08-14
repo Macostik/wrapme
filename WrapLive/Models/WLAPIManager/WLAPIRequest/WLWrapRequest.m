@@ -54,4 +54,8 @@
     [super handleFailure:error];
 }
 
+- (BOOL)isContentType:(NSString *)contentType {
+    return [self.contentType isEqualToString:contentType];
+}
+
 @end

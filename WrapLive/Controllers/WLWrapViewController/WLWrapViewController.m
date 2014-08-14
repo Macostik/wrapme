@@ -72,8 +72,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 @property (nonatomic, readonly) BOOL isLive;
 
-@property (nonatomic) BOOL showLiveNotifyBulb;
-
 @end
 
 @implementation WLWrapViewController
@@ -157,17 +155,21 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 - (void)refreshWrap:(NSString*)contentType {
 	__weak typeof(self)weakSelf = self;
+    if (self.wrapRequest.loading) return;
     self.wrapRequest.page = 1;
     self.wrapRequest.contentType = contentType;
     [self.wrapRequest send:^(WLWrap* wrap) {
-        if (contentType == WLWrapContentTypeAuto && [weakSelf.wrapRequest.contentType isEqualToString:WLWrapContentTypeLive] && weakSelf.viewTab == WLWrapViewTabHistory) {
-            if ([[[[wrap liveCandies] firstObject] contributor] isEqualToEntry:[WLUser currentUser]]) {
-                weakSelf.showLiveNotifyBulb = NO;
-            } else  {
-                weakSelf.showLiveNotifyBulb = YES;
+        if (contentType == WLWrapContentTypeAuto) {
+            if ([weakSelf.wrapRequest isContentType:WLWrapContentTypeLive] && weakSelf.viewTab == WLWrapViewTabHistory) {
+                [weakSelf changeViewTab:WLWrapViewTabLive];
+            } else if ([weakSelf.wrapRequest isContentType:WLWrapContentTypeHistory] && weakSelf.viewTab == WLWrapViewTabLive) {
+                [weakSelf changeViewTab:WLWrapViewTabHistory];
+            } else {
+                [weakSelf reloadData];
             }
+        } else {
+            [weakSelf reloadData];
         }
-        [weakSelf reloadData];
         [weakSelf setFirstContributorViewHidden:wrap.candies.nonempty animated:YES];
 		[weakSelf.refresher endRefreshing];
         if (!wrap.candies.nonempty) {
@@ -351,7 +353,11 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 }
 
 - (IBAction)tabChanged:(SegmentedControl *)sender {
-    self.viewTab = sender.selectedSegment;
+    [self changeViewTab:sender.selectedSegment];
+}
+
+- (void)changeViewTab:(WLWrapViewTab)viewTab {
+    self.viewTab = viewTab;
     [[NSUserDefaults standardUserDefaults] setObject:@(self.viewTab) forKey:WLWrapViewDefaultTabKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self didChangeViewTab];
@@ -359,7 +365,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 - (void)didChangeViewTab {
     if (self.isLive) {
-        self.showLiveNotifyBulb = NO;
         self.candies = [self.wrap liveCandies];
     }
     self.showLoadingView = YES;
@@ -407,7 +412,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         cell.item = self.wrap;
         cell.delegate = self;
         cell.tabControl.selectedSegment = self.viewTab;
-        cell.liveNotifyBulb.hidden = !self.showLiveNotifyBulb;
         return cell;
     } else if (self.isLive) {
         WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCandyCellIdentifier forIndexPath:indexPath];

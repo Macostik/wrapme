@@ -37,6 +37,4 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 @property (weak, nonatomic) IBOutlet SegmentedControl *tabControl;
 
-@property (weak, nonatomic) IBOutlet UIImageView *liveNotifyBulb;
-
 @end

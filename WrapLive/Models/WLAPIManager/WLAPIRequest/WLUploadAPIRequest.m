@@ -14,10 +14,6 @@
     return @"POST";
 }
 
-+ (NSTimeInterval)timeout {
-    return 15;
-}
-
 - (NSMutableURLRequest *)request:(NSMutableDictionary *)parameters url:(NSString *)url {
     NSString* filePath = self.filePath;
     void (^constructing) (id<AFMultipartFormData> formData) = ^(id<AFMultipartFormData> formData) {

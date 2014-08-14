@@ -28,7 +28,7 @@
 }
 
 + (NSTimeInterval)timeout {
-    return 6;
+    return 45;
 }
 
 - (instancetype)init {

@@ -26,6 +26,10 @@
     return [self request:wrap page:1];
 }
 
++ (NSTimeInterval)timeout {
+    return 5;
+}
+
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
     if (self.page == 0) {
         self.page = 1;

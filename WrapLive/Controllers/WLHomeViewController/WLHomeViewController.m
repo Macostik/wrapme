@@ -42,7 +42,6 @@
 #import "WLPaginatedSet.h"
 #import "WLAPIManager.h"
 #import "WLWrapsRequest.h"
-#import "WLDatesViewController.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLHomeViewSection.h"
 #import "WLNavigation.h"

@@ -43,8 +43,8 @@
     if (!self.entries.nonempty) {
         self.request.type = WLPaginatedRequestTypeFresh;
     } else {
-        self.request.newer = [[self.entries firstObject] updatedAt];
-        self.request.older = [[self.entries lastObject] updatedAt];
+//        self.request.newer = [[self.entries firstObject] updatedAt];
+//        self.request.older = [[self.entries lastObject] updatedAt];
     }
     __weak typeof(self)weakSelf = self;
     return [self.request send:^(NSOrderedSet *orderedSet) {
@@ -103,9 +103,20 @@
     return YES;
 }
 
+- (void)removeEntry:(id)entry {
+    if ([self.entries containsObject:entry]) {
+        [self.entries removeObject:entry];
+        [self.delegate paginatedSetChanged:self];
+    }
+}
+
 - (void)sort {
     [self.entries sort:self.sortComparator];
     [self.delegate paginatedSetChanged:self];
+}
+
+- (void)sort:(id)entry {
+    [self sort];
 }
 
 @end

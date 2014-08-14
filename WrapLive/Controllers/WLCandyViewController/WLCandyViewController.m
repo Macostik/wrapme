@@ -73,7 +73,7 @@
     
     if (!self.groups) {
         self.groups = [WLGroupedSet groupsOrderedBy:self.orderBy];
-        [self.groups addCandies:[_candy.wrap images]];
+        [self.groups resetEntries:[_candy.wrap images]];
         self.group = [self.groups groupWithCandy:_candy];
     }
     
@@ -182,7 +182,7 @@
         NSUInteger (^increment)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
             return index + 1;
         };
-        if ([self swipeToGroupAtIndex:increment([self.groups.set indexOfObject:self.group]) operationBlock:increment]) {
+        if ([self swipeToGroupAtIndex:increment([self.groups.entries indexOfObject:self.group]) operationBlock:increment]) {
             [self.collectionView leftPush];
             [self onDateChanged];
         }
@@ -195,7 +195,7 @@
     NSUInteger (^decrement)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
         return index - 1;
     };
-    if ([self swipeToGroupAtIndex:decrement([self.groups.set indexOfObject:self.group]) operationBlock:decrement]) {
+    if ([self swipeToGroupAtIndex:decrement([self.groups.entries indexOfObject:self.group]) operationBlock:decrement]) {
         [self.collectionView rightPush];
         [self onDateChanged];
     }
@@ -228,8 +228,8 @@
 }
 
 - (BOOL)swipeToGroupAtIndex:(NSUInteger)index operationBlock:(NSUInteger (^)(NSUInteger index))operationBlock {
-    if ([self.groups.set containsIndex:index]) {
-        WLGroup* group = [self.groups.set objectAtIndex:index];
+    if ([self.groups.entries containsIndex:index]) {
+        WLGroup* group = [self.groups.entries objectAtIndex:index];
         if ([group hasAtLeastOneImage]) {
             self.group = group;
             return YES;

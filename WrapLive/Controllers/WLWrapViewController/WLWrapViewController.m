@@ -35,7 +35,6 @@
 #import "WLGroupedSet.h"
 #import "NSString+Additions.h"
 #import "WLWrapRequest.h"
-#import "WLDatesViewController.h"
 #import "WLServerTime.h"
 #import "SegmentedControl.h"
 #import "WLCandyCell.h"
@@ -53,15 +52,13 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
 
 static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLQuickChatViewDelegate, WLGroupedSetDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLQuickChatViewDelegate, WLPaginatedSetDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
 @property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
-
-@property (strong, nonatomic) WLGroupedSet* groups;
 
 @property (strong, nonatomic) WLWrapRequest* wrapRequest;
 
@@ -105,16 +102,18 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         self.viewTab = WLWrapViewTabHistory;
     }
     
-    self.groups = [WLGroupedSet groupsOrderedBy:WLCandiesOrderByCreation];
-    self.groups.skipToday = YES;
-    self.groups.delegate = self;
+    WLGroupedSet *groups = [WLGroupedSet groupsOrderedBy:WLCandiesOrderByCreation];
+    groups.skipToday = YES;
+    groups.delegate = self;
+    self.historyViewSection.entries = groups;
+    self.historyViewSection.entries.request = self.wrapRequest;
     
     self.quickChatView.wrap = self.wrap;
     [self refreshWrap:WLWrapContentTypeAuto];
     self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshAction) colorScheme:WLRefresherColorSchemeOrange];
     
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
-    [self.groups addCandies:self.wrap.candies];
+    [self.historyViewSection.entries addEntries:self.wrap.candies];
     [self.liveViewSection.entries resetEntries:[self.wrap liveCandies]];
     
     [self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:WLCandyCellIdentifier];
@@ -175,16 +174,16 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 	__weak typeof(self)weakSelf = self;
     self.wrapRequest.page = 1;
     self.wrapRequest.contentType = contentType;
-    [self.wrapRequest send:^(WLWrap* wrap) {
+    [self.wrapRequest send:^(NSOrderedSet* candies) {
         if (contentType == WLWrapContentTypeAuto && [weakSelf.wrapRequest.contentType isEqualToString:WLWrapContentTypeLive] && weakSelf.viewTab == WLWrapViewTabHistory) {
-            if ([[[[wrap liveCandies] firstObject] contributor] isEqualToEntry:[WLUser currentUser]]) {
+            if ([[[[weakSelf.wrap liveCandies] firstObject] contributor] isEqualToEntry:[WLUser currentUser]]) {
                 weakSelf.showLiveNotifyBulb = NO;
             } else  {
                 weakSelf.showLiveNotifyBulb = YES;
             }
         }
         [weakSelf reloadData];
-        [weakSelf setFirstContributorViewHidden:wrap.candies.nonempty animated:YES];
+        [weakSelf setFirstContributorViewHidden:weakSelf.wrap.candies.nonempty animated:YES];
 		[weakSelf.refresher endRefreshing];
     } failure:^(NSError *error) {
 		[error showIgnoringNetworkError];
@@ -193,7 +192,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 }
 
 - (void)reloadData {
-    [self.groups setCandies:self.wrap.candies];
+    [self.historyViewSection.entries resetEntries:self.wrap.candies];
     [self.liveViewSection.entries resetEntries:[self.wrap liveCandies]];
 }
 
@@ -211,7 +210,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         self.candiesRequest.sameDay = YES;
         [self.candiesRequest send:^(NSOrderedSet* candies) {
             [weakSelf.liveViewSection.entries.entries unionOrderedSet:candies];
-            [weakSelf.groups addCandies:candies];
+            [weakSelf.historyViewSection.entries addEntries:candies];
         } failure:^(NSError *error) {
             [error showIgnoringNetworkError];
         }];
@@ -220,9 +219,9 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
             [self refreshWrap:WLWrapContentTypeHistory];
             return;
         }
-        self.wrapRequest.page = ((self.groups.set.count + 1)/WLAPIDatePageSize + 1);
-        [self.wrapRequest send:^(WLWrap* wrap) {
-            [weakSelf.groups addCandies:wrap.candies];
+        self.wrapRequest.page = ((self.historyViewSection.entries.entries.count + 1)/WLAPIDatePageSize + 1);
+        [self.wrapRequest send:^(NSOrderedSet* candies) {
+            [weakSelf.historyViewSection.entries addEntries:weakSelf.wrap.candies];
         } failure:^(NSError *error) {
             [error showIgnoringNetworkError];
         }];
@@ -273,18 +272,18 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
-    [self.groups addCandy:candy];
+    [self.historyViewSection.entries addEntry:candy];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
-    [self.groups removeCandy:candy];
+    [self.historyViewSection.entries removeEntry:candy];
     if (!self.wrap.candies.nonempty) {
         [self setFirstContributorViewHidden:NO animated:self.isOnTopOfNagvigation];
     }
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
-    [self.groups sort:candy];
+    [self.historyViewSection.entries sort:candy];
     if (self.isLive) {
         [self.liveViewSection.entries.entries sortByUpdatedAtDescending];
         [self.collectionView reloadData];
@@ -306,9 +305,9 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     return self.wrap;
 }
 
-#pragma mark - WLGroupedSetDelegate
+#pragma mark - WLPaginatedSetDelegate
 
-- (void)groupedSetGroupsChanged:(WLGroupedSet *)set {
+- (void)paginatedSetChanged:(WLPaginatedSet *)group {
     [self.collectionView reloadData];
 }
 
@@ -393,7 +392,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     if (section == 0) {
         return 1;
     } else {
-        return self.isLive ? [self.liveViewSection.entries.entries count] : [self.groups.set count];
+        return self.isLive ? [self.liveViewSection.entries.entries count] : [self.historyViewSection.entries.entries count];
     }
 }
 
@@ -412,13 +411,13 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         return cell;
     } else {
         WLCandiesCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WLCandiesCell" forIndexPath:indexPath];
-        WLGroup* date = [self.groups.set tryObjectAtIndex:indexPath.item];
+        WLGroup* date = [self.historyViewSection.entries.entries tryObjectAtIndex:indexPath.item];
         cell.entry = date;
-        if (indexPath.row > 0) {
-            cell.refreshable = NO;
-        } else {
-            cell.refreshable = [date.name isEqualToString:[[NSDate serverTime] stringWithFormat:self.groups.dateFormat]];
-        }
+//        if (indexPath.row > 0) {
+//            cell.refreshable = NO;
+//        } else {
+//            cell.refreshable = [date.name isEqualToString:[[NSDate serverTime] stringWithFormat:self.historyViewSection.entries.dateFormat]];
+//        }
         return cell;
     }
 }

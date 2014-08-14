@@ -112,26 +112,26 @@
 }
 
 - (void)setMessages:(NSOrderedSet*)messages {
-    [self.groups setCandies:messages];
+    [self.groups resetEntries:messages];
     [self.groups sort];
     [self.collectionView reloadData];
 }
 
 - (void)addMessages:(NSOrderedSet*)messages {
-    [self.groups addCandies:messages];
+    [self.groups addEntries:messages];
     [self.groups sort];
 	[self.collectionView reloadData];
 }
 
 - (void)insertMessage:(WLCandy*)message {
-	[self.groups addCandy:message];
+	[self.groups addEntry:message];
     [self.groups sort];
     [self.collectionView reloadData];
 }
 
 - (void)refreshMessages {
 	__weak typeof(self)weakSelf = self;
-    WLGroup* group = [self.groups.set firstObject];
+    WLGroup* group = [self.groups.entries firstObject];
     WLCandy* candy = [group.entries firstObject];
     if (!candy) {
         [self loadMessages:^{
@@ -168,7 +168,7 @@
 - (void)appendMessages {
 	if (self.operation) return;
 	__weak typeof(self)weakSelf = self;
-    WLGroup* group = [self.groups.set lastObject];
+    WLGroup* group = [self.groups.entries lastObject];
     WLCandy* candy = [group.entries lastObject];
 	self.operation = [self.wrap messagesOlder:candy.updatedAt success:^(id object) {
 		weakSelf.shouldAppendMoreMessages = ([object count] == WLAPIPageSize);
@@ -197,16 +197,16 @@
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
     if ([candy isMessage]) {
-        for (WLGroup* group in self.groups.set) {
+        for (WLGroup* group in self.groups.entries) {
             if ([group.entries containsObject:candy] && ![group.date isSameDay:candy.updatedAt]) {
                 [group.entries removeObject:candy];
                 if (![group.entries count]) {
-                    [self.groups.set removeObject:group];
+                    [self.groups.entries removeObject:group];
                     break;
                 }
             }
         }
-        [self.groups addCandy:candy];
+        [self.groups addEntry:candy];
         [self.groups sort];
         [self.collectionView reloadData];
     }
@@ -281,16 +281,16 @@
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-	return [self.groups.set count];
+	return [self.groups.entries count];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	WLGroup* group = [self.groups.set tryObjectAtIndex:section];
+	WLGroup* group = [self.groups.entries tryObjectAtIndex:section];
 	return [group.entries count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLGroup* group = [self.groups.set tryObjectAtIndex:indexPath.section];
+	WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section];
 	WLCandy* message = [group.entries objectAtIndex:indexPath.row];
     message.unread = @NO;
 	BOOL isMyComment = [message.contributor isCurrentUser];
@@ -303,7 +303,7 @@
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
 	WLMessageGroupCell* groupCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WLMessageGroupCell" forIndexPath:indexPath];
-	groupCell.group = [self.groups.set tryObjectAtIndex:indexPath.section];
+	groupCell.group = [self.groups.entries tryObjectAtIndex:indexPath.section];
 	return groupCell;
 }
 
@@ -315,13 +315,13 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLGroup* group = [self.groups.set tryObjectAtIndex:indexPath.section];
+	WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section];
 	WLCandy* message = [group.entries tryObjectAtIndex:indexPath.row];
 	return CGSizeMake(collectionView.frame.size.width, [self heightOfMessageCell:message]);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-	if (section < [self.groups.set count]) {
+	if (section < [self.groups.entries count]) {
 		return CGSizeMake(collectionView.frame.size.width, 32);
 	} else {
 		return CGSizeZero;

@@ -15,4 +15,8 @@
 
 @property (nonatomic) BOOL completed;
 
+- (void)append:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (void)refresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
 @end

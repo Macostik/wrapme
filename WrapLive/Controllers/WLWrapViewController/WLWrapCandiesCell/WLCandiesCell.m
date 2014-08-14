@@ -22,39 +22,25 @@
 #import "WLCollectionViewDataProvider.h"
 #import "WLPaginatedViewSection.h"
 
-@interface WLCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLPaginatedSetDelegate>
+@interface WLCandiesCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-@property (weak, nonatomic) WLRefresher *refresher;
-
-@property (nonatomic) BOOL shouldAppendMoreCandies;
-
 @property (strong, nonatomic) WLCollectionViewDataProvider* dataProvider;
 
-@property (strong, nonatomic) WLCollectionViewSection* dataSection;
+@property (strong, nonatomic) WLPaginatedViewSection* dataSection;
 
 
 @end
 
 @implementation WLCandiesCell
 
-- (void)setShouldAppendMoreCandies:(BOOL)shouldAppendMoreCandies {
-	_shouldAppendMoreCandies = shouldAppendMoreCandies;
-	UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-    CGFloat size = self.collectionView.bounds.size.width/2.5;
-	layout.footerReferenceSize = _shouldAppendMoreCandies ? CGSizeMake(size, size) : CGSizeZero;
-}
-
 - (void)awakeFromNib {
 	[super awakeFromNib];
     UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
     layout.minimumLineSpacing = WLCandyCellSpacing;
     layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
-	self.shouldAppendMoreCandies = YES;
-	[self.collectionView registerNib:[WLCandyCell nib] forCellWithReuseIdentifier:WLCandyCellIdentifier];
-	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshCandies) colorScheme:WLRefresherColorSchemeOrange];
     
     WLPaginatedViewSection* section = [[WLPaginatedViewSection alloc] initWithCollectionView:self.collectionView];
     section.reuseCellIdentifier = WLCandyCellIdentifier;
@@ -63,50 +49,12 @@
     self.dataProvider = [WLCollectionViewDataProvider dataProvider:self.collectionView section:section];
 }
 
-- (void)setupItemData:(WLGroup*)group {
-    group.delegate = self;
+- (void)setup:(WLGroup*)group {
+    self.dataSection.entries = group;
 	self.dateLabel.text = [group.name uppercaseString];
-	self.shouldAppendMoreCandies = [group.entries count] >= 3;
-	[self.collectionView reloadData];
+	self.dataSection.completed = [group.entries count] < 3;
     [self.collectionView trySetContentOffset:group.offset];
     [group.request cancel];
-}
-
-- (void)setRefreshable:(BOOL)refreshable {
-    self.refresher.enabled = refreshable;
-}
-
-- (void)refreshCandies {
-	__weak typeof(self)weakSelf = self;
-    WLGroup* group = self.entry;
-    group.request.type = WLPaginatedRequestTypeNewer;
-    [group send:^(NSOrderedSet *array) {
-        [group addEntries:array];
-		[weakSelf.refresher endRefreshing];
-    } failure:^(NSError *error) {
-		[error show];
-		[weakSelf.refresher endRefreshing];
-    }];
-}
-
-- (void)appendCandies {
-    WLGroup* group = self.entry;
-	if (group.request.loading) return;
-	__weak typeof(self)weakSelf = self;
-    group.request.type = WLPaginatedRequestTypeOlder;
-    [group send:^(NSOrderedSet *orderedSet) {
-        weakSelf.shouldAppendMoreCandies = !group.completed;
-		[weakSelf fixContentOffset];
-    } failure:^(NSError *error) {
-        weakSelf.shouldAppendMoreCandies = NO;
-		[error show];
-    }];
-}
-
-#pragma mark - WLPaginatedSetDelegate
-
-- (void)paginatedSetChanged:(WLPaginatedSet *)group {
-    [self.collectionView reloadData];
 }
 
 #pragma mark - UICollectionViewDataSource

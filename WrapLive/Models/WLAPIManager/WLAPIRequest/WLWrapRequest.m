@@ -43,7 +43,10 @@
     if (contentType.nonempty) {
         self.contentType = contentType;
     }
-    return [self.wrap update:data];
+    [self.wrap update:data];
+    NSMutableOrderedSet* candies = [self.wrap candiesFromResponse:data];
+    [self.wrap addCandies:candies];
+    return candies;
 }
 
 - (void)handleFailure:(NSError *)error {

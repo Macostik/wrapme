@@ -61,10 +61,6 @@
     if (!self.candies) {
         self.candies = [NSMutableOrderedSet orderedSet];
     }
-    for (NSDictionary* date in dictionary[@"dates"]) {
-        [WLCandy API_entries:[date arrayForKey:@"candies"] relatedEntry:self container:self.candies];
-    }
-    [self.candies sortByUpdatedAtDescending];
     
     NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSet];
     for (NSDictionary* contributor in [dictionary arrayForKey:@"contributors"]) {
@@ -84,6 +80,14 @@
 	picture.small = [dictionary stringForKey:@"small_cover_url"];
 	self.picture = picture;
     return self;
+}
+
+- (NSMutableOrderedSet*)candiesFromResponse:(NSDictionary*)dictionary {
+    NSMutableOrderedSet* candies = [NSMutableOrderedSet orderedSet];
+    for (NSDictionary* date in dictionary[@"dates"]) {
+        [WLCandy API_entries:[date arrayForKey:@"candies"] relatedEntry:self container:candies];
+    }
+    return candies;
 }
 
 - (void)addCandies:(NSOrderedSet *)candies {

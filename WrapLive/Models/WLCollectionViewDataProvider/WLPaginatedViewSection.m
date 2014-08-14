@@ -21,6 +21,40 @@
     self.entries.delegate = self;
 }
 
+- (void)setEntries:(WLPaginatedSet *)entries {
+    [super setEntries:entries];
+    entries.delegate = self;
+}
+
+- (void)append:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    if (!self.entries.request.loading) {
+        self.entries.request.type = WLPaginatedRequestTypeOlder;
+        __weak typeof(self)weakSelf = self;
+        [self.entries send:^(NSOrderedSet *orderedSet) {
+            [weakSelf didChangeEntries:weakSelf.entries];
+            weakSelf.completed = weakSelf.entries.completed;
+            if (success) {
+                success(orderedSet);
+            }
+        } failure:failure];
+    }
+}
+
+- (void)refresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    if (!self.entries.request.loading) {
+        self.entries.request.type = WLPaginatedRequestTypeNewer;
+        __weak typeof(self)weakSelf = self;
+        [self.entries send:^(NSOrderedSet *orderedSet) {
+            if (orderedSet.nonempty) {
+                [weakSelf didChangeEntries:weakSelf.entries];
+            }
+            if (success) {
+                success(orderedSet);
+            }
+        } failure:failure];
+    }
+}
+
 - (void)setCompleted:(BOOL)completed {
     _completed = completed;
     [self reload];
@@ -31,16 +65,9 @@
 }
 
 - (id)footer:(NSIndexPath *)indexPath {
-    if (!self.entries.request.loading) {
-        self.entries.request.type = WLPaginatedRequestTypeOlder;
-        __weak typeof(self)weakSelf = self;
-        [self.entries send:^(NSOrderedSet *orderedSet) {
-            [weakSelf didChangeEntries:weakSelf.entries];
-            weakSelf.completed = weakSelf.entries.completed;
-        } failure:^(NSError *error) {
-            [error showIgnoringNetworkError];
-        }];
-    }
+    [self append:nil failure:^(NSError *error) {
+        [error showIgnoringNetworkError];
+    }];
     static NSString* identifier = @"WLLoadingView";
     return [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier forIndexPath:indexPath];
 }

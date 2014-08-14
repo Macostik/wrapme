@@ -46,7 +46,11 @@
 
 - (BOOL)addEntry:(id)entry sort:(BOOL)sort;
 
+- (void)removeEntry:(id)entry;
+
 - (void)sort;
+
+- (void)sort:(id)entry;
 
 - (BOOL)shouldAddEntry:(id)entry;
 

@@ -36,7 +36,6 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.set = [NSMutableOrderedSet orderedSet];
         self.keyedGroups = [NSMutableDictionary dictionary];
         self.dateFormat = @"MMM dd, yyyy";
         self.singleMessage = YES;
@@ -50,9 +49,9 @@
     return self;
 }
 
-- (void)setCandies:(NSOrderedSet *)candies {
+- (void)resetEntries:(NSOrderedSet *)entries {
     [self clear];
-    [self addCandies:candies];
+    [self addEntries:entries];
 }
 
 - (WLGroup *)group:(NSDate *)date {
@@ -73,8 +72,8 @@
         group.singleMessage = self.singleMessage;
         group.name = name;
         [self.keyedGroups setObject:group forKey:name];
-        [self.set addObject:group];
-        [self.set sort:self.sortComparator];
+        [self.entries addObject:group];
+        [self.entries sort:self.sortComparator];
         if (created != NULL) {
             *created = YES;
         }
@@ -82,40 +81,42 @@
     return group;
 }
 
-- (void)addCandies:(NSOrderedSet *)candies {
+- (BOOL)addEntries:(NSOrderedSet *)entries sort:(BOOL)sort {
     BOOL created = NO;
-    for (WLCandy* candy in candies) {
+    for (WLCandy* candy in entries) {
         if (self.dateBlock(candy)) {
-            [self addCandy:candy created:&created];
+            [self addEntry:candy created:&created];
         }
     }
     if (created) {
-        [self.delegate groupedSetGroupsChanged:self];
+        [self.delegate paginatedSetChanged:self];
     }
+    return YES;
 }
 
-- (void)addCandy:(WLCandy *)candy {
+- (BOOL)addEntry:(id)entry {
     BOOL created = NO;
-    [self addCandy:candy created:&created];
+    [self addEntry:entry created:&created];
     if (created) {
-        [self.delegate groupedSetGroupsChanged:self];
+        [self.delegate paginatedSetChanged:self];
     }
+    return YES;
 }
 
-- (void)addCandy:(WLCandy *)candy created:(BOOL *)created {
-    NSDate* date = self.dateBlock(candy);
+- (void)addEntry:(id)entry created:(BOOL *)created {
+    NSDate* date = self.dateBlock(entry);
     if (date) {
         WLGroup* group = [self group:date created:created];
-        [group addEntry:candy];
+        [group addEntry:entry];
     }
 }
 
-- (void)removeCandy:(WLCandy *)candy {
+- (void)removeEntry:(id)entry {
     __block BOOL removed = NO;
     __weak typeof(self)weakSelf = self;
-    [self.set removeObjectsWhileEnumerating:^BOOL(WLGroup* group) {
-        if ([group.entries containsObject:candy]) {
-            [group.entries removeObject:candy];
+    [self.entries removeObjectsWhileEnumerating:^BOOL(WLGroup* group) {
+        if ([group.entries containsObject:entry]) {
+            [group.entries removeObject:entry];
             removed = YES;
             if (group.entries.nonempty) {
                 return NO;
@@ -126,12 +127,12 @@
         return NO;
     }];
     if (removed) {
-        [self.delegate groupedSetGroupsChanged:self];
+        [self.delegate paginatedSetChanged:self];
     }
 }
 
 - (void)clear {
-    [self.set removeAllObjects];
+    [self.entries removeAllObjects];
     [self.keyedGroups removeAllObjects];
 }
 
@@ -143,7 +144,7 @@
         return;
     }
     __weak typeof(self)weakSelf = self;
-    [self.set removeObjectsWhileEnumerating:^BOOL(WLGroup* group) {
+    [self.entries removeObjectsWhileEnumerating:^BOOL(WLGroup* group) {
         if ([group.entries containsObject:candy]) {
             [group.entries removeObject:candy];
             if (group.entries.nonempty) {
@@ -155,24 +156,23 @@
         return NO;
     }];
     [group addEntry:candy];
-    [group sort];
-    [self.delegate groupedSetGroupsChanged:self];
+    [self.delegate paginatedSetChanged:self];
 }
 
 - (void)sort {
-    for (WLGroup* group in self.set) {
+    for (WLGroup* group in self.entries) {
         [group sort];
     }
 }
 
 - (WLGroup *)groupWithCandy:(WLCandy *)candy {
-    return [self.set selectObject:^BOOL(WLGroup* item) {
+    return [self.entries selectObject:^BOOL(WLGroup* item) {
         return [item.entries containsObject:candy];
     }];
 }
 
 - (WLGroup *)groupForDate:(NSDate *)date {
-    return [self.set selectObject:^BOOL(WLGroup* item) {
+    return [self.entries selectObject:^BOOL(WLGroup* item) {
         return [item.date isSameDay:date];
     }];
 }

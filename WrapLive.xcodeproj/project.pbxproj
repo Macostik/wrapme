@@ -209,9 +209,6 @@
 		C51496411975736D009F0743 /* WLAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C51496401975736D009F0743 /* WLAPIRequest.m */; };
 		C5149644197586E4009F0743 /* WLWrapsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5149643197586E4009F0743 /* WLWrapsRequest.m */; };
 		C51496471975872D009F0743 /* WLPaginatedRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C51496461975872D009F0743 /* WLPaginatedRequest.m */; };
-		C51C6FA41977E478003924AB /* WLDatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51C6FA31977E478003924AB /* WLDatesViewController.m */; };
-		C51C6FA71977E5A0003924AB /* WLDateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C51C6FA61977E5A0003924AB /* WLDateCell.m */; };
-		C51C6FAA1978262A003924AB /* WLDateHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51C6FA91978262A003924AB /* WLDateHeaderView.m */; };
 		C5206E5F1982864B00AA3F8E /* WLServerTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C5206E5E1982864B00AA3F8E /* WLServerTime.m */; };
 		C521FB061989352E00576281 /* WLHomeViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C521FB051989352E00576281 /* WLHomeViewSection.m */; };
 		C521FB091989382300576281 /* WLPaginatedViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C521FB081989382300576281 /* WLPaginatedViewSection.m */; };
@@ -598,12 +595,6 @@
 		C5149643197586E4009F0743 /* WLWrapsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapsRequest.m; path = WLAPIManager/WLAPIRequest/WLWrapsRequest.m; sourceTree = "<group>"; };
 		C51496451975872D009F0743 /* WLPaginatedRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPaginatedRequest.h; path = WLAPIManager/WLAPIRequest/WLPaginatedRequest.h; sourceTree = "<group>"; };
 		C51496461975872D009F0743 /* WLPaginatedRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPaginatedRequest.m; path = WLAPIManager/WLAPIRequest/WLPaginatedRequest.m; sourceTree = "<group>"; };
-		C51C6FA21977E478003924AB /* WLDatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDatesViewController.h; path = WLDatesViewController/WLDatesViewController.h; sourceTree = "<group>"; };
-		C51C6FA31977E478003924AB /* WLDatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDatesViewController.m; path = WLDatesViewController/WLDatesViewController.m; sourceTree = "<group>"; };
-		C51C6FA51977E5A0003924AB /* WLDateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDateCell.h; path = WLDatesViewController/WLDateCell.h; sourceTree = "<group>"; };
-		C51C6FA61977E5A0003924AB /* WLDateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDateCell.m; path = WLDatesViewController/WLDateCell.m; sourceTree = "<group>"; };
-		C51C6FA81978262A003924AB /* WLDateHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDateHeaderView.h; path = WLDatesViewController/WLDateHeaderView.h; sourceTree = "<group>"; };
-		C51C6FA91978262A003924AB /* WLDateHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDateHeaderView.m; path = WLDatesViewController/WLDateHeaderView.m; sourceTree = "<group>"; };
 		C5206E5D1982864B00AA3F8E /* WLServerTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLServerTime.h; path = WLAPIManager/WLServerTime.h; sourceTree = "<group>"; };
 		C5206E5E1982864B00AA3F8E /* WLServerTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLServerTime.m; path = WLAPIManager/WLServerTime.m; sourceTree = "<group>"; };
 		C521FB041989352E00576281 /* WLHomeViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLHomeViewSection.h; path = WLCollectionViewDataProvider/WLHomeViewSection.h; sourceTree = "<group>"; };
@@ -1007,7 +998,6 @@
 			isa = PBXGroup;
 			children = (
 				C5FCC697199A5C4B009A0DC6 /* WLNavigation */,
-				C51C6FA11977E32C003924AB /* WLDatesViewController */,
 				CE1FEABF196EB73000BF1B22 /* WLEditViewController */,
 				ACDE2BA4193DFE85003702D4 /* WLInviteViewController */,
 				128156A81938A0BF00035F89 /* WLStillPictureViewController */,
@@ -1952,19 +1942,6 @@
 			name = WLAPIRequest;
 			sourceTree = "<group>";
 		};
-		C51C6FA11977E32C003924AB /* WLDatesViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C51C6FA21977E478003924AB /* WLDatesViewController.h */,
-				C51C6FA31977E478003924AB /* WLDatesViewController.m */,
-				C51C6FA51977E5A0003924AB /* WLDateCell.h */,
-				C51C6FA61977E5A0003924AB /* WLDateCell.m */,
-				C51C6FA81978262A003924AB /* WLDateHeaderView.h */,
-				C51C6FA91978262A003924AB /* WLDateHeaderView.m */,
-			);
-			name = WLDatesViewController;
-			sourceTree = "<group>";
-		};
 		C537F8211962BADF00600B42 /* WLGroupedSet */ = {
 			isa = PBXGroup;
 			children = (
@@ -2345,9 +2322,7 @@
 				C59ACBE3193F238C002941C4 /* WLUserView.m in Sources */,
 				C50AF41E1976A71800761F38 /* WLCandiesRequest.m in Sources */,
 				C5A21E12194AFA7400F3A554 /* CoreData.xcdatamodeld in Sources */,
-				C51C6FAA1978262A003924AB /* WLDateHeaderView.m in Sources */,
 				14F668681974031C008D5081 /* WLPersonCell.m in Sources */,
-				C51C6FA71977E5A0003924AB /* WLDateCell.m in Sources */,
 				C5A21E63194B0ED500F3A554 /* WLComment.m in Sources */,
 				5BB2221219796D7300782B72 /* UIView+Extentions.m in Sources */,
 				14F668641973DDAA008D5081 /* WLPerson.m in Sources */,
@@ -2439,7 +2414,6 @@
 				129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */,
 				14ACAE0519421A79006BD3B3 /* WLQuickChatView.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
-				C51C6FA41977E478003924AB /* WLDatesViewController.m in Sources */,
 				C50445BB1951AA8F003C2251 /* WLUser+Extended.m in Sources */,
 				12A7A74118DA10DD008FF6F0 /* WLSignUpViewController.m in Sources */,
 				C5A21E72194B0ED600F3A554 /* WLUploading.m in Sources */,

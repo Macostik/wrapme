@@ -15,6 +15,8 @@ static NSUInteger WLWrapNameLimit = 190;
 
 + (instancetype)wrap;
 
+- (NSMutableOrderedSet*)candiesFromResponse:(NSDictionary*)response;
+
 - (NSString*)contributorNames;
 
 - (void)addCandy:(WLCandy *)candy;

@@ -12,25 +12,14 @@
 
 @class WLCandy;
 @class WLGroup;
-@class WLGroupedSet;
 
-@protocol WLGroupedSetDelegate <NSObject>
-
-- (void)groupedSetGroupsChanged:(WLGroupedSet*)set;
-
-@end
-
-@interface WLGroupedSet : NSObject
+@interface WLGroupedSet : WLPaginatedSet
 
 @property (strong, nonatomic) NSString* dateFormat;
 
 @property (nonatomic) BOOL singleMessage;
 
 @property (nonatomic) BOOL skipToday;
-
-@property (strong, nonatomic) NSMutableOrderedSet *set;
-
-@property (nonatomic, weak) id <WLGroupedSetDelegate> delegate;
 
 @property (nonatomic, strong) NSComparator sortComparator;
 
@@ -44,21 +33,11 @@
 
 - (WLGroup*)group:(NSDate*)date;
 
-- (void)setCandies:(NSOrderedSet*)candies;
-
-- (void)addCandies:(NSOrderedSet*)candies;
-
-- (void)addCandy:(WLCandy*)candy;
-
-- (void)addCandy:(WLCandy *)candy created:(BOOL *)created;
-
-- (void)removeCandy:(WLCandy*)candy;
+- (void)removeEntry:(id)entry;
 
 - (void)clear;
 
 - (void)sort:(WLCandy*)candy;
-
-- (void)sort;
 
 - (WLGroup*)groupWithCandy:(WLCandy*)candy;
 

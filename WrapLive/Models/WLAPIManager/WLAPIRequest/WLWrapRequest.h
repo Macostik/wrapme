@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLAPIRequest.h"
+#import "WLPaginatedRequest.h"
 
 static NSString* WLWrapContentTypeAuto = @"auto";
 static NSString* WLWrapContentTypeLive = @"live";
 static NSString* WLWrapContentTypeHistory = @"history";
 
-@interface WLWrapRequest : WLAPIRequest
+@interface WLWrapRequest : WLPaginatedRequest
 
 @property (strong, nonatomic) WLWrap* wrap;
 

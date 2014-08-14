@@ -29,6 +29,9 @@
 #import "WLWrapBroadcaster.h"
 #import "WLGroupedSet.h"
 #import "WLSignificantTimeBroadcaster.h"
+#import "WLNotificationBroadcaster.h"
+#import "WLNotification.h"
+
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver>
 
@@ -51,6 +54,8 @@
 @property (nonatomic) CGFloat keyboardHeight;
 
 @property (weak, nonatomic) id operation;
+
+@property (nonatomic) BOOL typing;
 
 @end
 
@@ -93,6 +98,8 @@
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
+    [[WLNotificationBroadcaster broadcaster] addReceiver:self];
+    [[WLNotificationBroadcaster broadcaster] subscribeOnChannel:self.wrap.identifier];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -241,6 +248,8 @@
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
+    [self sendTypingMessageWithType:@(WLNotificationEndTyping)];
+    [[WLNotificationBroadcaster broadcaster] unsubscribeFromChannel:self.wrap.identifier];
     if (self.wrap.valid) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
@@ -261,6 +270,7 @@
 }
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
+    self.typing = !text.nonempty;
 	[self sendMessageWithText:text];
 }
 
@@ -278,6 +288,29 @@
 	return YES;
 }
 
+- (void)setTyping:(BOOL)typing {
+    if (_typing != typing) {
+        _typing = typing;
+        if (typing) {
+            [self sendTypingMessageWithType:@(WLNotificationBeginTyping)];
+        } else {
+            [self sendTypingMessageWithType:@(WLNotificationEndTyping)];
+        }
+    }
+}
+
+- (void)composeBarDidChangeText:(WLComposeBar*)composeBar {
+    __weak __typeof(self)weakSelf = self;
+    if ([[WLNotificationBroadcaster broadcaster] isSubscribedOnChannel:self.wrap.identifier]) {
+        weakSelf.typing = composeBar.text.nonempty;
+    }
+}
+
+- (void)sendTypingMessageWithType:(NSNumber *)type {
+    NSDictionary *message = @{@"user_uid": [WLUser currentUser].identifier, @"wl_pn_type" : type};
+    [PubNub sendMessage:message toChannel:[PNChannel channelWithName:self.wrap.identifier]];
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -290,13 +323,22 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    WLMessageCell* cell = nil;
 	WLGroup* group = [self.groups.set tryObjectAtIndex:indexPath.section];
-	WLCandy* message = [group.entries objectAtIndex:indexPath.row];
-    message.unread = @NO;
-	BOOL isMyComment = [message.contributor isCurrentUser];
-	NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
-	WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-	cell.item = message;
+    id entry = [group.entries objectAtIndex:indexPath.row];
+    if ([entry isKindOfClass:[WLCandy class]]) {
+        WLCandy* message = entry;
+        message.unread = @NO;
+        BOOL isMyComment = [message.contributor isCurrentUser];
+        NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
+        cell =  [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+        cell.item = message;
+    } else {
+        WLUser *message = entry;
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WLMessageCell" forIndexPath:indexPath];
+        cell.item = message;
+    }
+	
 	[self handlePaginationWithIndexPath:indexPath];
 	return cell;
 }
@@ -337,6 +379,19 @@
 	if (indexPath.section == numberOfSections - 1 && indexPath.item == numberOfItems - 1) {
 		[self appendMessages];
 	}
+}
+
+#pragma mark - WLNotificationReceiver
+
+- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didBeginTyping:(WLUser *)user {
+    if(user) {
+        [self insertMessage:(id)user];
+    }
+}
+
+- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didEndTyping:(WLUser *)user {
+    [self.groups removeCandy:(id)user];
+    [self.collectionView reloadData];
 }
 
 @end

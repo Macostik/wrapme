@@ -83,6 +83,19 @@
 	return _comment;
 }
 
+- (WLUser *)user {
+	if (!_user) {
+		NSString* identifier = [self.data stringForKey:@"user_uid"];
+		if (identifier.nonempty) {
+            WLUser *user = [WLUser entry:identifier];
+            if (user.valid) {
+                _user = user;
+            }
+		}
+	}
+	return _user;
+}
+
 - (BOOL)deletion {
     WLNotificationType type = self.type;
     return type == WLNotificationCandyCommentDeletion || type == WLNotificationContributorDeletion || type == WLNotificationImageCandyDeletion || type == WLNotificationWrapDeletion;

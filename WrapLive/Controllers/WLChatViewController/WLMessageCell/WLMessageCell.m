@@ -27,6 +27,44 @@
 @property (strong, nonatomic) NSArray *bubbleImages;
 @end
 
+@protocol WLChatMessage <NSObject>
+
+@property (nonatomic, strong) WLUser* contributor;
+
+@property (nonatomic, strong) NSString* message;
+
+@property (nonatomic, strong) NSDate* createdAt;
+
+@end
+
+@interface WLUser (WLChatMessage) <WLChatMessage>
+
+@end
+
+@implementation WLUser (WLChatMessage)
+
+@dynamic contributor;
+@dynamic message;
+
+- (WLUser *)contributor {
+    return self;
+}
+
+- (NSString *)message {
+    return @"...";
+}
+
+- (NSDate *)createdAt {
+    return [NSDate date];
+}
+
+- (NSDate *)updatedAt {
+    return [NSDate date];
+}
+
+@end
+
+
 @implementation WLMessageCell
 
 - (void)awakeFromNib {
@@ -37,7 +75,7 @@
                           [[UIImage imageNamed:@"red_Bubble"] resizableImageWithCapInsets:UIEdgeInsetsMake(WLPadding, 18, WLBottomIdent, WLPadding)]];
 }
 
-- (void)setupItemData:(WLCandy*)candy {
+- (void)setupItemData:(id <WLChatMessage>)candy {
 	self.avatarView.url = candy.contributor.picture.medium;
 	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(candy.contributor.name), WLString([candy.createdAt stringWithFormat:@"HH:mm"])];
 	self.messageLabel.text = candy.message;

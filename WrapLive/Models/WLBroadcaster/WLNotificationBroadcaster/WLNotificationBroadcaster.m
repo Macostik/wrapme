@@ -130,6 +130,32 @@ static WLDataBlock deviceTokenCompletion = nil;
     [PubNub subscribeOnChannel:[PNChannel channelWithName:name]];
 }
 
+- (void)subscribeOnChannel:(NSString *)nameChannel {
+    __weak __typeof(self)weakSelf = self;
+    if ([[PubNub sharedInstance] isConnected]) {
+        PNChannel *channel = [PNChannel channelWithName:nameChannel shouldObservePresence:NO];
+        [PubNub subscribeOnChannel:channel withCompletionHandlingBlock:^(PNSubscriptionProcessState state, NSArray *channels, PNError *error) {
+            if (error) {
+                [weakSelf subscribeOnChannel:nameChannel];
+            }
+        }];
+    }
+}
+
+- (void)unsubscribeFromChannel:(NSString *)channel {
+    [PubNub unsubscribeFromChannel:[PNChannel channelWithName:channel]];
+}
+
+- (BOOL)isSubscribedOnChannel:(NSString *)channel {
+    NSArray* channels = [PubNub subscribedChannels];
+    for (PNChannel* _channel in channels) {
+        if ([_channel.name isEqualToString:channel]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (void)connect {
 	if ([[PubNub sharedInstance] isConnected]) {
 		[self subscribe];
@@ -168,17 +194,29 @@ static WLDataBlock deviceTokenCompletion = nil;
 static BOOL isPlayed = NO;
 
 - (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
+    WLNotification* notification = [WLNotification notificationWithMessage:message];
+    if ([notification.user isEqualToEntry:[WLUser currentUser]]) {
+        return;
+    }
 	NSLog(@"PubNub message received %@", message);
-	WLNotification* notification = [WLNotification notificationWithMessage:message];
-	__weak typeof(self)weakSelf = self;
-    [notification fetch:^{
-        [weakSelf broadcastNotification:notification];
-        if (!isPlayed) {
-            isPlayed = YES;
-            AudioServicesPlaySystemSound (soundID);
-            AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, completionCallback, NULL);
-        }
-    }];
+    if (notification.type == WLNotificationBeginTyping) {
+        [self broadcast:@selector(broadcaster:didBeginTyping:) object:notification.user];
+    } else if (notification.type == WLNotificationEndTyping ) {
+        [self broadcast:@selector(broadcaster:didEndTyping:) object:notification.user];
+    } else {
+        __weak typeof(self)weakSelf = self;
+        [notification fetch:^{
+            if (notification.type == WLNotificationChatCandyAddition) {
+                [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:notification.candy.contributor];
+            }
+            [weakSelf broadcastNotification:notification];
+            if (!isPlayed) {
+                isPlayed = YES;
+                AudioServicesPlaySystemSound (soundID);
+                AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, completionCallback, NULL);
+            }
+        }];
+    }
 }
 
 static void completionCallback (SystemSoundID  mySSID, void *myself) {

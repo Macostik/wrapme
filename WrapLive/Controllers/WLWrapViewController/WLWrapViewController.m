@@ -185,10 +185,8 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     [self.groups setCandies:self.wrap.candies];
     if (self.isLive) {
         self.candies = [self.wrap liveCandies];
-        self.showLoadingView = [self.candies count] >= WLAPIPageSize;
-    } else {
-        self.showLoadingView = [self.groups.set count] >= WLAPIDatePageSize;
     }
+    self.showLoadingView = YES;
 }
 
 - (void)appendDates {
@@ -230,7 +228,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
             [self refreshWrap:WLWrapContentTypeHistory];
             return;
         }
-        self.wrapRequest.page = ((self.groups.set.count + 1)/WLAPIDatePageSize + 1);
+        self.wrapRequest.page = ((self.groups.set.count + 1)/10 + 1);
         NSUInteger count = self.wrap.candies.count;
         [self.wrapRequest send:^(WLWrap* wrap) {
             [weakSelf.groups addCandies:wrap.candies];

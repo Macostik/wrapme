@@ -49,6 +49,8 @@
 
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 
+@property (weak, nonatomic) IBOutlet UILabel *indicator;
+
 @property (nonatomic, readonly) WLCollectionViewFlowLayout* layout;
 
 @property (nonatomic) CGFloat keyboardHeight;
@@ -94,12 +96,21 @@
 	});
 	
 	self.backSwipeGestureEnabled = YES;
+    self.indicator.cornerRadius = self.indicator.width/2;
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLNotificationBroadcaster broadcaster] addReceiver:self];
-    [[WLNotificationBroadcaster broadcaster] subscribeOnChannel:self.wrap.identifier];
+    [[WLNotificationBroadcaster broadcaster] subscribeOnChannel:self.wrap.identifier conectSuccess:^(BOOL flag) {
+        if (flag) {
+            weakSelf.indicator.backgroundColor = [UIColor greenColor];
+            if ([WLAPIManager productionEvironment]) {
+                [weakSelf.indicator removeFromSuperview];
+               
+            }
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

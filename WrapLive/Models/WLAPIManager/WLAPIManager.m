@@ -59,8 +59,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     return instance;
 }
 
-+ (BOOL)developmentEvironment {
-	return [WLAPIBaseUrl isEqualToString:WLAPIDevelopmentUrl];
++ (BOOL)productionEvironment {
+	return [WLAPIBaseUrl isEqualToString:WLAPIProductionUrl];
 }
 
 static BOOL signedIn = NO;

@@ -130,13 +130,17 @@ static WLDataBlock deviceTokenCompletion = nil;
     [PubNub subscribeOnChannel:[PNChannel channelWithName:name]];
 }
 
-- (void)subscribeOnChannel:(NSString *)nameChannel {
+- (void)subscribeOnChannel:(NSString *)nameChannel conectSuccess:(WLBooleanBlock)success {
     __weak __typeof(self)weakSelf = self;
     if ([[PubNub sharedInstance] isConnected]) {
         PNChannel *channel = [PNChannel channelWithName:nameChannel shouldObservePresence:NO];
         [PubNub subscribeOnChannel:channel withCompletionHandlingBlock:^(PNSubscriptionProcessState state, NSArray *channels, PNError *error) {
             if (error) {
-                [weakSelf subscribeOnChannel:nameChannel];
+                [weakSelf subscribeOnChannel:nameChannel conectSuccess:nil];
+            } else {
+                if (success) {
+                     success(state);
+                }
             }
         }];
     }

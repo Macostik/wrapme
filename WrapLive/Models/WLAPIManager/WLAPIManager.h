@@ -22,7 +22,7 @@
 
 + (instancetype)instance;
 
-+ (BOOL)developmentEvironment;
++ (BOOL)productionEvironment;
 
 - (NSString*)urlWithPath:(NSString*)path;
 

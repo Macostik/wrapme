@@ -7,6 +7,7 @@
 //
 
 #import "WLBroadcaster.h"
+#import "WLBlocks.h"
 
 @class WLNotificationBroadcaster;
 @class WLNotification;
@@ -38,7 +39,7 @@
 
 + (void)setDeviceToken:(NSData*)deviceToken;
 
-- (void)subscribeOnChannel:(NSString *)nameChannel;
+- (void)subscribeOnChannel:(NSString *)nameChannel conectSuccess:(WLBooleanBlock)success;
 
 - (void)unsubscribeFromChannel:(NSString *)channel;
 

@@ -174,9 +174,19 @@ static UIWindow* mainWindow = nil;
 }
 
 - (void)presentInViewController:(UIViewController*)controller animated:(BOOL)animated {
-    NSMutableArray* controllers = [NSMutableArray arrayWithObject:controller];
-    [controllers tryAddObjects:[self.wrap viewController],[self viewController],nil];
-	[controller.navigationController setViewControllers:controllers animated:animated];
+    NSMutableArray* controllers = [NSMutableArray array];
+    for (UIViewController* _controller in controller.navigationController.viewControllers) {
+        [controllers addObject:_controller];
+        if (controller == _controller) {
+            break;
+        }
+    }
+    if ([controller isKindOfClass:[WLWrapViewController class]]) {
+        [controllers tryAddObject:[self viewController]];
+    } else {
+        [controllers tryAddObjects:[self.wrap viewController],[self viewController],nil];
+    }
+    [controller.navigationController setViewControllers:controllers animated:animated];
 }
 
 @end

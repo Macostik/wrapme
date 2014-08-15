@@ -15,11 +15,11 @@
 
 @protocol WLStillPictureViewControllerDelegate <NSObject>
 
-- (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithImage:(UIImage*)image;
-
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController*)controller;
 
 @optional
+
+- (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithImage:(UIImage*)image;
 
 - (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithPictures:(NSArray*)pictures;
 

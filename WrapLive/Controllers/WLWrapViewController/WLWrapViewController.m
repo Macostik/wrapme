@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
 
 static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLQuickChatViewDelegate, WLPaginatedSetDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLPaginatedSetDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
@@ -349,55 +349,20 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     }
     self.liveViewSection.completed = NO;
     self.historyViewSection.completed = NO;
-    self.collectionView.contentOffset = CGPointZero;
+    [self.collectionView setContentOffset:CGPointZero animated:YES];
 }
-
-#pragma mark - WLCandiesCellDelegate
 
 - (void)presentCandy:(WLCandy*)candy {
     if ([candy isImage]) {
-        NSMutableArray* controllers = [[self.navigationController viewControllers] mutableCopy];
-		WLCandyViewController *candyController = [WLCandyViewController instantiate];
-        candyController.candy = candy;
+		WLCandyViewController *candyController = (id)[candy viewController];
         candyController.orderBy = self.isLive ? WLCandiesOrderByUpdating : WLCandiesOrderByCreation;
-        [controllers addObject:candyController];
-        [self.navigationController setViewControllers:controllers animated:YES];
+        [self.navigationController pushViewController:candyController animated:YES];
 	} else if ([candy isMessage]) {
-		[self openChat];
+        [candy presentInViewController:self];
 	}
 }
 
-- (void)candiesCell:(WLCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
-	[self presentCandy:candy];
-}
-
-#pragma mark - UITableViewDataSource
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    [self.quickChatView onEndDragging];
-    if (!decelerate) {
-        [self.quickChatView onEndScrolling];
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self.quickChatView onEndScrolling];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.quickChatView onScroll];
-}
-
 #pragma mark - WLStillPictureViewControllerDelegate
-
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
-	WLWrap* wrap = controller.wrap ? : self.wrap;
-	[wrap uploadImage:image success:^(WLCandy *candy) {
-    } failure:^(NSError *error) {
-    }];
-	[self setFirstContributorViewHidden:YES animated:NO];
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
     if (self.viewTab != WLWrapViewTabLive) {
@@ -413,24 +378,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self setFirstContributorViewHidden:YES animated:NO];
 	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - WLCandyCellDelegate
-
-- (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
-    [self presentCandy:candy];
-}
-
-#pragma mark - WLQuickChatViewDelegate
-
-- (void)openChat {
-    WLChatViewController * chatController = [WLChatViewController instantiate];
-    chatController.wrap = self.wrap;
-    [self.navigationController pushViewController:chatController animated:YES];
-}
-
-- (void)quickChatView:(WLQuickChatView *)view didOpenChat:(WLWrap *)wrap {
-    [self openChat];
 }
 
 @end

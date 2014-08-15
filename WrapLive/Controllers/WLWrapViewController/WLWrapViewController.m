@@ -176,7 +176,11 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
             weakSelf.showLoadingView = NO;
         }
     } failure:^(NSError *error) {
-		[error showIgnoringNetworkError];
+        if ([weakSelf.wrapRequest.contentType isEqualToString:WLWrapContentTypeAuto]) {
+            [error show];
+        } else {
+            [error showIgnoringNetworkError];
+        }
 		[weakSelf.refresher endRefreshing];
     }];
 }

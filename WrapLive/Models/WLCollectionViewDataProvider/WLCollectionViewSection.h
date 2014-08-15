@@ -12,7 +12,7 @@
 
 @class WLCollectionViewDataProvider;
 
-@interface WLCollectionViewSection : NSObject
+@interface WLCollectionViewSection : NSObject <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 

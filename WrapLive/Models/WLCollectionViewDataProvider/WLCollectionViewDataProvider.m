@@ -101,6 +101,30 @@
     return [_section sectionInsets:section];
 }
 
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    for (WLCollectionViewSection* section in _sections) {
+        [section scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+	for (WLCollectionViewSection* section in _sections) {
+        [section scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    for (WLCollectionViewSection* section in _sections) {
+        [section scrollViewDidEndDecelerating:scrollView];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    for (WLCollectionViewSection* section in _sections) {
+        [section scrollViewDidScroll:scrollView];
+    }
+}
+
 @end
 
 @implementation WLCollectionViewSection (WLCollectionViewDataProvider)

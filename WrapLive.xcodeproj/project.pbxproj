@@ -187,6 +187,7 @@
 		C507B9E91948947D00CCB3FE /* WLGestureBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C507B9E81948947D00CCB3FE /* WLGestureBroadcaster.m */; };
 		C508E7D31987A396002998CE /* WLCollectionViewDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C508E7D21987A396002998CE /* WLCollectionViewDataProvider.m */; };
 		C508E7D61987A696002998CE /* WLCollectionViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C508E7D51987A696002998CE /* WLCollectionViewSection.m */; };
+		C509CCFB199E0B38006B00AA /* WLCandiesViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C509CCFA199E0B38006B00AA /* WLCandiesViewSection.m */; };
 		C50AF40619766C3700761F38 /* WLUploadAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF40519766C3700761F38 /* WLUploadAPIRequest.m */; };
 		C50AF40919767CAF00761F38 /* WLUploadWrapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF40819767CAF00761F38 /* WLUploadWrapRequest.m */; };
 		C50AF40C19768ADE00761F38 /* WLAuthorizationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF40B19768ADE00761F38 /* WLAuthorizationRequest.m */; };
@@ -552,6 +553,8 @@
 		C508E7D21987A396002998CE /* WLCollectionViewDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionViewDataProvider.m; path = WLCollectionViewDataProvider/WLCollectionViewDataProvider.m; sourceTree = "<group>"; };
 		C508E7D41987A696002998CE /* WLCollectionViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionViewSection.h; path = WLCollectionViewDataProvider/WLCollectionViewSection.h; sourceTree = "<group>"; };
 		C508E7D51987A696002998CE /* WLCollectionViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionViewSection.m; path = WLCollectionViewDataProvider/WLCollectionViewSection.m; sourceTree = "<group>"; };
+		C509CCF9199E0B38006B00AA /* WLCandiesViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCandiesViewSection.h; path = WLCollectionViewDataProvider/WLCandiesViewSection.h; sourceTree = "<group>"; };
+		C509CCFA199E0B38006B00AA /* WLCandiesViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCandiesViewSection.m; path = WLCollectionViewDataProvider/WLCandiesViewSection.m; sourceTree = "<group>"; };
 		C50AF40419766C3700761F38 /* WLUploadAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUploadAPIRequest.h; path = WLAPIManager/WLAPIRequest/WLUploadAPIRequest.h; sourceTree = "<group>"; };
 		C50AF40519766C3700761F38 /* WLUploadAPIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUploadAPIRequest.m; path = WLAPIManager/WLAPIRequest/WLUploadAPIRequest.m; sourceTree = "<group>"; };
 		C50AF40719767CAF00761F38 /* WLUploadWrapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUploadWrapRequest.h; path = WLAPIManager/WLAPIRequest/WLUploadWrapRequest.h; sourceTree = "<group>"; };
@@ -1879,6 +1882,8 @@
 				C50FD41E199B69E700B52B33 /* WLCandiesLiveViewSection.m */,
 				C50FD420199B69FD00B52B33 /* WLCandiesHistoryViewSection.h */,
 				C50FD421199B69FD00B52B33 /* WLCandiesHistoryViewSection.m */,
+				C509CCF9199E0B38006B00AA /* WLCandiesViewSection.h */,
+				C509CCFA199E0B38006B00AA /* WLCandiesViewSection.m */,
 			);
 			name = WLCollectionViewDataProvider;
 			sourceTree = "<group>";
@@ -2421,6 +2426,7 @@
 				12D7E0B51910E5380094C376 /* WLImageCache.m in Sources */,
 				12DEC3EF1920F7E0007BE6CC /* WLToast.m in Sources */,
 				C5A21E6C194B0ED600F3A554 /* WLContribution.m in Sources */,
+				C509CCFB199E0B38006B00AA /* WLCandiesViewSection.m in Sources */,
 				12E0F0621909249000463FEC /* UILabel+Additions.m in Sources */,
 				ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */,
 				12E0F04E19090B0600463FEC /* WLBroadcaster.m in Sources */,

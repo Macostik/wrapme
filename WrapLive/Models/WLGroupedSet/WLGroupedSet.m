@@ -200,7 +200,10 @@
 
 - (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     WLCandiesRequest* request = (id)self.request;
-    request.wrap = [[self.entries firstObject] wrap];
+    WLWrap* wrap = [[self.entries firstObject] wrap];
+    if (wrap) {
+        request.wrap = wrap;
+    }
     return [super send:success failure:failure];
 }
 
@@ -227,6 +230,10 @@
         }
     }
     return NO;
+}
+
+- (NSDate*)updatedAt {
+    return self.date;
 }
 
 @end

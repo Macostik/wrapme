@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
 
 static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLQuickChatViewDelegate, WLPaginatedSetDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLQuickChatViewDelegate, WLPaginatedSetDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
@@ -88,9 +88,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         return;
     }
     
-    self.liveViewSection.entries.request = [WLCandiesRequest request:self.wrap];
-    self.liveViewSection.entries.request.sameDay = YES;
-    
     [self.wrapViewSection setFooterSize:^CGSize(NSUInteger section) {
         return CGSizeZero;
     }];
@@ -110,6 +107,8 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     self.historyViewSection.entries = self.groups;
     self.historyViewSection.entries.request = self.wrapRequest;
     self.liveViewSection.entries = [self.groups group:[NSDate date]];
+    self.liveViewSection.entries.request = [WLCandiesRequest request:self.wrap];
+    self.liveViewSection.entries.request.sameDay = YES;
     
     self.quickChatView.wrap = self.wrap;
     [self refreshWrap:WLWrapContentTypeAuto];
@@ -123,9 +122,10 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         cell.liveNotifyBulb.hidden = !weakSelf.showLiveNotifyBulb;
     }];
     
-    [self.wrapViewSection setSelection:^ (id entry) {
-        
+    [self.historyViewSection setSelection:^ (id entry) {
+        [weakSelf presentCandy:entry];
     }];
+    self.liveViewSection.selection = self.historyViewSection.selection;
 }
 
 - (BOOL)isLive {
@@ -372,73 +372,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 }
 
 #pragma mark - UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 2;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1;
-    } else {
-        return self.isLive ? [self.liveViewSection.entries.entries count] : [self.historyViewSection.entries.entries count];
-    }
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        static NSString* wrapCellIdentifier = @"WLWrapCell";
-        WLWrapCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:wrapCellIdentifier forIndexPath:indexPath];
-        cell.entry = self.wrap;
-        cell.tabControl.selectedSegment = self.viewTab;
-        cell.liveNotifyBulb.hidden = !self.showLiveNotifyBulb;
-        return cell;
-    } else if (self.isLive) {
-        WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCandyCellIdentifier forIndexPath:indexPath];
-        WLCandy* candy = [self.liveViewSection.entries.entries tryObjectAtIndex:indexPath.item];
-        cell.entry = candy;
-        return cell;
-    } else {
-        WLCandiesCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WLCandiesCell" forIndexPath:indexPath];
-        WLGroup* date = [self.historyViewSection.entries.entries tryObjectAtIndex:indexPath.item];
-        cell.entry = date;
-//        if (indexPath.row > 0) {
-//            cell.refreshable = NO;
-//        } else {
-//            cell.refreshable = [date.name isEqualToString:[[NSDate serverTime] stringWithFormat:self.historyViewSection.entries.dateFormat]];
-//        }
-        return cell;
-    }
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    [self appendDates];
-    static NSString* identifier = @"WLLoadingView";
-    return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return CGSizeMake(collectionView.width, 112);
-    } else if (self.isLive) {
-        CGFloat size = collectionView.width/3.0f - 0.5f;
-        return CGSizeMake(size, size);
-    } else {
-        return CGSizeMake(collectionView.width, (collectionView.width/2.5 + 28));
-    }
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return (section != 0 && self.isLive) ? WLCandyCellSpacing : 0;
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return (section != 0 && self.isLive) ? UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing) : UIEdgeInsetsZero;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return (section == 0) ? CGSizeZero : CGSizeMake(collectionView.width, 60);
-}
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     [self.quickChatView onEndDragging];

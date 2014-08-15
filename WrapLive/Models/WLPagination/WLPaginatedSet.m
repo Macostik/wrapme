@@ -43,8 +43,10 @@
     if (!self.entries.nonempty) {
         self.request.type = WLPaginatedRequestTypeFresh;
     } else {
-//        self.request.newer = [[self.entries firstObject] updatedAt];
-//        self.request.older = [[self.entries lastObject] updatedAt];
+        WLEntry* firstEntry = [self.entries firstObject];
+        WLEntry* lastEntry = [self.entries firstObject];
+        self.request.newer = [firstEntry updatedAt];
+        self.request.older = [lastEntry updatedAt];
     }
     __weak typeof(self)weakSelf = self;
     return [self.request send:^(NSOrderedSet *orderedSet) {

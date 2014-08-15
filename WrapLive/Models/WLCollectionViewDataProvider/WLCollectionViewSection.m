@@ -15,8 +15,8 @@
 - (instancetype)initWithCollectionView:(UICollectionView *)collectionView {
     self = [super init];
     if (self) {
-        [self setup];
         self.collectionView = collectionView;
+        [self setup];
     }
     return self;
 }
@@ -137,6 +137,24 @@
         UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
         return layout.sectionInset;
     }
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+	
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
 }
 
 @end

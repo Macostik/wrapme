@@ -36,7 +36,6 @@
 #import "WLUser.h"
 #import "WLWrap.h"
 #import "WLWrapBroadcaster.h"
-#import "WLInternetConnectionBroadcaster.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "WLWrap+Extended.h"
 #import "WLDetailedCandyCell.h"
@@ -82,8 +81,6 @@
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 	
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-    
-    [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
 
     [self.collectionView reloadData];
     if (_candy && [self.group.entries containsObject:_candy]) {
@@ -330,16 +327,6 @@
     run_after(0.0f, ^{
         [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
     });
-}
-
-#pragma mark - WLInternetConnectionBroadcaster
-
-- (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
-    if (![reachable boolValue]) {
-        run_in_main_queue(^{
-            self.candyCell.progressBar.progress = .2f;
-        });
-    }
 }
 
 #pragma mark - Actions

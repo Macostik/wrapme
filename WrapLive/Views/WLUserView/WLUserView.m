@@ -27,8 +27,12 @@
 
 - (void)setUser:(WLUser *)user {
     _user = user;
-    self.avatarView.url = user.picture.small;
-    self.nameLabel.text = user.name;
+    [self update];
+}
+
+- (void)update {
+    self.avatarView.url = _user.picture.small;
+    self.nameLabel.text = _user.name;
 }
 
 @end

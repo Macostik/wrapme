@@ -67,6 +67,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.avatarImageView.circled = YES;
+	self.avatarImageView.layer.borderWidth = 1;
+	self.avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    
     self.section.entries.request = [WLWrapsRequest new];
     [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
     
@@ -99,9 +103,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-    self.avatarImageView.circled = YES;
-	self.avatarImageView.layer.borderWidth = 1;
-	self.avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
 	self.avatarImageView.url = [WLUser currentUser].picture.small;
     NSOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
 	if (self.collectionView.hidden) {
@@ -130,65 +131,6 @@
 		controller.mode = WLCameraModeCandy;
 	}];
 }
-
-//- (void)fetchWraps:(BOOL)refresh {
-//    if (!self.section.entries.entries.nonempty) {
-//        [self fetchFreshWraps];
-//    } else if (refresh) {
-//        [self refreshWraps];
-//    } else {
-//        [self appendWraps];
-//    }
-//}
-
-//- (void)fetchFreshWraps {
-//    if (self.section.entries.request.loading) return;
-//    __weak typeof(self)weakSelf = self;
-//    self.section.entries.request.type = WLPaginatedRequestTypeFresh;
-//    [self.section.entries send:^(NSOrderedSet *orderedSet) {
-//        [weakSelf showLatestWrap];
-//        [weakSelf updateWraps];
-//        if ([orderedSet count] != 50) {
-//            weakSelf.showLoadingView = NO;
-//        }
-//    } failure:^(NSError *error) {
-//        if (weakSelf.isOnTopOfNagvigation) {
-//            [error showIgnoringNetworkError];
-//        }
-//        [weakSelf updateWraps];
-//    }];
-//}
-//
-//- (void)refreshWraps {
-//    if (self.section.entries.request.loading) return;
-//    __weak typeof(self)weakSelf = self;
-//    self.section.entries.request.type = WLPaginatedRequestTypeNewer;
-//    [self.section.entries send:^(NSOrderedSet *orderedSet) {
-//        [weakSelf updateWraps];
-//        [weakSelf.refresher endRefreshing];
-//    } failure:^(NSError *error) {
-//        [weakSelf.refresher endRefreshing];
-//        if (weakSelf.isOnTopOfNagvigation) {
-//            [error showIgnoringNetworkError];
-//        }
-//    }];
-//}
-//
-//- (void)appendWraps {
-//    if (self.section.entries.request.loading) return;
-//    __weak typeof(self)weakSelf = self;
-//    self.section.entries.request.type = WLPaginatedRequestTypeOlder;
-//    [self.section.entries send:^(NSOrderedSet *orderedSet) {
-//        [weakSelf updateWraps];
-//        if (weakSelf.section.entries.completed) {
-//            weakSelf.showLoadingView = NO;
-//        }
-//    } failure:^(NSError *error) {
-//        if (weakSelf.isOnTopOfNagvigation) {
-//            [error showIgnoringNetworkError];
-//        }
-//    }];
-//}
 
 - (void)showLatestWrap {
     WLUser * user = [WLUser currentUser];
@@ -230,12 +172,12 @@
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
-    [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
+    [self.section.entries addEntry:wrap];
 	self.collectionView.contentOffset = CGPointZero;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-    [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
+    [self.section.entries removeEntry:wrap];
 }
 
 #pragma mark - WLNotificationReceiver

@@ -14,4 +14,6 @@
 
 @property (weak, nonatomic) WLUser* user;
 
+- (void)update;
+
 @end

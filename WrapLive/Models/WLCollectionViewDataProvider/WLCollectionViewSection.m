@@ -31,7 +31,25 @@
 }
 
 - (void)setup {
-    
+    if (self.collectionView) {
+        [self setDefaults:self.collectionView];
+    }
+}
+
+- (void)setCollectionView:(UICollectionView *)collectionView {
+    _collectionView = collectionView;
+    if (collectionView) {
+        [self setDefaults:collectionView];
+    }
+}
+
+- (void)setDefaults:(UICollectionView*)collectionView {
+    UICollectionViewFlowLayout* layout = (id)collectionView.collectionViewLayout;
+    self.defaultFooterSize = layout.footerReferenceSize;
+    self.defaultHeaderSize = layout.headerReferenceSize;
+    self.defaultMinimumLineSpacing = layout.minimumLineSpacing;
+    self.defaultSectionInsets = layout.sectionInset;
+    self.defaultSize = layout.itemSize;
 }
 
 - (void)setEntries:(WLEntriesCollection)entries {
@@ -52,11 +70,7 @@
 }
 
 - (NSUInteger)numberOfEntries {
-    if (self.entriesNumber) {
-        return self.entriesNumber();
-    } else {
-        return [self.entries.entries count];
-    }
+    return [self.entries.entries count];
 }
 
 - (id)cellWithIdentifier:(NSString *)identifier indexPath:(NSIndexPath *)indexPath {
@@ -79,64 +93,39 @@
 }
 
 - (CGSize)size:(NSIndexPath*)indexPath {
-    if (self.size) {
-        return self.size(indexPath);
-    } else {
-        UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-        return layout.itemSize;
-    }
+    return self.defaultSize;
 }
 
 - (id)header:(NSIndexPath*)indexPath {
-    if (self.header) {
-        return self.header(self.reuseHeaderViewIdentifier, indexPath);
+    if (self.defaultHeader) {
+        return self.defaultHeader;
     } else {
         return [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:self.reuseFooterViewIdentifier forIndexPath:indexPath];
     }
 }
 
 - (id)footer:(NSIndexPath*)indexPath {
-    if (self.footer) {
-        return self.footer(self.reuseFooterViewIdentifier, indexPath);
+    if (self.defaultFooter) {
+        return self.defaultFooter;
     } else {
         return [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:self.reuseFooterViewIdentifier forIndexPath:indexPath];
     }
 }
 
 - (CGSize)headerSize:(NSUInteger)section {
-    if (self.headerSize) {
-        return self.headerSize(section);
-    } else {
-        UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-        return layout.headerReferenceSize;
-    }
+    return self.defaultHeaderSize;
 }
 
 - (CGSize)footerSize:(NSUInteger)section {
-    if (self.footerSize) {
-        return self.footerSize(section);
-    } else {
-        UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-        return layout.footerReferenceSize;
-    }
+    return self.defaultFooterSize;
 }
 
 - (CGFloat)minimumLineSpacing:(NSUInteger)section {
-    if (self.minimumLineSpacing) {
-        return self.minimumLineSpacing(section);
-    } else {
-        UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-        return layout.minimumLineSpacing;
-    }
+    return self.defaultMinimumLineSpacing;
 }
 
 - (UIEdgeInsets)sectionInsets:(NSUInteger)section {
-    if (self.sectionInsets) {
-        return self.sectionInsets(section);
-    } else {
-        UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-        return layout.sectionInset;
-    }
+    return self.defaultSectionInsets;
 }
 
 - (void)refresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {

@@ -87,9 +87,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         return;
     }
     
-    [self.wrapViewSection setFooterSize:^CGSize(NSUInteger section) {
-        return CGSizeZero;
-    }];
+    self.wrapViewSection.defaultFooterSize = CGSizeZero;
     
     self.wrapViewSection.entries = [NSMutableOrderedSet orderedSetWithObject:self.wrap];
     

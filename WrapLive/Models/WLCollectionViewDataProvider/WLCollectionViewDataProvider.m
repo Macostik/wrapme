@@ -8,6 +8,7 @@
 
 #import "WLCollectionViewDataProvider.h"
 #import "AsynchronousOperation.h"
+#import "WLSupportFunctions.h"
 
 @interface WLCollectionViewDataProvider ()
 

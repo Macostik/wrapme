@@ -32,23 +32,21 @@
 
 @property (strong, nonatomic) void (^change) (WLEntriesCollection entries);
 
-@property (strong, nonatomic) NSUInteger (^entriesNumber) (void);
-
 @property (strong, nonatomic) id (^cell) (NSString* identifier, NSIndexPath* indexPath);
 
-@property (strong, nonatomic) CGSize (^size) (NSIndexPath* indexPath);
+@property (nonatomic) CGSize defaultSize;
 
-@property (strong, nonatomic) id (^header) (NSString* identifier, NSIndexPath* indexPath);
+@property (strong, nonatomic) id defaultHeader;
 
-@property (strong, nonatomic) CGSize (^headerSize) (NSUInteger section);
+@property (nonatomic) CGSize defaultHeaderSize;
 
-@property (strong, nonatomic) id (^footer) (NSString* identifier, NSIndexPath* indexPath);
+@property (strong, nonatomic) id defaultFooter;
 
-@property (strong, nonatomic) CGSize (^footerSize) (NSUInteger section);
+@property (nonatomic) CGSize defaultFooterSize;
 
-@property (strong, nonatomic) UIEdgeInsets (^sectionInsets) (NSUInteger section);
+@property (nonatomic) UIEdgeInsets defaultSectionInsets;
 
-@property (strong, nonatomic) CGFloat (^minimumLineSpacing) (NSUInteger section);
+@property (nonatomic) CGFloat defaultMinimumLineSpacing;
 
 - (instancetype)initWithCollectionView:(UICollectionView*)collectionView;
 

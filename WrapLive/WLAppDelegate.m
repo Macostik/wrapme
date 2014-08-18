@@ -46,7 +46,7 @@
 	[AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
         
     
-#ifndef DEBUG
+#if !DEBUG
 	[Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
 #endif
     

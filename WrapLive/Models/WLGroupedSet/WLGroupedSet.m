@@ -80,32 +80,38 @@
 
 - (BOOL)addEntries:(NSOrderedSet *)entries sort:(BOOL)sort {
     BOOL created = NO;
+    BOOL added = NO;
     for (WLCandy* candy in entries) {
         if (self.dateBlock(candy)) {
-            [self addEntry:candy created:&created];
+            if ([self addEntry:candy created:&created]) {
+                added = YES;
+            }
         }
     }
     if (created) {
         [self.delegate paginatedSetChanged:self];
     }
-    return YES;
+    return added;
 }
 
 - (BOOL)addEntry:(id)entry {
     BOOL created = NO;
-    [self addEntry:entry created:&created];
+    BOOL added = [self addEntry:entry created:&created];
     if (created) {
         [self.delegate paginatedSetChanged:self];
     }
-    return YES;
+    return added;
 }
 
-- (void)addEntry:(id)entry created:(BOOL *)created {
+- (BOOL)addEntry:(id)entry created:(BOOL *)created {
     NSDate* date = self.dateBlock(entry);
     if (date) {
         WLGroup* group = [self group:date created:created];
-        [group addEntry:entry];
+        if ([group addEntry:entry]) {
+            return YES;
+        }
     }
+    return NO;
 }
 
 - (void)removeEntry:(id)entry {

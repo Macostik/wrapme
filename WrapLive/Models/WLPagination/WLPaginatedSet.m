@@ -66,7 +66,10 @@
     __weak typeof(self)weakSelf = self;
     return [self.request send:^(NSOrderedSet *orderedSet) {
         if (orderedSet.nonempty && ![orderedSet isSubsetOfOrderedSet:weakSelf.entries]) {
-            [weakSelf addEntries:orderedSet];
+            if (![weakSelf addEntries:orderedSet]) {
+                weakSelf.completed = YES;
+                [weakSelf.delegate paginatedSetChanged:self];
+            }
         } else if (weakSelf.request.type == WLPaginatedRequestTypeOlder) {
             weakSelf.completed = YES;
             [weakSelf.delegate paginatedSetChanged:self];

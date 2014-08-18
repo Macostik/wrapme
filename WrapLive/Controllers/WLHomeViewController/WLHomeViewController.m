@@ -159,6 +159,7 @@
             [error showIgnoringNetworkError];
         }
         [weakSelf updateWraps];
+        weakSelf.showLoadingView = NO;
     }];
 }
 
@@ -174,6 +175,7 @@
         if (weakSelf.isOnTopOfNagvigation) {
             [error showIgnoringNetworkError];
         }
+        weakSelf.showLoadingView = NO;
     }];
 }
 
@@ -190,6 +192,7 @@
         if (weakSelf.isOnTopOfNagvigation) {
             [error showIgnoringNetworkError];
         }
+        weakSelf.showLoadingView = NO;
     }];
 }
 

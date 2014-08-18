@@ -182,6 +182,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
             [error showIgnoringNetworkError];
         }
 		[weakSelf.refresher endRefreshing];
+        weakSelf.showLoadingView = NO;
     }];
 }
 
@@ -219,6 +220,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
             weakSelf.showLoadingView = weakSelf.candies.count != count;
         } failure:^(NSError *error) {
             [error showIgnoringNetworkError];
+            weakSelf.showLoadingView = NO;
         }];
     } else {
         if (self.wrapRequest.loading) {
@@ -241,6 +243,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
             }
         } failure:^(NSError *error) {
             [error showIgnoringNetworkError];
+            weakSelf.showLoadingView = NO;
         }];
     }
 }

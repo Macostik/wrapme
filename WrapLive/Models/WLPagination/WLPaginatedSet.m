@@ -39,6 +39,21 @@
     [self.delegate paginatedSetChanged:self];
 }
 
+- (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    self.request.type = WLPaginatedRequestTypeFresh;
+    return [self send:success failure:failure];
+}
+
+- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    self.request.type = WLPaginatedRequestTypeNewer;
+    return [self send:success failure:failure];
+}
+
+- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    self.request.type = WLPaginatedRequestTypeOlder;
+    return [self send:success failure:failure];
+}
+
 - (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     if (!self.entries.nonempty) {
         self.request.type = WLPaginatedRequestTypeFresh;
@@ -50,14 +65,11 @@
     }
     __weak typeof(self)weakSelf = self;
     return [self.request send:^(NSOrderedSet *orderedSet) {
-        if (orderedSet.nonempty) {
-            NSUInteger count = [weakSelf.entries count];
+        if (orderedSet.nonempty && ![orderedSet isSubsetOfOrderedSet:weakSelf.entries]) {
             [weakSelf addEntries:orderedSet];
-            if (weakSelf.request.type != WLPaginatedRequestTypeNewer && count == [weakSelf.entries count]) {
-                weakSelf.completed = YES;
-            }
-        } else if (weakSelf.request.type != WLPaginatedRequestTypeNewer) {
+        } else if (weakSelf.request.type == WLPaginatedRequestTypeOlder) {
             weakSelf.completed = YES;
+            [weakSelf.delegate paginatedSetChanged:self];
         }
         if(success) {
             success(orderedSet);

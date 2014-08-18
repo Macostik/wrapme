@@ -24,4 +24,12 @@ typedef NS_ENUM(NSUInteger, WLPaginatedRequestType) {
 
 @property (nonatomic) WLPaginatedRequestType type;
 
+- (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
 @end

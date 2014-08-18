@@ -89,6 +89,7 @@
         weakSelf.noWrapsView.hidden = hasWraps;
         [weakSelf setNavigationBarHidden:!hasWraps animated:YES];
         [weakSelf finishLoadingAnimation];
+        [weakSelf showLatestWrap];
     }];
     
     [self.section setSelection:^(id entry) {
@@ -104,10 +105,7 @@
 	self.avatarImageView.url = [WLUser currentUser].picture.small;
     NSOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
 	if (self.collectionView.hidden) {
-        self.section.entries.request.type = WLPaginatedRequestTypeNewer;
-		[self.section.entries send:^(NSOrderedSet *orderedSet) {
-        } failure:^(NSError *error) {
-        }];
+		[self.section refresh];
         if (wraps.nonempty) {
             [self.section.entries resetEntries:wraps];
         }
@@ -214,23 +212,6 @@
 		}];
 	}
 }
-//
-//- (void)updateWraps {
-//	
-//	BOOL hasWraps = _wraps.entries.nonempty;
-//	
-//    self.quickChatView.hidden = !hasWraps;
-//    
-//    self.topWrap = [self.wraps.entries firstObject];
-//	
-//	self.collectionView.hidden = !hasWraps;
-//	self.noWrapsView.hidden = hasWraps;
-//	[self.collectionView reloadData];
-//	
-//	[self setNavigationBarHidden:!hasWraps animated:YES];
-//    
-//    [self finishLoadingAnimation];
-//}
 
 - (void)setNavigationBarHidden:(BOOL)hidden animated:(BOOL)animated {
     __weak typeof(self)weakSelf = self;
@@ -317,66 +298,6 @@
 - (IBAction)createNewWrap:(id)sender {
 	WLCreateWrapViewController* controller = [WLCreateWrapViewController instantiate];
 	[controller presentInViewController:self transition:WLWrapTransitionFromBottom];
-}
-
-#pragma mark - UICollectionViewDelegate
-
-//- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-//	return [self.wraps.entries count];
-//}
-//
-//- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-//	WLWrap* wrap = [self.wraps.entries tryObjectAtIndex:indexPath.row];
-//	WLWrapCell* cell = nil;
-//	if (indexPath.row == 0) {
-//		static NSString* topWrapCellIdentifier = @"WLTopWrapCell";
-//		cell = [collectionView dequeueReusableCellWithReuseIdentifier:topWrapCellIdentifier forIndexPath:indexPath];
-//		cell.item = wrap;
-//		cell.candies = self.candies;
-//	} else {
-//		static NSString* wrapCellIdentifier = @"WLWrapCell";
-//		cell = [collectionView dequeueReusableCellWithReuseIdentifier:wrapCellIdentifier forIndexPath:indexPath];
-//		cell.item = wrap;
-//	}
-//	cell.delegate = self;
-//	return cell;
-//}
-//
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    CGFloat height = 50;
-//	if (indexPath.row == 0) {
-//		height = [self.candies count] > WLHomeTopWrapCandiesLimit_2 ? 324 : 218;
-//	}
-//	return CGSizeMake(collectionView.width, height);
-//}
-//
-//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-//	[self appendWraps];
-//    static NSString* identifier = @"WLLoadingView";
-//    return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
-//}
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	if (self.refresher.refreshing) {
-		[self.refresher endRefreshing];
-	}
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    [self.quickChatView onEndDragging];
-    if (!decelerate) {
-        [self.quickChatView onEndScrolling];
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self.quickChatView onEndScrolling];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.quickChatView onScroll];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate

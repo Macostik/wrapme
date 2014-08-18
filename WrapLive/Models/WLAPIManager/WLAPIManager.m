@@ -142,11 +142,11 @@ static BOOL signedIn = NO;
     }
 }
 
-- (id)fetch:(WLWrapBlock)success failure:(WLFailureBlock)failure {
+- (id)fetch:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     if (self.uploaded) {
         return [[WLWrapRequest request:self] send:success failure:failure];
     } else {
-        success(self);
+        success(nil);
         return nil;
     }
 }
@@ -155,7 +155,7 @@ static BOOL signedIn = NO;
     return [[WLUploadWrapRequest request:self] send:success failure:failure];
 }
 
-- (id)fetch:(NSInteger)page success:(WLWrapBlock)success failure:(WLFailureBlock)failure {
+- (id)fetch:(NSInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     return [[WLWrapRequest request:self page:page] send:success failure:failure];
 }
 

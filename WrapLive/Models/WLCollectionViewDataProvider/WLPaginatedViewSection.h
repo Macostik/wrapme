@@ -19,4 +19,8 @@
 
 - (void)refresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
+- (void)append;
+
+- (void)refresh;
+
 @end

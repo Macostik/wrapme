@@ -25,19 +25,19 @@ static NSString* WLCandiesHistoryViewStubCell = @"WLCandiesHistoryViewStubCell";
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:WLCandiesHistoryViewStubCell];
 }
 
-//- (id)cell:(NSIndexPath *)indexPath {
-//    WLGroup* group  = [self.entries.entries tryObjectAtIndex:indexPath.item];
-//    if (!group.entries.nonempty || [group.date isToday]) {
-//        return [self.collectionView dequeueReusableCellWithReuseIdentifier:WLCandiesHistoryViewStubCell forIndexPath:indexPath];;
-//    }
-//    return [super cell:indexPath];
-//}
+- (id)cell:(NSIndexPath *)indexPath {
+    WLGroup* group  = [self.entries.entries tryObjectAtIndex:indexPath.item];
+    if (!group.entries.nonempty || [group.date isToday]) {
+        return [self.collectionView dequeueReusableCellWithReuseIdentifier:WLCandiesHistoryViewStubCell forIndexPath:indexPath];;
+    }
+    return [super cell:indexPath];
+}
 
 - (CGSize)size:(NSIndexPath *)indexPath {
-//    WLGroup* group  = [self.entries.entries tryObjectAtIndex:indexPath.item];
-//    if (!group.entries.nonempty || [group.date isToday]) {
-//        return CGSizeMake(0.1, 0.1);
-//    }
+    WLGroup* group  = [self.entries.entries tryObjectAtIndex:indexPath.item];
+    if (!group.entries.nonempty || [group.date isToday]) {
+        return CGSizeMake(0.1, 0.1);
+    }
     return CGSizeMake(self.collectionView.width, (self.collectionView.width/2.5 + 28));
 }
 

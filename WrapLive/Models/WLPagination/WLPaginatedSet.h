@@ -36,6 +36,12 @@
 
 - (void)resetEntries:(NSOrderedSet*)entries;
 
+- (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
 - (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 - (BOOL)addEntries:(NSOrderedSet *)entries;

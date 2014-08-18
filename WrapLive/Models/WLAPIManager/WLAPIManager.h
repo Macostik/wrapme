@@ -42,7 +42,7 @@
 
 @interface WLWrap (WLAPIManager)
 
-- (id)fetch:(NSInteger)page success:(WLWrapBlock)success failure:(WLFailureBlock)failure;
+- (id)fetch:(NSInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 - (id)messagesNewer:(NSDate*)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 

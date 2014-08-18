@@ -125,7 +125,7 @@
 - (void)setCandy:(WLCandy *)candy {
     _candy = candy;
     if (self.isViewLoaded && [self.group.entries containsObject:candy]) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:[self.group.entries indexOfObject:candy]] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[self.group.entries indexOfObject:candy]] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     }
 }
 
@@ -288,20 +288,11 @@
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
     [WLToast showWithMessage:@"This candy is no longer avaliable."];
     NSMutableOrderedSet* candies = self.group.entries;
-    NSUInteger index = [candies indexOfObject:candy];
-    if (index != NSNotFound) {
-        [candies removeObject:candy];
-        if (candies.nonempty) {
-             if ([candies containsIndex:index]) {
-                self.candy = [candies objectAtIndex:index];
-             } else if ([candies containsIndex:index - 1]) {
-                 self.candy = [candies objectAtIndex:index - 1];
-             } else {
-                self.candy = [candies firstObject];
-            }
-        } else {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
+    [candies removeObject:candy];
+    if (candies.nonempty) {
+        [self.collectionView reloadData];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

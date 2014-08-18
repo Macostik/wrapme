@@ -78,4 +78,6 @@
 
 - (void)didChangeEntries:(WLEntriesCollection)entries;
 
+- (void)refresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
 @end

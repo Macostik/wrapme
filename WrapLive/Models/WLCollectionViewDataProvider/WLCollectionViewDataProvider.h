@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WLCollectionViewSection.h"
+#import "WLRefresher.h"
 
 @interface WLCollectionViewDataProvider : NSObject <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -26,6 +27,14 @@
 - (void)reload:(WLCollectionViewSection*)section;
 
 - (void)connect;
+
+- (void)setRefreshable;
+
+- (void)setRefreshableWithColorScheme:(WLRefresherColorScheme)colorScheme contentMode:(UIViewContentMode)contentMode;
+
+- (void)setRefreshableWithContentMode:(UIViewContentMode)contentMode;
+
+- (void)setRefreshableWithColorScheme:(WLRefresherColorScheme)colorScheme;
 
 @end
 

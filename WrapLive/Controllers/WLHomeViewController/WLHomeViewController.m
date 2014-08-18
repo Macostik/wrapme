@@ -46,7 +46,7 @@
 #import "WLHomeViewSection.h"
 #import "WLNavigation.h"
 
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver, WLQuickChatViewDelegate>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
@@ -76,7 +76,7 @@
 	self.createWrapButton.transform = CGAffineTransformMakeTranslation(0, self.createWrapButton.height);
 	self.collectionView.hidden = YES;
 	self.noWrapsView.hidden = YES;
-	[self setupRefresh];
+	[self.dataProvider setRefreshable];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 	[[WLNotificationBroadcaster broadcaster] addReceiver:self];
     
@@ -131,11 +131,6 @@
 		controller.delegate = self;
 		controller.mode = WLCameraModeCandy;
 	}];
-}
-
-- (void)setupRefresh {
-	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshWraps)];
-	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
 }
 
 //- (void)fetchWraps:(BOOL)refresh {
@@ -386,14 +381,6 @@
 
 #pragma mark - WLStillPictureViewControllerDelegate
 
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
-	WLWrap* wrap = controller.wrap ? : self.section.wrap;
-	[wrap uploadImage:image success:^(WLCandy *candy) {
-    } failure:^(NSError *error) {
-    }];
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
     WLWrap* wrap = controller.wrap ? : self.section.wrap;
     [wrap uploadPictures:pictures];
@@ -402,17 +389,6 @@
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - WLQuickChatViewDelegate
-
-- (void)quickChatView:(WLQuickChatView *)view didOpenChat:(WLWrap *)wrap {
-    WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-	wrapController.wrap = wrap;
-	NSArray* controllers = @[self, wrapController, [WLChatViewController instantiate:^(WLChatViewController *controller) {
-        controller.wrap = wrap;
-    }]];
-    [self.navigationController setViewControllers:controllers animated:YES];
 }
 
 @end

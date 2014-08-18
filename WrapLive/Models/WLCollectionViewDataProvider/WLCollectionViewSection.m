@@ -139,6 +139,10 @@
     }
 }
 
+- (void)refresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    if (success) success(nil);
+}
+
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {

@@ -7,6 +7,13 @@
 //
 
 #import "WLCollectionViewDataProvider.h"
+#import "AsynchronousOperation.h"
+
+@interface WLCollectionViewDataProvider ()
+
+@property (weak, nonatomic) WLRefresher *refresher;
+
+@end
 
 @implementation WLCollectionViewDataProvider
 
@@ -49,6 +56,43 @@
 - (void)connect {
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+}
+
+- (void)setRefreshable {
+    [self setRefreshableWithColorScheme:WLRefresherColorSchemeWhite];
+}
+
+- (void)setRefreshableWithColorScheme:(WLRefresherColorScheme)colorScheme contentMode:(UIViewContentMode)contentMode {
+    [self setRefreshableWithColorScheme:colorScheme];
+    self.refresher.contentMode = contentMode;
+}
+
+- (void)setRefreshableWithContentMode:(UIViewContentMode)contentMode {
+    [self setRefreshableWithColorScheme:WLRefresherColorSchemeWhite contentMode:contentMode];
+}
+
+- (void)setRefreshableWithColorScheme:(WLRefresherColorScheme)colorScheme {
+    self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refresh)];
+	self.refresher.colorScheme = colorScheme;
+}
+
+- (void)refresh {
+    __weak typeof(self)weakSelf = self;
+    NSOperationQueue *refreshingQueue = [[NSOperationQueue alloc] init];
+    for (WLCollectionViewSection* section in _sections) {
+        [refreshingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+            [section refresh:^(NSOrderedSet *orderedSet) {
+                [operation finish:^{
+                    [weakSelf.refresher endRefreshing];
+                }];
+            } failure:^(NSError *error) {
+                [operation finish:^{
+                    [weakSelf.refresher endRefreshing];
+                    [error showIgnoringNetworkError];
+                }];
+            }];
+        }];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate

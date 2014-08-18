@@ -8,6 +8,7 @@
 
 #import "WLPaginatedViewSection.h"
 #import "WLCollectionViewDataProvider.h"
+#import "WLRefresher.h"
 
 @interface WLPaginatedViewSection () <WLPaginatedSetDelegate>
 
@@ -37,6 +38,8 @@
                 success(orderedSet);
             }
         } failure:failure];
+    } else if (failure) {
+        failure(nil);
     }
 }
 
@@ -52,6 +55,8 @@
                 success(orderedSet);
             }
         } failure:failure];
+    } else if (failure) {
+        failure(nil);
     }
 }
 

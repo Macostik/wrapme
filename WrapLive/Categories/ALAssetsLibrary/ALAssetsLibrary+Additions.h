@@ -30,6 +30,8 @@
 @property (nonatomic, readonly) NSNumber *ID;
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSURL* url;
+@property (readonly, nonatomic) ALAssetsGroupType type;
+@property (readonly, nonatomic) BOOL isSavedPhotos;
 
 - (BOOL)isEqualToGroup:(ALAssetsGroup*)group;
 

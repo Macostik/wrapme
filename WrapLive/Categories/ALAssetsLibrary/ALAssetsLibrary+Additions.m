@@ -28,14 +28,10 @@
 	    if (group) {
 	        [group setAssetsFilter:[ALAssetsFilter allPhotos]];
 	        if ([group numberOfAssets] > 0) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    finish(group);
-                });
+                finish(group);
             }
 		} else {
-	        dispatch_async(dispatch_get_main_queue(), ^{
-	            finish(nil);
-			});
+	        finish(nil);
 		}
 	} failureBlock:failure];
 }
@@ -44,8 +40,17 @@
 	NSMutableArray *groups = [NSMutableArray array];
     [self enumerateGroups:^(ALAssetsGroup *group) {
         if (group) {
-	        [groups addObject:group];
+            [groups addObject:group];
 		} else {
+            [groups sortUsingComparator:^NSComparisonResult(ALAssetsGroup *obj1, ALAssetsGroup *obj2) {
+                if (obj1.isSavedPhotos) {
+                    return NSOrderedAscending;
+                } else if (obj2.isSavedPhotos) {
+                    return NSOrderedDescending;
+                } else {
+                    return [@(obj2.numberOfAssets) compare:@(obj1.numberOfAssets)];
+                }
+            }];
 	        dispatch_async(dispatch_get_main_queue(), ^{
 	            finish([groups copy]);
 			});
@@ -175,6 +180,14 @@
 
 - (NSURL *)url {
 	return [self valueForProperty:ALAssetsGroupPropertyURL];
+}
+
+- (ALAssetsGroupType)type {
+    return [[self valueForProperty:ALAssetsGroupPropertyType] integerValue];
+}
+
+- (BOOL)isSavedPhotos {
+    return self.type == ALAssetsGroupSavedPhotos;
 }
 
 - (void)assets:(void (^)(NSArray *assets))finish {

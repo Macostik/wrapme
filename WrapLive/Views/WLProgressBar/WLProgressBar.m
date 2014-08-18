@@ -12,8 +12,51 @@
 #import "WLBorderView.h"
 #import "WLSupportFunctions.h"
 #import <AFNetworking/AFURLConnectionOperation.h>
+#import <AFNetworking/AFHTTPRequestOperation.h>
+#import "NSObject+AssociatedObjects.h"
+#import "WLBlocks.h"
 
-@interface WLProgressBar ()
+@interface AFURLConnectionOperation (WLProgressBar)
+
+@property (nonatomic) float progress;
+
+- (void)setProgressBlock:(void (^)(float progress))block;
+
+@end
+
+@implementation AFURLConnectionOperation (WLProgressBar)
+
+- (void)setProgress:(float)progress {
+    [self setAssociatedObject:@(progress) forKey:"WLProgressBar_progress"];
+}
+
+- (float)progress {
+    return [[self associatedObjectForKey:"WLProgressBar_progress"] floatValue];
+}
+
+- (void)setProgressBlock:(void (^)(float progress))block {
+    __weak typeof(self)weakSelf = self;
+	[self setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        float progress = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
+		weakSelf.progress = progress;
+		if (block) {
+            block(progress);
+        }
+	}];
+	[self setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+		float progress = ((float)totalBytesRead/(float)totalBytesExpectedToRead);
+		weakSelf.progress = progress;
+		if (block) {
+            block(progress);
+        }
+	}];
+}
+
+@end
+
+@interface WLProgressBar () {
+    AFURLConnectionOperation *_safeOperation;
+}
 
 @property (strong, nonatomic) UIView *backgroundView;
 @property (strong, nonatomic) UIView *progressView;
@@ -86,16 +129,12 @@
 }
 
 - (void)setOperation:(AFURLConnectionOperation *)operation {
-	self.progress = 0;
 	__weak typeof(self)weakSelf = self;
-	[operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-		float progress = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
-		[weakSelf setProgress:progress animated:YES];
-	}];
-	[operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-		float progress = ((float)totalBytesRead/(float)totalBytesExpectedToRead);
-		[weakSelf setProgress:progress animated:YES];
-	}];
+    _safeOperation = operation;
+    self.progress = operation.progress;
+    [operation setProgressBlock:^(float progress) {
+        [weakSelf setProgress:progress animated:YES];
+    }];
 }
 
 @end

@@ -1924,10 +1924,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </button>
-                                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_small_smile" id="iTC-HV-kpT">
-                                                                    <rect key="frame" x="7" y="8" width="20" height="20"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                                </imageView>
                                                                 <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mIc-Fz-DNh" customClass="SegmentButton">
                                                                     <rect key="frame" x="161" y="0.0" width="160" height="36"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
@@ -1973,7 +1969,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                 <connections>
                                                     <outlet property="contributorsLabel" destination="6dW-gY-pJQ" id="ejH-we-NlQ"/>
                                                     <outlet property="coverView" destination="tcg-oc-PSs" id="TLA-fv-NTl"/>
-                                                    <outlet property="liveNotifyBulb" destination="iTC-HV-kpT" id="Yv8-4G-FYi"/>
                                                     <outlet property="nameLabel" destination="irm-8j-xhe" id="ZkJ-eg-Wdl"/>
                                                     <outlet property="tabControl" destination="qAr-B5-dMa" id="a4W-i7-gc5"/>
                                                 </connections>
@@ -2483,6 +2478,14 @@ Check your internet connection and try again.</string>
                                         <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dPY-De-6N3">
+                                        <rect key="frame" x="290" y="37" width="10" height="10"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -2621,6 +2624,7 @@ Check your internet connection and try again.</string>
                     <connections>
                         <outlet property="collectionView" destination="ez0-f9-dHG" id="cd9-Q9-vcX"/>
                         <outlet property="composeBar" destination="dQp-Lx-kpC" id="cly-mG-GSx"/>
+                        <outlet property="indicator" destination="dPY-De-6N3" id="teM-sm-qkH"/>
                         <outlet property="titleLabel" destination="AvF-XJ-7eQ" id="VjQ-zZ-1TG"/>
                         <outlet property="topView" destination="L7B-3N-jdg" id="gR3-Tx-BoI"/>
                     </connections>

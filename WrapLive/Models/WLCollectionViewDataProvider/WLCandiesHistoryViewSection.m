@@ -43,7 +43,7 @@ static NSString* WLCandiesHistoryViewStubCell = @"WLCandiesHistoryViewStubCell";
 
 - (void)append:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     WLWrapRequest* request = (id)self.entries.request;
-    request.page = ((self.entries.entries.count + 1)/WLAPIDatePageSize + 1);
+    request.page = ((self.entries.entries.count + 1)/10 + 1);
     [super append:success failure:failure];
 }
 

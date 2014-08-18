@@ -334,8 +334,17 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLMessageCell* cell = nil;
+<<<<<<< HEAD
 	WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section];
+	WLCandy* message = [group.entries objectAtIndex:indexPath.row];
+    message.unread = @NO;
+	BOOL isMyComment = [message.contributor isCurrentUser];
+	NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
+	WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+	cell.item = message;
+=======
+    WLMessageCell* cell = nil;
+	WLGroup* group = [self.groups.set tryObjectAtIndex:indexPath.section];
     id entry = [group.entries objectAtIndex:indexPath.row];
     if ([entry isKindOfClass:[WLCandy class]]) {
         WLCandy* message = entry;
@@ -350,6 +359,7 @@
         cell.item = message;
     }
 	
+>>>>>>> master
 	[self handlePaginationWithIndexPath:indexPath];
 	return cell;
 }
@@ -401,7 +411,7 @@
 }
 
 - (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didEndTyping:(WLUser *)user {
-    [self.groups removeEntry:(id)user];
+    [self.groups removeCandy:(id)user];
     [self.collectionView reloadData];
 }
 

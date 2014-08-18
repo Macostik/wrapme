@@ -70,11 +70,15 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 @property (nonatomic, readonly) BOOL isLive;
 
+<<<<<<< HEAD
+@property (nonatomic) BOOL showLiveNotifyBulb;
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCollectionViewSection *wrapViewSection;
 @property (strong, nonatomic) IBOutlet WLCandiesLiveViewSection *liveViewSection;
 @property (strong, nonatomic) IBOutlet WLCandiesHistoryViewSection *historyViewSection;
 
+=======
+>>>>>>> master
 @end
 
 @implementation WLWrapViewController
@@ -118,6 +122,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     __weak typeof(self)weakSelf = self;
     [self.wrapViewSection setConfigure:^(WLWrapCell *cell, id entry) {
         cell.tabControl.selectedSegment = weakSelf.viewTab;
+        cell.liveNotifyBulb.hidden = !weakSelf.showLiveNotifyBulb;
     }];
     
     [self.historyViewSection setSelection:^ (id entry) {
@@ -162,7 +167,15 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     if (self.wrapRequest.loading) return;
     self.wrapRequest.page = 1;
     self.wrapRequest.contentType = contentType;
+<<<<<<< HEAD
     [self.wrapRequest send:^(NSOrderedSet* candies) {
+        if (contentType == WLWrapContentTypeAuto && [weakSelf.wrapRequest.contentType isEqualToString:WLWrapContentTypeLive] && weakSelf.viewTab == WLWrapViewTabHistory) {
+            if ([[[[weakSelf.wrap liveCandies] firstObject] contributor] isEqualToEntry:[WLUser currentUser]]) {
+                weakSelf.showLiveNotifyBulb = NO;
+            } else  {
+                weakSelf.showLiveNotifyBulb = YES;
+=======
+    [self.wrapRequest send:^(WLWrap* wrap) {
         if (contentType == WLWrapContentTypeAuto) {
             if ([weakSelf.wrapRequest isContentType:WLWrapContentTypeLive] && weakSelf.viewTab == WLWrapViewTabHistory) {
                 [weakSelf changeViewTab:WLWrapViewTabLive];
@@ -170,11 +183,17 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
                 [weakSelf changeViewTab:WLWrapViewTabHistory];
             } else {
                 [weakSelf reloadData];
+>>>>>>> master
             }
         } else {
             [weakSelf reloadData];
         }
+<<<<<<< HEAD
+        [weakSelf reloadData];
         [weakSelf setFirstContributorViewHidden:weakSelf.wrap.candies.nonempty animated:YES];
+=======
+        [weakSelf setFirstContributorViewHidden:wrap.candies.nonempty animated:YES];
+>>>>>>> master
 		[weakSelf.refresher endRefreshing];
     } failure:^(NSError *error) {
         if ([weakSelf.wrapRequest.contentType isEqualToString:WLWrapContentTypeAuto]) {
@@ -187,8 +206,16 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 }
 
 - (void)reloadData {
+<<<<<<< HEAD
     [self.historyViewSection.entries resetEntries:self.wrap.candies];
     [self.liveViewSection.entries resetEntries:[self.wrap liveCandies]];
+=======
+    [self.groups setCandies:self.wrap.candies];
+    if (self.isLive) {
+        self.candies = [self.wrap liveCandies];
+    }
+    self.showLoadingView = YES;
+>>>>>>> master
 }
 
 - (void)appendDates {
@@ -214,9 +241,19 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
             [self refreshWrap:WLWrapContentTypeHistory];
             return;
         }
-        self.wrapRequest.page = ((self.historyViewSection.entries.entries.count + 1)/10 + 1);
+<<<<<<< HEAD
+        self.wrapRequest.page = ((self.historyViewSection.entries.entries.count + 1)/WLAPIDatePageSize + 1);
         [self.wrapRequest send:^(NSOrderedSet* candies) {
-            [weakSelf.groups addEntries:candies];
+            [weakSelf.historyViewSection.entries addEntries:weakSelf.wrap.candies];
+=======
+        self.wrapRequest.page = ((self.groups.set.count + 1)/10 + 1);
+        NSUInteger count = self.wrap.candies.count;
+        [self.wrapRequest send:^(WLWrap* wrap) {
+            [weakSelf.groups addCandies:wrap.candies];
+            if (count == wrap.candies.count) {
+                weakSelf.showLoadingView = NO;
+            }
+>>>>>>> master
         } failure:^(NSError *error) {
             [error showIgnoringNetworkError];
         }];
@@ -354,7 +391,12 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 - (void)didChangeViewTab {
     if (self.isLive) {
+<<<<<<< HEAD
+        self.showLiveNotifyBulb = NO;
         [self.liveViewSection.entries resetEntries:[self.wrap liveCandies]];
+=======
+        self.candies = [self.wrap liveCandies];
+>>>>>>> master
     }
     self.liveViewSection.completed = NO;
     self.historyViewSection.completed = NO;
@@ -371,6 +413,99 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 	}
 }
 
+<<<<<<< HEAD
+=======
+- (void)candiesCell:(WLCandiesCell*)cell didSelectCandy:(WLCandy*)candy {
+	[self presentCandy:candy];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 2;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    if (section == 0) {
+        return 1;
+    } else {
+        return self.isLive ? [self.candies count] : [self.groups.set count];
+    }
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        static NSString* wrapCellIdentifier = @"WLWrapCell";
+        WLWrapCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:wrapCellIdentifier forIndexPath:indexPath];
+        cell.item = self.wrap;
+        cell.delegate = self;
+        cell.tabControl.selectedSegment = self.viewTab;
+        return cell;
+    } else if (self.isLive) {
+        WLCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCandyCellIdentifier forIndexPath:indexPath];
+        WLCandy* candy = [self.candies tryObjectAtIndex:indexPath.item];
+        cell.item = candy;
+        cell.delegate = self;
+        return cell;
+    } else {
+        WLCandiesCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WLCandiesCell reuseIdentifier] forIndexPath:indexPath];
+        WLGroup* date = [self.groups.set tryObjectAtIndex:indexPath.item];
+        cell.item = date;
+        cell.delegate = self;
+        if (indexPath.row > 0) {
+            cell.refreshable = NO;
+        } else {
+            cell.refreshable = [date.name isEqualToString:[[NSDate serverTime] stringWithFormat:self.groups.dateFormat]];
+        }
+        return cell;
+    }
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    [self appendDates];
+    static NSString* identifier = @"WLLoadingView";
+    return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return CGSizeMake(collectionView.width, 112);
+    } else if (self.isLive) {
+        CGFloat size = collectionView.width/3.0f - 0.5f;
+        return CGSizeMake(size, size);
+    } else {
+        return CGSizeMake(collectionView.width, (collectionView.width/2.5 + 28));
+    }
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return (section != 0 && self.isLive) ? WLCandyCellSpacing : 0;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return (section != 0 && self.isLive) ? UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing) : UIEdgeInsetsZero;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    return (section == 0 || !self.showLoadingView) ? CGSizeZero : CGSizeMake(collectionView.width, 60);
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    [self.quickChatView onEndDragging];
+    if (!decelerate) {
+        [self.quickChatView onEndScrolling];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self.quickChatView onEndScrolling];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.quickChatView onScroll];
+}
+
+>>>>>>> master
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {

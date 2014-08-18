@@ -36,7 +36,6 @@
 #import "WLUser.h"
 #import "WLWrap.h"
 #import "WLWrapBroadcaster.h"
-#import "WLInternetConnectionBroadcaster.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "WLWrap+Extended.h"
 #import "WLDetailedCandyCell.h"
@@ -82,8 +81,6 @@
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 	
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-    
-    [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
 
     [self.collectionView reloadData];
     if (_candy && [self.group.entries containsObject:_candy]) {
@@ -123,7 +120,6 @@
 - (void)setGroup:(WLGroup *)group {
     _group = group;
     [self.collectionView reloadData];
-    self.collectionView.contentOffset = CGPointZero;
 }
 
 - (void)setCandy:(WLCandy *)candy {
@@ -155,6 +151,7 @@
 }
 
 - (void)fetchOlder:(WLCandy*)candy {
+    if (self.group.completed) return;
     NSUInteger count = [self.group.entries count];
     NSUInteger index = [self.group.entries indexOfObject:candy];
     BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
@@ -232,6 +229,7 @@
         WLGroup* group = [self.groups.entries objectAtIndex:index];
         if ([group hasAtLeastOneImage]) {
             self.group = group;
+            self.collectionView.contentOffset = CGPointZero;
             return YES;
         } else {
             return [self swipeToGroupAtIndex:operationBlock(index) operationBlock:operationBlock];
@@ -329,16 +327,6 @@
     run_after(0.0f, ^{
         [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
     });
-}
-
-#pragma mark - WLInternetConnectionBroadcaster
-
-- (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
-    if (![reachable boolValue]) {
-        run_in_main_queue(^{
-            self.candyCell.progressBar.progress = .2f;
-        });
-    }
 }
 
 #pragma mark - Actions

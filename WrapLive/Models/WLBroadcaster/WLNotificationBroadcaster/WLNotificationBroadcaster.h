@@ -7,9 +7,11 @@
 //
 
 #import "WLBroadcaster.h"
+#import "WLBlocks.h"
 
 @class WLNotificationBroadcaster;
 @class WLNotification;
+@class WLUser;
 
 @protocol WLNotificationReceiver
 
@@ -20,6 +22,10 @@
 - (BOOL)broadcaster:(WLNotificationBroadcaster *)broadcaster shouldReceiveNotification:(WLNotification *)notification;
 
 - (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification;
+
+- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didBeginTyping:(WLUser *)user;
+
+- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didEndTyping:(WLUser *)user;
 
 @end
 
@@ -32,6 +38,12 @@
 + (void)disablePushNotifications;
 
 + (void)setDeviceToken:(NSData*)deviceToken;
+
+- (void)subscribeOnChannel:(NSString *)nameChannel conectSuccess:(WLBooleanBlock)success;
+
+- (void)unsubscribeFromChannel:(NSString *)channel;
+
+- (BOOL)isSubscribedOnChannel:(NSString *)channel;
 
 - (void)handleRemoteNotification:(NSDictionary*)data;
 

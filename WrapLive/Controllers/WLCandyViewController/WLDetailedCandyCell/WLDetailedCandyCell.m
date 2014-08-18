@@ -33,6 +33,7 @@
     [super awakeFromNib];
     self.refresher = [WLRefresher refresherWithScrollView:self.tableView target:self action:@selector(refresh) colorScheme:WLRefresherColorSchemeOrange];
     [self setFullFlexible];
+    [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)refresh {
@@ -96,6 +97,16 @@
                                                               options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[WLCommentCell commentFont]} context:nil].size.height);
 	CGFloat cellHeight = (commentHeight + WLAuthorLabelHeight);
 	return MAX(WLMinimumCellHeight, cellHeight + 10);
+}
+
+#pragma mark - WLInternetConnectionBroadcaster
+
+- (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
+    if (![reachable boolValue]) {
+        run_in_main_queue(^{
+            self.progressBar.progress = .2f;
+        });
+    }
 }
 
 @end

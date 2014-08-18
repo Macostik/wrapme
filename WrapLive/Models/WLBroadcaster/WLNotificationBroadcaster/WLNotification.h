@@ -11,6 +11,7 @@
 @class WLWrap;
 @class WLCandy;
 @class WLComment;
+@class WLUser;
 
 typedef NS_ENUM(NSUInteger, WLNotificationType) {
 	WLNotificationContributorAddition  = 100,
@@ -21,6 +22,8 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 	WLNotificationCandyCommentDeletion = 600,
 	WLNotificationChatCandyAddition    = 700,
 	WLNotificationWrapDeletion         = 800,
+    WLNotificationBeginTyping          = 2000,
+    WLNotificationEndTyping            = 2001,
 };
 
 @interface WLNotification : NSObject
@@ -34,6 +37,8 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 @property (strong, nonatomic) WLCandy* candy;
 
 @property (strong, nonatomic) WLComment* comment;
+
+@property (strong, nonatomic) WLUser *user;
 
 + (instancetype)notificationWithMessage:(PNMessage*)message;
 

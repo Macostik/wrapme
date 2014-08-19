@@ -8,6 +8,10 @@
 
 #import "WLPaginatedViewSection.h"
 
+@class WLWrapRequest;
+
 @interface WLCandiesLiveViewSection : WLPaginatedViewSection
+
+@property (strong, nonatomic) WLWrapRequest* wrapRequest;
 
 @end

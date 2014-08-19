@@ -130,10 +130,12 @@
 - (IBAction)selectCountry:(id)sender {
 	[self.view endEditing:YES];
 	__weak typeof(self)weakSelf = self;
-	WLCountriesViewController* controller = [[WLCountriesViewController alloc] init];
-	[controller setSelectionBlock:^(WLCountry *country) {
-		weakSelf.country = country;
-	}];
+	WLCountriesViewController* controller = [WLCountriesViewController instantiate:^(WLCountriesViewController* controller) {
+        [controller setSelectionBlock:^(WLCountry *country) {
+            weakSelf.country = country;
+            [weakSelf.signUpViewController.navigationController popViewControllerAnimated:YES];
+        }];
+    }];
 	[self.signUpViewController.navigationController pushViewController:controller animated:YES];
 }
 

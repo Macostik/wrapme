@@ -17,7 +17,7 @@
 
 @implementation WLCountryCell
 
-- (void)setupItemData:(WLCountry*)country {
+- (void)setup:(WLCountry*)country {
 	self.countryNameLabel.text = country.name;
 }
 

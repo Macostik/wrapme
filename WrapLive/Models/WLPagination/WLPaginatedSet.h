@@ -44,6 +44,8 @@
 
 - (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
+- (void)handleResponse:(NSOrderedSet*)entries success:(WLOrderedSetBlock)success;
+
 - (BOOL)addEntries:(NSOrderedSet *)entries;
 
 - (BOOL)addEntry:(id)entry;

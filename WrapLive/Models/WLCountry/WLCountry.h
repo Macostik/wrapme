@@ -12,7 +12,7 @@
 @property (strong, nonatomic) NSString* callingCode;
 @property (strong, nonatomic) NSString* code;
 
-+ (NSArray *)getAllCountries;
++ (NSMutableOrderedSet *)all;
 + (WLCountry *)getCurrentCountry;
 
 @end

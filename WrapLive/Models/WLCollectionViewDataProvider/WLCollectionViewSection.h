@@ -78,4 +78,6 @@
 
 - (void)refresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
+- (void)select:(NSIndexPath*)indexPath;
+
 @end

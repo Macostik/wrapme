@@ -146,6 +146,11 @@
     return [_section sectionInsets:section];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    WLCollectionViewSection* section = _sections[indexPath.section];
+    [section select:indexPath];
+}
+
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     for (WLCollectionViewSection* section in _sections) {
         [section scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];

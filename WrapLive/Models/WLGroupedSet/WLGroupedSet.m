@@ -12,6 +12,7 @@
 #import "NSDate+Formatting.h"
 #import "NSOrderedSet+Additions.h"
 #import "NSDate+Additions.h"
+#import "WLWrapRequest.h"
 
 @interface WLGroupedSet ()
 
@@ -178,6 +179,14 @@
     return [self.entries selectObject:^BOOL(WLGroup* item) {
         return [item.date isSameDay:date];
     }];
+}
+
+- (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    if (self.request.type == WLPaginatedRequestTypeOlder) {
+        WLWrapRequest* request = (id)self.request;
+        request.page = ((self.entries.count + 1)/10 + 1);
+    }
+    return [super send:success failure:failure];
 }
 
 @end

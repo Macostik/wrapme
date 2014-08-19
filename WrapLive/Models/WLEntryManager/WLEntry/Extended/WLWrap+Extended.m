@@ -209,26 +209,6 @@
     return candies;
 }
 
-- (NSMutableOrderedSet *)liveCandies {
-    NSMutableOrderedSet* candies = [NSMutableOrderedSet orderedSet];
-    __block BOOL hasMessage = NO;
-    for (WLCandy* candy in self.candies) {
-        if ([candy.updatedAt isToday]) {
-            if ([candy isMessage]) {
-                if (!hasMessage) {
-                    hasMessage = YES;
-                    [candies addObject:candy];
-                }
-            } else {
-                [candies addObject:candy];
-            }
-        } else {
-            break;
-        }
-    }
-    return candies;
-}
-
 - (void)uploadMessage:(NSString *)message success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
 	
 	if (![WLInternetConnectionBroadcaster broadcaster].reachable) {

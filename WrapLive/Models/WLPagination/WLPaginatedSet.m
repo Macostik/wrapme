@@ -65,19 +65,18 @@
     }
     __weak typeof(self)weakSelf = self;
     return [self.request send:^(NSOrderedSet *orderedSet) {
-        if (orderedSet.nonempty && ![orderedSet isSubsetOfOrderedSet:weakSelf.entries]) {
-            if (![weakSelf addEntries:orderedSet]) {
-                weakSelf.completed = YES;
-                [weakSelf.delegate paginatedSetChanged:self];
-            }
-        } else if (weakSelf.request.type == WLPaginatedRequestTypeOlder) {
-            weakSelf.completed = YES;
-            [weakSelf.delegate paginatedSetChanged:self];
-        }
-        if(success) {
-            success(orderedSet);
-        }
+        [weakSelf handleResponse:orderedSet success:success];
     } failure:failure];
+}
+
+- (void)handleResponse:(NSOrderedSet*)entries success:(WLOrderedSetBlock)success {
+    if (!entries.nonempty || ![self addEntries:entries]) {
+        self.completed = YES;
+        [self.delegate paginatedSetChanged:self];
+    }
+    if(success) {
+        success(entries);
+    }
 }
 
 - (BOOL)addEntries:(NSOrderedSet *)entries sort:(BOOL)sort {

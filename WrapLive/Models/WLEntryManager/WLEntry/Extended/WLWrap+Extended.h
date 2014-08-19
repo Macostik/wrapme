@@ -43,8 +43,6 @@ static NSUInteger WLWrapNameLimit = 190;
 
 - (NSMutableOrderedSet*)recentCandies:(NSUInteger)maximumCount;
 
-- (NSMutableOrderedSet*)liveCandies;
-
 - (void)uploadMessage:(NSString*)message success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 
 - (void)uploadPicture:(WLPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure;

@@ -132,6 +132,12 @@
     if (success) success(nil);
 }
 
+- (void)select:(NSIndexPath *)indexPath {
+    if (self.selection) {
+        self.selection(self.entries.entries[indexPath.item]);
+    }
+}
+
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {

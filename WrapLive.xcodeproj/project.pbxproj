@@ -14,9 +14,7 @@
 		121B1B2E18E07430001F585C /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */; };
 		121B1B4018E0848D001F585C /* WLCountriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3A18E0848D001F585C /* WLCountriesViewController.m */; };
-		121B1B4118E0848D001F585C /* WLCountriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3B18E0848D001F585C /* WLCountriesViewController.xib */; };
 		121B1B4218E0848D001F585C /* WLCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3E18E0848D001F585C /* WLCountryCell.m */; };
-		121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B3F18E0848D001F585C /* WLCountryCell.xib */; };
 		121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B4418E08B7E001F585C /* CountryCodes.json */; };
 		121FC9E3190A93D80034486D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E2190A93D80034486D /* CFNetwork.framework */; };
 		121FC9E5190A93E50034486D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E4190A93E50034486D /* SystemConfiguration.framework */; };
@@ -254,10 +252,8 @@
 		121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+NibAdditions.m"; sourceTree = "<group>"; };
 		121B1B3918E0848D001F585C /* WLCountriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCountriesViewController.h; sourceTree = "<group>"; };
 		121B1B3A18E0848D001F585C /* WLCountriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCountriesViewController.m; sourceTree = "<group>"; };
-		121B1B3B18E0848D001F585C /* WLCountriesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCountriesViewController.xib; sourceTree = "<group>"; };
 		121B1B3D18E0848D001F585C /* WLCountryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCountryCell.h; sourceTree = "<group>"; };
 		121B1B3E18E0848D001F585C /* WLCountryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCountryCell.m; sourceTree = "<group>"; };
-		121B1B3F18E0848D001F585C /* WLCountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCountryCell.xib; sourceTree = "<group>"; };
 		121B1B4418E08B7E001F585C /* CountryCodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountryCodes.json; sourceTree = "<group>"; };
 		121FC9E2190A93D80034486D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		121FC9E4190A93E50034486D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -755,7 +751,6 @@
 				121B1B3C18E0848D001F585C /* WLCountryCell */,
 				121B1B3918E0848D001F585C /* WLCountriesViewController.h */,
 				121B1B3A18E0848D001F585C /* WLCountriesViewController.m */,
-				121B1B3B18E0848D001F585C /* WLCountriesViewController.xib */,
 			);
 			path = WLCountriesViewController;
 			sourceTree = "<group>";
@@ -765,7 +760,6 @@
 			children = (
 				121B1B3D18E0848D001F585C /* WLCountryCell.h */,
 				121B1B3E18E0848D001F585C /* WLCountryCell.m */,
-				121B1B3F18E0848D001F585C /* WLCountryCell.xib */,
 			);
 			path = WLCountryCell;
 			sourceTree = "<group>";
@@ -2174,7 +2168,6 @@
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
 				14ACAE0719421AE5006BD3B3 /* Main.storyboard in Resources */,
 				14ACAE0619421A79006BD3B3 /* WLQuickChatView.xib in Resources */,
-				121B1B4118E0848D001F585C /* WLCountriesViewController.xib in Resources */,
 				1409DA631949B24E00358BD4 /* PhoneFormats.dat in Resources */,
 				14AE4FF319700B5E002EEF3F /* interfacealertsound3.wav in Resources */,
 				ACF8D90E19347B9E0001E570 /* WLEmojiView.xib in Resources */,
@@ -2187,7 +2180,6 @@
 				ACF8D9161934B44D0001E570 /* rings.plist in Resources */,
 				ACF8D9101934B4350001E570 /* smiles.plist in Resources */,
 				12D514FB192F5F15007A1520 /* AppIcon40x40.png in Resources */,
-				121B1B4318E0848D001F585C /* WLCountryCell.xib in Resources */,
 				ACF8D9121934B4400001E570 /* numbers.plist in Resources */,
 				121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,

@@ -14,15 +14,17 @@
 
 @implementation WLCountry
 
-+ (NSArray *)getAllCountries {
++ (NSMutableOrderedSet *)all {
 	NSArray* json = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CountryCodes" ofType:@"json"]] options:NSJSONReadingAllowFragments error:NULL];
-    return [json map:^id(NSDictionary* item) {
+    NSMutableOrderedSet* countries = [[NSMutableOrderedSet alloc] init];
+    for (NSDictionary* item in json) {
         WLCountry* country = [[WLCountry alloc] init];
         country.name = [item objectForKey:@"name"];
         country.callingCode = [item objectForKey:@"dial_code"];
         country.code = [item objectForKey:@"code"];
-        return country;
-    }];
+        [countries addObject:country];
+    }
+    return countries;
 }
 
 + (WLCountry *)getCurrentCountry {
@@ -31,7 +33,7 @@
 	if (!code.nonempty) {
 		code = [[[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] lowercaseString];
 	}
-	NSArray* countries = [WLCountry getAllCountries];
+	NSMutableOrderedSet* countries = [WLCountry all];
 	for (WLCountry * country in countries) {
 		if ([[country.code lowercaseString] isEqualToString:code]) {
 			return country;

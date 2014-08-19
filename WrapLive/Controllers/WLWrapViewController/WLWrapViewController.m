@@ -52,23 +52,15 @@ typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
 
 static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLPaginatedSetDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
 @property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
-@property (weak, nonatomic) WLRefresher *refresher;
-@property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
-
-@property (strong, nonatomic) WLWrapRequest* wrapRequest;
-
-@property (strong, nonatomic) WLCandiesRequest* candiesRequest;
 
 @property (strong, nonatomic) WLGroupedSet *groups;
 
 @property (nonatomic) WLWrapViewTab viewTab;
-
-@property (nonatomic, readonly) BOOL isLive;
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCollectionViewSection *wrapViewSection;
@@ -78,6 +70,8 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 @end
 
 @implementation WLWrapViewController
+
+@synthesize viewTab = _viewTab;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -92,24 +86,22 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     self.wrapViewSection.entries = [NSMutableOrderedSet orderedSetWithObject:self.wrap];
     
     NSNumber* defaultTab = [[NSUserDefaults standardUserDefaults] objectForKey:WLWrapViewDefaultTabKey];
-    if (defaultTab) {
-        self.viewTab = [defaultTab integerValue];
-    } else {
-        self.viewTab = WLWrapViewTabHistory;
-    }
+    self.viewTab = defaultTab ? [defaultTab integerValue] : WLWrapViewTabHistory;
     
     self.groups = [WLGroupedSet groupsOrderedBy:WLCandiesOrderByCreation];
-    self.groups.delegate = self;
     [self.groups addEntries:self.wrap.candies];
+    WLWrapRequest* wrapRequest = [WLWrapRequest request:self.wrap];
+    wrapRequest.contentType = WLWrapContentTypeHistory;
     self.historyViewSection.entries = self.groups;
-    self.historyViewSection.entries.request = self.wrapRequest;
+    self.historyViewSection.entries.request = wrapRequest;
     self.liveViewSection.entries = [self.groups group:[NSDate date]];
     self.liveViewSection.entries.request = [WLCandiesRequest request:self.wrap];
     self.liveViewSection.entries.request.sameDay = YES;
+    wrapRequest = [WLWrapRequest request:self.wrap];
+    wrapRequest.contentType = WLWrapContentTypeLive;
+    self.liveViewSection.wrapRequest = wrapRequest;
     
-    self.quickChatView.wrap = self.wrap;
-    [self refreshWrap:WLWrapContentTypeAuto];
-    self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshAction) colorScheme:WLRefresherColorSchemeOrange];
+    [self.dataProvider setRefreshableWithColorScheme:WLRefresherColorSchemeOrange];
     
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     
@@ -122,18 +114,26 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         [weakSelf presentCandy:entry];
     }];
     self.liveViewSection.selection = self.historyViewSection.selection;
+    
+    [self firstLoadRequest];
 }
 
-- (BOOL)isLive {
-    return self.viewTab == WLWrapViewTabLive;
-}
-
-- (WLWrapRequest *)wrapRequest {
-    if (!_wrapRequest) {
-        _wrapRequest = [WLWrapRequest request];
-    }
-    _wrapRequest.wrap = self.wrap;
-    return _wrapRequest;
+- (void)firstLoadRequest {
+    __weak typeof(self)weakSelf = self;
+    WLWrapRequest* wrapRequest = [WLWrapRequest request:self.wrap];
+    wrapRequest.contentType = WLWrapContentTypeAuto;
+    [wrapRequest send:^(NSOrderedSet *orderedSet) {
+        if ([wrapRequest isContentType:WLWrapContentTypeLive]) {
+            [weakSelf changeViewTab:WLWrapViewTabLive];
+        } else if ([wrapRequest isContentType:WLWrapContentTypeHistory]) {
+            [weakSelf changeViewTab:WLWrapViewTabHistory];
+        } else {
+            [weakSelf reloadData];
+        }
+        [weakSelf setFirstContributorViewHidden:weakSelf.wrap.candies.nonempty animated:YES];
+    } failure:^(NSError *error) {
+        [error show];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -148,84 +148,15 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     }
     
     self.wrap.unread = @NO;
-    [self.collectionView reloadData];
-}
-
-- (void)refreshAction {
-    [self refreshWrap:self.isLive ? WLWrapContentTypeLive : WLWrapContentTypeHistory];
-}
-
-- (void)refreshWrap:(NSString*)contentType {
-	__weak typeof(self)weakSelf = self;
-    if (self.wrapRequest.loading) return;
-    self.wrapRequest.page = 1;
-    self.wrapRequest.contentType = contentType;
-    [self.wrapRequest send:^(NSOrderedSet* candies) {
-        if (contentType == WLWrapContentTypeAuto) {
-            if ([weakSelf.wrapRequest isContentType:WLWrapContentTypeLive] && weakSelf.viewTab == WLWrapViewTabHistory) {
-                [weakSelf changeViewTab:WLWrapViewTabLive];
-            } else if ([weakSelf.wrapRequest isContentType:WLWrapContentTypeHistory] && weakSelf.viewTab == WLWrapViewTabLive) {
-                [weakSelf changeViewTab:WLWrapViewTabHistory];
-            } else {
-                [weakSelf reloadData];
-            }
-        } else {
-            [weakSelf reloadData];
-        }
-        [weakSelf setFirstContributorViewHidden:weakSelf.wrap.candies.nonempty animated:YES];
-		[weakSelf.refresher endRefreshing];
-    } failure:^(NSError *error) {
-        if ([weakSelf.wrapRequest.contentType isEqualToString:WLWrapContentTypeAuto]) {
-            [error show];
-        } else {
-            [error showIgnoringNetworkError];
-        }
-		[weakSelf.refresher endRefreshing];
-    }];
+    [self.dataProvider reload];
 }
 
 - (void)reloadData {
     [self.historyViewSection.entries resetEntries:self.wrap.candies];
-    [self.liveViewSection.entries resetEntries:[self.wrap liveCandies]];
-}
-
-- (void)appendDates {
-    __weak typeof(self)weakSelf = self;
-    if (self.isLive) {
-        if (!self.liveViewSection.entries.entries.nonempty) {
-            [self refreshWrap:WLWrapContentTypeLive];
-            return;
-        }
-        self.candiesRequest = [WLCandiesRequest request:self.wrap];
-        self.candiesRequest.newer = [[self.liveViewSection.entries.entries firstObject] updatedAt];
-        self.candiesRequest.older = [[self.liveViewSection.entries.entries lastObject] updatedAt];
-        self.candiesRequest.type = WLPaginatedRequestTypeOlder;
-        self.candiesRequest.sameDay = YES;
-        [self.candiesRequest send:^(NSOrderedSet* candies) {
-            [weakSelf.liveViewSection.entries.entries unionOrderedSet:candies];
-            [weakSelf.historyViewSection.entries addEntries:candies];
-        } failure:^(NSError *error) {
-            [error showIgnoringNetworkError];
-        }];
-    } else {
-        if (!self.wrap.candies.nonempty) {
-            [self refreshWrap:WLWrapContentTypeHistory];
-            return;
-        }
-        self.wrapRequest.page = ((self.historyViewSection.entries.entries.count + 1)/10 + 1);
-        [self.wrapRequest send:^(NSOrderedSet* candies) {
-            [weakSelf.groups addEntries:candies];
-        } failure:^(NSError *error) {
-            [error showIgnoringNetworkError];
-        }];
-    }
+    self.liveViewSection.entries = [self.groups group:[NSDate date]];
 }
 
 - (UIViewController *)shakePresentedViewController {
-	return [self cameraViewController];
-}
-
-- (id)cameraViewController {
 	__weak typeof(self)weakSelf = self;
 	return [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
 		controller.wrap = weakSelf.wrap;
@@ -253,34 +184,19 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 #pragma mark - WLWrapBroadcastReceiver
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-	self.quickChatView.wrap = self.wrap;
-    __weak typeof(self)weakSelf = self;
-    run_after(0.0, ^{
-        if (weakSelf.isLive) {
-            [weakSelf.liveViewSection.entries resetEntries:[weakSelf.wrap liveCandies]];
-            [weakSelf.collectionView reloadData];
-        }
-    });
-}
-
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
-    [self.historyViewSection.entries addEntry:candy];
+    [self.groups addEntry:candy];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
-    [self.historyViewSection.entries removeEntry:candy];
+    [self.groups removeEntry:candy];
     if (!self.wrap.candies.nonempty) {
         [self setFirstContributorViewHidden:NO animated:self.isOnTopOfNagvigation];
     }
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
-    [self.historyViewSection.entries sort:candy];
-    if (self.isLive) {
-        [self.liveViewSection.entries.entries sortByUpdatedAtDescending];
-        [self.collectionView reloadData];
-    }
+    [self.groups sort:candy];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
@@ -296,12 +212,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 - (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
     return self.wrap;
-}
-
-#pragma mark - WLPaginatedSetDelegate
-
-- (void)paginatedSetChanged:(WLPaginatedSet *)group {
-    [self.collectionView reloadData];
 }
 
 #pragma mark - User Actions
@@ -332,7 +242,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 - (void)setViewTab:(WLWrapViewTab)viewTab {
     _viewTab = viewTab;
-    if (self.isLive) {
+    if (viewTab == WLWrapViewTabLive) {
         self.dataProvider.sections = [NSMutableArray arrayWithObjects:self.wrapViewSection, self.liveViewSection, nil];
     } else {
         self.dataProvider.sections = [NSMutableArray arrayWithObjects:self.wrapViewSection, self.historyViewSection, nil];
@@ -344,25 +254,25 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 }
 
 - (void)changeViewTab:(WLWrapViewTab)viewTab {
-    self.viewTab = viewTab;
-    [[NSUserDefaults standardUserDefaults] setObject:@(self.viewTab) forKey:WLWrapViewDefaultTabKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self didChangeViewTab];
+    if (_viewTab != viewTab) {
+        self.viewTab = viewTab;
+        [[NSUserDefaults standardUserDefaults] setObject:@(self.viewTab) forKey:WLWrapViewDefaultTabKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self didChangeViewTab];
+    }
 }
 
 - (void)didChangeViewTab {
-    if (self.isLive) {
-        [self.liveViewSection.entries resetEntries:[self.wrap liveCandies]];
-    }
     self.liveViewSection.completed = NO;
     self.historyViewSection.completed = NO;
     [self.collectionView setContentOffset:CGPointZero animated:YES];
+    [self.dataProvider reload];
 }
 
 - (void)presentCandy:(WLCandy*)candy {
     if ([candy isImage]) {
 		WLCandyViewController *candyController = (id)[candy viewController];
-        candyController.orderBy = self.isLive ? WLCandiesOrderByUpdating : WLCandiesOrderByCreation;
+        candyController.orderBy = (self.viewTab == WLWrapViewTabLive) ? WLCandiesOrderByUpdating : WLCandiesOrderByCreation;
         [self.navigationController pushViewController:candyController animated:YES];
 	} else if ([candy isMessage]) {
         [candy presentInViewController:self];
@@ -372,10 +282,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-    if (self.viewTab != WLWrapViewTabLive) {
-        self.viewTab = WLWrapViewTabLive;
-        [self didChangeViewTab];
-    }
+    [self changeViewTab:WLWrapViewTabLive];
     WLWrap* wrap = controller.wrap ? : self.wrap;
     [wrap uploadPictures:pictures];
     [self setFirstContributorViewHidden:YES animated:NO];

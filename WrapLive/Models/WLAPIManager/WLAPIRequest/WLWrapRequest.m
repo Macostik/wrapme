@@ -36,7 +36,11 @@
     }
     [parameters trySetObject:@([[NSTimeZone localTimeZone] secondsFromGMT]) forKey:@"utc_offset"];
 	[parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
-	[parameters trySetObject:@(self.page) forKey:@"group_by_date_page_number"];
+    if (self.type == WLPaginatedRequestTypeOlder) {
+        [parameters trySetObject:@(self.page) forKey:@"group_by_date_page_number"];
+    } else {
+        [parameters trySetObject:@1 forKey:@"group_by_date_page_number"];
+    }
     [parameters trySetObject:self.contentType forKey:@"pick"];
     return parameters;
 }

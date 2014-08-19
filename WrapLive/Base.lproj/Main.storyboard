@@ -679,10 +679,10 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLTopWrapCell" id="Pq6-uP-780" customClass="WLWrapCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="324"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="285"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="324"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="285"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="lRI-cr-Q4O">
@@ -820,14 +820,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                     <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your other wraps" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jTb-Gu-Bo0">
-                                                    <rect key="frame" x="0.0" y="280" width="320" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_wrap_arrow" id="FLL-Na-kKj">
                                                     <rect key="frame" x="148" y="0.0" width="24" height="12"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -840,7 +832,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <size key="customSize" width="320" height="324"/>
+                                        <size key="customSize" width="320" height="285"/>
                                         <connections>
                                             <outlet property="candiesView" destination="lRI-cr-Q4O" id="JVp-iF-OD6"/>
                                             <outlet property="contributorsLabel" destination="XaE-0l-eeL" id="bWR-31-K7d"/>
@@ -849,7 +841,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLWrapCell" id="N5C-9U-WOe" customClass="WLWrapCell">
-                                        <rect key="frame" x="0.0" y="324" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="285" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
@@ -905,7 +897,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLLoadingView" id="QzS-Np-NIW">
-                                    <rect key="frame" x="0.0" y="374" width="320" height="60"/>
+                                    <rect key="frame" x="0.0" y="335" width="320" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" id="isU-ta-Gma">

@@ -17,6 +17,7 @@
 #import "NSString+Additions.h"
 #import "NSDate+Formatting.h"
 #import "WLSupportFunctions.h"
+#import "WLServerTime.h"
 
 @interface WLMessageCell ()
 
@@ -55,11 +56,11 @@
 }
 
 - (NSDate *)createdAt {
-    return [NSDate date];
+    return [WLServerTime current];
 }
 
 - (NSDate *)updatedAt {
-    return [NSDate date];
+    return [WLServerTime current];
 }
 
 @end

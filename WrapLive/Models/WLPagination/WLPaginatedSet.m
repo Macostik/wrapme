@@ -44,11 +44,17 @@
     self.request.older = [[self.entries lastObject] updatedAt];
     return [self.request send:^(NSOrderedSet *orderedSet) {
         if (orderedSet.nonempty) {
-            NSUInteger count = [weakSelf.entries count];
-            [weakSelf addEntries:orderedSet];
-            if (weakSelf.request.type != WLPaginatedRequestTypeNewer && count == [weakSelf.entries count]) {
+            if (orderedSet.count < WLPageSize) {
                 weakSelf.completed = YES;
+                [weakSelf addEntries:orderedSet];
+            } else  {
+                NSUInteger count = [weakSelf.entries count];
+                [weakSelf addEntries:orderedSet];
+                if (weakSelf.request.type != WLPaginatedRequestTypeNewer && count == [weakSelf.entries count]) {
+                    weakSelf.completed = YES;
+                }
             }
+            
         } else if (weakSelf.request.type != WLPaginatedRequestTypeNewer) {
             weakSelf.completed = YES;
         }

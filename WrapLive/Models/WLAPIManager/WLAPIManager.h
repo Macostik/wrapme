@@ -18,6 +18,8 @@
 @class WLDate;
 @class WLAuthorization;
 
+static NSUInteger WLPageSize = 10;
+
 @interface WLAPIManager : AFHTTPRequestOperationManager
 
 + (instancetype)instance;

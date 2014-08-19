@@ -90,6 +90,10 @@ static BOOL authorized = NO;
             authorized = YES;
             [WLUploading enqueueAutomaticUploading:^{ }];
         }
+        id pageSize = [response.data objectForKey:@"pagination_fetch_size"];
+        if (pageSize) {
+            WLPageSize = [pageSize integerValue];
+        }
 		WLUser* user = [WLUser API_entry:[response.data dictionaryForKey:@"user"]];
 		[user setCurrent];
 		[self.authorization setCurrent];

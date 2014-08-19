@@ -54,9 +54,7 @@
 
 @end
 
-@interface WLProgressBar () {
-    AFURLConnectionOperation *_safeOperation;
-}
+@interface WLProgressBar ()
 
 @property (strong, nonatomic) UIView *backgroundView;
 @property (strong, nonatomic) UIView *progressView;
@@ -129,8 +127,8 @@
 }
 
 - (void)setOperation:(AFURLConnectionOperation *)operation {
+    _operation = operation;
 	__weak typeof(self)weakSelf = self;
-    _safeOperation = operation;
     self.progress = operation.progress;
     [operation setProgressBlock:^(float progress) {
         [weakSelf setProgress:progress animated:YES];

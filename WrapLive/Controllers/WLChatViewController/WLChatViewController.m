@@ -157,8 +157,8 @@
         }];
         return;
     }
-    self.operation = [self.wrap messagesNewer:candy.updatedAt success:^(NSOrderedSet *messages) {
-        weakSelf.shouldAppendMoreMessages = messages.nonempty;
+    self.operation = [self.wrap messagesNewer:candy.createdAt success:^(NSOrderedSet *messages) {
+        weakSelf.shouldAppendMoreMessages = messages.count >= WLPageSize;
 		[weakSelf addMessages:messages];
 		[weakSelf.refresher endRefreshing];
     } failure:^(NSError *error) {
@@ -170,7 +170,7 @@
 - (void)loadMessages:(WLBlock)completion {
     __weak typeof(self)weakSelf = self;
     self.operation = [self.wrap messages:^(NSOrderedSet *messages) {
-        weakSelf.shouldAppendMoreMessages = messages.nonempty;
+        weakSelf.shouldAppendMoreMessages = messages.count >= WLPageSize;
 		[weakSelf setMessages:messages];
         if (completion) {
             completion();
@@ -188,8 +188,8 @@
 	__weak typeof(self)weakSelf = self;
     WLGroup* group = [self.groups.entries lastObject];
     WLCandy* candy = [group.entries lastObject];
-	self.operation = [self.wrap messagesOlder:candy.updatedAt success:^(NSOrderedSet *messages) {
-		weakSelf.shouldAppendMoreMessages = messages.nonempty;
+	self.operation = [self.wrap messagesOlder:candy.createdAt success:^(NSOrderedSet *messages) {
+		weakSelf.shouldAppendMoreMessages = messages.count >= WLPageSize;
 		[weakSelf addMessages:messages];
 	} failure:^(NSError *error) {
 		weakSelf.shouldAppendMoreMessages = NO;
@@ -216,7 +216,7 @@
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
     if ([candy isMessage]) {
         for (WLGroup* group in self.groups.entries) {
-            if ([group.entries containsObject:candy] && ![group.date isSameDay:candy.updatedAt]) {
+            if ([group.entries containsObject:candy] && ![group.date isSameDay:candy.createdAt]) {
                 [group.entries removeObject:candy];
                 if (![group.entries count]) {
                     [self.groups.entries removeObject:group];

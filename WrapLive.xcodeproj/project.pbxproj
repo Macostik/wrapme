@@ -100,7 +100,6 @@
 		12E0F05E19090C0900463FEC /* WLKeyboardBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F05D19090C0900463FEC /* WLKeyboardBroadcaster.m */; };
 		12E0F0621909249000463FEC /* UILabel+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F0611909249000463FEC /* UILabel+Additions.m */; };
 		12E0F066190927B800463FEC /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F065190927B800463FEC /* WLDeviceOrientationBroadcaster.m */; };
-		12E1104219066C2D007DB4AC /* WLSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104119066C2D007DB4AC /* WLSwipeViewController.m */; };
 		12E1104519066C7C007DB4AC /* UIView+QuatzCoreAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104419066C7C007DB4AC /* UIView+QuatzCoreAnimations.m */; };
 		12E1104C19067095007DB4AC /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
 		12E1104D19067095007DB4AC /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104B19067095007DB4AC /* WLCommentCell.m */; };
@@ -404,8 +403,6 @@
 		12E0F0611909249000463FEC /* UILabel+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+Additions.m"; path = "UILabel/UILabel+Additions.m"; sourceTree = "<group>"; };
 		12E0F064190927B800463FEC /* WLDeviceOrientationBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDeviceOrientationBroadcaster.h; path = WLBroadcaster/WLDeviceOrientationBroadcaster/WLDeviceOrientationBroadcaster.h; sourceTree = "<group>"; };
 		12E0F065190927B800463FEC /* WLDeviceOrientationBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDeviceOrientationBroadcaster.m; path = WLBroadcaster/WLDeviceOrientationBroadcaster/WLDeviceOrientationBroadcaster.m; sourceTree = "<group>"; };
-		12E1104019066C2D007DB4AC /* WLSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSwipeViewController.h; sourceTree = "<group>"; };
-		12E1104119066C2D007DB4AC /* WLSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSwipeViewController.m; sourceTree = "<group>"; };
 		12E1104319066C7C007DB4AC /* UIView+QuatzCoreAnimations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+QuatzCoreAnimations.h"; sourceTree = "<group>"; };
 		12E1104419066C7C007DB4AC /* UIView+QuatzCoreAnimations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+QuatzCoreAnimations.m"; sourceTree = "<group>"; };
 		12E1104719067095007DB4AC /* WLCandyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCandyViewController.h; sourceTree = "<group>"; };
@@ -1003,7 +1000,6 @@
 				AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */,
 				12317E57190808B600D1A9EE /* WLImageViewController */,
 				12E1104619067095007DB4AC /* WLCandyViewController */,
-				12E1103F19066C2D007DB4AC /* WLSwipeViewController */,
 				C5947E4E18F5264B00BDF038 /* WLChatViewController */,
 				12A6BFA518F2A6C900AE3B62 /* WLShakeViewController */,
 				129654E818E1A5A200FF43F6 /* WLContributorsViewController */,
@@ -1391,15 +1387,6 @@
 				12E0F065190927B800463FEC /* WLDeviceOrientationBroadcaster.m */,
 			);
 			name = WLDeviceOrientationBroadcaster;
-			sourceTree = "<group>";
-		};
-		12E1103F19066C2D007DB4AC /* WLSwipeViewController */ = {
-			isa = PBXGroup;
-			children = (
-				12E1104019066C2D007DB4AC /* WLSwipeViewController.h */,
-				12E1104119066C2D007DB4AC /* WLSwipeViewController.m */,
-			);
-			path = WLSwipeViewController;
 			sourceTree = "<group>";
 		};
 		12E1104619067095007DB4AC /* WLCandyViewController */ = {
@@ -2297,7 +2284,6 @@
 				12E1104C19067095007DB4AC /* WLCandyViewController.m in Sources */,
 				C50AF41B1976A44300761F38 /* WLUploadCandyRequest.m in Sources */,
 				1221EA6A18FD372F00C64DAE /* UIButton+Additions.m in Sources */,
-				12E1104219066C2D007DB4AC /* WLSwipeViewController.m in Sources */,
 				12E0F04A1909069200463FEC /* UIScrollView+Additions.m in Sources */,
 				C50445B71951AA8F003C2251 /* WLContribution+Extended.m in Sources */,
 				CE1FEAC2196EB76700BF1B22 /* WLEditViewController.m in Sources */,

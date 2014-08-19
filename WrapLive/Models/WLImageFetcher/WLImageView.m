@@ -24,16 +24,17 @@
 }
 
 - (void)setUrl:(NSString *)url {
-	[self setUrl:url completion:nil];
+	[self setUrl:url success:nil failure:nil];
 }
 
-- (void)setUrl:(NSString *)url completion:(WLImageFetcherBlock)completion {
+- (void)setUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure {
     _url = url;
 	self.image = nil;
     if (self.contentMode != self.defaultContentMode) {
         self.contentMode = self.defaultContentMode;
     }
-	self.completionBlock = completion;
+	self.success = success;
+    self.failure = failure;
 	[[WLImageFetcher fetcher] addReceiver:self];
 	[[WLImageFetcher fetcher] enqueueImageWithUrl:url];
 }
@@ -59,23 +60,25 @@
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
 	[self setImage:image animated:!cached];
-	WLImageFetcherBlock completionBlock = self.completionBlock;
-	if (completionBlock) {
-		completionBlock(image, cached, nil);
-		self.completionBlock = nil;
+	WLImageFetcherBlock success = self.success;
+	if (success) {
+		success(image, cached);
+		self.success = nil;
 	}
+    self.failure = nil;
 }
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
-	WLImageFetcherBlock completionBlock = self.completionBlock;
-	if (completionBlock) {
-		completionBlock(nil, NO, error);
-		self.completionBlock = nil;
+	WLFailureBlock failure = self.failure;
+	if (failure) {
+		failure(error);
+		self.failure = nil;
 	}
-    NSString* placeholderName = self.placeholderName;
-    if (placeholderName.nonempty) {
+    self.success = nil;
+    NSString* placeholder = self.placeholderName;
+    if (placeholder.nonempty) {
         self.contentMode = UIViewContentModeCenter;
-        self.image = [UIImage imageNamed:placeholderName];
+        self.image = [UIImage imageNamed:placeholder];
     }
 }
 

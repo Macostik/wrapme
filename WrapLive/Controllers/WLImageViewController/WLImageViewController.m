@@ -30,24 +30,23 @@
     // Do any additional setup after loading the view.
 	self.scrollView.userInteractionEnabled = NO;
 	__weak typeof(self)weakSelf = self;
-	[self.imageView setUrl:self.image.picture.large completion:^(UIImage *image, BOOL cached, NSError* error) {
-		if (image) {
+	[self.imageView setUrl:self.image.picture.large success:^(UIImage *image, BOOL cached) {
+        if (image) {
 			[weakSelf configureScrollViewWithImage:image];
 		}
 		[weakSelf.spinner removeFromSuperview];
 		weakSelf.scrollView.userInteractionEnabled = YES;
-        if (error) {
-            if ([error isNetworkError]) {
-                weakSelf.errorLabel.hidden = NO;
-            } else {
-                weakSelf.errorLabel.hidden = YES;
-                weakSelf.imageView.contentMode = UIViewContentModeCenter;
-                weakSelf.imageView.image = [UIImage imageNamed:@"ic_photo_placeholder"];
-            }
+        weakSelf.errorLabel.hidden = YES;
+    } failure:^(NSError *error) {
+        [weakSelf.spinner removeFromSuperview];
+        if ([error isNetworkError]) {
+            weakSelf.errorLabel.hidden = NO;
         } else {
             weakSelf.errorLabel.hidden = YES;
+            weakSelf.imageView.contentMode = UIViewContentModeCenter;
+            weakSelf.imageView.image = [UIImage imageNamed:@"ic_photo_placeholder"];
         }
-	}];
+    }];
 	
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
 	[self applyDeviceOrientation:[UIDevice currentDevice].orientation animated:NO];

@@ -15,8 +15,10 @@
 
 @property (nonatomic) NSString* placeholderName;
 
-- (void)setUrl:(NSString *)url completion:(WLImageFetcherBlock)completion;
+@property (strong, nonatomic) WLImageFetcherBlock success;
 
-@property (strong, nonatomic) WLImageFetcherBlock completionBlock;
+@property (strong, nonatomic) WLFailureBlock failure;
+
+- (void)setUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure;
 
 @end

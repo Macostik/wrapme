@@ -9,6 +9,7 @@
 #import "WLImageView.h"
 #import "WLImageFetcher.h"
 #import "NSString+Additions.h"
+#import "NSError+WLAPIManager.h"
 
 @interface WLImageView () <WLImageFetching>
 
@@ -28,7 +29,13 @@
 }
 
 - (void)setUrl:(NSString *)url completion:(WLImageFetcherBlock)completion {
+    if (!url.nonempty) {
+        if (completion) completion(nil, NO, [NSError errorWithDescription:@"Image URL is not valid."]);
+        return;
+    }
+    
     _url = url;
+    
 	self.image = nil;
     if (self.contentMode != self.defaultContentMode) {
         self.contentMode = self.defaultContentMode;

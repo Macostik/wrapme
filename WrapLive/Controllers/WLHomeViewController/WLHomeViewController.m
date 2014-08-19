@@ -230,13 +230,6 @@
 	}
 }
 
-- (IBAction)typeMessage:(UIButton *)sender {
-	WLChatViewController * chatController = [WLChatViewController instantiate];
-	chatController.wrap = self.section.wrap;
-	chatController.shouldShowKeyboard = YES;
-	[self.navigationController pushViewController:chatController animated:YES];
-}
-
 - (IBAction)createNewWrap:(id)sender {
 	WLCreateWrapViewController* controller = [WLCreateWrapViewController instantiate];
 	[controller presentInViewController:self transition:WLWrapTransitionFromBottom];

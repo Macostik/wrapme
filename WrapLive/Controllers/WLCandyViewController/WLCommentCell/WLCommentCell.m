@@ -74,7 +74,12 @@
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", WLString(entry.contributor.name), WLString(entry.createdAt.timeAgoString)];
 	self.commentLabel.text = entry.text;
 	[self.commentLabel sizeToFitHeight];
-	self.authorImageView.url = entry.contributor.picture.medium;
+    __weak typeof(self)weakSelf = self;
+    [self.authorImageView setUrl:entry.contributor.picture.medium completion:^(UIImage *image, BOOL cached, NSError *error) {
+        if (error) {
+            weakSelf.authorImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
+        }
+    }];
 	self.menu.vibrate = [entry.contributor isCurrentUser];
     self.circleProgressBar.operation = entry.uploading.operation;
     if (![WLInternetConnectionBroadcaster broadcaster].reachable && !entry.uploaded) {

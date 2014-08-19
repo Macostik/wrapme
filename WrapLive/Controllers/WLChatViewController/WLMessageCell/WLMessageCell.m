@@ -77,10 +77,14 @@
 }
 
 - (void)setupItemData:(id <WLChatMessage>)candy {
-	self.avatarView.url = candy.contributor.picture.medium;
+	__weak typeof(self)weakSelf = self;
+    [self.avatarView setUrl:candy.contributor.picture.medium completion:^(UIImage *image, BOOL cached, NSError *error) {
+        if (error) {
+            weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
+        }
+    }];
 	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(candy.contributor.name), WLString([candy.createdAt stringWithFormat:@"HH:mm"])];
 	self.messageLabel.text = candy.message;
-	__weak typeof(self)weakSelf = self;
 	[UIView performWithoutAnimation:^{
         CGSize size = [weakSelf.messageLabel sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)];
         weakSelf.messageLabel.size = CGSizeMake(MAX(WLMinBubbleWidth, size.width), size.height);

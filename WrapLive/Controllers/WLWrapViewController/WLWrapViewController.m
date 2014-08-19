@@ -57,6 +57,8 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *firstContributorView;
 @property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *viewButton;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @property (strong, nonatomic) WLGroupedSet *groups;
 
@@ -81,12 +83,13 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         return;
     }
     
+    self.nameLabel.text = WLString(self.wrap.name);
+    
     self.wrapViewSection.defaultFooterSize = CGSizeZero;
     
     self.wrapViewSection.entries = [NSMutableOrderedSet orderedSetWithObject:self.wrap];
     
-    NSNumber* defaultTab = [[NSUserDefaults standardUserDefaults] objectForKey:WLWrapViewDefaultTabKey];
-    self.viewTab = defaultTab ? [defaultTab integerValue] : WLWrapViewTabHistory;
+    self.viewTab = [[NSUserDefaults standardUserDefaults] integerForKey:WLWrapViewDefaultTabKey];
     
     self.groups = [WLGroupedSet groupsOrderedBy:WLCandiesOrderByCreation];
     [self.groups addEntries:self.wrap.candies];
@@ -184,6 +187,10 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 #pragma mark - WLWrapBroadcastReceiver
 
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
+    self.nameLabel.text = WLString(self.wrap.name);
+}
+
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
     [self.groups addEntry:candy];
 }
@@ -247,26 +254,23 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     } else {
         self.dataProvider.sections = [NSMutableArray arrayWithObjects:self.wrapViewSection, self.historyViewSection, nil];
     }
+    self.viewButton.selected = viewTab == WLWrapViewTabHistory;
 }
 
-- (IBAction)tabChanged:(SegmentedControl *)sender {
-    [self changeViewTab:sender.selectedSegment];
+- (IBAction)viewChanged:(UIButton*)sender {
+    [self changeViewTab:!sender.selected ? WLWrapViewTabHistory : WLWrapViewTabLive];
 }
 
 - (void)changeViewTab:(WLWrapViewTab)viewTab {
     if (_viewTab != viewTab) {
         self.viewTab = viewTab;
-        [[NSUserDefaults standardUserDefaults] setObject:@(self.viewTab) forKey:WLWrapViewDefaultTabKey];
+        [[NSUserDefaults standardUserDefaults] setInteger:self.viewTab forKey:WLWrapViewDefaultTabKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [self didChangeViewTab];
+        self.liveViewSection.completed = NO;
+        self.historyViewSection.completed = NO;
+        [self.collectionView setContentOffset:CGPointZero animated:YES];
+        [self.dataProvider reload];
     }
-}
-
-- (void)didChangeViewTab {
-    self.liveViewSection.completed = NO;
-    self.historyViewSection.completed = NO;
-    [self.collectionView setContentOffset:CGPointZero animated:YES];
-    [self.dataProvider reload];
 }
 
 - (void)presentCandy:(WLCandy*)candy {

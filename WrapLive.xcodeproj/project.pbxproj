@@ -226,6 +226,8 @@
 		C5A21E6F194B0ED600F3A554 /* WLEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E6E194B0ED600F3A554 /* WLEntry.m */; };
 		C5A21E72194B0ED600F3A554 /* WLUploading.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E71194B0ED600F3A554 /* WLUploading.m */; };
 		C5AC1E54197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AC1E53197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.m */; };
+		C5D2E0BC19A4DF6F001CA756 /* WLNotificationChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D2E0BB19A4DF6F001CA756 /* WLNotificationChannel.m */; };
+		C5D2E0BF19A4E9B0001CA756 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D2E0BE19A4E9B0001CA756 /* WLSoundPlayer.m */; };
 		C5F35CFE1930935200FB99D2 /* WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F35CFD1930935200FB99D2 /* WLImageFetcher.m */; };
 		C5F3E6BC1947262A00B8422A /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F3E6B91947262A00B8422A /* WLNotification.m */; };
 		C5F3E6BD1947262A00B8422A /* WLNotificationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F3E6BB1947262A00B8422A /* WLNotificationBroadcaster.m */; };
@@ -623,6 +625,10 @@
 		C5A21E71194B0ED600F3A554 /* WLUploading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploading.m; sourceTree = "<group>"; };
 		C5AC1E52197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableOrderedSet+Sorting.h"; path = "NSOrderedSet/NSMutableOrderedSet+Sorting.h"; sourceTree = "<group>"; };
 		C5AC1E53197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableOrderedSet+Sorting.m"; path = "NSOrderedSet/NSMutableOrderedSet+Sorting.m"; sourceTree = "<group>"; };
+		C5D2E0BA19A4DF6F001CA756 /* WLNotificationChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationChannel.h; sourceTree = "<group>"; };
+		C5D2E0BB19A4DF6F001CA756 /* WLNotificationChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationChannel.m; sourceTree = "<group>"; };
+		C5D2E0BD19A4E9B0001CA756 /* WLSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSoundPlayer.h; sourceTree = "<group>"; };
+		C5D2E0BE19A4E9B0001CA756 /* WLSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSoundPlayer.m; sourceTree = "<group>"; };
 		C5F35CFC1930935200FB99D2 /* WLImageFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLImageFetcher.h; path = WLImageFetcher/WLImageFetcher.h; sourceTree = "<group>"; };
 		C5F35CFD1930935200FB99D2 /* WLImageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLImageFetcher.m; path = WLImageFetcher/WLImageFetcher.m; sourceTree = "<group>"; };
 		C5F3E6B81947262A00B8422A /* WLNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotification.h; sourceTree = "<group>"; };
@@ -2037,6 +2043,10 @@
 				C5F3E6B91947262A00B8422A /* WLNotification.m */,
 				C5F3E6BA1947262A00B8422A /* WLNotificationBroadcaster.h */,
 				C5F3E6BB1947262A00B8422A /* WLNotificationBroadcaster.m */,
+				C5D2E0BA19A4DF6F001CA756 /* WLNotificationChannel.h */,
+				C5D2E0BB19A4DF6F001CA756 /* WLNotificationChannel.m */,
+				C5D2E0BD19A4E9B0001CA756 /* WLSoundPlayer.h */,
+				C5D2E0BE19A4E9B0001CA756 /* WLSoundPlayer.m */,
 			);
 			name = WLNotificationBroadcaster;
 			path = WLBroadcaster/WLNotificationBroadcaster;
@@ -2277,6 +2287,7 @@
 				1221EA6A18FD372F00C64DAE /* UIButton+Additions.m in Sources */,
 				12E1104219066C2D007DB4AC /* WLSwipeViewController.m in Sources */,
 				12E0F04A1909069200463FEC /* UIScrollView+Additions.m in Sources */,
+				C5D2E0BC19A4DF6F001CA756 /* WLNotificationChannel.m in Sources */,
 				C50445B71951AA8F003C2251 /* WLContribution+Extended.m in Sources */,
 				CE1FEAC2196EB76700BF1B22 /* WLEditViewController.m in Sources */,
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
@@ -2381,6 +2392,7 @@
 				12F3ED621934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m in Sources */,
 				C5A21E60194B0ED500F3A554 /* WLUser.m in Sources */,
 				12F3ED5A1934B183009C1DC3 /* WLAssetsGroupCell.m in Sources */,
+				C5D2E0BF19A4E9B0001CA756 /* WLSoundPlayer.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				1215DC7F18E4485800FCA744 /* WLNavigation.m in Sources */,
 				129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */,

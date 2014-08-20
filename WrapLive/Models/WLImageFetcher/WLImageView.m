@@ -29,20 +29,18 @@
 }
 
 - (void)setUrl:(NSString *)url completion:(WLImageFetcherBlock)completion {
-    if (!url.nonempty) {
-        if (completion) completion(nil, NO, [NSError errorWithDescription:@"Image URL is not valid."]);
-        return;
-    }
-    
+    self.image = nil;
     _url = url;
-    
-	self.image = nil;
     if (self.contentMode != self.defaultContentMode) {
         self.contentMode = self.defaultContentMode;
     }
-	self.completionBlock = completion;
-	[[WLImageFetcher fetcher] addReceiver:self];
-	[[WLImageFetcher fetcher] enqueueImageWithUrl:url];
+    self.completionBlock = completion;
+    if (url.nonempty) {
+        [[WLImageFetcher fetcher] addReceiver:self];
+        [[WLImageFetcher fetcher] enqueueImageWithUrl:url];
+    } else {
+        [self fetcher:[WLImageFetcher fetcher] didFailWithError:[NSError errorWithDescription:@"Image URL is not valid."]];
+    }
 }
 
 - (void)setImage:(UIImage *)image animated:(BOOL)animated {

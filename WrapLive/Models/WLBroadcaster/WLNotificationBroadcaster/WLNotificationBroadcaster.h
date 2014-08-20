@@ -12,6 +12,7 @@
 @class WLNotificationBroadcaster;
 @class WLNotification;
 @class WLUser;
+@class WLWrap;
 
 @protocol WLNotificationReceiver
 
@@ -39,14 +40,22 @@
 
 + (void)setDeviceToken:(NSData*)deviceToken;
 
-- (void)subscribeOnChannel:(NSString *)nameChannel conectSuccess:(WLBooleanBlock)success;
-
-- (void)unsubscribeFromChannel:(NSString *)channel;
-
-- (BOOL)isSubscribedOnChannel:(NSString *)channel;
-
 - (void)handleRemoteNotification:(NSDictionary*)data;
 
 - (void)connect;
+
+@end
+
+@interface WLNotificationBroadcaster (Typing)
+
+- (void)subscribeOnTypingChannel:(WLWrap *)wrap success:(WLBlock)success;
+
+- (void)unsubscribeFromTypingChannel;
+
+- (BOOL)isSubscribedOnTypingChannel:(WLWrap *)wrap;
+
+- (void)beginTyping;
+
+- (void)endTyping;
 
 @end

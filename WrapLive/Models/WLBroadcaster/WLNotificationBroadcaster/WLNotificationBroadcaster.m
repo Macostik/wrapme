@@ -18,6 +18,7 @@
 #import "WLAuthorization.h"
 #import "WLEntryManager.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "WLWrap.h"
 
 static NSString* WLPubNubOrigin = @"pubsub.pubnub.com";
 static NSString* WLPubNubPublishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
@@ -28,6 +29,8 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 {
     SystemSoundID soundID;
 }
+
+@property (strong, nonatomic) PNChannel* typingChannel;
 
 @end
 
@@ -112,9 +115,6 @@ static WLDataBlock deviceTokenCompletion = nil;
     [super setup];
     [self setupMessageSound];
 	[PubNub setupWithConfiguration:[WLNotificationBroadcaster configuration] andDelegate:self];
-//    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-//        [WLNotificationBroadcaster disablePushNotifications];
-//    }];
 }
 
 - (void)setupMessageSound {
@@ -128,36 +128,6 @@ static WLDataBlock deviceTokenCompletion = nil;
 		return;
 	}
     [PubNub subscribeOnChannel:[PNChannel channelWithName:name]];
-}
-
-- (void)subscribeOnChannel:(NSString *)nameChannel conectSuccess:(WLBooleanBlock)success {
-    __weak __typeof(self)weakSelf = self;
-    if ([[PubNub sharedInstance] isConnected]) {
-        PNChannel *channel = [PNChannel channelWithName:nameChannel shouldObservePresence:NO];
-        [PubNub subscribeOnChannel:channel withCompletionHandlingBlock:^(PNSubscriptionProcessState state, NSArray *channels, PNError *error) {
-            if (error) {
-                [weakSelf subscribeOnChannel:nameChannel conectSuccess:nil];
-            } else {
-                if (success) {
-                     success(state);
-                }
-            }
-        }];
-    }
-}
-
-- (void)unsubscribeFromChannel:(NSString *)channel {
-    [PubNub unsubscribeFromChannel:[PNChannel channelWithName:channel]];
-}
-
-- (BOOL)isSubscribedOnChannel:(NSString *)channel {
-    NSArray* channels = [PubNub subscribedChannels];
-    for (PNChannel* _channel in channels) {
-        if ([_channel.name isEqualToString:channel]) {
-            return YES;
-        }
-    }
-    return NO;
 }
 
 - (void)connect {
@@ -256,6 +226,60 @@ static void completionCallback (SystemSoundID  mySSID, void *myself) {
 
 - (void)pubnubClientDidRemovePushNotifications:(PubNub *)client {
     NSLog(@"pubnubClientDidRemovePushNotifications");
+}
+
+@end
+
+@implementation WLNotificationBroadcaster (Typing)
+
+- (void)subscribeOnTypingChannel:(WLWrap *)wrap success:(WLBlock)success {
+    __weak __typeof(self)weakSelf = self;
+    if ([[PubNub sharedInstance] isConnected]) {
+        if (self.typingChannel) {
+            [PubNub unsubscribeFromChannel:self.typingChannel];
+        }
+        self.typingChannel = [PNChannel channelWithName:wrap.identifier shouldObservePresence:NO];
+        [PubNub subscribeOnChannel:self.typingChannel withCompletionHandlingBlock:^(PNSubscriptionProcessState state, NSArray *channels, PNError *error) {
+            if (error) {
+                [weakSelf subscribeOnTypingChannel:wrap success:success];
+            } else if (state == PNSubscriptionProcessSubscribedState && success) {
+                success();
+            }
+        }];
+    }
+}
+
+- (void)unsubscribeFromTypingChannel {
+    [PubNub unsubscribeFromChannel:self.typingChannel];
+}
+
+- (BOOL)isSubscribedOnTypingChannel:(WLWrap *)wrap {
+    return [PubNub isSubscribedOnChannel:self.typingChannel] && [self.typingChannel.name isEqualToString:wrap.identifier];
+}
+
+- (void)sendTypingMessageWithType:(WLNotificationType)type {
+    NSDictionary *message = @{@"user_uid": [WLUser currentUser].identifier, @"wl_pn_type" : @(type)};
+    [PubNub sendMessage:message toChannel:self.typingChannel];
+}
+
+- (void)beginTyping {
+    [self sendTypingMessageWithType:WLNotificationBeginTyping];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
+}
+
+- (void)applicationWillResignActive {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    [self endTyping];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)applicationDidBecomeActive {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    [self beginTyping];
+}
+
+- (void)endTyping {
+    [self sendTypingMessageWithType:WLNotificationEndTyping];
 }
 
 @end

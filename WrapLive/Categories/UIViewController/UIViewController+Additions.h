@@ -16,4 +16,6 @@
 - (void)pushViewControllerNextToRootViewController:(UIViewController*)controller animated:(BOOL)animated;
 - (void)pushViewController:(UIViewController*)controller nextToViewController:(UIViewController*)nextToController animated:(BOOL)animated;
 
+- (IBAction)back:(UIButton *)sender;
+
 @end

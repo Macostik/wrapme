@@ -45,6 +45,7 @@
 #import "WLCollectionViewDataProvider.h"
 #import "WLHomeViewSection.h"
 #import "WLNavigation.h"
+#import "WLUserView.h"
 
 @interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver>
 
@@ -53,10 +54,8 @@
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) WLLoadingView *splash;
-@property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
-@property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
-@property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
+@property (weak, nonatomic) IBOutlet WLUserView *userView;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
 
 @end
@@ -67,17 +66,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.avatarImageView.circled = YES;
-	self.avatarImageView.layer.borderWidth = 1;
-	self.avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+	self.userView.avatarView.layer.borderWidth = 1;
+	self.userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
+    
+    self.userView.user = [WLUser currentUser];
     
     self.section.entries.request = [WLWrapsRequest new];
     [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
     
     self.splash = [[WLLoadingView splash] showInView:self.view];
     
-    [self setNavigationBarHidden:YES animated:NO];
-	self.createWrapButton.transform = CGAffineTransformMakeTranslation(0, self.createWrapButton.height);
 	self.collectionView.hidden = YES;
 	self.noWrapsView.hidden = YES;
 	[self.dataProvider setRefreshable];
@@ -86,12 +84,9 @@
     
     __weak typeof(self)weakSelf = self;
     [self.section setChange:^(WLPaginatedSet* entries) {
-        weakSelf.quickChatView.wrap = weakSelf.section.wrap;
         BOOL hasWraps = entries.entries.nonempty;
-        weakSelf.quickChatView.hidden = !hasWraps;
         weakSelf.collectionView.hidden = !hasWraps;
         weakSelf.noWrapsView.hidden = hasWraps;
-        [weakSelf setNavigationBarHidden:!hasWraps animated:YES];
         [weakSelf finishLoadingAnimation];
         [weakSelf showLatestWrap];
     }];
@@ -103,7 +98,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	self.avatarImageView.url = [WLUser currentUser].picture.small;
+	[self.userView update];
     NSOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
 	if (self.collectionView.hidden) {
 		[self.section refresh];
@@ -144,25 +139,14 @@
 }
 
 - (void)finishLoadingAnimation {
-	if (!CGAffineTransformIsIdentity(self.createWrapButton.transform)) {
+	if (self.splash.superview) {
 		__weak typeof(self)weakSelf = self;
 		[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 			weakSelf.splash.alpha = 0.0f;
-			weakSelf.createWrapButton.transform = CGAffineTransformIdentity;
 		} completion:^(BOOL finished) {
 			[weakSelf.splash hide];
 		}];
 	}
-}
-
-- (void)setNavigationBarHidden:(BOOL)hidden animated:(BOOL)animated {
-    __weak typeof(self)weakSelf = self;
-    CGAffineTransform transform = CGAffineTransformMakeTranslation(0, hidden ? -weakSelf.navigationBar.height : 0);
-    if (!CGAffineTransformEqualToTransform(self.navigationBar.transform, transform)) {
-        [UIView performAnimated:animated animation:^{
-            weakSelf.navigationBar.transform = transform;
-        }];
-    }
 }
 
 #pragma mark - WLWrapBroadcastReceiver

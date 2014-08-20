@@ -121,10 +121,6 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     }];
 }
 
-- (IBAction)back:(UIButton *)sender {
-	[self.navigationController popViewControllerAnimated:YES];
-}
-
 - (IBAction)done:(id)sender {
     self.doneButton.hidden = YES;
     [self.spinner startAnimating];

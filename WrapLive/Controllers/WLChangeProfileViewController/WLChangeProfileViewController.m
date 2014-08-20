@@ -61,10 +61,6 @@
 
 #pragma mark - User actions
 
-- (IBAction)back:(UIButton *)sender {
-	[self.navigationController popViewControllerAnimated:YES];
-}
-
 - (IBAction)changeAccount:(id)sender {
 	[WLSession clear];
 	[WLWelcomeViewController instantiateAndMakeRootViewControllerAnimated:YES];

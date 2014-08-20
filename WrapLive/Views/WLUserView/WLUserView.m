@@ -13,9 +13,6 @@
 
 @interface WLUserView ()
 
-@property (weak, nonatomic) IBOutlet WLImageView *avatarView;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-
 @end
 
 @implementation WLUserView

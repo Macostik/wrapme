@@ -44,10 +44,6 @@
 
 #pragma mark - actions
 
-- (IBAction)back:(id)sender {
-	[self.navigationController popViewControllerAnimated:YES];
-}
-
 - (IBAction)addContact:(UIButton *)sender {
 	WLContact * contact = [WLContact new];
 	contact.name = self.userNameTextField.text;

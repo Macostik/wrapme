@@ -279,6 +279,7 @@
             }
         }
     }
+    self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(self.candy.contributor.name)];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentRemoved:(WLComment *)comment {

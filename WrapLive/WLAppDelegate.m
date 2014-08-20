@@ -30,9 +30,6 @@
 {
     // Override point for customization after application launch.
     
-    UIViewController* vc = self.window.rootViewController;
-    self.window = [[WLWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = vc;
     [UIWindow setMainWindow:self.window];
 //
 	[[WLInternetConnectionBroadcaster broadcaster] configure];

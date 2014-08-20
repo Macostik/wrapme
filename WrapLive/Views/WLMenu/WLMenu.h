@@ -15,11 +15,13 @@
 
 @property (strong, nonatomic) NSString* title;
 
+@property (strong, nonatomic) NSString* tip;
+
 @property (strong, nonatomic) WLBlock block;
 
 @end
 
-@interface WLMenu : NSObject
+@interface WLMenu : UIView
 
 @property (nonatomic) BOOL vibrate;
 
@@ -45,8 +47,6 @@
 
 - (void)addItem:(NSString*)title block:(WLBlock)block;
 
-@end
-
-@interface WLWindow : UIWindow
+- (void)addItem:(NSString*)title tip:(NSString*)tip block:(WLBlock)block;
 
 @end

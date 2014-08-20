@@ -12,6 +12,8 @@
 #import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
 #import "WLSupportFunctions.h"
+#import "NSArray+Additions.h"
+#import "UIView+AnimationHelper.h"
 
 @implementation WLMenuItem @end
 
@@ -19,12 +21,27 @@
 
 @property (weak, nonatomic) WLMenuItem* item;
 
++ (WlMenuItemButton*)buttonWithItem:(WLMenuItem*)item;
+
 @end
 
 @implementation WlMenuItemButton
 
 + (id)buttonWithType:(UIButtonType)buttonType {
     WlMenuItemButton *button = [super buttonWithType:buttonType];
+    return button;
+}
+
++ (WlMenuItemButton *)buttonWithItem:(WLMenuItem *)item {
+    WlMenuItemButton* button = [WlMenuItemButton buttonWithType:UIButtonTypeCustom];
+    button.item = item;
+    button.frame = CGRectMake(0, 0, 44, 44);
+    button.backgroundColor = [UIColor WL_orangeColor];
+    button.clipsToBounds = NO;
+    [button setTitle:item.title forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont regularMicroFont]];
+    button.layer.cornerRadius = 22;
     return button;
 }
 
@@ -43,13 +60,19 @@
 
 @property (weak, nonatomic) UILongPressGestureRecognizer* longPressGestureRecognizer;
 
-@property (nonatomic) BOOL hiding;
+@property (nonatomic) BOOL visible;
+
+@property (nonatomic) CGPoint focusPoint;
+
+@property (nonatomic) CGPoint centerPoint;
+
+@property (weak, nonatomic) UILabel* tipLabel;
 
 @end
 
 @implementation WLMenu
 {
-    CGPoint _point;
+    BOOL _vibrate:YES;
 }
 
 @synthesize vibrate = _vibrate;
@@ -80,13 +103,8 @@
 - (instancetype)initWithView:(UIView *)view configuration:(BOOL (^)(WLMenu *))configuration {
     self = [super init];
     if (self) {
-        self.vibrate = YES;
-        self.view = view;
         self.configuration = configuration;
-        [[WLMenu menus] addObject:self];
-        UILongPressGestureRecognizer* longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(present:)];
-        [view addGestureRecognizer:longPressGestureRecognizer];
-        self.longPressGestureRecognizer = longPressGestureRecognizer;
+        [self setup:view];
     }
     return self;
 }
@@ -98,22 +116,48 @@
     }];
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self setup:self];
+}
+
+- (UILabel *)tipLabel {
+    if (!_tipLabel) {
+        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.width, 64)];
+        label.textColor = [UIColor whiteColor];
+        [self addSubview:label];
+        label.hidden = YES;
+        label.font = [UIFont lightNormalFont];
+        label.textAlignment = NSTextAlignmentCenter;
+        _tipLabel = label;
+    }
+    _tipLabel.frame = CGRectMake(0, 20, self.width, 64);
+    return _tipLabel;
+}
+
+- (void)setup:(UIView*)view {
+    self.backgroundColor = [UIColor clearColor];
+    [self setHidden:YES animated:NO];
+    self.view = view;
+    [[WLMenu menus] addObject:self];
+    [view addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(present:)]];
+}
+
 - (void)hide {
-    self.hiding = YES;
+    self.visible = NO;
     __weak typeof(self)weakSelf = self;
     [UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [weakSelf.buttons enumerateObjectsUsingBlock:^(UIView* subview, NSUInteger idx, BOOL *stop) {
-            subview.alpha = 0.0f;
-        }];
+        weakSelf.alpha = 0.0f;
     } completion:^(BOOL finished) {
         [weakSelf.items removeAllObjects];
-        [self.buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
-        weakSelf.hiding = NO;
+        [weakSelf.buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [weakSelf removeFromSuperview];
+        weakSelf.tipLabel.hidden = YES;
     }];
 }
 
 - (void)show {
-    [self show:self.view.center];
+    [self show:self.center];
 }
 
 - (void)show:(CGPoint)point {
@@ -127,55 +171,97 @@
         [self.items removeAllObjects];
     }
     if (self.configuration && self.configuration(self)) {
-        _point = [self.view convertPoint:point toView:superview];
+        self.visible = YES;
+        self.centerPoint = [self.view convertPoint:point toView:superview];
         [self.buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
-        CGFloat count = [self.items count];
-        NSMutableArray* buttons = [NSMutableArray array];
-        for (WLMenuItem* item in self.items) {
-            WlMenuItemButton* button = [WlMenuItemButton buttonWithType:UIButtonTypeCustom];
-            button.item = item;
-            [superview addSubview:button];
-            [button addTarget:self action:@selector(selectedItem:) forControlEvents:UIControlEventTouchUpInside];
-            button.frame = CGRectMake(0, 0, 88, 40);
-            button.center = _point;
-            button.backgroundColor = [UIColor blackColor];
-            button.clipsToBounds = NO;
-            [button setTitle:item.title forState:UIControlStateNormal];
-            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [button.titleLabel setFont:[UIFont regularSmallFont]];
-            button.layer.cornerRadius = 10;
-            button.alpha = 0.0f;
-            [buttons addObject:button];
-            
-            UIImageView* arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_menu_arrow"]];
-            arrow.x = button.width/2.0f - arrow.width/2.0f;
-            arrow.y = button.height - 1;
-            [button addSubview:arrow];
-        }
-        self.buttons = [buttons copy];
+        
         __weak typeof(self)weakSelf = self;
-        [UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            [weakSelf.buttons enumerateObjectsUsingBlock:^(UIView* subview, NSUInteger idx, BOOL *stop) {
-                subview.alpha = 1.0f;
-                CGFloat angle = 2*M_PI*((float)idx/count) - M_PI_4;
-                CGPoint center = subview.center;
-                center.x = Smoothstep(subview.width/2, superview.width - subview.width/2, center.x + 44*cosf(angle));;
-                center.y = Smoothstep(subview.height/2, superview.height - subview.height/2, center.y + 44*sinf(angle));
-                subview.center = center;
-            }];
-        } completion:^(BOOL finished) {
+        self.buttons = [self.items map:^id(WLMenuItem* item) {
+            WlMenuItemButton* button = [WlMenuItemButton buttonWithItem:item];
+            [self addSubview:button];
+            [button addTarget:self action:@selector(selectedItem:) forControlEvents:UIControlEventTouchUpInside];
+            button.center = weakSelf.centerPoint;
+            return button;
         }];
+        self.frame = superview.bounds;
+        [superview addSubview:self];
+        [self setNeedsDisplay];
+        [self setButtonsHidden:NO animated:YES];
+        [self setHidden:NO animated:YES];
     }
 }
 
-- (void)addItem:(NSString *)title block:(WLBlock)block {
+- (void)setHidden:(BOOL)hidden animated:(BOOL)animated {
+    __weak typeof(self)weakSelf = self;
+    [UIView performAnimated:animated animation:^{
+        [UIView setAnimationDuration:0.3];
+        weakSelf.alpha = hidden ? 0.0f : 1.0f;
+    }];
+}
+
+- (void)setButtonsHidden:(BOOL)hidden animated:(BOOL)animated {
+    __weak typeof(self)weakSelf = self;
+    [UIView performAnimated:animated animation:^{
+        [UIView setAnimationDuration:0.3];
+        if (hidden) {
+            [weakSelf.buttons enumerateObjectsUsingBlock:^(UIView* subview, NSUInteger idx, BOOL *stop) {
+                subview.center = weakSelf.centerPoint;
+            }];
+        } else {
+            CGFloat count = [weakSelf.items count];
+            UIView* superview = weakSelf.view.window;
+            CGFloat range = (M_PI_4)*count;
+            CGFloat delta = -M_PI_2;
+            if (weakSelf.centerPoint.x >= 2*superview.width/3) {
+                delta -= range;
+            } else if (weakSelf.centerPoint.x >= superview.width/3) {
+                delta -= range/2;
+            }
+            CGFloat radius = 60;
+            [weakSelf.buttons enumerateObjectsUsingBlock:^(UIView* subview, NSUInteger idx, BOOL *stop) {
+                CGFloat angle = 0;
+                if (count > 1) {
+                    angle = range*((float)idx/(count - 1)) + delta;
+                } else {
+                    angle = delta;
+                }
+                
+                CGPoint center = subview.center;
+//                center.x = Smoothstep(subview.width/2, superview.width - subview.width/2, center.x + radius*cosf(angle));;
+//                center.y = Smoothstep(subview.height/2, superview.height - subview.height/2, center.y + radius*sinf(angle));
+                center.x = center.x + radius*cosf(angle);
+                center.y = center.y + radius*sinf(angle);
+                subview.center = center;
+            }];
+        }
+    }];
+}
+
+- (void)addItem:(NSString *)title tip:(NSString *)tip block:(WLBlock)block {
     if (!self.items) {
         self.items = [NSMutableArray array];
     }
     WLMenuItem* item = [[WLMenuItem alloc] init];
     item.title = title;
     item.block = block;
+    item.tip = tip;
     [self.items addObject:item];
+}
+
+- (void)addItem:(NSString *)title block:(WLBlock)block {
+    [self addItem:title tip:[NSString stringWithFormat:@"Tip for button %d", [self.items count]] block:block];
+}
+
+- (void)setFocusPoint:(CGPoint)focusPoint {
+    _focusPoint = [self.view convertPoint:focusPoint toView:self.view.window];
+    self.tipLabel.hidden = YES;
+    for (WlMenuItemButton* button in self.buttons) {
+        button.highlighted = CGRectContainsPoint(button.frame, _focusPoint);
+        if (button.highlighted) {
+            self.tipLabel.text = button.item.tip;
+            self.tipLabel.hidden = NO;
+        }
+    }
 }
 
 - (void)present:(UILongPressGestureRecognizer*)sender {
@@ -183,9 +269,7 @@
 		if (self.vibrate) {
 			AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 		}
-        sender.view.userInteractionEnabled = NO;
         [self show:[sender locationInView:sender.view]];
-        sender.view.userInteractionEnabled = YES;
 	}
 }
 
@@ -197,39 +281,19 @@
     [self hide];
 }
 
-@end
+- (void)drawRect:(CGRect)rect {
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGColorSpaceRef cs = CGColorSpaceCreateDeviceRGB();
+    NSArray* colors = @[(id)[UIColor colorWithWhite:0.0f alpha:0.0f].CGColor, (id)[UIColor colorWithWhite:0.0f alpha:0.5f].CGColor];
+    CGFloat locations[2] = {0,1};
+    CGGradientRef gr = CGGradientCreateWithColors(cs, (__bridge CFArrayRef)colors, locations);
+    CGContextDrawRadialGradient(ctx, gr, self.centerPoint, 0, self.centerPoint, 50, kCGGradientDrawsAfterEndLocation);
+    CGColorSpaceRelease(cs);
+    CGGradientRelease(gr);
+}
 
-@implementation WLWindow
-
-- (void)sendEvent:(UIEvent *)event {
-    [super sendEvent:event];
-    if (event.type != UIEventTypeTouches) {
-        return;
-    }
-    NSSet* touches = [event allTouches];
-    if ([touches count] != 1) {
-        return;
-    }
-    UITouch* touch = [touches anyObject];
-    if (touch.phase != UITouchPhaseBegan) {
-        return;
-    }
-    for (WLMenu* menu in [WLMenu menus]) {
-        if (menu.hiding) {
-            continue;
-        }
-        BOOL hide = YES;
-        
-        for (UIButton* button in menu.buttons) {
-            if (CGRectContainsPoint(button.frame, [touch locationInView:self])) {
-                hide = NO;
-                break;
-            }
-        }
-        if (hide) {
-            [menu hide];
-        }
-    }
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self hide];
 }
 
 @end

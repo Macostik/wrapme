@@ -102,15 +102,14 @@
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLNotificationBroadcaster broadcaster] addReceiver:self];
-    [[WLNotificationBroadcaster broadcaster] subscribeOnChannel:self.wrap.identifier conectSuccess:^(BOOL flag) {
-        if (flag) {
+    if ([WLAPIManager productionEvironment]) {
+        [self.indicator removeFromSuperview];
+        [[WLNotificationBroadcaster broadcaster] subscribeOnTypingChannel:self.wrap success:nil];
+    } else {
+        [[WLNotificationBroadcaster broadcaster] subscribeOnTypingChannel:self.wrap success:^ {
             weakSelf.indicator.backgroundColor = [UIColor greenColor];
-            if ([WLAPIManager productionEvironment]) {
-                [weakSelf.indicator removeFromSuperview];
-               
-            }
-        }
-    }];
+        }];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -259,8 +258,8 @@
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
-    [self sendTypingMessageWithType:@(WLNotificationEndTyping)];
-    [[WLNotificationBroadcaster broadcaster] unsubscribeFromChannel:self.wrap.identifier];
+    self.typing = NO;
+    [[WLNotificationBroadcaster broadcaster] unsubscribeFromTypingChannel];
     if (self.wrap.valid) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
@@ -303,23 +302,18 @@
     if (_typing != typing) {
         _typing = typing;
         if (typing) {
-            [self sendTypingMessageWithType:@(WLNotificationBeginTyping)];
+            [[WLNotificationBroadcaster broadcaster] beginTyping];
         } else {
-            [self sendTypingMessageWithType:@(WLNotificationEndTyping)];
+            [[WLNotificationBroadcaster broadcaster] endTyping];
         }
     }
 }
 
 - (void)composeBarDidChangeText:(WLComposeBar*)composeBar {
     __weak __typeof(self)weakSelf = self;
-    if ([[WLNotificationBroadcaster broadcaster] isSubscribedOnChannel:self.wrap.identifier]) {
+    if ([[WLNotificationBroadcaster broadcaster] isSubscribedOnTypingChannel:self.wrap]) {
         weakSelf.typing = composeBar.text.nonempty;
     }
-}
-
-- (void)sendTypingMessageWithType:(NSNumber *)type {
-    NSDictionary *message = @{@"user_uid": [WLUser currentUser].identifier, @"wl_pn_type" : type};
-    [PubNub sendMessage:message toChannel:[PNChannel channelWithName:self.wrap.identifier]];
 }
 
 #pragma mark - UICollectionViewDataSource

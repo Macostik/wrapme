@@ -20,7 +20,11 @@
 
 @property (nonatomic) BOOL supportAPNS;
 
+@property (nonatomic) BOOL supportPresense;
+
 @property (strong, nonatomic) void (^receive) (WLNotification *notification);
+
+@property (strong, nonatomic) void (^presenseObserver) ();
 
 + (instancetype)channel:(NSString*)name;
 

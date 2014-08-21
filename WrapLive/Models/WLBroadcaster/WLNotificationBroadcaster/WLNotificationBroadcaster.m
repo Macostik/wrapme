@@ -98,6 +98,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 		return;
 	}
     [self.userChannel setName:name subscribe:YES];
+    [PubNub setClientIdentifier:name];
 }
 
 - (void)connect {

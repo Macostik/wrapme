@@ -32,13 +32,15 @@
 }
 
 - (void)dealloc {
-    [[PNObservationCenter defaultCenter]removeMessageReceiveObserver:self];
+    [[PNObservationCenter defaultCenter] removeMessageReceiveObserver:self];
+    [[PNObservationCenter defaultCenter] removePresenceEventObserver:self];
 }
 
 - (instancetype)init {
     self = [super init];
     if (self) {
         [self observeMessages];
+        [self observePresense];
     }
     return self;
 }
@@ -87,6 +89,7 @@
             if (weakSelf.supportAPNS) {
                 [weakSelf enableAPNS];
             }
+            if (weakSelf.supportPresense) [weakSelf enablePresense];
             success();
         }
     }];
@@ -138,6 +141,19 @@
             weakSelf.receive([WLNotification notificationWithMessage:message]);
         }
     }];
+}
+
+- (void)observePresense {
+    __weak typeof(self)weakSelf = self;
+    [[PNObservationCenter defaultCenter] addPresenceEventObserver:self withBlock:^(PNPresenceEvent *event) {
+        if (event.channel == weakSelf.channel && weakSelf.presenseObserver) {
+            weakSelf.presenseObserver();
+        }
+    }];
+}
+
+- (void)enablePresense {
+    [PubNub enablePresenceObservationForChannel:self.channel];
 }
 
 - (void)send:(NSDictionary *)message {

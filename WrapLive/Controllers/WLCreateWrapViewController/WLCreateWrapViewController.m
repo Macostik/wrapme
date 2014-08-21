@@ -262,29 +262,33 @@
 - (void)updateIfNeeded:(void (^)(void))completion {
 	if ([self isAtObjectSessionChanged]) {
         
-		if ([self.editSession hasChanges]) {
-			[super updateIfNeeded:completion];
-			__weak typeof(self)weakSelf = self;
-            [self.editSession apply:self.wrap];
-			[self.wrap update:^(WLWrap *wrap) {
-				[weakSelf.spinner stopAnimating];
-				[weakSelf dismiss];
-				weakSelf.wrap.invitees = nil;
-				[weakSelf unlock];
-			} failure:^(NSError *error) {
-				if ([error isNetworkError] && weakSelf.wrap.uploading) {
-					[weakSelf.wrap broadcastChange];
-					[weakSelf dismiss];
-				} else {
-					[error show];
-					[weakSelf.editSession reset:weakSelf.wrap];
-				}
-				[weakSelf.spinner stopAnimating];
-				[weakSelf unlock];
-			}];
-		} else {
+		if (![self.editSession hasChanges]) {
 			[WLToast showWithMessage:@"Your name isn't correct."];
+            return;
 		}
+        if (self.wrap.uploading.operation != nil) {
+			[WLToast showWithMessage:@"Wrap is uploading, wait a moment..."];
+            return;
+		}
+        [super updateIfNeeded:completion];
+        __weak typeof(self)weakSelf = self;
+        [self.editSession apply:self.wrap];
+        [self.wrap update:^(WLWrap *wrap) {
+            [weakSelf.spinner stopAnimating];
+            [weakSelf dismiss];
+            weakSelf.wrap.invitees = nil;
+            [weakSelf unlock];
+        } failure:^(NSError *error) {
+            if ([error isNetworkError] && weakSelf.wrap.uploading) {
+                [weakSelf.wrap broadcastChange];
+                [weakSelf dismiss];
+            } else {
+                [error show];
+                [weakSelf.editSession reset:weakSelf.wrap];
+            }
+            [weakSelf.spinner stopAnimating];
+            [weakSelf unlock];
+        }];
 		
 	} else {
 		completion();

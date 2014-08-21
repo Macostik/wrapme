@@ -17,8 +17,9 @@
 #import "WLAPIManager.h"
 #import "WLAuthorization.h"
 #import "WLEntryManager.h"
-#import <AudioToolbox/AudioToolbox.h>
 #import "WLWrap.h"
+#import "WLSoundPlayer.h"
+#import "WLNotificationChannel.h"
 
 static NSString* WLPubNubOrigin = @"pubsub.pubnub.com";
 static NSString* WLPubNubPublishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
@@ -26,11 +27,10 @@ static NSString* WLPubNubSubscribeKey = @"sub-c-bc5bfa70-d166-11e3-8d06-02ee2dda
 static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzgwYjdkNWNkMmFl";
 
 @interface WLNotificationBroadcaster () <PNDelegate>
-{
-    SystemSoundID soundID;
-}
 
-@property (strong, nonatomic) PNChannel* typingChannel;
+@property (strong, nonatomic) WLNotificationChannel* typingChannel;
+
+@property (strong, nonatomic) WLNotificationChannel* userChannel;
 
 @end
 
@@ -45,36 +45,6 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
     return instance;
 }
 
-+ (void)enablePushNotifications {
-    [self deviceToken:^(NSData *deviceToken) {
-        if (![[PubNub sharedInstance] isConnected]) {
-            return;
-        }
-        
-        [PubNub requestParticipantsListWithCompletionBlock:^(NSArray *participants, PNChannel *channel, PNError *error) {
-            if (!error) {
-                for (PNClient *client in participants) {
-                    if (![client.channel.name isEqualToString:[WLUser currentUser].identifier]) {
-                        [PubNub disablePushNotificationsOnChannel:client.channel withDevicePushToken:deviceToken];
-                    }
-                }
-            }
-        }];
-        
-        if ([WLUser currentUser].identifier.nonempty) {
-            NSArray* channels = [PubNub subscribedChannels];
-            if (channels && deviceToken && [[PubNub sharedInstance] isConnected]) {
-                [PubNub enablePushNotificationsOnChannels:channels withDevicePushToken:deviceToken];
-            }
-        }
-    }];
-}
-
-+ (void)disablePushNotifications {
-    [WLSession setDeviceToken:nil];
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeNone];
-}
-
 static WLDataBlock deviceTokenCompletion = nil;
 
 + (void)deviceToken:(WLDataBlock)completion {
@@ -82,13 +52,13 @@ static WLDataBlock deviceTokenCompletion = nil;
     if (deviceToken) {
         completion(deviceToken);
     } else {
-        NSLog(@"registerForRemoteNotificationTypes");
+        UIRemoteNotificationType type = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:type];
         deviceTokenCompletion = completion;
     }
 }
 
 + (void)setDeviceToken:(NSData *)deviceToken {
-    NSLog(@"setDeviceToken");
     [WLSession setDeviceToken:deviceToken];
     if (deviceTokenCompletion) {
         deviceTokenCompletion(deviceToken);
@@ -97,29 +67,30 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 + (PNConfiguration*)configuration {
-	return [PNConfiguration configurationForOrigin:WLPubNubOrigin
-										publishKey:WLPubNubPublishKey
-									  subscribeKey:WLPubNubSubscribeKey
-										 secretKey:WLPubNubSecretKey];
+	return [PNConfiguration configurationForOrigin:WLPubNubOrigin publishKey:WLPubNubPublishKey subscribeKey:WLPubNubSubscribeKey secretKey:WLPubNubSecretKey];
 }
 
 - (void)configure {
 	[self performSelector:@selector(connect) withObject:nil afterDelay:0.0f];
     [super configure];
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert |
-                                                                          UIRemoteNotificationTypeBadge |
-                                                                          UIRemoteNotificationTypeSound];
 }
 
 - (void)setup {
     [super setup];
-    [self setupMessageSound];
+    self.userChannel = [[WLNotificationChannel alloc] init];
+    self.userChannel.supportAPNS = YES;
+    __weak typeof(self)weakSelf = self;
+    [self.userChannel setReceive:^(WLNotification *notification) {
+        [notification fetch:^{
+            if (notification.type == WLNotificationChatCandyAddition) {
+                [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:notification.candy.contributor];
+            }
+            [WLSoundPlayer play];
+        }];
+    }];
+    self.typingChannel = [[WLNotificationChannel alloc] init];
+    self.typingChannel.supportPresense = YES;
 	[PubNub setupWithConfiguration:[WLNotificationBroadcaster configuration] andDelegate:self];
-}
-
-- (void)setupMessageSound {
-    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"interfacealertsound3" ofType:@"wav"];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)([NSURL fileURLWithPath: soundPath]), &soundID);
 }
 
 - (void)subscribe {
@@ -127,7 +98,8 @@ static WLDataBlock deviceTokenCompletion = nil;
 	if (!name.nonempty) {
 		return;
 	}
-    [PubNub subscribeOnChannel:[PNChannel channelWithName:name]];
+    [self.userChannel setName:name subscribe:YES];
+    [PubNub setClientIdentifier:name];
 }
 
 - (void)connect {
@@ -154,47 +126,10 @@ static WLDataBlock deviceTokenCompletion = nil;
 	}
 }
 
-- (void)broadcastNotification:(WLNotification*)notification {
-    [self broadcast:@selector(broadcaster:notificationReceived:) object:notification select:^BOOL(NSObject<WLNotificationReceiver> *receiver) {
-        if ([receiver respondsToSelector:@selector(broadcaster:shouldReceiveNotification:)]) {
-            return [receiver broadcaster:self shouldReceiveNotification:notification];
-        }
-        return YES;
-    }];
-}
-
 #pragma mark - PNDelegate
 
-static BOOL isPlayed = NO;
-
 - (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
-    WLNotification* notification = [WLNotification notificationWithMessage:message];
-    if ([notification.user isEqualToEntry:[WLUser currentUser]]) {
-        return;
-    }
 	NSLog(@"PubNub message received %@", message);
-    if (notification.type == WLNotificationBeginTyping) {
-        [self broadcast:@selector(broadcaster:didBeginTyping:) object:notification.user];
-    } else if (notification.type == WLNotificationEndTyping ) {
-        [self broadcast:@selector(broadcaster:didEndTyping:) object:notification.user];
-    } else {
-        __weak typeof(self)weakSelf = self;
-        [notification fetch:^{
-            if (notification.type == WLNotificationChatCandyAddition) {
-                [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:notification.candy.contributor];
-            }
-            [weakSelf broadcastNotification:notification];
-            if (!isPlayed) {
-                isPlayed = YES;
-                AudioServicesPlaySystemSound (soundID);
-                AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, completionCallback, NULL);
-            }
-        }];
-    }
-}
-
-static void completionCallback (SystemSoundID  mySSID, void *myself) {
-    isPlayed = NO;
 }
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {
@@ -208,7 +143,6 @@ static void completionCallback (SystemSoundID  mySSID, void *myself) {
 
 - (void)pubnubClient:(PubNub *)client didSubscribeOnChannels:(NSArray *)channels {
 	NSLog(@"PubNub subscribed on channels %@", channels);
-	[WLNotificationBroadcaster enablePushNotifications];
 }
 
 - (void)pubnubClient:(PubNub *)client didUnsubscribeOnChannels:(NSArray *)channels {
@@ -235,47 +169,69 @@ static void completionCallback (SystemSoundID  mySSID, void *myself) {
 - (void)subscribeOnTypingChannel:(WLWrap *)wrap success:(WLBlock)success {
     __weak __typeof(self)weakSelf = self;
     if ([[PubNub sharedInstance] isConnected]) {
-        if (self.typingChannel) {
-            [PubNub unsubscribeFromChannel:self.typingChannel];
-        }
-        self.typingChannel = [PNChannel channelWithName:wrap.identifier shouldObservePresence:NO];
-        [PubNub subscribeOnChannel:self.typingChannel withCompletionHandlingBlock:^(PNSubscriptionProcessState state, NSArray *channels, PNError *error) {
-            if (error) {
-                [weakSelf subscribeOnTypingChannel:wrap success:success];
-            } else if (state == PNSubscriptionProcessSubscribedState && success) {
-                success();
-            }
+        self.typingChannel.name = wrap.identifier;
+        [self.typingChannel subscribe:^ {
+            [weakSelf fetchParticipants];
+            if (success) success();
+        } failure:^(NSError *error) {
+            [weakSelf subscribeOnTypingChannel:wrap success:success];
         }];
+        [self observePresense];
+    }
+}
+
+- (void)observePresense {
+    __weak typeof(self)weakSelf = self;
+    [self.typingChannel setPresenseObserver:^(PNPresenceEvent *event) {
+        WLUser* user = [WLUser entry:event.client.identifier];
+        if ([user isCurrentUser]) {
+            return;
+        }
+        if (event.type == PNPresenceEventStateChanged) {
+            [weakSelf handleClientState:event.client.data user:user];
+        } else if (event.type == PNPresenceEventTimeout) {
+            [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:user];
+        }
+    }];
+
+}
+
+- (void)fetchParticipants {
+    __weak typeof(self)weakSelf = self;
+    [self.typingChannel participants:^(NSArray *participants) {
+        for (PNClient* client in participants) {
+            WLUser* user = [WLUser entry:client.identifier];
+            if ([user isCurrentUser]) {
+                continue;
+            }
+            [weakSelf handleClientState:client.data user:user];
+        }
+    }];
+}
+
+- (void)handleClientState:(NSDictionary*)state user:(WLUser*)user {
+    WLNotificationType type = [state[@"action"] integerValue];
+    if (type == WLNotificationBeginTyping) {
+        [self broadcast:@selector(broadcaster:didBeginTyping:) object:user];
+    } else if (type == WLNotificationEndTyping ) {
+        [self broadcast:@selector(broadcaster:didEndTyping:) object:user];
     }
 }
 
 - (void)unsubscribeFromTypingChannel {
-    [PubNub unsubscribeFromChannel:self.typingChannel];
+    [self.typingChannel unsubscribe];
 }
 
 - (BOOL)isSubscribedOnTypingChannel:(WLWrap *)wrap {
-    return [PubNub isSubscribedOnChannel:self.typingChannel] && [self.typingChannel.name isEqualToString:wrap.identifier];
+    return self.typingChannel.subscribed && [self.typingChannel.name isEqualToString:wrap.identifier];
 }
 
 - (void)sendTypingMessageWithType:(WLNotificationType)type {
-    NSDictionary *message = @{@"user_uid": [WLUser currentUser].identifier, @"wl_pn_type" : @(type)};
-    [PubNub sendMessage:message toChannel:self.typingChannel];
+    [self.typingChannel changeState:@{@"action" : @(type)}];
 }
 
 - (void)beginTyping {
     [self sendTypingMessageWithType:WLNotificationBeginTyping];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
-}
-
-- (void)applicationWillResignActive {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
-    [self endTyping];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
-}
-
-- (void)applicationDidBecomeActive {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
-    [self beginTyping];
 }
 
 - (void)endTyping {

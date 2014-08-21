@@ -18,10 +18,6 @@
 
 @optional
 
-- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster notificationReceived:(WLNotification *)notification;
-
-- (BOOL)broadcaster:(WLNotificationBroadcaster *)broadcaster shouldReceiveNotification:(WLNotification *)notification;
-
 - (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification;
 
 - (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didBeginTyping:(WLUser *)user;
@@ -34,11 +30,9 @@
 
 @property (strong, nonatomic) WLNotification* pendingRemoteNotification;
 
-+ (void)enablePushNotifications;
-
-+ (void)disablePushNotifications;
-
 + (void)setDeviceToken:(NSData*)deviceToken;
+
++ (void)deviceToken:(WLDataBlock)completion;
 
 - (void)handleRemoteNotification:(NSDictionary*)data;
 

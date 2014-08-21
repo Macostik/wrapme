@@ -29,7 +29,7 @@
 #import "WLWrapBroadcaster.h"
 #import "WLGroupedSet.h"
 #import "WLSignificantTimeBroadcaster.h"
-#import "WLNotificationBroadcaster.h"
+#import "WLNotificationCenter.h"
 #import "WLNotification.h"
 
 
@@ -101,12 +101,12 @@
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
-    [[WLNotificationBroadcaster broadcaster] addReceiver:self];
+    [[WLNotificationCenter defaultCenter] addReceiver:self];
     if ([WLAPIManager productionEvironment]) {
         [self.indicator removeFromSuperview];
-        [[WLNotificationBroadcaster broadcaster] subscribeOnTypingChannel:self.wrap success:nil];
+        [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:nil];
     } else {
-        [[WLNotificationBroadcaster broadcaster] subscribeOnTypingChannel:self.wrap success:^ {
+        [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:^ {
             weakSelf.indicator.backgroundColor = [UIColor greenColor];
         }];
     }
@@ -259,7 +259,7 @@
 
 - (IBAction)back:(id)sender {
     self.typing = NO;
-    [[WLNotificationBroadcaster broadcaster] unsubscribeFromTypingChannel];
+    [[WLNotificationCenter defaultCenter] unsubscribeFromTypingChannel];
     if (self.wrap.valid) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
@@ -302,16 +302,16 @@
     if (_typing != typing) {
         _typing = typing;
         if (typing) {
-            [[WLNotificationBroadcaster broadcaster] beginTyping];
+            [[WLNotificationCenter defaultCenter] beginTyping];
         } else {
-            [[WLNotificationBroadcaster broadcaster] endTyping];
+            [[WLNotificationCenter defaultCenter] endTyping];
         }
     }
 }
 
 - (void)composeBarDidChangeText:(WLComposeBar*)composeBar {
     __weak __typeof(self)weakSelf = self;
-    if ([[WLNotificationBroadcaster broadcaster] isSubscribedOnTypingChannel:self.wrap]) {
+    if ([[WLNotificationCenter defaultCenter] isSubscribedOnTypingChannel:self.wrap]) {
         weakSelf.typing = composeBar.text.nonempty;
     }
 }
@@ -388,13 +388,13 @@
 
 #pragma mark - WLNotificationReceiver
 
-- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didBeginTyping:(WLUser *)user {
+- (void)broadcaster:(WLNotificationCenter *)broadcaster didBeginTyping:(WLUser *)user {
     if(user) {
         [self insertMessage:(id)user];
     }
 }
 
-- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didEndTyping:(WLUser *)user {
+- (void)broadcaster:(WLNotificationCenter *)broadcaster didEndTyping:(WLUser *)user {
     [self.groups removeEntry:(id)user];
     [self.collectionView reloadData];
 }

@@ -35,7 +35,7 @@
 #import "WLSupportFunctions.h"
 #import "NSString+Additions.h"
 #import "WLQuickChatView.h"
-#import "WLNotificationBroadcaster.h"
+#import "WLNotificationCenter.h"
 #import "WLNotification.h"
 #import "UIView+AnimationHelper.h"
 #import "AsynchronousOperation.h"
@@ -80,7 +80,7 @@
 	self.noWrapsView.hidden = YES;
 	[self.dataProvider setRefreshable];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-	[[WLNotificationBroadcaster broadcaster] addReceiver:self];
+	[[WLNotificationCenter defaultCenter] addReceiver:self];
     
     __weak typeof(self)weakSelf = self;
     [self.section setChange:^(WLPaginatedSet* entries) {
@@ -198,7 +198,7 @@
 	}
 }
 
-- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {
+- (void)broadcaster:(WLNotificationCenter *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {
 	[self handleRemoteNotification:notification];
 	broadcaster.pendingRemoteNotification = nil;
 }

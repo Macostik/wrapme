@@ -8,7 +8,7 @@
 
 #import "WLNotificationChannel.h"
 #import <PubNub/PubNub.h>
-#import "WLNotificationBroadcaster.h"
+#import "WLNotificationCenter.h"
 #import "WLNotification.h"
 #import "WLUser+Extended.h"
 #import "NSString+Additions.h"
@@ -115,7 +115,7 @@
 
 - (void)enableAPNS {
     __weak typeof(self)weakSelf = self;
-    [WLNotificationBroadcaster deviceToken:^(NSData *data) {
+    [WLNotificationCenter deviceToken:^(NSData *data) {
         if (![[PubNub sharedInstance] isConnected] || !data || !weakSelf.channel.name.nonempty) {
             return;
         }

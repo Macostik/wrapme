@@ -38,11 +38,17 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @property (strong, nonatomic) WLComment* comment;
 
+@property (strong, nonatomic) NSString *text;
+
 @property (strong, nonatomic) WLUser *user;
+
+@property (strong, nonatomic) NSDate *date;
 
 + (instancetype)notificationWithMessage:(PNMessage*)message;
 
 + (instancetype)notificationWithData:(NSDictionary*)data;
+
++ (NSMutableOrderedSet*)notificationsWithDataArray:(NSArray*)array;
 
 - (BOOL)deletion;
 

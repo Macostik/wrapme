@@ -18,6 +18,12 @@
 
 @implementation WLNotification
 
++ (NSMutableOrderedSet *)notificationsWithDataArray:(NSArray *)array {
+    return [NSMutableOrderedSet orderedSetWithArray:[array map:^id(NSDictionary* data) {
+        return [WLNotification notificationWithData:data];
+    }]];
+}
+
 + (instancetype)notificationWithMessage:(PNMessage*)message {
 	return [self notificationWithData:message.message];
 }
@@ -83,19 +89,6 @@
 	return _comment;
 }
 
-- (WLUser *)user {
-	if (!_user) {
-		NSString* identifier = [self.data stringForKey:@"user_uid"];
-		if (identifier.nonempty) {
-            WLUser *user = [WLUser entry:identifier];
-            if (user.valid) {
-                _user = user;
-            }
-		}
-	}
-	return _user;
-}
-
 - (BOOL)deletion {
     WLNotificationType type = self.type;
     return type == WLNotificationCandyCommentDeletion || type == WLNotificationContributorDeletion || type == WLNotificationImageCandyDeletion || type == WLNotificationWrapDeletion;
@@ -141,6 +134,48 @@
     } else {
         block(nil);
     }
+}
+
+- (WLUser *)user {
+    WLNotificationType type = self.type;
+    if (type == WLNotificationContributorAddition) {
+        return [WLUser currentUser];
+    } else if (type == WLNotificationImageCandyAddition) {
+        return self.candy.contributor;
+    } else if (type == WLNotificationChatCandyAddition) {
+        return self.candy.contributor;
+    } else if (type == WLNotificationCandyCommentAddition) {
+        return self.comment.contributor;
+    }
+    return nil;
+}
+
+- (NSString *)text {
+    WLNotificationType type = self.type;
+    if (type == WLNotificationContributorAddition) {
+        return [NSString stringWithFormat:@"added to '%@' wrap", self.wrap.name];
+    } else if (type == WLNotificationImageCandyAddition) {
+        return [NSString stringWithFormat:@"added photo to '%@' wrap", self.wrap.name];
+    } else if (type == WLNotificationChatCandyAddition) {
+        return [NSString stringWithFormat:@"added chat message to '%@' wrap", self.wrap.name];
+    } else if (type == WLNotificationCandyCommentAddition) {
+        return [NSString stringWithFormat:@"comment \"%@\" on the photo '%@'", self.comment.text, self.wrap.name];
+    }
+    return nil;
+}
+
+- (NSDate *)date {
+    WLNotificationType type = self.type;
+    if (type == WLNotificationContributorAddition) {
+        return self.wrap.updatedAt;
+    } else if (type == WLNotificationImageCandyAddition) {
+        return self.candy.createdAt;
+    } else if (type == WLNotificationChatCandyAddition) {
+        return self.candy.createdAt;
+    } else if (type == WLNotificationCandyCommentAddition) {
+        return self.comment.createdAt;
+    }
+    return nil;
 }
 
 @end

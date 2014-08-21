@@ -9,7 +9,7 @@
 #import "WLBroadcaster.h"
 #import "WLBlocks.h"
 
-@class WLNotificationBroadcaster;
+@class WLNotificationCenter;
 @class WLNotification;
 @class WLUser;
 @class WLWrap;
@@ -18,17 +18,25 @@
 
 @optional
 
-- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification;
+- (void)broadcaster:(WLNotificationCenter *)broadcaster notificationReceived:(WLNotification *)notification;
 
-- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didBeginTyping:(WLUser *)user;
+- (BOOL)broadcaster:(WLNotificationCenter *)broadcaster shouldReceiveNotification:(WLNotification *)notification;
 
-- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didEndTyping:(WLUser *)user;
+- (void)broadcaster:(WLNotificationCenter *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification;
+
+- (void)broadcaster:(WLNotificationCenter *)broadcaster didBeginTyping:(WLUser *)user;
+
+- (void)broadcaster:(WLNotificationCenter *)broadcaster didEndTyping:(WLUser *)user;
 
 @end
 
-@interface WLNotificationBroadcaster : WLBroadcaster
+@interface WLNotificationCenter : WLBroadcaster
 
 @property (strong, nonatomic) WLNotification* pendingRemoteNotification;
+
+@property (strong, nonatomic) NSMutableOrderedSet* storedNotifications;
+
++ (instancetype)defaultCenter;
 
 + (void)setDeviceToken:(NSData*)deviceToken;
 
@@ -40,7 +48,7 @@
 
 @end
 
-@interface WLNotificationBroadcaster (Typing)
+@interface WLNotificationCenter (Typing)
 
 - (void)subscribeOnTypingChannel:(WLWrap *)wrap success:(WLBlock)success;
 

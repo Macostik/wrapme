@@ -13,7 +13,7 @@
 #import "NSString+Additions.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLAuthorization.h"
-#import "WLNotificationBroadcaster.h"
+#import "WLNotificationCenter.h"
 
 static NSString* WLSessionServiceName = @"WrapLive";
 static NSString* WLSessionAccountName = @"WrapLiveAccount";

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLNotificationBroadcaster.h"
+#import "WLNotificationCenter.h"
 #import "NSArray+Additions.h"
 #import "WLBlocks.h"
 #import "WLSession.h"
@@ -20,13 +20,15 @@
 #import "WLWrap.h"
 #import "WLSoundPlayer.h"
 #import "WLNotificationChannel.h"
+#import "NSPropertyListSerialization+Shorthand.h"
+#import "NSString+Documents.h"
 
 static NSString* WLPubNubOrigin = @"pubsub.pubnub.com";
 static NSString* WLPubNubPublishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
 static NSString* WLPubNubSubscribeKey = @"sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe";
 static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzgwYjdkNWNkMmFl";
 
-@interface WLNotificationBroadcaster () <PNDelegate>
+@interface WLNotificationCenter () <PNDelegate>
 
 @property (strong, nonatomic) WLNotificationChannel* typingChannel;
 
@@ -34,15 +36,40 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 
 @end
 
-@implementation WLNotificationBroadcaster
+@implementation WLNotificationCenter
 
-+ (instancetype)broadcaster {
++ (instancetype)defaultCenter {
     static id instance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		instance = [[self alloc] init];
 	});
     return instance;
+}
+
+- (NSMutableOrderedSet *)storedNotifications {
+    if (!_storedNotifications) {
+        _storedNotifications = [WLNotification notificationsWithDataArray:[NSArray arrayWithContentsOfFile:NSDocumentsDirectoryPath(@"storedNotifications")]];
+    }
+    return _storedNotifications;
+}
+
+- (void)storeNotification:(WLNotification*)notification {
+    if (!notification.deletion) {
+        [self.storedNotifications insertObject:notification atIndex:0];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(saveNotifications) object:nil];
+        [self performSelector:@selector(saveNotifications) withObject:nil afterDelay:0.5f];
+    }
+}
+
+- (void)saveNotifications {
+    __weak typeof(self)weakSelf = self;
+    run_in_background_queue(^{
+        NSArray* notifications = [[weakSelf.storedNotifications array] map:^id(WLNotification* notification) {
+            return notification.data;
+        }];
+        [notifications writeToFile:NSDocumentsDirectoryPath(@"storedNotifications") atomically:YES];
+    });
 }
 
 static WLDataBlock deviceTokenCompletion = nil;
@@ -86,11 +113,13 @@ static WLDataBlock deviceTokenCompletion = nil;
                 [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:notification.candy.contributor];
             }
             [WLSoundPlayer play];
+            [weakSelf storeNotification:notification];
+            [weakSelf broadcastNotification:notification];
         }];
     }];
     self.typingChannel = [[WLNotificationChannel alloc] init];
     self.typingChannel.supportPresense = YES;
-	[PubNub setupWithConfiguration:[WLNotificationBroadcaster configuration] andDelegate:self];
+	[PubNub setupWithConfiguration:[WLNotificationCenter configuration] andDelegate:self];
 }
 
 - (void)subscribe {
@@ -124,6 +153,15 @@ static WLDataBlock deviceTokenCompletion = nil;
 	if (self.pendingRemoteNotification && [receiver respondsToSelector:@selector(broadcaster:didReceiveRemoteNotification:)]) {
 		[receiver broadcaster:self didReceiveRemoteNotification:self.pendingRemoteNotification];
 	}
+}
+
+- (void)broadcastNotification:(WLNotification*)notification {
+    [self broadcast:@selector(broadcaster:notificationReceived:) object:notification select:^BOOL(NSObject<WLNotificationReceiver> *receiver) {
+        if ([receiver respondsToSelector:@selector(broadcaster:shouldReceiveNotification:)]) {
+            return [receiver broadcaster:self shouldReceiveNotification:notification];
+        }
+        return YES;
+    }];
 }
 
 #pragma mark - PNDelegate
@@ -164,7 +202,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 @end
 
-@implementation WLNotificationBroadcaster (Typing)
+@implementation WLNotificationCenter (Typing)
 
 - (void)subscribeOnTypingChannel:(WLWrap *)wrap success:(WLBlock)success {
     __weak __typeof(self)weakSelf = self;

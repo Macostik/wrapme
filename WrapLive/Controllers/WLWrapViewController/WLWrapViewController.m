@@ -158,6 +158,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     if (self.wrapRequest.loading) return;
     self.wrapRequest.page = 1;
     self.wrapRequest.contentType = contentType;
+    NSUInteger count = self.wrap.candies.count;
     [self.wrapRequest send:^(WLWrap* wrap) {
         if (contentType == WLWrapContentTypeAuto) {
             if ([weakSelf.wrapRequest isContentType:WLWrapContentTypeLive] && weakSelf.viewTab == WLWrapViewTabHistory) {
@@ -172,7 +173,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         }
         [weakSelf setFirstContributorViewHidden:wrap.candies.nonempty animated:YES];
 		[weakSelf.refresher endRefreshing];
-        if (!wrap.candies.nonempty) {
+        if (count == wrap.candies.count) {
             weakSelf.showLoadingView = NO;
         }
     } failure:^(NSError *error) {

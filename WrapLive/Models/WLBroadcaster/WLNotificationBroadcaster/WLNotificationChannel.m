@@ -141,7 +141,9 @@
 }
 
 - (void)send:(NSDictionary *)message {
-    [PubNub sendMessage:message toChannel:self.channel];
+    if (self.subscribed) {
+        [PubNub sendMessage:message toChannel:self.channel];
+    }
 }
 
 @end

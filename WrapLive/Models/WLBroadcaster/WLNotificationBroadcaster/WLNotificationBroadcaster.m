@@ -89,6 +89,7 @@ static WLDataBlock deviceTokenCompletion = nil;
         }];
     }];
     self.typingChannel = [[WLNotificationChannel alloc] init];
+    self.typingChannel.supportPresense = YES;
 	[PubNub setupWithConfiguration:[WLNotificationBroadcaster configuration] andDelegate:self];
 }
 
@@ -169,18 +170,51 @@ static WLDataBlock deviceTokenCompletion = nil;
     __weak __typeof(self)weakSelf = self;
     if ([[PubNub sharedInstance] isConnected]) {
         self.typingChannel.name = wrap.identifier;
-        [self.typingChannel subscribe:success failure:^(NSError *error) {
+        [self.typingChannel subscribe:^ {
+            [weakSelf fetchParticipants];
+            if (success) success();
+        } failure:^(NSError *error) {
             [weakSelf subscribeOnTypingChannel:wrap success:success];
         }];
-        [self.typingChannel setReceive:^(WLNotification *notification) {
-            if (![notification.user isCurrentUser]) {
-                if (notification.type == WLNotificationBeginTyping) {
-                    [weakSelf broadcast:@selector(broadcaster:didBeginTyping:) object:notification.user];
-                } else if (notification.type == WLNotificationEndTyping ) {
-                    [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:notification.user];
-                }
+        [self observePresense];
+    }
+}
+
+- (void)observePresense {
+    __weak typeof(self)weakSelf = self;
+    [self.typingChannel setPresenseObserver:^(PNPresenceEvent *event) {
+        WLUser* user = [WLUser entry:event.client.identifier];
+        if ([user isCurrentUser]) {
+            return;
+        }
+        if (event.type == PNPresenceEventStateChanged) {
+            [weakSelf handleClientState:event.client.data user:user];
+        } else if (event.type == PNPresenceEventTimeout) {
+            [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:user];
+        }
+    }];
+
+}
+
+- (void)fetchParticipants {
+    __weak typeof(self)weakSelf = self;
+    [self.typingChannel participants:^(NSArray *participants) {
+        for (PNClient* client in participants) {
+            WLUser* user = [WLUser entry:client.identifier];
+            if ([user isCurrentUser]) {
+                continue;
             }
-        }];
+            [weakSelf handleClientState:client.data user:user];
+        }
+    }];
+}
+
+- (void)handleClientState:(NSDictionary*)state user:(WLUser*)user {
+    WLNotificationType type = [state[@"action"] integerValue];
+    if (type == WLNotificationBeginTyping) {
+        [self broadcast:@selector(broadcaster:didBeginTyping:) object:user];
+    } else if (type == WLNotificationEndTyping ) {
+        [self broadcast:@selector(broadcaster:didEndTyping:) object:user];
     }
 }
 
@@ -193,26 +227,14 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)sendTypingMessageWithType:(WLNotificationType)type {
-    [self.typingChannel send:@{@"user_uid": [WLUser currentUser].identifier, @"wl_pn_type" : @(type)}];
+    [self.typingChannel changeState:@{@"action" : @(type)}];
 }
 
 - (void)beginTyping {
     [self sendTypingMessageWithType:WLNotificationBeginTyping];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
-}
-
-- (void)applicationWillResignActive {
-    [self endTyping];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
-}
-
-- (void)applicationDidBecomeActive {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
-    [self beginTyping];
 }
 
 - (void)endTyping {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     [self sendTypingMessageWithType:WLNotificationEndTyping];
 }
 

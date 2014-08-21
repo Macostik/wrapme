@@ -130,7 +130,9 @@
             }
         }];
         
-        [PubNub enablePushNotificationsOnChannel:weakSelf.channel withDevicePushToken:data];
+        [PubNub removeAllPushNotificationsForDevicePushToken:data withCompletionHandlingBlock:^(PNError *error) {
+            [PubNub enablePushNotificationsOnChannel:weakSelf.channel withDevicePushToken:data];
+        }];
     }];
 }
 
@@ -147,7 +149,7 @@
     __weak typeof(self)weakSelf = self;
     [[PNObservationCenter defaultCenter] addPresenceEventObserver:self withBlock:^(PNPresenceEvent *event) {
         if (event.channel == weakSelf.channel && weakSelf.presenseObserver) {
-            weakSelf.presenseObserver();
+            weakSelf.presenseObserver(event);
         }
     }];
 }
@@ -159,6 +161,20 @@
 - (void)send:(NSDictionary *)message {
     if (self.subscribed) {
         [PubNub sendMessage:message toChannel:self.channel];
+    }
+}
+
+- (void)changeState:(NSDictionary*)state {
+    [PubNub updateClientState:[WLUser currentUser].identifier state:state forChannel:self.channel];
+}
+
+- (void)participants:(WLArrayBlock)completion {
+    if (self.subscribed) {
+        [PubNub requestParticipantsListForChannel:self.channel clientIdentifiersRequired:YES clientState:YES withCompletionBlock:^(NSArray *participants, PNChannel *channel, PNError *error) {
+            if (!error && completion) {
+                completion(participants);
+            }
+        }];
     }
 }
 

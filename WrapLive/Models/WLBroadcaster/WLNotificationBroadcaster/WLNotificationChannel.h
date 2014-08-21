@@ -24,7 +24,7 @@
 
 @property (strong, nonatomic) void (^receive) (WLNotification *notification);
 
-@property (strong, nonatomic) void (^presenseObserver) ();
+@property (strong, nonatomic) void (^presenseObserver) (PNPresenceEvent *event);
 
 + (instancetype)channel:(NSString*)name;
 
@@ -41,5 +41,9 @@
 - (void)unsubscribe:(WLBlock)success failure:(WLFailureBlock)failure;
 
 - (void)send:(NSDictionary*)message;
+
+- (void)changeState:(NSDictionary*)state;
+
+- (void)participants:(WLArrayBlock)completion;
 
 @end

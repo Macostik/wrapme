@@ -55,7 +55,7 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 }
 
 - (void)storeNotification:(WLNotification*)notification {
-    if (!notification.deletion) {
+    if (notification.type == WLNotificationCandyCommentAddition) {
         [self.storedNotifications insertObject:notification atIndex:0];
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(saveNotifications) object:nil];
         [self performSelector:@selector(saveNotifications) withObject:nil afterDelay:0.5f];

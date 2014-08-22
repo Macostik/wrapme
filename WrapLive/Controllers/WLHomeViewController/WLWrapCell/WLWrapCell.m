@@ -39,6 +39,7 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
+    self.coverView.circled = YES;
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self.candiesView ? self.nameLabel.superview : self configuration:^BOOL(WLMenu *menu) {
         WLWrap* wrap = weakSelf.entry;

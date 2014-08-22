@@ -48,6 +48,8 @@
 
 @property (nonatomic) CGFloat defaultMinimumLineSpacing;
 
+@property (nonatomic) CGFloat defaultMinimumInteritemSpacing;
+
 - (instancetype)initWithCollectionView:(UICollectionView*)collectionView;
 
 - (void)setup;
@@ -69,6 +71,8 @@
 - (NSUInteger)numberOfEntries;
 
 - (CGFloat)minimumLineSpacing:(NSUInteger)section;
+
+- (CGFloat)minimumInteritemSpacing:(NSUInteger)section;
 
 - (UIEdgeInsets)sectionInsets:(NSUInteger)section;
 

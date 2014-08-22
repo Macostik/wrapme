@@ -141,6 +141,11 @@
     return [_section minimumLineSpacing:section];
 }
 
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    WLCollectionViewSection* _section = _sections[section];
+    return [_section minimumInteritemSpacing:section];
+}
+
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     WLCollectionViewSection* _section = _sections[section];
     return [_section sectionInsets:section];

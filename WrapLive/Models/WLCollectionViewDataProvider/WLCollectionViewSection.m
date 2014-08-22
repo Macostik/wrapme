@@ -48,6 +48,7 @@
     self.defaultFooterSize = layout.footerReferenceSize;
     self.defaultHeaderSize = layout.headerReferenceSize;
     self.defaultMinimumLineSpacing = layout.minimumLineSpacing;
+    self.defaultMinimumInteritemSpacing = layout.minimumInteritemSpacing;
     self.defaultSectionInsets = layout.sectionInset;
     self.defaultSize = layout.itemSize;
 }
@@ -122,6 +123,10 @@
 
 - (CGFloat)minimumLineSpacing:(NSUInteger)section {
     return self.defaultMinimumLineSpacing;
+}
+
+- (CGFloat)minimumInteritemSpacing:(NSUInteger)section {
+    return self.defaultMinimumInteritemSpacing;
 }
 
 - (UIEdgeInsets)sectionInsets:(NSUInteger)section {

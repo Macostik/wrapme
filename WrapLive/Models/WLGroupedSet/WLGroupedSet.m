@@ -16,36 +16,16 @@
 
 @interface WLGroupedSet ()
 
-@property (strong, nonatomic) NSMutableDictionary *keyedGroups;
-
 @end
 
 @implementation WLGroupedSet
 
-+ (instancetype)groupsOrderedBy:(NSString *)orderBy {
-    WLGroupedSet* groups = [[WLGroupedSet alloc] init];
-    if ([orderBy isEqualToString:WLCandiesOrderByCreation]) {
-        groups.groupSortComparator = comparatorByCreatedAtDescending;
-        groups.dateBlock = ^NSDate* (WLEntry* entry) {
-            return [entry createdAt];
-        };
-        groups.orderBy = WLCandiesOrderByCreation;
-    }
-    return groups;
-}
-
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.keyedGroups = [NSMutableDictionary dictionary];
-        self.dateFormat = @"MMM dd, yyyy";
-        self.singleMessage = YES;
+//        self.dateFormat = @"MMM dd, yyyy";
+        self.type = @(WLCandyTypeImage);
         self.sortComparator = comparatorByDateDescending;
-        self.groupSortComparator = comparatorByUpdatedAtDescending;
-        self.dateBlock = ^NSDate* (WLEntry* entry) {
-            return [entry updatedAt];
-        };
-        self.orderBy = WLCandiesOrderByUpdating;
     }
     return self;
 }
@@ -55,69 +35,42 @@
     [self addEntries:entries];
 }
 
-- (WLGroup *)group:(NSDate *)date {
-    return [self group:date created:NULL];
-}
-
-- (WLGroup *)group:(NSDate *)date created:(BOOL *)created {
-    NSString* name = [date stringWithFormat:self.dateFormat];
-    WLGroup* group = [self.keyedGroups objectForKey:name];
-    if (!group) {
-        group = [WLGroup groupOrderedBy:self.orderBy];
-        group.sortComparator = self.groupSortComparator;
-        group.dateBlock = self.dateBlock;
-        group.date = date;
-        group.singleMessage = self.singleMessage;
-        group.name = name;
-        [self.keyedGroups setObject:group forKey:name];
-        [self.entries addObject:group];
-        [self.entries sort:self.sortComparator];
-        if (created != NULL) {
-            *created = YES;
-        }
-    }
-    return group;
-}
-
-- (BOOL)addEntries:(NSOrderedSet *)entries sort:(BOOL)sort {
-    BOOL created = NO;
+- (BOOL)addEntries:(NSOrderedSet *)entries {
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"type == %@", self.type];
+    entries = [entries filteredOrderedSetUsingPredicate:predicate];
     BOOL added = NO;
-    for (WLCandy* candy in entries) {
-        if (self.dateBlock(candy)) {
-            if ([self addEntry:candy created:&created]) {
-                added = YES;
-            }
+    NSMutableOrderedSet* _entries = [entries mutableCopy];
+    while (_entries.nonempty) {
+        WLCandy* candy = [_entries firstObject];
+        NSDate* date = candy.createdAt;
+        WLGroup* group = [self groupForDate:date create:YES];
+        predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND createdAt <= %@", [date beginOfDay], [date endOfDay]];
+        NSOrderedSet* dayEntries = [_entries filteredOrderedSetUsingPredicate:predicate];
+        if ([group addEntries:dayEntries]) {
+            added = YES;
         }
+        [_entries minusOrderedSet:dayEntries];
     }
-    if (created) {
-        [self.delegate paginatedSetChanged:self];
+    if (added) {
+        [self.entries sort:self.sortComparator];
     }
     return added;
 }
 
-- (BOOL)addEntry:(id)entry {
-    BOOL created = NO;
-    BOOL added = [self addEntry:entry created:&created];
-    if (created) {
-        [self.delegate paginatedSetChanged:self];
+- (BOOL)addEntry:(WLCandy*)candy {
+    if (![candy.type isEqualToNumber:self.type]) {
+        return NO;
     }
-    return added;
-}
-
-- (BOOL)addEntry:(id)entry created:(BOOL *)created {
-    NSDate* date = self.dateBlock(entry);
-    if (date) {
-        WLGroup* group = [self group:date created:created];
-        if ([group addEntry:entry]) {
-            return YES;
-        }
+    WLGroup* group = [self groupForDate:candy.createdAt create:YES];
+    if ([group addEntry:candy]) {
+        [self.entries sort:self.sortComparator];
+        return YES;
     }
     return NO;
 }
 
 - (void)removeEntry:(id)entry {
     __block BOOL removed = NO;
-    __weak typeof(self)weakSelf = self;
     [self.entries removeObjectsWhileEnumerating:^BOOL(WLGroup* group) {
         if ([group.entries containsObject:entry]) {
             [group.entries removeObject:entry];
@@ -125,7 +78,6 @@
             if (group.entries.nonempty) {
                 return NO;
             }
-            [weakSelf.keyedGroups removeObjectForKey:group.name];
             return YES;
         }
         return NO;
@@ -137,24 +89,23 @@
 
 - (void)clear {
     [self.entries removeAllObjects];
-    [self.keyedGroups removeAllObjects];
 }
 
 - (void)sort:(WLCandy*)candy {
-    BOOL created = NO;
-    WLGroup* group = [self group:self.dateBlock(candy) created:&created];
-    if (!created && [group.entries containsObject:candy]) {
+    if (![candy.type isEqualToNumber:self.type]) {
+        return;
+    }
+    WLGroup* group = [self groupForDate:candy.createdAt create:YES];
+    if ([group.entries containsObject:candy]) {
         [group sort];
         return;
     }
-    __weak typeof(self)weakSelf = self;
     [self.entries removeObjectsWhileEnumerating:^BOOL(WLGroup* group) {
         if ([group.entries containsObject:candy]) {
             [group.entries removeObject:candy];
             if (group.entries.nonempty) {
                 return NO;
             }
-            [weakSelf.keyedGroups removeObjectForKey:group.name];
             return YES;
         }
         return NO;
@@ -181,6 +132,19 @@
     }];
 }
 
+- (WLGroup *)groupForDate:(NSDate *)date create:(BOOL)create {
+    WLGroup* group = [self.entries selectObject:^BOOL(WLGroup* item) {
+        return [item.date isSameDay:date];
+    }];
+    if (!group && create) {
+        group = [WLGroup group];
+        group.date = date;
+        [self.entries addObject:group];
+        [self.delegate paginatedSetChanged:self];
+    }
+    return group;
+}
+
 - (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     if (self.request.type == WLPaginatedRequestTypeOlder) {
         WLWrapRequest* request = (id)self.request;
@@ -197,15 +161,10 @@
     return [[self alloc] init];
 }
 
-+ (instancetype)groupOrderedBy:(NSString *)orderBy {
-    WLGroup* group = [self group];
-    group.request.orderBy = orderBy;
-    return group;
-}
-
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.sortComparator = comparatorByCreatedAtAscending;
         self.offset = CGPointZero;
         self.request = [WLCandiesRequest request];
         self.request.sameDay = YES;
@@ -220,31 +179,6 @@
         request.wrap = wrap;
     }
     return [super send:success failure:failure];
-}
-
-- (BOOL)shouldAddEntry:(WLCandy*)entry {
-    if (self.singleMessage && [entry isMessage]) {
-        if (!self.message) {
-            self.message = entry;
-            return YES;
-        } else if ([self.dateBlock(self.message) compare:self.dateBlock(entry)] == NSOrderedAscending) {
-            [self.entries removeObject:self.message];
-            self.message = entry;
-            return YES;
-        }
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
-- (BOOL)hasAtLeastOneImage {
-    for (WLCandy* candy in self.entries) {
-        if ([candy isImage]) {
-            return YES;
-        }
-    }
-    return NO;
 }
 
 - (NSDate*)updatedAt {

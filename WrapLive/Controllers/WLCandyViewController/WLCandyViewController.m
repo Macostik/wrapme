@@ -71,8 +71,8 @@
     [super viewDidLoad];
     
     if (!self.groups) {
-        self.groups = [WLGroupedSet groupsOrderedBy:self.orderBy];
-        [self.groups resetEntries:[_candy.wrap images]];
+        self.groups = [[WLGroupedSet alloc] init];
+        [self.groups addEntries:[_candy.wrap images]];
         self.group = [self.groups groupWithCandy:_candy];
     }
     
@@ -211,7 +211,7 @@
     appearance.height = 44;
     appearance.contentMode = UIViewContentModeCenter;
     appearance.backgroundColor = [UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:0.75];
-    [self.dateChangeToast showWithMessage:self.group.name appearance:appearance inView:self.containerView];
+    [self.dateChangeToast showWithMessage:[self.group.date string] appearance:appearance inView:self.containerView];
     self.rightArrow.hidden = NO;
     __weak typeof(self)weakSelf = self;
     [UIView animateWithDuration:0.25f delay:1.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
@@ -227,13 +227,9 @@
 - (BOOL)swipeToGroupAtIndex:(NSUInteger)index operationBlock:(NSUInteger (^)(NSUInteger index))operationBlock {
     if ([self.groups.entries containsIndex:index]) {
         WLGroup* group = [self.groups.entries objectAtIndex:index];
-        if ([group hasAtLeastOneImage]) {
-            self.group = group;
-            self.collectionView.contentOffset = CGPointZero;
-            return YES;
-        } else {
-            return [self swipeToGroupAtIndex:operationBlock(index) operationBlock:operationBlock];
-        }
+        self.group = group;
+        self.collectionView.contentOffset = CGPointZero;
+        return YES;
     }
     return NO;
 }

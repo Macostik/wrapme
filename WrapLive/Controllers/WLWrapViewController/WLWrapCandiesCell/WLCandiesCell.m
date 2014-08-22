@@ -56,7 +56,7 @@
 
 - (void)setup:(WLGroup*)group {
     self.dataSection.entries = group;
-	self.dateLabel.text = [group.name uppercaseString];
+	self.dateLabel.text = [group.date string];
 	self.dataSection.completed = [group.entries count] < 3;
     [self.collectionView trySetContentOffset:group.offset];
     [group.request cancel];

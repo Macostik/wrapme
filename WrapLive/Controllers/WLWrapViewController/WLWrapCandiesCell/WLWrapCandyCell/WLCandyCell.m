@@ -29,7 +29,6 @@
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *chatLabelView;
 @property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
 
 @property (strong, nonatomic) WLMenu* menu;
@@ -45,63 +44,33 @@
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self configuration:^BOOL (WLMenu *menu) {
         WLCandy* candy = weakSelf.entry;
-        if ([candy isImage]) {
-            if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
-                [menu addItem:@"Delete" block:^{
-                    weakSelf.userInteractionEnabled = NO;
-                    [candy remove:^(id object) {
-                        weakSelf.userInteractionEnabled = YES;
-                    } failure:^(NSError *error) {
-                        [error show];
-                        weakSelf.userInteractionEnabled = YES;
-                    }];
+        if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
+            [menu addItem:@"Delete" block:^{
+                weakSelf.userInteractionEnabled = NO;
+                [candy remove:^(id object) {
+                    weakSelf.userInteractionEnabled = YES;
+                } failure:^(NSError *error) {
+                    [error show];
+                    weakSelf.userInteractionEnabled = YES;
                 }];
-            } else {
-                [menu addItem:@"Report" block:^{
-                    [MFMailComposeViewController messageWithCandy:candy];
-                }];
-            }
-            return YES;
+            }];
         } else {
-            [WLToast showWithMessage:@"Cannot delete chat message already posted."];
-            return NO;
+            [menu addItem:@"Report" block:^{
+                [MFMailComposeViewController messageWithCandy:candy];
+            }];
         }
+        return YES;
     }];
+    self.menu.vibrate = YES;
 }
 
 - (void)setup:(WLCandy*)candy {
 	self.userInteractionEnabled = YES;
-	if ([candy isImage]) {
-		WLComment* comment = [candy.comments lastObject];
-		self.commentLabel.text = comment.text;
-		self.coverView.url = candy.picture.medium;
-        self.menu.vibrate = YES;
-	} else {
-		self.commentLabel.text = candy.message;
-		self.coverView.url = candy.contributor.picture.medium;
-        self.menu.vibrate = NO;
-	}
-	self.commentLabel.hidden = !self.commentLabel.text.nonempty;
-    
-	[self refreshNotifyBulb:candy];
-}
-
-- (void)refreshNotifyBulb:(WLCandy*)candy {
-	self.chatLabelView.hidden = [candy isImage];
-	self.chatLabelView.alpha = 1.0f;
-	if ([[candy unread] boolValue]) {
-		self.notifyBulb.hidden = [candy isMessage];
-		if ([candy isMessage]) {
-			__weak typeof(self)weakSelf = self;
-			[self.chatLabelView.layer removeAllAnimations];
-			[UIView animateWithDuration:1.5f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState animations:^{
-				weakSelf.chatLabelView.alpha = 0.0f;
-			} completion:^(BOOL finished) {
-			}];
-		}
-	} else {
-		self.notifyBulb.hidden = YES;
-	}
+	WLComment* comment = [candy.comments lastObject];
+    self.commentLabel.text = comment.text;
+    self.commentLabel.hidden = !self.commentLabel.text.nonempty;
+    self.coverView.url = candy.picture.medium;
+	self.notifyBulb.hidden = ![[candy unread] boolValue];
 }
 
 - (IBAction)select:(id)entry {
@@ -116,7 +85,7 @@
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
-	[self setup:self.entry];
+	[self resetup];
 }
 
 - (WLCandy *)broadcasterPreferedCandy:(WLWrapBroadcaster *)broadcaster {

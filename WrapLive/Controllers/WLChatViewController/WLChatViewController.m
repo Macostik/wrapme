@@ -71,8 +71,7 @@
 	[super viewDidLoad];
     
     self.groups = [[WLGroupedSet alloc] init];
-    self.groups.singleMessage = NO;
-    self.groups.dateFormat = @"MMM d, yyyy";
+    self.groups.type = @(WLCandyTypeMessage);
 	
 	if (self.wrap.name.nonempty) {
 		self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(self.wrap.name)];

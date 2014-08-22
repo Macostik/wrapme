@@ -79,43 +79,21 @@
     }
 }
 
-- (BOOL)addEntries:(NSOrderedSet *)entries sort:(BOOL)sort {
-    BOOL added = NO;
-    for (id entry in entries) {
-        if ([self addEntry:entry sort:NO]) {
-            added = YES;
-        }
-    }
-    if (added) {
-        if (sort) {
-            [self sort];
-        } else {
-            [self.delegate paginatedSetChanged:self];
-        }
-    }
-    return added;
-}
-
 - (BOOL)addEntries:(NSOrderedSet *)entries {
-    return [self addEntries:entries sort:YES];
-}
-
-- (BOOL)addEntry:(id)entry {
-    return [self addEntry:entry sort:YES];
-}
-
-- (BOOL)addEntry:(id)entry sort:(BOOL)sort {
-    if ([self.entries containsObject:entry] || ![self shouldAddEntry:entry]) {
+    if (!entries.nonempty || [entries isSubsetOfOrderedSet:self.entries]) {
         return NO;
     }
-    [self.entries addObject:entry];
-    if (sort) {
-        [self sort];
-    }
+    [self.entries unionOrderedSet:entries];
+    [self sort];
     return YES;
 }
 
-- (BOOL)shouldAddEntry:(id)entry {
+- (BOOL)addEntry:(id)entry {
+    if ([self.entries containsObject:entry]) {
+        return NO;
+    }
+    [self.entries addObject:entry];
+    [self sort];
     return YES;
 }
 

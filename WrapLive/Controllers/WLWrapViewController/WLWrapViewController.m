@@ -91,13 +91,13 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     
     self.viewTab = [[NSUserDefaults standardUserDefaults] integerForKey:WLWrapViewDefaultTabKey];
     
-    self.groups = [WLGroupedSet groupsOrderedBy:WLCandiesOrderByCreation];
+    self.groups = [[WLGroupedSet alloc] init];
     [self.groups addEntries:self.wrap.candies];
     WLWrapRequest* wrapRequest = [WLWrapRequest request:self.wrap];
     wrapRequest.contentType = WLWrapContentTypeHistory;
     self.historyViewSection.entries = self.groups;
     self.historyViewSection.entries.request = wrapRequest;
-    self.liveViewSection.entries = [self.groups group:[NSDate date]];
+//    self.liveViewSection.entries = [self.groups groupForDate:[NSDate date]];
     self.liveViewSection.entries.request = [WLCandiesRequest request:self.wrap];
     self.liveViewSection.entries.request.sameDay = YES;
     wrapRequest = [WLWrapRequest request:self.wrap];
@@ -156,7 +156,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 - (void)reloadData {
     [self.historyViewSection.entries resetEntries:self.wrap.candies];
-    self.liveViewSection.entries = [self.groups group:[NSDate date]];
+//    self.liveViewSection.entries = [self.groups groupForDate:[NSDate date]];
 }
 
 - (UIViewController *)shakePresentedViewController {
@@ -192,7 +192,9 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
-    [self.groups addEntry:candy];
+    if ([candy isImage]) {
+        [self.groups addEntry:candy];
+    }
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {

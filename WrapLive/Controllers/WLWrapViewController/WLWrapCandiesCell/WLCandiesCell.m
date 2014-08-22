@@ -71,7 +71,7 @@
         [group addEntries:array];
 		[weakSelf.refresher endRefreshing];
     } failure:^(NSError *error) {
-		[error show];
+		[error showIgnoringNetworkError];
 		[weakSelf.refresher endRefreshing];
     }];
 }
@@ -86,7 +86,7 @@
 		[weakSelf fixContentOffset];
     } failure:^(NSError *error) {
         weakSelf.shouldAppendMoreCandies = NO;
-		[error show];
+		[error showIgnoringNetworkError];
     }];
 }
 

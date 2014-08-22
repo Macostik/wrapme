@@ -100,7 +100,7 @@
     if (self.defaultHeader) {
         return self.defaultHeader;
     } else {
-        return [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:self.reuseFooterViewIdentifier forIndexPath:indexPath];
+        return [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:self.reuseHeaderViewIdentifier forIndexPath:indexPath];
     }
 }
 

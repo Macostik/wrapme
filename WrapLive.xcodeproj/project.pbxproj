@@ -174,6 +174,7 @@
 		C50236141979032400996D07 /* WLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50236131979032400996D07 /* WLImageView.m */; };
 		C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */; };
 		C5032EB31940CEE700753D07 /* UIView+AnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5032EB21940CEE700753D07 /* UIView+AnimationHelper.m */; };
+		C503E96B19A77C9400992B63 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C503E96A19A77C9400992B63 /* WLButton.m */; };
 		C50445B51951AA8F003C2251 /* WLCandy+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C50445A61951AA8F003C2251 /* WLCandy+Extended.m */; };
 		C50445B61951AA8F003C2251 /* WLComment+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C50445A81951AA8F003C2251 /* WLComment+Extended.m */; };
 		C50445B71951AA8F003C2251 /* WLContribution+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C50445AA1951AA8F003C2251 /* WLContribution+Extended.m */; };
@@ -530,6 +531,8 @@
 		C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLSplashLoadingView.xib; path = WLLoadingView/WLSplashLoadingView.xib; sourceTree = "<group>"; };
 		C5032EB11940CEE700753D07 /* UIView+AnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AnimationHelper.h"; sourceTree = "<group>"; };
 		C5032EB21940CEE700753D07 /* UIView+AnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AnimationHelper.m"; sourceTree = "<group>"; };
+		C503E96919A77C9400992B63 /* WLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLButton.h; path = Buttons/WLButton.h; sourceTree = "<group>"; };
+		C503E96A19A77C9400992B63 /* WLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLButton.m; path = Buttons/WLButton.m; sourceTree = "<group>"; };
 		C50445A51951AA8F003C2251 /* WLCandy+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLCandy+Extended.h"; sourceTree = "<group>"; };
 		C50445A61951AA8F003C2251 /* WLCandy+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLCandy+Extended.m"; sourceTree = "<group>"; };
 		C50445A71951AA8F003C2251 /* WLComment+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLComment+Extended.h"; sourceTree = "<group>"; };
@@ -1060,6 +1063,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C503E96719A77C7900992B63 /* Buttons */,
 				C5F99B6C196BEB0C00A3FB19 /* WLMenu */,
 				14ACAE0119421A79006BD3B3 /* WLQuickChatView */,
 				C59ACBE0193F2378002941C4 /* WLUserView */,
@@ -1826,6 +1830,15 @@
 			name = WLDetailedCandyCell;
 			sourceTree = "<group>";
 		};
+		C503E96719A77C7900992B63 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				C503E96919A77C9400992B63 /* WLButton.h */,
+				C503E96A19A77C9400992B63 /* WLButton.m */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
 		C50445A41951AA8F003C2251 /* Extended */ = {
 			isa = PBXGroup;
 			children = (
@@ -2310,6 +2323,7 @@
 				ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */,
 				12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */,
 				12E3DA3F18E0399700DBDB79 /* WLCameraViewController.m in Sources */,
+				C503E96B19A77C9400992B63 /* WLButton.m in Sources */,
 				12E1104C19067095007DB4AC /* WLCandyViewController.m in Sources */,
 				C50AF41B1976A44300761F38 /* WLUploadCandyRequest.m in Sources */,
 				1221EA6A18FD372F00C64DAE /* UIButton+Additions.m in Sources */,

@@ -14,10 +14,11 @@
 #import "WLSupportFunctions.h"
 #import "NSArray+Additions.h"
 #import "UIView+AnimationHelper.h"
+#import "WLButton.h"
 
 @implementation WLMenuItem @end
 
-@interface WlMenuItemButton : UIButton
+@interface WlMenuItemButton : WLButton
 
 @property (weak, nonatomic) WLMenuItem* item;
 
@@ -36,18 +37,14 @@
     WlMenuItemButton* button = [WlMenuItemButton buttonWithType:UIButtonTypeCustom];
     button.item = item;
     button.frame = CGRectMake(0, 0, 44, 44);
-    button.backgroundColor = [UIColor WL_orangeColor];
     button.clipsToBounds = NO;
     [button setTitle:item.title forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont regularMicroFont]];
     button.layer.cornerRadius = 22;
+    button.highlightedColor = [UIColor WL_grayColor];
+    button.normalColor = [UIColor WL_orangeColor];
     return button;
-}
-
-- (void)setHighlighted:(BOOL)highlighted {
-    [super setHighlighted:highlighted];
-    self.backgroundColor = highlighted ? [UIColor WL_darkGrayColor] : [UIColor blackColor];
 }
 
 @end

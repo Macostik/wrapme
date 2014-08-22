@@ -57,6 +57,7 @@
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
+@property (weak, nonatomic) IBOutlet UILabel *notificationsLabel;
 
 @end
 
@@ -108,6 +109,7 @@
 	} else {
         [self.section.entries resetEntries:wraps];
     }
+    [self updateNotificationsLabel];
 }
 
 - (CGFloat)toastAppearanceHeight:(WLToast *)toast {
@@ -129,13 +131,13 @@
 
 - (void)showLatestWrap {
     WLUser * user = [WLUser currentUser];
-    static BOOL firstWrapShown = NO;
-	if (!firstWrapShown && user.signInCount.integerValue == 1 && self.section.entries.entries.nonempty) {
-		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-		wrapController.wrap = [self.section.entries.entries firstObject];
-		[self.navigationController pushViewController:wrapController animated:NO];
+	if (user.signInCount.integerValue == 1 && self.section.entries.entries.nonempty) {
+        __weak typeof(self)weakSelf = self;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            [weakSelf.section.wrap presentInViewController:self];
+        });
 	}
-    firstWrapShown = YES;
 }
 
 - (void)finishLoadingAnimation {
@@ -201,6 +203,24 @@
 - (void)broadcaster:(WLNotificationCenter *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {
 	[self handleRemoteNotification:notification];
 	broadcaster.pendingRemoteNotification = nil;
+}
+
+static CGFloat WLNotificationsLabelSize = 22;
+
+- (void)updateNotificationsLabel {
+    UILabel* label = self.notificationsLabel;
+    NSUInteger count = [WLNotificationCenter defaultCenter].unreadNotificationsCount;
+    if (count > 0) {
+        label.hidden = NO;
+        label.text = [NSString stringWithFormat:@"%d", count];
+        label.width = MAX(WLNotificationsLabelSize, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLNotificationsLabelSize)].width + 12);
+    } else {
+        label.hidden = YES;
+    }
+}
+
+- (void)broadcaster:(WLNotificationCenter *)broadcaster didStoreNotification:(WLNotification *)notification {
+    [self updateNotificationsLabel];
 }
 
 #pragma mark - Actions

@@ -41,9 +41,14 @@
     [[WLNotificationCenter defaultCenter] addReceiver:self];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [WLNotificationCenter defaultCenter].unreadNotificationsCount = 0;
+}
+
 #pragma mark - WLNotificationReceiver
 
-- (void)broadcaster:(WLNotificationCenter *)broadcaster notificationReceived:(WLNotification *)notification {
+- (void)broadcaster:(WLNotificationCenter *)broadcaster didStoreNotification:(WLNotification *)notification {
     self.dataSection.entries = [WLNotificationCenter defaultCenter].storedNotifications;
 }
 

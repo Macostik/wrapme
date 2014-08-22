@@ -54,11 +54,22 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
     return _storedNotifications;
 }
 
+- (NSUInteger)unreadNotificationsCount {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"unreadNotificationsCount"];
+}
+
+- (void)setUnreadNotificationsCount:(NSUInteger)unreadNotificationsCount {
+    [[NSUserDefaults standardUserDefaults] setInteger:unreadNotificationsCount forKey:@"unreadNotificationsCount"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (void)storeNotification:(WLNotification*)notification {
     if (notification.type == WLNotificationCandyCommentAddition) {
+        self.unreadNotificationsCount++;
         [self.storedNotifications insertObject:notification atIndex:0];
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(saveNotifications) object:nil];
         [self performSelector:@selector(saveNotifications) withObject:nil afterDelay:0.5f];
+        [self broadcast:@selector(broadcaster:didStoreNotification:) object:notification];
     }
 }
 

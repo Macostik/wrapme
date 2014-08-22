@@ -24,6 +24,8 @@
 
 - (void)broadcaster:(WLNotificationCenter *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification;
 
+- (void)broadcaster:(WLNotificationCenter *)broadcaster didStoreNotification:(WLNotification *)notification;
+
 - (void)broadcaster:(WLNotificationCenter *)broadcaster didBeginTyping:(WLUser *)user;
 
 - (void)broadcaster:(WLNotificationCenter *)broadcaster didEndTyping:(WLUser *)user;
@@ -35,6 +37,8 @@
 @property (strong, nonatomic) WLNotification* pendingRemoteNotification;
 
 @property (strong, nonatomic) NSMutableOrderedSet* storedNotifications;
+
+@property (nonatomic) NSUInteger unreadNotificationsCount;
 
 + (instancetype)defaultCenter;
 

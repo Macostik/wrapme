@@ -191,15 +191,9 @@
 
 - (NSMutableOrderedSet*)recentCandies:(NSUInteger)maximumCount {
     NSMutableOrderedSet* candies = [NSMutableOrderedSet orderedSet];
-    BOOL hasMessage = NO;
     for (WLCandy* candy in self.candies) {
         if ([candies count] < maximumCount) {
-            if ([candy isMessage]) {
-                if (!hasMessage) {
-                    hasMessage = YES;
-                    [candies addObject:candy];
-                }
-            } else {
+            if ([candy isImage]) {
                 [candies addObject:candy];
             }
         } else {

@@ -201,7 +201,6 @@
 		C50AF42A1976B43A00761F38 /* WLPostCommentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF4291976B43A00761F38 /* WLPostCommentRequest.m */; };
 		C50AF42D1976B44D00761F38 /* WLDeleteCommentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF42C1976B44D00761F38 /* WLDeleteCommentRequest.m */; };
 		C50F48391973EFCB00929AA9 /* WLPaginatedSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C50F48381973EFCB00929AA9 /* WLPaginatedSet.m */; };
-		C50FD41F199B69E700B52B33 /* WLCandiesLiveViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C50FD41E199B69E700B52B33 /* WLCandiesLiveViewSection.m */; };
 		C50FD422199B69FD00B52B33 /* WLCandiesHistoryViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C50FD421199B69FD00B52B33 /* WLCandiesHistoryViewSection.m */; };
 		C5104941195C603800D7406E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5104940195C603800D7406E /* Crashlytics.framework */; };
 		C5110B7A1952DE55008F236E /* AsynchronousOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5110B791952DE55008F236E /* AsynchronousOperation.m */; };
@@ -589,8 +588,6 @@
 		C50AF42C1976B44D00761F38 /* WLDeleteCommentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDeleteCommentRequest.m; path = WLAPIManager/WLAPIRequest/WLDeleteCommentRequest.m; sourceTree = "<group>"; };
 		C50F48371973EFCB00929AA9 /* WLPaginatedSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPaginatedSet.h; path = WLPagination/WLPaginatedSet.h; sourceTree = "<group>"; };
 		C50F48381973EFCB00929AA9 /* WLPaginatedSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPaginatedSet.m; path = WLPagination/WLPaginatedSet.m; sourceTree = "<group>"; };
-		C50FD41D199B69E700B52B33 /* WLCandiesLiveViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCandiesLiveViewSection.h; path = WLCollectionViewDataProvider/WLCandiesLiveViewSection.h; sourceTree = "<group>"; };
-		C50FD41E199B69E700B52B33 /* WLCandiesLiveViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCandiesLiveViewSection.m; path = WLCollectionViewDataProvider/WLCandiesLiveViewSection.m; sourceTree = "<group>"; };
 		C50FD420199B69FD00B52B33 /* WLCandiesHistoryViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCandiesHistoryViewSection.h; path = WLCollectionViewDataProvider/WLCandiesHistoryViewSection.h; sourceTree = "<group>"; };
 		C50FD421199B69FD00B52B33 /* WLCandiesHistoryViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCandiesHistoryViewSection.m; path = WLCollectionViewDataProvider/WLCandiesHistoryViewSection.m; sourceTree = "<group>"; };
 		C5104940195C603800D7406E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -1899,8 +1896,6 @@
 				C521FB051989352E00576281 /* WLHomeViewSection.m */,
 				C5FCC69B199A6971009A0DC6 /* WLHomeCandiesViewSection.h */,
 				C5FCC69C199A6971009A0DC6 /* WLHomeCandiesViewSection.m */,
-				C50FD41D199B69E700B52B33 /* WLCandiesLiveViewSection.h */,
-				C50FD41E199B69E700B52B33 /* WLCandiesLiveViewSection.m */,
 				C5FFB03519AC9248006F27A7 /* WLTimelineViewSection.h */,
 				C5FFB03619AC9248006F27A7 /* WLTimelineViewSection.m */,
 				C50FD420199B69FD00B52B33 /* WLCandiesHistoryViewSection.h */,
@@ -2464,7 +2459,6 @@
 				C50445B91951AA8F003C2251 /* WLEntry+Extended.m in Sources */,
 				C50AF42D1976B44D00761F38 /* WLDeleteCommentRequest.m in Sources */,
 				12A9EFBB18F8026E002CBF75 /* WLCameraAdjustmentView.m in Sources */,
-				C50FD41F199B69E700B52B33 /* WLCandiesLiveViewSection.m in Sources */,
 				C50AF4151976982D00761F38 /* WLWrapRequest.m in Sources */,
 				C51496471975872D009F0743 /* WLPaginatedRequest.m in Sources */,
 				C50AF4181976A1F400761F38 /* WLDeleteWrapRequest.m in Sources */,

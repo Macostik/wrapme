@@ -42,7 +42,6 @@
 #import "WLCandiesRequest.h"
 #import "UIViewController+Additions.h"
 #import "WLCandiesHistoryViewSection.h"
-#import "WLCandiesLiveViewSection.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLTimelineViewSection.h"
 #import "WLTimeline.h"
@@ -99,9 +98,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     wrapRequest.contentType = WLWrapContentTypeHistory;
     self.historyViewSection.entries = self.groups;
     self.historyViewSection.entries.request = wrapRequest;
-//    self.liveViewSection.entries = [self.groups groupForDate:[NSDate date]];
-    wrapRequest = [WLWrapRequest request:self.wrap];
-    wrapRequest.contentType = WLWrapContentTypeLive;
     self.timelineSection.entries = [WLTimeline timelineWithWrap:self.wrap];
     
     [self.dataProvider setRefreshableWithColorScheme:WLRefresherColorSchemeOrange];
@@ -156,7 +152,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 - (void)reloadData {
     [self.historyViewSection.entries resetEntries:self.wrap.candies];
-//    self.liveViewSection.entries = [self.groups groupForDate:[NSDate date]];
 }
 
 - (UIViewController *)shakePresentedViewController {

@@ -121,6 +121,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         [weakSelf presentCandy:entry];
     }];
     self.liveViewSection.selection = self.historyViewSection.selection;
+    self.timelineSection.selection = self.historyViewSection.selection;
     
     [self firstLoadRequest];
 }

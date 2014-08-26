@@ -73,7 +73,7 @@
         request.type = WLPaginatedRequestTypeFresh;
     } else {
         WLEntry* firstEntry = [self.entries firstObject];
-        WLEntry* lastEntry = [self.entries firstObject];
+        WLEntry* lastEntry = [self.entries lastObject];
         request.newer = [firstEntry updatedAt];
         request.older = [lastEntry updatedAt];
     }

@@ -42,6 +42,11 @@
     self.dataProvider = [WLCollectionViewDataProvider dataProvider:self.collectionView section:section];
 }
 
+- (void)setSelection:(WLObjectBlock)selection {
+    [super setSelection:selection];
+    self.dataSection.selection = selection;
+}
+
 - (void)setup:(WLTimelineEvent *)event {
     self.dateLabel.text = [event.date stringWithFormat:@"hh:mm"];
     self.avatarView.url = event.user.picture.small;

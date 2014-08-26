@@ -11,6 +11,8 @@
 #import "WLWrapBroadcaster.h"
 #import "WLTimelineEvent.h"
 #import "WLCandiesRequest.h"
+#import "WLSupportFunctions.h"
+#import "WLServerTime.h"
 
 @interface WLTimeline () <WLWrapBroadcastReceiver>
 
@@ -35,28 +37,79 @@
 - (void)setWrap:(WLWrap *)wrap {
     _wrap = wrap;
     self.request = [WLCandiesRequest request:wrap];
+    self.request.sameDay = YES;
     [self update];
 }
 
 - (void)update {
-    NSDate* date = [NSDate date];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"updatedAt >= %@ AND updatedAt <= %@ AND type == %d",[date beginOfDay], [date endOfDay], WLCandyTypeImage];
-    NSMutableOrderedSet* images = [NSMutableOrderedSet orderedSetWithOrderedSet:[self.wrap.candies filteredOrderedSetUsingPredicate:predicate]];
-    self.images = [images mutableCopy];
-    [images sortByUpdatedAtDescending];
+    NSDate* date = [NSDate serverTime];
+    NSDate* startDate = [date beginOfDay];
+    NSDate* endDate = [date endOfDay];
+    
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"updatedAt >= %@ AND updatedAt <= %@ AND type == %d",startDate, endDate, WLCandyTypeImage];
+    self.images = [NSMutableOrderedSet orderedSetWithOrderedSet:[self.wrap.candies filteredOrderedSetUsingPredicate:predicate]];
+    [self.images sortByUpdatedAtDescending];
+    [self resetEntries:[self events:startDate end:endDate]];
+}
+
+- (NSMutableOrderedSet*)events:(NSDate*)start end:(NSDate*)end {
+    __weak typeof(self)weakSelf = self;
+    return [NSMutableOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *set) {
+        [set unionOrderedSet:[weakSelf eventsForAddedImages:start end:end]];
+        [set unionOrderedSet:[weakSelf eventsForAddedComments:start end:end]];
+        [set sortByCreatedAtDescending];
+    }];
+}
+
+- (NSMutableOrderedSet*)eventsForAddedImages:(NSDate*)start end:(NSDate*)end {
     NSMutableOrderedSet* events = [[NSMutableOrderedSet alloc] init];
-    while (images.nonempty) {
-        WLUser* contributor = [[images firstObject] contributor];
+    NSMutableOrderedSet* addedImages = [self.images selectObjects:^BOOL(WLCandy* image) {
+        return [image.createdAt isSameDay:start];
+    }];
+    [addedImages sortByCreatedAtDescending];
+    while (addedImages.nonempty) {
+        WLUser* contributor = [[addedImages firstObject] contributor];
         WLTimelineEvent* event = [[WLTimelineEvent alloc] init];
-        predicate = [NSPredicate predicateWithFormat:@"contributor == %@", contributor];
         event.user = contributor;
-        event.images = [[images filteredOrderedSetUsingPredicate:predicate] mutableCopy];
+        event.images = [addedImages selectObjects:^BOOL(WLCandy* image) {
+            return image.contributor == contributor;
+        }];
+        
         event.date = [[event.images firstObject] updatedAt];
         event.text = [NSString stringWithFormat:@"%@ add new photo", contributor.name];
-        [images minusOrderedSet:event.images];
+        [addedImages minusOrderedSet:event.images];
         [events addObject:event];
     }
-    [self resetEntries:events];
+    return events;
+}
+
+- (NSMutableOrderedSet*)eventsForAddedComments:(NSDate*)start end:(NSDate*)end {
+    NSMutableOrderedSet* events = [[NSMutableOrderedSet alloc] init];
+    NSMutableOrderedSet* comments = [NSMutableOrderedSet orderedSet];
+    for (WLCandy* image in self.images) {
+        for (WLComment* comment in image.comments) {
+            if ([comment.createdAt isToday]) {
+                [comments addObject:comment];
+            }
+        }
+    }
+    [comments sortByCreatedAtDescending];
+    while (comments.nonempty) {
+        WLUser* contributor = [[comments firstObject] contributor];
+        WLTimelineEvent* event = [[WLTimelineEvent alloc] init];
+        event.user = contributor;
+        NSMutableOrderedSet* userComments = [comments selectObjects:^BOOL(WLComment* comment) {
+            return comment.contributor == contributor;
+        }];
+        event.images = [[userComments map:^id(WLComment* comment) {
+            return comment.candy;
+        }] mutableCopy];
+        event.date = [[userComments firstObject] createdAt];
+        event.text = [NSString stringWithFormat:@"%@ add comment", contributor.name];
+        [comments minusOrderedSet:userComments];
+        [events addObject:event];
+    }
+    return events;
 }
 
 - (void)configureRequest:(WLPaginatedRequest *)request {
@@ -64,17 +117,14 @@
         request.type = WLPaginatedRequestTypeFresh;
     } else {
         WLEntry* firstEntry = [self.images firstObject];
-        WLEntry* lastEntry = [self.images firstObject];
+        WLEntry* lastEntry = [self.images lastObject];
         request.newer = [firstEntry updatedAt];
         request.older = [lastEntry updatedAt];
     }
 }
 
 - (void)handleResponse:(NSOrderedSet*)entries success:(WLOrderedSetBlock)success {
-    NSDate* date = [NSDate date];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"updatedAt >= %@ AND updatedAt <= %@ AND type == %d",[date beginOfDay], [date endOfDay], WLCandyTypeImage];
-    NSMutableOrderedSet* images = [NSMutableOrderedSet orderedSetWithOrderedSet:[entries filteredOrderedSetUsingPredicate:predicate]];
-    if (!images.nonempty || [images isSubsetOfOrderedSet:self.images]) {
+    if (!entries.nonempty) {
         self.completed = YES;
     }
     [self update];

@@ -68,7 +68,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCollectionViewSection *wrapViewSection;
-@property (strong, nonatomic) IBOutlet WLCandiesLiveViewSection *liveViewSection;
 @property (strong, nonatomic) IBOutlet WLCandiesHistoryViewSection *historyViewSection;
 @property (strong, nonatomic) IBOutlet WLTimelineViewSection *timelineSection;
 
@@ -101,11 +100,8 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     self.historyViewSection.entries = self.groups;
     self.historyViewSection.entries.request = wrapRequest;
 //    self.liveViewSection.entries = [self.groups groupForDate:[NSDate date]];
-    self.liveViewSection.entries.request = [WLCandiesRequest request:self.wrap];
-    self.liveViewSection.entries.request.sameDay = YES;
     wrapRequest = [WLWrapRequest request:self.wrap];
     wrapRequest.contentType = WLWrapContentTypeLive;
-    self.liveViewSection.wrapRequest = wrapRequest;
     self.timelineSection.entries = [WLTimeline timelineWithWrap:self.wrap];
     
     [self.dataProvider setRefreshableWithColorScheme:WLRefresherColorSchemeOrange];
@@ -120,7 +116,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     [self.historyViewSection setSelection:^ (id entry) {
         [weakSelf presentCandy:entry];
     }];
-    self.liveViewSection.selection = self.historyViewSection.selection;
     self.timelineSection.selection = self.historyViewSection.selection;
     
     [self firstLoadRequest];
@@ -271,7 +266,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         self.viewTab = viewTab;
         [[NSUserDefaults standardUserDefaults] setInteger:self.viewTab forKey:WLWrapViewDefaultTabKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        self.liveViewSection.completed = NO;
+        self.timelineSection.completed = NO;
         self.historyViewSection.completed = NO;
         [self.collectionView setContentOffset:CGPointZero animated:YES];
         [self.dataProvider reload];

@@ -2405,7 +2405,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                         <outlet property="firstContributorView" destination="XbK-Pu-Gi8" id="gl2-at-TdT"/>
                         <outlet property="firstContributorWrapNameLabel" destination="ZDC-SW-d39" id="LMR-JN-6mU"/>
                         <outlet property="historyViewSection" destination="u9r-1x-r06" id="nZ4-U4-0Zk"/>
-                        <outlet property="liveViewSection" destination="S3V-Yu-cKm" id="yYL-RM-Z5H"/>
                         <outlet property="nameLabel" destination="irm-8j-xhe" id="S8t-eN-0uW"/>
                         <outlet property="timelineSection" destination="wR6-YI-40M" id="pm9-f7-2uN"/>
                         <outlet property="viewButton" destination="LH6-5S-pun" id="EbH-tt-oC7"/>
@@ -2417,7 +2416,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                     <connections>
                         <outlet property="collectionView" destination="p36-27-cbv" id="yIe-Sg-EMn"/>
                         <outletCollection property="sections" destination="8Jq-RA-xUo" collectionClass="NSMutableArray" id="khW-iK-ZjV"/>
-                        <outletCollection property="sections" destination="S3V-Yu-cKm" collectionClass="NSMutableArray" id="VMa-Eh-wtq"/>
                     </connections>
                 </customObject>
                 <customObject id="8Jq-RA-xUo" customClass="WLCollectionViewSection">
@@ -2426,14 +2424,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="p36-27-cbv" id="eTr-j4-tNz"/>
-                    </connections>
-                </customObject>
-                <customObject id="S3V-Yu-cKm" customClass="WLCandiesLiveViewSection">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLCandyCell"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="collectionView" destination="p36-27-cbv" id="Rhp-6p-P4m"/>
                     </connections>
                 </customObject>
                 <customObject id="wR6-YI-40M" customClass="WLTimelineViewSection">

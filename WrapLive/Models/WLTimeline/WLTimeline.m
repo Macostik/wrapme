@@ -75,7 +75,7 @@
             return image.contributor == contributor;
         }];
         
-        event.date = [[event.images firstObject] updatedAt];
+        event.date = [[event.images firstObject] createdAt];
         event.text = [NSString stringWithFormat:@"%@ add new photo", WLString(contributor.name)];
         [addedImages minusOrderedSet:event.images];
         [events addObject:event];

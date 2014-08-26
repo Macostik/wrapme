@@ -403,12 +403,21 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self updateTitle];
+//    CGFloat i = roundf(scrollView.contentOffset.x / (scrollView.width + 20));
+//    [scrollView setContentOffset:CGPointMake((scrollView.width + 20) * i, 0) animated:YES];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (!decelerate) {
         [self updateTitle];
+//        CGFloat i = roundf(scrollView.contentOffset.x / (scrollView.width + 20));
+//        [scrollView setContentOffset:CGPointMake((scrollView.width + 20) * i, 0) animated:YES];
     }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    CGFloat i = roundf(targetContentOffset->x / (scrollView.width + 20));
+    targetContentOffset->x = (scrollView.width + 20) * i;
 }
 
 @end

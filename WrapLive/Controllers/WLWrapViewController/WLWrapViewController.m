@@ -44,6 +44,8 @@
 #import "WLCandiesHistoryViewSection.h"
 #import "WLCandiesLiveViewSection.h"
 #import "WLCollectionViewDataProvider.h"
+#import "WLTimelineViewSection.h"
+#import "WLTimeline.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
     WLWrapViewTabLive,
@@ -68,6 +70,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 @property (strong, nonatomic) IBOutlet WLCollectionViewSection *wrapViewSection;
 @property (strong, nonatomic) IBOutlet WLCandiesLiveViewSection *liveViewSection;
 @property (strong, nonatomic) IBOutlet WLCandiesHistoryViewSection *historyViewSection;
+@property (strong, nonatomic) IBOutlet WLTimelineViewSection *timelineSection;
 
 @end
 
@@ -103,6 +106,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     wrapRequest = [WLWrapRequest request:self.wrap];
     wrapRequest.contentType = WLWrapContentTypeLive;
     self.liveViewSection.wrapRequest = wrapRequest;
+    self.timelineSection.entries = [WLTimeline timelineWithWrap:self.wrap];
     
     [self.dataProvider setRefreshableWithColorScheme:WLRefresherColorSchemeOrange];
     
@@ -192,9 +196,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
-    if ([candy isImage]) {
-        [self.groups addEntry:candy];
-    }
+    [self.groups addEntry:candy];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
@@ -223,6 +225,10 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     return self.wrap;
 }
 
+- (WLCandyType)broadcasterPreferedCandyType:(WLWrapBroadcaster *)broadcaster {
+    return WLCandyTypeImage;
+}
+
 #pragma mark - User Actions
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -248,7 +254,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 - (void)setViewTab:(WLWrapViewTab)viewTab {
     _viewTab = viewTab;
     if (viewTab == WLWrapViewTabLive) {
-        self.dataProvider.sections = [NSMutableArray arrayWithObjects:self.wrapViewSection, self.liveViewSection, nil];
+        self.dataProvider.sections = [NSMutableArray arrayWithObjects:self.wrapViewSection, self.timelineSection, nil];
     } else {
         self.dataProvider.sections = [NSMutableArray arrayWithObjects:self.wrapViewSection, self.historyViewSection, nil];
     }

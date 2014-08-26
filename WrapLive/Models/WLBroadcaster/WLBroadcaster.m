@@ -66,7 +66,7 @@
     NSHashTable* receivers = [self.receivers copy];
     @synchronized (receivers) {
         for (id receiver in receivers) {
-            if ((select ? select(receiver) : YES) && [receiver respondsToSelector:selector]) {
+            if ((select ? select(receiver, object) : YES) && [receiver respondsToSelector:selector]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                 [receiver performSelector:selector withObject:self withObject:object];

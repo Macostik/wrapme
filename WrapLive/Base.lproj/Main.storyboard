@@ -1930,8 +1930,120 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCandiesCell" id="Jzt-af-hox" customClass="WLCandiesCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLTimelineEventCell" id="QUE-Ix-33b" customClass="WLTimelineEventCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="156"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="156"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9ew-b0-PcB">
+                                                    <rect key="frame" x="0.0" y="0.0" width="44" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="left" id="AEF-rA-rLm" customClass="WLSeparatorView">
+                                                    <rect key="frame" x="44" y="8" width="1" height="12"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="isD-yq-hi4" customClass="WLImageView">
+                                                    <rect key="frame" x="55" y="3" width="22" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="11"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zsc-qK-GNU">
+                                                    <rect key="frame" x="88" y="0.0" width="224" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="wVE-4T-wCe">
+                                                    <rect key="frame" x="0.0" y="28" width="320" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Kse-NP-jTa">
+                                                        <size key="itemSize" width="106" height="106"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCandyCell" id="tew-cv-H0u" customClass="WLCandyCell">
+                                                            <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="xKh-Yg-Q2H" customClass="WLImageView">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholderName" value="ic_photo_placeholder"/>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </imageView>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rTV-TP-cPT">
+                                                                        <rect key="frame" x="0.0" y="66" width="106" height="40"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AZ6-Ec-htF">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <state key="normal">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="select" destination="tew-cv-H0u" eventType="touchUpInside" id="R22-tz-1Hu"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_small_smile" id="KVV-OS-oho">
+                                                                        <rect key="frame" x="4" y="4" width="18" height="18"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <gestureRecognizers/>
+                                                            <size key="customSize" width="106" height="106"/>
+                                                            <connections>
+                                                                <outlet property="commentLabel" destination="rTV-TP-cPT" id="bOz-Eo-U1i"/>
+                                                                <outlet property="coverView" destination="xKh-Yg-Q2H" id="053-fX-cBc"/>
+                                                                <outlet property="notifyBulb" destination="KVV-OS-oho" id="3fK-u9-2Nz"/>
+                                                            </connections>
+                                                        </collectionViewCell>
+                                                    </cells>
+                                                </collectionView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="customSize" width="320" height="156"/>
+                                        <connections>
+                                            <outlet property="avatarView" destination="isD-yq-hi4" id="cNU-JP-bUQ"/>
+                                            <outlet property="collectionView" destination="wVE-4T-wCe" id="lK8-ji-qH6"/>
+                                            <outlet property="dateLabel" destination="9ew-b0-PcB" id="yXq-jW-6wT"/>
+                                            <outlet property="textLabel" destination="zsc-qK-GNU" id="qYt-xf-l65"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCandiesCell" id="Jzt-af-hox" customClass="WLCandiesCell">
+                                        <rect key="frame" x="0.0" y="156" width="320" height="156"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="156"/>
@@ -2037,7 +2149,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLWrapCell" id="Crs-3i-Kcb" customClass="WLWrapCell">
-                                        <rect key="frame" x="0.0" y="156" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="312" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
@@ -2077,7 +2189,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCandyCell" id="A9T-PB-SfU" customClass="WLCandyCell">
-                                        <rect key="frame" x="107" y="216" width="106" height="106"/>
+                                        <rect key="frame" x="107" y="372" width="106" height="106"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
@@ -2130,7 +2242,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLLoadingView" id="KJ0-cv-7Wh">
-                                    <rect key="frame" x="0.0" y="322" width="320" height="88"/>
+                                    <rect key="frame" x="0.0" y="478" width="320" height="88"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" id="1T0-UQ-UtR">
@@ -2295,6 +2407,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                         <outlet property="historyViewSection" destination="u9r-1x-r06" id="nZ4-U4-0Zk"/>
                         <outlet property="liveViewSection" destination="S3V-Yu-cKm" id="yYL-RM-Z5H"/>
                         <outlet property="nameLabel" destination="irm-8j-xhe" id="S8t-eN-0uW"/>
+                        <outlet property="timelineSection" destination="wR6-YI-40M" id="pm9-f7-2uN"/>
                         <outlet property="viewButton" destination="LH6-5S-pun" id="EbH-tt-oC7"/>
                         <outlet property="wrapViewSection" destination="8Jq-RA-xUo" id="iJ7-S7-uWX"/>
                     </connections>
@@ -2321,6 +2434,14 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="p36-27-cbv" id="Rhp-6p-P4m"/>
+                    </connections>
+                </customObject>
+                <customObject id="wR6-YI-40M" customClass="WLTimelineViewSection">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLTimelineEventCell"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="collectionView" destination="p36-27-cbv" id="C8y-kj-ECI"/>
                     </connections>
                 </customObject>
                 <customObject id="u9r-1x-r06" customClass="WLCandiesHistoryViewSection">

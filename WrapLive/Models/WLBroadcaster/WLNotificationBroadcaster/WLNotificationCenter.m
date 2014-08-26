@@ -167,12 +167,14 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)broadcastNotification:(WLNotification*)notification {
-    [self broadcast:@selector(broadcaster:notificationReceived:) object:notification select:^BOOL(NSObject<WLNotificationReceiver> *receiver) {
+    __weak typeof(self)weakSelf = self;
+    WLBroadcastSelectReceiver selectBlock = ^BOOL(NSObject<WLNotificationReceiver> *receiver, id object) {
         if ([receiver respondsToSelector:@selector(broadcaster:shouldReceiveNotification:)]) {
-            return [receiver broadcaster:self shouldReceiveNotification:notification];
+            return [receiver broadcaster:weakSelf shouldReceiveNotification:notification];
         }
         return YES;
-    }];
+    };
+    [self broadcast:@selector(broadcaster:notificationReceived:) object:notification select:selectBlock];
 }
 
 #pragma mark - PNDelegate

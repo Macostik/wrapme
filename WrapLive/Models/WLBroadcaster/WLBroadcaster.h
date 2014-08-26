@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef BOOL (^WLBroadcastSelectReceiver)(id receiver);
+typedef BOOL (^WLBroadcastSelectReceiver)(id receiver, id object);
 
 @interface WLBroadcaster : NSObject
 

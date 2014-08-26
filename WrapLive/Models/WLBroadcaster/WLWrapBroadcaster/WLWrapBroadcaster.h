@@ -8,7 +8,7 @@
 
 #import "WLBroadcaster.h"
 #import "WLWrap.h"
-#import "WLCandy.h"
+#import "WLCandy+Extended.h"
 #import "WLComment.h"
 
 @class WLWrapBroadcaster;
@@ -27,6 +27,8 @@
 
 @optional
 - (WLWrap*)broadcasterPreferedWrap:(WLWrapBroadcaster*)broadcaster;
+
+- (WLCandyType)broadcasterPreferedCandyType:(WLWrapBroadcaster*)broadcaster;
 
 - (WLCandy*)broadcasterPreferedCandy:(WLWrapBroadcaster*)broadcaster;
 

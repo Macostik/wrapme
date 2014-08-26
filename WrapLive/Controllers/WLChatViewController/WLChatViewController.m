@@ -198,38 +198,36 @@
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
-    if ([candy isMessage]) {
-        candy.unread = @NO;
-        [self insertMessage:candy];
-    }
+    candy.unread = @NO;
+    [self insertMessage:candy];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
-    if ([candy isMessage]) {
-        [self setMessages:[self.wrap messages]];
-        [self.collectionView reloadData];
-    }
+    [self setMessages:[self.wrap messages]];
+    [self.collectionView reloadData];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
-    if ([candy isMessage]) {
-        for (WLGroup* group in self.groups.entries) {
-            if ([group.entries containsObject:candy] && ![group.date isSameDay:candy.createdAt]) {
-                [group.entries removeObject:candy];
-                if (![group.entries count]) {
-                    [self.groups.entries removeObject:group];
-                    break;
-                }
+    for (WLGroup* group in self.groups.entries) {
+        if ([group.entries containsObject:candy] && ![group.date isSameDay:candy.createdAt]) {
+            [group.entries removeObject:candy];
+            if (![group.entries count]) {
+                [self.groups.entries removeObject:group];
+                break;
             }
         }
-        [self.groups addEntry:candy];
-        [self.groups sort];
-        [self.collectionView reloadData];
     }
+    [self.groups addEntry:candy];
+    [self.groups sort];
+    [self.collectionView reloadData];
 }
 
 - (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
     return self.wrap;
+}
+
+- (WLCandyType)broadcasterPreferedCandyType:(WLWrapBroadcaster *)broadcaster {
+    return WLCandyTypeMessage;
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver

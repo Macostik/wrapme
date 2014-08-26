@@ -55,18 +55,28 @@
 }
 
 - (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    WLPaginatedRequest* request = self.request;
+    if (request) {
+        [self configureRequest:request];
+        __weak typeof(self)weakSelf = self;
+        return [request send:^(NSOrderedSet *orderedSet) {
+            [weakSelf handleResponse:orderedSet success:success];
+        } failure:failure];
+    } else {
+        if (failure) failure(nil);
+        return nil;
+    }
+}
+
+- (void)configureRequest:(WLPaginatedRequest *)request {
     if (!self.entries.nonempty) {
-        self.request.type = WLPaginatedRequestTypeFresh;
+        request.type = WLPaginatedRequestTypeFresh;
     } else {
         WLEntry* firstEntry = [self.entries firstObject];
         WLEntry* lastEntry = [self.entries firstObject];
-        self.request.newer = [firstEntry updatedAt];
-        self.request.older = [lastEntry updatedAt];
+        request.newer = [firstEntry updatedAt];
+        request.older = [lastEntry updatedAt];
     }
-    __weak typeof(self)weakSelf = self;
-    return [self.request send:^(NSOrderedSet *orderedSet) {
-        [weakSelf handleResponse:orderedSet success:success];
-    } failure:failure];
 }
 
 - (void)handleResponse:(NSOrderedSet*)entries success:(WLOrderedSetBlock)success {

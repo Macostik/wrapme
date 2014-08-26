@@ -34,6 +34,8 @@
 
 + (instancetype)setWithRequest:(WLPaginatedRequest*)request;
 
+- (void)configureRequest:(WLPaginatedRequest*)request;
+
 - (void)resetEntries:(NSOrderedSet*)entries;
 
 - (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;

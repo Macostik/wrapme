@@ -164,7 +164,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.sortComparator = comparatorByCreatedAtAscending;
+        self.sortComparator = comparatorByCreatedAtDescending;
         self.offset = CGPointZero;
         self.request = [WLCandiesRequest request];
         self.request.sameDay = YES;

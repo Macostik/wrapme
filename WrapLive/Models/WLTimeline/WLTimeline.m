@@ -76,7 +76,7 @@
         }];
         
         event.date = [[event.images firstObject] updatedAt];
-        event.text = [NSString stringWithFormat:@"%@ add new photo", contributor.name];
+        event.text = [NSString stringWithFormat:@"%@ add new photo", WLString(contributor.name)];
         [addedImages minusOrderedSet:event.images];
         [events addObject:event];
     }
@@ -105,7 +105,7 @@
             return comment.candy;
         }] mutableCopy];
         event.date = [[userComments firstObject] createdAt];
-        event.text = [NSString stringWithFormat:@"%@ add comment", contributor.name];
+        event.text = [NSString stringWithFormat:@"%@ add comment", WLString(contributor.name)];
         [comments minusOrderedSet:userComments];
         [events addObject:event];
     }

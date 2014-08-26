@@ -84,7 +84,7 @@
 
     [self.collectionView reloadData];
     if (_candy && [self.group.entries containsObject:_candy]) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[self.group.entries indexOfObject:_candy]] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[self.group.entries indexOfObject:_candy] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     }
     self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 6, 0);
     
@@ -125,7 +125,7 @@
 - (void)setCandy:(WLCandy *)candy {
     _candy = candy;
     if (self.isViewLoaded && [self.group.entries containsObject:candy]) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[self.group.entries indexOfObject:candy]] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[self.group.entries indexOfObject:candy] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     }
 }
 
@@ -382,24 +382,19 @@
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return [self.group.entries count];
-}
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    WLCandy* candy = [self.group.entries tryObjectAtIndex:section];
-    return candy.isImage ? 1 : 0;
+    return [self.group.entries count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLDetailedCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLDetailedCandyCellIdentifier forIndexPath:indexPath];
-    cell.item = [self.group.entries tryObjectAtIndex:indexPath.section];
+    cell.item = [self.group.entries tryObjectAtIndex:indexPath.item];
     [self fetchOlder:cell.item];
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return collectionView.size;
+    return CGSizeMake(self.view.width, collectionView.height);
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {

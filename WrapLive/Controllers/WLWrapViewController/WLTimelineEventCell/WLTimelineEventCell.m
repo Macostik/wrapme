@@ -9,7 +9,6 @@
 #import "WLTimelineEventCell.h"
 #import "WLTimelineEvent.h"
 #import "WLImageView.h"
-#import "NSDate+Formatting.h"
 #import "WLUser.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLCandiesViewSection.h"
@@ -17,9 +16,6 @@
 
 @interface WLTimelineEventCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet WLImageView *avatarView;
-@property (weak, nonatomic) IBOutlet UILabel *textLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (strong, nonatomic) WLCollectionViewDataProvider* dataProvider;
@@ -48,9 +44,6 @@
 }
 
 - (void)setup:(WLTimelineEvent *)event {
-    self.dateLabel.text = [event.date stringWithFormat:@"hh:mm"];
-    self.avatarView.url = event.user.picture.small;
-    self.textLabel.text = event.text;
     self.dataSection.entries = event.images;
 }
 

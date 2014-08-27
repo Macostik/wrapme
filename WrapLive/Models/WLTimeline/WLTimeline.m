@@ -69,15 +69,29 @@
     [addedImages sortByCreatedAtDescending];
     while (addedImages.nonempty) {
         WLUser* contributor = [[addedImages firstObject] contributor];
-        WLTimelineEvent* event = [[WLTimelineEvent alloc] init];
-        event.user = contributor;
-        event.images = [addedImages selectObjects:^BOOL(WLCandy* image) {
+        NSMutableOrderedSet* userImages = [addedImages selectObjects:^BOOL(WLCandy* image) {
             return image.contributor == contributor;
+        }];
+        [events unionOrderedSet:[self eventsForAddedImages:userImages]];
+        [addedImages minusOrderedSet:userImages];
+    }
+    return events;
+}
+
+- (NSMutableOrderedSet*)eventsForAddedImages:(NSMutableOrderedSet*)images {
+    NSMutableOrderedSet* events = [[NSMutableOrderedSet alloc] init];
+    images = [images mutableCopy];
+    while (images.nonempty) {
+        WLCandy* firstImage = [images firstObject];
+        WLTimelineEvent* event = [[WLTimelineEvent alloc] init];
+        event.user = firstImage.contributor;
+        event.images = [images selectObjects:^BOOL(WLCandy* image) {
+            return [image.createdAt isSameHour:firstImage.createdAt];
         }];
         
         event.date = [[event.images firstObject] createdAt];
-        event.text = [NSString stringWithFormat:@"%@ add new photo", WLString(contributor.name)];
-        [addedImages minusOrderedSet:event.images];
+        event.text = [NSString stringWithFormat:@"%@ add new photo", WLString(firstImage.contributor.name)];
+        [images minusOrderedSet:event.images];
         [events addObject:event];
     }
     return events;

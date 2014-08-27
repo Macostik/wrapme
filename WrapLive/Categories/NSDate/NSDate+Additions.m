@@ -71,6 +71,15 @@ static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
 	return c1.year == c2.year && c1.month == c2.month && c1.day == c2.day;
 }
 
+- (BOOL)isSameHour:(NSDate *)date {
+    NSCalendarUnit units = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit;
+    ;
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    NSDateComponents* c1 = [calendar components:units fromDate:self];
+    NSDateComponents* c2 = [calendar components:units fromDate:date];
+	return c1.year == c2.year && c1.month == c2.month && c1.day == c2.day && c1.hour == c2.hour;
+}
+
 - (BOOL)isToday {
 	return [self isSameDay:[NSDate serverTime]];
 }

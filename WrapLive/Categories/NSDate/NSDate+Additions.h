@@ -20,6 +20,8 @@
 
 - (BOOL)isSameDay:(NSDate*)date;
 
+- (BOOL)isSameHour:(NSDate*)date;
+
 - (NSDate *)beginOfDay;
 
 - (NSDate *)endOfDay;

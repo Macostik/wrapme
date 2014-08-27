@@ -43,7 +43,7 @@
 #import "UIViewController+Additions.h"
 #import "WLCandiesHistoryViewSection.h"
 #import "WLCollectionViewDataProvider.h"
-#import "WLTimelineViewSection.h"
+#import "WLTimelineViewDataProvider.h"
 #import "WLTimeline.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
@@ -68,7 +68,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCollectionViewSection *wrapViewSection;
 @property (strong, nonatomic) IBOutlet WLCandiesHistoryViewSection *historyViewSection;
-@property (strong, nonatomic) IBOutlet WLTimelineViewSection *timelineSection;
+@property (strong, nonatomic) IBOutlet WLTimelineViewDataProvider *timelineDataProvider;
 
 @end
 
@@ -87,6 +87,12 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     self.nameLabel.text = WLString(self.wrap.name);
     
     self.wrapViewSection.defaultFooterSize = CGSizeZero;
+    self.historyViewSection.defaultFooterSize = CGSizeZero;
+    
+    self.wrapViewSection.defaultHeaderSize = CGSizeZero;
+    self.historyViewSection.defaultHeaderSize = CGSizeZero;
+    
+    self.wrapViewSection.defaultFooterSize = CGSizeZero;
     
     self.wrapViewSection.entries = [NSMutableOrderedSet orderedSetWithObject:self.wrap];
     
@@ -98,7 +104,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     wrapRequest.contentType = WLWrapContentTypeHistory;
     self.historyViewSection.entries = self.groups;
     self.historyViewSection.entries.request = wrapRequest;
-    self.timelineSection.entries = [WLTimeline timelineWithWrap:self.wrap];
+    self.timelineDataProvider.timeline = [WLTimeline timelineWithWrap:self.wrap];
     
     [self.dataProvider setRefreshableWithColorScheme:WLRefresherColorSchemeOrange];
     
@@ -112,7 +118,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     [self.historyViewSection setSelection:^ (id entry) {
         [weakSelf presentCandy:entry];
     }];
-    self.timelineSection.selection = self.historyViewSection.selection;
+    self.timelineDataProvider.selection = self.historyViewSection.selection;
     
     [self firstLoadRequest];
 }
@@ -245,9 +251,9 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 - (void)setViewTab:(WLWrapViewTab)viewTab {
     _viewTab = viewTab;
     if (viewTab == WLWrapViewTabLive) {
-        self.dataProvider.sections = [NSMutableArray arrayWithObjects:self.wrapViewSection, self.timelineSection, nil];
+        [self.timelineDataProvider connect];
     } else {
-        self.dataProvider.sections = [NSMutableArray arrayWithObjects:self.wrapViewSection, self.historyViewSection, nil];
+        [self.dataProvider connect];
     }
     self.viewButton.selected = viewTab == WLWrapViewTabHistory;
 }
@@ -261,7 +267,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         self.viewTab = viewTab;
         [[NSUserDefaults standardUserDefaults] setInteger:self.viewTab forKey:WLWrapViewDefaultTabKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        self.timelineSection.completed = NO;
         self.historyViewSection.completed = NO;
         [self.collectionView setContentOffset:CGPointZero animated:YES];
         [self.dataProvider reload];

@@ -56,7 +56,10 @@
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary {
-	return [self API_setup:dictionary relatedEntry:nil];
+    if (dictionary) {
+        return [self API_setup:dictionary relatedEntry:nil];
+    }
+	return self;
 }
 
 - (instancetype)API_setup:(NSDictionary*)dictionary relatedEntry:(id)relatedEntry {

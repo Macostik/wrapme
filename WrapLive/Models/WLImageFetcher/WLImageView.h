@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "WLBlocks.h"
 
+@class WLPicture;
+
 @interface WLImageView : UIImageView
 
 @property (nonatomic) NSString* url;
+
+@property (nonatomic, weak) WLPicture *animatingPicture;
 
 @property (nonatomic) NSString* placeholderName;
 

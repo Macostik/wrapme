@@ -120,7 +120,14 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 - (void)setImageAtPath:(NSString *)path withIdentifier:(NSString *)identifier {
 	if (identifier.nonempty && path.nonempty && [_manager fileExistsAtPath:path]) {
         [_manager moveItemAtPath:path toPath:identifier error:NULL];
-        [[WLSystemImageCache instance] setImage:[self objectWithIdentifier:identifier] withIdentifier:identifier];
+        UIImage* image = [WLSystemImageCache imageWithIdentifier:[path lastPathComponent]];
+        if (image == nil) {
+            image = [UIImage imageWithData:[_manager contentsAtPath:identifier]];
+        } else {
+            [WLSystemImageCache removeImageWithIdentifier:[path lastPathComponent]];
+        }
+        [WLSystemImageCache setImage:image withIdentifier:identifier];
+        [self.identifiers addObject:identifier];
 	}
 }
 
@@ -135,8 +142,9 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 			if (completion) {
 				completion(identifier);
 			}
+            [self enqueueCheckSizePerforming];
 		});
-		[self enqueueCheckSizePerforming];
+		
     });
 }
 
@@ -149,24 +157,24 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 @implementation WLImageCache (UrlCache)
 
 - (UIImage*)imageWithUrl:(NSString*)url {
-	return [self imageWithIdentifier:[url MD5]];
+	return [self imageWithIdentifier:[self identifierFromUrl:url]];
 }
 
 - (void)imageWithUrl:(NSString *)url completion:(void (^)(UIImage *, BOOL cached))completion {
-	return [self imageWithIdentifier:[url MD5] completion:completion];
+	return [self imageWithIdentifier:[self identifierFromUrl:url] completion:completion];
 }
 
 - (void)setImage:(UIImage*)image withUrl:(NSString*)url {
-	[self setImage:image withIdentifier:[url MD5] completion:nil];
+	[self setImage:image withIdentifier:[self identifierFromUrl:url] completion:nil];
 }
 
 - (BOOL)containsImageWithUrl:(NSString *)url {
-	return [self containsObjectWithIdentifier:[url MD5]];
+	return [self containsObjectWithIdentifier:[self identifierFromUrl:url]];
 }
 
 - (void)setImageAtPath:(NSString*)path withUrl:(NSString*)url {
 	if (url.nonempty) {
-		[self setImageAtPath:path withIdentifier:[url MD5]];
+		[self setImageAtPath:path withIdentifier:[self identifierFromUrl:url]];
 	}
 }
 
@@ -175,6 +183,14 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 	run_with_completion(^{
 		[weakSelf setImageAtPath:path withUrl:url];
 	}, completion);
+}
+
+- (NSString*)identifierFromUrl:(NSString*)url {
+    if ([url isAbsolutePath]) {
+        return [url lastPathComponent];
+    } else {
+        return [[url MD5] stringByAppendingPathExtension:@"jpg"];
+    }
 }
 
 @end

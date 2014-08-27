@@ -38,6 +38,10 @@
 	[[self instance] setImage:image withIdentifier:identifier];
 }
 
++ (void)removeImageWithIdentifier:(NSString *)identifier {
+	[[self instance] removeImageWithIdentifier:identifier];
+}
+
 - (UIImage*)imageWithIdentifier:(NSString*)identifier {
 	return [self objectForKey:identifier];
 }
@@ -46,6 +50,10 @@
 	if (image) {
 		[self setObject:image forKey:identifier];
 	}
+}
+
+- (void)removeImageWithIdentifier:(NSString *)identifier {
+    [self removeObjectForKey:identifier];
 }
 
 @end

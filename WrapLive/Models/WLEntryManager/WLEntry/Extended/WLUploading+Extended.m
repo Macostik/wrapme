@@ -13,6 +13,7 @@
 #import "AsynchronousOperation.h"
 #import "WLAPIResponse.h"
 #import "WLAuthorizationRequest.h"
+#import "WLInternetConnectionBroadcaster.h"
 
 @implementation WLUploading (Extended)
 
@@ -33,7 +34,7 @@
 }
 
 + (void)enqueueAutomaticUploading:(WLBlock)completion {
-    if (![WLAuthorizationRequest authorized]) {
+    if (![WLInternetConnectionBroadcaster broadcaster].reachable || ![WLAuthorizationRequest authorized]) {
         if (completion) {
             completion();
         }
@@ -73,7 +74,7 @@
 }
 
 - (id)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    if (self.operation || ![self.contribution canBeUploaded]) {
+    if (self.operation || ![self.contribution canBeUploaded] || ![WLInternetConnectionBroadcaster broadcaster].reachable) {
         failure(nil);
         return nil;
     }

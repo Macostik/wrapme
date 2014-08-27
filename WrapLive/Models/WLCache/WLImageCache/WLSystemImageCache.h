@@ -16,8 +16,12 @@
 
 + (void)setImage:(UIImage*)image withIdentifier:(NSString*)identifier;
 
++ (void)removeImageWithIdentifier:(NSString*)identifier;
+
 - (UIImage*)imageWithIdentifier:(NSString*)identifier;
 
 - (void)setImage:(UIImage*)image withIdentifier:(NSString*)identifier;
+
+- (void)removeImageWithIdentifier:(NSString*)identifier;
 
 @end

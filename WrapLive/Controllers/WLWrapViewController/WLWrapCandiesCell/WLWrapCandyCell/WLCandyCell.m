@@ -77,6 +77,7 @@
 	if ([candy isImage]) {
 		WLComment* comment = [candy.comments lastObject];
 		self.commentLabel.text = comment.text;
+        self.coverView.animatingPicture = candy.picture;
 		self.coverView.url = candy.picture.medium;
         self.menu.vibrate = YES;
 	} else {

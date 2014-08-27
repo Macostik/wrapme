@@ -10,10 +10,12 @@
 #import "WLImageFetcher.h"
 #import "NSString+Additions.h"
 #import "NSError+WLAPIManager.h"
+#import "WLPicture.h"
 
 @interface WLImageView () <WLImageFetching>
 
 @property (nonatomic) UIViewContentMode defaultContentMode;
+@property (nonatomic) CGFloat defaultAlpha;
 
 @end
 
@@ -22,6 +24,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.defaultContentMode = self.contentMode;
+    self.defaultAlpha = self.alpha;
+    [[WLImageFetcher fetcher] addReceiver:self];
 }
 
 - (void)setUrl:(NSString *)url {
@@ -31,13 +35,12 @@
 - (void)setUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure {
     self.image = nil;
     _url = url;
-    if (self.contentMode != self.defaultContentMode) {
-        self.contentMode = self.defaultContentMode;
-    }
+    [self.layer removeAllAnimations];
+    if (self.alpha != self.defaultAlpha) self.alpha = self.defaultAlpha;
+    if (self.contentMode != self.defaultContentMode) self.contentMode = self.defaultContentMode;
     self.success = success;
     self.failure = failure;
     if (url.nonempty) {
-        [[WLImageFetcher fetcher] addReceiver:self];
         [[WLImageFetcher fetcher] enqueueImageWithUrl:url];
     } else {
         [self fetcher:[WLImageFetcher fetcher] didFailWithError:[NSError errorWithDescription:@"Image URL is not valid."]];
@@ -45,12 +48,14 @@
 }
 
 - (void)setImage:(UIImage *)image animated:(BOOL)animated {
-	if (animated) {
+	if (self.animatingPicture.animate || animated) {
         CGFloat alpha = self.alpha;
 		self.alpha = 0.0f;
         __weak typeof(self)weakSelf = self;
-        [UIView animateWithDuration:0.33f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        NSTimeInterval duration = self.animatingPicture.animate ? 0.5f : 0.33f;
+        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             weakSelf.alpha = alpha;
+            weakSelf.animatingPicture.animate = NO;
         } completion:^(BOOL finished) {
         }];
 	}
@@ -60,7 +65,7 @@
 #pragma mark - WLImageFetching
 
 - (NSString *)fetcherTargetUrl:(WLImageFetcher *)fetcher {
-	return self.url;
+	return _url;
 }
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {

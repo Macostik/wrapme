@@ -64,47 +64,45 @@
 }
 
 - (void)enqueueImageWithUrl:(NSString *)url {
-	if (!url.nonempty) {
+	if (!url.nonempty || [self.urls containsObject:url]) {
 		return;
 	}
 	
-	if (![self.urls containsObject:url]) {
-		[self.urls addObject:url];
-		__weak typeof(self)weakSelf = self;
-		WLImageFetcherBlock success = ^(UIImage *image, BOOL cached) {
+	[self.urls addObject:url];
+    __weak typeof(self)weakSelf = self;
+    WLImageFetcherBlock success = ^(UIImage *image, BOOL cached) {
+        [weakSelf.urls removeObject:url];
+        NSHashTable* receivers = weakSelf.receivers;
+        @synchronized (receivers) {
+            for (NSObject <WLImageFetching> *receiver in receivers) {
+                if ([receiver respondsToSelector:@selector(fetcherTargetUrl:)] && [[receiver fetcherTargetUrl:weakSelf] isEqualToString:url]) {
+                    if ([receiver respondsToSelector:@selector(fetcher:didFinishWithImage:cached:)]) {
+                        [receiver fetcher:weakSelf didFinishWithImage:image cached:cached];
+                    }
+                }
+            }
+        }
+    };
+    
+    if ([[WLImageCache cache] containsImageWithUrl:url]) {
+        [[WLImageCache cache] imageWithUrl:url completion:success];
+    } else if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
+        [self setFileSystemUrl:url completion:success];
+    } else {
+        WLFailureBlock failure = ^ (NSError* error) {
             NSHashTable* receivers = weakSelf.receivers;
             @synchronized (receivers) {
                 for (NSObject <WLImageFetching> *receiver in receivers) {
                     if ([receiver respondsToSelector:@selector(fetcherTargetUrl:)] && [[receiver fetcherTargetUrl:weakSelf] isEqualToString:url]) {
-                        if ([receiver respondsToSelector:@selector(fetcher:didFinishWithImage:cached:)]) {
-                            [receiver fetcher:weakSelf didFinishWithImage:image cached:cached];
+                        if ([receiver respondsToSelector:@selector(fetcher:didFailWithError:)]) {
+                            [receiver fetcher:weakSelf didFailWithError:error];
                         }
                     }
                 }
             }
-			[weakSelf.urls removeObject:url];
-		};
-        
-		if ([[WLImageCache cache] containsImageWithUrl:url]) {
-			[[WLImageCache cache] imageWithUrl:url completion:success];
-		} else if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
-			[self setFileSystemUrl:url completion:success];
-		} else {
-            WLFailureBlock failure = ^ (NSError* error) {
-                NSHashTable* receivers = weakSelf.receivers;
-                @synchronized (receivers) {
-                    for (NSObject <WLImageFetching> *receiver in receivers) {
-                        if ([receiver respondsToSelector:@selector(fetcherTargetUrl:)] && [[receiver fetcherTargetUrl:weakSelf] isEqualToString:url]) {
-                            if ([receiver respondsToSelector:@selector(fetcher:didFailWithError:)]) {
-                                [receiver fetcher:weakSelf didFailWithError:error];
-                            }
-                        }
-                    }
-                }
-            };
-			[self setNetworkUrl:url success:success failure:failure];
-		}
-	}
+        };
+        [self setNetworkUrl:url success:success failure:failure];
+    }
 }
 
 - (void)setNetworkUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure {
@@ -113,10 +111,10 @@
 	AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
 	operation.responseSerializer = [[self class] imageResponseSerializer];
 	[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+		[[WLImageCache cache] setImage:responseObject withUrl:url];
 		if (success) {
 			success(responseObject, NO);
 		}
-		[[WLImageCache cache] setImage:responseObject withUrl:url];
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 		if (error.code != NSURLErrorCancelled) {
 			if (failure) {
@@ -129,15 +127,14 @@
 
 - (void)setFileSystemUrl:(NSString *)url completion:(WLImageFetcherBlock)completion {
 	if (completion) {
-		__block UIImage* image = [WLSystemImageCache imageWithIdentifier:url];
+		UIImage* image = [WLSystemImageCache imageWithIdentifier:url];
 		if (image) {
 			completion(image, YES);
 		} else {
 			run_getting_object(^id{
-				image = [UIImage imageWithContentsOfFile:url];
-				[WLSystemImageCache setImage:image withIdentifier:url];
-				return image;
+				return [UIImage imageWithContentsOfFile:url];
 			}, ^ (UIImage* image) {
+				[WLSystemImageCache setImage:image withIdentifier:url];
 				completion(image, NO);
 			});
 		}

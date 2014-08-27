@@ -15,6 +15,8 @@
 @property (strong, nonatomic) NSString* medium;
 @property (strong, nonatomic) NSString* small;
 
+@property (nonatomic) BOOL animate;
+
 + (void)picture:(UIImage *)image completion:(WLObjectBlock)completion;
 
 - (NSString*)anyUrl;

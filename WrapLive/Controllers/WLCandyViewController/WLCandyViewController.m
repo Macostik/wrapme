@@ -275,7 +275,7 @@
             }
         }
     }
-    self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(self.candy.contributor.name)];
+    self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(candy.contributor.name)];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentRemoved:(WLComment *)comment {
@@ -405,6 +405,11 @@
     if (!decelerate) {
         [self updateTitle];
     }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    CGFloat i = roundf(targetContentOffset->x / (scrollView.width + 20));
+    targetContentOffset->x = (scrollView.width + 20) * i;
 }
 
 @end

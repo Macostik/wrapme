@@ -128,8 +128,8 @@
 			if (completion) {
 				completion(identifier);
 			}
+            [self enqueueCheckSizePerforming];
 		});
-		[self enqueueCheckSizePerforming];
     });
 }
 
@@ -156,10 +156,12 @@
                 WLCacheItem* item = [[WLCacheItem alloc] init];
                 item.identifier = identifier;
                 NSDictionary* attributes = [_manager attributesOfItemAtPath:identifier error:NULL];
-                item.size = [attributes fileSize];
-                item.date = [attributes fileCreationDate];
-                size += item.size;
-                [items addObject:item];
+                if (attributes) {
+                    item.size = [attributes fileSize];
+                    item.date = [attributes fileCreationDate];
+                    size += item.size;
+                    [items addObject:item];
+                }
             }
             [items sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(WLCacheItem* obj1, WLCacheItem* obj2) {
                 return [obj1.date compare:obj2.date];

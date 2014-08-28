@@ -48,7 +48,7 @@ static NSUInteger WLPageSize = 10;
 
 - (id)messagesNewer:(NSDate*)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)messagesOlder:(NSDate*)older success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)messagesOlder:(NSDate*)older newer:(NSDate*)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 - (id)messages:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 

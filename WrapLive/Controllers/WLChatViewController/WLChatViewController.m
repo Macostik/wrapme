@@ -186,7 +186,9 @@
 	__weak typeof(self)weakSelf = self;
     WLGroup* group = [self.groups.entries lastObject];
     WLCandy* candy = [group.entries lastObject];
-	self.operation = [self.wrap messagesOlder:candy.createdAt success:^(NSOrderedSet *messages) {
+    WLGroup* group1 = [self.groups.entries firstObject];
+    WLCandy* candy1 = [group1.entries firstObject];
+	self.operation = [self.wrap messagesOlder:candy.createdAt newer:candy1.createdAt success:^(NSOrderedSet *messages) {
 		weakSelf.shouldAppendMoreMessages = messages.count >= WLPageSize;
 		[weakSelf addMessages:messages];
 	} failure:^(NSError *error) {

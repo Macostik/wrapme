@@ -16,6 +16,10 @@
 
 @interface WLTimeline () <WLWrapBroadcastReceiver>
 
+@property (strong, nonatomic) NSFetchedResultsController* fetchedResults;
+
+@property (strong, nonatomic) NSFetchRequest* fetchRequest;
+
 @end
 
 @implementation WLTimeline
@@ -30,6 +34,8 @@
     self = [super init];
     if (self) {
         [[WLWrapBroadcaster broadcaster] addReceiver:self];
+        self.fetchRequest = [[NSFetchRequest alloc] init];
+        self.fetchRequest.entity = [WLCandy entity];
     }
     return self;
 }
@@ -46,9 +52,15 @@
     NSDate* startDate = [date beginOfDay];
     NSDate* endDate = [date endOfDay];
     
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"updatedAt >= %@ AND updatedAt <= %@ AND type == %d",startDate, endDate, WLCandyTypeImage];
-    self.images = [NSMutableOrderedSet orderedSetWithOrderedSet:[self.wrap.candies filteredOrderedSetUsingPredicate:predicate]];
-    [self.images sortByUpdatedAtDescending];
+    compareTimecost(^{
+        self.fetchRequest.predicate = [NSPredicate predicateWithFormat:@"updatedAt >= %@ AND updatedAt <= %@ AND type == %d",startDate, endDate, WLCandyTypeImage];
+        self.images = [NSMutableOrderedSet orderedSetWithArray:[[WLEntryManager manager].context executeFetchRequest:self.fetchRequest error:NULL]];
+    }, ^{
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"updatedAt >= %@ AND updatedAt <= %@ AND type == %d",startDate, endDate, WLCandyTypeImage];
+        self.images = [NSMutableOrderedSet orderedSetWithOrderedSet:[self.wrap.candies filteredOrderedSetUsingPredicate:predicate]];
+        [self.images sortByUpdatedAtDescending];
+    });
+    
     [self resetEntries:[self events:startDate end:endDate]];
 }
 
@@ -115,9 +127,9 @@
         NSMutableOrderedSet* userComments = [comments selectObjects:^BOOL(WLComment* comment) {
             return comment.contributor == contributor;
         }];
-        event.images = [[userComments map:^id(WLComment* comment) {
+        event.images = [userComments map:^id(WLComment* comment) {
             return comment.candy;
-        }] mutableCopy];
+        }];
         event.date = [[userComments firstObject] createdAt];
         event.text = [NSString stringWithFormat:@"%@ add comment", WLString(contributor.name)];
         [comments minusOrderedSet:userComments];

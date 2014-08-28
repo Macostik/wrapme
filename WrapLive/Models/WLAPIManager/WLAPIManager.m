@@ -166,10 +166,10 @@ static BOOL signedIn = NO;
     return [request send:success failure:failure];
 }
 
-- (id)messagesOlder:(NSDate *)older success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)messagesOlder:(NSDate *)older newer:(NSDate *)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     WLMessagesRequest* request = [WLMessagesRequest request:self];
     request.type = WLPaginatedRequestTypeOlder;
-    request.newer = older;
+    request.newer = newer;
     request.older = older;
     return [request send:success failure:failure];
 }

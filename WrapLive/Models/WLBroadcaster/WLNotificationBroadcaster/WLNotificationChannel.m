@@ -85,12 +85,10 @@
     [PubNub subscribeOnChannel:self.channel withCompletionHandlingBlock:^(PNSubscriptionProcessState state, NSArray *channels, PNError *error) {
         if (error) {
             if (failure) failure(error);
-        } else if (success) {
-            if (weakSelf.supportAPNS) {
-                [weakSelf enableAPNS];
-            }
+        } else {
+            if (weakSelf.supportAPNS) [weakSelf enableAPNS];
             if (weakSelf.supportPresense) [weakSelf enablePresense];
-            success();
+            if (success) success();
         }
     }];
 }

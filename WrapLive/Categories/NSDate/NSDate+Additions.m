@@ -44,6 +44,22 @@ static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
     return [[NSCalendar currentCalendar] dateFromComponents:[self componentsEndOfDay]];
 }
 
+- (void)getBeginOfDay:(NSDate *__autoreleasing *)beginOfDay endOfDay:(NSDate *__autoreleasing *)endOfDay {
+    NSDateComponents* components = [self dayComponents];
+    [components setHour:0];
+    [components setMinute:0];
+    [components setSecond:0];
+    if (beginOfDay != NULL) {
+        *beginOfDay = [[NSCalendar currentCalendar] dateFromComponents:components];
+    }
+    [components setHour:23];
+    [components setMinute:59];
+    [components setSecond:59];
+    if (endOfDay != NULL) {
+        *endOfDay = [[NSCalendar currentCalendar] dateFromComponents:components];
+    }
+}
+
 - (NSDateComponents *)componentsBeginOfDay {
 	NSDateComponents* components = [self dayComponents];
     [components setHour:0];

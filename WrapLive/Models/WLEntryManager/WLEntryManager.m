@@ -166,6 +166,10 @@
     }
 }
 
+- (NSArray *)executeFetchRequest:(NSFetchRequest *)request {
+    return [[WLEntryManager manager].context executeFetchRequest:request error:NULL];
+}
+
 @end
 
 static char *WLEntityDescriptionKey = "WLEntityDescriptionKey";
@@ -256,6 +260,14 @@ static NSString *WLEntryIdentifierKey = @"identifier";
 
 - (BOOL)valid {
     return self.managedObjectContext != nil;
+}
+
+@end
+
+@implementation NSFetchRequest (WLEntryManager)
+
+- (NSArray *)execute {
+    return [[WLEntryManager manager] executeFetchRequest:self];
 }
 
 @end

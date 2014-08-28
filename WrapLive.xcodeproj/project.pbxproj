@@ -216,6 +216,8 @@
 		C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5018F5271B00BDF038 /* WLChatViewController.m */; };
 		C5947E5518F52AE000BDF038 /* WLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5418F52AE000BDF038 /* WLMessageCell.m */; };
 		C59528EE191CD9A6001ECD7C /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59528ED191CD9A6001ECD7C /* WLContactCell.m */; };
+		C599F9D219AF5751008C7DFA /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C599F9D119AF5751008C7DFA /* NSObject+Extension.m */; };
+		C599F9D519AF5A42008C7DFA /* WLEntryFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = C599F9D419AF5A42008C7DFA /* WLEntryFetching.m */; };
 		C59ACBE3193F238C002941C4 /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C59ACBE2193F238C002941C4 /* WLUserView.m */; };
 		C5A21E0F194AF54000F3A554 /* WLEntryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E08194AF54000F3A554 /* WLEntryManager.m */; };
 		C5A21E12194AFA7400F3A554 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E10194AFA7400F3A554 /* CoreData.xcdatamodeld */; };
@@ -619,6 +621,10 @@
 		C5947E5418F52AE000BDF038 /* WLMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLMessageCell.m; path = WLChatViewController/WLMessageCell/WLMessageCell.m; sourceTree = "<group>"; };
 		C59528EC191CD9A6001ECD7C /* WLContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContactCell.h; path = WLContributorsViewController/WLContactCell/WLContactCell.h; sourceTree = "<group>"; };
 		C59528ED191CD9A6001ECD7C /* WLContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContactCell.m; path = WLContributorsViewController/WLContactCell/WLContactCell.m; sourceTree = "<group>"; };
+		C599F9D019AF5751008C7DFA /* NSObject+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extension.h"; sourceTree = "<group>"; };
+		C599F9D119AF5751008C7DFA /* NSObject+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extension.m"; sourceTree = "<group>"; };
+		C599F9D319AF5A42008C7DFA /* WLEntryFetching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryFetching.h; sourceTree = "<group>"; };
+		C599F9D419AF5A42008C7DFA /* WLEntryFetching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntryFetching.m; sourceTree = "<group>"; };
 		C59ACBE1193F238C002941C4 /* WLUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUserView.h; path = WLUserView/WLUserView.h; sourceTree = "<group>"; };
 		C59ACBE2193F238C002941C4 /* WLUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUserView.m; path = WLUserView/WLUserView.m; sourceTree = "<group>"; };
 		C5A21E07194AF54000F3A554 /* WLEntryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryManager.h; sourceTree = "<group>"; };
@@ -765,6 +771,8 @@
 				121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */,
 				12DEC3F01921181B007BE6CC /* NSObject+AssociatedObjects.h */,
 				12DEC3F11921181B007BE6CC /* NSObject+AssociatedObjects.m */,
+				C599F9D019AF5751008C7DFA /* NSObject+Extension.h */,
+				C599F9D119AF5751008C7DFA /* NSObject+Extension.m */,
 			);
 			path = NSObject;
 			sourceTree = "<group>";
@@ -2044,6 +2052,8 @@
 				C5A21DFA194AF54000F3A554 /* WLEntry */,
 				C5A21E07194AF54000F3A554 /* WLEntryManager.h */,
 				C5A21E08194AF54000F3A554 /* WLEntryManager.m */,
+				C599F9D319AF5A42008C7DFA /* WLEntryFetching.h */,
+				C599F9D419AF5A42008C7DFA /* WLEntryFetching.m */,
 			);
 			path = WLEntryManager;
 			sourceTree = "<group>";
@@ -2438,6 +2448,7 @@
 				C500942A1998D353007EE33A /* WLDetailedCandyCell.m in Sources */,
 				C59528EE191CD9A6001ECD7C /* WLContactCell.m in Sources */,
 				C50AF4271976B42500761F38 /* WLDeleteCandyRequest.m in Sources */,
+				C599F9D219AF5751008C7DFA /* NSObject+Extension.m in Sources */,
 				C53978C919AE2B21006BE8FD /* WLTimelineEventHeaderView.m in Sources */,
 				12D578CE1917E82100586995 /* UIAlertView+Blocks.m in Sources */,
 				12DEC3F21921181B007BE6CC /* NSObject+AssociatedObjects.m in Sources */,
@@ -2459,6 +2470,7 @@
 				12F0DAF019338C9100F9D898 /* SegmentedControl.m in Sources */,
 				12D962ED18E5898A00C57CE1 /* WLPicture.m in Sources */,
 				12DE6983192E0B0F007580AD /* WLTestUserPicker.m in Sources */,
+				C599F9D519AF5A42008C7DFA /* WLEntryFetching.m in Sources */,
 				12D4D3E1191938D60025CC18 /* UIActionSheet+Blocks.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
 				12D578CA1917ACE200586995 /* NSDate+Additions.m in Sources */,

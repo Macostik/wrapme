@@ -13,12 +13,11 @@
 #import "WLCandiesRequest.h"
 #import "WLSupportFunctions.h"
 #import "WLServerTime.h"
+#import "WLEntryFetching.h"
 
-@interface WLTimeline () <WLWrapBroadcastReceiver>
+@interface WLTimeline ()
 
-@property (strong, nonatomic) NSFetchedResultsController* fetchedResults;
-
-@property (strong, nonatomic) NSFetchRequest* fetchRequest;
+@property (strong, nonatomic) WLEntryFetching* fetching;
 
 @end
 
@@ -30,37 +29,28 @@
     return timeline;
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [[WLWrapBroadcaster broadcaster] addReceiver:self];
-        self.fetchRequest = [[NSFetchRequest alloc] init];
-        self.fetchRequest.entity = [WLCandy entity];
-    }
-    return self;
-}
-
 - (void)setWrap:(WLWrap *)wrap {
     _wrap = wrap;
     self.request = [WLCandiesRequest request:wrap];
     self.request.sameDay = YES;
+    self.fetching = [WLEntryFetching fetching:@"timeline" configuration:^(NSFetchRequest *request) {
+        request.entity = [WLCandy entity];
+        NSDate* startDate = nil;
+        NSDate* endDate = nil;
+        [[NSDate serverTime] getBeginOfDay:&startDate endOfDay:&endDate];
+        request.predicate = [NSPredicate predicateWithFormat:@"wrap == %@ AND updatedAt >= %@ AND updatedAt <= %@ AND type == %d", wrap,startDate, endDate, WLCandyTypeImage];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
+    }];
+    [self.fetching addTarget:self action:@selector(update)];
+    [self.fetching perform];
     [self update];
 }
 
 - (void)update {
-    NSDate* date = [NSDate serverTime];
-    NSDate* startDate = [date beginOfDay];
-    NSDate* endDate = [date endOfDay];
-    
-    compareTimecost(^{
-        self.fetchRequest.predicate = [NSPredicate predicateWithFormat:@"updatedAt >= %@ AND updatedAt <= %@ AND type == %d",startDate, endDate, WLCandyTypeImage];
-        self.images = [NSMutableOrderedSet orderedSetWithArray:[[WLEntryManager manager].context executeFetchRequest:self.fetchRequest error:NULL]];
-    }, ^{
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"updatedAt >= %@ AND updatedAt <= %@ AND type == %d",startDate, endDate, WLCandyTypeImage];
-        self.images = [NSMutableOrderedSet orderedSetWithOrderedSet:[self.wrap.candies filteredOrderedSetUsingPredicate:predicate]];
-        [self.images sortByUpdatedAtDescending];
-    });
-    
+    NSDate* startDate = nil;
+    NSDate* endDate = nil;
+    [[NSDate serverTime] getBeginOfDay:&startDate endOfDay:&endDate];
+    self.images = self.fetching.content;
     [self resetEntries:[self events:startDate end:endDate]];
 }
 
@@ -158,36 +148,6 @@
     if(success) {
         success(entries);
     }
-}
-
-#pragma mark - WLWrapBroadcastReceiver
-
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-    [self update];
-}
-
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
-    
-}
-
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
-    
-}
-
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentCreated:(WLComment *)comment {
-    
-}
-
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentRemoved:(WLComment *)comment {
-    
-}
-
-- (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
-    return self.wrap;
-}
-
-- (WLCandyType)broadcasterPreferedCandyType:(WLWrapBroadcaster *)broadcaster {
-    return WLCandyTypeImage;
 }
 
 @end

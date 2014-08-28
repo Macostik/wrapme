@@ -45,6 +45,8 @@
 
 - (void)save;
 
+- (NSArray*)executeFetchRequest:(NSFetchRequest*)request;
+
 @end
 
 @interface WLEntry (WLEntryManager)
@@ -72,5 +74,11 @@
 - (void)save;
 
 - (void)remove;
+
+@end
+
+@interface NSFetchRequest (WLEntryManager)
+
+- (NSArray*)execute;
 
 @end

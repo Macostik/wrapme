@@ -26,4 +26,6 @@
 
 - (NSDate *)endOfDay;
 
+- (void)getBeginOfDay:(NSDate**)beginOfDay endOfDay:(NSDate**)endOfDay;
+
 @end

@@ -308,12 +308,12 @@
 #pragma mark - WLKeyboardBroadcastReceiver
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-	self.containerView.height = self.view.height - self.containerView.y;
+	self.containerView.transform = CGAffineTransformIdentity;
     [self.collectionView reloadData];
 }
 
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
-	self.containerView.height = self.view.height - self.containerView.y - [keyboardHeight floatValue];
+	self.containerView.transform = CGAffineTransformMakeTranslation(0, -[keyboardHeight floatValue]);
     __weak typeof(self)weakSelf = self;
     [self.collectionView reloadData];
     run_after(0.0f, ^{

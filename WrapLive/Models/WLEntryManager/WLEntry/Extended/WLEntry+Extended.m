@@ -89,7 +89,7 @@
 }
 
 - (NSString *)description {
-    return self.identifier;
+    return [NSString stringWithFormat:@"%@: %@", [self class], self.identifier];
 }
 
 @end

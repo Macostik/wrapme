@@ -47,4 +47,8 @@
     [super touch:date];
 }
 
+- (WLPicture *)picture {
+    return self.candy.picture;
+}
+
 @end

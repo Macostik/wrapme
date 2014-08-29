@@ -24,6 +24,10 @@
 
 - (UIViewContentMode)toastAppearanceContentMode:(WLToast*)toast;
 
+- (CGFloat)toastAppearanceStartY:(WLToast*)toast;
+
+- (CGFloat)toastAppearanceEndY:(WLToast*)toast;
+
 @end
 
 @interface WLToastAppearance : NSObject <WLToastAppearance>
@@ -31,6 +35,10 @@
 + (instancetype)appearance;
 
 @property (nonatomic) CGFloat height;
+
+@property (nonatomic) CGFloat startY;
+
+@property (nonatomic) CGFloat endY;
 
 @property (nonatomic) BOOL shouldShowIcon;
 

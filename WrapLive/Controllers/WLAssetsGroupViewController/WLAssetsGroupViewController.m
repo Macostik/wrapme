@@ -26,9 +26,8 @@
 
 @implementation WLAssetsGroupViewController
 
-- (void)viewDidUnload {
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super viewDidUnload];
 }
 
 - (void)viewDidLoad {

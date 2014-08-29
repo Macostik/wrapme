@@ -51,6 +51,7 @@
 }
 
 - (void)keyboardWillHide:(NSNotification*)notification {
+    self.keyboardHeight = nil;
 	[self broadcast:@selector(broadcasterWillHideKeyboard:)];
 }
 

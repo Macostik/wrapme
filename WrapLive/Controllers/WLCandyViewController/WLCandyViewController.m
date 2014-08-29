@@ -39,14 +39,13 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "WLWrap+Extended.h"
 #import "WLDetailedCandyCell.h"
+#import "UIView+AnimationHelper.h"
 
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
 @property (weak, nonatomic) IBOutlet UIImageView *leftArrow;
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
@@ -59,6 +58,7 @@
 
 @property (weak, nonatomic) UISwipeGestureRecognizer* leftSwipeGestureRecognizer;
 @property (weak, nonatomic) UISwipeGestureRecognizer* rightSwipeGestureRecognizer;
+@property (weak, nonatomic) IBOutlet UIView *navigationBar;
 
 @end
 
@@ -86,7 +86,7 @@
     if (_candy && [self.group.entries containsObject:_candy]) {
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[self.group.entries indexOfObject:_candy] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     }
-    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 6, 0);
+    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 70, 0);
     
     UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -102,19 +102,21 @@
     self.rightSwipeGestureRecognizer = rightSwipe;
     [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:rightSwipe];
     
-    [self updateTitle];
+    [self refresh:_candy];
 }
 
-- (void)updateTitle {
-    WLDetailedCandyCell* cell = self.candyCell;
-    WLCandy* candy = cell.item ? : _candy;
-    self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(candy.contributor.name)];
-    [cell refresh];
+- (void)refresh {
+    WLCandy* candy = self.candy ? : _candy;
+    [self refresh:candy];
+}
+
+- (void)refresh:(WLCandy*)candy {
+    [candy fetch:^(id object) { } failure:^(NSError *error) { }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 6, 0);
+    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 70, 0);
 }
 
 - (void)setGroup:(WLGroup *)group {
@@ -211,9 +213,11 @@
     appearance.height = 44;
     appearance.contentMode = UIViewContentModeCenter;
     appearance.backgroundColor = [UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:0.75];
-    [self.dateChangeToast showWithMessage:self.group.name appearance:appearance inView:self.containerView];
-    self.rightArrow.hidden = NO;
+    appearance.endY = 64;
+    appearance.startY = 64;
+    [self.dateChangeToast showWithMessage:self.group.name appearance:appearance inView:self.view];
     __weak typeof(self)weakSelf = self;
+    self.rightArrow.hidden = NO;
     [UIView animateWithDuration:0.25f delay:1.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         weakSelf.rightArrow.alpha = 0.0f;
         weakSelf.rightArrow.transform = CGAffineTransformMakeTranslation(44, 0);
@@ -238,13 +242,9 @@
     return NO;
 }
 
-- (CGFloat)calculateTableHeight {
-	return (self.view.height - self.composeBarView.height - self.topView.height);
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isImageSegue]) {
-		[self.composeBarView endEditing:YES];
+		[self.composeBarView resignFirstResponder];
 		WLImageViewController* controller = segue.destinationViewController;
 		controller.image = self.candy;
 	}
@@ -279,7 +279,6 @@
             }
         }
     }
-    self.titleLabel.text = [NSString stringWithFormat:@"By %@", WLString(candy.contributor.name)];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentRemoved:(WLComment *)comment {
@@ -308,17 +307,21 @@
 #pragma mark - WLKeyboardBroadcastReceiver
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-	self.containerView.transform = CGAffineTransformIdentity;
+    self.composeBarView.y = self.view.height - self.composeBarView.height;
+	self.collectionView.transform = CGAffineTransformIdentity;
     [self.collectionView reloadData];
+    self.navigationBar.y = 0;
 }
 
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
-	self.containerView.transform = CGAffineTransformMakeTranslation(0, -[keyboardHeight floatValue]);
+    self.composeBarView.y = self.view.height - [keyboardHeight floatValue] - self.composeBarView.height;
+	self.collectionView.transform = CGAffineTransformMakeTranslation(0, -[keyboardHeight floatValue]);
     __weak typeof(self)weakSelf = self;
     [self.collectionView reloadData];
     run_after(0.0f, ^{
         [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
     });
+    self.navigationBar.y = -self.navigationBar.height;
 }
 
 #pragma mark - Actions
@@ -371,8 +374,7 @@
 }
 
 - (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
-	self.collectionView.height = self.containerView.height - composeBar.height;
-	composeBar.y = self.collectionView.bottom;
+	composeBar.y = self.view.height - [[WLKeyboardBroadcaster broadcaster].keyboardHeight floatValue] - composeBar.height;
     __weak typeof(self)weakSelf = self;
     [self.collectionView reloadData];
     run_after(0.0f, ^{
@@ -398,16 +400,16 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(self.view.width, collectionView.height);
+    return CGSizeMake(collectionView.width, collectionView.height);
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self updateTitle];
+    [self refresh];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (!decelerate) {
-        [self updateTitle];
+        [self refresh];
     }
 }
 

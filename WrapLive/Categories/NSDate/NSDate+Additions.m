@@ -82,9 +82,12 @@ static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
 }
 
 - (BOOL)isSameDay:(NSDate *)date {
+    return [self isSameDayComponents:[date dayComponents]];
+}
+
+- (BOOL)isSameDayComponents:(NSDateComponents *)c {
     NSDateComponents* c1 = [self dayComponents];
-    NSDateComponents* c2 = [date dayComponents];
-	return c1.year == c2.year && c1.month == c2.month && c1.day == c2.day;
+	return c1.year == c.year && c1.month == c.month && c1.day == c.day;
 }
 
 - (BOOL)isSameHour:(NSDate *)date {

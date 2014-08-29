@@ -116,6 +116,9 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     }];
     
     [self.historyViewSection setSelection:^ (id entry) {
+        if ([entry isKindOfClass:[WLComment class]]) {
+            entry = [entry candy];
+        }
         [weakSelf presentCandy:entry];
     }];
     self.timelineDataProvider.selection = self.historyViewSection.selection;

@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @class WLUser;
+@class WLContribution;
+
+typedef NS_ENUM(NSUInteger, WLTimelineEventType) {
+    WLTimelineEventTypePhoto,
+    WLTimelineEventTypeComment
+};
 
 @interface WLTimelineEvent : NSObject
 
@@ -19,5 +25,11 @@
 @property (strong, nonatomic) NSMutableOrderedSet* images;
 
 @property (strong, nonatomic) NSString *text;
+
+@property (nonatomic) WLTimelineEventType type;
+
++ (NSMutableOrderedSet*)events:(NSMutableOrderedSet*)entries;
+
+- (BOOL)addEntry:(WLContribution*)entry;
 
 @end

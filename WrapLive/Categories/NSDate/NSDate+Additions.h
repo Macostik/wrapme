@@ -18,7 +18,11 @@
 
 + (NSDate *)defaultBirtday;
 
+- (NSDateComponents *)dayComponents;
+
 - (BOOL)isSameDay:(NSDate*)date;
+
+- (BOOL)isSameDayComponents:(NSDateComponents *)c;
 
 - (BOOL)isSameHour:(NSDate*)date;
 

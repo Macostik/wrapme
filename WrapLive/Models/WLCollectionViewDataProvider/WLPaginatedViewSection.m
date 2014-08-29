@@ -9,6 +9,7 @@
 #import "WLPaginatedViewSection.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLRefresher.h"
+#import "WLLoadingView.h"
 
 @interface WLPaginatedViewSection () <WLPaginatedSetDelegate>
 
@@ -69,9 +70,14 @@
 }
 
 - (id)footer:(NSIndexPath *)indexPath {
-    [self append];
     static NSString* identifier = @"WLLoadingView";
-    return [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier forIndexPath:indexPath];
+    WLLoadingView* loadingView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier forIndexPath:indexPath];
+//    loadingView.error = NO;
+    [self append:nil failure:^(NSError *error) {
+        [error showIgnoringNetworkError];
+//        loadingView.error = YES;
+    }];
+    return loadingView;
 }
 
 #pragma mark - WLPaginatedSetDelegate

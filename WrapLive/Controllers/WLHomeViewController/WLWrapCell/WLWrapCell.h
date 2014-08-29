@@ -20,8 +20,6 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
 @property (weak, nonatomic, readonly) UILabel *nameLabel;
 
-@property (weak, nonatomic) IBOutlet SegmentedControl *tabControl;
-
 - (void)setCandies:(NSMutableOrderedSet *)candies;
 
 @end

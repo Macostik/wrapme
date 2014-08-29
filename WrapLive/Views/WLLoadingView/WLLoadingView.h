@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WLLoadingView : UIView
+@interface WLLoadingView : UICollectionReusableView
 
 @property (nonatomic) BOOL animating;
 

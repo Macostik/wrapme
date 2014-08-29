@@ -24,6 +24,7 @@ static CGFloat WLRefresherContentSize = 88.0f;
 @property (weak, nonatomic) UIActivityIndicatorView* spinner;
 @property (weak, nonatomic) UIImageView* arrowView;
 @property (weak, nonatomic) UIView* contentView;
+@property (nonatomic) UIEdgeInsets defaultContentInsets;
 
 @end
 
@@ -95,6 +96,7 @@ static CGFloat WLRefresherContentSize = 88.0f;
 	refresher.direction = direction;
 	refresher.backgroundColor = [UIColor WL_orangeColor];
 	[scrollView addSubview:refresher];
+    refresher.defaultContentInsets = scrollView.contentInset;
 	refresher.contentView.frame = contentFrame;
 	refresher.contentMode = UIViewContentModeCenter;
 	return refresher;
@@ -156,15 +158,17 @@ static CGFloat WLRefresherContentSize = 88.0f;
 
 - (void)didChangeContentOffset:(CGPoint)offset {
 	if (self.direction == WLRefresherScrollDirectionHorizontal) {
+        self.arrowView.alpha = offset.x >= -self.defaultContentInsets.left ? 0.0f : 1.0f;
 		if (offset.x < 0) {
-			[self setArrowViewRotated:(offset.x <= -66) animated:YES];
+			[self setArrowViewRotated:(offset.x <= -(66 + self.defaultContentInsets.left)) animated:YES];
 			if (!self.scrollView.dragging) {
 				[self didEndDragging:self.scrollView.contentOffset];
 			}
 		}
 	} else {
+        self.arrowView.alpha = offset.y >= -self.defaultContentInsets.top ? 0.0f : 1.0f;
 		if (offset.y < 0) {
-			[self setArrowViewRotated:(offset.y <= -66) animated:YES];
+			[self setArrowViewRotated:(offset.y <= -(66 + self.defaultContentInsets.top)) animated:YES];
 			if (!self.scrollView.dragging) {
 				[self didEndDragging:self.scrollView.contentOffset];
 			}
@@ -197,30 +201,30 @@ static CGFloat WLRefresherContentSize = 88.0f;
 - (void)didEndDragging:(CGPoint)offset {
 	
 	if (self.direction == WLRefresherScrollDirectionHorizontal) {
-		if (!_refreshing && offset.x <= -66) {
+		if (!_refreshing && offset.x <= -(66 + self.defaultContentInsets.left)) {
 			_refreshing = YES;
 			[self.spinner startAnimating];
 			self.arrowView.hidden = YES;
 			[UIView beginAnimations:nil context:nil];
 			UIEdgeInsets insets = self.scrollView.contentInset;
-			insets.left = 88;
+			insets.left = 88 + self.defaultContentInsets.left;
 			self.scrollView.contentInset = insets;
 			[UIView commitAnimations];
 			[self sendActionsForControlEvents:UIControlEventValueChanged];
-            [self.scrollView setContentOffset:CGPointMake(-88, 0) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(-insets.left, 0) animated:YES];
 		}
 	} else {
-		if (!_refreshing && offset.y <= -66) {
+		if (!_refreshing && offset.y <= -(66 + self.defaultContentInsets.top)) {
 			_refreshing = YES;
 			[self.spinner startAnimating];
 			self.arrowView.hidden = YES;
 			[UIView beginAnimations:nil context:nil];
 			UIEdgeInsets insets = self.scrollView.contentInset;
-			insets.top = 88;
+			insets.top = 88 + self.defaultContentInsets.top;
 			self.scrollView.contentInset = insets;
 			[UIView commitAnimations];
 			[self sendActionsForControlEvents:UIControlEventValueChanged];
-            [self.scrollView setContentOffset:CGPointMake(0, -88) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, -insets.top) animated:YES];
 		}
 	}
 }
@@ -233,8 +237,8 @@ static CGFloat WLRefresherContentSize = 88.0f;
 	_refreshing = NO;
     [UIView beginAnimations:nil context:nil];
     UIEdgeInsets insets = self.scrollView.contentInset;
-    insets.left = 0;
-    insets.top = 0;
+    insets.left = self.defaultContentInsets.left;
+    insets.top = self.defaultContentInsets.top;
     self.scrollView.contentInset = insets;
     [UIView commitAnimations];
     [self.spinner stopAnimating];

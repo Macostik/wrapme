@@ -9,6 +9,7 @@
 #import "WLCollectionViewDataProvider.h"
 #import "AsynchronousOperation.h"
 #import "WLSupportFunctions.h"
+#import "UIView+Shorthand.h"
 
 @interface WLCollectionViewDataProvider ()
 
@@ -177,6 +178,43 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     for (WLCollectionViewSection* section in _sections) {
         [section scrollViewDidScroll:scrollView];
+    }
+    if (self.animationViews.nonempty && scrollView.tracking) {
+        self.direction = [scrollView.panGestureRecognizer translationInView:scrollView].y > 0 ? DirectionDown : DirectionUp;
+    }
+}
+
+- (void)setDirection:(Direction)direction {
+    if (_direction != direction) {
+        _direction = direction;
+        UICollectionView* cv = self.collectionView;
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        [UIView setAnimationDuration:0.3];
+        CGAffineTransform (^transform) (UIView* view) = nil;
+        if (direction == DirectionDown) {
+            transform = ^CGAffineTransform (UIView* view) {
+                return CGAffineTransformIdentity;
+            };
+        } else if (direction == DirectionUp) {
+            transform = ^CGAffineTransform (UIView* subview) {
+                if(IsInBounds(0, cv.width/3, subview.center.x)) {
+                    return CGAffineTransformMakeTranslation(-CGRectGetMaxX(subview.frame), 0);
+                } else if(IsInBounds(2*cv.width/3, cv.width, subview.center.x)) {
+                    return CGAffineTransformMakeTranslation(subview.x, 0);
+                } else if(IsInBounds(0, cv.height/2, subview.center.y)) {
+                    return CGAffineTransformMakeTranslation(0, -CGRectGetMaxY(subview.frame));
+                } else {
+                    return CGAffineTransformMakeTranslation(0, subview.y);
+                }
+            };
+        }
+        for (UIView* subview in cv.superview.subviews) {
+            if (subview == cv) continue;
+            subview.transform = transform(subview);
+        }
+        [UIView commitAnimations];
     }
 }
 

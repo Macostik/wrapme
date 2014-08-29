@@ -21,6 +21,4 @@
 
 @property (strong, nonatomic) WLGroupedSet *groups;
 
-@property (strong, nonatomic) NSString* orderBy;
-
 @end

@@ -10,11 +10,21 @@
 #import "WLCollectionViewSection.h"
 #import "WLRefresher.h"
 
+typedef NS_ENUM(NSUInteger, Direction) {
+    DirectionUnknown,
+    DirectionUp,
+    DirectionDown
+};
+
 @interface WLCollectionViewDataProvider : NSObject <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 
 @property (strong, nonatomic) IBOutletCollection(WLCollectionViewSection) NSMutableArray* sections;
+
+@property (nonatomic) Direction direction;
+
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray* animationViews;
 
 + (instancetype)dataProvider:(UICollectionView*)collectionView;
 

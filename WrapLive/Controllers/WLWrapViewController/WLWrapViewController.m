@@ -45,6 +45,7 @@
 #import "WLCollectionViewDataProvider.h"
 #import "WLTimelineViewDataProvider.h"
 #import "WLTimeline.h"
+#import "UIScrollView+Additions.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
     WLWrapViewTabLive,
@@ -56,19 +57,18 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIView *firstContributorView;
-@property (weak, nonatomic) IBOutlet UILabel *firstContributorWrapNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *viewButton;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @property (strong, nonatomic) WLGroupedSet *groups;
 
 @property (nonatomic) WLWrapViewTab viewTab;
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
-@property (strong, nonatomic) IBOutlet WLCollectionViewSection *wrapViewSection;
 @property (strong, nonatomic) IBOutlet WLCandiesHistoryViewSection *historyViewSection;
 @property (strong, nonatomic) IBOutlet WLTimelineViewDataProvider *timelineDataProvider;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
+@property (weak, nonatomic) IBOutlet WLImageView *coverView;
 
 @end
 
@@ -84,17 +84,11 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         return;
     }
     
-    self.nameLabel.text = WLString(self.wrap.name);
+    [self updateWrapData];
     
-    self.wrapViewSection.defaultFooterSize = CGSizeZero;
     self.historyViewSection.defaultFooterSize = CGSizeZero;
     
-    self.wrapViewSection.defaultHeaderSize = CGSizeZero;
     self.historyViewSection.defaultHeaderSize = CGSizeZero;
-    
-    self.wrapViewSection.defaultFooterSize = CGSizeZero;
-    
-    self.wrapViewSection.entries = [NSMutableOrderedSet orderedSetWithObject:self.wrap];
     
     self.viewTab = [[NSUserDefaults standardUserDefaults] integerForKey:WLWrapViewDefaultTabKey];
     
@@ -111,19 +105,25 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     
     __weak typeof(self)weakSelf = self;
-    [self.wrapViewSection setConfigure:^(WLWrapCell *cell, id entry) {
-        cell.tabControl.selectedSegment = weakSelf.viewTab;
-    }];
-    
     [self.historyViewSection setSelection:^ (id entry) {
         if ([entry isKindOfClass:[WLComment class]]) {
             entry = [entry candy];
         }
-        [weakSelf presentCandy:entry];
+        [entry presentInViewController:weakSelf];
     }];
     self.timelineDataProvider.selection = self.historyViewSection.selection;
     
     [self firstLoadRequest];
+    
+    self.dataProvider.animationViews = self.timelineDataProvider.animationViews;
+}
+
+- (void)updateWrapData {
+    self.nameLabel.text = WLString(self.wrap.name);
+    NSString* url = [self.wrap.picture anyUrl];
+    self.coverView.url = url;
+    self.contributorsLabel.text = [self.wrap contributorNames];
+	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
 }
 
 - (void)firstLoadRequest {
@@ -138,7 +138,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         } else {
             [weakSelf reloadData];
         }
-        [weakSelf setFirstContributorViewHidden:weakSelf.wrap.candies.nonempty animated:YES];
     } failure:^(NSError *error) {
         [error show];
     }];
@@ -172,27 +171,10 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 	}];
 }
 
-- (IBAction)typeMessage:(UIButton *)sender {
-	WLChatViewController * chatController = [WLChatViewController instantiate];
-	chatController.wrap = self.wrap;
-	chatController.shouldShowKeyboard = YES;
-	[self.navigationController pushViewController:chatController animated:YES];
-}
-
-- (void)setFirstContributorViewHidden:(BOOL)hidden animated:(BOOL)animated {
-    __weak typeof(self)weakSelf = self;
-    [UIView performAnimated:animated animation:^{
-        weakSelf.firstContributorView.alpha = hidden ? 0.0f : 1.0f;
-    }];
-    if (!hidden) {
-        self.firstContributorWrapNameLabel.text = self.wrap.name;
-    }
-}
-
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-    self.nameLabel.text = WLString(self.wrap.name);
+    [self updateWrapData];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
@@ -201,9 +183,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
     [self.groups removeEntry:candy];
-    if (!self.wrap.candies.nonempty) {
-        [self setFirstContributorViewHidden:NO animated:self.isOnTopOfNagvigation];
-    }
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
@@ -237,12 +216,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 		controller.wrap = self.wrap;
 		controller.mode = WLCameraModeCandy;
 		controller.delegate = self;
-        [self setFirstContributorViewHidden:YES animated:YES];
 	}
-}
-
-- (IBAction)notNow:(UIButton *)sender {
-	[self setFirstContributorViewHidden:YES animated:YES];
 }
 
 - (IBAction)editWrap:(id)sender {
@@ -271,19 +245,16 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         [[NSUserDefaults standardUserDefaults] setInteger:self.viewTab forKey:WLWrapViewDefaultTabKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
         self.historyViewSection.completed = NO;
-        [self.collectionView setContentOffset:CGPointZero animated:YES];
+        [self.collectionView scrollToTopAnimated:YES];
         [self.dataProvider reload];
     }
 }
 
-- (void)presentCandy:(WLCandy*)candy {
-    if ([candy isImage]) {
-		WLCandyViewController *candyController = (id)[candy viewController];
-        candyController.orderBy = (self.viewTab == WLWrapViewTabLive) ? WLCandiesOrderByUpdating : WLCandiesOrderByCreation;
-        [self.navigationController pushViewController:candyController animated:YES];
-	} else if ([candy isMessage]) {
-        [candy presentInViewController:self];
-	}
+- (IBAction)typeMessage:(UIButton *)sender {
+	WLChatViewController * chatController = [WLChatViewController instantiate];
+	chatController.wrap = self.wrap;
+	chatController.shouldShowKeyboard = YES;
+	[self.navigationController pushViewController:chatController animated:YES];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate
@@ -292,12 +263,10 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     [self changeViewTab:WLWrapViewTabLive];
     WLWrap* wrap = controller.wrap ? : self.wrap;
     [wrap uploadPictures:pictures];
-    [self setFirstContributorViewHidden:YES animated:NO];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-	[self setFirstContributorViewHidden:YES animated:NO];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

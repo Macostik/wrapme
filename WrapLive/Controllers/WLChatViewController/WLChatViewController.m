@@ -88,12 +88,8 @@
 	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
 	self.composeBar.placeholder = @"Write your message ...";
 	
-	run_getting_object(^id{
-		return [weakSelf.wrap messages];
-	}, ^(id object) {
-		[weakSelf setMessages:object];
-		[weakSelf loadMessages:nil];
-	});
+	[weakSelf setMessages:self.wrap.candies];
+    [weakSelf refreshMessages];
 	
 	self.backSwipeGestureEnabled = YES;
     self.indicator.cornerRadius = self.indicator.width/2;

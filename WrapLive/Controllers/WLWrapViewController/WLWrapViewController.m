@@ -139,7 +139,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
             [weakSelf reloadData];
         }
     } failure:^(NSError *error) {
-        [error show];
+        [error showIgnoringNetworkError];
     }];
 }
 

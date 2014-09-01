@@ -24,6 +24,7 @@
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (strong, nonatomic) NSOrderedSet* comments;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end
 
@@ -52,6 +53,9 @@
 }
 
 - (void)setupItemData:(WLCandy*)image {
+    if (self.refresher.refreshing) {
+        [self.refresher endRefreshing];
+    }
 	__weak typeof(self)weakSelf = self;
     if (![WLInternetConnectionBroadcaster broadcaster].reachable) {
         self.progressBar.progress = .2f;
@@ -71,6 +75,7 @@
 		}
     }];
 	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
+    self.nameLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
     self.progressBar.hidden = image.uploaded;
 	[self reloadComments];
     image.unread = @NO;

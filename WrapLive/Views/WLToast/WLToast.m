@@ -32,6 +32,7 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
         self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
         self.textColor = [UIColor whiteColor];
         self.contentMode = UIViewContentModeBottom;
+        self.startY = -self.height;
     }
     return self;
 }
@@ -56,6 +57,14 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 
 - (UIViewContentMode)toastAppearanceContentMode:(WLToast *)toast {
     return self.contentMode;
+}
+
+- (CGFloat)toastAppearanceStartY:(WLToast *)toast {
+    return self.startY;
+}
+
+- (CGFloat)toastAppearanceEndY:(WLToast *)toast {
+    return self.endY;
 }
 
 @end
@@ -98,7 +107,7 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 }
 
 - (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance inView:(UIView *)view {
-	
+	   
 	self.height = [appearance respondsToSelector:@selector(toastAppearanceHeight:)] ? [appearance toastAppearanceHeight:self] : WLToastDefaultHeight;
 	
 	self.iconView.hidden = [appearance respondsToSelector:@selector(toastAppearanceShouldShowIcon:)] ? ![appearance toastAppearanceShouldShowIcon:self] : YES;
@@ -131,17 +140,30 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
         self.messageLabel.y = self.height/2 - self.messageLabel.height/2;
     }
 	
+    CGFloat startY = -self.height;
+    
+    if ([appearance respondsToSelector:@selector(toastAppearanceStartY:)]) {
+        startY = [appearance toastAppearanceStartY:self];
+    }
+    
 	if (self.superview == nil) {
-		self.y = -self.height;
+		self.y = startY;
 		[view addSubview:self];
 	}
 	
-	if (self.y != 0) {
+    CGFloat endY = 0;
+    
+    if ([appearance respondsToSelector:@selector(toastAppearanceEndY:)]) {
+        endY = [appearance toastAppearanceEndY:self];
+    }
+    
+	if (self.y != endY || self.alpha != 1.0f) {
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.25f];
 		[UIView setAnimationBeginsFromCurrentState:YES];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-		self.y = 0;
+		self.y = endY;
+        self.alpha = 1.0f;
 		[UIView commitAnimations];
 	}
 	
@@ -152,6 +174,7 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 
 - (void)removeFromSuperview {
     [super removeFromSuperview];
+    self.alpha = 0.0f;
 }
 
 - (void)dismiss {
@@ -159,7 +182,11 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 	[UIView setAnimationDuration:0.25f];
 	[UIView setAnimationBeginsFromCurrentState:YES];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-	self.y = -self.height;
+    if (self.y == 0) {
+        self.y = -self.height;
+    } else {
+        self.alpha = 0.0f;
+    }
 	[UIView commitAnimations];
 	[self performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:5];
 }
@@ -168,6 +195,7 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 	self = [super initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, WLToastDefaultHeight)];
 	if (self) {
 		self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
+        self.alpha = 0.0f;
 	}
 	return self;
 }

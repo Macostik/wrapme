@@ -26,14 +26,11 @@
     return [self request:wrap page:1];
 }
 
-+ (NSTimeInterval)timeout {
-    return 5;
-}
-
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
     if (self.page == 0) {
         self.page = 1;
     }
+    self.timeout = [self.contentType isEqualToString:WLWrapContentTypeAuto] ? 5 : 45;
     [parameters trySetObject:@([[NSTimeZone localTimeZone] secondsFromGMT]) forKey:@"utc_offset"];
 	[parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
 	[parameters trySetObject:@(self.page) forKey:@"group_by_date_page_number"];

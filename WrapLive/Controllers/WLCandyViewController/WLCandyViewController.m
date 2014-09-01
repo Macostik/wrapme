@@ -400,7 +400,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(collectionView.width, collectionView.height);
+    return collectionView.size;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -411,11 +411,6 @@
     if (!decelerate) {
         [self refresh];
     }
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    CGFloat i = roundf(targetContentOffset->x / (scrollView.width + 20));
-    targetContentOffset->x = (scrollView.width + 20) * i;
 }
 
 @end

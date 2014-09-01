@@ -48,7 +48,6 @@
 			WLWrap *wrap = [WLWrap entry:identifier];
             if (wrap.valid) {
                 _wrap = wrap;
-                [wrap addCandy:self.candy];
             }
 		}
 	}
@@ -61,15 +60,14 @@
 		if (identifier.nonempty) {
 			WLCandy *candy = [WLCandy entry:identifier];
             if (candy.valid) {
-                [candy touch];
                 _candy = candy;
+                _candy.wrap = self.wrap;
                 WLNotificationType type = self.type;
                 if (type == WLNotificationImageCandyAddition || type == WLNotificationImageCandyDeletion || type == WLNotificationCandyCommentAddition || type == WLNotificationCandyCommentDeletion) {
                     candy.type = @(WLCandyTypeImage);
                 } else if (type == WLNotificationChatCandyAddition) {
                     candy.type = @(WLCandyTypeMessage);
                 }
-//                [candy addComment:self.comment];
             }
 		}
 	}
@@ -124,12 +122,32 @@
     if (![self deletion]) {
         wrap.unread = @YES;
         if (type == WLNotificationContributorAddition) {
-            [wrap fetch:block failure:^(NSError *error) {
-            }];
-        } else {
+            if (wrap.name.nonempty) {
+                block(wrap);
+            } else {
+                [wrap fetch:block failure:^(NSError *error) { }];
+            }
+        } else if (type == WLNotificationImageCandyAddition) {
             candy.unread = @YES;
-            [candy fetch:block failure:^(NSError *error) {
-            }];
+            if (candy.picture) {
+                block(candy);
+            } else {
+                [candy fetch:block failure:^(NSError *error) { }];
+            }
+        } else if (type == WLNotificationChatCandyAddition) {
+            candy.unread = @YES;
+            if (candy.message.nonempty) {
+                block(candy);
+            } else {
+                [candy fetch:block failure:^(NSError *error) { }];
+            }
+        } else if (type == WLNotificationCandyCommentAddition) {
+            candy.unread = @YES;
+            if ([candy.comments containsObject:comment]) {
+                block(candy);
+            } else {
+                [candy fetch:block failure:^(NSError *error) { }];
+            }
         }
     } else {
         block(nil);

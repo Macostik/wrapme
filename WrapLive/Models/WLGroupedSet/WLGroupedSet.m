@@ -23,7 +23,6 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-//        self.dateFormat = @"MMM dd, yyyy";
         self.type = @(WLCandyTypeImage);
         self.sortComparator = comparatorByDateDescending;
     }
@@ -41,10 +40,12 @@
     BOOL added = NO;
     NSMutableOrderedSet* _entries = [entries mutableCopy];
     while (_entries.nonempty) {
-        WLCandy* candy = [_entries firstObject];
-        NSDate* date = candy.createdAt;
+        NSDate* date = [[_entries firstObject] createdAt];
+        NSDate* beginOfDay = nil;
+        NSDate* endOfDay = nil;
+        [date getBeginOfDay:&beginOfDay endOfDay:&endOfDay];
         WLGroup* group = [self groupForDate:date create:YES];
-        predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND createdAt <= %@", [date beginOfDay], [date endOfDay]];
+        predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND createdAt <= %@", beginOfDay, endOfDay];
         NSOrderedSet* dayEntries = [_entries filteredOrderedSetUsingPredicate:predicate];
         if ([group addEntries:dayEntries]) {
             added = YES;

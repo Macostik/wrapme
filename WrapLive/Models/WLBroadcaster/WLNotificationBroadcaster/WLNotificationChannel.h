@@ -14,6 +14,8 @@
 
 @interface WLNotificationChannel : NSObject
 
+@property (strong, nonatomic) PNChannel* channel;
+
 @property (strong, nonatomic) NSString* name;
 
 @property (nonatomic, readonly) BOOL subscribed;

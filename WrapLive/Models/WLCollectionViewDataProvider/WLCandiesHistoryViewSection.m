@@ -23,4 +23,6 @@
     [super append:success failure:failure];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath { }
+
 @end

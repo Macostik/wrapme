@@ -15,8 +15,6 @@
 
 @interface WLNotificationChannel ()
 
-@property (strong, nonatomic) PNChannel* channel;
-
 @end
 
 @implementation WLNotificationChannel

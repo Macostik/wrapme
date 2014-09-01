@@ -46,6 +46,7 @@
 #import "WLTimelineViewDataProvider.h"
 #import "WLTimeline.h"
 #import "UIScrollView+Additions.h"
+#import "WLSupportFunctions.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
     WLWrapViewTabLive,
@@ -87,7 +88,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     [self updateWrapData];
     
     self.historyViewSection.defaultFooterSize = CGSizeZero;
-    
     self.historyViewSection.defaultHeaderSize = CGSizeZero;
     
     self.viewTab = [[NSUserDefaults standardUserDefaults] integerForKey:WLWrapViewDefaultTabKey];

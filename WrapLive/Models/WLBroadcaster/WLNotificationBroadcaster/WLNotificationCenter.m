@@ -34,9 +34,13 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 
 @property (strong, nonatomic) WLNotificationChannel* userChannel;
 
+@property (strong, nonatomic) NSDate* historyDate;
+
 @end
 
 @implementation WLNotificationCenter
+
+@synthesize historyDate = _historyDate;
 
 + (instancetype)defaultCenter {
     static id instance = nil;
@@ -45,6 +49,19 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 		instance = [[self alloc] init];
 	});
     return instance;
+}
+
+- (NSDate *)historyDate {
+    if (!_historyDate) {
+        _historyDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"historyDate"];
+    }
+    return _historyDate;
+}
+
+- (void)setHistoryDate:(NSDate *)historyDate {
+    _historyDate = historyDate;
+    [[NSUserDefaults standardUserDefaults] setObject:historyDate forKey:@"historyDate"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (NSMutableOrderedSet *)storedNotifications {
@@ -127,6 +144,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             [weakSelf storeNotification:notification];
             [weakSelf broadcastNotification:notification];
         }];
+        weakSelf.historyDate = [NSDate date];
     }];
     self.typingChannel = [[WLNotificationChannel alloc] init];
     self.typingChannel.supportPresense = YES;
@@ -138,7 +156,18 @@ static WLDataBlock deviceTokenCompletion = nil;
 	if (!name.nonempty) {
 		return;
 	}
-    [self.userChannel setName:name subscribe:YES];
+    [self.userChannel setName:name subscribe:NO];
+    __weak typeof(self)weakSelf = self;
+    [self.userChannel subscribe:^{
+        [PubNub requestHistoryForChannel:self.userChannel.channel from:[PNDate dateWithDate:weakSelf.historyDate] to:[PNDate dateWithDate:[NSDate date]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, PNChannel *channel, PNDate *from, PNDate *to, PNError *error) {
+            if (!error) {
+                weakSelf.historyDate = [NSDate date];
+                for (PNMessage* message in messages) {
+                    weakSelf.userChannel.receive([WLNotification notificationWithMessage:message]);
+                }
+            }
+        }];
+    } failure:nil];
     [PubNub setClientIdentifier:name];
 }
 

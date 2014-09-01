@@ -12,4 +12,6 @@
 
 @property (strong, nonatomic) WLGroup* group;
 
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+
 @end

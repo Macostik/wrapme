@@ -12,8 +12,6 @@
 
 @interface WLMessageGroupCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-
 @end
 
 @implementation WLMessageGroupCell

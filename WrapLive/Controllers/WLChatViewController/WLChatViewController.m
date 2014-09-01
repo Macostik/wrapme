@@ -32,10 +32,11 @@
 #import "WLNotificationCenter.h"
 #import "WLNotification.h"
 
-
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver>
 
 @property (nonatomic, strong) WLGroupedSet* groups;
+
+@property (strong, nonatomic) NSMutableOrderedSet *groupTyping;
 
 @property (nonatomic, weak) WLRefresher* refresher;
 
@@ -109,6 +110,7 @@
             weakSelf.indicator.backgroundColor = [UIColor greenColor];
         }];
     }
+    self.groupTyping = [NSMutableOrderedSet orderedSet];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -318,29 +320,35 @@
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-	return [self.groups.entries count];
+    return [self.groups.entries count] + NSINTEGER_DEFINED;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	WLGroup* group = [self.groups.entries tryObjectAtIndex:section];
-	return [group.entries count];
+    if (!section ) {
+        return [self.groupTyping count];
+    }
+   
+    WLGroup* group = [self.groups.entries tryObjectAtIndex:section - 1];
+    return [group.entries count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLMessageCell* cell = nil;
-	WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section];
-    id entry = [group.entries objectAtIndex:indexPath.row];
-    if ([entry isKindOfClass:[WLCandy class]]) {
-        WLCandy* message = entry;
-        message.unread = @NO;
-        BOOL isMyComment = [message.contributor isCurrentUser];
-        NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
-        cell =  [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-        cell.item = message;
-    } else {
-        WLUser *message = entry;
+   WLMessageCell* cell = nil;
+    if (!indexPath.section) {
+        WLUser *typingUser = [self.groupTyping objectAtIndex:indexPath.row];
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WLMessageCell" forIndexPath:indexPath];
-        cell.item = message;
+        cell.item = typingUser;
+    } else {
+        WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section - 1];
+        id entry = [group.entries objectAtIndex:indexPath.row];
+        if ([entry isKindOfClass:[WLCandy class]]) {
+            WLCandy* message = entry;
+            message.unread = @NO;
+            BOOL isMyComment = [message.contributor isCurrentUser];
+            NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
+            cell =  [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+            cell.item = message;
+        }
     }
 	
 	[self handlePaginationWithIndexPath:indexPath];
@@ -348,8 +356,13 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if (!indexPath.section ) {
+        WLMessageGroupCell* groupCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WLMessageGroupCell" forIndexPath:indexPath];
+        groupCell.dateLabel.text = [[NSDate date] string];
+        return groupCell;
+    }
 	WLMessageGroupCell* groupCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WLMessageGroupCell" forIndexPath:indexPath];
-	groupCell.group = [self.groups.entries tryObjectAtIndex:indexPath.section];
+	groupCell.group = [self.groups.entries tryObjectAtIndex:indexPath.section - 1];
 	return groupCell;
 }
 
@@ -361,17 +374,19 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section];
+    if (!indexPath.section ) {
+        return CGSizeMake(collectionView.width, 66);
+    }
+	WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section - 1];
 	WLCandy* message = [group.entries tryObjectAtIndex:indexPath.row];
 	return CGSizeMake(collectionView.frame.size.width, [self heightOfMessageCell:message]);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-	if (section < [self.groups.entries count]) {
-		return CGSizeMake(collectionView.frame.size.width, 32);
-	} else {
-		return CGSizeZero;
-	}
+    if (!section && [[[self.groups.entries firstObject] date] isToday]) {
+        return CGSizeZero;
+    }
+	return CGSizeMake(collectionView.frame.size.width, 32);
 }
 
 - (void)handlePaginationWithIndexPath:(NSIndexPath*)indexPath {
@@ -389,13 +404,16 @@
 
 - (void)broadcaster:(WLNotificationCenter *)broadcaster didBeginTyping:(WLUser *)user {
     if(user) {
-        [self insertMessage:(id)user];
+        [self.groupTyping insertObject:user atIndex:0];
+        [self.collectionView reloadData];
     }
 }
 
 - (void)broadcaster:(WLNotificationCenter *)broadcaster didEndTyping:(WLUser *)user {
-    [self.groups removeEntry:(id)user];
-    [self.collectionView reloadData];
+    if ([self.groupTyping containsObject:user]) {
+        [self.groupTyping removeObject:user];
+        [self.collectionView reloadData];
+    }
 }
 
 @end

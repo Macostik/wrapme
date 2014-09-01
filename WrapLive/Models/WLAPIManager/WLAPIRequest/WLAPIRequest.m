@@ -35,6 +35,7 @@
     self = [super init];
     if (self) {
         self.method = [[self class] defaultMethod];
+        self.timeout = [[self class] timeout];
     }
     return self;
 }
@@ -65,7 +66,7 @@
     NSMutableDictionary* parameters = [self configure:[NSMutableDictionary dictionary]];
     NSString* url = [self.manager urlWithPath:self.path];
     NSMutableURLRequest *request = [self request:parameters url:url];
-    request.timeoutInterval = [[self class] timeout];
+    request.timeoutInterval = self.timeout;
     WLLog(self.method, url, parameters);
     
     __strong typeof(self)strongSelf = self;

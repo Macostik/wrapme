@@ -31,6 +31,8 @@
 
 @property (readonly, nonatomic) BOOL loading;
 
+@property (nonatomic) NSTimeInterval timeout;
+
 + (instancetype)request;
 
 + (NSString*)defaultMethod;

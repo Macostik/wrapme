@@ -166,9 +166,11 @@
 - (void)fetchCandies {
     __weak typeof(self)weakSelf = self;
     [self.group send:^(NSOrderedSet *candies) {
-        if (candies.nonempty) {
-            [weakSelf.collectionView reloadData];
-        }
+        NSOrderedSet* messages = [candies selectObjects:^BOOL(id item) {
+            return [item isMessage];
+        }];
+        if (messages.nonempty) [weakSelf.group.entries minusOrderedSet:messages];
+        if (candies.nonempty) [weakSelf.collectionView reloadData];
     } failure:^(NSError *error) {
         if (error.isNetworkError) {
             weakSelf.group.completed = YES;
@@ -394,8 +396,14 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLDetailedCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLDetailedCandyCellIdentifier forIndexPath:indexPath];
-    cell.item = [self.group.entries tryObjectAtIndex:indexPath.item];
-    [self fetchOlder:cell.item];
+    WLCandy* candy = [self.group.entries tryObjectAtIndex:indexPath.item];
+    if (candy.valid) {
+        [self fetchOlder:cell.item];
+        cell.item = candy;
+    } else {
+        cell.item = nil;
+        [candy remove];
+    }
     return cell;
 }
 

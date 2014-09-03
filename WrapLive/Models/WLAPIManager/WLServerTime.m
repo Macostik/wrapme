@@ -7,6 +7,7 @@
 //
 
 #import "WLServerTime.h"
+#import "WLSession.h"
 
 static NSString* WLServerTimeDeifference = @"WLServerTimeDeifference";
 
@@ -17,7 +18,7 @@ static NSTimeInterval _difference = 0;
 + (NSTimeInterval)difference {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _difference = [[NSUserDefaults standardUserDefaults] doubleForKey:WLServerTimeDeifference];
+        _difference = [WLSession wl_double:WLServerTimeDeifference];
     });
     return _difference;
 }
@@ -25,8 +26,7 @@ static NSTimeInterval _difference = 0;
 + (void)setDifference:(NSTimeInterval)interval {
     if (_difference != interval) {
         _difference = interval;
-        [[NSUserDefaults standardUserDefaults] setDouble:interval forKey:WLServerTimeDeifference];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [WLSession setDouble:interval key:WLServerTimeDeifference];
     }
 }
 

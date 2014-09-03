@@ -72,7 +72,7 @@
 	[super viewDidLoad];
     
     self.groups = [[WLGroupedSet alloc] init];
-    self.groups.type = @(WLCandyTypeMessage);
+    self.groups.type = WLCandyTypeMessage;
 	
 	if (self.wrap.name.nonempty) {
 		self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(self.wrap.name)];
@@ -198,7 +198,7 @@
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
-    candy.unread = @NO;
+    if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
     [self insertMessage:candy];
 }
 
@@ -226,7 +226,7 @@
     return self.wrap;
 }
 
-- (WLCandyType)broadcasterPreferedCandyType:(WLWrapBroadcaster *)broadcaster {
+- (NSInteger)broadcasterPreferedCandyType:(WLWrapBroadcaster *)broadcaster {
     return WLCandyTypeMessage;
 }
 
@@ -339,7 +339,7 @@
         id entry = [group.entries objectAtIndex:indexPath.row];
         if ([entry isKindOfClass:[WLCandy class]]) {
             WLCandy* message = entry;
-            message.unread = @NO;
+            if (!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
             BOOL isMyComment = [message.contributor isCurrentUser];
             NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
             cell =  [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];

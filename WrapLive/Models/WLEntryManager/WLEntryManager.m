@@ -155,7 +155,9 @@
 
 - (void)save {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(enqueueSaving) object:nil];
-    [self performSelector:@selector(enqueueSaving) withObject:nil afterDelay:1.0f];
+    if ([self.context hasChanges]) {
+        [self performSelector:@selector(enqueueSaving) withObject:nil afterDelay:1.0f];
+    }
 }
 
 - (void)enqueueSaving {
@@ -251,6 +253,9 @@ static NSString *WLEntryIdentifierKey = @"identifier";
 - (void)awakeFromInsert {
     [super awakeFromInsert];
     [[WLEntryManager manager] cacheEntry:self];
+    if (!self.picture) {
+        self.picture = [[WLPicture alloc] init];
+    }
 }
 
 - (void)awakeFromFetch {

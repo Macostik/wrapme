@@ -78,7 +78,7 @@
 	WLCandy* candy = self.entry;
     if (candy.valid) {
         self.notifyBulb.hidden = YES;
-        candy.unread = @NO;
+        if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
         [super select:entry];
     }
 }

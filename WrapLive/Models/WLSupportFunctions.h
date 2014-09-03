@@ -13,7 +13,7 @@ void logTimecost(NSString* key, int iterations, timecost_block block);
 NSTimeInterval timecost(timecost_block block);
 
 static inline void compareTimecost(timecost_block block1, timecost_block block2) {
-    NSLog(@"\ntimecost 1 = %f\ntimecost 2 = %f", timecost(block1), timecost(block1));
+    NSLog(@"\ntimecost 1 = %f\ntimecost 2 = %f", timecost(block1), timecost(block2));
 }
 
 struct CGLine {

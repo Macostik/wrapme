@@ -627,6 +627,7 @@
 		C5947E5418F52AE000BDF038 /* WLMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLMessageCell.m; path = WLChatViewController/WLMessageCell/WLMessageCell.m; sourceTree = "<group>"; };
 		C59528EC191CD9A6001ECD7C /* WLContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContactCell.h; path = WLContributorsViewController/WLContactCell/WLContactCell.h; sourceTree = "<group>"; };
 		C59528ED191CD9A6001ECD7C /* WLContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContactCell.m; path = WLContributorsViewController/WLContactCell/WLContactCell.m; sourceTree = "<group>"; };
+		C5991A2D19B5F149004EE00F /* WLEntryKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryKeys.h; sourceTree = "<group>"; };
 		C599F9D019AF5751008C7DFA /* NSObject+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extension.h"; sourceTree = "<group>"; };
 		C599F9D119AF5751008C7DFA /* NSObject+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extension.m"; sourceTree = "<group>"; };
 		C599F9D319AF5A42008C7DFA /* WLEntryFetching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryFetching.h; sourceTree = "<group>"; };
@@ -1884,6 +1885,7 @@
 				C50445B21951AA8F003C2251 /* WLUser+Extended.m */,
 				C50445B31951AA8F003C2251 /* WLWrap+Extended.h */,
 				C50445B41951AA8F003C2251 /* WLWrap+Extended.m */,
+				C5991A2D19B5F149004EE00F /* WLEntryKeys.h */,
 			);
 			path = Extended;
 			sourceTree = "<group>";

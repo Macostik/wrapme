@@ -23,7 +23,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.type = @(WLCandyTypeImage);
+        self.type = WLCandyTypeImage;
         self.sortComparator = comparatorByDateDescending;
     }
     return self;
@@ -35,22 +35,26 @@
 }
 
 - (BOOL)addEntries:(NSOrderedSet *)entries {
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"type == %@", self.type];
-    entries = [entries filteredOrderedSetUsingPredicate:predicate];
+    NSInteger type = self.type;
+    entries = [entries selectObjects:^BOOL(id item) {
+        return [item isCandyOfType:type];
+    }];
     BOOL added = NO;
-    NSMutableOrderedSet* _entries = [entries mutableCopy];
-    while (_entries.nonempty) {
-        NSDate* date = [[_entries firstObject] createdAt];
-        NSDate* beginOfDay = nil;
-        NSDate* endOfDay = nil;
-        [date getBeginOfDay:&beginOfDay endOfDay:&endOfDay];
+    NSMutableOrderedSet* entriesCopy = [entries mutableCopy];
+    while (entriesCopy.nonempty) {
+        NSDate* date = [[entriesCopy firstObject] createdAt];
+        NSDateComponents* components = [date dayComponents];
         WLGroup* group = [self groupForDate:date create:YES];
-        predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND createdAt <= %@", beginOfDay, endOfDay];
-        NSOrderedSet* dayEntries = [_entries filteredOrderedSetUsingPredicate:predicate];
+        NSOrderedSet* dayEntries = [entriesCopy selectObjects:^BOOL(id item) {
+            if (components == nil) {
+                return [item createdAt] == nil;
+            }
+            return [[item createdAt] isSameDayComponents:components];
+        }];
         if ([group addEntries:dayEntries]) {
             added = YES;
         }
-        [_entries minusOrderedSet:dayEntries];
+        [entriesCopy minusOrderedSet:dayEntries];
     }
     if (added) {
         [self.entries sort:self.sortComparator];
@@ -59,7 +63,7 @@
 }
 
 - (BOOL)addEntry:(WLCandy*)candy {
-    if (![candy.type isEqualToNumber:self.type]) {
+    if (![candy isCandyOfType:self.type]) {
         return NO;
     }
     WLGroup* group = [self groupForDate:candy.createdAt create:YES];
@@ -93,7 +97,7 @@
 }
 
 - (void)sort:(WLCandy*)candy {
-    if (![candy.type isEqualToNumber:self.type]) {
+    if (![candy isCandyOfType:self.type]) {
         return;
     }
     WLGroup* group = [self groupForDate:candy.createdAt create:YES];

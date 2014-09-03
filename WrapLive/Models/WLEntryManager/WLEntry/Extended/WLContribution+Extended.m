@@ -29,23 +29,25 @@
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
     [self parseContributor:dictionary];
-    self.uploadIdentifier = [dictionary stringForKey:@"upload_uid"];
+    NSString* uploadIdentifier = [dictionary stringForKey:WLUploadUIDKey];
+    if (!NSStringEqual(self.uploadIdentifier, uploadIdentifier)) self.uploadIdentifier = uploadIdentifier;
     return [super API_setup:dictionary relatedEntry:relatedEntry];
 }
 
 - (void)parseContributor:(NSDictionary*)dictionary {
-    NSString* identifier = [dictionary stringForKey:@"contributor_uid"];
+    NSString* identifier = [dictionary stringForKey:WLContributorUIDKey];
+    if (!identifier.nonempty) return;
     WLUser* contributor = self.contributor;
-    if (![contributor.identifier isEqualToString:identifier]) {
-        contributor = [WLUser entry:[dictionary stringForKey:@"contributor_uid"]];
+    if (!NSStringEqual(contributor.identifier, identifier)) {
+        contributor = [WLUser entry:identifier];
         self.contributor = contributor;
     }
-    contributor.name = [dictionary stringForKey:@"contributor_name"];
-	WLPicture* picture = [[WLPicture alloc] init];
-	picture.large = [dictionary stringForKey:@"contributor_large_avatar_url"];
-	picture.medium = [dictionary stringForKey:@"contributor_medium_avatar_url"];
-	picture.small = [dictionary stringForKey:@"contributor_small_avatar_url"];
-	contributor.picture = picture;
+    NSString* name = [dictionary stringForKey:WLContributorNameKey];
+    if (!NSStringEqual(contributor.name, name)) contributor.name = name;
+	WLPicture* picture = contributor.picture;
+	picture.large = [dictionary stringForKey:WLContributorLargeAvatarKey];
+	picture.medium = [dictionary stringForKey:WLContributorMediumAvatarKey];
+	picture.small = [dictionary stringForKey:WLContributorSmallAvatarKey];
 }
 
 - (BOOL)shouldStartUploadingAutomatically {

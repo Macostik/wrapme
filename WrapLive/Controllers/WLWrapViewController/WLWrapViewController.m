@@ -47,6 +47,8 @@
 #import "WLTimeline.h"
 #import "UIScrollView+Additions.h"
 #import "WLSupportFunctions.h"
+#import "WLSession.h"
+#import "NSString+Additions.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
     WLWrapViewTabLive,
@@ -90,7 +92,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     self.historyViewSection.defaultFooterSize = CGSizeZero;
     self.historyViewSection.defaultHeaderSize = CGSizeZero;
     
-    self.viewTab = [[NSUserDefaults standardUserDefaults] integerForKey:WLWrapViewDefaultTabKey];
+    self.viewTab = [WLSession integer:WLWrapViewDefaultTabKey];
     
     self.groups = [[WLGroupedSet alloc] init];
     [self.groups addEntries:self.wrap.candies];
@@ -154,7 +156,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
         return;
     }
     
-    self.wrap.unread = @NO;
+    if (!NSNumberEqual(self.wrap.unread, @NO)) self.wrap.unread = @NO;
     [self.dataProvider reload];
 }
 
@@ -204,7 +206,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     return self.wrap;
 }
 
-- (WLCandyType)broadcasterPreferedCandyType:(WLWrapBroadcaster *)broadcaster {
+- (NSInteger)broadcasterPreferedCandyType:(WLWrapBroadcaster *)broadcaster {
     return WLCandyTypeImage;
 }
 
@@ -242,8 +244,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 - (void)changeViewTab:(WLWrapViewTab)viewTab {
     if (_viewTab != viewTab) {
         self.viewTab = viewTab;
-        [[NSUserDefaults standardUserDefaults] setInteger:self.viewTab forKey:WLWrapViewDefaultTabKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [WLSession setInteger:self.viewTab key:WLWrapViewDefaultTabKey];
         self.historyViewSection.completed = NO;
         [self.collectionView scrollToTopAnimated:YES];
         [self.dataProvider reload];

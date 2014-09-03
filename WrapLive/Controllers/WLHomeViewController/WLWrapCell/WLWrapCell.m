@@ -113,7 +113,7 @@
 - (IBAction)select:(id)sender {
 	self.notifyBulb.hidden = YES;
 	WLWrap* wrap = self.entry;
-    wrap.unread = @NO;
+    if (!NSNumberEqual(wrap.unread, @NO)) wrap.unread = @NO;
     [super select:sender];
 }
 

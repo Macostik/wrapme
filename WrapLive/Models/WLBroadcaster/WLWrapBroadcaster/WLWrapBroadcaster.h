@@ -28,7 +28,7 @@
 @optional
 - (WLWrap*)broadcasterPreferedWrap:(WLWrapBroadcaster*)broadcaster;
 
-- (WLCandyType)broadcasterPreferedCandyType:(WLWrapBroadcaster*)broadcaster;
+- (NSInteger)broadcasterPreferedCandyType:(WLWrapBroadcaster*)broadcaster;
 
 - (WLCandy*)broadcasterPreferedCandy:(WLWrapBroadcaster*)broadcaster;
 

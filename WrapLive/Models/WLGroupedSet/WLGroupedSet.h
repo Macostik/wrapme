@@ -15,7 +15,7 @@
 
 @interface WLGroupedSet : WLPaginatedSet
 
-@property (strong, nonatomic) NSNumber* type;
+@property (nonatomic) NSInteger type;
 
 - (void)clear;
 

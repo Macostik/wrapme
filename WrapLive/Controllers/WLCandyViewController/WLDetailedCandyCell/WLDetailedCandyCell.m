@@ -78,7 +78,7 @@
     self.nameLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
     self.progressBar.hidden = image.uploaded;
 	[self reloadComments];
-    image.unread = @NO;
+    if (!NSNumberEqual(image.unread, @NO)) image.unread = @NO;
 }
 
 - (void)reloadComments {

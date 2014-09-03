@@ -10,6 +10,7 @@
 #import "WLEntryManager.h"
 #import "WLWrapBroadcaster.h"
 #import "NSString+Additions.h"
+#import "WLSupportFunctions.h"
 
 @implementation WLCandy (Extended)
 
@@ -17,7 +18,7 @@
     return @2;
 }
 
-+ (instancetype)candyWithType:(WLCandyType)type wrap:(WLWrap*)wrap {
++ (instancetype)candyWithType:(NSInteger)type wrap:(WLWrap*)wrap {
     WLCandy* candy = [self contribution];
     candy.type = @(type);
     [wrap addCandy:candy];
@@ -25,35 +26,41 @@
 }
 
 + (NSString *)API_identifier:(NSDictionary *)dictionary {
-	return [dictionary stringForKey:@"candy_uid"];
+	return [dictionary stringForKey:WLCandyUIDKey];
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
-	[super API_setup:dictionary relatedEntry:relatedEntry];
-	self.type = [dictionary numberForKey:@"candy_type"];
-	self.message = [dictionary stringForKey:@"chat_message"];
-    if (!self.comments) {
-        self.comments = [NSMutableOrderedSet orderedSet];
+    [super API_setup:dictionary relatedEntry:relatedEntry];
+    NSNumber* type = [dictionary numberForKey:WLCandyTypeKey];
+    if (!NSNumberEqual(self.type, type)) self.type = type;
+    NSString* message = [dictionary stringForKey:WLCandyMessageKey];
+    if (!NSStringEqual(self.message, message)) self.message = message;
+    NSMutableOrderedSet* comments = self.comments;
+    if (!comments) {
+        comments = [NSMutableOrderedSet orderedSet];
+        self.comments = comments;
     }
-    [WLComment API_entries:[dictionary arrayForKey:@"comments"] relatedEntry:self container:self.comments];
-    [self.comments sortByCreatedAtAscending];
-	WLPicture* picture = [[WLPicture alloc] init];
-	picture.large = [dictionary stringForKey:@"large_image_attachment_url"];
-	picture.medium = [dictionary stringForKey:@"medium_sq_image_attachment_url"];
-	picture.small = [dictionary stringForKey:@"small_sq_image_attachment_url"];
-	self.picture = picture;
-    self.wrap = relatedEntry ? : (self.wrap ? : [WLWrap entry:[dictionary stringForKey:@"wrap_uid"]]);
+    [WLComment API_entries:[dictionary arrayForKey:WLCommentsKey] relatedEntry:self container:comments];
+    if (comments.nonempty) [comments sortByCreatedAtAscending];
+    WLPicture* picture = self.picture;
+    picture.large = [dictionary stringForKey:WLCandyLargeURLKey];
+    picture.medium = [dictionary stringForKey:WLCandyMediumURLKey];
+    picture.small = [dictionary stringForKey:WLCandySmallURLKey];
+    WLWrap* currentWrap = self.wrap;
+    WLWrap* wrap = relatedEntry ? : (currentWrap ? : [WLWrap entry:[dictionary stringForKey:WLWrapUIDKey]]);
+    if (wrap != currentWrap) self.wrap = wrap;
     return self;
 }
 
 - (void)touch:(NSDate *)date {
     [super touch:date];
-    [self.wrap touch:date];
-    [self.wrap sortCandies];
+    WLWrap* wrap = self.wrap;
+    [wrap touch:date];
+    [wrap sortCandies];
 }
 
-- (BOOL)isCandyOfType:(WLCandyType)type {
-    return [self.type integerValue] == type;
+- (BOOL)isCandyOfType:(NSInteger)type {
+    return [self.type isEqualToInteger:type];
 }
 
 - (BOOL)isImage {
@@ -80,15 +87,17 @@
         return;
     }
     comment.candy = self;
-    [self.comments addObject:comment];
-    [self.comments sortByCreatedAtAscending];
+    NSMutableOrderedSet* comments = self.comments;
+    [comments addObject:comment];
+    [comments sortByCreatedAtAscending];
     [self touch];
     [self broadcastChange];
 }
 
 - (void)removeComment:(WLComment *)comment {
-    if ([self.comments containsObject:comment]) {
-        [self.comments removeObject:comment];
+    NSMutableOrderedSet* comments = self.comments;
+    if ([comments containsObject:comment]) {
+        [comments removeObject:comment];
         [self save];
     }
 }

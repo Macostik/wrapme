@@ -36,12 +36,12 @@
 }
 
 + (NSString *)API_identifier:(NSDictionary *)dictionary {
-	return [dictionary stringForKey:@"wrap_uid"];
+	return [dictionary stringForKey:WLWrapUIDKey];
 }
 
 - (void)awakeFromInsert {
     [super awakeFromInsert];
-    self.unread = @YES;
+    if (!NSNumberEqual(self.unread, @YES)) self.unread = @YES;
 }
 
 - (void)remove {
@@ -57,43 +57,41 @@
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
     [super API_setup:dictionary relatedEntry:relatedEntry];
-    self.name = [dictionary stringForKey:@"name"];
-    if (!self.candies) {
-        self.candies = [NSMutableOrderedSet orderedSet];
-    }
-    
+    NSString* name = [dictionary stringForKey:WLNameKey];
+    if (!NSStringEqual(self.name, name)) self.name = name;
+    if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
     NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSet];
-    for (NSDictionary* contributor in [dictionary arrayForKey:@"contributors"]) {
+    for (NSDictionary* contributor in [dictionary arrayForKey:WLContributorsKey]) {
         WLUser* user = [WLUser API_entry:contributor];
         if (user) {
             [contributors addObject:user];
         }
-        if ([contributor boolForKey:@"is_creator"]) {
+        if ([contributor boolForKey:WLIsCreatorKey] && self.contributor != user) {
             self.contributor = user;
         }
     }
-    self.contributors = contributors;
     
-	WLPicture* picture = [[WLPicture alloc] init];
-	picture.large = [dictionary stringForKey:@"large_cover_url"];
-	picture.medium = [dictionary stringForKey:@"medium_cover_url"];
-	picture.small = [dictionary stringForKey:@"small_cover_url"];
-	self.picture = picture;
+    if (contributors.count != self.contributors.count || ![contributors isSubsetOfOrderedSet:self.contributors]) {
+        self.contributors = contributors;
+    }
+    
+	WLPicture* picture = self.picture;
+	picture.large = [dictionary stringForKey:WLLargeCoverKey];
+	picture.medium = [dictionary stringForKey:WLMediumCoverKey];
+	picture.small = [dictionary stringForKey:WLSmallCoverKey];
     return self;
 }
 
 - (NSMutableOrderedSet*)candiesFromResponse:(NSDictionary*)dictionary {
     NSMutableOrderedSet* candies = [NSMutableOrderedSet orderedSet];
-    for (NSDictionary* date in dictionary[@"dates"]) {
-        [WLCandy API_entries:[date arrayForKey:@"candies"] relatedEntry:self container:candies];
+    for (NSDictionary* date in dictionary[WLDatesKey]) {
+        [WLCandy API_entries:[date arrayForKey:WLCandiesKey] relatedEntry:self container:candies];
     }
     return candies;
 }
 
 - (void)addCandies:(NSOrderedSet *)candies {
-    if (!self.candies) {
-        self.candies = [NSMutableOrderedSet orderedSet];
-    }
+    if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
     [self.candies unionOrderedSet:candies];
     [self.candies sortByUpdatedAtDescending];
 }
@@ -216,7 +214,6 @@
 		[candy remove];
         failure(error);
 	}];
-//	[[WLUploading uploading:candy] upload:success failure:failure];
 	[candy save];
 	
 }

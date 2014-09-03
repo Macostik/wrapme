@@ -69,6 +69,14 @@
     return object;
 }
 
+- (NSDate *)timestampDateForKey:(id)key {
+    NSTimeInterval timestamp = [self doubleForKey:key];
+    if (timestamp > 0) {
+        return [NSDate dateWithTimeIntervalSince1970:timestamp];
+    }
+    return nil;
+}
+
 - (NSDate *)dateForKey:(id)key {
     return [[self stringForKey:key] date];
 }

@@ -12,6 +12,8 @@
 
 @property (strong, nonatomic) NSString *deviceUID;
 
+@property (strong, nonatomic) NSString *deviceName;
+
 @property (strong, nonatomic) NSString *countryCode;
 
 @property (strong, nonatomic) NSString *phone;

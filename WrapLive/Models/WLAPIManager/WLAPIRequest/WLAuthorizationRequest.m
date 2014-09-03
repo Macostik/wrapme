@@ -73,6 +73,7 @@ static BOOL authorized = NO;
         self.authorization = authorization;
     }
     [parameters trySetObject:authorization.deviceUID forKey:@"device_uid"];
+    [parameters trySetObject:authorization.deviceName forKey:@"device_name"];
     [parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
 	[parameters trySetObject:authorization.phone forKey:@"phone_number"];
 	[parameters trySetObject:authorization.password forKey:@"password"];

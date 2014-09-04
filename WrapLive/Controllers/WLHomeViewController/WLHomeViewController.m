@@ -49,7 +49,7 @@
 #import "WLNotification+Extanded.h"
 #import "WLEntryFetching.h"
 
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver, WLCreateWrapViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
@@ -236,9 +236,8 @@ static CGFloat WLNotificationsLabelSize = 22;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isCameraSegue]) {
 		WLStillPictureViewController* controller = segue.destinationViewController;
-		controller.wrap = self.section.wrap;
 		controller.delegate = self;
-		controller.mode = WLCameraModeCandy;
+		controller.mode = WLCameraModeWrapCreation;
 	}
 }
 
@@ -250,13 +249,24 @@ static CGFloat WLNotificationsLabelSize = 22;
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-    WLWrap* wrap = controller.wrap ? : self.section.wrap;
-    [wrap uploadPictures:pictures];
-	[self dismissViewControllerAnimated:YES completion:nil];
+    WLCreateWrapViewController* createWrapViewController = [WLCreateWrapViewController instantiate];
+    createWrapViewController.pictures = pictures;
+    createWrapViewController.delegate = self;
+    [controller.cameraNavigationController pushViewController:createWrapViewController animated:YES];
 }
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - WLCreateWrapViewControllerDelegate
+
+- (void)createWrapViewControllerDidCancel:(WLCreateWrapViewController *)controller {
+    [controller.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)createWrapViewController:(WLCreateWrapViewController *)controller didCreateWrap:(WLWrap *)wrap {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

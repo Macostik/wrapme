@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, WLWrapTransition) {
 
 @property (nonatomic) BOOL backSwipeGestureEnabled;
 @property (nonatomic) BOOL notPresentShakeViewController;
+@property (nonatomic, strong) UIView* translucentView;
 
 - (void)presentInViewController:(UIViewController*)controller transition:(WLWrapTransition)transition completion:(void (^)(void))completion;
 

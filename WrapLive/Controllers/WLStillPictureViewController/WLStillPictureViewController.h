@@ -27,6 +27,8 @@
 
 @interface WLStillPictureViewController : UIViewController
 
+@property (weak, nonatomic, readonly) UINavigationController* cameraNavigationController;
+
 @property (nonatomic, weak) id <WLStillPictureViewControllerDelegate> delegate;
 
 @property (strong, nonatomic) WLCameraViewController *cameraViewController;

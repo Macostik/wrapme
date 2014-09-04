@@ -22,8 +22,6 @@ static CTCallCenter *callCenter;
 
 @property (weak, nonatomic) UISwipeGestureRecognizer* backSwipeGestureRecognizer;
 
-@property (nonatomic, strong) UIView* translucentView;
-
 @property (nonatomic, readonly) BOOL isCalling;
 
 @end

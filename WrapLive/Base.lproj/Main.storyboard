@@ -162,7 +162,6 @@
                                         </state>
                                         <connections>
                                             <action selector="back:" destination="vgz-ev-iSR" eventType="touchUpInside" id="kwu-dX-noq"/>
-                                            <action selector="createNewWrap:" destination="L91-fZ-J9O" eventType="touchUpInside" id="irK-hc-TzA"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1170,7 +1169,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="createNewWrap:" destination="L91-fZ-J9O" eventType="touchUpInside" id="Fpc-xX-z5l"/>
+                                            <segue destination="PLV-Iu-pRL" kind="modal" identifier="camera" id="Lqo-1T-u2j"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1217,281 +1216,98 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vr6-0y-MU2">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Start your wrap">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="start:" destination="y2d-d2-UUm" eventType="touchUpInside" id="w2z-yo-f56"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Dnc-Ox-Gw9">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="back:" destination="y2d-d2-UUm" eventType="touchUpInside" id="UPV-Xb-JC3"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="z8s-VD-dlr">
-                                <rect key="frame" x="320" y="524" width="160" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="goToMainScreen:" destination="y2d-d2-UUm" eventType="touchUpInside" id="Tez-PB-iZw"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="0w1-Uc-Uox">
-                                <rect key="frame" x="0.0" y="64" width="320" height="460"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="4Lj-zh-Ha2" customClass="WLImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <view key="tableHeaderView" contentMode="top" id="iXt-3a-F0Q">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="284"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" id="OTS-gF-3Ml">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="283"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" id="P9C-9R-pqO" customClass="WLBorderView">
-                                                    <rect key="frame" x="38" y="24" width="244" height="32"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                    <subviews>
-                                                        <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name your wrap" textAlignment="center" minimumFontSize="17" id="iXN-AE-cui">
-                                                            <rect key="frame" x="5" y="0.0" width="234" height="32"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                            <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                            <connections>
-                                                                <action selector="textFieldDidChange:" destination="y2d-d2-UUm" eventType="editingChanged" id="pyL-wR-jvS"/>
-                                                                <outlet property="delegate" destination="y2d-d2-UUm" id="cvg-dg-Ihh"/>
-                                                            </connections>
-                                                        </textField>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </view>
-                                                <view contentMode="scaleToFill" id="Wzv-jX-Eis" customClass="WLBorderView">
-                                                    <rect key="frame" x="80" y="71" width="160" height="160"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_candy" id="wHH-jF-BAZ" customClass="WLImageView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="160" height="123"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        </imageView>
-                                                        <view contentMode="scaleToFill" id="8vo-FG-vTd">
-                                                            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <subviews>
-                                                                <view contentMode="scaleToFill" id="RyS-AW-1l2">
-                                                                    <rect key="frame" x="0.0" y="123" width="160" height="37"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                                </view>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="P0k-mt-RDJ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="124" maxX="0.0" maxY="0.0"/>
-                                                                    <state key="normal" image="camera">
-                                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    </state>
-                                                                    <connections>
-                                                                        <segue destination="PLV-Iu-pRL" kind="modal" identifier="camera" id="Mcp-Wh-cB2"/>
-                                                                    </connections>
-                                                                </button>
-                                                            </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        </view>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="strokeColor">
-                                                            <color key="value" red="0.57647061347961426" green="0.57647061347961426" blue="0.57254904508590698" alpha="1" colorSpace="deviceRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </view>
-                                                <button opaque="NO" tag="100" contentMode="left" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xJX-nG-lU9">
-                                                    <rect key="frame" x="65" y="239" width="200" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                    <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                    <inset key="imageEdgeInsets" minX="165" minY="2" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" title="Add contributors     " image="ic_add">
-                                                        <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" red="0.8023158482142857" green="0.38777216619799609" blue="0.12831912994199896" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <segue destination="2bk-UF-zkR" kind="push" identifier="contributors" id="QzP-Nx-DVM"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" reuseIdentifier="WLContributorCell" id="5Pu-dl-Ua8" customClass="WLContributorCell">
-                                        <rect key="frame" x="0.0" y="306" width="320" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Pu-dl-Ua8" id="fdM-Rg-dwa">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="5AP-1b-DWd" customClass="WLImageView">
-                                                    <rect key="frame" x="17" y="7" width="36" height="36"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CdX-0Z-zWc">
-                                                    <rect key="frame" x="65" y="0.0" width="195" height="49"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bME-GU-a5P">
-                                                    <rect key="frame" x="270" y="0.0" width="50" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                    <state key="normal" image="ic_delete">
-                                                        <color key="titleColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="remove:" destination="5Pu-dl-Ua8" eventType="touchUpInside" id="CzC-93-W31"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <outlet property="avatarView" destination="5AP-1b-DWd" id="6YS-wv-yFD"/>
-                                            <outlet property="delegate" destination="y2d-d2-UUm" id="9uj-4J-UZB"/>
-                                            <outlet property="nameLabel" destination="CdX-0Z-zWc" id="k7b-aA-XXT"/>
-                                            <outlet property="removeButton" destination="bME-GU-a5P" id="2zk-qe-aUQ"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" reuseIdentifier="WLInviteeCell" id="YrH-6b-axR" customClass="WLInviteeCell">
-                                        <rect key="frame" x="0.0" y="356" width="320" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YrH-6b-axR" id="rXH-a6-4vK">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="8s0-G4-zCu" customClass="WLImageView">
-                                                    <rect key="frame" x="17" y="7" width="36" height="36"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bEg-Da-CME">
-                                                    <rect key="frame" x="65" y="0.0" width="195" height="49"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="nvC-U6-v7w">
-                                                    <rect key="frame" x="270" y="0.0" width="50" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                    <state key="normal" image="ic_delete">
-                                                        <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="remove:" destination="YrH-6b-axR" eventType="touchUpInside" id="6MF-7V-Rzj"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <outlet property="avatarView" destination="8s0-G4-zCu" id="qHo-Mr-DZB"/>
-                                            <outlet property="delegate" destination="y2d-d2-UUm" id="jzx-Rz-rhO"/>
-                                            <outlet property="nameLabel" destination="bEg-Da-CME" id="tra-vN-eiP"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="y2d-d2-UUm" id="hWg-kQ-izL"/>
-                                    <outlet property="delegate" destination="y2d-d2-UUm" id="UVZ-bG-4sv"/>
-                                </connections>
-                            </tableView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="pYB-NP-efK">
-                                <rect key="frame" x="280" y="536" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
-                            <view contentMode="scaleToFill" id="sIS-5j-axT">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="koJ-5e-Lmq">
+                                <rect key="frame" x="30" y="88" width="260" height="176"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bld-GI-ec7">
-                                        <rect key="frame" x="0.0" y="20" width="44" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                        <state key="normal" image="ic_back_orange">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="back:" destination="y2d-d2-UUm" eventType="touchUpInside" id="431-Mr-bwL"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new wrap" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PNJ-xX-JcD">
-                                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create wrap" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vpv-qo-J8A">
+                                        <rect key="frame" x="10" y="15" width="240" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's the wrap about?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oie-3B-eFb">
+                                        <rect key="frame" x="10" y="44" width="240" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" id="5OP-bS-fU1">
+                                        <rect key="frame" x="10" y="73" width="240" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="textFieldDidChange:" destination="y2d-d2-UUm" eventType="editingChanged" id="dNL-Iy-YHr"/>
+                                            <outlet property="delegate" destination="y2d-d2-UUm" id="lk1-l3-VM9"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DSX-7A-44s" customClass="WLButton">
+                                        <rect key="frame" x="0.0" y="132" width="131" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                                <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.0" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                                <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.5" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="cancel:" destination="y2d-d2-UUm" eventType="touchUpInside" id="Aon-hk-mMb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bFf-id-KiN" customClass="WLButton">
+                                        <rect key="frame" x="130" y="132" width="130" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                                        <state key="normal" title="OK">
+                                            <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.33000000000000002" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                                <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.0" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                                <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.5" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="done:" destination="y2d-d2-UUm" eventType="touchUpInside" id="gY1-Pj-LVM"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="cXB-TA-phm"/>
                     <connections>
-                        <outlet property="cancelButton" destination="Dnc-Ox-Gw9" id="tep-oP-w5Q"/>
-                        <outlet property="contributorsTableView" destination="0w1-Uc-Uox" id="qvF-a4-qfH"/>
-                        <outlet property="coverButtonView" destination="8vo-FG-vTd" id="2pF-RI-u9h"/>
-                        <outlet property="doneButton" destination="z8s-VD-dlr" id="PHG-TG-6Pf"/>
-                        <outlet property="imageView" destination="wHH-jF-BAZ" id="Rgd-CU-vVw"/>
-                        <outlet property="nameBorderView" destination="P9C-9R-pqO" id="6g9-R5-ScR"/>
-                        <outlet property="nameField" destination="iXN-AE-cui" id="8pz-go-uWd"/>
-                        <outlet property="spinner" destination="pYB-NP-efK" id="ojb-B1-qvq"/>
-                        <outlet property="startButton" destination="Vr6-0y-MU2" id="C0t-zd-WNz"/>
-                        <outlet property="titleLabel" destination="PNJ-xX-JcD" id="YRz-6P-N0p"/>
+                        <outlet property="backButton" destination="DSX-7A-44s" id="bhK-dn-Nc7"/>
+                        <outlet property="createButton" destination="bFf-id-KiN" id="oXJ-6b-VDX"/>
+                        <outlet property="imageView" destination="4Lj-zh-Ha2" id="Xrp-Fc-vM6"/>
+                        <outlet property="nameField" destination="5OP-bS-fU1" id="feS-MQ-BFI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kzU-fE-iJl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2874,22 +2690,18 @@ Check your internet connection and try again.</string>
     </scenes>
     <resources>
         <image name="bg_candy_gradient" width="320" height="64"/>
-        <image name="camera" width="30" height="30"/>
         <image name="camera_big" width="84" height="84"/>
         <image name="camera_darkGray" width="30" height="30"/>
         <image name="camera_medium" width="50" height="50"/>
-        <image name="ic_add" width="22" height="22"/>
         <image name="ic_add_by_phone" width="24" height="24"/>
         <image name="ic_alert_orange" width="20" height="18"/>
         <image name="ic_arrow_down" width="14" height="8"/>
         <image name="ic_arrow_up" width="14" height="8"/>
         <image name="ic_back_orange" width="12" height="22"/>
         <image name="ic_back_white" width="12" height="22"/>
-        <image name="ic_candy" width="160" height="130"/>
         <image name="ic_chat3" width="30" height="30"/>
         <image name="ic_check" width="22" height="22"/>
         <image name="ic_default_profile" width="148" height="148"/>
-        <image name="ic_delete" width="16" height="16"/>
         <image name="ic_dot_dot_dot_round" width="6" height="26"/>
         <image name="ic_gallery_medium" width="50" height="50"/>
         <image name="ic_history_enabled" width="26" height="26"/>

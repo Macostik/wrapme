@@ -65,7 +65,7 @@
 	self.flashMode = AVCaptureFlashModeOff;
 	self.flashModeControl.mode = self.flashMode;
     
-	if (self.mode == WLCameraModeCandy) {
+	if (self.mode == WLCameraModeCandy || self.mode == WLCameraModeWrapCreation) {
 		self.topView.backgroundColor = [UIColor clearColor];
 		self.bottomView.backgroundColor = [self.bottomView.backgroundColor colorWithAlphaComponent:0.5f];
 		[self.cameraView setFullFlexible];

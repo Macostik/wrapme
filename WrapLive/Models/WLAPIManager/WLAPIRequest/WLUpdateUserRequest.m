@@ -28,7 +28,9 @@
     self.filePath = self.user.picture.large;
     WLUser* user = self.user;
     [parameters trySetObject:user.name forKey:@"name"];
-	[parameters trySetObject:user.email forKey:@"email"];
+    if (user.email.nonempty) {
+        [parameters trySetObject:user.email forKey:@"email"];
+    }
     return parameters;
 }
 

@@ -40,7 +40,7 @@
 
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLCandy* candy = self.candy;
-    WLPicture* picture = candy.picture;
+    WLPicture* picture = [candy.picture copy];
     [candy API_setup:[response.data dictionaryForKey:@"candy"]];
     if ([candy isImage]) {
         [[WLImageCache cache] setImageAtPath:picture.medium withUrl:candy.picture.medium];

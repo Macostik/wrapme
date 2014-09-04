@@ -222,9 +222,9 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 }
 
 - (IBAction)editWrap:(id)sender {
-	WLCreateWrapViewController* controller = [WLCreateWrapViewController instantiate];
-	controller.wrap = self.wrap;
-	[controller presentInViewController:self transition:WLWrapTransitionFromRight];
+//	WLCreateWrapViewController* controller = [WLCreateWrapViewController instantiate];
+//	controller.wrap = self.wrap;
+//	[controller presentInViewController:self transition:WLWrapTransitionFromRight];
 }
 
 - (void)setViewTab:(WLWrapViewTab)viewTab {

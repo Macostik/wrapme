@@ -74,11 +74,6 @@
     if (contributors.count != self.contributors.count || ![contributors isSubsetOfOrderedSet:self.contributors]) {
         self.contributors = contributors;
     }
-    
-	WLPicture* picture = self.picture;
-	picture.large = [dictionary stringForKey:WLLargeCoverKey];
-	picture.medium = [dictionary stringForKey:WLMediumCoverKey];
-	picture.small = [dictionary stringForKey:WLSmallCoverKey];
     return self;
 }
 
@@ -141,6 +136,10 @@
 
 - (BOOL)containsCandy:(WLCandy *)candy {
     return [candy belongsToWrap:self];
+}
+
+- (WLPicture *)picture {
+    return [[self.candies firstObject] picture];
 }
 
 - (void)sortCandies {

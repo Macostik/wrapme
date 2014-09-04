@@ -36,9 +36,9 @@ static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
 static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
 static NSString* WLAPIProductionUrl = @"https://api.wraplive.com/api";
 static NSString* WLAPIBetaUrl = @"https://bta-api.wraplive.com/api";
-#define WLAPIBaseUrl WLAPIDevelopmentUrl
+#define WLAPIBaseUrl WLAPIBetaUrl
 
-static NSString* WLAPIVersion = @"4";
+static NSString* WLAPIVersion = @"5";
 
 #define WLAcceptHeader [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", WLAPIVersion]
 

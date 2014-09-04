@@ -36,10 +36,6 @@
 
 @property (strong, nonatomic) WLNotification* pendingRemoteNotification;
 
-@property (strong, nonatomic) NSMutableOrderedSet* storedNotifications;
-
-@property (nonatomic) NSUInteger unreadNotificationsCount;
-
 + (instancetype)defaultCenter;
 
 + (void)setDeviceToken:(NSData*)deviceToken;

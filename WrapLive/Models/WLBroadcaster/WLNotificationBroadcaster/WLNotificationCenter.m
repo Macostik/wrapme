@@ -22,6 +22,7 @@
 #import "WLNotificationChannel.h"
 #import "NSPropertyListSerialization+Shorthand.h"
 #import "NSString+Documents.h"
+#import "WLNotification+Extanded.h"
 
 static NSString* WLPubNubOrigin = @"pubsub.pubnub.com";
 static NSString* WLPubNubPublishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
@@ -64,42 +65,6 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (NSMutableOrderedSet *)storedNotifications {
-    if (!_storedNotifications) {
-        _storedNotifications = [WLNotification notificationsWithDataArray:[NSArray arrayWithContentsOfFile:NSDocumentsDirectoryPath(@"storedNotifications")]];
-    }
-    return _storedNotifications;
-}
-
-- (NSUInteger)unreadNotificationsCount {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:@"unreadNotificationsCount"];
-}
-
-- (void)setUnreadNotificationsCount:(NSUInteger)unreadNotificationsCount {
-    [[NSUserDefaults standardUserDefaults] setInteger:unreadNotificationsCount forKey:@"unreadNotificationsCount"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)storeNotification:(WLNotification*)notification {
-    if (notification.type == WLNotificationCandyCommentAddition) {
-        self.unreadNotificationsCount++;
-        [self.storedNotifications insertObject:notification atIndex:0];
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(saveNotifications) object:nil];
-        [self performSelector:@selector(saveNotifications) withObject:nil afterDelay:0.5f];
-        [self broadcast:@selector(broadcaster:didStoreNotification:) object:notification];
-    }
-}
-
-- (void)saveNotifications {
-    __weak typeof(self)weakSelf = self;
-    run_in_background_queue(^{
-        NSArray* notifications = [[weakSelf.storedNotifications array] map:^id(WLNotification* notification) {
-            return notification.data;
-        }];
-        [notifications writeToFile:NSDocumentsDirectoryPath(@"storedNotifications") atomically:YES];
-    });
-}
-
 static WLDataBlock deviceTokenCompletion = nil;
 
 + (void)deviceToken:(WLDataBlock)completion {
@@ -135,16 +100,17 @@ static WLDataBlock deviceTokenCompletion = nil;
     self.userChannel = [[WLNotificationChannel alloc] init];
     self.userChannel.supportAPNS = YES;
     __weak typeof(self)weakSelf = self;
-    [self.userChannel setReceive:^(WLNotification *notification) {
+    [self.userChannel setMessageBlock:^(PNMessage *message) {
+        WLNotification *notification = [WLNotification notificationWithMessage:message];
         [notification fetch:^{
-            if (notification.type == WLNotificationChatCandyAddition) {
-                [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:notification.candy.contributor];
+            if ([notification.type integerValue] == WLNotificationChatCandyAddition) {
+                id entry = notification.entry;
+                [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:[entry contributor]];
             }
             [WLSoundPlayer play];
-            [weakSelf storeNotification:notification];
             [weakSelf broadcastNotification:notification];
         }];
-        weakSelf.historyDate = [NSDate date];
+        weakSelf.historyDate = [[message.receiveDate date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
     }];
     self.typingChannel = [[WLNotificationChannel alloc] init];
     self.typingChannel.supportPresense = YES;
@@ -161,9 +127,12 @@ static WLDataBlock deviceTokenCompletion = nil;
     [self.userChannel subscribe:^{
         [PubNub requestHistoryForChannel:self.userChannel.channel from:[PNDate dateWithDate:weakSelf.historyDate] to:[PNDate dateWithDate:[NSDate date]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, PNChannel *channel, PNDate *from, PNDate *to, PNError *error) {
             if (!error) {
-                weakSelf.historyDate = [NSDate date];
-                for (PNMessage* message in messages) {
-                    weakSelf.userChannel.receive([WLNotification notificationWithMessage:message]);
+                if (messages.nonempty) {
+                    NSDate *recivedDate = [[[messages.lastObject receiveDate] date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
+                    weakSelf.historyDate = recivedDate;
+                    for (PNMessage* message in messages) {
+                        weakSelf.userChannel.messageBlock(message);
+                    }
                 }
             }
         }];

@@ -10,6 +10,7 @@
 #import "NSString+Additions.h"
 #import <objc/runtime.h>
 #import "WLSupportFunctions.h"
+#import "WLServerTime.h"
 
 @interface WLEntryManager ()
 
@@ -63,11 +64,14 @@
         return _coordinator;
     }
     
+    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption : @YES,
+                              NSInferMappingModelAutomaticallyOption : @YES};
+    
     NSURL* url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:@"CoreData.sqlite"];
     NSError *error = nil;
     _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self model]];
-    if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
+    if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]) {
         
     }
     
@@ -256,6 +260,7 @@ static NSString *WLEntryIdentifierKey = @"identifier";
     if (!self.picture) {
         self.picture = [[WLPicture alloc] init];
     }
+    self.createdAt = [NSDate serverTime];
 }
 
 - (void)awakeFromFetch {

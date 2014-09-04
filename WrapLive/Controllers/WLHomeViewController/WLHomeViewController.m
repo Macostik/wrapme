@@ -46,6 +46,8 @@
 #import "WLHomeViewSection.h"
 #import "WLNavigation.h"
 #import "WLUserView.h"
+#import "WLNotification+Extanded.h"
+#import "WLEntryFetching.h"
 
 @interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver>
 
@@ -58,6 +60,7 @@
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
 @property (weak, nonatomic) IBOutlet UILabel *notificationsLabel;
+@property (strong, nonatomic) WLEntryFetching *fetching;
 
 @end
 
@@ -95,6 +98,17 @@
     [self.section setSelection:^(id entry) {
         [entry presentInViewController:weakSelf];
     }];
+    
+    self.fetching = [WLEntryFetching fetching:@"WLEntry" configuration:^(NSFetchRequest *request) {
+        [request setEntity:[WLNotification entity]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"unread == YES AND type != %@",
+                                 [NSNumber numberWithInteger:WLNotificationChatCandyAddition]];
+        [request setPredicate:predicate];
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"entry.createdAt" ascending:NO];
+        [request setSortDescriptors:@[sortDescriptor]];
+    }];
+    [self.fetching addTarget:self action:@selector(updateNotificationsLabel)];
+    [self.fetching perform];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -172,15 +186,17 @@
     if ([notification deletion]) {
         return;
     }
-    
+    id entry = notification.entry;
     __weak typeof(self)weakSelf = self;
     void (^showNotificationBlock)(void) = ^{
-        WLWrap* wrap = notification.wrap;
-        WLNotificationType type = notification.type;
+
+        WLNotificationType type = [notification.type integerValue];
 		if (type == WLNotificationContributorAddition) {
-            [wrap presentInViewController:weakSelf];
-		} else if (type == WLNotificationImageCandyAddition || type == WLNotificationChatCandyAddition || type == WLNotificationCandyCommentAddition) {
-            [notification.candy presentInViewController:weakSelf];
+            [entry presentInViewController:weakSelf];
+		} else if (type == WLNotificationImageCandyAddition ||
+                   type == WLNotificationChatCandyAddition  ||
+                   type == WLNotificationCandyCommentAddition) {
+            [entry presentInViewController:weakSelf];
 		}
 	};
     
@@ -209,18 +225,10 @@ static CGFloat WLNotificationsLabelSize = 22;
 
 - (void)updateNotificationsLabel {
     UILabel* label = self.notificationsLabel;
-    NSUInteger count = [WLNotificationCenter defaultCenter].unreadNotificationsCount;
-    if (count > 0) {
-        label.hidden = NO;
-        label.text = [NSString stringWithFormat:@"%d", count];
-        label.width = MAX(WLNotificationsLabelSize, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLNotificationsLabelSize)].width + 12);
-    } else {
-        label.hidden = YES;
-    }
-}
-
-- (void)broadcaster:(WLNotificationCenter *)broadcaster didStoreNotification:(WLNotification *)notification {
-    [self updateNotificationsLabel];
+    NSUInteger count = [self.fetching.content count];
+    label.hidden = count == 0;
+    label.text = [NSString stringWithFormat:@"%lu", (unsigned long)count];
+    label.width = MAX(WLNotificationsLabelSize, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLNotificationsLabelSize)].width + 12);
 }
 
 #pragma mark - Actions

@@ -12,6 +12,7 @@
 #import "WLNotification.h"
 #import "WLUser+Extended.h"
 #import "NSString+Additions.h"
+#import "WLNotification+Extanded.h"
 
 @interface WLNotificationChannel ()
 
@@ -135,8 +136,8 @@
 - (void)observeMessages {
     __weak typeof(self)weakSelf = self;
     [[PNObservationCenter defaultCenter] addMessageReceiveObserver:self withBlock:^(PNMessage *message) {
-        if (message.channel == weakSelf.channel && weakSelf.receive) {
-            weakSelf.receive([WLNotification notificationWithMessage:message]);
+        if (message.channel == weakSelf.channel && weakSelf.messageBlock) {
+            weakSelf.messageBlock(message);
         }
     }];
 }

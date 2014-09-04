@@ -12,6 +12,7 @@
 #import "WLUser+Extended.h"
 #import "NSDate+Additions.h"
 #import "UILabel+Additions.h"
+#import "WLNotification+Extanded.h"
 
 @interface WLNotificationCell ()
 

@@ -147,8 +147,10 @@
 		14F668641973DDAA008D5081 /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
 		14F668681974031C008D5081 /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668671974031C008D5081 /* WLPersonCell.m */; };
 		5B450F8B19780D8000FC339A /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */; };
+		5B4C600519B5D41F00AAB3B0 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4C600419B5D41F00AAB3B0 /* WLNotification.m */; };
 		5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */; };
 		5BB2221219796D7300782B72 /* UIView+Extentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2221119796D7300782B72 /* UIView+Extentions.m */; };
+		5BD6D33E19B5BADE000A7C1F /* WLNotification+Extanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6D33D19B5BADE000A7C1F /* WLNotification+Extanded.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
@@ -235,7 +237,6 @@
 		C5D2E0BC19A4DF6F001CA756 /* WLNotificationChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D2E0BB19A4DF6F001CA756 /* WLNotificationChannel.m */; };
 		C5D2E0BF19A4E9B0001CA756 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D2E0BE19A4E9B0001CA756 /* WLSoundPlayer.m */; };
 		C5F35CFE1930935200FB99D2 /* WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F35CFD1930935200FB99D2 /* WLImageFetcher.m */; };
-		C5F3E6BC1947262A00B8422A /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F3E6B91947262A00B8422A /* WLNotification.m */; };
 		C5F3E6BD1947262A00B8422A /* WLNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F3E6BB1947262A00B8422A /* WLNotificationCenter.m */; };
 		C5F99B6F196BEB0C00A3FB19 /* WLMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */; };
 		C5F9ACBE1989296C003A0FF2 /* WLEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F9ACBD1989296C003A0FF2 /* WLEntryCell.m */; };
@@ -497,10 +498,15 @@
 		14F668671974031C008D5081 /* WLPersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPersonCell.m; path = WLContributorsViewController/WLContactCell/WLPersonCell/WLPersonCell.m; sourceTree = "<group>"; };
 		5B450F8919780D8000FC339A /* WLSignificantTimeBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignificantTimeBroadcaster.h; sourceTree = "<group>"; };
 		5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignificantTimeBroadcaster.m; sourceTree = "<group>"; };
+		5B4C600319B5D41F00AAB3B0 /* WLNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotification.h; sourceTree = "<group>"; };
+		5B4C600419B5D41F00AAB3B0 /* WLNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotification.m; sourceTree = "<group>"; };
 		5BAF8E141991196000AFCAE6 /* WLClearProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLClearProgressBar.h; sourceTree = "<group>"; };
 		5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLClearProgressBar.m; sourceTree = "<group>"; };
 		5BB2221019796D7300782B72 /* UIView+Extentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extentions.h"; sourceTree = "<group>"; };
 		5BB2221119796D7300782B72 /* UIView+Extentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extentions.m"; sourceTree = "<group>"; };
+		5BD6D33B19B5AB26000A7C1F /* CoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 2.xcdatamodel"; sourceTree = "<group>"; };
+		5BD6D33C19B5BADE000A7C1F /* WLNotification+Extanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLNotification+Extanded.h"; sourceTree = "<group>"; };
+		5BD6D33D19B5BADE000A7C1F /* WLNotification+Extanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLNotification+Extanded.m"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
@@ -661,8 +667,6 @@
 		C5D2E0BE19A4E9B0001CA756 /* WLSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSoundPlayer.m; sourceTree = "<group>"; };
 		C5F35CFC1930935200FB99D2 /* WLImageFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLImageFetcher.h; path = WLImageFetcher/WLImageFetcher.h; sourceTree = "<group>"; };
 		C5F35CFD1930935200FB99D2 /* WLImageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLImageFetcher.m; path = WLImageFetcher/WLImageFetcher.m; sourceTree = "<group>"; };
-		C5F3E6B81947262A00B8422A /* WLNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotification.h; sourceTree = "<group>"; };
-		C5F3E6B91947262A00B8422A /* WLNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotification.m; sourceTree = "<group>"; };
 		C5F3E6BA1947262A00B8422A /* WLNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationCenter.h; sourceTree = "<group>"; };
 		C5F3E6BB1947262A00B8422A /* WLNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationCenter.m; sourceTree = "<group>"; };
 		C5F99B6D196BEB0C00A3FB19 /* WLMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMenu.h; sourceTree = "<group>"; };
@@ -1886,6 +1890,8 @@
 				C50445B31951AA8F003C2251 /* WLWrap+Extended.h */,
 				C50445B41951AA8F003C2251 /* WLWrap+Extended.m */,
 				C5991A2D19B5F149004EE00F /* WLEntryKeys.h */,
+				5BD6D33C19B5BADE000A7C1F /* WLNotification+Extanded.h */,
+				5BD6D33D19B5BADE000A7C1F /* WLNotification+Extanded.m */,
 			);
 			path = Extended;
 			sourceTree = "<group>";
@@ -2071,6 +2077,8 @@
 			children = (
 				C50445A41951AA8F003C2251 /* Extended */,
 				C5A21E10194AFA7400F3A554 /* CoreData.xcdatamodeld */,
+				5B4C600319B5D41F00AAB3B0 /* WLNotification.h */,
+				5B4C600419B5D41F00AAB3B0 /* WLNotification.m */,
 				C5A21E5E194B0ED500F3A554 /* WLUser.h */,
 				C5A21E5F194B0ED500F3A554 /* WLUser.m */,
 				C5A21E70194B0ED600F3A554 /* WLUploading.h */,
@@ -2103,8 +2111,6 @@
 		C5F3E6B71947262A00B8422A /* WLNotificationBroadcaster */ = {
 			isa = PBXGroup;
 			children = (
-				C5F3E6B81947262A00B8422A /* WLNotification.h */,
-				C5F3E6B91947262A00B8422A /* WLNotification.m */,
 				C5F3E6BA1947262A00B8422A /* WLNotificationCenter.h */,
 				C5F3E6BB1947262A00B8422A /* WLNotificationCenter.m */,
 				C5D2E0BA19A4DF6F001CA756 /* WLNotificationChannel.h */,
@@ -2352,6 +2358,7 @@
 				125D4A4F18E068E6001B8E7C /* NSDate+Formatting.m in Sources */,
 				12E8FF1418E960E000BF1B96 /* StreamLayout.m in Sources */,
 				C50AF40619766C3700761F38 /* WLUploadAPIRequest.m in Sources */,
+				5B4C600519B5D41F00AAB3B0 /* WLNotification.m in Sources */,
 				12E3DA6518E04CC400DBDB79 /* UIImage+Resize.m in Sources */,
 				12D7E0B81910E5480094C376 /* WLCache.m in Sources */,
 				12E0F05A19090B2E00463FEC /* WLWrapBroadcaster.m in Sources */,
@@ -2376,7 +2383,6 @@
 				C507B9E91948947D00CCB3FE /* WLGestureBroadcaster.m in Sources */,
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
 				12F3ED561934B183009C1DC3 /* WLAssetsGroupViewController.m in Sources */,
-				C5F3E6BC1947262A00B8422A /* WLNotification.m in Sources */,
 				12E0F05E19090C0900463FEC /* WLKeyboardBroadcaster.m in Sources */,
 				12DF5C3B190E614400D7A62F /* NSString+MD5.m in Sources */,
 				ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */,
@@ -2441,6 +2447,7 @@
 				12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */,
 				12F3ED5C1934B183009C1DC3 /* WLAssetsViewController.m in Sources */,
 				C50FD422199B69FD00B52B33 /* WLCandiesHistoryViewSection.m in Sources */,
+				5BD6D33E19B5BADE000A7C1F /* WLNotification+Extanded.m in Sources */,
 				ACDE2BAA193DFF4E003702D4 /* WLInviteViewController.m in Sources */,
 				C521FB061989352E00576281 /* WLHomeViewSection.m in Sources */,
 				12976ECE18E5D6E300C5F2A9 /* NSDictionary+Extended.m in Sources */,
@@ -2682,9 +2689,10 @@
 		C5A21E10194AFA7400F3A554 /* CoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				5BD6D33B19B5AB26000A7C1F /* CoreData 2.xcdatamodel */,
 				C5A21E11194AFA7400F3A554 /* CoreData.xcdatamodel */,
 			);
-			currentVersion = C5A21E11194AFA7400F3A554 /* CoreData.xcdatamodel */;
+			currentVersion = 5BD6D33B19B5AB26000A7C1F /* CoreData 2.xcdatamodel */;
 			name = CoreData.xcdatamodeld;
 			path = ../CoreData.xcdatamodeld;
 			sourceTree = "<group>";

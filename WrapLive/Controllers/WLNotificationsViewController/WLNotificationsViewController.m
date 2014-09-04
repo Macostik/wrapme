@@ -13,12 +13,18 @@
 #import "WLCollectionViewDataProvider.h"
 #import "WLCollectionViewSection.h"
 #import "WLNotificationCenter.h"
+#import "WLNotification.h"
+#import "WLEntryFetching.h"
+#import "WLWrapBroadcaster.h"
+#import "WLNotification+Extanded.h"
 
-@interface WLNotificationsViewController () <WLNotificationReceiver>
+@interface WLNotificationsViewController () <WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCollectionViewSection *dataSection;
+@property (strong, nonatomic) WLEntryFetching *fetching;
+@property (strong, nonatomic) NSMutableOrderedSet *notification;
 
 @end
 
@@ -26,30 +32,46 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.userView.avatarView.layer.borderWidth = 1;
 	self.userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userView.user = [WLUser currentUser];
-    
-    __weak typeof(self)weakSelf = self;
+    self.notification = [NSMutableOrderedSet orderedSet];
+
+    self.fetching = [WLEntryFetching fetching:@"WLEntry" configuration:^(NSFetchRequest *request) {
+        [request setEntity:[WLNotification entity]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type != %@",
+                                 [NSNumber numberWithInt:WLNotificationChatCandyAddition]];
+        [request setPredicate:predicate];
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"entry.createdAt" ascending:NO];
+        [request setSortDescriptors:@[sortDescriptor]];
+    }];
+    __weak __typeof(self)weakSelf = self;
+    [self.dataSection setConfigure:^(id cell, id entry) {
+        [weakSelf.notification addObject:entry];
+    }];
+
+    [self.fetching perform];
+    [[WLWrapBroadcaster broadcaster] addReceiver:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     run_getting_object(^id{
-        return [WLNotificationCenter defaultCenter].storedNotifications;
-    }, ^(NSMutableOrderedSet* notifications) {
-        weakSelf.dataSection.entries = notifications;
+        return self.fetching.content;
+    }, ^(NSMutableOrderedSet *notification) {
+        self.dataSection.entries = notification;
     });
-    
-    [[WLNotificationCenter defaultCenter] addReceiver:self];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [WLNotificationCenter defaultCenter].unreadNotificationsCount = 0;
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.notification all:^(WLNotification *entry) {
+        entry.unread = @(NO);
+    }];
 }
 
-#pragma mark - WLNotificationReceiver
-
-- (void)broadcaster:(WLNotificationCenter *)broadcaster didStoreNotification:(WLNotification *)notification {
-    self.dataSection.entries = [WLNotificationCenter defaultCenter].storedNotifications;
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentCreated:(WLComment*)comment {
+    self.dataSection.entries = self.fetching.content;
 }
 
 @end

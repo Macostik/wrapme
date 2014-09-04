@@ -24,7 +24,7 @@
 
 @property (nonatomic) BOOL supportPresense;
 
-@property (strong, nonatomic) void (^receive) (WLNotification *notification);
+@property (strong, nonatomic) PubNubMessageBlock messageBlock;
 
 @property (strong, nonatomic) void (^presenseObserver) (PNPresenceEvent *event);
 

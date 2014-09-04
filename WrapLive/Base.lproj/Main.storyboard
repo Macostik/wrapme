@@ -1152,7 +1152,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="vgz-ev-iSR" kind="push" id="5vI-5X-OYi"/>
+                                                    <segue destination="vgz-ev-iSR" kind="push" identifier="Notification" id="5vI-5X-OYi"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -2922,6 +2922,6 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WjR-f7-d7j"/>
+        <segue reference="PQ6-0M-1al"/>
     </inferredMetricsTieBreakers>
 </document>

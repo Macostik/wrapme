@@ -74,24 +74,7 @@
         self.imageView.url = [[self.pictures lastObject] medium];
         [self.nameField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
     }
-	[self setTranslucent];
-    [self.view insertSubview:self.translucentView aboveSubview:self.imageView];
-    self.translucentView.alpha = 0.9f;
-    self.translucentView.tintColor = [UIColor WL_orangeColor];
-    self.createButton.superview.layer.borderColor = [UIColor WL_orangeColor].CGColor;
-    self.createButton.superview.layer.borderWidth = 1;
-    self.createButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
-    self.createButton.layer.borderWidth = 1;
-    self.backButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
-    self.backButton.layer.borderWidth = 1;
 }
-
-//- (WLWrap *)wrap {
-//	if (!_wrap) {
-//		_wrap = [WLWrap wrap];
-//	}
-//	return _wrap;
-//}
 
 - (void)setWrap:(WLWrap *)wrap {
     _wrap = wrap;
@@ -199,10 +182,14 @@
     [self.delegate createWrapViewControllerDidCancel:self];
 }
 
-- (IBAction)done:(id)sender {
+- (IBAction)done:(UIButton*)sender {
     NSString* name = self.nameField.text;
     if (name.nonempty) {
-        [self.spinner startAnimating];
+        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        spinner.center = sender.center;
+        [sender.superview addSubview:spinner];
+        sender.hidden = YES;
+        [spinner startAnimating];
         __weak typeof(self)weakSelf = self;
         [self lock];
         WLWrap* wrap = [WLWrap wrap];
@@ -210,17 +197,17 @@
         [wrap save];
         [wrap broadcastCreation];
         [[WLUploading uploading:wrap] upload:^(id object) {
-            [weakSelf.spinner stopAnimating];
             [weakSelf unlock];
             [weakSelf.delegate createWrapViewController:weakSelf didCreateWrap:wrap];
             [wrap uploadPictures:weakSelf.pictures];
         } failure:^(NSError *error) {
-            [weakSelf.spinner stopAnimating];
             [weakSelf unlock];
             if ([error isNetworkError]) {
                 [weakSelf.delegate createWrapViewController:weakSelf didCreateWrap:wrap];
                 [wrap uploadPictures:weakSelf.pictures];
             } else {
+                [spinner removeFromSuperview];
+                sender.hidden = NO;
                 [error show];
                 [wrap remove];
             }

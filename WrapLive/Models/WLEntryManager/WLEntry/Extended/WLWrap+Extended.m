@@ -78,11 +78,7 @@
 }
 
 - (NSMutableOrderedSet*)candiesFromResponse:(NSDictionary*)dictionary {
-    NSMutableOrderedSet* candies = [NSMutableOrderedSet orderedSet];
-    for (NSDictionary* date in dictionary[WLDatesKey]) {
-        [WLCandy API_entries:[date arrayForKey:WLCandiesKey] relatedEntry:self container:candies];
-    }
-    return candies;
+    return [WLCandy API_entries:[dictionary arrayForKey:WLCandiesKey] relatedEntry:self container:[NSMutableOrderedSet orderedSet]];
 }
 
 - (void)addCandies:(NSOrderedSet *)candies {

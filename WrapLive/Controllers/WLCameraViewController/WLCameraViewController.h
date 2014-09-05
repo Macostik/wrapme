@@ -12,7 +12,8 @@
 typedef NS_ENUM(NSInteger, WLCameraMode) {
 	WLCameraModeCandy,
 	WLCameraModeAvatar,
-	WLCameraModeCover
+	WLCameraModeCover,
+    WLCameraModeWrapCreation
 };
 
 @class WLCameraViewController;

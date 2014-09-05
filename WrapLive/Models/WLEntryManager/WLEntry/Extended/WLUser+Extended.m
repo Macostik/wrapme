@@ -8,24 +8,27 @@
 
 #import "WLUser+Extended.h"
 #import "WLEntryManager.h"
-#import "WLNotificationBroadcaster.h"
+#import "WLNotificationCenter.h"
 
 @implementation WLUser (Extended)
 
 + (NSString *)API_identifier:(NSDictionary *)dictionary {
-	return [dictionary stringForKey:@"user_uid"];
+	return [dictionary stringForKey:WLUserUIDKey];
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
-	self.phone = [dictionary stringForKey:@"full_phone_number"];
-	self.signInCount = [dictionary numberForKey:@"sign_in_count"];
-	self.name = [dictionary stringForKey:@"name"];
-    self.email = [dictionary stringForKey:@"email"];
-	WLPicture* picture = [[WLPicture alloc] init];
-	picture.large = [dictionary stringForKey:@"large_avatar_url"];
-	picture.medium = [dictionary stringForKey:@"medium_avatar_url"];
-	picture.small = [dictionary stringForKey:@"small_avatar_url"];
-	self.picture = picture;
+    NSString* phone = [dictionary stringForKey:WLFullPhoneNumberKey];
+	if (!NSStringEqual(self.phone, phone)) self.phone = phone;
+    NSNumber* signInCount = [dictionary numberForKey:WLSignInCountKey];
+	if (!NSNumberEqual(self.signInCount, signInCount)) self.signInCount = signInCount;
+    NSString* name = [dictionary stringForKey:WLNameKey];
+	if (!NSStringEqual(self.name, name)) self.name = name;
+    NSString* email = [dictionary stringForKey:WLEmailKey];
+	if (!NSStringEqual(self.email, email)) self.email = email;
+	WLPicture* picture = self.picture;
+	picture.large = [dictionary stringForKey:WLLargeAvatarKey];
+	picture.medium = [dictionary stringForKey:WLMediumAvatarKey];
+	picture.small = [dictionary stringForKey:WLSmallAvatarKey];
     return [super API_setup:dictionary relatedEntry:relatedEntry];
 }
 
@@ -34,18 +37,14 @@
         [self sortWraps];
         return;
     }
-    if (!self.wraps) {
-        self.wraps = [NSMutableOrderedSet orderedSet];
-    }
+    if (!self.wraps) self.wraps = [NSMutableOrderedSet orderedSet];
     [self.wraps addObject:wrap];
     [self sortWraps];
     [self save];
 }
 
 - (void)addWraps:(NSOrderedSet *)wraps {
-    if (!self.wraps) {
-        self.wraps = [NSMutableOrderedSet orderedSet];
-    }
+    if (!self.wraps) self.wraps = [NSMutableOrderedSet orderedSet];
     [self.wraps unionOrderedSet:wraps];
     [self sortWraps];
 }
@@ -96,7 +95,7 @@ static WLUser *currentUser = nil;
 	user.current = @YES;
 	[user save];
     if (user) {
-        [[WLNotificationBroadcaster broadcaster] configure];
+        [[WLNotificationCenter defaultCenter] configure];
     }
 }
 

@@ -13,7 +13,7 @@
 #import "NSString+Additions.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLAuthorization.h"
-#import "WLNotificationBroadcaster.h"
+#import "WLNotificationCenter.h"
 
 static NSString* WLSessionServiceName = @"WrapLive";
 static NSString* WLSessionAccountName = @"WrapLiveAccount";
@@ -26,11 +26,16 @@ static NSString* WLSessionDeviceTokenKey = @"WrapLiveDeviceToken";
 
 @implementation WLSession
 
++ (void)initialize {
+    [super initialize];
+    WLUserDefaults = [NSUserDefaults standardUserDefaults];
+}
+
 static WLAuthorization* _authorization = nil;
 
 + (WLAuthorization *)authorization {
 	if (!_authorization) {
-		_authorization = [WLAuthorization unarchive:[[NSUserDefaults standardUserDefaults] objectForKey:WLSessionAuthorizationKey]];
+		_authorization = [WLAuthorization unarchive:[self object:WLSessionAuthorizationKey]];
 	}
 	return _authorization;
 }
@@ -39,12 +44,10 @@ static WLAuthorization* _authorization = nil;
 	_authorization = authorization;
 	if (authorization) {
 		[authorization archive:^(NSData *data) {
-			[[NSUserDefaults standardUserDefaults] setObject:data forKey:WLSessionAuthorizationKey];
-			[[NSUserDefaults standardUserDefaults] synchronize];
+			[self setObject:data key:WLSessionAuthorizationKey];
 		}];
 	} else {
-		[[NSUserDefaults standardUserDefaults] setObject:nil forKey:WLSessionAuthorizationKey];
-		[[NSUserDefaults standardUserDefaults] synchronize];
+		[self setObject:nil key:WLSessionAuthorizationKey];
 	}
 }
 
@@ -60,15 +63,47 @@ static NSData* _deviceToken = nil;
 
 + (NSData *)deviceToken {
 	if (!_deviceToken) {
-		_deviceToken = [[NSUserDefaults standardUserDefaults] dataForKey:WLSessionDeviceTokenKey];
+		_deviceToken = [WLUserDefaults dataForKey:WLSessionDeviceTokenKey];
 	}
 	return _deviceToken;
 }
 
 + (void)setDeviceToken:(NSData *)deviceToken {
 	_deviceToken = deviceToken;
-	[[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:WLSessionDeviceTokenKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+	[WLUserDefaults setObject:deviceToken forKey:WLSessionDeviceTokenKey];
+    [self synchronize];
+}
+
++ (void)setObject:(id)o key:(NSString *)k {
+    [WLUserDefaults setObject:o forKey:k];
+    [self synchronize];
+}
+
++ (void)setDouble:(double)d key:(NSString *)k {
+    [WLUserDefaults setDouble:d forKey:k];
+    [self synchronize];
+}
+
++ (void)setInteger:(NSInteger)i key:(NSString *)k {
+    [WLUserDefaults setInteger:i forKey:k];
+    [self synchronize];
+}
+
++ (id)object:(NSString*)k {
+    return [WLUserDefaults objectForKey:k];
+}
+
++ (double)wl_double:(NSString*)k {
+    return [WLUserDefaults doubleForKey:k];
+}
+
++ (NSInteger)integer:(NSString*)k {
+    return [WLUserDefaults integerForKey:k];
+}
+
++ (void)synchronize {
+    [NSObject cancelPreviousPerformRequestsWithTarget:WLUserDefaults selector:_cmd object:nil];
+    [WLUserDefaults performSelector:_cmd withObject:nil afterDelay:0.5f];
 }
 
 @end

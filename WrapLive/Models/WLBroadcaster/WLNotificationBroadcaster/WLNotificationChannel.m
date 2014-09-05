@@ -8,14 +8,13 @@
 
 #import "WLNotificationChannel.h"
 #import <PubNub/PubNub.h>
-#import "WLNotificationBroadcaster.h"
+#import "WLNotificationCenter.h"
 #import "WLNotification.h"
 #import "WLUser+Extended.h"
 #import "NSString+Additions.h"
+#import "WLNotification+Extanded.h"
 
 @interface WLNotificationChannel ()
-
-@property (strong, nonatomic) PNChannel* channel;
 
 @end
 
@@ -113,7 +112,7 @@
 
 - (void)enableAPNS {
     __weak typeof(self)weakSelf = self;
-    [WLNotificationBroadcaster deviceToken:^(NSData *data) {
+    [WLNotificationCenter deviceToken:^(NSData *data) {
         if (![[PubNub sharedInstance] isConnected] || !data || !weakSelf.channel.name.nonempty) {
             return;
         }
@@ -137,8 +136,8 @@
 - (void)observeMessages {
     __weak typeof(self)weakSelf = self;
     [[PNObservationCenter defaultCenter] addMessageReceiveObserver:self withBlock:^(PNMessage *message) {
-        if (message.channel == weakSelf.channel && weakSelf.receive) {
-            weakSelf.receive([WLNotification notificationWithMessage:message]);
+        if (message.channel == weakSelf.channel && weakSelf.messageBlock) {
+            weakSelf.messageBlock(message);
         }
     }];
 }

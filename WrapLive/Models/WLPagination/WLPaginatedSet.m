@@ -36,77 +36,91 @@
     [self.entries removeAllObjects];
     [self.entries unionOrderedSet:entries];
     [self.entries sortByUpdatedAtDescending];
+    [self.delegate paginatedSetChanged:self];
+}
+
+- (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    self.request.type = WLPaginatedRequestTypeFresh;
+    return [self send:success failure:failure];
+}
+
+- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    self.request.type = WLPaginatedRequestTypeNewer;
+    return [self send:success failure:failure];
+}
+
+- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    self.request.type = WLPaginatedRequestTypeOlder;
+    return [self send:success failure:failure];
 }
 
 - (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    __weak typeof(self)weakSelf = self;
-    self.request.newer = [[self.entries firstObject] updatedAt];
-    self.request.older = [[self.entries lastObject] updatedAt];
-    return [self.request send:^(NSOrderedSet *orderedSet) {
-        if (orderedSet.nonempty) {
-            if (orderedSet.count < WLPageSize) {
-                weakSelf.completed = YES;
-                [weakSelf addEntries:orderedSet];
-            } else  {
-                NSUInteger count = [weakSelf.entries count];
-                [weakSelf addEntries:orderedSet];
-                if (weakSelf.request.type != WLPaginatedRequestTypeNewer && count == [weakSelf.entries count]) {
-                    weakSelf.completed = YES;
-                }
-            }
-            
-        } else if (weakSelf.request.type != WLPaginatedRequestTypeNewer) {
-            weakSelf.completed = YES;
-        }
-        if(success) {
-            success(orderedSet);
-        }
-    } failure:failure];
+    WLPaginatedRequest* request = self.request;
+    if (request) {
+        [self configureRequest:request];
+        __weak typeof(self)weakSelf = self;
+        return [request send:^(NSOrderedSet *orderedSet) {
+            [weakSelf handleResponse:orderedSet success:success];
+        } failure:failure];
+    } else {
+        if (failure) failure(nil);
+        return nil;
+    }
 }
 
-- (BOOL)addEntries:(NSOrderedSet *)entries sort:(BOOL)sort {
-    BOOL added = NO;
-    for (id entry in entries) {
-        if ([self addEntry:entry sort:NO]) {
-            added = YES;
-        }
+- (void)configureRequest:(WLPaginatedRequest *)request {
+    if (!self.entries.nonempty) {
+        request.type = WLPaginatedRequestTypeFresh;
+    } else {
+        WLEntry* firstEntry = [self.entries firstObject];
+        WLEntry* lastEntry = [self.entries lastObject];
+        request.newer = [firstEntry updatedAt];
+        request.older = [lastEntry updatedAt];
     }
-    if (added) {
-        if (sort) {
-            [self sort];
-        } else {
-            [self.delegate paginatedSetChanged:self];
-        }
+}
+
+- (void)handleResponse:(NSOrderedSet*)entries success:(WLOrderedSetBlock)success {
+    if (!entries.nonempty || ![self addEntries:entries]) {
+        self.completed = YES;
+        [self.delegate paginatedSetChanged:self];
     }
-    return added;
+    if(success) {
+        success(entries);
+    }
 }
 
 - (BOOL)addEntries:(NSOrderedSet *)entries {
-    return [self addEntries:entries sort:YES];
+    if (!entries.nonempty || [entries isSubsetOfOrderedSet:self.entries]) {
+        return NO;
+    }
+    [self.entries unionOrderedSet:entries];
+    [self sort];
+    return YES;
 }
 
 - (BOOL)addEntry:(id)entry {
-    return [self addEntry:entry sort:YES];
-}
-
-- (BOOL)addEntry:(id)entry sort:(BOOL)sort {
-    if ([self.entries containsObject:entry] || ![self shouldAddEntry:entry]) {
+    if ([self.entries containsObject:entry]) {
         return NO;
     }
     [self.entries addObject:entry];
-    if (sort) {
-        [self sort];
-    }
+    [self sort];
     return YES;
 }
 
-- (BOOL)shouldAddEntry:(id)entry {
-    return YES;
+- (void)removeEntry:(id)entry {
+    if ([self.entries containsObject:entry]) {
+        [self.entries removeObject:entry];
+        [self.delegate paginatedSetChanged:self];
+    }
 }
 
 - (void)sort {
     [self.entries sort:self.sortComparator];
     [self.delegate paginatedSetChanged:self];
+}
+
+- (void)sort:(id)entry {
+    [self sort];
 }
 
 @end

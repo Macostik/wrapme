@@ -29,7 +29,6 @@
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *chatLabelView;
 @property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
 
 @property (strong, nonatomic) WLMenu* menu;
@@ -37,9 +36,6 @@
 @end
 
 @implementation WLCandyCell
-{
-    CGPoint _point;
-}
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
@@ -47,84 +43,54 @@
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self configuration:^BOOL (WLMenu *menu) {
-        WLCandy* candy = weakSelf.item;
-        if ([candy isImage]) {
-            if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
-                [menu addItem:@"Delete" block:^{
-                    weakSelf.userInteractionEnabled = NO;
-                    [candy remove:^(id object) {
-                        weakSelf.userInteractionEnabled = YES;
-                    } failure:^(NSError *error) {
-                        [error show];
-                        weakSelf.userInteractionEnabled = YES;
-                    }];
+        WLCandy* candy = weakSelf.entry;
+        if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
+            [menu addItem:@"Delete" block:^{
+                weakSelf.userInteractionEnabled = NO;
+                [candy remove:^(id object) {
+                    weakSelf.userInteractionEnabled = YES;
+                } failure:^(NSError *error) {
+                    [error show];
+                    weakSelf.userInteractionEnabled = YES;
                 }];
-            } else {
-                [menu addItem:@"Report" block:^{
-                    [MFMailComposeViewController messageWithCandy:candy];
-                }];
-            }
-            return YES;
+            }];
         } else {
-            [WLToast showWithMessage:@"Cannot delete chat message already posted."];
-            return NO;
+            [menu addItem:@"Report" block:^{
+                [MFMailComposeViewController messageWithCandy:candy];
+            }];
         }
+        return YES;
     }];
+    self.menu.vibrate = YES;
 }
 
-- (void)setupItemData:(WLCandy*)candy {
+- (void)setup:(WLCandy*)candy {
 	self.userInteractionEnabled = YES;
-	if ([candy isImage]) {
-		WLComment* comment = [candy.comments lastObject];
-		self.commentLabel.text = comment.text;
-        self.coverView.animatingPicture = candy.picture;
-		self.coverView.url = candy.picture.medium;
-        self.menu.vibrate = YES;
-	} else {
-		self.commentLabel.text = candy.message;
-		self.coverView.url = candy.contributor.picture.medium;
-        self.menu.vibrate = NO;
-	}
-	self.commentLabel.hidden = !self.commentLabel.text.nonempty;
-    
-	[self refreshNotifyBulb:candy];
+	WLComment* comment = [candy.comments lastObject];
+    self.commentLabel.text = comment.text;
+    self.commentLabel.hidden = !self.commentLabel.text.nonempty;
+	self.coverView.animatingPicture = candy.picture;
+    self.coverView.url = candy.picture.medium;
+	self.notifyBulb.hidden = ![[candy unread] boolValue];
 }
 
-- (void)refreshNotifyBulb:(WLCandy*)candy {
-	self.chatLabelView.hidden = [candy isImage];
-	self.chatLabelView.alpha = 1.0f;
-	if ([[candy unread] boolValue]) {
-		self.notifyBulb.hidden = [candy isMessage];
-		if ([candy isMessage]) {
-			__weak typeof(self)weakSelf = self;
-			[self.chatLabelView.layer removeAllAnimations];
-			[UIView animateWithDuration:1.5f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState animations:^{
-				weakSelf.chatLabelView.alpha = 0.0f;
-			} completion:^(BOOL finished) {
-			}];
-		}
-	} else {
-		self.notifyBulb.hidden = YES;
-	}
-}
-
-- (IBAction)select:(id)sender {
-	WLCandy* candy = self.item;
+- (IBAction)select:(id)entry {
+	WLCandy* candy = self.entry;
     if (candy.valid) {
         self.notifyBulb.hidden = YES;
-        candy.unread = @NO;
-        [self.delegate candyCell:self didSelectCandy:candy];
+        if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
+        [super select:entry];
     }
 }
 
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
-	[self setupItemData:self.item];
+	[self resetup];
 }
 
 - (WLCandy *)broadcasterPreferedCandy:(WLWrapBroadcaster *)broadcaster {
-    return self.item;
+    return self.entry;
 }
 
 @end

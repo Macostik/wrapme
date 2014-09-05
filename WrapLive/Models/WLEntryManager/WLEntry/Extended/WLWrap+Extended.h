@@ -15,6 +15,8 @@ static NSUInteger WLWrapNameLimit = 190;
 
 + (instancetype)wrap;
 
+- (NSMutableOrderedSet*)candiesFromResponse:(NSDictionary*)response;
+
 - (NSString*)contributorNames;
 
 - (void)addCandy:(WLCandy *)candy;
@@ -39,9 +41,7 @@ static NSUInteger WLWrapNameLimit = 190;
 
 - (NSOrderedSet*)messages;
 
-- (NSOrderedSet*)recentCandies:(NSUInteger)maximumCount;
-
-- (NSMutableOrderedSet*)liveCandies;
+- (NSMutableOrderedSet*)recentCandies:(NSUInteger)maximumCount;
 
 - (void)uploadMessage:(NSString*)message success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 

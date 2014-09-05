@@ -67,7 +67,7 @@
 	self.emailTextField.text = [WLAuthorization currentAuthorization].email;
 	self.email = self.emailTextField.text;
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
-	if (![WLAPIManager productionEvironment]) {
+	if ([WLAPIManager instance].environment.useTestUsers) {
 		__weak typeof(self)weakSelf = self;
 		run_after(0.1, ^{
 			UIButton* testUserButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -130,10 +130,12 @@
 - (IBAction)selectCountry:(id)sender {
 	[self.view endEditing:YES];
 	__weak typeof(self)weakSelf = self;
-	WLCountriesViewController* controller = [[WLCountriesViewController alloc] init];
-	[controller setSelectionBlock:^(WLCountry *country) {
-		weakSelf.country = country;
-	}];
+	WLCountriesViewController* controller = [WLCountriesViewController instantiate:^(WLCountriesViewController* controller) {
+        [controller setSelectionBlock:^(WLCountry *country) {
+            weakSelf.country = country;
+            [weakSelf.signUpViewController.navigationController popViewControllerAnimated:YES];
+        }];
+    }];
 	[self.signUpViewController.navigationController pushViewController:controller animated:YES];
 }
 

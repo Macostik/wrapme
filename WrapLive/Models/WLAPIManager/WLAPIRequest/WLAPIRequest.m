@@ -12,6 +12,7 @@
 #import "WLNavigation.h"
 #import "NSDate+Formatting.h"
 #import "WLServerTime.h"
+#import "WLSupportFunctions.h"
 
 @implementation WLAPIRequest
 

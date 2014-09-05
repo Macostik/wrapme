@@ -20,9 +20,9 @@ void logTimecost(NSString* key, int iterations, timecost_block block) {
 }
 
 NSTimeInterval timecost(timecost_block block) {
-    NSTimeInterval t = CFAbsoluteTimeGetCurrent();
+    NSDate* date = [NSDate date];
     block();
-    return CFAbsoluteTimeGetCurrent() - t;
+    return -[date timeIntervalSinceNow];
 }
 
 CGFloat CGAngleBetweenLines(CGLine l1, CGLine l2) {

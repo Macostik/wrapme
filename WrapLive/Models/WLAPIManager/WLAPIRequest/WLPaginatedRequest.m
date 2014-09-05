@@ -23,4 +23,23 @@
     return parameters;
 }
 
+- (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    self.type = WLPaginatedRequestTypeFresh;
+    return [self send:success failure:failure];
+}
+
+- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    self.type = WLPaginatedRequestTypeNewer;
+    return [self send:success failure:failure];
+}
+
+- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    self.type = WLPaginatedRequestTypeOlder;
+    return [self send:success failure:failure];
+}
+
+- (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [super send:success failure:failure];
+}
+
 @end

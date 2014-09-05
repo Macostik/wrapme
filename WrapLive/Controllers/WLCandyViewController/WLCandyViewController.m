@@ -71,8 +71,8 @@
     [super viewDidLoad];
     
     if (!self.groups) {
-        self.groups = [WLGroupedSet groupsOrderedBy:self.orderBy];
-        [self.groups addCandies:[_candy.wrap images]];
+        self.groups = [[WLGroupedSet alloc] init];
+        [self.groups addEntries:[_candy.wrap images]];
         self.group = [self.groups groupWithCandy:_candy];
     }
     
@@ -183,7 +183,7 @@
         NSUInteger (^increment)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
             return index + 1;
         };
-        if ([self swipeToGroupAtIndex:increment([self.groups.set indexOfObject:self.group]) operationBlock:increment]) {
+        if ([self swipeToGroupAtIndex:increment([self.groups.entries indexOfObject:self.group]) operationBlock:increment]) {
             [self.collectionView leftPush];
             [self onDateChanged];
         }
@@ -196,7 +196,7 @@
     NSUInteger (^decrement)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
         return index - 1;
     };
-    if ([self swipeToGroupAtIndex:decrement([self.groups.set indexOfObject:self.group]) operationBlock:decrement]) {
+    if ([self swipeToGroupAtIndex:decrement([self.groups.entries indexOfObject:self.group]) operationBlock:decrement]) {
         [self.collectionView rightPush];
         [self onDateChanged];
     }
@@ -215,9 +215,9 @@
     appearance.height = 44;
     appearance.contentMode = UIViewContentModeCenter;
     appearance.backgroundColor = [UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:0.75];
-    appearance.endY = 64;
+	appearance.endY = 64;
     appearance.startY = 64;
-    [self.dateChangeToast showWithMessage:self.group.name appearance:appearance inView:self.view];
+    [self.dateChangeToast showWithMessage:[self.group.date string] appearance:appearance inView:self.view];
     __weak typeof(self)weakSelf = self;
     self.rightArrow.hidden = NO;
     [UIView animateWithDuration:0.25f delay:1.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
@@ -231,15 +231,11 @@
 }
 
 - (BOOL)swipeToGroupAtIndex:(NSUInteger)index operationBlock:(NSUInteger (^)(NSUInteger index))operationBlock {
-    if ([self.groups.set containsIndex:index]) {
-        WLGroup* group = [self.groups.set objectAtIndex:index];
-        if ([group hasAtLeastOneImage]) {
-            self.group = group;
-            self.collectionView.contentOffset = CGPointZero;
-            return YES;
-        } else {
-            return [self swipeToGroupAtIndex:operationBlock(index) operationBlock:operationBlock];
-        }
+    if ([self.groups.entries containsIndex:index]) {
+        WLGroup* group = [self.groups.entries objectAtIndex:index];
+        self.group = group;
+        self.collectionView.contentOffset = CGPointZero;
+        return YES;
     }
     return NO;
 }

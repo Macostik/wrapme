@@ -9,7 +9,9 @@
 #import "WLEntry.h"
 #import "NSDictionary+Extended.h"
 #import "NSArray+Additions.h"
+#import "NSString+Additions.h"
 #import "NSMutableOrderedSet+Sorting.h"
+#import "WLEntryKeys.h"
 
 @interface WLEntry (Extended)
 

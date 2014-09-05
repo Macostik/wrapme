@@ -9,7 +9,7 @@
 #import "WLAppDelegate.h"
 #import "WLInternetConnectionBroadcaster.h"
 #import "WLSession.h"
-#import "WLNotificationBroadcaster.h"
+#import "WLNotificationCenter.h"
 #import "WLKeyboardBroadcaster.h"
 #import <AviarySDK/AviarySDK.h>
 #import "WLGestureBroadcaster.h"
@@ -30,23 +30,20 @@
 {
     // Override point for customization after application launch.
     
-    UIViewController* vc = self.window.rootViewController;
-    self.window = [[WLWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = vc;
     [UIWindow setMainWindow:self.window];
 //
 	[[WLInternetConnectionBroadcaster broadcaster] configure];
 	[[WLKeyboardBroadcaster broadcaster] configure];
-	[[WLNotificationBroadcaster broadcaster] configure];
+	[[WLNotificationCenter defaultCenter] configure];
 //    [[WLGestureBroadcaster broadcaster] configure];
 	
-	[[WLNotificationBroadcaster broadcaster] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
+	[[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
 	
 	[AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
 	[AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
     
 #ifndef DEBUG
-	[Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
+    [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
 #endif
     
 	return YES;
@@ -82,7 +79,7 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-	[WLNotificationBroadcaster setDeviceToken:deviceToken];
+	[WLNotificationCenter setDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -91,7 +88,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
 	if (application.applicationState != UIApplicationStateActive) {
-		[[WLNotificationBroadcaster broadcaster] handleRemoteNotification:userInfo];
+		[[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo];
 	}
 }
 

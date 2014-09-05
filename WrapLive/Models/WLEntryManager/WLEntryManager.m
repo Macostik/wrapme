@@ -10,6 +10,7 @@
 #import "NSString+Additions.h"
 #import <objc/runtime.h>
 #import "WLSupportFunctions.h"
+#import "WLServerTime.h"
 
 @interface WLEntryManager ()
 
@@ -63,11 +64,14 @@
         return _coordinator;
     }
     
+    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption : @YES,
+                              NSInferMappingModelAutomaticallyOption : @YES};
+    
     NSURL* url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:@"CoreData.sqlite"];
     NSError *error = nil;
     _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self model]];
-    if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
+    if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]) {
         
     }
     
@@ -155,7 +159,9 @@
 
 - (void)save {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(enqueueSaving) object:nil];
-    [self performSelector:@selector(enqueueSaving) withObject:nil afterDelay:1.0f];
+    if ([self.context hasChanges]) {
+        [self performSelector:@selector(enqueueSaving) withObject:nil afterDelay:1.0f];
+    }
 }
 
 - (void)enqueueSaving {
@@ -164,6 +170,10 @@
     if (error) {
         NSLog(@"!!! %@", error);
     }
+}
+
+- (NSArray *)executeFetchRequest:(NSFetchRequest *)request {
+    return [[WLEntryManager manager].context executeFetchRequest:request error:NULL];
 }
 
 @end
@@ -247,6 +257,10 @@ static NSString *WLEntryIdentifierKey = @"identifier";
 - (void)awakeFromInsert {
     [super awakeFromInsert];
     [[WLEntryManager manager] cacheEntry:self];
+    if (!self.picture) {
+        self.picture = [[WLPicture alloc] init];
+    }
+    self.createdAt = [NSDate serverTime];
 }
 
 - (void)awakeFromFetch {
@@ -256,6 +270,14 @@ static NSString *WLEntryIdentifierKey = @"identifier";
 
 - (BOOL)valid {
     return self.managedObjectContext != nil;
+}
+
+@end
+
+@implementation NSFetchRequest (WLEntryManager)
+
+- (NSArray *)execute {
+    return [[WLEntryManager manager] executeFetchRequest:self];
 }
 
 @end

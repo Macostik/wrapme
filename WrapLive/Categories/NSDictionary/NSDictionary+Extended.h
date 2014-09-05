@@ -18,6 +18,7 @@
 - (NSString*)stringForKey:(id)key;
 - (NSURL*)urlForKey:(id)key;
 - (NSNumber*)numberForKey:(id)key;
+- (NSDate*)timestampDateForKey:(id)key;
 - (NSDate*)dateForKey:(id)key;
 - (NSDate*)dateForKey:(id)key withFormat:(NSString*)dateFormat;
 - (NSArray*)arrayForKey:(id)key;

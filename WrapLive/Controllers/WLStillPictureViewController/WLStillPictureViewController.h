@@ -15,17 +15,19 @@
 
 @protocol WLStillPictureViewControllerDelegate <NSObject>
 
-- (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithImage:(UIImage*)image;
-
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController*)controller;
 
 @optional
+
+- (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithImage:(UIImage*)image;
 
 - (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithPictures:(NSArray*)pictures;
 
 @end
 
 @interface WLStillPictureViewController : UIViewController
+
+@property (weak, nonatomic, readonly) UINavigationController* cameraNavigationController;
 
 @property (nonatomic, weak) id <WLStillPictureViewControllerDelegate> delegate;
 

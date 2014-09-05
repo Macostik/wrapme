@@ -33,10 +33,3 @@
 - (UIControl*)controlForSegment:(NSInteger)segment;
 
 @end
-
-@interface SegmentButton : UIButton
-
-@property (strong, nonatomic) UIColor *selectedColor;
-@property (strong, nonatomic) UIColor *normalColor;
-
-@end

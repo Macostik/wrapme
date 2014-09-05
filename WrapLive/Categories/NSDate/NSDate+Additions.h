@@ -18,10 +18,18 @@
 
 + (NSDate *)defaultBirtday;
 
+- (NSDateComponents *)dayComponents;
+
 - (BOOL)isSameDay:(NSDate*)date;
+
+- (BOOL)isSameDayComponents:(NSDateComponents *)c;
+
+- (BOOL)isSameHour:(NSDate*)date;
 
 - (NSDate *)beginOfDay;
 
 - (NSDate *)endOfDay;
+
+- (void)getBeginOfDay:(NSDate**)beginOfDay endOfDay:(NSDate**)endOfDay;
 
 @end

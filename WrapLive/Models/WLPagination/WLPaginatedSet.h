@@ -34,20 +34,28 @@
 
 + (instancetype)setWithRequest:(WLPaginatedRequest*)request;
 
+- (void)configureRequest:(WLPaginatedRequest*)request;
+
 - (void)resetEntries:(NSOrderedSet*)entries;
 
+- (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
 - (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (void)handleResponse:(NSOrderedSet*)entries success:(WLOrderedSetBlock)success;
 
 - (BOOL)addEntries:(NSOrderedSet *)entries;
 
 - (BOOL)addEntry:(id)entry;
 
-- (BOOL)addEntries:(NSOrderedSet *)entries sort:(BOOL)sort;
-
-- (BOOL)addEntry:(id)entry sort:(BOOL)sort;
+- (void)removeEntry:(id)entry;
 
 - (void)sort;
 
-- (BOOL)shouldAddEntry:(id)entry;
+- (void)sort:(id)entry;
 
 @end

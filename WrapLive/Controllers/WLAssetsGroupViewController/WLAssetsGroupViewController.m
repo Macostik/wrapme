@@ -61,10 +61,6 @@
 	});
 }
 
-- (IBAction)back:(UIButton *)sender {
-	[self.navigationController popViewControllerAnimated:YES];
-}
-
 #pragma mark - Table View
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

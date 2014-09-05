@@ -19,6 +19,13 @@
 	return _deviceUID;
 }
 
+- (NSString *)deviceName {
+    if (!_deviceName) {
+        _deviceName = [UIDevice currentDevice].model;
+    }
+    return _deviceName;
+}
+
 - (BOOL)canAuthorize {
 	return self.countryCode.nonempty && self.phone.nonempty && self.email.nonempty && self.password.nonempty;
 }

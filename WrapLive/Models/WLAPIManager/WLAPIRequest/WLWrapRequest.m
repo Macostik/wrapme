@@ -33,7 +33,11 @@
     self.timeout = [self.contentType isEqualToString:WLWrapContentTypeAuto] ? 5 : 45;
     [parameters trySetObject:@([[NSTimeZone localTimeZone] secondsFromGMT]) forKey:@"utc_offset"];
 	[parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
-	[parameters trySetObject:@(self.page) forKey:@"group_by_date_page_number"];
+    if (self.type == WLPaginatedRequestTypeOlder) {
+        [parameters trySetObject:@(self.page) forKey:@"group_by_date_page_number"];
+    } else {
+        [parameters trySetObject:@1 forKey:@"group_by_date_page_number"];
+    }
     [parameters trySetObject:self.contentType forKey:@"pick"];
     return parameters;
 }
@@ -44,7 +48,17 @@
     if (contentType.nonempty) {
         self.contentType = contentType;
     }
-    return [self.wrap update:data];
+    NSDate* updatedAt = self.wrap.updatedAt;
+    [self.wrap update:data];
+    if ([updatedAt compare:self.wrap.updatedAt] != NSOrderedDescending) {
+        NSMutableOrderedSet* candies = [self.wrap candiesFromResponse:data];
+        if (candies.nonempty && ![candies isSubsetOfOrderedSet:self.wrap.candies]) {
+            [self.wrap addCandies:candies];
+        }
+        return candies;
+    } else {
+        return nil;
+    }
 }
 
 - (void)handleFailure:(NSError *)error {

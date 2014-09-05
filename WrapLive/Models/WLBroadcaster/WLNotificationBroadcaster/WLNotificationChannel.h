@@ -14,6 +14,8 @@
 
 @interface WLNotificationChannel : NSObject
 
+@property (strong, nonatomic) PNChannel* channel;
+
 @property (strong, nonatomic) NSString* name;
 
 @property (nonatomic, readonly) BOOL subscribed;
@@ -22,7 +24,7 @@
 
 @property (nonatomic) BOOL supportPresense;
 
-@property (strong, nonatomic) void (^receive) (WLNotification *notification);
+@property (strong, nonatomic) PubNubMessageBlock messageBlock;
 
 @property (strong, nonatomic) void (^presenseObserver) (PNPresenceEvent *event);
 

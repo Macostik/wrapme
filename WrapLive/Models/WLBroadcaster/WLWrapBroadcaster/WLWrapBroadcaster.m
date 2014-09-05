@@ -11,7 +11,11 @@
 
 @interface WLWrapBroadcaster ()
 
-@property (strong, nonatomic) WLBroadcastSelectReceiver selectReceiverBlock;
+@property (strong, nonatomic) WLBroadcastSelectReceiver wrapSelectBlock;
+
+@property (strong, nonatomic) WLBroadcastSelectReceiver candySelectBlock;
+
+@property (strong, nonatomic) WLBroadcastSelectReceiver commentSelectBlock;
 
 @end
 
@@ -26,65 +30,73 @@
     return instance;
 }
 
-- (WLBroadcastSelectReceiver)wrapSelectBlock:(WLWrap*)wrap {
-    __weak typeof(self)weakSelf = self;
-    return ^BOOL (NSObject <WLWrapBroadcastReceiver> *receiver) {
-        if ([receiver respondsToSelector:@selector(broadcasterPreferedWrap:)]) {
-            return [[receiver broadcasterPreferedWrap:weakSelf] isEqualToEntry:wrap];
-        }
-        return YES;
-    };
-}
-
-- (WLBroadcastSelectReceiver)candySelectBlock:(WLCandy*)candy {
-    __weak typeof(self)weakSelf = self;
-    return ^BOOL (NSObject <WLWrapBroadcastReceiver> *receiver) {
-        if (candy.wrap && ![weakSelf wrapSelectBlock:candy.wrap](receiver)) {
-            return NO;
-        }
-        if ([receiver respondsToSelector:@selector(broadcasterPreferedCandy:)]) {
-            if (![[receiver broadcasterPreferedCandy:weakSelf] isEqualToEntry:candy]) {
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        __weak typeof(self)weakSelf = self;
+        self.wrapSelectBlock = ^BOOL (NSObject <WLWrapBroadcastReceiver> *receiver, WLWrap *wrap) {
+            if ([receiver respondsToSelector:@selector(broadcasterPreferedWrap:)]) {
+                return [[receiver broadcasterPreferedWrap:weakSelf] isEqualToEntry:wrap];
+            }
+            return YES;
+        };
+        self.candySelectBlock = ^BOOL (NSObject <WLWrapBroadcastReceiver> *receiver, WLCandy *candy) {
+            if (candy.wrap && !weakSelf.wrapSelectBlock(receiver, candy.wrap)) {
                 return NO;
             }
-        }
-        return YES;
-    };
+            if ([receiver respondsToSelector:@selector(broadcasterPreferedCandyType:)]) {
+                if (![candy isCandyOfType:[receiver broadcasterPreferedCandyType:weakSelf]]) {
+                    return NO;
+                }
+            }
+            if ([receiver respondsToSelector:@selector(broadcasterPreferedCandy:)]) {
+                if (![[receiver broadcasterPreferedCandy:weakSelf] isEqualToEntry:candy]) {
+                    return NO;
+                }
+            }
+            return YES;
+        };
+        self.commentSelectBlock = ^BOOL (NSObject <WLWrapBroadcastReceiver> *receiver, WLComment *comment) {
+            return weakSelf.candySelectBlock(receiver, comment.candy);
+        };
+    }
+    return self;
 }
 
 - (void)broadcastWrapCreation:(WLWrap *)wrap {
-	[self broadcast:@selector(broadcaster:wrapCreated:) object:wrap select:[self wrapSelectBlock:wrap]];
+	[self broadcast:@selector(broadcaster:wrapCreated:) object:wrap select:self.wrapSelectBlock];
 }
 
 - (void)broadcastWrapChange:(WLWrap *)wrap {
-	[self broadcast:@selector(broadcaster:wrapChanged:) object:wrap select:[self wrapSelectBlock:wrap]];
+	[self broadcast:@selector(broadcaster:wrapChanged:) object:wrap select:self.wrapSelectBlock];
 }
 
 - (void)broadcastWrapRemoving:(WLWrap *)wrap {
-	[self broadcast:@selector(broadcaster:wrapRemoved:) object:wrap select:[self wrapSelectBlock:wrap]];
+	[self broadcast:@selector(broadcaster:wrapRemoved:) object:wrap select:self.wrapSelectBlock];
 }
 
 - (void)broadcastCandyCreation:(WLCandy *)candy {
-	[self broadcast:@selector(broadcaster:candyCreated:) object:candy select:[self candySelectBlock:candy]];
+	[self broadcast:@selector(broadcaster:candyCreated:) object:candy select:self.candySelectBlock];
 }
 
 - (void)broadcastCandyChange:(WLCandy *)candy {
-	[self broadcast:@selector(broadcaster:candyChanged:) object:candy select:[self candySelectBlock:candy]];
+	[self broadcast:@selector(broadcaster:candyChanged:) object:candy select:self.candySelectBlock];
 }
 
 - (void)broadcastCandyRemove:(WLCandy *)candy {
-	[self broadcast:@selector(broadcaster:candyRemoved:) object:candy select:[self candySelectBlock:candy]];
+	[self broadcast:@selector(broadcaster:candyRemoved:) object:candy select:self.candySelectBlock];
 }
 
 - (void)broadcastCommentCreation:(WLComment *)comment {
-	[self broadcast:@selector(broadcaster:commentCreated:) object:comment];
+	[self broadcast:@selector(broadcaster:commentCreated:) object:comment select:self.commentSelectBlock];
 }
 
 - (void)broadcastCommentChange:(WLComment *)comment {
-	[self broadcast:@selector(broadcaster:commentChanged:) object:comment];
+	[self broadcast:@selector(broadcaster:commentChanged:) object:comment select:self.commentSelectBlock];
 }
 
 - (void)broadcastCommentRemove:(WLComment *)comment {
-	[self broadcast:@selector(broadcaster:commentRemoved:) object:comment];
+	[self broadcast:@selector(broadcaster:commentRemoved:) object:comment select:self.commentSelectBlock];
 }
 
 @end

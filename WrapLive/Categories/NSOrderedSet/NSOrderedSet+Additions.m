@@ -93,13 +93,13 @@
 	return [self orderedSetByInsertingObject:object atIndex:0];
 }
 
-- (NSOrderedSet *)map:(MapBlock)block {
+- (instancetype)map:(MapBlock)block {
 	NSMutableOrderedSet *result = [NSMutableOrderedSet orderedSet];
 	for (id element in self) {
 		id newElement = block(element);
 		if (newElement != nil) [result addObject:newElement];
 	}
-	return [result copy];
+	return result;
 }
 
 - (id)selectObject:(SelectBlock)block {

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLItemCell.h"
+#import "WLEntryCell.h"
 
-@interface WLCountryCell : WLItemCell
+@interface WLCountryCell : WLEntryCell
 
 @end

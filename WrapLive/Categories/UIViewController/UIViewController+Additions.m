@@ -44,4 +44,8 @@
 	[self.navigationController setViewControllers:[NSArray arrayWithArray:controllers] animated:animated];
 }
 
+- (IBAction)back:(UIButton *)sender {
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
 @end

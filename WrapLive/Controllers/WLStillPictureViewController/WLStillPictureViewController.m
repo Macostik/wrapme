@@ -106,7 +106,7 @@
 
 - (CGFloat)imageWidthForCurrentMode {
     WLCameraMode mode = self.mode;
-    if (mode == WLCameraModeCandy) {
+    if (mode == WLCameraModeCandy || mode == WLCameraModeWrapCreation) {
         return 720;
     } else {
         return 480;
@@ -119,7 +119,7 @@
 	run_getting_object(^id{
 		CGFloat width = [weakSelf imageWidthForCurrentMode];
         UIImage *result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(width, width)];
-		if (weakSelf.mode != WLCameraModeCandy) {
+		if (weakSelf.mode != WLCameraModeCandy && weakSelf.mode != WLCameraModeWrapCreation) {
 			result = [result croppedImage:CGRectThatFitsSize(result.size, viewSize)];
 		}
 		return result;
@@ -144,6 +144,21 @@
 	return aviaryController;
 }
 
+- (void)handleImage:(UIImage*)image {
+    if (self.mode == WLCameraModeWrapCreation) {
+        __weak typeof(self)weakSelf = self;
+        self.view.userInteractionEnabled = NO;
+        [WLPicture picture:image completion:^(id object) {
+            if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
+                [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithPictures:@[object]];
+            }
+            weakSelf.view.userInteractionEnabled = YES;
+        }];
+    } else {
+        [self editImage:image];
+    }
+}
+
 - (void)editImage:(UIImage*)image {
     [self setTranslucent:NO animated:YES];
 	[self.cameraNavigationController pushViewController:[self editControllerWithImage:image] animated:YES];
@@ -156,7 +171,7 @@
 	__weak typeof(self)weakSelf = self;
 	[self cropImage:image completion:^(UIImage *croppedImage) {
 		[weakSelf saveImage:croppedImage metadata:metadata];
-		[weakSelf editImage:croppedImage];
+        [weakSelf handleImage:croppedImage];
 		weakSelf.view.userInteractionEnabled = YES;
 	}];
 }
@@ -196,7 +211,7 @@
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
     [self cropAsset:asset completion:^(UIImage *croppedImage) {
-        [weakSelf editImage:croppedImage];
+        [weakSelf handleImage:croppedImage];
         weakSelf.view.userInteractionEnabled = YES;
     }];
 }

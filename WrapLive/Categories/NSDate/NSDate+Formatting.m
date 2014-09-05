@@ -10,7 +10,7 @@
 
 @implementation NSDate (Formatting)
 
-static NSString* _defaultFormat = @"ddMMyyyy";
+static NSString* _defaultFormat = @"MMM d, yyyy";
 
 + (NSString*)defaultFormat {
 	return _defaultFormat;

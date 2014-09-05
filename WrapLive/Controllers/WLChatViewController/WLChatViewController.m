@@ -29,13 +29,14 @@
 #import "WLWrapBroadcaster.h"
 #import "WLGroupedSet.h"
 #import "WLSignificantTimeBroadcaster.h"
-#import "WLNotificationBroadcaster.h"
+#import "WLNotificationCenter.h"
 #import "WLNotification.h"
-
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver>
 
 @property (nonatomic, strong) WLGroupedSet* groups;
+
+@property (strong, nonatomic) NSMutableOrderedSet *groupTyping;
 
 @property (nonatomic, weak) WLRefresher* refresher;
 
@@ -71,8 +72,7 @@
 	[super viewDidLoad];
     
     self.groups = [[WLGroupedSet alloc] init];
-    self.groups.singleMessage = NO;
-    self.groups.dateFormat = @"MMM d, yyyy";
+    self.groups.type = WLCandyTypeMessage;
 	
 	if (self.wrap.name.nonempty) {
 		self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(self.wrap.name)];
@@ -88,12 +88,8 @@
 	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
 	self.composeBar.placeholder = @"Write your message ...";
 	
-	run_getting_object(^id{
-		return [weakSelf.wrap messages];
-	}, ^(id object) {
-		[weakSelf setMessages:object];
-		[weakSelf loadMessages:nil];
-	});
+	[weakSelf setMessages:self.wrap.candies];
+    [weakSelf refreshMessages];
 	
 	self.backSwipeGestureEnabled = YES;
     self.indicator.cornerRadius = self.indicator.width/2;
@@ -101,15 +97,16 @@
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
-    [[WLNotificationBroadcaster broadcaster] addReceiver:self];
-    if ([WLAPIManager productionEvironment]) {
+    [[WLNotificationCenter defaultCenter] addReceiver:self];
+    if ([[WLAPIManager instance].environment.name isEqualToString:WLAPIEnvironmentProduction]) {
         [self.indicator removeFromSuperview];
-        [[WLNotificationBroadcaster broadcaster] subscribeOnTypingChannel:self.wrap success:nil];
+        [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:nil];
     } else {
-        [[WLNotificationBroadcaster broadcaster] subscribeOnTypingChannel:self.wrap success:^ {
+        [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:^ {
             weakSelf.indicator.backgroundColor = [UIColor greenColor];
         }];
     }
+    self.groupTyping = [NSMutableOrderedSet orderedSet];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -129,26 +126,26 @@
 }
 
 - (void)setMessages:(NSOrderedSet*)messages {
-    [self.groups setCandies:messages];
+    [self.groups resetEntries:messages];
     [self.groups sort];
     [self.collectionView reloadData];
 }
 
 - (void)addMessages:(NSOrderedSet*)messages {
-    [self.groups addCandies:messages];
+    [self.groups addEntries:messages];
     [self.groups sort];
 	[self.collectionView reloadData];
 }
 
 - (void)insertMessage:(WLCandy*)message {
-	[self.groups addCandy:message];
+	[self.groups addEntry:message];
     [self.groups sort];
     [self.collectionView reloadData];
 }
 
 - (void)refreshMessages {
 	__weak typeof(self)weakSelf = self;
-    WLGroup* group = [self.groups.set firstObject];
+    WLGroup* group = [self.groups.entries firstObject];
     WLCandy* candy = [group.entries firstObject];
     if (!candy) {
         [self loadMessages:^{
@@ -185,9 +182,11 @@
 - (void)appendMessages {
 	if (self.operation) return;
 	__weak typeof(self)weakSelf = self;
-    WLGroup* group = [self.groups.set lastObject];
+    WLGroup* group = [self.groups.entries lastObject];
     WLCandy* candy = [group.entries lastObject];
-	self.operation = [self.wrap messagesOlder:candy.createdAt success:^(NSOrderedSet *messages) {
+    WLGroup* group1 = [self.groups.entries firstObject];
+    WLCandy* candy1 = [group1.entries firstObject];
+	self.operation = [self.wrap messagesOlder:candy.createdAt newer:candy1.createdAt success:^(NSOrderedSet *messages) {
 		weakSelf.shouldAppendMoreMessages = messages.count >= WLPageSize;
 		[weakSelf addMessages:messages];
 	} failure:^(NSError *error) {
@@ -199,38 +198,36 @@
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
-    if ([candy isMessage]) {
-        candy.unread = @NO;
-        [self insertMessage:candy];
-    }
+    if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
+    [self insertMessage:candy];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
-    if ([candy isMessage]) {
-        [self setMessages:[self.wrap messages]];
-        [self.collectionView reloadData];
-    }
+    [self setMessages:[self.wrap messages]];
+    [self.collectionView reloadData];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
-    if ([candy isMessage]) {
-        for (WLGroup* group in self.groups.set) {
-            if ([group.entries containsObject:candy] && ![group.date isSameDay:candy.createdAt]) {
-                [group.entries removeObject:candy];
-                if (![group.entries count]) {
-                    [self.groups.set removeObject:group];
-                    break;
-                }
+    for (WLGroup* group in self.groups.entries) {
+        if ([group.entries containsObject:candy] && ![group.date isSameDay:candy.createdAt]) {
+            [group.entries removeObject:candy];
+            if (![group.entries count]) {
+                [self.groups.entries removeObject:group];
+                break;
             }
         }
-        [self.groups addCandy:candy];
-        [self.groups sort];
-        [self.collectionView reloadData];
     }
+    [self.groups addEntry:candy];
+    [self.groups sort];
+    [self.collectionView reloadData];
 }
 
 - (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
     return self.wrap;
+}
+
+- (NSInteger)broadcasterPreferedCandyType:(WLWrapBroadcaster *)broadcaster {
+    return WLCandyTypeMessage;
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver
@@ -259,7 +256,7 @@
 
 - (IBAction)back:(id)sender {
     self.typing = NO;
-    [[WLNotificationBroadcaster broadcaster] unsubscribeFromTypingChannel];
+    [[WLNotificationCenter defaultCenter] unsubscribeFromTypingChannel];
     if (self.wrap.valid) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
@@ -302,16 +299,16 @@
     if (_typing != typing) {
         _typing = typing;
         if (typing) {
-            [[WLNotificationBroadcaster broadcaster] beginTyping];
+            [[WLNotificationCenter defaultCenter] beginTyping];
         } else {
-            [[WLNotificationBroadcaster broadcaster] endTyping];
+            [[WLNotificationCenter defaultCenter] endTyping];
         }
     }
 }
 
 - (void)composeBarDidChangeText:(WLComposeBar*)composeBar {
     __weak __typeof(self)weakSelf = self;
-    if ([[WLNotificationBroadcaster broadcaster] isSubscribedOnTypingChannel:self.wrap]) {
+    if ([[WLNotificationCenter defaultCenter] isSubscribedOnTypingChannel:self.wrap]) {
         weakSelf.typing = composeBar.text.nonempty;
     }
 }
@@ -319,29 +316,35 @@
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-	return [self.groups.set count];
+    return [self.groups.entries count] + NSINTEGER_DEFINED;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	WLGroup* group = [self.groups.set tryObjectAtIndex:section];
-	return [group.entries count];
+    if (!section ) {
+        return [self.groupTyping count];
+    }
+   
+    WLGroup* group = [self.groups.entries tryObjectAtIndex:section - 1];
+    return [group.entries count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLMessageCell* cell = nil;
-	WLGroup* group = [self.groups.set tryObjectAtIndex:indexPath.section];
-    id entry = [group.entries objectAtIndex:indexPath.row];
-    if ([entry isKindOfClass:[WLCandy class]]) {
-        WLCandy* message = entry;
-        message.unread = @NO;
-        BOOL isMyComment = [message.contributor isCurrentUser];
-        NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
-        cell =  [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-        cell.item = message;
-    } else {
-        WLUser *message = entry;
+   WLMessageCell* cell = nil;
+    if (!indexPath.section) {
+        WLUser *typingUser = [self.groupTyping objectAtIndex:indexPath.row];
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WLMessageCell" forIndexPath:indexPath];
-        cell.item = message;
+        cell.item = typingUser;
+    } else {
+        WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section - 1];
+        id entry = [group.entries objectAtIndex:indexPath.row];
+        if ([entry isKindOfClass:[WLCandy class]]) {
+            WLCandy* message = entry;
+            if (!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
+            BOOL isMyComment = [message.contributor isCurrentUser];
+            NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
+            cell =  [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+            cell.item = message;
+        }
     }
 	
 	[self handlePaginationWithIndexPath:indexPath];
@@ -349,8 +352,13 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if (!indexPath.section ) {
+        WLMessageGroupCell* groupCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WLMessageGroupCell" forIndexPath:indexPath];
+        groupCell.dateLabel.text = [[NSDate date] string];
+        return groupCell;
+    }
 	WLMessageGroupCell* groupCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WLMessageGroupCell" forIndexPath:indexPath];
-	groupCell.group = [self.groups.set tryObjectAtIndex:indexPath.section];
+	groupCell.group = [self.groups.entries tryObjectAtIndex:indexPath.section - 1];
 	return groupCell;
 }
 
@@ -362,17 +370,19 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLGroup* group = [self.groups.set tryObjectAtIndex:indexPath.section];
+    if (!indexPath.section ) {
+        return CGSizeMake(collectionView.width, 66);
+    }
+	WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section - 1];
 	WLCandy* message = [group.entries tryObjectAtIndex:indexPath.row];
 	return CGSizeMake(collectionView.frame.size.width, [self heightOfMessageCell:message]);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-	if (section < [self.groups.set count]) {
-		return CGSizeMake(collectionView.frame.size.width, 32);
-	} else {
-		return CGSizeZero;
-	}
+    if (!section && [[[self.groups.entries firstObject] date] isToday]) {
+        return CGSizeZero;
+    }
+	return CGSizeMake(collectionView.frame.size.width, 32);
 }
 
 - (void)handlePaginationWithIndexPath:(NSIndexPath*)indexPath {
@@ -388,15 +398,18 @@
 
 #pragma mark - WLNotificationReceiver
 
-- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didBeginTyping:(WLUser *)user {
+- (void)broadcaster:(WLNotificationCenter *)broadcaster didBeginTyping:(WLUser *)user {
     if(user) {
-        [self insertMessage:(id)user];
+        [self.groupTyping insertObject:user atIndex:0];
+        [self.collectionView reloadData];
     }
 }
 
-- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didEndTyping:(WLUser *)user {
-    [self.groups removeCandy:(id)user];
-    [self.collectionView reloadData];
+- (void)broadcaster:(WLNotificationCenter *)broadcaster didEndTyping:(WLUser *)user {
+    if ([self.groupTyping containsObject:user]) {
+        [self.groupTyping removeObject:user];
+        [self.collectionView reloadData];
+    }
 }
 
 @end

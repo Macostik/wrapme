@@ -11,6 +11,8 @@
 @class WLUser;
 @class WLAuthorization;
 
+static NSUserDefaults* WLUserDefaults = nil;
+
 @interface WLSession : NSObject
 
 /**
@@ -39,5 +41,19 @@
 + (NSData*)deviceToken;
 
 + (void)setDeviceToken:(NSData*)deviceToken;
+
++ (void)setObject:(id)o key:(NSString*)k;
+
++ (void)setDouble:(double)d key:(NSString*)k;
+
++ (void)setInteger:(NSInteger)i key:(NSString*)k;
+
++ (id)object:(NSString*)k;
+
++ (double)wl_double:(NSString*)k;
+
++ (NSInteger)integer:(NSString*)k;
+
++ (void)synchronize;
 
 @end

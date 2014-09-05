@@ -8,10 +8,9 @@
 
 #import "WLMessageGroupCell.h"
 #import "WLGroupedSet.h"
+#import "NSDate+Formatting.h"
 
 @interface WLMessageGroupCell ()
-
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 @end
 
@@ -19,7 +18,7 @@
 
 - (void)setGroup:(WLGroup *)group {
 	_group = group;
-	self.dateLabel.text = group.name;
+	self.dateLabel.text = [group.date string];
 }
 
 @end

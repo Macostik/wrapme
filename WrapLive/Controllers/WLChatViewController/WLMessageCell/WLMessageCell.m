@@ -77,11 +77,10 @@
 }
 
 - (void)setupItemData:(id <WLChatMessage>)candy {
-	__weak typeof(self)weakSelf = self;
-    [self.avatarView setUrl:candy.contributor.picture.medium completion:^(UIImage *image, BOOL cached, NSError *error) {
-        if (error) {
-            weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
-        }
+    __weak typeof(self)weakSelf = self;
+	self.avatarView.url = candy.contributor.picture.medium;
+    [self.avatarView setFailure:^(NSError* error) {
+        weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];
 	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(candy.contributor.name), WLString([candy.createdAt stringWithFormat:@"HH:mm"])];
 	self.messageLabel.text = candy.message;

@@ -32,17 +32,11 @@
 #import "WLPostCommentRequest.h"
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
-static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
-static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
-static NSString* WLAPIProductionUrl = @"https://api.wraplive.com/api";
-#define WLAPIBaseUrl WLAPIDevelopmentUrl
-
-static NSString* WLAPIVersion = @"4";
-
-#define WLAcceptHeader [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", WLAPIVersion]
 
 typedef void (^WLAFNetworkingSuccessBlock) (AFHTTPRequestOperation *operation, id responseObject);
 typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, NSError *error);
+
+#define WLAPIEnvironmentDefault WLAPIEnvironmentDevelopment
 
 @implementation WLAPIManager
 
@@ -50,17 +44,16 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     static WLAPIManager* instance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		NSString* baseUrl = WLAPIBaseUrl;
-        WLLog(baseUrl,@"API environment initialized", nil);
-		instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
+        NSString* environmentName = [[[NSBundle mainBundle] infoDictionary] stringForKey:@"WLAPIEnvironment"];
+        if (!environmentName.nonempty) environmentName = WLAPIEnvironmentDefault;
+        WLAPIEnvironment* environment = [WLAPIEnvironment configuration:environmentName];
+        instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:environment.endpoint]];
+        instance.environment = environment;
 		instance.requestSerializer.timeoutInterval = 45;
-		[instance.requestSerializer setValue:WLAcceptHeader forHTTPHeaderField:@"Accept"];
+        NSString* acceptHeader = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", environment.version];
+		[instance.requestSerializer setValue:acceptHeader forHTTPHeaderField:@"Accept"];
 	});
     return instance;
-}
-
-+ (BOOL)productionEvironment {
-	return [WLAPIBaseUrl isEqualToString:WLAPIProductionUrl];
 }
 
 static BOOL signedIn = NO;
@@ -142,11 +135,11 @@ static BOOL signedIn = NO;
     }
 }
 
-- (id)fetch:(WLWrapBlock)success failure:(WLFailureBlock)failure {
+- (id)fetch:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     if (self.uploaded) {
         return [[WLWrapRequest request:self] send:success failure:failure];
     } else {
-        success(self);
+        success(nil);
         return nil;
     }
 }
@@ -155,7 +148,7 @@ static BOOL signedIn = NO;
     return [[WLUploadWrapRequest request:self] send:success failure:failure];
 }
 
-- (id)fetch:(NSInteger)page success:(WLWrapBlock)success failure:(WLFailureBlock)failure {
+- (id)fetch:(NSInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     return [[WLWrapRequest request:self page:page] send:success failure:failure];
 }
 
@@ -166,10 +159,10 @@ static BOOL signedIn = NO;
     return [request send:success failure:failure];
 }
 
-- (id)messagesOlder:(NSDate *)older success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)messagesOlder:(NSDate *)older newer:(NSDate *)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     WLMessagesRequest* request = [WLMessagesRequest request:self];
     request.type = WLPaginatedRequestTypeOlder;
-    request.newer = older;
+    request.newer = newer;
     request.older = older;
     return [request send:success failure:failure];
 }

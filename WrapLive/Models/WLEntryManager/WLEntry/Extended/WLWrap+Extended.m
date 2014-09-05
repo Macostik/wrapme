@@ -17,6 +17,7 @@
 #import "WLAPIResponse.h"
 #import "WLInternetConnectionBroadcaster.h"
 #import "NSDate+Additions.h"
+#import "WLSupportFunctions.h"
 
 @implementation WLWrap (Extended)
 
@@ -35,12 +36,12 @@
 }
 
 + (NSString *)API_identifier:(NSDictionary *)dictionary {
-	return [dictionary stringForKey:@"wrap_uid"];
+	return [dictionary stringForKey:WLWrapUIDKey];
 }
 
 - (void)awakeFromInsert {
     [super awakeFromInsert];
-    self.unread = @YES;
+    if (!NSNumberEqual(self.unread, @YES)) self.unread = @YES;
 }
 
 - (void)remove {
@@ -56,39 +57,36 @@
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
     [super API_setup:dictionary relatedEntry:relatedEntry];
-    self.name = [dictionary stringForKey:@"name"];
-    if (!self.candies) {
-        self.candies = [NSMutableOrderedSet orderedSet];
-    }
-    for (NSDictionary* date in dictionary[@"dates"]) {
-        [WLCandy API_entries:[date arrayForKey:@"candies"] relatedEntry:self container:self.candies];
-    }
-    [self.candies sortByUpdatedAtDescending];
-    
+    NSString* name = [dictionary stringForKey:WLNameKey];
+    if (!NSStringEqual(self.name, name)) self.name = name;
+    if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
     NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSet];
-    for (NSDictionary* contributor in [dictionary arrayForKey:@"contributors"]) {
+    for (NSDictionary* contributor in [dictionary arrayForKey:WLContributorsKey]) {
         WLUser* user = [WLUser API_entry:contributor];
         if (user) {
             [contributors addObject:user];
         }
-        if ([contributor boolForKey:@"is_creator"]) {
+        if ([contributor boolForKey:WLIsCreatorKey] && self.contributor != user) {
             self.contributor = user;
         }
     }
-    self.contributors = contributors;
     
-	WLPicture* picture = [[WLPicture alloc] init];
-	picture.large = [dictionary stringForKey:@"large_cover_url"];
-	picture.medium = [dictionary stringForKey:@"medium_cover_url"];
-	picture.small = [dictionary stringForKey:@"small_cover_url"];
-	self.picture = picture;
+    if (contributors.count != self.contributors.count || ![contributors isSubsetOfOrderedSet:self.contributors]) {
+        self.contributors = contributors;
+    }
     return self;
 }
 
-- (void)addCandies:(NSOrderedSet *)candies {
-    if (!self.candies) {
-        self.candies = [NSMutableOrderedSet orderedSet];
+- (NSMutableOrderedSet*)candiesFromResponse:(NSDictionary*)dictionary {
+    NSMutableOrderedSet* candies = [NSMutableOrderedSet orderedSet];
+    for (NSDictionary* date in dictionary[WLDatesKey]) {
+        [WLCandy API_entries:[date arrayForKey:WLCandiesKey] relatedEntry:self container:candies];
     }
+    return candies;
+}
+
+- (void)addCandies:(NSOrderedSet *)candies {
+    if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
     [self.candies unionOrderedSet:candies];
     [self.candies sortByUpdatedAtDescending];
 }
@@ -140,6 +138,10 @@
     return [candy belongsToWrap:self];
 }
 
+- (WLPicture *)picture {
+    return [[self.candies firstObject] picture];
+}
+
 - (void)sortCandies {
     [self.candies sortByUpdatedAtDescending];
     [self save];
@@ -184,37 +186,11 @@
 	return [self messages:0];
 }
 
-- (NSOrderedSet*)recentCandies:(NSUInteger)maximumCount {
-    return [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *candies) {
-        __block BOOL hasMessage = NO;
-        for (WLCandy* candy in self.candies) {
-            if ([candies count] < maximumCount) {
-                if ([candy isMessage]) {
-                    if (!hasMessage) {
-                        hasMessage = YES;
-                        [candies addObject:candy];
-                    }
-                } else {
-                    [candies addObject:candy];
-                }
-            } else {
-                break;
-            }
-        }
-    }];
-}
-
-- (NSMutableOrderedSet *)liveCandies {
+- (NSMutableOrderedSet*)recentCandies:(NSUInteger)maximumCount {
     NSMutableOrderedSet* candies = [NSMutableOrderedSet orderedSet];
-    __block BOOL hasMessage = NO;
     for (WLCandy* candy in self.candies) {
-        if ([candy.updatedAt isToday]) {
-            if ([candy isMessage]) {
-                if (!hasMessage) {
-                    hasMessage = YES;
-                    [candies addObject:candy];
-                }
-            } else {
+        if ([candies count] < maximumCount) {
+            if ([candy isImage]) {
                 [candies addObject:candy];
             }
         } else {
@@ -238,7 +214,6 @@
 		[candy remove];
         failure(error);
 	}];
-//	[[WLUploading uploading:candy] upload:success failure:failure];
 	[candy save];
 	
 }

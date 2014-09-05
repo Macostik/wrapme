@@ -15,14 +15,10 @@
 
 @interface WLCandyViewController : WLShakeViewController
 
-@property (weak, nonatomic) UIViewController *backViewController;
-
 @property (strong, nonatomic) WLCandy *candy;
 
 @property (strong, nonatomic) WLGroup *group;
 
 @property (strong, nonatomic) WLGroupedSet *groups;
-
-@property (strong, nonatomic) NSString* orderBy;
 
 @end

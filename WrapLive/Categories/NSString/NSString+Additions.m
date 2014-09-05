@@ -41,3 +41,13 @@
 }
 
 @end
+
+@implementation NSNumber (Additions)
+
+- (BOOL)isEqualToInteger:(NSInteger)integer {
+    NSInteger i;
+    [self getValue:&i];
+    return (i == integer);
+}
+
+@end

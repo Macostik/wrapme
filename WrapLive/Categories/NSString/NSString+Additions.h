@@ -12,13 +12,16 @@ static inline NSString* GUID() {
 	return [[NSProcessInfo processInfo] globallyUniqueString];
 }
 
-static inline BOOL NSStringEqual(NSString* string1, NSString* string2) {
-	if (string1 == nil && string2 == nil) {
-		return YES;
-	} else if (string1 == nil || string2 == nil) {
-		return NO;
-	}
-	return [string1 isEqualToString:string2];
+static inline BOOL NSStringEqual(NSString* s1, NSString* s2) {
+    return (s1 == nil) ? (s2 == nil) : ((s2 == nil) ? (s1 == nil) : [s1 isEqualToString:s2]);
+}
+
+static inline BOOL NSNumberEqual(NSNumber* n1, NSNumber* n2) {
+    return (n1 == nil) ? (n2 == nil) : ((n2 == nil) ? (n1 == nil) : [n1 isEqualToNumber:n2]);
+}
+
+static inline BOOL NSDateEqual(NSDate* d1, NSDate* d2) {
+    return (d1 == nil) ? (d2 == nil) : ((d2 == nil) ? (d1 == nil) : [d1 isEqualToDate:d2]);
 }
 
 static inline NSString* WLString(NSString* string) {
@@ -49,5 +52,11 @@ static inline NSString* phoneNumberClearing (NSString* phone) {
 - (NSString*)trim;
 
 - (BOOL)isContainSubstring:(NSString *)subString;
+
+@end
+
+@interface NSNumber (Additions)
+
+- (BOOL)isEqualToInteger:(NSInteger)integer;
 
 @end

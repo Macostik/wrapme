@@ -23,7 +23,7 @@
 }
 
 + (NSString *)API_identifier:(NSDictionary *)dictionary {
-	return [dictionary stringForKey:@"comment_uid"];
+	return [dictionary stringForKey:WLCommentUIDKey];
 }
 
 - (void)remove {
@@ -33,8 +33,11 @@
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
-    self.text = [dictionary stringForKey:@"content"];
-    self.candy = relatedEntry ? : (self.candy ? : [WLCandy entry:[dictionary stringForKey:@"candy_uid"]]);
+    NSString* text = [dictionary stringForKey:WLContentKey];
+    if (!NSStringEqual(self.text, text)) self.text = text;
+    WLCandy* currentCandy = self.candy;
+    WLCandy *candy = relatedEntry ? : (currentCandy ? : [WLCandy entry:[dictionary stringForKey:WLCandyUIDKey]]);
+    if (currentCandy != candy) self.candy = candy;
     return [super API_setup:dictionary relatedEntry:relatedEntry];
 }
 
@@ -45,6 +48,10 @@
 - (void)touch:(NSDate *)date {
     [self.candy touch:date];
     [super touch:date];
+}
+
+- (WLPicture *)picture {
+    return self.candy.picture;
 }
 
 @end

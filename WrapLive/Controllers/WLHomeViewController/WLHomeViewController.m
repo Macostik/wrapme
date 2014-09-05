@@ -35,31 +35,32 @@
 #import "WLSupportFunctions.h"
 #import "NSString+Additions.h"
 #import "WLQuickChatView.h"
-#import "WLNotificationBroadcaster.h"
+#import "WLNotificationCenter.h"
 #import "WLNotification.h"
 #import "UIView+AnimationHelper.h"
 #import "AsynchronousOperation.h"
 #import "WLPaginatedSet.h"
 #import "WLAPIManager.h"
 #import "WLWrapsRequest.h"
-#import "WLDatesViewController.h"
+#import "WLCollectionViewDataProvider.h"
+#import "WLHomeViewSection.h"
+#import "WLNavigation.h"
+#import "WLUserView.h"
+#import "WLNotification+Extanded.h"
+#import "WLEntryFetching.h"
 
-@interface WLHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLWrapCellDelegate, WLNotificationReceiver, WLQuickChatViewDelegate>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver, WLCreateWrapViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *noWrapsView;
-@property (strong, nonatomic) WLPaginatedSet* wraps;
-@property (strong, nonatomic) NSOrderedSet* candies;
-@property (nonatomic, strong) WLWrap* topWrap;
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) WLLoadingView *splash;
-@property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
-@property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
-@property (weak, nonatomic) IBOutlet WLQuickChatView *quickChatView;
-@property (strong, nonatomic) NSOperationQueue *loadingQueue;
-
-@property (nonatomic) BOOL showLoadingView;
+@property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
+@property (weak, nonatomic) IBOutlet WLUserView *userView;
+@property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
+@property (weak, nonatomic) IBOutlet UILabel *notificationsLabel;
+@property (strong, nonatomic) WLEntryFetching *fetching;
 
 @end
 
@@ -69,47 +70,60 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    if (!self.wraps) {
-        self.wraps = [WLPaginatedSet setWithRequest:[WLWrapsRequest new]];
-    }
-    [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
+	self.userView.avatarView.layer.borderWidth = 1;
+	self.userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
+    
+    self.userView.user = [WLUser currentUser];
+    
+    self.section.entries.request = [WLWrapsRequest new];
+    [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
     
     self.splash = [[WLLoadingView splash] showInView:self.view];
     
-    [self setNavigationBarHidden:YES animated:NO];
-	self.createWrapButton.transform = CGAffineTransformMakeTranslation(0, self.createWrapButton.height);
 	self.collectionView.hidden = YES;
 	self.noWrapsView.hidden = YES;
-	[self setupRefresh];
+	[self.dataProvider setRefreshable];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-	[[WLNotificationBroadcaster broadcaster] addReceiver:self];
-    self.showLoadingView = YES;
-}
-
-- (void)setShowLoadingView:(BOOL)showLoadingView {
-    _showLoadingView = showLoadingView;
-    UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-    layout.footerReferenceSize = showLoadingView ? CGSizeMake(320, 60) : CGSizeZero;
-    [self.collectionView reloadData];
+	[[WLNotificationCenter defaultCenter] addReceiver:self];
+    
+    __weak typeof(self)weakSelf = self;
+    [self.section setChange:^(WLPaginatedSet* entries) {
+        BOOL hasWraps = entries.entries.nonempty;
+        weakSelf.collectionView.hidden = !hasWraps;
+        weakSelf.noWrapsView.hidden = hasWraps;
+        [weakSelf finishLoadingAnimation];
+        [weakSelf showLatestWrap];
+    }];
+    
+    [self.section setSelection:^(id entry) {
+        [entry presentInViewController:weakSelf];
+    }];
+    
+    self.fetching = [WLEntryFetching fetching:@"WLEntry" configuration:^(NSFetchRequest *request) {
+        [request setEntity:[WLNotification entity]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"unread == YES AND type != %@",
+                                 [NSNumber numberWithInteger:WLNotificationChatCandyAddition]];
+        [request setPredicate:predicate];
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"entry.createdAt" ascending:NO];
+        [request setSortDescriptors:@[sortDescriptor]];
+    }];
+    [self.fetching addTarget:self action:@selector(updateNotificationsLabel)];
+    [self.fetching perform];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-    self.avatarImageView.circled = YES;
-	self.avatarImageView.layer.borderWidth = 1;
-	self.avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-	self.avatarImageView.url = [WLUser currentUser].picture.small;
+	[self.userView update];
     NSOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
 	if (self.collectionView.hidden) {
-		[self fetchWraps:YES];
+		[self.section refresh];
         if (wraps.nonempty) {
-            [self.wraps resetEntries:wraps];
-            [self updateWraps];
+            [self.section.entries resetEntries:wraps];
         }
 	} else {
-        [self.wraps resetEntries:wraps];
-        [self updateWraps];
+        [self.section.entries resetEntries:wraps];
     }
+    [self updateNotificationsLabel];
 }
 
 - (CGFloat)toastAppearanceHeight:(WLToast *)toast {
@@ -117,193 +131,53 @@
 }
 
 - (UIViewController *)shakePresentedViewController {
-	return self.wraps.entries.nonempty ? [self cameraViewController] : nil;
+	return self.section.entries.entries.nonempty ? [self cameraViewController] : nil;
 }
 
 - (id)cameraViewController {
 	__weak typeof(self)weakSelf = self;
 	return [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
-		controller.wrap = weakSelf.topWrap;
+		controller.wrap = weakSelf.section.wrap;
 		controller.delegate = self;
 		controller.mode = WLCameraModeCandy;
 	}];
 }
 
-- (void)setupRefresh {
-	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshWraps)];
-	self.refresher.colorScheme = WLRefresherColorSchemeWhite;
-}
-
-- (void)fetchWraps:(BOOL)refresh {
-    if (!self.wraps.entries.nonempty) {
-        [self fetchFreshWraps];
-    } else if (refresh) {
-        [self refreshWraps];
-    } else {
-        [self appendWraps];
-    }
-}
-
-- (void)fetchFreshWraps {
-    if (self.wraps.request.loading) return;
-    __weak typeof(self)weakSelf = self;
-    self.wraps.request.type = WLPaginatedRequestTypeFresh;
-    [self.wraps send:^(NSOrderedSet *orderedSet) {
-        [weakSelf showLatestWrap];
-        [weakSelf updateWraps];
-        if ([orderedSet count] != 50) {
-            weakSelf.showLoadingView = NO;
-        }
-    } failure:^(NSError *error) {
-        if (weakSelf.isOnTopOfNagvigation) {
-            [error showIgnoringNetworkError];
-        }
-        [weakSelf updateWraps];
-        weakSelf.showLoadingView = NO;
-    }];
-}
-
-- (void)refreshWraps {
-    if (self.wraps.request.loading) return;
-    __weak typeof(self)weakSelf = self;
-    self.wraps.request.type = WLPaginatedRequestTypeNewer;
-    [self.wraps send:^(NSOrderedSet *orderedSet) {
-        [weakSelf updateWraps];
-        [weakSelf.refresher endRefreshing];
-    } failure:^(NSError *error) {
-        [weakSelf.refresher endRefreshing];
-        if (weakSelf.isOnTopOfNagvigation) {
-            [error showIgnoringNetworkError];
-        }
-        weakSelf.showLoadingView = NO;
-    }];
-}
-
-- (void)appendWraps {
-    if (self.wraps.request.loading) return;
-    __weak typeof(self)weakSelf = self;
-    self.wraps.request.type = WLPaginatedRequestTypeOlder;
-    [self.wraps send:^(NSOrderedSet *orderedSet) {
-        [weakSelf updateWraps];
-        if (weakSelf.wraps.completed) {
-            weakSelf.showLoadingView = NO;
-        }
-    } failure:^(NSError *error) {
-        if (weakSelf.isOnTopOfNagvigation) {
-            [error showIgnoringNetworkError];
-        }
-        weakSelf.showLoadingView = NO;
-    }];
-}
-
 - (void)showLatestWrap {
     WLUser * user = [WLUser currentUser];
-    static BOOL firstWrapShown = NO;
-	if (!firstWrapShown && user.signInCount.integerValue == 1 && self.wraps.entries.nonempty) {
-		WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-		wrapController.wrap = [self.wraps.entries firstObject];
-		[self.navigationController pushViewController:wrapController animated:NO];
+	if (user.signInCount.integerValue == 1 && self.section.entries.entries.nonempty) {
+        __weak typeof(self)weakSelf = self;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            [weakSelf.section.wrap presentInViewController:self];
+        });
 	}
-    firstWrapShown = YES;
 }
 
 - (void)finishLoadingAnimation {
-	if (!CGAffineTransformIsIdentity(self.createWrapButton.transform)) {
+	if (self.splash.superview) {
 		__weak typeof(self)weakSelf = self;
 		[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 			weakSelf.splash.alpha = 0.0f;
-			weakSelf.createWrapButton.transform = CGAffineTransformIdentity;
 		} completion:^(BOOL finished) {
 			[weakSelf.splash hide];
 		}];
 	}
 }
 
-- (void)setWraps:(WLPaginatedSet *)wraps {
-	_wraps = wraps;
-	[self updateWraps];
-}
-
-- (void)updateWraps {
-	
-	BOOL hasWraps = _wraps.entries.nonempty;
-	
-    self.quickChatView.hidden = !hasWraps;
-    
-    self.topWrap = [self.wraps.entries firstObject];
-	
-	self.collectionView.hidden = !hasWraps;
-	self.noWrapsView.hidden = hasWraps;
-	[self.collectionView reloadData];
-	
-	[self setNavigationBarHidden:!hasWraps animated:YES];
-    
-    [self finishLoadingAnimation];
-}
-
-- (void)setNavigationBarHidden:(BOOL)hidden animated:(BOOL)animated {
-    __weak typeof(self)weakSelf = self;
-    CGAffineTransform transform = CGAffineTransformMakeTranslation(0, hidden ? -weakSelf.navigationBar.height : 0);
-    if (!CGAffineTransformEqualToTransform(self.navigationBar.transform, transform)) {
-        [UIView performAnimated:animated animation:^{
-            weakSelf.navigationBar.transform = transform;
-        }];
-    }
-}
-
-- (void)setTopWrap:(WLWrap *)topWrap {
-    BOOL changed = NO;
-    if (_topWrap != topWrap) {
-        changed = YES;
-        _topWrap = topWrap;
-    }
-    if (_topWrap) {
-        self.candies = [_topWrap recentCandies:WLHomeTopWrapCandiesLimit];
-        self.quickChatView.wrap = _topWrap;
-        if (changed) {
-            [self fetchTopWrapIfNeeded:_topWrap];
-        }
-    }
-}
-
-- (NSOperationQueue *)loadingQueue {
-    if (!_loadingQueue) {
-        _loadingQueue = [[NSOperationQueue alloc] init];
-        _loadingQueue.maxConcurrentOperationCount = 1;
-    }
-    return _loadingQueue;
-}
-
-- (void)fetchTopWrapIfNeeded:(WLWrap*)wrap {
-    if ([self.candies count] < WLHomeTopWrapCandiesLimit) {
-        [self.loadingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
-            run_in_main_queue(^{
-                [wrap fetch:^(WLWrap* wrap) {
-                    [operation finish];
-                } failure:^(NSError *error) {
-                    [operation finish];
-                }];
-            });
-        }];
-    }
-}
-
 #pragma mark - WLWrapBroadcastReceiver
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
-    [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
-    [self updateWraps];
+    [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
-    [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
-    [self updateWraps];
+    [self.section.entries addEntry:wrap];
 	self.collectionView.contentOffset = CGPointZero;
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-    [self.wraps resetEntries:[[WLUser currentUser] sortedWraps]];
-    [self updateWraps];
+    [self.section.entries removeEntry:wrap];
 }
 
 #pragma mark - WLNotificationReceiver
@@ -312,18 +186,17 @@
     if ([notification deletion]) {
         return;
     }
-    
+    id entry = notification.entry;
     __weak typeof(self)weakSelf = self;
     void (^showNotificationBlock)(void) = ^{
-        WLWrap* wrap = notification.wrap;
-		if (notification.type == WLNotificationContributorAddition) {
-			[weakSelf.navigationController pushViewController:[WLWrapViewController instantiate:^(WLWrapViewController *controller) {
-				controller.wrap = wrap;
-			}] animated:YES];
-		} else if (notification.type == WLNotificationImageCandyAddition || notification.type == WLNotificationChatCandyAddition || notification.type == WLNotificationCandyCommentAddition) {
-            WLCandy* candy = notification.candy;
-            [wrap addCandy:candy];
-			[weakSelf presentCandy:candy fromWrap:wrap];
+
+        WLNotificationType type = [notification.type integerValue];
+		if (type == WLNotificationContributorAddition) {
+            [entry presentInViewController:weakSelf];
+		} else if (type == WLNotificationImageCandyAddition ||
+                   type == WLNotificationChatCandyAddition  ||
+                   type == WLNotificationCandyCommentAddition) {
+            [entry presentInViewController:weakSelf];
 		}
 	};
     
@@ -343,9 +216,19 @@
 	}
 }
 
-- (void)broadcaster:(WLNotificationBroadcaster *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {
+- (void)broadcaster:(WLNotificationCenter *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {
 	[self handleRemoteNotification:notification];
 	broadcaster.pendingRemoteNotification = nil;
+}
+
+static CGFloat WLNotificationsLabelSize = 22;
+
+- (void)updateNotificationsLabel {
+    UILabel* label = self.notificationsLabel;
+    NSUInteger count = [self.fetching.content count];
+    label.hidden = count == 0;
+    label.text = [NSString stringWithFormat:@"%lu", (unsigned long)count];
+    label.width = MAX(WLNotificationsLabelSize, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLNotificationsLabelSize)].width + 12);
 }
 
 #pragma mark - Actions
@@ -353,17 +236,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue isCameraSegue]) {
 		WLStillPictureViewController* controller = segue.destinationViewController;
-		controller.wrap = self.topWrap;
 		controller.delegate = self;
-		controller.mode = WLCameraModeCandy;
+		controller.mode = WLCameraModeWrapCreation;
 	}
-}
-
-- (IBAction)typeMessage:(UIButton *)sender {
-	WLChatViewController * chatController = [WLChatViewController instantiate];
-	chatController.wrap = self.topWrap;
-	chatController.shouldShowKeyboard = YES;
-	[self.navigationController pushViewController:chatController animated:YES];
 }
 
 - (IBAction)createNewWrap:(id)sender {
@@ -371,130 +246,27 @@
 	[controller presentInViewController:self transition:WLWrapTransitionFromBottom];
 }
 
-#pragma mark - UICollectionViewDelegate
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	return [self.wraps.entries count];
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLWrap* wrap = [self.wraps.entries tryObjectAtIndex:indexPath.row];
-	WLWrapCell* cell = nil;
-	if (indexPath.row == 0) {
-		static NSString* topWrapCellIdentifier = @"WLTopWrapCell";
-		cell = [collectionView dequeueReusableCellWithReuseIdentifier:topWrapCellIdentifier forIndexPath:indexPath];
-		cell.item = wrap;
-		cell.candies = self.candies;
-	} else {
-		static NSString* wrapCellIdentifier = @"WLWrapCell";
-		cell = [collectionView dequeueReusableCellWithReuseIdentifier:wrapCellIdentifier forIndexPath:indexPath];
-		cell.item = wrap;
-	}
-	cell.delegate = self;
-	return cell;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = 50;
-	if (indexPath.row == 0) {
-		height = [self.candies count] > WLHomeTopWrapCandiesLimit_2 ? 324 : 218;
-	}
-	return CGSizeMake(collectionView.width, height);
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-	[self appendWraps];
-    static NSString* identifier = @"WLLoadingView";
-    return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	if (self.refresher.refreshing) {
-		[self.refresher endRefreshing];
-	}
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    [self.quickChatView onEndDragging];
-    if (!decelerate) {
-        [self.quickChatView onEndScrolling];
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self.quickChatView onEndScrolling];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.quickChatView onScroll];
-}
-
 #pragma mark - WLStillPictureViewControllerDelegate
 
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
-	WLWrap* wrap = controller.wrap ? : self.topWrap;
-	[wrap uploadImage:image success:^(WLCandy *candy) {
-    } failure:^(NSError *error) {
-    }];
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-    WLWrap* wrap = controller.wrap ? : self.topWrap;
-    [wrap uploadPictures:pictures];
-	[self dismissViewControllerAnimated:YES completion:nil];
+    WLCreateWrapViewController* createWrapViewController = [WLCreateWrapViewController instantiate];
+    createWrapViewController.pictures = pictures;
+    createWrapViewController.delegate = self;
+    [controller.cameraNavigationController pushViewController:createWrapViewController animated:YES];
 }
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - WLWrapCellDelegate
+#pragma mark - WLCreateWrapViewControllerDelegate
 
-- (void)presentCandy:(WLCandy*)candy fromWrap:(WLWrap*)wrap {
-    NSMutableArray* controllers = [NSMutableArray arrayWithObject:self];
-    [controllers addObject:[WLWrapViewController instantiate:^(WLWrapViewController* controller) {
-        controller.wrap = wrap;
-    }]];
-	if ([candy isImage]) {
-        __weak typeof(self)weakSelf = self;
-        [controllers addObject:[WLCandyViewController instantiate:^(WLCandyViewController *controller) {
-            controller.candy = candy;
-            controller.backViewController = weakSelf;
-		}]];
-	} else if ([candy isMessage]) {
-        [controllers addObject:[WLChatViewController instantiate:^(WLChatViewController *controller) {
-			controller.wrap = wrap;
-		}]];
-	}
-	[self.navigationController setViewControllers:controllers animated:YES];
+- (void)createWrapViewControllerDidCancel:(WLCreateWrapViewController *)controller {
+    [controller.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)wrapCell:(WLWrapCell *)cell didSelectCandy:(WLCandy *)candy {
-	[self presentCandy:candy fromWrap:cell.item];
-}
-
-- (void)wrapCellDidSelectCandyPlaceholder:(WLWrapCell *)cell {
-	[self.navigationController presentViewController:[self cameraViewController] animated:YES completion:nil];
-}
-
-- (void)wrapCell:(WLWrapCell *)cell didSelectWrap:(WLWrap *)wrap {
-	WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-	wrapController.wrap = wrap;
-	[self.navigationController pushViewController:wrapController animated:YES];
-}
-
-#pragma mark - WLQuickChatViewDelegate
-
-- (void)quickChatView:(WLQuickChatView *)view didOpenChat:(WLWrap *)wrap {
-    WLWrapViewController* wrapController = [WLWrapViewController instantiate];
-	wrapController.wrap = wrap;
-	NSArray* controllers = @[self, wrapController, [WLChatViewController instantiate:^(WLChatViewController *controller) {
-        controller.wrap = wrap;
-    }]];
-    [self.navigationController setViewControllers:controllers animated:YES];
+- (void)createWrapViewController:(WLCreateWrapViewController *)controller didCreateWrap:(WLWrap *)wrap {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

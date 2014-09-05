@@ -65,16 +65,20 @@
 	if (!self.spinner.isAnimating) {
 		[self.spinner startAnimating];
 	}
-	[self.imageView setUrl:image.picture.medium completion:^(UIImage* image, BOOL cached, NSError* error) {
-		if (weakSelf.spinner.isAnimating) {
+	[self.imageView setUrl:image.picture.medium success:^(UIImage *image, BOOL cached) {
+        if (weakSelf.spinner.isAnimating) {
 			[weakSelf.spinner stopAnimating];
 		}
-	}];
+    } failure:^(NSError *error) {
+        if (weakSelf.spinner.isAnimating) {
+			[weakSelf.spinner stopAnimating];
+		}
+    }];
 	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
     self.nameLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
     self.progressBar.hidden = image.uploaded;
 	[self reloadComments];
-    image.unread = @NO;
+    if (!NSNumberEqual(image.unread, @NO)) image.unread = @NO;
 }
 
 - (void)reloadComments {

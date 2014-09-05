@@ -9,16 +9,14 @@
 #import "WLCandy.h"
 #import "WLBlocks.h"
 
-typedef NS_ENUM(NSUInteger, WLCandyType) {
-	WLCandyTypeImage = 10,
-	WLCandyTypeMessage = 20
-};
+static NSInteger WLCandyTypeImage = 10;
+static NSInteger WLCandyTypeMessage = 20;
 
 @interface WLCandy (Extended)
 
-+ (instancetype)candyWithType:(WLCandyType)type wrap:(WLWrap*)wrap;
++ (instancetype)candyWithType:(NSInteger)type wrap:(WLWrap*)wrap;
 
-- (BOOL)isCandyOfType:(WLCandyType)type;
+- (BOOL)isCandyOfType:(NSInteger)type;
 
 - (BOOL)isImage;
 

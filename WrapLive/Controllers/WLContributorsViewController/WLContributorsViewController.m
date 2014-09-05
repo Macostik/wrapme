@@ -213,10 +213,6 @@
 	};
 }
 
-- (IBAction)back:(id)sender {
-	[self.navigationController popViewControllerAnimated:YES];
-}
-
 - (IBAction)done:(id)sender {
     self.contactsBlock([self.selectedPhones allObjects]);
 	[self.navigationController popViewControllerAnimated:YES];

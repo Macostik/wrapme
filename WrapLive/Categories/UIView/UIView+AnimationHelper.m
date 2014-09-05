@@ -35,4 +35,11 @@
     }];
 }
 
+- (void)setBackgroundColor:(UIColor *)backgroundColor animated:(BOOL)animated {
+    __weak typeof(self)weakSelf = self;
+    [UIView performAnimated:animated animation:^{
+        weakSelf.backgroundColor = backgroundColor;
+    }];
+}
+
 @end

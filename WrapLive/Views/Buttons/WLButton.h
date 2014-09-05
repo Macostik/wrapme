@@ -20,6 +20,18 @@
 
 @property (nonatomic) BOOL loading;
 
+@property (nonatomic) BOOL animated;
+
+- (UIColor *)defaultNormalColor;
+
+- (UIColor *)defaultHighlightedColor;
+
+- (UIColor *)defaultSelectedColor;
+
+- (UIColor *)defaultDisabledColor;
+
 @end
 
 @interface WLSegmentButton : WLButton @end
+
+@interface WLPressButton : WLButton @end

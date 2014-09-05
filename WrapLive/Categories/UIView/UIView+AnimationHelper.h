@@ -16,4 +16,6 @@
 
 - (void)setTransform:(CGAffineTransform)transform animated:(BOOL)animated;
 
+- (void)setBackgroundColor:(UIColor *)backgroundColor animated:(BOOL)animated;
+
 @end

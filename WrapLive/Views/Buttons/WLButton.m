@@ -7,6 +7,8 @@
 //
 
 #import "WLButton.h"
+#import "UIColor+CustomColors.h"
+#import "UIView+AnimationHelper.h"
 
 @interface WLButton ()
 
@@ -52,7 +54,9 @@
     } else {
         backgroundColor = self.disabledColor;
     }
-	self.backgroundColor = backgroundColor;
+    if (!CGColorEqualToColor(backgroundColor.CGColor, self.backgroundColor.CGColor)) {
+        [self setBackgroundColor:backgroundColor animated:self.animated];
+    }
 }
 
 - (void)setNormalColor:(UIColor *)normalColor {
@@ -60,8 +64,24 @@
 	[self update];
 }
 
+- (UIColor *)defaultNormalColor {
+	return self.backgroundColor;
+}
+
+- (UIColor *)defaultHighlightedColor {
+	return [self defaultNormalColor];
+}
+
+- (UIColor *)defaultSelectedColor {
+	return [self defaultNormalColor];
+}
+
+- (UIColor *)defaultDisabledColor {
+	return [self defaultNormalColor];
+}
+
 - (UIColor *)normalColor {
-	if (!_normalColor) _normalColor = [UIColor clearColor];
+	if (!_normalColor) _normalColor = [self defaultNormalColor];
 	return _normalColor;
 }
 
@@ -71,7 +91,7 @@
 }
 
 - (UIColor *)hignlightedColor {
-	if (!_highlightedColor) _highlightedColor = self.normalColor;
+	if (!_highlightedColor) _highlightedColor = [self defaultHighlightedColor];
 	return _highlightedColor;
 }
 
@@ -81,7 +101,7 @@
 }
 
 - (UIColor *)selectedColor {
-	if (!_selectedColor) _selectedColor = self.normalColor;
+	if (!_selectedColor) _selectedColor = [self defaultSelectedColor];
 	return _selectedColor;
 }
 
@@ -91,7 +111,7 @@
 }
 
 - (UIColor *)disabledColor {
-	if (!_disabledColor) _disabledColor = self.normalColor;
+	if (!_disabledColor) _disabledColor = [self defaultDisabledColor];
 	return _disabledColor;
 }
 
@@ -117,5 +137,13 @@
 @implementation WLSegmentButton
 
 - (void)setHighlighted:(BOOL)highlighted { }
+
+@end
+
+@implementation WLPressButton
+
+- (UIColor *)defaultHighlightedColor {
+    return [[self normalColor] colorByAddingValue:-0.1f];
+}
 
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLItemCell.h"
+#import "WLEntryCell.h"
 
 @class WLContributorCell;
 @class WLUser;
@@ -19,7 +19,7 @@
 
 @end
 
-@interface WLContributorCell : WLItemCell
+@interface WLContributorCell : WLEntryCell
 
 @property (nonatomic, weak) IBOutlet id <WLContributorCellDelegate> delegate;
 

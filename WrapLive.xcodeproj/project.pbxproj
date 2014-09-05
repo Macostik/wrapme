@@ -31,7 +31,6 @@
 		1293678318E33A3500527250 /* WLCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293678218E33A3500527250 /* WLCandyCell.m */; };
 		129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E218E197ED00FF43F6 /* WLAddressBook.m */; };
 		129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E618E1A17300FF43F6 /* WLCreateWrapViewController.m */; };
-		129654EB18E1A5B900FF43F6 /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654EA18E1A5B900FF43F6 /* WLContributorsViewController.m */; };
 		129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654EE18E1A79500FF43F6 /* UIColor+CustomColors.m */; };
 		129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */; };
 		129654F518E1CB3000FF43F6 /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
@@ -138,13 +137,11 @@
 		14AE4FF219700B5E002EEF3F /* interfacealertsound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 14AE4FEF19700B5E002EEF3F /* interfacealertsound.wav */; };
 		14AE4FF319700B5E002EEF3F /* interfacealertsound3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 14AE4FF019700B5E002EEF3F /* interfacealertsound3.wav */; };
 		14AE4FF419700B5E002EEF3F /* triade.aif in Resources */ = {isa = PBXBuildFile; fileRef = 14AE4FF119700B5E002EEF3F /* triade.aif */; };
-		14B134DD1952FD1E004F86AC /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B134DC1952FD1E004F86AC /* WLContributorCell.m */; };
 		14B134E11952FEB2004F86AC /* WLInviteeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B134E01952FEB2004F86AC /* WLInviteeCell.m */; };
 		14B2429D195C4CEB00C5D208 /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
 		14B242A0195C4D3500C5D208 /* WLWrapEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429F195C4D3500C5D208 /* WLWrapEditSession.m */; };
 		14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
 		14F668641973DDAA008D5081 /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
-		14F668681974031C008D5081 /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668671974031C008D5081 /* WLPersonCell.m */; };
 		5B450F8B19780D8000FC339A /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */; };
 		5B4C600519B5D41F00AAB3B0 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4C600419B5D41F00AAB3B0 /* WLNotification.m */; };
 		5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */; };
@@ -176,6 +173,26 @@
 		C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */; };
 		C5032EB31940CEE700753D07 /* UIView+AnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5032EB21940CEE700753D07 /* UIView+AnimationHelper.m */; };
 		C503E96B19A77C9400992B63 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C503E96A19A77C9400992B63 /* WLButton.m */; };
+		C504178219B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
+		C504178319B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
+		C504178419B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
+		C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
+		C504178619B9EE15000E55F3 /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLContactCell.m */; };
+		C504178719B9EE15000E55F3 /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLContactCell.m */; };
+		C504178819B9EE15000E55F3 /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLContactCell.m */; };
+		C504178919B9EE15000E55F3 /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLContactCell.m */; };
+		C504178A19B9EE15000E55F3 /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504178119B9EE15000E55F3 /* WLPersonCell.m */; };
+		C504178B19B9EE15000E55F3 /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504178119B9EE15000E55F3 /* WLPersonCell.m */; };
+		C504178C19B9EE15000E55F3 /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504178119B9EE15000E55F3 /* WLPersonCell.m */; };
+		C504178D19B9EE15000E55F3 /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504178119B9EE15000E55F3 /* WLPersonCell.m */; };
+		C504179119B9EE42000E55F3 /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179019B9EE42000E55F3 /* WLContributorsViewController.m */; };
+		C504179219B9EE42000E55F3 /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179019B9EE42000E55F3 /* WLContributorsViewController.m */; };
+		C504179319B9EE42000E55F3 /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179019B9EE42000E55F3 /* WLContributorsViewController.m */; };
+		C504179419B9EE42000E55F3 /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179019B9EE42000E55F3 /* WLContributorsViewController.m */; };
+		C504179819B9EEB9000E55F3 /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179719B9EEB9000E55F3 /* WLContributorCell.m */; };
+		C504179919B9EEB9000E55F3 /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179719B9EEB9000E55F3 /* WLContributorCell.m */; };
+		C504179A19B9EEB9000E55F3 /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179719B9EEB9000E55F3 /* WLContributorCell.m */; };
+		C504179B19B9EEB9000E55F3 /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179719B9EEB9000E55F3 /* WLContributorCell.m */; };
 		C50445B51951AA8F003C2251 /* WLCandy+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C50445A61951AA8F003C2251 /* WLCandy+Extended.m */; };
 		C50445B61951AA8F003C2251 /* WLComment+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C50445A81951AA8F003C2251 /* WLComment+Extended.m */; };
 		C50445B71951AA8F003C2251 /* WLContribution+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C50445AA1951AA8F003C2251 /* WLContribution+Extended.m */; };
@@ -229,7 +246,6 @@
 		C54AF46219B8C437006F7EDB /* WLCollectionViewDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C508E7D21987A396002998CE /* WLCollectionViewDataProvider.m */; };
 		C54AF46319B8C437006F7EDB /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
 		C54AF46419B8C437006F7EDB /* WLPostCommentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF4291976B43A00761F38 /* WLPostCommentRequest.m */; };
-		C54AF46519B8C437006F7EDB /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654EA18E1A5B900FF43F6 /* WLContributorsViewController.m */; };
 		C54AF46619B8C437006F7EDB /* WLUpdateUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF40E197692E400761F38 /* WLUpdateUserRequest.m */; };
 		C54AF46719B8C437006F7EDB /* WLTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03019AC8956006F27A7 /* WLTimeline.m */; };
 		C54AF46819B8C437006F7EDB /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */; };
@@ -293,7 +309,6 @@
 		C54AF4A219B8C437006F7EDB /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C59ACBE2193F238C002941C4 /* WLUserView.m */; };
 		C54AF4A319B8C437006F7EDB /* WLCandiesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF41D1976A71800761F38 /* WLCandiesRequest.m */; };
 		C54AF4A419B8C437006F7EDB /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E10194AFA7400F3A554 /* CoreData.xcdatamodeld */; };
-		C54AF4A519B8C437006F7EDB /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668671974031C008D5081 /* WLPersonCell.m */; };
 		C54AF4A619B8C437006F7EDB /* WLComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E62194B0ED500F3A554 /* WLComment.m */; };
 		C54AF4A719B8C437006F7EDB /* UIView+Extentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2221119796D7300782B72 /* UIView+Extentions.m */; };
 		C54AF4A819B8C437006F7EDB /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
@@ -336,7 +351,6 @@
 		C54AF4CD19B8C437006F7EDB /* WLServerTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C5206E5E1982864B00AA3F8E /* WLServerTime.m */; };
 		C54AF4CE19B8C437006F7EDB /* WLImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12317E591908096200D1A9EE /* WLImageViewController.m */; };
 		C54AF4CF19B8C437006F7EDB /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
-		C54AF4D019B8C437006F7EDB /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B134DC1952FD1E004F86AC /* WLContributorCell.m */; };
 		C54AF4D119B8C437006F7EDB /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
 		C54AF4D219B8C437006F7EDB /* WLCandiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293677E18E337D900527250 /* WLCandiesCell.m */; };
 		C54AF4D319B8C437006F7EDB /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */; };
@@ -344,7 +358,6 @@
 		C54AF4D519B8C437006F7EDB /* WLEmojiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC79ED371934791600D7031F /* WLEmojiCell.m */; };
 		C54AF4D619B8C437006F7EDB /* NSOrderedSet+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FD0EDF194B4410004DAB1B /* NSOrderedSet+Additions.m */; };
 		C54AF4D719B8C437006F7EDB /* WLDetailedCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C50094291998D353007EE33A /* WLDetailedCandyCell.m */; };
-		C54AF4D819B8C437006F7EDB /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59528ED191CD9A6001ECD7C /* WLContactCell.m */; };
 		C54AF4D919B8C437006F7EDB /* WLDeleteCandyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF4261976B42500761F38 /* WLDeleteCandyRequest.m */; };
 		C54AF4DA19B8C437006F7EDB /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C599F9D119AF5751008C7DFA /* NSObject+Extension.m */; };
 		C54AF4DB19B8C437006F7EDB /* WLTimelineEventHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53978C819AE2B21006BE8FD /* WLTimelineEventHeaderView.m */; };
@@ -469,7 +482,6 @@
 		C54AF55F19B8C467006F7EDB /* WLCollectionViewDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C508E7D21987A396002998CE /* WLCollectionViewDataProvider.m */; };
 		C54AF56019B8C467006F7EDB /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
 		C54AF56119B8C467006F7EDB /* WLPostCommentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF4291976B43A00761F38 /* WLPostCommentRequest.m */; };
-		C54AF56219B8C467006F7EDB /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654EA18E1A5B900FF43F6 /* WLContributorsViewController.m */; };
 		C54AF56319B8C467006F7EDB /* WLUpdateUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF40E197692E400761F38 /* WLUpdateUserRequest.m */; };
 		C54AF56419B8C467006F7EDB /* WLTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03019AC8956006F27A7 /* WLTimeline.m */; };
 		C54AF56519B8C467006F7EDB /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */; };
@@ -533,7 +545,6 @@
 		C54AF59F19B8C467006F7EDB /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C59ACBE2193F238C002941C4 /* WLUserView.m */; };
 		C54AF5A019B8C467006F7EDB /* WLCandiesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF41D1976A71800761F38 /* WLCandiesRequest.m */; };
 		C54AF5A119B8C467006F7EDB /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E10194AFA7400F3A554 /* CoreData.xcdatamodeld */; };
-		C54AF5A219B8C467006F7EDB /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668671974031C008D5081 /* WLPersonCell.m */; };
 		C54AF5A319B8C467006F7EDB /* WLComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E62194B0ED500F3A554 /* WLComment.m */; };
 		C54AF5A419B8C467006F7EDB /* UIView+Extentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2221119796D7300782B72 /* UIView+Extentions.m */; };
 		C54AF5A519B8C467006F7EDB /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
@@ -576,7 +587,6 @@
 		C54AF5CA19B8C467006F7EDB /* WLServerTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C5206E5E1982864B00AA3F8E /* WLServerTime.m */; };
 		C54AF5CB19B8C467006F7EDB /* WLImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12317E591908096200D1A9EE /* WLImageViewController.m */; };
 		C54AF5CC19B8C467006F7EDB /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
-		C54AF5CD19B8C467006F7EDB /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B134DC1952FD1E004F86AC /* WLContributorCell.m */; };
 		C54AF5CE19B8C467006F7EDB /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
 		C54AF5CF19B8C467006F7EDB /* WLCandiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293677E18E337D900527250 /* WLCandiesCell.m */; };
 		C54AF5D019B8C467006F7EDB /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */; };
@@ -584,7 +594,6 @@
 		C54AF5D219B8C467006F7EDB /* WLEmojiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC79ED371934791600D7031F /* WLEmojiCell.m */; };
 		C54AF5D319B8C467006F7EDB /* NSOrderedSet+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FD0EDF194B4410004DAB1B /* NSOrderedSet+Additions.m */; };
 		C54AF5D419B8C467006F7EDB /* WLDetailedCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C50094291998D353007EE33A /* WLDetailedCandyCell.m */; };
-		C54AF5D519B8C467006F7EDB /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59528ED191CD9A6001ECD7C /* WLContactCell.m */; };
 		C54AF5D619B8C467006F7EDB /* WLDeleteCandyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF4261976B42500761F38 /* WLDeleteCandyRequest.m */; };
 		C54AF5D719B8C467006F7EDB /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C599F9D119AF5751008C7DFA /* NSObject+Extension.m */; };
 		C54AF5D819B8C467006F7EDB /* WLTimelineEventHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53978C819AE2B21006BE8FD /* WLTimelineEventHeaderView.m */; };
@@ -709,7 +718,6 @@
 		C54AF65C19B8C491006F7EDB /* WLCollectionViewDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C508E7D21987A396002998CE /* WLCollectionViewDataProvider.m */; };
 		C54AF65D19B8C491006F7EDB /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
 		C54AF65E19B8C491006F7EDB /* WLPostCommentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF4291976B43A00761F38 /* WLPostCommentRequest.m */; };
-		C54AF65F19B8C491006F7EDB /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654EA18E1A5B900FF43F6 /* WLContributorsViewController.m */; };
 		C54AF66019B8C491006F7EDB /* WLUpdateUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF40E197692E400761F38 /* WLUpdateUserRequest.m */; };
 		C54AF66119B8C491006F7EDB /* WLTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03019AC8956006F27A7 /* WLTimeline.m */; };
 		C54AF66219B8C491006F7EDB /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */; };
@@ -773,7 +781,6 @@
 		C54AF69C19B8C491006F7EDB /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C59ACBE2193F238C002941C4 /* WLUserView.m */; };
 		C54AF69D19B8C491006F7EDB /* WLCandiesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF41D1976A71800761F38 /* WLCandiesRequest.m */; };
 		C54AF69E19B8C491006F7EDB /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E10194AFA7400F3A554 /* CoreData.xcdatamodeld */; };
-		C54AF69F19B8C491006F7EDB /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668671974031C008D5081 /* WLPersonCell.m */; };
 		C54AF6A019B8C491006F7EDB /* WLComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E62194B0ED500F3A554 /* WLComment.m */; };
 		C54AF6A119B8C491006F7EDB /* UIView+Extentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2221119796D7300782B72 /* UIView+Extentions.m */; };
 		C54AF6A219B8C491006F7EDB /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
@@ -816,7 +823,6 @@
 		C54AF6C719B8C491006F7EDB /* WLServerTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C5206E5E1982864B00AA3F8E /* WLServerTime.m */; };
 		C54AF6C819B8C491006F7EDB /* WLImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12317E591908096200D1A9EE /* WLImageViewController.m */; };
 		C54AF6C919B8C491006F7EDB /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
-		C54AF6CA19B8C491006F7EDB /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B134DC1952FD1E004F86AC /* WLContributorCell.m */; };
 		C54AF6CB19B8C491006F7EDB /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
 		C54AF6CC19B8C491006F7EDB /* WLCandiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293677E18E337D900527250 /* WLCandiesCell.m */; };
 		C54AF6CD19B8C491006F7EDB /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */; };
@@ -824,7 +830,6 @@
 		C54AF6CF19B8C491006F7EDB /* WLEmojiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC79ED371934791600D7031F /* WLEmojiCell.m */; };
 		C54AF6D019B8C491006F7EDB /* NSOrderedSet+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FD0EDF194B4410004DAB1B /* NSOrderedSet+Additions.m */; };
 		C54AF6D119B8C491006F7EDB /* WLDetailedCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C50094291998D353007EE33A /* WLDetailedCandyCell.m */; };
-		C54AF6D219B8C491006F7EDB /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59528ED191CD9A6001ECD7C /* WLContactCell.m */; };
 		C54AF6D319B8C491006F7EDB /* WLDeleteCandyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF4261976B42500761F38 /* WLDeleteCandyRequest.m */; };
 		C54AF6D419B8C491006F7EDB /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C599F9D119AF5751008C7DFA /* NSObject+Extension.m */; };
 		C54AF6D519B8C491006F7EDB /* WLTimelineEventHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53978C819AE2B21006BE8FD /* WLTimelineEventHeaderView.m */; };
@@ -974,7 +979,6 @@
 		C54AF88119B8C63F006F7EDB /* WLTestUsersQA.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85719B8C622006F7EDB /* WLTestUsersQA.plist */; };
 		C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5018F5271B00BDF038 /* WLChatViewController.m */; };
 		C5947E5518F52AE000BDF038 /* WLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5418F52AE000BDF038 /* WLMessageCell.m */; };
-		C59528EE191CD9A6001ECD7C /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59528ED191CD9A6001ECD7C /* WLContactCell.m */; };
 		C599F9D219AF5751008C7DFA /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C599F9D119AF5751008C7DFA /* NSObject+Extension.m */; };
 		C599F9D519AF5A42008C7DFA /* WLEntryFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = C599F9D419AF5A42008C7DFA /* WLEntryFetching.m */; };
 		C59ACBE3193F238C002941C4 /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C59ACBE2193F238C002941C4 /* WLUserView.m */; };
@@ -1050,8 +1054,6 @@
 		129654E218E197ED00FF43F6 /* WLAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAddressBook.m; path = WLAddressBook/WLAddressBook.m; sourceTree = "<group>"; };
 		129654E518E1A17300FF43F6 /* WLCreateWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCreateWrapViewController.h; path = WLCreateWrapViewController/WLCreateWrapViewController.h; sourceTree = "<group>"; };
 		129654E618E1A17300FF43F6 /* WLCreateWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCreateWrapViewController.m; path = WLCreateWrapViewController/WLCreateWrapViewController.m; sourceTree = "<group>"; };
-		129654E918E1A5B900FF43F6 /* WLContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributorsViewController.h; path = WLContributorsViewController/WLContributorsViewController.h; sourceTree = "<group>"; };
-		129654EA18E1A5B900FF43F6 /* WLContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorsViewController.m; path = WLContributorsViewController/WLContributorsViewController.m; sourceTree = "<group>"; };
 		129654ED18E1A79500FF43F6 /* UIColor+CustomColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CustomColors.h"; sourceTree = "<group>"; };
 		129654EE18E1A79500FF43F6 /* UIColor+CustomColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CustomColors.m"; sourceTree = "<group>"; };
 		129654F118E1CAF900FF43F6 /* WLInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLInputAccessoryView.h; path = WLInputAccessoryView/WLInputAccessoryView.h; sourceTree = "<group>"; };
@@ -1235,8 +1237,6 @@
 		14AE4FF019700B5E002EEF3F /* interfacealertsound3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = interfacealertsound3.wav; path = Sounds/interfacealertsound3.wav; sourceTree = "<group>"; };
 		14AE4FF119700B5E002EEF3F /* triade.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = triade.aif; path = Sounds/triade.aif; sourceTree = "<group>"; };
 		14AE4FF6197042AB002EEF3F /* WLContributor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributor.h; path = WLContributor/WLContributor.h; sourceTree = "<group>"; };
-		14B134DB1952FD1E004F86AC /* WLContributorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributorCell.h; path = WLCreateWrapViewController/WLContributorCell/WLContributorCell.h; sourceTree = "<group>"; };
-		14B134DC1952FD1E004F86AC /* WLContributorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorCell.m; path = WLCreateWrapViewController/WLContributorCell/WLContributorCell.m; sourceTree = "<group>"; };
 		14B134DF1952FEB2004F86AC /* WLInviteeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLInviteeCell.h; path = WLCreateWrapViewController/WLInviteeCell/WLInviteeCell.h; sourceTree = "<group>"; };
 		14B134E01952FEB2004F86AC /* WLInviteeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLInviteeCell.m; path = WLCreateWrapViewController/WLInviteeCell/WLInviteeCell.m; sourceTree = "<group>"; };
 		14B2429B195C4CEB00C5D208 /* WLEditSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditSession.h; path = WLEditSession/WLEditSession.h; sourceTree = "<group>"; };
@@ -1247,8 +1247,6 @@
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
 		14F668621973DDAA008D5081 /* WLPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPerson.h; path = Person/WLPerson.h; sourceTree = "<group>"; };
 		14F668631973DDAA008D5081 /* WLPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPerson.m; path = Person/WLPerson.m; sourceTree = "<group>"; };
-		14F668661974031C008D5081 /* WLPersonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPersonCell.h; path = WLContributorsViewController/WLContactCell/WLPersonCell/WLPersonCell.h; sourceTree = "<group>"; };
-		14F668671974031C008D5081 /* WLPersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPersonCell.m; path = WLContributorsViewController/WLContactCell/WLPersonCell/WLPersonCell.m; sourceTree = "<group>"; };
 		5B450F8919780D8000FC339A /* WLSignificantTimeBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignificantTimeBroadcaster.h; sourceTree = "<group>"; };
 		5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignificantTimeBroadcaster.m; sourceTree = "<group>"; };
 		5B4C600319B5D41F00AAB3B0 /* WLNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotification.h; sourceTree = "<group>"; };
@@ -1300,6 +1298,16 @@
 		C5032EB21940CEE700753D07 /* UIView+AnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AnimationHelper.m"; sourceTree = "<group>"; };
 		C503E96919A77C9400992B63 /* WLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLButton.h; path = Buttons/WLButton.h; sourceTree = "<group>"; };
 		C503E96A19A77C9400992B63 /* WLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLButton.m; path = Buttons/WLButton.m; sourceTree = "<group>"; };
+		C504177A19B9EE15000E55F3 /* WLAddContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddContributorsViewController.h; sourceTree = "<group>"; };
+		C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddContributorsViewController.m; sourceTree = "<group>"; };
+		C504177D19B9EE15000E55F3 /* WLContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLContactCell.h; sourceTree = "<group>"; };
+		C504177E19B9EE15000E55F3 /* WLContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLContactCell.m; sourceTree = "<group>"; };
+		C504178019B9EE15000E55F3 /* WLPersonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPersonCell.h; sourceTree = "<group>"; };
+		C504178119B9EE15000E55F3 /* WLPersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPersonCell.m; sourceTree = "<group>"; };
+		C504178F19B9EE42000E55F3 /* WLContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributorsViewController.h; path = WLContributorsViewController/WLContributorsViewController.h; sourceTree = "<group>"; };
+		C504179019B9EE42000E55F3 /* WLContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorsViewController.m; path = WLContributorsViewController/WLContributorsViewController.m; sourceTree = "<group>"; };
+		C504179619B9EEB9000E55F3 /* WLContributorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLContributorCell.h; sourceTree = "<group>"; };
+		C504179719B9EEB9000E55F3 /* WLContributorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLContributorCell.m; sourceTree = "<group>"; };
 		C50445A51951AA8F003C2251 /* WLCandy+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLCandy+Extended.h"; sourceTree = "<group>"; };
 		C50445A61951AA8F003C2251 /* WLCandy+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLCandy+Extended.m"; sourceTree = "<group>"; };
 		C50445A71951AA8F003C2251 /* WLComment+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLComment+Extended.h"; sourceTree = "<group>"; };
@@ -1401,8 +1409,6 @@
 		C5947E5018F5271B00BDF038 /* WLChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChatViewController.m; path = WLChatViewController/WLChatViewController.m; sourceTree = "<group>"; };
 		C5947E5318F52AE000BDF038 /* WLMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLMessageCell.h; path = WLChatViewController/WLMessageCell/WLMessageCell.h; sourceTree = "<group>"; };
 		C5947E5418F52AE000BDF038 /* WLMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLMessageCell.m; path = WLChatViewController/WLMessageCell/WLMessageCell.m; sourceTree = "<group>"; };
-		C59528EC191CD9A6001ECD7C /* WLContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContactCell.h; path = WLContributorsViewController/WLContactCell/WLContactCell.h; sourceTree = "<group>"; };
-		C59528ED191CD9A6001ECD7C /* WLContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContactCell.m; path = WLContributorsViewController/WLContactCell/WLContactCell.m; sourceTree = "<group>"; };
 		C5991A2D19B5F149004EE00F /* WLEntryKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryKeys.h; sourceTree = "<group>"; };
 		C599F9D019AF5751008C7DFA /* NSObject+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extension.h"; sourceTree = "<group>"; };
 		C599F9D119AF5751008C7DFA /* NSObject+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extension.m"; sourceTree = "<group>"; };
@@ -1728,21 +1734,10 @@
 			isa = PBXGroup;
 			children = (
 				14B134DE1952FDE6004F86AC /* WLInviteeCell */,
-				12D653E318E43527009CE64C /* WLContributorCell */,
 				129654E518E1A17300FF43F6 /* WLCreateWrapViewController.h */,
 				129654E618E1A17300FF43F6 /* WLCreateWrapViewController.m */,
 			);
 			name = WLCreateWrapViewController;
-			sourceTree = "<group>";
-		};
-		129654E818E1A5A200FF43F6 /* WLContributorsViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C59528EB191CD97F001ECD7C /* WLContactCell */,
-				129654E918E1A5B900FF43F6 /* WLContributorsViewController.h */,
-				129654EA18E1A5B900FF43F6 /* WLContributorsViewController.m */,
-			);
-			name = WLContributorsViewController;
 			sourceTree = "<group>";
 		};
 		129654EC18E1A79500FF43F6 /* UIColor */ = {
@@ -1867,6 +1862,8 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C504178E19B9EE20000E55F3 /* WLContributorsViewController */,
+				C504177919B9EE15000E55F3 /* WLAddContributorsViewController */,
 				C51383CD19A4AB0F00D23257 /* WLNotificationsViewController */,
 				C5FCC697199A5C4B009A0DC6 /* WLNavigation */,
 				CE1FEABF196EB73000BF1B22 /* WLEditViewController */,
@@ -1879,7 +1876,6 @@
 				12E1104619067095007DB4AC /* WLCandyViewController */,
 				C5947E4E18F5264B00BDF038 /* WLChatViewController */,
 				12A6BFA518F2A6C900AE3B62 /* WLShakeViewController */,
-				129654E818E1A5A200FF43F6 /* WLContributorsViewController */,
 				129654E418E1A15700FF43F6 /* WLCreateWrapViewController */,
 				121B1B3818E0848D001F585C /* WLCountriesViewController */,
 				12E3DA3C18E0399700DBDB79 /* WLCameraViewController */,
@@ -2076,15 +2072,6 @@
 				12D653E118E432F2009CE64C /* WLBorderView.m */,
 			);
 			name = WLBorderView;
-			sourceTree = "<group>";
-		};
-		12D653E318E43527009CE64C /* WLContributorCell */ = {
-			isa = PBXGroup;
-			children = (
-				14B134DB1952FD1E004F86AC /* WLContributorCell.h */,
-				14B134DC1952FD1E004F86AC /* WLContributorCell.m */,
-			);
-			name = WLContributorCell;
 			sourceTree = "<group>";
 		};
 		12D7E0B11910E5380094C376 /* WLImageCache */ = {
@@ -2704,6 +2691,55 @@
 			name = Buttons;
 			sourceTree = "<group>";
 		};
+		C504177919B9EE15000E55F3 /* WLAddContributorsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C504177A19B9EE15000E55F3 /* WLAddContributorsViewController.h */,
+				C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */,
+				C504177C19B9EE15000E55F3 /* WLContactCell */,
+			);
+			path = WLAddContributorsViewController;
+			sourceTree = "<group>";
+		};
+		C504177C19B9EE15000E55F3 /* WLContactCell */ = {
+			isa = PBXGroup;
+			children = (
+				C504177D19B9EE15000E55F3 /* WLContactCell.h */,
+				C504177E19B9EE15000E55F3 /* WLContactCell.m */,
+				C504177F19B9EE15000E55F3 /* WLPersonCell */,
+			);
+			path = WLContactCell;
+			sourceTree = "<group>";
+		};
+		C504177F19B9EE15000E55F3 /* WLPersonCell */ = {
+			isa = PBXGroup;
+			children = (
+				C504178019B9EE15000E55F3 /* WLPersonCell.h */,
+				C504178119B9EE15000E55F3 /* WLPersonCell.m */,
+			);
+			path = WLPersonCell;
+			sourceTree = "<group>";
+		};
+		C504178E19B9EE20000E55F3 /* WLContributorsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C504179519B9EEB9000E55F3 /* WLContributorCell */,
+				C504178F19B9EE42000E55F3 /* WLContributorsViewController.h */,
+				C504179019B9EE42000E55F3 /* WLContributorsViewController.m */,
+			);
+			name = WLContributorsViewController;
+			sourceTree = "<group>";
+		};
+		C504179519B9EEB9000E55F3 /* WLContributorCell */ = {
+			isa = PBXGroup;
+			children = (
+				C504179619B9EEB9000E55F3 /* WLContributorCell.h */,
+				C504179719B9EEB9000E55F3 /* WLContributorCell.m */,
+			);
+			name = WLContributorCell;
+			path = WLContributorsViewController/WLContributorCell;
+			sourceTree = "<group>";
+		};
 		C50445A41951AA8F003C2251 /* Extended */ = {
 			isa = PBXGroup;
 			children = (
@@ -2885,25 +2921,6 @@
 				C5947E5418F52AE000BDF038 /* WLMessageCell.m */,
 			);
 			name = WLMessageCell;
-			sourceTree = "<group>";
-		};
-		C59528EB191CD97F001ECD7C /* WLContactCell */ = {
-			isa = PBXGroup;
-			children = (
-				C59528EF191CDA53001ECD7C /* WLPersonCell */,
-				C59528EC191CD9A6001ECD7C /* WLContactCell.h */,
-				C59528ED191CD9A6001ECD7C /* WLContactCell.m */,
-			);
-			name = WLContactCell;
-			sourceTree = "<group>";
-		};
-		C59528EF191CDA53001ECD7C /* WLPersonCell */ = {
-			isa = PBXGroup;
-			children = (
-				14F668661974031C008D5081 /* WLPersonCell.h */,
-				14F668671974031C008D5081 /* WLPersonCell.m */,
-			);
-			name = WLPersonCell;
 			sourceTree = "<group>";
 		};
 		C59ACBE0193F2378002941C4 /* WLUserView */ = {
@@ -3571,7 +3588,6 @@
 				C508E7D31987A396002998CE /* WLCollectionViewDataProvider.m in Sources */,
 				12A8AA6D18F5919700F67113 /* WLLoadingView.m in Sources */,
 				C50AF42A1976B43A00761F38 /* WLPostCommentRequest.m in Sources */,
-				129654EB18E1A5B900FF43F6 /* WLContributorsViewController.m in Sources */,
 				C50AF40F197692E400761F38 /* WLUpdateUserRequest.m in Sources */,
 				C5FFB03119AC8956006F27A7 /* WLTimeline.m in Sources */,
 				125D4A4F18E068E6001B8E7C /* NSDate+Formatting.m in Sources */,
@@ -3611,6 +3627,7 @@
 				C503E96B19A77C9400992B63 /* WLButton.m in Sources */,
 				12E1104C19067095007DB4AC /* WLCandyViewController.m in Sources */,
 				C50AF41B1976A44300761F38 /* WLUploadCandyRequest.m in Sources */,
+				C504179819B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				1221EA6A18FD372F00C64DAE /* UIButton+Additions.m in Sources */,
 				12E0F04A1909069200463FEC /* UIScrollView+Additions.m in Sources */,
 				C5D2E0BC19A4DF6F001CA756 /* WLNotificationChannel.m in Sources */,
@@ -3636,7 +3653,6 @@
 				C59ACBE3193F238C002941C4 /* WLUserView.m in Sources */,
 				C50AF41E1976A71800761F38 /* WLCandiesRequest.m in Sources */,
 				C5A21E12194AFA7400F3A554 /* CoreData.xcdatamodeld in Sources */,
-				14F668681974031C008D5081 /* WLPersonCell.m in Sources */,
 				C5A21E63194B0ED500F3A554 /* WLComment.m in Sources */,
 				5BB2221219796D7300782B72 /* UIView+Extentions.m in Sources */,
 				14F668641973DDAA008D5081 /* WLPerson.m in Sources */,
@@ -3663,6 +3679,7 @@
 				C5149644197586E4009F0743 /* WLWrapsRequest.m in Sources */,
 				14B134E11952FEB2004F86AC /* WLInviteeCell.m in Sources */,
 				12E0F066190927B800463FEC /* WLDeviceOrientationBroadcaster.m in Sources */,
+				C504178219B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				C50AF4211976AB2E00761F38 /* WLCandyRequest.m in Sources */,
 				12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */,
 				12F3ED5C1934B183009C1DC3 /* WLAssetsViewController.m in Sources */,
@@ -3674,12 +3691,12 @@
 				C5947E5518F52AE000BDF038 /* WLMessageCell.m in Sources */,
 				121B1B4018E0848D001F585C /* WLCountriesViewController.m in Sources */,
 				12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */,
+				C504178619B9EE15000E55F3 /* WLContactCell.m in Sources */,
 				12E3DA6618E04CC400DBDB79 /* UIImage+RoundedCorner.m in Sources */,
 				C5FFB03719AC9248006F27A7 /* WLTimelineViewDataProvider.m in Sources */,
 				C5206E5F1982864B00AA3F8E /* WLServerTime.m in Sources */,
 				12317E5A1908096200D1A9EE /* WLImageViewController.m in Sources */,
 				14B2429D195C4CEB00C5D208 /* WLEditSession.m in Sources */,
-				14B134DD1952FD1E004F86AC /* WLContributorCell.m in Sources */,
 				12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */,
 				1293677F18E337D900527250 /* WLCandiesCell.m in Sources */,
 				5B450F8B19780D8000FC339A /* WLSignificantTimeBroadcaster.m in Sources */,
@@ -3687,7 +3704,6 @@
 				AC79ED381934791600D7031F /* WLEmojiCell.m in Sources */,
 				C5FD0EE0194B4410004DAB1B /* NSOrderedSet+Additions.m in Sources */,
 				C500942A1998D353007EE33A /* WLDetailedCandyCell.m in Sources */,
-				C59528EE191CD9A6001ECD7C /* WLContactCell.m in Sources */,
 				C50AF4271976B42500761F38 /* WLDeleteCandyRequest.m in Sources */,
 				C599F9D219AF5751008C7DFA /* NSObject+Extension.m in Sources */,
 				C53978C919AE2B21006BE8FD /* WLTimelineEventHeaderView.m in Sources */,
@@ -3698,7 +3714,9 @@
 				C5F35CFE1930935200FB99D2 /* WLImageFetcher.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,
 				C5F9ACBE1989296C003A0FF2 /* WLEntryCell.m in Sources */,
+				C504178A19B9EE15000E55F3 /* WLPersonCell.m in Sources */,
 				128156AB1938A1DA00035F89 /* WLStillPictureViewController.m in Sources */,
+				C504179119B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C50445BC1951AA8F003C2251 /* WLWrap+Extended.m in Sources */,
 				12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */,
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
@@ -3768,7 +3786,6 @@
 				C54AF46219B8C437006F7EDB /* WLCollectionViewDataProvider.m in Sources */,
 				C54AF46319B8C437006F7EDB /* WLLoadingView.m in Sources */,
 				C54AF46419B8C437006F7EDB /* WLPostCommentRequest.m in Sources */,
-				C54AF46519B8C437006F7EDB /* WLContributorsViewController.m in Sources */,
 				C54AF46619B8C437006F7EDB /* WLUpdateUserRequest.m in Sources */,
 				C54AF46719B8C437006F7EDB /* WLTimeline.m in Sources */,
 				C54AF46819B8C437006F7EDB /* NSDate+Formatting.m in Sources */,
@@ -3808,6 +3825,7 @@
 				C54AF48919B8C437006F7EDB /* WLButton.m in Sources */,
 				C54AF48A19B8C437006F7EDB /* WLCandyViewController.m in Sources */,
 				C54AF48B19B8C437006F7EDB /* WLUploadCandyRequest.m in Sources */,
+				C504179919B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF48C19B8C437006F7EDB /* UIButton+Additions.m in Sources */,
 				C54AF48D19B8C437006F7EDB /* UIScrollView+Additions.m in Sources */,
 				C54AF48E19B8C437006F7EDB /* WLNotificationChannel.m in Sources */,
@@ -3833,7 +3851,6 @@
 				C54AF4A219B8C437006F7EDB /* WLUserView.m in Sources */,
 				C54AF4A319B8C437006F7EDB /* WLCandiesRequest.m in Sources */,
 				C54AF4A419B8C437006F7EDB /* CoreData.xcdatamodeld in Sources */,
-				C54AF4A519B8C437006F7EDB /* WLPersonCell.m in Sources */,
 				C54AF4A619B8C437006F7EDB /* WLComment.m in Sources */,
 				C54AF4A719B8C437006F7EDB /* UIView+Extentions.m in Sources */,
 				C54AF4A819B8C437006F7EDB /* WLPerson.m in Sources */,
@@ -3860,6 +3877,7 @@
 				C54AF4BD19B8C437006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF4BE19B8C437006F7EDB /* WLInviteeCell.m in Sources */,
 				C54AF4BF19B8C437006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
+				C504178319B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				C54AF4C019B8C437006F7EDB /* WLCandyRequest.m in Sources */,
 				C54AF4C119B8C437006F7EDB /* WLWelcomeViewController.m in Sources */,
 				C54AF4C219B8C437006F7EDB /* WLAssetsViewController.m in Sources */,
@@ -3871,12 +3889,12 @@
 				C54AF4C819B8C437006F7EDB /* WLMessageCell.m in Sources */,
 				C54AF4C919B8C437006F7EDB /* WLCountriesViewController.m in Sources */,
 				C54AF4CA19B8C437006F7EDB /* WLWrapViewController.m in Sources */,
+				C504178719B9EE15000E55F3 /* WLContactCell.m in Sources */,
 				C54AF4CB19B8C437006F7EDB /* UIImage+RoundedCorner.m in Sources */,
 				C54AF4CC19B8C437006F7EDB /* WLTimelineViewDataProvider.m in Sources */,
 				C54AF4CD19B8C437006F7EDB /* WLServerTime.m in Sources */,
 				C54AF4CE19B8C437006F7EDB /* WLImageViewController.m in Sources */,
 				C54AF4CF19B8C437006F7EDB /* WLEditSession.m in Sources */,
-				C54AF4D019B8C437006F7EDB /* WLContributorCell.m in Sources */,
 				C54AF4D119B8C437006F7EDB /* WLSeparatorView.m in Sources */,
 				C54AF4D219B8C437006F7EDB /* WLCandiesCell.m in Sources */,
 				C54AF4D319B8C437006F7EDB /* WLSignificantTimeBroadcaster.m in Sources */,
@@ -3884,7 +3902,6 @@
 				C54AF4D519B8C437006F7EDB /* WLEmojiCell.m in Sources */,
 				C54AF4D619B8C437006F7EDB /* NSOrderedSet+Additions.m in Sources */,
 				C54AF4D719B8C437006F7EDB /* WLDetailedCandyCell.m in Sources */,
-				C54AF4D819B8C437006F7EDB /* WLContactCell.m in Sources */,
 				C54AF4D919B8C437006F7EDB /* WLDeleteCandyRequest.m in Sources */,
 				C54AF4DA19B8C437006F7EDB /* NSObject+Extension.m in Sources */,
 				C54AF4DB19B8C437006F7EDB /* WLTimelineEventHeaderView.m in Sources */,
@@ -3895,7 +3912,9 @@
 				C54AF4E019B8C437006F7EDB /* WLImageFetcher.m in Sources */,
 				C54AF4E119B8C437006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C54AF4E219B8C437006F7EDB /* WLEntryCell.m in Sources */,
+				C504178B19B9EE15000E55F3 /* WLPersonCell.m in Sources */,
 				C54AF4E319B8C437006F7EDB /* WLStillPictureViewController.m in Sources */,
+				C504179219B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C54AF4E419B8C437006F7EDB /* WLWrap+Extended.m in Sources */,
 				C54AF4E519B8C437006F7EDB /* WLAPIResponse.m in Sources */,
 				C54AF4E619B8C437006F7EDB /* WLAppDelegate.m in Sources */,
@@ -3965,7 +3984,6 @@
 				C54AF55F19B8C467006F7EDB /* WLCollectionViewDataProvider.m in Sources */,
 				C54AF56019B8C467006F7EDB /* WLLoadingView.m in Sources */,
 				C54AF56119B8C467006F7EDB /* WLPostCommentRequest.m in Sources */,
-				C54AF56219B8C467006F7EDB /* WLContributorsViewController.m in Sources */,
 				C54AF56319B8C467006F7EDB /* WLUpdateUserRequest.m in Sources */,
 				C54AF56419B8C467006F7EDB /* WLTimeline.m in Sources */,
 				C54AF56519B8C467006F7EDB /* NSDate+Formatting.m in Sources */,
@@ -4005,6 +4023,7 @@
 				C54AF58619B8C467006F7EDB /* WLButton.m in Sources */,
 				C54AF58719B8C467006F7EDB /* WLCandyViewController.m in Sources */,
 				C54AF58819B8C467006F7EDB /* WLUploadCandyRequest.m in Sources */,
+				C504179A19B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF58919B8C467006F7EDB /* UIButton+Additions.m in Sources */,
 				C54AF58A19B8C467006F7EDB /* UIScrollView+Additions.m in Sources */,
 				C54AF58B19B8C467006F7EDB /* WLNotificationChannel.m in Sources */,
@@ -4030,7 +4049,6 @@
 				C54AF59F19B8C467006F7EDB /* WLUserView.m in Sources */,
 				C54AF5A019B8C467006F7EDB /* WLCandiesRequest.m in Sources */,
 				C54AF5A119B8C467006F7EDB /* CoreData.xcdatamodeld in Sources */,
-				C54AF5A219B8C467006F7EDB /* WLPersonCell.m in Sources */,
 				C54AF5A319B8C467006F7EDB /* WLComment.m in Sources */,
 				C54AF5A419B8C467006F7EDB /* UIView+Extentions.m in Sources */,
 				C54AF5A519B8C467006F7EDB /* WLPerson.m in Sources */,
@@ -4057,6 +4075,7 @@
 				C54AF5BA19B8C467006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF5BB19B8C467006F7EDB /* WLInviteeCell.m in Sources */,
 				C54AF5BC19B8C467006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
+				C504178419B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				C54AF5BD19B8C467006F7EDB /* WLCandyRequest.m in Sources */,
 				C54AF5BE19B8C467006F7EDB /* WLWelcomeViewController.m in Sources */,
 				C54AF5BF19B8C467006F7EDB /* WLAssetsViewController.m in Sources */,
@@ -4068,12 +4087,12 @@
 				C54AF5C519B8C467006F7EDB /* WLMessageCell.m in Sources */,
 				C54AF5C619B8C467006F7EDB /* WLCountriesViewController.m in Sources */,
 				C54AF5C719B8C467006F7EDB /* WLWrapViewController.m in Sources */,
+				C504178819B9EE15000E55F3 /* WLContactCell.m in Sources */,
 				C54AF5C819B8C467006F7EDB /* UIImage+RoundedCorner.m in Sources */,
 				C54AF5C919B8C467006F7EDB /* WLTimelineViewDataProvider.m in Sources */,
 				C54AF5CA19B8C467006F7EDB /* WLServerTime.m in Sources */,
 				C54AF5CB19B8C467006F7EDB /* WLImageViewController.m in Sources */,
 				C54AF5CC19B8C467006F7EDB /* WLEditSession.m in Sources */,
-				C54AF5CD19B8C467006F7EDB /* WLContributorCell.m in Sources */,
 				C54AF5CE19B8C467006F7EDB /* WLSeparatorView.m in Sources */,
 				C54AF5CF19B8C467006F7EDB /* WLCandiesCell.m in Sources */,
 				C54AF5D019B8C467006F7EDB /* WLSignificantTimeBroadcaster.m in Sources */,
@@ -4081,7 +4100,6 @@
 				C54AF5D219B8C467006F7EDB /* WLEmojiCell.m in Sources */,
 				C54AF5D319B8C467006F7EDB /* NSOrderedSet+Additions.m in Sources */,
 				C54AF5D419B8C467006F7EDB /* WLDetailedCandyCell.m in Sources */,
-				C54AF5D519B8C467006F7EDB /* WLContactCell.m in Sources */,
 				C54AF5D619B8C467006F7EDB /* WLDeleteCandyRequest.m in Sources */,
 				C54AF5D719B8C467006F7EDB /* NSObject+Extension.m in Sources */,
 				C54AF5D819B8C467006F7EDB /* WLTimelineEventHeaderView.m in Sources */,
@@ -4092,7 +4110,9 @@
 				C54AF5DD19B8C467006F7EDB /* WLImageFetcher.m in Sources */,
 				C54AF5DE19B8C467006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C54AF5DF19B8C467006F7EDB /* WLEntryCell.m in Sources */,
+				C504178C19B9EE15000E55F3 /* WLPersonCell.m in Sources */,
 				C54AF5E019B8C467006F7EDB /* WLStillPictureViewController.m in Sources */,
+				C504179319B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C54AF5E119B8C467006F7EDB /* WLWrap+Extended.m in Sources */,
 				C54AF5E219B8C467006F7EDB /* WLAPIResponse.m in Sources */,
 				C54AF5E319B8C467006F7EDB /* WLAppDelegate.m in Sources */,
@@ -4162,7 +4182,6 @@
 				C54AF65C19B8C491006F7EDB /* WLCollectionViewDataProvider.m in Sources */,
 				C54AF65D19B8C491006F7EDB /* WLLoadingView.m in Sources */,
 				C54AF65E19B8C491006F7EDB /* WLPostCommentRequest.m in Sources */,
-				C54AF65F19B8C491006F7EDB /* WLContributorsViewController.m in Sources */,
 				C54AF66019B8C491006F7EDB /* WLUpdateUserRequest.m in Sources */,
 				C54AF66119B8C491006F7EDB /* WLTimeline.m in Sources */,
 				C54AF66219B8C491006F7EDB /* NSDate+Formatting.m in Sources */,
@@ -4202,6 +4221,7 @@
 				C54AF68319B8C491006F7EDB /* WLButton.m in Sources */,
 				C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */,
 				C54AF68519B8C491006F7EDB /* WLUploadCandyRequest.m in Sources */,
+				C504179B19B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF68619B8C491006F7EDB /* UIButton+Additions.m in Sources */,
 				C54AF68719B8C491006F7EDB /* UIScrollView+Additions.m in Sources */,
 				C54AF68819B8C491006F7EDB /* WLNotificationChannel.m in Sources */,
@@ -4227,7 +4247,6 @@
 				C54AF69C19B8C491006F7EDB /* WLUserView.m in Sources */,
 				C54AF69D19B8C491006F7EDB /* WLCandiesRequest.m in Sources */,
 				C54AF69E19B8C491006F7EDB /* CoreData.xcdatamodeld in Sources */,
-				C54AF69F19B8C491006F7EDB /* WLPersonCell.m in Sources */,
 				C54AF6A019B8C491006F7EDB /* WLComment.m in Sources */,
 				C54AF6A119B8C491006F7EDB /* UIView+Extentions.m in Sources */,
 				C54AF6A219B8C491006F7EDB /* WLPerson.m in Sources */,
@@ -4254,6 +4273,7 @@
 				C54AF6B719B8C491006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF6B819B8C491006F7EDB /* WLInviteeCell.m in Sources */,
 				C54AF6B919B8C491006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
+				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				C54AF6BA19B8C491006F7EDB /* WLCandyRequest.m in Sources */,
 				C54AF6BB19B8C491006F7EDB /* WLWelcomeViewController.m in Sources */,
 				C54AF6BC19B8C491006F7EDB /* WLAssetsViewController.m in Sources */,
@@ -4265,12 +4285,12 @@
 				C54AF6C219B8C491006F7EDB /* WLMessageCell.m in Sources */,
 				C54AF6C319B8C491006F7EDB /* WLCountriesViewController.m in Sources */,
 				C54AF6C419B8C491006F7EDB /* WLWrapViewController.m in Sources */,
+				C504178919B9EE15000E55F3 /* WLContactCell.m in Sources */,
 				C54AF6C519B8C491006F7EDB /* UIImage+RoundedCorner.m in Sources */,
 				C54AF6C619B8C491006F7EDB /* WLTimelineViewDataProvider.m in Sources */,
 				C54AF6C719B8C491006F7EDB /* WLServerTime.m in Sources */,
 				C54AF6C819B8C491006F7EDB /* WLImageViewController.m in Sources */,
 				C54AF6C919B8C491006F7EDB /* WLEditSession.m in Sources */,
-				C54AF6CA19B8C491006F7EDB /* WLContributorCell.m in Sources */,
 				C54AF6CB19B8C491006F7EDB /* WLSeparatorView.m in Sources */,
 				C54AF6CC19B8C491006F7EDB /* WLCandiesCell.m in Sources */,
 				C54AF6CD19B8C491006F7EDB /* WLSignificantTimeBroadcaster.m in Sources */,
@@ -4278,7 +4298,6 @@
 				C54AF6CF19B8C491006F7EDB /* WLEmojiCell.m in Sources */,
 				C54AF6D019B8C491006F7EDB /* NSOrderedSet+Additions.m in Sources */,
 				C54AF6D119B8C491006F7EDB /* WLDetailedCandyCell.m in Sources */,
-				C54AF6D219B8C491006F7EDB /* WLContactCell.m in Sources */,
 				C54AF6D319B8C491006F7EDB /* WLDeleteCandyRequest.m in Sources */,
 				C54AF6D419B8C491006F7EDB /* NSObject+Extension.m in Sources */,
 				C54AF6D519B8C491006F7EDB /* WLTimelineEventHeaderView.m in Sources */,
@@ -4289,7 +4308,9 @@
 				C54AF6DA19B8C491006F7EDB /* WLImageFetcher.m in Sources */,
 				C54AF6DB19B8C491006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C54AF6DC19B8C491006F7EDB /* WLEntryCell.m in Sources */,
+				C504178D19B9EE15000E55F3 /* WLPersonCell.m in Sources */,
 				C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */,
+				C504179419B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C54AF6DE19B8C491006F7EDB /* WLWrap+Extended.m in Sources */,
 				C54AF6DF19B8C491006F7EDB /* WLAPIResponse.m in Sources */,
 				C54AF6E019B8C491006F7EDB /* WLAppDelegate.m in Sources */,

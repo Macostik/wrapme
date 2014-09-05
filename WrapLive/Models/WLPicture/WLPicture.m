@@ -9,6 +9,7 @@
 #import "WLPicture.h"
 #import "WLImageCache.h"
 #import "UIImage+Resize.h"
+#import "NSString+Additions.h"
 
 @implementation WLPicture
 
@@ -33,6 +34,23 @@
 
 - (NSString *)anyUrl {
     return self.small ? : (self.medium ? : self.large);
+}
+
+- (BOOL)change:(NSString *)large medium:(NSString *)medium small:(NSString *)small {
+    BOOL changed = NO;
+    if (!NSStringEqual(self.large, large)) {
+        changed = YES;
+        self.large = large;
+    }
+    if (!NSStringEqual(self.medium, medium)) {
+        changed = YES;
+        self.medium = medium;
+    }
+    if (!NSStringEqual(self.small, small)) {
+        changed = YES;
+        self.small = small;
+    }
+    return changed;
 }
 
 @end

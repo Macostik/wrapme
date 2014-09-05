@@ -8,7 +8,7 @@
         <!--Countries View Controller-->
         <scene sceneID="3tD-oH-cUf">
             <objects>
-                <viewController storyboardIdentifier="WLCountriesViewController" id="oVq-I3-8Xy" customClass="WLCountriesViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLCountriesViewController" automaticallyAdjustsScrollViewInsets="NO" id="oVq-I3-8Xy" customClass="WLCountriesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mlp-cq-94J">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -262,7 +262,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController storyboardIdentifier="WLWelcomeViewController" id="vXZ-lx-hvc" customClass="WLWelcomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLWelcomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="vXZ-lx-hvc" customClass="WLWelcomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -315,7 +315,7 @@
         <!--Camera View Controller-->
         <scene sceneID="REq-s4-83q">
             <objects>
-                <viewController storyboardIdentifier="WLCameraViewController" id="fS5-iu-bCQ" customClass="WLCameraViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLCameraViewController" automaticallyAdjustsScrollViewInsets="NO" id="fS5-iu-bCQ" customClass="WLCameraViewController" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="Gys-KD-uvh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -437,7 +437,7 @@
         <!--Still Picture View Controller-->
         <scene sceneID="VhP-qe-VLJ">
             <objects>
-                <viewController storyboardIdentifier="WLStillPictureViewController" id="PLV-Iu-pRL" customClass="WLStillPictureViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLStillPictureViewController" automaticallyAdjustsScrollViewInsets="NO" id="PLV-Iu-pRL" customClass="WLStillPictureViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JqM-Hj-ZlY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -476,7 +476,7 @@
         <!--Sign Up View Controller-->
         <scene sceneID="1af-uD-k4o">
             <objects>
-                <viewController storyboardIdentifier="WLSignUpViewController" id="WfW-pu-ue7" customClass="WLSignUpViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLSignUpViewController" automaticallyAdjustsScrollViewInsets="NO" id="WfW-pu-ue7" customClass="WLSignUpViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mr3-r6-91F">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -628,7 +628,7 @@
         <!--Change Profile View Controller-->
         <scene sceneID="zxY-Lu-ZtN">
             <objects>
-                <viewController storyboardIdentifier="WLChangeProfileViewController" id="7FG-gC-kPg" customClass="WLChangeProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLChangeProfileViewController" automaticallyAdjustsScrollViewInsets="NO" id="7FG-gC-kPg" customClass="WLChangeProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yja-9u-DOv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -793,7 +793,7 @@
         <!--Home View Controller-->
         <scene sceneID="MbJ-3V-1SB">
             <objects>
-                <viewController storyboardIdentifier="WLHomeViewController" id="L91-fZ-J9O" customClass="WLHomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLHomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="L91-fZ-J9O" customClass="WLHomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L5N-Xm-IFu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1211,7 +1211,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
         <!--Create Wrap View Controller-->
         <scene sceneID="z3r-xS-Rlo">
             <objects>
-                <viewController storyboardIdentifier="WLCreateWrapViewController" id="y2d-d2-UUm" customClass="WLCreateWrapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLCreateWrapViewController" automaticallyAdjustsScrollViewInsets="NO" id="y2d-d2-UUm" customClass="WLCreateWrapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ekn-NO-6No">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1310,12 +1310,12 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kzU-fE-iJl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1956" y="899"/>
+            <point key="canvasLocation" x="2216" y="1031"/>
         </scene>
-        <!--Contributors View Controller-->
+        <!--Add Contributors View Controller-->
         <scene sceneID="eJ4-7I-sOa">
             <objects>
-                <viewController storyboardIdentifier="WLContributorsViewController" id="2bk-UF-zkR" customClass="WLContributorsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLContributorsViewController" automaticallyAdjustsScrollViewInsets="NO" id="2bk-UF-zkR" customClass="WLAddContributorsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BJb-s8-wGU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1556,7 +1556,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MJV-nQ-gRy">
+                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MJV-nQ-gRy" customClass="WLButton">
                                 <rect key="frame" x="0.0" y="524" width="159" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1566,12 +1566,18 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                        <color key="value" red="0.87843137250000003" green="0.42352941179999998" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="back:" destination="2bk-UF-zkR" eventType="touchUpInside" id="HrD-3j-ekN"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7Bf-ro-UFC">
+                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7Bf-ro-UFC" customClass="WLButton">
                                 <rect key="frame" x="160" y="524" width="160" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1581,6 +1587,12 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                        <color key="value" red="0.87843137250000003" green="0.42352941179999998" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="done:" destination="2bk-UF-zkR" eventType="touchUpInside" id="R8t-if-sA3"/>
@@ -1603,12 +1615,12 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Adp-VB-Iup" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2602" y="899"/>
+            <point key="canvasLocation" x="3318" y="943"/>
         </scene>
         <!--Invite View Controller-->
         <scene sceneID="LCf-at-3Ye">
             <objects>
-                <viewController storyboardIdentifier="WLInviteViewController" id="ro7-vm-AlA" customClass="WLInviteViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLInviteViewController" automaticallyAdjustsScrollViewInsets="NO" id="ro7-vm-AlA" customClass="WLInviteViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lyX-GX-vpE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1721,12 +1733,12 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZQb-fd-dXj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3060" y="899"/>
+            <point key="canvasLocation" x="3748" y="943"/>
         </scene>
         <!--Wrap View Controller-->
         <scene sceneID="swT-1e-jus">
             <objects>
-                <viewController storyboardIdentifier="WLWrapViewController" id="hUj-RK-zkg" customClass="WLWrapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLWrapViewController" automaticallyAdjustsScrollViewInsets="NO" id="hUj-RK-zkg" customClass="WLWrapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f6K-dz-2Hs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2083,8 +2095,28 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6oc-Uo-WSi">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="2bk-UF-zkR" kind="push" id="Opb-sv-VME"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zSv-FG-iwF">
+                                        <rect key="frame" x="60" y="0.0" width="200" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="qRW-aK-Lk5" kind="push" identifier="contributors" id="KzJ-t1-ugM"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3F6-Kp-Py8">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                        <rect key="frame" x="260" y="0.0" width="60" height="60"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="7" maxY="0.0"/>
                                         <state key="normal" image="ic_settings">
@@ -2219,7 +2251,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
         <!--Candy View Controller-->
         <scene sceneID="IUe-2p-n08">
             <objects>
-                <viewController storyboardIdentifier="WLCandyViewController" id="eto-O4-OHy" customClass="WLCandyViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLCandyViewController" automaticallyAdjustsScrollViewInsets="NO" id="eto-O4-OHy" customClass="WLCandyViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FUv-v8-MyM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2488,7 +2520,7 @@ Check your internet connection and try again.</string>
         <!--Chat View Controller-->
         <scene sceneID="JRm-Kq-Yqc">
             <objects>
-                <viewController storyboardIdentifier="WLChatViewController" id="ef1-h7-yay" customClass="WLChatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLChatViewController" automaticallyAdjustsScrollViewInsets="NO" id="ef1-h7-yay" customClass="WLChatViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hIQ-pE-cV8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2685,6 +2717,191 @@ Check your internet connection and try again.</string>
             </objects>
             <point key="canvasLocation" x="108" y="126"/>
         </scene>
+        <!--Contributors View Controller-->
+        <scene sceneID="8UV-zT-Qeh">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="qRW-aK-Lk5" customClass="WLContributorsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3Jb-s5-DCT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="DO8-0B-bff">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Ejb-Xa-hl3">
+                                    <size key="itemSize" width="320" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLContributorCell" id="XAQ-cw-yjZ" customClass="WLContributorCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="0uu-KS-up8" customClass="WLImageView">
+                                                    <rect key="frame" x="10" y="10" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4dB-kx-151">
+                                                    <rect key="frame" x="50" y="0.0" width="220" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7dN-Y5-4Ue">
+                                                    <rect key="frame" x="270" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
+                                                    <state key="normal" image="ic_delete">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="remove:" destination="XAQ-cw-yjZ" eventType="touchUpInside" id="FPq-cc-MyL"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="74C-dE-IMx">
+                                                    <rect key="frame" x="0.0" y="0.0" width="270" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <state key="normal">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="select" destination="XAQ-cw-yjZ" eventType="touchUpInside" id="fRz-0d-nYT"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="avatarView" destination="0uu-KS-up8" id="ppX-kF-1t9"/>
+                                            <outlet property="delegate" destination="qRW-aK-Lk5" id="XrB-4Q-IO4"/>
+                                            <outlet property="nameLabel" destination="4dB-kx-151" id="bZm-jK-3aM"/>
+                                            <outlet property="removeButton" destination="7dN-Y5-4Ue" id="vtU-vi-3lO"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="gJy-hq-1lI" id="ua0-SH-gKj"/>
+                                    <outlet property="delegate" destination="gJy-hq-1lI" id="JZ2-54-WVe"/>
+                                </connections>
+                            </collectionView>
+                            <view contentMode="scaleToFill" id="2R6-MR-eF4">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ShV-37-6kI">
+                                        <rect key="frame" x="0.0" y="20" width="44" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                        <state key="normal" image="ic_back_orange">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="back:" destination="2bk-UF-zkR" eventType="touchUpInside" id="8cu-Xk-Kdi"/>
+                                            <action selector="back:" destination="qRW-aK-Lk5" eventType="touchUpInside" id="vKE-h0-Oak"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contributors" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="s5o-k3-mbE">
+                                        <rect key="frame" x="75" y="20" width="170" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="zYQ-FT-6gw">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dYf-Sg-pHd" customClass="WLButton">
+                                        <rect key="frame" x="-1" y="0.0" width="160" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                                <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                                <color key="value" red="0.8784313725490196" green="0.42352941176470588" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="back:" destination="7FG-gC-kPg" eventType="touchUpInside" id="7vc-Ta-VTg"/>
+                                            <action selector="cancel:" destination="qRW-aK-Lk5" eventType="touchUpInside" id="NyC-9h-jYu"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oMu-AF-YMH" customClass="WLButton">
+                                        <rect key="frame" x="160" y="0.0" width="160" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                                <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                                <color key="value" red="0.87843137250000003" green="0.42352941179999998" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="done:" destination="qRW-aK-Lk5" eventType="touchUpInside" id="fTd-Cq-CoZ"/>
+                                            <action selector="goToMainScreen:" destination="7FG-gC-kPg" eventType="touchUpInside" id="yfX-G0-DBo"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="eIg-JY-jsf"/>
+                    <connections>
+                        <outlet property="bottomView" destination="zYQ-FT-6gw" id="KAS-HR-05D"/>
+                        <outlet property="dataProvider" destination="gJy-hq-1lI" id="8Mr-GR-zwz"/>
+                        <outlet property="dataSection" destination="zjC-7P-9tZ" id="2Sw-EK-CRK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RN9-r6-64a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="gJy-hq-1lI" customClass="WLCollectionViewDataProvider">
+                    <connections>
+                        <outlet property="collectionView" destination="DO8-0B-bff" id="puQ-84-yR2"/>
+                        <outletCollection property="sections" destination="zjC-7P-9tZ" collectionClass="NSMutableArray" id="v2r-fd-s4n"/>
+                    </connections>
+                </customObject>
+                <customObject id="zjC-7P-9tZ" customClass="WLCollectionViewSection">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLContributorCell"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="collectionView" destination="DO8-0B-bff" id="I3n-J1-jFa"/>
+                    </connections>
+                </customObject>
+            </objects>
+            <point key="canvasLocation" x="2901" y="983"/>
+        </scene>
     </scenes>
     <resources>
         <image name="bg_candy_gradient" width="320" height="64"/>
@@ -2700,6 +2917,7 @@ Check your internet connection and try again.</string>
         <image name="ic_chat3" width="30" height="30"/>
         <image name="ic_check" width="22" height="22"/>
         <image name="ic_default_profile" width="148" height="148"/>
+        <image name="ic_delete" width="16" height="16"/>
         <image name="ic_dot_dot_dot_round" width="6" height="26"/>
         <image name="ic_gallery_medium" width="50" height="50"/>
         <image name="ic_history_enabled" width="26" height="26"/>
@@ -2732,6 +2950,6 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="PQ6-0M-1al"/>
+        <segue reference="3Yu-Mo-fdB"/>
     </inferredMetricsTieBreakers>
 </document>

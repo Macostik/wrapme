@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLEditViewController.h"
+#import "WLShakeViewController.h"
 
 @class WLWrap;
 @class WLPicture;
@@ -20,9 +20,7 @@
 
 @end
 
-@interface WLCreateWrapViewController : WLEditViewController
-
-@property (strong, nonatomic) WLWrap* wrap;
+@interface WLCreateWrapViewController : WLShakeViewController
 
 @property (strong, nonatomic) NSArray *pictures;
 

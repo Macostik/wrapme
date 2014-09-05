@@ -27,7 +27,7 @@
 	self.avatarView.circled = YES;
 }
 
-- (void)setupItemData:(WLUser*)user {
+- (void)setup:(WLUser*)user {
 	NSString * userNameText = [user isCurrentUser] ? @"You" : user.name;
 	BOOL isCreator = NO;
 	if ([self.delegate respondsToSelector:@selector(contributorCell:isCreator:)]) {
@@ -45,15 +45,13 @@
 
 - (void)setDeletable:(BOOL)deletable {
 	_deletable = deletable;
-    if (deletable) {
-        [self.removeButton removeFromSuperview];
-    }
+    self.removeButton.hidden = !deletable;
 }
 
 #pragma mark - Actions
 
 - (IBAction)remove:(id)sender {
-	[self.delegate contributorCell:self didRemoveContributor:self.item];
+	[self.delegate contributorCell:self didRemoveContributor:self.entry];
 }
 
 @end

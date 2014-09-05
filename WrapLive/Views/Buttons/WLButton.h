@@ -18,6 +18,8 @@
 
 @property (strong, nonatomic) UIColor *disabledColor;
 
+@property (nonatomic) BOOL loading;
+
 @end
 
 @interface WLSegmentButton : WLButton @end

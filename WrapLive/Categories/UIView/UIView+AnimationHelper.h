@@ -12,4 +12,8 @@
 
 + (void)performAnimated:(BOOL)animated animation:(void (^)(void))animation;
 
+- (void)setAlpha:(CGFloat)alpha animated:(BOOL)animated;
+
+- (void)setTransform:(CGAffineTransform)transform animated:(BOOL)animated;
+
 @end

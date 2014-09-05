@@ -21,4 +21,18 @@
     }
 }
 
+- (void)setAlpha:(CGFloat)alpha animated:(BOOL)animated {
+    __weak typeof(self)weakSelf = self;
+    [UIView performAnimated:animated animation:^{
+        weakSelf.alpha = alpha;
+    }];
+}
+
+- (void)setTransform:(CGAffineTransform)transform animated:(BOOL)animated {
+    __weak typeof(self)weakSelf = self;
+    [UIView performAnimated:animated animation:^{
+        weakSelf.transform = transform;
+    }];
+}
+
 @end

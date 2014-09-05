@@ -91,10 +91,10 @@
 	self.nameLabel.text = wrap.name;
 	[self.nameLabel sizeToFitWidthWithSuperviewRightPadding:50];
 	self.notifyBulb.x = self.nameLabel.right + 6;
-    NSString* url = [wrap.picture anyUrl];
-    self.coverView.url = url;
-    if (!url) {
-        self.coverView.image = [UIImage imageNamed:@"default-small-cover"];
+    if (self.coverView) {
+        NSString* url = [wrap.picture anyUrl];
+        self.coverView.url = url;
+        if (!url) self.coverView.image = [UIImage imageNamed:@"default-small-cover"];
     }
 	
 	self.contributorsLabel.text = [wrap contributorNames];

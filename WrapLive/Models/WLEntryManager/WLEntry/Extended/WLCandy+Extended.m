@@ -42,10 +42,9 @@
     }
     [WLComment API_entries:[dictionary arrayForKey:WLCommentsKey] relatedEntry:self container:comments];
     if (comments.nonempty) [comments sortByCreatedAtAscending];
-    WLPicture* picture = self.picture;
-    picture.large = [dictionary stringForKey:WLCandyLargeURLKey];
-    picture.medium = [dictionary stringForKey:WLCandyMediumURLKey];
-    picture.small = [dictionary stringForKey:WLCandySmallURLKey];
+    [self editPicture:[dictionary stringForKey:WLCandyLargeURLKey]
+               medium:[dictionary stringForKey:WLCandyMediumURLKey]
+                small:[dictionary stringForKey:WLCandySmallURLKey]];
     WLWrap* currentWrap = self.wrap;
     WLWrap* wrap = relatedEntry ? : (currentWrap ? : [WLWrap entry:[dictionary stringForKey:WLWrapUIDKey]]);
     if (wrap != currentWrap) self.wrap = wrap;

@@ -41,4 +41,6 @@
 
 - (void)touch:(NSDate*)date;
 
+- (void)editPicture:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
+
 @end

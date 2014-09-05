@@ -49,6 +49,7 @@
 #import "WLSupportFunctions.h"
 #import "WLSession.h"
 #import "NSString+Additions.h"
+#import "WLContributorsViewController.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
     WLWrapViewTabLive,
@@ -218,7 +219,9 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 		controller.wrap = self.wrap;
 		controller.mode = WLCameraModeCandy;
 		controller.delegate = self;
-	}
+	} else {
+        [(WLContributorsViewController*)segue.destinationViewController setWrap:self.wrap];
+    }
 }
 
 - (IBAction)editWrap:(id)sender {

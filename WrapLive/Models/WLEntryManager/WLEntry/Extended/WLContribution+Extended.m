@@ -44,10 +44,9 @@
     }
     NSString* name = [dictionary stringForKey:WLContributorNameKey];
     if (!NSStringEqual(contributor.name, name)) contributor.name = name;
-	WLPicture* picture = contributor.picture;
-	picture.large = [dictionary stringForKey:WLContributorLargeAvatarKey];
-	picture.medium = [dictionary stringForKey:WLContributorMediumAvatarKey];
-	picture.small = [dictionary stringForKey:WLContributorSmallAvatarKey];
+    [contributor editPicture:[dictionary stringForKey:WLContributorLargeAvatarKey]
+                      medium:[dictionary stringForKey:WLContributorMediumAvatarKey]
+                       small:[dictionary stringForKey:WLContributorSmallAvatarKey]];
 }
 
 - (BOOL)shouldStartUploadingAutomatically {

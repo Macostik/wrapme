@@ -25,10 +25,9 @@
 	if (!NSStringEqual(self.name, name)) self.name = name;
     NSString* email = [dictionary stringForKey:WLEmailKey];
 	if (!NSStringEqual(self.email, email)) self.email = email;
-	WLPicture* picture = self.picture;
-	picture.large = [dictionary stringForKey:WLLargeAvatarKey];
-	picture.medium = [dictionary stringForKey:WLMediumAvatarKey];
-	picture.small = [dictionary stringForKey:WLSmallAvatarKey];
+    [self editPicture:[dictionary stringForKey:WLLargeAvatarKey]
+               medium:[dictionary stringForKey:WLMediumAvatarKey]
+                small:[dictionary stringForKey:WLSmallAvatarKey]];
     return [super API_setup:dictionary relatedEntry:relatedEntry];
 }
 

@@ -8,6 +8,12 @@
 
 #import "WLButton.h"
 
+@interface WLButton ()
+
+@property (weak, nonatomic) UIActivityIndicatorView *spinner;
+
+@end
+
 @implementation WLButton
 
 @synthesize normalColor = _normalColor;
@@ -87,6 +93,23 @@
 - (UIColor *)disabledColor {
 	if (!_disabledColor) _disabledColor = self.normalColor;
 	return _disabledColor;
+}
+
+- (void)setLoading:(BOOL)loading {
+    if (_loading != loading) {
+        _loading = loading;
+        if (loading) {
+            UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+            spinner.center = CGPointMake(self.bounds.size.width - self.bounds.size.height/2, self.bounds.size.height/2);
+            [self addSubview:spinner];
+            [spinner startAnimating];
+            self.spinner = spinner;
+            self.userInteractionEnabled = NO;
+        } else {
+            [self.spinner removeFromSuperview];
+            self.userInteractionEnabled = YES;
+        }
+    }
 }
 
 @end

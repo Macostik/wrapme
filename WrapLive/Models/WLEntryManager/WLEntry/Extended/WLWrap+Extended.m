@@ -197,6 +197,7 @@
             break;
         }
     }
+    [candies sortByUpdatedAtDescending];
     return candies;
 }
 
@@ -230,7 +231,7 @@
 
 - (void)uploadPictures:(NSArray *)pictures {
     NSUInteger count = [pictures count];
-    NSTimeInterval time = count/2.0f;
+    NSTimeInterval time = count*2.0f;
     __weak typeof(self)weakSelf = self;
     [pictures enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSTimeInterval delay = time*((CGFloat)idx/(CGFloat)(count - 1));

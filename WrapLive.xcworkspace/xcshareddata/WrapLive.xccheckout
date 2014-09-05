@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7E1E34FE-7625-496B-BE51-E871A02B6394</string>
+	<key>IDESourceControlProjectName</key>
+	<string>WrapLive</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D4B2B566-679E-4B5E-B552-FC271172DB94</key>
+		<string>ssh://github.com/ravengit/wraplive-ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>WrapLive.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D4B2B566-679E-4B5E-B552-FC271172DB94</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/ravengit/wraplive-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D4B2B566-679E-4B5E-B552-FC271172DB94</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D4B2B566-679E-4B5E-B552-FC271172DB94</string>
+			<key>IDESourceControlWCCName</key>
+			<string>wraplive-ios</string>
+		</dict>
+	</array>
+</dict>
+</plist>

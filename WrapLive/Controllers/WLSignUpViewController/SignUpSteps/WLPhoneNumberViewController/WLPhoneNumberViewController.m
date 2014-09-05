@@ -67,7 +67,7 @@
 	self.emailTextField.text = [WLAuthorization currentAuthorization].email;
 	self.email = self.emailTextField.text;
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
-	if (![WLAPIManager productionEvironment]) {
+	if ([WLAPIManager instance].environment.useTestUsers) {
 		__weak typeof(self)weakSelf = self;
 		run_after(0.1, ^{
 			UIButton* testUserButton = [UIButton buttonWithType:UIButtonTypeCustom];

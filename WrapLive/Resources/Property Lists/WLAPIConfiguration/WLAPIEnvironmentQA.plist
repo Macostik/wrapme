@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>endpoint</key>
+	<string>https://qa-api.wraplive.com/api</string>
+	<key>version</key>
+	<string>4</string>
+	<key>testUsersPropertyListName</key>
+	<string>WLTestUsersQA</string>
+	<key>useTestUsers</key>
+	<true/>
+	<key>environment</key>
+	<string>qa</string>
+</dict>
+</plist>

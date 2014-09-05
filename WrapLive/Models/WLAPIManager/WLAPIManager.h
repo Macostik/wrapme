@@ -11,6 +11,7 @@
 #import "WLEntryManager.h"
 #import "WLAuthorization.h"
 #import "WLBlocks.h"
+#import "WLAPIEnvironment.h"
 
 @class WLUser;
 @class WLComment;
@@ -22,9 +23,9 @@ static NSUInteger WLPageSize = 10;
 
 @interface WLAPIManager : AFHTTPRequestOperationManager
 
-+ (instancetype)instance;
+@property (strong, nonatomic) WLAPIEnvironment* environment;
 
-+ (BOOL)productionEvironment;
++ (instancetype)instance;
 
 - (NSString*)urlWithPath:(NSString*)path;
 

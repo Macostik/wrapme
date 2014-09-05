@@ -98,7 +98,7 @@
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLNotificationCenter defaultCenter] addReceiver:self];
-    if ([WLAPIManager productionEvironment]) {
+    if ([[WLAPIManager instance].environment.name isEqualToString:WLAPIEnvironmentProduction]) {
         [self.indicator removeFromSuperview];
         [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:nil];
     } else {

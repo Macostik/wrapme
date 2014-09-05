@@ -32,18 +32,11 @@
 #import "WLPostCommentRequest.h"
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
-static NSString* WLAPIDevelopmentUrl = @"https://dev-api.wraplive.com/api";
-static NSString* WLAPIQAUrl = @"https://qa-api.wraplive.com/api";
-static NSString* WLAPIProductionUrl = @"https://api.wraplive.com/api";
-static NSString* WLAPIBetaUrl = @"https://bta-api.wraplive.com/api";
-#define WLAPIBaseUrl WLAPIBetaUrl
-
-static NSString* WLAPIVersion = @"5";
-
-#define WLAcceptHeader [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", WLAPIVersion]
 
 typedef void (^WLAFNetworkingSuccessBlock) (AFHTTPRequestOperation *operation, id responseObject);
 typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, NSError *error);
+
+#define WLAPIEnvironmentDefault WLAPIEnvironmentDevelopment
 
 @implementation WLAPIManager
 
@@ -51,17 +44,16 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     static WLAPIManager* instance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		NSString* baseUrl = WLAPIBaseUrl;
-        WLLog(baseUrl,@"API environment initialized", nil);
-		instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
+        NSString* environmentName = [[[NSBundle mainBundle] infoDictionary] stringForKey:@"WLAPIEnvironment"];
+        if (!environmentName.nonempty) environmentName = WLAPIEnvironmentDefault;
+        WLAPIEnvironment* environment = [WLAPIEnvironment configuration:environmentName];
+        instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:environment.endpoint]];
+        instance.environment = environment;
 		instance.requestSerializer.timeoutInterval = 45;
-		[instance.requestSerializer setValue:WLAcceptHeader forHTTPHeaderField:@"Accept"];
+        NSString* acceptHeader = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", environment.version];
+		[instance.requestSerializer setValue:acceptHeader forHTTPHeaderField:@"Accept"];
 	});
     return instance;
-}
-
-+ (BOOL)productionEvironment {
-	return [WLAPIBaseUrl isEqualToString:WLAPIProductionUrl];
 }
 
 static BOOL signedIn = NO;

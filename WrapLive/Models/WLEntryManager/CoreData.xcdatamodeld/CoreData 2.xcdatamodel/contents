@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13E28" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="WLCandy" representedClassName="WLCandy" parentEntity="WLContribution" syncable="YES">
-        <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="WLComment" inverseName="candy" inverseEntity="WLComment" syncable="YES"/>
         <relationship name="wrap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLWrap" inverseName="candies" inverseEntity="WLWrap" syncable="YES"/>
     </entity>
@@ -54,14 +54,14 @@
     </entity>
     <fetchRequest name="currentUser" entity="WLUser" predicateString="current == 1"/>
     <elements>
-        <element name="WLCandy" positionX="0" positionY="0" width="128" height="88"/>
+        <element name="WLCandy" positionX="0" positionY="0" width="128" height="90"/>
         <element name="WLComment" positionX="0" positionY="0" width="128" height="75"/>
         <element name="WLContribution" positionX="0" positionY="0" width="128" height="88"/>
         <element name="WLEntry" positionX="0" positionY="0" width="128" height="133"/>
+        <element name="WLMessage" positionX="18" positionY="72" width="128" height="73"/>
         <element name="WLNotification" positionX="36" positionY="90" width="128" height="73"/>
         <element name="WLUploading" positionX="0" positionY="0" width="128" height="60"/>
         <element name="WLUser" positionX="0" positionY="0" width="128" height="148"/>
         <element name="WLWrap" positionX="0" positionY="0" width="128" height="103"/>
-        <element name="WLMessage" positionX="18" positionY="72" width="128" height="73"/>
     </elements>
 </model>

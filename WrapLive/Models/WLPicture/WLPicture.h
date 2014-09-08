@@ -21,6 +21,6 @@
 
 - (NSString*)anyUrl;
 
-- (BOOL)change:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
+- (BOOL)edit:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
 
 @end

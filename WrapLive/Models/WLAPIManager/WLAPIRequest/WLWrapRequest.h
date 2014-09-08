@@ -8,9 +8,8 @@
 
 #import "WLPaginatedRequest.h"
 
-static NSString* WLWrapContentTypeAuto = @"auto";
-static NSString* WLWrapContentTypeLive = @"live";
-static NSString* WLWrapContentTypeHistory = @"history";
+static NSString* WLWrapContentTypeRecent = @"with_recen_candies";
+static NSString* WLWrapContentTypePaginated = @"with_paginated_candies";
 
 @interface WLWrapRequest : WLPaginatedRequest
 

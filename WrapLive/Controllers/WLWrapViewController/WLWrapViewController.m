@@ -100,7 +100,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     self.groups = [[WLGroupedSet alloc] init];
     [self.groups addEntries:self.wrap.candies];
     WLWrapRequest* wrapRequest = [WLWrapRequest request:self.wrap];
-    wrapRequest.contentType = WLWrapContentTypeHistory;
+    wrapRequest.contentType = WLWrapContentTypePaginated;
     self.historyViewSection.entries = self.groups;
     self.historyViewSection.entries.request = wrapRequest;
     self.timelineDataProvider.timeline = [WLTimeline timelineWithWrap:self.wrap];
@@ -135,15 +135,9 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 - (void)firstLoadRequest {
     __weak typeof(self)weakSelf = self;
     WLWrapRequest* wrapRequest = [WLWrapRequest request:self.wrap];
-    wrapRequest.contentType = WLWrapContentTypeAuto;
+    wrapRequest.contentType = WLWrapContentTypePaginated;
     [wrapRequest send:^(NSOrderedSet *orderedSet) {
-        if ([wrapRequest isContentType:WLWrapContentTypeLive]) {
-            [weakSelf changeViewTab:WLWrapViewTabLive];
-        } else if ([wrapRequest isContentType:WLWrapContentTypeHistory]) {
-            [weakSelf changeViewTab:WLWrapViewTabHistory];
-        } else {
-            [weakSelf reloadData];
-        }
+        [weakSelf reloadData];
     } failure:^(NSError *error) {
         [error showIgnoringNetworkError];
     }];

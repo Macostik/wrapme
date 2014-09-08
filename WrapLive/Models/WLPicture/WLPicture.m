@@ -36,7 +36,7 @@
     return self.small ? : (self.medium ? : self.large);
 }
 
-- (BOOL)change:(NSString *)large medium:(NSString *)medium small:(NSString *)small {
+- (BOOL)edit:(NSString *)large medium:(NSString *)medium small:(NSString *)small {
     BOOL changed = NO;
     if (!NSStringEqual(self.large, large)) {
         changed = YES;
@@ -51,6 +51,10 @@
         self.small = small;
     }
     return changed;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@:\nlarge: %@\nmedium: %@\nsmall: %@",[self class],self.large, self.medium, self.small];
 }
 
 @end

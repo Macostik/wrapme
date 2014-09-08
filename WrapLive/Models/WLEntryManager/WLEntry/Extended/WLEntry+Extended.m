@@ -96,30 +96,9 @@
 }
 
 - (void)editPicture:(NSString*)large medium:(NSString*)medium small:(NSString*)small {
-    __block BOOL changed = NO;
     WLPicture* picture = self.picture;
-    NSString* key = @"picture";
-    void (^willChange) (void) = ^ {
-        if (!changed) {
-            [self willChangeValueForKey:key];
-            changed = YES;
-        }
-    };
-    if (!NSStringEqual(picture.large, large)) {
-        willChange();
-        picture.large = large;
-    }
-    if (!NSStringEqual(picture.medium, medium)) {
-        willChange();
-        picture.medium = medium;
-    }
-    if (!NSStringEqual(picture.small, small)) {
-        willChange();
-        picture.small = small;
-    }
-    if (changed) {
-        [self setPrimitiveValue:picture forKey:key];
-        [self didChangeValueForKey:key];
+    if ([picture edit:large medium:medium small:small]) {
+        self.picture = [picture copy];
     }
 }
 

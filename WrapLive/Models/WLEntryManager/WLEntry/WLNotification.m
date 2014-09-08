@@ -65,8 +65,6 @@
                 WLNotificationType type = self.type;
                 if (type == WLNotificationImageCandyAddition || type == WLNotificationImageCandyDeletion || type == WLNotificationCandyCommentAddition || type == WLNotificationCandyCommentDeletion) {
                     candy.type = @(WLCandyTypeImage);
-                } else if (type == WLNotificationChatCandyAddition) {
-                    candy.type = @(WLCandyTypeMessage);
                 }
             }
 		}
@@ -138,11 +136,7 @@
             }
         } else if (type == WLNotificationChatCandyAddition) {
             candy.unread = @YES;
-            if (candy.message.nonempty) {
-                block(candy);
-            } else {
-                [candy fetch:block failure:^(NSError *error) { }];
-            }
+            [candy fetch:block failure:^(NSError *error) { }];
         } else if (type == WLNotificationCandyCommentAddition) {
             candy.unread = @YES;
             if ([candy.comments containsObject:comment]) {

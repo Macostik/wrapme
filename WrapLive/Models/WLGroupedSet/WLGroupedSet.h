@@ -15,8 +15,6 @@
 
 @interface WLGroupedSet : WLPaginatedSet
 
-@property (nonatomic) NSInteger type;
-
 - (void)clear;
 
 - (WLGroup*)groupWithCandy:(WLCandy*)candy;

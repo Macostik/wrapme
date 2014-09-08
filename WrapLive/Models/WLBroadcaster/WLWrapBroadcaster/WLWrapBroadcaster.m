@@ -15,6 +15,8 @@
 
 @property (strong, nonatomic) WLBroadcastSelectReceiver candySelectBlock;
 
+@property (strong, nonatomic) WLBroadcastSelectReceiver messageSelectBlock;
+
 @property (strong, nonatomic) WLBroadcastSelectReceiver commentSelectBlock;
 
 @end
@@ -56,6 +58,12 @@
             }
             return YES;
         };
+        self.messageSelectBlock = ^BOOL (NSObject <WLWrapBroadcastReceiver> *receiver, WLMessage *message) {
+            if (message.wrap && !weakSelf.wrapSelectBlock(receiver, message.wrap)) {
+                return NO;
+            }
+            return YES;
+        };
         self.commentSelectBlock = ^BOOL (NSObject <WLWrapBroadcastReceiver> *receiver, WLComment *comment) {
             return weakSelf.candySelectBlock(receiver, comment.candy);
         };
@@ -85,6 +93,18 @@
 
 - (void)broadcastCandyRemove:(WLCandy *)candy {
 	[self broadcast:@selector(broadcaster:candyRemoved:) object:candy select:self.candySelectBlock];
+}
+
+- (void)broadcastMessageCreation:(WLMessage*)message {
+    [self broadcast:@selector(broadcaster:messageRemoved:) object:message select:self.messageSelectBlock];
+}
+
+- (void)broadcastMessageChange:(WLMessage*)message {
+    [self broadcast:@selector(broadcaster:messageRemoved:) object:message select:self.messageSelectBlock];
+}
+
+- (void)broadcastMessageRemove:(WLMessage*)message {
+    [self broadcast:@selector(broadcaster:messageRemoved:) object:message select:self.messageSelectBlock];
 }
 
 - (void)broadcastCommentCreation:(WLComment *)comment {
@@ -154,6 +174,25 @@
 
 - (void)broadcastRemoving {
     [[WLWrapBroadcaster broadcaster] broadcastCandyRemove:self];
+    [self.wrap broadcastChange];
+}
+
+@end
+
+@implementation WLMessage (WLWrapBroadcaster)
+
+- (void)broadcastCreation {
+    [[WLWrapBroadcaster broadcaster] broadcastMessageCreation:self];
+    [self.wrap broadcastChange];
+}
+
+- (void)broadcastChange {
+    [[WLWrapBroadcaster broadcaster] broadcastMessageChange:self];
+    [self.wrap broadcastChange];
+}
+
+- (void)broadcastRemoving {
+    [[WLWrapBroadcaster broadcaster] broadcastMessageRemove:self];
     [self.wrap broadcastChange];
 }
 

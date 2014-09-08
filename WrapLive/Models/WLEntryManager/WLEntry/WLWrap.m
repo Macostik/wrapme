@@ -15,6 +15,7 @@
 
 @dynamic name;
 @dynamic candies;
+@dynamic messages;
 @dynamic contributors;
 
 @synthesize invitees;

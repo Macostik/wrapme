@@ -161,16 +161,36 @@ static UIWindow* mainWindow = nil;
 
 - (UIViewController *)viewController {
     __weak typeof(self)weakSelf = self;
-    if (self.isImage) {
-        return [WLCandyViewController instantiate:^(WLCandyViewController *controller) {
-            controller.candy = weakSelf;
-		}];
-	} else if (self.isMessage) {
-        return [WLChatViewController instantiate:^(WLChatViewController *controller) {
-			controller.wrap = weakSelf.wrap;
-		}];
-	}
-    return nil;
+    return [WLCandyViewController instantiate:^(WLCandyViewController *controller) {
+        controller.candy = weakSelf;
+    }];
+}
+
+- (void)presentInViewController:(UIViewController*)controller animated:(BOOL)animated {
+    NSMutableArray* controllers = [NSMutableArray array];
+    for (UIViewController* _controller in controller.navigationController.viewControllers) {
+        [controllers addObject:_controller];
+        if (controller == _controller) {
+            break;
+        }
+    }
+    if ([controller isKindOfClass:[WLWrapViewController class]]) {
+        [controllers tryAddObject:[self viewController]];
+    } else {
+        [controllers tryAddObjects:[self.wrap viewController],[self viewController],nil];
+    }
+    [controller.navigationController setViewControllers:controllers animated:animated];
+}
+
+@end
+
+@implementation WLMessage (WLNavigation)
+
+- (UIViewController *)viewController {
+    __weak typeof(self)weakSelf = self;
+    return [WLChatViewController instantiate:^(WLChatViewController *controller) {
+        controller.wrap = weakSelf.wrap;
+    }];
 }
 
 - (void)presentInViewController:(UIViewController*)controller animated:(BOOL)animated {

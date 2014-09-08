@@ -30,11 +30,7 @@
     self.filePath = self.candy.picture.large;
     WLCandy* candy = self.candy;
     [parameters trySetObject:candy.uploadIdentifier forKey:@"upload_uid"];
-	if ([candy isMessage]) {
-		[parameters trySetObject:candy.message forKey:@"chat_message"];
-	} else {
-        [parameters trySetObject:@([candy.updatedAt timestamp]) forKey:@"contributed_at_in_epoch"];
-    }
+	[parameters trySetObject:@([candy.updatedAt timestamp]) forKey:@"contributed_at_in_epoch"];
     return parameters;
 }
 
@@ -42,11 +38,9 @@
     WLCandy* candy = self.candy;
     WLPicture* picture = [candy.picture copy];
     [candy API_setup:[response.data dictionaryForKey:@"candy"]];
-    if ([candy isImage]) {
-        [[WLImageCache cache] setImageAtPath:picture.medium withUrl:candy.picture.medium];
-        [[WLImageCache cache] setImageAtPath:picture.small withUrl:candy.picture.small];
-        [[WLImageCache cache] setImageAtPath:picture.large withUrl:candy.picture.large];
-    }
+    [[WLImageCache cache] setImageAtPath:picture.medium withUrl:candy.picture.medium];
+    [[WLImageCache cache] setImageAtPath:picture.small withUrl:candy.picture.small];
+    [[WLImageCache cache] setImageAtPath:picture.large withUrl:candy.picture.large];
     candy.wrap.updatedAt = candy.updatedAt;
     [candy broadcastChange];
     return candy;

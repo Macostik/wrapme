@@ -23,7 +23,6 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.type = WLCandyTypeImage;
         self.sortComparator = comparatorByDateDescending;
     }
     return self;
@@ -35,10 +34,6 @@
 }
 
 - (BOOL)addEntries:(NSOrderedSet *)entries {
-    NSInteger type = self.type;
-    entries = [entries selectObjects:^BOOL(id item) {
-        return [item isCandyOfType:type];
-    }];
     BOOL added = NO;
     NSMutableOrderedSet* entriesCopy = [entries mutableCopy];
     while (entriesCopy.nonempty) {
@@ -63,9 +58,6 @@
 }
 
 - (BOOL)addEntry:(WLCandy*)candy {
-    if (![candy isCandyOfType:self.type]) {
-        return NO;
-    }
     WLGroup* group = [self groupForDate:candy.createdAt create:YES];
     if ([group addEntry:candy]) {
         [self.entries sort:self.sortComparator];
@@ -97,9 +89,6 @@
 }
 
 - (void)sort:(WLCandy*)candy {
-    if (![candy isCandyOfType:self.type]) {
-        return;
-    }
     WLGroup* group = [self groupForDate:candy.createdAt create:YES];
     if ([group.entries containsObject:candy]) {
         [group sort];

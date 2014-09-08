@@ -7,9 +7,7 @@
 //
 
 #import "WLBroadcaster.h"
-#import "WLWrap.h"
-#import "WLCandy+Extended.h"
-#import "WLComment.h"
+#import "WLEntryManager.h"
 
 @class WLWrapBroadcaster;
 
@@ -44,6 +42,12 @@
 
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster candyRemoved:(WLCandy*)candy;
 
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster messageCreated:(WLMessage*)message;
+
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster messageChanged:(WLMessage*)message;
+
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster messageRemoved:(WLMessage*)message;
+
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentCreated:(WLComment*)comment;
 
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentChanged:(WLComment*)comment;
@@ -66,6 +70,12 @@
 
 - (void)broadcastCandyRemove:(WLCandy*)candy;
 
+- (void)broadcastMessageCreation:(WLMessage*)message;
+
+- (void)broadcastMessageChange:(WLMessage*)message;
+
+- (void)broadcastMessageRemove:(WLMessage*)message;
+
 - (void)broadcastCommentCreation:(WLComment*)comment;
 
 - (void)broadcastCommentChange:(WLComment*)comment;
@@ -83,5 +93,7 @@
 @interface WLWrap (WLWrapBroadcaster) @end
 
 @interface WLCandy (WLWrapBroadcaster) @end
+
+@interface WLMessage (WLWrapBroadcaster) @end
 
 @interface WLComment (WLWrapBroadcaster) @end

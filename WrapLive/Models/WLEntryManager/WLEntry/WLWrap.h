@@ -16,6 +16,7 @@
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSMutableOrderedSet *candies;
+@property (nonatomic, retain) NSMutableOrderedSet *messages;
 @property (nonatomic, retain) NSMutableOrderedSet *contributors;
 @property (strong, nonatomic) NSArray* invitees;
 @end

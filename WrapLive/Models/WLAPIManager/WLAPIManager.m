@@ -30,6 +30,7 @@
 #import "WLDeleteCandyRequest.h"
 #import "WLDeleteCommentRequest.h"
 #import "WLPostCommentRequest.h"
+#import "WLUploadMessageRequest.h"
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 
@@ -173,7 +174,7 @@ static BOOL signedIn = NO;
     return [request send:success failure:failure];
 }
 
-- (id)latestMessage:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+- (id)latestMessage:(WLMessageBlock)success failure:(WLFailureBlock)failure {
     WLMessagesRequest* request = [WLMessagesRequest request:self];
     request.type = WLPaginatedRequestTypeFresh;
     request.latest = YES;
@@ -218,6 +219,14 @@ static BOOL signedIn = NO;
 
 - (id)fetch:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     return [[WLCandyRequest request:self] send:success failure:failure];
+}
+
+@end
+
+@implementation WLMessage (WLAPIManager)
+
+- (id)add:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+    return [[WLUploadMessageRequest request:self] send:success failure:failure];
 }
 
 @end

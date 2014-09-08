@@ -64,8 +64,6 @@
                         type == WLNotificationCandyCommentAddition ||
                         type == WLNotificationCandyCommentDeletion) {
                         candy.type = @(WLCandyTypeImage);
-                    } else if (type == WLNotificationChatCandyAddition) {
-                        candy.type = @(WLCandyTypeMessage);
                     }
                     NSString* comment_uid = [dictionary stringForKey:@"comment_uid"];
                     if (comment_uid.nonempty) {

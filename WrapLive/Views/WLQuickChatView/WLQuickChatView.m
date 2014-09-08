@@ -56,15 +56,15 @@
     BOOL changed = ![_wrap isEqualToEntry:wrap];
     _wrap = wrap;
     __weak typeof(self)weakSelf = self;
-    WLCandyBlock setup = ^ (WLCandy* message) {
+    WLMessageBlock setup = ^ (WLMessage* message) {
         weakSelf.contributorView.hidden = (message == nil);
         if (message) {
             weakSelf.contributorView.user = message.contributor;
-            weakSelf.messageLabel.text = message.message;
+            weakSelf.messageLabel.text = message.text;
         }
         [weakSelf updateHeight];
     };
-    WLCandy* message = [[wrap messages:1] lastObject];
+    WLMessage* message = [wrap.messages firstObject];
     if (message) {
         setup(message);
     } else if (changed) {
@@ -167,7 +167,7 @@
 }
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
-    [self.wrap uploadMessage:text success:^(WLCandy *candy) {
+    [self.wrap uploadMessage:text success:^(WLMessage *message) {
         
     } failure:^(NSError *error) {
         [error show];

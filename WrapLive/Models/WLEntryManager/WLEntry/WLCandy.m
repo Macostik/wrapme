@@ -13,7 +13,6 @@
 
 @implementation WLCandy
 
-@dynamic message;
 @dynamic type;
 @dynamic wrap;
 @dynamic comments;

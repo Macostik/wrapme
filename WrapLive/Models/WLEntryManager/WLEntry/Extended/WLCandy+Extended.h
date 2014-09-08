@@ -10,17 +10,12 @@
 #import "WLBlocks.h"
 
 static NSInteger WLCandyTypeImage = 10;
-static NSInteger WLCandyTypeMessage = 20;
 
 @interface WLCandy (Extended)
 
 + (instancetype)candyWithType:(NSInteger)type wrap:(WLWrap*)wrap;
 
 - (BOOL)isCandyOfType:(NSInteger)type;
-
-- (BOOL)isImage;
-
-- (BOOL)isMessage;
 
 - (BOOL)belongsToWrap:(WLWrap *)wrap;
 

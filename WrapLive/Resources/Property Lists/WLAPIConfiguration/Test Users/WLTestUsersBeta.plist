@@ -76,7 +76,9 @@
 		<key>email</key>
 		<string>s.maximenko@mobidev.biz</string>
 		<key>password</key>
-		<string>03eb58f375</string>
+		<string>87b7353a49</string>
+		<key>deviceUID</key>
+		<string>2c2f439152930d334a8d741bb30dd2a70d35cd64</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>

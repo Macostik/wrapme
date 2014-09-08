@@ -72,7 +72,7 @@
     
     if (!self.groups) {
         self.groups = [[WLGroupedSet alloc] init];
-        [self.groups addEntries:[_candy.wrap images]];
+        [self.groups addEntries:[_candy.wrap candies]];
         self.group = [self.groups groupWithCandy:_candy];
     }
     
@@ -166,10 +166,6 @@
 - (void)fetchCandies {
     __weak typeof(self)weakSelf = self;
     [self.group send:^(NSOrderedSet *candies) {
-        NSOrderedSet* messages = [candies selectObjects:^BOOL(id item) {
-            return [item isMessage];
-        }];
-        if (messages.nonempty) [weakSelf.group.entries minusOrderedSet:messages];
         if (candies.nonempty) [weakSelf.collectionView reloadData];
     } failure:^(NSError *error) {
         if (error.isNetworkError) {

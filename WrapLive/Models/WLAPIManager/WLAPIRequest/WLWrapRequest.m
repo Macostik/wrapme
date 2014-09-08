@@ -48,17 +48,11 @@
     if (contentType.nonempty) {
         self.contentType = contentType;
     }
-    NSDate* updatedAt = self.wrap.updatedAt;
+    NSMutableOrderedSet* oldCandies = [self.wrap.candies mutableCopy];
     [self.wrap update:data];
-    if ([updatedAt compare:self.wrap.updatedAt] != NSOrderedDescending) {
-        NSMutableOrderedSet* candies = [self.wrap candiesFromResponse:data];
-        if (candies.nonempty && ![candies isSubsetOfOrderedSet:self.wrap.candies]) {
-            [self.wrap addCandies:candies];
-        }
-        return candies;
-    } else {
-        return nil;
-    }
+    NSMutableOrderedSet* newCandies = [self.wrap.candies mutableCopy];
+    [newCandies minusOrderedSet:oldCandies];
+    return newCandies;
 }
 
 - (void)handleFailure:(NSError *)error {

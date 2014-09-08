@@ -33,8 +33,6 @@
     [super API_setup:dictionary relatedEntry:relatedEntry];
     NSNumber* type = [dictionary numberForKey:WLCandyTypeKey];
     if (!NSNumberEqual(self.type, type)) self.type = type;
-    NSString* message = [dictionary stringForKey:WLCandyMessageKey];
-    if (!NSStringEqual(self.message, message)) self.message = message;
     NSMutableOrderedSet* comments = self.comments;
     if (!comments) {
         comments = [NSMutableOrderedSet orderedSet];
@@ -60,14 +58,6 @@
 
 - (BOOL)isCandyOfType:(NSInteger)type {
     return [self.type isEqualToInteger:type];
-}
-
-- (BOOL)isImage {
-	return [self isCandyOfType:WLCandyTypeImage];
-}
-
-- (BOOL)isMessage {
-    return [self isCandyOfType:WLCandyTypeMessage];
 }
 
 - (BOOL)belongsToWrap:(WLWrap *)wrap {

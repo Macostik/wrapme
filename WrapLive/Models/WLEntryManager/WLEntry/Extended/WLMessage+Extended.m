@@ -1,0 +1,28 @@
+//
+//  WLMessage+Extended.m
+//  WrapLive
+//
+//  Created by Sergey Maximenko on 9/8/14.
+//  Copyright (c) 2014 Ravenpod. All rights reserved.
+//
+
+#import "WLMessage+Extended.h"
+#import "WLEntryManager.h"
+
+@implementation WLMessage (Extended)
+
++ (NSString *)API_identifier:(NSDictionary *)dictionary {
+	return [dictionary stringForKey:@"chat_uid"];
+}
+
+- (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
+    [super API_setup:dictionary relatedEntry:relatedEntry];
+    NSString* text = [dictionary stringForKey:WLContentKey];
+    if (!NSStringEqual(self.text, text)) self.text = text;
+    WLWrap* currentWrap = self.wrap;
+    WLWrap* wrap = relatedEntry ? : (currentWrap ? : [WLWrap entry:[dictionary stringForKey:WLWrapUIDKey]]);
+    if (wrap != currentWrap) self.wrap = wrap;
+    return self;
+}
+
+@end

@@ -90,4 +90,6 @@ static NSString* WLCameraNavigationControllerIdentifier = @"WLCameraNavigationCo
 
 @interface WLCandy (WLNavigation) @end
 
+@interface WLMessage (WLNavigation) @end
+
 @interface WLWrap (WLNavigation) @end

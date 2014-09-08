@@ -19,7 +19,9 @@
         [parameters setObject:@(self.newer.timestamp) forKey:@"offset_x_in_epoch"];
         [parameters setObject:@(self.older.timestamp) forKey:@"offset_y_in_epoch"];
     }
-    [parameters setObject:@(self.sameDay) forKey:@"same_day"];
+    if (self.sameDay) {
+        [parameters setObject:@(self.sameDay) forKey:@"same_day"];
+    }
     return parameters;
 }
 

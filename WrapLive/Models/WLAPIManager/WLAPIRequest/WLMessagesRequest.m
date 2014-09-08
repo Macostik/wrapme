@@ -12,7 +12,7 @@
 @implementation WLMessagesRequest
 
 - (NSString *)path {
-    return [NSString stringWithFormat:@"wraps/%@/chat_messages", self.wrap.identifier];
+    return [NSString stringWithFormat:@"wraps/%@/chats", self.wrap.identifier];
 }
 
 + (instancetype)request:(WLWrap *)wrap {
@@ -29,7 +29,7 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    NSOrderedSet* messages = [WLCandy API_entries:response.data[@"chat_messages"] relatedEntry:self.wrap];
+    NSOrderedSet* messages = [WLCandy API_entries:response.data[@"chats"] relatedEntry:self.wrap];
     if (messages.nonempty) {
         [self.wrap addCandies:messages];
         [self.wrap broadcastChange];

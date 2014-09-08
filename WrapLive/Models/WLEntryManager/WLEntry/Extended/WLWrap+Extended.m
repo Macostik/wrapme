@@ -74,11 +74,11 @@
     if (contributors.count != self.contributors.count || ![contributors isSubsetOfOrderedSet:self.contributors]) {
         self.contributors = contributors;
     }
+    NSMutableOrderedSet* candies = [WLCandy API_entries:[dictionary arrayForKey:WLCandiesKey] relatedEntry:self container:[NSMutableOrderedSet orderedSet]];
+    if (candies.nonempty && ![candies isSubsetOfOrderedSet:self.candies]) {
+        [self addCandies:candies];
+    }
     return self;
-}
-
-- (NSMutableOrderedSet*)candiesFromResponse:(NSDictionary*)dictionary {
-    return [WLCandy API_entries:[dictionary arrayForKey:WLCandiesKey] relatedEntry:self container:[NSMutableOrderedSet orderedSet]];
 }
 
 - (void)addCandies:(NSOrderedSet *)candies {
@@ -149,69 +149,58 @@
     }
 }
 
-- (NSOrderedSet *)candiesOfType:(NSInteger)type maximumCount:(NSUInteger)maximumCount {
-    return [NSOrderedSet orderedSetWithBlock:^(NSMutableOrderedSet *candies) {
-        for (WLCandy* candy in self.candies) {
-            if (type == 0 || [candy isCandyOfType:type]) {
-                [candies addObject:candy];
-            }
-            if (maximumCount > 0 && [candies count] >= maximumCount) {
-                break;
-            }
-        }
-    }];
-}
-
-- (NSOrderedSet*)candies:(NSUInteger)maximumCount {
-	return [self candiesOfType:0 maximumCount:maximumCount];
-}
-
-- (NSOrderedSet*)images:(NSUInteger)maximumCount {
-	return [self candiesOfType:WLCandyTypeImage maximumCount:maximumCount];
-}
-
-- (NSOrderedSet*)messages:(NSUInteger)maximumCount {
-	return [self candiesOfType:WLCandyTypeMessage maximumCount:maximumCount];
-}
-
-- (NSOrderedSet*)images {
-	return [self images:0];
-}
-
-- (NSOrderedSet*)messages {
-	return [self messages:0];
-}
-
-- (NSMutableOrderedSet*)recentCandies:(NSUInteger)maximumCount {
-    NSMutableOrderedSet* candies = [NSMutableOrderedSet orderedSet];
-    for (WLCandy* candy in self.candies) {
-        if ([candies count] < maximumCount) {
-            if ([candy isImage]) {
-                [candies addObject:candy];
-            }
-        } else {
-            break;
-        }
+- (NSOrderedSet *)candies:(NSInteger)type limit:(NSUInteger)limit {
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"type == %d", type];
+    NSMutableOrderedSet *candies = [[self.candies filteredOrderedSetUsingPredicate:predicate] mutableCopy];
+    if (candies.count > limit) {
+        NSIndexSet* indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, limit)];
+        return [NSMutableOrderedSet orderedSetWithArray:[candies objectsAtIndexes:indexes]];
+    } else {
+        return candies;
     }
+}
+
+- (NSMutableOrderedSet*)candies:(NSUInteger)limit {
+    NSMutableOrderedSet *candies = self.candies;
+    if (candies.count > limit) {
+        NSIndexSet* indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, limit)];
+        return [NSMutableOrderedSet orderedSetWithArray:[candies objectsAtIndexes:indexes]];
+    } else {
+        return candies;
+    }
+}
+
+- (NSOrderedSet*)messages:(NSUInteger)limit {
+	NSMutableOrderedSet *messages = self.messages;
+    if (messages.count > limit) {
+        NSIndexSet* indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, limit)];
+        return [NSMutableOrderedSet orderedSetWithArray:[messages objectsAtIndexes:indexes]];
+    } else {
+        return messages;
+    }
+}
+
+- (NSMutableOrderedSet*)recentCandies:(NSUInteger)limit {
+    NSMutableOrderedSet* candies = [self candies:limit];
     [candies sortByUpdatedAtDescending];
     return candies;
 }
 
-- (void)uploadMessage:(NSString *)message success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+- (void)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
 	
 	if (![WLInternetConnectionBroadcaster broadcaster].reachable) {
 		failure([NSError errorWithDescription:@"Internet connection is not reachable."]);
 		return;
 	}
 	
-	__weak WLCandy* candy = [WLCandy candyWithType:WLCandyTypeMessage wrap:self];
-	candy.message = message;
-	[candy add:success failure:^(NSError *error) {
-		[candy remove];
+	__weak WLMessage* message = [WLMessage entry];
+    message.wrap = self;
+	message.text = text;
+	[message add:success failure:^(NSError *error) {
+		[message remove];
         failure(error);
 	}];
-	[candy save];
-	
+	[message save];
 }
 
 - (void)uploadPicture:(WLPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure {

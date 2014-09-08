@@ -14,7 +14,6 @@
 
 @interface WLCandy : WLContribution
 
-@property (nonatomic, retain) NSString * message;
 @property (nonatomic, retain) NSNumber * type;
 @property (nonatomic, retain) WLWrap *wrap;
 @property (nonatomic, retain) NSMutableOrderedSet *comments;

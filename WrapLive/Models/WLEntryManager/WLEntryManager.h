@@ -7,20 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLEntry.h"
 #import "WLEntry+Extended.h"
-#import "WLUser.h"
 #import "WLUser+Extended.h"
-#import "WLWrap.h"
 #import "WLWrap+Extended.h"
-#import "WLCandy.h"
 #import "WLCandy+Extended.h"
-#import "WLComment.h"
 #import "WLComment+Extended.h"
-#import "WLContribution.h"
 #import "WLContribution+Extended.h"
-#import "WLUploading.h"
 #import "WLUploading+Extended.h"
+#import "WLMessage+Extended.h"
 #import "NSOrderedSet+Additions.h"
 
 @interface WLEntryManager : NSObject

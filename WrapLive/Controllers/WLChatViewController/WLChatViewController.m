@@ -11,7 +11,6 @@
 #import "WLAPIManager.h"
 #import "WLRefresher.h"
 #import "WLMessageCell.h"
-#import "WLCandy.h"
 #import "WLUser.h"
 #import "UIFont+CustomFonts.h"
 #import "WLComposeBar.h"
@@ -72,7 +71,6 @@
 	[super viewDidLoad];
     
     self.groups = [[WLGroupedSet alloc] init];
-    self.groups.type = WLCandyTypeMessage;
 	
 	if (self.wrap.name.nonempty) {
 		self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(self.wrap.name)];
@@ -88,7 +86,7 @@
 	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
 	self.composeBar.placeholder = @"Write your message ...";
 	
-	[weakSelf setMessages:self.wrap.candies];
+	[weakSelf setMessages:self.wrap.messages];
     [weakSelf refreshMessages];
 	
 	self.backSwipeGestureEnabled = YES;
@@ -137,7 +135,7 @@
 	[self.collectionView reloadData];
 }
 
-- (void)insertMessage:(WLCandy*)message {
+- (void)insertMessage:(WLMessage*)message {
 	[self.groups addEntry:message];
     [self.groups sort];
     [self.collectionView reloadData];
@@ -146,14 +144,14 @@
 - (void)refreshMessages {
 	__weak typeof(self)weakSelf = self;
     WLGroup* group = [self.groups.entries firstObject];
-    WLCandy* candy = [group.entries firstObject];
-    if (!candy) {
+    WLMessage* message = [group.entries firstObject];
+    if (!message) {
         [self loadMessages:^{
             [weakSelf.refresher endRefreshing];
         }];
         return;
     }
-    self.operation = [self.wrap messagesNewer:candy.createdAt success:^(NSOrderedSet *messages) {
+    self.operation = [self.wrap messagesNewer:message.createdAt success:^(NSOrderedSet *messages) {
         weakSelf.shouldAppendMoreMessages = messages.count >= WLPageSize;
 		[weakSelf addMessages:messages];
 		[weakSelf.refresher endRefreshing];
@@ -183,10 +181,10 @@
 	if (self.operation) return;
 	__weak typeof(self)weakSelf = self;
     WLGroup* group = [self.groups.entries lastObject];
-    WLCandy* candy = [group.entries lastObject];
+    WLMessage* olderMessage = [group.entries lastObject];
     WLGroup* group1 = [self.groups.entries firstObject];
-    WLCandy* candy1 = [group1.entries firstObject];
-	self.operation = [self.wrap messagesOlder:candy.createdAt newer:candy1.createdAt success:^(NSOrderedSet *messages) {
+    WLMessage* newerMessage = [group1.entries firstObject];
+	self.operation = [self.wrap messagesOlder:olderMessage.createdAt newer:newerMessage.createdAt success:^(NSOrderedSet *messages) {
 		weakSelf.shouldAppendMoreMessages = messages.count >= WLPageSize;
 		[weakSelf addMessages:messages];
 	} failure:^(NSError *error) {
@@ -197,37 +195,32 @@
 
 #pragma mark - WLWrapBroadcastReceiver
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
-    if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
-    [self insertMessage:candy];
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster messageCreated:(WLMessage *)message {
+    if (!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
+    [self insertMessage:message];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster messageRemoved:(WLMessage *)message {
     [self setMessages:[self.wrap messages]];
-    [self.collectionView reloadData];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster messageChanged:(WLMessage *)message {
     for (WLGroup* group in self.groups.entries) {
-        if ([group.entries containsObject:candy] && ![group.date isSameDay:candy.createdAt]) {
-            [group.entries removeObject:candy];
+        if ([group.entries containsObject:message] && ![group.date isSameDay:message.createdAt]) {
+            [group.entries removeObject:message];
             if (![group.entries count]) {
                 [self.groups.entries removeObject:group];
                 break;
             }
         }
     }
-    [self.groups addEntry:candy];
+    [self.groups addEntry:message];
     [self.groups sort];
     [self.collectionView reloadData];
 }
 
 - (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
     return self.wrap;
-}
-
-- (NSInteger)broadcasterPreferedCandyType:(WLWrapBroadcaster *)broadcaster {
-    return WLCandyTypeMessage;
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver
@@ -268,8 +261,8 @@
 
 - (void)sendMessageWithText:(NSString*)text {
     __weak typeof(self)weakSelf = self;
-    [self.wrap uploadMessage:text success:^(WLCandy *candy) {
-        [weakSelf insertMessage:candy];
+    [self.wrap uploadMessage:text success:^(WLMessage *message) {
+        [weakSelf insertMessage:message];
 		[weakSelf.collectionView scrollToTopAnimated:YES];
     } failure:^(NSError *error) {
 		[error show];
@@ -336,15 +329,12 @@
         cell.item = typingUser;
     } else {
         WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section - 1];
-        id entry = [group.entries objectAtIndex:indexPath.row];
-        if ([entry isKindOfClass:[WLCandy class]]) {
-            WLCandy* message = entry;
-            if (!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
-            BOOL isMyComment = [message.contributor isCurrentUser];
-            NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
-            cell =  [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-            cell.item = message;
-        }
+        WLMessage* message = [group.entries objectAtIndex:indexPath.item];
+        if (!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
+        BOOL isMyComment = [message.contributor isCurrentUser];
+        NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
+        cell =  [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+        cell.item = message;
     }
 	
 	[self handlePaginationWithIndexPath:indexPath];
@@ -362,8 +352,8 @@
 	return groupCell;
 }
 
-- (CGFloat)heightOfMessageCell:(WLCandy *)comment {
-	CGFloat commentHeight  = ceilf([comment.message boundingRectWithSize:CGSizeMake(250, CGFLOAT_MAX)
+- (CGFloat)heightOfMessageCell:(WLMessage *)message {
+	CGFloat commentHeight  = ceilf([message.text boundingRectWithSize:CGSizeMake(250, CGFLOAT_MAX)
 																	 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightFontOfSize:15]} context:nil].size.height);
 	commentHeight += 2*WLMessageAuthorLabelHeight;
 	return MAX(WLMessageMinimumCellHeight, commentHeight);
@@ -374,7 +364,7 @@
         return CGSizeMake(collectionView.width, 66);
     }
 	WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section - 1];
-	WLCandy* message = [group.entries tryObjectAtIndex:indexPath.row];
+	WLMessage* message = [group.entries tryObjectAtIndex:indexPath.row];
 	return CGSizeMake(collectionView.frame.size.width, [self heightOfMessageCell:message]);
 }
 

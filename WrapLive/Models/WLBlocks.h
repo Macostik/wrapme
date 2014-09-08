@@ -17,6 +17,7 @@
 @class WLContact;
 @class WLAuthorization;
 @class WLEntry;
+@class WLMessage;
 
 typedef void (^WLBlock) (void);
 typedef void (^WLObjectBlock) (id object);
@@ -28,6 +29,7 @@ typedef void (^WLAuthorizationBlock) (WLAuthorization *authorization);
 typedef void (^WLUserBlock) (WLUser *user);
 typedef void (^WLWrapBlock) (WLWrap *wrap);
 typedef void (^WLCandyBlock) (WLCandy *candy);
+typedef void (^WLMessageBlock) (WLMessage *message);
 typedef void (^WLCommentBlock) (WLComment *comment);
 typedef void (^WLContactBlock) (WLContact *contact);
 typedef void (^WLArrayBlock) (NSArray *array);

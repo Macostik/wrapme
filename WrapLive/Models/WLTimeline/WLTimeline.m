@@ -33,12 +33,10 @@
     _wrap = wrap;
     self.request = [WLCandiesRequest request:wrap];
     self.request.sameDay = YES;
-    self.fetching = [WLEntryFetching fetching:@"timeline" configuration:^(NSFetchRequest *request) {
+    self.fetching = [WLEntryFetching fetching:nil configuration:^(NSFetchRequest *request) {
         request.entity = [WLCandy entity];
-        NSDate* startDate = nil;
-        NSDate* endDate = nil;
-        [[NSDate serverTime] getBeginOfDay:&startDate endOfDay:&endDate];
-        request.predicate = [NSPredicate predicateWithFormat:@"wrap == %@ AND updatedAt >= %@ AND updatedAt <= %@ AND type == %d", wrap,startDate, endDate, WLCandyTypeImage];
+        NSDate* startDate = [[NSDate serverTime] beginOfDay];
+        request.predicate = [NSPredicate predicateWithFormat:@"wrap == %@ AND updatedAt >= %@", wrap, startDate];
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
     }];
     [self.fetching addTarget:self action:@selector(update)];

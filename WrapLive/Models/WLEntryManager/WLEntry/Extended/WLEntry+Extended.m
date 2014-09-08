@@ -118,6 +118,7 @@
         picture.small = small;
     }
     if (changed) {
+        [self setPrimitiveValue:picture forKey:key];
         [self didChangeValueForKey:key];
     }
 }

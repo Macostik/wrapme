@@ -53,13 +53,17 @@ static NSUInteger WLPageSize = 10;
 
 - (id)messages:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)latestMessage:(WLCandyBlock)success failure:(WLFailureBlock)failure;
+- (id)latestMessage:(WLMessageBlock)success failure:(WLFailureBlock)failure;
 
 - (id)leave:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 @end
 
 @interface WLCandy (WLAPIManager)
+
+@end
+
+@interface WLMessage (WLAPIManager)
 
 @end
 

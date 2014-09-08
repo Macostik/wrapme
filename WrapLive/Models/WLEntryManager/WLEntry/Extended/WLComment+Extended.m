@@ -26,6 +26,11 @@
 	return [dictionary stringForKey:WLCommentUIDKey];
 }
 
+- (void)awakeFromInsert {
+    [super awakeFromInsert];
+    if (!NSNumberEqual(self.unread, @YES)) self.unread = @YES;
+}
+
 - (void)remove {
     [self.candy removeComment:self];
     [super remove];

@@ -32,4 +32,6 @@
 
 - (void)getBeginOfDay:(NSDate**)beginOfDay endOfDay:(NSDate**)endOfDay;
 
+- (NSDate *)dayByAddingDayCount:(NSInteger)countDay;
+
 @end

@@ -46,8 +46,8 @@
 #import "WLHomeViewSection.h"
 #import "WLNavigation.h"
 #import "WLUserView.h"
-#import "WLNotification+Extanded.h"
 #import "WLEntryFetching.h"
+#import "WLServerTime.h"
 
 @interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver, WLCreateWrapViewControllerDelegate>
 
@@ -60,7 +60,6 @@
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
 @property (weak, nonatomic) IBOutlet UILabel *notificationsLabel;
-@property (strong, nonatomic) WLEntryFetching *fetching;
 
 @end
 
@@ -99,16 +98,6 @@
         [entry presentInViewController:weakSelf];
     }];
     
-    self.fetching = [WLEntryFetching fetching:@"WLEntry" configuration:^(NSFetchRequest *request) {
-        [request setEntity:[WLNotification entity]];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"unread == YES AND type != %@",
-                                 [NSNumber numberWithInteger:WLNotificationChatCandyAddition]];
-        [request setPredicate:predicate];
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"entry.createdAt" ascending:NO];
-        [request setSortDescriptors:@[sortDescriptor]];
-    }];
-    [self.fetching addTarget:self action:@selector(updateNotificationsLabel)];
-    [self.fetching perform];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -186,17 +175,16 @@
     if ([notification deletion]) {
         return;
     }
-    id entry = notification.entry;
     __weak typeof(self)weakSelf = self;
     void (^showNotificationBlock)(void) = ^{
-
-        WLNotificationType type = [notification.type integerValue];
+        WLWrap *wrap = notification.wrap;
+        WLNotificationType type = notification.type;
 		if (type == WLNotificationContributorAddition) {
-            [entry presentInViewController:weakSelf];
+            [wrap presentInViewController:weakSelf];
 		} else if (type == WLNotificationImageCandyAddition ||
                    type == WLNotificationChatCandyAddition  ||
                    type == WLNotificationCandyCommentAddition) {
-            [entry presentInViewController:weakSelf];
+            [wrap presentInViewController:weakSelf];
 		}
 	};
     
@@ -225,10 +213,41 @@ static CGFloat WLNotificationsLabelSize = 22;
 
 - (void)updateNotificationsLabel {
     UILabel* label = self.notificationsLabel;
-    NSUInteger count = [self.fetching.content count];
+    NSUInteger count = [[self badgeNotificationCount] count];
     label.hidden = count == 0;
     label.text = [NSString stringWithFormat:@"%lu", (unsigned long)count];
     label.width = MAX(WLNotificationsLabelSize, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLNotificationsLabelSize)].width + 12);
+}
+
+- (NSArray *)notificationFetchRequestExecution {
+    NSDate *endDate = [[WLServerTime current] dayByAddingDayCount:-7];
+    NSFetchRequest *fetchRequest = [NSFetchRequest new];
+    fetchRequest.entity = [WLComment entity];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@ AND unread == YES", endDate, [WLUser currentUser]];
+    [fetchRequest setPredicate:predicate];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:NO];
+    [fetchRequest setSortDescriptors:@[sortDescriptor]];
+    return [[WLEntryManager manager] executeFetchRequest:fetchRequest];
+}
+
+- (NSOrderedSet *)badgeNotificationCount {
+    NSMutableOrderedSet *buffer = [NSMutableOrderedSet orderedSet];
+    [[self notificationFetchRequestExecution] all:^(WLComment *comment) {
+        if ([[comment candy].contributor isCurrentUser]) {
+            [buffer addObject:comment];
+        } else {
+            BOOL flag = NO;
+            for (WLComment* _comment in comment.candy.comments) {
+                if ([_comment.contributor isCurrentUser]) {
+                    flag = YES;
+                } else if (flag && _comment == comment) {
+                    [buffer addObject:comment];
+                    break;
+                }
+            }
+        }
+    }];
+    return buffer;
 }
 
 #pragma mark - Actions
@@ -267,6 +286,12 @@ static CGFloat WLNotificationsLabelSize = 22;
 
 - (void)createWrapViewController:(WLCreateWrapViewController *)controller didCreateWrap:(WLWrap *)wrap {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - WLWrapBroadcastReceiver
+
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentCreated:(WLComment*)comment {
+    [self updateNotificationsLabel];
 }
 
 @end

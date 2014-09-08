@@ -12,7 +12,6 @@
 #import "WLNotification.h"
 #import "WLUser+Extended.h"
 #import "NSString+Additions.h"
-#import "WLNotification+Extanded.h"
 
 @interface WLNotificationChannel ()
 

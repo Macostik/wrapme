@@ -146,7 +146,6 @@
 		5B4C600519B5D41F00AAB3B0 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4C600419B5D41F00AAB3B0 /* WLNotification.m */; };
 		5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */; };
 		5BB2221219796D7300782B72 /* UIView+Extentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2221119796D7300782B72 /* UIView+Extentions.m */; };
-		5BD6D33E19B5BADE000A7C1F /* WLNotification+Extanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6D33D19B5BADE000A7C1F /* WLNotification+Extanded.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
@@ -363,7 +362,6 @@
 		C54AF4C119B8C437006F7EDB /* WLWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */; };
 		C54AF4C219B8C437006F7EDB /* WLAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED501934B183009C1DC3 /* WLAssetsViewController.m */; };
 		C54AF4C319B8C437006F7EDB /* WLCandiesHistoryViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C50FD421199B69FD00B52B33 /* WLCandiesHistoryViewSection.m */; };
-		C54AF4C419B8C437006F7EDB /* WLNotification+Extanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6D33D19B5BADE000A7C1F /* WLNotification+Extanded.m */; };
 		C54AF4C519B8C437006F7EDB /* WLInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2BA9193DFF4E003702D4 /* WLInviteViewController.m */; };
 		C54AF4C619B8C437006F7EDB /* WLHomeViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C521FB051989352E00576281 /* WLHomeViewSection.m */; };
 		C54AF4C719B8C437006F7EDB /* NSDictionary+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 12976ECD18E5D6E300C5F2A9 /* NSDictionary+Extended.m */; };
@@ -599,7 +597,6 @@
 		C54AF5BE19B8C467006F7EDB /* WLWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */; };
 		C54AF5BF19B8C467006F7EDB /* WLAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED501934B183009C1DC3 /* WLAssetsViewController.m */; };
 		C54AF5C019B8C467006F7EDB /* WLCandiesHistoryViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C50FD421199B69FD00B52B33 /* WLCandiesHistoryViewSection.m */; };
-		C54AF5C119B8C467006F7EDB /* WLNotification+Extanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6D33D19B5BADE000A7C1F /* WLNotification+Extanded.m */; };
 		C54AF5C219B8C467006F7EDB /* WLInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2BA9193DFF4E003702D4 /* WLInviteViewController.m */; };
 		C54AF5C319B8C467006F7EDB /* WLHomeViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C521FB051989352E00576281 /* WLHomeViewSection.m */; };
 		C54AF5C419B8C467006F7EDB /* NSDictionary+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 12976ECD18E5D6E300C5F2A9 /* NSDictionary+Extended.m */; };
@@ -835,7 +832,6 @@
 		C54AF6BB19B8C491006F7EDB /* WLWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */; };
 		C54AF6BC19B8C491006F7EDB /* WLAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED501934B183009C1DC3 /* WLAssetsViewController.m */; };
 		C54AF6BD19B8C491006F7EDB /* WLCandiesHistoryViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C50FD421199B69FD00B52B33 /* WLCandiesHistoryViewSection.m */; };
-		C54AF6BE19B8C491006F7EDB /* WLNotification+Extanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6D33D19B5BADE000A7C1F /* WLNotification+Extanded.m */; };
 		C54AF6BF19B8C491006F7EDB /* WLInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2BA9193DFF4E003702D4 /* WLInviteViewController.m */; };
 		C54AF6C019B8C491006F7EDB /* WLHomeViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C521FB051989352E00576281 /* WLHomeViewSection.m */; };
 		C54AF6C119B8C491006F7EDB /* NSDictionary+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 12976ECD18E5D6E300C5F2A9 /* NSDictionary+Extended.m */; };
@@ -1280,8 +1276,6 @@
 		5BB2221019796D7300782B72 /* UIView+Extentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extentions.h"; sourceTree = "<group>"; };
 		5BB2221119796D7300782B72 /* UIView+Extentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extentions.m"; sourceTree = "<group>"; };
 		5BD6D33B19B5AB26000A7C1F /* CoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 2.xcdatamodel"; sourceTree = "<group>"; };
-		5BD6D33C19B5BADE000A7C1F /* WLNotification+Extanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLNotification+Extanded.h"; sourceTree = "<group>"; };
-		5BD6D33D19B5BADE000A7C1F /* WLNotification+Extanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLNotification+Extanded.m"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
@@ -2795,8 +2789,6 @@
 				C50445B31951AA8F003C2251 /* WLWrap+Extended.h */,
 				C50445B41951AA8F003C2251 /* WLWrap+Extended.m */,
 				C5991A2D19B5F149004EE00F /* WLEntryKeys.h */,
-				5BD6D33C19B5BADE000A7C1F /* WLNotification+Extanded.h */,
-				5BD6D33D19B5BADE000A7C1F /* WLNotification+Extanded.m */,
 				C516873519BD9D8D005BA034 /* WLMessage+Extended.h */,
 				C516873619BD9D8D005BA034 /* WLMessage+Extended.m */,
 			);
@@ -3744,7 +3736,6 @@
 				12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */,
 				12F3ED5C1934B183009C1DC3 /* WLAssetsViewController.m in Sources */,
 				C50FD422199B69FD00B52B33 /* WLCandiesHistoryViewSection.m in Sources */,
-				5BD6D33E19B5BADE000A7C1F /* WLNotification+Extanded.m in Sources */,
 				ACDE2BAA193DFF4E003702D4 /* WLInviteViewController.m in Sources */,
 				C521FB061989352E00576281 /* WLHomeViewSection.m in Sources */,
 				12976ECE18E5D6E300C5F2A9 /* NSDictionary+Extended.m in Sources */,
@@ -3948,7 +3939,6 @@
 				C54AF4C119B8C437006F7EDB /* WLWelcomeViewController.m in Sources */,
 				C54AF4C219B8C437006F7EDB /* WLAssetsViewController.m in Sources */,
 				C54AF4C319B8C437006F7EDB /* WLCandiesHistoryViewSection.m in Sources */,
-				C54AF4C419B8C437006F7EDB /* WLNotification+Extanded.m in Sources */,
 				C54AF4C519B8C437006F7EDB /* WLInviteViewController.m in Sources */,
 				C54AF4C619B8C437006F7EDB /* WLHomeViewSection.m in Sources */,
 				C54AF4C719B8C437006F7EDB /* NSDictionary+Extended.m in Sources */,
@@ -4152,7 +4142,6 @@
 				C54AF5BE19B8C467006F7EDB /* WLWelcomeViewController.m in Sources */,
 				C54AF5BF19B8C467006F7EDB /* WLAssetsViewController.m in Sources */,
 				C54AF5C019B8C467006F7EDB /* WLCandiesHistoryViewSection.m in Sources */,
-				C54AF5C119B8C467006F7EDB /* WLNotification+Extanded.m in Sources */,
 				C54AF5C219B8C467006F7EDB /* WLInviteViewController.m in Sources */,
 				C54AF5C319B8C467006F7EDB /* WLHomeViewSection.m in Sources */,
 				C54AF5C419B8C467006F7EDB /* NSDictionary+Extended.m in Sources */,
@@ -4356,7 +4345,6 @@
 				C54AF6BB19B8C491006F7EDB /* WLWelcomeViewController.m in Sources */,
 				C54AF6BC19B8C491006F7EDB /* WLAssetsViewController.m in Sources */,
 				C54AF6BD19B8C491006F7EDB /* WLCandiesHistoryViewSection.m in Sources */,
-				C54AF6BE19B8C491006F7EDB /* WLNotification+Extanded.m in Sources */,
 				C54AF6BF19B8C491006F7EDB /* WLInviteViewController.m in Sources */,
 				C54AF6C019B8C491006F7EDB /* WLHomeViewSection.m in Sources */,
 				C54AF6C119B8C491006F7EDB /* NSDictionary+Extended.m in Sources */,

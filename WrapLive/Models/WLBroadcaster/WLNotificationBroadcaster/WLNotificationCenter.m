@@ -22,7 +22,6 @@
 #import "WLNotificationChannel.h"
 #import "NSPropertyListSerialization+Shorthand.h"
 #import "NSString+Documents.h"
-#import "WLNotification+Extanded.h"
 
 static NSString* WLPubNubOrigin = @"pubsub.pubnub.com";
 static NSString* WLPubNubPublishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
@@ -103,9 +102,8 @@ static WLDataBlock deviceTokenCompletion = nil;
     [self.userChannel setMessageBlock:^(PNMessage *message) {
         WLNotification *notification = [WLNotification notificationWithMessage:message];
         [notification fetch:^{
-            if ([notification.type integerValue] == WLNotificationChatCandyAddition) {
-                id entry = notification.entry;
-                [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:[entry contributor]];
+            if (notification.type  == WLNotificationChatCandyAddition) {
+                [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:notification.candy.contributor];
             }
             [WLSoundPlayer play];
             [weakSelf broadcastNotification:notification];

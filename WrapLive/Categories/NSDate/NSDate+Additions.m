@@ -24,6 +24,7 @@ static NSString *WLTimeIntervalNameWeek = @"week";
 static NSString *WLTimeIntervalNameMonth = @"month";
 static NSString *WLTimeIntervalNameYear = @"year";
 static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
+static NSInteger WLDaySeconds = 24*60*60;
 
 @implementation NSDate (Additions)
 
@@ -133,6 +134,10 @@ static inline NSCalendar* NSCurrentCalendar() {
 		}
 		return [NSString stringWithFormat:@"%d %@%@ ago", value, name, (value == 1 ? @"":@"s")];
 	}
+}
+
+- (NSDate *)dayByAddingDayCount:(NSInteger)countDay {
+    return [[NSDate date]dateByAddingTimeInterval:WLDaySeconds * countDay];
 }
 
 @end

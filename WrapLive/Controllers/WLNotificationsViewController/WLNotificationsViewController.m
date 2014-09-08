@@ -16,14 +16,14 @@
 #import "WLNotification.h"
 #import "WLEntryFetching.h"
 #import "WLWrapBroadcaster.h"
-#import "WLNotification+Extanded.h"
+#import "NSDate+Formatting.h"
+#import "WLServerTime.h"
 
 @interface WLNotificationsViewController () <WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCollectionViewSection *dataSection;
-@property (strong, nonatomic) WLEntryFetching *fetching;
 @property (strong, nonatomic) NSMutableOrderedSet *notification;
 
 @end
@@ -36,42 +36,61 @@
 	self.userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userView.user = [WLUser currentUser];
     self.notification = [NSMutableOrderedSet orderedSet];
-
-    self.fetching = [WLEntryFetching fetching:@"WLEntry" configuration:^(NSFetchRequest *request) {
-        [request setEntity:[WLNotification entity]];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type != %@",
-                                 [NSNumber numberWithInt:WLNotificationChatCandyAddition]];
-        [request setPredicate:predicate];
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"entry.createdAt" ascending:NO];
-        [request setSortDescriptors:@[sortDescriptor]];
-    }];
+    
     __weak __typeof(self)weakSelf = self;
     [self.dataSection setConfigure:^(id cell, id entry) {
         [weakSelf.notification addObject:entry];
     }];
-
-    [self.fetching perform];
+ 
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
+}
+
+- (NSArray *)notificationFetchRequestExecution {
+    NSDate *endDate = [[WLServerTime current] dayByAddingDayCount:-7];
+    NSFetchRequest *fetchRequest = [NSFetchRequest new];
+    fetchRequest.entity = [WLComment entity];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@", endDate, [WLUser currentUser]];
+    [fetchRequest setPredicate:predicate];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:NO];
+    [fetchRequest setSortDescriptors:@[sortDescriptor]];
+    return [[WLEntryManager manager] executeFetchRequest:fetchRequest];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    run_getting_object(^id{
-        return self.fetching.content;
-    }, ^(NSMutableOrderedSet *notification) {
-        self.dataSection.entries = notification;
-    });
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [self.notification all:^(WLNotification *entry) {
-        entry.unread = @(NO);
-    }];
+    [self displayNotificatioByCriteria];
+   
 }
 
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentCreated:(WLComment*)comment {
-    self.dataSection.entries = self.fetching.content;
+    [self displayNotificatioByCriteria];
+}
+
+- (void)displayNotificatioByCriteria {
+    NSMutableOrderedSet *buffer = [NSMutableOrderedSet orderedSet];
+    [[self notificationFetchRequestExecution] all:^(WLComment *comment) {
+        if ([[comment candy].contributor isCurrentUser]) {
+            [buffer addObject:comment];
+        } else {
+            BOOL flag = NO;
+            for (WLComment* _comment in comment.candy.comments) {
+                if ([_comment.contributor isCurrentUser]) {
+                    flag = YES;
+                } else if (flag && _comment == comment) {
+                    [buffer addObject:comment];
+                    break;
+                }
+            }
+        }
+    }];
+    self.dataSection.entries = buffer;
+}
+
+- (IBAction)back:(id)sender {
+    [self.notification all:^(WLComment *commment) {
+        commment.unread = @(NO);
+    }];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

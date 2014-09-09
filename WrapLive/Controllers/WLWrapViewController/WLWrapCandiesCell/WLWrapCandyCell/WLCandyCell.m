@@ -29,7 +29,6 @@
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
 
 @property (strong, nonatomic) WLMenu* menu;
 
@@ -71,15 +70,12 @@
     self.commentLabel.hidden = !self.commentLabel.text.nonempty;
 	self.coverView.animatingPicture = candy.picture;
     self.coverView.url = candy.picture.medium;
-	self.notifyBulb.hidden = ![[candy unread] boolValue];
 }
 
-- (IBAction)select:(id)entry {
-	WLCandy* candy = self.entry;
+- (void)select:(WLCandy*)candy {
     if (candy.valid) {
-        self.notifyBulb.hidden = YES;
         if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
-        [super select:entry];
+        [super select:candy];
     }
 }
 

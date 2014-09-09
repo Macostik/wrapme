@@ -93,7 +93,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(collectionView.width, 28);
+    return CGSizeMake(collectionView.width, 48);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
@@ -107,7 +107,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLTimelineEvent* event = [self.timeline.entries tryObjectAtIndex:indexPath.section];
     if (event.type == WLTimelineEventTypeComment) {
-        return CGSizeMake(collectionView.width, 66);
+        return CGSizeMake(collectionView.width, 54);
     } else {
         return CGSizeMake(collectionView.width/3, collectionView.width/3);
     }

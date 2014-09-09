@@ -72,7 +72,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 @property (strong, nonatomic) IBOutlet WLTimelineViewDataProvider *timelineDataProvider;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
-@property (weak, nonatomic) IBOutlet WLImageView *coverView;
 
 @end
 
@@ -121,8 +120,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 - (void)updateWrapData {
     self.nameLabel.text = WLString(self.wrap.name);
-    NSString* url = [self.wrap.picture anyUrl];
-    self.coverView.url = url;
     self.contributorsLabel.text = [self.wrap contributorNames];
 	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
 }

@@ -28,7 +28,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
-@property (weak, nonatomic) IBOutlet UIImageView *notifyBulb;
 @property (strong, nonatomic) WLMenu* menu;
 @property (strong, nonatomic) WLCollectionViewDataProvider* candiesDataProvider;
 @property (strong, nonatomic) WLHomeCandiesViewSection* candiesDataSection;
@@ -90,7 +89,6 @@
 	self.nameLabel.superview.userInteractionEnabled = YES;
 	self.nameLabel.text = wrap.name;
 	[self.nameLabel sizeToFitWidthWithSuperviewRightPadding:50];
-	self.notifyBulb.x = self.nameLabel.right + 6;
     if (self.coverView) {
         NSString* url = [wrap.picture anyUrl];
         self.coverView.url = url;
@@ -99,11 +97,6 @@
 	
 	self.contributorsLabel.text = [wrap contributorNames];
 	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
-	[self updateNotifyBulbWithWrap:wrap];
-}
-
-- (void)updateNotifyBulbWithWrap:(WLWrap *)wrap {
-    self.notifyBulb.hidden = ![wrap.unread boolValue];
 }
 
 - (void)setCandies:(NSMutableOrderedSet *)candies {
@@ -111,7 +104,6 @@
 }
 
 - (IBAction)select:(id)sender {
-	self.notifyBulb.hidden = YES;
 	WLWrap* wrap = self.entry;
     if (!NSNumberEqual(wrap.unread, @NO)) wrap.unread = @NO;
     [super select:sender];

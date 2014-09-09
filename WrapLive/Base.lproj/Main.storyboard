@@ -896,10 +896,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                             <action selector="select" destination="diy-TW-VIF" eventType="touchUpInside" id="Oqj-kk-sUk"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_small_smile" id="iUd-ms-b3F">
-                                                                        <rect key="frame" x="4" y="4" width="18" height="18"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    </imageView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </view>
@@ -909,7 +905,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                             <connections>
                                                                 <outlet property="commentLabel" destination="jAi-R7-bNq" id="YFa-sv-GXs"/>
                                                                 <outlet property="coverView" destination="RBx-xX-iE6" id="Abt-oO-bGU"/>
-                                                                <outlet property="notifyBulb" destination="iUd-ms-b3F" id="bUO-Y6-mb1"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CandyPlaceholderCell" id="XQb-fA-jxI">
@@ -1724,17 +1719,17 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <inset key="contentInset" minX="0.0" minY="124" maxX="0.0" maxY="80"/>
-                                <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="80"/>
+                                <inset key="contentInset" minX="0.0" minY="118" maxX="0.0" maxY="72"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="118" maxX="0.0" maxY="72"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="he6-Oh-9cK">
                                     <size key="itemSize" width="320" height="60"/>
-                                    <size key="headerReferenceSize" width="320" height="28"/>
+                                    <size key="headerReferenceSize" width="320" height="48"/>
                                     <size key="footerReferenceSize" width="320" height="88"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLTimelineEventPhotoCell" id="QUE-Ix-33b" customClass="WLTimelineEventPhotoCell">
-                                        <rect key="frame" x="107" y="28" width="106" height="106"/>
+                                        <rect key="frame" x="107" y="48" width="106" height="106"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
@@ -1767,25 +1762,25 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLTimelineEventCommentCell" id="IZs-Wf-ToG" customClass="WLTimelineEventCommentCell">
-                                        <rect key="frame" x="0.0" y="134" width="320" height="66"/>
+                                        <rect key="frame" x="0.0" y="154" width="320" height="54"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="acz-8h-zpl" customClass="WLImageView">
-                                                    <rect key="frame" x="0.0" y="1" width="64" height="64"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="54" height="53"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment text" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XLA-sg-gJv">
-                                                    <rect key="frame" x="76" y="3" width="236" height="60"/>
+                                                    <rect key="frame" x="62" y="0.0" width="250" height="53"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Kmc-xr-p41">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <state key="normal">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1801,14 +1796,14 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <size key="customSize" width="320" height="66"/>
+                                        <size key="customSize" width="320" height="54"/>
                                         <connections>
                                             <outlet property="imageView" destination="acz-8h-zpl" id="UtZ-fv-1u0"/>
                                             <outlet property="textLabel" destination="XLA-sg-gJv" id="cIb-hV-MBO"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCandiesCell" id="Jzt-af-hox" customClass="WLCandiesCell">
-                                        <rect key="frame" x="0.0" y="200" width="320" height="156"/>
+                                        <rect key="frame" x="0.0" y="208" width="320" height="156"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="156"/>
@@ -1869,10 +1864,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                             <action selector="select" destination="ETD-JU-9CA" eventType="touchUpInside" id="9dg-8J-Nzw"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_small_smile" id="gIw-GH-7z1">
-                                                                        <rect key="frame" x="4" y="4" width="18" height="18"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    </imageView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </view>
@@ -1882,7 +1873,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                             <connections>
                                                                 <outlet property="commentLabel" destination="ekw-1F-iDF" id="E87-Ar-IsQ"/>
                                                                 <outlet property="coverView" destination="fT9-Qs-qqx" id="1eK-Lv-z6z"/>
-                                                                <outlet property="notifyBulb" destination="gIw-GH-7z1" id="8QI-tl-Htu"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
@@ -1922,7 +1912,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLWrapCell" id="Crs-3i-Kcb" customClass="WLWrapCell">
-                                        <rect key="frame" x="0.0" y="356" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="364" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
@@ -1931,12 +1921,9 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="customSize" width="320" height="60"/>
-                                        <connections>
-                                            <outlet property="coverView" destination="tcg-oc-PSs" id="TLA-fv-NTl"/>
-                                        </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCandyCell" id="A9T-PB-SfU" customClass="WLCandyCell">
-                                        <rect key="frame" x="107" y="416" width="106" height="106"/>
+                                        <rect key="frame" x="107" y="424" width="106" height="106"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
@@ -1971,10 +1958,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                         <action selector="select" destination="A9T-PB-SfU" eventType="touchUpInside" id="mzi-MW-mTH"/>
                                                     </connections>
                                                 </button>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_small_smile" id="2Gf-GT-Zy5">
-                                                    <rect key="frame" x="4" y="4" width="18" height="18"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -1984,37 +1967,36 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         <connections>
                                             <outlet property="commentLabel" destination="uGJ-gz-ZbN" id="GwU-ZL-25I"/>
                                             <outlet property="coverView" destination="82a-hG-PjU" id="tyC-HE-CB4"/>
-                                            <outlet property="notifyBulb" destination="2Gf-GT-Zy5" id="zoh-Tc-zv4"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLTimelineEventHeaderView" id="apm-cV-70h" customClass="WLTimelineEventHeaderView">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="28"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9ew-b0-PcB">
-                                            <rect key="frame" x="0.0" y="0.0" width="44" height="28"/>
+                                            <rect key="frame" x="0.0" y="13" width="44" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.12549019607843137" green="0.12549019607843137" blue="0.12549019607843137" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="left" id="AEF-rA-rLm" customClass="WLSeparatorView">
-                                            <rect key="frame" x="44" y="8" width="1" height="12"/>
+                                            <rect key="frame" x="44" y="21" width="1" height="12"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                         </view>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="isD-yq-hi4" customClass="WLImageView">
-                                            <rect key="frame" x="55" y="3" width="22" height="22"/>
+                                            <rect key="frame" x="55" y="12" width="31" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="11"/>
+                                                    <real key="value" value="15.5"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zsc-qK-GNU">
-                                            <rect key="frame" x="88" y="0.0" width="224" height="28"/>
+                                            <rect key="frame" x="96" y="13" width="218" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -2028,7 +2010,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                     </connections>
                                 </collectionReusableView>
                                 <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLLoadingView" id="KJ0-cv-7Wh" customClass="WLLoadingView">
-                                    <rect key="frame" x="0.0" y="522" width="320" height="88"/>
+                                    <rect key="frame" x="0.0" y="530" width="320" height="88"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" id="1T0-UQ-UtR">
@@ -2052,30 +2034,20 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" id="aqT-yE-MER">
-                                <rect key="frame" x="0.0" y="64" width="320" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="54"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6dW-gY-pJQ">
-                                        <rect key="frame" x="67" y="11" width="212" height="30"/>
+                                        <rect key="frame" x="50" y="10" width="212" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                         <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="tcg-oc-PSs" customClass="WLImageView">
-                                        <rect key="frame" x="9" y="5" width="50" height="49"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="25"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6oc-Uo-WSi">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                                        <state key="normal">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="54"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="btn_add_peaples_enabled">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -2083,8 +2055,8 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zSv-FG-iwF">
-                                        <rect key="frame" x="60" y="0.0" width="200" height="60"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                        <rect key="frame" x="50" y="0.0" width="216" height="54"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -2092,10 +2064,9 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             <segue destination="qRW-aK-Lk5" kind="push" identifier="contributors" id="KzJ-t1-ugM"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3F6-Kp-Py8">
-                                        <rect key="frame" x="260" y="0.0" width="60" height="60"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="7" maxY="0.0"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3F6-Kp-Py8">
+                                        <rect key="frame" x="266" y="0.0" width="54" height="54"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="ic_settings">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -2122,7 +2093,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8kR-VI-DgA">
-                                        <rect key="frame" x="273" y="20" width="44" height="44"/>
+                                        <rect key="frame" x="266" y="20" width="54" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" image="ic_chat3">
@@ -2133,23 +2104,23 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             <action selector="typeMessage:" destination="hUj-RK-zkg" eventType="touchUpInside" id="qQT-E7-xaa"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="irm-8j-xhe">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="irm-8j-xhe">
                                         <rect key="frame" x="49" y="32" width="221" height="20"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OPi-5r-EKQ">
-                                <rect key="frame" x="96" y="499" width="128" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OPi-5r-EKQ" customClass="WLButton">
+                                <rect key="frame" x="97" y="496" width="125" height="125"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="61"/>
-                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="64"/>
-                                <state key="normal" title="+">
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="44"/>
+                                <state key="normal" image="ic_wrap_camera">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -2157,24 +2128,27 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="64"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                        <color key="value" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="PLV-Iu-pRL" kind="modal" identifier="camera" id="WjR-f7-d7j"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LH6-5S-pun">
-                                <rect key="frame" x="271" y="519" width="44" height="44"/>
+                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="LH6-5S-pun" customClass="WLSegmentButton">
+                                <rect key="frame" x="247" y="495" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" image="ic_live_enabled">
+                                <state key="normal" image="ic_timeline_enabled">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="selected" image="ic_history_enabled"/>
+                                <state key="selected" image="ic_icons"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="22"/>
+                                        <integer key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -2189,7 +2163,6 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                     <connections>
                         <outlet property="collectionView" destination="p36-27-cbv" id="GPJ-l7-lNJ"/>
                         <outlet property="contributorsLabel" destination="6dW-gY-pJQ" id="x2W-UL-3a3"/>
-                        <outlet property="coverView" destination="tcg-oc-PSs" id="fpn-fy-BKT"/>
                         <outlet property="dataProvider" destination="6Bj-MV-XWG" id="Xhg-9l-P7S"/>
                         <outlet property="historyViewSection" destination="u9r-1x-r06" id="nZ4-U4-0Zk"/>
                         <outlet property="nameLabel" destination="irm-8j-xhe" id="9TW-0v-k1h"/>
@@ -2870,6 +2843,7 @@ Check your internet connection and try again.</string>
         <image name="1st_screen_btn_agree_and_continue_enabled" width="246" height="48"/>
         <image name="1st_screen_btn_agree_and_continue_pressed" width="246" height="48"/>
         <image name="bg_candy_gradient" width="320" height="64"/>
+        <image name="btn_add_peaples_enabled" width="30" height="30"/>
         <image name="camera_big" width="84" height="84"/>
         <image name="camera_darkGray" width="30" height="30"/>
         <image name="camera_medium" width="50" height="50"/>
@@ -2885,8 +2859,7 @@ Check your internet connection and try again.</string>
         <image name="ic_delete" width="16" height="16"/>
         <image name="ic_dot_dot_dot_round" width="6" height="26"/>
         <image name="ic_gallery_medium" width="50" height="50"/>
-        <image name="ic_history_enabled" width="26" height="26"/>
-        <image name="ic_live_enabled" width="26" height="26"/>
+        <image name="ic_icons" width="32" height="32"/>
         <image name="ic_logo_wo_candy" width="72" height="20"/>
         <image name="ic_new_wrap_def" width="30" height="30"/>
         <image name="ic_next_gray" width="8" height="14"/>
@@ -2901,10 +2874,11 @@ Check your internet connection and try again.</string>
         <image name="ic_sign_up_step3_incompleted" width="16" height="16"/>
         <image name="ic_sign_up_step_completed" width="16" height="16"/>
         <image name="ic_signed_up_user" width="15" height="7"/>
-        <image name="ic_small_smile" width="18" height="18"/>
         <image name="ic_swipe_arrow_left" width="6" height="10"/>
         <image name="ic_swipe_arrow_right" width="6" height="10"/>
+        <image name="ic_timeline_enabled" width="34" height="32"/>
         <image name="ic_wrapLive" width="104" height="90"/>
+        <image name="ic_wrap_camera" width="54" height="40"/>
         <image name="img_just_candy" width="76" height="34"/>
         <image name="switch_to_front_cam" width="30" height="30"/>
     </resources>

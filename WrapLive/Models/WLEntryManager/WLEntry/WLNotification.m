@@ -113,6 +113,7 @@
         } else if (type == WLNotificationChatCandyAddition) {
             [wrap addCandy:candy];
         } else if (type == WLNotificationCandyCommentAddition) {
+            if (!NSNumberEqual(comment.unread, @YES)) comment.unread = @YES;
             [wrap addCandy:candy];
             [comment broadcastCreation];
         }

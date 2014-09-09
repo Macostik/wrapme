@@ -50,8 +50,6 @@
 #import "WLSession.h"
 #import "NSString+Additions.h"
 #import "WLContributorsViewController.h"
-#import "WLNotificationCenter.h"
-#import "WLNotification.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
     WLWrapViewModeTimeline,
@@ -106,7 +104,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [self.dataProvider setRefreshableWithColorScheme:WLRefresherColorSchemeOrange];
     
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
-     [[WLNotificationCenter defaultCenter] addReceiver:self];
     
     __weak typeof(self)weakSelf = self;
     [self.historyViewSection setSelection:^ (id entry) {
@@ -267,14 +264,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - WLNotificationReceiver
-
-- (void)broadcaster:(WLNotificationCenter *)broadcaster notificationReceived:(WLNotification *)notification {
-    if (notification.type == WLNotificationCandyCommentAddition) {
-        notification.comment.unread = @(NO);
-    }
 }
 
 @end

@@ -210,6 +210,7 @@
 }
 
 static CGFloat WLNotificationsLabelSize = 22;
+static CGFloat WLCountOfDays = 7;
 
 - (void)updateNotificationsLabel {
     UILabel* label = self.notificationsLabel;
@@ -219,20 +220,11 @@ static CGFloat WLNotificationsLabelSize = 22;
     label.width = MAX(WLNotificationsLabelSize, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLNotificationsLabelSize)].width + 12);
 }
 
-- (NSArray *)notificationFetchRequestExecution {
-    NSDate *endDate = [[WLServerTime current] dayByAddingDayCount:-7];
-    NSFetchRequest *fetchRequest = [NSFetchRequest new];
-    fetchRequest.entity = [WLComment entity];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@ AND unread == YES", endDate, [WLUser currentUser]];
-    [fetchRequest setPredicate:predicate];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:NO];
-    [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    return [[WLEntryManager manager] executeFetchRequest:fetchRequest];
-}
-
 - (NSOrderedSet *)badgeNotificationCount {
     NSMutableOrderedSet *buffer = [NSMutableOrderedSet orderedSet];
-    [[self notificationFetchRequestExecution] all:^(WLComment *comment) {
+    NSDate *endDate = [[WLServerTime current] dayByAddingDayCount:-WLCountOfDays];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@ AND unread == YES", endDate, [WLUser currentUser]];
+    [[WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"] all:^(WLComment *comment) {
         if ([[comment candy].contributor isCurrentUser]) {
             [buffer addObject:comment];
         } else {

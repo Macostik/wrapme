@@ -9,6 +9,7 @@
 #import "WLTimelineEventCommentCell.h"
 #import "WLImageView.h"
 #import "WLComment.h"
+#import "NSString+Additions.h"
 
 @interface WLTimelineEventCommentCell ()
 
@@ -22,6 +23,7 @@
 - (void)setup:(WLComment*)comment {
     self.imageView.url = comment.picture.small;
     self.textLabel.text = comment.text;
+    if (!NSNumberEqual(comment.unread, @NO)) comment.unread = @NO;
 }
 
 @end

@@ -25,7 +25,11 @@
 
 - (void)send {
     if (self.target) {
-        [self.target performSelector:self.selector];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+       [self.target performSelector:self.selector];
+#pragma clang diagnostic pop
+        
     }
 }
 

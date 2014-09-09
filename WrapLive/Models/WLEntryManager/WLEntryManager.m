@@ -272,6 +272,17 @@ static NSString *WLEntryIdentifierKey = @"identifier";
     return self.managedObjectContext != nil;
 }
 
++ (NSOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key ascending:(BOOL)flag {
+    return [self entries:^(NSFetchRequest *request) {
+        request.predicate = predicate;
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:key ascending:flag]];
+    }];
+}
+
++ (NSOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key {
+    return [self entriesWithPredicate:predicate sorterByKey:key ascending:NO];
+}
+
 @end
 
 @implementation NSFetchRequest (WLEntryManager)

@@ -79,7 +79,6 @@
 	self.composeBarView.placeholder = @"Write your comment ...";
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
-	
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
 
     [self.collectionView reloadData];

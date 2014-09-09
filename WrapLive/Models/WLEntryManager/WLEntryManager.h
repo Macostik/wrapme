@@ -69,6 +69,10 @@
 
 - (void)remove;
 
++ (NSOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key ascending:(BOOL)flag;
+
++ (NSOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key;
+
 @end
 
 @interface NSFetchRequest (WLEntryManager)

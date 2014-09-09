@@ -18,6 +18,7 @@
 #import "WLWrapBroadcaster.h"
 #import "NSDate+Formatting.h"
 #import "WLServerTime.h"
+#import "WLEntryManager.h"
 
 @interface WLNotificationsViewController () <WLWrapBroadcastReceiver>
 
@@ -27,6 +28,8 @@
 @property (strong, nonatomic) NSMutableOrderedSet *notification;
 
 @end
+
+static CGFloat WLCountOfDays = 7;
 
 @implementation WLNotificationsViewController
 
@@ -45,21 +48,9 @@
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
 }
 
-- (NSArray *)notificationFetchRequestExecution {
-    NSDate *endDate = [[WLServerTime current] dayByAddingDayCount:-7];
-    NSFetchRequest *fetchRequest = [NSFetchRequest new];
-    fetchRequest.entity = [WLComment entity];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@", endDate, [WLUser currentUser]];
-    [fetchRequest setPredicate:predicate];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:NO];
-    [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    return [[WLEntryManager manager] executeFetchRequest:fetchRequest];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self displayNotificatioByCriteria];
-   
 }
 
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentCreated:(WLComment*)comment {
@@ -68,7 +59,9 @@
 
 - (void)displayNotificatioByCriteria {
     NSMutableOrderedSet *buffer = [NSMutableOrderedSet orderedSet];
-    [[self notificationFetchRequestExecution] all:^(WLComment *comment) {
+    NSDate *endDate = [[WLServerTime current] dayByAddingDayCount:-WLCountOfDays];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@", endDate, [WLUser currentUser]];
+    [[WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"] all:^(WLComment *comment) {
         if ([[comment candy].contributor isCurrentUser]) {
             [buffer addObject:comment];
         } else {
@@ -90,6 +83,7 @@
     [self.notification all:^(WLComment *commment) {
         commment.unread = @(NO);
     }];
+    [[WLEntryManager manager] save];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

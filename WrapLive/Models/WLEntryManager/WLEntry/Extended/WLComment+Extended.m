@@ -28,7 +28,6 @@
 
 - (void)awakeFromInsert {
     [super awakeFromInsert];
-    if (!NSNumberEqual(self.unread, @YES)) self.unread = @YES;
 }
 
 - (void)remove {

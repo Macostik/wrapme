@@ -16,7 +16,7 @@
 #import "WLNavigation.h"
 #import "WLCameraViewController.h"
 #import "WLCandyViewController.h"
-#import "WLCreateWrapViewController.h"
+#import "WLEditWrapViewController.h"
 #import "WLComposeBar.h"
 #import "WLComposeContainer.h"
 #import "WLAPIManager.h"
@@ -214,9 +214,9 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 }
 
 - (IBAction)editWrap:(id)sender {
-//	WLCreateWrapViewController* controller = [WLCreateWrapViewController instantiate];
-//	controller.wrap = self.wrap;
-//	[controller presentInViewController:self transition:WLWrapTransitionFromRight];
+	WLEditWrapViewController* controller = [WLEditWrapViewController instantiate];
+	controller.wrap = self.wrap;
+	[controller presentInViewController:self transition:WLWrapTransitionFromRight];
 }
 
 - (void)setMode:(WLWrapViewMode)mode {

@@ -34,6 +34,7 @@
 #import "WLPerson.h"
 #import "WLButton.h"
 
+
 @interface WLCreateWrapViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
@@ -42,14 +43,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *createButton;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 
+
+
 @end
 
 @implementation WLCreateWrapViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-	
 	self.imageView.url = [[self.pictures lastObject] medium];
     [self.nameField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
 }

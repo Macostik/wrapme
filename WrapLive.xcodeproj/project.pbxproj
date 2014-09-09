@@ -142,6 +142,10 @@
 		14B242A0195C4D3500C5D208 /* WLWrapEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429F195C4D3500C5D208 /* WLWrapEditSession.m */; };
 		14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
 		14F668641973DDAA008D5081 /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
+		5B11019319BF335F00688C9D /* WLEditWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11019219BF335F00688C9D /* WLEditWrapViewController.m */; };
+		5B11019419BF335F00688C9D /* WLEditWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11019219BF335F00688C9D /* WLEditWrapViewController.m */; };
+		5B11019519BF335F00688C9D /* WLEditWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11019219BF335F00688C9D /* WLEditWrapViewController.m */; };
+		5B11019619BF335F00688C9D /* WLEditWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11019219BF335F00688C9D /* WLEditWrapViewController.m */; };
 		5B450F8B19780D8000FC339A /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */; };
 		5B4C600519B5D41F00AAB3B0 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4C600419B5D41F00AAB3B0 /* WLNotification.m */; };
 		5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */; };
@@ -1263,6 +1267,8 @@
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
 		14F668621973DDAA008D5081 /* WLPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPerson.h; path = Person/WLPerson.h; sourceTree = "<group>"; };
 		14F668631973DDAA008D5081 /* WLPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPerson.m; path = Person/WLPerson.m; sourceTree = "<group>"; };
+		5B11019119BF335F00688C9D /* WLEditWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditWrapViewController.h; path = ../../WLEditWrapViewController.h; sourceTree = "<group>"; };
+		5B11019219BF335F00688C9D /* WLEditWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditWrapViewController.m; path = ../../WLEditWrapViewController.m; sourceTree = "<group>"; };
 		5B450F8919780D8000FC339A /* WLSignificantTimeBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignificantTimeBroadcaster.h; sourceTree = "<group>"; };
 		5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignificantTimeBroadcaster.m; sourceTree = "<group>"; };
 		5B4C600319B5D41F00AAB3B0 /* WLNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotification.h; sourceTree = "<group>"; };
@@ -1888,6 +1894,7 @@
 			children = (
 				C504178E19B9EE20000E55F3 /* WLContributorsViewController */,
 				C504177919B9EE15000E55F3 /* WLAddContributorsViewController */,
+				5B11019719BF337600688C9D /* WLEditWrapViewController */,
 				C51383CD19A4AB0F00D23257 /* WLNotificationsViewController */,
 				C5FCC697199A5C4B009A0DC6 /* WLNavigation */,
 				CE1FEABF196EB73000BF1B22 /* WLEditViewController */,
@@ -2589,6 +2596,15 @@
 				14F668631973DDAA008D5081 /* WLPerson.m */,
 			);
 			name = WLPerson;
+			sourceTree = "<group>";
+		};
+		5B11019719BF337600688C9D /* WLEditWrapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5B11019119BF335F00688C9D /* WLEditWrapViewController.h */,
+				5B11019219BF335F00688C9D /* WLEditWrapViewController.m */,
+			);
+			name = WLEditWrapViewController;
 			sourceTree = "<group>";
 		};
 		5B450F8C19780D8D00FC339A /* WLSignificantTimeBroadcaster */ = {
@@ -3680,6 +3696,7 @@
 				5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */,
 				12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */,
 				1409DA641949B24E00358BD4 /* RMPhoneFormat.m in Sources */,
+				5B11019319BF335F00688C9D /* WLEditWrapViewController.m in Sources */,
 				12D563FE18FE7788001C5C06 /* WLCircleProgressBar.m in Sources */,
 				12A6BFA818F2A6C900AE3B62 /* WLShakeViewController.m in Sources */,
 				12E4FBCD1923B8AD00236472 /* WLSystemImageCache.m in Sources */,
@@ -3882,6 +3899,7 @@
 				C54AF49419B8C437006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF49519B8C437006F7EDB /* UIViewController+Additions.m in Sources */,
 				C54AF49619B8C437006F7EDB /* RMPhoneFormat.m in Sources */,
+				5B11019419BF335F00688C9D /* WLEditWrapViewController.m in Sources */,
 				C54AF49719B8C437006F7EDB /* WLCircleProgressBar.m in Sources */,
 				C54AF49819B8C437006F7EDB /* WLShakeViewController.m in Sources */,
 				C54AF49919B8C437006F7EDB /* WLSystemImageCache.m in Sources */,
@@ -4084,6 +4102,7 @@
 				C54AF59119B8C467006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF59219B8C467006F7EDB /* UIViewController+Additions.m in Sources */,
 				C54AF59319B8C467006F7EDB /* RMPhoneFormat.m in Sources */,
+				5B11019519BF335F00688C9D /* WLEditWrapViewController.m in Sources */,
 				C54AF59419B8C467006F7EDB /* WLCircleProgressBar.m in Sources */,
 				C54AF59519B8C467006F7EDB /* WLShakeViewController.m in Sources */,
 				C54AF59619B8C467006F7EDB /* WLSystemImageCache.m in Sources */,
@@ -4286,6 +4305,7 @@
 				C54AF68E19B8C491006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF68F19B8C491006F7EDB /* UIViewController+Additions.m in Sources */,
 				C54AF69019B8C491006F7EDB /* RMPhoneFormat.m in Sources */,
+				5B11019619BF335F00688C9D /* WLEditWrapViewController.m in Sources */,
 				C54AF69119B8C491006F7EDB /* WLCircleProgressBar.m in Sources */,
 				C54AF69219B8C491006F7EDB /* WLShakeViewController.m in Sources */,
 				C54AF69319B8C491006F7EDB /* WLSystemImageCache.m in Sources */,

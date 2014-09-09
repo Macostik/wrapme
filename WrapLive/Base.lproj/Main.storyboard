@@ -1206,6 +1206,97 @@ Making your first wrap is easy. Tap the button below to get started.</string>
             </objects>
             <point key="canvasLocation" x="1378" y="118"/>
         </scene>
+        <!--Edit Wrap View Controller-->
+        <scene sceneID="dkf-Co-MZW">
+            <objects>
+                <viewController storyboardIdentifier="WLEditWrapViewController" id="XA1-LT-u0J" customClass="WLEditWrapViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zl2-e2-Vxl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="HI4-AJ-lfr" customClass="WLUserView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XWl-H2-glZ">
+                                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6E4-9i-5tM">
+                                        <rect key="frame" x="0.0" y="20" width="44" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <state key="normal" image="ic_back_orange">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="back:" destination="vgz-ev-iSR" eventType="touchUpInside" id="7Xw-WW-9hu"/>
+                                            <action selector="back:" destination="XA1-LT-u0J" eventType="touchUpInside" id="CqH-Wc-jfw"/>
+                                            <action selector="back:" destination="y2d-d2-UUm" eventType="touchUpInside" id="uMX-zk-4h2"/>
+                                            <action selector="cencel:" destination="oVq-I3-8Xy" eventType="touchUpInside" id="RXX-yU-CSc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="6jD-nG-AF2">
+                                <rect key="frame" x="30" y="72" width="260" height="176"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Wrap name" textAlignment="center" minimumFontSize="17" id="5Zl-7g-q4o">
+                                        <rect key="frame" x="10" y="20" width="240" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="textFieldDidChange:" destination="XA1-LT-u0J" eventType="editingDidEnd" id="BoX-n4-ydo"/>
+                                            <outlet property="delegate" destination="XA1-LT-u0J" id="QiK-GW-DUq"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete this wrap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ebg-HA-3MU">
+                                        <rect key="frame" x="0.0" y="88" width="129" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xvX-FZ-hl5" customClass="WLPressButton">
+                                        <rect key="frame" x="170" y="87" width="90" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Delete">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteButtonClick:" destination="XA1-LT-u0J" eventType="touchUpInside" id="69y-fJ-lJb"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="KKK-eZ-7dy"/>
+                    <connections>
+                        <outlet property="deleteButton" destination="xvX-FZ-hl5" id="mue-2l-gZQ"/>
+                        <outlet property="deleteLabel" destination="ebg-HA-3MU" id="PaX-NT-ZEg"/>
+                        <outlet property="nameWrapTextField" destination="5Zl-7g-q4o" id="5pY-tY-7p4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cAR-nR-eVt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1876" y="1033"/>
+        </scene>
         <!--Create Wrap View Controller-->
         <scene sceneID="z3r-xS-Rlo">
             <objects>
@@ -1289,7 +1380,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                         <outlet property="backButton" destination="DSX-7A-44s" id="bhK-dn-Nc7"/>
                         <outlet property="createButton" destination="bFf-id-KiN" id="oXJ-6b-VDX"/>
                         <outlet property="imageView" destination="4Lj-zh-Ha2" id="Xrp-Fc-vM6"/>
-                        <outlet property="nameField" destination="5OP-bS-fU1" id="feS-MQ-BFI"/>
+                        <outlet property="nameField" destination="5OP-bS-fU1" id="wTH-ZN-u7b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kzU-fE-iJl" userLabel="First Responder" sceneMemberID="firstResponder"/>

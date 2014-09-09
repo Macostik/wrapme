@@ -63,7 +63,7 @@
 - (CGSize)size:(NSIndexPath *)indexPath {
     CGFloat height = 50;
 	if (indexPath.item == 0) {
-		height = [self.candies count] > WLHomeTopWrapCandiesLimit_2 ? 285 : 179;
+		height = [self.candies count] > WLHomeTopWrapCandiesLimit_2 ? 290 : 174;
 	}
 	return CGSizeMake(self.collectionView.width, height);
 }

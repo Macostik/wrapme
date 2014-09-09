@@ -126,7 +126,7 @@
             if (wrap.name.nonempty) {
                 block(wrap);
             } else {
-                [wrap fetch:block failure:^(NSError *error) { }];
+                [wrap fetch:nil success:block failure:^(NSError *error) { }];
             }
         } else if (type == WLNotificationImageCandyAddition) {
             candy.unread = @YES;

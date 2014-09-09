@@ -76,8 +76,8 @@
 		self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(self.wrap.name)];
 	} else {
 		__weak typeof(self)weakSelf = self;
-		[self.wrap fetch:^(WLWrap *wrap) {
-			weakSelf.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(wrap.name)];
+		[self.wrap fetch:nil success:^(NSOrderedSet *candies) {
+			weakSelf.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(weakSelf.wrap.name)];
 		} failure:^(NSError *error) {
 		}];
 	}

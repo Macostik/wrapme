@@ -137,8 +137,14 @@ static BOOL signedIn = NO;
 }
 
 - (id)fetch:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    return [self fetch:WLWrapContentTypeRecent success:success failure:failure];
+}
+
+- (id)fetch:(NSString*)contentType success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     if (self.uploaded) {
-        return [[WLWrapRequest request:self] send:success failure:failure];
+        WLWrapRequest* request = [WLWrapRequest request:self];
+        request.contentType = contentType;
+        return [request send:success failure:failure];
     } else {
         success(nil);
         return nil;
@@ -147,10 +153,6 @@ static BOOL signedIn = NO;
 
 - (id)update:(WLWrapBlock)success failure:(WLFailureBlock)failure {
     return [[WLUploadWrapRequest request:self] send:success failure:failure];
-}
-
-- (id)fetch:(NSInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    return [[WLWrapRequest request:self page:page] send:success failure:failure];
 }
 
 - (id)messagesNewer:(NSDate *)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {

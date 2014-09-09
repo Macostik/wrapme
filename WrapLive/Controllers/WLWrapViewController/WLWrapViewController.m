@@ -53,12 +53,12 @@
 #import "WLNotificationCenter.h"
 #import "WLNotification.h"
 
-typedef NS_ENUM(NSUInteger, WLWrapViewTab) {
-    WLWrapViewTabLive,
-    WLWrapViewTabHistory
+typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
+    WLWrapViewModeTimeline,
+    WLWrapViewModeHistory
 };
 
-static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
+static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver>
 
@@ -67,7 +67,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 
 @property (strong, nonatomic) WLGroupedSet *groups;
 
-@property (nonatomic) WLWrapViewTab viewTab;
+@property (nonatomic) WLWrapViewMode mode;
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCandiesHistoryViewSection *historyViewSection;
@@ -79,8 +79,6 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 @end
 
 @implementation WLWrapViewController
-
-@synthesize viewTab = _viewTab;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -95,7 +93,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
     self.historyViewSection.defaultFooterSize = CGSizeZero;
     self.historyViewSection.defaultHeaderSize = CGSizeZero;
     
-    self.viewTab = [WLSession integer:WLWrapViewDefaultTabKey];
+    self.mode = [WLSession integer:WLWrapViewDefaultModeKey];
     
     self.groups = [[WLGroupedSet alloc] init];
     [self.groups addEntries:self.wrap.candies];
@@ -227,24 +225,24 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 //	[controller presentInViewController:self transition:WLWrapTransitionFromRight];
 }
 
-- (void)setViewTab:(WLWrapViewTab)viewTab {
-    _viewTab = viewTab;
-    if (viewTab == WLWrapViewTabLive) {
+- (void)setMode:(WLWrapViewMode)mode {
+    _mode = mode;
+    if (mode == WLWrapViewModeTimeline) {
         [self.timelineDataProvider connect];
     } else {
         [self.dataProvider connect];
     }
-    self.viewButton.selected = viewTab == WLWrapViewTabHistory;
+    self.viewButton.selected = mode == WLWrapViewModeHistory;
 }
 
 - (IBAction)viewChanged:(UIButton*)sender {
-    [self changeViewTab:!sender.selected ? WLWrapViewTabHistory : WLWrapViewTabLive];
+    [self changeMode:sender.selected ? WLWrapViewModeTimeline : WLWrapViewModeHistory];
 }
 
-- (void)changeViewTab:(WLWrapViewTab)viewTab {
-    if (_viewTab != viewTab) {
-        self.viewTab = viewTab;
-        [WLSession setInteger:self.viewTab key:WLWrapViewDefaultTabKey];
+- (void)changeMode:(WLWrapViewMode)mode {
+    if (_mode != mode) {
+        self.mode = mode;
+        [WLSession setInteger:self.mode key:WLWrapViewDefaultModeKey];
         self.historyViewSection.completed = NO;
         [self.collectionView scrollToTopAnimated:YES];
         [self.dataProvider reload];
@@ -261,7 +259,7 @@ static NSString* WLWrapViewDefaultTabKey = @"WLWrapViewDefaultTabKey";
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-    [self changeViewTab:WLWrapViewTabLive];
+    [self changeMode:WLWrapViewModeTimeline];
     WLWrap* wrap = controller.wrap ? : self.wrap;
     [wrap uploadPictures:pictures];
 	[self dismissViewControllerAnimated:YES completion:nil];

@@ -45,8 +45,6 @@ static NSUInteger WLPageSize = 10;
 
 @interface WLWrap (WLAPIManager)
 
-- (id)fetch:(NSInteger)page success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
 - (id)messagesNewer:(NSDate*)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
 - (id)messagesOlder:(NSDate*)older newer:(NSDate*)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;

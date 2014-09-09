@@ -88,7 +88,9 @@
 		<key>email</key>
 		<string>s.maximenko@mobidev.biz</string>
 		<key>password</key>
-		<string>9cf9504f1c</string>
+		<string>ae7a61bf42</string>
+		<key>deviceUID</key>
+		<string>05920f50b158b962cfa03a968b3cd3ed0ae68ce4</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>

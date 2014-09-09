@@ -12,6 +12,8 @@
 
 @property (nonatomic, readonly) CGPoint maximumContentOffset;
 
+@property (readonly, nonatomic) BOOL scrollable;
+
 - (void)scrollToTopAnimated:(BOOL)animated;
 
 - (void)scrollToBottomAnimated:(BOOL)animated;

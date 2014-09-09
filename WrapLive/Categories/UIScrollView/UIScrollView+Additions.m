@@ -44,4 +44,13 @@
     return CGPointMake(contentSize.width - size.width, contentSize.height - size.height);
 }
 
+- (BOOL)scrollable {
+    CGSize size = self.bounds.size;
+    CGSize contentSize = self.contentSize;
+    UIEdgeInsets insets = self.contentInset;
+    if (contentSize.height > (size.height - (insets.bottom + insets.top))) return YES;
+    if (contentSize.width > (size.width - (insets.left + insets.right))) return YES;
+    return NO;
+}
+
 @end

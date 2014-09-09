@@ -44,7 +44,7 @@
     self.menu = [WLMenu menuWithView:self configuration:^BOOL (WLMenu *menu) {
         WLCandy* candy = weakSelf.entry;
         if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
-            [menu addItem:@"Delete" block:^{
+            [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:^{
                 weakSelf.userInteractionEnabled = NO;
                 [candy remove:^(id object) {
                     weakSelf.userInteractionEnabled = YES;
@@ -54,7 +54,7 @@
                 }];
             }];
         } else {
-            [menu addItem:@"Report" block:^{
+            [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_alert"] block:^{
                 [MFMailComposeViewController messageWithCandy:candy];
             }];
         }
@@ -65,9 +65,11 @@
 
 - (void)setup:(WLCandy*)candy {
 	self.userInteractionEnabled = YES;
-	WLComment* comment = [candy.comments lastObject];
-    self.commentLabel.text = comment.text;
-    self.commentLabel.hidden = !self.commentLabel.text.nonempty;
+    if (self.commentLabel) {
+        WLComment* comment = [candy.comments lastObject];
+        self.commentLabel.text = comment.text;
+        self.commentLabel.hidden = !self.commentLabel.text.nonempty;
+    }
 	self.coverView.animatingPicture = candy.picture;
     self.coverView.url = candy.picture.medium;
 }

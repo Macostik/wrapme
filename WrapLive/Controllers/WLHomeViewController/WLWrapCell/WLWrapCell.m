@@ -43,7 +43,7 @@
     self.menu = [WLMenu menuWithView:self.candiesView ? self.nameLabel.superview : self configuration:^BOOL(WLMenu *menu) {
         WLWrap* wrap = weakSelf.entry;
         if ([wrap.contributor isCurrentUser]) {
-            [menu addItem:@"Delete" block:^{
+            [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:^{
                 weakSelf.userInteractionEnabled = NO;
                 [wrap remove:^(id object) {
                     weakSelf.userInteractionEnabled = YES;
@@ -53,7 +53,7 @@
                 }];
             }];
         } else {
-            [menu addItem:@"Leave" block:^{
+            [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:^{
                 weakSelf.userInteractionEnabled = NO;
                 [wrap leave:^(id object) {
                     weakSelf.userInteractionEnabled = YES;

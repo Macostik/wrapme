@@ -36,14 +36,15 @@
 + (WlMenuItemButton *)buttonWithItem:(WLMenuItem *)item {
     WlMenuItemButton* button = [WlMenuItemButton buttonWithType:UIButtonTypeCustom];
     button.item = item;
-    button.frame = CGRectMake(0, 0, 44, 44);
+    button.frame = CGRectMake(0, 0, 38, 38);
     button.clipsToBounds = NO;
-    [button setTitle:item.title forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button.titleLabel setFont:[UIFont regularMicroFont]];
-    button.layer.cornerRadius = 22;
-    button.highlightedColor = [UIColor WL_grayColor];
-    button.normalColor = [UIColor WL_orangeColor];
+    if (item.title) {
+        [button setTitle:item.title forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button.titleLabel setFont:[UIFont regularMicroFont]];
+    }
+    [button setBackgroundImage:item.image forState:UIControlStateNormal];
+    button.layer.cornerRadius = button.bounds.size.width/2;
     return button;
 }
 
@@ -59,11 +60,7 @@
 
 @property (nonatomic) BOOL visible;
 
-@property (nonatomic) CGPoint focusPoint;
-
 @property (nonatomic) CGPoint centerPoint;
-
-@property (weak, nonatomic) UILabel* tipLabel;
 
 @end
 
@@ -108,7 +105,7 @@
 
 - (instancetype)initWithView:(UIView *)view title:(NSString *)title block:(WLBlock)block {
     return [self initWithView:view configuration:^BOOL (WLMenu *menu) {
-        [menu addItem:title block:block];
+        [menu addItemWithTitle:title block:block];
         return YES;
     }];
 }
@@ -116,20 +113,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self setup:self];
-}
-
-- (UILabel *)tipLabel {
-    if (!_tipLabel) {
-        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.width, 64)];
-        label.textColor = [UIColor whiteColor];
-        [self addSubview:label];
-        label.hidden = YES;
-        label.font = [UIFont lightNormalFont];
-        label.textAlignment = NSTextAlignmentCenter;
-        _tipLabel = label;
-    }
-    _tipLabel.frame = CGRectMake(0, 20, self.width, 64);
-    return _tipLabel;
 }
 
 - (void)setup:(UIView*)view {
@@ -149,7 +132,6 @@
         [weakSelf.items removeAllObjects];
         [weakSelf.buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
         [weakSelf removeFromSuperview];
-        weakSelf.tipLabel.hidden = YES;
     }];
 }
 
@@ -234,31 +216,22 @@
     }];
 }
 
-- (void)addItem:(NSString *)title tip:(NSString *)tip block:(WLBlock)block {
-    if (!self.items) {
-        self.items = [NSMutableArray array];
-    }
+- (WLMenuItem *)addItem:(WLBlock)block {
+    if (!self.items) self.items = [NSMutableArray array];
     WLMenuItem* item = [[WLMenuItem alloc] init];
-    item.title = title;
     item.block = block;
-    item.tip = tip;
     [self.items addObject:item];
+    return item;
 }
 
-- (void)addItem:(NSString *)title block:(WLBlock)block {
-    [self addItem:title tip:[NSString stringWithFormat:@"Tip for button %d", [self.items count]] block:block];
+- (void)addItemWithTitle:(NSString *)title block:(WLBlock)block {
+    WLMenuItem* item = [self addItem:block];
+    item.title = title;
 }
 
-- (void)setFocusPoint:(CGPoint)focusPoint {
-    _focusPoint = [self.view convertPoint:focusPoint toView:self.view.window];
-    self.tipLabel.hidden = YES;
-    for (WlMenuItemButton* button in self.buttons) {
-        button.highlighted = CGRectContainsPoint(button.frame, _focusPoint);
-        if (button.highlighted) {
-            self.tipLabel.text = button.item.tip;
-            self.tipLabel.hidden = NO;
-        }
-    }
+- (void)addItemWithImage:(UIImage *)image block:(WLBlock)block {
+    WLMenuItem* item = [self addItem:block];
+    item.image = image;
 }
 
 - (void)present:(UILongPressGestureRecognizer*)sender {

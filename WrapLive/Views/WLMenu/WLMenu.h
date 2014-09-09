@@ -13,9 +13,9 @@
 
 @interface WLMenuItem : NSObject
 
-@property (strong, nonatomic) NSString* title;
+@property (strong, nonatomic) UIImage* image;
 
-@property (strong, nonatomic) NSString* tip;
+@property (strong, nonatomic) NSString* title;
 
 @property (strong, nonatomic) WLBlock block;
 
@@ -45,8 +45,10 @@
 
 - (void)show:(CGPoint)point;
 
-- (void)addItem:(NSString*)title block:(WLBlock)block;
+- (WLMenuItem*)addItem:(WLBlock)block;
 
-- (void)addItem:(NSString*)title tip:(NSString*)tip block:(WLBlock)block;
+- (void)addItemWithTitle:(NSString*)title block:(WLBlock)block;
+
+- (void)addItemWithImage:(UIImage*)image block:(WLBlock)block;
 
 @end

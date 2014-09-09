@@ -52,7 +52,7 @@
     self.menu = [WLMenu menuWithView:self configuration:^BOOL(WLMenu *menu) {
         WLComment* comment = weakSelf.item;
         if ([comment.contributor isCurrentUser]) {
-            [menu addItem:@"Delete" block:^{
+            [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:^{
                 weakSelf.userInteractionEnabled = NO;
                 [weakSelf.item remove:^(id object) {
                     weakSelf.userInteractionEnabled = YES;

@@ -23,8 +23,9 @@
 @interface WLWelcomeViewController ()
 
 @property (weak, nonatomic) WLLoadingView *splash;
-@property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIButton *licenseButton;
+@property (weak, nonatomic) IBOutlet UIView *transparentView;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
 
 @end
 
@@ -36,10 +37,9 @@
     
     WLLoadingView* splash = [WLLoadingView splash];
     splash.frame = self.view.bounds;
-    [self.view insertSubview:splash atIndex:0];
+    [self.view addSubview:splash];
     self.splash = splash;
 	
-	self.bottomView.hidden = YES;
     WLAuthorization* authorization = [WLAuthorization currentAuthorization];
 	if ([authorization canAuthorize]) {
 		__weak typeof(self)weakSelf = self;
@@ -49,23 +49,58 @@
             if ([error isNetworkError]) {
 				[weakSelf presentHomeViewController];
 			} else {
-				[weakSelf showBottomView];
+				[weakSelf unlockUI];
 			}
         }];
 	} else {
-		[self showBottomView];
+		[self unlockUI];
 	}
+    
+    UIToolbar* toolbar = [[UIToolbar alloc] initWithFrame:self.transparentView.bounds];
+    toolbar.tintColor = [UIColor whiteColor];
+    toolbar.translucent = YES;
+    toolbar.alpha = 0.96;
+    toolbar.barStyle = UIBarStyleDefault;
+    [self.transparentView insertSubview:toolbar atIndex:0];
 }
 
-- (void)showBottomView {
-	self.bottomView.transform = CGAffineTransformMakeTranslation(0, self.bottomView.frame.size.height);
-	self.bottomView.hidden = NO;
+- (void)unlockUI {
 	[self underlineLicenseButton];
 	__weak typeof(self)weakSelf = self;
 	[UIView animateWithDuration:0.25f animations:^{
-		weakSelf.bottomView.transform = CGAffineTransformIdentity;
-	}];
+		weakSelf.splash.alpha = 0.0f;
+	} completion:^(BOOL finished) {
+        [weakSelf.splash hide];
+    }];
     self.splash.animating = NO;
+    [self animateBackgroundView];
+}
+
+- (void)animateBackgroundView {
+    __weak typeof(self)weakSelf = self;
+    
+    NSTimeInterval duration = 30;
+    
+    __block void (^animationDown) (void) = nil;
+    __block void (^animationUp) (void) = nil;
+    
+    animationDown = ^ {
+        [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+            weakSelf.backgroundView.transform = CGAffineTransformMakeTranslation(0, -(weakSelf.backgroundView.bounds.size.height - weakSelf.view.bounds.size.height));
+        } completion:^(BOOL finished) {
+            animationUp();
+        }];
+    };
+    
+    animationUp = ^ {
+        [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+            weakSelf.backgroundView.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            animationDown();
+        }];
+    };
+    
+    animationDown();
 }
 
 - (void)underlineLicenseButton {

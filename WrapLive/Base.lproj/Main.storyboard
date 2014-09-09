@@ -264,14 +264,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="N3J-CT-Lq4">
-                                <rect key="frame" x="0.0" y="480" width="320" height="88"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1st_screen_bg" id="Z7H-YO-EAb">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="1500"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="4NN-tc-MaB">
+                                <rect key="frame" x="17" y="79" width="286" height="410"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PkY-qd-z05">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1s_tscreen_logo_def" id="s8g-Tv-yBZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="286" height="300"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PkY-qd-z05">
+                                        <rect key="frame" x="20" y="298" width="246" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="15"/>
                                         <state key="normal" title="Terms and Conditions">
                                             <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -280,29 +289,36 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0BE-1R-lZi">
-                                        <rect key="frame" x="0.0" y="44" width="320" height="44"/>
+                                        <rect key="frame" x="20" y="342" width="246" height="48"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <inset key="imageEdgeInsets" minX="300" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Agree and Continue" image="ic_next_white">
+                                        <state key="normal" backgroundImage="1st_screen_btn_agree_and_continue_pressed">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="highlighted" backgroundImage="1st_screen_btn_agree_and_continue_enabled"/>
                                         <connections>
                                             <segue destination="WfW-pu-ue7" kind="push" id="xzK-pU-QyL"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="mRG-Wg-0mw"/>
                     <connections>
-                        <outlet property="bottomView" destination="N3J-CT-Lq4" id="XOW-co-mxL"/>
+                        <outlet property="backgroundView" destination="Z7H-YO-EAb" id="yM9-ti-9J1"/>
                         <outlet property="licenseButton" destination="PkY-qd-z05" id="LeC-9p-Qwy"/>
+                        <outlet property="transparentView" destination="4NN-tc-MaB" id="fcr-qn-IbN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -2859,6 +2875,10 @@ Check your internet connection and try again.</string>
         </scene>
     </scenes>
     <resources>
+        <image name="1s_tscreen_logo_def" width="216" height="220"/>
+        <image name="1st_screen_bg" width="320" height="1500"/>
+        <image name="1st_screen_btn_agree_and_continue_enabled" width="246" height="48"/>
+        <image name="1st_screen_btn_agree_and_continue_pressed" width="246" height="48"/>
         <image name="bg_candy_gradient" width="320" height="64"/>
         <image name="camera_big" width="84" height="84"/>
         <image name="camera_darkGray" width="30" height="30"/>
@@ -2880,7 +2900,6 @@ Check your internet connection and try again.</string>
         <image name="ic_logo_wo_candy" width="72" height="20"/>
         <image name="ic_new_wrap_def" width="30" height="30"/>
         <image name="ic_next_gray" width="8" height="14"/>
-        <image name="ic_next_white" width="8" height="24"/>
         <image name="ic_not_checked" width="22" height="22"/>
         <image name="ic_photo_placeholder" width="60" height="48"/>
         <image name="ic_search" width="16" height="16"/>

@@ -194,8 +194,10 @@
 	}
 	
 	__weak WLMessage* message = [WLMessage entry];
+    message.contributor = [WLUser currentUser];
     message.wrap = self;
 	message.text = text;
+    [message broadcastCreation];
 	[message add:success failure:^(NSError *error) {
 		[message remove];
         failure(error);

@@ -94,3 +94,10 @@ static inline void run_getting_object_in_background(WLReturnObjectBlock block, W
 static inline void run_after(NSTimeInterval after, dispatch_block_t block) {
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(after * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
 }
+
+static inline void run_loop(NSUInteger count, dispatch_block_t block) {
+	while (count > 0) {
+        --count;
+        block();
+    }
+}

@@ -32,7 +32,7 @@
 
 @property (nonatomic, strong) WLUser* contributor;
 
-@property (nonatomic, strong) NSString* message;
+@property (nonatomic, strong) NSString* text;
 
 @property (nonatomic, strong) NSDate* createdAt;
 
@@ -45,13 +45,13 @@
 @implementation WLUser (WLChatMessage)
 
 @dynamic contributor;
-@dynamic message;
+@dynamic text;
 
 - (WLUser *)contributor {
     return self;
 }
 
-- (NSString *)message {
+- (NSString *)text {
     return @"...";
 }
 
@@ -76,14 +76,14 @@
                           [[UIImage imageNamed:@"red_Bubble"] resizableImageWithCapInsets:UIEdgeInsetsMake(WLPadding, 18, WLBottomIdent, WLPadding)]];
 }
 
-- (void)setupItemData:(id <WLChatMessage>)candy {
+- (void)setupItemData:(id <WLChatMessage>)message {
     __weak typeof(self)weakSelf = self;
-	self.avatarView.url = candy.contributor.picture.medium;
+	self.avatarView.url = message.contributor.picture.medium;
     [self.avatarView setFailure:^(NSError* error) {
         weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];
-	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(candy.contributor.name), WLString([candy.createdAt stringWithFormat:@"HH:mm"])];
-	self.messageLabel.text = candy.message;
+	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(message.contributor.name), WLString([message.createdAt stringWithFormat:@"HH:mm"])];
+	self.messageLabel.text = message.text;
 	[UIView performWithoutAnimation:^{
         CGSize size = [weakSelf.messageLabel sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)];
         weakSelf.messageLabel.size = CGSizeMake(MAX(WLMinBubbleWidth, size.width), size.height);
@@ -91,8 +91,8 @@
             weakSelf.messageLabel.x = weakSelf.avatarView.x - weakSelf.messageLabel.width - WLMessageAuthorLabelHeight/2;
         }
 	}];
-    [self drawMessageBubbleForCandy:candy];
-    self.bubbleImageView.hidden = !candy.message.nonempty;
+    [self drawMessageBubbleForCandy:message];
+    self.bubbleImageView.hidden = !message.text.nonempty;
 }
 
 - (void)drawMessageBubbleForCandy:(WLCandy *)candy {

@@ -29,9 +29,8 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    NSOrderedSet* messages = [WLCandy API_entries:response.data[@"chats"] relatedEntry:self.wrap];
+    NSOrderedSet* messages = [WLMessage API_entries:response.data[@"chats"] relatedEntry:self.wrap];
     if (messages.nonempty) {
-        [self.wrap addCandies:messages];
         [self.wrap broadcastChange];
     }
     return messages;

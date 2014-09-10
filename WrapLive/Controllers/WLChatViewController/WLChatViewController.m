@@ -285,7 +285,7 @@
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
-	return YES;
+	return NO;
 }
 
 - (void)setTyping:(BOOL)typing {

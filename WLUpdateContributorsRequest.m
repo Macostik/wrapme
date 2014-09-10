@@ -30,17 +30,12 @@
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
     NSMutableArray* contributors = [NSMutableArray array];
 	NSMutableArray* invitees = [NSMutableArray array];
-    for (id person in self.contributors) {
-        if ([person isKindOfClass:[WLPerson class]]) {
-            WLPerson *_person = person;
-            if (_person.user) {
-                [contributors addObject:_person.user.identifier];
-            } else {
-                NSData* invitee = [NSJSONSerialization dataWithJSONObject:@{@"name":WLString(_person.name),@"phone_number":_person.phone} options:0 error:NULL];
-                [invitees addObject:[[NSString alloc] initWithData:invitee encoding:NSUTF8StringEncoding]];
-            }
+    for (WLPerson *_person in self.contributors) {
+        if (_person.user) {
+            [contributors addObject:_person.user.identifier];
         } else {
-            [contributors addObject:[person identifier]];
+            NSData* invitee = [NSJSONSerialization dataWithJSONObject:@{@"name":WLString(_person.name),@"phone_number":_person.phone} options:0 error:NULL];
+            [invitees addObject:[[NSString alloc] initWithData:invitee encoding:NSUTF8StringEncoding]];
         }
     }
 	[parameters trySetObject:contributors forKey:@"user_uids"];

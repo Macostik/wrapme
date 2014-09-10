@@ -215,7 +215,7 @@
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }
-    __block WLUpdateContributorsRequest *updateConributors = [WLUpdateContributorsRequest request:self.wrap];
+    WLUpdateContributorsRequest *updateConributors = [WLUpdateContributorsRequest request:self.wrap];
     updateConributors.contributors = [self.selectedPhones allObjects];
     updateConributors.isAddContirbutor = [self.selectedPhones allObjects].nonempty;
     sender.loading = YES;
@@ -224,15 +224,9 @@
     [updateConributors send:^(id object) {
         [weakSelf.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {
-        if ([error isNetworkError] && weakSelf.wrap.uploading) {
-            [weakSelf.wrap broadcastChange];
-            [weakSelf.navigationController popViewControllerAnimated:YES];
-        } else {
-            sender.loading = NO;
-            [error show];
-            updateConributors.contributors = nil;
-            weakSelf.view.userInteractionEnabled = YES;
-        }
+        sender.loading = NO;
+        [error show];
+        weakSelf.view.userInteractionEnabled = YES;
     }];
 }
 

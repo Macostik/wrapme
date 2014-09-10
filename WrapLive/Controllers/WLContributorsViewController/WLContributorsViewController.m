@@ -14,6 +14,7 @@
 #import "WLButton.h"
 #import "WLWrapBroadcaster.h"
 #import "WLUpdateContributorsRequest.h"
+#import "WLPerson.h"
 
 @interface WLContributorsViewController () <WLContributorCellDelegate>
 
@@ -44,7 +45,9 @@
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
-    [self.removedContributors addObject:contributor];
+    WLPerson *person = [WLPerson new];
+    person.user = contributor;
+    [self.removedContributors addObject:person];
     [[self.dataSection.entries entries] removeObject:contributor];
     [self.dataSection reload];
     self.dataProvider.collectionView.contentInset = UIEdgeInsetsMake(0, 0, self.bottomView.width, 0);
@@ -63,23 +66,14 @@
     sender.loading = YES;
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
-    NSMutableOrderedSet* contributors = self.wrap.contributors;
-    self.wrap.contributors = [self.dataSection.entries entries];
-   __block WLUpdateContributorsRequest *updateContributot = [WLUpdateContributorsRequest request:self.wrap];
+    WLUpdateContributorsRequest *updateContributot = [WLUpdateContributorsRequest request:self.wrap];
     updateContributot.contributors = [self.removedContributors array];
     [updateContributot send:^(id object) {
         [weakSelf.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {
-        if ([error isNetworkError] && weakSelf.wrap.uploading) {
-            [weakSelf.wrap broadcastChange];
-            [weakSelf.navigationController popViewControllerAnimated:YES];
-        } else {
-            sender.loading = NO;
-            [error show];
-            weakSelf.wrap.contributors = contributors;
-            updateContributot.contributors = nil;
-            weakSelf.view.userInteractionEnabled = YES;
-        }
+        sender.loading = NO;
+        [error show];
+        weakSelf.view.userInteractionEnabled = YES;
     }];
 }
 

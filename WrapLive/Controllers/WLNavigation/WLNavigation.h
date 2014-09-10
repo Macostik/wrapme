@@ -16,6 +16,7 @@
 @end
 
 static NSString* WLStoryboardSegueContributorsIdentifier = @"contributors";
+static NSString* WLStoryboardSegueWrapCameraIdentifier = @"wrap_camera";
 static NSString* WLStoryboardSegueCameraIdentifier = @"camera";
 static NSString* WLStoryboardSegueChangeWrapIdentifier = @"changeWrap";
 static NSString* WLStoryboardSegueImageIdentifier = @"image";
@@ -23,6 +24,8 @@ static NSString* WLStoryboardSegueImageIdentifier = @"image";
 @interface UIStoryboardSegue (WLNavigation)
 
 - (BOOL)isContributorsSegue;
+
+- (BOOL)isWrapCameraSegue;
 
 - (BOOL)isCameraSegue;
 

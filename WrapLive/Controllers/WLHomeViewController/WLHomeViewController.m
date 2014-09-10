@@ -120,7 +120,7 @@
 }
 
 - (UIViewController *)shakePresentedViewController {
-	return self.section.entries.entries.nonempty ? [self cameraViewController] : nil;
+	return self.section.wrap ? [self cameraViewController] : nil;
 }
 
 - (id)cameraViewController {
@@ -245,11 +245,16 @@ static CGFloat WLCountOfDays = 7;
 #pragma mark - Actions
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue isCameraSegue]) {
+	if ([segue isWrapCameraSegue]) {
 		WLStillPictureViewController* controller = segue.destinationViewController;
 		controller.delegate = self;
 		controller.mode = WLCameraModeWrapCreation;
-	}
+	} else if ([segue isCameraSegue]) {
+        WLStillPictureViewController* controller = segue.destinationViewController;
+        controller.wrap = self.section.wrap;
+		controller.delegate = self;
+		controller.mode = WLCameraModeCandy;
+    }
 }
 
 - (IBAction)createNewWrap:(id)sender {
@@ -260,10 +265,16 @@ static CGFloat WLCountOfDays = 7;
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-    WLCreateWrapViewController* createWrapViewController = [WLCreateWrapViewController instantiate];
-    createWrapViewController.pictures = pictures;
-    createWrapViewController.delegate = self;
-    [controller.cameraNavigationController pushViewController:createWrapViewController animated:YES];
+    WLWrap* wrap = controller.wrap;
+    if (wrap) {
+        [wrap uploadPictures:pictures];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        WLCreateWrapViewController* createWrapViewController = [WLCreateWrapViewController instantiate];
+        createWrapViewController.pictures = pictures;
+        createWrapViewController.delegate = self;
+        [controller.cameraNavigationController pushViewController:createWrapViewController animated:YES];
+    }
 }
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {

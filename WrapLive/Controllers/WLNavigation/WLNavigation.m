@@ -28,6 +28,10 @@
 	return [self.identifier isEqualToString:WLStoryboardSegueContributorsIdentifier];
 }
 
+- (BOOL)isWrapCameraSegue {
+	return [self.identifier isEqualToString:WLStoryboardSegueWrapCameraIdentifier];
+}
+
 - (BOOL)isCameraSegue {
 	return [self.identifier isEqualToString:WLStoryboardSegueCameraIdentifier];
 }

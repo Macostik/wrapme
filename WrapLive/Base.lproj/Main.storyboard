@@ -1167,7 +1167,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="PLV-Iu-pRL" kind="modal" identifier="camera" id="Lqo-1T-u2j"/>
+                                            <segue destination="PLV-Iu-pRL" kind="modal" identifier="wrap_camera" id="Lqo-1T-u2j"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2979,6 +2979,6 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="PQ6-0M-1al"/>
+        <segue reference="Lqo-1T-u2j"/>
     </inferredMetricsTieBreakers>
 </document>

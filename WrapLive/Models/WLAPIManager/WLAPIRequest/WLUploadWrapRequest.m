@@ -28,30 +28,8 @@
 }
 
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
-    self.filePath = self.wrap.picture.large;
     WLWrap* wrap = self.wrap;
-    NSMutableArray* contributors = [NSMutableArray array];
-	NSMutableArray* invitees = [NSMutableArray array];
-	for (WLUser* contributor in wrap.contributors) {
-		if (self.creation) {
-            if (![contributor isCurrentUser]) {
-                [contributors addObject:contributor.identifier];
-            }
-        } else {
-            [contributors addObject:contributor.identifier];
-        }
-	}
-    for (WLPerson * person in wrap.invitees) {
-        if (person.user) {
-            [contributors addObject:person.user.identifier];
-        } else {
-            NSData* invitee = [NSJSONSerialization dataWithJSONObject:@{@"name":WLString(person.name),@"phone_number":person.phone} options:0 error:NULL];
-            [invitees addObject:[[NSString alloc] initWithData:invitee encoding:NSUTF8StringEncoding]];
-        }
-    }
 	[parameters trySetObject:wrap.name forKey:@"name"];
-	[parameters trySetObject:contributors forKey:@"user_uids"];
-	[parameters trySetObject:invitees forKey:@"invitees"];
     if (self.creation) {
         [parameters trySetObject:wrap.uploadIdentifier forKey:@"upload_uid"];
         [parameters trySetObject:@(wrap.updatedAt.timestamp) forKey:@"contributed_at_in_epoch"];

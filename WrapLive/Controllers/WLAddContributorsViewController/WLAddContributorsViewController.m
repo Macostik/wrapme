@@ -26,6 +26,7 @@
 #import "WLContributorsRequest.h"
 #import "WLButton.h"
 #import "WLWrapBroadcaster.h"
+#import "WLUpdateContributorsRequest.h"
 
 @interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate>
 
@@ -214,11 +215,13 @@
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }
-    self.wrap.invitees = [self.selectedPhones allObjects];
+    __block WLUpdateContributorsRequest *updateConributors = [WLUpdateContributorsRequest request:self.wrap];
+    updateConributors.contributors = [self.selectedPhones allObjects];
+    updateConributors.isAddContirbutor = [self.selectedPhones allObjects].nonempty;
     sender.loading = YES;
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
-    [self.wrap update:^(WLWrap *wrap) {
+    [updateConributors send:^(id object) {
         [weakSelf.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {
         if ([error isNetworkError] && weakSelf.wrap.uploading) {
@@ -227,7 +230,7 @@
         } else {
             sender.loading = NO;
             [error show];
-            weakSelf.wrap.invitees = nil;
+            updateConributors.contributors = nil;
             weakSelf.view.userInteractionEnabled = YES;
         }
     }];

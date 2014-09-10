@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLUploadAPIRequest.h"
+#import "WLAPIRequest.h"
 
-@interface WLUploadWrapRequest : WLUploadAPIRequest
+@interface WLUploadWrapRequest : WLAPIRequest
 
 @property (strong, nonatomic) WLWrap* wrap;
 

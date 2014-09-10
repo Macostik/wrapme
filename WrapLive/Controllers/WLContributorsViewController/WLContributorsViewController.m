@@ -13,6 +13,7 @@
 #import "UIView+AnimationHelper.h"
 #import "WLButton.h"
 #import "WLWrapBroadcaster.h"
+#import "WLUpdateContributorsRequest.h"
 
 @interface WLContributorsViewController () <WLContributorCellDelegate>
 
@@ -64,7 +65,9 @@
     __weak typeof(self)weakSelf = self;
     NSMutableOrderedSet* contributors = self.wrap.contributors;
     self.wrap.contributors = [self.dataSection.entries entries];
-    [self.wrap update:^(WLWrap *wrap) {
+   __block WLUpdateContributorsRequest *updateContributot = [WLUpdateContributorsRequest request:self.wrap];
+    updateContributot.contributors = [self.removedContributors array];
+    [updateContributot send:^(id object) {
         [weakSelf.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {
         if ([error isNetworkError] && weakSelf.wrap.uploading) {
@@ -74,6 +77,7 @@
             sender.loading = NO;
             [error show];
             weakSelf.wrap.contributors = contributors;
+            updateContributot.contributors = nil;
             weakSelf.view.userInteractionEnabled = YES;
         }
     }];

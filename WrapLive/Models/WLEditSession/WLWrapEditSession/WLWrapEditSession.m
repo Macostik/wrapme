@@ -96,7 +96,6 @@
     }
     wrap.picture.large = [dictionary objectForKey:@"url"];
     wrap.contributors = [dictionary objectForKey:@"contributors"];
-    wrap.invitees = [dictionary objectForKey:@"invitees"];
 }
 
 - (void)addObjectToInvitees:(NSArray *)invitees {

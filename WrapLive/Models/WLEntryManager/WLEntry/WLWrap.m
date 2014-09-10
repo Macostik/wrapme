@@ -18,6 +18,4 @@
 @dynamic messages;
 @dynamic contributors;
 
-@synthesize invitees;
-
 @end

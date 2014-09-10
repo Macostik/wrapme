@@ -15,7 +15,11 @@
 #import "WLAPIManager.h"
 #import "WLToast.h"
 
+static NSString *const WLDelete = @"Delete";
+static NSString *const WLLeave = @"Leave";
+
 @interface WLEditWrapViewController ()
+
 @property (weak, nonatomic) IBOutlet UITextField *nameWrapTextField;
 @property (weak, nonatomic) IBOutlet WLPressButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UILabel *deleteLabel;
@@ -32,8 +36,8 @@
     self.nameWrapTextField.text = self.wrap.name;
     [self.nameWrapTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
     self.nameWrapTextField.returnKeyType = UIReturnKeyDone;
-    self.deleteLabel.text = [NSString stringWithFormat:@"%@ this wrap", [self isMyWrap]? @"Delete" : @"Leave"];
-    self.deleteButton.titleLabel.text = [self isMyWrap]? @"Delete" : @"Leave";
+    self.deleteLabel.text = [NSString stringWithFormat:@"%@ this wrap", [self isMyWrap]? WLDelete : WLLeave];
+    self.deleteButton.titleLabel.text = [self isMyWrap]? WLDelete : WLLeave;
     self.nameWrapTextField.enabled = [self isMyWrap];
 }
 
@@ -65,25 +69,24 @@
 }
 
 - (IBAction)back:(id)sender {
-    [self dismiss];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)deleteButtonClick:(id)sender {
     WLWrap *wrap = [WLWrap entry:self.wrap.identifier];
-    if ([wrap.contributor isCurrentUser]) {
+    if ([self isMyWrap]) {
+        [self back:nil];
         [wrap remove:^(id object) {
-            [self back:nil];
         } failure:^(NSError *error) {
             [error show];
         }];
     } else {
+        [self back:nil];
         [wrap leave:^(id object) {
-            [self back:nil];
         } failure:^(NSError *error) {
             [error show];
         }];
     }
-
 }
 
 @end

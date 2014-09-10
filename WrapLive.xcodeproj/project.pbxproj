@@ -149,6 +149,10 @@
 		5B450F8B19780D8000FC339A /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */; };
 		5B4C600519B5D41F00AAB3B0 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4C600419B5D41F00AAB3B0 /* WLNotification.m */; };
 		5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */; };
+		5BB1A21B19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */; };
+		5BB1A21C19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */; };
+		5BB1A21D19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */; };
+		5BB1A21E19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */; };
 		5BB2221219796D7300782B72 /* UIView+Extentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2221119796D7300782B72 /* UIView+Extentions.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
@@ -1275,6 +1279,8 @@
 		5B4C600419B5D41F00AAB3B0 /* WLNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotification.m; sourceTree = "<group>"; };
 		5BAF8E141991196000AFCAE6 /* WLClearProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLClearProgressBar.h; sourceTree = "<group>"; };
 		5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLClearProgressBar.m; sourceTree = "<group>"; };
+		5BB1A21919C05A3E0062F8AE /* WLUpdateContributorsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUpdateContributorsRequest.h; path = ../../WLUpdateContributorsRequest.h; sourceTree = "<group>"; };
+		5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUpdateContributorsRequest.m; path = ../../WLUpdateContributorsRequest.m; sourceTree = "<group>"; };
 		5BB2221019796D7300782B72 /* UIView+Extentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extentions.h"; sourceTree = "<group>"; };
 		5BB2221119796D7300782B72 /* UIView+Extentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extentions.m"; sourceTree = "<group>"; };
 		5BD6D33B19B5AB26000A7C1F /* CoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -2876,6 +2882,8 @@
 				C51496401975736D009F0743 /* WLAPIRequest.m */,
 				C50AF40419766C3700761F38 /* WLUploadAPIRequest.h */,
 				C50AF40519766C3700761F38 /* WLUploadAPIRequest.m */,
+				5BB1A21919C05A3E0062F8AE /* WLUpdateContributorsRequest.h */,
+				5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */,
 				C51496451975872D009F0743 /* WLPaginatedRequest.h */,
 				C51496461975872D009F0743 /* WLPaginatedRequest.m */,
 				C5149642197586E4009F0743 /* WLWrapsRequest.h */,
@@ -3826,6 +3834,7 @@
 				ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */,
 				C516873719BD9D8D005BA034 /* WLMessage+Extended.m in Sources */,
 				12E0F04E19090B0600463FEC /* WLBroadcaster.m in Sources */,
+				5BB1A21B19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */,
 				12DE6980192E04F7007580AD /* NSPropertyListSerialization+Shorthand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4029,6 +4038,7 @@
 				C54AF51219B8C437006F7EDB /* WLPhoneNumberViewController.m in Sources */,
 				C516873819BD9D8D005BA034 /* WLMessage+Extended.m in Sources */,
 				C54AF51319B8C437006F7EDB /* WLBroadcaster.m in Sources */,
+				5BB1A21C19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */,
 				C54AF51419B8C437006F7EDB /* NSPropertyListSerialization+Shorthand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4232,6 +4242,7 @@
 				C54AF60F19B8C467006F7EDB /* WLPhoneNumberViewController.m in Sources */,
 				C516873919BD9D8D005BA034 /* WLMessage+Extended.m in Sources */,
 				C54AF61019B8C467006F7EDB /* WLBroadcaster.m in Sources */,
+				5BB1A21D19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */,
 				C54AF61119B8C467006F7EDB /* NSPropertyListSerialization+Shorthand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4435,6 +4446,7 @@
 				C54AF70C19B8C491006F7EDB /* WLPhoneNumberViewController.m in Sources */,
 				C516873A19BD9D8D005BA034 /* WLMessage+Extended.m in Sources */,
 				C54AF70D19B8C491006F7EDB /* WLBroadcaster.m in Sources */,
+				5BB1A21E19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */,
 				C54AF70E19B8C491006F7EDB /* NSPropertyListSerialization+Shorthand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

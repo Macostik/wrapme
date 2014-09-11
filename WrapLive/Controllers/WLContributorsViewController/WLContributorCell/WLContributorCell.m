@@ -34,9 +34,7 @@
 		isCreator = [self.delegate contributorCell:self isCreator:user];
 	}
 	self.nameLabel.text = isCreator ? [NSString stringWithFormat:@"%@ (Owner)", userNameText] : userNameText;
-	if (self.nameLabel.text.empty) {
-		self.nameLabel.text = user.phone;
-	}
+
     self.avatarView.url = user.picture.medium;
     if (!self.avatarView.url.nonempty) {
         self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];

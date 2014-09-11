@@ -30,7 +30,6 @@
 #import "WLInviteeCell.h"
 #import "WLWrapEditSession.h"
 #import "WLToast.h"
-#import "WLContributor.h"
 #import "WLPerson.h"
 #import "WLButton.h"
 

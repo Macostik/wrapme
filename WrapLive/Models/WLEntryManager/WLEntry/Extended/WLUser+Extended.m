@@ -17,14 +17,10 @@
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
-    NSString* phone = [dictionary stringForKey:WLFullPhoneNumberKey];
-	if (!NSStringEqual(self.phone, phone)) self.phone = phone;
     NSNumber* signInCount = [dictionary numberForKey:WLSignInCountKey];
 	if (!NSNumberEqual(self.signInCount, signInCount)) self.signInCount = signInCount;
     NSString* name = [dictionary stringForKey:WLNameKey];
 	if (!NSStringEqual(self.name, name)) self.name = name;
-    NSString* email = [dictionary stringForKey:WLEmailKey];
-	if (!NSStringEqual(self.email, email)) self.email = email;
     [self editPicture:[dictionary stringForKey:WLLargeAvatarKey]
                medium:[dictionary stringForKey:WLMediumAvatarKey]
                 small:[dictionary stringForKey:WLSmallAvatarKey]];

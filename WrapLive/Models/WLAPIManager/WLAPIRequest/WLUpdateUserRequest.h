@@ -11,6 +11,7 @@
 @interface WLUpdateUserRequest : WLUploadAPIRequest
 
 @property (strong, nonatomic) WLUser* user;
+@property (strong, nonatomic) NSString *email;
 
 + (instancetype)request:(WLUser*)user;
 

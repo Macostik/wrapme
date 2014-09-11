@@ -1260,7 +1260,6 @@
 		14AE4FEF19700B5E002EEF3F /* interfacealertsound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = interfacealertsound.wav; path = Sounds/interfacealertsound.wav; sourceTree = "<group>"; };
 		14AE4FF019700B5E002EEF3F /* interfacealertsound3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = interfacealertsound3.wav; path = Sounds/interfacealertsound3.wav; sourceTree = "<group>"; };
 		14AE4FF119700B5E002EEF3F /* triade.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = triade.aif; path = Sounds/triade.aif; sourceTree = "<group>"; };
-		14AE4FF6197042AB002EEF3F /* WLContributor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributor.h; path = WLContributor/WLContributor.h; sourceTree = "<group>"; };
 		14B134DF1952FEB2004F86AC /* WLInviteeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLInviteeCell.h; path = WLCreateWrapViewController/WLInviteeCell/WLInviteeCell.h; sourceTree = "<group>"; };
 		14B134E01952FEB2004F86AC /* WLInviteeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLInviteeCell.m; path = WLCreateWrapViewController/WLInviteeCell/WLInviteeCell.m; sourceTree = "<group>"; };
 		14B2429B195C4CEB00C5D208 /* WLEditSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditSession.h; path = WLEditSession/WLEditSession.h; sourceTree = "<group>"; };
@@ -2552,7 +2551,6 @@
 		14AE4FF519703A76002EEF3F /* WLContributor */ = {
 			isa = PBXGroup;
 			children = (
-				14AE4FF6197042AB002EEF3F /* WLContributor.h */,
 			);
 			name = WLContributor;
 			sourceTree = "<group>";

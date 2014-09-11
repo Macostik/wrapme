@@ -60,7 +60,6 @@
 		[contact.persons all:^(WLPerson* person) {
 			for (NSDictionary* userData in users) {
 				if ([userData[@"address_book_number"] isEqualToString:person.phone]) {
-					NSString* label = person.phone.label;
                     WLUser * user = [WLUser API_entry:userData];
                     person.user = user;
 					if (user.name.nonempty) {
@@ -68,7 +67,6 @@
 					} else {
 						user.name = contact.name;
 					}
-					user.phone.label = label;
 				}
 			}
 		}];

@@ -9,16 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "WLEntry.h"
-#import "WLContributor.h"
 
 @class WLWrap, WLContribution;
 
-@interface WLUser : WLEntry <WLContributor>
+@interface WLUser : WLEntry 
 
 @property (nonatomic, retain) NSNumber * current;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * phone;
-@property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSNumber * signInCount;
 @property (nonatomic, retain) NSMutableOrderedSet *contributions;
 @property (nonatomic, retain) NSMutableOrderedSet *wraps;

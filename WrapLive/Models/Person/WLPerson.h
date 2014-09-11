@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLContributor.h"
 
 @class WLPicture;
+@class WLUser;
 
-@interface WLPerson : NSObject <WLContributor>
+@interface WLPerson : NSObject 
 
 @property (strong, nonatomic) NSString *phone;
 

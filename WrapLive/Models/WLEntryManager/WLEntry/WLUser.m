@@ -15,8 +15,6 @@
 
 @dynamic current;
 @dynamic name;
-@dynamic phone;
-@dynamic email;
 @dynamic signInCount;
 @dynamic contributions;
 @dynamic wraps;

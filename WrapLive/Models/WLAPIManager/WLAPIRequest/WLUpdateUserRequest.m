@@ -28,16 +28,14 @@
     self.filePath = self.user.picture.large;
     WLUser* user = self.user;
     [parameters trySetObject:user.name forKey:@"name"];
-    if (user.email.nonempty) {
-        [parameters trySetObject:user.email forKey:@"email"];
-    }
+    [parameters trySetObject:self.email forKey:@"email"];
     return parameters;
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLUser* user = self.user;
     WLAuthorization* authorization = [WLAuthorization currentAuthorization];
-    authorization.email = user.email;
+    authorization.email = self.email;
     [authorization setCurrent];
     [user API_setup:response.data[@"user"]];
     [user setCurrent];

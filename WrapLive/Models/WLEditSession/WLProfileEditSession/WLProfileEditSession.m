@@ -9,6 +9,7 @@
 #import "WLProfileEditSession.h"
 #import "WlUser.h"
 #import "NSDictionary+Extended.h"
+#import "WLAuthorization.h"
 
 @implementation WLProfileEditSession
 
@@ -38,7 +39,7 @@
 
 - (void)setup:(NSMutableDictionary *)dictionary entry:(WLUser *)user {
     [dictionary trySetObject:user.name forKey:@"name"];
-    [dictionary trySetObject:user.email forKey:@"email"];
+    [dictionary trySetObject:[[WLAuthorization currentAuthorization] email] forKey:@"email"];
     [dictionary trySetObject:user.picture.large forKey:@"url"];
 }
 
@@ -56,7 +57,6 @@
 
 - (void)apply:(NSMutableDictionary *)dictionary entry:(WLUser *)user {
     user.name = [dictionary objectForKey:@"name"];
-    user.email = [dictionary objectForKey:@"email"];
     user.picture.large = [dictionary objectForKey:@"url"];
 }
 

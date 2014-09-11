@@ -47,7 +47,7 @@
     self.editSession = [[WLProfileEditSession alloc] initWithEntry:self.user];
 	self.nameTextField.text = self.user.name;
 	self.imageView.url = self.user.picture.large;
-	self.emailTextField.text = self.user.email;
+	self.emailTextField.text = [[WLAuthorization currentAuthorization] email];
 	self.stillPictureCameraPosition = AVCaptureDevicePositionFront;
 	self.stillPictureMode = WLCameraModeAvatar;
     self.notPresentShakeViewController = YES;
@@ -112,7 +112,9 @@
 			[super updateIfNeeded:completion];
 			__weak typeof(self)weakSelf = self;
             [self.editSession apply:self.user];
-            [[WLUpdateUserRequest request:self.user] send:^(id object) {
+            WLUpdateUserRequest *userRequest = [WLUpdateUserRequest request:self.user];
+            userRequest.email = self.emailTextField.text;
+            [userRequest send:^(id object) {
                 [weakSelf.spinner stopAnimating];
 				[weakSelf unlock];
 				completion();

@@ -32,9 +32,7 @@
     </entity>
     <entity name="WLUser" representedClassName="WLUser" parentEntity="WLEntry">
         <attribute name="current" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="signInCount" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
         <relationship name="contributions" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WLContribution" inverseName="contributor" inverseEntity="WLContribution" syncable="YES"/>
         <relationship name="wraps" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WLWrap" inverseName="contributors" inverseEntity="WLWrap" syncable="YES"/>
@@ -55,7 +53,7 @@
         <element name="WLEntry" positionX="0" positionY="0" width="128" height="118"/>
         <element name="WLMessage" positionX="18" positionY="72" width="128" height="73"/>
         <element name="WLUploading" positionX="0" positionY="0" width="128" height="60"/>
-        <element name="WLUser" positionX="0" positionY="0" width="128" height="148"/>
+        <element name="WLUser" positionX="0" positionY="0" width="128" height="120"/>
         <element name="WLWrap" positionX="0" positionY="0" width="128" height="103"/>
     </elements>
 </model>

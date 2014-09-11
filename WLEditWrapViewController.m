@@ -69,13 +69,13 @@ static NSString *const WLLeave = @"Leave";
 }
 
 - (IBAction)back:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismiss];
 }
 
 - (IBAction)deleteButtonClick:(id)sender {
     WLWrap *wrap = [WLWrap entry:self.wrap.identifier];
     if ([self isMyWrap]) {
-        [self back:nil];
+        [self.navigationController popViewControllerAnimated:YES];
         [wrap remove:^(id object) {
         } failure:^(NSError *error) {
             [error show];

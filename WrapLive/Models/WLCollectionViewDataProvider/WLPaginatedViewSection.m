@@ -72,10 +72,10 @@
 - (id)footer:(NSIndexPath *)indexPath {
     static NSString* identifier = @"WLLoadingView";
     WLLoadingView* loadingView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier forIndexPath:indexPath];
-//    loadingView.error = NO;
+    loadingView.error = NO;
     [self append:nil failure:^(NSError *error) {
         [error showIgnoringNetworkError];
-//        loadingView.error = YES;
+        loadingView.error = YES;
     }];
     return loadingView;
 }

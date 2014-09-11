@@ -14,6 +14,7 @@
 #import "WLTimelineEventCell.h"
 #import "WLTimelineEventHeaderView.h"
 #import "WLCandyCell.h"
+#import "WLLoadingView.h"
 
 @interface WLTimelineViewDataProvider () <WLPaginatedSetDelegate>
 
@@ -41,12 +42,6 @@
     } else if (failure) {
         failure(nil);
     }
-}
-
-- (void)append {
-    [self append:nil failure:^(NSError *error) {
-        [error showIgnoringNetworkError];
-    }];
 }
 
 - (void)refresh {
@@ -87,8 +82,13 @@
         view.event = event;
         return view;
     } else {
-        [self append];
-        return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLLoadingView" forIndexPath:indexPath];
+        WLLoadingView* loadingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLLoadingView" forIndexPath:indexPath];
+        loadingView.error = NO;
+        [self append:nil failure:^(NSError *error) {
+            [error showIgnoringNetworkError];
+            loadingView.error = YES;
+        }];
+        return loadingView;
     }
 }
 

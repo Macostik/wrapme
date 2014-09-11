@@ -80,7 +80,7 @@
 }
 
 - (void)handleResponse:(NSOrderedSet*)entries success:(WLOrderedSetBlock)success {
-    if (!entries.nonempty || ![self addEntries:entries]) {
+    if ((!entries.nonempty || ![self addEntries:entries]) && self.request.type == WLPaginatedRequestTypeOlder) {
         self.completed = YES;
         [self.delegate paginatedSetChanged:self];
     }

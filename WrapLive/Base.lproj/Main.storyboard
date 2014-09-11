@@ -1096,7 +1096,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         </button>
                                     </subviews>
                                 </collectionReusableView>
-                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLLoadingView" id="QzS-Np-NIW">
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLLoadingView" id="QzS-Np-NIW" customClass="WLLoadingView">
                                     <rect key="frame" x="0.0" y="458" width="320" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -1106,6 +1106,9 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         </activityIndicatorView>
                                     </subviews>
+                                    <connections>
+                                        <outlet property="spinner" destination="isU-ta-Gma" id="2Mr-r6-wWs"/>
+                                    </connections>
                                 </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="5hc-ZE-poP" id="Gcb-Tb-19z"/>

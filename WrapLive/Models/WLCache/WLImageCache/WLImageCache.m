@@ -136,7 +136,12 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 		return;
 	}
 	dispatch_async(self.queue, ^{
-       [_manager createFileAtPath:identifier contents:data attributes:nil];
+        if([UIDevice currentDevice].systemVersion.floatValue <= 7.1) { // Crash only on the iOS 8
+            [_manager createFileAtPath:identifier contents:data attributes:nil];
+        } else {
+            [data writeToFile:[[_manager currentDirectoryPath] stringByAppendingPathComponent:identifier] atomically:YES];
+        }
+       
         [self.identifiers addObject:identifier];
 		run_in_main_queue(^{
 			if (completion) {

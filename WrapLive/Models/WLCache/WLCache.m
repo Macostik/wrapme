@@ -93,7 +93,11 @@
 - (void)write:(NSString *)identifier object:(id)object {
     NSData* data = [NSKeyedArchiver archivedDataWithRootObject:object];
     if (data) {
-        [_manager createFileAtPath:identifier contents:data attributes:nil];
+        if([UIDevice currentDevice].systemVersion.floatValue <= 7.1) { // Crash only on the iOS 8
+            [_manager createFileAtPath:identifier contents:data attributes:nil];
+        } else {
+            [data writeToFile:[[_manager currentDirectoryPath] stringByAppendingPathComponent:identifier] atomically:YES];
+        }
     }
 }
 

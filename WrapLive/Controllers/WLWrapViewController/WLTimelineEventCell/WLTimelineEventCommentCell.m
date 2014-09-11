@@ -22,7 +22,7 @@
 
 - (void)setup:(WLComment*)comment {
     self.imageView.url = comment.picture.small;
-    self.textLabel.text = comment.text;
+    self.textLabel.text = [NSString stringWithFormat:@"\"%@\"", comment.text];
     if (!NSNumberEqual(comment.unread, @NO)) comment.unread = @NO;
 }
 

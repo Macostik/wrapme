@@ -412,4 +412,10 @@
     }
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    for (UICollectionViewCell* cell in [self.collectionView visibleCells]) {
+        cell.alpha = (cell.frame.size.width - ABS(cell.x - scrollView.contentOffset.x)) / cell.frame.size.width;
+    }
+}
+
 @end

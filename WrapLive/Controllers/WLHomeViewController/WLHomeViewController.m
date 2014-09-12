@@ -176,14 +176,13 @@
         return;
     }
     void (^showNotificationBlock)(void) = ^{
-        WLWrap *wrap = notification.wrap;
         WLNotificationType type = notification.type;
 		if (type == WLNotificationContributorAddition) {
-            [wrap present];
+            [notification.wrap present];
 		} else if (type == WLNotificationImageCandyAddition ||
                    type == WLNotificationChatCandyAddition  ||
                    type == WLNotificationCandyCommentAddition) {
-            [wrap present];
+            [notification.candy present];
 		}
 	};
     
@@ -209,36 +208,13 @@
 }
 
 static CGFloat WLNotificationsLabelSize = 22;
-static CGFloat WLCountOfDays = 7;
 
 - (void)updateNotificationsLabel {
     UILabel* label = self.notificationsLabel;
-    NSUInteger count = [[self badgeNotificationCount] count];
+    NSUInteger count = [[[WLNotificationCenter defaultCenter] notificationEntries:YES] count];
     label.hidden = count == 0;
     label.text = [NSString stringWithFormat:@"%lu", (unsigned long)count];
     label.width = MAX(WLNotificationsLabelSize, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLNotificationsLabelSize)].width + 12);
-}
-
-- (NSOrderedSet *)badgeNotificationCount {
-    NSMutableOrderedSet *buffer = [NSMutableOrderedSet orderedSet];
-    NSDate *endDate = [[WLServerTime current] dayByAddingDayCount:-WLCountOfDays];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@ AND unread == YES", endDate, [WLUser currentUser]];
-    [[WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"] all:^(WLComment *comment) {
-        if ([[comment candy].contributor isCurrentUser]) {
-            [buffer addObject:comment];
-        } else {
-            BOOL flag = NO;
-            for (WLComment* _comment in comment.candy.comments) {
-                if ([_comment.contributor isCurrentUser]) {
-                    flag = YES;
-                } else if (flag && _comment == comment) {
-                    [buffer addObject:comment];
-                    break;
-                }
-            }
-        }
-    }];
-    return buffer;
 }
 
 #pragma mark - Actions

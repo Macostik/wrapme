@@ -31,9 +31,9 @@
 
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier;
 
-- (NSOrderedSet*)entriesOfClass:(Class)entryClass;
+- (NSMutableOrderedSet*)entriesOfClass:(Class)entryClass;
 
-- (NSOrderedSet*)entriesOfClass:(Class)entryClass configure:(void (^)(NSFetchRequest* request))configure;
+- (NSMutableOrderedSet*)entriesOfClass:(Class)entryClass configure:(void (^)(NSFetchRequest* request))configure;
 
 - (void)deleteEntry:(WLEntry*)entry;
 
@@ -57,9 +57,13 @@
 
 + (instancetype)entry:(NSString*)identifier;
 
-+ (NSOrderedSet*)entries;
++ (NSMutableOrderedSet*)entries;
 
-+ (NSOrderedSet*)entries:(void (^)(NSFetchRequest* request))configure;
++ (NSMutableOrderedSet*)entries:(void (^)(NSFetchRequest* request))configure;
+
++ (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key ascending:(BOOL)flag;
+
++ (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key;
 
 - (NSPredicate*)predicate;
 
@@ -68,10 +72,6 @@
 - (void)save;
 
 - (void)remove;
-
-+ (NSOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key ascending:(BOOL)flag;
-
-+ (NSOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key;
 
 @end
 

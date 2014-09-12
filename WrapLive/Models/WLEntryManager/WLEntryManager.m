@@ -135,11 +135,11 @@
     return entry;
 }
 
-- (NSOrderedSet *)entriesOfClass:(Class)entryClass {
+- (NSMutableOrderedSet *)entriesOfClass:(Class)entryClass {
 	return [self entriesOfClass:entryClass configure:nil];
 }
 
-- (NSOrderedSet *)entriesOfClass:(Class)entryClass configure:(void (^)(NSFetchRequest *request))configure {
+- (NSMutableOrderedSet *)entriesOfClass:(Class)entryClass configure:(void (^)(NSFetchRequest *request))configure {
     NSString* name = NSStringFromClass(entryClass);
     NSEntityDescription* entity = [NSEntityDescription entityForName:name inManagedObjectContext:self.context];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
@@ -147,7 +147,7 @@
 	if (configure) {
 		configure(request);
 	}
-    return [NSOrderedSet orderedSetWithArray:[self.context executeFetchRequest:request error:NULL]];
+    return [NSMutableOrderedSet orderedSetWithArray:[self.context executeFetchRequest:request error:NULL]];
 }
 
 - (void)deleteEntry:(WLEntry *)entry {
@@ -221,13 +221,25 @@ static NSString *WLEntryIdentifierKey = @"identifier";
 	return [[WLEntryManager manager] entryOfClass:self identifier:identifier];
 }
 
-+ (NSOrderedSet*)entries {
++ (NSMutableOrderedSet*)entries {
     return [self entries:nil];
 }
 
-+ (NSOrderedSet *)entries:(void (^)(NSFetchRequest *))configure {
++ (NSMutableOrderedSet *)entries:(void (^)(NSFetchRequest *))configure {
 	return [[WLEntryManager manager] entriesOfClass:self configure:configure];
 }
+
++ (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key ascending:(BOOL)flag {
+    return [self entries:^(NSFetchRequest *request) {
+        request.predicate = predicate;
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:key ascending:flag]];
+    }];
+}
+
++ (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key {
+    return [self entriesWithPredicate:predicate sorterByKey:key ascending:NO];
+}
+
 
 - (NSPredicate *)predicate {
     return [[[self class] predicate] predicateWithSubstitutionVariables:[self substitutionVariables]];
@@ -270,17 +282,6 @@ static NSString *WLEntryIdentifierKey = @"identifier";
 
 - (BOOL)valid {
     return self.managedObjectContext != nil;
-}
-
-+ (NSOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key ascending:(BOOL)flag {
-    return [self entries:^(NSFetchRequest *request) {
-        request.predicate = predicate;
-        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:key ascending:flag]];
-    }];
-}
-
-+ (NSOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key {
-    return [self entriesWithPredicate:predicate sorterByKey:key ascending:NO];
 }
 
 @end

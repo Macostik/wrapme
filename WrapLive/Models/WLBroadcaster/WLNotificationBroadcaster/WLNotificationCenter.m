@@ -22,6 +22,8 @@
 #import "WLNotificationChannel.h"
 #import "NSPropertyListSerialization+Shorthand.h"
 #import "NSString+Documents.h"
+#import "WLServerTime.h"
+#import "NSDate+Additions.h"
 
 static NSString* WLPubNubOrigin = @"pubsub.pubnub.com";
 static NSString* WLPubNubPublishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
@@ -171,6 +173,31 @@ static WLDataBlock deviceTokenCompletion = nil;
         return YES;
     };
     [self broadcast:@selector(broadcaster:notificationReceived:) object:notification select:selectBlock];
+}
+
+- (NSMutableOrderedSet *)notificationEntries:(BOOL)unread {
+    static CGFloat WLCountOfDays = 7;
+    NSDate *endDate = [[WLServerTime current] dayByAddingDayCount:-WLCountOfDays];
+    NSPredicate *predicate = nil;
+    if (unread) {
+        predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@ AND unread == YES", endDate, [WLUser currentUser]];
+    } else {
+        predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@", endDate, [WLUser currentUser]];
+    }
+    
+    return [[WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"] map:^id (WLComment *comment) {
+        if ([[comment candy].contributor isCurrentUser]) {
+            return comment;
+        } else {
+            NSUInteger index = [comment.candy.comments indexOfObjectPassingTest:^BOOL(WLComment* _comment, NSUInteger idx, BOOL *stop) {
+                return [_comment.contributor isCurrentUser];
+            }];
+            if (index != NSNotFound && [comment.candy.comments indexOfObject:comment] > index) {
+                return comment;
+            }
+        }
+        return nil;
+    }];
 }
 
 #pragma mark - PNDelegate

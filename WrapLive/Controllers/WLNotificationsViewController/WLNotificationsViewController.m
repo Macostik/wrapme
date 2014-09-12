@@ -25,11 +25,9 @@
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCollectionViewSection *dataSection;
-@property (strong, nonatomic) NSMutableOrderedSet *notification;
+@property (strong, nonatomic) NSMutableOrderedSet *readNotifications;
 
 @end
-
-static CGFloat WLCountOfDays = 7;
 
 @implementation WLNotificationsViewController
 
@@ -38,11 +36,11 @@ static CGFloat WLCountOfDays = 7;
     self.userView.avatarView.layer.borderWidth = 1;
 	self.userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userView.user = [WLUser currentUser];
-    self.notification = [NSMutableOrderedSet orderedSet];
+    self.readNotifications = [NSMutableOrderedSet orderedSet];
     
     __weak __typeof(self)weakSelf = self;
     [self.dataSection setConfigure:^(id cell, id entry) {
-        [weakSelf.notification addObject:entry];
+        [weakSelf.readNotifications addObject:entry];
     }];
  
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
@@ -50,42 +48,33 @@ static CGFloat WLCountOfDays = 7;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self displayNotificatioByCriteria];
+    self.dataSection.entries = [[WLNotificationCenter defaultCenter] notificationEntries:NO];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentCreated:(WLComment*)comment {
-    [self displayNotificatioByCriteria];
+    self.dataSection.entries = [[WLNotificationCenter defaultCenter] notificationEntries:NO];
 }
 
-- (void)displayNotificatioByCriteria {
-    NSMutableOrderedSet *buffer = [NSMutableOrderedSet orderedSet];
-    NSDate *endDate = [[WLServerTime current] dayByAddingDayCount:-WLCountOfDays];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@", endDate, [WLUser currentUser]];
-    [[WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"] all:^(WLComment *comment) {
-        if ([[comment candy].contributor isCurrentUser]) {
-            [buffer addObject:comment];
-        } else {
-            BOOL flag = NO;
-            for (WLComment* _comment in comment.candy.comments) {
-                if ([_comment.contributor isCurrentUser]) {
-                    flag = YES;
-                } else if (flag && _comment == comment) {
-                    [buffer addObject:comment];
-                    break;
-                }
-            }
-        }
-    }];
-    self.dataSection.entries = buffer;
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentRemoved:(WLComment *)comment {
+    if ([self.readNotifications containsObject:comment]) {
+        [self.readNotifications removeObject:comment];
+    }
+    NSMutableOrderedSet* entries = self.dataSection.entries.entries;
+    if ([entries containsObject:comment]) {
+        [entries removeObject:comment];
+        [self.dataSection reload];
+    }
 }
 
 - (IBAction)back:(id)sender {
-    [self.notification all:^(WLComment *commment) {
-        if (commment.text.nonempty) {
-            commment.unread = @(NO);
-        }
-    }];
-    [[WLEntryManager manager] save];
+    if (self.readNotifications.nonempty) {
+        [self.readNotifications all:^(WLComment *commment) {
+            if (commment.valid) {
+                commment.unread = @(NO);
+            }
+        }];
+        [[WLEntryManager manager] save];
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 

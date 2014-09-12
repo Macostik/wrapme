@@ -12,6 +12,7 @@
 @class WLCandy;
 @class WLComment;
 @class WLUser;
+@class WLMessage;
 
 typedef NS_ENUM(NSUInteger, WLNotificationType) {
 	WLNotificationContributorAddition  = 100,

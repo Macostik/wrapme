@@ -19,6 +19,7 @@
 #import "NSDate+Formatting.h"
 #import "WLServerTime.h"
 #import "WLEntryManager.h"
+#import "WLNavigation.h"
 
 @interface WLNotificationsViewController () <WLWrapBroadcastReceiver>
 
@@ -41,6 +42,10 @@
     __weak __typeof(self)weakSelf = self;
     [self.dataSection setConfigure:^(id cell, id entry) {
         [weakSelf.readNotifications addObject:entry];
+    }];
+    
+    [self.dataSection setSelection:^(WLEntry* entry) {
+        [entry present];
     }];
  
     [[WLWrapBroadcaster broadcaster] addReceiver:self];

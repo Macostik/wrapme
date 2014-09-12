@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
@@ -2174,7 +2174,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="b0w-IA-ZYu">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
@@ -2211,7 +2211,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="46L-mU-Uks">
                                 <rect key="frame" x="97" y="443" width="125" height="125"/>
@@ -2283,7 +2283,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                         <outlet property="contributorsLabel" destination="6dW-gY-pJQ" id="x2W-UL-3a3"/>
                         <outlet property="dataProvider" destination="6Bj-MV-XWG" id="Xhg-9l-P7S"/>
                         <outlet property="historyViewSection" destination="u9r-1x-r06" id="nZ4-U4-0Zk"/>
-                        <outlet property="nameLabel" destination="irm-8j-xhe" id="9TW-0v-k1h"/>
+                        <outlet property="nameLabel" destination="irm-8j-xhe" id="TEy-fO-Ai1"/>
                         <outlet property="timelineDataProvider" destination="wR6-YI-40M" id="ddf-Cb-0Va"/>
                         <outlet property="viewButton" destination="LH6-5S-pun" id="EbH-tt-oC7"/>
                     </connections>
@@ -2298,9 +2298,9 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                 <customObject id="wR6-YI-40M" customClass="WLTimelineViewDataProvider">
                     <connections>
                         <outlet property="collectionView" destination="p36-27-cbv" id="C8y-kj-ECI"/>
-                        <outletCollection property="animationViews" destination="aqT-yE-MER" id="a2x-cm-hds"/>
-                        <outletCollection property="animationViews" destination="Fzq-yp-f3W" id="kZK-wK-que"/>
-                        <outletCollection property="animationViews" destination="8kR-VI-DgA" id="1wO-6y-4gb"/>
+                        <outletCollection property="animationViews" destination="2v5-fX-sVI" id="t3m-SZ-1xE"/>
+                        <outletCollection property="animationViews" destination="46L-mU-Uks" id="dEc-e2-AAi"/>
+                        <outletCollection property="animationViews" destination="aqT-yE-MER" id="BsT-gO-12P"/>
                     </connections>
                 </customObject>
                 <customObject id="u9r-1x-r06" customClass="WLCandiesHistoryViewSection">

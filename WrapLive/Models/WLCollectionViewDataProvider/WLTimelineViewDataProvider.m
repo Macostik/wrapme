@@ -86,7 +86,7 @@
         loadingView.error = NO;
         [self append:nil failure:^(NSError *error) {
             [error showIgnoringNetworkError];
-            loadingView.error = YES;
+            if (error) loadingView.error = YES;
         }];
         return loadingView;
     }

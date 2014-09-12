@@ -180,8 +180,10 @@
     for (WLCollectionViewSection* section in _sections) {
         [section scrollViewDidScroll:scrollView];
     }
-    if (self.animationViews.nonempty && scrollView.tracking && scrollView.scrollable) {
-        self.direction = [scrollView.panGestureRecognizer translationInView:scrollView].y > 0 ? DirectionDown : DirectionUp;
+    if (self.animationViews.nonempty && scrollView.tracking) {
+        if (scrollView.contentSize.height > scrollView.height || self.direction == DirectionUp) {
+            self.direction = [scrollView.panGestureRecognizer translationInView:scrollView].y > 0 ? DirectionDown : DirectionUp;
+        }
     }
 }
 
@@ -211,7 +213,7 @@
                 }
             };
         }
-        for (UIView* subview in cv.superview.subviews) {
+        for (UIView* subview in self.animationViews) {
             if (subview == cv) continue;
             subview.transform = transform(subview);
         }

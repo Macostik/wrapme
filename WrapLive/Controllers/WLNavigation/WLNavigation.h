@@ -71,6 +71,8 @@ static NSString* WLCameraNavigationControllerIdentifier = @"WLCameraNavigationCo
 
 + (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated;
 
+- (void)pushUniqueClassViewController:(UIViewController *)viewController animated:(BOOL)animated;
+
 @end
 
 @interface UIWindow (WLNavigation)
@@ -85,9 +87,13 @@ static NSString* WLCameraNavigationControllerIdentifier = @"WLCameraNavigationCo
 
 - (UIViewController*)viewController;
 
-- (void)presentInViewController:(UIViewController*)controller;
+- (void)present;
 
-- (void)presentInViewController:(UIViewController*)controller animated:(BOOL)animated;
+- (void)present:(BOOL)animated;
+
+- (void)presentInNavigationController:(UINavigationController*)navigationController;
+
+- (void)presentInNavigationController:(UINavigationController*)navigationController animated:(BOOL)animated;
 
 @end
 
@@ -96,3 +102,5 @@ static NSString* WLCameraNavigationControllerIdentifier = @"WLCameraNavigationCo
 @interface WLMessage (WLNavigation) @end
 
 @interface WLWrap (WLNavigation) @end
+
+@interface WLComment (WLNavigation) @end

@@ -95,7 +95,7 @@
     }];
     
     [self.section setSelection:^(id entry) {
-        [entry presentInViewController:weakSelf];
+        [entry present];
     }];
     
 }
@@ -138,7 +138,7 @@
         __weak typeof(self)weakSelf = self;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            [weakSelf.section.wrap presentInViewController:self];
+            [weakSelf.section.wrap present];
         });
 	}
 }
@@ -175,16 +175,15 @@
     if ([notification deletion]) {
         return;
     }
-    __weak typeof(self)weakSelf = self;
     void (^showNotificationBlock)(void) = ^{
         WLWrap *wrap = notification.wrap;
         WLNotificationType type = notification.type;
 		if (type == WLNotificationContributorAddition) {
-            [wrap presentInViewController:weakSelf];
+            [wrap present];
 		} else if (type == WLNotificationImageCandyAddition ||
                    type == WLNotificationChatCandyAddition  ||
                    type == WLNotificationCandyCommentAddition) {
-            [wrap presentInViewController:weakSelf];
+            [wrap present];
 		}
 	};
     

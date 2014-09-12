@@ -104,12 +104,8 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     
-    __weak typeof(self)weakSelf = self;
     [self.historyViewSection setSelection:^ (id entry) {
-        if ([entry isKindOfClass:[WLComment class]]) {
-            entry = [entry candy];
-        }
-        [entry presentInViewController:weakSelf];
+        [entry present];
     }];
     self.timelineDataProvider.selection = self.historyViewSection.selection;
     
@@ -247,7 +243,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 	WLChatViewController * chatController = [WLChatViewController instantiate];
 	chatController.wrap = self.wrap;
 	chatController.shouldShowKeyboard = YES;
-	[self.navigationController pushViewController:chatController animated:YES];
+	[self.navigationController pushUniqueClassViewController:chatController animated:YES];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate

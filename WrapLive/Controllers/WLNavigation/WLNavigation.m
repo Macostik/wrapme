@@ -123,6 +123,20 @@
 	[[self mainNavigationController] setViewControllers:viewControllers animated:animated];
 }
 
+- (void)pushUniqueClassViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    NSMutableArray* controllers = [NSMutableArray array];
+    for (UIViewController* _controller in self.viewControllers) {
+        if ([_controller isKindOfClass:[viewController class]]) {
+            [controllers addObject:viewController];
+            break;
+        } else {
+            [controllers addObject:_controller];
+        }
+    }
+    if (![controllers containsObject:viewController]) [controllers addObject:viewController];
+    [self setViewControllers:controllers animated:animated];
+}
+
 @end
 
 @implementation UIWindow (WLNavigation)
@@ -130,9 +144,7 @@
 static UIWindow* mainWindow = nil;
 
 + (instancetype)mainWindow {
-    if (mainWindow == nil) {
-        mainWindow = [[[UIApplication sharedApplication] windows] firstObject];
-    }
+    if (mainWindow == nil) mainWindow = [[[UIApplication sharedApplication] windows] firstObject];
 	return mainWindow;
 }
 
@@ -148,14 +160,22 @@ static UIWindow* mainWindow = nil;
     return nil;
 }
 
-- (void)presentInViewController:(UIViewController*)controller {
-    [self presentInViewController:controller animated:YES];
+- (void)present {
+    [self present:YES];
 }
 
-- (void)presentInViewController:(UIViewController*)controller animated:(BOOL)animated {
+- (void)present:(BOOL)animated {
+    [self presentInNavigationController:[UINavigationController mainNavigationController] animated:animated];
+}
+
+- (void)presentInNavigationController:(UINavigationController*)navigationController {
+    [self presentInNavigationController:navigationController animated:YES];
+}
+
+- (void)presentInNavigationController:(UINavigationController*)navigationController animated:(BOOL)animated {
     UIViewController* entryViewController = [self viewController];
     if (entryViewController) {
-        [controller.navigationController pushViewController:entryViewController animated:animated];
+        [navigationController pushUniqueClassViewController:entryViewController animated:animated];
     }
 }
 
@@ -170,22 +190,6 @@ static UIWindow* mainWindow = nil;
     }];
 }
 
-- (void)presentInViewController:(UIViewController*)controller animated:(BOOL)animated {
-    NSMutableArray* controllers = [NSMutableArray array];
-    for (UIViewController* _controller in controller.navigationController.viewControllers) {
-        [controllers addObject:_controller];
-        if (controller == _controller) {
-            break;
-        }
-    }
-    if ([controller isKindOfClass:[WLWrapViewController class]]) {
-        [controllers tryAddObject:[self viewController]];
-    } else {
-        [controllers tryAddObjects:[self.wrap viewController],[self viewController],nil];
-    }
-    [controller.navigationController setViewControllers:controllers animated:animated];
-}
-
 @end
 
 @implementation WLMessage (WLNavigation)
@@ -197,22 +201,6 @@ static UIWindow* mainWindow = nil;
     }];
 }
 
-- (void)presentInViewController:(UIViewController*)controller animated:(BOOL)animated {
-    NSMutableArray* controllers = [NSMutableArray array];
-    for (UIViewController* _controller in controller.navigationController.viewControllers) {
-        [controllers addObject:_controller];
-        if (controller == _controller) {
-            break;
-        }
-    }
-    if ([controller isKindOfClass:[WLWrapViewController class]]) {
-        [controllers tryAddObject:[self viewController]];
-    } else {
-        [controllers tryAddObjects:[self.wrap viewController],[self viewController],nil];
-    }
-    [controller.navigationController setViewControllers:controllers animated:animated];
-}
-
 @end
 
 @implementation WLWrap (WLNavigation)
@@ -222,6 +210,14 @@ static UIWindow* mainWindow = nil;
     return [WLWrapViewController instantiate:^(WLWrapViewController *controller) {
         controller.wrap = weakSelf;
     }];
+}
+
+@end
+
+@implementation WLComment (WLNavigation)
+
+- (UIViewController *)viewController {
+    return [self.candy viewController];
 }
 
 @end

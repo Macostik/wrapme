@@ -31,6 +31,7 @@
 #import "WLDeleteCommentRequest.h"
 #import "WLPostCommentRequest.h"
 #import "WLUploadMessageRequest.h"
+#import "WLEntityRequest.h"
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 
@@ -71,6 +72,19 @@ static BOOL signedIn = NO;
 
 @implementation WLEntry (WLAPIManager)
 
+- (BOOL)fetched {
+    return YES;
+}
+
+- (id)fetchIfNeeded:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    if (self.fetched) {
+        if (success) success(self);
+        return nil;
+    } else {
+        return [self fetch:success failure:failure];
+    }
+}
+
 + (id)fresh:(id)relatedEntry success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     success(nil);
     return nil;
@@ -92,8 +106,7 @@ static BOOL signedIn = NO;
 }
 
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    success(self);
-    return nil;
+    return [[WLEntityRequest request:self] send:success failure:failure];
 }
 
 - (id)older:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
@@ -117,6 +130,10 @@ static BOOL signedIn = NO;
 @end
 
 @implementation WLWrap (WLAPIManager)
+
+- (BOOL)fetched {
+    return self.name.nonempty;
+}
 
 - (id)add:(WLWrapBlock)success failure:(WLFailureBlock)failure {
     return [[WLUploadWrapRequest request:self] send:success failure:failure];
@@ -201,6 +218,10 @@ static BOOL signedIn = NO;
 
 @implementation WLCandy (WLAPIManager)
 
+- (BOOL)fetched {
+    return self.picture.medium.nonempty;
+}
+
 - (id)add:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     return [[WLUploadCandyRequest request:self] send:success failure:failure];
 }
@@ -219,13 +240,13 @@ static BOOL signedIn = NO;
     }
 }
 
-- (id)fetch:(WLCandyBlock)success failure:(WLFailureBlock)failure {
-    return [[WLCandyRequest request:self] send:success failure:failure];
-}
-
 @end
 
 @implementation WLMessage (WLAPIManager)
+
+- (BOOL)fetched {
+    return self.text.nonempty;
+}
 
 - (id)add:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     return [[WLUploadMessageRequest request:self] send:success failure:failure];
@@ -234,6 +255,10 @@ static BOOL signedIn = NO;
 @end
 
 @implementation WLComment (WLAPIManager)
+
+- (BOOL)fetched {
+    return self.text.nonempty;
+}
 
 - (id)add:(WLCommentBlock)success failure:(WLFailureBlock)failure {
     return [[WLPostCommentRequest request:self] send:success failure:failure];

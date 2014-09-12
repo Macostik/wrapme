@@ -106,11 +106,13 @@
 		<key>countryCode</key>
 		<string>380</string>
 		<key>phone</key>
-		<string>951383026</string>
+		<string>636467228</string>
 		<key>email</key>
 		<string>s.maximenko.mobidev@gmail.com</string>
 		<key>password</key>
-		<string>aa550ca5b2</string>
+		<string>20b83a5fb4</string>
+		<key>deviceUID</key>
+		<string>2c2f439152930d334a8d741bb30dd2a70d35cd64</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>

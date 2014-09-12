@@ -14,7 +14,7 @@
 
 @interface WLEntryManager ()
 
-@property (strong, nonatomic) NSMutableDictionary* cachedEntries;
+@property (strong, nonatomic) NSMapTable* cachedEntries;
 
 @end
 
@@ -31,8 +31,10 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:UIApplicationWillTerminateNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        self.cachedEntries = [NSMapTable strongToWeakObjectsMapTable];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enqueueSaving) name:UIApplicationWillTerminateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enqueueSaving) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enqueueSaving) name:UIApplicationWillResignActiveNotification object:nil];
     }
     return self;
 }
@@ -77,56 +79,24 @@
     
     return _coordinator;
 }
-- (NSMutableDictionary *)cachedEntries {
-    if (!_cachedEntries) {
-        _cachedEntries = [NSMutableDictionary dictionary];
-    }
-    return _cachedEntries;
-}
 
-- (WLEntry*)cachedEntry:(NSString*)name identifier:(NSString*)identifier {
-    NSMapTable* entries = [self.cachedEntries objectForKey:name];
-    return [entries objectForKey:identifier];
-}
-
-- (void)cacheEntry:(WLEntry*)entry name:(NSString*)name {
-    NSMapTable* entries = [self.cachedEntries objectForKey:name];
-    if (!entries) {
-        entries = [NSMapTable strongToWeakObjectsMapTable];
-        [self.cachedEntries setObject:entries forKey:name];
-    }
-    [entries setObject:entry forKey:entry.identifier];
+- (WLEntry*)cachedEntry:(NSString*)identifier {
+    return [self.cachedEntries objectForKey:identifier];
 }
 
 - (void)cacheEntry:(WLEntry*)entry {
-    [self cacheEntry:entry name:entry.entity.name];
-}
-
-- (void)cacheEntries:(NSOrderedSet *)entries forClass:(Class)entryClass {
-    if (entries.nonempty) {
-        NSString* name = NSStringFromClass(entryClass);
-        NSMapTable* cachedEntries = [self.cachedEntries objectForKey:name];
-        if (!cachedEntries) {
-            cachedEntries = [NSMapTable strongToWeakObjectsMapTable];
-            [self.cachedEntries setObject:entries forKey:name];
-        }
-        for (WLEntry* entry in entries) {
-            [cachedEntries setObject:entry forKey:entry.identifier];
-        }
-    }
+    [self.cachedEntries setObject:entry forKey:entry.identifier];
 }
 
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString *)identifier {
-	if (!identifier.nonempty) {
-		return nil;
-	}
-    NSEntityDescription* entity = [entryClass entity];
-    WLEntry* entry = [self cachedEntry:entity.name identifier:identifier];
+    WLEntry* entry = [self cachedEntry:identifier];
     if (!entry) {
+        if (!identifier.nonempty) return nil;
+        NSEntityDescription* entity = [entryClass entity];
         NSFetchRequest* request = [[NSFetchRequest alloc] init];
         request.entity = entity;
         request.predicate = [NSPredicate predicateWithFormat:@"identifier == %@",identifier];
-        entry = [[self.context executeFetchRequest:request error:NULL] lastObject];
+        entry = [[request execute] lastObject];
         if (!entry) {
             entry = [[WLEntry alloc] initWithEntity:entity insertIntoManagedObjectContext:self.context];
             entry.identifier = identifier;
@@ -140,14 +110,10 @@
 }
 
 - (NSMutableOrderedSet *)entriesOfClass:(Class)entryClass configure:(void (^)(NSFetchRequest *request))configure {
-    NSString* name = NSStringFromClass(entryClass);
-    NSEntityDescription* entity = [NSEntityDescription entityForName:name inManagedObjectContext:self.context];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    request.entity = entity;
-	if (configure) {
-		configure(request);
-	}
-    return [NSMutableOrderedSet orderedSetWithArray:[self.context executeFetchRequest:request error:NULL]];
+    request.entity = [entryClass entity];
+	if (configure) configure(request);
+    return [NSMutableOrderedSet orderedSetWithArray:[request execute]];
 }
 
 - (void)deleteEntry:(WLEntry *)entry {
@@ -178,43 +144,16 @@
 
 @end
 
-static char *WLEntityDescriptionKey = "WLEntityDescriptionKey";
-static char *WLEntryPredicateKey = "WLEntryPredicateKey";
-static char *WLEntrySubstitutionVariablesKey = "WLEntrySubstitutionVariablesKey";
-static NSString *WLEntryIdentifierKey = @"identifier";
-
 @implementation WLEntry (WLEntryManager)
 
 + (NSEntityDescription *)entity {
+    static char *WLEntityDescriptionKey = "WLEntityDescriptionKey";
     NSEntityDescription* entity = objc_getAssociatedObject(self, WLEntityDescriptionKey);
     if (!entity) {
         entity = [NSEntityDescription entityForName:NSStringFromClass(self) inManagedObjectContext:[WLEntryManager manager].context];
         objc_setAssociatedObject(self, WLEntityDescriptionKey, entity, OBJC_ASSOCIATION_RETAIN);
     }
     return entity;
-}
-
-+ (NSPredicate *)predicate {
-    NSPredicate* predicate = objc_getAssociatedObject(self, WLEntryPredicateKey);
-    if (!predicate) {
-        predicate = [NSPredicate predicateWithFormat:@"identifier = $identifier"];
-        objc_setAssociatedObject(self, WLEntryPredicateKey, predicate, OBJC_ASSOCIATION_RETAIN);
-    }
-    return predicate;
-}
-
-+ (NSPredicate *)predicate:(NSString *)identifier {
-    return [[self predicate] predicateWithSubstitutionVariables:[self substitutionVariables:identifier]];
-}
-
-+ (NSDictionary *)substitutionVariables:(NSString *)identifier {
-    NSMutableDictionary* substitutionVariables = objc_getAssociatedObject(self, WLEntrySubstitutionVariablesKey);
-    if (!substitutionVariables) {
-        substitutionVariables = [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, WLEntrySubstitutionVariablesKey, substitutionVariables, OBJC_ASSOCIATION_RETAIN);
-    }
-    [substitutionVariables setObject:identifier forKey:WLEntryIdentifierKey];
-    return substitutionVariables;
 }
 
 + (instancetype)entry:(NSString *)identifier {
@@ -238,24 +177,6 @@ static NSString *WLEntryIdentifierKey = @"identifier";
 
 + (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key {
     return [self entriesWithPredicate:predicate sorterByKey:key ascending:NO];
-}
-
-
-- (NSPredicate *)predicate {
-    return [[[self class] predicate] predicateWithSubstitutionVariables:[self substitutionVariables]];
-}
-
-- (NSDictionary *)substitutionVariables {
-    NSString* identifier = self.identifier;
-    if (identifier.nonempty) {
-        NSDictionary* substitutionVariables = objc_getAssociatedObject(self, WLEntrySubstitutionVariablesKey);
-        if (!substitutionVariables) {
-            substitutionVariables = @{@"identifier":identifier};
-            objc_setAssociatedObject(self, WLEntrySubstitutionVariablesKey, substitutionVariables, OBJC_ASSOCIATION_RETAIN);
-        }
-        return substitutionVariables;
-    }
-    return nil;
 }
 
 - (void)save {

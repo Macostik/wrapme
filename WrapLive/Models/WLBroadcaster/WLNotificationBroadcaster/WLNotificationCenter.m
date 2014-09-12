@@ -104,8 +104,9 @@ static WLDataBlock deviceTokenCompletion = nil;
     [self.userChannel setMessageBlock:^(PNMessage *message) {
         WLNotification *notification = [WLNotification notificationWithMessage:message];
         [notification fetch:^{
-            if (notification.type  == WLNotificationChatCandyAddition) {
-                [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:notification.candy.contributor];
+            if (notification.type  == WLNotificationMessageAdd) {
+                WLMessage* message = (id)notification.targetEntry;
+                [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:message.contributor];
             }
             [WLSoundPlayer play];
             [weakSelf broadcastNotification:notification];
@@ -184,19 +185,9 @@ static WLDataBlock deviceTokenCompletion = nil;
     } else {
         predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@", endDate, [WLUser currentUser]];
     }
-    
+    return [WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"];
     return [[WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"] map:^id (WLComment *comment) {
-        if ([[comment candy].contributor isCurrentUser]) {
-            return comment;
-        } else {
-            NSUInteger index = [comment.candy.comments indexOfObjectPassingTest:^BOOL(WLComment* _comment, NSUInteger idx, BOOL *stop) {
-                return [_comment.contributor isCurrentUser];
-            }];
-            if (index != NSNotFound && [comment.candy.comments indexOfObject:comment] > index) {
-                return comment;
-            }
-        }
-        return nil;
+        return comment.notifiable ? comment : nil;
     }];
 }
 
@@ -239,6 +230,9 @@ static WLDataBlock deviceTokenCompletion = nil;
 @end
 
 @implementation WLNotificationCenter (Typing)
+
+static NSUInteger WLActionBeginTyping = 2000;
+static NSUInteger WLActionEndTyping = 2001;
 
 - (void)subscribeOnTypingChannel:(WLWrap *)wrap success:(WLBlock)success {
     __weak __typeof(self)weakSelf = self;
@@ -285,9 +279,9 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)handleClientState:(NSDictionary*)state user:(WLUser*)user {
     WLNotificationType type = [state[@"action"] integerValue];
-    if (type == WLNotificationBeginTyping) {
+    if (type == WLActionBeginTyping) {
         [self broadcast:@selector(broadcaster:didBeginTyping:) object:user];
-    } else if (type == WLNotificationEndTyping ) {
+    } else if (type == WLActionEndTyping ) {
         [self broadcast:@selector(broadcaster:didEndTyping:) object:user];
     }
 }
@@ -305,11 +299,11 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)beginTyping {
-    [self sendTypingMessageWithType:WLNotificationBeginTyping];
+    [self sendTypingMessageWithType:WLActionBeginTyping];
 }
 
 - (void)endTyping {
-    [self sendTypingMessageWithType:WLNotificationEndTyping];
+    [self sendTypingMessageWithType:WLActionEndTyping];
 }
 
 @end

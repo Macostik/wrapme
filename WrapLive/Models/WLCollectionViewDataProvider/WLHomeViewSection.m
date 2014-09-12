@@ -10,6 +10,7 @@
 #import "WLWrapCell.h"
 #import "AsynchronousOperation.h"
 #import "UIView+Shorthand.h"
+#import "WLWrapRequest.h"
 
 @interface WLHomeViewSection ()
 
@@ -50,7 +51,7 @@
     if ([self.candies count] < WLHomeTopWrapCandiesLimit) {
         [self.loadingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
             run_in_main_queue(^{
-                [wrap fetch:^(WLWrap* wrap) {
+                [wrap fetch:WLWrapContentTypeRecent success:^(NSOrderedSet* candies) {
                     [operation finish];
                 } failure:^(NSError *error) {
                     [operation finish];

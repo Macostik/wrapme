@@ -97,7 +97,6 @@
     [self.section setSelection:^(id entry) {
         [entry present];
     }];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -172,19 +171,7 @@
 #pragma mark - WLNotificationReceiver
 
 - (void)handleRemoteNotification:(WLNotification*)notification {
-    if ([notification deletion]) {
-        return;
-    }
-    void (^showNotificationBlock)(void) = ^{
-        WLNotificationType type = notification.type;
-		if (type == WLNotificationContributorAddition) {
-            [notification.wrap present];
-		} else if (type == WLNotificationImageCandyAddition ||
-                   type == WLNotificationChatCandyAddition  ||
-                   type == WLNotificationCandyCommentAddition) {
-            [notification.candy present];
-		}
-	};
+    if (notification.event == WLEventDelete) return;
     
 	UIViewController* presentedViewController = self.navigationController.presentedViewController;
 	if (presentedViewController) {
@@ -195,10 +182,10 @@
 							cancel:@"Cancel"
 						completion:^{
 			[weakSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
-			showNotificationBlock();
+			[notification.targetEntry present];
 		}];
 	} else {
-		showNotificationBlock();
+		[notification.targetEntry present];
 	}
 }
 

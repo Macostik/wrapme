@@ -25,8 +25,6 @@
 
 + (instancetype)manager;
 
-- (void)cacheEntries:(NSOrderedSet*)entries forClass:(Class)entryClass;
-
 - (void)cacheEntry:(WLEntry*)entry;
 
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier;
@@ -49,12 +47,6 @@
 
 + (NSEntityDescription*)entity;
 
-+ (NSPredicate*)predicate;
-
-+ (NSPredicate*)predicate:(NSString*)identifier;
-
-+ (NSDictionary*)substitutionVariables:(NSString*)identifier;
-
 + (instancetype)entry:(NSString*)identifier;
 
 + (NSMutableOrderedSet*)entries;
@@ -64,10 +56,6 @@
 + (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key ascending:(BOOL)flag;
 
 + (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key;
-
-- (NSPredicate*)predicate;
-
-- (NSDictionary*)substitutionVariables;
 
 - (void)save;
 

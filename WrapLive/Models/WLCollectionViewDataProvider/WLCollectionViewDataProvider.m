@@ -37,6 +37,12 @@
     return [self dataProvider:collectionView sections:@[section]];
 }
 
+- (void)dealloc {
+    UICollectionView* cv = self.collectionView;
+    if (cv.delegate == self) cv.delegate = nil;
+    if (cv.dataSource == self) cv.dataSource = nil;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.sections makeObjectsPerformSelector:@selector(setDataProvider:) withObject:self];

@@ -39,11 +39,6 @@
 	return [dictionary stringForKey:WLWrapUIDKey];
 }
 
-- (void)awakeFromInsert {
-    [super awakeFromInsert];
-    if (!NSNumberEqual(self.unread, @YES)) self.unread = @YES;
-}
-
 - (void)remove {
     [[WLUser currentUser] removeWrap:self];
     [super remove];

@@ -33,6 +33,8 @@ static NSUInteger WLPageSize = 10;
 
 @interface WLEntry (WLAPIManager)
 
+@property (readonly, nonatomic) BOOL fetched;
+
 - (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure;
@@ -40,6 +42,8 @@ static NSUInteger WLPageSize = 10;
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+
+- (id)fetchIfNeeded:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 @end
 

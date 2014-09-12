@@ -8,7 +8,7 @@
 
 #import "WLPaginatedRequest.h"
 
-static NSString* WLWrapContentTypeRecent = @"with_recen_candies";
+static NSString* WLWrapContentTypeRecent = @"with_recent_candies";
 static NSString* WLWrapContentTypePaginated = @"with_paginated_candies";
 
 @interface WLWrapRequest : WLPaginatedRequest

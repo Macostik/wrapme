@@ -266,6 +266,7 @@
 		[weakSelf.collectionView scrollToTopAnimated:YES];
     } failure:^(NSError *error) {
 		[error show];
+        [weakSelf.composeBar performSelector:@selector(setText:) withObject:text afterDelay:0.0f];
     }];
 }
 

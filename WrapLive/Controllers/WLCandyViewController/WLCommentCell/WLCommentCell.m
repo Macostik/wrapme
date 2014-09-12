@@ -80,7 +80,7 @@
     [self.authorImageView setFailure:^(NSError* error) {
         weakSelf.authorImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];
-	self.menu.vibrate = [entry.contributor isCurrentUser];
+    self.menu.vibrate = [entry.contributor isCurrentUser];
     self.circleProgressBar.operation = entry.uploading.operation;
     if (![WLInternetConnectionBroadcaster broadcaster].reachable && !entry.uploaded) {
         self.circleProgressBar.progress = .15f;

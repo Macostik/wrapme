@@ -81,7 +81,9 @@ static CGFloat WLCountOfDays = 7;
 
 - (IBAction)back:(id)sender {
     [self.notification all:^(WLComment *commment) {
-        commment.unread = @(NO);
+        if (commment.text.nonempty) {
+            commment.unread = @(NO);
+        }
     }];
     [[WLEntryManager manager] save];
     [self.navigationController popViewControllerAnimated:YES];

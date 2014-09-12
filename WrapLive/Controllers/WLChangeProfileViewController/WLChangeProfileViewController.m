@@ -47,6 +47,7 @@
     self.editSession = [[WLProfileEditSession alloc] initWithEntry:self.user];
 	self.nameTextField.text = self.user.name;
 	self.imageView.url = self.user.picture.large;
+    self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
 	self.emailTextField.text = [[WLAuthorization currentAuthorization] email];
 	self.stillPictureCameraPosition = AVCaptureDevicePositionFront;
 	self.stillPictureMode = WLCameraModeAvatar;

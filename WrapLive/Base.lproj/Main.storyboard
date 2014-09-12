@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -666,7 +667,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" id="SJq-9P-McW" customClass="WLBorderView">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" id="SJq-9P-McW" customClass="WLBorderView">
                                         <rect key="frame" x="40" y="0.0" width="240" height="240"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
@@ -679,7 +680,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                 <color key="backgroundColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="0.5" colorSpace="deviceRGB"/>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zT6-pp-ssq">
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zT6-pp-ssq">
                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="240"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -689,6 +690,11 @@
                                                     <color key="titleShadowColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <state key="highlighted" image="camera_darkGray"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="120"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <segue destination="PLV-Iu-pRL" kind="modal" identifier="camera" id="3Yu-Mo-fdB"/>
                                                 </connections>
@@ -791,6 +797,7 @@
                         <outlet property="cancelButton" destination="Efj-27-0UK" id="f9c-Po-yLm"/>
                         <outlet property="doneButton" destination="GkU-w3-rTK" id="CSh-K5-pPH"/>
                         <outlet property="emailTextField" destination="82E-k4-0WJ" id="U5o-Rv-VFw"/>
+                        <outlet property="imagePlaceholderView" destination="SJq-9P-McW" id="amY-pq-Miv"/>
                         <outlet property="imageView" destination="AYn-Zt-xUG" id="RLi-hY-DCv"/>
                         <outlet property="mainView" destination="5U6-9C-YuK" id="18g-yQ-oUB"/>
                         <outlet property="nameTextField" destination="D1N-1e-psu" id="aFX-at-9U5"/>
@@ -2997,6 +3004,6 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WjR-f7-d7j"/>
+        <segue reference="3Yu-Mo-fdB"/>
     </inferredMetricsTieBreakers>
 </document>

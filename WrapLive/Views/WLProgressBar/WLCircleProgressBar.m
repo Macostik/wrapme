@@ -11,6 +11,7 @@
 #import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
 #import "NSArray+Additions.h"
+#import "WLInternetConnectionBroadcaster.h"
 #import <AFNetworking/AFURLConnectionOperation.h>
 
 @interface WLCircleProgressBar ()

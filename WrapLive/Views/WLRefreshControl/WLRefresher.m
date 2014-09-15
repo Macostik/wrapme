@@ -14,7 +14,7 @@
 
 static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 
-static CGFloat WLRefresherContentSize = 88.0f;
+static CGFloat WLRefresherContentSize = 44.0f;
 
 @interface WLRefresher ()
 
@@ -25,6 +25,7 @@ static CGFloat WLRefresherContentSize = 88.0f;
 @property (weak, nonatomic) UIImageView* arrowView;
 @property (weak, nonatomic) UIView* contentView;
 @property (nonatomic) UIEdgeInsets defaultContentInsets;
+@property (weak, nonatomic) CAShapeLayer* strokeLayer;
 
 @end
 
@@ -133,11 +134,35 @@ static CGFloat WLRefresherContentSize = 88.0f;
 
 - (UIImageView *)arrowView {
 	if (!_arrowView) {
-		UIImageView* arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_refresh_arrow"]];
+        UIImageView* arrowView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 36, 36)];
+        arrowView.contentMode = UIViewContentModeCenter;
+        arrowView.clipsToBounds = YES;
+        arrowView.layer.cornerRadius = arrowView.width/2;
+        arrowView.layer.borderWidth = 1;
+        arrowView.alpha = 0.5f;
 		[self.contentView addSubview:arrowView];
 		_arrowView = arrowView;
 	}
 	return _arrowView;
+}
+
+- (CAShapeLayer *)strokeLayer {
+    if (!_strokeLayer) {
+        CAShapeLayer* layer = [CAShapeLayer layer];
+
+        layer.frame = self.arrowView.frame;
+        CGFloat size = layer.bounds.size.width/2;
+        UIBezierPath* path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(size, size) radius:size - 1 startAngle:-M_PI_2 endAngle:2*M_PI - M_PI_2 clockwise:YES];
+        layer.path = path.CGPath;
+        layer.strokeStart = 0.0f;
+        layer.strokeEnd = 0.0f;
+        layer.fillColor = [UIColor clearColor].CGColor;
+        layer.lineWidth = 1;
+        
+        [self.contentView.layer addSublayer:layer];
+        _strokeLayer = layer;
+    }
+    return _strokeLayer;
 }
 
 - (UIView *)contentView {
@@ -160,7 +185,6 @@ static CGFloat WLRefresherContentSize = 88.0f;
 	if (self.direction == WLRefresherScrollDirectionHorizontal) {
         self.arrowView.alpha = offset.x >= -self.defaultContentInsets.left ? 0.0f : 1.0f;
 		if (offset.x < 0) {
-			[self setArrowViewRotated:(offset.x <= -(66 + self.defaultContentInsets.left)) animated:YES];
 			if (!self.scrollView.dragging) {
 				[self didEndDragging:self.scrollView.contentOffset];
 			}
@@ -168,7 +192,12 @@ static CGFloat WLRefresherContentSize = 88.0f;
 	} else {
         self.arrowView.alpha = offset.y >= -self.defaultContentInsets.top ? 0.0f : 1.0f;
 		if (offset.y < 0) {
-			[self setArrowViewRotated:(offset.y <= -(66 + self.defaultContentInsets.top)) animated:YES];
+            CGFloat d = Smoothstep(0, 1, ABS((offset.y + self.defaultContentInsets.top) / WLRefresherContentSize));
+            [CATransaction begin];
+            [CATransaction setAnimationDuration:0];
+            self.strokeLayer.strokeEnd = d;
+            [CATransaction commit];
+            self.arrowView.alpha = d == 1 ? 1.0f : 0.5f;
 			if (!self.scrollView.dragging) {
 				[self didEndDragging:self.scrollView.contentOffset];
 			}
@@ -176,51 +205,40 @@ static CGFloat WLRefresherContentSize = 88.0f;
 	}
 }
 
-- (void)setArrowViewRotated:(BOOL)rotated animated:(BOOL)animated {
-	
-	CGAffineTransform transform;
-	
-	if (self.direction == WLRefresherScrollDirectionHorizontal) {
-		transform = CGAffineTransformMakeRotation(rotated ? M_PI_2 : (M_PI_2 + M_PI));
-	} else {
-		transform = CGAffineTransformMakeRotation(rotated ? M_PI : 2*M_PI);
-	}
-	
-	if (!CGAffineTransformEqualToTransform(self.arrowView.transform, transform)) {
-		if (animated) {
-			[UIView beginAnimations:nil context:nil];
-			[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-		}
-		self.arrowView.transform = transform;
-		if (animated) {
-			[UIView commitAnimations];
-		}
-	}
+- (void)setArrowViewHidden:(BOOL)hidden {
+    [CATransaction begin];
+    [CATransaction setAnimationDuration:0];
+    self.arrowView.hidden = hidden;
+    self.strokeLayer.hidden = hidden;
+    [CATransaction commit];
+    if (hidden) {
+        [self.spinner startAnimating];
+    } else {
+        [self.spinner stopAnimating];
+    }
 }
 
 - (void)didEndDragging:(CGPoint)offset {
 	
 	if (self.direction == WLRefresherScrollDirectionHorizontal) {
-		if (!_refreshing && offset.x <= -(66 + self.defaultContentInsets.left)) {
+		if (!_refreshing && offset.x <= -(WLRefresherContentSize + self.defaultContentInsets.left)) {
 			_refreshing = YES;
-			[self.spinner startAnimating];
-			self.arrowView.hidden = YES;
+            [self setArrowViewHidden:YES];
 			[UIView beginAnimations:nil context:nil];
 			UIEdgeInsets insets = self.scrollView.contentInset;
-			insets.left = 88 + self.defaultContentInsets.left;
+			insets.left = WLRefresherContentSize + self.defaultContentInsets.left;
 			self.scrollView.contentInset = insets;
 			[UIView commitAnimations];
 			[self sendActionsForControlEvents:UIControlEventValueChanged];
             [self.scrollView setContentOffset:CGPointMake(-insets.left, 0) animated:YES];
 		}
 	} else {
-		if (!_refreshing && offset.y <= -(66 + self.defaultContentInsets.top)) {
+		if (!_refreshing && offset.y <= -(WLRefresherContentSize + self.defaultContentInsets.top)) {
 			_refreshing = YES;
-			[self.spinner startAnimating];
-			self.arrowView.hidden = YES;
+			[self setArrowViewHidden:YES];
 			[UIView beginAnimations:nil context:nil];
 			UIEdgeInsets insets = self.scrollView.contentInset;
-			insets.top = 88 + self.defaultContentInsets.top;
+			insets.top = WLRefresherContentSize + self.defaultContentInsets.top;
 			self.scrollView.contentInset = insets;
 			[UIView commitAnimations];
 			[self sendActionsForControlEvents:UIControlEventValueChanged];
@@ -241,9 +259,7 @@ static CGFloat WLRefresherContentSize = 88.0f;
     insets.top = self.defaultContentInsets.top;
     self.scrollView.contentInset = insets;
     [UIView commitAnimations];
-    [self.spinner stopAnimating];
-    [self setArrowViewRotated:NO animated:NO];
-    self.arrowView.hidden = NO;
+    [self setArrowViewHidden:NO];
 }
 
 - (void)refresh {
@@ -255,13 +271,17 @@ static CGFloat WLRefresherContentSize = 88.0f;
 - (void)setColorScheme:(WLRefresherColorScheme)colorScheme {
 	_colorScheme = colorScheme;
 	if (colorScheme == WLRefresherColorSchemeOrange) {
-		self.arrowView.image = [UIImage imageNamed:@"ic_refresh_arrow_orange"];
+		self.arrowView.image = [UIImage imageNamed:@"ic_middle_candy"];
 		self.backgroundColor = [UIColor whiteColor];
 		self.spinner.color = [UIColor WL_orangeColor];
+        self.strokeLayer.strokeColor = [UIColor WL_orangeColor].CGColor;
+        self.arrowView.layer.borderColor = [UIColor WL_orangeColor].CGColor;
 	} else {
-		self.arrowView.image = [UIImage imageNamed:@"ic_refresh_arrow_white"];
+		self.arrowView.image = [UIImage imageNamed:@"ic_refresh_candy_white"];
 		self.backgroundColor = [UIColor WL_orangeColor];
 		self.spinner.color = [UIColor whiteColor];
+        self.strokeLayer.strokeColor = [UIColor whiteColor].CGColor;
+        self.arrowView.layer.borderColor = [UIColor whiteColor].CGColor;
 	}
 }
 

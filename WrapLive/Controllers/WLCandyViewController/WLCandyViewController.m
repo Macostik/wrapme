@@ -40,6 +40,7 @@
 #import "WLWrap+Extended.h"
 #import "WLDetailedCandyCell.h"
 #import "UIView+AnimationHelper.h"
+#import "WLInternetConnectionBroadcaster.h"
 
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate>
 
@@ -80,6 +81,7 @@
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 	[[WLWrapBroadcaster broadcaster] addReceiver:self];
+    [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
 
     [self.collectionView reloadData];
     if (_candy && [self.group.entries containsObject:_candy]) {
@@ -369,8 +371,8 @@
 - (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
 	composeBar.y = self.view.height - [[WLKeyboardBroadcaster broadcaster].keyboardHeight floatValue] - composeBar.height;
     __weak typeof(self)weakSelf = self;
-    [self.collectionView reloadData];
-    run_after(0.0f, ^{
+      [self.collectionView reloadData];
+    run_after(0.1f, ^{
         [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
     });
 }
@@ -415,6 +417,14 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     for (UICollectionViewCell* cell in [self.collectionView visibleCells]) {
         cell.alpha = (cell.frame.size.width - ABS(cell.x - scrollView.contentOffset.x)) / cell.frame.size.width;
+    }
+}
+
+#pragma mark - WLInternetConnectionBroadcaster
+
+- (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
+    if (![reachable boolValue]) {
+        [self.candyCell.tableView reloadData];
     }
 }
 

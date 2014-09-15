@@ -122,7 +122,9 @@
 		<key>email</key>
 		<string>y.granchenko@mobidev.biz</string>
 		<key>password</key>
-		<string>575d00b352</string>
+		<string>349607f57e</string>
+		<key>deviceUID</key>
+		<string>de3cd122d1bb3e1707059b06358c3de45308a372</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>

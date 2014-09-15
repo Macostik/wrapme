@@ -107,7 +107,7 @@
 	progress = Smoothstep(0, 1, progress);
 	float difference = ABS(progress - _progress);
 	_progress = progress;
-	[self updateProgressViewAnimated:animated difference:difference];
+   [self updateProgressViewAnimated:animated difference:difference];
 }
 
 - (void)updateProgressViewAnimated:(BOOL)animated difference:(float)difference {
@@ -128,11 +128,13 @@
 
 - (void)setOperation:(AFURLConnectionOperation *)operation {
     _operation = operation;
-	__weak typeof(self)weakSelf = self;
-    self.progress = operation.progress;
-    [operation setProgressBlock:^(float progress) {
-        [weakSelf setProgress:progress animated:YES];
-    }];
+    __weak typeof(self)weakSelf = self;
+    if (operation) {
+        self.progress = operation.progress;
+        [operation setProgressBlock:^(float progress) {
+            [weakSelf setProgress:progress animated:YES];
+        }];
+    }
 }
 
 @end

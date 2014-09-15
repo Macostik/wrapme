@@ -37,8 +37,6 @@
 
 @property (strong, nonatomic) NSMutableOrderedSet *groupTyping;
 
-@property (nonatomic, weak) WLRefresher* refresher;
-
 @property (nonatomic) BOOL shouldAppendMoreMessages;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -82,12 +80,12 @@
 		}];
 	}
 	__weak typeof(self)weakSelf = self;
-	self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refreshMessages) colorScheme:WLRefresherColorSchemeOrange];
+	[WLRefresher refresher:self.collectionView target:self action:@selector(refreshMessages:) style:WLRefresherStyleOrange];
 	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
 	self.composeBar.placeholder = @"Write your message ...";
 	
 	[weakSelf setMessages:self.wrap.messages];
-    [weakSelf refreshMessages];
+    [weakSelf refreshMessages:nil];
 	
 	self.backSwipeGestureEnabled = YES;
     self.indicator.cornerRadius = self.indicator.width/2;
@@ -141,23 +139,25 @@
     [self.collectionView reloadData];
 }
 
-- (void)refreshMessages {
+- (void)refreshMessages:(WLRefresher*)sender {
 	__weak typeof(self)weakSelf = self;
     WLGroup* group = [self.groups.entries firstObject];
     WLMessage* message = [group.entries firstObject];
     if (!message) {
         [self loadMessages:^{
-            [weakSelf.refresher endRefreshing];
+            [sender setRefreshing:NO animated:YES];
         }];
         return;
     }
     self.operation = [self.wrap messagesNewer:message.createdAt success:^(NSOrderedSet *messages) {
         weakSelf.shouldAppendMoreMessages = messages.count >= WLPageSize;
-		[weakSelf addMessages:messages];
-		[weakSelf.refresher endRefreshing];
+        if (messages.nonempty) {
+            [weakSelf addMessages:messages];
+        }
+        [sender setRefreshing:NO animated:YES];
     } failure:^(NSError *error) {
 		[error showIgnoringNetworkError];
-		[weakSelf.refresher endRefreshing];
+		[sender setRefreshing:NO animated:YES];
     }];
 }
 
@@ -186,7 +186,9 @@
     WLMessage* newerMessage = [group1.entries firstObject];
 	self.operation = [self.wrap messagesOlder:olderMessage.createdAt newer:newerMessage.createdAt success:^(NSOrderedSet *messages) {
 		weakSelf.shouldAppendMoreMessages = messages.count >= WLPageSize;
-		[weakSelf addMessages:messages];
+        if (messages.nonempty) {
+            [weakSelf addMessages:messages];
+        }
 	} failure:^(NSError *error) {
 		weakSelf.shouldAppendMoreMessages = NO;
 		[error showIgnoringNetworkError];

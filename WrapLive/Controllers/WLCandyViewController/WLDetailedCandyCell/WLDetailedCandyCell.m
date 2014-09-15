@@ -32,7 +32,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.refresher = [WLRefresher refresherWithScrollView:self.tableView target:self action:@selector(refresh) colorScheme:WLRefresherColorSchemeOrange];
+    self.refresher = [WLRefresher refresher:self.tableView target:self action:@selector(refresh) style:WLRefresherStyleOrange];
     [self setFullFlexible];
     [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
 }
@@ -42,19 +42,19 @@
 	if (candy.uploaded) {
 		__weak typeof(self)weakSelf = self;
         [candy fetch:^(id object) {
-			[weakSelf.refresher endRefreshing];
+			[weakSelf.refresher setRefreshing:NO animated:YES];
         } failure:^(NSError *error) {
             [error showIgnoringNetworkError];
-			[weakSelf.refresher endRefreshing];
+			[weakSelf.refresher setRefreshing:NO animated:YES];
         }];
 	} else {
-        [self.refresher endRefreshing];
+        [self.refresher setRefreshing:NO animated:YES];
     }
 }
 
 - (void)setupItemData:(WLCandy*)image {
     if (self.refresher.refreshing) {
-        [self.refresher endRefreshing];
+        [self.refresher setRefreshing:NO animated:YES];
     }
 	__weak typeof(self)weakSelf = self;
     if (![WLInternetConnectionBroadcaster broadcaster].reachable) {

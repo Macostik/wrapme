@@ -8,29 +8,29 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, WLRefresherScrollDirection) {
-	WLRefresherScrollDirectionVertical,
-	WLRefresherScrollDirectionHorizontal
+typedef NS_ENUM(NSUInteger, WLRefresherStyle) {
+	WLRefresherStyleWhite,
+	WLRefresherStyleOrange
 };
 
-typedef NS_ENUM(NSUInteger, WLRefresherColorScheme) {
-	WLRefresherColorSchemeWhite,
-	WLRefresherColorSchemeOrange
-};
+@class AFURLConnectionOperation;
 
 @interface WLRefresher : UIControl
 
-@property (nonatomic) WLRefresherColorScheme colorScheme;
+@property (nonatomic) WLRefresherStyle style;
 
 @property (nonatomic) BOOL refreshing;
 
-+ (WLRefresher*)refresherWithScrollView:(UIScrollView*)scrollView refreshBlock:(void (^)(WLRefresher* refresher))refreshBlock;
-+ (WLRefresher*)refresherWithScrollView:(UIScrollView*)scrollView target:(id)target action:(SEL)action colorScheme:(WLRefresherColorScheme)colorScheme;
-+ (WLRefresher*)refresherWithScrollView:(UIScrollView*)scrollView target:(id)target action:(SEL)action;
-+ (WLRefresher*)refresherWithScrollView:(UIScrollView*)scrollView;
-+ (WLRefresher*)refresherWithScrollView:(UIScrollView*)scrollView direction:(WLRefresherScrollDirection)direction;
++ (WLRefresher*)refresher:(UIScrollView*)scrollView target:(id)target action:(SEL)action style:(WLRefresherStyle)style;
 
++ (WLRefresher*)refresher:(UIScrollView*)scrollView target:(id)target action:(SEL)action;
 
-- (void)endRefreshing;
++ (WLRefresher*)refresher:(UIScrollView*)scrollView;
+
++ (WLRefresher*)refresher:(UIScrollView*)scrollView horizontal:(BOOL)horizontal;
+
+- (void)setRefreshing:(BOOL)refreshing animated:(BOOL)animated;
+
+- (void)setOperation:(AFURLConnectionOperation *)operation;
 
 @end

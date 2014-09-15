@@ -40,11 +40,11 @@ typedef NS_ENUM(NSUInteger, Direction) {
 
 - (void)setRefreshable;
 
-- (void)setRefreshableWithColorScheme:(WLRefresherColorScheme)colorScheme contentMode:(UIViewContentMode)contentMode;
+- (void)setRefreshableWithStyle:(WLRefresherStyle)style contentMode:(UIViewContentMode)contentMode;
 
 - (void)setRefreshableWithContentMode:(UIViewContentMode)contentMode;
 
-- (void)setRefreshableWithColorScheme:(WLRefresherColorScheme)colorScheme;
+- (void)setRefreshableWithStyle:(WLRefresherStyle)style;
 
 @end
 

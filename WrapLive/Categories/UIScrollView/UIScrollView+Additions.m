@@ -12,7 +12,8 @@
 @implementation UIScrollView (Additions)
 
 - (void)scrollToTopAnimated:(BOOL)animated {
-	[self setContentOffset:CGPointMake(-self.contentInset.left, -self.contentInset.top) animated:animated];
+    UIEdgeInsets insets = self.contentInset;
+	[self setContentOffset:CGPointMake(-insets.left, -insets.top) animated:animated];
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animated {

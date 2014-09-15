@@ -14,8 +14,6 @@
 
 @interface WLCollectionViewDataProvider ()
 
-@property (weak, nonatomic) WLRefresher *refresher;
-
 @end
 
 @implementation WLCollectionViewDataProvider
@@ -68,35 +66,32 @@
 }
 
 - (void)setRefreshable {
-    [self setRefreshableWithColorScheme:WLRefresherColorSchemeWhite];
+    [self setRefreshableWithStyle:WLRefresherStyleWhite];
 }
 
-- (void)setRefreshableWithColorScheme:(WLRefresherColorScheme)colorScheme contentMode:(UIViewContentMode)contentMode {
-    [self setRefreshableWithColorScheme:colorScheme];
-    self.refresher.contentMode = contentMode;
+- (void)setRefreshableWithStyle:(WLRefresherStyle)style contentMode:(UIViewContentMode)contentMode {
+    [self setRefreshableWithStyle:style contentMode:contentMode];
 }
 
 - (void)setRefreshableWithContentMode:(UIViewContentMode)contentMode {
-    [self setRefreshableWithColorScheme:WLRefresherColorSchemeWhite contentMode:contentMode];
+    [self setRefreshableWithStyle:WLRefresherStyleWhite contentMode:contentMode];
 }
 
-- (void)setRefreshableWithColorScheme:(WLRefresherColorScheme)colorScheme {
-    self.refresher = [WLRefresher refresherWithScrollView:self.collectionView target:self action:@selector(refresh)];
-	self.refresher.colorScheme = colorScheme;
+- (void)setRefreshableWithStyle:(WLRefresherStyle)style {
+    [WLRefresher refresher:self.collectionView target:self action:@selector(refresh:) style:style];
 }
 
-- (void)refresh {
-    __weak typeof(self)weakSelf = self;
+- (void)refresh:(WLRefresher*)sender {
     NSOperationQueue *refreshingQueue = [[NSOperationQueue alloc] init];
     for (WLCollectionViewSection* section in _sections) {
         [refreshingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
             [section refresh:^(NSOrderedSet *orderedSet) {
                 [operation finish:^{
-                    [weakSelf.refresher endRefreshing];
+                    [sender setRefreshing:NO animated:YES];
                 }];
             } failure:^(NSError *error) {
                 [operation finish:^{
-                    [weakSelf.refresher endRefreshing];
+                    [sender setRefreshing:NO animated:YES];
                     [error showIgnoringNetworkError];
                 }];
             }];

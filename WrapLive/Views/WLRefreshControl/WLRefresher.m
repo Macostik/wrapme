@@ -11,21 +11,27 @@
 #import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
 #import "WLBlocks.h"
+#import <AFNetworking/AFURLConnectionOperation.h>
+#import "UIView+AnimationHelper.h"
+#import "UIScrollView+Additions.h"
 
 static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
+
+static NSString* WlRefresherDraggingStateKeyPath = @"panGestureRecognizer.state";
 
 static CGFloat WLRefresherContentSize = 44.0f;
 
 @interface WLRefresher ()
 
 @property (readonly, nonatomic) UIScrollView* scrollView;
-@property (nonatomic) WLRefresherScrollDirection direction;
-@property (strong, nonatomic) void (^refreshBlock) (WLRefresher *);
+@property (nonatomic) BOOL horizontal;
 @property (weak, nonatomic) UIActivityIndicatorView* spinner;
 @property (weak, nonatomic) UIImageView* arrowView;
 @property (weak, nonatomic) UIView* contentView;
-@property (nonatomic) UIEdgeInsets defaultContentInsets;
+@property (nonatomic) CGFloat inset;
 @property (weak, nonatomic) CAShapeLayer* strokeLayer;
+
+@property (nonatomic) BOOL refreshable;
 
 @end
 
@@ -41,9 +47,16 @@ static CGFloat WLRefresherContentSize = 44.0f;
 	[self.superview removeObserver:self
 						forKeyPath:WlRefresherContentOffsetKeyPath
 						   context:NULL];
+    [self.superview removeObserver:self
+						forKeyPath:WlRefresherDraggingStateKeyPath
+						   context:NULL];
 	if (newSuperview) {
 		[newSuperview addObserver:self
 					   forKeyPath:WlRefresherContentOffsetKeyPath
+						  options:NSKeyValueObservingOptionNew
+						  context:NULL];
+        [newSuperview addObserver:self
+					   forKeyPath:WlRefresherDraggingStateKeyPath
 						  options:NSKeyValueObservingOptionNew
 						  context:NULL];
 	}
@@ -60,33 +73,25 @@ static CGFloat WLRefresherContentSize = 44.0f;
 	self.hidden = !enabled;
 }
 
-+ (WLRefresher *)refresherWithScrollView:(UIScrollView *)scrollView refreshBlock:(void (^)(WLRefresher *))refreshBlock {
-	WLRefresher* refresher = [self refresherWithScrollView:scrollView];
-	refresher.refreshBlock = refreshBlock;
-	[refresher addTarget:refresher action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-	return refresher;
++ (WLRefresher *)refresher:(UIScrollView *)scrollView target:(id)target action:(SEL)action {
+    return [self refresher:scrollView target:target action:action style:WLRefresherStyleWhite];
 }
 
-+ (WLRefresher *)refresherWithScrollView:(UIScrollView *)scrollView target:(id)target action:(SEL)action {
-    return [self refresherWithScrollView:scrollView target:target action:action colorScheme:WLRefresherColorSchemeWhite];
-}
-
-+ (WLRefresher *)refresherWithScrollView:(UIScrollView *)scrollView target:(id)target action:(SEL)action colorScheme:(WLRefresherColorScheme)colorScheme {
-    WLRefresher* refresher = [self refresherWithScrollView:scrollView];
++ (WLRefresher *)refresher:(UIScrollView *)scrollView target:(id)target action:(SEL)action style:(WLRefresherStyle)style {
+    WLRefresher* refresher = [self refresher:scrollView];
 	[refresher addTarget:target action:action forControlEvents:UIControlEventValueChanged];
-    refresher.colorScheme = colorScheme;
+    refresher.style = style;
 	return refresher;
 }
 
-+ (WLRefresher*)refresherWithScrollView:(UIScrollView *)scrollView {
-	WLRefresherScrollDirection direction = scrollView.frame.size.height > scrollView.frame.size.width ? WLRefresherScrollDirectionVertical : WLRefresherScrollDirectionHorizontal;
-	return [self refresherWithScrollView:scrollView direction:direction];
++ (WLRefresher*)refresher:(UIScrollView *)scrollView {
+	return [self refresher:scrollView horizontal:scrollView.height <= scrollView.width];
 }
 
-+ (WLRefresher*)refresherWithScrollView:(UIScrollView *)scrollView direction:(WLRefresherScrollDirection)direction {
++ (WLRefresher*)refresher:(UIScrollView *)scrollView horizontal:(BOOL)horizontal {
 	CGRect frame;
 	CGRect contentFrame;
-	if (direction == WLRefresherScrollDirectionHorizontal) {
+	if (horizontal) {
 		frame = CGRectMake(-scrollView.width, 0, scrollView.width, scrollView.height);
 		contentFrame = CGRectMake(frame.size.width - WLRefresherContentSize, 0, WLRefresherContentSize, frame.size.height);
 	} else {
@@ -94,10 +99,10 @@ static CGFloat WLRefresherContentSize = 44.0f;
 		contentFrame = CGRectMake(0, frame.size.height - WLRefresherContentSize, frame.size.width, WLRefresherContentSize);
 	}
 	WLRefresher* refresher = [[WLRefresher alloc] initWithFrame:frame];
-	refresher.direction = direction;
+	refresher.horizontal = horizontal;
 	refresher.backgroundColor = [UIColor WL_orangeColor];
 	[scrollView addSubview:refresher];
-    refresher.defaultContentInsets = scrollView.contentInset;
+    refresher.inset = horizontal ? scrollView.contentInset.left : scrollView.contentInset.top;
 	refresher.contentView.frame = contentFrame;
 	refresher.contentMode = UIViewContentModeCenter;
 	return refresher;
@@ -106,18 +111,10 @@ static CGFloat WLRefresherContentSize = 44.0f;
 - (void)setContentMode:(UIViewContentMode)contentMode {
 	[super setContentMode:contentMode];
 	
-	CGPoint center;
-	
-	if (self.direction == WLRefresherScrollDirectionHorizontal) {
-		center = self.contentView.centerBoundary;
-	} else {
-		if (contentMode == UIViewContentModeLeft) {
-			center = CGPointMake(self.contentView.height/2, self.contentView.height/2);
-		} else {
-			center = self.contentView.centerBoundary;
-		}
+	CGPoint center = self.contentView.centerBoundary;
+	if (!_horizontal && contentMode == UIViewContentModeLeft) {
+		center.x = center.y;
 	}
-	
 	self.spinner.center = center;
 	self.arrowView.center = center;
 }
@@ -139,7 +136,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
         arrowView.clipsToBounds = YES;
         arrowView.layer.cornerRadius = arrowView.width/2;
         arrowView.layer.borderWidth = 1;
-        arrowView.alpha = 0.5f;
+        arrowView.alpha = 0.25f;
 		[self.contentView addSubview:arrowView];
 		_arrowView = arrowView;
 	}
@@ -152,9 +149,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
 
         layer.frame = self.arrowView.frame;
         CGFloat size = layer.bounds.size.width/2;
-        UIBezierPath* path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(size, size) radius:size - 1 startAngle:-M_PI_2 endAngle:2*M_PI - M_PI_2 clockwise:YES];
-        layer.path = path.CGPath;
-        layer.strokeStart = 0.0f;
+        layer.path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(size, size) radius:size - 1 startAngle:-M_PI_2 endAngle:2*M_PI - M_PI_2 clockwise:YES].CGPath;
         layer.strokeEnd = 0.0f;
         layer.fillColor = [UIColor clearColor].CGColor;
         layer.lineWidth = 1;
@@ -175,34 +170,72 @@ static CGFloat WLRefresherContentSize = 44.0f;
 	return _contentView;
 }
 
+- (void)setRefreshing:(BOOL)refreshing {
+    [self setRefreshing:refreshing animated:NO];
+}
+
+- (void)setRefreshing:(BOOL)refreshing animated:(BOOL)animated {
+    if (_refreshing != refreshing) {
+        if (refreshing) {
+            if (_refreshable) {
+                _refreshing = refreshing;
+                [self setArrowViewHidden:YES];
+                [self setInset:WLRefresherContentSize animated:animated];
+                [self.scrollView scrollToTopAnimated:animated];
+                [self sendActionsForControlEvents:UIControlEventValueChanged];
+            }
+        } else {
+            _refreshing = NO;
+            [self setInset:0 animated:animated];
+            [self setArrowViewHidden:NO];
+        }
+    }
+}
+
+- (void)setInset:(CGFloat)inset animated:(BOOL)animated {
+    inset += _inset;
+    UIScrollView* scrollView = self.scrollView;
+    UIEdgeInsets insets = scrollView.contentInset;
+    if (_horizontal) {
+        insets.left = inset;
+    } else {
+        insets.top = inset;
+    }
+    [UIView performAnimated:animated animation:^{
+        scrollView.contentInset = insets;
+    }];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (self.enabled && keyPath == WlRefresherContentOffsetKeyPath) {
-		[self didChangeContentOffset:self.scrollView.contentOffset];
+	if (self.enabled) {
+        UIScrollView* sv = self.scrollView;
+        if (keyPath == WlRefresherContentOffsetKeyPath) {
+            CGPoint offset = sv.contentOffset;
+            [self didChangeContentOffset:_horizontal ? (offset.x + _inset) : (offset.y + _inset)];
+        } else if (keyPath == WlRefresherDraggingStateKeyPath) {
+            if (sv.panGestureRecognizer.state == UIGestureRecognizerStateEnded && _refreshable) {
+                [self setRefreshing:YES animated:YES];
+            }
+        }
 	}
 }
 
-- (void)didChangeContentOffset:(CGPoint)offset {
-	if (self.direction == WLRefresherScrollDirectionHorizontal) {
-        self.arrowView.alpha = offset.x >= -self.defaultContentInsets.left ? 0.0f : 1.0f;
-		if (offset.x < 0) {
-			if (!self.scrollView.dragging) {
-				[self didEndDragging:self.scrollView.contentOffset];
-			}
-		}
-	} else {
-        self.arrowView.alpha = offset.y >= -self.defaultContentInsets.top ? 0.0f : 1.0f;
-		if (offset.y < 0) {
-            CGFloat d = Smoothstep(0, 1, ABS((offset.y + self.defaultContentInsets.top) / WLRefresherContentSize));
-            [CATransaction begin];
-            [CATransaction setAnimationDuration:0];
-            self.strokeLayer.strokeEnd = d;
-            [CATransaction commit];
-            self.arrowView.alpha = d == 1 ? 1.0f : 0.5f;
-			if (!self.scrollView.dragging) {
-				[self didEndDragging:self.scrollView.contentOffset];
-			}
-		}
-	}
+- (void)setRefreshable:(BOOL)refreshable {
+    if (_refreshable != refreshable) {
+        _refreshable = refreshable;
+        self.arrowView.alpha = refreshable ? 1.0f : 0.25f;
+    }
+}
+
+- (void)didChangeContentOffset:(CGFloat)offset {
+    if (offset > 0) return;
+    CGFloat ratio = 0;
+    ratio = Smoothstep(0, 1, -offset / WLRefresherContentSize);
+    [CATransaction begin];
+    [CATransaction setAnimationDuration:0];
+    self.strokeLayer.strokeEnd = ratio;
+    [CATransaction commit];
+    self.refreshable = (ratio == 1);
 }
 
 - (void)setArrowViewHidden:(BOOL)hidden {
@@ -218,59 +251,9 @@ static CGFloat WLRefresherContentSize = 44.0f;
     }
 }
 
-- (void)didEndDragging:(CGPoint)offset {
-	
-	if (self.direction == WLRefresherScrollDirectionHorizontal) {
-		if (!_refreshing && offset.x <= -(WLRefresherContentSize + self.defaultContentInsets.left)) {
-			_refreshing = YES;
-            [self setArrowViewHidden:YES];
-			[UIView beginAnimations:nil context:nil];
-			UIEdgeInsets insets = self.scrollView.contentInset;
-			insets.left = WLRefresherContentSize + self.defaultContentInsets.left;
-			self.scrollView.contentInset = insets;
-			[UIView commitAnimations];
-			[self sendActionsForControlEvents:UIControlEventValueChanged];
-            [self.scrollView setContentOffset:CGPointMake(-insets.left, 0) animated:YES];
-		}
-	} else {
-		if (!_refreshing && offset.y <= -(WLRefresherContentSize + self.defaultContentInsets.top)) {
-			_refreshing = YES;
-			[self setArrowViewHidden:YES];
-			[UIView beginAnimations:nil context:nil];
-			UIEdgeInsets insets = self.scrollView.contentInset;
-			insets.top = WLRefresherContentSize + self.defaultContentInsets.top;
-			self.scrollView.contentInset = insets;
-			[UIView commitAnimations];
-			[self sendActionsForControlEvents:UIControlEventValueChanged];
-            [self.scrollView setContentOffset:CGPointMake(0, -insets.top) animated:YES];
-		}
-	}
-}
-
-- (void)endRefreshing {
-	[self performSelector:@selector(endRefreshingAfterDelay) withObject:nil afterDelay:0.2f];
-}
-
-- (void)endRefreshingAfterDelay {
-	_refreshing = NO;
-    [UIView beginAnimations:nil context:nil];
-    UIEdgeInsets insets = self.scrollView.contentInset;
-    insets.left = self.defaultContentInsets.left;
-    insets.top = self.defaultContentInsets.top;
-    self.scrollView.contentInset = insets;
-    [UIView commitAnimations];
-    [self setArrowViewHidden:NO];
-}
-
-- (void)refresh {
-	if (self.refreshBlock) {
-		self.refreshBlock(self);
-	}
-}
-
-- (void)setColorScheme:(WLRefresherColorScheme)colorScheme {
-	_colorScheme = colorScheme;
-	if (colorScheme == WLRefresherColorSchemeOrange) {
+- (void)setStyle:(WLRefresherStyle)style {
+	_style = style;
+	if (style == WLRefresherStyleOrange) {
 		self.arrowView.image = [UIImage imageNamed:@"ic_middle_candy"];
 		self.backgroundColor = [UIColor whiteColor];
 		self.spinner.color = [UIColor WL_orangeColor];
@@ -283,6 +266,26 @@ static CGFloat WLRefresherContentSize = 44.0f;
         self.strokeLayer.strokeColor = [UIColor whiteColor].CGColor;
         self.arrowView.layer.borderColor = [UIColor whiteColor].CGColor;
 	}
+}
+
+- (void)setOperation:(AFURLConnectionOperation *)operation {
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter removeObserver:self name:AFNetworkingOperationDidFinishNotification object:nil];
+    
+    if (operation) {
+        if (![operation isFinished]) {
+            if (![operation isExecuting]) {
+                [self setRefreshing:NO animated:YES];
+            }
+            [notificationCenter addObserver:self selector:@selector(af_endRefreshing) name:AFNetworkingOperationDidFinishNotification object:operation];
+        }
+    }
+}
+
+- (void)af_endRefreshing {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setRefreshing:NO animated:YES];
+    });
 }
 
 @end

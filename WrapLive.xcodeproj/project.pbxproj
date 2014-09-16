@@ -1037,6 +1037,37 @@
 		CE1FEAC2196EB76700BF1B22 /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1FEAC1196EB76700BF1B22 /* WLEditViewController.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C541A01319C84325003601F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
+			remoteInfo = CopyProvisioningProfiles;
+		};
+		C541A01519C8432B003601F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
+			remoteInfo = CopyProvisioningProfiles;
+		};
+		C541A01719C84330003601F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
+			remoteInfo = CopyProvisioningProfiles;
+		};
+		C5953B6E19C839FC006DF1F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
+			remoteInfo = CopyProvisioningProfiles;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		120ED84D18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
 		120ED84E18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
@@ -3130,6 +3161,23 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXLegacyTarget section */
+		C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "${SRCROOT}/cpprof.sh";
+			buildConfigurationList = C5953B6B19C8398C006DF1F3 /* Build configuration list for PBXLegacyTarget "CopyProvisioningProfiles" */;
+			buildPhases = (
+			);
+			buildToolPath = /bin/bash;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = CopyProvisioningProfiles;
+			passBuildSettingsInEnvironment = 1;
+			productName = CopyProvisioningProfiles;
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		12A7A6FE18DA0945008FF6F0 /* WrapLive-Development */ = {
 			isa = PBXNativeTarget;
@@ -3145,6 +3193,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C541A01819C84330003601F9 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Development";
 			productName = WrapLive;
@@ -3165,6 +3214,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C541A01619C8432B003601F9 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-QA";
 			productName = WrapLive;
@@ -3180,11 +3230,12 @@
 				C54AF61219B8C467006F7EDB /* Frameworks */,
 				C54AF61E19B8C467006F7EDB /* Resources */,
 				C54AF64819B8C467006F7EDB /* Copy Pods Resources */,
-				C54AF64919B8C467006F7EDB /* ShellScript */,
+				C54AF64919B8C467006F7EDB /* Run Script */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C5953B6F19C839FC006DF1F3 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Beta";
 			productName = WrapLive;
@@ -3205,6 +3256,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C541A01419C84325003601F9 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Production";
 			productName = WrapLive;
@@ -3238,6 +3290,7 @@
 				C54AF45519B8C437006F7EDB /* WrapLive-QA */,
 				C54AF55219B8C467006F7EDB /* WrapLive-Beta */,
 				C54AF64F19B8C491006F7EDB /* WrapLive-Production */,
+				C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */,
 			);
 		};
 /* End PBXProject section */
@@ -3582,13 +3635,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C54AF64919B8C467006F7EDB /* ShellScript */ = {
+		C54AF64919B8C467006F7EDB /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4463,6 +4517,29 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		C541A01419C84325003601F9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
+			targetProxy = C541A01319C84325003601F9 /* PBXContainerItemProxy */;
+		};
+		C541A01619C8432B003601F9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
+			targetProxy = C541A01519C8432B003601F9 /* PBXContainerItemProxy */;
+		};
+		C541A01819C84330003601F9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
+			targetProxy = C541A01719C84330003601F9 /* PBXContainerItemProxy */;
+		};
+		C5953B6F19C839FC006DF1F3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
+			targetProxy = C5953B6E19C839FC006DF1F3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		12A7A71418DA0946008FF6F0 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -4721,6 +4798,38 @@
 			};
 			name = Release;
 		};
+		C5953B6C19C8398C006DF1F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C5953B6D19C8398C006DF1F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4765,6 +4874,15 @@
 			buildConfigurations = (
 				C54AF74819B8C491006F7EDB /* Debug */,
 				C54AF74919B8C491006F7EDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5953B6B19C8398C006DF1F3 /* Build configuration list for PBXLegacyTarget "CopyProvisioningProfiles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5953B6C19C8398C006DF1F3 /* Debug */,
+				C5953B6D19C8398C006DF1F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,0 +1,1 @@
+cp $PROJECT_DIR'/certs/'*'.mobileprovision' $USER_LIBRARY_DIR'/MobileDevice/Provisioning Profiles'

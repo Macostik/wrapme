@@ -6,12 +6,10 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#define kRegisterContacts   self.contacts[0]
-#define kUnregisterContacts self.contacts[1]
-#define kWeakRegisterContacts   weakSelf.contacts[0]
-#define kWeakUnregisterContacts weakSelf.contacts[1]
-#define kWeakFilteredContactsFirstSection weakSelf.filteredContacts[0]
-#define kWeakFilteredContactsSecondSection weakSelf.filteredContacts[1]
+#define registeredContacts   contacts[0]
+#define unregisteredContacts contacts[1]
+#define filteredRegisteredContacts filteredContacts[0]
+#define filteredUnregisteredContacts filteredContacts[1]
 
 #import "WLAddContributorsViewController.h"
 #import "WLAPIManager.h"
@@ -28,12 +26,14 @@
 #import "WLWrapBroadcaster.h"
 #import "WLUpdateContributorsRequest.h"
 
-@interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate>
+@interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
+
 @property (strong, nonatomic) NSMutableArray* contacts;
 @property (strong, nonatomic) NSMutableArray* filteredContacts;
+
 @property (strong, nonatomic) NSMutableSet* selectedPhones;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSMutableSet* openedRows;
@@ -46,8 +46,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.contacts = [NSMutableArray array];
-    kRegisterContacts = [NSMutableArray array];
-    kUnregisterContacts = [NSMutableArray array];
+    self.registeredContacts = [NSMutableArray array];
+    self.unregisteredContacts = [NSMutableArray array];
     self.filteredContacts = [NSMutableArray array];
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
@@ -60,44 +60,53 @@
     }];
 }
 
-- (void)addContact:(WLContact*)contact {
-    NSMutableArray *registerContactsArray = kRegisterContacts;
-    NSMutableArray *unregisterContactsArray = kUnregisterContacts;
+- (NSError*)addContact:(WLContact*)contact {
+    NSMutableArray *registered = self.registeredContacts;
+    NSMutableArray *unregistered = self.unregisteredContacts;
     NSMutableArray *persons = [contact.persons mutableCopy];
     
-    [self willRemoveDoublePersons:persons];
+    if (!persons.nonempty) {
+        return [NSError errorWithDescription:@"No contact data."];
+    }
+    
+    BOOL currentUserRemoved = NO;
+    [self willRemoveDoublePersons:persons currentUserRemoved:&currentUserRemoved];
     
     if (!persons.nonempty) {
-        return;
+        return [NSError errorWithDescription:currentUserRemoved ? @"You cannot add yourself." : @"This contact is already added."];
     } else if ([persons count] == 1) {
         WLPerson* person = [persons lastObject];
         contact.persons = [persons copy];
         if (person.user) {
-            [registerContactsArray addObject:contact];
+            [registered addObject:contact];
         } else {
-            [unregisterContactsArray addObject:contact];
+            [unregistered addObject:contact];
         }
     } else {
         [persons removeObjectsWhileEnumerating:^BOOL(WLPerson *person) {
             if (person.user) {
                 WLContact* _contact = [[WLContact alloc] init];
                 _contact.persons = @[person];
-                [registerContactsArray addObject:_contact];
+                [registered addObject:_contact];
                 return YES;
             }
             return NO;
         }];
         if (persons.nonempty) {
             contact.persons = [persons copy];
-            [unregisterContactsArray addObject:contact];
+            [unregistered addObject:contact];
         }
     }
+    return nil;
 }
 
-- (void)willRemoveDoublePersons:(NSMutableArray *)persons {
+- (void)willRemoveDoublePersons:(NSMutableArray *)persons currentUserRemoved:(BOOL *)currentUserRemoved {
     [persons removeObjectsWhileEnumerating:^BOOL(WLPerson *person) {
         if (person.user) {
             if ([self.wrap.contributors containsObject:person.user]) {
+                if (currentUserRemoved != NULL && [person.user isCurrentUser]) {
+                    *currentUserRemoved = YES;
+                }
                 return YES;
             }
         }
@@ -117,8 +126,8 @@
     NSComparator comparator = ^NSComparisonResult(WLContact* contact1, WLContact* contact2) {
         return [[contact1 name] compare:[contact2 name]];
     };
-    [kRegisterContacts sortUsingComparator:comparator];
-    [kUnregisterContacts sortUsingComparator:comparator];
+    [self.registeredContacts sortUsingComparator:comparator];
+    [self.unregisteredContacts sortUsingComparator:comparator];
 }
 
 - (void)filterContacts {
@@ -164,51 +173,6 @@
 }
 
 #pragma mark - Actions
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	WLInviteViewController *controller = segue.destinationViewController;
-	__weak typeof(self)weakSelf = self;
-	controller.contactBlock = ^(WLContact *contacts) {
-        WLPerson *person = [contacts.persons lastObject];
-        [self.selectedPhones addObjectsFromArray:contacts.persons];
-        
-        SelectBlock selectBlock = ^BOOL(WLContact* item) {
-            for (WLPerson* _person in item.persons) {
-                if ([_person isEqualToPerson:person]) {
-                    person.name = item.name;
-                    return YES;
-                }
-            }
-             return NO;
-        };
-        
-        WLContact* existingContact = [kWeakRegisterContacts selectObject:selectBlock] ? :
-                                     [kWeakUnregisterContacts selectObject:selectBlock];
-        
-        if (!existingContact) {
-            existingContact = contacts;
-            [weakSelf addContact:contacts];
-        }
-       
-        [weakSelf sortContacts];
-        [weakSelf filterContacts];
-        
-        NSUInteger index = NSNotFound;
-        NSUInteger section = 0;
-		if ([kWeakFilteredContactsFirstSection containsObject:existingContact]) {
-            index = [kWeakFilteredContactsFirstSection indexOfObject:existingContact];
-        } else {
-            index = [kWeakFilteredContactsSecondSection indexOfObject:existingContact];
-            section = 1;
-        }
-       
-        if (index != NSNotFound) {
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:section]
-                                  atScrollPosition:UITableViewScrollPositionMiddle
-                                          animated:YES];
-        }
-	};
-}
 
 - (IBAction)done:(WLButton*)sender {
     if (self.selectedPhones.count == 0) {
@@ -316,13 +280,68 @@
 }
 
 - (NSMutableArray *)filteredContactsByString:(NSString *)searchString {
-    return [NSMutableArray arrayWithObjects:[kRegisterContacts filteredArrayUsingPredicate:[self searchText:searchString]],
-                                            [kUnregisterContacts filteredArrayUsingPredicate:[self searchText:searchString]], nil];
+    return [NSMutableArray arrayWithObjects:[self.registeredContacts filteredArrayUsingPredicate:[self searchText:searchString]],
+                                            [self.unregisteredContacts filteredArrayUsingPredicate:[self searchText:searchString]], nil];
 }
 
 - (NSPredicate *)searchText:(NSString *)searchText{
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
 	return predicate;
+}
+
+#pragma mark - WLInviteViewControllerDelegate
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	WLInviteViewController *controller = segue.destinationViewController;
+	controller.delegate = self;
+}
+
+- (NSError *)inviteViewController:(WLInviteViewController *)controller didInviteContact:(WLContact *)contact {
+    WLPerson *person = [contact.persons lastObject];
+    
+    SelectBlock selectBlock = ^BOOL(WLContact* item) {
+        for (WLPerson* _person in item.persons) {
+            if ([_person isEqualToPerson:person]) {
+                person.name = item.name;
+                return YES;
+            }
+        }
+        return NO;
+    };
+    
+    WLContact* existingContact = [self.registeredContacts selectObject:selectBlock] ? :
+    [self.unregisteredContacts selectObject:selectBlock];
+    
+    if (!existingContact) {
+        NSError* error = [self addContact:contact];
+        if (error == nil) {
+            existingContact = contact;
+            [self.selectedPhones addObject:person];
+        } else {
+            return error;
+        }
+    } else if ([self selectedPerson:person] == nil) {
+        [self.selectedPhones addObject:person];
+    }
+    
+    [self sortContacts];
+    [self filterContacts];
+    
+    NSUInteger index = NSNotFound;
+    NSUInteger section = 0;
+    if ([self.filteredRegisteredContacts containsObject:existingContact]) {
+        index = [self.filteredRegisteredContacts indexOfObject:existingContact];
+    } else {
+        index = [self.filteredUnregisteredContacts indexOfObject:existingContact];
+        section = 1;
+    }
+    
+    if (index != NSNotFound) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:section]
+                              atScrollPosition:UITableViewScrollPositionMiddle
+                                      animated:YES];
+    }
+    return nil;
 }
 
 @end

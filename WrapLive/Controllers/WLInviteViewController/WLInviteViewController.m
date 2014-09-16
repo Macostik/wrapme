@@ -54,11 +54,15 @@
 	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
     [[WLContributorsRequest request:@[contact]] send:^(id object) {
-		if (weakSelf.contactBlock && [object count]) {
-			weakSelf.contactBlock(contact);
+		if ([object count]) {
+			NSError* error = [weakSelf.delegate inviteViewController:weakSelf didInviteContact:contact];
+            if (error) {
+                [error show];
+            } else {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
 		}
 		[weakSelf.spinner stopAnimating];
-		[weakSelf.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {
         [weakSelf.spinner stopAnimating];
 		[error show];

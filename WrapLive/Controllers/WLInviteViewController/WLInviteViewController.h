@@ -9,8 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "WLBlocks.h"
 
+@class WLInviteViewController;
+
+@protocol WLInviteViewControllerDelegate <NSObject>
+
+- (NSError*)inviteViewController:(WLInviteViewController*)controller didInviteContact:(WLContact*)contact;
+
+@end
+
 @interface WLInviteViewController : UIViewController
 
-@property (strong, nonatomic) WLContactBlock contactBlock;
+@property (weak, nonatomic) id <WLInviteViewControllerDelegate> delegate;
 
 @end

@@ -131,6 +131,7 @@
 	[self.view endEditing:YES];
 	__weak typeof(self)weakSelf = self;
 	WLCountriesViewController* controller = [WLCountriesViewController instantiate:^(WLCountriesViewController* controller) {
+		controller.selectedCountry = weakSelf.country;
         [controller setSelectionBlock:^(WLCountry *country) {
             weakSelf.country = country;
             [weakSelf.signUpViewController.navigationController popViewControllerAnimated:YES];

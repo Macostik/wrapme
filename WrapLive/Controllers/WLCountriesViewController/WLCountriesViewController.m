@@ -31,6 +31,14 @@
         return [WLCountry all];
     }, ^(NSMutableOrderedSet* countries) {
         weakSelf.dataSection.entries = countries;
+		if (weakSelf.selectedCountry) {
+			NSUInteger index = [countries indexOfObjectPassingTest:^BOOL(WLCountry* obj, NSUInteger idx, BOOL *stop) {
+				return [obj.code isEqualToString:weakSelf.selectedCountry.code];
+			}];
+			if (index != NSNotFound) {
+				[weakSelf.dataSection.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+			}
+		}
     });
     self.dataSection.selection = self.selectionBlock;
 }

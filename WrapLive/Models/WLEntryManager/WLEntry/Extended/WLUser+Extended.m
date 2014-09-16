@@ -23,7 +23,7 @@
     NSString* name = [dictionary stringForKey:WLNameKey];
 	if (!NSStringEqual(self.name, name)) self.name = name;
     NSString *email = [dictionary stringForKey:WLEmailKey];
-    if (!NSStringEqual([WLAuthorization currentAuthorization].email, email))[WLAuthorization currentAuthorization].email = email;
+    if (!NSStringEqual([WLAuthorization currentAuthorization].email, email) && email.nonempty)[WLAuthorization currentAuthorization].email = email;
     NSString *unconfirmed_email = [dictionary stringForKey:WLUnconfirmedEmail];
     if (!NSStringEqual([WLAuthorization currentAuthorization].unconfirmed_email, unconfirmed_email) && unconfirmed_email.nonempty)
         [WLAuthorization currentAuthorization].unconfirmed_email = unconfirmed_email;

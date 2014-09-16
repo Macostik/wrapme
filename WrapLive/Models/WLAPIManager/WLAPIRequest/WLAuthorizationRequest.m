@@ -7,6 +7,8 @@
 //
 
 #import "WLAuthorizationRequest.h"
+#import "WLWelcomeViewController.h"
+#import "WLNavigation.h"
 
 @implementation WLAuthorizationRequest
 
@@ -101,6 +103,14 @@ static BOOL authorized = NO;
 		return user;
     }
     return self.authorization;
+}
+
+- (void)handleFailure:(NSError *)error {
+    NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
+    if(!response && error.code == -1)  {
+        self.tryUncorfirmedEmail = YES;
+        [self send];
+    }
 }
 
 @end

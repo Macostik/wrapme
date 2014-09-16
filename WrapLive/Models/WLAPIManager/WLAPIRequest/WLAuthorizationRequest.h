@@ -20,6 +20,8 @@ typedef NS_ENUM(NSUInteger, WLAuthorizationStep) {
 
 @property (nonatomic) WLAuthorizationStep step;
 
+@property (nonatomic) BOOL tryUncorfirmedEmail;
+
 + (BOOL)authorized;
 
 + (instancetype)request:(WLAuthorizationStep)step authorization:(WLAuthorization*)authorization;

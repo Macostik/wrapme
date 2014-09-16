@@ -33,8 +33,6 @@
 
 @property (nonatomic) NSTimeInterval timeout;
 
-@property (nonatomic) BOOL tryUncorfirmedEmail;
-
 + (instancetype)request;
 
 + (NSString*)defaultMethod;

@@ -35,7 +35,6 @@
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLUser* user = self.user;
     WLAuthorization* authorization = [WLAuthorization currentAuthorization];
-    authorization.email = self.email;
     [authorization setCurrent];
     [user API_setup:response.data[@"user"]];
     [user setCurrent];

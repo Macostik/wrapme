@@ -9,6 +9,7 @@
 #import "WLUser+Extended.h"
 #import "WLEntryManager.h"
 #import "WLNotificationCenter.h"
+#import "WLAuthorization.h"
 
 @implementation WLUser (Extended)
 
@@ -21,6 +22,11 @@
 	if (!NSNumberEqual(self.signInCount, signInCount)) self.signInCount = signInCount;
     NSString* name = [dictionary stringForKey:WLNameKey];
 	if (!NSStringEqual(self.name, name)) self.name = name;
+    NSString *email = [dictionary stringForKey:WLEmailKey];
+    if (!NSStringEqual([WLAuthorization currentAuthorization].email, email))[WLAuthorization currentAuthorization].email = email;
+    NSString *unconfirmed_email = [dictionary stringForKey:WLUnconfirmedEmail];
+    if (!NSStringEqual([WLAuthorization currentAuthorization].unconfirmed_email, unconfirmed_email) && unconfirmed_email.nonempty)
+        [WLAuthorization currentAuthorization].unconfirmed_email = unconfirmed_email;
     [self editPicture:[dictionary stringForKey:WLLargeAvatarKey]
                medium:[dictionary stringForKey:WLMediumAvatarKey]
                 small:[dictionary stringForKey:WLSmallAvatarKey]];

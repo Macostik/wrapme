@@ -113,7 +113,15 @@
         } failure:^(NSError *error) {
             [WLWelcomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
         }];
-    } else {
+    } else if(!response && error.code == -1)  {
+        self.tryUncorfirmedEmail = YES;
+        [self send:^(WLUser *user) {
+            [WLWelcomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
+        } failure:^(NSError *error) {
+            [WLWelcomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
+        }];
+    }else {
+        
         if (self.failureBlock) {
             if (error.code != NSURLErrorCancelled) {
                 self.failureBlock(error);

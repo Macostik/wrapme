@@ -78,7 +78,7 @@ static BOOL authorized = NO;
 	[parameters trySetObject:authorization.phone forKey:@"phone_number"];
 	[parameters trySetObject:authorization.password forKey:@"password"];
     [parameters trySetObject:authorization.activationCode forKey:@"activation_code"];
-	[parameters trySetObject:authorization.email forKey:@"email"];
+    [parameters trySetObject:self.tryUncorfirmedEmail ? authorization.unconfirmed_email : authorization.email forKey:@"email"];
     return parameters;
 }
 

@@ -22,6 +22,8 @@
 
 @property (strong, nonatomic) NSString *email;
 
+@property (strong, nonatomic) NSString *unconfirmed_email;
+
 @property (strong, nonatomic) NSString *activationCode;
 
 @property (strong, nonatomic) NSString *password;

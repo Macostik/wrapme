@@ -29,6 +29,7 @@ static NSString* WLFullPhoneNumberKey = @"full_phone_number";
 static NSString* WLSignInCountKey = @"sign_in_count";
 static NSString* WLNameKey = @"name";
 static NSString* WLEmailKey = @"email";
+static NSString* WLUnconfirmedEmail = @"unconfirmed_email";
 static NSString* WLLargeAvatarKey = @"large_avatar_url";
 static NSString* WLMediumAvatarKey = @"medium_avatar_url";
 static NSString* WLSmallAvatarKey = @"small_avatar_url";

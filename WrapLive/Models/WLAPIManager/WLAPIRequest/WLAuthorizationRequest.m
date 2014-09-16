@@ -106,10 +106,11 @@ static BOOL authorized = NO;
 }
 
 - (void)handleFailure:(NSError *)error {
-    NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
-    if(!response && error.code == -1)  {
+    if([error isError:WLErrorUnknown] && !self.tryUncorfirmedEmail)  {
         self.tryUncorfirmedEmail = YES;
         [self send];
+    } else {
+        [super handleFailure:error];
     }
 }
 

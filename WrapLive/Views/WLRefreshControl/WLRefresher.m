@@ -17,7 +17,7 @@
 
 static NSString* WlRefresherContentOffsetKeyPath = @"contentOffset";
 
-static NSString* WlRefresherDraggingStateKeyPath = @"panGestureRecognizer.state";
+static NSString* WlRefresherDraggingStateKeyPath = @"state";
 
 static CGFloat WLRefresherContentSize = 44.0f;
 
@@ -36,27 +36,18 @@ static CGFloat WLRefresherContentSize = 44.0f;
 @end
 
 @implementation WLRefresher
-{
-	BOOL _refreshing;
-}
 
 @synthesize refreshing = _refreshing;
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
 	
-	[self.superview removeObserver:self
+    UIView *oldSuperview = self.superview;
+	[oldSuperview removeObserver:self
 						forKeyPath:WlRefresherContentOffsetKeyPath
-						   context:NULL];
-    [self.superview removeObserver:self
-						forKeyPath:WlRefresherDraggingStateKeyPath
 						   context:NULL];
 	if (newSuperview) {
 		[newSuperview addObserver:self
 					   forKeyPath:WlRefresherContentOffsetKeyPath
-						  options:NSKeyValueObservingOptionNew
-						  context:NULL];
-        [newSuperview addObserver:self
-					   forKeyPath:WlRefresherDraggingStateKeyPath
 						  options:NSKeyValueObservingOptionNew
 						  context:NULL];
 	}
@@ -214,7 +205,10 @@ static CGFloat WLRefresherContentSize = 44.0f;
             [self didChangeContentOffset:_horizontal ? (offset.x + _inset) : (offset.y + _inset)];
         } else if (keyPath == WlRefresherDraggingStateKeyPath) {
             if (sv.panGestureRecognizer.state == UIGestureRecognizerStateEnded && _refreshable) {
-                [self setRefreshing:YES animated:YES];
+                __weak typeof(self)weakSelf = self;
+                run_after(0.0f, ^{
+                    [weakSelf setRefreshing:YES animated:YES];
+                });
             }
         }
 	}
@@ -224,6 +218,16 @@ static CGFloat WLRefresherContentSize = 44.0f;
     if (_refreshable != refreshable) {
         _refreshable = refreshable;
         self.arrowView.alpha = refreshable ? 1.0f : 0.25f;
+        if (refreshable) {
+            [self.scrollView.panGestureRecognizer addObserver:self
+                           forKeyPath:WlRefresherDraggingStateKeyPath
+                              options:NSKeyValueObservingOptionNew
+                              context:NULL];
+        } else {
+            [self.scrollView.panGestureRecognizer removeObserver:self
+                                 forKeyPath:WlRefresherDraggingStateKeyPath
+                                    context:NULL];
+        }
     }
 }
 

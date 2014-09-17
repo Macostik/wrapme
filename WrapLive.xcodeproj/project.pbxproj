@@ -149,6 +149,10 @@
 		5B89586919C9808B00B15CD0 /* UITextView+Aditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5F8B619C971F20053242C /* UITextView+Aditions.m */; };
 		5B89586A19C9808C00B15CD0 /* UITextView+Aditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5F8B619C971F20053242C /* UITextView+Aditions.m */; };
 		5B89586B19C9808C00B15CD0 /* UITextView+Aditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5F8B619C971F20053242C /* UITextView+Aditions.m */; };
+		5B89586E19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B89586D19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m */; };
+		5B89586F19C9A38400B15CD0 /* WLNotificationCollectionViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B89586D19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m */; };
+		5B89587019C9A38500B15CD0 /* WLNotificationCollectionViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B89586D19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m */; };
+		5B89587119C9A38500B15CD0 /* WLNotificationCollectionViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B89586D19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m */; };
 		5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */; };
 		5BB1A21B19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */; };
 		5BB1A21C19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */; };
@@ -1312,6 +1316,8 @@
 		5B11019219BF335F00688C9D /* WLEditWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditWrapViewController.m; path = ../../WLEditWrapViewController.m; sourceTree = "<group>"; };
 		5B450F8919780D8000FC339A /* WLSignificantTimeBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignificantTimeBroadcaster.h; sourceTree = "<group>"; };
 		5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignificantTimeBroadcaster.m; sourceTree = "<group>"; };
+		5B89586C19C9A37500B15CD0 /* WLNotificationCollectionViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationCollectionViewSection.h; sourceTree = "<group>"; };
+		5B89586D19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationCollectionViewSection.m; sourceTree = "<group>"; };
 		5BAF8E141991196000AFCAE6 /* WLClearProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLClearProgressBar.h; sourceTree = "<group>"; };
 		5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLClearProgressBar.m; sourceTree = "<group>"; };
 		5BB1A21919C05A3E0062F8AE /* WLUpdateContributorsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUpdateContributorsRequest.h; path = ../../WLUpdateContributorsRequest.h; sourceTree = "<group>"; };
@@ -1870,6 +1876,8 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
+				5B89586C19C9A37500B15CD0 /* WLNotificationCollectionViewSection.h */,
+				5B89586D19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m */,
 				12A7A70818DA0945008FF6F0 /* WrapLive */,
 				12A7A70118DA0945008FF6F0 /* Frameworks */,
 				12A7A70018DA0945008FF6F0 /* Products */,
@@ -3814,6 +3822,7 @@
 				C50AF4241976ABE700761F38 /* WLMessagesRequest.m in Sources */,
 				128886AD18DC493B00957B22 /* WLSession.m in Sources */,
 				120ED84F18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
+				5B89586E19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m in Sources */,
 				121907B6192CFF3F00E7C22D /* WLAuthorization.m in Sources */,
 				C5A21E66194B0ED600F3A554 /* WLWrap.m in Sources */,
 				128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */,
@@ -4021,6 +4030,7 @@
 				C54AF4B519B8C437006F7EDB /* WLMessagesRequest.m in Sources */,
 				C54AF4B619B8C437006F7EDB /* WLSession.m in Sources */,
 				C54AF4B719B8C437006F7EDB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
+				5B89586F19C9A38400B15CD0 /* WLNotificationCollectionViewSection.m in Sources */,
 				C54AF4B819B8C437006F7EDB /* WLAuthorization.m in Sources */,
 				C54AF4B919B8C437006F7EDB /* WLWrap.m in Sources */,
 				C54AF4BA19B8C437006F7EDB /* WLArchivingObject.m in Sources */,
@@ -4228,6 +4238,7 @@
 				C54AF5B219B8C467006F7EDB /* WLMessagesRequest.m in Sources */,
 				C54AF5B319B8C467006F7EDB /* WLSession.m in Sources */,
 				C54AF5B419B8C467006F7EDB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
+				5B89587019C9A38500B15CD0 /* WLNotificationCollectionViewSection.m in Sources */,
 				C54AF5B519B8C467006F7EDB /* WLAuthorization.m in Sources */,
 				C54AF5B619B8C467006F7EDB /* WLWrap.m in Sources */,
 				C54AF5B719B8C467006F7EDB /* WLArchivingObject.m in Sources */,
@@ -4435,6 +4446,7 @@
 				C54AF6AF19B8C491006F7EDB /* WLMessagesRequest.m in Sources */,
 				C54AF6B019B8C491006F7EDB /* WLSession.m in Sources */,
 				C54AF6B119B8C491006F7EDB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
+				5B89587119C9A38500B15CD0 /* WLNotificationCollectionViewSection.m in Sources */,
 				C54AF6B219B8C491006F7EDB /* WLAuthorization.m in Sources */,
 				C54AF6B319B8C491006F7EDB /* WLWrap.m in Sources */,
 				C54AF6B419B8C491006F7EDB /* WLArchivingObject.m in Sources */,

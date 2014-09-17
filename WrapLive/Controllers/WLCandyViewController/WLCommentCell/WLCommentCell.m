@@ -24,6 +24,7 @@
 #import "WLCircleProgressBar.h"
 #import "WLInternetConnectionBroadcaster.h"
 #import "UITextView+Aditions.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLCommentCell ()
 
@@ -65,7 +66,7 @@
 	self.userInteractionEnabled = YES;
     if (!NSNumberEqual(entry.unread, @NO)) entry.unread = @NO;
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", WLString(entry.contributor.name), WLString(entry.createdAt.timeAgoString)];
-    [self.commentTextView determineHyperLink:entry.text];
+    [self.commentTextView determineHyperLink:entry.text withFont:[UIFont lightFontOfSize:15.0f]];
     self.commentTextView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, 0);
     [self checkHeight];
     __weak typeof(self)weakSelf = self;

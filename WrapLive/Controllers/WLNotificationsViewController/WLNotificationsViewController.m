@@ -20,12 +20,13 @@
 #import "WLServerTime.h"
 #import "WLEntryManager.h"
 #import "WLNavigation.h"
+#import "WLNotificationCollectionViewSection.h"
 
 @interface WLNotificationsViewController () <WLWrapBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
-@property (strong, nonatomic) IBOutlet WLCollectionViewSection *dataSection;
+@property (strong, nonatomic) IBOutlet WLNotificationCollectionViewSection *dataSection;
 @property (strong, nonatomic) NSMutableOrderedSet *readNotifications;
 
 @end

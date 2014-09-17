@@ -6,15 +6,14 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 #import "UITextView+Aditions.h"
-#import "UIFont+CustomFonts.h"
 
 @implementation UITextView (Aditions)
 
-- (void)determineHyperLink:(NSString *)string {
+- (void)determineHyperLink:(NSString *)string withFont:(UIFont *)font {
     self.editable = NO;
     self.dataDetectorTypes = UIDataDetectorTypeLink;
     NSMutableAttributedString *attrebutedText = [[NSMutableAttributedString alloc] initWithString:string];
-    NSDictionary * attributes = @{NSFontAttributeName : [UIFont lightFontOfSize:15.0f]};
+    NSDictionary * attributes = @{NSFontAttributeName : font};
     [attrebutedText addAttributes:attributes range:NSMakeRange(0, [attrebutedText length])];
     self.attributedText = attrebutedText;
 }

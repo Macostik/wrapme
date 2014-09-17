@@ -19,6 +19,7 @@
 #import "WLSupportFunctions.h"
 #import "WLServerTime.h"
 #import "UITextView+Aditions.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLMessageCell ()
 
@@ -82,7 +83,7 @@
         weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];
 	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(message.contributor.name), WLString([message.createdAt stringWithFormat:@"HH:mm"])];
-	[self.messageTextView determineHyperLink:message.text];
+    [self.messageTextView determineHyperLink:message.text withFont:[UIFont lightFontOfSize:15.0f]];
     self.messageTextView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, -5);
 	[UIView performWithoutAnimation:^{
         CGSize size = [weakSelf.messageTextView sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)];

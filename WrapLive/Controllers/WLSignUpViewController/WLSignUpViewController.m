@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
+    
 	if (self.registrationNotCompleted) {
 		WLProfileInformationViewController * controller = [[WLProfileInformationViewController alloc] init];
 		[self createNavController:controller];

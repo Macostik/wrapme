@@ -147,12 +147,16 @@
 		5B11019519BF335F00688C9D /* WLEditWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11019219BF335F00688C9D /* WLEditWrapViewController.m */; };
 		5B11019619BF335F00688C9D /* WLEditWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11019219BF335F00688C9D /* WLEditWrapViewController.m */; };
 		5B450F8B19780D8000FC339A /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */; };
+		5B89586919C9808B00B15CD0 /* UITextView+Aditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5F8B619C971F20053242C /* UITextView+Aditions.m */; };
+		5B89586A19C9808C00B15CD0 /* UITextView+Aditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5F8B619C971F20053242C /* UITextView+Aditions.m */; };
+		5B89586B19C9808C00B15CD0 /* UITextView+Aditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5F8B619C971F20053242C /* UITextView+Aditions.m */; };
 		5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */; };
 		5BB1A21B19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */; };
 		5BB1A21C19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */; };
 		5BB1A21D19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */; };
 		5BB1A21E19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */; };
 		5BB2221219796D7300782B72 /* UIView+Extentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2221119796D7300782B72 /* UIView+Extentions.m */; };
+		5BB5F8B719C971F20053242C /* UITextView+Aditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5F8B619C971F20053242C /* UITextView+Aditions.m */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
@@ -1315,6 +1319,8 @@
 		5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUpdateContributorsRequest.m; path = ../../WLUpdateContributorsRequest.m; sourceTree = "<group>"; };
 		5BB2221019796D7300782B72 /* UIView+Extentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extentions.h"; sourceTree = "<group>"; };
 		5BB2221119796D7300782B72 /* UIView+Extentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extentions.m"; sourceTree = "<group>"; };
+		5BB5F8B519C971F20053242C /* UITextView+Aditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Aditions.h"; sourceTree = "<group>"; };
+		5BB5F8B619C971F20053242C /* UITextView+Aditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Aditions.m"; sourceTree = "<group>"; };
 		5BD6D33B19B5AB26000A7C1F /* CoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 2.xcdatamodel"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
@@ -2406,6 +2412,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				5BB5F8B819C971FE0053242C /* UITextView */,
 				C5FD0EDD194B43F6004DAB1B /* NSOrderedSet */,
 				AC1A17A11937897D002B3737 /* MFMailComposeViewController */,
 				12DE697D192E04DD007580AD /* NSPropertyListSerialization */,
@@ -2655,6 +2662,15 @@
 				5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */,
 			);
 			name = WLSignificantTimeBroadcaster;
+			sourceTree = "<group>";
+		};
+		5BB5F8B819C971FE0053242C /* UITextView */ = {
+			isa = PBXGroup;
+			children = (
+				5BB5F8B519C971F20053242C /* UITextView+Aditions.h */,
+				5BB5F8B619C971F20053242C /* UITextView+Aditions.m */,
+			);
+			name = UITextView;
 			sourceTree = "<group>";
 		};
 		AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */ = {
@@ -3754,6 +3770,7 @@
 				12E1104C19067095007DB4AC /* WLCandyViewController.m in Sources */,
 				C50AF41B1976A44300761F38 /* WLUploadCandyRequest.m in Sources */,
 				C504179819B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
+				5BB5F8B719C971F20053242C /* UITextView+Aditions.m in Sources */,
 				1221EA6A18FD372F00C64DAE /* UIButton+Additions.m in Sources */,
 				12E0F04A1909069200463FEC /* UIScrollView+Additions.m in Sources */,
 				C5D2E0BC19A4DF6F001CA756 /* WLNotificationChannel.m in Sources */,
@@ -3940,6 +3957,7 @@
 				C54AF47919B8C437006F7EDB /* WLSupportFunctions.m in Sources */,
 				C54AF47A19B8C437006F7EDB /* WLCountryCell.m in Sources */,
 				C54AF47B19B8C437006F7EDB /* UIScreen+Diagonal.m in Sources */,
+				5B89586919C9808B00B15CD0 /* UITextView+Aditions.m in Sources */,
 				C54AF47C19B8C437006F7EDB /* WLGroupedSet.m in Sources */,
 				C54AF47D19B8C437006F7EDB /* WLPaginatedSet.m in Sources */,
 				C54AF47E19B8C437006F7EDB /* WLCandyCell.m in Sources */,
@@ -4145,6 +4163,7 @@
 				C54AF57619B8C467006F7EDB /* WLSupportFunctions.m in Sources */,
 				C54AF57719B8C467006F7EDB /* WLCountryCell.m in Sources */,
 				C54AF57819B8C467006F7EDB /* UIScreen+Diagonal.m in Sources */,
+				5B89586A19C9808C00B15CD0 /* UITextView+Aditions.m in Sources */,
 				C54AF57919B8C467006F7EDB /* WLGroupedSet.m in Sources */,
 				C54AF57A19B8C467006F7EDB /* WLPaginatedSet.m in Sources */,
 				C54AF57B19B8C467006F7EDB /* WLCandyCell.m in Sources */,
@@ -4350,6 +4369,7 @@
 				C54AF67319B8C491006F7EDB /* WLSupportFunctions.m in Sources */,
 				C54AF67419B8C491006F7EDB /* WLCountryCell.m in Sources */,
 				C54AF67519B8C491006F7EDB /* UIScreen+Diagonal.m in Sources */,
+				5B89586B19C9808C00B15CD0 /* UITextView+Aditions.m in Sources */,
 				C54AF67619B8C491006F7EDB /* WLGroupedSet.m in Sources */,
 				C54AF67719B8C491006F7EDB /* WLPaginatedSet.m in Sources */,
 				C54AF67819B8C491006F7EDB /* WLCandyCell.m in Sources */,

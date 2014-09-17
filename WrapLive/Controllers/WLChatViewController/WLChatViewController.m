@@ -47,8 +47,6 @@
 
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 
-@property (weak, nonatomic) IBOutlet UILabel *indicator;
-
 @property (nonatomic, readonly) WLCollectionViewFlowLayout* layout;
 
 @property (nonatomic) CGFloat keyboardHeight;
@@ -88,20 +86,12 @@
     [weakSelf refreshMessages:nil];
 	
 	self.backSwipeGestureEnabled = YES;
-    self.indicator.cornerRadius = self.indicator.width/2;
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLNotificationCenter defaultCenter] addReceiver:self];
-    if ([[WLAPIManager instance].environment.name isEqualToString:WLAPIEnvironmentProduction]) {
-        [self.indicator removeFromSuperview];
-        [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:nil];
-    } else {
-        [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:^ {
-            weakSelf.indicator.backgroundColor = [UIColor greenColor];
-        }];
-    }
+
     self.groupTyping = [NSMutableOrderedSet orderedSet];
 }
 

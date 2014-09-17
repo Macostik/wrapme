@@ -20,6 +20,4 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 @interface WLCommentCell : WLItemCell
 
-+ (UIFont*)commentFont;
-
 @end

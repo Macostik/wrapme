@@ -18,11 +18,12 @@
 #import "NSDate+Formatting.h"
 #import "WLSupportFunctions.h"
 #import "WLServerTime.h"
+#import "UITextView+Aditions.h"
 
 @interface WLMessageCell ()
 
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
-@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet UITextView *messageTextView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
 @property (strong, nonatomic) NSArray *bubbleImages;
@@ -65,13 +66,11 @@
 
 @end
 
-
 @implementation WLMessageCell
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.avatarView.circled = YES;
-    
     self.bubbleImages = @[[[UIImage imageNamed:@"gray_Bubble"] resizableImageWithCapInsets:UIEdgeInsetsMake(WLPadding, WLPadding, WLBottomIdent, 18)],
                           [[UIImage imageNamed:@"red_Bubble"] resizableImageWithCapInsets:UIEdgeInsetsMake(WLPadding, 18, WLBottomIdent, WLPadding)]];
 }
@@ -83,12 +82,13 @@
         weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];
 	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(message.contributor.name), WLString([message.createdAt stringWithFormat:@"HH:mm"])];
-	self.messageLabel.text = message.text;
+	[self.messageTextView determineHyperLink:message.text];
+    self.messageTextView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, -5);
 	[UIView performWithoutAnimation:^{
-        CGSize size = [weakSelf.messageLabel sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)];
-        weakSelf.messageLabel.size = CGSizeMake(MAX(WLMinBubbleWidth, size.width), size.height);
-        if (weakSelf.avatarView.x > weakSelf.messageLabel.x) {
-            weakSelf.messageLabel.x = weakSelf.avatarView.x - weakSelf.messageLabel.width - WLMessageAuthorLabelHeight/2;
+        CGSize size = [weakSelf.messageTextView sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)];
+        weakSelf.messageTextView.size = CGSizeMake(MAX(WLMinBubbleWidth, size.width), size.height);
+        if (weakSelf.avatarView.x > weakSelf.messageTextView.x) {
+            weakSelf.messageTextView.x = weakSelf.avatarView.x - weakSelf.messageTextView.width - WLMessageAuthorLabelHeight/2;
         }
 	}];
     [self drawMessageBubbleForCandy:message];
@@ -97,7 +97,7 @@
 
 - (void)drawMessageBubbleForCandy:(WLCandy *)candy {
     self.bubbleImageView.image = self.bubbleImages[![candy.contributor isCurrentUser]];
-    self.bubbleImageView.frame = self.messageLabel.frame;
+    self.bubbleImageView.frame = self.messageTextView.frame;
     self.bubbleImageView.x -= WLPadding;
     self.bubbleImageView.height += 10;
     self.bubbleImageView.width += 2*WLPadding;

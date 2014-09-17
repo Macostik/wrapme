@@ -16,6 +16,7 @@
 #import "NSDate+Additions.h"
 #import "WLCommentCell.h"
 #import "UIView+Shorthand.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLDetailedCandyCell () <UITableViewDataSource, UITableViewDelegate>
 
@@ -103,7 +104,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLComment* comment = [self.comments objectAtIndex:indexPath.row];
 	CGFloat commentHeight  = ceilf([comment.text boundingRectWithSize:CGSizeMake(WLCommentLabelLenth, CGFLOAT_MAX)
-                                                              options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[WLCommentCell commentFont]} context:nil].size.height);
+                                                              options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightFontOfSize:15]} context:nil].size.height);
 	CGFloat cellHeight = (commentHeight + WLAuthorLabelHeight);
 	return MAX(WLMinimumCellHeight, cellHeight + 10);
 }

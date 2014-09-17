@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -2374,6 +2375,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fVr-6C-pxk">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <color key="tintColor" red="0.76470595598220825" green="0.37254902720451355" blue="0.15686275064945221" alpha="1" colorSpace="deviceRGB"/>
                                                                 <state key="normal">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
@@ -2420,20 +2422,23 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     </view>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cMQ-Ws-a0u">
-                                                                        <rect key="frame" x="60" y="24" width="250" height="18"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" id="Yq2-Yg-jcf">
+                                                                        <rect key="frame" x="60" y="19" width="255" height="32"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                        <color key="tintColor" red="1" green="0.42860027057324546" blue="0.16787798134862797" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                        <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
+                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                                    </textView>
                                                                 </subviews>
                                                             </tableViewCellContentView>
                                                             <connections>
                                                                 <outlet property="authorImageView" destination="LiT-bh-wDT" id="bxC-4F-J0k"/>
                                                                 <outlet property="authorNameLabel" destination="s8v-Pz-wMq" id="ewj-Qd-a3D"/>
                                                                 <outlet property="circleProgressBar" destination="exs-Mo-yvf" id="cIz-qx-FGa"/>
-                                                                <outlet property="commentLabel" destination="cMQ-Ws-a0u" id="x4C-nD-XBX"/>
+                                                                <outlet property="commentTextView" destination="Yq2-Yg-jcf" id="I5c-oM-Lwn"/>
                                                             </connections>
                                                         </tableViewCell>
                                                     </prototypes>
@@ -2612,14 +2617,6 @@ Check your internet connection and try again.</string>
                                         <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dPY-De-6N3">
-                                        <rect key="frame" x="290" y="37" width="10" height="10"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -2649,13 +2646,6 @@ Check your internet connection and try again.</string>
                                                     <rect key="frame" x="95" y="20" width="160" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d5F-zj-DWY">
-                                                    <rect key="frame" x="7" y="24" width="250" height="18"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1wE-ap-jeT">
                                                     <rect key="frame" x="13" y="5" width="240" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -2663,6 +2653,15 @@ Check your internet connection and try again.</string>
                                                     <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="right" id="w12-va-7vl">
+                                                    <rect key="frame" x="8" y="22" width="246" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -2670,7 +2669,7 @@ Check your internet connection and try again.</string>
                                         <connections>
                                             <outlet property="avatarView" destination="6cK-uC-aMZ" id="dNR-ll-d5X"/>
                                             <outlet property="bubbleImageView" destination="acW-kf-dhe" id="gVO-Y6-e3G"/>
-                                            <outlet property="messageLabel" destination="d5F-zj-DWY" id="g2Z-Mm-ag2"/>
+                                            <outlet property="messageTextView" destination="w12-va-7vl" id="DS3-yj-wSc"/>
                                             <outlet property="nameLabel" destination="1wE-ap-jeT" id="5p4-0f-ssd"/>
                                         </connections>
                                     </collectionViewCell>
@@ -2689,12 +2688,6 @@ Check your internet connection and try again.</string>
                                                     <rect key="frame" x="65" y="20" width="160" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="g9v-6l-x1S">
-                                                    <rect key="frame" x="64" y="24" width="250" height="18"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MrZ-rw-wZA">
                                                     <rect key="frame" x="67" y="5" width="240" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -2702,6 +2695,15 @@ Check your internet connection and try again.</string>
                                                     <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" id="pJg-Q1-lVX">
+                                                    <rect key="frame" x="65" y="22" width="246" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -2709,7 +2711,7 @@ Check your internet connection and try again.</string>
                                         <connections>
                                             <outlet property="avatarView" destination="YII-6v-9r6" id="rdb-ks-OqQ"/>
                                             <outlet property="bubbleImageView" destination="i75-tl-ISy" id="bek-hF-aEF"/>
-                                            <outlet property="messageLabel" destination="g9v-6l-x1S" id="8Xk-lC-dEt"/>
+                                            <outlet property="messageTextView" destination="pJg-Q1-lVX" id="MQ4-CA-0sK"/>
                                             <outlet property="nameLabel" destination="MrZ-rw-wZA" id="lRV-Il-yIR"/>
                                         </connections>
                                     </collectionViewCell>
@@ -2758,7 +2760,6 @@ Check your internet connection and try again.</string>
                     <connections>
                         <outlet property="collectionView" destination="ez0-f9-dHG" id="cd9-Q9-vcX"/>
                         <outlet property="composeBar" destination="dQp-Lx-kpC" id="cly-mG-GSx"/>
-                        <outlet property="indicator" destination="dPY-De-6N3" id="teM-sm-qkH"/>
                         <outlet property="titleLabel" destination="AvF-XJ-7eQ" id="VjQ-zZ-1TG"/>
                         <outlet property="topView" destination="L7B-3N-jdg" id="gR3-Tx-BoI"/>
                     </connections>

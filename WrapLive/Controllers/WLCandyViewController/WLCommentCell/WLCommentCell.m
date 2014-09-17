@@ -23,12 +23,13 @@
 #import "NSString+Additions.h"
 #import "WLCircleProgressBar.h"
 #import "WLInternetConnectionBroadcaster.h"
+#import "UITextView+Aditions.h"
 
 @interface WLCommentCell ()
 
 @property (weak, nonatomic) IBOutlet WLImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+@property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 @property (weak, nonatomic) IBOutlet WLCircleProgressBar *circleProgressBar;
 @property (strong, nonatomic) WLMenu* menu;
 
@@ -36,17 +37,8 @@
 
 @implementation WLCommentCell
 
-+ (UIFont *)commentFont {
-	static UIFont* commentFont = nil;
-	if (!commentFont) {
-		commentFont = [UIFont lightFontOfSize:15];
-	}
-	return commentFont;
-}
-
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	self.commentLabel.font = [WLCommentCell commentFont];
 	self.authorImageView.layer.cornerRadius = self.authorImageView.height/2.0f;
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self configuration:^BOOL(WLMenu *menu) {
@@ -73,8 +65,9 @@
 	self.userInteractionEnabled = YES;
     if (!NSNumberEqual(entry.unread, @NO)) entry.unread = @NO;
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", WLString(entry.contributor.name), WLString(entry.createdAt.timeAgoString)];
-	self.commentLabel.text = entry.text;
-	[self.commentLabel sizeToFitHeight];
+    [self.commentTextView determineHyperLink:entry.text];
+    self.commentTextView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, 0);
+    [self checkHeight];
     __weak typeof(self)weakSelf = self;
 	self.authorImageView.url = entry.contributor.picture.medium;
     [self.authorImageView setFailure:^(NSError* error) {
@@ -87,6 +80,11 @@
     } else {
           self.circleProgressBar.operation = entry.uploading.operation;
     }
+}
+
+- (void)checkHeight {
+    CGFloat height = [self.commentTextView sizeThatFits:CGSizeMake(self.commentTextView.width, CGFLOAT_MAX)].height + self.commentTextView.textContainerInset.top + self.commentTextView.textContainerInset.bottom;
+    self.commentTextView.height = height;
 }
 
 @end

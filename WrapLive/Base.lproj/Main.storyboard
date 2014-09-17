@@ -1227,7 +1227,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="HI4-AJ-lfr" customClass="WLUserView">
+                            <view contentMode="scaleToFill" id="HI4-AJ-lfr">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -1245,10 +1245,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="back:" destination="vgz-ev-iSR" eventType="touchUpInside" id="7Xw-WW-9hu"/>
                                             <action selector="back:" destination="XA1-LT-u0J" eventType="touchUpInside" id="CqH-Wc-jfw"/>
-                                            <action selector="back:" destination="y2d-d2-UUm" eventType="touchUpInside" id="uMX-zk-4h2"/>
-                                            <action selector="cencel:" destination="oVq-I3-8Xy" eventType="touchUpInside" id="RXX-yU-CSc"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1256,7 +1253,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" id="6jD-nG-AF2">
                                 <rect key="frame" x="30" y="72" width="260" height="176"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Wrap name" textAlignment="center" minimumFontSize="17" id="5Zl-7g-q4o">
                                         <rect key="frame" x="0.0" y="20" width="260" height="30"/>
@@ -1328,7 +1325,7 @@ Making your first wrap is easy. Tap the button below to get started.</string>
                                 <color key="backgroundColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="0.75" colorSpace="calibratedRGB"/>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" id="koJ-5e-Lmq">
-                                <rect key="frame" x="30" y="88" width="260" height="176"/>
+                                <rect key="frame" x="30" y="116" width="260" height="176"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create wrap" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vpv-qo-J8A">

@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSNumber * signInCount;
 @property (nonatomic, retain) NSMutableOrderedSet *contributions;
 @property (nonatomic, retain) NSMutableOrderedSet *wraps;
+@property (nonatomic, retain) NSNumber * confirmed;
 
 @end
 

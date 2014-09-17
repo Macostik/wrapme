@@ -110,6 +110,20 @@
 	self.frame = frame;
 }
 
+- (void)setY:(CGFloat)y height:(CGFloat)height {
+    CGRect frame = self.frame;
+    frame.origin.y = y;
+    frame.size.height = height;
+    self.frame = frame;
+}
+
+- (void)setX:(CGFloat)x width:(CGFloat)width {
+    CGRect frame = self.frame;
+    frame.origin.x = x;
+    frame.size.width = width;
+    self.frame = frame;
+}
+
 // corner points
 
 - (CGPoint)leftTop {

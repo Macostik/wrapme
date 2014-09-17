@@ -31,6 +31,8 @@
         NSString *unconfirmed_email = [dictionary stringForKey:WLUnconfirmedEmail];
         if (!NSStringEqual(authorization.unconfirmed_email, unconfirmed_email) && unconfirmed_email.nonempty)
             authorization.unconfirmed_email = unconfirmed_email;
+        NSNumber* confirmed = [dictionary numberForKey:WLConfirmedKey];
+        if (!NSNumberEqual(self.confirmed, confirmed)) self.confirmed = confirmed;
     }
     
     [self editPicture:[dictionary stringForKey:WLLargeAvatarKey]

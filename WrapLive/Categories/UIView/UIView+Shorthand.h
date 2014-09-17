@@ -40,6 +40,10 @@
 
 @property (nonatomic) BOOL circled;
 
+- (void)setY:(CGFloat)y height:(CGFloat)height;
+
+- (void)setX:(CGFloat)x width:(CGFloat)width;
+
 - (void)setFullFlexible;
 
 - (void)setFlexibleBottom;

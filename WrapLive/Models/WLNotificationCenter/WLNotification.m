@@ -81,7 +81,7 @@
             self.targetEntry = [WLCandy entry:[data stringForKey:WLCandyUIDKey]];
             break;
         case WLNotificationMessageAdd:
-            self.targetEntry = [WLMessage entry:[data stringForKey:@"chat_uid"]];
+            self.targetEntry = [WLMessage entry:[data stringForKey:WLMessageUIDKey]];
             break;
         case WLNotificationCommentAdd:
         case WLNotificationCommentDelete:
@@ -122,6 +122,22 @@
         [targetEntry fetch:block failure:nil];
     } else if (event == WLEventDelete) {
         block(nil);
+    }
+}
+
+- (BOOL)playSound {
+    WLNotificationType type = self.type;
+    switch (type) {
+        case WLNotificationContributorAdd:
+        case WLNotificationMessageAdd:
+            return YES;
+            break;
+        case WLNotificationCommentAdd:
+            return self.targetEntry.notifiable;
+            break;
+        default:
+            return NO;
+            break;
     }
 }
 

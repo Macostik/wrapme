@@ -108,7 +108,7 @@ static WLDataBlock deviceTokenCompletion = nil;
                 WLMessage* message = (id)notification.targetEntry;
                 [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:message.contributor];
             }
-            [WLSoundPlayer play];
+            if (notification.playSound) [WLSoundPlayer play];
             [weakSelf broadcastNotification:notification];
         }];
         weakSelf.historyDate = [[message.receiveDate date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
@@ -123,7 +123,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 	if (!name.nonempty) {
 		return;
 	}
-    [self.userChannel setName:name subscribe:NO];
+    [self.userChannel setName:[NSString stringWithFormat:@"%@-%@", name, [WLSession UDID]] subscribe:NO];
     __weak typeof(self)weakSelf = self;
     [self.userChannel subscribe:^{
         [PubNub requestHistoryForChannel:self.userChannel.channel from:[PNDate dateWithDate:weakSelf.historyDate] to:[PNDate dateWithDate:[NSDate date]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, PNChannel *channel, PNDate *from, PNDate *to, PNError *error) {

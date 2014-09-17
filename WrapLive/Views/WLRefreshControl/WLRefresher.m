@@ -234,7 +234,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
 - (void)didChangeContentOffset:(CGFloat)offset {
     if (offset > 0) return;
     CGFloat ratio = 0;
-    ratio = Smoothstep(0, 1, -offset / WLRefresherContentSize);
+    ratio = Smoothstep(0, 1, -offset / (1.3f * WLRefresherContentSize));
     [CATransaction begin];
     [CATransaction setAnimationDuration:0];
     self.strokeLayer.strokeEnd = ratio;

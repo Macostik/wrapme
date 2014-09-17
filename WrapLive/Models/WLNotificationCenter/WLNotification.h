@@ -36,6 +36,8 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 @property (strong, nonatomic) WLEntry* targetEntry;
 
+@property (readonly, nonatomic) BOOL playSound;
+
 + (instancetype)notificationWithMessage:(PNMessage*)message;
 
 + (instancetype)notificationWithData:(NSDictionary*)data;

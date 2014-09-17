@@ -48,6 +48,7 @@
 #import "WLUserView.h"
 #import "WLEntryFetching.h"
 #import "WLServerTime.h"
+#import "WLResendConfirmationRequest.h"
 
 @interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver, WLCreateWrapViewControllerDelegate>
 
@@ -60,6 +61,7 @@
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
 @property (weak, nonatomic) IBOutlet UILabel *notificationsLabel;
+@property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 
 @end
 
@@ -92,6 +94,8 @@
         weakSelf.noWrapsView.hidden = hasWraps;
         [weakSelf finishLoadingAnimation];
         [weakSelf showLatestWrap];
+        
+        [weakSelf updateEmailConfirmationView];
     }];
     
     [self.section setSelection:^(id entry) {
@@ -112,10 +116,7 @@
         [self.section.entries resetEntries:wraps];
     }
     [self updateNotificationsLabel];
-}
-
-- (CGFloat)toastAppearanceHeight:(WLToast *)toast {
-	return 84.0f;
+    [self updateEmailConfirmationView];
 }
 
 - (UIViewController *)shakePresentedViewController {
@@ -140,6 +141,14 @@
             [weakSelf.section.wrap present];
         });
 	}
+}
+
+- (void)updateEmailConfirmationView {
+    if (self.emailConfirmationView && [[WLUser currentUser].confirmed boolValue]) {
+        [self.emailConfirmationView removeFromSuperview];
+        CGFloat y = self.navigationBar.height;
+        [self.collectionView setY:y height:self.view.height - y];
+    }
 }
 
 - (void)finishLoadingAnimation {
@@ -219,9 +228,14 @@ static CGFloat WLNotificationsLabelSize = 22;
     }
 }
 
-- (IBAction)createNewWrap:(id)sender {
-	WLCreateWrapViewController* controller = [WLCreateWrapViewController instantiate];
-	[controller presentInViewController:self transition:WLWrapTransitionFromBottom];
+- (IBAction)resendConfirmation:(id)sender {
+    [[WLResendConfirmationRequest request] send:^(id object) {
+        WLToastAppearance* appearance = [WLToastAppearance appearance];
+        appearance.shouldShowIcon = NO;
+        appearance.contentMode = UIViewContentModeCenter;
+        [WLToast showWithMessage:@"Confirmation resent. Please, check you e-mail." appearance:appearance];
+    } failure:^(NSError *error) {
+    }];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate

@@ -123,7 +123,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 	if (!name.nonempty) {
 		return;
 	}
-    [self.userChannel setName:[NSString stringWithFormat:@"%@-%@", name, [WLSession UDID]] subscribe:NO];
+    [self.userChannel setName:[NSString stringWithFormat:@"%@-%@", name, [WLAuthorization currentAuthorization].deviceUID] subscribe:NO];
     __weak typeof(self)weakSelf = self;
     [self.userChannel subscribe:^{
         [PubNub requestHistoryForChannel:self.userChannel.channel from:[PNDate dateWithDate:weakSelf.historyDate] to:[PNDate dateWithDate:[NSDate date]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, PNChannel *channel, PNDate *from, PNDate *to, PNError *error) {
@@ -151,6 +151,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)handleRemoteNotification:(NSDictionary *)data {
 	if (data) {
+        NSLog(@"--handleRemoteNotification %@", data);
 		self.pendingRemoteNotification = [WLNotification notificationWithData:data];
 		if (self.pendingRemoteNotification) {
 			[self broadcast:@selector(broadcaster:didReceiveRemoteNotification:) object:self.pendingRemoteNotification];

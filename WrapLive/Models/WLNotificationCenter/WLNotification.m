@@ -34,7 +34,7 @@
 
 + (instancetype)notificationWithData:(NSDictionary *)data {
 	if ([data isKindOfClass:[NSDictionary class]]) {
-		NSString* type = [data objectForKey:@"wl_pn_type"];
+		NSString* type = [data objectForKey:@"msg_type"];
 		if (type) {
 			WLNotification* notification = [[self alloc] init];
 			notification.type = [type integerValue];
@@ -73,20 +73,24 @@
     switch (type) {
         case WLNotificationContributorAdd:
         case WLNotificationContributorDelete:
-        case WLNotificationWrapDelete:
-            self.targetEntry = [WLWrap entry:[data stringForKey:WLWrapUIDKey]];
-            break;
+        case WLNotificationWrapDelete: {
+            NSDictionary* dictionary = [data dictionaryForKey:WLWrapKey];
+            self.targetEntry = dictionary ? [WLWrap API_entry:dictionary] : [WLWrap entry:[data stringForKey:WLWrapUIDKey]];
+        } break;
         case WLNotificationCandyAdd:
-        case WLNotificationCandyDelete:
-            self.targetEntry = [WLCandy entry:[data stringForKey:WLCandyUIDKey]];
-            break;
-        case WLNotificationMessageAdd:
-            self.targetEntry = [WLMessage entry:[data stringForKey:WLMessageUIDKey]];
-            break;
+        case WLNotificationCandyDelete: {
+            NSDictionary* dictionary = [data dictionaryForKey:WLCandyKey];
+            self.targetEntry = dictionary ? [WLCandy API_entry:dictionary] : [WLCandy entry:[data stringForKey:WLCandyUIDKey]];
+        } break;
+        case WLNotificationMessageAdd: {
+            NSDictionary* dictionary = [data dictionaryForKey:WLMessageKey];
+            self.targetEntry = dictionary ? [WLMessage API_entry:dictionary] : [WLMessage entry:[data stringForKey:WLMessageUIDKey]];
+        } break;
         case WLNotificationCommentAdd:
-        case WLNotificationCommentDelete:
-            self.targetEntry = [WLComment entry:[data stringForKey:WLCommentUIDKey]];
-            break;
+        case WLNotificationCommentDelete: {
+            NSDictionary* dictionary = [data dictionaryForKey:WLCommentKey];
+            self.targetEntry = dictionary ? [WLComment API_entry:dictionary] : [WLComment entry:[data stringForKey:WLCommentUIDKey]];
+        } break;
         default:
             break;
     }

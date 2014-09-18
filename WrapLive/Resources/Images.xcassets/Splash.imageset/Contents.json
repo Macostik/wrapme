@@ -14,6 +14,10 @@
       "filename" : "00-screen-IOS7-1136px-redesign.png",
       "subtype" : "retina4",
       "scale" : "2x"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "3x"
     }
   ],
   "info" : {

@@ -199,7 +199,10 @@
 }
 
 - (void)broadcaster:(WLNotificationCenter *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {
-	[self handleRemoteNotification:notification];
+    __weak typeof(self)weakSelf = self;
+    [notification fetch:^{
+        [weakSelf handleRemoteNotification:notification];
+    }];
 	broadcaster.pendingRemoteNotification = nil;
 }
 

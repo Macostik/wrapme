@@ -291,10 +291,6 @@
     }
 }
 
-- (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
-    return self.candy.wrap;
-}
-
 - (WLCandy *)broadcasterPreferedCandy:(WLWrapBroadcaster *)broadcaster {
     return self.candy;
 }

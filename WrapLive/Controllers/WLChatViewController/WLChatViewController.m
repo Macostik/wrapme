@@ -66,6 +66,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
+    self.shouldAppendMoreMessages = YES;
+    
     self.groups = [[WLGroupedSet alloc] init];
 	
 	if (self.wrap.name.nonempty) {
@@ -140,7 +142,6 @@
         return;
     }
     self.operation = [self.wrap messagesNewer:message.createdAt success:^(NSOrderedSet *messages) {
-        weakSelf.shouldAppendMoreMessages = messages.count >= WLPageSize;
         if (messages.nonempty) {
             [weakSelf addMessages:messages];
         }
@@ -154,7 +155,6 @@
 - (void)loadMessages:(WLBlock)completion {
     __weak typeof(self)weakSelf = self;
     self.operation = [self.wrap messages:^(NSOrderedSet *messages) {
-        weakSelf.shouldAppendMoreMessages = messages.count >= WLPageSize;
 		[weakSelf setMessages:messages];
         if (completion) {
             completion();

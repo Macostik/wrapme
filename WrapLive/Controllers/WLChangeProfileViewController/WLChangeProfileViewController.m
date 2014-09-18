@@ -48,9 +48,7 @@
 	self.nameTextField.text = self.user.name;
 	self.imageView.url = self.user.picture.large;
     self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
-    self.emailTextField.text = [[WLAuthorization currentAuthorization] unconfirmed_email].nonempty ?
-                               [[WLAuthorization currentAuthorization] unconfirmed_email] :
-                               [[WLAuthorization currentAuthorization] email];
+    self.emailTextField.text = [WLAuthorization priorityEmail];
 	self.stillPictureCameraPosition = AVCaptureDevicePositionFront;
 	self.stillPictureMode = WLCameraModeAvatar;
     self.notPresentShakeViewController = YES;

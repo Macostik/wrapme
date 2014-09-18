@@ -106,7 +106,7 @@ static BOOL authorized = NO;
 }
 
 - (void)handleFailure:(NSError *)error {
-    if([error isError:WLErrorUnknown] && !self.tryUncorfirmedEmail)  {
+    if([error isError:WLErrorNotFoundEntry] && !self.tryUncorfirmedEmail)  {
         self.tryUncorfirmedEmail = YES;
         [self send];
     } else {

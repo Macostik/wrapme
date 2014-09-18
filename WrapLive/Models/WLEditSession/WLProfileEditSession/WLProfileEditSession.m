@@ -39,7 +39,7 @@
 
 - (void)setup:(NSMutableDictionary *)dictionary entry:(WLUser *)user {
     [dictionary trySetObject:user.name forKey:@"name"];
-    [dictionary trySetObject:[[WLAuthorization currentAuthorization] email] forKey:@"email"];
+    [dictionary trySetObject:[WLAuthorization priorityEmail] forKey:@"email"];
     [dictionary trySetObject:user.picture.large forKey:@"url"];
 }
 

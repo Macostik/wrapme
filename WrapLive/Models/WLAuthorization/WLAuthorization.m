@@ -46,6 +46,11 @@
 	[WLSession setAuthorization:authorization];
 }
 
++ (NSString *)priorityEmail {
+    WLAuthorization *autorization = [WLAuthorization currentAuthorization];
+    return [autorization unconfirmed_email].nonempty ? autorization.unconfirmed_email : autorization.email;
+}
+
 - (void)setCurrent {
 	[WLAuthorization setCurrentAuthorization:self];
 }

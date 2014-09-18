@@ -16,7 +16,8 @@ typedef NS_ENUM(NSInteger, WLErrorCode) {
     WLErrorDuplicatedUploading = 10,
     WLErrorInvalidAttributes = 20,
     WLErrorContentUnavaliable = 30,
-    WLErrorMaxTimeLagExceeded = 40
+    WLErrorNotFoundEntry = 40,
+    WLErrorCredentialNotValid = 50
 };
 
 static const BOOL detailedLog = YES;

@@ -40,6 +40,8 @@
 
 + (void)setCurrentAuthorization:(WLAuthorization*)authorization;
 
++ (NSString *)priorityEmail;
+
 - (void)setCurrent;
 
 @end

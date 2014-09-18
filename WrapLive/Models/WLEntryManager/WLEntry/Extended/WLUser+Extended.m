@@ -25,12 +25,17 @@
     
     if ([self isCurrentUser]) {
         WLAuthorization* authorization = [WLAuthorization currentAuthorization];
-        NSString *email = [dictionary stringForKey:WLEmailKey];
-        if (!NSStringEqual(authorization.email, email) && email.nonempty)
-            authorization.email = email;
-        NSString *unconfirmed_email = [dictionary stringForKey:WLUnconfirmedEmail];
-        if (!NSStringEqual(authorization.unconfirmed_email, unconfirmed_email) && unconfirmed_email.nonempty)
-            authorization.unconfirmed_email = unconfirmed_email;
+        if ([dictionary objectForKey:WLEmailKey]) {
+            NSString *email = [dictionary stringForKey:WLEmailKey];
+            if (!NSStringEqual(authorization.email, email))
+                authorization.email = email;
+        }
+        if ([dictionary objectForKey:WLUnconfirmedEmail]) {
+            NSString *unconfirmed_email = [dictionary stringForKey:WLUnconfirmedEmail];
+            if (!NSStringEqual(authorization.unconfirmed_email, unconfirmed_email))
+                authorization.unconfirmed_email = unconfirmed_email;
+            
+        }
         NSNumber* confirmed = [dictionary numberForKey:WLConfirmedKey];
         if (!NSNumberEqual(self.confirmed, confirmed)) self.confirmed = confirmed;
     }

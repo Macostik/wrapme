@@ -37,7 +37,7 @@ static NSString *const WLLeave = @"Leave";
     [self.nameWrapTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
     self.nameWrapTextField.returnKeyType = UIReturnKeyDone;
     self.deleteLabel.text = [NSString stringWithFormat:@"%@ this wrap", [self isMyWrap]? WLDelete : WLLeave];
-    self.deleteButton.titleLabel.text = [self isMyWrap]? WLDelete : WLLeave;
+    [self.deleteButton setTitle:[self isMyWrap]? WLDelete : WLLeave forState:UIControlStateNormal];
     self.nameWrapTextField.enabled = [self isMyWrap];
 }
 
@@ -75,14 +75,14 @@ static NSString *const WLLeave = @"Leave";
 - (IBAction)deleteButtonClick:(id)sender {
     WLWrap *wrap = [WLWrap entry:self.wrap.identifier];
     if ([self isMyWrap]) {
-        [self.navigationController popViewControllerAnimated:YES];
         [wrap remove:^(id object) {
+            [self.navigationController popViewControllerAnimated:YES];
         } failure:^(NSError *error) {
             [error show];
         }];
     } else {
-        [self back:nil];
         [wrap leave:^(id object) {
+             [self.navigationController popViewControllerAnimated:YES];
         } failure:^(NSError *error) {
             [error show];
         }];

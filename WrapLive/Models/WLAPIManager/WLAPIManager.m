@@ -32,6 +32,8 @@
 #import "WLPostCommentRequest.h"
 #import "WLUploadMessageRequest.h"
 #import "WLEntityRequest.h"
+#import "WLLeaveWrapRequest.h"
+#import "UIAlertView+Blocks.h"
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 
@@ -129,6 +131,11 @@ static BOOL signedIn = NO;
 
 @end
 
+static NSString *const WLDeleteAlertTitle = @"Delete wrap?";
+static NSString *const WLLeaveAlertTitle = @"Leave wrap?";
+static NSString *const WLDeleteAlertMessage = @"Are you sure you want to delete this wrap";
+static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave this wrap";
+
 @implementation WLWrap (WLAPIManager)
 
 - (BOOL)fetched {
@@ -149,7 +156,15 @@ static BOOL signedIn = NO;
         }
         return nil;
     } else {
-        return [[WLDeleteWrapRequest request:self] send:success failure:failure];
+        [UIAlertView showWithTitle:WLLeaveAlertTitle
+                           message:WLLeaveAlertMessage
+                           buttons:@[@"YES",@"NO"]
+                        completion:^(NSUInteger index) {
+                            if (!index) {
+                                [[WLDeleteWrapRequest request:self] send:success failure:failure];
+                            }
+                        }];
+        return nil;
     }
 }
 
@@ -205,13 +220,19 @@ static BOOL signedIn = NO;
 }
 
 - (id)leave:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    [self.contributors removeObject:[WLUser currentUser]];
-    return [self update:^(WLWrap *wrap) {
-        [wrap remove];
-        if (success) {
-            success(nil);
-        }
-    } failure:failure];
+    __weak __typeof(self)weakSelf = self;
+    [UIAlertView showWithTitle:WLLeaveAlertTitle
+                       message:WLLeaveAlertMessage
+                       buttons:@[@"YES",@"NO"]
+                    completion:^(NSUInteger index) {
+                        if (!index) {
+                             [[WLLeaveWrapRequest request:weakSelf] send:^(id object) {
+                                [weakSelf remove];
+                                 success(object);
+                            } failure:failure];
+                        }
+                    }];
+    return nil;
 }
 
 @end

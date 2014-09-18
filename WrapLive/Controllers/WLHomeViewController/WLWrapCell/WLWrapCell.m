@@ -53,7 +53,7 @@
                 }];
             }];
         } else {
-            [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:^{
+            [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_leave"] block:^{
                 weakSelf.userInteractionEnabled = NO;
                 [wrap leave:^(id object) {
                     weakSelf.userInteractionEnabled = YES;

@@ -154,6 +154,10 @@
 		5B89587019C9A38500B15CD0 /* WLNotificationCollectionViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B89586D19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m */; };
 		5B89587119C9A38500B15CD0 /* WLNotificationCollectionViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B89586D19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m */; };
 		5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */; };
+		5BB0262D19CABE290086D712 /* WLLeaveWrapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB0262C19CABE290086D712 /* WLLeaveWrapRequest.m */; };
+		5BB0262E19CABE290086D712 /* WLLeaveWrapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB0262C19CABE290086D712 /* WLLeaveWrapRequest.m */; };
+		5BB0262F19CABE290086D712 /* WLLeaveWrapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB0262C19CABE290086D712 /* WLLeaveWrapRequest.m */; };
+		5BB0263019CABE290086D712 /* WLLeaveWrapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB0262C19CABE290086D712 /* WLLeaveWrapRequest.m */; };
 		5BB1A21B19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */; };
 		5BB1A21C19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */; };
 		5BB1A21D19C05A3E0062F8AE /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */; };
@@ -1316,10 +1320,12 @@
 		5B11019219BF335F00688C9D /* WLEditWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditWrapViewController.m; path = ../../WLEditWrapViewController.m; sourceTree = "<group>"; };
 		5B450F8919780D8000FC339A /* WLSignificantTimeBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignificantTimeBroadcaster.h; sourceTree = "<group>"; };
 		5B450F8A19780D8000FC339A /* WLSignificantTimeBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignificantTimeBroadcaster.m; sourceTree = "<group>"; };
-		5B89586C19C9A37500B15CD0 /* WLNotificationCollectionViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationCollectionViewSection.h; sourceTree = "<group>"; };
-		5B89586D19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationCollectionViewSection.m; sourceTree = "<group>"; };
+		5B89586C19C9A37500B15CD0 /* WLNotificationCollectionViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLNotificationCollectionViewSection.h; path = ../../WLNotificationCollectionViewSection.h; sourceTree = "<group>"; };
+		5B89586D19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLNotificationCollectionViewSection.m; path = ../../WLNotificationCollectionViewSection.m; sourceTree = "<group>"; };
 		5BAF8E141991196000AFCAE6 /* WLClearProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLClearProgressBar.h; sourceTree = "<group>"; };
 		5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLClearProgressBar.m; sourceTree = "<group>"; };
+		5BB0262B19CABE290086D712 /* WLLeaveWrapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLeaveWrapRequest.h; path = ../../WLLeaveWrapRequest.h; sourceTree = "<group>"; };
+		5BB0262C19CABE290086D712 /* WLLeaveWrapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLeaveWrapRequest.m; path = ../../WLLeaveWrapRequest.m; sourceTree = "<group>"; };
 		5BB1A21919C05A3E0062F8AE /* WLUpdateContributorsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUpdateContributorsRequest.h; path = ../../WLUpdateContributorsRequest.h; sourceTree = "<group>"; };
 		5BB1A21A19C05A3E0062F8AE /* WLUpdateContributorsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUpdateContributorsRequest.m; path = ../../WLUpdateContributorsRequest.m; sourceTree = "<group>"; };
 		5BB2221019796D7300782B72 /* UIView+Extentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extentions.h"; sourceTree = "<group>"; };
@@ -1661,6 +1667,7 @@
 		121907B3192CFF2500E7C22D /* WLAuthorization */ = {
 			isa = PBXGroup;
 			children = (
+				12DCBA5218DAF93C00A4BC44 /* WLAPIManager */,
 				121907B4192CFF3F00E7C22D /* WLAuthorization.h */,
 				121907B5192CFF3F00E7C22D /* WLAuthorization.m */,
 			);
@@ -1876,8 +1883,6 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
-				5B89586C19C9A37500B15CD0 /* WLNotificationCollectionViewSection.h */,
-				5B89586D19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m */,
 				12A7A70818DA0945008FF6F0 /* WrapLive */,
 				12A7A70118DA0945008FF6F0 /* Frameworks */,
 				12A7A70018DA0945008FF6F0 /* Products */,
@@ -1998,7 +2003,6 @@
 				128886AE18DC902700957B22 /* WLArchivingObject */,
 				128886AA18DC492300957B22 /* WLSession */,
 				121907B3192CFF2500E7C22D /* WLAuthorization */,
-				12DCBA5218DAF93C00A4BC44 /* WLAPIManager */,
 				14A04F851940CAFF005DA4CE /* WLEmoji */,
 				12E3DA4018E03EB000DBDB79 /* WLSupportFunctions.h */,
 				12E3DA4118E03EB000DBDB79 /* WLSupportFunctions.m */,
@@ -2901,6 +2905,8 @@
 				C50FD421199B69FD00B52B33 /* WLCandiesHistoryViewSection.m */,
 				C509CCF9199E0B38006B00AA /* WLCandiesViewSection.h */,
 				C509CCFA199E0B38006B00AA /* WLCandiesViewSection.m */,
+				5B89586C19C9A37500B15CD0 /* WLNotificationCollectionViewSection.h */,
+				5B89586D19C9A37500B15CD0 /* WLNotificationCollectionViewSection.m */,
 			);
 			name = WLCollectionViewDataProvider;
 			sourceTree = "<group>";
@@ -2979,6 +2985,8 @@
 				C5215DFA19C32CB80012AE10 /* WLEntityRequest.m */,
 				C55C8D7A19C9A56400199245 /* WLResendConfirmationRequest.h */,
 				C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */,
+				5BB0262B19CABE290086D712 /* WLLeaveWrapRequest.h */,
+				5BB0262C19CABE290086D712 /* WLLeaveWrapRequest.m */,
 			);
 			name = WLAPIRequest;
 			sourceTree = "<group>";
@@ -3860,6 +3868,7 @@
 				C53978C919AE2B21006BE8FD /* WLTimelineEventHeaderView.m in Sources */,
 				12D578CE1917E82100586995 /* UIAlertView+Blocks.m in Sources */,
 				12DEC3F21921181B007BE6CC /* NSObject+AssociatedObjects.m in Sources */,
+				5BB0262D19CABE290086D712 /* WLLeaveWrapRequest.m in Sources */,
 				C50445B51951AA8F003C2251 /* WLCandy+Extended.m in Sources */,
 				C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */,
 				C5F35CFE1930935200FB99D2 /* WLImageFetcher.m in Sources */,
@@ -4068,6 +4077,7 @@
 				C54AF4DB19B8C437006F7EDB /* WLTimelineEventHeaderView.m in Sources */,
 				C54AF4DC19B8C437006F7EDB /* UIAlertView+Blocks.m in Sources */,
 				C54AF4DD19B8C437006F7EDB /* NSObject+AssociatedObjects.m in Sources */,
+				5BB0262E19CABE290086D712 /* WLLeaveWrapRequest.m in Sources */,
 				C54AF4DE19B8C437006F7EDB /* WLCandy+Extended.m in Sources */,
 				C54AF4DF19B8C437006F7EDB /* WLChatViewController.m in Sources */,
 				C54AF4E019B8C437006F7EDB /* WLImageFetcher.m in Sources */,
@@ -4276,6 +4286,7 @@
 				C54AF5D819B8C467006F7EDB /* WLTimelineEventHeaderView.m in Sources */,
 				C54AF5D919B8C467006F7EDB /* UIAlertView+Blocks.m in Sources */,
 				C54AF5DA19B8C467006F7EDB /* NSObject+AssociatedObjects.m in Sources */,
+				5BB0262F19CABE290086D712 /* WLLeaveWrapRequest.m in Sources */,
 				C54AF5DB19B8C467006F7EDB /* WLCandy+Extended.m in Sources */,
 				C54AF5DC19B8C467006F7EDB /* WLChatViewController.m in Sources */,
 				C54AF5DD19B8C467006F7EDB /* WLImageFetcher.m in Sources */,
@@ -4484,6 +4495,7 @@
 				C54AF6D519B8C491006F7EDB /* WLTimelineEventHeaderView.m in Sources */,
 				C54AF6D619B8C491006F7EDB /* UIAlertView+Blocks.m in Sources */,
 				C54AF6D719B8C491006F7EDB /* NSObject+AssociatedObjects.m in Sources */,
+				5BB0263019CABE290086D712 /* WLLeaveWrapRequest.m in Sources */,
 				C54AF6D819B8C491006F7EDB /* WLCandy+Extended.m in Sources */,
 				C54AF6D919B8C491006F7EDB /* WLChatViewController.m in Sources */,
 				C54AF6DA19B8C491006F7EDB /* WLImageFetcher.m in Sources */,

@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-@property (weak, nonatomic) IBOutlet WLBorderView *imagePlaceholderView;
+@property (weak, nonatomic) IBOutlet UIView *imagePlaceholderView;
 
 @property (strong, nonatomic) WLEditSession *editSession;
 

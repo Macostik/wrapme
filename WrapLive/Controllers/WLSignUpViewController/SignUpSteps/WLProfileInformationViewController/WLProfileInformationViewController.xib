@@ -46,7 +46,7 @@
                                         <outlet property="delegate" destination="-1" id="58N-bZ-zkr"/>
                                     </connections>
                                 </textField>
-                                <view clipsSubviews="YES" contentMode="scaleToFill" id="Qay-7G-73f" customClass="WLBorderView">
+                                <view clipsSubviews="YES" contentMode="scaleToFill" id="Qay-7G-73f">
                                     <rect key="frame" x="86" y="90" width="148" height="148"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>

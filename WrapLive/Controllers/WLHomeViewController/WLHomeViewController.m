@@ -144,9 +144,11 @@
 }
 
 - (void)updateEmailConfirmationView {
-    if (self.emailConfirmationView && [[WLUser currentUser].confirmed boolValue]) {
-        [self.emailConfirmationView removeFromSuperview];
-        CGFloat y = self.navigationBar.height;
+    BOOL confirmed = [[WLUser currentUser].confirmed boolValue];
+    UIView* view = self.emailConfirmationView;
+    if (view.hidden != confirmed) {
+        view.hidden = confirmed;
+        CGFloat y = confirmed ? self.navigationBar.height : view.bottom;
         [self.collectionView setY:y height:self.view.height - y];
     }
 }

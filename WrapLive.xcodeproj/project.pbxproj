@@ -1667,7 +1667,6 @@
 		121907B3192CFF2500E7C22D /* WLAuthorization */ = {
 			isa = PBXGroup;
 			children = (
-				12DCBA5218DAF93C00A4BC44 /* WLAPIManager */,
 				121907B4192CFF3F00E7C22D /* WLAuthorization.h */,
 				121907B5192CFF3F00E7C22D /* WLAuthorization.m */,
 			);
@@ -2004,6 +2003,7 @@
 				128886AA18DC492300957B22 /* WLSession */,
 				121907B3192CFF2500E7C22D /* WLAuthorization */,
 				14A04F851940CAFF005DA4CE /* WLEmoji */,
+				12DCBA5218DAF93C00A4BC44 /* WLAPIManager */,
 				12E3DA4018E03EB000DBDB79 /* WLSupportFunctions.h */,
 				12E3DA4118E03EB000DBDB79 /* WLSupportFunctions.m */,
 				12BC02C6191B80F900C4FA98 /* WLBlocks.h */,

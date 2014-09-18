@@ -24,7 +24,7 @@
 
 - (void)setEvent:(WLTimelineEvent *)event {
     _event = event;
-    self.dateLabel.text = [event.date stringWithFormat:@"hh:mm"];
+    self.dateLabel.text = [event.date stringWithFormat:@"hh:mm aa"];
     self.avatarView.url = event.user.picture.small;
     self.textLabel.text = event.text;
 }

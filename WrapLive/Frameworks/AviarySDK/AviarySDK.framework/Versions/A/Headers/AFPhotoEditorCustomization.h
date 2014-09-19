@@ -23,6 +23,7 @@ extern NSString *const kAFText;        /* Text */
 extern NSString *const kAFRedeye;      /* Redeye */
 extern NSString *const kAFWhiten;      /* Whiten */
 extern NSString *const kAFBlemish;     /* Blemish */
+extern NSString *const kAFBlur;        /* Blur */
 extern NSString *const kAFMeme;        /* Meme */
 extern NSString *const kAFFrames;      /* Frames */
 extern NSString *const kAFFocus;       /* TiltShift */
@@ -223,6 +224,29 @@ extern NSString *const kAFCropPresetHeight; /* Height */
  */
 + (void)setCropToolPresets:(NSArray *)cropToolPresets;
 + (NSArray *)cropToolPresets;
+
+@end
+
+@interface AFPhotoEditorCustomization (UserMessaging)
+
+/**
+ Configures whether to show tutorials explaining the editor's features to users. By default, this is set to YES.
+ 
+ @param tutorialsEnabled whether to enable the the tutorials or not
+ */
+
++ (void)setTutorialsEnabled:(BOOL)tutorialsEnabled;
++ (BOOL)tutorialsEnabled;
+
+/**
+ Configures whether to ask the user for a confirmation when cancelling out of the editor with unsaved edits.
+ 
+ By default, this returns YES.
+ 
+ @param tutorialsEnabled whether to show the confirmation or not
+ */
++ (void)setConfirmOnCancelEnabled:(BOOL)confirmOnCancelEnabled;
++ (BOOL)confirmOnCancelEnabled;
 
 @end
 

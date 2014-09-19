@@ -55,8 +55,9 @@
     NSString* name = [dictionary stringForKey:WLNameKey];
     if (!NSStringEqual(self.name, name)) self.name = name;
     if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
-    NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSet];
-    for (NSDictionary* contributor in [dictionary arrayForKey:WLContributorsKey]) {
+    NSArray* contributorsArray = [dictionary arrayForKey:WLContributorsKey];
+    NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSetWithCapacity:[contributorsArray count]];
+    for (NSDictionary* contributor in contributorsArray) {
         WLUser* user = [WLUser API_entry:contributor];
         if (user) {
             [contributors addObject:user];
@@ -69,7 +70,8 @@
     if (contributors.count != self.contributors.count || ![contributors isSubsetOfOrderedSet:self.contributors]) {
         self.contributors = contributors;
     }
-    NSMutableOrderedSet* candies = [WLCandy API_entries:[dictionary arrayForKey:WLCandiesKey] relatedEntry:self container:[NSMutableOrderedSet orderedSet]];
+    NSArray* candiesArray = [dictionary arrayForKey:WLCandiesKey];
+    NSMutableOrderedSet* candies = [WLCandy API_entries:candiesArray relatedEntry:self container:[NSMutableOrderedSet orderedSetWithCapacity:[candiesArray count]]];
     if (candies.nonempty && ![candies isSubsetOfOrderedSet:self.candies]) {
         [self addCandies:candies];
     }
@@ -77,7 +79,7 @@
 }
 
 - (void)addCandies:(NSOrderedSet *)candies {
-    if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
+    if (!self.candies) self.candies = [NSMutableOrderedSet orderedSetWithCapacity:[candies count]];
     [self.candies unionOrderedSet:candies];
     [self.candies sortByUpdatedAtDescending];
 }

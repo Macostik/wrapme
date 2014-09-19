@@ -33,12 +33,13 @@
     [super API_setup:dictionary relatedEntry:relatedEntry];
     NSNumber* type = [dictionary numberForKey:WLCandyTypeKey];
     if (!NSNumberEqual(self.type, type)) self.type = type;
+    NSArray *commentsArray = [dictionary arrayForKey:WLCommentsKey];
     NSMutableOrderedSet* comments = self.comments;
     if (!comments) {
-        comments = [NSMutableOrderedSet orderedSet];
+        comments = [NSMutableOrderedSet orderedSetWithCapacity:[commentsArray count]];
         self.comments = comments;
     }
-    [WLComment API_entries:[dictionary arrayForKey:WLCommentsKey] relatedEntry:self container:comments];
+    [WLComment API_entries:commentsArray relatedEntry:self container:comments];
     if (comments.nonempty) [comments sortByCreatedAtAscending];
     [self editPicture:[dictionary stringForKey:WLCandyLargeURLKey]
                medium:[dictionary stringForKey:WLCandyMediumURLKey]

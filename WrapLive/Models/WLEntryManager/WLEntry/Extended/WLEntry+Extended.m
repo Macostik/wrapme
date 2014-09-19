@@ -26,12 +26,12 @@
 }
 
 + (NSOrderedSet *)API_entries:(NSArray *)array relatedEntry:(id)relatedEntry {
-	return [[self API_entries:array relatedEntry:relatedEntry container:[NSMutableOrderedSet orderedSet]] copy];
+	return [[self API_entries:array relatedEntry:relatedEntry container:[NSMutableOrderedSet orderedSetWithCapacity:[array count]]] copy];
 }
 
 + (NSMutableOrderedSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry container:(NSMutableOrderedSet*)container {
     if (!container) {
-        container = [NSMutableOrderedSet orderedSet];
+        container = [NSMutableOrderedSet orderedSetWithCapacity:[array count]];
     }
     for (NSDictionary* dictionary in array) {
 		WLEntry* entry = [self API_entry:dictionary relatedEntry:relatedEntry];

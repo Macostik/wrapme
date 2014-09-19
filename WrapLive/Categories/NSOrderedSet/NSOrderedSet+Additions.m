@@ -94,7 +94,7 @@
 }
 
 - (instancetype)map:(MapBlock)block {
-	NSMutableOrderedSet *result = [NSMutableOrderedSet orderedSet];
+	NSMutableOrderedSet *result = [NSMutableOrderedSet orderedSetWithCapacity:[self count]];
 	for (id element in self) {
 		id newElement = block(element);
 		if (newElement != nil) [result addObject:newElement];

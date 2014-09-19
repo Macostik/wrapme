@@ -39,6 +39,7 @@ typedef void (^WLOrderedSetBlock) (NSOrderedSet *orderedSet);
 typedef void (^WLDictionaryBlock) (NSDictionary *dictionary);
 typedef void (^WLStringBlock) (NSString *string);
 typedef void (^WLDataBlock) (NSData *data);
+typedef void (^WLImageBlock) (UIImage *image);
 typedef void (^WLPointBlock) (CGPoint point);
 typedef void (^WLBooleanBlock) (BOOL flag);
 typedef void(^WLIntegerBlock) (NSInteger index);

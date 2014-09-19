@@ -32,11 +32,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
 @property (weak, nonatomic) IBOutlet WLImageView *wrapCoverView;
 
+@property (strong, nonatomic) WLImageBlock editBlock;
+
 @end
 
 @implementation WLStillPictureViewController
 
 @synthesize mode = _mode;
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.editable = YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -106,7 +113,7 @@
 
 - (CGFloat)imageWidthForCurrentMode {
     WLCameraMode mode = self.mode;
-    if (mode == WLCameraModeCandy || mode == WLCameraModeWrapCreation) {
+    if (mode == WLCameraModeCandy) {
         return 720;
     } else {
         return 480;
@@ -119,7 +126,7 @@
 	run_getting_object(^id{
 		CGFloat width = [weakSelf imageWidthForCurrentMode];
         UIImage *result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(width, width)];
-		if (weakSelf.mode != WLCameraModeCandy && weakSelf.mode != WLCameraModeWrapCreation) {
+		if (weakSelf.mode != WLCameraModeCandy) {
 			result = [result croppedImage:CGRectThatFitsSize(result.size, viewSize)];
 		}
 		return result;
@@ -144,24 +151,39 @@
 	return aviaryController;
 }
 
-- (void)handleImage:(UIImage*)image {
-    if (self.mode == WLCameraModeWrapCreation) {
-        __weak typeof(self)weakSelf = self;
-        self.view.userInteractionEnabled = NO;
-        [WLPicture picture:image completion:^(id object) {
+- (void)handleImage:(UIImage*)image save:(BOOL)save metadata:(NSMutableDictionary *)metadata {
+    WLCameraMode mode = self.mode;
+
+    __weak typeof(self)weakSelf = self;
+    
+    WLImageBlock finishBlock = ^ (UIImage *resultImage) {
+        
+        if (save) [weakSelf saveImage:image metadata:metadata];
+        
+        if (mode == WLCameraModeCandy) {
             if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
-                [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithPictures:@[object]];
+                weakSelf.view.userInteractionEnabled = NO;
+                [WLPicture picture:resultImage completion:^(id object) {
+                    [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithPictures:@[object]];
+                    weakSelf.view.userInteractionEnabled = YES;
+                }];
             }
-            weakSelf.view.userInteractionEnabled = YES;
-        }];
+        } else if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithImage:)]) {
+            [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithImage:image];
+        }
+    };
+    
+    if (self.editable) {
+        [self editImage:image completion:finishBlock];
     } else {
-        [self editImage:image];
+        finishBlock(image);
     }
 }
 
-- (void)editImage:(UIImage*)image {
+- (void)editImage:(UIImage*)image completion:(WLImageBlock)completion {
     [self setTranslucent:NO animated:YES];
 	[self.cameraNavigationController pushViewController:[self editControllerWithImage:image] animated:YES];
+    self.editBlock = completion;
 }
 
 #pragma mark - WLCameraViewControllerDelegate
@@ -170,8 +192,7 @@
 	self.view.userInteractionEnabled = NO;
 	__weak typeof(self)weakSelf = self;
 	[self cropImage:image completion:^(UIImage *croppedImage) {
-		[weakSelf saveImage:croppedImage metadata:metadata];
-        [weakSelf handleImage:croppedImage];
+        [weakSelf handleImage:croppedImage save:YES metadata:metadata];
 		weakSelf.view.userInteractionEnabled = YES;
 	}];
 }
@@ -211,7 +232,7 @@
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
     [self cropAsset:asset completion:^(UIImage *croppedImage) {
-        [weakSelf handleImage:croppedImage];
+        [weakSelf handleImage:croppedImage save:NO metadata:nil];
         weakSelf.view.userInteractionEnabled = YES;
     }];
 }
@@ -244,17 +265,9 @@
 #pragma mark - AFPhotoEditorControllerDelegate
 
 - (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
-    if (self.mode == WLCameraModeCandy) {
-        __weak typeof(self)weakSelf = self;
-        self.view.userInteractionEnabled = NO;
-        [WLPicture picture:image completion:^(id object) {
-            if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
-                [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithPictures:@[object]];
-            }
-            weakSelf.view.userInteractionEnabled = YES;
-        }];
-    } else {
-        [self.delegate stillPictureViewController:self didFinishWithImage:image];
+    if (self.editBlock) {
+        self.editBlock(image);
+        self.editBlock = nil;
     }
 }
 

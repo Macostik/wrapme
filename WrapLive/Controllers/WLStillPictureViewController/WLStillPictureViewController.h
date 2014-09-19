@@ -26,6 +26,10 @@
 @end
 
 @interface WLStillPictureViewController : UIViewController
+{
+@private
+    BOOL _editable:YES;
+}
 
 @property (weak, nonatomic, readonly) UINavigationController* cameraNavigationController;
 
@@ -38,5 +42,7 @@
 @property (nonatomic) AVCaptureDevicePosition defaultPosition;
 
 @property (strong, nonatomic) WLWrap* wrap;
+
+@property (nonatomic) BOOL editable;
 
 @end

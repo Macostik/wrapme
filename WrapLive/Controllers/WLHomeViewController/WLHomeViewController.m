@@ -224,7 +224,8 @@ static CGFloat WLNotificationsLabelSize = 22;
 	if ([segue isWrapCameraSegue]) {
 		WLStillPictureViewController* controller = segue.destinationViewController;
 		controller.delegate = self;
-		controller.mode = WLCameraModeWrapCreation;
+		controller.mode = WLCameraModeCandy;
+        controller.editable = NO;
 	} else if ([segue isCameraSegue]) {
         WLStillPictureViewController* controller = segue.destinationViewController;
         controller.wrap = self.section.wrap;

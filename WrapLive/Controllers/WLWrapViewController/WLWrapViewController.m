@@ -86,7 +86,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     
     [self updateWrapData];
     
-    self.historyViewSection.defaultFooterSize = CGSizeZero;
     self.historyViewSection.defaultHeaderSize = CGSizeZero;
     
     self.mode = [WLSession integer:WLWrapViewDefaultModeKey];

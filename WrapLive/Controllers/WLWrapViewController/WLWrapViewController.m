@@ -178,10 +178,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-    WLWrapCell* cell = (id)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    if ([cell isKindOfClass:[WLWrapCell class]]) {
-        [WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.", WLString(cell.nameLabel.text)]];
-    }
+    [WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.", WLString(self.nameLabel.text)]];
     __weak typeof(self)weakSelf = self;
     run_after(0.5f, ^{
         [weakSelf.navigationController popToRootViewControllerAnimated:YES];

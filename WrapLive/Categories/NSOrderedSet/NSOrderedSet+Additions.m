@@ -123,6 +123,20 @@
 	}
 }
 
+- (BOOL)containsObject:(id)target byBlock:(EqualityBlock)block {
+    for (id item in self) {
+        if (block(target, item)) return YES;
+    }
+    return NO;
+}
+
+- (BOOL)match:(SelectBlock)block {
+    for (id item in self) {
+        if (block(item)) return YES;
+    }
+    return NO;
+}
+
 - (BOOL)containsIndex:(NSUInteger)index {
 	NSUInteger count = [self count];
 	return count > 0 && IsInBounds(0, count - 1, index);

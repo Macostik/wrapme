@@ -49,6 +49,10 @@
 
 - (void)all:(EnumBlock)block;
 
+- (BOOL)containsObject:(id)target byBlock:(EqualityBlock)block;
+
+- (BOOL)match:(SelectBlock)block;
+
 - (BOOL)containsIndex:(NSUInteger)index;
 
 - (NSOrderedSet*)orderedSetByRemovingObjectsWhileEnumerating:(SelectBlock)enumerator;

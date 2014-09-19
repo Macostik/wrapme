@@ -14,6 +14,4 @@
 
 @property (strong, nonatomic) WLWrap* wrap;
 
-@property (strong, nonatomic) NSMutableOrderedSet* candies;
-
 @end

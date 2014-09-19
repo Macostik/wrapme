@@ -282,7 +282,12 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
 }
 
 - (id)add:(WLCommentBlock)success failure:(WLFailureBlock)failure {
-    return [[WLPostCommentRequest request:self] send:success failure:failure];
+    if (self.candy.uploaded) {
+        return [[WLPostCommentRequest request:self] send:success failure:failure];
+    } else if (failure) {
+        failure(nil);
+    }
+    return nil;
 }
 
 - (id)remove:(WLCommentBlock)success failure:(WLFailureBlock)failure {

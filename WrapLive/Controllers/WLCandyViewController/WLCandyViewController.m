@@ -41,6 +41,7 @@
 #import "WLDetailedCandyCell.h"
 #import "UIView+AnimationHelper.h"
 #import "WLInternetConnectionBroadcaster.h"
+#import "NSOrderedSet+Additions.h"
 
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate>
 
@@ -266,12 +267,10 @@
     [self.collectionView reloadData];
     if (self.autoenqueueUploading) {
         self.autoenqueueUploading = NO;
-        for (WLComment* comment in candy.comments) {
-            if (!comment.uploaded) {
-                [WLUploading enqueueAutomaticUploading:^{
-                }];
-                break;
-            }
+        if ([candy.comments match:^BOOL(WLComment* comment) {
+            return !comment.uploaded;
+        }]) {
+            [WLUploading enqueueAutomaticUploading];
         }
     }
 }
@@ -401,13 +400,17 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self refresh];
+    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.5f];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (!decelerate) {
-        [self refresh];
+        [self performSelector:@selector(refresh) withObject:nil afterDelay:0.5f];
     }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refresh) object:nil];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

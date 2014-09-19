@@ -97,10 +97,10 @@
 	
 	self.contributorsLabel.text = [wrap contributorNames];
 	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
-}
-
-- (void)setCandies:(NSMutableOrderedSet *)candies {
-    self.candiesDataSection.entries = candies;
+    
+    if (self.candiesView) {
+         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
+    }
 }
 
 - (IBAction)select:(id)sender {

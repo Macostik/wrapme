@@ -33,11 +33,13 @@
     return automaticUploadingQueue;
 }
 
++ (void)enqueueAutomaticUploading {
+    [self enqueueAutomaticUploading:nil];
+}
+
 + (void)enqueueAutomaticUploading:(WLBlock)completion {
     if (![WLInternetConnectionBroadcaster broadcaster].reachable || ![WLAuthorizationRequest authorized]) {
-        if (completion) {
-            completion();
-        }
+        if (completion) completion();
         return;
     }
     [[self automaticUploadingQueue] addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {

@@ -26,16 +26,9 @@
 }
 
 - (void)setWrap:(WLWrap *)wrap {
-    BOOL changed = NO;
     if (_wrap != wrap) {
-        changed = YES;
         _wrap = wrap;
-    }
-    if (_wrap) {
-        self.candies = [_wrap recentCandies:WLHomeTopWrapCandiesLimit];
-        if (changed) {
-            [self fetchTopWrapIfNeeded:_wrap];
-        }
+        if (wrap) [self fetchTopWrapIfNeeded:wrap];
     }
 }
 
@@ -48,7 +41,7 @@
 }
 
 - (void)fetchTopWrapIfNeeded:(WLWrap*)wrap {
-    if ([self.candies count] < WLHomeTopWrapCandiesLimit) {
+    if ([wrap.candies count] < WLHomeTopWrapCandiesLimit) {
         [self.loadingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
             run_in_main_queue(^{
                 [wrap fetch:WLWrapContentTypeRecent success:^(NSOrderedSet* candies) {
@@ -64,7 +57,7 @@
 - (CGSize)size:(NSIndexPath *)indexPath {
     CGFloat height = 50;
 	if (indexPath.item == 0) {
-		height = [self.candies count] > WLHomeTopWrapCandiesLimit_2 ? 290 : 184;
+		height = [self.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 290 : 184;
 	}
 	return CGSizeMake(self.collectionView.width, height);
 }
@@ -73,11 +66,7 @@
     static NSString* topWrapCellIdentifier = @"WLTopWrapCell";
     static NSString* wrapCellIdentifier = @"WLWrapCell";
     NSString* identifier = indexPath.item == 0 ? topWrapCellIdentifier : wrapCellIdentifier;
-    WLWrapCell* cell = [self cellWithIdentifier:identifier indexPath:indexPath];
-    if (indexPath.item == 0) {
-        cell.candies = self.candies;
-    }
-	return cell;
+	return [self cellWithIdentifier:identifier indexPath:indexPath];
 }
 
 @end

@@ -22,24 +22,6 @@
 	if (!NSNumberEqual(self.signInCount, signInCount)) self.signInCount = signInCount;
     NSString* name = [dictionary stringForKey:WLNameKey];
 	if (!NSStringEqual(self.name, name)) self.name = name;
-    
-    if ([self isCurrentUser]) {
-        WLAuthorization* authorization = [WLAuthorization currentAuthorization];
-        if ([dictionary objectForKey:WLEmailKey]) {
-            NSString *email = [dictionary stringForKey:WLEmailKey];
-            if (!NSStringEqual(authorization.email, email))
-                authorization.email = email;
-        }
-        if ([dictionary objectForKey:WLUnconfirmedEmail]) {
-            NSString *unconfirmed_email = [dictionary stringForKey:WLUnconfirmedEmail];
-            if (!NSStringEqual(authorization.unconfirmed_email, unconfirmed_email))
-                authorization.unconfirmed_email = unconfirmed_email;
-            
-        }
-        NSNumber* confirmed = [dictionary numberForKey:WLConfirmedKey];
-        if (!NSNumberEqual(self.confirmed, confirmed)) self.confirmed = confirmed;
-    }
-    
     [self editPicture:[dictionary stringForKey:WLLargeAvatarKey]
                medium:[dictionary stringForKey:WLMediumAvatarKey]
                 small:[dictionary stringForKey:WLSmallAvatarKey]];

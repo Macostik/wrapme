@@ -18,6 +18,5 @@
 @dynamic signInCount;
 @dynamic contributions;
 @dynamic wraps;
-@dynamic confirmed;
 
 @end

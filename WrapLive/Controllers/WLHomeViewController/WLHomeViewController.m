@@ -144,7 +144,8 @@
 }
 
 - (void)updateEmailConfirmationView {
-    BOOL confirmed = [[WLUser currentUser].confirmed boolValue];
+    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+    BOOL confirmed = authorization.confirmed && !authorization.unconfirmed_email.nonempty;
     UIView* view = self.emailConfirmationView;
     if (view.hidden != confirmed) {
         view.hidden = confirmed;

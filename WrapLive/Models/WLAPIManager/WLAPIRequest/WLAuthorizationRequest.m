@@ -97,9 +97,18 @@ static BOOL authorized = NO;
         if (pageSize) {
             WLPageSize = [pageSize integerValue];
         }
-		WLUser* user = [WLUser API_entry:[response.data dictionaryForKey:@"user"]];
+        
+        NSDictionary* userData = [response.data dictionaryForKey:@"user"];
+        
+		WLUser* user = [WLUser API_entry:userData];
 		[user setCurrent];
-		[self.authorization setCurrent];
+        
+        WLAuthorization* authorization = self.authorization;
+        authorization.email = [userData stringForKey:WLEmailKey];
+        authorization.unconfirmed_email = [userData stringForKey:WLUnconfirmedEmail];
+        authorization.confirmed = [userData boolForKey:WLConfirmedKey];
+		[authorization setCurrent];
+        
 		return user;
     }
     return self.authorization;

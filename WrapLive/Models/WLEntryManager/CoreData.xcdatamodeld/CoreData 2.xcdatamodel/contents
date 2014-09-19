@@ -31,7 +31,6 @@
         <relationship name="contribution" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLContribution" inverseName="uploading" inverseEntity="WLContribution" syncable="YES"/>
     </entity>
     <entity name="WLUser" representedClassName="WLUser" parentEntity="WLEntry">
-        <attribute name="confirmed" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="current" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="signInCount" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
@@ -54,7 +53,7 @@
         <element name="WLEntry" positionX="0" positionY="0" width="128" height="118"/>
         <element name="WLMessage" positionX="18" positionY="72" width="128" height="73"/>
         <element name="WLUploading" positionX="0" positionY="0" width="128" height="60"/>
-        <element name="WLUser" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="WLUser" positionX="0" positionY="0" width="128" height="118"/>
         <element name="WLWrap" positionX="0" positionY="0" width="128" height="103"/>
     </elements>
 </model>

@@ -10,7 +10,7 @@
 #import "NSDate+Formatting.h"
 #import "WLSupportFunctions.h"
 #import <objc/runtime.h>
-#import "WLServerTime.h"
+#import "WLAPIRequest.h"
 
 static const NSTimeInterval WLTimeIntervalMinute = 60;
 static const NSTimeInterval WLTimeIntervalHour = 3600;
@@ -109,7 +109,7 @@ static inline NSCalendar* NSCurrentCalendar() {
 }
 
 - (BOOL)isToday {
-	return [self isSameDay:[NSDate serverTime]];
+	return [self isSameDay:[NSDate now]];
 }
 
 - (NSTimeInterval)timestamp {

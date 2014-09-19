@@ -56,3 +56,9 @@
 - (void)cancel;
 
 @end
+
+@interface NSDate (WLServerTime)
+
++ (instancetype)now;
+
+@end

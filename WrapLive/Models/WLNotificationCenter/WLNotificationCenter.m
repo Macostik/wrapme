@@ -22,8 +22,8 @@
 #import "WLNotificationChannel.h"
 #import "NSPropertyListSerialization+Shorthand.h"
 #import "NSString+Documents.h"
-#import "WLServerTime.h"
 #import "NSDate+Additions.h"
+#import "WLAPIRequest.h"
 
 static NSString* WLPubNubOrigin = @"pubsub.pubnub.com";
 static NSString* WLPubNubPublishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
@@ -179,7 +179,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (NSMutableOrderedSet *)notificationEntries:(BOOL)unread {
     static CGFloat WLCountOfDays = 7;
-    NSDate *endDate = [[WLServerTime current] dayByAddingDayCount:-WLCountOfDays];
+    NSDate *endDate = [[NSDate now] dayByAddingDayCount:-WLCountOfDays];
     NSPredicate *predicate = nil;
     if (unread) {
         predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@ AND unread == YES", endDate, [WLUser currentUser]];

@@ -10,6 +10,7 @@
 #import "WLEntryManager.h"
 #import "WLNotificationCenter.h"
 #import "WLAuthorization.h"
+#import <Crashlytics/Crashlytics.h>
 
 @implementation WLUser (Extended)
 
@@ -92,6 +93,11 @@ static WLUser *currentUser = nil;
 	[user save];
     if (user) {
         [[WLNotificationCenter defaultCenter] configure];
+#ifndef DEBUG
+        [Crashlytics setUserEmail:[WLAuthorization currentAuthorization].email];
+        [Crashlytics setUserIdentifier:user.identifier];
+        [Crashlytics setUserName:user.name];
+#endif
     }
 }
 

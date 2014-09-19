@@ -11,8 +11,39 @@
 #import "WLWelcomeViewController.h"
 #import "WLNavigation.h"
 #import "NSDate+Formatting.h"
-#import "WLServerTime.h"
 #import "WLSupportFunctions.h"
+#import "WLSession.h"
+
+static NSString* WLServerTimeDifference = @"WLServerTimeDifference";
+
+@implementation NSDate (WLServerTime)
+
+static NSTimeInterval _difference = 0;
+
++ (NSTimeInterval)serverTimeDifference {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _difference = [WLSession wl_double:WLServerTimeDifference];
+    });
+    return _difference;
+}
+
++ (void)setServerTimeDifference:(NSTimeInterval)interval {
+    if (_difference != interval) {
+        _difference = interval;
+        [WLSession setDouble:interval key:WLServerTimeDifference];
+    }
+}
+
++ (void)trackServerTime:(NSDate *)serverTime {
+    [self setServerTimeDifference:serverTime ? [serverTime timeIntervalSinceNow] : 0];
+}
+
++ (NSDate*)now {
+    return [self dateWithTimeIntervalSinceNow:[self serverTimeDifference]];
+}
+
+@end
 
 @implementation WLAPIRequest
 
@@ -137,7 +168,7 @@
         NSDictionary* headers = [response allHeaderFields];
         NSString* serverTimeString = [headers objectForKey:@"Date"];
         NSDate* serverTime = [serverTimeString GMTDateWithFormat:@"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"];
-        [WLServerTime track:serverTime];
+        [NSDate trackServerTime:serverTime];
     });
 }
 

@@ -71,7 +71,7 @@
         self.commentLabel.hidden = !self.commentLabel.text.nonempty;
     }
 	self.coverView.animatingPicture = candy.picture;
-    self.coverView.url = candy.picture.medium;
+    self.coverView.url = candy.picture.small;
 }
 
 - (void)select:(WLCandy*)candy {

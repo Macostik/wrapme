@@ -10,7 +10,7 @@
 #import "NSString+Additions.h"
 #import <objc/runtime.h>
 #import "WLSupportFunctions.h"
-#import "WLServerTime.h"
+#import "WLAPIRequest.h"
 
 @interface WLEntryManager ()
 
@@ -193,7 +193,7 @@
     if (!self.picture) {
         self.picture = [[WLPicture alloc] init];
     }
-    self.createdAt = [NSDate serverTime];
+    self.createdAt = [NSDate now];
 }
 
 - (void)awakeFromFetch {

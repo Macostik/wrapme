@@ -17,7 +17,6 @@
 #import "WLEntryFetching.h"
 #import "WLWrapBroadcaster.h"
 #import "NSDate+Formatting.h"
-#import "WLServerTime.h"
 #import "WLEntryManager.h"
 #import "WLNavigation.h"
 #import "WLNotificationCollectionViewSection.h"

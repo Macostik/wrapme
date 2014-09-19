@@ -47,7 +47,6 @@
 #import "WLNavigation.h"
 #import "WLUserView.h"
 #import "WLEntryFetching.h"
-#import "WLServerTime.h"
 #import "WLResendConfirmationRequest.h"
 
 @interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver, WLCreateWrapViewControllerDelegate>

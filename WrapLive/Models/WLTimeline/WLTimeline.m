@@ -12,7 +12,6 @@
 #import "WLTimelineEvent.h"
 #import "WLCandiesRequest.h"
 #import "WLSupportFunctions.h"
-#import "WLServerTime.h"
 #import "WLEntryFetching.h"
 
 @interface WLTimeline ()
@@ -35,7 +34,7 @@
     self.request.sameDay = YES;
     self.fetching = [WLEntryFetching fetching:nil configuration:^(NSFetchRequest *request) {
         request.entity = [WLCandy entity];
-        NSDate* startDate = [[NSDate serverTime] beginOfDay];
+        NSDate* startDate = [[NSDate now] beginOfDay];
         request.predicate = [NSPredicate predicateWithFormat:@"wrap == %@ AND updatedAt >= %@", wrap, startDate];
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
     }];
@@ -46,7 +45,7 @@
 
 - (void)update {
     self.images = self.fetching.content;
-    [self resetEntries:[self events:[NSDate serverTime]]];
+    [self resetEntries:[self events:[NSDate now]]];
 }
 
 - (NSMutableOrderedSet*)events:(NSDate*)date {

@@ -97,7 +97,7 @@
     }
 }
 
-- (void)fetch:(WLBlock)completion {
+- (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure {
     
     WLEntry* targetEntry = [self targetEntry];
     
@@ -123,16 +123,16 @@
         } else if (event == WLEventDelete) {
             [targetEntry remove];
         }
-        
-        completion();
+
+        if (success) success();
     };
     
     if (event == WLEventAdd) {
-        [targetEntry fetchIfNeeded:block failure:nil];
+        [targetEntry fetchIfNeeded:block failure:failure];
     } else if (event == WLEventUpdate) {
-        [targetEntry fetch:block failure:nil];
+        [targetEntry fetch:block failure:failure];
     } else if (event == WLEventDelete) {
-        block(nil);
+        block(targetEntry);
     }
 }
 

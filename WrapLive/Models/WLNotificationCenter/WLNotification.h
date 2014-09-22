@@ -44,7 +44,7 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 + (NSMutableOrderedSet*)notificationsWithDataArray:(NSArray*)array;
 
-- (void)fetch:(WLBlock)completion;
+- (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure;
 
 @end
 

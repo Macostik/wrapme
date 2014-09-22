@@ -42,7 +42,7 @@
 
 + (void)deviceToken:(WLDataBlock)completion;
 
-- (void)handleRemoteNotification:(NSDictionary*)data;
+- (void)handleRemoteNotification:(NSDictionary*)data success:(WLBlock)success failure:(WLFailureBlock)failure;
 
 - (void)connect;
 

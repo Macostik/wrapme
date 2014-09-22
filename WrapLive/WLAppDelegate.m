@@ -37,7 +37,7 @@
 	[[WLNotificationCenter defaultCenter] configure];
 //    [[WLGestureBroadcaster broadcaster] configure];
 	
-	[[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
+	[[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] success:nil failure:nil];
 	
 	[AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
 	[AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
@@ -87,10 +87,12 @@
 	NSLog(@"%@", error);
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-	if (application.applicationState != UIApplicationStateActive) {
-		[[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo];
-	}
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^{
+        if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
+    } failure:^(NSError *error) {
+        if (completionHandler) completionHandler(UIBackgroundFetchResultFailed);
+    }];
 }
 
 @end

@@ -54,16 +54,13 @@ static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzg
 }
 
 - (NSDate *)historyDate {
-    if (!_historyDate) {
-        _historyDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"historyDate"];
-    }
+    if (!_historyDate) _historyDate = [WLSession object:@"historyDate"];
     return _historyDate;
 }
 
 - (void)setHistoryDate:(NSDate *)historyDate {
     _historyDate = historyDate;
-    [[NSUserDefaults standardUserDefaults] setObject:historyDate forKey:@"historyDate"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [WLSession setObject:historyDate key:@"historyDate"];
 }
 
 static WLDataBlock deviceTokenCompletion = nil;
@@ -110,7 +107,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             }
             if (notification.playSound) [WLSoundPlayer play];
             [weakSelf broadcastNotification:notification];
-        }];
+        } failure:nil];
         weakSelf.historyDate = [[message.receiveDate date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
     }];
     self.typingChannel = [[WLNotificationChannel alloc] init];
@@ -149,14 +146,39 @@ static WLDataBlock deviceTokenCompletion = nil;
 	}
 }
 
-- (void)handleRemoteNotification:(NSDictionary *)data {
-	if (data) {
-        NSLog(@"--handleRemoteNotification %@", data);
-		self.pendingRemoteNotification = [WLNotification notificationWithData:data];
-		if (self.pendingRemoteNotification) {
-			[self broadcast:@selector(broadcaster:didReceiveRemoteNotification:) object:self.pendingRemoteNotification];
-		}
-	}
+- (void)handleRemoteNotification:(NSDictionary *)data success:(WLBlock)success failure:(WLFailureBlock)failure {
+    if (!data && failure)  {
+        failure(nil);
+        return;
+    }
+    switch ([UIApplication sharedApplication].applicationState) {
+        case UIApplicationStateActive:
+            if (failure) failure(nil);
+            break;
+        case UIApplicationStateInactive: {
+            WLNotification* notification = [WLNotification notificationWithData:data];
+            if (notification) {
+                self.pendingRemoteNotification = notification;
+                __weak typeof(self)weakSelf = self;
+                [notification fetch:^{
+                    [weakSelf broadcast:@selector(broadcaster:didReceiveRemoteNotification:) object:notification];
+                    if (success) success();
+                } failure:failure];
+            } else if (failure)  {
+                failure(nil);
+            }
+        } break;
+        case UIApplicationStateBackground: {
+            WLNotification* notification = [WLNotification notificationWithData:data];
+            if (notification) {
+                [notification fetch:success failure:failure];
+            } else if (failure)  {
+                failure(nil);
+            }
+        } break;
+        default:
+            break;
+    }
 }
 
 - (void)addReceiver:(id)receiver {

@@ -201,10 +201,7 @@
 }
 
 - (void)broadcaster:(WLNotificationCenter *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {
-    __weak typeof(self)weakSelf = self;
-    [notification fetch:^{
-        [weakSelf handleRemoteNotification:notification];
-    }];
+    [self handleRemoteNotification:notification];
 	broadcaster.pendingRemoteNotification = nil;
 }
 
@@ -239,7 +236,7 @@ static CGFloat WLNotificationsLabelSize = 22;
         WLToastAppearance* appearance = [WLToastAppearance appearance];
         appearance.shouldShowIcon = NO;
         appearance.contentMode = UIViewContentModeCenter;
-        [WLToast showWithMessage:@"Confirmation resent. Please, check you e-mail." appearance:appearance];
+        [WLToast showWithMessage:@"Confirmation resend. Please, check you e-mail." appearance:appearance];
     } failure:^(NSError *error) {
     }];
 }

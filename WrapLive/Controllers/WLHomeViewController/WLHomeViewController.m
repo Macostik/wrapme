@@ -212,7 +212,7 @@ static CGFloat WLNotificationsLabelSize = 22;
 
 - (void)updateNotificationsLabel {
     UILabel* label = self.notificationsLabel;
-    NSUInteger count = [[[WLNotificationCenter defaultCenter] notificationEntries:YES] count];
+    NSUInteger count = [[WLUser currentUser] unreadNotificationsCount];
     label.hidden = count == 0;
     label.text = [NSString stringWithFormat:@"%lu", (unsigned long)count];
     label.width = MAX(WLNotificationsLabelSize, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLNotificationsLabelSize)].width + 12);

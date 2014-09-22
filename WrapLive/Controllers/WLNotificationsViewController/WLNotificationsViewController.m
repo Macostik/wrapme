@@ -53,11 +53,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.dataSection.entries = [[WLNotificationCenter defaultCenter] notificationEntries:NO];
+    self.dataSection.entries = [[WLUser currentUser] notifications];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentCreated:(WLComment*)comment {
-    self.dataSection.entries = [[WLNotificationCenter defaultCenter] notificationEntries:NO];
+    self.dataSection.entries = [[WLUser currentUser] notifications];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentRemoved:(WLComment *)comment {

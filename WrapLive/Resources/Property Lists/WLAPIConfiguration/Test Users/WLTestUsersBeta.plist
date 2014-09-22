@@ -120,11 +120,11 @@
 		<key>phone</key>
 		<string>957115540</string>
 		<key>email</key>
-		<string>yura-granchenko@yandex.ru</string>
+		<string>macostik@rambler.ru</string>
 		<key>password</key>
-		<string>76aa022f76</string>
+		<string>9b27519bee</string>
 		<key>deviceUID</key>
-		<string>e79d44cd34bd5a05bf06a21b76fdcd188e12b101</string>
+		<string>8ab8a93209613cc9b1aad84be4d66a0ac0717f7b</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>
@@ -144,7 +144,9 @@
 		<key>email</key>
 		<string>y.granchenko@gmail.com</string>
 		<key>password</key>
-		<string>098683872e</string>
+		<string>2d26461368</string>
+		<key>deviceUID</key>
+		<string>e79d44cd34bd5a05bf06a21b76fdcd188e12b101</string>
 	</dict>
 </array>
 </plist>

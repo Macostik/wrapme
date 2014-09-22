@@ -49,6 +49,7 @@
 #import "WLSession.h"
 #import "NSString+Additions.h"
 #import "WLContributorsViewController.h"
+#import "WLNotification.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
     WLWrapViewModeTimeline,
@@ -71,6 +72,8 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 @property (strong, nonatomic) IBOutlet WLTimelineViewDataProvider *timelineDataProvider;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *messageCountLabel;
+@property (assign, nonatomic) NSInteger messageCounter;
 
 @end
 
@@ -142,6 +145,14 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     
     if (!NSNumberEqual(self.wrap.unread, @NO)) self.wrap.unread = @NO;
     [self.dataProvider reload];
+    
+    self.messageCounter = [self.wrap unreadNotificationsMessageCount];
+}
+
+- (void)setMessageCounter:(NSInteger)messageCounter {
+    _messageCounter = messageCounter;
+    self.messageCountLabel.text = [NSString stringWithFormat:@"%d", (int)_messageCounter];
+    self.messageCountLabel.hidden = _messageCounter == 0;
 }
 
 - (void)reloadData {
@@ -173,6 +184,14 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
     [self.groups sort:candy];
+}
+
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster messageCreated:(WLMessage*)message {
+    self.messageCounter = [self.wrap unreadNotificationsMessageCount];
+}
+
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster messageRemoved:(WLMessage *)message {
+    self.messageCounter = [self.wrap unreadNotificationsMessageCount];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
@@ -238,6 +257,9 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 	WLChatViewController * chatController = [WLChatViewController instantiate];
 	chatController.wrap = self.wrap;
 	chatController.shouldShowKeyboard = YES;
+    [self.wrap.messages all:^(WLMessage *message) {
+        if(!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
+    }];
 	[self.navigationController pushUniqueClassViewController:chatController animated:YES];
 }
 

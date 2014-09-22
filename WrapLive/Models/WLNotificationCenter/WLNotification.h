@@ -52,7 +52,25 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 @property (nonatomic, readonly) BOOL notifiable;
 
+- (NSMutableOrderedSet*)notifications;
+
+- (NSUInteger)unreadNotificationsCount;
+
 @end
 
-@interface WLComment (WLNotification) @end
+@interface WLUser (WLNotification)
+
+@end
+
+@interface WLWrap (WLNotification)
+
+- (NSUInteger)unreadNotificationsCandyCount;
+
+- (NSUInteger)unreadNotificationsMessageCount;
+
+@end
+
+@interface WLComment (WLNotification)
+
+@end
 

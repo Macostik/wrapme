@@ -76,7 +76,6 @@
 
 - (void)select:(WLCandy*)candy {
     if (candy.valid) {
-        if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
         [super select:candy];
     }
 }

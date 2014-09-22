@@ -46,8 +46,6 @@
 
 - (void)connect;
 
-- (NSMutableOrderedSet*)notificationEntries:(BOOL)unread;
-
 @end
 
 @interface WLNotificationCenter (Typing)

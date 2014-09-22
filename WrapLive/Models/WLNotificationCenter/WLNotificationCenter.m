@@ -177,21 +177,6 @@ static WLDataBlock deviceTokenCompletion = nil;
     [self broadcast:@selector(broadcaster:notificationReceived:) object:notification select:selectBlock];
 }
 
-- (NSMutableOrderedSet *)notificationEntries:(BOOL)unread {
-    static CGFloat WLCountOfDays = 7;
-    NSDate *endDate = [[NSDate now] dayByAddingDayCount:-WLCountOfDays];
-    NSPredicate *predicate = nil;
-    if (unread) {
-        predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@ AND unread == YES", endDate, [WLUser currentUser]];
-    } else {
-        predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@", endDate, [WLUser currentUser]];
-    }
-    return [WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"];
-    return [[WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"] map:^id (WLComment *comment) {
-        return comment.notifiable ? comment : nil;
-    }];
-}
-
 #pragma mark - PNDelegate
 
 - (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {

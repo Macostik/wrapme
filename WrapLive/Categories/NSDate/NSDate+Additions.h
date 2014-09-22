@@ -18,6 +18,10 @@
 
 + (NSDate *)defaultBirtday;
 
++ (NSDate *)sinceWeekAgo;
+
++ (NSDate *)dayAgo;
+
 - (NSDateComponents *)dayComponents;
 
 - (BOOL)isSameDay:(NSDate*)date;
@@ -31,7 +35,5 @@
 - (NSDate *)endOfDay;
 
 - (void)getBeginOfDay:(NSDate**)beginOfDay endOfDay:(NSDate**)endOfDay;
-
-- (NSDate *)dayByAddingDayCount:(NSInteger)countDay;
 
 @end

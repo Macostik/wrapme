@@ -96,11 +96,11 @@
 }
 
 - (void)broadcastMessageCreation:(WLMessage*)message {
-    [self broadcast:@selector(broadcaster:messageRemoved:) object:message select:self.messageSelectBlock];
+    [self broadcast:@selector(broadcaster:messageCreated:) object:message select:self.messageSelectBlock];
 }
 
 - (void)broadcastMessageChange:(WLMessage*)message {
-    [self broadcast:@selector(broadcaster:messageRemoved:) object:message select:self.messageSelectBlock];
+    [self broadcast:@selector(broadcaster:messageChanged:) object:message select:self.messageSelectBlock];
 }
 
 - (void)broadcastMessageRemove:(WLMessage*)message {

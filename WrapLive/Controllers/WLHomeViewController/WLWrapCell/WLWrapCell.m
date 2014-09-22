@@ -21,6 +21,8 @@
 #import "NSObject+NibAdditions.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLHomeCandiesViewSection.h"
+#import "WLNotificationCenter.h"
+#import "WLNotification.h"
 
 @interface WLWrapCell ()
 
@@ -28,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
+@property (weak, nonatomic) IBOutlet UILabel *wrapNotificationLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *chatNotificationImageView;
 @property (strong, nonatomic) WLMenu* menu;
 @property (strong, nonatomic) WLCollectionViewDataProvider* candiesDataProvider;
 @property (strong, nonatomic) WLHomeCandiesViewSection* candiesDataSection;
@@ -85,10 +89,12 @@
     self.candiesDataSection.selection = selection;
 }
 
+static CGFloat WLNotificationsLabelSize = 22;
+static CGFloat WLPadding = 5;
+
 - (void)setup:(WLWrap*)wrap {
 	self.nameLabel.superview.userInteractionEnabled = YES;
 	self.nameLabel.text = wrap.name;
-	[self.nameLabel sizeToFitWidthWithSuperviewRightPadding:50];
     if (self.coverView) {
         NSString* url = [wrap.picture anyUrl];
         self.coverView.url = url;
@@ -97,8 +103,15 @@
 	
 	self.contributorsLabel.text = [wrap contributorNames];
 	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
-    
-    if (self.candiesView) {
+    NSInteger candyCount = [wrap unreadNotificationsCandyCount];
+    UILabel *label = self.wrapNotificationLabel;
+    label.text = [NSString stringWithFormat:@"%d", (int) candyCount];
+    label.width = MAX(WLNotificationsLabelSize, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLNotificationsLabelSize)].width + 12);
+    self.nameLabel.x = label.rightBottom.x + WLPadding;
+    label.hidden = candyCount == 0;
+    self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;
+
+	if (self.candiesView) {
          self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
     }
 }
@@ -106,6 +119,9 @@
 - (IBAction)select:(id)sender {
 	WLWrap* wrap = self.entry;
     if (!NSNumberEqual(wrap.unread, @NO)) wrap.unread = @NO;
+    [wrap.candies all:^(WLCandy *candy) {
+        if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
+    }];
     [super select:sender];
 }
 

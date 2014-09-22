@@ -35,6 +35,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enqueueSaving) name:UIApplicationWillTerminateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enqueueSaving) name:UIApplicationDidEnterBackgroundNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enqueueSaving) name:UIApplicationWillResignActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
     }
     return self;
 }
@@ -126,7 +127,7 @@
 - (void)save {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(enqueueSaving) object:nil];
     if ([self.context hasChanges]) {
-        [self performSelector:@selector(enqueueSaving) withObject:nil afterDelay:1.0f];
+        [self performSelector:@selector(enqueueSaving) withObject:nil afterDelay:0.0f];
     }
 }
 

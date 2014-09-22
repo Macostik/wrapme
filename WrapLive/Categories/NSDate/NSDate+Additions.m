@@ -46,6 +46,14 @@ static inline NSCalendar* NSCurrentCalendar() {
 	return [NSCurrentCalendar() dateFromComponents:components];
 }
 
++ (NSDate *)sinceWeekAgo {
+    return [[NSDate now] dateByAddingTimeInterval:-WLTimeIntervalWeek];
+}
+
++ (NSDate *)dayAgo {
+    return [[NSDate now] dateByAddingTimeInterval:-WLDaySeconds];
+}
+
 - (NSDate *)beginOfDay {
     return [NSCurrentCalendar() dateFromComponents:[self componentsBeginOfDay]];
 }
@@ -134,10 +142,6 @@ static inline NSCalendar* NSCurrentCalendar() {
 		}
 		return [NSString stringWithFormat:@"%d %@%@ ago", value, name, (value == 1 ? @"":@"s")];
 	}
-}
-
-- (NSDate *)dayByAddingDayCount:(NSInteger)countDay {
-    return [[NSDate date]dateByAddingTimeInterval:WLDaySeconds * countDay];
 }
 
 @end

@@ -15,6 +15,7 @@
 #import "WLBlocks.h"
 #import "WLAPIManager.h"
 #import "WLWrapBroadcaster.h"
+#import "NSDate+Additions.h"
 
 @interface WLNotification ()
 
@@ -102,11 +103,19 @@
     
     WLEvent event = self.event;
     
+    __weak __typeof(self)weakSelf = self;
     WLObjectBlock block = ^(id object) {
-        
         if (event == WLEventAdd) {
-            if (self.type == WLNotificationCommentAdd && targetEntry.notifiable && !NSNumberEqual(targetEntry.unread, @YES)) {
-                targetEntry.unread = @YES;
+            switch (weakSelf.type) {
+                case WLNotificationCommentAdd:
+                    if (targetEntry.notifiable && !NSNumberEqual(targetEntry.unread, @YES)) targetEntry.unread = @YES;
+                    break;
+                case WLNotificationCandyAdd:
+                case WLNotificationMessageAdd:
+                    if (!NSNumberEqual(targetEntry.unread, @YES)) targetEntry.unread = @YES;
+                    break;
+                default:
+                    break;
             }
             [targetEntry broadcastCreation];
         } else if (event == WLEventUpdate) {
@@ -114,11 +123,9 @@
         } else if (event == WLEventDelete) {
             [targetEntry remove];
         }
-
+        
         completion();
     };
-    
-    [targetEntry save];
     
     if (event == WLEventAdd) {
         [targetEntry fetchIfNeeded:block failure:nil];
@@ -149,8 +156,58 @@
 
 @implementation WLEntry (WLNotification)
 
+- (NSMutableOrderedSet *)notifications {
+    return nil;
+}
+
+- (NSUInteger)unreadNotificationsCount {
+    return 0;
+}
+
 - (BOOL)notifiable {
     return NO;
+}
+
+@end
+
+@implementation WLUser (WLNotification)
+
+- (NSMutableOrderedSet *)notifications {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@", [NSDate dayAgo], [WLUser currentUser]];
+    return [[WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"] map:^id (WLComment *comment) {
+        return comment.notifiable ? comment : nil;
+    }];
+}
+
+- (NSUInteger)unreadNotificationsCount {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@ AND unread == YES",
+                              [NSDate dayAgo], [WLUser currentUser]];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([WLComment class])];
+    request.predicate = predicate;
+    request.resultType = NSCountResultType;
+    return [[[request execute] lastObject] integerValue];
+}
+
+@end
+
+@implementation WLWrap (WLNotification)
+
+- (NSUInteger)unreadNotificationsCandyCount {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND wrap == %@ AND contributor != %@ AND unread == YES",
+                              [NSDate dayAgo], self, [WLUser currentUser]];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([WLCandy class])];
+    request.predicate = predicate;
+    request.resultType = NSCountResultType;
+    return [[[request execute] lastObject] integerValue];
+}
+
+- (NSUInteger)unreadNotificationsMessageCount {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND wrap == %@ AND contributor != %@ AND unread == YES",
+                              [NSDate dayAgo], self, [WLUser currentUser]];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([WLMessage class])];
+    request.predicate = predicate;
+    request.resultType = NSCountResultType;
+    return [[[request execute] lastObject] integerValue];
 }
 
 @end

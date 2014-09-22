@@ -156,12 +156,13 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
         }
         return nil;
     } else {
-        [UIAlertView showWithTitle:WLLeaveAlertTitle
-                           message:WLLeaveAlertMessage
+        [UIAlertView showWithTitle:WLDeleteAlertTitle
+                           message:WLDeleteAlertMessage
                            buttons:@[@"YES",@"NO"]
                         completion:^(NSUInteger index) {
                             if (!index) {
                                 [[WLDeleteWrapRequest request:self] send:success failure:failure];
+                                success(nil);
                             }
                         }];
         return nil;

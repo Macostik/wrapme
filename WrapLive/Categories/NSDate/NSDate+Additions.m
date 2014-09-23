@@ -150,7 +150,7 @@ static inline NSCalendar* NSCurrentCalendar() {
 			return WLTimeIntervalLessThanMinute;
 		}
         value = floor(value);
-		return [NSString stringWithFormat:@"%f %@%@ ago", value, name, (value == 1 ? @"":@"s")];
+		return [NSString stringWithFormat:@"%.f %@%@ ago", value, name, (value == 1 ? @"":@"s")];
 	}
 }
 

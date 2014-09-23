@@ -32,9 +32,9 @@
     self = [super init];
     if (self) {
         self.cachedEntries = [NSMapTable strongToWeakObjectsMapTable];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enqueueSaving) name:UIApplicationWillTerminateNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enqueueSaving) name:UIApplicationDidEnterBackgroundNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enqueueSaving) name:UIApplicationWillResignActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:UIApplicationWillTerminateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:UIApplicationWillResignActiveNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
     }
     return self;
@@ -120,22 +120,16 @@
 - (void)deleteEntry:(WLEntry *)entry {
     if (entry) {
         [self.context deleteObject:entry];
-        [self save];
     }
 }
 
 - (void)save {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(enqueueSaving) object:nil];
     if ([self.context hasChanges]) {
-        [self performSelector:@selector(enqueueSaving) withObject:nil afterDelay:0.0f];
-    }
-}
-
-- (void)enqueueSaving {
-    NSError* error = nil;
-    [self.context save:&error];
-    if (error) {
-        NSLog(@"!!! %@", error);
+         NSError* error = nil;
+        [self.context save:&error];
+        if (error) {
+            NSLog(@"!!! %@", error);
+        }
     }
 }
 

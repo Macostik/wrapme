@@ -131,7 +131,6 @@ static NSTimeInterval _difference = 0;
 }
 
 - (void)handleSuccess:(id)object {
-    [[WLEntryManager manager] save];
     if (self.successBlock) {
         self.successBlock(object);
         self.successBlock = nil;

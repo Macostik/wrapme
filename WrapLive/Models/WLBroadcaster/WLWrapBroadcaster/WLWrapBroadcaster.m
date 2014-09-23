@@ -126,7 +126,6 @@
 - (instancetype)update:(NSDictionary *)dictionary {
 	[self API_setup:dictionary];
 	[self broadcastChange];
-    [self save];
 	return self;
 }
 

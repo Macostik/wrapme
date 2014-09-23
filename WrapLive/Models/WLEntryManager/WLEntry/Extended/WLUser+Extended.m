@@ -37,7 +37,6 @@
     if (!self.wraps) self.wraps = [NSMutableOrderedSet orderedSet];
     [self.wraps addObject:wrap];
     [self sortWraps];
-    [self save];
 }
 
 - (void)addWraps:(NSOrderedSet *)wraps {
@@ -90,7 +89,6 @@ static WLUser *currentUser = nil;
     }
 	currentUser = user;
 	user.current = @YES;
-	[user save];
     if (user) {
         [[WLNotificationCenter defaultCenter] configure];
 #ifndef DEBUG

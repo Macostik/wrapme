@@ -84,7 +84,6 @@
         self.view.userInteractionEnabled = NO;
         WLWrap* wrap = [WLWrap wrap];
         wrap.name = name;
-        [wrap save];
         [wrap broadcastCreation];
         [[WLUploading uploading:wrap] upload:^(id object) {
             weakSelf.view.userInteractionEnabled = YES;

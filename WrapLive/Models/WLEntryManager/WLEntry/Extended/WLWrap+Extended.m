@@ -31,7 +31,6 @@
     if (wrap.contributor) {
         wrap.contributors = [NSMutableOrderedSet orderedSetWithObject:wrap.contributor];
     }
-    [wrap save];
     return wrap;
 }
 
@@ -123,7 +122,6 @@
     [self.candies addObject:candy];
     [self.candies sortByUpdatedAtDescending];
 	[self touch];
-    [self save];
 	[candy broadcastCreation];
 }
 
@@ -137,7 +135,6 @@
 
 - (void)sortCandies {
     [self.candies sortByUpdatedAtDescending];
-    [self save];
 }
 
 - (void)removeCandy:(WLCandy *)candy {
@@ -199,14 +196,12 @@
 		[message remove];
         failure(error);
 	}];
-	[message save];
 }
 
 - (void)uploadPicture:(WLPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     WLCandy* candy = [WLCandy candyWithType:WLCandyTypeImage wrap:self];
     candy.picture = picture;
     [[WLUploading uploading:candy] upload:success failure:failure];
-    [candy save];
 }
 
 - (void)uploadPicture:(WLPicture *)picture {

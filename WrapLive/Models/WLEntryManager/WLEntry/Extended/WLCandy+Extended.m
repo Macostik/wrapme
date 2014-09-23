@@ -88,7 +88,6 @@
     NSMutableOrderedSet* comments = self.comments;
     if ([comments containsObject:comment]) {
         [comments removeObject:comment];
-        [self save];
     }
 }
 
@@ -96,7 +95,6 @@
     WLComment* comment = [WLComment comment:text];
     [self addComment:comment];
     [[WLUploading uploading:comment] upload:success failure:failure];
-    [comment save];
 }
 
 - (BOOL)canBeUploaded {

@@ -78,7 +78,6 @@
                 commment.unread = @(NO);
             }
         }];
-        [[WLEntryManager manager] save];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

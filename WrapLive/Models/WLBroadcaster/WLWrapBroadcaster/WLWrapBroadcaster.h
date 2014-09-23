@@ -24,6 +24,8 @@
 @protocol WLWrapBroadcastReceiver
 
 @optional
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster userChanged:(WLUser*)user;
+
 - (WLWrap*)broadcasterPreferedWrap:(WLWrapBroadcaster*)broadcaster;
 
 - (NSInteger)broadcasterPreferedCandyType:(WLWrapBroadcaster*)broadcaster;
@@ -58,6 +60,8 @@
 
 @interface WLWrapBroadcaster : WLBroadcaster
 
+- (void)broadcastUserChange:(WLUser *)user;
+
 - (void)broadcastWrapCreation:(WLWrap*)wrap;
 
 - (void)broadcastWrapChange:(WLWrap*)wrap;
@@ -89,6 +93,8 @@
 - (instancetype)update:(NSDictionary*)dictionary;
 
 @end
+
+@interface WLUser (WLWrapBroadcaster) @end
 
 @interface WLWrap (WLWrapBroadcaster) @end
 

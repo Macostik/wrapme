@@ -9,6 +9,7 @@
 #import "WLAuthorization.h"
 #import "NSString+Additions.h"
 #import "WLSession.h"
+#import "WLEntryKeys.h"
 
 @implementation WLAuthorization
 
@@ -32,6 +33,12 @@
 
 - (NSString *)fullPhoneNumber {
 	return [NSString stringWithFormat:@"+%@ %@", self.countryCode, self.formattedPhone ? : self.phone];
+}
+
+- (void)updateWithUserData:(NSDictionary *)userData {
+    if ([userData objectForKey:WLEmailKey]) self.email = [userData stringForKey:WLEmailKey];
+    if ([userData objectForKey:WLUnconfirmedEmail]) self.unconfirmed_email = [userData stringForKey:WLUnconfirmedEmail];
+    [self setCurrent];
 }
 
 @end

@@ -34,9 +34,10 @@
 
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLUser* user = self.user;
+    NSDictionary* userData = response.data[@"user"];
     WLAuthorization* authorization = [WLAuthorization currentAuthorization];
-    [authorization setCurrent];
-    [user API_setup:response.data[@"user"]];
+    [authorization updateWithUserData:userData];
+    [user API_setup:userData];
     [user setCurrent];
     return user;
 }

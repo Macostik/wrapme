@@ -103,12 +103,7 @@ static BOOL authorized = NO;
 		WLUser* user = [WLUser API_entry:userData];
 		[user setCurrent];
         
-        WLAuthorization* authorization = self.authorization;
-        authorization.email = [userData stringForKey:WLEmailKey];
-        authorization.unconfirmed_email = [userData stringForKey:WLUnconfirmedEmail];
-        authorization.confirmed = [userData boolForKey:WLConfirmedKey];
-		[authorization setCurrent];
-        
+        [self.authorization updateWithUserData:userData];
 		return user;
     }
     return self.authorization;

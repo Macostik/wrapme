@@ -71,6 +71,10 @@
     return self;
 }
 
+- (void)broadcastUserChange:(WLUser *)user {
+    [self broadcast:@selector(broadcaster:userChanged:) object:user];
+}
+
 - (void)broadcastWrapCreation:(WLWrap *)wrap {
 	[self broadcast:@selector(broadcaster:wrapCreated:) object:wrap select:self.wrapSelectBlock];
 }
@@ -139,6 +143,14 @@
 
 - (void)broadcastRemoving {
 	
+}
+
+@end
+
+@implementation WLUser (WLWrapBroadcaster)
+
+- (void)broadcastChange {
+    [[WLWrapBroadcaster broadcaster] broadcastUserChange:self];
 }
 
 @end

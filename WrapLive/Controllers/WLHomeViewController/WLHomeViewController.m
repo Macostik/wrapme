@@ -143,8 +143,7 @@
 }
 
 - (void)updateEmailConfirmationView {
-    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
-    BOOL confirmed = authorization.confirmed && !authorization.unconfirmed_email.nonempty;
+    BOOL confirmed = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
     UIView* view = self.emailConfirmationView;
     if (view.hidden != confirmed) {
         view.hidden = confirmed;
@@ -165,6 +164,10 @@
 }
 
 #pragma mark - WLWrapBroadcastReceiver
+
+- (void)broadcaster:(WLWrapBroadcaster *)broadcaster userChanged:(WLUser *)user {
+    [self updateEmailConfirmationView];
+}
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
     [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];

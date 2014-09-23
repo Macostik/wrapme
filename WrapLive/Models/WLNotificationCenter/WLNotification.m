@@ -74,7 +74,8 @@
     switch (type) {
         case WLNotificationContributorAdd:
         case WLNotificationContributorDelete:
-        case WLNotificationWrapDelete: {
+        case WLNotificationWrapDelete:
+        case WLNotificationWrapUpdate: {
             NSDictionary* dictionary = [data dictionaryForKey:WLWrapKey];
             self.targetEntry = dictionary ? [WLWrap API_entry:dictionary] : [WLWrap entry:[data stringForKey:WLWrapUIDKey]];
         } break;
@@ -91,6 +92,15 @@
         case WLNotificationCommentDelete: {
             NSDictionary* dictionary = [data dictionaryForKey:WLCommentKey];
             self.targetEntry = dictionary ? [WLComment API_entry:dictionary] : [WLComment entry:[data stringForKey:WLCommentUIDKey]];
+        } break;
+        case WLNotificationUserUpdate: {
+            NSDictionary* dictionary = [data dictionaryForKey:WLUserKey];
+            if (dictionary) {
+                [[WLAuthorization currentAuthorization] updateWithUserData:dictionary];
+                self.targetEntry = [WLUser API_entry:dictionary];
+            } else {
+                self.targetEntry = [WLUser entry:[data stringForKey:WLUserUIDKey]];
+            }
         } break;
         default:
             break;
@@ -130,7 +140,7 @@
     if (event == WLEventAdd) {
         [targetEntry fetchIfNeeded:block failure:failure];
     } else if (event == WLEventUpdate) {
-        [targetEntry fetch:block failure:failure];
+        block(targetEntry);
     } else if (event == WLEventDelete) {
         block(targetEntry);
     }

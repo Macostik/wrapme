@@ -12,6 +12,7 @@ static NSString* WLCommentsKey = @"comments";
 static NSString* WLCandyLargeURLKey = @"large_image_attachment_url";
 static NSString* WLCandyMediumURLKey = @"medium_sq_image_attachment_url";
 static NSString* WLCandySmallURLKey = @"small_sq_image_attachment_url";
+static NSString* WLUserKey = @"user";
 static NSString* WLWrapKey = @"wrap";
 static NSString* WLCandyKey = @"candy";
 static NSString* WLMessageKey = @"chat";

@@ -28,11 +28,11 @@
 
 @property (strong, nonatomic) NSString *password;
 
-@property (nonatomic) BOOL confirmed;
-
 - (NSString*)fullPhoneNumber;
 
 - (BOOL)canAuthorize;
+
+- (void)updateWithUserData:(NSDictionary*)userData;
 
 @end
 

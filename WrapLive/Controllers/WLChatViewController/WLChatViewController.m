@@ -93,7 +93,7 @@
     [[WLWrapBroadcaster broadcaster] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLNotificationCenter defaultCenter] addReceiver:self];
-
+    [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:nil];
     self.groupTyping = [NSMutableOrderedSet orderedSet];
 }
 

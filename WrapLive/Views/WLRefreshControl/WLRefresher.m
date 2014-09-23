@@ -249,7 +249,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
 - (void)setArrowViewHidden:(BOOL)hidden {
     [CATransaction begin];
     [CATransaction setAnimationDuration:0];
-    self.arrowView.hidden = hidden;
+    self.arrowView.hidden = hidden ? YES : !self.scrollView.tracking;
     self.strokeLayer.hidden = hidden;
     [CATransaction commit];
     if (hidden) {

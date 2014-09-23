@@ -18,7 +18,8 @@
 }
 
 - (NSString *)path {
-    return [NSString stringWithFormat:@"wraps/%@/candies/%@", self.candy.wrap.identifier, self.candy.identifier];
+    WLCandy* candy = self.candy;
+    return candy.wrap ? [NSString stringWithFormat:@"wraps/%@/candies/%@", candy.wrap.identifier, candy.identifier] : [NSString stringWithFormat:@"entities/%@", candy.identifier];
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {

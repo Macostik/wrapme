@@ -35,7 +35,6 @@
 - (void)setUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure {
     self.image = nil;
     _url = url;
-    [self.layer removeAllAnimations];
     if (self.alpha != self.defaultAlpha) self.alpha = self.defaultAlpha;
     if (self.contentMode != self.defaultContentMode) self.contentMode = self.defaultContentMode;
     self.success = success;
@@ -55,8 +54,8 @@
         NSTimeInterval duration = self.animatingPicture.animate ? 0.5f : 0.33f;
         [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             weakSelf.alpha = alpha;
-            weakSelf.animatingPicture.animate = NO;
         } completion:^(BOOL finished) {
+            weakSelf.animatingPicture.animate = NO;
         }];
 	}
 	self.image = image;

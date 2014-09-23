@@ -25,11 +25,6 @@
 #import "NSDate+Additions.h"
 #import "WLAPIRequest.h"
 
-static NSString* WLPubNubOrigin = @"pubsub.pubnub.com";
-static NSString* WLPubNubPublishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
-static NSString* WLPubNubSubscribeKey = @"sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe";
-static NSString* WLPubNubSecretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzgwYjdkNWNkMmFl";
-
 @interface WLNotificationCenter () <PNDelegate>
 
 @property (strong, nonatomic) WLNotificationChannel* typingChannel;
@@ -85,7 +80,22 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 + (PNConfiguration*)configuration {
-	return [PNConfiguration configurationForOrigin:WLPubNubOrigin publishKey:WLPubNubPublishKey subscribeKey:WLPubNubSubscribeKey secretKey:WLPubNubSecretKey];
+    
+    NSString* origin, *publishKey, *subscribeKey, *secretKey;
+    
+    if ([[WLAPIManager instance].environment.name isEqualToString:WLAPIEnvironmentProduction]) {
+        origin = @"pubsub.pubnub.com";
+        publishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
+        subscribeKey = @"sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe";
+        secretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzgwYjdkNWNkMmFl";
+    } else {
+        origin = @"pubsub.pubnub.com";
+        publishKey = @"pub-c-87bbbc30-fc43-4f6b-b1f4-cedd5f30d5e8";
+        subscribeKey = @"sub-c-6562fe64-4270-11e4-aed8-02ee2ddab7fe";
+        secretKey = @"sec-c-NGE5NWU0NDAtZWMxYS00ZjQzLWJmMWMtZDU5MTE3NWE0YzE0";
+    }
+    
+	return [PNConfiguration configurationForOrigin:origin publishKey:publishKey subscribeKey:subscribeKey secretKey:secretKey];
 }
 
 - (void)configure {

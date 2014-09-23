@@ -87,11 +87,6 @@ static BOOL signedIn = NO;
     }
 }
 
-+ (id)fresh:(id)relatedEntry success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    success(nil);
-    return nil;
-}
-
 - (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     success(self);
     return nil;
@@ -180,10 +175,10 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
         WLWrapRequest* request = [WLWrapRequest request:self];
         request.contentType = contentType;
         return [request send:success failure:failure];
-    } else {
+    } else if (success) {
         success(nil);
-        return nil;
     }
+    return nil;
 }
 
 - (id)update:(WLWrapBlock)success failure:(WLFailureBlock)failure {
@@ -264,6 +259,10 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
     } else {
         return [[WLDeleteCandyRequest request:self] send:success failure:failure];
     }
+}
+
+- (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    return [[WLCandyRequest request:self] send:success failure:failure];
 }
 
 @end

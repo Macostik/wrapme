@@ -202,7 +202,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
         UIScrollView* sv = self.scrollView;
         if (keyPath == WlRefresherContentOffsetKeyPath) {
             CGPoint offset = sv.contentOffset;
-            [self didChangeContentOffset:_horizontal ? (offset.x + _inset) : (offset.y + _inset)];
+            [self didChangeContentOffset:_horizontal ? (offset.x + _inset) : (offset.y + _inset) tracking:sv.tracking];
         } else if (keyPath == WlRefresherDraggingStateKeyPath) {
             if (sv.panGestureRecognizer.state == UIGestureRecognizerStateEnded && _refreshable) {
                 __weak typeof(self)weakSelf = self;
@@ -231,13 +231,17 @@ static CGFloat WLRefresherContentSize = 44.0f;
     }
 }
 
-- (void)didChangeContentOffset:(CGFloat)offset {
+- (void)didChangeContentOffset:(CGFloat)offset tracking:(BOOL)tracking {
     if (offset > 0) return;
+    BOOL hidden = !tracking;
+    if (self.arrowView.hidden != hidden) {
+        self.arrowView.hidden = hidden;
+    }
     CGFloat ratio = 0;
     ratio = Smoothstep(0, 1, -offset / (1.3f * WLRefresherContentSize));
     [CATransaction begin];
     [CATransaction setAnimationDuration:0];
-    self.strokeLayer.strokeEnd = ratio;
+    self.strokeLayer.strokeEnd = hidden ? 0.0f : ratio;
     [CATransaction commit];
     self.refreshable = (ratio == 1);
 }

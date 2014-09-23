@@ -43,6 +43,10 @@ static NSTimeInterval _difference = 0;
     return [self dateWithTimeIntervalSinceNow:[self serverTimeDifference]];
 }
 
++ (instancetype)now:(NSTimeInterval)offset {
+    return [self dateWithTimeIntervalSinceNow:[self serverTimeDifference] + offset];
+}
+
 @end
 
 @implementation WLAPIRequest

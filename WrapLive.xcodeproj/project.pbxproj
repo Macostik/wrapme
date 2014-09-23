@@ -267,6 +267,10 @@
 		C516875119BDCA4B005BA034 /* WLUploadMessageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C516874F19BDCA4B005BA034 /* WLUploadMessageRequest.m */; };
 		C516875219BDCA4B005BA034 /* WLUploadMessageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C516874F19BDCA4B005BA034 /* WLUploadMessageRequest.m */; };
 		C516875319BDCA4B005BA034 /* WLUploadMessageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C516874F19BDCA4B005BA034 /* WLUploadMessageRequest.m */; };
+		C517D4CF19D08144006058C7 /* UIDevice+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */; };
+		C517D4D019D08144006058C7 /* UIDevice+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */; };
+		C517D4D119D08144006058C7 /* UIDevice+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */; };
+		C517D4D219D08144006058C7 /* UIDevice+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */; };
 		C51DAE3119B09E6100F40516 /* WLTimelineEventCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DAE3019B09E6100F40516 /* WLTimelineEventCommentCell.m */; };
 		C5215DFB19C32CB80012AE10 /* WLEntityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5215DFA19C32CB80012AE10 /* WLEntityRequest.m */; };
 		C5215DFC19C32CB80012AE10 /* WLEntityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5215DFA19C32CB80012AE10 /* WLEntityRequest.m */; };
@@ -1141,7 +1145,6 @@
 		12A7A71118DA0946008FF6F0 /* WLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLAppDelegate.h; sourceTree = "<group>"; };
 		12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLAppDelegate.m; sourceTree = "<group>"; };
 		12A7A71518DA0946008FF6F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		12A7A72118DA0946008FF6F0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		12A7A73B18DA0A06008FF6F0 /* WLWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWelcomeViewController.h; sourceTree = "<group>"; };
 		12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWelcomeViewController.m; sourceTree = "<group>"; };
 		12A7A73F18DA10DD008FF6F0 /* WLSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSignUpViewController.h; path = WLSignUpViewController/WLSignUpViewController.h; sourceTree = "<group>"; };
@@ -1456,6 +1459,8 @@
 		C516874919BDC1FA005BA034 /* WLBlockDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBlockDispatch.m; path = WLDispatcher/WLBlockDispatch.m; sourceTree = "<group>"; };
 		C516874E19BDCA4B005BA034 /* WLUploadMessageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUploadMessageRequest.h; path = WLAPIManager/WLAPIRequest/WLUploadMessageRequest.h; sourceTree = "<group>"; };
 		C516874F19BDCA4B005BA034 /* WLUploadMessageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUploadMessageRequest.m; path = WLAPIManager/WLAPIRequest/WLUploadMessageRequest.m; sourceTree = "<group>"; };
+		C517D4CD19D08144006058C7 /* UIDevice+SystemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+SystemVersion.h"; sourceTree = "<group>"; };
+		C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+SystemVersion.m"; sourceTree = "<group>"; };
 		C51DAE2F19B09E6100F40516 /* WLTimelineEventCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTimelineEventCommentCell.h; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCommentCell.h; sourceTree = "<group>"; };
 		C51DAE3019B09E6100F40516 /* WLTimelineEventCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTimelineEventCommentCell.m; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCommentCell.m; sourceTree = "<group>"; };
 		C5215DF919C32CB80012AE10 /* WLEntityRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntityRequest.h; path = WLAPIManager/WLAPIRequest/WLEntityRequest.h; sourceTree = "<group>"; };
@@ -1909,7 +1914,6 @@
 				12A7A70218DA0945008FF6F0 /* Foundation.framework */,
 				12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */,
 				12A7A70618DA0945008FF6F0 /* UIKit.framework */,
-				12A7A72118DA0946008FF6F0 /* XCTest.framework */,
 				F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */,
 			);
 			name = Frameworks;
@@ -2417,6 +2421,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				C517D4CC19D08144006058C7 /* UIDevice */,
 				5BB5F8B819C971FE0053242C /* UITextView */,
 				C5FD0EDD194B43F6004DAB1B /* NSOrderedSet */,
 				AC1A17A11937897D002B3737 /* MFMailComposeViewController */,
@@ -2994,6 +2999,15 @@
 				C516874919BDC1FA005BA034 /* WLBlockDispatch.m */,
 			);
 			name = WLDispatcher;
+			sourceTree = "<group>";
+		};
+		C517D4CC19D08144006058C7 /* UIDevice */ = {
+			isa = PBXGroup;
+			children = (
+				C517D4CD19D08144006058C7 /* UIDevice+SystemVersion.h */,
+				C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */,
+			);
+			path = UIDevice;
 			sourceTree = "<group>";
 		};
 		C537F8211962BADF00600B42 /* WLGroupedSet */ = {
@@ -3915,6 +3929,7 @@
 				C5A21E6C194B0ED600F3A554 /* WLContribution.m in Sources */,
 				C509CCFB199E0B38006B00AA /* WLCandiesViewSection.m in Sources */,
 				12E0F0621909249000463FEC /* UILabel+Additions.m in Sources */,
+				C517D4CF19D08144006058C7 /* UIDevice+SystemVersion.m in Sources */,
 				C5FFB03419AC8FA5006F27A7 /* WLTimelineEvent.m in Sources */,
 				ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */,
 				C516873719BD9D8D005BA034 /* WLMessage+Extended.m in Sources */,
@@ -4123,6 +4138,7 @@
 				C54AF50E19B8C437006F7EDB /* WLContribution.m in Sources */,
 				C54AF50F19B8C437006F7EDB /* WLCandiesViewSection.m in Sources */,
 				C54AF51019B8C437006F7EDB /* UILabel+Additions.m in Sources */,
+				C517D4D019D08144006058C7 /* UIDevice+SystemVersion.m in Sources */,
 				C54AF51119B8C437006F7EDB /* WLTimelineEvent.m in Sources */,
 				C54AF51219B8C437006F7EDB /* WLPhoneNumberViewController.m in Sources */,
 				C516873819BD9D8D005BA034 /* WLMessage+Extended.m in Sources */,
@@ -4331,6 +4347,7 @@
 				C54AF60B19B8C467006F7EDB /* WLContribution.m in Sources */,
 				C54AF60C19B8C467006F7EDB /* WLCandiesViewSection.m in Sources */,
 				C54AF60D19B8C467006F7EDB /* UILabel+Additions.m in Sources */,
+				C517D4D119D08144006058C7 /* UIDevice+SystemVersion.m in Sources */,
 				C54AF60E19B8C467006F7EDB /* WLTimelineEvent.m in Sources */,
 				C54AF60F19B8C467006F7EDB /* WLPhoneNumberViewController.m in Sources */,
 				C516873919BD9D8D005BA034 /* WLMessage+Extended.m in Sources */,
@@ -4539,6 +4556,7 @@
 				C54AF70819B8C491006F7EDB /* WLContribution.m in Sources */,
 				C54AF70919B8C491006F7EDB /* WLCandiesViewSection.m in Sources */,
 				C54AF70A19B8C491006F7EDB /* UILabel+Additions.m in Sources */,
+				C517D4D219D08144006058C7 /* UIDevice+SystemVersion.m in Sources */,
 				C54AF70B19B8C491006F7EDB /* WLTimelineEvent.m in Sources */,
 				C54AF70C19B8C491006F7EDB /* WLPhoneNumberViewController.m in Sources */,
 				C516873A19BD9D8D005BA034 /* WLMessage+Extended.m in Sources */,

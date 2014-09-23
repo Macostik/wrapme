@@ -11,6 +11,7 @@
 #import "WLSupportFunctions.h"
 #import <objc/runtime.h>
 #import "WLAPIRequest.h"
+#import "UIDevice+SystemVersion.h"
 
 static const NSTimeInterval WLTimeIntervalMinute = 60;
 static const NSTimeInterval WLTimeIntervalHour = 3600;
@@ -47,11 +48,11 @@ static inline NSCalendar* NSCurrentCalendar() {
 }
 
 + (NSDate *)sinceWeekAgo {
-    return [[NSDate now] dateByAddingTimeInterval:-WLTimeIntervalWeek];
+    return [NSDate now:-WLTimeIntervalWeek];
 }
 
 + (NSDate *)dayAgo {
-    return [[NSDate now] dateByAddingTimeInterval:-WLDaySeconds];
+    return [NSDate now:-WLDaySeconds];
 }
 
 - (NSDate *)beginOfDay {
@@ -99,7 +100,15 @@ static inline NSCalendar* NSCurrentCalendar() {
 }
 
 - (BOOL)isSameDay:(NSDate *)date {
-    return [self isSameDayComponents:[date dayComponents]];
+    if (SystemVersionGreaterThanOrEqualTo8()) {
+        NSCalendar *calendar = NSCurrentCalendar();
+        if ([calendar component:NSDayCalendarUnit fromDate:self] != [calendar component:NSDayCalendarUnit fromDate:date]) return NO;
+        if ([calendar component:NSMonthCalendarUnit fromDate:self] != [calendar component:NSMonthCalendarUnit fromDate:date]) return NO;
+        if ([calendar component:NSYearCalendarUnit fromDate:self] != [calendar component:NSYearCalendarUnit fromDate:date]) return NO;
+        return YES;
+    } else {
+        return [self isSameDayComponents:[date dayComponents]];
+    }
 }
 
 - (BOOL)isSameDayComponents:(NSDateComponents *)c {
@@ -129,7 +138,7 @@ static inline NSCalendar* NSCurrentCalendar() {
 	if (interval >= WLTimeIntervalWeek) {
 		return [self stringWithFormat:@"MMMM d, yyyy 'at' hh:mma"];
 	} else {
-		NSInteger value = 0;
+		NSTimeInterval value = 0;
 		NSString* name = nil;
 		if ((value = interval / WLTimeIntervalDay) >= 1) {
 			name = WLTimeIntervalNameDay;
@@ -140,7 +149,8 @@ static inline NSCalendar* NSCurrentCalendar() {
 		} else {
 			return WLTimeIntervalLessThanMinute;
 		}
-		return [NSString stringWithFormat:@"%d %@%@ ago", value, name, (value == 1 ? @"":@"s")];
+        value = floor(value);
+		return [NSString stringWithFormat:@"%f %@%@ ago", value, name, (value == 1 ? @"":@"s")];
 	}
 }
 

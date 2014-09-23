@@ -61,4 +61,6 @@
 
 + (instancetype)now;
 
++ (instancetype)now:(NSTimeInterval)offset;
+
 @end

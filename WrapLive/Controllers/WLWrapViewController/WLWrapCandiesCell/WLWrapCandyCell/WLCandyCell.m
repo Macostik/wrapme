@@ -16,6 +16,7 @@
 #import "NSString+Additions.h"
 #import "UIView+GestureRecognizing.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "UIView+Shorthand.h"
 #import "WLToast.h"
 #import "WLImageFetcher.h"
 #import "MFMailComposeViewController+Additions.h"
@@ -61,6 +62,7 @@
         return YES;
     }];
     self.menu.vibrate = YES;
+    [self.contentView setFullFlexible];
 }
 
 - (void)setup:(WLCandy*)candy {

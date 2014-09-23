@@ -56,6 +56,7 @@ typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
     WLWrapViewModeHistory
 };
 
+static CGFloat WLNotificationsLabelWidth = 22;
 static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver>
@@ -152,6 +153,10 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 - (void)setMessageCounter:(NSInteger)messageCounter {
     _messageCounter = messageCounter;
     self.messageCountLabel.text = [NSString stringWithFormat:@"%d", (int)_messageCounter];
+    self.messageCountLabel.width = MAX(WLNotificationsLabelWidth,
+                                       [self.messageCountLabel sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLNotificationsLabelWidth)].width + 12);
+    self.messageCountLabel.x -= WLNotificationsLabelWidth == self.messageCountLabel.width ? :
+                                self.messageCountLabel.width - WLNotificationsLabelWidth;
     self.messageCountLabel.hidden = _messageCounter == 0;
 }
 

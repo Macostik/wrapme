@@ -163,6 +163,8 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
                             if (!index) {
                                 [[WLDeleteWrapRequest request:self] send:success failure:failure];
                                 success(nil);
+                            } else {
+                                success(nil);
                             }
                         }];
         return nil;
@@ -231,6 +233,8 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
                                 [weakSelf remove];
                                  success(object);
                             } failure:failure];
+                        } else {
+                            success(nil);
                         }
                     }];
     return nil;

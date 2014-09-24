@@ -45,6 +45,7 @@
     self.coverView.circled = YES;
     self.coverView.layer.shouldRasterize = YES;
     self.coverView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+    self.contributorsLabel.numberOfLines = self.candiesView ? 1 : 2;
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self.candiesView ? self.nameLabel.superview : self configuration:^BOOL(WLMenu *menu) {
         WLWrap* wrap = weakSelf.entry;
@@ -91,8 +92,7 @@
     self.candiesDataSection.selection = selection;
 }
 
-static CGFloat WLNotificationsLabelSize = 22;
-static CGFloat WLPadding = 5;
+static CGFloat WLPadding = 7;
 
 - (void)setup:(WLWrap*)wrap {
 	self.nameLabel.superview.userInteractionEnabled = YES;
@@ -103,24 +103,24 @@ static CGFloat WLPadding = 5;
         if (!url) self.coverView.image = [UIImage imageNamed:@"default-small-cover"];
     }
 	
-	self.contributorsLabel.text = [wrap contributorNames];
-	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
-    NSInteger candyCount = [wrap unreadNotificationsCandyCount];
-    UILabel *label = self.wrapNotificationLabel;
-    label.text = [NSString stringWithFormat:@"%d", (int) candyCount];
-    label.width = MAX(WLNotificationsLabelSize, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLNotificationsLabelSize)].width + 12);
-    self.nameLabel.x = label.rightBottom.x + WLPadding;
-    label.hidden = candyCount == 0;
-    self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;
-
-	if (self.candiesView) {
-         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
+    self.contributorsLabel.text = [wrap contributorNames];
+    
+    if (self.candiesView) {
+        self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
+    } else {
+        [self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
+        NSInteger candyCount = [wrap unreadNotificationsCandyCount];
+        UILabel *label = self.wrapNotificationLabel;
+        label.text = [NSString stringWithFormat:@"%d", (int) candyCount];
+        label.width = MAX(label.height, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, label.height)].width + 12);
+        label.hidden = candyCount == 0;
+        self.nameLabel.x = label.rightBottom.x + WLPadding;
+        self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;
     }
 }
 
 - (IBAction)select:(id)sender {
 	WLWrap* wrap = self.entry;
-    if (!NSNumberEqual(wrap.unread, @NO)) wrap.unread = @NO;
     [wrap.candies all:^(WLCandy *candy) {
         if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
     }];

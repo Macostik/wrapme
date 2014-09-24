@@ -156,8 +156,9 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
                            buttons:@[@"YES",@"NO"]
                         completion:^(NSUInteger index) {
                             if (!index) {
-                                [[WLDeleteWrapRequest request:self] send:success failure:failure];
-                                success(nil);
+                                [[WLDeleteWrapRequest request:self] send:^(id object) {
+                                    success(object);
+                                } failure:failure];
                             } else {
                                 success(nil);
                             }

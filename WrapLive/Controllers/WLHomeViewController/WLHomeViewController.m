@@ -105,6 +105,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self.userView update];
+    [self.dataProvider reload];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView];
 }

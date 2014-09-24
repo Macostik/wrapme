@@ -52,10 +52,7 @@
 @interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver, WLCreateWrapViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIView *noWrapsView;
-@property (weak, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
-@property (weak, nonatomic) WLLoadingView *splash;
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
@@ -70,50 +67,44 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-	self.userView.avatarView.layer.borderWidth = 1;
-	self.userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
+    [[WLWrapBroadcaster broadcaster] addReceiver:self];
+    [[WLNotificationCenter defaultCenter] addReceiver:self];
     
-    self.userView.user = [WLUser currentUser];
+    WLUserView* userView = self.userView;
+	userView.avatarView.layer.borderWidth = 1;
+	userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
+    userView.user = [WLUser currentUser];
     
-    self.section.entries.request = [WLWrapsRequest new];
-    [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
+    [self.dataProvider setRefreshable];
     
-    self.splash = [[WLLoadingView splash] showInView:self.view];
+    __weak WLHomeViewSection *section = self.section;
+    section.entries.request = [WLWrapsRequest new];
+    [section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
     
-	self.collectionView.hidden = YES;
-	self.noWrapsView.hidden = YES;
-	[self.dataProvider setRefreshable];
-	[[WLWrapBroadcaster broadcaster] addReceiver:self];
-	[[WLNotificationCenter defaultCenter] addReceiver:self];
-    
-    __weak typeof(self)weakSelf = self;
-    [self.section setChange:^(WLPaginatedSet* entries) {
-        BOOL hasWraps = entries.entries.nonempty;
-        weakSelf.collectionView.hidden = !hasWraps;
-        weakSelf.noWrapsView.hidden = hasWraps;
-        [weakSelf finishLoadingAnimation];
-        [weakSelf showLatestWrap];
-        
-        [weakSelf updateEmailConfirmationView];
+    [section setChange:^(WLPaginatedSet* entries) {
+        WLUser *user = [WLUser currentUser];
+        if (user.firstTimeUse.boolValue && section.wrap) {
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                [section.wrap present];
+            });
+        }
     }];
     
-    [self.section setSelection:^(id entry) {
+    [section setSelection:^(id entry) {
         [entry present];
     }];
+    
+    NSMutableOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
+    [section.entries resetEntries:wraps];
+    if (wraps.nonempty) {
+        [section refresh];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self.userView update];
-    NSOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
-	if (self.collectionView.hidden) {
-		[self.section refresh];
-        if (wraps.nonempty) {
-            [self.section.entries resetEntries:wraps];
-        }
-	} else {
-        [self.section.entries resetEntries:wraps];
-    }
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView];
 }
@@ -131,17 +122,6 @@
 	}];
 }
 
-- (void)showLatestWrap {
-    WLUser * user = [WLUser currentUser];
-	if (user.firstTimeUse.boolValue && self.section.entries.entries.nonempty) {
-        __weak typeof(self)weakSelf = self;
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            [weakSelf.section.wrap present];
-        });
-	}
-}
-
 - (void)updateEmailConfirmationView {
     BOOL confirmed = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
     UIView* view = self.emailConfirmationView;
@@ -150,17 +130,6 @@
         CGFloat y = confirmed ? self.navigationBar.height : view.bottom;
         [self.collectionView setY:y height:self.view.height - y];
     }
-}
-
-- (void)finishLoadingAnimation {
-	if (self.splash.superview) {
-		__weak typeof(self)weakSelf = self;
-		[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-			weakSelf.splash.alpha = 0.0f;
-		} completion:^(BOOL finished) {
-			[weakSelf.splash hide];
-		}];
-	}
 }
 
 #pragma mark - WLWrapBroadcastReceiver

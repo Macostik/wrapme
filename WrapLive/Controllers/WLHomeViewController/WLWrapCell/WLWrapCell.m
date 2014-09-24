@@ -43,6 +43,8 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
     self.coverView.circled = YES;
+    self.coverView.layer.shouldRasterize = YES;
+    self.coverView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self.candiesView ? self.nameLabel.superview : self configuration:^BOOL(WLMenu *menu) {
         WLWrap* wrap = weakSelf.entry;

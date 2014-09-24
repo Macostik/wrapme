@@ -15,7 +15,7 @@
 
 @dynamic current;
 @dynamic name;
-@dynamic signInCount;
+@dynamic firstTimeUse;
 @dynamic contributions;
 @dynamic wraps;
 

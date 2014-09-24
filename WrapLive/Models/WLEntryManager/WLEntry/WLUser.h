@@ -16,7 +16,7 @@
 
 @property (nonatomic, retain) NSNumber * current;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * signInCount;
+@property (nonatomic, retain) NSNumber * firstTimeUse;
 @property (nonatomic, retain) NSMutableOrderedSet *contributions;
 @property (nonatomic, retain) NSMutableOrderedSet *wraps;
 

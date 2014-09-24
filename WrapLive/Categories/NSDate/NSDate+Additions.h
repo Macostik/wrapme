@@ -36,4 +36,10 @@
 
 - (void)getBeginOfDay:(NSDate**)beginOfDay endOfDay:(NSDate**)endOfDay;
 
+- (BOOL)earlier:(NSDate*)date;
+
+- (BOOL)later:(NSDate*)date;
+
+- (BOOL)match:(NSDate*)date;
+
 @end

@@ -8,6 +8,7 @@
 
 #import "WLWrapBroadcaster.h"
 #import "WLEntryManager.h"
+#import "NSDate+Additions.h"
 
 @interface WLWrapBroadcaster ()
 
@@ -129,7 +130,7 @@
 
 - (instancetype)update:(NSDictionary *)dictionary {
 	[self API_setup:dictionary];
-	[self broadcastChange];
+    if (self.hasChanges) [self broadcastChange];
 	return self;
 }
 
@@ -175,12 +176,16 @@
 
 - (void)broadcastCreation {
     [[WLWrapBroadcaster broadcaster] broadcastCandyCreation:self];
-    [self.wrap broadcastChange];
+    WLWrap* wrap = self.wrap;
+    if ([wrap.updatedAt earlier:self.updatedAt]) wrap.updatedAt = self.updatedAt;
+    [wrap broadcastChange];
 }
 
 - (void)broadcastChange {
     [[WLWrapBroadcaster broadcaster] broadcastCandyChange:self];
-    [self.wrap broadcastChange];
+    WLWrap* wrap = self.wrap;
+    if ([wrap.updatedAt earlier:self.updatedAt]) wrap.updatedAt = self.updatedAt;
+    [wrap broadcastChange];
 }
 
 - (void)broadcastRemoving {
@@ -194,12 +199,16 @@
 
 - (void)broadcastCreation {
     [[WLWrapBroadcaster broadcaster] broadcastMessageCreation:self];
-    [self.wrap broadcastChange];
+    WLWrap* wrap = self.wrap;
+    if ([wrap.updatedAt earlier:self.updatedAt]) wrap.updatedAt = self.updatedAt;
+    [wrap broadcastChange];
 }
 
 - (void)broadcastChange {
     [[WLWrapBroadcaster broadcaster] broadcastMessageChange:self];
-    [self.wrap broadcastChange];
+    WLWrap* wrap = self.wrap;
+    if ([wrap.updatedAt earlier:self.updatedAt]) wrap.updatedAt = self.updatedAt;
+    [wrap broadcastChange];
 }
 
 - (void)broadcastRemoving {
@@ -213,12 +222,16 @@
 
 - (void)broadcastCreation {
     [[WLWrapBroadcaster broadcaster] broadcastCommentCreation:self];
-    [self.candy broadcastChange];
+    WLCandy* candy = self.candy;
+    if ([candy.updatedAt earlier:self.updatedAt]) candy.updatedAt = self.updatedAt;
+    [candy broadcastChange];
 }
 
 - (void)broadcastChange {
     [[WLWrapBroadcaster broadcaster] broadcastCommentChange:self];
-    [self.candy broadcastChange];
+    WLCandy* candy = self.candy;
+    if ([candy.updatedAt earlier:self.updatedAt]) candy.updatedAt = self.updatedAt;
+    [candy broadcastChange];
 }
 
 - (void)broadcastRemoving {

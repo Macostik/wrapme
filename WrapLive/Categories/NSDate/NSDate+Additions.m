@@ -64,16 +64,12 @@ static inline NSCalendar* NSCurrentCalendar() {
 }
 
 - (void)getBeginOfDay:(NSDate *__autoreleasing *)beginOfDay endOfDay:(NSDate *__autoreleasing *)endOfDay {
-    NSDateComponents* components = [self dayComponents];
-    [components setHour:0];
-    [components setMinute:0];
-    [components setSecond:0];
+    NSDateComponents* components = [self componentsBeginOfDay];
     if (beginOfDay != NULL) {
         *beginOfDay = [NSCurrentCalendar() dateFromComponents:components];
     }
-    [components setHour:23];
-    [components setMinute:59];
-    [components setSecond:59];
+    components.hour = 23;
+    components.minute = components.second = 59;
     if (endOfDay != NULL) {
         *endOfDay = [NSCurrentCalendar() dateFromComponents:components];
     }
@@ -81,17 +77,14 @@ static inline NSCalendar* NSCurrentCalendar() {
 
 - (NSDateComponents *)componentsBeginOfDay {
 	NSDateComponents* components = [self dayComponents];
-    [components setHour:0];
-    [components setMinute:0];
-    [components setSecond:0];
+    components.hour = components.minute = components.second = 0;
     return components;
 }
 
 - (NSDateComponents *)componentsEndOfDay {
     NSDateComponents* components = [self dayComponents];
-    [components setHour:23];
-    [components setMinute:59];
-    [components setSecond:59];
+    components.hour = 23;
+    components.minute = components.second = 59;
     return components;
 }
 
@@ -112,17 +105,39 @@ static inline NSCalendar* NSCurrentCalendar() {
 }
 
 - (BOOL)isSameDayComponents:(NSDateComponents *)c {
-    NSDateComponents* c1 = [self dayComponents];
-	return c1.year == c.year && c1.month == c.month && c1.day == c.day;
+    if (SystemVersionGreaterThanOrEqualTo8()) {
+        NSCalendar *calendar = NSCurrentCalendar();
+        if ([calendar component:NSDayCalendarUnit fromDate:self] != c.day) return NO;
+        if ([calendar component:NSMonthCalendarUnit fromDate:self] != c.month) return NO;
+        if ([calendar component:NSYearCalendarUnit fromDate:self] != c.year) return NO;
+    } else {
+        NSDateComponents* c1 = [self dayComponents];
+        if (c1.day != c.day) return NO;
+        if (c1.month != c.month) return NO;
+        if (c1.year != c.year) return NO;
+    }
+    return YES;
 }
 
 - (BOOL)isSameHour:(NSDate *)date {
-    NSCalendarUnit units = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit;
-    ;
-    NSCalendar* calendar = NSCurrentCalendar();
-    NSDateComponents* c1 = [calendar components:units fromDate:self];
-    NSDateComponents* c2 = [calendar components:units fromDate:date];
-	return c1.year == c2.year && c1.month == c2.month && c1.day == c2.day && c1.hour == c2.hour;
+    if (SystemVersionGreaterThanOrEqualTo8()) {
+        NSCalendar *calendar = NSCurrentCalendar();
+        if ([calendar component:NSHourCalendarUnit fromDate:self] != [calendar component:NSHourCalendarUnit fromDate:date]) return NO;
+        if ([calendar component:NSDayCalendarUnit fromDate:self] != [calendar component:NSDayCalendarUnit fromDate:date]) return NO;
+        if ([calendar component:NSMonthCalendarUnit fromDate:self] != [calendar component:NSMonthCalendarUnit fromDate:date]) return NO;
+        if ([calendar component:NSYearCalendarUnit fromDate:self] != [calendar component:NSYearCalendarUnit fromDate:date]) return NO;
+    } else {
+        NSCalendarUnit units = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit;
+        ;
+        NSCalendar* calendar = NSCurrentCalendar();
+        NSDateComponents* c1 = [calendar components:units fromDate:self];
+        NSDateComponents* c2 = [calendar components:units fromDate:date];
+        if (c1.hour != c2.hour) return NO;
+        if (c1.day != c2.day) return NO;
+        if (c1.month != c2.month) return NO;
+        if (c1.year != c2.year) return NO;
+    }
+    return YES;
 }
 
 - (BOOL)isToday {
@@ -152,6 +167,18 @@ static inline NSCalendar* NSCurrentCalendar() {
         value = floor(value);
 		return [NSString stringWithFormat:@"%.f %@%@ ago", value, name, (value == 1 ? @"":@"s")];
 	}
+}
+
+- (BOOL)earlier:(NSDate *)date {
+    return [self timeIntervalSinceDate:date] < 0;
+}
+
+- (BOOL)later:(NSDate *)date {
+    return [self timeIntervalSinceDate:date] > 0;
+}
+
+- (BOOL)match:(NSDate *)date {
+    return [self timeIntervalSinceDate:date] == 0;
 }
 
 @end

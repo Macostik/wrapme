@@ -133,7 +133,7 @@
 
 - (void)showLatestWrap {
     WLUser * user = [WLUser currentUser];
-	if (user.signInCount.integerValue == 1 && self.section.entries.entries.nonempty) {
+	if (user.firstTimeUse.boolValue && self.section.entries.entries.nonempty) {
         __weak typeof(self)weakSelf = self;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{

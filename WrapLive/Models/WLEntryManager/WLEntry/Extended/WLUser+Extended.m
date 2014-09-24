@@ -19,8 +19,8 @@
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
-    NSNumber* signInCount = [dictionary numberForKey:WLSignInCountKey];
-	if (!NSNumberEqual(self.signInCount, signInCount)) self.signInCount = signInCount;
+    NSNumber* firstTimeUse = @([dictionary integerForKey:WLSignInCountKey] == 1);
+	if (!NSNumberEqual(self.firstTimeUse, firstTimeUse)) self.firstTimeUse = firstTimeUse;
     NSString* name = [dictionary stringForKey:WLNameKey];
 	if (!NSStringEqual(self.name, name)) self.name = name;
     [self editPicture:[dictionary stringForKey:WLLargeAvatarKey]
@@ -78,17 +78,17 @@ static WLUser *currentUser = nil;
 + (void)setCurrentUser:(WLUser*)user {
     if (currentUser) {
         if (![currentUser isEqualToEntry:user]) {
-            currentUser.current = @NO;
+            if (!NSNumberEqual(currentUser.current, @NO)) currentUser.current = @NO;
         }
     } else {
         [[WLUser entries:^(NSFetchRequest *request) {
             request.predicate = [NSPredicate predicateWithFormat:@"current == TRUE"];
         }] all:^(WLUser* _user) {
-            _user.current = @NO;
+            if (!NSNumberEqual(_user.current, @NO)) _user.current = @NO;
         }];
     }
 	currentUser = user;
-	user.current = @YES;
+	if (!NSNumberEqual(user.current, @YES)) user.current = @YES;
     if (user) {
         [[WLNotificationCenter defaultCenter] configure];
 #ifndef DEBUG

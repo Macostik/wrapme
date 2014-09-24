@@ -32,22 +32,27 @@
 
 @protocol WLChatMessage <NSObject>
 
-@property (nonatomic, strong) WLUser* contributor;
+@property (nonatomic, readonly) WLUser* contributor;
 
-@property (nonatomic, strong) NSString* text;
+@property (nonatomic, readonly) NSString* text;
 
-@property (nonatomic, strong) NSDate* createdAt;
+@property (nonatomic, readonly) NSDate* displayDate;
+
+@end
+
+@interface WLMessage (WLChatMessage) <WLChatMessage> @end
+
+@implementation WLMessage (WLChatMessage)
+
+- (NSDate *)displayDate {
+    return self.createdAt;
+}
 
 @end
 
-@interface WLUser (WLChatMessage) <WLChatMessage>
-
-@end
+@interface WLUser (WLChatMessage) <WLChatMessage> @end
 
 @implementation WLUser (WLChatMessage)
-
-@dynamic contributor;
-@dynamic text;
 
 - (WLUser *)contributor {
     return self;
@@ -57,11 +62,7 @@
     return @"...";
 }
 
-- (NSDate *)createdAt {
-    return [NSDate now];
-}
-
-- (NSDate *)updatedAt {
+- (NSDate *)displayDate {
     return [NSDate now];
 }
 
@@ -82,7 +83,7 @@
     [self.avatarView setFailure:^(NSError* error) {
         weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];
-	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(message.contributor.name), WLString([message.createdAt stringWithFormat:@"HH:mm"])];
+	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(message.contributor.name), WLString([message.displayDate stringWithFormat:@"HH:mm"])];
     [self.messageTextView determineHyperLink:message.text withFont:[UIFont lightFontOfSize:15.0f]];
     self.messageTextView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, -5);
 	[UIView performWithoutAnimation:^{

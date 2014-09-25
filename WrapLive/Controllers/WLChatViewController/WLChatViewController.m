@@ -325,7 +325,6 @@
     } else {
         WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section - 1];
         WLMessage* message = [group.entries objectAtIndex:indexPath.item];
-        if (!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
         BOOL isMyComment = [message.contributor isCurrentUser];
         NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
         cell =  [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];

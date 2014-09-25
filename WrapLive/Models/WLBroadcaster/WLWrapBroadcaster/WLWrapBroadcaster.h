@@ -11,16 +11,6 @@
 
 @class WLWrapBroadcaster;
 
-@protocol WLWrapBroadcastObject <NSObject>
-
-- (void)broadcastCreation;
-
-- (void)broadcastChange;
-
-- (void)broadcastRemoving;
-
-@end
-
 @protocol WLWrapBroadcastReceiver
 
 @optional
@@ -88,7 +78,15 @@
 
 @end
 
-@interface WLEntry (WLWrapBroadcaster) <WLWrapBroadcastObject>
+@interface WLEntry (WLWrapBroadcaster)
+
+@property (readonly, nonatomic) WLEntry* containingEntry;
+
+- (void)broadcastCreation;
+
+- (void)broadcastChange;
+
+- (void)broadcastRemoving;
 
 - (instancetype)update:(NSDictionary*)dictionary;
 

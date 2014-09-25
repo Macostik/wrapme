@@ -59,7 +59,7 @@
     for (NSDictionary* contributor in contributorsArray) {
         WLUser* user = [WLUser API_entry:contributor];
         if (user) {
-            [contributors addObject:user];
+            [contributors addObject:user comparator:comparatorByUserNameAscending];
         }
         if ([contributor boolForKey:WLIsCreatorKey] && self.contributor != user) {
             self.contributor = user;
@@ -84,26 +84,23 @@
 }
 
 - (NSString *)contributorNamesWithCount:(NSInteger)numberOfUsers {
-    if (self.contributors.nonempty) {
-        if (self.contributors.count == 1) {
-            return @"You";
-        }
-        NSMutableArray *contributorsArray = @[].mutableCopy;
-        __block int i = 1;
-        [self.contributors all:^(WLUser *contributor) {
-            if (![contributor isCurrentUser] && i <= numberOfUsers) {
-                [contributorsArray addObject:contributor.name];
-                i++;
+    NSMutableOrderedSet *contributors = self.contributors;
+    if (contributors.count <= 1) return @"You";
+    NSMutableString* names = [NSMutableString string];
+    NSUInteger i = 0;
+    for (WLUser *contributor in contributors) {
+        if (i <= numberOfUsers) {
+            if (![contributor isCurrentUser]) {
+                [names appendFormat:@"%@, ", contributor.name];
+                ++i;
             }
-        }];
-        [contributorsArray sortUsingComparator:^NSComparisonResult(NSString * user1, NSString *user2) {
-            return [user1 compare:user2 options:NSCaseInsensitiveSearch];
-        }];
-        [contributorsArray insertObject:(self.contributors.count > numberOfUsers + 1) ? @"You ..." : @"You"
-                                atIndex:contributorsArray.count];
-        return [contributorsArray componentsJoinedByString:@", "];
+        } else {
+            [names appendString:@"You ..."];
+            return names;
+        }
     }
-    return nil;
+    [names appendString:@"You"];
+    return names;
 }
 
 - (NSString *)contributorNames {
@@ -116,11 +113,8 @@
         return;
     }
     candy.wrap = self;
-    if (!self.candies) {
-        self.candies = [NSMutableOrderedSet orderedSet];
-    }
-    [self.candies addObject:candy];
-    [self.candies sortByUpdatedAtDescending];
+    if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
+    [self.candies addObject:candy comparator:comparatorByCreatedAtDescending];
 	[self touch];
 	[candy broadcastCreation];
 }

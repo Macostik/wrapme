@@ -8,23 +8,6 @@
 
 #import "WLSupportFunctions.h"
 
-void logTimecost(NSString* key, int iterations, timecost_block block) {
-    int i = iterations;
-    NSTimeInterval t = CFAbsoluteTimeGetCurrent();
-    while (i) {
-        block();
-        --i;
-    }
-    t = CFAbsoluteTimeGetCurrent() - t;
-    NSLog(@"%@ %f",key,t);
-}
-
-NSTimeInterval timecost(timecost_block block) {
-    NSDate* date = [NSDate date];
-    block();
-    return -[date timeIntervalSinceNow];
-}
-
 CGFloat CGAngleBetweenLines(CGLine l1, CGLine l2) {
     
     CGFloat a = l1.b.x - l1.a.x;

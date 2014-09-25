@@ -146,7 +146,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
         return;
     }
     
-    if (!NSNumberEqual(self.wrap.unread, @NO)) self.wrap.unread = @NO;
     [self.dataProvider reload];
     
     self.messageCounter = [self.wrap unreadNotificationsMessageCount];

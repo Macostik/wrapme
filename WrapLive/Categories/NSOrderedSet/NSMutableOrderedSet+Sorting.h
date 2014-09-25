@@ -20,6 +20,8 @@ extern NSComparator comparatorByDateAscending;
 
 extern NSComparator comparatorByDateDescending;
 
+extern NSComparator comparatorByUserNameAscending;
+
 @interface NSMutableOrderedSet (Sorting)
 
 - (void)sort:(NSComparator)comparator;
@@ -30,6 +32,8 @@ extern NSComparator comparatorByDateDescending;
 
 - (void)sortByCreatedAtDescending;
 
-- (void)sortByCreatedAtAscending;;
+- (void)sortByCreatedAtAscending;
+
+- (void)addObject:(id)object comparator:(NSComparator)comparator;
 
 @end

@@ -128,6 +128,10 @@
 
 @implementation WLEntry (WLWrapBroadcaster)
 
+- (WLEntry *)containingEntry {
+    return nil;
+}
+
 - (instancetype)update:(NSDictionary *)dictionary {
 	[self API_setup:dictionary];
     if (self.hasChanges) [self broadcastChange];
@@ -174,6 +178,10 @@
 
 @implementation WLCandy (WLWrapBroadcaster)
 
+- (WLEntry *)containingEntry {
+    return self.wrap;
+}
+
 - (void)broadcastCreation {
     [[WLWrapBroadcaster broadcaster] broadcastCandyCreation:self];
     WLWrap* wrap = self.wrap;
@@ -197,6 +205,10 @@
 
 @implementation WLMessage (WLWrapBroadcaster)
 
+- (WLEntry *)containingEntry {
+    return self.wrap;
+}
+
 - (void)broadcastCreation {
     [[WLWrapBroadcaster broadcaster] broadcastMessageCreation:self];
     WLWrap* wrap = self.wrap;
@@ -219,6 +231,10 @@
 @end
 
 @implementation WLComment (WLWrapBroadcaster)
+
+- (WLEntry *)containingEntry {
+    return self.candy;
+}
 
 - (void)broadcastCreation {
     [[WLWrapBroadcaster broadcaster] broadcastCommentCreation:self];

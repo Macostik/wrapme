@@ -45,7 +45,7 @@
     self.keyboardHeight = @(keyboardHeight);
 	[self broadcast:@selector(broadcaster:didShowKeyboardWithHeight:) object:self.keyboardHeight];
 	__weak UIWindow* window = [UIWindow mainWindow];
-	[window addTapGestureRecognizing:^(CGPoint point){
+	[window addTapGestureRecognizing:^(UIGestureRecognizer *recognizer){
 		[window endEditing:YES];
 	}];
 }

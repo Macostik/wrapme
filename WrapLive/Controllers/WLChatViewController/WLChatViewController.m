@@ -142,6 +142,7 @@
         return;
     }
     self.operation = [self.wrap messagesNewer:message.createdAt success:^(NSOrderedSet *messages) {
+        if (!weakSelf.wrap.messages.nonempty) weakSelf.shouldAppendMoreMessages = NO;
         if (messages.nonempty) {
             [weakSelf addMessages:messages];
         }
@@ -155,6 +156,7 @@
 - (void)loadMessages:(WLBlock)completion {
     __weak typeof(self)weakSelf = self;
     self.operation = [self.wrap messages:^(NSOrderedSet *messages) {
+        if (!weakSelf.wrap.messages.nonempty) weakSelf.shouldAppendMoreMessages = NO;
 		[weakSelf setMessages:messages];
         if (completion) {
             completion();
@@ -362,7 +364,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    if (!section && [[[self.groups.entries firstObject] date] isToday]) {
+    if (!section && ([[[self.groups.entries firstObject] date] isToday] || !self.groupTyping.nonempty)) {
         return CGSizeZero;
     }
 	return CGSizeMake(collectionView.frame.size.width, 32);

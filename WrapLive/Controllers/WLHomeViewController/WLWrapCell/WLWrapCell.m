@@ -115,8 +115,8 @@ static CGFloat WLPadding = 7;
         label.width = MAX(label.height, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, label.height)].width + 12);
         label.hidden = candyCount == 0;
         self.nameLabel.x = label.rightBottom.x + WLPadding;
-        self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;
     }
+    self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;
 }
 
 - (IBAction)select:(id)sender {

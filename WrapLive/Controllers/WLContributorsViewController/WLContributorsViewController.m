@@ -55,6 +55,10 @@
     [self.bottomView setTransform:CGAffineTransformIdentity animated:YES];
 }
 
+- (BOOL)contributorCell:(WLContributorCell *)cell isCreator:(WLUser *)contributor {
+    return self.wrap.contributor == contributor;
+}
+
 #pragma mark - Actions
 
 - (IBAction)cancel:(id)sender {

@@ -8,20 +8,16 @@
 
 #import "WLPaginatedRequest.h"
 
-static NSString* WLWrapContentTypeRecent = @"with_recent_candies";
-static NSString* WLWrapContentTypePaginated = @"with_paginated_candies";
+static NSString* WLWrapContentTypeRecent = @"recent_candies";
+static NSString* WLWrapContentTypePaginated = @"paginated_by_date";
 
 @interface WLWrapRequest : WLPaginatedRequest
 
 @property (strong, nonatomic) WLWrap* wrap;
 
-@property (nonatomic) NSInteger page;
-
 @property (nonatomic) NSString* contentType;
 
 + (instancetype)request:(WLWrap*)wrap;
-
-+ (instancetype)request:(WLWrap*)wrap page:(NSInteger)page;
 
 - (BOOL)isContentType:(NSString*)contentType;
 

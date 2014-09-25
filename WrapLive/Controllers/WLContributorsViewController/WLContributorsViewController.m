@@ -34,8 +34,9 @@
     
     self.removedContributors = [NSMutableOrderedSet orderedSet];
     
+    __weak typeof(self)weakSelf = self;
     [self.dataSection setConfigure:^(WLContributorCell *cell, WLUser* contributor) {
-        cell.deletable = ![contributor isCurrentUser];
+        cell.deletable = ![contributor isCurrentUser] && weakSelf.wrap.contributor != contributor;;
     }];
     
     self.dataSection.entries = [self.wrap.contributors mutableCopy];

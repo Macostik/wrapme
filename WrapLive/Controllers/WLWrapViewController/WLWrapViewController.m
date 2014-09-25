@@ -126,6 +126,8 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     __weak typeof(self)weakSelf = self;
     WLWrapRequest* wrapRequest = [WLWrapRequest request:self.wrap];
     wrapRequest.contentType = WLWrapContentTypePaginated;
+    wrapRequest.type = WLPaginatedRequestTypeNewer;
+    wrapRequest.newer = [[self.groups.entries firstObject] date];
     [wrapRequest send:^(NSOrderedSet *orderedSet) {
         [weakSelf reloadData];
     } failure:^(NSError *error) {

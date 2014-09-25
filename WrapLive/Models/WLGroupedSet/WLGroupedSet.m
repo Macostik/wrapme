@@ -139,14 +139,6 @@
     return group;
 }
 
-- (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    if (self.request.type == WLPaginatedRequestTypeOlder) {
-        WLWrapRequest* request = (id)self.request;
-        request.page = ((self.entries.count + 1)/10 + 1);
-    }
-    return [super send:success failure:failure];
-}
-
 @end
 
 @implementation WLGroup

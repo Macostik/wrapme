@@ -11,7 +11,17 @@
 
 @interface UIView (GestureRecognizing)
 
-- (void)addTapGestureRecognizing:(WLPointBlock)block;
+- (void)addTapGestureRecognizingDelegate:(id)delegate block:(WLGestureBlock)bloc;
+
+- (void)addTapGestureRecognizing:(WLGestureBlock)block;
+
+- (void)addSwipeGestureRecognizingDelegate:(id)delegate
+                            direction:(UISwipeGestureRecognizerDirection)direction
+                                block:(WLGestureBlock)block;
+
+- (void)addSwipeGestureRecognizingDelegate:(id)delegate block:(WLGestureBlock)block;
+
+- (void)addSwipeGestureRecognizing:(WLGestureBlock)block;
 
 - (void)removeTapGestureRecognizing;
 

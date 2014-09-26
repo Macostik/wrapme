@@ -83,6 +83,9 @@
     if ((!entries.nonempty || ![self addEntries:entries]) && self.request.type == WLPaginatedRequestTypeOlder) {
         self.completed = YES;
         [self.delegate paginatedSetChanged:self];
+    } else if (!self.entries.nonempty) {
+        self.completed = YES;
+        [self.delegate paginatedSetChanged:self];
     }
     if(success) {
         success(entries);

@@ -114,7 +114,7 @@
 }
 
 - (void)verifyContinueButton {
-	self.continueButton.active = [self.editSession hasChanges];
+	self.continueButton.active = self.hasAvatar || [self.editSession hasChanges];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate

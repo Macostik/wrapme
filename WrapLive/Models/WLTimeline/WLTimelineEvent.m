@@ -73,9 +73,9 @@
 - (NSString *)text {
     if (!_text) {
         if (self.type == WLTimelineEventTypeComment) {
-            _text = [NSString stringWithFormat:@"%@ add comment", WLString(_user.name)];
+            _text = [NSString stringWithFormat:@"%@ added comment%@", WLString(_user.name), self.images.count > 1 ? @"s" : @""];
         } else {
-            _text = [NSString stringWithFormat:@"%@ add new photo", WLString(_user.name)];
+            _text = [NSString stringWithFormat:@"%@ added new photo%@", WLString(_user.name), self.images.count > 1 ? @"s" : @""];
         }
     }
     return _text;

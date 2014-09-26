@@ -22,6 +22,7 @@
 #import "WLStillPictureViewController.h"
 #import "WLEntryManager.h"
 #import "WLUpdateUserRequest.h"
+#import "WLProfileEditSession.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
@@ -33,6 +34,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *continueButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
+@property (strong, nonatomic) WLProfileEditSession *editSession;
 
 @property (nonatomic) BOOL hasAvatar;
 
@@ -43,7 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
 	self.user = [WLUser currentUser];
 	self.hasAvatar = self.user.name.nonempty;
 	[self verifyContinueButton];
@@ -58,6 +60,8 @@
 		self.profileImageView.url = self.user.picture.medium;
 	}
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
+    
+    self.editSession = [[WLProfileEditSession alloc] initWithEntry:self.user];
 }
 
 - (UIViewController *)signUpViewController {
@@ -71,15 +75,17 @@
 }
 
 - (void)updateIfNeeded:(void (^)(void))completion {
-    if ([[WLEntryManager manager].context hasChanges]) {
+    if ([self.editSession hasChanges]) {
 		self.view.userInteractionEnabled = NO;
 		[self.spinner startAnimating];
+        [self.editSession apply:self.user];
 		__weak typeof(self)weakSelf = self;
         [[WLUpdateUserRequest request:self.user] send:^(id object) {
             [weakSelf.spinner stopAnimating];
 			weakSelf.view.userInteractionEnabled = YES;
 			completion();
         } failure:^(NSError *error) {
+            [weakSelf.editSession reset:weakSelf.user];
             [weakSelf.spinner stopAnimating];
 			weakSelf.view.userInteractionEnabled = YES;
 			[error show];
@@ -99,12 +105,12 @@
 }
 
 - (void)saveImage:(UIImage *)image {
-	__weak typeof(self)weakSelf = self;
-	[[WLImageCache cache] setImage:image completion:^(NSString *path) {
-        weakSelf.user.picture = [WLPicture new];
-		weakSelf.user.picture.large = path;
-	}];
-	[self verifyContinueButton];
+    __weak typeof(self)weakSelf = self;
+    [[WLImageCache cache] setImage:image completion:^(NSString *path) {
+        weakSelf.editSession.url = path;
+        [self verifyContinueButton];
+    }];
+    
 }
 
 - (void)verifyContinueButton {

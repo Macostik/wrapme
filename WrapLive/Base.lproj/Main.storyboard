@@ -3021,7 +3021,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="USb-FQ-HhL"/>
         <segue reference="PQ6-0M-1al"/>
-        <segue reference="H4Y-Sv-3mh"/>
     </inferredMetricsTieBreakers>
 </document>

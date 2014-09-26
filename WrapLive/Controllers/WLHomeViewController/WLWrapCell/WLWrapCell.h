@@ -10,6 +10,7 @@
 
 static NSUInteger WLHomeTopWrapCandiesLimit = 6;
 static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
+static NSUInteger WLCandyCellHight = 212;
 
 @class WLWrapCell;
 @class WLCandy;

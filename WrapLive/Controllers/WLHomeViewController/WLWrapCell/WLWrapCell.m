@@ -107,6 +107,8 @@ static CGFloat WLPadding = 7;
     
     if (self.candiesView) {
         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
+        WLWrap *wrap = self.entry;
+        self.candiesView.height = [wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? WLCandyCellHight : WLCandyCellHight/2;
     } else {
         [self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
         NSInteger candyCount = [wrap unreadNotificationsCandyCount];

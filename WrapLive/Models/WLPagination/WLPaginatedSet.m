@@ -104,8 +104,8 @@
     if ([self.entries containsObject:entry]) {
         return NO;
     }
-    [self.entries addObject:entry];
-    [self sort];
+    [self.entries addObject:entry comparator:self.sortComparator];
+    [self.delegate paginatedSetChanged:self];
     return YES;
 }
 

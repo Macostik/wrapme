@@ -11,22 +11,17 @@
 @class WLUser;
 @class WLContribution;
 
-typedef NS_ENUM(NSUInteger, WLTimelineEventType) {
-    WLTimelineEventTypePhoto,
-    WLTimelineEventTypeComment
-};
-
 @interface WLTimelineEvent : NSObject
 
 @property (strong, nonatomic) WLUser* user;
 
 @property (strong, nonatomic) NSDate* date;
 
-@property (strong, nonatomic) NSMutableOrderedSet* images;
+@property (strong, nonatomic) NSMutableOrderedSet* entries;
 
 @property (strong, nonatomic) NSString *text;
 
-@property (nonatomic) WLTimelineEventType type;
+@property (weak, nonatomic) Class entryClass;
 
 + (NSMutableOrderedSet*)events:(NSMutableOrderedSet*)entries;
 

@@ -34,7 +34,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.images = [NSMutableOrderedSet orderedSet];
+        self.entries = [NSMutableOrderedSet orderedSet];
     }
     return self;
 }
@@ -49,33 +49,28 @@
 
 - (BOOL)addEntry:(WLContribution *)entry {
     
-    void (^add) (void) = ^ {
-        [self.images addObject:entry];
-        self.date = entry.createdAt;
-        if (self.user == nil) {
-            self.user = entry.contributor;
-            self.type = [entry isKindOfClass:[WLComment class]] ? WLTimelineEventTypeComment : WLTimelineEventTypePhoto;
-        }
-    };
-    
-    if (!self.images.nonempty) {
-        add();
-        return YES;
+    if (self.entries.nonempty) {
+        if (self.entryClass != [entry class]) return NO;
+        if (self.user != entry.contributor) return NO;
+        if (![self.date isSameHour:entry.createdAt]) return NO;
     }
     
-    if ([[self.images firstObject] isKindOfClass:[entry class]] && self.user == entry.contributor && [self.date isSameHour:entry.createdAt]) {
-        add();
-        return YES;
+    [self.entries addObject:entry];
+    self.date = entry.createdAt;
+    if (self.user == nil) {
+        self.user = entry.contributor;
+        self.entryClass = [entry class];
     }
-    return NO;
+    
+    return YES;
 }
 
 - (NSString *)text {
     if (!_text) {
-        if (self.type == WLTimelineEventTypeComment) {
-            _text = [NSString stringWithFormat:@"%@ added comment%@", WLString(_user.name), self.images.count > 1 ? @"s" : @""];
+        if (self.entryClass == [WLComment class]) {
+            _text = [NSString stringWithFormat:@"%@ added comment%@", WLString(_user.name), self.entries.count > 1 ? @"s" : @""];
         } else {
-            _text = [NSString stringWithFormat:@"%@ added new photo%@", WLString(_user.name), self.images.count > 1 ? @"s" : @""];
+            _text = [NSString stringWithFormat:@"%@ added new photo%@", WLString(_user.name), self.entries.count > 1 ? @"s" : @""];
         }
     }
     return _text;

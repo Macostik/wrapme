@@ -108,13 +108,13 @@
     __weak typeof(self)weakSelf = self;
     [[WLImageCache cache] setImage:image completion:^(NSString *path) {
         weakSelf.editSession.url = path;
-        [self verifyContinueButton];
+        [weakSelf verifyContinueButton];
     }];
     
 }
 
 - (void)verifyContinueButton {
-	self.continueButton.active = (self.user.name.nonempty) && self.hasAvatar;
+	self.continueButton.active = [self.editSession hasChanges];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate
@@ -145,7 +145,7 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-	self.user.name = self.nameTextField.text;
+	self.editSession.name = self.nameTextField.text;
 	[self verifyContinueButton];
 }
 

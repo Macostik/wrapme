@@ -44,7 +44,7 @@
 }
 
 - (void)setup:(WLTimelineEvent *)event {
-    self.dataSection.entries = event.images;
+    self.dataSection.entries = event.entries;
 }
 
 @end

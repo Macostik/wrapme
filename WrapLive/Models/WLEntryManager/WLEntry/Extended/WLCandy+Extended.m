@@ -77,9 +77,7 @@
         return;
     }
     comment.candy = self;
-    NSMutableOrderedSet* comments = self.comments;
-    [comments addObject:comment];
-    [comments sortByCreatedAtAscending];
+    [self.comments addObject:comment comparator:comparatorByCreatedAtAscending];
     [self touch];
     [self broadcastChange];
 }

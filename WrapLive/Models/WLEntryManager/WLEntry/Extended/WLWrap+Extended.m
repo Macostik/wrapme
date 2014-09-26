@@ -59,7 +59,7 @@
     for (NSDictionary* contributor in contributorsArray) {
         WLUser* user = [WLUser API_entry:contributor];
         if (user) {
-            [contributors addObject:user comparator:comparatorByUserNameAscending];
+            [contributors addObject:user];
         }
         if ([contributor boolForKey:WLIsCreatorKey] && self.contributor != user) {
             self.contributor = user;
@@ -67,6 +67,7 @@
     }
     
     if (contributors.count != self.contributors.count || ![contributors isSubsetOfOrderedSet:self.contributors]) {
+        [contributors sort:comparatorByUserNameAscending];
         self.contributors = contributors;
     }
     NSArray* candiesArray = [dictionary arrayForKey:WLCandiesKey];

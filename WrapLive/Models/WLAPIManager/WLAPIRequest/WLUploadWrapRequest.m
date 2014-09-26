@@ -41,6 +41,8 @@
     WLWrap* wrap = [self.wrap update:response.data[@"wrap"]];
     if (self.creation) {
         [wrap broadcastCreation];
+    } else {
+        [wrap broadcastChange];
     }
     return wrap;
 }

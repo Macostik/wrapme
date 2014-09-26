@@ -79,7 +79,10 @@
             }
         }];
     }
-    [self.navigationController popViewControllerAnimated:YES];
+    run_after(0, ^{
+        [self.navigationController popViewControllerAnimated:YES];
+    });
+    
 }
 
 @end

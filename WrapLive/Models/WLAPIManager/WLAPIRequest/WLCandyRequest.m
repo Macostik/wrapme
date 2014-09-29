@@ -7,7 +7,7 @@
 //
 
 #import "WLCandyRequest.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLCandyRequest
 

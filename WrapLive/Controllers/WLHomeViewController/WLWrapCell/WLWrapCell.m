@@ -16,7 +16,7 @@
 #import "WLCandyCell.h"
 #import "UIView+GestureRecognizing.h"
 #import "WLEntryManager.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "WLMenu.h"
 #import "NSObject+NibAdditions.h"
 #import "WLCollectionViewDataProvider.h"

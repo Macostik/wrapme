@@ -23,7 +23,7 @@
 #import "WLPerson.h"
 #import "WLContributorsRequest.h"
 #import "WLButton.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "WLUpdateContributorsRequest.h"
 
 @interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate>

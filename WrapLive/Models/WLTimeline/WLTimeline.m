@@ -8,7 +8,7 @@
 
 #import "WLTimeline.h"
 #import "WLWrap.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "WLTimelineEvent.h"
 #import "WLCandiesRequest.h"
 #import "WLSupportFunctions.h"

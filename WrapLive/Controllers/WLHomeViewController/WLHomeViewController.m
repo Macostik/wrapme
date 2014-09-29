@@ -25,7 +25,7 @@
 #import "WLChatViewController.h"
 #import "WLLoadingView.h"
 #import "UIViewController+Additions.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "UILabel+Additions.h"
 #import "WLCreateWrapViewController.h"
 #import "UIAlertView+Blocks.h"
@@ -50,7 +50,7 @@
 #import "WLResendConfirmationRequest.h"
 #import "WLSizeToFitLabel.h"
 
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver, WLCreateWrapViewControllerDelegate>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLNotificationReceiver, WLCreateWrapViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
@@ -67,8 +67,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [[WLWrapBroadcaster broadcaster] addReceiver:self];
+	
+	[[WLUser notifier] addReceiver:self];
+	[[WLWrap notifier] addReceiver:self];
+	
     [[WLNotificationCenter defaultCenter] addReceiver:self];
     
     WLUserView* userView = self.userView;
@@ -134,22 +136,22 @@
     }
 }
 
-#pragma mark - WLWrapBroadcastReceiver
+#pragma mark - WLEntryNotifyReceiver
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster userChanged:(WLUser *)user {
+- (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
     [self updateEmailConfirmationView];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
     [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapCreated:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier wrapAdded:(WLWrap *)wrap {
     [self.section.entries addEntry:wrap];
 	self.collectionView.contentOffset = CGPointZero;
 }
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
     [self.section.entries removeEntry:wrap];
 }
 
@@ -238,9 +240,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - WLWrapBroadcastReceiver
+#pragma mark - WLEntryNotifyReceiver
 
-- (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentCreated:(WLComment*)comment {
+- (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
     [self updateNotificationsLabel];
 }
 

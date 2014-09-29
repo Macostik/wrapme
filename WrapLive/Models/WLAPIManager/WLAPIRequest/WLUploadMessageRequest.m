@@ -7,7 +7,7 @@
 //
 
 #import "WLUploadMessageRequest.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLUploadMessageRequest
 
@@ -36,7 +36,7 @@
     WLMessage* message = self.message;
     [message API_setup:[response.data dictionaryForKey:@"chat"]];
     [message.wrap touch:message.createdAt];
-    [message broadcastChange];
+    [message notifyOnUpdate];
     return message;
 }
 

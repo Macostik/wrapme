@@ -14,7 +14,7 @@
 #import "NSString+Additions.h"
 #import "WLBlocks.h"
 #import "WLAPIManager.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "NSDate+Additions.h"
 
 @interface WLNotification ()
@@ -127,9 +127,9 @@
                 default:
                     break;
             }
-            [targetEntry broadcastCreation];
+            [targetEntry notifyOnAddition];
         } else if (event == WLEventUpdate) {
-            [targetEntry broadcastChange];
+            [targetEntry notifyOnUpdate];
         } else if (event == WLEventDelete) {
             [targetEntry remove];
         }

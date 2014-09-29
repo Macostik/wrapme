@@ -15,13 +15,13 @@
 #import "WLNotificationCenter.h"
 #import "WLNotification.h"
 #import "WLEntryFetching.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "NSDate+Formatting.h"
 #import "WLEntryManager.h"
 #import "WLNavigation.h"
 #import "WLNotificationCollectionViewSection.h"
 
-@interface WLNotificationsViewController () <WLWrapBroadcastReceiver>
+@interface WLNotificationsViewController () <WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
@@ -48,7 +48,7 @@
         [entry present];
     }];
  
-    [[WLWrapBroadcaster broadcaster] addReceiver:self];
+    [[WLComment notifier] addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -56,11 +56,11 @@
     self.dataSection.entries = [[WLUser currentUser] notifications];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentCreated:(WLComment*)comment {
+- (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
     self.dataSection.entries = [[WLUser currentUser] notifications];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentRemoved:(WLComment *)comment {
+- (void)notifier:(WLEntryNotifier*)notifier commentDeleted:(WLComment *)comment {
     if ([self.readNotifications containsObject:comment]) {
         [self.readNotifications removeObject:comment];
     }

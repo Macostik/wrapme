@@ -7,7 +7,7 @@
 //
 
 #import "WLWrapRequest.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLWrapRequest
 

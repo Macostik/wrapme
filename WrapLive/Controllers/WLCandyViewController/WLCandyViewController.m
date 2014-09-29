@@ -35,7 +35,7 @@
 #import "WLToast.h"
 #import "WLUser.h"
 #import "WLWrap.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "WLWrap+Extended.h"
 #import "WLDetailedCandyCell.h"
@@ -43,7 +43,7 @@
 #import "WLInternetConnectionBroadcaster.h"
 #import "NSOrderedSet+Additions.h"
 
-@interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate>
+@interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
 @property (weak, nonatomic) IBOutlet UIImageView *leftArrow;
@@ -81,7 +81,7 @@
 	self.composeBarView.placeholder = @"Write your comment ...";
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
-	[[WLWrapBroadcaster broadcaster] addReceiver:self];
+	[[WLCandy notifier] addReceiver:self];
     [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
 
     [self.collectionView reloadData];
@@ -261,9 +261,9 @@
     return YES;
 }
 
-#pragma mark - WLWrapBroadcastReceiver
+#pragma mark - WLEntryNotifyReceiver
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
     [self.collectionView reloadData];
     if (self.autoenqueueUploading) {
         self.autoenqueueUploading = NO;
@@ -275,11 +275,7 @@
     }
 }
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster commentRemoved:(WLComment *)comment {
-	[self.collectionView reloadData];
-}
-
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
     [WLToast showWithMessage:@"This candy is no longer avaliable."];
     NSMutableOrderedSet* candies = self.group.entries;
     [candies removeObject:candy];
@@ -290,7 +286,7 @@
     }
 }
 
-- (WLCandy *)broadcasterPreferedCandy:(WLWrapBroadcaster *)broadcaster {
+- (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
     return self.candy;
 }
 

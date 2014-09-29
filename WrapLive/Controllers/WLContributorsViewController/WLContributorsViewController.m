@@ -12,7 +12,7 @@
 #import "UIView+Shorthand.h"
 #import "UIView+AnimationHelper.h"
 #import "WLButton.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "WLUpdateContributorsRequest.h"
 #import "WLPerson.h"
 

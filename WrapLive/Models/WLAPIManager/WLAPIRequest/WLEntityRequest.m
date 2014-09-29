@@ -7,7 +7,7 @@
 //
 
 #import "WLEntityRequest.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLEntityRequest
 

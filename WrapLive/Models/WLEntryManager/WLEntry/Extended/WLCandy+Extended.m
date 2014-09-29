@@ -8,7 +8,7 @@
 
 #import "WLCandy+Extended.h"
 #import "WLEntryManager.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "NSString+Additions.h"
 #import "WLSupportFunctions.h"
 
@@ -67,7 +67,7 @@
 
 - (void)remove {
     [self.wrap removeCandy:self];
-    [self broadcastRemoving];
+    [self notifyOnDeleting];
     [super remove];
 }
 
@@ -79,7 +79,7 @@
     comment.candy = self;
     [self.comments addObject:comment comparator:comparatorByCreatedAtAscending];
     [self touch];
-    [self broadcastChange];
+    [self notifyOnUpdate];
 }
 
 - (void)removeComment:(WLComment *)comment {

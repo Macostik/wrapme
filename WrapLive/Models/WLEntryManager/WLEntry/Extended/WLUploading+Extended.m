@@ -9,7 +9,7 @@
 #import "WLUploading+Extended.h"
 #import "WLAPIManager.h"
 #import "WLImageCache.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "AsynchronousOperation.h"
 #import "WLAPIResponse.h"
 #import "WLAuthorizationRequest.h"
@@ -89,11 +89,11 @@
             [weakSelf.contribution remove];
             failure([NSError errorWithDescription:@"This item is already uploaded."]);
         } else {
-            [weakSelf.contribution broadcastChange];
+            [weakSelf.contribution notifyOnUpdate];
             failure(error);
         }
     }];
-    [self.contribution broadcastChange];
+    [self.contribution notifyOnUpdate];
     return self.operation;
 }
 

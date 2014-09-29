@@ -7,7 +7,7 @@
 //
 
 #import "WLMessagesRequest.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLMessagesRequest
 
@@ -31,7 +31,7 @@
 - (id)objectInResponse:(WLAPIResponse *)response {
     NSOrderedSet* messages = [WLMessage API_entries:response.data[@"chats"] relatedEntry:self.wrap];
     if (messages.nonempty) {
-        [self.wrap broadcastChange];
+        [self.wrap notifyOnUpdate];
     }
     return messages;
 }

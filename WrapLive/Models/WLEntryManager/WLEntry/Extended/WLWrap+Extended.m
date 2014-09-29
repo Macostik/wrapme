@@ -7,7 +7,7 @@
 //
 
 #import "WLWrap+Extended.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "NSString+Additions.h"
 #import "NSOrderedSet+Additions.h"
 #import "WLEntryManager.h"
@@ -41,7 +41,7 @@
 - (void)remove {
     [[WLUser currentUser] removeWrap:self];
     [super remove];
-    [self broadcastRemoving];
+    [self notifyOnDeleting];
 }
 
 - (void)touch:(NSDate *)date {
@@ -117,7 +117,7 @@
     if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
     [self.candies addObject:candy comparator:comparatorByCreatedAtDescending];
 	[self touch];
-	[candy broadcastCreation];
+	[candy notifyOnAddition];
 }
 
 - (BOOL)containsCandy:(WLCandy *)candy {
@@ -186,7 +186,7 @@
     message.contributor = [WLUser currentUser];
     message.wrap = self;
 	message.text = text;
-    [message broadcastCreation];
+    [message notifyOnAddition];
 	[message add:success failure:^(NSError *error) {
 		[message remove];
         failure(error);

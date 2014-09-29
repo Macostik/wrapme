@@ -24,7 +24,7 @@
 #import "WLRefresher.h"
 #import "WLChatViewController.h"
 #import "WLLoadingView.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "UILabel+Additions.h"
 #import "WLToast.h"
 #import "WLStillPictureViewController.h"
@@ -59,7 +59,7 @@ typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
 
 static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIButton *viewButton;
@@ -103,7 +103,9 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     
     [self.dataProvider setRefreshableWithStyle:WLRefresherStyleOrange];
     
-    [[WLWrapBroadcaster broadcaster] addReceiver:self];
+    [[WLWrap notifier] addReceiver:self];
+	[[WLCandy notifier] addReceiver:self];
+	[[WLMessage notifier] addReceiver:self];
     
     [self.historyViewSection setSelection:^ (id entry) {
         [entry present];
@@ -167,46 +169,42 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 	}];
 }
 
-#pragma mark - WLWrapBroadcastReceiver
+#pragma mark - WLEntryNotifyReceiver
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapChanged:(WLWrap *)wrap {
+- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
+	return self.wrap;
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
     [self updateWrapData];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyCreated:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
+	[WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.", WLString(self.nameLabel.text)]];
+	__weak typeof(self)weakSelf = self;
+	run_after(0.5f, ^{
+		[weakSelf.navigationController popToRootViewControllerAnimated:YES];
+	});
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
     [self.groups addEntry:candy];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyRemoved:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
     [self.groups removeEntry:candy];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
     [self.groups sort:candy];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster*)broadcaster messageCreated:(WLMessage*)message {
+- (void)notifier:(WLEntryNotifier*)notifier messageAdded:(WLMessage*)message {
     [self updateNotificationCouter];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster*)broadcaster messageRemoved:(WLMessage *)message {
+- (void)notifier:(WLEntryNotifier*)notifier messageDeleted:(WLMessage *)message {
     [self updateNotificationCouter];
-}
-
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {
-    [WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.", WLString(self.nameLabel.text)]];
-    __weak typeof(self)weakSelf = self;
-    run_after(0.5f, ^{
-        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-    });
-}
-
-- (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
-    return self.wrap;
-}
-
-- (NSInteger)broadcasterPreferedCandyType:(WLWrapBroadcaster *)broadcaster {
-    return WLCandyTypeImage;
 }
 
 #pragma mark - User Actions

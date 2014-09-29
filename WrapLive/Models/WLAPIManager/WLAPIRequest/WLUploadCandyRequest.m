@@ -8,7 +8,7 @@
 
 #import "WLUploadCandyRequest.h"
 #import "WLImageCache.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLUploadCandyRequest
 
@@ -43,7 +43,7 @@
     [[WLImageCache cache] setImageAtPath:oldPicture.small withUrl:newPicture.small];
     [[WLImageCache cache] setImageAtPath:oldPicture.large withUrl:newPicture.large];
     candy.wrap.updatedAt = candy.updatedAt;
-    [candy broadcastChange];
+    [candy notifyOnUpdate];
     return candy;
 }
 

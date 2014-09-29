@@ -7,7 +7,7 @@
 //
 
 #import "WLPostCommentRequest.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLPostCommentRequest
 
@@ -37,7 +37,7 @@
     WLComment* comment = self.comment;
     [comment API_setup:[response.data dictionaryForKey:@"comment"]];
     [comment.candy touch:comment.createdAt];
-    [comment broadcastChange];
+    [comment notifyOnUpdate];
     return comment;
 }
 

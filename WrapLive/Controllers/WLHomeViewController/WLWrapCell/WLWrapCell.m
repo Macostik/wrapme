@@ -23,6 +23,7 @@
 #import "WLHomeCandiesViewSection.h"
 #import "WLNotificationCenter.h"
 #import "WLNotification.h"
+#import "WLSizeToFitLabel.h"
 
 @interface WLWrapCell ()
 
@@ -30,7 +31,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
-@property (weak, nonatomic) IBOutlet UILabel *wrapNotificationLabel;
+@property (weak, nonatomic) IBOutlet WLSizeToFitLabel *wrapNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chatNotificationImageView;
 @property (strong, nonatomic) WLMenu* menu;
 @property (strong, nonatomic) WLCollectionViewDataProvider* candiesDataProvider;
@@ -111,12 +112,10 @@ static CGFloat WLPadding = 7;
         self.candiesView.height = [wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? WLCandyCellHight : WLCandyCellHight/2;
     } else {
         [self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
-        NSInteger candyCount = [wrap unreadNotificationsCandyCount];
-        UILabel *label = self.wrapNotificationLabel;
-        label.text = [NSString stringWithFormat:@"%d", (int) candyCount];
-        label.width = MAX(label.height, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, label.height)].width + 12);
-        label.hidden = candyCount == 0;
-        self.nameLabel.x = label.rightBottom.x + WLPadding;
+        WLSizeToFitLabel *label = self.wrapNotificationLabel;
+        label.intValue = [wrap unreadNotificationsCandyCount];
+        self.nameLabel.x = !label.hidden ? label.rightBottom.x + WLPadding : 70;
+        
     }
     self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;
 }

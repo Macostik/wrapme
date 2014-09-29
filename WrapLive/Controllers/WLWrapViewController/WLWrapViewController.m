@@ -50,13 +50,13 @@
 #import "NSString+Additions.h"
 #import "WLContributorsViewController.h"
 #import "WLNotification.h"
+#import "WLSizeToFitLabel.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
     WLWrapViewModeTimeline,
     WLWrapViewModeHistory
 };
 
-static CGFloat WLNotificationsLabelWidth = 22;
 static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver>
@@ -73,8 +73,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 @property (strong, nonatomic) IBOutlet WLTimelineViewDataProvider *timelineDataProvider;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *messageCountLabel;
-@property (assign, nonatomic) NSInteger messageCounter;
+@property (weak, nonatomic) IBOutlet WLSizeToFitLabel *messageCountLabel;
 
 @end
 
@@ -147,18 +146,12 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     }
     
     [self.dataProvider reload];
-    
-    self.messageCounter = [self.wrap unreadNotificationsMessageCount];
+    [self updateNotificationCouter];
 }
 
-- (void)setMessageCounter:(NSInteger)messageCounter {
-    _messageCounter = messageCounter;
-    self.messageCountLabel.text = [NSString stringWithFormat:@"%d", (int)_messageCounter];
-    self.messageCountLabel.width = MAX(WLNotificationsLabelWidth,
-                                       [self.messageCountLabel sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLNotificationsLabelWidth)].width + 12);
-    self.messageCountLabel.x -= WLNotificationsLabelWidth == self.messageCountLabel.width ? :
-                                self.messageCountLabel.width - WLNotificationsLabelWidth;
-    self.messageCountLabel.hidden = _messageCounter == 0;
+- (void)updateNotificationCouter {
+    self.messageCountLabel.intValue = [self.wrap unreadNotificationsMessageCount];
+    self.nameLabel.width = self.messageCountLabel.hidden ? self.nameLabel.width : self.messageCountLabel.x - self.nameLabel.x;
 }
 
 - (void)reloadData {
@@ -193,11 +186,11 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 }
 
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster messageCreated:(WLMessage*)message {
-    self.messageCounter = [self.wrap unreadNotificationsMessageCount];
+    [self updateNotificationCouter];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster messageRemoved:(WLMessage *)message {
-    self.messageCounter = [self.wrap unreadNotificationsMessageCount];
+    [self updateNotificationCouter];
 }
 
 - (void)broadcaster:(WLWrapBroadcaster *)broadcaster wrapRemoved:(WLWrap *)wrap {

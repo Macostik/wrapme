@@ -48,6 +48,7 @@
 #import "WLUserView.h"
 #import "WLEntryFetching.h"
 #import "WLResendConfirmationRequest.h"
+#import "WLSizeToFitLabel.h"
 
 @interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLWrapBroadcastReceiver, WLNotificationReceiver, WLCreateWrapViewControllerDelegate>
 
@@ -56,7 +57,7 @@
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
-@property (weak, nonatomic) IBOutlet UILabel *notificationsLabel;
+@property (weak, nonatomic) IBOutlet WLSizeToFitLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 
 @end
@@ -178,14 +179,8 @@
 	broadcaster.pendingRemoteNotification = nil;
 }
 
-static CGFloat WLNotificationsLabelSize = 22;
-
 - (void)updateNotificationsLabel {
-    UILabel* label = self.notificationsLabel;
-    NSUInteger count = [[WLUser currentUser] unreadNotificationsCount];
-    label.hidden = count == 0;
-    label.text = [NSString stringWithFormat:@"%lu", (unsigned long)count];
-    label.width = MAX(WLNotificationsLabelSize, [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLNotificationsLabelSize)].width + 12);
+    self.notificationsLabel.intValue = [[WLUser currentUser] unreadNotificationsCount];
 }
 
 #pragma mark - Actions
@@ -247,6 +242,13 @@ static CGFloat WLNotificationsLabelSize = 22;
 
 - (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentCreated:(WLComment*)comment {
     [self updateNotificationsLabel];
+}
+
+- (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentRemoved:(WLComment *)comment {
+    run_after(.5, ^{
+        [self updateNotificationsLabel];
+    });
+    
 }
 
 @end

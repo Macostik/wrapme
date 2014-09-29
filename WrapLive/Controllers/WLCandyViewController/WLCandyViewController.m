@@ -304,7 +304,7 @@
 	self.collectionView.transform = CGAffineTransformMakeTranslation(0, -[keyboardHeight floatValue]);
     __weak typeof(self)weakSelf = self;
     [self.collectionView reloadData];
-    run_after(0.0f, ^{
+    run_after_asap(^{
         [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
     });
     self.navigationBar.y = -self.navigationBar.height;

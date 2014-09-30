@@ -48,7 +48,7 @@
 
 	self.user = [WLUser currentUser];
 	self.hasAvatar = self.user.name.nonempty;
-	[self verifyContinueButton];
+	
 	self.nameTextField.layer.borderWidth = 0.5;
 	self.nameTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
 	
@@ -62,6 +62,8 @@
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
     
     self.editSession = [[WLProfileEditSession alloc] initWithEntry:self.user];
+	
+	[self verifyContinueButton];
 }
 
 - (UIViewController *)signUpViewController {
@@ -114,7 +116,7 @@
 }
 
 - (void)verifyContinueButton {
-	self.continueButton.active = self.hasAvatar || [self.editSession hasChanges];
+	self.continueButton.active = self.hasAvatar && self.editSession.name.nonempty;
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate

@@ -138,6 +138,10 @@
 		14B242A0195C4D3500C5D208 /* WLWrapEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429F195C4D3500C5D208 /* WLWrapEditSession.m */; };
 		14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
 		14F668641973DDAA008D5081 /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
+		5B3CD74A19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
+		5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
+		5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
+		5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */; };
 		5BB04F1B19D9817100B5C6EE /* WLBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F1A19D9817100B5C6EE /* WLBlocks.m */; };
 		5BB04F1C19D9817100B5C6EE /* WLBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F1A19D9817100B5C6EE /* WLBlocks.m */; };
@@ -1321,6 +1325,8 @@
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
 		14F668621973DDAA008D5081 /* WLPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPerson.h; path = Person/WLPerson.h; sourceTree = "<group>"; };
 		14F668631973DDAA008D5081 /* WLPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPerson.m; path = Person/WLPerson.m; sourceTree = "<group>"; };
+		5B3CD74319DAEA8E00D2216C /* WLTermsAndConditionKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTermsAndConditionKeys.h; path = WLTermsAndConditions/WLTermsAndConditionKeys.h; sourceTree = "<group>"; };
+		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
 		5BAF8E141991196000AFCAE6 /* WLClearProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLClearProgressBar.h; sourceTree = "<group>"; };
 		5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLClearProgressBar.m; sourceTree = "<group>"; };
 		5BB04F1919D9817100B5C6EE /* WLBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBlocks.h; path = WLBlocks/WLBlocks.h; sourceTree = "<group>"; };
@@ -2051,6 +2057,7 @@
 		12A7A73A18DA0A06008FF6F0 /* WLWelcomeViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5B3CD74219DAE9CE00D2216C /* WLTermsAndConditions */,
 				12A7A73B18DA0A06008FF6F0 /* WLWelcomeViewController.h */,
 				12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */,
 			);
@@ -2386,7 +2393,6 @@
 		12E3DA4318E049C300DBDB79 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5BB1A64019D305FE00CA2293 /* WrapLive_TermAndConditions */,
 				12D514EC192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png */,
 				12D514ED192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png */,
 				12D514EE192F5F15007A1520 /* AppIcon29x29.png */,
@@ -2668,6 +2674,15 @@
 				5BB04F2D19D9824500B5C6EE /* WLEditWrapViewController.m */,
 			);
 			name = WLEditWrapViewController;
+			sourceTree = "<group>";
+		};
+		5B3CD74219DAE9CE00D2216C /* WLTermsAndConditions */ = {
+			isa = PBXGroup;
+			children = (
+				5B3CD74319DAEA8E00D2216C /* WLTermsAndConditionKeys.h */,
+				5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */,
+			);
+			name = WLTermsAndConditions;
 			sourceTree = "<group>";
 		};
 		5B450F8C19780D8D00FC339A /* WLSignificantTimeBroadcaster */ = {
@@ -3413,7 +3428,6 @@
 				12DE698D192E4234007580AD /* AviarySDKResources.bundle in Resources */,
 				C54AF85C19B8C622006F7EDB /* WLTestUsersBeta.plist in Resources */,
 				C54AF86119B8C622006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
-				5BB3290819D3F64700E946B8 /* Wraplive_TermsAndConditions.html in Resources */,
 				12F3ED571934B183009C1DC3 /* WLAssetsGroupViewController.xib in Resources */,
 				C54AF85F19B8C622006F7EDB /* WLTestUsersQA.plist in Resources */,
 				ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */,
@@ -3432,6 +3446,7 @@
 				14ACAE0619421A79006BD3B3 /* WLQuickChatView.xib in Resources */,
 				1409DA631949B24E00358BD4 /* PhoneFormats.dat in Resources */,
 				14AE4FF319700B5E002EEF3F /* interfacealertsound3.wav in Resources */,
+				5B3CD74A19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF85E19B8C622006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				ACF8D90E19347B9E0001E570 /* WLEmojiView.xib in Resources */,
 				12F3ED5F1934B183009C1DC3 /* WLAssetCell.xib in Resources */,
@@ -3469,7 +3484,6 @@
 				C54AF87819B8C63E006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				C54AF52219B8C437006F7EDB /* AviarySDKResources.bundle in Resources */,
 				C54AF52319B8C437006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
-				5BB3290919D3F64700E946B8 /* Wraplive_TermsAndConditions.html in Resources */,
 				C54AF52519B8C437006F7EDB /* WLProfileInformationViewController.xib in Resources */,
 				C54AF52619B8C437006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54AF87719B8C63E006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
@@ -3488,6 +3502,7 @@
 				C54AF53319B8C437006F7EDB /* WLQuickChatView.xib in Resources */,
 				C54AF53419B8C437006F7EDB /* PhoneFormats.dat in Resources */,
 				C54AF53519B8C437006F7EDB /* interfacealertsound3.wav in Resources */,
+				5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF53619B8C437006F7EDB /* WLEmojiView.xib in Resources */,
 				C54AF53719B8C437006F7EDB /* WLAssetCell.xib in Resources */,
 				C54AF53819B8C437006F7EDB /* AppIcon60x60@2x.png in Resources */,
@@ -3525,7 +3540,6 @@
 				C54AF87C19B8C63E006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				C54AF61F19B8C467006F7EDB /* AviarySDKResources.bundle in Resources */,
 				C54AF62019B8C467006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
-				5BB3290A19D3F64700E946B8 /* Wraplive_TermsAndConditions.html in Resources */,
 				C54AF62219B8C467006F7EDB /* WLProfileInformationViewController.xib in Resources */,
 				C54AF62319B8C467006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54AF87B19B8C63E006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
@@ -3544,6 +3558,7 @@
 				C54AF63019B8C467006F7EDB /* WLQuickChatView.xib in Resources */,
 				C54AF63119B8C467006F7EDB /* PhoneFormats.dat in Resources */,
 				C54AF63219B8C467006F7EDB /* interfacealertsound3.wav in Resources */,
+				5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF63319B8C467006F7EDB /* WLEmojiView.xib in Resources */,
 				C54AF63419B8C467006F7EDB /* WLAssetCell.xib in Resources */,
 				C54AF63519B8C467006F7EDB /* AppIcon60x60@2x.png in Resources */,
@@ -3581,7 +3596,6 @@
 				C54AF88019B8C63F006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				C54AF71C19B8C491006F7EDB /* AviarySDKResources.bundle in Resources */,
 				C54AF71D19B8C491006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
-				5BB3290B19D3F64700E946B8 /* Wraplive_TermsAndConditions.html in Resources */,
 				C54AF71F19B8C491006F7EDB /* WLProfileInformationViewController.xib in Resources */,
 				C54AF72019B8C491006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54AF87F19B8C63F006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
@@ -3600,6 +3614,7 @@
 				C54AF72D19B8C491006F7EDB /* WLQuickChatView.xib in Resources */,
 				C54AF72E19B8C491006F7EDB /* PhoneFormats.dat in Resources */,
 				C54AF72F19B8C491006F7EDB /* interfacealertsound3.wav in Resources */,
+				5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF73019B8C491006F7EDB /* WLEmojiView.xib in Resources */,
 				C54AF73119B8C491006F7EDB /* WLAssetCell.xib in Resources */,
 				C54AF73219B8C491006F7EDB /* AppIcon60x60@2x.png in Resources */,

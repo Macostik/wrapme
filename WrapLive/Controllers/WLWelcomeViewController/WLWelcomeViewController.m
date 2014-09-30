@@ -21,14 +21,13 @@
 #import "WLLoadingView.h"
 #import "WLAuthorizationRequest.h"
 #import "UIView+GestureRecognizing.h"
-#import "WLInternetConnectionBroadcaster.h"
+#import "WLTermsAndConditionKeys.h"
+#import "UIView+AnimationHelper.h"
 
 typedef enum : NSUInteger {
     WLFlipDirectionRight,
     WLFlipDirectionLeft,
 } WLFlipDirection;
-
-#define WLTermsAndContitionsURL @"https://www.wraplive.com/welcome/terms_and_conditions"
 
 @interface WLWelcomeViewController () <UIGestureRecognizerDelegate>
 
@@ -36,8 +35,8 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIButton *licenseButton;
 @property (weak, nonatomic) IBOutlet UIView *transparentView;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
-@property (strong, nonatomic) UIWebView *termsAndConditionsWebView;
-@property (weak, nonatomic) IBOutlet UIWebView *web;
+@property (strong, nonatomic) IBOutlet UIView *placeholderView;
+@property (weak, nonatomic) IBOutlet UITextView *termsAndConditionsTextView;
 
 @end
 
@@ -45,6 +44,9 @@ typedef enum : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.placeholderView.layer.cornerRadius = 5.0f;
+    self.placeholderView.layer.masksToBounds = YES;
     
     WLLoadingView* splash = [WLLoadingView splash];
     splash.frame = self.view.bounds;
@@ -67,35 +69,18 @@ typedef enum : NSUInteger {
 		[self unlockUI];
 	}
     
-    self.termsAndConditionsWebView = [UIWebView new];
-    self.termsAndConditionsWebView.layer.cornerRadius = 5.0f;
-    self.termsAndConditionsWebView.clipsToBounds = YES;
-    self.termsAndConditionsWebView.scrollView.showsHorizontalScrollIndicator = NO;
-    self.termsAndConditionsWebView.backgroundColor = [[UIColor alloc] initWithWhite:1.0 alpha:0.8];
-    self.termsAndConditionsWebView.frame = self.transparentView.frame;
-    self.termsAndConditionsWebView.dataDetectorTypes = UIDataDetectorTypeAll;
-    self.termsAndConditionsWebView.hidden = YES;
-    [self.transparentView.superview addSubview:self.termsAndConditionsWebView];
-    
-    [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
-    
-    NSURL *url = nil;
-    if (![WLInternetConnectionBroadcaster broadcaster].reachable)  {
-        url  = [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"Wraplive_TermsAndConditions.html" ofType:nil]];
-    } else  {
-        url = [NSURL URLWithString:WLTermsAndContitionsURL];
-        self.termsAndConditionsWebView.scrollView.contentInset = UIEdgeInsetsMake(0, -17, 0, -17);
-    }
-   
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [self.termsAndConditionsWebView loadRequest:request];
-    [self.web loadRequest:request];
+    [self wrapIntoAttributedString];
     
     __weak __typeof(self)weakSelf = self;
-    [self.termsAndConditionsWebView addTapGestureRecognizingDelegate:self block:^(UIGestureRecognizer *recognizer) {
-        [weakSelf flipAnimationView:WLFlipDirectionRight];
-    }];
+
+    [self.placeholderView addSwipeGestureRecognizingDelegate:self
+                                                   direction:UISwipeGestureRecognizerDirectionLeft | UISwipeGestureRecognizerDirectionRight
+                                                       block:^(UIGestureRecognizer *recognizer) {
+                                                           [weakSelf flipAnimationView:WLFlipDirectionRight];
+                                                           weakSelf.termsAndConditionsTextView.scrollEnabled = YES;
+                                                       }];
 }
+
 - (void)unlockUI {
 	[self underlineLicenseButton];
 	__weak typeof(self)weakSelf = self;
@@ -160,15 +145,18 @@ typedef enum : NSUInteger {
 
 - (IBAction)termsAndConditions:(id)sender {
     [self flipAnimationView:WLFlipDirectionLeft];
+    self.termsAndConditionsTextView.scrollEnabled = YES;
 }
 
 - (void)flipAnimationView:(WLFlipDirection)direction {
-    UIView *fromView = direction == WLFlipDirectionRight ? self.termsAndConditionsWebView : self.transparentView;
-    UIView *toView = direction == WLFlipDirectionRight ? self.transparentView : self.termsAndConditionsWebView;
+    self.termsAndConditionsTextView.scrollEnabled = NO;
+    UIView *fromView = direction == WLFlipDirectionRight ? self.placeholderView : self.transparentView;
+    UIView *toView = direction == WLFlipDirectionRight ? self.transparentView : self.placeholderView;
     
     float factor = direction == WLFlipDirectionRight ? 1.0 : -1.0;
     toView.layer.transform = [self yRotation:factor * -M_PI_2];
     toView.hidden = NO;
+    
     
     [UIView animateKeyframesWithDuration:1.0
                                    delay:0.0
@@ -182,27 +170,53 @@ typedef enum : NSUInteger {
                                   [UIView addKeyframeWithRelativeStartTime:0.5
                                                           relativeDuration:0.5
                                                                 animations:^{
-                                                                    toView.layer.transform = [self yRotation:.0f];
+                                                                    toView.layer.transform = CATransform3DIdentity;
                                                                 }];
                               } completion:NULL];
-    
 }
 
 - (CATransform3D)yRotation:(CGFloat)angle {
     return  CATransform3DMakeRotation(angle, 0.0, 1.0, 0.0);
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return YES;
+- (void)wrapIntoAttributedString {
+    NSURL *url  = [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"Wraplive_TermsAndConditions" ofType:@"rtf"]];
+    if (url != nil) {
+        NSData *rtfData = [NSData dataWithContentsOfURL:url];
+        if (rtfData != nil) {
+            NSAttributedString *attrString = [[NSAttributedString alloc]
+                                              initWithData:rtfData options:nil documentAttributes:nil error:nil];
+            if ([attrString string].nonempty) {
+                NSDictionary * textAttributes = @{NSFontAttributeName : [UIFont lightFontOfSize:15],
+                                                  NSForegroundColorAttributeName : [UIColor blackColor]};
+                NSMutableParagraphStyle *paragrapStyle = [NSMutableParagraphStyle new];
+                paragrapStyle.alignment = NSTextAlignmentCenter;
+                NSDictionary * titleAttributes = @{NSFontAttributeName : [UIFont lightFontOfSize:25],
+                                                   NSForegroundColorAttributeName : [UIColor WL_orangeColor],
+                                                   NSParagraphStyleAttributeName : paragrapStyle};
+                
+                NSMutableAttributedString *attrText = attrString.mutableCopy;
+                [attrText addAttributes:textAttributes range:NSMakeRange(0 , [attrString length])];
+                
+                [titleKeyArray() all:^(id item) {
+                    NSRange range = [[attrText string] rangeOfString:item];
+                    if (range.location != NSNotFound) {
+                        [attrText setAttributes:titleAttributes range:range];
+                    }
+                }];
+                
+                self.termsAndConditionsTextView.attributedText = attrText;
+                self.termsAndConditionsTextView.editable = NO;
+                self.termsAndConditionsTextView.dataDetectorTypes = UIDataDetectorTypeAll;
+            }
+        }
+    }
 }
 
-#pragma mark WLInternetConnectionBroadcaster
+#pragma mark -UIGestureRecognizerDelegate
 
-- (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
-    if (reachable) {
-        [self.termsAndConditionsWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:WLTermsAndContitionsURL]]];
-        self.termsAndConditionsWebView.scrollView.contentInset = UIEdgeInsetsMake(0, -17, 0, -17);
-    }
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
 }
 
 @end

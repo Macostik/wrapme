@@ -11,6 +11,9 @@
 #import "WLAuthorization.h"
 #import "NSArray+Additions.h"
 #import "WLAPIManager.h"
+#import "UIColor+CustomColors.h"
+#import "WLTestUserCell.h"
+#import "NSObject+NibAdditions.h"
 
 @interface WLTestUserPicker () <UITableViewDataSource, UITableViewDelegate>
 
@@ -29,7 +32,7 @@
 - (instancetype)initWithFrame:(CGRect)frame selection:(void (^)(WLAuthorization *))selection {
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if (self) {
-		self.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.75f];
+		self.backgroundColor = [UIColor whiteColor];
 		self.selection = selection;
         self.dataSource = self;
 		self.delegate = self;
@@ -49,14 +52,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"WLTestUserPickerCell"];
-	if (!cell) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WLTestUserPickerCell"];
-	}
-	WLAuthorization* authorization = [self.users objectAtIndex:indexPath.row];
-	cell.textLabel.text = [authorization fullPhoneNumber];
-	cell.detailTextLabel.text = authorization.password ? @"Activated" : @"Non-activated";
+	WLTestUserCell* cell = [tableView dequeueReusableCellWithIdentifier:@"WLTestUserCell"];
+	if (!cell) cell = [WLTestUserCell loadFromNib];
+	cell.authorization = [self.users objectAtIndex:indexPath.row];
 	return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 110;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -64,6 +67,18 @@
 		self.selection([self.users objectAtIndex:indexPath.row]);
 	}
 	[self removeFromSuperview];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 44;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:@"Cancel" forState:UIControlStateNormal];
+    button.backgroundColor = [UIColor WL_orangeColor];
+    [button addTarget:self action:@selector(removeFromSuperview) forControlEvents:UIControlEventTouchUpInside];
+    return button;
 }
 
 @end

@@ -25,13 +25,13 @@
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
 #import "WLBlocks.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "WLGroupedSet.h"
 #import "WLSignificantTimeBroadcaster.h"
 #import "WLNotificationCenter.h"
 #import "WLNotification.h"
 
-@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLWrapBroadcastReceiver>
+@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver>
 
 @property (nonatomic, strong) WLGroupedSet* groups;
 
@@ -90,7 +90,7 @@
 	self.backSwipeGestureEnabled = YES;
 	
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
-    [[WLWrapBroadcaster broadcaster] addReceiver:self];
+    [[WLMessage notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLNotificationCenter defaultCenter] addReceiver:self];
     [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:nil];
@@ -187,18 +187,18 @@
 	}];
 }
 
-#pragma mark - WLWrapBroadcastReceiver
+#pragma mark - WLEntryNotifyReceiver
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster messageCreated:(WLMessage *)message {
+- (void)notifier:(WLEntryNotifier *)notifier messageAdded:(WLMessage *)message {
     if (!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
     [self insertMessage:message];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster messageRemoved:(WLMessage *)message {
+- (void)notifier:(WLEntryNotifier *)notifier messageDeleted:(WLMessage *)message {
     [self setMessages:[self.wrap messages]];
 }
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster messageChanged:(WLMessage *)message {
+- (void)notifier:(WLEntryNotifier *)notifier messageUpdated:(WLMessage *)message {
     for (WLGroup* group in self.groups.entries) {
         if ([group.entries containsObject:message] && ![group.date isSameDay:message.createdAt]) {
             [group.entries removeObject:message];
@@ -213,7 +213,7 @@
     [self.collectionView reloadData];
 }
 
-- (WLWrap *)broadcasterPreferedWrap:(WLWrapBroadcaster *)broadcaster {
+- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
     return self.wrap;
 }
 
@@ -325,7 +325,6 @@
     } else {
         WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section - 1];
         WLMessage* message = [group.entries objectAtIndex:indexPath.item];
-        if (!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
         BOOL isMyComment = [message.contributor isCurrentUser];
         NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
         cell =  [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];

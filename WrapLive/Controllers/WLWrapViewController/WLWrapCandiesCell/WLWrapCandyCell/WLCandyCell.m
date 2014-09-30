@@ -10,7 +10,7 @@
 #import "WLImageFetcher.h"
 #import "WLProgressBar.h"
 #import "WLBorderView.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
 #import "NSString+Additions.h"
@@ -26,7 +26,7 @@
 #import "WLEntryManager.h"
 #import "WLMenu.h"
 
-@interface WLCandyCell () <WLWrapBroadcastReceiver>
+@interface WLCandyCell () <WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
@@ -40,7 +40,7 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
     self.coverView.placeholderName = @"ic_photo_placeholder";
-	[[WLWrapBroadcaster broadcaster] addReceiver:self];
+	[[WLCandy notifier] addReceiver:self];
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self configuration:^BOOL (WLMenu *menu) {
         WLCandy* candy = weakSelf.entry;
@@ -82,13 +82,13 @@
     }
 }
 
-#pragma mark - WLWrapBroadcastReceiver
+#pragma mark - WLEntryNotifyReceiver
 
-- (void)broadcaster:(WLWrapBroadcaster *)broadcaster candyChanged:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
 	[self resetup];
 }
 
-- (WLCandy *)broadcasterPreferedCandy:(WLWrapBroadcaster *)broadcaster {
+- (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
     return self.entry;
 }
 

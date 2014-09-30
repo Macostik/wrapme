@@ -8,7 +8,7 @@
 
 #import "WLUploadWrapRequest.h"
 #import "WLPerson.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLUploadWrapRequest
 
@@ -38,9 +38,11 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    WLWrap* wrap = [self.wrap update:response.data[@"wrap"]];
+	WLWrap* wrap = [self.wrap API_setup:response.data[@"wrap"]];
     if (self.creation) {
-        [wrap broadcastCreation];
+        [wrap notifyOnAddition];
+    } else if (wrap.hasChanges) {
+        [wrap notifyOnUpdate];
     }
     return wrap;
 }

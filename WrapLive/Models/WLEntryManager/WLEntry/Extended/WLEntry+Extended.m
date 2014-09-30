@@ -36,7 +36,7 @@
     for (NSDictionary* dictionary in array) {
 		WLEntry* entry = [self API_entry:dictionary relatedEntry:relatedEntry];
 		if (entry) {
-			[container addObject:entry];
+            [container addObject:entry];
 		}
 	}
     return container;

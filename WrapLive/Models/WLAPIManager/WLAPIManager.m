@@ -12,7 +12,7 @@
 #import "NSArray+Additions.h"
 #import "WLAddressBook.h"
 #import "WLNavigation.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "NSString+Additions.h"
 #import "WLAuthorization.h"
 #import "NSDate+Additions.h"

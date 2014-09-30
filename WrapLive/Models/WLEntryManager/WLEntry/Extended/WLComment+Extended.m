@@ -8,7 +8,7 @@
 
 #import "WLComment+Extended.h"
 #import "WLEntryManager.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLComment (Extended)
 
@@ -33,7 +33,7 @@
 - (void)remove {
     [self.candy removeComment:self];
     [super remove];
-    [self broadcastRemoving];
+    [self notifyOnDeleting];
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {

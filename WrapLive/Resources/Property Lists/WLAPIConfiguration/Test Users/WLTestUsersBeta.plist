@@ -2,41 +2,99 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
+    <dict>
+        <key>countryCode</key>
+        <string>380</string>
+        <key>phone</key>
+        <string>951383026</string>
+        <key>email</key>
+        <string>s.maximenko@mobidev.biz</string>
+        <key>password</key>
+        <string>b8f2d35458</string>
+        <key>deviceUID</key>
+        <string>e5baa8edebb90b5474a716cd39e374ae9f9a5354</string>
+    </dict>
+    <dict>
+        <key>countryCode</key>
+        <string>380</string>
+        <key>phone</key>
+        <string>636467228</string>
+        <key>email</key>
+        <string>s.maximenko.mobidev@gmail.com</string>
+        <key>password</key>
+        <string>154f828b2e</string>
+        <key>deviceUID</key>
+        <string>c626691d962f2237b573b3f44ecfbe25a9d33b6a</string>
+    </dict>
+    <dict>
+        <key>countryCode</key>
+        <string>380</string>
+        <key>phone</key>
+        <string>957115540</string>
+        <key>email</key>
+        <string>macostik@rambler.ru</string>
+        <key>password</key>
+        <string>9b27519bee</string>
+        <key>deviceUID</key>
+        <string>8ab8a93209613cc9b1aad84be4d66a0ac0717f7b</string>
+    </dict>
+    <dict>
+        <key>countryCode</key>
+        <string>380</string>
+        <key>phone</key>
+        <string>632124353</string>
+        <key>email</key>
+        <string>e.ustimenko@mobidev.ru</string>
+        <key>password</key>
+        <string>edf8ee8cc8</string>
+    </dict>
+    <dict>
+        <key>countryCode</key>
+        <string>380</string>
+        <key>phone</key>
+        <string>956213431</string>
+        <key>email</key>
+        <string>y.granchenko@gmail.com</string>
+        <key>password</key>
+        <string>2d26461368</string>
+        <key>deviceUID</key>
+        <string>e79d44cd34bd5a05bf06a21b76fdcd188e12b101</string>
+    </dict>
 	<dict>
-		<key>deviceUID</key>
-		<string>9255552001</string>
 		<key>countryCode</key>
 		<string>1</string>
 		<key>phone</key>
 		<string>9255552001</string>
 		<key>email</key>
-		<string>faker_teagan@example.com</string>
+		<string>faker_haylie@example.com</string>
 		<key>activationCode</key>
 		<string>9999</string>
+		<key>deviceUID</key>
+		<string>17147880272c013204150a204a780831</string>
 	</dict>
 	<dict>
-		<key>deviceUID</key>
-		<string>9255552002</string>
 		<key>countryCode</key>
 		<string>1</string>
 		<key>phone</key>
 		<string>9255552002</string>
 		<key>email</key>
-		<string>faker_victor_hegmann@example.net</string>
+		<string>faker_wilma.langosh@example.com</string>
 		<key>activationCode</key>
 		<string>9999</string>
+		<key>deviceUID</key>
+		<string>182ad170272c013204170a204a780831</string>
 	</dict>
 	<dict>
-		<key>deviceUID</key>
-		<string>9255552003</string>
 		<key>countryCode</key>
 		<string>1</string>
 		<key>phone</key>
 		<string>9255552003</string>
 		<key>email</key>
-		<string>faker_mara.oreilly@example.net</string>
+		<string>faker_javonte_rath@example.net</string>
 		<key>activationCode</key>
 		<string>9999</string>
+		<key>deviceUID</key>
+		<string>194bd1e0272c013204190a204a780831</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>
@@ -44,9 +102,11 @@
 		<key>phone</key>
 		<string>9255551001</string>
 		<key>email</key>
-		<string>faker_katlyn_von@example.com</string>
+		<string>faker_matilde.kunde@example.net</string>
 		<key>password</key>
 		<string>password</string>
+		<key>deviceUID</key>
+		<string>fb985470272b013203ed0a204a780831</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>
@@ -54,9 +114,11 @@
 		<key>phone</key>
 		<string>9255551002</string>
 		<key>email</key>
-		<string>faker_maximo@example.net</string>
+		<string>faker_josefa@example.org</string>
 		<key>password</key>
 		<string>password</string>
+		<key>deviceUID</key>
+		<string>fcbb3720272b013203ef0a204a780831</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>
@@ -64,89 +126,11 @@
 		<key>phone</key>
 		<string>9255551003</string>
 		<key>email</key>
-		<string>faker_juvenal@example.com</string>
+		<string>faker_isai@example.com</string>
 		<key>password</key>
 		<string>password</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>380</string>
-		<key>phone</key>
-		<string>636467228</string>
-		<key>email</key>
-		<string>s.maximenko@mobidev.biz</string>
-		<key>password</key>
-		<string>87b7353a49</string>
 		<key>deviceUID</key>
-		<string>2c2f439152930d334a8d741bb30dd2a70d35cd64</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>380</string>
-		<key>phone</key>
-		<string>951383026</string>
-		<key>email</key>
-		<string>s.maximenko@mobidev.biz</string>
-		<key>password</key>
-		<string>ae7a61bf42</string>
-		<key>deviceUID</key>
-		<string>05920f50b158b962cfa03a968b3cd3ed0ae68ce4</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>380</string>
-		<key>phone</key>
-		<string>679533279</string>
-		<key>email</key>
-		<string>o.vyshnivetsky@mobidev.biz</string>
-		<key>password</key>
-		<string>ac2dd6ace4</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>380</string>
-		<key>phone</key>
-		<string>636467228</string>
-		<key>email</key>
-		<string>s.maximenko.mobidev@gmail.com</string>
-		<key>password</key>
-		<string>20b83a5fb4</string>
-		<key>deviceUID</key>
-		<string>2c2f439152930d334a8d741bb30dd2a70d35cd64</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>380</string>
-		<key>phone</key>
-		<string>957115540</string>
-		<key>email</key>
-		<string>macostik@rambler.ru</string>
-		<key>password</key>
-		<string>9b27519bee</string>
-		<key>deviceUID</key>
-		<string>8ab8a93209613cc9b1aad84be4d66a0ac0717f7b</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>380</string>
-		<key>phone</key>
-		<string>632124353</string>
-		<key>email</key>
-		<string>e.ustimenko@mobidev.ru</string>
-		<key>password</key>
-		<string>edf8ee8cc8</string>
-	</dict>
-	<dict>
-		<key>countryCode</key>
-		<string>380</string>
-		<key>phone</key>
-		<string>956213431</string>
-		<key>email</key>
-		<string>y.granchenko@gmail.com</string>
-		<key>password</key>
-		<string>2d26461368</string>
-		<key>deviceUID</key>
-		<string>e79d44cd34bd5a05bf06a21b76fdcd188e12b101</string>
+		<string>fdbbdf50272b013203f10a204a780831</string>
 	</dict>
 </array>
 </plist>

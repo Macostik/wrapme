@@ -22,7 +22,7 @@
 #import "UIView+Shorthand.h"
 #import "WLUser.h"
 #import "UIButton+Additions.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "NSString+Additions.h"
 #import "WLBorderView.h"
 #import "UIColor+CustomColors.h"
@@ -84,7 +84,7 @@
         self.view.userInteractionEnabled = NO;
         WLWrap* wrap = [WLWrap wrap];
         wrap.name = name;
-        [wrap broadcastCreation];
+        [wrap notifyOnAddition];
         [[WLUploading uploading:wrap] upload:^(id object) {
             weakSelf.view.userInteractionEnabled = YES;
             [weakSelf.delegate createWrapViewController:weakSelf didCreateWrap:wrap];

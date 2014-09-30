@@ -177,8 +177,11 @@ static CGFloat WLRefresherContentSize = 44.0f;
             }
         } else {
             _refreshing = NO;
-            [self setInset:0 animated:animated];
-            [self setArrowViewHidden:NO];
+			__weak typeof(self)weakSelf = self;
+			run_after_asap(^{
+				[weakSelf setInset:0 animated:animated];
+				[weakSelf setArrowViewHidden:NO];
+			});
         }
     }
 }
@@ -206,7 +209,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
         } else if (keyPath == WlRefresherDraggingStateKeyPath) {
             if (sv.panGestureRecognizer.state == UIGestureRecognizerStateEnded && _refreshable) {
                 __weak typeof(self)weakSelf = self;
-                run_after(0.0f, ^{
+                run_after_asap(^{
                     [weakSelf setRefreshing:YES animated:YES];
                 });
             }

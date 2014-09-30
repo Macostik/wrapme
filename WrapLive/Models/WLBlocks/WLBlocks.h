@@ -99,9 +99,14 @@ static inline void run_after(NSTimeInterval after, dispatch_block_t block) {
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(after * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
 }
 
-static inline void run_loop(NSUInteger count, dispatch_block_t block) {
-	while (count > 0) {
-        --count;
-        block();
+static inline void run_after_asap(dispatch_block_t block) {
+	run_after(.0, block);
+}
+
+static inline void run_loop(NSUInteger count, void (^block) (NSUInteger i)) {
+    NSUInteger i = count;
+	while (i > 0) {
+        block(count - i);
+        --i;
     }
 }

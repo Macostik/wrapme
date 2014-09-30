@@ -32,17 +32,3 @@ static NSUInteger WLPhoneNumberLimit = 20;
 - (BOOL)isCurrentUser;
 
 @end
-
-@interface NSOrderedSet (WLUser)
-
-- (NSOrderedSet*)usersByAddingCurrentUserAndUser:(WLUser*)user;
-
-- (NSOrderedSet*)usersByAddingCurrentUser;
-
-- (NSOrderedSet *)usersByAddingUser:(WLUser *)user;
-
-- (NSOrderedSet *)usersByRemovingCurrentUserAndUser:(WLUser *)user;
-
-- (NSOrderedSet*)usersByRemovingCurrentUser;
-
-@end

@@ -35,8 +35,7 @@
         return;
     }
     if (!self.wraps) self.wraps = [NSMutableOrderedSet orderedSet];
-    [self.wraps addObject:wrap];
-    [self sortWraps];
+    [self.wraps addObject:wrap comparator:comparatorByUpdatedAtDescending];
 }
 
 - (void)addWraps:(NSOrderedSet *)wraps {
@@ -105,51 +104,6 @@ static WLUser *currentUser = nil;
 
 - (BOOL)isCurrentUser {
 	return [self.current boolValue];
-}
-
-@end
-
-@implementation NSOrderedSet (WLUser)
-
-- (NSOrderedSet*)usersByAddingCurrentUserAndUser:(WLUser*)user {
-    return [self mutate:^(NSMutableOrderedSet *mutableCopy) {
-        WLUser* currentUser = [WLUser currentUser];
-        if (currentUser) {
-            [mutableCopy addObject:currentUser];
-        }
-        if (user) {
-            [mutableCopy addObject:user];
-        }
-    }];
-}
-
-- (NSOrderedSet*)usersByAddingCurrentUser {
-    return [self usersByAddingUser:[WLUser currentUser]];
-}
-
-- (NSOrderedSet *)usersByAddingUser:(WLUser *)user {
-	if (user) {
-		return [self mutate:^(NSMutableOrderedSet *mutableCopy) {
-            [mutableCopy addObject:user];
-        }];
-	}
-	return self;
-}
-
-- (NSOrderedSet *)usersByRemovingCurrentUserAndUser:(WLUser *)user {
-    return [self mutate:^(NSMutableOrderedSet *mutableCopy) {
-        WLUser* currentUser = [WLUser currentUser];
-        if (currentUser) {
-            [mutableCopy removeObject:currentUser];
-        }
-        if (user) {
-            [mutableCopy removeObject:user];
-        }
-    }];
-}
-
-- (NSOrderedSet*)usersByRemovingCurrentUser {
-	return [self orderedSetByRemovingObject:[WLUser currentUser]];
 }
 
 @end

@@ -12,7 +12,7 @@
 #import "UIView+Shorthand.h"
 #import "UIView+AnimationHelper.h"
 #import "WLButton.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "WLUpdateContributorsRequest.h"
 #import "WLPerson.h"
 
@@ -35,9 +35,16 @@
     self.removedContributors = [NSMutableOrderedSet orderedSet];
     
     __weak typeof(self)weakSelf = self;
-    [self.dataSection setConfigure:^(WLContributorCell *cell, WLUser* contributor) {
-        cell.deletable = ![contributor isCurrentUser] && weakSelf.wrap.contributor != contributor;;
-    }];
+	WLUser *owner = weakSelf.wrap.contributor;
+	if ([owner isCurrentUser]) {
+		[self.dataSection setConfigure:^(WLContributorCell *cell, WLUser* contributor) {
+			cell.deletable = ![contributor isCurrentUser];
+		}];
+	} else {
+		[self.dataSection setConfigure:^(WLContributorCell *cell, WLUser* contributor) {
+			cell.deletable = NO;
+		}];
+	}
     
     self.dataSection.entries = [self.wrap.contributors mutableCopy];
     self.bottomView.transform = CGAffineTransformMakeTranslation(0, self.bottomView.width);

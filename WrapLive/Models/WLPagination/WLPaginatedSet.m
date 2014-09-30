@@ -82,8 +82,10 @@
 - (void)handleResponse:(NSOrderedSet*)entries success:(WLOrderedSetBlock)success {
     if ((!entries.nonempty || ![self addEntries:entries]) && self.request.type == WLPaginatedRequestTypeOlder) {
         self.completed = YES;
-        [self.delegate paginatedSetChanged:self];
+    } else if (!self.entries.nonempty) {
+        self.completed = YES;
     }
+    [self.delegate paginatedSetChanged:self];
     if(success) {
         success(entries);
     }
@@ -102,8 +104,8 @@
     if ([self.entries containsObject:entry]) {
         return NO;
     }
-    [self.entries addObject:entry];
-    [self sort];
+    [self.entries addObject:entry comparator:self.sortComparator];
+    [self.delegate paginatedSetChanged:self];
     return YES;
 }
 

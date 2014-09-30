@@ -14,7 +14,7 @@
 #import "NSDate+Additions.h"
 #import "UIAlertView+Blocks.h"
 #import "WLAPIManager.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "UIActionSheet+Blocks.h"
 #import "UIView+GestureRecognizing.h"
 #import "WLToast.h"

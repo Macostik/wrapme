@@ -7,7 +7,7 @@
 //
 
 #import "WLWrap+Extended.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 #import "NSString+Additions.h"
 #import "NSOrderedSet+Additions.h"
 #import "WLEntryManager.h"
@@ -41,7 +41,7 @@
 - (void)remove {
     [[WLUser currentUser] removeWrap:self];
     [super remove];
-    [self broadcastRemoving];
+    [self notifyOnDeleting];
 }
 
 - (void)touch:(NSDate *)date {
@@ -67,6 +67,7 @@
     }
     
     if (contributors.count != self.contributors.count || ![contributors isSubsetOfOrderedSet:self.contributors]) {
+        [contributors sort:comparatorByUserNameAscending];
         self.contributors = contributors;
     }
     NSArray* candiesArray = [dictionary arrayForKey:WLCandiesKey];
@@ -84,26 +85,23 @@
 }
 
 - (NSString *)contributorNamesWithCount:(NSInteger)numberOfUsers {
-    if (self.contributors.nonempty) {
-        if (self.contributors.count == 1) {
-            return @"You";
-        }
-        NSMutableArray *contributorsArray = @[].mutableCopy;
-        __block int i = 1;
-        [self.contributors all:^(WLUser *contributor) {
-            if (![contributor isCurrentUser] && i <= numberOfUsers) {
-                [contributorsArray addObject:contributor.name];
-                i++;
+    NSMutableOrderedSet *contributors = self.contributors;
+    if (contributors.count <= 1) return @"You";
+    NSMutableString* names = [NSMutableString string];
+    NSUInteger i = 0;
+    for (WLUser *contributor in contributors) {
+        if (i <= numberOfUsers) {
+            if (![contributor isCurrentUser]) {
+                [names appendFormat:@"%@, ", contributor.name];
+                ++i;
             }
-        }];
-        [contributorsArray sortUsingComparator:^NSComparisonResult(NSString * user1, NSString *user2) {
-            return [user1 compare:user2 options:NSCaseInsensitiveSearch];
-        }];
-        [contributorsArray insertObject:(self.contributors.count > numberOfUsers + 1) ? @"You ..." : @"You"
-                                atIndex:contributorsArray.count];
-        return [contributorsArray componentsJoinedByString:@", "];
+        } else {
+            [names appendString:@"You ..."];
+            return names;
+        }
     }
-    return nil;
+    [names appendString:@"You"];
+    return names;
 }
 
 - (NSString *)contributorNames {
@@ -116,13 +114,10 @@
         return;
     }
     candy.wrap = self;
-    if (!self.candies) {
-        self.candies = [NSMutableOrderedSet orderedSet];
-    }
-    [self.candies addObject:candy];
-    [self.candies sortByUpdatedAtDescending];
+    if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
+    [self.candies addObject:candy comparator:comparatorByCreatedAtDescending];
 	[self touch];
-	[candy broadcastCreation];
+	[candy notifyOnAddition];
 }
 
 - (BOOL)containsCandy:(WLCandy *)candy {
@@ -191,7 +186,7 @@
     message.contributor = [WLUser currentUser];
     message.wrap = self;
 	message.text = text;
-    [message broadcastCreation];
+    [message notifyOnAddition];
 	[message add:success failure:^(NSError *error) {
 		[message remove];
         failure(error);

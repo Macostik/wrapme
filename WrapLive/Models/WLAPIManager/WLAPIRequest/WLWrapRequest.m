@@ -7,7 +7,7 @@
 //
 
 #import "WLWrapRequest.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLWrapRequest
 
@@ -26,10 +26,10 @@
     [parameters trySetObject:self.contentType forKey:@"pick"];
     if (self.type == WLPaginatedRequestTypeNewer && self.newer) {
         [parameters trySetObject:@"newer_than" forKey:@"condition"];
-        [parameters trySetObject:@(self.newer.timestamp) forKey:@"offset"];
+        [parameters trySetObject:@([self.newer endOfDay].timestamp) forKey:@"offset_in_epoch"];
     } else if (self.type == WLPaginatedRequestTypeOlder && self.older) {
         [parameters trySetObject:@"older_than" forKey:@"condition"];
-        [parameters trySetObject:@(self.older.timestamp) forKey:@"offset"];
+        [parameters trySetObject:@([self.older beginOfDay].timestamp) forKey:@"offset_in_epoch"];
     }
     return parameters;
 }

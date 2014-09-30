@@ -56,13 +56,13 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     WLTimelineEvent* event = [self.timeline.entries tryObjectAtIndex:section];
-    return [event.images count];
+    return [event.entries count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLTimelineEvent* event = [self.timeline.entries tryObjectAtIndex:indexPath.section];
     WLEntryCell* cell = nil;
-    if (event.type == WLTimelineEventTypeComment) {
+    if (event.entryClass == [WLComment class]) {
         static NSString* identifier = @"WLTimelineEventCommentCell";
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     } else {
@@ -70,7 +70,7 @@
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     }
     cell.selection = self.selection;
-    cell.entry = [event.images tryObjectAtIndex:indexPath.item];
+    cell.entry = [event.entries tryObjectAtIndex:indexPath.item];
     return cell;
 }
 
@@ -106,7 +106,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLTimelineEvent* event = [self.timeline.entries tryObjectAtIndex:indexPath.section];
-    if (event.type == WLTimelineEventTypeComment) {
+    if (event.entryClass == [WLComment class]) {
         return CGSizeMake(collectionView.width, 54);
     } else {
         return CGSizeMake(collectionView.width/3, collectionView.width/3);

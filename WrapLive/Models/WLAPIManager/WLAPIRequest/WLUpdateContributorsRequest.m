@@ -8,7 +8,7 @@
 
 #import "WLUpdateContributorsRequest.h"
 #import "WLPerson.h"
-#import "WLWrapBroadcaster.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLUpdateContributorsRequest
 

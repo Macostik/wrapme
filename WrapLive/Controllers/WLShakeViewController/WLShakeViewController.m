@@ -130,15 +130,10 @@ static CTCallCenter *callCenter;
 - (BOOL)isCalling {
     CTCallCenter *callCenter = [[CTCallCenter alloc] init];
     for (CTCall* call in callCenter.currentCalls) {
-        if ([call.callState isEqualToString: CTCallStateConnected]) {
-            NSLog(@"isCalling");
-            return YES;
-        } else if ([call.callState isEqualToString: CTCallStateIncoming]) {
-            NSLog(@"isCalling");
+        if ([call.callState matches:CTCallStateConnected, CTCallStateIncoming, nil]) {
             return YES;
         }
     }
-    NSLog(@"!isCalling");
     return NO;
 }
 

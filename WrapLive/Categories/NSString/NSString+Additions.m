@@ -36,8 +36,15 @@
 	return (self.length > 0);
 }
 
-- (BOOL)isContainSubstring:(NSString *)subString {
-	return ([self rangeOfString:subString options:NSCaseInsensitiveSearch].location != NSNotFound);
+- (BOOL)matches:(NSString *)string, ... {
+	BOOL matches = NO;
+	va_list args;
+	va_start(args, string);
+	for (; string != nil; string = va_arg(args, id)) {
+		if ((matches = [self isEqualToString:string])) break;
+	}
+	va_end(args);
+	return matches;
 }
 
 @end

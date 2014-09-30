@@ -51,7 +51,7 @@ static inline NSString* phoneNumberClearing (NSString* phone) {
 
 - (NSString*)trim;
 
-- (BOOL)isContainSubstring:(NSString *)subString;
+- (BOOL)matches:(NSString *)string, ... NS_REQUIRES_NIL_TERMINATION;
 
 @end
 

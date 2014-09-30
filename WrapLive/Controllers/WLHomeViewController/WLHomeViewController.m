@@ -113,19 +113,6 @@
     [self updateEmailConfirmationView];
 }
 
-- (UIViewController *)shakePresentedViewController {
-	return self.section.wrap ? [self cameraViewController] : nil;
-}
-
-- (id)cameraViewController {
-	__weak typeof(self)weakSelf = self;
-	return [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
-		controller.wrap = weakSelf.section.wrap;
-		controller.delegate = self;
-		controller.mode = WLCameraModeCandy;
-	}];
-}
-
 - (void)updateEmailConfirmationView {
     BOOL confirmed = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
     UIView* view = self.emailConfirmationView;

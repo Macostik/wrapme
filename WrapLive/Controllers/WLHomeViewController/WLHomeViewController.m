@@ -155,6 +155,16 @@
     [self.section.entries removeEntry:wrap];
 }
 
+- (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
+	[self updateNotificationsLabel];
+}
+
+- (void)notifier:(WLEntryNotifier*)broadcaster commentDeleted:(WLComment *)comment {
+	run_after(.5, ^{
+		[self updateNotificationsLabel];
+	});
+}
+
 #pragma mark - WLNotificationReceiver
 
 - (void)handleRemoteNotification:(WLNotification*)notification {
@@ -238,19 +248,6 @@
 
 - (void)createWrapViewController:(WLCreateWrapViewController *)controller didCreateWrap:(WLWrap *)wrap {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - WLEntryNotifyReceiver
-
-- (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
-    [self updateNotificationsLabel];
-}
-
-- (void)broadcaster:(WLWrapBroadcaster*)broadcaster commentRemoved:(WLComment *)comment {
-    run_after(.5, ^{
-        [self updateNotificationsLabel];
-    });
-    
 }
 
 @end

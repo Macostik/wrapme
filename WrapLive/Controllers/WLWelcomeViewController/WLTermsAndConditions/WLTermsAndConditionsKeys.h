@@ -1,5 +1,5 @@
 //
-//  WLTermsAndConditionKeys.h
+//  WLTermsAndConditionsKeys.h
 //  WrapLive
 //
 //  Created by Yura Granchenko on 9/30/14.

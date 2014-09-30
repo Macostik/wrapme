@@ -21,8 +21,7 @@
 #import "WLLoadingView.h"
 #import "WLAuthorizationRequest.h"
 #import "UIView+GestureRecognizing.h"
-#import "WLTermsAndConditionKeys.h"
-#import "UIView+AnimationHelper.h"
+#import "WLTermsAndConditionsKeys.h"
 
 typedef enum : NSUInteger {
     WLFlipDirectionRight,
@@ -72,7 +71,6 @@ typedef enum : NSUInteger {
     [self wrapIntoAttributedString];
     
     __weak __typeof(self)weakSelf = self;
-
     [self.placeholderView addSwipeGestureRecognizingDelegate:self
                                                    direction:UISwipeGestureRecognizerDirectionLeft | UISwipeGestureRecognizerDirectionRight
                                                        block:^(UIGestureRecognizer *recognizer) {

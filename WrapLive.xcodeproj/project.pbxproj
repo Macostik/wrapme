@@ -1325,7 +1325,7 @@
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
 		14F668621973DDAA008D5081 /* WLPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPerson.h; path = Person/WLPerson.h; sourceTree = "<group>"; };
 		14F668631973DDAA008D5081 /* WLPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPerson.m; path = Person/WLPerson.m; sourceTree = "<group>"; };
-		5B3CD74319DAEA8E00D2216C /* WLTermsAndConditionKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTermsAndConditionKeys.h; path = WLTermsAndConditions/WLTermsAndConditionKeys.h; sourceTree = "<group>"; };
+		5B3CD74319DAEA8E00D2216C /* WLTermsAndConditionsKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTermsAndConditionsKeys.h; path = WLTermsAndConditions/WLTermsAndConditionsKeys.h; sourceTree = "<group>"; };
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
 		5BAF8E141991196000AFCAE6 /* WLClearProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLClearProgressBar.h; sourceTree = "<group>"; };
 		5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLClearProgressBar.m; sourceTree = "<group>"; };
@@ -1351,9 +1351,6 @@
 		5BBBEB4C19D983FA008CFE54 /* WLLeaveWrapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLeaveWrapRequest.m; path = WLAPIManager/WLAPIRequest/WLLeaveWrapRequest.m; sourceTree = "<group>"; };
 		5BBBEB5119D98421008CFE54 /* WLSignificantTimeBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSignificantTimeBroadcaster.h; path = WLBroadcaster/WLSignificantTimeBroadcaster/WLSignificantTimeBroadcaster.h; sourceTree = "<group>"; };
 		5BBBEB5219D98421008CFE54 /* WLSignificantTimeBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSignificantTimeBroadcaster.m; path = WLBroadcaster/WLSignificantTimeBroadcaster/WLSignificantTimeBroadcaster.m; sourceTree = "<group>"; };
-		5BB3290719D3F64700E946B8 /* Wraplive_TermsAndConditions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Wraplive_TermsAndConditions.html; sourceTree = "<group>"; };
-		5BB5F8B519C971F20053242C /* UITextView+Aditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Aditions.h"; sourceTree = "<group>"; };
-		5BB5F8B619C971F20053242C /* UITextView+Aditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Aditions.m"; sourceTree = "<group>"; };
 		5BD6D33B19B5AB26000A7C1F /* CoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 2.xcdatamodel"; sourceTree = "<group>"; };
 		98C86618D23B4CC5B2807E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
@@ -2682,7 +2679,7 @@
 		5B3CD74219DAE9CE00D2216C /* WLTermsAndConditions */ = {
 			isa = PBXGroup;
 			children = (
-				5B3CD74319DAEA8E00D2216C /* WLTermsAndConditionKeys.h */,
+				5B3CD74319DAEA8E00D2216C /* WLTermsAndConditionsKeys.h */,
 				5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */,
 			);
 			name = WLTermsAndConditions;

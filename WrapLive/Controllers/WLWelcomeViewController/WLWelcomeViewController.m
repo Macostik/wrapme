@@ -24,15 +24,15 @@
 #import "WLTermsAndConditionsKeys.h"
 
 typedef enum : NSUInteger {
-    WLFlipDirectionRight,
     WLFlipDirectionLeft,
+    WLFlipDirectionRight,
 } WLFlipDirection;
 
 @interface WLWelcomeViewController () <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) WLLoadingView *splash;
 @property (weak, nonatomic) IBOutlet UIButton *licenseButton;
-@property (weak, nonatomic) IBOutlet UIView *transparentView;
+@property (strong, nonatomic) IBOutlet UIView *transparentView;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
 @property (strong, nonatomic) IBOutlet UIView *placeholderView;
 @property (weak, nonatomic) IBOutlet UITextView *termsAndConditionsTextView;
@@ -46,6 +46,7 @@ typedef enum : NSUInteger {
     
     self.placeholderView.layer.cornerRadius = 5.0f;
     self.placeholderView.layer.masksToBounds = YES;
+    [self.placeholderView removeFromSuperview];
     
     WLLoadingView* splash = [WLLoadingView splash];
     splash.frame = self.view.bounds;
@@ -71,11 +72,10 @@ typedef enum : NSUInteger {
     [self wrapIntoAttributedString];
     
     __weak __typeof(self)weakSelf = self;
-    [self.placeholderView addSwipeGestureRecognizingDelegate:self
-                                                   direction:UISwipeGestureRecognizerDirectionLeft | UISwipeGestureRecognizerDirectionRight
+    [self.termsAndConditionsTextView addSwipeGestureRecognizingDelegate:self
+                                                   direction:UISwipeGestureRecognizerDirectionLeft
                                                        block:^(UIGestureRecognizer *recognizer) {
-                                                           [weakSelf flipAnimationView:WLFlipDirectionRight];
-                                                           weakSelf.termsAndConditionsTextView.scrollEnabled = YES;
+                                                           [weakSelf flipAnimationView:WLFlipDirectionLeft];
                                                        }];
 }
 
@@ -138,39 +138,24 @@ typedef enum : NSUInteger {
 - (void)continueSignUp {
 	[WLSignUpViewController instantiate:^(WLSignUpViewController *controller) {
 		controller.registrationNotCompleted = YES;
-	} makeRootViewControllerAnimated:WLFlipDirectionRight];
+	} makeRootViewControllerAnimated:WLFlipDirectionLeft];
 }
 
 - (IBAction)termsAndConditions:(id)sender {
-    [self flipAnimationView:WLFlipDirectionLeft];
-    self.termsAndConditionsTextView.scrollEnabled = YES;
+    [self flipAnimationView:WLFlipDirectionRight];
 }
 
 - (void)flipAnimationView:(WLFlipDirection)direction {
-    self.termsAndConditionsTextView.scrollEnabled = NO;
-    UIView *fromView = direction == WLFlipDirectionRight ? self.placeholderView : self.transparentView;
-    UIView *toView = direction == WLFlipDirectionRight ? self.transparentView : self.placeholderView;
+    UIView *fromView = direction == WLFlipDirectionLeft ? self.placeholderView : self.transparentView;
+    UIView *toView = direction ==   WLFlipDirectionLeft ? self.transparentView : self.placeholderView;
+    NSInteger option = direction == WLFlipDirectionLeft? UIViewAnimationOptionTransitionFlipFromRight :
+                                                         UIViewAnimationOptionTransitionFlipFromLeft;
     
-    float factor = direction == WLFlipDirectionRight ? 1.0 : -1.0;
-    toView.layer.transform = [self yRotation:factor * -M_PI_2];
-    toView.hidden = NO;
-    
-    
-    [UIView animateKeyframesWithDuration:1.0
-                                   delay:0.0
-                                 options:0
-                              animations:^{
-                                  [UIView addKeyframeWithRelativeStartTime:0.0
-                                                          relativeDuration:0.5
-                                                                animations:^{
-                                                                    fromView.layer.transform = [self yRotation:factor * M_PI_2];
-                                                                }];
-                                  [UIView addKeyframeWithRelativeStartTime:0.5
-                                                          relativeDuration:0.5
-                                                                animations:^{
-                                                                    toView.layer.transform = CATransform3DIdentity;
-                                                                }];
-                              } completion:NULL];
+    [UIView transitionFromView:fromView
+                        toView:toView
+                      duration:0.75
+                       options:option
+                    completion:NULL];
 }
 
 - (CATransform3D)yRotation:(CGFloat)angle {

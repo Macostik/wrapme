@@ -5,7 +5,7 @@
 	<key>endpoint</key>
 	<string>https://api.wraplive.com/api</string>
 	<key>version</key>
-	<string>4</string>
+	<string>5</string>
 	<key>useTestUsers</key>
 	<false/>
 	<key>environment</key>

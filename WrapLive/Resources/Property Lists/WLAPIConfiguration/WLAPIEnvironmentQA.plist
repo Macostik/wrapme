@@ -5,7 +5,7 @@
 	<key>endpoint</key>
 	<string>https://qa-api.wraplive.com/api</string>
 	<key>version</key>
-	<string>4</string>
+	<string>5</string>
 	<key>testUsersPropertyListName</key>
 	<string>WLTestUsersQA</string>
 	<key>useTestUsers</key>

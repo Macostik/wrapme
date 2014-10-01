@@ -87,13 +87,13 @@
         [wrap notifyOnAddition];
         [[WLUploading uploading:wrap] upload:^(id object) {
             weakSelf.view.userInteractionEnabled = YES;
-            [weakSelf.delegate createWrapViewController:weakSelf didCreateWrap:wrap];
             [wrap uploadPictures:weakSelf.pictures];
+            [weakSelf.delegate createWrapViewController:weakSelf didCreateWrap:wrap];
         } failure:^(NSError *error) {
             weakSelf.view.userInteractionEnabled = YES;
             if ([error isNetworkError]) {
-                [weakSelf.delegate createWrapViewController:weakSelf didCreateWrap:wrap];
                 [wrap uploadPictures:weakSelf.pictures];
+                [weakSelf.delegate createWrapViewController:weakSelf didCreateWrap:wrap];
             } else {
                 sender.loading = NO;
                 [error show];

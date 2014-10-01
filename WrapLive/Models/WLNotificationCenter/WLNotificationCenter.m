@@ -24,6 +24,7 @@
 #import "NSString+Documents.h"
 #import "NSDate+Additions.h"
 #import "WLAPIRequest.h"
+#import "UIDevice+SystemVersion.h"
 
 @interface WLNotificationCenter () <PNDelegate>
 
@@ -65,8 +66,15 @@ static WLDataBlock deviceTokenCompletion = nil;
     if (deviceToken) {
         completion(deviceToken);
     } else {
-        UIRemoteNotificationType type = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:type];
+        if (SystemVersionGreaterThanOrEqualTo8()) {
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+            UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
+            UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        } else {
+            UIRemoteNotificationType type = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:type];
+        }
         deviceTokenCompletion = completion;
     }
 }

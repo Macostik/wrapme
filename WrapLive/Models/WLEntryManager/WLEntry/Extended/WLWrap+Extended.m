@@ -209,7 +209,9 @@
     __weak typeof(self)weakSelf = self;
     [pictures enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSTimeInterval delay = time*((CGFloat)idx/(CGFloat)(count - 1));
-        [weakSelf performSelector:@selector(uploadPicture:) withObject:obj afterDelay:delay];
+        run_after(delay, ^{
+            [weakSelf uploadPicture:obj];
+        });
     }];
 }
 

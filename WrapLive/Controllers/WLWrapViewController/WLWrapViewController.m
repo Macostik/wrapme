@@ -243,6 +243,11 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 - (void)changeMode:(WLWrapViewMode)mode {
     if (_mode != mode) {
         self.mode = mode;
+        if (mode == WLWrapViewModeTimeline) {
+            [self.timelineDataProvider.timeline update];
+        } else {
+            [self.groups addEntries:self.wrap.candies];
+        }
         [WLSession setInteger:self.mode key:WLWrapViewDefaultModeKey];
         self.historyViewSection.completed = NO;
         [self.collectionView scrollToTopAnimated:YES];

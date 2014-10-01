@@ -16,4 +16,6 @@
 
 + (instancetype)timelineWithWrap:(WLWrap*)wrap;
 
+- (void)update;
+
 @end

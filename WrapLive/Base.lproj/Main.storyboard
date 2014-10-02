@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -1122,6 +1123,7 @@ Ravenpod, Inc. , 505 14th St., Suite 900, Oakland, CA 94612</string>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                                 <connections>
+                                                                    <action selector="editChanged:" destination="7FG-gC-kPg" eventType="editingChanged" id="eEh-yf-HnH"/>
                                                                     <outlet property="delegate" destination="7FG-gC-kPg" id="Y9Y-BY-tWb"/>
                                                                 </connections>
                                                             </textField>
@@ -1139,6 +1141,7 @@ Ravenpod, Inc. , 505 14th St., Suite 900, Oakland, CA 94612</string>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                 <connections>
+                                                                    <action selector="editChanged:" destination="7FG-gC-kPg" eventType="editingChanged" id="9vz-Vw-aTn"/>
                                                                     <outlet property="delegate" destination="7FG-gC-kPg" id="g6t-g3-m1S"/>
                                                                 </connections>
                                                             </textField>
@@ -1154,8 +1157,8 @@ Ravenpod, Inc. , 505 14th St., Suite 900, Oakland, CA 94612</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GkU-w3-rTK">
-                                <rect key="frame" x="320" y="524" width="160" height="44"/>
+                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GkU-w3-rTK">
+                                <rect key="frame" x="160" y="524" width="160" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -1169,8 +1172,8 @@ Ravenpod, Inc. , 505 14th St., Suite 900, Oakland, CA 94612</string>
                                     <action selector="goToMainScreen:" destination="7FG-gC-kPg" eventType="touchUpInside" id="Qja-sT-icS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Efj-27-0UK">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Efj-27-0UK">
+                                <rect key="frame" x="0.0" y="524" width="159" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -1181,7 +1184,7 @@ Ravenpod, Inc. , 505 14th St., Suite 900, Oakland, CA 94612</string>
                                     <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="back:" destination="7FG-gC-kPg" eventType="touchUpInside" id="hpx-ny-vsP"/>
+                                    <action selector="cancelClick:" destination="7FG-gC-kPg" eventType="touchUpInside" id="aMq-uY-wNh"/>
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="8k3-gm-bYX">
@@ -1662,6 +1665,7 @@ Ravenpod, Inc. , 505 14th St., Suite 900, Oakland, CA 94612</string>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <action selector="textFieldDidChange:" destination="XA1-LT-u0J" eventType="editingDidEnd" id="BoX-n4-ydo"/>
+                                            <action selector="textFieldEditChange:" destination="XA1-LT-u0J" eventType="editingChanged" id="loK-l6-XU0"/>
                                             <outlet property="delegate" destination="XA1-LT-u0J" id="QiK-GW-DUq"/>
                                         </connections>
                                     </textField>
@@ -1693,13 +1697,45 @@ Ravenpod, Inc. , 505 14th St., Suite 900, Oakland, CA 94612</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vs8-ix-VjZ">
+                                <rect key="frame" x="0.0" y="524" width="159" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelClick:" destination="XA1-LT-u0J" eventType="touchUpInside" id="ltR-wm-OWd"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ehC-Hf-JSi">
+                                <rect key="frame" x="160" y="524" width="160" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneClick:" destination="XA1-LT-u0J" eventType="touchUpInside" id="JU2-Xn-4ey"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="KKK-eZ-7dy"/>
                     <connections>
+                        <outlet property="cancelButton" destination="vs8-ix-VjZ" id="lOZ-ja-Qf1"/>
                         <outlet property="deleteButton" destination="xvX-FZ-hl5" id="mue-2l-gZQ"/>
                         <outlet property="deleteLabel" destination="ebg-HA-3MU" id="PaX-NT-ZEg"/>
+                        <outlet property="doneButton" destination="ehC-Hf-JSi" id="7W5-mQ-maP"/>
                         <outlet property="nameWrapTextField" destination="5Zl-7g-q4o" id="5pY-tY-7p4"/>
                     </connections>
                 </viewController>

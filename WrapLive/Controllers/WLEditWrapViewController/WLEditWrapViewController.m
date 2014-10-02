@@ -35,7 +35,6 @@ static NSString *const WLLeave = @"Leave";
     self.deleteButton.layer.cornerRadius = 3.0f;
     self.nameWrapTextField.text = self.wrap.name;
     [self.nameWrapTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
-    self.nameWrapTextField.returnKeyType = UIReturnKeyDone;
     self.deleteLabel.text = [NSString stringWithFormat:@"%@ this wrap", [self isMyWrap]? WLDelete : WLLeave];
     [self.deleteButton setTitle:[self isMyWrap]? WLDelete : WLLeave forState:UIControlStateNormal];
     self.nameWrapTextField.enabled = [self isMyWrap];
@@ -50,26 +49,35 @@ static NSString *const WLLeave = @"Leave";
 - (IBAction)textFieldDidChange:(UITextField *)sender {
 	if (sender.text.length > WLWrapNameLimit) {
 		sender.text = [sender.text substringToIndex:WLWrapNameLimit];
-	}
+    }
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (![textField.text isEqualToString:self.wrap.name]) {
+- (IBAction)textFieldEditChange:(UITextField *)sender {
+    [self willShowCancelAndDoneButtons:[self isMyWrap] && ![self.wrap.name isEqualToString:sender.text]];
+}
+
+- (IBAction)doneClick:(id)sender {
+    __weak __typeof(self)weakSelf = self;
+    if (![self.nameWrapTextField.text isEqualToString:self.wrap.name]) {
         WLWrap *wrap = [WLWrap entry:self.wrap.identifier];
         if (wrap) {
-            wrap.name = textField.text;
+            wrap.name = self.nameWrapTextField.text;
             [wrap update:^(id object) {
+                [weakSelf back:nil];
             } failure:^(NSError *error) {
                 [error show];
             }];
         }
     }
-    [textField resignFirstResponder];
-    return YES;
+}
+- (IBAction)cancelClick:(id)sender {
+    [self willShowCancelAndDoneButtons:[self isMyWrap] && [self.wrap.name isEqualToString:self.nameWrapTextField.text]];
+    self.nameWrapTextField.text = self.wrap.name;
+    [self.view endEditing:YES];
 }
 
 - (IBAction)back:(id)sender {
-    [self dismiss];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)deleteButtonClick:(id)sender {

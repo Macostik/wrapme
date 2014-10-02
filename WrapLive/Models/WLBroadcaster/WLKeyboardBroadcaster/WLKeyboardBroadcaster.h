@@ -22,6 +22,8 @@
 
 @interface WLKeyboardBroadcaster : WLBroadcaster
 
-@property (strong, nonatomic) NSNumber* keyboardHeight;
+@property (strong, nonatomic) NSNumber *keyboardHeight;
+@property (assign, nonatomic) NSNumber *duration;
+@property (strong, nonatomic) NSNumber *animationCurve;
 
 @end

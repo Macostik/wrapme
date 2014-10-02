@@ -41,7 +41,7 @@
 	WLWrap* wrap = [self.wrap API_setup:response.data[@"wrap"]];
     if (self.creation) {
         [wrap notifyOnAddition];
-    } else if (wrap.hasChanges) {
+    } else {
         [wrap notifyOnUpdate];
     }
     return wrap;

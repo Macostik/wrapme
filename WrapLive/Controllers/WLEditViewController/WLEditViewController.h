@@ -26,11 +26,15 @@
 @property (assign, nonatomic) AVCaptureDevicePosition stillPictureCameraPosition;
 @property (assign, nonatomic) WLCameraMode stillPictureMode;
 
-- (void)willShowDoneButton:(BOOL)showDone;
+- (void)willShowCancelAndDoneButtons:(BOOL)showDone;
 - (BOOL)isAtObjectSessionChanged;
 - (void)updateIfNeeded:(void (^)(void))completion;
 - (void)saveImage:(UIImage *)image;
 - (void)lock;
 - (void)unlock;
+- (void)willShowKeyboardWithHeight:(NSNumber *)keyboardHeight
+                          duration:(NSTimeInterval)duration
+                            option:(UIViewAnimationCurve)animationCurve;
+- (void)willHideKeyboardWithDuration:(NSTimeInterval)duration option:(UIViewAnimationCurve)animationCurve;
 
 @end

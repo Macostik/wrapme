@@ -25,6 +25,7 @@
 #import "UIButton+Additions.h"
 #import "WLProfileEditSession.h"
 #import "WLUpdateUserRequest.h"
+#import "UIView+AnimationHelper.h"
 
 @interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver>
 
@@ -45,19 +46,24 @@
     [super viewDidLoad];
 	self.user = [WLUser currentUser];
     self.editSession = [[WLProfileEditSession alloc] initWithEntry:self.user];
-	self.nameTextField.text = self.user.name;
-	self.imageView.url = self.user.picture.large;
     self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
-    self.emailTextField.text = [WLAuthorization priorityEmail];
 	self.stillPictureCameraPosition = AVCaptureDevicePositionFront;
 	self.stillPictureMode = WLCameraModeAvatar;
     self.notPresentShakeViewController = YES;
-	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
+    [self defaultUserInfo];
 }
 
-- (void)validateDoneButton {
-    NSString * email = self.emailTextField.text;
-    self.doneButton.active = self.nameTextField.text.nonempty && email.nonempty && email.isValidEmail;
+- (IBAction)cancelClick:(id)sender {
+    [self defaultUserInfo];
+    [self isAtObjectSessionChanged];
+    [self.view endEditing:YES];
+}
+
+- (void)defaultUserInfo {
+    self.nameTextField.text = self.user.name;
+    self.imageView.url = self.user.picture.large;
+    self.emailTextField.text = [WLAuthorization priorityEmail];
+    [self.editSession clean];
 }
 
 #pragma mark - User actions
@@ -74,37 +80,41 @@
 	return resultString.length <= WLProfileNameLimit;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-	if (textField == self.nameTextField && ![self.editSession.name isEqualToString:self.nameTextField.text]) {
+- (IBAction)editChanged:(UITextField *)sender {
+    if (sender == self.nameTextField ) {
         self.editSession.name = self.nameTextField.text;
-	} else if (![self.editSession.email isEqualToString:self.emailTextField.text]) {
-		self.editSession.email = self.emailTextField.text;
-	}
-	[self isAtObjectSessionChanged];
+    } else {
+        self.editSession.email = self.emailTextField.text;
+    }
+    [self isAtObjectSessionChanged];
 }
 
-#pragma mark - WLKeyboardBroadcastReceiver
+#pragma mark - override base method
 
-- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
-	__weak typeof(self)weakSelf = self;
-	CGAffineTransform transform = self.mainView.transform;
-	self.mainView.transform = CGAffineTransformIdentity;
-	CGPoint center = [self.view convertPoint:self.nameTextField.center fromView:self.nameTextField.superview];
-	CGFloat translation = center.y - (self.view.height - [keyboardHeight floatValue])/2.0f;
-	self.mainView.transform = transform;
-	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		weakSelf.mainView.transform = CGAffineTransformMakeTranslation(0, -translation);
-	} completion:^(BOOL finished) {}];
+- (void)willShowKeyboardWithHeight:(NSNumber *)keyboardHeight
+                          duration:(NSTimeInterval)duration
+                            option:(UIViewAnimationCurve)animationCurve {
+    [super willShowKeyboardWithHeight:keyboardHeight duration:duration option:animationCurve];
+    __weak typeof(self)weakSelf = self;
+    CGAffineTransform transform = self.mainView.transform;
+    self.mainView.transform = CGAffineTransformIdentity;
+    CGPoint center = [self.view convertPoint:self.nameTextField.center fromView:self.nameTextField.superview];
+    CGFloat translation = center.y - (self.view.height - [keyboardHeight floatValue])/2.0f;
+    self.mainView.transform = transform;
+    [UIView performAnimated:YES animation:^{
+        [UIView setAnimationCurve:animationCurve];
+        weakSelf.mainView.transform = CGAffineTransformMakeTranslation(0, -translation);
+    }];
 }
 
-- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-	__weak typeof(self)weakSelf = self;
-	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		weakSelf.mainView.transform = CGAffineTransformIdentity;
-	} completion:^(BOOL finished) {}];
+- (void)willHideKeyboardWithDuration:(NSTimeInterval)duration option:(UIViewAnimationCurve)animationCurve {
+    [super willHideKeyboardWithDuration:duration option:animationCurve];
+    __weak typeof(self)weakSelf = self;
+    [UIView performAnimated:YES animation:^{
+        [UIView setAnimationCurve:animationCurve];
+        weakSelf.mainView.transform = CGAffineTransformIdentity;
+    }];
 }
-
-#pragma mark override base method
 
 - (void)updateIfNeeded:(void (^)(void))completion {
 	if ([self isAtObjectSessionChanged]) {

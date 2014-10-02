@@ -223,7 +223,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 - (IBAction)editWrap:(id)sender {
 	WLEditWrapViewController* controller = [WLEditWrapViewController instantiate];
 	controller.wrap = self.wrap;
-	[controller presentInViewController:self transition:WLWrapTransitionFromRight];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)setMode:(WLWrapViewMode)mode {

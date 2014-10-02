@@ -34,7 +34,9 @@
 		<key>email</key>
 		<string>y.granchenko@mobidev.biz</string>
 		<key>password</key>
-		<string>a26c7f623f</string>
+		<string>1bf128f15e</string>
+		<key>deviceUID</key>
+		<string>e79d44cd34bd5a05bf06a21b76fdcd188e12b101</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>

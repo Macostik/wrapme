@@ -29,6 +29,8 @@
 
 - (void)reset:(WLEntry *)entry;
 
+- (void)clean;
+
 - (BOOL)hasChanges;
 
 @end

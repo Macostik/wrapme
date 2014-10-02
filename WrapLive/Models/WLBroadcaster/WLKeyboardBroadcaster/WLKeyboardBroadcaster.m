@@ -37,12 +37,16 @@
 - (void)keyboardWillShow:(NSNotification*)notification {
 	CGFloat keyboardHeight = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     self.keyboardHeight = @(keyboardHeight);
+    self.duration = [[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    self.animationCurve = [[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey];
 	[self broadcast:@selector(broadcaster:willShowKeyboardWithHeight:) object:self.keyboardHeight];
 }
 
 - (void)keyboardDidShow:(NSNotification*)notification {
 	CGFloat keyboardHeight = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     self.keyboardHeight = @(keyboardHeight);
+    self.duration = [[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    self.animationCurve = [[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey];
 	[self broadcast:@selector(broadcaster:didShowKeyboardWithHeight:) object:self.keyboardHeight];
 	__weak UIWindow* window = [UIWindow mainWindow];
 	[window addTapGestureRecognizing:^(UIGestureRecognizer *recognizer){
@@ -52,11 +56,15 @@
 
 - (void)keyboardWillHide:(NSNotification*)notification {
     self.keyboardHeight = nil;
+    self.duration = nil;
+    self.animationCurve = nil;
 	[self broadcast:@selector(broadcasterWillHideKeyboard:)];
 }
 
 - (void)keyboardDidHide:(NSNotification*)notification {
     self.keyboardHeight = nil;
+    self.duration = nil;
+    self.animationCurve = nil;
 	[self broadcast:@selector(broadcasterDidHideKeyboard:)];
 	[[UIWindow mainWindow] removeTapGestureRecognizing];
 }

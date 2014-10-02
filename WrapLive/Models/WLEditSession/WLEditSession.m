@@ -42,6 +42,10 @@
     [self apply:self.original entry:entry];
 }
 
+- (void)clean {
+    [self setup:self.changed entry:self.entry];
+}
+
 - (BOOL)hasChanges {
     return NO;
 }

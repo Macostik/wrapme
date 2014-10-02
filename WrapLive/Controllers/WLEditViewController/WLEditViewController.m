@@ -11,6 +11,9 @@
 #import "UIImage+Resize.h"
 #import "WLEntryManager.h"
 #import "WLNavigation.h"
+#import "WLKeyboardBroadcaster.h"
+#import "UIView+AnimationHelper.h"
+#import "UIView+QuatzCoreAnimations.h"
 
 @interface WLEditViewController () <WLStillPictureViewControllerDelegate, UITextFieldDelegate>
 
@@ -18,24 +21,26 @@
 
 @implementation WLEditViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [[WLKeyboardBroadcaster broadcaster] addReceiver:self];
+}
+
 - (BOOL)isAtObjectSessionChanged {
     BOOL changed = [self.editSession hasChanges];
-    [self willShowDoneButton:changed];
+    [self willShowCancelAndDoneButtons:changed];
     return changed;
 }
 
-- (void)willShowDoneButton:(BOOL)showDone {
-	if (showDone) {
-		self.cancelButton.width = self.view.width/2 - 1;
-		self.doneButton.x = self.view.width/2;
-        [self validateDoneButton];
-	} else {
-		self.cancelButton.width = self.view.width;
-		self.doneButton.x = self.view.width;
-	}
+- (void)willShowCancelAndDoneButtons:(BOOL)showDone {
+    self.cancelButton.width = self.view.width/2 - 1;
+    self.doneButton.x = self.view.width/2;
+    
+    self.doneButton.hidden = self.cancelButton.hidden = !showDone;
+    [self.cancelButton setAlpha:showDone ? 1 : 0 animated:YES];
+    [self.doneButton setAlpha:showDone ? 1 : 0 animated:YES];
 }
 
-- (void)validateDoneButton {}
 
 - (void)updateIfNeeded:(void (^)(void))completion{
 	[self lock];
@@ -92,5 +97,35 @@
 }
 
 - (void)saveImage:(UIImage *)image {}
+
+#pragma mark -WLKeyboardBroadcastReceiver
+
+- (void)broadcaster:(WLKeyboardBroadcaster*)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
+    NSTimeInterval duration = [broadcaster.duration doubleValue];
+    UIViewAnimationCurve animationCurve = [broadcaster.animationCurve integerValue];
+    [self willShowKeyboardWithHeight:keyboardHeight duration:duration option:animationCurve];
+}
+
+- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster*)broadcaster {
+    NSTimeInterval duration = [broadcaster.duration doubleValue];
+    UIViewAnimationCurve animationCurve = [broadcaster.animationCurve integerValue];
+    [self willHideKeyboardWithDuration:duration option:animationCurve];
+}
+
+- (void)willShowKeyboardWithHeight:(NSNumber *)keyboardHeight
+                          duration:(NSTimeInterval)duration
+                            option:(UIViewAnimationCurve)animationCurve {
+    [UIView performAnimated:YES animation:^{
+        [UIView setAnimationCurve:animationCurve];
+        self.cancelButton.transform = self.doneButton.transform = CGAffineTransformMakeTranslation(0, -[keyboardHeight integerValue]);
+    }];
+}
+
+- (void)willHideKeyboardWithDuration:(NSTimeInterval)duration option:(UIViewAnimationCurve)animationCurve {
+    [UIView performAnimated:YES animation:^{
+        [UIView setAnimationCurve:7];
+        self.cancelButton.transform = self.doneButton.transform = CGAffineTransformIdentity;
+    }];
+}
 
 @end

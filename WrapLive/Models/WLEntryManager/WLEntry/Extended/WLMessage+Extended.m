@@ -25,4 +25,14 @@
     return self;
 }
 
+- (WLEntry *)containingEntry {
+    return self.wrap;
+}
+
+- (void)setContainingEntry:(WLEntry *)containingEntry {
+    if (containingEntry && self.wrap != containingEntry) {
+        self.wrap = (id)containingEntry;
+    }
+}
+
 @end

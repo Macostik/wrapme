@@ -71,18 +71,20 @@
             break;
     }
     
+    WLEntry *targetEntry = nil;
+    
     switch (type) {
         case WLNotificationContributorAdd:
         case WLNotificationContributorDelete:
         case WLNotificationWrapDelete:
         case WLNotificationWrapUpdate: {
             NSDictionary* dictionary = [data dictionaryForKey:WLWrapKey];
-            self.targetEntry = dictionary ? [WLWrap API_entry:dictionary] : [WLWrap entry:[data stringForKey:WLWrapUIDKey]];
+            targetEntry = dictionary ? [WLWrap API_entry:dictionary] : [WLWrap entry:[data stringForKey:WLWrapUIDKey]];
         } break;
         case WLNotificationCandyAdd:
         case WLNotificationCandyDelete: {
             NSDictionary* dictionary = [data dictionaryForKey:WLCandyKey];
-            self.targetEntry = dictionary ? [WLCandy API_entry:dictionary] : [WLCandy entry:[data stringForKey:WLCandyUIDKey]];
+            targetEntry = dictionary ? [WLCandy API_entry:dictionary] : [WLCandy entry:[data stringForKey:WLCandyUIDKey]];
         } break;
         case WLNotificationMessageAdd: {
             NSDictionary* dictionary = [data dictionaryForKey:WLMessageKey];
@@ -91,20 +93,38 @@
         case WLNotificationCommentAdd:
         case WLNotificationCommentDelete: {
             NSDictionary* dictionary = [data dictionaryForKey:WLCommentKey];
-            self.targetEntry = dictionary ? [WLComment API_entry:dictionary] : [WLComment entry:[data stringForKey:WLCommentUIDKey]];
+            targetEntry = dictionary ? [WLComment API_entry:dictionary] : [WLComment entry:[data stringForKey:WLCommentUIDKey]];
         } break;
         case WLNotificationUserUpdate: {
             NSDictionary* dictionary = [data dictionaryForKey:WLUserKey];
             if (dictionary) {
                 [[WLAuthorization currentAuthorization] updateWithUserData:dictionary];
-                self.targetEntry = [WLUser API_entry:dictionary];
+                targetEntry = [WLUser API_entry:dictionary];
             } else {
-                self.targetEntry = [WLUser entry:[data stringForKey:WLUserUIDKey]];
+                targetEntry = [WLUser entry:[data stringForKey:WLUserUIDKey]];
             }
         } break;
         default:
             break;
     }
+    
+    if (self.targetEntry.containingEntry == nil) {
+        switch (type) {
+            case WLNotificationCandyAdd:
+            case WLNotificationCandyDelete:
+            case WLNotificationMessageAdd: {
+                targetEntry.containingEntry = [WLWrap entry:[data stringForKey:WLWrapUIDKey]];
+            } break;
+            case WLNotificationCommentAdd:
+            case WLNotificationCommentDelete: {
+                targetEntry.containingEntry = [WLCandy entry:[data stringForKey:WLCandyUIDKey]];
+            } break;
+            default:
+                break;
+        }
+    }
+    
+    self.targetEntry = targetEntry;
 }
 
 - (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure {

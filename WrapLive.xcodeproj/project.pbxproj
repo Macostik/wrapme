@@ -2927,14 +2927,14 @@
 		C50445A41951AA8F003C2251 /* Extended */ = {
 			isa = PBXGroup;
 			children = (
+				C50445AD1951AA8F003C2251 /* WLEntry+Extended.h */,
+				C50445AE1951AA8F003C2251 /* WLEntry+Extended.m */,
 				C50445A51951AA8F003C2251 /* WLCandy+Extended.h */,
 				C50445A61951AA8F003C2251 /* WLCandy+Extended.m */,
 				C50445A71951AA8F003C2251 /* WLComment+Extended.h */,
 				C50445A81951AA8F003C2251 /* WLComment+Extended.m */,
 				C50445A91951AA8F003C2251 /* WLContribution+Extended.h */,
 				C50445AA1951AA8F003C2251 /* WLContribution+Extended.m */,
-				C50445AD1951AA8F003C2251 /* WLEntry+Extended.h */,
-				C50445AE1951AA8F003C2251 /* WLEntry+Extended.m */,
 				C50445AF1951AA8F003C2251 /* WLUploading+Extended.h */,
 				C50445B01951AA8F003C2251 /* WLUploading+Extended.m */,
 				C50445B11951AA8F003C2251 /* WLUser+Extended.h */,

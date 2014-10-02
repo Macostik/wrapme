@@ -14,10 +14,18 @@
 
 @implementation WLEntry (Extended)
 
+@dynamic containingEntry;
+
 + (instancetype)entry {
     WLEntry* entry = [self entry:GUID()];
     entry.createdAt = [NSDate now];
     entry.updatedAt = entry.createdAt;
+    return entry;
+}
+
++ (instancetype)entry:(NSString *)identifier containingEntry:(WLEntry*)containingEntry {
+    WLEntry* entry = [self entry:identifier];
+    entry.containingEntry = containingEntry;
     return entry;
 }
 
@@ -100,6 +108,14 @@
     if ([picture edit:large medium:medium small:small]) {
         self.picture = [picture copy];
     }
+}
+
+- (WLEntry*)containingEntry {
+    return nil;
+}
+
+- (void)setContainingEntry:(WLEntry *)containingEntry {
+    
 }
 
 @end

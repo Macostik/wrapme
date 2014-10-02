@@ -58,4 +58,14 @@
     return self.candy.picture;
 }
 
+- (WLEntry *)containingEntry {
+    return self.candy;
+}
+
+- (void)setContainingEntry:(WLEntry *)containingEntry {
+    if (containingEntry && self.candy != containingEntry) {
+        self.candy = (id)containingEntry;
+    }
+}
+
 @end

@@ -73,8 +73,6 @@
 
 @interface WLEntry (WLEntryNotifier)
 
-@property (readonly, nonatomic) WLEntry* containingEntry;
-
 @property (readonly, nonatomic) SEL notifyPreferredSelector;
 
 @property (readonly, nonatomic) SEL notifyOnAdditionSelector;

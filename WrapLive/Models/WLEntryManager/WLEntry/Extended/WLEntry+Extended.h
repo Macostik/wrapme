@@ -15,7 +15,11 @@
 
 @interface WLEntry (Extended)
 
+@property (nonatomic) WLEntry* containingEntry;
+
 + (instancetype)entry;
+
++ (instancetype)entry:(NSString *)identifier containingEntry:(WLEntry*)containingEntry;
 
 + (NSOrderedSet*)API_entries:(NSArray*)array;
 

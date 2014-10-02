@@ -81,7 +81,6 @@
 @dynamic notifyOnAdditionSelector;
 @dynamic notifyOnUpdateSelector;
 @dynamic notifyOnDeletingSelector;
-@dynamic containingEntry;
 
 + (WLEntryNotifier *)notifier {
 	return [WLEntryNotifier notifier:self];
@@ -94,8 +93,6 @@
 - (SEL)notifyOnUpdateSelector { return nil; }
 
 - (SEL)notifyOnDeletingSelector { return nil; }
-
-- (WLEntry*)containingEntry { return nil; }
 
 - (instancetype)update:(NSDictionary *)dictionary {
 	[self API_setup:dictionary];
@@ -170,10 +167,6 @@
 
 @implementation WLCandy (WLEntryNotifier)
 
-- (WLEntry *)containingEntry {
-    return self.wrap;
-}
-
 - (SEL)notifyPreferredSelector {
 	return @selector(notifierPreferredCandy:);
 }
@@ -194,10 +187,6 @@
 
 @implementation WLMessage (WLEntryNotifier)
 
-- (WLEntry *)containingEntry {
-    return self.wrap;
-}
-
 - (SEL)notifyPreferredSelector {
 	return @selector(notifierPreferredMessage:);
 }
@@ -217,10 +206,6 @@
 @end
 
 @implementation WLComment (WLEntryNotifier)
-
-- (WLEntry *)containingEntry {
-    return self.candy;
-}
 
 - (SEL)notifyPreferredSelector {
 	return @selector(notifierPreferredComment:);

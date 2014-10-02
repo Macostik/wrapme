@@ -96,7 +96,7 @@
 
 - (instancetype)update:(NSDictionary *)dictionary {
 	[self API_setup:dictionary];
-    if (self.hasChanges) [self notifyOnUpdate];
+    [self notifyOnUpdate];
 	return self;
 }
 

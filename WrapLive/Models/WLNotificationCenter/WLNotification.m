@@ -88,7 +88,7 @@
         } break;
         case WLNotificationMessageAdd: {
             NSDictionary* dictionary = [data dictionaryForKey:WLMessageKey];
-            self.targetEntry = dictionary ? [WLMessage API_entry:dictionary] : [WLMessage entry:[data stringForKey:WLMessageUIDKey]];
+            targetEntry = dictionary ? [WLMessage API_entry:dictionary] : [WLMessage entry:[data stringForKey:WLMessageUIDKey]];
         } break;
         case WLNotificationCommentAdd:
         case WLNotificationCommentDelete: {
@@ -108,7 +108,7 @@
             break;
     }
     
-    if (self.targetEntry.containingEntry == nil) {
+    if (targetEntry.containingEntry == nil) {
         switch (type) {
             case WLNotificationCandyAdd:
             case WLNotificationCandyDelete:

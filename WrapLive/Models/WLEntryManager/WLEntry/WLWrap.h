@@ -18,6 +18,8 @@
 @property (nonatomic, retain) NSMutableOrderedSet *candies;
 @property (nonatomic, retain) NSMutableOrderedSet *messages;
 @property (nonatomic, retain) NSMutableOrderedSet *contributors;
+@property (nonatomic, retain) NSNumber *isDefault;
+
 @end
 
 @interface WLWrap (CoreDataGeneratedAccessors)

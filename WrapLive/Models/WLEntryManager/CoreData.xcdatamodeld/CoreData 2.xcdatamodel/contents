@@ -39,6 +39,7 @@
         <userInfo/>
     </entity>
     <entity name="WLWrap" representedClassName="WLWrap" parentEntity="WLContribution">
+        <attribute name="isDefault" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="candies" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="WLCandy" inverseName="wrap" inverseEntity="WLCandy" syncable="YES"/>
         <relationship name="contributors" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WLUser" inverseName="wraps" inverseEntity="WLUser" syncable="YES"/>
@@ -54,6 +55,6 @@
         <element name="WLMessage" positionX="18" positionY="72" width="128" height="73"/>
         <element name="WLUploading" positionX="0" positionY="0" width="128" height="60"/>
         <element name="WLUser" positionX="0" positionY="0" width="128" height="118"/>
-        <element name="WLWrap" positionX="0" positionY="0" width="128" height="103"/>
+        <element name="WLWrap" positionX="0" positionY="0" width="128" height="120"/>
     </elements>
 </model>

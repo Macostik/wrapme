@@ -47,3 +47,4 @@ static NSString* WLMediumCoverKey = @"medium_cover_url";
 static NSString* WLSmallCoverKey = @"small_cover_url";
 static NSString* WLDatesKey = @"dates";
 static NSString* WLCandiesKey = @"candies";
+static NSString* WLDefaultWrapKey = @"default_wrap";

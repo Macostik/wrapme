@@ -86,7 +86,9 @@
     
     [section setChange:^(WLPaginatedSet* entries) {
         WLUser *user = [WLUser currentUser];
-        if (user.firstTimeUse.boolValue && section.wrap) {
+        if (user.firstTimeUse.boolValue && [user.wraps match:^BOOL(WLWrap *wrap) {
+            return !wrap.isDefault.boolValue;
+        }]) {
             static dispatch_once_t onceToken;
             dispatch_once(&onceToken, ^{
                 [section.wrap present];

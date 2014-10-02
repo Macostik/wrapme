@@ -17,5 +17,6 @@
 @dynamic candies;
 @dynamic messages;
 @dynamic contributors;
+@dynamic isDefault;
 
 @end

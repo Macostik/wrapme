@@ -10,6 +10,8 @@
 #import "NSString+Documents.h"
 #import "WLBlocks.h"
 #import "NSArray+Additions.h"
+#import "UIDevice+SystemVersion.h"
+#import "WLSupportFunctions.h"
 
 @interface WLCacheItem : NSObject
 
@@ -75,8 +77,12 @@
         if (![_manager fileExistsAtPath:_directory]) {
             [_manager createDirectoryAtPath:_directory withIntermediateDirectories:YES attributes:nil error:NULL];
         }
-        _identifiers = [NSMutableSet setWithArray:[[_manager enumeratorAtPath:_directory] allObjects]];
+        [self fetchIdentifiers];
     }
+}
+
+- (void)fetchIdentifiers {
+    _identifiers = [NSMutableSet setWithArray:[_manager contentsOfDirectoryAtPath:_directory error:NULL]];
 }
 
 - (void)setSize:(NSUInteger)size {
@@ -93,10 +99,10 @@
 - (void)write:(NSString *)identifier object:(id)object {
     NSData* data = [NSKeyedArchiver archivedDataWithRootObject:object];
     if (data) {
-        if([UIDevice currentDevice].systemVersion.floatValue <= 7.1) { // Crash only on the iOS 8
-            [_manager createFileAtPath:identifier contents:data attributes:nil];
-        } else {
+        if (SystemVersionGreaterThanOrEqualTo8()) {
             [data writeToFile:[[_manager currentDirectoryPath] stringByAppendingPathComponent:identifier] atomically:YES];
+        } else {
+            [_manager createFileAtPath:identifier contents:data attributes:nil];
         }
     }
 }
@@ -149,44 +155,46 @@
 - (void)checkSizeAndClearIfNeededInBackground {
     static BOOL checking = NO;
     NSUInteger limitSize = self.size;
-    if (limitSize > 0) {
+    if (!checking && limitSize > 0) {
         checking = YES;
         __weak typeof(self)weakSelf = self;
         run_in_background_queue(^{
-            NSMutableSet* identifiers = [weakSelf.identifiers mutableCopy];
+            
             unsigned long long size = 0;
-            NSMutableArray* items = [NSMutableArray array];
-            for (NSString* identifier in identifiers) {
-                WLCacheItem* item = [[WLCacheItem alloc] init];
-                item.identifier = identifier;
-                NSDictionary* attributes = [_manager attributesOfItemAtPath:identifier error:NULL];
-                if (attributes) {
-                    item.size = [attributes fileSize];
-                    item.date = [attributes fileCreationDate];
-                    size += item.size;
-                    [items addObject:item];
-                }
+            id items = [_manager contentsOfDirectoryAtURL:[NSURL fileURLWithPath:_directory isDirectory:YES] includingPropertiesForKeys:@[NSURLTotalFileAllocatedSizeKey] options:NSDirectoryEnumerationSkipsSubdirectoryDescendants error:NULL];
+            for (NSURL *item in items) {
+                NSNumber *s = nil;
+                [item getResourceValue:&s forKey:NSURLTotalFileAllocatedSizeKey error:NULL];
+                size += [s unsignedLongLongValue];
             }
-            [items sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(WLCacheItem* obj1, WLCacheItem* obj2) {
-                return [obj1.date compare:obj2.date];
-            }];
-            BOOL removed = NO;
-            while (size >= limitSize) {
-                WLCacheItem* item = [items firstObject];
-                [_manager removeItemAtPath:item.identifier error:NULL];
-                size -= item.size;
-                [items removeObject:item];
-                removed = YES;
-                [identifiers removeObject:item.identifier];
-            }
-            if (removed) {
-                run_in_main_queue(^{
-                    _identifiers = identifiers;
-                    checking = NO;
-                });
-            } else {
+            if (size < limitSize) {
                 checking = NO;
+                return;
             }
+            
+            items = [items mutableCopy];
+            
+            [items sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(NSURL* obj1, NSURL* obj2) {
+                NSDate *d1 = nil;
+                [obj1 getResourceValue:&d1 forKey:NSURLCreationDateKey error:NULL];
+                NSDate *d2 = nil;
+                [obj2 getResourceValue:&d2 forKey:NSURLCreationDateKey error:NULL];
+                return [d1 compare:d2];
+            }];
+            
+            while (size >= limitSize) {
+                NSURL* item = [items firstObject];
+                NSNumber *s = nil;
+                [item getResourceValue:&s forKey:NSURLTotalFileAllocatedSizeKey error:NULL];
+                [_manager removeItemAtURL:items error:NULL];
+                size -= [s unsignedLongLongValue];
+                [items removeObject:item];
+            }
+            
+            run_in_main_queue(^{
+                [weakSelf fetchIdentifiers];
+                checking = NO;
+            });
         });
     }
 }

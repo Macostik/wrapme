@@ -17,7 +17,11 @@
 
 @interface WLImageFetcher ()
 
-@property (strong, nonatomic) NSMutableArray* urls;
+@property (strong, nonatomic) NSMutableSet* urls;
+
+@property (strong, nonatomic) NSOperationQueue *fetchingQueue;
+
+@property (strong, nonatomic) AFImageResponseSerializer *imageResponseSerializer;
 
 @end
 
@@ -31,21 +35,16 @@
     return instance;
 }
 
-+ (NSOperationQueue*)fetchingQueue {
-    static NSOperationQueue* instance = nil;
-    if (instance == nil) {
-        instance = [[NSOperationQueue alloc] init];
-		instance.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.urls = [NSMutableSet set];
+        NSOperationQueue *fetchingQueue = [[NSOperationQueue alloc] init];
+        fetchingQueue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
+        self.fetchingQueue = fetchingQueue;
+        self.imageResponseSerializer = [AFImageResponseSerializer serializer];
     }
-    return instance;
-}
-
-+ (AFImageResponseSerializer*)imageResponseSerializer {
-    static AFImageResponseSerializer* instance = nil;
-    if (instance == nil) {
-        instance = [AFImageResponseSerializer serializer];
-    }
-    return instance;
+    return self;
 }
 
 - (instancetype)initWithReceiver:(id<WLImageFetching>)receiver {
@@ -54,13 +53,6 @@
 
 - (void)addReceiver:(id<WLImageFetching>)receiver {
 	[super addReceiver:receiver];
-}
-
-- (NSMutableArray *)urls {
-	if (!_urls) {
-		_urls = [NSMutableArray array];
-	}
-	return _urls;
 }
 
 - (void)enqueueImageWithUrl:(NSString *)url {
@@ -86,10 +78,11 @@
     
     if ([[WLImageCache cache] containsImageWithUrl:url]) {
         [[WLImageCache cache] imageWithUrl:url completion:success];
-    } else if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
+    } else if (url.absolutePath) {
         [self setFileSystemUrl:url completion:success];
     } else {
         WLFailureBlock failure = ^ (NSError* error) {
+            [weakSelf.urls removeObject:url];
             NSHashTable* receivers = weakSelf.receivers;
             @synchronized (receivers) {
                 for (NSObject <WLImageFetching> *receiver in receivers) {
@@ -109,36 +102,29 @@
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
 	AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-	operation.responseSerializer = [[self class] imageResponseSerializer];
+	operation.responseSerializer = [self imageResponseSerializer];
 	[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
 		[[WLImageCache cache] setImage:responseObject withUrl:url];
-		if (success) {
-			success(responseObject, NO);
-		}
+		if (success) success(responseObject, NO);
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		if (error.code != NSURLErrorCancelled) {
-			if (failure) {
-				failure(error);
-			}
-		}
+		if (error.code != NSURLErrorCancelled && failure) failure(error);
 	}];
-	[[[self class] fetchingQueue] addOperation:operation];
+	[[self fetchingQueue] addOperation:operation];
 }
 
 - (void)setFileSystemUrl:(NSString *)url completion:(WLImageFetcherBlock)completion {
-	if (completion) {
-		UIImage* image = [WLSystemImageCache imageWithIdentifier:url];
-		if (image) {
-			completion(image, YES);
-		} else {
-			run_getting_object(^id{
-				return [UIImage imageWithContentsOfFile:url];
-			}, ^ (UIImage* image) {
-				[WLSystemImageCache setImage:image withIdentifier:url];
-				completion(image, NO);
-			});
-		}
-	}
+    if (!completion) return;
+    UIImage* image = [WLSystemImageCache imageWithIdentifier:url];
+    if (image) {
+        completion(image, YES);
+    } else {
+        run_getting_object(^id{
+            return [UIImage imageWithContentsOfFile:url];
+        }, ^ (UIImage* image) {
+            [WLSystemImageCache setImage:image withIdentifier:url];
+            completion(image, NO);
+        });
+    }
 }
 
 @end

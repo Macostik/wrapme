@@ -48,4 +48,6 @@
 
 - (void)setFlexibleBottom;
 
+- (void)setVerticallyFlexible;
+
 @end

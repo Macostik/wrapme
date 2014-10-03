@@ -34,7 +34,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.refresher = [WLRefresher refresher:self.tableView target:self action:@selector(refresh) style:WLRefresherStyleOrange];
-    [self setFullFlexible];
+//    [self.tableView setFullFlexible];
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [self.contentView setFullFlexible];
     [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
 }
 

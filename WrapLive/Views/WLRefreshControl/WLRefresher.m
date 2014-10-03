@@ -76,17 +76,17 @@ static CGFloat WLRefresherContentSize = 44.0f;
 }
 
 + (WLRefresher*)refresher:(UIScrollView *)scrollView {
-	return [self refresher:scrollView horizontal:scrollView.height <= scrollView.width];
+	return [self refresher:scrollView horizontal:NO];
 }
 
 + (WLRefresher*)refresher:(UIScrollView *)scrollView horizontal:(BOOL)horizontal {
-	CGRect frame;
+    CGRect frame = (CGRect){.size = scrollView.size};
 	CGRect contentFrame;
 	if (horizontal) {
-		frame = CGRectMake(-scrollView.width, 0, scrollView.width, scrollView.height);
+        frame.origin.x = -scrollView.width;
 		contentFrame = CGRectMake(frame.size.width - WLRefresherContentSize, 0, WLRefresherContentSize, frame.size.height);
 	} else {
-		frame = CGRectMake(0, -scrollView.height, scrollView.width, scrollView.height);
+        frame.origin.y = -scrollView.height;
 		contentFrame = CGRectMake(0, frame.size.height - WLRefresherContentSize, frame.size.width, WLRefresherContentSize);
 	}
 	WLRefresher* refresher = [[WLRefresher alloc] initWithFrame:frame];

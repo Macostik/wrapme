@@ -15,6 +15,7 @@
 #import "NSString+Additions.h"
 #import "WLSystemImageCache.h"
 #import "WLBlocks.h"
+#import "UIDevice+SystemVersion.h"
 
 static NSUInteger WLImageCacheSize = 524288000;
 
@@ -75,10 +76,10 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
     if (image && identifier.nonempty) {
         NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
         if ([imageData length] > 0) {
-            if([UIDevice currentDevice].systemVersion.floatValue <= 7.1) { // Crash only on the iOS 8 
-                [_manager createFileAtPath:identifier contents:imageData attributes:nil];
-            } else {
+            if (SystemVersionGreaterThanOrEqualTo8()) {
                 [imageData writeToFile:[[_manager currentDirectoryPath] stringByAppendingPathComponent:identifier] atomically:YES];
+            } else {
+                [_manager createFileAtPath:identifier contents:imageData attributes:nil];
             }
             [WLSystemImageCache setImage:image withIdentifier:identifier];
         }
@@ -136,12 +137,11 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 		return;
 	}
 	dispatch_async(self.queue, ^{
-        if([UIDevice currentDevice].systemVersion.floatValue <= 7.1) { // Crash only on the iOS 8
-            [_manager createFileAtPath:identifier contents:data attributes:nil];
-        } else {
+        if (SystemVersionGreaterThanOrEqualTo8()) {
             [data writeToFile:[[_manager currentDirectoryPath] stringByAppendingPathComponent:identifier] atomically:YES];
+        } else {
+            [_manager createFileAtPath:identifier contents:data attributes:nil];
         }
-       
         [self.identifiers addObject:identifier];
 		run_in_main_queue(^{
 			if (completion) {

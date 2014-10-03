@@ -709,7 +709,8 @@ Cg
                                                     <fragment>
                                                         <string key="content">To contact us, please email us using this link or write to:
 
-Ravenpod, Inc. , 505 14th St., Suite 900, Oakland, CA 94612</string>
+Ravenpod, Inc.
+, 505 14th St., Suite 900, Oakland, CA 94612</string>
                                                         <attributes>
                                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>

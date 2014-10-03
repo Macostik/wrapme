@@ -186,7 +186,7 @@
                 NSURL* item = [items firstObject];
                 NSNumber *s = nil;
                 [item getResourceValue:&s forKey:NSURLTotalFileAllocatedSizeKey error:NULL];
-                [_manager removeItemAtURL:items error:NULL];
+                [_manager removeItemAtURL:item error:NULL];
                 size -= [s unsignedLongLongValue];
                 [items removeObject:item];
             }

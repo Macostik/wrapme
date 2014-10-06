@@ -289,7 +289,7 @@
                                                     <action selector="termsAndConditions:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hVh-p2-Hpx"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0BE-1R-lZi">
+                                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0BE-1R-lZi" customClass="WLButton">
                                                 <rect key="frame" x="20" y="342" width="246" height="48"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -299,7 +299,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="highlighted" backgroundImage="1st_screen_btn_agree_and_continue_pressed"/>
+                                                <state key="highlighted" backgroundImage="1st_screen_btn_agree_and_continue_hightlighted"/>
                                                 <connections>
                                                     <segue destination="WfW-pu-ue7" kind="push" id="xzK-pU-QyL"/>
                                                 </connections>
@@ -1498,7 +1498,7 @@ Ravenpod, Inc. , 505 14th St., Suite 900, Oakland, CA 94612</string>
                                                 <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
-                                                <color key="value" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.96470588235294119" green="0.71372549019607845" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -1521,7 +1521,7 @@ Ravenpod, Inc. , 505 14th St., Suite 900, Oakland, CA 94612</string>
                                                 <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
-                                                <color key="value" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.96470588235294119" green="0.71372549019607845" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -3401,7 +3401,7 @@ Check your internet connection and try again.</string>
         <image name="1s_tscreen_logo_def" width="216" height="220"/>
         <image name="1st_screen_bg" width="320" height="1500"/>
         <image name="1st_screen_btn_agree_and_continue_enabled" width="246" height="48"/>
-        <image name="1st_screen_btn_agree_and_continue_pressed" width="246" height="48"/>
+        <image name="1st_screen_btn_agree_and_continue_hightlighted" width="12" height="22"/>
         <image name="bg_candy_gradient" width="320" height="64"/>
         <image name="btn_add_peaples_enabled" width="30" height="30"/>
         <image name="btn_wrap_camera_enabled" width="94" height="94"/>
@@ -3451,6 +3451,6 @@ Check your internet connection and try again.</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="USb-FQ-HhL"/>
-        <segue reference="WjR-f7-d7j"/>
+        <segue reference="PQ6-0M-1al"/>
     </inferredMetricsTieBreakers>
 </document>

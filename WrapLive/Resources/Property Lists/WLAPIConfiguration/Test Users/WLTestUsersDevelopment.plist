@@ -60,37 +60,37 @@
 	</dict>
 	<dict>
 		<key>deviceUID</key>
-		<string>9255552001</string>
+		<string>8d11c2102e7b0132e43f0abd3edd1a07</string>
 		<key>countryCode</key>
 		<string>1</string>
 		<key>phone</key>
 		<string>9255552001</string>
 		<key>email</key>
-		<string>faker_teagan@example.com</string>
+		<string>faker_murphy.stamm@example.org</string>
 		<key>activationCode</key>
 		<string>9999</string>
 	</dict>
 	<dict>
 		<key>deviceUID</key>
-		<string>9255552002</string>
+		<string>8e7f7e702e7b0132e4410abd3edd1a07</string>
 		<key>countryCode</key>
 		<string>1</string>
 		<key>phone</key>
 		<string>9255552002</string>
 		<key>email</key>
-		<string>faker_victor_hegmann@example.net</string>
+		<string>faker_valentin.padberg@example.org</string>
 		<key>activationCode</key>
 		<string>9999</string>
 	</dict>
 	<dict>
 		<key>deviceUID</key>
-		<string>9255552003</string>
+		<string>8fa131e02e7b0132e4430abd3edd1a07</string>
 		<key>countryCode</key>
 		<string>1</string>
 		<key>phone</key>
 		<string>9255552003</string>
 		<key>email</key>
-		<string>faker_mara.oreilly@example.net</string>
+		<string>faker_toby.gorczany@example.com</string>
 		<key>activationCode</key>
 		<string>9999</string>
 	</dict>
@@ -100,9 +100,11 @@
 		<key>phone</key>
 		<string>9255551001</string>
 		<key>email</key>
-		<string>faker_katlyn_von@example.com</string>
+		<string>faker_darrel@example.net</string>
 		<key>password</key>
 		<string>password</string>
+		<key>deviceUID</key>
+		<string>a225a6202e7b0132e46b0abd3edd1a07</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>
@@ -110,9 +112,11 @@
 		<key>phone</key>
 		<string>9255551002</string>
 		<key>email</key>
-		<string>faker_maximo@example.net</string>
+		<string>faker_daisha@example.com</string>
 		<key>password</key>
 		<string>password</string>
+		<key>deviceUID</key>
+		<string>a39443d02e7b0132e4730abd3edd1a07</string>
 	</dict>
 	<dict>
 		<key>countryCode</key>
@@ -120,9 +124,11 @@
 		<key>phone</key>
 		<string>9255551003</string>
 		<key>email</key>
-		<string>faker_juvenal@example.com</string>
+		<string>faker_jake@example.com</string>
 		<key>password</key>
 		<string>password</string>
+		<key>deviceUID</key>
+		<string>a4b38c702e7b0132e4770abd3edd1a07</string>
 	</dict>
 </array>
 </plist>

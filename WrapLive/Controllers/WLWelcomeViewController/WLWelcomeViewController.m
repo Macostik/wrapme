@@ -6,22 +6,22 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLWelcomeViewController.h"
-#import "WLSession.h"
-#import "WLAPIManager.h"
-#import "WLNavigation.h"
-#import "WLAuthorization.h"
-#import "WLSignUpViewController.h"
 #import "NSString+Additions.h"
-#import "WLUser.h"
-#import "WLHomeViewController.h"
-#import "UIFont+CustomFonts.h"
 #import "UIColor+CustomColors.h"
-#import "UIView+Shorthand.h"
-#import "WLLoadingView.h"
-#import "WLAuthorizationRequest.h"
+#import "UIFont+CustomFonts.h"
 #import "UIView+GestureRecognizing.h"
+#import "UIView+Shorthand.h"
+#import "WLAPIManager.h"
+#import "WLAuthorization.h"
+#import "WLAuthorizationRequest.h"
+#import "WLHomeViewController.h"
+#import "WLLoadingView.h"
+#import "WLNavigation.h"
+#import "WLSession.h"
+#import "WLSignUpViewController.h"
 #import "WLTermsAndConditionsKeys.h"
+#import "WLUser.h"
+#import "WLWelcomeViewController.h"
 
 typedef enum : NSUInteger {
     WLFlipDirectionLeft,

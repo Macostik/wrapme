@@ -297,7 +297,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="highlighted" backgroundImage="1st_screen_btn_agree_and_continue_pressed"/>
+                                                <state key="highlighted" backgroundImage="1st_screen_btn_agree_and_continue_hightlighted"/>
                                                 <connections>
                                                     <segue destination="WfW-pu-ue7" kind="push" id="xzK-pU-QyL"/>
                                                 </connections>
@@ -909,7 +909,6 @@ Ravenpod, Inc.
                             <constraint firstAttribute="trailing" secondItem="ztd-JX-YVg" secondAttribute="trailing" id="xrX-al-US7"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="0dY-fM-ERU"/>
                     <connections>
                         <outlet property="bottomView" destination="ztd-JX-YVg" id="P3J-8p-fkY"/>
                         <outlet property="cameraView" destination="tla-Iu-umV" id="53U-1u-24B"/>
@@ -1080,7 +1079,6 @@ Ravenpod, Inc.
                             <constraint firstItem="jVS-dF-MrD" firstAttribute="leading" secondItem="bDR-kV-J78" secondAttribute="leading" id="vBi-S5-a9p"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="dhQ-Pm-sMZ"/>
                     <connections>
                         <outlet property="bottomView" destination="jVS-dF-MrD" id="fNB-np-Cgu"/>
                         <outlet property="cameraView" destination="q20-Sa-Ifk" id="1QH-x4-lm3"/>
@@ -1890,7 +1888,7 @@ Ravenpod, Inc.
                                                 <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
-                                                <color key="value" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.96470588235294119" green="0.71372549019607845" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -1916,7 +1914,7 @@ Ravenpod, Inc.
                                                 <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
-                                                <color key="value" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.96470588235294119" green="0.71372549019607845" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -2029,7 +2027,6 @@ Ravenpod, Inc.
                             <constraint firstItem="9Rl-cW-5hv" firstAttribute="top" secondItem="XNa-AC-NhU" secondAttribute="bottom" constant="-20" id="yr0-5l-IHU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="cIa-CV-SVl"/>
                     <keyCommands/>
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="5cB-EH-3pL"/>
@@ -2159,7 +2156,6 @@ Ravenpod, Inc.
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="KKK-eZ-7dy"/>
                     <connections>
                         <outlet property="cancelButton" destination="vs8-ix-VjZ" id="lOZ-ja-Qf1"/>
                         <outlet property="deleteButton" destination="xvX-FZ-hl5" id="mue-2l-gZQ"/>
@@ -2247,7 +2243,6 @@ Ravenpod, Inc.
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="cXB-TA-phm"/>
                     <connections>
                         <outlet property="backButton" destination="DSX-7A-44s" id="bhK-dn-Nc7"/>
                         <outlet property="createButton" destination="bFf-id-KiN" id="oXJ-6b-VDX"/>
@@ -3187,23 +3182,15 @@ Ravenpod, Inc.
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="46L-mU-Uks">
                                 <rect key="frame" x="97" y="443" width="125" height="125"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sTz-Iv-Q1R">
-                                        <rect key="frame" x="12" y="13" width="100" height="100"/>
-                                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="50"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPi-5r-EKQ">
                                         <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="61"/>
-                                        <state key="normal" image="ic_wrap_camera">
+                                        <state key="normal" backgroundImage="btn_wrap_camera_enabled">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
                                         <connections>
                                             <segue destination="PLV-Iu-pRL" kind="modal" identifier="camera" id="WjR-f7-d7j"/>
                                         </connections>
@@ -3220,6 +3207,22 @@ Ravenpod, Inc.
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ko6-RB-UBU">
                                         <rect key="frame" x="19" y="19" width="50" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="101" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="LH6-5S-pun" customClass="WLSegmentButton">
+                                                <rect key="frame" x="-19" y="-19" width="88" height="88"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <state key="normal" image="ic_timeline_enabled">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="selected" image="ic_icons"/>
+                                                <connections>
+                                                    <action selector="viewChanged:" destination="hUj-RK-zkg" eventType="touchUpInside" id="UXz-le-FlR"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -3227,19 +3230,6 @@ Ravenpod, Inc.
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <button opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LH6-5S-pun" customClass="WLSegmentButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="88" height="88"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" image="ic_timeline_enabled">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="selected" image="ic_icons"/>
-                                        <connections>
-                                            <action selector="viewChanged:" destination="hUj-RK-zkg" eventType="touchUpInside" id="UXz-le-FlR"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -3266,7 +3256,6 @@ Ravenpod, Inc.
                             <constraint firstAttribute="trailing" secondItem="2v5-fX-sVI" secondAttribute="trailing" constant="4" id="vgD-K3-zKJ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="lmW-VC-hiY"/>
                     <connections>
                         <outlet property="collectionView" destination="p36-27-cbv" id="GPJ-l7-lNJ"/>
                         <outlet property="contributorsLabel" destination="6dW-gY-pJQ" id="x2W-UL-3a3"/>
@@ -3316,10 +3305,14 @@ Ravenpod, Inc.
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_swipe_arrow_left" translatesAutoresizingMaskIntoConstraints="NO" id="hzp-4h-Ls3">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_swipe_arrow_left" translatesAutoresizingMaskIntoConstraints="NO" id="hzp-4h-Ls3">
                                 <rect key="frame" x="6" y="212" width="16" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="BfJ-tX-Zb7"/>
+                                    <constraint firstAttribute="width" constant="16" id="mHM-aj-dCM"/>
+                                </constraints>
                             </imageView>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" pagingEnabled="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jyK-17-cAD">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jyK-17-cAD">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="vSE-NU-zD9">
@@ -3336,31 +3329,34 @@ Ravenpod, Inc.
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="By Bartholome O'Connell II" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9a-4s-fUi">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By Bartholome O'Connell II" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9a-4s-fUi">
                                                     <rect key="frame" x="60" y="20" width="200" height="44"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="tOb-Zp-i1a"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0jW-2U-oDt">
+                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0jW-2U-oDt">
                                                     <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <view key="tableHeaderView" contentMode="scaleToFill" id="t88-df-N9V">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                         <subviews>
-                                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="lOt-XR-j24">
+                                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="lOt-XR-j24">
                                                                 <rect key="frame" x="150" y="150" width="20" height="20"/>
                                                                 <color key="color" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             </activityIndicatorView>
-                                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sn5-Ts-kUU" customClass="WLImageView">
+                                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sn5-Ts-kUU" customClass="WLImageView">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderName" value="ic_photo_placeholder"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fVr-6C-pxk">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fVr-6C-pxk">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                                                                 <color key="tintColor" red="0.76470595598220825" green="0.37254902720451355" blue="0.15686275064945221" alpha="1" colorSpace="deviceRGB"/>
                                                                 <state key="normal">
@@ -3370,18 +3366,42 @@ Ravenpod, Inc.
                                                                     <segue destination="Mj2-iK-bpQ" kind="modal" identifier="image" id="5mI-0W-t2s"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Posted 3 days ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JE5-jO-MER">
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posted 3 days ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JE5-jO-MER">
                                                                 <rect key="frame" x="11" y="326" width="299" height="21"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="21" id="iOX-xX-agr"/>
+                                                                </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="saf-0Z-94Q" customClass="WLClearProgressBar">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="saf-0Z-94Q" customClass="WLClearProgressBar">
                                                                 <rect key="frame" x="0.0" y="318" width="320" height="4"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="4" id="1xX-lp-DRx"/>
+                                                                </constraints>
                                                             </view>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstItem="Sn5-Ts-kUU" firstAttribute="top" secondItem="t88-df-N9V" secondAttribute="top" id="2lv-1a-V1v"/>
+                                                            <constraint firstAttribute="trailing" secondItem="JE5-jO-MER" secondAttribute="trailing" constant="10" id="MVO-d8-qvN"/>
+                                                            <constraint firstAttribute="trailing" secondItem="fVr-6C-pxk" secondAttribute="trailing" id="Sr3-jk-VOM"/>
+                                                            <constraint firstAttribute="trailing" secondItem="saf-0Z-94Q" secondAttribute="trailing" id="UAK-Hn-2rR"/>
+                                                            <constraint firstItem="fVr-6C-pxk" firstAttribute="top" secondItem="t88-df-N9V" secondAttribute="top" id="UZv-FE-TLi"/>
+                                                            <constraint firstItem="saf-0Z-94Q" firstAttribute="top" secondItem="t88-df-N9V" secondAttribute="top" constant="318" id="UnI-gt-Ual"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Sn5-Ts-kUU" secondAttribute="trailing" id="fWW-h3-hSr"/>
+                                                            <constraint firstItem="JE5-jO-MER" firstAttribute="top" secondItem="t88-df-N9V" secondAttribute="top" constant="326" id="hF2-Fy-XGm"/>
+                                                            <constraint firstItem="fVr-6C-pxk" firstAttribute="leading" secondItem="t88-df-N9V" secondAttribute="leading" id="nfl-GJ-VNq"/>
+                                                            <constraint firstAttribute="centerX" secondItem="lOt-XR-j24" secondAttribute="centerX" id="nhd-ea-sUF"/>
+                                                            <constraint firstItem="saf-0Z-94Q" firstAttribute="leading" secondItem="t88-df-N9V" secondAttribute="leading" id="ns5-j4-hJj"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Sn5-Ts-kUU" secondAttribute="bottom" constant="30" id="qqy-2n-rWk"/>
+                                                            <constraint firstAttribute="centerY" secondItem="lOt-XR-j24" secondAttribute="centerY" constant="15" id="rT4-zZ-ucf"/>
+                                                            <constraint firstItem="Sn5-Ts-kUU" firstAttribute="leading" secondItem="t88-df-N9V" secondAttribute="leading" id="sz4-dA-SLg"/>
+                                                            <constraint firstItem="JE5-jO-MER" firstAttribute="leading" secondItem="t88-df-N9V" secondAttribute="leading" constant="11" id="vwx-rQ-sBk"/>
+                                                            <constraint firstAttribute="bottom" secondItem="fVr-6C-pxk" secondAttribute="bottom" constant="30" id="xhE-g9-zPH"/>
+                                                        </constraints>
                                                     </view>
                                                     <prototypes>
                                                         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WLCommentCell" rowHeight="100" id="PUO-dQ-EKn" customClass="WLCommentCell">
@@ -3391,29 +3411,55 @@ Ravenpod, Inc.
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LiT-bh-wDT" customClass="WLImageView">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LiT-bh-wDT" customClass="WLImageView">
                                                                         <rect key="frame" x="7" y="2" width="40" height="40"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="40" id="9cx-2d-F2V"/>
+                                                                            <constraint firstAttribute="width" constant="40" id="Jvq-8l-oT5"/>
+                                                                        </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8v-Pz-wMq">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8v-Pz-wMq">
                                                                         <rect key="frame" x="60" y="0.0" width="250" height="20"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="20" id="br8-jM-hY9"/>
+                                                                        </constraints>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="exs-Mo-yvf" customClass="WLCircleProgressBar">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="exs-Mo-yvf" customClass="WLCircleProgressBar">
                                                                         <rect key="frame" x="5" y="0.0" width="43" height="43"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="43" id="86b-CK-kFD"/>
+                                                                            <constraint firstAttribute="width" constant="43" id="kFD-5X-jCj"/>
+                                                                        </constraints>
                                                                     </view>
-                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yq2-Yg-jcf">
+                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yq2-Yg-jcf">
                                                                         <rect key="frame" x="60" y="19" width="255" height="32"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <color key="tintColor" red="1" green="0.42860027057324546" blue="0.16787798134862797" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="32" id="7IX-yy-irB"/>
+                                                                        </constraints>
                                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                                         <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                                     </textView>
                                                                 </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="LiT-bh-wDT" firstAttribute="leading" secondItem="Ci2-WB-9eg" secondAttribute="leading" constant="7" id="Deg-Dm-RZA"/>
+                                                                    <constraint firstItem="exs-Mo-yvf" firstAttribute="top" secondItem="Ci2-WB-9eg" secondAttribute="top" id="IAg-cx-uCC"/>
+                                                                    <constraint firstItem="Yq2-Yg-jcf" firstAttribute="leading" secondItem="Ci2-WB-9eg" secondAttribute="leading" constant="60" id="Irm-3e-IU3"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="Yq2-Yg-jcf" secondAttribute="trailing" constant="5" id="JOG-Ka-iny"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="s8v-Pz-wMq" secondAttribute="trailing" constant="10" id="NAZ-gc-S6J"/>
+                                                                    <constraint firstItem="s8v-Pz-wMq" firstAttribute="top" secondItem="Ci2-WB-9eg" secondAttribute="top" id="SgQ-Pp-UCV"/>
+                                                                    <constraint firstItem="s8v-Pz-wMq" firstAttribute="leading" secondItem="Ci2-WB-9eg" secondAttribute="leading" constant="60" id="W1c-nV-9fL"/>
+                                                                    <constraint firstItem="Yq2-Yg-jcf" firstAttribute="top" secondItem="Ci2-WB-9eg" secondAttribute="top" constant="19" id="ner-E9-wSI"/>
+                                                                    <constraint firstItem="LiT-bh-wDT" firstAttribute="top" secondItem="Ci2-WB-9eg" secondAttribute="top" constant="2" id="npm-FF-YDH"/>
+                                                                    <constraint firstItem="exs-Mo-yvf" firstAttribute="leading" secondItem="Ci2-WB-9eg" secondAttribute="leading" constant="5" id="sOG-JB-4w3"/>
+                                                                </constraints>
                                                             </tableViewCellContentView>
                                                             <connections>
                                                                 <outlet property="authorImageView" destination="LiT-bh-wDT" id="bxC-4F-J0k"/>
@@ -3432,6 +3478,15 @@ Ravenpod, Inc.
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="0jW-2U-oDt" secondAttribute="trailing" id="13F-Uc-2VC"/>
+                                            <constraint firstAttribute="trailing" secondItem="N9a-4s-fUi" secondAttribute="trailing" constant="60" id="2Yn-9o-VOE"/>
+                                            <constraint firstItem="N9a-4s-fUi" firstAttribute="top" secondItem="YzT-ge-Jjl" secondAttribute="top" constant="20" id="Cj7-Tt-oDD"/>
+                                            <constraint firstItem="0jW-2U-oDt" firstAttribute="leading" secondItem="YzT-ge-Jjl" secondAttribute="leading" id="NaQ-Vz-2yE"/>
+                                            <constraint firstItem="N9a-4s-fUi" firstAttribute="leading" secondItem="YzT-ge-Jjl" secondAttribute="leading" constant="60" id="l6i-ae-UdU"/>
+                                            <constraint firstAttribute="bottom" secondItem="0jW-2U-oDt" secondAttribute="bottom" id="lME-RT-ved"/>
+                                            <constraint firstItem="0jW-2U-oDt" firstAttribute="top" secondItem="YzT-ge-Jjl" secondAttribute="top" constant="64" id="qaT-Va-4o6"/>
+                                        </constraints>
                                         <connections>
                                             <outlet property="dateLabel" destination="JE5-jO-MER" id="e23-Pj-YuD"/>
                                             <outlet property="imageView" destination="Sn5-Ts-kUU" id="zHb-PA-9jj"/>
@@ -3447,14 +3502,18 @@ Ravenpod, Inc.
                                     <outlet property="delegate" destination="eto-O4-OHy" id="Sry-Xj-CY6"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wbg-W9-8Ie">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wbg-W9-8Ie">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_candy_gradient" translatesAutoresizingMaskIntoConstraints="NO" id="Spf-Ou-0kM">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_candy_gradient" translatesAutoresizingMaskIntoConstraints="NO" id="Spf-Ou-0kM">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                     </imageView>
-                                    <button opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0rM-Ee-8of">
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0rM-Ee-8of">
                                         <rect key="frame" x="0.0" y="20" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="cB1-QB-sXa"/>
+                                            <constraint firstAttribute="width" constant="44" id="ucX-xP-Wk4"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                         <state key="normal" image="ic_back_orange">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -3463,8 +3522,12 @@ Ravenpod, Inc.
                                             <action selector="back:" destination="eto-O4-OHy" eventType="touchUpInside" id="aMp-QI-Uwl"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPd-Ai-V8F">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPd-Ai-V8F">
                                         <rect key="frame" x="276" y="20" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="MbQ-5A-NgN"/>
+                                            <constraint firstAttribute="height" constant="44" id="PQQ-Xk-BIB"/>
+                                        </constraints>
                                         <state key="normal" image="ic_dot_dot_dot_round">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -3474,21 +3537,54 @@ Ravenpod, Inc.
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Spf-Ou-0kM" firstAttribute="top" secondItem="Wbg-W9-8Ie" secondAttribute="top" id="1xw-rz-01t"/>
+                                    <constraint firstItem="0rM-Ee-8of" firstAttribute="top" secondItem="Wbg-W9-8Ie" secondAttribute="top" constant="20" id="3p3-5R-A0S"/>
+                                    <constraint firstAttribute="height" constant="64" id="6N0-yx-3hB"/>
+                                    <constraint firstAttribute="trailing" secondItem="sPd-Ai-V8F" secondAttribute="trailing" id="bG6-qI-I2w"/>
+                                    <constraint firstAttribute="trailing" secondItem="Spf-Ou-0kM" secondAttribute="trailing" id="cWO-QP-4dw"/>
+                                    <constraint firstItem="sPd-Ai-V8F" firstAttribute="top" secondItem="Wbg-W9-8Ie" secondAttribute="top" constant="20" id="emU-p4-ceO"/>
+                                    <constraint firstAttribute="bottom" secondItem="Spf-Ou-0kM" secondAttribute="bottom" id="nXd-DD-FvB"/>
+                                    <constraint firstItem="Spf-Ou-0kM" firstAttribute="leading" secondItem="Wbg-W9-8Ie" secondAttribute="leading" id="qQT-7P-ihS"/>
+                                    <constraint firstItem="0rM-Ee-8of" firstAttribute="leading" secondItem="Wbg-W9-8Ie" secondAttribute="leading" id="rw6-ky-DHO"/>
+                                </constraints>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H5m-hD-Eet" customClass="WLComposeBar">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5m-hD-Eet" customClass="WLComposeBar">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="9Fv-zW-20Z"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="eto-O4-OHy" id="zVp-Xw-Fgs"/>
                                 </connections>
                             </view>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_swipe_arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="kR2-wp-una">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_swipe_arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="kR2-wp-una">
                                 <rect key="frame" x="298" y="212" width="16" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="16" id="42K-fg-Wte"/>
+                                    <constraint firstAttribute="height" constant="24" id="q4Z-Sh-xxi"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Wbg-W9-8Ie" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="0bz-V3-1nu"/>
+                            <constraint firstItem="kR2-wp-una" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="192" id="6Ae-I1-8ai"/>
+                            <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="H5m-hD-Eet" secondAttribute="bottom" id="7Hc-du-E5Y"/>
+                            <constraint firstItem="hzp-4h-Ls3" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" constant="6" id="B6A-sd-1rI"/>
+                            <constraint firstItem="jyK-17-cAD" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="bPW-BY-6Fp"/>
+                            <constraint firstItem="hzp-4h-Ls3" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="192" id="dTA-fW-bBH"/>
+                            <constraint firstItem="Wbg-W9-8Ie" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="-20" id="eku-Sv-U5Q"/>
+                            <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="jyK-17-cAD" secondAttribute="bottom" constant="44" id="gDf-A5-Mh0"/>
+                            <constraint firstAttribute="trailing" secondItem="jyK-17-cAD" secondAttribute="trailing" id="h8k-it-8fu"/>
+                            <constraint firstAttribute="trailing" secondItem="kR2-wp-una" secondAttribute="trailing" constant="6" id="hI1-OZ-Il4"/>
+                            <constraint firstItem="jyK-17-cAD" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="-20" id="hPI-OJ-Hy4"/>
+                            <constraint firstAttribute="trailing" secondItem="H5m-hD-Eet" secondAttribute="trailing" id="to1-5H-Mhc"/>
+                            <constraint firstAttribute="trailing" secondItem="Wbg-W9-8Ie" secondAttribute="trailing" id="vU4-de-bcZ"/>
+                            <constraint firstItem="H5m-hD-Eet" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="yQk-fZ-csK"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="VOw-xU-v7z"/>
                     <connections>
                         <outlet property="collectionView" destination="jyK-17-cAD" id="BfX-xF-M1l"/>
                         <outlet property="composeBarView" destination="H5m-hD-Eet" id="Fox-fh-5fg"/>
@@ -3913,9 +4009,11 @@ Check your internet connection and try again.</string>
         <image name="1s_tscreen_logo_def" width="216" height="220"/>
         <image name="1st_screen_bg" width="320" height="1500"/>
         <image name="1st_screen_btn_agree_and_continue_enabled" width="246" height="48"/>
-        <image name="1st_screen_btn_agree_and_continue_pressed" width="246" height="48"/>
+        <image name="1st_screen_btn_agree_and_continue_hightlighted" width="246" height="48"/>
         <image name="bg_candy_gradient" width="320" height="64"/>
         <image name="btn_add_peaples_enabled" width="30" height="30"/>
+        <image name="btn_wrap_camera_enabled" width="94" height="94"/>
+        <image name="btn_wrap_camera_pressed" width="94" height="94"/>
         <image name="camera_big" width="84" height="84"/>
         <image name="camera_darkGray" width="30" height="30"/>
         <image name="camera_medium" width="50" height="50"/>
@@ -3951,7 +4049,6 @@ Check your internet connection and try again.</string>
         <image name="ic_swipe_arrow_right" width="6" height="10"/>
         <image name="ic_timeline_enabled" width="34" height="32"/>
         <image name="ic_wrapLive" width="104" height="90"/>
-        <image name="ic_wrap_camera" width="54" height="40"/>
         <image name="switch_to_front_cam" width="30" height="30"/>
         <image name="termsAndConditions" width="325" height="80"/>
     </resources>
@@ -3961,7 +4058,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="PQ6-0M-1al"/>
+        <segue reference="3Yu-Mo-fdB"/>
         <segue reference="USb-FQ-HhL"/>
     </inferredMetricsTieBreakers>
 </document>

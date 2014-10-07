@@ -109,7 +109,7 @@
     if (event.entryClass == [WLComment class]) {
         return CGSizeMake(collectionView.width, 54);
     } else {
-        CGFloat size = floorf(collectionView.width/3.0f);
+        CGFloat size = floorf(collectionView.width/3.0f) - WLCandyCellSpacing;
         return CGSizeMake(size, size);
     }
 }

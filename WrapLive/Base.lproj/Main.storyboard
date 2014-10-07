@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -1452,7 +1453,7 @@ Ravenpod, Inc.
                                     <action selector="back:" destination="7FG-gC-kPg" eventType="touchUpInside" id="Tw7-rg-uaO"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5U6-9C-YuK">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5U6-9C-YuK">
                                 <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SJq-9P-McW">
@@ -1532,24 +1533,17 @@ Ravenpod, Inc.
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="460" id="5DC-Yv-TfU"/>
+                                    <constraint firstAttribute="width" constant="320" id="oUe-9E-kFG"/>
+                                </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GkU-w3-rTK">
-                                <rect key="frame" x="160" y="524" width="160" height="44"/>
+                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efj-27-0UK">
+                                <rect key="frame" x="0.0" y="524" width="160" height="44"/>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="goToMainScreen:" destination="7FG-gC-kPg" eventType="touchUpInside" id="Qja-sT-icS"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efj-27-0UK">
-                                <rect key="frame" x="0.0" y="524" width="159" height="44"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="hyF-Rr-kHk"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1561,7 +1555,24 @@ Ravenpod, Inc.
                                     <action selector="cancelClick:" destination="7FG-gC-kPg" eventType="touchUpInside" id="aMq-uY-wNh"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8k3-gm-bYX">
+                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GkU-w3-rTK">
+                                <rect key="frame" x="161" y="524" width="159" height="44"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="WXn-rT-mAl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="goToMainScreen:" destination="7FG-gC-kPg" eventType="touchUpInside" id="Qja-sT-icS"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8k3-gm-bYX">
                                 <rect key="frame" x="270" y="536" width="20" height="20"/>
                                 <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
@@ -1569,10 +1580,20 @@ Ravenpod, Inc.
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="QO2-SC-TvX" firstAttribute="leading" secondItem="Yja-9u-DOv" secondAttribute="leading" constant="50" id="DNO-Wp-ztj"/>
+                            <constraint firstAttribute="centerY" secondItem="5U6-9C-YuK" secondAttribute="centerY" constant="-10" id="S3y-LN-vB1"/>
+                            <constraint firstItem="GkU-w3-rTK" firstAttribute="leading" secondItem="Efj-27-0UK" secondAttribute="trailing" constant="1" id="TEu-5A-V40"/>
+                            <constraint firstItem="GkU-w3-rTK" firstAttribute="width" secondItem="Efj-27-0UK" secondAttribute="width" id="XKl-8h-fsb"/>
+                            <constraint firstAttribute="trailing" secondItem="GkU-w3-rTK" secondAttribute="trailing" id="XbH-wU-4tX"/>
+                            <constraint firstAttribute="trailing" secondItem="8k3-gm-bYX" secondAttribute="trailing" constant="30" id="YAl-mF-r2E"/>
                             <constraint firstAttribute="trailing" secondItem="QO2-SC-TvX" secondAttribute="trailing" constant="50" id="YwV-Ce-H0l"/>
                             <constraint firstItem="T7C-nT-Tr1" firstAttribute="top" secondItem="AL9-yK-5IY" secondAttribute="bottom" id="Z1t-Ji-dbR"/>
                             <constraint firstItem="QO2-SC-TvX" firstAttribute="top" secondItem="AL9-yK-5IY" secondAttribute="bottom" id="b0x-cX-Oy8"/>
+                            <constraint firstItem="Efj-27-0UK" firstAttribute="leading" secondItem="Yja-9u-DOv" secondAttribute="leading" id="bid-DX-aAK"/>
+                            <constraint firstItem="JSr-ZC-7FZ" firstAttribute="top" secondItem="GkU-w3-rTK" secondAttribute="bottom" id="dqa-OK-Z7G"/>
+                            <constraint firstItem="JSr-ZC-7FZ" firstAttribute="top" secondItem="8k3-gm-bYX" secondAttribute="bottom" constant="12" id="eLN-ud-wJR"/>
                             <constraint firstItem="T7C-nT-Tr1" firstAttribute="leading" secondItem="Yja-9u-DOv" secondAttribute="leading" id="p8m-Po-ChJ"/>
+                            <constraint firstAttribute="centerX" secondItem="5U6-9C-YuK" secondAttribute="centerX" id="uvR-BI-cFV"/>
+                            <constraint firstItem="JSr-ZC-7FZ" firstAttribute="top" secondItem="Efj-27-0UK" secondAttribute="bottom" id="xPd-PQ-LCt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="jjK-sb-Bg6"/>

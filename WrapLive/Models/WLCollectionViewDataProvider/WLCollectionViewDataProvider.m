@@ -78,7 +78,10 @@
 }
 
 - (void)setRefreshableWithStyle:(WLRefresherStyle)style {
-    [WLRefresher refresher:self.collectionView target:self action:@selector(refresh:) style:style];
+    __weak typeof(self)weakSelf = self;
+    run_after_asap(^{
+        [WLRefresher refresher:weakSelf.collectionView target:weakSelf action:@selector(refresh:) style:style];
+    });
 }
 
 - (void)refresh:(WLRefresher*)sender {

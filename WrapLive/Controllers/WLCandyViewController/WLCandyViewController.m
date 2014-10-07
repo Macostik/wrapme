@@ -71,7 +71,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+        
     if (!self.groups) {
         self.groups = [[WLGroupedSet alloc] init];
         [self.groups addEntries:[_candy.wrap candies]];

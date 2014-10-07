@@ -115,7 +115,12 @@
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return WLCandyCellSpacing;
+    WLTimelineEvent* event = [self.timeline.entries tryObjectAtIndex:section];
+    if (event.entryClass != [WLComment class]) {
+        return WLCandyCellSpacing;
+    } else {
+        return 0;
+    }
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
@@ -123,7 +128,12 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
+    WLTimelineEvent* event = [self.timeline.entries tryObjectAtIndex:section];
+    if (event.entryClass != [WLComment class]) {
+        return UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
+    } else {
+        return UIEdgeInsetsZero;
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

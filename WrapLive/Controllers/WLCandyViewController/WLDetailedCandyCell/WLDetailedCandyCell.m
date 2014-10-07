@@ -34,10 +34,17 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.refresher = [WLRefresher refresher:self.tableView target:self action:@selector(refresh) style:WLRefresherStyleOrange];
-//    [self.tableView setFullFlexible];
-    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    [self.contentView setFullFlexible];
     [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    UIView* headerView = self.tableView.tableHeaderView;
+    if (headerView.height != self.width) {
+        headerView.height = self.width;
+        self.tableView.tableHeaderView = headerView;
+    }
 }
 
 - (void)refresh {

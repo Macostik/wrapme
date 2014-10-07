@@ -123,6 +123,7 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsZero;
     return UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
 }
 

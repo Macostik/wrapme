@@ -73,13 +73,12 @@
         }
         return YES;
     }];
-    UICollectionViewFlowLayout* layout = (id)self.candiesView.collectionViewLayout;
-    CGFloat size = self.candiesView.bounds.size.width/3.0f - 0.5f;
-    layout.itemSize = CGSizeMake(size, size);
-    layout.minimumLineSpacing = WLCandyCellSpacing;
-    layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
     
     if (self.candiesView) {
+        UICollectionViewFlowLayout* layout = (id)self.candiesView.collectionViewLayout;
+        layout.minimumLineSpacing = WLCandyCellSpacing;
+//        layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
+        
         WLHomeCandiesViewSection* section = [[WLHomeCandiesViewSection alloc] initWithCollectionView:self.candiesView];
         section.reuseCellIdentifier = WLCandyCellIdentifier;
         section.selection = self.selection;

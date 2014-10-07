@@ -109,7 +109,7 @@
     if (event.entryClass == [WLComment class]) {
         return CGSizeMake(collectionView.width, 54);
     } else {
-        CGFloat size = floorf(collectionView.width/3.0f) - WLCandyCellSpacing;
+        CGFloat size = (collectionView.width - 2.0f)/3.0f;
         return CGSizeMake(size, size);
     }
 }
@@ -123,7 +123,6 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsZero;
     return UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
 }
 

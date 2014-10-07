@@ -77,7 +77,7 @@
     if (self.candiesView) {
         UICollectionViewFlowLayout* layout = (id)self.candiesView.collectionViewLayout;
         layout.minimumLineSpacing = WLCandyCellSpacing;
-//        layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
+        layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
         
         WLHomeCandiesViewSection* section = [[WLHomeCandiesViewSection alloc] initWithCollectionView:self.candiesView];
         section.reuseCellIdentifier = WLCandyCellIdentifier;

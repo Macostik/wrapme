@@ -17,7 +17,7 @@
 }
 
 - (CGSize)size:(NSIndexPath *)indexPath {
-    CGFloat size = floorf(self.collectionView.bounds.size.width/3.0f) - WLCandyCellSpacing;
+    CGFloat size = (self.collectionView.bounds.size.width - 2.0f)/3.0f;
     return CGSizeMake(size, size);
 }
 

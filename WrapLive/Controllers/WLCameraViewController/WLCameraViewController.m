@@ -59,6 +59,7 @@
     
 	if (self.presentingViewController) {
 		self.view.frame = self.presentingViewController.view.bounds;
+        [self.view layoutIfNeeded];
 	}
 	
 	self.position = self.defaultPosition;

@@ -59,6 +59,7 @@
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
 @property (weak, nonatomic) IBOutlet WLSizeToFitLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
 @end
 
@@ -120,8 +121,8 @@
     UIView* view = self.emailConfirmationView;
     if (view.hidden != confirmed) {
         view.hidden = confirmed;
-        CGFloat y = confirmed ? self.navigationBar.height : view.bottom;
-        [self.collectionView setY:y height:self.view.height - y];
+        self.topConstraint.constant = (confirmed ? self.navigationBar.height : view.bottom) - 20;
+        [self.view layoutIfNeeded];
     }
 }
 

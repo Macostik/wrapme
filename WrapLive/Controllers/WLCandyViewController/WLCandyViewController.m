@@ -69,7 +69,6 @@
 @synthesize candy = _candy;
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
         
     if (!self.groups) {
@@ -116,9 +115,15 @@
     [candy fetch:^(id object) { } failure:^(NSError *error) { }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.collectionView reloadData];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 70, 0);
+    [self.collectionView reloadData];
 }
 
 - (void)setGroup:(WLGroup *)group {

@@ -60,6 +60,7 @@
 @property (weak, nonatomic) IBOutlet WLSizeToFitLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (strong, nonatomic) UIImageView *noContentPlaceholder;
+@property (assign, nonatomic) BOOL isShowPlaceholder;
 
 @end
 
@@ -84,9 +85,11 @@
     __weak WLHomeViewSection *section = self.section;
     section.entries.request = [WLWrapsRequest new];
     [section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
-    
+
+    __weak __typeof(self)weakSelf = self;
     [section setChange:^(WLPaginatedSet* entries) {
         WLUser *user = [WLUser currentUser];
+        weakSelf.isShowPlaceholder = ![self.section.entries.entries nonempty];
         if (user.firstTimeUse.boolValue && [user.wraps match:^BOOL(WLWrap *wrap) {
             return !wrap.isDefault.boolValue;
         }]) {
@@ -109,7 +112,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if (![self.section.entries.entries nonempty]) [self showPlaceholder];
 	[super viewWillAppear:animated];
 	[self.userView update];
     [self.dataProvider reload];
@@ -120,6 +122,17 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.noContentPlaceholder removeFromSuperview];
+}
+
+- (void)setIsShowPlaceholder:(BOOL)isShowPlaceholder {
+    if (_isShowPlaceholder != isShowPlaceholder) {
+        _isShowPlaceholder = isShowPlaceholder;
+        if (isShowPlaceholder) {
+            [self showPlaceholder];
+        } else {
+            [self.noContentPlaceholder removeFromSuperview];
+        }
+    }
 }
 
 - (void)showPlaceholder {
@@ -152,11 +165,12 @@
 - (void)notifier:(WLEntryNotifier *)notifier wrapAdded:(WLWrap *)wrap {
     [self.section.entries addEntry:wrap];
 	self.collectionView.contentOffset = CGPointZero;
+    self.isShowPlaceholder = ![self.section.entries.entries nonempty];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
     [self.section.entries removeEntry:wrap];
-    if (![self.section.entries.entries nonempty]) [self showPlaceholder];
+    self.isShowPlaceholder = ![self.section.entries.entries nonempty];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {

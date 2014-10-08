@@ -59,6 +59,7 @@
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
 @property (weak, nonatomic) IBOutlet WLSizeToFitLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
+@property (strong, nonatomic) UIImageView *noContentPlaceholder;
 
 @end
 
@@ -108,11 +109,24 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    if (![self.section.entries.entries nonempty]) [self showPlaceholder];
 	[super viewWillAppear:animated];
 	[self.userView update];
     [self.dataProvider reload];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.noContentPlaceholder removeFromSuperview];
+}
+
+- (void)showPlaceholder {
+    self.noContentPlaceholder = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create_new_wrap"]];
+    self.noContentPlaceholder.center = CGPointMake(self.view.center.x, self.view.center.y - 180) ;
+    [self.view insertSubview:self.noContentPlaceholder atIndex:0];
+    [super showPlaceholder];
 }
 
 - (void)updateEmailConfirmationView {
@@ -142,6 +156,7 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
     [self.section.entries removeEntry:wrap];
+    if (![self.section.entries.entries nonempty]) [self showPlaceholder];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {

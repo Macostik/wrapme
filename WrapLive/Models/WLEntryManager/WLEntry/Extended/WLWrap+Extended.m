@@ -67,7 +67,7 @@
     }
     
     if (contributors.count != self.contributors.count || ![contributors isSubsetOfOrderedSet:self.contributors]) {
-        [contributors sort:comparatorByUserNameAscending];
+        [contributors sort:comparatorByName];
         self.contributors = contributors;
     }
     NSArray* candiesArray = [dictionary arrayForKey:WLCandiesKey];
@@ -81,9 +81,16 @@
 }
 
 - (void)addCandies:(NSOrderedSet *)candies {
-    if (!self.candies) self.candies = [NSMutableOrderedSet orderedSetWithCapacity:[candies count]];
-    [self.candies unionOrderedSet:candies];
-    [self.candies sortByUpdatedAtDescending];
+    NSMutableOrderedSet *existingCandies = self.candies;
+    if (!existingCandies) {
+        existingCandies = [NSMutableOrderedSet orderedSetWithCapacity:[candies count]];
+        self.candies = existingCandies;
+    }
+    [existingCandies unionOrderedSet:candies];
+    if ([existingCandies sortByUpdatedAt]) {
+        [self willChangeValueForKey:WLCandiesKey];
+        [self didChangeValueForKey:WLCandiesKey];
+    }
 }
 
 - (NSString *)contributorNamesWithCount:(NSInteger)numberOfUsers {
@@ -111,13 +118,20 @@
 }
 
 - (void)addCandy:(WLCandy *)candy {
-    if (!candy || [self.candies containsObject:candy]) {
-        [self.candies sortByUpdatedAtDescending];
+    NSMutableOrderedSet *candies = self.candies;
+    if (!candy || [candies containsObject:candy]) {
+        if ([candies sortByUpdatedAt]) {
+            [self willChangeValueForKey:WLCandiesKey];
+            [self didChangeValueForKey:WLCandiesKey];
+        }
         return;
     }
     candy.wrap = self;
-    if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
-    [self.candies addObject:candy comparator:comparatorByCreatedAtDescending];
+    if (!candies) {
+        candies = [NSMutableOrderedSet orderedSet];
+        self.candies = candies;
+    }
+    [candies addObject:candy comparator:comparatorByCreatedAt descending:YES];
 	[self touch];
 	[candy notifyOnAddition];
 }
@@ -131,12 +145,18 @@
 }
 
 - (void)sortCandies {
-    [self.candies sortByUpdatedAtDescending];
+    if ([self.candies sortByUpdatedAt]) {
+        [self willChangeValueForKey:WLCandiesKey];
+        [self didChangeValueForKey:WLCandiesKey];
+    }
 }
 
 - (void)removeCandy:(WLCandy *)candy {
-    if ([self.candies containsObject:candy]) {
-        [self.candies removeObject:candy];
+    NSMutableOrderedSet *candies = self.candies;
+    if ([candies containsObject:candy]) {
+        [self willChangeValueForKey:WLCandiesKey];
+        [candies removeObject:candy];
+        [self didChangeValueForKey:WLCandiesKey];
     }
 }
 
@@ -172,9 +192,7 @@
 }
 
 - (NSMutableOrderedSet*)recentCandies:(NSUInteger)limit {
-    NSMutableOrderedSet* candies = [self candies:limit];
-    [candies sortByUpdatedAtDescending];
-    return candies;
+    return [self candies:limit];
 }
 
 - (void)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {

@@ -8,32 +8,32 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSComparator comparatorByUpdatedAtAscending;
+extern NSComparator defaultComparator;
 
-extern NSComparator comparatorByUpdatedAtDescending;
+extern NSComparator comparatorByUpdatedAt;
 
-extern NSComparator comparatorByCreatedAtAscending;
+extern NSComparator comparatorByCreatedAt;
 
-extern NSComparator comparatorByCreatedAtDescending;
+extern NSComparator comparatorByDate;
 
-extern NSComparator comparatorByDateAscending;
-
-extern NSComparator comparatorByDateDescending;
-
-extern NSComparator comparatorByUserNameAscending;
+extern NSComparator comparatorByName;
 
 @interface NSMutableOrderedSet (Sorting)
 
-- (void)sort:(NSComparator)comparator;
+- (BOOL)sort;
 
-- (void)sortByUpdatedAtDescending;
+- (BOOL)sort:(NSComparator)comparator;
 
-- (void)sortByUpdatedAtAscending;
+- (BOOL)sort:(NSComparator)comparator descending:(BOOL)descending;
 
-- (void)sortByCreatedAtDescending;
+- (BOOL)sortByUpdatedAt;
 
-- (void)sortByCreatedAtAscending;
+- (BOOL)sortByCreatedAt;
 
-- (void)addObject:(id)object comparator:(NSComparator)comparator;
+- (BOOL)sortByUpdatedAt:(BOOL)descending;
+
+- (BOOL)sortByCreatedAt:(BOOL)descending;
+
+- (void)addObject:(id)object comparator:(NSComparator)comparator descending:(BOOL)descending;
 
 @end

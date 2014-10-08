@@ -19,6 +19,7 @@
 #import "WLMenu.h"
 #import "WLNavigation.h"
 #import "NSPropertyListSerialization+Shorthand.h"
+#import "WLSupportFunctions.h"
 
 @interface WLAppDelegate ()
 
@@ -45,6 +46,11 @@
 #ifndef DEBUG
     [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
 #endif
+
+    NSMutableOrderedSet* s1 = [NSMutableOrderedSet orderedSet];
+    run_loop(10, ^(NSUInteger i) {
+        [s1 addObject:@(arc4random_uniform(10))];
+    });
     
 	return YES;
 }

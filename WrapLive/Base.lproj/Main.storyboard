@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Bqr-tR-fcY">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -3401,7 +3400,7 @@ Check your internet connection and try again.</string>
         <image name="1s_tscreen_logo_def" width="216" height="220"/>
         <image name="1st_screen_bg" width="320" height="1500"/>
         <image name="1st_screen_btn_agree_and_continue_enabled" width="246" height="48"/>
-        <image name="1st_screen_btn_agree_and_continue_hightlighted" width="12" height="22"/>
+        <image name="1st_screen_btn_agree_and_continue_hightlighted" width="246" height="48"/>
         <image name="bg_candy_gradient" width="320" height="64"/>
         <image name="btn_add_peaples_enabled" width="30" height="30"/>
         <image name="btn_wrap_camera_enabled" width="94" height="94"/>
@@ -3450,7 +3449,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="WjR-f7-d7j"/>
         <segue reference="USb-FQ-HhL"/>
-        <segue reference="PQ6-0M-1al"/>
     </inferredMetricsTieBreakers>
 </document>

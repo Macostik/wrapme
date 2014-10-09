@@ -177,7 +177,9 @@ static CGFloat WLRefresherContentSize = 44.0f;
                 [self setArrowViewHidden:YES];
                 [self setInset:WLRefresherContentSize animated:animated];
                 [self.scrollView scrollToTopAnimated:animated];
-                [self sendActionsForControlEvents:UIControlEventValueChanged];
+                [UIView performWithoutAnimation:^{
+                    [self sendActionsForControlEvents:UIControlEventValueChanged];
+                }];
             }
         } else {
             _refreshing = NO;

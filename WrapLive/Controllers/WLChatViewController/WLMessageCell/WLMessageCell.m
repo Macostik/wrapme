@@ -86,18 +86,10 @@
 	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(message.contributor.name), WLString([message.displayDate stringWithFormat:@"HH:mm"])];
     [self.messageTextView determineHyperLink:message.text withFont:[UIFont lightFontOfSize:15.0f]];
 	[UIView performWithoutAnimation:^{
-        CGSize size = [weakSelf.messageTextView sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)];
+        CGSize size = [weakSelf.messageTextView sizeThatFits:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)];
         weakSelf.textViewConstraint.constant = weakSelf.width - 65 - MAX(WLMinBubbleWidth, size.width);
+        [weakSelf.messageTextView layoutIfNeeded];
 	}];
-    [self drawMessageBubbleForCandy:message];
-    self.bubbleImageView.hidden = !message.text.nonempty;
-}
-
-- (void)drawMessageBubbleForCandy:(WLCandy *)candy {
-//    self.bubbleImageView.frame = self.messageTextView.frame;
-//    self.bubbleImageView.x -= WLPadding;
-//    self.bubbleImageView.height += 10;
-//    self.bubbleImageView.width += 2*WLPadding;
 }
 
 @end

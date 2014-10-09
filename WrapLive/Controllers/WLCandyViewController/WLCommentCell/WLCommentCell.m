@@ -60,6 +60,7 @@
             return NO;
         }
     }];
+    self.commentTextView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, 0);
 }
 
 - (void)setupItemData:(WLComment *)entry {
@@ -67,8 +68,6 @@
     if (!NSNumberEqual(entry.unread, @NO)) entry.unread = @NO;
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", WLString(entry.contributor.name), WLString(entry.createdAt.timeAgoString)];
     [self.commentTextView determineHyperLink:entry.text withFont:[UIFont lightFontOfSize:15.0f]];
-    self.commentTextView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, 0);
-    [self checkHeight];
     __weak typeof(self)weakSelf = self;
 	self.authorImageView.url = entry.contributor.picture.medium;
     [self.authorImageView setFailure:^(NSError* error) {
@@ -85,11 +84,6 @@
             self.circleProgressBar.operation = entry.uploading.operation;
         }
     }
-}
-
-- (void)checkHeight {
-    CGFloat height = [self.commentTextView sizeThatFits:CGSizeMake(self.commentTextView.width, CGFLOAT_MAX)].height + self.commentTextView.textContainerInset.top + self.commentTextView.textContainerInset.bottom;
-    self.commentTextView.height = height;
 }
 
 @end

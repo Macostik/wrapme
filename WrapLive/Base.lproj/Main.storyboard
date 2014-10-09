@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
@@ -3798,12 +3799,9 @@ Ravenpod, Inc.
                                                                         </constraints>
                                                                     </view>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yq2-Yg-jcf">
-                                                                        <rect key="frame" x="60" y="19" width="255" height="32"/>
+                                                                        <rect key="frame" x="60" y="19" width="255" height="73"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <color key="tintColor" red="1" green="0.42860027057324546" blue="0.16787798134862797" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="32" id="7IX-yy-irB"/>
-                                                                        </constraints>
                                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -3811,6 +3809,7 @@ Ravenpod, Inc.
                                                                     </textView>
                                                                 </subviews>
                                                                 <constraints>
+                                                                    <constraint firstAttribute="bottom" secondItem="Yq2-Yg-jcf" secondAttribute="bottom" constant="8" id="6S6-fb-VKd"/>
                                                                     <constraint firstItem="LiT-bh-wDT" firstAttribute="leading" secondItem="Ci2-WB-9eg" secondAttribute="leading" constant="7" id="Deg-Dm-RZA"/>
                                                                     <constraint firstItem="exs-Mo-yvf" firstAttribute="top" secondItem="Ci2-WB-9eg" secondAttribute="top" id="IAg-cx-uCC"/>
                                                                     <constraint firstItem="Yq2-Yg-jcf" firstAttribute="leading" secondItem="Ci2-WB-9eg" secondAttribute="leading" constant="60" id="Irm-3e-IU3"/>
@@ -4112,13 +4111,6 @@ Check your internet connection and try again.</string>
                                                         <constraint firstAttribute="width" constant="50" id="5Sc-5p-W6a"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="dsd" translatesAutoresizingMaskIntoConstraints="NO" id="acW-kf-dhe">
-                                                    <rect key="frame" x="95" y="20" width="160" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="160" id="5Ua-Xh-UhT"/>
-                                                        <constraint firstAttribute="height" constant="25" id="iyf-Hg-dbx"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1wE-ap-jeT">
                                                     <rect key="frame" x="13" y="5" width="240" height="18"/>
                                                     <constraints>
@@ -4128,6 +4120,9 @@ Check your internet connection and try again.</string>
                                                     <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="dsd" image="gray_Bubble" translatesAutoresizingMaskIntoConstraints="NO" id="acW-kf-dhe">
+                                                    <rect key="frame" x="2" y="22" width="254" height="33"/>
+                                                </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="w12-va-7vl">
                                                     <rect key="frame" x="8" y="22" width="246" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4141,16 +4136,18 @@ Check your internet connection and try again.</string>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="w12-va-7vl" firstAttribute="leading" secondItem="PH8-dO-yk9" secondAttribute="leading" constant="8" id="0Ku-ff-enC"/>
+                                            <constraint firstItem="acW-kf-dhe" firstAttribute="width" secondItem="w12-va-7vl" secondAttribute="width" constant="8" id="0ZP-ZF-coP"/>
+                                            <constraint firstItem="acW-kf-dhe" firstAttribute="height" secondItem="w12-va-7vl" secondAttribute="height" constant="3" id="4Dt-dv-WvU"/>
                                             <constraint firstItem="1wE-ap-jeT" firstAttribute="top" secondItem="PH8-dO-yk9" secondAttribute="top" constant="5" id="7QM-nK-lIV"/>
                                             <constraint firstAttribute="trailing" secondItem="1wE-ap-jeT" secondAttribute="trailing" constant="67" id="9Ru-eW-4mF"/>
+                                            <constraint firstItem="acW-kf-dhe" firstAttribute="leading" secondItem="w12-va-7vl" secondAttribute="leading" constant="-6" id="Hub-Iy-bLG"/>
                                             <constraint firstItem="6cK-uC-aMZ" firstAttribute="top" secondItem="PH8-dO-yk9" secondAttribute="top" constant="5" id="Ifd-Et-f34"/>
+                                            <constraint firstItem="acW-kf-dhe" firstAttribute="top" secondItem="w12-va-7vl" secondAttribute="top" id="Kb1-ce-dag"/>
                                             <constraint firstItem="1wE-ap-jeT" firstAttribute="leading" secondItem="PH8-dO-yk9" secondAttribute="leading" constant="13" id="Laj-Ub-ORJ"/>
                                             <constraint firstAttribute="trailing" secondItem="w12-va-7vl" secondAttribute="trailing" constant="66" id="Nim-Zj-Jov"/>
-                                            <constraint firstAttribute="trailing" secondItem="acW-kf-dhe" secondAttribute="trailing" constant="65" id="ady-Ap-czK"/>
                                             <constraint firstAttribute="trailing" secondItem="6cK-uC-aMZ" secondAttribute="trailing" constant="5" id="f0a-jP-emh"/>
                                             <constraint firstAttribute="bottom" secondItem="w12-va-7vl" secondAttribute="bottom" constant="8" id="iih-Ac-kr8"/>
                                             <constraint firstItem="w12-va-7vl" firstAttribute="top" secondItem="PH8-dO-yk9" secondAttribute="top" constant="22" id="kxm-pj-NuV"/>
-                                            <constraint firstItem="acW-kf-dhe" firstAttribute="top" secondItem="PH8-dO-yk9" secondAttribute="top" constant="20" id="wuI-fc-kr1"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="60"/>
                                         <connections>
@@ -4158,6 +4155,7 @@ Check your internet connection and try again.</string>
                                             <outlet property="bubbleImageView" destination="acW-kf-dhe" id="gVO-Y6-e3G"/>
                                             <outlet property="messageTextView" destination="w12-va-7vl" id="DS3-yj-wSc"/>
                                             <outlet property="nameLabel" destination="1wE-ap-jeT" id="5p4-0f-ssd"/>
+                                            <outlet property="textViewConstraint" destination="0Ku-ff-enC" id="5ru-Jr-OwO"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMessageCell" id="S2A-2d-E7B" customClass="WLMessageCell">
@@ -4174,12 +4172,8 @@ Check your internet connection and try again.</string>
                                                         <constraint firstAttribute="width" constant="50" id="cfC-d5-xAz"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i75-tl-ISy">
-                                                    <rect key="frame" x="65" y="20" width="160" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="2eC-k7-Qgs"/>
-                                                        <constraint firstAttribute="width" constant="160" id="CaB-hj-F17"/>
-                                                    </constraints>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_Bubble" translatesAutoresizingMaskIntoConstraints="NO" id="i75-tl-ISy">
+                                                    <rect key="frame" x="59" y="22" width="254" height="33"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MrZ-rw-wZA">
                                                     <rect key="frame" x="67" y="5" width="240" height="18"/>
@@ -4205,14 +4199,16 @@ Check your internet connection and try again.</string>
                                             <constraint firstAttribute="trailing" secondItem="MrZ-rw-wZA" secondAttribute="trailing" constant="13" id="66O-0R-cwj"/>
                                             <constraint firstAttribute="bottom" secondItem="pJg-Q1-lVX" secondAttribute="bottom" constant="8" id="8Sv-Hz-w1E"/>
                                             <constraint firstAttribute="trailing" secondItem="pJg-Q1-lVX" secondAttribute="trailing" constant="9" id="ECc-aY-bwK"/>
+                                            <constraint firstItem="i75-tl-ISy" firstAttribute="height" secondItem="pJg-Q1-lVX" secondAttribute="height" constant="3" id="EQs-nh-fz6"/>
+                                            <constraint firstItem="i75-tl-ISy" firstAttribute="top" secondItem="pJg-Q1-lVX" secondAttribute="top" id="IQr-tT-2zw"/>
                                             <constraint firstItem="pJg-Q1-lVX" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="65" id="IlM-qs-g0U"/>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="5" id="JqX-qH-m2v"/>
                                             <constraint firstItem="MrZ-rw-wZA" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" constant="5" id="PbS-oa-swj"/>
                                             <constraint firstItem="pJg-Q1-lVX" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" constant="22" id="SyM-yo-hsd"/>
+                                            <constraint firstItem="i75-tl-ISy" firstAttribute="width" secondItem="pJg-Q1-lVX" secondAttribute="width" constant="8" id="akS-2t-llV"/>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" constant="5" id="fki-uo-Rtc"/>
-                                            <constraint firstItem="i75-tl-ISy" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="65" id="rla-kw-UGJ"/>
                                             <constraint firstItem="MrZ-rw-wZA" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="67" id="sFq-ja-Kbc"/>
-                                            <constraint firstItem="i75-tl-ISy" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" constant="20" id="tZJ-ZJ-qqd"/>
+                                            <constraint firstItem="i75-tl-ISy" firstAttribute="leading" secondItem="pJg-Q1-lVX" secondAttribute="leading" constant="-6" id="uiV-8n-AGn"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="60"/>
                                         <connections>
@@ -4220,6 +4216,7 @@ Check your internet connection and try again.</string>
                                             <outlet property="bubbleImageView" destination="i75-tl-ISy" id="bek-hF-aEF"/>
                                             <outlet property="messageTextView" destination="pJg-Q1-lVX" id="MQ4-CA-0sK"/>
                                             <outlet property="nameLabel" destination="MrZ-rw-wZA" id="lRV-Il-yIR"/>
+                                            <outlet property="textViewConstraint" destination="ECc-aY-bwK" id="N8j-LA-yPF"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -4552,6 +4549,7 @@ Check your internet connection and try again.</string>
         <image name="camera_darkGray" width="30" height="30"/>
         <image name="camera_medium" width="50" height="50"/>
         <image name="chatNotification" width="32" height="28"/>
+        <image name="gray_Bubble" width="26" height="21"/>
         <image name="ic_add_by_phone" width="24" height="24"/>
         <image name="ic_alert_orange" width="20" height="18"/>
         <image name="ic_arrow_down" width="14" height="8"/>
@@ -4583,6 +4581,7 @@ Check your internet connection and try again.</string>
         <image name="ic_swipe_arrow_right" width="6" height="10"/>
         <image name="ic_timeline_enabled" width="34" height="32"/>
         <image name="ic_wrapLive" width="104" height="90"/>
+        <image name="red_Bubble" width="26" height="21"/>
         <image name="switch_to_front_cam" width="30" height="30"/>
         <image name="termsAndConditions" width="325" height="80"/>
     </resources>

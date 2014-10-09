@@ -3,7 +3,6 @@
     <dependencies>
         <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -33,7 +32,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Qk-7C-hDZ">
-                        <rect key="frame" x="298" y="21" width="12" height="12"/>
+                        <rect key="frame" x="301" y="21" width="12" height="12"/>
                         <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="0ik-2g-T2m"/>
@@ -48,8 +47,8 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="6Qk-7C-hDZ" secondAttribute="trailing" constant="2" id="AAP-Um-9qR"/>
-                    <constraint firstItem="6Qk-7C-hDZ" firstAttribute="top" secondItem="bIf-6T-9Yh" secondAttribute="topMargin" constant="13" id="yiw-2n-W1F"/>
+                    <constraint firstAttribute="trailing" secondItem="6Qk-7C-hDZ" secondAttribute="trailing" constant="7" id="AAP-Um-9qR"/>
+                    <constraint firstItem="6Qk-7C-hDZ" firstAttribute="top" secondItem="bIf-6T-9Yh" secondAttribute="top" constant="21" id="yiw-2n-W1F"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

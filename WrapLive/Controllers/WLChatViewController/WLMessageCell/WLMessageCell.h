@@ -14,7 +14,6 @@ static CGFloat WLMinBubbleWidth = 15.0f;
 static CGFloat WLBottomIdent = 12.0f;
 static CGFloat WLPadding = 4.0f;
 
-
 @interface WLMessageCell : WLCollectionItemCell
 
 @end

@@ -1,14 +1,42 @@
 {
   "images" : [
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "fill",
+          "width" : 1,
+          "height" : 1
+        },
+        "capInsets" : {
+          "bottom" : 14,
+          "top" : 6,
+          "right" : 20,
+          "left" : 5
+        }
+      },
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "grey_bubble.png"
+      "filename" : "grey_bubble.png",
+      "scale" : "1x"
     },
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "fill",
+          "width" : 1,
+          "height" : 1
+        },
+        "capInsets" : {
+          "bottom" : 28,
+          "top" : 11,
+          "right" : 39,
+          "left" : 10
+        }
+      },
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "grey_bubble@2x.png"
+      "filename" : "grey_bubble@2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",

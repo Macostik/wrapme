@@ -1969,10 +1969,10 @@ Ravenpod, Inc.
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcq-LH-ZNY">
                                 <rect key="frame" x="0.0" y="64" width="320" height="108"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email confirmation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CSs-OC-vDg">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email confirmation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSs-OC-vDg">
                                         <rect key="frame" x="10" y="8" width="300" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="eTE-z5-gLK"/>
+                                            <constraint firstAttribute="height" constant="21" id="TBV-Yw-34c"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
@@ -2048,10 +2048,10 @@ Ravenpod, Inc.
                                     <constraint firstAttribute="trailing" secondItem="UL6-dF-3Kj" secondAttribute="trailing" constant="10" id="Fne-Gg-7mL"/>
                                     <constraint firstItem="R9i-Mn-k3a" firstAttribute="top" secondItem="Qcq-LH-ZNY" secondAttribute="top" constant="68" id="IRh-g3-3GM"/>
                                     <constraint firstItem="UL6-dF-3Kj" firstAttribute="top" secondItem="Qcq-LH-ZNY" secondAttribute="top" constant="25" id="L5Q-sp-IMI"/>
-                                    <constraint firstItem="CSs-OC-vDg" firstAttribute="top" secondItem="Qcq-LH-ZNY" secondAttribute="top" constant="8" id="NBB-e5-EJG"/>
+                                    <constraint firstAttribute="height" constant="108" id="U2Z-Sz-1Fh"/>
                                     <constraint firstAttribute="trailing" secondItem="Yk6-tb-7gb" secondAttribute="trailing" constant="10" id="Xce-nj-EhK"/>
-                                    <constraint firstAttribute="height" constant="108" id="ciL-Bn-IgJ"/>
                                     <constraint firstAttribute="trailing" secondItem="CSs-OC-vDg" secondAttribute="trailing" constant="10" id="qf2-rp-tLI"/>
+                                    <constraint firstItem="CSs-OC-vDg" firstAttribute="top" secondItem="Qcq-LH-ZNY" secondAttribute="top" constant="8" id="toc-Jj-frL"/>
                                     <constraint firstItem="Yk6-tb-7gb" firstAttribute="top" secondItem="Qcq-LH-ZNY" secondAttribute="top" constant="68" id="xZY-vV-ZMh"/>
                                 </constraints>
                             </view>
@@ -2133,14 +2133,14 @@ Ravenpod, Inc.
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Qcq-LH-ZNY" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="BgM-Vv-Nv4"/>
-                            <constraint firstAttribute="trailing" secondItem="Qcq-LH-ZNY" secondAttribute="trailing" id="Cya-PQ-Ori"/>
+                            <constraint firstItem="Qcq-LH-ZNY" firstAttribute="top" secondItem="XNa-AC-NhU" secondAttribute="bottom" constant="44" id="TrS-W5-eLs"/>
                             <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="y7O-GH-Q4Y" secondAttribute="bottom" id="ZdV-Xu-BQB"/>
                             <constraint firstAttribute="trailing" secondItem="9Rl-cW-5hv" secondAttribute="trailing" id="a0D-I9-wse"/>
+                            <constraint firstItem="Qcq-LH-ZNY" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="aMO-Xl-sXk"/>
                             <constraint firstItem="9Rl-cW-5hv" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="iFH-7m-26c"/>
                             <constraint firstItem="y7O-GH-Q4Y" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="inx-sR-OqM"/>
                             <constraint firstAttribute="trailing" secondItem="y7O-GH-Q4Y" secondAttribute="trailing" id="lsC-oB-Bwq"/>
-                            <constraint firstItem="Qcq-LH-ZNY" firstAttribute="top" secondItem="XNa-AC-NhU" secondAttribute="bottom" constant="44" id="ou0-9W-8QB"/>
+                            <constraint firstAttribute="trailing" secondItem="Qcq-LH-ZNY" secondAttribute="trailing" id="sog-kt-HWt"/>
                             <constraint firstItem="y7O-GH-Q4Y" firstAttribute="top" secondItem="XNa-AC-NhU" secondAttribute="bottom" constant="152" id="t0Z-wt-bfL"/>
                             <constraint firstItem="9Rl-cW-5hv" firstAttribute="top" secondItem="XNa-AC-NhU" secondAttribute="bottom" constant="-20" id="yr0-5l-IHU"/>
                         </constraints>

@@ -296,6 +296,10 @@
 		C517D4D119D08144006058C7 /* UIDevice+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */; };
 		C517D4D219D08144006058C7 /* UIDevice+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */; };
 		C51DAE3119B09E6100F40516 /* WLTimelineEventCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DAE3019B09E6100F40516 /* WLTimelineEventCommentCell.m */; };
+		C51F30A319E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */; };
+		C51F30A419E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */; };
+		C51F30A519E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */; };
+		C51F30A619E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */; };
 		C5215DFB19C32CB80012AE10 /* WLEntityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5215DFA19C32CB80012AE10 /* WLEntityRequest.m */; };
 		C5215DFC19C32CB80012AE10 /* WLEntityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5215DFA19C32CB80012AE10 /* WLEntityRequest.m */; };
 		C5215DFD19C32CB80012AE10 /* WLEntityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5215DFA19C32CB80012AE10 /* WLEntityRequest.m */; };
@@ -1484,6 +1488,8 @@
 		C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+SystemVersion.m"; sourceTree = "<group>"; };
 		C51DAE2F19B09E6100F40516 /* WLTimelineEventCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTimelineEventCommentCell.h; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCommentCell.h; sourceTree = "<group>"; };
 		C51DAE3019B09E6100F40516 /* WLTimelineEventCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTimelineEventCommentCell.m; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCommentCell.m; sourceTree = "<group>"; };
+		C51F30A119E696F2008EAD85 /* UICollectionViewCell+Autoresizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UICollectionViewCell+Autoresizing.h"; path = "UICollectionViewCell/UICollectionViewCell+Autoresizing.h"; sourceTree = "<group>"; };
+		C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UICollectionViewCell+Autoresizing.m"; path = "UICollectionViewCell/UICollectionViewCell+Autoresizing.m"; sourceTree = "<group>"; };
 		C5215DF919C32CB80012AE10 /* WLEntityRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntityRequest.h; path = WLAPIManager/WLAPIRequest/WLEntityRequest.h; sourceTree = "<group>"; };
 		C5215DFA19C32CB80012AE10 /* WLEntityRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEntityRequest.m; path = WLAPIManager/WLAPIRequest/WLEntityRequest.m; sourceTree = "<group>"; };
 		C521FB041989352E00576281 /* WLHomeViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLHomeViewSection.h; path = WLCollectionViewDataProvider/WLHomeViewSection.h; sourceTree = "<group>"; };
@@ -2432,6 +2438,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				C51F30A019E696C4008EAD85 /* UICollectionViewCell */,
 				C517D4CC19D08144006058C7 /* UIDevice */,
 				5BB5F8B819C971FE0053242C /* UITextView */,
 				C5FD0EDD194B43F6004DAB1B /* NSOrderedSet */,
@@ -3092,6 +3099,15 @@
 				C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */,
 			);
 			path = UIDevice;
+			sourceTree = "<group>";
+		};
+		C51F30A019E696C4008EAD85 /* UICollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C51F30A119E696F2008EAD85 /* UICollectionViewCell+Autoresizing.h */,
+				C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */,
+			);
+			name = UICollectionViewCell;
 			sourceTree = "<group>";
 		};
 		C537F8211962BADF00600B42 /* WLGroupedSet */ = {
@@ -3893,6 +3909,7 @@
 				C50445B71951AA8F003C2251 /* WLContribution+Extended.m in Sources */,
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
 				5BBBEB3519D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
+				C51F30A319E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */,
 				12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */,
@@ -4104,6 +4121,7 @@
 				C54AF48F19B8C437006F7EDB /* WLContribution+Extended.m in Sources */,
 				C54AF49119B8C437006F7EDB /* WLComposeBar.m in Sources */,
 				5BBBEB3619D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
+				C51F30A419E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C54AF49319B8C437006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C54AF49419B8C437006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF49519B8C437006F7EDB /* UIViewController+Additions.m in Sources */,
@@ -4315,6 +4333,7 @@
 				C54AF58C19B8C467006F7EDB /* WLContribution+Extended.m in Sources */,
 				C54AF58E19B8C467006F7EDB /* WLComposeBar.m in Sources */,
 				5BBBEB3719D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
+				C51F30A519E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C54AF59019B8C467006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C54AF59119B8C467006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF59219B8C467006F7EDB /* UIViewController+Additions.m in Sources */,
@@ -4526,6 +4545,7 @@
 				C54AF68919B8C491006F7EDB /* WLContribution+Extended.m in Sources */,
 				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
 				5BBBEB3819D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
+				C51F30A619E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C54AF68D19B8C491006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C54AF68E19B8C491006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF68F19B8C491006F7EDB /* UIViewController+Additions.m in Sources */,

@@ -75,11 +75,15 @@
         weakSelf.authorImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];
     self.menu.vibrate = [entry.contributor isCurrentUser];
-  
+   
     if (![WLInternetConnectionBroadcaster broadcaster].reachable && !entry.uploaded) {
-        [self.circleProgressBar setProgress:.1f animated:NO];
+        self.circleProgressBar.waitUpload = YES;
     } else {
-          self.circleProgressBar.operation = entry.uploading.operation;
+        if (entry.candy.uploading.operation) {
+            self.circleProgressBar.waitUpload = YES;
+        } else {
+            self.circleProgressBar.operation = entry.uploading.operation;
+        }
     }
 }
 

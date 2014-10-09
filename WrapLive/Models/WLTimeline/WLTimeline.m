@@ -57,7 +57,7 @@
             if ([comment.createdAt isSameDayComponents:c]) [entries addObject:comment];
         }
     }
-    [entries sortByCreatedAtDescending];
+    [entries sortByCreatedAt];
     return [WLTimelineEvent events:entries];
 }
 

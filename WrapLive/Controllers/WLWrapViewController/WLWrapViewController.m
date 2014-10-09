@@ -118,6 +118,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [self firstLoadRequest];
     
     self.dataProvider.animationViews = self.timelineDataProvider.animationViews;
+    if (![self.groups.entries.entries nonempty]) [self showPlaceholder];
 }
 
 - (void)updateWrapData {
@@ -129,7 +130,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     __weak typeof(self)weakSelf = self;
     WLWrapRequest* wrapRequest = [WLWrapRequest request:self.wrap];
     wrapRequest.contentType = WLWrapContentTypePaginated;
-    wrapRequest.type = WLPaginatedRequestTypeNewer;
+    wrapRequest.type = [self.groups.entries count] > 10 ? WLPaginatedRequestTypeNewer : WLPaginatedRequestTypeFresh;
     wrapRequest.newer = [[self.groups.entries firstObject] date];
     [wrapRequest send:^(NSOrderedSet *orderedSet) {
         [weakSelf reloadData];
@@ -151,6 +152,11 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     
     [self.dataProvider reload];
     [self updateNotificationCouter];
+}
+
+- (void)showPlaceholder {
+    [super showPlaceholder];
+    self.noContentPlaceholder.y -= 20;
 }
 
 - (void)updateNotificationCouter {
@@ -195,6 +201,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
     [self.groups removeEntry:candy];
+    if (![self.groups.entries.entries nonempty]) [self showPlaceholder];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
@@ -270,7 +277,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-    [self changeMode:WLWrapViewModeTimeline];
     WLWrap* wrap = controller.wrap ? : self.wrap;
     [wrap uploadPictures:pictures];
 	[self dismissViewControllerAnimated:YES completion:nil];

@@ -60,6 +60,8 @@
 @property (weak, nonatomic) IBOutlet WLSizeToFitLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+@property (strong, nonatomic) UIImageView *noContentPlaceholder;
+@property (assign, nonatomic) BOOL isShowPlaceholder;
 
 @end
 
@@ -84,9 +86,11 @@
     __weak WLHomeViewSection *section = self.section;
     section.entries.request = [WLWrapsRequest new];
     [section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
-    
+
+    __weak __typeof(self)weakSelf = self;
     [section setChange:^(WLPaginatedSet* entries) {
         WLUser *user = [WLUser currentUser];
+        weakSelf.isShowPlaceholder = ![self.section.entries.entries nonempty];
         if (user.firstTimeUse.boolValue && [user.wraps match:^BOOL(WLWrap *wrap) {
             return !wrap.isDefault.boolValue;
         }]) {
@@ -116,6 +120,29 @@
     [self updateEmailConfirmationView];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.noContentPlaceholder removeFromSuperview];
+}
+
+- (void)setIsShowPlaceholder:(BOOL)isShowPlaceholder {
+    if (_isShowPlaceholder != isShowPlaceholder) {
+        _isShowPlaceholder = isShowPlaceholder;
+        if (isShowPlaceholder) {
+            [self showPlaceholder];
+        } else {
+            [self.noContentPlaceholder removeFromSuperview];
+        }
+    }
+}
+
+- (void)showPlaceholder {
+    self.noContentPlaceholder = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create_new_wrap"]];
+    self.noContentPlaceholder.center = CGPointMake(self.view.center.x, self.view.center.y - 180) ;
+    [self.view insertSubview:self.noContentPlaceholder atIndex:0];
+    [super showPlaceholder];
+}
+
 - (void)updateEmailConfirmationView {
     BOOL confirmed = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
     UIView* view = self.emailConfirmationView;
@@ -139,10 +166,12 @@
 - (void)notifier:(WLEntryNotifier *)notifier wrapAdded:(WLWrap *)wrap {
     [self.section.entries addEntry:wrap];
 	self.collectionView.contentOffset = CGPointZero;
+    self.isShowPlaceholder = ![self.section.entries.entries nonempty];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
     [self.section.entries removeEntry:wrap];
+    self.isShowPlaceholder = ![self.section.entries.entries nonempty];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {

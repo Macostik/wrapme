@@ -13,6 +13,8 @@
 #import "NSArray+Additions.h"
 #import "WLInternetConnectionBroadcaster.h"
 #import <AFNetworking/AFURLConnectionOperation.h>
+#import <AFNetworking/AFHTTPRequestOperation.h>
+#import "WLSupportFunctions.h"
 
 @interface WLCircleProgressBar ()
 
@@ -28,8 +30,6 @@
                                                           startAngle:-M_PI_2
                                                             endAngle:3*M_PI/2
                                                            clockwise:YES].CGPath;
-   self.progressLayer.hidden = [self isHideProgressLayer];
-    
 }
 
 - (CAShapeLayer*)progressLayer {
@@ -48,25 +48,35 @@
     return progressLayer;
 }
 
-- (void)updateProgressViewAnimated:(BOOL)animated difference:(float)difference {
-    self.progressLayer.hidden =  [self isHideProgressLayer];
+- (void)setWaitUpload:(BOOL)waitUpload {
+     _waitUpload = waitUpload;
+    [self setProgress:.1 animated:NO];
+}
+
+- (void)setProgress:(float)progress animated:(BOOL)animated {
+    progress = Smoothstep(0, 1, progress);
+     self.progressLayer.hidden = NO;
+    _progress = progress;
+   
+    if (animated) {
+        NSTimeInterval duration = 2.0f;
+        [self performAnimationWithDuration:duration];
+        [self performSelector:@selector(complitionAnimation) withObject:nil afterDelay:duration];
+    } else {
+        [self performAnimationWithDuration:0.0];
+        
+    }
+}
+
+- (void)performAnimationWithDuration:(NSTimeInterval)duration {
     [CATransaction begin];
-    [CATransaction setCompletionBlock:^{
-        if (_progress) {
-           self.progressLayer.hidden =  [self isHideProgressLayer];
-        }
-    }];
-    [CATransaction setAnimationDuration:animated ? ABS(difference * 2.0f) : 0];
+    [CATransaction setAnimationDuration:duration];
     self.progressLayer.strokeEnd = _progress;
     [CATransaction commit];
 }
 
-- (BOOL)isHideProgressLayer {
-    if (![WLInternetConnectionBroadcaster broadcaster].reachable) {
-        return  NO;
-    } else {
-        return (self.operation == nil);
-    }
+- (void)complitionAnimation {
+    self.progressLayer.hidden = YES;
 }
 
 @end

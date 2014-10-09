@@ -349,12 +349,12 @@
 
 - (void)sendMessageWithText:(NSString*)text {
     WLCandy* image = self.candy;
-    self.autoenqueueUploading = !image.uploaded;
 	__weak typeof(self)weakSelf = self;
     [image uploadComment:text success:^(WLComment *comment) {
         [weakSelf.candyCell reloadComments];
     } failure:^(NSError *error) {
     }];
+    self.autoenqueueUploading = !image.uploaded;
     [self.candyCell.tableView scrollToBottomAnimated:YES];
 }
 

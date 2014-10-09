@@ -68,7 +68,8 @@
     }
     
     NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption : @YES,
-                              NSInferMappingModelAutomaticallyOption : @YES};
+                              NSInferMappingModelAutomaticallyOption : @YES,
+                              NSIgnorePersistentStoreVersioningOption : @YES};
     
     NSURL* url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:@"CoreData.sqlite"];

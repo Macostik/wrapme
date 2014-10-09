@@ -129,6 +129,17 @@ static CTCallCenter *callCenter;
     [self.view layoutIfNeeded];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.noContentPlaceholder removeFromSuperview];
+}
+
+- (void)showPlaceholder {
+    self.noContentPlaceholder = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notContentPlaceholder"]];
+    self.noContentPlaceholder.center = CGPointMake(self.view.center.x, self.view.center.y + 40) ;
+    [self.view insertSubview:self.noContentPlaceholder atIndex:0];
+}
+
 - (BOOL)isCalling {
     CTCallCenter *callCenter = [[CTCallCenter alloc] init];
     for (CTCall* call in callCenter.currentCalls) {

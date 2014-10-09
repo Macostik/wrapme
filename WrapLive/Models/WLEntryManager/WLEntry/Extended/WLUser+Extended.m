@@ -35,7 +35,7 @@
         return;
     }
     if (!self.wraps) self.wraps = [NSMutableOrderedSet orderedSet];
-    [self.wraps addObject:wrap comparator:comparatorByUpdatedAtDescending];
+    [self.wraps addObject:wrap comparator:comparatorByUpdatedAt descending:YES];
 }
 
 - (void)addWraps:(NSOrderedSet *)wraps {
@@ -51,7 +51,10 @@
 }
 
 - (void)sortWraps {
-    [self.wraps sortByUpdatedAtDescending];
+    if ([self.wraps sortByUpdatedAt]) {
+        [self willChangeValueForKey:WLWrapsKey];
+        [self didChangeValueForKey:WLWrapsKey];
+    }
 }
 
 - (NSMutableOrderedSet *)sortedWraps {

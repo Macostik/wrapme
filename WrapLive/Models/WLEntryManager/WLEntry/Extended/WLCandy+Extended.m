@@ -40,7 +40,10 @@
         self.comments = comments;
     }
     [WLComment API_entries:commentsArray relatedEntry:self container:comments];
-    if (comments.nonempty) [comments sortByCreatedAtAscending];
+    if (comments.nonempty && [comments sortByCreatedAt:NO]) {
+        [self willChangeValueForKey:WLCommentsKey];
+        [self didChangeValueForKey:WLCommentsKey];
+    }
     [self editPicture:[dictionary stringForKey:WLCandyLargeURLKey]
                medium:[dictionary stringForKey:WLCandyMediumURLKey]
                 small:[dictionary stringForKey:WLCandySmallURLKey]];
@@ -72,12 +75,16 @@
 }
 
 - (void)addComment:(WLComment *)comment {
-    if (!comment || [self.comments containsObject:comment]) {
-        [self.comments sortByCreatedAtAscending];
+    NSMutableOrderedSet* comments = self.comments;
+    if (!comment || [comments containsObject:comment]) {
+        if ([comments sortByCreatedAt:NO]) {
+            [self willChangeValueForKey:WLCommentsKey];
+            [self didChangeValueForKey:WLCommentsKey];
+        }
         return;
     }
     comment.candy = self;
-    [self.comments addObject:comment comparator:comparatorByCreatedAtAscending];
+    [comments addObject:comment comparator:comparatorByCreatedAt descending:NO];
     [self touch];
     [self notifyOnUpdate];
 }

@@ -72,8 +72,7 @@ typedef enum : NSUInteger {
     [self wrapIntoAttributedString];
     
     __weak __typeof(self)weakSelf = self;
-    [self.termsAndConditionsTextView addSwipeGestureRecognizingDelegate:self
-                                                   direction:UISwipeGestureRecognizerDirectionLeft
+    [self.termsAndConditionsTextView addTapGestureRecognizingDelegate:self
                                                        block:^(UIGestureRecognizer *recognizer) {
                                                            [weakSelf flipAnimationView:WLFlipDirectionLeft];
                                                        }];
@@ -199,7 +198,7 @@ typedef enum : NSUInteger {
 #pragma mark -UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return YES;
+    return ![otherGestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]];
 }
 
 @end

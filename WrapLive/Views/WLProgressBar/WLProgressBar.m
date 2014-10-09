@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 Nickolay Rybalko. All rights reserved.
 //
 
-#import "WLProgressBar.h"
-#import "UIView+Shorthand.h"
-#import "UIColor+CustomColors.h"
-#import "WLBorderView.h"
-#import "WLSupportFunctions.h"
-#import <AFNetworking/AFURLConnectionOperation.h>
-#import <AFNetworking/AFHTTPRequestOperation.h>
 #import "NSObject+AssociatedObjects.h"
+#import "UIColor+CustomColors.h"
+#import "UIView+Shorthand.h"
 #import "WLBlocks.h"
+#import "WLBorderView.h"
+#import "WLProgressBar.h"
+#import "WLSupportFunctions.h"
+#import <AFNetworking/AFHTTPRequestOperation.h>
+#import <AFNetworking/AFURLConnectionOperation.h>
 
 @interface AFURLConnectionOperation (WLProgressBar)
 
@@ -36,20 +36,20 @@
 
 - (void)setProgressBlock:(void (^)(float progress))block {
     __weak typeof(self)weakSelf = self;
-	[self setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        float progress = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
-		weakSelf.progress = progress;
-		if (block) {
+        [self setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+            float progress = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
+            weakSelf.progress = progress;
+            if (block) {
+                block(progress);
+            }
+        }];
+    [self setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        float progress = ((float)totalBytesRead/(float)totalBytesExpectedToRead);
+        weakSelf.progress =  progress;
+        if (block) {
             block(progress);
         }
-	}];
-	[self setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-		float progress = ((float)totalBytesRead/(float)totalBytesExpectedToRead);
-		weakSelf.progress = progress;
-		if (block) {
-            block(progress);
-        }
-	}];
+    }];
 }
 
 @end
@@ -107,7 +107,7 @@
 	progress = Smoothstep(0, 1, progress);
 	float difference = ABS(progress - _progress);
 	_progress = progress;
-   [self updateProgressViewAnimated:animated difference:difference];
+    [self updateProgressViewAnimated:animated difference:difference];
 }
 
 - (void)updateProgressViewAnimated:(BOOL)animated difference:(float)difference {

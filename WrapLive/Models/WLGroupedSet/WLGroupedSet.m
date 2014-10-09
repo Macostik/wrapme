@@ -23,7 +23,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.sortComparator = comparatorByDateDescending;
+        self.sortComparator = comparatorByDate;
     }
     return self;
 }
@@ -150,7 +150,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.sortComparator = comparatorByCreatedAtDescending;
+        self.sortComparator = comparatorByCreatedAt;
         self.offset = CGPointZero;
         self.request = [WLCandiesRequest request];
         self.request.sameDay = YES;

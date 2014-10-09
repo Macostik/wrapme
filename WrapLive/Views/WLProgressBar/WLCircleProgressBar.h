@@ -10,4 +10,6 @@
 
 @interface WLCircleProgressBar : WLProgressBar
 
+@property (assign, nonatomic) BOOL waitUpload;
+
 @end

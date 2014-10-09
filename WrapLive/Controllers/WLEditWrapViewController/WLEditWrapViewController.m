@@ -85,7 +85,7 @@ static NSString *const WLLeave = @"Leave";
     if ([self isMyWrap]) {
         [wrap remove:^(id object) {
             if (object != nil) {
-                [self.navigationController popViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:YES];
             }
         } failure:^(NSError *error) {
             [error show];
@@ -93,7 +93,7 @@ static NSString *const WLLeave = @"Leave";
     } else {
         [wrap leave:^(id object) {
             if (object != nil) {
-                [self.navigationController popViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:YES];
             }
         } failure:^(NSError *error) {
             [error show];

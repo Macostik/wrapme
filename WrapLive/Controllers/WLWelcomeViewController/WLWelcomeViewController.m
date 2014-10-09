@@ -36,6 +36,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
 @property (strong, nonatomic) IBOutlet UIView *placeholderView;
 @property (weak, nonatomic) IBOutlet UITextView *termsAndConditionsTextView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *backgroundTopConstraint;
 
 @end
 
@@ -43,6 +44,9 @@ typedef enum : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.view.frame = [UIWindow mainWindow].bounds;
+    [self.view layoutIfNeeded];
     
     self.placeholderView.layer.cornerRadius = 5.0f;
     self.placeholderView.layer.masksToBounds = YES;
@@ -87,34 +91,17 @@ typedef enum : NSUInteger {
         [weakSelf.splash hide];
     }];
     self.splash.animating = NO;
-    [self animateBackgroundView];
+    [self animateBackgroundView:-(weakSelf.backgroundView.height - weakSelf.view.height + 20) nextOffset:-20];
 }
 
-- (void)animateBackgroundView {
+- (void)animateBackgroundView:(CGFloat)offset nextOffset:(CGFloat)nextOffset {
     __weak typeof(self)weakSelf = self;
-    
-    NSTimeInterval duration = 30;
-    
-    __block void (^animationDown) (void) = nil;
-    __block void (^animationUp) (void) = nil;
-    
-    animationDown = ^ {
-        [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
-            weakSelf.backgroundView.transform = CGAffineTransformMakeTranslation(0, -(weakSelf.backgroundView.bounds.size.height - weakSelf.view.bounds.size.height));
-        } completion:^(BOOL finished) {
-            animationUp();
-        }];
-    };
-    
-    animationUp = ^ {
-        [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
-            weakSelf.backgroundView.transform = CGAffineTransformIdentity;
-        } completion:^(BOOL finished) {
-            animationDown();
-        }];
-    };
-    
-    animationDown();
+    weakSelf.backgroundTopConstraint.constant = offset;
+    [UIView animateWithDuration:30 * (self.backgroundView.height / 1500.0f) delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+        [weakSelf.backgroundView layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [weakSelf animateBackgroundView:nextOffset nextOffset:offset];
+    }];
 }
 
 - (void)underlineLicenseButton {
@@ -155,10 +142,6 @@ typedef enum : NSUInteger {
                       duration:0.75
                        options:option
                     completion:NULL];
-}
-
-- (CATransform3D)yRotation:(CGFloat)angle {
-    return  CATransform3DMakeRotation(angle, 0.0, 1.0, 0.0);
 }
 
 - (void)wrapIntoAttributedString {

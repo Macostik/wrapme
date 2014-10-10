@@ -76,7 +76,7 @@
 }
 
 - (id)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    if (self.operation || ![self.contribution canBeUploaded] || ![WLInternetConnectionBroadcaster broadcaster].reachable) {
+    if (self.operation || ![self.contribution canBeUploaded]) {
         failure(nil);
         return nil;
     }

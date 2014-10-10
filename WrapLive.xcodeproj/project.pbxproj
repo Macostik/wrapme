@@ -295,6 +295,10 @@
 		C517D4D019D08144006058C7 /* UIDevice+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */; };
 		C517D4D119D08144006058C7 /* UIDevice+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */; };
 		C517D4D219D08144006058C7 /* UIDevice+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */; };
+		C518D79319E7E480001A3F08 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C518D79219E7E480001A3F08 /* Launch Screen.xib */; };
+		C518D79419E7E480001A3F08 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C518D79219E7E480001A3F08 /* Launch Screen.xib */; };
+		C518D79519E7E480001A3F08 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C518D79219E7E480001A3F08 /* Launch Screen.xib */; };
+		C518D79619E7E480001A3F08 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C518D79219E7E480001A3F08 /* Launch Screen.xib */; };
 		C51DAE3119B09E6100F40516 /* WLTimelineEventCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DAE3019B09E6100F40516 /* WLTimelineEventCommentCell.m */; };
 		C51F30A319E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */; };
 		C51F30A419E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */; };
@@ -1486,6 +1490,7 @@
 		C516874F19BDCA4B005BA034 /* WLUploadMessageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUploadMessageRequest.m; path = WLAPIManager/WLAPIRequest/WLUploadMessageRequest.m; sourceTree = "<group>"; };
 		C517D4CD19D08144006058C7 /* UIDevice+SystemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+SystemVersion.h"; sourceTree = "<group>"; };
 		C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+SystemVersion.m"; sourceTree = "<group>"; };
+		C518D79219E7E480001A3F08 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		C51DAE2F19B09E6100F40516 /* WLTimelineEventCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTimelineEventCommentCell.h; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCommentCell.h; sourceTree = "<group>"; };
 		C51DAE3019B09E6100F40516 /* WLTimelineEventCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTimelineEventCommentCell.m; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCommentCell.m; sourceTree = "<group>"; };
 		C51F30A119E696F2008EAD85 /* UICollectionViewCell+Autoresizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UICollectionViewCell+Autoresizing.h"; path = "UICollectionViewCell/UICollectionViewCell+Autoresizing.h"; sourceTree = "<group>"; };
@@ -1952,6 +1957,7 @@
 				12A7A71118DA0946008FF6F0 /* WLAppDelegate.h */,
 				12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */,
 				12A7A71418DA0946008FF6F0 /* Main.storyboard */,
+				C518D79219E7E480001A3F08 /* Launch Screen.xib */,
 				12E3DA5C18E04CC400DBDB79 /* Categories */,
 				12A7A73718DA09A9008FF6F0 /* Controllers */,
 				12A7A73818DA09A9008FF6F0 /* Models */,
@@ -3478,6 +3484,7 @@
 				ACF8D9121934B4400001E570 /* numbers.plist in Resources */,
 				121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */,
 				C534E77419D586CC006F8268 /* WLTestUserCell.xib in Resources */,
+				C518D79319E7E480001A3F08 /* Launch Screen.xib in Resources */,
 				C54AF86219B8C622006F7EDB /* WLAPIEnvironmentProduction.plist in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
 				12D514FA192F5F15007A1520 /* AppIcon29x29@2x.png in Resources */,
@@ -3534,6 +3541,7 @@
 				C54AF54119B8C437006F7EDB /* CountryCodes.json in Resources */,
 				C54AF54219B8C437006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C534E77519D586CC006F8268 /* WLTestUserCell.xib in Resources */,
+				C518D79419E7E480001A3F08 /* Launch Screen.xib in Resources */,
 				C54AF54319B8C437006F7EDB /* AppIcon29x29@2x.png in Resources */,
 				C54AF86D19B8C63A006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				C54AF54419B8C437006F7EDB /* WLComposeBar.xib in Resources */,
@@ -3590,6 +3598,7 @@
 				C54AF63E19B8C467006F7EDB /* CountryCodes.json in Resources */,
 				C54AF63F19B8C467006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C534E77619D586CC006F8268 /* WLTestUserCell.xib in Resources */,
+				C518D79519E7E480001A3F08 /* Launch Screen.xib in Resources */,
 				C54AF64019B8C467006F7EDB /* AppIcon29x29@2x.png in Resources */,
 				C54AF87119B8C63A006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				C54AF64119B8C467006F7EDB /* WLComposeBar.xib in Resources */,
@@ -3646,6 +3655,7 @@
 				C54AF73B19B8C491006F7EDB /* CountryCodes.json in Resources */,
 				C54AF73C19B8C491006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C534E77719D586CC006F8268 /* WLTestUserCell.xib in Resources */,
+				C518D79619E7E480001A3F08 /* Launch Screen.xib in Resources */,
 				C54AF73D19B8C491006F7EDB /* AppIcon29x29@2x.png in Resources */,
 				C54AF87519B8C63B006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				C54AF73E19B8C491006F7EDB /* WLComposeBar.xib in Resources */,

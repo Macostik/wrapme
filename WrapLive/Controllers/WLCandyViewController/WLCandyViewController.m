@@ -73,6 +73,7 @@
 
 @property (nonatomic) BOOL autoenqueueUploading;
 @property (nonatomic) BOOL shouldLoadMoreCandies;
+@property (nonatomic) BOOL scrolledToInitialItem;
 @property (strong, nonatomic) WLToast* dateChangeToast;
 
 @property (readonly, nonatomic) WLDetailedCandyCell* candyCell;
@@ -96,7 +97,7 @@
     if (!self.groups) {
         self.groups = [[WLGroupedSet alloc] init];
         [self.groups addEntries:[_candy.wrap candies]];
-        self.group = [self.groups groupWithCandy:_candy];
+        _group = [self.groups groupWithCandy:_candy];
     }
     
 	self.composeBarView.placeholder = @"Write your comment ...";
@@ -104,12 +105,6 @@
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 	[[WLCandy notifier] addReceiver:self];
     [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
-
-    [self.collectionView reloadData];
-    if (_candy && [self.group.entries containsObject:_candy]) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[self.group.entries indexOfObject:_candy] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-    }
-    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 70, 0);
     
     UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -144,8 +139,16 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    self.scrolledToInitialItem = YES;
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
     self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 70, 0);
-    [self.collectionView reloadData];
+    NSUInteger index = [self.group.entries indexOfObject:_candy];
+    if (!self.scrolledToInitialItem && index != NSNotFound) {
+        [self.collectionView setContentOffset:CGPointMake(index*self.collectionView.width, 0)];
+    }
 }
 
 - (void)setGroup:(WLGroup *)group {

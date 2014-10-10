@@ -43,6 +43,25 @@
 #import "WLInternetConnectionBroadcaster.h"
 #import "NSOrderedSet+Additions.h"
 
+@interface WLCandyViewFlowLayout : UICollectionViewFlowLayout
+
+@end
+
+@implementation WLCandyViewFlowLayout
+
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    return YES;
+}
+
+- (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
+    UICollectionViewFlowLayoutInvalidationContext* invalidationContext = [[UICollectionViewFlowLayoutInvalidationContext alloc] init];
+    invalidationContext.invalidateFlowLayoutDelegateMetrics = YES;
+    invalidationContext.contentOffsetAdjustment = CGPointMake(0, self.collectionView.bounds.size.height - newBounds.size.height);
+    return invalidationContext;
+}
+
+@end
+
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
@@ -61,6 +80,9 @@
 @property (weak, nonatomic) UISwipeGestureRecognizer* leftSwipeGestureRecognizer;
 @property (weak, nonatomic) UISwipeGestureRecognizer* rightSwipeGestureRecognizer;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *composeBarBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navigationBarTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewTopConstraint;
 
 @end
 
@@ -298,21 +320,33 @@
 #pragma mark - WLKeyboardBroadcastReceiver
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-    self.composeBarView.y = self.view.height - self.composeBarView.height;
-	self.collectionView.transform = CGAffineTransformIdentity;
-    [self.collectionView reloadData];
-    self.navigationBar.y = 0;
+    self.composeBarBottomConstraint.constant = 0;
+    self.navigationBarTopConstraint.constant = -20;
+    self.collectionViewTopConstraint.constant = -20;
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:[broadcaster.duration doubleValue]];
+    [UIView setAnimationCurve:[broadcaster.animationCurve integerValue]];
+    [self.collectionView layoutIfNeeded];
+    [self.composeBarView layoutIfNeeded];
+    [self.navigationBar layoutIfNeeded];
+    [UIView commitAnimations];
 }
 
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
-    self.composeBarView.y = self.view.height - [keyboardHeight floatValue] - self.composeBarView.height;
-	self.collectionView.transform = CGAffineTransformMakeTranslation(0, -[keyboardHeight floatValue]);
+    self.composeBarBottomConstraint.constant = [keyboardHeight floatValue];
+    self.navigationBarTopConstraint.constant = -self.navigationBar.height-20;
+    self.collectionViewTopConstraint.constant = self.navigationBarTopConstraint.constant;
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:[broadcaster.duration doubleValue]];
+    [UIView setAnimationCurve:[broadcaster.animationCurve integerValue]];
+    [self.collectionView layoutIfNeeded];
+    [self.composeBarView layoutIfNeeded];
+    [self.navigationBar layoutIfNeeded];
+    [UIView commitAnimations];
     __weak typeof(self)weakSelf = self;
-    [self.collectionView reloadData];
     run_after_asap(^{
         [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
     });
-    self.navigationBar.y = -self.navigationBar.height;
 }
 
 #pragma mark - Actions
@@ -355,7 +389,9 @@
     } failure:^(NSError *error) {
     }];
     self.autoenqueueUploading = !image.uploaded;
-    [self.candyCell.tableView scrollToBottomAnimated:YES];
+    run_after_asap(^{
+        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
+    });
 }
 
 #pragma mark - WLComposeBarDelegate
@@ -365,12 +401,7 @@
 }
 
 - (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
-	composeBar.y = self.view.height - [[WLKeyboardBroadcaster broadcaster].keyboardHeight floatValue] - composeBar.height;
-    __weak typeof(self)weakSelf = self;
-      [self.collectionView reloadData];
-    run_after(0.1f, ^{
-        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
-    });
+    [self.candyCell.tableView scrollToBottomAnimated:YES];
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {

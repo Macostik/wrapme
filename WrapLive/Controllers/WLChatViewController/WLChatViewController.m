@@ -58,7 +58,6 @@ CGFloat WLMaxTextViewWidth;
 @property (nonatomic) BOOL typing;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *composeBarBottomContsraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *composeBarHeightConstraint;
 
 @end
 
@@ -269,15 +268,6 @@ CGFloat WLMaxTextViewWidth;
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
     self.typing = !text.nonempty;
 	[self sendMessageWithText:text];
-}
-
-- (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
-	[self changeDimentionsWithComposeBar:composeBar];
-}
-
-- (void)changeDimentionsWithComposeBar:(WLComposeBar *)composeBar {
-    self.composeBarHeightConstraint.constant = composeBar.height;
-    [self.view layoutIfNeeded];
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {

@@ -3675,10 +3675,10 @@ Ravenpod, Inc.
                                     <constraint firstAttribute="width" constant="16" id="mHM-aj-dCM"/>
                                 </constraints>
                             </imageView>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jyK-17-cAD">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jyK-17-cAD">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="vSE-NU-zD9">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="vSE-NU-zD9" customClass="WLCandyViewFlowLayout">
                                     <size key="itemSize" width="320" height="524"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -3918,6 +3918,7 @@ Ravenpod, Inc.
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="eto-O4-OHy" id="zVp-Xw-Fgs"/>
+                                    <outlet property="heightConstraint" destination="9Fv-zW-20Z" id="CAN-k9-O15"/>
                                 </connections>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_swipe_arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="kR2-wp-una">
@@ -3934,10 +3935,10 @@ Ravenpod, Inc.
                             <constraint firstItem="kR2-wp-una" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="192" id="6Ae-I1-8ai"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="H5m-hD-Eet" secondAttribute="bottom" id="7Hc-du-E5Y"/>
                             <constraint firstItem="hzp-4h-Ls3" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" constant="6" id="B6A-sd-1rI"/>
+                            <constraint firstItem="jyK-17-cAD" firstAttribute="bottom" secondItem="H5m-hD-Eet" secondAttribute="top" id="WQW-EM-79m"/>
                             <constraint firstItem="jyK-17-cAD" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="bPW-BY-6Fp"/>
                             <constraint firstItem="hzp-4h-Ls3" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="192" id="dTA-fW-bBH"/>
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="-20" id="eku-Sv-U5Q"/>
-                            <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="jyK-17-cAD" secondAttribute="bottom" constant="44" id="gDf-A5-Mh0"/>
                             <constraint firstAttribute="trailing" secondItem="jyK-17-cAD" secondAttribute="trailing" id="h8k-it-8fu"/>
                             <constraint firstAttribute="trailing" secondItem="kR2-wp-una" secondAttribute="trailing" constant="6" id="hI1-OZ-Il4"/>
                             <constraint firstItem="jyK-17-cAD" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="-20" id="hPI-OJ-Hy4"/>
@@ -3948,9 +3949,12 @@ Ravenpod, Inc.
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="jyK-17-cAD" id="BfX-xF-M1l"/>
+                        <outlet property="collectionViewTopConstraint" destination="hPI-OJ-Hy4" id="SgT-Bp-sES"/>
+                        <outlet property="composeBarBottomConstraint" destination="7Hc-du-E5Y" id="pjq-9M-aOP"/>
                         <outlet property="composeBarView" destination="H5m-hD-Eet" id="Fox-fh-5fg"/>
                         <outlet property="leftArrow" destination="hzp-4h-Ls3" id="TJS-jC-cPK"/>
                         <outlet property="navigationBar" destination="Wbg-W9-8Ie" id="rqy-nr-XQo"/>
+                        <outlet property="navigationBarTopConstraint" destination="eku-Sv-U5Q" id="mRj-mn-aWN"/>
                         <outlet property="reportButton" destination="sPd-Ai-V8F" id="zJ7-te-f2i"/>
                         <outlet property="rightArrow" destination="kR2-wp-una" id="oOr-gf-dnD"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="GFY-S2-eYl"/>
@@ -4291,7 +4295,6 @@ Check your internet connection and try again.</string>
                         <outlet property="collectionView" destination="ez0-f9-dHG" id="cd9-Q9-vcX"/>
                         <outlet property="composeBar" destination="dQp-Lx-kpC" id="cly-mG-GSx"/>
                         <outlet property="composeBarBottomContsraint" destination="SZx-HS-fPo" id="fIN-8N-SII"/>
-                        <outlet property="composeBarHeightConstraint" destination="3dn-cZ-dWQ" id="VJI-3r-oX1"/>
                         <outlet property="titleLabel" destination="AvF-XJ-7eQ" id="VjQ-zZ-1TG"/>
                         <outlet property="topView" destination="L7B-3N-jdg" id="gR3-Tx-BoI"/>
                     </connections>

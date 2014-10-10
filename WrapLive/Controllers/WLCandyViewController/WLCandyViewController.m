@@ -68,6 +68,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *leftArrow;
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 @property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIImageView *topBackgoundView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 
@@ -154,13 +155,6 @@
 - (void)setGroup:(WLGroup *)group {
     _group = group;
     [self.collectionView reloadData];
-}
-
-- (void)setCandy:(WLCandy *)candy {
-    _candy = candy;
-    if (self.isViewLoaded && [self.group.entries containsObject:candy]) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[self.group.entries indexOfObject:candy] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-    }
 }
 
 - (WLCandy *)candy {
@@ -323,33 +317,34 @@
 #pragma mark - WLKeyboardBroadcastReceiver
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
+    self.topBackgoundView.hidden = NO;
     self.composeBarBottomConstraint.constant = 0;
     self.navigationBarTopConstraint.constant = -20;
     self.collectionViewTopConstraint.constant = -20;
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:[broadcaster.duration doubleValue]];
-    [UIView setAnimationCurve:[broadcaster.animationCurve integerValue]];
-    [self.collectionView layoutIfNeeded];
-    [self.composeBarView layoutIfNeeded];
-    [self.navigationBar layoutIfNeeded];
-    [UIView commitAnimations];
+    __weak typeof(self)weakSelf = self;
+    [UIView animateWithDuration:[broadcaster.duration doubleValue] animations:^{
+        [UIView setAnimationCurve:[broadcaster.animationCurve integerValue]];
+        [weakSelf.collectionView layoutIfNeeded];
+        [weakSelf.composeBarView layoutIfNeeded];
+        [weakSelf.navigationBar layoutIfNeeded];
+    }];
 }
 
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
+    self.topBackgoundView.hidden = YES;
     self.composeBarBottomConstraint.constant = [keyboardHeight floatValue];
     self.navigationBarTopConstraint.constant = -self.navigationBar.height-20;
     self.collectionViewTopConstraint.constant = self.navigationBarTopConstraint.constant;
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:[broadcaster.duration doubleValue]];
-    [UIView setAnimationCurve:[broadcaster.animationCurve integerValue]];
-    [self.collectionView layoutIfNeeded];
-    [self.composeBarView layoutIfNeeded];
-    [self.navigationBar layoutIfNeeded];
-    [UIView commitAnimations];
+    [self.collectionView.collectionViewLayout prepareForAnimatedBoundsChange:self.collectionView.bounds];
     __weak typeof(self)weakSelf = self;
-    run_after_asap(^{
+    [UIView animateWithDuration:[broadcaster.duration doubleValue] animations:^{
+        [UIView setAnimationCurve:[broadcaster.animationCurve integerValue]];
+        [weakSelf.collectionView layoutIfNeeded];
+        [weakSelf.composeBarView layoutIfNeeded];
+        [weakSelf.navigationBar layoutIfNeeded];
+    } completion:^(BOOL finished) {
         [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
-    });
+    }];
 }
 
 #pragma mark - Actions

@@ -3957,6 +3957,7 @@ Ravenpod, Inc.
                         <outlet property="navigationBarTopConstraint" destination="eku-Sv-U5Q" id="mRj-mn-aWN"/>
                         <outlet property="reportButton" destination="sPd-Ai-V8F" id="zJ7-te-f2i"/>
                         <outlet property="rightArrow" destination="kR2-wp-una" id="oOr-gf-dnD"/>
+                        <outlet property="topBackgoundView" destination="Spf-Ou-0kM" id="J9Y-eM-ce8"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="GFY-S2-eYl"/>
                     </connections>
                 </viewController>

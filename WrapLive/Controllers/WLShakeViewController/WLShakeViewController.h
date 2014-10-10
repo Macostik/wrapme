@@ -17,10 +17,12 @@ typedef NS_ENUM(NSUInteger, WLWrapTransition) {
 
 @interface WLShakeViewController : UIViewController
 
+@property (assign, nonatomic) BOOL isShowPlaceholder;
 @property (nonatomic) BOOL backSwipeGestureEnabled;
 @property (nonatomic) BOOL notPresentShakeViewController;
 @property (nonatomic, strong) UIView* translucentView;
 @property (strong, nonatomic) UIImageView *noContentPlaceholder;
+@property (strong, nonatomic) UIImageView *titleNoContentPlaceholder;
 
 - (void)presentInViewController:(UIViewController*)controller transition:(WLWrapTransition)transition completion:(void (^)(void))completion;
 

@@ -55,10 +55,8 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 @interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLNotificationReceiver, WLCreateWrapViewControllerDelegate>
 
-@property (assign, nonatomic) BOOL isShowPlaceholder;
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
-@property (strong, nonatomic) UIImageView *noContentPlaceholder;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
@@ -122,26 +120,10 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self emailConfirmationViewIsHidden:[[WLSession confirmationDate] isToday]];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self.noContentPlaceholder removeFromSuperview];
-}
-
-- (void)setIsShowPlaceholder:(BOOL)isShowPlaceholder {
-    if (_isShowPlaceholder != isShowPlaceholder) {
-        _isShowPlaceholder = isShowPlaceholder;
-        if (isShowPlaceholder) {
-            [self showPlaceholder];
-        } else {
-            [self.noContentPlaceholder removeFromSuperview];
-        }
-    }
-}
-
 - (void)showPlaceholder {
-    self.noContentPlaceholder = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create_new_wrap"]];
-    self.noContentPlaceholder.center = CGPointMake(self.view.center.x, self.view.center.y - 180) ;
-    [self.view insertSubview:self.noContentPlaceholder atIndex:0];
+    self.titleNoContentPlaceholder = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create_new_wrap"]];
+    self.titleNoContentPlaceholder.center = CGPointMake(self.view.center.x, self.view.center.y - 180.0f) ;
+    [self.view insertSubview:self.titleNoContentPlaceholder atIndex:0];
     [super showPlaceholder];
 }
 

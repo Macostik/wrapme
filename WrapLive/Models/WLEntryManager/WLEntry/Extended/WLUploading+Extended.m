@@ -84,6 +84,7 @@
     self.operation = [self.contribution add:^(WLContribution *contribution) {
         [weakSelf remove];
         success(contribution);
+        [contribution notifyOnUpdate];
     } failure:^(NSError *error) {
         if (error.isDuplicatedUploading) {
             [weakSelf.contribution remove];

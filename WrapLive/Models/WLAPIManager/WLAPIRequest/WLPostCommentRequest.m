@@ -37,7 +37,6 @@
     WLComment* comment = self.comment;
     [comment API_setup:[response.data dictionaryForKey:@"comment"]];
     [comment.candy touch:comment.createdAt];
-    [comment notifyOnUpdate];
     return comment;
 }
 

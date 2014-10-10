@@ -52,7 +52,6 @@
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 
-@property (nonatomic) BOOL autoenqueueUploading;
 @property (nonatomic) BOOL shouldLoadMoreCandies;
 @property (strong, nonatomic) WLToast* dateChangeToast;
 
@@ -265,13 +264,10 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
     [self.collectionView reloadData];
-    if (self.autoenqueueUploading) {
-        self.autoenqueueUploading = NO;
-        if ([candy.comments match:^BOOL(WLComment* comment) {
-            return !comment.uploaded;
-        }]) {
-            [WLUploading enqueueAutomaticUploading];
-        }
+    if (candy.uploaded && [candy.comments match:^BOOL(WLComment* comment) {
+        return !comment.uploaded;
+    }]) {
+        [WLUploading enqueueAutomaticUploading];
     }
 }
 
@@ -349,7 +345,6 @@
         [weakSelf.candyCell reloadComments];
     } failure:^(NSError *error) {
     }];
-    self.autoenqueueUploading = !image.uploaded;
     [self.candyCell.tableView scrollToBottomAnimated:YES];
 }
 
@@ -424,3 +419,4 @@
 }
 
 @end
+

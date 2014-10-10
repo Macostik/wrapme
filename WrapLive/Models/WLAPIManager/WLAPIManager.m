@@ -19,6 +19,7 @@
 #import "WLWelcomeViewController.h"
 #import "WLImageCache.h"
 #import "WLPerson.h"
+#import "WLAddWrapRequest.h"
 #import "WLUploadWrapRequest.h"
 #import "WLAuthorizationRequest.h"
 #import "WLWrapRequest.h"
@@ -138,7 +139,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
 }
 
 - (id)add:(WLWrapBlock)success failure:(WLFailureBlock)failure {
-    return [[WLUploadWrapRequest request:self] send:success failure:failure];
+    return [[WLAddWrapRequest request:self] send:success failure:failure];
 }
 
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {

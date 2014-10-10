@@ -129,7 +129,18 @@ static CTCallCenter *callCenter;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.noContentPlaceholder removeFromSuperview];
+}
+
+- (void)setIsShowPlaceholder:(BOOL)isShowPlaceholder {
+    if (_isShowPlaceholder != isShowPlaceholder) {
+        _isShowPlaceholder = isShowPlaceholder;
+        if (isShowPlaceholder) {
+            [self showPlaceholder];
+        } else {
+            [self.noContentPlaceholder removeFromSuperview];
+            [self.titleNoContentPlaceholder removeFromSuperview];
+        }
+    }
 }
 
 - (void)showPlaceholder {

@@ -1,5 +1,5 @@
 //
-//  WLUploadWrapRequest.h
+//  WLAddWrapRequest.h
 //  WrapLive
 //
 //  Created by Yura Granchenko on 10/10/14.
@@ -8,6 +8,6 @@
 
 #import "WLBaseOperationWrapRequest.h"
 
-@interface WLUploadWrapRequest : WLBaseOperationWrapRequest
+@interface WLAddWrapRequest : WLBaseOperationWrapRequest
 
 @end

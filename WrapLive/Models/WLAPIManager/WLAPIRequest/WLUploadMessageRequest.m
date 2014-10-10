@@ -36,7 +36,6 @@
     WLMessage* message = self.message;
     [message API_setup:[response.data dictionaryForKey:@"chat"]];
     [message.wrap touch:message.createdAt];
-    [message notifyOnUpdate];
     return message;
 }
 

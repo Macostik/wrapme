@@ -6,61 +6,64 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLHomeViewController.h"
-#import "WLWrapCell.h"
-#import "WLEntryManager.h"
-#import "WLImageFetcher.h"
-#import "WLWrapViewController.h"
-#import "WLNavigation.h"
-#import "UIView+Shorthand.h"
-#import "WLCameraViewController.h"
+#import "AsynchronousOperation.h"
 #import "NSArray+Additions.h"
 #import "NSDate+Formatting.h"
-#import "WLCandyViewController.h"
-#import "UIColor+CustomColors.h"
-#import "WLComment.h"
-#import "WLImageCache.h"
-#import "UIFont+CustomFonts.h"
-#import "WLRefresher.h"
-#import "WLChatViewController.h"
-#import "WLLoadingView.h"
-#import "UIViewController+Additions.h"
-#import "WLEntryNotifier.h"
-#import "UILabel+Additions.h"
-#import "WLCreateWrapViewController.h"
-#import "UIAlertView+Blocks.h"
+#import "NSString+Additions.h"
 #import "UIActionSheet+Blocks.h"
-#import "WLToast.h"
+#import "UIAlertView+Blocks.h"
+#import "UIColor+CustomColors.h"
+#import "UIFont+CustomFonts.h"
+#import "UILabel+Additions.h"
+#import "UIView+AnimationHelper.h"
+#import "UIView+Shorthand.h"
+#import "UIViewController+Additions.h"
+#import "WLAPIManager.h"
+#import "WLCameraViewController.h"
+#import "WLCandyViewController.h"
+#import "WLChatViewController.h"
+#import "WLCollectionViewDataProvider.h"
+#import "WLComment.h"
+#import "WLCreateWrapViewController.h"
+#import "WLEntryFetching.h"
+#import "WLEntryManager.h"
+#import "WLEntryNotifier.h"
+#import "WLHomeViewController.h"
+#import "WLHomeViewSection.h"
+#import "WLImageCache.h"
+#import "WLImageFetcher.h"
+#import "WLLoadingView.h"
+#import "WLNavigation.h"
+#import "WLNotification.h"
+#import "WLNotificationCenter.h"
+#import "WLPaginatedSet.h"
+#import "WLQuickChatView.h"
+#import "WLRefresher.h"
+#import "WLResendConfirmationRequest.h"
+#import "WLSession.h"
+#import "WLSizeToFitLabel.h"
 #import "WLStillPictureViewController.h"
 #import "WLSupportFunctions.h"
-#import "NSString+Additions.h"
-#import "WLQuickChatView.h"
-#import "WLNotificationCenter.h"
-#import "WLNotification.h"
-#import "UIView+AnimationHelper.h"
-#import "AsynchronousOperation.h"
-#import "WLPaginatedSet.h"
-#import "WLAPIManager.h"
-#import "WLWrapsRequest.h"
-#import "WLCollectionViewDataProvider.h"
-#import "WLHomeViewSection.h"
-#import "WLNavigation.h"
+#import "WLToast.h"
 #import "WLUserView.h"
-#import "WLEntryFetching.h"
-#import "WLResendConfirmationRequest.h"
-#import "WLSizeToFitLabel.h"
+#import "WLWrapCell.h"
+#import "WLWrapViewController.h"
+#import "WLWrapsRequest.h"
+
+static NSString *const WLTimeLineKey = @"WLTimeLineKey";
+static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 @interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLNotificationReceiver, WLCreateWrapViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIView *navigationBar;
-@property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
-@property (weak, nonatomic) IBOutlet WLUserView *userView;
-@property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
-@property (weak, nonatomic) IBOutlet WLSizeToFitLabel *notificationsLabel;
-@property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
-@property (strong, nonatomic) UIImageView *noContentPlaceholder;
 @property (assign, nonatomic) BOOL isShowPlaceholder;
+@property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
+@property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
+@property (strong, nonatomic) UIImageView *noContentPlaceholder;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
+@property (weak, nonatomic) IBOutlet UIView *navigationBar;
+@property (weak, nonatomic) IBOutlet WLSizeToFitLabel *notificationsLabel;
+@property (weak, nonatomic) IBOutlet WLUserView *userView;
 
 @end
 
@@ -116,7 +119,7 @@
 	[self.userView update];
     [self.dataProvider reload];
     [self updateNotificationsLabel];
-    [self updateEmailConfirmationView];
+    [self emailConfirmationViewIsHidden:[[WLSession confirmationDate] isToday]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -142,20 +145,28 @@
     [super showPlaceholder];
 }
 
-- (void)updateEmailConfirmationView {
-    BOOL confirmed = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
-    UIView* view = self.emailConfirmationView;
-    if (view.hidden != confirmed) {
-        view.hidden = confirmed;
-        CGFloat y = confirmed ? self.navigationBar.height : view.bottom;
-        [self.collectionView setY:y height:self.view.height - y];
+- (void)emailConfirmationViewIsHidden:(BOOL)hidden {
+    self.emailConfirmationView.hidden = hidden;
+    CGFloat y = hidden ? self.navigationBar.height : self.emailConfirmationView.bottom;
+    [self.collectionView setY:y height:self.view.height - y];
+    if (!hidden) {
+         [self deadlineEmailConfirmationView];
     }
+}
+
+- (void)deadlineEmailConfirmationView {
+    [WLSession setConfirmationDate:[NSDate now]];
+    [self performSelector:@selector(hideConfirmationEmailView) withObject:nil afterDelay:15.0f];
+}
+
+- (void)hideConfirmationEmailView {
+    [self emailConfirmationViewIsHidden:YES];
 }
 
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
-    [self updateEmailConfirmationView];
+    [self emailConfirmationViewIsHidden:[[WLSession confirmationDate] isToday]];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {

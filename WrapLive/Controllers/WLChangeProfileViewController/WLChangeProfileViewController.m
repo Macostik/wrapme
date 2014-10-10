@@ -120,6 +120,10 @@
 	if ([self isAtObjectSessionChanged]) {
         
 		if ([self.editSession.email isValidEmail]) {
+            if (self.editSession.hasChangedEmail &&
+                ![[WLAuthorization currentAuthorization].email isEqualToString:self.editSession.email]) {
+                [WLSession setConfirmationDate:nil];
+            }
 			[super updateIfNeeded:completion];
 			__weak typeof(self)weakSelf = self;
             [self.editSession apply:self.user];

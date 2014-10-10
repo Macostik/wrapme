@@ -6,11 +6,10 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLProfileEditSession.h"
-#import "WlUser.h"
 #import "NSDictionary+Extended.h"
 #import "WLAuthorization.h"
-
+#import "WLProfileEditSession.h"
+#import "WlUser.h"
 @implementation WLProfileEditSession
 
 - (void)setName:(NSString *)name {
@@ -43,12 +42,24 @@
     [dictionary trySetObject:user.picture.large forKey:@"url"];
 }
 
+- (BOOL)hasChangedName {
+    return ![self.name isEqualToString:[self.original objectForKey:@"name"]];
+}
+
+- (BOOL)hasChangedEmail {
+    return ![self.email isEqualToString:[self.original objectForKey:@"email"]];
+}
+
+- (BOOL)hasChangedUrl {
+    return ![self.url isEqualToString:[self.original objectForKey:@"url"]];
+}
+
 - (BOOL)hasChanges {
-    if (![self.name isEqualToString:[self.original objectForKey:@"name"]]) {
+    if ([self hasChangedName]) {
         return YES;
-    } else if (![self.email isEqualToString:[self.original objectForKey:@"email"]]) {
+    } else if ([self hasChangedEmail]) {
         return YES;
-    } else if (![self.url isEqualToString:[self.original objectForKey:@"url"]]) {
+    } else if ([self hasChangedUrl]) {
         return YES;
     } else {
         return NO;

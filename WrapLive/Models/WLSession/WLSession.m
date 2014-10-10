@@ -23,6 +23,7 @@ static NSString* WLSessionPhoneNumberKey = @"WrapLivePhoneNumber";
 static NSString* WLSessionCountryCallingCodeKey = @"WrapLiveCountryCallingCode";
 static NSString* WLSessionEmailKey = @"WLSessionEmailKey";
 static NSString* WLSessionDeviceTokenKey = @"WrapLiveDeviceToken";
+static NSString *WLSessionConfirmationKey = @"WLSessionConfirmationConditions";
 
 @implementation WLSession
 
@@ -60,6 +61,7 @@ static WLAuthorization* _authorization = nil;
 }
 
 static NSData* _deviceToken = nil;
+static NSDate *_confirmationDate = nil;
 
 + (NSData *)deviceToken {
 	if (!_deviceToken) {
@@ -71,6 +73,19 @@ static NSData* _deviceToken = nil;
 + (void)setDeviceToken:(NSData *)deviceToken {
 	_deviceToken = deviceToken;
 	[WLUserDefaults setObject:deviceToken forKey:WLSessionDeviceTokenKey];
+    [self synchronize];
+}
+
++ (NSDate *)confirmationDate {
+    if (!_confirmationDate) {
+        _confirmationDate = [WLUserDefaults objectForKey:WLSessionConfirmationKey];
+    }
+    return _confirmationDate;
+}
+
++ (void)setConfirmationDate:(NSDate *)confirmationDate {
+    _confirmationDate = confirmationDate;
+    [WLUserDefaults setObject:confirmationDate forKey:WLSessionConfirmationKey];
     [self synchronize];
 }
 

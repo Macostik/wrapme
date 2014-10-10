@@ -42,6 +42,10 @@ static NSUserDefaults* WLUserDefaults = nil;
 
 + (void)setDeviceToken:(NSData*)deviceToken;
 
++ (NSDate *)confirmationDate;
+
++ (void)setConfirmationDate:(NSDate *)confirmationConditions;
+
 + (void)setObject:(id)o key:(NSString*)k;
 
 + (void)setDouble:(double)d key:(NSString*)k;

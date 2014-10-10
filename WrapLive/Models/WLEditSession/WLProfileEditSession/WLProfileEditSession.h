@@ -16,4 +16,10 @@
 
 @property (strong, nonatomic) NSString *url;
 
+- (BOOL)hasChangedName;
+
+- (BOOL)hasChangedEmail;
+
+- (BOOL)hasChangedUrl;
+
 @end

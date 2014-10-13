@@ -2806,7 +2806,6 @@
 		ACCF9B8518E17D5E00A7429F /* SignUpSteps */ = {
 			isa = PBXGroup;
 			children = (
-				5BB04F1519D979E300B5C6EE /* WLTestUserCell */,
 				ACCF9B8B18E185DB00A7429F /* WLPhoneNumberViewController */,
 				ACCF9B8D18E185F200A7429F /* WLActivationViewController */,
 				ACCF9B9318E1869800A7429F /* WLProfileInformationViewController */,
@@ -2820,6 +2819,7 @@
 				ACCF9B8618E185D200A7429F /* WLPhoneNumberViewController.h */,
 				ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */,
 				ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */,
+				5BB04F1519D979E300B5C6EE /* WLTestUserCell */,
 				12DE6981192E0B0F007580AD /* WLTestUserPicker.h */,
 				12DE6982192E0B0F007580AD /* WLTestUserPicker.m */,
 			);

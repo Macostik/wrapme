@@ -141,19 +141,28 @@ static WLDataBlock deviceTokenCompletion = nil;
     [self.userChannel setName:[NSString stringWithFormat:@"%@-%@", name, [WLAuthorization currentAuthorization].deviceUID] subscribe:NO];
     __weak typeof(self)weakSelf = self;
     [self.userChannel subscribe:^{
-        [PubNub requestHistoryForChannel:self.userChannel.channel from:[PNDate dateWithDate:weakSelf.historyDate] to:[PNDate dateWithDate:[NSDate date]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, PNChannel *channel, PNDate *from, PNDate *to, PNError *error) {
+        [weakSelf requestHistory];
+    } failure:nil];
+    [PubNub setClientIdentifier:name];
+}
+
+- (void)requestHistory {
+    NSDate *historyDate = self.historyDate;
+    if (historyDate) {
+        __weak typeof(self)weakSelf = self;
+        [PubNub requestHistoryForChannel:self.userChannel.channel from:[PNDate dateWithDate:historyDate] to:[PNDate dateWithDate:[NSDate now]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, PNChannel *channel, PNDate *from, PNDate *to, PNError *error) {
             if (!error) {
                 if (messages.nonempty) {
-                    NSDate *recivedDate = [[[messages.lastObject receiveDate] date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
-                    weakSelf.historyDate = recivedDate;
-                    for (PNMessage* message in messages) {
-                        weakSelf.userChannel.messageBlock(message);
-                    }
+                    weakSelf.historyDate = [[[messages.lastObject receiveDate] date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
+                    [messages all:weakSelf.userChannel.messageBlock];
+                } else {
+                    weakSelf.historyDate = [NSDate now];
                 }
             }
         }];
-    } failure:nil];
-    [PubNub setClientIdentifier:name];
+    } else {
+        self.historyDate = [NSDate now];
+    }
 }
 
 - (void)connect {

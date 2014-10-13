@@ -41,15 +41,19 @@
 
 - (void)testUsers:(void (^)(NSArray *))completion {
     if (completion) {
-        completion([[NSArray resourcePropertyListNamed:self.testUsersPropertyListName] map:^id(id item) {
-            WLAuthorization* authorization = [[WLAuthorization alloc] init];
-            authorization.deviceUID = [item objectForKey:@"deviceUID"];
-            authorization.countryCode = [item objectForKey:@"countryCode"];
-            authorization.phone = [item objectForKey:@"phone"];
-            authorization.email = [item objectForKey:@"email"];
-            authorization.activationCode = [item objectForKey:@"activationCode"];
-            authorization.password = [item objectForKey:@"password"];
-            return authorization;
+        completion([[NSArray resourcePropertyListNamed:self.testUsersPropertyListName] map:^id(NSDictionary* item) {
+            NSMutableDictionary* group = [item mutableCopy];
+            group[@"users"] = [[group arrayForKey:@"users"] map:^id(NSDictionary* item) {
+                WLAuthorization* authorization = [[WLAuthorization alloc] init];
+                authorization.deviceUID = [item objectForKey:@"deviceUID"];
+                authorization.countryCode = [item objectForKey:@"countryCode"];
+                authorization.phone = [item objectForKey:@"phone"];
+                authorization.email = [item objectForKey:@"email"];
+                authorization.activationCode = [item objectForKey:@"activationCode"];
+                authorization.password = [item objectForKey:@"password"];
+                return authorization;
+            }];
+            return group;
         }]);
     }
 }

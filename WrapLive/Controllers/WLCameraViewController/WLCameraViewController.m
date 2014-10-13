@@ -59,29 +59,15 @@
     
 	if (self.presentingViewController) {
 		self.view.frame = self.presentingViewController.view.bounds;
+        [self.view layoutIfNeeded];
 	}
 	
 	self.position = self.defaultPosition;
 	self.flashMode = AVCaptureFlashModeOff;
 	self.flashModeControl.mode = self.flashMode;
-    
-	if (self.mode == WLCameraModeCandy) {
-		self.topView.backgroundColor = [UIColor clearColor];
-		self.bottomView.backgroundColor = [self.bottomView.backgroundColor colorWithAlphaComponent:0.5f];
-		[self.cameraView setFullFlexible];
-		self.cameraView.frame = self.view.frame;
-		[self.bottomView setFlexibleBottom];
-		self.bottomView.height = self.takePhotoButton.height;
-		self.bottomView.y = self.view.height - self.bottomView.height - (self.wrap ? 36 : 0);
-	} else {
-		self.cameraView.y = self.topView.bottom;
-		self.cameraView.height = self.cameraView.width;
-		if (self.mode == WLCameraModeAvatar) {
-			self.rotateButton.hidden = YES;
-		}
-		self.bottomView.y = self.cameraView.bottom;
-		self.bottomView.height = self.view.height - self.bottomView.y;
-	}
+    if (self.mode == WLCameraModeAvatar) {
+        self.rotateButton.hidden = YES;
+    }
 	
 	[self configurePreviewLayer];
 	

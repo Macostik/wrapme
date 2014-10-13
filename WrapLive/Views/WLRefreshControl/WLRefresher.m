@@ -80,16 +80,20 @@ static CGFloat WLRefresherContentSize = 44.0f;
 }
 
 + (WLRefresher*)refresher:(UIScrollView *)scrollView horizontal:(BOOL)horizontal {
+    UIViewAutoresizing autoresizing;
     CGRect frame = (CGRect){.size = scrollView.size};
 	CGRect contentFrame;
 	if (horizontal) {
         frame.origin.x = -scrollView.width;
 		contentFrame = CGRectMake(frame.size.width - WLRefresherContentSize, 0, WLRefresherContentSize, frame.size.height);
+        autoresizing = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleHeight;
 	} else {
         frame.origin.y = -scrollView.height;
 		contentFrame = CGRectMake(0, frame.size.height - WLRefresherContentSize, frame.size.width, WLRefresherContentSize);
+        autoresizing = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
 	}
 	WLRefresher* refresher = [[WLRefresher alloc] initWithFrame:frame];
+    refresher.autoresizingMask = autoresizing;
 	refresher.horizontal = horizontal;
 	refresher.backgroundColor = [UIColor WL_orangeColor];
 	[scrollView addSubview:refresher];
@@ -101,11 +105,10 @@ static CGFloat WLRefresherContentSize = 44.0f;
 
 - (void)setContentMode:(UIViewContentMode)contentMode {
 	[super setContentMode:contentMode];
-	
 	CGPoint center = self.contentView.centerBoundary;
 	if (!_horizontal && contentMode == UIViewContentModeLeft) {
 		center.x = center.y;
-	}
+    }
 	self.spinner.center = center;
 	self.arrowView.center = center;
 }
@@ -155,6 +158,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
 	if (!_contentView) {
 		UIView* contentView = [[UIView alloc] init];
 		contentView.backgroundColor = [UIColor clearColor];
+        contentView.autoresizingMask = self.autoresizingMask;
 		[self addSubview:contentView];
 		_contentView = contentView;
 	}
@@ -173,7 +177,9 @@ static CGFloat WLRefresherContentSize = 44.0f;
                 [self setArrowViewHidden:YES];
                 [self setInset:WLRefresherContentSize animated:animated];
                 [self.scrollView scrollToTopAnimated:animated];
-                [self sendActionsForControlEvents:UIControlEventValueChanged];
+                [UIView performWithoutAnimation:^{
+                    [self sendActionsForControlEvents:UIControlEventValueChanged];
+                }];
             }
         } else {
             _refreshing = NO;

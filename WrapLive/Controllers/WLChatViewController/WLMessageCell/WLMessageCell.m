@@ -23,11 +23,12 @@
 
 @interface WLMessageCell ()
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewConstraint;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
-@property (strong, nonatomic) NSArray *bubbleImages;
+
 @end
 
 @protocol WLChatMessage <NSObject>
@@ -73,8 +74,7 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.avatarView.circled = YES;
-    self.bubbleImages = @[[[UIImage imageNamed:@"gray_Bubble"] resizableImageWithCapInsets:UIEdgeInsetsMake(WLPadding, WLPadding, WLBottomIdent, 18)],
-                          [[UIImage imageNamed:@"red_Bubble"] resizableImageWithCapInsets:UIEdgeInsetsMake(WLPadding, 18, WLBottomIdent, WLPadding)]];
+    self.messageTextView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, -5);
 }
 
 - (void)setupItemData:(id <WLChatMessage>)message {
@@ -85,24 +85,11 @@
     }];
 	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(message.contributor.name), WLString([message.displayDate stringWithFormat:@"HH:mm"])];
     [self.messageTextView determineHyperLink:message.text withFont:[UIFont lightFontOfSize:15.0f]];
-    self.messageTextView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, -5);
 	[UIView performWithoutAnimation:^{
-        CGSize size = [weakSelf.messageTextView sizeThatFits:CGSizeMake(250, CGFLOAT_MAX)];
-        weakSelf.messageTextView.size = CGSizeMake(MAX(WLMinBubbleWidth, size.width), size.height);
-        if (weakSelf.avatarView.x > weakSelf.messageTextView.x) {
-            weakSelf.messageTextView.x = weakSelf.avatarView.x - weakSelf.messageTextView.width - WLMessageAuthorLabelHeight/2;
-        }
+        CGSize size = [weakSelf.messageTextView sizeThatFits:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)];
+        weakSelf.textViewConstraint.constant = weakSelf.width - 65 - MAX(WLMinBubbleWidth, size.width);
+        [weakSelf.messageTextView layoutIfNeeded];
 	}];
-    [self drawMessageBubbleForCandy:message];
-    self.bubbleImageView.hidden = !message.text.nonempty;
-}
-
-- (void)drawMessageBubbleForCandy:(WLCandy *)candy {
-    self.bubbleImageView.image = self.bubbleImages[![candy.contributor isCurrentUser]];
-    self.bubbleImageView.frame = self.messageTextView.frame;
-    self.bubbleImageView.x -= WLPadding;
-    self.bubbleImageView.height += 10;
-    self.bubbleImageView.width += 2*WLPadding;
 }
 
 @end

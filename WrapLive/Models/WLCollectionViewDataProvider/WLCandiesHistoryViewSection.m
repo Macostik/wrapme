@@ -14,7 +14,7 @@
 @implementation WLCandiesHistoryViewSection
 
 - (CGSize)size:(NSIndexPath *)indexPath {
-    return CGSizeMake(self.collectionView.width, (self.collectionView.width/2.5 + 28));
+    return CGSizeMake(self.collectionView.width, (self.collectionView.width/2.5f + 28.0f));
 }
 
 - (void)select:(NSIndexPath *)indexPath {

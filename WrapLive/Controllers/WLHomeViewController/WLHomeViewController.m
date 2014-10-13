@@ -59,6 +59,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet WLSizeToFitLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
@@ -141,8 +142,14 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self performSelector:@selector(hideConfirmationEmailView) withObject:nil afterDelay:15.0f];
 }
 
-- (void)hideConfirmationEmailView {
-    [self emailConfirmationViewIsHidden:YES];
+- (void)updateEmailConfirmationView {
+    BOOL confirmed = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
+    UIView* view = self.emailConfirmationView;
+    if (view.hidden != confirmed) {
+        view.hidden = confirmed;
+        self.topConstraint.constant = (confirmed ? self.navigationBar.height : view.bottom) - 20;
+        [self.view layoutIfNeeded];
+    }
 }
 
 #pragma mark - WLEntryNotifyReceiver

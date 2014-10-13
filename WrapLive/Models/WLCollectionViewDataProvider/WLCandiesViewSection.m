@@ -16,7 +16,7 @@
 
 - (CGSize)size:(NSIndexPath *)indexPath {
     CGFloat size = self.collectionView.bounds.size.width/2.5;
-    return CGSizeMake(size, size);
+    return CGSizeMake(size, self.collectionView.bounds.size.height);
 }
 
 - (CGFloat)fixedContentOffset:(CGFloat)offset {

@@ -30,6 +30,7 @@ static NSUInteger WLComposeBarMinHeight = 44;
 @property (strong, nonatomic) UIView *composeView;
 @property (nonatomic) CGRect defaultSize;
 @property (strong, nonatomic) WLEmojiView * emojiView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
 
 @end
 
@@ -57,6 +58,15 @@ static NSUInteger WLComposeBarMinHeight = 44;
         if ([self.delegate respondsToSelector:@selector(composeBarHeightDidChanged:)]) {
             [self.delegate composeBarHeightDidChanged:self];
         }
+    }
+}
+
+- (void)setHeight:(CGFloat)height {
+    if (self.heightConstraint) {
+        self.heightConstraint.constant = height;
+        [self layoutIfNeeded];
+    } else {
+        [super setHeight:height];
     }
 }
 

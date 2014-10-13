@@ -693,7 +693,8 @@ Cg
                                                     <fragment>
                                                         <string key="content">To contact us, please email us using this link or write to:
 
-Ravenpod, Inc. , 505 14th St., Suite 900, Oakland, CA 94612</string>
+Ravenpod, Inc.
+, 505 14th St., Suite 900, Oakland, CA 94612</string>
                                                         <attributes>
                                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
@@ -1750,7 +1751,7 @@ Ravenpod, Inc. , 505 14th St., Suite 900, Oakland, CA 94612</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="4Lj-zh-Ha2" customClass="WLImageView">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="4Lj-zh-Ha2" customClass="WLImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>

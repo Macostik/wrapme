@@ -121,15 +121,19 @@
 }
 
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
-	__weak typeof(self)weakSelf = self;
 	CGSize viewSize = self.cameraViewController.viewSize;
 	run_getting_object(^id{
-		CGFloat width = [weakSelf imageWidthForCurrentMode];
-        UIImage *result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(width, width)];
-		if (weakSelf.mode != WLCameraModeCandy) {
-			result = [result croppedImage:CGRectThatFitsSize(result.size, viewSize)];
-		}
-		return result;
+        UIImage *result = image;
+        CGFloat resultWidth = [self imageWidthForCurrentMode];
+        CGFloat scale = viewSize.width / resultWidth;
+        CGSize newSize = CGSizeMake(resultWidth, viewSize.height / scale);
+        result = [result resizedImageWithContentModeScaleAspectFill:CGSizeMake(resultWidth, 1)];
+        if (result.size.width > result.size.height) {
+            result = [result croppedImage:CGRectThatFitsSize(result.size, CGSizeMake(newSize.height, newSize.width))];
+        } else {
+            result = [result croppedImage:CGRectThatFitsSize(result.size, newSize)];
+        }
+        return result;
 	}, completion);
 }
 

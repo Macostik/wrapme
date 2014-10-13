@@ -147,10 +147,6 @@
 		5BB04F1C19D9817100B5C6EE /* WLBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F1A19D9817100B5C6EE /* WLBlocks.m */; };
 		5BB04F1D19D9817100B5C6EE /* WLBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F1A19D9817100B5C6EE /* WLBlocks.m */; };
 		5BB04F1E19D9817100B5C6EE /* WLBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F1A19D9817100B5C6EE /* WLBlocks.m */; };
-		5BB04F2219D981B900B5C6EE /* WLSupportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2119D981B900B5C6EE /* WLSupportFunctions.m */; };
-		5BB04F2319D981B900B5C6EE /* WLSupportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2119D981B900B5C6EE /* WLSupportFunctions.m */; };
-		5BB04F2419D981B900B5C6EE /* WLSupportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2119D981B900B5C6EE /* WLSupportFunctions.m */; };
-		5BB04F2519D981B900B5C6EE /* WLSupportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2119D981B900B5C6EE /* WLSupportFunctions.m */; };
 		5BB04F2819D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
 		5BB04F2919D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
 		5BB04F2A19D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
@@ -1340,7 +1336,6 @@
 		5BB04F1919D9817100B5C6EE /* WLBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBlocks.h; path = WLBlocks/WLBlocks.h; sourceTree = "<group>"; };
 		5BB04F1A19D9817100B5C6EE /* WLBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBlocks.m; path = WLBlocks/WLBlocks.m; sourceTree = "<group>"; };
 		5BB04F2019D981B900B5C6EE /* WLSupportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSupportFunctions.h; path = WLSupportFunctions/WLSupportFunctions.h; sourceTree = "<group>"; };
-		5BB04F2119D981B900B5C6EE /* WLSupportFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSupportFunctions.m; path = WLSupportFunctions/WLSupportFunctions.m; sourceTree = "<group>"; };
 		5BB04F2619D9822300B5C6EE /* WLEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditViewController.h; path = WLEditViewController/WLEditViewController.h; sourceTree = "<group>"; };
 		5BB04F2719D9822300B5C6EE /* WLEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditViewController.m; path = WLEditViewController/WLEditViewController.m; sourceTree = "<group>"; };
 		5BB04F2C19D9824500B5C6EE /* WLEditWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditWrapViewController.h; path = WLEditWrapViewController/WLEditWrapViewController.h; sourceTree = "<group>"; };
@@ -2746,7 +2741,6 @@
 			isa = PBXGroup;
 			children = (
 				5BB04F2019D981B900B5C6EE /* WLSupportFunctions.h */,
-				5BB04F2119D981B900B5C6EE /* WLSupportFunctions.m */,
 			);
 			name = WLSupportFunctions;
 			sourceTree = "<group>";
@@ -4001,7 +3995,6 @@
 				121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */,
 				1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */,
 				C55C8D7C19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
-				5BB04F2219D981B900B5C6EE /* WLSupportFunctions.m in Sources */,
 				C5F99B6F196BEB0C00A3FB19 /* WLMenu.m in Sources */,
 				12E1104519066C7C007DB4AC /* UIView+QuatzCoreAnimations.m in Sources */,
 				12F0DAF019338C9100F9D898 /* SegmentedControl.m in Sources */,
@@ -4214,7 +4207,6 @@
 				C54AF4E919B8C437006F7EDB /* NSObject+NibAdditions.m in Sources */,
 				C54AF4EA19B8C437006F7EDB /* NSArray+Additions.m in Sources */,
 				C55C8D7D19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
-				5BB04F2319D981B900B5C6EE /* WLSupportFunctions.m in Sources */,
 				C54AF4EB19B8C437006F7EDB /* WLMenu.m in Sources */,
 				C54AF4EC19B8C437006F7EDB /* UIView+QuatzCoreAnimations.m in Sources */,
 				C54AF4ED19B8C437006F7EDB /* SegmentedControl.m in Sources */,
@@ -4427,7 +4419,6 @@
 				C54AF5E619B8C467006F7EDB /* NSObject+NibAdditions.m in Sources */,
 				C54AF5E719B8C467006F7EDB /* NSArray+Additions.m in Sources */,
 				C55C8D7E19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
-				5BB04F2419D981B900B5C6EE /* WLSupportFunctions.m in Sources */,
 				C54AF5E819B8C467006F7EDB /* WLMenu.m in Sources */,
 				C54AF5E919B8C467006F7EDB /* UIView+QuatzCoreAnimations.m in Sources */,
 				C54AF5EA19B8C467006F7EDB /* SegmentedControl.m in Sources */,
@@ -4640,7 +4631,6 @@
 				C54AF6E319B8C491006F7EDB /* NSObject+NibAdditions.m in Sources */,
 				C54AF6E419B8C491006F7EDB /* NSArray+Additions.m in Sources */,
 				C55C8D7F19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
-				5BB04F2519D981B900B5C6EE /* WLSupportFunctions.m in Sources */,
 				C54AF6E519B8C491006F7EDB /* WLMenu.m in Sources */,
 				C54AF6E619B8C491006F7EDB /* UIView+QuatzCoreAnimations.m in Sources */,
 				C54AF6E719B8C491006F7EDB /* SegmentedControl.m in Sources */,

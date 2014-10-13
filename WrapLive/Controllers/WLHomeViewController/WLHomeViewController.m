@@ -142,6 +142,10 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self performSelector:@selector(hideConfirmationEmailView) withObject:nil afterDelay:15.0f];
 }
 
+- (void)hideConfirmationEmailView {
+    [self emailConfirmationViewIsHidden:YES];
+}
+
 - (void)updateEmailConfirmationView {
     BOOL confirmed = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
     UIView* view = self.emailConfirmationView;

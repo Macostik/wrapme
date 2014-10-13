@@ -129,11 +129,14 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 - (void)emailConfirmationViewIsHidden:(BOOL)hidden {
-    self.emailConfirmationView.hidden = hidden;
-    CGFloat y = hidden ? self.navigationBar.height : self.emailConfirmationView.bottom;
-    [self.collectionView setY:y height:self.view.height - y];
-    if (!hidden) {
-         [self deadlineEmailConfirmationView];
+    UIView* view = self.emailConfirmationView;
+    if (view.hidden != hidden) {
+        view.hidden = hidden;
+        self.topConstraint.constant = (hidden ? self.navigationBar.height : view.bottom) - 20;
+        [self.view layoutIfNeeded];
+        if (!hidden) {
+            [self deadlineEmailConfirmationView];
+        }
     }
 }
 
@@ -144,16 +147,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (void)hideConfirmationEmailView {
     [self emailConfirmationViewIsHidden:YES];
-}
-
-- (void)updateEmailConfirmationView {
-    BOOL confirmed = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
-    UIView* view = self.emailConfirmationView;
-    if (view.hidden != confirmed) {
-        view.hidden = confirmed;
-        self.topConstraint.constant = (confirmed ? self.navigationBar.height : view.bottom) - 20;
-        [self.view layoutIfNeeded];
-    }
 }
 
 #pragma mark - WLEntryNotifyReceiver

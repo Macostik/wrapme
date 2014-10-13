@@ -165,8 +165,8 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)handleRemoteNotification:(NSDictionary *)data success:(WLBlock)success failure:(WLFailureBlock)failure {
-    if (!data && failure)  {
-        failure(nil);
+    if (!data)  {
+        if (failure) failure(nil);
         return;
     }
     switch ([UIApplication sharedApplication].applicationState) {

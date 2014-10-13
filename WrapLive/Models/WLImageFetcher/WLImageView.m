@@ -52,10 +52,10 @@
 		self.alpha = 0.0f;
         __weak typeof(self)weakSelf = self;
         NSTimeInterval duration = self.animatingPicture.animate ? 0.5f : 0.33f;
+        self.animatingPicture.animate = NO;
         [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             weakSelf.alpha = alpha;
         } completion:^(BOOL finished) {
-            weakSelf.animatingPicture.animate = NO;
         }];
 	}
 	self.image = image;

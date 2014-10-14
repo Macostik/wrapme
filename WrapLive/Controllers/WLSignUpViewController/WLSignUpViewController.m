@@ -16,12 +16,8 @@
 #import "WLPhoneNumberViewController.h"
 #import "UIColor+CustomColors.h"
 
-@interface WLSignUpViewController () <UIScrollViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate>
+@interface WLSignUpViewController ()
 
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *stepLines;
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *completedStepViews;
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *incompletedStepViews;
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *currentStepViews;
 @property (strong, nonatomic) IBOutlet UIView *signUpStepsView;
 
 @end
@@ -32,13 +28,9 @@
 	[super viewDidLoad];
     
 	if (self.registrationNotCompleted) {
-		WLProfileInformationViewController * controller = [[WLProfileInformationViewController alloc] init];
-		[self createNavController:controller];
-		[self updateStepLabelsWithIndex:2];
-	}
-	else {
-		WLPhoneNumberViewController * controller = [[WLPhoneNumberViewController alloc] init];
-		[self createNavController:controller];
+		[self createNavController:[[WLProfileInformationViewController alloc] init]];
+	} else {
+		[self createNavController:[[WLPhoneNumberViewController alloc] init]];
 	}
 }
 
@@ -46,44 +38,9 @@
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
 	navController.view.frame = self.signUpStepsView.bounds;
 	navController.navigationBarHidden = YES;
-	navController.delegate = self;
 	[navController willMoveToParentViewController:self];
 	[self addChildViewController:navController];
 	[self.signUpStepsView addSubview:navController.view];
-}
-
-- (void)updateStepLabelsWithIndex:(NSUInteger)index {
-	
-	[self setHiddenViews:self.incompletedStepViews byBlock:^BOOL(NSUInteger idx) {
-		return idx <= index;
-	}];
-	
-	[self setHiddenViews:self.completedStepViews byBlock:^BOOL(NSUInteger idx) {
-		return idx >= index;
-	}];
-	
-	[self setHiddenViews:self.currentStepViews byBlock:^BOOL(NSUInteger idx) {
-		return idx != index;
-	}];
-	
-	[self setHiddenViews:self.stepLines byBlock:^BOOL(NSUInteger idx) {
-		return idx >= index;
-	}];
-}
-
-- (void)setHiddenViews:(NSArray*)views byBlock:(BOOL (^)(NSUInteger idx))block {
-	for (UIView* view in views) {
-		view.hidden = block([views indexOfObject:view]);
-	}
-}
-
-#pragma mark - UINavigationControllerDelegate
-
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-	NSUInteger index = [navigationController.viewControllers indexOfObject:viewController];
-	if (!self.registrationNotCompleted) {
-		[self updateStepLabelsWithIndex:index];
-	}
 }
 
 @end

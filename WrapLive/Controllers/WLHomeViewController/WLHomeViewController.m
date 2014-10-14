@@ -72,11 +72,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [[WLUser currentUser].wraps all:^(id item) {
-        [item remove];
-    }];
-    [[WLUser currentUser] save];
-    
 	[[WLUser notifier] addReceiver:self];
 	[[WLWrap notifier] addReceiver:self];
 	

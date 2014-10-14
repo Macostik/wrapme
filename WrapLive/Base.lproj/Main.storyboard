@@ -1664,15 +1664,6 @@ Ravenpod, Inc.
                                                                 <constraint firstAttribute="height" constant="30" id="p5k-xS-pwF"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7zn-08-s2u">
-                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
-                                                            <state key="normal">
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="select" destination="Pq6-uP-780" eventType="touchUpInside" id="nBI-Mq-iAw"/>
-                                                            </connections>
-                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -1680,15 +1671,11 @@ Ravenpod, Inc.
                                                         <constraint firstItem="Twb-Mn-vNw" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="5" id="6do-mm-ahx"/>
                                                         <constraint firstAttribute="trailing" secondItem="Mfp-4Z-sEV" secondAttribute="trailing" constant="34" id="7Qq-6c-n1m"/>
                                                         <constraint firstAttribute="trailing" secondItem="p6K-Sc-xX4" secondAttribute="trailing" constant="12" id="BZe-54-6f3"/>
-                                                        <constraint firstAttribute="bottom" secondItem="7zn-08-s2u" secondAttribute="bottom" id="GDj-wW-7Gc"/>
                                                         <constraint firstAttribute="height" constant="60" id="KHS-lZ-CHy"/>
                                                         <constraint firstAttribute="trailing" secondItem="XaE-0l-eeL" secondAttribute="trailing" constant="30" id="LCy-TO-NkG"/>
                                                         <constraint firstItem="XaE-0l-eeL" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="27" id="Sya-Ml-pNU"/>
-                                                        <constraint firstItem="7zn-08-s2u" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" id="ZTP-fj-7qV"/>
                                                         <constraint firstItem="Mfp-4Z-sEV" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="10" id="i7i-ab-e8L"/>
-                                                        <constraint firstItem="7zn-08-s2u" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" id="nFb-7g-NJZ"/>
                                                         <constraint firstAttribute="trailing" secondItem="Twb-Mn-vNw" secondAttribute="trailing" constant="30" id="rBw-l4-SNV"/>
-                                                        <constraint firstAttribute="trailing" secondItem="7zn-08-s2u" secondAttribute="trailing" id="wIt-n4-xNx"/>
                                                         <constraint firstAttribute="centerY" secondItem="p6K-Sc-xX4" secondAttribute="centerY" id="wue-XM-Tr3"/>
                                                         <constraint firstItem="Twb-Mn-vNw" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" constant="10" id="yC6-vx-gT6"/>
                                                     </constraints>
@@ -1700,6 +1687,15 @@ Ravenpod, Inc.
                                                         <constraint firstAttribute="height" constant="1" id="wF6-PG-Ar0"/>
                                                     </constraints>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7zn-08-s2u">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="272"/>
+                                                    <state key="normal">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="select" destination="Pq6-uP-780" eventType="touchUpInside" id="nBI-Mq-iAw"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -1711,9 +1707,13 @@ Ravenpod, Inc.
                                             <constraint firstItem="lRI-cr-Q4O" firstAttribute="leading" secondItem="Pq6-uP-780" secondAttribute="leading" id="JUx-CC-ENU"/>
                                             <constraint firstItem="8Kg-Jf-uq1" firstAttribute="leading" secondItem="Pq6-uP-780" secondAttribute="leading" id="KzE-Fe-F5g"/>
                                             <constraint firstAttribute="trailing" secondItem="lRI-cr-Q4O" secondAttribute="trailing" id="N5X-OC-Whu"/>
+                                            <constraint firstAttribute="bottom" secondItem="7zn-08-s2u" secondAttribute="bottom" constant="5" id="PMO-E2-FSY"/>
+                                            <constraint firstAttribute="trailing" secondItem="7zn-08-s2u" secondAttribute="trailing" id="QWV-Uh-PkW"/>
+                                            <constraint firstItem="7zn-08-s2u" firstAttribute="top" secondItem="Pq6-uP-780" secondAttribute="top" id="e7V-Fb-oz2"/>
                                             <constraint firstItem="rrl-ip-nxD" firstAttribute="leading" secondItem="Pq6-uP-780" secondAttribute="leading" id="fpn-Ph-hIF"/>
                                             <constraint firstItem="lRI-cr-Q4O" firstAttribute="top" secondItem="Pq6-uP-780" secondAttribute="top" constant="60" id="hSJ-aw-fN7"/>
                                             <constraint firstItem="8Kg-Jf-uq1" firstAttribute="top" secondItem="Pq6-uP-780" secondAttribute="top" id="iLE-ZZ-sN3"/>
+                                            <constraint firstItem="7zn-08-s2u" firstAttribute="leading" secondItem="Pq6-uP-780" secondAttribute="leading" id="qfT-LT-Om0"/>
                                             <constraint firstAttribute="trailing" secondItem="8Kg-Jf-uq1" secondAttribute="trailing" id="sod-oT-QBr"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="277"/>

@@ -56,7 +56,6 @@
 - (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
     UICollectionViewFlowLayoutInvalidationContext* invalidationContext = [[UICollectionViewFlowLayoutInvalidationContext alloc] init];
     invalidationContext.invalidateFlowLayoutDelegateMetrics = YES;
-    invalidationContext.contentOffsetAdjustment = CGPointMake(0, self.collectionView.bounds.size.height - newBounds.size.height);
     return invalidationContext;
 }
 

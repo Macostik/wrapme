@@ -96,11 +96,8 @@
                             option:(UIViewAnimationCurve)animationCurve {
     [super willShowKeyboardWithHeight:keyboardHeight duration:duration option:animationCurve];
     __weak typeof(self)weakSelf = self;
-    CGAffineTransform transform = self.mainView.transform;
-    self.mainView.transform = CGAffineTransformIdentity;
-    CGPoint center = [self.view convertPoint:self.nameTextField.center fromView:self.nameTextField.superview];
-    CGFloat translation = center.y - (self.view.height - [keyboardHeight floatValue])/2.0f;
-    self.mainView.transform = transform;
+    CGPoint center = [self.view convertPoint:self.emailTextField.center fromView:self.emailTextField.superview];
+    CGFloat translation =  center.y - (self.view.height - keyboardHeight.integerValue - self.doneButton.height)/2;
     [UIView performAnimated:YES animation:^{
         [UIView setAnimationCurve:animationCurve];
         weakSelf.mainView.transform = CGAffineTransformMakeTranslation(0, -translation);

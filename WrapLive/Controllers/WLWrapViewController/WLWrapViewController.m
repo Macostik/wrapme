@@ -117,7 +117,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     
     [self firstLoadRequest];
     
-    self.dataProvider.animationViews = self.timelineDataProvider.animationViews;
+    self.dataProvider.animatableConstraints = self.timelineDataProvider.animatableConstraints;
 }
 
 - (void)updateWrapData {

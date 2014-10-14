@@ -3449,13 +3449,12 @@ Ravenpod, Inc.
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v5-fX-sVI">
-                                <rect key="frame" x="228" y="476" width="88" height="88"/>
+                                <rect key="frame" x="228" y="476" width="92" height="92"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ko6-RB-UBU">
                                         <rect key="frame" x="19" y="19" width="50" height="50"/>
                                         <subviews>
                                             <button opaque="NO" tag="101" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="LH6-5S-pun" customClass="WLSegmentButton">
-                                                <rect key="frame" x="6" y="6" width="38" height="38"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3479,8 +3478,8 @@ Ravenpod, Inc.
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="88" id="wIl-Pf-lPF"/>
-                                    <constraint firstAttribute="width" constant="88" id="zmb-hb-qKt"/>
+                                    <constraint firstAttribute="height" constant="92" id="wIl-Pf-lPF"/>
+                                    <constraint firstAttribute="width" constant="92" id="zmb-hb-qKt"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -3490,7 +3489,7 @@ Ravenpod, Inc.
                             <constraint firstItem="p36-27-cbv" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" id="3tV-Uv-yg4"/>
                             <constraint firstAttribute="trailing" secondItem="aqT-yE-MER" secondAttribute="trailing" id="BVR-P6-Zyc"/>
                             <constraint firstAttribute="centerX" secondItem="46L-mU-Uks" secondAttribute="centerX" constant="0.5" id="Cy7-W5-jr4"/>
-                            <constraint firstItem="aqT-yE-MER" firstAttribute="top" secondItem="Fgm-DM-Lps" secondAttribute="bottom" constant="44" id="PPj-0z-jr0"/>
+                            <constraint firstItem="aqT-yE-MER" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="bottom" id="MQg-Fb-Rad"/>
                             <constraint firstItem="aqT-yE-MER" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" id="TxK-wP-QfJ"/>
                             <constraint firstAttribute="trailing" secondItem="p36-27-cbv" secondAttribute="trailing" id="XEZ-ak-OCe"/>
                             <constraint firstItem="b0w-IA-ZYu" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" id="cit-wi-bUk"/>
@@ -3498,8 +3497,8 @@ Ravenpod, Inc.
                             <constraint firstItem="p36-27-cbv" firstAttribute="top" secondItem="Fgm-DM-Lps" secondAttribute="bottom" constant="-20" id="mXM-LX-qJo"/>
                             <constraint firstAttribute="trailing" secondItem="b0w-IA-ZYu" secondAttribute="trailing" id="orp-vP-j89"/>
                             <constraint firstItem="Lgc-8H-MWM" firstAttribute="top" secondItem="46L-mU-Uks" secondAttribute="bottom" id="qOV-4m-hqe"/>
-                            <constraint firstItem="Lgc-8H-MWM" firstAttribute="top" secondItem="2v5-fX-sVI" secondAttribute="bottom" constant="4" id="rdl-kZ-UHa"/>
-                            <constraint firstAttribute="trailing" secondItem="2v5-fX-sVI" secondAttribute="trailing" constant="4" id="vgD-K3-zKJ"/>
+                            <constraint firstItem="Lgc-8H-MWM" firstAttribute="top" secondItem="2v5-fX-sVI" secondAttribute="bottom" id="rdl-kZ-UHa"/>
+                            <constraint firstAttribute="trailing" secondItem="2v5-fX-sVI" secondAttribute="trailing" id="vgD-K3-zKJ"/>
                         </constraints>
                     </view>
                     <connections>
@@ -3523,9 +3522,9 @@ Ravenpod, Inc.
                 <customObject id="wR6-YI-40M" customClass="WLTimelineViewDataProvider">
                     <connections>
                         <outlet property="collectionView" destination="p36-27-cbv" id="C8y-kj-ECI"/>
-                        <outletCollection property="animationViews" destination="2v5-fX-sVI" id="t3m-SZ-1xE"/>
-                        <outletCollection property="animationViews" destination="46L-mU-Uks" id="dEc-e2-AAi"/>
-                        <outletCollection property="animationViews" destination="aqT-yE-MER" id="BsT-gO-12P"/>
+                        <outletCollection property="animatableConstraints" destination="qOV-4m-hqe" id="Ch6-v3-WYm"/>
+                        <outletCollection property="animatableConstraints" destination="MQg-Fb-Rad" id="cav-9A-KWA"/>
+                        <outletCollection property="animatableConstraints" destination="vgD-K3-zKJ" id="E37-Wo-Lww"/>
                     </connections>
                 </customObject>
                 <customObject id="u9r-1x-r06" customClass="WLCandiesHistoryViewSection">

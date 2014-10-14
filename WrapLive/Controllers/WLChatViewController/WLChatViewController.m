@@ -30,6 +30,7 @@
 #import "WLSignificantTimeBroadcaster.h"
 #import "WLNotificationCenter.h"
 #import "WLNotification.h"
+#import "UIView+AnimationHelper.h"
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver>
 
@@ -54,6 +55,10 @@
 @property (weak, nonatomic) id operation;
 
 @property (nonatomic) BOOL typing;
+
+@property (strong, nonatomic) WLMessage *message;
+
+@property (strong, nonatomic) WLMessageCell *typingCell;
 
 @end
 
@@ -126,6 +131,7 @@
 }
 
 - (void)insertMessage:(WLMessage*)message {
+    self.message = message;
 	[self.groups addEntry:message];
     [self.groups sort];
     [self.collectionView reloadData];
@@ -256,7 +262,6 @@
 - (void)sendMessageWithText:(NSString*)text {
     __weak typeof(self)weakSelf = self;
     [self.wrap uploadMessage:text success:^(WLMessage *message) {
-        [weakSelf insertMessage:message];
 		[weakSelf.collectionView scrollToTopAnimated:YES];
     } failure:^(NSError *error) {
 		[error show];
@@ -317,22 +322,10 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-   WLMessageCell* cell = nil;
-    if (!indexPath.section) {
-        WLUser *typingUser = [self.groupTyping objectAtIndex:indexPath.row];
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WLMessageCell" forIndexPath:indexPath];
-        cell.item = typingUser;
-    } else {
-        WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section - 1];
-        WLMessage* message = [group.entries objectAtIndex:indexPath.item];
-        BOOL isMyComment = [message.contributor isCurrentUser];
-        NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
-        cell =  [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-        cell.item = message;
-    }
-	
-	[self handlePaginationWithIndexPath:indexPath];
-	return cell;
+    WLMessageCell* cell = [self prepareCellForIndexPath:indexPath];
+    [self handlePaginationWithIndexPath:indexPath];
+
+    return cell;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -391,9 +384,96 @@
 
 - (void)broadcaster:(WLNotificationCenter *)broadcaster didEndTyping:(WLUser *)user {
     if ([self.groupTyping containsObject:user]) {
-        [self.groupTyping removeObject:user];
-        [self.collectionView reloadData];
+        [self customAnimationCell:self.typingCell];
+//        [self.groupTyping removeObject:user];
+//        [self.collectionView reloadData];
     }
+}
+
+- (WLMessageCell *)prepareCellForIndexPath:(NSIndexPath *)indexPath {
+    WLMessageCell* cell = nil;
+    if (!indexPath.section) {
+        WLUser *typingUser = [self.groupTyping objectAtIndex:indexPath.row];
+        cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"WLMessageCell" forIndexPath:indexPath];
+        cell.item = typingUser;
+        self.typingCell = cell;
+    } else {
+        WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section - 1];
+        WLMessage* message = [group.entries objectAtIndex:indexPath.item];
+        BOOL isMyComment = [message.contributor isCurrentUser];
+        NSString* cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
+        cell =  [self.collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+        cell.item = message;
+        
+        if ([message isEqualToEntry:self.message]) {
+           
+        }
+    }
+    return cell;
+}
+
+- (void)customAnimationCell:(WLMessageCell*)cell {
+    __weak __typeof(self)weakSelf = self;
+//    if (self.typingCell != nil) {
+//        [UIView animateWithDuration:.5f animations:^{
+//            [self.collectionView performBatchUpdates:^{
+//                CGAffineTransform transformRotate = CGAffineTransformMakeRotation(M_PI);
+//                CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(0, -50);
+//                weakSelf.typingCell.transform =  CGAffineTransformConcat(transformRotate, transformTranslation);
+//            } completion:^(BOOL finished) {
+//                weakSelf.typingCell = nil;
+//            }];
+//        }];
+//    }
+//    
+//    CGAffineTransform transform = cell.transform;
+//    CGAffineTransform transformRotate = CGAffineTransformMakeRotation(M_PI);
+//    CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(0, -self.collectionView.height);
+//    cell.transform =  CGAffineTransformConcat(transformRotate, transformTranslation);
+//    [UIView animateWithDuration:.5f animations:^{
+//        [self.collectionView performBatchUpdates:^{
+//            cell.transform = transform;
+//        } completion:^(BOOL finished) {
+//            weakSelf.message = nil;
+//        }];
+//    }];
+    
+    NSTimeInterval duration = 0.5;
+    
+    __block void (^animationUp) (void) = nil;
+    __block void (^animationDown) (void) = nil;
+    
+    animationUp = ^ {
+        CGAffineTransform transform = cell.transform;
+        CGAffineTransform transformRotate = CGAffineTransformMakeRotation(M_PI);
+        CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(0, -self.collectionView.height);
+        cell.transform =  CGAffineTransformConcat(transformRotate, transformTranslation);
+        [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+                [self.collectionView performBatchUpdates:^{
+                    cell.transform = transform;
+                } completion:^(BOOL finished) {
+                    weakSelf.message = nil;
+                }];
+        } completion:^(BOOL finished) {
+        }];
+    };
+    
+    animationDown = ^ {
+        [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+            [self.collectionView performBatchUpdates:^{
+                CGAffineTransform transformRotate = CGAffineTransformMakeRotation(M_PI);
+                CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(0, -100);
+                weakSelf.typingCell.transform =  CGAffineTransformConcat(transformRotate, transformTranslation);
+            } completion:^(BOOL finished) {
+                weakSelf.typingCell = nil;
+            }];
+        } completion:^(BOOL finished) {
+//            animationUp();
+        }];
+    };
+    
+    if (self.typingCell != nil) animationDown();
+    else animationUp();
 }
 
 @end

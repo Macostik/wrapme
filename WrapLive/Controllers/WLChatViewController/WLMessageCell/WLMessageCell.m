@@ -59,7 +59,7 @@
 }
 
 - (NSString *)text {
-    return @"...";
+    return @"Is typing ...";
 }
 
 - (NSDate *)displayDate {

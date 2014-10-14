@@ -56,9 +56,10 @@
 	[self didChangeValueForKey:@"isExecuting"];
 	
 	if (self.operationBlock) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(finish) object:nil];
+        [self performSelector:@selector(finish) withObject:nil afterDelay:45];
 		self.operationBlock(self);
-	}
-	else {
+	} else {
 		[self finish];
 	}
 }
@@ -72,6 +73,8 @@
 }
 
 - (void)finish {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(finish) object:nil];
+    
 	[self willChangeValueForKey:@"isExecuting"];
 	[self willChangeValueForKey:@"isFinished"];
 	

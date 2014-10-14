@@ -51,9 +51,9 @@
 }
 
 - (void)sortWraps {
-    if ([self.wraps sortByUpdatedAt]) {
-        [self willChangeValueForKey:WLWrapsKey];
-        [self didChangeValueForKey:WLWrapsKey];
+    NSMutableOrderedSet* wraps = self.wraps;
+    if ([wraps sortByUpdatedAt]) {
+        self.wraps = wraps;
     }
 }
 

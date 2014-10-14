@@ -41,8 +41,7 @@
     }
     [WLComment API_entries:commentsArray relatedEntry:self container:comments];
     if (comments.nonempty && [comments sortByCreatedAt:NO]) {
-        [self willChangeValueForKey:WLCommentsKey];
-        [self didChangeValueForKey:WLCommentsKey];
+        self.comments = comments;
     }
     [self editPicture:[dictionary stringForKey:WLCandyLargeURLKey]
                medium:[dictionary stringForKey:WLCandyMediumURLKey]
@@ -78,8 +77,7 @@
     NSMutableOrderedSet* comments = self.comments;
     if (!comment || [comments containsObject:comment]) {
         if ([comments sortByCreatedAt:NO]) {
-            [self willChangeValueForKey:WLCommentsKey];
-            [self didChangeValueForKey:WLCommentsKey];
+            self.comments = comments;
         }
         return;
     }

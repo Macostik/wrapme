@@ -88,8 +88,7 @@
     }
     [existingCandies unionOrderedSet:candies];
     if ([existingCandies sortByUpdatedAt]) {
-        [self willChangeValueForKey:WLCandiesKey];
-        [self didChangeValueForKey:WLCandiesKey];
+        self.candies = existingCandies;
     }
 }
 
@@ -121,8 +120,7 @@
     NSMutableOrderedSet *candies = self.candies;
     if (!candy || [candies containsObject:candy]) {
         if ([candies sortByUpdatedAt]) {
-            [self willChangeValueForKey:WLCandiesKey];
-            [self didChangeValueForKey:WLCandiesKey];
+            self.candies = candies;
         }
         return;
     }
@@ -145,18 +143,17 @@
 }
 
 - (void)sortCandies {
-    if ([self.candies sortByUpdatedAt]) {
-        [self willChangeValueForKey:WLCandiesKey];
-        [self didChangeValueForKey:WLCandiesKey];
+    NSMutableOrderedSet* candies = self.candies;
+    if ([candies sortByUpdatedAt]) {
+        self.candies = candies;
     }
 }
 
 - (void)removeCandy:(WLCandy *)candy {
     NSMutableOrderedSet *candies = self.candies;
     if ([candies containsObject:candy]) {
-        [self willChangeValueForKey:WLCandiesKey];
         [candies removeObject:candy];
-        [self didChangeValueForKey:WLCandiesKey];
+        self.candies = candies;
     }
 }
 

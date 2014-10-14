@@ -60,6 +60,8 @@
 
 @property (strong, nonatomic) WLMessageCell *typingCell;
 
+@property (weak, nonatomic) IBOutlet UIView *typingView;
+
 @end
 
 @implementation WLChatViewController
@@ -384,9 +386,8 @@
 
 - (void)broadcaster:(WLNotificationCenter *)broadcaster didEndTyping:(WLUser *)user {
     if ([self.groupTyping containsObject:user]) {
-        [self customAnimationCell:self.typingCell];
-//        [self.groupTyping removeObject:user];
-//        [self.collectionView reloadData];
+        [self.groupTyping removeObject:user];
+        [self.collectionView reloadData];
     }
 }
 
@@ -394,7 +395,7 @@
     WLMessageCell* cell = nil;
     if (!indexPath.section) {
         WLUser *typingUser = [self.groupTyping objectAtIndex:indexPath.row];
-        cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"WLMessageCell" forIndexPath:indexPath];
+        cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"WLTypingCell" forIndexPath:indexPath];
         cell.item = typingUser;
         self.typingCell = cell;
     } else {
@@ -406,7 +407,7 @@
         cell.item = message;
         
         if ([message isEqualToEntry:self.message]) {
-           
+            [self customAnimationCell:cell];
         }
     }
     return cell;
@@ -414,66 +415,31 @@
 
 - (void)customAnimationCell:(WLMessageCell*)cell {
     __weak __typeof(self)weakSelf = self;
-//    if (self.typingCell != nil) {
-//        [UIView animateWithDuration:.5f animations:^{
-//            [self.collectionView performBatchUpdates:^{
-//                CGAffineTransform transformRotate = CGAffineTransformMakeRotation(M_PI);
-//                CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(0, -50);
-//                weakSelf.typingCell.transform =  CGAffineTransformConcat(transformRotate, transformTranslation);
-//            } completion:^(BOOL finished) {
-//                weakSelf.typingCell = nil;
-//            }];
-//        }];
-//    }
-//    
-//    CGAffineTransform transform = cell.transform;
-//    CGAffineTransform transformRotate = CGAffineTransformMakeRotation(M_PI);
-//    CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(0, -self.collectionView.height);
-//    cell.transform =  CGAffineTransformConcat(transformRotate, transformTranslation);
-//    [UIView animateWithDuration:.5f animations:^{
-//        [self.collectionView performBatchUpdates:^{
-//            cell.transform = transform;
-//        } completion:^(BOOL finished) {
-//            weakSelf.message = nil;
-//        }];
-//    }];
-    
-    NSTimeInterval duration = 0.5;
-    
-    __block void (^animationUp) (void) = nil;
-    __block void (^animationDown) (void) = nil;
-    
-    animationUp = ^ {
-        CGAffineTransform transform = cell.transform;
-        CGAffineTransform transformRotate = CGAffineTransformMakeRotation(M_PI);
-        CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(0, -self.collectionView.height);
-        cell.transform =  CGAffineTransformConcat(transformRotate, transformTranslation);
-        [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
-                [self.collectionView performBatchUpdates:^{
-                    cell.transform = transform;
-                } completion:^(BOOL finished) {
-                    weakSelf.message = nil;
-                }];
+    CGAffineTransform transform = cell.transform;
+    CGAffineTransform transformRotate = CGAffineTransformMakeRotation(M_PI);
+    CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(0, -self.collectionView.height);
+    cell.transform =  CGAffineTransformConcat(transformRotate, transformTranslation);
+    [UIView animateWithDuration:.5 delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+        [self.collectionView performBatchUpdates:^{
+            cell.transform = transform;
         } completion:^(BOOL finished) {
+            weakSelf.message = nil;
         }];
-    };
-    
-    animationDown = ^ {
-        [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
-            [self.collectionView performBatchUpdates:^{
-                CGAffineTransform transformRotate = CGAffineTransformMakeRotation(M_PI);
-                CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(0, -100);
-                weakSelf.typingCell.transform =  CGAffineTransformConcat(transformRotate, transformTranslation);
-            } completion:^(BOOL finished) {
-                weakSelf.typingCell = nil;
-            }];
-        } completion:^(BOOL finished) {
-//            animationUp();
-        }];
-    };
-    
-    if (self.typingCell != nil) animationDown();
-    else animationUp();
+    } completion:NULL];
 }
+//
+//- (void)pushDownAnimationCellWithUser:(WLUser *)user {
+//    __weak __typeof(self)weakSelf = self;
+//    [UIView animateWithDuration:.5 delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+//        [self.collectionView performBatchUpdates:^{
+//            weakSelf.typingCell.transform =  CGAffineTransformConcat(transformRotate, transformTranslation);
+//        } completion:^(BOOL finished) {
+//            self.typingCell.transform = transform;
+//            weakSelf.typingCell = nil;
+//        }];
+//    } completion:^(BOOL finished) {
+//
+//    }];
+//}
 
 @end

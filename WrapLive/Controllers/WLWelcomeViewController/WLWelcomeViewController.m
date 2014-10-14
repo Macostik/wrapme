@@ -50,7 +50,7 @@ typedef enum : NSUInteger {
     
     self.placeholderView.layer.cornerRadius = 5.0f;
     self.placeholderView.layer.masksToBounds = YES;
-    [self.placeholderView removeFromSuperview];
+    self.placeholderView.hidden = YES;
     
     WLLoadingView* splash = [WLLoadingView splash];
     splash.frame = self.view.bounds;
@@ -140,8 +140,8 @@ typedef enum : NSUInteger {
     [UIView transitionFromView:fromView
                         toView:toView
                       duration:0.75
-                       options:option
-                    completion:NULL];
+                       options:option | UIViewAnimationOptionShowHideTransitionViews
+                    completion:nil];
 }
 
 - (void)wrapIntoAttributedString {

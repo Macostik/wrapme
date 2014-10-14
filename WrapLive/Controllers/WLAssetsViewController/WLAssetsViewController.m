@@ -19,7 +19,7 @@
 
 static NSUInteger WLAssetsSelectionLimit = 10;
 
-@interface WLAssetsViewController () <WLAssetCellDelegate>
+@interface WLAssetsViewController () <WLAssetCellDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (strong, nonatomic) NSArray *assets;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -141,6 +141,19 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     return self.assets.count;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat size = (collectionView.bounds.size.width - 9) / 4.0f;
+    return CGSizeMake(size, size);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(3, 0, 3, 0);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 3;
 }
 
 #pragma mark - PGAssetCellDelegate

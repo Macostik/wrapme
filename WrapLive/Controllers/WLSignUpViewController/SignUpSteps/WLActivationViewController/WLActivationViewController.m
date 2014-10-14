@@ -18,6 +18,8 @@
 #import "NSString+Additions.h"
 #import "WLAuthorization.h"
 #import "WLAuthorizationRequest.h"
+#import "WLHomeViewController.h"
+#import "WLNavigation.h"
 
 static NSInteger WLActivationCodeLimit = 4;
 
@@ -129,9 +131,13 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 	self.currentPage = WLActivationPageEntering;
 }
 
-- (IBAction)continue:(id)sender {
-	WLProfileInformationViewController * controller = [WLProfileInformationViewController new];
-	[self.navigationController pushViewController:controller animated:YES];
+- (IBAction)done:(id)sender {
+    if ([WLUser currentUser].name.nonempty) {
+        [WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
+    } else {
+        WLProfileInformationViewController * controller = [WLProfileInformationViewController new];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 #pragma mark - UITextFieldDelegate

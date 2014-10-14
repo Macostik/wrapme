@@ -56,8 +56,8 @@
 
 - (void)keyboardWillHide:(NSNotification*)notification {
     self.keyboardHeight = nil;
-    self.duration = nil;
-    self.animationCurve = nil;
+    self.duration = [[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    self.animationCurve = [[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey];
 	[self broadcast:@selector(broadcasterWillHideKeyboard:)];
 }
 

@@ -38,8 +38,6 @@
 
 @implementation WLStillPictureViewController
 
-@synthesize mode = _mode;
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.editable = YES;
@@ -47,6 +45,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.cameraViewController = self.mode == WLCameraModeCandy ? [WLCameraViewController instantiateWithIdentifier:@"WLFullSizeCameraViewController"] : [WLCameraViewController instantiate];
+    self.cameraViewController.delegate = self;
+    self.cameraViewController.mode = self.mode;
+    self.cameraViewController.defaultPosition = self.defaultPosition;
 	self.cameraViewController.wrap = self.wrap;
     
     if (self.wrap) {
@@ -87,28 +90,12 @@
     return _cameraNavigationController;
 }
 
-- (WLCameraViewController *)cameraViewController {
-	if (!_cameraViewController) {
-		_cameraViewController = [WLCameraViewController instantiate];
-		_cameraViewController.delegate = self;
-	}
-	return _cameraViewController;
-}
-
-- (WLCameraMode)mode {
-	return self.cameraViewController.mode;
-}
-
 - (void)setMode:(WLCameraMode)mode {
-	self.cameraViewController.mode = mode;
-}
-
-- (AVCaptureDevicePosition)defaultPosition {
-	return self.cameraViewController.defaultPosition;
+    _mode = mode;
 }
 
 - (void)setDefaultPosition:(AVCaptureDevicePosition)defaultPosition {
-	self.cameraViewController.defaultPosition = defaultPosition;
+    _defaultPosition = defaultPosition;
 }
 
 - (CGFloat)imageWidthForCurrentMode {
@@ -121,15 +108,19 @@
 }
 
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
-	__weak typeof(self)weakSelf = self;
 	CGSize viewSize = self.cameraViewController.viewSize;
 	run_getting_object(^id{
-		CGFloat width = [weakSelf imageWidthForCurrentMode];
-        UIImage *result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(width, width)];
-		if (weakSelf.mode != WLCameraModeCandy) {
-			result = [result croppedImage:CGRectThatFitsSize(result.size, viewSize)];
-		}
-		return result;
+        UIImage *result = image;
+        CGFloat resultWidth = [self imageWidthForCurrentMode];
+        CGFloat scale = viewSize.width / resultWidth;
+        CGSize newSize = CGSizeMake(resultWidth, viewSize.height / scale);
+        result = [result resizedImageWithContentModeScaleAspectFill:CGSizeMake(resultWidth, 1)];
+        if (result.size.width > result.size.height) {
+            result = [result croppedImage:CGRectThatFitsSize(result.size, CGSizeMake(newSize.height, newSize.width))];
+        } else {
+            result = [result croppedImage:CGRectThatFitsSize(result.size, newSize)];
+        }
+        return result;
 	}, completion);
 }
 

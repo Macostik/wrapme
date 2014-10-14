@@ -43,16 +43,36 @@
 #import "WLInternetConnectionBroadcaster.h"
 #import "NSOrderedSet+Additions.h"
 
+@interface WLCandyViewFlowLayout : UICollectionViewFlowLayout
+
+@end
+
+@implementation WLCandyViewFlowLayout
+
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    return YES;
+}
+
+- (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
+    UICollectionViewFlowLayoutInvalidationContext* invalidationContext = [[UICollectionViewFlowLayoutInvalidationContext alloc] init];
+    invalidationContext.invalidateFlowLayoutDelegateMetrics = YES;
+    return invalidationContext;
+}
+
+@end
+
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
 @property (weak, nonatomic) IBOutlet UIImageView *leftArrow;
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 @property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIImageView *topBackgoundView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 
 @property (nonatomic) BOOL shouldLoadMoreCandies;
+@property (nonatomic) BOOL scrolledToInitialItem;
 @property (strong, nonatomic) WLToast* dateChangeToast;
 
 @property (readonly, nonatomic) WLDetailedCandyCell* candyCell;
@@ -60,6 +80,9 @@
 @property (weak, nonatomic) UISwipeGestureRecognizer* leftSwipeGestureRecognizer;
 @property (weak, nonatomic) UISwipeGestureRecognizer* rightSwipeGestureRecognizer;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *composeBarBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navigationBarTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewTopConstraint;
 
 @end
 
@@ -68,13 +91,12 @@
 @synthesize candy = _candy;
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
-    
+        
     if (!self.groups) {
         self.groups = [[WLGroupedSet alloc] init];
         [self.groups addEntries:[_candy.wrap candies]];
-        self.group = [self.groups groupWithCandy:_candy];
+        _group = [self.groups groupWithCandy:_candy];
     }
     
 	self.composeBarView.placeholder = @"Write your comment ...";
@@ -82,12 +104,6 @@
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 	[[WLCandy notifier] addReceiver:self];
     [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
-
-    [self.collectionView reloadData];
-    if (_candy && [self.group.entries containsObject:_candy]) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[self.group.entries indexOfObject:_candy] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-    }
-    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 70, 0);
     
     UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -115,21 +131,28 @@
     [candy fetch:^(id object) { } failure:^(NSError *error) { }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.collectionView reloadData];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    self.scrolledToInitialItem = YES;
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
     self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 70, 0);
+    NSUInteger index = [self.group.entries indexOfObject:_candy];
+    if (!self.scrolledToInitialItem && index != NSNotFound) {
+        [self.collectionView setContentOffset:CGPointMake(index*self.collectionView.width, 0)];
+    }
 }
 
 - (void)setGroup:(WLGroup *)group {
     _group = group;
     [self.collectionView reloadData];
-}
-
-- (void)setCandy:(WLCandy *)candy {
-    _candy = candy;
-    if (self.isViewLoaded && [self.group.entries containsObject:candy]) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[self.group.entries indexOfObject:candy] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-    }
 }
 
 - (WLCandy *)candy {
@@ -289,21 +312,34 @@
 #pragma mark - WLKeyboardBroadcastReceiver
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-    self.composeBarView.y = self.view.height - self.composeBarView.height;
-	self.collectionView.transform = CGAffineTransformIdentity;
-    [self.collectionView reloadData];
-    self.navigationBar.y = 0;
+    self.topBackgoundView.hidden = NO;
+    self.composeBarBottomConstraint.constant = 0;
+    self.navigationBarTopConstraint.constant = -20;
+    self.collectionViewTopConstraint.constant = -20;
+    __weak typeof(self)weakSelf = self;
+    [UIView animateWithDuration:[broadcaster.duration doubleValue] animations:^{
+        [UIView setAnimationCurve:[broadcaster.animationCurve integerValue]];
+        [weakSelf.collectionView layoutIfNeeded];
+        [weakSelf.composeBarView layoutIfNeeded];
+        [weakSelf.navigationBar layoutIfNeeded];
+    }];
 }
 
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
-    self.composeBarView.y = self.view.height - [keyboardHeight floatValue] - self.composeBarView.height;
-	self.collectionView.transform = CGAffineTransformMakeTranslation(0, -[keyboardHeight floatValue]);
+    self.topBackgoundView.hidden = YES;
+    self.composeBarBottomConstraint.constant = [keyboardHeight floatValue];
+    self.navigationBarTopConstraint.constant = -self.navigationBar.height-20;
+    self.collectionViewTopConstraint.constant = self.navigationBarTopConstraint.constant;
+    [self.collectionView.collectionViewLayout prepareForAnimatedBoundsChange:self.collectionView.bounds];
     __weak typeof(self)weakSelf = self;
-    [self.collectionView reloadData];
-    run_after_asap(^{
+    [UIView animateWithDuration:[broadcaster.duration doubleValue] animations:^{
+        [UIView setAnimationCurve:[broadcaster.animationCurve integerValue]];
+        [weakSelf.collectionView layoutIfNeeded];
+        [weakSelf.composeBarView layoutIfNeeded];
+        [weakSelf.navigationBar layoutIfNeeded];
+    } completion:^(BOOL finished) {
         [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
-    });
-    self.navigationBar.y = -self.navigationBar.height;
+    }];
 }
 
 #pragma mark - Actions
@@ -345,7 +381,9 @@
         [weakSelf.candyCell reloadComments];
     } failure:^(NSError *error) {
     }];
-    [self.candyCell.tableView scrollToBottomAnimated:YES];
+    run_after_asap(^{
+        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
+    });
 }
 
 #pragma mark - WLComposeBarDelegate
@@ -355,12 +393,7 @@
 }
 
 - (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
-	composeBar.y = self.view.height - [[WLKeyboardBroadcaster broadcaster].keyboardHeight floatValue] - composeBar.height;
-    __weak typeof(self)weakSelf = self;
-      [self.collectionView reloadData];
-    run_after(0.1f, ^{
-        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
-    });
+    [self.candyCell.tableView scrollToBottomAnimated:YES];
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {

@@ -80,16 +80,19 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 @implementation WLWrapViewController
 
 - (void)viewDidLoad {
+    
+    self.historyViewSection.defaultHeaderSize = CGSizeZero;
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
     
     if (!self.wrap.valid) {
         return;
     }
     
     [self updateWrapData];
-    
-    self.historyViewSection.defaultHeaderSize = CGSizeZero;
     
     self.mode = [WLSession integer:WLWrapViewDefaultModeKey];
     
@@ -120,7 +123,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 - (void)updateWrapData {
     self.nameLabel.text = WLString(self.wrap.name);
     self.contributorsLabel.text = [self.wrap contributorNames];
-	[self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
 }
 
 - (void)firstLoadRequest {

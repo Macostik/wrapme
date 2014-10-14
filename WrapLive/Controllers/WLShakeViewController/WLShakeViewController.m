@@ -125,6 +125,8 @@ static CTCallCenter *callCenter;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.frame = [UIWindow mainWindow].bounds;
+    [self.view layoutIfNeeded];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -175,7 +177,7 @@ static CTCallCenter *callCenter;
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if ( event.subtype == UIEventSubtypeMotionShake ) {
+    if (event.subtype == UIEventSubtypeMotionShake) {
         [self didRecognizeShakeGesture];
     }
     [super motionEnded:motion withEvent:event];

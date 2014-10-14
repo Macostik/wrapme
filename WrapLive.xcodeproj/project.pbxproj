@@ -147,10 +147,6 @@
 		5BB04F1C19D9817100B5C6EE /* WLBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F1A19D9817100B5C6EE /* WLBlocks.m */; };
 		5BB04F1D19D9817100B5C6EE /* WLBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F1A19D9817100B5C6EE /* WLBlocks.m */; };
 		5BB04F1E19D9817100B5C6EE /* WLBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F1A19D9817100B5C6EE /* WLBlocks.m */; };
-		5BB04F2219D981B900B5C6EE /* WLSupportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2119D981B900B5C6EE /* WLSupportFunctions.m */; };
-		5BB04F2319D981B900B5C6EE /* WLSupportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2119D981B900B5C6EE /* WLSupportFunctions.m */; };
-		5BB04F2419D981B900B5C6EE /* WLSupportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2119D981B900B5C6EE /* WLSupportFunctions.m */; };
-		5BB04F2519D981B900B5C6EE /* WLSupportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2119D981B900B5C6EE /* WLSupportFunctions.m */; };
 		5BB04F2819D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
 		5BB04F2919D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
 		5BB04F2A19D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
@@ -303,7 +299,15 @@
 		C517D4D019D08144006058C7 /* UIDevice+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */; };
 		C517D4D119D08144006058C7 /* UIDevice+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */; };
 		C517D4D219D08144006058C7 /* UIDevice+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */; };
+		C518D79319E7E480001A3F08 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C518D79219E7E480001A3F08 /* Launch Screen.xib */; };
+		C518D79419E7E480001A3F08 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C518D79219E7E480001A3F08 /* Launch Screen.xib */; };
+		C518D79519E7E480001A3F08 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C518D79219E7E480001A3F08 /* Launch Screen.xib */; };
+		C518D79619E7E480001A3F08 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C518D79219E7E480001A3F08 /* Launch Screen.xib */; };
 		C51DAE3119B09E6100F40516 /* WLTimelineEventCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DAE3019B09E6100F40516 /* WLTimelineEventCommentCell.m */; };
+		C51F30A319E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */; };
+		C51F30A419E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */; };
+		C51F30A519E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */; };
+		C51F30A619E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */; };
 		C5215DFB19C32CB80012AE10 /* WLEntityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5215DFA19C32CB80012AE10 /* WLEntityRequest.m */; };
 		C5215DFC19C32CB80012AE10 /* WLEntityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5215DFA19C32CB80012AE10 /* WLEntityRequest.m */; };
 		C5215DFD19C32CB80012AE10 /* WLEntityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5215DFA19C32CB80012AE10 /* WLEntityRequest.m */; };
@@ -1340,7 +1344,6 @@
 		5BB04F1919D9817100B5C6EE /* WLBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBlocks.h; path = WLBlocks/WLBlocks.h; sourceTree = "<group>"; };
 		5BB04F1A19D9817100B5C6EE /* WLBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBlocks.m; path = WLBlocks/WLBlocks.m; sourceTree = "<group>"; };
 		5BB04F2019D981B900B5C6EE /* WLSupportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSupportFunctions.h; path = WLSupportFunctions/WLSupportFunctions.h; sourceTree = "<group>"; };
-		5BB04F2119D981B900B5C6EE /* WLSupportFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSupportFunctions.m; path = WLSupportFunctions/WLSupportFunctions.m; sourceTree = "<group>"; };
 		5BB04F2619D9822300B5C6EE /* WLEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditViewController.h; path = WLEditViewController/WLEditViewController.h; sourceTree = "<group>"; };
 		5BB04F2719D9822300B5C6EE /* WLEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditViewController.m; path = WLEditViewController/WLEditViewController.m; sourceTree = "<group>"; };
 		5BB04F2C19D9824500B5C6EE /* WLEditWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditWrapViewController.h; path = WLEditWrapViewController/WLEditWrapViewController.h; sourceTree = "<group>"; };
@@ -1494,8 +1497,11 @@
 		C516874F19BDCA4B005BA034 /* WLUploadMessageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUploadMessageRequest.m; path = WLAPIManager/WLAPIRequest/WLUploadMessageRequest.m; sourceTree = "<group>"; };
 		C517D4CD19D08144006058C7 /* UIDevice+SystemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+SystemVersion.h"; sourceTree = "<group>"; };
 		C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+SystemVersion.m"; sourceTree = "<group>"; };
+		C518D79219E7E480001A3F08 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		C51DAE2F19B09E6100F40516 /* WLTimelineEventCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTimelineEventCommentCell.h; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCommentCell.h; sourceTree = "<group>"; };
 		C51DAE3019B09E6100F40516 /* WLTimelineEventCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTimelineEventCommentCell.m; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCommentCell.m; sourceTree = "<group>"; };
+		C51F30A119E696F2008EAD85 /* UICollectionViewCell+Autoresizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UICollectionViewCell+Autoresizing.h"; path = "UICollectionViewCell/UICollectionViewCell+Autoresizing.h"; sourceTree = "<group>"; };
+		C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UICollectionViewCell+Autoresizing.m"; path = "UICollectionViewCell/UICollectionViewCell+Autoresizing.m"; sourceTree = "<group>"; };
 		C5215DF919C32CB80012AE10 /* WLEntityRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntityRequest.h; path = WLAPIManager/WLAPIRequest/WLEntityRequest.h; sourceTree = "<group>"; };
 		C5215DFA19C32CB80012AE10 /* WLEntityRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEntityRequest.m; path = WLAPIManager/WLAPIRequest/WLEntityRequest.m; sourceTree = "<group>"; };
 		C521FB041989352E00576281 /* WLHomeViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLHomeViewSection.h; path = WLCollectionViewDataProvider/WLHomeViewSection.h; sourceTree = "<group>"; };
@@ -1958,6 +1964,7 @@
 				12A7A71118DA0946008FF6F0 /* WLAppDelegate.h */,
 				12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */,
 				12A7A71418DA0946008FF6F0 /* Main.storyboard */,
+				C518D79219E7E480001A3F08 /* Launch Screen.xib */,
 				12E3DA5C18E04CC400DBDB79 /* Categories */,
 				12A7A73718DA09A9008FF6F0 /* Controllers */,
 				12A7A73818DA09A9008FF6F0 /* Models */,
@@ -2444,6 +2451,7 @@
 		12E3DA5C18E04CC400DBDB79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				C51F30A019E696C4008EAD85 /* UICollectionViewCell */,
 				C517D4CC19D08144006058C7 /* UIDevice */,
 				5BB5F8B819C971FE0053242C /* UITextView */,
 				C5FD0EDD194B43F6004DAB1B /* NSOrderedSet */,
@@ -2746,7 +2754,6 @@
 			isa = PBXGroup;
 			children = (
 				5BB04F2019D981B900B5C6EE /* WLSupportFunctions.h */,
-				5BB04F2119D981B900B5C6EE /* WLSupportFunctions.m */,
 			);
 			name = WLSupportFunctions;
 			sourceTree = "<group>";
@@ -2799,7 +2806,6 @@
 		ACCF9B8518E17D5E00A7429F /* SignUpSteps */ = {
 			isa = PBXGroup;
 			children = (
-				5BB04F1519D979E300B5C6EE /* WLTestUserCell */,
 				ACCF9B8B18E185DB00A7429F /* WLPhoneNumberViewController */,
 				ACCF9B8D18E185F200A7429F /* WLActivationViewController */,
 				ACCF9B9318E1869800A7429F /* WLProfileInformationViewController */,
@@ -2813,6 +2819,7 @@
 				ACCF9B8618E185D200A7429F /* WLPhoneNumberViewController.h */,
 				ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */,
 				ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */,
+				5BB04F1519D979E300B5C6EE /* WLTestUserCell */,
 				12DE6981192E0B0F007580AD /* WLTestUserPicker.h */,
 				12DE6982192E0B0F007580AD /* WLTestUserPicker.m */,
 			);
@@ -3108,6 +3115,15 @@
 				C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */,
 			);
 			path = UIDevice;
+			sourceTree = "<group>";
+		};
+		C51F30A019E696C4008EAD85 /* UICollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C51F30A119E696F2008EAD85 /* UICollectionViewCell+Autoresizing.h */,
+				C51F30A219E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m */,
+			);
+			name = UICollectionViewCell;
 			sourceTree = "<group>";
 		};
 		C537F8211962BADF00600B42 /* WLGroupedSet */ = {
@@ -3478,6 +3494,7 @@
 				ACF8D9121934B4400001E570 /* numbers.plist in Resources */,
 				121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */,
 				C534E77419D586CC006F8268 /* WLTestUserCell.xib in Resources */,
+				C518D79319E7E480001A3F08 /* Launch Screen.xib in Resources */,
 				C54AF86219B8C622006F7EDB /* WLAPIEnvironmentProduction.plist in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
 				12D514FA192F5F15007A1520 /* AppIcon29x29@2x.png in Resources */,
@@ -3534,6 +3551,7 @@
 				C54AF54119B8C437006F7EDB /* CountryCodes.json in Resources */,
 				C54AF54219B8C437006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C534E77519D586CC006F8268 /* WLTestUserCell.xib in Resources */,
+				C518D79419E7E480001A3F08 /* Launch Screen.xib in Resources */,
 				C54AF54319B8C437006F7EDB /* AppIcon29x29@2x.png in Resources */,
 				C54AF86D19B8C63A006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				C54AF54419B8C437006F7EDB /* WLComposeBar.xib in Resources */,
@@ -3590,6 +3608,7 @@
 				C54AF63E19B8C467006F7EDB /* CountryCodes.json in Resources */,
 				C54AF63F19B8C467006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C534E77619D586CC006F8268 /* WLTestUserCell.xib in Resources */,
+				C518D79519E7E480001A3F08 /* Launch Screen.xib in Resources */,
 				C54AF64019B8C467006F7EDB /* AppIcon29x29@2x.png in Resources */,
 				C54AF87119B8C63A006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				C54AF64119B8C467006F7EDB /* WLComposeBar.xib in Resources */,
@@ -3646,6 +3665,7 @@
 				C54AF73B19B8C491006F7EDB /* CountryCodes.json in Resources */,
 				C54AF73C19B8C491006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C534E77719D586CC006F8268 /* WLTestUserCell.xib in Resources */,
+				C518D79619E7E480001A3F08 /* Launch Screen.xib in Resources */,
 				C54AF73D19B8C491006F7EDB /* AppIcon29x29@2x.png in Resources */,
 				C54AF87519B8C63B006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				C54AF73E19B8C491006F7EDB /* WLComposeBar.xib in Resources */,
@@ -3910,6 +3930,7 @@
 				C50445B71951AA8F003C2251 /* WLContribution+Extended.m in Sources */,
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
 				5BBBEB3519D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
+				C51F30A319E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */,
 				12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */,
@@ -4001,7 +4022,6 @@
 				121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */,
 				1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */,
 				C55C8D7C19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
-				5BB04F2219D981B900B5C6EE /* WLSupportFunctions.m in Sources */,
 				C5F99B6F196BEB0C00A3FB19 /* WLMenu.m in Sources */,
 				12E1104519066C7C007DB4AC /* UIView+QuatzCoreAnimations.m in Sources */,
 				12F0DAF019338C9100F9D898 /* SegmentedControl.m in Sources */,
@@ -4123,6 +4143,7 @@
 				C54AF48F19B8C437006F7EDB /* WLContribution+Extended.m in Sources */,
 				C54AF49119B8C437006F7EDB /* WLComposeBar.m in Sources */,
 				5BBBEB3619D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
+				C51F30A419E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C54AF49319B8C437006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C54AF49419B8C437006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF49519B8C437006F7EDB /* UIViewController+Additions.m in Sources */,
@@ -4214,7 +4235,6 @@
 				C54AF4E919B8C437006F7EDB /* NSObject+NibAdditions.m in Sources */,
 				C54AF4EA19B8C437006F7EDB /* NSArray+Additions.m in Sources */,
 				C55C8D7D19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
-				5BB04F2319D981B900B5C6EE /* WLSupportFunctions.m in Sources */,
 				C54AF4EB19B8C437006F7EDB /* WLMenu.m in Sources */,
 				C54AF4EC19B8C437006F7EDB /* UIView+QuatzCoreAnimations.m in Sources */,
 				C54AF4ED19B8C437006F7EDB /* SegmentedControl.m in Sources */,
@@ -4336,6 +4356,7 @@
 				C54AF58C19B8C467006F7EDB /* WLContribution+Extended.m in Sources */,
 				C54AF58E19B8C467006F7EDB /* WLComposeBar.m in Sources */,
 				5BBBEB3719D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
+				C51F30A519E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C54AF59019B8C467006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C54AF59119B8C467006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF59219B8C467006F7EDB /* UIViewController+Additions.m in Sources */,
@@ -4427,7 +4448,6 @@
 				C54AF5E619B8C467006F7EDB /* NSObject+NibAdditions.m in Sources */,
 				C54AF5E719B8C467006F7EDB /* NSArray+Additions.m in Sources */,
 				C55C8D7E19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
-				5BB04F2419D981B900B5C6EE /* WLSupportFunctions.m in Sources */,
 				C54AF5E819B8C467006F7EDB /* WLMenu.m in Sources */,
 				C54AF5E919B8C467006F7EDB /* UIView+QuatzCoreAnimations.m in Sources */,
 				C54AF5EA19B8C467006F7EDB /* SegmentedControl.m in Sources */,
@@ -4549,6 +4569,7 @@
 				C54AF68919B8C491006F7EDB /* WLContribution+Extended.m in Sources */,
 				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
 				5BBBEB3819D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
+				C51F30A619E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C54AF68D19B8C491006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C54AF68E19B8C491006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF68F19B8C491006F7EDB /* UIViewController+Additions.m in Sources */,
@@ -4640,7 +4661,6 @@
 				C54AF6E319B8C491006F7EDB /* NSObject+NibAdditions.m in Sources */,
 				C54AF6E419B8C491006F7EDB /* NSArray+Additions.m in Sources */,
 				C55C8D7F19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
-				5BB04F2519D981B900B5C6EE /* WLSupportFunctions.m in Sources */,
 				C54AF6E519B8C491006F7EDB /* WLMenu.m in Sources */,
 				C54AF6E619B8C491006F7EDB /* UIView+QuatzCoreAnimations.m in Sources */,
 				C54AF6E719B8C491006F7EDB /* SegmentedControl.m in Sources */,

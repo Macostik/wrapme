@@ -32,6 +32,8 @@
 #import "WLNotification.h"
 #import "UIView+AnimationHelper.h"
 
+CGFloat WLMaxTextViewWidth;
+
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver>
 
 @property (nonatomic, strong) WLGroupedSet* groups;
@@ -62,6 +64,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *typingView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *composeBarBottomContsraint;
+
 @end
 
 @implementation WLChatViewController
@@ -72,7 +76,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    
+    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 70;
     self.shouldAppendMoreMessages = YES;
     
     self.groups = [[WLGroupedSet alloc] init];
@@ -102,13 +106,10 @@
     [[WLNotificationCenter defaultCenter] addReceiver:self];
     [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:nil];
     self.groupTyping = [NSMutableOrderedSet orderedSet];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	if (self.shouldShowKeyboard) {
-		[self.composeBar becomeFirstResponder];
-	}
+    
+    if (self.shouldShowKeyboard) {
+        [self.composeBar becomeFirstResponder];
+    }
 }
 
 - (void)setShouldAppendMoreMessages:(BOOL)shouldAppendMoreMessages {
@@ -229,15 +230,15 @@
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
 	self.keyboardHeight = 0;
-	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height;
-	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
+    self.composeBarBottomContsraint.constant = 0;
+    [self.view layoutIfNeeded];
 	[self.collectionView reloadData];
 }
 
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
 	self.keyboardHeight = [keyboardHeight floatValue];
-	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - self.keyboardHeight;
-	self.composeBar.y = CGRectGetMaxY(self.collectionView.frame);
+    self.composeBarBottomContsraint.constant = self.keyboardHeight;
+    [self.view layoutIfNeeded];
 	[self.collectionView reloadData];
 }
 
@@ -274,16 +275,6 @@
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
     self.typing = !text.nonempty;
 	[self sendMessageWithText:text];
-}
-
-- (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
-	[self changeDimentionsWithComposeBar:composeBar];
-}
-
-- (void)changeDimentionsWithComposeBar:(WLComposeBar *)composeBar {
-	self.composeBar.height = composeBar.height;
-	self.collectionView.height = self.view.height - self.topView.height - self.composeBar.height - self.keyboardHeight;
-	self.composeBar.y = self.collectionView.height + self.topView.height;
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
@@ -342,7 +333,7 @@
 }
 
 - (CGFloat)heightOfMessageCell:(WLMessage *)message {
-	CGFloat commentHeight  = ceilf([message.text boundingRectWithSize:CGSizeMake(250, CGFLOAT_MAX)
+	CGFloat commentHeight  = ceilf([message.text boundingRectWithSize:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)
 																	 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightFontOfSize:15]} context:nil].size.height);
 	commentHeight += 2*WLMessageAuthorLabelHeight;
 	return MAX(WLMessageMinimumCellHeight, commentHeight);
@@ -354,14 +345,14 @@
     }
 	WLGroup* group = [self.groups.entries tryObjectAtIndex:indexPath.section - 1];
 	WLMessage* message = [group.entries tryObjectAtIndex:indexPath.row];
-	return CGSizeMake(collectionView.frame.size.width, [self heightOfMessageCell:message]);
+	return CGSizeMake(collectionView.width, [self heightOfMessageCell:message]);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
     if (!section && ([[[self.groups.entries firstObject] date] isToday] || !self.groupTyping.nonempty)) {
         return CGSizeZero;
     }
-	return CGSizeMake(collectionView.frame.size.width, 32);
+	return CGSizeMake(collectionView.width, 32);
 }
 
 - (void)handlePaginationWithIndexPath:(NSIndexPath*)indexPath {

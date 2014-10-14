@@ -59,6 +59,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet WLSizeToFitLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
@@ -70,7 +71,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	
+    
 	[[WLUser notifier] addReceiver:self];
 	[[WLWrap notifier] addReceiver:self];
 	
@@ -90,7 +91,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     __weak __typeof(self)weakSelf = self;
     [section setChange:^(WLPaginatedSet* entries) {
         WLUser *user = [WLUser currentUser];
-        weakSelf.isShowPlaceholder = ![self.section.entries.entries nonempty];
+        weakSelf.isShowPlaceholder = entries.completed && ![entries.entries nonempty];
         if (user.firstTimeUse.boolValue && [user.wraps match:^BOOL(WLWrap *wrap) {
             return !wrap.isDefault.boolValue;
         }]) {
@@ -128,11 +129,14 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 - (void)emailConfirmationViewIsHidden:(BOOL)hidden {
-    self.emailConfirmationView.hidden = hidden;
-    CGFloat y = hidden ? self.navigationBar.height : self.emailConfirmationView.bottom;
-    [self.collectionView setY:y height:self.view.height - y];
-    if (!hidden) {
-         [self deadlineEmailConfirmationView];
+    UIView* view = self.emailConfirmationView;
+    if (view.hidden != hidden) {
+        view.hidden = hidden;
+        self.topConstraint.constant = (hidden ? self.navigationBar.height : self.navigationBar.height + view.height) - 20;
+        [self.view layoutIfNeeded];
+        if (!hidden) {
+            [self deadlineEmailConfirmationView];
+        }
     }
 }
 

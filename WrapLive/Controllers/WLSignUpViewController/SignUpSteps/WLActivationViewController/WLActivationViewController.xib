@@ -129,7 +129,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="continue:" destination="-1" eventType="touchUpInside" id="c83-Sd-aLZ"/>
+                                <action selector="done:" destination="-1" eventType="touchUpInside" id="aUu-Yg-P2x"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZQQ-RN-GIH">
@@ -143,7 +143,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="continue:" destination="-1" eventType="touchUpInside" id="TAU-gm-uyY"/>
+                                <action selector="done:" destination="-1" eventType="touchUpInside" id="UEo-1f-MLw"/>
                             </connections>
                         </button>
                     </subviews>

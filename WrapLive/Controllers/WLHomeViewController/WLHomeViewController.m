@@ -71,7 +71,12 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	
+    
+    [[WLUser currentUser].wraps all:^(id item) {
+        [item remove];
+    }];
+    [[WLUser currentUser] save];
+    
 	[[WLUser notifier] addReceiver:self];
 	[[WLWrap notifier] addReceiver:self];
 	
@@ -91,7 +96,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     __weak __typeof(self)weakSelf = self;
     [section setChange:^(WLPaginatedSet* entries) {
         WLUser *user = [WLUser currentUser];
-        weakSelf.isShowPlaceholder = ![self.section.entries.entries nonempty];
+        weakSelf.isShowPlaceholder = entries.completed && ![entries.entries nonempty];
         if (user.firstTimeUse.boolValue && [user.wraps match:^BOOL(WLWrap *wrap) {
             return !wrap.isDefault.boolValue;
         }]) {

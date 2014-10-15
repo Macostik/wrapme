@@ -132,7 +132,8 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     UIView* view = self.emailConfirmationView;
     if (view.hidden != hidden) {
         view.hidden = hidden;
-        self.topConstraint.constant = (hidden ? self.navigationBar.height : self.navigationBar.height + view.height) - 20;
+        BOOL flag = hidden && [[WLAuthorization currentAuthorization] unconfirmed_email].nonempty;
+        self.topConstraint.constant = (flag ? self.navigationBar.height : self.navigationBar.height + view.height) - 20;
         [self.view layoutIfNeeded];
         if (!hidden) {
             [self deadlineEmailConfirmationView];

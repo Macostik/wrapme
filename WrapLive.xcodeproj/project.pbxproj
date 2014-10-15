@@ -155,6 +155,10 @@
 		5BB04F2F19D9824500B5C6EE /* WLEditWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2D19D9824500B5C6EE /* WLEditWrapViewController.m */; };
 		5BB04F3019D9824500B5C6EE /* WLEditWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2D19D9824500B5C6EE /* WLEditWrapViewController.m */; };
 		5BB04F3119D9824500B5C6EE /* WLEditWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2D19D9824500B5C6EE /* WLEditWrapViewController.m */; };
+		5BB1F47119EE835100ECAB67 /* WLTypingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingView.m */; };
+		5BB1F47219EE835100ECAB67 /* WLTypingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingView.m */; };
+		5BB1F47319EE835100ECAB67 /* WLTypingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingView.m */; };
+		5BB1F47419EE835100ECAB67 /* WLTypingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingView.m */; };
 		5BB1FAEB19E8084800C12DB3 /* WLUploadWrapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1FAEA19E8084800C12DB3 /* WLUploadWrapRequest.m */; };
 		5BB1FAEC19E8084800C12DB3 /* WLUploadWrapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1FAEA19E8084800C12DB3 /* WLUploadWrapRequest.m */; };
 		5BB1FAED19E8084800C12DB3 /* WLUploadWrapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1FAEA19E8084800C12DB3 /* WLUploadWrapRequest.m */; };
@@ -1348,6 +1352,8 @@
 		5BB04F2719D9822300B5C6EE /* WLEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditViewController.m; path = WLEditViewController/WLEditViewController.m; sourceTree = "<group>"; };
 		5BB04F2C19D9824500B5C6EE /* WLEditWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditWrapViewController.h; path = WLEditWrapViewController/WLEditWrapViewController.h; sourceTree = "<group>"; };
 		5BB04F2D19D9824500B5C6EE /* WLEditWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditWrapViewController.m; path = WLEditWrapViewController/WLEditWrapViewController.m; sourceTree = "<group>"; };
+		5BB1F46F19EE835100ECAB67 /* WLTypingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTypingView.h; sourceTree = "<group>"; };
+		5BB1F47019EE835100ECAB67 /* WLTypingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTypingView.m; sourceTree = "<group>"; };
 		5BB1FAE919E8084800C12DB3 /* WLUploadWrapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUploadWrapRequest.h; path = WLAPIManager/WLAPIRequest/WLUploadWrapRequest.h; sourceTree = "<group>"; };
 		5BB1FAEA19E8084800C12DB3 /* WLUploadWrapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUploadWrapRequest.m; path = WLAPIManager/WLAPIRequest/WLUploadWrapRequest.m; sourceTree = "<group>"; };
 		5BB1FAEF19E809B900C12DB3 /* WLAddWrapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAddWrapRequest.h; path = WLAPIManager/WLAPIRequest/WLAddWrapRequest.h; sourceTree = "<group>"; };
@@ -2758,6 +2764,16 @@
 			name = WLSupportFunctions;
 			sourceTree = "<group>";
 		};
+		5BB1F46E19EE831800ECAB67 /* WLTypingView */ = {
+			isa = PBXGroup;
+			children = (
+				5BB1F46F19EE835100ECAB67 /* WLTypingView.h */,
+				5BB1F47019EE835100ECAB67 /* WLTypingView.m */,
+			);
+			name = WLTypingView;
+			path = WLChatViewController/WLTypingView;
+			sourceTree = "<group>";
+		};
 		5BB3291819D44E5100E946B8 /* WLLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -3176,6 +3192,7 @@
 		C5947E4E18F5264B00BDF038 /* WLChatViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5BB1F46E19EE831800ECAB67 /* WLTypingView */,
 				12A8AA7118F59CBF00F67113 /* WLMessageGroupCell */,
 				C5947E5218F52AC300BDF038 /* WLMessageCell */,
 				C5947E4F18F5271B00BDF038 /* WLChatViewController.h */,
@@ -3879,6 +3896,7 @@
 				C50AF42A1976B43A00761F38 /* WLPostCommentRequest.m in Sources */,
 				C50AF40F197692E400761F38 /* WLUpdateUserRequest.m in Sources */,
 				C5FFB03119AC8956006F27A7 /* WLTimeline.m in Sources */,
+				5BB1F47119EE835100ECAB67 /* WLTypingView.m in Sources */,
 				125D4A4F18E068E6001B8E7C /* NSDate+Formatting.m in Sources */,
 				12E8FF1418E960E000BF1B96 /* StreamLayout.m in Sources */,
 				C50AF40619766C3700761F38 /* WLUploadAPIRequest.m in Sources */,
@@ -4092,6 +4110,7 @@
 				C54AF46419B8C437006F7EDB /* WLPostCommentRequest.m in Sources */,
 				C54AF46619B8C437006F7EDB /* WLUpdateUserRequest.m in Sources */,
 				C54AF46719B8C437006F7EDB /* WLTimeline.m in Sources */,
+				5BB1F47219EE835100ECAB67 /* WLTypingView.m in Sources */,
 				C54AF46819B8C437006F7EDB /* NSDate+Formatting.m in Sources */,
 				C54AF46919B8C437006F7EDB /* StreamLayout.m in Sources */,
 				C54AF46A19B8C437006F7EDB /* WLUploadAPIRequest.m in Sources */,
@@ -4305,6 +4324,7 @@
 				C54AF56119B8C467006F7EDB /* WLPostCommentRequest.m in Sources */,
 				C54AF56319B8C467006F7EDB /* WLUpdateUserRequest.m in Sources */,
 				C54AF56419B8C467006F7EDB /* WLTimeline.m in Sources */,
+				5BB1F47319EE835100ECAB67 /* WLTypingView.m in Sources */,
 				C54AF56519B8C467006F7EDB /* NSDate+Formatting.m in Sources */,
 				C54AF56619B8C467006F7EDB /* StreamLayout.m in Sources */,
 				C54AF56719B8C467006F7EDB /* WLUploadAPIRequest.m in Sources */,
@@ -4518,6 +4538,7 @@
 				C54AF65E19B8C491006F7EDB /* WLPostCommentRequest.m in Sources */,
 				C54AF66019B8C491006F7EDB /* WLUpdateUserRequest.m in Sources */,
 				C54AF66119B8C491006F7EDB /* WLTimeline.m in Sources */,
+				5BB1F47419EE835100ECAB67 /* WLTypingView.m in Sources */,
 				C54AF66219B8C491006F7EDB /* NSDate+Formatting.m in Sources */,
 				C54AF66319B8C491006F7EDB /* StreamLayout.m in Sources */,
 				C54AF66419B8C491006F7EDB /* WLUploadAPIRequest.m in Sources */,

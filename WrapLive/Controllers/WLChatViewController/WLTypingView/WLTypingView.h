@@ -10,4 +10,9 @@
 
 @interface WLTypingView : UIView
 
+@property (weak, nonatomic) IBOutlet UITextView *nameTextField;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewConstraint;
+
+- (void)setName:(NSString *)name;
+
 @end

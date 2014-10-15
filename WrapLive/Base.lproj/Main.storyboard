@@ -4151,34 +4151,49 @@ Check your internet connection and try again.</string>
                                     <outlet property="delegate" destination="ef1-h7-yay" id="IvH-JL-X2t"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d6x-dk-eaV" customClass="WLTypingView">
+                                <rect key="frame" x="0.0" y="480" width="320" height="44"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_Bubble" translatesAutoresizingMaskIntoConstraints="NO" id="SGV-nF-ggh">
+                                        <rect key="frame" x="12" y="8" width="295" height="38"/>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum " translatesAutoresizingMaskIntoConstraints="NO" id="YMC-fj-3qc">
+                                        <rect key="frame" x="17" y="8" width="287" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="287" id="lVI-LA-5VI"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="YMC-fj-3qc" secondAttribute="trailing" constant="16" id="4zx-zy-LSS"/>
+                                    <constraint firstItem="SGV-nF-ggh" firstAttribute="height" secondItem="YMC-fj-3qc" secondAttribute="height" constant="8" id="MXZ-jh-sM3"/>
+                                    <constraint firstItem="YMC-fj-3qc" firstAttribute="leading" secondItem="SGV-nF-ggh" secondAttribute="leading" constant="5" id="QoG-aK-aix"/>
+                                    <constraint firstAttribute="bottom" secondItem="YMC-fj-3qc" secondAttribute="bottom" constant="6" id="ZDs-le-1l0"/>
+                                    <constraint firstItem="YMC-fj-3qc" firstAttribute="top" secondItem="SGV-nF-ggh" secondAttribute="top" id="ayW-MU-eQm"/>
+                                    <constraint firstItem="SGV-nF-ggh" firstAttribute="width" secondItem="YMC-fj-3qc" secondAttribute="width" constant="8" id="bed-Wm-6lL"/>
+                                    <constraint firstItem="YMC-fj-3qc" firstAttribute="leading" secondItem="d6x-dk-eaV" secondAttribute="leading" constant="17" id="g8N-QN-oh0"/>
+                                    <constraint firstAttribute="height" constant="44" id="lo1-IK-9Tu"/>
+                                    <constraint firstItem="YMC-fj-3qc" firstAttribute="top" secondItem="d6x-dk-eaV" secondAttribute="top" constant="8" id="sYd-CN-X9e"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="nameTextField" destination="YMC-fj-3qc" id="Hw5-nF-AKh"/>
+                                    <outlet property="textViewConstraint" destination="4zx-zy-LSS" id="crn-8p-lo7"/>
+                                </connections>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQp-Lx-kpC" customClass="WLComposeBar">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" id="C5K-2N-Tbs">
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="5O1-42-M4X">
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" id="gzs-2h-cz5">
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="3dn-cZ-dWQ"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="ef1-h7-yay" id="uwe-aK-54k"/>
+                                    <outlet property="heightConstraint" destination="3dn-cZ-dWQ" id="Q3h-5E-gQo"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -4186,14 +4201,17 @@ Check your internet connection and try again.</string>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="dQp-Lx-kpC" secondAttribute="trailing" id="4kf-fC-hnd"/>
                             <constraint firstItem="L7B-3N-jdg" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leading" id="7co-MS-pdF"/>
+                            <constraint firstItem="d6x-dk-eaV" firstAttribute="trailing" secondItem="dQp-Lx-kpC" secondAttribute="trailing" id="813-Lc-fT2"/>
                             <constraint firstAttribute="trailing" secondItem="ez0-f9-dHG" secondAttribute="trailing" id="849-5l-I5b"/>
                             <constraint firstItem="ez0-f9-dHG" firstAttribute="top" secondItem="gG3-lt-ayC" secondAttribute="bottom" constant="44" id="8s5-nb-Kw3"/>
                             <constraint firstItem="dQp-Lx-kpC" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leading" id="EeM-Zh-qsO"/>
                             <constraint firstItem="L7B-3N-jdg" firstAttribute="top" secondItem="gG3-lt-ayC" secondAttribute="bottom" constant="-20" id="OKc-Yu-Mpz"/>
                             <constraint firstItem="nir-Cb-3ne" firstAttribute="top" secondItem="dQp-Lx-kpC" secondAttribute="bottom" id="SZx-HS-fPo"/>
+                            <constraint firstItem="dQp-Lx-kpC" firstAttribute="top" secondItem="d6x-dk-eaV" secondAttribute="bottom" id="Xuw-u7-7BZ"/>
                             <constraint firstItem="ez0-f9-dHG" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leading" id="Ybf-l7-WYL"/>
                             <constraint firstAttribute="trailing" secondItem="L7B-3N-jdg" secondAttribute="trailing" id="fEW-6K-kyl"/>
-                            <constraint firstItem="ez0-f9-dHG" firstAttribute="bottom" secondItem="dQp-Lx-kpC" secondAttribute="top" id="hTO-7f-Afn"/>
+                            <constraint firstItem="d6x-dk-eaV" firstAttribute="leading" secondItem="dQp-Lx-kpC" secondAttribute="leading" id="gTB-m5-XIX"/>
+                            <constraint firstItem="ez0-f9-dHG" firstAttribute="bottom" secondItem="YMC-fj-3qc" secondAttribute="bottom" constant="6" id="jOH-22-2V5"/>
                         </constraints>
                     </view>
                     <connections>
@@ -4202,7 +4220,7 @@ Check your internet connection and try again.</string>
                         <outlet property="composeBarBottomContsraint" destination="SZx-HS-fPo" id="fIN-8N-SII"/>
                         <outlet property="titleLabel" destination="AvF-XJ-7eQ" id="VjQ-zZ-1TG"/>
                         <outlet property="topView" destination="L7B-3N-jdg" id="gR3-Tx-BoI"/>
-                        <outlet property="typingView" destination="C5K-2N-Tbs" id="hrA-gq-rAX"/>
+                        <outlet property="typingView" destination="d6x-dk-eaV" id="BUp-lf-6bn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nVG-1G-xkC" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -31,6 +31,7 @@
 #import "WLNotificationCenter.h"
 #import "WLNotification.h"
 #import "UIView+AnimationHelper.h"
+#import "WLTypingView.h"
 
 CGFloat WLMaxTextViewWidth;
 
@@ -62,7 +63,7 @@ CGFloat WLMaxTextViewWidth;
 
 @property (strong, nonatomic) WLMessageCell *typingCell;
 
-@property (weak, nonatomic) IBOutlet UIView *typingView;
+@property (weak, nonatomic) IBOutlet WLTypingView *typingView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *composeBarBottomContsraint;
 
@@ -110,6 +111,8 @@ CGFloat WLMaxTextViewWidth;
     if (self.shouldShowKeyboard) {
         [self.composeBar becomeFirstResponder];
     }
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, -44, 0);
+    [self.typingView setName:@"One"];
 }
 
 - (void)setShouldAppendMoreMessages:(BOOL)shouldAppendMoreMessages {

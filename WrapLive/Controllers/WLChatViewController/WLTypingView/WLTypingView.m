@@ -7,15 +7,29 @@
 //
 
 #import "WLTypingView.h"
+#import "UIView+Shorthand.h"
+
+static CGFloat WLMinBubbleWidth = 15.0f;
+CGFloat WLMaxTextViewWidth;
 
 @implementation WLTypingView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+    }
+    return self;
 }
-*/
+
+- (void)setName:(NSString *)name {
+    self.nameTextField.text = name;
+    __weak __typeof(self)weakSelf = self;
+    [UIView performWithoutAnimation:^{
+        CGSize size = [self.nameTextField sizeThatFits:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)];
+        weakSelf.textViewConstraint.constant =  weakSelf.width - 3.0 -  MAX(WLMinBubbleWidth, size.width);;
+        [self layoutIfNeeded];
+    }];
+}
 
 @end

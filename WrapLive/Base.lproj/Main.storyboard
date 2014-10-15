@@ -1788,6 +1788,9 @@ Ravenpod, Inc.
                                                             <integer key="value" value="11"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <outlet property="widthConstraint" destination="DaX-fs-JNF" id="iTy-LH-kyg"/>
+                                                    </connections>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatNotification" translatesAutoresizingMaskIntoConstraints="NO" id="97a-tR-kcO">
                                                     <rect key="frame" x="270" y="0.0" width="16" height="14"/>
@@ -3387,7 +3390,7 @@ Ravenpod, Inc.
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irm-8j-xhe">
-                                        <rect key="frame" x="49" y="32" width="221" height="20"/>
+                                        <rect key="frame" x="60" y="32" width="200" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="MjC-Pg-zFq"/>
                                         </constraints>
@@ -3410,11 +3413,13 @@ Ravenpod, Inc.
                                                 <integer key="value" value="11"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="widthConstraint" destination="6eu-pt-fqe" id="BJD-xQ-2IZ"/>
+                                        </connections>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="irm-8j-xhe" secondAttribute="trailing" constant="50" id="6Ar-ph-ADp"/>
                                     <constraint firstAttribute="trailing" secondItem="8kR-VI-DgA" secondAttribute="trailing" id="CZJ-45-RCL"/>
                                     <constraint firstItem="irm-8j-xhe" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="top" constant="32" id="J1n-N9-obx"/>
                                     <constraint firstItem="Fzq-yp-f3W" firstAttribute="leading" secondItem="b0w-IA-ZYu" secondAttribute="leading" id="NJ8-X8-rDk"/>
@@ -3423,7 +3428,8 @@ Ravenpod, Inc.
                                     <constraint firstItem="8kR-VI-DgA" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="top" constant="20" id="Z5M-36-JYc"/>
                                     <constraint firstAttribute="trailing" secondItem="O8y-Vm-wNu" secondAttribute="trailing" constant="33" id="mGb-oW-R2d"/>
                                     <constraint firstAttribute="height" constant="64" id="oKU-xM-Q0m"/>
-                                    <constraint firstItem="irm-8j-xhe" firstAttribute="leading" secondItem="b0w-IA-ZYu" secondAttribute="leading" constant="49" id="yUV-LJ-SOf"/>
+                                    <constraint firstItem="O8y-Vm-wNu" firstAttribute="leading" secondItem="irm-8j-xhe" secondAttribute="trailing" constant="5" id="wki-mG-8qG"/>
+                                    <constraint firstItem="irm-8j-xhe" firstAttribute="leading" secondItem="b0w-IA-ZYu" secondAttribute="leading" constant="60" id="yUV-LJ-SOf"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="46L-mU-Uks">
@@ -3455,9 +3461,8 @@ Ravenpod, Inc.
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ko6-RB-UBU">
                                         <rect key="frame" x="21" y="21" width="50" height="50"/>
                                         <subviews>
-                                            <button opaque="NO" tag="101" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="LH6-5S-pun" customClass="WLSegmentButton">
+                                            <button opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LH6-5S-pun" customClass="WLSegmentButton">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <state key="normal" image="ic_timeline_enabled">

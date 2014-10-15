@@ -13,6 +13,13 @@ static CGFloat WLConstantIndentText = 5.0f;
 #import "UIView+Shorthand.h"
 #import "NSString+Additions.h"
 #import "UILabel+Additions.h"
+#import "WLSupportFunctions.h"
+
+@interface WLSizeToFitLabel ()
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
+
+@end
 
 @implementation WLSizeToFitLabel
 
@@ -25,11 +32,8 @@ static CGFloat WLConstantIndentText = 5.0f;
 }
 
 - (void)sizeToFitByContent {
-    int width = MAX(WLConstantWidth, [self sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLConstantWidth)].width + WLConstantPadding);
-    self.width = MIN(width, self.superview.width);
-    if (self.contentMode == UIViewContentModeRight) {
-        self.x -=  self.width <= WLConstantWidth ? : self.width - WLConstantWidth;
-   }
+    CGFloat width = [self sizeThatFits:CGSizeMake(CGFLOAT_MAX, WLConstantWidth)].width + WLConstantPadding;
+    self.widthConstraint.constant = Smoothstep(WLConstantWidth, self.superview.width, width);
 }
 
 - (void)setText:(NSString *)text {

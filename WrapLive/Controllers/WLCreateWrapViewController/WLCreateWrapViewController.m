@@ -51,24 +51,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.imageView.url = [[self.pictures lastObject] medium];
-    [self.nameField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
+    [self.nameField becomeFirstResponder];
 }
-
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//	[super prepareForSegue:segue sender:sender];
-//	if ([segue isContributorsSegue]) {
-//		WLAddContributorsViewController* controller = segue.destinationViewController;
-//        controller.contributors = self.editSession.contributors;
-//        controller.invitees = self.editSession.invitees;
-//        __weak typeof(self)weakSelf = self;
-//        [controller setContactsBlock:^(NSArray *invitees) {
-//            if (!weakSelf.editSession.invitees.nonempty) {
-//                weakSelf.editSession.invitees = @[].mutableCopy;
-//            }
-//            [weakSelf.editSession addObjectToInvitees:invitees];
-//        }];
-//	}
-//}
 
 #pragma mark - Actions
 

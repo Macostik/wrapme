@@ -133,6 +133,9 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     wrapRequest.newer = [[self.groups.entries firstObject] date];
     [wrapRequest send:^(NSOrderedSet *orderedSet) {
         [weakSelf reloadData];
+        if (weakSelf.mode == WLWrapViewModeTimeline && !weakSelf.timelineDataProvider.timeline.entries.nonempty) {
+            [weakSelf changeMode:WLWrapViewModeHistory];
+        }
     } failure:^(NSError *error) {
         [error showIgnoringNetworkError];
     }];
@@ -151,7 +154,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     
     [self.dataProvider reload];
     [self updateNotificationCouter];
-     self.isShowPlaceholder = ![self.wrap.candies.array nonempty];
+     self.isShowPlaceholder = !self.wrap.candies.nonempty;
 }
 
 - (void)showPlaceholder {
@@ -161,11 +164,10 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 - (void)updateNotificationCouter {
     self.messageCountLabel.intValue = [self.wrap unreadNotificationsMessageCount];
-    self.nameLabel.width = self.messageCountLabel.hidden ? self.nameLabel.width : self.messageCountLabel.x - self.nameLabel.x;
 }
 
 - (void)reloadData {
-    [self.historyViewSection.entries resetEntries:self.wrap.candies];
+    [self.groups resetEntries:self.wrap.candies];
 }
 
 - (UIViewController *)shakePresentedViewController {
@@ -197,12 +199,12 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 - (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
     [self.groups addEntry:candy];
-    self.isShowPlaceholder = ![self.wrap.candies.array nonempty];
+    self.isShowPlaceholder = !self.wrap.candies.nonempty;
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
     [self.groups removeEntry:candy];
-    self.isShowPlaceholder = ![self.wrap.candies.array nonempty];
+    self.isShowPlaceholder = !self.wrap.candies.nonempty;
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {

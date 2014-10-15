@@ -89,6 +89,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^{
+        NSLog(@"----- remote Notification fetched");
         if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
     } failure:^(NSError *error) {
         if (completionHandler) completionHandler(UIBackgroundFetchResultFailed);

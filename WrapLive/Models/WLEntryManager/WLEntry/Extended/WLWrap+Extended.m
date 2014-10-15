@@ -170,6 +170,7 @@
 
 - (NSMutableOrderedSet*)candies:(NSUInteger)limit {
     NSMutableOrderedSet *candies = self.candies;
+    [candies sortByUpdatedAt];
     if (candies.count > limit) {
         NSIndexSet* indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, limit)];
         return [NSMutableOrderedSet orderedSetWithArray:[candies objectsAtIndexes:indexes]];

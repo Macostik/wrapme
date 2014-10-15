@@ -45,6 +45,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewConstraint;
 
 @end
 
@@ -72,6 +73,8 @@
 	[self configurePreviewLayer];
 	
 	[self performSelector:@selector(start) withObject:nil afterDelay:0.0];
+    
+    self.bottomViewConstraint.constant = self.bottomInset;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

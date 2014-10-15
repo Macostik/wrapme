@@ -888,6 +888,9 @@ Ravenpod, Inc.
                                 <rect key="frame" x="0.0" y="64" width="320" height="320"/>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="tla-Iu-umV" secondAttribute="height" multiplier="1:1" id="oLu-2o-Gqv"/>
+                                </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="bZs-wY-yP7" appends="YES" id="kHD-WD-p7W"/>
                                     <outletCollection property="gestureRecognizers" destination="WHO-a2-L29" appends="YES" id="lHl-MX-Z00"/>
@@ -956,7 +959,6 @@ Ravenpod, Inc.
                                     <constraint firstAttribute="trailing" secondItem="xXB-5v-ARs" secondAttribute="trailing" constant="-1" id="Ave-VE-Tsd"/>
                                     <constraint firstAttribute="centerY" secondItem="VWs-al-ota" secondAttribute="centerY" id="TOm-Bl-lRa"/>
                                     <constraint firstAttribute="centerX" secondItem="6qh-b4-dSO" secondAttribute="centerX" id="cwU-kU-f8m"/>
-                                    <constraint firstAttribute="height" constant="184" id="qG3-aN-cBo"/>
                                     <constraint firstItem="VWs-al-ota" firstAttribute="leading" secondItem="ztd-JX-YVg" secondAttribute="leading" id="zfP-6c-eQD"/>
                                 </constraints>
                             </view>
@@ -1000,9 +1002,9 @@ Ravenpod, Inc.
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ztd-JX-YVg" firstAttribute="top" secondItem="tla-Iu-umV" secondAttribute="bottom" id="0cn-1o-8XK"/>
                             <constraint firstAttribute="trailing" secondItem="tla-Iu-umV" secondAttribute="trailing" id="0n6-ae-TBk"/>
                             <constraint firstAttribute="trailing" secondItem="eMD-WY-m6L" secondAttribute="trailing" id="4YJ-Un-Vjk"/>
-                            <constraint firstItem="aqA-cT-UTX" firstAttribute="top" secondItem="tla-Iu-umV" secondAttribute="bottom" constant="184" id="66q-BY-8n3"/>
                             <constraint firstItem="eMD-WY-m6L" firstAttribute="leading" secondItem="Gys-KD-uvh" secondAttribute="leading" id="Cqk-jH-sV5"/>
                             <constraint firstItem="tla-Iu-umV" firstAttribute="leading" secondItem="Gys-KD-uvh" secondAttribute="leading" id="S0c-vq-AyB"/>
                             <constraint firstItem="aqA-cT-UTX" firstAttribute="top" secondItem="ztd-JX-YVg" secondAttribute="bottom" id="Sq3-3s-RUZ"/>
@@ -1184,6 +1186,7 @@ Ravenpod, Inc.
                     </view>
                     <connections>
                         <outlet property="bottomView" destination="jVS-dF-MrD" id="fNB-np-Cgu"/>
+                        <outlet property="bottomViewConstraint" destination="9pf-KT-KqY" id="JeT-nf-9Wm"/>
                         <outlet property="cameraView" destination="q20-Sa-Ifk" id="1QH-x4-lm3"/>
                         <outlet property="flashModeControl" destination="8Qc-tU-g76" id="x7N-UN-Ygd"/>
                         <outlet property="rotateButton" destination="ANy-Zw-L2v" id="6aB-08-NY3"/>
@@ -1803,20 +1806,20 @@ Ravenpod, Inc.
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="b7g-bc-eWy" firstAttribute="leading" secondItem="N8I-t6-aKU" secondAttribute="leading" id="4EO-Uk-O45"/>
                                             <constraint firstAttribute="trailing" secondItem="N8I-t6-aKU" secondAttribute="trailing" constant="58" id="8LN-fI-d4T"/>
                                             <constraint firstAttribute="trailing" secondItem="b7g-bc-eWy" secondAttribute="trailing" constant="22" id="DSa-hW-DAP"/>
                                             <constraint firstItem="HLY-EW-9Wa" firstAttribute="leading" secondItem="N5C-9U-WOe" secondAttribute="leading" constant="5" id="Fez-Tc-QHK"/>
+                                            <constraint firstItem="N8I-t6-aKU" firstAttribute="leading" secondItem="1g0-Jo-BE2" secondAttribute="trailing" constant="7" id="IMc-yb-ux9"/>
                                             <constraint firstItem="N8I-t6-aKU" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" id="Ot0-Oy-moS"/>
                                             <constraint firstAttribute="trailing" secondItem="97a-tR-kcO" secondAttribute="trailing" constant="34" id="QdX-12-Zne"/>
                                             <constraint firstAttribute="trailing" secondItem="ctG-Sd-jmI" secondAttribute="trailing" id="R2b-5H-zUE"/>
                                             <constraint firstItem="ctG-Sd-jmI" firstAttribute="leading" secondItem="N5C-9U-WOe" secondAttribute="leading" id="UoI-lU-XKl"/>
-                                            <constraint firstItem="N8I-t6-aKU" firstAttribute="leading" secondItem="N5C-9U-WOe" secondAttribute="leading" constant="70" id="VDc-Se-a1Q"/>
                                             <constraint firstAttribute="trailing" secondItem="MZk-V3-e34" secondAttribute="trailing" constant="12" id="Y0r-Mb-3GV"/>
                                             <constraint firstItem="97a-tR-kcO" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" id="aXv-rT-4wy"/>
                                             <constraint firstItem="b7g-bc-eWy" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" constant="20" id="c45-qf-gVi"/>
                                             <constraint firstItem="HLY-EW-9Wa" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" id="ciO-lq-nkZ"/>
                                             <constraint firstAttribute="bottom" secondItem="ctG-Sd-jmI" secondAttribute="bottom" id="fNs-v2-jFC"/>
-                                            <constraint firstItem="b7g-bc-eWy" firstAttribute="leading" secondItem="N5C-9U-WOe" secondAttribute="leading" constant="70" id="gWe-fu-fsS"/>
                                             <constraint firstItem="1g0-Jo-BE2" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" id="hEo-aB-gJJ"/>
                                             <constraint firstAttribute="centerY" secondItem="MZk-V3-e34" secondAttribute="centerY" id="jEC-90-YQB"/>
                                             <constraint firstItem="ctG-Sd-jmI" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" id="jxK-dS-Wuy"/>

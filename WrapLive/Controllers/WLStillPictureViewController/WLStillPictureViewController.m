@@ -51,6 +51,7 @@
     self.cameraViewController.mode = self.mode;
     self.cameraViewController.defaultPosition = self.defaultPosition;
 	self.cameraViewController.wrap = self.wrap;
+    self.cameraViewController.bottomInset = self.wrapView.height;
     
     if (self.wrap) {
         self.wrapView.hidden = NO;

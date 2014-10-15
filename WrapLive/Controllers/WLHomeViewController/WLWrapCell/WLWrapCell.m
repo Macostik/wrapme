@@ -48,7 +48,7 @@
     self.coverView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     self.contributorsLabel.numberOfLines = self.candiesView ? 1 : 2;
     __weak typeof(self)weakSelf = self;
-    self.menu = [WLMenu menuWithView:self configuration:^BOOL(WLMenu *menu) {
+    self.menu = [WLMenu menuWithView:self.candiesView ? self.nameLabel.superview : self configuration:^BOOL(WLMenu *menu) {
         WLWrap* wrap = weakSelf.entry;
         if ([wrap.contributor isCurrentUser]) {
             [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:^{

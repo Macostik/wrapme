@@ -105,6 +105,13 @@ CGFloat WLMaxTextViewWidth;
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.wrap.messages all:^(WLMessage *message) {
+        if(!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
+    }];
+}
+
 - (void)setShouldAppendMoreMessages:(BOOL)shouldAppendMoreMessages {
 	_shouldAppendMoreMessages = shouldAppendMoreMessages;
 	if (shouldAppendMoreMessages) {

@@ -271,9 +271,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 	WLChatViewController * chatController = [WLChatViewController instantiate];
 	chatController.wrap = self.wrap;
 	chatController.shouldShowKeyboard = YES;
-    [self.wrap.messages all:^(WLMessage *message) {
-        if(!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
-    }];
 	[self.navigationController pushUniqueClassViewController:chatController animated:YES];
 }
 

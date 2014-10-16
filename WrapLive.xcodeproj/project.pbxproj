@@ -271,6 +271,10 @@
 		C51496411975736D009F0743 /* WLAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C51496401975736D009F0743 /* WLAPIRequest.m */; };
 		C5149644197586E4009F0743 /* WLWrapsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5149643197586E4009F0743 /* WLWrapsRequest.m */; };
 		C51496471975872D009F0743 /* WLPaginatedRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C51496461975872D009F0743 /* WLPaginatedRequest.m */; };
+		C515055719F0195400BF4D82 /* WLBlurredView.m in Sources */ = {isa = PBXBuildFile; fileRef = C515055619F0195400BF4D82 /* WLBlurredView.m */; };
+		C515055819F0195400BF4D82 /* WLBlurredView.m in Sources */ = {isa = PBXBuildFile; fileRef = C515055619F0195400BF4D82 /* WLBlurredView.m */; };
+		C515055919F0195400BF4D82 /* WLBlurredView.m in Sources */ = {isa = PBXBuildFile; fileRef = C515055619F0195400BF4D82 /* WLBlurredView.m */; };
+		C515055A19F0195400BF4D82 /* WLBlurredView.m in Sources */ = {isa = PBXBuildFile; fileRef = C515055619F0195400BF4D82 /* WLBlurredView.m */; };
 		C516873119BD9D66005BA034 /* WLMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C516873019BD9D66005BA034 /* WLMessage.m */; };
 		C516873219BD9D66005BA034 /* WLMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C516873019BD9D66005BA034 /* WLMessage.m */; };
 		C516873319BD9D66005BA034 /* WLMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C516873019BD9D66005BA034 /* WLMessage.m */; };
@@ -1483,6 +1487,8 @@
 		C5149643197586E4009F0743 /* WLWrapsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapsRequest.m; path = WLAPIManager/WLAPIRequest/WLWrapsRequest.m; sourceTree = "<group>"; };
 		C51496451975872D009F0743 /* WLPaginatedRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPaginatedRequest.h; path = WLAPIManager/WLAPIRequest/WLPaginatedRequest.h; sourceTree = "<group>"; };
 		C51496461975872D009F0743 /* WLPaginatedRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPaginatedRequest.m; path = WLAPIManager/WLAPIRequest/WLPaginatedRequest.m; sourceTree = "<group>"; };
+		C515055519F0195400BF4D82 /* WLBlurredView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBlurredView.h; sourceTree = "<group>"; };
+		C515055619F0195400BF4D82 /* WLBlurredView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLBlurredView.m; sourceTree = "<group>"; };
 		C516872F19BD9D66005BA034 /* WLMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessage.h; sourceTree = "<group>"; };
 		C516873019BD9D66005BA034 /* WLMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMessage.m; sourceTree = "<group>"; };
 		C516873519BD9D8D005BA034 /* WLMessage+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLMessage+Extended.h"; sourceTree = "<group>"; };
@@ -2052,6 +2058,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C515055419F0195400BF4D82 /* WLBlurredView */,
 				C503E96719A77C7900992B63 /* Buttons */,
 				C5F99B6C196BEB0C00A3FB19 /* WLMenu */,
 				14ACAE0119421A79006BD3B3 /* WLQuickChatView */,
@@ -3095,6 +3102,15 @@
 			name = WLAPIRequest;
 			sourceTree = "<group>";
 		};
+		C515055419F0195400BF4D82 /* WLBlurredView */ = {
+			isa = PBXGroup;
+			children = (
+				C515055519F0195400BF4D82 /* WLBlurredView.h */,
+				C515055619F0195400BF4D82 /* WLBlurredView.m */,
+			);
+			path = WLBlurredView;
+			sourceTree = "<group>";
+		};
 		C516873B19BDB133005BA034 /* WLDispatcher */ = {
 			isa = PBXGroup;
 			children = (
@@ -4033,6 +4049,7 @@
 				12D578CA1917ACE200586995 /* NSDate+Additions.m in Sources */,
 				C50445B91951AA8F003C2251 /* WLEntry+Extended.m in Sources */,
 				C50AF42D1976B44D00761F38 /* WLDeleteCommentRequest.m in Sources */,
+				C515055719F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				12A9EFBB18F8026E002CBF75 /* WLCameraAdjustmentView.m in Sources */,
 				C50AF4151976982D00761F38 /* WLWrapRequest.m in Sources */,
 				C51496471975872D009F0743 /* WLPaginatedRequest.m in Sources */,
@@ -4246,6 +4263,7 @@
 				C54AF4F319B8C437006F7EDB /* NSDate+Additions.m in Sources */,
 				C54AF4F419B8C437006F7EDB /* WLEntry+Extended.m in Sources */,
 				C54AF4F519B8C437006F7EDB /* WLDeleteCommentRequest.m in Sources */,
+				C515055819F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C54AF4F619B8C437006F7EDB /* WLCameraAdjustmentView.m in Sources */,
 				C54AF4F719B8C437006F7EDB /* WLWrapRequest.m in Sources */,
 				C54AF4F819B8C437006F7EDB /* WLPaginatedRequest.m in Sources */,
@@ -4459,6 +4477,7 @@
 				C54AF5F019B8C467006F7EDB /* NSDate+Additions.m in Sources */,
 				C54AF5F119B8C467006F7EDB /* WLEntry+Extended.m in Sources */,
 				C54AF5F219B8C467006F7EDB /* WLDeleteCommentRequest.m in Sources */,
+				C515055919F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C54AF5F319B8C467006F7EDB /* WLCameraAdjustmentView.m in Sources */,
 				C54AF5F419B8C467006F7EDB /* WLWrapRequest.m in Sources */,
 				C54AF5F519B8C467006F7EDB /* WLPaginatedRequest.m in Sources */,
@@ -4672,6 +4691,7 @@
 				C54AF6ED19B8C491006F7EDB /* NSDate+Additions.m in Sources */,
 				C54AF6EE19B8C491006F7EDB /* WLEntry+Extended.m in Sources */,
 				C54AF6EF19B8C491006F7EDB /* WLDeleteCommentRequest.m in Sources */,
+				C515055A19F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C54AF6F019B8C491006F7EDB /* WLCameraAdjustmentView.m in Sources */,
 				C54AF6F119B8C491006F7EDB /* WLWrapRequest.m in Sources */,
 				C54AF6F219B8C491006F7EDB /* WLPaginatedRequest.m in Sources */,

@@ -48,10 +48,6 @@ typedef enum : NSUInteger {
     self.view.frame = [UIWindow mainWindow].bounds;
     [self.view layoutIfNeeded];
     
-    self.placeholderView.layer.cornerRadius = 5.0f;
-    self.placeholderView.layer.masksToBounds = YES;
-    self.placeholderView.hidden = YES;
-    
     WLLoadingView* splash = [WLLoadingView splash];
     splash.frame = self.view.bounds;
     [self.view addSubview:splash];

@@ -143,7 +143,7 @@
 @implementation WLPressButton
 
 - (UIColor *)defaultHighlightedColor {
-    return [[self normalColor] colorByAddingValue:-0.1f];
+    return [[self normalColor] colorByAddingValue:0.1f];
 }
 
 @end

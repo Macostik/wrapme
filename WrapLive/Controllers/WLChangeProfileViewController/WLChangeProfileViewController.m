@@ -32,8 +32,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (strong, nonatomic) WLUser * user;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-@property (weak, nonatomic) IBOutlet UIView *mainView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
 @property (strong, nonatomic) WLProfileEditSession *editSession;
 
@@ -96,20 +95,22 @@
                             option:(UIViewAnimationCurve)animationCurve {
     [super willShowKeyboardWithHeight:keyboardHeight duration:duration option:animationCurve];
     __weak typeof(self)weakSelf = self;
-    CGPoint center = [self.view convertPoint:self.emailTextField.center fromView:self.emailTextField.superview];
-    CGFloat translation =  center.y - (self.view.height - keyboardHeight.integerValue - self.doneButton.height)/2;
+//    CGPoint center = [self.view convertPoint:self.emailTextField.center fromView:self.emailTextField.superview];
+//    CGFloat translation =  center.y - (self.view.height - keyboardHeight.integerValue - self.doneButton.height)/2;
+    self.topConstraint.constant = -self.imageView.superview.height;
     [UIView performAnimated:YES animation:^{
         [UIView setAnimationCurve:animationCurve];
-        weakSelf.mainView.transform = CGAffineTransformMakeTranslation(0, -translation);
+        [weakSelf.view layoutIfNeeded];
     }];
 }
 
 - (void)willHideKeyboardWithDuration:(NSTimeInterval)duration option:(UIViewAnimationCurve)animationCurve {
     [super willHideKeyboardWithDuration:duration option:animationCurve];
     __weak typeof(self)weakSelf = self;
+    self.topConstraint.constant = 0;
     [UIView performAnimated:YES animation:^{
         [UIView setAnimationCurve:animationCurve];
-        weakSelf.mainView.transform = CGAffineTransformIdentity;
+        [weakSelf.view layoutIfNeeded];
     }];
 }
 

@@ -367,20 +367,32 @@
                                 </constraints>
                             </imageView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oGK-wC-pRq" customClass="WLBlurredView">
-                                <rect key="frame" x="20" y="56" width="280" height="456"/>
+                                <rect key="frame" x="20" y="63" width="280" height="442"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yS-yj-aEL">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="442"/>
+                                        <color key="backgroundColor" white="1" alpha="0.25" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="8yS-yj-aEL" firstAttribute="leading" secondItem="oGK-wC-pRq" secondAttribute="leading" id="LLm-3U-MKS"/>
+                                    <constraint firstAttribute="bottom" secondItem="8yS-yj-aEL" secondAttribute="bottom" id="Y2v-QW-WPo"/>
+                                    <constraint firstItem="8yS-yj-aEL" firstAttribute="top" secondItem="oGK-wC-pRq" secondAttribute="top" id="Ztm-3W-Csr"/>
+                                    <constraint firstAttribute="trailing" secondItem="8yS-yj-aEL" secondAttribute="trailing" id="ybv-jf-XIJ"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="4"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mna-Tr-tSw">
-                                <rect key="frame" x="0.0" y="36" width="320" height="496"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mna-Tr-tSw">
+                                <rect key="frame" x="20" y="63" width="280" height="366"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4NN-tc-MaB">
-                                        <rect key="frame" x="20" y="20" width="280" height="366"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="366"/>
                                         <subviews>
                                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PkY-qd-z05">
                                                 <rect key="frame" x="17" y="346" width="246" height="20"/>
@@ -419,7 +431,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="udH-ex-qVx">
-                                        <rect key="frame" x="20" y="20" width="280" height="366"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="366"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oO7-26-oPE">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="75"/>
@@ -831,18 +843,23 @@ Ravenpod, Inc.
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="4NN-tc-MaB" secondAttribute="trailing" constant="20" id="1ju-Qx-4MI"/>
-                                    <constraint firstItem="4NN-tc-MaB" firstAttribute="leading" secondItem="mna-Tr-tSw" secondAttribute="leading" constant="20" id="SZL-sz-VNd"/>
-                                    <constraint firstAttribute="bottom" secondItem="udH-ex-qVx" secondAttribute="bottom" constant="110" id="VTb-vV-KPJ"/>
-                                    <constraint firstItem="udH-ex-qVx" firstAttribute="top" secondItem="mna-Tr-tSw" secondAttribute="top" constant="20" id="aRm-bj-e34"/>
-                                    <constraint firstItem="4NN-tc-MaB" firstAttribute="top" secondItem="mna-Tr-tSw" secondAttribute="top" constant="20" id="bjo-aH-tl5"/>
-                                    <constraint firstItem="udH-ex-qVx" firstAttribute="leading" secondItem="mna-Tr-tSw" secondAttribute="leading" constant="20" id="oAz-0h-ZuG"/>
-                                    <constraint firstAttribute="trailing" secondItem="udH-ex-qVx" secondAttribute="trailing" constant="20" id="qNj-bV-I33"/>
-                                    <constraint firstAttribute="bottom" secondItem="4NN-tc-MaB" secondAttribute="bottom" constant="110" id="xWL-eY-QBw"/>
+                                    <constraint firstAttribute="trailing" secondItem="4NN-tc-MaB" secondAttribute="trailing" id="1ju-Qx-4MI"/>
+                                    <constraint firstItem="4NN-tc-MaB" firstAttribute="leading" secondItem="mna-Tr-tSw" secondAttribute="leading" id="SZL-sz-VNd"/>
+                                    <constraint firstAttribute="bottom" secondItem="udH-ex-qVx" secondAttribute="bottom" id="VTb-vV-KPJ"/>
+                                    <constraint firstItem="udH-ex-qVx" firstAttribute="top" secondItem="mna-Tr-tSw" secondAttribute="top" id="aRm-bj-e34"/>
+                                    <constraint firstItem="4NN-tc-MaB" firstAttribute="top" secondItem="mna-Tr-tSw" secondAttribute="top" id="bjo-aH-tl5"/>
+                                    <constraint firstItem="udH-ex-qVx" firstAttribute="leading" secondItem="mna-Tr-tSw" secondAttribute="leading" id="oAz-0h-ZuG"/>
+                                    <constraint firstAttribute="trailing" secondItem="udH-ex-qVx" secondAttribute="trailing" id="qNj-bV-I33"/>
+                                    <constraint firstAttribute="bottom" secondItem="4NN-tc-MaB" secondAttribute="bottom" id="xWL-eY-QBw"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0BE-1R-lZi">
-                                <rect key="frame" x="40" y="444" width="240" height="48"/>
+                                <rect key="frame" x="40" y="437" width="240" height="48"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="0ZQ-QI-dVc"/>
@@ -864,16 +881,16 @@ Ravenpod, Inc.
                         <constraints>
                             <constraint firstItem="Z7H-YO-EAb" firstAttribute="top" secondItem="s3Z-Dw-psX" secondAttribute="bottom" constant="-20" id="Agn-7U-Oic"/>
                             <constraint firstAttribute="centerX" secondItem="0BE-1R-lZi" secondAttribute="centerX" id="H6M-jr-R0L"/>
-                            <constraint firstItem="oGK-wC-pRq" firstAttribute="height" secondItem="mna-Tr-tSw" secondAttribute="height" constant="-40" id="IYf-I3-pqB"/>
-                            <constraint firstItem="oGK-wC-pRq" firstAttribute="width" secondItem="mna-Tr-tSw" secondAttribute="width" constant="-40" id="Kpc-HF-XJJ"/>
+                            <constraint firstItem="oGK-wC-pRq" firstAttribute="height" secondItem="mna-Tr-tSw" secondAttribute="height" constant="76" id="IYf-I3-pqB"/>
+                            <constraint firstItem="oGK-wC-pRq" firstAttribute="width" secondItem="mna-Tr-tSw" secondAttribute="width" id="Kpc-HF-XJJ"/>
                             <constraint firstItem="0BE-1R-lZi" firstAttribute="bottom" secondItem="oGK-wC-pRq" secondAttribute="bottom" constant="-20" id="V92-Vk-07R"/>
-                            <constraint firstItem="oGK-wC-pRq" firstAttribute="top" secondItem="mna-Tr-tSw" secondAttribute="top" constant="20" id="XsH-fu-yJA"/>
-                            <constraint firstAttribute="height" secondItem="mna-Tr-tSw" secondAttribute="height" constant="72" id="dtL-rd-4hQ"/>
+                            <constraint firstItem="oGK-wC-pRq" firstAttribute="top" secondItem="mna-Tr-tSw" secondAttribute="top" id="XsH-fu-yJA"/>
+                            <constraint firstAttribute="height" secondItem="mna-Tr-tSw" secondAttribute="height" constant="202" id="dtL-rd-4hQ"/>
                             <constraint firstAttribute="trailing" secondItem="Z7H-YO-EAb" secondAttribute="trailing" id="eJK-EN-WfE"/>
-                            <constraint firstAttribute="trailing" secondItem="mna-Tr-tSw" secondAttribute="trailing" id="fDv-Eu-OwE"/>
-                            <constraint firstItem="oGK-wC-pRq" firstAttribute="leading" secondItem="mna-Tr-tSw" secondAttribute="leading" constant="20" id="gRw-Nt-T4I"/>
-                            <constraint firstAttribute="centerY" secondItem="mna-Tr-tSw" secondAttribute="centerY" id="kaQ-Il-U1o"/>
-                            <constraint firstItem="mna-Tr-tSw" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="l7E-Sy-Fnn"/>
+                            <constraint firstAttribute="trailing" secondItem="mna-Tr-tSw" secondAttribute="trailing" constant="20" id="fDv-Eu-OwE"/>
+                            <constraint firstItem="oGK-wC-pRq" firstAttribute="leading" secondItem="mna-Tr-tSw" secondAttribute="leading" id="gRw-Nt-T4I"/>
+                            <constraint firstAttribute="centerY" secondItem="mna-Tr-tSw" secondAttribute="centerY" constant="38" id="kaQ-Il-U1o"/>
+                            <constraint firstItem="mna-Tr-tSw" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="l7E-Sy-Fnn"/>
                             <constraint firstItem="Z7H-YO-EAb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="wiU-Td-1Qh"/>
                         </constraints>
                     </view>

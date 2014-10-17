@@ -28,7 +28,7 @@
 - (void)setup {
     UIView *view = nil;
     if (SystemVersionGreaterThanOrEqualTo8()) {
-        view = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight]];
+        view = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     } else {
         UIToolbar* toolbar = [[UIToolbar alloc] init];
         toolbar.translucent = YES;
@@ -39,7 +39,7 @@
     [view setFullFlexible];
     view.translatesAutoresizingMaskIntoConstraints = YES;
     view.frame = self.bounds;
-    [self addSubview:view];
+    [self insertSubview:view atIndex:0];
 }
 
 @end

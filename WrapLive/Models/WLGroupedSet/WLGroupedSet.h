@@ -25,7 +25,7 @@
 
 @end
 
-@interface WLGroup : WLPaginatedSet
+@interface WLGroup : WLPaginatedSet <WLPaginationEntry>
 
 @property (strong, nonatomic) NSDate* date;
 

@@ -12,6 +12,12 @@
 
 @class WLPaginatedSet;
 
+@protocol WLPaginationEntry <NSObject>
+
+@property (readonly, nonatomic) NSDate *paginationDate;
+
+@end
+
 @protocol WLPaginatedSetDelegate <NSObject>
 
 - (void)paginatedSetChanged:(WLPaginatedSet*)group;
@@ -57,5 +63,15 @@
 - (void)sort;
 
 - (void)sort:(id)entry;
+
+@end
+
+@interface WLEntry (WLPaginatedSet) <WLPaginationEntry>
+
+@property (readonly, nonatomic) NSDate *paginationDate;
+
+@end
+
+@interface WLCandy (WLPaginatedSet)
 
 @end

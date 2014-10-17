@@ -107,18 +107,23 @@
     }
 }
 
-- (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
+- (void)cropImage:(UIImage*)image useCameraAspectRatio:(BOOL)useCameraAspectRatio completion:(void (^)(UIImage *croppedImage))completion {
 	CGSize viewSize = self.cameraViewController.viewSize;
 	run_getting_object(^id{
         UIImage *result = image;
         CGFloat resultWidth = [self imageWidthForCurrentMode];
-        CGFloat scale = viewSize.width / resultWidth;
-        CGSize newSize = CGSizeMake(resultWidth, viewSize.height / scale);
-        result = [result resizedImageWithContentModeScaleAspectFill:CGSizeMake(resultWidth, 1)];
-        if (result.size.width > result.size.height) {
-            result = [result croppedImage:CGRectThatFitsSize(result.size, CGSizeMake(newSize.height, newSize.width))];
+        if (useCameraAspectRatio) {
+            CGSize newSize = CGSizeThatFitsSize(result.size, viewSize);
+            CGFloat scale = newSize.width / resultWidth;
+            newSize = CGSizeMake(resultWidth, newSize.height / scale);
+            result = [result resizedImageWithContentModeScaleAspectFill:CGSizeMake(result.size.width / scale, 1)];
+            if (result.size.width > result.size.height) {
+                result = [result croppedImage:CGRectThatFitsSize(result.size, CGSizeMake(newSize.height, newSize.width))];
+            } else {
+                result = [result croppedImage:CGRectThatFitsSize(result.size, newSize)];
+            }
         } else {
-            result = [result croppedImage:CGRectThatFitsSize(result.size, newSize)];
+            result = [result resizedImageWithContentModeScaleAspectFill:CGSizeMake(resultWidth, 1)];
         }
         return result;
 	}, completion);
@@ -127,7 +132,7 @@
 - (void)cropAsset:(ALAsset*)asset completion:(void (^)(UIImage *croppedImage))completion {
     ALAssetRepresentation* r = asset.defaultRepresentation;
     UIImage* image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:(UIImageOrientation)r.orientation];
-    [self cropImage:image completion:completion];
+    [self cropImage:image useCameraAspectRatio:(self.mode != WLCameraModeCandy) completion:completion];
 }
 
 - (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
@@ -182,7 +187,7 @@
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image metadata:(NSMutableDictionary *)metadata {
 	self.view.userInteractionEnabled = NO;
 	__weak typeof(self)weakSelf = self;
-	[self cropImage:image completion:^(UIImage *croppedImage) {
+	[self cropImage:image useCameraAspectRatio:YES completion:^(UIImage *croppedImage) {
         [weakSelf handleImage:croppedImage save:YES metadata:metadata];
 		weakSelf.view.userInteractionEnabled = YES;
 	}];

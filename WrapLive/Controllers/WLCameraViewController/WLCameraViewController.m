@@ -82,6 +82,11 @@
 	self.takePhotoButton.active = YES;
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    _previewLayer.frame = self.cameraView.bounds;
+}
+
 - (void)configurePreviewLayer {
 	AVCaptureVideoPreviewLayer* previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
 	previewLayer.frame = self.cameraView.bounds;

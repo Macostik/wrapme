@@ -95,8 +95,6 @@
                             option:(UIViewAnimationCurve)animationCurve {
     [super willShowKeyboardWithHeight:keyboardHeight duration:duration option:animationCurve];
     __weak typeof(self)weakSelf = self;
-//    CGPoint center = [self.view convertPoint:self.emailTextField.center fromView:self.emailTextField.superview];
-//    CGFloat translation =  center.y - (self.view.height - keyboardHeight.integerValue - self.doneButton.height)/2;
     self.topConstraint.constant = -self.imageView.superview.height;
     [UIView performAnimated:YES animation:^{
         [UIView setAnimationCurve:animationCurve];

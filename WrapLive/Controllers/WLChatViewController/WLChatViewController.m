@@ -345,9 +345,12 @@ CGFloat WLMaxTextViewWidth;
 	return groupCell;
 }
 
-- (CGFloat)heightOfMessageCell:(WLMessage *)message {
+- (CGFloat)heightOfMessageCell:(WLMessage *)message equalLastMessage:(WLMessage *)lastmessage {
 	CGFloat commentHeight  = ceilf([message.text boundingRectWithSize:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)
 																	 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightFontOfSize:15]} context:nil].size.height);
+    if (![message isEqualToEntry:lastmessage]) {
+        return  commentHeight + WLMessageAuthorLabelHeight/2;
+    }
 	commentHeight += 2*WLMessageAuthorLabelHeight;
 	return MAX(WLMessageMinimumCellHeight, commentHeight);
 }
@@ -357,12 +360,13 @@ CGFloat WLMaxTextViewWidth;
         return CGSizeMake(collectionView.width, 66);
     }
     WLMessage *message = nil;
+    WLMessage *lastMessage = nil;
     for (WLGroup *groupDay in self.chatGroup.entries) {
         WLGroup *group = [groupDay.entries tryObjectAtIndex:indexPath.section - 1];
         message = [group.entries tryObjectAtIndex:indexPath.row];
+        lastMessage = group.entries.lastObject;
     }
-   
-	return CGSizeMake(collectionView.width, [self heightOfMessageCell:message]);
+    return CGSizeMake(collectionView.width, [self heightOfMessageCell:message equalLastMessage:lastMessage]);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {

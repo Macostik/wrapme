@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
@@ -4116,11 +4116,11 @@ Check your internet connection and try again.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="not_owner_gray_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="41I-u5-SU6">
-                                                    <rect key="frame" x="8" y="8" width="254" height="24"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="not_owner_gray_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="41I-u5-SU6">
+                                                    <rect key="frame" x="8" y="0.0" width="254" height="33"/>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="CgH-gR-3Aw">
-                                                    <rect key="frame" x="14" y="8" width="246" height="30"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="CgH-gR-3Aw">
+                                                    <rect key="frame" x="14" y="0.0" width="246" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -4131,18 +4131,20 @@ Check your internet connection and try again.</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="41I-u5-SU6" firstAttribute="top" secondItem="CgH-gR-3Aw" secondAttribute="top" id="0Wb-T5-QGE"/>
-                                            <constraint firstItem="41I-u5-SU6" firstAttribute="bottom" secondItem="ivg-aY-e4W" secondAttribute="bottomMargin" id="KaS-0U-Z9m"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="CgH-gR-3Aw" secondAttribute="trailing" constant="52" id="Xlz-m6-JEt"/>
-                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="leading" secondItem="ivg-aY-e4W" secondAttribute="leadingMargin" constant="6" id="aUN-Qp-QNj"/>
-                                            <constraint firstItem="41I-u5-SU6" firstAttribute="leading" secondItem="ivg-aY-e4W" secondAttribute="leadingMargin" id="grq-YD-GA0"/>
-                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="width" secondItem="41I-u5-SU6" secondAttribute="width" constant="8" id="mBe-4w-cf3"/>
-                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="top" secondItem="ivg-aY-e4W" secondAttribute="topMargin" id="udm-sC-AeN"/>
+                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="leading" secondItem="ivg-aY-e4W" secondAttribute="leadingMargin" constant="6" id="38p-ed-Y2h"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="CgH-gR-3Aw" secondAttribute="bottom" constant="2" id="DCv-pg-ezk"/>
+                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="top" secondItem="ivg-aY-e4W" secondAttribute="topMargin" constant="-8" id="Dcq-VP-DtV"/>
+                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="top" secondItem="41I-u5-SU6" secondAttribute="top" id="Gtb-lo-hHP"/>
+                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="leading" secondItem="41I-u5-SU6" secondAttribute="leading" constant="6" id="Tp5-gz-2GF"/>
+                                            <constraint firstItem="41I-u5-SU6" firstAttribute="width" secondItem="CgH-gR-3Aw" secondAttribute="width" constant="8" id="eM3-9n-6vD"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="CgH-gR-3Aw" secondAttribute="trailing" constant="52" id="jhh-uw-DE6"/>
+                                            <constraint firstItem="41I-u5-SU6" firstAttribute="height" secondItem="CgH-gR-3Aw" secondAttribute="height" constant="3" id="y8U-Eu-pUl"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="40"/>
                                         <connections>
                                             <outlet property="bubbleImageView" destination="41I-u5-SU6" id="uJC-pd-SwB"/>
                                             <outlet property="messageTextView" destination="CgH-gR-3Aw" id="IUW-da-Brq"/>
+                                            <outlet property="textViewConstraint" destination="38p-ed-Y2h" id="kKM-uc-3AP"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLBubbleMessageCell" id="zi4-Ct-o5G" customClass="WLMessageCell">
@@ -4152,11 +4154,11 @@ Check your internet connection and try again.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="not_owner_red_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="fEn-6o-vwb">
-                                                    <rect key="frame" x="58" y="8" width="254" height="24"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="not_owner_red_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="fEn-6o-vwb">
+                                                    <rect key="frame" x="58" y="0.0" width="246" height="33"/>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xF8-7i-x7W">
-                                                    <rect key="frame" x="64" y="8" width="246" height="30"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xF8-7i-x7W">
+                                                    <rect key="frame" x="64" y="0.0" width="246" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -4166,10 +4168,21 @@ Check your internet connection and try again.</string>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="xF8-7i-x7W" firstAttribute="top" secondItem="zi4-Ct-o5G" secondAttribute="topMargin" constant="-8" id="09K-q7-BLj"/>
+                                            <constraint firstItem="xF8-7i-x7W" firstAttribute="leading" secondItem="zi4-Ct-o5G" secondAttribute="leading" constant="64" id="ApS-0r-4mt"/>
+                                            <constraint firstItem="xF8-7i-x7W" firstAttribute="leading" secondItem="fEn-6o-vwb" secondAttribute="leading" constant="6" id="CbS-1h-haY"/>
+                                            <constraint firstItem="fEn-6o-vwb" firstAttribute="height" secondItem="xF8-7i-x7W" secondAttribute="height" constant="3" id="GpX-ad-ok5"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="xF8-7i-x7W" secondAttribute="bottom" constant="2" id="M6i-jp-a0k"/>
+                                            <constraint firstItem="xF8-7i-x7W" firstAttribute="top" secondItem="fEn-6o-vwb" secondAttribute="top" id="TXd-ZV-o6N"/>
+                                            <constraint firstItem="fEn-6o-vwb" firstAttribute="width" secondItem="xF8-7i-x7W" secondAttribute="width" id="Uv1-GQ-yv0"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="xF8-7i-x7W" secondAttribute="trailing" constant="2" id="i8l-Kx-dBJ"/>
+                                        </constraints>
                                         <size key="customSize" width="320" height="40"/>
                                         <connections>
                                             <outlet property="bubbleImageView" destination="fEn-6o-vwb" id="t0a-UB-LrF"/>
                                             <outlet property="messageTextView" destination="xF8-7i-x7W" id="t6P-j9-8GR"/>
+                                            <outlet property="textViewConstraint" destination="i8l-Kx-dBJ" id="dgo-pr-it2"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLEmptyCell" id="hUB-zz-cUP" customClass="WLMessageCell">
@@ -4601,7 +4614,7 @@ Check your internet connection and try again.</string>
         <image name="ic_timeline_enabled" width="34" height="32"/>
         <image name="ic_wrapLive" width="104" height="90"/>
         <image name="not_owner_gray_bubble" width="16" height="15"/>
-        <image name="not_owner_red_bubble" width="28" height="25"/>
+        <image name="not_owner_red_bubble" width="16" height="16"/>
         <image name="red_Bubble" width="26" height="21"/>
         <image name="switch_to_front_cam" width="30" height="30"/>
         <image name="termsAndConditions" width="325" height="80"/>

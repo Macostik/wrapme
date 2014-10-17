@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLUser.h"
 
 @interface WLTypingView : UIView
 
 @property (weak, nonatomic) IBOutlet UITextView *nameTextField;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewConstraint;
+@property (strong, nonatomic) NSMutableOrderedSet *groupUsers;
 
-- (void)setName:(NSString *)name;
+- (void)addUser:(WLUser *)user;
+- (void)removeUser:(WLUser *)user;
+- (BOOL)hasUsers;
 
 @end

@@ -4,6 +4,7 @@
         <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Countries View Controller-->
@@ -3982,7 +3983,7 @@ Check your internet connection and try again.</string>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="glx-hX-c2q" customClass="WLCollectionViewFlowLayout">
                                     <size key="itemSize" width="320" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="320" height="32"/>
+                                    <size key="footerReferenceSize" width="50" height="33"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
@@ -4009,7 +4010,7 @@ Check your internet connection and try again.</string>
                                                     <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="dsd" image="gray_Bubble" translatesAutoresizingMaskIntoConstraints="NO" id="acW-kf-dhe">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_Bubble" translatesAutoresizingMaskIntoConstraints="NO" id="acW-kf-dhe">
                                                     <rect key="frame" x="2" y="22" width="254" height="33"/>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="w12-va-7vl">
@@ -4108,20 +4109,93 @@ Check your internet connection and try again.</string>
                                             <outlet property="textViewConstraint" destination="ECc-aY-bwK" id="N8j-LA-yPF"/>
                                         </connections>
                                     </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMyBubbleMessageCell" id="ivg-aY-e4W" customClass="WLMessageCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="not_owner_gray_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="41I-u5-SU6">
+                                                    <rect key="frame" x="8" y="8" width="254" height="24"/>
+                                                </imageView>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="CgH-gR-3Aw">
+                                                    <rect key="frame" x="14" y="8" width="246" height="30"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="41I-u5-SU6" firstAttribute="top" secondItem="CgH-gR-3Aw" secondAttribute="top" id="0Wb-T5-QGE"/>
+                                            <constraint firstItem="41I-u5-SU6" firstAttribute="bottom" secondItem="ivg-aY-e4W" secondAttribute="bottomMargin" id="KaS-0U-Z9m"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="CgH-gR-3Aw" secondAttribute="trailing" constant="52" id="Xlz-m6-JEt"/>
+                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="leading" secondItem="ivg-aY-e4W" secondAttribute="leadingMargin" constant="6" id="aUN-Qp-QNj"/>
+                                            <constraint firstItem="41I-u5-SU6" firstAttribute="leading" secondItem="ivg-aY-e4W" secondAttribute="leadingMargin" id="grq-YD-GA0"/>
+                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="width" secondItem="41I-u5-SU6" secondAttribute="width" constant="8" id="mBe-4w-cf3"/>
+                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="top" secondItem="ivg-aY-e4W" secondAttribute="topMargin" id="udm-sC-AeN"/>
+                                        </constraints>
+                                        <size key="customSize" width="320" height="40"/>
+                                        <connections>
+                                            <outlet property="bubbleImageView" destination="41I-u5-SU6" id="uJC-pd-SwB"/>
+                                            <outlet property="messageTextView" destination="CgH-gR-3Aw" id="IUW-da-Brq"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLBubbleMessageCell" id="zi4-Ct-o5G" customClass="WLMessageCell">
+                                        <rect key="frame" x="0.0" y="60" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="not_owner_red_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="fEn-6o-vwb">
+                                                    <rect key="frame" x="58" y="8" width="254" height="24"/>
+                                                </imageView>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xF8-7i-x7W">
+                                                    <rect key="frame" x="64" y="8" width="246" height="30"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <size key="customSize" width="320" height="40"/>
+                                        <connections>
+                                            <outlet property="bubbleImageView" destination="fEn-6o-vwb" id="t0a-UB-LrF"/>
+                                            <outlet property="messageTextView" destination="xF8-7i-x7W" id="t6P-j9-8GR"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLEmptyCell" id="hUB-zz-cUP" customClass="WLMessageCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <size key="customSize" width="320" height="60"/>
+                                    </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMessageGroupCell" id="8e6-xl-Gb7" customClass="WLMessageGroupCell">
-                                    <rect key="frame" x="0.0" y="120" width="320" height="32"/>
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMessageGroupCell" id="4UI-vU-1y8" customClass="WLMessageGroupCell">
+                                    <rect key="frame" x="0.0" y="296" width="320" height="33"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kng-lu-MXy">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yuU-zR-tPY">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="33"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q1h-sH-2SN">
-                                                    <rect key="frame" x="100" y="6" width="120" height="19"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1q8-zd-53f">
+                                                    <rect key="frame" x="100" y="7" width="120" height="19"/>
                                                     <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="19" id="4RQ-ze-n3w"/>
-                                                        <constraint firstAttribute="width" constant="120" id="xwu-Bh-POT"/>
+                                                        <constraint firstAttribute="height" constant="19" id="5Oz-Q6-BvW"/>
+                                                        <constraint firstAttribute="width" constant="120" id="I8a-Xc-whK"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4130,20 +4204,20 @@ Check your internet connection and try again.</string>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="0.88" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="q1h-sH-2SN" secondAttribute="centerY" constant="0.5" id="OZE-cR-3hJ"/>
-                                                <constraint firstAttribute="centerX" secondItem="q1h-sH-2SN" secondAttribute="centerX" id="yUX-tx-VXV"/>
+                                                <constraint firstAttribute="centerY" secondItem="1q8-zd-53f" secondAttribute="centerY" constant="0.5" id="316-5b-o73"/>
+                                                <constraint firstAttribute="centerX" secondItem="1q8-zd-53f" secondAttribute="centerX" id="DIA-zL-Nok"/>
                                             </constraints>
                                         </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="kng-lu-MXy" secondAttribute="trailing" id="3pQ-cT-1u5"/>
-                                        <constraint firstItem="kng-lu-MXy" firstAttribute="top" secondItem="8e6-xl-Gb7" secondAttribute="top" id="IiM-s3-lmv"/>
-                                        <constraint firstAttribute="bottom" secondItem="kng-lu-MXy" secondAttribute="bottom" id="PXR-3f-xr3"/>
-                                        <constraint firstItem="kng-lu-MXy" firstAttribute="leading" secondItem="8e6-xl-Gb7" secondAttribute="leading" id="fEB-cq-GPx"/>
+                                        <constraint firstAttribute="trailing" secondItem="yuU-zR-tPY" secondAttribute="trailing" id="5ZY-gC-SdK"/>
+                                        <constraint firstItem="yuU-zR-tPY" firstAttribute="leading" secondItem="4UI-vU-1y8" secondAttribute="leading" id="5yr-9L-19f"/>
+                                        <constraint firstAttribute="bottom" secondItem="yuU-zR-tPY" secondAttribute="bottom" id="Alb-OX-2Ej"/>
+                                        <constraint firstItem="yuU-zR-tPY" firstAttribute="top" secondItem="4UI-vU-1y8" secondAttribute="top" id="PwH-7R-B7S"/>
                                     </constraints>
                                     <connections>
-                                        <outlet property="dateLabel" destination="q1h-sH-2SN" id="ZlF-Sc-U8v"/>
+                                        <outlet property="dateLabel" destination="1q8-zd-53f" id="vSl-aB-sqq"/>
                                     </connections>
                                 </collectionReusableView>
                                 <connections>
@@ -4151,19 +4225,16 @@ Check your internet connection and try again.</string>
                                     <outlet property="delegate" destination="ef1-h7-yay" id="IvH-JL-X2t"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d6x-dk-eaV" customClass="WLTypingView">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d6x-dk-eaV" customClass="WLTypingView">
                                 <rect key="frame" x="0.0" y="480" width="320" height="44"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_Bubble" translatesAutoresizingMaskIntoConstraints="NO" id="SGV-nF-ggh">
+                                    <imageView userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_Bubble" translatesAutoresizingMaskIntoConstraints="NO" id="SGV-nF-ggh">
                                         <rect key="frame" x="12" y="8" width="295" height="38"/>
                                     </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum " translatesAutoresizingMaskIntoConstraints="NO" id="YMC-fj-3qc">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMC-fj-3qc">
                                         <rect key="frame" x="17" y="8" width="287" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="287" id="lVI-LA-5VI"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -4203,6 +4274,7 @@ Check your internet connection and try again.</string>
                             <constraint firstItem="L7B-3N-jdg" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leading" id="7co-MS-pdF"/>
                             <constraint firstItem="d6x-dk-eaV" firstAttribute="trailing" secondItem="dQp-Lx-kpC" secondAttribute="trailing" id="813-Lc-fT2"/>
                             <constraint firstAttribute="trailing" secondItem="ez0-f9-dHG" secondAttribute="trailing" id="849-5l-I5b"/>
+                            <constraint firstItem="dQp-Lx-kpC" firstAttribute="top" secondItem="ez0-f9-dHG" secondAttribute="bottom" id="8FP-gk-k4u"/>
                             <constraint firstItem="ez0-f9-dHG" firstAttribute="top" secondItem="gG3-lt-ayC" secondAttribute="bottom" constant="44" id="8s5-nb-Kw3"/>
                             <constraint firstItem="dQp-Lx-kpC" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leading" id="EeM-Zh-qsO"/>
                             <constraint firstItem="L7B-3N-jdg" firstAttribute="top" secondItem="gG3-lt-ayC" secondAttribute="bottom" constant="-20" id="OKc-Yu-Mpz"/>
@@ -4211,7 +4283,6 @@ Check your internet connection and try again.</string>
                             <constraint firstItem="ez0-f9-dHG" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leading" id="Ybf-l7-WYL"/>
                             <constraint firstAttribute="trailing" secondItem="L7B-3N-jdg" secondAttribute="trailing" id="fEW-6K-kyl"/>
                             <constraint firstItem="d6x-dk-eaV" firstAttribute="leading" secondItem="dQp-Lx-kpC" secondAttribute="leading" id="gTB-m5-XIX"/>
-                            <constraint firstItem="ez0-f9-dHG" firstAttribute="bottom" secondItem="YMC-fj-3qc" secondAttribute="bottom" constant="6" id="jOH-22-2V5"/>
                         </constraints>
                     </view>
                     <connections>
@@ -4529,6 +4600,8 @@ Check your internet connection and try again.</string>
         <image name="ic_swipe_arrow_right" width="6" height="10"/>
         <image name="ic_timeline_enabled" width="34" height="32"/>
         <image name="ic_wrapLive" width="104" height="90"/>
+        <image name="not_owner_gray_bubble" width="16" height="15"/>
+        <image name="not_owner_red_bubble" width="28" height="25"/>
         <image name="red_Bubble" width="26" height="21"/>
         <image name="switch_to_front_cam" width="30" height="30"/>
         <image name="termsAndConditions" width="325" height="80"/>

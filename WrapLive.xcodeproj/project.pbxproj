@@ -143,6 +143,10 @@
 		5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */; };
+		5BB02FF619F00BCE001E1D50 /* WLChatGroupSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB02FF519F00BCE001E1D50 /* WLChatGroupSet.m */; };
+		5BB02FF719F00BCE001E1D50 /* WLChatGroupSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB02FF519F00BCE001E1D50 /* WLChatGroupSet.m */; };
+		5BB02FF819F00BCE001E1D50 /* WLChatGroupSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB02FF519F00BCE001E1D50 /* WLChatGroupSet.m */; };
+		5BB02FF919F00BCE001E1D50 /* WLChatGroupSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB02FF519F00BCE001E1D50 /* WLChatGroupSet.m */; };
 		5BB04F1B19D9817100B5C6EE /* WLBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F1A19D9817100B5C6EE /* WLBlocks.m */; };
 		5BB04F1C19D9817100B5C6EE /* WLBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F1A19D9817100B5C6EE /* WLBlocks.m */; };
 		5BB04F1D19D9817100B5C6EE /* WLBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F1A19D9817100B5C6EE /* WLBlocks.m */; };
@@ -1345,6 +1349,8 @@
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
 		5BAF8E141991196000AFCAE6 /* WLClearProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLClearProgressBar.h; sourceTree = "<group>"; };
 		5BAF8E151991196000AFCAE6 /* WLClearProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLClearProgressBar.m; sourceTree = "<group>"; };
+		5BB02FF419F00BCE001E1D50 /* WLChatGroupSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChatGroupSet.h; path = WLChatGroupSet/WLChatGroupSet.h; sourceTree = "<group>"; };
+		5BB02FF519F00BCE001E1D50 /* WLChatGroupSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChatGroupSet.m; path = WLChatGroupSet/WLChatGroupSet.m; sourceTree = "<group>"; };
 		5BB04F1919D9817100B5C6EE /* WLBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBlocks.h; path = WLBlocks/WLBlocks.h; sourceTree = "<group>"; };
 		5BB04F1A19D9817100B5C6EE /* WLBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBlocks.m; path = WLBlocks/WLBlocks.m; sourceTree = "<group>"; };
 		5BB04F2019D981B900B5C6EE /* WLSupportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSupportFunctions.h; path = WLSupportFunctions/WLSupportFunctions.h; sourceTree = "<group>"; };
@@ -2037,6 +2043,7 @@
 				14AE4FF519703A76002EEF3F /* WLContributor */,
 				C50F48361973EF6800929AA9 /* WLPagination */,
 				C537F8211962BADF00600B42 /* WLGroupedSet */,
+				5BB02FFA19F00BEC001E1D50 /* WLChatGroupSet */,
 				14B2429A195C4CBC00C5D208 /* WLEditSession */,
 				C5110B771952DE55008F236E /* AsynchronousOperation */,
 				C5A21DF9194AF54000F3A554 /* WLEntryManager */,
@@ -2717,6 +2724,15 @@
 				5BBBEB5219D98421008CFE54 /* WLSignificantTimeBroadcaster.m */,
 			);
 			name = WLSignificantTimeBroadcaster;
+			sourceTree = "<group>";
+		};
+		5BB02FFA19F00BEC001E1D50 /* WLChatGroupSet */ = {
+			isa = PBXGroup;
+			children = (
+				5BB02FF419F00BCE001E1D50 /* WLChatGroupSet.h */,
+				5BB02FF519F00BCE001E1D50 /* WLChatGroupSet.m */,
+			);
+			name = WLChatGroupSet;
 			sourceTree = "<group>";
 		};
 		5BB04F1319D9794100B5C6EE /* WLNotificationCell */ = {
@@ -3950,6 +3966,7 @@
 				5BBBEB3519D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
 				C51F30A319E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
+				5BB02FF619F00BCE001E1D50 /* WLChatGroupSet.m in Sources */,
 				5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */,
 				12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */,
 				1409DA641949B24E00358BD4 /* RMPhoneFormat.m in Sources */,
@@ -4164,6 +4181,7 @@
 				5BBBEB3619D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
 				C51F30A419E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C54AF49319B8C437006F7EDB /* WLInputAccessoryView.m in Sources */,
+				5BB02FF719F00BCE001E1D50 /* WLChatGroupSet.m in Sources */,
 				C54AF49419B8C437006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF49519B8C437006F7EDB /* UIViewController+Additions.m in Sources */,
 				C54AF49619B8C437006F7EDB /* RMPhoneFormat.m in Sources */,
@@ -4378,6 +4396,7 @@
 				5BBBEB3719D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
 				C51F30A519E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C54AF59019B8C467006F7EDB /* WLInputAccessoryView.m in Sources */,
+				5BB02FF819F00BCE001E1D50 /* WLChatGroupSet.m in Sources */,
 				C54AF59119B8C467006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF59219B8C467006F7EDB /* UIViewController+Additions.m in Sources */,
 				C54AF59319B8C467006F7EDB /* RMPhoneFormat.m in Sources */,
@@ -4592,6 +4611,7 @@
 				5BBBEB3819D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
 				C51F30A619E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C54AF68D19B8C491006F7EDB /* WLInputAccessoryView.m in Sources */,
+				5BB02FF919F00BCE001E1D50 /* WLChatGroupSet.m in Sources */,
 				C54AF68E19B8C491006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF68F19B8C491006F7EDB /* UIViewController+Additions.m in Sources */,
 				C54AF69019B8C491006F7EDB /* RMPhoneFormat.m in Sources */,

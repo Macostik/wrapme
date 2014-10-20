@@ -7,6 +7,7 @@
 //
 
 #import "WLBroadcaster.h"
+#import "WLBlocks.h"
 
 @class WLKeyboardBroadcaster;
 
@@ -25,5 +26,7 @@
 @property (strong, nonatomic) NSNumber *keyboardHeight;
 @property (assign, nonatomic) NSNumber *duration;
 @property (strong, nonatomic) NSNumber *animationCurve;
+
+- (void)performAnimation:(WLBlock)animation;
 
 @end

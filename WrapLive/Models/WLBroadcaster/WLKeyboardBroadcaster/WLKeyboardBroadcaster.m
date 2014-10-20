@@ -10,6 +10,7 @@
 #import "UIView+GestureRecognizing.h"
 #import "WLSupportFunctions.h"
 #import "WLNavigation.h"
+#import "UIView+AnimationHelper.h"
 
 @interface WLKeyboardBroadcaster ()
 
@@ -67,6 +68,15 @@
     self.animationCurve = nil;
 	[self broadcast:@selector(broadcasterDidHideKeyboard:)];
 	[[UIWindow mainWindow] removeTapGestureRecognizing];
+}
+
+- (void)performAnimation:(WLBlock)animation {
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:[self.duration doubleValue]];
+    [UIView setAnimationCurve:[self.animationCurve integerValue]];
+    if (animation) animation();
+    [UIView commitAnimations];
 }
 
 @end

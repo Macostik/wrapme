@@ -10,6 +10,7 @@
 #import "WLKeyboardBroadcaster.h"
 #import "NSArray+Additions.h"
 #import "UIView+AnimationHelper.h"
+#import "WLNavigation.h"
 
 @interface WLBaseViewController ()
 
@@ -25,55 +26,52 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.frame = [UIWindow mainWindow].bounds;
+    [self.view layoutIfNeeded];
     self.keyboardAdjustmentDefaultConstants = [NSMapTable strongToStrongObjectsMapTable];
     [[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver
 
+- (void)updateKeyboardAdjustmentConstraints:(CGFloat)keyboardHeight {
+    NSMapTable *constants = self.keyboardAdjustmentDefaultConstants;
+    for (NSLayoutConstraint *constraint in self.keyboardAdjustmentTopConstraints) {
+        CGFloat constant = [[constants objectForKey:constraint] floatValue];
+        constraint.constant = constant - keyboardHeight;
+    }
+    for (NSLayoutConstraint *constraint in self.keyboardAdjustmentBottomConstraints) {
+        CGFloat constant = [[constants objectForKey:constraint] floatValue];
+        constraint.constant = constant + keyboardHeight;
+    }
+}
+
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
     if (!self.keyboardAdjustmentTopConstraints.nonempty || !self.keyboardAdjustmentBottomConstraints.nonempty) return;
     NSMapTable *constants = self.keyboardAdjustmentDefaultConstants;
     if ([constants count] == 0) {
         for (NSLayoutConstraint *constraint in self.keyboardAdjustmentTopConstraints) {
-            CGFloat constant = constraint.constant;
-            constraint.constant = constant - [keyboardHeight floatValue];
-            [constants setObject:@(constant) forKey:constraint];
+            [constants setObject:@(constraint.constant) forKey:constraint];
         }
         for (NSLayoutConstraint *constraint in self.keyboardAdjustmentBottomConstraints) {
-            CGFloat constant = constraint.constant;
-            constraint.constant = constant + [keyboardHeight floatValue];
-            [constants setObject:@(constant) forKey:constraint];
-        }
-    } else {
-        for (NSLayoutConstraint *constraint in self.keyboardAdjustmentTopConstraints) {
-            CGFloat constant = [[constants objectForKey:constraint] floatValue];
-            constraint.constant = constant - [keyboardHeight floatValue];
-        }
-        for (NSLayoutConstraint *constraint in self.keyboardAdjustmentBottomConstraints) {
-            CGFloat constant = [[constants objectForKey:constraint] floatValue];
-            constraint.constant = constant + [keyboardHeight floatValue];
+            [constants setObject:@(constraint.constant) forKey:constraint];
         }
     }
+    
+    [self updateKeyboardAdjustmentConstraints:[keyboardHeight floatValue]];
+    
     __weak typeof(self)weakSelf = self;
-    [UIView performAnimated:YES animation:^{
-        [UIView setAnimationCurve:[broadcaster.animationCurve integerValue]];
+    [broadcaster performAnimation:^{
         [weakSelf.view layoutIfNeeded];
     }];
 }
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-    NSMapTable *constants = self.keyboardAdjustmentDefaultConstants;
-    for (NSLayoutConstraint *constraint in self.keyboardAdjustmentTopConstraints) {
-        constraint.constant = [[constants objectForKey:constraint] floatValue];
-    }
-    for (NSLayoutConstraint *constraint in self.keyboardAdjustmentBottomConstraints) {
-        constraint.constant = [[constants objectForKey:constraint] floatValue];
-    }
+    if (!self.keyboardAdjustmentTopConstraints.nonempty || !self.keyboardAdjustmentBottomConstraints.nonempty) return;
+    [self updateKeyboardAdjustmentConstraints:0];
     [self.keyboardAdjustmentDefaultConstants removeAllObjects];
     __weak typeof(self)weakSelf = self;
-    [UIView performAnimated:YES animation:^{
-        [UIView setAnimationCurve:[broadcaster.animationCurve integerValue]];
+    [broadcaster performAnimation:^{
         [weakSelf.view layoutIfNeeded];
     }];
 }

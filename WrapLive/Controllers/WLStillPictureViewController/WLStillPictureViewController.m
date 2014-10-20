@@ -165,7 +165,7 @@
                 }];
             }
         } else if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithImage:)]) {
-            [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithImage:image];
+            [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithImage:resultImage];
         }
     };
     

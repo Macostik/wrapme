@@ -11,11 +11,16 @@
 #import "UIImage+Resize.h"
 #import "WLEntryManager.h"
 #import "WLNavigation.h"
-#import "WLKeyboardBroadcaster.h"
 #import "UIView+AnimationHelper.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLImageFetcher.h"
+#import "WLButton.h"
+#import "NSError+WLAPIManager.h"
 
-@interface WLEditViewController () <WLStillPictureViewControllerDelegate, UITextFieldDelegate>
+@interface WLEditViewController ()
+
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet WLButton *doneButton;
 
 @end
 
@@ -23,44 +28,50 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[WLKeyboardBroadcaster broadcaster] addReceiver:self];
+    [self setup];
 }
 
-- (BOOL)isAtObjectSessionChanged {
-    BOOL changed = [self.editSession hasChanges];
-    [self willShowCancelAndDoneButtons:changed];
-    return changed;
+- (void)setEditSession:(WLEditSession *)editSession {
+    _editSession = editSession;
+    editSession.delegate = self;
 }
 
-- (void)willShowCancelAndDoneButtons:(BOOL)showDone {
-    self.cancelButton.width = self.view.width/2 - 1;
-    self.doneButton.x = self.view.width/2;
+- (void)setup {
     
-    self.doneButton.hidden = self.cancelButton.hidden = !showDone;
-    [self.cancelButton setAlpha:showDone ? 1 : 0 animated:YES];
-    [self.doneButton setAlpha:showDone ? 1 : 0 animated:YES];
 }
 
-
-- (void)updateIfNeeded:(void (^)(void))completion{
-	[self lock];
-	[self.spinner startAnimating];
+- (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    if (success) success(nil);
 }
 
-- (IBAction)goToMainScreen:(id)sender {
+- (void)apply:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    if (success) success(nil);
+}
+
+- (IBAction)done:(WLButton*)sender {
+    [self.view endEditing:YES];
 	__weak typeof(self)weakSelf = self;
-	[self updateIfNeeded:^{
-		[weakSelf.navigationController popViewControllerAnimated:YES];
-	}];
+    [self validate:^(id object){
+        [weakSelf lock];
+        sender.loading = YES;
+        [weakSelf.editSession apply];
+        [weakSelf apply:^(id object){
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        } failure:^(NSError *error) {
+            [weakSelf.editSession reset];
+            [error show];
+            sender.loading = NO;
+            [weakSelf unlock];
+        }];
+    } failure:^(NSError *error) {
+        [error show];
+    }];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue isCameraSegue]) {
-		WLStillPictureViewController* pictureController = segue.destinationViewController;
-		pictureController.delegate = self;
-		pictureController.defaultPosition = self.stillPictureCameraPosition;
-		pictureController.mode = self.stillPictureMode;
-	}
+- (IBAction)cancel:(id)sender {
+    [self.editSession clean];
+    [self setup];
+    [self.view endEditing:YES];
 }
 
 - (void)lock {
@@ -75,57 +86,12 @@
 	}
 }
 
-#pragma mark - UITextFieldDelegate
+#pragma mark - WLEditSessionDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[textField resignFirstResponder];
-	return YES;
-}
-
-#pragma mark - WLStillPictureViewControllerDelegate
-
-- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
-	self.imageView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
-															  bounds:self.imageView.retinaSize
-												interpolationQuality:kCGInterpolationDefault];
-	[self saveImage:image];
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)saveImage:(UIImage *)image {}
-
-#pragma mark -WLKeyboardBroadcastReceiver
-
-- (void)broadcaster:(WLKeyboardBroadcaster*)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
-    NSTimeInterval duration = [broadcaster.duration doubleValue];
-    UIViewAnimationCurve animationCurve = [broadcaster.animationCurve integerValue];
-    [self willShowKeyboardWithHeight:keyboardHeight duration:duration option:animationCurve];
-}
-
-- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster*)broadcaster {
-    NSTimeInterval duration = [broadcaster.duration doubleValue];
-    UIViewAnimationCurve animationCurve = [broadcaster.animationCurve integerValue];
-    [self willHideKeyboardWithDuration:duration option:animationCurve];
-}
-
-- (void)willShowKeyboardWithHeight:(NSNumber *)keyboardHeight
-                          duration:(NSTimeInterval)duration
-                            option:(UIViewAnimationCurve)animationCurve {
-    [UIView performAnimated:YES animation:^{
-        [UIView setAnimationCurve:animationCurve];
-        self.cancelButton.transform = self.doneButton.transform = CGAffineTransformMakeTranslation(0, -[keyboardHeight integerValue]);
-    }];
-}
-
-- (void)willHideKeyboardWithDuration:(NSTimeInterval)duration option:(UIViewAnimationCurve)animationCurve {
-    [UIView performAnimated:YES animation:^{
-        [UIView setAnimationCurve:7];
-        self.cancelButton.transform = self.doneButton.transform = CGAffineTransformIdentity;
-    }];
+- (void)editSession:(WLEditSession *)session hasChanges:(BOOL)hasChanges {
+    self.doneButton.hidden = self.cancelButton.hidden = !hasChanges;
+    [self.cancelButton setAlpha:hasChanges ? 1 : 0 animated:YES];
+    [self.doneButton setAlpha:hasChanges ? 1 : 0 animated:YES];
 }
 
 @end

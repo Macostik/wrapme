@@ -1372,7 +1372,7 @@ Ravenpod, Inc.
                                     <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="cancelClick:" destination="7FG-gC-kPg" eventType="touchUpInside" id="aMq-uY-wNh"/>
+                                    <action selector="cancel:" destination="7FG-gC-kPg" eventType="touchUpInside" id="1V6-kZ-dop"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GkU-w3-rTK" customClass="WLButton">
@@ -1389,7 +1389,7 @@ Ravenpod, Inc.
                                     <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="goToMainScreen:" destination="7FG-gC-kPg" eventType="touchUpInside" id="Qja-sT-icS"/>
+                                    <action selector="done:" destination="7FG-gC-kPg" eventType="touchUpInside" id="tPO-DC-qE0"/>
                                 </connections>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJq-9P-McW">
@@ -1436,7 +1436,7 @@ Ravenpod, Inc.
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                         <connections>
-                                            <action selector="editChanged:" destination="7FG-gC-kPg" eventType="editingChanged" id="eEh-yf-HnH"/>
+                                            <action selector="nameTextFieldChanged:" destination="7FG-gC-kPg" eventType="editingChanged" id="t4e-5S-nWp"/>
                                             <outlet property="delegate" destination="7FG-gC-kPg" id="Y9Y-BY-tWb"/>
                                         </connections>
                                     </textField>
@@ -1456,7 +1456,7 @@ Ravenpod, Inc.
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                         <connections>
-                                            <action selector="editChanged:" destination="7FG-gC-kPg" eventType="editingChanged" id="9vz-Vw-aTn"/>
+                                            <action selector="emailTextFieldChanged:" destination="7FG-gC-kPg" eventType="editingChanged" id="2GI-8D-Xnc"/>
                                             <outlet property="delegate" destination="7FG-gC-kPg" id="g6t-g3-m1S"/>
                                         </connections>
                                     </textField>
@@ -1534,6 +1534,9 @@ Ravenpod, Inc.
                         <outlet property="imageView" destination="AYn-Zt-xUG" id="RLi-hY-DCv"/>
                         <outlet property="nameTextField" destination="D1N-1e-psu" id="aFX-at-9U5"/>
                         <outlet property="topConstraint" destination="N04-8D-Csp" id="fwZ-5u-J5z"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="dqa-OK-Z7G" id="slP-9b-HaW"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="xPd-PQ-LCt" id="wVL-n7-ylr"/>
+                        <outletCollection property="keyboardAdjustmentTopConstraints" destination="N04-8D-Csp" id="fny-ti-xSD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j3e-xO-oCt" userLabel="First Responder" sceneMemberID="firstResponder"/>

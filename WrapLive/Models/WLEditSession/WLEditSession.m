@@ -141,7 +141,7 @@
 - (void)changeValue:(id)value forProperty:(NSString *)keyPath {
     WLEditSessionProperty *property = [self.properties objectForKey:keyPath];
     property.changedValue = value;
-    [self updateHasChangesFlag];
+    self.hasChanges = [self updatedHasChangesValue];
 }
 
 - (BOOL)isPropertyChanged:(NSString *)keyPath {
@@ -149,14 +149,13 @@
     return property.changed;
 }
 
-- (void)updateHasChangesFlag {
+- (BOOL)updatedHasChangesValue {
     for (WLEditSessionProperty *property in [self.properties allValues]) {
         if (property.changed) {
-            self.hasChanges = YES;
-            break;
+            return YES;
         }
     }
-    self.hasChanges = NO;
+    return NO;
 }
 
 @end

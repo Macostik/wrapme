@@ -28,7 +28,6 @@
 #import "UIColor+CustomColors.h"
 #import "WLAddressBook.h"
 #import "WLInviteeCell.h"
-#import "WLWrapEditSession.h"
 #import "WLToast.h"
 #import "WLPerson.h"
 #import "WLButton.h"

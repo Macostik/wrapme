@@ -44,7 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.user = [WLUser currentUser];
-    self.editSession = [[WLProfileEditSession alloc] initWithEntry:self.user];
+    self.editSession = [[WLProfileEditSession alloc] initWithUser:self.user];
     self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
 	self.stillPictureCameraPosition = AVCaptureDevicePositionFront;
 	self.stillPictureMode = WLCameraModeAvatar;
@@ -122,7 +122,7 @@
             }
 			[super updateIfNeeded:completion];
 			__weak typeof(self)weakSelf = self;
-            [self.editSession apply:self.user];
+            [self.editSession apply];
             WLUpdateUserRequest *userRequest = [WLUpdateUserRequest request:self.user];
             userRequest.email = self.emailTextField.text;
             [userRequest send:^(id object) {
@@ -130,7 +130,7 @@
 				[weakSelf unlock];
 				completion();
             } failure:^(NSError *error) {
-                [weakSelf.editSession reset:weakSelf.user];
+                [weakSelf.editSession reset];
 				[weakSelf.spinner stopAnimating];
 				[weakSelf unlock];
 				[error show];

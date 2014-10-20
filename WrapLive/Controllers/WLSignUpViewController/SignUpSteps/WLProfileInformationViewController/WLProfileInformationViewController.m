@@ -61,7 +61,7 @@
 	}
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
     
-    self.editSession = [[WLProfileEditSession alloc] initWithEntry:self.user];
+    self.editSession = [[WLProfileEditSession alloc] initWithUser:self.user];
 	
 	[self verifyContinueButton];
 }
@@ -80,14 +80,14 @@
     if ([self.editSession hasChanges]) {
 		self.view.userInteractionEnabled = NO;
 		[self.spinner startAnimating];
-        [self.editSession apply:self.user];
+        [self.editSession apply];
 		__weak typeof(self)weakSelf = self;
         [[WLUpdateUserRequest request:self.user] send:^(id object) {
             [weakSelf.spinner stopAnimating];
 			weakSelf.view.userInteractionEnabled = YES;
 			completion();
         } failure:^(NSError *error) {
-            [weakSelf.editSession reset:weakSelf.user];
+            [weakSelf.editSession reset];
             [weakSelf.spinner stopAnimating];
 			weakSelf.view.userInteractionEnabled = YES;
 			[error show];

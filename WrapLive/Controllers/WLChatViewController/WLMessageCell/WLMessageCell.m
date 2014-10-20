@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewConstraint;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
 
@@ -74,20 +75,22 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.avatarView.circled = YES;
-    self.messageTextView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, -5);
 }
 
 - (void)setupItemData:(id <WLChatMessage>)message {
     __weak typeof(self)weakSelf = self;
+    self.messageTextView.textContainerInset = [self.reuseIdentifier isEqualToString:@"WLMyBubbleMessageCell"] || [self.reuseIdentifier isEqualToString:@"WLBubbleMessageCell"] ? UIEdgeInsetsMake(0, -5, 0, -5) : UIEdgeInsetsMake(14, -5, 0, -5);
 	self.avatarView.url = message.contributor.picture.medium;
     [self.avatarView setFailure:^(NSError* error) {
         weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];
-	self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", WLString(message.contributor.name), WLString([message.displayDate stringWithFormat:@"HH:mm"])];
+    self.nameLabel.text = [NSString stringWithFormat:@"%@", WLString(message.contributor.name)];
+	self.timeLabel.text = [NSString stringWithFormat:@"%@", WLString([message.displayDate stringWithFormat:@"HH:mm"])];;
     [self.messageTextView determineHyperLink:message.text withFont:[UIFont lightFontOfSize:15.0f]];
 	[UIView performWithoutAnimation:^{
+        CGSize sizeNameLabel = [weakSelf.nameLabel sizeThatFits:CGSizeMake(50, CGFLOAT_MAX)];
         CGSize size = [weakSelf.messageTextView sizeThatFits:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)];
-        weakSelf.textViewConstraint.constant = weakSelf.width - 65 - MAX(WLMinBubbleWidth, size.width);
+        weakSelf.textViewConstraint.constant = MAX (weakSelf.width - 66 - MAX(WLMinBubbleWidth, size.width), 65);
         [weakSelf.messageTextView layoutIfNeeded];
 	}];
 }

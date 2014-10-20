@@ -42,5 +42,13 @@
     }
 }
 
+- (void)addMessages:(NSOrderedSet *)messages {
+    __weak __typeof(self)weakSelf = self;
+    [self sort];
+    [messages all:^(WLMessage *message) {
+        [weakSelf addMessage:message];
+    }];
+}
+
 @end
 

@@ -97,7 +97,7 @@ CGFloat WLMaxTextViewWidth;
 	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
 	self.composeBar.placeholder = @"Write your message ...";
 	
-	[weakSelf setMessages:self.wrap.messages];
+	[weakSelf addMessages:self.wrap.messages];
     [weakSelf refreshMessages:nil];
 	
 	self.backSwipeGestureEnabled = YES;
@@ -124,14 +124,14 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)setMessages:(NSOrderedSet*)messages {
-//    [self.chatGroupSet resetEntries:messages];
-//    [self.groups sort];
+    [self.chatGroup resetEntries:messages];
+    [self.chatGroup sort];
     [self.collectionView reloadData];
 }
 
 - (void)addMessages:(NSOrderedSet*)messages {
-//    [self.chatGroupSet addMessage:messages];
-//    [self.groups sort];
+    [self.chatGroup addMessages:messages];
+    [self.chatGroup sort];
 	[self.collectionView reloadData];
 }
 
@@ -143,7 +143,8 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)refreshMessages:(WLRefresher*)sender {
 	__weak typeof(self)weakSelf = self;
-    WLGroup* group = [self.chatGroup.entries firstObject];
+    WLGroup* groupDay = [self.chatGroup.entries firstObject];
+    WLGroup *group = [groupDay.entries firstObject];
     WLMessage* message = [group.entries firstObject];
     if (!message) {
         [self loadMessages:^{
@@ -325,7 +326,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLMessageCell* cell = [self prepareCellForIndexPath:indexPath];
-//    [self handlePaginationWithIndexPath:indexPath];
+    [self handlePaginationWithIndexPath:indexPath];
 
     return cell;
 }
@@ -337,10 +338,8 @@ CGFloat WLMaxTextViewWidth;
         return groupCell;
     }
 	WLMessageGroupCell* groupCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WLMessageGroupCell" forIndexPath:indexPath];
-    for (WLGroup *dayGroup in self.chatGroup.entries) {
-        WLGroup *group = [dayGroup.entries tryObjectAtIndex:indexPath.row];
+        WLGroup *group = [self.chatGroup.entries tryObjectAtIndex:indexPath.row];
         groupCell.group = group;
-    }
 	
 	return groupCell;
 }
@@ -370,10 +369,13 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    if (!section && ([[[self.chatGroup.entries firstObject] date] isToday] || !self.groupTyping.nonempty)) {
+    if (!section) {
         return CGSizeZero;
+    } else if([self.chatGroup.entries lastObject]) {
+        return CGSizeZero;
+    } else  {
+        return CGSizeMake(collectionView.width, 32);
     }
-	return CGSizeMake(collectionView.width, 32);
 }
 
 - (void)handlePaginationWithIndexPath:(NSIndexPath*)indexPath {

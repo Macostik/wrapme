@@ -48,7 +48,7 @@
     self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
 }
 
-- (void)setup {
+- (void)setupEditableUserInterface {
     WLUser *user = [WLUser currentUser];
     self.nameTextField.text = user.name;
     self.imageView.url = user.picture.large;

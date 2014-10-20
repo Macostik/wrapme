@@ -14,7 +14,7 @@
 
 @property (strong, nonatomic) WLEditSession *editSession;
 
-- (void)setup;
+- (void)setupEditableUserInterface;
 
 - (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 

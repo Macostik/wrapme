@@ -2161,7 +2161,6 @@ Ravenpod, Inc.
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <action selector="textFieldDidChange:" destination="XA1-LT-u0J" eventType="editingDidEnd" id="BoX-n4-ydo"/>
                                             <action selector="textFieldEditChange:" destination="XA1-LT-u0J" eventType="editingChanged" id="loK-l6-XU0"/>
                                             <outlet property="delegate" destination="XA1-LT-u0J" id="QiK-GW-DUq"/>
                                         </connections>
@@ -2210,7 +2209,7 @@ Ravenpod, Inc.
                                     <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="cancelClick:" destination="XA1-LT-u0J" eventType="touchUpInside" id="ltR-wm-OWd"/>
+                                    <action selector="cancel:" destination="XA1-LT-u0J" eventType="touchUpInside" id="KXw-52-cve"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehC-Hf-JSi">
@@ -2227,7 +2226,7 @@ Ravenpod, Inc.
                                     <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="doneClick:" destination="XA1-LT-u0J" eventType="touchUpInside" id="JU2-Xn-4ey"/>
+                                    <action selector="done:" destination="XA1-LT-u0J" eventType="touchUpInside" id="b8F-NX-HuX"/>
                                 </connections>
                             </button>
                         </subviews>

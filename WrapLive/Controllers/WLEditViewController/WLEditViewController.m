@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setup];
+    [self setupEditableUserInterface];
 }
 
 - (void)setEditSession:(WLEditSession *)editSession {
@@ -36,7 +36,7 @@
     editSession.delegate = self;
 }
 
-- (void)setup {
+- (void)setupEditableUserInterface {
     
 }
 
@@ -70,7 +70,7 @@
 
 - (IBAction)cancel:(id)sender {
     [self.editSession clean];
-    [self setup];
+    [self setupEditableUserInterface];
     [self.view endEditing:YES];
 }
 

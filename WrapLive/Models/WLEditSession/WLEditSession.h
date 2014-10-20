@@ -8,29 +8,71 @@
 
 #import <Foundation/Foundation.h>
 
+typedef BOOL (^WLEditSessionComparator)(id originalValue, id changedValue);
+
 @class WLEntry;
-@class WLTempEntry;
+@class WLEditSession;
+
+@protocol WLEditSessionDelegate <NSObject>
+
+- (void)editSession:(WLEditSession*)session hasChanges:(BOOL)hasChanges;
+
+@end
 
 @interface WLEditSession : NSObject
+{
+@package
+    NSMutableDictionary *_original;
+    NSMutableDictionary *_changed;
+    __weak WLEntry *_entry;
+}
 
-@property (strong, nonatomic) NSMutableDictionary *original;
+@property (nonatomic, weak) id <WLEditSessionDelegate> delegate;
 
-@property (strong, nonatomic) NSMutableDictionary *changed;
+@property (readonly, strong, nonatomic) NSMutableDictionary *original;
 
-@property (weak, nonatomic) WLEntry* entry;
+@property (readonly, strong, nonatomic) NSMutableDictionary *changed;
 
-- (id)initWithEntry:(WLEntry *)entry;
+@property (readonly, weak, nonatomic) WLEntry* entry;
 
-- (void)setup:(NSMutableDictionary *)dictionary entry:(WLEntry *)entry;
+@property (readonly, nonatomic) BOOL hasChanges;
 
-- (void)apply:(NSMutableDictionary *)dictionary entry:(WLEntry *)entry;
+- (id)initWithEntry:(WLEntry *)entry properties:(NSSet*)properties;
 
-- (void)apply:(WLEntry *)entry;
+- (id)initWithEntry:(WLEntry *)entry stringProperties:(NSString*)keyPath, ... NS_REQUIRES_NIL_TERMINATION;
 
-- (void)reset:(WLEntry *)entry;
+- (void)setup:(NSMutableDictionary *)dictionary;
+
+- (void)apply:(NSMutableDictionary *)dictionary;
+
+- (void)apply;
+
+- (void)reset;
 
 - (void)clean;
 
-- (BOOL)hasChanges;
+- (id)valueForProperty:(NSString*)keyPath;
+
+- (void)setValue:(id)value forProperty:(NSString*)keyPath;
+
+- (BOOL)isPropertyChanged:(NSString*)keyPath;
+
+@end
+
+@interface WLEditSessionProperty : NSObject
+{
+@package
+    __weak WLEditSession *_editSession;
+}
+
+@property (strong, nonatomic) NSString* keyPath;
+
+@property (strong, nonatomic) WLEditSessionComparator comparator;
+
+@property (readonly, nonatomic) BOOL changed;
+
++ (instancetype)stringProperty:(NSString*)keyPath;
+
++ (instancetype)property:(NSString*)keyPath comparator:(WLEditSessionComparator)comparator;
 
 @end

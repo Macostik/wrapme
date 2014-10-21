@@ -117,7 +117,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                     <inset key="imageEdgeInsets" minX="300" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Continue" image="ic_next_white">
+                    <state key="normal" title="Continue">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -126,12 +126,22 @@
                     </state>
                     <connections>
                         <action selector="goToMainScreen:" destination="-1" eventType="touchUpInside" id="9U6-d3-ppS"/>
+                        <outlet property="accessoryView" destination="rJm-fq-7tp" id="78O-aH-abo"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_next_white" translatesAutoresizingMaskIntoConstraints="NO" id="rJm-fq-7tp">
+                    <rect key="frame" x="276" y="276" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="8lB-KW-PfG"/>
+                        <constraint firstAttribute="height" constant="44" id="dcB-3b-TOn"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="rJm-fq-7tp" firstAttribute="trailing" secondItem="drd-ub-mAD" secondAttribute="trailing" id="2jf-lA-NTF"/>
                 <constraint firstAttribute="centerY" secondItem="fxa-eY-fSD" secondAttribute="centerY" constant="22" id="7C5-fW-DPw"/>
+                <constraint firstItem="rJm-fq-7tp" firstAttribute="centerY" secondItem="drd-ub-mAD" secondAttribute="centerY" id="848-Gd-AsG"/>
                 <constraint firstAttribute="trailing" secondItem="drd-ub-mAD" secondAttribute="trailing" id="GTg-AM-JS1"/>
                 <constraint firstAttribute="centerX" secondItem="fxa-eY-fSD" secondAttribute="centerX" id="gmX-VW-jY1"/>
                 <constraint firstAttribute="bottom" secondItem="drd-ub-mAD" secondAttribute="bottom" id="leS-4U-bQJ"/>

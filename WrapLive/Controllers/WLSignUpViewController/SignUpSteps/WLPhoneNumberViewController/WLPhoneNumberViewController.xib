@@ -29,8 +29,7 @@
                         <constraint firstAttribute="height" constant="44" id="buT-UJ-RGI"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                    <inset key="imageEdgeInsets" minX="300" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Continue" image="ic_next_white">
+                    <state key="normal" title="Continue">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -39,8 +38,16 @@
                     </state>
                     <connections>
                         <action selector="signUp:" destination="-1" eventType="touchUpInside" id="or2-2E-PEE"/>
+                        <outlet property="accessoryView" destination="WUO-XU-TfQ" id="Hcn-Wq-4gB"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_next_white" translatesAutoresizingMaskIntoConstraints="NO" id="WUO-XU-TfQ">
+                    <rect key="frame" x="276" y="276" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="Pqi-9v-cCT"/>
+                        <constraint firstAttribute="height" constant="44" id="udM-rH-jpC"/>
+                    </constraints>
+                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xXp-dd-zLq">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="276"/>
                     <subviews>
@@ -163,8 +170,10 @@
                 <constraint firstAttribute="trailing" secondItem="svM-4A-0EB" secondAttribute="trailing" id="21P-S8-Avx"/>
                 <constraint firstAttribute="centerY" secondItem="xXp-dd-zLq" secondAttribute="centerY" constant="22" id="5dS-GR-e9L"/>
                 <constraint firstAttribute="centerX" secondItem="xXp-dd-zLq" secondAttribute="centerX" id="JUE-9b-AbL"/>
+                <constraint firstItem="svM-4A-0EB" firstAttribute="trailing" secondItem="WUO-XU-TfQ" secondAttribute="trailing" id="NcH-Ir-bjH"/>
                 <constraint firstItem="svM-4A-0EB" firstAttribute="leading" secondItem="vo3-JS-Eb0" secondAttribute="leading" id="P0K-su-ROg"/>
                 <constraint firstAttribute="bottom" secondItem="svM-4A-0EB" secondAttribute="bottom" id="dkY-4t-sv9"/>
+                <constraint firstItem="svM-4A-0EB" firstAttribute="centerY" secondItem="WUO-XU-TfQ" secondAttribute="centerY" id="i4b-Uo-3qL"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

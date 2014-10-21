@@ -18,6 +18,8 @@
 
 @property (strong, nonatomic) UIColor *disabledColor;
 
+@property (weak, nonatomic) IBOutlet UIView* accessoryView;
+
 @property (nonatomic) BOOL loading;
 
 @property (nonatomic) BOOL animated;

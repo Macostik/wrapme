@@ -34,20 +34,34 @@
 
 #pragma mark - WLKeyboardBroadcastReceiver
 
-- (void)updateKeyboardAdjustmentConstraints:(CGFloat)keyboardHeight {
+- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
+    return keyboardHeight;
+}
+
+- (BOOL)updateKeyboardAdjustmentConstraints:(CGFloat)adjustment {
+    BOOL changed = NO;
     NSMapTable *constants = self.keyboardAdjustmentDefaultConstants;
     for (NSLayoutConstraint *constraint in self.keyboardAdjustmentTopConstraints) {
         CGFloat constant = [[constants objectForKey:constraint] floatValue];
-        constraint.constant = constant - keyboardHeight;
+        constant -= adjustment;
+        if (constraint.constant != constant) {
+            constraint.constant = constant;
+            changed = YES;
+        }
     }
     for (NSLayoutConstraint *constraint in self.keyboardAdjustmentBottomConstraints) {
         CGFloat constant = [[constants objectForKey:constraint] floatValue];
-        constraint.constant = constant + keyboardHeight;
+        constant += adjustment;
+        if (constraint.constant != constant) {
+            constraint.constant = constant;
+            changed = YES;
+        }
     }
+    return changed;
 }
 
 - (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
-    if (!self.keyboardAdjustmentTopConstraints.nonempty || !self.keyboardAdjustmentBottomConstraints.nonempty) return;
+    if (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty) return;
     NSMapTable *constants = self.keyboardAdjustmentDefaultConstants;
     if ([constants count] == 0) {
         for (NSLayoutConstraint *constraint in self.keyboardAdjustmentTopConstraints) {
@@ -58,16 +72,17 @@
         }
     }
     
-    [self updateKeyboardAdjustmentConstraints:[keyboardHeight floatValue]];
-    
-    __weak typeof(self)weakSelf = self;
-    [broadcaster performAnimation:^{
-        [weakSelf.view layoutIfNeeded];
-    }];
+    CGFloat adjustment = [self keyboardAdjustmentValueWithKeyboardHeight:[keyboardHeight floatValue]];
+    if ([self updateKeyboardAdjustmentConstraints:adjustment]) {
+        __weak typeof(self)weakSelf = self;
+        [broadcaster performAnimation:^{
+            [weakSelf.view layoutIfNeeded];
+        }];
+    }
 }
 
 - (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-    if (!self.keyboardAdjustmentTopConstraints.nonempty || !self.keyboardAdjustmentBottomConstraints.nonempty) return;
+    if (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty) return;
     [self updateKeyboardAdjustmentConstraints:0];
     [self.keyboardAdjustmentDefaultConstants removeAllObjects];
     __weak typeof(self)weakSelf = self;

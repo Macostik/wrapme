@@ -10,4 +10,6 @@
 
 @interface WLBaseViewController : UIViewController
 
+- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight;
+
 @end

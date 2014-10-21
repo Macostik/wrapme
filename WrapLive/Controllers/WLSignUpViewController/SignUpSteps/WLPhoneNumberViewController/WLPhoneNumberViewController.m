@@ -28,16 +28,16 @@
 #import "RMPhoneFormat.h"
 #import "WLKeyboardBroadcaster.h"
 #import "WLAuthorizationRequest.h"
+#import "WLButton.h"
 
 @interface WLPhoneNumberViewController () <UITextFieldDelegate, WLKeyboardBroadcastReceiver>
 
-@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
+@property (weak, nonatomic) IBOutlet WLButton *signUpButton;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 
 @property (weak, nonatomic) IBOutlet UIButton *selectCountryButton;
 @property (weak, nonatomic) IBOutlet UILabel *countryCodeLabel;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 
 @property (strong, nonatomic) WLCountry *country;
@@ -60,10 +60,10 @@
 	self.country = [WLCountry getCurrentCountry];
     _phoneChars = [[NSCharacterSet decimalDigitCharacterSet] mutableCopy];
     [_phoneChars addCharactersInString:@"+*#,"];
-	self.phoneNumberTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(phoneNumberInputCancel:) done:@selector(phoneNumberInputDone:)];
+//	self.phoneNumberTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(phoneNumberInputCancel:) done:@selector(phoneNumberInputDone:)];
 	self.phoneNumberTextField.text = [WLAuthorization currentAuthorization].phone;
 	self.phoneNumber = self.phoneNumberTextField.text;
-	self.emailTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(emailInputCancel:) done:@selector(emailInputDone:)];
+//	self.emailTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(emailInputCancel:) done:@selector(emailInputDone:)];
 	self.emailTextField.text = [WLAuthorization currentAuthorization].email;
 	self.email = self.emailTextField.text;
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
@@ -140,7 +140,7 @@
 	[self.signUpViewController.navigationController pushViewController:controller animated:YES];
 }
 
-- (IBAction)signUp:(id)sender {
+- (IBAction)signUp:(WLButton*)sender {
 	if ([self.email isValidEmail]) {
 		__weak typeof(self)weakSelf = self;
 		[self confirmAuthorization:[self authorization] success:^(WLAuthorization *authorization) {
@@ -162,55 +162,37 @@
 
 - (void)signUpAuthorization:(WLAuthorization*)authorization {
 	__weak typeof(self)weakSelf = self;
-	[weakSelf.spinner startAnimating];
+    weakSelf.signUpButton.loading = YES;
 	weakSelf.view.userInteractionEnabled = NO;
 	[authorization signUp:^(WLAuthorization *authorization) {
 		WLActivationViewController *controller = [[WLActivationViewController alloc] initWithAuthorization:authorization];
 		[weakSelf.navigationController pushViewController:controller animated:YES];
-		[weakSelf.spinner stopAnimating];
+		weakSelf.signUpButton.loading = NO;
 	} failure:^(NSError *error) {
 		weakSelf.view.userInteractionEnabled = YES;
-		[weakSelf.spinner stopAnimating];
+		weakSelf.signUpButton.loading = NO;
 		[error show];
 	}];
 }
 
 - (void)signInAuthorization:(WLAuthorization*)authorization {
 	__weak typeof(self)weakSelf = self;
-	[weakSelf.spinner startAnimating];
+	weakSelf.signUpButton.loading = YES;
 	weakSelf.view.userInteractionEnabled = NO;
 	[authorization signIn:^(WLUser *user) {
 		weakSelf.view.userInteractionEnabled = YES;
-		[weakSelf.spinner stopAnimating];
+		weakSelf.signUpButton.loading = NO;
         [WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
 	} failure:^(NSError *error) {
 		weakSelf.view.userInteractionEnabled = YES;
-		[weakSelf.spinner stopAnimating];
+		weakSelf.signUpButton.loading = NO;
 		[error show];
 	}];
-}
-
-- (void)phoneNumberInputCancel:(id)sender {
-	[self.phoneNumberTextField resignFirstResponder];
-}
-
-- (void)phoneNumberInputDone:(id)sender {
-//	[self.phoneNumberTextField resignFirstResponder];
-	[self.emailTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.2f];
-}
-
-- (void)emailInputCancel:(id)sender {
-	[self.emailTextField resignFirstResponder];
-}
-
-- (void)emailInputDone:(id)sender {
-	[self.emailTextField resignFirstResponder];
 }
 
 - (IBAction)emailChanged:(UITextField *)sender {
 	self.email = sender.text;
 }
-
 
 - (void)selectTestUser {
 	__weak typeof(self)weakSelf = self;
@@ -232,17 +214,11 @@
         // For some reason, the 'range' parameter isn't always correct when backspacing through a phone number
         // This calculates the proper range from the text field's selection range.
         UITextRange *selRange = textField.selectedTextRange;
-        UITextPosition *selStartPos = selRange.start;
-        UITextPosition *selEndPos = selRange.end;
-        NSInteger start = [textField offsetFromPosition:textField.beginningOfDocument toPosition:selStartPos];
-        NSInteger end = [textField offsetFromPosition:textField.beginningOfDocument toPosition:selEndPos];
+        NSInteger start = [textField offsetFromPosition:textField.beginningOfDocument toPosition:selRange.start];
+        NSInteger end = [textField offsetFromPosition:textField.beginningOfDocument toPosition:selRange.end];
         NSRange repRange;
-        if (start == end) {
-            if (string.length == 0) {
-                repRange = NSMakeRange(start - 1, 1);
-            } else {
-                repRange = NSMakeRange(start, end - start);
-            }
+        if (start == end && string.length == 0) {
+            repRange = NSMakeRange(start - 1, 1);
         } else {
             repRange = NSMakeRange(start, end - start);
         }
@@ -251,9 +227,6 @@
         NSString *txt = [textField.text stringByReplacingCharactersInRange:repRange withString:string];
         // This is the newly formatted version of the phone number
         NSString *phone = [_phoneFormat format:txt];
-//        BOOL valid = [_phoneFormat isPhoneNumberValid:phone];
-//        
-//        textField.textColor = valid ? [UIColor blackColor] : [UIColor redColor];
         if (phone.length > WLPhoneNumberLimit) {
             return NO;
         }
@@ -273,7 +246,7 @@
             }
             
             // Now let's find the position, in the newly formatted string, of the same number of non-formatting characters.
-            int pos = [phone length];
+            NSUInteger pos = [phone length];
             int cnt2 = 0;
             for (NSUInteger i = 0; i < [phone length]; i++) {
                 if ([_phoneChars characterIsMember:[phone characterAtIndex:i]]) {
@@ -309,26 +282,44 @@
 	}
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == self.phoneNumberTextField) {
+        [self.emailTextField becomeFirstResponder];
+    } else {
+        [textField resignFirstResponder];
+        [self signUp:self.signUpButton];
+    }
+    return YES;
+}
+
 #pragma mark - WLKeyboardBroadcastReceiver
 
-- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
-    UITextField *textField = [self.phoneNumberTextField isFirstResponder] ? self.phoneNumberTextField : self.emailTextField;
-    __weak typeof(self)weakSelf = self;
-	CGAffineTransform transform = self.mainView.transform;
-	self.mainView.transform = CGAffineTransformIdentity;
-	CGPoint center = [self.view convertPoint:textField.center fromView:textField.superview];
-	CGFloat translation = center.y - (self.view.height - [keyboardHeight floatValue])/2.0f;
-	self.mainView.transform = transform;
-	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		weakSelf.mainView.transform = CGAffineTransformMakeTranslation(0, -translation);
-	} completion:^(BOOL finished) {}];
+- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
+    return (keyboardHeight - self.signUpButton.height)/2.0f;
+    UITextField *textField = self.phoneNumberTextField;
+    CGPoint center = [self.view convertPoint:textField.center fromView:textField.superview];
+    CGFloat translation = (center.y + textField.height) - (self.view.height - keyboardHeight)/2.0f;
+    return translation;
 }
 
-- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-    __weak typeof(self)weakSelf = self;
-	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		weakSelf.mainView.transform = CGAffineTransformIdentity;
-	} completion:^(BOOL finished) {}];
-}
+//- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
+//    UITextField *textField = [self.phoneNumberTextField isFirstResponder] ? self.phoneNumberTextField : self.emailTextField;
+//    __weak typeof(self)weakSelf = self;
+//	CGAffineTransform transform = self.mainView.transform;
+//	self.mainView.transform = CGAffineTransformIdentity;
+//	CGPoint center = [self.view convertPoint:textField.center fromView:textField.superview];
+//	CGFloat translation = center.y - (self.view.height - [keyboardHeight floatValue])/2.0f;
+//	self.mainView.transform = transform;
+//	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//		weakSelf.mainView.transform = CGAffineTransformMakeTranslation(0, -translation);
+//	} completion:^(BOOL finished) {}];
+//}
+//
+//- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
+//    __weak typeof(self)weakSelf = self;
+//	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//		weakSelf.mainView.transform = CGAffineTransformIdentity;
+//	} completion:^(BOOL finished) {}];
+//}
 
 @end

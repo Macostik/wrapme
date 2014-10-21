@@ -13,10 +13,22 @@
 
 @interface WLChatGroupSet : WLPaginatedSet
 
-@property (strong, nonatomic) WLGroup *group;
 @property (strong, nonatomic) WLIdentifierMessage * message;
 
 - (void)addMessage:(WLMessage *)message;
 - (void)addMessages:(NSOrderedSet *)messages;
 
+@end
+
+@interface WLPaginatedSet (WLChatGroupSet)
+
+- (NSDate *)date;
+
+@end
+
+@implementation WLPaginatedSet (WLChatGroupSet)
+
+- (NSDate *)date {
+    return [self.entries.firstObject createdAt];
+}
 @end

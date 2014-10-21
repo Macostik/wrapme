@@ -79,7 +79,7 @@
 
 - (void)setupItemData:(id <WLChatMessage>)message {
     __weak typeof(self)weakSelf = self;
-    self.messageTextView.textContainerInset = [self.reuseIdentifier isEqualToString:@"WLMyBubbleMessageCell"] || [self.reuseIdentifier isEqualToString:@"WLBubbleMessageCell"] ? UIEdgeInsetsMake(0, -5, 0, -5) : UIEdgeInsetsMake(14, -5, 0, -5);
+    self.messageTextView.textContainerInset = [self.reuseIdentifier isEqualToString:@"WLMessageCell"] ? UIEdgeInsetsMake(14, -5, 0, -5) : UIEdgeInsetsMake(0, -5, 0, -5);
 	self.avatarView.url = message.contributor.picture.medium;
     [self.avatarView setFailure:^(NSError* error) {
         weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
@@ -88,11 +88,19 @@
 	self.timeLabel.text = [NSString stringWithFormat:@"%@", WLString([message.displayDate stringWithFormat:@"HH:mm"])];;
     [self.messageTextView determineHyperLink:message.text withFont:[UIFont lightFontOfSize:15.0f]];
 	[UIView performWithoutAnimation:^{
-        CGSize sizeNameLabel = [weakSelf.nameLabel sizeThatFits:CGSizeMake(50, CGFLOAT_MAX)];
+        CGSize sizeNameLabel = [weakSelf.nameLabel sizeThatFits:CGSizeMake(WLMessageMinimumCellHeight, CGFLOAT_MAX)];
         CGSize size = [weakSelf.messageTextView sizeThatFits:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)];
-        weakSelf.textViewConstraint.constant = MAX (weakSelf.width - 66 - MAX(WLMinBubbleWidth, size.width), 65);
+        
+        if ([self.reuseIdentifier isEqualToString:@"WLMessageCell"]) {
+            weakSelf.textViewConstraint.constant = MIN(MAX(weakSelf.width - WLAvatarWidth - MAX(WLMinBubbleWidth, size.width), WLAvatarWidth),
+                                                        weakSelf.width - WLAvatarWidth - MAX(WLMinBubbleWidth, sizeNameLabel.width));
+        } else {
+            weakSelf.textViewConstraint.constant = MAX(weakSelf.width - WLAvatarWidth - MAX(WLMinBubbleWidth, size.width), WLAvatarWidth);
+        }
+        
         [weakSelf.messageTextView layoutIfNeeded];
 	}];
 }
+
 
 @end

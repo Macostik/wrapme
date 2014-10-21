@@ -12,43 +12,43 @@
 @implementation WLChatGroupSet
 
 - (void)addMessage:(WLMessage *)message {
-    WLGroup *group = [self groupForDate:message.createdAt];
-    [self addMessage:message inCorrectGroup:group];
+    [self addMessageToCorrectGroup:message];
 }
 
-- (WLGroup *)groupForDate:(NSDate *)date {
-    WLGroup* group = [self.entries selectObject:^BOOL(WLGroup* item) {
-        return [item.date isSameDay:date];
-    }];
-    if (!group) {
-        group = [WLGroup group];
-        group.date = date;
-        [self.entries addObject:group];
-        [self.delegate paginatedSetChanged:self];
-    }
-    return group;
-}
-
-- (void)addMessage:(WLMessage *)message inCorrectGroup:(WLGroup *)group {
-    WLGroup *lastSubGroup = group.entries.firstObject;
+- (void)addMessageToCorrectGroup:(WLMessage *)message  {
+    WLPaginatedSet *lastSubGroup = self.entries.firstObject;
     WLMessage *lastMessage = lastSubGroup.entries.lastObject;
-    if (lastMessage.contributor != message.contributor) {
-        WLGroup *subGroup = [WLGroup group];
-        subGroup.date = message.createdAt;
-        [group.entries insertObject:subGroup atIndex:0];
+    if (lastMessage.contributor != message.contributor || ![lastMessage.createdAt isSameDay:message.createdAt]) {
+        WLPaginatedSet *subGroup = [[WLPaginatedSet alloc] init];
+        [self.entries insertObject:subGroup atIndex:0];
         [subGroup addEntry:message];
     } else {
-        [lastSubGroup addEntry:message];
+        [lastSubGroup.entries insertObject:message atIndex:0];
     }
 }
 
 - (void)addMessages:(NSOrderedSet *)messages {
     __weak __typeof(self)weakSelf = self;
-    [self sort];
     [messages all:^(WLMessage *message) {
-        [weakSelf addMessage:message];
+        [weakSelf addMessageToCorrectGroup:message];
     }];
 }
 
+- (void)sort {
+    [self.entries sortedArrayUsingComparator:comparatorByDate];
+}
+
+- (void)resetEntries:(NSOrderedSet *)entries {
+    [self.entries removeAllObjects];
+    [self.entries unionOrderedSet:entries];
+    [self.entries sort];
+    [self.delegate paginatedSetChanged:self];
+}
+
 @end
+
+
+
+
+
 

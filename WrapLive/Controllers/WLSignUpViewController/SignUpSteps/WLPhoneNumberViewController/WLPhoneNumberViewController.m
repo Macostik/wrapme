@@ -60,10 +60,10 @@
 	self.country = [WLCountry getCurrentCountry];
     _phoneChars = [[NSCharacterSet decimalDigitCharacterSet] mutableCopy];
     [_phoneChars addCharactersInString:@"+*#,"];
-//	self.phoneNumberTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(phoneNumberInputCancel:) done:@selector(phoneNumberInputDone:)];
+	self.phoneNumberTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(phoneNumberInputCancel:) done:@selector(phoneNumberInputDone:)];
 	self.phoneNumberTextField.text = [WLAuthorization currentAuthorization].phone;
 	self.phoneNumber = self.phoneNumberTextField.text;
-//	self.emailTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(emailInputCancel:) done:@selector(emailInputDone:)];
+	self.emailTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(emailInputCancel:) done:@selector(emailInputDone:)];
 	self.emailTextField.text = [WLAuthorization currentAuthorization].email;
 	self.email = self.emailTextField.text;
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
@@ -190,6 +190,23 @@
 	}];
 }
 
+- (void)phoneNumberInputCancel:(id)sender {
+    [self.phoneNumberTextField resignFirstResponder];
+}
+
+- (void)phoneNumberInputDone:(id)sender {
+    [self.emailTextField becomeFirstResponder];
+}
+
+- (void)emailInputCancel:(id)sender {
+    [self.emailTextField resignFirstResponder];
+}
+
+- (void)emailInputDone:(id)sender {
+    [self.emailTextField resignFirstResponder];
+    [self signUp:self.signUpButton];
+}
+
 - (IBAction)emailChanged:(UITextField *)sender {
 	self.email = sender.text;
 }
@@ -282,44 +299,10 @@
 	}
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField == self.phoneNumberTextField) {
-        [self.emailTextField becomeFirstResponder];
-    } else {
-        [textField resignFirstResponder];
-        [self signUp:self.signUpButton];
-    }
-    return YES;
-}
-
 #pragma mark - WLKeyboardBroadcastReceiver
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
     return (keyboardHeight - self.signUpButton.height)/2.0f;
-    UITextField *textField = self.phoneNumberTextField;
-    CGPoint center = [self.view convertPoint:textField.center fromView:textField.superview];
-    CGFloat translation = (center.y + textField.height) - (self.view.height - keyboardHeight)/2.0f;
-    return translation;
 }
-
-//- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
-//    UITextField *textField = [self.phoneNumberTextField isFirstResponder] ? self.phoneNumberTextField : self.emailTextField;
-//    __weak typeof(self)weakSelf = self;
-//	CGAffineTransform transform = self.mainView.transform;
-//	self.mainView.transform = CGAffineTransformIdentity;
-//	CGPoint center = [self.view convertPoint:textField.center fromView:textField.superview];
-//	CGFloat translation = center.y - (self.view.height - [keyboardHeight floatValue])/2.0f;
-//	self.mainView.transform = transform;
-//	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//		weakSelf.mainView.transform = CGAffineTransformMakeTranslation(0, -translation);
-//	} completion:^(BOOL finished) {}];
-//}
-//
-//- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-//    __weak typeof(self)weakSelf = self;
-//	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//		weakSelf.mainView.transform = CGAffineTransformIdentity;
-//	} completion:^(BOOL finished) {}];
-//}
 
 @end

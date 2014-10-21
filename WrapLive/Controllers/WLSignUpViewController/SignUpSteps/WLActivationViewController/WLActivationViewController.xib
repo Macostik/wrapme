@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLActivationViewController">
@@ -16,6 +16,7 @@
                 <outletCollection property="activationViews" destination="m5C-ko-6zU" id="z04-zH-mju"/>
                 <outletCollection property="activationViews" destination="krq-ca-ojS" id="f8E-ez-d2S"/>
                 <outletCollection property="activationViews" destination="f3A-y1-WZ3" id="aiB-tz-sDB"/>
+                <outletCollection property="keyboardAdjustmentTopConstraints" destination="DhP-2n-gAD" id="UL1-OG-EaQ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -273,6 +274,7 @@
                 <constraint firstItem="m5C-ko-6zU" firstAttribute="centerX" secondItem="BPd-Lo-q65" secondAttribute="centerX" id="OcQ-OY-gSB"/>
                 <constraint firstAttribute="trailing" secondItem="Fip-lx-PtU" secondAttribute="trailing" id="Qcu-aO-uI3"/>
                 <constraint firstAttribute="centerX" secondItem="yzG-Lb-q94" secondAttribute="centerX" id="Sit-ZO-VgR"/>
+                <constraint firstItem="yzG-Lb-q94" firstAttribute="centerY" secondItem="Fip-lx-PtU" secondAttribute="centerY" constant="-82" id="T6D-ri-sS2"/>
                 <constraint firstItem="f3A-y1-WZ3" firstAttribute="centerY" secondItem="NGx-pp-fEy" secondAttribute="centerY" constant="111" id="V1Y-4b-zrs"/>
                 <constraint firstAttribute="bottom" secondItem="f3A-y1-WZ3" secondAttribute="bottom" id="VFI-gd-tCF"/>
                 <constraint firstItem="krq-ca-ojS" firstAttribute="centerX" secondItem="WrE-aT-SLX" secondAttribute="centerX" id="YCL-UW-EbS"/>
@@ -280,7 +282,6 @@
                 <constraint firstAttribute="trailing" secondItem="m5C-ko-6zU" secondAttribute="trailing" id="Z8e-8b-siQ"/>
                 <constraint firstItem="krq-ca-ojS" firstAttribute="top" secondItem="qg7-3m-dX1" secondAttribute="top" id="bMM-q4-AA1"/>
                 <constraint firstItem="Fip-lx-PtU" firstAttribute="centerX" secondItem="QAt-iC-Ig0" secondAttribute="centerX" id="cB5-z6-uAw"/>
-                <constraint firstAttribute="centerY" secondItem="yzG-Lb-q94" secondAttribute="centerY" constant="82" id="df6-Rx-7Ix"/>
                 <constraint firstItem="krq-ca-ojS" firstAttribute="leading" secondItem="qg7-3m-dX1" secondAttribute="leading" id="eY8-zj-Rva"/>
                 <constraint firstItem="Fip-lx-PtU" firstAttribute="centerY" secondItem="leg-aT-Dwi" secondAttribute="centerY" constant="112" id="h3R-nn-uWz"/>
                 <constraint firstItem="f3A-y1-WZ3" firstAttribute="top" secondItem="qg7-3m-dX1" secondAttribute="top" id="k1h-RO-Fa0"/>
@@ -300,7 +301,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="278" y="95"/>
+            <point key="canvasLocation" x="363" y="95"/>
         </view>
     </objects>
     <resources>

@@ -43,4 +43,8 @@
 	[self.signUpStepsView addSubview:navController.view];
 }
 
+- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
+    return 151;
+}
+
 @end

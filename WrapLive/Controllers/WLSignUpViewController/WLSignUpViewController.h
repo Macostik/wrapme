@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLBaseViewController.h"
 
-@interface WLSignUpViewController : UIViewController
+@interface WLSignUpViewController : WLBaseViewController
 
 @property (nonatomic) BOOL registrationNotCompleted;
 

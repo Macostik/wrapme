@@ -132,9 +132,9 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 }
 
 - (IBAction)done:(id)sender {
-    if ([WLUser currentUser].name.nonempty) {
+    /*if ([WLUser currentUser].name.nonempty) {
         [WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
-    } else {
+    } else*/ {
         WLProfileInformationViewController * controller = [WLProfileInformationViewController new];
         [self.navigationController pushViewController:controller animated:YES];
     }
@@ -144,20 +144,6 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 
 - (IBAction)textFieldDidChange:(UITextField *)sender {
 	self.continueButton.active = sender.text.length == WLActivationCodeLimit;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-	CGFloat translation = textField.y - 0.5 * (self.view.height - 260 - textField.height);
-	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
-	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.view.transform = transform;
-	} completion:^(BOOL finished) {}];
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.view.transform = CGAffineTransformIdentity;
-	} completion:^(BOOL finished) {}];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

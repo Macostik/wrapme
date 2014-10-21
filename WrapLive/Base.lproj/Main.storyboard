@@ -4307,7 +4307,7 @@ Check your internet connection and try again.</string>
                                                     <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dN-Y5-4Ue">
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dN-Y5-4Ue">
                                                     <rect key="frame" x="270" y="0.0" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="PGv-iX-9Kn"/>
@@ -4400,73 +4400,64 @@ Check your internet connection and try again.</string>
                                     <constraint firstItem="s5o-k3-mbE" firstAttribute="leading" secondItem="2R6-MR-eF4" secondAttribute="leading" constant="75" id="utf-r8-Xfu"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYQ-FT-6gw">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <subviews>
-                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYf-Sg-pHd" customClass="WLPressButton">
-                                        <rect key="frame" x="-1" y="0.0" width="160" height="44"/>
-                                        <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="back:" destination="7FG-gC-kPg" eventType="touchUpInside" id="7vc-Ta-VTg"/>
-                                            <action selector="cancel:" destination="qRW-aK-Lk5" eventType="touchUpInside" id="NyC-9h-jYu"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oMu-AF-YMH" customClass="WLPressButton">
-                                        <rect key="frame" x="160" y="0.0" width="160" height="44"/>
-                                        <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="Done">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="done:" destination="qRW-aK-Lk5" eventType="touchUpInside" id="fTd-Cq-CoZ"/>
-                                            <action selector="goToMainScreen:" destination="7FG-gC-kPg" eventType="touchUpInside" id="yfX-G0-DBo"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYf-Sg-pHd" customClass="WLPressButton">
+                                <rect key="frame" x="0.0" y="524" width="160" height="44"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="oMu-AF-YMH" firstAttribute="leading" secondItem="dYf-Sg-pHd" secondAttribute="trailing" constant="1" id="6Ng-6r-qok"/>
-                                    <constraint firstItem="dYf-Sg-pHd" firstAttribute="leading" secondItem="zYQ-FT-6gw" secondAttribute="leading" constant="-1" id="IHX-jR-2Kl"/>
-                                    <constraint firstAttribute="bottom" secondItem="dYf-Sg-pHd" secondAttribute="bottom" id="Qk4-eQ-Hwz"/>
-                                    <constraint firstItem="dYf-Sg-pHd" firstAttribute="width" secondItem="oMu-AF-YMH" secondAttribute="width" id="W8S-i1-gnr"/>
-                                    <constraint firstAttribute="trailing" secondItem="oMu-AF-YMH" secondAttribute="trailing" id="Z1B-7t-bzw"/>
-                                    <constraint firstAttribute="bottom" secondItem="oMu-AF-YMH" secondAttribute="bottom" id="Zi3-ST-5KC"/>
-                                    <constraint firstItem="dYf-Sg-pHd" firstAttribute="top" secondItem="zYQ-FT-6gw" secondAttribute="top" id="qSI-xI-P7e"/>
-                                    <constraint firstAttribute="height" constant="44" id="uqn-MM-8d9"/>
-                                    <constraint firstItem="oMu-AF-YMH" firstAttribute="top" secondItem="zYQ-FT-6gw" secondAttribute="top" id="wQE-O3-RzI"/>
+                                    <constraint firstAttribute="height" constant="44" id="1j2-Y3-cMk"/>
                                 </constraints>
-                            </view>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancel:" destination="qRW-aK-Lk5" eventType="touchUpInside" id="NyC-9h-jYu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oMu-AF-YMH" customClass="WLPressButton">
+                                <rect key="frame" x="161" y="524" width="159" height="44"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="S6g-fs-hHU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="done:" destination="qRW-aK-Lk5" eventType="touchUpInside" id="fTd-Cq-CoZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Xt0-mU-aTu" firstAttribute="top" secondItem="oMu-AF-YMH" secondAttribute="bottom" id="02y-oc-TQs"/>
+                            <constraint firstItem="oMu-AF-YMH" firstAttribute="leading" secondItem="dYf-Sg-pHd" secondAttribute="trailing" constant="1" id="0QT-Fo-tZi"/>
+                            <constraint firstItem="Xt0-mU-aTu" firstAttribute="top" secondItem="dYf-Sg-pHd" secondAttribute="bottom" id="0Vc-0P-xs8"/>
                             <constraint firstItem="DO8-0B-bff" firstAttribute="leading" secondItem="3Jb-s5-DCT" secondAttribute="leading" id="11t-5e-LdX"/>
+                            <constraint firstItem="dYf-Sg-pHd" firstAttribute="width" secondItem="oMu-AF-YMH" secondAttribute="width" id="2py-KP-u6H"/>
                             <constraint firstItem="Xt0-mU-aTu" firstAttribute="top" secondItem="DO8-0B-bff" secondAttribute="bottom" id="7NH-BM-Isx"/>
-                            <constraint firstItem="zYQ-FT-6gw" firstAttribute="leading" secondItem="3Jb-s5-DCT" secondAttribute="leading" id="8Ju-EK-QPY"/>
                             <constraint firstItem="DO8-0B-bff" firstAttribute="top" secondItem="hQR-1L-vX5" secondAttribute="bottom" constant="44" id="8cE-IV-3mr"/>
                             <constraint firstAttribute="trailing" secondItem="2R6-MR-eF4" secondAttribute="trailing" id="EYw-7G-8NI"/>
+                            <constraint firstAttribute="trailing" secondItem="oMu-AF-YMH" secondAttribute="trailing" id="FLa-Jc-FaL"/>
                             <constraint firstItem="2R6-MR-eF4" firstAttribute="leading" secondItem="3Jb-s5-DCT" secondAttribute="leading" id="RJS-Qy-Lna"/>
-                            <constraint firstItem="Xt0-mU-aTu" firstAttribute="top" secondItem="zYQ-FT-6gw" secondAttribute="bottom" id="YsY-qH-eNG"/>
                             <constraint firstAttribute="trailing" secondItem="DO8-0B-bff" secondAttribute="trailing" id="dEa-Hu-lxt"/>
                             <constraint firstItem="2R6-MR-eF4" firstAttribute="top" secondItem="hQR-1L-vX5" secondAttribute="bottom" constant="-20" id="f4z-CN-xGO"/>
-                            <constraint firstAttribute="trailing" secondItem="zYQ-FT-6gw" secondAttribute="trailing" id="wFE-qy-Z8F"/>
+                            <constraint firstItem="dYf-Sg-pHd" firstAttribute="leading" secondItem="3Jb-s5-DCT" secondAttribute="leading" id="rVW-iB-rvQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eIg-JY-jsf"/>
                     <connections>
-                        <outlet property="bottomView" destination="zYQ-FT-6gw" id="KAS-HR-05D"/>
+                        <outlet property="cancelButton" destination="dYf-Sg-pHd" id="bud-PD-3U6"/>
                         <outlet property="dataProvider" destination="gJy-hq-1lI" id="8Mr-GR-zwz"/>
                         <outlet property="dataSection" destination="zjC-7P-9tZ" id="2Sw-EK-CRK"/>
+                        <outlet property="doneButton" destination="oMu-AF-YMH" id="lIa-zm-9E9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RN9-r6-64a" userLabel="First Responder" sceneMemberID="firstResponder"/>

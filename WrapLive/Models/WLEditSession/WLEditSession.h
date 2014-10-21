@@ -76,6 +76,14 @@ typedef BOOL (^WLEditSessionComparator)(id originalValue, id changedValue);
 
 - (void)changeValue:(id)value forProperty:(NSString*)keyPath;
 
+- (void)changeValueForProperty:(NSString*)keyPath valueBlock:(id (^)(id changedValue))valueBlock;
+
 - (BOOL)isPropertyChanged:(NSString*)keyPath;
+
+@end
+
+@interface WLOrderedSetEditSessionProperty : WLEditSessionProperty
+
++ (instancetype)property:(NSString *)keyPath;
 
 @end

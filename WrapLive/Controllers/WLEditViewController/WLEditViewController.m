@@ -28,6 +28,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.cancelButton.hidden = YES;
+    self.doneButton.hidden = YES;
     [self setupEditableUserInterface];
 }
 

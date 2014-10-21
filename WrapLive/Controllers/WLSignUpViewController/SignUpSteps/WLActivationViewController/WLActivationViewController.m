@@ -132,9 +132,9 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 }
 
 - (IBAction)done:(id)sender {
-    /*if ([WLUser currentUser].name.nonempty) {
+    if ([WLUser currentUser].name.nonempty) {
         [WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
-    } else*/ {
+    } else {
         WLProfileInformationViewController * controller = [WLProfileInformationViewController new];
         [self.navigationController pushViewController:controller animated:YES];
     }

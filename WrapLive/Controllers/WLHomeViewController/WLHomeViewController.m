@@ -104,11 +104,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     }];
     
     [section setSelection:^(id entry) {
-        if ([entry isKindOfClass:[WLCandy class]]) {
-            [[entry wrap] present];
-        } else {
-            [entry present];
-        }
+        [entry present];
     }];
     
     NSMutableOrderedSet* wraps = [[WLUser currentUser] sortedWraps];

@@ -7,7 +7,6 @@
 //
 
 #import "NSArray+Additions.h"
-#import "WLSupportFunctions.h"
 
 @implementation NSArray (Additions)
 

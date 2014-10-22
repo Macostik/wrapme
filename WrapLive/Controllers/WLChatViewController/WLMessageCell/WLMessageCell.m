@@ -16,7 +16,6 @@
 #import "WLUser+Extended.h"
 #import "NSString+Additions.h"
 #import "NSDate+Formatting.h"
-#import "WLSupportFunctions.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
 #import "WLAPIRequest.h"

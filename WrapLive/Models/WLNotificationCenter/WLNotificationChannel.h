@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLBlocks.h"
 
 @class PNChannel;
 @class WLNotification;

@@ -11,12 +11,9 @@
 #import "WLEntryNotifier.h"
 #import "WLTimelineEvent.h"
 #import "WLCandiesRequest.h"
-#import "WLSupportFunctions.h"
 #import "WLEntryFetching.h"
 
-@interface WLTimeline ()
-
-@property (strong, nonatomic) WLEntryFetching* fetching;
+@interface WLTimeline () <WLEntryNotifyReceiver>
 
 @end
 
@@ -28,23 +25,27 @@
     return timeline;
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [[WLCandy notifier] addReceiver:self];
+        [[WLComment notifier] addReceiver:self];
+    }
+    return self;
+}
+
 - (void)setWrap:(WLWrap *)wrap {
     _wrap = wrap;
     self.request = [WLCandiesRequest request:wrap];
     self.request.sameDay = YES;
-    self.fetching = [WLEntryFetching fetching:nil configuration:^(NSFetchRequest *request) {
-        request.entity = [WLCandy entity];
-        NSDate* startDate = [[NSDate now] beginOfDay];
-        request.predicate = [NSPredicate predicateWithFormat:@"wrap == %@ AND updatedAt >= %@", wrap, startDate];
-        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
-    }];
-    [self.fetching addTarget:self action:@selector(update)];
-    [self.fetching perform];
     [self update];
 }
 
 - (void)update {
-    self.images = self.fetching.content;
+    NSDate* startDate = [[NSDate now] beginOfDay];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"updatedAt >= %@", startDate];
+    self.images = [NSMutableOrderedSet orderedSetWithOrderedSet:[self.wrap.candies filteredOrderedSetUsingPredicate:predicate]];
+    [self.images sortByCreatedAt];
     [self resetEntries:[self events:[NSDate now]]];
 }
 
@@ -88,6 +89,37 @@
     if(success) {
         success(entries);
     }
+}
+
+#pragma mark - WLEntryNotifyReceiver
+
+- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
+    if (![candy.createdAt isToday]) return;
+    [self.images addObject:candy];
+    [self.images sortByCreatedAt];
+    [WLTimelineEvent eventsByAddingEntry:candy toEvents:self.entries];
+    [self.delegate paginatedSetChanged:self];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
+    [self.images removeObject:candy];
+    [WLTimelineEvent eventsByDeletingEntry:candy fromEvents:self.entries];
+    [self.delegate paginatedSetChanged:self];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier commentAdded:(WLComment *)comment {
+    if (![comment.createdAt isToday]) return;
+    [WLTimelineEvent eventsByAddingEntry:comment toEvents:self.entries];
+    [self.delegate paginatedSetChanged:self];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier commentDeleted:(WLComment *)comment {
+    [WLTimelineEvent eventsByDeletingEntry:comment fromEvents:self.entries];
+    [self.delegate paginatedSetChanged:self];
+}
+
+- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
+    return self.wrap;
 }
 
 @end

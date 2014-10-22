@@ -118,14 +118,24 @@
 - (void)setLoading:(BOOL)loading {
     if (_loading != loading) {
         _loading = loading;
+        UIView *accessoryView = self.accessoryView;
         if (loading) {
+            accessoryView.hidden = YES;
+            CGPoint center;
+            if (accessoryView) {
+                center = [self convertPoint:accessoryView.center fromView:accessoryView.superview];
+            } else {
+                CGSize size = self.bounds.size;
+                center = CGPointMake(size.width - size.height/2, size.height/2);
+            }
             UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-            spinner.center = CGPointMake(self.bounds.size.width - self.bounds.size.height/2, self.bounds.size.height/2);
+            spinner.center = center;
             [self addSubview:spinner];
             [spinner startAnimating];
             self.spinner = spinner;
             self.userInteractionEnabled = NO;
         } else {
+            accessoryView.hidden = NO;
             [self.spinner removeFromSuperview];
             self.userInteractionEnabled = YES;
         }
@@ -143,7 +153,7 @@
 @implementation WLPressButton
 
 - (UIColor *)defaultHighlightedColor {
-    return [[self normalColor] colorByAddingValue:-0.1f];
+    return [[self normalColor] colorByAddingValue:0.1f];
 }
 
 @end

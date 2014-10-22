@@ -26,4 +26,6 @@
 @property (assign, nonatomic) NSNumber *duration;
 @property (strong, nonatomic) NSNumber *animationCurve;
 
+- (void)performAnimation:(WLBlock)animation;
+
 @end

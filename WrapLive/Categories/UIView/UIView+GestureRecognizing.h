@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLBlocks.h"
 
 @interface UIView (GestureRecognizing)
 

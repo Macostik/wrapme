@@ -35,7 +35,7 @@
 	}
 	self.nameLabel.text = isCreator ? [NSString stringWithFormat:@"%@ (Owner)", userNameText] : userNameText;
 
-    self.avatarView.url = user.picture.medium;
+    self.avatarView.url = user.picture.small;
     if (!self.avatarView.url.nonempty) {
         self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }

@@ -8,7 +8,6 @@
 
 #import "WLCameraAdjustmentView.h"
 #import "UIColor+CustomColors.h"
-#import "WLSupportFunctions.h"
 #import "UIFont+CustomFonts.h"
 
 @interface WLCameraAdjustmentView ()

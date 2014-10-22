@@ -92,8 +92,6 @@
     self.candiesDataSection.selection = selection;
 }
 
-static CGFloat WLPadding = 7;
-
 - (void)setup:(WLWrap*)wrap {
 	self.nameLabel.superview.userInteractionEnabled = YES;
 	self.nameLabel.text = wrap.name;
@@ -109,10 +107,7 @@ static CGFloat WLPadding = 7;
         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
     } else {
         [self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
-        WLSizeToFitLabel *label = self.wrapNotificationLabel;
-        label.intValue = [wrap unreadNotificationsCandyCount];
-        self.nameLabel.x = !label.hidden ? label.rightBottom.x + WLPadding : 70;
-        
+        self.wrapNotificationLabel.intValue = [wrap unreadNotificationsCandyCount];
     }
     self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;
 }

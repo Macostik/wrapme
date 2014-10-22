@@ -143,17 +143,20 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     return self.assets.count;
 }
 
+static CGFloat WLAssetSpacing = 0.5f;
+static NSUInteger WLAssetNumberOfColumns = 4;
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat size = (collectionView.bounds.size.width - 9) / 4.0f;
+    CGFloat size = (collectionView.width - WLAssetSpacing * (WLAssetNumberOfColumns + 1)) / WLAssetNumberOfColumns;
     return CGSizeMake(size, size);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(3, 0, 3, 0);
+    return UIEdgeInsetsMake(WLAssetSpacing, WLAssetSpacing, WLAssetSpacing, WLAssetSpacing);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 3;
+    return WLAssetSpacing;
 }
 
 #pragma mark - PGAssetCellDelegate

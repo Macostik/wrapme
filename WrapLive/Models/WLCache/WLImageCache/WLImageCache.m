@@ -11,10 +11,8 @@
 #import "NSString+MD5.h"
 #import <ImageIO/ImageIO.h>
 #import "NSDictionary+Extended.h"
-#import "WLSupportFunctions.h"
 #import "NSString+Additions.h"
 #import "WLSystemImageCache.h"
-#import "WLBlocks.h"
 #import "UIDevice+SystemVersion.h"
 
 static NSUInteger WLImageCacheSize = 524288000;

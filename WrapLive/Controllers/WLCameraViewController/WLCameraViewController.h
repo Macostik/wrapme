@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, WLCameraMode) {
 
 @property (readonly, nonatomic) CGSize viewSize;
 
-@property (weak, nonatomic) WLWrap* wrap;
+@property (nonatomic) CGFloat bottomInset;
 
 - (void)setPosition:(AVCaptureDevicePosition)position animated:(BOOL)animated;
 

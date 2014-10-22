@@ -7,7 +7,6 @@
 //
 
 #import "WLWrap.h"
-#import "WLBlocks.h"
 
 static NSUInteger WLWrapNameLimit = 190;
 

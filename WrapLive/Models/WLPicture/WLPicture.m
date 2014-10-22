@@ -58,3 +58,52 @@
 }
 
 @end
+
+@implementation WLPicture (JSONValue)
+
++ (instancetype)pictureWithJSONValue:(NSData *)value {
+    NSDictionary *data = [NSJSONSerialization JSONObjectWithData:value options:0 error:NULL];
+    if (data) {
+        WLPicture* picture = [[self alloc] init];
+        picture.large = data[@"large"];
+        picture.medium = data[@"medium"];
+        picture.small = data[@"small"];
+        return picture;
+    }
+    return nil;
+}
+
+- (NSData*)JSONValue {
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    [data trySetObject:self.large forKey:@"large"];
+    [data trySetObject:self.medium forKey:@"medium"];
+    [data trySetObject:self.small forKey:@"small"];
+    return [NSJSONSerialization dataWithJSONObject:data options:0 error:NULL];
+}
+
+@end
+
+@implementation WLPictureTransformer
+
++ (Class)transformedValueClass {
+    return [NSData class];
+}
+
++ (BOOL)allowsReverseTransformation {
+    return YES;
+}
+
+- (id)transformedValue:(WLPicture*)value {
+    id transformedValue = [value JSONValue];
+    return transformedValue;
+}
+
+- (id)reverseTransformedValue:(id)value {
+    id reverseTransformedValue = [WLPicture pictureWithJSONValue:value];
+    if (!reverseTransformedValue) {
+        reverseTransformedValue = [WLPicture unarchive:value];
+    }
+    return reverseTransformedValue;
+}
+
+@end

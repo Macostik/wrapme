@@ -7,7 +7,6 @@
 //
 
 #import "UIScrollView+Additions.h"
-#import "WLSupportFunctions.h"
 
 @implementation UIScrollView (Additions)
 

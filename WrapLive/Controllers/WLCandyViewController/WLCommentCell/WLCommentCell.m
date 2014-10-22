@@ -69,7 +69,7 @@
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", WLString(entry.contributor.name), WLString(entry.createdAt.timeAgoString)];
     [self.commentTextView determineHyperLink:entry.text withFont:[UIFont lightFontOfSize:15.0f]];
     __weak typeof(self)weakSelf = self;
-	self.authorImageView.url = entry.contributor.picture.medium;
+	self.authorImageView.url = entry.contributor.picture.small;
     [self.authorImageView setFailure:^(NSError* error) {
         weakSelf.authorImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];

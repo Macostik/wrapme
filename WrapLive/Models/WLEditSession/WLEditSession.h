@@ -8,29 +8,82 @@
 
 #import <Foundation/Foundation.h>
 
+typedef BOOL (^WLEditSessionComparator)(id originalValue, id changedValue);
+
 @class WLEntry;
-@class WLTempEntry;
+@class WLEditSession;
 
-@interface WLEditSession : NSObject
+@interface WLEditSessionProperty : NSObject
 
-@property (strong, nonatomic) NSMutableDictionary *original;
+@property (readonly, weak, nonatomic) WLEditSession* editSession;
 
-@property (strong, nonatomic) NSMutableDictionary *changed;
+@property (strong, nonatomic) NSString* keyPath;
 
-@property (weak, nonatomic) WLEntry* entry;
+@property (strong, nonatomic) WLEditSessionComparator comparator;
 
-- (id)initWithEntry:(WLEntry *)entry;
+@property (readonly, nonatomic) BOOL changed;
 
-- (void)setup:(NSMutableDictionary *)dictionary entry:(WLEntry *)entry;
+@property (strong, nonatomic) id changedValue;
 
-- (void)apply:(NSMutableDictionary *)dictionary entry:(WLEntry *)entry;
+@property (strong, nonatomic) id originalValue;
 
-- (void)apply:(WLEntry *)entry;
++ (instancetype)stringProperty:(NSString*)keyPath;
 
-- (void)reset:(WLEntry *)entry;
++ (instancetype)property:(NSString*)keyPath comparator:(WLEditSessionComparator)comparator;
+
+- (id)initialOriginalValue;
+
+- (void)apply:(id)value;
+
+- (void)apply;
+
+- (void)reset;
 
 - (void)clean;
 
-- (BOOL)hasChanges;
+@end
+
+@protocol WLEditSessionDelegate <NSObject>
+
+@optional
+- (void)editSession:(WLEditSession*)session hasChanges:(BOOL)hasChanges;
+
+@end
+
+@interface WLEditSession : NSObject
+
+@property (nonatomic, weak) id <WLEditSessionDelegate> delegate;
+
+@property (readonly, weak, nonatomic) WLEntry* entry;
+
+@property (readonly, nonatomic) BOOL hasChanges;
+
+@property (readonly, strong, nonatomic) NSMutableDictionary *properties;
+
+- (id)initWithEntry:(WLEntry *)entry properties:(NSSet*)properties;
+
+- (id)initWithEntry:(WLEntry *)entry stringProperties:(NSString*)keyPath, ... NS_REQUIRES_NIL_TERMINATION;
+
+- (void)apply;
+
+- (void)reset;
+
+- (void)clean;
+
+- (id)originalValueForProperty:(NSString*)keyPath;
+
+- (id)changedValueForProperty:(NSString*)keyPath;
+
+- (void)changeValue:(id)value forProperty:(NSString*)keyPath;
+
+- (void)changeValueForProperty:(NSString*)keyPath valueBlock:(id (^)(id changedValue))valueBlock;
+
+- (BOOL)isPropertyChanged:(NSString*)keyPath;
+
+@end
+
+@interface WLOrderedSetEditSessionProperty : WLEditSessionProperty
+
++ (instancetype)property:(NSString *)keyPath;
 
 @end

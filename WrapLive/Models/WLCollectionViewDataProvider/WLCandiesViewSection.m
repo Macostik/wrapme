@@ -10,7 +10,6 @@
 #import "UIScrollView+Additions.h"
 #import "WLCandyCell.h"
 #import "WLGroupedSet.h"
-#import "WLSupportFunctions.h"
 
 @implementation WLCandiesViewSection
 

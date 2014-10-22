@@ -7,7 +7,6 @@
 //
 
 #import "WLNavigation.h"
-#import "WLSupportFunctions.h"
 #import "WLWrapViewController.h"
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"

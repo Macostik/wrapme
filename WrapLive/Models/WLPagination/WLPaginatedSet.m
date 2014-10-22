@@ -74,8 +74,8 @@
     } else {
         WLEntry* firstEntry = [self.entries firstObject];
         WLEntry* lastEntry = [self.entries lastObject];
-        request.newer = [firstEntry updatedAt];
-        request.older = [lastEntry updatedAt];
+        request.newer = firstEntry.paginationDate;
+        request.older = lastEntry.paginationDate;
     }
 }
 
@@ -123,6 +123,22 @@
 
 - (void)sort:(id)entry {
     [self sort];
+}
+
+@end
+
+@implementation WLEntry (WLPaginatedSet)
+
+- (NSDate *)paginationDate {
+    return self.updatedAt;
+}
+
+@end
+
+@implementation WLCandy (WLPaginatedSet)
+
+- (NSDate *)paginationDate {
+    return self.createdAt;
 }
 
 @end

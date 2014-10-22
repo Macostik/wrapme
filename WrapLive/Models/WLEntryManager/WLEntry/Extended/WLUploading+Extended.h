@@ -7,7 +7,6 @@
 //
 
 #import "WLUploading.h"
-#import "WLBlocks.h"
 
 @interface WLUploading (Extended)
 

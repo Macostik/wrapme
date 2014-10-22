@@ -9,10 +9,6 @@
 #import "WLContributorsViewController.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLContributorCell.h"
-#import "UIView+Shorthand.h"
-#import "UIView+AnimationHelper.h"
-#import "WLButton.h"
-#import "WLEntryNotifier.h"
 #import "WLUpdateContributorsRequest.h"
 #import "WLPerson.h"
 
@@ -21,33 +17,28 @@
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCollectionViewSection *dataSection;
 
-@property (strong, nonatomic) NSMutableOrderedSet* removedContributors;
-@property (weak, nonatomic) IBOutlet UIView *bottomView;
-
 @end
 
 @implementation WLContributorsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap properties:[NSSet setWithObject:[WLOrderedSetEditSessionProperty property:@"removedContributors"]]];
     // Do any additional setup after loading the view.
     
-    self.removedContributors = [NSMutableOrderedSet orderedSet];
-    
-    __weak typeof(self)weakSelf = self;
-	WLUser *owner = weakSelf.wrap.contributor;
-	if ([owner isCurrentUser]) {
+	if ([self.wrap.contributor isCurrentUser]) {
 		[self.dataSection setConfigure:^(WLContributorCell *cell, WLUser* contributor) {
 			cell.deletable = ![contributor isCurrentUser];
 		}];
-	} else {
-		[self.dataSection setConfigure:^(WLContributorCell *cell, WLUser* contributor) {
-			cell.deletable = NO;
-		}];
 	}
     
+    UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 44, 0);
+    self.dataProvider.collectionView.contentInset = insets;
+    self.dataProvider.collectionView.scrollIndicatorInsets = insets;
+}
+
+- (void)setupEditableUserInterface {
     self.dataSection.entries = [self.wrap.contributors mutableCopy];
-    self.bottomView.transform = CGAffineTransformMakeTranslation(0, self.bottomView.width);
 }
 
 #pragma mark - WLContributorCellDelegate
@@ -55,11 +46,11 @@
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
     WLPerson *person = [WLPerson new];
     person.user = contributor;
-    [self.removedContributors addObject:person];
+    [self.editSession changeValueForProperty:@"removedContributors" valueBlock:^id(id changedValue) {
+        return [changedValue orderedSetByAddingObject:person];
+    }];
     [[self.dataSection.entries entries] removeObject:contributor];
     [self.dataSection reload];
-    self.dataProvider.collectionView.contentInset = UIEdgeInsetsMake(0, 0, self.bottomView.width, 0);
-    [self.bottomView setTransform:CGAffineTransformIdentity animated:YES];
 }
 
 - (BOOL)contributorCell:(WLContributorCell *)cell isCreator:(WLUser *)contributor {
@@ -68,25 +59,10 @@
 
 #pragma mark - Actions
 
-- (IBAction)cancel:(id)sender {
-    self.dataSection.entries = [self.wrap.contributors mutableCopy];
-    self.dataProvider.collectionView.contentInset = UIEdgeInsetsZero;
-    [self.bottomView setTransform:CGAffineTransformMakeTranslation(0, self.bottomView.width) animated:YES];
-}
-
-- (IBAction)done:(WLButton*)sender {
-    sender.loading = YES;
-    self.view.userInteractionEnabled = NO;
-    __weak typeof(self)weakSelf = self;
+- (void)apply:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     WLUpdateContributorsRequest *updateContributot = [WLUpdateContributorsRequest request:self.wrap];
-    updateContributot.contributors = [self.removedContributors array];
-    [updateContributot send:^(id object) {
-        [weakSelf.navigationController popViewControllerAnimated:YES];
-    } failure:^(NSError *error) {
-        sender.loading = NO;
-        [error show];
-        weakSelf.view.userInteractionEnabled = YES;
-    }];
+    updateContributot.contributors = [[self.editSession changedValueForProperty:@"contributors"] array];
+    [updateContributot send:success failure:failure];
 }
 
 @end

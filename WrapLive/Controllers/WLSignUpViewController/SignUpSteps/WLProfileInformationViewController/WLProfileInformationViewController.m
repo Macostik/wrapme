@@ -61,7 +61,7 @@
 	}
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
     
-    self.editSession = [[WLProfileEditSession alloc] initWithEntry:self.user];
+    self.editSession = [[WLProfileEditSession alloc] initWithUser:self.user];
 	
 	[self verifyContinueButton];
 }
@@ -80,14 +80,14 @@
     if ([self.editSession hasChanges]) {
 		self.view.userInteractionEnabled = NO;
 		[self.spinner startAnimating];
-        [self.editSession apply:self.user];
+        [self.editSession apply];
 		__weak typeof(self)weakSelf = self;
         [[WLUpdateUserRequest request:self.user] send:^(id object) {
             [weakSelf.spinner stopAnimating];
 			weakSelf.view.userInteractionEnabled = YES;
 			completion();
         } failure:^(NSError *error) {
-            [weakSelf.editSession reset:weakSelf.user];
+            [weakSelf.editSession reset];
             [weakSelf.spinner stopAnimating];
 			weakSelf.view.userInteractionEnabled = YES;
 			[error show];
@@ -151,25 +151,8 @@
 	[self verifyContinueButton];
 }
 
-#pragma mark - WLKeyboardBroadcastReceiver
-
-- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
-	__weak typeof(self)weakSelf = self;
-	CGAffineTransform transform = self.mainView.transform;
-	self.mainView.transform = CGAffineTransformIdentity;
-	CGPoint center = [self.view convertPoint:self.nameTextField.center fromView:self.nameTextField.superview];
-	CGFloat translation = center.y - (self.view.height - [keyboardHeight floatValue])/2.0f;
-	self.mainView.transform = transform;
-	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		weakSelf.mainView.transform = CGAffineTransformMakeTranslation(0, -translation);
-	} completion:^(BOOL finished) {}];
-}
-
-- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-	__weak typeof(self)weakSelf = self;
-	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		weakSelf.mainView.transform = CGAffineTransformIdentity;
-	} completion:^(BOOL finished) {}];
+- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
+    return (keyboardHeight - self.continueButton.height)/2.0f;
 }
 
 @end

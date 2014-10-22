@@ -52,7 +52,8 @@
     NSString *latencyMeterChannelName = [kPNLatencyMeterChannel stringByAppendingFormat:@"-%@",
                                          [PubNub sharedInstance].launchSessionIdentifier];
     PNChannel *latencyMeterChannel = [PNChannel channelWithName:latencyMeterChannelName];
-    PNMessage *message = [PNMessage messageWithObject:@"1" forChannel:latencyMeterChannel compressed:NO error:NULL];
+    PNMessage *message = [PNMessage messageWithObject:@"1" forChannel:latencyMeterChannel compressed:NO
+                                       storeInHistory:NO error:NULL];
 
     // Use super class initialization method to prepare latency meter request
     self = [super initWithMessage:message];
@@ -99,6 +100,11 @@
 
 
     return responseLength / [self latency];
+}
+
+- (NSString *)description {
+    
+    return [NSString stringWithFormat:@"<%@|%@>", NSStringFromClass([self class]), [self debugResourcePath]];
 }
 
 #pragma mark -

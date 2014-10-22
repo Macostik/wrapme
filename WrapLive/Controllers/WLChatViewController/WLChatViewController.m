@@ -24,7 +24,6 @@
 #import "WLKeyboardBroadcaster.h"
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
-#import "WLBlocks.h"
 #import "WLEntryNotifier.h"
 #import "WLGroupedSet.h"
 #import "WLSignificantTimeBroadcaster.h"
@@ -112,6 +111,13 @@ CGFloat WLMaxTextViewWidth;
     if (self.shouldShowKeyboard) {
         [self.composeBar becomeFirstResponder];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.wrap.messages all:^(WLMessage *message) {
+        if(!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
+    }];
 }
 
 - (void)setShouldAppendMoreMessages:(BOOL)shouldAppendMoreMessages {

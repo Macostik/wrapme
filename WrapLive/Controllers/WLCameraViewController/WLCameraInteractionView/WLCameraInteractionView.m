@@ -9,7 +9,6 @@
 #import "WLCameraInteractionView.h"
 #import "WLCameraAdjustmentView.h"
 #import "UIColor+CustomColors.h"
-#import "WLSupportFunctions.h"
 
 @interface WLCameraInteractionView ()
 

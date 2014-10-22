@@ -8,10 +8,8 @@
 
 #import "WLCache.h"
 #import "NSString+Documents.h"
-#import "WLBlocks.h"
 #import "NSArray+Additions.h"
 #import "UIDevice+SystemVersion.h"
-#import "WLSupportFunctions.h"
 
 @interface WLCacheItem : NSObject
 

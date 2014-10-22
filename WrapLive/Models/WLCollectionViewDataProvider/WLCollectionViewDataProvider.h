@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
 
 @property (nonatomic) Direction direction;
 
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray* animationViews;
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray* animatableConstraints;
 
 + (instancetype)dataProvider:(UICollectionView*)collectionView;
 

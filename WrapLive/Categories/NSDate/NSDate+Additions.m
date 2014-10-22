@@ -8,7 +8,6 @@
 
 #import "NSDate+Additions.h"
 #import "NSDate+Formatting.h"
-#import "WLSupportFunctions.h"
 #import <objc/runtime.h>
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"

@@ -46,7 +46,7 @@
 
 - (void)setupItemData:(WLContact*)contact {
 	WLPerson* person = [contact.persons lastObject];
-     self.avatarView.url = person.prioritetPicture.medium;
+     self.avatarView.url = person.prioritetPicture.small;
     if (!self.avatarView.url.nonempty) {
         self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }

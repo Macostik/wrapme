@@ -7,7 +7,6 @@
 //
 
 #import "NSOrderedSet+Additions.h"
-#import "WLSupportFunctions.h"
 
 @implementation NSOrderedSet (Additions)
 

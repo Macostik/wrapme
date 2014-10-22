@@ -177,7 +177,7 @@
 }
 
 - (void)fetchOlder:(WLCandy*)candy {
-    if (self.group.completed) return;
+    if (self.group.completed || !candy) return;
     NSUInteger count = [self.group.entries count];
     NSUInteger index = [self.group.entries indexOfObject:candy];
     BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
@@ -410,7 +410,7 @@
     WLDetailedCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLDetailedCandyCellIdentifier forIndexPath:indexPath];
     WLCandy* candy = [self.group.entries tryObjectAtIndex:indexPath.item];
     if (candy.valid) {
-        [self fetchOlder:cell.item];
+        [self fetchOlder:candy];
         cell.item = candy;
     } else {
         cell.item = nil;

@@ -167,7 +167,7 @@
     return [super send:success failure:failure];
 }
 
-- (NSDate*)updatedAt {
+- (NSDate *)paginationDate {
     return self.date;
 }
 

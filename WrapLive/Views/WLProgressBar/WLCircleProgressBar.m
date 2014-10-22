@@ -14,7 +14,6 @@
 #import "WLInternetConnectionBroadcaster.h"
 #import <AFNetworking/AFURLConnectionOperation.h>
 #import <AFNetworking/AFHTTPRequestOperation.h>
-#import "WLSupportFunctions.h"
 
 @interface WLCircleProgressBar ()
 

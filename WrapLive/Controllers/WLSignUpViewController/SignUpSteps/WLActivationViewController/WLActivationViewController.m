@@ -146,20 +146,6 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 	self.continueButton.active = sender.text.length == WLActivationCodeLimit;
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-	CGFloat translation = textField.y - 0.5 * (self.view.height - 260 - textField.height);
-	CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -translation);
-	[UIView animateWithDuration:0.5 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.view.transform = transform;
-	} completion:^(BOOL finished) {}];
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-	[UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		self.view.transform = CGAffineTransformIdentity;
-	} completion:^(BOOL finished) {}];
-}
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 	NSString* resultString = [textField.text stringByReplacingCharactersInRange:range withString:string];
 	return resultString.length <= WLActivationCodeLimit;

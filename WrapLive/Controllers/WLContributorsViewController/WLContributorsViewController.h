@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLEditViewController.h"
 
 @class WLWrap;
 
-@interface WLContributorsViewController : UIViewController
+@interface WLContributorsViewController : WLEditViewController
 
 @property (strong, nonatomic) WLWrap *wrap;
 

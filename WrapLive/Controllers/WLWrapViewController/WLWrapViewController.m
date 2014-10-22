@@ -28,7 +28,6 @@
 #import "UILabel+Additions.h"
 #import "WLToast.h"
 #import "WLStillPictureViewController.h"
-#import "WLQuickChatView.h"
 #import "WLWrapCell.h"
 #import "UIView+AnimationHelper.h"
 #import "NSDate+Additions.h"
@@ -45,7 +44,6 @@
 #import "WLTimelineViewDataProvider.h"
 #import "WLTimeline.h"
 #import "UIScrollView+Additions.h"
-#import "WLSupportFunctions.h"
 #import "WLSession.h"
 #import "NSString+Additions.h"
 #import "WLContributorsViewController.h"
@@ -92,8 +90,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
         return;
     }
     
-    [self updateWrapData];
-    
     self.mode = [WLSession integer:WLWrapViewDefaultModeKey];
     
     self.groups = [[WLGroupedSet alloc] init];
@@ -117,7 +113,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     
     [self firstLoadRequest];
     
-    self.dataProvider.animationViews = self.timelineDataProvider.animationViews;
+    self.dataProvider.animatableConstraints = self.timelineDataProvider.animatableConstraints;
 }
 
 - (void)updateWrapData {
@@ -133,6 +129,9 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     wrapRequest.newer = [[self.groups.entries firstObject] date];
     [wrapRequest send:^(NSOrderedSet *orderedSet) {
         [weakSelf reloadData];
+        if (weakSelf.mode == WLWrapViewModeTimeline && !weakSelf.timelineDataProvider.timeline.entries.nonempty) {
+            [weakSelf changeMode:WLWrapViewModeHistory];
+        }
     } failure:^(NSError *error) {
         [error showIgnoringNetworkError];
     }];
@@ -151,7 +150,8 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     
     [self.dataProvider reload];
     [self updateNotificationCouter];
-     self.isShowPlaceholder = ![self.wrap.candies.array nonempty];
+    [self updateWrapData];
+     self.isShowPlaceholder = !self.wrap.candies.nonempty;
 }
 
 - (void)showPlaceholder {
@@ -161,11 +161,10 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 - (void)updateNotificationCouter {
     self.messageCountLabel.intValue = [self.wrap unreadNotificationsMessageCount];
-    self.nameLabel.width = self.messageCountLabel.hidden ? self.nameLabel.width : self.messageCountLabel.x - self.nameLabel.x;
 }
 
 - (void)reloadData {
-    [self.historyViewSection.entries resetEntries:self.wrap.candies];
+    [self.groups resetEntries:self.wrap.candies];
 }
 
 - (UIViewController *)shakePresentedViewController {
@@ -197,12 +196,12 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 - (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
     [self.groups addEntry:candy];
-    self.isShowPlaceholder = ![self.wrap.candies.array nonempty];
+    self.isShowPlaceholder = !self.wrap.candies.nonempty;
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
     [self.groups removeEntry:candy];
-    self.isShowPlaceholder = ![self.wrap.candies.array nonempty];
+    self.isShowPlaceholder = !self.wrap.candies.nonempty;
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
@@ -269,9 +268,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 	WLChatViewController * chatController = [WLChatViewController instantiate];
 	chatController.wrap = self.wrap;
 	chatController.shouldShowKeyboard = YES;
-    [self.wrap.messages all:^(WLMessage *message) {
-        if(!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
-    }];
 	[self.navigationController pushUniqueClassViewController:chatController animated:YES];
 }
 

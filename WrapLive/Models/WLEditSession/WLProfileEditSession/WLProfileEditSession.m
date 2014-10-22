@@ -10,65 +10,67 @@
 #import "WLAuthorization.h"
 #import "WLProfileEditSession.h"
 #import "WlUser.h"
+
+@interface WLProfileEditSessionEmailProperty : WLEditSessionProperty
+
+@end
+
+@implementation WLProfileEditSessionEmailProperty
+
+- (void)apply:(id)value {
+    
+}
+
+- (id)initialOriginalValue {
+    return [WLAuthorization priorityEmail];
+}
+
+@end
+
 @implementation WLProfileEditSession
 
+- (instancetype)initWithUser:(WLEntry *)entry {
+    NSMutableSet *properties = [NSMutableSet set];
+    [properties addObject:[WLEditSessionProperty stringProperty:@"picture.large"]];
+    [properties addObject:[WLEditSessionProperty stringProperty:@"name"]];
+    [properties addObject:[WLProfileEditSessionEmailProperty stringProperty:@"email"]];
+    return [super initWithEntry:entry properties:properties];
+}
+
 - (void)setName:(NSString *)name {
-    [self.changed trySetObject:name forKey:@"name"];
+    [self changeValue:name forProperty:@"name"];
 }
 
 - (NSString *)name {
-    return [self.changed objectForKey:@"name"];
+    return [self changedValueForProperty:@"name"];
 }
 
 - (void)setEmail:(NSString *)email {
-    [self.changed trySetObject:email forKey:@"email"];
+    [self changeValue:email forProperty:@"email"];
 }
 
 - (NSString *)email {
-    return [self.changed objectForKey:@"email"];
+    return [self changedValueForProperty:@"email"];
 }
 
 - (void)setUrl:(NSString *)url {
-    [self.changed trySetObject:url forKey:@"url"];
+    [self changeValue:url forProperty:@"picture.large"];
 }
 
 - (NSString *)url {
-    return [self.changed objectForKey:@"url"];
-}
-
-- (void)setup:(NSMutableDictionary *)dictionary entry:(WLUser *)user {
-    [dictionary trySetObject:user.name forKey:@"name"];
-    [dictionary trySetObject:[WLAuthorization priorityEmail] forKey:@"email"];
-    [dictionary trySetObject:user.picture.large forKey:@"url"];
+    return [self changedValueForProperty:@"picture.large"];
 }
 
 - (BOOL)hasChangedName {
-    return ![self.name isEqualToString:[self.original objectForKey:@"name"]];
+    return [self isPropertyChanged:@"name"];
 }
 
 - (BOOL)hasChangedEmail {
-    return ![self.email isEqualToString:[self.original objectForKey:@"email"]];
+    return [self isPropertyChanged:@"email"];
 }
 
 - (BOOL)hasChangedUrl {
-    return ![self.url isEqualToString:[self.original objectForKey:@"url"]];
-}
-
-- (BOOL)hasChanges {
-    if ([self hasChangedName]) {
-        return YES;
-    } else if ([self hasChangedEmail]) {
-        return YES;
-    } else if ([self hasChangedUrl]) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
-- (void)apply:(NSMutableDictionary *)dictionary entry:(WLUser *)user {
-    user.name = [dictionary objectForKey:@"name"];
-    user.picture.large = [dictionary objectForKey:@"url"];
+    return [self isPropertyChanged:@"picture.large"];
 }
 
 @end

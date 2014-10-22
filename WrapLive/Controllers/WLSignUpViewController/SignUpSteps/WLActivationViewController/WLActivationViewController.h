@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLBaseViewController.h"
 
 @class WLAuthorization;
 
-@interface WLActivationViewController : UIViewController
+@interface WLActivationViewController : WLBaseViewController
 
 - (instancetype)initWithAuthorization:(WLAuthorization*)authorization;
 

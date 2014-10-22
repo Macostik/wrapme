@@ -9,7 +9,6 @@
 #import "WLShakeViewController.h"
 #import "UIViewController+Additions.h"
 #import "UIView+Shorthand.h"
-#import "WLBlocks.h"
 #import "WLNavigation.h"
 #import <CoreTelephony/CTCallCenter.h>
 #import <CoreTelephony/CTCall.h>
@@ -18,8 +17,6 @@ static CTCallCenter *callCenter;
 
 @interface WLShakeViewController ()
 
-@property (nonatomic) WLWrapTransition transition;
-
 @property (weak, nonatomic) UISwipeGestureRecognizer* backSwipeGestureRecognizer;
 
 @property (nonatomic, readonly) BOOL isCalling;
@@ -27,107 +24,6 @@ static CTCallCenter *callCenter;
 @end
 
 @implementation WLShakeViewController
-
--(void)setCallCenter:(CTCallCenter *)callCenter {
-    
-}
-
-- (void)presentInViewController:(UIViewController *)controller transition:(WLWrapTransition)transition completion:(void (^)(void))completion {
-    [UIWindow mainWindow].userInteractionEnabled = NO;
-	self.transition = transition;
-	self.view.frame = controller.view.bounds;
-	[controller.view addSubview:self.view];
-	[controller addChildViewController:self];
-	BOOL animated = transition != WLWrapTransitionWithoutAnimation;
-	[controller viewWillDisappear:animated];
-	
-	__weak typeof(self)weakSelf = self;
-	void (^transitionCompleted) (void) = ^{
-		[weakSelf didMoveToParentViewController:controller];
-		[controller viewDidDisappear:animated];
-		if (completion) {
-			completion();
-		}
-        [UIWindow mainWindow].userInteractionEnabled = YES;
-	};
-	
-	if (animated) {
-		[self performTransition:CGAffineTransformIdentity
-				  fromTransform:[self transformForTransition:transition]
-					 completion:transitionCompleted];
-	} else {
-		transitionCompleted();
-	}
-    
-}
-
-- (void)performTransition:(CGAffineTransform)transform fromTransform:(CGAffineTransform)fromTransform completion:(void (^)(void))completion {
-	self.view.transform = fromTransform;
-	[self performTransition:transform completion:completion];
-}
-
-- (void)performTransition:(CGAffineTransform)transform completion:(void (^)(void))completion {
-	__weak typeof(self)weakSelf = self;
-	[UIView animateWithDuration:0.33f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-						 weakSelf.view.transform = transform;
-					 } completion:^(BOOL finished) {
-						 if (completion) {
-							 completion();
-						 }
-					 }];
-}
-
-- (void)presentInViewController:(UIViewController *)controller transition:(WLWrapTransition)transition {
-	[self presentInViewController:controller transition:transition completion:nil];
-}
-
-- (CGAffineTransform)transformForTransition:(WLWrapTransition)transition {
-	if (transition == WLWrapTransitionFromBottom) {
-		return CGAffineTransformMakeTranslation(0, self.view.height);
-	} else if (transition == WLWrapTransitionFromRight) {
-		return CGAffineTransformMakeTranslation(self.view.width, 0);
-	} else if (transition == WLWrapTransitionFromLeft) {
-		return CGAffineTransformMakeTranslation(-self.view.width, 0);
-	}
-	return CGAffineTransformIdentity;
-}
-
-- (void)dismiss:(WLWrapTransition)transition completion:(void (^)(void))completion {
-	[self willMoveToParentViewController:nil];
-	BOOL animated = transition != WLWrapTransitionWithoutAnimation;
-	[self.parentViewController viewWillAppear:animated];
-	
-	__weak typeof(self)weakSelf = self;
-	void (^transitionCompleted) (void) = ^{
-		[weakSelf.view removeFromSuperview];
-		[weakSelf removeFromParentViewController];
-		[weakSelf.parentViewController viewDidAppear:animated];
-		if (completion) {
-			completion();
-		}
-	};
-	
-	if (animated) {
-		__weak typeof(self)weakSelf = self;
-		[self performTransition:[weakSelf transformForTransition:transition] completion:transitionCompleted];
-	} else {
-		transitionCompleted();
-	}
-}
-
-- (void)dismiss:(WLWrapTransition)transition {
-	[self dismiss:transition completion:nil];
-}
-
-- (void)dismiss {
-	[self dismiss:self.transition];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.frame = [UIWindow mainWindow].bounds;
-    [self.view layoutIfNeeded];
-}
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -194,10 +90,6 @@ static CTCallCenter *callCenter;
 - (BOOL)didRecognizeShakeGesture {
 
     if (self.isCalling) {
-        return NO;
-    }
-    
-    if (self.notPresentShakeViewController) {
         return NO;
     }
     

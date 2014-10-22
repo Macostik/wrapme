@@ -30,14 +30,19 @@ static NSString *const WLLeave = @"Leave";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap stringProperties:@"name", nil];
     self.nameWrapTextField.layer.borderWidth = 0.5;
 	self.nameWrapTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
     self.deleteButton.layer.cornerRadius = 3.0f;
-    self.nameWrapTextField.text = self.wrap.name;
     [self.nameWrapTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
-    self.deleteLabel.text = [NSString stringWithFormat:@"%@ this wrap", [self isMyWrap]? WLDelete : WLLeave];
-    [self.deleteButton setTitle:[self isMyWrap]? WLDelete : WLLeave forState:UIControlStateNormal];
-    self.nameWrapTextField.enabled = [self isMyWrap];
+    BOOL isMyWrap = [self isMyWrap];
+    self.deleteLabel.text = [NSString stringWithFormat:@"%@ this wrap", isMyWrap ? WLDelete : WLLeave];
+    [self.deleteButton setTitle:isMyWrap ? WLDelete : WLLeave forState:UIControlStateNormal];
+    self.nameWrapTextField.enabled = isMyWrap;
+}
+
+- (void)setupEditableUserInterface {
+    self.nameWrapTextField.text = self.wrap.name;
 }
 
 - (BOOL)isMyWrap {
@@ -46,55 +51,37 @@ static NSString *const WLLeave = @"Leave";
 
 #pragma mark - UITextFieldDelegate
 
-- (IBAction)textFieldDidChange:(UITextField *)sender {
-	if (sender.text.length > WLWrapNameLimit) {
-		sender.text = [sender.text substringToIndex:WLWrapNameLimit];
-    }
-}
-
 - (IBAction)textFieldEditChange:(UITextField *)sender {
-    [self willShowCancelAndDoneButtons:[self isMyWrap] && ![self.wrap.name isEqualToString:sender.text]];
+    if (sender.text.length > WLWrapNameLimit) {
+        sender.text = [sender.text substringToIndex:WLWrapNameLimit];
+    }
+    [self.editSession changeValue:sender.text forProperty:@"name"];
 }
 
-- (IBAction)doneClick:(id)sender {
-    __weak __typeof(self)weakSelf = self;
-    if (![self.nameWrapTextField.text isEqualToString:self.wrap.name]) {
-        WLWrap *wrap = [WLWrap entry:self.wrap.identifier];
-        if (wrap) {
-            wrap.name = self.nameWrapTextField.text;
-            [wrap update:^(id object) {
-                [weakSelf back:nil];
-            } failure:^(NSError *error) {
-                [error show];
-            }];
-        }
+- (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    if (!self.nameWrapTextField.text.nonempty) {
+        if (failure) failure([NSError errorWithDescription:@"Wrap name cannot be blank."]);
+    } else {
+        if (success) success(nil);
     }
 }
-- (IBAction)cancelClick:(id)sender {
-    [self willShowCancelAndDoneButtons:[self isMyWrap] && [self.wrap.name isEqualToString:self.nameWrapTextField.text]];
-    self.nameWrapTextField.text = self.wrap.name;
-    [self.view endEditing:YES];
-}
 
-- (IBAction)back:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)apply:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    [self.wrap update:success failure:success];
 }
 
 - (IBAction)deleteButtonClick:(id)sender {
-    WLWrap *wrap = [WLWrap entry:self.wrap.identifier];
+    __weak typeof(self)weakSelf = self;
+    WLWrap *wrap = self.wrap;
     if ([self isMyWrap]) {
         [wrap remove:^(id object) {
-            if (object != nil) {
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         } failure:^(NSError *error) {
             [error show];
         }];
     } else {
         [wrap leave:^(id object) {
-            if (object != nil) {
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         } failure:^(NSError *error) {
             [error show];
         }];

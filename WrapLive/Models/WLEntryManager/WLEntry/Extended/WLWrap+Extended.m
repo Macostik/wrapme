@@ -17,7 +17,6 @@
 #import "WLAPIResponse.h"
 #import "WLInternetConnectionBroadcaster.h"
 #import "NSDate+Additions.h"
-#import "WLSupportFunctions.h"
 
 @implementation WLWrap (Extended)
 
@@ -170,6 +169,7 @@
 
 - (NSMutableOrderedSet*)candies:(NSUInteger)limit {
     NSMutableOrderedSet *candies = self.candies;
+    [candies sortByUpdatedAt];
     if (candies.count > limit) {
         NSIndexSet* indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, limit)];
         return [NSMutableOrderedSet orderedSetWithArray:[candies objectsAtIndexes:indexes]];

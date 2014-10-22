@@ -11,7 +11,6 @@
 #import "WLWelcomeViewController.h"
 #import "WLNavigation.h"
 #import "NSDate+Formatting.h"
-#import "WLSupportFunctions.h"
 #import "WLSession.h"
 
 static NSString* WLServerTimeDifference = @"WLServerTimeDifference";

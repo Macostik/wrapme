@@ -37,18 +37,17 @@
 #import "WLNotification.h"
 #import "WLNotificationCenter.h"
 #import "WLPaginatedSet.h"
-#import "WLQuickChatView.h"
 #import "WLRefresher.h"
 #import "WLResendConfirmationRequest.h"
 #import "WLSession.h"
 #import "WLSizeToFitLabel.h"
 #import "WLStillPictureViewController.h"
-#import "WLSupportFunctions.h"
 #import "WLToast.h"
 #import "WLUserView.h"
 #import "WLWrapCell.h"
 #import "WLWrapViewController.h"
 #import "WLWrapsRequest.h"
+#import "UIView+QuatzCoreAnimations.h"
 
 static NSString *const WLTimeLineKey = @"WLTimeLineKey";
 static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
@@ -118,7 +117,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 	[self.userView update];
     [self.dataProvider reload];
     [self updateNotificationsLabel];
-    [self emailConfirmationViewIsHidden:[[WLSession confirmationDate] isToday]];
+    [self updateEmailConfirmationView:NO];
 }
 
 - (void)showPlaceholder {
@@ -128,12 +127,20 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [super showPlaceholder];
 }
 
-- (void)emailConfirmationViewIsHidden:(BOOL)hidden {
+- (void)updateEmailConfirmationView:(BOOL)animated {
+    BOOL hidden = ([[WLSession confirmationDate] isToday] || ![[WLAuthorization currentAuthorization] unconfirmed_email].nonempty);
+    [self setEmailConfirmationViewHidden:hidden animated:animated];
+}
+
+- (void)setEmailConfirmationViewHidden:(BOOL)hidden animated:(BOOL)animated {
     UIView* view = self.emailConfirmationView;
     if (view.hidden != hidden) {
         view.hidden = hidden;
         self.topConstraint.constant = (hidden ? self.navigationBar.height : self.navigationBar.height + view.height) - 20;
-        [self.view layoutIfNeeded];
+        __weak typeof(self)weakSelf = self;
+        [UIView performAnimated:animated animation:^{
+            [weakSelf.view layoutIfNeeded];
+        }];
         if (!hidden) {
             [self deadlineEmailConfirmationView];
         }
@@ -146,13 +153,13 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 - (void)hideConfirmationEmailView {
-    [self emailConfirmationViewIsHidden:YES];
+    [self setEmailConfirmationViewHidden:YES animated:YES];
 }
 
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
-    [self emailConfirmationViewIsHidden:[[WLSession confirmationDate] isToday]];
+    [self updateEmailConfirmationView:YES];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {

@@ -9,7 +9,6 @@
 #import "WLCameraViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
-#import "WLSupportFunctions.h"
 #import "UIImage+Resize.h"
 #import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
@@ -19,7 +18,6 @@
 #import "WLCameraAdjustmentView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceOrientationBroadcaster.h"
-#import "WLBlocks.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "WLImageFetcher.h"
 #import "WLWrap.h"
@@ -45,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewConstraint;
 
 @end
 
@@ -72,11 +71,18 @@
 	[self configurePreviewLayer];
 	
 	[self performSelector:@selector(start) withObject:nil afterDelay:0.0];
+    
+    self.bottomViewConstraint.constant = self.bottomInset;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	self.takePhotoButton.active = YES;
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    _previewLayer.frame = self.cameraView.bounds;
 }
 
 - (void)configurePreviewLayer {

@@ -7,7 +7,6 @@
 //
 
 #import "WLArchivingObject.h"
-#import "WLBlocks.h"
 
 @interface WLPicture : WLArchivingObject
 
@@ -22,5 +21,17 @@
 - (NSString*)anyUrl;
 
 - (BOOL)edit:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
+
+@end
+
+@interface WLPicture (JSONValue)
+
++ (instancetype)pictureWithJSONValue:(NSData*)value;
+
+- (NSData*)JSONValue;
+
+@end
+
+@interface WLPictureTransformer : NSValueTransformer
 
 @end

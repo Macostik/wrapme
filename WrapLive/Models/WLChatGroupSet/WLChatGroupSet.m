@@ -8,6 +8,8 @@
 
 #import "WLChatGroupSet.h"
 #import "NSDate+Formatting.h"
+#import "NSMutableOrderedSet+Sorting.h"
+#import "WLMessage.h"
 
 @implementation WLChatGroupSet
 
@@ -27,21 +29,39 @@
     }
 }
 
-- (void)addMessages:(NSOrderedSet *)messages {
-    __weak __typeof(self)weakSelf = self;
-    [messages all:^(WLMessage *message) {
-        [weakSelf addMessageToCorrectGroup:message];
-    }];
+- (BOOL)addMessages:(NSOrderedSet *)messages {
+    __block BOOL added = NO;
+    __block WLPaginatedSet *group = nil;
+    NSMutableOrderedSet* messagesCopy = [messages mutableCopy];
+    [messagesCopy sortByCreatedAt:YES];
+    while (messagesCopy.nonempty) {
+        group = [[WLPaginatedSet alloc] init];
+        WLUser *contributor = [[messagesCopy firstObject] contributor];
+        [messagesCopy enumerateObjectsUsingBlock:^(WLMessage *message, NSUInteger idx, BOOL *stop) {
+            if ([message.contributor isEqualToEntry:contributor]) {
+                [group.entries addObject:message];
+                added = YES;
+            } else {
+                *stop = YES;
+            }
+        }];
+        
+        [self.entries addObject:group];
+        [messagesCopy minusOrderedSet:group.entries];
+    }
+    if (added) {
+        [self sort];
+    }
+    return added;
 }
 
 - (void)sort {
-    [self.entries sortedArrayUsingComparator:comparatorByDate];
+    [self.entries sort:comparatorByDate descending:YES];
 }
 
 - (void)resetEntries:(NSOrderedSet *)entries {
     [self.entries removeAllObjects];
-    [self.entries unionOrderedSet:entries];
-    [self.entries sort];
+    [self addMessages:entries];
     [self.delegate paginatedSetChanged:self];
 }
 

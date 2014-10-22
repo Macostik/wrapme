@@ -16,7 +16,8 @@
 @property (strong, nonatomic) WLIdentifierMessage * message;
 
 - (void)addMessage:(WLMessage *)message;
-- (void)addMessages:(NSOrderedSet *)messages;
+- (BOOL)addMessages:(NSOrderedSet *)messages;
+- (void)sort;
 
 @end
 

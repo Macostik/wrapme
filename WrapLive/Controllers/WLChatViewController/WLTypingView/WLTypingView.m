@@ -12,7 +12,7 @@
 #import "NSArray+Additions.h"
 
 static CGFloat WLMinBubbleWidth = 15.0f;
-CGFloat WLMaxTextViewWidth;
+static CGFloat WLMaxTextViewWidth = 287.0f;
 
 @implementation WLTypingView
 

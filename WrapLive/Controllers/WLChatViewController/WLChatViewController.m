@@ -79,7 +79,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)viewDidLoad {
 	[super viewDidLoad];
     __weak typeof(self)weakSelf = self;
-    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 70;
+    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 128;
     self.shouldAppendMoreMessages = YES;
     
     self.chatGroup = [[WLChatGroupSet alloc] init];
@@ -125,13 +125,11 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)setMessages:(NSOrderedSet*)messages {
     [self.chatGroup resetEntries:messages];
-    [self.chatGroup sort];
     [self.collectionView reloadData];
 }
 
 - (void)addMessages:(NSOrderedSet*)messages {
     [self.chatGroup addMessages:messages];
-    [self.chatGroup sort];
 	[self.collectionView reloadData];
 }
 
@@ -210,7 +208,6 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)notifier:(WLEntryNotifier *)notifier messageUpdated:(WLMessage *)message {
     [self.chatGroup addMessage:message];
-    [self.chatGroup sort];
     [self.collectionView reloadData];
 }
 
@@ -434,10 +431,10 @@ CGFloat WLMaxTextViewWidth;
     __weak __typeof(self)weakSelf = self;
     if (flag) {
         [self.groupTyping insertObject:self.wrap.contributor atIndex:0];
-        [self.collectionView reloadData];
     } else {
         [self.groupTyping removeObject:self.wrap.contributor];
     }
+    [self.collectionView reloadData];
     [UIView animateWithDuration:.5 delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
         weakSelf.typingView.transform =  flag ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(0, weakSelf.collectionView.height);
     } completion:NULL];

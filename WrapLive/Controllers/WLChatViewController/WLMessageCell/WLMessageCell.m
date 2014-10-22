@@ -91,12 +91,12 @@
         CGSize sizeNameLabel = [weakSelf.nameLabel sizeThatFits:CGSizeMake(WLMessageMinimumCellHeight, CGFLOAT_MAX)];
         CGSize size = [weakSelf.messageTextView sizeThatFits:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)];
         
+         weakSelf.textViewConstraint.constant = MAX(weakSelf.width - WLAvatarWidth - MAX(WLMinBubbleWidth, size.width), WLAvatarWidth);
+        
         if ([self.reuseIdentifier isEqualToString:@"WLMessageCell"]) {
-            weakSelf.textViewConstraint.constant = MIN(MAX(weakSelf.width - WLAvatarWidth - MAX(WLMinBubbleWidth, size.width), WLAvatarWidth),
-                                                        weakSelf.width - WLAvatarWidth - MAX(WLMinBubbleWidth, sizeNameLabel.width));
-        } else {
-            weakSelf.textViewConstraint.constant = MAX(weakSelf.width - WLAvatarWidth - MAX(WLMinBubbleWidth, size.width), WLAvatarWidth);
-        }
+            weakSelf.textViewConstraint.constant = MIN(weakSelf.textViewConstraint.constant,
+                                                       weakSelf.width - WLAvatarWidth - MAX(WLMinBubbleWidth, sizeNameLabel.width));
+        } 
         
         [weakSelf.messageTextView layoutIfNeeded];
 	}];

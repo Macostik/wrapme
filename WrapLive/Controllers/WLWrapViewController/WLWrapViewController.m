@@ -92,8 +92,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
         return;
     }
     
-    [self updateWrapData];
-    
     self.mode = [WLSession integer:WLWrapViewDefaultModeKey];
     
     self.groups = [[WLGroupedSet alloc] init];
@@ -154,6 +152,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     
     [self.dataProvider reload];
     [self updateNotificationCouter];
+    [self updateWrapData];
      self.isShowPlaceholder = !self.wrap.candies.nonempty;
 }
 

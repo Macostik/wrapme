@@ -12,7 +12,6 @@
 #import "WLCandy.h"
 #import "WLComment.h"
 #import "NSString+Additions.h"
-#import "WLBlocks.h"
 #import "WLAPIManager.h"
 #import "WLEntryNotifier.h"
 #import "NSDate+Additions.h"

@@ -9,7 +9,6 @@
 #import "WLShakeViewController.h"
 #import "UIViewController+Additions.h"
 #import "UIView+Shorthand.h"
-#import "WLBlocks.h"
 #import "WLNavigation.h"
 #import <CoreTelephony/CTCallCenter.h>
 #import <CoreTelephony/CTCall.h>

@@ -9,10 +9,8 @@
 #import "WLToast.h"
 #import "UIColor+CustomColors.h"
 #import "UIFont+CustomFonts.h"
-#import "WLBlocks.h"
 #import "UILabel+Additions.h"
 #import "UIView+Shorthand.h"
-#import "WLSupportFunctions.h"
 #import "WLNavigation.h"
 
 static CGFloat WLToastDefaultHeight = 64.0f;

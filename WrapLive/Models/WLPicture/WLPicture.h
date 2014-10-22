@@ -7,7 +7,6 @@
 //
 
 #import "WLArchivingObject.h"
-#import "WLBlocks.h"
 
 @interface WLPicture : WLArchivingObject
 

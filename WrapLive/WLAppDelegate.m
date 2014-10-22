@@ -19,7 +19,6 @@
 #import "WLMenu.h"
 #import "WLNavigation.h"
 #import "NSPropertyListSerialization+Shorthand.h"
-#import "WLSupportFunctions.h"
 
 @interface WLAppDelegate ()
 

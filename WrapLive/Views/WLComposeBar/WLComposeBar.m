@@ -12,7 +12,6 @@
 #import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
 #import "UIView+Shorthand.h"
-#import "WLSupportFunctions.h"
 #import "UIFont+CustomFonts.h"
 #import <objc/runtime.h>
 #import "NSString+Additions.h"

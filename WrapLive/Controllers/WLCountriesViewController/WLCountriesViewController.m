@@ -10,7 +10,6 @@
 #import "WLCountry.h"
 #import "WLCountryCell.h"
 #import "NSObject+NibAdditions.h"
-#import "WLBlocks.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLCollectionViewSection.h"
 

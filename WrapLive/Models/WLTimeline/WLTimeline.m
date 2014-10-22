@@ -11,7 +11,6 @@
 #import "WLEntryNotifier.h"
 #import "WLTimelineEvent.h"
 #import "WLCandiesRequest.h"
-#import "WLSupportFunctions.h"
 #import "WLEntryFetching.h"
 
 @interface WLTimeline ()

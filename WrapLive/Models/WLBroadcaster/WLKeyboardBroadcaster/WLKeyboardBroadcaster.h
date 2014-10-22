@@ -7,7 +7,6 @@
 //
 
 #import "WLBroadcaster.h"
-#import "WLBlocks.h"
 
 @class WLKeyboardBroadcaster;
 

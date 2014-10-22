@@ -24,7 +24,6 @@
 #import "WLKeyboardBroadcaster.h"
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
-#import "WLBlocks.h"
 #import "WLEntryNotifier.h"
 #import "WLGroupedSet.h"
 #import "WLSignificantTimeBroadcaster.h"

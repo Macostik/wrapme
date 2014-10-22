@@ -11,9 +11,7 @@
 #import "WLAssetsGroupViewController.h"
 #import "ALAssetsLibrary+Additions.h"
 #import <AviarySDK/AviarySDK.h>
-#import "WLBlocks.h"
 #import "UIImage+Resize.h"
-#import "WLSupportFunctions.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"

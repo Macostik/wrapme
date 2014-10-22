@@ -16,7 +16,6 @@
 #import "WLAPIManager.h"
 #import "WLWrap.h"
 #import "NSDate+Additions.h"
-#include "WLSupportFunctions.h"
 #import "WLGroupedSet.h"
 #import "UIScrollView+Additions.h"
 #import "WLCollectionViewDataProvider.h"

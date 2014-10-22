@@ -7,7 +7,6 @@
 //
 
 #import "WLCandy.h"
-#import "WLBlocks.h"
 
 static NSInteger WLCandyTypeImage = 10;
 

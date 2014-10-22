@@ -14,7 +14,6 @@
 #import "UIViewController+Additions.h"
 #import "SegmentedControl.h"
 #import "NSDate+Formatting.h"
-#import "WLSupportFunctions.h"
 
 @interface WLAssetsGroupViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLAssetsGroupCellDelegate>
 

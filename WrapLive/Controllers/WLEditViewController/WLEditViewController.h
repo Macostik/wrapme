@@ -8,7 +8,6 @@
 
 #import "WLShakeViewController.h"
 #import "WLEditSession.h"
-#import "WLBlocks.h"
 
 @interface WLEditViewController : WLShakeViewController <WLEditSessionDelegate>
 

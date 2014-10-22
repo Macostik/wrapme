@@ -8,7 +8,6 @@
 
 #import "WLImageFetcher.h"
 #import "WLImageCache.h"
-#import "WLBlocks.h"
 #import "WLSystemImageCache.h"
 #import <AFNetworking/AFHTTPRequestOperation.h>
 #import "UIView+QuatzCoreAnimations.h"

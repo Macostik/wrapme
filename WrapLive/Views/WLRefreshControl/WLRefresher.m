@@ -7,10 +7,8 @@
 //
 
 #import "WLRefresher.h"
-#import "WLSupportFunctions.h"
 #import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
-#import "WLBlocks.h"
 #import <AFNetworking/AFURLConnectionOperation.h>
 #import "UIView+AnimationHelper.h"
 #import "UIScrollView+Additions.h"

@@ -17,7 +17,6 @@
 #import "WLAPIResponse.h"
 #import "WLInternetConnectionBroadcaster.h"
 #import "NSDate+Additions.h"
-#import "WLSupportFunctions.h"
 
 @implementation WLWrap (Extended)
 

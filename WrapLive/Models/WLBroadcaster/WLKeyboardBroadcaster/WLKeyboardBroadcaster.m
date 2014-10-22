@@ -8,7 +8,6 @@
 
 #import "WLKeyboardBroadcaster.h"
 #import "UIView+GestureRecognizing.h"
-#import "WLSupportFunctions.h"
 #import "WLNavigation.h"
 #import "UIView+AnimationHelper.h"
 

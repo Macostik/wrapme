@@ -10,7 +10,6 @@
 #import "WLEntryManager.h"
 #import "WLEntryNotifier.h"
 #import "NSString+Additions.h"
-#import "WLSupportFunctions.h"
 
 @implementation WLCandy (Extended)
 

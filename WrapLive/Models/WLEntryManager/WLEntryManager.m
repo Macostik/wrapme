@@ -9,7 +9,6 @@
 #import "WLEntryManager.h"
 #import "NSString+Additions.h"
 #import <objc/runtime.h>
-#import "WLSupportFunctions.h"
 #import "WLAPIRequest.h"
 
 @interface WLEntryManager ()

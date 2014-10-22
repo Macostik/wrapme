@@ -9,7 +9,6 @@
 #import "WLCameraViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
-#import "WLSupportFunctions.h"
 #import "UIImage+Resize.h"
 #import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
@@ -19,7 +18,6 @@
 #import "WLCameraAdjustmentView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceOrientationBroadcaster.h"
-#import "WLBlocks.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "WLImageFetcher.h"
 #import "WLWrap.h"

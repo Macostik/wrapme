@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLBlocks.h"
 #import "WLPaginatedRequest.h"
 
 @class WLPaginatedSet;

@@ -10,7 +10,6 @@
 #import "NSError+WLAPIManager.h"
 #import "WLEntryManager.h"
 #import "WLAuthorization.h"
-#import "WLBlocks.h"
 #import "WLAPIEnvironment.h"
 
 @class WLUser;

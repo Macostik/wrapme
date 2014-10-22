@@ -8,7 +8,6 @@
 
 #import "WLBroadcaster.h"
 #import <objc/message.h>
-#import "WLSupportFunctions.h"
 
 @interface WLBroadcaster ()
 

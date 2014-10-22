@@ -6,7 +6,6 @@
 //
 
 #import "UIView+Shorthand.h"
-#import "WLSupportFunctions.h"
 
 @implementation UIView (Shorthand)
 

@@ -10,7 +10,6 @@
 #import "WLImageFetcher.h"
 #import "WLCandy.h"
 #import "UIView+Shorthand.h"
-#import "WLSupportFunctions.h"
 #import "WLDeviceOrientationBroadcaster.h"
 #import "NSError+WLAPIManager.h"
 

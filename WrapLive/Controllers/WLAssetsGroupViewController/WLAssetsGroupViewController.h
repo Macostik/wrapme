@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLBlocks.h"
 #import "WLCameraViewController.h"
 
 @class ALAsset;

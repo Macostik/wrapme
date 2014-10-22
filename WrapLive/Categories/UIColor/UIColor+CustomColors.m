@@ -7,7 +7,6 @@
 //
 
 #import "UIColor+CustomColors.h"
-#import "WLSupportFunctions.h"
 #import "NSString+Additions.h"
 
 @implementation UIColor (CustomColors)

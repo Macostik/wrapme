@@ -8,7 +8,6 @@
 
 #import "WLCollectionViewDataProvider.h"
 #import "AsynchronousOperation.h"
-#import "WLSupportFunctions.h"
 #import "UIView+Shorthand.h"
 #import "UIScrollView+Additions.h"
 

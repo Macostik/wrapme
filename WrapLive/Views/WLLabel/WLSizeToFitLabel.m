@@ -13,7 +13,6 @@ static CGFloat WLConstantIndentText = 5.0f;
 #import "UIView+Shorthand.h"
 #import "NSString+Additions.h"
 #import "UILabel+Additions.h"
-#import "WLSupportFunctions.h"
 
 @interface WLSizeToFitLabel ()
 

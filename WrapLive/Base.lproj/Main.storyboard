@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -4069,10 +4069,10 @@ Check your internet connection and try again.</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="dsd" image="gray_Bubble" translatesAutoresizingMaskIntoConstraints="NO" id="acW-kf-dhe">
-                                                    <rect key="frame" x="2" y="22" width="254" height="33"/>
+                                                    <rect key="frame" x="7" y="19" width="254" height="33"/>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="w12-va-7vl">
-                                                    <rect key="frame" x="8" y="22" width="246" height="30"/>
+                                                    <rect key="frame" x="13" y="19" width="246" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -4083,7 +4083,7 @@ Check your internet connection and try again.</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="w12-va-7vl" firstAttribute="leading" secondItem="PH8-dO-yk9" secondAttribute="leading" constant="8" id="0Ku-ff-enC"/>
+                                            <constraint firstItem="w12-va-7vl" firstAttribute="leading" secondItem="PH8-dO-yk9" secondAttribute="leading" constant="13" id="0Ku-ff-enC"/>
                                             <constraint firstItem="acW-kf-dhe" firstAttribute="width" secondItem="w12-va-7vl" secondAttribute="width" constant="8" id="0ZP-ZF-coP"/>
                                             <constraint firstItem="acW-kf-dhe" firstAttribute="height" secondItem="w12-va-7vl" secondAttribute="height" constant="3" id="4Dt-dv-WvU"/>
                                             <constraint firstItem="1wE-ap-jeT" firstAttribute="top" secondItem="PH8-dO-yk9" secondAttribute="top" constant="5" id="7QM-nK-lIV"/>
@@ -4092,10 +4092,10 @@ Check your internet connection and try again.</string>
                                             <constraint firstItem="6cK-uC-aMZ" firstAttribute="top" secondItem="PH8-dO-yk9" secondAttribute="top" constant="5" id="Ifd-Et-f34"/>
                                             <constraint firstItem="acW-kf-dhe" firstAttribute="top" secondItem="w12-va-7vl" secondAttribute="top" id="Kb1-ce-dag"/>
                                             <constraint firstItem="1wE-ap-jeT" firstAttribute="leading" secondItem="PH8-dO-yk9" secondAttribute="leading" constant="13" id="Laj-Ub-ORJ"/>
-                                            <constraint firstAttribute="trailing" secondItem="w12-va-7vl" secondAttribute="trailing" constant="66" id="Nim-Zj-Jov"/>
+                                            <constraint firstAttribute="trailing" secondItem="w12-va-7vl" secondAttribute="trailing" constant="61" id="Nim-Zj-Jov"/>
                                             <constraint firstAttribute="trailing" secondItem="6cK-uC-aMZ" secondAttribute="trailing" constant="5" id="f0a-jP-emh"/>
-                                            <constraint firstAttribute="bottom" secondItem="w12-va-7vl" secondAttribute="bottom" constant="8" id="iih-Ac-kr8"/>
-                                            <constraint firstItem="w12-va-7vl" firstAttribute="top" secondItem="PH8-dO-yk9" secondAttribute="top" constant="22" id="kxm-pj-NuV"/>
+                                            <constraint firstAttribute="bottom" secondItem="w12-va-7vl" secondAttribute="bottom" constant="11" id="iih-Ac-kr8"/>
+                                            <constraint firstItem="w12-va-7vl" firstAttribute="top" secondItem="PH8-dO-yk9" secondAttribute="top" constant="19" id="kxm-pj-NuV"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="60"/>
                                         <connections>
@@ -4133,7 +4133,7 @@ Check your internet connection and try again.</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJg-Q1-lVX">
-                                                    <rect key="frame" x="65" y="22" width="246" height="30"/>
+                                                    <rect key="frame" x="64" y="22" width="246" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -4146,17 +4146,17 @@ Check your internet connection and try again.</string>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="MrZ-rw-wZA" secondAttribute="trailing" constant="13" id="66O-0R-cwj"/>
                                             <constraint firstAttribute="bottom" secondItem="pJg-Q1-lVX" secondAttribute="bottom" constant="8" id="8Sv-Hz-w1E"/>
-                                            <constraint firstAttribute="trailing" secondItem="pJg-Q1-lVX" secondAttribute="trailing" constant="9" id="ECc-aY-bwK"/>
+                                            <constraint firstAttribute="trailing" secondItem="pJg-Q1-lVX" secondAttribute="trailing" constant="10" id="ECc-aY-bwK"/>
                                             <constraint firstItem="i75-tl-ISy" firstAttribute="height" secondItem="pJg-Q1-lVX" secondAttribute="height" constant="3" id="EQs-nh-fz6"/>
                                             <constraint firstItem="i75-tl-ISy" firstAttribute="top" secondItem="pJg-Q1-lVX" secondAttribute="top" id="IQr-tT-2zw"/>
-                                            <constraint firstItem="pJg-Q1-lVX" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="65" id="IlM-qs-g0U"/>
+                                            <constraint firstItem="pJg-Q1-lVX" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="64" id="IlM-qs-g0U"/>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="5" id="JqX-qH-m2v"/>
                                             <constraint firstItem="MrZ-rw-wZA" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" constant="5" id="PbS-oa-swj"/>
                                             <constraint firstItem="pJg-Q1-lVX" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" constant="22" id="SyM-yo-hsd"/>
                                             <constraint firstItem="i75-tl-ISy" firstAttribute="width" secondItem="pJg-Q1-lVX" secondAttribute="width" constant="8" id="akS-2t-llV"/>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" constant="5" id="fki-uo-Rtc"/>
                                             <constraint firstItem="MrZ-rw-wZA" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="67" id="sFq-ja-Kbc"/>
-                                            <constraint firstItem="i75-tl-ISy" firstAttribute="leading" secondItem="pJg-Q1-lVX" secondAttribute="leading" constant="-6" id="uiV-8n-AGn"/>
+                                            <constraint firstItem="i75-tl-ISy" firstAttribute="leading" secondItem="pJg-Q1-lVX" secondAttribute="leading" constant="-5" id="uiV-8n-AGn"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="60"/>
                                         <connections>

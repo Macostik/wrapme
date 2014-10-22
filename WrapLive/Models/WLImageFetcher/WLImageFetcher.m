@@ -63,13 +63,10 @@
     __weak typeof(self)weakSelf = self;
     WLImageFetcherBlock success = ^(UIImage *image, BOOL cached) {
         [weakSelf.urls removeObject:url];
-        NSHashTable* receivers = weakSelf.receivers;
-        @synchronized (receivers) {
-            for (NSObject <WLImageFetching> *receiver in receivers) {
-                if ([receiver respondsToSelector:@selector(fetcherTargetUrl:)] && [[receiver fetcherTargetUrl:weakSelf] isEqualToString:url]) {
-                    if ([receiver respondsToSelector:@selector(fetcher:didFinishWithImage:cached:)]) {
-                        [receiver fetcher:weakSelf didFinishWithImage:image cached:cached];
-                    }
+        for (NSObject <WLImageFetching> *receiver in weakSelf.receivers) {
+            if ([receiver respondsToSelector:@selector(fetcherTargetUrl:)] && [[receiver fetcherTargetUrl:weakSelf] isEqualToString:url]) {
+                if ([receiver respondsToSelector:@selector(fetcher:didFinishWithImage:cached:)]) {
+                    [receiver fetcher:weakSelf didFinishWithImage:image cached:cached];
                 }
             }
         }
@@ -80,20 +77,12 @@
     } else if (url.absolutePath) {
         [self setFileSystemUrl:url completion:success];
     } else {
-        WLFailureBlock failure = ^ (NSError* error) {
+        [self setNetworkUrl:url success:success failure:^(NSError *error) {
             [weakSelf.urls removeObject:url];
-            NSHashTable* receivers = weakSelf.receivers;
-            @synchronized (receivers) {
-                for (NSObject <WLImageFetching> *receiver in receivers) {
-                    if ([receiver respondsToSelector:@selector(fetcherTargetUrl:)] && [[receiver fetcherTargetUrl:weakSelf] isEqualToString:url]) {
-                        if ([receiver respondsToSelector:@selector(fetcher:didFailWithError:)]) {
-                            [receiver fetcher:weakSelf didFailWithError:error];
-                        }
-                    }
-                }
-            }
-        };
-        [self setNetworkUrl:url success:success failure:failure];
+            [weakSelf broadcast:@selector(fetcher:didFailWithError:) object:error select:^BOOL(id receiver, id object) {
+                return ([receiver respondsToSelector:@selector(fetcherTargetUrl:)] && [[receiver fetcherTargetUrl:weakSelf] isEqualToString:url]);
+            }];
+        }];
     }
 }
 

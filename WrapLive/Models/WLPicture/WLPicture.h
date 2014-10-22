@@ -31,3 +31,7 @@
 - (NSData*)JSONValue;
 
 @end
+
+@interface WLPictureTransformer : NSValueTransformer
+
+@end

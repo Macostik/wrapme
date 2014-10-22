@@ -58,3 +58,24 @@
 }
 
 @end
+
+@implementation WLPicture (JSONValue)
+
++ (instancetype)pictureWithJSONValue:(NSData *)value {
+    WLPicture* picture = [[self alloc] init];
+    NSDictionary *data = [NSJSONSerialization JSONObjectWithData:value options:0 error:NULL];
+    picture.large = data[@"large"];
+    picture.medium = data[@"medium"];
+    picture.small = data[@"small"];
+    return picture;
+}
+
+- (NSData*)JSONValue {
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    [data trySetObject:self.large forKey:@"large"];
+    [data trySetObject:self.medium forKey:@"medium"];
+    [data trySetObject:self.small forKey:@"small"];
+    return [NSJSONSerialization dataWithJSONObject:data options:0 error:NULL];
+}
+
+@end

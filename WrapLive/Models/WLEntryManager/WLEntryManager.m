@@ -100,7 +100,7 @@
         request.predicate = [NSPredicate predicateWithFormat:@"identifier == %@",identifier];
         entry = [[request execute] lastObject];
         if (!entry) {
-            entry = [[WLEntry alloc] initWithEntity:entity insertIntoManagedObjectContext:self.context];
+            entry = [[entryClass alloc] initWithEntity:entity insertIntoManagedObjectContext:self.context];
             entry.identifier = identifier;
         }
     }

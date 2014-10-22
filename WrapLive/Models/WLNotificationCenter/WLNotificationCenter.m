@@ -107,6 +107,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)configure {
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 	[self performSelector:@selector(connect) withObject:nil afterDelay:0.0f];
     [super configure];
 }
@@ -180,7 +181,7 @@ static WLDataBlock deviceTokenCompletion = nil;
     }
     switch ([UIApplication sharedApplication].applicationState) {
         case UIApplicationStateActive:
-            if (failure) failure(nil);
+            if (failure) failure([NSError errorWithDescription:@"Cannot handle remote notification when app is active."]);
             break;
         case UIApplicationStateInactive: {
             WLNotification* notification = [WLNotification notificationWithData:data];
@@ -192,7 +193,7 @@ static WLDataBlock deviceTokenCompletion = nil;
                     if (success) success();
                 } failure:failure];
             } else if (failure)  {
-                failure(nil);
+                failure([NSError errorWithDescription:@"Data in remote notification is not valid (inactive)."]);
             }
         } break;
         case UIApplicationStateBackground: {
@@ -200,7 +201,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             if (notification) {
                 [notification fetch:success failure:failure];
             } else if (failure)  {
-                failure(nil);
+                failure([NSError errorWithDescription:@"Data in remote notification is not valid (background)."]);
             }
         } break;
         default:

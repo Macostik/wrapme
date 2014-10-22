@@ -24,3 +24,11 @@
 - (BOOL)edit:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
 
 @end
+
+@interface WLPicture (JSONValue)
+
++ (instancetype)pictureWithJSONValue:(NSData*)value;
+
+- (NSData*)JSONValue;
+
+@end

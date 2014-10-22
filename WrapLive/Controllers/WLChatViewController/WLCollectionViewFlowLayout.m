@@ -21,11 +21,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (self.collectionView.contentSize.height < self.collectionView.height) {
-		self.inset = self.collectionView.height - self.collectionView.contentSize.height;
-	} else {
-		self.inset =  0;
-	}
+    self.inset = MAX(0, self.collectionView.height - self.collectionView.contentSize.height);
 	[self updateLoadingViewPosition];
 }
 
@@ -61,11 +57,9 @@
 }
 
 - (UICollectionViewLayoutAttributes *)adjustAttributes:(UICollectionViewLayoutAttributes *)attributes {
-	CGAffineTransform transform;
-	if (self.inset == 0) {
-		transform = CGAffineTransformMakeRotation(M_PI);
-	} else {
-		transform = CGAffineTransformTranslate(CGAffineTransformMakeRotation(M_PI), 0, -self.inset);
+	CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI);
+	if (_inset > 0) {
+		transform = CGAffineTransformTranslate(transform, 0, -_inset);
 	}
 	if (!CGAffineTransformEqualToTransform(attributes.transform, transform)) {
 		attributes.transform = transform;
@@ -88,9 +82,5 @@
 	}
 	return attributes;
 }
-//
-//- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
-//	return YES;
-//}
 
 @end

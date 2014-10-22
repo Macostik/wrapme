@@ -31,6 +31,37 @@
     return events;
 }
 
++ (NSMutableOrderedSet*)eventsByAddingEntry:(WLContribution*)entry toEvents:(NSMutableOrderedSet*)events {
+    WLTimelineEvent *event = [events firstObject];
+    if ([event addEntry:entry]) {
+        [events sort:comparatorByDate];
+        [event.entries sortByCreatedAt];
+        return events;
+    }
+    event = [[WLTimelineEvent alloc] init];
+    [event addEntry:entry];
+    [events addObject:event];
+    [events sort:comparatorByDate];
+    return events;
+}
+
++ (NSMutableOrderedSet*)eventsByDeletingEntry:(WLContribution*)entry fromEvents:(NSMutableOrderedSet*)events {
+    WLTimelineEvent* event = nil;
+    for (WLTimelineEvent* _event in events) {
+        if ([_event.entries containsObject:entry]) {
+            event = _event;
+            break;
+        }
+    }
+    if (event) {
+        [event.entries removeObject:entry];
+        if (!event.entries.nonempty) {
+            [events removeObject:event];
+        }
+    }
+    return events;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -54,9 +85,12 @@
         if (self.user != entry.contributor) return NO;
         if (![self.date isSameHour:entry.createdAt]) return NO;
     }
-    
     [self.entries addObject:entry];
-    self.date = entry.createdAt;
+    
+    if (self.date == nil || [entry.createdAt later:self.date]) {
+        self.date = entry.createdAt;
+    }
+    
     if (self.user == nil) {
         self.user = entry.contributor;
         self.entryClass = [entry class];

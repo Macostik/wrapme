@@ -83,13 +83,14 @@
     comment.candy = self;
     [comments addObject:comment comparator:comparatorByCreatedAt descending:NO];
     [self touch];
-    [self notifyOnUpdate];
+    [comment notifyOnAddition];
 }
 
 - (void)removeComment:(WLComment *)comment {
     NSMutableOrderedSet* comments = self.comments;
     if ([comments containsObject:comment]) {
         [comments removeObject:comment];
+        self.comments = comments;
     }
 }
 

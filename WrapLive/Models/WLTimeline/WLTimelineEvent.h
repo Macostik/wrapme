@@ -25,6 +25,10 @@
 
 + (NSMutableOrderedSet*)events:(NSMutableOrderedSet*)entries;
 
++ (NSMutableOrderedSet*)eventsByAddingEntry:(WLContribution*)entry toEvents:(NSMutableOrderedSet*)events;
+
++ (NSMutableOrderedSet*)eventsByDeletingEntry:(WLContribution*)entry fromEvents:(NSMutableOrderedSet*)events;
+
 - (BOOL)addEntry:(WLContribution*)entry;
 
 @end

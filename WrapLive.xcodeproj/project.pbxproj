@@ -2013,7 +2013,6 @@
 				C5FFB02E19AC888D006F27A7 /* WLTimeline */,
 				C508E7D01987A37A002998CE /* WLCollectionViewDataProvider */,
 				14F668651973DDC6008D5081 /* WLPerson */,
-				14AE4FF519703A76002EEF3F /* WLContributor */,
 				C50F48361973EF6800929AA9 /* WLPagination */,
 				C537F8211962BADF00600B42 /* WLGroupedSet */,
 				14B2429A195C4CBC00C5D208 /* WLEditSession */,
@@ -2605,13 +2604,6 @@
 				14AE4FF019700B5E002EEF3F /* interfacealertsound3.wav */,
 			);
 			name = Sounds;
-			sourceTree = "<group>";
-		};
-		14AE4FF519703A76002EEF3F /* WLContributor */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = WLContributor;
 			sourceTree = "<group>";
 		};
 		14B134DE1952FDE6004F86AC /* WLInviteeCell */ = {

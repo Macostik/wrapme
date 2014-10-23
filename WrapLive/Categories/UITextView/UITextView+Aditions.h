@@ -10,6 +10,6 @@
 
 @interface UITextView (Aditions)
 
-- (void)determineHyperLink:(NSString *)string withFont:(UIFont *)font;
+- (void)determineHyperLink:(NSString *)string;
 
 @end

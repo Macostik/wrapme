@@ -66,17 +66,17 @@
 }
 
 - (WLPaginatedSet *)groupByUser:(WLUser *)user paginationDown:(BOOL)flag {
-    WLPaginatedSet *group = [self.entries selectObject:^BOOL(WLPaginatedSet *item) {
-        return [[item user] isEqualToEntry:user] &&
-                [item isEqual: flag ? self.entries.firstObject : self.entries.lastObject];
-    }];
-    return group ? : [[WLPaginatedSet alloc] init];
+    WLPaginatedSet *group = flag ? self.entries.firstObject : self.entries.lastObject;
+    if ([group.entries.firstObject contributor] == user) return group;
+    return [[WLPaginatedSet alloc] init];
 }
 
 @end
 
+@implementation WLPaginatedSet (WLChatGroupSet)
 
+- (NSDate *)date {
+    return [self.entries.firstObject createdAt];
+}
 
-
-
-
+@end

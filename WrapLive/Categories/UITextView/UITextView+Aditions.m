@@ -9,11 +9,11 @@
 
 @implementation UITextView (Aditions)
 
-- (void)determineHyperLink:(NSString *)string withFont:(UIFont *)font {
+- (void)determineHyperLink:(NSString *)string {
     self.editable = NO;
     self.dataDetectorTypes = UIDataDetectorTypeLink;
     NSMutableAttributedString *attrebutedText = [[NSMutableAttributedString alloc] initWithString:string];
-    NSDictionary * attributes = @{NSFontAttributeName : font};
+    NSDictionary * attributes = @{NSFontAttributeName : self.font};
     [attrebutedText addAttributes:attributes range:NSMakeRange(0, [attrebutedText length])];
     self.attributedText = attrebutedText;
 }

@@ -37,7 +37,7 @@ CGFloat WLMaxTextViewWidth;
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver>
 
-@property (strong, nonatomic) NSMutableOrderedSet *groupTyping;
+@property (assign, nonatomic) BOOL hasTypingUsers;
 
 @property (nonatomic) BOOL shouldAppendMoreMessages;
 
@@ -58,8 +58,6 @@ CGFloat WLMaxTextViewWidth;
 @property (nonatomic) BOOL typing;
 
 @property (strong, nonatomic) WLMessage *message;
-
-@property (strong, nonatomic) WLMessageCell *typingCell;
 
 @property (weak, nonatomic) IBOutlet WLTypingView *typingView;
 
@@ -96,7 +94,7 @@ CGFloat WLMaxTextViewWidth;
 	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
 	self.composeBar.placeholder = @"Write your message ...";
 	
-	[self addMessages:self.wrap.messages];
+	[self addMessages:self.wrap.messages pullDownToRefresh:NO];
     [self refreshMessages:nil];
 	
 	self.backSwipeGestureEnabled = YES;
@@ -106,7 +104,6 @@ CGFloat WLMaxTextViewWidth;
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLNotificationCenter defaultCenter] addReceiver:self];
     [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:nil];
-    self.groupTyping = [NSMutableOrderedSet orderedSet];
     
     if (self.shouldShowKeyboard) {
         [self.composeBar becomeFirstResponder];
@@ -134,8 +131,8 @@ CGFloat WLMaxTextViewWidth;
     [self.collectionView reloadData];
 }
 
-- (void)addMessages:(NSOrderedSet*)messages {
-    [self.chatGroup addMessages:messages];
+- (void)addMessages:(NSOrderedSet*)messages pullDownToRefresh:(BOOL)flag {
+    [self.chatGroup addMessages:messages pullDownToRefresh:flag];
 	[self.collectionView reloadData];
 }
 
@@ -158,7 +155,7 @@ CGFloat WLMaxTextViewWidth;
     self.operation = [self.wrap messagesNewer:message.createdAt success:^(NSOrderedSet *messages) {
         if (!weakSelf.wrap.messages.nonempty) weakSelf.shouldAppendMoreMessages = NO;
         if (messages.nonempty) {
-            [weakSelf addMessages:messages];
+            [weakSelf addMessages:messages pullDownToRefresh:YES];
         }
         [sender setRefreshing:NO animated:YES];
     } failure:^(NSError *error) {
@@ -193,7 +190,7 @@ CGFloat WLMaxTextViewWidth;
 	self.operation = [self.wrap messagesOlder:olderMessage.createdAt newer:newerMessage.createdAt success:^(NSOrderedSet *messages) {
 		weakSelf.shouldAppendMoreMessages = messages.count >= WLPageSize;
         if (messages.nonempty) {
-            [weakSelf addMessages:messages];
+            [weakSelf addMessages:messages pullDownToRefresh:NO];
         }
 	} failure:^(NSError *error) {
 		weakSelf.shouldAppendMoreMessages = NO;
@@ -302,7 +299,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (!section ) {
-        return [self.groupTyping count];
+        return self.hasTypingUsers;
     }
     WLPaginatedSet *group = [self.chatGroup.entries tryObjectAtIndex:section - 1];
     return [group.entries count];
@@ -391,10 +388,7 @@ CGFloat WLMaxTextViewWidth;
     WLMessageCell* cell = nil;
     NSString* cellIdentifier = nil;
     if (!indexPath.section) {
-        WLUser *typingUser = [self.groupTyping objectAtIndex:indexPath.row];
         cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"WLEmptyCell" forIndexPath:indexPath];
-        cell.item = typingUser;
-        self.typingCell = cell;
     } else {
         WLPaginatedSet *group = [self.chatGroup.entries tryObjectAtIndex:indexPath.section - 1];
         WLMessage* message = [group.entries objectAtIndex:indexPath.row];
@@ -435,11 +429,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)showTypingView:(BOOL)flag {
     __weak __typeof(self)weakSelf = self;
-    if (flag) {
-        [self.groupTyping insertObject:self.wrap.contributor atIndex:0];
-    } else {
-        [self.groupTyping removeObject:self.wrap.contributor];
-    }
+    self.hasTypingUsers = flag;
     [self.collectionView reloadData];
     [UIView animateWithDuration:.5 delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
         weakSelf.typingView.transform =  flag ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(0, weakSelf.collectionView.height);

@@ -29,14 +29,14 @@
     }
 }
 
-- (BOOL)addMessages:(NSOrderedSet *)messages {
+- (BOOL)addMessages:(NSOrderedSet *)messages pullDownToRefresh:(BOOL)flag {
     __block BOOL added = NO;
     __block WLPaginatedSet *group = nil;
     NSMutableOrderedSet* messagesCopy = [messages mutableCopy];
     [messagesCopy sortByCreatedAt:YES];
     while (messagesCopy.nonempty) {
-        group = [[WLPaginatedSet alloc] init];
         WLUser *contributor = [[messagesCopy firstObject] contributor];
+        group = [self groupByUser:contributor paginationDown:flag];
         [messagesCopy enumerateObjectsUsingBlock:^(WLMessage *message, NSUInteger idx, BOOL *stop) {
             if ([message.contributor isEqualToEntry:contributor]) {
                 [group.entries addObject:message];
@@ -61,8 +61,16 @@
 
 - (void)resetEntries:(NSOrderedSet *)entries {
     [self.entries removeAllObjects];
-    [self addMessages:entries];
+    [self addMessages:entries pullDownToRefresh:NO];
     [self.delegate paginatedSetChanged:self];
+}
+
+- (WLPaginatedSet *)groupByUser:(WLUser *)user paginationDown:(BOOL)flag {
+    WLPaginatedSet *group = [self.entries selectObject:^BOOL(WLPaginatedSet *item) {
+        return [[item user] isEqualToEntry:user] &&
+                [item isEqual: flag ? self.entries.firstObject : self.entries.lastObject];
+    }];
+    return group ? : [[WLPaginatedSet alloc] init];
 }
 
 @end

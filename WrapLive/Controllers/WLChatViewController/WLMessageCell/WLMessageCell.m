@@ -51,24 +51,6 @@
 
 @end
 
-@interface WLUser (WLChatMessage) <WLChatMessage> @end
-
-@implementation WLUser (WLChatMessage)
-
-- (WLUser *)contributor {
-    return self;
-}
-
-- (NSString *)text {
-    return @"Is typing ...";
-}
-
-- (NSDate *)displayDate {
-    return [NSDate now];
-}
-
-@end
-
 @implementation WLMessageCell
 
 - (void)awakeFromNib {

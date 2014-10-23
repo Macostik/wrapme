@@ -16,7 +16,7 @@
 @property (strong, nonatomic) WLIdentifierMessage * message;
 
 - (void)addMessage:(WLMessage *)message;
-- (BOOL)addMessages:(NSOrderedSet *)messages;
+- (BOOL)addMessages:(NSOrderedSet *)messages pullDownToRefresh:(BOOL)flag;
 - (void)sort;
 
 @end
@@ -24,6 +24,7 @@
 @interface WLPaginatedSet (WLChatGroupSet)
 
 - (NSDate *)date;
+- (WLUser *)user;
 
 @end
 
@@ -31,5 +32,9 @@
 
 - (NSDate *)date {
     return [self.entries.firstObject createdAt];
+}
+
+- (WLUser *)user {
+    return [self.entries.firstObject contributor];
 }
 @end

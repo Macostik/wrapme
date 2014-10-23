@@ -12,6 +12,49 @@
 #import "UIView+Shorthand.h"
 #import "WLDeviceOrientationBroadcaster.h"
 #import "NSError+WLAPIManager.h"
+#import "UIView+AnimationHelper.h"
+
+@interface WLScrollView : UIScrollView <UIScrollViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UIView* zoomingView;
+
+@end
+
+@implementation WLScrollView
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.delegate = self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    // center the image as it becomes smaller than the size of the screen
+    CGSize boundsSize = self.bounds.size;
+    CGRect frameToCenter = self.zoomingView.frame;
+    
+    // center horizontally
+    if (frameToCenter.size.width < boundsSize.width)
+        frameToCenter.origin.x = (boundsSize.width - frameToCenter.size.width) / 2;
+    else
+        frameToCenter.origin.x = 0;
+    
+    // center vertically
+    if (frameToCenter.size.height < boundsSize.height)
+        frameToCenter.origin.y = (boundsSize.height - frameToCenter.size.height) / 2;
+    else
+        frameToCenter.origin.y = 0;
+    
+    self.zoomingView.frame = frameToCenter;
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return self.zoomingView;
+}
+
+@end
 
 @interface WLImageViewController () <UIScrollViewDelegate, WLDeviceOrientationBroadcastReceiver>
 
@@ -31,7 +74,7 @@
 	__weak typeof(self)weakSelf = self;
 	[self.imageView setUrl:self.image.picture.large success:^(UIImage *image, BOOL cached) {
         if (image) {
-			[weakSelf configureScrollViewWithImage:image];
+			[weakSelf calculateScaleValues];
 		}
 		[weakSelf.spinner removeFromSuperview];
 		weakSelf.scrollView.userInteractionEnabled = YES;
@@ -51,13 +94,15 @@
 	[self applyDeviceOrientation:[UIDevice currentDevice].orientation animated:NO];
 }
 
-- (void)configureScrollViewWithImage:(UIImage*)image {
-	CGSize imageSize = CGSizeMake(image.size.width*image.scale, image.size.height*image.scale);
-	self.scrollView.maximumZoomScale = imageSize.width / CGSizeThatFitsSize(self.view.size, imageSize).width;
+- (void)calculateScaleValues {
+    CGFloat minimumZoomScale = CGSizeScaleToFitSize(self.view.size, self.imageView.image.size);
+    self.scrollView.maximumZoomScale = minimumZoomScale < 1 ? 2 : (minimumZoomScale + 2);
+    self.scrollView.minimumZoomScale = minimumZoomScale;
+    self.scrollView.zoomScale  = minimumZoomScale;
 }
 
 - (void)applyDeviceOrientation:(UIDeviceOrientation)orientation animated:(BOOL)animated {
-	CGAffineTransform transform = self.scrollView.transform;
+	CGAffineTransform transform = self.view.transform;
 	if (orientation == UIDeviceOrientationLandscapeLeft) {
 		transform = CGAffineTransformMakeRotation(M_PI_2);
 	} else if (orientation == UIDeviceOrientationLandscapeRight) {
@@ -67,16 +112,12 @@
 	} else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
 		transform = CGAffineTransformMakeRotation(M_PI);
 	}
-	if (!CGAffineTransformEqualToTransform(self.scrollView.transform, transform)) {
-		if (animated) {
-			[UIView beginAnimations:nil context:nil];
-		}
-		self.scrollView.transform = transform;
-		self.scrollView.frame = self.view.bounds;
-		self.errorLabel.transform = transform;
-		if (animated) {
-			[UIView commitAnimations];
-		}
+	if (!CGAffineTransformEqualToTransform(self.view.transform, transform)) {
+        __weak typeof(self)weakSelf = self;
+        [UIView performAnimated:animated animation:^{
+            weakSelf.view.transform = transform;
+            weakSelf.view.frame = weakSelf.view.superview.bounds;
+        }];
 	}
 }
 
@@ -85,19 +126,13 @@
 - (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber*)orientation {
 	self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
 	[self applyDeviceOrientation:[orientation integerValue] animated:YES];
-	self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
+    [self calculateScaleValues];
 }
 
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
 	[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-	return self.imageView;
 }
 
 @end

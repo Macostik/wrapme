@@ -14,7 +14,6 @@
 #import "WLCollectionViewSection.h"
 #import "WLNotificationCenter.h"
 #import "WLNotification.h"
-#import "WLEntryFetching.h"
 #import "WLEntryNotifier.h"
 #import "NSDate+Formatting.h"
 #import "WLEntryManager.h"

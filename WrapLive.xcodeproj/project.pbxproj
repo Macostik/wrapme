@@ -448,7 +448,6 @@
 		C54AF4ED19B8C437006F7EDB /* SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F0DAEF19338C9100F9D898 /* SegmentedControl.m */; };
 		C54AF4EE19B8C437006F7EDB /* WLPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D962EC18E5898A00C57CE1 /* WLPicture.m */; };
 		C54AF4EF19B8C437006F7EDB /* WLTestUserPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DE6982192E0B0F007580AD /* WLTestUserPicker.m */; };
-		C54AF4F019B8C437006F7EDB /* WLEntryFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = C599F9D419AF5A42008C7DFA /* WLEntryFetching.m */; };
 		C54AF4F119B8C437006F7EDB /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4D3E0191938D60025CC18 /* UIActionSheet+Blocks.m */; };
 		C54AF4F219B8C437006F7EDB /* WLAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E218E197ED00FF43F6 /* WLAddressBook.m */; };
 		C54AF4F319B8C437006F7EDB /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D578C91917ACE200586995 /* NSDate+Additions.m */; };
@@ -667,7 +666,6 @@
 		C54AF5EA19B8C467006F7EDB /* SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F0DAEF19338C9100F9D898 /* SegmentedControl.m */; };
 		C54AF5EB19B8C467006F7EDB /* WLPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D962EC18E5898A00C57CE1 /* WLPicture.m */; };
 		C54AF5EC19B8C467006F7EDB /* WLTestUserPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DE6982192E0B0F007580AD /* WLTestUserPicker.m */; };
-		C54AF5ED19B8C467006F7EDB /* WLEntryFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = C599F9D419AF5A42008C7DFA /* WLEntryFetching.m */; };
 		C54AF5EE19B8C467006F7EDB /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4D3E0191938D60025CC18 /* UIActionSheet+Blocks.m */; };
 		C54AF5EF19B8C467006F7EDB /* WLAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E218E197ED00FF43F6 /* WLAddressBook.m */; };
 		C54AF5F019B8C467006F7EDB /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D578C91917ACE200586995 /* NSDate+Additions.m */; };
@@ -886,7 +884,6 @@
 		C54AF6E719B8C491006F7EDB /* SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F0DAEF19338C9100F9D898 /* SegmentedControl.m */; };
 		C54AF6E819B8C491006F7EDB /* WLPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D962EC18E5898A00C57CE1 /* WLPicture.m */; };
 		C54AF6E919B8C491006F7EDB /* WLTestUserPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DE6982192E0B0F007580AD /* WLTestUserPicker.m */; };
-		C54AF6EA19B8C491006F7EDB /* WLEntryFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = C599F9D419AF5A42008C7DFA /* WLEntryFetching.m */; };
 		C54AF6EB19B8C491006F7EDB /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4D3E0191938D60025CC18 /* UIActionSheet+Blocks.m */; };
 		C54AF6EC19B8C491006F7EDB /* WLAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E218E197ED00FF43F6 /* WLAddressBook.m */; };
 		C54AF6ED19B8C491006F7EDB /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D578C91917ACE200586995 /* NSDate+Additions.m */; };
@@ -1033,7 +1030,6 @@
 		C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5018F5271B00BDF038 /* WLChatViewController.m */; };
 		C5947E5518F52AE000BDF038 /* WLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5418F52AE000BDF038 /* WLMessageCell.m */; };
 		C599F9D219AF5751008C7DFA /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C599F9D119AF5751008C7DFA /* NSObject+Extension.m */; };
-		C599F9D519AF5A42008C7DFA /* WLEntryFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = C599F9D419AF5A42008C7DFA /* WLEntryFetching.m */; };
 		C59ACBE3193F238C002941C4 /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C59ACBE2193F238C002941C4 /* WLUserView.m */; };
 		C5A21E0F194AF54000F3A554 /* WLEntryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E08194AF54000F3A554 /* WLEntryManager.m */; };
 		C5A21E60194B0ED500F3A554 /* WLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E5F194B0ED500F3A554 /* WLUser.m */; };
@@ -1528,8 +1524,6 @@
 		C5991A2D19B5F149004EE00F /* WLEntryKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryKeys.h; sourceTree = "<group>"; };
 		C599F9D019AF5751008C7DFA /* NSObject+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extension.h"; sourceTree = "<group>"; };
 		C599F9D119AF5751008C7DFA /* NSObject+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extension.m"; sourceTree = "<group>"; };
-		C599F9D319AF5A42008C7DFA /* WLEntryFetching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryFetching.h; sourceTree = "<group>"; };
-		C599F9D419AF5A42008C7DFA /* WLEntryFetching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntryFetching.m; sourceTree = "<group>"; };
 		C59ACBE1193F238C002941C4 /* WLUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLUserView.h; path = WLUserView/WLUserView.h; sourceTree = "<group>"; };
 		C59ACBE2193F238C002941C4 /* WLUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUserView.m; path = WLUserView/WLUserView.m; sourceTree = "<group>"; };
 		C5A21E07194AF54000F3A554 /* WLEntryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryManager.h; sourceTree = "<group>"; };
@@ -3156,8 +3150,6 @@
 				C5262C4F19E594DB0029E9B6 /* CoreData.xcdatamodeld */,
 				C5A21E07194AF54000F3A554 /* WLEntryManager.h */,
 				C5A21E08194AF54000F3A554 /* WLEntryManager.m */,
-				C599F9D319AF5A42008C7DFA /* WLEntryFetching.h */,
-				C599F9D419AF5A42008C7DFA /* WLEntryFetching.m */,
 			);
 			path = WLEntryManager;
 			sourceTree = "<group>";
@@ -3996,7 +3988,6 @@
 				12F0DAF019338C9100F9D898 /* SegmentedControl.m in Sources */,
 				12D962ED18E5898A00C57CE1 /* WLPicture.m in Sources */,
 				12DE6983192E0B0F007580AD /* WLTestUserPicker.m in Sources */,
-				C599F9D519AF5A42008C7DFA /* WLEntryFetching.m in Sources */,
 				12D4D3E1191938D60025CC18 /* UIActionSheet+Blocks.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
 				12D578CA1917ACE200586995 /* NSDate+Additions.m in Sources */,
@@ -4205,7 +4196,6 @@
 				C54AF4ED19B8C437006F7EDB /* SegmentedControl.m in Sources */,
 				C54AF4EE19B8C437006F7EDB /* WLPicture.m in Sources */,
 				C54AF4EF19B8C437006F7EDB /* WLTestUserPicker.m in Sources */,
-				C54AF4F019B8C437006F7EDB /* WLEntryFetching.m in Sources */,
 				C54AF4F119B8C437006F7EDB /* UIActionSheet+Blocks.m in Sources */,
 				C54AF4F219B8C437006F7EDB /* WLAddressBook.m in Sources */,
 				C54AF4F319B8C437006F7EDB /* NSDate+Additions.m in Sources */,
@@ -4414,7 +4404,6 @@
 				C54AF5EA19B8C467006F7EDB /* SegmentedControl.m in Sources */,
 				C54AF5EB19B8C467006F7EDB /* WLPicture.m in Sources */,
 				C54AF5EC19B8C467006F7EDB /* WLTestUserPicker.m in Sources */,
-				C54AF5ED19B8C467006F7EDB /* WLEntryFetching.m in Sources */,
 				C54AF5EE19B8C467006F7EDB /* UIActionSheet+Blocks.m in Sources */,
 				C54AF5EF19B8C467006F7EDB /* WLAddressBook.m in Sources */,
 				C54AF5F019B8C467006F7EDB /* NSDate+Additions.m in Sources */,
@@ -4623,7 +4612,6 @@
 				C54AF6E719B8C491006F7EDB /* SegmentedControl.m in Sources */,
 				C54AF6E819B8C491006F7EDB /* WLPicture.m in Sources */,
 				C54AF6E919B8C491006F7EDB /* WLTestUserPicker.m in Sources */,
-				C54AF6EA19B8C491006F7EDB /* WLEntryFetching.m in Sources */,
 				C54AF6EB19B8C491006F7EDB /* UIActionSheet+Blocks.m in Sources */,
 				C54AF6EC19B8C491006F7EDB /* WLAddressBook.m in Sources */,
 				C54AF6ED19B8C491006F7EDB /* NSDate+Additions.m in Sources */,

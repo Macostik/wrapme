@@ -25,7 +25,6 @@
 #import "WLCollectionViewDataProvider.h"
 #import "WLComment.h"
 #import "WLCreateWrapViewController.h"
-#import "WLEntryFetching.h"
 #import "WLEntryManager.h"
 #import "WLEntryNotifier.h"
 #import "WLHomeViewController.h"

@@ -1487,6 +1487,7 @@
 		C537F8231962BB1B00600B42 /* WLGroupedSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLGroupedSet.m; path = WLGroupedSet/WLGroupedSet.m; sourceTree = "<group>"; };
 		C53978C719AE2B21006BE8FD /* WLTimelineEventHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTimelineEventHeaderView.h; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventHeaderView.h; sourceTree = "<group>"; };
 		C53978C819AE2B21006BE8FD /* WLTimelineEventHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTimelineEventHeaderView.m; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventHeaderView.m; sourceTree = "<group>"; };
+		C53BC05F19F9315F0031249E /* WLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLogger.h; path = WLAPIManager/WLLogger.h; sourceTree = "<group>"; };
 		C54AF55019B8C437006F7EDB /* WrapLive-QA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLive-QA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54AF64D19B8C467006F7EDB /* WrapLive-Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLive-Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54AF74A19B8C491006F7EDB /* WrapLive-Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLive-Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2218,6 +2219,7 @@
 				12D9F6E218E18DAA001E8323 /* NSError+WLAPIManager.m */,
 				C54AF86419B8C632006F7EDB /* WLAPIEnvironment.h */,
 				C54AF86519B8C632006F7EDB /* WLAPIEnvironment.m */,
+				C53BC05F19F9315F0031249E /* WLLogger.h */,
 			);
 			name = WLAPIManager;
 			sourceTree = "<group>";

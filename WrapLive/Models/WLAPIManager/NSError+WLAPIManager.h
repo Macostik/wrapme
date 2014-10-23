@@ -20,18 +20,6 @@ typedef NS_ENUM(NSInteger, WLErrorCode) {
     WLErrorCredentialNotValid = 50
 };
 
-static const BOOL detailedLog = YES;
-
-static inline void WLLog(NSString* label, NSString* action, id object) {
-#if DEBUG
-    if (detailedLog && object) {
-        NSLog(@"%@ - %@: %@", label, action, object);
-    } else {
-        NSLog(@"%@ - %@", label, action);
-    }
-#endif
-}
-
 @interface NSError (WLAPIManager)
 
 @property (readonly, nonatomic) BOOL isDuplicatedUploading;

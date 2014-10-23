@@ -266,8 +266,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 @implementation WLNotificationCenter (Typing)
 
-static NSUInteger WLActionBeginTyping = 2000;
-static NSUInteger WLActionEndTyping = 2001;
+static NSString *WLNotificationCenterTypingKey = @"typing";
 
 - (void)subscribeOnTypingChannel:(WLWrap *)wrap success:(WLBlock)success {
     __weak __typeof(self)weakSelf = self;
@@ -313,10 +312,11 @@ static NSUInteger WLActionEndTyping = 2001;
 }
 
 - (void)handleClientState:(NSDictionary*)state user:(WLUser*)user {
-    WLNotificationType type = [state[@"action"] integerValue];
-    if (type == WLActionBeginTyping) {
+    if (state[WLNotificationCenterTypingKey] == nil) return;
+    BOOL typing = [state[WLNotificationCenterTypingKey] boolValue];
+    if (typing) {
         [self broadcast:@selector(broadcaster:didBeginTyping:) object:user];
-    } else if (type == WLActionEndTyping ) {
+    } else {
         [self broadcast:@selector(broadcaster:didEndTyping:) object:user];
     }
 }
@@ -329,16 +329,16 @@ static NSUInteger WLActionEndTyping = 2001;
     return self.typingChannel.subscribed && [self.typingChannel.name isEqualToString:wrap.identifier];
 }
 
-- (void)sendTypingMessageWithType:(WLNotificationType)type {
-    [self.typingChannel changeState:@{@"action" : @(type)}];
+- (void)sendTypingMessageWithType:(BOOL)typing {
+    [self.typingChannel changeState:@{WLNotificationCenterTypingKey : @(typing)}];
 }
 
 - (void)beginTyping {
-    [self sendTypingMessageWithType:WLActionBeginTyping];
+    [self sendTypingMessageWithType:YES];
 }
 
 - (void)endTyping {
-    [self sendTypingMessageWithType:WLActionEndTyping];
+    [self sendTypingMessageWithType:NO];
 }
 
 @end

@@ -49,6 +49,7 @@
 #import "WLContributorsViewController.h"
 #import "WLNotification.h"
 #import "WLSizeToFitLabel.h"
+#import "UIView+QuatzCoreAnimations.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
     WLWrapViewModeTimeline,
@@ -72,6 +73,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet WLSizeToFitLabel *messageCountLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewConstraint;
 
 @end
 
@@ -114,6 +116,8 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [self firstLoadRequest];
     
     self.dataProvider.animatableConstraints = self.timelineDataProvider.animatableConstraints;
+    self.collectionViewConstraint.constant += -self.view.height;
+    [self.collectionView layoutIfNeeded];
 }
 
 - (void)updateWrapData {
@@ -152,6 +156,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [self updateNotificationCouter];
     [self updateWrapData];
      self.isShowPlaceholder = !self.wrap.candies.nonempty;
+    [self dropDownCollectionView];
 }
 
 - (void)showPlaceholder {
@@ -257,6 +262,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
         } else {
             [self.groups addEntries:self.wrap.candies];
         }
+        [self dropUpCollectionView];
         [WLSession setInteger:self.mode key:WLWrapViewDefaultModeKey];
         self.historyViewSection.completed = NO;
         [self.collectionView scrollToTopAnimated:YES];
@@ -281,6 +287,19 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
 	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Custom animation
+
+- (void)dropUpCollectionView {
+    [self.collectionView revealFrom:kCATransitionFromTop withDuration:1 delegate:nil];
+}
+
+- (void)dropDownCollectionView {
+    [UIView animateWithDuration:1.0 animations:^{
+        self.collectionViewConstraint.constant = -20.0f;
+        [self.collectionView layoutIfNeeded];
+    }];
 }
 
 @end

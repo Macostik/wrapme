@@ -3569,6 +3569,7 @@ Ravenpod, Inc.
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="p36-27-cbv" id="GPJ-l7-lNJ"/>
+                        <outlet property="collectionViewConstraint" destination="mXM-LX-qJo" id="Ua4-eN-0Ka"/>
                         <outlet property="contributorsLabel" destination="6dW-gY-pJQ" id="x2W-UL-3a3"/>
                         <outlet property="dataProvider" destination="6Bj-MV-XWG" id="Xhg-9l-P7S"/>
                         <outlet property="historyViewSection" destination="u9r-1x-r06" id="nZ4-U4-0Zk"/>

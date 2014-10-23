@@ -128,7 +128,7 @@
          NSError* error = nil;
         [self.context save:&error];
         if (error) {
-            NSLog(@"!!! %@", error);
+            WLLog(@"CoreData", @"save error", error);
         }
     }
 }

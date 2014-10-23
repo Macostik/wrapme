@@ -229,37 +229,37 @@ static WLDataBlock deviceTokenCompletion = nil;
 #pragma mark - PNDelegate
 
 - (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
-	NSLog(@"PubNub message received %@", message);
+    WLLog(@"PubNub",@"message received", message);
 }
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {
-	NSLog(@"PubNub connected");
+    WLLog(@"PubNub",@"connected", origin);
     [self subscribe];
 }
 
 - (void)pubnubClient:(PubNub *)client connectionDidFailWithError:(PNError *)error {
-	NSLog(@"PubNub Error: %@, Connection Failed!", error.localizedDescription);
+    WLLog(@"PubNub",@"connection failed", error);
 }
 
 - (void)pubnubClient:(PubNub *)client didSubscribeOnChannels:(NSArray *)channels {
-	NSLog(@"PubNub subscribed on channels %@", channels);
+    WLLog(@"PubNub",@"subscribed", channels);
 }
 
 - (void)pubnubClient:(PubNub *)client didUnsubscribeOnChannels:(NSArray *)channels {
-	NSLog(@"PubNub unsubscribed on channels %@", channels);
+    WLLog(@"PubNub",@"unsubscribed", channels);
 }
 
 - (void)pubnubClient:(PubNub *)client didDisconnectFromOrigin:(NSString *)origin withError:(PNError *)error {
-	NSLog(@"PubNub will disconnect with error : %@", error);
+    WLLog(@"PubNub", @"disconnected", error);
 	[self connect];
 }
 
 - (void)pubnubClient:(PubNub *)client didEnablePushNotificationsOnChannels:(NSArray *)channels {
-    NSLog(@"PubNub didEnablePushNotificationsOnChannels %@", channels);
+    WLLog(@"PubNub", @"enabled APNS", channels);
 }
 
 - (void)pubnubClientDidRemovePushNotifications:(PubNub *)client {
-    NSLog(@"pubnubClientDidRemovePushNotifications");
+    WLLog(@"PubNub", @"removed APNS", nil);
 }
 
 @end

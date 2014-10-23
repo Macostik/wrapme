@@ -15,7 +15,6 @@
 #import "WLGestureBroadcaster.h"
 #import "WLUploading+Extended.h"
 #import "WLEntryManager.h"
-#import <Crashlytics/Crashlytics.h>
 #import "WLMenu.h"
 #import "WLNavigation.h"
 #import "NSPropertyListSerialization+Shorthand.h"

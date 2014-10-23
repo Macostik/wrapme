@@ -50,10 +50,6 @@ static NSTimeInterval _difference = 0;
 
 @implementation WLAPIRequest
 
-- (void)dealloc {
-    NSLog(@"%@ dealloc", NSStringFromClass([self class]));
-}
-
 + (instancetype)request {
     return [[self alloc] init];
 }

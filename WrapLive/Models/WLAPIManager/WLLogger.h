@@ -6,14 +6,12 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-static const BOOL detailedLog = YES;
+#import <Crashlytics/Crashlytics.h>
 
-static inline void WLLog(NSString* label, NSString* action, id object) {
-#if DEBUG
-    if (detailedLog && object) {
-        NSLog(@"%@ - %@: %@", label, action, object);
-    } else {
-        NSLog(@"%@ - %@", label, action);
-    }
+#define WL_LOG_DETAILED 1
+
+#if WL_LOG_DETAILED
+#define WLLog(LABEL,ACTION,OBJECT) CLS_LOG(@"%@ - %@: %@", (LABEL), (ACTION), (OBJECT))
+#else
+#define WLLog(LABEL,ACTION,OBJECT) CLS_LOG(@"%@ - %@", (LABEL), (ACTION))
 #endif
-}

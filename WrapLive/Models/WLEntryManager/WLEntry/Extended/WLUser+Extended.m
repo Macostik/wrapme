@@ -10,7 +10,6 @@
 #import "WLEntryManager.h"
 #import "WLNotificationCenter.h"
 #import "WLAuthorization.h"
-#import <Crashlytics/Crashlytics.h>
 
 @implementation WLUser (Extended)
 

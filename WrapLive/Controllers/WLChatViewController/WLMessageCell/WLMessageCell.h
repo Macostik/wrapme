@@ -14,7 +14,7 @@ static CGFloat WLLastMessageMinimumCellHeight = 40.0f;
 static CGFloat WLAvatarWidth = 66.0f;
 static CGFloat WLMinBubbleWidth = 15.0f;
 static CGFloat WLBottomIdent = 12.0f;
-static CGFloat WLPadding = 4.0f;
+static CGFloat WLPadding = 20.0f;
 extern CGFloat WLMaxTextViewWidth;
 
 @interface WLMessageCell : WLCollectionItemCell

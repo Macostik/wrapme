@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
+#define WLIpad UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
+
 #import "WLChatViewController.h"
 #import "WLWrap.h"
 #import "WLAPIManager.h"
@@ -61,8 +63,6 @@ CGFloat WLMaxTextViewWidth;
 
 @property (weak, nonatomic) IBOutlet WLTypingView *typingView;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *composeBarBottomContsraint;
-
 @property (strong, nonatomic) WLChatGroupSet *chatGroup;
 
 @end
@@ -76,7 +76,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)viewDidLoad {
 	[super viewDidLoad];
     __weak typeof(self)weakSelf = self;
-    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 128;
+    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - WLAvatarWidth - WLPadding;
     self.shouldAppendMoreMessages = YES;
     
     self.chatGroup = [[WLChatGroupSet alloc] init];
@@ -104,10 +104,6 @@ CGFloat WLMaxTextViewWidth;
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLNotificationCenter defaultCenter] addReceiver:self];
     [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:nil];
-    
-    if (self.shouldShowKeyboard) {
-        [self.composeBar becomeFirstResponder];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -115,6 +111,9 @@ CGFloat WLMaxTextViewWidth;
     [self.wrap.messages all:^(WLMessage *message) {
         if(!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
     }];
+    if (self.shouldShowKeyboard) {
+        [self.composeBar becomeFirstResponder];
+    }
 }
 
 - (void)setShouldAppendMoreMessages:(BOOL)shouldAppendMoreMessages {
@@ -152,7 +151,7 @@ CGFloat WLMaxTextViewWidth;
         }];
         return;
     }
-    self.operation = [self.wrap messagesNewer:message.createdAt success:^(NSOrderedSet *messages) {
+    [self.wrap messagesNewer:message.createdAt success:^(NSOrderedSet *messages) {
         if (!weakSelf.wrap.messages.nonempty) weakSelf.shouldAppendMoreMessages = NO;
         if (messages.nonempty) {
             [weakSelf addMessages:messages pullDownToRefresh:YES];
@@ -166,7 +165,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)loadMessages:(WLBlock)completion {
     __weak typeof(self)weakSelf = self;
-    self.operation = [self.wrap messages:^(NSOrderedSet *messages) {
+    [self.wrap messages:^(NSOrderedSet *messages) {
         if (!weakSelf.wrap.messages.nonempty) weakSelf.shouldAppendMoreMessages = NO;
 		[weakSelf setMessages:messages];
         if (completion) {
@@ -216,22 +215,6 @@ CGFloat WLMaxTextViewWidth;
 
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
     return self.wrap;
-}
-
-#pragma mark - WLKeyboardBroadcastReceiver
-
-- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-	self.keyboardHeight = 0;
-    self.composeBarBottomContsraint.constant = 0;
-    [self.view layoutIfNeeded];
-	[self.collectionView reloadData];
-}
-
-- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
-	self.keyboardHeight = [keyboardHeight floatValue];
-    self.composeBarBottomContsraint.constant = self.keyboardHeight;
-    [self.view layoutIfNeeded];
-	[self.collectionView reloadData];
 }
 
 #pragma mark - WlSignificantTimeBroadcasterReceiver
@@ -353,9 +336,12 @@ CGFloat WLMaxTextViewWidth;
     }
     WLPaginatedSet *group = [self.chatGroup.entries tryObjectAtIndex:section - 1];
     WLPaginatedSet *nextGroup = [self.chatGroup.entries tryObjectAtIndex:section];
-    if (![[group date] isSameDay:[nextGroup date]]) {
-        return CGSizeMake(collectionView.width, 32);
-    }
+//    if (group != nil && nextGroup != nil) {
+        if (![[group date] isSameDay:[nextGroup date]]) {
+            return CGSizeMake(collectionView.width, 32);
+        }
+//    }
+    
     return CGSizeZero;
 }
 
@@ -418,7 +404,8 @@ CGFloat WLMaxTextViewWidth;
     __weak __typeof(self)weakSelf = self;
     CGAffineTransform transform = cell.transform;
     CGAffineTransform transformRotate = self.collectionView.transform;
-    CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(0, -self.collectionView.height);
+    CGFloat startPoint =  WLIpad ? self.view.height : -self.view.height;;
+    CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(0, startPoint);
     cell.transform =  CGAffineTransformConcat(transformRotate, transformTranslation);
     [UIView animateWithDuration:.5 delay:0.0f options:UIViewAnimationOptionCurveLinear  animations:^{
             cell.transform = transform;

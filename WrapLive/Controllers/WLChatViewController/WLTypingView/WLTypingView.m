@@ -11,8 +11,9 @@
 #import "NSString+Additions.h"
 #import "NSArray+Additions.h"
 
+static CGFloat WLPadding = 20.0f;
 static CGFloat WLMinBubbleWidth = 15.0f;
-static CGFloat WLMaxTextViewWidth = 287.0f;
+static CGFloat WLMaxTextViewWidth;
 
 @implementation WLTypingView
 
@@ -34,9 +35,10 @@ static CGFloat WLMaxTextViewWidth = 287.0f;
     }
     self.nameTextField.text = name;
     __weak __typeof(self)weakSelf = self;
+    WLMaxTextViewWidth = self.width - WLPadding;
     [UIView performWithoutAnimation:^{
         CGSize size = [weakSelf.nameTextField sizeThatFits:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)];
-        weakSelf.textViewConstraint.constant =  weakSelf.width - 20 - MAX(WLMinBubbleWidth, size.width);
+        weakSelf.textViewConstraint.constant =  [UIScreen mainScreen].bounds.size.width - WLPadding - MAX(WLMinBubbleWidth, size.width);
         [weakSelf.nameTextField layoutIfNeeded];
     }];
 }

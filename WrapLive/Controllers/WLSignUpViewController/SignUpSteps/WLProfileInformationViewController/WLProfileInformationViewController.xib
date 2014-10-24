@@ -9,7 +9,6 @@
             <connections>
                 <outlet property="continueButton" destination="drd-ub-mAD" id="TJD-4y-4Ye"/>
                 <outlet property="createImageButton" destination="7VQ-Qc-wV0" id="eui-lI-j3T"/>
-                <outlet property="mainView" destination="fxa-eY-fSD" id="wKx-gQ-ozE"/>
                 <outlet property="nameTextField" destination="gKV-eO-kZ4" id="wMq-8H-OmH"/>
                 <outlet property="profileImageView" destination="ItZ-4A-Bja" id="dMd-Ta-cC0"/>
                 <outlet property="view" destination="nn3-qL-lIX" id="hcg-7z-Wpl"/>

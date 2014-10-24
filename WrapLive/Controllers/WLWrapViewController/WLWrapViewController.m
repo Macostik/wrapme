@@ -223,23 +223,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 #pragma mark - User Actions
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue isCameraSegue]) {
-		WLStillPictureViewController* controller = segue.destinationViewController;
-		controller.wrap = self.wrap;
-		controller.mode = WLCameraModeCandy;
-		controller.delegate = self;
-	} else {
-        [(WLContributorsViewController*)segue.destinationViewController setWrap:self.wrap];
-    }
-}
-
-- (IBAction)editWrap:(id)sender {
-	WLEditWrapViewController* controller = [WLEditWrapViewController instantiate];
-	controller.wrap = self.wrap;
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
 - (void)setMode:(WLWrapViewMode)mode {
     _mode = mode;
     if (mode == WLWrapViewModeTimeline) {
@@ -268,13 +251,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
         [self.collectionView scrollToTopAnimated:YES];
         [self.dataProvider reload];
     }
-}
-
-- (IBAction)typeMessage:(UIButton *)sender {
-	WLChatViewController * chatController = [WLChatViewController instantiate];
-	chatController.wrap = self.wrap;
-	chatController.shouldShowKeyboard = YES;
-	[self.navigationController pushUniqueClassViewController:chatController animated:YES];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate

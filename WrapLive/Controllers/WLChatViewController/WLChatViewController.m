@@ -111,9 +111,7 @@ CGFloat WLMaxTextViewWidth;
     [self.wrap.messages all:^(WLMessage *message) {
         if(!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
     }];
-    if (self.shouldShowKeyboard) {
-        [self.composeBar becomeFirstResponder];
-    }
+    [self.composeBar becomeFirstResponder];
 }
 
 - (void)setShouldAppendMoreMessages:(BOOL)shouldAppendMoreMessages {

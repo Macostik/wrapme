@@ -55,15 +55,6 @@
     self.emailTextField.text = [WLAuthorization priorityEmail];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue isCameraSegue]) {
-        WLStillPictureViewController* pictureController = segue.destinationViewController;
-        pictureController.delegate = self;
-        pictureController.defaultPosition = AVCaptureDevicePositionFront;
-        pictureController.mode = WLCameraModeAvatar;
-    }
-}
-
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

@@ -291,11 +291,6 @@
 
 #pragma mark - WLInviteViewControllerDelegate
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	WLInviteViewController *controller = segue.destinationViewController;
-	controller.delegate = self;
-}
-
 - (NSError *)inviteViewController:(WLInviteViewController *)controller didInviteContact:(WLContact *)contact {
     WLPerson *person = [contact.persons lastObject];
     

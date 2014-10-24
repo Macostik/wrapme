@@ -36,7 +36,6 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *activationViews;
 @property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 @property (strong, nonatomic) IBOutlet UILabel *phoneNumberLabel;
-@property (strong, nonatomic) WLAuthorization *authorization;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 
 @property (nonatomic) WLActivationPage currentPage;
@@ -45,16 +44,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 
 @implementation WLActivationViewController
 
-- (instancetype)initWithAuthorization:(WLAuthorization *)authorization {
-    self = [super init];
-    if (self) {
-        self.authorization = authorization;
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	self.activationTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self
@@ -132,10 +122,10 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 }
 
 - (IBAction)done:(id)sender {
-    if ([WLUser currentUser].name.nonempty) {
-        [WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
-    } else {
-        WLProfileInformationViewController * controller = [WLProfileInformationViewController new];
+    /*if ([WLUser currentUser].name.nonempty) {
+        [UIApplication sharedApplication].keyWindow.rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
+    } else*/ {
+        WLProfileInformationViewController * controller = [WLProfileInformationViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]];
         [self.navigationController pushViewController:controller animated:YES];
     }
 }

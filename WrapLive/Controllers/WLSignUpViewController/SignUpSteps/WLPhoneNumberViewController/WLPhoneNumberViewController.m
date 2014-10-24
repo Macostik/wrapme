@@ -38,13 +38,10 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *selectCountryButton;
 @property (weak, nonatomic) IBOutlet UILabel *countryCodeLabel;
-@property (weak, nonatomic) IBOutlet UIView *mainView;
 
 @property (strong, nonatomic) WLCountry *country;
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *phoneNumber;
-
-@property (nonatomic, readonly) UIViewController* signUpViewController;
 
 @property (strong, nonatomic) RMPhoneFormat *phoneFormat;
 
@@ -78,10 +75,6 @@
 			[weakSelf.view addSubview:testUserButton];
 		});
 	}
-}
-
-- (UIViewController *)signUpViewController {
-	return self.navigationController.parentViewController;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -127,19 +120,6 @@
 
 #pragma mark - Actions
 
-- (IBAction)selectCountry:(id)sender {
-	[self.view endEditing:YES];
-	__weak typeof(self)weakSelf = self;
-	WLCountriesViewController* controller = [WLCountriesViewController instantiate:^(WLCountriesViewController* controller) {
-		controller.selectedCountry = weakSelf.country;
-        [controller setSelectionBlock:^(WLCountry *country) {
-            weakSelf.country = country;
-            [weakSelf.signUpViewController.navigationController popViewControllerAnimated:YES];
-        }];
-    }];
-	[self.signUpViewController.navigationController pushViewController:controller animated:YES];
-}
-
 - (IBAction)signUp:(WLButton*)sender {
 	if ([self.email isValidEmail]) {
 		__weak typeof(self)weakSelf = self;
@@ -165,7 +145,8 @@
     weakSelf.signUpButton.loading = YES;
 	weakSelf.view.userInteractionEnabled = NO;
 	[authorization signUp:^(WLAuthorization *authorization) {
-		WLActivationViewController *controller = [[WLActivationViewController alloc] initWithAuthorization:authorization];
+		WLActivationViewController *controller = [WLActivationViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]];
+        controller.authorization = authorization;
 		[weakSelf.navigationController pushViewController:controller animated:YES];
 		weakSelf.signUpButton.loading = NO;
 	} failure:^(NSError *error) {
@@ -182,7 +163,7 @@
 	[authorization signIn:^(WLUser *user) {
 		weakSelf.view.userInteractionEnabled = YES;
 		weakSelf.signUpButton.loading = NO;
-        [WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
+        [UIApplication sharedApplication].keyWindow.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
 	} failure:^(NSError *error) {
 		weakSelf.view.userInteractionEnabled = YES;
 		weakSelf.signUpButton.loading = NO;

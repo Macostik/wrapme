@@ -12,6 +12,7 @@
 #import "NSObject+NibAdditions.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLCollectionViewSection.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLCountriesViewController ()
 
@@ -39,13 +40,17 @@
 			}
 		}
     });
-    self.dataSection.selection = self.selectionBlock;
-}
-
-#pragma mark - User Actions
-
-- (IBAction)cencel:(id)sender {
-	[self.navigationController popViewControllerAnimated:YES];
+    [self.dataSection setSelection:^(id item){
+        weakSelf.selectedCountry = item;
+        [weakSelf.dataSection reload];
+        if (weakSelf.selectionBlock) {
+            weakSelf.selectionBlock(item);
+        }
+    }];
+    
+    [self.dataSection setConfigure:^(WLCountryCell* cell, WLCountry* item) {
+        cell.backgroundColor = [item.code isEqualToString:weakSelf.selectedCountry.code] ? [UIColor gray:230] : [UIColor whiteColor];
+    }];
 }
 
 @end

@@ -260,14 +260,6 @@
     return NO;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue isImageSegue]) {
-		[self.composeBarView resignFirstResponder];
-		WLImageViewController* controller = segue.destinationViewController;
-		controller.image = self.candy;
-	}
-}
-
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {

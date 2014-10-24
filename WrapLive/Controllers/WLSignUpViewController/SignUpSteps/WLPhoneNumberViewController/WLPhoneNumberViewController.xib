@@ -9,7 +9,6 @@
             <connections>
                 <outlet property="countryCodeLabel" destination="pzB-T8-egw" id="VQq-Zh-3bq"/>
                 <outlet property="emailTextField" destination="eBh-Sa-Yyb" id="N2E-yh-GNl"/>
-                <outlet property="mainView" destination="xXp-dd-zLq" id="feu-3a-sKb"/>
                 <outlet property="phoneNumberTextField" destination="LvM-b5-YYt" id="LNg-fO-Y5C"/>
                 <outlet property="selectCountryButton" destination="cD7-Fk-gnm" id="N7D-C0-mPH"/>
                 <outlet property="signUpButton" destination="svM-4A-0EB" id="Yht-HL-tKM"/>

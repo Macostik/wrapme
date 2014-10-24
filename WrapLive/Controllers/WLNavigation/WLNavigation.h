@@ -9,47 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "WLEntryManager.h"
 
+static NSString *WLMainStoryboard = @"Main";
+static NSString *WLSignUpStoryboard = @"SignUp";
+static NSString *WLCameraStoryboard = @"Camera";
+
 @interface UIStoryboard (WLNavigation)
 
-+ (instancetype)mainStoryboard;
++ (UIStoryboard *)storyboardNamed:(NSString *)name;
+
++ (void)setStoryboard:(UIStoryboard*)storyboard named:(NSString *)name;
 
 @end
-
-static NSString* WLStoryboardSegueContributorsIdentifier = @"contributors";
-static NSString* WLStoryboardSegueWrapCameraIdentifier = @"wrap_camera";
-static NSString* WLStoryboardSegueCameraIdentifier = @"camera";
-static NSString* WLStoryboardSegueChangeWrapIdentifier = @"changeWrap";
-static NSString* WLStoryboardSegueImageIdentifier = @"image";
-
-@interface UIStoryboardSegue (WLNavigation)
-
-- (BOOL)isContributorsSegue;
-
-- (BOOL)isWrapCameraSegue;
-
-- (BOOL)isCameraSegue;
-
-- (BOOL)isChangeWrapSegue;
-
-- (BOOL)isImageSegue;
-
-@end
-
-static NSString* WLCameraNavigationControllerIdentifier = @"WLCameraNavigationController";
 
 @interface UIViewController (WLNavigation)
 
-+ (instancetype)instantiateWithIdentifier:(NSString*)identifier;
++ (instancetype)instantiateWithIdentifier:(NSString*)identifier storyboard:(UIStoryboard*)storyboard;
 
-+ (instancetype)instantiateWithIdentifier:(NSString*)identifier confiure:(void(^)(id controller))confiure;
-
-+ (instancetype)instantiate;
-
-+ (instancetype)instantiate:(void(^)(id controller))confiure;
-
-+ (instancetype)instantiateAndMakeRootViewControllerAnimated:(BOOL)animated;
-
-+ (instancetype)instantiate:(void (^)(id controller))confiure makeRootViewControllerAnimated:(BOOL)animated;
++ (instancetype)instantiate:(UIStoryboard*)storyboard;
 
 @end
 

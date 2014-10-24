@@ -218,20 +218,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 #pragma mark - Actions
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue isWrapCameraSegue]) {
-		WLStillPictureViewController* controller = segue.destinationViewController;
-		controller.delegate = self;
-		controller.mode = WLCameraModeCandy;
-        controller.editable = NO;
-	} else if ([segue isCameraSegue]) {
-        WLStillPictureViewController* controller = segue.destinationViewController;
-        controller.wrap = self.section.wrap;
-		controller.delegate = self;
-		controller.mode = WLCameraModeCandy;
-    }
-}
-
 - (IBAction)resendConfirmation:(id)sender {
     [[WLResendConfirmationRequest request] send:^(id object) {
         WLToastAppearance* appearance = [WLToastAppearance appearance];
@@ -250,7 +236,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
         [wrap uploadPictures:pictures];
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
-        WLCreateWrapViewController* createWrapViewController = [WLCreateWrapViewController instantiate];
+        WLCreateWrapViewController* createWrapViewController = [WLCreateWrapViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
         createWrapViewController.pictures = pictures;
         createWrapViewController.delegate = self;
         [controller.cameraNavigationController pushViewController:createWrapViewController animated:YES];

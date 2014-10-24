@@ -111,16 +111,16 @@ typedef enum : NSUInteger {
 
 - (void)presentHomeViewController {
     if ([WLUser currentUser].name.nonempty) {
-        [WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
+        [UIApplication sharedApplication].keyWindow.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
     } else {
         [self continueSignUp];
     }
 }
 
 - (void)continueSignUp {
-	[WLSignUpViewController instantiate:^(WLSignUpViewController *controller) {
-		controller.registrationNotCompleted = YES;
-	} makeRootViewControllerAnimated:WLFlipDirectionLeft];
+	WLSignUpViewController *controller = [WLSignUpViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]];
+    controller.registrationNotCompleted = YES;
+    [self.navigationController pushViewController:controller animated:NO];
 }
 
 - (IBAction)termsAndConditions:(id)sender {

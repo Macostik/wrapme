@@ -14,6 +14,4 @@
 
 @property (nonatomic, strong) WLWrap* wrap;
 
-@property (nonatomic) BOOL shouldShowKeyboard;
-
 @end

@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet WLImageView *wrapCoverView;
 
 @property (strong, nonatomic) WLImageBlock editBlock;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomAlignment;
 
 @end
 
@@ -44,7 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.cameraViewController = self.mode == WLCameraModeCandy ? [WLCameraViewController instantiateWithIdentifier:@"WLFullSizeCameraViewController"] : [WLCameraViewController instantiate];
+    self.cameraViewController = self.mode == WLCameraModeCandy ? [WLCameraViewController instantiateWithIdentifier:@"WLFullSizeCameraViewController" storyboard:[UIStoryboard storyboardNamed:WLCameraStoryboard]] : [WLCameraViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
     self.cameraViewController.delegate = self;
     self.cameraViewController.mode = self.mode;
     self.cameraViewController.defaultPosition = self.defaultPosition;
@@ -57,10 +58,8 @@
     } else {
         self.wrapView.hidden = YES;
     }
-    
-    self.cameraNavigationController.view.frame = self.view.bounds;
-    [self.view insertSubview:self.cameraNavigationController.view atIndex:0];
-    
+    self.cameraNavigationController = [self.childViewControllers lastObject];
+    self.cameraNavigationController.delegate = self;
 	[self.cameraNavigationController setViewControllers:@[self.cameraViewController]];
 }
 
@@ -71,21 +70,9 @@
         [UIView performAnimated:animated animation:^{
             weakSelf.wrapView.backgroundColor = color;
         }];
-        
-        weakSelf.cameraNavigationController.view.height = weakSelf.view.height - (translucent ? 0 : weakSelf.wrapView.height);
+        self.bottomAlignment.constant = (translucent ? 0 : weakSelf.wrapView.height);
+        [self.view layoutIfNeeded];
     }
-}
-
-- (UINavigationController *)cameraNavigationController {
-    if (!_cameraNavigationController) {
-        UINavigationController* controller = [[UINavigationController alloc] init];
-        controller.navigationBarHidden = YES;
-        [self addChildViewController:controller];
-        [controller didMoveToParentViewController:self];
-        controller.delegate = self;
-        _cameraNavigationController = controller;
-    }
-    return _cameraNavigationController;
 }
 
 - (void)setMode:(WLCameraMode)mode {
@@ -175,9 +162,9 @@
 }
 
 - (void)editImage:(UIImage*)image completion:(WLImageBlock)completion {
-    [self setTranslucent:NO animated:YES];
 	[self.cameraNavigationController pushViewController:[self editControllerWithImage:image] animated:YES];
     self.editBlock = completion;
+    [self setTranslucent:NO animated:YES];
 }
 
 #pragma mark - WLCameraViewControllerDelegate
@@ -218,8 +205,8 @@
             [weakSelf handleAssets:assets];
         }
 	}];
-    [self setTranslucent:NO animated:YES];
 	[self.cameraNavigationController pushViewController:gallery animated:YES];
+    [self setTranslucent:NO animated:YES];
 }
 
 - (void)handleAsset:(ALAsset*)asset {

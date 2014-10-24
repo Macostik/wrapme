@@ -27,7 +27,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [UIWindow setMainWindow:self.window];
-//
+    [UIStoryboard setStoryboard:self.window.rootViewController.storyboard named:WLSignUpStoryboard];
 	[[WLInternetConnectionBroadcaster broadcaster] configure];
 	[[WLKeyboardBroadcaster broadcaster] configure];
 	[[WLNotificationCenter defaultCenter] configure];

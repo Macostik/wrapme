@@ -14,72 +14,40 @@
 
 @implementation UIStoryboard (WLNavigation)
 
-+ (instancetype)mainStoryboard {
-	UIWindow* window = [[[UIApplication sharedApplication] windows] firstObject];
-	return window.rootViewController.storyboard;
+static NSMapTable *storyboards = nil;
+
++ (UIStoryboard *)storyboardNamed:(NSString *)name {
+    if (!storyboards) {
+        storyboards = [NSMapTable strongToWeakObjectsMapTable];
+    }
+    UIStoryboard* storyboard = [storyboards objectForKey:name];
+    if (!storyboard) {
+        storyboard = [UIStoryboard storyboardWithName:name bundle:nil];
+        [storyboards setObject:storyboard forKey:name];
+    }
+    return storyboard;
 }
 
-@end
-
-@implementation UIStoryboardSegue (WLNavigation)
-
-- (BOOL)isContributorsSegue {
-	return [self.identifier isEqualToString:WLStoryboardSegueContributorsIdentifier];
-}
-
-- (BOOL)isWrapCameraSegue {
-	return [self.identifier isEqualToString:WLStoryboardSegueWrapCameraIdentifier];
-}
-
-- (BOOL)isCameraSegue {
-	return [self.identifier isEqualToString:WLStoryboardSegueCameraIdentifier];
-}
-
-- (BOOL)isChangeWrapSegue {
-	return [self.identifier isEqualToString:WLStoryboardSegueChangeWrapIdentifier];
-}
-
-- (BOOL)isImageSegue {
-	return [self.identifier isEqualToString:WLStoryboardSegueImageIdentifier];
++ (void)setStoryboard:(UIStoryboard *)storyboard named:(NSString *)name {
+    if (storyboard) {
+        [storyboards setObject:storyboard forKey:name];
+    }
 }
 
 @end
 
 @implementation UIViewController (WLNavigation)
 
-+ (instancetype)instantiateWithIdentifier:(NSString*)identifier confiure:(void (^)(id controller))confiure {
-	id controller = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:identifier];
++ (instancetype)instantiateWithIdentifier:(NSString *)identifier storyboard:(UIStoryboard *)storyboard {
+	id controller = [storyboard instantiateViewControllerWithIdentifier:identifier];
 	if ([controller isKindOfClass:self]) {
-		if (confiure) {
-			confiure(controller);
-		}
 		return controller;
 	}
 	return nil;
 }
 
-+ (instancetype)instantiateWithIdentifier:(NSString *)identifier {
-	return [self instantiateWithIdentifier:identifier confiure:nil];
-}
-
-+ (instancetype)instantiate {
-	return [self instantiate:nil];
-}
-
-+ (instancetype)instantiate:(void (^)(id controller))confiure {
-	return [self instantiateWithIdentifier:NSStringFromClass(self) confiure:confiure];
-}
-
-+ (instancetype)instantiateAndMakeRootViewControllerAnimated:(BOOL)animated {
-	return [self instantiate:nil makeRootViewControllerAnimated:animated];
-}
-
-+ (instancetype)instantiate:(void (^)(id controller))confiure makeRootViewControllerAnimated:(BOOL)animated {
-	id controller = [self instantiate:confiure];
-	if (controller) {
-		[UINavigationController setViewControllers:@[controller] animated:animated];
-	}
-	return controller;
++ (instancetype)instantiate:(UIStoryboard *)storyboard {
+	return [self instantiateWithIdentifier:NSStringFromClass(self) storyboard:storyboard];
 }
 
 @end
@@ -183,10 +151,9 @@ static UIWindow* mainWindow = nil;
 @implementation WLCandy (WLNavigation)
 
 - (UIViewController *)viewController {
-    __weak typeof(self)weakSelf = self;
-    return [WLCandyViewController instantiate:^(WLCandyViewController *controller) {
-        controller.candy = weakSelf;
-    }];
+    WLCandyViewController* controller = [WLCandyViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
+    controller.candy = self;
+    return controller;
 }
 
 @end
@@ -194,10 +161,9 @@ static UIWindow* mainWindow = nil;
 @implementation WLMessage (WLNavigation)
 
 - (UIViewController *)viewController {
-    __weak typeof(self)weakSelf = self;
-    return [WLChatViewController instantiate:^(WLChatViewController *controller) {
-        controller.wrap = weakSelf.wrap;
-    }];
+    WLChatViewController* controller = [WLChatViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
+    controller.wrap = self.wrap;
+    return controller;
 }
 
 @end
@@ -205,10 +171,9 @@ static UIWindow* mainWindow = nil;
 @implementation WLWrap (WLNavigation)
 
 - (UIViewController *)viewController {
-    __weak typeof(self)weakSelf = self;
-    return [WLWrapViewController instantiate:^(WLWrapViewController *controller) {
-        controller.wrap = weakSelf;
-    }];
+    WLWrapViewController* controller = [WLWrapViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
+    controller.wrap = self;
+    return controller;
 }
 
 @end

@@ -15,6 +15,7 @@
 #import "WLProfileInformationViewController.h"
 #import "WLPhoneNumberViewController.h"
 #import "UIColor+CustomColors.h"
+#import "WLNavigation.h"
 
 @interface WLSignUpViewController ()
 
@@ -26,21 +27,10 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    
 	if (self.registrationNotCompleted) {
-		[self createNavController:[[WLProfileInformationViewController alloc] init]];
-	} else {
-		[self createNavController:[[WLPhoneNumberViewController alloc] init]];
+        UINavigationController* navigationController = [self.childViewControllers lastObject];
+        navigationController.viewControllers = @[[WLProfileInformationViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]]];
 	}
-}
-
-- (void)createNavController:(UIViewController *)controller {
-	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
-	navController.view.frame = self.signUpStepsView.bounds;
-	navController.navigationBarHidden = YES;
-	[navController willMoveToParentViewController:self];
-	[self addChildViewController:navController];
-	[self.signUpStepsView addSubview:navController.view];
 }
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {

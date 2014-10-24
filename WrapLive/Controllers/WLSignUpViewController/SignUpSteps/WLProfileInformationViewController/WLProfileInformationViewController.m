@@ -23,6 +23,7 @@
 #import "WLEntryManager.h"
 #import "WLUpdateUserRequest.h"
 #import "WLProfileEditSession.h"
+#import "WLButton.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
@@ -30,10 +31,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *createImageButton;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) WLUser * user;
-@property (nonatomic, readonly) UIViewController* signUpViewController;
-@property (strong, nonatomic) IBOutlet UIButton *continueButton;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-@property (weak, nonatomic) IBOutlet UIView *mainView;
+@property (strong, nonatomic) IBOutlet WLButton *continueButton;
 @property (strong, nonatomic) WLProfileEditSession *editSession;
 
 @property (nonatomic) BOOL hasAvatar;
@@ -66,29 +64,25 @@
 	[self verifyContinueButton];
 }
 
-- (UIViewController *)signUpViewController {
-	return self.navigationController.parentViewController;
-}
-
 - (IBAction)goToMainScreen:(id)sender {
 	[self updateIfNeeded:^{
-		[WLHomeViewController instantiateAndMakeRootViewControllerAnimated:NO];
+		[UIApplication sharedApplication].keyWindow.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
 	}];
 }
 
 - (void)updateIfNeeded:(void (^)(void))completion {
     if ([self.editSession hasChanges]) {
 		self.view.userInteractionEnabled = NO;
-		[self.spinner startAnimating];
+        self.continueButton.loading = YES;
         [self.editSession apply];
 		__weak typeof(self)weakSelf = self;
         [[WLUpdateUserRequest request:self.user] send:^(id object) {
-            [weakSelf.spinner stopAnimating];
+            weakSelf.continueButton.loading = NO;
 			weakSelf.view.userInteractionEnabled = YES;
 			completion();
         } failure:^(NSError *error) {
             [weakSelf.editSession reset];
-            [weakSelf.spinner stopAnimating];
+            weakSelf.continueButton.loading = NO;
 			weakSelf.view.userInteractionEnabled = YES;
 			[error show];
         }];
@@ -103,7 +97,7 @@
 		controller.defaultPosition = AVCaptureDevicePositionFront;
 		controller.mode = WLCameraModeAvatar;
 	}];
-	[self.signUpViewController presentViewController:cameraNavigation animated:YES completion:nil];
+	[self.navigationController.navigationController presentViewController:cameraNavigation animated:YES completion:nil];
 }
 
 - (void)saveImage:(UIImage *)image {
@@ -112,7 +106,6 @@
         weakSelf.editSession.url = path;
         [weakSelf verifyContinueButton];
     }];
-    
 }
 
 - (void)verifyContinueButton {
@@ -122,7 +115,7 @@
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-	[self.signUpViewController dismissViewControllerAnimated:YES completion:nil];
+	[self.navigationController.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
@@ -131,7 +124,7 @@
 															  bounds:self.profileImageView.retinaSize
 												interpolationQuality:kCGInterpolationDefault];
 	[self saveImage:image];
-	[self.signUpViewController dismissViewControllerAnimated:YES completion:nil];
+	[self.navigationController.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITextFieldDelegate

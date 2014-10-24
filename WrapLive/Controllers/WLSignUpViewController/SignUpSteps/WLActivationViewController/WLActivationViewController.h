@@ -12,6 +12,6 @@
 
 @interface WLActivationViewController : WLBaseViewController
 
-- (instancetype)initWithAuthorization:(WLAuthorization*)authorization;
+@property (strong, nonatomic) WLAuthorization *authorization;
 
 @end

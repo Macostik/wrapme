@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-@class WLGroup;
+@class WLGroup, WLPaginatedSet;
 
 @interface WLMessageGroupCell : UICollectionReusableView
 
-@property (strong, nonatomic) WLGroup* group;
+@property (strong, nonatomic) WLPaginatedSet* group;
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 

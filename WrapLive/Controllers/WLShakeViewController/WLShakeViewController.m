@@ -79,7 +79,7 @@ static CTCallCenter *callCenter;
     [super motionEnded:motion withEvent:event];
 }
 
-- (BOOL)canBecomeFirstResponder {
+- (BOOL)canBecomeFirstRehaonder {
 	return YES;
 }
 

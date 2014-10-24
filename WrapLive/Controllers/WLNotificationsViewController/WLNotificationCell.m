@@ -34,7 +34,7 @@
     self.wrapImageView.url = comment.candy.picture.small;
     self.userNameLabel.text = [NSString stringWithFormat:@"%@  %@",comment.contributor.name, comment.createdAt.timeAgoString];
     self.commentTextView.textContainerInset = UIEdgeInsetsMake(-3, 0, 0, 0);
-    [self.commentTextView determineHyperLink:[NSString stringWithFormat:@"\"%@\"", comment.text] withFont:[UIFont lightFontOfSize:13.0f]];
+    [self.commentTextView determineHyperLink:[NSString stringWithFormat:@"\"%@\"", comment.text]];
     [self checkHeight];
     self.inWrapLabel.y = CGRectGetMaxY(self.commentTextView.frame);
     self.inWrapLabel.text = [NSString stringWithFormat:@"in Wrap : \"%@\"", comment.candy.wrap.name];

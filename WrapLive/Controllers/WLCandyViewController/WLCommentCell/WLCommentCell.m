@@ -67,7 +67,7 @@
 	self.userInteractionEnabled = YES;
     if (!NSNumberEqual(entry.unread, @NO)) entry.unread = @NO;
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", WLString(entry.contributor.name), WLString(entry.createdAt.timeAgoString)];
-    [self.commentTextView determineHyperLink:entry.text withFont:[UIFont lightFontOfSize:15.0f]];
+    [self.commentTextView determineHyperLink:entry.text];
     __weak typeof(self)weakSelf = self;
 	self.authorImageView.url = entry.contributor.picture.small;
     [self.authorImageView setFailure:^(NSError* error) {

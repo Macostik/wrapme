@@ -16,7 +16,7 @@
     WLComment *comment = [self.entries.entries objectAtIndex:indexPath.row];
     CGSize size = [comment.text sizeWithAttributes:@{NSFontAttributeName : [UIFont lightFontOfSize:13.0f]}];
     int height = size.height * ceilf(size.width/WLCommentTextViewLenght) + WLIndent;
-    return CGSizeMake(self.defaultSize.width, height);
+    return CGSizeMake(self.collectionView.bounds.size.width, height);
 }
 
 @end

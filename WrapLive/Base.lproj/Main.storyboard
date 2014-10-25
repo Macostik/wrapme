@@ -2381,7 +2381,7 @@
                                         </state>
                                         <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
                                         <connections>
-                                            <segue destination="awg-6C-4hv" kind="custom" customClass="WLSwitchStoryboardSegue" id="bWZ-Y9-6dl">
+                                            <segue destination="awg-6C-4hv" kind="custom" customClass="WLSwitchStoryboardSegue" id="WjR-f7-d7j">
                                                 <string key="identifier">{"keypaths":[{"source":"self","destination":"delegate"},{"source":"wrap","destination":"wrap"}],"transition":"modal","storyboard":"Camera","attributes":{"mode":0}}</string>
                                             </segue>
                                         </connections>

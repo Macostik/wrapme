@@ -371,6 +371,7 @@
 	__weak typeof(self)weakSelf = self;
     [image uploadComment:text success:^(WLComment *comment) {
         [weakSelf.candyCell reloadComments];
+        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
     } failure:^(NSError *error) {
     }];
     run_after_asap(^{

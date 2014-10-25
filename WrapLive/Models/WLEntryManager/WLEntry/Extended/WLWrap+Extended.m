@@ -39,8 +39,8 @@
 
 - (void)remove {
     [[WLUser currentUser] removeWrap:self];
-    [super remove];
     [self notifyOnDeleting];
+    [super remove];
 }
 
 - (void)touch:(NSDate *)date {

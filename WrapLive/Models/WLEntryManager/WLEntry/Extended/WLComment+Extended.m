@@ -32,8 +32,8 @@
 
 - (void)remove {
     [self.candy removeComment:self];
-    [super remove];
     [self notifyOnDeleting];
+    [super remove];
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {

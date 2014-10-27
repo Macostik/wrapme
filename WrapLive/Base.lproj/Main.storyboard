@@ -118,12 +118,12 @@
                                                     <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moW-bp-wfe">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moW-bp-wfe">
                                                     <rect key="frame" x="51" y="19" width="207" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sbj-Wd-1e2" customClass="WLImageView">
@@ -2640,7 +2640,7 @@
                                                                             <constraint firstAttribute="width" constant="43" id="kFD-5X-jCj"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yq2-Yg-jcf">
+                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yq2-Yg-jcf">
                                                                         <rect key="frame" x="60" y="19" width="255" height="73"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <color key="tintColor" red="1" green="0.42860027057324546" blue="0.16787798134862797" alpha="1" colorSpace="calibratedRGB"/>
@@ -3520,87 +3520,6 @@ Check your internet connection and try again.</string>
                         <outlet property="collectionView" destination="DO8-0B-bff" id="I3n-J1-jFa"/>
                     </connections>
                 </customObject>
-                <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMessageGroupCell" id="9Lf-oh-Ffo" customClass="WLMessageGroupCell">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" id="JW3-Oo-6g9">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="To4-pK-sTc">
-                                    <rect key="frame" x="100" y="6" width="120" height="19"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="0.88" colorSpace="calibratedWhite"/>
-                        </view>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dateLabel" destination="To4-pK-sTc" id="DDt-oF-hyn"/>
-                    </connections>
-                </collectionReusableView>
-                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMyMessageCell" id="JdO-gi-kUm" customClass="WLMessageCell">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MIj-eX-anq" customClass="WLImageView">
-                                <rect key="frame" x="265" y="5" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="02c-PI-oR7"/>
-                                    <constraint firstAttribute="width" constant="50" id="p1q-aQ-TvR"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_Bubble" translatesAutoresizingMaskIntoConstraints="NO" id="JU4-rN-OYJ">
-                                <rect key="frame" x="60" y="24" width="201" height="33"/>
-                            </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="Zsv-yr-obY">
-                                <rect key="frame" x="66" y="24" width="195" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4eE-eQ-Cyt">
-                                <rect key="frame" x="30" y="26" width="26" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </view>
-                    <constraints>
-                        <constraint firstItem="JU4-rN-OYJ" firstAttribute="width" secondItem="Zsv-yr-obY" secondAttribute="width" constant="6" id="1Si-Zv-lDg"/>
-                        <constraint firstItem="MIj-eX-anq" firstAttribute="top" secondItem="JdO-gi-kUm" secondAttribute="topMargin" constant="-3" id="IbX-cZ-Vgm"/>
-                        <constraint firstItem="JU4-rN-OYJ" firstAttribute="top" secondItem="Zsv-yr-obY" secondAttribute="top" id="LAG-81-dqG"/>
-                        <constraint firstItem="MIj-eX-anq" firstAttribute="leading" secondItem="Zsv-yr-obY" secondAttribute="trailing" constant="4" id="O1A-ss-Q4p"/>
-                        <constraint firstItem="JU4-rN-OYJ" firstAttribute="leading" secondItem="Zsv-yr-obY" secondAttribute="leading" constant="-6" id="XIr-QU-w9T"/>
-                        <constraint firstItem="Zsv-yr-obY" firstAttribute="top" secondItem="JdO-gi-kUm" secondAttribute="topMargin" constant="16" id="ZlM-Bk-t7G"/>
-                        <constraint firstAttribute="bottomMargin" secondItem="Zsv-yr-obY" secondAttribute="bottom" constant="-5" id="b1j-rV-ZoE"/>
-                        <constraint firstItem="Zsv-yr-obY" firstAttribute="leading" secondItem="4eE-eQ-Cyt" secondAttribute="trailing" constant="10" id="isq-8h-egi"/>
-                        <constraint firstItem="Zsv-yr-obY" firstAttribute="leading" secondItem="JdO-gi-kUm" secondAttribute="leadingMargin" constant="58" id="ltB-Oj-S7E"/>
-                        <constraint firstAttribute="trailingMargin" secondItem="MIj-eX-anq" secondAttribute="trailing" constant="-3" id="oFP-0X-u4W"/>
-                        <constraint firstItem="4eE-eQ-Cyt" firstAttribute="centerY" secondItem="Zsv-yr-obY" secondAttribute="centerY" constant="-5" id="qHb-zE-Q7B"/>
-                        <constraint firstItem="JU4-rN-OYJ" firstAttribute="height" secondItem="Zsv-yr-obY" secondAttribute="height" constant="3" id="upL-n7-x9p"/>
-                    </constraints>
-                    <size key="customSize" width="320" height="57"/>
-                    <connections>
-                        <outlet property="avatarView" destination="MIj-eX-anq" id="Xtv-g0-shY"/>
-                        <outlet property="bubbleImageView" destination="JU4-rN-OYJ" id="lNo-Ms-7u1"/>
-                        <outlet property="messageTextView" destination="Zsv-yr-obY" id="xaN-2A-va4"/>
-                        <outlet property="timeLabel" destination="4eE-eQ-Cyt" id="Dbs-nI-Krn"/>
-                    </connections>
-                </collectionViewCell>
             </objects>
             <point key="canvasLocation" x="2305" y="836"/>
         </scene>

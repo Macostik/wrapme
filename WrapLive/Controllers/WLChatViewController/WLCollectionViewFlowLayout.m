@@ -30,6 +30,7 @@
 		CGFloat position = self.collectionView.contentSize.height;
 		if (position != self.loadingView.y) {
 			self.loadingView.height = (_inset == 0 ? 66 : _inset);
+            self.loadingView.center = self.collectionView.center;
 			self.loadingView.y = self.collectionView.contentSize.height;
 		}
 	}

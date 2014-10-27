@@ -13,6 +13,10 @@
 
 @implementation WLAuthorization
 
++ (NSArray *)archivableProperties {
+    return @[@"deviceUID",@"deviceName",@"countryCode",@"phone",@"email",@"unconfirmed_email",@"password"];
+}
+
 - (NSString *)deviceUID {
 	if (!_deviceUID) {
 		_deviceUID = [WLSession UDID];
@@ -27,8 +31,12 @@
     return _deviceName;
 }
 
+- (BOOL)canSignUp {
+    return self.countryCode.nonempty && self.phone.nonempty && self.email.nonempty;
+}
+
 - (BOOL)canAuthorize {
-	return self.countryCode.nonempty && self.phone.nonempty && self.email.nonempty && self.password.nonempty;
+	return self.canSignUp && self.password.nonempty;
 }
 
 - (NSString *)fullPhoneNumber {

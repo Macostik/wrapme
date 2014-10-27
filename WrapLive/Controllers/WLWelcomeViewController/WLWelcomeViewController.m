@@ -111,7 +111,7 @@ typedef enum : NSUInteger {
 
 - (void)presentHomeViewController {
     if ([WLUser currentUser].name.nonempty) {
-        [UIApplication sharedApplication].keyWindow.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+        [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
     } else {
         [self continueSignUp];
     }

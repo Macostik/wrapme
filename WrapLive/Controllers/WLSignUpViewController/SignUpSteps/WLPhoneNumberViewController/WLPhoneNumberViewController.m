@@ -163,7 +163,7 @@
 	[authorization signIn:^(WLUser *user) {
 		weakSelf.view.userInteractionEnabled = YES;
 		weakSelf.signUpButton.loading = NO;
-        [UIApplication sharedApplication].keyWindow.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+        [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
 	} failure:^(NSError *error) {
 		weakSelf.view.userInteractionEnabled = YES;
 		weakSelf.signUpButton.loading = NO;

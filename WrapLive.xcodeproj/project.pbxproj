@@ -197,11 +197,8 @@
 		AC79ED381934791600D7031F /* WLEmojiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC79ED371934791600D7031F /* WLEmojiCell.m */; };
 		ACB029D3191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB029D2191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.m */; };
 		ACCF9B8918E185D200A7429F /* WLPhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */; };
-		ACCF9B8A18E185D200A7429F /* WLPhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */; };
 		ACCF9B9118E1868200A7429F /* WLActivationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B8F18E1868200A7429F /* WLActivationViewController.m */; };
-		ACCF9B9218E1868200A7429F /* WLActivationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9018E1868200A7429F /* WLActivationViewController.xib */; };
 		ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B9518E186B800A7429F /* WLProfileInformationViewController.m */; };
-		ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9618E186B800A7429F /* WLProfileInformationViewController.xib */; };
 		ACDE2A0E192CB38B00CA0803 /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		ACDE2BAA193DFF4E003702D4 /* WLInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2BA9193DFF4E003702D4 /* WLInviteViewController.m */; };
 		ACF8D90E19347B9E0001E570 /* WLEmojiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90D19347B9E0001E570 /* WLEmojiView.xib */; };
@@ -511,11 +508,9 @@
 		C54AF52019B8C437006F7EDB /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5104940195C603800D7406E /* Crashlytics.framework */; };
 		C54AF52219B8C437006F7EDB /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 12DE698B192E4234007580AD /* AviarySDKResources.bundle */; };
 		C54AF52319B8C437006F7EDB /* WLAssetsGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED451934B183009C1DC3 /* WLAssetsGroupViewController.xib */; };
-		C54AF52519B8C437006F7EDB /* WLProfileInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9618E186B800A7429F /* WLProfileInformationViewController.xib */; };
 		C54AF52619B8C437006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EC192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png */; };
 		C54AF52719B8C437006F7EDB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F6192F5F15007A1520 /* Default@2x.png */; };
 		C54AF52819B8C437006F7EDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
-		C54AF52919B8C437006F7EDB /* WLActivationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9018E1868200A7429F /* WLActivationViewController.xib */; };
 		C54AF52A19B8C437006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514ED192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png */; };
 		C54AF52B19B8C437006F7EDB /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
 		C54AF52C19B8C437006F7EDB /* cars.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* cars.plist */; };
@@ -530,7 +525,6 @@
 		C54AF53719B8C437006F7EDB /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED551934B183009C1DC3 /* WLAssetCell.xib */; };
 		C54AF53819B8C437006F7EDB /* AppIcon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */; };
 		C54AF53919B8C437006F7EDB /* AppIcon40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F1192F5F15007A1520 /* AppIcon40x40@2x.png */; };
-		C54AF53A19B8C437006F7EDB /* WLPhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */; };
 		C54AF53B19B8C437006F7EDB /* WLAssetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED511934B183009C1DC3 /* WLAssetsViewController.xib */; };
 		C54AF53C19B8C437006F7EDB /* AppIcon76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F3192F5F15007A1520 /* AppIcon76x76.png */; };
 		C54AF53D19B8C437006F7EDB /* rings.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9151934B44D0001E570 /* rings.plist */; };
@@ -729,11 +723,9 @@
 		C54AF61D19B8C467006F7EDB /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5104940195C603800D7406E /* Crashlytics.framework */; };
 		C54AF61F19B8C467006F7EDB /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 12DE698B192E4234007580AD /* AviarySDKResources.bundle */; };
 		C54AF62019B8C467006F7EDB /* WLAssetsGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED451934B183009C1DC3 /* WLAssetsGroupViewController.xib */; };
-		C54AF62219B8C467006F7EDB /* WLProfileInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9618E186B800A7429F /* WLProfileInformationViewController.xib */; };
 		C54AF62319B8C467006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EC192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png */; };
 		C54AF62419B8C467006F7EDB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F6192F5F15007A1520 /* Default@2x.png */; };
 		C54AF62519B8C467006F7EDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
-		C54AF62619B8C467006F7EDB /* WLActivationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9018E1868200A7429F /* WLActivationViewController.xib */; };
 		C54AF62719B8C467006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514ED192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png */; };
 		C54AF62819B8C467006F7EDB /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
 		C54AF62919B8C467006F7EDB /* cars.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* cars.plist */; };
@@ -748,7 +740,6 @@
 		C54AF63419B8C467006F7EDB /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED551934B183009C1DC3 /* WLAssetCell.xib */; };
 		C54AF63519B8C467006F7EDB /* AppIcon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */; };
 		C54AF63619B8C467006F7EDB /* AppIcon40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F1192F5F15007A1520 /* AppIcon40x40@2x.png */; };
-		C54AF63719B8C467006F7EDB /* WLPhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */; };
 		C54AF63819B8C467006F7EDB /* WLAssetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED511934B183009C1DC3 /* WLAssetsViewController.xib */; };
 		C54AF63919B8C467006F7EDB /* AppIcon76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F3192F5F15007A1520 /* AppIcon76x76.png */; };
 		C54AF63A19B8C467006F7EDB /* rings.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9151934B44D0001E570 /* rings.plist */; };
@@ -947,11 +938,9 @@
 		C54AF71A19B8C491006F7EDB /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5104940195C603800D7406E /* Crashlytics.framework */; };
 		C54AF71C19B8C491006F7EDB /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 12DE698B192E4234007580AD /* AviarySDKResources.bundle */; };
 		C54AF71D19B8C491006F7EDB /* WLAssetsGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED451934B183009C1DC3 /* WLAssetsGroupViewController.xib */; };
-		C54AF71F19B8C491006F7EDB /* WLProfileInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9618E186B800A7429F /* WLProfileInformationViewController.xib */; };
 		C54AF72019B8C491006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EC192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png */; };
 		C54AF72119B8C491006F7EDB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F6192F5F15007A1520 /* Default@2x.png */; };
 		C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
-		C54AF72319B8C491006F7EDB /* WLActivationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B9018E1868200A7429F /* WLActivationViewController.xib */; };
 		C54AF72419B8C491006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514ED192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png */; };
 		C54AF72519B8C491006F7EDB /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
 		C54AF72619B8C491006F7EDB /* cars.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* cars.plist */; };
@@ -966,7 +955,6 @@
 		C54AF73119B8C491006F7EDB /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED551934B183009C1DC3 /* WLAssetCell.xib */; };
 		C54AF73219B8C491006F7EDB /* AppIcon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */; };
 		C54AF73319B8C491006F7EDB /* AppIcon40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F1192F5F15007A1520 /* AppIcon40x40@2x.png */; };
-		C54AF73419B8C491006F7EDB /* WLPhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */; };
 		C54AF73519B8C491006F7EDB /* WLAssetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED511934B183009C1DC3 /* WLAssetsViewController.xib */; };
 		C54AF73619B8C491006F7EDB /* AppIcon76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F3192F5F15007A1520 /* AppIcon76x76.png */; };
 		C54AF73719B8C491006F7EDB /* rings.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9151934B44D0001E570 /* rings.plist */; };
@@ -1377,13 +1365,10 @@
 		ACB029D2191AA2DF003A2E0D /* WLInternetConnectionBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLInternetConnectionBroadcaster.m; path = WLBroadcaster/WLInternetConnectionBroadcaster/WLInternetConnectionBroadcaster.m; sourceTree = "<group>"; };
 		ACCF9B8618E185D200A7429F /* WLPhoneNumberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPhoneNumberViewController.h; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.h; sourceTree = "<group>"; };
 		ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPhoneNumberViewController.m; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.m; sourceTree = "<group>"; };
-		ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPhoneNumberViewController.xib; path = WLSignUpViewController/SignUpSteps/WLPhoneNumberViewController/WLPhoneNumberViewController.xib; sourceTree = "<group>"; };
 		ACCF9B8E18E1868200A7429F /* WLActivationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLActivationViewController.h; path = WLSignUpViewController/SignUpSteps/WLActivationViewController/WLActivationViewController.h; sourceTree = "<group>"; };
 		ACCF9B8F18E1868200A7429F /* WLActivationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLActivationViewController.m; path = WLSignUpViewController/SignUpSteps/WLActivationViewController/WLActivationViewController.m; sourceTree = "<group>"; };
-		ACCF9B9018E1868200A7429F /* WLActivationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLActivationViewController.xib; path = WLSignUpViewController/SignUpSteps/WLActivationViewController/WLActivationViewController.xib; sourceTree = "<group>"; };
 		ACCF9B9418E186B800A7429F /* WLProfileInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLProfileInformationViewController.h; path = WLSignUpViewController/SignUpSteps/WLProfileInformationViewController/WLProfileInformationViewController.h; sourceTree = "<group>"; };
 		ACCF9B9518E186B800A7429F /* WLProfileInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileInformationViewController.m; path = WLSignUpViewController/SignUpSteps/WLProfileInformationViewController/WLProfileInformationViewController.m; sourceTree = "<group>"; };
-		ACCF9B9618E186B800A7429F /* WLProfileInformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLProfileInformationViewController.xib; path = WLSignUpViewController/SignUpSteps/WLProfileInformationViewController/WLProfileInformationViewController.xib; sourceTree = "<group>"; };
 		ACDE2A0C192CB38B00CA0803 /* WLEmojiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEmojiView.h; path = WLComposeBar/WLEmojiView/WLEmojiView.h; sourceTree = "<group>"; };
 		ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEmojiView.m; path = WLComposeBar/WLEmojiView/WLEmojiView.m; sourceTree = "<group>"; };
 		ACDE2BA8193DFF4E003702D4 /* WLInviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLInviteViewController.h; path = WLInviteViewController/WLInviteViewController.h; sourceTree = "<group>"; };
@@ -2805,7 +2790,6 @@
 			children = (
 				ACCF9B8618E185D200A7429F /* WLPhoneNumberViewController.h */,
 				ACCF9B8718E185D200A7429F /* WLPhoneNumberViewController.m */,
-				ACCF9B8818E185D200A7429F /* WLPhoneNumberViewController.xib */,
 				5BB04F1519D979E300B5C6EE /* WLTestUserCell */,
 				12DE6981192E0B0F007580AD /* WLTestUserPicker.h */,
 				12DE6982192E0B0F007580AD /* WLTestUserPicker.m */,
@@ -2818,7 +2802,6 @@
 			children = (
 				ACCF9B8E18E1868200A7429F /* WLActivationViewController.h */,
 				ACCF9B8F18E1868200A7429F /* WLActivationViewController.m */,
-				ACCF9B9018E1868200A7429F /* WLActivationViewController.xib */,
 			);
 			name = WLActivationViewController;
 			sourceTree = "<group>";
@@ -2828,7 +2811,6 @@
 			children = (
 				ACCF9B9418E186B800A7429F /* WLProfileInformationViewController.h */,
 				ACCF9B9518E186B800A7429F /* WLProfileInformationViewController.m */,
-				ACCF9B9618E186B800A7429F /* WLProfileInformationViewController.xib */,
 			);
 			name = WLProfileInformationViewController;
 			sourceTree = "<group>";
@@ -3493,11 +3475,9 @@
 				C54AF86119B8C622006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				12F3ED571934B183009C1DC3 /* WLAssetsGroupViewController.xib in Resources */,
 				C54AF85F19B8C622006F7EDB /* WLTestUsersQA.plist in Resources */,
-				ACCF9B9818E186B800A7429F /* WLProfileInformationViewController.xib in Resources */,
 				12D514F7192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				12D51501192F5F15007A1520 /* Default@2x.png in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
-				ACCF9B9218E1868200A7429F /* WLActivationViewController.xib in Resources */,
 				12D514F8192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png in Resources */,
 				129654F518E1CB3000FF43F6 /* WLInputAccessoryView.xib in Resources */,
 				ACF8D9181934B45C0001E570 /* cars.plist in Resources */,
@@ -3516,7 +3496,6 @@
 				12F3ED5F1934B183009C1DC3 /* WLAssetCell.xib in Resources */,
 				12D514FD192F5F15007A1520 /* AppIcon60x60@2x.png in Resources */,
 				12D514FC192F5F15007A1520 /* AppIcon40x40@2x.png in Resources */,
-				ACCF9B8A18E185D200A7429F /* WLPhoneNumberViewController.xib in Resources */,
 				C54AF86019B8C622006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
 				12F3ED5D1934B183009C1DC3 /* WLAssetsViewController.xib in Resources */,
 				12D514FE192F5F15007A1520 /* AppIcon76x76.png in Resources */,
@@ -3549,12 +3528,10 @@
 				C54AF87819B8C63E006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				C54AF52219B8C437006F7EDB /* AviarySDKResources.bundle in Resources */,
 				C54AF52319B8C437006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
-				C54AF52519B8C437006F7EDB /* WLProfileInformationViewController.xib in Resources */,
 				C54AF52619B8C437006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54AF87719B8C63E006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
 				C54AF52719B8C437006F7EDB /* Default@2x.png in Resources */,
 				C54AF52819B8C437006F7EDB /* Images.xcassets in Resources */,
-				C54AF52919B8C437006F7EDB /* WLActivationViewController.xib in Resources */,
 				C54AF52A19B8C437006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */,
 				C54AF52B19B8C437006F7EDB /* WLInputAccessoryView.xib in Resources */,
 				C54AF52C19B8C437006F7EDB /* cars.plist in Resources */,
@@ -3574,7 +3551,6 @@
 				C54AF53819B8C437006F7EDB /* AppIcon60x60@2x.png in Resources */,
 				C54AF53919B8C437006F7EDB /* AppIcon40x40@2x.png in Resources */,
 				C54AF86A19B8C63A006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
-				C54AF53A19B8C437006F7EDB /* WLPhoneNumberViewController.xib in Resources */,
 				C54AF53B19B8C437006F7EDB /* WLAssetsViewController.xib in Resources */,
 				C54AF53C19B8C437006F7EDB /* AppIcon76x76.png in Resources */,
 				C54AF53D19B8C437006F7EDB /* rings.plist in Resources */,
@@ -3607,12 +3583,10 @@
 				C54AF87C19B8C63E006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				C54AF61F19B8C467006F7EDB /* AviarySDKResources.bundle in Resources */,
 				C54AF62019B8C467006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
-				C54AF62219B8C467006F7EDB /* WLProfileInformationViewController.xib in Resources */,
 				C54AF62319B8C467006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54AF87B19B8C63E006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
 				C54AF62419B8C467006F7EDB /* Default@2x.png in Resources */,
 				C54AF62519B8C467006F7EDB /* Images.xcassets in Resources */,
-				C54AF62619B8C467006F7EDB /* WLActivationViewController.xib in Resources */,
 				C54AF62719B8C467006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */,
 				C54AF62819B8C467006F7EDB /* WLInputAccessoryView.xib in Resources */,
 				C54AF62919B8C467006F7EDB /* cars.plist in Resources */,
@@ -3632,7 +3606,6 @@
 				C54AF63519B8C467006F7EDB /* AppIcon60x60@2x.png in Resources */,
 				C54AF63619B8C467006F7EDB /* AppIcon40x40@2x.png in Resources */,
 				C54AF86E19B8C63A006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
-				C54AF63719B8C467006F7EDB /* WLPhoneNumberViewController.xib in Resources */,
 				C54AF63819B8C467006F7EDB /* WLAssetsViewController.xib in Resources */,
 				C54AF63919B8C467006F7EDB /* AppIcon76x76.png in Resources */,
 				C54AF63A19B8C467006F7EDB /* rings.plist in Resources */,
@@ -3665,12 +3638,10 @@
 				C54AF88019B8C63F006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				C54AF71C19B8C491006F7EDB /* AviarySDKResources.bundle in Resources */,
 				C54AF71D19B8C491006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
-				C54AF71F19B8C491006F7EDB /* WLProfileInformationViewController.xib in Resources */,
 				C54AF72019B8C491006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54AF87F19B8C63F006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
 				C54AF72119B8C491006F7EDB /* Default@2x.png in Resources */,
 				C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */,
-				C54AF72319B8C491006F7EDB /* WLActivationViewController.xib in Resources */,
 				C54AF72419B8C491006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */,
 				C54AF72519B8C491006F7EDB /* WLInputAccessoryView.xib in Resources */,
 				C54AF72619B8C491006F7EDB /* cars.plist in Resources */,
@@ -3690,7 +3661,6 @@
 				C54AF73219B8C491006F7EDB /* AppIcon60x60@2x.png in Resources */,
 				C54AF73319B8C491006F7EDB /* AppIcon40x40@2x.png in Resources */,
 				C54AF87219B8C63B006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
-				C54AF73419B8C491006F7EDB /* WLPhoneNumberViewController.xib in Resources */,
 				C54AF73519B8C491006F7EDB /* WLAssetsViewController.xib in Resources */,
 				C54AF73619B8C491006F7EDB /* AppIcon76x76.png in Resources */,
 				C54AF73719B8C491006F7EDB /* rings.plist in Resources */,

@@ -857,6 +857,9 @@ Ravenpod, Inc.
                                                 <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Jh0-1l-1TK" id="Tns-MB-16T"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -879,6 +882,7 @@ Ravenpod, Inc.
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                 <connections>
                                                     <action selector="emailChanged:" destination="Jh0-1l-1TK" eventType="editingChanged" id="77O-CC-A5B"/>
+                                                    <outlet property="delegate" destination="Jh0-1l-1TK" id="5Sy-rg-gpP"/>
                                                 </connections>
                                             </textField>
                                         </subviews>
@@ -1004,6 +1008,7 @@ Ravenpod, Inc.
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
                                             <action selector="textFieldDidChange:" destination="eE2-rt-SMr" eventType="editingChanged" id="VfQ-HL-1MW"/>
+                                            <outlet property="delegate" destination="eE2-rt-SMr" id="haj-pM-H3p"/>
                                         </connections>
                                     </textField>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T4H-t0-WgJ" customClass="WLPressButton">
@@ -1305,6 +1310,9 @@ Ravenpod, Inc.
                                         <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardType="namePhonePad" returnKeyType="done"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="d1e-rR-MvT" id="0cB-H9-qbe"/>
+                                        </connections>
                                     </textField>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fV-w2-es8">
                                         <rect key="frame" x="86" y="68" width="148" height="148"/>

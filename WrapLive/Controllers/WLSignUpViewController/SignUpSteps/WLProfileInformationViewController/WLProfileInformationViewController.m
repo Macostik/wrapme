@@ -66,7 +66,7 @@
 
 - (IBAction)goToMainScreen:(id)sender {
 	[self updateIfNeeded:^{
-		[UIApplication sharedApplication].keyWindow.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+		[UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
 	}];
 }
 

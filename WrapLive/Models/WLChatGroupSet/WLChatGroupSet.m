@@ -36,11 +36,19 @@
     [messagesCopy sortByCreatedAt:YES];
     while (messagesCopy.nonempty) {
         WLUser *contributor = [[messagesCopy firstObject] contributor];
-        group = [self groupByUser:contributor paginationDown:flag];
+        NSDate *date = [[messagesCopy firstObject] createdAt];
+        group = [self groupByUser:contributor byDate:date andPaginationDownFlag:flag];
         [messagesCopy enumerateObjectsUsingBlock:^(WLMessage *message, NSUInteger idx, BOOL *stop) {
             if ([message.contributor isEqualToEntry:contributor]) {
-                [group.entries addObject:message];
-                added = YES;
+                if ([group date] == nil) {
+                   [group.entries addObject:message];
+                    added = YES;
+                } else if ([date isSameDay:message.createdAt]) {
+                    [group.entries addObject:message];
+                    added = YES;
+                } else {
+                    *stop = YES;
+                }
             } else {
                 *stop = YES;
             }
@@ -65,9 +73,11 @@
     [self.delegate paginatedSetChanged:self];
 }
 
-- (WLPaginatedSet *)groupByUser:(WLUser *)user paginationDown:(BOOL)flag {
+- (WLPaginatedSet *)groupByUser:(WLUser *)user byDate:(NSDate *)date andPaginationDownFlag:(BOOL)flag {
     WLPaginatedSet *group = flag ? self.entries.firstObject : self.entries.lastObject;
-    if ([group.entries.firstObject contributor] == user) return group;
+    if ([group.entries.firstObject contributor] == user && [group date] != nil && [[group date] isSameDay:date]) {
+        return group;
+    }
     return [[WLPaginatedSet alloc] init];
 }
 

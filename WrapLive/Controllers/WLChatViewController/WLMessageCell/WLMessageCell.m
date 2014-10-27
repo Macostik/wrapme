@@ -46,7 +46,7 @@
         weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];
     self.nameLabel.text = [NSString stringWithFormat:@"%@", WLString(message.contributor.name)];
-	self.timeLabel.text = [NSString stringWithFormat:@"%@", WLString([message.createdAt stringWithFormat:@"HH:mm"])];;
+	self.timeLabel.text = [NSString stringWithFormat:@"%@", WLString([message.createdAt stringWithFormat:@"HH:mm"])];
     [self.messageTextView determineHyperLink:message.text];
 	[UIView performWithoutAnimation:^{
         CGSize sizeNameLabel = [weakSelf.nameLabel sizeThatFits:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)];
@@ -57,7 +57,8 @@
         if ([self.reuseIdentifier isEqualToString:@"WLMessageCell"]) {
             weakSelf.textViewConstraint.constant = MIN(weakSelf.textViewConstraint.constant,
                                                        weakSelf.width - WLAvatarWidth - MAX(WLMinBubbleWidth, sizeNameLabel.width));
-        } 
+        }
+        weakSelf.textViewConstraint.constant -= !WLIpad ? : 8.0f;
         
         [weakSelf.messageTextView layoutIfNeeded];
 	}];

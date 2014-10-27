@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#define WLIpad UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
-
 #import "WLChatViewController.h"
 #import "WLWrap.h"
 #import "WLAPIManager.h"
@@ -333,12 +331,13 @@ CGFloat WLMaxTextViewWidth;
         return CGSizeZero;
     }
     WLPaginatedSet *group = [self.chatGroup.entries tryObjectAtIndex:section - 1];
+    if (group == self.chatGroup.entries.lastObject) {
+         return CGSizeMake(collectionView.width, 32);
+    }
     WLPaginatedSet *nextGroup = [self.chatGroup.entries tryObjectAtIndex:section];
-//    if (group != nil && nextGroup != nil) {
         if (![[group date] isSameDay:[nextGroup date]]) {
             return CGSizeMake(collectionView.width, 32);
         }
-//    }
     
     return CGSizeZero;
 }

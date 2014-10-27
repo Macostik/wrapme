@@ -19,6 +19,7 @@
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
 #import "WLAPIRequest.h"
+#import "UIDevice+SystemVersion.h"
 
 @interface WLMessageCell ()
 
@@ -58,7 +59,7 @@
             weakSelf.textViewConstraint.constant = MIN(weakSelf.textViewConstraint.constant,
                                                        weakSelf.width - WLAvatarWidth - MAX(WLMinBubbleWidth, sizeNameLabel.width));
         }
-        weakSelf.textViewConstraint.constant -= !WLIpad ? : 8.0f;
+        weakSelf.textViewConstraint.constant -= !SystemVersionGreaterThanOrEqualTo8() ? : 8.0f;
         
         [weakSelf.messageTextView layoutIfNeeded];
 	}];

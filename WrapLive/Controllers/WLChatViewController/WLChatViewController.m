@@ -32,6 +32,7 @@
 #import "UIView+AnimationHelper.h"
 #import "WLTypingView.h"
 #import "WLChatGroupSet.h"
+#import "UIDevice+SystemVersion.h"
 
 CGFloat WLMaxTextViewWidth;
 
@@ -401,10 +402,10 @@ CGFloat WLMaxTextViewWidth;
     __weak __typeof(self)weakSelf = self;
     CGAffineTransform transform = cell.transform;
     CGAffineTransform transformRotate = self.collectionView.transform;
-    CGFloat startPoint =  WLIpad ? self.view.height : -self.view.height;;
+    CGFloat startPoint =  SystemVersionGreaterThanOrEqualTo8() ? self.view.height : -self.view.height;;
     CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(0, startPoint);
     cell.transform =  CGAffineTransformConcat(transformRotate, transformTranslation);
-    [UIView animateWithDuration:.5 delay:0.0f options:UIViewAnimationOptionCurveLinear  animations:^{
+    [UIView animateWithDuration:1.0 delay:0.0f options:UIViewAnimationOptionCurveLinear  animations:^{
             cell.transform = transform;
     } completion:^(BOOL finished) {
         weakSelf.message = nil;

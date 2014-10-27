@@ -8,8 +8,6 @@
 
 #import "WLCollectionItemCell.h"
 
-#define WLIpad UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
-
 static CGFloat WLMessageAuthorLabelHeight = 20.0f;
 static CGFloat WLMessageMinimumCellHeight = 50.0f;
 static CGFloat WLLastMessageMinimumCellHeight = 40.0f;

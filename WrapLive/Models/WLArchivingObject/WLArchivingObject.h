@@ -10,6 +10,8 @@
 
 @interface WLArchivingObject : NSObject <NSCoding, NSCopying>
 
++ (NSArray*)archivableProperties;
+
 - (instancetype)updateWithObject:(id)object;
 
 @end

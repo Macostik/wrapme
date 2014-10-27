@@ -109,7 +109,7 @@
                                                     <constraint firstAttribute="height" constant="75" id="ONj-YX-vHP"/>
                                                 </constraints>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ltR-Py-7vC">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ltR-Py-7vC">
                                                 <rect key="frame" x="5" y="75" width="270" height="291"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="tintColor" red="1" green="0.36211346690000001" blue="0.1047603969" alpha="1" colorSpace="calibratedRGB"/>
@@ -858,6 +858,7 @@ Ravenpod, Inc.
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next"/>
                                                 <connections>
+                                                    <action selector="phoneChanged:" destination="Jh0-1l-1TK" eventType="editingChanged" id="fod-jy-8tl"/>
                                                     <outlet property="delegate" destination="Jh0-1l-1TK" id="Tns-MB-16T"/>
                                                 </connections>
                                             </textField>

@@ -13,7 +13,7 @@
 
 @implementation WLArchivingObject
 
-+ (NSArray*)properties {
++ (NSArray*)archivableProperties {
 	NSArray* properties = objc_getAssociatedObject(self, "recursive_archiving_properties");
 	if (!properties) {
 		Class currentClass = self;
@@ -39,26 +39,26 @@
 	return properties;
 }
 
-+ (void)properties:(void (^)(NSString* property))enumerationBlock {
-    NSArray* properties = [self properties];
++ (void)archivableProperties:(void (^)(NSString* property))enumerationBlock {
+    NSArray* properties = [self archivableProperties];
     @synchronized(properties) {
         [properties all:enumerationBlock];
     }
 }
 
-- (NSArray*)properties {
-	return [[self class] properties];
+- (NSArray*)archivableProperties {
+	return [[self class] archivableProperties];
 }
 
-- (void)properties:(void (^)(NSString* property))enumerationBlock {
-	[[self class] properties:enumerationBlock];
+- (void)archivableProperties:(void (^)(NSString* property))enumerationBlock {
+	[[self class] archivableProperties:enumerationBlock];
 }
 
 - (instancetype)updateWithObject:(id)object {
 	Class class = [object class];
 	__weak typeof(self)weakSelf = self;
 	if (class == [self class]) {
-		[self properties:^(NSString *property) {
+		[self archivableProperties:^(NSString *property) {
 			id value = [object valueForKey:property];
 			if (value) {
 				[weakSelf setValue:value forKey:property];
@@ -74,7 +74,7 @@
 	self = [self init];
 	if (self) {
         __weak typeof(self)weakSelf = self;
-		[self properties:^(NSString *property) {
+		[self archivableProperties:^(NSString *property) {
             if (weakSelf) {
                 id value = [aDecoder decodeObjectForKey:property];
                 if (value) {
@@ -88,7 +88,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     __weak typeof(self)weakSelf = self;
-	[self properties:^(NSString *property) {
+	[self archivableProperties:^(NSString *property) {
         if (weakSelf) {
             [aCoder encodeObject:[weakSelf valueForKey:property] forKey:property];
         }
@@ -101,7 +101,7 @@
 	Class class = [self class];
 	__weak typeof(self)weakSelf = self;
 	WLArchivingObject* copy = [[class allocWithZone:zone] init];
-	[self properties:^(NSString *property) {
+	[self archivableProperties:^(NSString *property) {
 		id value = [weakSelf valueForKey:property];
 		if (value) {
 			if ([value respondsToSelector:@selector(copyWithZone:)]) {

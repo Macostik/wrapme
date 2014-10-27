@@ -1304,7 +1304,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="ro7-vm-AlA" kind="custom" identifier="{&quot;keypaths&quot;:[{&quot;source&quot;:&quot;self&quot;,&quot;destination&quot;:&quot;delegate&quot;}],&quot;transition&quot;:&quot;push&quot;}" id="CPB-6B-j8c"/>
+                                            <segue destination="ro7-vm-AlA" kind="custom" identifier="{&quot;keypaths&quot;:[{&quot;source&quot;:&quot;self&quot;,&quot;destination&quot;:&quot;delegate&quot;}],&quot;transition&quot;:&quot;push&quot;}" customClass="WLSetValueSegue" id="CPB-6B-j8c"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -3646,7 +3646,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WjR-f7-d7j"/>
         <segue reference="USb-FQ-HhL"/>
+        <segue reference="tCH-h8-hRc"/>
     </inferredMetricsTieBreakers>
 </document>

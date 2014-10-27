@@ -40,8 +40,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *countryCodeLabel;
 
 @property (strong, nonatomic) WLCountry *country;
-@property (strong, nonatomic) NSString *email;
-@property (strong, nonatomic) NSString *phoneNumber;
+
+@property (strong, nonatomic) WLAuthorization *authorization;
 
 @property (strong, nonatomic) RMPhoneFormat *phoneFormat;
 
@@ -51,18 +51,18 @@
     NSMutableCharacterSet *_phoneChars;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    self.authorization = [[WLAuthorization alloc] init];
 	self.country = [WLCountry getCurrentCountry];
-    _phoneChars = [[NSCharacterSet decimalDigitCharacterSet] mutableCopy];
+    _phoneChars = [NSMutableCharacterSet decimalDigitCharacterSet];
     [_phoneChars addCharactersInString:@"+*#,"];
 	self.phoneNumberTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(phoneNumberInputCancel:) done:@selector(phoneNumberInputDone:)];
 	self.phoneNumberTextField.text = [WLAuthorization currentAuthorization].phone;
-	self.phoneNumber = self.phoneNumberTextField.text;
+	self.authorization.phone = self.phoneNumberTextField.text;
 	self.emailTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(emailInputCancel:) done:@selector(emailInputDone:)];
 	self.emailTextField.text = [WLAuthorization currentAuthorization].email;
-	self.email = self.emailTextField.text;
+	self.authorization.email = self.emailTextField.text;
 	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 	if ([WLAPIManager instance].environment.useTestUsers) {
 		__weak typeof(self)weakSelf = self;
@@ -84,6 +84,7 @@
 
 - (void)setCountry:(WLCountry *)country {
 	_country = country;
+    self.authorization.countryCode = country.callingCode;
 	[self.selectCountryButton setTitle:self.country.name forState:UIControlStateNormal];
 	self.countryCodeLabel.text = [NSString stringWithFormat:@"+%@", self.country.callingCode];
     self.phoneFormat = [[RMPhoneFormat alloc] initWithDefaultCountry:[self.country.code lowercaseString]];
@@ -95,33 +96,14 @@
 	[self validateSignUpButton];
 }
 
-- (void)setPhoneNumber:(NSString *)phoneNumber {
-    _phoneNumber = phoneNumberClearing (phoneNumber);
-	[self validateSignUpButton];
-}
-
-- (void)setEmail:(NSString *)email {
-	_email = email;
-	[self validateSignUpButton];
-}
-
 - (void)validateSignUpButton {
-	self.signUpButton.active = self.phoneNumber.nonempty && self.email.nonempty;
-}
-
-- (WLAuthorization *)authorization {
-	WLAuthorization *authorization = [WLAuthorization new];
-    authorization.formattedPhone = self.phoneNumberTextField.text;
-	authorization.phone = self.phoneNumber;
-	authorization.countryCode = self.country.callingCode;
-	authorization.email = self.email;
-	return authorization;
+	self.signUpButton.active = self.authorization.canSignUp;
 }
 
 #pragma mark - Actions
 
 - (IBAction)signUp:(WLButton*)sender {
-	if ([self.email isValidEmail]) {
+	if ([self.authorization.email isValidEmail]) {
 		__weak typeof(self)weakSelf = self;
 		[self confirmAuthorization:[self authorization] success:^(WLAuthorization *authorization) {
 			[weakSelf signUpAuthorization:authorization];
@@ -184,12 +166,23 @@
 }
 
 - (void)emailInputDone:(id)sender {
-    [self.emailTextField resignFirstResponder];
-    [self signUp:self.signUpButton];
+    if (!self.phoneNumberTextField.text.nonempty) {
+        [self.phoneNumberTextField becomeFirstResponder];
+    } else {
+        [self.emailTextField resignFirstResponder];
+        [self signUp:self.signUpButton];
+    }
+}
+
+- (IBAction)phoneChanged:(UITextField *)sender {
+    self.authorization.phone = phoneNumberClearing(sender.text);
+    self.authorization.formattedPhone = sender.text;
+    [self validateSignUpButton];
 }
 
 - (IBAction)emailChanged:(UITextField *)sender {
-	self.email = sender.text;
+	self.authorization.email = sender.text;
+    [self validateSignUpButton];
 }
 
 - (void)selectTestUser {
@@ -270,14 +263,6 @@
         NSString* resultString = [textField.text stringByReplacingCharactersInRange:range withString:string];
         return resultString.length <= WLProfileNameLimit;
     }
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-	if (textField == self.phoneNumberTextField) {
-		self.phoneNumber = self.phoneNumberTextField.text;
-	} else {
-		self.email = self.emailTextField.text;
-	}
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver

@@ -2232,8 +2232,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aqT-yE-MER">
                                 <rect key="frame" x="0.0" y="64" width="320" height="54"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="  sdf dfsa fsd fsdf sdjfh dsfjsd afjsd fjdsf jsdf sdjfdsfsadf sdfasdf sdf sadfsd" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dW-gY-pJQ">
-                                        <rect key="frame" x="45" y="12" width="212" height="30"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  sdf dfsa fsd fsdf sdjfh dsfjsd afjsd fjdsf jsdf sdjfdsfsadf sdfasdf sdf sadfsd" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dW-gY-pJQ">
+                                        <rect key="frame" x="50" y="12" width="212" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="wuq-en-3dX"/>
                                         </constraints>
@@ -2290,7 +2290,7 @@
                                     <constraint firstAttribute="trailing" secondItem="6dW-gY-pJQ" secondAttribute="trailing" constant="58" id="caW-WR-PtW"/>
                                     <constraint firstItem="zSv-FG-iwF" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" id="g48-ZH-sWx"/>
                                     <constraint firstItem="zSv-FG-iwF" firstAttribute="leading" secondItem="aqT-yE-MER" secondAttribute="leading" constant="50" id="u9I-B4-W4d"/>
-                                    <constraint firstItem="6dW-gY-pJQ" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" constant="10" id="w2T-78-DVw"/>
+                                    <constraint firstItem="6dW-gY-pJQ" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" constant="12" id="w2T-78-DVw"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b0w-IA-ZYu">
@@ -2792,7 +2792,6 @@
                     <connections>
                         <outlet property="collectionView" destination="jyK-17-cAD" id="BfX-xF-M1l"/>
                         <outlet property="collectionViewTopConstraint" destination="hPI-OJ-Hy4" id="SgT-Bp-sES"/>
-                        <outlet property="composeBarBottomConstraint" destination="7Hc-du-E5Y" id="pjq-9M-aOP"/>
                         <outlet property="composeBarView" destination="H5m-hD-Eet" id="Fox-fh-5fg"/>
                         <outlet property="leftArrow" destination="hzp-4h-Ls3" id="TJS-jC-cPK"/>
                         <outlet property="navigationBar" destination="Wbg-W9-8Ie" id="rqy-nr-XQo"/>
@@ -2801,6 +2800,8 @@
                         <outlet property="rightArrow" destination="kR2-wp-una" id="oOr-gf-dnD"/>
                         <outlet property="topBackgoundView" destination="Spf-Ou-0kM" id="J9Y-eM-ce8"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="GFY-S2-eYl"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="7Hc-du-E5Y" id="909-ij-QhE"/>
+                        <outletCollection property="keyboardAdjustmentTopConstraints" destination="eku-Sv-U5Q" id="yac-IK-Bzg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLM-ad-e36" userLabel="First Responder" sceneMemberID="firstResponder"/>

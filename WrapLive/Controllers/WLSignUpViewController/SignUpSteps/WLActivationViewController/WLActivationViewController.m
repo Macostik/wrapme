@@ -122,9 +122,9 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 }
 
 - (IBAction)done:(id)sender {
-    /*if ([WLUser currentUser].name.nonempty) {
-        [UIApplication sharedApplication].keyWindow.rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
-    } else*/ {
+    if ([WLUser currentUser].name.nonempty) {
+        [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
+    } else {
         WLProfileInformationViewController * controller = [WLProfileInformationViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]];
         [self.navigationController pushViewController:controller animated:YES];
     }

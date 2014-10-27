@@ -17,8 +17,6 @@ static NSString* WLDetailedCandyCellIdentifier = @"WLDetailedCandyCell";
 
 @property (weak, nonatomic) IBOutlet WLClearProgressBar *progressBar;
 
-- (void)reloadComments;
-
 - (void)refresh;
 
 @end

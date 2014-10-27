@@ -87,19 +87,17 @@
 	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
     self.nameLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
     self.progressBar.hidden = image.uploaded;
-	[self reloadComments];
+	[self.tableView reloadData];
     if (!NSNumberEqual(image.unread, @NO)) image.unread = @NO;
-}
-
-- (void)reloadComments {
-    WLCandy* candy = self.item;
-    self.comments = candy.comments;
-    [self.tableView reloadData];
 }
 
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    WLCandy* candy = self.item;
+    self.comments = [candy.comments selectObjects:^BOOL (WLComment *comment) {
+        return comment.valid;
+    }];
 	return self.comments.count;
 }
 

@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLKeyboardBroadcaster.h"
 
-@interface WLBaseViewController : UIViewController
+@interface WLBaseViewController : UIViewController <WLKeyboardBroadcastReceiver>
+
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *keyboardAdjustmentLayoutViews;
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight;
 

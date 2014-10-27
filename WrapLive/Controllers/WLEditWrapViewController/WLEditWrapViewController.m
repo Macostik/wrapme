@@ -31,14 +31,16 @@ static NSString *const WLLeave = @"Leave";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap stringProperties:@"name", nil];
-    self.nameWrapTextField.layer.borderWidth = 0.5;
-	self.nameWrapTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
     self.deleteButton.layer.cornerRadius = 3.0f;
     [self.nameWrapTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
     BOOL isMyWrap = [self isMyWrap];
     self.deleteLabel.text = [NSString stringWithFormat:@"%@ this wrap", isMyWrap ? WLDelete : WLLeave];
     [self.deleteButton setTitle:isMyWrap ? WLDelete : WLLeave forState:UIControlStateNormal];
     self.nameWrapTextField.enabled = isMyWrap;
+    if (isMyWrap) {
+        self.nameWrapTextField.layer.borderWidth = 0.5;
+        self.nameWrapTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
+    }
 }
 
 - (void)setupEditableUserInterface {

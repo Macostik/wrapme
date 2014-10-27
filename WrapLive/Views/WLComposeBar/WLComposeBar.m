@@ -50,12 +50,11 @@ static NSUInteger WLComposeBarMinHeight = 44;
 - (void)checkHeight {
     CGFloat height = [self.textView sizeThatFits:CGSizeMake(self.textView.width, CGFLOAT_MAX)].height + self.textView.textContainerInset.top + self.textView.textContainerInset.bottom;
     height = Smoothstep(WLComposeBarMinHeight, WLComposeBarMaxHeight, height);
-    //        CGFloat theHeight = [self.textView sizeThatFits:CGSizeMake(self.textView.width, CGFLOAT_MAX)].height;
-    if (ABS(height - self.height) > 10) {
+    if (ABS(height - self.height) > 5) {
         self.height = height;
-        self.composeView.height = self.height;
-        if ([self.delegate respondsToSelector:@selector(composeBarHeightDidChanged:)]) {
-            [self.delegate composeBarHeightDidChanged:self];
+        self.composeView.height = height;
+        if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
+            [self.delegate composeBarDidChangeHeight:self];
         }
     }
 }
@@ -63,7 +62,8 @@ static NSUInteger WLComposeBarMinHeight = 44;
 - (void)setHeight:(CGFloat)height {
     if (self.heightConstraint) {
         self.heightConstraint.constant = height;
-        [self layoutIfNeeded];
+        [self.heightConstraint.firstItem layoutIfNeeded];
+        [self.heightConstraint.secondItem layoutIfNeeded];
     } else {
         [super setHeight:height];
     }
@@ -74,11 +74,11 @@ static NSUInteger WLComposeBarMinHeight = 44;
 }
 
 - (void)setText:(NSString *)text {
-    [self checkHeight];
 	self.textView.text = text;
+    [self checkHeight];
 	[self updateStateAnimated:YES];
-	if ([self.delegate respondsToSelector:@selector(composeBarHeightDidChanged:)]) {
-		[self.delegate composeBarHeightDidChanged:self];
+	if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
+		[self.delegate composeBarDidChangeHeight:self];
 	}
 }
 

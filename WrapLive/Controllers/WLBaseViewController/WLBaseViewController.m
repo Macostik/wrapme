@@ -7,7 +7,6 @@
 //
 
 #import "WLBaseViewController.h"
-#import "WLKeyboardBroadcaster.h"
 #import "NSArray+Additions.h"
 #import "UIView+AnimationHelper.h"
 #import "WLNavigation.h"
@@ -36,6 +35,13 @@
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
     return keyboardHeight;
+}
+
+- (NSArray *)keyboardAdjustmentLayoutViews {
+    if (!_keyboardAdjustmentLayoutViews.nonempty) {
+        _keyboardAdjustmentLayoutViews = @[self.view];
+    }
+    return _keyboardAdjustmentLayoutViews;
 }
 
 - (BOOL)updateKeyboardAdjustmentConstraints:(CGFloat)adjustment {
@@ -76,7 +82,9 @@
     if ([self updateKeyboardAdjustmentConstraints:adjustment]) {
         __weak typeof(self)weakSelf = self;
         [broadcaster performAnimation:^{
-            [weakSelf.view layoutIfNeeded];
+            for (UIView *layoutView in weakSelf.keyboardAdjustmentLayoutViews) {
+                [layoutView layoutIfNeeded];
+            }
         }];
     }
 }
@@ -87,7 +95,9 @@
     [self.keyboardAdjustmentDefaultConstants removeAllObjects];
     __weak typeof(self)weakSelf = self;
     [broadcaster performAnimation:^{
-        [weakSelf.view layoutIfNeeded];
+        for (UIView *layoutView in weakSelf.keyboardAdjustmentLayoutViews) {
+            [layoutView layoutIfNeeded];
+        }
     }];
 }
 

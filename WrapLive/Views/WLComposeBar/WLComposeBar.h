@@ -16,7 +16,7 @@
 
 @optional;
 
-- (void)composeBarHeightDidChanged:(WLComposeBar*)composeBar;
+- (void)composeBarDidChangeHeight:(WLComposeBar*)composeBar;
 - (void)composeBarDidChangeText:(WLComposeBar*)composeBar;
 - (NSUInteger)composeBarCharactersLimit:(WLComposeBar*)composeBar;
 - (void)composeBarDidBeginEditing:(WLComposeBar*)composeBar;
@@ -27,7 +27,7 @@
 
 @interface WLComposeBar : UIView
 
-@property (nonatomic, weak) IBOutlet id <WLComposeBarDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id delegate;
 
 @property (strong, nonatomic) NSString* text;
 

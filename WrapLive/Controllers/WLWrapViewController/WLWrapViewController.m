@@ -173,12 +173,11 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 }
 
 - (UIViewController *)shakePresentedViewController {
-	__weak typeof(self)weakSelf = self;
-	return [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
-		controller.wrap = weakSelf.wrap;
-		controller.delegate = self;
-		controller.mode = WLCameraModeCandy;
-	}];
+    WLStillPictureViewController *controller = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
+    controller.wrap = self.wrap;
+    controller.delegate = self;
+    controller.mode = WLCameraModeCandy;
+	return controller;
 }
 
 #pragma mark - WLEntryNotifyReceiver

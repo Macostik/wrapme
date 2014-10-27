@@ -67,7 +67,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *leftArrow;
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 @property (weak, nonatomic) IBOutlet UIView *topView;
-@property (weak, nonatomic) IBOutlet UIImageView *topBackgoundView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 
@@ -301,38 +300,11 @@
     return self.candy;
 }
 
-#pragma mark - WLKeyboardBroadcastReceiver
-
-//- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-//    self.topBackgoundView.hidden = NO;
-//    self.composeBarBottomConstraint.constant = 0;
-//    self.navigationBarTopConstraint.constant = -20;
-////    self.collectionViewTopConstraint.constant = -20;
-//    __weak typeof(self)weakSelf = self;
-//    [UIView animateWithDuration:[broadcaster.duration doubleValue] animations:^{
-//        [UIView setAnimationCurve:[broadcaster.animationCurve integerValue]];
-//        [weakSelf.collectionView layoutIfNeeded];
-//        [weakSelf.composeBarView layoutIfNeeded];
-//        [weakSelf.navigationBar layoutIfNeeded];
-//    }];
-//}
-//
-//- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
-//    self.topBackgoundView.hidden = YES;
-//    self.composeBarBottomConstraint.constant = [keyboardHeight floatValue];
-//    self.navigationBarTopConstraint.constant = -self.navigationBar.height-20;
-////    self.collectionViewTopConstraint.constant = self.navigationBarTopConstraint.constant;
-//    [self.collectionView.collectionViewLayout prepareForAnimatedBoundsChange:self.collectionView.bounds];
-//    __weak typeof(self)weakSelf = self;
-//    [UIView animateWithDuration:[broadcaster.duration doubleValue] animations:^{
-//        [UIView setAnimationCurve:[broadcaster.animationCurve integerValue]];
-//        [weakSelf.collectionView layoutIfNeeded];
-//        [weakSelf.composeBarView layoutIfNeeded];
-//        [weakSelf.navigationBar layoutIfNeeded];
-//    } completion:^(BOOL finished) {
-//        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
-//    }];
-//}
+- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster didShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
+    [super broadcaster:broadcaster willShowKeyboardWithHeight:keyboardHeight];
+    UITableView* tableView = self.candyCell.tableView;
+    [tableView scrollToBottomAnimated:YES];
+}
 
 #pragma mark - Actions
 
@@ -375,9 +347,7 @@
         [tableView scrollToBottomAnimated:YES];
     } failure:^(NSError *error) {
     }];
-    run_after_asap(^{
-        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
-    });
+    [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
 }
 
 #pragma mark - WLComposeBarDelegate
@@ -386,12 +356,12 @@
 	[self sendMessageWithText:text];
 }
 
-- (void)composeBarHeightDidChanged:(WLComposeBar *)composeBar {
+- (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
     [self.candyCell.tableView scrollToBottomAnimated:YES];
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
-	return YES;
+	return NO;
 }
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout

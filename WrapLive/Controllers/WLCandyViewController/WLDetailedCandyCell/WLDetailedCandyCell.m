@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (strong, nonatomic) NSOrderedSet* comments;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIView *topView;
 
 @end
 
@@ -33,6 +34,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     self.refresher = [WLRefresher refresher:self.tableView target:self action:@selector(refresh) style:WLRefresherStyleOrange];
     [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
 }
@@ -62,30 +64,31 @@
     }
 }
 
+- (void)setItem:(id)item {
+    if (self.item != item) {
+        self.tableView.contentOffset = CGPointMake(0, -64);
+    }
+    [super setItem:item];
+}
+
 - (void)setupItemData:(WLCandy*)image {
     if (self.refresher.refreshing) {
         [self.refresher setRefreshing:NO animated:YES];
     }
 	__weak typeof(self)weakSelf = self;
+	if (!self.spinner.isAnimating) [self.spinner startAnimating];
+	[self.imageView setUrl:image.picture.medium success:^(UIImage *image, BOOL cached) {
+        if (weakSelf.spinner.isAnimating) [weakSelf.spinner stopAnimating];
+    } failure:^(NSError *error) {
+        if (weakSelf.spinner.isAnimating) [weakSelf.spinner stopAnimating];
+    }];
+	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
+    self.nameLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
     if (![WLInternetConnectionBroadcaster broadcaster].reachable) {
         self.progressBar.progress = .2f;
     } else {
         self.progressBar.operation = image.uploading.operation;
     }
-	if (!self.spinner.isAnimating) {
-		[self.spinner startAnimating];
-	}
-	[self.imageView setUrl:image.picture.medium success:^(UIImage *image, BOOL cached) {
-        if (weakSelf.spinner.isAnimating) {
-			[weakSelf.spinner stopAnimating];
-		}
-    } failure:^(NSError *error) {
-        if (weakSelf.spinner.isAnimating) {
-			[weakSelf.spinner stopAnimating];
-		}
-    }];
-	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(image.createdAt.timeAgoString)];
-    self.nameLabel.text = [NSString stringWithFormat:@"By %@", WLString(image.contributor.name)];
     self.progressBar.hidden = image.uploaded;
 	[self.tableView reloadData];
     if (!NSNumberEqual(image.unread, @NO)) image.unread = @NO;

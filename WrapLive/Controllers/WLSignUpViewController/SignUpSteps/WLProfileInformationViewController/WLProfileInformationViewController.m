@@ -92,11 +92,10 @@
 }
 
 - (IBAction)createImage:(id)sender {
-	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:^(WLStillPictureViewController* controller) {
-		controller.delegate = self;
-		controller.defaultPosition = AVCaptureDevicePositionFront;
-		controller.mode = WLCameraModeAvatar;
-	}];
+	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
+    cameraNavigation.delegate = self;
+    cameraNavigation.defaultPosition = AVCaptureDevicePositionFront;
+    cameraNavigation.mode = WLCameraModeAvatar;
 	[self.navigationController.navigationController presentViewController:cameraNavigation animated:YES completion:nil];
 }
 

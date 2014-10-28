@@ -999,158 +999,6 @@
             </objects>
             <point key="canvasLocation" x="923" y="890"/>
         </scene>
-        <!--Edit Wrap View Controller-->
-        <scene sceneID="dkf-Co-MZW">
-            <objects>
-                <viewController storyboardIdentifier="WLEditWrapViewController" id="XA1-LT-u0J" customClass="WLEditWrapViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="DKR-fh-40h"/>
-                        <viewControllerLayoutGuide type="bottom" id="SiN-Da-FfM"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Zl2-e2-Vxl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HI4-AJ-lfr">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XWl-H2-glZ">
-                                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6E4-9i-5tM">
-                                        <rect key="frame" x="0.0" y="20" width="44" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="44" id="Yqt-q4-e3T"/>
-                                        </constraints>
-                                        <state key="normal" image="ic_back_orange">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="back:" destination="XA1-LT-u0J" eventType="touchUpInside" id="CqH-Wc-jfw"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="6E4-9i-5tM" secondAttribute="bottom" id="4sv-zd-F0k"/>
-                                    <constraint firstAttribute="trailing" secondItem="XWl-H2-glZ" secondAttribute="trailing" id="6wU-8T-T0V"/>
-                                    <constraint firstItem="XWl-H2-glZ" firstAttribute="top" secondItem="HI4-AJ-lfr" secondAttribute="top" constant="20" id="I55-II-xL2"/>
-                                    <constraint firstItem="6E4-9i-5tM" firstAttribute="leading" secondItem="HI4-AJ-lfr" secondAttribute="leading" id="Tsx-jV-0Vp"/>
-                                    <constraint firstItem="6E4-9i-5tM" firstAttribute="top" secondItem="HI4-AJ-lfr" secondAttribute="top" constant="20" id="gMm-ic-kFc"/>
-                                    <constraint firstItem="XWl-H2-glZ" firstAttribute="leading" secondItem="HI4-AJ-lfr" secondAttribute="leading" id="i08-uz-HDI"/>
-                                    <constraint firstAttribute="bottom" secondItem="XWl-H2-glZ" secondAttribute="bottom" id="kS2-7a-2SS"/>
-                                    <constraint firstAttribute="height" constant="64" id="y7U-F9-cdu"/>
-                                </constraints>
-                            </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6jD-nG-AF2">
-                                <rect key="frame" x="30" y="72" width="260" height="176"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Wrap name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Zl-7g-q4o">
-                                        <rect key="frame" x="0.0" y="20" width="260" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <action selector="textFieldEditChange:" destination="XA1-LT-u0J" eventType="editingChanged" id="loK-l6-XU0"/>
-                                            <outlet property="delegate" destination="XA1-LT-u0J" id="QiK-GW-DUq"/>
-                                        </connections>
-                                    </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Delete this wrap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebg-HA-3MU">
-                                        <rect key="frame" x="0.0" y="88" width="129" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xvX-FZ-hl5" customClass="WLPressButton">
-                                        <rect key="frame" x="192" y="87" width="68" height="24"/>
-                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Delete">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="deleteButtonClick:" destination="XA1-LT-u0J" eventType="touchUpInside" id="69y-fJ-lJb"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="176" id="ZKf-dW-pvF"/>
-                                    <constraint firstAttribute="width" constant="260" id="o8H-1q-0gu"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vs8-ix-VjZ" customClass="WLPressButton">
-                                <rect key="frame" x="0.0" y="524" width="160" height="44"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Dap-Uh-WAs"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancel:" destination="XA1-LT-u0J" eventType="touchUpInside" id="KXw-52-cve"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehC-Hf-JSi" customClass="WLPressButton">
-                                <rect key="frame" x="161" y="524" width="159" height="44"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="bgN-IN-zba"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="done:" destination="XA1-LT-u0J" eventType="touchUpInside" id="b8F-NX-HuX"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ehC-Hf-JSi" secondAttribute="trailing" id="1by-UH-a4C"/>
-                            <constraint firstItem="SiN-Da-FfM" firstAttribute="top" secondItem="ehC-Hf-JSi" secondAttribute="bottom" id="64Y-Jf-gpy"/>
-                            <constraint firstItem="ehC-Hf-JSi" firstAttribute="leading" secondItem="vs8-ix-VjZ" secondAttribute="trailing" constant="1" id="FGK-ee-2Fi"/>
-                            <constraint firstItem="SiN-Da-FfM" firstAttribute="top" secondItem="vs8-ix-VjZ" secondAttribute="bottom" id="NK6-W7-I42"/>
-                            <constraint firstAttribute="trailing" secondItem="HI4-AJ-lfr" secondAttribute="trailing" id="a4F-WV-H83"/>
-                            <constraint firstAttribute="centerX" secondItem="6jD-nG-AF2" secondAttribute="centerX" id="hme-Hs-KkI"/>
-                            <constraint firstItem="vs8-ix-VjZ" firstAttribute="leading" secondItem="Zl2-e2-Vxl" secondAttribute="leading" id="jLF-6q-7db"/>
-                            <constraint firstItem="ehC-Hf-JSi" firstAttribute="width" secondItem="vs8-ix-VjZ" secondAttribute="width" id="p0W-oF-KtB"/>
-                            <constraint firstItem="HI4-AJ-lfr" firstAttribute="leading" secondItem="Zl2-e2-Vxl" secondAttribute="leading" id="u14-eo-ASX"/>
-                            <constraint firstItem="HI4-AJ-lfr" firstAttribute="top" secondItem="DKR-fh-40h" secondAttribute="bottom" constant="-20" id="upz-h5-KFb"/>
-                            <constraint firstItem="6jD-nG-AF2" firstAttribute="top" secondItem="DKR-fh-40h" secondAttribute="bottom" constant="52" id="vmi-J7-N1K"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="cancelButton" destination="vs8-ix-VjZ" id="lOZ-ja-Qf1"/>
-                        <outlet property="deleteButton" destination="xvX-FZ-hl5" id="mue-2l-gZQ"/>
-                        <outlet property="deleteLabel" destination="ebg-HA-3MU" id="PaX-NT-ZEg"/>
-                        <outlet property="doneButton" destination="ehC-Hf-JSi" id="7W5-mQ-maP"/>
-                        <outlet property="nameWrapTextField" destination="5Zl-7g-q4o" id="5pY-tY-7p4"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="NK6-W7-I42" id="TZt-RL-Qm7"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="64Y-Jf-gpy" id="BEL-Ws-vQ5"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cAR-nR-eVt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1430" y="890"/>
-        </scene>
         <!--Create Wrap View Controller-->
         <scene sceneID="z3r-xS-Rlo">
             <objects>
@@ -2276,6 +2124,19 @@
                                         </state>
                                         <connections>
                                             <segue destination="qRW-aK-Lk5" kind="custom" identifier="wrap-&gt;wrap" customClass="WLSetValueSegue" id="KzJ-t1-ugM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3F6-Kp-Py8">
+                                        <rect key="frame" x="266" y="0.0" width="54" height="54"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="54" id="7V1-rD-1ij"/>
+                                            <constraint firstAttribute="height" constant="54" id="Egc-Dy-hWr"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_settings">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="editWrapClick:" destination="hUj-RK-zkg" eventType="touchUpInside" id="CaY-mg-f5E"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -3564,6 +3425,25 @@ Check your internet connection and try again.</string>
             </objects>
             <point key="canvasLocation" x="2305" y="836"/>
         </scene>
+        <!--Action View Controller-->
+        <scene sceneID="W5t-rx-E7y">
+            <objects>
+                <viewController storyboardIdentifier="WLActionViewController" id="KRV-iv-ubq" customClass="WLActionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SsB-no-pZP"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jt7-TM-3Pk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zVR-Vn-gqF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1P8-Co-zyU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2174" y="-682"/>
+        </scene>
     </scenes>
     <resources>
         <image name="btn_add_peaples_enabled" width="30" height="30"/>
@@ -3606,5 +3486,6 @@ Check your internet connection and try again.</string>
     <inferredMetricsTieBreakers>
         <segue reference="WjR-f7-d7j"/>
         <segue reference="USb-FQ-HhL"/>
+        <segue reference="WjR-f7-d7j"/>
     </inferredMetricsTieBreakers>
 </document>

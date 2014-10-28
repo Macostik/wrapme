@@ -7,10 +7,11 @@
 //
 
 #import "WLEditWrapViewController.h"
-#import "WLEditViewController.h"
+#import "WLActionViewController.h"
 
 @interface WLEditWrapViewController : WLEditViewController
 
 @property (strong, nonatomic) WLWrap *wrap;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @end

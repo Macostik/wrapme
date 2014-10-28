@@ -50,6 +50,7 @@
 #import "WLNotification.h"
 #import "WLSizeToFitLabel.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLActionViewController.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
     WLWrapViewModeTimeline,
@@ -178,6 +179,10 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     controller.delegate = self;
     controller.mode = WLCameraModeCandy;
 	return controller;
+}
+
+- (IBAction)editWrapClick:(id)sender {
+    [WLActionViewController addEditWrapViewControllerWithWrap:self.wrap toParentViewController:self];
 }
 
 #pragma mark - WLEntryNotifyReceiver

@@ -61,7 +61,7 @@
 
 - (void)apply:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     WLUpdateContributorsRequest *updateContributot = [WLUpdateContributorsRequest request:self.wrap];
-    updateContributot.contributors = [[self.editSession changedValueForProperty:@"contributors"] array];
+    updateContributot.contributors = [[self.editSession changedValueForProperty:@"removedContributors"] array];
     [updateContributot send:success failure:failure];
 }
 

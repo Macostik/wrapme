@@ -70,7 +70,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCandiesHistoryViewSection *historyViewSection;
 @property (strong, nonatomic) IBOutlet WLTimelineViewDataProvider *timelineDataProvider;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet WLSizeToFitLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewConstraint;
@@ -121,7 +121,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 }
 
 - (void)updateWrapData {
-    self.nameLabel.text = WLString(self.wrap.name);
+    [self.nameLabel setTitle:WLString(self.wrap.name) forState:UIControlStateNormal];
     self.contributorsLabel.text = [self.wrap contributorNames];
 }
 
@@ -191,7 +191,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-	[WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.", WLString(self.nameLabel.text)]];
+	[WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.", WLString([self.nameLabel titleForState:UIControlStateNormal])]];
 	__weak typeof(self)weakSelf = self;
 	run_after(0.5f, ^{
 		[weakSelf.navigationController popToRootViewControllerAnimated:YES];

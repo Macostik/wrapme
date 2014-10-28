@@ -320,24 +320,6 @@
 
 - (IBAction)report:(UIButton *)sender {
     [WLActionViewController addCandyViewControllerWithCandy:self.candy toParentViewController:self];
-//    WLCandy* candy = self.candy;
-//    if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
-//        [UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Delete" completion:^(NSUInteger index) {
-//            if (index == 0) {
-//                [candy remove:^(id object) {
-//                    [WLToast showWithMessage:@"Candy was deleted successfully."];
-//                } failure:^(NSError *error) {
-//                    [error show];
-//                }];
-//            }
-//        }];
-//    } else {
-//        [UIActionSheet showWithTitle:nil cancel:@"Cancel" destructive:@"Report as inappropriate" completion:^(NSUInteger index) {
-//            if (index == 0) {
-//                [MFMailComposeViewController messageWithCandy:candy];
-//            }
-//        }];
-//    }
 }
 
 - (void)sendMessageWithText:(NSString*)text {

@@ -8,6 +8,13 @@
 
 #import "WLReportCandyViewController.h"
 #import "WLButton.h"
+#import "UIView+QuatzCoreAnimations.h"
+#import "MFMailComposeViewController+Additions.h"
+#import "WLAPIManager.h"
+#import "WLToast.h"
+
+static NSString *const WLDelete = @"Delete";
+static NSString *const WLReport = @"Report";
 
 @interface WLReportCandyViewController ()
 
@@ -21,7 +28,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.contentView.layer.cornerRadius = 6.0f;
+    self.titleLabel.text = [NSString stringWithFormat:@"%@ this candy", [self isMyCandy] ? WLDelete : WLReport];
+    [self.deleteButton setTitle:[self isMyCandy] ? WLDelete : WLReport forState:UIControlStateNormal];
+
+    [self.contentView topPushWithDuration:1.0 delegate:nil];
+}
+
+- (BOOL)isMyCandy {
+    return [self.candy.contributor isCurrentUser] || [self.candy.wrap.contributor isCurrentUser];
+}
+
+- (IBAction)removeFromController:(id)sender {
+    UIViewController *parentViewController = [self parentViewController];
+    [parentViewController.view removeFromSuperview];
+    [parentViewController removeFromParentViewController];
+}
+
+- (IBAction)deleteCandy:(id)sender {
+    if ([self isMyCandy]) {
+        [self.candy remove:^(id object) {
+            [WLToast showWithMessage:@"Candy was deleted successfully."];
+        } failure:^(NSError *error) {
+            [error show];
+        }];
+    } else {
+        [MFMailComposeViewController messageWithCandy:self.candy];
+    }
+    
 }
 
 @end

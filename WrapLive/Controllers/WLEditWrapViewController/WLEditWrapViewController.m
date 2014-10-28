@@ -33,23 +33,19 @@ static NSString *const WLLeave = @"Leave";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.contentView.layer.cornerRadius = 6.0f;
     
     self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap stringProperties:@"name", nil];
     
     self.nameWrapTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
-    self.nameWrapTextField.layer.borderWidth = 0.5;
-    self.deleteButton.layer.cornerRadius = 3.0f;
     [self.nameWrapTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
-    [self.nameWrapTextField addTarget:self action:@selector(textFieldEditChange:) forControlEvents:UIControlEventEditingChanged];
-    [self.deleteButton addTarget:self action:@selector(deleteButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
+
     BOOL isMyWrap = [self isMyWrap];
     
     self.deleteLabel.text = [NSString stringWithFormat:@"%@ this wrap", isMyWrap ? WLDelete : WLLeave];
     [self.deleteButton setTitle:isMyWrap ? WLDelete : WLLeave forState:UIControlStateNormal];
     self.nameWrapTextField.enabled = isMyWrap;
     [self setupEditableUserInterface];
+    [self.contentView topPushWithDuration:1.0 delegate:nil];
 }
 
 - (void)setupEditableUserInterface {
@@ -97,6 +93,12 @@ static NSString *const WLLeave = @"Leave";
             [error show];
         }];
     }
+}
+
+- (IBAction)removeFromController:(id)sender {
+    UIViewController *parentViewController = [self parentViewController];
+    [parentViewController.view removeFromSuperview];
+    [parentViewController removeFromParentViewController];
 }
 
 @end

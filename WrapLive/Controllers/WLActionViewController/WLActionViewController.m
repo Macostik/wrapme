@@ -47,10 +47,6 @@ static NSString *const wlActionViewController = @"WLActionViewController";
     
     self.view.window.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
     self.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-    id vc = self.childViewControllers.firstObject;
-    if (vc) {
-        [vc contentView].center = self.view.center;
-    }
 }
 
 @end

@@ -2369,10 +2369,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="46L-mU-Uks">
-                                <rect key="frame" x="97" y="443" width="125" height="125"/>
+                                <rect key="frame" x="118" y="480" width="84" height="84"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPi-5r-EKQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="84" height="84"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="61"/>
                                         <state key="normal" backgroundImage="btn_wrap_camera_enabled">
@@ -2390,9 +2390,9 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="OPi-5r-EKQ" secondAttribute="trailing" id="GfN-ig-Yks"/>
-                                    <constraint firstAttribute="height" constant="125" id="HbA-va-dzg"/>
+                                    <constraint firstAttribute="height" constant="84" id="HbA-va-dzg"/>
                                     <constraint firstItem="OPi-5r-EKQ" firstAttribute="top" secondItem="46L-mU-Uks" secondAttribute="top" id="TdZ-8i-lXb"/>
-                                    <constraint firstAttribute="width" constant="125" id="b9v-Ws-r8u"/>
+                                    <constraint firstAttribute="width" constant="84" id="b9v-Ws-r8u"/>
                                     <constraint firstAttribute="bottom" secondItem="OPi-5r-EKQ" secondAttribute="bottom" id="riE-vx-xYG"/>
                                     <constraint firstItem="OPi-5r-EKQ" firstAttribute="leading" secondItem="46L-mU-Uks" secondAttribute="leading" id="z8c-Ea-Tr9"/>
                                 </constraints>
@@ -2455,7 +2455,7 @@
                             <constraint firstItem="b0w-IA-ZYu" firstAttribute="top" secondItem="Fgm-DM-Lps" secondAttribute="bottom" constant="-20" id="hy1-Ab-7qB"/>
                             <constraint firstItem="p36-27-cbv" firstAttribute="top" secondItem="Fgm-DM-Lps" secondAttribute="bottom" constant="-20" id="mXM-LX-qJo"/>
                             <constraint firstAttribute="trailing" secondItem="b0w-IA-ZYu" secondAttribute="trailing" id="orp-vP-j89"/>
-                            <constraint firstItem="Lgc-8H-MWM" firstAttribute="top" secondItem="46L-mU-Uks" secondAttribute="bottom" id="qOV-4m-hqe"/>
+                            <constraint firstItem="Lgc-8H-MWM" firstAttribute="top" secondItem="46L-mU-Uks" secondAttribute="bottom" constant="4" id="qOV-4m-hqe"/>
                             <constraint firstItem="Lgc-8H-MWM" firstAttribute="top" secondItem="2v5-fX-sVI" secondAttribute="bottom" id="rdl-kZ-UHa"/>
                             <constraint firstAttribute="trailing" secondItem="2v5-fX-sVI" secondAttribute="trailing" id="vgD-K3-zKJ"/>
                         </constraints>
@@ -3542,8 +3542,8 @@ Check your internet connection and try again.</string>
     </scenes>
     <resources>
         <image name="btn_add_peaples_enabled" width="30" height="30"/>
-        <image name="btn_wrap_camera_enabled" width="94" height="94"/>
-        <image name="btn_wrap_camera_pressed" width="94" height="94"/>
+        <image name="btn_wrap_camera_enabled" width="84" height="84"/>
+        <image name="btn_wrap_camera_pressed" width="84" height="84"/>
         <image name="camera_darkGray" width="30" height="30"/>
         <image name="camera_medium" width="50" height="50"/>
         <image name="chatNotification" width="32" height="28"/>
@@ -3581,6 +3581,6 @@ Check your internet connection and try again.</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="USb-FQ-HhL"/>
-        <segue reference="tCH-h8-hRc"/>
+        <segue reference="tUX-Tk-kxb"/>
     </inferredMetricsTieBreakers>
 </document>

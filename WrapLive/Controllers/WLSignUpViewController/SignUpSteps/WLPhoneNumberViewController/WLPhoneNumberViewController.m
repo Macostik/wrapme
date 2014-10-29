@@ -75,6 +75,7 @@
 			[weakSelf.view addSubview:testUserButton];
 		});
 	}
+    [self validateSignUpButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

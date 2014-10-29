@@ -9,6 +9,7 @@
 #import "WLReportCandyViewController.h"
 #import "WLButton.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "UIColor+CustomColors.h"
 #import "MFMailComposeViewController+Additions.h"
 #import "WLAPIManager.h"
 #import "WLToast.h"
@@ -28,10 +29,12 @@ static NSString *const WLReport = @"Report";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.titleLabel.text = [NSString stringWithFormat:@"%@ this candy", [self isMyCandy] ? WLDelete : WLReport];
     [self.deleteButton setTitle:[self isMyCandy] ? WLDelete : WLReport forState:UIControlStateNormal];
+    self.cancelButton.layer.borderColor = self.deleteButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
 
-    [self.contentView topPushWithDuration:1.0 delegate:nil];
+    [self.contentView bottomPushWithDuration:1.0 delegate:nil];
 }
 
 - (BOOL)isMyCandy {

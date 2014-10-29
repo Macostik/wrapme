@@ -26,6 +26,7 @@ static NSString *const WLLeave = @"Leave";
 @property (weak, nonatomic) IBOutlet UITextField *nameWrapTextField;
 @property (weak, nonatomic) IBOutlet WLPressButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UILabel *deleteLabel;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
 @end
 
@@ -33,10 +34,12 @@ static NSString *const WLLeave = @"Leave";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.frame = self.contentView.frame;
     
     self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap stringProperties:@"name", nil];
     
     self.nameWrapTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
+    self.deleteButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
     [self.nameWrapTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
 
     BOOL isMyWrap = [self isMyWrap];
@@ -45,7 +48,9 @@ static NSString *const WLLeave = @"Leave";
     [self.deleteButton setTitle:isMyWrap ? WLDelete : WLLeave forState:UIControlStateNormal];
     self.nameWrapTextField.enabled = isMyWrap;
     [self setupEditableUserInterface];
-    [self.contentView topPushWithDuration:1.0 delegate:nil];
+    if (!isMyWrap) {
+          [self.contentView bottomPushWithDuration:1.0 delegate:nil];
+    }
 }
 
 - (void)setupEditableUserInterface {
@@ -99,6 +104,28 @@ static NSString *const WLLeave = @"Leave";
     UIViewController *parentViewController = [self parentViewController];
     [parentViewController.view removeFromSuperview];
     [parentViewController removeFromParentViewController];
+}
+
+#pragma mark - WLKeyboardBroadcastReceiver
+
+- (void)broadcaster:(WLKeyboardBroadcaster*)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
+    CGFloat offset = self.view.y - (self.view.superview.height - keyboardHeight.floatValue)/2 + self.view.height/2;
+    [broadcaster performAnimation:^{
+        self.view.transform = CGAffineTransformMakeTranslation(0, -offset);
+    }];
+}
+
+- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster*)broadcaster {
+    [broadcaster performAnimation:^{
+        self.view.transform = CGAffineTransformIdentity;
+    }];
+}
+
+#pragma mark - WLEditSessionDelegate override
+
+- (void)editSession:(WLEditSession *)session hasChanges:(BOOL)hasChanges {
+    [super editSession:session hasChanges:hasChanges];
+    self.closeButton.hidden = hasChanges;
 }
 
 @end

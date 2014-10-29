@@ -23,6 +23,7 @@
 @property (nonatomic, weak) IBOutlet WLImageView* avatarView;
 @property (weak, nonatomic) IBOutlet UIImageView *openView;
 @property (weak, nonatomic) IBOutlet UIImageView *signUpView;
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 
 @end
 
@@ -56,6 +57,7 @@
 	if (self.tableView) {
 		[self.tableView reloadData];
 	} else {
+        self.phoneLabel.text = WLString(person.phone);
 		self.checked = [self personSelected:person];
 	}
 }

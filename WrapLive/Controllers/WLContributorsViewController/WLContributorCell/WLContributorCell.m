@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UIButton *removeButton;
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 
 @end
 
@@ -34,6 +35,7 @@
 		isCreator = [self.delegate contributorCell:self isCreator:user];
 	}
 	self.nameLabel.text = isCreator ? [NSString stringWithFormat:@"%@ (Owner)", userNameText] : userNameText;
+    self.phoneLabel.text = @"(here will be phone number soon)";
 
     self.avatarView.url = user.picture.small;
     if (!self.avatarView.url.nonempty) {

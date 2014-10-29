@@ -2399,11 +2399,11 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <state key="normal" image="ic_timeline_enabled">
+                                                <state key="normal" image="ic_history_enabled">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected" image="ic_icons"/>
+                                                <state key="selected" image="ic_today_enabled"/>
                                                 <connections>
                                                     <action selector="viewChanged:" destination="hUj-RK-zkg" eventType="touchUpInside" id="UXz-le-FlR"/>
                                                 </connections>
@@ -3551,7 +3551,7 @@ Check your internet connection and try again.</string>
         <image name="ic_default_profile" width="148" height="148"/>
         <image name="ic_delete" width="16" height="16"/>
         <image name="ic_dot_dot_dot_round" width="6" height="26"/>
-        <image name="ic_icons" width="32" height="32"/>
+        <image name="ic_history_enabled" width="34" height="31"/>
         <image name="ic_logo_wo_candy" width="72" height="20"/>
         <image name="ic_new_wrap_def" width="30" height="30"/>
         <image name="ic_next_gray" width="8" height="14"/>
@@ -3561,7 +3561,7 @@ Check your internet connection and try again.</string>
         <image name="ic_signed_up_user" width="15" height="7"/>
         <image name="ic_swipe_arrow_left" width="6" height="10"/>
         <image name="ic_swipe_arrow_right" width="6" height="10"/>
-        <image name="ic_timeline_enabled" width="34" height="32"/>
+        <image name="ic_today_enabled" width="32" height="32"/>
         <image name="not_owner_gray_bubble" width="16" height="15"/>
         <image name="not_owner_red_bubble" width="16" height="16"/>
         <image name="red_Bubble" width="26" height="21"/>

@@ -83,15 +83,16 @@ static CGFloat WLRefresherContentSize = 44.0f;
 	CGRect contentFrame;
 	if (horizontal) {
         frame.origin.x = -scrollView.width;
-		contentFrame = CGRectMake(frame.size.width - WLRefresherContentSize, 0, WLRefresherContentSize, frame.size.height);
+		contentFrame = CGRectMake(frame.size.width - WLRefresherContentSize, frame.size.height/2.0f - WLRefresherContentSize/2.0f, WLRefresherContentSize, WLRefresherContentSize);
         autoresizing = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleHeight;
 	} else {
         frame.origin.y = -scrollView.height;
-		contentFrame = CGRectMake(0, frame.size.height - WLRefresherContentSize, frame.size.width, WLRefresherContentSize);
+		contentFrame = CGRectMake(frame.size.width/2.0f - WLRefresherContentSize/2.0f, frame.size.height - WLRefresherContentSize, WLRefresherContentSize, WLRefresherContentSize);
         autoresizing = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
 	}
 	WLRefresher* refresher = [[WLRefresher alloc] initWithFrame:frame];
     refresher.autoresizingMask = autoresizing;
+    refresher.translatesAutoresizingMaskIntoConstraints = YES;
 	refresher.horizontal = horizontal;
 	refresher.backgroundColor = [UIColor WL_orangeColor];
 	[scrollView addSubview:refresher];
@@ -104,9 +105,6 @@ static CGFloat WLRefresherContentSize = 44.0f;
 - (void)setContentMode:(UIViewContentMode)contentMode {
 	[super setContentMode:contentMode];
 	CGPoint center = self.contentView.centerBoundary;
-	if (!_horizontal && contentMode == UIViewContentModeLeft) {
-		center.x = center.y;
-    }
 	self.spinner.center = center;
 	self.arrowView.center = center;
 }
@@ -156,7 +154,8 @@ static CGFloat WLRefresherContentSize = 44.0f;
 	if (!_contentView) {
 		UIView* contentView = [[UIView alloc] init];
 		contentView.backgroundColor = [UIColor clearColor];
-        contentView.autoresizingMask = self.autoresizingMask;
+        contentView.autoresizingMask = _horizontal ? UIViewAutoresizingFlexibleRightMargin : UIViewAutoresizingFlexibleTopMargin;
+        contentView.translatesAutoresizingMaskIntoConstraints = YES;
 		[self addSubview:contentView];
 		_contentView = contentView;
 	}

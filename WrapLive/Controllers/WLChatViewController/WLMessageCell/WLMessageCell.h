@@ -8,8 +8,9 @@
 
 #import "WLCollectionItemCell.h"
 
-static CGFloat WLMessageAuthorLabelHeight = 20.0f;
-static CGFloat WLMessageMinimumCellHeight = 50.0f;
+static CGFloat WLNameLabelHeight = 5.0f;
+static CGFloat WLMessageAuthorLabelHeight = 21.0f;
+static CGFloat WLMessageMinimumCellHeight = 60.0f;
 static CGFloat WLLastMessageMinimumCellHeight = 40.0f;
 static CGFloat WLAvatarWidth = 66.0f;
 static CGFloat WLMinBubbleWidth = 15.0f;

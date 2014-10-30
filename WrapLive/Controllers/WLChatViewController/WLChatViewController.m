@@ -311,7 +311,8 @@ CGFloat WLMaxTextViewWidth;
     if (![message isEqualToEntry:lastmessage]) {
         return  commentHeight + WLMessageAuthorLabelHeight/2;
     }
-	commentHeight += 2*WLMessageAuthorLabelHeight;
+    commentHeight += 2*WLMessageAuthorLabelHeight;
+    commentHeight += [message.contributor isCurrentUser] ? .0f : WLNameLabelHeight;
 	return MAX(WLMessageMinimumCellHeight, commentHeight);
 }
 

@@ -6,17 +6,19 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLCollectionItemCell.h"
+#import "WLEntryCell.h"
 #import "WLClearProgressBar.h"
 
 static NSString* WLDetailedCandyCellIdentifier = @"WLDetailedCandyCell";
 
-@interface WLDetailedCandyCell : WLCollectionItemCell
+@interface WLDetailedCandyCell : WLEntryCell
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet WLClearProgressBar *progressBar;
 
 - (void)refresh;
+
+- (void)updateBottomInset:(CGFloat)bottomInset;
 
 @end

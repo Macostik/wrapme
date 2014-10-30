@@ -118,13 +118,14 @@
                                                     <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moW-bp-wfe">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moW-bp-wfe">
                                                     <rect key="frame" x="51" y="19" width="207" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                 </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sbj-Wd-1e2" customClass="WLImageView">
                                                     <rect key="frame" x="266" y="4" width="40" height="40"/>
@@ -2366,17 +2367,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_swipe_arrow_left" translatesAutoresizingMaskIntoConstraints="NO" id="hzp-4h-Ls3">
-                                <rect key="frame" x="6" y="212" width="16" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="BfJ-tX-Zb7"/>
-                                    <constraint firstAttribute="width" constant="16" id="mHM-aj-dCM"/>
-                                </constraints>
-                            </imageView>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jyK-17-cAD">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="vSE-NU-zD9" customClass="WLCandyViewFlowLayout">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="vSE-NU-zD9">
                                     <size key="itemSize" width="320" height="524"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -2487,7 +2481,7 @@
                                                                             <constraint firstAttribute="width" constant="43" id="kFD-5X-jCj"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yq2-Yg-jcf">
+                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yq2-Yg-jcf">
                                                                         <rect key="frame" x="60" y="19" width="255" height="73"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <color key="tintColor" red="1" green="0.42860027057324546" blue="0.16787798134862797" alpha="1" colorSpace="calibratedRGB"/>
@@ -2625,7 +2619,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5m-hD-Eet" customClass="WLComposeBar">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="9Fv-zW-20Z"/>
                                 </constraints>
@@ -2647,10 +2641,8 @@
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="0bz-V3-1nu"/>
                             <constraint firstItem="kR2-wp-una" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="192" id="6Ae-I1-8ai"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="H5m-hD-Eet" secondAttribute="bottom" id="7Hc-du-E5Y"/>
-                            <constraint firstItem="hzp-4h-Ls3" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" constant="6" id="B6A-sd-1rI"/>
-                            <constraint firstItem="jyK-17-cAD" firstAttribute="bottom" secondItem="H5m-hD-Eet" secondAttribute="top" id="WQW-EM-79m"/>
+                            <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="jyK-17-cAD" secondAttribute="bottom" id="NgB-RI-d7R"/>
                             <constraint firstItem="jyK-17-cAD" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="bPW-BY-6Fp"/>
-                            <constraint firstItem="hzp-4h-Ls3" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="192" id="dTA-fW-bBH"/>
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="-20" id="eku-Sv-U5Q"/>
                             <constraint firstAttribute="trailing" secondItem="jyK-17-cAD" secondAttribute="trailing" id="h8k-it-8fu"/>
                             <constraint firstAttribute="trailing" secondItem="kR2-wp-una" secondAttribute="trailing" constant="6" id="hI1-OZ-Il4"/>
@@ -2662,11 +2654,8 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="jyK-17-cAD" id="BfX-xF-M1l"/>
-                        <outlet property="collectionViewTopConstraint" destination="hPI-OJ-Hy4" id="SgT-Bp-sES"/>
                         <outlet property="composeBarView" destination="H5m-hD-Eet" id="Fox-fh-5fg"/>
-                        <outlet property="leftArrow" destination="hzp-4h-Ls3" id="TJS-jC-cPK"/>
                         <outlet property="navigationBar" destination="Wbg-W9-8Ie" id="rqy-nr-XQo"/>
-                        <outlet property="navigationBarTopConstraint" destination="eku-Sv-U5Q" id="mRj-mn-aWN"/>
                         <outlet property="reportButton" destination="sPd-Ai-V8F" id="zJ7-te-f2i"/>
                         <outlet property="rightArrow" destination="kR2-wp-una" id="oOr-gf-dnD"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="GFY-S2-eYl"/>
@@ -2840,13 +2829,14 @@ Check your internet connection and try again.</string>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="not_owner_gray_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="PF5-oQ-bkX">
                                                     <rect key="frame" x="60" y="5" width="200" height="22"/>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="ZtA-QP-5Cy">
-                                                    <rect key="frame" x="66" y="5" width="188" height="19"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="ZtA-QP-5Cy">
+                                                    <rect key="frame" x="66" y="25" width="188" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                 </textView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttQ-8O-OkP">
                                                     <rect key="frame" x="30" y="7" width="26" height="16"/>
@@ -2899,13 +2889,14 @@ Check your internet connection and try again.</string>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="not_owner_red_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="fH6-aY-YjF">
                                                     <rect key="frame" x="60" y="5" width="200" height="30"/>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyg-xG-bc1">
-                                                    <rect key="frame" x="66" y="8" width="188" height="27"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyg-xG-bc1">
+                                                    <rect key="frame" x="66" y="15" width="188" height="56"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                 </textView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDu-zS-cNB">
                                                     <rect key="frame" x="264" y="12" width="26" height="16"/>
@@ -2960,13 +2951,14 @@ Check your internet connection and try again.</string>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="not_owner_gray_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="41I-u5-SU6">
                                                     <rect key="frame" x="60" y="0.0" width="200" height="33"/>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="CgH-gR-3Aw">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="CgH-gR-3Aw">
                                                     <rect key="frame" x="66" y="0.0" width="188" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                 </textView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fwY-Hr-qoE">
                                                     <rect key="frame" x="30" y="9" width="26" height="16"/>
@@ -3007,13 +2999,14 @@ Check your internet connection and try again.</string>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="not_owner_red_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="fEn-6o-vwb">
                                                     <rect key="frame" x="60" y="0.0" width="200" height="33"/>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xF8-7i-x7W">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xF8-7i-x7W">
                                                     <rect key="frame" x="66" y="0.0" width="188" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                 </textView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QL5-oM-FJ6">
                                                     <rect key="frame" x="264" y="9" width="26" height="16"/>
@@ -3459,7 +3452,6 @@ Check your internet connection and try again.</string>
         <image name="ic_photo_placeholder" width="60" height="48"/>
         <image name="ic_search" width="16" height="16"/>
         <image name="ic_signed_up_user" width="15" height="7"/>
-        <image name="ic_swipe_arrow_left" width="6" height="10"/>
         <image name="ic_swipe_arrow_right" width="6" height="10"/>
         <image name="ic_today_enabled" width="32" height="32"/>
         <image name="not_owner_gray_bubble" width="16" height="15"/>
@@ -3472,7 +3464,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="USb-FQ-HhL"/>
         <segue reference="WjR-f7-d7j"/>
+        <segue reference="H4Y-Sv-3mh"/>
     </inferredMetricsTieBreakers>
 </document>

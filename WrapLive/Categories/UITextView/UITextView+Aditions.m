@@ -10,12 +10,14 @@
 @implementation UITextView (Aditions)
 
 - (void)determineHyperLink:(NSString *)string {
-    self.editable = NO;
-    self.dataDetectorTypes = UIDataDetectorTypeLink;
-    NSMutableAttributedString *attrebutedText = [[NSMutableAttributedString alloc] initWithString:string];
-    NSDictionary * attributes = @{NSFontAttributeName : self.font};
-    [attrebutedText addAttributes:attributes range:NSMakeRange(0, [attrebutedText length])];
-    self.attributedText = attrebutedText;
+    if (string) {
+        NSMutableAttributedString *attrebutedText = [[NSMutableAttributedString alloc] initWithString:string];
+        NSDictionary * attributes = @{NSFontAttributeName : self.font};
+        [attrebutedText addAttributes:attributes range:NSMakeRange(0, [attrebutedText length])];
+        self.attributedText = attrebutedText;
+    } else {
+        self.text = nil;
+    }
 }
 
 @end

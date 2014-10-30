@@ -41,7 +41,8 @@
 - (CGPoint)maximumContentOffset {
     CGSize contentSize = self.contentSize;
     CGSize size = self.bounds.size;
-    return CGPointMake(contentSize.width - size.width, contentSize.height - size.height);
+    UIEdgeInsets insets = self.contentInset;
+    return CGPointMake(contentSize.width - (size.width - insets.right), contentSize.height - (size.height - insets.bottom));
 }
 
 - (BOOL)scrollable {

@@ -44,32 +44,14 @@
 #import "NSOrderedSet+Additions.h"
 #import "WLActionViewController.h"
 
-@interface WLCandyViewFlowLayout : UICollectionViewFlowLayout
-
-@end
-
-@implementation WLCandyViewFlowLayout
-
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
-    return YES;
-}
-
-- (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
-    UICollectionViewFlowLayoutInvalidationContext* invalidationContext = [[UICollectionViewFlowLayoutInvalidationContext alloc] init];
-    invalidationContext.invalidateFlowLayoutDelegateMetrics = YES;
-    return invalidationContext;
-}
-
-@end
-
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
-@property (weak, nonatomic) IBOutlet UIImageView *leftArrow;
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
+@property (weak, nonatomic) IBOutlet UIView *navigationBar;
 
 @property (nonatomic) BOOL shouldLoadMoreCandies;
 @property (nonatomic) BOOL scrolledToInitialItem;
@@ -79,10 +61,7 @@
 
 @property (weak, nonatomic) UISwipeGestureRecognizer* leftSwipeGestureRecognizer;
 @property (weak, nonatomic) UISwipeGestureRecognizer* rightSwipeGestureRecognizer;
-@property (weak, nonatomic) IBOutlet UIView *navigationBar;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *composeBarBottomConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navigationBarTopConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewTopConstraint;
+
 
 @end
 
@@ -158,7 +137,7 @@
 - (WLCandy *)candy {
     WLDetailedCandyCell* cell = self.candyCell;
     if (cell) {
-        return cell.item;
+        return cell.entry;
     }
     NSUInteger index = floorf(self.collectionView.contentOffset.x/self.collectionView.width);
     return [self.group.entries tryObjectAtIndex:index];
@@ -168,34 +147,23 @@
     return [[self.collectionView visibleCells] lastObject];
 }
 
-- (void)fetchNewer {
-    WLCandy* candy = self.candy;
-    if (!self.group.request.loading && [self.group.entries indexOfObject:candy] < 3) {
-        self.group.request.type = WLPaginatedRequestTypeNewer;
-        [self fetchCandies];
-    }
-}
-
 - (void)fetchOlder:(WLCandy*)candy {
-    if (self.group.completed || !candy) return;
-    NSUInteger count = [self.group.entries count];
-    NSUInteger index = [self.group.entries indexOfObject:candy];
+    WLGroup *group = self.group;
+    if (group.completed || !candy) return;
+    NSUInteger count = [group.entries count];
+    NSUInteger index = [group.entries indexOfObject:candy];
     BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
-    if (!self.group.request.loading && shouldAppendCandies) {
-        self.group.request.type = WLPaginatedRequestTypeOlder;
-        [self fetchCandies];
+    if (!group.request.loading && shouldAppendCandies) {
+        group.request.type = WLPaginatedRequestTypeOlder;
+        __weak typeof(self)weakSelf = self;
+        [group send:^(NSOrderedSet *candies) {
+            if (candies.nonempty) [weakSelf.collectionView reloadData];
+        } failure:^(NSError *error) {
+            if (error.isNetworkError) {
+                group.completed = YES;
+            }
+        }];
     }
-}
-
-- (void)fetchCandies {
-    __weak typeof(self)weakSelf = self;
-    [self.group send:^(NSOrderedSet *candies) {
-        if (candies.nonempty) [weakSelf.collectionView reloadData];
-    } failure:^(NSError *error) {
-        if (error.isNetworkError) {
-            weakSelf.group.completed = YES;
-        }
-    }];
 }
 
 - (void)didSwipeLeft {
@@ -301,12 +269,6 @@
     return self.candy;
 }
 
-- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster didShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
-    [super broadcaster:broadcaster willShowKeyboardWithHeight:keyboardHeight];
-    UITableView* tableView = self.candyCell.tableView;
-    [tableView scrollToBottomAnimated:YES];
-}
-
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
@@ -326,12 +288,12 @@
     WLCandy* image = self.candy;
 	__weak typeof(self)weakSelf = self;
     [image uploadComment:text success:^(WLComment *comment) {
-        UITableView *tableView = weakSelf.candyCell.tableView;
-        [tableView reloadData];
-        [tableView scrollToBottomAnimated:YES];
+        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
     } failure:^(NSError *error) {
     }];
-    [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
+    run_after_asap(^{
+        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
+    });
 }
 
 #pragma mark - WLComposeBarDelegate
@@ -341,6 +303,7 @@
 }
 
 - (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
+    [self.candyCell updateBottomInset:[[WLKeyboardBroadcaster broadcaster].keyboardHeight floatValue] + self.composeBarView.height];
     [self.candyCell.tableView scrollToBottomAnimated:YES];
 }
 
@@ -359,10 +322,9 @@
     WLCandy* candy = [self.group.entries tryObjectAtIndex:indexPath.item];
     if (candy.valid) {
         [self fetchOlder:candy];
-        cell.item = candy;
+        cell.entry = candy;
     } else {
-        cell.item = nil;
-        [candy remove];
+        cell.entry = nil;
     }
     return cell;
 }
@@ -397,6 +359,19 @@
     if (![reachable boolValue]) {
         [self.candyCell.tableView reloadData];
     }
+}
+
+#pragma mark - WLKeyboardBroadcastReceiver
+
+- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
+    [super broadcaster:broadcaster willShowKeyboardWithHeight:keyboardHeight];
+    [self.candyCell updateBottomInset:[keyboardHeight floatValue] + self.composeBarView.height];
+    [self.candyCell.tableView scrollToBottomAnimated:YES];
+}
+
+- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
+    [super broadcasterWillHideKeyboard:broadcaster];
+    [self.candyCell updateBottomInset:self.composeBarView.height];
 }
 
 @end

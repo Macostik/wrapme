@@ -108,15 +108,15 @@ static NSString *const WLLeave = @"Leave";
 
 #pragma mark - WLKeyboardBroadcastReceiver
 
-- (void)broadcaster:(WLKeyboardBroadcaster*)broadcaster willShowKeyboardWithHeight:(NSNumber*)keyboardHeight {
-    CGFloat offset = self.view.y - (self.view.superview.height - keyboardHeight.floatValue)/2 + self.view.height/2;
-    [broadcaster performAnimation:^{
+- (void)keyboardWillShow:(WLKeyboard *)keyboard {
+    CGFloat offset = self.view.y - (self.view.superview.height - keyboard.height)/2 + self.view.height/2;
+    [keyboard performAnimation:^{
         self.view.transform = CGAffineTransformMakeTranslation(0, -offset);
     }];
 }
 
-- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster*)broadcaster {
-    [broadcaster performAnimation:^{
+- (void)keyboardWillHide:(WLKeyboard*)keyboard {
+    [keyboard performAnimation:^{
         self.view.transform = CGAffineTransformIdentity;
     }];
 }

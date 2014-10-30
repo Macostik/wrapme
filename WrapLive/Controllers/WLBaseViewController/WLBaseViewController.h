@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLKeyboardBroadcaster.h"
+#import "WLKeyboard.h"
 
 @interface WLBaseViewController : UIViewController <WLKeyboardBroadcastReceiver>
 

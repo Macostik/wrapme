@@ -21,7 +21,7 @@
 #import "NSObject+NibAdditions.h"
 #import "WLCollectionViewFlowLayout.h"
 #import "UIScrollView+Additions.h"
-#import "WLKeyboardBroadcaster.h"
+#import "WLKeyboard.h"
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
 #import "WLEntryNotifier.h"
@@ -98,7 +98,6 @@ CGFloat WLMaxTextViewWidth;
 	
 	self.backSwipeGestureEnabled = YES;
 	
-	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
     [[WLMessage notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLNotificationCenter defaultCenter] addReceiver:self];

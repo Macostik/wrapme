@@ -93,7 +93,6 @@
 		12DF5C42190E67DE00D7A62F /* NSString+Documents.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DF5C41190E67DD00D7A62F /* NSString+Documents.m */; };
 		12E0F04A1909069200463FEC /* UIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F0491909069200463FEC /* UIScrollView+Additions.m */; };
 		12E0F04E19090B0600463FEC /* WLBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F04D19090B0600463FEC /* WLBroadcaster.m */; };
-		12E0F05E19090C0900463FEC /* WLKeyboardBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F05D19090C0900463FEC /* WLKeyboardBroadcaster.m */; };
 		12E0F0621909249000463FEC /* UILabel+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F0611909249000463FEC /* UILabel+Additions.m */; };
 		12E0F066190927B800463FEC /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F065190927B800463FEC /* WLDeviceOrientationBroadcaster.m */; };
 		12E1104519066C7C007DB4AC /* UIView+QuatzCoreAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104419066C7C007DB4AC /* UIView+QuatzCoreAnimations.m */; };
@@ -342,6 +341,10 @@
 		C542BDEE19FA555C00C3BD64 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C542BDEC19FA555C00C3BD64 /* Camera.storyboard */; };
 		C542BDEF19FA555C00C3BD64 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C542BDEC19FA555C00C3BD64 /* Camera.storyboard */; };
 		C542BDF019FA555C00C3BD64 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C542BDEC19FA555C00C3BD64 /* Camera.storyboard */; };
+		C547A4511A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
+		C547A4521A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
+		C547A4531A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
+		C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
 		C54AF45819B8C437006F7EDB /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3F419211A48007BE6CC /* UIView+GestureRecognizing.m */; };
 		C54AF45919B8C437006F7EDB /* WLComment+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C50445A81951AA8F003C2251 /* WLComment+Extended.m */; };
 		C54AF45A19B8C437006F7EDB /* WLNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FCC699199A5C4B009A0DC6 /* WLNavigation.m */; };
@@ -382,7 +385,6 @@
 		C54AF48119B8C437006F7EDB /* WLGestureBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C507B9E81948947D00CCB3FE /* WLGestureBroadcaster.m */; };
 		C54AF48219B8C437006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF48319B8C437006F7EDB /* WLAssetsGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED441934B183009C1DC3 /* WLAssetsGroupViewController.m */; };
-		C54AF48419B8C437006F7EDB /* WLKeyboardBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F05D19090C0900463FEC /* WLKeyboardBroadcaster.m */; };
 		C54AF48519B8C437006F7EDB /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DF5C3A190E614400D7A62F /* NSString+MD5.m */; };
 		C54AF48619B8C437006F7EDB /* WLProfileInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B9518E186B800A7429F /* WLProfileInformationViewController.m */; };
 		C54AF48719B8C437006F7EDB /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D518E4326C009CE64C /* UIView+Shorthand.m */; };
@@ -597,7 +599,6 @@
 		C54AF57E19B8C467006F7EDB /* WLGestureBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C507B9E81948947D00CCB3FE /* WLGestureBroadcaster.m */; };
 		C54AF57F19B8C467006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF58019B8C467006F7EDB /* WLAssetsGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED441934B183009C1DC3 /* WLAssetsGroupViewController.m */; };
-		C54AF58119B8C467006F7EDB /* WLKeyboardBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F05D19090C0900463FEC /* WLKeyboardBroadcaster.m */; };
 		C54AF58219B8C467006F7EDB /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DF5C3A190E614400D7A62F /* NSString+MD5.m */; };
 		C54AF58319B8C467006F7EDB /* WLProfileInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B9518E186B800A7429F /* WLProfileInformationViewController.m */; };
 		C54AF58419B8C467006F7EDB /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D518E4326C009CE64C /* UIView+Shorthand.m */; };
@@ -812,7 +813,6 @@
 		C54AF67B19B8C491006F7EDB /* WLGestureBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C507B9E81948947D00CCB3FE /* WLGestureBroadcaster.m */; };
 		C54AF67C19B8C491006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF67D19B8C491006F7EDB /* WLAssetsGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F3ED441934B183009C1DC3 /* WLAssetsGroupViewController.m */; };
-		C54AF67E19B8C491006F7EDB /* WLKeyboardBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0F05D19090C0900463FEC /* WLKeyboardBroadcaster.m */; };
 		C54AF67F19B8C491006F7EDB /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DF5C3A190E614400D7A62F /* NSString+MD5.m */; };
 		C54AF68019B8C491006F7EDB /* WLProfileInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCF9B9518E186B800A7429F /* WLProfileInformationViewController.m */; };
 		C54AF68119B8C491006F7EDB /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D518E4326C009CE64C /* UIView+Shorthand.m */; };
@@ -1260,8 +1260,6 @@
 		12E0F0491909069200463FEC /* UIScrollView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+Additions.m"; path = "UIScrollView/UIScrollView+Additions.m"; sourceTree = "<group>"; };
 		12E0F04C19090B0600463FEC /* WLBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBroadcaster.h; path = WLBroadcaster/WLBroadcaster.h; sourceTree = "<group>"; };
 		12E0F04D19090B0600463FEC /* WLBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBroadcaster.m; path = WLBroadcaster/WLBroadcaster.m; sourceTree = "<group>"; };
-		12E0F05C19090C0900463FEC /* WLKeyboardBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLKeyboardBroadcaster.h; path = WLBroadcaster/WLKeyboardBroadcaster/WLKeyboardBroadcaster.h; sourceTree = "<group>"; };
-		12E0F05D19090C0900463FEC /* WLKeyboardBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLKeyboardBroadcaster.m; path = WLBroadcaster/WLKeyboardBroadcaster/WLKeyboardBroadcaster.m; sourceTree = "<group>"; };
 		12E0F0601909249000463FEC /* UILabel+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+Additions.h"; path = "UILabel/UILabel+Additions.h"; sourceTree = "<group>"; };
 		12E0F0611909249000463FEC /* UILabel+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+Additions.m"; path = "UILabel/UILabel+Additions.m"; sourceTree = "<group>"; };
 		12E0F064190927B800463FEC /* WLDeviceOrientationBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDeviceOrientationBroadcaster.h; path = WLBroadcaster/WLDeviceOrientationBroadcaster/WLDeviceOrientationBroadcaster.h; sourceTree = "<group>"; };
@@ -1521,6 +1519,8 @@
 		C53BC05F19F9315F0031249E /* WLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLogger.h; path = WLAPIManager/WLLogger.h; sourceTree = "<group>"; };
 		C542BDE719FA554A00C3BD64 /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		C542BDEC19FA555C00C3BD64 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
+		C547A44F1A026B3E005061AB /* WLKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLKeyboard.h; sourceTree = "<group>"; };
+		C547A4501A026B3E005061AB /* WLKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLKeyboard.m; sourceTree = "<group>"; };
 		C54AF55019B8C437006F7EDB /* WrapLive-QA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLive-QA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54AF64D19B8C467006F7EDB /* WrapLive-Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLive-Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54AF74A19B8C491006F7EDB /* WrapLive-Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLive-Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2042,6 +2042,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C547A44E1A026B3E005061AB /* WLKeyboard */,
 				C57BDDB419FA5E9E003593F1 /* WLStoryboardSegue */,
 				C50A677719D978F700EC518F /* WLEntryNotifier */,
 				C55C8D6119C98A9400199245 /* WLNotificationCenter */,
@@ -2363,21 +2364,11 @@
 				C507B9E61948946000CCB3FE /* WLGestureBroadcaster */,
 				ACB029D0191AA136003A2E0D /* WLInternetConnectionBroadcaster */,
 				12E0F0631909279200463FEC /* WLDeviceOrientationBroadcaster */,
-				12E0F05B19090BF000463FEC /* WLKeyboardBroadcaster */,
 				5B450F8C19780D8D00FC339A /* WLSignificantTimeBroadcaster */,
 				12E0F04C19090B0600463FEC /* WLBroadcaster.h */,
 				12E0F04D19090B0600463FEC /* WLBroadcaster.m */,
 			);
 			name = WLBroadcaster;
-			sourceTree = "<group>";
-		};
-		12E0F05B19090BF000463FEC /* WLKeyboardBroadcaster */ = {
-			isa = PBXGroup;
-			children = (
-				12E0F05C19090C0900463FEC /* WLKeyboardBroadcaster.h */,
-				12E0F05D19090C0900463FEC /* WLKeyboardBroadcaster.m */,
-			);
-			name = WLKeyboardBroadcaster;
 			sourceTree = "<group>";
 		};
 		12E0F05F1909247E00463FEC /* UILabel */ = {
@@ -3142,6 +3133,15 @@
 				C537F8231962BB1B00600B42 /* WLGroupedSet.m */,
 			);
 			name = WLGroupedSet;
+			sourceTree = "<group>";
+		};
+		C547A44E1A026B3E005061AB /* WLKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				C547A44F1A026B3E005061AB /* WLKeyboard.h */,
+				C547A4501A026B3E005061AB /* WLKeyboard.m */,
+			);
+			path = WLKeyboard;
 			sourceTree = "<group>";
 		};
 		C54AF85219B8C622006F7EDB /* WLAPIConfiguration */ = {
@@ -3969,7 +3969,6 @@
 				C507B9E91948947D00CCB3FE /* WLGestureBroadcaster.m in Sources */,
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
 				12F3ED561934B183009C1DC3 /* WLAssetsGroupViewController.m in Sources */,
-				12E0F05E19090C0900463FEC /* WLKeyboardBroadcaster.m in Sources */,
 				12DF5C3B190E614400D7A62F /* NSString+MD5.m in Sources */,
 				ACCF9B9718E186B800A7429F /* WLProfileInformationViewController.m in Sources */,
 				12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */,
@@ -3990,6 +3989,7 @@
 				5BBBEB3519D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
 				C51F30A319E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
+				C547A4511A026B3E005061AB /* WLKeyboard.m in Sources */,
 				5BB02FF619F00BCE001E1D50 /* WLChatGroupSet.m in Sources */,
 				5BAF8E161991196000AFCAE6 /* WLClearProgressBar.m in Sources */,
 				12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */,
@@ -4182,7 +4182,6 @@
 				C54AF48119B8C437006F7EDB /* WLGestureBroadcaster.m in Sources */,
 				C54AF48219B8C437006F7EDB /* main.m in Sources */,
 				C54AF48319B8C437006F7EDB /* WLAssetsGroupViewController.m in Sources */,
-				C54AF48419B8C437006F7EDB /* WLKeyboardBroadcaster.m in Sources */,
 				C54AF48519B8C437006F7EDB /* NSString+MD5.m in Sources */,
 				C54AF48619B8C437006F7EDB /* WLProfileInformationViewController.m in Sources */,
 				C54AF48719B8C437006F7EDB /* UIView+Shorthand.m in Sources */,
@@ -4203,6 +4202,7 @@
 				5BBBEB3619D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
 				C51F30A419E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C54AF49319B8C437006F7EDB /* WLInputAccessoryView.m in Sources */,
+				C547A4521A026B3E005061AB /* WLKeyboard.m in Sources */,
 				5BB02FF719F00BCE001E1D50 /* WLChatGroupSet.m in Sources */,
 				C54AF49419B8C437006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF49519B8C437006F7EDB /* UIViewController+Additions.m in Sources */,
@@ -4395,7 +4395,6 @@
 				C54AF57E19B8C467006F7EDB /* WLGestureBroadcaster.m in Sources */,
 				C54AF57F19B8C467006F7EDB /* main.m in Sources */,
 				C54AF58019B8C467006F7EDB /* WLAssetsGroupViewController.m in Sources */,
-				C54AF58119B8C467006F7EDB /* WLKeyboardBroadcaster.m in Sources */,
 				C54AF58219B8C467006F7EDB /* NSString+MD5.m in Sources */,
 				C54AF58319B8C467006F7EDB /* WLProfileInformationViewController.m in Sources */,
 				C54AF58419B8C467006F7EDB /* UIView+Shorthand.m in Sources */,
@@ -4416,6 +4415,7 @@
 				5BBBEB3719D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
 				C51F30A519E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C54AF59019B8C467006F7EDB /* WLInputAccessoryView.m in Sources */,
+				C547A4531A026B3E005061AB /* WLKeyboard.m in Sources */,
 				5BB02FF819F00BCE001E1D50 /* WLChatGroupSet.m in Sources */,
 				C54AF59119B8C467006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF59219B8C467006F7EDB /* UIViewController+Additions.m in Sources */,
@@ -4608,7 +4608,6 @@
 				C54AF67B19B8C491006F7EDB /* WLGestureBroadcaster.m in Sources */,
 				C54AF67C19B8C491006F7EDB /* main.m in Sources */,
 				C54AF67D19B8C491006F7EDB /* WLAssetsGroupViewController.m in Sources */,
-				C54AF67E19B8C491006F7EDB /* WLKeyboardBroadcaster.m in Sources */,
 				C54AF67F19B8C491006F7EDB /* NSString+MD5.m in Sources */,
 				C54AF68019B8C491006F7EDB /* WLProfileInformationViewController.m in Sources */,
 				C54AF68119B8C491006F7EDB /* UIView+Shorthand.m in Sources */,
@@ -4629,6 +4628,7 @@
 				5BBBEB3819D98345008CFE54 /* WLSizeToFitLabel.m in Sources */,
 				C51F30A619E696F2008EAD85 /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C54AF68D19B8C491006F7EDB /* WLInputAccessoryView.m in Sources */,
+				C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */,
 				5BB02FF919F00BCE001E1D50 /* WLChatGroupSet.m in Sources */,
 				C54AF68E19B8C491006F7EDB /* WLClearProgressBar.m in Sources */,
 				C54AF68F19B8C491006F7EDB /* UIViewController+Additions.m in Sources */,

@@ -14,7 +14,7 @@
 #import "UIView+Shorthand.h"
 #import "WLImageFetcher.h"
 #import "WLAPIManager.h"
-#import "WLKeyboardBroadcaster.h"
+#import "WLKeyboard.h"
 #import "WLInputAccessoryView.h"
 #import "NSDate+Formatting.h"
 #import "WLImageCache.h"

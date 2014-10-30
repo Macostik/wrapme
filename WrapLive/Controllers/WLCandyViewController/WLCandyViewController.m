@@ -27,7 +27,7 @@
 #import "WLGroupedSet.h"
 #import "WLImageFetcher.h"
 #import "WLImageViewController.h"
-#import "WLKeyboardBroadcaster.h"
+#import "WLKeyboard.h"
 #import "WLNavigation.h"
 #import "WLClearProgressBar.h"
 #import "WLRefresher.h"
@@ -80,7 +80,6 @@
     
 	self.composeBarView.placeholder = @"Write your comment ...";
 	
-	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 	[[WLCandy notifier] addReceiver:self];
     [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
     
@@ -303,7 +302,7 @@
 }
 
 - (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
-    [self.candyCell updateBottomInset:[[WLKeyboardBroadcaster broadcaster].keyboardHeight floatValue] + self.composeBarView.height];
+    [self.candyCell updateBottomInset:[WLKeyboard keyboard].height + self.composeBarView.height];
     [self.candyCell.tableView scrollToBottomAnimated:YES];
 }
 
@@ -363,14 +362,14 @@
 
 #pragma mark - WLKeyboardBroadcastReceiver
 
-- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
-    [super broadcaster:broadcaster willShowKeyboardWithHeight:keyboardHeight];
-    [self.candyCell updateBottomInset:[keyboardHeight floatValue] + self.composeBarView.height];
+- (void)keyboardWillShow:(WLKeyboard *)keyboard {
+    [super keyboardWillShow:keyboard];
+    [self.candyCell updateBottomInset:keyboard.height + self.composeBarView.height];
     [self.candyCell.tableView scrollToBottomAnimated:YES];
 }
 
-- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
-    [super broadcasterWillHideKeyboard:broadcaster];
+- (void)keyboardWillHide:(WLKeyboard *)broadcaster {
+    [super keyboardWillHide:broadcaster];
     [self.candyCell updateBottomInset:self.composeBarView.height];
 }
 

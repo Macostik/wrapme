@@ -26,7 +26,7 @@
 #import "WLToast.h"
 #import "WLHomeViewController.h"
 #import "RMPhoneFormat.h"
-#import "WLKeyboardBroadcaster.h"
+#import "WLKeyboard.h"
 #import "WLAuthorizationRequest.h"
 #import "WLButton.h"
 
@@ -63,7 +63,6 @@
 	self.emailTextField.inputAccessoryView = [WLInputAccessoryView inputAccessoryViewWithTarget:self cancel:@selector(emailInputCancel:) done:@selector(emailInputDone:)];
 	self.emailTextField.text = [WLAuthorization currentAuthorization].email;
 	self.authorization.email = self.emailTextField.text;
-	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
 	if ([WLAPIManager instance].environment.useTestUsers) {
 		__weak typeof(self)weakSelf = self;
 		run_after(0.1, ^{

@@ -17,7 +17,7 @@
 #import "UIImage+Resize.h"
 #import "UIButton+Additions.h"
 #import "WLImageFetcher.h"
-#import "WLKeyboardBroadcaster.h"
+#import "WLKeyboard.h"
 #import "NSString+Additions.h"
 #import "WLStillPictureViewController.h"
 #import "WLEntryManager.h"
@@ -57,7 +57,6 @@
 	} else {
 		self.profileImageView.url = self.user.picture.medium;
 	}
-	[[WLKeyboardBroadcaster broadcaster] addReceiver:self];
     
     self.editSession = [[WLProfileEditSession alloc] initWithUser:self.user];
 	

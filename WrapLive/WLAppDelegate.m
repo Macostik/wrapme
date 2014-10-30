@@ -10,7 +10,7 @@
 #import "WLInternetConnectionBroadcaster.h"
 #import "WLSession.h"
 #import "WLNotificationCenter.h"
-#import "WLKeyboardBroadcaster.h"
+#import "WLKeyboard.h"
 #import <AviarySDK/AviarySDK.h>
 #import "WLGestureBroadcaster.h"
 #import "WLUploading+Extended.h"
@@ -29,7 +29,7 @@
     [UIWindow setMainWindow:self.window];
     [UIStoryboard setStoryboard:self.window.rootViewController.storyboard named:WLSignUpStoryboard];
 	[[WLInternetConnectionBroadcaster broadcaster] configure];
-	[[WLKeyboardBroadcaster broadcaster] configure];
+	[[WLKeyboard keyboard] configure];
 	[[WLNotificationCenter defaultCenter] configure];
 //    [[WLGestureBroadcaster broadcaster] configure];
 	

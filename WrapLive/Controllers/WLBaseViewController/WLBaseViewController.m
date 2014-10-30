@@ -28,7 +28,7 @@
     self.view.frame = [UIWindow mainWindow].bounds;
     [self.view layoutIfNeeded];
     self.keyboardAdjustmentDefaultConstants = [NSMapTable strongToStrongObjectsMapTable];
-    [[WLKeyboardBroadcaster broadcaster] addReceiver:self];
+    [[WLKeyboard keyboard] addReceiver:self];
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver
@@ -66,7 +66,7 @@
     return changed;
 }
 
-- (void)broadcaster:(WLKeyboardBroadcaster *)broadcaster willShowKeyboardWithHeight:(NSNumber *)keyboardHeight {
+- (void)keyboardWillShow:(WLKeyboard *)keyboard {
     if (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty) return;
     NSMapTable *constants = self.keyboardAdjustmentDefaultConstants;
     if ([constants count] == 0) {
@@ -78,10 +78,10 @@
         }
     }
     
-    CGFloat adjustment = [self keyboardAdjustmentValueWithKeyboardHeight:[keyboardHeight floatValue]];
+    CGFloat adjustment = [self keyboardAdjustmentValueWithKeyboardHeight:keyboard.height];
     if ([self updateKeyboardAdjustmentConstraints:adjustment]) {
         __weak typeof(self)weakSelf = self;
-        [broadcaster performAnimation:^{
+        [keyboard performAnimation:^{
             for (UIView *layoutView in weakSelf.keyboardAdjustmentLayoutViews) {
                 [layoutView layoutIfNeeded];
             }
@@ -89,12 +89,12 @@
     }
 }
 
-- (void)broadcasterWillHideKeyboard:(WLKeyboardBroadcaster *)broadcaster {
+- (void)keyboardWillHide:(WLKeyboard *)keyboard {
     if (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty) return;
     [self updateKeyboardAdjustmentConstraints:0];
     [self.keyboardAdjustmentDefaultConstants removeAllObjects];
     __weak typeof(self)weakSelf = self;
-    [broadcaster performAnimation:^{
+    [keyboard performAnimation:^{
         for (UIView *layoutView in weakSelf.keyboardAdjustmentLayoutViews) {
             [layoutView layoutIfNeeded];
         }

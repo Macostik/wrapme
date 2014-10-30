@@ -1923,6 +1923,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="xa9-c0-7Xl" secondAttribute="bottom" id="2p6-9J-nMy"/>
                                             <constraint firstAttribute="trailing" secondItem="xa9-c0-7Xl" secondAttribute="trailing" id="KWe-s2-4ot"/>
@@ -2043,6 +2044,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="isD-yq-hi4" firstAttribute="leading" secondItem="apm-cV-70h" secondAttribute="leading" constant="80" id="5Xf-kA-6zp"/>
                                         <constraint firstAttribute="centerY" secondItem="9ew-b0-PcB" secondAttribute="centerY" constant="-3" id="8B6-IN-5BO"/>
@@ -2076,6 +2078,7 @@
                                             </constraints>
                                         </imageView>
                                     </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="centerY" secondItem="1T0-UQ-UtR" secondAttribute="centerY" id="NuR-B9-75u"/>
                                         <constraint firstAttribute="centerY" secondItem="Skm-Fq-Ia0" secondAttribute="centerY" id="T11-NK-iuB"/>

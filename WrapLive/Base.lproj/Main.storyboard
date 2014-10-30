@@ -2126,19 +2126,6 @@
                                             <segue destination="qRW-aK-Lk5" kind="custom" identifier="wrap-&gt;wrap" customClass="WLSetValueSegue" id="KzJ-t1-ugM"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3F6-Kp-Py8">
-                                        <rect key="frame" x="266" y="0.0" width="54" height="54"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="54" id="7V1-rD-1ij"/>
-                                            <constraint firstAttribute="height" constant="54" id="Egc-Dy-hWr"/>
-                                        </constraints>
-                                        <state key="normal" image="ic_settings">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="editWrapClick:" destination="hUj-RK-zkg" eventType="touchUpInside" id="CaY-mg-f5E"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -2186,22 +2173,6 @@
                                             <segue destination="ef1-h7-yay" kind="custom" identifier="wrap-&gt;wrap" customClass="WLSetValueSegue" id="OUd-KJ-euJ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PcB-Yh-hjT">
-                                        <rect key="frame" x="60" y="32" width="200" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="GT9-dY-Zhz"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="wrap name">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="editWrapClick:" destination="hUj-RK-zkg" eventType="touchUpInside" id="kgN-xY-mJv"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8y-Vm-wNu" customClass="WLSizeToFitLabel">
                                         <rect key="frame" x="265" y="19" width="22" height="22"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2221,19 +2192,33 @@
                                             <outlet property="widthConstraint" destination="6eu-pt-fqe" id="BJD-xQ-2IZ"/>
                                         </connections>
                                     </label>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PcB-Yh-hjT">
+                                        <rect key="frame" x="54" y="19" width="212" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="wrap name">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="editWrapClick:" destination="hUj-RK-zkg" eventType="touchUpInside" id="kgN-xY-mJv"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="PcB-Yh-hjT" firstAttribute="leading" secondItem="Fzq-yp-f3W" secondAttribute="trailing" id="2ha-Ld-d5u"/>
                                     <constraint firstAttribute="trailing" secondItem="8kR-VI-DgA" secondAttribute="trailing" id="CZJ-45-RCL"/>
                                     <constraint firstItem="Fzq-yp-f3W" firstAttribute="leading" secondItem="b0w-IA-ZYu" secondAttribute="leading" id="NJ8-X8-rDk"/>
                                     <constraint firstItem="Fzq-yp-f3W" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="top" constant="20" id="OyJ-WK-In4"/>
+                                    <constraint firstAttribute="bottom" secondItem="PcB-Yh-hjT" secondAttribute="bottom" constant="1" id="QfO-hw-SlA"/>
                                     <constraint firstItem="O8y-Vm-wNu" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="top" constant="19" id="Suc-bW-vcv"/>
-                                    <constraint firstItem="PcB-Yh-hjT" firstAttribute="leading" secondItem="Fzq-yp-f3W" secondAttribute="trailing" constant="6" id="Wc3-cM-6wm"/>
                                     <constraint firstItem="8kR-VI-DgA" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="top" constant="20" id="Z5M-36-JYc"/>
-                                    <constraint firstItem="PcB-Yh-hjT" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="top" constant="32" id="gRt-fu-VVe"/>
                                     <constraint firstAttribute="trailing" secondItem="O8y-Vm-wNu" secondAttribute="trailing" constant="33" id="mGb-oW-R2d"/>
-                                    <constraint firstItem="O8y-Vm-wNu" firstAttribute="leading" secondItem="PcB-Yh-hjT" secondAttribute="trailing" constant="5" id="mdp-dh-P3h"/>
                                     <constraint firstAttribute="height" constant="64" id="oKU-xM-Q0m"/>
+                                    <constraint firstItem="8kR-VI-DgA" firstAttribute="leading" secondItem="PcB-Yh-hjT" secondAttribute="trailing" id="oZy-VS-gaN"/>
+                                    <constraint firstItem="PcB-Yh-hjT" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="top" constant="19" id="pJG-p9-4Lw"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="46L-mU-Uks">
@@ -3484,8 +3469,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WjR-f7-d7j"/>
         <segue reference="USb-FQ-HhL"/>
-        <segue reference="tUX-Tk-kxb"/>
+        <segue reference="WjR-f7-d7j"/>
     </inferredMetricsTieBreakers>
 </document>

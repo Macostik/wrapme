@@ -210,7 +210,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)addReceiver:(id)receiver {
 	[super addReceiver:receiver];
-	if (self.pendingRemoteNotification && [receiver respondsToSelector:@selector(broadcaster:didReceiveRemoteNotification:)]) {
+	if (self.pendingRemoteNotification.targetEntry.fetched && [receiver respondsToSelector:@selector(broadcaster:didReceiveRemoteNotification:)]) {
 		[receiver broadcaster:self didReceiveRemoteNotification:self.pendingRemoteNotification];
 	}
 }
@@ -270,7 +270,7 @@ static NSString *WLNotificationCenterTypingKey = @"typing";
 
 - (void)subscribeOnTypingChannel:(WLWrap *)wrap success:(WLBlock)success {
     __weak __typeof(self)weakSelf = self;
-    if ([[PubNub sharedInstance] isConnected]) {
+    if (wrap.identifier.nonempty && [[PubNub sharedInstance] isConnected]) {
         self.typingChannel.name = wrap.identifier;
         [self.typingChannel subscribe:^ {
             [weakSelf fetchParticipants];

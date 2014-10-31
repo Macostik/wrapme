@@ -68,6 +68,12 @@ CGFloat WLMaxTextViewWidth;
 
 @implementation WLChatViewController
 
+- (void)dealloc {
+    self.collectionView.delegate = nil;
+    self.collectionView.dataSource = nil;
+    self.collectionView = nil;
+}
+
 - (WLCollectionViewFlowLayout *)layout {
 	return (WLCollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
 }
@@ -82,9 +88,11 @@ CGFloat WLMaxTextViewWidth;
 	
 	if (self.wrap.name.nonempty) {
 		self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(self.wrap.name)];
+        [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:nil];
 	} else {
 		[self.wrap fetch:nil success:^(NSOrderedSet *candies) {
 			weakSelf.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(weakSelf.wrap.name)];
+            [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:weakSelf.wrap success:nil];
 		} failure:^(NSError *error) {
 		}];
 	}
@@ -101,7 +109,6 @@ CGFloat WLMaxTextViewWidth;
     [[WLMessage notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLNotificationCenter defaultCenter] addReceiver:self];
-    [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:self.wrap success:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -222,6 +229,7 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
+    [self.composeBar resignFirstResponder];
     self.typing = NO;
     [[WLNotificationCenter defaultCenter] unsubscribeFromTypingChannel];
     if (self.wrap.valid) {

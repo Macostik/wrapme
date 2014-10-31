@@ -91,17 +91,15 @@ static NSMapTable *storyboards = nil;
 }
 
 - (void)pushUniqueClassViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    NSMutableArray* controllers = [NSMutableArray array];
     for (UIViewController* _controller in self.viewControllers) {
         if ([_controller isKindOfClass:[viewController class]]) {
-            [controllers addObject:viewController];
-            break;
-        } else {
-            [controllers addObject:_controller];
+            if (_controller != self.topViewController) {
+                [self popToViewController:_controller animated:animated];
+            }
+            return;
         }
     }
-    if (![controllers containsObject:viewController]) [controllers addObject:viewController];
-    [self setViewControllers:controllers animated:animated];
+    [self pushViewController:viewController animated:animated];
 }
 
 @end
@@ -127,6 +125,10 @@ static UIWindow* mainWindow = nil;
     return nil;
 }
 
+- (BOOL)isValidViewController:(UIViewController *)controller {
+    return YES;
+}
+
 - (void)present {
     [self present:YES];
 }
@@ -142,7 +144,15 @@ static UIWindow* mainWindow = nil;
 - (void)presentInNavigationController:(UINavigationController*)navigationController animated:(BOOL)animated {
     UIViewController* entryViewController = [self viewController];
     if (entryViewController) {
-        [navigationController pushUniqueClassViewController:entryViewController animated:animated];
+        for (UIViewController* _controller in navigationController.viewControllers) {
+            if ([self isValidViewController:_controller]) {
+                if (_controller != navigationController.topViewController) {
+                    [navigationController popToViewController:_controller animated:animated];
+                }
+                return;
+            }
+        }
+        [navigationController pushViewController:entryViewController animated:animated];
     }
 }
 
@@ -156,6 +166,12 @@ static UIWindow* mainWindow = nil;
     return controller;
 }
 
+- (BOOL)isValidViewController:(UIViewController *)controller {
+    if (![controller isKindOfClass:[WLCandyViewController class]]) return NO;
+    if ([(WLCandyViewController*)controller candy] != self) return NO;
+    return YES;
+}
+
 @end
 
 @implementation WLMessage (WLNavigation)
@@ -164,6 +180,12 @@ static UIWindow* mainWindow = nil;
     WLChatViewController* controller = [WLChatViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
     controller.wrap = self.wrap;
     return controller;
+}
+
+- (BOOL)isValidViewController:(UIViewController *)controller {
+    if (![controller isKindOfClass:[WLChatViewController class]]) return NO;
+    if ([(WLChatViewController*)controller wrap] != self.wrap) return NO;
+    return YES;
 }
 
 @end
@@ -176,12 +198,22 @@ static UIWindow* mainWindow = nil;
     return controller;
 }
 
+- (BOOL)isValidViewController:(UIViewController *)controller {
+    if (![controller isKindOfClass:[WLWrapViewController class]]) return NO;
+    if ([(WLWrapViewController*)controller wrap] != self) return NO;
+    return YES;
+}
+
 @end
 
 @implementation WLComment (WLNavigation)
 
 - (UIViewController *)viewController {
     return [self.candy viewController];
+}
+
+- (BOOL)isValidViewController:(UIViewController *)controller {
+    return [self.candy isValidViewController:controller];
 }
 
 @end

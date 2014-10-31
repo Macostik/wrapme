@@ -26,6 +26,9 @@
 @implementation WLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
+    
     [UIWindow setMainWindow:self.window];
     [UIStoryboard setStoryboard:self.window.rootViewController.storyboard named:WLSignUpStoryboard];
 	[[WLInternetConnectionBroadcaster broadcaster] configure];
@@ -41,8 +44,6 @@
 #ifndef DEBUG
     [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
 #endif
-    
-    [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
     
 	return YES;
 }

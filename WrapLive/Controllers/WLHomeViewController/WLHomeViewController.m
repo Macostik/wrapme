@@ -207,7 +207,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 			[notification.targetEntry present];
 		}];
 	} else {
-		[notification.targetEntry present];
+		[notification.targetEntry present:NO];
 	}
 }
 

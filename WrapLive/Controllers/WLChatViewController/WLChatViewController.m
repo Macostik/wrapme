@@ -27,6 +27,7 @@
 #import "WLEntryNotifier.h"
 #import "WLGroupedSet.h"
 #import "WLSignificantTimeBroadcaster.h"
+#import "WLInternetConnectionBroadcaster.h"
 #import "WLNotificationCenter.h"
 #import "WLNotification.h"
 #import "UIView+AnimationHelper.h"
@@ -109,6 +110,7 @@ CGFloat WLMaxTextViewWidth;
     [[WLMessage notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLNotificationCenter defaultCenter] addReceiver:self];
+    [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -155,6 +157,8 @@ CGFloat WLMaxTextViewWidth;
     if (!message) {
         [self loadMessages:^{
             [sender setRefreshing:NO animated:YES];
+            [[WLInternetConnectionBroadcaster broadcaster] configure];
+            self.shouldAppendMoreMessages = NO;
         }];
         return;
     }

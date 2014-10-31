@@ -329,7 +329,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!indexPath.section ) {
-        return CGSizeMake(collectionView.width, 66);
+        return CGSizeMake(collectionView.width, WLEmptyCellHeight);
     }
 
     WLPaginatedSet *group = [self.chatGroup.entries tryObjectAtIndex:indexPath.section - 1];
@@ -427,6 +427,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)showTypingView:(BOOL)flag {
     __weak __typeof(self)weakSelf = self;
     self.hasTypingUsers = flag;
+    self.layout.typingInset = flag ? WLEmptyCellHeight : 0.0;
     [self.collectionView reloadData];
     [UIView animateWithDuration:.5 delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
         weakSelf.typingView.transform =  flag ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(0, weakSelf.collectionView.height);

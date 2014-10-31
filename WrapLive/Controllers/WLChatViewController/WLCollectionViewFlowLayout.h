@@ -12,6 +12,8 @@
 
 @property (nonatomic) CGFloat inset;
 
+@property (nonatomic) CGFloat typingInset;
+
 @property (strong, nonatomic) UIView* loadingView;
 
 @end

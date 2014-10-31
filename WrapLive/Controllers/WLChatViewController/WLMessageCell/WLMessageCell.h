@@ -13,6 +13,7 @@ static CGFloat WLMessageAuthorLabelHeight = 21.0f;
 static CGFloat WLMessageMinimumCellHeight = 60.0f;
 static CGFloat WLLastMessageMinimumCellHeight = 40.0f;
 static CGFloat WLAvatarWidth = 66.0f;
+static CGFloat WLEmptyCellHeight = 66.0f;
 static CGFloat WLMinBubbleWidth = 15.0f;
 static CGFloat WLBottomIdent = 12.0f;
 static CGFloat WLPadding = 20.0f;

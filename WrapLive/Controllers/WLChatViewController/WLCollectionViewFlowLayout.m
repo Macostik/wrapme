@@ -21,7 +21,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    self.inset = MAX(0, self.collectionView.height - self.collectionView.contentSize.height);
+    self.inset = MAX(0, self.collectionView.height - self.collectionView.contentSize.height + _typingInset);
 	[self updateLoadingViewPosition];
 }
 

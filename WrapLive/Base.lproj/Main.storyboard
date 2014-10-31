@@ -2408,6 +2408,10 @@
                                                                             <constraint firstAttribute="width" constant="40" id="Jvq-8l-oT5"/>
                                                                         </constraints>
                                                                     </imageView>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="exs-Mo-yvf" customClass="WLProgressBar">
+                                                                        <rect key="frame" x="6" y="1" width="42" height="42"/>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                    </view>
                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8v-Pz-wMq">
                                                                         <rect key="frame" x="60" y="0.0" width="250" height="20"/>
                                                                         <constraints>
@@ -2417,10 +2421,6 @@
                                                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="exs-Mo-yvf" customClass="WLCircleProgressBar">
-                                                                        <rect key="frame" x="6" y="1" width="42" height="42"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                    </view>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yq2-Yg-jcf">
                                                                         <rect key="frame" x="60" y="19" width="255" height="73"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2452,13 +2452,13 @@
                                                             <connections>
                                                                 <outlet property="authorImageView" destination="LiT-bh-wDT" id="H4U-Bx-vvC"/>
                                                                 <outlet property="authorNameLabel" destination="s8v-Pz-wMq" id="gIy-1R-iDs"/>
-                                                                <outlet property="circleProgressBar" destination="exs-Mo-yvf" id="COb-VT-YbY"/>
                                                                 <outlet property="commentTextView" destination="Yq2-Yg-jcf" id="ogZ-sl-v9o"/>
+                                                                <outlet property="progressBar" destination="exs-Mo-yvf" id="6hp-97-wa1"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
                                                     <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCandyHeaderView" id="8lr-5P-GTY" customClass="WLCandyHeaderView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <subviews>
                                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="lOt-XR-j24">
@@ -2490,7 +2490,7 @@
                                                                 <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="saf-0Z-94Q" customClass="WLClearProgressBar">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="saf-0Z-94Q" customClass="WLProgressBar">
                                                                 <rect key="frame" x="0.0" y="318" width="320" height="4"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                                 <constraints>

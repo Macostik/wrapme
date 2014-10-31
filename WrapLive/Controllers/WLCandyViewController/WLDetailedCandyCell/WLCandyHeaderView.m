@@ -9,7 +9,7 @@
 #import "WLCandyHeaderView.h"
 #import "WLImageView.h"
 #import "WLEntryManager.h"
-#import "WLClearProgressBar.h"
+#import "WLProgressBar+WLContribution.h"
 #import "NSString+Additions.h"
 #import "WLInternetConnectionBroadcaster.h"
 #import "NSDate+Additions.h"
@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet WLClearProgressBar *progressBar;
+@property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 
 @end
 
@@ -40,22 +40,13 @@
         if (weakSelf.spinner.isAnimating) [weakSelf.spinner stopAnimating];
     }];
     self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(candy.createdAt.timeAgoString)];
-    if (![WLInternetConnectionBroadcaster broadcaster].reachable) {
-        self.progressBar.progress = .2f;
-    } else {
-        self.progressBar.operation = candy.uploading.operation;
-    }
-    self.progressBar.hidden = candy.uploaded;
+    self.progressBar.contribution = candy;
 }
 
 #pragma mark - WLInternetConnectionBroadcaster
 
 - (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
-    if (![reachable boolValue]) {
-        run_in_main_queue(^{
-            self.progressBar.progress = .2f;
-        });
-    }
+    self.progressBar.contribution = self.candy;
 }
 
 @end

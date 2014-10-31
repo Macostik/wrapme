@@ -29,7 +29,6 @@
 #import "WLImageViewController.h"
 #import "WLKeyboard.h"
 #import "WLNavigation.h"
-#import "WLClearProgressBar.h"
 #import "WLRefresher.h"
 #import "WLSession.h"
 #import "WLToast.h"
@@ -143,7 +142,8 @@
 }
 
 - (WLDetailedCandyCell *)candyCell {
-    return [[self.collectionView visibleCells] lastObject];
+    WLDetailedCandyCell* candyCell = [[self.collectionView visibleCells] lastObject];
+    return candyCell;
 }
 
 - (void)fetchOlder:(WLCandy*)candy {
@@ -290,7 +290,7 @@
         [weakSelf.candyCell.collectionView scrollToBottomAnimated:YES];
     } failure:^(NSError *error) {
     }];
-    run_after_asap(^{
+    run_after(0.1,^{
         [weakSelf.candyCell.collectionView scrollToBottomAnimated:YES];
     });
 }

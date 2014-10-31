@@ -21,7 +21,7 @@
 #import "WLEntryManager.h"
 #import "WLMenu.h"
 #import "NSString+Additions.h"
-#import "WLCircleProgressBar.h"
+#import "WLProgressBar+WLContribution.h"
 #import "WLInternetConnectionBroadcaster.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
@@ -31,7 +31,7 @@
 @property (weak, nonatomic) IBOutlet WLImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
-@property (weak, nonatomic) IBOutlet WLCircleProgressBar *circleProgressBar;
+@property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 @property (strong, nonatomic) WLMenu* menu;
 
 @end
@@ -40,6 +40,8 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
+    self.authorImageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    self.authorImageView.layer.shouldRasterize = YES;
 	self.authorImageView.layer.cornerRadius = self.authorImageView.height/2.0f;
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self configuration:^BOOL(WLMenu *menu) {
@@ -75,15 +77,7 @@
     }];
     self.menu.vibrate = [entry.contributor isCurrentUser];
    
-    if (![WLInternetConnectionBroadcaster broadcaster].reachable && !entry.uploaded) {
-        self.circleProgressBar.waitUpload = YES;
-    } else {
-        if (entry.candy.uploading.operation) {
-            self.circleProgressBar.waitUpload = YES;
-        } else {
-            self.circleProgressBar.operation = entry.uploading.operation;
-        }
-    }
+    self.progressBar.contribution = entry;
 }
 
 @end

@@ -13,7 +13,7 @@
 #import "WLInputAccessoryView.h"
 #import "WLSession.h"
 #import "UIView+Shorthand.h"
-#import "WLProgressBar.h"
+#import "WLProgressBar+WLContribution.h"
 #import "UIButton+Additions.h"
 #import "NSString+Additions.h"
 #import "WLAuthorization.h"

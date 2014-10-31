@@ -264,7 +264,12 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
 }
 
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    return [[WLCandyRequest request:self] send:success failure:failure];
+    if (self.uploaded) {
+        return [[WLCandyRequest request:self] send:success failure:failure];
+    } else {
+        if (failure) failure([NSError errorWithDescription:@"Photo is uploading, wait a moment..."]);
+        return nil;
+    }
 }
 
 @end

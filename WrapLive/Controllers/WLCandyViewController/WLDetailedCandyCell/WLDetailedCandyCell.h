@@ -7,7 +7,6 @@
 //
 
 #import "WLEntryCell.h"
-#import "WLClearProgressBar.h"
 
 static NSString* WLDetailedCandyCellIdentifier = @"WLDetailedCandyCell";
 

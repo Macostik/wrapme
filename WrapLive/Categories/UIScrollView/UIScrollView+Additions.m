@@ -16,9 +16,9 @@
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animated {
-	if (self.contentSize.height > self.bounds.size.height) {
+//	if (self.contentSize.height > self.bounds.size.height) {
 		[self setContentOffset:CGPointMake(0, self.maximumContentOffset.y) animated:animated];
-	}
+//	}
 }
 
 - (BOOL)isPossibleContentOffset:(CGPoint)contentOffset {

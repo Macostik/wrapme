@@ -53,6 +53,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.dataSection.entries = [[WLUser currentUser] notifications];
+    [self.userView update];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {

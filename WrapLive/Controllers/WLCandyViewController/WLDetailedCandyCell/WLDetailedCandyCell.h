@@ -13,11 +13,7 @@ static NSString* WLDetailedCandyCellIdentifier = @"WLDetailedCandyCell";
 
 @interface WLDetailedCandyCell : WLEntryCell
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (weak, nonatomic) IBOutlet WLClearProgressBar *progressBar;
-
-- (void)refresh;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 - (void)updateBottomInset:(CGFloat)bottomInset;
 

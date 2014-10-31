@@ -17,15 +17,12 @@
 #import "WLCommentCell.h"
 #import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
+#import "WLCandyHeaderView.h"
 
-@interface WLDetailedCandyCell () <UITableViewDataSource, UITableViewDelegate>
+@interface WLDetailedCandyCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
-@property (weak, nonatomic) IBOutlet WLImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-@property (weak, nonatomic) WLRefresher *refresher;
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) WLRefresher *refresher;
 
 @end
 
@@ -33,38 +30,27 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 44, 0);
-    self.refresher = [WLRefresher refresher:self.tableView target:self action:@selector(refresh) style:WLRefresherStyleOrange];
-    [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
+    self.collectionView.contentInset = UIEdgeInsetsMake(64, 0, 44, 0);
+    self.refresher = [WLRefresher refresher:self.collectionView target:self action:@selector(refresh:) style:WLRefresherStyleOrange];
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    UIView* headerView = self.tableView.tableHeaderView;
-    if (headerView.height != self.width) {
-        headerView.height = self.width;
-        self.tableView.tableHeaderView = headerView;
-    }
-}
-
-- (void)refresh {
+- (void)refresh:(WLRefresher*)sender {
     WLCandy* candy = self.entry;
 	if (candy.uploaded) {
-		__weak typeof(self)weakSelf = self;
         [candy fetch:^(id object) {
-			[weakSelf.refresher setRefreshing:NO animated:YES];
+			[sender setRefreshing:NO animated:YES];
         } failure:^(NSError *error) {
             [error showIgnoringNetworkError];
-			[weakSelf.refresher setRefreshing:NO animated:YES];
+			[sender setRefreshing:NO animated:YES];
         }];
 	} else {
-        [self.refresher setRefreshing:NO animated:YES];
+        [sender setRefreshing:NO animated:YES];
     }
 }
 
 - (void)setEntry:(id)entry {
     if (self.entry != entry) {
-        self.tableView.contentOffset = CGPointMake(0, -64);
+        self.collectionView.contentOffset = CGPointMake(0, -64);
     }
     [super setEntry:entry];
 }
@@ -73,66 +59,54 @@
     if (self.refresher.refreshing) {
         [self.refresher setRefreshing:NO animated:YES];
     }
-	__weak typeof(self)weakSelf = self;
-	if (!self.spinner.isAnimating) [self.spinner startAnimating];
-	[self.imageView setUrl:candy.picture.medium success:^(UIImage *image, BOOL cached) {
-        if (weakSelf.spinner.isAnimating) [weakSelf.spinner stopAnimating];
-    } failure:^(NSError *error) {
-        if (weakSelf.spinner.isAnimating) [weakSelf.spinner stopAnimating];
-    }];
-	self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(candy.createdAt.timeAgoString)];
+	
     self.nameLabel.text = [NSString stringWithFormat:@"By %@", WLString(candy.contributor.name)];
-    if (![WLInternetConnectionBroadcaster broadcaster].reachable) {
-        self.progressBar.progress = .2f;
-    } else {
-        self.progressBar.operation = candy.uploading.operation;
-    }
-    self.progressBar.hidden = candy.uploaded;
-	[self.tableView reloadData];
+    
+	[self.collectionView reloadData];
     if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
 }
 
 - (void)updateBottomInset:(CGFloat)bottomInset {
-    UIEdgeInsets insets = self.tableView.contentInset;
+    UIEdgeInsets insets = self.collectionView.contentInset;
     insets.bottom = bottomInset;
-    self.tableView.contentInset = insets;
+    self.collectionView.contentInset = insets;
 }
 
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     WLCandy* candy = self.entry;
 	return candy.comments.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLCandy* candy = self.entry;
-	WLComment* comment = [candy.comments tryObjectAtIndex:indexPath.row];
-	WLCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:WLCommentCellIdentifier forIndexPath:indexPath];
-    cell.item = comment.valid ? comment : nil;
+	WLComment* comment = [candy.comments tryObjectAtIndex:indexPath.item];
+	WLCommentCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCommentCellIdentifier forIndexPath:indexPath];
+    cell.entry = comment.valid ? comment : nil;
 	return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLCandy* candy = self.entry;
 	WLComment* comment = [candy.comments tryObjectAtIndex:indexPath.row];
     if (comment.valid) {
         CGFloat commentHeight  = ceilf([comment.text boundingRectWithSize:CGSizeMake(WLCommentLabelLenth, CGFLOAT_MAX)
                                                                   options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightFontOfSize:15]} context:nil].size.height);
         CGFloat cellHeight = (commentHeight + WLAuthorLabelHeight);
-        return MAX(WLMinimumCellHeight, cellHeight + 10);
+        return CGSizeMake(collectionView.width, MAX(WLMinimumCellHeight, cellHeight + 10));
     }
-    return WLMinimumCellHeight;
+    return CGSizeMake(collectionView.width, WLMinimumCellHeight);
 }
 
-#pragma mark - WLInternetConnectionBroadcaster
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    WLCandyHeaderView* headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLCandyHeaderView" forIndexPath:indexPath];
+    headerView.candy = self.entry;
+    return headerView;
+}
 
-- (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
-    if (![reachable boolValue]) {
-        run_in_main_queue(^{
-            self.progressBar.progress = .2f;
-        });
-    }
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(collectionView.width, collectionView.width + 30);
 }
 
 @end

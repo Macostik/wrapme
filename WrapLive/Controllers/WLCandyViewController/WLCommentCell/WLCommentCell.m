@@ -43,11 +43,11 @@
 	self.authorImageView.layer.cornerRadius = self.authorImageView.height/2.0f;
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self configuration:^BOOL(WLMenu *menu) {
-        WLComment* comment = weakSelf.item;
+        WLComment* comment = weakSelf.entry;
         if ([comment.contributor isCurrentUser]) {
             [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:^{
                 weakSelf.userInteractionEnabled = NO;
-                [weakSelf.item remove:^(id object) {
+                [weakSelf.entry remove:^(id object) {
                     weakSelf.userInteractionEnabled = YES;
                 } failure:^(NSError *error) {
                     [error show];
@@ -63,7 +63,7 @@
     self.commentTextView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, 0);
 }
 
-- (void)setupItemData:(WLComment *)entry {
+- (void)setup:(WLComment *)entry {
 	self.userInteractionEnabled = YES;
     if (!NSNumberEqual(entry.unread, @NO)) entry.unread = @NO;
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", WLString(entry.contributor.name), WLString(entry.createdAt.timeAgoString)];

@@ -6,11 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLItemCell.h"
-
-@class WLComment;
-@class WLCandy;
-@class WLWrap;
+#import "WLEntryCell.h"
 
 static CGFloat WLCommentLabelLenth = 250.0f;
 static CGFloat WLAuthorLabelHeight = 20.0f;
@@ -18,6 +14,6 @@ static CGFloat WLMinimumCellHeight = 50.0f;
 
 static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
-@interface WLCommentCell : WLItemCell
+@interface WLCommentCell : WLEntryCell
 
 @end

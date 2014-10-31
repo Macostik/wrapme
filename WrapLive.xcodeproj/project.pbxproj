@@ -1023,6 +1023,10 @@
 		C54AF87F19B8C63F006F7EDB /* WLTestUsersDevelopment.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85519B8C622006F7EDB /* WLTestUsersDevelopment.plist */; };
 		C54AF88019B8C63F006F7EDB /* WLTestUsersProduction.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85619B8C622006F7EDB /* WLTestUsersProduction.plist */; };
 		C54AF88119B8C63F006F7EDB /* WLTestUsersQA.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85719B8C622006F7EDB /* WLTestUsersQA.plist */; };
+		C5568B9F1A03C2E300C4E6C2 /* WLCandyHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568B9E1A03C2E300C4E6C2 /* WLCandyHeaderView.m */; };
+		C5568BA01A03C2E300C4E6C2 /* WLCandyHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568B9E1A03C2E300C4E6C2 /* WLCandyHeaderView.m */; };
+		C5568BA11A03C2E300C4E6C2 /* WLCandyHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568B9E1A03C2E300C4E6C2 /* WLCandyHeaderView.m */; };
+		C5568BA21A03C2E300C4E6C2 /* WLCandyHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568B9E1A03C2E300C4E6C2 /* WLCandyHeaderView.m */; };
 		C55C8D6A19C98A9400199245 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6319C98A9400199245 /* WLNotification.m */; };
 		C55C8D6B19C98A9400199245 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6319C98A9400199245 /* WLNotification.m */; };
 		C55C8D6C19C98A9400199245 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6319C98A9400199245 /* WLNotification.m */; };
@@ -1538,6 +1542,8 @@
 		C54AF85B19B8C622006F7EDB /* WLAPIEnvironmentQA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLAPIEnvironmentQA.plist; sourceTree = "<group>"; };
 		C54AF86419B8C632006F7EDB /* WLAPIEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAPIEnvironment.h; path = WLAPIManager/WLAPIEnvironment.h; sourceTree = "<group>"; };
 		C54AF86519B8C632006F7EDB /* WLAPIEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAPIEnvironment.m; path = WLAPIManager/WLAPIEnvironment.m; sourceTree = "<group>"; };
+		C5568B9D1A03C2E300C4E6C2 /* WLCandyHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCandyHeaderView.h; path = WLDetailedCandyCell/WLCandyHeaderView.h; sourceTree = "<group>"; };
+		C5568B9E1A03C2E300C4E6C2 /* WLCandyHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCandyHeaderView.m; path = WLDetailedCandyCell/WLCandyHeaderView.m; sourceTree = "<group>"; };
 		C55C8D6219C98A9400199245 /* WLNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotification.h; sourceTree = "<group>"; };
 		C55C8D6319C98A9400199245 /* WLNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotification.m; sourceTree = "<group>"; };
 		C55C8D6419C98A9400199245 /* WLNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationCenter.h; sourceTree = "<group>"; };
@@ -2884,6 +2890,8 @@
 			children = (
 				C50094281998D353007EE33A /* WLDetailedCandyCell.h */,
 				C50094291998D353007EE33A /* WLDetailedCandyCell.m */,
+				C5568B9D1A03C2E300C4E6C2 /* WLCandyHeaderView.h */,
+				C5568B9E1A03C2E300C4E6C2 /* WLCandyHeaderView.m */,
 			);
 			name = WLDetailedCandyCell;
 			sourceTree = "<group>";
@@ -4075,6 +4083,7 @@
 				C57BDDB719FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
 				12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */,
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
+				C5568B9F1A03C2E300C4E6C2 /* WLCandyHeaderView.m in Sources */,
 				C50236141979032400996D07 /* WLImageView.m in Sources */,
 				12D9F6E318E18DAA001E8323 /* NSError+WLAPIManager.m in Sources */,
 				121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */,
@@ -4288,6 +4297,7 @@
 				C57BDDB819FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
 				C54AF4E519B8C437006F7EDB /* WLAPIResponse.m in Sources */,
 				C54AF4E619B8C437006F7EDB /* WLAppDelegate.m in Sources */,
+				C5568BA01A03C2E300C4E6C2 /* WLCandyHeaderView.m in Sources */,
 				C54AF4E719B8C437006F7EDB /* WLImageView.m in Sources */,
 				C54AF4E819B8C437006F7EDB /* NSError+WLAPIManager.m in Sources */,
 				C54AF4E919B8C437006F7EDB /* NSObject+NibAdditions.m in Sources */,
@@ -4501,6 +4511,7 @@
 				C57BDDB919FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
 				C54AF5E219B8C467006F7EDB /* WLAPIResponse.m in Sources */,
 				C54AF5E319B8C467006F7EDB /* WLAppDelegate.m in Sources */,
+				C5568BA11A03C2E300C4E6C2 /* WLCandyHeaderView.m in Sources */,
 				C54AF5E419B8C467006F7EDB /* WLImageView.m in Sources */,
 				C54AF5E519B8C467006F7EDB /* NSError+WLAPIManager.m in Sources */,
 				C54AF5E619B8C467006F7EDB /* NSObject+NibAdditions.m in Sources */,
@@ -4714,6 +4725,7 @@
 				C57BDDBA19FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
 				C54AF6DF19B8C491006F7EDB /* WLAPIResponse.m in Sources */,
 				C54AF6E019B8C491006F7EDB /* WLAppDelegate.m in Sources */,
+				C5568BA21A03C2E300C4E6C2 /* WLCandyHeaderView.m in Sources */,
 				C54AF6E119B8C491006F7EDB /* WLImageView.m in Sources */,
 				C54AF6E219B8C491006F7EDB /* NSError+WLAPIManager.m in Sources */,
 				C54AF6E319B8C491006F7EDB /* NSObject+NibAdditions.m in Sources */,

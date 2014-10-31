@@ -287,11 +287,11 @@
     WLCandy* image = self.candy;
 	__weak typeof(self)weakSelf = self;
     [image uploadComment:text success:^(WLComment *comment) {
-        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
+        [weakSelf.candyCell.collectionView scrollToBottomAnimated:YES];
     } failure:^(NSError *error) {
     }];
     run_after_asap(^{
-        [weakSelf.candyCell.tableView scrollToBottomAnimated:YES];
+        [weakSelf.candyCell.collectionView scrollToBottomAnimated:YES];
     });
 }
 
@@ -303,7 +303,7 @@
 
 - (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
     [self.candyCell updateBottomInset:[WLKeyboard keyboard].height + self.composeBarView.height];
-    [self.candyCell.tableView scrollToBottomAnimated:YES];
+    [self.candyCell.collectionView scrollToBottomAnimated:YES];
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
@@ -356,7 +356,7 @@
 
 - (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
     if (![reachable boolValue]) {
-        [self.candyCell.tableView reloadData];
+        [self.candyCell.collectionView reloadData];
     }
 }
 
@@ -365,7 +365,7 @@
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
     [super keyboardWillShow:keyboard];
     [self.candyCell updateBottomInset:keyboard.height + self.composeBarView.height];
-    [self.candyCell.tableView scrollToBottomAnimated:YES];
+    [self.candyCell.collectionView scrollToBottomAnimated:YES];
 }
 
 - (void)keyboardWillHide:(WLKeyboard *)broadcaster {

@@ -111,12 +111,16 @@ CGFloat WLMaxTextViewWidth;
     [[WLNotificationCenter defaultCenter] addReceiver:self];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.composeBar becomeFirstResponder];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.wrap.messages all:^(WLMessage *message) {
         if(!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
     }];
-    [self.composeBar becomeFirstResponder];
 }
 
 - (void)setShouldAppendMoreMessages:(BOOL)shouldAppendMoreMessages {

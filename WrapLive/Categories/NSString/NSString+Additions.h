@@ -53,6 +53,8 @@ static inline NSString* phoneNumberClearing (NSString* phone) {
 
 - (BOOL)matches:(NSString *)string, ... NS_REQUIRES_NIL_TERMINATION;
 
+- (CGFloat)heightWithFont:(UIFont*)font width:(CGFloat)width cachingKey:(char *)key;
+
 @end
 
 @interface NSNumber (Additions)

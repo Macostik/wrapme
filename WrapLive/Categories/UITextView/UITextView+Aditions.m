@@ -11,10 +11,7 @@
 
 - (void)determineHyperLink:(NSString *)string {
     if (string) {
-        NSMutableAttributedString *attrebutedText = [[NSMutableAttributedString alloc] initWithString:string];
-        NSDictionary * attributes = @{NSFontAttributeName : self.font};
-        [attrebutedText addAttributes:attributes range:NSMakeRange(0, [attrebutedText length])];
-        self.attributedText = attrebutedText;
+        self.attributedText = [[NSAttributedString alloc] initWithString:string attributes:@{NSFontAttributeName : self.font}];
     } else {
         self.text = nil;
     }

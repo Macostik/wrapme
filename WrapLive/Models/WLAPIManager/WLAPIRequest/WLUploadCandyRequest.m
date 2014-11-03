@@ -43,6 +43,7 @@
     [[WLImageCache cache] setImageAtPath:oldPicture.small withUrl:newPicture.small];
     [[WLImageCache cache] setImageAtPath:oldPicture.large withUrl:newPicture.large];
     candy.wrap.updatedAt = candy.updatedAt;
+    [candy performSelector:@selector(enqueueUnuploadedComments) withObject:nil afterDelay:0.0f];
     return candy;
 }
 

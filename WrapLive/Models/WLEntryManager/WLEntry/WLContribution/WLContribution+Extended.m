@@ -23,8 +23,21 @@
     return @5;
 }
 
+- (WLContributionStatus)status {
+    WLUploading* uploading = self.uploading;
+    if (uploading) {
+        if (uploading.data.operation) {
+            return WLContributionStatusInProgress;
+        } else {
+            return WLContributionStatusReady;
+        }
+    } else {
+        return WLContributionStatusUploaded;
+    }
+}
+
 - (BOOL)uploaded {
-    return self.uploading == nil;
+    return self.status == WLContributionStatusUploaded;
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {

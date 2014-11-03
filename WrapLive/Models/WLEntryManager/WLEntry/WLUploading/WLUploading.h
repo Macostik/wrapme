@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "WLEntry.h"
-#import <AFNetworking/AFHTTPRequestOperation.h>
+#import "WLUploadingData.h"
 
 @class WLContribution;
 
@@ -17,6 +17,6 @@
 
 @property (nonatomic, retain) WLContribution *contribution;
 
-@property (weak, nonatomic) AFHTTPRequestOperation* operation;
+@property (strong, nonatomic) WLUploadingData* data;
 
 @end

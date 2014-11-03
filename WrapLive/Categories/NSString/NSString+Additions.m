@@ -7,6 +7,7 @@
 //
 
 #import "NSString+Additions.h"
+#import "NSObject+AssociatedObjects.h"
 
 @implementation NSString (Additions)
 
@@ -45,6 +46,17 @@
 	}
 	va_end(args);
 	return matches;
+}
+
+- (CGFloat)heightWithFont:(UIFont *)font width:(CGFloat)width cachingKey:(char *)key {
+    NSNumber* storedHeight = [self associatedObjectForKey:key];
+    if (!storedHeight) {
+        CGFloat height  = ceilf([self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                                           options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil].size.height);
+        storedHeight = @(height);
+        [self setAssociatedObject:storedHeight forKey:key];
+    }
+    return [storedHeight floatValue];
 }
 
 @end

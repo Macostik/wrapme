@@ -2377,7 +2377,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLDetailedCandyCell" id="YzT-ge-Jjl" customClass="WLDetailedCandyCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCommentsCell" id="YzT-ge-Jjl" customClass="WLCommentsCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -2403,15 +2403,12 @@
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LiT-bh-wDT" customClass="WLImageView">
                                                                         <rect key="frame" x="7" y="2" width="40" height="40"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="40" id="9cx-2d-F2V"/>
                                                                             <constraint firstAttribute="width" constant="40" id="Jvq-8l-oT5"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="exs-Mo-yvf" customClass="WLProgressBar">
-                                                                        <rect key="frame" x="6" y="1" width="42" height="42"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                    </view>
                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8v-Pz-wMq">
                                                                         <rect key="frame" x="60" y="0.0" width="250" height="20"/>
                                                                         <constraints>
@@ -2426,7 +2423,8 @@
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <color key="tintColor" red="1" green="0.42860027057324546" blue="0.16787798134862797" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                                         <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                                     </textView>
@@ -2434,7 +2432,6 @@
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </view>
                                                             <constraints>
-                                                                <constraint firstItem="LiT-bh-wDT" firstAttribute="centerX" secondItem="exs-Mo-yvf" secondAttribute="centerX" id="2Dh-uf-XQc"/>
                                                                 <constraint firstAttribute="bottom" secondItem="Yq2-Yg-jcf" secondAttribute="bottom" constant="8" id="8ds-m7-HNK"/>
                                                                 <constraint firstItem="Yq2-Yg-jcf" firstAttribute="leading" secondItem="6Sm-H7-W1x" secondAttribute="leading" constant="60" id="BIr-5Z-6yJ"/>
                                                                 <constraint firstItem="s8v-Pz-wMq" firstAttribute="top" secondItem="6Sm-H7-W1x" secondAttribute="top" id="BS6-tL-LSw"/>
@@ -2442,18 +2439,14 @@
                                                                 <constraint firstItem="LiT-bh-wDT" firstAttribute="leading" secondItem="6Sm-H7-W1x" secondAttribute="leading" constant="7" id="ISS-7c-UOi"/>
                                                                 <constraint firstItem="LiT-bh-wDT" firstAttribute="top" secondItem="6Sm-H7-W1x" secondAttribute="top" constant="2" id="dxS-9L-4qH"/>
                                                                 <constraint firstItem="Yq2-Yg-jcf" firstAttribute="top" secondItem="6Sm-H7-W1x" secondAttribute="top" constant="19" id="eXM-2o-wuY"/>
-                                                                <constraint firstItem="LiT-bh-wDT" firstAttribute="height" secondItem="exs-Mo-yvf" secondAttribute="height" constant="-2" id="gOC-xo-iIB"/>
                                                                 <constraint firstAttribute="trailing" secondItem="Yq2-Yg-jcf" secondAttribute="trailing" constant="5" id="hQs-FO-aRU"/>
                                                                 <constraint firstAttribute="trailing" secondItem="s8v-Pz-wMq" secondAttribute="trailing" constant="10" id="hep-MQ-Ej8"/>
-                                                                <constraint firstItem="LiT-bh-wDT" firstAttribute="centerY" secondItem="exs-Mo-yvf" secondAttribute="centerY" id="m4D-Jv-Fi1"/>
-                                                                <constraint firstItem="LiT-bh-wDT" firstAttribute="width" secondItem="exs-Mo-yvf" secondAttribute="width" constant="-2" id="tp2-Pr-BNW"/>
                                                             </constraints>
                                                             <size key="customSize" width="320" height="100"/>
                                                             <connections>
                                                                 <outlet property="authorImageView" destination="LiT-bh-wDT" id="H4U-Bx-vvC"/>
                                                                 <outlet property="authorNameLabel" destination="s8v-Pz-wMq" id="gIy-1R-iDs"/>
                                                                 <outlet property="commentTextView" destination="Yq2-Yg-jcf" id="ogZ-sl-v9o"/>
-                                                                <outlet property="progressBar" destination="exs-Mo-yvf" id="6hp-97-wa1"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
@@ -2528,13 +2521,9 @@
                                                         <outlet property="delegate" destination="YzT-ge-Jjl" id="pjV-69-Of0"/>
                                                     </connections>
                                                 </collectionView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J5a-gr-Yng">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J5a-gr-Yng" customClass="WLBlurredView">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfJ-uF-TOt" customClass="WLBlurredView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        </view>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By Bartholome O'Connell II" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9a-4s-fUi">
                                                             <rect key="frame" x="60" y="20" width="200" height="44"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2549,13 +2538,9 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="N9a-4s-fUi" firstAttribute="leading" secondItem="J5a-gr-Yng" secondAttribute="leading" constant="60" id="8Wf-aq-iUg"/>
-                                                        <constraint firstAttribute="trailing" secondItem="jfJ-uF-TOt" secondAttribute="trailing" id="8Yb-I0-GC9"/>
-                                                        <constraint firstAttribute="bottom" secondItem="jfJ-uF-TOt" secondAttribute="bottom" id="GqT-xw-550"/>
                                                         <constraint firstAttribute="trailing" secondItem="N9a-4s-fUi" secondAttribute="trailing" constant="60" id="Q2V-jt-PAD"/>
-                                                        <constraint firstItem="jfJ-uF-TOt" firstAttribute="leading" secondItem="J5a-gr-Yng" secondAttribute="leading" id="aZU-PT-RdM"/>
                                                         <constraint firstAttribute="height" constant="64" id="atI-kU-gvp"/>
                                                         <constraint firstItem="N9a-4s-fUi" firstAttribute="top" secondItem="J5a-gr-Yng" secondAttribute="top" constant="20" id="pYA-nK-8bF"/>
-                                                        <constraint firstItem="jfJ-uF-TOt" firstAttribute="top" secondItem="J5a-gr-Yng" secondAttribute="top" id="t7z-tK-5a5"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>

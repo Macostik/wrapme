@@ -14,6 +14,7 @@
 #import "WLAPIResponse.h"
 #import "WLAuthorizationRequest.h"
 #import "WLInternetConnectionBroadcaster.h"
+#import "UIView+QuatzCoreAnimations.h"
 
 @implementation WLUploading (Extended)
 
@@ -76,12 +77,14 @@
 }
 
 - (id)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    if (self.operation || ![self.contribution canBeUploaded]) {
+    WLContribution *contribution = self.contribution;
+    if (contribution.status != WLContributionStatusReady || ![contribution canBeUploaded]) {
         failure(nil);
         return nil;
     }
     __weak typeof(self)weakSelf = self;
-    self.operation = [self.contribution add:^(WLContribution *contribution) {
+    self.data.operation = [self.contribution add:^(WLContribution *contribution) {
+        [weakSelf removeProgressView];
         [weakSelf remove];
         success(contribution);
         [contribution notifyOnUpdate];
@@ -95,12 +98,23 @@
         }
     }];
     [self.contribution notifyOnUpdate];
-    return self.operation;
+    return self.data.operation;
 }
 
 - (void)remove {
     self.contribution.uploading = nil;
     [super remove];
+}
+
+- (void)removeProgressView {
+    UIView* progressView = self.data.progressView;
+    if (progressView) {
+        [UIView animateWithDuration:0.25f delay:0.25f options:0 animations:^{
+            progressView.alpha = 0.0f;
+        } completion:^(BOOL finished) {
+            [progressView removeFromSuperview];
+        }];
+    }
 }
 
 @end

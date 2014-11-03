@@ -8,7 +8,15 @@
 
 #import "WLContribution.h"
 
+typedef NS_ENUM (NSUInteger, WLContributionStatus) {
+    WLContributionStatusReady,
+    WLContributionStatusInProgress,
+    WLContributionStatusUploaded
+};
+
 @interface WLContribution (Extended)
+
+@property (readonly, nonatomic) WLContributionStatus status;
 
 @property (readonly, nonatomic) BOOL uploaded;
 

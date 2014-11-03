@@ -25,13 +25,14 @@
 #import "WLInternetConnectionBroadcaster.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLCommentCell ()
 
 @property (weak, nonatomic) IBOutlet WLImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
-@property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
+@property (weak, nonatomic) WLProgressBar *progressBar;
 @property (strong, nonatomic) WLMenu* menu;
 
 @end
@@ -40,8 +41,6 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    self.authorImageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
-    self.authorImageView.layer.shouldRasterize = YES;
 	self.authorImageView.layer.cornerRadius = self.authorImageView.height/2.0f;
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self configuration:^BOOL(WLMenu *menu) {
@@ -65,6 +64,13 @@
     self.commentTextView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, 0);
 }
 
+- (void)setEntry:(id)entry {
+    if (self.entry != entry) {
+        self.progressBar = nil;
+    }
+    [super setEntry:entry];
+}
+
 - (void)setup:(WLComment *)entry {
 	self.userInteractionEnabled = YES;
     if (!NSNumberEqual(entry.unread, @NO)) entry.unread = @NO;
@@ -76,8 +82,25 @@
         weakSelf.authorImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];
     self.menu.vibrate = [entry.contributor isCurrentUser];
-   
-    self.progressBar.contribution = entry;
+    
+    WLProgressBar* progressBar = (id)entry.uploading.data.progressView;
+    if (entry.status != WLContributionStatusUploaded) {
+        if (!progressBar) {
+            entry.uploading.data.progressView = progressBar = [[WLProgressBar alloc] initWithFrame:CGRectInset(self.authorImageView.frame, -1, -1)];
+        }
+        self.progressBar = progressBar;
+    }
+    if (progressBar) progressBar.contribution = entry;
+}
+
+- (void)setProgressBar:(WLProgressBar *)progressBar {
+    if (progressBar != _progressBar) {
+        [_progressBar removeFromSuperview];
+        if (progressBar) {
+            [self.authorImageView.superview addSubview:progressBar];
+        }
+        _progressBar = progressBar;
+    }
 }
 
 @end

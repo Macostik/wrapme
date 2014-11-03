@@ -20,13 +20,21 @@
     return [CAShapeLayer class];
 }
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
 - (void)awakeFromNib{
     [super awakeFromNib];
-    self.clipsToBounds = YES;
 	[self setup];
 }
 
 - (void)setup {
+    self.clipsToBounds = YES;
     CAShapeLayer *layer = (id)self.layer;
     layer.masksToBounds = YES;
     layer.rasterizationScale = [UIScreen mainScreen].scale;

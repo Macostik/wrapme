@@ -8,9 +8,9 @@
 
 #import "WLEntryCell.h"
 
-static NSString* WLDetailedCandyCellIdentifier = @"WLDetailedCandyCell";
+static NSString* WLCommentsCellIdentifier = @"WLCommentsCell";
 
-@interface WLDetailedCandyCell : WLEntryCell
+@interface WLCommentsCell : WLEntryCell
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 

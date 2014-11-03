@@ -114,5 +114,14 @@
     }
 }
 
+- (void)enqueueUnuploadedComments {
+    [self.comments enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(WLComment* comment, NSUInteger idx, BOOL *stop) {
+        if (comment.status == WLContributionStatusReady) {
+            [WLUploading enqueueAutomaticUploading];
+            *stop = YES;
+        }
+    }];
+}
+
 @end
 

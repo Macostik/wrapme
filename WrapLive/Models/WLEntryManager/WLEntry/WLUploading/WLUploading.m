@@ -13,6 +13,13 @@
 
 @dynamic contribution;
 
-@synthesize operation;
+@synthesize data = _data;
+
+- (WLUploadingData *)data {
+    if (!_data) {
+        _data = [[WLUploadingData alloc] init];
+    }
+    return _data;
+}
 
 @end

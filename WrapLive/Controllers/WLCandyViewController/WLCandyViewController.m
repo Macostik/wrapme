@@ -37,7 +37,7 @@
 #import "WLEntryNotifier.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "WLWrap+Extended.h"
-#import "WLDetailedCandyCell.h"
+#import "WLCommentsCell.h"
 #import "UIView+AnimationHelper.h"
 #import "WLInternetConnectionBroadcaster.h"
 #import "NSOrderedSet+Additions.h"
@@ -56,7 +56,7 @@
 @property (nonatomic) BOOL scrolledToInitialItem;
 @property (strong, nonatomic) WLToast* dateChangeToast;
 
-@property (readonly, nonatomic) WLDetailedCandyCell* candyCell;
+@property (readonly, nonatomic) WLCommentsCell* candyCell;
 
 @property (weak, nonatomic) UISwipeGestureRecognizer* leftSwipeGestureRecognizer;
 @property (weak, nonatomic) UISwipeGestureRecognizer* rightSwipeGestureRecognizer;
@@ -133,7 +133,7 @@
 }
 
 - (WLCandy *)candy {
-    WLDetailedCandyCell* cell = self.candyCell;
+    WLCommentsCell* cell = self.candyCell;
     if (cell) {
         return cell.entry;
     }
@@ -141,8 +141,8 @@
     return [self.group.entries tryObjectAtIndex:index];
 }
 
-- (WLDetailedCandyCell *)candyCell {
-    WLDetailedCandyCell* candyCell = [[self.collectionView visibleCells] lastObject];
+- (WLCommentsCell *)candyCell {
+    WLCommentsCell* candyCell = [[self.collectionView visibleCells] lastObject];
     return candyCell;
 }
 
@@ -246,11 +246,6 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
     [self.collectionView reloadData];
-    if (candy.uploaded && [candy.comments match:^BOOL(WLComment* comment) {
-        return !comment.uploaded;
-    }]) {
-        [WLUploading enqueueAutomaticUploading];
-    }
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
@@ -287,7 +282,6 @@
     WLCandy* image = self.candy;
 	__weak typeof(self)weakSelf = self;
     [image uploadComment:text success:^(WLComment *comment) {
-        [weakSelf.candyCell.collectionView scrollToBottomAnimated:YES];
     } failure:^(NSError *error) {
     }];
     run_after(0.1,^{
@@ -317,7 +311,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLDetailedCandyCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLDetailedCandyCellIdentifier forIndexPath:indexPath];
+    WLCommentsCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCommentsCellIdentifier forIndexPath:indexPath];
     WLCandy* candy = [self.group.entries tryObjectAtIndex:indexPath.item];
     if (candy.valid) {
         [self fetchOlder:candy];

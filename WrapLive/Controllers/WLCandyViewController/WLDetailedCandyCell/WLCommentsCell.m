@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLDetailedCandyCell.h"
+#import "WLCommentsCell.h"
 #import "WLEntryManager.h"
 #import "WLImageView.h"
 #import "WLRefresher.h"
@@ -18,15 +18,18 @@
 #import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
 #import "WLCandyHeaderView.h"
+#import "NSObject+AssociatedObjects.h"
+#import "NSString+Additions.h"
 
-@interface WLDetailedCandyCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface WLCommentsCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) WLRefresher *refresher;
+@property (strong, nonatomic) NSMutableOrderedSet* comments;
 
 @end
 
-@implementation WLDetailedCandyCell
+@implementation WLCommentsCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -76,27 +79,24 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     WLCandy* candy = self.entry;
-	return candy.comments.count;
+    self.comments = candy.comments;
+	return self.comments.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLCandy* candy = self.entry;
-	WLComment* comment = [candy.comments tryObjectAtIndex:indexPath.item];
-	WLCommentCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCommentCellIdentifier forIndexPath:indexPath];
+	WLComment* comment = [self.comments tryObjectAtIndex:indexPath.item];
+    WLCommentCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCommentCellIdentifier forIndexPath:indexPath];
     cell.entry = comment.valid ? comment : nil;
 	return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLCandy* candy = self.entry;
-	WLComment* comment = [candy.comments tryObjectAtIndex:indexPath.row];
-    if (comment.valid) {
-        CGFloat commentHeight  = ceilf([comment.text boundingRectWithSize:CGSizeMake(WLCommentLabelLenth, CGFLOAT_MAX)
-                                                                  options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightFontOfSize:15]} context:nil].size.height);
-        CGFloat cellHeight = (commentHeight + WLAuthorLabelHeight);
-        return CGSizeMake(collectionView.width, MAX(WLMinimumCellHeight, cellHeight + 10));
+    WLComment* comment = [self.comments tryObjectAtIndex:indexPath.item];
+    if (!comment.valid) {
+        return CGSizeMake(collectionView.width, WLMinimumCellHeight);
     }
-    return CGSizeMake(collectionView.width, WLMinimumCellHeight);
+    CGFloat height = [comment.text heightWithFont:[UIFont lightFontOfSize:15] width:WLCommentLabelLenth cachingKey:"commentTextHeight"];
+    return CGSizeMake(collectionView.width, MAX(WLMinimumCellHeight, height + WLAuthorLabelHeight + 10));
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {

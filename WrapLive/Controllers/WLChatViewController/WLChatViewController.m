@@ -53,8 +53,6 @@ CGFloat WLMaxTextViewWidth;
 
 @property (nonatomic, readonly) WLCollectionViewFlowLayout* layout;
 
-@property (nonatomic) CGFloat keyboardHeight;
-
 @property (weak, nonatomic) id operation;
 
 @property (nonatomic) BOOL typing;
@@ -328,7 +326,7 @@ CGFloat WLMaxTextViewWidth;
     }
     commentHeight += 2*WLMessageAuthorLabelHeight;
     commentHeight += [message.contributor isCurrentUser] ? .0f : WLNameLabelHeight;
-	return MAX(WLMessageMinimumCellHeight, commentHeight);
+	return MAX (WLMessageMinimumCellHeight, commentHeight);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {

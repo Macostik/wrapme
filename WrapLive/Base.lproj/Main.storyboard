@@ -2832,10 +2832,10 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="not_owner_gray_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="PF5-oQ-bkX">
-                                                    <rect key="frame" x="60" y="5" width="200" height="22"/>
+                                                    <rect key="frame" x="60" y="5" width="200" height="18"/>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="ZtA-QP-5Cy">
-                                                    <rect key="frame" x="66" y="5" width="188" height="19"/>
+                                                    <rect key="frame" x="66" y="5" width="188" height="15"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -2844,7 +2844,7 @@ Check your internet connection and try again.</string>
                                                     <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                 </textView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttQ-8O-OkP">
-                                                    <rect key="frame" x="30" y="7" width="26" height="16"/>
+                                                    <rect key="frame" x="30" y="5" width="26" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2854,7 +2854,7 @@ Check your internet connection and try again.</string>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="centerY" secondItem="ttQ-8O-OkP" secondAttribute="centerY" id="8ch-GY-B8e"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="ZtA-QP-5Cy" secondAttribute="bottom" constant="25" id="8jX-ln-3N7"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="ZtA-QP-5Cy" secondAttribute="bottom" constant="29" id="8jX-ln-3N7"/>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="top" secondItem="blg-MX-zu0" secondAttribute="topMargin" constant="-3" id="Am4-sz-dMl"/>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="leading" secondItem="PF5-oQ-bkX" secondAttribute="leading" constant="6" id="HEH-sc-7Af"/>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="height" secondItem="PF5-oQ-bkX" secondAttribute="height" constant="-3" id="JTK-oR-Nb3"/>

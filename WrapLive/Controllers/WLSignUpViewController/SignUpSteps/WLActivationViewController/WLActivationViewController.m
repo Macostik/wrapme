@@ -84,6 +84,7 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 
 - (void)activateCode {
 	if (self.activationTextField.text.length == WLActivationCodeLimit) {
+        [WLSession setConfirmationDate:[NSDate now]];
 		self.currentPage = WLActivationPageInProgress;
 		__weak typeof(self)weakSelf = self;
 		[self activate:^{

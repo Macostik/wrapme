@@ -19,6 +19,8 @@
 #import "WLNavigation.h"
 #import "NSPropertyListSerialization+Shorthand.h"
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
+#import "UIColor+CustomColors.h"
+#import "UIImage+Drawing.h"
 
 @interface WLAppDelegate ()
 

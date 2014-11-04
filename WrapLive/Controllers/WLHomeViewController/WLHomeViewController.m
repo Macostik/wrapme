@@ -19,6 +19,7 @@
 #import "UIView+Shorthand.h"
 #import "UIViewController+Additions.h"
 #import "WLAPIManager.h"
+#import "WLActionViewController.h"
 #import "WLCameraViewController.h"
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"
@@ -51,7 +52,7 @@
 static NSString *const WLTimeLineKey = @"WLTimeLineKey";
 static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLNotificationReceiver, WLCreateWrapViewControllerDelegate>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLNotificationReceiver>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
@@ -68,7 +69,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
 	[[WLUser notifier] addReceiver:self];
 	[[WLWrap notifier] addReceiver:self];
@@ -232,6 +232,10 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     }];
 }
 
+- (IBAction)createWrap:(id)sender {
+    [WLActionViewController addCreateWrapViewControllerToParentViewController:self];
+}
+
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
@@ -239,25 +243,10 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     if (wrap) {
         [wrap uploadPictures:pictures];
         [self dismissViewControllerAnimated:YES completion:nil];
-    } else {
-        WLCreateWrapViewController* createWrapViewController = [WLCreateWrapViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
-        createWrapViewController.pictures = pictures;
-        createWrapViewController.delegate = self;
-        [controller.cameraNavigationController pushViewController:createWrapViewController animated:YES];
     }
 }
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - WLCreateWrapViewControllerDelegate
-
-- (void)createWrapViewControllerDidCancel:(WLCreateWrapViewController *)controller {
-    [controller.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)createWrapViewController:(WLCreateWrapViewController *)controller didCreateWrap:(WLWrap *)wrap {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

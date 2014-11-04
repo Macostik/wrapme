@@ -35,16 +35,19 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    WLCandy* candy = self.candy;
-    WLPicture* oldPicture = [candy.picture copy];
-    [candy API_setup:[response.data dictionaryForKey:@"candy"]];
-    WLPicture* newPicture = candy.picture;
-    [[WLImageCache cache] setImageAtPath:oldPicture.medium withUrl:newPicture.medium];
-    [[WLImageCache cache] setImageAtPath:oldPicture.small withUrl:newPicture.small];
-    [[WLImageCache cache] setImageAtPath:oldPicture.large withUrl:newPicture.large];
-    candy.wrap.updatedAt = candy.updatedAt;
-    [candy performSelector:@selector(enqueueUnuploadedComments) withObject:nil afterDelay:0.0f];
-    return candy;
+    if (self.candy.wrap.valid) {
+        WLCandy* candy = self.candy;
+        WLPicture* oldPicture = [candy.picture copy];
+        [candy API_setup:[response.data dictionaryForKey:@"candy"]];
+        WLPicture* newPicture = candy.picture;
+        [[WLImageCache cache] setImageAtPath:oldPicture.medium withUrl:newPicture.medium];
+        [[WLImageCache cache] setImageAtPath:oldPicture.small withUrl:newPicture.small];
+        [[WLImageCache cache] setImageAtPath:oldPicture.large withUrl:newPicture.large];
+        candy.wrap.updatedAt = candy.updatedAt;
+ 		[candy performSelector:@selector(enqueueUnuploadedComments) withObject:nil afterDelay:0.0f];
+        return candy;
+    }
+    return nil;
 }
 
 @end

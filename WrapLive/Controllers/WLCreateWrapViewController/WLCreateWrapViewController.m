@@ -6,42 +6,41 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLCreateWrapViewController.h"
-#import "WLContributorCell.h"
-#import "WLWrap.h"
-#import "WLAddContributorsViewController.h"
 #import "NSArray+Additions.h"
-#import "WLNavigation.h"
-#import "WLAPIManager.h"
-#import "WLWrapViewController.h"
-#import "WLCameraViewController.h"
-#import <AFNetworking/UIImageView+AFNetworking.h>
-#import "WLImageCache.h"
-#import "WLImageFetcher.h"
+#import "NSString+Additions.h"
+#import "UIButton+Additions.h"
+#import "UIColor+CustomColors.h"
 #import "UIImage+Resize.h"
 #import "UIView+Shorthand.h"
-#import "WLUser.h"
-#import "UIButton+Additions.h"
-#import "WLEntryNotifier.h"
-#import "NSString+Additions.h"
-#import "WLBorderView.h"
-#import "UIColor+CustomColors.h"
+#import "UIView+QuatzCoreAnimations.h"
+#import "WLAPIManager.h"
+#import "WLAddContributorsViewController.h"
 #import "WLAddressBook.h"
-#import "WLInviteeCell.h"
-#import "WLToast.h"
-#import "WLPerson.h"
+#import "WLActionViewController.h"
+#import "WLBorderView.h"
 #import "WLButton.h"
+#import "WLCameraViewController.h"
+#import "WLContributorCell.h"
+#import "WLCreateWrapViewController.h"
+#import "WLEntryNotifier.h"
+#import "WLImageCache.h"
+#import "WLImageFetcher.h"
+#import "WLInviteeCell.h"
+#import "WLNavigation.h"
+#import "WLPerson.h"
+#import "WLToast.h"
+#import "WLStillPictureViewController.h"
+#import "WLUser.h"
+#import "WLWrap.h"
+#import "WLWrapViewController.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
-
-@interface WLCreateWrapViewController () <UITextFieldDelegate>
+@interface WLCreateWrapViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
-@property (weak, nonatomic) IBOutlet WLImageView *imageView;
-
 @property (weak, nonatomic) IBOutlet UIButton *createButton;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
-
-
+@property (strong, nonatomic)WLWrap *wrap;
 
 @end
 
@@ -49,40 +48,54 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.imageView.url = [[self.pictures lastObject] medium];
+    self.view.frame = self.contentView.frame;
+    self.nameField.layer.borderColor = [UIColor WL_grayColor].CGColor;
+    self.createButton.layer.borderColor = self.backButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
+    [self.contentView bottomPushWithDuration:1.0 delegate:nil];
+
     [self.nameField becomeFirstResponder];
+}
+
+- (void)createWrapWithName:(NSString *)name {
+    __weak typeof(self)weakSelf = self;
+    self.wrap = [WLWrap wrap];
+    self.wrap.name = name;
+    [self.wrap notifyOnAddition];
+    [[WLUploading uploading:self.wrap] upload:^(id object) {
+    } failure:^(NSError *error) {
+        if ([error isNetworkError]) {
+            [error show];
+            [weakSelf.wrap remove];
+        }
+    }];
 }
 
 #pragma mark - Actions
 
 - (IBAction)cancel:(id)sender {
-    [self.delegate createWrapViewControllerDidCancel:self];
+    id parentViewController = [self parentViewController];
+    if (parentViewController != nil) {
+        [parentViewController dismiss];
+    }
 }
 
 - (IBAction)done:(WLButton*)sender {
     NSString* name = self.nameField.text;
     if (name.nonempty) {
+        [self.view endEditing:YES];
         sender.loading = YES;
-        __weak typeof(self)weakSelf = self;
         self.view.userInteractionEnabled = NO;
-        WLWrap* wrap = [WLWrap wrap];
-        wrap.name = name;
-        [wrap notifyOnAddition];
-        [[WLUploading uploading:wrap] upload:^(id object) {
-            weakSelf.view.userInteractionEnabled = YES;
-            [wrap uploadPictures:weakSelf.pictures];
-            [weakSelf.delegate createWrapViewController:weakSelf didCreateWrap:wrap];
-        } failure:^(NSError *error) {
-            weakSelf.view.userInteractionEnabled = YES;
-            if ([error isNetworkError]) {
-                [wrap uploadPictures:weakSelf.pictures];
-                [weakSelf.delegate createWrapViewController:weakSelf didCreateWrap:wrap];
-            } else {
-                sender.loading = NO;
-                [error show];
-                [wrap remove];
-            }
-        }];
+        [self createWrapWithName:name];
+        WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:
+                                                          [UIStoryboard storyboardNamed:WLCameraStoryboard]];
+        cameraNavigation.delegate = self;
+        cameraNavigation.mode = WLCameraModeCandy;
+        WLActionViewController *parentViewController = (WLActionViewController *)[self parentViewController];
+        if (parentViewController != nil) {
+            [parentViewController didAddChildViewController:cameraNavigation];
+            self.view.userInteractionEnabled = YES;
+            sender.loading = NO;
+        }
     }
 }
 
@@ -93,6 +106,19 @@
 		sender.text = [sender.text substringToIndex:WLWrapNameLimit];
 	}
     self.createButton.enabled = sender.text.nonempty;
+}
+
+#pragma mark - WLStillPictureViewControllerDelegate
+
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+    if (pictures.nonempty) {
+        [self.wrap uploadPictures:pictures];
+    }
+    [self cancel:nil];
+}
+
+- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
+    [self cancel:nil];
 }
 
 @end

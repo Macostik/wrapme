@@ -17,5 +17,9 @@
 
 + (void)addEditWrapViewControllerWithWrap:(WLWrap *)wrap toParentViewController:(UIViewController *)viewController;
 + (void)addCandyViewControllerWithCandy:(WLCandy *)candy toParentViewController:(UIViewController *)viewController;
++ (void)addCreateWrapViewControllerToParentViewController:(UIViewController *)viewController;
+
+- (void)didAddChildViewController:(UIViewController *)viewController;
+- (void)dismiss;
 
 @end

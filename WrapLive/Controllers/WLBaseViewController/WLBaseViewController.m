@@ -9,6 +9,7 @@
 #import "WLBaseViewController.h"
 #import "NSArray+Additions.h"
 #import "UIView+AnimationHelper.h"
+#import "UIView+Shorthand.h"
 #import "WLNavigation.h"
 
 @interface WLBaseViewController ()

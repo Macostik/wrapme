@@ -11,6 +11,7 @@
 #import "UIView+Shorthand.h"
 #import "WLEditWrapViewController.h"
 #import "WLReportCandyViewController.h"
+#import "WLCreateWrapViewController.h"
 #import "UIView+QuatzCoreAnimations.h"
 
 static NSString *const wlActionViewController = @"WLActionViewController";
@@ -45,6 +46,13 @@ static NSString *const wlActionViewController = @"WLActionViewController";
     [self addChildViewController:actionVC toParentViewController:viewController];
 }
 
++ (void)addCreateWrapViewControllerToParentViewController:(UIViewController *)viewController {
+    WLActionViewController *actionVC = [self instanceViewController:viewController];
+    id createWrapViewController = [WLCreateWrapViewController new];
+    actionVC.childViewController = createWrapViewController;
+    [self addChildViewController:actionVC toParentViewController:viewController];
+}
+
 - (void)didAddChildViewController:(UIViewController *)viewController {
     [self addChildViewController:viewController];
     viewController.view.center = CGPointMake(self.view.width/2, self.view.height/2);
@@ -63,17 +71,37 @@ static NSString *const wlActionViewController = @"WLActionViewController";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     if (self.childViewController) {
         [self didAddChildViewController:self.childViewController];
     }
+    [[WLKeyboard keyboard] addReceiver:self];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    self.view.window.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-    self.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+- (void)dismiss {
+    CGFloat duration = 0.33f;
+    [UIView animateWithDuration:duration animations:^{
+        self.view.transform = CGAffineTransformMakeTranslation(.0f, self.view.height);
+    } completion:^(BOOL finished) {
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+    }];
+}
+
+
+#pragma mark - WLKeyboardBroadcastReceiver
+
+- (void)keyboardWillShow:(WLKeyboard *)keyboard {
+    CGFloat offset = self.childViewController.view.y - (self.view.height - keyboard.height)/2 + self.childViewController.view.height/2;
+    [keyboard performAnimation:^{
+        self.childViewController.view.transform = CGAffineTransformMakeTranslation(0, -offset);
+    }];
+}
+
+- (void)keyboardWillHide:(WLKeyboard*)keyboard {
+    [keyboard performAnimation:^{
+        self.childViewController.view.transform = CGAffineTransformIdentity;
+    }];
 }
 
 @end

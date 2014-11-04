@@ -12,18 +12,8 @@
 @class WLPicture;
 @class WLCreateWrapViewController;
 
-@protocol WLCreateWrapViewControllerDelegate <NSObject>
-
-- (void)createWrapViewController:(WLCreateWrapViewController*)controller didCreateWrap:(WLWrap*)wrap;
-
-- (void)createWrapViewControllerDidCancel:(WLCreateWrapViewController*)controller;
-
-@end
-
 @interface WLCreateWrapViewController : WLShakeViewController
 
-@property (strong, nonatomic) NSArray *pictures;
-
-@property (nonatomic, weak) id <WLCreateWrapViewControllerDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @end

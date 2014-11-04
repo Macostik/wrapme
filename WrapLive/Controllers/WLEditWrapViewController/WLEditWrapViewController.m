@@ -101,24 +101,10 @@ static NSString *const WLLeave = @"Leave";
 }
 
 - (IBAction)removeFromController:(id)sender {
-    UIViewController *parentViewController = [self parentViewController];
-    [parentViewController.view removeFromSuperview];
-    [parentViewController removeFromParentViewController];
-}
-
-#pragma mark - WLKeyboardBroadcastReceiver
-
-- (void)keyboardWillShow:(WLKeyboard *)keyboard {
-    CGFloat offset = self.view.y - (self.view.superview.height - keyboard.height)/2 + self.view.height/2;
-    [keyboard performAnimation:^{
-        self.view.transform = CGAffineTransformMakeTranslation(0, -offset);
-    }];
-}
-
-- (void)keyboardWillHide:(WLKeyboard*)keyboard {
-    [keyboard performAnimation:^{
-        self.view.transform = CGAffineTransformIdentity;
-    }];
+    id parentViewController = [self parentViewController];
+    if (parentViewController != nil) {
+        [parentViewController dismiss];
+    }
 }
 
 #pragma mark - WLEditSessionDelegate override

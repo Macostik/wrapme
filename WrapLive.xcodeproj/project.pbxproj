@@ -149,6 +149,10 @@
 		5BA666BA19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */; };
 		5BA666BB19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */; };
 		5BA666BC19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */; };
+		5BA685DC1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */; };
+		5BA685DD1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */; };
+		5BA685DE1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */; };
+		5BA685DF1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */; };
 		5BAA216319FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
 		5BAA216419FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
 		5BAA216519FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
@@ -1341,6 +1345,7 @@
 		5B650FE01A00091800D6AD3D /* WLReportCandyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLReportCandyViewController.m; path = WLReportCandyViewController/WLReportCandyViewController.m; sourceTree = "<group>"; };
 		5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLReportCandyViewController.xib; path = WLReportCandyViewController/WLReportCandyViewController.xib; sourceTree = "<group>"; };
 		5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLEditWrapViewController.xib; path = WLEditWrapViewController/WLEditWrapViewController.xib; sourceTree = "<group>"; };
+		5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCreateWrapViewController.xib; path = WLCreateWrapViewController/WLCreateWrapViewController.xib; sourceTree = "<group>"; };
 		5BAA216119FE7BCD008958EF /* WLActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLActionViewController.h; path = WLActionViewController/WLActionViewController.h; sourceTree = "<group>"; };
 		5BAA216219FE7BCD008958EF /* WLActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLActionViewController.m; path = WLActionViewController/WLActionViewController.m; sourceTree = "<group>"; };
 		5BB02FF419F00BCE001E1D50 /* WLChatGroupSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChatGroupSet.h; path = WLChatGroupSet/WLChatGroupSet.h; sourceTree = "<group>"; };
@@ -1883,6 +1888,7 @@
 				14B134DE1952FDE6004F86AC /* WLInviteeCell */,
 				129654E518E1A17300FF43F6 /* WLCreateWrapViewController.h */,
 				129654E618E1A17300FF43F6 /* WLCreateWrapViewController.m */,
+				5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */,
 			);
 			name = WLCreateWrapViewController;
 			sourceTree = "<group>";
@@ -3608,6 +3614,7 @@
 				C534E77419D586CC006F8268 /* WLTestUserCell.xib in Resources */,
 				C518D79319E7E480001A3F08 /* Launch Screen.xib in Resources */,
 				C54AF86219B8C622006F7EDB /* WLAPIEnvironmentProduction.plist in Resources */,
+				5BA685DC1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
 				5BA666B919FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				12D514FA192F5F15007A1520 /* AppIcon29x29@2x.png in Resources */,
@@ -3665,6 +3672,7 @@
 				C534E77519D586CC006F8268 /* WLTestUserCell.xib in Resources */,
 				C518D79419E7E480001A3F08 /* Launch Screen.xib in Resources */,
 				C54AF54319B8C437006F7EDB /* AppIcon29x29@2x.png in Resources */,
+				5BA685DD1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */,
 				C54AF86D19B8C63A006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				5BA666BA19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				C54AF54419B8C437006F7EDB /* WLComposeBar.xib in Resources */,
@@ -3722,6 +3730,7 @@
 				C534E77619D586CC006F8268 /* WLTestUserCell.xib in Resources */,
 				C518D79519E7E480001A3F08 /* Launch Screen.xib in Resources */,
 				C54AF64019B8C467006F7EDB /* AppIcon29x29@2x.png in Resources */,
+				5BA685DE1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */,
 				C54AF87119B8C63A006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				5BA666BB19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				C54AF64119B8C467006F7EDB /* WLComposeBar.xib in Resources */,
@@ -3779,6 +3788,7 @@
 				C534E77719D586CC006F8268 /* WLTestUserCell.xib in Resources */,
 				C518D79619E7E480001A3F08 /* Launch Screen.xib in Resources */,
 				C54AF73D19B8C491006F7EDB /* AppIcon29x29@2x.png in Resources */,
+				5BA685DF1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */,
 				C54AF87519B8C63B006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				5BA666BC19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				C54AF73E19B8C491006F7EDB /* WLComposeBar.xib in Resources */,

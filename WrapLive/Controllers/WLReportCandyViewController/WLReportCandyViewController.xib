@@ -16,7 +16,7 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="HDI-fm-Oan">
-            <rect key="frame" x="0.0" y="0.0" width="240" height="120"/>
+            <rect key="frame" x="0.0" y="0.0" width="240" height="127"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GWD-KK-Hlx" userLabel="Content View">
@@ -79,7 +79,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="102.5" y="154.5"/>
+            <point key="canvasLocation" x="102" y="157.5"/>
         </view>
     </objects>
 </document>

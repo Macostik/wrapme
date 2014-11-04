@@ -10,12 +10,6 @@
 
 @interface WLEmojiView : UIView
 
-@property (strong, nonatomic) WLStringBlock selectionBlock;
-@property (strong, nonatomic) WLBlock returnBlock;
-@property (strong, nonatomic) WLIntegerBlock segmentSelectionBlock;
-
-- (instancetype)initWithSelectionBlock:(WLStringBlock)selectionBlock
-						   returnBlock:(WLBlock)returnBlock
-			  andSegmentSelectionBlock:(WLIntegerBlock)segmentSelectionBlock;
+- (instancetype)initWithTextView:(UITextView*)textView;
 
 @end

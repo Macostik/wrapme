@@ -20,12 +20,14 @@
 #import "WLCandyHeaderView.h"
 #import "NSObject+AssociatedObjects.h"
 #import "NSString+Additions.h"
+#import "WLEntryNotifier.h"
 
-@interface WLCommentsCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface WLCommentsCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) WLRefresher *refresher;
 @property (strong, nonatomic) NSMutableOrderedSet* comments;
+@property (strong, nonatomic) WLCandyHeaderView* headerView;
 
 @end
 
@@ -35,6 +37,8 @@
     [super awakeFromNib];
     self.collectionView.contentInset = UIEdgeInsetsMake(64, 0, 44, 0);
     self.refresher = [WLRefresher refresher:self.collectionView target:self action:@selector(refresh:) style:WLRefresherStyleOrange];
+    [[WLComment notifier] addReceiver:self];
+    [[WLCandy notifier] addReceiver:self];
 }
 
 - (void)refresh:(WLRefresher*)sender {
@@ -75,6 +79,20 @@
     self.collectionView.contentInset = insets;
 }
 
+#pragma mark - WLEntryNotifyReceiver
+
+- (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
+    self.headerView.candy = self.entry;
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier commentAdded:(WLComment *)comment {
+    [self.collectionView reloadData];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier commentDeleted:(WLComment *)comment {
+    [self.collectionView reloadData];
+}
+
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -100,7 +118,10 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    WLCandyHeaderView* headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLCandyHeaderView" forIndexPath:indexPath];
+    WLCandyHeaderView* headerView = self.headerView;
+    if (!headerView) {
+        headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLCandyHeaderView" forIndexPath:indexPath];
+    }
     headerView.candy = self.entry;
     return headerView;
 }

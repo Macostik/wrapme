@@ -23,7 +23,6 @@
 #import "WLComment.h"
 #import "WLCommentCell.h"
 #import "WLComposeBar.h"
-#import "WLComposeContainer.h"
 #import "WLGroupedSet.h"
 #import "WLImageFetcher.h"
 #import "WLImageViewController.h"
@@ -244,10 +243,6 @@
 
 #pragma mark - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
-    [self.collectionView reloadData];
-}
-
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
     [WLToast showWithMessage:@"This candy is no longer avaliable."];
     NSMutableOrderedSet* candies = self.group.entries;
@@ -296,7 +291,7 @@
 }
 
 - (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
-    [self.candyCell updateBottomInset:[WLKeyboard keyboard].height + self.composeBarView.height];
+    [self.candyCell updateBottomInset:[WLKeyboard keyboard].height + composeBar.height];
     [self.candyCell.collectionView scrollToBottomAnimated:YES];
 }
 

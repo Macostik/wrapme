@@ -35,14 +35,12 @@
 
 @property (nonatomic) BOOL doneButtonHidden;
 
-@property (strong, nonatomic) WLIntegerBlock segmentSelectedBlock;
-
 - (void)setDoneButtonHidden:(BOOL)hidden animated:(BOOL)animated;
 
 @end
 
 @interface WLTextView : UITextView
 
-@property (strong, nonatomic) NSString * placeholder;
+@property (strong, nonatomic) NSString *placeholder;
 
 @end

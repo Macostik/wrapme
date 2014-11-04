@@ -18,7 +18,6 @@
 #import "WLCandyViewController.h"
 #import "WLEditWrapViewController.h"
 #import "WLComposeBar.h"
-#import "WLComposeContainer.h"
 #import "WLAPIManager.h"
 #import "WLComment.h"
 #import "WLRefresher.h"

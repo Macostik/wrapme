@@ -18,9 +18,6 @@
 - (void)setContribution:(WLContribution *)contribution {
     switch (contribution.status) {
         case WLContributionStatusReady:
-            self.hidden = NO;
-            self.progress = WLDefaultProgress;
-            break;
         case WLContributionStatusInProgress: {
             self.hidden = NO;
             __weak typeof(self)weakSelf = self;

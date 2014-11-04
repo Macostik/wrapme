@@ -22,19 +22,16 @@
 @property (strong, nonatomic) IBOutlet UICollectionView * collectionView;
 @property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
+@property (weak, nonatomic) UITextView* textView;
 
 @end
 
 @implementation WLEmojiView
 
-- (instancetype)initWithSelectionBlock:(WLStringBlock)selectionBlock
-						   returnBlock:(WLBlock)returnBlock
-			  andSegmentSelectionBlock:(WLIntegerBlock)segmentSelectionBlock {
+- (instancetype)initWithTextView:(UITextView *)textView {
     self = [super initWithFrame:CGRectMake(0, 0, 320, 216)];
     if (self) {
-		self.selectionBlock = selectionBlock;
-		self.returnBlock = returnBlock;
-		self.segmentSelectionBlock = segmentSelectionBlock;
+		self.textView = textView;
 		self.emojiView = [UIView loadFromNibNamed:@"WLEmojiView" ownedBy:self];
 		self.emojiView.frame = self.bounds;
 		[self addSubview:self.emojiView];
@@ -51,9 +48,7 @@
 }
 
 - (IBAction)returnClicked:(UIButton *)sender {
-	if (self.returnBlock) {
-		self.returnBlock();
-	}
+    [self.textView deleteBackward];
 }
 
 - (void)setScrollDirection {
@@ -77,18 +72,15 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    return CGSizeMake(50, 50);
 	return CGSizeMake(collectionView.frame.size.width/7, collectionView.frame.size.height/3);
 }
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.selectionBlock) {
-		NSString * selectedEmoji = [self.emojis objectAtIndex:indexPath.item];
-        [WLEmoji saveAsRecent:selectedEmoji];
-		self.selectionBlock(selectedEmoji);
-	}
+    NSString * selectedEmoji = [self.emojis objectAtIndex:indexPath.item];
+    [WLEmoji saveAsRecent:selectedEmoji];
+    [self.textView insertText:selectedEmoji];
 }
 
 #pragma mark - SegmentedControlDelegate
@@ -106,9 +98,6 @@
 		self.emojis = [WLEmoji emojiByType:WLEmojiTypeCars];
     } else {
 		self.emojis = [WLEmoji emojiByType:WLEmojiTypeNumbers];
-	}
-	if (self.segmentSelectionBlock) {
-		self.segmentSelectionBlock(segment);
 	}
     [self setScrollDirection];
 	[self.collectionView setContentOffset:CGPointZero];

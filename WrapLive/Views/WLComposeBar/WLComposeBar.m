@@ -17,6 +17,7 @@
 #import "NSString+Additions.h"
 #import "WLEmojiView.h"
 #import "WLEmoji.h"
+#import "UIView+AnimationHelper.h"
 
 static NSUInteger WLComposeBarDefaultCharactersLimit = 360;
 static NSUInteger WLComposeBarMaxHeight = 100;
@@ -25,11 +26,12 @@ static NSUInteger WLComposeBarMinHeight = 44;
 @interface WLComposeBar () <UITextViewDelegate, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
-@property (weak, nonatomic) IBOutlet WLTextView *textView;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) UIView *composeView;
-@property (nonatomic) CGRect defaultSize;
+@property (nonatomic) CGFloat defaultHeight;
 @property (strong, nonatomic) WLEmojiView * emojiView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
 
 @end
 
@@ -39,31 +41,44 @@ static NSUInteger WLComposeBarMinHeight = 44;
 	[super awakeFromNib];
 	self.composeView = [UIView loadFromNibNamed:@"WLComposeBar" ownedBy:self];
 	self.composeView.frame = self.bounds;
-	self.defaultSize = self.bounds;
+	self.defaultHeight = self.bounds.size.height;
     [self addSubview:self.composeView];
 	self.textView.superview.layer.borderColor = [UIColor WL_grayColor].CGColor;
 	self.textView.superview.layer.borderWidth = 0.5f;
-	self.textView.textContainerInset = UIEdgeInsetsMake(5, 0, 6, 0);
+	self.textView.textContainerInset = UIEdgeInsetsMake(5, 0, 0, 0);
+    self.textView.contentInset = UIEdgeInsetsZero;
 	[self updateStateAnimated:NO];
 }
 
 - (void)checkHeight {
-    CGFloat height = [self.textView sizeThatFits:CGSizeMake(self.textView.width, CGFLOAT_MAX)].height + self.textView.textContainerInset.top + self.textView.textContainerInset.bottom;
-    height = Smoothstep(WLComposeBarMinHeight, WLComposeBarMaxHeight, height);
+    CGFloat height = WLComposeBarMinHeight;
+    UITextView* textView = self.textView;
+    if (textView.text.nonempty) {
+        height = textView.contentSize.height + textView.superview.y*2;
+        height = Smoothstep(WLComposeBarMinHeight, WLComposeBarMaxHeight, height);
+    }
     if (ABS(height - self.height) > 5) {
         self.height = height;
-        self.composeView.height = height;
         if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
             [self.delegate composeBarDidChangeHeight:self];
         }
     }
+//    CGFloat height = [self.textView sizeThatFits:CGSizeMake(self.textView.width, CGFLOAT_MAX)].height;
+//    height = Smoothstep(WLComposeBarMinHeight, WLComposeBarMaxHeight, height);
+//    if (ABS(height - self.height) > 5) {
+//        self.height = height;
+//        if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
+//            [self.delegate composeBarDidChangeHeight:self];
+//        }
+//    }
 }
 
 - (void)setHeight:(CGFloat)height {
-    if (self.heightConstraint) {
-        self.heightConstraint.constant = height;
-        [self.heightConstraint.firstItem layoutIfNeeded];
-        [self.heightConstraint.secondItem layoutIfNeeded];
+    NSLayoutConstraint* constraint = self.heightConstraint;
+    if (constraint) {
+        constraint.constant = height;
+        [constraint.firstItem layoutIfNeeded];
+        [constraint.secondItem layoutIfNeeded];
     } else {
         [super setHeight:height];
     }
@@ -75,11 +90,9 @@ static NSUInteger WLComposeBarMinHeight = 44;
 
 - (void)setText:(NSString *)text {
 	self.textView.text = text;
+    self.placeholderLabel.hidden = text.nonempty;
     [self checkHeight];
-	[self updateStateAnimated:YES];
-	if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
-		[self.delegate composeBarDidChangeHeight:self];
-	}
+    [self updateStateAnimated:YES];
 }
 
 - (void)updateStateAnimated:(BOOL)animated {
@@ -87,11 +100,11 @@ static NSUInteger WLComposeBarMinHeight = 44;
 }
 
 - (NSString *)placeholder {
-	return self.textView.placeholder;
+	return self.placeholderLabel.text;
 }
 
 - (void)setPlaceholder:(NSString *)placeHolder {
-	self.textView.placeholder = placeHolder;
+	self.placeholderLabel.text = placeHolder;
 }
 
 - (void)finish {
@@ -107,7 +120,6 @@ static NSUInteger WLComposeBarMinHeight = 44;
 		[self.delegate composeBar:self didFinishWithText:self.textView.text];
 	}
 	self.text = nil;
-    [self checkHeight];
 }
 
 - (void)setDoneButtonHidden:(BOOL)doneButtonHidden {
@@ -119,29 +131,16 @@ static NSUInteger WLComposeBarMinHeight = 44;
 	if (x != self.doneButton.x) {
 		_doneButtonHidden = hidden;
 		CGFloat width = (x - self.textView.superview.x - (hidden ? 10 : 0));
-		if (animated) {
-			[UIView beginAnimations:nil context:nil];
-		}
-		self.doneButton.x = x;
-		self.textView.superview.width = width;
-		if (animated) {
-			[UIView commitAnimations];
-		}
+        [UIView performAnimated:animated animation:^{
+            self.doneButton.x = x;
+            self.textView.superview.width = width;
+        }];
 	}
 }
 
 - (WLEmojiView *)emojiView {
-	__weak typeof(self)weakSelf = self;
 	if (!_emojiView) {
-		_emojiView = [[WLEmojiView alloc] initWithSelectionBlock:^(NSString *emoji) {
-            [weakSelf.textView insertText:emoji];
-		} returnBlock:^{
-            [weakSelf.textView deleteBackward];
-		} andSegmentSelectionBlock:^(NSInteger index) {
-			if (self.segmentSelectedBlock) {
-				self.segmentSelectedBlock(index);
-			}
-		}];
+		_emojiView = [[WLEmojiView alloc] initWithTextView:self.textView];
 	}
 	return _emojiView;
 }
@@ -149,8 +148,6 @@ static NSUInteger WLComposeBarMinHeight = 44;
 #pragma mark - Actions
 
 - (IBAction)done:(id)sender {
-	self.height = self.defaultSize.size.height;
-	self.composeView.height = self.defaultSize.size.height;
 	[self finish];
 }
 
@@ -172,6 +169,7 @@ static NSUInteger WLComposeBarMinHeight = 44;
     if ([self.delegate respondsToSelector:@selector(composeBarDidChangeText:)]) {
         [self.delegate composeBarDidChangeText:self];
     }
+    self.placeholderLabel.hidden = textView.text.nonempty;
     [self checkHeight];
 	[self updateStateAnimated:YES];
 }
@@ -189,12 +187,12 @@ static NSUInteger WLComposeBarMinHeight = 44;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-	if ([text isEqualToString:@"\n"]) {
-		CGFloat sizeAdjustment = textView.font.lineHeight * [UIScreen mainScreen].scale;
-		[UIView animateWithDuration:0.2 animations:^{
-			[textView setContentOffset:CGPointMake(textView.contentOffset.x, textView.contentOffset.y + sizeAdjustment)];
-		}];
-	}
+//	if ([text isEqualToString:@"\n"]) {
+//		CGFloat sizeAdjustment = textView.font.lineHeight * [UIScreen mainScreen].scale;
+//		[UIView animateWithDuration:0.2 animations:^{
+//			[textView setContentOffset:CGPointMake(textView.contentOffset.x, textView.contentOffset.y + sizeAdjustment)];
+//		}];
+//	}
 	
 	NSUInteger charactersLimit;
 	if ([self.delegate respondsToSelector:@selector(composeBarCharactersLimit:)] && self.height > 44) {
@@ -230,6 +228,12 @@ static NSUInteger WLComposeBarMinHeight = 44;
 
 @end
 
+@interface WLTextView ()
+
+@property (weak, nonatomic) UILabel* placeholderLabel;
+
+@end
+
 @implementation WLTextView
 
 
@@ -251,32 +255,29 @@ static NSUInteger WLComposeBarMinHeight = 44;
 }
 
 - (void)textDidChange {
-	UILabel* placeholderLabel = objc_getAssociatedObject(self, "placeholderLabel");
-	placeholderLabel.hidden = self.text.length != 0;
+	self.placeholderLabel.hidden = self.text.length != 0;
+}
+
+- (UILabel *)placeholderLabel {
+    if (!_placeholderLabel) {
+        UILabel* placeholderLabel = [[UILabel alloc] init];
+        placeholderLabel.backgroundColor = [UIColor clearColor];
+        placeholderLabel.frame = CGRectMake(5, 0, 250, 30);
+        placeholderLabel.font = [UIFont lightMicroFont];
+        placeholderLabel.textColor = [UIColor WL_grayColor];
+        placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        [self addSubview:placeholderLabel];
+        _placeholderLabel = placeholderLabel;
+    }
+    return _placeholderLabel;
 }
 
 - (void)setPlaceholder:(NSString *)placeHolder {
-	UILabel* placeholderLabel = objc_getAssociatedObject(self, "placeholderLabel");
-	if (!placeholderLabel) {
-		placeholderLabel = [[UILabel alloc] init];
-		placeholderLabel.backgroundColor = [UIColor clearColor];
-		placeholderLabel.frame = CGRectMake(5, 0, 250, 30);
-		placeholderLabel.font = [UIFont lightMicroFont];
-		placeholderLabel.textColor = [UIColor WL_grayColor];
-		placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
-		[self addSubview:placeholderLabel];
-		objc_setAssociatedObject(self, "placeholderLabel", placeholderLabel, OBJC_ASSOCIATION_ASSIGN);
-	}
-	
-	placeholderLabel.text = placeHolder;
+	self.placeholderLabel.text = placeHolder;
 }
 
 - (NSString *)placeholder {
-	UILabel* placeholderLabel = objc_getAssociatedObject(self, "placeholderLabel");
-	if (placeholderLabel) {
-		return placeholderLabel.text;
-	}
-	return nil;
+	return self.placeholderLabel.text;
 }
 
 @end

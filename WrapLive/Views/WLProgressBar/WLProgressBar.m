@@ -12,6 +12,8 @@
 
 @interface WLProgressBar ()
 
+@property (strong, nonatomic) CABasicAnimation* animation;
+
 @end
 
 @implementation WLProgressBar
@@ -72,18 +74,32 @@
     }
 }
 
+- (CABasicAnimation *)animation {
+    if (!_animation) {
+        _animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+        _animation.delegate = self;
+    }
+    return _animation;
+}
+
 - (void)updateProgress:(float)difference animated:(BOOL)animated {
+    static NSString* animationKey = @"strokeAnimation";
     CAShapeLayer * layer = (id)self.layer;
     if (animated) {
-        CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+        CABasicAnimation* animation = self.animation;
         animation.duration = difference;
         [animation setFromValue:@([(layer.presentationLayer?:layer) strokeEnd])];
         [animation setToValue:@(_progress)];
-        [layer removeAllAnimations];
-        [layer addAnimation:animation forKey:nil];
+        [layer removeAnimationForKey:animationKey];
+        [layer addAnimation:animation forKey:animationKey];
     } else {
-        [layer removeAllAnimations];
+        [layer removeAnimationForKey:animationKey];
+        layer.strokeEnd = _progress;
     }
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    CAShapeLayer * layer = (id)self.layer;
     layer.strokeEnd = _progress;
 }
 

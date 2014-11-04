@@ -10,6 +10,8 @@
 
 @interface ALAssetsLibrary (CustomPhotoAlbum)
 
++ (void)addDemoImages:(NSUInteger)count;
+
 - (void)saveImage:(UIImage *)image
          toAlbum:(NSString *)albumName
       completion:(ALAssetsLibraryWriteImageCompletionBlock)completion

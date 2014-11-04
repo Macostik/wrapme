@@ -18,6 +18,7 @@
 #import "WLMenu.h"
 #import "WLNavigation.h"
 #import "NSPropertyListSerialization+Shorthand.h"
+#import "ALAssetsLibrary+CustomPhotoAlbum.h"
 
 @interface WLAppDelegate ()
 

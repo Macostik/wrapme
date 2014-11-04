@@ -11,19 +11,18 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default.png" translatesAutoresizingMaskIntoConstraints="NO" id="d6r-N3-9Ih">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_and_caption" translatesAutoresizingMaskIntoConstraints="NO" id="uN7-u1-zd6">
+                    <rect key="frame" x="62" y="142" width="196" height="220"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="320" id="C9g-N0-fcu"/>
-                        <constraint firstAttribute="height" constant="480" id="bWL-c8-wZO"/>
+                        <constraint firstAttribute="height" constant="220" id="4oU-7b-yiD"/>
+                        <constraint firstAttribute="width" constant="196" id="OiZ-Pe-3wg"/>
                     </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="d6r-N3-9Ih" secondAttribute="centerX" id="dO0-Qk-lbW"/>
-                <constraint firstAttribute="centerY" secondItem="d6r-N3-9Ih" secondAttribute="centerY" constant="44" id="lja-pF-ifp"/>
+                <constraint firstAttribute="centerX" secondItem="uN7-u1-zd6" secondAttribute="centerX" id="EGJ-66-4g0"/>
+                <constraint firstAttribute="centerY" secondItem="uN7-u1-zd6" secondAttribute="centerY" constant="32" id="qCY-iW-m67"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -31,6 +30,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Default.png" width="320" height="480"/>
+        <image name="logo_and_caption" width="196" height="220"/>
     </resources>
 </document>

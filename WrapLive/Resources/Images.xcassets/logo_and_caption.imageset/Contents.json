@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "logo_and_caption.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "00_screen_Android.png"
+      "filename" : "logo_and_caption@2x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "logo_and_caption@3x.png"
     }
   ],
   "info" : {

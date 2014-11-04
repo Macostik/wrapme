@@ -21,6 +21,7 @@
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
 #import "UIColor+CustomColors.h"
 #import "UIImage+Drawing.h"
+#import "NSObject+NibAdditions.h"
 
 @interface WLAppDelegate ()
 

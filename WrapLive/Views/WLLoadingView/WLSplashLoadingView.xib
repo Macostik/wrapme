@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,12 +11,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default.png" translatesAutoresizingMaskIntoConstraints="NO" id="3TH-Gn-paz">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_and_caption" translatesAutoresizingMaskIntoConstraints="NO" id="H5S-6h-crq">
+                    <rect key="frame" x="62" y="142" width="196" height="220"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="320" id="041-gp-f9W"/>
-                        <constraint firstAttribute="height" constant="480" id="BCF-lP-e8v"/>
+                        <constraint firstAttribute="width" constant="196" id="71n-Zp-L1i"/>
+                        <constraint firstAttribute="height" constant="220" id="VwD-aX-BW6"/>
                     </constraints>
                 </imageView>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="uc2-kv-x5p">
@@ -26,10 +25,10 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerY" secondItem="3TH-Gn-paz" secondAttribute="centerY" constant="44" id="Cve-nO-ELe"/>
-                <constraint firstItem="uc2-kv-x5p" firstAttribute="centerY" secondItem="3TH-Gn-paz" secondAttribute="centerY" constant="144" id="Upb-VJ-Kar"/>
-                <constraint firstItem="uc2-kv-x5p" firstAttribute="centerX" secondItem="3TH-Gn-paz" secondAttribute="centerX" id="e7F-tY-o4D"/>
-                <constraint firstAttribute="centerX" secondItem="3TH-Gn-paz" secondAttribute="centerX" id="h3q-hO-DQQ"/>
+                <constraint firstAttribute="centerX" secondItem="uc2-kv-x5p" secondAttribute="centerX" id="3Yx-XF-Wzx"/>
+                <constraint firstAttribute="centerY" secondItem="H5S-6h-crq" secondAttribute="centerY" constant="32" id="kAJ-xZ-Mzo"/>
+                <constraint firstAttribute="centerX" secondItem="H5S-6h-crq" secondAttribute="centerX" id="koQ-Sc-dli"/>
+                <constraint firstAttribute="centerY" secondItem="uc2-kv-x5p" secondAttribute="centerY" constant="-100" id="oQE-P0-aLm"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <connections>
@@ -38,7 +37,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Default.png" width="320" height="480"/>
+        <image name="logo_and_caption" width="196" height="220"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

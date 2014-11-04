@@ -66,32 +66,20 @@
                                                     <action selector="termsAndConditions:" destination="DOj-fu-IIy" eventType="touchUpInside" id="dAV-Gs-UI4"/>
                                                 </connections>
                                             </button>
-                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Ef8-BM-7o9">
-                                                <rect key="frame" x="42" y="79" width="196" height="160"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_and_caption" translatesAutoresizingMaskIntoConstraints="NO" id="YpE-az-8rW">
+                                                <rect key="frame" x="42" y="79" width="196" height="220"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="160" id="6nj-zh-zyx"/>
-                                                    <constraint firstAttribute="width" constant="196" id="XXZ-ys-P0X"/>
+                                                    <constraint firstAttribute="height" constant="220" id="Nnw-QX-O7c"/>
+                                                    <constraint firstAttribute="width" constant="196" id="pU8-03-u1x"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Capture your life events with a storyboard" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cvE-PT-o3h">
-                                                <rect key="frame" x="40" y="239" width="200" height="60"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="V0G-Hg-CXS"/>
-                                                    <constraint firstAttribute="width" constant="200" id="crB-H9-nsT"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="centerY" secondItem="cvE-PT-o3h" secondAttribute="centerY" constant="-86" id="EyF-dZ-fsD"/>
+                                            <constraint firstAttribute="centerY" secondItem="YpE-az-8rW" secondAttribute="centerY" constant="-6" id="Gn6-7d-7aK"/>
                                             <constraint firstAttribute="bottom" secondItem="YBa-zu-GaJ" secondAttribute="bottom" id="NEK-Z9-WU3"/>
+                                            <constraint firstAttribute="centerX" secondItem="YpE-az-8rW" secondAttribute="centerX" id="qdB-Cz-l8d"/>
                                             <constraint firstAttribute="centerX" secondItem="YBa-zu-GaJ" secondAttribute="centerX" id="tQj-kd-fSn"/>
-                                            <constraint firstAttribute="centerX" secondItem="Ef8-BM-7o9" secondAttribute="centerX" id="x0l-Kz-mlA"/>
-                                            <constraint firstAttribute="centerX" secondItem="cvE-PT-o3h" secondAttribute="centerX" id="xwq-Nc-dWn"/>
-                                            <constraint firstAttribute="centerY" secondItem="Ef8-BM-7o9" secondAttribute="centerY" constant="24" id="z71-30-6Fn"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1470,7 +1458,7 @@ Ravenpod, Inc.
         <image name="ic_next_gray" width="8" height="14"/>
         <image name="ic_next_white" width="8" height="24"/>
         <image name="ic_wrapLive" width="104" height="90"/>
-        <image name="logo" width="196" height="160"/>
+        <image name="logo_and_caption" width="196" height="220"/>
         <image name="termsAndConditions" width="325" height="80"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

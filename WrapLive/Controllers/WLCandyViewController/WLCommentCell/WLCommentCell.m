@@ -83,14 +83,14 @@
     }];
     self.menu.vibrate = [entry.contributor isCurrentUser];
     
-    WLProgressBar* progressBar = (id)entry.uploading.data.progressView;
     if (entry.status != WLContributionStatusUploaded) {
+        WLUploadingData* uploadingData = entry.uploading.data;
+        WLProgressBar* progressBar = (id)uploadingData.progressBar;
         if (!progressBar) {
-            entry.uploading.data.progressView = progressBar = [[WLProgressBar alloc] initWithFrame:CGRectInset(self.authorImageView.frame, -1, -1)];
+            uploadingData.progressBar = progressBar = [[WLProgressBar alloc] initWithFrame:self.authorImageView.frame];
         }
         self.progressBar = progressBar;
     }
-    if (progressBar) progressBar.contribution = entry;
 }
 
 - (void)setProgressBar:(WLProgressBar *)progressBar {

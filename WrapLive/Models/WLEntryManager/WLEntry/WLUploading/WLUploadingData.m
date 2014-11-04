@@ -7,6 +7,8 @@
 //
 
 #import "WLUploadingData.h"
+#import "WLProgressBar+WLContribution.h"
+#import "WLUploading+Extended.h"
 
 @implementation WLUploadingData
 
@@ -31,6 +33,11 @@
 - (void)setProgressBlock:(void (^)(float))progressBlock {
     _progressBlock = progressBlock;
     if (progressBlock) progressBlock(self.progress);
+}
+
+- (void)setProgressBar:(WLProgressBar *)progressBar {
+    _progressBar = progressBar;
+    if (progressBar) progressBar.contribution = self.uploading.contribution;
 }
 
 @end

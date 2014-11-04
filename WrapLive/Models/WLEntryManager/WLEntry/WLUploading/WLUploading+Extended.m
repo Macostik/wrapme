@@ -15,6 +15,7 @@
 #import "WLAuthorizationRequest.h"
 #import "WLInternetConnectionBroadcaster.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLProgressBar+WLContribution.h"
 
 @implementation WLUploading (Extended)
 
@@ -107,7 +108,7 @@
 }
 
 - (void)removeProgressView {
-    UIView* progressView = self.data.progressView;
+    UIView* progressView = self.data.progressBar;
     if (progressView) {
         [UIView animateWithDuration:0.25f delay:0.25f options:0 animations:^{
             progressView.alpha = 0.0f;

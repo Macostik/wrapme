@@ -18,6 +18,7 @@
 - (WLUploadingData *)data {
     if (!_data) {
         _data = [[WLUploadingData alloc] init];
+        _data.uploading = self;
     }
     return _data;
 }

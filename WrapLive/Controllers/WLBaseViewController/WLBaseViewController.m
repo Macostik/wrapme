@@ -26,6 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.keyboardAdjustmentAnimated = YES;
     self.view.frame = [UIWindow mainWindow].bounds;
     [self.view layoutIfNeeded];
     self.keyboardAdjustmentDefaultConstants = [NSMapTable strongToStrongObjectsMapTable];
@@ -81,12 +82,18 @@
     
     CGFloat adjustment = [self keyboardAdjustmentValueWithKeyboardHeight:keyboard.height];
     if ([self updateKeyboardAdjustmentConstraints:adjustment]) {
-        __weak typeof(self)weakSelf = self;
-        [keyboard performAnimation:^{
-            for (UIView *layoutView in weakSelf.keyboardAdjustmentLayoutViews) {
+        if (self.keyboardAdjustmentAnimated) {
+            __weak typeof(self)weakSelf = self;
+            [keyboard performAnimation:^{
+                for (UIView *layoutView in weakSelf.keyboardAdjustmentLayoutViews) {
+                    [layoutView layoutIfNeeded];
+                }
+            }];
+        } else {
+            for (UIView *layoutView in self.keyboardAdjustmentLayoutViews) {
                 [layoutView layoutIfNeeded];
             }
-        }];
+        }
     }
 }
 
@@ -94,12 +101,18 @@
     if (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty) return;
     [self updateKeyboardAdjustmentConstraints:0];
     [self.keyboardAdjustmentDefaultConstants removeAllObjects];
-    __weak typeof(self)weakSelf = self;
-    [keyboard performAnimation:^{
-        for (UIView *layoutView in weakSelf.keyboardAdjustmentLayoutViews) {
+    if (self.keyboardAdjustmentAnimated) {
+        __weak typeof(self)weakSelf = self;
+        [keyboard performAnimation:^{
+            for (UIView *layoutView in weakSelf.keyboardAdjustmentLayoutViews) {
+                [layoutView layoutIfNeeded];
+            }
+        }];
+    } else {
+        for (UIView *layoutView in self.keyboardAdjustmentLayoutViews) {
             [layoutView layoutIfNeeded];
         }
-    }];
+    }
 }
 
 @end

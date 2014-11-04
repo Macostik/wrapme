@@ -13,6 +13,8 @@
 
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *keyboardAdjustmentLayoutViews;
 
+@property (nonatomic) BOOL keyboardAdjustmentAnimated;
+
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight;
 
 @end

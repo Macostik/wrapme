@@ -79,6 +79,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    self.keyboardAdjustmentAnimated = NO;
     __weak typeof(self)weakSelf = self;
     WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - WLAvatarWidth - WLPadding;
     self.shouldAppendMoreMessages = YES;
@@ -121,6 +122,7 @@ CGFloat WLMaxTextViewWidth;
     [self.wrap.messages all:^(WLMessage *message) {
         if(!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
     }];
+    self.keyboardAdjustmentAnimated = YES;
 }
 
 - (void)setShouldAppendMoreMessages:(BOOL)shouldAppendMoreMessages {

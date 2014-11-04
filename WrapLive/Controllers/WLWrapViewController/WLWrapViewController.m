@@ -116,8 +116,9 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [self firstLoadRequest];
     
     self.dataProvider.animatableConstraints = self.timelineDataProvider.animatableConstraints;
-    self.collectionViewConstraint.constant += -self.view.height;
-    [self.collectionView layoutIfNeeded];
+    if (self.wrap.candies.nonempty) {
+        [self dropDownCollectionView];
+    }
 }
 
 - (void)updateWrapData {
@@ -156,7 +157,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [self updateNotificationCouter];
     [self updateWrapData];
      self.isShowPlaceholder = !self.wrap.candies.nonempty;
-    [self dropDownCollectionView];
 }
 
 - (void)showPlaceholder {
@@ -275,9 +275,10 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 }
 
 - (void)dropDownCollectionView {
-    [UIView animateWithDuration:1.0 animations:^{
-        self.collectionViewConstraint.constant = -20.0f;
-        [self.collectionView layoutIfNeeded];
+    self.collectionView.transform = CGAffineTransformMakeTranslation(0, -self.view.height);
+    [UIView animateWithDuration:1 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.3 options:0 animations:^{
+        self.collectionView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
     }];
 }
 

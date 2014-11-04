@@ -128,6 +128,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
         arrowView.layer.borderWidth = 1;
         arrowView.alpha = 0.25f;
 		[self.contentView addSubview:arrowView];
+        arrowView.hidden = YES;
 		_arrowView = arrowView;
 	}
 	return _arrowView;
@@ -143,7 +144,6 @@ static CGFloat WLRefresherContentSize = 44.0f;
         layer.strokeEnd = 0.0f;
         layer.fillColor = [UIColor clearColor].CGColor;
         layer.lineWidth = 1;
-        
         [self.contentView.layer addSublayer:layer];
         _strokeLayer = layer;
     }

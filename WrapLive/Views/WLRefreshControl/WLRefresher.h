@@ -27,8 +27,6 @@ typedef NS_ENUM(NSUInteger, WLRefresherStyle) {
 
 + (WLRefresher*)refresher:(UIScrollView*)scrollView;
 
-+ (WLRefresher*)refresher:(UIScrollView*)scrollView horizontal:(BOOL)horizontal;
-
 - (void)setRefreshing:(BOOL)refreshing animated:(BOOL)animated;
 
 - (void)setOperation:(AFURLConnectionOperation *)operation;

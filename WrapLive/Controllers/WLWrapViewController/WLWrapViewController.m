@@ -156,7 +156,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [self.dataProvider reload];
     [self updateNotificationCouter];
     [self updateWrapData];
-     self.isShowPlaceholder = !self.wrap.candies.nonempty;
+    self.isShowPlaceholder = !self.wrap.candies.nonempty;
 }
 
 - (void)showPlaceholder {

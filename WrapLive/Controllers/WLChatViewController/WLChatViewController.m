@@ -57,7 +57,7 @@ CGFloat WLMaxTextViewWidth;
 
 @property (nonatomic) BOOL typing;
 
-@property (strong, nonatomic) WLMessage *message;
+@property (strong, nonatomic) NSMutableSet* animatingMessages;
 
 @property (weak, nonatomic) IBOutlet WLTypingView *typingView;
 
@@ -81,10 +81,12 @@ CGFloat WLMaxTextViewWidth;
 	[super viewDidLoad];
     self.keyboardAdjustmentAnimated = NO;
     __weak typeof(self)weakSelf = self;
-    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - WLAvatarWidth - WLPadding;
+    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 2*WLAvatarWidth - WLPadding;
     self.shouldAppendMoreMessages = YES;
     
     self.chatGroup = [[WLChatGroupSet alloc] init];
+    
+    self.animatingMessages = [NSMutableSet set];
 	
 	if (self.wrap.name.nonempty) {
 		self.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(self.wrap.name)];
@@ -145,7 +147,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)insertMessage:(WLMessage*)message {
-    self.message = message;
+    [self.animatingMessages addObject:message];
     [self.chatGroup addMessage:message];
     [self.collectionView reloadData];
 }
@@ -391,7 +393,7 @@ CGFloat WLMaxTextViewWidth;
         cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"WLEmptyCell" forIndexPath:indexPath];
     } else {
         WLPaginatedSet *group = [self.chatGroup.entries tryObjectAtIndex:indexPath.section - 1];
-        WLMessage* message = [group.entries objectAtIndex:indexPath.row];
+        WLMessage* message = [group.entries tryObjectAtIndex:indexPath.row];
         
         WLMessage *lastMessage = group.entries.lastObject;
         BOOL isMyComment = [message.contributor isCurrentUser];
@@ -404,27 +406,25 @@ CGFloat WLMaxTextViewWidth;
         }
         
         cell =  [self.collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-        cell.item = message;
+        cell.entry = message;
         
-        if ([message isEqualToEntry:self.message]) {
-            [self slowUpAnimationCell:cell];
+        if ([self.animatingMessages containsObject:message]) {
+            [self slowUpAnimationCell:cell message:message];
         }
     }
     
     return cell;
 }
 
-- (void)slowUpAnimationCell:(WLMessageCell*)cell {
+- (void)slowUpAnimationCell:(WLMessageCell*)cell message:(WLMessage*)message {
     __weak __typeof(self)weakSelf = self;
     CGAffineTransform transform = cell.transform;
-    CGAffineTransform transformRotate = self.collectionView.transform;
-    CGFloat startPoint =  SystemVersionGreaterThanOrEqualTo8() ? self.view.height : -self.view.height;;
-    CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(0, startPoint);
-    cell.transform =  CGAffineTransformConcat(transformRotate, transformTranslation);
-    [UIView animateWithDuration:1.0 delay:0.0f options:UIViewAnimationOptionCurveLinear  animations:^{
-            cell.transform = transform;
+    CGFloat startPoint = SystemVersionGreaterThanOrEqualTo8() ? -cell.height : cell.height;;
+    cell.transform =  CGAffineTransformTranslate(self.collectionView.transform, 0, 2*startPoint);
+    [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        cell.transform = transform;
     } completion:^(BOOL finished) {
-        weakSelf.message = nil;
+        [weakSelf.animatingMessages removeObject:message];
     }];
 }
 

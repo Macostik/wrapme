@@ -2756,24 +2756,23 @@ Check your internet connection and try again.</string>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="centerY" secondItem="ttQ-8O-OkP" secondAttribute="centerY" id="8ch-GY-B8e"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="ZtA-QP-5Cy" secondAttribute="bottom" constant="29" id="8jX-ln-3N7"/>
-                                            <constraint firstItem="ZtA-QP-5Cy" firstAttribute="top" secondItem="blg-MX-zu0" secondAttribute="topMargin" constant="-3" id="Am4-sz-dMl"/>
+                                            <constraint firstAttribute="bottom" secondItem="ZtA-QP-5Cy" secondAttribute="bottom" constant="37" id="8jX-ln-3N7"/>
+                                            <constraint firstItem="ZtA-QP-5Cy" firstAttribute="top" secondItem="blg-MX-zu0" secondAttribute="top" constant="5" id="Am4-sz-dMl"/>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="leading" secondItem="PF5-oQ-bkX" secondAttribute="leading" constant="6" id="HEH-sc-7Af"/>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="height" secondItem="PF5-oQ-bkX" secondAttribute="height" constant="-3" id="JTK-oR-Nb3"/>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="top" secondItem="PF5-oQ-bkX" secondAttribute="top" id="McF-QY-5Fa"/>
                                             <constraint firstItem="nCf-It-uXS" firstAttribute="leading" secondItem="ZtA-QP-5Cy" secondAttribute="trailing" constant="11" id="O2T-XD-fLN"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="ZtA-QP-5Cy" secondAttribute="trailing" constant="58" id="TOA-wY-wAp"/>
+                                            <constraint firstAttribute="trailing" secondItem="ZtA-QP-5Cy" secondAttribute="trailing" constant="66" id="TOA-wY-wAp"/>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="top" secondItem="nCf-It-uXS" secondAttribute="top" id="V0j-zI-qYA"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="nCf-It-uXS" secondAttribute="trailing" constant="-3" id="Vg9-TM-3jX"/>
+                                            <constraint firstAttribute="trailing" secondItem="nCf-It-uXS" secondAttribute="trailing" constant="5" id="Vg9-TM-3jX"/>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="width" secondItem="PF5-oQ-bkX" secondAttribute="width" constant="-12" id="gEt-xh-hjp"/>
-                                            <constraint firstItem="nCf-It-uXS" firstAttribute="top" secondItem="blg-MX-zu0" secondAttribute="topMargin" constant="-3" id="gak-WX-KfC"/>
-                                            <constraint firstItem="ZtA-QP-5Cy" firstAttribute="leading" secondItem="blg-MX-zu0" secondAttribute="leadingMargin" constant="58" id="vRB-qt-Q1w"/>
+                                            <constraint firstItem="nCf-It-uXS" firstAttribute="top" secondItem="blg-MX-zu0" secondAttribute="top" constant="5" id="gak-WX-KfC"/>
+                                            <constraint firstItem="ZtA-QP-5Cy" firstAttribute="leading" secondItem="blg-MX-zu0" secondAttribute="leading" constant="66" id="vRB-qt-Q1w"/>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="leading" secondItem="ttQ-8O-OkP" secondAttribute="trailing" constant="10" id="x2L-nb-87D"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="57"/>
                                         <connections>
                                             <outlet property="avatarView" destination="nCf-It-uXS" id="slD-p4-bUf"/>
-                                            <outlet property="bubbleImageView" destination="PF5-oQ-bkX" id="wdT-Vk-GxQ"/>
                                             <outlet property="messageTextView" destination="ZtA-QP-5Cy" id="RzU-7U-chy"/>
                                             <outlet property="textViewConstraint" destination="vRB-qt-Q1w" id="djX-Pe-6Ws"/>
                                             <outlet property="timeLabel" destination="ttQ-8O-OkP" id="nfb-i1-NkK"/>
@@ -2794,10 +2793,10 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="not_owner_red_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="fH6-aY-YjF">
-                                                    <rect key="frame" x="60" y="5" width="200" height="30"/>
+                                                    <rect key="frame" x="60" y="5" width="208" height="33"/>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyg-xG-bc1">
-                                                    <rect key="frame" x="66" y="8" width="188" height="27"/>
+                                                    <rect key="frame" x="66" y="8" width="196" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -2806,7 +2805,7 @@ Check your internet connection and try again.</string>
                                                     <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                 </textView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDu-zS-cNB">
-                                                    <rect key="frame" x="264" y="12" width="26" height="16"/>
+                                                    <rect key="frame" x="272" y="14" width="26" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2825,23 +2824,22 @@ Check your internet connection and try again.</string>
                                             <constraint firstItem="BDu-zS-cNB" firstAttribute="centerY" secondItem="fH6-aY-YjF" secondAttribute="centerY" id="2Fj-KZ-Y68"/>
                                             <constraint firstItem="BDu-zS-cNB" firstAttribute="leading" secondItem="cyg-xG-bc1" secondAttribute="trailing" constant="10" id="6rh-OA-dQh"/>
                                             <constraint firstItem="cyg-xG-bc1" firstAttribute="width" secondItem="fH6-aY-YjF" secondAttribute="width" constant="-12" id="AyI-mD-daB"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="cyg-xG-bc1" secondAttribute="trailing" constant="58" id="DbD-aF-OYP"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="cyg-xG-bc1" secondAttribute="bottom" constant="13" id="H49-W0-Exu"/>
+                                            <constraint firstAttribute="trailing" secondItem="cyg-xG-bc1" secondAttribute="trailing" constant="58" id="DbD-aF-OYP"/>
+                                            <constraint firstAttribute="bottom" secondItem="cyg-xG-bc1" secondAttribute="bottom" constant="18" id="H49-W0-Exu"/>
                                             <constraint firstItem="HUe-Pv-h6W" firstAttribute="leading" secondItem="fH6-aY-YjF" secondAttribute="leading" constant="6" id="UAm-79-vx3"/>
-                                            <constraint firstItem="YII-6v-9r6" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leadingMargin" constant="-3" id="XTb-o9-EII"/>
+                                            <constraint firstItem="YII-6v-9r6" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="5" id="XTb-o9-EII"/>
                                             <constraint firstItem="HUe-Pv-h6W" firstAttribute="top" secondItem="fH6-aY-YjF" secondAttribute="top" constant="3" id="XnW-0m-JiT"/>
                                             <constraint firstItem="cyg-xG-bc1" firstAttribute="leading" secondItem="YII-6v-9r6" secondAttribute="trailing" constant="11" id="aV9-eE-aQF"/>
-                                            <constraint firstItem="cyg-xG-bc1" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leadingMargin" constant="58" id="ari-l8-Kyv"/>
+                                            <constraint firstItem="cyg-xG-bc1" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="66" id="ari-l8-Kyv"/>
                                             <constraint firstItem="cyg-xG-bc1" firstAttribute="leading" secondItem="fH6-aY-YjF" secondAttribute="leading" constant="6" id="caN-0f-CN3"/>
-                                            <constraint firstItem="YII-6v-9r6" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="topMargin" constant="-3" id="cox-Pp-syl"/>
+                                            <constraint firstItem="YII-6v-9r6" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" constant="5" id="cox-Pp-syl"/>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="top" secondItem="fH6-aY-YjF" secondAttribute="top" id="mzw-3H-Dfm"/>
                                             <constraint firstItem="cyg-xG-bc1" firstAttribute="height" secondItem="fH6-aY-YjF" secondAttribute="height" constant="-3" id="rjT-hA-d9m"/>
-                                            <constraint firstItem="cyg-xG-bc1" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="topMargin" id="vEL-DL-4YR"/>
+                                            <constraint firstItem="cyg-xG-bc1" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" constant="8" id="vEL-DL-4YR"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="56"/>
                                         <connections>
                                             <outlet property="avatarView" destination="YII-6v-9r6" id="rdb-ks-OqQ"/>
-                                            <outlet property="bubbleImageView" destination="fH6-aY-YjF" id="KVJ-il-kci"/>
                                             <outlet property="messageTextView" destination="cyg-xG-bc1" id="Ouj-u5-WJB"/>
                                             <outlet property="nameLabel" destination="HUe-Pv-h6W" id="IPI-RF-ny3"/>
                                             <outlet property="textViewConstraint" destination="DbD-aF-OYP" id="5px-lo-5oj"/>
@@ -2878,19 +2876,18 @@ Check your internet connection and try again.</string>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="41I-u5-SU6" firstAttribute="leading" secondItem="CgH-gR-3Aw" secondAttribute="leading" constant="-6" id="1bc-Lt-4Jk"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="CgH-gR-3Aw" secondAttribute="trailing" constant="58" id="4au-je-lPc"/>
+                                            <constraint firstAttribute="trailing" secondItem="CgH-gR-3Aw" secondAttribute="trailing" constant="66" id="4au-je-lPc"/>
                                             <constraint firstItem="fwY-Hr-qoE" firstAttribute="centerY" secondItem="CgH-gR-3Aw" secondAttribute="centerY" constant="2" id="77V-dW-roS"/>
                                             <constraint firstItem="41I-u5-SU6" firstAttribute="height" secondItem="CgH-gR-3Aw" secondAttribute="height" constant="3" id="QGC-zk-Kqv"/>
                                             <constraint firstItem="CgH-gR-3Aw" firstAttribute="leading" secondItem="fwY-Hr-qoE" secondAttribute="trailing" constant="10" id="Uvs-KE-ooH"/>
-                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="top" secondItem="ivg-aY-e4W" secondAttribute="topMargin" constant="-8" id="VAM-ku-c32"/>
-                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="leading" secondItem="ivg-aY-e4W" secondAttribute="leadingMargin" constant="58" id="b6n-Zu-Tgd"/>
+                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="top" secondItem="ivg-aY-e4W" secondAttribute="top" id="VAM-ku-c32"/>
+                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="leading" secondItem="ivg-aY-e4W" secondAttribute="leading" constant="66" id="b6n-Zu-Tgd"/>
                                             <constraint firstItem="41I-u5-SU6" firstAttribute="width" secondItem="CgH-gR-3Aw" secondAttribute="width" constant="12" id="cTE-9h-2vR"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="CgH-gR-3Aw" secondAttribute="bottom" constant="2" id="emR-1T-jBw"/>
+                                            <constraint firstAttribute="bottom" secondItem="CgH-gR-3Aw" secondAttribute="bottom" constant="10" id="emR-1T-jBw"/>
                                             <constraint firstItem="41I-u5-SU6" firstAttribute="top" secondItem="CgH-gR-3Aw" secondAttribute="top" id="h0b-5V-72R"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="40"/>
                                         <connections>
-                                            <outlet property="bubbleImageView" destination="41I-u5-SU6" id="uJC-pd-SwB"/>
                                             <outlet property="messageTextView" destination="CgH-gR-3Aw" id="IUW-da-Brq"/>
                                             <outlet property="textViewConstraint" destination="b6n-Zu-Tgd" id="MfN-4M-Tg6"/>
                                             <outlet property="timeLabel" destination="fwY-Hr-qoE" id="UY6-PW-uPr"/>
@@ -2926,19 +2923,18 @@ Check your internet connection and try again.</string>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="xF8-7i-x7W" firstAttribute="top" secondItem="fEn-6o-vwb" secondAttribute="top" id="350-xp-b5O"/>
-                                            <constraint firstItem="xF8-7i-x7W" firstAttribute="leading" secondItem="zi4-Ct-o5G" secondAttribute="leadingMargin" constant="58" id="77r-NY-iYJ"/>
+                                            <constraint firstItem="xF8-7i-x7W" firstAttribute="leading" secondItem="zi4-Ct-o5G" secondAttribute="leading" constant="66" id="77r-NY-iYJ"/>
                                             <constraint firstItem="xF8-7i-x7W" firstAttribute="height" secondItem="fEn-6o-vwb" secondAttribute="height" constant="-3" id="Ka5-RI-mEL"/>
                                             <constraint firstItem="xF8-7i-x7W" firstAttribute="width" secondItem="fEn-6o-vwb" secondAttribute="width" constant="-12" id="PgG-zA-T14"/>
-                                            <constraint firstItem="xF8-7i-x7W" firstAttribute="top" secondItem="zi4-Ct-o5G" secondAttribute="topMargin" constant="-8" id="QtH-dQ-ndz"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="xF8-7i-x7W" secondAttribute="bottom" constant="2" id="SOe-FI-hhm"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="xF8-7i-x7W" secondAttribute="trailing" constant="58" id="grP-28-aT8"/>
+                                            <constraint firstItem="xF8-7i-x7W" firstAttribute="top" secondItem="zi4-Ct-o5G" secondAttribute="top" id="QtH-dQ-ndz"/>
+                                            <constraint firstAttribute="bottom" secondItem="xF8-7i-x7W" secondAttribute="bottom" constant="10" id="SOe-FI-hhm"/>
+                                            <constraint firstAttribute="trailing" secondItem="xF8-7i-x7W" secondAttribute="trailing" constant="66" id="grP-28-aT8"/>
                                             <constraint firstItem="xF8-7i-x7W" firstAttribute="centerY" secondItem="QL5-oM-FJ6" secondAttribute="centerY" constant="-2" id="i57-As-kKH"/>
                                             <constraint firstItem="xF8-7i-x7W" firstAttribute="leading" secondItem="fEn-6o-vwb" secondAttribute="leading" constant="6" id="iIs-zt-I7b"/>
                                             <constraint firstItem="QL5-oM-FJ6" firstAttribute="leading" secondItem="xF8-7i-x7W" secondAttribute="trailing" constant="10" id="nhh-Il-n1H"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="40"/>
                                         <connections>
-                                            <outlet property="bubbleImageView" destination="fEn-6o-vwb" id="t0a-UB-LrF"/>
                                             <outlet property="messageTextView" destination="xF8-7i-x7W" id="t6P-j9-8GR"/>
                                             <outlet property="textViewConstraint" destination="grP-28-aT8" id="0G5-dw-tZF"/>
                                             <outlet property="timeLabel" destination="QL5-oM-FJ6" id="bSU-bc-xnX"/>

@@ -140,7 +140,7 @@ static NSTimeInterval _difference = 0;
         [[WLAuthorizationRequest signInRequest] send:^(id object) {
             [strongSelf send];
         } failure:^(NSError *error) {
-            [UIApplication sharedApplication].keyWindow.rootViewController = [[UIStoryboard storyboardWithName:@"SignUp" bundle:nil] instantiateInitialViewController];
+            [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLSignUpStoryboard] instantiateInitialViewController];
         }];
     } else {
         if (self.failureBlock) {

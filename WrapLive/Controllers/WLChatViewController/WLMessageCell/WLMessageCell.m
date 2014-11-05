@@ -28,7 +28,6 @@
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
 
 @end
 
@@ -37,33 +36,33 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.avatarView.circled = YES;
+    self.messageTextView.textContainerInset = self.nameLabel ? UIEdgeInsetsMake(14, -5, 0, -5) : UIEdgeInsetsMake(0, -5, 0, -5);
 }
 
-- (void)setupItemData:(WLMessage*)message {
+- (void)setup:(WLMessage*)message {
     __weak typeof(self)weakSelf = self;
-    self.messageTextView.textContainerInset = [self.reuseIdentifier isEqualToString:@"WLMessageCell"] ? UIEdgeInsetsMake(14, -5, 0, -5) : UIEdgeInsetsMake(0, -5, 0, -5);
 	self.avatarView.url = message.contributor.picture.small;
     [self.avatarView setFailure:^(NSError* error) {
         weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];
-    self.nameLabel.text = [NSString stringWithFormat:@"%@", WLString(message.contributor.name)];
-	self.timeLabel.text = [NSString stringWithFormat:@"%@", WLString([message.createdAt stringWithFormat:@"HH:mm"])];
+    self.nameLabel.text = WLString(message.contributor.name);
+	self.timeLabel.text = WLString([message.createdAt stringWithFormat:@"HH:mm"]);
+    
     [self.messageTextView determineHyperLink:message.text];
-	[UIView performWithoutAnimation:^{
-        CGSize sizeNameLabel = [weakSelf.nameLabel sizeThatFits:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)];
-        CGSize size = [weakSelf.messageTextView sizeThatFits:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)];
-        
-         weakSelf.textViewConstraint.constant = weakSelf.width - WLAvatarWidth - MAX(WLMinBubbleWidth, size.width);
-        
-        if ([self.reuseIdentifier isEqualToString:@"WLMessageCell"]) {
-            weakSelf.textViewConstraint.constant = MIN(weakSelf.textViewConstraint.constant,
-                                                       weakSelf.width - WLAvatarWidth - MAX(WLMinBubbleWidth, sizeNameLabel.width));
-        }
-        weakSelf.textViewConstraint.constant -= !SystemVersionGreaterThanOrEqualTo8() ? : 8.0f;
-        
-        [weakSelf.messageTextView layoutIfNeeded];
-	}];
+    
+    CGSize maxSize = CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX);
+    CGFloat textWidth = [weakSelf.messageTextView sizeThatFits:maxSize].width;
+    if (self.nameLabel) {
+        CGFloat nameWidth = [weakSelf.nameLabel sizeThatFits:maxSize].width;
+        weakSelf.textViewConstraint.constant = MIN([self constraintForWidth:textWidth], [self constraintForWidth:nameWidth]);
+    } else {
+        weakSelf.textViewConstraint.constant = [self constraintForWidth:textWidth];
+    }
+    [weakSelf.messageTextView setNeedsLayout];
 }
 
+- (CGFloat)constraintForWidth:(CGFloat)width {
+    return self.width - WLAvatarWidth - MAX(WLMinBubbleWidth, width);
+}
 
 @end

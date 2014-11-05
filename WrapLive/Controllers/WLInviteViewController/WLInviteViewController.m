@@ -15,12 +15,12 @@
 #import "NSArray+Additions.h"
 #import "WLPerson.h"
 #import "WLContributorsRequest.h"
+#import "WLButton.h"
 
 @interface WLInviteViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 @property (strong, nonatomic) NSMutableArray *contacts;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIButton *addUserButton;
 
 @end
@@ -44,16 +44,18 @@
 
 #pragma mark - actions
 
-- (IBAction)addContact:(UIButton *)sender {
+- (IBAction)addContact:(WLButton *)sender {
+    self.view.userInteractionEnabled = NO;
+    sender.loading = YES;
 	WLContact * contact = [WLContact new];
 	contact.name = self.userNameTextField.text;
 	WLPerson * person = [WLPerson new];
 	person.phone = self.phoneNumberTextField.text;
     person.name = self.userNameTextField.text;
 	contact.persons = @[person];
-	[self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
     [[WLContributorsRequest request:@[contact]] send:^(id object) {
+        sender.loading = NO;
 		if ([object count]) {
 			NSError* error = [weakSelf.delegate inviteViewController:weakSelf didInviteContact:contact];
             if (error) {
@@ -62,9 +64,10 @@
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             }
 		}
-		[weakSelf.spinner stopAnimating];
+        weakSelf.view.userInteractionEnabled = YES;
     } failure:^(NSError *error) {
-        [weakSelf.spinner stopAnimating];
+        sender.loading = NO;
+        weakSelf.view.userInteractionEnabled = YES;
 		[error show];
     }];
 }

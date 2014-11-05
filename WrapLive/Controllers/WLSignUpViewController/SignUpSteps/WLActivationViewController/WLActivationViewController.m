@@ -52,8 +52,6 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 																								done:@selector(activationDone:)];
 	
 	self.phoneNumberLabel.text = [self.authorization fullPhoneNumber];
-	self.activationTextField.layer.borderWidth = 0.5;
-	self.activationTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
 	self.continueButton.active = NO;
 }
 

@@ -8,7 +8,6 @@
 
 #import "WLCandyCell.h"
 #import "WLImageFetcher.h"
-#import "WLBorderView.h"
 #import "WLEntryNotifier.h"
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"

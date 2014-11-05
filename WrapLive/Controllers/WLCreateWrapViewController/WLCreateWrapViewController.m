@@ -17,7 +17,6 @@
 #import "WLAddContributorsViewController.h"
 #import "WLAddressBook.h"
 #import "WLActionViewController.h"
-#import "WLBorderView.h"
 #import "WLButton.h"
 #import "WLCameraViewController.h"
 #import "WLContributorCell.h"

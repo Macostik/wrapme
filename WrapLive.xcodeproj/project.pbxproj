@@ -69,7 +69,6 @@
 		12D653D618E4326C009CE64C /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D518E4326C009CE64C /* UIView+Shorthand.m */; };
 		12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D918E4329F009CE64C /* WLProgressBar.m */; };
 		12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
-		12D653E218E432F2009CE64C /* WLBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653E118E432F2009CE64C /* WLBorderView.m */; };
 		12D7E0B51910E5380094C376 /* WLImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D7E0B31910E5380094C376 /* WLImageCache.m */; };
 		12D7E0B81910E5480094C376 /* WLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D7E0B71910E5480094C376 /* WLCache.m */; };
 		12D962ED18E5898A00C57CE1 /* WLPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D962EC18E5898A00C57CE1 /* WLPicture.m */; };
@@ -468,7 +467,6 @@
 		C54AF4AD19B8C437006F7EDB /* WLEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A04F8A1940CB5E005DA4CE /* WLEmoji.m */; };
 		C54AF4AE19B8C437006F7EDB /* WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA5718DAF98C00A4BC44 /* WLAPIManager.m */; };
 		C54AF4AF19B8C437006F7EDB /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1A179F1937891E002B3737 /* MFMailComposeViewController+Additions.m */; };
-		C54AF4B019B8C437006F7EDB /* WLBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653E118E432F2009CE64C /* WLBorderView.m */; };
 		C54AF4B119B8C437006F7EDB /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
 		C54AF4B319B8C437006F7EDB /* WLEntryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E08194AF54000F3A554 /* WLEntryManager.m */; };
 		C54AF4B419B8C437006F7EDB /* WLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D918E4329F009CE64C /* WLProgressBar.m */; };
@@ -665,7 +663,6 @@
 		C54AF5AA19B8C467006F7EDB /* WLEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A04F8A1940CB5E005DA4CE /* WLEmoji.m */; };
 		C54AF5AB19B8C467006F7EDB /* WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA5718DAF98C00A4BC44 /* WLAPIManager.m */; };
 		C54AF5AC19B8C467006F7EDB /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1A179F1937891E002B3737 /* MFMailComposeViewController+Additions.m */; };
-		C54AF5AD19B8C467006F7EDB /* WLBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653E118E432F2009CE64C /* WLBorderView.m */; };
 		C54AF5AE19B8C467006F7EDB /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
 		C54AF5B019B8C467006F7EDB /* WLEntryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E08194AF54000F3A554 /* WLEntryManager.m */; };
 		C54AF5B119B8C467006F7EDB /* WLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D918E4329F009CE64C /* WLProgressBar.m */; };
@@ -862,7 +859,6 @@
 		C54AF6A719B8C491006F7EDB /* WLEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A04F8A1940CB5E005DA4CE /* WLEmoji.m */; };
 		C54AF6A819B8C491006F7EDB /* WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA5718DAF98C00A4BC44 /* WLAPIManager.m */; };
 		C54AF6A919B8C491006F7EDB /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1A179F1937891E002B3737 /* MFMailComposeViewController+Additions.m */; };
-		C54AF6AA19B8C491006F7EDB /* WLBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653E118E432F2009CE64C /* WLBorderView.m */; };
 		C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
 		C54AF6AD19B8C491006F7EDB /* WLEntryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E08194AF54000F3A554 /* WLEntryManager.m */; };
 		C54AF6AE19B8C491006F7EDB /* WLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D918E4329F009CE64C /* WLProgressBar.m */; };
@@ -1222,8 +1218,6 @@
 		12D653D918E4329F009CE64C /* WLProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLProgressBar.m; sourceTree = "<group>"; };
 		12D653DB18E4329F009CE64C /* WLSeparatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSeparatorView.h; sourceTree = "<group>"; };
 		12D653DC18E4329F009CE64C /* WLSeparatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSeparatorView.m; sourceTree = "<group>"; };
-		12D653E018E432F2009CE64C /* WLBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBorderView.h; path = WLBorderView/WLBorderView.h; sourceTree = "<group>"; };
-		12D653E118E432F2009CE64C /* WLBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBorderView.m; path = WLBorderView/WLBorderView.m; sourceTree = "<group>"; };
 		12D7E0B21910E5380094C376 /* WLImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLImageCache.h; sourceTree = "<group>"; };
 		12D7E0B31910E5380094C376 /* WLImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLImageCache.m; sourceTree = "<group>"; };
 		12D7E0B61910E5480094C376 /* WLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCache.h; path = WLCache/WLCache.h; sourceTree = "<group>"; };
@@ -2095,7 +2089,6 @@
 				12A6BFA918F2AE5F00AE3B62 /* WLRefreshControl */,
 				12E8FF1C18E9883700BF1B96 /* WLComposeBar */,
 				12E8FF0718E960E000BF1B96 /* StreamView */,
-				12D653DF18E432DA009CE64C /* WLBorderView */,
 				12D653D718E4329F009CE64C /* WLProgressBar */,
 				12D653DA18E4329F009CE64C /* WLSeparatorView */,
 				5BB3291819D44E5100E946B8 /* WLLabel */,
@@ -2227,15 +2220,6 @@
 				12D653DC18E4329F009CE64C /* WLSeparatorView.m */,
 			);
 			path = WLSeparatorView;
-			sourceTree = "<group>";
-		};
-		12D653DF18E432DA009CE64C /* WLBorderView */ = {
-			isa = PBXGroup;
-			children = (
-				12D653E018E432F2009CE64C /* WLBorderView.h */,
-				12D653E118E432F2009CE64C /* WLBorderView.m */,
-			);
-			name = WLBorderView;
 			sourceTree = "<group>";
 		};
 		12D7E0B11910E5380094C376 /* WLImageCache */ = {
@@ -4085,7 +4069,6 @@
 				14A04F8B1940CB5E005DA4CE /* WLEmoji.m in Sources */,
 				12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */,
 				AC1A17A01937891E002B3737 /* MFMailComposeViewController+Additions.m in Sources */,
-				12D653E218E432F2009CE64C /* WLBorderView.m in Sources */,
 				12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */,
 				C5A21E0F194AF54000F3A554 /* WLEntryManager.m in Sources */,
 				12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */,
@@ -4299,7 +4282,6 @@
 				C54AF4AD19B8C437006F7EDB /* WLEmoji.m in Sources */,
 				C54AF4AE19B8C437006F7EDB /* WLAPIManager.m in Sources */,
 				C54AF4AF19B8C437006F7EDB /* MFMailComposeViewController+Additions.m in Sources */,
-				C54AF4B019B8C437006F7EDB /* WLBorderView.m in Sources */,
 				C54AF4B119B8C437006F7EDB /* WLHomeViewController.m in Sources */,
 				C54AF4B319B8C437006F7EDB /* WLEntryManager.m in Sources */,
 				C54AF4B419B8C437006F7EDB /* WLProgressBar.m in Sources */,
@@ -4513,7 +4495,6 @@
 				C54AF5AA19B8C467006F7EDB /* WLEmoji.m in Sources */,
 				C54AF5AB19B8C467006F7EDB /* WLAPIManager.m in Sources */,
 				C54AF5AC19B8C467006F7EDB /* MFMailComposeViewController+Additions.m in Sources */,
-				C54AF5AD19B8C467006F7EDB /* WLBorderView.m in Sources */,
 				C54AF5AE19B8C467006F7EDB /* WLHomeViewController.m in Sources */,
 				C54AF5B019B8C467006F7EDB /* WLEntryManager.m in Sources */,
 				C54AF5B119B8C467006F7EDB /* WLProgressBar.m in Sources */,
@@ -4727,7 +4708,6 @@
 				C54AF6A719B8C491006F7EDB /* WLEmoji.m in Sources */,
 				C54AF6A819B8C491006F7EDB /* WLAPIManager.m in Sources */,
 				C54AF6A919B8C491006F7EDB /* MFMailComposeViewController+Additions.m in Sources */,
-				C54AF6AA19B8C491006F7EDB /* WLBorderView.m in Sources */,
 				C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */,
 				C54AF6AD19B8C491006F7EDB /* WLEntryManager.m in Sources */,
 				C54AF6AE19B8C491006F7EDB /* WLProgressBar.m in Sources */,

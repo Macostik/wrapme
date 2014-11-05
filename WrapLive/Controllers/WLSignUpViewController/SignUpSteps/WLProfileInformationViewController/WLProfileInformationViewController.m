@@ -47,9 +47,6 @@
 	self.user = [WLUser currentUser];
 	self.hasAvatar = self.user.name.nonempty;
 	
-	self.nameTextField.layer.borderWidth = 0.5;
-	self.nameTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
-	
 	self.nameTextField.text = self.user.name;
 	if (!self.hasAvatar) {
 		self.profileImageView.url = nil;

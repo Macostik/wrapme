@@ -6,9 +6,10 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLBaseViewController.h"
 
 @class WLInviteViewController;
+@class WLContact;
 
 @protocol WLInviteViewControllerDelegate <NSObject>
 
@@ -16,7 +17,7 @@
 
 @end
 
-@interface WLInviteViewController : UIViewController
+@interface WLInviteViewController : WLBaseViewController
 
 @property (weak, nonatomic) id <WLInviteViewControllerDelegate> delegate;
 

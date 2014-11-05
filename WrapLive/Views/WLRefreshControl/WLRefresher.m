@@ -112,6 +112,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
         layer.strokeEnd = 0.0f;
         layer.fillColor = [UIColor clearColor].CGColor;
         layer.lineWidth = 1;
+        layer.actions = @{@"strokeEnd":[NSNull null],@"hidden":[NSNull null]};
         [self.contentView.layer addSublayer:layer];
         _strokeLayer = layer;
     }
@@ -184,10 +185,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
         hidden = NO;
         CGFloat ratio = Smoothstep(0, 1, -offset / (1.3f * WLRefresherContentSize));
         if (self.strokeLayer.strokeEnd != ratio) {
-            [CATransaction begin];
-            [CATransaction setDisableActions:YES];
             self.strokeLayer.strokeEnd = ratio;
-            [CATransaction commit];
         }
         self.refreshable = (ratio == 1);
     } else if (sender.state == UIGestureRecognizerStateEnded && _refreshable) {
@@ -199,10 +197,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
     }
     
     if (hidden != self.arrowView.hidden) {
-        [CATransaction begin];
-        [CATransaction setDisableActions:YES];
         self.arrowView.hidden = self.strokeLayer.hidden = hidden;
-        [CATransaction commit];
     }
 }
 

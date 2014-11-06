@@ -9,8 +9,6 @@
 #import "WLEditViewController.h"
 #import "WLButton.h"
 
-
-
 @class WLContentView;
 
 @interface WLActionViewController : UIViewController
@@ -19,7 +17,7 @@
 + (void)addCandyViewControllerWithCandy:(WLCandy *)candy toParentViewController:(UIViewController *)viewController;
 + (void)addCreateWrapViewControllerToParentViewController:(UIViewController *)viewController;
 
-- (void)didAddChildViewController:(UIViewController *)viewController;
+- (void)willAddChildViewController:(UIViewController *)viewController;
 - (void)dismiss;
 
 @end

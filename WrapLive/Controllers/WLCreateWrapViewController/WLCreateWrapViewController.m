@@ -91,7 +91,7 @@
         cameraNavigation.mode = WLCameraModeCandy;
         WLActionViewController *parentViewController = (WLActionViewController *)[self parentViewController];
         if (parentViewController != nil) {
-            [parentViewController didAddChildViewController:cameraNavigation];
+            [parentViewController willAddChildViewController:parentViewController];
             self.view.userInteractionEnabled = YES;
             sender.loading = NO;
         }

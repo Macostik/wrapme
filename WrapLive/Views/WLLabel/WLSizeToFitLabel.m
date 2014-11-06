@@ -22,6 +22,15 @@ static CGFloat WLConstantIndentText = 5.0f;
 
 @implementation WLSizeToFitLabel
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.hidden = YES;
+        self.verticalAlignment = VerticalAlignmentMiddle;
+    }
+    return self;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder]) {
         self.hidden = YES;
@@ -38,6 +47,13 @@ static CGFloat WLConstantIndentText = 5.0f;
 - (void)setText:(NSString *)text {
     [super setText:text];
     self.hidden = [text isEqualToString:@"0"] || ![text nonempty];
+    [self sizeToFitByContent];
+    [self setNeedsDisplay];
+}
+
+- (void)setAttributedText:(NSAttributedString *)attributedText {
+    [super setAttributedText:attributedText];
+    self.hidden = [attributedText.string isEqualToString:@"0"] || ![attributedText.string nonempty];
     [self sizeToFitByContent];
     [self setNeedsDisplay];
 }

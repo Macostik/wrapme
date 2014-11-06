@@ -355,9 +355,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A3r-6X-iN0">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="unlockButtonClick:" destination="cKg-Y0-d6d" eventType="touchUpInside" id="dWS-bS-4MR"/>
+                                </connections>
+                            </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PXc-wK-33a">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="hwx-s0-l35"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="owE-f8-xzI" kind="embed" id="UES-T5-0SO"/>
                                 </connections>
@@ -378,32 +391,50 @@
                                             <constraint firstAttribute="height" constant="34" id="Xue-zU-dar"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oL2-ik-BRw">
+                                        <rect key="frame" x="50" y="1" width="270" height="34"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="chooseWrap:" destination="cKg-Y0-d6d" eventType="touchUpInside" id="rqs-uf-E0l"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="BA6-LK-hlx"/>
                                     <constraint firstAttribute="centerY" secondItem="sH4-Ri-VnB" secondAttribute="centerY" id="Bus-1e-FhY"/>
+                                    <constraint firstAttribute="trailing" secondItem="oL2-ik-BRw" secondAttribute="trailing" id="IHf-AS-YQU"/>
                                     <constraint firstAttribute="bottom" secondItem="g5K-gw-F64" secondAttribute="bottom" id="SVl-PF-uJB"/>
+                                    <constraint firstItem="oL2-ik-BRw" firstAttribute="top" secondItem="qUY-JJ-yJl" secondAttribute="top" constant="1" id="XVO-45-Nrd"/>
+                                    <constraint firstItem="oL2-ik-BRw" firstAttribute="leading" secondItem="qUY-JJ-yJl" secondAttribute="leading" constant="50" id="YBu-zJ-957"/>
                                     <constraint firstItem="g5K-gw-F64" firstAttribute="leading" secondItem="qUY-JJ-yJl" secondAttribute="leading" constant="50" id="dQa-MW-RhJ"/>
                                     <constraint firstItem="sH4-Ri-VnB" firstAttribute="leading" secondItem="qUY-JJ-yJl" secondAttribute="leading" constant="8" id="sU6-jd-jRv"/>
                                     <constraint firstItem="g5K-gw-F64" firstAttribute="top" secondItem="qUY-JJ-yJl" secondAttribute="top" id="srH-o2-kN1"/>
+                                    <constraint firstAttribute="bottom" secondItem="oL2-ik-BRw" secondAttribute="bottom" constant="1" id="xWa-Yi-8vL"/>
                                     <constraint firstAttribute="trailing" secondItem="g5K-gw-F64" secondAttribute="trailing" constant="10" id="ymh-vp-QRz"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="A3r-6X-iN0" firstAttribute="leading" secondItem="BhV-eV-kV4" secondAttribute="leading" id="5LT-O9-cuj"/>
                             <constraint firstItem="vCg-oN-dzS" firstAttribute="top" secondItem="PXc-wK-33a" secondAttribute="bottom" id="9xc-65-DvO"/>
                             <constraint firstItem="PXc-wK-33a" firstAttribute="leading" secondItem="BhV-eV-kV4" secondAttribute="leading" id="Md4-hR-a9y"/>
                             <constraint firstAttribute="trailing" secondItem="PXc-wK-33a" secondAttribute="trailing" id="VRu-z1-Zpi"/>
+                            <constraint firstItem="vCg-oN-dzS" firstAttribute="top" secondItem="A3r-6X-iN0" secondAttribute="bottom" id="VwE-cY-C6l"/>
+                            <constraint firstAttribute="trailing" secondItem="A3r-6X-iN0" secondAttribute="trailing" id="Yl7-Li-Ytu"/>
                             <constraint firstItem="PXc-wK-33a" firstAttribute="top" secondItem="Oez-Qa-hJq" secondAttribute="bottom" constant="-20" id="gWc-nz-ZoD"/>
                             <constraint firstItem="qUY-JJ-yJl" firstAttribute="leading" secondItem="BhV-eV-kV4" secondAttribute="leading" id="nfQ-9l-B0B"/>
                             <constraint firstAttribute="trailing" secondItem="qUY-JJ-yJl" secondAttribute="trailing" id="ob3-uj-nGW"/>
                             <constraint firstItem="vCg-oN-dzS" firstAttribute="top" secondItem="qUY-JJ-yJl" secondAttribute="bottom" id="omR-CP-9CN"/>
+                            <constraint firstItem="A3r-6X-iN0" firstAttribute="top" secondItem="Oez-Qa-hJq" secondAttribute="bottom" constant="-20" id="z2x-AG-AWI"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="bottomAlignment" destination="9xc-65-DvO" id="u6d-b8-4Bm"/>
+                        <outlet property="lockButton" destination="A3r-6X-iN0" id="Dhs-8k-yFH"/>
                         <outlet property="wrapCoverView" destination="sH4-Ri-VnB" id="IXt-mo-AJg"/>
                         <outlet property="wrapNameLabel" destination="g5K-gw-F64" id="bNz-iB-5Zd"/>
                         <outlet property="wrapView" destination="qUY-JJ-yJl" id="4x8-GG-nOM"/>

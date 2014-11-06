@@ -10,6 +10,7 @@
 #import "WLButton.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "UIColor+CustomColors.h"
+#import "UIView+Shorthand.h"
 #import "MFMailComposeViewController+Additions.h"
 #import "WLAPIManager.h"
 #import "WLToast.h"
@@ -43,8 +44,12 @@ static NSString *const WLReport = @"Report";
 
 - (IBAction)removeFromController:(id)sender {
     UIViewController *parentViewController = [self parentViewController];
-    [parentViewController.view removeFromSuperview];
-    [parentViewController removeFromParentViewController];
+    [UIView animateWithDuration:1.0f animations:^{
+        self.view.transform = CGAffineTransformMakeTranslation(.0f, self.parentViewController.view.height);
+    } completion:^(BOOL finished) {
+        [parentViewController.view removeFromSuperview];
+        [parentViewController removeFromParentViewController];
+    }];
 }
 
 - (IBAction)deleteCandy:(id)sender {

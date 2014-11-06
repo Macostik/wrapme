@@ -6,25 +6,29 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLStillPictureViewController.h"
-#import "WLNavigation.h"
-#import "WLAssetsGroupViewController.h"
 #import "ALAssetsLibrary+Additions.h"
-#import <AviarySDK/AviarySDK.h>
-#import "UIImage+Resize.h"
-#import <MobileCoreServices/MobileCoreServices.h>
-#import "NSMutableDictionary+ImageMetadata.h"
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
-#import "WLWrap.h"
-#import "UIView+Shorthand.h"
-#import "WLImageFetcher.h"
-#import "UIView+AnimationHelper.h"
-#import "WLEntryManager.h"
 #import "AsynchronousOperation.h"
+#import "NSMutableDictionary+ImageMetadata.h"
+#import "UIImage+Resize.h"
+#import "UIView+AnimationHelper.h"
+#import "UIView+Shorthand.h"
+#import "WLActionViewController.h"
+#import "WLAssetsGroupViewController.h"
+#import "WLEntryManager.h"
+#import "WLImageFetcher.h"
+#import "WLNavigation.h"
+#import "WLStillPictureViewController.h"
+#import "WLWrap.h"
+#import <AviarySDK/AviarySDK.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import "WLPickerViewController.h"
 
-@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate>
+@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate,
+                                            UINavigationControllerDelegate, WLPickerViewDelegate>
 
 @property (weak, nonatomic) UINavigationController* cameraNavigationController;
+@property (weak, nonatomic) WLPickerViewController *pickerViewController;
 
 @property (weak, nonatomic) IBOutlet UIView* wrapView;
 @property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
@@ -32,6 +36,7 @@
 
 @property (strong, nonatomic) WLImageBlock editBlock;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomAlignment;
+@property (strong, nonatomic) IBOutlet UIButton *lockButton;
 
 @end
 
@@ -50,17 +55,10 @@
     self.cameraViewController.mode = self.mode;
     self.cameraViewController.defaultPosition = self.defaultPosition;
     self.cameraViewController.bottomInset = self.wrap ? self.wrapView.height : 0;
-    
-    if (self.wrap) {
-        self.wrapView.hidden = NO;
-        self.wrapNameLabel.text = self.wrap.name;
-        self.wrapCoverView.url = self.wrap.picture.small;
-    } else {
-        self.wrapView.hidden = YES;
-    }
     self.cameraNavigationController = [self.childViewControllers lastObject];
     self.cameraNavigationController.delegate = self;
 	[self.cameraNavigationController setViewControllers:@[self.cameraViewController]];
+    [self setupWrapVeiw:self.wrap];
 }
 
 - (void)setTranslucent:(BOOL)translucent animated:(BOOL)animated {
@@ -72,6 +70,18 @@
         }];
         self.bottomAlignment.constant = (translucent ? 0 : weakSelf.wrapView.height);
         [self.view layoutIfNeeded];
+    }
+}
+
+- (void)setupWrapVeiw:(WLWrap *)wrap {
+     _wrap = wrap;
+    if (self.wrap) {
+        self.wrapView.hidden = NO;
+        self.wrapNameLabel.text = self.wrap.name;
+        self.wrapCoverView.url = self.wrap.picture.small;
+        self.wrapCoverView.circled = YES;
+    } else {
+        self.wrapView.hidden = YES;
     }
 }
 
@@ -162,9 +172,10 @@
 }
 
 - (void)editImage:(UIImage*)image completion:(WLImageBlock)completion {
-	[self.cameraNavigationController pushViewController:[self editControllerWithImage:image] animated:YES];
+    [self.cameraNavigationController pushViewController:[self editControllerWithImage:image] animated:YES];
     self.editBlock = completion;
     [self setTranslucent:NO animated:YES];
+    
 }
 
 #pragma mark - WLCameraViewControllerDelegate
@@ -205,8 +216,10 @@
             [weakSelf handleAssets:assets];
         }
 	}];
-	[self.cameraNavigationController pushViewController:gallery animated:YES];
-    [self setTranslucent:NO animated:YES];
+
+    [weakSelf.cameraNavigationController pushViewController:gallery animated:YES];
+    [weakSelf setTranslucent:NO animated:YES];
+
 }
 
 - (void)handleAsset:(ALAsset*)asset {
@@ -253,7 +266,8 @@
 }
 
 - (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
-	[self.cameraNavigationController popViewControllerAnimated:YES];
+    [self.cameraNavigationController popViewControllerAnimated:YES];
+
 }
 
 #pragma mark - UINavigationControllerDelegate
@@ -264,6 +278,68 @@
             [self setTranslucent:YES animated:YES];
         }
     }
+    
+}
+
+#pragma mark - PickerViewController action
+
+- (IBAction)chooseWrap:(UIButton *)sender {
+    __weak __typeof(self)weakSelf = self;
+    if (self.pickerViewController != nil) {
+        return;
+    }
+    WLPickerViewController *pickerViewController = [WLPickerViewController initWithWrap:self.wrap
+                                                                               delegate:self
+                                                                         selectionBlock:^(WLWrap *wrap) {
+        [weakSelf setupWrapVeiw:wrap];
+    }];
+    self.pickerViewController = pickerViewController;
+    [self appearPickerViewController];
+}
+
+- (void)hidePickerViewController {
+    [self unlockUI];
+    UIView *view = self.pickerViewController.view;
+    [UIView animateWithDuration:.33 animations:^{
+        view.transform = CGAffineTransformIdentity;
+    }completion:^(BOOL finished) {
+        [view removeFromSuperview];
+        [self.pickerViewController removeFromParentViewController];
+        self.pickerViewController = nil;
+    }];
+}
+
+- (void)appearPickerViewController {
+    [self lockUI];
+    UIView *view = self.pickerViewController.view;
+    [self addChildViewController:self.pickerViewController];
+    view.origin = (CGPoint){self.view.x, self.view.height};
+    view.width = self.view.width;
+    [self.view addSubview:view];
+    [self didMoveToParentViewController:self.pickerViewController];
+    [UIView animateWithDuration:.33 animations:^{
+        view.transform = CGAffineTransformMakeTranslation(.0f, -view.height);
+    }];
+}
+
+- (void)lockUI {
+    [self.view bringSubviewToFront:self.lockButton];
+}
+
+- (void)unlockUI {
+    [self.view sendSubviewToBack:self.lockButton];
+    
+}
+
+- (IBAction)unlockButtonClick:(id)sender {
+    [self hidePickerViewController];
+    [self unlockUI];
+}
+
+#pragma mark - WLPickerViewDelegate 
+
+- (void)pickerViewController:(WLPickerViewController *)pickerViewController doneClick:(UIButton *)sender {
+    [self hidePickerViewController];
 }
 
 @end

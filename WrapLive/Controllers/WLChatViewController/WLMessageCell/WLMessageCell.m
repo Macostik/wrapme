@@ -40,29 +40,42 @@
 }
 
 - (void)setup:(WLMessage*)message {
-    __weak typeof(self)weakSelf = self;
-	self.avatarView.url = message.contributor.picture.small;
-    [self.avatarView setFailure:^(NSError* error) {
-        weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
-    }];
-    self.nameLabel.text = WLString(message.contributor.name);
-	self.timeLabel.text = WLString([message.createdAt stringWithFormat:@"HH:mm"]);
     
-    [self.messageTextView determineHyperLink:message.text];
+    if (self.avatarView) {
+        __weak typeof(self)weakSelf = self;
+        self.avatarView.url = message.contributor.picture.small;
+        [self.avatarView setFailure:^(NSError* error) {
+            weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
+        }];
+    }
+    
+    if (self.nameLabel) {
+        self.nameLabel.text = message.contributor.name;
+    }
+	self.timeLabel.text = [message.createdAt stringWithFormat:@"HH:mm"];
+    
+    self.messageTextView.text = message.text;
     
     CGSize maxSize = CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX);
-    CGFloat textWidth = [weakSelf.messageTextView sizeThatFits:maxSize].width;
+    CGFloat textWidth = [self.messageTextView sizeThatFits:maxSize].width;
+    CGFloat constraintValue = [self constraintForWidth:textWidth];
     if (self.nameLabel) {
-        CGFloat nameWidth = [weakSelf.nameLabel sizeThatFits:maxSize].width;
-        weakSelf.textViewConstraint.constant = MIN([self constraintForWidth:textWidth], [self constraintForWidth:nameWidth]);
-    } else {
-        weakSelf.textViewConstraint.constant = [self constraintForWidth:textWidth];
+        CGFloat nameWidth = [self.nameLabel sizeThatFits:maxSize].width;
+        constraintValue = MIN(constraintValue, [self constraintForWidth:nameWidth]);
     }
-    [weakSelf.messageTextView setNeedsLayout];
+    if (self.textViewConstraint.constant != constraintValue) {
+        self.textViewConstraint.constant = constraintValue;
+        [self.messageTextView setNeedsLayout];
+    }
 }
 
 - (CGFloat)constraintForWidth:(CGFloat)width {
     return self.width - WLAvatarWidth - MAX(WLMinBubbleWidth, width);
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.messageTextView.text = nil;
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "WLCollectionViewFlowLayout.h"
 #import "UIView+Shorthand.h"
+#import "WLLoadingView.h"
 
 @implementation WLCollectionViewFlowLayout
 
@@ -36,11 +37,12 @@
 	}
 }
 
-- (void)setLoadingView:(UIView *)loadingView {
+- (void)setLoadingView:(WLLoadingView *)loadingView {
 	[_loadingView removeFromSuperview];
 	_loadingView = loadingView;
 	UIEdgeInsets insets = self.collectionView.contentInset;
 	if (loadingView) {
+        loadingView.transform = CGAffineTransformMakeRotation(M_PI);
 		[self.collectionView addSubview:loadingView];
 		[self updateLoadingViewPosition];
 		insets.bottom = self.loadingView.height;

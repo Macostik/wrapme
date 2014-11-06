@@ -63,6 +63,8 @@ CGFloat WLMaxTextViewWidth;
 
 @property (strong, nonatomic) WLChatGroupSet *chatGroup;
 
+@property (strong, nonatomic) UIFont* messageFont;
+
 @end
 
 @implementation WLChatViewController
@@ -79,6 +81,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    self.messageFont = [UIFont lightFontOfSize:15];
     self.keyboardAdjustmentAnimated = NO;
     __weak typeof(self)weakSelf = self;
     WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 2*WLAvatarWidth - WLPadding;
@@ -111,7 +114,6 @@ CGFloat WLMaxTextViewWidth;
     [[WLMessage notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLNotificationCenter defaultCenter] addReceiver:self];
-    [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -159,11 +161,10 @@ CGFloat WLMaxTextViewWidth;
     if (!message) {
         [self loadMessages:^{
             [sender setRefreshing:NO animated:YES];
-            [[WLInternetConnectionBroadcaster broadcaster] configure];
-            self.shouldAppendMoreMessages = NO;
         }];
         return;
     }
+    weakSelf.layout.loadingView.error = NO;
     [self.wrap messagesNewer:message.createdAt success:^(NSOrderedSet *messages) {
         if (!weakSelf.wrap.messages.nonempty) weakSelf.shouldAppendMoreMessages = NO;
         if (messages.nonempty) {
@@ -171,24 +172,23 @@ CGFloat WLMaxTextViewWidth;
         }
         [sender setRefreshing:NO animated:YES];
     } failure:^(NSError *error) {
-		[error showIgnoringNetworkError];
+        weakSelf.layout.loadingView.error = YES;
+		[error show];
 		[sender setRefreshing:NO animated:YES];
     }];
 }
 
 - (void)loadMessages:(WLBlock)completion {
     __weak typeof(self)weakSelf = self;
+    weakSelf.layout.loadingView.error = NO;
     [self.wrap messages:^(NSOrderedSet *messages) {
         if (!weakSelf.wrap.messages.nonempty) weakSelf.shouldAppendMoreMessages = NO;
 		[weakSelf setMessages:messages];
-        if (completion) {
-            completion();
-        }
+        if (completion) completion();
     } failure:^(NSError *error) {
-		[error showIgnoringNetworkError];
-        if (completion) {
-            completion();
-        }
+        weakSelf.layout.loadingView.error = YES;
+		[error show];
+        if (completion) completion();
     }];
 }
 
@@ -199,14 +199,15 @@ CGFloat WLMaxTextViewWidth;
     WLMessage* olderMessage = [lastGroup.entries lastObject];
     WLPaginatedSet* firstGroup = [self.chatGroup.entries firstObject];
     WLMessage* newerMessage = [firstGroup.entries firstObject];
+    weakSelf.layout.loadingView.error = NO;
 	self.operation = [self.wrap messagesOlder:olderMessage.createdAt newer:newerMessage.createdAt success:^(NSOrderedSet *messages) {
 		weakSelf.shouldAppendMoreMessages = messages.count >= WLPageSize;
         if (messages.nonempty) {
             [weakSelf addMessages:messages pullDownToRefresh:NO];
         }
 	} failure:^(NSError *error) {
-		weakSelf.shouldAppendMoreMessages = NO;
-		[error showIgnoringNetworkError];
+        weakSelf.layout.loadingView.error = YES;
+		[error show];
 	}];
 }
 
@@ -312,19 +313,17 @@ CGFloat WLMaxTextViewWidth;
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if (!indexPath.section ) {
         WLMessageGroupCell* groupCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WLMessageGroupCell" forIndexPath:indexPath];
-        groupCell.dateLabel.text = [[NSDate date] string];
+        groupCell.dateLabel.text = [[NSDate now] string];
         return groupCell;
     }
 	WLMessageGroupCell* groupCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WLMessageGroupCell" forIndexPath:indexPath];
-        WLPaginatedSet *group = [self.chatGroup.entries tryObjectAtIndex:indexPath.section - 1];
-        groupCell.group = group;
+    groupCell.group = [self.chatGroup.entries tryObjectAtIndex:indexPath.section - 1];
 	
 	return groupCell;
 }
 
 - (CGFloat)heightOfMessageCell:(WLMessage *)message equalLastMessage:(WLMessage *)lastmessage {
-	CGFloat commentHeight  = ceilf([message.text boundingRectWithSize:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)
-																	 options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont lightFontOfSize:15]} context:nil].size.height);
+	CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth cachingKey:"messageCellHeight"];
     if (![message isEqualToEntry:lastmessage]) {
         return  commentHeight + WLMessageAuthorLabelHeight/2;
     }

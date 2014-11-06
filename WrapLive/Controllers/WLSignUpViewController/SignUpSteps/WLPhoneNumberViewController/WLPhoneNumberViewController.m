@@ -103,6 +103,9 @@
 #pragma mark - Actions
 
 - (IBAction)signUp:(WLButton*)sender {
+    self.authorization.email = self.emailTextField.text;
+    self.authorization.phone = phoneNumberClearing(self.phoneNumberTextField.text);
+    self.authorization.formattedPhone = self.phoneNumberTextField.text;
 	if ([self.authorization.email isValidEmail]) {
 		__weak typeof(self)weakSelf = self;
 		[self confirmAuthorization:[self authorization] success:^(WLAuthorization *authorization) {

@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class WLLoadingView;
+
 @interface WLCollectionViewFlowLayout : UICollectionViewFlowLayout
 
 @property (nonatomic) CGFloat inset;
 
 @property (nonatomic) CGFloat typingInset;
 
-@property (strong, nonatomic) UIView* loadingView;
+@property (strong, nonatomic) WLLoadingView* loadingView;
 
 @end

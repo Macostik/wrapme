@@ -24,12 +24,16 @@
 }
 
 + (instancetype)channel:(NSString *)name subscribe:(BOOL)subscribe {
-    WLNotificationChannel* channel = [[WLNotificationChannel alloc] init];
+    WLNotificationChannel* channel = [[self alloc] init];
     [channel setName:name subscribe:subscribe];
     return channel;
 }
 
 - (void)dealloc {
+    [self unsubscribe];
+}
+
+- (void)removeObserving {
     [[PNObservationCenter defaultCenter] removeMessageReceiveObserver:self];
     [[PNObservationCenter defaultCenter] removePresenceEventObserver:self];
 }
@@ -48,6 +52,7 @@
 }
 
 - (void)setName:(NSString *)name subscribe:(BOOL)subscribe {
+    if (!name.nonempty) return;
     if (self.channel) {
         if ([self.name isEqualToString:name]) {
             if (subscribe) [self subscribe];

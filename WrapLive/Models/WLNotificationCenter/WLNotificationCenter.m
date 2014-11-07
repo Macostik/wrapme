@@ -27,8 +27,6 @@
 
 @interface WLNotificationCenter () <PNDelegate>
 
-@property (strong, nonatomic) WLNotificationChannel* typingChannel;
-
 @property (strong, nonatomic) WLNotificationChannel* userChannel;
 
 @property (strong, nonatomic) NSDate* historyDate;
@@ -119,17 +117,11 @@ static WLDataBlock deviceTokenCompletion = nil;
     [self.userChannel setMessageBlock:^(PNMessage *message) {
         WLNotification *notification = [WLNotification notificationWithMessage:message];
         [notification fetch:^{
-            if (notification.type  == WLNotificationMessageAdd) {
-                WLMessage* message = (id)notification.targetEntry;
-                [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:message.contributor];
-            }
             if (notification.playSound) [WLSoundPlayer play];
             [weakSelf broadcastNotification:notification];
         } failure:nil];
         weakSelf.historyDate = [[message.receiveDate date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
-    }];
-    self.typingChannel = [[WLNotificationChannel alloc] init];
-    self.typingChannel.supportPresense = YES;
+    }];    
 	[PubNub setupWithConfiguration:[WLNotificationCenter configuration] andDelegate:self];
 }
 
@@ -260,85 +252,6 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)pubnubClientDidRemovePushNotifications:(PubNub *)client {
     WLLog(@"PubNub", @"removed APNS", nil);
-}
-
-@end
-
-@implementation WLNotificationCenter (Typing)
-
-static NSString *WLNotificationCenterTypingKey = @"typing";
-
-- (void)subscribeOnTypingChannel:(WLWrap *)wrap success:(WLBlock)success {
-    __weak __typeof(self)weakSelf = self;
-    if (wrap.identifier.nonempty && [[PubNub sharedInstance] isConnected]) {
-        self.typingChannel.name = wrap.identifier;
-        [self.typingChannel subscribe:^ {
-            [weakSelf fetchParticipants];
-            if (success) success();
-        } failure:^(NSError *error) {
-            [weakSelf subscribeOnTypingChannel:wrap success:success];
-        }];
-        [self observePresense];
-    }
-}
-
-- (void)observePresense {
-    __weak typeof(self)weakSelf = self;
-    [self.typingChannel setPresenseObserver:^(PNPresenceEvent *event) {
-        WLUser* user = [WLUser entry:event.client.identifier];
-        if ([user isCurrentUser]) {
-            return;
-        }
-        if (event.type == PNPresenceEventStateChanged) {
-            [weakSelf handleClientState:event.client.data user:user];
-        } else if (event.type == PNPresenceEventTimeout) {
-            [weakSelf broadcast:@selector(broadcaster:didEndTyping:) object:user];
-        }
-    }];
-
-}
-
-- (void)fetchParticipants {
-    __weak typeof(self)weakSelf = self;
-    [self.typingChannel participants:^(NSArray *participants) {
-        for (PNClient* client in participants) {
-            WLUser* user = [WLUser entry:client.identifier];
-            if ([user isCurrentUser]) {
-                continue;
-            }
-            [weakSelf handleClientState:client.data user:user];
-        }
-    }];
-}
-
-- (void)handleClientState:(NSDictionary*)state user:(WLUser*)user {
-    if (state[WLNotificationCenterTypingKey] == nil) return;
-    BOOL typing = [state[WLNotificationCenterTypingKey] boolValue];
-    if (typing) {
-        [self broadcast:@selector(broadcaster:didBeginTyping:) object:user];
-    } else {
-        [self broadcast:@selector(broadcaster:didEndTyping:) object:user];
-    }
-}
-
-- (void)unsubscribeFromTypingChannel {
-    [self.typingChannel unsubscribe];
-}
-
-- (BOOL)isSubscribedOnTypingChannel:(WLWrap *)wrap {
-    return self.typingChannel.subscribed && [self.typingChannel.name isEqualToString:wrap.identifier];
-}
-
-- (void)sendTypingMessageWithType:(BOOL)typing {
-    [self.typingChannel changeState:@{WLNotificationCenterTypingKey : @(typing)}];
-}
-
-- (void)beginTyping {
-    [self sendTypingMessageWithType:YES];
-}
-
-- (void)endTyping {
-    [self sendTypingMessageWithType:NO];
 }
 
 @end

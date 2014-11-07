@@ -11,14 +11,36 @@
 #import "NSMutableOrderedSet+Sorting.h"
 #import "WLMessage.h"
 
+@interface WLChat () <WLChatTypingChannelDelegate>
+
+@end
+
 @implementation WLChat
+
+- (void)dealloc {
+    [self.typingChannel removeObserving];
+}
+
++ (instancetype)chatWithWrap:(WLWrap *)wrap {
+    WLChat* chat = [[self alloc] init];
+    chat.wrap = wrap;
+    return chat;
+}
 
 - (instancetype)init {
     self = [super init];
     if (self) {
         self.typingUsers = [NSMutableOrderedSet orderedSet];
+        self.sendMessageUsers = [NSMutableOrderedSet orderedSet];
     }
     return self;
+}
+
+- (void)setWrap:(WLWrap *)wrap {
+    _wrap = wrap;
+    [self resetEntries:wrap.messages];
+    self.typingChannel = [WLChatTypingChannel channelWithWrap:wrap];
+    self.typingChannel.delegate = self;
 }
 
 - (void)addTypingUser:(WLUser *)user {
@@ -36,6 +58,13 @@
 }
 
 - (void)addMessage:(WLMessage *)message {
+    WLUser *contributor = message.contributor;
+    if ([self.typingUsers containsObject:contributor]) {
+        [self.typingUsers removeObject:contributor];
+    }
+    if ([self.sendMessageUsers containsObject:contributor]) {
+        [self.sendMessageUsers removeObject:contributor];
+    }
     [[self addMessage:message isNewer:YES].entries sortByCreatedAt];
     [self.delegate paginatedSetChanged:self];
 }
@@ -81,6 +110,25 @@
     if ([group.entries.firstObject contributor] != message.contributor) return NO;
     if (![[group date] isSameDay:message.createdAt]) return NO;
     return YES;
+}
+
+- (BOOL)showTypingView {
+    return self.typingUsers.nonempty || self.sendMessageUsers.nonempty;
+}
+
+#pragma mark - WLChatTypingChannelDelegate
+
+- (void)chatTypingChannel:(WLChatTypingChannel *)channel didBeginTyping:(WLUser *)user {
+    [self addTypingUser:user];
+    [self.delegate chat:self didBeginTyping:user];
+}
+
+- (void)chatTypingChannel:(WLChatTypingChannel *)channel didEndTyping:(WLUser *)user andSendMessage:(BOOL)sendMessage {
+    if (sendMessage) {
+        [self.sendMessageUsers addObject:user];
+    }
+    [self removeTypingUser:user];
+    [self.delegate chat:self didEndTyping:user andSendMessage:sendMessage];
 }
 
 @end

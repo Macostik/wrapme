@@ -84,6 +84,8 @@
         self.completed = YES;
     } else if (!self.entries.nonempty) {
         self.completed = YES;
+    } else {
+        [self.delegate paginatedSetChanged:self];
     }
     
     if(success) {

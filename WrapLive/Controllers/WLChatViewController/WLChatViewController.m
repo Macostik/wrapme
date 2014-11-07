@@ -28,7 +28,6 @@
 #import "WLGroupedSet.h"
 #import "WLSignificantTimeBroadcaster.h"
 #import "WLInternetConnectionBroadcaster.h"
-#import "WLNotificationCenter.h"
 #import "WLNotification.h"
 #import "UIView+AnimationHelper.h"
 #import "WLTypingView.h"
@@ -37,7 +36,7 @@
 
 CGFloat WLMaxTextViewWidth;
 
-@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLPaginatedSetDelegate>
+@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
@@ -83,33 +82,31 @@ CGFloat WLMaxTextViewWidth;
     
     WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 2*WLAvatarWidth - WLPadding;
     
-    self.chat = [[WLChat alloc] init];
-    self.chat.delegate = self;
-    
     self.animatingMessages = [NSMutableSet set];
     
 	__weak typeof(self)weakSelf = self;
     [self.wrap fetchIfNeeded:^(id object) {
         weakSelf.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(weakSelf.wrap.name)];
-        [[WLNotificationCenter defaultCenter] subscribeOnTypingChannel:weakSelf.wrap success:nil];
     } failure:^(NSError *error) {
     }];
 
 	[WLRefresher refresher:self.collectionView target:self action:@selector(refreshMessages:) style:WLRefresherStyleOrange];
 	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
 	self.composeBar.placeholder = @"Write your message ...";
-	
-	[self.chat addMessages:self.wrap.messages isNewer:NO];
     
+    self.chat = [WLChat chatWithWrap:self.wrap];
+    self.chat.delegate = self;
     if (self.wrap.messages.nonempty) {
-        [self refreshMessages:nil];
+        [self refreshMessages:^{
+        } failure:^(NSError *error) {
+            [error show];
+        }];
     }
 	
 	self.backSwipeGestureEnabled = YES;
 	
     [[WLMessage notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
-    [[WLNotificationCenter defaultCenter] addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -181,7 +178,27 @@ CGFloat WLMaxTextViewWidth;
 	} failure:failure];
 }
 
-#pragma mark - WLPaginatedSetDelegate
+#pragma mark - WLChatDelegate
+
+- (void)chat:(WLChat *)chat didBeginTyping:(WLUser *)user {
+//    [self.chat addTypingUser:user];
+}
+
+- (void)chat:(WLChat *)chat didEndTyping:(WLUser *)user andSendMessage:(BOOL)sendMessage {
+//    [self.chat removeTypingUser:user];
+}
+
+- (void)slowUpAnimationCell:(WLMessageCell*)cell message:(WLMessage*)message {
+    __weak __typeof(self)weakSelf = self;
+    CGAffineTransform transform = cell.transform;
+    CGFloat startPoint = SystemVersionGreaterThanOrEqualTo8() ? -cell.height : cell.height;;
+    cell.transform = CGAffineTransformTranslate(self.collectionView.transform, 0, 2*startPoint);
+    [UIView animateWithDuration:0.7 delay:0.3 usingSpringWithDamping:0.7 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        cell.transform = transform;
+    } completion:^(BOOL finished) {
+        [weakSelf.animatingMessages removeObject:message];
+    }];
+}
 
 - (void)paginatedSetChanged:(WLPaginatedSet *)group {
     [self.collectionView reloadData];
@@ -219,7 +236,6 @@ CGFloat WLMaxTextViewWidth;
     self.wrap.messages = nil;
     [self.composeBar resignFirstResponder];
     self.typing = NO;
-    [[WLNotificationCenter defaultCenter] unsubscribeFromTypingChannel];
     if (self.wrap.valid) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
@@ -240,7 +256,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
-    self.typing = !text.nonempty;
+    [self setTyping:NO sendMessage:YES];
 	[self sendMessageWithText:text];
 }
 
@@ -249,19 +265,23 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)setTyping:(BOOL)typing {
+    [self setTyping:typing sendMessage:NO];
+}
+
+- (void)setTyping:(BOOL)typing sendMessage:(BOOL)sendMessage {
     if (_typing != typing) {
         _typing = typing;
         if (typing) {
-            [[WLNotificationCenter defaultCenter] beginTyping];
+            [self.chat.typingChannel beginTyping];
         } else {
-            [[WLNotificationCenter defaultCenter] endTyping];
+            [self.chat.typingChannel endTyping:sendMessage];
         }
     }
 }
 
 - (void)composeBarDidChangeText:(WLComposeBar*)composeBar {
     __weak __typeof(self)weakSelf = self;
-    if ([[WLNotificationCenter defaultCenter] isSubscribedOnTypingChannel:self.wrap]) {
+    if (self.chat.typingChannel.subscribed) {
         weakSelf.typing = composeBar.text.nonempty;
     }
 }
@@ -274,7 +294,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (!section ) {
-        return self.chat.typingUsers.nonempty;
+        return self.chat.showTypingView;
     }
     WLPaginatedSet *group = [self.chat.entries tryObjectAtIndex:section - 1];
     if (group) {
@@ -376,28 +396,6 @@ CGFloat WLMaxTextViewWidth;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     return CGSizeZero;
-}
-
-#pragma mark - WLNotificationReceiver
-
-- (void)broadcaster:(WLNotificationCenter *)broadcaster didBeginTyping:(WLUser *)user {
-    [self.chat addTypingUser:user];
-}
-
-- (void)broadcaster:(WLNotificationCenter *)broadcaster didEndTyping:(WLUser *)user {
-    [self.chat removeTypingUser:user];
-}
-
-- (void)slowUpAnimationCell:(WLMessageCell*)cell message:(WLMessage*)message {
-    __weak __typeof(self)weakSelf = self;
-    CGAffineTransform transform = cell.transform;
-    CGFloat startPoint = SystemVersionGreaterThanOrEqualTo8() ? -cell.height : cell.height;;
-    cell.transform = CGAffineTransformTranslate(self.collectionView.transform, 0, 2*startPoint);
-    [UIView animateWithDuration:0.7 delay:0.3 usingSpringWithDamping:0.7 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        cell.transform = transform;
-    } completion:^(BOOL finished) {
-        [weakSelf.animatingMessages removeObject:message];
-    }];
 }
 
 @end

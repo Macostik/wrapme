@@ -10,6 +10,7 @@
 #import "UIView+Shorthand.h"
 #import "NSString+Additions.h"
 #import "NSArray+Additions.h"
+#import "NSOrderedSet+Additions.h"
 
 static CGFloat WLPadding = 20.0f;
 static CGFloat WLMinBubbleWidth = 15.0f;
@@ -25,11 +26,13 @@ static CGFloat WLMaxTextViewWidth;
 @implementation WLTypingView
 
 - (void)setUsers:(NSMutableOrderedSet *)users {
-    [self setText:[self namesOfUsers:users]];
-}
-
-- (void)setText:(NSString *)name {
-    self.nameTextField.text = name;
+    if (users.nonempty) {
+        self.nameTextField.text = [self namesOfUsers:users];
+        self.nameTextField.hidden = NO;
+    } else {
+        self.nameTextField.text = nil;
+        self.nameTextField.hidden = YES;
+    }
 //    __weak __typeof(self)weakSelf = self;
 //    WLMaxTextViewWidth = self.width - WLPadding;
 //    [UIView performWithoutAnimation:^{

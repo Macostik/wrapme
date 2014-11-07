@@ -47,4 +47,8 @@
 
 - (void)participants:(WLArrayBlock)completion;
 
+- (void)enablePresense;
+
+- (void)removeObserving;
+
 @end

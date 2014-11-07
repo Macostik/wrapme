@@ -23,12 +23,6 @@
 
 - (void)broadcaster:(WLNotificationCenter *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification;
 
-- (void)broadcaster:(WLNotificationCenter *)broadcaster didStoreNotification:(WLNotification *)notification;
-
-- (void)broadcaster:(WLNotificationCenter *)broadcaster didBeginTyping:(WLUser *)user;
-
-- (void)broadcaster:(WLNotificationCenter *)broadcaster didEndTyping:(WLUser *)user;
-
 @end
 
 @interface WLNotificationCenter : WLBroadcaster
@@ -44,19 +38,5 @@
 - (void)handleRemoteNotification:(NSDictionary*)data success:(WLBlock)success failure:(WLFailureBlock)failure;
 
 - (void)connect;
-
-@end
-
-@interface WLNotificationCenter (Typing)
-
-- (void)subscribeOnTypingChannel:(WLWrap *)wrap success:(WLBlock)success;
-
-- (void)unsubscribeFromTypingChannel;
-
-- (BOOL)isSubscribedOnTypingChannel:(WLWrap *)wrap;
-
-- (void)beginTyping;
-
-- (void)endTyping;
 
 @end

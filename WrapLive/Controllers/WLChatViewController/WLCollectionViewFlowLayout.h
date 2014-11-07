@@ -16,6 +16,4 @@
 
 @property (nonatomic) CGFloat typingInset;
 
-@property (strong, nonatomic) WLLoadingView* loadingView;
-
 @end

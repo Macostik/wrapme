@@ -9,14 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "WLUser.h"
 
-@interface WLTypingView : UIView
+@interface WLTypingView : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UITextView *nameTextField;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewConstraint;
-@property (strong, nonatomic) NSMutableOrderedSet *groupUsers;
-
-- (void)addUser:(WLUser *)user;
-- (void)removeUser:(WLUser *)user;
-- (BOOL)hasUsers;
+- (void)setUsers:(NSMutableOrderedSet *)users;
 
 @end

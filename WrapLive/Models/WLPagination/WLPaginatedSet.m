@@ -85,9 +85,16 @@
     } else if (!self.entries.nonempty) {
         self.completed = YES;
     }
-    [self.delegate paginatedSetChanged:self];
+    
     if(success) {
         success(entries);
+    }
+}
+
+- (void)setCompleted:(BOOL)completed {
+    if (completed != _completed) {
+        _completed = completed;
+        [self.delegate paginatedSetChanged:self];
     }
 }
 

@@ -23,46 +23,24 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     self.inset = MAX(0, self.collectionView.height - self.collectionView.contentSize.height + _typingInset);
-	[self updateLoadingViewPosition];
 }
 
-- (void)updateLoadingViewPosition {
-	if (self.loadingView) {
-		CGFloat position = self.collectionView.contentSize.height;
-		if (position != self.loadingView.y) {
-			self.loadingView.height = (_inset == 0 ? 66 : _inset);
-            self.loadingView.center = self.collectionView.center;
-			self.loadingView.y = self.collectionView.contentSize.height;
-		}
-	}
+- (CGFloat)inset {
+//    return 0;
+    return MAX(0, self.collectionView.height - self.collectionView.contentSize.height + _typingInset);
 }
 
-- (void)setLoadingView:(WLLoadingView *)loadingView {
-	[_loadingView removeFromSuperview];
-	_loadingView = loadingView;
-	UIEdgeInsets insets = self.collectionView.contentInset;
-	if (loadingView) {
-        loadingView.transform = CGAffineTransformMakeRotation(M_PI);
-		[self.collectionView addSubview:loadingView];
-		[self updateLoadingViewPosition];
-		insets.bottom = self.loadingView.height;
-	} else {
-		insets.bottom = 0;
-	}
-	self.collectionView.contentInset = insets;
-}
-
-- (void)setInset:(CGFloat)inset {
-	if (_inset != inset) {
-		_inset = inset;
-		[self invalidateLayout];
-	}
-}
+//- (void)setInset:(CGFloat)inset {
+//	if (_inset != inset) {
+//		_inset = inset;
+//		[self invalidateLayout];
+//	}
+//}
 
 - (UICollectionViewLayoutAttributes *)adjustAttributes:(UICollectionViewLayoutAttributes *)attributes {
 	CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI);
-	if (_inset > 0) {
-		transform = CGAffineTransformTranslate(transform, 0, -_inset);
+	if (self.inset > 0) {
+		transform = CGAffineTransformTranslate(transform, 0, -self.inset);
 	}
 	if (!CGAffineTransformEqualToTransform(attributes.transform, transform)) {
 		attributes.transform = transform;

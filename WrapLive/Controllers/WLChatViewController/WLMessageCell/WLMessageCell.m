@@ -36,7 +36,7 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.avatarView.circled = YES;
-    self.messageTextView.textContainerInset = self.nameLabel ? UIEdgeInsetsMake(14, -5, 0, -5) : UIEdgeInsetsMake(0, -5, 0, -5);
+    self.messageTextView.textContainerInset = self.nameLabel ? UIEdgeInsetsMake(14, 0, 0, 0) : UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (void)setup:(WLMessage*)message {
@@ -60,12 +60,12 @@
     CGFloat textWidth = [self.messageTextView sizeThatFits:maxSize].width;
     CGFloat constraintValue = [self constraintForWidth:textWidth];
     if (self.nameLabel) {
-        CGFloat nameWidth = [self.nameLabel sizeThatFits:maxSize].width;
+        CGFloat nameWidth = [self.nameLabel sizeThatFits:maxSize].width + 10;
         constraintValue = MIN(constraintValue, [self constraintForWidth:nameWidth]);
     }
     if (self.textViewConstraint.constant != constraintValue) {
         self.textViewConstraint.constant = constraintValue;
-        [self.messageTextView setNeedsLayout];
+        [self.messageTextView layoutIfNeeded];
     }
 }
 

@@ -15,59 +15,42 @@ static CGFloat WLPadding = 20.0f;
 static CGFloat WLMinBubbleWidth = 15.0f;
 static CGFloat WLMaxTextViewWidth;
 
+@interface WLTypingView ()
+
+@property (weak, nonatomic) IBOutlet UILabel *nameTextField;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewConstraint;
+
+@end
+
 @implementation WLTypingView
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        self.groupUsers = [NSMutableOrderedSet orderedSet];
-    }
-    return self;
+- (void)setUsers:(NSMutableOrderedSet *)users {
+    [self setText:[self namesOfUsers:users]];
 }
 
 - (void)setText:(NSString *)name {
-    if (!name.nonempty) {
-        self.hidden = YES;
-        return;
-    } else {
-        self.hidden = NO;
-    }
     self.nameTextField.text = name;
-    __weak __typeof(self)weakSelf = self;
-    WLMaxTextViewWidth = self.width - WLPadding;
-    [UIView performWithoutAnimation:^{
-        CGSize size = [weakSelf.nameTextField sizeThatFits:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)];
-        weakSelf.textViewConstraint.constant =  [UIScreen mainScreen].bounds.size.width - WLPadding - MAX(WLMinBubbleWidth, size.width);
-        [weakSelf.nameTextField layoutIfNeeded];
-    }];
+//    __weak __typeof(self)weakSelf = self;
+//    WLMaxTextViewWidth = self.width - WLPadding;
+//    [UIView performWithoutAnimation:^{
+//        CGSize size = [weakSelf.nameTextField sizeThatFits:CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX)];
+//        weakSelf.textViewConstraint.constant =  [UIScreen mainScreen].bounds.size.width - WLPadding - MAX(WLMinBubbleWidth, size.width);
+//        [weakSelf.nameTextField layoutIfNeeded];
+//    }];
 }
 
-- (void)addUser:(WLUser *)user {
-    [self.groupUsers addObject:user];
-    [self setText:[self componentsUserName]];
-}
-
-- (void)removeUser:(WLUser *)user {
-    if ([self.groupUsers containsObject:user]) {
-        [self.groupUsers removeObject:user];
+- (NSString *)namesOfUsers:(NSMutableOrderedSet*)users {
+    NSString* names = nil;
+    if (users.count == 1) {
+        names = [(WLUser*)[users lastObject] name];
+    } else if (users.count == 2) {
+        names = [NSString stringWithFormat:@"%@ and %@", [(WLUser*)users[0] name], [(WLUser*)users[1] name]];
+    } else {
+        WLUser* lastUser = [users lastObject];
+        names = [[[[users array] arrayByRemovingObject:lastUser] valueForKey:@"name"] componentsJoinedByString:@", "];
+        names = [names stringByAppendingFormat:@" and %@", lastUser.name];
     }
-    if ([self hasUsers]) {
-         [self setText:[self componentsUserName]];
-    }
+    return [names stringByAppendingString:@" is typing..."];
 }
-
-- (NSString *)componentsUserName {
-    NSArray *users = [self.groupUsers array];
-    NSMutableString *string = users.count > 1 ? [[[users valueForKey:@"name"] componentsJoinedByString:@" and "] mutableCopy] :
-                                                [[users.lastObject valueForKey:@"name"] mutableCopy];
-    [string appendString:@" is typing ..."];
-    return string;
-}
-
-- (BOOL)hasUsers {
-    return [self.groupUsers array].nonempty;
-}
-
 
 @end

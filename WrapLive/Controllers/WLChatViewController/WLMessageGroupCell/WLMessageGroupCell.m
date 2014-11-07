@@ -9,7 +9,7 @@
 #import "WLMessageGroupCell.h"
 #import "WLGroupedSet.h"
 #import "NSDate+Formatting.h"
-#import "WLChatGroupSet.h"
+#import "WLChat.h"
 
 @interface WLMessageGroupCell ()
 

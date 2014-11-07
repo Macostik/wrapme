@@ -158,7 +158,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)loadMessages:(WLBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [self.wrap messages:^(NSOrderedSet *messages) {
-        if (!weakSelf.wrap.messages.nonempty) weakSelf.chat.completed = YES;
+        weakSelf.chat.completed = messages.count < WLPageSize;
 		[weakSelf.chat resetEntries:messages];
         if (success) success();
     } failure:failure];
@@ -222,7 +222,6 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
-    self.wrap.messages = nil;
     [self.composeBar resignFirstResponder];
     self.typing = NO;
     if (self.wrap.valid) {

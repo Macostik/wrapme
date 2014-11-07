@@ -30,7 +30,7 @@
 #import "WLInternetConnectionBroadcaster.h"
 #import "WLNotification.h"
 #import "UIView+AnimationHelper.h"
-#import "WLTypingView.h"
+#import "WLTypingViewCell.h"
 #import "WLChat.h"
 #import "UIDevice+SystemVersion.h"
 
@@ -79,6 +79,7 @@ CGFloat WLMaxTextViewWidth;
 	[super viewDidLoad];
     self.messageFont = [UIFont lightFontOfSize:15];
     self.keyboardAdjustmentAnimated = NO;
+    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, self.collectionView.width - 6);
     
     WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 2*WLAvatarWidth - WLPadding;
     
@@ -93,7 +94,6 @@ CGFloat WLMaxTextViewWidth;
 	[WLRefresher refresher:self.collectionView target:self action:@selector(refreshMessages:) style:WLRefresherStyleOrange];
 	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
 	self.composeBar.placeholder = @"Write your message ...";
-    
     self.chat = [WLChat chatWithWrap:self.wrap];
     self.chat.delegate = self;
     if (self.wrap.messages.nonempty) {
@@ -119,7 +119,11 @@ CGFloat WLMaxTextViewWidth;
     [self.wrap.messages all:^(WLMessage *message) {
         if(!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
     }];
-    self.keyboardAdjustmentAnimated = YES;
+}
+
+- (void)keyboardDidShow:(WLKeyboard *)keyboard {
+    [super keyboardDidShow:keyboard];
+    [self.layout invalidateLayout];
 }
 
 - (void)insertMessage:(WLMessage*)message {
@@ -180,26 +184,6 @@ CGFloat WLMaxTextViewWidth;
 
 #pragma mark - WLChatDelegate
 
-- (void)chat:(WLChat *)chat didBeginTyping:(WLUser *)user {
-//    [self.chat addTypingUser:user];
-}
-
-- (void)chat:(WLChat *)chat didEndTyping:(WLUser *)user andSendMessage:(BOOL)sendMessage {
-//    [self.chat removeTypingUser:user];
-}
-
-- (void)slowUpAnimationCell:(WLMessageCell*)cell message:(WLMessage*)message {
-    __weak __typeof(self)weakSelf = self;
-    CGAffineTransform transform = cell.transform;
-    CGFloat startPoint = SystemVersionGreaterThanOrEqualTo8() ? -cell.height : cell.height;;
-    cell.transform = CGAffineTransformTranslate(self.collectionView.transform, 0, 2*startPoint);
-    [UIView animateWithDuration:0.7 delay:0.3 usingSpringWithDamping:0.7 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        cell.transform = transform;
-    } completion:^(BOOL finished) {
-        [weakSelf.animatingMessages removeObject:message];
-    }];
-}
-
 - (void)paginatedSetChanged:(WLPaginatedSet *)group {
     [self.collectionView reloadData];
 }
@@ -208,6 +192,11 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)notifier:(WLEntryNotifier *)notifier messageAdded:(WLMessage *)message {
     if (!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
+    for (WLPaginatedSet* group in self.chat.entries) {
+        if ([group.entries containsObject:message]) {
+            return;
+        }
+    }
     [self insertMessage:message];
 }
 
@@ -307,8 +296,8 @@ CGFloat WLMaxTextViewWidth;
     WLMessageCell* cell = nil;
     NSString* cellIdentifier = nil;
     if (!indexPath.section) {
-        WLTypingView* typingView = [collectionView dequeueReusableCellWithReuseIdentifier:@"WLTypingView" forIndexPath:indexPath];
-        typingView.users = self.chat.typingUsers;
+        WLTypingViewCell* typingView = [collectionView dequeueReusableCellWithReuseIdentifier:@"WLTypingView" forIndexPath:indexPath];
+        typingView.names = self.chat.typingNames;
         cell = (id)typingView;
     } else {
         WLPaginatedSet *group = [self.chat.entries tryObjectAtIndex:indexPath.section - 1];
@@ -333,6 +322,18 @@ CGFloat WLMaxTextViewWidth;
     }
     
     return cell;
+}
+
+- (void)slowUpAnimationCell:(WLMessageCell*)cell message:(WLMessage*)message {
+    __weak __typeof(self)weakSelf = self;
+    CGAffineTransform transform = cell.transform;
+    CGFloat startPoint = (SystemVersionGreaterThanOrEqualTo8() ? -1 : 1) * (cell.y + cell.height);
+    cell.transform = CGAffineTransformTranslate(self.collectionView.transform, 0, 2*startPoint);
+    [UIView animateWithDuration:0.7 delay:0.3 usingSpringWithDamping:0.7 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        cell.transform = transform;
+    } completion:^(BOOL finished) {
+        [weakSelf.animatingMessages removeObject:message];
+    }];
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -364,13 +365,12 @@ CGFloat WLMaxTextViewWidth;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!indexPath.section ) {
-        return CGSizeMake(collectionView.width, 20);
+        return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont regularFontOfSize:14] width:WLMaxTextViewWidth cachingKey:"typingViewHeight"]));
     }
 
     WLPaginatedSet *group = [self.chat.entries tryObjectAtIndex:indexPath.section - 1];
     WLMessage *message = [group.entries tryObjectAtIndex:indexPath.item];
     WLMessage *lastMessage = group.entries.lastObject;
-
     return CGSizeMake(collectionView.width, [self heightOfMessageCell:message equalLastMessage:lastMessage]);
 }
 

@@ -51,7 +51,9 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
             if ([user isCurrentUser]) {
                 continue;
             }
-            [weakSelf handleClientState:client.data user:user];
+            if ([client.data[WLChatTypingChannelTypingKey] boolValue]) {
+                [weakSelf.delegate chatTypingChannel:weakSelf didBeginTyping:user];
+            }
         }
     }];
 }

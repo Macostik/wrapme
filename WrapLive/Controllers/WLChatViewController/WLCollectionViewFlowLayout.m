@@ -8,39 +8,21 @@
 
 #import "WLCollectionViewFlowLayout.h"
 #import "UIView+Shorthand.h"
-#import "WLLoadingView.h"
 
 @implementation WLCollectionViewFlowLayout
 
-- (void)dealloc {
-	[self.collectionView removeObserver:self forKeyPath:@"contentSize"];
-}
-
-- (void)awakeFromNib {
-	[super awakeFromNib];
-	[self.collectionView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:NULL];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    self.inset = MAX(0, self.collectionView.height - self.collectionView.contentSize.height + _typingInset);
-}
-
 - (CGFloat)inset {
-//    return 0;
-    return MAX(0, self.collectionView.height - self.collectionView.contentSize.height + _typingInset);
+    CGFloat inset = MAX(0, self.collectionView.height - self.collectionView.contentSize.height);
+    if (inset < self.collectionView.height) {
+        return inset;
+    }
+    return 0;
 }
 
-//- (void)setInset:(CGFloat)inset {
-//	if (_inset != inset) {
-//		_inset = inset;
-//		[self invalidateLayout];
-//	}
-//}
-
-- (UICollectionViewLayoutAttributes *)adjustAttributes:(UICollectionViewLayoutAttributes *)attributes {
+- (UICollectionViewLayoutAttributes *)adjustAttributes:(UICollectionViewLayoutAttributes *)attributes inset:(CGFloat)inset {
 	CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI);
-	if (self.inset > 0) {
-		transform = CGAffineTransformTranslate(transform, 0, -self.inset);
+	if (inset > 0) {
+		transform = CGAffineTransformTranslate(transform, 0, -inset);
 	}
 	if (!CGAffineTransformEqualToTransform(attributes.transform, transform)) {
 		attributes.transform = transform;
@@ -49,17 +31,18 @@
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return [self adjustAttributes:[super layoutAttributesForItemAtIndexPath:indexPath]];
+	return [self adjustAttributes:[super layoutAttributesForItemAtIndexPath:indexPath] inset:self.inset];
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-	return [self adjustAttributes:[super layoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath]];
+	return [self adjustAttributes:[super layoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath] inset:self.inset];
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
 	NSArray* attributes = [super layoutAttributesForElementsInRect:rect];
+    CGFloat inset = self.inset;
 	for (UICollectionViewLayoutAttributes* attr in attributes) {
-		[self adjustAttributes:attr];
+		[self adjustAttributes:attr inset:inset];
 	}
 	return attributes;
 }
@@ -67,5 +50,14 @@
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     return YES;
 }
+
+//- (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
+//    UICollectionViewFlowLayoutInvalidationContext* context = (id)[super invalidationContextForBoundsChange:newBounds];
+//    if (!context.invalidateEverything) {
+//        context.invalidateFlowLayoutDelegateMetrics = YES;
+//        context.invalidateFlowLayoutAttributes = YES;
+//    }
+//    return context;
+//}
 
 @end

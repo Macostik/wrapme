@@ -97,6 +97,10 @@
     }
 }
 
+- (void)keyboardDidShow:(WLKeyboard *)keyboard {
+    
+}
+
 - (void)keyboardWillHide:(WLKeyboard *)keyboard {
     if (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty) return;
     [self updateKeyboardAdjustmentConstraints:0];
@@ -113,6 +117,10 @@
             [layoutView layoutIfNeeded];
         }
     }
+}
+
+- (void)keyboardDidHide:(WLKeyboard *)keyboard {
+    
 }
 
 @end

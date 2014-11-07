@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "WLUser.h"
 
-@interface WLTypingView : UICollectionViewCell
+static CGFloat WLTypingViewMinHeight = 20.0f;
 
-- (void)setUsers:(NSMutableOrderedSet *)users;
+@interface WLTypingViewCell : UICollectionViewCell
+
+- (void)setNames:(NSString *)names;
 
 @end

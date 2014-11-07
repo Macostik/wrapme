@@ -46,6 +46,7 @@
 - (void)addTypingUser:(WLUser *)user {
     if (![self.typingUsers containsObject:user]) {
         [self.typingUsers addObject:user];
+        self.typingNames = [self namesOfUsers:self.typingUsers];
         [self.delegate paginatedSetChanged:self];
     }
 }
@@ -53,8 +54,24 @@
 - (void)removeTypingUser:(WLUser *)user {
     if ([self.typingUsers containsObject:user]) {
         [self.typingUsers removeObject:user];
+        self.typingNames = [self namesOfUsers:self.typingUsers];
         [self.delegate paginatedSetChanged:self];
     }
+}
+
+- (NSString *)namesOfUsers:(NSMutableOrderedSet*)users {
+    if (!users.nonempty) return nil;
+    NSString* names = nil;
+    if (users.count == 1) {
+        names = [(WLUser*)[users lastObject] name];
+    } else if (users.count == 2) {
+        names = [NSString stringWithFormat:@"%@ and %@", [(WLUser*)users[0] name], [(WLUser*)users[1] name]];
+    } else {
+        WLUser* lastUser = [users lastObject];
+        names = [[[[users array] arrayByRemovingObject:lastUser] valueForKey:@"name"] componentsJoinedByString:@", "];
+        names = [names stringByAppendingFormat:@" and %@", lastUser.name];
+    }
+    return [names stringByAppendingString:@" is typing..."];
 }
 
 - (void)addMessage:(WLMessage *)message {
@@ -119,16 +136,24 @@
 #pragma mark - WLChatTypingChannelDelegate
 
 - (void)chatTypingChannel:(WLChatTypingChannel *)channel didBeginTyping:(WLUser *)user {
-    [self addTypingUser:user];
-    [self.delegate chat:self didBeginTyping:user];
+    if (![user isCurrentUser]) {
+        [self addTypingUser:user];
+        if ([self.delegate respondsToSelector:@selector(chat:didBeginTyping:)]) {
+            [self.delegate chat:self didBeginTyping:user];
+        }
+    }
 }
 
 - (void)chatTypingChannel:(WLChatTypingChannel *)channel didEndTyping:(WLUser *)user andSendMessage:(BOOL)sendMessage {
-    if (sendMessage) {
-        [self.sendMessageUsers addObject:user];
+    if (![user isCurrentUser]) {
+        if (sendMessage) {
+            [self.sendMessageUsers addObject:user];
+        }
+        [self removeTypingUser:user];
+        if ([self.delegate respondsToSelector:@selector(chat:didEndTyping:andSendMessage:)]) {
+            [self.delegate chat:self didEndTyping:user andSendMessage:sendMessage];
+        }
     }
-    [self removeTypingUser:user];
-    [self.delegate chat:self didEndTyping:user andSendMessage:sendMessage];
 }
 
 @end

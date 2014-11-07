@@ -13,6 +13,7 @@
 
 @protocol WLChatDelegate <WLPaginatedSetDelegate>
 
+@optional
 - (void)chat:(WLChat*)chat didBeginTyping:(WLUser *)user;
 
 - (void)chat:(WLChat*)chat didEndTyping:(WLUser *)user andSendMessage:(BOOL)sendMessage;
@@ -24,6 +25,8 @@
 @property (nonatomic, weak) id <WLChatDelegate> delegate;
 
 @property (strong, nonatomic) NSMutableOrderedSet* typingUsers;
+
+@property (strong, nonatomic) NSString* typingNames;
 
 @property (strong, nonatomic) NSMutableOrderedSet* sendMessageUsers;
 

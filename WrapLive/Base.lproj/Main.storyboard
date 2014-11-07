@@ -3064,7 +3064,7 @@ Check your internet connection and try again.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nVG-1G-xkC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2805" y="-417"/>
+            <point key="canvasLocation" x="2425" y="-682"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RxP-89-x39">
@@ -3308,25 +3308,6 @@ Check your internet connection and try again.</string>
                 </customObject>
             </objects>
             <point key="canvasLocation" x="1809" y="890"/>
-        </scene>
-        <!--Action View Controller-->
-        <scene sceneID="W5t-rx-E7y">
-            <objects>
-                <viewController storyboardIdentifier="WLActionViewController" id="KRV-iv-ubq" customClass="WLActionViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="SsB-no-pZP"/>
-                        <viewControllerLayoutGuide type="bottom" id="Jt7-TM-3Pk"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="zVR-Vn-gqF">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
-                    </view>
-                    <nil key="simulatedStatusBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1P8-Co-zyU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2174" y="-682"/>
         </scene>
     </scenes>
     <resources>

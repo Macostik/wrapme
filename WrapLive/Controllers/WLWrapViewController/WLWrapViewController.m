@@ -16,7 +16,6 @@
 #import "WLNavigation.h"
 #import "WLCameraViewController.h"
 #import "WLCandyViewController.h"
-#import "WLEditWrapViewController.h"
 #import "WLComposeBar.h"
 #import "WLAPIManager.h"
 #import "WLComment.h"
@@ -181,7 +180,9 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 }
 
 - (IBAction)editWrapClick:(id)sender {
-    [WLActionViewController addEditWrapViewControllerWithWrap:self.wrap toParentViewController:self];
+    [WLActionViewController addViewControllerByClass:NSClassFromString(@"WLEditWrapViewController")
+                                           withEntry:self.wrap
+                              toParentViewController:self];
 }
 
 #pragma mark - WLEntryNotifyReceiver

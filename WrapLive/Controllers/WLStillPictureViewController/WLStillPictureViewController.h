@@ -45,4 +45,6 @@
 
 @property (nonatomic) BOOL editable;
 
+- (void)willCreateWrap;
+
 @end

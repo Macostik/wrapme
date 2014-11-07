@@ -9,15 +9,19 @@
 #import "WLEditViewController.h"
 #import "WLButton.h"
 
-@class WLContentView;
-
 @interface WLActionViewController : UIViewController
 
-+ (void)addEditWrapViewControllerWithWrap:(WLWrap *)wrap toParentViewController:(UIViewController *)viewController;
-+ (void)addCandyViewControllerWithCandy:(WLCandy *)candy toParentViewController:(UIViewController *)viewController;
-+ (void)addCreateWrapViewControllerToParentViewController:(UIViewController *)viewController;
++ (id)addViewControllerByClass:(Class)class toParentViewController:(UIViewController *)viewController;
++ (id)addViewControllerByClass:(Class)class withEntry:(id)entry toParentViewController:(UIViewController *)viewController;
++ (id)addViewControllerAsDelegateByClass:(Class)class toParentViewController:(UIViewController *)viewController;
 
-- (void)willAddChildViewController:(UIViewController *)viewController;
 - (void)dismiss;
+- (void)removeAnimateViewsFromSuperView;
+
+@end
+
+@interface UIViewController (WLActionViewController)
+
+- (void)setEntry:(id)entry;
 
 @end

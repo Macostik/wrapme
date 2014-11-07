@@ -9,6 +9,7 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
 #import "AsynchronousOperation.h"
+#import "WLActionViewController.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIImage+Resize.h"
 #import "UIView+AnimationHelper.h"
@@ -340,6 +341,11 @@
 
 - (void)pickerViewController:(WLPickerViewController *)pickerViewController doneClick:(UIButton *)sender {
     [self hidePickerViewController];
+}
+
+- (void)willCreateWrap {
+    [WLActionViewController addViewControllerAsDelegateByClass:NSClassFromString(@"WLCreateWrapViewController")
+                                        toParentViewController:self];
 }
 
 @end

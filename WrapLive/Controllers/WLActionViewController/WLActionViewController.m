@@ -13,9 +13,8 @@
 #import "WLReportCandyViewController.h"
 #import "WLCreateWrapViewController.h"
 #import "WLPickerViewController.h"
+#import "WLStillPictureViewController.h"
 #import "UIView+QuatzCoreAnimations.h"
-
-static NSString *const wlActionViewController = @"WLActionViewController";
 
 @interface WLActionViewController ()
 
@@ -25,34 +24,38 @@ static NSString *const wlActionViewController = @"WLActionViewController";
 
 @implementation WLActionViewController
 
-+ (id)instance {
-    WLActionViewController *actionVC = [[UIStoryboard storyboardNamed:WLMainStoryboard]
-                                        instantiateViewControllerWithIdentifier:wlActionViewController];
++ (id)instanceByClass:(Class)class {
+    WLActionViewController *actionVC = [class new];
     
     return actionVC;
 }
 
-+ (void)addEditWrapViewControllerWithWrap:(WLWrap *)wrap toParentViewController:(UIViewController *)viewController {
-    WLActionViewController *actionVC = [self instance];
-    id editViewController = [WLEditWrapViewController new];
-    actionVC.childViewController = editViewController;
-    [editViewController setWrap:wrap];
-    [self addChildViewController:actionVC toParentViewController:viewController];
++ (id)addViewControllerByClass:(Class)class toParentViewController:(UIViewController *)viewController {
+   id childViewController = [self addViewControllerByClass:class withEntry:nil toParentViewController:viewController];
+    
+    return childViewController;
 }
 
-+ (void)addCandyViewControllerWithCandy:(WLCandy *)candy toParentViewController:(UIViewController *)viewController {
-    WLActionViewController *actionVC = [self instance];
-     id candyViewController = [WLReportCandyViewController new];
-    actionVC.childViewController = candyViewController;
-    [candyViewController setCandy:candy];
++ (id)addViewControllerByClass:(Class)class withEntry:(id)entry toParentViewController:(UIViewController *)viewController {
+    WLActionViewController *actionVC = [self instanceByClass:self];
+    id childViewController = [self instanceByClass:class];
+    [childViewController setEntry:entry];
+    actionVC.childViewController = childViewController;
     [self addChildViewController:actionVC toParentViewController:viewController];
+    
+    return childViewController;
 }
 
-+ (void)addCreateWrapViewControllerToParentViewController:(UIViewController *)viewController {
-    WLActionViewController *actionVC = [self instance];
-    id createWrapViewController = [WLCreateWrapViewController new];
-    actionVC.childViewController = createWrapViewController;
-    [self addChildViewController:actionVC toParentViewController:viewController];
++ (id)addViewControllerAsDelegateByClass:(Class)class toParentViewController:(UIViewController *)viewController {
+    id childViewController = [self addViewControllerByClass:class toParentViewController:viewController];
+    __block WLStillPictureViewController *stillPictureVC = (WLStillPictureViewController *)viewController;
+    stillPictureVC.delegate = childViewController;
+    
+    [childViewController setCompletionBlock:^{
+        [stillPictureVC dismissViewControllerAnimated:YES completion:NULL];
+    }];
+    
+    return childViewController;
 }
 
 - (void)willAddChildViewController:(UIViewController *)viewController {
@@ -73,6 +76,7 @@ static NSString *const wlActionViewController = @"WLActionViewController";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithWhite:.0 alpha:0.5];
     
     if (self.childViewController) {
         [self willAddChildViewController:self.childViewController];
@@ -81,22 +85,17 @@ static NSString *const wlActionViewController = @"WLActionViewController";
 }
 
 - (void)dismiss {
-    [UIView animateWithDuration:1.0f animations:^{
-        self.childViewController.view.y = self.view.height;
+    [self removeAnimateViewsFromSuperView];
+    [self removeFromParentViewController];
+}
+
+- (void)removeAnimateViewsFromSuperView {
+    [UIView animateWithDuration:1.0 animations:^{
+        self.childViewController.view.transform = CGAffineTransformMakeTranslation(.0, self.view.height);
     } completion:^(BOOL finished) {
         [self.view removeFromSuperview];
-        [self removeFromParentViewController];
     }];
 }
-
-- (void)willUpdateBottomInset:(CGFloat)bottomInset forController:(UIViewController *)viewController {
-    viewController.view.transform = CGAffineTransformMakeTranslation(.0, -bottomInset);
-}
-
-- (void)willUpdateTopInset:(CGFloat)topInset forController:(UIViewController *)viewController {
-    viewController.view.transform = CGAffineTransformMakeTranslation(.0, topInset);
-}
-
 
 #pragma mark - WLKeyboardBroadcastReceiver
 
@@ -111,6 +110,18 @@ static NSString *const wlActionViewController = @"WLActionViewController";
     [keyboard performAnimation:^{
         self.childViewController.view.transform = CGAffineTransformIdentity;
     }];
+}
+
+@end
+
+@implementation  UIViewController (WLActionViewController)
+
+- (void)setEntry:(id)entry {
+    if ([self respondsToSelector:@selector(setWrap:)]) {
+        [self performSelector:@selector(setWrap:) withObject:entry];
+    } else if ([self respondsToSelector:@selector(setCandy:)]) {
+        [self performSelector:@selector(setCandy:) withObject:entry];
+    }
 }
 
 @end

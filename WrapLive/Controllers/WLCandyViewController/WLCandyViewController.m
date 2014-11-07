@@ -270,7 +270,9 @@
 }
 
 - (IBAction)report:(UIButton *)sender {
-    [WLActionViewController addCandyViewControllerWithCandy:self.candy toParentViewController:self];
+    [WLActionViewController addViewControllerByClass:NSClassFromString(@"WLReportCandyViewController")
+                                                     withEntry:self.candy
+                                        toParentViewController:self];
 }
 
 - (void)sendMessageWithText:(NSString*)text {

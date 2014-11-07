@@ -28,9 +28,9 @@
 #import "WLNavigation.h"
 #import "WLPerson.h"
 #import "WLToast.h"
-#import "WLStillPictureViewController.h"
 #import "WLUser.h"
 #import "WLWrap.h"
+#import "WLStillPictureViewController.h"
 #import "WLWrapViewController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 
@@ -61,6 +61,7 @@
     self.wrap.name = name;
     [self.wrap notifyOnAddition];
     [[WLUploading uploading:self.wrap] upload:^(id object) {
+        [weakSelf hideExcessView];
     } failure:^(NSError *error) {
         if ([error isNetworkError]) {
             [error show];
@@ -72,9 +73,14 @@
 #pragma mark - Actions
 
 - (IBAction)cancel:(id)sender {
-    id parentViewController = [self parentViewController];
-    if (parentViewController != nil) {
-        [parentViewController dismiss];
+    if (self.completionBlock)
+        self.completionBlock();
+}
+
+- (void)hideExcessView {
+    id parentViewController = self.parentViewController;
+    if ([parentViewController respondsToSelector:@selector(removeAnimateViewsFromSuperView)]) {
+        [parentViewController performSelector:@selector(removeAnimateViewsFromSuperView) withObject:nil];
     }
 }
 
@@ -85,16 +91,6 @@
         sender.loading = YES;
         self.view.userInteractionEnabled = NO;
         [self createWrapWithName:name];
-        WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:
-                                                          [UIStoryboard storyboardNamed:WLCameraStoryboard]];
-        cameraNavigation.delegate = self;
-        cameraNavigation.mode = WLCameraModeCandy;
-        WLActionViewController *parentViewController = (WLActionViewController *)[self parentViewController];
-        if (parentViewController != nil) {
-            [parentViewController willAddChildViewController:parentViewController];
-            self.view.userInteractionEnabled = YES;
-            sender.loading = NO;
-        }
     }
 }
 
@@ -113,11 +109,11 @@
     if (pictures.nonempty) {
         [self.wrap uploadPictures:pictures];
     }
-    [self cancel:nil];
+    [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-    [self cancel:nil];
+     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

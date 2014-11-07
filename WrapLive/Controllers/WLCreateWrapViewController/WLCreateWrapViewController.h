@@ -15,5 +15,6 @@
 @interface WLCreateWrapViewController : WLShakeViewController
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (strong, nonatomic) WLBlock completionBlock;
 
 @end

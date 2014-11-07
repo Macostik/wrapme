@@ -19,7 +19,6 @@
 #import "UIView+Shorthand.h"
 #import "UIViewController+Additions.h"
 #import "WLAPIManager.h"
-#import "WLActionViewController.h"
 #import "WLCameraViewController.h"
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"
@@ -233,7 +232,10 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 - (IBAction)createWrap:(id)sender {
-    [WLActionViewController addCreateWrapViewControllerToParentViewController:self];
+    WLStillPictureViewController *controller = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
+    controller.mode = WLCameraModeCandy;
+    [controller willCreateWrap];
+    [self.navigationController presentViewController:controller animated:YES completion:NULL];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate

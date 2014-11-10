@@ -65,7 +65,7 @@
     }
     if (self.textViewConstraint.constant != constraintValue) {
         self.textViewConstraint.constant = constraintValue;
-        [self.messageTextView layoutIfNeeded];
+        [self.messageTextView setNeedsLayout];
     }
 }
 

@@ -15,6 +15,8 @@
 
 @property (nonatomic) BOOL keyboardAdjustmentAnimated;
 
+@property (nonatomic) BOOL viewAppeared;
+
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight;
 
 @end

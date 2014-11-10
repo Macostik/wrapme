@@ -33,6 +33,16 @@
     [[WLKeyboard keyboard] addReceiver:self];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.viewAppeared = YES;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.viewAppeared = NO;
+}
+
 #pragma mark - WLKeyboardBroadcastReceiver
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
@@ -82,7 +92,7 @@
     
     CGFloat adjustment = [self keyboardAdjustmentValueWithKeyboardHeight:keyboard.height];
     if ([self updateKeyboardAdjustmentConstraints:adjustment]) {
-        if (self.keyboardAdjustmentAnimated) {
+        if (self.keyboardAdjustmentAnimated && self.viewAppeared) {
             __weak typeof(self)weakSelf = self;
             [keyboard performAnimation:^{
                 for (UIView *layoutView in weakSelf.keyboardAdjustmentLayoutViews) {
@@ -105,7 +115,7 @@
     if (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty) return;
     [self updateKeyboardAdjustmentConstraints:0];
     [self.keyboardAdjustmentDefaultConstants removeAllObjects];
-    if (self.keyboardAdjustmentAnimated) {
+    if (self.keyboardAdjustmentAnimated && self.viewAppeared) {
         __weak typeof(self)weakSelf = self;
         [keyboard performAnimation:^{
             for (UIView *layoutView in weakSelf.keyboardAdjustmentLayoutViews) {

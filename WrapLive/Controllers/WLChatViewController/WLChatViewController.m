@@ -73,13 +73,23 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)viewDidLoad {
-    [self.collectionView registerNib:[WLLoadingView nib]
+    
+    UICollectionView *collectionView = self.collectionView;
+    [collectionView registerNib:[WLLoadingView nib]
           forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
                  withReuseIdentifier:@"WLLoadingView"];
+    
 	[super viewDidLoad];
+    
+    [self updateEdgeInsets:0];
+    [WLRefresher refresher:collectionView target:self action:@selector(refreshMessages:) style:WLRefresherStyleOrange];
+    [self updateEdgeInsets:216];
+    
+    collectionView.contentOffset = CGPointMake(0, -self.composeBar.height);
+    
+    collectionView.transform = CGAffineTransformMakeRotation(M_PI);
+    
     self.messageFont = [UIFont lightFontOfSize:15];
-    self.keyboardAdjustmentAnimated = NO;
-    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, self.collectionView.width - 6);
     
     WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 2*WLAvatarWidth - WLPadding;
     
@@ -90,12 +100,11 @@ CGFloat WLMaxTextViewWidth;
         weakSelf.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(weakSelf.wrap.name)];
     } failure:^(NSError *error) {
     }];
-
-	[WLRefresher refresher:self.collectionView target:self action:@selector(refreshMessages:) style:WLRefresherStyleOrange];
-	self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
+	
 	self.composeBar.placeholder = @"Write your message ...";
-    self.chat = [WLChat chatWithWrap:self.wrap];
+    self.chat = [[WLChat alloc] init];
     self.chat.delegate = self;
+    self.chat.wrap = self.wrap;
     if (self.wrap.messages.nonempty) {
         [self refreshMessages:^{
         } failure:^(NSError *error) {
@@ -107,6 +116,15 @@ CGFloat WLMaxTextViewWidth;
 	
     [[WLMessage notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
+}
+
+- (void)updateEdgeInsets:(CGFloat)keyboardHeight {
+    UICollectionView *collectionView = self.collectionView;
+    UIEdgeInsets insets = UIEdgeInsetsMake(self.composeBar.height + keyboardHeight, 0, 64, 0);
+    collectionView.contentInset = insets;
+    insets.right = collectionView.width - 6;
+    collectionView.scrollIndicatorInsets = insets;
+    [self.layout invalidateLayout];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -121,9 +139,15 @@ CGFloat WLMaxTextViewWidth;
     }];
 }
 
-- (void)keyboardDidShow:(WLKeyboard *)keyboard {
-    [super keyboardDidShow:keyboard];
-    [self.layout invalidateLayout];
+- (void)keyboardWillShow:(WLKeyboard *)keyboard {
+    [super keyboardWillShow:keyboard];
+    [self updateEdgeInsets:keyboard.height];
+    [self.collectionView scrollToTopAnimated:self.viewAppeared];
+}
+
+- (void)keyboardWillHide:(WLKeyboard *)keyboard {
+    [super keyboardWillHide:keyboard];
+    [self updateEdgeInsets:0];
 }
 
 - (void)insertMessage:(WLMessage*)message {
@@ -241,6 +265,7 @@ CGFloat WLMaxTextViewWidth;
 		[error show];
         [weakSelf.composeBar performSelector:@selector(setText:) withObject:text afterDelay:0.0f];
     }];
+    [weakSelf.collectionView scrollToTopAnimated:YES];
 }
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
@@ -272,6 +297,11 @@ CGFloat WLMaxTextViewWidth;
     if (self.chat.typingChannel.subscribed) {
         weakSelf.typing = composeBar.text.nonempty;
     }
+}
+
+- (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
+    [self updateEdgeInsets:[WLKeyboard keyboard].height];
+    [self.collectionView scrollToTopAnimated:YES];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -319,7 +349,6 @@ CGFloat WLMaxTextViewWidth;
             [self slowUpAnimationCell:cell message:message];
         }
     }
-    
     return cell;
 }
 
@@ -343,12 +372,14 @@ CGFloat WLMaxTextViewWidth;
         return groupCell;
     }
     WLLoadingView* loadingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLLoadingView" forIndexPath:indexPath];
-    loadingView.error = NO;
-    [self appendMessages:^{
-    } failure:^(NSError *error) {
-        [error show];
-        loadingView.error = YES;
-    }];
+    if (self.chat.wrap) {
+        loadingView.error = NO;
+        [self appendMessages:^{
+        } failure:^(NSError *error) {
+            [error show];
+            loadingView.error = YES;
+        }];
+    }
 	return loadingView;
 }
 
@@ -390,7 +421,7 @@ CGFloat WLMaxTextViewWidth;
     }
     
     if (self.chat.completed) return CGSizeZero;
-    return self.wrap.messages.nonempty ? CGSizeMake(collectionView.width, 66) : collectionView.size;
+    return CGSizeMake(collectionView.width, 66);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {

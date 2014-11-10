@@ -54,4 +54,14 @@
     return NO;
 }
 
+- (CGFloat)verticalContentInsets {
+    UIEdgeInsets insets = self.contentInset;
+    return insets.top + insets.bottom;
+}
+
+- (CGFloat)horizontalContentInsets {
+    UIEdgeInsets insets = self.contentInset;
+    return insets.left + insets.right;
+}
+
 @end

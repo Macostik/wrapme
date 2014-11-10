@@ -14,6 +14,10 @@
 
 @property (readonly, nonatomic) BOOL scrollable;
 
+@property (readonly, nonatomic) CGFloat verticalContentInsets;
+
+@property (readonly, nonatomic) CGFloat horizontalContentInsets;
+
 - (void)scrollToTopAnimated:(BOOL)animated;
 
 - (void)scrollToBottomAnimated:(BOOL)animated;

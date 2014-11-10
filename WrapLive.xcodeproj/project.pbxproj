@@ -159,6 +159,10 @@
 		5BA685DD1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */; };
 		5BA685DE1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */; };
 		5BA685DF1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */; };
+		5BA6CAF21A10E51B004AD41C /* contributor.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* contributor.wav */; };
+		5BA6CAF31A10E51B004AD41C /* comment.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* comment.wav */; };
+		5BA6CAF41A10E51B004AD41C /* chat_message.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* chat_message.wav */; };
+		5BA6CAF51A10E51B004AD41C /* send_message.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* send_message.wav */; };
 		5BAA216319FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
 		5BAA216419FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
 		5BAA216519FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
@@ -1365,6 +1369,10 @@
 		5BA4CC171A08FB4300D7F31C /* WLPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPickerViewController.xib; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.xib; sourceTree = "<group>"; };
 		5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLEditWrapViewController.xib; path = WLEditWrapViewController/WLEditWrapViewController.xib; sourceTree = "<group>"; };
 		5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCreateWrapViewController.xib; path = WLCreateWrapViewController/WLCreateWrapViewController.xib; sourceTree = "<group>"; };
+		5BA6CAEE1A10E51B004AD41C /* contributor.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = contributor.wav; sourceTree = "<group>"; };
+		5BA6CAEF1A10E51B004AD41C /* comment.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = comment.wav; sourceTree = "<group>"; };
+		5BA6CAF01A10E51B004AD41C /* chat_message.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = chat_message.wav; sourceTree = "<group>"; };
+		5BA6CAF11A10E51B004AD41C /* send_message.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = send_message.wav; sourceTree = "<group>"; };
 		5BAA216119FE7BCD008958EF /* WLActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLActionViewController.h; path = WLActionViewController/WLActionViewController.h; sourceTree = "<group>"; };
 		5BAA216219FE7BCD008958EF /* WLActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLActionViewController.m; path = WLActionViewController/WLActionViewController.m; sourceTree = "<group>"; };
 		5BB02FF419F00BCE001E1D50 /* WLChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChat.h; path = WLChatGroupSet/WLChat.h; sourceTree = "<group>"; };
@@ -2658,6 +2666,10 @@
 		14AE4FEE19700B23002EEF3F /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				5BA6CAEE1A10E51B004AD41C /* contributor.wav */,
+				5BA6CAEF1A10E51B004AD41C /* comment.wav */,
+				5BA6CAF01A10E51B004AD41C /* chat_message.wav */,
+				5BA6CAF11A10E51B004AD41C /* send_message.wav */,
 				14AE4FEF19700B5E002EEF3F /* msg.wav */,
 				14AE4FF019700B5E002EEF3F /* interfacealertsound3.wav */,
 			);
@@ -3624,6 +3636,7 @@
 				C54AF85D19B8C622006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
 				12DE698D192E4234007580AD /* AviarySDKResources.bundle in Resources */,
 				C54AF85C19B8C622006F7EDB /* WLTestUsersBeta.plist in Resources */,
+				5BA6CAF51A10E51B004AD41C /* send_message.wav in Resources */,
 				C54AF86119B8C622006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				12F3ED571934B183009C1DC3 /* WLAssetsGroupViewController.xib in Resources */,
 				C54AF85F19B8C622006F7EDB /* WLTestUsersQA.plist in Resources */,
@@ -3638,6 +3651,7 @@
 				12A8AA7018F592B500F67113 /* WLLoadingView.xib in Resources */,
 				12F3ED5B1934B183009C1DC3 /* WLAssetsGroupCell.xib in Resources */,
 				5BBBC0051A0A504E003781C4 /* WLPickerViewCell.xib in Resources */,
+				5BA6CAF41A10E51B004AD41C /* chat_message.wav in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
 				14ACAE0719421AE5006BD3B3 /* Main.storyboard in Resources */,
 				1409DA631949B24E00358BD4 /* PhoneFormats.dat in Resources */,
@@ -3649,6 +3663,7 @@
 				C542BDED19FA555C00C3BD64 /* Camera.storyboard in Resources */,
 				12F3ED5F1934B183009C1DC3 /* WLAssetCell.xib in Resources */,
 				12D514FD192F5F15007A1520 /* AppIcon60x60@2x.png in Resources */,
+				5BA6CAF31A10E51B004AD41C /* comment.wav in Resources */,
 				12D514FC192F5F15007A1520 /* AppIcon40x40@2x.png in Resources */,
 				C54AF86019B8C622006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
 				12F3ED5D1934B183009C1DC3 /* WLAssetsViewController.xib in Resources */,
@@ -3666,6 +3681,7 @@
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
 				5BA666B919FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				12D514FA192F5F15007A1520 /* AppIcon29x29@2x.png in Resources */,
+				5BA6CAF21A10E51B004AD41C /* contributor.wav in Resources */,
 				12E8FF2118E9885F00BF1B96 /* WLComposeBar.xib in Resources */,
 				12D51500192F5F15007A1520 /* Default-568h@2x.png in Resources */,
 				12D514FF192F5F15007A1520 /* AppIcon76x76@2x.png in Resources */,

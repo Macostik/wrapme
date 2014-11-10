@@ -6,33 +6,34 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLChatViewController.h"
-#import "WLWrap.h"
-#import "WLAPIManager.h"
-#import "WLRefresher.h"
-#import "WLMessageCell.h"
-#import "WLUser.h"
-#import "UIFont+CustomFonts.h"
-#import "WLComposeBar.h"
-#import "UIView+Shorthand.h"
-#import "WLLoadingView.h"
-#import "WLMessageGroupCell.h"
+#import "NSDate+Additions.h"
 #import "NSDate+Formatting.h"
 #import "NSObject+NibAdditions.h"
-#import "WLCollectionViewFlowLayout.h"
-#import "UIScrollView+Additions.h"
-#import "WLKeyboard.h"
-#import "NSDate+Additions.h"
 #import "NSString+Additions.h"
+#import "UIDevice+SystemVersion.h"
+#import "UIFont+CustomFonts.h"
+#import "UIScrollView+Additions.h"
+#import "UIView+AnimationHelper.h"
+#import "UIView+Shorthand.h"
+#import "WLAPIManager.h"
+#import "WLChat.h"
+#import "WLChatViewController.h"
+#import "WLCollectionViewFlowLayout.h"
+#import "WLComposeBar.h"
 #import "WLEntryNotifier.h"
 #import "WLGroupedSet.h"
-#import "WLSignificantTimeBroadcaster.h"
 #import "WLInternetConnectionBroadcaster.h"
+#import "WLKeyboard.h"
+#import "WLLoadingView.h"
+#import "WLMessageCell.h"
+#import "WLMessageGroupCell.h"
 #import "WLNotification.h"
-#import "UIView+AnimationHelper.h"
+#import "WLRefresher.h"
+#import "WLSignificantTimeBroadcaster.h"
+#import "WLSoundPlayer.h"
 #import "WLTypingViewCell.h"
-#import "WLChat.h"
-#import "UIDevice+SystemVersion.h"
+#import "WLUser.h"
+#import "WLWrap.h"
 
 CGFloat WLMaxTextViewWidth;
 
@@ -261,6 +262,7 @@ CGFloat WLMaxTextViewWidth;
     __weak typeof(self)weakSelf = self;
     [self.wrap uploadMessage:text success:^(WLMessage *message) {
 		[weakSelf.collectionView scrollToTopAnimated:YES];
+        [weakSelf playSoundBySendEvent];
     } failure:^(NSError *error) {
 		[error show];
         [weakSelf.composeBar performSelector:@selector(setText:) withObject:text afterDelay:0.0f];

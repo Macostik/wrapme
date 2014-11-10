@@ -17,30 +17,32 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "UIView+Shorthand.h"
 #import "WLAPIManager.h"
+#import "WLActionViewController.h"
 #import "WLCandiesRequest.h"
 #import "WLCandy.h"
 #import "WLCandyViewController.h"
 #import "WLComment.h"
 #import "WLCommentCell.h"
+#import "WLCommentsCell.h"
 #import "WLComposeBar.h"
 #import "WLGroupedSet.h"
 #import "WLImageFetcher.h"
 #import "WLImageViewController.h"
+#import "WLInternetConnectionBroadcaster.h"
 #import "WLKeyboard.h"
 #import "WLNavigation.h"
 #import "WLRefresher.h"
 #import "WLSession.h"
+#import "WLSoundPlayer.h"
 #import "WLToast.h"
 #import "WLUser.h"
 #import "WLWrap.h"
 #import "WLEntryNotifier.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import "WLWrap+Extended.h"
-#import "WLCommentsCell.h"
 #import "UIView+AnimationHelper.h"
-#import "WLInternetConnectionBroadcaster.h"
 #import "NSOrderedSet+Additions.h"
-#import "WLActionViewController.h"
+
+
 
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate>
 
@@ -279,6 +281,7 @@
     WLCandy* image = self.candy;
 	__weak typeof(self)weakSelf = self;
     [image uploadComment:text success:^(WLComment *comment) {
+        [weakSelf playSoundBySendEvent];
     } failure:^(NSError *error) {
     }];
     run_after(0.1,^{

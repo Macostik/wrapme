@@ -7,9 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WLNotification.h"
 
 @interface WLSoundPlayer : NSObject
 
-+ (void)play;
++ (void)playByName:(NSString *)nameSound;
+
+@end
+
+@interface UIViewController (WLSoundPlayer)
+
+- (void)playSoundBySendEvent;
+
+@end
+
+@interface WLNotification (WLSoundPlayer)
+
+- (void)playSound;
 
 @end

@@ -18,13 +18,17 @@
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
-    NSNumber* firstTimeUse = @([dictionary integerForKey:WLSignInCountKey] == 1);
-	if (!NSNumberEqual(self.firstTimeUse, firstTimeUse)) self.firstTimeUse = firstTimeUse;
+    BOOL firstTimeUse = [dictionary integerForKey:WLSignInCountKey] == 1;
+	if (self.firstTimeUse != firstTimeUse) self.firstTimeUse = firstTimeUse;
     NSString* name = [dictionary stringForKey:WLNameKey];
 	if (!NSStringEqual(self.name, name)) self.name = name;
     [self editPicture:[dictionary stringForKey:WLLargeAvatarKey]
                medium:[dictionary stringForKey:WLMediumAvatarKey]
                 small:[dictionary stringForKey:WLSmallAvatarKey]];
+    
+    NSMutableOrderedSet* devices = [WLDevice API_entries:[dictionary arrayForKey:@"devices"] relatedEntry:self];
+    if (![self.devices isEqualToOrderedSet:devices]) self.devices = devices;
+    
     return [super API_setup:dictionary relatedEntry:relatedEntry];
 }
 
@@ -79,17 +83,17 @@ static WLUser *currentUser = nil;
 + (void)setCurrentUser:(WLUser*)user {
     if (currentUser) {
         if (![currentUser isEqualToEntry:user]) {
-            if (!NSNumberEqual(currentUser.current, @NO)) currentUser.current = @NO;
+            if (currentUser.current) currentUser.current = NO;
         }
     } else {
         [[WLUser entries:^(NSFetchRequest *request) {
             request.predicate = [NSPredicate predicateWithFormat:@"current == TRUE"];
         }] all:^(WLUser* _user) {
-            if (!NSNumberEqual(_user.current, @NO)) _user.current = @NO;
+            if (_user.current) _user.current = NO;
         }];
     }
 	currentUser = user;
-	if (!NSNumberEqual(user.current, @YES)) user.current = @YES;
+	if (!user.current) user.current = YES;
     if (user) {
         [[WLNotificationCenter defaultCenter] configure];
 #ifndef DEBUG
@@ -105,7 +109,7 @@ static WLUser *currentUser = nil;
 }
 
 - (BOOL)isCurrentUser {
-	return [self.current boolValue];
+	return self.current;
 }
 
 @end

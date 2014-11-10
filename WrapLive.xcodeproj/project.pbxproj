@@ -365,10 +365,6 @@
 		C519107B1A078248003C78B2 /* WLUser+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C519103F1A078248003C78B2 /* WLUser+Extended.m */; };
 		C519107C1A078248003C78B2 /* WLUser+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C519103F1A078248003C78B2 /* WLUser+Extended.m */; };
 		C519107D1A078248003C78B2 /* WLUser+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C519103F1A078248003C78B2 /* WLUser+Extended.m */; };
-		C519107E1A078248003C78B2 /* WLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C51910411A078248003C78B2 /* WLUser.m */; };
-		C519107F1A078248003C78B2 /* WLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C51910411A078248003C78B2 /* WLUser.m */; };
-		C51910801A078248003C78B2 /* WLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C51910411A078248003C78B2 /* WLUser.m */; };
-		C51910811A078248003C78B2 /* WLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C51910411A078248003C78B2 /* WLUser.m */; };
 		C51910841A07CB3D003C78B2 /* WLUploadingData.m in Sources */ = {isa = PBXBuildFile; fileRef = C51910831A07CB3D003C78B2 /* WLUploadingData.m */; };
 		C51910851A07CB3D003C78B2 /* WLUploadingData.m in Sources */ = {isa = PBXBuildFile; fileRef = C51910831A07CB3D003C78B2 /* WLUploadingData.m */; };
 		C51910861A07CB3D003C78B2 /* WLUploadingData.m in Sources */ = {isa = PBXBuildFile; fileRef = C51910831A07CB3D003C78B2 /* WLUploadingData.m */; };
@@ -1070,6 +1066,18 @@
 		C55C8D7D19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */; };
 		C55C8D7E19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */; };
 		C55C8D7F19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */; };
+		C56091201A10CE8800C48887 /* WLDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C560911F1A10CE8800C48887 /* WLDevice.m */; };
+		C56091211A10CE8800C48887 /* WLDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C560911F1A10CE8800C48887 /* WLDevice.m */; };
+		C56091221A10CE8800C48887 /* WLDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C560911F1A10CE8800C48887 /* WLDevice.m */; };
+		C56091231A10CE8800C48887 /* WLDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C560911F1A10CE8800C48887 /* WLDevice.m */; };
+		C56091261A10CEB600C48887 /* WLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091251A10CEB600C48887 /* WLUser.m */; };
+		C56091271A10CEB600C48887 /* WLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091251A10CEB600C48887 /* WLUser.m */; };
+		C56091281A10CEB600C48887 /* WLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091251A10CEB600C48887 /* WLUser.m */; };
+		C56091291A10CEB600C48887 /* WLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091251A10CEB600C48887 /* WLUser.m */; };
+		C56091381A110C9500C48887 /* WLDevice+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091371A110C9500C48887 /* WLDevice+Extended.m */; };
+		C56091391A110C9500C48887 /* WLDevice+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091371A110C9500C48887 /* WLDevice+Extended.m */; };
+		C560913A1A110C9500C48887 /* WLDevice+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091371A110C9500C48887 /* WLDevice+Extended.m */; };
+		C560913B1A110C9500C48887 /* WLDevice+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091371A110C9500C48887 /* WLDevice+Extended.m */; };
 		C57BDDB719FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */; };
 		C57BDDB819FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */; };
 		C57BDDB919FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */; };
@@ -1527,8 +1535,6 @@
 		C519103C1A078248003C78B2 /* WLUploading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploading.m; sourceTree = "<group>"; };
 		C519103E1A078248003C78B2 /* WLUser+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLUser+Extended.h"; sourceTree = "<group>"; };
 		C519103F1A078248003C78B2 /* WLUser+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLUser+Extended.m"; sourceTree = "<group>"; };
-		C51910401A078248003C78B2 /* WLUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUser.h; sourceTree = "<group>"; };
-		C51910411A078248003C78B2 /* WLUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUser.m; sourceTree = "<group>"; };
 		C51910821A07CB3D003C78B2 /* WLUploadingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUploadingData.h; sourceTree = "<group>"; };
 		C51910831A07CB3D003C78B2 /* WLUploadingData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploadingData.m; sourceTree = "<group>"; };
 		C51DAE2F19B09E6100F40516 /* WLTimelineEventCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTimelineEventCommentCell.h; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCommentCell.h; sourceTree = "<group>"; };
@@ -1590,6 +1596,13 @@
 		C55C8D6919C98A9400199245 /* WLSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSoundPlayer.m; sourceTree = "<group>"; };
 		C55C8D7A19C9A56400199245 /* WLResendConfirmationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLResendConfirmationRequest.h; path = WLAPIManager/WLAPIRequest/WLResendConfirmationRequest.h; sourceTree = "<group>"; };
 		C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLResendConfirmationRequest.m; path = WLAPIManager/WLAPIRequest/WLResendConfirmationRequest.m; sourceTree = "<group>"; };
+		C560911E1A10CE8800C48887 /* WLDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDevice.h; sourceTree = "<group>"; };
+		C560911F1A10CE8800C48887 /* WLDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDevice.m; sourceTree = "<group>"; };
+		C56091241A10CEB600C48887 /* WLUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUser.h; sourceTree = "<group>"; };
+		C56091251A10CEB600C48887 /* WLUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUser.m; sourceTree = "<group>"; };
+		C56091361A110C9500C48887 /* WLDevice+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLDevice+Extended.h"; sourceTree = "<group>"; };
+		C56091371A110C9500C48887 /* WLDevice+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLDevice+Extended.m"; sourceTree = "<group>"; };
+		C560913C1A110F4200C48887 /* CoreData 1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1.1.xcdatamodel"; sourceTree = "<group>"; };
 		C56D3AD519F7C21700D85027 /* SupportHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportHeaders.h; sourceTree = "<group>"; };
 		C57BDDB519FA5ED3003593F1 /* WLStoryboardSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStoryboardSegue.h; path = WLStoryboardSegue/WLStoryboardSegue.h; sourceTree = "<group>"; };
 		C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLStoryboardSegue.m; path = WLStoryboardSegue/WLStoryboardSegue.m; sourceTree = "<group>"; };
@@ -3127,6 +3140,7 @@
 		C51910191A078248003C78B2 /* WLEntry */ = {
 			isa = PBXGroup;
 			children = (
+				C560911D1A10CE8800C48887 /* WLDevice */,
 				C51910381A078248003C78B2 /* WLUploading */,
 				C519103D1A078248003C78B2 /* WLUser */,
 				C519101A1A078248003C78B2 /* WLContribution */,
@@ -3214,10 +3228,10 @@
 		C519103D1A078248003C78B2 /* WLUser */ = {
 			isa = PBXGroup;
 			children = (
+				C56091241A10CEB600C48887 /* WLUser.h */,
+				C56091251A10CEB600C48887 /* WLUser.m */,
 				C519103E1A078248003C78B2 /* WLUser+Extended.h */,
 				C519103F1A078248003C78B2 /* WLUser+Extended.m */,
-				C51910401A078248003C78B2 /* WLUser.h */,
-				C51910411A078248003C78B2 /* WLUser.m */,
 			);
 			path = WLUser;
 			sourceTree = "<group>";
@@ -3287,6 +3301,17 @@
 				C55C8D6919C98A9400199245 /* WLSoundPlayer.m */,
 			);
 			path = WLNotificationCenter;
+			sourceTree = "<group>";
+		};
+		C560911D1A10CE8800C48887 /* WLDevice */ = {
+			isa = PBXGroup;
+			children = (
+				C560911E1A10CE8800C48887 /* WLDevice.h */,
+				C560911F1A10CE8800C48887 /* WLDevice.m */,
+				C56091361A110C9500C48887 /* WLDevice+Extended.h */,
+				C56091371A110C9500C48887 /* WLDevice+Extended.m */,
+			);
+			path = WLDevice;
 			sourceTree = "<group>";
 		};
 		C57BDDB419FA5E9E003593F1 /* WLStoryboardSegue */ = {
@@ -4054,6 +4079,7 @@
 				5BBBEB4D19D983FA008CFE54 /* WLLeaveWrapRequest.m in Sources */,
 				121B1B4218E0848D001F585C /* WLCountryCell.m in Sources */,
 				12E6ABD4191A2B2A00842DB8 /* UIScreen+Diagonal.m in Sources */,
+				C56091381A110C9500C48887 /* WLDevice+Extended.m in Sources */,
 				C537F8241962BB1B00600B42 /* WLGroupedSet.m in Sources */,
 				C50F48391973EFCB00929AA9 /* WLPaginatedSet.m in Sources */,
 				1293678318E33A3500527250 /* WLCandyCell.m in Sources */,
@@ -4119,6 +4145,7 @@
 				12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */,
 				C5A21E0F194AF54000F3A554 /* WLEntryManager.m in Sources */,
 				12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */,
+				C56091261A10CEB600C48887 /* WLUser.m in Sources */,
 				C519106E1A078248003C78B2 /* WLEntry.m in Sources */,
 				C50AF4241976ABE700761F38 /* WLMessagesRequest.m in Sources */,
 				128886AD18DC493B00957B22 /* WLSession.m in Sources */,
@@ -4170,6 +4197,7 @@
 				128156AB1938A1DA00035F89 /* WLStillPictureViewController.m in Sources */,
 				C504179119B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C519104E1A078248003C78B2 /* WLComment.m in Sources */,
+				C56091201A10CE8800C48887 /* WLDevice.m in Sources */,
 				C57BDDB719FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
 				C519106A1A078248003C78B2 /* WLEntry+Extended.m in Sources */,
 				12D9F6E018E185AF001E8323 /* WLAPIResponse.m in Sources */,
@@ -4180,7 +4208,6 @@
 				121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */,
 				1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */,
 				C55C8D7C19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
-				C519107E1A078248003C78B2 /* WLUser.m in Sources */,
 				C5F99B6F196BEB0C00A3FB19 /* WLMenu.m in Sources */,
 				12E1104519066C7C007DB4AC /* UIView+QuatzCoreAnimations.m in Sources */,
 				C51910621A078248003C78B2 /* WLWrap+Extended.m in Sources */,
@@ -4269,6 +4296,7 @@
 				5BBBEB4E19D983FA008CFE54 /* WLLeaveWrapRequest.m in Sources */,
 				C54AF47A19B8C437006F7EDB /* WLCountryCell.m in Sources */,
 				C54AF47B19B8C437006F7EDB /* UIScreen+Diagonal.m in Sources */,
+				C56091391A110C9500C48887 /* WLDevice+Extended.m in Sources */,
 				C54AF47C19B8C437006F7EDB /* WLGroupedSet.m in Sources */,
 				C54AF47D19B8C437006F7EDB /* WLPaginatedSet.m in Sources */,
 				C54AF47E19B8C437006F7EDB /* WLCandyCell.m in Sources */,
@@ -4334,6 +4362,7 @@
 				C54AF4B119B8C437006F7EDB /* WLHomeViewController.m in Sources */,
 				C54AF4B319B8C437006F7EDB /* WLEntryManager.m in Sources */,
 				C54AF4B419B8C437006F7EDB /* WLProgressBar.m in Sources */,
+				C56091271A10CEB600C48887 /* WLUser.m in Sources */,
 				C519106F1A078248003C78B2 /* WLEntry.m in Sources */,
 				C54AF4B519B8C437006F7EDB /* WLMessagesRequest.m in Sources */,
 				C54AF4B619B8C437006F7EDB /* WLSession.m in Sources */,
@@ -4385,6 +4414,7 @@
 				C54AF4E319B8C437006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C504179219B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C519104F1A078248003C78B2 /* WLComment.m in Sources */,
+				C56091211A10CE8800C48887 /* WLDevice.m in Sources */,
 				C57BDDB819FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
 				C519106B1A078248003C78B2 /* WLEntry+Extended.m in Sources */,
 				C54AF4E519B8C437006F7EDB /* WLAPIResponse.m in Sources */,
@@ -4395,7 +4425,6 @@
 				C54AF4E919B8C437006F7EDB /* NSObject+NibAdditions.m in Sources */,
 				C54AF4EA19B8C437006F7EDB /* NSArray+Additions.m in Sources */,
 				C55C8D7D19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
-				C519107F1A078248003C78B2 /* WLUser.m in Sources */,
 				C54AF4EB19B8C437006F7EDB /* WLMenu.m in Sources */,
 				C54AF4EC19B8C437006F7EDB /* UIView+QuatzCoreAnimations.m in Sources */,
 				C51910631A078248003C78B2 /* WLWrap+Extended.m in Sources */,
@@ -4484,6 +4513,7 @@
 				5BBBEB4F19D983FA008CFE54 /* WLLeaveWrapRequest.m in Sources */,
 				C54AF57719B8C467006F7EDB /* WLCountryCell.m in Sources */,
 				C54AF57819B8C467006F7EDB /* UIScreen+Diagonal.m in Sources */,
+				C560913A1A110C9500C48887 /* WLDevice+Extended.m in Sources */,
 				C54AF57919B8C467006F7EDB /* WLGroupedSet.m in Sources */,
 				C54AF57A19B8C467006F7EDB /* WLPaginatedSet.m in Sources */,
 				C54AF57B19B8C467006F7EDB /* WLCandyCell.m in Sources */,
@@ -4549,6 +4579,7 @@
 				C54AF5AE19B8C467006F7EDB /* WLHomeViewController.m in Sources */,
 				C54AF5B019B8C467006F7EDB /* WLEntryManager.m in Sources */,
 				C54AF5B119B8C467006F7EDB /* WLProgressBar.m in Sources */,
+				C56091281A10CEB600C48887 /* WLUser.m in Sources */,
 				C51910701A078248003C78B2 /* WLEntry.m in Sources */,
 				C54AF5B219B8C467006F7EDB /* WLMessagesRequest.m in Sources */,
 				C54AF5B319B8C467006F7EDB /* WLSession.m in Sources */,
@@ -4600,6 +4631,7 @@
 				C54AF5E019B8C467006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C504179319B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C51910501A078248003C78B2 /* WLComment.m in Sources */,
+				C56091221A10CE8800C48887 /* WLDevice.m in Sources */,
 				C57BDDB919FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
 				C519106C1A078248003C78B2 /* WLEntry+Extended.m in Sources */,
 				C54AF5E219B8C467006F7EDB /* WLAPIResponse.m in Sources */,
@@ -4610,7 +4642,6 @@
 				C54AF5E619B8C467006F7EDB /* NSObject+NibAdditions.m in Sources */,
 				C54AF5E719B8C467006F7EDB /* NSArray+Additions.m in Sources */,
 				C55C8D7E19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
-				C51910801A078248003C78B2 /* WLUser.m in Sources */,
 				C54AF5E819B8C467006F7EDB /* WLMenu.m in Sources */,
 				C54AF5E919B8C467006F7EDB /* UIView+QuatzCoreAnimations.m in Sources */,
 				C51910641A078248003C78B2 /* WLWrap+Extended.m in Sources */,
@@ -4699,6 +4730,7 @@
 				5BBBEB5019D983FA008CFE54 /* WLLeaveWrapRequest.m in Sources */,
 				C54AF67419B8C491006F7EDB /* WLCountryCell.m in Sources */,
 				C54AF67519B8C491006F7EDB /* UIScreen+Diagonal.m in Sources */,
+				C560913B1A110C9500C48887 /* WLDevice+Extended.m in Sources */,
 				C54AF67619B8C491006F7EDB /* WLGroupedSet.m in Sources */,
 				C54AF67719B8C491006F7EDB /* WLPaginatedSet.m in Sources */,
 				C54AF67819B8C491006F7EDB /* WLCandyCell.m in Sources */,
@@ -4764,6 +4796,7 @@
 				C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */,
 				C54AF6AD19B8C491006F7EDB /* WLEntryManager.m in Sources */,
 				C54AF6AE19B8C491006F7EDB /* WLProgressBar.m in Sources */,
+				C56091291A10CEB600C48887 /* WLUser.m in Sources */,
 				C51910711A078248003C78B2 /* WLEntry.m in Sources */,
 				C54AF6AF19B8C491006F7EDB /* WLMessagesRequest.m in Sources */,
 				C54AF6B019B8C491006F7EDB /* WLSession.m in Sources */,
@@ -4815,6 +4848,7 @@
 				C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C504179419B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C51910511A078248003C78B2 /* WLComment.m in Sources */,
+				C56091231A10CE8800C48887 /* WLDevice.m in Sources */,
 				C57BDDBA19FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
 				C519106D1A078248003C78B2 /* WLEntry+Extended.m in Sources */,
 				C54AF6DF19B8C491006F7EDB /* WLAPIResponse.m in Sources */,
@@ -4825,7 +4859,6 @@
 				C54AF6E319B8C491006F7EDB /* NSObject+NibAdditions.m in Sources */,
 				C54AF6E419B8C491006F7EDB /* NSArray+Additions.m in Sources */,
 				C55C8D7F19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
-				C51910811A078248003C78B2 /* WLUser.m in Sources */,
 				C54AF6E519B8C491006F7EDB /* WLMenu.m in Sources */,
 				C54AF6E619B8C491006F7EDB /* UIView+QuatzCoreAnimations.m in Sources */,
 				C51910651A078248003C78B2 /* WLWrap+Extended.m in Sources */,
@@ -5256,9 +5289,10 @@
 		C5262C4F19E594DB0029E9B6 /* CoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C560913C1A110F4200C48887 /* CoreData 1.1.xcdatamodel */,
 				C5262C5019E594DB0029E9B6 /* CoreData.xcdatamodel */,
 			);
-			currentVersion = C5262C5019E594DB0029E9B6 /* CoreData.xcdatamodel */;
+			currentVersion = C560913C1A110F4200C48887 /* CoreData 1.1.xcdatamodel */;
 			path = CoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

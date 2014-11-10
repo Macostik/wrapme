@@ -29,11 +29,11 @@
     return entry;
 }
 
-+ (NSOrderedSet*)API_entries:(NSArray*)array {
++ (NSMutableOrderedSet*)API_entries:(NSArray*)array {
 	return [self API_entries:array relatedEntry:nil];
 }
 
-+ (NSOrderedSet *)API_entries:(NSArray *)array relatedEntry:(id)relatedEntry {
++ (NSMutableOrderedSet *)API_entries:(NSArray *)array relatedEntry:(id)relatedEntry {
 	return [[self API_entries:array relatedEntry:relatedEntry container:[NSMutableOrderedSet orderedSetWithCapacity:[array count]]] copy];
 }
 

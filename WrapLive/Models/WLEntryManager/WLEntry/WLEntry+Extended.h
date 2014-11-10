@@ -21,11 +21,11 @@
 
 + (instancetype)entry:(NSString *)identifier containingEntry:(WLEntry*)containingEntry;
 
-+ (NSOrderedSet*)API_entries:(NSArray*)array;
++ (NSMutableOrderedSet*)API_entries:(NSArray*)array;
 
 + (instancetype)API_entry:(NSDictionary*)dictionary;
 
-+ (NSOrderedSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry;
++ (NSMutableOrderedSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry;
 
 + (NSMutableOrderedSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry container:(NSMutableOrderedSet*)container;
 

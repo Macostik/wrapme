@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WLEntry+Extended.h"
 #import "WLUser+Extended.h"
+#import "WLDevice+Extended.h"
 #import "WLWrap+Extended.h"
 #import "WLCandy+Extended.h"
 #import "WLComment+Extended.h"

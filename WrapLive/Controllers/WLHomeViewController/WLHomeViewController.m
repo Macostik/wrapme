@@ -89,7 +89,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [section setChange:^(WLPaginatedSet* entries) {
         WLUser *user = [WLUser currentUser];
         weakSelf.isShowPlaceholder = entries.completed && ![entries.entries nonempty];
-        if (user.firstTimeUse.boolValue && [user.wraps match:^BOOL(WLWrap *wrap) {
+        if (user.firstTimeUse && [user.wraps match:^BOOL(WLWrap *wrap) {
             return !wrap.isDefault.boolValue;
         }]) {
             static dispatch_once_t onceToken;

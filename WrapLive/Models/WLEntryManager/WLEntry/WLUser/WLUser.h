@@ -2,24 +2,24 @@
 //  WLUser.h
 //  WrapLive
 //
-//  Created by Sergey Maximenko on 13.06.14.
-//  Copyright (c) 2014 Mobidev. All rights reserved.
+//  Created by Sergey Maximenko on 11/10/14.
+//  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "WLEntry.h"
 
-@class WLWrap, WLContribution;
+@class WLContribution, WLDevice, WLWrap;
 
-@interface WLUser : WLEntry 
+@interface WLUser : WLEntry
 
-@property (nonatomic, retain) NSNumber * current;
+@property (nonatomic) BOOL current;
+@property (nonatomic) BOOL firstTimeUse;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * firstTimeUse;
 @property (nonatomic, retain) NSMutableOrderedSet *contributions;
 @property (nonatomic, retain) NSMutableOrderedSet *wraps;
-
+@property (nonatomic, retain) NSMutableOrderedSet *devices;
 @end
 
 @interface WLUser (CoreDataGeneratedAccessors)
@@ -44,4 +44,9 @@
 - (void)removeWrapsObject:(WLWrap *)value;
 - (void)addWraps:(NSOrderedSet *)values;
 - (void)removeWraps:(NSOrderedSet *)values;
+- (void)addDevicesObject:(WLDevice *)value;
+- (void)removeDevicesObject:(WLDevice *)value;
+- (void)addDevices:(NSSet *)values;
+- (void)removeDevices:(NSSet *)values;
+
 @end

@@ -261,6 +261,10 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
     WLWrap* wrap = controller.wrap ? : self.wrap;
+    if (self.wrap != wrap) {
+        self.view = nil;
+        self.wrap = wrap;
+    }
     [wrap uploadPictures:pictures];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }

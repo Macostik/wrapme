@@ -160,8 +160,8 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
                                     [[WLDeleteWrapRequest request:self] send:^(id object) {
                                         if (success) success(object);
                                     } failure:failure];
-                                } else if (success) {
-                                    success(nil);
+                                } else if (failure) {
+                                    failure(nil);
                                 }
                             }];
         }   break;

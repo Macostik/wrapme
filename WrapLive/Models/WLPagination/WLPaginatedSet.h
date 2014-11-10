@@ -41,6 +41,10 @@
 
 - (void)configureRequest:(WLPaginatedRequest*)request;
 
+- (NSDate*)newerPaginationDate;
+
+- (NSDate*)olderPaginationDate;
+
 - (void)resetEntries:(NSOrderedSet*)entries;
 
 - (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;

@@ -72,11 +72,19 @@
     if (!self.entries.nonempty) {
         request.type = WLPaginatedRequestTypeFresh;
     } else {
-        WLEntry* firstEntry = [self.entries firstObject];
-        WLEntry* lastEntry = [self.entries lastObject];
-        request.newer = firstEntry.paginationDate;
-        request.older = lastEntry.paginationDate;
+        request.newer = [self newerPaginationDate];
+        request.older = [self olderPaginationDate];
     }
+}
+
+- (NSDate *)newerPaginationDate {
+    WLEntry* firstEntry = [self.entries firstObject];
+    return firstEntry.paginationDate;
+}
+
+- (NSDate *)olderPaginationDate {
+    WLEntry* lastEntry = [self.entries lastObject];
+    return lastEntry.paginationDate;
 }
 
 - (void)handleResponse:(NSOrderedSet*)entries success:(WLOrderedSetBlock)success {

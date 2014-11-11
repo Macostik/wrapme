@@ -23,6 +23,6 @@
 
 @interface WLNotification (WLSoundPlayer)
 
-- (void)playSound;
+- (void)playNotificationSound;
 
 @end

@@ -99,7 +99,7 @@ static void completionCallback (SystemSoundID  soundID, void *data) {
 
 @implementation  WLNotification (WLSoundPlayer)
 
-- (void)playSound {
+- (void)playNotificationSound {
     NSString *soundName = nil;
     switch (self.type) {
         case WLNotificationContributorAdd:

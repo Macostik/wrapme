@@ -582,18 +582,6 @@
                                                                 <constraint firstAttribute="height" constant="30" id="p5k-xS-pwF"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7zn-08-s2u">
-                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="60" id="CzI-3V-bHb"/>
-                                                            </constraints>
-                                                            <state key="normal">
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="select" destination="Pq6-uP-780" eventType="touchUpInside" id="nBI-Mq-iAw"/>
-                                                            </connections>
-                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -603,10 +591,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="p6K-Sc-xX4" secondAttribute="trailing" constant="12" id="BZe-54-6f3"/>
                                                         <constraint firstAttribute="height" constant="60" id="KHS-lZ-CHy"/>
                                                         <constraint firstAttribute="trailing" secondItem="XaE-0l-eeL" secondAttribute="trailing" constant="30" id="LCy-TO-NkG"/>
-                                                        <constraint firstItem="7zn-08-s2u" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" id="LHI-l6-3d3"/>
                                                         <constraint firstItem="XaE-0l-eeL" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="27" id="Sya-Ml-pNU"/>
-                                                        <constraint firstAttribute="trailing" secondItem="7zn-08-s2u" secondAttribute="trailing" id="ZkK-Yq-fjQ"/>
-                                                        <constraint firstItem="7zn-08-s2u" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" id="bdK-MA-fex"/>
                                                         <constraint firstItem="Mfp-4Z-sEV" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="10" id="i7i-ab-e8L"/>
                                                         <constraint firstAttribute="trailing" secondItem="Twb-Mn-vNw" secondAttribute="trailing" constant="30" id="rBw-l4-SNV"/>
                                                         <constraint firstAttribute="centerY" secondItem="p6K-Sc-xX4" secondAttribute="centerY" id="wue-XM-Tr3"/>
@@ -620,6 +605,15 @@
                                                         <constraint firstAttribute="height" constant="1" id="wF6-PG-Ar0"/>
                                                     </constraints>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9wL-yW-Tpm">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="274"/>
+                                                    <state key="normal">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="select" destination="Pq6-uP-780" eventType="touchUpInside" id="E4Y-ZO-xAr"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -631,10 +625,14 @@
                                             <constraint firstItem="lRI-cr-Q4O" firstAttribute="leading" secondItem="Pq6-uP-780" secondAttribute="leading" id="JUx-CC-ENU"/>
                                             <constraint firstItem="8Kg-Jf-uq1" firstAttribute="leading" secondItem="Pq6-uP-780" secondAttribute="leading" id="KzE-Fe-F5g"/>
                                             <constraint firstAttribute="trailing" secondItem="lRI-cr-Q4O" secondAttribute="trailing" id="N5X-OC-Whu"/>
+                                            <constraint firstItem="9wL-yW-Tpm" firstAttribute="top" secondItem="Pq6-uP-780" secondAttribute="top" id="aAH-UW-0nV"/>
+                                            <constraint firstAttribute="bottom" secondItem="9wL-yW-Tpm" secondAttribute="bottom" constant="3" id="dyg-mz-OZp"/>
                                             <constraint firstItem="rrl-ip-nxD" firstAttribute="leading" secondItem="Pq6-uP-780" secondAttribute="leading" id="fpn-Ph-hIF"/>
                                             <constraint firstItem="lRI-cr-Q4O" firstAttribute="top" secondItem="Pq6-uP-780" secondAttribute="top" constant="60" id="hSJ-aw-fN7"/>
                                             <constraint firstItem="8Kg-Jf-uq1" firstAttribute="top" secondItem="Pq6-uP-780" secondAttribute="top" id="iLE-ZZ-sN3"/>
+                                            <constraint firstAttribute="trailing" secondItem="9wL-yW-Tpm" secondAttribute="trailing" id="niz-82-M64"/>
                                             <constraint firstAttribute="trailing" secondItem="8Kg-Jf-uq1" secondAttribute="trailing" id="sod-oT-QBr"/>
+                                            <constraint firstItem="9wL-yW-Tpm" firstAttribute="leading" secondItem="Pq6-uP-780" secondAttribute="leading" id="v3v-jc-lEO"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="277"/>
                                         <connections>
@@ -3327,7 +3325,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WjR-f7-d7j"/>
+        <segue reference="tUX-Tk-kxb"/>
         <segue reference="USb-FQ-HhL"/>
     </inferredMetricsTieBreakers>
 </document>

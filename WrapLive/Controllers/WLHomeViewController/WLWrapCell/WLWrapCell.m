@@ -6,24 +6,23 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLWrapCell.h"
-#import "WLImageFetcher.h"
-#import "UIView+Shorthand.h"
-#import "UILabel+Additions.h"
-#import "UIAlertView+Blocks.h"
-#import "WLAPIManager.h"
+#import "NSObject+NibAdditions.h"
 #import "UIActionSheet+Blocks.h"
-#import "WLCandyCell.h"
+#import "UIAlertView+Blocks.h"
+#import "UILabel+Additions.h"
 #import "UIView+GestureRecognizing.h"
+#import "UIView+Shorthand.h"
+#import "WLAPIManager.h"
+#import "WLCandyCell.h"
+#import "WLCollectionViewDataProvider.h"
 #import "WLEntryManager.h"
 #import "WLEntryNotifier.h"
-#import "WLMenu.h"
-#import "NSObject+NibAdditions.h"
-#import "WLCollectionViewDataProvider.h"
 #import "WLHomeCandiesViewSection.h"
-#import "WLNotificationCenter.h"
+#import "WLImageFetcher.h"
 #import "WLNotification.h"
+#import "WLNotificationCenter.h"
 #import "WLSizeToFitLabel.h"
+#import "WLWrapCell.h"
 
 @interface WLWrapCell ()
 
@@ -33,7 +32,6 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
 @property (weak, nonatomic) IBOutlet WLSizeToFitLabel *wrapNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chatNotificationImageView;
-@property (strong, nonatomic) WLMenu* menu;
 @property (strong, nonatomic) WLCollectionViewDataProvider* candiesDataProvider;
 @property (strong, nonatomic) WLHomeCandiesViewSection* candiesDataSection;
 
@@ -47,32 +45,6 @@
     self.coverView.layer.shouldRasterize = YES;
     self.coverView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     self.contributorsLabel.numberOfLines = self.candiesView ? 1 : 2;
-    __weak typeof(self)weakSelf = self;
-    self.menu = [WLMenu menuWithView:self.candiesView ? self.nameLabel.superview : self configuration:^BOOL(WLMenu *menu) {
-        WLWrap* wrap = weakSelf.entry;
-        if ([wrap.contributor isCurrentUser]) {
-            [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:^{
-                weakSelf.userInteractionEnabled = NO;
-                [wrap remove:^(id object) {
-                    weakSelf.userInteractionEnabled = YES;
-                } failure:^(NSError *error) {
-                    [error show];
-                    weakSelf.userInteractionEnabled = YES;
-                }];
-            }];
-        } else {
-            [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_leave"] block:^{
-                weakSelf.userInteractionEnabled = NO;
-                [wrap leave:^(id object) {
-                    weakSelf.userInteractionEnabled = YES;
-                } failure:^(NSError *error) {
-                    [error show];
-                    weakSelf.userInteractionEnabled = YES;
-                }];
-            }];
-        }
-        return YES;
-    }];
     
     if (self.candiesView) {
         UICollectionViewFlowLayout* layout = (id)self.candiesView.collectionViewLayout;

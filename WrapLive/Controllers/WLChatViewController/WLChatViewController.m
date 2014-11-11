@@ -59,6 +59,8 @@ CGFloat WLMaxTextViewWidth;
 
 @property (strong, nonatomic) UIFont* messageFont;
 
+@property (weak, nonatomic) WLRefresher* refresher;
+
 @end
 
 @implementation WLChatViewController
@@ -83,8 +85,7 @@ CGFloat WLMaxTextViewWidth;
 	[super viewDidLoad];
     
     [self updateEdgeInsets:0];
-    [WLRefresher refresher:collectionView target:self action:@selector(refreshMessages:) style:WLRefresherStyleOrange];
-    [self updateEdgeInsets:216];
+    self.refresher = [WLRefresher refresher:collectionView target:self action:@selector(refreshMessages:) style:WLRefresherStyleOrange];
     
     collectionView.contentOffset = CGPointMake(0, -self.composeBar.height);
     
@@ -103,9 +104,9 @@ CGFloat WLMaxTextViewWidth;
     }];
 	
 	self.composeBar.placeholder = @"Write your message ...";
-    self.chat = [[WLChat alloc] init];
+    self.chat = [WLChat chatWithWrap:self.wrap];
     self.chat.delegate = self;
-    self.chat.wrap = self.wrap;
+
     if (self.wrap.messages.nonempty) {
         [self refreshMessages:^{
         } failure:^(NSError *error) {
@@ -125,11 +126,12 @@ CGFloat WLMaxTextViewWidth;
     collectionView.contentInset = insets;
     insets.right = collectionView.width - 6;
     collectionView.scrollIndicatorInsets = insets;
-    [self.layout invalidateLayout];
+    [self.layout invalidate];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.collectionView reloadData];
     [self.composeBar becomeFirstResponder];
 }
 
@@ -142,13 +144,21 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
     [super keyboardWillShow:keyboard];
-    [self updateEdgeInsets:keyboard.height];
-    [self.collectionView scrollToTopAnimated:self.viewAppeared];
+    
+    [UIView performWithoutAnimation:^{
+        [self updateEdgeInsets:keyboard.height];
+        [self.collectionView scrollToTopAnimated:self.viewAppeared];
+    }];
+    
+    self.refresher.enabled = NO;
 }
 
 - (void)keyboardWillHide:(WLKeyboard *)keyboard {
     [super keyboardWillHide:keyboard];
-    [self updateEdgeInsets:0];
+    [UIView performWithoutAnimation:^{
+        [self updateEdgeInsets:0];
+    }];
+    self.refresher.enabled = YES;
 }
 
 - (void)insertMessage:(WLMessage*)message {
@@ -211,6 +221,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)paginatedSetChanged:(WLPaginatedSet *)group {
     [self.collectionView reloadData];
+    [self.layout invalidate];
 }
 
 #pragma mark - WLEntryNotifyReceiver
@@ -247,6 +258,7 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
+//    self.wrap.messages = nil;
     [self.composeBar resignFirstResponder];
     self.typing = NO;
     if (self.wrap.valid) {
@@ -326,7 +338,7 @@ CGFloat WLMaxTextViewWidth;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLMessageCell* cell = nil;
     NSString* cellIdentifier = nil;
-    if (!indexPath.section) {
+    if (indexPath.section == 0) {
         WLTypingViewCell* typingView = [collectionView dequeueReusableCellWithReuseIdentifier:@"WLTypingView" forIndexPath:indexPath];
         typingView.names = self.chat.typingNames;
         cell = (id)typingView;
@@ -396,7 +408,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (!indexPath.section ) {
+    if (indexPath.section == 0) {
         return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont regularFontOfSize:14] width:WLMaxTextViewWidth cachingKey:"typingViewHeight"]));
     }
 
@@ -407,7 +419,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    if (!section) {
+    if (section == 0) {
         return CGSizeZero;
     }
     WLPaginatedSet *group = [self.chat.entries tryObjectAtIndex:section - 1];

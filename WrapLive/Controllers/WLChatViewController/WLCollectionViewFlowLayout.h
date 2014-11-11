@@ -12,6 +12,6 @@
 
 @property (nonatomic, readonly) CGFloat inset;
 
-- (CGAffineTransform)adjustmentTransform:(CGFloat)inset;
+- (void)invalidate;
 
 @end

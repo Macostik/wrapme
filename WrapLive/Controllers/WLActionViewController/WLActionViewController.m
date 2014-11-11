@@ -48,7 +48,7 @@
 
 + (id)addViewControllerAsDelegateByClass:(Class)class toParentViewController:(UIViewController *)viewController {
     id childViewController = [self addViewControllerByClass:class toParentViewController:viewController];
-    __block WLStillPictureViewController *stillPictureVC = (WLStillPictureViewController *)viewController;
+    __weak WLStillPictureViewController *stillPictureVC = (WLStillPictureViewController *)viewController;
     stillPictureVC.delegate = childViewController;
     
     [childViewController setCompletionBlock:^{

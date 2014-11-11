@@ -10,22 +10,34 @@
 #import "UIView+Shorthand.h"
 #import "UIScrollView+Additions.h"
 
+@interface WLCollectionViewFlowLayout ()
+
+@property (strong, nonatomic) UICollectionViewFlowLayoutInvalidationContext* invalidationContext;
+
+@end
+
 @implementation WLCollectionViewFlowLayout
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    UICollectionViewFlowLayoutInvalidationContext* context = [[UICollectionViewFlowLayoutInvalidationContext alloc] init];
+    context.invalidateFlowLayoutDelegateMetrics = YES;
+    context.invalidateFlowLayoutAttributes = YES;
+    self.invalidationContext = context;
+}
+
+- (void)invalidate {
+    [self invalidateLayoutWithContext:self.invalidationContext];
+}
+
 - (CGFloat)inset {
-//    return 0;
     UICollectionView* cv = self.collectionView;
     CGFloat height = (cv.height - cv.verticalContentInsets);
-    return MAX(0, height - cv.contentSize.height);
+    return MAX(0, height - [self collectionViewContentSize].height);
 }
 
 - (CGAffineTransform)adjustmentTransform:(CGFloat)inset {
-    NSLog(@"inset = %f", inset);
-    CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI);
-    if (inset > 0) {
-        transform = CGAffineTransformTranslate(transform, 0, -inset);
-    }
-    return transform;
+    return inset > 0 ? CGAffineTransformTranslate(self.collectionView.transform, 0, -inset) : self.collectionView.transform;
 }
 
 - (UICollectionViewLayoutAttributes *)adjustAttributes:(UICollectionViewLayoutAttributes *)attributes transform:(CGAffineTransform)transform {
@@ -34,15 +46,6 @@
 	}
 	return attributes;
 }
-
-//- (void)prepareLayout {
-//    [super prepareLayout];
-//    NSArray* attributes = [self layoutAttributesForElementsInRect:self.collectionView.bounds];
-//    CGAffineTransform transform = [self adjustmentTransform:self.inset];
-//    for (UICollectionViewLayoutAttributes* attr in attributes) {
-//        [self adjustAttributes:attr transform:transform];
-//    }
-//}
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGAffineTransform transform = [self adjustmentTransform:self.inset];
@@ -61,19 +64,6 @@
 		[self adjustAttributes:attr transform:transform];
 	}
 	return attributes;
-}
-
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
-    return YES;
-}
-
-- (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
-    UICollectionViewFlowLayoutInvalidationContext* context = (id)[super invalidationContextForBoundsChange:newBounds];
-    if (!context.invalidateEverything) {
-        context.invalidateFlowLayoutDelegateMetrics = YES;
-        context.invalidateFlowLayoutAttributes = YES;
-    }
-    return context;
 }
 
 @end

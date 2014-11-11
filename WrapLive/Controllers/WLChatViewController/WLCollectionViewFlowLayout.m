@@ -36,11 +36,11 @@
     return MAX(0, height - [self collectionViewContentSize].height);
 }
 
-- (CGAffineTransform)adjustmentTransform:(CGFloat)inset {
-    return inset > 0 ? CGAffineTransformTranslate(self.collectionView.transform, 0, -inset) : self.collectionView.transform;
-}
-
-- (UICollectionViewLayoutAttributes *)adjustAttributes:(UICollectionViewLayoutAttributes *)attributes transform:(CGAffineTransform)transform {
+- (UICollectionViewLayoutAttributes *)adjustAttributes:(UICollectionViewLayoutAttributes *)attributes inset:(CGFloat)inset {
+    CGAffineTransform transform = self.collectionView.transform;
+    if (inset > 0 && attributes.indexPath.section != 0) {
+        transform = CGAffineTransformTranslate(transform, 0, -inset);
+    }
 	if (!CGAffineTransformEqualToTransform(attributes.transform, transform)) {
 		attributes.transform = transform;
 	}
@@ -48,20 +48,18 @@
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGAffineTransform transform = [self adjustmentTransform:self.inset];
-	return [self adjustAttributes:[super layoutAttributesForItemAtIndexPath:indexPath] transform:transform];
+	return [self adjustAttributes:[super layoutAttributesForItemAtIndexPath:indexPath] inset:self.inset];
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    CGAffineTransform transform = [self adjustmentTransform:self.inset];
-	return [self adjustAttributes:[super layoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath] transform:transform];
+	return [self adjustAttributes:[super layoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath] inset:self.inset];
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
 	NSArray* attributes = [super layoutAttributesForElementsInRect:rect];
-    CGAffineTransform transform = [self adjustmentTransform:self.inset];
+    CGFloat inset = self.inset;
 	for (UICollectionViewLayoutAttributes* attr in attributes) {
-		[self adjustAttributes:attr transform:transform];
+		[self adjustAttributes:attr inset:inset];
 	}
 	return attributes;
 }

@@ -2017,29 +2017,14 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="54"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  sdf dfsa fsd fsdf sdjfh dsfjsd afjsd fjdsf jsdf sdjfdsfsadf sdfasdf sdf sadfsd" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dW-gY-pJQ">
-                                        <rect key="frame" x="54" y="12" width="261" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="wuq-en-3dX"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
+                                        <rect key="frame" x="8" y="12" width="304" height="30"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6oc-Uo-WSi">
-                                        <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="54" id="NJY-KW-No9"/>
-                                            <constraint firstAttribute="width" constant="54" id="rK4-xE-ZsJ"/>
-                                        </constraints>
-                                        <state key="normal" image="btn_add_peaples_enabled">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="2bk-UF-zkR" kind="custom" identifier="wrap-&gt;wrap" customClass="WLSetValueSegue" id="Opb-sv-VME"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSv-FG-iwF">
-                                        <rect key="frame" x="54" y="0.0" width="261" height="54"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -2050,16 +2035,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="zSv-FG-iwF" firstAttribute="leading" secondItem="6oc-Uo-WSi" secondAttribute="trailing" id="AUt-eo-fx5"/>
+                                    <constraint firstItem="zSv-FG-iwF" firstAttribute="top" secondItem="6dW-gY-pJQ" secondAttribute="top" constant="-12" id="1Un-iH-CCb"/>
+                                    <constraint firstItem="zSv-FG-iwF" firstAttribute="leading" secondItem="6dW-gY-pJQ" secondAttribute="leading" constant="-8" id="A75-Zt-mFU"/>
                                     <constraint firstAttribute="bottom" secondItem="zSv-FG-iwF" secondAttribute="bottom" id="FlX-em-5Ie"/>
-                                    <constraint firstItem="6dW-gY-pJQ" firstAttribute="leading" secondItem="6oc-Uo-WSi" secondAttribute="trailing" id="ND7-tg-Re0"/>
-                                    <constraint firstItem="6oc-Uo-WSi" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" id="R9m-9O-zw8"/>
-                                    <constraint firstAttribute="trailing" secondItem="zSv-FG-iwF" secondAttribute="trailing" constant="5" id="SO0-iB-hm7"/>
+                                    <constraint firstItem="zSv-FG-iwF" firstAttribute="leading" secondItem="aqT-yE-MER" secondAttribute="leading" id="NtL-FG-bO6"/>
+                                    <constraint firstAttribute="trailing" secondItem="zSv-FG-iwF" secondAttribute="trailing" id="SO0-iB-hm7"/>
                                     <constraint firstAttribute="height" constant="54" id="W9F-ez-KqY"/>
-                                    <constraint firstItem="6oc-Uo-WSi" firstAttribute="leading" secondItem="aqT-yE-MER" secondAttribute="leading" id="XAz-s5-c91"/>
-                                    <constraint firstAttribute="trailing" secondItem="6dW-gY-pJQ" secondAttribute="trailing" constant="5" id="caW-WR-PtW"/>
+                                    <constraint firstItem="zSv-FG-iwF" firstAttribute="centerY" secondItem="6dW-gY-pJQ" secondAttribute="centerY" id="eB1-G0-YCH"/>
                                     <constraint firstItem="zSv-FG-iwF" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" id="g48-ZH-sWx"/>
-                                    <constraint firstItem="6dW-gY-pJQ" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" constant="12" id="w2T-78-DVw"/>
+                                    <constraint firstItem="zSv-FG-iwF" firstAttribute="centerX" secondItem="6dW-gY-pJQ" secondAttribute="centerX" id="v4A-FA-vHX"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b0w-IA-ZYu">
@@ -3200,15 +3184,31 @@ Check your internet connection and try again.</string>
                                         <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n9Y-zG-MMt">
+                                        <rect key="frame" x="266" y="20" width="54" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="2Tg-Zr-QSg"/>
+                                            <constraint firstAttribute="width" constant="54" id="gCa-RC-0Ry"/>
+                                        </constraints>
+                                        <state key="normal" image="add_contributor_enabled">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" image="add_contributor_pressed"/>
+                                        <connections>
+                                            <segue destination="2bk-UF-zkR" kind="custom" identifier="wrap-&gt;wrap" customClass="WLSetValueSegue" id="BBd-b9-H2Z"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="s5o-k3-mbE" secondAttribute="trailing" constant="75" id="3cL-8H-r8r"/>
                                     <constraint firstItem="s5o-k3-mbE" firstAttribute="top" secondItem="2R6-MR-eF4" secondAttribute="top" constant="20" id="41m-33-4RF"/>
+                                    <constraint firstItem="n9Y-zG-MMt" firstAttribute="top" secondItem="2R6-MR-eF4" secondAttribute="top" constant="20" id="4ql-Hr-n6T"/>
                                     <constraint firstItem="ShV-37-6kI" firstAttribute="leading" secondItem="2R6-MR-eF4" secondAttribute="leading" id="kkw-ga-QmZ"/>
                                     <constraint firstItem="ShV-37-6kI" firstAttribute="top" secondItem="2R6-MR-eF4" secondAttribute="top" constant="20" id="pEg-sm-MHu"/>
                                     <constraint firstAttribute="height" constant="64" id="uOJ-Jm-czg"/>
                                     <constraint firstItem="s5o-k3-mbE" firstAttribute="leading" secondItem="2R6-MR-eF4" secondAttribute="leading" constant="75" id="utf-r8-Xfu"/>
+                                    <constraint firstAttribute="trailing" secondItem="n9Y-zG-MMt" secondAttribute="trailing" id="xQS-oa-Pxv"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYf-Sg-pHd" customClass="WLPressButton">
@@ -3291,7 +3291,8 @@ Check your internet connection and try again.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="btn_add_peaples_enabled" width="30" height="30"/>
+        <image name="add_contributor_enabled" width="36" height="36"/>
+        <image name="add_contributor_pressed" width="40" height="40"/>
         <image name="btn_chat_white_enabled" width="30" height="30"/>
         <image name="btn_wrap_camera_enabled" width="84" height="84"/>
         <image name="btn_wrap_camera_pressed" width="84" height="84"/>
@@ -3326,7 +3327,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="H4Y-Sv-3mh"/>
-        <segue reference="tCH-h8-hRc"/>
+        <segue reference="WjR-f7-d7j"/>
+        <segue reference="USb-FQ-HhL"/>
     </inferredMetricsTieBreakers>
 </document>

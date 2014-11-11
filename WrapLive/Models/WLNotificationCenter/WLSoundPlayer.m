@@ -62,7 +62,7 @@ static BOOL playing = NO;
     return sounds;
 }
 
-+ (void)playByName:(NSString *)nameSound {
++ (void)playSoundByName:(NSString *)nameSound {
     if (nameSound.nonempty) {
         NSMapTable *sounds = [self sounds];
         SystemSoundID soundID = [[sounds objectForKey:nameSound] intValue];
@@ -88,11 +88,11 @@ static void completionCallback (SystemSoundID  soundID, void *data) {
 
 @end
 
-@implementation  UIViewController (WLSoundPlayer)
+@implementation WLEntry (WLSoundPlayer)
 
 - (void)playSoundBySendEvent {
     NSString *soundName = WLPlaySoundType(WLSendMessage);
-    [WLSoundPlayer playByName:soundName];
+    [WLSoundPlayer playSoundByName:soundName];
 }
 
 @end
@@ -116,7 +116,7 @@ static void completionCallback (SystemSoundID  soundID, void *data) {
             soundName = WLPlaySoundType(WLNotSound);
             break;
     }
-    [WLSoundPlayer playByName:soundName];
+    [WLSoundPlayer playSoundByName:soundName];
 }
 
 @end

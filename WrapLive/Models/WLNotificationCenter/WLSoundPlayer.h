@@ -11,11 +11,11 @@
 
 @interface WLSoundPlayer : NSObject
 
-+ (void)playByName:(NSString *)nameSound;
++ (void)playSoundByName:(NSString *)nameSound;
 
 @end
 
-@interface UIViewController (WLSoundPlayer)
+@interface WLEntry (WLSoundPlayer)
 
 - (void)playSoundBySendEvent;
 

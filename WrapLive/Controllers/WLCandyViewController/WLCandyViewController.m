@@ -281,7 +281,7 @@
     WLCandy* image = self.candy;
 	__weak typeof(self)weakSelf = self;
     [image uploadComment:text success:^(WLComment *comment) {
-        [weakSelf playSoundBySendEvent];
+        [comment playSoundBySendEvent];
     } failure:^(NSError *error) {
     }];
     run_after(0.1,^{

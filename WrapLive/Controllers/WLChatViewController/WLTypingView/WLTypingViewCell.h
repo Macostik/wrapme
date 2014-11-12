@@ -11,7 +11,7 @@
 
 static CGFloat WLTypingViewMinHeight = 20.0f;
 
-@interface WLTypingViewCell : UICollectionViewCell
+@interface WLTypingViewCell : UICollectionReusableView
 
 - (void)setNames:(NSString *)names;
 

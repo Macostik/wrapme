@@ -28,6 +28,7 @@
     if (self) {
         self.entries = [NSMutableOrderedSet orderedSet];
         self.sortComparator = comparatorByUpdatedAt;
+        self.sortDescending = YES;
     }
     return self;
 }
@@ -35,8 +36,7 @@
 - (void)resetEntries:(NSOrderedSet *)entries {
     [self.entries removeAllObjects];
     [self.entries unionOrderedSet:entries];
-    [self.entries sortByUpdatedAt];
-    [self.delegate paginatedSetChanged:self];
+    [self sort];
 }
 
 - (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
@@ -121,7 +121,7 @@
     if ([self.entries containsObject:entry]) {
         return NO;
     }
-    [self.entries addObject:entry comparator:self.sortComparator descending:YES];
+    [self.entries addObject:entry comparator:self.sortComparator descending:self.sortDescending];
     [self.delegate paginatedSetChanged:self];
     return YES;
 }
@@ -134,7 +134,7 @@
 }
 
 - (void)sort {
-    [self.entries sort:self.sortComparator];
+    [self.entries sort:self.sortComparator descending:self.sortDescending];
     [self.delegate paginatedSetChanged:self];
 }
 

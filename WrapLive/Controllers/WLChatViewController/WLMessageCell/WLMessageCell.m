@@ -20,6 +20,7 @@
 #import "UIFont+CustomFonts.h"
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLMessageCell ()
 
@@ -39,6 +40,18 @@
     self.messageTextView.textContainerInset = self.nameLabel ? UIEdgeInsetsMake(14, 0, 0, 0) : UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
+- (void)setShowDay:(BOOL)showDay {
+    if (_showDay != showDay) {
+        _showDay = showDay;
+        self.timeLabel.textColor = showDay ? [UIColor WL_orangeColor] : [UIColor WL_grayColor];
+        if (self.timeLabel.x > self.messageTextView.x) {
+            self.timeLabel.textAlignment = showDay ? NSTextAlignmentRight : NSTextAlignmentLeft;
+        } else {
+            self.timeLabel.textAlignment = showDay ? NSTextAlignmentLeft : NSTextAlignmentRight;
+        }
+    }
+}
+
 - (void)setup:(WLMessage*)message {
     
     if (self.avatarView) {
@@ -55,7 +68,12 @@
     if (self.nameLabel) {
         self.nameLabel.text = message.contributor.name;
     }
-	self.timeLabel.text = [message.createdAt stringWithFormat:@"HH:mm"];
+	
+    if (self.showDay) {
+        self.timeLabel.text = [message.createdAt stringWithFormat:@"MMM d, yyyy HH:mm"];
+    } else {
+        self.timeLabel.text = [message.createdAt stringWithFormat:@"HH:mm"];
+    }
     
     self.messageTextView.text = message.text;
     

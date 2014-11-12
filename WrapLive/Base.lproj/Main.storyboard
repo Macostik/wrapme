@@ -2678,7 +2678,7 @@ Check your internet connection and try again.</string>
                                                         <constraint firstAttribute="width" constant="50" id="P0S-1X-Xlx"/>
                                                     </constraints>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="ZtA-QP-5Cy">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtA-QP-5Cy">
                                                     <rect key="frame" x="66" y="5" width="188" height="15"/>
                                                     <color key="backgroundColor" red="0.83416986731843579" green="0.83416986731843579" blue="0.83416986731843579" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -2795,7 +2795,7 @@ Check your internet connection and try again.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="CgH-gR-3Aw">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CgH-gR-3Aw">
                                                     <rect key="frame" x="66" y="0.0" width="188" height="30"/>
                                                     <color key="backgroundColor" red="0.83416986731843579" green="0.83416986731843579" blue="0.83416986731843579" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>

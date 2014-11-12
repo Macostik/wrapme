@@ -41,10 +41,10 @@
 - (void)addTypingUser:(WLUser*)user;
 
 - (void)removeTypingUser:(WLUser*)user;
-
-- (void)addMessage:(WLMessage *)message;
-- (BOOL)addMessages:(NSOrderedSet *)messages isNewer:(BOOL)newer;
-- (void)sort;
+//
+//- (void)addMessage:(WLMessage *)message;
+//- (BOOL)addMessages:(NSOrderedSet *)messages isNewer:(BOOL)newer;
+//- (void)sort;
 
 @end
 

@@ -23,6 +23,7 @@
 
 + (instancetype)chatWithWrap:(WLWrap *)wrap {
     WLChat* chat = [[self alloc] init];
+    chat.sortComparator = comparatorByCreatedAt;
     chat.wrap = wrap;
     return chat;
 }
@@ -74,60 +75,60 @@
     return [names stringByAppendingString:@" is typing..."];
 }
 
-- (void)addMessage:(WLMessage *)message {
-    WLUser *contributor = message.contributor;
-    if ([self.typingUsers containsObject:contributor]) {
-        [self.typingUsers removeObject:contributor];
-    }
-    if ([self.sendMessageUsers containsObject:contributor]) {
-        [self.sendMessageUsers removeObject:contributor];
-    }
-    [[self addMessage:message isNewer:YES].entries sortByCreatedAt];
-    [self.delegate paginatedSetChanged:self];
-}
-
-- (WLPaginatedSet*)addMessage:(WLMessage *)message isNewer:(BOOL)newer  {
-    WLPaginatedSet *group = newer ? self.entries.firstObject : self.entries.lastObject;
-    if (![self message:message canBeAddedToGroup:group]) {
-        group = [[WLPaginatedSet alloc] init];
-        if (newer) {
-            [self.entries insertObject:group atIndex:0];
-        } else {
-            [self.entries addObject:group];
-        }
-    }
-    [group.entries addObject:message];
-    return group;
-}
-
-- (BOOL)addMessages:(NSOrderedSet *)messages isNewer:(BOOL)newer {
-    if (!messages.nonempty) return NO;
-    messages = [messages mutableCopy];
-    [(NSMutableOrderedSet *)messages sortByCreatedAt:YES];
-    for (WLMessage* message in messages) {
-        [self addMessage:message isNewer:newer];
-    }
-    [self sort];
-    [self.delegate paginatedSetChanged:self];
-    return YES;
-}
-
-- (void)sort {
-    [self.entries sort:comparatorByDate descending:YES];
-}
-
-- (void)resetEntries:(NSOrderedSet *)entries {
-    [self.entries removeAllObjects];
-    [self addMessages:entries isNewer:NO];
-}
-
-- (BOOL)message:(WLMessage*)message canBeAddedToGroup:(WLPaginatedSet*)group {
-    if (group == nil) return NO;
-    if (!group.entries.nonempty) return YES;
-    if ([group.entries.firstObject contributor] != message.contributor) return NO;
-    if (![[group date] isSameDay:message.createdAt]) return NO;
-    return YES;
-}
+//- (void)addMessage:(WLMessage *)message {
+//    WLUser *contributor = message.contributor;
+//    if ([self.typingUsers containsObject:contributor]) {
+//        [self.typingUsers removeObject:contributor];
+//    }
+//    if ([self.sendMessageUsers containsObject:contributor]) {
+//        [self.sendMessageUsers removeObject:contributor];
+//    }
+//    [[self addMessage:message isNewer:YES].entries sortByCreatedAt];
+//    [self.delegate paginatedSetChanged:self];
+//}
+//
+//- (WLPaginatedSet*)addMessage:(WLMessage *)message isNewer:(BOOL)newer  {
+//    WLPaginatedSet *group = newer ? self.entries.firstObject : self.entries.lastObject;
+//    if (![self message:message canBeAddedToGroup:group]) {
+//        group = [[WLPaginatedSet alloc] init];
+//        if (newer) {
+//            [self.entries insertObject:group atIndex:0];
+//        } else {
+//            [self.entries addObject:group];
+//        }
+//    }
+//    [group.entries addObject:message];
+//    return group;
+//}
+//
+//- (BOOL)addMessages:(NSOrderedSet *)messages isNewer:(BOOL)newer {
+//    if (!messages.nonempty) return NO;
+//    messages = [messages mutableCopy];
+//    [(NSMutableOrderedSet *)messages sortByCreatedAt:YES];
+//    for (WLMessage* message in messages) {
+//        [self addMessage:message isNewer:newer];
+//    }
+//    [self sort];
+//    [self.delegate paginatedSetChanged:self];
+//    return YES;
+//}
+//
+//- (void)sort {
+//    [self.entries sort:comparatorByDate descending:YES];
+//}
+//
+//- (void)resetEntries:(NSOrderedSet *)entries {
+//    [self.entries removeAllObjects];
+//    [self addMessages:entries isNewer:NO];
+//}
+//
+//- (BOOL)message:(WLMessage*)message canBeAddedToGroup:(WLPaginatedSet*)group {
+//    if (group == nil) return NO;
+//    if (!group.entries.nonempty) return YES;
+//    if ([group.entries.firstObject contributor] != message.contributor) return NO;
+//    if (![[group date] isSameDay:message.createdAt]) return NO;
+//    return YES;
+//}
 
 - (BOOL)showTypingView {
     return self.typingUsers.nonempty || self.sendMessageUsers.nonempty;

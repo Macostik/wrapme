@@ -2693,8 +2693,8 @@ Check your internet connection and try again.</string>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </textView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttQ-8O-OkP">
-                                                    <rect key="frame" x="30" y="5" width="26" height="16"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttQ-8O-OkP">
+                                                    <rect key="frame" x="10" y="5" width="46" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2703,14 +2703,16 @@ Check your internet connection and try again.</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="ZtA-QP-5Cy" firstAttribute="centerY" secondItem="ttQ-8O-OkP" secondAttribute="centerY" id="8ch-GY-B8e"/>
+                                            <constraint firstItem="ttQ-8O-OkP" firstAttribute="centerY" secondItem="ZtA-QP-5Cy" secondAttribute="centerY" id="0CA-Zj-VrN"/>
                                             <constraint firstAttribute="bottom" secondItem="ZtA-QP-5Cy" secondAttribute="bottom" constant="37" id="8jX-ln-3N7"/>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="top" secondItem="blg-MX-zu0" secondAttribute="top" constant="5" id="Am4-sz-dMl"/>
+                                            <constraint firstItem="ttQ-8O-OkP" firstAttribute="leading" secondItem="blg-MX-zu0" secondAttribute="leading" constant="10" id="H0Q-Lu-vVc"/>
                                             <constraint firstItem="nCf-It-uXS" firstAttribute="leading" secondItem="ZtA-QP-5Cy" secondAttribute="trailing" constant="11" id="O2T-XD-fLN"/>
                                             <constraint firstAttribute="trailing" secondItem="ZtA-QP-5Cy" secondAttribute="trailing" constant="66" id="TOA-wY-wAp"/>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="top" secondItem="nCf-It-uXS" secondAttribute="top" id="V0j-zI-qYA"/>
                                             <constraint firstAttribute="trailing" secondItem="nCf-It-uXS" secondAttribute="trailing" constant="5" id="Vg9-TM-3jX"/>
                                             <constraint firstItem="nCf-It-uXS" firstAttribute="top" secondItem="blg-MX-zu0" secondAttribute="top" constant="5" id="gak-WX-KfC"/>
+                                            <constraint firstItem="ttQ-8O-OkP" firstAttribute="height" secondItem="ZtA-QP-5Cy" secondAttribute="height" id="tsM-Xw-tw8"/>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="leading" secondItem="blg-MX-zu0" secondAttribute="leading" constant="66" id="vRB-qt-Q1w"/>
                                             <constraint firstItem="ZtA-QP-5Cy" firstAttribute="leading" secondItem="ttQ-8O-OkP" secondAttribute="trailing" constant="10" id="x2L-nb-87D"/>
                                         </constraints>
@@ -2751,8 +2753,8 @@ Check your internet connection and try again.</string>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </textView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDu-zS-cNB">
-                                                    <rect key="frame" x="272" y="14" width="26" height="16"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDu-zS-cNB">
+                                                    <rect key="frame" x="272" y="8" width="38" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2770,12 +2772,14 @@ Check your internet connection and try again.</string>
                                             <constraint firstItem="cyg-xG-bc1" firstAttribute="leading" secondItem="HUe-Pv-h6W" secondAttribute="leading" constant="-5" id="0dO-7J-kPM"/>
                                             <constraint firstItem="BDu-zS-cNB" firstAttribute="leading" secondItem="cyg-xG-bc1" secondAttribute="trailing" constant="10" id="6rh-OA-dQh"/>
                                             <constraint firstAttribute="trailing" secondItem="cyg-xG-bc1" secondAttribute="trailing" constant="58" id="DbD-aF-OYP"/>
+                                            <constraint firstAttribute="trailing" secondItem="BDu-zS-cNB" secondAttribute="trailing" constant="10" id="GQW-hf-3Tx"/>
                                             <constraint firstAttribute="bottom" secondItem="cyg-xG-bc1" secondAttribute="bottom" constant="18" id="H49-W0-Exu"/>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="5" id="XTb-o9-EII"/>
-                                            <constraint firstItem="cyg-xG-bc1" firstAttribute="centerY" secondItem="BDu-zS-cNB" secondAttribute="centerY" constant="1" id="aD5-Lt-J7B"/>
+                                            <constraint firstItem="cyg-xG-bc1" firstAttribute="centerY" secondItem="BDu-zS-cNB" secondAttribute="centerY" id="aD5-Lt-J7B"/>
                                             <constraint firstItem="cyg-xG-bc1" firstAttribute="leading" secondItem="YII-6v-9r6" secondAttribute="trailing" constant="11" id="aV9-eE-aQF"/>
                                             <constraint firstItem="cyg-xG-bc1" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="66" id="ari-l8-Kyv"/>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" constant="5" id="cox-Pp-syl"/>
+                                            <constraint firstItem="BDu-zS-cNB" firstAttribute="height" secondItem="cyg-xG-bc1" secondAttribute="height" id="e4b-Tu-SIc"/>
                                             <constraint firstItem="HUe-Pv-h6W" firstAttribute="top" secondItem="cyg-xG-bc1" secondAttribute="top" id="sU9-Jn-5sH"/>
                                             <constraint firstItem="cyg-xG-bc1" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" constant="8" id="vEL-DL-4YR"/>
                                         </constraints>
@@ -2810,8 +2814,8 @@ Check your internet connection and try again.</string>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </textView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fwY-Hr-qoE">
-                                                    <rect key="frame" x="30" y="9" width="26" height="16"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fwY-Hr-qoE">
+                                                    <rect key="frame" x="10" y="0.0" width="46" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2821,11 +2825,13 @@ Check your internet connection and try again.</string>
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="CgH-gR-3Aw" secondAttribute="trailing" constant="66" id="4au-je-lPc"/>
-                                            <constraint firstItem="fwY-Hr-qoE" firstAttribute="centerY" secondItem="CgH-gR-3Aw" secondAttribute="centerY" constant="2" id="77V-dW-roS"/>
+                                            <constraint firstItem="fwY-Hr-qoE" firstAttribute="centerY" secondItem="CgH-gR-3Aw" secondAttribute="centerY" id="77V-dW-roS"/>
+                                            <constraint firstItem="CgH-gR-3Aw" firstAttribute="height" secondItem="fwY-Hr-qoE" secondAttribute="height" id="QUg-Kg-0bv"/>
                                             <constraint firstItem="CgH-gR-3Aw" firstAttribute="leading" secondItem="fwY-Hr-qoE" secondAttribute="trailing" constant="10" id="Uvs-KE-ooH"/>
                                             <constraint firstItem="CgH-gR-3Aw" firstAttribute="top" secondItem="ivg-aY-e4W" secondAttribute="top" id="VAM-ku-c32"/>
                                             <constraint firstItem="CgH-gR-3Aw" firstAttribute="leading" secondItem="ivg-aY-e4W" secondAttribute="leading" constant="66" id="b6n-Zu-Tgd"/>
                                             <constraint firstAttribute="bottom" secondItem="CgH-gR-3Aw" secondAttribute="bottom" constant="10" id="emR-1T-jBw"/>
+                                            <constraint firstItem="fwY-Hr-qoE" firstAttribute="leading" secondItem="ivg-aY-e4W" secondAttribute="leading" constant="10" id="kt8-Hr-3AP"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="40"/>
                                         <connections>
@@ -2856,8 +2862,8 @@ Check your internet connection and try again.</string>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </textView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QL5-oM-FJ6">
-                                                    <rect key="frame" x="264" y="9" width="26" height="16"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QL5-oM-FJ6">
+                                                    <rect key="frame" x="264" y="0.0" width="46" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2866,11 +2872,13 @@ Check your internet connection and try again.</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="QL5-oM-FJ6" firstAttribute="height" secondItem="xF8-7i-x7W" secondAttribute="height" id="45f-Hf-35v"/>
                                             <constraint firstItem="xF8-7i-x7W" firstAttribute="leading" secondItem="zi4-Ct-o5G" secondAttribute="leading" constant="66" id="77r-NY-iYJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="QL5-oM-FJ6" secondAttribute="trailing" constant="10" id="FlL-zf-djy"/>
                                             <constraint firstItem="xF8-7i-x7W" firstAttribute="top" secondItem="zi4-Ct-o5G" secondAttribute="top" id="QtH-dQ-ndz"/>
                                             <constraint firstAttribute="bottom" secondItem="xF8-7i-x7W" secondAttribute="bottom" constant="10" id="SOe-FI-hhm"/>
                                             <constraint firstAttribute="trailing" secondItem="xF8-7i-x7W" secondAttribute="trailing" constant="66" id="grP-28-aT8"/>
-                                            <constraint firstItem="xF8-7i-x7W" firstAttribute="centerY" secondItem="QL5-oM-FJ6" secondAttribute="centerY" constant="-2" id="i57-As-kKH"/>
+                                            <constraint firstItem="xF8-7i-x7W" firstAttribute="centerY" secondItem="QL5-oM-FJ6" secondAttribute="centerY" id="i57-As-kKH"/>
                                             <constraint firstItem="QL5-oM-FJ6" firstAttribute="leading" secondItem="xF8-7i-x7W" secondAttribute="trailing" constant="10" id="nhh-Il-n1H"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="40"/>

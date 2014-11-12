@@ -35,6 +35,8 @@
 
 @property (nonatomic, strong) NSComparator sortComparator;
 
+@property (nonatomic) BOOL sortDescending;
+
 + (instancetype)setWithEntries:(NSOrderedSet*)entries request:(WLPaginatedRequest*)request;
 
 + (instancetype)setWithRequest:(WLPaginatedRequest*)request;

@@ -2659,7 +2659,7 @@ Check your internet connection and try again.</string>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="glx-hX-c2q" customClass="WLCollectionViewFlowLayout">
                                     <size key="itemSize" width="320" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="320" height="44"/>
                                     <size key="footerReferenceSize" width="50" height="33"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
@@ -2888,35 +2888,28 @@ Check your internet connection and try again.</string>
                                             <outlet property="timeLabel" destination="QL5-oM-FJ6" id="bSU-bc-xnX"/>
                                         </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLTypingView" id="hUB-zz-cUP" customClass="WLTypingViewCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username is typing..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqd-he-vyj">
-                                                    <rect key="frame" x="66" y="0.0" width="188" height="44"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="eqd-he-vyj" firstAttribute="top" secondItem="hUB-zz-cUP" secondAttribute="top" id="4hg-GR-LCs"/>
-                                            <constraint firstAttribute="trailing" secondItem="eqd-he-vyj" secondAttribute="trailing" constant="66" id="eDL-KT-kRy"/>
-                                            <constraint firstItem="eqd-he-vyj" firstAttribute="leading" secondItem="hUB-zz-cUP" secondAttribute="leading" constant="66" id="wiO-In-elQ"/>
-                                            <constraint firstAttribute="bottom" secondItem="eqd-he-vyj" secondAttribute="bottom" id="z9F-iv-e97"/>
-                                        </constraints>
-                                        <size key="customSize" width="320" height="44"/>
-                                        <connections>
-                                            <outlet property="nameTextField" destination="eqd-he-vyj" id="Bb8-OS-xXz"/>
-                                        </connections>
-                                    </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLTypingViewCell" id="8g1-kn-bOM" customClass="WLTypingViewCell">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username is typing..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqd-he-vyj">
+                                            <rect key="frame" x="66" y="0.0" width="188" height="44"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="eqd-he-vyj" secondAttribute="bottom" id="PNn-eL-PLU"/>
+                                        <constraint firstItem="eqd-he-vyj" firstAttribute="top" secondItem="8g1-kn-bOM" secondAttribute="top" id="TA7-Ek-t08"/>
+                                        <constraint firstItem="eqd-he-vyj" firstAttribute="leading" secondItem="8g1-kn-bOM" secondAttribute="leading" constant="66" id="VfW-Ux-eVW"/>
+                                        <constraint firstAttribute="trailing" secondItem="eqd-he-vyj" secondAttribute="trailing" constant="66" id="k0z-vA-ZXQ"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="nameTextField" destination="eqd-he-vyj" id="jpy-gX-V2q"/>
+                                    </connections>
+                                </collectionReusableView>
                                 <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMessageGroupCell" id="4UI-vU-1y8" customClass="WLMessageGroupCell">
                                     <rect key="frame" x="0.0" y="296" width="320" height="33"/>
                                     <autoresizingMask key="autoresizingMask"/>

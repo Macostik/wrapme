@@ -12,6 +12,8 @@
 
 @property (nonatomic, readonly) CGFloat inset;
 
+@property (strong, nonatomic) NSMutableSet* animatingIndexPaths;
+
 - (void)invalidate;
 
 @end

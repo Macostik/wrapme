@@ -35,6 +35,10 @@
 #import "WLUser.h"
 #import "WLWrap.h"
 
+static NSUInteger WLChatTypingSection = 0;
+static NSUInteger WLChatMessagesSection = 1;
+static NSUInteger WLChatLoadingSection = 2;
+
 CGFloat WLMaxTextViewWidth;
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate>
@@ -53,13 +57,13 @@ CGFloat WLMaxTextViewWidth;
 
 @property (nonatomic) BOOL typing;
 
-@property (strong, nonatomic) NSMutableSet* animatingMessages;
-
 @property (strong, nonatomic) WLChat *chat;
 
 @property (strong, nonatomic) UIFont* messageFont;
 
 @property (weak, nonatomic) WLRefresher* refresher;
+
+@property (nonatomic) BOOL animating;
 
 @end
 
@@ -95,8 +99,6 @@ CGFloat WLMaxTextViewWidth;
     
     WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 2*WLAvatarWidth - WLPadding;
     
-    self.animatingMessages = [NSMutableSet set];
-    
 	__weak typeof(self)weakSelf = self;
     [self.wrap fetchIfNeeded:^(id object) {
         weakSelf.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(weakSelf.wrap.name)];
@@ -131,7 +133,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.collectionView reloadData];
+    [self reloadData];
     [self.composeBar becomeFirstResponder];
 }
 
@@ -161,9 +163,34 @@ CGFloat WLMaxTextViewWidth;
     self.refresher.enabled = YES;
 }
 
+- (void)performInsertAnimation:(void (^)(WLBlock completion))animation {
+    if (!self.animating) {
+        self.animating = YES;
+        __weak typeof(self)weakSelf = self;
+        [self.collectionView reloadData];
+        [self.collectionView performBatchUpdates:nil completion:nil];
+        animation(^{
+            weakSelf.animating = NO;
+            [weakSelf reloadData];
+        });
+    }
+}
+
 - (void)insertMessage:(WLMessage*)message {
-    [self.animatingMessages addObject:message];
-    [self.chat addEntry:message];
+    if ([self.chat.entries containsObject:message]) return;
+    __weak typeof(self)weakSelf = self;
+    [self performInsertAnimation:^(WLBlock completion) {
+        [weakSelf.chat addEntry:message];
+        [weakSelf.collectionView performBatchUpdates:^{
+            NSMutableIndexSet *sections = [NSMutableIndexSet indexSetWithIndex:WLChatTypingSection];
+            [sections addIndex:WLChatLoadingSection];
+            [weakSelf.collectionView reloadSections:sections];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:message] inSection:WLChatMessagesSection];
+            [weakSelf.collectionView insertItemsAtIndexPaths:@[indexPath]];
+        } completion:^(BOOL finished) {
+            completion();
+        }];
+    }];
 }
 
 - (void)refreshMessages:(WLRefresher*)sender {
@@ -217,17 +244,20 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - WLChatDelegate
 
 - (void)paginatedSetChanged:(WLPaginatedSet *)group {
-    [self.collectionView reloadData];
-    [self.layout invalidate];
+    [self reloadData];
+}
+
+- (void)reloadData {
+    if (!self.animating) {
+        [self.collectionView reloadData];
+        [self.layout invalidate];
+    }
 }
 
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier messageAdded:(WLMessage *)message {
     if (!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
-    if ([self.chat.entries containsObject:message]) {
-        return;
-    }
     [self insertMessage:message];
 }
 
@@ -315,10 +345,13 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    return 3;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    if (section == 0 || section == 2) {
+        return 0;
+    }
     return [self.chat.entries count];
 }
 
@@ -338,29 +371,13 @@ CGFloat WLMaxTextViewWidth;
     
     cell.showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
     cell.entry = message;
-    
-    if ([self.animatingMessages containsObject:message]) {
-        [self slowUpAnimationCell:cell message:message];
-    }
 
     return cell;
 }
 
-- (void)slowUpAnimationCell:(WLMessageCell*)cell message:(WLMessage*)message {
-    __weak __typeof(self)weakSelf = self;
-    CGAffineTransform transform = cell.transform;
-    CGFloat startPoint = (SystemVersionGreaterThanOrEqualTo8() ? -1 : 1) * (cell.y + cell.height);
-    cell.transform = CGAffineTransformTranslate(self.collectionView.transform, 0, 2*startPoint);
-    [UIView animateWithDuration:0.7 delay:0.3 usingSpringWithDamping:0.7 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        cell.transform = transform;
-    } completion:^(BOOL finished) {
-        [weakSelf.animatingMessages removeObject:message];
-    }];
-}
-
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        WLTypingViewCell* typingView = [collectionView dequeueReusableCellWithReuseIdentifier:@"WLTypingView" forIndexPath:indexPath];
+        WLTypingViewCell* typingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLTypingViewCell" forIndexPath:indexPath];
         typingView.names = self.chat.typingNames;
         return typingView;
     } else {
@@ -395,12 +412,12 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    if (self.chat.completed) return CGSizeZero;
+    if (section != 2 || self.chat.completed) return CGSizeZero;
     return CGSizeMake(collectionView.width, 66);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    if (!self.chat.showTypingView) return CGSizeZero;
+    if (section != 0 || !self.chat.showTypingView) return CGSizeZero;
     return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont regularFontOfSize:14] width:WLMaxTextViewWidth cachingKey:"typingViewHeight"]));
 }
 

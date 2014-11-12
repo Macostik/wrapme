@@ -75,17 +75,16 @@
     return [names stringByAppendingString:@" is typing..."];
 }
 
-//- (void)addMessage:(WLMessage *)message {
-//    WLUser *contributor = message.contributor;
-//    if ([self.typingUsers containsObject:contributor]) {
-//        [self.typingUsers removeObject:contributor];
-//    }
-//    if ([self.sendMessageUsers containsObject:contributor]) {
-//        [self.sendMessageUsers removeObject:contributor];
-//    }
-//    [[self addMessage:message isNewer:YES].entries sortByCreatedAt];
-//    [self.delegate paginatedSetChanged:self];
-//}
+- (BOOL)addEntry:(WLMessage*)message {
+    WLUser *contributor = message.contributor;
+    if ([self.typingUsers containsObject:contributor]) {
+        [self.typingUsers removeObject:contributor];
+    }
+    if ([self.sendMessageUsers containsObject:contributor]) {
+        [self.sendMessageUsers removeObject:contributor];
+    }
+    return [super addEntry:message];
+}
 //
 //- (WLPaginatedSet*)addMessage:(WLMessage *)message isNewer:(BOOL)newer  {
 //    WLPaginatedSet *group = newer ? self.entries.firstObject : self.entries.lastObject;

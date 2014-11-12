@@ -20,6 +20,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.animatingIndexPaths = [NSMutableSet set];
     UICollectionViewFlowLayoutInvalidationContext* context = [[UICollectionViewFlowLayoutInvalidationContext alloc] init];
     context.invalidateFlowLayoutDelegateMetrics = YES;
     context.invalidateFlowLayoutAttributes = YES;
@@ -62,6 +63,28 @@
 		[self adjustAttributes:attr inset:inset];
 	}
 	return attributes;
+}
+
+- (void)prepareForCollectionViewUpdates:(NSArray *)updateItems {
+    NSMutableSet* animatingIndexPaths = [NSMutableSet set];
+    for (UICollectionViewUpdateItem *item in updateItems) {
+        if (item.updateAction == UICollectionUpdateActionInsert) {
+            [animatingIndexPaths addObject:item.indexPathAfterUpdate];
+        }
+    }
+    self.animatingIndexPaths = animatingIndexPaths;
+}
+
+- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
+    if ([self.animatingIndexPaths containsObject:itemIndexPath]) {
+        UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForItemAtIndexPath:itemIndexPath];
+        CGPoint center = attributes.center;
+        center.y = -attributes.frame.size.height;
+        attributes.center = center;
+        [self.animatingIndexPaths removeObject:itemIndexPath];
+        return attributes;
+    }
+    return [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
 }
 
 @end

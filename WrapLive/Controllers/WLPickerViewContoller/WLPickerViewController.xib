@@ -13,23 +13,41 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="uUD-Xg-LoW">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="260"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="304"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xLd-TM-5d3" userLabel="Content View">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="260"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="304"/>
                     <subviews>
+                        <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HT7-MD-DHM" customClass="WLPressButton">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="d9B-bi-oBW"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="New wrap">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="doneClick:" destination="-1" eventType="touchUpInside" id="5RS-tD-bfv"/>
+                                <action selector="newWrapClick:" destination="-1" eventType="touchUpInside" id="ngN-Jw-SZe"/>
+                            </connections>
+                        </button>
                         <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wZP-A5-o9C">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+                            <rect key="frame" x="0.0" y="44" width="320" height="216"/>
                             <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.5" colorSpace="calibratedRGB"/>
                             <connections>
                                 <outlet property="dataSource" destination="-1" id="ioe-EK-q5K"/>
                                 <outlet property="delegate" destination="-1" id="Iov-Uh-Ho0"/>
                             </connections>
                         </pickerView>
-                        <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6id-bK-be6" customClass="WLPressButton">
-                            <rect key="frame" x="0.0" y="216" width="320" height="44"/>
+                        <button opaque="NO" tag="100" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6id-bK-be6" customClass="WLPressButton">
+                            <rect key="frame" x="0.0" y="260" width="320" height="44"/>
                             <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="h8k-oW-itw"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="Done">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -41,15 +59,16 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="centerX" secondItem="wZP-A5-o9C" secondAttribute="centerX" id="1Fd-aq-XAQ"/>
-                        <constraint firstItem="wZP-A5-o9C" firstAttribute="leading" secondItem="xLd-TM-5d3" secondAttribute="leading" id="GRL-6u-F7t"/>
-                        <constraint firstAttribute="trailing" secondItem="wZP-A5-o9C" secondAttribute="trailing" id="Hkg-dZ-Te6"/>
-                        <constraint firstItem="6id-bK-be6" firstAttribute="top" secondItem="xLd-TM-5d3" secondAttribute="top" constant="216" id="KMF-I7-195"/>
-                        <constraint firstItem="6id-bK-be6" firstAttribute="leading" secondItem="xLd-TM-5d3" secondAttribute="leading" id="N03-vz-K3B"/>
-                        <constraint firstItem="wZP-A5-o9C" firstAttribute="top" secondItem="xLd-TM-5d3" secondAttribute="top" id="P2H-en-hIK"/>
-                        <constraint firstAttribute="bottom" secondItem="wZP-A5-o9C" secondAttribute="bottom" constant="44" id="U5L-JX-etA"/>
-                        <constraint firstAttribute="bottom" secondItem="6id-bK-be6" secondAttribute="bottom" id="gMo-EO-Ybm"/>
-                        <constraint firstAttribute="trailing" secondItem="6id-bK-be6" secondAttribute="trailing" id="ty2-Q4-NIo"/>
+                        <constraint firstItem="6id-bK-be6" firstAttribute="top" secondItem="wZP-A5-o9C" secondAttribute="bottom" id="1sZ-Ig-eAW"/>
+                        <constraint firstAttribute="bottom" secondItem="6id-bK-be6" secondAttribute="bottom" id="2Os-vL-BUX"/>
+                        <constraint firstItem="HT7-MD-DHM" firstAttribute="top" secondItem="xLd-TM-5d3" secondAttribute="top" id="4iV-yD-fqi"/>
+                        <constraint firstItem="wZP-A5-o9C" firstAttribute="leading" secondItem="xLd-TM-5d3" secondAttribute="leading" id="64f-gs-FpQ"/>
+                        <constraint firstItem="wZP-A5-o9C" firstAttribute="top" secondItem="HT7-MD-DHM" secondAttribute="bottom" id="FD6-du-36E"/>
+                        <constraint firstItem="HT7-MD-DHM" firstAttribute="leading" secondItem="xLd-TM-5d3" secondAttribute="leading" id="Ip7-ie-TeA"/>
+                        <constraint firstAttribute="trailing" secondItem="wZP-A5-o9C" secondAttribute="trailing" id="Vt4-SM-38j"/>
+                        <constraint firstItem="6id-bK-be6" firstAttribute="leading" secondItem="xLd-TM-5d3" secondAttribute="leading" id="WDP-mm-J08"/>
+                        <constraint firstAttribute="trailing" secondItem="HT7-MD-DHM" secondAttribute="trailing" id="kRf-6Y-cmr"/>
+                        <constraint firstAttribute="trailing" secondItem="6id-bK-be6" secondAttribute="trailing" id="rEt-n1-gE9"/>
                     </constraints>
                 </view>
             </subviews>

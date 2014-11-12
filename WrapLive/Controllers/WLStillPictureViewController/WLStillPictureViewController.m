@@ -24,9 +24,10 @@
 #import <AviarySDK/AviarySDK.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLPickerViewController.h"
+#import "WLCreateWrapViewController.h"
 
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate,
-                                            UINavigationControllerDelegate, WLPickerViewDelegate>
+                                            UINavigationControllerDelegate, WLPickerViewDelegate, WLCreateWrapDelegate>
 
 @property (weak, nonatomic) UINavigationController* cameraNavigationController;
 @property (weak, nonatomic) WLPickerViewController *pickerViewController;
@@ -343,9 +344,25 @@
     [self hidePickerViewController];
 }
 
+- (void)pickerViewController:(WLPickerViewController *)pickerViewController newWrapClick:(UIButton *)sender {
+    [self willCreateWrap];
+}
+
 - (void)willCreateWrap {
-    [WLActionViewController addViewControllerAsDelegateByClass:NSClassFromString(@"WLCreateWrapViewController")
-                                        toParentViewController:self];
+    WLCreateWrapViewController *childViewController = [WLActionViewController addViewControllerByClass:
+                                                       [WLCreateWrapViewController class] toParentViewController:self];
+    childViewController.delegate = self;
+    __weak __typeof(self)weakSelf = self;
+    [childViewController setHandlerCancelBlock:^{
+        [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+    }];
+}
+
+
+#pragma mark - WLCreateWrapDelegate
+
+- (void)wlCreateWrapViewController:(WLCreateWrapViewController *)viewController didCreateWrap:(WLWrap *)wrap {
+    [self setupWrapVeiw:wrap];
 }
 
 @end

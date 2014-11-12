@@ -32,6 +32,7 @@
 #import "WLKeyboard.h"
 #import "WLNavigation.h"
 #import "WLRefresher.h"
+#import "WLReportCandyViewController.h"
 #import "WLSession.h"
 #import "WLSoundPlayer.h"
 #import "WLToast.h"
@@ -272,7 +273,7 @@
 }
 
 - (IBAction)report:(UIButton *)sender {
-    [WLActionViewController addViewControllerByClass:NSClassFromString(@"WLReportCandyViewController")
+    [WLActionViewController addViewControllerByClass:[WLReportCandyViewController class]
                                                      withEntry:self.candy
                                         toParentViewController:self];
 }

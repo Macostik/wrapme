@@ -47,6 +47,7 @@
 #import "WLWrapViewController.h"
 #import "WLWrapsRequest.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLActionViewController.h"
 
 static NSString *const WLTimeLineKey = @"WLTimeLineKey";
 static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
@@ -232,9 +233,11 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 - (IBAction)createWrap:(id)sender {
-    WLStillPictureViewController *controller = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
+    __weak WLStillPictureViewController *controller = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
     controller.mode = WLCameraModeCandy;
+    controller.delegate = self;
     [controller willCreateWrap];
+    
     [self.navigationController presentViewController:controller animated:YES completion:NULL];
 }
 

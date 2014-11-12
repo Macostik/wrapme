@@ -1,3 +1,4 @@
+
 //
 //  WLWrapViewController.m
 //  WrapLive
@@ -23,6 +24,7 @@
 #import "WLChatViewController.h"
 #import "WLLoadingView.h"
 #import "WLEntryNotifier.h"
+#import "WLEditWrapViewController.h"
 #import "UILabel+Additions.h"
 #import "WLToast.h"
 #import "WLStillPictureViewController.h"
@@ -182,7 +184,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 }
 
 - (IBAction)editWrapClick:(id)sender {
-    [WLActionViewController addViewControllerByClass:NSClassFromString(@"WLEditWrapViewController")
+    [WLActionViewController addViewControllerByClass:[WLEditWrapViewController class]
                                            withEntry:self.wrap
                               toParentViewController:self];
 }

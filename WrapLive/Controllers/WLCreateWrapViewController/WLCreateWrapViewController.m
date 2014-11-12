@@ -30,11 +30,10 @@
 #import "WLToast.h"
 #import "WLUser.h"
 #import "WLWrap.h"
-#import "WLStillPictureViewController.h"
 #import "WLWrapViewController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 
-@interface WLCreateWrapViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate>
+@interface WLCreateWrapViewController () 
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UIButton *createButton;
@@ -62,6 +61,9 @@
     [self.wrap notifyOnAddition];
     [[WLUploading uploading:self.wrap] upload:^(id object) {
         [weakSelf hideExcessView];
+        if ([weakSelf.delegate respondsToSelector:@selector(wlCreateWrapViewController:didCreateWrap:)]) {
+            [weakSelf.delegate performSelector:@selector(wlCreateWrapViewController:didCreateWrap:) withObject:self withObject:object];
+        }
     } failure:^(NSError *error) {
         if ([error isNetworkError]) {
             [error show];
@@ -73,8 +75,8 @@
 #pragma mark - Actions
 
 - (IBAction)cancel:(id)sender {
-    if (self.completionBlock)
-        self.completionBlock();
+    if (self.handlerCancelBlock)
+        self.handlerCancelBlock();
 }
 
 - (void)hideExcessView {

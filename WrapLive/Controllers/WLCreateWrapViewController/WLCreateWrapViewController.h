@@ -7,14 +7,26 @@
 //
 
 #import "WLShakeViewController.h"
+#import "WLStillPictureViewController.h"
 
 @class WLWrap;
 @class WLPicture;
 @class WLCreateWrapViewController;
 
-@interface WLCreateWrapViewController : WLShakeViewController
+@protocol WLCreateWrapDelegate <NSObject>
 
-@property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (strong, nonatomic) WLBlock completionBlock;
+@optional
+
+- (void)wlCreateWrapViewController:(WLCreateWrapViewController *)viewController didCreateWrap:(WLWrap *)wrap;
 
 @end
+
+@interface WLCreateWrapViewController : WLShakeViewController <UITextFieldDelegate, WLStillPictureViewControllerDelegate>
+
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (strong, nonatomic) WLBlock handlerCancelBlock;
+@property (assign, nonatomic) id <WLCreateWrapDelegate> delegate;
+
+@end
+
+

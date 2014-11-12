@@ -84,6 +84,7 @@ static NSString *const WLLeave = @"Leave";
 
 - (IBAction)deleteButtonClick:(id)sender {
     __weak typeof(self)weakSelf = self;
+     [self.view endEditing:YES];
     WLWrap *wrap = self.wrap;
     if ([self isMyWrap]) {
         [wrap remove:^(id object) {

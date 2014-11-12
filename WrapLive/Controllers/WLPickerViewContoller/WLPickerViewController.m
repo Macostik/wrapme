@@ -11,16 +11,14 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "UIView+Shorthand.h"
 #import "WLButton.h"
-#import "WLWrapCell.h"
 #import "WLPickerViewController.h"
 #import "WLUser+Extended.h"
 #import "WLWrap.h"
+#import "WLWrapCell.h"
 
-
-@interface WLPickerViewController () 
+@interface WLPickerViewController ()
 
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
-@property (assign, nonatomic) CGPoint anchorPoint;
 @property (strong, nonatomic) NSArray *entries;
 @property (strong, nonatomic) WLWrapBlock selectBlock;
 
@@ -45,14 +43,10 @@
     return pickerViewController;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    NSInteger index = [self.entries indexOfObject:self.wrap];
-    [self.pickerView selectRow:index inComponent:0 animated:YES];
-}
-
 - (void)setWrap:(WLWrap *)wrap {
     _wrap = wrap;
+    NSInteger index = [self.entries indexOfObject:_wrap];
+    [self.pickerView selectRow:index inComponent:0 animated:YES];
 }
 
 - (void)setEntries:(NSArray *)entries {
@@ -89,9 +83,17 @@
     return 44.0f;
 }
 
+#pragma mark - WLPickerViewController Action
+
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     if (self.selectBlock) {
         self.selectBlock(self.entries[row]);
+    }
+}
+
+- (IBAction)newWrapClick:(id)sender {
+    if([self.delegate respondsToSelector:@selector(pickerViewController: newWrapClick:)]) {
+        [self.delegate pickerViewController:self newWrapClick:sender];
     }
 }
 

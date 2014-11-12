@@ -13,7 +13,6 @@
 #import "WLReportCandyViewController.h"
 #import "WLCreateWrapViewController.h"
 #import "WLPickerViewController.h"
-#import "WLStillPictureViewController.h"
 #import "UIView+QuatzCoreAnimations.h"
 
 @interface WLActionViewController ()
@@ -42,18 +41,6 @@
     [childViewController setEntry:entry];
     actionVC.childViewController = childViewController;
     [self addChildViewController:actionVC toParentViewController:viewController];
-    
-    return childViewController;
-}
-
-+ (id)addViewControllerAsDelegateByClass:(Class)class toParentViewController:(UIViewController *)viewController {
-    id childViewController = [self addViewControllerByClass:class toParentViewController:viewController];
-    __weak WLStillPictureViewController *stillPictureVC = (WLStillPictureViewController *)viewController;
-    stillPictureVC.delegate = childViewController;
-    
-    [childViewController setCompletionBlock:^{
-        [stillPictureVC dismissViewControllerAnimated:YES completion:NULL];
-    }];
     
     return childViewController;
 }

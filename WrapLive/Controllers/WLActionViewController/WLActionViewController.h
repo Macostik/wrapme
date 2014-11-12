@@ -7,13 +7,13 @@
 //
 
 #import "WLEditViewController.h"
+#import "WLStillPictureViewController.h"
 #import "WLButton.h"
 
 @interface WLActionViewController : UIViewController
 
 + (id)addViewControllerByClass:(Class)class toParentViewController:(UIViewController *)viewController;
 + (id)addViewControllerByClass:(Class)class withEntry:(id)entry toParentViewController:(UIViewController *)viewController;
-+ (id)addViewControllerAsDelegateByClass:(Class)class toParentViewController:(UIViewController *)viewController;
 
 - (void)dismiss;
 - (void)removeAnimateViewsFromSuperView;
@@ -25,3 +25,4 @@
 - (void)setEntry:(id)entry;
 
 @end
+

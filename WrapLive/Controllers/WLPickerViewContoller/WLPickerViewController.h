@@ -15,12 +15,12 @@
 @protocol WLPickerViewDelegate <NSObject>
 @optional
 - (void)pickerViewController:(WLPickerViewController *)pickerViewController doneClick:(UIButton *)sender;
+- (void)pickerViewController:(WLPickerViewController *)pickerViewController newWrapClick:(UIButton *)sender;
 
 @end
 
 @interface WLPickerViewController : UIViewController 
 
-@property (weak, nonatomic) IBOutlet UIView *contenView;
 @property (strong, nonatomic) WLWrap *wrap;
 @property (assign, nonatomic) id <WLPickerViewDelegate> delegate;
 

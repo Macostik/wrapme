@@ -85,6 +85,8 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.nameLabel.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    
     self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
     
     if (!self.wrap.valid) {

@@ -336,6 +336,53 @@
                                     <constraint firstAttribute="height" constant="1" id="frt-vq-OMM"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2J-cd-pgo">
+                                <rect key="frame" x="40" y="415" width="240" height="60"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You haven't confirmed your e-mail address yet. Please check your e-mail." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AdZ-Af-6TP">
+                                        <rect key="frame" x="0.0" y="0.0" width="175" height="60"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                        <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QQ2-ko-xzG" customClass="WLPressButton">
+                                        <rect key="frame" x="178" y="14" width="62" height="32"/>
+                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="62" id="WO7-Kw-0Il"/>
+                                            <constraint firstAttribute="height" constant="32" id="d3I-Hw-kfg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="Resend">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                                <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                                <color key="value" red="0.96470588239999999" green="0.71372549019999998" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="resendEmailConfirmation:" destination="7FG-gC-kPg" eventType="touchUpInside" id="9TY-Ua-e8M"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="AdZ-Af-6TP" secondAttribute="trailing" constant="65" id="4tB-d1-qv4"/>
+                                    <constraint firstAttribute="height" constant="60" id="9Ll-Yz-f0P"/>
+                                    <constraint firstAttribute="centerY" secondItem="QQ2-ko-xzG" secondAttribute="centerY" id="Cg4-OE-GTH"/>
+                                    <constraint firstAttribute="trailing" secondItem="QQ2-ko-xzG" secondAttribute="trailing" id="Iog-Fg-U6d"/>
+                                    <constraint firstItem="AdZ-Af-6TP" firstAttribute="leading" secondItem="g2J-cd-pgo" secondAttribute="leading" id="JPc-GS-eaE"/>
+                                    <constraint firstItem="AdZ-Af-6TP" firstAttribute="top" secondItem="g2J-cd-pgo" secondAttribute="top" id="MCm-OZ-fyK"/>
+                                    <constraint firstAttribute="bottom" secondItem="AdZ-Af-6TP" secondAttribute="bottom" id="XRh-Hl-hN6"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ant-6l-Vag">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
@@ -384,6 +431,7 @@
                             <constraint firstItem="ant-6l-Vag" firstAttribute="top" secondItem="AL9-yK-5IY" secondAttribute="bottom" constant="-20" id="JWO-6l-Z2H"/>
                             <constraint firstAttribute="centerX" secondItem="82E-k4-0WJ" secondAttribute="centerX" id="Lor-Rv-c1w"/>
                             <constraint firstItem="SJq-9P-McW" firstAttribute="top" secondItem="ant-6l-Vag" secondAttribute="bottom" id="N04-8D-Csp"/>
+                            <constraint firstAttribute="centerX" secondItem="g2J-cd-pgo" secondAttribute="centerX" id="P3S-Gh-FYj"/>
                             <constraint firstItem="82E-k4-0WJ" firstAttribute="top" secondItem="D1N-1e-psu" secondAttribute="bottom" constant="22" id="P6W-WW-ust"/>
                             <constraint firstItem="ant-6l-Vag" firstAttribute="leading" secondItem="Yja-9u-DOv" secondAttribute="leading" id="PwK-SK-VOx"/>
                             <constraint firstAttribute="trailing" secondItem="ant-6l-Vag" secondAttribute="trailing" id="Qas-NP-R5U"/>
@@ -392,6 +440,8 @@
                             <constraint firstAttribute="trailing" secondItem="GkU-w3-rTK" secondAttribute="trailing" id="XbH-wU-4tX"/>
                             <constraint firstItem="Efj-27-0UK" firstAttribute="leading" secondItem="Yja-9u-DOv" secondAttribute="leading" id="bid-DX-aAK"/>
                             <constraint firstItem="JSr-ZC-7FZ" firstAttribute="top" secondItem="GkU-w3-rTK" secondAttribute="bottom" id="dqa-OK-Z7G"/>
+                            <constraint firstItem="Bat-lK-eQ3" firstAttribute="width" secondItem="g2J-cd-pgo" secondAttribute="width" id="fff-Rg-TBq"/>
+                            <constraint firstItem="Bat-lK-eQ3" firstAttribute="bottom" secondItem="g2J-cd-pgo" secondAttribute="top" id="iIc-yd-E5y"/>
                             <constraint firstAttribute="centerX" secondItem="D1N-1e-psu" secondAttribute="centerX" id="ipM-CS-O0a"/>
                             <constraint firstAttribute="centerX" secondItem="SJq-9P-McW" secondAttribute="centerX" id="ivl-pP-8sf"/>
                             <constraint firstItem="D1N-1e-psu" firstAttribute="leading" secondItem="Q8G-j1-9nn" secondAttribute="leading" id="mcz-pv-r8A"/>
@@ -404,11 +454,11 @@
                     <connections>
                         <outlet property="cancelButton" destination="Efj-27-0UK" id="f9c-Po-yLm"/>
                         <outlet property="doneButton" destination="GkU-w3-rTK" id="CSh-K5-pPH"/>
+                        <outlet property="emailConfirmationView" destination="g2J-cd-pgo" id="6x6-Qn-zS7"/>
                         <outlet property="emailTextField" destination="82E-k4-0WJ" id="U5o-Rv-VFw"/>
                         <outlet property="imagePlaceholderView" destination="SJq-9P-McW" id="amY-pq-Miv"/>
                         <outlet property="imageView" destination="AYn-Zt-xUG" id="RLi-hY-DCv"/>
                         <outlet property="nameTextField" destination="D1N-1e-psu" id="aFX-at-9U5"/>
-                        <outlet property="topConstraint" destination="N04-8D-Csp" id="fwZ-5u-J5z"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="dqa-OK-Z7G" id="slP-9b-HaW"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="xPd-PQ-LCt" id="wVL-n7-ylr"/>
                         <outletCollection property="keyboardAdjustmentTopConstraints" destination="N04-8D-Csp" id="fny-ti-xSD"/>
@@ -3325,7 +3375,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WjR-f7-d7j"/>
-        <segue reference="USb-FQ-HhL"/>
+        <segue reference="H4Y-Sv-3mh"/>
+        <segue reference="tCH-h8-hRc"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -27,14 +27,16 @@
 #import "WLProfileEditSession.h"
 #import "WLUpdateUserRequest.h"
 #import "UIView+AnimationHelper.h"
+#import "WLEntryNotifier.h"
+#import "WLResendConfirmationRequest.h"
 
-@interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate>
+@interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *imagePlaceholderView;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+@property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 
 @property (strong, nonatomic) WLProfileEditSession *editSession;
 
@@ -46,6 +48,8 @@
     [super viewDidLoad];
     self.editSession = [[WLProfileEditSession alloc] initWithUser:[WLUser currentUser]];
     self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
+    self.emailConfirmationView.hidden = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
+    [[WLUser notifier] addReceiver:self];
 }
 
 - (void)setupEditableUserInterface {
@@ -76,6 +80,19 @@
 
 - (IBAction)emailTextFieldChanged:(UITextField *)sender {
     self.editSession.email = self.emailTextField.text;
+}
+
+- (IBAction)resendEmailConfirmation:(UIButton*)sender {
+    sender.userInteractionEnabled = NO;
+    [[WLResendConfirmationRequest request] send:^(id object) {
+        WLToastAppearance* appearance = [WLToastAppearance appearance];
+        appearance.shouldShowIcon = NO;
+        appearance.contentMode = UIViewContentModeCenter;
+        [WLToast showWithMessage:@"Confirmation resend. Please, check you e-mail." appearance:appearance];
+        sender.userInteractionEnabled = YES;
+    } failure:^(NSError *error) {
+        sender.userInteractionEnabled = YES;
+    }];
 }
 
 #pragma mark - override base method
@@ -121,6 +138,12 @@
     [[WLImageCache cache] setImage:image completion:^(NSString *path) {
         weakSelf.editSession.url = path;
     }];
+}
+
+#pragma mark - WLEntryNotifyReceiver
+
+- (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
+    self.emailConfirmationView.hidden = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
 }
 
 @end

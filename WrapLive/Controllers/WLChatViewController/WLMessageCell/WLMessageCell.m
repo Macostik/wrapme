@@ -44,6 +44,11 @@
     if (_showDay != showDay) {
         _showDay = showDay;
         self.timeLabel.textColor = showDay ? [UIColor WL_orangeColor] : [UIColor WL_grayColor];
+        if (self.timeLabel.x > self.messageTextView.x) {
+            self.timeLabel.textAlignment = showDay ? NSTextAlignmentRight : NSTextAlignmentLeft;
+        } else {
+            self.timeLabel.textAlignment = showDay ? NSTextAlignmentLeft : NSTextAlignmentRight;
+        }
     }
 }
 

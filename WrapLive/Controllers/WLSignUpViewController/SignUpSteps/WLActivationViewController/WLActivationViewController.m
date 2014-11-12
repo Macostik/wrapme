@@ -121,7 +121,8 @@ typedef NS_ENUM(NSInteger, WLActivationPage) {
 }
 
 - (IBAction)done:(id)sender {
-    if ([WLUser currentUser].name.nonempty) {
+    WLUser *user = [WLUser currentUser];
+    if (user.name.nonempty && user.picture.medium.nonempty) {
         [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
     } else {
         WLProfileInformationViewController * controller = [WLProfileInformationViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]];

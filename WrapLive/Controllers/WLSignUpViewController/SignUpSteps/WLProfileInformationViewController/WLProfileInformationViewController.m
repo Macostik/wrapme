@@ -34,25 +34,20 @@
 @property (strong, nonatomic) IBOutlet WLButton *continueButton;
 @property (strong, nonatomic) WLProfileEditSession *editSession;
 
-@property (nonatomic) BOOL hasAvatar;
-
 @end
 
 @implementation WLProfileInformationViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
 	self.user = [WLUser currentUser];
-	self.hasAvatar = self.user.name.nonempty;
 	
 	self.nameTextField.text = self.user.name;
-	if (!self.hasAvatar) {
-		self.profileImageView.url = nil;
-		self.profileImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
+	if (self.user.picture.medium.nonempty) {
+        self.profileImageView.url = self.user.picture.medium;
 	} else {
-		self.profileImageView.url = self.user.picture.medium;
+        self.profileImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
 	}
     
     self.editSession = [[WLProfileEditSession alloc] initWithUser:self.user];
@@ -104,7 +99,7 @@
 }
 
 - (void)verifyContinueButton {
-	self.continueButton.active = self.hasAvatar && self.editSession.name.nonempty;
+	self.continueButton.active = self.editSession.url.nonempty && self.editSession.name.nonempty;
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate
@@ -114,7 +109,6 @@
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
-	self.hasAvatar = YES;
 	self.profileImageView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
 															  bounds:self.profileImageView.retinaSize
 												interpolationQuality:kCGInterpolationDefault];

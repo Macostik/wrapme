@@ -10,6 +10,7 @@
 #import "WLImageFetcher.h"
 #import "WLUser.h"
 #import "UIView+Shorthand.h"
+#import "NSString+Additions.h"
 
 @interface WLUserView ()
 
@@ -29,6 +30,9 @@
 
 - (void)update {
     self.avatarView.url = _user.picture.small;
+    if (!self.avatarView.url.nonempty) {
+        self.avatarView.image = [UIImage imageNamed:@"default-small-avatar"];
+    }
     self.nameLabel.text = _user.name;
 }
 

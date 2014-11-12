@@ -52,6 +52,9 @@
     WLUser *user = [WLUser currentUser];
     self.nameTextField.text = user.name;
     self.imageView.url = user.picture.large;
+    if (!self.imageView.url.nonempty) {
+        self.imageView.image = [UIImage imageNamed:@"default-large-avatar"];
+    }
     self.emailTextField.text = [WLAuthorization priorityEmail];
 }
 

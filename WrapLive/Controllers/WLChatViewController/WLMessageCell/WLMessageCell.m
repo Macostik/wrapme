@@ -45,8 +45,11 @@
         __weak typeof(self)weakSelf = self;
         self.avatarView.url = message.contributor.picture.small;
         [self.avatarView setFailure:^(NSError* error) {
-            weakSelf.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
+            weakSelf.avatarView.image = [UIImage imageNamed:@"default-small-avatar"];
         }];
+        if (!self.avatarView.url.nonempty) {
+            self.avatarView.image = [UIImage imageNamed:@"default-small-avatar"];
+        }
     }
     
     if (self.nameLabel) {

@@ -24,16 +24,16 @@ static inline NSString * WLPlaySoundType(WLSoundType type) {
             return nil;
             break;
         case WLNewContiributor:
-            return @"contributor";
+            return @"s01";
             break;
         case WLNewComment:
-            return @"comment";
+            return @"s02";
             break;
         case WLNewMessage:
-            return @"chat_message";
+            return @"s03";
             break;
         case WLSendMessage:
-            return @"send_message";
+            return @"s04";
             break;
             
             default:

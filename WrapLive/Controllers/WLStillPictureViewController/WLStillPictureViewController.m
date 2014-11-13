@@ -96,7 +96,7 @@ static CGFloat WLBottomViewHeight = 92.0f;
 - (CGFloat)imageWidthForCurrentMode {
     WLCameraMode mode = self.mode;
     if (mode == WLCameraModeCandy) {
-        return 720;
+        return 1080;
     } else {
         return 480;
     }

@@ -22,6 +22,25 @@
 #import "WLImageFetcher.h"
 #import "WLWrap.h"
 
+@interface WLCameraView : UIView
+
+@property(nonatomic,readonly,retain) AVCaptureVideoPreviewLayer *layer;
+
+@end
+
+@implementation WLCameraView
+
++ (Class)layerClass {
+    return [AVCaptureVideoPreviewLayer class];
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+}
+
+@end
+
 @interface WLCameraViewController () <WLDeviceOrientationBroadcastReceiver>
 
 #pragma mark - AVCaptureSession interface
@@ -35,8 +54,7 @@
 
 #pragma mark - UIKit interface
 
-@property (weak, nonatomic) AVCaptureVideoPreviewLayer* previewLayer;
-@property (weak, nonatomic) IBOutlet UIView *cameraView;
+@property (weak, nonatomic) IBOutlet WLCameraView *cameraView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet WLFlashModeControl *flashModeControl;
@@ -68,7 +86,7 @@
         self.rotateButton.hidden = YES;
     }
 	
-	[self configurePreviewLayer];
+	self.cameraView.layer.session = self.session;
 	
 	[self performSelector:@selector(start) withObject:nil afterDelay:0.0];
     
@@ -78,19 +96,6 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	self.takePhotoButton.active = YES;
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    _previewLayer.frame = self.cameraView.bounds;
-}
-
-- (void)configurePreviewLayer {
-	AVCaptureVideoPreviewLayer* previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-	previewLayer.frame = self.cameraView.bounds;
-	previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-	[self.cameraView.layer insertSublayer:previewLayer atIndex:0];
-	_previewLayer = previewLayer;
 }
 
 - (CGSize)viewSize {
@@ -219,7 +224,9 @@
 - (AVCaptureSession *)session {
 	if (!_session) {
 		_session = [[AVCaptureSession alloc] init];
-		if ([_session canSetSessionPreset:AVCaptureSessionPresetPhoto]) {
+        if ([_session canSetSessionPreset:AVCaptureSessionPreset1920x1080]) {
+            _session.sessionPreset = AVCaptureSessionPreset1920x1080;
+        } else if ([_session canSetSessionPreset:AVCaptureSessionPresetPhoto]) {
 			_session.sessionPreset = AVCaptureSessionPresetPhoto;
 		} else {
 			_session.sessionPreset = AVCaptureSessionPresetMedium;
@@ -416,7 +423,7 @@
 	AVCaptureConnection* connection = self.connection;
 	_zoomScale = Smoothstep(1, MIN(8, connection.videoMaxScaleAndCropFactor), zoomScale);
 	connection.videoScaleAndCropFactor = _zoomScale;
-	self.previewLayer.affineTransform = CGAffineTransformMakeScale(_zoomScale, _zoomScale);
+	self.cameraView.layer.affineTransform = CGAffineTransformMakeScale(_zoomScale, _zoomScale);
 	[self showZoomLabel];
 }
 

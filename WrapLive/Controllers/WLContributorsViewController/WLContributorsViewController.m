@@ -11,6 +11,7 @@
 #import "WLContributorCell.h"
 #import "WLUpdateContributorsRequest.h"
 #import "WLPerson.h"
+#import "WLEntryNotifier.h"
 
 @interface WLContributorsViewController () <WLContributorCellDelegate>
 
@@ -35,6 +36,8 @@
     UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 44, 0);
     self.dataProvider.collectionView.contentInset = insets;
     self.dataProvider.collectionView.scrollIndicatorInsets = insets;
+    
+    [[WLWrap notifier] addReceiver:self];
 }
 
 - (void)setupEditableUserInterface {
@@ -55,6 +58,16 @@
 
 - (BOOL)contributorCell:(WLContributorCell *)cell isCreator:(WLUser *)contributor {
     return self.wrap.contributor == contributor;
+}
+
+#pragma mark - WLEntryNotifyReceiver
+
+- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
+    return self.wrap;
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
+    self.dataSection.entries = [self.wrap.contributors mutableCopy];
 }
 
 #pragma mark - Actions

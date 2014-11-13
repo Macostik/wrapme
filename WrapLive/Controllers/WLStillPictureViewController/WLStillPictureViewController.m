@@ -273,6 +273,9 @@ static CGFloat WLBottomViewHeight = 92.0f;
 - (void)navigationController:(UINavigationController *)navigationController
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated {
+    if (viewController != self.cameraViewController) {
+           [self.wrapView leftPushWithDuration:.15 delegate:nil];
+    }
     self.wrapView.hidden = YES;
 }
 

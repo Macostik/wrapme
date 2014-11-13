@@ -14,6 +14,7 @@
 #import "UIImage+Resize.h"
 #import "UIView+AnimationHelper.h"
 #import "UIView+Shorthand.h"
+#import "UIView+QuatzCoreAnimations.h"
 #import "WLActionViewController.h"
 #import "WLAssetsGroupViewController.h"
 #import "WLEntryManager.h"
@@ -26,11 +27,14 @@
 #import "WLPickerViewController.h"
 #import "WLCreateWrapViewController.h"
 
+static CGFloat WLBottomViewHeight = 92.0f;
+
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate,
                                             UINavigationControllerDelegate, WLPickerViewDelegate, WLCreateWrapDelegate>
 
 @property (weak, nonatomic) UINavigationController* cameraNavigationController;
 @property (weak, nonatomic) WLPickerViewController *pickerViewController;
+@property (strong, nonatomic) AFPhotoEditorController* aviaryController;
 
 @property (weak, nonatomic) IBOutlet UIView* wrapView;
 @property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
@@ -56,7 +60,6 @@
     self.cameraViewController.delegate = self;
     self.cameraViewController.mode = self.mode;
     self.cameraViewController.defaultPosition = self.defaultPosition;
-    self.cameraViewController.bottomInset = self.wrap ? self.wrapView.height : 0;
     self.cameraNavigationController = [self.childViewControllers lastObject];
     self.cameraNavigationController.delegate = self;
 	[self.cameraNavigationController setViewControllers:@[self.cameraViewController]];
@@ -64,15 +67,10 @@
 }
 
 - (void)setTranslucent:(BOOL)translucent animated:(BOOL)animated {
-    if (self.wrap) {
-        UIColor* color = [self.wrapView.backgroundColor colorWithAlphaComponent:translucent ? 0.5f : 1.0f];
-        __weak typeof(self)weakSelf = self;
-        [UIView performAnimated:animated animation:^{
-            weakSelf.wrapView.backgroundColor = color;
-        }];
-        self.bottomAlignment.constant = (translucent ? 0 : weakSelf.wrapView.height);
-        [self.view layoutIfNeeded];
-    }
+    UIColor* color = [self.wrapView.backgroundColor colorWithAlphaComponent:translucent ? 0.5f : 1.0f];
+    self.wrapView.backgroundColor = color;
+    self.wrapView.transform = translucent ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(.0, WLBottomViewHeight);
+    [self.wrapView fade];
 }
 
 - (void)setupWrapVeiw:(WLWrap *)wrap {
@@ -174,10 +172,9 @@
 }
 
 - (void)editImage:(UIImage*)image completion:(WLImageBlock)completion {
-    [self.cameraNavigationController pushViewController:[self editControllerWithImage:image] animated:YES];
+    self.aviaryController = [self editControllerWithImage:image];
+    [self.cameraNavigationController pushViewController:self.aviaryController animated:YES];
     self.editBlock = completion;
-    [self setTranslucent:NO animated:YES];
-    
 }
 
 #pragma mark - WLCameraViewControllerDelegate
@@ -208,6 +205,7 @@
 }
 
 - (void)cameraViewControllerDidSelectGallery:(WLCameraViewController *)controller {
+    
 	WLAssetsGroupViewController* gallery = [[WLAssetsGroupViewController alloc] init];
     gallery.mode = self.mode;
 	__weak typeof(self)weakSelf = self;
@@ -218,10 +216,8 @@
             [weakSelf handleAssets:assets];
         }
 	}];
-
+    [self setTranslucent:NO animated:YES];
     [weakSelf.cameraNavigationController pushViewController:gallery animated:YES];
-    [weakSelf setTranslucent:NO animated:YES];
-
 }
 
 - (void)handleAsset:(ALAsset*)asset {
@@ -269,13 +265,23 @@
 
 - (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
     [self.cameraNavigationController popViewControllerAnimated:YES];
-
+    self.aviaryController = nil;
 }
 
 #pragma mark - UINavigationControllerDelegate
 
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated {
+    self.wrapView.hidden = YES;
+}
+
+- (void)navigationController:(UINavigationController *)navigationController
+       didShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated {
     if (self.wrap) {
+        self.wrapView.hidden = viewController == self.aviaryController;
+        viewController.hidesBottomBarWhenPushed = YES;
         if (viewController == self.cameraViewController) {
             [self setTranslucent:YES animated:YES];
         }

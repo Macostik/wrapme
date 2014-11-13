@@ -497,6 +497,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="277"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9wL-yW-Tpm">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="274"/>
+                                                    <state key="normal">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="select" destination="Pq6-uP-780" eventType="touchUpInside" id="E4Y-ZO-xAr"/>
+                                                    </connections>
+                                                </button>
                                                 <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lRI-cr-Q4O">
                                                     <rect key="frame" x="0.0" y="60" width="320" height="212"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -507,7 +516,7 @@
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCandyCell" id="diy-TW-VIF" customClass="WLCandyCell">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" reuseIdentifier="WLCandyCell" id="diy-TW-VIF" customClass="WLCandyCell">
                                                             <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -517,6 +526,7 @@
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RBx-xX-iE6" customClass="WLImageView">
                                                                         <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                        <gestureRecognizers/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholderName" value="ic_photo_placeholder"/>
                                                                         </userDefinedRuntimeAttributes>
@@ -655,15 +665,6 @@
                                                         <constraint firstAttribute="height" constant="1" id="wF6-PG-Ar0"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9wL-yW-Tpm">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="274"/>
-                                                    <state key="normal">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="select" destination="Pq6-uP-780" eventType="touchUpInside" id="E4Y-ZO-xAr"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -1905,66 +1906,6 @@
                                             <outlet property="dateLabel" destination="Y3q-sy-dzY" id="avu-gM-vJf"/>
                                         </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCandyCell" id="A9T-PB-SfU" customClass="WLCandyCell">
-                                        <rect key="frame" x="107" y="424" width="106" height="106"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="82a-hG-PjU" customClass="WLImageView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderName" value="ic_photo_placeholder"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGJ-gz-ZbN">
-                                                    <rect key="frame" x="0.0" y="66" width="106" height="40"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="phx-12-C9e"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9v-FA-Gxb">
-                                                    <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
-                                                    <state key="normal">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="select" destination="A9T-PB-SfU" eventType="touchUpInside" id="mzi-MW-mTH"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <gestureRecognizers/>
-                                        <constraints>
-                                            <constraint firstItem="uGJ-gz-ZbN" firstAttribute="leading" secondItem="A9T-PB-SfU" secondAttribute="leading" id="48Y-3W-U4B"/>
-                                            <constraint firstAttribute="trailing" secondItem="uGJ-gz-ZbN" secondAttribute="trailing" id="4x7-9B-llg"/>
-                                            <constraint firstAttribute="trailing" secondItem="W9v-FA-Gxb" secondAttribute="trailing" id="DDn-Pk-HTY"/>
-                                            <constraint firstItem="W9v-FA-Gxb" firstAttribute="leading" secondItem="A9T-PB-SfU" secondAttribute="leading" id="cvf-Ro-vgj"/>
-                                            <constraint firstAttribute="trailing" secondItem="82a-hG-PjU" secondAttribute="trailing" id="gFn-tK-efT"/>
-                                            <constraint firstItem="82a-hG-PjU" firstAttribute="top" secondItem="A9T-PB-SfU" secondAttribute="top" id="mrJ-06-pY7"/>
-                                            <constraint firstItem="82a-hG-PjU" firstAttribute="leading" secondItem="A9T-PB-SfU" secondAttribute="leading" id="s7C-os-QV2"/>
-                                            <constraint firstAttribute="bottom" secondItem="uGJ-gz-ZbN" secondAttribute="bottom" id="vpb-3f-8v0"/>
-                                            <constraint firstItem="W9v-FA-Gxb" firstAttribute="top" secondItem="A9T-PB-SfU" secondAttribute="top" id="xEA-F4-W9N"/>
-                                            <constraint firstAttribute="bottom" secondItem="W9v-FA-Gxb" secondAttribute="bottom" id="z7S-9Y-OcI"/>
-                                            <constraint firstAttribute="bottom" secondItem="82a-hG-PjU" secondAttribute="bottom" id="zod-Gb-FH5"/>
-                                        </constraints>
-                                        <size key="customSize" width="106" height="106"/>
-                                        <connections>
-                                            <outlet property="commentLabel" destination="uGJ-gz-ZbN" id="GwU-ZL-25I"/>
-                                            <outlet property="coverView" destination="82a-hG-PjU" id="tyC-HE-CB4"/>
-                                        </connections>
-                                    </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLTimelineEventHeaderView" id="apm-cV-70h" customClass="WLTimelineEventHeaderView">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
@@ -2010,7 +1951,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="isD-yq-hi4" firstAttribute="leading" secondItem="apm-cV-70h" secondAttribute="leading" constant="80" id="5Xf-kA-6zp"/>
                                         <constraint firstAttribute="centerY" secondItem="9ew-b0-PcB" secondAttribute="centerY" constant="-3" id="8B6-IN-5BO"/>
@@ -3376,7 +3317,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="H4Y-Sv-3mh"/>
-        <segue reference="tCH-h8-hRc"/>
+        <segue reference="USb-FQ-HhL"/>
+        <segue reference="WjR-f7-d7j"/>
     </inferredMetricsTieBreakers>
 </document>

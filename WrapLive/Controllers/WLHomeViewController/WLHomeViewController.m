@@ -121,6 +121,11 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self.dataProvider reload];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];
+    self.isShowPlaceholder = ![self.section.entries.entries nonempty];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
 }
 
 - (void)showPlaceholder {
@@ -254,5 +259,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
 
 @end

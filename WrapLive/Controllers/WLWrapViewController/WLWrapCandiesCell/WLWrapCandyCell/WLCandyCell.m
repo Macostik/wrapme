@@ -40,26 +40,29 @@
     self.coverView.placeholderName = @"ic_photo_placeholder";
 	[[WLCandy notifier] addReceiver:self];
     __weak typeof(self)weakSelf = self;
-    self.menu = [WLMenu menuWithView:self configuration:^BOOL (WLMenu *menu) {
-        WLCandy* candy = weakSelf.entry;
-        if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
-            [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:^{
-                weakSelf.userInteractionEnabled = NO;
-                [candy remove:^(id object) {
-                    weakSelf.userInteractionEnabled = YES;
-                } failure:^(NSError *error) {
-                    [error show];
-                    weakSelf.userInteractionEnabled = YES;
+    if (self.userInteractionEnabled) {
+        self.menu = [WLMenu menuWithView:self configuration:^BOOL (WLMenu *menu) {
+            WLCandy* candy = weakSelf.entry;
+            if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
+                [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:^{
+                    weakSelf.userInteractionEnabled = NO;
+                    [candy remove:^(id object) {
+                        weakSelf.userInteractionEnabled = YES;
+                    } failure:^(NSError *error) {
+                        [error show];
+                        weakSelf.userInteractionEnabled = YES;
+                    }];
                 }];
-            }];
-        } else {
-            [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_alert"] block:^{
-                [MFMailComposeViewController messageWithCandy:candy];
-            }];
-        }
-        return YES;
-    }];
-    self.menu.vibrate = YES;
+            } else {
+                [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_alert"] block:^{
+                    [MFMailComposeViewController messageWithCandy:candy];
+                }];
+            }
+            return YES;
+        }];
+        self.menu.vibrate = YES;
+    }
+    
     [self.contentView setFullFlexible];
 }
 

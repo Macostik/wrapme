@@ -97,7 +97,7 @@ CGFloat WLMaxTextViewWidth;
     
     self.messageFont = [UIFont lightFontOfSize:15];
     
-    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 2*WLAvatarWidth - WLPadding;
+    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 2*WLAvatarWidth;
     
 	__weak typeof(self)weakSelf = self;
     [self.wrap fetchIfNeeded:^(id object) {
@@ -359,19 +359,12 @@ CGFloat WLMaxTextViewWidth;
     WLMessage* message = [self.chat.entries tryObjectAtIndex:indexPath.item];
     WLMessage* previousMessage = [self.chat.entries tryObjectAtIndex:indexPath.item + 1];
     BOOL isMyComment = [message.contributor isCurrentUser];
-    NSString *cellIdentifier = nil;
-    if (message.contributor != previousMessage.contributor) {
-        cellIdentifier = isMyComment ? @"WLMyMessageCell" : @"WLMessageCell";
-    } else {
-        cellIdentifier =  isMyComment ? @"WLMyBubbleMessageCell" :
-        @"WLBubbleMessageCell";
-    }
-    
+    NSString *cellIdentifier = cellIdentifier = isMyComment ? WLMyMessageCellIdentifier : WLMessageCellIdentifier;
     WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    
+    cell.showAvatar = (previousMessage == nil || previousMessage.contributor != message.contributor);
+    cell.showName = !isMyComment && cell.showAvatar;
     cell.showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
     cell.entry = message;
-
     return cell;
 }
 
@@ -396,18 +389,18 @@ CGFloat WLMaxTextViewWidth;
 
 - (CGFloat)heightOfMessageCell:(WLMessage *)message containsName:(BOOL)containsName {
 	CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth cachingKey:"messageCellHeight"];
-    if (!containsName) {
-        return  commentHeight + WLMessageAuthorLabelHeight/2;
-    }
-    commentHeight += 2*WLMessageAuthorLabelHeight;
-    commentHeight += [message.contributor isCurrentUser] ? .0f : WLNameLabelHeight;
-	return MAX (WLMessageMinimumCellHeight, commentHeight);
+    CGFloat topInset = (containsName ? WLMessageNameInset : WLMessageVerticalInset);
+    CGFloat bottomInset = WLMessageVerticalInset;
+    CGFloat bottomConstraint = WLMessageCellBottomConstraint;
+    commentHeight = topInset + commentHeight + bottomInset + bottomConstraint;
+    return MAX (WLMessageMinimumCellHeight, commentHeight);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
     WLMessage* previousMessage = [self.chat.entries tryObjectAtIndex:indexPath.item + 1];
-    BOOL containsName = previousMessage == nil || (message.contributor != previousMessage.contributor);
+    BOOL isMyComment = [message.contributor isCurrentUser];
+    BOOL containsName = !isMyComment && (previousMessage == nil || previousMessage.contributor != message.contributor);
     return CGSizeMake(collectionView.width, [self heightOfMessageCell:message containsName:containsName]);
 }
 

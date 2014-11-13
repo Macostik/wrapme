@@ -37,7 +37,30 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.avatarView.circled = YES;
-    self.messageTextView.textContainerInset = self.nameLabel ? UIEdgeInsetsMake(14, 0, 0, 0) : UIEdgeInsetsMake(0, 0, 0, 0);
+    self.avatarView.hidden = self.nameLabel.hidden = YES;
+    self.messageTextView.textContainerInset = UIEdgeInsetsMake(WLMessageVerticalInset, WLMessageHorizontalInset, WLMessageVerticalInset, WLMessageHorizontalInset);
+    self.messageTextView.layer.cornerRadius = 10;
+}
+
+- (void)setShowAvatar:(BOOL)showAvatar {
+    if (_showAvatar != showAvatar) {
+        _showAvatar = showAvatar;
+        self.avatarView.hidden = !showAvatar;
+    }
+}
+
+- (void)setShowName:(BOOL)showName {
+    if (_showName != showName) {
+        _showName = showName;
+        UIEdgeInsets insets = self.messageTextView.textContainerInset;
+        if (self.nameLabel) {
+            self.nameLabel.hidden = !showName;
+            insets.top = showName ? WLMessageNameInset : WLMessageVerticalInset;
+        } else {
+            insets.top = WLMessageVerticalInset;
+        }
+        self.messageTextView.textContainerInset = insets;
+    }
 }
 
 - (void)setShowDay:(BOOL)showDay {
@@ -54,7 +77,7 @@
 
 - (void)setup:(WLMessage*)message {
     
-    if (self.avatarView) {
+    if (self.showAvatar) {
         __weak typeof(self)weakSelf = self;
         self.avatarView.url = message.contributor.picture.small;
         [self.avatarView setFailure:^(NSError* error) {
@@ -65,7 +88,7 @@
         }
     }
     
-    if (self.nameLabel) {
+    if (self.showName) {
         self.nameLabel.text = message.contributor.name;
     }
 	

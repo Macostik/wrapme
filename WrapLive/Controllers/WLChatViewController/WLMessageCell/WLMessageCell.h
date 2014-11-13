@@ -8,19 +8,25 @@
 
 #import "WLEntryCell.h"
 
-static CGFloat WLNameLabelHeight = 5.0f;
-static CGFloat WLMessageAuthorLabelHeight = 21.0f;
-static CGFloat WLMessageMinimumCellHeight = 60.0f;
-static CGFloat WLLastMessageMinimumCellHeight = 40.0f;
+static NSString* WLMessageCellIdentifier = @"WLMessageCell";
+static NSString* WLMyMessageCellIdentifier = @"WLMyMessageCell";
+
+static CGFloat WLMessageNameInset = 18.0f;
+static CGFloat WLMessageVerticalInset = 5.0f;
+static CGFloat WLMessageHorizontalInset = 3.0f;
+static CGFloat WLMessageCellBottomConstraint = 14.0f;
+static CGFloat WLMessageMinimumCellHeight = 48.0f;
 static CGFloat WLAvatarWidth = 66.0f;
-static CGFloat WLEmptyCellHeight = 66.0f;
-static CGFloat WLMinBubbleWidth = 15.0f;
-static CGFloat WLBottomIdent = 12.0f;
-static CGFloat WLPadding = 20.0f;
+static CGFloat WLMinBubbleWidth = 37.0f;
+
 extern CGFloat WLMaxTextViewWidth;
 
 @interface WLMessageCell : WLEntryCell
 
 @property (nonatomic) BOOL showDay;
+
+@property (nonatomic) BOOL showName;
+
+@property (nonatomic) BOOL showAvatar;
 
 @end

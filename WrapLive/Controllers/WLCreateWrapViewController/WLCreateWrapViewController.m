@@ -62,10 +62,15 @@
     [[WLUploading uploading:self.wrap] upload:^(id object) {
         [weakSelf hideExcessView];
         if ([weakSelf.delegate respondsToSelector:@selector(wlCreateWrapViewController:didCreateWrap:)]) {
-            [weakSelf.delegate performSelector:@selector(wlCreateWrapViewController:didCreateWrap:) withObject:self withObject:object];
+            [weakSelf.delegate wlCreateWrapViewController:self didCreateWrap:object];
         }
     } failure:^(NSError *error) {
         if ([error isNetworkError]) {
+            [weakSelf hideExcessView];
+            if ([weakSelf.delegate respondsToSelector:@selector(wlCreateWrapViewController:didCreateWrap:)]) {
+                [weakSelf.delegate wlCreateWrapViewController:self didCreateWrap:self.wrap];
+            }
+        } else {
             [error show];
             [weakSelf.wrap remove];
         }

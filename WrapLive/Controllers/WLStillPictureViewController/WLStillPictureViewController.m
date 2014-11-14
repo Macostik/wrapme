@@ -218,6 +218,7 @@ static CGFloat WLBottomViewHeight = 92.0f;
 	}];
     [self setTranslucent:NO animated:YES];
     [weakSelf.cameraNavigationController pushViewController:gallery animated:YES];
+    [self.wrapView leftPushWithDuration:.15 delegate:nil];
 }
 
 - (void)handleAsset:(ALAsset*)asset {
@@ -273,9 +274,6 @@ static CGFloat WLBottomViewHeight = 92.0f;
 - (void)navigationController:(UINavigationController *)navigationController
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated {
-    if (viewController != self.cameraViewController) {
-           [self.wrapView leftPushWithDuration:.15 delegate:nil];
-    }
     self.wrapView.hidden = YES;
 }
 
@@ -289,7 +287,6 @@ static CGFloat WLBottomViewHeight = 92.0f;
             [self setTranslucent:YES animated:YES];
         }
     }
-    
 }
 
 #pragma mark - PickerViewController action
@@ -339,7 +336,6 @@ static CGFloat WLBottomViewHeight = 92.0f;
 
 - (void)unlockUI {
     [self.view sendSubviewToBack:self.lockButton];
-    
 }
 
 - (IBAction)unlockButtonClick:(id)sender {
@@ -366,7 +362,6 @@ static CGFloat WLBottomViewHeight = 92.0f;
         [weakSelf dismissViewControllerAnimated:YES completion:NULL];
     }];
 }
-
 
 #pragma mark - WLCreateWrapDelegate
 

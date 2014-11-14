@@ -49,15 +49,13 @@
 
 - (void)resetEntries:(NSOrderedSet*)entries;
 
-- (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (void)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (void)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (void)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
-- (void)handleResponse:(NSOrderedSet*)entries success:(WLOrderedSetBlock)success;
+- (void)handleResponse:(NSOrderedSet*)entries;
 
 - (BOOL)addEntries:(NSOrderedSet *)entries;
 

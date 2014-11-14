@@ -101,10 +101,24 @@
 
 @implementation NSOperationQueue (PGAsynchronousOperation)
 
+- (AsynchronousOperation *)addAsynchronousOperation:(NSString *)identifier block:(void (^)(AsynchronousOperation *))block {
+    AsynchronousOperation* operation = [[AsynchronousOperation alloc] initWithQueue:self block:block];
+    operation.identifier = identifier;
+    [self addOperation:operation];
+    return operation;
+}
+
 - (AsynchronousOperation*)addAsynchronousOperationWithBlock:(void (^)(AsynchronousOperation *operation))block {
-	AsynchronousOperation* operation = [[AsynchronousOperation alloc] initWithQueue:self block:block];
-	[self addOperation:operation];
-	return operation;
+	return [self addAsynchronousOperation:nil block:block];
+}
+
+- (BOOL)containsAsynchronousOperation:(NSString *)identifier {
+    for (AsynchronousOperation* operation in self.operations) {
+        if ([operation isKindOfClass:[AsynchronousOperation class]] && [[operation identifier] isEqualToString:identifier]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end

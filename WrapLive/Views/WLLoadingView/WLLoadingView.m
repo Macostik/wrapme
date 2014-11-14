@@ -27,6 +27,14 @@
     return [self loadFromNibNamed:@"WLSplashLoadingView"];
 }
 
++ (void)registerInCollectionView:(UICollectionView *)collectionView {
+    [collectionView registerNib:[self nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WLLoadingViewIdentifier];
+}
+
++ (instancetype)dequeueInCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
+    return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WLLoadingViewIdentifier forIndexPath:indexPath];
+}
+
 - (BOOL)animating {
     return self.spinner.isAnimating;
 }

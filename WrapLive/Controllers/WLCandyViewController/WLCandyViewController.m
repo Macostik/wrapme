@@ -154,10 +154,9 @@
     NSUInteger count = [group.entries count];
     NSUInteger index = [group.entries indexOfObject:candy];
     BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
-    if (!group.request.loading && shouldAppendCandies) {
-        group.request.type = WLPaginatedRequestTypeOlder;
+    if (shouldAppendCandies) {
         __weak typeof(self)weakSelf = self;
-        [group send:^(NSOrderedSet *candies) {
+        [group older:^(NSOrderedSet *candies) {
             if (candies.nonempty) [weakSelf.collectionView reloadData];
         } failure:^(NSError *error) {
             if (error.isNetworkError) {

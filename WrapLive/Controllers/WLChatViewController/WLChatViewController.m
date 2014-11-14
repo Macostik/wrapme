@@ -65,6 +65,8 @@ CGFloat WLMaxTextViewWidth;
 
 @property (nonatomic) BOOL animating;
 
+@property (strong, nonatomic) NSIndexSet* supplementarySections;
+
 @end
 
 @implementation WLChatViewController
@@ -80,13 +82,13 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)viewDidLoad {
+	[super viewDidLoad];
+    
+    NSMutableIndexSet* supplementarySections = [NSMutableIndexSet indexSetWithIndex:WLChatTypingSection];
+    [supplementarySections addIndex:WLChatLoadingSection];
+    self.supplementarySections = [supplementarySections copy];
     
     UICollectionView *collectionView = self.collectionView;
-    [collectionView registerNib:[WLLoadingView nib]
-          forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
-                 withReuseIdentifier:@"WLLoadingView"];
-    
-	[super viewDidLoad];
     
     [self updateEdgeInsets:0];
     self.refresher = [WLRefresher refresher:collectionView target:self action:@selector(refreshMessages:) style:WLRefresherStyleOrange];
@@ -182,9 +184,7 @@ CGFloat WLMaxTextViewWidth;
     [self performInsertAnimation:^(WLBlock completion) {
         [weakSelf.chat addEntry:message];
         [weakSelf.collectionView performBatchUpdates:^{
-            NSMutableIndexSet *sections = [NSMutableIndexSet indexSetWithIndex:WLChatTypingSection];
-            [sections addIndex:WLChatLoadingSection];
-            [weakSelf.collectionView reloadSections:sections];
+            [weakSelf.collectionView reloadSections:weakSelf.supplementarySections];
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:message] inSection:WLChatMessagesSection];
             [weakSelf.collectionView insertItemsAtIndexPaths:@[indexPath]];
         } completion:^(BOOL finished) {
@@ -282,7 +282,6 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
-//    self.wrap.messages = nil;
     [self.composeBar resignFirstResponder];
     self.typing = NO;
     if (self.wrap.valid) {
@@ -349,7 +348,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (section == 0 || section == 2) {
+    if ([self.supplementarySections containsIndex:section]) {
         return 0;
     }
     return [self.chat.entries count];
@@ -374,7 +373,7 @@ CGFloat WLMaxTextViewWidth;
         typingView.names = self.chat.typingNames;
         return typingView;
     } else {
-        WLLoadingView* loadingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLLoadingView" forIndexPath:indexPath];
+        WLLoadingView* loadingView = [WLLoadingView dequeueInCollectionView:collectionView indexPath:indexPath];
         if (self.chat.wrap) {
             loadingView.error = NO;
             [self appendMessages:^{
@@ -405,12 +404,12 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    if (section != 2 || self.chat.completed) return CGSizeZero;
-    return CGSizeMake(collectionView.width, 66);
+    if (section != WLChatLoadingSection || self.chat.completed) return CGSizeZero;
+    return CGSizeMake(collectionView.width, WLLoadingViewDefaultSize);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    if (section != 0 || !self.chat.showTypingView) return CGSizeZero;
+    if (section != WLChatTypingSection || !self.chat.showTypingView) return CGSizeZero;
     return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont regularFontOfSize:14] width:WLMaxTextViewWidth cachingKey:"typingViewHeight"]));
 }
 

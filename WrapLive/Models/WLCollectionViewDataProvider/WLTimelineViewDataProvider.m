@@ -82,7 +82,7 @@
         view.event = event;
         return view;
     } else {
-        WLLoadingView* loadingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLLoadingView" forIndexPath:indexPath];
+        WLLoadingView* loadingView = [WLLoadingView dequeueInCollectionView:collectionView indexPath:indexPath];
         loadingView.error = NO;
         [self append:nil failure:^(NSError *error) {
             [error showIgnoringNetworkError];

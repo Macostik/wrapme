@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -8,38 +8,32 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="6xH-Ir-kw1" customClass="WLLoadingView">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+            <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="cEm-lK-iqz">
-                    <rect key="frame" x="150" y="34" width="20" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cEm-lK-iqz">
+                    <rect key="frame" x="23" y="23" width="20" height="20"/>
                     <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                 </activityIndicatorView>
-                <view hidden="YES" contentMode="scaleToFill" id="Ybf-L1-cMM">
-                    <rect key="frame" x="60" y="22" width="200" height="44"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_alert_orange" id="SzL-Cm-mNv">
-                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                        </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data is not avaliable" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vuG-DT-VYs">
-                            <rect key="frame" x="44" y="0.0" width="156" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_alert_orange" translatesAutoresizingMaskIntoConstraints="NO" id="SzL-Cm-mNv">
+                    <rect key="frame" x="11" y="11" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="TJz-xH-Qau"/>
+                        <constraint firstAttribute="height" constant="44" id="vcY-BW-j4w"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="SzL-Cm-mNv" secondAttribute="centerY" id="NKr-zz-9cf"/>
+                <constraint firstAttribute="centerX" secondItem="SzL-Cm-mNv" secondAttribute="centerX" id="ik2-LA-TUb"/>
+                <constraint firstAttribute="centerX" secondItem="cEm-lK-iqz" secondAttribute="centerX" id="sZA-Ze-7mV"/>
+                <constraint firstAttribute="centerY" secondItem="cEm-lK-iqz" secondAttribute="centerY" id="ukP-x6-uAK"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="errorView" destination="Ybf-L1-cMM" id="FN4-eI-Ba1"/>
+                <outlet property="errorView" destination="SzL-Cm-mNv" id="JoF-uy-qla"/>
                 <outlet property="spinner" destination="cEm-lK-iqz" id="IoE-6J-oeD"/>
             </connections>
         </view>

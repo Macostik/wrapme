@@ -38,19 +38,11 @@
 }
 
 - (void)append:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    if (!self.entries.request.loading) {
-        [self.entries older:success failure:failure];
-    } else if (failure) {
-        failure(nil);
-    }
+    [self.entries older:success failure:failure];
 }
 
 - (void)refresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    if (!self.entries.request.loading) {
-        [self.entries newer:success failure:failure];
-    } else if (failure) {
-        failure(nil);
-    }
+    [self.entries newer:success failure:failure];
 }
 
 - (void)append {
@@ -66,12 +58,18 @@
 }
 
 - (CGSize)footerSize:(NSUInteger)section {
-    return self.completed ? CGSizeZero : [super footerSize:section];
+    if (self.completed) return CGSizeZero;
+    UICollectionView *collectionView = self.collectionView;
+    UICollectionViewFlowLayout* layout = (id)collectionView.collectionViewLayout;
+    if (layout.scrollDirection == UICollectionViewScrollDirectionVertical) {
+        return CGSizeMake(collectionView.bounds.size.width, WLLoadingViewDefaultSize);
+    } else {
+        return CGSizeMake(WLLoadingViewDefaultSize, collectionView.bounds.size.height);
+    }
 }
 
 - (id)footer:(NSIndexPath *)indexPath {
-    static NSString* identifier = @"WLLoadingView";
-    WLLoadingView* loadingView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier forIndexPath:indexPath];
+    WLLoadingView* loadingView = [WLLoadingView dequeueInCollectionView:self.collectionView indexPath:indexPath];
     loadingView.error = NO;
     [self append:nil failure:^(NSError *error) {
         [error showIgnoringNetworkError];

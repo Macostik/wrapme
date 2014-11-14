@@ -9,6 +9,13 @@
 #import "WLPaginatedSet.h"
 #import "WLEntryManager.h"
 #import "WLAPIManager.h"
+#import "AsynchronousOperation.h"
+
+@interface WLPaginatedSet ()
+
+@property (strong, nonatomic) NSOperationQueue* loadingQueue;
+
+@end
 
 @implementation WLPaginatedSet
 
@@ -39,30 +46,56 @@
     [self sort];
 }
 
-- (id)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    self.request.type = WLPaginatedRequestTypeFresh;
-    return [self send:success failure:failure];
+- (NSOperationQueue *)loadingQueue {
+    if (!_loadingQueue) {
+        _loadingQueue = [[NSOperationQueue alloc] init];
+        _loadingQueue.maxConcurrentOperationCount = 1;
+    }
+    return _loadingQueue;
 }
 
-- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    self.request.type = WLPaginatedRequestTypeNewer;
-    return [self send:success failure:failure];
+- (void)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    __weak typeof(self)weakSelf = self;
+    if ([self.loadingQueue containsAsynchronousOperation:@"fresh"]) return;
+    [self.loadingQueue addAsynchronousOperation:@"fresh" block:^(AsynchronousOperation *operation) {
+        weakSelf.request.type = WLPaginatedRequestTypeFresh;
+        [weakSelf send:operation success:success failure:failure];
+    }];
 }
 
-- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    self.request.type = WLPaginatedRequestTypeOlder;
-    return [self send:success failure:failure];
+- (void)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    __weak typeof(self)weakSelf = self;
+    if ([self.loadingQueue containsAsynchronousOperation:@"newer"]) return;
+    [self.loadingQueue addAsynchronousOperation:@"newer" block:^(AsynchronousOperation *operation) {
+        weakSelf.request.type = WLPaginatedRequestTypeNewer;
+        [weakSelf send:operation success:success failure:failure];
+    }];
 }
 
-- (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (void)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+    __weak typeof(self)weakSelf = self;
+    if ([self.loadingQueue containsAsynchronousOperation:@"older"]) return;
+    [self.loadingQueue addAsynchronousOperation:@"older" block:^(AsynchronousOperation *operation) {
+        weakSelf.request.type = WLPaginatedRequestTypeOlder;
+        [weakSelf send:operation success:success failure:failure];
+    }];
+}
+
+- (id)send:(AsynchronousOperation *)operation success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     WLPaginatedRequest* request = self.request;
     if (request) {
         [self configureRequest:request];
         __weak typeof(self)weakSelf = self;
         return [request send:^(NSOrderedSet *orderedSet) {
-            [weakSelf handleResponse:orderedSet success:success];
-        } failure:failure];
+            [weakSelf handleResponse:orderedSet];
+            [operation finish];
+            if (success) success(orderedSet);
+        } failure:^(NSError *error) {
+            [operation finish];
+            if (failure) failure(error);
+        }];
     } else {
+        [operation finish];
         if (failure) failure(nil);
         return nil;
     }
@@ -87,17 +120,13 @@
     return lastEntry.paginationDate;
 }
 
-- (void)handleResponse:(NSOrderedSet*)entries success:(WLOrderedSetBlock)success {
+- (void)handleResponse:(NSOrderedSet*)entries {
     if ((!entries.nonempty || ![self addEntries:entries]) && self.request.type == WLPaginatedRequestTypeOlder) {
         self.completed = YES;
     } else if (!self.entries.nonempty) {
         self.completed = YES;
     } else {
         [self.delegate paginatedSetChanged:self];
-    }
-    
-    if(success) {
-        success(entries);
     }
 }
 

@@ -72,7 +72,7 @@
     }
 }
 
-- (void)handleResponse:(NSOrderedSet*)entries success:(WLOrderedSetBlock)success {
+- (void)handleResponse:(NSOrderedSet*)entries {
     
     if (!entries.nonempty) {
         self.completed = YES;
@@ -85,9 +85,6 @@
     }
     
     [self.delegate paginatedSetChanged:self];
-    if(success) {
-        success(entries);
-    }
 }
 
 #pragma mark - WLEntryNotifyReceiver

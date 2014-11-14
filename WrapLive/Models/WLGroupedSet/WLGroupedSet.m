@@ -158,13 +158,12 @@
     return self;
 }
 
-- (id)send:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    WLCandiesRequest* request = (id)self.request;
+- (void)configureRequest:(WLCandiesRequest *)request {
     WLWrap* wrap = [[self.entries firstObject] wrap];
     if (wrap) {
         request.wrap = wrap;
     }
-    return [super send:success failure:failure];
+    [super configureRequest:request];
 }
 
 - (NSDate *)paginationDate {

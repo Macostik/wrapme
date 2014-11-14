@@ -10,10 +10,12 @@
 
 @interface AsynchronousOperation : NSOperation
 
+@property (weak, nonatomic) NSOperationQueue* queue;
+
+@property (strong, nonatomic) NSString *identifier;
+
 - (id)initWithBlock:(void (^)(AsynchronousOperation* operation))block;
 - (id)initWithQueue:(NSOperationQueue*)queue block:(void (^)(AsynchronousOperation* operation))block;
-
-@property (weak, nonatomic) NSOperationQueue* queue;
 
 - (void)finish;
 - (void)finish:(void (^)(void))completionQueueBlock;
@@ -22,6 +24,10 @@
 
 @interface NSOperationQueue (PGAsynchronousOperation)
 
+- (AsynchronousOperation*)addAsynchronousOperation:(NSString*)identifier block:(void (^)(AsynchronousOperation* operation))block;
+
 - (AsynchronousOperation*)addAsynchronousOperationWithBlock:(void (^)(AsynchronousOperation* operation))block;
+
+- (BOOL)containsAsynchronousOperation:(NSString*)identifier;
 
 @end

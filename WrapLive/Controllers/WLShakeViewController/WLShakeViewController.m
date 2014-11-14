@@ -13,39 +13,13 @@
 #import <CoreTelephony/CTCallCenter.h>
 #import <CoreTelephony/CTCall.h>
 
-static CTCallCenter *callCenter;
-
 @interface WLShakeViewController ()
-
-@property (weak, nonatomic) UISwipeGestureRecognizer* backSwipeGestureRecognizer;
 
 @property (nonatomic, readonly) BOOL isCalling;
 
 @end
 
 @implementation WLShakeViewController
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-
-- (void)setIsShowPlaceholder:(BOOL)isShowPlaceholder {
-    if (_isShowPlaceholder != isShowPlaceholder) {
-        _isShowPlaceholder = isShowPlaceholder;
-        if (isShowPlaceholder) {
-            [self showPlaceholder];
-        } else {
-            [self.noContentPlaceholder removeFromSuperview];
-            [self.titleNoContentPlaceholder removeFromSuperview];
-        }
-    }
-}
-
-- (void)showPlaceholder {
-    self.noContentPlaceholder = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notContentPlaceholder"]];
-    self.noContentPlaceholder.center = CGPointMake(self.view.center.x, self.view.center.y + 40) ;
-    [self.view insertSubview:self.noContentPlaceholder atIndex:0];
-}
 
 - (BOOL)isCalling {
     CTCallCenter *callCenter = [[CTCallCenter alloc] init];
@@ -55,21 +29,6 @@ static CTCallCenter *callCenter;
         }
     }
     return NO;
-}
-
-- (UIView *)translucentView {
-	if (!_translucentView) {
-		UIToolbar* toolbar = [[UIToolbar alloc] initWithFrame:self.view.bounds];
-		toolbar.tintColor = [UIColor whiteColor];
-		toolbar.translucent = YES;
-		_translucentView = toolbar;
-	}
-	return _translucentView;
-}
-
-- (void)setTranslucent {
-	self.view.backgroundColor = [UIColor clearColor];
-	[self.view insertSubview:self.translucentView atIndex:0];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
@@ -152,29 +111,6 @@ static CTCallCenter *callCenter;
 
 - (BOOL)presentShakeViewController {
 	return [self presentShakeViewControllerWithNavigationController:self.navigationController];
-}
-
-- (void)setBackSwipeGestureEnabled:(BOOL)backSwipeGestureEnabled {
-	if (backSwipeGestureEnabled) {
-		UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backSwipeGesture)];
-		recognizer.direction = UISwipeGestureRecognizerDirectionRight;
-		[self.view addGestureRecognizer:recognizer];
-		self.backSwipeGestureRecognizer = recognizer;
-	} else if (self.backSwipeGestureRecognizer) {
-		[self.view removeGestureRecognizer:self.backSwipeGestureRecognizer];
-		self.backSwipeGestureRecognizer = nil;
-	}
-}
-
-- (BOOL)backSwipeGestureEnabled {
-	return (self.backSwipeGestureRecognizer != nil);
-}
-
-- (void)backSwipeGesture {
-	if (self.isOnTopOfNagvigation) {
-		self.backSwipeGestureEnabled = NO;
-		[self.navigationController popViewControllerAnimated:YES];
-	}
 }
 
 @end

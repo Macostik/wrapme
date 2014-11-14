@@ -11,6 +11,8 @@
 #import "UIView+AnimationHelper.h"
 #import "UIView+Shorthand.h"
 #import "WLNavigation.h"
+#import "UIViewController+Additions.h"
+#import "NSObject+NibAdditions.h"
 
 @interface WLBaseViewController ()
 
@@ -19,6 +21,8 @@
 @property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *keyboardAdjustmentTopConstraints;
 
 @property (strong, nonatomic) NSMapTable* keyboardAdjustmentDefaultConstants;
+
+@property (weak, nonatomic) UISwipeGestureRecognizer* backSwipeGestureRecognizer;
 
 @end
 
@@ -41,6 +45,54 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     self.viewAppeared = NO;
+}
+
+- (void)setShowsPlaceholderView:(BOOL)showsPlaceholderView {
+    if (_showsPlaceholderView != showsPlaceholderView) {
+        _showsPlaceholderView = showsPlaceholderView;
+        if (showsPlaceholderView) {
+            [self showPlaceholderView];
+        } else {
+            [self.placeholderView removeFromSuperview];
+        }
+    }
+}
+
+- (void)showPlaceholderView {
+    UINib *nib = [self placeholderViewNib];
+    if (nib) {
+        UIView* placeholderView = [UIView loadFromNib:nib ownedBy:nil];
+        placeholderView.frame = self.view.bounds;
+        [self.view insertSubview:placeholderView atIndex:0];
+        self.placeholderView = placeholderView;
+    }
+}
+
+- (UINib *)placeholderViewNib {
+    return nil;
+}
+
+- (void)setBackSwipeGestureEnabled:(BOOL)backSwipeGestureEnabled {
+    if (backSwipeGestureEnabled) {
+        UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backSwipeGesture)];
+        recognizer.direction = UISwipeGestureRecognizerDirectionRight;
+        [self.view addGestureRecognizer:recognizer];
+        self.backSwipeGestureRecognizer = recognizer;
+    } else if (self.backSwipeGestureRecognizer) {
+        [self.view removeGestureRecognizer:self.backSwipeGestureRecognizer];
+        self.backSwipeGestureRecognizer = nil;
+    }
+}
+
+- (BOOL)backSwipeGestureEnabled {
+    return (self.backSwipeGestureRecognizer != nil);
+}
+
+- (void)backSwipeGesture {
+    if (self.isOnTopOfNagvigation) {
+        self.backSwipeGestureEnabled = NO;
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver

@@ -17,6 +17,16 @@
 
 @property (nonatomic) BOOL viewAppeared;
 
+@property (nonatomic) BOOL backSwipeGestureEnabled;
+
+@property (nonatomic) BOOL showsPlaceholderView;
+
+@property (weak, nonatomic) UIView *placeholderView;
+
+- (UINib*)placeholderViewNib;
+
+- (void)showPlaceholderView;
+
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight;
 
 @end

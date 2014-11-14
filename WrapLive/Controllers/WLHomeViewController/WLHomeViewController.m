@@ -89,7 +89,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     __weak __typeof(self)weakSelf = self;
     [section setChange:^(WLPaginatedSet* entries) {
         WLUser *user = [WLUser currentUser];
-        weakSelf.isShowPlaceholder = entries.completed && ![entries.entries nonempty];
+        weakSelf.showsPlaceholderView = entries.completed && ![entries.entries nonempty];
         if (user.firstTimeUse && [user.wraps match:^BOOL(WLWrap *wrap) {
             return !wrap.isDefault.boolValue;
         }]) {
@@ -123,11 +123,8 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self updateEmailConfirmationView:NO];
 }
 
-- (void)showPlaceholder {
-    self.titleNoContentPlaceholder = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create_new_wrap"]];
-    self.titleNoContentPlaceholder.center = CGPointMake(self.view.center.x, self.view.center.y - 180.0f) ;
-    [self.view insertSubview:self.titleNoContentPlaceholder atIndex:0];
-    [super showPlaceholder];
+- (UINib *)placeholderViewNib {
+    return [UINib nibWithNibName:@"WLHomePlaceholderView" bundle:nil];
 }
 
 - (void)updateEmailConfirmationView:(BOOL)animated {
@@ -172,12 +169,12 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 - (void)notifier:(WLEntryNotifier *)notifier wrapAdded:(WLWrap *)wrap {
     [self.section.entries addEntry:wrap];
 	self.collectionView.contentOffset = CGPointZero;
-    self.isShowPlaceholder = ![self.section.entries.entries nonempty];
+    self.showsPlaceholderView = ![self.section.entries.entries nonempty];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
     [self.section.entries removeEntry:wrap];
-    self.isShowPlaceholder = ![self.section.entries.entries nonempty];
+    self.showsPlaceholderView = ![self.section.entries.entries nonempty];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {

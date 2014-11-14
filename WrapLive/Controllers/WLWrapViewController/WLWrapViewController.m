@@ -159,12 +159,11 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [self.dataProvider reload];
     [self updateNotificationCouter];
     [self updateWrapData];
-    self.isShowPlaceholder = !self.wrap.candies.nonempty;
+    self.showsPlaceholderView = !self.wrap.candies.nonempty;
 }
 
-- (void)showPlaceholder {
-    [super showPlaceholder];
-    self.noContentPlaceholder.y -= 20;
+- (UINib *)placeholderViewNib {
+    return [UINib nibWithNibName:@"WLWrapPlaceholderView" bundle:nil];
 }
 
 - (void)updateNotificationCouter {
@@ -209,12 +208,12 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 - (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
     [self.groups addEntry:candy];
-    self.isShowPlaceholder = !self.wrap.candies.nonempty;
+    self.showsPlaceholderView = !self.wrap.candies.nonempty;
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
     [self.groups removeEntry:candy];
-    self.isShowPlaceholder = !self.wrap.candies.nonempty;
+    self.showsPlaceholderView = !self.wrap.candies.nonempty;
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {

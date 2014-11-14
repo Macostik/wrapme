@@ -10,18 +10,8 @@
 
 @interface WLShakeViewController : WLBaseViewController
 
-@property (assign, nonatomic) BOOL isShowPlaceholder;
-@property (nonatomic) BOOL backSwipeGestureEnabled;
-@property (nonatomic, strong) UIView* translucentView;
-@property (strong, nonatomic) UIImageView *noContentPlaceholder;
-@property (strong, nonatomic) UIImageView *titleNoContentPlaceholder;
-
 - (UIViewController*)shakePresentedViewController;
 
 - (BOOL)didRecognizeShakeGesture;
-
-- (void)setTranslucent;
-
-- (void)showPlaceholder;
 
 @end

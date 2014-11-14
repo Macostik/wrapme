@@ -163,6 +163,10 @@
 		5BA6CAF31A10E51B004AD41C /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
 		5BA6CAF41A10E51B004AD41C /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
 		5BA6CAF51A10E51B004AD41C /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
+		5BA6CE971A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
+		5BA6CE981A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
+		5BA6CE991A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
+		5BA6CE9A1A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
 		5BAA216319FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
 		5BAA216419FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
 		5BAA216519FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
@@ -1373,6 +1377,8 @@
 		5BA6CAEF1A10E51B004AD41C /* s02.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s02.wav; sourceTree = "<group>"; };
 		5BA6CAF01A10E51B004AD41C /* s03.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s03.wav; sourceTree = "<group>"; };
 		5BA6CAF11A10E51B004AD41C /* s04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s04.wav; sourceTree = "<group>"; };
+		5BA6CE951A160D4300C0DD95 /* UIDevice-Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice-Hardware.h"; sourceTree = "<group>"; };
+		5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice-Hardware.m"; sourceTree = "<group>"; };
 		5BAA216119FE7BCD008958EF /* WLActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLActionViewController.h; path = WLActionViewController/WLActionViewController.h; sourceTree = "<group>"; };
 		5BAA216219FE7BCD008958EF /* WLActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLActionViewController.m; path = WLActionViewController/WLActionViewController.m; sourceTree = "<group>"; };
 		5BB02FF419F00BCE001E1D50 /* WLChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChat.h; path = WLChatGroupSet/WLChat.h; sourceTree = "<group>"; };
@@ -3145,6 +3151,8 @@
 			children = (
 				C517D4CD19D08144006058C7 /* UIDevice+SystemVersion.h */,
 				C517D4CE19D08144006058C7 /* UIDevice+SystemVersion.m */,
+				5BA6CE951A160D4300C0DD95 /* UIDevice-Hardware.h */,
+				5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */,
 			);
 			path = UIDevice;
 			sourceTree = "<group>";
@@ -4164,6 +4172,7 @@
 				C56091261A10CEB600C48887 /* WLUser.m in Sources */,
 				C519106E1A078248003C78B2 /* WLEntry.m in Sources */,
 				C50AF4241976ABE700761F38 /* WLMessagesRequest.m in Sources */,
+				5BA6CE971A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */,
 				128886AD18DC493B00957B22 /* WLSession.m in Sources */,
 				5BAA216319FE7BCD008958EF /* WLActionViewController.m in Sources */,
 				120ED84F18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
@@ -4381,6 +4390,7 @@
 				C56091271A10CEB600C48887 /* WLUser.m in Sources */,
 				C519106F1A078248003C78B2 /* WLEntry.m in Sources */,
 				C54AF4B519B8C437006F7EDB /* WLMessagesRequest.m in Sources */,
+				5BA6CE981A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */,
 				C54AF4B619B8C437006F7EDB /* WLSession.m in Sources */,
 				5BAA216419FE7BCD008958EF /* WLActionViewController.m in Sources */,
 				C54AF4B719B8C437006F7EDB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
@@ -4598,6 +4608,7 @@
 				C56091281A10CEB600C48887 /* WLUser.m in Sources */,
 				C51910701A078248003C78B2 /* WLEntry.m in Sources */,
 				C54AF5B219B8C467006F7EDB /* WLMessagesRequest.m in Sources */,
+				5BA6CE991A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */,
 				C54AF5B319B8C467006F7EDB /* WLSession.m in Sources */,
 				5BAA216519FE7BCD008958EF /* WLActionViewController.m in Sources */,
 				C54AF5B419B8C467006F7EDB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
@@ -4815,6 +4826,7 @@
 				C56091291A10CEB600C48887 /* WLUser.m in Sources */,
 				C51910711A078248003C78B2 /* WLEntry.m in Sources */,
 				C54AF6AF19B8C491006F7EDB /* WLMessagesRequest.m in Sources */,
+				5BA6CE9A1A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */,
 				C54AF6B019B8C491006F7EDB /* WLSession.m in Sources */,
 				5BAA216619FE7BCD008958EF /* WLActionViewController.m in Sources */,
 				C54AF6B119B8C491006F7EDB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,

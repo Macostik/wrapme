@@ -10,6 +10,7 @@
 #import "NSString+Additions.h"
 #import "WLSession.h"
 #import "WLEntryKeys.h"
+#import "UIDevice-Hardware.h"
 
 @implementation WLAuthorization
 
@@ -26,7 +27,7 @@
 
 - (NSString *)deviceName {
     if (!_deviceName) {
-        _deviceName = [UIDevice currentDevice].model;
+        _deviceName = [UIDevice currentDevice].modelName;
     }
     return _deviceName;
 }

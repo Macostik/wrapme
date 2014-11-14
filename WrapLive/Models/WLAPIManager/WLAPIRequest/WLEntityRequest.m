@@ -22,7 +22,8 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    return [self.entry update:[response.data objectForPossibleKeys:@"wrap",@"candy",@"chat",@"comment", nil]];
+    WLEntry *entry = self.entry;
+    return entry.valid ? [entry update:[response.data objectForPossibleKeys:WLWrapKey,WLCandyKey,WLMessageKey,WLCommentKey, nil]] : nil;
 }
 
 - (void)handleFailure:(NSError *)error {

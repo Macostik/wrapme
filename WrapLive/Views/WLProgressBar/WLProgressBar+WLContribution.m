@@ -15,6 +15,10 @@
 
 @implementation WLProgressBar (WLContribution)
 
+static inline float progressValue(float progress) {
+    return WLDefaultProgress + (1.0f - WLDefaultProgress) * progress;
+};
+
 - (void)setContribution:(WLContribution *)contribution {
     switch (contribution.status) {
         case WLContributionStatusReady:
@@ -22,7 +26,13 @@
             self.hidden = NO;
             __weak typeof(self)weakSelf = self;
             [contribution.uploading.data setProgressBlock:^(float progress) {
-                [weakSelf setProgress:WLDefaultProgress + (1.0f - WLDefaultProgress) * progress animated:YES];
+                progress = progressValue(progress);
+                [weakSelf setProgress:progress animated:YES];
+                if (progress == 1) {
+                    run_after(1.0f, ^{
+                        weakSelf.hidden = YES;
+                    });
+                }
             }];
         } break;
         case WLContributionStatusUploaded:
@@ -38,12 +48,12 @@
     __weak typeof(self)weakSelf = self;
     if ([WLInternetConnectionBroadcaster broadcaster].reachable) {
         [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-            float progress = 0.5f * ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
-            [weakSelf setProgress:WLDefaultProgress + (1.0f - WLDefaultProgress) * progress animated:YES];
+            float progress = WLUploadingDataProgressPart * ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
+            [weakSelf setProgress:progressValue(progress) animated:YES];
         }];
         [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-            float progress = 0.5f + 0.5f * ((float)totalBytesRead/(float)totalBytesExpectedToRead);
-            [weakSelf setProgress:WLDefaultProgress + (1.0f - WLDefaultProgress) * progress animated:YES];
+            float progress = WLUploadingDataProgressPart + WLDownloadingDataProgressPart * ((float)totalBytesRead/(float)totalBytesExpectedToRead);
+            [weakSelf setProgress:progressValue(progress) animated:YES];
         }];
     }
 }

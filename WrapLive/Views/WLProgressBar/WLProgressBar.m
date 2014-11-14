@@ -59,6 +59,7 @@
                      clockwise:YES];
     }
     layer.path = path.CGPath;
+    layer.actions = @{@"strokeEnd":[NSNull null]};
 }
 
 - (void)setProgress:(float)progress {
@@ -68,39 +69,34 @@
 - (void)setProgress:(float)progress animated:(BOOL)animated {
 	progress = Smoothstep(0, 1, progress);
     if (_progress != progress) {
-        float difference = ABS(progress - _progress);
         _progress = progress;
-        [self updateProgress:difference animated:animated];
+        [self updateProgress:animated];
     }
 }
 
 - (CABasicAnimation *)animation {
     if (!_animation) {
         _animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-        _animation.delegate = self;
     }
     return _animation;
 }
 
-- (void)updateProgress:(float)difference animated:(BOOL)animated {
+- (void)updateProgress:(BOOL)animated {
     static NSString* animationKey = @"strokeAnimation";
     CAShapeLayer * layer = (id)self.layer;
     if (animated) {
         CABasicAnimation* animation = self.animation;
-        animation.duration = difference;
-        [animation setFromValue:@([(layer.presentationLayer?:layer) strokeEnd])];
+        CGFloat fromValue = [(layer.presentationLayer?:layer) strokeEnd];
+        animation.duration = ABS(_progress - fromValue);
+        [animation setFromValue:@(fromValue)];
         [animation setToValue:@(_progress)];
         [layer removeAnimationForKey:animationKey];
+        layer.strokeEnd = _progress;
         [layer addAnimation:animation forKey:animationKey];
     } else {
         [layer removeAnimationForKey:animationKey];
         layer.strokeEnd = _progress;
     }
-}
-
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    CAShapeLayer * layer = (id)self.layer;
-    layer.strokeEnd = _progress;
 }
 
 @end

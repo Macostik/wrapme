@@ -12,6 +12,9 @@
 @class WLProgressBar;
 @class WLUploading;
 
+static CGFloat WLUploadingDataProgressPart = 0.5f;
+static CGFloat WLDownloadingDataProgressPart = 0.5f;
+
 @interface WLUploadingData : NSObject
 
 @property (weak, nonatomic) WLUploading* uploading;

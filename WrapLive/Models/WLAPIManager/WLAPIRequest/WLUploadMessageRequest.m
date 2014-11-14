@@ -28,15 +28,18 @@
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
     WLMessage* message = self.message;
     [parameters trySetObject:message.text forKey:@"message"];
-    [parameters trySetObject:message.uploadIdentifier forKey:@"upload_uid"];
+    [parameters trySetObject:message.uploadIdentifier forKey:WLUploadUIDKey];
     return parameters;
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLMessage* message = self.message;
-    [message API_setup:[response.data dictionaryForKey:@"chat"]];
-    [message.wrap touch:message.createdAt];
-    return message;
+    if (message.wrap.valid) {
+        [message API_setup:[response.data dictionaryForKey:WLMessageKey]];
+        [message.wrap touch:message.createdAt];
+        return message;
+    }
+    return nil;
 }
 
 @end

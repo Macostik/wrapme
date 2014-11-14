@@ -27,9 +27,13 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    NSOrderedSet* candies = [WLCandy API_entries:response.data[@"candies"] relatedEntry:self.wrap];
-    [self.wrap addCandies:candies];
-    return candies;
+    WLWrap *wrap = self.wrap;
+    if (wrap.valid) {
+        NSOrderedSet* candies = [WLCandy API_entries:response.data[WLCandiesKey] relatedEntry:wrap];
+        [wrap addCandies:candies];
+        return candies;
+    }
+    return nil;
 }
 
 @end

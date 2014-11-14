@@ -35,11 +35,15 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    NSMutableOrderedSet* oldCandies = [self.wrap.candies mutableCopy];
-    [self.wrap update:response.data[@"wrap"]];
-    NSMutableOrderedSet* newCandies = [self.wrap.candies mutableCopy];
-    [newCandies minusOrderedSet:oldCandies];
-    return newCandies;
+    WLWrap *wrap = self.wrap;
+    if (wrap.valid) {
+        NSMutableOrderedSet* oldCandies = [wrap.candies mutableCopy];
+        [wrap update:response.data[WLWrapKey]];
+        NSMutableOrderedSet* newCandies = [wrap.candies mutableCopy];
+        [newCandies minusOrderedSet:oldCandies];
+        return newCandies;
+    }
+    return nil;
 }
 
 - (void)handleFailure:(NSError *)error {

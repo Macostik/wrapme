@@ -23,12 +23,14 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    return [self.candy update:[response.data dictionaryForKey:@"candy"]];
+    WLCandy *candy = self.candy;
+    return candy.valid ? [candy update:[response.data dictionaryForKey:WLCandyKey]] : nil;
 }
 
 - (void)handleFailure:(NSError *)error {
-    if (self.candy.uploaded && error.isContentUnavaliable) {
-        [self.candy remove];
+    WLCandy *candy = self.candy;
+    if (candy.uploaded && error.isContentUnavaliable) {
+        [candy remove];
         self.candy = nil;
     }
     [super handleFailure:error];

@@ -24,8 +24,8 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-	WLWrap* wrap = [self.wrap API_setup:response.data[@"wrap"]];
-    return wrap;
+    WLWrap* wrap = self.wrap;
+    return wrap.valid ? [self.wrap API_setup:response.data[WLWrapKey]] : nil;
 }
 
 @end

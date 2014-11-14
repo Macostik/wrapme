@@ -45,9 +45,8 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    WLWrap* wrap = [self.wrap update:response.data[@"wrap"]];
-    
-    return wrap;
+    WLWrap* wrap = self.wrap;
+    return wrap.valid ? [wrap update:response.data[WLWrapKey]] : nil;
 }
 
 @end

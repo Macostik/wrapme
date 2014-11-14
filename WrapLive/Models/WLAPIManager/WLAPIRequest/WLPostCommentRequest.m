@@ -35,9 +35,12 @@
 
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLComment* comment = self.comment;
-    [comment API_setup:[response.data dictionaryForKey:@"comment"]];
-    [comment.candy touch:comment.createdAt];
-    return comment;
+    if (comment.candy.valid) {
+        [comment API_setup:[response.data dictionaryForKey:@"comment"]];
+        [comment.candy touch:comment.createdAt];
+        return comment;
+    }
+    return nil;
 }
 
 @end

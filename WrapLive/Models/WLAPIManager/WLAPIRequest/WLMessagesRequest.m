@@ -29,11 +29,15 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    NSOrderedSet* messages = [WLMessage API_entries:response.data[@"chats"] relatedEntry:self.wrap];
-    if (messages.nonempty) {
-        [self.wrap notifyOnUpdate];
+    WLWrap *wrap = self.wrap;
+    if (wrap.valid) {
+        NSOrderedSet* messages = [WLMessage API_entries:response.data[@"chats"] relatedEntry:wrap];
+        if (messages.nonempty) {
+            [wrap notifyOnUpdate];
+        }
+        return messages;
     }
-    return messages;
+    return nil;
 }
 
 @end

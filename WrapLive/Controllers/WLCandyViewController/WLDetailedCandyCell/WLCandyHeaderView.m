@@ -11,7 +11,7 @@
 #import "WLEntryManager.h"
 #import "WLProgressBar+WLContribution.h"
 #import "NSString+Additions.h"
-#import "WLInternetConnectionBroadcaster.h"
+#import "WLNetwork.h"
 #import "NSDate+Additions.h"
 
 @interface WLCandyHeaderView ()
@@ -27,7 +27,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
+    [[WLNetwork network] addReceiver:self];
 }
 
 - (void)setCandy:(WLCandy *)candy {
@@ -41,12 +41,6 @@
     }];
     self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(candy.createdAt.timeAgoString)];
     self.progressBar.contribution = candy;
-}
-
-#pragma mark - WLInternetConnectionBroadcaster
-
-- (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
-    self.progressBar.contribution = self.candy;
 }
 
 @end

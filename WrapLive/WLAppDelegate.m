@@ -7,7 +7,7 @@
 //
 
 #import "WLAppDelegate.h"
-#import "WLInternetConnectionBroadcaster.h"
+#import "WLNetwork.h"
 #import "WLSession.h"
 #import "WLNotificationCenter.h"
 #import "WLKeyboard.h"
@@ -35,7 +35,7 @@
     
     [UIWindow setMainWindow:self.window];
     [UIStoryboard setStoryboard:self.window.rootViewController.storyboard named:WLSignUpStoryboard];
-	[[WLInternetConnectionBroadcaster broadcaster] configure];
+	[[WLNetwork network] configure];
 	[[WLKeyboard keyboard] configure];
 	[[WLNotificationCenter defaultCenter] configure];
 //    [[WLGestureBroadcaster broadcaster] configure];

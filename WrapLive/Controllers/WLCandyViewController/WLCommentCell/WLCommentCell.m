@@ -22,7 +22,7 @@
 #import "WLMenu.h"
 #import "NSString+Additions.h"
 #import "WLProgressBar+WLContribution.h"
-#import "WLInternetConnectionBroadcaster.h"
+#import "WLNetwork.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
 #import "UIColor+CustomColors.h"

@@ -13,7 +13,7 @@
 #import "AsynchronousOperation.h"
 #import "WLAPIResponse.h"
 #import "WLAuthorizationRequest.h"
-#import "WLInternetConnectionBroadcaster.h"
+#import "WLNetwork.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLProgressBar+WLContribution.h"
 
@@ -40,7 +40,7 @@
 }
 
 + (void)enqueueAutomaticUploading:(WLBlock)completion {
-    if (![WLInternetConnectionBroadcaster broadcaster].reachable || ![WLAuthorizationRequest authorized]) {
+    if (![WLNetwork network].reachable || ![WLAuthorizationRequest authorized]) {
         if (completion) completion();
         return;
     }

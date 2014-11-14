@@ -8,7 +8,7 @@
 
 #import "WLProgressBar+WLContribution.h"
 #import <AFNetworking/AFURLConnectionOperation.h>
-#import "WLInternetConnectionBroadcaster.h"
+#import "WLNetwork.h"
 #import "WLContribution+Extended.h"
 #import "WLUploading+Extended.h"
 #import "NSObject+AssociatedObjects.h"
@@ -46,7 +46,7 @@ static inline float progressValue(float progress) {
 - (void)setOperation:(AFURLConnectionOperation *)operation {
     self.progress = WLDefaultProgress;
     __weak typeof(self)weakSelf = self;
-    if ([WLInternetConnectionBroadcaster broadcaster].reachable) {
+    if ([WLNetwork network].reachable) {
         [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
             float progress = WLUploadingDataProgressPart * ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
             [weakSelf setProgress:progressValue(progress) animated:YES];

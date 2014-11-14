@@ -11,7 +11,7 @@
 #import "WLImageView.h"
 #import "WLRefresher.h"
 #import "WLAPIManager.h"
-#import "WLInternetConnectionBroadcaster.h"
+#import "WLNetwork.h"
 #import "NSString+Additions.h"
 #import "NSDate+Additions.h"
 #import "WLCommentCell.h"

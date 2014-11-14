@@ -15,7 +15,7 @@
 #import "UIImage+Resize.h"
 #import "WLAPIManager.h"
 #import "WLAPIResponse.h"
-#import "WLInternetConnectionBroadcaster.h"
+#import "WLNetwork.h"
 #import "NSDate+Additions.h"
 
 @implementation WLWrap (Extended)
@@ -194,7 +194,7 @@
 
 - (void)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
 	
-	if (![WLInternetConnectionBroadcaster broadcaster].reachable) {
+	if (![WLNetwork network].reachable) {
 		failure([NSError errorWithDescription:@"Internet connection is not reachable."]);
 		return;
 	}

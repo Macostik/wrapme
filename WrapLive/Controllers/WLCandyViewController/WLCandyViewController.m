@@ -28,7 +28,7 @@
 #import "WLGroupedSet.h"
 #import "WLImageFetcher.h"
 #import "WLImageViewController.h"
-#import "WLInternetConnectionBroadcaster.h"
+#import "WLNetwork.h"
 #import "WLKeyboard.h"
 #import "WLNavigation.h"
 #import "WLRefresher.h"
@@ -45,7 +45,7 @@
 
 
 
-@interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate>
+@interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver>
 
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
@@ -82,7 +82,7 @@
 	self.composeBarView.placeholder = @"Write your comment ...";
 	
 	[[WLCandy notifier] addReceiver:self];
-    [[WLInternetConnectionBroadcaster broadcaster] addReceiver:self];
+    [[WLNetwork network] addReceiver:self];
     
     UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -346,12 +346,10 @@
     }
 }
 
-#pragma mark - WLInternetConnectionBroadcaster
+#pragma mark - WLNetworkReceiver
 
-- (void)broadcaster:(WLInternetConnectionBroadcaster *)broadcaster internetConnectionReachable:(NSNumber *)reachable {
-    if (![reachable boolValue]) {
-        [self.candyCell.collectionView reloadData];
-    }
+- (void)networkDidChangeReachability:(WLNetwork *)network {
+    [self.candyCell.collectionView reloadData];
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver

@@ -22,7 +22,7 @@
 #import "WLComposeBar.h"
 #import "WLEntryNotifier.h"
 #import "WLGroupedSet.h"
-#import "WLInternetConnectionBroadcaster.h"
+#import "WLNetwork.h"
 #import "WLKeyboard.h"
 #import "WLLoadingView.h"
 #import "WLMessageCell.h"

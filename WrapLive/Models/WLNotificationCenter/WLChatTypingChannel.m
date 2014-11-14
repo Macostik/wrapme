@@ -29,7 +29,7 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
                 return;
             }
             if (event.type == PNPresenceEventStateChanged) {
-                [weakSelf handleClientState:event.client.data user:user];
+                [weakSelf handleClientState:[event.client stateForChannel:weakSelf.channel] user:user];
             } else if (event.type == PNPresenceEventTimeout) {
                 [weakSelf.delegate chatTypingChannel:weakSelf didEndTyping:user andSendMessage:NO];
             }
@@ -51,7 +51,8 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
             if ([user isCurrentUser]) {
                 continue;
             }
-            if ([client.data[WLChatTypingChannelTypingKey] boolValue]) {
+            NSDictionary *data = [client stateForChannel:weakSelf.channel];
+            if ([data[WLChatTypingChannelTypingKey] boolValue]) {
                 [weakSelf.delegate chatTypingChannel:weakSelf didBeginTyping:user];
             }
         }

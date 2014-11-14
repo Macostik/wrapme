@@ -21,22 +21,16 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - OpenUDID (1.0.0)
-  - PubNub (3.6.8)
-  - Reachability (3.1.1)
-  - SSKeychain (1.2.2)
+  - PubNub (3.7.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - OpenUDID
   - PubNub
-  - Reachability (~> 3.0)
-  - SSKeychain
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   OpenUDID: 5a23b7477755efc2d7871b57aa79ba3089c40b74
-  PubNub: e0f687c21cf4778604ae540d8f6af9b24c864a41
-  Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
-  SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
+  PubNub: 857cd9c02997dc11b79219eb95a1e4df480d3234
 
 COCOAPODS: 0.34.4

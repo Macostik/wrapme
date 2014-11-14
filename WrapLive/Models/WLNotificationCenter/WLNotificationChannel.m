@@ -72,7 +72,7 @@
 }
 
 - (BOOL)subscribed {
-    return self.channel && [PubNub isSubscribedOnChannel:self.channel];
+    return self.channel && [PubNub isSubscribedOn:self.channel];
 }
 
 - (void)subscribe {
@@ -85,7 +85,7 @@
         return;
     }
     __weak typeof(self)weakSelf = self;
-    [PubNub subscribeOnChannel:self.channel withCompletionHandlingBlock:^(PNSubscriptionProcessState state, NSArray *channels, PNError *error) {
+    [PubNub subscribeOn:@[self.channel] withCompletionHandlingBlock:^(PNSubscriptionProcessState state, NSArray *channels, PNError *error) {
         if (error) {
             if (failure) failure(error);
         } else {
@@ -105,7 +105,7 @@
         if (success) success();
         return;
     }
-    [PubNub unsubscribeFromChannel:self.channel withCompletionHandlingBlock:^(NSArray *channels, PNError *error) {
+    [PubNub unsubscribeFrom:@[self.channel] withCompletionHandlingBlock:^(NSArray *channels, PNError *error) {
         if (error) {
             if (failure) failure(error);
         } else if (success) {
@@ -121,12 +121,10 @@
             return;
         }
         
-        [PubNub requestParticipantsListWithCompletionBlock:^(NSArray *participants, PNChannel *channel, PNError *error) {
+        [PubNub requestParticipantsListWithCompletionBlock:^(PNHereNow *hereNow, NSArray *channels, PNError *error) {
             if (!error) {
-                for (PNClient *client in participants) {
-                    if (![client.channel.name isEqualToString:weakSelf.channel.name]) {
-                        [PubNub disablePushNotificationsOnChannel:client.channel withDevicePushToken:data];
-                    }
+                for (PNClient *client in [hereNow participantsForChannel:weakSelf.channel]) {
+                    [PubNub disablePushNotificationsOnChannel:client.channel withDevicePushToken:data];
                 }
             }
         }];
@@ -156,7 +154,7 @@
 }
 
 - (void)enablePresense {
-    [PubNub enablePresenceObservationForChannel:self.channel];
+    [PubNub enablePresenceObservationFor:@[self.channel]];
 }
 
 - (void)send:(NSDictionary *)message {
@@ -166,14 +164,15 @@
 }
 
 - (void)changeState:(NSDictionary*)state {
-    [PubNub updateClientState:[WLUser currentUser].identifier state:state forChannel:self.channel];
+    [PubNub updateClientState:[WLUser currentUser].identifier state:state forObject:self.channel];
 }
 
 - (void)participants:(WLArrayBlock)completion {
     if (self.subscribed) {
-        [PubNub requestParticipantsListForChannel:self.channel clientIdentifiersRequired:YES clientState:YES withCompletionBlock:^(NSArray *participants, PNChannel *channel, PNError *error) {
+        __weak typeof(self)weakSelf = self;
+        [PubNub requestParticipantsListFor:@[self.channel] clientIdentifiersRequired:YES clientState:YES withCompletionBlock:^(PNHereNow *hereNow, NSArray *channels, PNError *error) {
             if (!error && completion) {
-                completion(participants);
+                completion([hereNow participantsForChannel:weakSelf.channel]);
             }
         }];
     }

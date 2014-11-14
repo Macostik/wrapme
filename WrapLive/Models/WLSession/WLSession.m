@@ -7,7 +7,6 @@
 //
 
 #import "WLSession.h"
-#import <SSKeychain/SSKeychain.h>
 #import <OpenUDID/OpenUDID.h>
 #import "WLUser.h"
 #import "NSString+Additions.h"

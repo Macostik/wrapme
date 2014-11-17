@@ -1135,11 +1135,11 @@
                                                     <color key="textColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_signed_up_user" translatesAutoresizingMaskIntoConstraints="NO" id="8Xw-ue-ifv">
-                                                    <rect key="frame" x="255" y="21" width="15" height="7"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="candy_in_the_circle" translatesAutoresizingMaskIntoConstraints="NO" id="8Xw-ue-ifv">
+                                                    <rect key="frame" x="253" y="14" width="22" height="22"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="7" id="Lg6-2E-mod"/>
-                                                        <constraint firstAttribute="width" constant="15" id="akq-NU-Izg"/>
+                                                        <constraint firstAttribute="height" constant="22" id="Lg6-2E-mod"/>
+                                                        <constraint firstAttribute="width" constant="22" id="akq-NU-Izg"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_not_checked" highlightedImage="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="Xmx-Zb-0Eq">
@@ -1165,7 +1165,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="8Xw-ue-ifv" secondAttribute="centerY" constant="0.5" id="80h-1u-b3D"/>
                                                 <constraint firstAttribute="centerY" secondItem="Kag-WO-QAb" secondAttribute="centerY" constant="-9" id="9j1-GP-yQr"/>
-                                                <constraint firstAttribute="trailing" secondItem="8Xw-ue-ifv" secondAttribute="trailing" constant="50" id="CAD-z0-o8B"/>
+                                                <constraint firstAttribute="trailing" secondItem="8Xw-ue-ifv" secondAttribute="trailing" constant="45" id="CAD-z0-o8B"/>
                                                 <constraint firstAttribute="bottom" secondItem="Beb-Fv-Wfr" secondAttribute="bottom" constant="1" id="IIb-3O-Q5y"/>
                                                 <constraint firstItem="Kag-WO-QAb" firstAttribute="leading" secondItem="nIE-uq-dVR" secondAttribute="leading" constant="58" id="JkF-cj-62C"/>
                                                 <constraint firstAttribute="trailing" secondItem="Xmx-Zb-0Eq" secondAttribute="trailing" constant="18" id="Lja-K9-RMw"/>
@@ -1212,11 +1212,11 @@
                                                     <color key="textColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_signed_up_user" translatesAutoresizingMaskIntoConstraints="NO" id="n7q-1u-NY6">
-                                                    <rect key="frame" x="255" y="21" width="15" height="7"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="candy_in_the_circle" translatesAutoresizingMaskIntoConstraints="NO" id="n7q-1u-NY6">
+                                                    <rect key="frame" x="253" y="14" width="22" height="22"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="7" id="dzX-To-4xQ"/>
-                                                        <constraint firstAttribute="width" constant="15" id="mdc-AH-MT6"/>
+                                                        <constraint firstAttribute="height" constant="22" id="dzX-To-4xQ"/>
+                                                        <constraint firstAttribute="width" constant="22" id="mdc-AH-MT6"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_down" highlightedImage="ic_arrow_up" translatesAutoresizingMaskIntoConstraints="NO" id="GUv-kM-Cjd">
@@ -1264,11 +1264,11 @@
                                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_signed_up_user" translatesAutoresizingMaskIntoConstraints="NO" id="h8v-Nm-kOh">
-                                                                        <rect key="frame" x="255" y="21" width="15" height="7"/>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="candy_in_the_circle" translatesAutoresizingMaskIntoConstraints="NO" id="h8v-Nm-kOh">
+                                                                        <rect key="frame" x="259" y="16" width="18" height="18"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" constant="15" id="ao4-VB-lK1"/>
-                                                                            <constraint firstAttribute="height" constant="7" id="isd-Sn-eL5"/>
+                                                                            <constraint firstAttribute="width" constant="18" id="ao4-VB-lK1"/>
+                                                                            <constraint firstAttribute="height" constant="18" id="isd-Sn-eL5"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_not_checked" highlightedImage="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="gzm-yK-smk">
@@ -1296,12 +1296,12 @@
                                                                     <constraint firstAttribute="trailing" secondItem="GDb-uR-EKH" secondAttribute="trailing" id="3JZ-N4-vuY"/>
                                                                     <constraint firstItem="Dxm-Es-Lwk" firstAttribute="leading" secondItem="B25-Tb-dDs" secondAttribute="leading" constant="110" id="3yd-m6-DXK"/>
                                                                     <constraint firstAttribute="centerY" secondItem="gzm-yK-smk" secondAttribute="centerY" id="7K3-zJ-v2X"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="h8v-Nm-kOh" secondAttribute="trailing" constant="50" id="BP1-8p-LT9"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="h8v-Nm-kOh" secondAttribute="trailing" constant="43" id="BP1-8p-LT9"/>
                                                                     <constraint firstItem="Dxm-Es-Lwk" firstAttribute="top" secondItem="B25-Tb-dDs" secondAttribute="top" id="DYv-48-c2S"/>
                                                                     <constraint firstItem="6NA-Lj-jWd" firstAttribute="leading" secondItem="B25-Tb-dDs" secondAttribute="leading" id="KKO-wY-hHw"/>
                                                                     <constraint firstAttribute="bottom" secondItem="Dxm-Es-Lwk" secondAttribute="bottom" constant="-1" id="MrI-AA-jfm"/>
                                                                     <constraint firstItem="GDb-uR-EKH" firstAttribute="top" secondItem="B25-Tb-dDs" secondAttribute="top" constant="1" id="PIe-Qi-N50"/>
-                                                                    <constraint firstAttribute="centerY" secondItem="h8v-Nm-kOh" secondAttribute="centerY" constant="0.5" id="QmQ-qe-Rj4"/>
+                                                                    <constraint firstAttribute="centerY" secondItem="h8v-Nm-kOh" secondAttribute="centerY" id="QmQ-qe-Rj4"/>
                                                                     <constraint firstAttribute="bottom" secondItem="GDb-uR-EKH" secondAttribute="bottom" id="lYg-OE-ZzD"/>
                                                                     <constraint firstAttribute="trailing" secondItem="gzm-yK-smk" secondAttribute="trailing" constant="20" id="mya-cQ-mRb"/>
                                                                     <constraint firstAttribute="bottom" secondItem="6NA-Lj-jWd" secondAttribute="bottom" constant="-1" id="tyG-rB-dNZ"/>
@@ -1326,7 +1326,7 @@
                                             <constraints>
                                                 <constraint firstItem="4rx-1s-Mh5" firstAttribute="top" secondItem="spP-NH-cXb" secondAttribute="top" constant="50" id="0jA-zi-Uar"/>
                                                 <constraint firstItem="4rx-1s-Mh5" firstAttribute="leading" secondItem="spP-NH-cXb" secondAttribute="leading" id="9yG-u0-0t2"/>
-                                                <constraint firstAttribute="trailing" secondItem="n7q-1u-NY6" secondAttribute="trailing" constant="50" id="CwJ-Fz-7ze"/>
+                                                <constraint firstAttribute="trailing" secondItem="n7q-1u-NY6" secondAttribute="trailing" constant="45" id="CwJ-Fz-7ze"/>
                                                 <constraint firstAttribute="trailing" secondItem="4rx-1s-Mh5" secondAttribute="trailing" id="FoM-wB-apG"/>
                                                 <constraint firstItem="fw4-o4-768" firstAttribute="top" secondItem="spP-NH-cXb" secondAttribute="top" id="TkP-Mu-5k3"/>
                                                 <constraint firstItem="paU-Jw-S3c" firstAttribute="leading" secondItem="spP-NH-cXb" secondAttribute="leading" constant="9" id="XPX-g0-ppE"/>
@@ -1335,7 +1335,7 @@
                                                 <constraint firstItem="fw4-o4-768" firstAttribute="leading" secondItem="spP-NH-cXb" secondAttribute="leading" constant="58" id="c4W-TU-aWK"/>
                                                 <constraint firstItem="GUv-kM-Cjd" firstAttribute="top" secondItem="spP-NH-cXb" secondAttribute="top" constant="14" id="kaM-eP-Zde"/>
                                                 <constraint firstAttribute="bottom" secondItem="4rx-1s-Mh5" secondAttribute="bottom" id="lbC-UA-WZ4"/>
-                                                <constraint firstItem="n7q-1u-NY6" firstAttribute="top" secondItem="spP-NH-cXb" secondAttribute="top" constant="21" id="pXR-b1-SqI"/>
+                                                <constraint firstItem="n7q-1u-NY6" firstAttribute="top" secondItem="spP-NH-cXb" secondAttribute="top" constant="14" id="pXR-b1-SqI"/>
                                                 <constraint firstItem="kso-wd-VlQ" firstAttribute="leading" secondItem="spP-NH-cXb" secondAttribute="leading" id="peq-E2-tUN"/>
                                                 <constraint firstAttribute="trailing" secondItem="kso-wd-VlQ" secondAttribute="trailing" id="sgA-KG-jKw"/>
                                                 <constraint firstAttribute="trailing" secondItem="fw4-o4-768" secondAttribute="trailing" constant="44" id="v42-E3-nLJ"/>
@@ -3051,6 +3051,7 @@ Check your internet connection and try again.</string>
         <image name="btn_wrap_camera_pressed" width="84" height="84"/>
         <image name="camera_darkGray" width="30" height="30"/>
         <image name="camera_medium" width="50" height="50"/>
+        <image name="candy_in_the_circle" width="22" height="22"/>
         <image name="chatNotification" width="32" height="28"/>
         <image name="horizontal_separator_gray" width="1" height="1"/>
         <image name="ic_add_by_phone" width="24" height="24"/>
@@ -3068,7 +3069,6 @@ Check your internet connection and try again.</string>
         <image name="ic_not_checked" width="22" height="22"/>
         <image name="ic_photo_placeholder" width="60" height="48"/>
         <image name="ic_search" width="16" height="16"/>
-        <image name="ic_signed_up_user" width="15" height="7"/>
         <image name="ic_swipe_arrow_right" width="6" height="10"/>
         <image name="ic_today_enabled" width="32" height="32"/>
     </resources>

@@ -2188,14 +2188,14 @@
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCommentCell" id="6Sm-H7-W1x" customClass="WLCommentCell">
+                                                        <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCommentCell" id="6Sm-H7-W1x" customClass="WLCommentCell">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LiT-bh-wDT" customClass="WLImageView">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LiT-bh-wDT" customClass="WLCircleImageView">
                                                                         <rect key="frame" x="7" y="2" width="40" height="40"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <constraints>
@@ -2203,8 +2203,9 @@
                                                                             <constraint firstAttribute="width" constant="40" id="Jvq-8l-oT5"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8v-Pz-wMq">
+                                                                    <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8v-Pz-wMq">
                                                                         <rect key="frame" x="60" y="0.0" width="250" height="20"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="20" id="br8-jM-hY9"/>
                                                                         </constraints>
@@ -2212,35 +2213,37 @@
                                                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yq2-Yg-jcf">
+                                                                    <label userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2HD-0Q-aOf" customClass="TTTAttributedLabel">
                                                                         <rect key="frame" x="60" y="19" width="255" height="73"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                        <color key="tintColor" red="1" green="0.42860027057324546" blue="0.16787798134862797" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <color key="tintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                         <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                                                    </textView>
+                                                                        <nil key="highlightedColor"/>
+                                                                        <connections>
+                                                                            <outlet property="delegate" destination="6Sm-H7-W1x" id="eet-7D-tLH"/>
+                                                                        </connections>
+                                                                    </label>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </view>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="bottom" secondItem="Yq2-Yg-jcf" secondAttribute="bottom" constant="8" id="8ds-m7-HNK"/>
-                                                                <constraint firstItem="Yq2-Yg-jcf" firstAttribute="leading" secondItem="6Sm-H7-W1x" secondAttribute="leading" constant="60" id="BIr-5Z-6yJ"/>
                                                                 <constraint firstItem="s8v-Pz-wMq" firstAttribute="top" secondItem="6Sm-H7-W1x" secondAttribute="top" id="BS6-tL-LSw"/>
                                                                 <constraint firstItem="s8v-Pz-wMq" firstAttribute="leading" secondItem="6Sm-H7-W1x" secondAttribute="leading" constant="60" id="Gua-94-UAE"/>
                                                                 <constraint firstItem="LiT-bh-wDT" firstAttribute="leading" secondItem="6Sm-H7-W1x" secondAttribute="leading" constant="7" id="ISS-7c-UOi"/>
+                                                                <constraint firstAttribute="trailing" secondItem="2HD-0Q-aOf" secondAttribute="trailing" constant="5" id="aqN-xo-xb9"/>
                                                                 <constraint firstItem="LiT-bh-wDT" firstAttribute="top" secondItem="6Sm-H7-W1x" secondAttribute="top" constant="2" id="dxS-9L-4qH"/>
-                                                                <constraint firstItem="Yq2-Yg-jcf" firstAttribute="top" secondItem="6Sm-H7-W1x" secondAttribute="top" constant="19" id="eXM-2o-wuY"/>
-                                                                <constraint firstAttribute="trailing" secondItem="Yq2-Yg-jcf" secondAttribute="trailing" constant="5" id="hQs-FO-aRU"/>
+                                                                <constraint firstItem="2HD-0Q-aOf" firstAttribute="leading" secondItem="6Sm-H7-W1x" secondAttribute="leading" constant="60" id="gkS-dL-brz"/>
                                                                 <constraint firstAttribute="trailing" secondItem="s8v-Pz-wMq" secondAttribute="trailing" constant="10" id="hep-MQ-Ej8"/>
+                                                                <constraint firstItem="2HD-0Q-aOf" firstAttribute="top" secondItem="6Sm-H7-W1x" secondAttribute="top" constant="19" id="mv0-Hz-zxK"/>
+                                                                <constraint firstAttribute="bottom" secondItem="2HD-0Q-aOf" secondAttribute="bottom" constant="8" id="o9S-tV-tWj"/>
                                                             </constraints>
                                                             <size key="customSize" width="320" height="100"/>
                                                             <connections>
                                                                 <outlet property="authorImageView" destination="LiT-bh-wDT" id="H4U-Bx-vvC"/>
                                                                 <outlet property="authorNameLabel" destination="s8v-Pz-wMq" id="gIy-1R-iDs"/>
-                                                                <outlet property="commentTextView" destination="Yq2-Yg-jcf" id="ogZ-sl-v9o"/>
+                                                                <outlet property="textLabel" destination="2HD-0Q-aOf" id="eA2-lo-K9z"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
@@ -2254,6 +2257,7 @@
                                                             </activityIndicatorView>
                                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sn5-Ts-kUU" customClass="WLImageView">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderName" value="ic_photo_placeholder"/>
                                                                 </userDefinedRuntimeAttributes>
@@ -2268,8 +2272,9 @@
                                                                     <segue destination="Mj2-iK-bpQ" kind="custom" identifier="{&quot;keypaths&quot;:[{&quot;source&quot;:&quot;candy&quot;,&quot;destination&quot;:&quot;image&quot;}],&quot;transition&quot;:&quot;modal&quot;}" customClass="WLSetValueSegue" id="5mI-0W-t2s"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posted 3 days ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JE5-jO-MER">
+                                                            <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posted 3 days ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JE5-jO-MER">
                                                                 <rect key="frame" x="11" y="326" width="299" height="21"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="21" id="iOX-xX-agr"/>
                                                                 </constraints>
@@ -2631,7 +2636,7 @@ Check your internet connection and try again.</string>
                                                     <rect key="frame" x="66" y="0.0" width="196" height="34"/>
                                                     <color key="backgroundColor" red="1" green="0.83866219190883129" blue="0.74658047966425856" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="tintColor" red="1" green="0.4286002706" blue="0.16787798130000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <dataDetectorType key="dataDetectorTypes" link="YES"/>

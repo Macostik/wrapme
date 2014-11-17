@@ -1098,6 +1098,14 @@
 		C56091391A110C9500C48887 /* WLDevice+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091371A110C9500C48887 /* WLDevice+Extended.m */; };
 		C560913A1A110C9500C48887 /* WLDevice+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091371A110C9500C48887 /* WLDevice+Extended.m */; };
 		C560913B1A110C9500C48887 /* WLDevice+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091371A110C9500C48887 /* WLDevice+Extended.m */; };
+		C572AA0F1A1A15970079763D /* WLCircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA0E1A1A15970079763D /* WLCircleImageView.m */; };
+		C572AA101A1A15970079763D /* WLCircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA0E1A1A15970079763D /* WLCircleImageView.m */; };
+		C572AA111A1A15970079763D /* WLCircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA0E1A1A15970079763D /* WLCircleImageView.m */; };
+		C572AA121A1A15970079763D /* WLCircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA0E1A1A15970079763D /* WLCircleImageView.m */; };
+		C572AA161A1A216F0079763D /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA151A1A216F0079763D /* TTTAttributedLabel.m */; };
+		C572AA171A1A216F0079763D /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA151A1A216F0079763D /* TTTAttributedLabel.m */; };
+		C572AA181A1A216F0079763D /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA151A1A216F0079763D /* TTTAttributedLabel.m */; };
+		C572AA191A1A216F0079763D /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA151A1A216F0079763D /* TTTAttributedLabel.m */; };
 		C57BDDB719FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */; };
 		C57BDDB819FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */; };
 		C57BDDB919FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */; };
@@ -1634,6 +1642,10 @@
 		C56091371A110C9500C48887 /* WLDevice+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLDevice+Extended.m"; sourceTree = "<group>"; };
 		C560913C1A110F4200C48887 /* CoreData 1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1.1.xcdatamodel"; sourceTree = "<group>"; };
 		C56D3AD519F7C21700D85027 /* SupportHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportHeaders.h; sourceTree = "<group>"; };
+		C572AA0D1A1A15970079763D /* WLCircleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCircleImageView.h; path = WLImageFetcher/WLCircleImageView.h; sourceTree = "<group>"; };
+		C572AA0E1A1A15970079763D /* WLCircleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCircleImageView.m; path = WLImageFetcher/WLCircleImageView.m; sourceTree = "<group>"; };
+		C572AA141A1A216F0079763D /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		C572AA151A1A216F0079763D /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		C57BDDB519FA5ED3003593F1 /* WLStoryboardSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStoryboardSegue.h; path = WLStoryboardSegue/WLStoryboardSegue.h; sourceTree = "<group>"; };
 		C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLStoryboardSegue.m; path = WLStoryboardSegue/WLStoryboardSegue.m; sourceTree = "<group>"; };
 		C581680019F169D90081F350 /* WLBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBaseViewController.h; path = WLBaseViewController/WLBaseViewController.h; sourceTree = "<group>"; };
@@ -2146,6 +2158,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C572AA131A1A216F0079763D /* TTTAttributedLabel */,
 				C54FC76E1A16549700623FC1 /* Placeholder Views */,
 				C54FC7601A160C0200623FC1 /* WLCollectionView */,
 				C515055419F0195400BF4D82 /* WLBlurredView */,
@@ -3370,6 +3383,15 @@
 			path = WLDevice;
 			sourceTree = "<group>";
 		};
+		C572AA131A1A216F0079763D /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				C572AA141A1A216F0079763D /* TTTAttributedLabel.h */,
+				C572AA151A1A216F0079763D /* TTTAttributedLabel.m */,
+			);
+			path = TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
 		C57BDDB419FA5E9E003593F1 /* WLStoryboardSegue */ = {
 			isa = PBXGroup;
 			children = (
@@ -3450,6 +3472,8 @@
 				C5F35CFD1930935200FB99D2 /* WLImageFetcher.m */,
 				C50236121979032400996D07 /* WLImageView.h */,
 				C50236131979032400996D07 /* WLImageView.m */,
+				C572AA0D1A1A15970079763D /* WLCircleImageView.h */,
+				C572AA0E1A1A15970079763D /* WLCircleImageView.m */,
 			);
 			name = WLImageFetcher;
 			sourceTree = "<group>";
@@ -4186,6 +4210,7 @@
 				C54FC76A1A163CC400623FC1 /* WLNetwork.m in Sources */,
 				C5215DFB19C32CB80012AE10 /* WLEntityRequest.m in Sources */,
 				12A6BFA818F2A6C900AE3B62 /* WLShakeViewController.m in Sources */,
+				C572AA0F1A1A15970079763D /* WLCircleImageView.m in Sources */,
 				12E4FBCD1923B8AD00236472 /* WLSystemImageCache.m in Sources */,
 				C51DAE3119B09E6100F40516 /* WLTimelineEventCommentCell.m in Sources */,
 				12C4416618F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m in Sources */,
@@ -4226,6 +4251,7 @@
 				C50AF40C19768ADE00761F38 /* WLAuthorizationRequest.m in Sources */,
 				C5149644197586E4009F0743 /* WLWrapsRequest.m in Sources */,
 				14B134E11952FEB2004F86AC /* WLInviteeCell.m in Sources */,
+				C572AA161A1A216F0079763D /* TTTAttributedLabel.m in Sources */,
 				12E0F066190927B800463FEC /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C504178219B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				C50AF4211976AB2E00761F38 /* WLCandyRequest.m in Sources */,
@@ -4405,6 +4431,7 @@
 				C54FC76B1A163CC400623FC1 /* WLNetwork.m in Sources */,
 				C5215DFC19C32CB80012AE10 /* WLEntityRequest.m in Sources */,
 				C54AF49819B8C437006F7EDB /* WLShakeViewController.m in Sources */,
+				C572AA101A1A15970079763D /* WLCircleImageView.m in Sources */,
 				C54AF49919B8C437006F7EDB /* WLSystemImageCache.m in Sources */,
 				C54AF49A19B8C437006F7EDB /* WLTimelineEventCommentCell.m in Sources */,
 				C54AF49B19B8C437006F7EDB /* NSMutableDictionary+ImageMetadata.m in Sources */,
@@ -4445,6 +4472,7 @@
 				C54AF4BB19B8C437006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF4BD19B8C437006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF4BE19B8C437006F7EDB /* WLInviteeCell.m in Sources */,
+				C572AA171A1A216F0079763D /* TTTAttributedLabel.m in Sources */,
 				C54AF4BF19B8C437006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C504178319B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				C54AF4C019B8C437006F7EDB /* WLCandyRequest.m in Sources */,
@@ -4624,6 +4652,7 @@
 				C54FC76C1A163CC400623FC1 /* WLNetwork.m in Sources */,
 				C5215DFD19C32CB80012AE10 /* WLEntityRequest.m in Sources */,
 				C54AF59519B8C467006F7EDB /* WLShakeViewController.m in Sources */,
+				C572AA111A1A15970079763D /* WLCircleImageView.m in Sources */,
 				C54AF59619B8C467006F7EDB /* WLSystemImageCache.m in Sources */,
 				C54AF59719B8C467006F7EDB /* WLTimelineEventCommentCell.m in Sources */,
 				C54AF59819B8C467006F7EDB /* NSMutableDictionary+ImageMetadata.m in Sources */,
@@ -4664,6 +4693,7 @@
 				C54AF5B819B8C467006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF5BA19B8C467006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF5BB19B8C467006F7EDB /* WLInviteeCell.m in Sources */,
+				C572AA181A1A216F0079763D /* TTTAttributedLabel.m in Sources */,
 				C54AF5BC19B8C467006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C504178419B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				C54AF5BD19B8C467006F7EDB /* WLCandyRequest.m in Sources */,
@@ -4843,6 +4873,7 @@
 				C54FC76D1A163CC400623FC1 /* WLNetwork.m in Sources */,
 				C5215DFE19C32CB80012AE10 /* WLEntityRequest.m in Sources */,
 				C54AF69219B8C491006F7EDB /* WLShakeViewController.m in Sources */,
+				C572AA121A1A15970079763D /* WLCircleImageView.m in Sources */,
 				C54AF69319B8C491006F7EDB /* WLSystemImageCache.m in Sources */,
 				C54AF69419B8C491006F7EDB /* WLTimelineEventCommentCell.m in Sources */,
 				C54AF69519B8C491006F7EDB /* NSMutableDictionary+ImageMetadata.m in Sources */,
@@ -4883,6 +4914,7 @@
 				C54AF6B519B8C491006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF6B719B8C491006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF6B819B8C491006F7EDB /* WLInviteeCell.m in Sources */,
+				C572AA191A1A216F0079763D /* TTTAttributedLabel.m in Sources */,
 				C54AF6B919B8C491006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				C54AF6BA19B8C491006F7EDB /* WLCandyRequest.m in Sources */,

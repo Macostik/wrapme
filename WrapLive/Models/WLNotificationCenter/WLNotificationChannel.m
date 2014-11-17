@@ -147,6 +147,7 @@
 - (void)observePresense {
     __weak typeof(self)weakSelf = self;
     [[PNObservationCenter defaultCenter] addPresenceEventObserver:self withBlock:^(PNPresenceEvent *event) {
+        WLLog(@"PubNub", @"presence event", event);
         if (event.channel == weakSelf.channel && weakSelf.presenseObserver) {
             weakSelf.presenseObserver(event);
         }

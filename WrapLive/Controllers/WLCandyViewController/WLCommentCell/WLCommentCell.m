@@ -26,14 +26,15 @@
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
 #import "UIColor+CustomColors.h"
+#import "TTTAttributedLabel.h"
 
-@interface WLCommentCell ()
+@interface WLCommentCell () <TTTAttributedLabelDelegate>
 
 @property (weak, nonatomic) IBOutlet WLImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
-@property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 @property (weak, nonatomic) WLProgressBar *progressBar;
 @property (strong, nonatomic) WLMenu* menu;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *textLabel;
 
 @end
 
@@ -41,7 +42,6 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	self.authorImageView.layer.cornerRadius = self.authorImageView.height/2.0f;
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self configuration:^BOOL(WLMenu *menu) {
         WLComment* comment = weakSelf.entry;
@@ -61,7 +61,7 @@
             return NO;
         }
     }];
-    self.commentTextView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, 0);
+    self.textLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
 }
 
 - (void)setEntry:(id)entry {
@@ -75,7 +75,7 @@
 	self.userInteractionEnabled = YES;
     if (!NSNumberEqual(entry.unread, @NO)) entry.unread = @NO;
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", WLString(entry.contributor.name), WLString(entry.createdAt.timeAgoString)];
-    [self.commentTextView determineHyperLink:entry.text];
+    self.textLabel.text = entry.text;
     __weak typeof(self)weakSelf = self;
 	self.authorImageView.url = entry.contributor.picture.small;
     [self.authorImageView setFailure:^(NSError* error) {
@@ -100,6 +100,14 @@
             [self.authorImageView.superview addSubview:progressBar];
         }
         _progressBar = progressBar;
+    }
+}
+
+#pragma mark - TTTAttributedLabelDelegate
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+        [[UIApplication sharedApplication] openURL:url];
     }
 }
 

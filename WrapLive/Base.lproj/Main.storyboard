@@ -611,7 +611,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatNotification" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-4Z-sEV">
-                                                            <rect key="frame" x="270" y="10" width="16" height="14"/>
+                                                            <rect key="frame" x="289" y="10" width="16" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="BpP-Kn-MiK"/>
                                                                 <constraint firstAttribute="width" constant="16" id="Fqg-VE-Wrf"/>
@@ -635,26 +635,17 @@
                                                             <color key="textColor" red="0.62352941176470589" green="0.62352941176470589" blue="0.62352941176470589" alpha="1" colorSpace="deviceRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_next_gray" translatesAutoresizingMaskIntoConstraints="NO" id="p6K-Sc-xX4">
-                                                            <rect key="frame" x="278" y="15" width="30" height="30"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="30" id="H8B-Pg-DLs"/>
-                                                                <constraint firstAttribute="height" constant="30" id="p5k-xS-pwF"/>
-                                                            </constraints>
-                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="XaE-0l-eeL" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" constant="10" id="6Fo-pS-Fof"/>
                                                         <constraint firstItem="Twb-Mn-vNw" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="5" id="6do-mm-ahx"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Mfp-4Z-sEV" secondAttribute="trailing" constant="34" id="7Qq-6c-n1m"/>
-                                                        <constraint firstAttribute="trailing" secondItem="p6K-Sc-xX4" secondAttribute="trailing" constant="12" id="BZe-54-6f3"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Mfp-4Z-sEV" secondAttribute="trailing" constant="15" id="7Qq-6c-n1m"/>
                                                         <constraint firstAttribute="height" constant="60" id="KHS-lZ-CHy"/>
                                                         <constraint firstAttribute="trailing" secondItem="XaE-0l-eeL" secondAttribute="trailing" constant="30" id="LCy-TO-NkG"/>
                                                         <constraint firstItem="XaE-0l-eeL" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="27" id="Sya-Ml-pNU"/>
                                                         <constraint firstItem="Mfp-4Z-sEV" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="10" id="i7i-ab-e8L"/>
                                                         <constraint firstAttribute="trailing" secondItem="Twb-Mn-vNw" secondAttribute="trailing" constant="30" id="rBw-l4-SNV"/>
-                                                        <constraint firstAttribute="centerY" secondItem="p6K-Sc-xX4" secondAttribute="centerY" id="wue-XM-Tr3"/>
                                                         <constraint firstItem="Twb-Mn-vNw" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" constant="10" id="yC6-vx-gT6"/>
                                                     </constraints>
                                                 </view>
@@ -726,13 +717,6 @@
                                                         <constraint firstAttribute="width" constant="50" id="fw7-Ys-M5O"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_next_gray" translatesAutoresizingMaskIntoConstraints="NO" id="MZk-V3-e34">
-                                                    <rect key="frame" x="278" y="10" width="30" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="53h-bs-zZD"/>
-                                                        <constraint firstAttribute="width" constant="30" id="ACf-Z7-udF"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ctG-Sd-jmI">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                                     <state key="normal">
@@ -762,7 +746,7 @@
                                                     </connections>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatNotification" translatesAutoresizingMaskIntoConstraints="NO" id="97a-tR-kcO">
-                                                    <rect key="frame" x="270" y="0.0" width="16" height="14"/>
+                                                    <rect key="frame" x="289" y="0.0" width="16" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="14" id="F8a-BK-WaN"/>
                                                         <constraint firstAttribute="width" constant="16" id="lj4-Mg-NE9"/>
@@ -778,16 +762,14 @@
                                             <constraint firstItem="HLY-EW-9Wa" firstAttribute="leading" secondItem="N5C-9U-WOe" secondAttribute="leading" constant="5" id="Fez-Tc-QHK"/>
                                             <constraint firstItem="N8I-t6-aKU" firstAttribute="leading" secondItem="1g0-Jo-BE2" secondAttribute="trailing" constant="7" id="IMc-yb-ux9"/>
                                             <constraint firstItem="N8I-t6-aKU" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" id="Ot0-Oy-moS"/>
-                                            <constraint firstAttribute="trailing" secondItem="97a-tR-kcO" secondAttribute="trailing" constant="34" id="QdX-12-Zne"/>
+                                            <constraint firstAttribute="trailing" secondItem="97a-tR-kcO" secondAttribute="trailing" constant="15" id="QdX-12-Zne"/>
                                             <constraint firstAttribute="trailing" secondItem="ctG-Sd-jmI" secondAttribute="trailing" id="R2b-5H-zUE"/>
                                             <constraint firstItem="ctG-Sd-jmI" firstAttribute="leading" secondItem="N5C-9U-WOe" secondAttribute="leading" id="UoI-lU-XKl"/>
-                                            <constraint firstAttribute="trailing" secondItem="MZk-V3-e34" secondAttribute="trailing" constant="12" id="Y0r-Mb-3GV"/>
                                             <constraint firstItem="97a-tR-kcO" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" id="aXv-rT-4wy"/>
                                             <constraint firstItem="b7g-bc-eWy" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" constant="20" id="c45-qf-gVi"/>
                                             <constraint firstItem="HLY-EW-9Wa" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" id="ciO-lq-nkZ"/>
                                             <constraint firstAttribute="bottom" secondItem="ctG-Sd-jmI" secondAttribute="bottom" id="fNs-v2-jFC"/>
                                             <constraint firstItem="1g0-Jo-BE2" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" id="hEo-aB-gJJ"/>
-                                            <constraint firstAttribute="centerY" secondItem="MZk-V3-e34" secondAttribute="centerY" id="jEC-90-YQB"/>
                                             <constraint firstItem="ctG-Sd-jmI" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" id="jxK-dS-Wuy"/>
                                             <constraint firstItem="1g0-Jo-BE2" firstAttribute="leading" secondItem="N5C-9U-WOe" secondAttribute="leading" constant="41" id="t4K-L0-WVb"/>
                                         </constraints>
@@ -3083,7 +3065,6 @@ Check your internet connection and try again.</string>
         <image name="ic_history_enabled" width="34" height="31"/>
         <image name="ic_logo_wo_candy" width="72" height="20"/>
         <image name="ic_new_wrap_def" width="30" height="30"/>
-        <image name="ic_next_gray" width="8" height="14"/>
         <image name="ic_not_checked" width="22" height="22"/>
         <image name="ic_photo_placeholder" width="60" height="48"/>
         <image name="ic_search" width="16" height="16"/>
@@ -3097,7 +3078,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WjR-f7-d7j"/>
+        <segue reference="tUX-Tk-kxb"/>
         <segue reference="USb-FQ-HhL"/>
     </inferredMetricsTieBreakers>
 </document>

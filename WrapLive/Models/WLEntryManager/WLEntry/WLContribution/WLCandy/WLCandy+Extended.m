@@ -42,9 +42,16 @@
     if (comments.nonempty && [comments sortByCreatedAt:NO]) {
         self.comments = comments;
     }
-    [self editPicture:[dictionary stringForKey:WLCandyLargeURLKey]
-               medium:[dictionary stringForKey:WLCandyMediumURLKey]
-                small:[dictionary stringForKey:WLCandySmallURLKey]];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self editPicture:[dictionary stringForKey:WLCandyXLargeURLKey]
+                   medium:[dictionary stringForKey:WLCandyXMediumURLKey]
+                    small:[dictionary stringForKey:WLCandyXSmallURLKey]];
+    } else {
+        [self editPicture:[dictionary stringForKey:WLCandyLargeURLKey]
+                   medium:[dictionary stringForKey:WLCandyMediumURLKey]
+                    small:[dictionary stringForKey:WLCandySmallURLKey]];
+    }
+    
     WLWrap* currentWrap = self.wrap;
     WLWrap* wrap = relatedEntry ? : (currentWrap ? : [WLWrap entry:[dictionary stringForKey:WLWrapUIDKey]]);
     if (wrap != currentWrap) self.wrap = wrap;

@@ -13,7 +13,7 @@ static NSString* WLMyMessageCellIdentifier = @"WLMyMessageCell";
 
 static CGFloat WLMessageNameInset = 18.0f;
 static CGFloat WLMessageVerticalInset = 5.0f;
-static CGFloat WLMessageHorizontalInset = 3.0f;
+static CGFloat WLMessageHorizontalInset = 5.0f;
 static CGFloat WLMessageCellBottomConstraint = 14.0f;
 static CGFloat WLMessageMinimumCellHeight = 48.0f;
 static CGFloat WLAvatarWidth = 66.0f;

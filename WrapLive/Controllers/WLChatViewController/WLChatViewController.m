@@ -99,7 +99,7 @@ CGFloat WLMaxTextViewWidth;
     
     self.messageFont = [UIFont lightFontOfSize:15];
     
-    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 2*WLAvatarWidth;
+    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 2*WLAvatarWidth - 2*WLMessageHorizontalInset;
     
 	__weak typeof(self)weakSelf = self;
     [self.wrap fetchIfNeeded:^(id object) {

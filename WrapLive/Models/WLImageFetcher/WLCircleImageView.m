@@ -29,7 +29,7 @@
     CGRect bounds = self.bounds;
     UIImage* circle = [circles objectForKey:@(bounds.size.height)];
     if (!circle) {
-        UIGraphicsBeginImageContext(bounds.size);
+        UIGraphicsBeginImageContextWithOptions(bounds.size, NO, [UIScreen mainScreen].scale);
         UIBezierPath * path = [UIBezierPath bezierPathWithRect:bounds];
         [[UIColor whiteColor] setFill];
         [path fill];

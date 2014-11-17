@@ -21,14 +21,16 @@
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
 #import "UIColor+CustomColors.h"
+#import "TTTAttributedLabel.h"
 
-@interface WLMessageCell ()
+@interface WLMessageCell () <TTTAttributedLabelDelegate>
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewConstraint;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
-@property (weak, nonatomic) IBOutlet UITextView *messageTextView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *textLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topTextLabelConstraint;
 
 @end
 
@@ -36,10 +38,8 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	self.avatarView.circled = YES;
     self.avatarView.hidden = self.nameLabel.hidden = YES;
-    self.messageTextView.textContainerInset = UIEdgeInsetsMake(WLMessageVerticalInset, WLMessageHorizontalInset, WLMessageVerticalInset, WLMessageHorizontalInset);
-    self.messageTextView.layer.cornerRadius = 10;
+    self.textLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
 }
 
 - (void)setShowAvatar:(BOOL)showAvatar {
@@ -52,14 +52,13 @@
 - (void)setShowName:(BOOL)showName {
     if (_showName != showName) {
         _showName = showName;
-        UIEdgeInsets insets = self.messageTextView.textContainerInset;
         if (self.nameLabel) {
             self.nameLabel.hidden = !showName;
-            insets.top = showName ? WLMessageNameInset : WLMessageVerticalInset;
+            self.topTextLabelConstraint.constant = showName ? WLMessageNameInset : 0;
         } else {
-            insets.top = WLMessageVerticalInset;
+            self.topTextLabelConstraint.constant = 0;
         }
-        self.messageTextView.textContainerInset = insets;
+        [self.textLabel setNeedsLayout];
     }
 }
 
@@ -67,7 +66,7 @@
     if (_showDay != showDay) {
         _showDay = showDay;
         self.timeLabel.textColor = showDay ? [UIColor WL_orangeColor] : [UIColor WL_grayColor];
-        if (self.timeLabel.x > self.messageTextView.x) {
+        if (self.timeLabel.x > self.textLabel.superview.x) {
             self.timeLabel.textAlignment = showDay ? NSTextAlignmentRight : NSTextAlignmentLeft;
         } else {
             self.timeLabel.textAlignment = showDay ? NSTextAlignmentLeft : NSTextAlignmentRight;
@@ -98,28 +97,31 @@
         self.timeLabel.text = [message.createdAt stringWithFormat:@"HH:mm"];
     }
     
-    self.messageTextView.text = message.text;
+    self.textLabel.text = message.text;
     
     CGSize maxSize = CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX);
-    CGFloat textWidth = [self.messageTextView sizeThatFits:maxSize].width;
+    CGFloat textWidth = [self.textLabel sizeThatFits:maxSize].width;
     CGFloat constraintValue = [self constraintForWidth:textWidth];
-    if (self.nameLabel) {
-        CGFloat nameWidth = [self.nameLabel sizeThatFits:maxSize].width + 10;
+    if (self.showName) {
+        CGFloat nameWidth = [self.nameLabel sizeThatFits:maxSize].width;
         constraintValue = MIN(constraintValue, [self constraintForWidth:nameWidth]);
     }
     if (self.textViewConstraint.constant != constraintValue) {
         self.textViewConstraint.constant = constraintValue;
-        [self.messageTextView setNeedsLayout];
+        [self.textLabel.superview setNeedsLayout];
     }
 }
 
 - (CGFloat)constraintForWidth:(CGFloat)width {
-    return self.width - WLAvatarWidth - MAX(WLMinBubbleWidth, width);
+    return self.width - WLAvatarWidth - MAX(WLMinBubbleWidth, width) - 2*WLMessageHorizontalInset;
 }
 
-- (void)prepareForReuse {
-    [super prepareForReuse];
-    self.messageTextView.text = nil;
+#pragma mark - TTTAttributedLabelDelegate
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+        [[UIApplication sharedApplication] openURL:url];
+    }
 }
 
 @end

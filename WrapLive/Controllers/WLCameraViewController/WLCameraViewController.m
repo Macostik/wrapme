@@ -222,18 +222,16 @@
 }
 
 - (AVCaptureSession *)session {
-	if (!_session) {
-		_session = [[AVCaptureSession alloc] init];
-        if ([_session canSetSessionPreset:AVCaptureSessionPreset1920x1080]) {
-            _session.sessionPreset = AVCaptureSessionPreset1920x1080;
-        } else if ([_session canSetSessionPreset:AVCaptureSessionPresetPhoto]) {
-			_session.sessionPreset = AVCaptureSessionPresetPhoto;
-		} else {
-			_session.sessionPreset = AVCaptureSessionPresetMedium;
-		}
-		[_session addOutput:self.output];
-	}
-	return _session;
+    if (!_session) {
+        _session = [[AVCaptureSession alloc] init];
+        if ([_session canSetSessionPreset:AVCaptureSessionPresetPhoto]) {
+            _session.sessionPreset = AVCaptureSessionPresetPhoto;
+        } else {
+            _session.sessionPreset = AVCaptureSessionPresetMedium;
+        }
+        [_session addOutput:self.output];
+    }
+    return _session;
 }
 
 - (AVCaptureStillImageOutput *)output {

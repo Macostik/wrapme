@@ -24,8 +24,10 @@
 @interface WLCreateWrapViewController : WLShakeViewController <UITextFieldDelegate, WLStillPictureViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (strong, nonatomic) WLBlock handlerCancelBlock;
+@property (strong, nonatomic) WLBlock cancelHandler;
 @property (assign, nonatomic) id <WLCreateWrapDelegate> delegate;
+
+- (void)removeAnimateViewFromSuperView;
 
 @end
 

@@ -14,29 +14,29 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bCJ-Bf-BAx" customClass="WLImageView">
-                        <rect key="frame" x="8" y="4" width="36" height="36"/>
+                    <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bCJ-Bf-BAx" customClass="WLImageView">
+                        <rect key="frame" x="80" y="4" width="36" height="36"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="36" id="pPO-he-cBw"/>
                             <constraint firstAttribute="width" constant="36" id="xf4-kb-W59"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2A-eK-bqL">
-                        <rect key="frame" x="52" y="0.0" width="260" height="44"/>
+                        <rect key="frame" x="124" y="0.0" width="188" height="44"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="s2A-eK-bqL" firstAttribute="leading" secondItem="bCJ-Bf-BAx" secondAttribute="trailing" constant="8" id="2SL-96-5vL"/>
                 <constraint firstItem="s2A-eK-bqL" firstAttribute="top" secondItem="fB0-wU-3AJ" secondAttribute="top" id="Ajj-d0-rGT"/>
                 <constraint firstItem="bCJ-Bf-BAx" firstAttribute="top" secondItem="fB0-wU-3AJ" secondAttribute="top" constant="4" id="HMq-PX-RZv"/>
                 <constraint firstAttribute="trailing" secondItem="s2A-eK-bqL" secondAttribute="trailing" constant="8" id="Hl0-nc-T63"/>
-                <constraint firstItem="bCJ-Bf-BAx" firstAttribute="leading" secondItem="fB0-wU-3AJ" secondAttribute="leading" constant="8" id="L59-sN-xyr"/>
+                <constraint firstItem="bCJ-Bf-BAx" firstAttribute="leading" secondItem="fB0-wU-3AJ" secondAttribute="leading" constant="80" id="L59-sN-xyr"/>
                 <constraint firstAttribute="bottom" secondItem="s2A-eK-bqL" secondAttribute="bottom" id="Mg2-us-dIh"/>
                 <constraint firstAttribute="bottom" secondItem="bCJ-Bf-BAx" secondAttribute="bottom" constant="4" id="sYY-VN-LMJ"/>
             </constraints>

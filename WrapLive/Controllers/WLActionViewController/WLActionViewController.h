@@ -16,7 +16,7 @@
 + (id)addViewControllerByClass:(Class)class withEntry:(id)entry toParentViewController:(UIViewController *)viewController;
 
 - (void)dismiss;
-- (void)removeAnimateViewsFromSuperView;
+- (void)removeAnimateFinerOwnerView;
 
 @end
 

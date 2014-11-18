@@ -72,11 +72,11 @@
 }
 
 - (void)dismiss {
-    [self removeAnimateViewsFromSuperView];
+    [self removeAnimateFinerOwnerView];
     [self removeFromParentViewController];
 }
 
-- (void)removeAnimateViewsFromSuperView {
+- (void)removeAnimateFinerOwnerView {
     [UIView animateWithDuration:1.0 animations:^{
         self.childViewController.view.transform = CGAffineTransformMakeTranslation(.0, self.view.height);
     } completion:^(BOOL finished) {

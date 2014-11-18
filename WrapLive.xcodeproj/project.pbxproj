@@ -143,6 +143,10 @@
 		5B650FE81A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */; };
 		5B650FE91A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */; };
 		5B650FEA1A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */; };
+		5B7E156B1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */; };
+		5B7E156C1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */; };
+		5B7E156D1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */; };
+		5B7E156E1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */; };
 		5BA4CC121A08FAE700D7F31C /* WLPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */; };
 		5BA4CC131A08FAE700D7F31C /* WLPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */; };
 		5BA4CC141A08FAE700D7F31C /* WLPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */; };
@@ -1388,6 +1392,7 @@
 		5B650FDF1A00091800D6AD3D /* WLReportCandyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLReportCandyViewController.h; path = WLReportCandyViewController/WLReportCandyViewController.h; sourceTree = "<group>"; };
 		5B650FE01A00091800D6AD3D /* WLReportCandyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLReportCandyViewController.m; path = WLReportCandyViewController/WLReportCandyViewController.m; sourceTree = "<group>"; };
 		5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLReportCandyViewController.xib; path = WLReportCandyViewController/WLReportCandyViewController.xib; sourceTree = "<group>"; };
+		5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCreateWrapCell.xib; path = WrapLive/Controllers/WLPickerViewContoller/WLCreateWrapCell.xib; sourceTree = "<group>"; };
 		5BA4CC101A08FAE700D7F31C /* WLPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPickerViewController.h; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.h; sourceTree = "<group>"; };
 		5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPickerViewController.m; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.m; sourceTree = "<group>"; };
 		5BA4CC171A08FB4300D7F31C /* WLPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPickerViewController.xib; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.xib; sourceTree = "<group>"; };
@@ -2795,6 +2800,7 @@
 				5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */,
 				5BA4CC171A08FB4300D7F31C /* WLPickerViewController.xib */,
 				5BBBC0041A0A504E003781C4 /* WLPickerViewCell.xib */,
+				5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */,
 			);
 			name = WLPickerViewController;
 			path = ../..;
@@ -3734,6 +3740,7 @@
 				12F3ED5F1934B183009C1DC3 /* WLAssetCell.xib in Resources */,
 				12D514FD192F5F15007A1520 /* AppIcon60x60@2x.png in Resources */,
 				5BA6CAF31A10E51B004AD41C /* s02.wav in Resources */,
+				5B7E156B1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				12D514FC192F5F15007A1520 /* AppIcon40x40@2x.png in Resources */,
 				C54AF86019B8C622006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
 				12F3ED5D1934B183009C1DC3 /* WLAssetsViewController.xib in Resources */,
@@ -3816,6 +3823,7 @@
 				C54AF54419B8C437006F7EDB /* WLComposeBar.xib in Resources */,
 				C54AF86B19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				C54AF54519B8C437006F7EDB /* Default-568h@2x.png in Resources */,
+				5B7E156C1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF54619B8C437006F7EDB /* AppIcon76x76@2x.png in Resources */,
 				5B650FE81A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
@@ -3878,6 +3886,7 @@
 				C54AF64119B8C467006F7EDB /* WLComposeBar.xib in Resources */,
 				C54AF86F19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				C54AF64219B8C467006F7EDB /* Default-568h@2x.png in Resources */,
+				5B7E156D1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF64319B8C467006F7EDB /* AppIcon76x76@2x.png in Resources */,
 				5B650FE91A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
 				C54AF64419B8C467006F7EDB /* iTunesArtwork in Resources */,
@@ -3940,6 +3949,7 @@
 				C54AF73E19B8C491006F7EDB /* WLComposeBar.xib in Resources */,
 				C54AF87319B8C63B006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				C54AF73F19B8C491006F7EDB /* Default-568h@2x.png in Resources */,
+				5B7E156E1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF74019B8C491006F7EDB /* AppIcon76x76@2x.png in Resources */,
 				5B650FEA1A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,

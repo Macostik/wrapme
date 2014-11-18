@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "DefinedBlocks.h"
 #import "WLActionViewController.h"
+#import "WLWrap.h"
 
 @class WLPickerViewController;
 
 @protocol WLPickerViewDelegate <NSObject>
 @optional
-- (void)pickerViewController:(WLPickerViewController *)pickerViewController doneClick:(UIButton *)sender;
-- (void)pickerViewController:(WLPickerViewController *)pickerViewController newWrapClick:(UIButton *)sender;
+- (void)pickerViewController:(WLPickerViewController *)pickerViewController newWrapClick:(UIView *)sender;
+- (void)pickerViewController:(WLPickerViewController *)pickerViewController tapBySelectedWrap:(WLWrap *)wrap;
 
 @end
 

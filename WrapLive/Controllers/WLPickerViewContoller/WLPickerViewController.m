@@ -13,14 +13,21 @@
 #import "WLButton.h"
 #import "WLPickerViewController.h"
 #import "WLUser+Extended.h"
-#import "WLWrap.h"
+#import "WLWrap+Extended.h"
 #import "WLWrapCell.h"
+#import "NSString+Additions.h"
+#import "UIView+GestureRecognizing.h"
 
-@interface WLPickerViewController ()
+static NSString *const WLPickerViewCell = @"WLPickerViewCell";
+static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
+
+@interface WLPickerViewController () <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
-@property (strong, nonatomic) NSArray *entries;
+@property (strong, nonatomic) NSOrderedSet *entries;
 @property (strong, nonatomic) WLWrapBlock selectBlock;
+@property (strong, nonatomic) WLWrap *selectedWrap;
+@property (strong, nonatomic) UITapGestureRecognizer *tapGesture;
 
 @end
 
@@ -29,9 +36,9 @@
 - (instancetype)initWithWrap:(WLWrap *)wrap delegate:(id)delegate {
     self = [super init];
     if (self) {
-        NSArray *wrapsArray = [[[WLUser currentUser] sortedWraps] array];
+        NSOrderedSet *wraps = [[WLUser currentUser] sortedWraps];
         [self setWrap:wrap];
-        [self setEntries:wrapsArray];
+        [self setEntries:wraps];
         [self setDelegate:delegate];
     }
     return self;
@@ -43,13 +50,29 @@
     return pickerViewController;
 }
 
-- (void)setWrap:(WLWrap *)wrap {
-    _wrap = wrap;
-    NSInteger index = [self.entries indexOfObject:_wrap];
+- (void)viewDidLoad {
+    self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+    self.tapGesture.delegate = self;
+    [self.pickerView addGestureRecognizer:self.tapGesture];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSInteger index = [self.entries indexOfObject:self.wrap];
     [self.pickerView selectRow:index inComponent:0 animated:YES];
 }
 
-- (void)setEntries:(NSArray *)entries {
+- (void)dealloc {
+    [self.pickerView removeGestureRecognizer:self.tapGesture];
+    self.tapGesture = nil;
+}
+
+- (void)setWrap:(WLWrap *)wrap {
+    _wrap = wrap;
+    [_pickerView reloadAllComponents];
+}
+
+- (void)setEntries:(NSOrderedSet *)entries {
     _entries = entries;
     [_pickerView reloadAllComponents];
 }
@@ -65,16 +88,22 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [self.entries count];
+    return [self.entries count] + NSINTEGER_DEFINED;
 }
 
 #pragma mark - UIPickerViewDelegate
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    WLWrap *wrap = self.entries[row];
-    WLWrapCell *pickerCell = [WLWrapCell loadFromNibNamed:@"WLPickerViewCell"];
-    pickerCell.width = self.view.width;
-    pickerCell.entry = wrap;
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    WLWrapCell *pickerCell = nil;
+    if (row > [self.entries count] - 1) {
+        pickerCell = [UIView loadFromNibNamed:WLCreateWrapCell ownedBy:self];
+        pickerCell.width = self.view.width;
+    } else {
+        WLWrap *wrap = self.entries[row];
+        pickerCell = [WLWrapCell loadFromNibNamed:WLPickerViewCell];
+        pickerCell.width = self.view.width;
+        pickerCell.entry = wrap;
+    }
     
     return pickerCell;
 }
@@ -86,22 +115,33 @@
 #pragma mark - WLPickerViewController Action
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    if (row == [self.entries count])  {
+        return;
+    }
     if (self.selectBlock) {
+        self.selectedWrap = self.entries[row];
         self.selectBlock(self.entries[row]);
     }
 }
 
-- (IBAction)newWrapClick:(id)sender {
-    if([self.delegate respondsToSelector:@selector(pickerViewController: newWrapClick:)]) {
-        [self.delegate pickerViewController:self newWrapClick:sender];
+#pragma mark - UIGestureRecognizerDelegate
+
+- (void)tapGesture:(UITapGestureRecognizer *)gesture {
+    UIView *createWrapCell = [self.pickerView viewForRow:[self.entries count] forComponent:0];
+    CGPoint touchPoint = [gesture locationInView:createWrapCell];
+    if (CGRectContainsPoint(createWrapCell.frame, touchPoint)) {
+        if([self.delegate respondsToSelector:@selector(pickerViewController: newWrapClick:)]) {
+            [self.delegate pickerViewController:self newWrapClick:createWrapCell];
+        }
+    } else {
+        if ([self.delegate respondsToSelector:@selector(pickerViewController:tapBySelectedWrap:)]) {
+            [self.delegate pickerViewController:self tapBySelectedWrap:self.selectedWrap];
+        }
     }
 }
 
-- (IBAction)doneClick:(id)sender {
-    if([self.delegate respondsToSelector:@selector(pickerViewController: doneClick:)]) {
-        [self.delegate pickerViewController:self doneClick:sender];
-    }
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
 }
 
 @end
-

@@ -90,24 +90,6 @@
                                     <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJl-bw-KDb">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="366"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bpf-YH-4as">
-                                                <rect key="frame" x="0.0" y="0.0" width="280" height="75"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="termsAndConditions" translatesAutoresizingMaskIntoConstraints="NO" id="3tf-fU-xIJ">
-                                                        <rect key="frame" x="27" y="10" width="226" height="55"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="226" id="Ecn-6o-khb"/>
-                                                            <constraint firstAttribute="height" constant="55" id="QFh-iZ-cp4"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="centerX" secondItem="3tf-fU-xIJ" secondAttribute="centerX" id="5hm-w2-nao"/>
-                                                    <constraint firstAttribute="centerY" secondItem="3tf-fU-xIJ" secondAttribute="centerY" id="6ST-RE-lze"/>
-                                                    <constraint firstAttribute="height" constant="75" id="ONj-YX-vHP"/>
-                                                </constraints>
-                                            </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ltR-Py-7vC">
                                                 <rect key="frame" x="5" y="75" width="270" height="291"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -480,6 +462,24 @@ Ravenpod, Inc.
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                             </textView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bpf-YH-4as">
+                                                <rect key="frame" x="0.0" y="0.0" width="280" height="75"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="termsAndConditions" translatesAutoresizingMaskIntoConstraints="NO" id="3tf-fU-xIJ">
+                                                        <rect key="frame" x="27" y="10" width="226" height="55"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="226" id="Ecn-6o-khb"/>
+                                                            <constraint firstAttribute="height" constant="55" id="QFh-iZ-cp4"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="centerX" secondItem="3tf-fU-xIJ" secondAttribute="centerX" id="5hm-w2-nao"/>
+                                                    <constraint firstAttribute="centerY" secondItem="3tf-fU-xIJ" secondAttribute="centerY" id="6ST-RE-lze"/>
+                                                    <constraint firstAttribute="height" constant="75" id="ONj-YX-vHP"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>

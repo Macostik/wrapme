@@ -60,13 +60,13 @@
     self.wrap.name = name;
     [self.wrap notifyOnAddition];
     [[WLUploading uploading:self.wrap] upload:^(id object) {
-        [weakSelf hideExcessView];
+        [weakSelf removeAnimateViewFromSuperView];
         if ([weakSelf.delegate respondsToSelector:@selector(wlCreateWrapViewController:didCreateWrap:)]) {
             [weakSelf.delegate wlCreateWrapViewController:self didCreateWrap:object];
         }
     } failure:^(NSError *error) {
         if ([error isNetworkError]) {
-            [weakSelf hideExcessView];
+            [weakSelf removeAnimateViewFromSuperView];
             if ([weakSelf.delegate respondsToSelector:@selector(wlCreateWrapViewController:didCreateWrap:)]) {
                 [weakSelf.delegate wlCreateWrapViewController:self didCreateWrap:self.wrap];
             }
@@ -80,14 +80,16 @@
 #pragma mark - Actions
 
 - (IBAction)cancel:(id)sender {
-    if (self.handlerCancelBlock)
-        self.handlerCancelBlock();
+    if (self.cancelHandler)
+        self.cancelHandler();
 }
 
-- (void)hideExcessView {
+- (void)removeAnimateViewFromSuperView {
     id parentViewController = self.parentViewController;
-    if ([parentViewController respondsToSelector:@selector(removeAnimateViewsFromSuperView)]) {
-        [parentViewController performSelector:@selector(removeAnimateViewsFromSuperView) withObject:nil];
+    if (parentViewController != nil && [parentViewController respondsToSelector:@selector(removeAnimateFinerOwnerView)]) {
+        [parentViewController performSelector:@selector(removeAnimateFinerOwnerView) withObject:nil];
+    } else {
+        [self.view removeFromSuperview];
     }
 }
 

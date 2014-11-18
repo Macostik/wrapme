@@ -111,6 +111,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)setup {
     [super setup];
+	[PubNub setupWithConfiguration:[WLNotificationCenter configuration] andDelegate:self];
     self.userChannel = [[WLNotificationChannel alloc] init];
     self.userChannel.supportAPNS = YES;
     __weak typeof(self)weakSelf = self;
@@ -121,8 +122,8 @@ static WLDataBlock deviceTokenCompletion = nil;
             [weakSelf broadcastNotification:notification];
         } failure:nil];
         weakSelf.historyDate = [[message.receiveDate date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
-    }];    
-	[PubNub setupWithConfiguration:[WLNotificationCenter configuration] andDelegate:self];
+    }];
+    [self.userChannel observeMessages];
 }
 
 - (void)subscribe {

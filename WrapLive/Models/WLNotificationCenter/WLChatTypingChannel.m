@@ -34,6 +34,7 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
                 [weakSelf.delegate chatTypingChannel:weakSelf didEndTyping:user andSendMessage:NO];
             }
         }];
+        [self observePresense];
     }
     return self;
 }

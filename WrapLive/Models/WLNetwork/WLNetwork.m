@@ -35,19 +35,22 @@
 - (void)setup {
     [super setup];
 	__weak typeof(self)weakSelf = self;
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        [weakSelf broadcast:@selector(networkDidChangeReachability:)];
-        [weakSelf showLostConnectionBannerIfNeeded];
-        if (weakSelf.reachable) {
-            if ([WLAuthorizationRequest authorized]) {
-                [WLUploading enqueueAutomaticUploading:^{
-                }];
-            } else {
-                [[WLAuthorizationRequest signInRequest] send];
+    AFNetworkReachabilityManager* manager = [AFNetworkReachabilityManager sharedManager];
+    [manager startMonitoring];
+    run_after(0.2, ^{
+        [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            [weakSelf broadcast:@selector(networkDidChangeReachability:)];
+            [weakSelf showLostConnectionBannerIfNeeded];
+            if (weakSelf.reachable) {
+                if ([WLAuthorizationRequest authorized]) {
+                    [WLUploading enqueueAutomaticUploading:^{
+                    }];
+                } else {
+                    [[WLAuthorizationRequest signInRequest] send];
+                }
             }
-        }
-    }];
+        }];
+    });
 }
 
 - (void)showLostConnectionBannerIfNeeded {

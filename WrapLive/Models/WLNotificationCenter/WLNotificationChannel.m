@@ -38,15 +38,6 @@
     [[PNObservationCenter defaultCenter] removePresenceEventObserver:self];
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self observeMessages];
-        [self observePresense];
-    }
-    return self;
-}
-
 - (void)setName:(NSString *)name {
     [self setName:name subscribe:NO];
 }

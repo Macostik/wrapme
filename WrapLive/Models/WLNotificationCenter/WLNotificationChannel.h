@@ -49,6 +49,10 @@
 
 - (void)enablePresense;
 
+- (void)observePresense;
+
+- (void)observeMessages;
+
 - (void)removeObserving;
 
 @end

@@ -23,12 +23,13 @@
 #import "WLNotificationCenter.h"
 #import "WLSizeToFitLabel.h"
 #import "WLWrapCell.h"
+#import "TTTAttributedLabel.h"
 
 @interface WLWrapCell ()
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
 @property (weak, nonatomic) IBOutlet WLSizeToFitLabel *wrapNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chatNotificationImageView;
@@ -41,10 +42,8 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    self.coverView.circled = YES;
-    self.coverView.layer.shouldRasterize = YES;
-    self.coverView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     self.contributorsLabel.numberOfLines = self.candiesView ? 1 : 2;
+    self.contributorsLabel.verticalAlignment = self.candiesView ? TTTAttributedLabelVerticalAlignmentCenter : TTTAttributedLabelVerticalAlignmentTop;
     
     if (self.candiesView) {
         UICollectionViewFlowLayout* layout = (id)self.candiesView.collectionViewLayout;
@@ -78,7 +77,6 @@
     if (self.candiesView) {
         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
     } else {
-        [self.contributorsLabel sizeToFitHeightWithMaximumHeightToSuperviewBottom];
         self.wrapNotificationLabel.intValue = [wrap unreadNotificationsCandyCount];
     }
     self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;

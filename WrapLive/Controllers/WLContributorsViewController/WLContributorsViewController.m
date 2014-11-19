@@ -8,6 +8,7 @@
 
 #import "WLContributorsViewController.h"
 #import "WLCollectionViewDataProvider.h"
+#import "WLContributorsViewSection.h"
 #import "WLContributorCell.h"
 #import "WLUpdateContributorsRequest.h"
 #import "WLPerson.h"
@@ -16,7 +17,7 @@
 @interface WLContributorsViewController () <WLContributorCellDelegate>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
-@property (strong, nonatomic) IBOutlet WLCollectionViewSection *dataSection;
+@property (strong, nonatomic) IBOutlet WLContributorsViewSection *dataSection;
 
 @end
 

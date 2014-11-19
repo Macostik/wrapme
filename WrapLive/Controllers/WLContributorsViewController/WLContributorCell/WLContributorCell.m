@@ -35,7 +35,9 @@
 		isCreator = [self.delegate contributorCell:self isCreator:user];
 	}
 	self.nameLabel.text = isCreator ? [NSString stringWithFormat:@"%@ (Owner)", userNameText] : userNameText;
-    self.phoneLabel.text = [[[user.devices array] valueForKey:@"phone"] componentsJoinedByString:@", "];
+    
+    NSString *phoneString = [[[user.devices array] valueForKey:@"phone"]componentsJoinedByString:@"\n"];
+    self.phoneLabel.text = phoneString;
 
     self.avatarView.url = user.picture.small;
     if (!self.avatarView.url.nonempty) {

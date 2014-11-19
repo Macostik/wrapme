@@ -161,6 +161,10 @@
 		5BA4F87F1A1CA08900DB1A25 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
 		5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* s01.wav */; };
 		5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
+		5BA4F8881A1CD61900DB1A25 /* WLContributorsViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4F8871A1CD61900DB1A25 /* WLContributorsViewSection.m */; };
+		5BA4F8891A1CD61900DB1A25 /* WLContributorsViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4F8871A1CD61900DB1A25 /* WLContributorsViewSection.m */; };
+		5BA4F88A1A1CD61900DB1A25 /* WLContributorsViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4F8871A1CD61900DB1A25 /* WLContributorsViewSection.m */; };
+		5BA4F88B1A1CD61900DB1A25 /* WLContributorsViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4F8871A1CD61900DB1A25 /* WLContributorsViewSection.m */; };
 		5BA666B919FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */; };
 		5BA666BA19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */; };
 		5BA666BB19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */; };
@@ -1444,6 +1448,8 @@
 		5BA4CC101A08FAE700D7F31C /* WLPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPickerViewController.h; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.h; sourceTree = "<group>"; };
 		5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPickerViewController.m; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.m; sourceTree = "<group>"; };
 		5BA4CC171A08FB4300D7F31C /* WLPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPickerViewController.xib; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.xib; sourceTree = "<group>"; };
+		5BA4F8861A1CD61900DB1A25 /* WLContributorsViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributorsViewSection.h; path = WLCollectionViewDataProvider/WLContributorsViewSection.h; sourceTree = "<group>"; };
+		5BA4F8871A1CD61900DB1A25 /* WLContributorsViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorsViewSection.m; path = WLCollectionViewDataProvider/WLContributorsViewSection.m; sourceTree = "<group>"; };
 		5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLEditWrapViewController.xib; path = WLEditWrapViewController/WLEditWrapViewController.xib; sourceTree = "<group>"; };
 		5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCreateWrapViewController.xib; path = WLCreateWrapViewController/WLCreateWrapViewController.xib; sourceTree = "<group>"; };
 		5BA6CAEE1A10E51B004AD41C /* s01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s01.wav; path = Sounds/s01.wav; sourceTree = "<group>"; };
@@ -3127,6 +3133,8 @@
 				C509CCFA199E0B38006B00AA /* WLCandiesViewSection.m */,
 				5BBBEB3F19D983B4008CFE54 /* WLNotificationCollectionViewSection.h */,
 				5BBBEB4019D983B4008CFE54 /* WLNotificationCollectionViewSection.m */,
+				5BA4F8861A1CD61900DB1A25 /* WLContributorsViewSection.h */,
+				5BA4F8871A1CD61900DB1A25 /* WLContributorsViewSection.m */,
 			);
 			name = WLCollectionViewDataProvider;
 			sourceTree = "<group>";
@@ -4455,6 +4463,7 @@
 				C50AF4181976A1F400761F38 /* WLDeleteWrapRequest.m in Sources */,
 				C5110B7A1952DE55008F236E /* AsynchronousOperation.m in Sources */,
 				C50AF40919767CAF00761F38 /* WLBaseOperationWrapRequest.m in Sources */,
+				5BA4F8881A1CD61900DB1A25 /* WLContributorsViewSection.m in Sources */,
 				AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */,
 				12F3ED621934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m in Sources */,
 				12F3ED5A1934B183009C1DC3 /* WLAssetsGroupCell.m in Sources */,
@@ -4676,6 +4685,7 @@
 				C54AF4F919B8C437006F7EDB /* WLDeleteWrapRequest.m in Sources */,
 				C54AF4FA19B8C437006F7EDB /* AsynchronousOperation.m in Sources */,
 				C54AF4FB19B8C437006F7EDB /* WLBaseOperationWrapRequest.m in Sources */,
+				5BA4F8891A1CD61900DB1A25 /* WLContributorsViewSection.m in Sources */,
 				C54AF4FD19B8C437006F7EDB /* WLCollectionViewFlowLayout.m in Sources */,
 				C54AF4FE19B8C437006F7EDB /* ALAssetsLibrary+Additions.m in Sources */,
 				C54AF50019B8C437006F7EDB /* WLAssetsGroupCell.m in Sources */,
@@ -4897,6 +4907,7 @@
 				C54AF5F619B8C467006F7EDB /* WLDeleteWrapRequest.m in Sources */,
 				C54AF5F719B8C467006F7EDB /* AsynchronousOperation.m in Sources */,
 				C54AF5F819B8C467006F7EDB /* WLBaseOperationWrapRequest.m in Sources */,
+				5BA4F88A1A1CD61900DB1A25 /* WLContributorsViewSection.m in Sources */,
 				C54AF5FA19B8C467006F7EDB /* WLCollectionViewFlowLayout.m in Sources */,
 				C54AF5FB19B8C467006F7EDB /* ALAssetsLibrary+Additions.m in Sources */,
 				C54AF5FD19B8C467006F7EDB /* WLAssetsGroupCell.m in Sources */,
@@ -5118,6 +5129,7 @@
 				C54AF6F319B8C491006F7EDB /* WLDeleteWrapRequest.m in Sources */,
 				C54AF6F419B8C491006F7EDB /* AsynchronousOperation.m in Sources */,
 				C54AF6F519B8C491006F7EDB /* WLBaseOperationWrapRequest.m in Sources */,
+				5BA4F88B1A1CD61900DB1A25 /* WLContributorsViewSection.m in Sources */,
 				C54AF6F719B8C491006F7EDB /* WLCollectionViewFlowLayout.m in Sources */,
 				C54AF6F819B8C491006F7EDB /* ALAssetsLibrary+Additions.m in Sources */,
 				C54AF6FA19B8C491006F7EDB /* WLAssetsGroupCell.m in Sources */,

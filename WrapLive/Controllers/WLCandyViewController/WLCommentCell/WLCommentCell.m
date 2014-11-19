@@ -27,6 +27,7 @@
 #import "UIFont+CustomFonts.h"
 #import "UIColor+CustomColors.h"
 #import "TTTAttributedLabel.h"
+#import "UIImage+Drawing.h"
 
 @interface WLCommentCell () <TTTAttributedLabelDelegate>
 

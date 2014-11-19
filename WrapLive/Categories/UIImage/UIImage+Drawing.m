@@ -14,7 +14,7 @@
 + (void)drawAssetNamed:(NSString*)name directory:(NSString*)directory size:(CGSize)size drawing:(void(^)(CGSize size))drawing {
     NSArray* scales = @[@1,@2,@3];
     for (NSNumber* scale in scales) {
-        UIGraphicsBeginImageContextWithOptions(size, NO, [scale floatValue]);
+        UIGraphicsBeginImageContextWithOptions(size, YES, [scale floatValue]);
         drawing(size);
         NSData *data = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext());
         if ([scale floatValue] == 1) {
@@ -24,7 +24,6 @@
         }
         
         UIGraphicsEndImageContext();
-        UIGraphicsBeginImageContextWithOptions(size, NO, 2);
     }
 }
 

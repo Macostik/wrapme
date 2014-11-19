@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *textLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topTextLabelConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
 
 @end
 
@@ -40,6 +41,7 @@
 	[super awakeFromNib];
     self.avatarView.hidden = self.nameLabel.hidden = YES;
     self.textLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    self.bubbleImageView.image = [self.bubbleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
 }
 
 - (void)setShowAvatar:(BOOL)showAvatar {

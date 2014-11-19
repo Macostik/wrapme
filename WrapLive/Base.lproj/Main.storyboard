@@ -1724,7 +1724,7 @@
                                                                             <outlet property="delegate" destination="nYd-7h-TgW" id="vAh-Mk-9oP"/>
                                                                         </connections>
                                                                     </label>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_today_comment" translatesAutoresizingMaskIntoConstraints="NO" id="UrF-dI-o9d">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_today_comment.png" translatesAutoresizingMaskIntoConstraints="NO" id="UrF-dI-o9d">
                                                                         <rect key="frame" x="3" y="3" width="22" height="22"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <constraints>
@@ -2637,7 +2637,7 @@ Check your internet connection and try again.</string>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPa-oY-X5B">
                                                     <rect key="frame" x="66" y="0.0" width="188" height="34"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="not_owner_gray_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="Zry-4g-36P">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_bubble_gray.png" translatesAutoresizingMaskIntoConstraints="NO" id="Zry-4g-36P">
                                                             <rect key="frame" x="0.0" y="0.0" width="188" height="34"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </imageView>
@@ -2689,6 +2689,7 @@ Check your internet connection and try again.</string>
                                         <size key="customSize" width="320" height="48"/>
                                         <connections>
                                             <outlet property="avatarView" destination="nCf-It-uXS" id="slD-p4-bUf"/>
+                                            <outlet property="bubbleImageView" destination="Zry-4g-36P" id="nli-pF-GDy"/>
                                             <outlet property="textLabel" destination="b58-hK-T5O" id="AdR-pc-D0X"/>
                                             <outlet property="textViewConstraint" destination="He6-pr-Jey" id="aVf-Pm-ud5"/>
                                             <outlet property="timeLabel" destination="ttQ-8O-OkP" id="nfb-i1-NkK"/>
@@ -2713,7 +2714,7 @@ Check your internet connection and try again.</string>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G61-oI-Ifc">
                                                     <rect key="frame" x="66" y="0.0" width="196" height="34"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="not_owner_red_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="qIj-TE-aQ6">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_bubble_red.png" translatesAutoresizingMaskIntoConstraints="NO" id="qIj-TE-aQ6">
                                                             <rect key="frame" x="0.0" y="0.0" width="196" height="34"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </imageView>
@@ -2778,6 +2779,7 @@ Check your internet connection and try again.</string>
                                         <size key="customSize" width="320" height="48"/>
                                         <connections>
                                             <outlet property="avatarView" destination="YII-6v-9r6" id="rdb-ks-OqQ"/>
+                                            <outlet property="bubbleImageView" destination="qIj-TE-aQ6" id="5a0-Z3-vBr"/>
                                             <outlet property="nameLabel" destination="HUe-Pv-h6W" id="IPI-RF-ny3"/>
                                             <outlet property="textLabel" destination="90G-xG-qIL" id="vs4-eF-9tl"/>
                                             <outlet property="textViewConstraint" destination="bkP-if-RMm" id="N8k-RA-lrW"/>
@@ -3181,6 +3183,8 @@ Check your internet connection and try again.</string>
         <image name="camera_medium" width="50" height="50"/>
         <image name="candy_in_the_circle" width="22" height="22"/>
         <image name="chatNotification" width="32" height="28"/>
+        <image name="chat_bubble_gray.png" width="34" height="34"/>
+        <image name="chat_bubble_red.png" width="34" height="34"/>
         <image name="horizontal_separator_gray" width="1" height="1"/>
         <image name="ic_add_by_phone" width="24" height="24"/>
         <image name="ic_arrow_down" width="14" height="8"/>
@@ -3198,10 +3202,8 @@ Check your internet connection and try again.</string>
         <image name="ic_photo_placeholder" width="60" height="48"/>
         <image name="ic_search" width="16" height="16"/>
         <image name="ic_swipe_arrow_right" width="6" height="10"/>
-        <image name="ic_today_comment" width="22" height="22"/>
+        <image name="ic_today_comment.png" width="22" height="22"/>
         <image name="ic_today_enabled" width="32" height="32"/>
-        <image name="not_owner_gray_bubble" width="16" height="15"/>
-        <image name="not_owner_red_bubble" width="16" height="16"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

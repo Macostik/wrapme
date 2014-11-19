@@ -2463,7 +2463,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5m-hD-Eet" customClass="WLComposeBar">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="9Fv-zW-20Z"/>
                                 </constraints>
@@ -2841,7 +2841,7 @@ Check your internet connection and try again.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="1Ex-MN-lDR" firstAttribute="top" secondItem="L7B-3N-jdg" secondAttribute="top" constant="20" id="AHy-rq-Td5"/>
                                     <constraint firstItem="AvF-XJ-7eQ" firstAttribute="top" secondItem="L7B-3N-jdg" secondAttribute="top" constant="20" id="AXV-gZ-idb"/>
@@ -2853,7 +2853,7 @@ Check your internet connection and try again.</string>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQp-Lx-kpC" customClass="WLComposeBar">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="3dn-cZ-dWQ"/>
                                 </constraints>
@@ -3211,7 +3211,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WjR-f7-d7j"/>
         <segue reference="USb-FQ-HhL"/>
+        <segue reference="tCH-h8-hRc"/>
     </inferredMetricsTieBreakers>
 </document>

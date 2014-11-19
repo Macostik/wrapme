@@ -46,19 +46,14 @@
 }
 
 + (NSMutableOrderedSet*)eventsByDeletingEntry:(WLContribution*)entry fromEvents:(NSMutableOrderedSet*)events {
-    WLTimelineEvent* event = nil;
-    for (WLTimelineEvent* _event in events) {
-        if ([_event.entries containsObject:entry]) {
-            event = _event;
-            break;
-        }
-    }
-    if (event) {
-        [event.entries removeObject:entry];
+    NSMutableSet* emptyEvents = [NSMutableSet set];
+    for (WLTimelineEvent* event in events) {
+        [event deleteEntry:entry];
         if (!event.entries.nonempty) {
-            [events removeObject:event];
+            [emptyEvents addObject:event];
         }
     }
+    [events minusSet:emptyEvents];
     return events;
 }
 

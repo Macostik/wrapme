@@ -2188,6 +2188,8 @@
                     <connections>
                         <outlet property="collectionView" destination="p36-27-cbv" id="C8y-kj-ECI"/>
                         <outletCollection property="animatableConstraints" destination="MQg-Fb-Rad" id="cav-9A-KWA"/>
+                        <outletCollection property="animatableConstraints" destination="fZI-X5-yEI" id="l5q-82-rgz"/>
+                        <outletCollection property="animatableConstraints" destination="CWx-kp-Goe" id="l9b-FH-r4e"/>
                     </connections>
                 </customObject>
                 <customObject id="u9r-1x-r06" customClass="WLCandiesHistoryViewSection">

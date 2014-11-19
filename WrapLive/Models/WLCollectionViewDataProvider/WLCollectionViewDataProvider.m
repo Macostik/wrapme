@@ -13,6 +13,8 @@
 
 @interface WLCollectionViewDataProvider ()
 
+@property (strong, nonatomic) NSMapTable* animatingConstraintsDefaultValues;
+
 @end
 
 @implementation WLCollectionViewDataProvider
@@ -196,9 +198,15 @@
         CGFloat constantValue = 0;
         if (direction == DirectionUp) {
             constantValue = -self.collectionView.height/2;
+            if (!self.animatingConstraintsDefaultValues) {
+                self.animatingConstraintsDefaultValues = [NSMapTable strongToStrongObjectsMapTable];
+                for (NSLayoutConstraint* constraint in self.animatableConstraints) {
+                    [self.animatingConstraintsDefaultValues setObject:@(constraint.constant) forKey:constraint];
+                }
+            }
         }
         for (NSLayoutConstraint* constraint in self.animatableConstraints) {
-            constraint.constant = constantValue;
+            constraint.constant = [[self.animatingConstraintsDefaultValues objectForKey:constraint] floatValue] + constantValue;
         }
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationBeginsFromCurrentState:YES];

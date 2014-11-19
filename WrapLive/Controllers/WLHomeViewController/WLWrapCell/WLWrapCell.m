@@ -29,7 +29,6 @@
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet TTTAttributedLabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
 @property (weak, nonatomic) IBOutlet WLSizeToFitLabel *wrapNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chatNotificationImageView;
@@ -42,8 +41,6 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    self.contributorsLabel.numberOfLines = self.candiesView ? 1 : 2;
-    self.contributorsLabel.verticalAlignment = self.candiesView ? TTTAttributedLabelVerticalAlignmentCenter : TTTAttributedLabelVerticalAlignmentTop;
     
     if (self.candiesView) {
         UICollectionViewFlowLayout* layout = (id)self.candiesView.collectionViewLayout;
@@ -71,8 +68,6 @@
         self.coverView.url = url;
         if (!url) self.coverView.image = [UIImage imageNamed:@"default-small-cover"];
     }
-	
-    self.contributorsLabel.text = [wrap contributorNames];
     
     if (self.candiesView) {
         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
@@ -82,12 +77,11 @@
     self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;
 }
 
-- (IBAction)select:(id)sender {
-	WLWrap* wrap = self.entry;
+- (void)select:(WLWrap*)wrap {
     [wrap.candies all:^(WLCandy *candy) {
         if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
     }];
-    [super select:sender];
+    [super select:wrap];
 }
 
 @end

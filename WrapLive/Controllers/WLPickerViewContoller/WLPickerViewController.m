@@ -59,7 +59,7 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSInteger index = [self.entries indexOfObject:self.wrap];
-    [self.pickerView selectRow:index inComponent:0 animated:YES];
+    [self.pickerView selectRow:index + 1 inComponent:0 animated:YES];
 }
 
 - (void)dealloc {
@@ -95,16 +95,15 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
     WLWrapCell *pickerCell = nil;
-    if (row > [self.entries count] - 1) {
+    if (!row) {
         pickerCell = [UIView loadFromNibNamed:WLCreateWrapCell ownedBy:self];
         pickerCell.width = self.view.width;
     } else {
-        WLWrap *wrap = self.entries[row];
+        WLWrap *wrap = self.entries[row - 1];
         pickerCell = [WLWrapCell loadFromNibNamed:WLPickerViewCell];
         pickerCell.width = self.view.width;
         pickerCell.entry = wrap;
     }
-    
     return pickerCell;
 }
 
@@ -115,19 +114,17 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
 #pragma mark - WLPickerViewController Action
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    if (row == [self.entries count])  {
-        return;
-    }
+    if (!row)return;
     if (self.selectBlock) {
-        self.selectedWrap = self.entries[row];
-        self.selectBlock(self.entries[row]);
+        self.selectedWrap = self.entries[row -1];
+        self.selectBlock(self.entries[row - 1]);
     }
 }
 
 #pragma mark - UIGestureRecognizerDelegate
 
 - (void)tapGesture:(UITapGestureRecognizer *)gesture {
-    UIView *createWrapCell = [self.pickerView viewForRow:[self.entries count] forComponent:0];
+    UIView *createWrapCell = [self.pickerView viewForRow:0 forComponent:0];
     CGPoint touchPoint = [gesture locationInView:createWrapCell];
     if (CGRectContainsPoint(createWrapCell.frame, touchPoint)) {
         if([self.delegate respondsToSelector:@selector(pickerViewController: newWrapClick:)]) {

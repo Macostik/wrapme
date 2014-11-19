@@ -20,6 +20,11 @@
                             <constraint firstAttribute="height" constant="36" id="pPO-he-cBw"/>
                             <constraint firstAttribute="width" constant="36" id="xf4-kb-W59"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="18"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2A-eK-bqL">
                         <rect key="frame" x="124" y="0.0" width="188" height="44"/>

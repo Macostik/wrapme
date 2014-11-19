@@ -724,15 +724,6 @@
                                                         <constraint firstAttribute="width" constant="50" id="fw7-Ys-M5O"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ctG-Sd-jmI">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                                                    <state key="normal">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="select" destination="N5C-9U-WOe" eventType="touchUpInside" id="Ug9-aO-oGc"/>
-                                                    </connections>
-                                                </button>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1g0-Jo-BE2" customClass="WLSizeToFitLabel">
                                                     <rect key="frame" x="41" y="0.0" width="22" height="22"/>
                                                     <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -760,6 +751,15 @@
                                                         <constraint firstAttribute="width" constant="16" id="lj4-Mg-NE9"/>
                                                     </constraints>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ctG-Sd-jmI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                                    <state key="normal">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="select" destination="N5C-9U-WOe" eventType="touchUpInside" id="Ug9-aO-oGc"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -3136,6 +3136,6 @@ Check your internet connection and try again.</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="USb-FQ-HhL"/>
-        <segue reference="WjR-f7-d7j"/>
+        <segue reference="tUX-Tk-kxb"/>
     </inferredMetricsTieBreakers>
 </document>

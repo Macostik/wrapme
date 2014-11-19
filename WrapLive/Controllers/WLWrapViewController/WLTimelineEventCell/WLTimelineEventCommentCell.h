@@ -10,4 +10,6 @@
 
 @interface WLTimelineEventCommentCell : WLTimelineEventCell
 
++ (CGFloat)heightWithComments:(NSOrderedSet*)comments;
+
 @end

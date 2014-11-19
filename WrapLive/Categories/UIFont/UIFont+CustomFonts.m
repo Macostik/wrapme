@@ -22,10 +22,31 @@
 	return nil;
 }
 
++ (UIFont*)cachedFontNamed:(NSString*)name size:(CGFloat)size {
+    static NSMutableDictionary* fonts = nil;
+    if (!fonts) {
+        fonts = [NSMutableDictionary dictionary];
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+            [fonts removeAllObjects];
+        }];
+    }
+    NSMutableDictionary* namedFonts = [fonts objectForKey:name];
+    if (!namedFonts) {
+        namedFonts = [NSMutableDictionary dictionary];
+        [fonts setObject:namedFonts forKey:name];
+    }
+    UIFont *font = [namedFonts objectForKey:@(size)];
+    if (!font) {
+        font = [UIFont fontWithName:name size:size];
+        [namedFonts setObject:font forKey:@(size)];
+    }
+    return font;
+}
+
 + (UIFont*)fontWithType:(WLFontType)type size:(CGFloat)size {
 	NSString* fontName = [self fontNameWithType:type];
 	if (fontName) {
-		return [UIFont fontWithName:fontName size:size];
+		return [self cachedFontNamed:fontName size:size];
 	}
 	return nil;
 }

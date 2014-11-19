@@ -10,6 +10,7 @@
 
 @class WLUser;
 @class WLContribution;
+@class WLEntry;
 
 @interface WLTimelineEvent : NSObject
 
@@ -23,6 +24,8 @@
 
 @property (weak, nonatomic) Class entryClass;
 
+@property (weak, nonatomic) WLEntry* containingEntry;
+
 + (NSMutableOrderedSet*)events:(NSMutableOrderedSet*)entries;
 
 + (NSMutableOrderedSet*)eventsByAddingEntry:(WLContribution*)entry toEvents:(NSMutableOrderedSet*)events;
@@ -30,5 +33,7 @@
 + (NSMutableOrderedSet*)eventsByDeletingEntry:(WLContribution*)entry fromEvents:(NSMutableOrderedSet*)events;
 
 - (BOOL)addEntry:(WLContribution*)entry;
+
+- (BOOL)deleteEntry:(WLContribution*)entry;
 
 @end

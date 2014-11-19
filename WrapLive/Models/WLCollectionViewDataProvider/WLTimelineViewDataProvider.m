@@ -15,6 +15,7 @@
 #import "WLTimelineEventHeaderView.h"
 #import "WLCandyCell.h"
 #import "WLLoadingView.h"
+#import "WLTimelineEventCommentCell.h"
 
 @interface WLTimelineViewDataProvider () <WLPaginatedSetDelegate>
 
@@ -56,7 +57,11 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     WLTimelineEvent* event = [self.timeline.entries tryObjectAtIndex:section];
-    return [event.entries count];
+    if (event.entryClass == [WLComment class]) {
+        return 1;
+    } else {
+        return [event.entries count];
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -65,12 +70,13 @@
     if (event.entryClass == [WLComment class]) {
         static NSString* identifier = @"WLTimelineEventCommentCell";
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+        cell.entry = event.entries;
     } else {
         static NSString* identifier = @"WLTimelineEventPhotoCell";
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+        cell.entry = [event.entries tryObjectAtIndex:indexPath.item];
     }
     cell.selection = self.selection;
-    cell.entry = [event.entries tryObjectAtIndex:indexPath.item];
     return cell;
 }
 
@@ -92,7 +98,7 @@
     }
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section  {
     return CGSizeMake(collectionView.width, 48);
 }
 
@@ -107,7 +113,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLTimelineEvent* event = [self.timeline.entries tryObjectAtIndex:indexPath.section];
     if (event.entryClass == [WLComment class]) {
-        return CGSizeMake(collectionView.width, 54);
+        return CGSizeMake(collectionView.width, [WLTimelineEventCommentCell heightWithComments:event.entries]);
     } else {
         CGFloat size = (collectionView.width - 2.0f)/3.0f;
         return CGSizeMake(size, size);

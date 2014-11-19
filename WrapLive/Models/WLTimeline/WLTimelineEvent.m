@@ -79,13 +79,14 @@
 }
 
 - (BOOL)addEntry:(WLContribution *)entry {
-    
-    if (self.entries.nonempty) {
+    NSMutableOrderedSet *entries = self.entries;
+    if (entries.nonempty) {
         if (self.entryClass != [entry class]) return NO;
         if (self.user != entry.contributor) return NO;
         if (![self.date isSameHour:entry.createdAt]) return NO;
+        if (self.containingEntry != entry.containingEntry) return NO;
     }
-    [self.entries addObject:entry];
+    [entries addObject:entry];
     
     if (self.date == nil || [entry.createdAt later:self.date]) {
         self.date = entry.createdAt;
@@ -94,17 +95,33 @@
     if (self.user == nil) {
         self.user = entry.contributor;
         self.entryClass = [entry class];
+        self.containingEntry = [entry containingEntry];
     }
     
     return YES;
 }
 
+- (BOOL)deleteEntry:(WLContribution *)entry {
+    NSMutableOrderedSet *entries = self.entries;
+    if (self.entryClass == [entry class]) {
+        if ([entries containsObject:entry]) {
+            [entries removeObject:entry];
+            return YES;
+        }
+    } else {
+        if (self.containingEntry == entry) {
+            [entries removeAllObjects];
+        }
+    }
+    return NO;
+}
+
 - (NSString *)text {
     if (!_text) {
         if (self.entryClass == [WLComment class]) {
-            _text = [NSString stringWithFormat:@"%@ added comment%@", WLString(_user.name), self.entries.count > 1 ? @"s" : @""];
+            _text = [NSString stringWithFormat:@"%@ made %@", WLString(_user.name), self.entries.count > 1 ? @"comments" : @"a comment"];
         } else {
-            _text = [NSString stringWithFormat:@"%@ added new photo%@", WLString(_user.name), self.entries.count > 1 ? @"s" : @""];
+            _text = [NSString stringWithFormat:@"%@ uploaded new photo%@", WLString(_user.name), self.entries.count > 1 ? @"s" : @""];
         }
     }
     return _text;

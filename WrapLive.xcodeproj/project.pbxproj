@@ -1137,6 +1137,18 @@
 		C5A21E0F194AF54000F3A554 /* WLEntryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A21E08194AF54000F3A554 /* WLEntryManager.m */; };
 		C5AC1E54197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AC1E53197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.m */; };
 		C5C6465519A6264300F8243A /* WLNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLNotificationCell.m */; };
+		C5E4CCF01A1BA38100B449F8 /* s01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* s01.wav */; };
+		C5E4CCF11A1BA38100B449F8 /* s01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* s01.wav */; };
+		C5E4CCF21A1BA38200B449F8 /* s01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* s01.wav */; };
+		C5E4CCF31A1BA38400B449F8 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
+		C5E4CCF41A1BA38500B449F8 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
+		C5E4CCF51A1BA38600B449F8 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
+		C5E4CCF61A1BA38800B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
+		C5E4CCF71A1BA38800B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
+		C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
+		C5E4CCF91A1BA38B00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
+		C5E4CCFA1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
+		C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
 		C5F35CFE1930935200FB99D2 /* WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F35CFD1930935200FB99D2 /* WLImageFetcher.m */; };
 		C5F99B6F196BEB0C00A3FB19 /* WLMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */; };
 		C5F9ACBE1989296C003A0FF2 /* WLEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F9ACBD1989296C003A0FF2 /* WLEntryCell.m */; };
@@ -3787,6 +3799,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C54AF87619B8C63E006F7EDB /* WLTestUsersBeta.plist in Resources */,
+				C5E4CCF91A1BA38B00B449F8 /* s04.wav in Resources */,
+				C5E4CCF61A1BA38800B449F8 /* s03.wav in Resources */,
 				C54AF87819B8C63E006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				C54AF52219B8C437006F7EDB /* AviarySDKResources.bundle in Resources */,
 				C54AF52319B8C437006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
@@ -3836,11 +3850,13 @@
 				C54AF86D19B8C63A006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				5BA666BA19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				C54AF54419B8C437006F7EDB /* WLComposeBar.xib in Resources */,
+				C5E4CCF01A1BA38100B449F8 /* s01.wav in Resources */,
 				C54AF86B19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5BA4F87C1A1CA08900DB1A25 /* s03.wav in Resources */,
 				C54AF54519B8C437006F7EDB /* Default-568h@2x.png in Resources */,
 				5B7E156C1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF54619B8C437006F7EDB /* AppIcon76x76@2x.png in Resources */,
+				C5E4CCF31A1BA38400B449F8 /* s02.wav in Resources */,
 				5B650FE81A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
 				C54AF54819B8C437006F7EDB /* msg.wav in Resources */,
@@ -3854,6 +3870,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C54AF87A19B8C63E006F7EDB /* WLTestUsersBeta.plist in Resources */,
+				C5E4CCFA1A1BA38C00B449F8 /* s04.wav in Resources */,
+				C5E4CCF71A1BA38800B449F8 /* s03.wav in Resources */,
 				C54AF87C19B8C63E006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				C54AF61F19B8C467006F7EDB /* AviarySDKResources.bundle in Resources */,
 				C54AF62019B8C467006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
@@ -3903,11 +3921,13 @@
 				C54AF87119B8C63A006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				5BA666BB19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				C54AF64119B8C467006F7EDB /* WLComposeBar.xib in Resources */,
+				C5E4CCF11A1BA38100B449F8 /* s01.wav in Resources */,
 				C54AF86F19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5BA4F8801A1CA08900DB1A25 /* s03.wav in Resources */,
 				C54AF64219B8C467006F7EDB /* Default-568h@2x.png in Resources */,
 				5B7E156D1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF64319B8C467006F7EDB /* AppIcon76x76@2x.png in Resources */,
+				C5E4CCF41A1BA38500B449F8 /* s02.wav in Resources */,
 				5B650FE91A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
 				C54AF64419B8C467006F7EDB /* iTunesArtwork in Resources */,
 				C54AF64519B8C467006F7EDB /* msg.wav in Resources */,
@@ -3921,6 +3941,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C54AF87E19B8C63F006F7EDB /* WLTestUsersBeta.plist in Resources */,
+				C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */,
+				C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */,
 				C54AF88019B8C63F006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				C54AF71C19B8C491006F7EDB /* AviarySDKResources.bundle in Resources */,
 				C54AF71D19B8C491006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
@@ -3970,11 +3992,13 @@
 				C54AF87519B8C63B006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				5BA666BC19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				C54AF73E19B8C491006F7EDB /* WLComposeBar.xib in Resources */,
+				C5E4CCF21A1BA38200B449F8 /* s01.wav in Resources */,
 				C54AF87319B8C63B006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5BA4F8841A1CA08A00DB1A25 /* s03.wav in Resources */,
 				C54AF73F19B8C491006F7EDB /* Default-568h@2x.png in Resources */,
 				5B7E156E1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF74019B8C491006F7EDB /* AppIcon76x76@2x.png in Resources */,
+				C5E4CCF51A1BA38600B449F8 /* s02.wav in Resources */,
 				5B650FEA1A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
 				C54AF74219B8C491006F7EDB /* msg.wav in Resources */,

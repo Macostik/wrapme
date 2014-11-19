@@ -155,6 +155,18 @@
 		5BA4CC191A08FB4300D7F31C /* WLPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA4CC171A08FB4300D7F31C /* WLPickerViewController.xib */; };
 		5BA4CC1A1A08FB4300D7F31C /* WLPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA4CC171A08FB4300D7F31C /* WLPickerViewController.xib */; };
 		5BA4CC1B1A08FB4300D7F31C /* WLPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA4CC171A08FB4300D7F31C /* WLPickerViewController.xib */; };
+		5BA4F87A1A1CA08900DB1A25 /* s01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* s01.wav */; };
+		5BA4F87B1A1CA08900DB1A25 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
+		5BA4F87C1A1CA08900DB1A25 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
+		5BA4F87D1A1CA08900DB1A25 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
+		5BA4F87E1A1CA08900DB1A25 /* s01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* s01.wav */; };
+		5BA4F87F1A1CA08900DB1A25 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
+		5BA4F8801A1CA08900DB1A25 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
+		5BA4F8811A1CA08900DB1A25 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
+		5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* s01.wav */; };
+		5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
+		5BA4F8841A1CA08A00DB1A25 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
+		5BA4F8851A1CA08A00DB1A25 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
 		5BA666B919FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */; };
 		5BA666BA19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */; };
 		5BA666BB19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */; };
@@ -1398,10 +1410,10 @@
 		5BA4CC171A08FB4300D7F31C /* WLPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPickerViewController.xib; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.xib; sourceTree = "<group>"; };
 		5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLEditWrapViewController.xib; path = WLEditWrapViewController/WLEditWrapViewController.xib; sourceTree = "<group>"; };
 		5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCreateWrapViewController.xib; path = WLCreateWrapViewController/WLCreateWrapViewController.xib; sourceTree = "<group>"; };
-		5BA6CAEE1A10E51B004AD41C /* s01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s01.wav; sourceTree = "<group>"; };
-		5BA6CAEF1A10E51B004AD41C /* s02.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s02.wav; sourceTree = "<group>"; };
-		5BA6CAF01A10E51B004AD41C /* s03.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s03.wav; sourceTree = "<group>"; };
-		5BA6CAF11A10E51B004AD41C /* s04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s04.wav; sourceTree = "<group>"; };
+		5BA6CAEE1A10E51B004AD41C /* s01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s01.wav; path = Sounds/s01.wav; sourceTree = "<group>"; };
+		5BA6CAEF1A10E51B004AD41C /* s02.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s02.wav; path = Sounds/s02.wav; sourceTree = "<group>"; };
+		5BA6CAF01A10E51B004AD41C /* s03.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s03.wav; path = Sounds/s03.wav; sourceTree = "<group>"; };
+		5BA6CAF11A10E51B004AD41C /* s04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s04.wav; path = Sounds/s04.wav; sourceTree = "<group>"; };
 		5BA6CE951A160D4300C0DD95 /* UIDevice-Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice-Hardware.h"; sourceTree = "<group>"; };
 		5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice-Hardware.m"; sourceTree = "<group>"; };
 		5BAA216119FE7BCD008958EF /* WLActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLActionViewController.h; path = WLActionViewController/WLActionViewController.h; sourceTree = "<group>"; };
@@ -3780,8 +3792,10 @@
 				C54AF52319B8C437006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
 				C54FC7711A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */,
 				C54AF52619B8C437006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
+				5BA4F87D1A1CA08900DB1A25 /* s04.wav in Resources */,
 				C54AF87719B8C63E006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
 				C54AF52719B8C437006F7EDB /* Default@2x.png in Resources */,
+				5BA4F87B1A1CA08900DB1A25 /* s02.wav in Resources */,
 				C54AF52819B8C437006F7EDB /* Images.xcassets in Resources */,
 				C54AF52A19B8C437006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */,
 				C54AF52B19B8C437006F7EDB /* WLInputAccessoryView.xib in Resources */,
@@ -3792,6 +3806,7 @@
 				C54AF86C19B8C63A006F7EDB /* WLAPIEnvironmentProduction.plist in Resources */,
 				C54AF53019B8C437006F7EDB /* WLAssetsGroupCell.xib in Resources */,
 				5BBBC0061A0A504E003781C4 /* WLPickerViewCell.xib in Resources */,
+				5BA4F87A1A1CA08900DB1A25 /* s01.wav in Resources */,
 				C54AF53119B8C437006F7EDB /* OpenSans-Light.ttf in Resources */,
 				C54AF53219B8C437006F7EDB /* Main.storyboard in Resources */,
 				C54AF53419B8C437006F7EDB /* PhoneFormats.dat in Resources */,
@@ -3822,6 +3837,7 @@
 				5BA666BA19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				C54AF54419B8C437006F7EDB /* WLComposeBar.xib in Resources */,
 				C54AF86B19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
+				5BA4F87C1A1CA08900DB1A25 /* s03.wav in Resources */,
 				C54AF54519B8C437006F7EDB /* Default-568h@2x.png in Resources */,
 				5B7E156C1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF54619B8C437006F7EDB /* AppIcon76x76@2x.png in Resources */,
@@ -3843,8 +3859,10 @@
 				C54AF62019B8C467006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
 				C54FC7721A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */,
 				C54AF62319B8C467006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
+				5BA4F8811A1CA08900DB1A25 /* s04.wav in Resources */,
 				C54AF87B19B8C63E006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
 				C54AF62419B8C467006F7EDB /* Default@2x.png in Resources */,
+				5BA4F87F1A1CA08900DB1A25 /* s02.wav in Resources */,
 				C54AF62519B8C467006F7EDB /* Images.xcassets in Resources */,
 				C54AF62719B8C467006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */,
 				C54AF62819B8C467006F7EDB /* WLInputAccessoryView.xib in Resources */,
@@ -3855,6 +3873,7 @@
 				C54AF87019B8C63A006F7EDB /* WLAPIEnvironmentProduction.plist in Resources */,
 				C54AF62D19B8C467006F7EDB /* WLAssetsGroupCell.xib in Resources */,
 				5BBBC0071A0A504E003781C4 /* WLPickerViewCell.xib in Resources */,
+				5BA4F87E1A1CA08900DB1A25 /* s01.wav in Resources */,
 				C54AF62E19B8C467006F7EDB /* OpenSans-Light.ttf in Resources */,
 				C54AF62F19B8C467006F7EDB /* Main.storyboard in Resources */,
 				C54AF63119B8C467006F7EDB /* PhoneFormats.dat in Resources */,
@@ -3885,6 +3904,7 @@
 				5BA666BB19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				C54AF64119B8C467006F7EDB /* WLComposeBar.xib in Resources */,
 				C54AF86F19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
+				5BA4F8801A1CA08900DB1A25 /* s03.wav in Resources */,
 				C54AF64219B8C467006F7EDB /* Default-568h@2x.png in Resources */,
 				5B7E156D1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF64319B8C467006F7EDB /* AppIcon76x76@2x.png in Resources */,
@@ -3906,8 +3926,10 @@
 				C54AF71D19B8C491006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
 				C54FC7731A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */,
 				C54AF72019B8C491006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
+				5BA4F8851A1CA08A00DB1A25 /* s04.wav in Resources */,
 				C54AF87F19B8C63F006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
 				C54AF72119B8C491006F7EDB /* Default@2x.png in Resources */,
+				5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */,
 				C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */,
 				C54AF72419B8C491006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */,
 				C54AF72519B8C491006F7EDB /* WLInputAccessoryView.xib in Resources */,
@@ -3918,6 +3940,7 @@
 				C54AF87419B8C63B006F7EDB /* WLAPIEnvironmentProduction.plist in Resources */,
 				C54AF72A19B8C491006F7EDB /* WLAssetsGroupCell.xib in Resources */,
 				5BBBC0081A0A504E003781C4 /* WLPickerViewCell.xib in Resources */,
+				5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */,
 				C54AF72B19B8C491006F7EDB /* OpenSans-Light.ttf in Resources */,
 				C54AF72C19B8C491006F7EDB /* Main.storyboard in Resources */,
 				C54AF72E19B8C491006F7EDB /* PhoneFormats.dat in Resources */,
@@ -3948,6 +3971,7 @@
 				5BA666BC19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				C54AF73E19B8C491006F7EDB /* WLComposeBar.xib in Resources */,
 				C54AF87319B8C63B006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
+				5BA4F8841A1CA08A00DB1A25 /* s03.wav in Resources */,
 				C54AF73F19B8C491006F7EDB /* Default-568h@2x.png in Resources */,
 				5B7E156E1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF74019B8C491006F7EDB /* AppIcon76x76@2x.png in Resources */,

@@ -253,10 +253,10 @@
 - (void)drawRect:(CGRect)rect {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGColorSpaceRef cs = CGColorSpaceCreateDeviceRGB();
-    NSArray* colors = @[(id)[UIColor colorWithWhite:0.0f alpha:0.0f].CGColor, (id)[UIColor colorWithWhite:0.0f alpha:0.5f].CGColor];
+    NSArray* colors = @[(id)[UIColor colorWithWhite:0.0f alpha:0.0f].CGColor, (id)[UIColor colorWithWhite:0.0f alpha:0.9f].CGColor];
     CGFloat locations[2] = {0,1};
     CGGradientRef gr = CGGradientCreateWithColors(cs, (__bridge CFArrayRef)colors, locations);
-    CGContextDrawRadialGradient(ctx, gr, self.centerPoint, 0, self.centerPoint, 50, kCGGradientDrawsAfterEndLocation);
+    CGContextDrawRadialGradient(ctx, gr, self.centerPoint, 0, self.centerPoint, 80, kCGGradientDrawsAfterEndLocation);
     CGColorSpaceRelease(cs);
     CGGradientRelease(gr);
 }

@@ -26,7 +26,7 @@
     }
 }
 
-- (NSString *)prioritetName {
+- (NSString *)priorityName {
     if ([_user.name nonempty]) {
         return _user.name;
     } else if ([_name nonempty]) {
@@ -36,7 +36,7 @@
     }
 }
 
-- (WLPicture *)prioritetPicture {
+- (WLPicture *)priorityPicture {
     if (_user.picture) {
         return _user.picture;
     } else {

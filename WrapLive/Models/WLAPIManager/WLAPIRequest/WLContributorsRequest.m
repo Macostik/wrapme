@@ -57,19 +57,26 @@
     NSArray* contacts = self.contacts;
     NSArray* users = response.data[@"users"];
 	[contacts all:^(WLContact* contact) {
+        NSMutableArray* personsToRemove = [NSMutableArray array];
 		[contact.persons all:^(WLPerson* person) {
 			for (NSDictionary* userData in users) {
 				if ([userData[@"address_book_number"] isEqualToString:person.phone]) {
                     WLUser * user = [WLUser API_entry:userData];
-                    person.user = user;
-					if (user.name.nonempty) {
-						contact.name = user.name;
-					} else {
-						user.name = contact.name;
-					}
+                    __block BOOL exists = NO;
+                    [contact.persons all:^(WLPerson* _person) {
+                        if (_person != person && _person.user == user) {
+                            [personsToRemove addObject:person];
+                            exists = YES;
+                        }
+                    }];
+                    if (!exists) {
+                        person.user = user;
+                    }
+                    break;
 				}
 			}
 		}];
+        contact.persons = [contact.persons arrayByRemovingObjectsFromArray:personsToRemove];
 	}];
 	return contacts;
 }

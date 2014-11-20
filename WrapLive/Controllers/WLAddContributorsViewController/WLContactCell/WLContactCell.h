@@ -32,4 +32,6 @@
 
 @property (nonatomic) BOOL opened;
 
++ (NSString *)collectionPersonsStringFromContact:(WLContact *)contact;
+
 @end

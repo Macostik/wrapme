@@ -18,6 +18,7 @@
 #import "NSString+Additions.h"
 #import "WLContactCell.h"
 #import "UIColor+CustomColors.h"
+#import "UIFont+CustomFonts.h"
 #import "WLInviteViewController.h"
 #import "WLEntryManager.h"
 #import "WLPerson.h"
@@ -213,10 +214,23 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLContact* contact = self.filteredContacts[indexPath.section][indexPath.row];
-	if ([contact.persons count] > 1 && [self.openedRows containsObject:contact]) {
-		return 50 + [contact.persons count]*50;
-	}
-	return 50;
+    return [self heightForRowWithContact:contact];
+}
+
+const static CGFloat WLIndent = 36.0f;
+const static CGFloat WLDefaultHeight = 36.0f;
+
+- (CGFloat)heightForRowWithContact:(WLContact *)contact {
+    CGFloat height = .0f;
+    if ([contact.persons count] > 1 && [self.openedRows containsObject:contact]) {
+        return WLDefaultHeight + [contact.persons count] * WLDefaultHeight;
+    } else {
+        NSString *phoneString = [WLContactCell collectionPersonsStringFromContact:contact];
+        height = [phoneString sizeWithAttributes:@{NSFontAttributeName : [UIFont lightFontOfSize:13.0f]}].height;
+        return height + WLIndent;
+    }
+    return WLDefaultHeight;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

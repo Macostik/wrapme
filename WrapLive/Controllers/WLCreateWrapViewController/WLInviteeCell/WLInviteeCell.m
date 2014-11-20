@@ -29,8 +29,8 @@
 }
 
 - (void)setupItemData:(WLPerson*)person {
-    self.nameLabel.text = person.prioritetName;
-    self.avatarView.url = person.prioritetPicture.medium;
+    self.nameLabel.text = person.priorityName;
+    self.avatarView.url = person.priorityPicture.medium;
     if(!self.avatarView.url.nonempty) {
         self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }

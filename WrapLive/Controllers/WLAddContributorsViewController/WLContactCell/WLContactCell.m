@@ -13,6 +13,7 @@
 #import "NSString+Additions.h"
 #import "WLPersonCell.h"
 #import "UIView+Shorthand.h"
+#import "NSArray+Additions.h"
 #import "WLPerson.h"
 
 @interface WLContactCell () <UITableViewDataSource, UITableViewDelegate, WLPersonCellDelegate>
@@ -47,19 +48,36 @@
 
 - (void)setupItemData:(WLContact*)contact {
 	WLPerson* person = [contact.persons lastObject];
-     self.avatarView.url = person.prioritetPicture.small;
+     self.avatarView.url = person.priorityPicture.small;
     if (!self.avatarView.url.nonempty) {
         self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }
     self.signUpView.hidden = (person.user) ? NO : YES;
-	self.nameLabel.text = contact.name;
+	self.nameLabel.text = [person priorityName];
 	
 	if (self.tableView) {
 		[self.tableView reloadData];
 	} else {
-        self.phoneLabel.text = WLString(person.phone);
+        self.phoneLabel.text = [WLContactCell collectionPersonsStringFromContact:contact];
 		self.checked = [self personSelected:person];
 	}
+}
+
++ (NSString *)collectionPersonsStringFromContact:(WLContact *)contact {
+    __block NSMutableString *phoneString = [NSMutableString string];
+    NSArray *userArray = [contact.persons valueForKey:@"user"];
+    if (userArray.nonempty) {
+        [userArray all:^(id item) {
+            if ([item isKindOfClass:[WLUser class]]) {
+                NSArray *phoneArray = [[[item devices] array] valueForKey:@"phone"];
+                [phoneString appendString:[phoneArray componentsJoinedByString:@"\n"]];
+            } else {
+                WLPerson *person = [contact.persons lastObject];
+                [phoneString appendString:WLString([person phone])];
+            }
+        }];
+    }
+    return phoneString;
 }
 
 - (void)setChecked:(BOOL)checked {

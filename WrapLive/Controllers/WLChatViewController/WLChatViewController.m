@@ -67,6 +67,10 @@ CGFloat WLMaxTextViewWidth;
 
 @property (strong, nonatomic) NSIndexSet* supplementarySections;
 
+@property (strong, nonatomic) NSMutableIndexSet* itemsWithName;
+
+@property (strong, nonatomic) NSMutableIndexSet* itemsWithDay;
+
 @end
 
 @implementation WLChatViewController
@@ -88,6 +92,13 @@ CGFloat WLMaxTextViewWidth;
     [supplementarySections addIndex:WLChatLoadingSection];
     self.supplementarySections = [supplementarySections copy];
     
+    self.itemsWithDay = [NSMutableIndexSet indexSet];
+    self.itemsWithName = [NSMutableIndexSet indexSet];
+    
+    NSDateFormatter *timeFormatter = [NSDate formatterWithDateFormat:@"hh:mmaa"];
+    [timeFormatter setAMSymbol:@"am"];
+    [timeFormatter setPMSymbol:@"pm"];
+    
     UICollectionView *collectionView = self.collectionView;
     
     [self updateEdgeInsets:0];
@@ -99,7 +110,7 @@ CGFloat WLMaxTextViewWidth;
     
     self.messageFont = [UIFont lightFontOfSize:15];
     
-    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - 2*WLAvatarWidth - 2*WLMessageHorizontalInset;
+    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - WLAvatarWidth - 2*WLMessageHorizontalInset - 9;
     
 	__weak typeof(self)weakSelf = self;
     [self.wrap fetchIfNeeded:^(id object) {
@@ -344,6 +355,8 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    [self.itemsWithName removeAllIndexes];
+    [self.itemsWithDay removeAllIndexes];
     return 3;
 }
 
@@ -356,13 +369,11 @@ CGFloat WLMaxTextViewWidth;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLMessage* message = [self.chat.entries tryObjectAtIndex:indexPath.item];
-    WLMessage* previousMessage = [self.chat.entries tryObjectAtIndex:indexPath.item + 1];
     BOOL isMyComment = [message.contributor isCurrentUser];
     NSString *cellIdentifier = cellIdentifier = isMyComment ? WLMyMessageCellIdentifier : WLMessageCellIdentifier;
     WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.showAvatar = (previousMessage == nil || previousMessage.contributor != message.contributor);
-    cell.showName = !isMyComment && cell.showAvatar;
-    cell.showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
+    [cell setShowName:[self.itemsWithName containsIndex:indexPath.item]
+              showDay:[self.itemsWithDay containsIndex:indexPath.item]];
     cell.entry = message;
     return cell;
 }
@@ -386,21 +397,31 @@ CGFloat WLMaxTextViewWidth;
     }
 }
 
-- (CGFloat)heightOfMessageCell:(WLMessage *)message containsName:(BOOL)containsName {
+- (CGFloat)heightOfMessageCell:(WLMessage *)message containsName:(BOOL)containsName showDay:(BOOL)showDay {
 	CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth cachingKey:"messageCellHeight"];
     CGFloat topInset = (containsName ? WLMessageNameInset : WLMessageVerticalInset);
-    CGFloat bottomInset = WLMessageVerticalInset;
-    CGFloat bottomConstraint = WLMessageCellBottomConstraint;
-    commentHeight = topInset + commentHeight + bottomInset + bottomConstraint;
-    return MAX (WLMessageMinimumCellHeight, commentHeight);
+    if (showDay) {
+        topInset += WLMessageDayLabelHeight;
+    } else if (containsName) {
+        topInset += WLMessageGroupSpacing;
+    }
+    CGFloat bottomInset = WLMessageNameInset;
+    commentHeight = topInset + commentHeight + bottomInset;
+    return MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
     WLMessage* previousMessage = [self.chat.entries tryObjectAtIndex:indexPath.item + 1];
-    BOOL isMyComment = [message.contributor isCurrentUser];
-    BOOL containsName = !isMyComment && (previousMessage == nil || previousMessage.contributor != message.contributor);
-    return CGSizeMake(collectionView.width, [self heightOfMessageCell:message containsName:containsName]);
+    BOOL containsName = (previousMessage == nil || previousMessage.contributor != message.contributor);
+    BOOL showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
+    if (containsName) {
+        [self.itemsWithName addIndex:indexPath.item];
+    }
+    if (showDay) {
+        [self.itemsWithDay addIndex:indexPath.item];
+    }
+    return CGSizeMake(collectionView.width, [self heightOfMessageCell:message containsName:containsName showDay:showDay]);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
@@ -411,6 +432,10 @@ CGFloat WLMaxTextViewWidth;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (section != WLChatTypingSection || !self.chat.showTypingView) return CGSizeZero;
     return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont regularFontOfSize:14] width:WLMaxTextViewWidth cachingKey:"typingViewHeight"]));
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 3;
 }
 
 @end

@@ -32,6 +32,8 @@
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *textLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topTextLabelConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
+@property (weak, nonatomic) IBOutlet UILabel *dayLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topAvatarConstraint;
 
 @end
 
@@ -39,64 +41,46 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    self.avatarView.hidden = self.nameLabel.hidden = YES;
+    self.avatarView.hidden = self.nameLabel.hidden = self.dayLabel.hidden = YES;
     self.textLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
     self.bubbleImageView.image = [self.bubbleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
 }
 
-- (void)setShowAvatar:(BOOL)showAvatar {
-    if (_showAvatar != showAvatar) {
-        _showAvatar = showAvatar;
-        self.avatarView.hidden = !showAvatar;
-    }
-}
-
 - (void)setShowName:(BOOL)showName {
-    if (_showName != showName) {
-        _showName = showName;
-        if (self.nameLabel) {
-            self.nameLabel.hidden = !showName;
-            self.topTextLabelConstraint.constant = showName ? WLMessageNameInset : 0;
-        } else {
-            self.topTextLabelConstraint.constant = 0;
-        }
-        [self.textLabel setNeedsLayout];
-    }
+    [self setShowName:showName showDay:_showDay];
 }
 
 - (void)setShowDay:(BOOL)showDay {
-    if (_showDay != showDay) {
-        _showDay = showDay;
-        self.timeLabel.textColor = showDay ? [UIColor WL_orangeColor] : [UIColor WL_grayColor];
-        if (self.timeLabel.x > self.textLabel.superview.x) {
-            self.timeLabel.textAlignment = showDay ? NSTextAlignmentRight : NSTextAlignmentLeft;
-        } else {
-            self.timeLabel.textAlignment = showDay ? NSTextAlignmentLeft : NSTextAlignmentRight;
-        }
-    }
+    [self setShowName:_showName showDay:showDay];
+}
+
+- (void)setShowName:(BOOL)showName showDay:(BOOL)showDay {
+    _showDay = showDay;
+    _showName = showName;
+    self.dayLabel.hidden = !showDay;
+    self.topAvatarConstraint.constant = showDay ? self.dayLabel.height : (showName ? WLMessageCellBottomConstraint : 0);
+    self.avatarView.hidden = !showName;
+    self.nameLabel.hidden = !showName;
+    self.topTextLabelConstraint.constant = showName ? WLMessageNameInset : 0;
 }
 
 - (void)setup:(WLMessage*)message {
     
-    if (self.showAvatar) {
-        __weak typeof(self)weakSelf = self;
-        self.avatarView.url = message.contributor.picture.small;
-        [self.avatarView setFailure:^(NSError* error) {
-            weakSelf.avatarView.image = [UIImage imageNamed:@"default-small-avatar"];
+    if (_showName) {
+        __weak WLImageView* avatarView = self.avatarView;
+        avatarView.url = message.contributor.picture.small;
+        [avatarView setFailure:^(NSError* error) {
+            avatarView.image = [UIImage imageNamed:@"default-small-avatar"];
         }];
-        if (!self.avatarView.url.nonempty) {
-            self.avatarView.image = [UIImage imageNamed:@"default-small-avatar"];
+        if (!avatarView.url.nonempty) {
+            avatarView.image = [UIImage imageNamed:@"default-small-avatar"];
         }
-    }
-    
-    if (self.showName) {
-        self.nameLabel.text = message.contributor.name;
+        self.nameLabel.text = [message.contributor isCurrentUser] ? @"You" : message.contributor.name;
     }
 	
-    if (self.showDay) {
-        self.timeLabel.text = [message.createdAt stringWithFormat:@"MMM d, yyyy HH:mm"];
-    } else {
-        self.timeLabel.text = [message.createdAt stringWithFormat:@"HH:mm"];
+    self.timeLabel.text = [message.createdAt stringWithFormat:@"hh:mmaa"];
+    if (_showDay) {
+        self.dayLabel.text = [message.createdAt stringWithFormat:@"MMM d, yyyy"];
     }
     
     self.textLabel.text = message.text;
@@ -104,14 +88,12 @@
     CGSize maxSize = CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX);
     CGFloat textWidth = [self.textLabel sizeThatFits:maxSize].width;
     CGFloat constraintValue = [self constraintForWidth:textWidth];
-    if (self.showName) {
+    if (_showName) {
         CGFloat nameWidth = [self.nameLabel sizeThatFits:maxSize].width;
         constraintValue = MIN(constraintValue, [self constraintForWidth:nameWidth]);
     }
-    if (self.textViewConstraint.constant != constraintValue) {
-        self.textViewConstraint.constant = constraintValue;
-        [self.textLabel.superview setNeedsLayout];
-    }
+    self.textViewConstraint.constant = constraintValue;
+    [self setNeedsLayout];
 }
 
 - (CGFloat)constraintForWidth:(CGFloat)width {

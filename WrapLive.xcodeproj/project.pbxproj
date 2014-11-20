@@ -463,6 +463,10 @@
 		C547A4521A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
 		C547A4531A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
 		C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
+		C54A80AF1A1DFD9700CBAF1A /* WLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C54A80AE1A1DFD9700CBAF1A /* WLLabel.m */; };
+		C54A80B01A1DFD9700CBAF1A /* WLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C54A80AE1A1DFD9700CBAF1A /* WLLabel.m */; };
+		C54A80B11A1DFD9700CBAF1A /* WLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C54A80AE1A1DFD9700CBAF1A /* WLLabel.m */; };
+		C54A80B21A1DFD9700CBAF1A /* WLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C54A80AE1A1DFD9700CBAF1A /* WLLabel.m */; };
 		C54AF45819B8C437006F7EDB /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3F419211A48007BE6CC /* UIView+GestureRecognizing.m */; };
 		C54AF45A19B8C437006F7EDB /* WLNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FCC699199A5C4B009A0DC6 /* WLNavigation.m */; };
 		C54AF45B19B8C437006F7EDB /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
@@ -1661,6 +1665,8 @@
 		C542BDEC19FA555C00C3BD64 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		C547A44F1A026B3E005061AB /* WLKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLKeyboard.h; sourceTree = "<group>"; };
 		C547A4501A026B3E005061AB /* WLKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLKeyboard.m; sourceTree = "<group>"; };
+		C54A80AD1A1DFD9700CBAF1A /* WLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLabel.h; path = WLLabel/WLLabel.h; sourceTree = "<group>"; };
+		C54A80AE1A1DFD9700CBAF1A /* WLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLabel.m; path = WLLabel/WLLabel.m; sourceTree = "<group>"; };
 		C54AF55019B8C437006F7EDB /* WrapLive-QA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLive-QA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54AF64D19B8C467006F7EDB /* WrapLive-Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLive-Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54AF74A19B8C491006F7EDB /* WrapLive-Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLive-Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2931,6 +2937,8 @@
 			children = (
 				5BBBEB3319D98345008CFE54 /* WLSizeToFitLabel.h */,
 				5BBBEB3419D98345008CFE54 /* WLSizeToFitLabel.m */,
+				C54A80AD1A1DFD9700CBAF1A /* WLLabel.h */,
+				C54A80AE1A1DFD9700CBAF1A /* WLLabel.m */,
 			);
 			name = WLLabel;
 			sourceTree = "<group>";
@@ -4479,6 +4487,7 @@
 				12DEC3EF1920F7E0007BE6CC /* WLToast.m in Sources */,
 				C509CCFB199E0B38006B00AA /* WLCandiesViewSection.m in Sources */,
 				12E0F0621909249000463FEC /* UILabel+Additions.m in Sources */,
+				C54A80AF1A1DFD9700CBAF1A /* WLLabel.m in Sources */,
 				C517D4CF19D08144006058C7 /* UIDevice+SystemVersion.m in Sources */,
 				C51910721A078248003C78B2 /* WLUploading+Extended.m in Sources */,
 				5BBBEB4719D983E9008CFE54 /* WLUpdateContributorsRequest.m in Sources */,
@@ -4701,6 +4710,7 @@
 				C54AF50D19B8C437006F7EDB /* WLToast.m in Sources */,
 				C54AF50F19B8C437006F7EDB /* WLCandiesViewSection.m in Sources */,
 				C54AF51019B8C437006F7EDB /* UILabel+Additions.m in Sources */,
+				C54A80B01A1DFD9700CBAF1A /* WLLabel.m in Sources */,
 				C517D4D019D08144006058C7 /* UIDevice+SystemVersion.m in Sources */,
 				C51910731A078248003C78B2 /* WLUploading+Extended.m in Sources */,
 				5BBBEB4819D983E9008CFE54 /* WLUpdateContributorsRequest.m in Sources */,
@@ -4923,6 +4933,7 @@
 				C54AF60A19B8C467006F7EDB /* WLToast.m in Sources */,
 				C54AF60C19B8C467006F7EDB /* WLCandiesViewSection.m in Sources */,
 				C54AF60D19B8C467006F7EDB /* UILabel+Additions.m in Sources */,
+				C54A80B11A1DFD9700CBAF1A /* WLLabel.m in Sources */,
 				C517D4D119D08144006058C7 /* UIDevice+SystemVersion.m in Sources */,
 				C51910741A078248003C78B2 /* WLUploading+Extended.m in Sources */,
 				5BBBEB4919D983E9008CFE54 /* WLUpdateContributorsRequest.m in Sources */,
@@ -5145,6 +5156,7 @@
 				C54AF70719B8C491006F7EDB /* WLToast.m in Sources */,
 				C54AF70919B8C491006F7EDB /* WLCandiesViewSection.m in Sources */,
 				C54AF70A19B8C491006F7EDB /* UILabel+Additions.m in Sources */,
+				C54A80B21A1DFD9700CBAF1A /* WLLabel.m in Sources */,
 				C517D4D219D08144006058C7 /* UIDevice+SystemVersion.m in Sources */,
 				C51910751A078248003C78B2 /* WLUploading+Extended.m in Sources */,
 				5BBBEB4A19D983E9008CFE54 /* WLUpdateContributorsRequest.m in Sources */,

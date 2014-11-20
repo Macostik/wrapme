@@ -15,9 +15,12 @@ static CGFloat WLMessageNameInset = 18.0f;
 static CGFloat WLMessageVerticalInset = 5.0f;
 static CGFloat WLMessageHorizontalInset = 5.0f;
 static CGFloat WLMessageCellBottomConstraint = 14.0f;
-static CGFloat WLMessageMinimumCellHeight = 48.0f;
+static CGFloat WLMessageWithNameMinimumCellHeight = 48.0f;
+static CGFloat WLMessageWithoutNameMinimumCellHeight = 34.0f;
+static CGFloat WLMessageDayLabelHeight = 34.0f;
 static CGFloat WLAvatarWidth = 66.0f;
-static CGFloat WLMinBubbleWidth = 37.0f;
+static CGFloat WLMinBubbleWidth = 60.0f;
+static CGFloat WLMessageGroupSpacing = 14.0f;
 
 extern CGFloat WLMaxTextViewWidth;
 
@@ -27,6 +30,6 @@ extern CGFloat WLMaxTextViewWidth;
 
 @property (nonatomic) BOOL showName;
 
-@property (nonatomic) BOOL showAvatar;
+- (void)setShowName:(BOOL)showName showDay:(BOOL)showDay;
 
 @end

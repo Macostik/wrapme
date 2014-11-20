@@ -5295,7 +5295,7 @@
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "2de41756-bdbc-49a7-b761-c02db7f59903";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5319,7 +5319,7 @@
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9ed88894-a56b-4c40-9715-0fcff227dfb9";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5341,7 +5341,7 @@
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-QA";
 				PROVISIONING_PROFILE = "2de41756-bdbc-49a7-b761-c02db7f59903";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5364,7 +5364,7 @@
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-QA";
 				PROVISIONING_PROFILE = "9ed88894-a56b-4c40-9715-0fcff227dfb9";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5385,7 +5385,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Beta";
 				PROVISIONING_PROFILE = "2de41756-bdbc-49a7-b761-c02db7f59903";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5407,7 +5407,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Beta";
 				PROVISIONING_PROFILE = "9ed88894-a56b-4c40-9715-0fcff227dfb9";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5429,7 +5429,7 @@
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Production";
 				PROVISIONING_PROFILE = "b844749f-8e55-49f4-954a-034a1e76c3d6";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5452,7 +5452,7 @@
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Production";
 				PROVISIONING_PROFILE = "773e13c0-309b-4ae5-9cdb-1d56e5fcd87e";
 				TARGETED_DEVICE_FAMILY = "1,2";

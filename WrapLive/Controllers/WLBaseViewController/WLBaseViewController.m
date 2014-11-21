@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *keyboardAdjustmentBottomConstraints;
 
 @property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *keyboardAdjustmentTopConstraints;
+@property (weak, nonatomic) IBOutlet UIView *placeholderContentView;
 
 @property (strong, nonatomic) NSMapTable* keyboardAdjustmentDefaultConstants;
 
@@ -48,13 +49,13 @@
 }
 
 - (void)setShowsPlaceholderView:(BOOL)showsPlaceholderView {
-    if (_showsPlaceholderView != showsPlaceholderView) {
-        _showsPlaceholderView = showsPlaceholderView;
-        if (showsPlaceholderView) {
-            [self showPlaceholderView];
-        } else {
-            [self.placeholderView removeFromSuperview];
-        }
+    _showsPlaceholderView = showsPlaceholderView;
+    if (showsPlaceholderView) {
+        [self.placeholderView removeFromSuperview];
+        self.placeholderView = nil;
+        [self showPlaceholderView];
+    } else {
+        [self.placeholderView removeFromSuperview];
     }
 }
 
@@ -62,8 +63,8 @@
     UINib *nib = [self placeholderViewNib];
     if (nib) {
         UIView* placeholderView = [UIView loadFromNib:nib ownedBy:nil];
-        placeholderView.frame = self.view.bounds;
-        [self.view insertSubview:placeholderView atIndex:0];
+        placeholderView.frame = self.placeholderContentView.bounds;
+        [self.placeholderContentView addSubview:placeholderView];
         self.placeholderView = placeholderView;
     }
 }

@@ -58,6 +58,8 @@ typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
 };
 
 static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
+static NSString* WLWrapPlaceholderViewTimeline = @"WLWrapPlaceholderViewTimeline";
+static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
@@ -144,7 +146,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
         [error showIgnoringNetworkError];
     }];
 }
-
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     
@@ -163,7 +164,8 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 }
 
 - (UINib *)placeholderViewNib {
-    return [UINib nibWithNibName:@"WLWrapPlaceholderView" bundle:nil];
+    return [UINib nibWithNibName:self.mode == WLWrapViewModeTimeline ?
+                                WLWrapPlaceholderViewTimeline : WLWrapPlaceholderViewToday bundle:nil];
 }
 
 - (void)updateNotificationCouter {
@@ -175,7 +177,8 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 }
 
 - (UIViewController *)shakePresentedViewController {
-    WLStillPictureViewController *controller = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
+    WLStillPictureViewController *controller = [WLStillPictureViewController instantiate:
+                                                [UIStoryboard storyboardNamed:WLCameraStoryboard]];
     controller.wrap = self.wrap;
     controller.delegate = self;
     controller.mode = WLCameraModeCandy;
@@ -199,7 +202,8 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-	[WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.", WLString([self.nameLabel titleForState:UIControlStateNormal])]];
+	[WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.",
+                              WLString([self.nameLabel titleForState:UIControlStateNormal])]];
 	__weak typeof(self)weakSelf = self;
 	run_after(0.5f, ^{
 		[weakSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -238,6 +242,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
         [self.dataProvider connect];
     }
     self.viewButton.selected = mode == WLWrapViewModeHistory;
+    self.showsPlaceholderView = !self.wrap.candies.nonempty;
 }
 
 - (IBAction)viewChanged:(UIButton*)sender {
@@ -279,7 +284,9 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 #pragma mark - Custom animation
 
 - (void)dropUpCollectionView {
-    [self.collectionView revealFrom:kCATransitionFromTop withDuration:1 delegate:nil];
+    if (self.wrap.candies.nonempty) {
+        [self.collectionView revealFrom:kCATransitionFromTop withDuration:1 delegate:nil];
+    }
 }
 
 - (void)dropDownCollectionView {

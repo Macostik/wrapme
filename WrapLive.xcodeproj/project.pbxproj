@@ -238,6 +238,7 @@
 		5BBBEB5419D98421008CFE54 /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBBEB5219D98421008CFE54 /* WLSignificantTimeBroadcaster.m */; };
 		5BBBEB5519D98421008CFE54 /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBBEB5219D98421008CFE54 /* WLSignificantTimeBroadcaster.m */; };
 		5BBBEB5619D98421008CFE54 /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBBEB5219D98421008CFE54 /* WLSignificantTimeBroadcaster.m */; };
+		5BF5833A1A1F745600922BD5 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewTimeline.xib */; };
 		607AAB536152441CB1C4F352 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
@@ -1104,10 +1105,10 @@
 		C54FC7711A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54FC76F1A1654C800623FC1 /* WLHomePlaceholderView.xib */; };
 		C54FC7721A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54FC76F1A1654C800623FC1 /* WLHomePlaceholderView.xib */; };
 		C54FC7731A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54FC76F1A1654C800623FC1 /* WLHomePlaceholderView.xib */; };
-		C54FC7751A16557A00623FC1 /* WLWrapPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54FC7741A16557A00623FC1 /* WLWrapPlaceholderView.xib */; };
-		C54FC7761A16557A00623FC1 /* WLWrapPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54FC7741A16557A00623FC1 /* WLWrapPlaceholderView.xib */; };
-		C54FC7771A16557A00623FC1 /* WLWrapPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54FC7741A16557A00623FC1 /* WLWrapPlaceholderView.xib */; };
-		C54FC7781A16557A00623FC1 /* WLWrapPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54FC7741A16557A00623FC1 /* WLWrapPlaceholderView.xib */; };
+		C54FC7751A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54FC7741A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib */; };
+		C54FC7761A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54FC7741A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib */; };
+		C54FC7771A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54FC7741A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib */; };
+		C54FC7781A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54FC7741A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib */; };
 		C5568B9F1A03C2E300C4E6C2 /* WLCandyHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568B9E1A03C2E300C4E6C2 /* WLCandyHeaderView.m */; };
 		C5568BA01A03C2E300C4E6C2 /* WLCandyHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568B9E1A03C2E300C4E6C2 /* WLCandyHeaderView.m */; };
 		C5568BA11A03C2E300C4E6C2 /* WLCandyHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568B9E1A03C2E300C4E6C2 /* WLCandyHeaderView.m */; };
@@ -1491,6 +1492,7 @@
 		5BBBEB4C19D983FA008CFE54 /* WLLeaveWrapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLeaveWrapRequest.m; path = WLAPIManager/WLAPIRequest/WLLeaveWrapRequest.m; sourceTree = "<group>"; };
 		5BBBEB5119D98421008CFE54 /* WLSignificantTimeBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSignificantTimeBroadcaster.h; path = WLBroadcaster/WLSignificantTimeBroadcaster/WLSignificantTimeBroadcaster.h; sourceTree = "<group>"; };
 		5BBBEB5219D98421008CFE54 /* WLSignificantTimeBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSignificantTimeBroadcaster.m; path = WLBroadcaster/WLSignificantTimeBroadcaster/WLSignificantTimeBroadcaster.m; sourceTree = "<group>"; };
+		5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewTimeline.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLWrapPlaceholderViewTimeline.xib; sourceTree = "<group>"; };
 		63802D691111B6CA45B3027C /* Pods-WrapLive-QA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WrapLive-QA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WrapLive-QA/Pods-WrapLive-QA.debug.xcconfig"; sourceTree = "<group>"; };
 		6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9565E5E9BCA1A39C1389C28C /* libPods-WrapLive-Development.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WrapLive-Development.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1691,7 +1693,7 @@
 		C54FC7681A163CC400623FC1 /* WLNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNetwork.h; sourceTree = "<group>"; };
 		C54FC7691A163CC400623FC1 /* WLNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNetwork.m; sourceTree = "<group>"; };
 		C54FC76F1A1654C800623FC1 /* WLHomePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLHomePlaceholderView.xib; path = "Placeholder Views/WLHomePlaceholderView.xib"; sourceTree = "<group>"; };
-		C54FC7741A16557A00623FC1 /* WLWrapPlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLWrapPlaceholderView.xib; path = "Placeholder Views/WLWrapPlaceholderView.xib"; sourceTree = "<group>"; };
+		C54FC7741A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLWrapPlaceholderViewToday.xib; path = "Placeholder Views/WLWrapPlaceholderViewToday.xib"; sourceTree = "<group>"; };
 		C5568B9D1A03C2E300C4E6C2 /* WLCandyHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCandyHeaderView.h; path = WLDetailedCandyCell/WLCandyHeaderView.h; sourceTree = "<group>"; };
 		C5568B9E1A03C2E300C4E6C2 /* WLCandyHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCandyHeaderView.m; path = WLDetailedCandyCell/WLCandyHeaderView.m; sourceTree = "<group>"; };
 		C5568BDB1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLProgressBar+WLContribution.h"; sourceTree = "<group>"; };
@@ -3446,7 +3448,8 @@
 			isa = PBXGroup;
 			children = (
 				C54FC76F1A1654C800623FC1 /* WLHomePlaceholderView.xib */,
-				C54FC7741A16557A00623FC1 /* WLWrapPlaceholderView.xib */,
+				C54FC7741A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib */,
+				5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewTimeline.xib */,
 			);
 			name = "Placeholder Views";
 			sourceTree = "<group>";
@@ -3803,6 +3806,7 @@
 				C54AF85C19B8C622006F7EDB /* WLTestUsersBeta.plist in Resources */,
 				5BA6CAF51A10E51B004AD41C /* s04.wav in Resources */,
 				C54AF86119B8C622006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
+				5BF5833A1A1F745600922BD5 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
 				12F3ED571934B183009C1DC3 /* WLAssetsGroupViewController.xib in Resources */,
 				C54AF85F19B8C622006F7EDB /* WLTestUsersQA.plist in Resources */,
 				12D514F7192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png in Resources */,
@@ -3821,7 +3825,7 @@
 				C51E297F1A1CE9F0009786C7 /* chat_bubble_gray@2x.png in Resources */,
 				5BBBC0051A0A504E003781C4 /* WLPickerViewCell.xib in Resources */,
 				5BA6CAF41A10E51B004AD41C /* s03.wav in Resources */,
-				C54FC7751A16557A00623FC1 /* WLWrapPlaceholderView.xib in Resources */,
+				C54FC7751A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
 				14ACAE0719421AE5006BD3B3 /* Main.storyboard in Resources */,
 				1409DA631949B24E00358BD4 /* PhoneFormats.dat in Resources */,
@@ -3909,7 +3913,7 @@
 				C54AF53719B8C437006F7EDB /* WLAssetCell.xib in Resources */,
 				5BA4CC191A08FB4300D7F31C /* WLPickerViewController.xib in Resources */,
 				C542BDEE19FA555C00C3BD64 /* Camera.storyboard in Resources */,
-				C54FC7761A16557A00623FC1 /* WLWrapPlaceholderView.xib in Resources */,
+				C54FC7761A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib in Resources */,
 				C54AF53819B8C437006F7EDB /* AppIcon60x60@2x.png in Resources */,
 				C54AF53919B8C437006F7EDB /* AppIcon40x40@2x.png in Resources */,
 				C54AF86A19B8C63A006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
@@ -3985,7 +3989,7 @@
 				C54AF63419B8C467006F7EDB /* WLAssetCell.xib in Resources */,
 				5BA4CC1A1A08FB4300D7F31C /* WLPickerViewController.xib in Resources */,
 				C542BDEF19FA555C00C3BD64 /* Camera.storyboard in Resources */,
-				C54FC7771A16557A00623FC1 /* WLWrapPlaceholderView.xib in Resources */,
+				C54FC7771A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib in Resources */,
 				C54AF63519B8C467006F7EDB /* AppIcon60x60@2x.png in Resources */,
 				C54AF63619B8C467006F7EDB /* AppIcon40x40@2x.png in Resources */,
 				C54AF86E19B8C63A006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
@@ -4061,7 +4065,7 @@
 				C54AF73119B8C491006F7EDB /* WLAssetCell.xib in Resources */,
 				5BA4CC1B1A08FB4300D7F31C /* WLPickerViewController.xib in Resources */,
 				C542BDF019FA555C00C3BD64 /* Camera.storyboard in Resources */,
-				C54FC7781A16557A00623FC1 /* WLWrapPlaceholderView.xib in Resources */,
+				C54FC7781A16557A00623FC1 /* WLWrapPlaceholderViewToday.xib in Resources */,
 				C54AF73219B8C491006F7EDB /* AppIcon60x60@2x.png in Resources */,
 				C54AF73319B8C491006F7EDB /* AppIcon40x40@2x.png in Resources */,
 				C54AF87219B8C63B006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,

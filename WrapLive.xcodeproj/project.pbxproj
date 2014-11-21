@@ -1153,6 +1153,10 @@
 		C56091391A110C9500C48887 /* WLDevice+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091371A110C9500C48887 /* WLDevice+Extended.m */; };
 		C560913A1A110C9500C48887 /* WLDevice+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091371A110C9500C48887 /* WLDevice+Extended.m */; };
 		C560913B1A110C9500C48887 /* WLDevice+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091371A110C9500C48887 /* WLDevice+Extended.m */; };
+		C57005A21A1F9642007257A6 /* WLSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C57005A11A1F9642007257A6 /* WLSettingsViewController.m */; };
+		C57005A31A1F9642007257A6 /* WLSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C57005A11A1F9642007257A6 /* WLSettingsViewController.m */; };
+		C57005A41A1F9642007257A6 /* WLSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C57005A11A1F9642007257A6 /* WLSettingsViewController.m */; };
+		C57005A51A1F9642007257A6 /* WLSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C57005A11A1F9642007257A6 /* WLSettingsViewController.m */; };
 		C572AA0F1A1A15970079763D /* WLCircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA0E1A1A15970079763D /* WLCircleImageView.m */; };
 		C572AA101A1A15970079763D /* WLCircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA0E1A1A15970079763D /* WLCircleImageView.m */; };
 		C572AA111A1A15970079763D /* WLCircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA0E1A1A15970079763D /* WLCircleImageView.m */; };
@@ -1718,6 +1722,8 @@
 		C56091371A110C9500C48887 /* WLDevice+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLDevice+Extended.m"; sourceTree = "<group>"; };
 		C560913C1A110F4200C48887 /* CoreData 1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1.1.xcdatamodel"; sourceTree = "<group>"; };
 		C56D3AD519F7C21700D85027 /* SupportHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportHeaders.h; sourceTree = "<group>"; };
+		C57005A01A1F9642007257A6 /* WLSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSettingsViewController.h; path = WLSettingsViewController/WLSettingsViewController.h; sourceTree = "<group>"; };
+		C57005A11A1F9642007257A6 /* WLSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSettingsViewController.m; path = WLSettingsViewController/WLSettingsViewController.m; sourceTree = "<group>"; };
 		C572AA0D1A1A15970079763D /* WLCircleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCircleImageView.h; path = WLImageFetcher/WLCircleImageView.h; sourceTree = "<group>"; };
 		C572AA0E1A1A15970079763D /* WLCircleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCircleImageView.m; path = WLImageFetcher/WLCircleImageView.m; sourceTree = "<group>"; };
 		C572AA141A1A216F0079763D /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
@@ -2169,6 +2175,7 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C570059F1A1F9505007257A6 /* WLSettingsViewController */,
 				C58167FF19F169BD0081F350 /* WLBaseViewController */,
 				C504178E19B9EE20000E55F3 /* WLContributorsViewController */,
 				C504177919B9EE15000E55F3 /* WLAddContributorsViewController */,
@@ -3482,6 +3489,15 @@
 			path = WLDevice;
 			sourceTree = "<group>";
 		};
+		C570059F1A1F9505007257A6 /* WLSettingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C57005A01A1F9642007257A6 /* WLSettingsViewController.h */,
+				C57005A11A1F9642007257A6 /* WLSettingsViewController.m */,
+			);
+			name = WLSettingsViewController;
+			sourceTree = "<group>";
+		};
 		C572AA131A1A216F0079763D /* TTTAttributedLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -4317,6 +4333,7 @@
 				128E5BE41918EFBD005F2714 /* NSString+Additions.m in Sources */,
 				12E1104D19067095007DB4AC /* WLCommentCell.m in Sources */,
 				5BB04F2E19D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
+				C57005A21A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C50A677A19D978F700EC518F /* WLEntryNotifier.m in Sources */,
 				C55C8D6A19C98A9400199245 /* WLNotification.m in Sources */,
 				5BBBEB4D19D983FA008CFE54 /* WLLeaveWrapRequest.m in Sources */,
@@ -4540,6 +4557,7 @@
 				C54AF47719B8C437006F7EDB /* NSString+Additions.m in Sources */,
 				C54AF47819B8C437006F7EDB /* WLCommentCell.m in Sources */,
 				5BB04F2F19D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
+				C57005A31A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C50A677B19D978F700EC518F /* WLEntryNotifier.m in Sources */,
 				C55C8D6B19C98A9400199245 /* WLNotification.m in Sources */,
 				5BBBEB4E19D983FA008CFE54 /* WLLeaveWrapRequest.m in Sources */,
@@ -4763,6 +4781,7 @@
 				C54AF57419B8C467006F7EDB /* NSString+Additions.m in Sources */,
 				C54AF57519B8C467006F7EDB /* WLCommentCell.m in Sources */,
 				5BB04F3019D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
+				C57005A41A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C50A677C19D978F700EC518F /* WLEntryNotifier.m in Sources */,
 				C55C8D6C19C98A9400199245 /* WLNotification.m in Sources */,
 				5BBBEB4F19D983FA008CFE54 /* WLLeaveWrapRequest.m in Sources */,
@@ -4986,6 +5005,7 @@
 				C54AF67119B8C491006F7EDB /* NSString+Additions.m in Sources */,
 				C54AF67219B8C491006F7EDB /* WLCommentCell.m in Sources */,
 				5BB04F3119D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
+				C57005A51A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C50A677D19D978F700EC518F /* WLEntryNotifier.m in Sources */,
 				C55C8D6D19C98A9400199245 /* WLNotification.m in Sources */,
 				5BBBEB5019D983FA008CFE54 /* WLLeaveWrapRequest.m in Sources */,

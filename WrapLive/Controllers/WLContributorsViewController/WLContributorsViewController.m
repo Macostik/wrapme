@@ -68,7 +68,11 @@
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
-    self.dataSection.entries = [self.wrap.contributors mutableCopy];
+    NSMutableOrderedSet* contributors = [self.wrap.contributors mutableCopy];
+    for (WLPerson* person in [self.editSession changedValueForProperty:@"removedContributors"]) {
+        [contributors removeObject:person.user];
+    }
+    self.dataSection.entries = contributors;
 }
 
 #pragma mark - Actions

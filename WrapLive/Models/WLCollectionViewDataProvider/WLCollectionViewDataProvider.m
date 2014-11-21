@@ -47,6 +47,15 @@
     [self.sections makeObjectsPerformSelector:@selector(setDataProvider:) withObject:self];
 }
 
+- (void)setAnimatableConstraints:(NSArray *)animatableConstraints {
+    _animatableConstraints = animatableConstraints;
+    NSMapTable *animatingConstraintsDefaultValues = [NSMapTable strongToStrongObjectsMapTable];
+    for (NSLayoutConstraint* constraint in animatableConstraints) {
+        [animatingConstraintsDefaultValues setObject:@(constraint.constant) forKey:constraint];
+    }
+    self.animatingConstraintsDefaultValues = animatingConstraintsDefaultValues;
+}
+
 - (void)setSections:(NSMutableArray *)sections {
     _sections = sections;
     [sections makeObjectsPerformSelector:@selector(setDataProvider:) withObject:self];
@@ -198,12 +207,6 @@
         CGFloat constantValue = 0;
         if (direction == DirectionUp) {
             constantValue = -self.collectionView.height/2;
-            if (!self.animatingConstraintsDefaultValues) {
-                self.animatingConstraintsDefaultValues = [NSMapTable strongToStrongObjectsMapTable];
-                for (NSLayoutConstraint* constraint in self.animatableConstraints) {
-                    [self.animatingConstraintsDefaultValues setObject:@(constraint.constant) forKey:constraint];
-                }
-            }
         }
         for (NSLayoutConstraint* constraint in self.animatableConstraints) {
             constraint.constant = [[self.animatingConstraintsDefaultValues objectForKey:constraint] floatValue] + constantValue;

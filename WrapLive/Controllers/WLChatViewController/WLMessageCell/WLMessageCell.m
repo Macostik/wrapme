@@ -31,9 +31,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *textLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topTextLabelConstraint;
-@property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
 @property (weak, nonatomic) IBOutlet UILabel *dayLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topAvatarConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *leftBubble;
+@property (weak, nonatomic) IBOutlet UIImageView *rightBubble;
 
 @end
 
@@ -43,7 +44,8 @@
 	[super awakeFromNib];
     self.avatarView.hidden = self.nameLabel.hidden = self.dayLabel.hidden = YES;
     self.textLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
-    self.bubbleImageView.image = [self.bubbleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+    self.leftBubble.image = [self.leftBubble.image resizableImageWithCapInsets:UIEdgeInsetsMake(5, 0, 5, 0) resizingMode:UIImageResizingModeStretch];
+    self.rightBubble.image = [self.rightBubble.image resizableImageWithCapInsets:UIEdgeInsetsMake(5, 0, 5, 0) resizingMode:UIImageResizingModeStretch];
 }
 
 - (void)setShowName:(BOOL)showName {
@@ -59,8 +61,7 @@
     _showName = showName;
     self.dayLabel.hidden = !showDay;
     self.topAvatarConstraint.constant = showDay ? self.dayLabel.height : (showName ? WLMessageCellBottomConstraint : 0);
-    self.avatarView.hidden = !showName;
-    self.nameLabel.hidden = !showName;
+    self.avatarView.hidden = self.nameLabel.hidden = !showName;
     self.topTextLabelConstraint.constant = showName ? WLMessageNameInset : 0;
 }
 

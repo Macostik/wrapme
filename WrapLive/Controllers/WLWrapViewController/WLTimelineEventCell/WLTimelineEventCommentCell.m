@@ -15,11 +15,11 @@
 #import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
 #import "WLNavigation.h"
+#import "WLCandyViewController.h"
 
 static CGFloat WLTimelineEventCommentCellMinHeight = 30.0f;
 static CGFloat WLTimelineEventCommentMinHeight = 100.0f;
-static CGFloat WLTimelineEventCommentMinBottomConstraint = 40.0f;
-static CGFloat WLTimelineEventCommentMaxBottomConstraint = 70.0f;
+static CGFloat WLTimelineEventCommentFooterHeight = 40.0f;
 static CGFloat WLTimelineEventCommentCandyWidth = 100.0f;
 static CGFloat WLTimelineEventCommentsMinWidth;
 
@@ -27,7 +27,6 @@ static CGFloat WLTimelineEventCommentsMinWidth;
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
 
 @end
 
@@ -46,7 +45,7 @@ static CGFloat WLTimelineEventCommentsMinWidth;
 }
 
 + (CGFloat)heightWithComments:(NSOrderedSet *)comments {
-    CGFloat height = WLTimelineEventCommentMinBottomConstraint;
+    CGFloat height = WLTimelineEventCommentFooterHeight;
     for (WLComment* comment in comments) {
         height += [self heightWithComment:comment];
     }
@@ -57,21 +56,18 @@ static CGFloat WLTimelineEventCommentsMinWidth;
     WLComment* comment = [comments firstObject];
     self.imageView.url = comment.picture.small;
     [self.collectionView reloadData];
-    CGFloat bottomConstraint = 0;
-    if (self.height > WLTimelineEventCommentMinHeight) {
-        bottomConstraint = WLTimelineEventCommentMinBottomConstraint;
-    } else {
-        bottomConstraint = WLTimelineEventCommentMaxBottomConstraint;
-    }
-    if (self.bottomConstraint.constant != bottomConstraint) {
-        self.bottomConstraint.constant = bottomConstraint;
-        [self.collectionView layoutIfNeeded];
-    }
 }
 
-- (void)select:(id)entry {
-    NSOrderedSet* comments = self.entry;
-    [super select:[comments lastObject]];
+- (void)select:(NSOrderedSet*)comments {
+    [super select:[[comments lastObject] candy]];
+}
+
+- (IBAction)comment:(id)sender {
+    [self select:self.entry];
+    WLCandyViewController* controller = (id)[UINavigationController mainNavigationController].topViewController;
+    if ([controller isKindOfClass:[WLCandyViewController class]]) {
+        controller.showCommentInputKeyboard = YES;
+    }
 }
 
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
@@ -93,6 +89,14 @@ static CGFloat WLTimelineEventCommentsMinWidth;
     NSOrderedSet* comments = self.entry;
     WLComment* comment = [comments tryObjectAtIndex:indexPath.item];
     return CGSizeMake(collectionView.width, [WLTimelineEventCommentCell heightWithComment:comment]);
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLCommentButtonView" forIndexPath:indexPath];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    return CGSizeMake(collectionView.width, WLTimelineEventCommentFooterHeight);
 }
 
 @end

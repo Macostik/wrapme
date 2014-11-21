@@ -209,7 +209,8 @@ static UIWindow* mainWindow = nil;
 @implementation WLComment (WLNavigation)
 
 - (UIViewController *)viewController {
-    return [self.candy viewController];
+    WLCandyViewController* candyViewController = (id)[self.candy viewController];
+    return candyViewController;
 }
 
 - (BOOL)isValidViewController:(UIViewController *)controller {

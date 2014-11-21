@@ -21,4 +21,6 @@
 
 @property (strong, nonatomic) WLGroupedSet *groups;
 
+@property (nonatomic) BOOL showCommentInputKeyboard;
+
 @end

@@ -118,6 +118,9 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.scrolledToInitialItem = YES;
+    if (self.showCommentInputKeyboard) {
+        [self.composeBarView becomeFirstResponder];
+    }
 }
 
 - (void)viewDidLayoutSubviews {

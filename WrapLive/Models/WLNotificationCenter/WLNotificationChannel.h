@@ -8,38 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
-@class PNChannel;
-@class WLNotification;
-
 @interface WLNotificationChannel : NSObject
 
 @property (strong, nonatomic) PNChannel* channel;
 
-@property (strong, nonatomic) NSString* name;
-
 @property (nonatomic, readonly) BOOL subscribed;
 
-@property (nonatomic) BOOL supportAPNS;
+@property (strong, nonatomic) PubNubMessageBlock messageHandler;
 
-@property (nonatomic) BOOL supportPresense;
+@property (strong, nonatomic) PNClientPresenceEventHandlingBlock presenseEventHandler;
 
-@property (strong, nonatomic) PubNubMessageBlock messageBlock;
++ (instancetype)channelWithName:(NSString *)channelName;
 
-@property (strong, nonatomic) void (^presenseObserver) (PNPresenceEvent *event);
-
-+ (instancetype)channel:(NSString*)name;
-
-+ (instancetype)channel:(NSString*)name subscribe:(BOOL)subscribe;
-
-- (void)setName:(NSString *)name subscribe:(BOOL)subscribe;
++ (instancetype)channelWithName:(NSString *)channelName shouldObservePresence:(BOOL)observePresence;
 
 - (void)subscribe;
 
-- (void)subscribe:(WLBlock)success failure:(WLFailureBlock)failure;
-
 - (void)unsubscribe;
-
-- (void)unsubscribe:(WLBlock)success failure:(WLFailureBlock)failure;
 
 - (void)send:(NSDictionary*)message;
 
@@ -47,11 +32,11 @@
 
 - (void)participants:(WLArrayBlock)completion;
 
-- (void)enablePresense;
+- (void)enableAPNS;
 
-- (void)observePresense;
+- (void)observePresense:(PNClientPresenceEventHandlingBlock)presenseEventHandler;
 
-- (void)observeMessages;
+- (void)observeMessages:(PubNubMessageBlock)messageHandler;
 
 - (void)removeObserving;
 

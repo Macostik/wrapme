@@ -15,32 +15,24 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
 @implementation WLChatTypingChannel
 
 + (instancetype)channelWithWrap:(WLWrap *)wrap {
-    return [self channel:wrap.identifier subscribe:YES];
+    WLChatTypingChannel* channel = [self channelWithName:wrap.identifier shouldObservePresence:YES];
+    __weak typeof(channel)weakChannel = channel;
+    [channel observePresense:^(PNPresenceEvent *event) {
+        WLUser* user = [WLUser entry:event.client.identifier];
+        if ([user isCurrentUser]) {
+            return;
+        }
+        if (event.type == PNPresenceEventStateChanged) {
+            [weakChannel handleClientState:[event.client stateForChannel:weakChannel.channel] user:user];
+        } else if (event.type == PNPresenceEventTimeout) {
+            [weakChannel.delegate chatTypingChannel:weakChannel didEndTyping:user andSendMessage:NO];
+        }
+    }];
+    return channel;
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.supportPresense = YES;
-        __weak typeof(self)weakSelf = self;
-        [self setPresenseObserver:^(PNPresenceEvent *event) {
-            WLUser* user = [WLUser entry:event.client.identifier];
-            if ([user isCurrentUser]) {
-                return;
-            }
-            if (event.type == PNPresenceEventStateChanged) {
-                [weakSelf handleClientState:[event.client stateForChannel:weakSelf.channel] user:user];
-            } else if (event.type == PNPresenceEventTimeout) {
-                [weakSelf.delegate chatTypingChannel:weakSelf didEndTyping:user andSendMessage:NO];
-            }
-        }];
-        [self observePresense];
-    }
-    return self;
-}
-
-- (void)enablePresense {
-    [super enablePresense];
+- (void)observePresense:(PNClientPresenceEventHandlingBlock)presenseEventHandler {
+    [super observePresense:presenseEventHandler];
     [self fetchParticipants];
 }
 

@@ -37,6 +37,6 @@
 
 - (void)handleRemoteNotification:(NSDictionary*)data success:(WLBlock)success failure:(WLFailureBlock)failure;
 
-- (void)connect;
+- (void)subscribe;
 
 @end

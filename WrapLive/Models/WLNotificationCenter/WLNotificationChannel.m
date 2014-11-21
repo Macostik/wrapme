@@ -19,13 +19,15 @@
 
 @implementation WLNotificationChannel
 
-+ (instancetype)channel:(NSString *)name {
-    return [self channel:name subscribe:NO];
++ (instancetype)channelWithName:(NSString *)channelName {
+    return [self channelWithName:channelName shouldObservePresence:NO];
 }
 
-+ (instancetype)channel:(NSString *)name subscribe:(BOOL)subscribe {
-    WLNotificationChannel* channel = [[self alloc] init];
-    [channel setName:name subscribe:subscribe];
++ (instancetype)channelWithName:(NSString *)channelName shouldObservePresence:(BOOL)observePresence {
+    
+    WLNotificationChannel *channel = [[self alloc] init];
+    channel.channel = [PNChannel channelWithName:channelName shouldObservePresence:observePresence];
+    [channel subscribe];
     return channel;
 }
 
@@ -38,115 +40,58 @@
     [[PNObservationCenter defaultCenter] removePresenceEventObserver:self];
 }
 
-- (void)setName:(NSString *)name {
-    [self setName:name subscribe:NO];
-}
-
-- (void)setName:(NSString *)name subscribe:(BOOL)subscribe {
-    if (!name.nonempty) return;
-    if (self.channel) {
-        if ([self.name isEqualToString:name]) {
-            if (subscribe) [self subscribe];
-        } else {
-            [self unsubscribe];
-            self.channel = [PNChannel channelWithName:name];
-            if (subscribe) [self subscribe];
-        }
-    } else {
-        self.channel = [PNChannel channelWithName:name];
-        if (subscribe) [self subscribe];
-    }
-}
-
-- (NSString *)name {
-    return self.channel.name;
-}
-
 - (BOOL)subscribed {
-    return self.channel && [PubNub isSubscribedOn:self.channel];
+    return [PubNub isSubscribedOn:self.channel];
 }
 
 - (void)subscribe {
-    [self subscribe:nil failure:nil];
-}
-
-- (void)subscribe:(WLBlock)success failure:(WLFailureBlock)failure {
     if (self.subscribed) {
-        if (success) success();
         return;
     }
-    __weak typeof(self)weakSelf = self;
-    [PubNub subscribeOn:@[self.channel] withCompletionHandlingBlock:^(PNSubscriptionProcessState state, NSArray *channels, PNError *error) {
-        if (error) {
-            if (failure) failure(error);
-        } else {
-            if (weakSelf.supportAPNS) [weakSelf enableAPNS];
-            if (weakSelf.supportPresense) [weakSelf enablePresense];
-            if (success) success();
-        }
-    }];
+    [PubNub subscribeOn:@[self.channel]];
 }
 
 - (void)unsubscribe {
-    [self unsubscribe:nil failure:nil];
-}
-
-- (void)unsubscribe:(WLBlock)success failure:(WLFailureBlock)failure {
     if (!self.subscribed) {
-        if (success) success();
         return;
     }
-    [PubNub unsubscribeFrom:@[self.channel] withCompletionHandlingBlock:^(NSArray *channels, PNError *error) {
-        if (error) {
-            if (failure) failure(error);
-        } else if (success) {
-            success();
-        }
-    }];
+    [PubNub unsubscribeFrom:@[self.channel]];
 }
 
 - (void)enableAPNS {
     __weak typeof(self)weakSelf = self;
     [WLNotificationCenter deviceToken:^(NSData *data) {
-        if (![[PubNub sharedInstance] isConnected] || !data || !weakSelf.channel.name.nonempty) {
-            return;
-        }
-        
         [PubNub requestParticipantsListWithCompletionBlock:^(PNHereNow *hereNow, NSArray *channels, PNError *error) {
             if (!error) {
-                for (PNClient *client in [hereNow participantsForChannel:weakSelf.channel]) {
-                    [PubNub disablePushNotificationsOnChannel:client.channel withDevicePushToken:data];
+                for (PNChannel *channel in [hereNow channels]) {
+                    if (![channel.name isEqualToString:weakSelf.channel.name]) {
+                        [PubNub disablePushNotificationsOnChannel:channel withDevicePushToken:data];
+                    }
                 }
             }
         }];
-        
-        [PubNub removeAllPushNotificationsForDevicePushToken:data withCompletionHandlingBlock:^(PNError *error) {
-            [PubNub enablePushNotificationsOnChannel:weakSelf.channel withDevicePushToken:data];
-        }];
+        [PubNub enablePushNotificationsOnChannel:weakSelf.channel withDevicePushToken:data];
     }];
 }
 
-- (void)observeMessages {
+- (void)observeMessages:(PubNubMessageBlock)messageHandler {
     __weak typeof(self)weakSelf = self;
+    self.messageHandler = messageHandler;
     [[PNObservationCenter defaultCenter] addMessageReceiveObserver:self withBlock:^(PNMessage *message) {
-        if (message.channel == weakSelf.channel && weakSelf.messageBlock) {
-            weakSelf.messageBlock(message);
+        if (message.channel == weakSelf.channel && weakSelf.messageHandler) {
+            weakSelf.messageHandler(message);
         }
     }];
 }
 
-- (void)observePresense {
+- (void)observePresense:(PNClientPresenceEventHandlingBlock)presenseEventHandler {
     __weak typeof(self)weakSelf = self;
+    self.presenseEventHandler = presenseEventHandler;
     [[PNObservationCenter defaultCenter] addPresenceEventObserver:self withBlock:^(PNPresenceEvent *event) {
-        WLLog(@"PubNub", @"presence event", event);
-        if (event.channel == weakSelf.channel && weakSelf.presenseObserver) {
-            weakSelf.presenseObserver(event);
+        if (event.channel == weakSelf.channel && weakSelf.presenseEventHandler) {
+            weakSelf.presenseEventHandler(event);
         }
     }];
-}
-
-- (void)enablePresense {
-    [PubNub enablePresenceObservationFor:@[self.channel]];
 }
 
 - (void)send:(NSDictionary *)message {

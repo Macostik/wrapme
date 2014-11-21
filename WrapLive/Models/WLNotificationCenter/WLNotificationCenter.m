@@ -105,25 +105,13 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)configure {
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-	[self performSelector:@selector(connect) withObject:nil afterDelay:0.0f];
+	[self connect];
     [super configure];
 }
 
 - (void)setup {
     [super setup];
 	[PubNub setupWithConfiguration:[WLNotificationCenter configuration] andDelegate:self];
-    self.userChannel = [[WLNotificationChannel alloc] init];
-    self.userChannel.supportAPNS = YES;
-    __weak typeof(self)weakSelf = self;
-    [self.userChannel setMessageBlock:^(PNMessage *message) {
-        WLNotification *notification = [WLNotification notificationWithMessage:message];
-        [notification fetch:^{
-            if (notification.playSound) [notification playNotificationSound];
-            [weakSelf broadcastNotification:notification];
-        } failure:nil];
-        weakSelf.historyDate = [[message.receiveDate date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
-    }];
-    [self.userChannel observeMessages];
 }
 
 - (void)subscribe {
@@ -131,12 +119,21 @@ static WLDataBlock deviceTokenCompletion = nil;
 	if (!name.nonempty) {
 		return;
 	}
-    [self.userChannel setName:[NSString stringWithFormat:@"%@-%@", name, [WLAuthorization currentAuthorization].deviceUID] subscribe:NO];
-    __weak typeof(self)weakSelf = self;
-    [self.userChannel subscribe:^{
-        [weakSelf requestHistory];
-    } failure:nil];
-    [PubNub setClientIdentifier:name];
+    if (![[PubNub clientIdentifier] isEqualToString:name]) {
+        [PubNub setClientIdentifier:name];
+        self.userChannel = [WLNotificationChannel channelWithName:[NSString stringWithFormat:@"%@-%@", name, [WLAuthorization currentAuthorization].deviceUID]];
+        [self requestHistory];
+        __weak typeof(self)weakSelf = self;
+        [self.userChannel enableAPNS];
+        [self.userChannel observeMessages:^(PNMessage *message) {
+            WLNotification *notification = [WLNotification notificationWithMessage:message];
+            [notification fetch:^{
+                if (notification.playSound) [notification playNotificationSound];
+                [weakSelf broadcastNotification:notification];
+            } failure:nil];
+            weakSelf.historyDate = [[message.receiveDate date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
+        }];
+    }
 }
 
 - (void)requestHistory {
@@ -147,7 +144,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             if (!error) {
                 if (messages.nonempty) {
                     weakSelf.historyDate = [[[messages.lastObject receiveDate] date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
-                    [messages all:weakSelf.userChannel.messageBlock];
+                    [messages all:weakSelf.userChannel.messageHandler];
                 } else {
                     weakSelf.historyDate = [NSDate now];
                 }
@@ -159,11 +156,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)connect {
-	if ([[PubNub sharedInstance] isConnected]) {
-		[self subscribe];
-	} else {
-		[PubNub connect];
-	}
+	[PubNub connect];
 }
 
 - (void)handleRemoteNotification:(NSDictionary *)data success:(WLBlock)success failure:(WLFailureBlock)failure {
@@ -227,7 +220,6 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {
     WLLog(@"PubNub",@"connected", origin);
-    [self subscribe];
 }
 
 - (void)pubnubClient:(PubNub *)client connectionDidFailWithError:(PNError *)error {
@@ -244,7 +236,6 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)pubnubClient:(PubNub *)client didDisconnectFromOrigin:(NSString *)origin withError:(PNError *)error {
     WLLog(@"PubNub", @"disconnected", error);
-	[self connect];
 }
 
 - (void)pubnubClient:(PubNub *)client didEnablePushNotificationsOnChannels:(NSArray *)channels {
@@ -253,6 +244,10 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)pubnubClientDidRemovePushNotifications:(PubNub *)client {
     WLLog(@"PubNub", @"removed APNS", nil);
+}
+
+- (void)pubnubClient:(PubNub *)client didReceivePresenceEvent:(PNPresenceEvent *)event {
+    WLLog(@"PubNub", @"presence event", event);
 }
 
 @end

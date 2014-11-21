@@ -3287,7 +3287,12 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+<<<<<<< HEAD
+        <segue reference="USb-FQ-HhL"/>
+        <segue reference="WjR-f7-d7j"/>
+=======
         <segue reference="H4Y-Sv-3mh"/>
         <segue reference="tCH-h8-hRc"/>
+>>>>>>> [#82992606] update navigation bar
     </inferredMetricsTieBreakers>
 </document>

@@ -120,6 +120,38 @@ static BOOL authorized = NO;
 
 @end
 
+@implementation WLWhoIsRequest
+
+- (NSString *)path {
+    return @"users/whois";
+}
+
+- (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
+    [parameters trySetObject:self.email forKey:@"email"];
+    return [super configure:parameters];
+}
+
+@end
+
+@implementation WLLinkDeviceRequest
+
++ (NSString *)defaultMethod {
+    return @"POST";
+}
+
+- (NSString *)path {
+    return @"users/link_device";
+}
+
+- (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
+    [parameters trySetObject:self.email forKey:WLEmailKey];
+    [parameters trySetObject:self.deviceUID forKey:@"device_uid"];
+    [parameters trySetObject:self.approvalCode forKey:@"approval_code"];
+    return [super configure:parameters];
+}
+
+@end
+
 @implementation WLAuthorization (WLAuthorizationRequest)
 
 - (id)signUp:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure {
@@ -135,3 +167,4 @@ static BOOL authorized = NO;
 }
 
 @end
+

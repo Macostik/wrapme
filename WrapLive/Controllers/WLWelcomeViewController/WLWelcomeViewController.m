@@ -18,7 +18,7 @@
 #import "WLLoadingView.h"
 #import "WLNavigation.h"
 #import "WLSession.h"
-#import "WLSignUpViewController.h"
+#import "WLAuthorizationFlowViewController.h"
 #import "WLTermsAndConditionsKeys.h"
 #import "WLUser.h"
 #import "WLWelcomeViewController.h"
@@ -118,7 +118,7 @@ typedef enum : NSUInteger {
 }
 
 - (void)continueSignUp {
-	WLSignUpViewController *controller = [WLSignUpViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]];
+	WLAuthorizationFlowViewController *controller = [WLAuthorizationFlowViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]];
     controller.registrationNotCompleted = YES;
     [self.navigationController pushViewController:controller animated:NO];
 }

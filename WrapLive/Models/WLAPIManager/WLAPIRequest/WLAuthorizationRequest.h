@@ -42,6 +42,22 @@ typedef NS_ENUM(NSUInteger, WLAuthorizationStep) {
 
 @end
 
+@interface WLWhoIsRequest : WLAPIRequest
+
+@property (strong, nonatomic) NSString* email;
+
+@end
+
+@interface WLLinkDeviceRequest : WLAPIRequest
+
+@property (strong, nonatomic) NSString *email;
+
+@property (strong, nonatomic) NSString *deviceUID;
+
+@property (strong, nonatomic) NSString *approvalCode;
+
+@end
+
 @interface WLAuthorization (WLAuthorizationRequest)
 
 - (id)signUp:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure;

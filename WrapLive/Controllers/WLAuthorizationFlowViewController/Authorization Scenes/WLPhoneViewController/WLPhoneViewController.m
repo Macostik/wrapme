@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLPhoneNumberViewController.h"
+#import "WLPhoneViewController.h"
 #import "NSDate+Formatting.h"
 #import "WLActivationViewController.h"
 #import "WLCountriesViewController.h"
@@ -30,7 +30,7 @@
 #import "WLAuthorizationRequest.h"
 #import "WLButton.h"
 
-@interface WLPhoneNumberViewController () <UITextFieldDelegate, WLKeyboardBroadcastReceiver>
+@interface WLPhoneViewController () <UITextFieldDelegate, WLKeyboardBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet WLButton *signUpButton;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
@@ -47,7 +47,7 @@
 
 @end
 
-@implementation WLPhoneNumberViewController {
+@implementation WLPhoneViewController {
     NSMutableCharacterSet *_phoneChars;
 }
 
@@ -199,6 +199,13 @@
 			}
 		}];
 	}];
+}
+
+- (IBAction)countrySelected:(UIStoryboardSegue *)unwindSegue {
+    WLCountry* selectedCountry = [unwindSegue.sourceViewController selectedCountry];
+    if (selectedCountry) {
+        self.country = selectedCountry;
+    }
 }
 
 #pragma mark - UITextFieldDelegate

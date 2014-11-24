@@ -25,32 +25,29 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
 	__weak typeof(self)weakSelf = self;
+    WLCountry* selectedCountry = _selectedCountry;
     run_getting_object(^id {
         return [WLCountry all];
     }, ^(NSMutableOrderedSet* countries) {
         weakSelf.dataSection.entries = countries;
-		if (weakSelf.selectedCountry) {
+		if (selectedCountry) {
 			NSUInteger index = [countries indexOfObjectPassingTest:^BOOL(WLCountry* obj, NSUInteger idx, BOOL *stop) {
-				return [obj.code isEqualToString:weakSelf.selectedCountry.code];
+				return [obj.code isEqualToString:selectedCountry.code];
 			}];
 			if (index != NSNotFound) {
-				[weakSelf.dataSection.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+				[weakSelf.dataSection.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
 			}
 		}
     });
-    [self.dataSection setSelection:^(id item){
-        weakSelf.selectedCountry = item;
-        [weakSelf.dataSection reload];
-        if (weakSelf.selectionBlock) {
-            weakSelf.selectionBlock(item);
-        }
-    }];
-    
-    [self.dataSection setConfigure:^(WLCountryCell* cell, WLCountry* item) {
-        cell.backgroundColor = [item.code isEqualToString:weakSelf.selectedCountry.code] ? [UIColor gray:230] : [UIColor whiteColor];
-    }];
+}
+
+- (WLCountry *)selectedCountry {
+    NSIndexPath* indexPath = [[self.dataSection.collectionView indexPathsForSelectedItems] lastObject];
+    if (indexPath) {
+        return [self.dataSection.entries.entries tryObjectAtIndex:indexPath.item];
+    }
+    return nil;
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "WLCountryCell.h"
 #import "WLCountry.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLCountryCell ()
 
@@ -19,6 +20,11 @@
 
 - (void)setup:(WLCountry*)country {
 	self.countryNameLabel.text = country.name;
+}
+
+- (void)setSelected:(BOOL)selected {
+    [super setSelected:selected];
+    self.backgroundColor = selected ? [UIColor gray:230] : [UIColor whiteColor];
 }
 
 @end

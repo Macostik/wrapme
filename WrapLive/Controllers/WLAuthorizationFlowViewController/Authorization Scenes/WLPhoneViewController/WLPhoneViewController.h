@@ -8,6 +8,6 @@
 
 #import "WLBaseViewController.h"
 
-@interface WLPhoneNumberViewController : WLBaseViewController
+@interface WLPhoneViewController : WLBaseViewController
 
 @end

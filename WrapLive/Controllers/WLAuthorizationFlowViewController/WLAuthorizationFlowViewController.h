@@ -8,7 +8,7 @@
 
 #import "WLBaseViewController.h"
 
-@interface WLSignUpViewController : WLBaseViewController
+@interface WLAuthorizationFlowViewController : WLBaseViewController
 
 @property (nonatomic) BOOL registrationNotCompleted;
 

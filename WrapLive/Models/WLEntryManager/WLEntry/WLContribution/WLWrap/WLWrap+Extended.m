@@ -156,6 +156,14 @@
     }
 }
 
+- (void)removeMessage:(WLMessage *)message {
+    NSMutableOrderedSet *messages = self.messages;
+    if ([messages containsObject:message]) {
+        [messages removeObject:message];
+        self.messages = messages;
+    }
+}
+
 - (NSOrderedSet *)candies:(NSInteger)type limit:(NSUInteger)limit {
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"type == %d", type];
     NSMutableOrderedSet *candies = [[self.candies filteredOrderedSetUsingPredicate:predicate] mutableCopy];

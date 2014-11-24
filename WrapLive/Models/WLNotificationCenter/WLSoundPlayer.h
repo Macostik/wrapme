@@ -12,6 +12,7 @@
 @interface WLSoundPlayer : NSObject
 
 + (void)playSoundByName:(NSString *)nameSound;
++ (void)playSendMessageSound;
 
 @end
 

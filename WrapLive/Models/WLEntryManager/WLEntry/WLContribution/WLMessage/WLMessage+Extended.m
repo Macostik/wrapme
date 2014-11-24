@@ -8,6 +8,7 @@
 
 #import "WLMessage+Extended.h"
 #import "WLEntryManager.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLMessage (Extended)
 
@@ -33,6 +34,12 @@
     if (containingEntry && self.wrap != containingEntry) {
         self.wrap = (id)containingEntry;
     }
+}
+
+- (void)remove {
+    [self.wrap removeMessage:self];
+    [self notifyOnDeleting];
+    [super remove];
 }
 
 @end

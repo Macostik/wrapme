@@ -22,6 +22,8 @@ static NSUInteger WLWrapNameLimit = 190;
 
 - (void)removeCandy:(WLCandy *)candy;
 
+- (void)removeMessage:(WLMessage *)message;
+
 - (BOOL)containsCandy:(WLCandy *)candy;
 
 - (void)sortCandies;

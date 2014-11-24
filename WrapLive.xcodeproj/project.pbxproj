@@ -125,8 +125,6 @@
 		1409DA641949B24E00358BD4 /* RMPhoneFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1409DA621949B24E00358BD4 /* RMPhoneFormat.m */; };
 		14A04F8B1940CB5E005DA4CE /* WLEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A04F8A1940CB5E005DA4CE /* WLEmoji.m */; };
 		14ACAE0719421AE5006BD3B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
-		14AE4FF219700B5E002EEF3F /* msg.wav in Resources */ = {isa = PBXBuildFile; fileRef = 14AE4FEF19700B5E002EEF3F /* msg.wav */; };
-		14AE4FF319700B5E002EEF3F /* interfacealertsound3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 14AE4FF019700B5E002EEF3F /* interfacealertsound3.wav */; };
 		14B134E11952FEB2004F86AC /* WLInviteeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B134E01952FEB2004F86AC /* WLInviteeCell.m */; };
 		14B2429D195C4CEB00C5D208 /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
 		14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
@@ -618,7 +616,6 @@
 		C54AF53119B8C437006F7EDB /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
 		C54AF53219B8C437006F7EDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
 		C54AF53419B8C437006F7EDB /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1409DA601949B24E00358BD4 /* PhoneFormats.dat */; };
-		C54AF53519B8C437006F7EDB /* interfacealertsound3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 14AE4FF019700B5E002EEF3F /* interfacealertsound3.wav */; };
 		C54AF53619B8C437006F7EDB /* WLEmojiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90D19347B9E0001E570 /* WLEmojiView.xib */; };
 		C54AF53719B8C437006F7EDB /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED551934B183009C1DC3 /* WLAssetCell.xib */; };
 		C54AF53819B8C437006F7EDB /* AppIcon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */; };
@@ -636,7 +633,6 @@
 		C54AF54519B8C437006F7EDB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F5192F5F15007A1520 /* Default-568h@2x.png */; };
 		C54AF54619B8C437006F7EDB /* AppIcon76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F4192F5F15007A1520 /* AppIcon76x76@2x.png */; };
 		C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 12D578C619178C3400586995 /* iTunesArtwork */; };
-		C54AF54819B8C437006F7EDB /* msg.wav in Resources */ = {isa = PBXBuildFile; fileRef = 14AE4FEF19700B5E002EEF3F /* msg.wav */; };
 		C54AF54919B8C437006F7EDB /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EE192F5F15007A1520 /* AppIcon29x29.png */; };
 		C54AF54A19B8C437006F7EDB /* WLSplashLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */; };
 		C54AF55519B8C467006F7EDB /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3F419211A48007BE6CC /* UIView+GestureRecognizing.m */; };
@@ -813,7 +809,6 @@
 		C54AF62E19B8C467006F7EDB /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
 		C54AF62F19B8C467006F7EDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
 		C54AF63119B8C467006F7EDB /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1409DA601949B24E00358BD4 /* PhoneFormats.dat */; };
-		C54AF63219B8C467006F7EDB /* interfacealertsound3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 14AE4FF019700B5E002EEF3F /* interfacealertsound3.wav */; };
 		C54AF63319B8C467006F7EDB /* WLEmojiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90D19347B9E0001E570 /* WLEmojiView.xib */; };
 		C54AF63419B8C467006F7EDB /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED551934B183009C1DC3 /* WLAssetCell.xib */; };
 		C54AF63519B8C467006F7EDB /* AppIcon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */; };
@@ -831,7 +826,6 @@
 		C54AF64219B8C467006F7EDB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F5192F5F15007A1520 /* Default-568h@2x.png */; };
 		C54AF64319B8C467006F7EDB /* AppIcon76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F4192F5F15007A1520 /* AppIcon76x76@2x.png */; };
 		C54AF64419B8C467006F7EDB /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 12D578C619178C3400586995 /* iTunesArtwork */; };
-		C54AF64519B8C467006F7EDB /* msg.wav in Resources */ = {isa = PBXBuildFile; fileRef = 14AE4FEF19700B5E002EEF3F /* msg.wav */; };
 		C54AF64619B8C467006F7EDB /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EE192F5F15007A1520 /* AppIcon29x29.png */; };
 		C54AF64719B8C467006F7EDB /* WLSplashLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */; };
 		C54AF65219B8C491006F7EDB /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3F419211A48007BE6CC /* UIView+GestureRecognizing.m */; };
@@ -1008,7 +1002,6 @@
 		C54AF72B19B8C491006F7EDB /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
 		C54AF72C19B8C491006F7EDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
 		C54AF72E19B8C491006F7EDB /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1409DA601949B24E00358BD4 /* PhoneFormats.dat */; };
-		C54AF72F19B8C491006F7EDB /* interfacealertsound3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 14AE4FF019700B5E002EEF3F /* interfacealertsound3.wav */; };
 		C54AF73019B8C491006F7EDB /* WLEmojiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90D19347B9E0001E570 /* WLEmojiView.xib */; };
 		C54AF73119B8C491006F7EDB /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED551934B183009C1DC3 /* WLAssetCell.xib */; };
 		C54AF73219B8C491006F7EDB /* AppIcon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */; };
@@ -1026,7 +1019,6 @@
 		C54AF73F19B8C491006F7EDB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F5192F5F15007A1520 /* Default-568h@2x.png */; };
 		C54AF74019B8C491006F7EDB /* AppIcon76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F4192F5F15007A1520 /* AppIcon76x76@2x.png */; };
 		C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 12D578C619178C3400586995 /* iTunesArtwork */; };
-		C54AF74219B8C491006F7EDB /* msg.wav in Resources */ = {isa = PBXBuildFile; fileRef = 14AE4FEF19700B5E002EEF3F /* msg.wav */; };
 		C54AF74319B8C491006F7EDB /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EE192F5F15007A1520 /* AppIcon29x29.png */; };
 		C54AF74419B8C491006F7EDB /* WLSplashLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */; };
 		C54AF85C19B8C622006F7EDB /* WLTestUsersBeta.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85419B8C622006F7EDB /* WLTestUsersBeta.plist */; };
@@ -1459,8 +1451,6 @@
 		1409DA621949B24E00358BD4 /* RMPhoneFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMPhoneFormat.m; path = WrapLive/Frameworks/RMPhoneFormat/RMPhoneFormat.m; sourceTree = "<group>"; };
 		14A04F891940CB5E005DA4CE /* WLEmoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEmoji.h; path = WLEmoji/WLEmoji.h; sourceTree = "<group>"; };
 		14A04F8A1940CB5E005DA4CE /* WLEmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEmoji.m; path = WLEmoji/WLEmoji.m; sourceTree = "<group>"; };
-		14AE4FEF19700B5E002EEF3F /* msg.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = msg.wav; path = Sounds/msg.wav; sourceTree = "<group>"; };
-		14AE4FF019700B5E002EEF3F /* interfacealertsound3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = interfacealertsound3.wav; path = Sounds/interfacealertsound3.wav; sourceTree = "<group>"; };
 		14B134DF1952FEB2004F86AC /* WLInviteeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLInviteeCell.h; path = WLCreateWrapViewController/WLInviteeCell/WLInviteeCell.h; sourceTree = "<group>"; };
 		14B134E01952FEB2004F86AC /* WLInviteeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLInviteeCell.m; path = WLCreateWrapViewController/WLInviteeCell/WLInviteeCell.m; sourceTree = "<group>"; };
 		14B2429B195C4CEB00C5D208 /* WLEditSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditSession.h; path = WLEditSession/WLEditSession.h; sourceTree = "<group>"; };
@@ -1774,6 +1764,7 @@
 		C5A21E08194AF54000F3A554 /* WLEntryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntryManager.m; sourceTree = "<group>"; };
 		C5AC1E52197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableOrderedSet+Sorting.h"; path = "NSOrderedSet/NSMutableOrderedSet+Sorting.h"; sourceTree = "<group>"; };
 		C5AC1E53197FCE3900DC5791 /* NSMutableOrderedSet+Sorting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableOrderedSet+Sorting.m"; path = "NSOrderedSet/NSMutableOrderedSet+Sorting.m"; sourceTree = "<group>"; };
+		C5C20B651A23460B008B2E2E /* WrapLive.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = WrapLive.profdata; sourceTree = "<group>"; };
 		C5C5A13D19F7BED600E1E033 /* GeometryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryHelper.h; sourceTree = "<group>"; };
 		C5C5A13E19F7BED600E1E033 /* Timecost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timecost.h; sourceTree = "<group>"; };
 		C5C5A13F19F7BF1D00E1E033 /* DefinedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefinedBlocks.h; sourceTree = "<group>"; };
@@ -2131,6 +2122,7 @@
 				12A7A70118DA0945008FF6F0 /* Frameworks */,
 				12A7A70018DA0945008FF6F0 /* Products */,
 				C74A6984FAD8A1A206944094 /* Pods */,
+				C5C20B641A23460B008B2E2E /* OptimizationProfiles */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2821,8 +2813,6 @@
 				5BA6CAEF1A10E51B004AD41C /* s02.wav */,
 				5BA6CAF01A10E51B004AD41C /* s03.wav */,
 				5BA6CAF11A10E51B004AD41C /* s04.wav */,
-				14AE4FEF19700B5E002EEF3F /* msg.wav */,
-				14AE4FF019700B5E002EEF3F /* interfacealertsound3.wav */,
 			);
 			name = Sounds;
 			sourceTree = "<group>";
@@ -3604,6 +3594,14 @@
 			path = WLEntryManager;
 			sourceTree = "<group>";
 		};
+		C5C20B641A23460B008B2E2E /* OptimizationProfiles */ = {
+			isa = PBXGroup;
+			children = (
+				C5C20B651A23460B008B2E2E /* WrapLive.profdata */,
+			);
+			path = OptimizationProfiles;
+			sourceTree = "<group>";
+		};
 		C5C5A13C19F7BED600E1E033 /* Support Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3885,7 +3883,6 @@
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
 				14ACAE0719421AE5006BD3B3 /* Main.storyboard in Resources */,
 				1409DA631949B24E00358BD4 /* PhoneFormats.dat in Resources */,
-				14AE4FF319700B5E002EEF3F /* interfacealertsound3.wav in Resources */,
 				5B3CD74A19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF85E19B8C622006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				ACF8D90E19347B9E0001E570 /* WLEmojiView.xib in Resources */,
@@ -3925,7 +3922,6 @@
 				C57005C61A1FA19C007257A6 /* chat_bubble_gray_right@3x.png in Resources */,
 				5B650FE71A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
 				12D578C719178C3400586995 /* iTunesArtwork in Resources */,
-				14AE4FF219700B5E002EEF3F /* msg.wav in Resources */,
 				12D514F9192F5F15007A1520 /* AppIcon29x29.png in Resources */,
 				C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */,
 			);
@@ -3966,7 +3962,6 @@
 				C54AF53419B8C437006F7EDB /* PhoneFormats.dat in Resources */,
 				C57005CB1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
 				C57005C31A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
-				C54AF53519B8C437006F7EDB /* interfacealertsound3.wav in Resources */,
 				5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF53619B8C437006F7EDB /* WLEmojiView.xib in Resources */,
 				C51E295A1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
@@ -4006,7 +4001,6 @@
 				C54AF54619B8C437006F7EDB /* AppIcon76x76@2x.png in Resources */,
 				5B650FE81A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
-				C54AF54819B8C437006F7EDB /* msg.wav in Resources */,
 				C54AF54919B8C437006F7EDB /* AppIcon29x29.png in Resources */,
 				C54AF54A19B8C437006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C57005D71A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
@@ -4048,7 +4042,6 @@
 				C54AF63119B8C467006F7EDB /* PhoneFormats.dat in Resources */,
 				C57005CC1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
 				C57005C41A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
-				C54AF63219B8C467006F7EDB /* interfacealertsound3.wav in Resources */,
 				5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF63319B8C467006F7EDB /* WLEmojiView.xib in Resources */,
 				C51E295B1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
@@ -4088,7 +4081,6 @@
 				C54AF64319B8C467006F7EDB /* AppIcon76x76@2x.png in Resources */,
 				5B650FE91A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
 				C54AF64419B8C467006F7EDB /* iTunesArtwork in Resources */,
-				C54AF64519B8C467006F7EDB /* msg.wav in Resources */,
 				C54AF64619B8C467006F7EDB /* AppIcon29x29.png in Resources */,
 				C54AF64719B8C467006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C57005D81A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
@@ -4130,7 +4122,6 @@
 				C54AF72E19B8C491006F7EDB /* PhoneFormats.dat in Resources */,
 				C57005CD1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
 				C57005C51A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
-				C54AF72F19B8C491006F7EDB /* interfacealertsound3.wav in Resources */,
 				5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF73019B8C491006F7EDB /* WLEmojiView.xib in Resources */,
 				C51E295C1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
@@ -4170,7 +4161,6 @@
 				C54AF74019B8C491006F7EDB /* AppIcon76x76@2x.png in Resources */,
 				5B650FEA1A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
-				C54AF74219B8C491006F7EDB /* msg.wav in Resources */,
 				C54AF74319B8C491006F7EDB /* AppIcon29x29.png in Resources */,
 				C54AF74419B8C491006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C57005D91A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
@@ -5391,6 +5381,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
@@ -5438,6 +5429,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
@@ -5484,6 +5476,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
@@ -5530,6 +5523,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
@@ -5572,6 +5566,7 @@
 		C5953B6D19C8398C006DF1F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;

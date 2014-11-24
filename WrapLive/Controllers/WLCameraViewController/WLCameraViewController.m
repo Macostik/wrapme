@@ -224,8 +224,8 @@
 - (AVCaptureSession *)session {
     if (!_session) {
         _session = [[AVCaptureSession alloc] init];
-        if ([_session canSetSessionPreset:AVCaptureSessionPresetPhoto]) {
-            _session.sessionPreset = AVCaptureSessionPresetPhoto;
+        if ([_session canSetSessionPreset:AVCaptureSessionPresetHigh]) {
+            _session.sessionPreset = AVCaptureSessionPresetHigh;
         } else {
             _session.sessionPreset = AVCaptureSessionPresetMedium;
         }

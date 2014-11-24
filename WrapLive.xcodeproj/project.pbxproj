@@ -5381,7 +5381,7 @@
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2de41756-bdbc-49a7-b761-c02db7f59903";
+				PROVISIONING_PROFILE = "2e0d0251-1bde-474a-919a-1f77ac865ae6";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5405,7 +5405,7 @@
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9ed88894-a56b-4c40-9715-0fcff227dfb9";
+				PROVISIONING_PROFILE = "2b3e6046-bc85-48fe-a425-59fa0f8c0a25";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5416,6 +5416,7 @@
 			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WrapLive/Frameworks/AviarySDK",
@@ -5427,7 +5428,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "2de41756-bdbc-49a7-b761-c02db7f59903";
+				PROVISIONING_PROFILE = "2e0d0251-1bde-474a-919a-1f77ac865ae6";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5439,6 +5440,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WrapLive/Frameworks/AviarySDK",
@@ -5450,7 +5452,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "9ed88894-a56b-4c40-9715-0fcff227dfb9";
+				PROVISIONING_PROFILE = "2b3e6046-bc85-48fe-a425-59fa0f8c0a25";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5461,6 +5463,7 @@
 			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WrapLive/Frameworks/AviarySDK",
@@ -5471,7 +5474,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "2de41756-bdbc-49a7-b761-c02db7f59903";
+				PROVISIONING_PROFILE = "2e0d0251-1bde-474a-919a-1f77ac865ae6";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5483,6 +5486,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WrapLive/Frameworks/AviarySDK",
@@ -5493,7 +5497,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "9ed88894-a56b-4c40-9715-0fcff227dfb9";
+				PROVISIONING_PROFILE = "2b3e6046-bc85-48fe-a425-59fa0f8c0a25";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5504,6 +5508,7 @@
 			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WrapLive/Frameworks/AviarySDK",
@@ -5515,7 +5520,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "b844749f-8e55-49f4-954a-034a1e76c3d6";
+				PROVISIONING_PROFILE = "23959b03-2c7a-4e0c-b80c-356ea6c80bde";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5527,6 +5532,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WrapLive/Frameworks/AviarySDK",
@@ -5538,7 +5544,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "773e13c0-309b-4ae5-9cdb-1d56e5fcd87e";
+				PROVISIONING_PROFILE = "7a9f181d-7282-410b-982e-84bde346981e";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

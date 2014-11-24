@@ -233,7 +233,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     __weak WLStillPictureViewController *controller = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
     controller.mode = WLCameraModeCandy;
     controller.delegate = self;
-    [controller willCreateWrap];
+    [controller willCreateWrapFromPicker:NO];
     
     [self.navigationController presentViewController:controller animated:YES completion:NULL];
 }

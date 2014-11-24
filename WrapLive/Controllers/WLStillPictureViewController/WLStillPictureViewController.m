@@ -347,7 +347,7 @@ static CGFloat WLBottomViewHeight = 92.0f;
 #pragma mark - WLPickerViewDelegate 
 
 - (void)pickerViewController:(WLPickerViewController *)pickerViewController newWrapClick:(UIView *)sender {
-    [self willCreateWrap];
+    [self willCreateWrapFromPicker:YES];
 }
 
 - (void)pickerViewController:(WLPickerViewController *)pickerViewController tapBySelectedWrap:(WLWrap *)wrap {
@@ -357,16 +357,18 @@ static CGFloat WLBottomViewHeight = 92.0f;
 
 #pragma mark - WLCreateWrapDelegate
 
-- (void)willCreateWrap {
+- (void)willCreateWrapFromPicker:(BOOL)flag {
     __weak WLCreateWrapViewController *childViewController = [WLActionViewController addViewControllerByClass:
                                                               [WLCreateWrapViewController class] toParentViewController:self];
     childViewController.delegate = self;
     __weak __typeof(self)weakSelf = self;
     [childViewController setCancelHandler:^{
-        if ([weakSelf.delegate isKindOfClass:[WLWrapViewController class]] ) {
+        if (flag) {
             [childViewController removeAnimateViewFromSuperView];
+        } else if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewControllerDidCancel:)] ) {
+            [weakSelf.delegate performSelector:@selector(stillPictureViewControllerDidCancel:) withObject:self];
         } else {
-            [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+            [self dismissViewControllerAnimated:YES completion:NULL];
         }
     }];
 }

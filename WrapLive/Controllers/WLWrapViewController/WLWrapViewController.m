@@ -182,6 +182,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
     controller.wrap = self.wrap;
     controller.delegate = self;
     controller.mode = WLCameraModeCandy;
+    
 	return controller;
 }
 
@@ -278,7 +279,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
 }
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-	[self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Custom animation

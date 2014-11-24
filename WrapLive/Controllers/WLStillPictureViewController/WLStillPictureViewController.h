@@ -45,6 +45,6 @@
 
 @property (nonatomic) BOOL editable;
 
-- (void)willCreateWrap;
+- (void)willCreateWrapFromPicker:(BOOL)flag;
 
 @end

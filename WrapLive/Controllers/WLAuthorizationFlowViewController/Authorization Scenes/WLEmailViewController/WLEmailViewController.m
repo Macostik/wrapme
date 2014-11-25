@@ -7,8 +7,11 @@
 //
 
 #import "WLEmailViewController.h"
+#import "WLAuthorization.h"
 
 @interface WLEmailViewController ()
+
+@property (weak, nonatomic) IBOutlet UITextField *emailField;
 
 @end
 
@@ -17,22 +20,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.emailField.text = [WLAuthorization currentAuthorization].email;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)next:(id)sender {
+    [self.delegate emailViewController:self didFinishWithEmail:self.emailField.text];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
     return keyboardHeight/2.0f;

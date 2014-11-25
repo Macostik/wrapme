@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLBaseViewController.h"
+#import "WLAuthorizationSceneViewController.h"
 
-@interface WLPhoneViewController : WLBaseViewController
+@interface WLPhoneViewController : WLAuthorizationSceneViewController
+
+- (void)setEmail:(NSString*)email;
 
 @end

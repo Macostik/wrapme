@@ -23,4 +23,9 @@
     [path stroke];
 }
 
+- (void)setText:(NSString *)text {
+    [super setText:text];
+    [self sendActionsForControlEvents:UIControlEventEditingChanged];
+}
+
 @end

@@ -8,6 +8,14 @@
 
 #import "WLBaseViewController.h"
 
+@class WLAuthorizationSceneViewController;
+
+@protocol WLAuthorizationSceneViewControllerDelegate <NSObject>
+
+@end
+
 @interface WLAuthorizationSceneViewController : WLBaseViewController
+
+@property (nonatomic, weak) id <WLAuthorizationSceneViewControllerDelegate> delegate;
 
 @end

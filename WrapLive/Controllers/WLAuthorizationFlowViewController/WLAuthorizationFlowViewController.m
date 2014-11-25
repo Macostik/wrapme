@@ -16,11 +16,15 @@
 #import "WLPhoneViewController.h"
 #import "UIColor+CustomColors.h"
 #import "WLNavigation.h"
-#import "WLAuthorizationFlow.h"
+#import "WLAuthorizationRequest.h"
+#import "WLAuthorizationSceneViewController.h"
+#import "WLEmailViewController.h"
+#import "WLPhoneViewController.h"
 
-@interface WLAuthorizationFlowViewController ()
+@interface WLAuthorizationFlowViewController () <UINavigationControllerDelegate, WLEmailViewControllerDelegate>
 
-@property (strong, nonatomic) WLAuthorizationFlow* flow;
+@property (weak, nonatomic) UINavigationController* flowNavigationController;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 
 @end
 
@@ -28,14 +32,41 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    UINavigationController* navigationController = [self.childViewControllers lastObject];
-    self.flow = [[WLAuthorizationFlow alloc] initWithNavigationController:navigationController];
-    self.flow.registrationNotCompleted = self.registrationNotCompleted;
-    [self.flow start];
+    self.flowNavigationController = [self.childViewControllers lastObject];
+    self.flowNavigationController.delegate = self;
+    if (self.registrationNotCompleted) {
+        self.flowNavigationController.viewControllers = @[[WLProfileInformationViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]]];
+    }
+    
 }
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
-    return 151;
+    return self.headerView.bounds.size.height;
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(WLAuthorizationSceneViewController *)viewController animated:(BOOL)animated {
+    viewController.delegate = self;
+}
+
+#pragma mark - WLEmailViewControllerDelegate
+
+- (void)emailViewController:(WLEmailViewController *)controller didFinishWithEmail:(NSString *)email {
+    WLWhoIsRequest* request = [WLWhoIsRequest request];
+    request.email = email;
+    __weak typeof(self)weakSelf = self;
+    [request send:^(NSNumber* found) {
+        if ([found boolValue]) {
+            
+        } else {
+            WLPhoneViewController* phoneViewController = [WLPhoneViewController instantiate:weakSelf.storyboard];
+            [phoneViewController setEmail:email];
+            [weakSelf.flowNavigationController pushViewController:phoneViewController animated:YES];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 @end

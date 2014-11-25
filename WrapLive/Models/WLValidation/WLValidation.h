@@ -34,6 +34,8 @@ typedef NS_ENUM(NSUInteger, WLValidationStatus) {
 
 @property (weak, nonatomic) IBOutlet UIView* statusView;
 
+- (void)prepare;
+
 - (WLValidationStatus)validate;
 
 - (WLValidationStatus)defineCurrentStatus:(UIView*)inputView;

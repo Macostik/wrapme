@@ -131,6 +131,10 @@ static BOOL authorized = NO;
     return [super configure:parameters];
 }
 
+- (id)objectInResponse:(WLAPIResponse *)response {
+    return [[response.data dictionaryForKey:WLUserKey] numberForKey:@"found"];
+}
+
 @end
 
 @implementation WLLinkDeviceRequest

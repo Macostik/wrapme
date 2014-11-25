@@ -8,6 +8,16 @@
 
 #import "WLAuthorizationSceneViewController.h"
 
+@class WLEmailViewController;
+
+@protocol WLEmailViewControllerDelegate <WLAuthorizationSceneViewControllerDelegate>
+
+- (void)emailViewController:(WLEmailViewController *)controller didFinishWithEmail:(NSString*)email;
+
+@end
+
 @interface WLEmailViewController : WLAuthorizationSceneViewController
+
+@property (nonatomic, weak) id <WLEmailViewControllerDelegate> delegate;
 
 @end

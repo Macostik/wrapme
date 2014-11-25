@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLAuthorizationSceneViewController.h"
 
 @class WLCountry;
 
-@interface WLCountriesViewController : UIViewController
+@interface WLCountriesViewController : WLAuthorizationSceneViewController
 
 @property (strong, nonatomic) WLCountry *selectedCountry;
 

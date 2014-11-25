@@ -10,6 +10,23 @@
 
 @implementation WLValidation
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self prepare];
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self prepare];
+    }
+    return self;
+}
+
+- (void)prepare {
+    
+}
+
 - (void)setStatus:(WLValidationStatus)status {
     if (_status != status) {
         _status = status;

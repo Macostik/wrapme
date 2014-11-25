@@ -115,7 +115,7 @@
     if (event.entryClass == [WLComment class]) {
         return CGSizeMake(collectionView.width - 2*WLTimelineDefaultLeftRightOffset, [WLTimelineEventCommentCell heightWithComments:event.entries]);
     } else {
-        CGFloat size = (collectionView.width - 1.0f - 2*WLTimelineDefaultLeftRightOffset)/3.0f;
+        int size = (collectionView.width - 2*WLTimelineDefaultLeftRightOffset)/3.0f;
         return CGSizeMake(size, size);
     }
 }
@@ -130,7 +130,7 @@
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 0.5;
+    return WLCandyCellSpacing;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

@@ -137,7 +137,7 @@
 		</dict>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>Launch Screen</string>
+	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>SignUp</string>
 	<key>UIMainStoryboardFile~ipad</key>

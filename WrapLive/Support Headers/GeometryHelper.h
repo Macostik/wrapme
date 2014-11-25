@@ -120,3 +120,7 @@ static inline CGFloat Smoothstep(CGFloat min, CGFloat max, CGFloat value) {
 static inline BOOL IsInBounds(CGFloat min, CGFloat max, CGFloat value) {
     return (value >= min && value <= max);
 }
+
+static inline BOOL IsRetinaSize (void) {
+    return ([UIScreen mainScreen].scale == 2.0f);
+}

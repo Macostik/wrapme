@@ -76,8 +76,8 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [[WLNotificationCenter defaultCenter] addReceiver:self];
     
     WLUserView* userView = self.userView;
-	userView.avatarView.layer.borderWidth = 1;
-	userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
+    userView.avatarView.layer.borderWidth = IsRetinaSize()? 1.0f : 1.5f;
+    userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
     userView.user = [WLUser currentUser];
     
     [self.dataProvider setRefreshable];

@@ -33,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.userView.avatarView.layer.borderWidth = 1;
+    self.userView.avatarView.layer.borderWidth = IsRetinaSize()? 1.0f : 1.5f;
 	self.userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userView.user = [WLUser currentUser];
     self.readNotifications = [NSMutableOrderedSet orderedSet];

@@ -53,16 +53,17 @@ static NSString *const WLReport = @"Report";
 }
 
 - (IBAction)deleteCandy:(id)sender {
+    __weak __typeof(self)weakSelf = self;
     if ([self isMyCandy]) {
         [self.candy remove:^(id object) {
             [WLToast showWithMessage:@"Candy was deleted successfully."];
+            [weakSelf removeFromController:nil];
         } failure:^(NSError *error) {
             [error show];
         }];
     } else {
         [MFMailComposeViewController messageWithCandy:self.candy];
     }
-    
 }
 
 @end

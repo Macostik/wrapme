@@ -84,6 +84,7 @@ static NSString *const WLLeave = @"Leave";
 
 - (IBAction)deleteButtonClick:(id)sender {
     __weak typeof(self)weakSelf = self;
+    self.view.hidden = YES;
      [self.view endEditing:YES];
     WLWrap *wrap = self.wrap;
     if ([self isMyWrap]) {
@@ -91,6 +92,7 @@ static NSString *const WLLeave = @"Leave";
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         } failure:^(NSError *error) {
             [error show];
+            self.view.hidden = error != nil;
         }];
     } else {
         [wrap leave:^(id object) {

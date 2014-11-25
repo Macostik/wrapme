@@ -24,6 +24,7 @@
 }
 
 - (IBAction)next:(id)sender {
+    [self.view endEditing:YES];
     [self.delegate emailViewController:self didFinishWithEmail:self.emailField.text];
 }
 

@@ -132,7 +132,7 @@
 }
 
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
-    if (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty) return;
+    if (!self.isViewLoaded || (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty)) return;
     NSMapTable *constants = self.keyboardAdjustmentDefaultConstants;
     if ([constants count] == 0) {
         for (NSLayoutConstraint *constraint in self.keyboardAdjustmentTopConstraints) {
@@ -165,7 +165,7 @@
 }
 
 - (void)keyboardWillHide:(WLKeyboard *)keyboard {
-    if (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty) return;
+    if (!self.isViewLoaded || (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty)) return;
     [self updateKeyboardAdjustmentConstraints:0];
     [self.keyboardAdjustmentDefaultConstants removeAllObjects];
     if (self.keyboardAdjustmentAnimated && self.viewAppeared) {

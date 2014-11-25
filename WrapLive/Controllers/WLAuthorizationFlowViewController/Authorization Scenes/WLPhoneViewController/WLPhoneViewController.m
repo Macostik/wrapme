@@ -90,6 +90,10 @@
 
 #pragma mark - Actions
 
+- (IBAction)editPhoneNumber:(UIStoryboardSegue*)segue {
+    
+}
+
 - (IBAction)next:(WLButton*)sender {
     self.authorization.phone = phoneNumberClearing(self.phoneNumberTextField.text);
     self.authorization.formattedPhone = self.phoneNumberTextField.text;
@@ -116,11 +120,14 @@
 - (void)signUpAuthorization:(WLAuthorization*)authorization success:(WLBlock)success failure:(WLFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
 	[authorization signUp:^(WLAuthorization *authorization) {
-		WLActivationViewController *controller = [WLActivationViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]];
+		WLActivationViewController *controller = [WLActivationViewController instantiate:weakSelf.storyboard];
         controller.authorization = authorization;
 		[weakSelf.navigationController pushViewController:controller animated:YES];
         if (success) success();
 	} failure:^(NSError *error) {
+        WLActivationViewController *controller = [WLActivationViewController instantiate:weakSelf.storyboard];
+        controller.authorization = authorization;
+        [weakSelf.navigationController pushViewController:controller animated:YES];
 		[error show];
         if (failure) failure(error);
 	}];

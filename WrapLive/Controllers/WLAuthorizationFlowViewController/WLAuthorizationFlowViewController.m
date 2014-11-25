@@ -56,10 +56,10 @@
     WLWhoIsRequest* request = [WLWhoIsRequest request];
     request.email = email;
     __weak typeof(self)weakSelf = self;
-    [request send:^(NSNumber* found) {
-        if ([found boolValue]) {
+    [request send:^(WLWhoIs* whoIs) {
+        /*if (whoIs.found) {
             
-        } else {
+        } else*/ {
             WLPhoneViewController* phoneViewController = [WLPhoneViewController instantiate:weakSelf.storyboard];
             [phoneViewController setEmail:email];
             [weakSelf.flowNavigationController pushViewController:phoneViewController animated:YES];

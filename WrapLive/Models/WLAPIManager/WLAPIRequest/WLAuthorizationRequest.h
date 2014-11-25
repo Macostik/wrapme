@@ -67,3 +67,13 @@ typedef NS_ENUM(NSUInteger, WLAuthorizationStep) {
 - (id)signIn:(WLUserBlock)success failure:(WLFailureBlock)failure;
 
 @end
+
+@interface WLWhoIs : NSObject
+
+@property (nonatomic) BOOL found;
+
+@property (nonatomic) BOOL confirmed;
+
+@property (nonatomic) BOOL included;
+
+@end

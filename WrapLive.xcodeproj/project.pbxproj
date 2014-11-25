@@ -382,6 +382,10 @@
 		C51910851A07CB3D003C78B2 /* WLUploadingData.m in Sources */ = {isa = PBXBuildFile; fileRef = C51910831A07CB3D003C78B2 /* WLUploadingData.m */; };
 		C51910861A07CB3D003C78B2 /* WLUploadingData.m in Sources */ = {isa = PBXBuildFile; fileRef = C51910831A07CB3D003C78B2 /* WLUploadingData.m */; };
 		C51910871A07CB3D003C78B2 /* WLUploadingData.m in Sources */ = {isa = PBXBuildFile; fileRef = C51910831A07CB3D003C78B2 /* WLUploadingData.m */; };
+		C51A521B1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
+		C51A521C1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
+		C51A521D1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
+		C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
 		C51DAE3119B09E6100F40516 /* WLTimelineEventCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DAE3019B09E6100F40516 /* WLTimelineEventCommentCell.m */; };
 		C51E29591A1CE12E009786C7 /* ic_today_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = C51E29521A1CE12E009786C7 /* ic_today_comment.png */; };
 		C51E295A1A1CE12E009786C7 /* ic_today_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = C51E29521A1CE12E009786C7 /* ic_today_comment.png */; };
@@ -431,6 +435,10 @@
 		C545312F1A24A1F20048A677 /* WLCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531291A24A1F20048A677 /* WLCountryCell.m */; };
 		C54531301A24A1F20048A677 /* WLCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531291A24A1F20048A677 /* WLCountryCell.m */; };
 		C54531311A24A1F20048A677 /* WLCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531291A24A1F20048A677 /* WLCountryCell.m */; };
+		C54531351A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */; };
+		C54531361A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */; };
+		C54531371A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */; };
+		C54531381A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */; };
 		C547A4511A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
 		C547A4521A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
 		C547A4531A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
@@ -1670,6 +1678,8 @@
 		C519103F1A078248003C78B2 /* WLUser+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLUser+Extended.m"; sourceTree = "<group>"; };
 		C51910821A07CB3D003C78B2 /* WLUploadingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUploadingData.h; sourceTree = "<group>"; };
 		C51910831A07CB3D003C78B2 /* WLUploadingData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploadingData.m; sourceTree = "<group>"; };
+		C51A52191A24DCED00558BF3 /* WLPasscodeValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPasscodeValidation.h; path = WLValidation/WLPasscodeValidation.h; sourceTree = "<group>"; };
+		C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPasscodeValidation.m; path = WLValidation/WLPasscodeValidation.m; sourceTree = "<group>"; };
 		C51DAE2F19B09E6100F40516 /* WLTimelineEventCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTimelineEventCommentCell.h; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCommentCell.h; sourceTree = "<group>"; };
 		C51DAE3019B09E6100F40516 /* WLTimelineEventCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTimelineEventCommentCell.m; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCommentCell.m; sourceTree = "<group>"; };
 		C51E29521A1CE12E009786C7 /* ic_today_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_today_comment.png; sourceTree = "<group>"; };
@@ -1698,6 +1708,8 @@
 		C54531261A24A1F20048A677 /* WLCountriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCountriesViewController.m; sourceTree = "<group>"; };
 		C54531281A24A1F20048A677 /* WLCountryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCountryCell.h; sourceTree = "<group>"; };
 		C54531291A24A1F20048A677 /* WLCountryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCountryCell.m; sourceTree = "<group>"; };
+		C54531331A24D6750048A677 /* WLLinkDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLinkDeviceViewController.h; path = WLLinkDeviceViewController/WLLinkDeviceViewController.h; sourceTree = "<group>"; };
+		C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLinkDeviceViewController.m; path = WLLinkDeviceViewController/WLLinkDeviceViewController.m; sourceTree = "<group>"; };
 		C547A44F1A026B3E005061AB /* WLKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLKeyboard.h; sourceTree = "<group>"; };
 		C547A4501A026B3E005061AB /* WLKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLKeyboard.m; sourceTree = "<group>"; };
 		C54A80AD1A1DFD9700CBAF1A /* WLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLabel.h; path = WLLabel/WLLabel.h; sourceTree = "<group>"; };
@@ -3416,6 +3428,15 @@
 			path = WLCountryCell;
 			sourceTree = "<group>";
 		};
+		C54531321A24D6580048A677 /* WLLinkDeviceViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C54531331A24D6750048A677 /* WLLinkDeviceViewController.h */,
+				C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */,
+			);
+			name = WLLinkDeviceViewController;
+			sourceTree = "<group>";
+		};
 		C547A44E1A026B3E005061AB /* WLKeyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -3613,6 +3634,8 @@
 				C5C20B9A1A238E22008B2E2E /* WLEmailValidation.m */,
 				C545311E1A2497470048A677 /* WLPhoneValidation.h */,
 				C545311F1A2497470048A677 /* WLPhoneValidation.m */,
+				C51A52191A24DCED00558BF3 /* WLPasscodeValidation.h */,
+				C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */,
 			);
 			name = WLValidation;
 			sourceTree = "<group>";
@@ -3630,6 +3653,7 @@
 		C5C20BB31A239D6F008B2E2E /* Authorization Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				C54531321A24D6580048A677 /* WLLinkDeviceViewController */,
 				C54531241A24A1F20048A677 /* WLCountriesViewController */,
 				C5C20BB41A239D6F008B2E2E /* WLActivationViewController */,
 				C5C20BB71A239D6F008B2E2E /* WLAuthorizationSceneViewController.h */,
@@ -4465,6 +4489,7 @@
 				12A9EFBA18F8026E002CBF75 /* WLCameraInteractionView.m in Sources */,
 				128E5BE41918EFBD005F2714 /* NSString+Additions.m in Sources */,
 				12E1104D19067095007DB4AC /* WLCommentCell.m in Sources */,
+				C51A521B1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
 				5BB04F2E19D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
 				C57005A21A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C50A677A19D978F700EC518F /* WLEntryNotifier.m in Sources */,
@@ -4649,6 +4674,7 @@
 				12E0F0621909249000463FEC /* UILabel+Additions.m in Sources */,
 				C54A80AF1A1DFD9700CBAF1A /* WLLabel.m in Sources */,
 				C517D4CF19D08144006058C7 /* UIDevice+SystemVersion.m in Sources */,
+				C54531351A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
 				C51910721A078248003C78B2 /* WLUploading+Extended.m in Sources */,
 				5BBBEB4719D983E9008CFE54 /* WLUpdateContributorsRequest.m in Sources */,
 				C5FFB03419AC8FA5006F27A7 /* WLTimelineEvent.m in Sources */,
@@ -4697,6 +4723,7 @@
 				C54AF47619B8C437006F7EDB /* WLCameraInteractionView.m in Sources */,
 				C54AF47719B8C437006F7EDB /* NSString+Additions.m in Sources */,
 				C54AF47819B8C437006F7EDB /* WLCommentCell.m in Sources */,
+				C51A521C1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
 				5BB04F2F19D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
 				C57005A31A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C50A677B19D978F700EC518F /* WLEntryNotifier.m in Sources */,
@@ -4881,6 +4908,7 @@
 				C54AF51019B8C437006F7EDB /* UILabel+Additions.m in Sources */,
 				C54A80B01A1DFD9700CBAF1A /* WLLabel.m in Sources */,
 				C517D4D019D08144006058C7 /* UIDevice+SystemVersion.m in Sources */,
+				C54531361A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
 				C51910731A078248003C78B2 /* WLUploading+Extended.m in Sources */,
 				5BBBEB4819D983E9008CFE54 /* WLUpdateContributorsRequest.m in Sources */,
 				C54AF51119B8C437006F7EDB /* WLTimelineEvent.m in Sources */,
@@ -4929,6 +4957,7 @@
 				C54AF57319B8C467006F7EDB /* WLCameraInteractionView.m in Sources */,
 				C54AF57419B8C467006F7EDB /* NSString+Additions.m in Sources */,
 				C54AF57519B8C467006F7EDB /* WLCommentCell.m in Sources */,
+				C51A521D1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
 				5BB04F3019D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
 				C57005A41A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C50A677C19D978F700EC518F /* WLEntryNotifier.m in Sources */,
@@ -5113,6 +5142,7 @@
 				C54AF60D19B8C467006F7EDB /* UILabel+Additions.m in Sources */,
 				C54A80B11A1DFD9700CBAF1A /* WLLabel.m in Sources */,
 				C517D4D119D08144006058C7 /* UIDevice+SystemVersion.m in Sources */,
+				C54531371A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
 				C51910741A078248003C78B2 /* WLUploading+Extended.m in Sources */,
 				5BBBEB4919D983E9008CFE54 /* WLUpdateContributorsRequest.m in Sources */,
 				C54AF60E19B8C467006F7EDB /* WLTimelineEvent.m in Sources */,
@@ -5161,6 +5191,7 @@
 				C54AF67019B8C491006F7EDB /* WLCameraInteractionView.m in Sources */,
 				C54AF67119B8C491006F7EDB /* NSString+Additions.m in Sources */,
 				C54AF67219B8C491006F7EDB /* WLCommentCell.m in Sources */,
+				C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
 				5BB04F3119D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
 				C57005A51A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C50A677D19D978F700EC518F /* WLEntryNotifier.m in Sources */,
@@ -5345,6 +5376,7 @@
 				C54AF70A19B8C491006F7EDB /* UILabel+Additions.m in Sources */,
 				C54A80B21A1DFD9700CBAF1A /* WLLabel.m in Sources */,
 				C517D4D219D08144006058C7 /* UIDevice+SystemVersion.m in Sources */,
+				C54531381A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
 				C51910751A078248003C78B2 /* WLUploading+Extended.m in Sources */,
 				5BBBEB4A19D983E9008CFE54 /* WLUpdateContributorsRequest.m in Sources */,
 				C54AF70B19B8C491006F7EDB /* WLTimelineEvent.m in Sources */,

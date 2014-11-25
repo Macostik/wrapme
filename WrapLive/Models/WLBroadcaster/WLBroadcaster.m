@@ -15,7 +15,9 @@
 
 @end
 
-@implementation WLBroadcaster
+@implementation WLBroadcaster {
+    BOOL broadcasting;
+}
 
 + (instancetype)broadcaster {
     return nil;
@@ -46,11 +48,19 @@
 }
 
 - (void)addReceiver:(id)receiver {
-	[self.receivers addObject:receiver];
+    if (!broadcasting) {
+        [self.receivers addObject:receiver];
+    } else {
+        [self.receivers performSelector:@selector(addObject:) withObject:receiver afterDelay:0.0f];
+    }
 }
 
 - (void)removeReceiver:(id)receiver {
-	[self.receivers removeObject:receiver];
+    if (!broadcasting) {
+        [self.receivers removeObject:receiver];
+    } else {
+        [self.receivers performSelector:@selector(removeObject:) withObject:receiver afterDelay:0.0f];
+    }
 }
 
 - (BOOL)containsReceiver:(id)receiver {
@@ -62,6 +72,7 @@
 }
 
 - (void)broadcast:(SEL)selector object:(id)object select:(WLBroadcastSelectReceiver)select {
+    broadcasting = YES;
     for (id receiver in self.receivers) {
         if ((select ? select(receiver, object) : YES) && [receiver respondsToSelector:selector]) {
 #pragma clang diagnostic push
@@ -70,6 +81,7 @@
 #pragma clang diagnostic pop
         }
     }
+    broadcasting = NO;
 }
 
 - (void)broadcast:(SEL)selector {

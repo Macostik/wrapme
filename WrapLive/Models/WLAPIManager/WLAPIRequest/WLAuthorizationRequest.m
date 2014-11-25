@@ -132,7 +132,12 @@ static BOOL authorized = NO;
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    return [[response.data dictionaryForKey:WLUserKey] numberForKey:@"found"];
+    WLWhoIs* whoIs = [[WLWhoIs alloc] init];
+    NSDictionary *userInfo = [response.data dictionaryForKey:WLUserKey];
+    whoIs.found = [userInfo boolForKey:@"found"];
+    whoIs.confirmed = [userInfo boolForKey:@"confirmed_email"];
+    whoIs.included = [[userInfo arrayForKey:@"device_uids"] containsObject:[WLAuthorization currentAuthorization].deviceUID];
+    return whoIs;
 }
 
 @end
@@ -169,6 +174,10 @@ static BOOL authorized = NO;
 - (id)signIn:(WLUserBlock)success failure:(WLFailureBlock)failure {
 	return [[WLAuthorizationRequest signInRequest:self] send:success failure:failure];
 }
+
+@end
+
+@implementation WLWhoIs
 
 @end
 

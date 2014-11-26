@@ -74,6 +74,6 @@ typedef NS_ENUM(NSUInteger, WLAuthorizationStep) {
 
 @property (nonatomic) BOOL confirmed;
 
-@property (nonatomic) BOOL included;
+@property (nonatomic) BOOL requiresVerification;
 
 @end

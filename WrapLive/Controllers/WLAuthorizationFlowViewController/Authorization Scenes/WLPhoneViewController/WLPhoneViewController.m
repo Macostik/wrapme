@@ -40,7 +40,6 @@
 
 @property (strong, nonatomic) WLCountry *country;
 
-@property (strong, nonatomic) WLAuthorization *authorization;
 @property (strong, nonatomic) IBOutlet WLPhoneValidation *validation;
 
 @end
@@ -65,23 +64,12 @@
 	}
 }
 
-- (WLAuthorization *)authorization {
-    if (!_authorization) {
-        _authorization = [[WLAuthorization alloc] init];
-    }
-    return _authorization;
-}
-
 - (void)setCountry:(WLCountry *)country {
 	_country = country;
-    self.authorization.countryCode = country.callingCode;
+    [WLAuthorization currentAuthorization].countryCode = country.callingCode;
 	[self.selectCountryButton setTitle:country.name forState:UIControlStateNormal];
 	self.countryCodeLabel.text = [NSString stringWithFormat:@"+%@", country.callingCode];
     self.validation.format = [[RMPhoneFormat alloc] initWithDefaultCountry:[country.code lowercaseString]];
-}
-
-- (void)setEmail:(NSString *)email {
-    self.authorization.email = email;
 }
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
@@ -95,10 +83,11 @@
 }
 
 - (IBAction)next:(WLButton*)sender {
-    self.authorization.phone = phoneNumberClearing(self.phoneNumberTextField.text);
-    self.authorization.formattedPhone = self.phoneNumberTextField.text;
+    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+    authorization.phone = phoneNumberClearing(self.phoneNumberTextField.text);
+    authorization.formattedPhone = self.phoneNumberTextField.text;
     __weak typeof(self)weakSelf = self;
-    [self confirmAuthorization:[self authorization] success:^(WLAuthorization *authorization) {
+    [self confirmAuthorization:authorization success:^(WLAuthorization *authorization) {
         sender.loading = YES;
         [weakSelf signUpAuthorization:authorization success:^{
             sender.loading = NO;
@@ -125,9 +114,6 @@
 		[weakSelf.navigationController pushViewController:controller animated:YES];
         if (success) success();
 	} failure:^(NSError *error) {
-        WLActivationViewController *controller = [WLActivationViewController instantiate:weakSelf.storyboard];
-        controller.authorization = authorization;
-        [weakSelf.navigationController pushViewController:controller animated:YES];
 		[error show];
         if (failure) failure(error);
 	}];
@@ -142,8 +128,9 @@
 }
 
 - (IBAction)phoneChanged:(UITextField *)sender {
-    self.authorization.phone = phoneNumberClearing(sender.text);
-    self.authorization.formattedPhone = sender.text;
+    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+    authorization.phone = phoneNumberClearing(sender.text);
+    authorization.formattedPhone = sender.text;
 }
 
 - (void)selectTestUser {

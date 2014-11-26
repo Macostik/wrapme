@@ -10,6 +10,4 @@
 
 @interface WLPhoneViewController : WLAuthorizationSceneViewController
 
-- (void)setEmail:(NSString*)email;
-
 @end

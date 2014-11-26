@@ -56,10 +56,6 @@
     } failure:failure];
 }
 
-- (IBAction)editNumber:(id)sender {
-	[self.navigationController popViewControllerAnimated:YES];
-}
-
 - (IBAction)next:(WLButton*)sender {
     sender.loading = YES;
     __weak typeof(self)weakSelf = self;
@@ -77,7 +73,7 @@
     if (user.name.nonempty && user.picture.medium.nonempty) {
         [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
     } else {
-        WLProfileInformationViewController * controller = [WLProfileInformationViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]];
+        WLProfileInformationViewController * controller = [WLProfileInformationViewController instantiate:self.storyboard];
         [self.navigationController pushViewController:controller animated:YES];
     }
 }

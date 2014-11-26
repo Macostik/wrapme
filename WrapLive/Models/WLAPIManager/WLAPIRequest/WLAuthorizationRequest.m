@@ -86,7 +86,7 @@ static BOOL authorized = NO;
 
 - (id)objectInResponse:(WLAPIResponse *)response {
     if (self.step == WLAuthorizationStepActivation) {
-        self.authorization.password = [response.data stringForKey:@"password"];
+        self.authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
 		[self.authorization setCurrent];
     } else if (self.step == WLAuthorizationStepSignIn) {
         if (!authorized) {
@@ -136,7 +136,18 @@ static BOOL authorized = NO;
     NSDictionary *userInfo = [response.data dictionaryForKey:WLUserKey];
     whoIs.found = [userInfo boolForKey:@"found"];
     whoIs.confirmed = [userInfo boolForKey:@"confirmed_email"];
-    whoIs.included = [[userInfo arrayForKey:@"device_uids"] containsObject:[WLAuthorization currentAuthorization].deviceUID];
+    NSString* userUID = [WLUser API_identifier:userInfo];
+    if (userUID.nonempty) {
+        [[WLUser entry:userUID] setCurrent];
+    }
+    WLAuthorization* authorization = [[WLAuthorization alloc] init];
+    authorization.email = self.email;
+    if (!whoIs.confirmed) {
+        authorization.unconfirmed_email = self.email;
+    }
+    [authorization setCurrent];
+    NSArray* deviceUIDs = [userInfo arrayForKey:@"device_uids"];
+    whoIs.requiresVerification = !deviceUIDs.nonempty || [deviceUIDs containsObject:authorization.deviceUID];
     return whoIs;
 }
 

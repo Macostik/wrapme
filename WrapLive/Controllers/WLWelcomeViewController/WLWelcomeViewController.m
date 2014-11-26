@@ -22,6 +22,7 @@
 #import "WLTermsAndConditionsKeys.h"
 #import "WLUser.h"
 #import "WLWelcomeViewController.h"
+#import "UIViewController+Additions.h"
 
 typedef enum : NSUInteger {
     WLFlipDirectionLeft,
@@ -96,7 +97,9 @@ typedef enum : NSUInteger {
     [UIView animateWithDuration:30 * (self.backgroundView.height / 1500.0f) delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
         [weakSelf.backgroundView layoutIfNeeded];
     } completion:^(BOOL finished) {
-        [weakSelf animateBackgroundView:nextOffset nextOffset:offset];
+        if (weakSelf.isOnTopOfNagvigation) {
+            [weakSelf animateBackgroundView:nextOffset nextOffset:offset];
+        }
     }];
 }
 

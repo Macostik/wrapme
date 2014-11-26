@@ -33,6 +33,14 @@
     }
 }
 
+- (WLValidationStatus)defineCurrentStatus:(UITextField *)inputView {
+    WLValidationStatus status = [super defineCurrentStatus:inputView];
+    if (status == WLValidationStatusValid) {
+        status = inputView.text.length > 5 ? WLValidationStatusValid : WLValidationStatusInvalid;
+    }
+    return status;
+}
+
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

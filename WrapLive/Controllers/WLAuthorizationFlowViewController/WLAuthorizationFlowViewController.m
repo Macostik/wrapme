@@ -20,6 +20,8 @@
 #import "WLAuthorizationSceneViewController.h"
 #import "WLEmailViewController.h"
 #import "WLPhoneViewController.h"
+#import "WLEmailConfirmationViewController.h"
+#import "WLLinkDeviceViewController.h"
 
 @interface WLAuthorizationFlowViewController () <UINavigationControllerDelegate, WLEmailViewControllerDelegate>
 
@@ -35,7 +37,7 @@
     self.flowNavigationController = [self.childViewControllers lastObject];
     self.flowNavigationController.delegate = self;
     if (self.registrationNotCompleted) {
-        self.flowNavigationController.viewControllers = @[[WLProfileInformationViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]]];
+        self.flowNavigationController.viewControllers = @[[WLProfileInformationViewController instantiate:self.storyboard]];
     }
     
 }
@@ -57,13 +59,17 @@
     request.email = email;
     __weak typeof(self)weakSelf = self;
     [request send:^(WLWhoIs* whoIs) {
-        /*if (whoIs.found) {
-            
-        } else*/ {
-            WLPhoneViewController* phoneViewController = [WLPhoneViewController instantiate:weakSelf.storyboard];
-            [phoneViewController setEmail:email];
-            [weakSelf.flowNavigationController pushViewController:phoneViewController animated:YES];
+        WLAuthorizationSceneViewController* sceneViewController = nil;
+        if (whoIs.found && !whoIs.requiresVerification) {
+            if (whoIs.confirmed) {
+                sceneViewController = [WLPhoneViewController instantiate:weakSelf.storyboard];
+            } else {
+                sceneViewController = [WLEmailConfirmationViewController instantiate:weakSelf.storyboard];
+            }
+        } else {
+            sceneViewController = [WLPhoneViewController instantiate:weakSelf.storyboard];
         }
+        [weakSelf.flowNavigationController pushViewController:sceneViewController animated:YES];
     } failure:^(NSError *error) {
         
     }];

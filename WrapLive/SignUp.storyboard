@@ -1366,7 +1366,7 @@ Ravenpod, Inc.
                                 <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The phone number is verified successfully!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="sFh-WJ-4GR">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The verification code is not valid." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="sFh-WJ-4GR">
                                 <rect key="frame" x="30" y="328" width="260" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="260" id="Tbc-ID-6rl"/>
@@ -1581,7 +1581,114 @@ Ravenpod, Inc.
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OhW-L6-8Fr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3854" y="-415"/>
+            <point key="canvasLocation" x="4224" y="-425"/>
+        </scene>
+        <!--Email Confirmation View Controller-->
+        <scene sceneID="4nj-BC-Eea">
+            <objects>
+                <viewController storyboardIdentifier="WLEmailConfirmationViewController" id="vZf-ZB-Nuz" customClass="WLEmailConfirmationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5RL-w2-pY5"/>
+                        <viewControllerLayoutGuide type="bottom" id="f5K-9a-8FW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PT2-qX-fol">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="img_email" translatesAutoresizingMaskIntoConstraints="NO" id="BRP-nP-Dbj">
+                                <rect key="frame" x="111" y="103" width="98" height="63"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="63" id="KLn-sK-yKY"/>
+                                    <constraint firstAttribute="width" constant="98" id="jlA-Tx-0mi"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="calvin@ravenpod.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="Fab-q9-FLD">
+                                <rect key="frame" x="0.0" y="210" width="320" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="h9t-x4-sE5"/>
+                                    <constraint firstAttribute="height" constant="24" id="tX9-Dr-xfI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="is not confirmed yet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="Ozz-Wr-kgY">
+                                <rect key="frame" x="30" y="242" width="260" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="TGN-Av-MY4"/>
+                                    <constraint firstAttribute="width" constant="260" id="nAm-rJ-4bJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dM9-5p-U8h">
+                                <rect key="frame" x="60" y="279" width="200" height="32"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="BHL-20-h5Y"/>
+                                    <constraint firstAttribute="width" constant="200" id="caR-jT-w7d"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="Use another e-mail">
+                                    <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="kI8-qC-Zoo" kind="unwind" unwindAction="backSegue:" id="nbL-ym-YTo"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="dRx-kr-5xI">
+                                <rect key="frame" x="30" y="313" width="260" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="aGr-7z-nFK"/>
+                                    <constraint firstAttribute="width" constant="260" id="fuF-xb-vBb"/>
+                                </constraints>
+                                <string key="text">We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oIH-Zc-2Z8" customClass="WLPressButton">
+                                <rect key="frame" x="70" y="403" width="180" height="46"/>
+                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="JCe-Kf-6hK"/>
+                                    <constraint firstAttribute="width" constant="180" id="JQN-i6-gQo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Resend the e-mail">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="resend:" destination="vZf-ZB-Nuz" eventType="touchUpInside" id="swH-3u-DcI"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dM9-5p-U8h" firstAttribute="top" secondItem="Ozz-Wr-kgY" secondAttribute="bottom" constant="5" id="0kN-Jb-JnM"/>
+                            <constraint firstItem="BRP-nP-Dbj" firstAttribute="centerX" secondItem="Fab-q9-FLD" secondAttribute="centerX" id="EED-AE-qbM"/>
+                            <constraint firstItem="Fab-q9-FLD" firstAttribute="top" secondItem="BRP-nP-Dbj" secondAttribute="bottom" constant="44" id="HG7-vj-Yew"/>
+                            <constraint firstItem="dRx-kr-5xI" firstAttribute="top" secondItem="dM9-5p-U8h" secondAttribute="bottom" constant="2" id="KxX-bE-QLn"/>
+                            <constraint firstItem="dM9-5p-U8h" firstAttribute="centerX" secondItem="Ozz-Wr-kgY" secondAttribute="centerX" id="P5I-T0-b6u"/>
+                            <constraint firstItem="oIH-Zc-2Z8" firstAttribute="top" secondItem="dRx-kr-5xI" secondAttribute="bottom" constant="20" id="Pjy-ub-s8c"/>
+                            <constraint firstAttribute="centerY" secondItem="BRP-nP-Dbj" secondAttribute="centerY" constant="150" id="Uml-Wt-Wyw"/>
+                            <constraint firstItem="Ozz-Wr-kgY" firstAttribute="top" secondItem="Fab-q9-FLD" secondAttribute="bottom" constant="8" id="cih-mK-JUs"/>
+                            <constraint firstItem="dM9-5p-U8h" firstAttribute="centerX" secondItem="dRx-kr-5xI" secondAttribute="centerX" id="gfz-ud-lt1"/>
+                            <constraint firstItem="Fab-q9-FLD" firstAttribute="centerX" secondItem="Ozz-Wr-kgY" secondAttribute="centerX" id="oNV-lj-0xk"/>
+                            <constraint firstAttribute="centerX" secondItem="oIH-Zc-2Z8" secondAttribute="centerX" id="suq-1d-5xh"/>
+                            <constraint firstAttribute="centerX" secondItem="BRP-nP-Dbj" secondAttribute="centerX" id="t6x-cL-DjX"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qjc-rr-61Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="kI8-qC-Zoo" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3874" y="-425"/>
         </scene>
         <!--Profile Information View Controller-->
         <scene sceneID="Vwg-Ce-jcW">

@@ -24,7 +24,7 @@
 
 - (NSMapTable *)completionScenes {
     if (!_completionScenes) {
-        _completionScenes = [NSMapTable strongToStrongObjectsMapTable];
+        _completionScenes = [NSMapTable strongToWeakObjectsMapTable];
     }
     return _completionScenes;
 }
@@ -92,7 +92,7 @@
 }
 
 - (void)complete {
-    [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
+    [self.delegate signupStepViewControllerCompletedSignup:self];
 }
 
 @end

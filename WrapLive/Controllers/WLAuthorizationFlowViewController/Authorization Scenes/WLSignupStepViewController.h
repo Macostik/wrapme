@@ -16,13 +16,15 @@ typedef NS_ENUM(NSUInteger, WLSignupStepStatus) {
 
 @class WLSignupStepViewController;
 
-@protocol WLAuthorizationSceneViewControllerDelegate <NSObject>
+@protocol WLSignupStepViewControllerDelegate <NSObject>
+
+- (void)signupStepViewControllerCompletedSignup:(WLSignupStepViewController*)controller;
 
 @end
 
 @interface WLSignupStepViewController : WLBaseViewController
 
-@property (nonatomic, weak) id <WLAuthorizationSceneViewControllerDelegate> delegate;
+@property (nonatomic, weak) id <WLSignupStepViewControllerDelegate> delegate;
 
 - (void)setViewController:(WLSignupStepViewController *)controller forStatus:(NSUInteger)status;
 

@@ -17,10 +17,12 @@
 #import "WLTelephony.h"
 #import "WLActivationViewController.h"
 
-@interface WLSignupFlowViewController () <UINavigationControllerDelegate, WLAuthorizationSceneViewControllerDelegate>
+@interface WLSignupFlowViewController () <UINavigationControllerDelegate, WLSignupStepViewControllerDelegate>
 
 @property (weak, nonatomic) UINavigationController* flowNavigationController;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
+
+@property (strong, nonatomic) NSMutableSet* stepViewControllers;
 
 @end
 
@@ -28,45 +30,71 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    self.stepViewControllers = [NSMutableSet set];
     self.flowNavigationController = [self.childViewControllers lastObject];
     self.flowNavigationController.delegate = self;
     if (self.registrationNotCompleted) {
-        self.flowNavigationController.viewControllers = @[[WLProfileInformationViewController instantiate:self.storyboard]];
+        [self completeSignup];
     } else {
-        WLEmailViewController* emailViewController = [self.flowNavigationController.viewControllers lastObject];
-        WLPhoneViewController* phoneViewController = [WLPhoneViewController instantiate:self.storyboard];
-        WLActivationViewController* verificationViewController = [WLActivationViewController instantiate:self.storyboard];
-        WLLinkDeviceViewController* linkDeviceViewController = [WLLinkDeviceViewController instantiate:self.storyboard];
-        WLEmailConfirmationViewController *confirmationViewController = [WLEmailConfirmationViewController instantiate:self.storyboard];
-        
-        WLSignupStepViewController* verificationSuccessViewController = [WLSignupStepViewController instantiateWithIdentifier:@"WLVerificationSuccessViewController" storyboard:self.storyboard];
-        WLSignupStepViewController* verificationFailureViewController = [WLSignupStepViewController instantiateWithIdentifier:@"WLVerificationFailureViewController" storyboard:self.storyboard];
-        WLSignupStepViewController* linkDeviceSuccessViewController = [WLSignupStepViewController instantiateWithIdentifier:@"WLLinkDeviceSuccessViewController" storyboard:self.storyboard];
-        WLSignupStepViewController* emailConfirmationSuccessViewController = [WLSignupStepViewController instantiateWithIdentifier:@"WLEmailConfirmationSuccessViewController" storyboard:self.storyboard];
-        WLProfileInformationViewController* profileViewController = [WLProfileInformationViewController instantiate:self.storyboard];
-        
-        [emailViewController setViewController:phoneViewController forStatus:WLEmailViewControllerCompletionStatusVerification];
-        [emailViewController setViewController:linkDeviceViewController forStatus:WLEmailViewControllerCompletionStatusLinkDevice];
-        [emailViewController setViewController:confirmationViewController forStatus:WLEmailViewControllerCompletionStatusUnconfirmedEmail];
-        
-        [phoneViewController setSuccessViewController:verificationViewController];
-        
-        [verificationViewController setSuccessViewController:verificationSuccessViewController];
-        
-        [verificationViewController setFailureViewController:verificationFailureViewController];
-        
-        [verificationSuccessViewController setSuccessViewController:profileViewController];
-        
-        [verificationFailureViewController setFailureViewController:verificationViewController];
-        
-        [verificationFailureViewController setCancelViewController:phoneViewController];
-        
-        [linkDeviceViewController setSuccessViewController:linkDeviceSuccessViewController];
-        
-        [linkDeviceSuccessViewController setSuccessViewController:profileViewController];
-        
-        [confirmationViewController setSuccessViewController:emailConfirmationSuccessViewController];
+        [self configureSignupFlow];
     }
+}
+
+- (void)completeSignup {
+    self.flowNavigationController.viewControllers = @[[WLProfileInformationViewController instantiate:self.storyboard]];
+}
+
+- (void)configureSignupFlow {
+    UIStoryboard* storyboard = self.storyboard;
+    
+    WLEmailViewController* emailViewController = [self.flowNavigationController.viewControllers lastObject];
+    WLPhoneViewController* phoneViewController = [WLPhoneViewController instantiate:storyboard];
+    WLActivationViewController* verificationViewController = [WLActivationViewController instantiate:storyboard];
+    WLLinkDeviceViewController* linkDeviceViewController = [WLLinkDeviceViewController instantiate:storyboard];
+    WLEmailConfirmationViewController *confirmationViewController = [WLEmailConfirmationViewController instantiate:storyboard];
+    
+    WLSignupStepViewController* verificationSuccessViewController = [storyboard instantiateViewControllerWithIdentifier:@"WLVerificationSuccessViewController"];
+    WLSignupStepViewController* verificationFailureViewController = [storyboard instantiateViewControllerWithIdentifier:@"WLVerificationFailureViewController"];
+    WLSignupStepViewController* linkDeviceSuccessViewController = [storyboard instantiateViewControllerWithIdentifier:@"WLLinkDeviceSuccessViewController"];
+    WLSignupStepViewController* emailConfirmationSuccessViewController = [storyboard instantiateViewControllerWithIdentifier:@"WLEmailConfirmationSuccessViewController"];
+    
+    WLProfileInformationViewController* profileViewController = [WLProfileInformationViewController instantiate:storyboard];
+    
+    NSMutableSet *controllers = self.stepViewControllers;
+    [controllers addObject:emailViewController];
+    [controllers addObject:phoneViewController];
+    [controllers addObject:verificationViewController];
+    [controllers addObject:linkDeviceViewController];
+    [controllers addObject:confirmationViewController];
+    [controllers addObject:verificationSuccessViewController];
+    [controllers addObject:verificationFailureViewController];
+    [controllers addObject:linkDeviceSuccessViewController];
+    [controllers addObject:emailConfirmationSuccessViewController];
+    [controllers addObject:profileViewController];
+    
+    [emailViewController setViewController:phoneViewController forStatus:WLEmailViewControllerCompletionStatusVerification];
+    
+    [emailViewController setViewController:linkDeviceViewController forStatus:WLEmailViewControllerCompletionStatusLinkDevice];
+    
+    [emailViewController setViewController:confirmationViewController forStatus:WLEmailViewControllerCompletionStatusUnconfirmedEmail];
+    
+    [phoneViewController setSuccessViewController:verificationViewController];
+    
+    [verificationViewController setSuccessViewController:verificationSuccessViewController];
+    
+    [verificationViewController setFailureViewController:verificationFailureViewController];
+    
+    [verificationSuccessViewController setSuccessViewController:profileViewController];
+    
+    [verificationFailureViewController setFailureViewController:verificationViewController];
+    
+    [verificationFailureViewController setCancelViewController:phoneViewController];
+    
+    [linkDeviceViewController setSuccessViewController:linkDeviceSuccessViewController];
+    
+    [linkDeviceSuccessViewController setSuccessViewController:profileViewController];
+    
+    [confirmationViewController setSuccessViewController:emailConfirmationSuccessViewController];
 }
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
@@ -77,6 +105,10 @@
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(WLSignupStepViewController *)viewController animated:(BOOL)animated {
     viewController.delegate = self;
+}
+
+- (void)signupStepViewControllerCompletedSignup:(WLSignupStepViewController *)controller {
+    [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
 }
 
 @end

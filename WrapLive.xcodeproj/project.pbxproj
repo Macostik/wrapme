@@ -1211,10 +1211,10 @@
 		C5C20BCA1A239D6F008B2E2E /* WLActivationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB61A239D6F008B2E2E /* WLActivationViewController.m */; };
 		C5C20BCB1A239D6F008B2E2E /* WLActivationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB61A239D6F008B2E2E /* WLActivationViewController.m */; };
 		C5C20BCC1A239D6F008B2E2E /* WLActivationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB61A239D6F008B2E2E /* WLActivationViewController.m */; };
-		C5C20BCD1A239D6F008B2E2E /* WLAuthorizationSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB81A239D6F008B2E2E /* WLAuthorizationSceneViewController.m */; };
-		C5C20BCE1A239D6F008B2E2E /* WLAuthorizationSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB81A239D6F008B2E2E /* WLAuthorizationSceneViewController.m */; };
-		C5C20BCF1A239D6F008B2E2E /* WLAuthorizationSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB81A239D6F008B2E2E /* WLAuthorizationSceneViewController.m */; };
-		C5C20BD01A239D6F008B2E2E /* WLAuthorizationSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB81A239D6F008B2E2E /* WLAuthorizationSceneViewController.m */; };
+		C5C20BCD1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB81A239D6F008B2E2E /* WLSignupStepViewController.m */; };
+		C5C20BCE1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB81A239D6F008B2E2E /* WLSignupStepViewController.m */; };
+		C5C20BCF1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB81A239D6F008B2E2E /* WLSignupStepViewController.m */; };
+		C5C20BD01A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB81A239D6F008B2E2E /* WLSignupStepViewController.m */; };
 		C5C20BD11A239D6F008B2E2E /* WLEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BBB1A239D6F008B2E2E /* WLEmailViewController.m */; };
 		C5C20BD21A239D6F008B2E2E /* WLEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BBB1A239D6F008B2E2E /* WLEmailViewController.m */; };
 		C5C20BD31A239D6F008B2E2E /* WLEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BBB1A239D6F008B2E2E /* WLEmailViewController.m */; };
@@ -1239,10 +1239,10 @@
 		C5C20BE61A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC61A239D6F008B2E2E /* WLProfileInformationViewController.m */; };
 		C5C20BE71A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC61A239D6F008B2E2E /* WLProfileInformationViewController.m */; };
 		C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC61A239D6F008B2E2E /* WLProfileInformationViewController.m */; };
-		C5C20BE91A239D6F008B2E2E /* WLAuthorizationFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLAuthorizationFlowViewController.m */; };
-		C5C20BEA1A239D6F008B2E2E /* WLAuthorizationFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLAuthorizationFlowViewController.m */; };
-		C5C20BEB1A239D6F008B2E2E /* WLAuthorizationFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLAuthorizationFlowViewController.m */; };
-		C5C20BEC1A239D6F008B2E2E /* WLAuthorizationFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLAuthorizationFlowViewController.m */; };
+		C5C20BE91A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
+		C5C20BEA1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
+		C5C20BEB1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
+		C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
 		C5C6465519A6264300F8243A /* WLNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLNotificationCell.m */; };
 		C5E4CCF61A1BA38800B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
 		C5E4CCF71A1BA38800B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
@@ -1822,8 +1822,8 @@
 		C5C20BA01A238ED8008B2E2E /* WLTextFieldValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTextFieldValidation.m; path = WLValidation/WLTextFieldValidation.m; sourceTree = "<group>"; };
 		C5C20BB51A239D6F008B2E2E /* WLActivationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLActivationViewController.h; sourceTree = "<group>"; };
 		C5C20BB61A239D6F008B2E2E /* WLActivationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLActivationViewController.m; sourceTree = "<group>"; };
-		C5C20BB71A239D6F008B2E2E /* WLAuthorizationSceneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAuthorizationSceneViewController.h; sourceTree = "<group>"; };
-		C5C20BB81A239D6F008B2E2E /* WLAuthorizationSceneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAuthorizationSceneViewController.m; sourceTree = "<group>"; };
+		C5C20BB71A239D6F008B2E2E /* WLSignupStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignupStepViewController.h; sourceTree = "<group>"; };
+		C5C20BB81A239D6F008B2E2E /* WLSignupStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignupStepViewController.m; sourceTree = "<group>"; };
 		C5C20BBA1A239D6F008B2E2E /* WLEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailViewController.h; sourceTree = "<group>"; };
 		C5C20BBB1A239D6F008B2E2E /* WLEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailViewController.m; sourceTree = "<group>"; };
 		C5C20BBD1A239D6F008B2E2E /* WLPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPhoneViewController.h; sourceTree = "<group>"; };
@@ -1835,8 +1835,8 @@
 		C5C20BC31A239D6F008B2E2E /* WLTestUserPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTestUserPicker.m; sourceTree = "<group>"; };
 		C5C20BC51A239D6F008B2E2E /* WLProfileInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLProfileInformationViewController.h; sourceTree = "<group>"; };
 		C5C20BC61A239D6F008B2E2E /* WLProfileInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLProfileInformationViewController.m; sourceTree = "<group>"; };
-		C5C20BC71A239D6F008B2E2E /* WLAuthorizationFlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAuthorizationFlowViewController.h; sourceTree = "<group>"; };
-		C5C20BC81A239D6F008B2E2E /* WLAuthorizationFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAuthorizationFlowViewController.m; sourceTree = "<group>"; };
+		C5C20BC71A239D6F008B2E2E /* WLSignupFlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignupFlowViewController.h; sourceTree = "<group>"; };
+		C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignupFlowViewController.m; sourceTree = "<group>"; };
 		C5C5A13D19F7BED600E1E033 /* GeometryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryHelper.h; sourceTree = "<group>"; };
 		C5C5A13E19F7BED600E1E033 /* Timecost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timecost.h; sourceTree = "<group>"; };
 		C5C5A13F19F7BF1D00E1E033 /* DefinedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefinedBlocks.h; sourceTree = "<group>"; };
@@ -3675,8 +3675,8 @@
 			isa = PBXGroup;
 			children = (
 				C5C20BB31A239D6F008B2E2E /* Authorization Scenes */,
-				C5C20BC71A239D6F008B2E2E /* WLAuthorizationFlowViewController.h */,
-				C5C20BC81A239D6F008B2E2E /* WLAuthorizationFlowViewController.m */,
+				C5C20BC71A239D6F008B2E2E /* WLSignupFlowViewController.h */,
+				C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */,
 			);
 			path = WLAuthorizationFlowViewController;
 			sourceTree = "<group>";
@@ -3688,8 +3688,8 @@
 				C54531321A24D6580048A677 /* WLLinkDeviceViewController */,
 				C54531241A24A1F20048A677 /* WLCountriesViewController */,
 				C5C20BB41A239D6F008B2E2E /* WLActivationViewController */,
-				C5C20BB71A239D6F008B2E2E /* WLAuthorizationSceneViewController.h */,
-				C5C20BB81A239D6F008B2E2E /* WLAuthorizationSceneViewController.m */,
+				C5C20BB71A239D6F008B2E2E /* WLSignupStepViewController.h */,
+				C5C20BB81A239D6F008B2E2E /* WLSignupStepViewController.m */,
 				C5C20BB91A239D6F008B2E2E /* WLEmailViewController */,
 				C5C20BBC1A239D6F008B2E2E /* WLPhoneViewController */,
 				C5C20BC41A239D6F008B2E2E /* WLProfileInformationViewController */,
@@ -4496,7 +4496,7 @@
 				C55C8D6E19C98A9400199245 /* WLNotificationCenter.m in Sources */,
 				C50AF412197694EE00761F38 /* WLContributorsRequest.m in Sources */,
 				14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */,
-				C5C20BE91A239D6F008B2E2E /* WLAuthorizationFlowViewController.m in Sources */,
+				C5C20BE91A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
 				C508E7D31987A396002998CE /* WLCollectionViewDataProvider.m in Sources */,
 				12A8AA6D18F5919700F67113 /* WLLoadingView.m in Sources */,
 				C50AF42A1976B43A00761F38 /* WLPostCommentRequest.m in Sources */,
@@ -4606,7 +4606,7 @@
 				5BAA216319FE7BCD008958EF /* WLActionViewController.m in Sources */,
 				120ED84F18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				121907B6192CFF3F00E7C22D /* WLAuthorization.m in Sources */,
-				C5C20BCD1A239D6F008B2E2E /* WLAuthorizationSceneViewController.m in Sources */,
+				C5C20BCD1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
 				128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */,
 				C50AF40C19768ADE00761F38 /* WLAuthorizationRequest.m in Sources */,
 				C5149644197586E4009F0743 /* WLWrapsRequest.m in Sources */,
@@ -4732,7 +4732,7 @@
 				C55C8D6F19C98A9400199245 /* WLNotificationCenter.m in Sources */,
 				C54AF46019B8C437006F7EDB /* WLContributorsRequest.m in Sources */,
 				C54AF46119B8C437006F7EDB /* WLProfileEditSession.m in Sources */,
-				C5C20BEA1A239D6F008B2E2E /* WLAuthorizationFlowViewController.m in Sources */,
+				C5C20BEA1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
 				C54AF46219B8C437006F7EDB /* WLCollectionViewDataProvider.m in Sources */,
 				C54AF46319B8C437006F7EDB /* WLLoadingView.m in Sources */,
 				C54AF46419B8C437006F7EDB /* WLPostCommentRequest.m in Sources */,
@@ -4842,7 +4842,7 @@
 				5BAA216419FE7BCD008958EF /* WLActionViewController.m in Sources */,
 				C54AF4B719B8C437006F7EDB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				C54AF4B819B8C437006F7EDB /* WLAuthorization.m in Sources */,
-				C5C20BCE1A239D6F008B2E2E /* WLAuthorizationSceneViewController.m in Sources */,
+				C5C20BCE1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
 				C54AF4BA19B8C437006F7EDB /* WLArchivingObject.m in Sources */,
 				C54AF4BB19B8C437006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF4BD19B8C437006F7EDB /* WLWrapsRequest.m in Sources */,
@@ -4968,7 +4968,7 @@
 				C55C8D7019C98A9400199245 /* WLNotificationCenter.m in Sources */,
 				C54AF55D19B8C467006F7EDB /* WLContributorsRequest.m in Sources */,
 				C54AF55E19B8C467006F7EDB /* WLProfileEditSession.m in Sources */,
-				C5C20BEB1A239D6F008B2E2E /* WLAuthorizationFlowViewController.m in Sources */,
+				C5C20BEB1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
 				C54AF55F19B8C467006F7EDB /* WLCollectionViewDataProvider.m in Sources */,
 				C54AF56019B8C467006F7EDB /* WLLoadingView.m in Sources */,
 				C54AF56119B8C467006F7EDB /* WLPostCommentRequest.m in Sources */,
@@ -5078,7 +5078,7 @@
 				5BAA216519FE7BCD008958EF /* WLActionViewController.m in Sources */,
 				C54AF5B419B8C467006F7EDB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				C54AF5B519B8C467006F7EDB /* WLAuthorization.m in Sources */,
-				C5C20BCF1A239D6F008B2E2E /* WLAuthorizationSceneViewController.m in Sources */,
+				C5C20BCF1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
 				C54AF5B719B8C467006F7EDB /* WLArchivingObject.m in Sources */,
 				C54AF5B819B8C467006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF5BA19B8C467006F7EDB /* WLWrapsRequest.m in Sources */,
@@ -5204,7 +5204,7 @@
 				C55C8D7119C98A9400199245 /* WLNotificationCenter.m in Sources */,
 				C54AF65A19B8C491006F7EDB /* WLContributorsRequest.m in Sources */,
 				C54AF65B19B8C491006F7EDB /* WLProfileEditSession.m in Sources */,
-				C5C20BEC1A239D6F008B2E2E /* WLAuthorizationFlowViewController.m in Sources */,
+				C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
 				C54AF65C19B8C491006F7EDB /* WLCollectionViewDataProvider.m in Sources */,
 				C54AF65D19B8C491006F7EDB /* WLLoadingView.m in Sources */,
 				C54AF65E19B8C491006F7EDB /* WLPostCommentRequest.m in Sources */,
@@ -5314,7 +5314,7 @@
 				5BAA216619FE7BCD008958EF /* WLActionViewController.m in Sources */,
 				C54AF6B119B8C491006F7EDB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				C54AF6B219B8C491006F7EDB /* WLAuthorization.m in Sources */,
-				C5C20BD01A239D6F008B2E2E /* WLAuthorizationSceneViewController.m in Sources */,
+				C5C20BD01A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
 				C54AF6B419B8C491006F7EDB /* WLArchivingObject.m in Sources */,
 				C54AF6B519B8C491006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF6B719B8C491006F7EDB /* WLWrapsRequest.m in Sources */,

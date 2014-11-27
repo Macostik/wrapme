@@ -109,9 +109,7 @@
 - (void)signUpAuthorization:(WLAuthorization*)authorization success:(WLBlock)success failure:(WLFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
 	[authorization signUp:^(WLAuthorization *authorization) {
-		WLActivationViewController *controller = [WLActivationViewController instantiate:weakSelf.storyboard];
-        controller.authorization = authorization;
-		[weakSelf.navigationController pushViewController:controller animated:YES];
+        [weakSelf showViewControllerForStatus:WLSignupStepStatusSuccess animated:YES];
         if (success) success();
 	} failure:^(NSError *error) {
 		[error show];
@@ -120,8 +118,9 @@
 }
 
 - (void)signInAuthorization:(WLAuthorization*)authorization {
+    __weak typeof(self)weakSelf = self;
 	[authorization signIn:^(WLUser *user) {
-        [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
+        [weakSelf complete];
 	} failure:^(NSError *error) {
 		[error show];
 	}];

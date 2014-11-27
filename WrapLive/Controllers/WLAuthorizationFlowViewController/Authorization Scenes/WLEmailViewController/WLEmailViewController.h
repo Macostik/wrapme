@@ -6,18 +6,14 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLAuthorizationSceneViewController.h"
+#import "WLSignupStepViewController.h"
 
-@class WLEmailViewController;
+typedef NS_ENUM(NSUInteger, WLEmailViewControllerCompletionStatus) {
+    WLEmailViewControllerCompletionStatusVerification,
+    WLEmailViewControllerCompletionStatusLinkDevice,
+    WLEmailViewControllerCompletionStatusUnconfirmedEmail
+};
 
-@protocol WLEmailViewControllerDelegate <WLAuthorizationSceneViewControllerDelegate>
-
-- (void)emailViewController:(WLEmailViewController *)controller didFinishWithEmail:(NSString*)email;
-
-@end
-
-@interface WLEmailViewController : WLAuthorizationSceneViewController
-
-@property (nonatomic, weak) id <WLEmailViewControllerDelegate> delegate;
+@interface WLEmailViewController : WLSignupStepViewController
 
 @end

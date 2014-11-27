@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLAuthorizationSceneViewController.h"
+#import "WLSignupStepViewController.h"
 
-@interface WLEmailConfirmationViewController : WLAuthorizationSceneViewController
+@interface WLEmailConfirmationViewController : WLSignupStepViewController
 
 @end

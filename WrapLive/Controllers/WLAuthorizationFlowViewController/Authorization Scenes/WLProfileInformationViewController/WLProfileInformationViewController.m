@@ -56,8 +56,9 @@
 }
 
 - (IBAction)goToMainScreen:(id)sender {
+    __weak typeof(self)weakSelf = self;
 	[self updateIfNeeded:^{
-		[UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
+        [weakSelf complete];
 	}];
 }
 

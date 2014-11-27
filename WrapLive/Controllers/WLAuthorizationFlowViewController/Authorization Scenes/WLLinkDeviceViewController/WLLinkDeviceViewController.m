@@ -39,10 +39,9 @@
     [request send:^(id object) {
         [[WLAuthorization currentAuthorization] signIn:^(WLUser *user) {
             if (user.name.nonempty && user.picture.medium.nonempty) {
-                [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
+                [weakSelf complete];
             } else {
-                WLProfileInformationViewController * controller = [WLProfileInformationViewController instantiate:weakSelf.storyboard];
-                [weakSelf.navigationController pushViewController:controller animated:YES];
+                [weakSelf showSuccessViewControllerAnimated:YES];
             }
         } failure:^(NSError *error) {
             [error show];

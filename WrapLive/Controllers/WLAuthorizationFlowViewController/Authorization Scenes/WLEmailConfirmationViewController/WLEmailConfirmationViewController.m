@@ -38,7 +38,7 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
     if (![WLAuthorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
-        [self.navigationController pushViewController:[WLAuthorizationSceneViewController instantiateWithIdentifier:@"WLEmailConfirmationSuccessViewController" storyboard:self.storyboard] animated:YES];
+        [self showSuccessViewControllerAnimated:YES];
     }
 }
 

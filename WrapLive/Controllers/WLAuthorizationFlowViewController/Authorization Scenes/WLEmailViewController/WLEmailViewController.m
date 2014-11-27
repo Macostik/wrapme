@@ -8,6 +8,8 @@
 
 #import "WLEmailViewController.h"
 #import "WLAuthorization.h"
+#import "WLAuthorizationRequest.h"
+#import "WLTelephony.h"
 
 @interface WLEmailViewController ()
 
@@ -25,7 +27,26 @@
 
 - (IBAction)next:(id)sender {
     [self.view endEditing:YES];
-    [self.delegate emailViewController:self didFinishWithEmail:self.emailField.text];
+    WLWhoIsRequest* request = [WLWhoIsRequest request];
+    request.email = self.emailField.text;
+    __weak typeof(self)weakSelf = self;
+    [request send:^(WLWhoIs* whoIs) {
+        if (whoIs.found && !whoIs.requiresVerification) {
+            if (whoIs.confirmed) {
+                if ([WLTelephony hasPhoneNumber]) {
+                    [weakSelf showViewControllerForStatus:WLEmailViewControllerCompletionStatusVerification animated:YES];
+                } else {
+                    [weakSelf showViewControllerForStatus:WLEmailViewControllerCompletionStatusLinkDevice animated:YES];
+                }
+            } else {
+                [weakSelf showViewControllerForStatus:WLEmailViewControllerCompletionStatusUnconfirmedEmail animated:YES];
+            }
+        } else {
+            [weakSelf showViewControllerForStatus:WLEmailViewControllerCompletionStatusVerification animated:YES];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {

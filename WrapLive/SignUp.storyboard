@@ -704,10 +704,10 @@ Ravenpod, Inc.
             </objects>
             <point key="canvasLocation" x="2782" y="-510"/>
         </scene>
-        <!--Authorization Flow View Controller-->
+        <!--Signup Flow View Controller-->
         <scene sceneID="KIU-R9-Z52">
             <objects>
-                <viewController storyboardIdentifier="WLSignUpViewController" automaticallyAdjustsScrollViewInsets="NO" id="m5i-GB-PRL" customClass="WLAuthorizationFlowViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLSignUpViewController" automaticallyAdjustsScrollViewInsets="NO" id="m5i-GB-PRL" customClass="WLSignupFlowViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HnA-wf-T7X"/>
                         <viewControllerLayoutGuide type="bottom" id="Bow-xI-eNH"/>
@@ -794,7 +794,7 @@ Ravenpod, Inc.
         <!--Email View Controller-->
         <scene sceneID="hja-EI-vlV">
             <objects>
-                <viewController id="vAS-6Z-GhZ" customClass="WLEmailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLEmailViewController" id="vAS-6Z-GhZ" customClass="WLEmailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uYd-Oq-3Te"/>
                         <viewControllerLayoutGuide type="bottom" id="4N7-6L-ApW"/>
@@ -1062,7 +1062,7 @@ Ravenpod, Inc.
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="foP-st-ctl" kind="unwind" unwindAction="backSegue:" id="oLA-4e-5Bp"/>
+                                    <action selector="cancel:" destination="eE2-rt-SMr" eventType="touchUpInside" id="gDY-zu-jS6"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mpo-NF-SZ1" customClass="WLProgressBar">
@@ -1141,7 +1141,6 @@ Ravenpod, Inc.
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u1T-QI-tAn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="foP-st-ctl" userLabel="Exit" sceneMemberID="exit"/>
                 <customObject id="wLi-QG-2ah" customClass="WLPasscodeValidation">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="limit">
@@ -1259,12 +1258,12 @@ Ravenpod, Inc.
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="2804" y="578.5"/>
+            <point key="canvasLocation" x="2804" y="558.5"/>
         </scene>
-        <!--Authorization Scene View Controller-->
+        <!--Signup Step View Controller-->
         <scene sceneID="z6Q-Yy-wFN">
             <objects>
-                <viewController storyboardIdentifier="WLVerificationSuccessViewController" id="TZ4-9w-lte" customClass="WLAuthorizationSceneViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLVerificationSuccessViewController" id="TZ4-9w-lte" customClass="WLSignupStepViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="J9H-E4-PmH"/>
                         <viewControllerLayoutGuide type="bottom" id="wdL-N0-f8J"/>
@@ -1283,7 +1282,7 @@ Ravenpod, Inc.
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="done:" destination="eE2-rt-SMr" eventType="touchUpInside" id="nED-8A-YkI"/>
+                                    <action selector="success:" destination="TZ4-9w-lte" eventType="touchUpInside" id="nwj-GE-cxX"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1 925-682-1888" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="4lQ-Tq-xhb">
@@ -1322,7 +1321,7 @@ Ravenpod, Inc.
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="d1e-rR-MvT" kind="push" id="2On-9j-ZqA"/>
+                                    <action selector="success:" destination="TZ4-9w-lte" eventType="touchUpInside" id="OXe-iR-Q5j"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1343,10 +1342,10 @@ Ravenpod, Inc.
             </objects>
             <point key="canvasLocation" x="3168" y="-415"/>
         </scene>
-        <!--Authorization Scene View Controller-->
+        <!--Signup Step View Controller-->
         <scene sceneID="aj4-sh-G9s">
             <objects>
-                <viewController storyboardIdentifier="WLVerificationFailureViewController" id="VZT-19-ksm" customClass="WLAuthorizationSceneViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLVerificationFailureViewController" id="VZT-19-ksm" customClass="WLSignupStepViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fIu-Q8-sKe"/>
                         <viewControllerLayoutGuide type="bottom" id="5ph-p4-f41"/>
@@ -1398,6 +1397,7 @@ Ravenpod, Inc.
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <action selector="failure:" destination="VZT-19-ksm" eventType="touchUpInside" id="dAX-eK-zfC"/>
                                     <segue destination="tja-qe-Vt1" kind="unwind" unwindAction="backSegue:" id="mim-2W-NNv"/>
                                 </connections>
                             </button>
@@ -1419,7 +1419,7 @@ Ravenpod, Inc.
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="tja-qe-Vt1" kind="unwind" unwindAction="editPhoneNumber:" id="ymq-fp-hag"/>
+                                    <action selector="cancel:" destination="VZT-19-ksm" eventType="touchUpInside" id="S9H-dv-WIf"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1443,10 +1443,10 @@ Ravenpod, Inc.
             </objects>
             <point key="canvasLocation" x="3159" y="-1064"/>
         </scene>
-        <!--Authorization Scene View Controller-->
+        <!--Signup Step View Controller-->
         <scene sceneID="OWf-p5-Ww5">
             <objects>
-                <viewController storyboardIdentifier="WLLinkDeviceSuccessViewController" id="Vpu-Ls-zan" customClass="WLAuthorizationSceneViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLLinkDeviceSuccessViewController" id="Vpu-Ls-zan" customClass="WLSignupStepViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="22Q-mQ-7gg"/>
                         <viewControllerLayoutGuide type="bottom" id="Tws-aA-u5y"/>
@@ -1497,6 +1497,9 @@ Ravenpod, Inc.
                                         <integer key="value" value="6"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="complete:" destination="Vpu-Ls-zan" eventType="touchUpInside" id="PSC-Yy-12e"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1516,10 +1519,10 @@ Ravenpod, Inc.
             </objects>
             <point key="canvasLocation" x="3511" y="-415"/>
         </scene>
-        <!--Authorization Scene View Controller-->
+        <!--Signup Step View Controller-->
         <scene sceneID="KFr-Qc-gu3">
             <objects>
-                <viewController storyboardIdentifier="WLEmailConfirmationSuccessViewController" id="cxC-vG-j0j" customClass="WLAuthorizationSceneViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLEmailConfirmationSuccessViewController" id="cxC-vG-j0j" customClass="WLSignupStepViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nZh-mj-fgS"/>
                         <viewControllerLayoutGuide type="bottom" id="Mc6-pa-DOi"/>
@@ -1640,7 +1643,7 @@ Ravenpod, Inc.
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="kI8-qC-Zoo" kind="unwind" unwindAction="backSegue:" id="nbL-ym-YTo"/>
+                                    <action selector="cancel:" destination="vZf-ZB-Nuz" eventType="touchUpInside" id="GHq-Rw-d1J"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="dRx-kr-5xI">
@@ -1692,7 +1695,6 @@ Ravenpod, Inc.
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qjc-rr-61Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="kI8-qC-Zoo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3874" y="-425"/>
         </scene>

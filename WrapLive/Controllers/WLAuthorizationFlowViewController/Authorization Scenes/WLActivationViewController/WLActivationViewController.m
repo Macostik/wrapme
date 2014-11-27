@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-	self.phoneNumberLabel.text = [self.authorization fullPhoneNumber];
+	self.phoneNumberLabel.text = [[WLAuthorization currentAuthorization] fullPhoneNumber];
 }
 
 - (void)activate:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
@@ -43,15 +43,15 @@
 	NSString* activationCode = self.activationTextField.text;
 	if (activationCode.nonempty) {
 		__weak typeof(self)weakSelf = self;
-		self.authorization.activationCode = activationCode;
-        self.progressBar.operation = [self.authorization activate:^(id object) {
+		[WLAuthorization currentAuthorization].activationCode = activationCode;
+        self.progressBar.operation = [[WLAuthorization currentAuthorization] activate:^(id object) {
             [weakSelf signIn:completion failure:failure];
         } failure:failure];
 	}
 }
 
 - (void)signIn:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
-    self.progressBar.operation = [self.authorization signIn:^(id object) {
+    self.progressBar.operation = [[WLAuthorization currentAuthorization] signIn:^(id object) {
         completion();
     } failure:failure];
 }
@@ -61,20 +61,19 @@
     __weak typeof(self)weakSelf = self;
     [self activate:^{
         sender.loading = NO;
-        [weakSelf.navigationController pushViewController:[WLAuthorizationSceneViewController instantiateWithIdentifier:@"WLVerificationSuccessViewController" storyboard:weakSelf.storyboard] animated:YES];
+        [weakSelf showSuccessViewControllerAnimated:YES];
     } failure:^(NSError *error) {
         sender.loading = NO;
-        [weakSelf.navigationController pushViewController:[WLAuthorizationSceneViewController instantiateWithIdentifier:@"WLVerificationFailureViewController" storyboard:weakSelf.storyboard] animated:YES];
+        [weakSelf showFailureViewControllerAnimated:YES];
     }];
 }
 
 - (IBAction)done:(id)sender {
     WLUser *user = [WLUser currentUser];
     if (user.name.nonempty && user.picture.medium.nonempty) {
-        [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
+        [self complete];
     } else {
-        WLProfileInformationViewController * controller = [WLProfileInformationViewController instantiate:self.storyboard];
-        [self.navigationController pushViewController:controller animated:YES];
+        [self showSuccessViewControllerAnimated:YES];
     }
 }
 

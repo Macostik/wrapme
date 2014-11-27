@@ -12,7 +12,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" image="no_upload_wrap_today" translatesAutoresizingMaskIntoConstraints="NO" id="9qV-ji-O1z">
-                    <rect key="frame" x="39" y="210" width="242" height="276"/>
+                    <rect key="frame" x="39" y="150" width="242" height="276"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="242" id="GA7-Eo-LAB"/>
                         <constraint firstAttribute="height" constant="276" id="fe5-2H-ZKh"/>
@@ -22,7 +22,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="9qV-ji-O1z" secondAttribute="centerX" id="8Qg-DR-Hdd"/>
-                <constraint firstAttribute="centerY" secondItem="9qV-ji-O1z" secondAttribute="centerY" constant="-64" id="e3E-aU-XDq"/>
+                <constraint firstAttribute="centerY" secondItem="9qV-ji-O1z" secondAttribute="centerY" constant="-4" id="e3E-aU-XDq"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="377" y="439"/>

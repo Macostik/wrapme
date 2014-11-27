@@ -12,7 +12,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" image="no_upload_wrap_timeline" translatesAutoresizingMaskIntoConstraints="NO" id="hmu-sb-AWf">
-                    <rect key="frame" x="24" y="210" width="273" height="276"/>
+                    <rect key="frame" x="24" y="150" width="273" height="276"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="276" id="Db1-DK-UtM"/>
                         <constraint firstAttribute="width" constant="273" id="nQe-SP-rsJ"/>
@@ -22,7 +22,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="hmu-sb-AWf" secondAttribute="centerX" id="8ov-IZ-f2b"/>
-                <constraint firstAttribute="centerY" secondItem="hmu-sb-AWf" secondAttribute="centerY" constant="-64" id="Q6N-6R-3sq"/>
+                <constraint firstAttribute="centerY" secondItem="hmu-sb-AWf" secondAttribute="centerY" constant="-4" id="Q6N-6R-3sq"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="344" y="416"/>

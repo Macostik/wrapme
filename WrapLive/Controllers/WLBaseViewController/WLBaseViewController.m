@@ -90,7 +90,7 @@
 }
 
 - (void)backSwipeGesture {
-    if (self.isOnTopOfNagvigation) {
+    if (self.isTopViewController) {
         self.backSwipeGestureEnabled = NO;
         [self.navigationController popViewControllerAnimated:YES];
     }

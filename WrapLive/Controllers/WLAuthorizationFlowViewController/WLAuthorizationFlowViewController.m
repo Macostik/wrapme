@@ -22,6 +22,7 @@
 #import "WLPhoneViewController.h"
 #import "WLEmailConfirmationViewController.h"
 #import "WLLinkDeviceViewController.h"
+#import "WLTelephony.h"
 
 @interface WLAuthorizationFlowViewController () <UINavigationControllerDelegate, WLEmailViewControllerDelegate>
 
@@ -62,7 +63,11 @@
         WLAuthorizationSceneViewController* sceneViewController = nil;
         if (whoIs.found && !whoIs.requiresVerification) {
             if (whoIs.confirmed) {
-                sceneViewController = [WLPhoneViewController instantiate:weakSelf.storyboard];
+                if ([WLTelephony hasPhoneNumber]) {
+                    sceneViewController = [WLPhoneViewController instantiate:weakSelf.storyboard];
+                } else {
+                    sceneViewController = [WLLinkDeviceViewController instantiate:weakSelf.storyboard];
+                }
             } else {
                 sceneViewController = [WLEmailConfirmationViewController instantiate:weakSelf.storyboard];
             }

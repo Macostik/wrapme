@@ -7,8 +7,15 @@
 //
 
 #import "WLLinkDeviceViewController.h"
+#import "WLAuthorization.h"
+#import "WLAuthorizationRequest.h"
+#import "WLButton.h"
+#import "WLProfileInformationViewController.h"
+#import "WLNavigation.h"
 
 @interface WLLinkDeviceViewController ()
+
+@property (weak, nonatomic) IBOutlet UITextField *passcodeField;
 
 @end
 
@@ -17,21 +24,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[WLAuthorization currentAuthorization] signUp:^(WLAuthorization *authorization) {
+    } failure:^(NSError *error) {
+    }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)next:(WLButton*)sender {
+    sender.loading = YES;
+    __weak typeof(self)weakSelf = self;
+    WLLinkDeviceRequest *request = [WLLinkDeviceRequest request];
+    request.email = [WLAuthorization currentAuthorization].email;
+    request.deviceUID = [WLAuthorization currentAuthorization].deviceUID;
+    request.approvalCode = self.passcodeField.text;
+    [request send:^(id object) {
+        [[WLAuthorization currentAuthorization] signIn:^(WLUser *user) {
+            if (user.name.nonempty && user.picture.medium.nonempty) {
+                [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
+            } else {
+                WLProfileInformationViewController * controller = [WLProfileInformationViewController instantiate:weakSelf.storyboard];
+                [weakSelf.navigationController pushViewController:controller animated:YES];
+            }
+        } failure:^(NSError *error) {
+            [error show];
+            sender.loading = NO;
+        }];
+    } failure:^(NSError *error) {
+        [error show];
+        sender.loading = NO;
+    }];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

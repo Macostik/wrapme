@@ -97,7 +97,7 @@ typedef enum : NSUInteger {
     [UIView animateWithDuration:30 * (self.backgroundView.height / 1500.0f) delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
         [weakSelf.backgroundView layoutIfNeeded];
     } completion:^(BOOL finished) {
-        if (weakSelf.isOnTopOfNagvigation) {
+        if (weakSelf.isTopViewController) {
             [weakSelf animateBackgroundView:nextOffset nextOffset:offset];
         }
     }];

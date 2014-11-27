@@ -25,28 +25,19 @@
     [[WLUser notifier] addReceiver:self];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 - (IBAction)resend:(id)sender {
-    
+    WLResendConfirmationRequest* request = [WLResendConfirmationRequest request];
+    [request send:^(id object) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
-    if (![WLAuthorization currentAuthorization].unconfirmed_email.nonempty && self.isOnTopOfNagvigation) {
+    if (![WLAuthorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
         [self.navigationController pushViewController:[WLAuthorizationSceneViewController instantiateWithIdentifier:@"WLEmailConfirmationSuccessViewController" storyboard:self.storyboard] animated:YES];
     }
 }

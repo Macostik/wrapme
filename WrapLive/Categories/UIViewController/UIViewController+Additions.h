@@ -10,8 +10,9 @@
 
 @interface UIViewController (Additions)
 
+@property (readonly, nonatomic) BOOL isTopViewController;
+
 - (void)pushViewController:(UIViewController*)controller animated:(BOOL)animated;
-- (BOOL)isOnTopOfNagvigation;
 - (void)pushViewControllerNextToCurrent:(UIViewController*)controller animated:(BOOL)animated;
 - (void)pushViewControllerNextToRootViewController:(UIViewController*)controller animated:(BOOL)animated;
 - (void)pushViewController:(UIViewController*)controller nextToViewController:(UIViewController*)nextToController animated:(BOOL)animated;

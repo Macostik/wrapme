@@ -1073,6 +1073,10 @@
 		C559974A1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C559974B1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
+		C55997501A262BD8003D4B29 /* WLTelephony.m in Sources */ = {isa = PBXBuildFile; fileRef = C559974F1A262BD8003D4B29 /* WLTelephony.m */; };
+		C55997511A262BD8003D4B29 /* WLTelephony.m in Sources */ = {isa = PBXBuildFile; fileRef = C559974F1A262BD8003D4B29 /* WLTelephony.m */; };
+		C55997521A262BD8003D4B29 /* WLTelephony.m in Sources */ = {isa = PBXBuildFile; fileRef = C559974F1A262BD8003D4B29 /* WLTelephony.m */; };
+		C55997531A262BD8003D4B29 /* WLTelephony.m in Sources */ = {isa = PBXBuildFile; fileRef = C559974F1A262BD8003D4B29 /* WLTelephony.m */; };
 		C55A7F101A09215E00BC0BD7 /* UIImage+Drawing.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A7F0F1A09215E00BC0BD7 /* UIImage+Drawing.m */; };
 		C55A7F111A09215E00BC0BD7 /* UIImage+Drawing.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A7F0F1A09215E00BC0BD7 /* UIImage+Drawing.m */; };
 		C55A7F121A09215E00BC0BD7 /* UIImage+Drawing.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A7F0F1A09215E00BC0BD7 /* UIImage+Drawing.m */; };
@@ -1749,6 +1753,8 @@
 		C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLProgressBar+WLContribution.m"; sourceTree = "<group>"; };
 		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
 		C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailConfirmationViewController.m; sourceTree = "<group>"; };
+		C559974E1A262BD8003D4B29 /* WLTelephony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTelephony.h; sourceTree = "<group>"; };
+		C559974F1A262BD8003D4B29 /* WLTelephony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTelephony.m; sourceTree = "<group>"; };
 		C55A7F0E1A09215E00BC0BD7 /* UIImage+Drawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Drawing.h"; sourceTree = "<group>"; };
 		C55A7F0F1A09215E00BC0BD7 /* UIImage+Drawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Drawing.m"; sourceTree = "<group>"; };
 		C55C8D6219C98A9400199245 /* WLNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotification.h; sourceTree = "<group>"; };
@@ -2277,6 +2283,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C559974D1A262BC2003D4B29 /* WLTelephony */,
 				C5C20B8C1A238ACC008B2E2E /* WLValidation */,
 				C54FC7671A163CC400623FC1 /* WLNetwork */,
 				C547A44E1A026B3E005061AB /* WLKeyboard */,
@@ -3512,6 +3519,15 @@
 			path = WLEmailConfirmationViewController;
 			sourceTree = "<group>";
 		};
+		C559974D1A262BC2003D4B29 /* WLTelephony */ = {
+			isa = PBXGroup;
+			children = (
+				C559974E1A262BD8003D4B29 /* WLTelephony.h */,
+				C559974F1A262BD8003D4B29 /* WLTelephony.m */,
+			);
+			path = WLTelephony;
+			sourceTree = "<group>";
+		};
 		C55C8D6119C98A9400199245 /* WLNotificationCenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -4631,6 +4647,7 @@
 				12D578CE1917E82100586995 /* UIAlertView+Blocks.m in Sources */,
 				12DEC3F21921181B007BE6CC /* NSObject+AssociatedObjects.m in Sources */,
 				C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */,
+				C55997501A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C5F35CFE1930935200FB99D2 /* WLImageFetcher.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,
 				C51910661A078248003C78B2 /* WLWrap.m in Sources */,
@@ -4866,6 +4883,7 @@
 				C54AF4DC19B8C437006F7EDB /* UIAlertView+Blocks.m in Sources */,
 				C54AF4DD19B8C437006F7EDB /* NSObject+AssociatedObjects.m in Sources */,
 				C54AF4DF19B8C437006F7EDB /* WLChatViewController.m in Sources */,
+				C55997511A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C54AF4E019B8C437006F7EDB /* WLImageFetcher.m in Sources */,
 				C54AF4E119B8C437006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C51910671A078248003C78B2 /* WLWrap.m in Sources */,
@@ -5101,6 +5119,7 @@
 				C54AF5D919B8C467006F7EDB /* UIAlertView+Blocks.m in Sources */,
 				C54AF5DA19B8C467006F7EDB /* NSObject+AssociatedObjects.m in Sources */,
 				C54AF5DC19B8C467006F7EDB /* WLChatViewController.m in Sources */,
+				C55997521A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C54AF5DD19B8C467006F7EDB /* WLImageFetcher.m in Sources */,
 				C54AF5DE19B8C467006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C51910681A078248003C78B2 /* WLWrap.m in Sources */,
@@ -5336,6 +5355,7 @@
 				C54AF6D619B8C491006F7EDB /* UIAlertView+Blocks.m in Sources */,
 				C54AF6D719B8C491006F7EDB /* NSObject+AssociatedObjects.m in Sources */,
 				C54AF6D919B8C491006F7EDB /* WLChatViewController.m in Sources */,
+				C55997531A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C54AF6DA19B8C491006F7EDB /* WLImageFetcher.m in Sources */,
 				C54AF6DB19B8C491006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C51910691A078248003C78B2 /* WLWrap.m in Sources */,

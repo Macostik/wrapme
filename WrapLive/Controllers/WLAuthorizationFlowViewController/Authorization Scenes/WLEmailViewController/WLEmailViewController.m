@@ -23,6 +23,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.emailField.text = [WLAuthorization currentAuthorization].email;
+    
+    for (UIView* subview in self.view.subviews) {
+        NSUInteger index = [self.view.subviews indexOfObject:subview];
+        subview.transform = CGAffineTransformMakeTranslation(-self.view.bounds.size.width, 0);
+        [UIView animateWithDuration:0.5 delay:index/20.0f usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            subview.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
 }
 
 - (IBAction)next:(id)sender {
@@ -34,15 +44,15 @@
         if (whoIs.found && !whoIs.requiresVerification) {
             if (whoIs.confirmed) {
                 if ([WLTelephony hasPhoneNumber]) {
-                    [weakSelf showViewControllerForStatus:WLEmailViewControllerCompletionStatusVerification animated:YES];
+                    [weakSelf showViewControllerForStatus:WLEmailStepStatusVerification animated:YES];
                 } else {
-                    [weakSelf showViewControllerForStatus:WLEmailViewControllerCompletionStatusLinkDevice animated:YES];
+                    [weakSelf showViewControllerForStatus:WLEmailStepStatusLinkDevice animated:YES];
                 }
             } else {
-                [weakSelf showViewControllerForStatus:WLEmailViewControllerCompletionStatusUnconfirmedEmail animated:YES];
+                [weakSelf showViewControllerForStatus:WLEmailStepStatusUnconfirmedEmail animated:YES];
             }
         } else {
-            [weakSelf showViewControllerForStatus:WLEmailViewControllerCompletionStatusVerification animated:YES];
+            [weakSelf showViewControllerForStatus:WLEmailStepStatusVerification animated:YES];
         }
     } failure:^(NSError *error) {
         

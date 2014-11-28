@@ -41,60 +41,56 @@
 }
 
 - (void)completeSignup {
-    self.flowNavigationController.viewControllers = @[[WLProfileInformationViewController instantiate:self.storyboard]];
+    self.flowNavigationController.viewControllers = @[[self stepViewController:@"WLProfileInformationViewController"]];
+}
+
+- (id)stepViewController:(NSString*)identifier {
+    WLSignupStepViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
+    [self.stepViewControllers addObject:controller];
+    return controller;
 }
 
 - (void)configureSignupFlow {
-    UIStoryboard* storyboard = self.storyboard;
     
-    WLEmailViewController* emailViewController = [self.flowNavigationController.viewControllers lastObject];
-    WLPhoneViewController* phoneViewController = [WLPhoneViewController instantiate:storyboard];
-    WLActivationViewController* verificationViewController = [WLActivationViewController instantiate:storyboard];
-    WLLinkDeviceViewController* linkDeviceViewController = [WLLinkDeviceViewController instantiate:storyboard];
-    WLEmailConfirmationViewController *confirmationViewController = [WLEmailConfirmationViewController instantiate:storyboard];
+    WLEmailViewController* emailStep = [self stepViewController:@"WLEmailViewController"];
+    self.flowNavigationController.viewControllers = @[emailStep];
     
-    WLSignupStepViewController* verificationSuccessViewController = [storyboard instantiateViewControllerWithIdentifier:@"WLVerificationSuccessViewController"];
-    WLSignupStepViewController* verificationFailureViewController = [storyboard instantiateViewControllerWithIdentifier:@"WLVerificationFailureViewController"];
-    WLSignupStepViewController* linkDeviceSuccessViewController = [storyboard instantiateViewControllerWithIdentifier:@"WLLinkDeviceSuccessViewController"];
-    WLSignupStepViewController* emailConfirmationSuccessViewController = [storyboard instantiateViewControllerWithIdentifier:@"WLEmailConfirmationSuccessViewController"];
+    run_in_default_queue(^{
+        WLPhoneViewController* phoneStep = [self stepViewController:@"WLPhoneViewController"];
+        WLActivationViewController* verificationStep = [self stepViewController:@"WLActivationViewController"];
+        WLLinkDeviceViewController* linkDeviceStep = [self stepViewController:@"WLLinkDeviceViewController"];
+        WLEmailConfirmationViewController *emailConfirmationStep = [self stepViewController:@"WLEmailConfirmationViewController"];
+        WLSignupStepViewController* verificationSuccessStep = [self stepViewController:@"WLVerificationSuccessViewController"];
+        WLSignupStepViewController* verificationFailureStep = [self stepViewController:@"WLVerificationFailureViewController"];
+        WLSignupStepViewController* linkDeviceSuccessStep = [self stepViewController:@"WLLinkDeviceSuccessViewController"];
+        WLSignupStepViewController* emailConfirmationSuccessStep = [self stepViewController:@"WLEmailConfirmationSuccessViewController"];
+        WLProfileInformationViewController* profileStep = [self stepViewController:@"WLProfileInformationViewController"];
+        
+        [emailStep setViewController:phoneStep forStatus:WLEmailStepStatusVerification];
+        
+        [emailStep setViewController:linkDeviceStep forStatus:WLEmailStepStatusLinkDevice];
+        
+        [emailStep setViewController:emailConfirmationStep forStatus:WLEmailStepStatusUnconfirmedEmail];
+        
+        [phoneStep setSuccessViewController:verificationStep];
+        
+        [verificationStep setSuccessViewController:verificationSuccessStep];
+        
+        [verificationStep setFailureViewController:verificationFailureStep];
+        
+        [verificationSuccessStep setSuccessViewController:profileStep];
+        
+        [verificationFailureStep setFailureViewController:verificationStep];
+        
+        [verificationFailureStep setCancelViewController:phoneStep];
+        
+        [linkDeviceStep setSuccessViewController:linkDeviceSuccessStep];
+        
+        [linkDeviceSuccessStep setSuccessViewController:profileStep];
+        
+        [emailConfirmationStep setSuccessViewController:emailConfirmationSuccessStep];
+    });
     
-    WLProfileInformationViewController* profileViewController = [WLProfileInformationViewController instantiate:storyboard];
-    
-    NSMutableSet *controllers = self.stepViewControllers;
-    [controllers addObject:emailViewController];
-    [controllers addObject:phoneViewController];
-    [controllers addObject:verificationViewController];
-    [controllers addObject:linkDeviceViewController];
-    [controllers addObject:confirmationViewController];
-    [controllers addObject:verificationSuccessViewController];
-    [controllers addObject:verificationFailureViewController];
-    [controllers addObject:linkDeviceSuccessViewController];
-    [controllers addObject:emailConfirmationSuccessViewController];
-    [controllers addObject:profileViewController];
-    
-    [emailViewController setViewController:phoneViewController forStatus:WLEmailViewControllerCompletionStatusVerification];
-    
-    [emailViewController setViewController:linkDeviceViewController forStatus:WLEmailViewControllerCompletionStatusLinkDevice];
-    
-    [emailViewController setViewController:confirmationViewController forStatus:WLEmailViewControllerCompletionStatusUnconfirmedEmail];
-    
-    [phoneViewController setSuccessViewController:verificationViewController];
-    
-    [verificationViewController setSuccessViewController:verificationSuccessViewController];
-    
-    [verificationViewController setFailureViewController:verificationFailureViewController];
-    
-    [verificationSuccessViewController setSuccessViewController:profileViewController];
-    
-    [verificationFailureViewController setFailureViewController:verificationViewController];
-    
-    [verificationFailureViewController setCancelViewController:phoneViewController];
-    
-    [linkDeviceViewController setSuccessViewController:linkDeviceSuccessViewController];
-    
-    [linkDeviceSuccessViewController setSuccessViewController:profileViewController];
-    
-    [confirmationViewController setSuccessViewController:emailConfirmationSuccessViewController];
 }
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {

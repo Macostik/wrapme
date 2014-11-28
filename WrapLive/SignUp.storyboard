@@ -783,13 +783,10 @@ Ravenpod, Inc.
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <connections>
-                        <segue destination="vAS-6Z-GhZ" kind="relationship" relationship="rootViewController" id="i4k-hF-rxX"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WfP-hJ-rSL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1441" y="148"/>
+            <point key="canvasLocation" x="1479" y="149"/>
         </scene>
         <!--Email View Controller-->
         <scene sceneID="hja-EI-vlV">
@@ -800,18 +797,18 @@ Ravenpod, Inc.
                         <viewControllerLayoutGuide type="bottom" id="4N7-6L-ApW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8RI-n5-PIX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="478"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="img_email" translatesAutoresizingMaskIntoConstraints="NO" id="tQp-79-sb4">
-                                <rect key="frame" x="111" y="98" width="98" height="63"/>
+                                <rect key="frame" x="111" y="143" width="98" height="63"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="63" id="SWI-kM-wtJ"/>
                                     <constraint firstAttribute="width" constant="98" id="qon-EO-I4c"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your email?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgM-iC-MDR">
-                                <rect key="frame" x="60" y="197" width="200" height="21"/>
+                                <rect key="frame" x="60" y="242" width="200" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="PKj-LK-LWM"/>
                                     <constraint firstAttribute="width" constant="200" id="WFj-8z-Wqq"/>
@@ -820,7 +817,7 @@ Ravenpod, Inc.
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="john@example.com" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xPt-wX-3Db" customClass="WLTextField">
-                                <rect key="frame" x="72" y="240" width="176" height="32"/>
+                                <rect key="frame" x="72" y="285" width="176" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="176" id="g6e-os-WA5"/>
                                     <constraint firstAttribute="height" constant="32" id="nhQ-MV-Tje"/>
@@ -830,7 +827,7 @@ Ravenpod, Inc.
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                             </textField>
                             <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Pv-aD-dP3" customClass="WLPressButton">
-                                <rect key="frame" x="70" y="312" width="180" height="46"/>
+                                <rect key="frame" x="70" y="357" width="180" height="46"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="Hmz-md-V9u"/>
@@ -1018,7 +1015,7 @@ Ravenpod, Inc.
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="2373" y="175"/>
+            <point key="canvasLocation" x="2303" y="-510"/>
         </scene>
         <!--Activation View Controller-->
         <scene sceneID="Cfp-ZT-uPv">
@@ -1153,7 +1150,7 @@ Ravenpod, Inc.
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="2804" y="89.5"/>
+            <point key="canvasLocation" x="3176" y="-486.5"/>
         </scene>
         <!--Link Device View Controller-->
         <scene sceneID="VEZ-iE-Dgw">
@@ -1258,7 +1255,7 @@ Ravenpod, Inc.
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="2804" y="558.5"/>
+            <point key="canvasLocation" x="2322" y="706.5"/>
         </scene>
         <!--Signup Step View Controller-->
         <scene sceneID="z6Q-Yy-wFN">
@@ -1340,7 +1337,7 @@ Ravenpod, Inc.
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ThW-RK-WgI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3168" y="-415"/>
+            <point key="canvasLocation" x="3596" y="-471"/>
         </scene>
         <!--Signup Step View Controller-->
         <scene sceneID="aj4-sh-G9s">
@@ -1441,7 +1438,7 @@ Ravenpod, Inc.
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PNY-t3-1T7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="tja-qe-Vt1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3159" y="-1064"/>
+            <point key="canvasLocation" x="3945" y="-464"/>
         </scene>
         <!--Signup Step View Controller-->
         <scene sceneID="OWf-p5-Ww5">
@@ -1517,7 +1514,7 @@ Ravenpod, Inc.
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DCc-LN-HeO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3511" y="-415"/>
+            <point key="canvasLocation" x="2689" y="782"/>
         </scene>
         <!--Signup Step View Controller-->
         <scene sceneID="KFr-Qc-gu3">
@@ -1696,7 +1693,7 @@ Ravenpod, Inc.
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qjc-rr-61Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3874" y="-425"/>
+            <point key="canvasLocation" x="2322" y="149"/>
         </scene>
         <!--Profile Information View Controller-->
         <scene sceneID="Vwg-Ce-jcW">
@@ -1859,7 +1856,7 @@ Ravenpod, Inc.
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Udc-2D-xji" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3796" y="196.5"/>
+            <point key="canvasLocation" x="2740" y="148.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XoS-Nc-7nO">

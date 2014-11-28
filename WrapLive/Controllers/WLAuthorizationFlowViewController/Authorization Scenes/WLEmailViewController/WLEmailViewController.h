@@ -8,10 +8,10 @@
 
 #import "WLSignupStepViewController.h"
 
-typedef NS_ENUM(NSUInteger, WLEmailViewControllerCompletionStatus) {
-    WLEmailViewControllerCompletionStatusVerification,
-    WLEmailViewControllerCompletionStatusLinkDevice,
-    WLEmailViewControllerCompletionStatusUnconfirmedEmail
+typedef NS_ENUM(NSUInteger, WLEmailStepStatus) {
+    WLEmailStepStatusVerification,
+    WLEmailStepStatusLinkDevice,
+    WLEmailStepStatusUnconfirmedEmail
 };
 
 @interface WLEmailViewController : WLSignupStepViewController

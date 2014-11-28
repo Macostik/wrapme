@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topAvatarConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *leftBubble;
 @property (weak, nonatomic) IBOutlet UIImageView *rightBubble;
+@property (weak, nonatomic) IBOutlet UIImageView *tailView;
 
 @end
 
@@ -61,7 +62,7 @@
     _showName = showName;
     self.dayLabel.hidden = !showDay;
     self.topAvatarConstraint.constant = showDay ? self.dayLabel.height : (showName ? WLMessageCellBottomConstraint : 0);
-    self.avatarView.hidden = self.nameLabel.hidden = !showName;
+    self.avatarView.hidden = self.nameLabel.hidden = self.tailView.hidden = !showName;
     self.topTextLabelConstraint.constant = showName ? WLMessageNameInset : 0;
 }
 

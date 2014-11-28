@@ -282,9 +282,9 @@
 
 - (void)sendMessageWithText:(NSString*)text {
     WLCandy* image = self.candy;
+    [WLSoundPlayer playSendMessageSound];
 	__weak typeof(self)weakSelf = self;
     [image uploadComment:text success:^(WLComment *comment) {
-        [comment playSoundBySendEvent];
     } failure:^(NSError *error) {
     }];
     run_after(0.1,^{

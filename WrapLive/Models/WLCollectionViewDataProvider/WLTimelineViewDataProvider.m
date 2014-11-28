@@ -113,9 +113,9 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLTimelineEvent* event = [self.timeline.entries tryObjectAtIndex:indexPath.section];
     if (event.entryClass == [WLComment class]) {
-        return CGSizeMake(collectionView.width, [WLTimelineEventCommentCell heightWithComments:event.entries]);
+        return CGSizeMake(collectionView.width - 2*WLTimelineDefaultLeftRightOffset, [WLTimelineEventCommentCell heightWithComments:event.entries]);
     } else {
-        CGFloat size = (collectionView.width - 2.0f)/3.0f;
+        int size = (collectionView.width - 2*WLTimelineDefaultLeftRightOffset)/3.0f;
         return CGSizeMake(size, size);
     }
 }
@@ -130,16 +130,11 @@
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
+    return WLCandyCellSpacing;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    WLTimelineEvent* event = [self.timeline.entries tryObjectAtIndex:section];
-    if (event.entryClass != [WLComment class]) {
-        return UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
-    } else {
-        return UIEdgeInsetsZero;
-    }
+    return UIEdgeInsetsMake(0, WLTimelineDefaultLeftRightOffset, 0, WLTimelineDefaultLeftRightOffset);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

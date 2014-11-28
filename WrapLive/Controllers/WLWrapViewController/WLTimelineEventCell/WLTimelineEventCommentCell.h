@@ -8,6 +8,8 @@
 
 #import "WLTimelineEventCell.h"
 
+static CGFloat WLTimelineDefaultLeftRightOffset = 5.0f;
+
 @interface WLTimelineEventCommentCell : WLTimelineEventCell
 
 + (CGFloat)heightWithComments:(NSOrderedSet*)comments;

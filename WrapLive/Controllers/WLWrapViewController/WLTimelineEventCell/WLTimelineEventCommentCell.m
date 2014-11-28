@@ -18,29 +18,34 @@
 #import "WLCandyViewController.h"
 
 static CGFloat WLTimelineEventCommentCellMinHeight = 30.0f;
-static CGFloat WLTimelineEventCommentMinHeight = 100.0f;
+static CGFloat WLTimelineEventCommentCellQuoteWidth = 30.0f;
 static CGFloat WLTimelineEventCommentFooterHeight = 40.0f;
 static CGFloat WLTimelineEventCommentCandyWidth = 100.0f;
 static CGFloat WLTimelineEventCommentsMinWidth;
+static CGFloat WLTimelineEventImageViewMaxHeightAndWidth;
 
 @interface WLTimelineEventCommentCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *coverImageWidthContstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *coverImageHeightConstraint;
 
 @end
 
 @implementation WLTimelineEventCommentCell
 
 + (void)initialize {
-    WLTimelineEventCommentsMinWidth = [UIWindow mainWindow].width - WLTimelineEventCommentCandyWidth;
+    WLTimelineEventCommentsMinWidth = [UIWindow mainWindow].width - WLTimelineEventCommentCandyWidth -
+                                        2*WLTimelineDefaultLeftRightOffset - WLTimelineEventCommentCellQuoteWidth;
+    WLTimelineEventImageViewMaxHeightAndWidth = ([UIWindow mainWindow].width - 1.0 - 2*WLTimelineDefaultLeftRightOffset)/3.0f;
 }
 
 + (CGFloat)heightWithComment:(WLComment *)comment {
     if (!comment.valid) {
         return WLTimelineEventCommentCellMinHeight;
     }
-    CGFloat height = [comment.text heightWithFont:[UIFont lightFontOfSize:15] width:WLTimelineEventCommentsMinWidth cachingKey:"timelineCommentTextHeight"];
+    CGFloat height = [comment.text heightWithFont:[UIFont lightFontOfSize:17] width:WLTimelineEventCommentsMinWidth cachingKey:"timelineCommentTextHeight"];
     return MAX(WLTimelineEventCommentCellMinHeight, height + 6);
 }
 
@@ -49,12 +54,14 @@ static CGFloat WLTimelineEventCommentsMinWidth;
     for (WLComment* comment in comments) {
         height += [self heightWithComment:comment];
     }
-    return MAX(WLTimelineEventCommentMinHeight, height);
+    return MAX(WLTimelineEventImageViewMaxHeightAndWidth, height);
 }
 
 - (void)setup:(NSOrderedSet*)comments {
     WLComment* comment = [comments firstObject];
     self.imageView.url = comment.picture.small;
+    self.coverImageHeightConstraint.constant = self.coverImageWidthContstraint.constant = WLTimelineEventImageViewMaxHeightAndWidth;
+    [self.imageView layoutIfNeeded];
     [self.collectionView reloadData];
 }
 

@@ -2,7 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "8screen_img_wrapLive.png"
     },
     {
       "idiom" : "universal",

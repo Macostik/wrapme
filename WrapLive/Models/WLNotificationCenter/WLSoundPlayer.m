@@ -82,6 +82,11 @@ static BOOL playing = NO;
     }
 }
 
++ (void)playSendMessageSound {
+    NSString *soundName = WLPlaySoundType(WLSendMessage);
+    [WLSoundPlayer playSoundByName:soundName];
+}
+
 static void completionCallback (SystemSoundID  soundID, void *data) {
     playing = NO;
 }
@@ -91,8 +96,7 @@ static void completionCallback (SystemSoundID  soundID, void *data) {
 @implementation WLEntry (WLSoundPlayer)
 
 - (void)playSoundBySendEvent {
-    NSString *soundName = WLPlaySoundType(WLSendMessage);
-    [WLSoundPlayer playSoundByName:soundName];
+    [WLSoundPlayer playSendMessageSound];
 }
 
 @end

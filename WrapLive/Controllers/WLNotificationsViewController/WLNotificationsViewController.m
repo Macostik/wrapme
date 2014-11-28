@@ -22,7 +22,6 @@
 
 @interface WLNotificationsViewController () <WLEntryNotifyReceiver>
 
-@property (weak, nonatomic) IBOutlet WLUserView *userView;
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLNotificationCollectionViewSection *dataSection;
 @property (strong, nonatomic) NSMutableOrderedSet *readNotifications;
@@ -33,9 +32,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.userView.avatarView.layer.borderWidth = 1;
-	self.userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.userView.user = [WLUser currentUser];
     self.readNotifications = [NSMutableOrderedSet orderedSet];
     
     __weak __typeof(self)weakSelf = self;
@@ -53,7 +49,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.dataSection.entries = [[WLUser currentUser] notifications];
-    [self.userView update];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {

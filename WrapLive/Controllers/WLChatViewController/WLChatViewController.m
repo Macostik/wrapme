@@ -137,7 +137,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)updateEdgeInsets:(CGFloat)keyboardHeight {
     UICollectionView *collectionView = self.collectionView;
-    UIEdgeInsets insets = UIEdgeInsetsMake(self.composeBar.height + keyboardHeight, 0, 64, 0);
+    UIEdgeInsets insets = UIEdgeInsetsMake(self.composeBar.height + keyboardHeight, 0, 0, 0);
     collectionView.contentInset = insets;
     insets.right = collectionView.width - 6;
     collectionView.scrollIndicatorInsets = insets;
@@ -372,7 +372,7 @@ CGFloat WLMaxTextViewWidth;
     BOOL isMyComment = [message.contributor isCurrentUser];
     NSString *cellIdentifier = cellIdentifier = isMyComment ? WLMyMessageCellIdentifier : WLMessageCellIdentifier;
     WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    [cell setShowName:[self.itemsWithName containsIndex:indexPath.item]
+    [cell setShowName:[self.itemsWithName containsIndex:indexPath.item] || [self.itemsWithDay containsIndex:indexPath.item]
               showDay:[self.itemsWithDay containsIndex:indexPath.item]];
     cell.entry = message;
     return cell;
@@ -401,7 +401,7 @@ CGFloat WLMaxTextViewWidth;
 	CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth cachingKey:"messageCellHeight"];
     CGFloat topInset = (containsName ? WLMessageNameInset : WLMessageVerticalInset);
     if (showDay) {
-        topInset += WLMessageDayLabelHeight;
+        topInset += WLMessageDayLabelHeight + WLMessageGroupSpacing;
     } else if (containsName) {
         topInset += WLMessageGroupSpacing;
     }

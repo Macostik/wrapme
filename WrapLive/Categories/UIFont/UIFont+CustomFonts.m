@@ -17,6 +17,8 @@
 			break;
 		case WLFontTypeOpenSansLight:
 			return WLFontNameOpenSansLight;
+        case WLFontTypeOpenSansBold:
+            return WLFontNameOpenSansBold;
 			break;
 	}
 	return nil;
@@ -105,8 +107,13 @@
 @implementation UILabel (CustomFonts)
 
 - (void)awakeFromNib {
-    if (self.tag > 0) {
-        self.font = [self.font fontWithType:self.tag];
+    [self setCustomFontWithTag:self.tag];
+}
+
+- (void)setCustomFontWithTag:(NSUInteger)tag {
+    if (tag > 0) {
+        UIFont *font = [self.font fontWithType:tag];
+        if (self.font != font) self.font = font;
     }
 }
 
@@ -115,8 +122,9 @@
 @implementation UIButton (CustomFonts)
 
 - (void)awakeFromNib {
-    if (self.tag > 0) {
-        self.titleLabel.font = [self.titleLabel.font fontWithType:self.tag];
+    NSUInteger tag = self.tag;
+    if (tag > 0) {
+        [self.titleLabel setCustomFontWithTag:tag];
     }
 }
 
@@ -125,8 +133,10 @@
 @implementation UITextField (CustomFonts)
 
 - (void)awakeFromNib {
-    if (self.tag > 0) {
-        self.font = [self.font fontWithType:self.tag];
+    NSUInteger tag = self.tag;
+    if (tag > 0) {
+        UIFont *font = [self.font fontWithType:tag];
+        if (self.font != font) self.font = font;
     }
 }
 
@@ -135,8 +145,10 @@
 @implementation UITextView (CustomFonts)
 
 - (void)awakeFromNib {
-    if (self.tag > 0) {
-        self.font = [self.font fontWithType:self.tag];
+    NSUInteger tag = self.tag;
+    if (tag > 0) {
+        UIFont *font = [self.font fontWithType:tag];
+        if (self.font != font) self.font = font;
     }
 }
 

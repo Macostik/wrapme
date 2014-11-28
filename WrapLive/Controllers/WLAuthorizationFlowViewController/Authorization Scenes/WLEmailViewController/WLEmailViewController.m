@@ -10,6 +10,7 @@
 #import "WLAuthorization.h"
 #import "WLAuthorizationRequest.h"
 #import "WLTelephony.h"
+#import "WLButton.h"
 
 @interface WLEmailViewController ()
 
@@ -35,12 +36,14 @@
     }
 }
 
-- (IBAction)next:(id)sender {
+- (IBAction)next:(WLButton*)sender {
+    sender.loading = YES;
     [self.view endEditing:YES];
     WLWhoIsRequest* request = [WLWhoIsRequest request];
     request.email = self.emailField.text;
     __weak typeof(self)weakSelf = self;
     [request send:^(WLWhoIs* whoIs) {
+        sender.loading = NO;
         if (whoIs.found && !whoIs.requiresVerification) {
             if (whoIs.confirmed) {
                 [weakSelf setStatus:WLEmailStepStatusLinkDevice animated:YES];
@@ -51,7 +54,7 @@
             [weakSelf setStatus:WLEmailStepStatusVerification animated:YES];
         }
     } failure:^(NSError *error) {
-        
+        sender.loading = NO;
     }];
 }
 

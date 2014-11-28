@@ -8,10 +8,14 @@
 
 #import "WLSignupStepViewController.h"
 #import "WLNavigation.h"
+#import "WLAuthorization.h"
 
 @interface WLSignupStepViewController ()
 
 @property (strong, nonatomic) NSMutableDictionary* completionBlocks;
+
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
 
 @end
 
@@ -20,6 +24,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if (self.phoneLabel) {
+        self.phoneLabel.text = [WLAuthorization currentAuthorization].fullPhoneNumber;
+    }
+    
+    if (self.emailLabel) {
+        self.phoneLabel.text = [WLAuthorization currentAuthorization].email;
+    }
 }
 
 - (NSMutableDictionary *)completionBlocks {

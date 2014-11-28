@@ -51,6 +51,8 @@
 
 static NSString *const WLTimeLineKey = @"WLTimeLineKey";
 static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
+static NSString *const WLUserDefaultsExtensionKey = @"group.com.ravenpod.wraplive";
+static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
 
 @interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLNotificationReceiver>
 
@@ -164,6 +166,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
     [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
+    [self showUpdateWrapInExtensions:wrap];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapAdded:(WLWrap *)wrap {
@@ -252,6 +255,38 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - WLTodayExtension
+- (IBAction)tap:(id)sender {
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:WLUserDefaultsExtensionKey];
+//    NSString *pictureLink = @"https://d1vf5wt786hhu9.cloudfront.net/users/avatars/4a6f82c95da702180546704f90e25783888e8faf/small.jpg?1415693401";
+//    NSDictionary *defaultsDictionary = @{WLExtensionWrapNameKey : @"buttonClick", WLExtensionWrapImageNameKey : pictureLink};
+//    [userDefaults  setObject:defaultsDictionary forKey:WLExtensionWrapKey];
+    BOOL success = [userDefaults synchronize];
+    NSLog(@"notifcashion passed success - %@", success? @"YES" : @"NO");
+}
 
+- (void)showUpdateWrapInExtensions:(WLWrap *)wrap {
+    if ([wrap valid]) {
+        NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:WLUserDefaultsExtensionKey];
+        NSArray *candies = [self parseCandy:[wrap.candies array]];
+        NSMutableDictionary *attDictionary = [NSMutableDictionary dictionaryWithObject:candies forKey:WLContentKey];
+        [userDefaults setObject:attDictionary forKey:WLExtensionWrapKey];
+        BOOL success = [userDefaults synchronize];
+        NSLog(@"notifcashion passed success - %@", success? @"YES" : @"NO");
+    }
+}
+
+- (NSArray *)parseCandy:(NSArray *)candies {
+    __block NSMutableArray *candiesArray = @[].mutableCopy;
+    [candies all:^(WLCandy *candy) {
+        NSMutableDictionary *attributes = @{}.mutableCopy;
+        [attributes setValue:candy.wrap.name forKey:WLWrapKey];
+        [attributes setValue:candy.picture.small forKey:WLImageKey];
+        [attributes setValue:[candy.comments.lastObject text] forKey:WLEventKey];
+        [attributes setValue:candy.createdAt forKey:WLTimeKey];
+        [candiesArray addObject:attributes];
+    }];
+    return candiesArray.mutableCopy;
+}
 
 @end

@@ -52,3 +52,6 @@ static NSString* WLDatesKey = @"dates";
 static NSString* WLCandiesKey = @"candies";
 static NSString* WLWrapsKey = @"wraps";
 static NSString* WLDefaultWrapKey = @"default_wrap";
+static NSString* WLImageKey = @"imageKey";
+static NSString* WLEventKey = @"eventKey";
+static NSString* WLTimeKey = @"timeKey";

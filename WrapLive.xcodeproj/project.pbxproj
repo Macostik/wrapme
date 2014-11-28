@@ -127,6 +127,7 @@
 		14B2429D195C4CEB00C5D208 /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
 		14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
 		14F668641973DDAA008D5081 /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
+		1E365B58F552C37B8AE835F8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		5B3CD74A19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
@@ -139,6 +140,10 @@
 		5B650FE81A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */; };
 		5B650FE91A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */; };
 		5B650FEA1A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */; };
+		5B787D9D1A27876F004AE459 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
+		5B787DA31A27876F004AE459 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B787DA21A27876F004AE459 /* TodayViewController.m */; };
+		5B787DA51A27876F004AE459 /* WLTodayExtension.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B787DA41A27876F004AE459 /* WLTodayExtension.storyboard */; };
+		5B787DA81A27876F004AE459 /* WLTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5B7E156B1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */; };
 		5B7E156C1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */; };
 		5B7E156D1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */; };
@@ -200,6 +205,8 @@
 		5BA6CE981A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
 		5BA6CE991A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
 		5BA6CE9A1A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
+		5BA9EF301A28849700340784 /* WLExtensionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9EF2F1A28849700340784 /* WLExtensionCell.m */; };
+		5BA9EF331A28867000340784 /* WLEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9EF321A28867000340784 /* WLEntry.m */; };
 		5BAA216319FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
 		5BAA216419FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
 		5BAA216519FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
@@ -1242,6 +1249,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5B787DA61A27876F004AE459 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B787D9A1A27876F004AE459;
+			remoteInfo = WLTodayExtension;
+		};
 		C541A01319C84325003601F9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -1271,6 +1285,20 @@
 			remoteInfo = CopyProvisioningProfiles;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5B787DAC1A27876F004AE459 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5B787DA81A27876F004AE459 /* WLTodayExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		120ED84D18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
@@ -1492,6 +1520,17 @@
 		5B650FDF1A00091800D6AD3D /* WLReportCandyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLReportCandyViewController.h; path = WLReportCandyViewController/WLReportCandyViewController.h; sourceTree = "<group>"; };
 		5B650FE01A00091800D6AD3D /* WLReportCandyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLReportCandyViewController.m; path = WLReportCandyViewController/WLReportCandyViewController.m; sourceTree = "<group>"; };
 		5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLReportCandyViewController.xib; path = WLReportCandyViewController/WLReportCandyViewController.xib; sourceTree = "<group>"; };
+		5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WLTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B787D9C1A27876F004AE459 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		5B787DA01A27876F004AE459 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5B787DA11A27876F004AE459 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		5B787DA21A27876F004AE459 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
+		5B787DA41A27876F004AE459 /* WLTodayExtension.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WLTodayExtension.storyboard; sourceTree = "<group>"; };
+		5B787DAD1A2788F2004AE459 /* WrapLive-Development.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WrapLive-Development.entitlements"; sourceTree = "<group>"; };
+		5B787DAE1A278904004AE459 /* WrapLive-QA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WrapLive-QA.entitlements"; sourceTree = "<group>"; };
+		5B787DAF1A27890C004AE459 /* WrapLive-Beta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WrapLive-Beta.entitlements"; sourceTree = "<group>"; };
+		5B787DB01A278914004AE459 /* WrapLive-Production.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WrapLive-Production.entitlements"; sourceTree = "<group>"; };
+		5B787DB11A27891C004AE459 /* WLTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WLTodayExtension.entitlements; sourceTree = "<group>"; };
 		5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCreateWrapCell.xib; path = WrapLive/Controllers/WLPickerViewContoller/WLCreateWrapCell.xib; sourceTree = "<group>"; };
 		5BA470BC1A24BAA80098EBE2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		5BA470BD1A24BAA80098EBE2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -1511,6 +1550,10 @@
 		5BA6CAF11A10E51B004AD41C /* s04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s04.wav; path = Sounds/s04.wav; sourceTree = "<group>"; };
 		5BA6CE951A160D4300C0DD95 /* UIDevice-Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice-Hardware.h"; sourceTree = "<group>"; };
 		5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice-Hardware.m"; sourceTree = "<group>"; };
+		5BA9EF2E1A28849700340784 /* WLExtensionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLExtensionCell.h; sourceTree = "<group>"; };
+		5BA9EF2F1A28849700340784 /* WLExtensionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLExtensionCell.m; sourceTree = "<group>"; };
+		5BA9EF311A28867000340784 /* WLEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntry.h; sourceTree = "<group>"; };
+		5BA9EF321A28867000340784 /* WLEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntry.m; sourceTree = "<group>"; };
 		5BAA216119FE7BCD008958EF /* WLActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLActionViewController.h; path = WLActionViewController/WLActionViewController.h; sourceTree = "<group>"; };
 		5BAA216219FE7BCD008958EF /* WLActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLActionViewController.m; path = WLActionViewController/WLActionViewController.m; sourceTree = "<group>"; };
 		5BB02FF419F00BCE001E1D50 /* WLChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChat.h; path = WLChatGroupSet/WLChat.h; sourceTree = "<group>"; };
@@ -1847,6 +1890,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5B787D981A27876F004AE459 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B787D9D1A27876F004AE459 /* NotificationCenter.framework in Frameworks */,
+				1E365B58F552C37B8AE835F8 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C54AF51519B8C437006F7EDB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2151,7 +2203,12 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
+				5B787DB01A278914004AE459 /* WrapLive-Production.entitlements */,
+				5B787DAF1A27890C004AE459 /* WrapLive-Beta.entitlements */,
+				5B787DAE1A278904004AE459 /* WrapLive-QA.entitlements */,
+				5B787DAD1A2788F2004AE459 /* WrapLive-Development.entitlements */,
 				12A7A70818DA0945008FF6F0 /* WrapLive */,
+				5B787D9E1A27876F004AE459 /* WLTodayExtension */,
 				12A7A70118DA0945008FF6F0 /* Frameworks */,
 				12A7A70018DA0945008FF6F0 /* Products */,
 				C74A6984FAD8A1A206944094 /* Pods */,
@@ -2166,6 +2223,7 @@
 				C54AF55019B8C437006F7EDB /* WrapLive-QA.app */,
 				C54AF64D19B8C467006F7EDB /* WrapLive-Beta.app */,
 				C54AF74A19B8C491006F7EDB /* WrapLive-Production.app */,
+				5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2190,6 +2248,7 @@
 				DB3E1BA25DBEAE84AEE5004A /* libPods-WrapLive-QA.a */,
 				3272A1C39BD41FBFE03B2A92 /* libPods-WrapLive-Beta.a */,
 				C2D43A591674DA2A59FC5C5B /* libPods-WrapLive-Production.a */,
+				5B787D9C1A27876F004AE459 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2926,6 +2985,30 @@
 				5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */,
 			);
 			name = WLReportCandyViewController;
+			sourceTree = "<group>";
+		};
+		5B787D9E1A27876F004AE459 /* WLTodayExtension */ = {
+			isa = PBXGroup;
+			children = (
+				5B787DB11A27891C004AE459 /* WLTodayExtension.entitlements */,
+				5B787DA11A27876F004AE459 /* TodayViewController.h */,
+				5B787DA21A27876F004AE459 /* TodayViewController.m */,
+				5BA9EF2E1A28849700340784 /* WLExtensionCell.h */,
+				5BA9EF2F1A28849700340784 /* WLExtensionCell.m */,
+				5BA9EF311A28867000340784 /* WLEntry.h */,
+				5BA9EF321A28867000340784 /* WLEntry.m */,
+				5B787DA41A27876F004AE459 /* WLTodayExtension.storyboard */,
+				5B787D9F1A27876F004AE459 /* Supporting Files */,
+			);
+			path = WLTodayExtension;
+			sourceTree = "<group>";
+		};
+		5B787D9F1A27876F004AE459 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5B787DA01A27876F004AE459 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		5BA4CC161A08FAFA00D7F31C /* WLPickerViewController */ = {
@@ -3769,16 +3852,37 @@
 				12A7A6FD18DA0945008FF6F0 /* Resources */,
 				635DA26797604B1F927001E0 /* Copy Pods Resources */,
 				C52C93AD1965AE470027EF46 /* ShellScript */,
+				5B787DAC1A27876F004AE459 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				C541A01819C84330003601F9 /* PBXTargetDependency */,
+				5B787DA71A27876F004AE459 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Development";
 			productName = WrapLive;
 			productReference = 12A7A6FF18DA0945008FF6F0 /* WrapLive-Development.app */;
 			productType = "com.apple.product-type.application";
+		};
+		5B787D9A1A27876F004AE459 /* WLTodayExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B787DAB1A27876F004AE459 /* Build configuration list for PBXNativeTarget "WLTodayExtension" */;
+			buildPhases = (
+				7822050E8E210AE2B318FE59 /* Check Pods Manifest.lock */,
+				5B787D971A27876F004AE459 /* Sources */,
+				5B787D981A27876F004AE459 /* Frameworks */,
+				5B787D991A27876F004AE459 /* Resources */,
+				69BC5439D92D8474B564F559 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WLTodayExtension;
+			productName = WLTodayExtension;
+			productReference = 5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		C54AF45519B8C437006F7EDB /* WrapLive-QA */ = {
 			isa = PBXNativeTarget;
@@ -3854,8 +3958,45 @@
 				ORGANIZATIONNAME = Ravenpod;
 				TargetAttributes = {
 					12A7A6FE18DA0945008FF6F0 = {
+						DevelopmentTeam = 2PW57LM468;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+					5B787D9A1A27876F004AE459 = {
+						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 2PW57LM468;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					C54AF45519B8C437006F7EDB = {
+						DevelopmentTeam = 2PW57LM468;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					C54AF55219B8C467006F7EDB = {
+						DevelopmentTeam = 2PW57LM468;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					C54AF64F19B8C491006F7EDB = {
+						DevelopmentTeam = 2PW57LM468;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
 						};
@@ -3880,6 +4021,7 @@
 				C54AF55219B8C467006F7EDB /* WrapLive-Beta */,
 				C54AF64F19B8C491006F7EDB /* WrapLive-Production */,
 				C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */,
+				5B787D9A1A27876F004AE459 /* WLTodayExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -3969,6 +4111,14 @@
 				12D578C719178C3400586995 /* iTunesArtwork in Resources */,
 				12D514F9192F5F15007A1520 /* AppIcon29x29.png in Resources */,
 				C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B787D991A27876F004AE459 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B787DA51A27876F004AE459 /* WLTodayExtension.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4249,6 +4399,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69BC5439D92D8474B564F559 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7822050E8E210AE2B318FE59 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		C0F7B8B3D4B64C73B15D49B4 /* Check Pods Manifest.lock */ = {
@@ -4633,6 +4813,16 @@
 				12E0F04E19090B0600463FEC /* WLBroadcaster.m in Sources */,
 				12DE6980192E04F7007580AD /* NSPropertyListSerialization+Shorthand.m in Sources */,
 				5B650FE11A00091800D6AD3D /* WLReportCandyViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B787D971A27876F004AE459 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BA9EF301A28849700340784 /* WLExtensionCell.m in Sources */,
+				5BA9EF331A28867000340784 /* WLEntry.m in Sources */,
+				5B787DA31A27876F004AE459 /* TodayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5311,6 +5501,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5B787DA71A27876F004AE459 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B787D9A1A27876F004AE459 /* WLTodayExtension */;
+			targetProxy = 5B787DA61A27876F004AE459 /* PBXContainerItemProxy */;
+		};
 		C541A01419C84325003601F9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
@@ -5424,6 +5619,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "WrapLive-Development.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5448,6 +5644,7 @@
 			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CODE_SIGN_ENTITLEMENTS = "WrapLive-Development.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
@@ -5468,10 +5665,53 @@
 			};
 			name = Release;
 		};
+		5B787DA91A27876F004AE459 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = WLTodayExtension/WLTodayExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = WLTodayExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		5B787DAA1A27876F004AE459 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = WLTodayExtension/WLTodayExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = WLTodayExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		C54AF54E19B8C437006F7EDB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "WrapLive-QA.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5496,6 +5736,7 @@
 			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CODE_SIGN_ENTITLEMENTS = "WrapLive-QA.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
@@ -5520,6 +5761,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "WrapLive-Beta.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5543,6 +5785,7 @@
 			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CODE_SIGN_ENTITLEMENTS = "WrapLive-Beta.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
@@ -5566,6 +5809,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "WrapLive-Production.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5590,6 +5834,7 @@
 			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CODE_SIGN_ENTITLEMENTS = "WrapLive-Production.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
@@ -5660,6 +5905,15 @@
 			buildConfigurations = (
 				12A7A73218DA0946008FF6F0 /* Debug */,
 				12A7A73318DA0946008FF6F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5B787DAB1A27876F004AE459 /* Build configuration list for PBXNativeTarget "WLTodayExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B787DA91A27876F004AE459 /* Debug */,
+				5B787DAA1A27876F004AE459 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

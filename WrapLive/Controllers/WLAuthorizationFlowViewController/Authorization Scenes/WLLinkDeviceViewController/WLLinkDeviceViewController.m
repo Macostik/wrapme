@@ -38,11 +38,7 @@
     request.approvalCode = self.passcodeField.text;
     [request send:^(id object) {
         [[WLAuthorization currentAuthorization] signIn:^(WLUser *user) {
-            if (user.name.nonempty && user.picture.medium.nonempty) {
-                [weakSelf complete];
-            } else {
-                [weakSelf showSuccessViewControllerAnimated:YES];
-            }
+            [weakSelf setSuccessStatusAnimated:YES];
         } failure:^(NSError *error) {
             [error show];
             sender.loading = NO;

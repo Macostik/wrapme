@@ -58,7 +58,7 @@
 - (IBAction)goToMainScreen:(id)sender {
     __weak typeof(self)weakSelf = self;
 	[self updateIfNeeded:^{
-        [weakSelf complete];
+        [weakSelf setSuccessStatusAnimated:YES];
 	}];
 }
 

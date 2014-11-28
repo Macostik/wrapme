@@ -16,34 +16,27 @@ typedef NS_ENUM(NSUInteger, WLSignupStepStatus) {
 
 @class WLSignupStepViewController;
 
-@protocol WLSignupStepViewControllerDelegate <NSObject>
-
-- (void)signupStepViewControllerCompletedSignup:(WLSignupStepViewController*)controller;
-
-@end
+typedef WLSignupStepViewController *(^WLSignupStepCompletionBlock)(void);
+typedef WLSignupStepViewController *(^WLSignupStepCompletionWithSuccessBlock) (WLSignupStepCompletionBlock successBlock);
 
 @interface WLSignupStepViewController : WLBaseViewController
 
-@property (nonatomic, weak) id <WLSignupStepViewControllerDelegate> delegate;
+- (void)setCompletionBlock:(WLSignupStepCompletionBlock)block forStatus:(NSUInteger)status;
 
-- (void)setViewController:(WLSignupStepViewController *)controller forStatus:(NSUInteger)status;
+- (void)setSuccessStatusBlock:(WLSignupStepCompletionBlock)block;
 
-- (void)setSuccessViewController:(WLSignupStepViewController*)controller;
+- (void)setFailureStatusBlock:(WLSignupStepCompletionBlock)block;
 
-- (void)setFailureViewController:(WLSignupStepViewController*)controller;
+- (void)setCancelStatusBlock:(WLSignupStepCompletionBlock)block;
 
-- (void)setCancelViewController:(WLSignupStepViewController*)controller;
+- (WLSignupStepCompletionBlock)completionBlockForStatus:(NSUInteger)status;
 
-- (WLSignupStepViewController*)viewControllerForStatus:(NSUInteger)status;
+- (BOOL)setStatus:(NSUInteger)status animated:(BOOL)animated;
 
-- (BOOL)showViewControllerForStatus:(NSUInteger)status animated:(BOOL)animated;
+- (BOOL)setSuccessStatusAnimated:(BOOL)animated;
 
-- (BOOL)showSuccessViewControllerAnimated:(BOOL)animated;
+- (BOOL)setFailureStatusAnimated:(BOOL)animated;
 
-- (BOOL)showFailureViewControllerAnimated:(BOOL)animated;
-
-- (BOOL)showCancelViewControllerAnimated:(BOOL)animated;
-
-- (void)complete;
+- (BOOL)setCancelStatusAnimated:(BOOL)animated;
 
 @end

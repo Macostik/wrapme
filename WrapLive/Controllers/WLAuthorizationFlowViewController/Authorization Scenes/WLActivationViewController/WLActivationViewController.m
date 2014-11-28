@@ -61,20 +61,11 @@
     __weak typeof(self)weakSelf = self;
     [self activate:^{
         sender.loading = NO;
-        [weakSelf showSuccessViewControllerAnimated:YES];
+        [weakSelf setSuccessStatusAnimated:YES];
     } failure:^(NSError *error) {
         sender.loading = NO;
-        [weakSelf showFailureViewControllerAnimated:YES];
+        [weakSelf setFailureStatusAnimated:YES];
     }];
-}
-
-- (IBAction)done:(id)sender {
-    WLUser *user = [WLUser currentUser];
-    if (user.name.nonempty && user.picture.medium.nonempty) {
-        [self complete];
-    } else {
-        [self showSuccessViewControllerAnimated:YES];
-    }
 }
 
 @end

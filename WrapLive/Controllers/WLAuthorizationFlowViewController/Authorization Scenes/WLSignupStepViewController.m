@@ -11,7 +11,7 @@
 
 @interface WLSignupStepViewController ()
 
-@property (strong, nonatomic) NSMapTable* completionScenes;
+@property (strong, nonatomic) NSMutableDictionary* completionBlocks;
 
 @end
 
@@ -22,37 +22,38 @@
     // Do any additional setup after loading the view.
 }
 
-- (NSMapTable *)completionScenes {
-    if (!_completionScenes) {
-        _completionScenes = [NSMapTable strongToWeakObjectsMapTable];
+- (NSMutableDictionary *)completionBlocks {
+    if (!_completionBlocks) {
+        _completionBlocks = [NSMutableDictionary dictionary];
     }
-    return _completionScenes;
+    return _completionBlocks;
 }
 
-- (void)setViewController:(WLSignupStepViewController *)controller forStatus:(NSUInteger)status {
-    [self.completionScenes setObject:controller forKey:@(status)];
+- (void)setCompletionBlock:(WLSignupStepCompletionBlock)block forStatus:(NSUInteger)status {
+    [self.completionBlocks setObject:block forKey:@(status)];
 }
 
-- (void)setSuccessViewController:(WLSignupStepViewController*)controller {
-    [self setViewController:controller forStatus:WLSignupStepStatusSuccess];
+- (void)setSuccessStatusBlock:(WLSignupStepCompletionBlock)block {
+    [self setCompletionBlock:block forStatus:WLSignupStepStatusSuccess];
 }
 
-- (void)setFailureViewController:(WLSignupStepViewController*)controller {
-    [self setViewController:controller forStatus:WLSignupStepStatusFailure];
+- (void)setFailureStatusBlock:(WLSignupStepCompletionBlock)block {
+    [self setCompletionBlock:block forStatus:WLSignupStepStatusFailure];
 }
 
-- (void)setCancelViewController:(WLSignupStepViewController*)controller {
-    [self setViewController:controller forStatus:WLSignupStepStatusCancel];
+- (void)setCancelStatusBlock:(WLSignupStepCompletionBlock)block {
+    [self setCompletionBlock:block forStatus:WLSignupStepStatusCancel];
 }
 
-- (WLSignupStepViewController *)viewControllerForStatus:(NSUInteger)status {
-    return [self.completionScenes objectForKey:@(status)];
+- (WLSignupStepCompletionBlock)completionBlockForStatus:(NSUInteger)status {
+    return [self.completionBlocks objectForKey:@(status)];
 }
 
-- (BOOL)showViewControllerForStatus:(NSUInteger)status animated:(BOOL)animated {
-    WLSignupStepViewController *controller = [self viewControllerForStatus:status];
-    if (!controller) return NO;
+- (BOOL)setStatus:(NSUInteger)status animated:(BOOL)animated {
+    WLSignupStepCompletionBlock block = [self completionBlockForStatus:status];
+    if (!block) return NO;
     UINavigationController* navigationController = self.navigationController;
+    WLSignupStepViewController *controller = block();
     if ([navigationController.viewControllers containsObject:controller]) {
         [navigationController popToViewController:controller animated:animated];
     } else {
@@ -61,38 +62,30 @@
     return YES;
 }
 
-- (BOOL)showSuccessViewControllerAnimated:(BOOL)animated {
-    return [self showViewControllerForStatus:WLSignupStepStatusSuccess animated:animated];
+- (BOOL)setSuccessStatusAnimated:(BOOL)animated {
+    return [self setStatus:WLSignupStepStatusSuccess animated:animated];
 }
 
-- (BOOL)showFailureViewControllerAnimated:(BOOL)animated {
-    return [self showViewControllerForStatus:WLSignupStepStatusFailure animated:animated];
+- (BOOL)setFailureStatusAnimated:(BOOL)animated {
+    return [self setStatus:WLSignupStepStatusFailure animated:animated];
 }
 
-- (BOOL)showCancelViewControllerAnimated:(BOOL)animated {
-    return [self showViewControllerForStatus:WLSignupStepStatusCancel animated:animated];
+- (BOOL)setCancelStatusAnimated:(BOOL)animated {
+    return [self setStatus:WLSignupStepStatusCancel animated:animated];
 }
 
 - (IBAction)success:(id)sender {
-    [self showViewControllerForStatus:WLSignupStepStatusSuccess animated:YES];
+    [self setSuccessStatusAnimated:YES];
 }
 
 - (IBAction)failure:(id)sender {
-    [self showViewControllerForStatus:WLSignupStepStatusFailure animated:YES];
+    [self setFailureStatusAnimated:YES];
 }
 
 - (IBAction)cancel:(id)sender {
-    if (![self showViewControllerForStatus:WLSignupStepStatusCancel animated:YES]) {
+    if (![self setCancelStatusAnimated:YES]) {
         [self.navigationController popViewControllerAnimated:YES];
     }
-}
-
-- (IBAction)complete:(id)sender {
-    [self complete];
-}
-
-- (void)complete {
-    [self.delegate signupStepViewControllerCompletedSignup:self];
 }
 
 @end

@@ -177,6 +177,10 @@ typedef enum : NSUInteger {
     }
 }
 
+- (IBAction)agreeAndContinue:(id)sender {
+    [self.navigationController setViewControllers:@[[WLSignupFlowViewController instantiate:self.storyboard]] animated:YES];
+}
+
 #pragma mark -UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {

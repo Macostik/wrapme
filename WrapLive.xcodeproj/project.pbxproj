@@ -3684,12 +3684,12 @@
 		C5C20BB31A239D6F008B2E2E /* Authorization Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				C5C20BB71A239D6F008B2E2E /* WLSignupStepViewController.h */,
+				C5C20BB81A239D6F008B2E2E /* WLSignupStepViewController.m */,
 				C55997461A25EA9A003D4B29 /* WLEmailConfirmationViewController */,
 				C54531321A24D6580048A677 /* WLLinkDeviceViewController */,
 				C54531241A24A1F20048A677 /* WLCountriesViewController */,
 				C5C20BB41A239D6F008B2E2E /* WLActivationViewController */,
-				C5C20BB71A239D6F008B2E2E /* WLSignupStepViewController.h */,
-				C5C20BB81A239D6F008B2E2E /* WLSignupStepViewController.m */,
 				C5C20BB91A239D6F008B2E2E /* WLEmailViewController */,
 				C5C20BBC1A239D6F008B2E2E /* WLPhoneViewController */,
 				C5C20BC41A239D6F008B2E2E /* WLProfileInformationViewController */,

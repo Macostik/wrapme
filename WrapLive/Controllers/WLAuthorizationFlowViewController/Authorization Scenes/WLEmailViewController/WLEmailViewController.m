@@ -43,16 +43,12 @@
     [request send:^(WLWhoIs* whoIs) {
         if (whoIs.found && !whoIs.requiresVerification) {
             if (whoIs.confirmed) {
-                if ([WLTelephony hasPhoneNumber]) {
-                    [weakSelf showViewControllerForStatus:WLEmailStepStatusVerification animated:YES];
-                } else {
-                    [weakSelf showViewControllerForStatus:WLEmailStepStatusLinkDevice animated:YES];
-                }
+                [weakSelf setStatus:WLEmailStepStatusLinkDevice animated:YES];
             } else {
-                [weakSelf showViewControllerForStatus:WLEmailStepStatusUnconfirmedEmail animated:YES];
+                [weakSelf setStatus:WLEmailStepStatusUnconfirmedEmail animated:YES];
             }
         } else {
-            [weakSelf showViewControllerForStatus:WLEmailStepStatusVerification animated:YES];
+            [weakSelf setStatus:WLEmailStepStatusVerification animated:YES];
         }
     } failure:^(NSError *error) {
         

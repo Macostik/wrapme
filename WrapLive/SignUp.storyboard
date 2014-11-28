@@ -530,7 +530,7 @@ Ravenpod, Inc.
                                 </state>
                                 <state key="highlighted" backgroundImage="1st_screen_btn_agree_and_continue_hightlighted"/>
                                 <connections>
-                                    <segue destination="m5i-GB-PRL" kind="push" id="xVP-kL-6Y6"/>
+                                    <action selector="agreeAndContinue:" destination="DOj-fu-IIy" eventType="touchUpInside" id="SBA-hN-s0A"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -707,7 +707,7 @@ Ravenpod, Inc.
         <!--Signup Flow View Controller-->
         <scene sceneID="KIU-R9-Z52">
             <objects>
-                <viewController storyboardIdentifier="WLSignUpViewController" automaticallyAdjustsScrollViewInsets="NO" id="m5i-GB-PRL" customClass="WLSignupFlowViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLSignupFlowViewController" automaticallyAdjustsScrollViewInsets="NO" id="m5i-GB-PRL" customClass="WLSignupFlowViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HnA-wf-T7X"/>
                         <viewControllerLayoutGuide type="bottom" id="Bow-xI-eNH"/>
@@ -1495,7 +1495,7 @@ Ravenpod, Inc.
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="complete:" destination="Vpu-Ls-zan" eventType="touchUpInside" id="PSC-Yy-12e"/>
+                                    <action selector="success:" destination="Vpu-Ls-zan" eventType="touchUpInside" id="MN5-3W-StY"/>
                                 </connections>
                             </button>
                         </subviews>

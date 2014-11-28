@@ -38,7 +38,7 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
     if (![WLAuthorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
-        [self showSuccessViewControllerAnimated:YES];
+        [self setSuccessStatusAnimated:YES];
     }
 }
 

@@ -101,9 +101,8 @@ static BOOL authorized = NO;
         NSDictionary* userData = [response.data dictionaryForKey:@"user"];
         
 		WLUser* user = [WLUser API_entry:userData];
-		[user setCurrent];
-        
         [self.authorization updateWithUserData:userData];
+		[user setCurrent];
 		return user;
     }
     return self.authorization;

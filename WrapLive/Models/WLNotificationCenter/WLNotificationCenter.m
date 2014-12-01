@@ -115,13 +115,14 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)subscribe {
-	NSString* name = [WLUser currentUser].identifier;
-	if (!name.nonempty) {
+	NSString* userUID = [WLUser currentUser].identifier;
+    NSString* deviceUID = [WLAuthorization currentAuthorization].deviceUID;
+	if (!userUID.nonempty || !deviceUID.nonempty) {
 		return;
 	}
-    if (![[PubNub clientIdentifier] isEqualToString:name]) {
-        [PubNub setClientIdentifier:name];
-        self.userChannel = [WLNotificationChannel channelWithName:[NSString stringWithFormat:@"%@-%@", name, [WLAuthorization currentAuthorization].deviceUID]];
+    if (![[PubNub clientIdentifier] isEqualToString:userUID]) {
+        [PubNub setClientIdentifier:userUID];
+        self.userChannel = [WLNotificationChannel channelWithName:[NSString stringWithFormat:@"%@-%@", userUID, deviceUID]];
         [self requestHistory];
         __weak typeof(self)weakSelf = self;
         [self.userChannel enableAPNS];

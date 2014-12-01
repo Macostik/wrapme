@@ -74,6 +74,7 @@
 	__weak typeof(self)weakSelf = self;
 	[self.imageView setUrl:self.image.picture.large success:^(UIImage *image, BOOL cached) {
         if (image) {
+            [weakSelf applyDeviceOrientation:[UIDevice currentDevice].orientation animated:NO];
 			[weakSelf calculateScaleValues];
 		}
 		[weakSelf.spinner removeFromSuperview];
@@ -125,9 +126,11 @@
 #pragma mark - WLDeviceOrientationBroadcastReceiver
 
 - (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber*)orientation {
-	self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
-	[self applyDeviceOrientation:[orientation integerValue] animated:YES];
-    [self calculateScaleValues];
+    if (self.imageView.image) {
+        self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
+        [self applyDeviceOrientation:[orientation integerValue] animated:YES];
+        [self calculateScaleValues];
+    }
 }
 
 #pragma mark - Actions

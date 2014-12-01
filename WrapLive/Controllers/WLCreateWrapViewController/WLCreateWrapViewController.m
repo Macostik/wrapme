@@ -47,7 +47,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.frame = self.contentView.frame;
-    self.nameField.layer.borderColor = [UIColor WL_grayColor].CGColor;
     self.createButton.layer.borderColor = self.backButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
     [self.contentView bottomPushWithDuration:1.0 delegate:nil];
 

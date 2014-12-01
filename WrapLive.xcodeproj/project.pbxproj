@@ -1095,6 +1095,22 @@
 		C54EFCE01A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */; };
 		C54EFCE11A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */; };
 		C54EFCE21A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */; };
+		C54F4B271A28BC9E00B92982 /* chat_bubble_tail_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B231A28BC9E00B92982 /* chat_bubble_tail_gray.png */; };
+		C54F4B281A28BC9E00B92982 /* chat_bubble_tail_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B231A28BC9E00B92982 /* chat_bubble_tail_gray.png */; };
+		C54F4B291A28BC9E00B92982 /* chat_bubble_tail_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B231A28BC9E00B92982 /* chat_bubble_tail_gray.png */; };
+		C54F4B2A1A28BC9E00B92982 /* chat_bubble_tail_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B231A28BC9E00B92982 /* chat_bubble_tail_gray.png */; };
+		C54F4B2B1A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B241A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png */; };
+		C54F4B2C1A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B241A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png */; };
+		C54F4B2D1A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B241A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png */; };
+		C54F4B2E1A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B241A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png */; };
+		C54F4B2F1A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B251A28BC9E00B92982 /* chat_bubble_tail_red.png */; };
+		C54F4B301A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B251A28BC9E00B92982 /* chat_bubble_tail_red.png */; };
+		C54F4B311A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B251A28BC9E00B92982 /* chat_bubble_tail_red.png */; };
+		C54F4B321A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B251A28BC9E00B92982 /* chat_bubble_tail_red.png */; };
+		C54F4B331A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B261A28BC9E00B92982 /* chat_bubble_tail_red@2x.png */; };
+		C54F4B341A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B261A28BC9E00B92982 /* chat_bubble_tail_red@2x.png */; };
+		C54F4B351A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B261A28BC9E00B92982 /* chat_bubble_tail_red@2x.png */; };
+		C54F4B361A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B261A28BC9E00B92982 /* chat_bubble_tail_red@2x.png */; };
 		C54FC7631A160C2000623FC1 /* WLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54FC7621A160C2000623FC1 /* WLCollectionView.m */; };
 		C54FC7641A160C2000623FC1 /* WLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54FC7621A160C2000623FC1 /* WLCollectionView.m */; };
 		C54FC7651A160C2000623FC1 /* WLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54FC7621A160C2000623FC1 /* WLCollectionView.m */; };
@@ -1776,6 +1792,10 @@
 		C54AF86519B8C632006F7EDB /* WLAPIEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAPIEnvironment.m; path = WLAPIManager/WLAPIEnvironment.m; sourceTree = "<group>"; };
 		C54EFCDD1A0D0D06005BC506 /* WLChatTypingChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChatTypingChannel.h; sourceTree = "<group>"; };
 		C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChatTypingChannel.m; sourceTree = "<group>"; };
+		C54F4B231A28BC9E00B92982 /* chat_bubble_tail_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_bubble_tail_gray.png; sourceTree = "<group>"; };
+		C54F4B241A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bubble_tail_gray@2x.png"; sourceTree = "<group>"; };
+		C54F4B251A28BC9E00B92982 /* chat_bubble_tail_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_bubble_tail_red.png; sourceTree = "<group>"; };
+		C54F4B261A28BC9E00B92982 /* chat_bubble_tail_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bubble_tail_red@2x.png"; sourceTree = "<group>"; };
 		C54FC7611A160C2000623FC1 /* WLCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionView.h; path = WLCollectionView/WLCollectionView.h; sourceTree = "<group>"; };
 		C54FC7621A160C2000623FC1 /* WLCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionView.m; path = WLCollectionView/WLCollectionView.m; sourceTree = "<group>"; };
 		C54FC7681A163CC400623FC1 /* WLNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNetwork.h; sourceTree = "<group>"; };
@@ -3527,6 +3547,10 @@
 				C57005AF1A1FA19C007257A6 /* chat_bubble_red_right.png */,
 				C57005B01A1FA19C007257A6 /* chat_bubble_red_right@2x.png */,
 				C57005B11A1FA19C007257A6 /* chat_bubble_red_right@3x.png */,
+				C54F4B231A28BC9E00B92982 /* chat_bubble_tail_gray.png */,
+				C54F4B241A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png */,
+				C54F4B251A28BC9E00B92982 /* chat_bubble_tail_red.png */,
+				C54F4B261A28BC9E00B92982 /* chat_bubble_tail_red@2x.png */,
 			);
 			path = OpaqueAssets;
 			sourceTree = "<group>";
@@ -4039,7 +4063,9 @@
 				C54AF86119B8C622006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5BF5833A1A1F745600922BD5 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
 				12F3ED571934B183009C1DC3 /* WLAssetsGroupViewController.xib in Resources */,
+				C54F4B2F1A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */,
 				C54AF85F19B8C622006F7EDB /* WLTestUsersQA.plist in Resources */,
+				C54F4B331A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				12D514F7192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54FC7701A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
@@ -4052,9 +4078,11 @@
 				ACF8D9181934B45C0001E570 /* cars.plist in Resources */,
 				C542BDE819FA554A00C3BD64 /* SignUp.storyboard in Resources */,
 				5BF583401A1F983B00922BD5 /* ic_quote@3x.png in Resources */,
+				C54F4B271A28BC9E00B92982 /* chat_bubble_tail_gray.png in Resources */,
 				ACF8D9141934B4460001E570 /* flowers.plist in Resources */,
 				12A8AA7018F592B500F67113 /* WLLoadingView.xib in Resources */,
 				12F3ED5B1934B183009C1DC3 /* WLAssetsGroupCell.xib in Resources */,
+				C54F4B2B1A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png in Resources */,
 				C51E29611A1CE12E009786C7 /* ic_today_comment@3x.png in Resources */,
 				5BBBC0051A0A504E003781C4 /* WLPickerViewCell.xib in Resources */,
 				C57005DA1A1FA19C007257A6 /* chat_bubble_red_right@2x.png in Resources */,
@@ -4134,7 +4162,9 @@
 				5BF583411A1F984200922BD5 /* ic_quote.png in Resources */,
 				C54AF87819B8C63E006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				C54AF52219B8C437006F7EDB /* AviarySDKResources.bundle in Resources */,
+				C54F4B301A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */,
 				C54AF52319B8C437006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
+				C54F4B341A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				C54FC7711A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */,
 				C54AF52619B8C437006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54AF87719B8C63E006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
@@ -4147,9 +4177,11 @@
 				C54AF52C19B8C437006F7EDB /* cars.plist in Resources */,
 				C54AF52D19B8C437006F7EDB /* flowers.plist in Resources */,
 				C542BDE919FA554A00C3BD64 /* SignUp.storyboard in Resources */,
+				C54F4B281A28BC9E00B92982 /* chat_bubble_tail_gray.png in Resources */,
 				C54AF52E19B8C437006F7EDB /* WLLoadingView.xib in Resources */,
 				C51E29621A1CE12E009786C7 /* ic_today_comment@3x.png in Resources */,
 				C54AF86C19B8C63A006F7EDB /* WLAPIEnvironmentProduction.plist in Resources */,
+				C54F4B2C1A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png in Resources */,
 				C54AF53019B8C437006F7EDB /* WLAssetsGroupCell.xib in Resources */,
 				5BBBC0061A0A504E003781C4 /* WLPickerViewCell.xib in Resources */,
 				C57005BB1A1FA19C007257A6 /* chat_bubble_gray_left@3x.png in Resources */,
@@ -4221,7 +4253,9 @@
 				5BF583441A1F984200922BD5 /* ic_quote.png in Resources */,
 				C54AF87C19B8C63E006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				C54AF61F19B8C467006F7EDB /* AviarySDKResources.bundle in Resources */,
+				C54F4B311A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */,
 				C54AF62019B8C467006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
+				C54F4B351A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				C54FC7721A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */,
 				C54AF62319B8C467006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54AF87B19B8C63E006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
@@ -4234,9 +4268,11 @@
 				C54AF62919B8C467006F7EDB /* cars.plist in Resources */,
 				C54AF62A19B8C467006F7EDB /* flowers.plist in Resources */,
 				C542BDEA19FA554A00C3BD64 /* SignUp.storyboard in Resources */,
+				C54F4B291A28BC9E00B92982 /* chat_bubble_tail_gray.png in Resources */,
 				C54AF62B19B8C467006F7EDB /* WLLoadingView.xib in Resources */,
 				C51E29631A1CE12E009786C7 /* ic_today_comment@3x.png in Resources */,
 				C54AF87019B8C63A006F7EDB /* WLAPIEnvironmentProduction.plist in Resources */,
+				C54F4B2D1A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png in Resources */,
 				C54AF62D19B8C467006F7EDB /* WLAssetsGroupCell.xib in Resources */,
 				5BBBC0071A0A504E003781C4 /* WLPickerViewCell.xib in Resources */,
 				C57005BC1A1FA19C007257A6 /* chat_bubble_gray_left@3x.png in Resources */,
@@ -4308,7 +4344,9 @@
 				5BF583471A1F984200922BD5 /* ic_quote.png in Resources */,
 				C54AF88019B8C63F006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				C54AF71C19B8C491006F7EDB /* AviarySDKResources.bundle in Resources */,
+				C54F4B321A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */,
 				C54AF71D19B8C491006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
+				C54F4B361A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				C54FC7731A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */,
 				C54AF72019B8C491006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54AF87F19B8C63F006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
@@ -4321,9 +4359,11 @@
 				C54AF72619B8C491006F7EDB /* cars.plist in Resources */,
 				C54AF72719B8C491006F7EDB /* flowers.plist in Resources */,
 				C542BDEB19FA554A00C3BD64 /* SignUp.storyboard in Resources */,
+				C54F4B2A1A28BC9E00B92982 /* chat_bubble_tail_gray.png in Resources */,
 				C54AF72819B8C491006F7EDB /* WLLoadingView.xib in Resources */,
 				C51E29641A1CE12E009786C7 /* ic_today_comment@3x.png in Resources */,
 				C54AF87419B8C63B006F7EDB /* WLAPIEnvironmentProduction.plist in Resources */,
+				C54F4B2E1A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png in Resources */,
 				C54AF72A19B8C491006F7EDB /* WLAssetsGroupCell.xib in Resources */,
 				5BBBC0081A0A504E003781C4 /* WLPickerViewCell.xib in Resources */,
 				C57005BD1A1FA19C007257A6 /* chat_bubble_gray_left@3x.png in Resources */,

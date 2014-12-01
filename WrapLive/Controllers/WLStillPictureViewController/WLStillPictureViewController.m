@@ -327,7 +327,7 @@ static CGFloat WLBottomViewHeight = 92.0f;
     [self.view addSubview:view];
     [self didMoveToParentViewController:self.pickerViewController];
     [UIView animateWithDuration:.33 animations:^{
-        view.transform = CGAffineTransformMakeTranslation(.0f, -self.view.height/2 - view.height/2);
+        view.transform = CGAffineTransformMakeTranslation(.0f, -WLBottomViewHeight - self.wrapView.height - view.height);
     }];
 }
 
@@ -348,11 +348,6 @@ static CGFloat WLBottomViewHeight = 92.0f;
 
 - (void)pickerViewController:(WLPickerViewController *)pickerViewController newWrapClick:(UIView *)sender {
     [self willCreateWrapFromPicker:YES];
-}
-
-- (void)pickerViewController:(WLPickerViewController *)pickerViewController tapBySelectedWrap:(WLWrap *)wrap {
-    [self setupWrapVeiw:wrap];
-    [self unlockButtonClick:nil];
 }
 
 #pragma mark - WLCreateWrapDelegate

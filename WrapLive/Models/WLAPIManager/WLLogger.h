@@ -8,7 +8,7 @@
 
 #import <Crashlytics/Crashlytics.h>
 
-#define WL_LOG_DETAILED 0
+#define WL_LOG_DETAILED 1
 
 #if WL_LOG_DETAILED
 #define WLLog(LABEL,ACTION,OBJECT) CLS_LOG(@"%@ - %@: %@", (LABEL), (ACTION), (OBJECT))

@@ -80,6 +80,8 @@
     return cell;
 }
 
+static NSString *WLDividerViewIdentifier = @"WLDividerView";
+
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         WLTimelineEvent* event = [self.timeline.entries tryObjectAtIndex:indexPath.section];
@@ -88,13 +90,18 @@
         view.event = event;
         return view;
     } else {
-        WLLoadingView* loadingView = [WLLoadingView dequeueInCollectionView:collectionView indexPath:indexPath];
-        loadingView.error = NO;
-        [self append:nil failure:^(NSError *error) {
-            [error showIgnoringNetworkError];
-            if (error) loadingView.error = YES;
-        }];
-        return loadingView;
+        if (indexPath.section == [self.timeline.entries count] - 1 && !self.timeline.completed) {
+            WLLoadingView* loadingView = [WLLoadingView dequeueInCollectionView:collectionView indexPath:indexPath];
+            loadingView.error = NO;
+            [self append:nil failure:^(NSError *error) {
+                [error showIgnoringNetworkError];
+                if (error) loadingView.error = YES;
+            }];
+            return loadingView;
+        } else {
+            UICollectionReusableView *dividerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WLDividerViewIdentifier forIndexPath:indexPath];
+            return dividerView;
+        }
     }
 }
 
@@ -106,7 +113,7 @@
     if (section == [self.timeline.entries count] - 1 && !self.timeline.completed) {
         return CGSizeMake(collectionView.width, 88);
     } else {
-        return CGSizeZero;
+        return CGSizeMake(collectionView.width, 3.0);
     }
 }
 
@@ -134,7 +141,7 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(0, WLTimelineDefaultLeftRightOffset, 0, WLTimelineDefaultLeftRightOffset);
+    return UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

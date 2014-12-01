@@ -1484,10 +1484,10 @@ Ravenpod, Inc.
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have linked this device to your wrapLive account. Enjoy!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="Itw-PI-Mz8">
-                                <rect key="frame" x="30" y="285" width="260" height="80"/>
+                                <rect key="frame" x="30" y="285" width="260" height="88"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="260" id="MoJ-G4-Uqe"/>
-                                    <constraint firstAttribute="height" constant="80" id="x1a-rG-SwC"/>
+                                    <constraint firstAttribute="height" constant="88" id="x1a-rG-SwC"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="highlightedColor"/>

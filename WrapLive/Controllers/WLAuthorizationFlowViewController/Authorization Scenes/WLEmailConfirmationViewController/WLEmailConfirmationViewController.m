@@ -27,6 +27,7 @@
 
 - (IBAction)resend:(id)sender {
     WLResendConfirmationRequest* request = [WLResendConfirmationRequest request];
+    request.email = [WLAuthorization currentAuthorization].email;
     [request send:^(id object) {
         
     } failure:^(NSError *error) {

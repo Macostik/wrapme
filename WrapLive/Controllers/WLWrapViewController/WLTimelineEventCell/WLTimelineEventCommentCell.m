@@ -19,8 +19,7 @@
 
 static CGFloat WLTimelineEventCommentCellMinHeight = 30.0f;
 static CGFloat WLTimelineEventCommentCellQuoteWidth = 30.0f;
-static CGFloat WLTimelineEventCommentFooterHeight = 40.0f;
-static CGFloat WLTimelineEventCommentCandyWidth = 100.0f;
+static CGFloat WLTimelineEventCommentFooterHeight = 35.0f;
 static CGFloat WLTimelineEventCommentsMinWidth;
 static CGFloat WLTimelineEventImageViewMaxHeightAndWidth;
 
@@ -36,9 +35,9 @@ static CGFloat WLTimelineEventImageViewMaxHeightAndWidth;
 @implementation WLTimelineEventCommentCell
 
 + (void)initialize {
-    WLTimelineEventCommentsMinWidth = [UIWindow mainWindow].width - WLTimelineEventCommentCandyWidth -
-                                        2*WLTimelineDefaultLeftRightOffset - WLTimelineEventCommentCellQuoteWidth;
     WLTimelineEventImageViewMaxHeightAndWidth = ([UIWindow mainWindow].width - 1.0 - 2*WLTimelineDefaultLeftRightOffset)/3.0f;
+    WLTimelineEventCommentsMinWidth = [UIWindow mainWindow].width - WLTimelineEventImageViewMaxHeightAndWidth -
+                                        2*WLTimelineDefaultLeftRightOffset - WLTimelineEventCommentCellQuoteWidth;
 }
 
 + (CGFloat)heightWithComment:(WLComment *)comment {

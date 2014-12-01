@@ -8,7 +8,7 @@
 
 #import "WLTimelineEventCell.h"
 
-static CGFloat WLTimelineDefaultLeftRightOffset = 5.0f;
+static CGFloat WLTimelineDefaultLeftRightOffset = 1.0f;
 
 @interface WLTimelineEventCommentCell : WLTimelineEventCell
 

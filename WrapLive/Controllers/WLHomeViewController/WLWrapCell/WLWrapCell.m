@@ -29,6 +29,7 @@
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
 @property (weak, nonatomic) IBOutlet WLSizeToFitLabel *wrapNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chatNotificationImageView;
@@ -68,6 +69,7 @@
         self.coverView.url = url;
         if (!url) self.coverView.image = [UIImage imageNamed:@"default-small-cover"];
     }
+    self.dateLabel.text = [NSString stringWithFormat:@"last updated %@", WLString(wrap.updatedAt.timeAgoString)];
     
     if (self.candiesView) {
         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];

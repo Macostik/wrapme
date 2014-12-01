@@ -130,11 +130,6 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
         if([self.delegate respondsToSelector:@selector(pickerViewController: newWrapClick:)]) {
             [self.delegate pickerViewController:self newWrapClick:createWrapCell];
         }
-    } else {
-        if ([self.delegate respondsToSelector:@selector(pickerViewController:tapBySelectedWrap:)] && self.selectedWrap != nil) {
-            [self.delegate pickerViewController:self tapBySelectedWrap:self.selectedWrap];
-            self.selectedWrap = nil;
-        }
     }
 }
 

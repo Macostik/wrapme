@@ -2335,7 +2335,7 @@
 				12E3DA3C18E0399700DBDB79 /* WLCameraViewController */,
 				12DCBA8818DB399B00A4BC44 /* WLWrapViewController */,
 				12A7A74218DA17F7008FF6F0 /* WLHomeViewController */,
-				C5C20BB21A239D6F008B2E2E /* WLAuthorizationFlowViewController */,
+				C5C20BB21A239D6F008B2E2E /* WLSignupFlowViewController */,
 				12A7A73A18DA0A06008FF6F0 /* WLWelcomeViewController */,
 				5BAA216719FE7BD1008958EF /* WLActionViewController */,
 				5B650FE51A00091E00D6AD3D /* WLReportCandyViewController */,
@@ -3756,17 +3756,17 @@
 			name = WLValidation;
 			sourceTree = "<group>";
 		};
-		C5C20BB21A239D6F008B2E2E /* WLAuthorizationFlowViewController */ = {
+		C5C20BB21A239D6F008B2E2E /* WLSignupFlowViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C5C20BB31A239D6F008B2E2E /* Authorization Scenes */,
+				C5C20BB31A239D6F008B2E2E /* Signup Steps */,
 				C5C20BC71A239D6F008B2E2E /* WLSignupFlowViewController.h */,
 				C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */,
 			);
-			path = WLAuthorizationFlowViewController;
+			path = WLSignupFlowViewController;
 			sourceTree = "<group>";
 		};
-		C5C20BB31A239D6F008B2E2E /* Authorization Scenes */ = {
+		C5C20BB31A239D6F008B2E2E /* Signup Steps */ = {
 			isa = PBXGroup;
 			children = (
 				C5C20BB71A239D6F008B2E2E /* WLSignupStepViewController.h */,
@@ -3779,7 +3779,7 @@
 				C5C20BBC1A239D6F008B2E2E /* WLPhoneViewController */,
 				C5C20BC41A239D6F008B2E2E /* WLProfileInformationViewController */,
 			);
-			path = "Authorization Scenes";
+			path = "Signup Steps";
 			sourceTree = "<group>";
 		};
 		C5C20BB41A239D6F008B2E2E /* WLActivationViewController */ = {

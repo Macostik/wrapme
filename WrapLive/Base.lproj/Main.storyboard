@@ -818,7 +818,7 @@
                                                 </label>
                                                 <label userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last updated 3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71z-7i-OMc">
                                                     <rect key="frame" x="70" y="24" width="240" height="21"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="U0z-6s-qRe"/>
                                                     </constraints>
@@ -3499,7 +3499,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WjR-f7-d7j"/>
-        <segue reference="V7m-vR-uyg"/>
+        <segue reference="USb-FQ-HhL"/>
+        <segue reference="tUX-Tk-kxb"/>
     </inferredMetricsTieBreakers>
 </document>

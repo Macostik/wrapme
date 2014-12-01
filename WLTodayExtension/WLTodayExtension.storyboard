@@ -18,8 +18,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="62" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="036-cI-Swm">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="dt0-hN-jtt">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVx-oR-Cg7">
+                                            <rect key="frame" x="10" y="7" width="300" height="30"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <state key="normal" title="More wrapLive stories">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="3"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="moreStories:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="Avf-9g-G7c"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WLExtensionCell" rowHeight="50" id="SXO-ct-qz7" customClass="WLExtensionCell">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -86,33 +110,12 @@
                                     <outlet property="delegate" destination="M4Y-Lb-cyx" id="SsP-ch-9pq"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVx-oR-Cg7">
-                                <rect key="frame" x="16" y="360" width="288" height="30"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="More wrapLive stories">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="moreStories:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="Avf-9g-G7c"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="HVx-oR-Cg7" secondAttribute="trailing" constant="16" id="0BQ-ks-F34"/>
                             <constraint firstItem="036-cI-Swm" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="5vL-Kv-puY"/>
-                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="HVx-oR-Cg7" secondAttribute="bottom" constant="10" id="Fl7-jJ-wNn"/>
-                            <constraint firstItem="HVx-oR-Cg7" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="16" id="K5a-gU-U1Q"/>
                             <constraint firstAttribute="trailing" secondItem="036-cI-Swm" secondAttribute="trailing" id="M8B-Iq-rUe"/>
                             <constraint firstItem="036-cI-Swm" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="Tak-tV-wQj"/>
-                            <constraint firstItem="HVx-oR-Cg7" firstAttribute="top" secondItem="036-cI-Swm" secondAttribute="bottom" constant="10" id="TmB-26-Ra1"/>
-                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="036-cI-Swm" secondAttribute="bottom" constant="50" id="rWB-in-bxK"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="036-cI-Swm" secondAttribute="bottom" id="rWB-in-bxK"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>

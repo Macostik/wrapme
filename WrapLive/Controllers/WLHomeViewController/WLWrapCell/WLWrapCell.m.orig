@@ -69,7 +69,11 @@
         self.coverView.url = url;
         if (!url) self.coverView.image = [UIImage imageNamed:@"default-small-cover"];
     }
+<<<<<<< HEAD
+    self.dateLabel.text = [NSString stringWithFormat:@"last updated %@", WLString(wrap.updatedAt.timeAgoString)];
+=======
     self.dateLabel.text = [NSString stringWithFormat:@"last updated %@", WLString(wrap.updatedAt.timeAgoStringAtAMPM)];
+>>>>>>> master
     
     if (self.candiesView) {
         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];

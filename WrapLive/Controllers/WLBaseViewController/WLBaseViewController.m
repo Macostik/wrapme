@@ -34,8 +34,22 @@
     self.keyboardAdjustmentAnimated = YES;
     self.view.frame = [UIWindow mainWindow].bounds;
     [self.view layoutIfNeeded];
-    self.keyboardAdjustmentDefaultConstants = [NSMapTable strongToStrongObjectsMapTable];
     [[WLKeyboard keyboard] addReceiver:self];
+}
+
+- (NSMapTable *)keyboardAdjustmentDefaultConstants {
+    NSMapTable *constants = _keyboardAdjustmentDefaultConstants;
+    if (!constants) {
+        constants = [NSMapTable strongToStrongObjectsMapTable];
+        for (NSLayoutConstraint *constraint in self.keyboardAdjustmentTopConstraints) {
+            [constants setObject:@(constraint.constant) forKey:constraint];
+        }
+        for (NSLayoutConstraint *constraint in self.keyboardAdjustmentBottomConstraints) {
+            [constants setObject:@(constraint.constant) forKey:constraint];
+        }
+        _keyboardAdjustmentDefaultConstants = constants;
+    }
+    return constants;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -133,16 +147,6 @@
 
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
     if (!self.isViewLoaded || (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty)) return;
-    NSMapTable *constants = self.keyboardAdjustmentDefaultConstants;
-    if ([constants count] == 0) {
-        for (NSLayoutConstraint *constraint in self.keyboardAdjustmentTopConstraints) {
-            [constants setObject:@(constraint.constant) forKey:constraint];
-        }
-        for (NSLayoutConstraint *constraint in self.keyboardAdjustmentBottomConstraints) {
-            [constants setObject:@(constraint.constant) forKey:constraint];
-        }
-    }
-    
     CGFloat adjustment = [self keyboardAdjustmentValueWithKeyboardHeight:keyboard.height];
     if ([self updateKeyboardAdjustmentConstraints:adjustment]) {
         if (self.keyboardAdjustmentAnimated && self.viewAppeared) {
@@ -167,7 +171,7 @@
 - (void)keyboardWillHide:(WLKeyboard *)keyboard {
     if (!self.isViewLoaded || (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty)) return;
     [self updateKeyboardAdjustmentConstraints:0];
-    [self.keyboardAdjustmentDefaultConstants removeAllObjects];
+    self.keyboardAdjustmentDefaultConstants = nil;
     if (self.keyboardAdjustmentAnimated && self.viewAppeared) {
         __weak typeof(self)weakSelf = self;
         [keyboard performAnimation:^{

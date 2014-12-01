@@ -88,7 +88,7 @@
     cameraNavigation.delegate = self;
     cameraNavigation.defaultPosition = AVCaptureDevicePositionFront;
     cameraNavigation.mode = WLCameraModeAvatar;
-	[self.navigationController.navigationController presentViewController:cameraNavigation animated:YES completion:nil];
+    [self.navigationController pushViewController:cameraNavigation animated:YES];
 }
 
 - (void)saveImage:(UIImage *)image {
@@ -106,7 +106,7 @@
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-	[self.navigationController.navigationController dismissViewControllerAnimated:YES completion:nil];
+	[self.navigationController popToViewController:self animated:YES];
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
@@ -114,7 +114,7 @@
 															  bounds:self.profileImageView.retinaSize
 												interpolationQuality:kCGInterpolationDefault];
 	[self saveImage:image];
-	[self.navigationController.navigationController dismissViewControllerAnimated:YES completion:nil];
+	[self.navigationController popToViewController:self animated:YES];
 }
 
 #pragma mark - UITextFieldDelegate

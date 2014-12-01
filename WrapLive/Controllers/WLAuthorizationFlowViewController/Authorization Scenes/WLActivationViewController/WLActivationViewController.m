@@ -38,6 +38,11 @@
 	self.phoneNumberLabel.text = [[WLAuthorization currentAuthorization] fullPhoneNumber];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.progressBar.progress = 0;
+}
+
 - (void)activate:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
     [WLSession setConfirmationDate:[NSDate now]];
 	NSString* activationCode = self.activationTextField.text;

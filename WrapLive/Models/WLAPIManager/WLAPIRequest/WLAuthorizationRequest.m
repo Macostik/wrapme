@@ -169,6 +169,13 @@ static BOOL authorized = NO;
     return [super configure:parameters];
 }
 
+- (id)objectInResponse:(WLAPIResponse *)response {
+    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+    authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
+    [authorization setCurrent];
+    return authorization;
+}
+
 @end
 
 @implementation WLAuthorization (WLAuthorizationRequest)

@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLSignupStepViewController.h"
+#import "WLBaseViewController.h"
 
 @class WLCountry;
 
-@interface WLCountriesViewController : WLSignupStepViewController
+@interface WLCountriesViewController : WLBaseViewController
 
 @property (strong, nonatomic) WLCountry *selectedCountry;
 

@@ -72,15 +72,7 @@
     self.validation.format = [[RMPhoneFormat alloc] initWithDefaultCountry:[country.code lowercaseString]];
 }
 
-- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
-    return keyboardHeight/2.0f;
-}
-
 #pragma mark - Actions
-
-- (IBAction)editPhoneNumber:(UIStoryboardSegue*)segue {
-    
-}
 
 - (IBAction)next:(WLButton*)sender {
     WLAuthorization *authorization = [WLAuthorization currentAuthorization];

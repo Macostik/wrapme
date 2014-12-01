@@ -16,8 +16,6 @@
 @protocol WLPickerViewDelegate <NSObject>
 @optional
 - (void)pickerViewController:(WLPickerViewController *)pickerViewController newWrapClick:(UIView *)sender;
-- (void)pickerViewController:(WLPickerViewController *)pickerViewController tapBySelectedWrap:(WLWrap *)wrap;
-
 @end
 
 @interface WLPickerViewController : UIViewController 

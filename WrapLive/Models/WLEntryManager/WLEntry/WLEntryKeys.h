@@ -55,3 +55,7 @@ static NSString* WLDefaultWrapKey = @"default_wrap";
 static NSString* WLImageKey = @"imageKey";
 static NSString* WLEventKey = @"eventKey";
 static NSString* WLTimeKey = @"timeKey";
+static NSString* WLDeviceIDKey = @"device_uid";
+static NSString* WLCountryCodeKey = @"country_calling_code";
+static NSString* WLPhoneKey = @"phone_number";
+static NSString* WLPasswordKey = @"password";

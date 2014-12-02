@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSDate *time;
 
 + (id)initWithAttributes:(NSDictionary *)attributes;
++ (NSURLSessionDataTask *)globalTimelinePostsWithBlock:(void (^)(NSArray *posts, NSError *error))block;
 - (NSString *)timeAgoString:(NSDate *)date;
 
 @end

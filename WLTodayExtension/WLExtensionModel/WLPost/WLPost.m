@@ -8,11 +8,11 @@
 
 #import "WLPost.h"
 #import "WLEntryKeys.h"
+#import "WLExtensionManager.h"
 
 static const NSTimeInterval WLTimeIntervalMinute = 60;
 static const NSTimeInterval WLTimeIntervalHour = 3600;
 static const NSTimeInterval WLTimeIntervalDay = 86400;
-static const NSTimeInterval WLTimeIntervalWeek = 604800;
 
 static NSString *WLTimeIntervalNameMinute = @"minute";
 static NSString *WLTimeIntervalNameHour = @"hour";
@@ -21,7 +21,6 @@ static NSString *WLTimeIntervalNameWeek = @"week";
 static NSString *WLTimeIntervalNameMonth = @"month";
 static NSString *WLTimeIntervalNameYear = @"year";
 static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
-static NSInteger WLDaySeconds = 24*60*60;
 
 @implementation WLPost
 @synthesize image = _image;
@@ -33,6 +32,10 @@ static NSInteger WLDaySeconds = 24*60*60;
     entry.wrapName = [attributes valueForKey:WLWrapKey];
     entry.time = [attributes valueForKey:WLTimeKey];
     return entry;
+}
+
++ (NSURLSessionDataTask *)globalTimelinePostsWithBlock:(void (^)(NSArray *posts, NSError *error))block {
+    return [WLExtensionManager postsHandlerBlock:block];
 }
 
 - (void)setWrapName:(NSString *)wrapName {

@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Today View Controller-->
@@ -45,20 +44,20 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WLExtensionCell" rowHeight="50" id="SXO-ct-qz7" customClass="WLExtensionCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WLExtensionCellIdentifier" rowHeight="50" id="SXO-ct-qz7" customClass="WLExtensionCell">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SXO-ct-qz7" id="eCa-GO-21K">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0DV-rQ-oLq">
-                                                    <rect key="frame" x="5" y="6" width="40" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="40" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="H7r-Qp-XlP"/>
                                                         <constraint firstAttribute="height" constant="40" id="mRm-Bd-IJN"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMk-gY-TBT">
-                                                    <rect key="frame" x="58" y="8" width="254" height="18"/>
+                                                    <rect key="frame" x="58" y="4" width="254" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="254" id="Hml-58-PwO"/>
                                                     </constraints>
@@ -67,15 +66,15 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ElV-2O-2hs">
-                                                    <rect key="frame" x="58" y="24" width="107" height="20"/>
+                                                    <rect key="frame" x="58" y="25" width="81" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUT-Wr-PzL">
-                                                    <rect key="frame" x="173" y="24" width="139" height="20"/>
+                                                    <rect key="frame" x="147" y="25" width="165" height="18"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="139" id="dnO-Lk-UoB"/>
+                                                        <constraint firstAttribute="width" constant="165" id="dnO-Lk-UoB"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
@@ -85,14 +84,15 @@
                                             <constraints>
                                                 <constraint firstItem="QMk-gY-TBT" firstAttribute="leading" secondItem="ElV-2O-2hs" secondAttribute="leading" id="1Jb-5e-7tO"/>
                                                 <constraint firstItem="ElV-2O-2hs" firstAttribute="bottom" secondItem="eUT-Wr-PzL" secondAttribute="bottom" id="6fZ-7m-7Ie"/>
-                                                <constraint firstItem="QMk-gY-TBT" firstAttribute="top" secondItem="eCa-GO-21K" secondAttribute="top" constant="8" id="R8u-RM-wvA"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0DV-rQ-oLq" secondAttribute="bottom" constant="4" id="ECB-YS-Z96"/>
+                                                <constraint firstItem="ElV-2O-2hs" firstAttribute="top" secondItem="QMk-gY-TBT" secondAttribute="bottom" constant="2" id="I9a-Z9-rdN"/>
+                                                <constraint firstItem="QMk-gY-TBT" firstAttribute="top" secondItem="eCa-GO-21K" secondAttribute="top" constant="4" id="R8u-RM-wvA"/>
                                                 <constraint firstItem="ElV-2O-2hs" firstAttribute="top" secondItem="eUT-Wr-PzL" secondAttribute="top" id="STt-my-ORh"/>
                                                 <constraint firstItem="0DV-rQ-oLq" firstAttribute="leading" secondItem="eCa-GO-21K" secondAttribute="leading" constant="5" id="VMi-qI-Ed8"/>
-                                                <constraint firstItem="QMk-gY-TBT" firstAttribute="top" secondItem="ElV-2O-2hs" secondAttribute="top" constant="-16" id="ZuJ-fj-GsY"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="ElV-2O-2hs" secondAttribute="bottom" constant="-3" id="dFY-08-KSb"/>
+                                                <constraint firstAttribute="bottom" secondItem="ElV-2O-2hs" secondAttribute="bottom" constant="6" id="Zho-Xh-cEn"/>
                                                 <constraint firstItem="QMk-gY-TBT" firstAttribute="leading" secondItem="0DV-rQ-oLq" secondAttribute="trailing" constant="13" id="f4K-Gn-uRE"/>
                                                 <constraint firstItem="QMk-gY-TBT" firstAttribute="trailing" secondItem="eUT-Wr-PzL" secondAttribute="trailing" id="irW-EL-cYI"/>
-                                                <constraint firstItem="QMk-gY-TBT" firstAttribute="top" secondItem="0DV-rQ-oLq" secondAttribute="top" constant="2" id="r6v-N0-7VK"/>
+                                                <constraint firstItem="QMk-gY-TBT" firstAttribute="top" secondItem="0DV-rQ-oLq" secondAttribute="top" constant="-1" id="r6v-N0-7VK"/>
                                                 <constraint firstItem="eUT-Wr-PzL" firstAttribute="leading" secondItem="ElV-2O-2hs" secondAttribute="trailing" constant="8" id="z0r-aB-4QK"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -130,7 +130,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="516" y="279"/>
+            <point key="canvasLocation" x="516" y="278"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

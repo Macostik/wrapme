@@ -128,6 +128,12 @@
 		14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
 		14F668641973DDAA008D5081 /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
 		1E365B58F552C37B8AE835F8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
+		5B2F719E1A2E017F0019FC57 /* WLCryptographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F719D1A2E017F0019FC57 /* WLCryptographer.m */; };
+		5B2F719F1A2E017F0019FC57 /* WLCryptographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F719D1A2E017F0019FC57 /* WLCryptographer.m */; };
+		5B2F71A01A2E017F0019FC57 /* WLCryptographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F719D1A2E017F0019FC57 /* WLCryptographer.m */; };
+		5B2F71A11A2E017F0019FC57 /* WLCryptographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F719D1A2E017F0019FC57 /* WLCryptographer.m */; };
+		5B2F71A31A2E03180019FC57 /* WLCryptographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F719D1A2E017F0019FC57 /* WLCryptographer.m */; };
+		5B2F71A61A2E03C70019FC57 /* WLExtensionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F71A51A2E03C70019FC57 /* WLExtensionManager.m */; };
 		5B3CD74A19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
@@ -1531,6 +1537,10 @@
 		21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		3272A1C39BD41FBFE03B2A92 /* libPods-WrapLive-Beta.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WrapLive-Beta.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		42CA3AF521263747CD1779EC /* Pods-WrapLive-QA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WrapLive-QA.release.xcconfig"; path = "Pods/Target Support Files/Pods-WrapLive-QA/Pods-WrapLive-QA.release.xcconfig"; sourceTree = "<group>"; };
+		5B2F719C1A2E017F0019FC57 /* WLCryptographer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCryptographer.h; path = WLCryptographer/WLCryptographer.h; sourceTree = "<group>"; };
+		5B2F719D1A2E017F0019FC57 /* WLCryptographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCryptographer.m; path = WLCryptographer/WLCryptographer.m; sourceTree = "<group>"; };
+		5B2F71A41A2E03C70019FC57 /* WLExtensionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLExtensionManager.h; path = WLExtensionModel/WLExtensionManager/WLExtensionManager.h; sourceTree = "<group>"; };
+		5B2F71A51A2E03C70019FC57 /* WLExtensionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLExtensionManager.m; path = WLExtensionModel/WLExtensionManager/WLExtensionManager.m; sourceTree = "<group>"; };
 		5B3CD74319DAEA8E00D2216C /* WLTermsAndConditionsKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTermsAndConditionsKeys.h; path = WLTermsAndConditions/WLTermsAndConditionsKeys.h; sourceTree = "<group>"; };
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
 		5B650FDF1A00091800D6AD3D /* WLReportCandyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLReportCandyViewController.h; path = WLReportCandyViewController/WLReportCandyViewController.h; sourceTree = "<group>"; };
@@ -1568,8 +1578,8 @@
 		5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice-Hardware.m"; sourceTree = "<group>"; };
 		5BA9EF2E1A28849700340784 /* WLExtensionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLExtensionCell.h; path = WLTodayViewController/WLExtensionCell/WLExtensionCell.h; sourceTree = "<group>"; };
 		5BA9EF2F1A28849700340784 /* WLExtensionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLExtensionCell.m; path = WLTodayViewController/WLExtensionCell/WLExtensionCell.m; sourceTree = "<group>"; };
-		5BA9EF311A28867000340784 /* WLPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPost.h; path = WLExtensionModel/WLPost.h; sourceTree = "<group>"; };
-		5BA9EF321A28867000340784 /* WLPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPost.m; path = WLExtensionModel/WLPost.m; sourceTree = "<group>"; };
+		5BA9EF311A28867000340784 /* WLPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPost.h; path = WLExtensionModel/WLPost/WLPost.h; sourceTree = "<group>"; };
+		5BA9EF321A28867000340784 /* WLPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPost.m; path = WLExtensionModel/WLPost/WLPost.m; sourceTree = "<group>"; };
 		5BAA216119FE7BCD008958EF /* WLActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLActionViewController.h; path = WLActionViewController/WLActionViewController.h; sourceTree = "<group>"; };
 		5BAA216219FE7BCD008958EF /* WLActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLActionViewController.m; path = WLActionViewController/WLActionViewController.m; sourceTree = "<group>"; };
 		5BB02FF419F00BCE001E1D50 /* WLChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChat.h; path = WLChatGroupSet/WLChat.h; sourceTree = "<group>"; };
@@ -2343,6 +2353,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5B2F71A21A2E01950019FC57 /* WLCryptographer */,
 				C54FC7671A163CC400623FC1 /* WLNetwork */,
 				C547A44E1A026B3E005061AB /* WLKeyboard */,
 				C57BDDB419FA5E9E003593F1 /* WLStoryboardSegue */,
@@ -2998,13 +3009,40 @@
 			name = WLExtensionCell;
 			sourceTree = "<group>";
 		};
-		5B2F71951A2DB3220019FC57 /* WLExtensionModel */ = {
+		5B2F71951A2DB3220019FC57 /* WLExtensionModels */ = {
+			isa = PBXGroup;
+			children = (
+				5B2F71A81A2E042E0019FC57 /* WLPost */,
+				5B2F71A71A2E03D30019FC57 /* WLExtensionManager */,
+			);
+			name = WLExtensionModels;
+			sourceTree = "<group>";
+		};
+		5B2F71A21A2E01950019FC57 /* WLCryptographer */ = {
+			isa = PBXGroup;
+			children = (
+				5B2F719C1A2E017F0019FC57 /* WLCryptographer.h */,
+				5B2F719D1A2E017F0019FC57 /* WLCryptographer.m */,
+			);
+			name = WLCryptographer;
+			sourceTree = "<group>";
+		};
+		5B2F71A71A2E03D30019FC57 /* WLExtensionManager */ = {
+			isa = PBXGroup;
+			children = (
+				5B2F71A41A2E03C70019FC57 /* WLExtensionManager.h */,
+				5B2F71A51A2E03C70019FC57 /* WLExtensionManager.m */,
+			);
+			name = WLExtensionManager;
+			sourceTree = "<group>";
+		};
+		5B2F71A81A2E042E0019FC57 /* WLPost */ = {
 			isa = PBXGroup;
 			children = (
 				5BA9EF311A28867000340784 /* WLPost.h */,
 				5BA9EF321A28867000340784 /* WLPost.m */,
 			);
-			name = WLExtensionModel;
+			name = WLPost;
 			sourceTree = "<group>";
 		};
 		5B3CD74219DAE9CE00D2216C /* WLTermsAndConditions */ = {
@@ -3041,7 +3079,7 @@
 				5B787DB11A27891C004AE459 /* WLTodayExtension.entitlements */,
 				5B787DA41A27876F004AE459 /* WLTodayExtension.storyboard */,
 				5B2F71931A2DB2E40019FC57 /* WLTodayViewController */,
-				5B2F71951A2DB3220019FC57 /* WLExtensionModel */,
+				5B2F71951A2DB3220019FC57 /* WLExtensionModels */,
 				5B787D9F1A27876F004AE459 /* Supporting Files */,
 			);
 			path = WLTodayExtension;
@@ -4805,6 +4843,7 @@
 				5BBBEB3B19D9836D008CFE54 /* UITextView+Aditions.m in Sources */,
 				1293677F18E337D900527250 /* WLCandiesCell.m in Sources */,
 				129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */,
+				5B2F719E1A2E017F0019FC57 /* WLCryptographer.m in Sources */,
 				AC79ED381934791600D7031F /* WLEmojiCell.m in Sources */,
 				C5FD0EE0194B4410004DAB1B /* NSOrderedSet+Additions.m in Sources */,
 				C500942A1998D353007EE33A /* WLCommentsCell.m in Sources */,
@@ -4885,7 +4924,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BA9EF301A28849700340784 /* WLExtensionCell.m in Sources */,
+				5B2F71A31A2E03180019FC57 /* WLCryptographer.m in Sources */,
 				5BA9EF331A28867000340784 /* WLPost.m in Sources */,
+				5B2F71A61A2E03C70019FC57 /* WLExtensionManager.m in Sources */,
 				5B787DA31A27876F004AE459 /* WLTodayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5039,6 +5080,7 @@
 				5BBBEB3C19D9836D008CFE54 /* UITextView+Aditions.m in Sources */,
 				C54AF4D219B8C437006F7EDB /* WLCandiesCell.m in Sources */,
 				C54AF4D419B8C437006F7EDB /* WLCreateWrapViewController.m in Sources */,
+				5B2F719F1A2E017F0019FC57 /* WLCryptographer.m in Sources */,
 				C54AF4D519B8C437006F7EDB /* WLEmojiCell.m in Sources */,
 				C54AF4D619B8C437006F7EDB /* NSOrderedSet+Additions.m in Sources */,
 				C54AF4D719B8C437006F7EDB /* WLCommentsCell.m in Sources */,
@@ -5263,6 +5305,7 @@
 				5BBBEB3D19D9836D008CFE54 /* UITextView+Aditions.m in Sources */,
 				C54AF5CF19B8C467006F7EDB /* WLCandiesCell.m in Sources */,
 				C54AF5D119B8C467006F7EDB /* WLCreateWrapViewController.m in Sources */,
+				5B2F71A01A2E017F0019FC57 /* WLCryptographer.m in Sources */,
 				C54AF5D219B8C467006F7EDB /* WLEmojiCell.m in Sources */,
 				C54AF5D319B8C467006F7EDB /* NSOrderedSet+Additions.m in Sources */,
 				C54AF5D419B8C467006F7EDB /* WLCommentsCell.m in Sources */,
@@ -5487,6 +5530,7 @@
 				5BBBEB3E19D9836D008CFE54 /* UITextView+Aditions.m in Sources */,
 				C54AF6CC19B8C491006F7EDB /* WLCandiesCell.m in Sources */,
 				C54AF6CE19B8C491006F7EDB /* WLCreateWrapViewController.m in Sources */,
+				5B2F71A11A2E017F0019FC57 /* WLCryptographer.m in Sources */,
 				C54AF6CF19B8C491006F7EDB /* WLEmojiCell.m in Sources */,
 				C54AF6D019B8C491006F7EDB /* NSOrderedSet+Additions.m in Sources */,
 				C54AF6D119B8C491006F7EDB /* WLCommentsCell.m in Sources */,

@@ -12,6 +12,8 @@
 
 @property (readonly, nonatomic) NSString* timeAgoString;
 
+@property (readonly, nonatomic) NSString* timeAgoStringAtAMPM;
+
 @property (nonatomic, readonly) BOOL isToday;
 
 @property (readonly, nonatomic) NSTimeInterval timestamp;

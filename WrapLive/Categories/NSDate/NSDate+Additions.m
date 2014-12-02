@@ -24,6 +24,8 @@ static NSString *WLTimeIntervalNameWeek = @"week";
 static NSString *WLTimeIntervalNameMonth = @"month";
 static NSString *WLTimeIntervalNameYear = @"year";
 static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
+static NSString *WLTimeIntervalNameYesterday = @"yesterday";
+static NSString *WLTimeIntervalNameToday = @"today";
 static NSInteger WLDaySeconds = 24*60*60;
 
 @implementation NSDate (Additions)
@@ -166,6 +168,22 @@ static inline NSCalendar* NSCurrentCalendar() {
         value = floor(value);
 		return [NSString stringWithFormat:@"%.f %@%@ ago", value, name, (value == 1 ? @"":@"s")];
 	}
+}
+
+- (NSString *)timeAgoStringAtAMPM {
+    NSTimeInterval interval = ABS([self timeIntervalSinceNow]);
+    if (interval >= WLTimeIntervalWeek) {
+        return [self stringWithFormat:@"MM/dd/yy 'at' hh:mma"];
+    } else {
+        NSTimeInterval value = 0;
+        NSString* name = nil;
+        if ((value = interval / WLTimeIntervalDay) >= 2) {
+            return [NSString stringWithFormat:@"%.f %@s ago at %@", value, WLTimeIntervalNameDay, [self stringWithFormat:@"hh:mma"]];
+        } else {
+            name = ((value = interval / WLTimeIntervalDay) >= 1) ? WLTimeIntervalNameYesterday : WLTimeIntervalNameToday;
+            return [NSString stringWithFormat:@"%@ at %@", name, [self stringWithFormat:@"hh:mma"]];
+        }
+    }
 }
 
 - (BOOL)earlier:(NSDate *)date {

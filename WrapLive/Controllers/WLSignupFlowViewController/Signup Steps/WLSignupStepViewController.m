@@ -29,7 +29,7 @@
     }
     
     if (self.emailLabel) {
-        self.phoneLabel.text = [WLAuthorization currentAuthorization].email;
+        self.emailLabel.text = [WLAuthorization currentAuthorization].email;
     }
 }
 

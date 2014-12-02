@@ -1585,6 +1585,9 @@ Ravenpod, Inc.
                                         <integer key="value" value="6"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="success:" destination="cxC-vG-j0j" eventType="touchUpInside" id="wsn-Dp-YY7"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

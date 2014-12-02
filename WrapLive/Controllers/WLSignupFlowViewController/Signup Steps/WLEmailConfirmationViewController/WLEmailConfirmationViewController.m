@@ -12,17 +12,35 @@
 #import "WLEntryNotifier.h"
 #import "WLNavigation.h"
 #import "UIViewController+Additions.h"
+#import "WLNotificationChannel.h"
+#import "WLNotification.h"
 
 @interface WLEmailConfirmationViewController () <WLEntryNotifyReceiver>
+
+@property (strong, nonatomic) WLNotificationChannel* userChannel;
 
 @end
 
 @implementation WLEmailConfirmationViewController
 
+- (void)dealloc {
+    [self.userChannel removeObserving];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[WLUser notifier] addReceiver:self];
+    NSString *userUID = [WLUser currentUser].identifier;
+    if (userUID.nonempty) {
+        [[WLUser notifier] addReceiver:self];
+        self.userChannel = [WLNotificationChannel channelWithName:userUID];
+        [self.userChannel observeMessages:^(PNMessage *message) {
+            WLNotification *notification = [WLNotification notificationWithMessage:message];
+            if (notification.type == WLNotificationUserUpdate) {
+                [notification fetch:nil failure:nil];
+            }
+        }];
+    }
 }
 
 - (IBAction)resend:(id)sender {

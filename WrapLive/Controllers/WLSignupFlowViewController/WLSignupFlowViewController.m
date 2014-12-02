@@ -44,7 +44,7 @@
 - (void)completeSignup:(UINavigationController*)navigationController {
     __weak WLProfileInformationViewController* profileStep = [self stepViewController:@"WLProfileInformationViewController"];
     [profileStep setSuccessStatusBlock:^WLSignupStepViewController *{
-        [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
+        [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
         return nil;
     }];
     navigationController.viewControllers = @[profileStep];
@@ -75,7 +75,7 @@
     // final completion block
     
     WLSignupStepCompletionBlock completeSignUp = ^WLSignupStepViewController *{
-        [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
+        [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
         return nil;
     };
     

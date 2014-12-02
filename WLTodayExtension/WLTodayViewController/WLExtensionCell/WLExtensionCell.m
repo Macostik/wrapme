@@ -28,7 +28,7 @@
 }
 
 -(void)setAttEntry:(NSDictionary *)attEntry {
-    WLEntry *entry = [WLEntry initWithAttributes:attEntry];
+    WLPost *entry = [WLPost initWithAttributes:attEntry];
     
     self.coverImageView.image = [UIImage imageWithData:entry.image];
     self.eventLabel.text = entry.event;

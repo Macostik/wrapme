@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLEntry.h"
+#import "WLPost.h"
 
 @interface WLExtensionCell : UITableViewCell
 @property (strong, nonatomic) NSDictionary *attEntry;

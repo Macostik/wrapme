@@ -1,12 +1,12 @@
 //
-//  WLEntry.m
+//  WLPost.m
 //  WrapLive
 //
 //  Created by Yura Granchenko on 11/28/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLEntry.h"
+#import "WLPost.h"
 #import "WLEntryKeys.h"
 
 static const NSTimeInterval WLTimeIntervalMinute = 60;
@@ -23,11 +23,11 @@ static NSString *WLTimeIntervalNameYear = @"year";
 static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
 static NSInteger WLDaySeconds = 24*60*60;
 
-@implementation WLEntry
+@implementation WLPost
 @synthesize image = _image;
 
 + (id)initWithAttributes:(NSDictionary *)attributes {
-   WLEntry *entry = [[WLEntry alloc] init];
+   WLPost *entry = [[WLPost alloc] init];
     entry.image = [NSData dataWithContentsOfURL:[NSURL URLWithString:[attributes valueForKey:WLImageKey]]];
     entry.event = [attributes valueForKey:WLEventKey];
     entry.wrapName = [attributes valueForKey:WLWrapKey];

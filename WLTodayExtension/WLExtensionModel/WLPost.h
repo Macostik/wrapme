@@ -1,5 +1,5 @@
 //
-//  WLEntry.h
+//  WLPost.h
 //  WrapLive
 //
 //  Created by Yura Granchenko on 11/28/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface WLEntry : NSObject
+@interface WLPost : NSObject
 
 @property (strong, nonatomic) NSData *image;
 @property (strong, nonatomic) NSString *wrapName;

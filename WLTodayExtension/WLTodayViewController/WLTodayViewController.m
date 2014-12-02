@@ -1,12 +1,12 @@
 //
-//  TodayViewController.m
+//  WLTodayViewController.m
 //  WLTodayExtension
 //
 //  Created by Yura Granchenko on 11/27/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "TodayViewController.h"
+#import "WLTodayViewController.h"
 #import <NotificationCenter/NotificationCenter.h>
 #import "WLExtensionCell.h"
 #import "WLEntryKeys.h"
@@ -16,14 +16,14 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
 static CGFloat WLMinHeightView = 140.0f;
 static CGFloat WLMaxHeightView = 400.0;
 
-@interface TodayViewController () <NCWidgetProviding>
+@interface WLTodayViewController () <NCWidgetProviding>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableOrderedSet *entries;
 
 @end
 
-@implementation TodayViewController
+@implementation WLTodayViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

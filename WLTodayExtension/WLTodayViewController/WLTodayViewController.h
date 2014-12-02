@@ -1,5 +1,5 @@
 //
-//  TodayViewController.h
+//  WLTodayViewController.h
 //  WLTodayExtension
 //
 //  Created by Yura Granchenko on 11/27/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TodayViewController : UIViewController
+@interface WLTodayViewController : UIViewController
 
 @end

@@ -13,6 +13,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLAuthorization.h"
 #import "WLNotificationCenter.h"
+#import "WLEntryManager.h"
 
 static NSString* WLSessionServiceName = @"WrapLive";
 static NSString* WLSessionAccountName = @"WrapLiveAccount";
@@ -23,6 +24,7 @@ static NSString* WLSessionCountryCallingCodeKey = @"WrapLiveCountryCallingCode";
 static NSString* WLSessionEmailKey = @"WLSessionEmailKey";
 static NSString* WLSessionDeviceTokenKey = @"WrapLiveDeviceToken";
 static NSString *WLSessionConfirmationKey = @"WLSessionConfirmationConditions";
+static NSString *WLSessionAppVersionKey = @"wrapLiveVersion";
 
 @implementation WLSession
 
@@ -37,6 +39,9 @@ static WLAuthorization* _authorization = nil;
 	if (!_authorization) {
 		_authorization = [WLAuthorization unarchive:[self object:WLSessionAuthorizationKey]];
 	}
+    if (!_authorization) {
+        _authorization = [[WLAuthorization alloc] init];
+    }
 	return _authorization;
 }
 
@@ -57,6 +62,7 @@ static WLAuthorization* _authorization = nil;
 
 + (void)clear {
 	[self setAuthorization:nil];
+    [[WLEntryManager manager].context reset];
 }
 
 static NSData* _deviceToken = nil;
@@ -118,6 +124,19 @@ static NSDate *_confirmationDate = nil;
 + (void)synchronize {
     [NSObject cancelPreviousPerformRequestsWithTarget:WLUserDefaults selector:_cmd object:nil];
     [WLUserDefaults performSelector:_cmd withObject:nil afterDelay:0.5f];
+}
+
++ (NSString *)appVersion {
+    return [self object:WLSessionAppVersionKey];
+}
+
++ (void)setAppVersion:(NSString *)version {
+    [self setObject:version key:WLSessionAppVersionKey];
+}
+
++ (void)setCurrentAppVersion {
+    NSString* currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleVersionKey];
+    [self setAppVersion:currentVersion];
 }
 
 @end

@@ -48,11 +48,14 @@ typedef enum : NSUInteger {
     self.view.frame = [UIWindow mainWindow].bounds;
     [self.view layoutIfNeeded];
     
-    WLLoadingView* splash = [WLLoadingView splash];
-    splash.frame = self.view.bounds;
-    [self.view addSubview:splash];
-    self.splash = splash;
+    self.splash = [[WLLoadingView splash] showInView:self.view];
 	
+    NSString* storedVersion = [WLSession appVersion];
+    if (!storedVersion || [storedVersion compare:@"2.0" options:NSNumericSearch] == NSOrderedAscending) {
+        [WLSession clear];
+    }
+    [WLSession setCurrentAppVersion];
+    
     WLAuthorization* authorization = [WLAuthorization currentAuthorization];
 	if ([authorization canAuthorize]) {
 		__weak typeof(self)weakSelf = self;
@@ -68,14 +71,6 @@ typedef enum : NSUInteger {
 	} else {
 		[self unlockUI];
 	}
-    
-    [self wrapIntoAttributedString];
-    
-    __weak __typeof(self)weakSelf = self;
-    [self.termsAndConditionsTextView addTapGestureRecognizingDelegate:self
-                                                       block:^(UIGestureRecognizer *recognizer) {
-                                                           [weakSelf flipAnimationView:WLFlipDirectionLeft];
-                                                       }];
 }
 
 - (void)unlockUI {
@@ -88,6 +83,13 @@ typedef enum : NSUInteger {
     }];
     self.splash.animating = NO;
     [self animateBackgroundView:-(weakSelf.backgroundView.height - weakSelf.view.height + 20) nextOffset:-20];
+    
+    [self wrapIntoAttributedString];
+    
+    [self.termsAndConditionsTextView addTapGestureRecognizingDelegate:self
+                                                                block:^(UIGestureRecognizer *recognizer) {
+                                                                    [weakSelf flipAnimationView:WLFlipDirectionLeft];
+                                                                }];
 }
 
 - (void)animateBackgroundView:(CGFloat)offset nextOffset:(CGFloat)nextOffset {

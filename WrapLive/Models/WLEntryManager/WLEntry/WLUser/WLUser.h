@@ -20,6 +20,8 @@
 @property (nonatomic, retain) NSMutableOrderedSet *contributions;
 @property (nonatomic, retain) NSMutableOrderedSet *wraps;
 @property (nonatomic, retain) NSMutableOrderedSet *devices;
+@property (strong, nonatomic) NSString *phones;
+
 @end
 
 @interface WLUser (CoreDataGeneratedAccessors)

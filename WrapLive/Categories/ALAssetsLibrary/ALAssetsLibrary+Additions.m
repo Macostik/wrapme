@@ -23,8 +23,34 @@
 	return _library;
 }
 
+static NSDate *lastAssetCreationDate = nil;
+
+- (void)hasChanges:(void (^)(BOOL))completion {
+    [self enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+        [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
+            if (alAsset) {
+                NSDate *date = [alAsset valueForProperty:ALAssetPropertyDate];
+                if (lastAssetCreationDate) {
+                    if ([lastAssetCreationDate compare:date] == NSOrderedAscending) {
+                        if (completion) completion(YES);
+                    } else {
+                        if (completion) completion(NO);
+                    }
+                } else if (date) {
+                    if (completion) completion(YES);
+                }
+                lastAssetCreationDate = date;
+                *stop = YES; *innerStop = YES;
+            }
+        }];
+    } failureBlock: ^(NSError *error) {
+        if (completion) completion(NO);
+    }];
+}
+
 - (void)enumerateGroups:(void (^)(ALAssetsGroup *))finish failure:(ALAssetsLibraryAccessFailureBlock)failure {
-    [[ALAssetsLibrary library] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock: ^(ALAssetsGroup *group, BOOL *stop) {
+    [self enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock: ^(ALAssetsGroup *group, BOOL *stop) {
 	    if (group) {
 	        [group setAssetsFilter:[ALAssetsFilter allPhotos]];
 	        if ([group numberOfAssets] > 0) {
@@ -125,23 +151,6 @@
 			    if (result)
 					assetBlock(result);
 			}];
-			
-			//            double delayInSeconds = 0.05;
-			//            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-			//
-			//            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-			//                groupBlock(group);
-			//                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-			//                    [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-			//                        if (result)
-			//                        {
-			//                            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-			//                                assetBlock(result);
-			//                            });
-			//                        }
-			//                    }];
-			//                });
-			//            });
 		}
 	};
 	

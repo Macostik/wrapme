@@ -104,7 +104,6 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)configure {
-    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 	[self connect];
     [super configure];
 }

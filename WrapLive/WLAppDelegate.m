@@ -22,6 +22,8 @@
 #import "UIColor+CustomColors.h"
 #import "UIImage+Drawing.h"
 #import "NSObject+NibAdditions.h"
+#import "ALAssetsLibrary+Additions.h"
+#import "WLAuthorizationRequest.h"
 
 @interface WLAppDelegate ()
 
@@ -49,6 +51,13 @@
     [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
 #endif
     
+    run_after(1, ^{
+        [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
+        }];
+    });
+    
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
 	return YES;
 }
 
@@ -61,11 +70,31 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^{
         if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
     } failure:^(NSError *error) {
         if (completionHandler) completionHandler(UIBackgroundFetchResultFailed);
     }];
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    if (![WLAuthorizationRequest authorized]) {
+        completionHandler(UIBackgroundFetchResultNoData);
+        return;
+    }
+    [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
+        if (hasChanges) {
+            UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
+            photoNotification.alertBody = @"Do you want to upload new photos to your wrapLive storyboard?";
+            photoNotification.fireDate = [[NSDate date] dateByAddingTimeInterval:3];
+            photoNotification.alertAction = @"Upload";
+            photoNotification.repeatInterval = 0;
+            [application scheduleLocalNotification:photoNotification];
+        }
+        completionHandler(hasChanges ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
+    }];
+    
 }
 
 @end

@@ -60,6 +60,10 @@
 	[WLNotificationCenter setDeviceToken:deviceToken];
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return YES;
+}
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^{
         if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);

@@ -10,18 +10,6 @@
 #import "WLEntryKeys.h"
 #import "WLExtensionManager.h"
 
-static const NSTimeInterval WLTimeIntervalMinute = 60;
-static const NSTimeInterval WLTimeIntervalHour = 3600;
-static const NSTimeInterval WLTimeIntervalDay = 86400;
-
-static NSString *WLTimeIntervalNameMinute = @"minute";
-static NSString *WLTimeIntervalNameHour = @"hour";
-static NSString *WLTimeIntervalNameDay = @"day";
-static NSString *WLTimeIntervalNameWeek = @"week";
-static NSString *WLTimeIntervalNameMonth = @"month";
-static NSString *WLTimeIntervalNameYear = @"year";
-static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
-
 @implementation WLPost
 @synthesize image = _image;
 
@@ -62,23 +50,6 @@ static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
     } else {
         _time = [NSDate date];
     }
-}
-
-- (NSString *)timeAgoString:(NSDate *)date {
-    NSTimeInterval interval = ABS([date timeIntervalSinceNow]);
-    NSTimeInterval value = 0;
-    NSString* name = nil;
-    if ((value = interval / WLTimeIntervalDay) >= 1) {
-        name = WLTimeIntervalNameDay;
-    } else if ((value = interval / WLTimeIntervalHour) >= 1) {
-        name = WLTimeIntervalNameHour;
-    } else if ((value = interval / WLTimeIntervalMinute) >= 1) {
-        name = WLTimeIntervalNameMinute;
-    } else {
-        return WLTimeIntervalLessThanMinute;
-    }
-    value = floor(value);
-    return [NSString stringWithFormat:@"%.f %@%@ ago", value, name, (value == 1 ? @"":@"s")];
 }
 
 @end

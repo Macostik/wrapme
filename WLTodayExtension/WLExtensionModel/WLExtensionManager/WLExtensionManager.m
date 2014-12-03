@@ -58,8 +58,9 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
     NSMutableDictionary *parameters = [self parseUserDefaults].mutableCopy;
     NSString *password = [WLCryptographer decrypt:[parameters objectForKey:WLPasswordKey]];
     [parameters setObject:password forKey:WLPasswordKey];
-    WLExtensionManager *manager = [WLExtensionManager instance];
-    return [manager POST:@"users/sign_in" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+    return [[WLExtensionManager instance] POST:@"users/sign_in"
+                                    parameters:parameters
+                                       success:^(NSURLSessionDataTask *task, id responseObject) {
             success(task, responseObject);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         failure(task, error);

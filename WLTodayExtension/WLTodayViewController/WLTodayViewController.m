@@ -13,6 +13,7 @@
 #import "WLExtensionManager.h"
 
 static NSString *const WLExtensionCellIdentifier = @"WLExtensionCellIdentifier";
+static NSString *const WLExtensionScheme = @"WLExtensionScheme";
 static NSString *const WLLessButtonKey = @"Less wrapLive stories";
 static NSString *const WLMoreButtonKey = @"More wrapLive stories";
 
@@ -28,20 +29,6 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    __weak __typeof(self)weakSelf = self;
-    [WLExtensionManager signInHandlerBlock:^(NSURLSessionDataTask *task, id responseObject) {
-        [weakSelf updateExtension];
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@", error.localizedDescription);
-    }];
-    
-    self.tableView.estimatedRowHeight = 50;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self setPreferredContentSize:CGSizeMake(0.0, self.tableView.contentSize.height)];
 }
 
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {
@@ -56,11 +43,26 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
 - (void)updateExtension {
     __weak __typeof(self)weakSelf = self;
     [WLPost globalTimelinePostsWithBlock:^(NSArray *posts, NSError *error) {
-        weakSelf.entries = [NSOrderedSet orderedSetWithArray:posts];
-        if ([weakSelf.entries count]) {
-            [weakSelf.tableView reloadData];
+        if (error && !posts.count) {
+            NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
+            if (response && response.statusCode == 401)
+            [WLExtensionManager signInHandlerBlock:^(NSURLSessionDataTask *task, id responseObject) {
+                [weakSelf updateExtension];
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                NSLog(@"%@", error.description);
+            }];
+        } else {
+            weakSelf.entries = [NSOrderedSet orderedSetWithArray:posts];
+            if ([weakSelf.entries count]) {
+                [weakSelf.tableView reloadData];
+            }
+            weakSelf.tableView.estimatedRowHeight = 50;
+            weakSelf.tableView.rowHeight = UITableViewAutomaticDimension;
+            [weakSelf setPreferredContentSize:CGSizeMake(0.0, self.tableView.contentSize.height)];
         }
+        
     }];
+    
 }
 
 - (IBAction)moreStories:(UIButton *)sender {
@@ -68,6 +70,10 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
     [sender setTitle:self.isShowMore? WLLessButtonKey : WLMoreButtonKey forState:UIControlStateNormal];
     [self.tableView reloadData];
     [self setPreferredContentSize:CGSizeMake(0.0, self.tableView.contentSize.height)];
+    NSURL *url = [[NSURL alloc] initWithScheme:WLExtensionScheme host:nil path:@"/test"];
+    [self.extensionContext openURL:url completionHandler:^(BOOL success) {
+        
+    }];
 }
 
 #pragma mark - UITableViewDelegate methods

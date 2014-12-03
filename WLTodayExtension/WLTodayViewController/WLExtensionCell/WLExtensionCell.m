@@ -10,6 +10,7 @@
 #import "NSDate+Additions.h"
 
 @interface WLExtensionCell ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *coverImageView;
 @property (weak, nonatomic) IBOutlet UILabel *eventLabel;
 @property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
@@ -22,18 +23,19 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self =  [super initWithCoder:aDecoder];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
     return self;
 }
 
--(void)setAttEntry:(NSDictionary *)attEntry {
+- (void)setAttEntry:(NSDictionary *)attEntry {
     WLPost *entry = [WLPost initWithAttributes:attEntry];
     
     self.coverImageView.image = [UIImage imageWithData:entry.image];
     self.eventLabel.text = entry.event;
     self.wrapNameLabel.text = entry.wrapName;
-    self.timeLabel.text = [entry timeAgoString:entry.time];
+    self.timeLabel.text = [entry.time timeAgoString];
 }
 
 @end

@@ -1116,12 +1116,80 @@ Ravenpod, Inc.
                                     <action selector="next:" destination="eE2-rt-SMr" eventType="touchUpInside" id="Rx3-9g-KUf"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a3e-r8-TjK" customClass="WLPressButton">
+                                <rect key="frame" x="17" y="413" width="286" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="286" id="9aN-g2-6pG"/>
+                                    <constraint firstAttribute="height" constant="44" id="lIB-pL-zzm"/>
+                                </constraints>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Not receiving the text? Tap ">
+                                            <attributes>
+                                                <color key="NSColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="here">
+                                            <attributes>
+                                                <color key="NSColor" red="0.95294117647058818" green="0.45882352941176469" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content=" to receive voice call and enter 4-digit code you hear.">
+                                            <attributes>
+                                                <color key="NSColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <state key="highlighted">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Not receiving the text? Tap ">
+                                            <attributes>
+                                                <color key="NSColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="here">
+                                            <attributes>
+                                                <color key="NSColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content=" to receive voice call and enter 4-digit code you hear.">
+                                            <attributes>
+                                                <color key="NSColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleLabel.numberOfLines">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="call:" destination="eE2-rt-SMr" eventType="touchUpInside" id="s6W-Uh-ml9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="cP5-dA-Wip" firstAttribute="centerX" secondItem="mpo-NF-SZ1" secondAttribute="centerX" constant="-0.5" id="0Gi-m0-DkD"/>
+                            <constraint firstItem="k1E-PN-xcp" firstAttribute="centerX" secondItem="a3e-r8-TjK" secondAttribute="centerX" id="10x-4f-JkN"/>
                             <constraint firstItem="k1E-PN-xcp" firstAttribute="top" secondItem="B2D-li-Al0" secondAttribute="bottom" constant="11" id="1R6-nw-zUx"/>
                             <constraint firstAttribute="centerX" secondItem="LMQ-A9-dbp" secondAttribute="centerX" id="2Uf-Ye-cN3"/>
+                            <constraint firstItem="a3e-r8-TjK" firstAttribute="top" secondItem="k1E-PN-xcp" secondAttribute="bottom" constant="10" id="5Xl-0D-ZFb"/>
                             <constraint firstItem="k1E-PN-xcp" firstAttribute="centerX" secondItem="B2D-li-Al0" secondAttribute="centerX" id="7c7-n3-v16"/>
                             <constraint firstItem="mpo-NF-SZ1" firstAttribute="centerX" secondItem="T4H-t0-WgJ" secondAttribute="centerX" id="FeN-os-Fqz"/>
                             <constraint firstItem="mpo-NF-SZ1" firstAttribute="top" secondItem="T4H-t0-WgJ" secondAttribute="bottom" constant="-5" id="Igl-tg-tIW"/>

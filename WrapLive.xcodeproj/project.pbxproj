@@ -1072,6 +1072,10 @@
 		C54EFCE01A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */; };
 		C54EFCE11A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */; };
 		C54EFCE21A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */; };
+		C54F1B221A2F1D4300F40372 /* WLVerificationCallRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C54F1B211A2F1D4300F40372 /* WLVerificationCallRequest.m */; };
+		C54F1B231A2F1D4300F40372 /* WLVerificationCallRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C54F1B211A2F1D4300F40372 /* WLVerificationCallRequest.m */; };
+		C54F1B241A2F1D4300F40372 /* WLVerificationCallRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C54F1B211A2F1D4300F40372 /* WLVerificationCallRequest.m */; };
+		C54F1B251A2F1D4300F40372 /* WLVerificationCallRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C54F1B211A2F1D4300F40372 /* WLVerificationCallRequest.m */; };
 		C54F4B1A1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
 		C54F4B1B1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
 		C54F4B1C1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
@@ -1798,6 +1802,8 @@
 		C54AF86519B8C632006F7EDB /* WLAPIEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAPIEnvironment.m; path = WLAPIManager/WLAPIEnvironment.m; sourceTree = "<group>"; };
 		C54EFCDD1A0D0D06005BC506 /* WLChatTypingChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChatTypingChannel.h; sourceTree = "<group>"; };
 		C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChatTypingChannel.m; sourceTree = "<group>"; };
+		C54F1B201A2F1D4300F40372 /* WLVerificationCallRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLVerificationCallRequest.h; path = WLAPIManager/WLAPIRequest/WLVerificationCallRequest.h; sourceTree = "<group>"; };
+		C54F1B211A2F1D4300F40372 /* WLVerificationCallRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLVerificationCallRequest.m; path = WLAPIManager/WLAPIRequest/WLVerificationCallRequest.m; sourceTree = "<group>"; };
 		C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		C54F4B231A28BC9E00B92982 /* chat_bubble_tail_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_bubble_tail_gray.png; sourceTree = "<group>"; };
 		C54F4B241A28BC9E00B92982 /* chat_bubble_tail_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bubble_tail_gray@2x.png"; sourceTree = "<group>"; };
@@ -3328,6 +3334,8 @@
 				C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */,
 				5BBBEB4B19D983FA008CFE54 /* WLLeaveWrapRequest.h */,
 				5BBBEB4C19D983FA008CFE54 /* WLLeaveWrapRequest.m */,
+				C54F1B201A2F1D4300F40372 /* WLVerificationCallRequest.h */,
+				C54F1B211A2F1D4300F40372 /* WLVerificationCallRequest.m */,
 			);
 			name = WLAPIRequest;
 			sourceTree = "<group>";
@@ -4773,6 +4781,7 @@
 				AC79ED381934791600D7031F /* WLEmojiCell.m in Sources */,
 				C54531201A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				C5FD0EE0194B4410004DAB1B /* NSOrderedSet+Additions.m in Sources */,
+				C54F1B221A2F1D4300F40372 /* WLVerificationCallRequest.m in Sources */,
 				C500942A1998D353007EE33A /* WLCommentsCell.m in Sources */,
 				C50AF4271976B42500761F38 /* WLDeleteCandyRequest.m in Sources */,
 				C599F9D219AF5751008C7DFA /* NSObject+Extension.m in Sources */,
@@ -5010,6 +5019,7 @@
 				C54AF4D519B8C437006F7EDB /* WLEmojiCell.m in Sources */,
 				C54531211A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				C54AF4D619B8C437006F7EDB /* NSOrderedSet+Additions.m in Sources */,
+				C54F1B231A2F1D4300F40372 /* WLVerificationCallRequest.m in Sources */,
 				C54AF4D719B8C437006F7EDB /* WLCommentsCell.m in Sources */,
 				C54AF4D919B8C437006F7EDB /* WLDeleteCandyRequest.m in Sources */,
 				C54AF4DA19B8C437006F7EDB /* NSObject+Extension.m in Sources */,
@@ -5247,6 +5257,7 @@
 				C54AF5D219B8C467006F7EDB /* WLEmojiCell.m in Sources */,
 				C54531221A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				C54AF5D319B8C467006F7EDB /* NSOrderedSet+Additions.m in Sources */,
+				C54F1B241A2F1D4300F40372 /* WLVerificationCallRequest.m in Sources */,
 				C54AF5D419B8C467006F7EDB /* WLCommentsCell.m in Sources */,
 				C54AF5D619B8C467006F7EDB /* WLDeleteCandyRequest.m in Sources */,
 				C54AF5D719B8C467006F7EDB /* NSObject+Extension.m in Sources */,
@@ -5484,6 +5495,7 @@
 				C54AF6CF19B8C491006F7EDB /* WLEmojiCell.m in Sources */,
 				C54531231A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				C54AF6D019B8C491006F7EDB /* NSOrderedSet+Additions.m in Sources */,
+				C54F1B251A2F1D4300F40372 /* WLVerificationCallRequest.m in Sources */,
 				C54AF6D119B8C491006F7EDB /* WLCommentsCell.m in Sources */,
 				C54AF6D319B8C491006F7EDB /* WLDeleteCandyRequest.m in Sources */,
 				C54AF6D419B8C491006F7EDB /* NSObject+Extension.m in Sources */,

@@ -21,6 +21,7 @@
 #import "WLHomeViewController.h"
 #import "WLNavigation.h"
 #import "WLButton.h"
+#import "WLVerificationCallRequest.h"
 
 @interface WLActivationViewController () <UITextFieldDelegate>
 
@@ -70,6 +71,16 @@
     } failure:^(NSError *error) {
         sender.loading = NO;
         [weakSelf setFailureStatusAnimated:YES];
+    }];
+}
+
+- (IBAction)call:(UIButton*)sender {
+    sender.userInteractionEnabled = NO;
+    [[WLVerificationCallRequest request] send:^(id object) {
+        sender.userInteractionEnabled = YES;
+    } failure:^(NSError *error) {
+        sender.userInteractionEnabled = YES;
+        [error show];
     }];
 }
 

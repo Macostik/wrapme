@@ -56,6 +56,8 @@
         }];
     });
     
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
 	return YES;
 }
 

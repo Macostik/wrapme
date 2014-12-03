@@ -28,6 +28,7 @@
     
     NSMutableOrderedSet* devices = [WLDevice API_entries:[dictionary arrayForKey:@"devices"] relatedEntry:self];
     if (![self.devices isEqualToOrderedSet:devices]) self.devices = devices;
+    self.phones = nil;
     
     return [super API_setup:dictionary relatedEntry:relatedEntry];
 }

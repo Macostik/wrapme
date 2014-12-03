@@ -13,6 +13,7 @@
 
 + (instancetype)instance;
 + (NSURLSessionDataTask *)postsHandlerBlock:(void (^)(NSArray *posts, NSError *error))block;
-+ (NSURLSessionDataTask *)signInHandlerBlock;
++ (NSURLSessionDataTask *)signInHandlerBlock:(void(^)(NSURLSessionDataTask *task, id responseObject))success
+                                     failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 
 @end

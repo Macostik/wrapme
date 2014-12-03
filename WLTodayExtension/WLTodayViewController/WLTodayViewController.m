@@ -28,8 +28,13 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [WLExtensionManager signInHandlerBlock];
-    [self updateExtension];
+    __weak __typeof(self)weakSelf = self;
+    [WLExtensionManager signInHandlerBlock:^(NSURLSessionDataTask *task, id responseObject) {
+        [weakSelf updateExtension];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@", error.localizedDescription);
+    }];
+    
     self.tableView.estimatedRowHeight = 50;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 }

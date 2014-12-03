@@ -11,7 +11,8 @@
 #import "WLEntryKeys.h"
 #import "WLCryptographer.h"
 
-static NSString * const WLAPIBaseURLString = @"https://dev-api.wraplive.com/api";
+static NSString *const WLAPIBaseURLString = @"https://dev-api.wraplive.com/api";
+static NSString *const WLAPIVersion = @"5";
 static NSString *const WLUserDefaultsExtensionKey = @"group.com.ravenpod.wraplive";
 static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
 
@@ -23,7 +24,7 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
     dispatch_once(&onceToken, ^{
         manager = [[WLExtensionManager alloc] initWithBaseURL:[NSURL URLWithString:WLAPIBaseURLString]];
         manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
-        NSString* acceptHeader = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=5"];
+        NSString* acceptHeader = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", WLAPIVersion];
         [manager.requestSerializer setValue:acceptHeader forHTTPHeaderField:@"Accept"];
     });
     
@@ -52,14 +53,16 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
                                       }];
 }
 
-+ (NSURLSessionDataTask *)signInHandlerBlock {
++ (NSURLSessionDataTask *)signInHandlerBlock:(void(^)(NSURLSessionDataTask *task, id responseObject))success
+                                     failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
     NSMutableDictionary *parameters = [self parseUserDefaults].mutableCopy;
     NSString *password = [WLCryptographer decrypt:[parameters objectForKey:WLPasswordKey]];
     [parameters setObject:password forKey:WLPasswordKey];
-    return [[WLExtensionManager instance] POST:@"users/sign_in" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-    
+    WLExtensionManager *manager = [WLExtensionManager instance];
+    return [manager POST:@"users/sign_in" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+            success(task, responseObject);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-    
+        failure(task, error);
     }];
 }
 

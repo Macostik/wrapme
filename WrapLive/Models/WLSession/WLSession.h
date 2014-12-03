@@ -60,4 +60,10 @@ static NSUserDefaults* WLUserDefaults = nil;
 
 + (void)synchronize;
 
++ (NSString*)appVersion;
+
++ (void)setAppVersion:(NSString*)version;
+
++ (void)setCurrentAppVersion;
+
 @end

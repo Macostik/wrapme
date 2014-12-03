@@ -15,6 +15,8 @@
 
 + (instancetype)library;
 
+- (void)hasChanges:(void (^)(BOOL hasChanges))completion;
+
 - (void)enumerateGroups:(void(^)(ALAssetsGroup *group))finish failure:(ALAssetsLibraryAccessFailureBlock)failure;
 
 - (void)groups:(void(^)(NSArray *groups))finish failure:(ALAssetsLibraryAccessFailureBlock)failure;

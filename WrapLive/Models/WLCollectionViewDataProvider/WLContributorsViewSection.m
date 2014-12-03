@@ -15,11 +15,9 @@ const static CGFloat WLIndent = 36.0f;
 @implementation WLContributorsViewSection
 
 - (CGSize)size:(NSIndexPath *)indexPath {
-    id entry = self.entries.entries[indexPath.item];
-    NSString *contentPhoneString = [[[[entry devices] array] valueForKey:@"phone"] componentsJoinedByString:@"\n"];
-    CGSize size = [contentPhoneString sizeWithAttributes:@{NSFontAttributeName : [UIFont lightFontOfSize:13.0f]}];
+    WLUser* user = self.entries.entries[indexPath.item];
+    CGSize size = [user.phones sizeWithAttributes:@{NSFontAttributeName : [UIFont lightFontOfSize:13.0f]}];
     int height = size.height + WLIndent;
-
     return CGSizeMake(self.collectionView.width, height);
 }
 

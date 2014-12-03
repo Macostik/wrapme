@@ -21,4 +21,23 @@
 @dynamic wraps;
 @dynamic devices;
 
+@synthesize phones = _phones;
+
+- (NSString *)phones {
+    if (!_phones) {
+        NSMutableString* phones = [NSMutableString string];
+        for (WLDevice* device in self.devices) {
+            if (device.phone.length == 0) continue;
+            if (phones.length > 0) [phones appendString:@"\n"];
+            [phones appendString:device.phone];
+        }
+        if (phones.length > 0) {
+            _phones = [phones copy];
+        } else {
+            _phones = @"No registered devices";
+        }
+    }
+    return _phones;
+}
+
 @end

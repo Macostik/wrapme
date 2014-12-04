@@ -265,7 +265,6 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
         } else {
             [self.groups addEntries:self.wrap.candies];
         }
-//        [self dropUpCollectionView];
         [WLSession setInteger:self.mode key:WLWrapViewDefaultModeKey];
         self.historyViewSection.completed = NO;
         [self.collectionView scrollToTopAnimated:YES];

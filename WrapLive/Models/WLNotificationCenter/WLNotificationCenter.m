@@ -128,7 +128,7 @@ static WLDataBlock deviceTokenCompletion = nil;
         [self.userChannel observeMessages:^(PNMessage *message) {
             WLNotification *notification = [WLNotification notificationWithMessage:message];
             [notification fetch:^{
-                if (notification.playSound) [notification playNotificationSound];
+                if (notification.playSound) [WLSoundPlayer playSoundForNotification:notification];
                 [weakSelf broadcastNotification:notification];
             } failure:nil];
             weakSelf.historyDate = [[message.receiveDate date] dateByAddingTimeInterval:NSINTEGER_DEFINED];

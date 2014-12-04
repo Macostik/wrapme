@@ -35,7 +35,7 @@
 
 @property (nonatomic, weak) id <WLStillPictureViewControllerDelegate> delegate;
 
-@property (strong, nonatomic) WLCameraViewController *cameraViewController;
+@property (weak, nonatomic) WLCameraViewController *cameraViewController;
 
 @property (nonatomic) WLCameraMode mode;
 

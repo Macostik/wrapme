@@ -35,7 +35,7 @@ static CGFloat WLBottomViewHeight = 92.0f;
 
 @property (weak, nonatomic) UINavigationController* cameraNavigationController;
 @property (weak, nonatomic) WLPickerViewController *pickerViewController;
-@property (strong, nonatomic) AFPhotoEditorController* aviaryController;
+@property (weak, nonatomic) AFPhotoEditorController* aviaryController;
 
 @property (weak, nonatomic) IBOutlet UIView* wrapView;
 @property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
@@ -45,6 +45,8 @@ static CGFloat WLBottomViewHeight = 92.0f;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomAlignment;
 @property (strong, nonatomic) IBOutlet UIButton *lockButton;
 
+@property (nonatomic) CGSize cameraViewSize;
+
 @end
 
 @implementation WLStillPictureViewController
@@ -52,18 +54,20 @@ static CGFloat WLBottomViewHeight = 92.0f;
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.editable = YES;
+    self.wrapCoverView.circled = YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.cameraViewController = self.mode == WLCameraModeCandy ? [WLCameraViewController instantiateWithIdentifier:@"WLFullSizeCameraViewController" storyboard:[UIStoryboard storyboardNamed:WLCameraStoryboard]] : [WLCameraViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
-    self.cameraViewController.delegate = self;
-    self.cameraViewController.mode = self.mode;
-    self.cameraViewController.defaultPosition = self.defaultPosition;
+    WLCameraViewController* cameraViewController = [self.storyboard instantiateViewControllerWithIdentifier:self.mode == WLCameraModeCandy ? @"WLFullSizeCameraViewController" : @"WLCameraViewController"];
+    self.cameraViewController = cameraViewController;
+    cameraViewController.delegate = self;
+    cameraViewController.mode = self.mode;
+    cameraViewController.defaultPosition = self.defaultPosition;
     self.cameraNavigationController = [self.childViewControllers lastObject];
     self.cameraNavigationController.delegate = self;
-	[self.cameraNavigationController setViewControllers:@[self.cameraViewController]];
+	[self.cameraNavigationController setViewControllers:@[cameraViewController]];
     [self setupWrapVeiw:self.wrap];
 }
 
@@ -76,22 +80,16 @@ static CGFloat WLBottomViewHeight = 92.0f;
 
 - (void)setupWrapVeiw:(WLWrap *)wrap {
      _wrap = wrap;
-    if (self.wrap) {
+    if (wrap) {
         self.wrapView.hidden = NO;
-        self.wrapNameLabel.text = self.wrap.name;
-        self.wrapCoverView.url = self.wrap.picture.small;
-        self.wrapCoverView.circled = YES;
+        self.wrapNameLabel.text = wrap.name;
+        self.wrapCoverView.url = wrap.picture.small;
+        if (!self.wrapCoverView.url.nonempty) {
+            self.wrapCoverView.image = [UIImage imageNamed:@"default-small-cover"];
+        }
     } else {
         self.wrapView.hidden = YES;
     }
-}
-
-- (void)setMode:(WLCameraMode)mode {
-    _mode = mode;
-}
-
-- (void)setDefaultPosition:(AVCaptureDevicePosition)defaultPosition {
-    _defaultPosition = defaultPosition;
 }
 
 - (CGFloat)imageWidthForCurrentMode {
@@ -104,12 +102,12 @@ static CGFloat WLBottomViewHeight = 92.0f;
 }
 
 - (void)cropImage:(UIImage*)image useCameraAspectRatio:(BOOL)useCameraAspectRatio completion:(void (^)(UIImage *croppedImage))completion {
-	CGSize viewSize = self.cameraViewController.viewSize;
+    __weak typeof(self)weakSelf = self;
 	run_getting_object(^id{
         UIImage *result = image;
         CGFloat resultWidth = [self imageWidthForCurrentMode];
         if (useCameraAspectRatio) {
-            CGSize newSize = CGSizeThatFitsSize(result.size, viewSize);
+            CGSize newSize = CGSizeThatFitsSize(result.size, weakSelf.cameraViewSize);
             CGFloat scale = newSize.width / resultWidth;
             newSize = CGSizeMake(resultWidth, newSize.height / scale);
             result = [result resizedImageWithContentModeScaleAspectFill:CGSizeMake(result.size.width / scale, 1)];
@@ -173,8 +171,9 @@ static CGFloat WLBottomViewHeight = 92.0f;
 }
 
 - (void)editImage:(UIImage*)image completion:(WLImageBlock)completion {
-    self.aviaryController = [self editControllerWithImage:image];
-    [self.cameraNavigationController pushViewController:self.aviaryController animated:YES];
+    AFPhotoEditorController* aviaryController = [self editControllerWithImage:image];
+    self.aviaryController = aviaryController;
+    [self.cameraNavigationController pushViewController:aviaryController animated:YES];
     self.editBlock = completion;
 }
 
@@ -183,6 +182,7 @@ static CGFloat WLBottomViewHeight = 92.0f;
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithImage:(UIImage *)image metadata:(NSMutableDictionary *)metadata {
 	self.view.userInteractionEnabled = NO;
 	__weak typeof(self)weakSelf = self;
+    self.cameraViewSize = controller.viewSize;
 	[self cropImage:image useCameraAspectRatio:YES completion:^(UIImage *croppedImage) {
         [weakSelf handleImage:croppedImage save:YES metadata:metadata];
 		weakSelf.view.userInteractionEnabled = YES;
@@ -206,7 +206,7 @@ static CGFloat WLBottomViewHeight = 92.0f;
 }
 
 - (void)cameraViewControllerDidSelectGallery:(WLCameraViewController *)controller {
-    
+    self.cameraViewSize = controller.viewSize;
 	WLAssetsGroupViewController* gallery = [[WLAssetsGroupViewController alloc] init];
     gallery.mode = self.mode;
 	__weak typeof(self)weakSelf = self;
@@ -214,6 +214,7 @@ static CGFloat WLBottomViewHeight = 92.0f;
         if ([assets count] == 1) {
             [weakSelf handleAsset:[assets firstObject]];
         } else {
+            weakSelf.cameraNavigationController.viewControllers = @[weakSelf.cameraNavigationController.topViewController];
             [weakSelf handleAssets:assets];
         }
 	}];
@@ -267,7 +268,6 @@ static CGFloat WLBottomViewHeight = 92.0f;
 
 - (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
     [self.cameraNavigationController popViewControllerAnimated:YES];
-    self.aviaryController = nil;
 }
 
 #pragma mark - UINavigationControllerDelegate

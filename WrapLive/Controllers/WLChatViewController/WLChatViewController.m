@@ -308,7 +308,7 @@ CGFloat WLMaxTextViewWidth;
     __weak typeof(self)weakSelf = self;
     [self.wrap uploadMessage:text success:^(WLMessage *message) {
 		[weakSelf.collectionView scrollToTopAnimated:YES];
-        [message playSoundBySendEvent];
+        [WLSoundPlayer playSound:WLSound_s04];
     } failure:^(NSError *error) {
 		[error show];
         [weakSelf.composeBar performSelector:@selector(setText:) withObject:text afterDelay:0.0f];

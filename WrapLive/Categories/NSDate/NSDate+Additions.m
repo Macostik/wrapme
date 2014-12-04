@@ -173,7 +173,7 @@ static inline NSCalendar* NSCurrentCalendar() {
 - (NSString *)timeAgoStringAtAMPM {
     NSTimeInterval interval = ABS([self timeIntervalSinceNow]);
     if (interval >= WLTimeIntervalWeek) {
-        return [self stringWithFormat:@"MM/dd/yy 'at' hh:mma"];
+        return [self stringWithFormat:@"MMM d, yyyy 'at' hh:mma"];
     } else {
         NSTimeInterval value = 0;
         NSString* name = nil;

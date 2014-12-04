@@ -87,16 +87,8 @@
 	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
     cameraNavigation.delegate = self;
     cameraNavigation.defaultPosition = AVCaptureDevicePositionFront;
-    cameraNavigation.mode = WLCameraModeAvatar;
+    cameraNavigation.mode = WLStillPictureModeSquare;
     [self.navigationController pushViewController:cameraNavigation animated:YES];
-}
-
-- (void)saveImage:(UIImage *)image {
-    __weak typeof(self)weakSelf = self;
-    [[WLImageCache cache] setImage:image completion:^(NSString *path) {
-        weakSelf.editSession.url = path;
-        [weakSelf verifyContinueButton];
-    }];
 }
 
 - (void)verifyContinueButton {
@@ -109,11 +101,11 @@
 	[self.navigationController popToViewController:self animated:YES];
 }
 
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
-	self.profileImageView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
-															  bounds:self.profileImageView.retinaSize
-												interpolationQuality:kCGInterpolationDefault];
-	[self saveImage:image];
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+	WLPicture *picture = [pictures lastObject];
+	self.profileImageView.url = picture.medium;
+    self.editSession.url = picture.large;
+    [self verifyContinueButton];
 	[self.navigationController popToViewController:self animated:YES];
 }
 

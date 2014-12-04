@@ -58,7 +58,7 @@ static NSUInteger WLAssetsSelectionLimit = 10;
                                              selector:@selector(assetsLibraryChanged:)
                                                  name:ALAssetsLibraryChangedNotification
                                                object:nil];
-    if (self.mode != WLCameraModeCandy) {
+    if (self.mode != WLStillPictureModeDefault) {
         self.doneButton.hidden = YES;
     } else {
         self.doneButton.x = self.view.width;
@@ -68,7 +68,7 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.spinner stopAnimating];
-    self.doneButton.hidden = (self.mode != WLCameraModeCandy);
+    self.doneButton.hidden = (self.mode != WLStillPictureModeDefault);
 }
 
 - (NSMutableArray *)selectedAssets {
@@ -170,7 +170,7 @@ static NSUInteger WLAssetNumberOfColumns = 4;
 	} else if (size.width < 100 || size.height < 100) {
 		[WLToast showWithMessage:@"Your image is too small. Please, choose another one."];
 	} else {
-        if (self.mode == WLCameraModeCandy) {
+        if (self.mode == WLStillPictureModeDefault) {
             if ([self.selectedAssets containsObject:asset]) {
                 [self.selectedAssets removeObject:asset];
             } else if (self.selectedAssets.count < WLAssetsSelectionLimit) {

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLCameraViewController.h"
+#import "WLStillPictureMode.h"
+#import <AVFoundation/AVCaptureDevice.h>
 
 @class WLStillPictureViewController;
 @class WLCameraViewController;
@@ -19,25 +20,17 @@
 
 @optional
 
-- (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithImage:(UIImage*)image;
-
 - (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithPictures:(NSArray*)pictures;
 
 @end
 
 @interface WLStillPictureViewController : UIViewController
-{
-@private
-    BOOL _editable:YES;
-}
 
 @property (weak, nonatomic, readonly) UINavigationController* cameraNavigationController;
 
 @property (nonatomic, weak) id <WLStillPictureViewControllerDelegate> delegate;
 
-@property (strong, nonatomic) WLCameraViewController *cameraViewController;
-
-@property (nonatomic) WLCameraMode mode;
+@property (nonatomic) WLStillPictureMode mode;
 
 @property (nonatomic) AVCaptureDevicePosition defaultPosition;
 

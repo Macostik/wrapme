@@ -1068,6 +1068,10 @@
 		C54AF87F19B8C63F006F7EDB /* WLTestUsersDevelopment.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85519B8C622006F7EDB /* WLTestUsersDevelopment.plist */; };
 		C54AF88019B8C63F006F7EDB /* WLTestUsersProduction.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85619B8C622006F7EDB /* WLTestUsersProduction.plist */; };
 		C54AF88119B8C63F006F7EDB /* WLTestUsersQA.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85719B8C622006F7EDB /* WLTestUsersQA.plist */; };
+		C54C360A1A3077ED006387E2 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C36091A3077ED006387E2 /* WLSoundPlayer.m */; };
+		C54C360B1A3077ED006387E2 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C36091A3077ED006387E2 /* WLSoundPlayer.m */; };
+		C54C360C1A3077ED006387E2 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C36091A3077ED006387E2 /* WLSoundPlayer.m */; };
+		C54C360D1A3077ED006387E2 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C36091A3077ED006387E2 /* WLSoundPlayer.m */; };
 		C54EFCDF1A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */; };
 		C54EFCE01A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */; };
 		C54EFCE11A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */; };
@@ -1148,10 +1152,6 @@
 		C55C8D7319C98A9400199245 /* WLNotificationChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6719C98A9400199245 /* WLNotificationChannel.m */; };
 		C55C8D7419C98A9400199245 /* WLNotificationChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6719C98A9400199245 /* WLNotificationChannel.m */; };
 		C55C8D7519C98A9400199245 /* WLNotificationChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6719C98A9400199245 /* WLNotificationChannel.m */; };
-		C55C8D7619C98A9400199245 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6919C98A9400199245 /* WLSoundPlayer.m */; };
-		C55C8D7719C98A9400199245 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6919C98A9400199245 /* WLSoundPlayer.m */; };
-		C55C8D7819C98A9400199245 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6919C98A9400199245 /* WLSoundPlayer.m */; };
-		C55C8D7919C98A9400199245 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6919C98A9400199245 /* WLSoundPlayer.m */; };
 		C55C8D7C19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */; };
 		C55C8D7D19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */; };
 		C55C8D7E19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */; };
@@ -1800,6 +1800,9 @@
 		C54AF85B19B8C622006F7EDB /* WLAPIEnvironmentQA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLAPIEnvironmentQA.plist; sourceTree = "<group>"; };
 		C54AF86419B8C632006F7EDB /* WLAPIEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAPIEnvironment.h; path = WLAPIManager/WLAPIEnvironment.h; sourceTree = "<group>"; };
 		C54AF86519B8C632006F7EDB /* WLAPIEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAPIEnvironment.m; path = WLAPIManager/WLAPIEnvironment.m; sourceTree = "<group>"; };
+		C54C36061A306C6D006387E2 /* WLStillPictureMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStillPictureMode.h; path = WLStillPictureViewController/WLStillPictureMode.h; sourceTree = "<group>"; };
+		C54C36081A3077ED006387E2 /* WLSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSoundPlayer.h; sourceTree = "<group>"; };
+		C54C36091A3077ED006387E2 /* WLSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSoundPlayer.m; sourceTree = "<group>"; };
 		C54EFCDD1A0D0D06005BC506 /* WLChatTypingChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChatTypingChannel.h; sourceTree = "<group>"; };
 		C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChatTypingChannel.m; sourceTree = "<group>"; };
 		C54F1B201A2F1D4300F40372 /* WLVerificationCallRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLVerificationCallRequest.h; path = WLAPIManager/WLAPIRequest/WLVerificationCallRequest.h; sourceTree = "<group>"; };
@@ -1833,8 +1836,6 @@
 		C55C8D6519C98A9400199245 /* WLNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationCenter.m; sourceTree = "<group>"; };
 		C55C8D6619C98A9400199245 /* WLNotificationChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationChannel.h; sourceTree = "<group>"; };
 		C55C8D6719C98A9400199245 /* WLNotificationChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationChannel.m; sourceTree = "<group>"; };
-		C55C8D6819C98A9400199245 /* WLSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSoundPlayer.h; sourceTree = "<group>"; };
-		C55C8D6919C98A9400199245 /* WLSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSoundPlayer.m; sourceTree = "<group>"; };
 		C55C8D7A19C9A56400199245 /* WLResendConfirmationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLResendConfirmationRequest.h; path = WLAPIManager/WLAPIRequest/WLResendConfirmationRequest.h; sourceTree = "<group>"; };
 		C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLResendConfirmationRequest.m; path = WLAPIManager/WLAPIRequest/WLResendConfirmationRequest.m; sourceTree = "<group>"; };
 		C560911E1A10CE8800C48887 /* WLDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDevice.h; sourceTree = "<group>"; };
@@ -2130,6 +2131,7 @@
 			children = (
 				128156A91938A1DA00035F89 /* WLStillPictureViewController.h */,
 				128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */,
+				C54C36061A306C6D006387E2 /* WLStillPictureMode.h */,
 			);
 			name = WLStillPictureViewController;
 			sourceTree = "<group>";
@@ -2356,6 +2358,7 @@
 				C55037821A2C827C007F2C2C /* WLNavigationAnimator */,
 				C559974D1A262BC2003D4B29 /* WLTelephony */,
 				C5C20B8C1A238ACC008B2E2E /* WLValidation */,
+				C54C36071A3077ED006387E2 /* WLSoundPlayer */,
 				C54FC7671A163CC400623FC1 /* WLNetwork */,
 				C547A44E1A026B3E005061AB /* WLKeyboard */,
 				C57BDDB419FA5E9E003593F1 /* WLStoryboardSegue */,
@@ -3566,6 +3569,15 @@
 			path = "Test Users";
 			sourceTree = "<group>";
 		};
+		C54C36071A3077ED006387E2 /* WLSoundPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				C54C36081A3077ED006387E2 /* WLSoundPlayer.h */,
+				C54C36091A3077ED006387E2 /* WLSoundPlayer.m */,
+			);
+			path = WLSoundPlayer;
+			sourceTree = "<group>";
+		};
 		C54FC7601A160C0200623FC1 /* WLCollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3632,8 +3644,6 @@
 				C55C8D6719C98A9400199245 /* WLNotificationChannel.m */,
 				C54EFCDD1A0D0D06005BC506 /* WLChatTypingChannel.h */,
 				C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */,
-				C55C8D6819C98A9400199245 /* WLSoundPlayer.h */,
-				C55C8D6919C98A9400199245 /* WLSoundPlayer.m */,
 			);
 			path = WLNotificationCenter;
 			sourceTree = "<group>";
@@ -4812,6 +4822,7 @@
 				1215DC7B18E4421700FCA744 /* NSArray+Additions.m in Sources */,
 				C55C8D7C19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
 				C545312A1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
+				C54C360A1A3077ED006387E2 /* WLSoundPlayer.m in Sources */,
 				C5F99B6F196BEB0C00A3FB19 /* WLMenu.m in Sources */,
 				12E1104519066C7C007DB4AC /* UIView+QuatzCoreAnimations.m in Sources */,
 				C51910621A078248003C78B2 /* WLWrap+Extended.m in Sources */,
@@ -4843,7 +4854,6 @@
 				C5FCC69D199A6971009A0DC6 /* WLHomeCandiesViewSection.m in Sources */,
 				C5C6465519A6264300F8243A /* WLNotificationCell.m in Sources */,
 				12D7E0B51910E5380094C376 /* WLImageCache.m in Sources */,
-				C55C8D7619C98A9400199245 /* WLSoundPlayer.m in Sources */,
 				12DEC3EF1920F7E0007BE6CC /* WLToast.m in Sources */,
 				C509CCFB199E0B38006B00AA /* WLCandiesViewSection.m in Sources */,
 				C545312E1A24A1F20048A677 /* WLCountryCell.m in Sources */,
@@ -5050,6 +5060,7 @@
 				C54AF4EA19B8C437006F7EDB /* NSArray+Additions.m in Sources */,
 				C55C8D7D19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
 				C545312B1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
+				C54C360B1A3077ED006387E2 /* WLSoundPlayer.m in Sources */,
 				C54AF4EB19B8C437006F7EDB /* WLMenu.m in Sources */,
 				C54AF4EC19B8C437006F7EDB /* UIView+QuatzCoreAnimations.m in Sources */,
 				C51910631A078248003C78B2 /* WLWrap+Extended.m in Sources */,
@@ -5081,7 +5092,6 @@
 				C54AF50A19B8C437006F7EDB /* WLHomeCandiesViewSection.m in Sources */,
 				C54AF50B19B8C437006F7EDB /* WLNotificationCell.m in Sources */,
 				C54AF50C19B8C437006F7EDB /* WLImageCache.m in Sources */,
-				C55C8D7719C98A9400199245 /* WLSoundPlayer.m in Sources */,
 				C54AF50D19B8C437006F7EDB /* WLToast.m in Sources */,
 				C54AF50F19B8C437006F7EDB /* WLCandiesViewSection.m in Sources */,
 				C545312F1A24A1F20048A677 /* WLCountryCell.m in Sources */,
@@ -5288,6 +5298,7 @@
 				C54AF5E719B8C467006F7EDB /* NSArray+Additions.m in Sources */,
 				C55C8D7E19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
 				C545312C1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
+				C54C360C1A3077ED006387E2 /* WLSoundPlayer.m in Sources */,
 				C54AF5E819B8C467006F7EDB /* WLMenu.m in Sources */,
 				C54AF5E919B8C467006F7EDB /* UIView+QuatzCoreAnimations.m in Sources */,
 				C51910641A078248003C78B2 /* WLWrap+Extended.m in Sources */,
@@ -5319,7 +5330,6 @@
 				C54AF60719B8C467006F7EDB /* WLHomeCandiesViewSection.m in Sources */,
 				C54AF60819B8C467006F7EDB /* WLNotificationCell.m in Sources */,
 				C54AF60919B8C467006F7EDB /* WLImageCache.m in Sources */,
-				C55C8D7819C98A9400199245 /* WLSoundPlayer.m in Sources */,
 				C54AF60A19B8C467006F7EDB /* WLToast.m in Sources */,
 				C54AF60C19B8C467006F7EDB /* WLCandiesViewSection.m in Sources */,
 				C54531301A24A1F20048A677 /* WLCountryCell.m in Sources */,
@@ -5526,6 +5536,7 @@
 				C54AF6E419B8C491006F7EDB /* NSArray+Additions.m in Sources */,
 				C55C8D7F19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
 				C545312D1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
+				C54C360D1A3077ED006387E2 /* WLSoundPlayer.m in Sources */,
 				C54AF6E519B8C491006F7EDB /* WLMenu.m in Sources */,
 				C54AF6E619B8C491006F7EDB /* UIView+QuatzCoreAnimations.m in Sources */,
 				C51910651A078248003C78B2 /* WLWrap+Extended.m in Sources */,
@@ -5557,7 +5568,6 @@
 				C54AF70419B8C491006F7EDB /* WLHomeCandiesViewSection.m in Sources */,
 				C54AF70519B8C491006F7EDB /* WLNotificationCell.m in Sources */,
 				C54AF70619B8C491006F7EDB /* WLImageCache.m in Sources */,
-				C55C8D7919C98A9400199245 /* WLSoundPlayer.m in Sources */,
 				C54AF70719B8C491006F7EDB /* WLToast.m in Sources */,
 				C54AF70919B8C491006F7EDB /* WLCandiesViewSection.m in Sources */,
 				C54531311A24A1F20048A677 /* WLCountryCell.m in Sources */,

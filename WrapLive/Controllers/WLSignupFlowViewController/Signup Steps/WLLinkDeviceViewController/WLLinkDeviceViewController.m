@@ -12,6 +12,7 @@
 #import "WLButton.h"
 #import "WLProfileInformationViewController.h"
 #import "WLNavigation.h"
+#import "WLSoundPlayer.h"
 
 @interface WLLinkDeviceViewController ()
 
@@ -37,6 +38,7 @@
     request.deviceUID = [WLAuthorization currentAuthorization].deviceUID;
     request.approvalCode = self.passcodeField.text;
     [request send:^(id object) {
+        [WLSoundPlayer playSound:WLSound_s01];
         [[WLAuthorization currentAuthorization] signIn:^(WLUser *user) {
             [weakSelf setSuccessStatusAnimated:YES];
         } failure:^(NSError *error) {

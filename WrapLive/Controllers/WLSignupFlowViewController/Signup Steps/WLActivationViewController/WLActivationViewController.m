@@ -22,6 +22,7 @@
 #import "WLNavigation.h"
 #import "WLButton.h"
 #import "WLVerificationCallRequest.h"
+#import "WLSoundPlayer.h"
 
 @interface WLActivationViewController () <UITextFieldDelegate>
 
@@ -44,7 +45,7 @@
     self.progressBar.progress = 0;
 }
 
-- (void)activate:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
+- (void)activate:(WLBlock)completion failure:(WLFailureBlock)failure {
     [WLSession setConfirmationDate:[NSDate now]];
 	NSString* activationCode = self.activationTextField.text;
 	if (activationCode.nonempty) {
@@ -53,13 +54,19 @@
         self.progressBar.operation = [[WLAuthorization currentAuthorization] activate:^(id object) {
             [weakSelf signIn:completion failure:failure];
         } failure:failure];
-	}
+    } else {
+        failure(nil);
+    }
 }
 
-- (void)signIn:(void (^)(void))completion failure:(void (^)(NSError* error))failure {
-    self.progressBar.operation = [[WLAuthorization currentAuthorization] signIn:^(id object) {
+- (void)signIn:(WLBlock)completion failure:(WLFailureBlock)failure {
+    if (self.shouldSignIn) {
+        self.progressBar.operation = [[WLAuthorization currentAuthorization] signIn:^(id object) {
+            completion();
+        } failure:failure];
+    } else {
         completion();
-    } failure:failure];
+    }
 }
 
 - (IBAction)next:(WLButton*)sender {
@@ -67,6 +74,7 @@
     __weak typeof(self)weakSelf = self;
     [self activate:^{
         sender.loading = NO;
+        [WLSoundPlayer playSound:WLSound_s01];
         [weakSelf setSuccessStatusAnimated:YES];
     } failure:^(NSError *error) {
         sender.loading = NO;

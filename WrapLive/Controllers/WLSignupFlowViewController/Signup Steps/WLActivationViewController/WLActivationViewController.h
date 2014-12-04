@@ -12,4 +12,6 @@
 
 @interface WLActivationViewController : WLSignupStepViewController
 
+@property (nonatomic) BOOL shouldSignIn;
+
 @end

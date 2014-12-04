@@ -93,7 +93,7 @@
     
     // verification subflow
     
-    WLSignupStepCompletionWithSuccessBlock verificationStepBlock = ^WLSignupStepViewController * (WLSignupStepCompletionBlock seccessBlock) {
+    WLSignupVerificationStepBlock verificationStepBlock = ^WLSignupStepViewController * (WLSignupStepCompletionBlock seccessBlock, BOOL shouldSignIn) {
         [phoneStep setSuccessStatusBlock:^WLSignupStepViewController *{
             [verificationStep setSuccessStatusBlock:^WLSignupStepViewController *{
                 [verificationSuccessStep setSuccessStatusBlock:^WLSignupStepViewController *{
@@ -114,6 +114,7 @@
                 }];
                 return verificationFailureStep;
             }];
+            verificationStep.shouldSignIn = shouldSignIn;
             return verificationStep;
         }];
         return phoneStep;
@@ -134,15 +135,13 @@
     // second device signup subflow (different for phone and wifi device)
     
     WLSignupStepCompletionBlock secondDeviceBlock = ^WLSignupStepViewController *{
-        
         if ([WLTelephony hasPhoneNumber]) {
             return verificationStepBlock(^WLSignupStepViewController *{
                 return linkDeviceBlock();
-            });
+            }, NO);
         } else {
             return linkDeviceBlock();
         }
-        return verificationStep;
     };
     
     // first sign up flow
@@ -150,7 +149,7 @@
     [emailStep setCompletionBlock:^WLSignupStepViewController *{
         return verificationStepBlock(^WLSignupStepViewController *{
             return profileStepBlock();
-        });
+        }, YES);
     } forStatus:WLEmailStepStatusVerification];
     
     // second device witn unconfirmed e-mail flow

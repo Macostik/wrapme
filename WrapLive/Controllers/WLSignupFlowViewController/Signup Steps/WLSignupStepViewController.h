@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, WLSignupStepStatus) {
 @class WLSignupStepViewController;
 
 typedef WLSignupStepViewController *(^WLSignupStepCompletionBlock)(void);
-typedef WLSignupStepViewController *(^WLSignupStepCompletionWithSuccessBlock) (WLSignupStepCompletionBlock successBlock);
+typedef WLSignupStepViewController *(^WLSignupVerificationStepBlock) (WLSignupStepCompletionBlock successBlock, BOOL shouldSignIn);
 
 @interface WLSignupStepViewController : WLBaseViewController
 

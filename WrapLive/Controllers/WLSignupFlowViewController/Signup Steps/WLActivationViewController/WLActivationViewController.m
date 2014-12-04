@@ -83,9 +83,11 @@
 }
 
 - (IBAction)call:(UIButton*)sender {
+    __weak typeof(self)weakSelf = self;
     sender.userInteractionEnabled = NO;
     [[WLVerificationCallRequest request] send:^(id object) {
         sender.userInteractionEnabled = YES;
+        [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"Calling %@ now. Please wait.", weakSelf.phoneNumberLabel.text] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;
         [error show];

@@ -231,7 +231,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (IBAction)createWrap:(id)sender {
     __weak WLStillPictureViewController *controller = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
-    controller.mode = WLCameraModeCandy;
+    controller.mode = WLStillPictureModeDefault;
     controller.delegate = self;
     [controller willCreateWrapFromPicker:NO];
     

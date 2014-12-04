@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLCameraViewController.h"
+#import "WLStillPictureMode.h"
 
 @class ALAsset;
 
@@ -15,6 +15,6 @@
 
 @property (copy, nonatomic) WLArrayBlock selectionBlock;
 
-@property (nonatomic) WLCameraMode mode;
+@property (nonatomic) WLStillPictureMode mode;
 
 @end

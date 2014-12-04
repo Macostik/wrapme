@@ -300,6 +300,11 @@ static void releaseAssetCallback(void *info) {
 	CFRelease(info);
 }
 
+- (UIImage *)image {
+    ALAssetRepresentation* r = self.defaultRepresentation;
+    return [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:(UIImageOrientation)r.orientation];
+}
+
 - (UIImage *)image:(CGFloat)maxSize {
 	NSParameterAssert(maxSize > 0);
 	

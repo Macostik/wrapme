@@ -1747,6 +1747,7 @@
 		C54AF85B19B8C622006F7EDB /* WLAPIEnvironmentQA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLAPIEnvironmentQA.plist; sourceTree = "<group>"; };
 		C54AF86419B8C632006F7EDB /* WLAPIEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAPIEnvironment.h; path = WLAPIManager/WLAPIEnvironment.h; sourceTree = "<group>"; };
 		C54AF86519B8C632006F7EDB /* WLAPIEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAPIEnvironment.m; path = WLAPIManager/WLAPIEnvironment.m; sourceTree = "<group>"; };
+		C54C36061A306C6D006387E2 /* WLStillPictureMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStillPictureMode.h; path = WLStillPictureViewController/WLStillPictureMode.h; sourceTree = "<group>"; };
 		C54EFCDD1A0D0D06005BC506 /* WLChatTypingChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChatTypingChannel.h; sourceTree = "<group>"; };
 		C54EFCDE1A0D0D06005BC506 /* WLChatTypingChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChatTypingChannel.m; sourceTree = "<group>"; };
 		C54F4B231A28BC9E00B92982 /* chat_bubble_tail_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_bubble_tail_gray.png; sourceTree = "<group>"; };
@@ -2060,6 +2061,7 @@
 			children = (
 				128156A91938A1DA00035F89 /* WLStillPictureViewController.h */,
 				128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */,
+				C54C36061A306C6D006387E2 /* WLStillPictureMode.h */,
 			);
 			name = WLStillPictureViewController;
 			sourceTree = "<group>";

@@ -82,24 +82,15 @@
 	self.position = self.defaultPosition;
 	self.flashMode = AVCaptureFlashModeOff;
 	self.flashModeControl.mode = self.flashMode;
-    if (self.mode == WLCameraModeAvatar) {
-        self.rotateButton.hidden = YES;
-    }
 	
 	self.cameraView.layer.session = self.session;
 	
 	[self performSelector:@selector(start) withObject:nil afterDelay:0.0];
-    
-    self.bottomViewConstraint.constant = self.bottomInset;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	self.takePhotoButton.active = YES;
-}
-
-- (CGSize)viewSize {
-	return self.cameraView.bounds.size;
 }
 
 #pragma mark - User Actions

@@ -181,7 +181,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
                                                 [UIStoryboard storyboardNamed:WLCameraStoryboard]];
     controller.wrap = self.wrap;
     controller.delegate = self;
-    controller.mode = WLCameraModeCandy;
+    controller.mode = WLStillPictureModeDefault;
     
 	return controller;
 }

@@ -125,19 +125,11 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithImage:(UIImage *)image {
-    self.imageView.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill
-                                                       bounds:self.imageView.retinaSize
-                                         interpolationQuality:kCGInterpolationDefault];
-    [self saveImage:image];
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+    WLPicture *picture = [pictures lastObject];
+    self.imageView.url = picture.large;
+    self.editSession.url = picture.large;
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)saveImage:(UIImage *)image {
-    __weak typeof(self)weakSelf = self;
-    [[WLImageCache cache] setImage:image completion:^(NSString *path) {
-        weakSelf.editSession.url = path;
-    }];
 }
 
 #pragma mark - WLEntryNotifyReceiver

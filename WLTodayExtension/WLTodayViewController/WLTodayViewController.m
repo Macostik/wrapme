@@ -20,6 +20,7 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
 @interface WLTodayViewController () <NCWidgetProviding>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *moreButton;
 @property (strong, nonatomic) NSOrderedSet *entries;
 @property (assign, nonatomic) BOOL isShowMore;
 
@@ -29,6 +30,8 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.estimatedRowHeight = 50;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {
@@ -47,7 +50,13 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
             NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
             if (response && response.statusCode == 401)
             [WLExtensionManager signInHandlerBlock:^(NSURLSessionDataTask *task, id responseObject) {
-                [weakSelf updateExtension];
+                if ([[responseObject valueForKey:@"return_code"] intValue] == 0) {
+                    [weakSelf updateExtension];
+                } else {
+                    weakSelf.moreButton.userInteractionEnabled = NO;
+                    [weakSelf.moreButton setTitle:[responseObject valueForKey:@"message"] forState:UIControlStateNormal];
+                    [weakSelf.moreButton setImage:[UIImage imageNamed:@"ic_alert_orange"] forState:UIControlStateNormal];
+                }
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 NSLog(@"%@", error.description);
             }];
@@ -56,11 +65,10 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
             if ([weakSelf.entries count]) {
                 [weakSelf.tableView reloadData];
             }
+            [weakSelf setPreferredContentSize:CGSizeMake(0.0, weakSelf.tableView.contentSize.height)];
             weakSelf.tableView.estimatedRowHeight = 50;
             weakSelf.tableView.rowHeight = UITableViewAutomaticDimension;
-            [weakSelf setPreferredContentSize:CGSizeMake(0.0, self.tableView.contentSize.height)];
         }
-        
     }];
     
 }
@@ -70,10 +78,10 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
     [sender setTitle:self.isShowMore? WLLessButtonKey : WLMoreButtonKey forState:UIControlStateNormal];
     [self.tableView reloadData];
     [self setPreferredContentSize:CGSizeMake(0.0, self.tableView.contentSize.height)];
-    NSURL *url = [[NSURL alloc] initWithScheme:WLExtensionScheme host:nil path:@"/test"];
-    [self.extensionContext openURL:url completionHandler:^(BOOL success) {
-        
-    }];
+//    NSURL *url = [[NSURL alloc] initWithScheme:WLExtensionScheme host:nil path:@"/test"];
+//    [self.extensionContext openURL:url completionHandler:^(BOOL success) {
+//        
+//    }];
 }
 
 #pragma mark - UITableViewDelegate methods
@@ -89,9 +97,8 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WLExtensionCell *cell = [tableView dequeueReusableCellWithIdentifier:WLExtensionCellIdentifier];
-    cell.attEntry = self.entries[indexPath.row];
-    
+    WLExtensionCell *cell = [tableView dequeueReusableCellWithIdentifier:WLExtensionCellIdentifier forIndexPath:indexPath];
+    cell.post = self.entries[indexPath.row];
     return cell;
 }
 

@@ -11,7 +11,7 @@
 
 @interface WLExtensionCell : UITableViewCell
 
-@property (strong, nonatomic) NSDictionary *attEntry;
+@property (strong, nonatomic) WLPost *post;
 
 @end
 

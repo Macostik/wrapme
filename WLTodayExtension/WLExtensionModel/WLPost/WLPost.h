@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WLComments.h"
 
 @interface WLPost : NSObject
 
@@ -14,8 +15,15 @@
 @property (strong, nonatomic) NSString *wrapName;
 @property (strong, nonatomic) NSString *event;
 @property (strong, nonatomic) NSDate *time;
+@property (strong, nonatomic) WLComments *comment;
 
 + (id)initWithAttributes:(NSDictionary *)attributes;
 + (NSURLSessionDataTask *)globalTimelinePostsWithBlock:(void (^)(NSArray *posts, NSError *error))block;
+
+@end
+
+@interface NSDate (WLPost)
+
+- (NSString *)timeAgoStringAtAMPM;
 
 @end

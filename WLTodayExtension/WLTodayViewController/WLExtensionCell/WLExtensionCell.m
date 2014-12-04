@@ -7,7 +7,6 @@
 //
 
 #import "WLExtensionCell.h"
-#import "NSDate+Additions.h"
 
 @interface WLExtensionCell ()
 
@@ -15,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventLabel;
 @property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
 
 @end
 
@@ -29,13 +29,14 @@
     return self;
 }
 
-- (void)setAttEntry:(NSDictionary *)attEntry {
-    WLPost *entry = [WLPost initWithAttributes:attEntry];
-    
-    self.coverImageView.image = [UIImage imageWithData:entry.image];
-    self.eventLabel.text = entry.event;
-    self.wrapNameLabel.text = entry.wrapName;
-    self.timeLabel.text = [entry.time timeAgoString];
+- (void)setPost:(WLPost *)post {
+    self.coverImageView.image = [UIImage imageWithData:post.image];
+    self.eventLabel.text = post.event;
+    self.wrapNameLabel.text = post.wrapName;
+    [self.wrapNameLabel sizeToFit];
+    self.widthConstraint.constant = self.wrapNameLabel.bounds.size.width;
+    [self.timeLabel setNeedsLayout];
+    self.timeLabel.text = [post.time timeAgoStringAtAMPM];
 }
 
 @end

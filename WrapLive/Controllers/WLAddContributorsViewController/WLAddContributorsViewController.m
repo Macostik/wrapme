@@ -50,7 +50,7 @@
     self.registeredContacts = [NSMutableArray array];
     self.unregisteredContacts = [NSMutableArray array];
     self.filteredContacts = [NSMutableArray array];
-	[self.spinner startAnimating];
+    [self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
     [[WLContributorsRequest request] send:^(id object) {
         [weakSelf processContacts:object];
@@ -209,6 +209,11 @@
 	WLContact* contact = self.filteredContacts[indexPath.section][indexPath.row];
     WLContactCell* cell = [WLContactCell cellWithContact:contact inTableView:tableView indexPath:indexPath];
 	cell.opened = ([contact.persons count] > 1 && [self.openedRows containsObject:contact]);
+    
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        cell.preservesSuperviewLayoutMargins = NO;
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
     return cell;
 }
 

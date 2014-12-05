@@ -51,7 +51,7 @@ static BOOL playing = NO;
 }
 
 + (void)playSound:(WLSound)sound {
-    if (playing) return;
+//    if (playing) return;
     NSString *soundFileName = WLSoundFileName(sound);
     if (soundFileName.nonempty) {
         playing = YES;

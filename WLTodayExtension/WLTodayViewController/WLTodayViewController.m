@@ -30,8 +30,6 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.estimatedRowHeight = 50;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {
@@ -66,8 +64,6 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
                 [weakSelf.tableView reloadData];
             }
             [weakSelf setPreferredContentSize:CGSizeMake(0.0, weakSelf.tableView.contentSize.height)];
-            weakSelf.tableView.estimatedRowHeight = 50;
-            weakSelf.tableView.rowHeight = UITableViewAutomaticDimension;
         }
     }];
     
@@ -101,5 +97,26 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
     cell.post = self.entries[indexPath.row];
     return cell;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self heightForRowAtIndexPath:indexPath];
+}
+
+static CGFloat WLIndent = 32.0f;
+static CGFloat WLEventLabelWidth = 252.0f;
+static CGFloat WLMaxImageViewHeight = 50.0f;
+
+- (CGFloat)heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WLPost* post = self.entries[indexPath.row];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    CGFloat height = [post.event sizeWithFont:[UIFont systemFontOfSize:15.0]
+                            constrainedToSize:CGSizeMake(WLEventLabelWidth, CGFLOAT_MAX)
+                                lineBreakMode:NSLineBreakByWordWrapping].height;
+#pragma clang diagnostic pop
+    height += WLIndent;
+    return MAX(height, WLMaxImageViewHeight);
+}
+
 
 @end

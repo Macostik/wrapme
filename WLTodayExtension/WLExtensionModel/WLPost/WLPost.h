@@ -15,6 +15,7 @@
 @property (strong, nonatomic) NSString *wrapName;
 @property (strong, nonatomic) NSString *event;
 @property (strong, nonatomic) NSDate *time;
+@property (strong, nonatomic) NSString *contributor;
 @property (strong, nonatomic) WLComments *comment;
 
 + (id)initWithAttributes:(NSDictionary *)attributes;

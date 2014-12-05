@@ -98,7 +98,6 @@
                                                 <constraint firstItem="QMk-gY-TBT" firstAttribute="top" secondItem="eCa-GO-21K" secondAttribute="topMargin" constant="-4" id="zw1-Vn-IkW"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.089207175929999993" green="1" blue="0.72337962960000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="coverImageView" destination="0DV-rQ-oLq" id="Oet-ED-G0i"/>
                                             <outlet property="eventLabel" destination="QMk-gY-TBT" id="hwc-jg-MxY"/>

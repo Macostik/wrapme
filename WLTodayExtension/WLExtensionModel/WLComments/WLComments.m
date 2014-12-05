@@ -13,7 +13,7 @@
 
 + (instancetype)initWithAttributes:(NSDictionary *)attributes {
     WLComments *comment = [[WLComments alloc] init];
-    comment.identifier = [attributes valueForKey:WLCandyUIDKey];
+    comment.identifier = [[attributes valueForKey:WLCandyUIDKey] firstObject];
     comment.contributorName = [[attributes valueForKey:WLContributorNameKey] firstObject];
     comment.comment = [[attributes valueForKey:WLContentKey] firstObject];
     

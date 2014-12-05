@@ -16,8 +16,16 @@
 + (id)initWithAttributes:(NSDictionary *)attributes {
     WLPost *entry = [[WLPost alloc] init];
     entry.image = [NSData dataWithContentsOfURL:[NSURL URLWithString:[attributes valueForKey:WLImageKey]]];
+    entry.contributor = [attributes valueForKey:WLContributorNameKey];
     entry.comment = [WLComments initWithAttributes:[attributes valueForKey:WLCommentsKey]];
-    entry.event = [NSString stringWithFormat:@"%@ commnented \"%@\"", entry.comment.contributorName, entry.comment.comment];
+    NSString *evenString = nil;
+    if (entry.comment.identifier == nil) {
+        evenString = [NSString stringWithFormat:@"%@ posted a new photo", entry.contributor];
+    } else {
+        evenString = [NSString stringWithFormat:@"%@ commnented \"%@\"", entry.comment.contributorName, entry.comment.comment];
+    }
+
+    entry.event = evenString;
     entry.wrapName = [attributes valueForKey:WLWrapNameKey];
     entry.time = [attributes valueForKey:WLTimeKey];
     

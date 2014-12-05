@@ -106,14 +106,14 @@ static NSString *WLDividerViewIdentifier = @"WLDividerView";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section  {
-    return CGSizeMake(collectionView.width, 48);
+    return CGSizeMake(collectionView.width, 50.0f);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
     if (section == [self.timeline.entries count] - 1 && !self.timeline.completed) {
-        return CGSizeMake(collectionView.width, 88);
+        return CGSizeMake(collectionView.width, 88.0f);
     } else {
-        return CGSizeMake(collectionView.width, 3.0);
+        return CGSizeMake(collectionView.width, 1.0f);
     }
 }
 

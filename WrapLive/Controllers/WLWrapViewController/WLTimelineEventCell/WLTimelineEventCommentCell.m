@@ -19,7 +19,7 @@
 
 static CGFloat WLTimelineEventCommentCellMinHeight = 30.0f;
 static CGFloat WLTimelineEventCommentCellQuoteWidth = 30.0f;
-static CGFloat WLTimelineEventCommentFooterHeight = 35.0f;
+static CGFloat WLTimelineEventCommentFooterHeight = 40.0f;
 static CGFloat WLTimelineEventCommentsMinWidth;
 static CGFloat WLTimelineEventImageViewMaxHeightAndWidth;
 

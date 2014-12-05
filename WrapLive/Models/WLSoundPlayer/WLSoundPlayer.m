@@ -38,8 +38,6 @@ static inline NSString *WLSoundFileName(WLSound sound) {
 
 @implementation WLSoundPlayer
 
-static BOOL playing = NO;
-
 + (NSMapTable *)sounds {
     static NSMapTable *sounds = nil;
     static dispatch_once_t onceToken;
@@ -51,10 +49,8 @@ static BOOL playing = NO;
 }
 
 + (void)playSound:(WLSound)sound {
-//    if (playing) return;
     NSString *soundFileName = WLSoundFileName(sound);
     if (soundFileName.nonempty) {
-        playing = YES;
         NSMapTable *sounds = [self sounds];
         SystemSoundID soundID = [[sounds objectForKey:soundFileName] intValue];
         if (soundID == 0) {
@@ -65,12 +61,7 @@ static BOOL playing = NO;
             }
         }
         AudioServicesPlaySystemSound(soundID);
-        AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, completionCallback, NULL);
     }
-}
-
-static void completionCallback (SystemSoundID  soundID, void *data) {
-    playing = NO;
 }
 
 @end

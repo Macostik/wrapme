@@ -49,6 +49,8 @@
 @property (nonatomic, readonly) NSDate* date;
 @property (nonatomic, readonly) CLLocation* location;
 
+@property (readonly, nonatomic) UIImage* image;
+
 - (BOOL)isEqualToAsset:(ALAsset*)asset;
 
 - (UIImage*)image:(CGFloat)maxSize;

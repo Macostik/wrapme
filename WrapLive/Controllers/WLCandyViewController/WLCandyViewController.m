@@ -259,6 +259,12 @@
     }
 }
 
+- (void)notifier:(WLEntryNotifier*)notifier candyUpdated:(WLCandy*)candy {
+    run_after(0.1,^{
+        [self.candyCell.collectionView scrollToBottomAnimated:YES];
+    });
+}
+
 - (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
     return self.candy;
 }
@@ -282,7 +288,7 @@
 
 - (void)sendMessageWithText:(NSString*)text {
     WLCandy* image = self.candy;
-    [WLSoundPlayer playSendMessageSound];
+    [WLSoundPlayer playSound:WLSound_s04];
 	__weak typeof(self)weakSelf = self;
     [image uploadComment:text success:^(WLComment *comment) {
     } failure:^(NSError *error) {

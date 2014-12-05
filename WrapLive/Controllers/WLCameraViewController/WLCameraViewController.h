@@ -9,12 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(NSInteger, WLCameraMode) {
-	WLCameraModeCandy,
-	WLCameraModeAvatar,
-	WLCameraModeCover
-};
-
 @class WLCameraViewController;
 @class WLWrap;
 
@@ -30,15 +24,9 @@ typedef NS_ENUM(NSInteger, WLCameraMode) {
 
 @property (nonatomic, weak) id <WLCameraViewControllerDelegate> delegate;
 
-@property (nonatomic) WLCameraMode mode;
-
 @property (nonatomic) AVCaptureDevicePosition defaultPosition;
 
 @property (nonatomic) AVCaptureDevicePosition position;
-
-@property (readonly, nonatomic) CGSize viewSize;
-
-@property (nonatomic) CGFloat bottomInset;
 
 - (void)setPosition:(AVCaptureDevicePosition)position animated:(BOOL)animated;
 

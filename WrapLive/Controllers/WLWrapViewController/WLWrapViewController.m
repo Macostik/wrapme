@@ -141,6 +141,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
         [weakSelf reloadData];
         if (weakSelf.mode == WLWrapViewModeTimeline && !weakSelf.timelineDataProvider.timeline.entries.nonempty) {
             [weakSelf changeMode:WLWrapViewModeHistory];
+            [weakSelf dropDownCollectionView];
         }
     } failure:^(NSError *error) {
         [error showIgnoringNetworkError];
@@ -165,7 +166,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
 
 - (UINib *)placeholderViewNib {
     return [UINib nibWithNibName:self.mode == WLWrapViewModeTimeline ?
-                                WLWrapPlaceholderViewTimeline : WLWrapPlaceholderViewToday bundle:nil];
+                                 WLWrapPlaceholderViewToday : WLWrapPlaceholderViewTimeline bundle:nil];
 }
 
 - (void)updateNotificationCouter {
@@ -181,7 +182,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
                                                 [UIStoryboard storyboardNamed:WLCameraStoryboard]];
     controller.wrap = self.wrap;
     controller.delegate = self;
-    controller.mode = WLCameraModeCandy;
+    controller.mode = WLStillPictureModeDefault;
     
 	return controller;
 }
@@ -243,11 +244,17 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
         [self.dataProvider connect];
     }
     self.viewButton.selected = mode == WLWrapViewModeHistory;
+    
     self.showsPlaceholderView = !self.wrap.candies.nonempty;
+    if (mode == WLWrapViewModeTimeline) {
+        self.showsPlaceholderView = !self.timelineDataProvider.timeline.entries.nonempty;
+    }
 }
 
 - (IBAction)viewChanged:(UIButton*)sender {
+      [self dropUpCollectionView];
     [self changeMode:sender.selected ? WLWrapViewModeTimeline : WLWrapViewModeHistory];
+  
 }
 
 - (void)changeMode:(WLWrapViewMode)mode {
@@ -258,7 +265,6 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
         } else {
             [self.groups addEntries:self.wrap.candies];
         }
-        [self dropUpCollectionView];
         [WLSession setInteger:self.mode key:WLWrapViewDefaultModeKey];
         self.historyViewSection.completed = NO;
         [self.collectionView scrollToTopAnimated:YES];
@@ -291,11 +297,13 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
 }
 
 - (void)dropDownCollectionView {
-    self.collectionView.transform = CGAffineTransformMakeTranslation(0, -self.view.height);
-    [UIView animateWithDuration:1 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.3 options:0 animations:^{
-        self.collectionView.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL finished) {
-    }];
+    if (self.wrap.candies.nonempty) {
+        self.collectionView.transform = CGAffineTransformMakeTranslation(0, -self.view.height);
+        [UIView animateWithDuration:1 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.3 options:0 animations:^{
+            self.collectionView.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+        }];
+    }
 }
 
 @end

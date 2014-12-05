@@ -118,7 +118,7 @@ static NSUInteger WLComposeBarMinHeight = 44;
 	}
 	NSString* text = [self.text trim];
 	if (text.nonempty) {
-		[self.delegate composeBar:self didFinishWithText:self.textView.text];
+		[self.delegate composeBar:self didFinishWithText:text];
 	}
 	self.text = nil;
 }

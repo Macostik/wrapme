@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RQW-An-MfJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RQW-An-MfJ">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -601,7 +601,7 @@ Ravenpod, Inc.
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray" translatesAutoresizingMaskIntoConstraints="NO" id="MOx-ID-iMT">
-                                                    <rect key="frame" x="10" y="43" width="300" height="1"/>
+                                                    <rect key="frame" x="0.0" y="43" width="320" height="1"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="kxa-hx-Pex"/>
                                                     </constraints>
@@ -614,9 +614,9 @@ Ravenpod, Inc.
                                             <constraint firstAttribute="bottom" secondItem="MOx-ID-iMT" secondAttribute="bottom" id="HBn-px-jol"/>
                                             <constraint firstItem="cKx-Py-m2B" firstAttribute="top" secondItem="KsX-t7-UkA" secondAttribute="top" id="JWo-sz-Xle"/>
                                             <constraint firstAttribute="trailing" secondItem="cKx-Py-m2B" secondAttribute="trailing" constant="10" id="ZNO-Uu-prB"/>
-                                            <constraint firstAttribute="trailing" secondItem="MOx-ID-iMT" secondAttribute="trailing" constant="10" id="b4f-hJ-WRF"/>
+                                            <constraint firstAttribute="trailing" secondItem="MOx-ID-iMT" secondAttribute="trailing" id="b4f-hJ-WRF"/>
                                             <constraint firstAttribute="bottom" secondItem="cKx-Py-m2B" secondAttribute="bottom" id="yaD-sg-iAm"/>
-                                            <constraint firstItem="MOx-ID-iMT" firstAttribute="leading" secondItem="KsX-t7-UkA" secondAttribute="leading" constant="10" id="yjL-hL-eHP"/>
+                                            <constraint firstItem="MOx-ID-iMT" firstAttribute="leading" secondItem="KsX-t7-UkA" secondAttribute="leading" id="yjL-hL-eHP"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="44"/>
                                         <connections>

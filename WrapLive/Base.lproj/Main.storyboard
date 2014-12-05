@@ -3333,10 +3333,10 @@ Check your internet connection and try again.</string>
                                                     </connections>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray" translatesAutoresizingMaskIntoConstraints="NO" id="cOS-kT-Nce">
-                                                    <rect key="frame" x="58" y="50" width="262" height="1"/>
+                                                    <rect key="frame" x="0.0" y="50" width="320" height="1"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="8F0-Qe-aRW"/>
-                                                        <constraint firstAttribute="width" constant="262" id="c7H-5p-sIr"/>
+                                                        <constraint firstAttribute="width" constant="320" id="c7H-5p-sIr"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
@@ -3359,7 +3359,7 @@ Check your internet connection and try again.</string>
                                             <constraint firstAttribute="trailing" secondItem="04J-8C-m9o" secondAttribute="trailing" constant="42" id="dbf-yh-NXy"/>
                                             <constraint firstAttribute="trailing" secondItem="7dN-Y5-4Ue" secondAttribute="trailing" id="gF2-6O-ZkD"/>
                                             <constraint firstItem="4dB-kx-151" firstAttribute="top" secondItem="0uu-KS-up8" secondAttribute="top" constant="-3" id="pAr-yT-Ncu"/>
-                                            <constraint firstItem="cOS-kT-Nce" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" constant="58" id="pee-xE-MGh"/>
+                                            <constraint firstItem="cOS-kT-Nce" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="pee-xE-MGh"/>
                                             <constraint firstItem="74C-dE-IMx" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="qao-xV-BA4"/>
                                             <constraint firstItem="4dB-kx-151" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" constant="58" id="yFc-OP-gA6"/>
                                         </constraints>

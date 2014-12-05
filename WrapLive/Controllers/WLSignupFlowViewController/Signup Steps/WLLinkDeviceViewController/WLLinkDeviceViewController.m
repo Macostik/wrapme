@@ -22,9 +22,7 @@
 
 @implementation WLLinkDeviceViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+- (void)sendPasscode {
     [[WLAuthorization currentAuthorization] signUp:^(WLAuthorization *authorization) {
     } failure:^(NSError *error) {
     }];

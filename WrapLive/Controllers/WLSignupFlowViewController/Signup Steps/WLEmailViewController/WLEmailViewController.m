@@ -44,7 +44,7 @@
     __weak typeof(self)weakSelf = self;
     [request send:^(WLWhoIs* whoIs) {
         sender.loading = NO;
-        if (whoIs.found && !whoIs.requiresVerification) {
+        if (whoIs.found && whoIs.requiresApproving) {
             if (whoIs.confirmed) {
                 [weakSelf setStatus:WLEmailStepStatusLinkDevice animated:YES];
             } else {

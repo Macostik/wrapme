@@ -18,6 +18,7 @@
 #import "WLActivationViewController.h"
 #import "WLNavigationAnimator.h"
 #import "UIView+AnimationHelper.h"
+#import "WLAuthorizationRequest.h"
 
 @interface WLSignupFlowViewController () <UINavigationControllerDelegate>
 
@@ -122,25 +123,28 @@
     
     // device linking subflow
     
-    WLSignupStepCompletionBlock linkDeviceBlock = ^WLSignupStepViewController *{
+    WLSignupLinkDeviceStepBlock linkDeviceBlock = ^WLSignupStepViewController *(BOOL shouldSendPasscode){
         [linkDeviceStep setSuccessStatusBlock:^WLSignupStepViewController *{
             [linkDeviceSuccessStep setSuccessStatusBlock:^WLSignupStepViewController *{
                 return profileStepBlock();
             }];
             return linkDeviceSuccessStep;
         }];
+        if (shouldSendPasscode) {
+            [linkDeviceStep sendPasscode];
+        }
         return linkDeviceStep;
     };
     
     // second device signup subflow (different for phone and wifi device)
     
     WLSignupStepCompletionBlock secondDeviceBlock = ^WLSignupStepViewController *{
-        if ([WLTelephony hasPhoneNumber]) {
+        if ([WLTelephony hasPhoneNumber] || ![WLWhoIs sharedInstance].containsPhoneDevice) {
             return verificationStepBlock(^WLSignupStepViewController *{
-                return linkDeviceBlock();
+                return linkDeviceBlock(NO);
             }, NO);
         } else {
-            return linkDeviceBlock();
+            return linkDeviceBlock(YES);
         }
     };
     

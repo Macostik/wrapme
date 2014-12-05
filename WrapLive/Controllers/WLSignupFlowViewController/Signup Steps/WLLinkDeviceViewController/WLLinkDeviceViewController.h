@@ -10,4 +10,6 @@
 
 @interface WLLinkDeviceViewController : WLSignupStepViewController
 
+- (void)sendPasscode;
+
 @end

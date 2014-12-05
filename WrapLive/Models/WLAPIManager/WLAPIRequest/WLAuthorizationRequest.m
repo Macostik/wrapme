@@ -131,7 +131,7 @@ static BOOL authorized = NO;
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    WLWhoIs* whoIs = [[WLWhoIs alloc] init];
+    WLWhoIs* whoIs = [WLWhoIs sharedInstance];
     NSDictionary *userInfo = [response.data dictionaryForKey:WLUserKey];
     whoIs.found = [userInfo boolForKey:@"found"];
     whoIs.confirmed = [userInfo boolForKey:@"confirmed_email"];
@@ -145,8 +145,21 @@ static BOOL authorized = NO;
         authorization.unconfirmed_email = self.email;
     }
     [authorization setCurrent];
-    NSArray* deviceUIDs = [userInfo arrayForKey:@"device_uids"];
-    whoIs.requiresVerification = !deviceUIDs.nonempty || [deviceUIDs containsObject:authorization.deviceUID];
+    NSString *deviceUID = authorization.deviceUID;
+    NSArray* devices = [userInfo arrayForKey:@"device_uids"];
+    if (devices.count == 0 || (devices.count == 1 && [devices[0][@"device_uid"] isEqualToString:deviceUID])) {
+        whoIs.requiresApproving = NO;
+    } else {
+        whoIs.requiresApproving = YES;
+        whoIs.containsPhoneDevice = NO;
+        for (NSDictionary *device in devices) {
+            if (![device[@"device_uid"] isEqualToString:deviceUID] && [device[@"full_phone_number"] nonempty]) {
+                whoIs.containsPhoneDevice = YES;
+                break;
+            }
+        }
+    }
+    
     return whoIs;
 }
 
@@ -195,6 +208,14 @@ static BOOL authorized = NO;
 @end
 
 @implementation WLWhoIs
+
++ (instancetype)sharedInstance {
+    static id instance = nil;
+    if (instance == nil) {
+        instance = [[self alloc] init];
+    }
+    return instance;
+}
 
 @end
 

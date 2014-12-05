@@ -74,6 +74,10 @@ typedef NS_ENUM(NSUInteger, WLAuthorizationStep) {
 
 @property (nonatomic) BOOL confirmed;
 
-@property (nonatomic) BOOL requiresVerification;
+@property (nonatomic) BOOL requiresApproving;
+
+@property (nonatomic) BOOL containsPhoneDevice;
+
++ (instancetype)sharedInstance;
 
 @end

@@ -259,6 +259,12 @@
     }
 }
 
+- (void)notifier:(WLEntryNotifier*)notifier candyUpdated:(WLCandy*)candy {
+    run_after(0.1,^{
+        [self.candyCell.collectionView scrollToBottomAnimated:YES];
+    });
+}
+
 - (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
     return self.candy;
 }

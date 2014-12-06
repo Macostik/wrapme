@@ -30,7 +30,7 @@
     NSString* appName = [info objectForKey:@"CFBundleDisplayName"]?:@"wrapLive";
     NSString* version = [info objectForKey:(id)kCFBundleVersionKey];
     NSString *message = [NSString stringWithFormat:@"You are using %@ v%@", appName,version];
-    [[[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+    [UIAlertView showWithMessage:message];
 }
 
 - (IBAction)signOut:(id)sender {

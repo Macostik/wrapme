@@ -23,6 +23,7 @@
 #import "WLButton.h"
 #import "WLVerificationCallRequest.h"
 #import "WLSoundPlayer.h"
+#import "UIAlertView+Blocks.h"
 
 @interface WLActivationViewController () <UITextFieldDelegate>
 
@@ -87,7 +88,7 @@
     sender.userInteractionEnabled = NO;
     [[WLVerificationCallRequest request] send:^(id object) {
         sender.userInteractionEnabled = YES;
-        [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"Calling %@ now. Please wait.", weakSelf.phoneNumberLabel.text] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+        [UIAlertView showWithMessage:[NSString stringWithFormat:@"Calling %@ now. Please wait.", weakSelf.phoneNumberLabel.text]];
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;
         [error show];

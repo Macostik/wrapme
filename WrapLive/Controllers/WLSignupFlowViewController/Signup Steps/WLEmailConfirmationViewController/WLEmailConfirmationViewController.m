@@ -15,6 +15,7 @@
 #import "WLNotificationChannel.h"
 #import "WLNotification.h"
 #import "WLSoundPlayer.h"
+#import "UIAlertView+Blocks.h"
 
 @interface WLEmailConfirmationViewController () <WLEntryNotifyReceiver>
 
@@ -48,7 +49,7 @@
     WLResendConfirmationRequest* request = [WLResendConfirmationRequest request];
     request.email = [WLAuthorization currentAuthorization].email;
     [request send:^(id object) {
-        
+        [UIAlertView showWithMessage:@"We are sending you an email for confirming your email address now."];
     } failure:^(NSError *error) {
         
     }];

@@ -37,7 +37,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UIButton *createButton;
-@property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (strong, nonatomic)WLWrap *wrap;
 
 @end
@@ -47,7 +46,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.frame = self.contentView.frame;
-    self.createButton.layer.borderColor = self.backButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
     [self.contentView bottomPushWithDuration:1.0 delegate:nil];
 
     [self.nameField becomeFirstResponder];

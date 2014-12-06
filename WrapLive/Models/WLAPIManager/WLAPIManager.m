@@ -127,9 +127,9 @@ static BOOL signedIn = NO;
 
 @end
 
-static NSString *const WLDeleteAlertTitle = @"Delete wrap?";
+static NSString *const WLDeleteAlertTitle = @"Delete wrap";
 static NSString *const WLLeaveAlertTitle = @"Leave wrap?";
-static NSString *const WLDeleteAlertMessage = @"Are you sure you want to delete this wrap";
+static NSString *const WLDeleteAlertMessage = @"Are you sure you want to delete the wrap \"%@\"?";
 static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave this wrap";
 
 @implementation WLWrap (WLAPIManager)
@@ -153,10 +153,10 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
             break;
         case WLContributionStatusUploaded: {
             [UIAlertView showWithTitle:WLDeleteAlertTitle
-                               message:WLDeleteAlertMessage
-                               buttons:@[@"YES",@"NO"]
+                               message:[NSString stringWithFormat:WLDeleteAlertMessage, self.name]
+                               buttons:@[@"Cancel",@"Delete"]
                             completion:^(NSUInteger index) {
-                                if (!index) {
+                                if (index == 1) {
                                     [[WLDeleteWrapRequest request:self] send:^(id object) {
                                         if (success) success(object);
                                     } failure:failure];

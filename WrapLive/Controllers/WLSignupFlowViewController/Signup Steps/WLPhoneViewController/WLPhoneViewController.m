@@ -90,11 +90,14 @@
 }
 
 - (void)confirmAuthorization:(WLAuthorization*)authorization success:(void (^)(WLAuthorization *authorization))success {
+    __weak typeof(self)weakSelf = self;
 	NSString* confirmationMessage = [NSString stringWithFormat:@"%@\n%@\nIs this correct?",[authorization fullPhoneNumber], [authorization email]];
 	[UIAlertView showWithTitle:@"Confirm your details" message:confirmationMessage buttons:@[@"Edit",@"Yes"] completion:^(NSUInteger index) {
 		if (index == 1) {
 			success(authorization);
-		}
+        } else {
+            [weakSelf setStatus:WLSignupStepStatusCancel animated:YES];
+        }
 	}];
 }
 

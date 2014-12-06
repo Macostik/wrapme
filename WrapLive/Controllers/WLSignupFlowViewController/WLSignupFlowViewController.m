@@ -118,6 +118,9 @@
             verificationStep.shouldSignIn = shouldSignIn;
             return verificationStep;
         }];
+        [phoneStep setCancelStatusBlock:^WLSignupStepViewController *{
+            return emailStep;
+        }];
         return phoneStep;
     };
     

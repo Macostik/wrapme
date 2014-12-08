@@ -157,7 +157,7 @@ static UIWindow* mainWindow = nil;
     }
 }
 
-- (void)presentAndDissmisViewController {
+- (void)presentViewControllerWithoutLostData {
     UINavigationController *navigationController = [UINavigationController mainNavigationController];
     if ([navigationController presentedViewController]) {
         [UIAlertView showWithTitle:@"View notification"

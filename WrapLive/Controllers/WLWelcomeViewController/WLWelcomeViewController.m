@@ -49,8 +49,6 @@ typedef enum : NSUInteger {
     [self.view layoutIfNeeded];
     
     self.splash = [[WLLoadingView splash] showInView:self.view];
-	
-    [[[UIAlertView alloc] initWithTitle:@"WLWelcomeViewController" message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil]show];
     
     NSString* storedVersion = [WLSession appVersion];
     if (!storedVersion || [storedVersion compare:@"2.0" options:NSNumericSearch] == NSOrderedAscending) {

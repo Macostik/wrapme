@@ -193,7 +193,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     if (notification.event == WLEventDelete) return;
     
     WLEntry *entry = notification.targetEntry;
-    [entry presentAndDissmisViewController];
+    [entry presentViewControllerWithoutLostData];
 }
 
 - (void)broadcaster:(WLNotificationCenter *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {

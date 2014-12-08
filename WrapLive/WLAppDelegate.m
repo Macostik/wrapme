@@ -24,6 +24,7 @@
 #import "NSObject+NibAdditions.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "WLAuthorizationRequest.h"
+#import "WLRemoteObjectHandler.h"
 
 @interface WLAppDelegate ()
 
@@ -66,13 +67,7 @@
 
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    NSMutableString *urlString = [[url query] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding].mutableCopy;
-    NSRange range = [urlString rangeOfString:@"uid="];
-    NSString *candyID = [urlString substringFromIndex:range.location + range.length];
-    WLCandy *candy = [WLCandy entry:candyID];
-    if (candy.valid) {
-        [candy presentAndDissmisViewController];
-    }
+    [WLRemoteObjectHandler presentViewControllerByUrlExtension:url];
     
     return YES;
 }

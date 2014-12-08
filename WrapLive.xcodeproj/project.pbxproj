@@ -214,6 +214,10 @@
 		5BA6CE9A1A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
 		5BA8D3861A3068E600A877D3 /* WLComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA8D3851A3068E600A877D3 /* WLComments.m */; };
 		5BA8D3881A3076A900A877D3 /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */; };
+		5BA9DCE41A360771003ED90C /* WLRemoteObjectHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9DCE31A360771003ED90C /* WLRemoteObjectHandler.m */; };
+		5BA9DCE51A360771003ED90C /* WLRemoteObjectHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9DCE31A360771003ED90C /* WLRemoteObjectHandler.m */; };
+		5BA9DCE61A360771003ED90C /* WLRemoteObjectHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9DCE31A360771003ED90C /* WLRemoteObjectHandler.m */; };
+		5BA9DCE71A360771003ED90C /* WLRemoteObjectHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9DCE31A360771003ED90C /* WLRemoteObjectHandler.m */; };
 		5BA9EF301A28849700340784 /* WLExtensionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9EF2F1A28849700340784 /* WLExtensionCell.m */; };
 		5BA9EF331A28867000340784 /* WLPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9EF321A28867000340784 /* WLPost.m */; };
 		5BAA216319FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
@@ -1581,6 +1585,8 @@
 		5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice-Hardware.m"; sourceTree = "<group>"; };
 		5BA8D3841A3068E600A877D3 /* WLComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComments.h; path = WLExtensionModel/WLComments/WLComments.h; sourceTree = "<group>"; };
 		5BA8D3851A3068E600A877D3 /* WLComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComments.m; path = WLExtensionModel/WLComments/WLComments.m; sourceTree = "<group>"; };
+		5BA9DCE21A360771003ED90C /* WLRemoteObjectHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLRemoteObjectHandler.h; path = Models/WLRemoteObjectHandler/WLRemoteObjectHandler.h; sourceTree = "<group>"; };
+		5BA9DCE31A360771003ED90C /* WLRemoteObjectHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLRemoteObjectHandler.m; path = Models/WLRemoteObjectHandler/WLRemoteObjectHandler.m; sourceTree = "<group>"; };
 		5BA9EF2E1A28849700340784 /* WLExtensionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLExtensionCell.h; path = WLTodayViewController/WLExtensionCell/WLExtensionCell.h; sourceTree = "<group>"; };
 		5BA9EF2F1A28849700340784 /* WLExtensionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLExtensionCell.m; path = WLTodayViewController/WLExtensionCell/WLExtensionCell.m; sourceTree = "<group>"; };
 		5BA9EF311A28867000340784 /* WLPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPost.h; path = WLExtensionModel/WLPost/WLPost.h; sourceTree = "<group>"; };
@@ -2360,6 +2366,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5BA9DCE81A360795003ED90C /* WLRemoteObjectHandler */,
 				5B2F71A21A2E01950019FC57 /* WLCryptographer */,
 				C54C36071A3077ED006387E2 /* WLSoundPlayer */,
 				C54FC7671A163CC400623FC1 /* WLNetwork */,
@@ -3122,6 +3129,16 @@
 				5BA8D3851A3068E600A877D3 /* WLComments.m */,
 			);
 			name = WLComments;
+			sourceTree = "<group>";
+		};
+		5BA9DCE81A360795003ED90C /* WLRemoteObjectHandler */ = {
+			isa = PBXGroup;
+			children = (
+				5BA9DCE21A360771003ED90C /* WLRemoteObjectHandler.h */,
+				5BA9DCE31A360771003ED90C /* WLRemoteObjectHandler.m */,
+			);
+			name = WLRemoteObjectHandler;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		5BAA216719FE7BD1008958EF /* WLActionViewController */ = {
@@ -4905,6 +4922,7 @@
 				12F0DAF019338C9100F9D898 /* SegmentedControl.m in Sources */,
 				12D962ED18E5898A00C57CE1 /* WLPicture.m in Sources */,
 				C519104A1A078248003C78B2 /* WLComment+Extended.m in Sources */,
+				5BA9DCE41A360771003ED90C /* WLRemoteObjectHandler.m in Sources */,
 				12DE6983192E0B0F007580AD /* WLTestUserPicker.m in Sources */,
 				12D4D3E1191938D60025CC18 /* UIActionSheet+Blocks.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
@@ -5144,6 +5162,7 @@
 				C54AF4ED19B8C437006F7EDB /* SegmentedControl.m in Sources */,
 				C54AF4EE19B8C437006F7EDB /* WLPicture.m in Sources */,
 				C519104B1A078248003C78B2 /* WLComment+Extended.m in Sources */,
+				5BA9DCE51A360771003ED90C /* WLRemoteObjectHandler.m in Sources */,
 				C54AF4EF19B8C437006F7EDB /* WLTestUserPicker.m in Sources */,
 				C54AF4F119B8C437006F7EDB /* UIActionSheet+Blocks.m in Sources */,
 				C54AF4F219B8C437006F7EDB /* WLAddressBook.m in Sources */,
@@ -5369,6 +5388,7 @@
 				C54AF5EA19B8C467006F7EDB /* SegmentedControl.m in Sources */,
 				C54AF5EB19B8C467006F7EDB /* WLPicture.m in Sources */,
 				C519104C1A078248003C78B2 /* WLComment+Extended.m in Sources */,
+				5BA9DCE61A360771003ED90C /* WLRemoteObjectHandler.m in Sources */,
 				C54AF5EC19B8C467006F7EDB /* WLTestUserPicker.m in Sources */,
 				C54AF5EE19B8C467006F7EDB /* UIActionSheet+Blocks.m in Sources */,
 				C54AF5EF19B8C467006F7EDB /* WLAddressBook.m in Sources */,
@@ -5594,6 +5614,7 @@
 				C54AF6E719B8C491006F7EDB /* SegmentedControl.m in Sources */,
 				C54AF6E819B8C491006F7EDB /* WLPicture.m in Sources */,
 				C519104D1A078248003C78B2 /* WLComment+Extended.m in Sources */,
+				5BA9DCE71A360771003ED90C /* WLRemoteObjectHandler.m in Sources */,
 				C54AF6E919B8C491006F7EDB /* WLTestUserPicker.m in Sources */,
 				C54AF6EB19B8C491006F7EDB /* UIActionSheet+Blocks.m in Sources */,
 				C54AF6EC19B8C491006F7EDB /* WLAddressBook.m in Sources */,

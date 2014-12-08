@@ -48,8 +48,12 @@
     [super viewDidLoad];
     self.editSession = [[WLProfileEditSession alloc] initWithUser:[WLUser currentUser]];
     self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
-    self.emailConfirmationView.hidden = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
+    [self updateEmailConfirmationView];
     [[WLUser notifier] addReceiver:self];
+}
+
+- (void)updateEmailConfirmationView {
+    self.emailConfirmationView.hidden = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
 }
 
 - (void)setupEditableUserInterface {
@@ -135,7 +139,7 @@
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
-    self.emailConfirmationView.hidden = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
+    [self updateEmailConfirmationView];
 }
 
 @end

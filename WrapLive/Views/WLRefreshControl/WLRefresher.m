@@ -142,7 +142,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
                 _refreshing = refreshing;
                 [self.spinner startAnimating];
                 [self setInset:WLRefresherContentSize animated:animated];
-                [self.scrollView scrollToTopAnimated:animated];
+                [self.scrollView setMinimumContentOffsetAnimated:animated];
                 [UIView performWithoutAnimation:^{
                     [self sendActionsForControlEvents:UIControlEventValueChanged];
                 }];

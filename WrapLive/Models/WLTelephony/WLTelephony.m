@@ -12,6 +12,7 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
 #import "NSString+Additions.h"
+#import <MessageUI/MessageUI.h>
 
 @implementation WLTelephony
 
@@ -32,7 +33,7 @@
 
 + (BOOL)hasPhoneNumber {
     CTTelephonyNetworkInfo *networkInfo = [[CTTelephonyNetworkInfo alloc] init];
-    return [networkInfo subscriberCellularProvider] != nil;
+    return [MFMessageComposeViewController canSendText] && [networkInfo subscriberCellularProvider].mobileCountryCode.nonempty;
 }
 
 @end

@@ -139,6 +139,7 @@
         return linkDeviceStep;
     };
     
+    
     // second device signup subflow (different for phone and wifi device)
     
     WLSignupStepCompletionBlock secondDeviceBlock = ^WLSignupStepViewController *{

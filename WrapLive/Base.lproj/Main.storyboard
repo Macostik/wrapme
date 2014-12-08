@@ -716,7 +716,7 @@
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="40" id="qWh-D1-wKc"/>
                                                                         </constraints>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
@@ -2099,7 +2099,7 @@
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="40" id="2ZH-pU-6ly"/>
                                                                         </constraints>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
@@ -3569,7 +3569,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="tUX-Tk-kxb"/>
         <segue reference="USb-FQ-HhL"/>
-        <segue reference="tCH-h8-hRc"/>
     </inferredMetricsTieBreakers>
 </document>

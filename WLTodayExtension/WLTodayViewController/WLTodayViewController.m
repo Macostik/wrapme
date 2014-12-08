@@ -74,10 +74,6 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
     [sender setTitle:self.isShowMore? WLLessButtonKey : WLMoreButtonKey forState:UIControlStateNormal];
     [self.tableView reloadData];
     [self setPreferredContentSize:CGSizeMake(0.0, self.tableView.contentSize.height)];
-//    NSURL *url = [[NSURL alloc] initWithScheme:WLExtensionScheme host:nil path:@"/test"];
-//    [self.extensionContext openURL:url completionHandler:^(BOOL success) {
-//        
-//    }];
 }
 
 #pragma mark - UITableViewDelegate methods
@@ -100,6 +96,16 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [self heightForRowAtIndexPath:indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    WLPost *selectedPost = self.entries[indexPath.row];
+    if (selectedPost.identifier != nil) {
+        NSString *path = [[NSString stringWithFormat:@"/candy?uid=%@", selectedPost.identifier]
+                            stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+        NSURL *url = [[NSURL alloc] initWithScheme:WLExtensionScheme host:nil path:path];
+        [self.extensionContext openURL:url completionHandler:NULL];
+    }
 }
 
 static CGFloat WLIndent = 32.0f;

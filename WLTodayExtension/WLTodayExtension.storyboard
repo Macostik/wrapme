@@ -24,7 +24,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <button opaque="NO" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVx-oR-Cg7">
+                                        <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVx-oR-Cg7">
                                             <rect key="frame" x="10" y="7" width="300" height="30"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -43,6 +43,12 @@
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="HVx-oR-Cg7" secondAttribute="bottom" constant="7" id="JZ4-tO-xCF"/>
+                                        <constraint firstItem="HVx-oR-Cg7" firstAttribute="leading" secondItem="dt0-hN-jtt" secondAttribute="leading" constant="10" id="lwV-c8-eZr"/>
+                                        <constraint firstItem="HVx-oR-Cg7" firstAttribute="top" secondItem="dt0-hN-jtt" secondAttribute="top" constant="7" id="o8F-ST-0HV"/>
+                                        <constraint firstAttribute="trailing" secondItem="HVx-oR-Cg7" secondAttribute="trailing" constant="10" id="yKd-fp-sJi"/>
+                                    </constraints>
                                 </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WLExtensionCellIdentifier" rowHeight="50" id="SXO-ct-qz7" customClass="WLExtensionCell">

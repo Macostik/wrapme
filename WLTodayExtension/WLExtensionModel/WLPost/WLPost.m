@@ -16,6 +16,7 @@
 + (id)initWithAttributes:(NSDictionary *)attributes {
     WLPost *entry = [[WLPost alloc] init];
     entry.image = [NSData dataWithContentsOfURL:[NSURL URLWithString:[attributes valueForKey:WLImageKey]]];
+    entry.identifier = [attributes valueForKey:WLCandyUIDKey];
     entry.contributor = [attributes valueForKey:WLContributorNameKey];
     entry.comment = [WLComments initWithAttributes:[attributes valueForKey:WLCommentsKey]];
     NSString *evenString = nil;

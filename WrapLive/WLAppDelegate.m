@@ -64,7 +64,16 @@
 	[WLNotificationCenter setDeviceToken:deviceToken];
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    NSMutableString *urlString = [[url query] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding].mutableCopy;
+    NSRange range = [urlString rangeOfString:@"uid="];
+    NSString *candyID = [urlString substringFromIndex:range.location + range.length];
+    WLCandy *candy = [WLCandy entry:candyID];
+    if (candy.valid) {
+        [candy presentAndDissmisViewController];
+    }
+    
     return YES;
 }
 

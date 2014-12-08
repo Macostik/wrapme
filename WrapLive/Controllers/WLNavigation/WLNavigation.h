@@ -73,6 +73,8 @@ static NSString *WLCameraStoryboard = @"Camera";
 
 - (void)presentInNavigationController:(UINavigationController*)navigationController animated:(BOOL)animated;
 
+- (void)presentAndDissmisViewController;
+
 @end
 
 @interface WLCandy (WLNavigation) @end

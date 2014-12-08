@@ -192,20 +192,8 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 - (void)handleRemoteNotification:(WLNotification*)notification {
     if (notification.event == WLEventDelete) return;
     
-	UIViewController* presentedViewController = self.navigationController.presentedViewController;
-	if (presentedViewController) {
-		__weak typeof(self)weakSelf = self;
-		[UIAlertView showWithTitle:@"View notification"
-						   message:@"Incompleted data can be lost. Do you want to continue?"
-							action:@"Continue"
-							cancel:@"Cancel"
-						completion:^{
-			[weakSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
-			[notification.targetEntry present];
-		}];
-	} else {
-		[notification.targetEntry present:NO];
-	}
+    WLEntry *entry = notification.targetEntry;
+    [entry presentAndDissmisViewController];
 }
 
 - (void)broadcaster:(WLNotificationCenter *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {

@@ -162,7 +162,7 @@ CGFloat WLMaxTextViewWidth;
     
     [UIView performWithoutAnimation:^{
         [self updateEdgeInsets:keyboard.height];
-        [self.collectionView scrollToTopAnimated:self.viewAppeared];
+        [self.collectionView setMinimumContentOffsetAnimated:self.viewAppeared];
     }];
     
     self.refresher.enabled = NO;
@@ -307,13 +307,13 @@ CGFloat WLMaxTextViewWidth;
 - (void)sendMessageWithText:(NSString*)text {
     __weak typeof(self)weakSelf = self;
     [self.wrap uploadMessage:text success:^(WLMessage *message) {
-		[weakSelf.collectionView scrollToTopAnimated:YES];
+		[weakSelf.collectionView setMinimumContentOffsetAnimated:YES];
         [WLSoundPlayer playSound:WLSound_s04];
     } failure:^(NSError *error) {
 		[error show];
         [weakSelf.composeBar performSelector:@selector(setText:) withObject:text afterDelay:0.0f];
     }];
-    [weakSelf.collectionView scrollToTopAnimated:YES];
+    [weakSelf.collectionView setMinimumContentOffsetAnimated:YES];
 }
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
@@ -349,7 +349,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
     [self updateEdgeInsets:[WLKeyboard keyboard].height];
-    [self.collectionView scrollToTopAnimated:YES];
+    [self.collectionView setMinimumContentOffsetAnimated:YES];
 }
 
 #pragma mark - UICollectionViewDataSource

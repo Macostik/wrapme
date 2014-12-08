@@ -267,7 +267,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
         }
         [WLSession setInteger:self.mode key:WLWrapViewDefaultModeKey];
         self.historyViewSection.completed = NO;
-        [self.collectionView scrollToTopAnimated:YES];
+        [self.collectionView setMinimumContentOffsetAnimated:YES];
         [self.dataProvider reload];
     }
 }

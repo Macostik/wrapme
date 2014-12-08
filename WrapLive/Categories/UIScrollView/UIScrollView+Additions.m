@@ -10,20 +10,18 @@
 
 @implementation UIScrollView (Additions)
 
-- (void)scrollToTopAnimated:(BOOL)animated {
-    UIEdgeInsets insets = self.contentInset;
-	[self setContentOffset:CGPointMake(-insets.left, -insets.top) animated:animated];
+- (void)setMinimumContentOffsetAnimated:(BOOL)animated {
+	[self setContentOffset:self.minimumContentOffset animated:animated];
 }
 
-- (void)scrollToBottomAnimated:(BOOL)animated {
-//	if (self.contentSize.height > self.bounds.size.height) {
-		[self setContentOffset:CGPointMake(0, self.maximumContentOffset.y) animated:animated];
-//	}
+- (void)setMaximumContentOffsetAnimated:(BOOL)animated {
+    [self setContentOffset:self.maximumContentOffset animated:animated];
 }
 
 - (BOOL)isPossibleContentOffset:(CGPoint)contentOffset {
-    CGPoint maximumContentOffset = self.maximumContentOffset;
-    return IsInBounds(0, maximumContentOffset.x, contentOffset.x) && IsInBounds(0, maximumContentOffset.y, contentOffset.y);
+    CGPoint min = self.minimumContentOffset;
+    CGPoint max = self.maximumContentOffset;
+    return IsInBounds(min.x, max.x, contentOffset.x) && IsInBounds(min.y, max.y, contentOffset.y);
 }
 
 - (void)trySetContentOffset:(CGPoint)contentOffset {
@@ -38,11 +36,21 @@
     }
 }
 
+- (CGPoint)minimumContentOffset {
+    UIEdgeInsets insets = self.contentInset;
+    return CGPointMake(-insets.left, -insets.top);
+}
+
 - (CGPoint)maximumContentOffset {
     CGSize contentSize = self.contentSize;
     CGSize size = self.bounds.size;
     UIEdgeInsets insets = self.contentInset;
-    return CGPointMake(contentSize.width - (size.width - insets.right), contentSize.height - (size.height - insets.bottom));
+    CGFloat width = contentSize.width - (size.width - insets.right);
+    CGFloat height = contentSize.height - (size.height - insets.bottom);
+    return (CGPoint) {
+        .x = (width > -insets.left) ? width : -insets.left,
+        .y = (height > -insets.top) ? height : -insets.top
+    };
 }
 
 - (BOOL)scrollable {

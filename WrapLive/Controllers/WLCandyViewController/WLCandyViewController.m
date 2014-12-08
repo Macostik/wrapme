@@ -262,7 +262,7 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier commentAdded:(WLComment *)comment {
     run_after(0.1,^{
-        [self.candyCell.collectionView scrollToBottomAnimated:YES];
+        [self.candyCell.collectionView setMaximumContentOffsetAnimated:YES];
     });
 }
 
@@ -302,7 +302,7 @@
 
 - (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
     [self.candyCell updateBottomInset:[WLKeyboard keyboard].height + composeBar.height];
-    [self.candyCell.collectionView scrollToBottomAnimated:YES];
+    [self.candyCell.collectionView setMaximumContentOffsetAnimated:YES];
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
@@ -362,7 +362,7 @@
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
     [super keyboardWillShow:keyboard];
     [self.candyCell updateBottomInset:keyboard.height + self.composeBarView.height];
-    [self.candyCell.collectionView scrollToBottomAnimated:YES];
+    [self.candyCell.collectionView setMaximumContentOffsetAnimated:YES];
 }
 
 - (void)keyboardWillHide:(WLKeyboard *)broadcaster {

@@ -12,15 +12,17 @@
 
 @property (nonatomic, readonly) CGPoint maximumContentOffset;
 
+@property (nonatomic, readonly) CGPoint minimumContentOffset;
+
 @property (readonly, nonatomic) BOOL scrollable;
 
 @property (readonly, nonatomic) CGFloat verticalContentInsets;
 
 @property (readonly, nonatomic) CGFloat horizontalContentInsets;
 
-- (void)scrollToTopAnimated:(BOOL)animated;
+- (void)setMinimumContentOffsetAnimated:(BOOL)animated;
 
-- (void)scrollToBottomAnimated:(BOOL)animated;
+- (void)setMaximumContentOffsetAnimated:(BOOL)animated;
 
 - (BOOL)isPossibleContentOffset:(CGPoint)contentOffset;
 

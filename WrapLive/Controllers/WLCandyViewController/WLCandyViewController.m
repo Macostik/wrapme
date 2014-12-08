@@ -82,6 +82,7 @@
 	self.composeBarView.placeholder = @"Write your comment ...";
 	
 	[[WLCandy notifier] addReceiver:self];
+    [[WLComment notifier] addReceiver:self];
     [[WLNetwork network] addReceiver:self];
     
     UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];
@@ -259,7 +260,7 @@
     }
 }
 
-- (void)notifier:(WLEntryNotifier*)notifier candyUpdated:(WLCandy*)candy {
+- (void)notifier:(WLEntryNotifier *)notifier commentAdded:(WLComment *)comment {
     run_after(0.1,^{
         [self.candyCell.collectionView scrollToBottomAnimated:YES];
     });
@@ -287,15 +288,10 @@
 }
 
 - (void)sendMessageWithText:(NSString*)text {
-    WLCandy* image = self.candy;
     [WLSoundPlayer playSound:WLSound_s04];
-	__weak typeof(self)weakSelf = self;
-    [image uploadComment:text success:^(WLComment *comment) {
+    [self.candy uploadComment:text success:^(WLComment *comment) {
     } failure:^(NSError *error) {
     }];
-    run_after(0.1,^{
-        [weakSelf.candyCell.collectionView scrollToBottomAnimated:YES];
-    });
 }
 
 #pragma mark - WLComposeBarDelegate

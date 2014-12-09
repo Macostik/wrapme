@@ -11,6 +11,7 @@
                 <outlet property="deleteButton" destination="vgS-hG-nic" id="pgh-gG-JMn"/>
                 <outlet property="downloadButton" destination="cre-ic-Q0A" id="LgF-nx-nTH"/>
                 <outlet property="titleLabel" destination="eqx-TC-X8U" id="QfK-tr-zjH"/>
+                <outlet property="view" destination="GWD-KK-Hlx" id="GNV-25-ygX"/>
             </connections>
         </placeholder>
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GWD-KK-Hlx" userLabel="Content View">

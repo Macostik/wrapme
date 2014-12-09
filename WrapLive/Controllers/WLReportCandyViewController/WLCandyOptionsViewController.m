@@ -34,7 +34,6 @@ static NSString *const WLReport = @"Report";
     
     [self.deleteButton setTitle:[self isMyCandy] ? WLDelete : WLReport forState:UIControlStateNormal];
     self.downloadButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
-    [self.contentView bottomPushWithDuration:1.0 delegate:nil];
 }
 
 - (BOOL)isMyCandy {

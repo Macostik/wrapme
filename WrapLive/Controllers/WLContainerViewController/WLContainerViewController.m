@@ -19,7 +19,7 @@
 @implementation WLContainerViewController
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil?:NSStringFromClass([self class]) bundle:nibBundleOrNil];
     if (self) {
         self.modalPresentationStyle = UIModalPresentationCustom;
         self.transitioningDelegate = self;
@@ -37,12 +37,10 @@
 }
 
 - (void)loadView {
+    [super loadView];
     UIView *view = [[UIView alloc] initWithFrame:[UIWindow mainWindow].bounds];
     view.backgroundColor = [UIColor colorWithWhite:.0 alpha:0.5];
-    NSString *nibName = self.nibName ? : NSStringFromClass([self class]);
-    if (!nibName.nonempty) return;
-    UIView *contentView = [UIView loadFromNibNamed:nibName ownedBy:self];
-    if (!contentView) return;
+    UIView *contentView = self.view;
     [view addSubview:contentView];
     [view addConstraint:[NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [view addConstraint:[NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -50,11 +48,6 @@
     [contentView addConstraint:[NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:contentView.bounds.size.height]];
     self.contentView = contentView;
     self.view = view;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate

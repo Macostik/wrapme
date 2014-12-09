@@ -10,12 +10,12 @@
 
 @implementation UIViewController (Additions)
 
-- (BOOL)isOnTopOfNagvigation {
+- (BOOL)isTopViewController {
 	return self.navigationController.topViewController == self;
 }
 
 - (void)pushViewController:(UIViewController *)controller animated:(BOOL)animated {
-	if ([self isOnTopOfNagvigation]) {
+	if ([self isTopViewController]) {
 		[self.navigationController pushViewController:controller animated:animated];
 	}
 }
@@ -46,6 +46,10 @@
 
 - (IBAction)back:(UIButton *)sender {
 	[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)backSegue:(UIStoryboardSegue *)unwindSegue {
+    
 }
 
 @end

@@ -88,7 +88,7 @@ static WLDataBlock deviceTokenCompletion = nil;
     
     NSString* origin, *publishKey, *subscribeKey, *secretKey;
     
-    if ([[WLAPIManager instance].environment.name isEqualToString:WLAPIEnvironmentProduction]) {
+    if ([WLAPIManager instance].environment.isProduction) {
         origin = @"pubsub.pubnub.com";
         publishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
         subscribeKey = @"sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe";

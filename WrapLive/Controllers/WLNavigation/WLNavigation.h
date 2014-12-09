@@ -19,6 +19,8 @@ static NSString *WLCameraStoryboard = @"Camera";
 
 + (void)setStoryboard:(UIStoryboard*)storyboard named:(NSString *)name;
 
+- (void)present:(BOOL)animated;
+
 @end
 
 @interface UIViewController (WLNavigation)

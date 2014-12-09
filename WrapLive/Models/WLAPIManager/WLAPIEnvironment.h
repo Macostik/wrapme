@@ -25,6 +25,8 @@ static NSString* WLAPIEnvironmentProduction = @"production";
 
 @property (nonatomic) BOOL useTestUsers;
 
+@property (readonly, nonatomic) BOOL isProduction;
+
 + (instancetype)configuration:(NSString*)name;
 
 - (void)testUsers:(void (^)(NSArray* testUsers))completion;

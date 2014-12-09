@@ -258,7 +258,7 @@
                                     <constraint firstItem="vSX-H6-ha3" firstAttribute="top" secondItem="qU7-Ez-lna" secondAttribute="top" constant="20" id="oyl-ad-ROR"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" tag="191" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="co2-D4-XAH">
+                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="co2-D4-XAH">
                                 <rect key="frame" x="15" y="64" width="290" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="XW0-za-2Mo"/>
@@ -271,7 +271,7 @@
                                     <segue destination="7FG-gC-kPg" kind="push" id="V7m-vR-uyg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="191" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lq0-rh-5bS">
+                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lq0-rh-5bS">
                                 <rect key="frame" x="15" y="108" width="290" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="NYv-6H-t4c"/>
@@ -298,6 +298,25 @@
                                     <constraint firstAttribute="height" constant="1" id="EQI-6H-DkT"/>
                                 </constraints>
                             </imageView>
+                            <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7C1-yc-O8X" customClass="WLPressButton">
+                                <rect key="frame" x="15" y="509" width="290" height="44"/>
+                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Dqb-yr-Jzr"/>
+                                </constraints>
+                                <state key="normal" title="Sign Out">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="signOut:" destination="zBt-TT-rM7" eventType="touchUpInside" id="VNg-4k-xSD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -307,10 +326,13 @@
                             <constraint firstAttribute="trailing" secondItem="CP6-Zp-jxm" secondAttribute="trailing" id="8Rm-qk-BwA"/>
                             <constraint firstItem="co2-D4-XAH" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="44" id="AlN-iI-BoV"/>
                             <constraint firstItem="dqg-nR-yIW" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="C4l-s8-Uxv"/>
+                            <constraint firstItem="cRK-Tr-qQy" firstAttribute="top" secondItem="7C1-yc-O8X" secondAttribute="bottom" constant="15" id="Det-Z5-xqw"/>
                             <constraint firstItem="co2-D4-XAH" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="G9j-4K-lq1"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="HdV-Pv-jgs"/>
                             <constraint firstAttribute="trailing" secondItem="Lq0-rh-5bS" secondAttribute="trailing" constant="15" id="NA3-Fi-lhu"/>
                             <constraint firstAttribute="trailing" secondItem="co2-D4-XAH" secondAttribute="trailing" constant="15" id="TqK-kg-CWd"/>
+                            <constraint firstAttribute="trailing" secondItem="7C1-yc-O8X" secondAttribute="trailing" constant="15" id="U4D-Jf-d24"/>
+                            <constraint firstItem="7C1-yc-O8X" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="gFW-mt-V7Q"/>
                             <constraint firstAttribute="trailing" secondItem="dqg-nR-yIW" secondAttribute="trailing" id="hUX-OI-c32"/>
                             <constraint firstItem="CP6-Zp-jxm" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="jIh-0b-8YA"/>
                             <constraint firstItem="dqg-nR-yIW" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="88" id="mCu-1c-d7O"/>
@@ -319,6 +341,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6wo-X8-9p5"/>
+                    <connections>
+                        <outlet property="signOutButton" destination="7C1-yc-O8X" id="EVt-mE-E2m"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JUy-Pu-NyQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -691,7 +716,7 @@
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="40" id="qWh-D1-wKc"/>
                                                                         </constraints>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
@@ -2074,7 +2099,7 @@
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="40" id="2ZH-pU-6ly"/>
                                                                         </constraints>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
@@ -3544,7 +3569,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="tUX-Tk-kxb"/>
         <segue reference="USb-FQ-HhL"/>
-        <segue reference="tCH-h8-hRc"/>
     </inferredMetricsTieBreakers>
 </document>

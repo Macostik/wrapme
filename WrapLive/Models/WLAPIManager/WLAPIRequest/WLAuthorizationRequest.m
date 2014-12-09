@@ -86,7 +86,7 @@ static BOOL authorized = NO;
 
 - (id)objectInResponse:(WLAPIResponse *)response {
     if (self.step == WLAuthorizationStepActivation) {
-        self.authorization.password = [response.data stringForKey:@"password"];
+        self.authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
 		[self.authorization setCurrent];
     } else if (self.step == WLAuthorizationStepSignIn) {
         if (!authorized) {
@@ -119,6 +119,78 @@ static BOOL authorized = NO;
 
 @end
 
+@implementation WLWhoIsRequest
+
+- (NSString *)path {
+    return @"users/whois";
+}
+
+- (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
+    [parameters trySetObject:self.email forKey:@"email"];
+    return [super configure:parameters];
+}
+
+- (id)objectInResponse:(WLAPIResponse *)response {
+    WLWhoIs* whoIs = [WLWhoIs sharedInstance];
+    NSDictionary *userInfo = [response.data dictionaryForKey:WLUserKey];
+    whoIs.found = [userInfo boolForKey:@"found"];
+    whoIs.confirmed = [userInfo boolForKey:@"confirmed_email"];
+    NSString* userUID = [WLUser API_identifier:userInfo];
+    if (userUID.nonempty) {
+        [[WLUser entry:userUID] setCurrent];
+    }
+    WLAuthorization* authorization = [[WLAuthorization alloc] init];
+    authorization.email = self.email;
+    if (!whoIs.confirmed) {
+        authorization.unconfirmed_email = self.email;
+    }
+    [authorization setCurrent];
+    NSString *deviceUID = authorization.deviceUID;
+    NSArray* devices = [userInfo arrayForKey:@"device_uids"];
+    if (devices.count == 0 || (devices.count == 1 && [devices[0][@"device_uid"] isEqualToString:deviceUID])) {
+        whoIs.requiresApproving = NO;
+    } else {
+        whoIs.requiresApproving = YES;
+        whoIs.containsPhoneDevice = NO;
+        for (NSDictionary *device in devices) {
+            if (![device[@"device_uid"] isEqualToString:deviceUID] && [device[@"full_phone_number"] nonempty]) {
+                whoIs.containsPhoneDevice = YES;
+                break;
+            }
+        }
+    }
+    
+    return whoIs;
+}
+
+@end
+
+@implementation WLLinkDeviceRequest
+
++ (NSString *)defaultMethod {
+    return @"POST";
+}
+
+- (NSString *)path {
+    return @"users/link_device";
+}
+
+- (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
+    [parameters trySetObject:self.email forKey:WLEmailKey];
+    [parameters trySetObject:self.deviceUID forKey:@"device_uid"];
+    [parameters trySetObject:self.approvalCode forKey:@"approval_code"];
+    return [super configure:parameters];
+}
+
+- (id)objectInResponse:(WLAPIResponse *)response {
+    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+    authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
+    [authorization setCurrent];
+    return authorization;
+}
+
+@end
+
 @implementation WLAuthorization (WLAuthorizationRequest)
 
 - (id)signUp:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure {
@@ -134,3 +206,16 @@ static BOOL authorized = NO;
 }
 
 @end
+
+@implementation WLWhoIs
+
++ (instancetype)sharedInstance {
+    static id instance = nil;
+    if (instance == nil) {
+        instance = [[self alloc] init];
+    }
+    return instance;
+}
+
+@end
+

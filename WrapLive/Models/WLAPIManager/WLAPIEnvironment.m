@@ -58,4 +58,8 @@
     }
 }
 
+- (BOOL)isProduction {
+    return [self.name isEqualToString:WLAPIEnvironmentProduction];
+}
+
 @end

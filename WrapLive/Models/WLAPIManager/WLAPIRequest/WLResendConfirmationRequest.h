@@ -10,4 +10,6 @@
 
 @interface WLResendConfirmationRequest : WLAPIRequest
 
+@property (strong, nonatomic) NSString *email;
+
 @end

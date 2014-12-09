@@ -10,6 +10,7 @@
 
 static NSString* WLFontNameOpenSansRegular = @"OpenSans";
 static NSString* WLFontNameOpenSansLight = @"OpenSans-Light";
+static NSString* WLFontNameOpenSansBold = @"OpenSans-Bold";
 
 static CGFloat WLFontSizeMicro = 12.0f;
 static CGFloat WLFontSizeSmall = 14.0f;
@@ -19,6 +20,7 @@ static CGFloat WLFontSizeLarge = 22.0f;
 typedef NS_ENUM(NSUInteger, WLFontType) {
 	WLFontTypeOpenSansLight = 100,
 	WLFontTypeOpenSansRegular,
+    WLFontTypeOpenSansBold
 };
 
 @interface UIFont (CustomFonts)

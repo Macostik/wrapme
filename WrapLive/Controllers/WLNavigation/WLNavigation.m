@@ -35,6 +35,10 @@ static NSMapTable *storyboards = nil;
     }
 }
 
+- (void)present:(BOOL)animated {
+    [UIWindow mainWindow].rootViewController = [self instantiateInitialViewController];
+}
+
 @end
 
 @implementation UIViewController (WLNavigation)

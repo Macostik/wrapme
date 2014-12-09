@@ -7,10 +7,9 @@
 //
 
 #import "WLCountry.h"
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import <CoreTelephony/CTCarrier.h>
 #import "NSString+Additions.h"
 #import "NSArray+Additions.h"
+#import "WLTelephony.h"
 
 @implementation WLCountry
 
@@ -28,8 +27,7 @@
 }
 
 + (WLCountry *)getCurrentCountry {
-	CTTelephonyNetworkInfo *networkInfo = [[CTTelephonyNetworkInfo alloc] init];
-	NSString *code = [[[networkInfo subscriberCellularProvider] isoCountryCode] lowercaseString];
+	NSString *code = [WLTelephony countryCode];
 	if (!code.nonempty) {
 		code = [[[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] lowercaseString];
 	}

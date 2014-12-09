@@ -42,6 +42,22 @@ typedef NS_ENUM(NSUInteger, WLAuthorizationStep) {
 
 @end
 
+@interface WLWhoIsRequest : WLAPIRequest
+
+@property (strong, nonatomic) NSString* email;
+
+@end
+
+@interface WLLinkDeviceRequest : WLAPIRequest
+
+@property (strong, nonatomic) NSString *email;
+
+@property (strong, nonatomic) NSString *deviceUID;
+
+@property (strong, nonatomic) NSString *approvalCode;
+
+@end
+
 @interface WLAuthorization (WLAuthorizationRequest)
 
 - (id)signUp:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure;
@@ -49,5 +65,19 @@ typedef NS_ENUM(NSUInteger, WLAuthorizationStep) {
 - (id)activate:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure;
 
 - (id)signIn:(WLUserBlock)success failure:(WLFailureBlock)failure;
+
+@end
+
+@interface WLWhoIs : NSObject
+
+@property (nonatomic) BOOL found;
+
+@property (nonatomic) BOOL confirmed;
+
+@property (nonatomic) BOOL requiresApproving;
+
+@property (nonatomic) BOOL containsPhoneDevice;
+
++ (instancetype)sharedInstance;
 
 @end

@@ -18,10 +18,11 @@
 #import "WLLoadingView.h"
 #import "WLNavigation.h"
 #import "WLSession.h"
-#import "WLSignUpViewController.h"
+#import "WLSignupFlowViewController.h"
 #import "WLTermsAndConditionsKeys.h"
 #import "WLUser.h"
 #import "WLWelcomeViewController.h"
+#import "UIViewController+Additions.h"
 
 typedef enum : NSUInteger {
     WLFlipDirectionLeft,
@@ -98,7 +99,9 @@ typedef enum : NSUInteger {
     [UIView animateWithDuration:30 * (self.backgroundView.height / 1500.0f) delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
         [weakSelf.backgroundView layoutIfNeeded];
     } completion:^(BOOL finished) {
-        [weakSelf animateBackgroundView:nextOffset nextOffset:offset];
+        if (weakSelf.isTopViewController) {
+            [weakSelf animateBackgroundView:nextOffset nextOffset:offset];
+        }
     }];
 }
 
@@ -112,15 +115,16 @@ typedef enum : NSUInteger {
 }
 
 - (void)presentHomeViewController {
-    if ([WLUser currentUser].name.nonempty) {
-        [UIWindow mainWindow].rootViewController = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateInitialViewController];
+    WLUser *user = [WLUser currentUser];
+    if (user.name.nonempty && user.picture.medium.nonempty) {
+        [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
     } else {
         [self continueSignUp];
     }
 }
 
 - (void)continueSignUp {
-	WLSignUpViewController *controller = [WLSignUpViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]];
+	WLSignupFlowViewController *controller = [WLSignupFlowViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]];
     controller.registrationNotCompleted = YES;
     [self.navigationController pushViewController:controller animated:NO];
 }
@@ -174,6 +178,10 @@ typedef enum : NSUInteger {
             }
         }
     }
+}
+
+- (IBAction)agreeAndContinue:(id)sender {
+    [self.navigationController setViewControllers:@[[WLSignupFlowViewController instantiate:self.storyboard]] animated:YES];
 }
 
 #pragma mark -UIGestureRecognizerDelegate

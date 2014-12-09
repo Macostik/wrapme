@@ -42,6 +42,10 @@
 	}];
 }
 
++ (void)showWithMessage:(NSString *)message {
+    [[[self alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+}
+
 - (WLAlertViewCompletion)completion {
 	return [self associatedObjectForKey:"wl_alertview_completion"];
 }

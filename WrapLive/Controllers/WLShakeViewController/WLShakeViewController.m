@@ -10,26 +10,13 @@
 #import "UIViewController+Additions.h"
 #import "UIView+Shorthand.h"
 #import "WLNavigation.h"
-#import <CoreTelephony/CTCallCenter.h>
-#import <CoreTelephony/CTCall.h>
+#import "WLTelephony.h"
 
 @interface WLShakeViewController ()
-
-@property (nonatomic, readonly) BOOL isCalling;
 
 @end
 
 @implementation WLShakeViewController
-
-- (BOOL)isCalling {
-    CTCallCenter *callCenter = [[CTCallCenter alloc] init];
-    for (CTCall* call in callCenter.currentCalls) {
-        if ([call.callState matches:CTCallStateConnected, CTCallStateIncoming, nil]) {
-            return YES;
-        }
-    }
-    return NO;
-}
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (event.subtype == UIEventSubtypeMotionShake) {
@@ -48,7 +35,7 @@
 
 - (BOOL)didRecognizeShakeGesture {
 
-    if (self.isCalling) {
+    if ([WLTelephony isCallingNow]) {
         return NO;
     }
     

@@ -10,8 +10,17 @@
 
 @implementation WLResendConfirmationRequest
 
++ (NSString *)defaultMethod {
+    return @"POST";
+}
+
 - (NSString *)path {
     return @"users/resend_confirmation";
+}
+
+- (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
+    [parameters trySetObject:self.email forKey:WLEmailKey];
+    return [super configure:parameters];
 }
 
 @end

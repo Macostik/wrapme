@@ -61,14 +61,14 @@
     [WLUploading enqueueAutomaticUploading];
 }
 
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 	[WLNotificationCenter setDeviceToken:deviceToken];
 }
 
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    [WLRemoteObjectHandler presentViewControllerByUrlExtension:url];
-    
+    [url handleRemoteObject];
     return YES;
 }
 

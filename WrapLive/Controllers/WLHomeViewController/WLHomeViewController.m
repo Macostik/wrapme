@@ -48,11 +48,14 @@
 #import "WLWrapsRequest.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLActionViewController.h"
+#import "WLRemoteObjectHandler.h"
+
+BOOL isPresentHomeViewController;
 
 static NSString *const WLTimeLineKey = @"WLTimeLineKey";
 static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLNotificationReceiver>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
@@ -121,6 +124,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self.dataProvider reload];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];
+    [WLRemoteObjectHandler sharedObject].isLoaded = [self isViewLoaded];
 }
 
 - (UINib *)placeholderViewNib {
@@ -188,18 +192,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 #pragma mark - WLNotificationReceiver
-
-- (void)handleRemoteNotification:(WLNotification*)notification {
-    if (notification.event == WLEventDelete) return;
-    
-    WLEntry *entry = notification.targetEntry;
-    [entry presentViewControllerWithoutLostData];
-}
-
-- (void)broadcaster:(WLNotificationCenter *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {
-    [self handleRemoteNotification:notification];
-	broadcaster.pendingRemoteNotification = nil;
-}
 
 - (void)updateNotificationsLabel {
     self.notificationsLabel.intValue = [[WLUser currentUser] unreadNotificationsCount];

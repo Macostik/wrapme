@@ -12,6 +12,7 @@
 #import "WLEntryKeys.h"
 #import "UIDevice-Hardware.h"
 #import "WLCryptographer.h"
+#import "NSDictionary+Extended.h"
 
 static NSString *const WLUserDefaultsExtensionKey = @"group.com.ravenpod.wraplive";
 static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
@@ -81,10 +82,10 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
 + (void)parseExtensionAutorization:(WLAuthorization *)autorization {
     NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:WLUserDefaultsExtensionKey];
     NSMutableDictionary *attDictionary = [NSMutableDictionary dictionaryWithCapacity:5.0];
-    [attDictionary setObject:autorization.deviceUID forKey:WLDeviceIDKey];
-    [attDictionary setObject:autorization.countryCode forKey:WLCountryCodeKey];
-    [attDictionary setObject:autorization.phone forKey:WLPhoneKey];
-    [attDictionary setObject:autorization.email forKey:WLEmailKey];
+    [attDictionary trySetObject:autorization.deviceUID forKey:WLDeviceIDKey];
+    [attDictionary trySetObject:autorization.countryCode forKey:WLCountryCodeKey];
+    [attDictionary trySetObject:autorization.phone forKey:WLPhoneKey];
+    [attDictionary trySetObject:autorization.email forKey:WLEmailKey];
     NSData *passwordData = [WLCryptographer encrypt:autorization.password];
     [attDictionary setObject:passwordData forKey:WLPasswordKey];
     [userDefaults setObject:attDictionary forKey:WLExtensionWrapKey];

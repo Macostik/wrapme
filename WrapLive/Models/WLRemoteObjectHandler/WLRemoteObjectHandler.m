@@ -13,38 +13,61 @@
 #import "NSError+WLAPIManager.h"
 #import "WLNotificationCenter.h"
 #import "WLAPIManager.h"
+#import "WLHomeViewController.h"
+#import "WLWelcomeViewController.h"
 
 @interface WLRemoteObjectHandler ()
 
-@property (strong, nonatomic) WLNotification *pendingRemoteNotification;
+@property (strong, nonatomic) WLEntry* pendingRemoteObject;
+
 @end
 
 @implementation WLRemoteObjectHandler
 
-+ (void)presentViewControllerByUrlExtension:(NSURL *)url {
-    NSMutableString *urlString = [[url query] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding].mutableCopy;
++ (instancetype)sharedObject {
+    static WLRemoteObjectHandler *_sharedObject = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedObject = [WLRemoteObjectHandler new];
+    });
+    
+    return _sharedObject;
+}
+
+- (void)handleRemoteObject:(WLEntry *)entry {
+    self.pendingRemoteObject = entry;
+    if ([entry valid] && _isLoaded) {
+        [entry presentViewControllerWithoutLostData];
+        self.pendingRemoteObject = nil;
+    }
+}
+
+- (void)setIsLoaded:(BOOL)isLoaded {
+    _isLoaded = isLoaded;
+    if (_isLoaded && self.pendingRemoteObject != nil) {
+        [self handleRemoteObject:self.pendingRemoteObject];
+    }
+}
+
+@end
+
+@implementation WLNotification (WLRemoteObjectHandler)
+
+- (void)handleRemoteObject {
+    if (self.event != WLEventDelete) {
+        [[WLRemoteObjectHandler sharedObject] handleRemoteObject:self.targetEntry];
+    }
+}
+
+@end
+
+@implementation NSURL (WLRemoteObjectHandler)
+
+- (void)handleRemoteObject {
+    NSMutableString *urlString = [[self query] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding].mutableCopy;
     NSRange range = [urlString rangeOfString:@"uid="];
     NSString *candyID = [urlString substringFromIndex:range.location + range.length];
-    WLCandy *candy = [WLCandy entry:candyID];
-    if (candy.valid) {
-        [candy presentViewControllerWithoutLostData];
-    }
-}
-
-- (void)handleRemoteObject:(NSDictionary *)data success:(WLBlock)success failure:(WLFailureBlock)failure {
-    WLNotification* notification = [WLNotification notificationWithData:data];
-    if (notification) {
-        self.pendingRemoteNotification = notification;
-        if (success) success();
-    } else if (failure)  {
-        failure([NSError errorWithDescription:@"Data in remote notification is not valid (inactive)."]);
-    }
-}
-
-- (void)addReceiver:(id)receiver {
-    if (self.pendingRemoteNotification.targetEntry.fetched && [receiver respondsToSelector:@selector(broadcaster:didReceiveRemoteObject:)]) {
-        [receiver broadcaster:self didReceiveRemoteObject:self.pendingRemoteNotification];
-    }
+    [[WLRemoteObjectHandler sharedObject] handleRemoteObject:[WLCandy entry:candyID]];
 }
 
 @end

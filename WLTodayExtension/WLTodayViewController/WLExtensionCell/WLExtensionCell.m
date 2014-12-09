@@ -32,11 +32,11 @@
 - (void)setPost:(WLPost *)post {
     self.coverImageView.image = [UIImage imageWithData:post.image];
     self.eventLabel.text = post.event;
-    self.wrapNameLabel.text = post.wrapName;
-    [self.wrapNameLabel sizeToFit];
-    self.widthConstraint.constant = self.wrapNameLabel.bounds.size.width;
-    [self.timeLabel setNeedsLayout];
     self.timeLabel.text = [post.time timeAgoStringAtAMPM];
+    [self.timeLabel sizeToFit];
+    self.widthConstraint.constant = self.timeLabel.bounds.size.width;
+    [self.timeLabel setNeedsLayout];
+    self.wrapNameLabel.text = post.wrapName;
 }
 
 @end

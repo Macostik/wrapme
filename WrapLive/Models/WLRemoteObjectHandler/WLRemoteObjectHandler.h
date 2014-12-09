@@ -8,19 +8,26 @@
 
 #import <Foundation/Foundation.h>
 #import "WLBroadcaster.h"
-
-@class WLRemoteObjectHandler;
-
-@protocol WLObjectReceiver
-
-@optional
-
-- (void)broadcaster:(WLRemoteObjectHandler *)broadcaster didReceiveRemoteObject:(id)object;
-
-@end
+#import "WLNotification.h"
 
 @interface WLRemoteObjectHandler : NSObject
 
-+ (void)presentViewControllerByUrlExtension:(NSURL *)url;
+@property (assign, nonatomic) BOOL isLoaded;
+
++ (instancetype)sharedObject;
+
+- (void)handleRemoteObject:(WLEntry*)object;
+
+@end
+
+@interface WLNotification (WLRemoteObjectHandler)
+
+- (void)handleRemoteObject;
+
+@end
+
+@interface NSURL (WLRemoteObjectHandler)
+
+- (void)handleRemoteObject;
 
 @end

@@ -12,6 +12,7 @@
 #import "UILabel+Additions.h"
 #import "UIView+Shorthand.h"
 #import "WLNavigation.h"
+#import "UIImage+Drawing.h"
 
 static CGFloat WLToastDefaultHeight = 64.0f;
 static CGFloat WLToastDefaultSpacing = 100.0f;
@@ -249,6 +250,18 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 
 - (BOOL)toastAppearanceShouldShowIcon:(WLToast *)toast {
 	return YES;
+}
+
+@end
+
+@implementation WLToast (DefinedToasts)
+
++ (void)showPhotoDownloadingMessage {
+    WLToastAppearance *appearance = [[WLToastAppearance alloc] init];
+    appearance.textColor = [UIColor WL_orangeColor];
+    appearance.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.9f];
+    appearance.shouldShowIcon = NO;
+    [self showWithMessage:[NSString stringWithFormat:@"Downloading the photo now. It will be in \"%@\" album momentarily.", WLAlbumName] appearance:appearance];
 }
 
 @end

@@ -28,6 +28,7 @@
 #import "WLCreateWrapViewController.h"
 #import "WLWrapViewController.h"
 #import "WLCameraViewController.h"
+#import "UIImage+Drawing.h"
 
 static CGFloat WLBottomViewHeight = 92.0f;
 
@@ -147,7 +148,7 @@ static CGFloat WLBottomViewHeight = 92.0f;
 - (void)handleImage:(UIImage*)image save:(BOOL)save metadata:(NSMutableDictionary *)metadata {
     __weak typeof(self)weakSelf = self;
     WLImageBlock finishBlock = ^ (UIImage *resultImage) {
-        if (save) [weakSelf saveImage:image metadata:metadata];
+        if (save) [image save:metadata];
         if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
             weakSelf.view.userInteractionEnabled = NO;
             [WLPicture picture:resultImage completion:^(id object) {
@@ -180,18 +181,6 @@ static CGFloat WLBottomViewHeight = 92.0f;
         [weakSelf handleImage:croppedImage save:YES metadata:metadata];
 		weakSelf.view.userInteractionEnabled = YES;
 	}];
-}
-
-- (void)saveImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata {
-	[metadata setImageOrientation:image.imageOrientation];
-	run_in_default_queue(^{
-		ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
-		[library saveImage:image
-				   toAlbum:@"wrapLive"
-				  metadata:metadata
-				completion:^(NSURL *assetURL, NSError *error) { }
-				   failure:^(NSError *error) { }];
-	});
 }
 
 - (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {

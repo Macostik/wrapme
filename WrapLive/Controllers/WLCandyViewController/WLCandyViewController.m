@@ -32,7 +32,7 @@
 #import "WLKeyboard.h"
 #import "WLNavigation.h"
 #import "WLRefresher.h"
-#import "WLReportCandyViewController.h"
+#import "WLCandyOptionsViewController.h"
 #import "WLSession.h"
 #import "WLSoundPlayer.h"
 #import "WLToast.h"
@@ -282,9 +282,9 @@
 }
 
 - (IBAction)report:(UIButton *)sender {
-    [WLActionViewController addViewControllerByClass:[WLReportCandyViewController class]
-                                                     withEntry:self.candy
-                                        toParentViewController:self];
+    WLCandyOptionsViewController* editCandyViewController = [[WLCandyOptionsViewController alloc] init];
+    editCandyViewController.candy = self.candy;
+    [self presentViewController:editCandyViewController animated:YES completion:nil];
 }
 
 - (void)sendMessageWithText:(NSString*)text {

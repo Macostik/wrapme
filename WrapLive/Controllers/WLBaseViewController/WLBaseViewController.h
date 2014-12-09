@@ -23,6 +23,8 @@
 
 @property (weak, nonatomic) UIView *placeholderView;
 
+- (BOOL)isFullScreenViewController;
+
 - (UINib*)placeholderViewNib;
 
 - (void)showPlaceholderView;

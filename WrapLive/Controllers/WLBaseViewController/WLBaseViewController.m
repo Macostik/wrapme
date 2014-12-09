@@ -32,9 +32,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.keyboardAdjustmentAnimated = YES;
-    self.view.frame = [UIWindow mainWindow].bounds;
-    [self.view layoutIfNeeded];
+    if ([self isFullScreenViewController]) {
+        self.view.frame = [UIWindow mainWindow].bounds;
+        [self.view layoutIfNeeded];
+    }
     [[WLKeyboard keyboard] addReceiver:self];
+}
+
+- (BOOL)isFullScreenViewController {
+    return YES;
 }
 
 - (NSMapTable *)keyboardAdjustmentDefaultConstants {

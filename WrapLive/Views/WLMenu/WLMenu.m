@@ -42,7 +42,8 @@
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button.titleLabel setFont:[UIFont regularMicroFont]];
     }
-    [button setBackgroundImage:item.image forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"bg_menu_btn"] forState:UIControlStateNormal];
+    [button setImage:item.image forState:UIControlStateNormal];
     button.layer.cornerRadius = button.bounds.size.width/2;
     return button;
 }
@@ -263,6 +264,26 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self hide];
+}
+
+@end
+
+@implementation WLMenu (DefinedItems)
+
+- (void)addDeleteItem:(WLBlock)block {
+    [self addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:block];
+}
+
+- (void)addLeaveItem:(WLBlock)block {
+    [self addItemWithImage:[UIImage imageNamed:@"btn_menu_leave"] block:block];
+}
+
+- (void)addReportItem:(WLBlock)block {
+    [self addItemWithImage:[UIImage imageNamed:@"btn_menu_alert"] block:block];
+}
+
+- (void)addDownloadItem:(WLBlock)block {
+    [self addItemWithImage:[UIImage imageNamed:@"btn_menu_download"] block:block];
 }
 
 @end

@@ -10,7 +10,7 @@
 #import "WLActionViewController.h"
 #import "UIView+Shorthand.h"
 #import "WLEditWrapViewController.h"
-#import "WLReportCandyViewController.h"
+#import "WLCandyOptionsViewController.h"
 #import "WLCreateWrapViewController.h"
 #import "WLPickerViewController.h"
 #import "UIView+QuatzCoreAnimations.h"

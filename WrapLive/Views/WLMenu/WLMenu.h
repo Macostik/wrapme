@@ -51,3 +51,15 @@
 - (void)addItemWithImage:(UIImage*)image block:(WLBlock)block;
 
 @end
+
+@interface WLMenu (DefinedItems)
+
+- (void)addDeleteItem:(WLBlock)block;
+
+- (void)addLeaveItem:(WLBlock)block;
+
+- (void)addReportItem:(WLBlock)block;
+
+- (void)addDownloadItem:(WLBlock)block;
+
+@end

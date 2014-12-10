@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+static NSString *WLAlbumName = @"wrapLive";
+
 @interface UIImage (Drawing)
 
++ (void)drawAssetNamed:(NSString*)name directory:(NSString*)directory size:(CGSize)size opaque:(BOOL)opaque drawing:(void(^)(CGSize size))drawing;
+
 + (void)drawAssetNamed:(NSString*)name directory:(NSString*)directory size:(CGSize)size drawing:(void(^)(CGSize size))drawing;
+
+- (void)save:(NSMutableDictionary*)metadata;
 
 @end

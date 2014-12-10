@@ -73,3 +73,9 @@
 @interface UIViewController (WLToast) <WLToastAppearance>
 
 @end
+
+@interface WLToast (DefinedToasts)
+
++ (void)showPhotoDownloadingMessage;
+
+@end

@@ -19,7 +19,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="62" sectionHeaderHeight="22" sectionFooterHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="036-cI-Swm">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="dt0-hN-jtt">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -72,9 +72,11 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ElV-2O-2hs">
                                                     <rect key="frame" x="58" y="26" width="79" height="18"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="czK-xS-Wzz"/>
                                                     </constraints>
@@ -84,11 +86,13 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMk-gY-TBT">
                                                     <rect key="frame" x="58" y="6" width="260" height="18"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="QMk-gY-TBT" firstAttribute="leading" secondItem="eCa-GO-21K" secondAttribute="leadingMargin" constant="50" id="02g-kh-RD0"/>
                                                 <constraint firstItem="eUT-Wr-PzL" firstAttribute="top" secondItem="QMk-gY-TBT" secondAttribute="bottom" constant="2" id="2w5-5T-HEc"/>
@@ -104,6 +108,7 @@
                                                 <constraint firstItem="QMk-gY-TBT" firstAttribute="top" secondItem="eCa-GO-21K" secondAttribute="topMargin" constant="-2" id="zw1-Vn-IkW"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="coverImageView" destination="0DV-rQ-oLq" id="Oet-ED-G0i"/>
                                             <outlet property="eventLabel" destination="QMk-gY-TBT" id="hwc-jg-MxY"/>
@@ -120,6 +125,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="036-cI-Swm" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="5vL-Kv-puY"/>
                             <constraint firstAttribute="trailing" secondItem="036-cI-Swm" secondAttribute="trailing" id="M8B-Iq-rUe"/>

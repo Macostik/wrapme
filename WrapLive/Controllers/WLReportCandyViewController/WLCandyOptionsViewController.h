@@ -6,11 +6,10 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLBaseViewController.h"
 
-@interface WLReportCandyViewController : UIViewController
+@interface WLCandyOptionsViewController : WLBaseViewController
 
 @property (strong, nonatomic) WLCandy *candy;
-@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @end

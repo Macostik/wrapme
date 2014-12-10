@@ -23,6 +23,16 @@
 
 @property (weak, nonatomic) UIView *placeholderView;
 
+@property (weak, nonatomic, readonly) UIView *contentView;
+
+@property (nonatomic) BOOL isEmbedded;
+
++ (BOOL)isEmbeddedDefaultValue;
+
+- (void)embeddingViewTapped:(UITapGestureRecognizer*)sender;
+
+- (void)awakeAfterInit;
+
 - (UINib*)placeholderViewNib;
 
 - (void)showPlaceholderView;

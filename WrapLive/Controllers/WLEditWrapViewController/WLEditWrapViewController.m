@@ -34,7 +34,6 @@ static NSString *const WLLeave = @"Leave";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.frame = self.contentView.frame;
     
     self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap stringProperties:@"name", nil];
     
@@ -48,9 +47,10 @@ static NSString *const WLLeave = @"Leave";
     [self.deleteButton setTitle:isMyWrap ? WLDelete : WLLeave forState:UIControlStateNormal];
     self.nameWrapTextField.enabled = isMyWrap;
     [self setupEditableUserInterface];
-    if (!isMyWrap) {
-          [self.contentView bottomPushWithDuration:1.0 delegate:nil];
-    }
+}
+
++ (BOOL)isEmbeddedDefaultValue {
+    return YES;
 }
 
 - (void)setupEditableUserInterface {
@@ -68,6 +68,11 @@ static NSString *const WLLeave = @"Leave";
         sender.text = [sender.text substringToIndex:WLWrapNameLimit];
     }
     [self.editSession changeValue:sender.text forProperty:@"name"];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
@@ -104,10 +109,11 @@ static NSString *const WLLeave = @"Leave";
 }
 
 - (IBAction)removeFromController:(id)sender {
-    id parentViewController = [self parentViewController];
-    if (parentViewController != nil) {
-        [parentViewController dismiss];
-    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
+    return keyboardHeight/2.0f;
 }
 
 #pragma mark - WLEditSessionDelegate override

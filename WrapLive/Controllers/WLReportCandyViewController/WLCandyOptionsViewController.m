@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLReportCandyViewController.h"
+#import "WLCandyOptionsViewController.h"
 #import "WLButton.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "UIColor+CustomColors.h"
@@ -18,38 +18,33 @@
 static NSString *const WLDelete = @"Delete";
 static NSString *const WLReport = @"Report";
 
-@interface WLReportCandyViewController ()
+@interface WLCandyOptionsViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet WLPressButton *deleteButton;
 @property (weak, nonatomic) IBOutlet WLPressButton *cancelButton;
+@property (weak, nonatomic) IBOutlet WLPressButton *downloadButton;
 
 @end
 
-@implementation WLReportCandyViewController
+@implementation WLCandyOptionsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.titleLabel.text = [NSString stringWithFormat:@"%@ this candy", [self isMyCandy] ? WLDelete : WLReport];
     [self.deleteButton setTitle:[self isMyCandy] ? WLDelete : WLReport forState:UIControlStateNormal];
-    self.cancelButton.layer.borderColor = self.deleteButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
+    self.downloadButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
+}
 
-    [self.contentView bottomPushWithDuration:1.0 delegate:nil];
++ (BOOL)isEmbeddedDefaultValue {
+    return YES;
 }
 
 - (BOOL)isMyCandy {
     return [self.candy.contributor isCurrentUser] || [self.candy.wrap.contributor isCurrentUser];
 }
 
-- (IBAction)removeFromController:(id)sender {
-    UIViewController *parentViewController = [self parentViewController];
-    [UIView animateWithDuration:1.0f animations:^{
-        self.view.transform = CGAffineTransformMakeTranslation(.0f, self.parentViewController.view.height);
-    } completion:^(BOOL finished) {
-        [parentViewController.view removeFromSuperview];
-        [parentViewController removeFromParentViewController];
-    }];
+- (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)deleteCandy:(id)sender {
@@ -57,13 +52,22 @@ static NSString *const WLReport = @"Report";
     if ([self isMyCandy]) {
         [self.candy remove:^(id object) {
             [WLToast showWithMessage:@"Candy was deleted successfully."];
-            [weakSelf removeFromController:nil];
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
         } failure:^(NSError *error) {
             [error show];
         }];
     } else {
         [MFMailComposeViewController messageWithCandy:self.candy];
     }
+}
+
+- (IBAction)downloadCandy:(id)sender {
+    [self.candy download:^{
+    } failure:^(NSError *error) {
+        [error show];
+    }];
+    [WLToast showPhotoDownloadingMessage];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

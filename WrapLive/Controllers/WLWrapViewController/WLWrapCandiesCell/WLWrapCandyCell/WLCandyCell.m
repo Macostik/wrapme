@@ -44,7 +44,7 @@
         self.menu = [WLMenu menuWithView:self configuration:^BOOL (WLMenu *menu) {
             WLCandy* candy = weakSelf.entry;
             if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
-                [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:^{
+                [menu addDeleteItem:^{
                     weakSelf.userInteractionEnabled = NO;
                     [candy remove:^(id object) {
                         weakSelf.userInteractionEnabled = YES;
@@ -54,10 +54,17 @@
                     }];
                 }];
             } else {
-                [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_alert"] block:^{
+                [menu addReportItem:^{
                     [MFMailComposeViewController messageWithCandy:candy];
                 }];
             }
+            [menu addDownloadItem:^{
+                [candy download:^{
+                } failure:^(NSError *error) {
+                    [error show];
+                }];
+                [WLToast showPhotoDownloadingMessage];
+            }];
             return YES;
         }];
         self.menu.vibrate = YES;

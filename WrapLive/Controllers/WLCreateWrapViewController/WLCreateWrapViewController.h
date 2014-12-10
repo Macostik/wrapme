@@ -6,28 +6,13 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLShakeViewController.h"
-#import "WLStillPictureViewController.h"
+#import "WLBaseViewController.h"
 
-@class WLWrap;
-@class WLPicture;
-@class WLCreateWrapViewController;
+@interface WLCreateWrapViewController : WLBaseViewController <UITextFieldDelegate>
 
-@protocol WLCreateWrapDelegate <NSObject>
-
-@optional
-
-- (void)wlCreateWrapViewController:(WLCreateWrapViewController *)viewController didCreateWrap:(WLWrap *)wrap;
-
-@end
-
-@interface WLCreateWrapViewController : WLShakeViewController <UITextFieldDelegate, WLStillPictureViewControllerDelegate>
-
-@property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (strong, nonatomic) WLBlock cancelHandler;
-@property (assign, nonatomic) id <WLCreateWrapDelegate> delegate;
 
-- (void)removeAnimateViewFromSuperView;
+@property (strong, nonatomic) WLWrapBlock createHandler;
 
 @end
 

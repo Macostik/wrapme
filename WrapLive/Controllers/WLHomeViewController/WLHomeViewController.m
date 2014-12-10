@@ -47,15 +47,15 @@
 #import "WLWrapViewController.h"
 #import "WLWrapsRequest.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "WLActionViewController.h"
 #import "WLRemoteObjectHandler.h"
+#import "WLPickerViewController.h"
 
 BOOL isPresentHomeViewController;
 
 static NSString *const WLTimeLineKey = @"WLTimeLineKey";
 static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLPickerViewDelegate>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
@@ -210,12 +210,24 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 - (IBAction)createWrap:(id)sender {
-    __weak WLStillPictureViewController *controller = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
-    controller.mode = WLStillPictureModeDefault;
-    controller.delegate = self;
-    [controller willCreateWrapFromPicker:NO];
+    __weak WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
+    stillPictureViewController.mode = WLStillPictureModeDefault;
+    stillPictureViewController.delegate = self;
     
-    [self.navigationController presentViewController:controller animated:YES completion:NULL];
+    __weak __typeof(self)weakSelf = self;
+    WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
+    [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
+        stillPictureViewController.wrap = wrap;
+        [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+    }];
+    
+    [createWrapViewController setCancelHandler:^{
+        [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+    }];
+    
+    [self presentViewController:stillPictureViewController animated:YES completion:^{
+        [stillPictureViewController presentViewController:createWrapViewController animated:YES completion:nil];
+    }];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate
@@ -230,6 +242,37 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didSelectWrap:(WLWrap *)wrap {
+    WLPickerViewController *pickerViewController = [[WLPickerViewController alloc] initWithWrap:wrap delegate:self];
+    [controller presentViewController:pickerViewController animated:YES completion:nil];
+}
+
+#pragma mark - WLPickerViewDelegate
+
+- (void)pickerViewControllerNewWrapClicked:(WLPickerViewController *)pickerViewController {
+    WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
+    [stillPictureViewController dismissViewControllerAnimated:YES completion:^{
+        WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
+        [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
+            stillPictureViewController.wrap = wrap;
+            [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+        }];
+        [createWrapViewController setCancelHandler:^{
+            [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+        }];
+        [stillPictureViewController presentViewController:createWrapViewController animated:YES completion:nil];
+    }];
+}
+
+- (void)pickerViewController:(WLPickerViewController *)pickerViewController didSelectWrap:(WLWrap *)wrap {
+    WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
+    stillPictureViewController.wrap = wrap;
+}
+
+- (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
+    [pickerViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

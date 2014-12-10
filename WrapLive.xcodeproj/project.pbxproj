@@ -13,8 +13,6 @@
 		121907B6192CFF3F00E7C22D /* WLAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 121907B5192CFF3F00E7C22D /* WLAuthorization.m */; };
 		121B1B2E18E07430001F585C /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		121B1B3718E078AF001F585C /* NSObject+NibAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3618E078AF001F585C /* NSObject+NibAdditions.m */; };
-		121B1B4018E0848D001F585C /* WLCountriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3A18E0848D001F585C /* WLCountriesViewController.m */; };
-		121B1B4218E0848D001F585C /* WLCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B3E18E0848D001F585C /* WLCountryCell.m */; };
 		121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B4418E08B7E001F585C /* CountryCodes.json */; };
 		121FC9E3190A93D80034486D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E2190A93D80034486D /* CFNetwork.framework */; };
 		121FC9E5190A93E50034486D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E4190A93E50034486D /* SystemConfiguration.framework */; };
@@ -137,14 +135,14 @@
 		5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
-		5B650FE11A00091800D6AD3D /* WLReportCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B650FE01A00091800D6AD3D /* WLReportCandyViewController.m */; };
-		5B650FE21A00091800D6AD3D /* WLReportCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B650FE01A00091800D6AD3D /* WLReportCandyViewController.m */; };
-		5B650FE31A00091800D6AD3D /* WLReportCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B650FE01A00091800D6AD3D /* WLReportCandyViewController.m */; };
-		5B650FE41A00091800D6AD3D /* WLReportCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B650FE01A00091800D6AD3D /* WLReportCandyViewController.m */; };
-		5B650FE71A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */; };
-		5B650FE81A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */; };
-		5B650FE91A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */; };
-		5B650FEA1A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */; };
+		5B650FE11A00091800D6AD3D /* WLCandyOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B650FE01A00091800D6AD3D /* WLCandyOptionsViewController.m */; };
+		5B650FE21A00091800D6AD3D /* WLCandyOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B650FE01A00091800D6AD3D /* WLCandyOptionsViewController.m */; };
+		5B650FE31A00091800D6AD3D /* WLCandyOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B650FE01A00091800D6AD3D /* WLCandyOptionsViewController.m */; };
+		5B650FE41A00091800D6AD3D /* WLCandyOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B650FE01A00091800D6AD3D /* WLCandyOptionsViewController.m */; };
+		5B650FE71A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLCandyOptionsViewController.xib */; };
+		5B650FE81A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLCandyOptionsViewController.xib */; };
+		5B650FE91A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLCandyOptionsViewController.xib */; };
+		5B650FEA1A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B650FE61A00094A00D6AD3D /* WLCandyOptionsViewController.xib */; };
 		5B787D9D1A27876F004AE459 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		5B787DA31A27876F004AE459 /* WLTodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B787DA21A27876F004AE459 /* WLTodayViewController.m */; };
 		5B787DA51A27876F004AE459 /* WLTodayExtension.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B787DA41A27876F004AE459 /* WLTodayExtension.storyboard */; };
@@ -218,10 +216,6 @@
 		5BA9DCE71A360771003ED90C /* WLRemoteObjectHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9DCE31A360771003ED90C /* WLRemoteObjectHandler.m */; };
 		5BA9EF301A28849700340784 /* WLExtensionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9EF2F1A28849700340784 /* WLExtensionCell.m */; };
 		5BA9EF331A28867000340784 /* WLPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9EF321A28867000340784 /* WLPost.m */; };
-		5BAA216319FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
-		5BAA216419FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
-		5BAA216519FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
-		5BAA216619FE7BCD008958EF /* WLActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA216219FE7BCD008958EF /* WLActionViewController.m */; };
 		5BB02FF619F00BCE001E1D50 /* WLChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB02FF519F00BCE001E1D50 /* WLChat.m */; };
 		5BB02FF719F00BCE001E1D50 /* WLChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB02FF519F00BCE001E1D50 /* WLChat.m */; };
 		5BB02FF819F00BCE001E1D50 /* WLChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB02FF519F00BCE001E1D50 /* WLChat.m */; };
@@ -1604,9 +1598,9 @@
 		5B2F71A51A2E03C70019FC57 /* WLExtensionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLExtensionManager.m; path = WLExtensionModel/WLExtensionManager/WLExtensionManager.m; sourceTree = "<group>"; };
 		5B3CD74319DAEA8E00D2216C /* WLTermsAndConditionsKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTermsAndConditionsKeys.h; path = WLTermsAndConditions/WLTermsAndConditionsKeys.h; sourceTree = "<group>"; };
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
-		5B650FDF1A00091800D6AD3D /* WLReportCandyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLReportCandyViewController.h; path = WLReportCandyViewController/WLReportCandyViewController.h; sourceTree = "<group>"; };
-		5B650FE01A00091800D6AD3D /* WLReportCandyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLReportCandyViewController.m; path = WLReportCandyViewController/WLReportCandyViewController.m; sourceTree = "<group>"; };
-		5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLReportCandyViewController.xib; path = WLReportCandyViewController/WLReportCandyViewController.xib; sourceTree = "<group>"; };
+		5B650FDF1A00091800D6AD3D /* WLCandyOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCandyOptionsViewController.h; path = WLReportCandyViewController/WLCandyOptionsViewController.h; sourceTree = "<group>"; };
+		5B650FE01A00091800D6AD3D /* WLCandyOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCandyOptionsViewController.m; path = WLReportCandyViewController/WLCandyOptionsViewController.m; sourceTree = "<group>"; };
+		5B650FE61A00094A00D6AD3D /* WLCandyOptionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCandyOptionsViewController.xib; path = WLReportCandyViewController/WLCandyOptionsViewController.xib; sourceTree = "<group>"; };
 		5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WLTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B787D9C1A27876F004AE459 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		5B787DA01A27876F004AE459 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1645,8 +1639,6 @@
 		5BA9EF2F1A28849700340784 /* WLExtensionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLExtensionCell.m; path = WLTodayViewController/WLExtensionCell/WLExtensionCell.m; sourceTree = "<group>"; };
 		5BA9EF311A28867000340784 /* WLPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPost.h; path = WLExtensionModel/WLPost/WLPost.h; sourceTree = "<group>"; };
 		5BA9EF321A28867000340784 /* WLPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPost.m; path = WLExtensionModel/WLPost/WLPost.m; sourceTree = "<group>"; };
-		5BAA216119FE7BCD008958EF /* WLActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLActionViewController.h; path = WLActionViewController/WLActionViewController.h; sourceTree = "<group>"; };
-		5BAA216219FE7BCD008958EF /* WLActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLActionViewController.m; path = WLActionViewController/WLActionViewController.m; sourceTree = "<group>"; };
 		5BB02FF419F00BCE001E1D50 /* WLChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChat.h; path = WLChatGroupSet/WLChat.h; sourceTree = "<group>"; };
 		5BB02FF519F00BCE001E1D50 /* WLChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChat.m; path = WLChatGroupSet/WLChat.m; sourceTree = "<group>"; };
 		5BB04F2619D9822300B5C6EE /* WLEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditViewController.h; path = WLEditViewController/WLEditViewController.h; sourceTree = "<group>"; };
@@ -2427,7 +2419,6 @@
 				12A7A74218DA17F7008FF6F0 /* WLHomeViewController */,
 				C5C20BB21A239D6F008B2E2E /* WLSignupFlowViewController */,
 				12A7A73A18DA0A06008FF6F0 /* WLWelcomeViewController */,
-				5BAA216719FE7BD1008958EF /* WLActionViewController */,
 				5B650FE51A00091E00D6AD3D /* WLReportCandyViewController */,
 				5BA4CC161A08FAFA00D7F31C /* WLPickerViewController */,
 			);
@@ -3148,9 +3139,9 @@
 		5B650FE51A00091E00D6AD3D /* WLReportCandyViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5B650FDF1A00091800D6AD3D /* WLReportCandyViewController.h */,
-				5B650FE01A00091800D6AD3D /* WLReportCandyViewController.m */,
-				5B650FE61A00094A00D6AD3D /* WLReportCandyViewController.xib */,
+				5B650FDF1A00091800D6AD3D /* WLCandyOptionsViewController.h */,
+				5B650FE01A00091800D6AD3D /* WLCandyOptionsViewController.m */,
+				5B650FE61A00094A00D6AD3D /* WLCandyOptionsViewController.xib */,
 			);
 			name = WLReportCandyViewController;
 			sourceTree = "<group>";
@@ -3205,15 +3196,6 @@
 			);
 			name = WLRemoteObjectHandler;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		5BAA216719FE7BD1008958EF /* WLActionViewController */ = {
-			isa = PBXGroup;
-			children = (
-				5BAA216119FE7BCD008958EF /* WLActionViewController.h */,
-				5BAA216219FE7BCD008958EF /* WLActionViewController.m */,
-			);
-			name = WLActionViewController;
 			sourceTree = "<group>";
 		};
 		5BB02FFA19F00BEC001E1D50 /* WLChatGroupSet */ = {
@@ -4408,7 +4390,7 @@
 				C54F4B1A1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */,
 				C57005DE1A1FA19C007257A6 /* chat_bubble_red_right@3x.png in Resources */,
 				C57005C61A1FA19C007257A6 /* chat_bubble_gray_right@3x.png in Resources */,
-				5B650FE71A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
+				5B650FE71A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */,
 				12D578C719178C3400586995 /* iTunesArtwork in Resources */,
 				12D514F9192F5F15007A1520 /* AppIcon29x29.png in Resources */,
 				C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */,
@@ -4507,7 +4489,7 @@
 				5B7E156C1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF54619B8C437006F7EDB /* AppIcon76x76@2x.png in Resources */,
 				5BA470C21A24BAA80098EBE2 /* Default-568h@2x.png in Resources */,
-				5B650FE81A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
+				5B650FE81A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
 				5BF583421A1F984200922BD5 /* ic_quote@2x.png in Resources */,
 				C54AF54919B8C437006F7EDB /* AppIcon29x29.png in Resources */,
@@ -4599,7 +4581,7 @@
 				5B7E156D1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF64319B8C467006F7EDB /* AppIcon76x76@2x.png in Resources */,
 				5BA470C31A24BAA80098EBE2 /* Default-568h@2x.png in Resources */,
-				5B650FE91A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
+				5B650FE91A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */,
 				C54AF64419B8C467006F7EDB /* iTunesArtwork in Resources */,
 				5BF583451A1F984200922BD5 /* ic_quote@2x.png in Resources */,
 				C54AF64619B8C467006F7EDB /* AppIcon29x29.png in Resources */,
@@ -4691,7 +4673,7 @@
 				5B7E156E1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF74019B8C491006F7EDB /* AppIcon76x76@2x.png in Resources */,
 				5BA470C41A24BAA80098EBE2 /* Default-568h@2x.png in Resources */,
-				5B650FEA1A00094A00D6AD3D /* WLReportCandyViewController.xib in Resources */,
+				5B650FEA1A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
 				5BF583481A1F984200922BD5 /* ic_quote@2x.png in Resources */,
 				C54AF74319B8C491006F7EDB /* AppIcon29x29.png in Resources */,
@@ -5030,7 +5012,6 @@
 				C50AF4241976ABE700761F38 /* WLMessagesRequest.m in Sources */,
 				5BA6CE971A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */,
 				128886AD18DC493B00957B22 /* WLSession.m in Sources */,
-				5BAA216319FE7BCD008958EF /* WLActionViewController.m in Sources */,
 				120ED84F18F2E53700C35505 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				121907B6192CFF3F00E7C22D /* WLAuthorization.m in Sources */,
 				C5C20BCD1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
@@ -5145,7 +5126,7 @@
 				C5FFB03419AC8FA5006F27A7 /* WLTimelineEvent.m in Sources */,
 				12E0F04E19090B0600463FEC /* WLBroadcaster.m in Sources */,
 				12DE6980192E04F7007580AD /* NSPropertyListSerialization+Shorthand.m in Sources */,
-				5B650FE11A00091800D6AD3D /* WLReportCandyViewController.m in Sources */,
+				5B650FE11A00091800D6AD3D /* WLCandyOptionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5284,7 +5265,6 @@
 				C54AF4B519B8C437006F7EDB /* WLMessagesRequest.m in Sources */,
 				5BA6CE981A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */,
 				C54AF4B619B8C437006F7EDB /* WLSession.m in Sources */,
-				5BAA216419FE7BCD008958EF /* WLActionViewController.m in Sources */,
 				C54AF4B719B8C437006F7EDB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				C54AF4B819B8C437006F7EDB /* WLAuthorization.m in Sources */,
 				C5C20BCE1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
@@ -5399,7 +5379,7 @@
 				C54AF51119B8C437006F7EDB /* WLTimelineEvent.m in Sources */,
 				C54AF51319B8C437006F7EDB /* WLBroadcaster.m in Sources */,
 				C54AF51419B8C437006F7EDB /* NSPropertyListSerialization+Shorthand.m in Sources */,
-				5B650FE21A00091800D6AD3D /* WLReportCandyViewController.m in Sources */,
+				5B650FE21A00091800D6AD3D /* WLCandyOptionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5524,7 +5504,6 @@
 				C54AF5B219B8C467006F7EDB /* WLMessagesRequest.m in Sources */,
 				5BA6CE991A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */,
 				C54AF5B319B8C467006F7EDB /* WLSession.m in Sources */,
-				5BAA216519FE7BCD008958EF /* WLActionViewController.m in Sources */,
 				C54AF5B419B8C467006F7EDB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				C54AF5B519B8C467006F7EDB /* WLAuthorization.m in Sources */,
 				C5C20BCF1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
@@ -5639,7 +5618,7 @@
 				C54AF60E19B8C467006F7EDB /* WLTimelineEvent.m in Sources */,
 				C54AF61019B8C467006F7EDB /* WLBroadcaster.m in Sources */,
 				C54AF61119B8C467006F7EDB /* NSPropertyListSerialization+Shorthand.m in Sources */,
-				5B650FE31A00091800D6AD3D /* WLReportCandyViewController.m in Sources */,
+				5B650FE31A00091800D6AD3D /* WLCandyOptionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5764,7 +5743,6 @@
 				C54AF6AF19B8C491006F7EDB /* WLMessagesRequest.m in Sources */,
 				5BA6CE9A1A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */,
 				C54AF6B019B8C491006F7EDB /* WLSession.m in Sources */,
-				5BAA216619FE7BCD008958EF /* WLActionViewController.m in Sources */,
 				C54AF6B119B8C491006F7EDB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				C54AF6B219B8C491006F7EDB /* WLAuthorization.m in Sources */,
 				C5C20BD01A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
@@ -5879,7 +5857,7 @@
 				C54AF70B19B8C491006F7EDB /* WLTimelineEvent.m in Sources */,
 				C54AF70D19B8C491006F7EDB /* WLBroadcaster.m in Sources */,
 				C54AF70E19B8C491006F7EDB /* NSPropertyListSerialization+Shorthand.m in Sources */,
-				5B650FE41A00091800D6AD3D /* WLReportCandyViewController.m in Sources */,
+				5B650FE41A00091800D6AD3D /* WLCandyOptionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5968,6 +5946,7 @@
 		};
 		12A7A73018DA0946008FF6F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -6064,7 +6043,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WLTodayExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6083,7 +6062,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				INFOPLIST_FILE = WLTodayExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";

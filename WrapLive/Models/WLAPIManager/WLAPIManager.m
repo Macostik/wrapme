@@ -261,9 +261,18 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
         case WLContributionStatusInProgress:
             if (failure) failure([NSError errorWithDescription:@"Photo is uploading, wait a moment..."]);
             break;
-        case WLContributionStatusUploaded:
-            return [[WLDeleteCandyRequest request:self] send:success failure:failure];
-            break;
+        case WLContributionStatusUploaded: {
+            [UIAlertView showWithTitle:@"Delete photo"
+                               message:@"Are you sure you want to delete this photo?"
+                               buttons:@[@"Cancel",@"OK"]
+                            completion:^(NSUInteger index) {
+                                if (index == 1) {
+                                    [[WLDeleteCandyRequest request:self] send:success failure:failure];
+                                } else if (failure) {
+                                    failure(nil);
+                                }
+                            }];
+        } break;
         default:
             break;
     }

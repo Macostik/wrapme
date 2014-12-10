@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+static const NSTimeInterval WLTimeIntervalMinute = 60;
+static const NSTimeInterval WLTimeIntervalHour = 3600;
+static const NSTimeInterval WLTimeIntervalDay = 86400;
+static const NSTimeInterval WLTimeIntervalWeek = 604800;
+
 @interface NSDate (Additions)
 
 @property (readonly, nonatomic) NSString* timeAgoString;

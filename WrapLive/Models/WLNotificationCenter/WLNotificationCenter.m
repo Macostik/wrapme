@@ -25,11 +25,15 @@
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
 
+#define WLPubNubInactiveStateDuration 20*60
+
 @interface WLNotificationCenter () <PNDelegate>
 
 @property (strong, nonatomic) WLNotificationChannel* userChannel;
 
 @property (strong, nonatomic) NSDate* historyDate;
+
+@property (strong, nonatomic) NSDate* resignActiveDate;
 
 @end
 
@@ -44,6 +48,25 @@
 		instance = [[self alloc] init];
 	});
     return instance;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        __weak typeof(self)weakSelf = self;
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+            weakSelf.resignActiveDate = [NSDate now];
+        }];
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+            if (weakSelf.resignActiveDate &&
+                weakSelf.userChannel.subscribed &&
+                ABS([weakSelf.resignActiveDate timeIntervalSinceDate:[NSDate now]]) > WLPubNubInactiveStateDuration) {
+                [weakSelf performSelector:@selector(requestHistory) withObject:nil afterDelay:0.5f];
+                weakSelf.resignActiveDate = nil;
+            }
+        }];
+    }
+    return self;
 }
 
 - (NSDate *)historyDate {

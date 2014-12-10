@@ -5644,6 +5644,7 @@
 		};
 		12A7A73018DA0946008FF6F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

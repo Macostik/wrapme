@@ -17,7 +17,6 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "UIView+Shorthand.h"
 #import "WLAPIManager.h"
-#import "WLActionViewController.h"
 #import "WLCandiesRequest.h"
 #import "WLCandy.h"
 #import "WLCandyViewController.h"

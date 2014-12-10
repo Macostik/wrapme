@@ -9,13 +9,11 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
 #import "AsynchronousOperation.h"
-#import "WLActionViewController.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIImage+Resize.h"
 #import "UIView+AnimationHelper.h"
 #import "UIView+Shorthand.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "WLActionViewController.h"
 #import "WLAssetsGroupViewController.h"
 #import "WLEntryManager.h"
 #import "WLImageFetcher.h"
@@ -32,11 +30,9 @@
 
 static CGFloat WLBottomViewHeight = 92.0f;
 
-@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate,
-                                            UINavigationControllerDelegate, WLPickerViewDelegate, WLCreateWrapDelegate>
+@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) UINavigationController* cameraNavigationController;
-@property (weak, nonatomic) WLPickerViewController *pickerViewController;
 @property (weak, nonatomic) AFPhotoEditorController* aviaryController;
 
 @property (weak, nonatomic) IBOutlet UIView* wrapView;
@@ -44,8 +40,6 @@ static CGFloat WLBottomViewHeight = 92.0f;
 @property (weak, nonatomic) IBOutlet WLImageView *wrapCoverView;
 
 @property (strong, nonatomic) WLImageBlock editBlock;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomAlignment;
-@property (strong, nonatomic) IBOutlet UIButton *lockButton;
 
 @property (weak, nonatomic) WLCameraViewController *cameraViewController;
 
@@ -274,85 +268,9 @@ static CGFloat WLBottomViewHeight = 92.0f;
 #pragma mark - PickerViewController action
 
 - (IBAction)chooseWrap:(UIButton *)sender {
-    __weak __typeof(self)weakSelf = self;
-    if (self.pickerViewController != nil) {
-        return;
+    if ([self.delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
+        [self.delegate stillPictureViewController:self didSelectWrap:self.wrap];
     }
-    WLPickerViewController *pickerViewController = [WLPickerViewController initWithWrap:self.wrap
-                                                                               delegate:self
-                                                                         selectionBlock:^(WLWrap *wrap) {
-                                                                             weakSelf.wrap = wrap;
-    }];
-    self.pickerViewController = pickerViewController;
-    [self appearPickerViewController];
-}
-
-- (void)hidePickerViewController {
-    [self unlockUI];
-    UIView *view = self.pickerViewController.view;
-    [UIView animateWithDuration:.33 animations:^{
-        view.transform = CGAffineTransformIdentity;
-    }completion:^(BOOL finished) {
-        [view removeFromSuperview];
-        [self.pickerViewController removeFromParentViewController];
-        self.pickerViewController = nil;
-    }];
-}
-
-- (void)appearPickerViewController {
-    [self lockUI];
-    UIView *view = self.pickerViewController.view;
-    [self addChildViewController:self.pickerViewController];
-    view.origin = (CGPoint){self.view.x, self.view.height};
-    view.width = self.view.width;
-    [self.view addSubview:view];
-    [self didMoveToParentViewController:self.pickerViewController];
-    [UIView animateWithDuration:.33 animations:^{
-        view.transform = CGAffineTransformMakeTranslation(.0f, -WLBottomViewHeight - self.wrapView.height - view.height);
-    }];
-}
-
-- (void)lockUI {
-    [self.view bringSubviewToFront:self.lockButton];
-}
-
-- (void)unlockUI {
-    [self.view sendSubviewToBack:self.lockButton];
-}
-
-- (IBAction)unlockButtonClick:(id)sender {
-    [self hidePickerViewController];
-    [self unlockUI];
-}
-
-#pragma mark - WLPickerViewDelegate 
-
-- (void)pickerViewController:(WLPickerViewController *)pickerViewController newWrapClick:(UIView *)sender {
-    [self willCreateWrapFromPicker:YES];
-}
-
-#pragma mark - WLCreateWrapDelegate
-
-- (void)willCreateWrapFromPicker:(BOOL)flag {
-    __weak WLCreateWrapViewController *childViewController = [WLActionViewController addViewControllerByClass:
-                                                              [WLCreateWrapViewController class] toParentViewController:self];
-    childViewController.delegate = self;
-    __weak __typeof(self)weakSelf = self;
-    [childViewController setCancelHandler:^{
-        if (flag) {
-            [childViewController removeAnimateViewFromSuperView];
-        } else if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewControllerDidCancel:)] ) {
-            [weakSelf.delegate performSelector:@selector(stillPictureViewControllerDidCancel:) withObject:self];
-        } else {
-            [self dismissViewControllerAnimated:YES completion:NULL];
-        }
-    }];
-}
-
-- (void)wlCreateWrapViewController:(WLCreateWrapViewController *)viewController didCreateWrap:(WLWrap *)wrap {
-    viewController.view.hidden = YES;
-    [self hidePickerViewController];
-    self.wrap = wrap;
 }
 
 @end

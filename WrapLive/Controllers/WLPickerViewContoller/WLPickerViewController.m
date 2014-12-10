@@ -25,7 +25,6 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
 
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (strong, nonatomic) NSOrderedSet *entries;
-@property (strong, nonatomic) WLWrapBlock selectBlock;
 @property (strong, nonatomic) WLWrap *selectedWrap;
 @property (strong, nonatomic) UITapGestureRecognizer *tapGesture;
 
@@ -44,13 +43,18 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
     return self;
 }
 
-+ (instancetype)initWithWrap:(WLWrap *)wrap delegate:(id)delegate selectionBlock:(WLWrapBlock)block {
-    WLPickerViewController *pickerViewController = [[self alloc] initWithWrap:wrap delegate:delegate];
-    pickerViewController.selectBlock = block;
-    return pickerViewController;
++ (BOOL)isEmbeddedDefaultValue {
+    return YES;
+}
+
+- (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
+    if([self.delegate respondsToSelector:@selector(pickerViewControllerDidCancel:)]) {
+        [self.delegate pickerViewControllerDidCancel:self];
+    }
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     self.tapGesture.delegate = self;
     [self.pickerView addGestureRecognizer:self.tapGesture];
@@ -114,10 +118,10 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
 #pragma mark - WLPickerViewController Action
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    if (!row)return;
-    if (self.selectBlock) {
-        self.selectedWrap = self.entries[row -1];
-        self.selectBlock(self.entries[row - 1]);
+    if (!row) return;
+    self.selectedWrap = self.entries[row -1];
+    if ([self.delegate respondsToSelector:@selector(pickerViewController:didSelectWrap:)]) {
+        [self.delegate pickerViewController:self didSelectWrap:self.selectedWrap];
     }
 }
 
@@ -127,8 +131,8 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
     UIView *createWrapCell = [self.pickerView viewForRow:0 forComponent:0];
     CGPoint touchPoint = [gesture locationInView:createWrapCell];
     if (CGRectContainsPoint(createWrapCell.frame, touchPoint)) {
-        if([self.delegate respondsToSelector:@selector(pickerViewController: newWrapClick:)]) {
-            [self.delegate pickerViewController:self newWrapClick:createWrapCell];
+        if([self.delegate respondsToSelector:@selector(pickerViewControllerNewWrapClicked:)]) {
+            [self.delegate pickerViewControllerNewWrapClicked:self];
         }
     }
 }

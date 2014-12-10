@@ -7,7 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLCandyOptionsViewController">
             <connections>
-                <outlet property="cancelButton" destination="EXZ-bL-z3c" id="9kd-0e-sto"/>
                 <outlet property="deleteButton" destination="vgS-hG-nic" id="pgh-gG-JMn"/>
                 <outlet property="downloadButton" destination="cre-ic-Q0A" id="LgF-nx-nTH"/>
                 <outlet property="titleLabel" destination="eqx-TC-X8U" id="QfK-tr-zjH"/>
@@ -15,7 +14,7 @@
             </connections>
         </placeholder>
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GWD-KK-Hlx" userLabel="Content View">
-            <rect key="frame" x="0.0" y="0.0" width="240" height="159"/>
+            <rect key="frame" x="0.0" y="0.0" width="240" height="123"/>
             <subviews>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose an action" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqx-TC-X8U">
                     <rect key="frame" x="8" y="0.0" width="224" height="44"/>
@@ -75,36 +74,18 @@
                         <action selector="deleteCandy:" destination="-1" eventType="touchUpInside" id="Nev-8Q-ZXu"/>
                     </connections>
                 </button>
-                <button opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EXZ-bL-z3c" customClass="WLPressButton">
-                    <rect key="frame" x="8" y="115" width="224" height="44"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="44" id="HRf-hu-Bck"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="Cancel">
-                        <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="removeFromController:" destination="-1" eventType="touchUpInside" id="SMc-bV-LX2"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="vgS-hG-nic" secondAttribute="trailing" constant="8" id="5og-3Y-2ro"/>
-                <constraint firstAttribute="trailing" secondItem="EXZ-bL-z3c" secondAttribute="trailing" constant="8" id="HmV-yf-nb4"/>
-                <constraint firstItem="EXZ-bL-z3c" firstAttribute="top" secondItem="vgS-hG-nic" secondAttribute="bottom" id="L2J-CS-VS7"/>
                 <constraint firstItem="eqx-TC-X8U" firstAttribute="leading" secondItem="GWD-KK-Hlx" secondAttribute="leading" constant="8" id="MwN-As-bnR"/>
+                <constraint firstAttribute="bottom" secondItem="vgS-hG-nic" secondAttribute="bottom" constant="8" id="XCy-nd-Vvj"/>
                 <constraint firstItem="cre-ic-Q0A" firstAttribute="leading" secondItem="GWD-KK-Hlx" secondAttribute="leading" constant="8" id="g7O-Y1-Gue"/>
                 <constraint firstAttribute="trailing" secondItem="cre-ic-Q0A" secondAttribute="trailing" constant="8" id="g94-yg-1rJ"/>
                 <constraint firstItem="vgS-hG-nic" firstAttribute="leading" secondItem="GWD-KK-Hlx" secondAttribute="leading" constant="8" id="gov-ql-GSF"/>
                 <constraint firstItem="vgS-hG-nic" firstAttribute="top" secondItem="cre-ic-Q0A" secondAttribute="bottom" constant="10" id="kdW-rZ-r0T"/>
-                <constraint firstItem="EXZ-bL-z3c" firstAttribute="leading" secondItem="GWD-KK-Hlx" secondAttribute="leading" constant="8" id="mWa-Is-htC"/>
                 <constraint firstAttribute="trailing" secondItem="eqx-TC-X8U" secondAttribute="trailing" constant="8" id="q8U-4y-Cm3"/>
-                <constraint firstAttribute="bottom" secondItem="EXZ-bL-z3c" secondAttribute="bottom" id="qYz-fy-Zel"/>
-                <constraint firstAttribute="bottom" secondItem="eqx-TC-X8U" secondAttribute="bottom" constant="115" id="tnc-Yb-nSG"/>
+                <constraint firstItem="cre-ic-Q0A" firstAttribute="top" secondItem="eqx-TC-X8U" secondAttribute="bottom" constant="1" id="rzd-Az-HK9"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

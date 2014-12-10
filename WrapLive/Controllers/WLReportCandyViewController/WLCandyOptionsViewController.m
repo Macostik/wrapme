@@ -31,16 +31,19 @@ static NSString *const WLReport = @"Report";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self.deleteButton setTitle:[self isMyCandy] ? WLDelete : WLReport forState:UIControlStateNormal];
     self.downloadButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
+}
+
++ (BOOL)isEmbeddedDefaultValue {
+    return YES;
 }
 
 - (BOOL)isMyCandy {
     return [self.candy.contributor isCurrentUser] || [self.candy.wrap.contributor isCurrentUser];
 }
 
-- (IBAction)removeFromController:(id)sender {
+- (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

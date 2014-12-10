@@ -269,6 +269,7 @@
 		5BBBEB5419D98421008CFE54 /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBBEB5219D98421008CFE54 /* WLSignificantTimeBroadcaster.m */; };
 		5BBBEB5519D98421008CFE54 /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBBEB5219D98421008CFE54 /* WLSignificantTimeBroadcaster.m */; };
 		5BBBEB5619D98421008CFE54 /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBBEB5219D98421008CFE54 /* WLSignificantTimeBroadcaster.m */; };
+		5BE4EAB11A38954C007F4842 /* WLArchivingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 128886B018DC90E000957B22 /* WLArchivingObject.m */; };
 		5BF5833A1A1F745600922BD5 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewTimeline.xib */; };
 		5BF5833E1A1F983B00922BD5 /* ic_quote.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF5833B1A1F983B00922BD5 /* ic_quote.png */; };
 		5BF5833F1A1F983B00922BD5 /* ic_quote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF5833C1A1F983B00922BD5 /* ic_quote@2x.png */; };
@@ -5137,6 +5138,7 @@
 				5BA9EF301A28849700340784 /* WLExtensionCell.m in Sources */,
 				5B2F71A31A2E03180019FC57 /* WLCryptographer.m in Sources */,
 				5BA8D3861A3068E600A877D3 /* WLComments.m in Sources */,
+				5BE4EAB11A38954C007F4842 /* WLArchivingObject.m in Sources */,
 				5BA9EF331A28867000340784 /* WLPost.m in Sources */,
 				5B2F71A61A2E03C70019FC57 /* WLExtensionManager.m in Sources */,
 				5BA8D3881A3076A900A877D3 /* NSDate+Formatting.m in Sources */,

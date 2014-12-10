@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WLArchivingObject.h"
 
-@interface WLComments : NSObject
+@interface WLComments : WLArchivingObject
 
 @property (strong, nonatomic) NSString *identifier;
 @property (strong, nonatomic) NSString *contributorName;

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WLComments.h"
 
-@interface WLPost : NSObject
+@interface WLPost : WLArchivingObject
 
 @property (strong, nonatomic) NSData *image;
 @property (strong, nonatomic) NSString *wrapName;
@@ -17,6 +17,8 @@
 @property (strong, nonatomic) NSDate *time;
 @property (strong, nonatomic) NSString *contributor;
 @property (strong, nonatomic) NSString *identifier;
+@property (strong, nonatomic) NSString *lastTouch;
+
 @property (strong, nonatomic) WLComments *comment;
 
 + (id)initWithAttributes:(NSDictionary *)attributes;

@@ -12,6 +12,7 @@
 #import "NSArray+Additions.h"
 #import "NSString+Additions.h"
 #import "NSError+WLAPIManager.h"
+#import "NSDictionary+Extended.h"
 
 @implementation WLAPIEnvironment
 

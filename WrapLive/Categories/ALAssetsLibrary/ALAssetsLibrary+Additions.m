@@ -84,95 +84,114 @@ static NSDate *lastAssetCreationDate = nil;
     } failure:failure];
 }
 
-- (void)assets:(void (^)(NSArray *))finish failure:(ALAssetsLibraryAccessFailureBlock)failure {
-	NSMutableArray *assets = [NSMutableArray array];
-	
-	ALAssetsLibraryGroupsEnumerationResultsBlock resultBlock = ^(ALAssetsGroup *group, BOOL *stop) {
-		[group setAssetsFilter:[ALAssetsFilter allPhotos]];
-		[group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock: ^(ALAsset *result, NSUInteger index, BOOL *stop) {
-		    if (result)
-				[assets addObject:result];
-		}];
-		
-		if (group == nil) {
-			dispatch_async(dispatch_get_main_queue(), ^{
-			    finish(assets);
-			});
-		}
-	};
-	
-	[[ALAssetsLibrary library] enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos
-	                                         usingBlock:resultBlock failureBlock:failure];
++ (void)addDemoImages:(NSUInteger)count {
+    ALAssetsLibrary *l = [[ALAssetsLibrary alloc] init];
+    run_loop(count,^(NSUInteger i){
+        NSString* url = i % 2 == 0 ? @"https://placeimg.com/640/1136/any" : @"https://placeimg.com/1136/640/any";
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [l saveImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] toAlbum:@"for testing" completion:^(NSURL *assetURL, NSError *error) {
+                
+            } failure:^(NSError *error) {
+                
+            }];
+        });
+    });
 }
 
-- (void)groups:(void (^)(NSArray *))groupsBlock assets:(void (^)(NSArray *))assetsBlock failure:(ALAssetsLibraryAccessFailureBlock)failure {
-	NSMutableArray *groups = [NSMutableArray array];
-	NSMutableArray *assets = [NSMutableArray array];
-	
-	[self enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock: ^(ALAssetsGroup *group, BOOL *stop) {
-	    if (group) {
-	        [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-			
-	        if (group.numberOfAssets > 0) {
-	            [groups addObject:group];
-				
-	            if ([[group valueForProperty:ALAssetsGroupPropertyType] integerValue] == ALAssetsGroupSavedPhotos) {
-	                [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock: ^(ALAsset *result, NSUInteger index, BOOL *stop) {
-	                    if (result) {
-	                        [assets addObject:result];
-						} else {
-	                        dispatch_async(dispatch_get_main_queue(), ^{
-	                            assetsBlock([NSArray arrayWithArray:assets]);
-							});
-						}
-					}];
-				}
-			}
-		}
-	    else {
-	        dispatch_async(dispatch_get_main_queue(), ^{
-	            groupsBlock([NSArray arrayWithArray:groups]);
-			});
-		}
-	} failureBlock: ^(NSError *error) {
-	    dispatch_async(dispatch_get_main_queue(), ^{
-	        failure(error);
-		});
-	}];
+#pragma mark - Public Methods
+
+- (void)saveImage:(UIImage *)image toAlbum:(NSString *)albumName completion:(ALAssetsLibraryWriteImageCompletionBlock)completion
+          failure:(ALAssetsLibraryAccessFailureBlock)failure {
+    [self writeImageToSavedPhotosAlbum:image.CGImage
+                           orientation:(ALAssetOrientation)image.imageOrientation
+                       completionBlock:[self _resultBlockOfAddingToAlbum:albumName
+                                                              completion:completion
+                                                                 failure:failure]];
 }
 
-- (void)group:(void (^)(ALAssetsGroup *))groupBlock asset:(void (^)(ALAsset *))assetBlock finish:(void (^)(void))finish failure:(ALAssetsLibraryAccessFailureBlock)failure {
-	ALAssetsLibraryGroupsEnumerationResultsBlock resultBlock = ^(ALAssetsGroup *group, BOOL *stop) {
-		[group setAssetsFilter:[ALAssetsFilter allPhotos]];
-		
-		if (group && [group numberOfAssets] > 0) {
-			groupBlock(group);
-			[group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock: ^(ALAsset *result, NSUInteger index, BOOL *stop) {
-			    if (result)
-					assetBlock(result);
-			}];
-		}
-	};
-	
-	[[ALAssetsLibrary library] enumerateGroupsWithTypes:ALAssetsGroupAll
-	                                         usingBlock:resultBlock failureBlock:failure];
+- (void)saveImage:(UIImage *)image toAlbum:(NSString *)albumName metadata:(NSDictionary *)metadata completion:(ALAssetsLibraryWriteImageCompletionBlock)completion failure:(ALAssetsLibraryAccessFailureBlock)failure {
+    [self writeImageToSavedPhotosAlbum:image.CGImage metadata:metadata completionBlock:[self _resultBlockOfAddingToAlbum:albumName
+                                                                                                              completion:completion
+                                                                                                                 failure:failure]];
+    
 }
 
-- (void)groupWithUrl:(NSURL *)url finish:(void (^)(ALAssetsGroup *))finish failure:(ALAssetsLibraryAccessFailureBlock)failure {
-	[self groups: ^(NSArray *groups) {
-	    ALAssetsGroup *result = nil;
-		
-	    for (ALAssetsGroup * group in groups) {
-	        if ([url isEqual:group.url]) {
-	            result = group;
-	            break;
-			}
-		}
-		
-	    dispatch_async(dispatch_get_main_queue(), ^{
-	        finish(result);
-		});
-	} failure:failure];
+- (void)saveImageData:(NSData *)imageData toAlbum:(NSString *)albumName metadata:(NSDictionary *)metadata completion:(ALAssetsLibraryWriteImageCompletionBlock)completion failure:(ALAssetsLibraryAccessFailureBlock)failure {
+    [self writeImageDataToSavedPhotosAlbum:imageData
+                                  metadata:metadata
+                           completionBlock:[self _resultBlockOfAddingToAlbum:albumName
+                                                                  completion:completion
+                                                                     failure:failure]];
+    
+}
+
+#pragma mark - Private Methods
+
+-(void)_addAssetURL:(NSURL *)assetURL toAlbum:(NSString *)albumName failure:(ALAssetsLibraryAccessFailureBlock)failure {
+    __block BOOL albumWasFound = NO;
+    
+    ALAssetsLibraryGroupsEnumerationResultsBlock enumerationBlock;
+    enumerationBlock = ^(ALAssetsGroup *group, BOOL *stop) {
+        
+        if ([albumName compare:[group valueForProperty:ALAssetsGroupPropertyName]] == NSOrderedSame) {
+            albumWasFound = YES;
+            
+            [self assetForURL:assetURL
+                  resultBlock:^(ALAsset *asset) {
+                      [group addAsset:asset];
+                      lastAssetCreationDate = [asset valueForProperty:ALAssetPropertyDate];
+                  }
+                 failureBlock:failure];
+            
+            return;
+        }
+        
+        if (group == nil && albumWasFound == NO) {
+            ALAssetsLibrary * weakSelf = self;
+            
+            if (![self respondsToSelector:@selector(addAssetsGroupAlbumWithName:resultBlock:failureBlock:)]) {
+                NSLog(@"![WARNING][LIB:ALAssetsLibrary+CustomPhotoAlbum]: \
+                      |-addAssetsGroupAlbumWithName:resultBlock:failureBlock:| \
+                      only available on iOS 5.0 or later. \
+                      ASSET cannot be saved to album!");
+            } else {
+                [self addAssetsGroupAlbumWithName:albumName
+                                      resultBlock:^(ALAssetsGroup *group) {
+                                          [weakSelf assetForURL:assetURL
+                                                    resultBlock:^(ALAsset *asset) {
+                                                        [group addAsset:asset];
+                                                        lastAssetCreationDate = [asset valueForProperty:ALAssetPropertyDate];
+                                                    }
+                                                   failureBlock:failure];
+                                      }
+                                     failureBlock:failure];
+            }
+            
+            return;
+        }
+    };
+    
+    [self enumerateGroupsWithTypes:ALAssetsGroupAlbum
+                        usingBlock:enumerationBlock
+                      failureBlock:failure];
+}
+
+- (ALAssetsLibraryWriteImageCompletionBlock)_resultBlockOfAddingToAlbum:(NSString *)albumName completion:(ALAssetsLibraryWriteImageCompletionBlock)completion failure:(ALAssetsLibraryAccessFailureBlock)failure {
+    ALAssetsLibraryWriteImageCompletionBlock result = ^(NSURL *assetURL, NSError *error) {
+        if (completion) {
+            completion(assetURL, error);
+        }
+        
+        if (error) {
+            return;
+        }
+        
+        [self _addAssetURL:assetURL
+                   toAlbum:albumName
+                   failure:failure];
+    };
+    
+    return [result copy];
 }
 
 @end

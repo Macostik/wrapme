@@ -7,7 +7,7 @@
 //
 
 #import "ALAssetsLibrary+Additions.h"
-#import "ALAssetsLibrary+CustomPhotoAlbum.h"
+#import "ALAssetsLibrary+Additions.h"
 #import "AsynchronousOperation.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIImage+Resize.h"
@@ -46,11 +46,6 @@ static CGFloat WLBottomViewHeight = 92.0f;
 @end
 
 @implementation WLStillPictureViewController
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.editable = YES;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -152,11 +147,7 @@ static CGFloat WLBottomViewHeight = 92.0f;
         }
     };
     
-    if (self.editable) {
-        [self editImage:image completion:finishBlock];
-    } else {
-        finishBlock(image);
-    }
+    [self editImage:image completion:finishBlock];
 }
 
 - (void)editImage:(UIImage*)image completion:(WLImageBlock)completion {

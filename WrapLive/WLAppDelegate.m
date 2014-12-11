@@ -18,7 +18,7 @@
 #import "WLMenu.h"
 #import "WLNavigation.h"
 #import "NSPropertyListSerialization+Shorthand.h"
-#import "ALAssetsLibrary+CustomPhotoAlbum.h"
+#import "ALAssetsLibrary+Additions.h"
 #import "UIColor+CustomColors.h"
 #import "UIImage+Drawing.h"
 #import "NSObject+NibAdditions.h"
@@ -53,6 +53,11 @@
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
+    run_after(0.5f, ^{
+        [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
+        }];
+    });
+    
 	return YES;
 }
 
@@ -70,6 +75,24 @@
         if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
     } failure:^(NSError *error) {
         if (completionHandler) completionHandler(UIBackgroundFetchResultFailed);
+    }];
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    if (![WLAuthorizationRequest authorized]) {
+        completionHandler(UIBackgroundFetchResultFailed);
+        return;
+    }
+    [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
+        if (hasChanges) {
+            UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
+            photoNotification.alertBody = @"Got new photos? Upload them to your wraps now!";
+            photoNotification.fireDate = [[NSDate date] dateByAddingTimeInterval:3];
+            photoNotification.alertAction = @"Upload";
+            photoNotification.repeatInterval = 0;
+            [application scheduleLocalNotification:photoNotification];
+        }
+        completionHandler(hasChanges ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
     }];
 }
 

@@ -170,8 +170,6 @@
     switch (type) {
         case WLNotificationContributorAdd:
         case WLNotificationMessageAdd:
-            return YES;
-            break;
         case WLNotificationCommentAdd:
             return self.targetEntry.notifiable;
             break;
@@ -195,6 +193,14 @@
 
 - (BOOL)notifiable {
     return NO;
+}
+
+@end
+
+@implementation WLContribution (WLNotification)
+
+- (BOOL)notifiable {
+    return ![self.contributor isCurrentUser];
 }
 
 @end
@@ -244,6 +250,7 @@
 @implementation WLComment (WLNotification)
 
 - (BOOL)notifiable {
+    if ([self.contributor isCurrentUser]) return NO;
     WLCandy *candy = self.candy;
     if ([candy.contributor isCurrentUser]) {
         return YES;

@@ -58,6 +58,10 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 @end
 
+@interface WLContribution (WLNotification)
+
+@end
+
 @interface WLUser (WLNotification)
 
 @end

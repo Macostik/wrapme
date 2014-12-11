@@ -13,6 +13,7 @@
 #import "UIDevice-Hardware.h"
 #import "WLCryptographer.h"
 #import "NSDictionary+Extended.h"
+#import "WLTelephony.h"
 
 static NSString *const WLUserDefaultsExtensionKey = @"group.com.ravenpod.wraplive";
 static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
@@ -38,7 +39,7 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
 }
 
 - (BOOL)canSignUp {
-    return self.countryCode.nonempty && self.phone.nonempty && self.email.nonempty;
+    return self.email.nonempty;
 }
 
 - (BOOL)canAuthorize {

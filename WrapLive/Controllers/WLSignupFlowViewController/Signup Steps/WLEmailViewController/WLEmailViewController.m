@@ -11,10 +11,14 @@
 #import "WLAuthorizationRequest.h"
 #import "WLTelephony.h"
 #import "WLButton.h"
+#import "WLTestUserPicker.h"
+#import "UIAlertView+Blocks.h"
+#import "WLNavigation.h"
 
 @interface WLEmailViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
+@property (weak, nonatomic) IBOutlet UIButton *testAccountButton;
 
 @end
 
@@ -34,6 +38,8 @@
             
         }];
     }
+    
+    self.testAccountButton.hidden = ![WLAPIManager instance].environment.useTestUsers;
 }
 
 - (IBAction)next:(WLButton*)sender {
@@ -55,6 +61,27 @@
         }
     } failure:^(NSError *error) {
         sender.loading = NO;
+    }];
+}
+
+- (IBAction)useTestAccount:(id)sender {
+    [WLTestUserPicker showInView:self.view.window selection:^(WLAuthorization *authorization) {
+        NSString* confirmationMessage = [NSString stringWithFormat:@"%@\n%@\nIs this correct?",[authorization fullPhoneNumber], [authorization email]];
+        [UIAlertView showWithTitle:@"Confirm your details" message:confirmationMessage buttons:@[@"Edit",@"Yes"] completion:^(NSUInteger index) {
+            if (index == 1) {
+                if (authorization.password.nonempty) {
+                    [authorization signIn:^(WLUser *user) {
+                        [[UIStoryboard storyboardNamed:WLMainStoryboard] present:NO];
+                    } failure:^(NSError *error) {
+                        [error show];
+                    }];
+                } else {
+                    
+                }
+            } else {
+                
+            }
+        }];
     }];
 }
 

@@ -16,33 +16,41 @@
 #import "UIView+Shorthand.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
+#import "TTTAttributedLabel.h"
 
-@interface WLNotificationCell ()
+@interface WLNotificationCell () <TTTAttributedLabelDelegate>
 
 @property (weak, nonatomic) IBOutlet WLImageView *pictureView;
-@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *inWrapLabel;
-@property (weak, nonatomic) IBOutlet UITextView *commentTextView;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *userNameLabel;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *inWrapLabel;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *commentTextView;
 @property (weak, nonatomic) IBOutlet WLImageView *wrapImageView;
 
 @end
 
 @implementation WLNotificationCell
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.commentTextView.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    self.userNameLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
+    self.inWrapLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentBottom;
+}
+
 - (void)setup:(WLComment*)comment {
     self.pictureView.url = comment.contributor.picture.small;
     self.wrapImageView.url = comment.candy.picture.small;
     self.userNameLabel.text = [NSString stringWithFormat:@"%@  %@",comment.contributor.name, comment.createdAt.timeAgoString];
-    self.commentTextView.textContainerInset = UIEdgeInsetsMake(-3, 0, 0, 0);
-    [self.commentTextView determineHyperLink:[NSString stringWithFormat:@"\"%@\"", comment.text]];
-    [self checkHeight];
-    self.inWrapLabel.y = CGRectGetMaxY(self.commentTextView.frame);
-    self.inWrapLabel.text = [NSString stringWithFormat:@"in Wrap : \"%@\"", comment.candy.wrap.name];
+    self.commentTextView.text = [NSString stringWithFormat:@"\"%@\"", comment.text];
+    self.inWrapLabel.text = [NSString stringWithFormat:@"in Wrap: \"%@\"", comment.candy.wrap.name];
 }
 
-- (void)checkHeight {
-    CGFloat height = [self.commentTextView sizeThatFits:CGSizeMake(self.commentTextView.width, CGFLOAT_MAX)].height;
-    self.commentTextView.height = height;
+#pragma mark - TTTAttributedLabelDelegate
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+        [[UIApplication sharedApplication] openURL:url];
+    }
 }
 
 @end

@@ -9,14 +9,14 @@
 #import "WLNotificationCollectionViewSection.h"
 #import "UIFont+CustomFonts.h"
 #import "WLCommentCell.h"
+#import "NSString+Additions.h"
 
 @implementation WLNotificationCollectionViewSection
 
 - (CGSize)size:(NSIndexPath*)indexPath {
-    WLComment *comment = [self.entries.entries objectAtIndex:indexPath.row];
-    CGSize size = [comment.text sizeWithAttributes:@{NSFontAttributeName : [UIFont lightFontOfSize:13.0f]}];
-    int height = size.height * ceilf(size.width/WLCommentTextViewLenght) + WLIndent;
-    return CGSizeMake(self.collectionView.bounds.size.width, height);
+    WLComment *comment = [self.entries.entries objectAtIndex:indexPath.item];
+    CGFloat textHeight = [comment.text heightWithFont:[UIFont lightFontOfSize:13.0f] width:[UIScreen mainScreen].bounds.size.width - WLNotificationCommentHorizontalSpacing cachingKey:"notificationCommentHeight"];
+    return CGSizeMake(self.collectionView.bounds.size.width, textHeight + WLNotificationCommentVerticalSpacing);
 }
 
 @end

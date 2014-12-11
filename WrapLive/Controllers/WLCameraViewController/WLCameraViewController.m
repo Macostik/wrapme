@@ -21,6 +21,7 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "WLImageFetcher.h"
 #import "WLWrap.h"
+#import "WLToast.h"
 
 @interface WLCameraView : UIView
 
@@ -61,7 +62,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewConstraint;
 
 @end
 
@@ -79,18 +79,22 @@
         [self.view layoutIfNeeded];
 	}
 	
-	self.position = self.defaultPosition;
 	self.flashMode = AVCaptureFlashModeOff;
 	self.flashModeControl.mode = self.flashMode;
-	
-	self.cameraView.layer.session = self.session;
-	
-	[self performSelector:@selector(start) withObject:nil afterDelay:0.0];
+    
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (status == AVAuthorizationStatusAuthorized) {
+        self.cameraView.layer.session = self.session;
+        [self performSelector:@selector(start) withObject:nil afterDelay:0.0];
+    } else {
+        self.takePhotoButton.active = NO;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	self.takePhotoButton.active = YES;
+    self.position = self.defaultPosition;
+    
 }
 
 #pragma mark - User Actions
@@ -189,7 +193,12 @@
         if ([deviceInput isFocusModeSupported:AVCaptureFocusModeAutoFocus])
             deviceInput.focusMode = AVCaptureFocusModeAutoFocus;
         [deviceInput unlockForConfiguration];
-        return [AVCaptureDeviceInput deviceInputWithDevice:deviceInput error:NULL];
+        NSError *error = nil;
+        id input =  [AVCaptureDeviceInput deviceInputWithDevice:deviceInput error:&error];
+        if (error) {
+            [WLToast showWithMessage:error.localizedFailureReason];
+        }
+        return input;
     }
     return nil;
 }

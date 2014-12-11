@@ -75,6 +75,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     
 	[[WLUser notifier] addReceiver:self];
 	[[WLWrap notifier] addReceiver:self];
+    [[WLComment notifier] addReceiver:self];
 	
     [[WLNotificationCenter defaultCenter] addReceiver:self];
     

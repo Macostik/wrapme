@@ -10,3 +10,6 @@ typedef NS_ENUM(NSInteger, WLStillPictureMode) {
     WLStillPictureModeDefault,
     WLStillPictureModeSquare
 };
+
+static CGFloat WLStillPictureCameraBottomViewHeight = 92.0f;
+static CGFloat WLStillPictureBottomViewHeight = 128.0f;

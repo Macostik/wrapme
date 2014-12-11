@@ -17,11 +17,12 @@
 #import "WLWrapCell.h"
 #import "NSString+Additions.h"
 #import "UIView+GestureRecognizing.h"
+#import "WLStillPictureMode.h"
 
 static NSString *const WLPickerViewCell = @"WLPickerViewCell";
 static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
 
-@interface WLPickerViewController () <UIGestureRecognizerDelegate>
+@interface WLPickerViewController () <UIGestureRecognizerDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (strong, nonatomic) NSOrderedSet *entries;
@@ -45,6 +46,13 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
 
 + (BOOL)isEmbeddedDefaultValue {
     return YES;
+}
+
+- (void)addEmbeddingConstraintsToContentView:(UIView *)contentView inView:(UIView *)view {
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:contentView attribute:NSLayoutAttributeLeading multiplier:1 constant:0]];
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:contentView attribute:NSLayoutAttributeTrailing multiplier:1 constant:0]];
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:WLStillPictureBottomViewHeight]];
+    [contentView addConstraint:[NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:contentView.bounds.size.height]];
 }
 
 - (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
@@ -98,21 +106,22 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
 #pragma mark - UIPickerViewDelegate
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
-    WLWrapCell *pickerCell = nil;
     if (!row) {
-        pickerCell = [UIView loadFromNibNamed:WLCreateWrapCell ownedBy:self];
-        pickerCell.width = self.view.width;
+        return [UIView loadFromNibNamed:WLCreateWrapCell ownedBy:self];
     } else {
         WLWrap *wrap = self.entries[row - 1];
-        pickerCell = [WLWrapCell loadFromNibNamed:WLPickerViewCell];
-        pickerCell.width = self.view.width;
+        WLWrapCell *pickerCell = [WLWrapCell loadFromNibNamed:WLPickerViewCell];
         pickerCell.entry = wrap;
+        return pickerCell;
     }
-    return pickerCell;
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
     return 44.0f;
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    return self.view.width;
 }
 
 #pragma mark - WLPickerViewController Action

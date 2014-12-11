@@ -31,6 +31,8 @@
 
 - (void)embeddingViewTapped:(UITapGestureRecognizer*)sender;
 
+- (void)addEmbeddingConstraintsToContentView:(UIView*)contentView inView:(UIView*)view;
+
 - (void)awakeAfterInit;
 
 - (UINib*)placeholderViewNib;

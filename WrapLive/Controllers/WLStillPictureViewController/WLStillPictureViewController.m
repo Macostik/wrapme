@@ -28,8 +28,6 @@
 #import "WLCameraViewController.h"
 #import "UIImage+Drawing.h"
 
-static CGFloat WLBottomViewHeight = 92.0f;
-
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) UINavigationController* cameraNavigationController;
@@ -69,7 +67,7 @@ static CGFloat WLBottomViewHeight = 92.0f;
 - (void)setTranslucent:(BOOL)translucent animated:(BOOL)animated {
     UIColor* color = [self.wrapView.backgroundColor colorWithAlphaComponent:translucent ? 0.5f : 1.0f];
     self.wrapView.backgroundColor = color;
-    self.wrapView.transform = translucent ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(.0, WLBottomViewHeight);
+    self.wrapView.transform = translucent ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(.0, WLStillPictureCameraBottomViewHeight);
     [self.wrapView fade];
 }
 

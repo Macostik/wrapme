@@ -21,6 +21,7 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "WLImageFetcher.h"
 #import "WLWrap.h"
+#import "WLToast.h"
 
 @interface WLCameraView : UIView
 
@@ -78,7 +79,6 @@
         [self.view layoutIfNeeded];
 	}
 	
-	self.position = self.defaultPosition;
 	self.flashMode = AVCaptureFlashModeOff;
 	self.flashModeControl.mode = self.flashMode;
 	
@@ -89,6 +89,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    self.position = self.defaultPosition;
 	self.takePhotoButton.active = YES;
 }
 
@@ -188,7 +189,13 @@
         if ([deviceInput isFocusModeSupported:AVCaptureFocusModeAutoFocus])
             deviceInput.focusMode = AVCaptureFocusModeAutoFocus;
         [deviceInput unlockForConfiguration];
-        return [AVCaptureDeviceInput deviceInputWithDevice:deviceInput error:NULL];
+        NSError *error = nil;
+        id input =  [AVCaptureDeviceInput deviceInputWithDevice:deviceInput error:&error];
+        if (error) {
+            [WLToast showWithMessage:error.localizedFailureReason];
+        }
+        self.takePhotoButton.active = error == nil;
+        return input;
     }
     return nil;
 }

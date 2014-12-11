@@ -33,11 +33,11 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
 
 + (NSURLSessionDataTask *)postsHandlerBlock:(void (^)(NSArray *posts, NSError *error))block {
     NSDictionary *parameters = [NSDictionary dictionaryWithObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
-    return [[WLExtensionManager instance] GET:@"candies"
+    return [[WLExtensionManager instance] GET:WLCandiesKey
                                    parameters:parameters
                                       success:^(NSURLSessionDataTask * __unused task, id JSON) {
                                           NSDictionary *responseData = [JSON valueForKeyPath:@"data"];
-                                          NSArray *postsContent = [responseData valueForKey:@"candies"];
+                                          NSArray *postsContent = [responseData valueForKey:WLCandiesKey];
                                           NSMutableArray *mutablePosts = [NSMutableArray arrayWithCapacity:[postsContent count]];
                                           if ([postsContent count]) {
                                               for (NSDictionary *attributes in postsContent) {

@@ -64,10 +64,12 @@
 @implementation NSURL (WLRemoteObjectHandler)
 
 - (void)handleRemoteObject {
-    NSMutableString *urlString = [[self query] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding].mutableCopy;
-    NSRange range = [urlString rangeOfString:@"uid="];
-    NSString *candyID = [urlString substringFromIndex:range.location + range.length];
-    [[WLRemoteObjectHandler sharedObject] handleRemoteObject:[WLCandy entry:candyID]];
+    if ([[self.path lastPathComponent] isEqualToString:WLCandyKey]) {
+        NSMutableString *urlString = [[self query] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding].mutableCopy;
+        NSRange range = [urlString rangeOfString:@"uid="];
+        NSString *entryID = [urlString substringFromIndex:range.location + range.length];
+        [[WLRemoteObjectHandler sharedObject] handleRemoteObject:[WLCandy entry:entryID]];;
+    }
 }
 
 @end

@@ -24,6 +24,7 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
 @property (strong, nonatomic) NSOrderedSet *entries;
 @property (strong, nonatomic) NSUserDefaults *userDefaults;
+@property (assign, nonatomic) int errorCode;
 @property (assign, nonatomic) BOOL isShowMore;
 
 @end
@@ -35,9 +36,18 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
     self.userDefaults = [NSUserDefaults standardUserDefaults];
     NSData *metaData = [self.userDefaults objectForKey:WLCacheEntries];
     self.entries = [NSOrderedSet unarchive:metaData];
-    if ([self.entries count]) {
-        [self.tableView reloadData];
-    }
+}
+
+- (void)setEntries:(NSOrderedSet *)entries {
+    __block NSMutableOrderedSet *entriesSet = [NSMutableOrderedSet orderedSet];
+    [entries enumerateObjectsUsingBlock:^(WLPost *post, NSUInteger idx, BOOL *stop) {
+        if ([post.time isToday]) {
+            [entriesSet addObject:post];
+        }
+    }];
+    _entries = entriesSet;
+    [self.tableView reloadData];
+    [self setPreferredContentSize:CGSizeMake(0.0, self.tableView.contentSize.height)];
 }
 
 #pragma mark - NCWidgetProviding
@@ -57,12 +67,13 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
             NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
             if (response && response.statusCode == 401)
             [WLExtensionManager signInHandlerBlock:^(NSURLSessionDataTask *task, id responseObject) {
-                if ([[responseObject valueForKey:@"return_code"] intValue] == 0) {
+                int errorCode = [[responseObject valueForKey:@"return_code"] intValue];
+                if (errorCode == 0) {
                     [weakSelf updateExtensionWithResult:result];
                 } else {
-                    weakSelf.moreButton.userInteractionEnabled = NO;
                     [weakSelf.moreButton setTitle:[responseObject valueForKey:@"message"] forState:UIControlStateNormal];
                     [weakSelf.moreButton setImage:[UIImage imageNamed:@"ic_alert_orange"] forState:UIControlStateNormal];
+                    weakSelf.errorCode = errorCode;
                     if (result) {
                         result(NCUpdateResultFailed);
                     }
@@ -82,25 +93,27 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
                 weakSelf.entries = entries;
                 [weakSelf.userDefaults setObject:[weakSelf.entries archive] forKey:WLCacheEntries];
                 [weakSelf.userDefaults synchronize];
-                if ([weakSelf.entries count]) {
-                    [weakSelf.tableView reloadData];
-                }
-                [weakSelf setPreferredContentSize:CGSizeMake(0.0, weakSelf.tableView.contentSize.height)];
                 if (result) {
                      result(NCUpdateResultNewData);
                 }
-               
             }
         }
     }];
-    
 }
 
 - (IBAction)moreStories:(UIButton *)sender {
+    if (self.errorCode == 40) {
+        NSString *path = [[NSString stringWithFormat:@"/"]
+                          stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+        [self openUrlWithPath:path];
+        self.errorCode = 0;
+        return;
+    }
     self.isShowMore ^= 1;
     [sender setTitle:self.isShowMore? WLLessButtonKey : WLMoreButtonKey forState:UIControlStateNormal];
     [self.tableView reloadData];
     [self setPreferredContentSize:CGSizeMake(0.0, self.tableView.contentSize.height)];
+   
 }
 
 #pragma mark - UITableViewDelegate methods
@@ -129,10 +142,14 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
     WLPost *selectedPost = self.entries[indexPath.row];
     if (selectedPost.identifier != nil) {
         NSString *path = [[NSString stringWithFormat:@"/candy?uid=%@", selectedPost.identifier]
-                            stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-        NSURL *url = [[NSURL alloc] initWithScheme:WLExtensionScheme host:nil path:path];
-        [self.extensionContext openURL:url completionHandler:NULL];
+                          stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+        [self openUrlWithPath:path];
     }
+}
+
+- (void)openUrlWithPath:(NSString *)path {
+    NSURL *url = [[NSURL alloc] initWithScheme:WLExtensionScheme host:nil path:path];
+    [self.extensionContext openURL:url completionHandler:NULL];
 }
 
 static CGFloat WLIndent = 32.0f;
@@ -159,7 +176,7 @@ static CGFloat WLMaxImageViewHeight = 50.0f;
         for (WLPost *post in entries) {
             if ([lastTouches containsObject:post.lastTouch] ) {
                 flag = YES;
-            }else {
+            } else {
                return flag = NO;
             }
         }

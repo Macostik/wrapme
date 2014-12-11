@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^WLObjectBlock) (id object);
-
 @interface WLTodayViewController : UIViewController
-
-@property (strong, nonatomic) WLObjectBlock selection;
 
 @end

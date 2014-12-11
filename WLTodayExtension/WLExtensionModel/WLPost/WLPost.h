@@ -29,5 +29,6 @@
 @interface NSDate (WLPost)
 
 - (NSString *)timeAgoStringAtAMPM;
+- (BOOL)isToday;
 
 @end

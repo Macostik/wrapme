@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Welcome View Controller-->
@@ -849,15 +850,33 @@ Ravenpod, Inc.
                                     <action selector="next:" destination="vAS-6Z-GhZ" eventType="touchUpInside" id="sCh-eV-jIh"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Km1-Wj-3a4" customClass="WLPressButton">
+                                <rect key="frame" x="70" y="434" width="180" height="46"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="Qwu-3h-bxt"/>
+                                    <constraint firstAttribute="height" constant="46" id="ymB-k0-DUc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Use test account">
+                                    <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="useTestAccount:" destination="vAS-6Z-GhZ" eventType="touchUpInside" id="var-Jl-yyQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="zgM-iC-MDR" firstAttribute="top" secondItem="tQp-79-sb4" secondAttribute="bottom" constant="36" id="2gY-Hx-dHe"/>
                             <constraint firstAttribute="centerX" secondItem="tQp-79-sb4" secondAttribute="centerX" id="Cnb-Uw-eBk"/>
+                            <constraint firstAttribute="centerXWithinMargins" secondItem="Km1-Wj-3a4" secondAttribute="centerXWithinMargins" id="PZa-Yy-0z1"/>
                             <constraint firstItem="xPt-wX-3Db" firstAttribute="top" secondItem="zgM-iC-MDR" secondAttribute="bottom" constant="22" id="QPU-zI-rbx"/>
                             <constraint firstItem="zgM-iC-MDR" firstAttribute="centerX" secondItem="xPt-wX-3Db" secondAttribute="centerX" id="WGS-4X-OTx"/>
                             <constraint firstItem="9Pv-aD-dP3" firstAttribute="top" secondItem="xPt-wX-3Db" secondAttribute="bottom" constant="40" id="aUo-wS-r0G"/>
                             <constraint firstAttribute="centerY" secondItem="tQp-79-sb4" secondAttribute="centerY" constant="110" id="brY-b2-erj"/>
+                            <constraint firstItem="4N7-6L-ApW" firstAttribute="top" secondItem="Km1-Wj-3a4" secondAttribute="bottom" id="cDl-A8-ov1"/>
                             <constraint firstAttribute="centerX" secondItem="9Pv-aD-dP3" secondAttribute="centerX" id="nZI-Du-jr4"/>
                             <constraint firstItem="zgM-iC-MDR" firstAttribute="centerX" secondItem="tQp-79-sb4" secondAttribute="centerX" id="qUm-kK-oqM"/>
                         </constraints>
@@ -866,6 +885,7 @@ Ravenpod, Inc.
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="emailField" destination="xPt-wX-3Db" id="3Wh-KH-LpR"/>
+                        <outlet property="testAccountButton" destination="Km1-Wj-3a4" id="Ykd-Q3-o9h"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="brY-b2-erj" id="uBD-sO-htW"/>
                     </connections>
                 </viewController>

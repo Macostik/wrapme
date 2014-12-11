@@ -11,6 +11,7 @@
 #import "WLSession.h"
 #import "WLEntryKeys.h"
 #import "UIDevice-Hardware.h"
+#import "WLTelephony.h"
 
 @implementation WLAuthorization
 
@@ -33,7 +34,7 @@
 }
 
 - (BOOL)canSignUp {
-    return self.countryCode.nonempty && self.phone.nonempty && self.email.nonempty;
+    return self.email.nonempty;
 }
 
 - (BOOL)canAuthorize {

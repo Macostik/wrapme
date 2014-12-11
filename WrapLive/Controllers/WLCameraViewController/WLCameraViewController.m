@@ -81,16 +81,20 @@
 	
 	self.flashMode = AVCaptureFlashModeOff;
 	self.flashModeControl.mode = self.flashMode;
-	
-	self.cameraView.layer.session = self.session;
-	
-	[self performSelector:@selector(start) withObject:nil afterDelay:0.0];
+    
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (status == AVAuthorizationStatusAuthorized) {
+        self.cameraView.layer.session = self.session;
+        [self performSelector:@selector(start) withObject:nil afterDelay:0.0];
+    } else {
+        self.takePhotoButton.active = NO;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     self.position = self.defaultPosition;
-	self.takePhotoButton.active = YES;
+    
 }
 
 #pragma mark - User Actions
@@ -194,7 +198,6 @@
         if (error) {
             [WLToast showWithMessage:error.localizedFailureReason];
         }
-        self.takePhotoButton.active = error == nil;
         return input;
     }
     return nil;

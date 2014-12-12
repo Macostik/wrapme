@@ -13,7 +13,6 @@
 #import "UIImage+Resize.h"
 #import "UIView+AnimationHelper.h"
 #import "UIView+Shorthand.h"
-#import "UIView+QuatzCoreAnimations.h"
 #import "WLAssetsGroupViewController.h"
 #import "WLEntryManager.h"
 #import "WLImageFetcher.h"
@@ -36,10 +35,13 @@
 @property (weak, nonatomic) IBOutlet UIView* wrapView;
 @property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
 @property (weak, nonatomic) IBOutlet WLImageView *wrapCoverView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *wrapViewBottomConstraint;
 
 @property (strong, nonatomic) WLImageBlock editBlock;
 
 @property (weak, nonatomic) WLCameraViewController *cameraViewController;
+
+@property (nonatomic) BOOL wrapViewTranslucent;
 
 @end
 
@@ -47,6 +49,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _wrapViewTranslucent = YES;
     self.wrapCoverView.circled = YES;
     self.cameraNavigationController = [self.childViewControllers lastObject];
     self.cameraNavigationController.delegate = self;
@@ -55,6 +58,10 @@
     cameraViewController.defaultPosition = self.defaultPosition;
     self.cameraViewController = cameraViewController;
     [self setupWrapView:self.wrap];
+    
+    if (self.startFromGallery) {
+        [self openGallery:YES animated:NO];
+    }
 }
 
 - (void)setWrap:(WLWrap *)wrap {
@@ -64,11 +71,26 @@
     }
 }
 
-- (void)setTranslucent:(BOOL)translucent animated:(BOOL)animated {
-    UIColor* color = [self.wrapView.backgroundColor colorWithAlphaComponent:translucent ? 0.5f : 1.0f];
-    self.wrapView.backgroundColor = color;
-    self.wrapView.transform = translucent ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(.0, WLStillPictureCameraBottomViewHeight);
-    [self.wrapView fade];
+- (void)setWrapViewTranslucent:(BOOL)wrapViewTranslucent {
+    [self setWrapViewTranslucent:wrapViewTranslucent animated:NO];
+}
+
+- (void)setWrapViewTranslucent:(BOOL)translucent animated:(BOOL)animated {
+    if (_wrapViewTranslucent != translucent) {
+        _wrapViewTranslucent = translucent;
+        UIView *wrapView = self.wrapView;
+        __weak typeof(self)weakSelf = self;
+        wrapView.backgroundColor = [wrapView.backgroundColor colorWithAlphaComponent:translucent ? 0.5f : 1.0f];
+        weakSelf.wrapViewBottomConstraint.constant = translucent ? WLStillPictureCameraBottomViewHeight : 0;
+        [wrapView layoutIfNeeded];
+        if (animated) {
+            wrapView.transform = CGAffineTransformMakeTranslation(translucent ? -wrapView.width : wrapView.width, 0);
+            [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:1 initialSpringVelocity:0.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                wrapView.transform = CGAffineTransformIdentity;
+            } completion:^(BOOL finished) {
+            }];
+        }
+    }
 }
 
 - (void)setupWrapView:(WLWrap *)wrap {
@@ -171,20 +193,23 @@
 }
 
 - (void)cameraViewControllerDidSelectGallery:(WLCameraViewController *)controller {
-	WLAssetsGroupViewController* gallery = [[WLAssetsGroupViewController alloc] init];
+    [self openGallery:NO animated:YES];
+}
+
+- (void)openGallery:(BOOL)openCameraRoll animated:(BOOL)animated {
+    WLAssetsGroupViewController* gallery = [[WLAssetsGroupViewController alloc] init];
     gallery.mode = self.mode;
-	__weak typeof(self)weakSelf = self;
-	[gallery setSelectionBlock:^(NSArray *assets) {
+    gallery.openCameraRoll = openCameraRoll;
+    __weak typeof(self)weakSelf = self;
+    [gallery setSelectionBlock:^(NSArray *assets) {
         if ([assets count] == 1) {
             [weakSelf handleAsset:[assets firstObject]];
         } else {
             weakSelf.cameraNavigationController.viewControllers = @[weakSelf.cameraNavigationController.topViewController];
             [weakSelf handleAssets:assets];
         }
-	}];
-    [self setTranslucent:NO animated:YES];
-    [weakSelf.cameraNavigationController pushViewController:gallery animated:YES];
-    [self.wrapView leftPushWithDuration:.15 delegate:nil];
+    }];
+    [weakSelf.cameraNavigationController pushViewController:gallery animated:animated];
 }
 
 - (void)handleAsset:(ALAsset*)asset {
@@ -239,18 +264,9 @@
 - (void)navigationController:(UINavigationController *)navigationController
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated {
-    self.wrapView.hidden = YES;
-}
-
-- (void)navigationController:(UINavigationController *)navigationController
-       didShowViewController:(UIViewController *)viewController
-                    animated:(BOOL)animated {
     if (self.wrap) {
         self.wrapView.hidden = viewController == self.aviaryController;
-        viewController.hidesBottomBarWhenPushed = YES;
-        if (viewController == self.cameraViewController) {
-            [self setTranslucent:YES animated:YES];
-        }
+        [self setWrapViewTranslucent:viewController == self.cameraViewController animated:animated];
     }
 }
 

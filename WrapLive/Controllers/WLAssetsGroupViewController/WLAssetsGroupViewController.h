@@ -17,4 +17,6 @@
 
 @property (nonatomic) WLStillPictureMode mode;
 
+@property (nonatomic) BOOL openCameraRoll;
+
 @end

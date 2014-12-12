@@ -42,6 +42,14 @@
                                              selector:@selector(loadGroups)
                                                  name:ALAssetsLibraryChangedNotification
                                                object:nil];
+    
+    if (self.openCameraRoll) {
+        WLAssetsViewController* controller = [[WLAssetsViewController alloc] initWithGroup:nil];
+        controller.selectionBlock = self.selectionBlock;
+        controller.mode = self.mode;
+        controller.preselectFirstAsset = YES;
+        [self.navigationController pushViewController:controller animated:NO];
+    }
 }
 
 - (void)loadGroups {

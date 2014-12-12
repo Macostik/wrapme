@@ -38,6 +38,4 @@
 
 @property (strong, nonatomic) WLWrap* wrap;
 
-@property (nonatomic) BOOL editable;
-
 @end

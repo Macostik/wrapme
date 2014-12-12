@@ -7,7 +7,7 @@
 //
 
 #import "ALAssetsLibrary+Additions.h"
-#import "ALAssetsLibrary+CustomPhotoAlbum.h"
+#import "ALAssetsLibrary+Additions.h"
 #import "AsynchronousOperation.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIImage+Resize.h"
@@ -28,8 +28,6 @@
 #import "WLCameraViewController.h"
 #import "UIImage+Drawing.h"
 
-static CGFloat WLBottomViewHeight = 92.0f;
-
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) UINavigationController* cameraNavigationController;
@@ -46,11 +44,6 @@ static CGFloat WLBottomViewHeight = 92.0f;
 @end
 
 @implementation WLStillPictureViewController
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.editable = YES;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -74,7 +67,7 @@ static CGFloat WLBottomViewHeight = 92.0f;
 - (void)setTranslucent:(BOOL)translucent animated:(BOOL)animated {
     UIColor* color = [self.wrapView.backgroundColor colorWithAlphaComponent:translucent ? 0.5f : 1.0f];
     self.wrapView.backgroundColor = color;
-    self.wrapView.transform = translucent ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(.0, WLBottomViewHeight);
+    self.wrapView.transform = translucent ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(.0, WLStillPictureCameraBottomViewHeight);
     [self.wrapView fade];
 }
 
@@ -152,11 +145,7 @@ static CGFloat WLBottomViewHeight = 92.0f;
         }
     };
     
-    if (self.editable) {
-        [self editImage:image completion:finishBlock];
-    } else {
-        finishBlock(image);
-    }
+    [self editImage:image completion:finishBlock];
 }
 
 - (void)editImage:(UIImage*)image completion:(WLImageBlock)completion {

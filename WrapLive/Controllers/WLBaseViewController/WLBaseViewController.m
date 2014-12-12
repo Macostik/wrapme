@@ -66,12 +66,7 @@
         contentView.translatesAutoresizingMaskIntoConstraints = NO;
         [view addSubview:contentView];
         
-        [view addConstraint:[NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-        NSLayoutConstraint *verticalCenteringConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
-        [view addConstraint:verticalCenteringConstraint];
-        self.keyboardAdjustmentTopConstraints = [(self.keyboardAdjustmentTopConstraints?:@[]) arrayByAddingObject:verticalCenteringConstraint];
-        [contentView addConstraint:[NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:contentView.bounds.size.width]];
-        [contentView addConstraint:[NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:contentView.bounds.size.height]];
+        [self addEmbeddingConstraintsToContentView:contentView inView:view];
         
         self.contentView = contentView;
         
@@ -79,6 +74,15 @@
         
         self.view = view;
     }
+}
+
+- (void)addEmbeddingConstraintsToContentView:(UIView *)contentView inView:(UIView *)view {
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    NSLayoutConstraint *verticalCenteringConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    [view addConstraint:verticalCenteringConstraint];
+    self.keyboardAdjustmentTopConstraints = [(self.keyboardAdjustmentTopConstraints?:@[]) arrayByAddingObject:verticalCenteringConstraint];
+    [contentView addConstraint:[NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:contentView.bounds.size.width]];
+    [contentView addConstraint:[NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:contentView.bounds.size.height]];
 }
 
 - (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {

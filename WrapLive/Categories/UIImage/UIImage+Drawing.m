@@ -8,7 +8,7 @@
 
 #import "UIImage+Drawing.h"
 #import "NSString+Documents.h"
-#import "ALAssetsLibrary+CustomPhotoAlbum.h"
+#import "ALAssetsLibrary+Additions.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 
 @implementation UIImage (Drawing)

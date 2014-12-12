@@ -33,8 +33,6 @@
 
 @property (strong, nonatomic) NSDate* historyDate;
 
-@property (strong, nonatomic) NSDate* resignActiveDate;
-
 @end
 
 @implementation WLNotificationCenter
@@ -54,15 +52,9 @@
     self = [super init];
     if (self) {
         __weak typeof(self)weakSelf = self;
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-            weakSelf.resignActiveDate = [NSDate now];
-        }];
         [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-            if (weakSelf.resignActiveDate &&
-                weakSelf.userChannel.subscribed &&
-                ABS([weakSelf.resignActiveDate timeIntervalSinceDate:[NSDate now]]) > WLPubNubInactiveStateDuration) {
+            if (weakSelf.userChannel.subscribed) {
                 [weakSelf performSelector:@selector(requestHistory) withObject:nil afterDelay:0.5f];
-                weakSelf.resignActiveDate = nil;
             }
         }];
     }
@@ -239,6 +231,10 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
     WLLog(@"PubNub",@"message received", message);
+}
+
+- (void)pubnubClient:(PubNub *)client didReceiveMessageHistory:(NSArray *)messages forChannel:(PNChannel *)channel startingFrom:(PNDate *)startDate to:(PNDate *)endDate {
+    WLLog(@"PubNub",@"messages history", messages);
 }
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {

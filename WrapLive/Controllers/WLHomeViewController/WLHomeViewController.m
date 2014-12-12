@@ -158,12 +158,17 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 - (void)handleNewPhotosLocalNotification {
-    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
-    stillPictureViewController.wrap = self.section.wrap;
-    stillPictureViewController.mode = WLStillPictureModeDefault;
-    stillPictureViewController.delegate = self;
-    stillPictureViewController.startFromGallery = YES;
-    [self presentViewController:stillPictureViewController animated:YES completion:nil];
+    WLWrap *wrap = self.section.wrap;
+    if (wrap) {
+        WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
+        stillPictureViewController.wrap = wrap;
+        stillPictureViewController.mode = WLStillPictureModeDefault;
+        stillPictureViewController.delegate = self;
+        stillPictureViewController.startFromGallery = YES;
+        [self presentViewController:stillPictureViewController animated:YES completion:nil];
+    } else {
+        [self createWrap:nil];
+    }
 }
 
 #pragma mark - WLEntryNotifyReceiver

@@ -7,10 +7,13 @@
 //
 
 #import "WLEntryCell.h"
+#import "GeometryHelper.h"
 
 static NSString* WLCandyCellIdentifier = @"WLCandyCell";
 static CGFloat WLCandyCellSpacing = 0.5f;
+static CGFloat WLCandyCellSpacingNotRetina = 1.0f;
 
 @interface WLCandyCell : WLEntryCell
+
 
 @end

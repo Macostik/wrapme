@@ -14,10 +14,9 @@
 @property (strong, nonatomic) NSData *image;
 @property (strong, nonatomic) NSString *wrapName;
 @property (strong, nonatomic) NSString *event;
-@property (strong, nonatomic) NSDate *time;
 @property (strong, nonatomic) NSString *contributor;
 @property (strong, nonatomic) NSString *identifier;
-@property (strong, nonatomic) NSString *lastTouch;
+@property (strong, nonatomic) NSDate *lastTouch;
 
 @property (strong, nonatomic) WLComments *comment;
 
@@ -29,6 +28,6 @@
 @interface NSDate (WLPost)
 
 - (NSString *)timeAgoStringAtAMPM;
-- (BOOL)isToday;
+- (BOOL)isSameDay:(NSDate *)date;
 
 @end

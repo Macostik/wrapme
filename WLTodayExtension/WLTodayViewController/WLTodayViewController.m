@@ -41,7 +41,7 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
 - (void)setEntries:(NSOrderedSet *)entries {
     __block NSMutableOrderedSet *entriesSet = [NSMutableOrderedSet orderedSet];
     [entries enumerateObjectsUsingBlock:^(WLPost *post, NSUInteger idx, BOOL *stop) {
-        if ([post.time isToday]) {
+        if ([post.lastTouch isSameDay:[NSDate date]]) {
             [entriesSet addObject:post];
         }
     }];
@@ -71,7 +71,7 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
                 if (errorCode == 0) {
                     [weakSelf updateExtensionWithResult:result];
                 } else {
-                    [weakSelf.moreButton setTitle:[responseObject valueForKey:@"message"] forState:UIControlStateNormal];
+                    [weakSelf.moreButton setTitle:@"You need sugn up in WrapLive application" forState:UIControlStateNormal];
                     [weakSelf.moreButton setImage:[UIImage imageNamed:@"ic_alert_orange"] forState:UIControlStateNormal];
                     weakSelf.errorCode = errorCode;
                     if (result) {
@@ -93,6 +93,7 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
                 weakSelf.entries = entries;
                 [weakSelf.userDefaults setObject:[weakSelf.entries archive] forKey:WLCacheEntries];
                 [weakSelf.userDefaults synchronize];
+                weakSelf.errorCode = 0;
                 if (result) {
                      result(NCUpdateResultNewData);
                 }

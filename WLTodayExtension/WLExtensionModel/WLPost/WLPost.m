@@ -25,10 +25,9 @@
     } else {
         evenString = [NSString stringWithFormat:@"%@ commnented \"%@\"", entry.comment.contributorName, entry.comment.comment];
     }
-    entry.lastTouch = [attributes valueForKey:WLLastTouchedAtKey];
     entry.event = evenString;
+    entry.lastTouch = [self convertLastTouchToDate:[attributes valueForKey:WLLastTouchedAtKey]];
     entry.wrapName = [attributes valueForKey:WLWrapNameKey];
-    entry.time = [attributes valueForKey:WLTimeKey];
     
     return entry;
 }
@@ -37,35 +36,11 @@
     return [WLExtensionManager postsHandlerBlock:block];
 }
 
-- (void)setWrapName:(NSString *)wrapName {
-    if (![wrapName isEqualToString:@""]) {
-        _wrapName = @"";
-        _wrapName = wrapName;
-    } else {
-        _wrapName = @"";
-    }
-}
-
-- (void)setEvent:(NSString *)event {
-    if (![event isEqualToString:@""]) {
-        _event = @"";
-        _event = event;
-    } else  {
-        _event= @"";
-    }
-}
-
-- (void)setTime:(NSDate *)time {
-    if (time) {
-        _time = time;
-    } else {
-        _time = [NSDate date];
-    }
++ (NSDate *)convertLastTouchToDate:(NSString *)lastTouchInterval {
+    return [NSDate dateWithTimeIntervalSince1970:[lastTouchInterval doubleValue]];
 }
 
 @end
-
-static const NSTimeInterval WLTimeIntervalDay = 86400;
 
 @implementation NSDate (WLPost)
 
@@ -73,8 +48,12 @@ static const NSTimeInterval WLTimeIntervalDay = 86400;
     return [NSString stringWithFormat:@"today at %@", [self stringWithFormat:@"hh:mma"]];
 }
 
-- (BOOL)isToday {
-    return (ABS([self timeIntervalSinceNow])/WLTimeIntervalDay <= 1.0f);
+- (BOOL)isSameDay:(NSDate *)date {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    if ([calendar component:NSCalendarUnitDay fromDate:self] != [calendar component:NSCalendarUnitDay fromDate:date]) return NO;
+    if ([calendar component:NSCalendarUnitMonth fromDate:self] != [calendar component:NSCalendarUnitMonth fromDate:date]) return NO;
+    if ([calendar component:NSCalendarUnitYear fromDate:self] != [calendar component:NSCalendarUnitYear fromDate:date]) return NO;
+    return YES;
 }
 
 @end

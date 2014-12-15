@@ -168,7 +168,7 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 	
 	[WLToast cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];
 	[WLToast cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeFromSuperview) object:nil];
-	[self performSelector:@selector(dismiss) withObject:nil afterDelay:3];
+	[self performSelector:@selector(dismiss) withObject:nil afterDelay:WLToastDismissalDelay];
 }
 
 - (void)removeFromSuperview {

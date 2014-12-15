@@ -30,16 +30,12 @@ static NSString *const WLReport = @"Report";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.deleteButton setTitle:[self isMyCandy] ? WLDelete : WLReport forState:UIControlStateNormal];
+    [self.deleteButton setTitle:self.candy.deletable ? WLDelete : WLReport forState:UIControlStateNormal];
     self.downloadButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
 }
 
 + (BOOL)isEmbeddedDefaultValue {
     return YES;
-}
-
-- (BOOL)isMyCandy {
-    return [self.candy.contributor isCurrentUser] || [self.candy.wrap.contributor isCurrentUser];
 }
 
 - (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
@@ -48,7 +44,7 @@ static NSString *const WLReport = @"Report";
 
 - (IBAction)deleteCandy:(id)sender {
     __weak __typeof(self)weakSelf = self;
-    if ([self isMyCandy]) {
+    if (self.candy.deletable) {
         [self.candy remove:^(id object) {
             [WLToast showWithMessage:@"Candy was deleted successfully."];
             [weakSelf dismissViewControllerAnimated:YES completion:nil];

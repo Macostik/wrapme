@@ -40,6 +40,14 @@
     return self.status == WLContributionStatusUploaded;
 }
 
+- (BOOL)contributedByCurrentUser {
+    return [self.contributor isCurrentUser];
+}
+
+- (BOOL)deletable {
+    return self.contributedByCurrentUser;
+}
+
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
     [self parseContributor:dictionary];
     NSString* uploadIdentifier = [dictionary stringForKey:WLUploadUIDKey];

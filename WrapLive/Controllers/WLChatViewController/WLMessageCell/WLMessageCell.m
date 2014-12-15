@@ -77,7 +77,7 @@
         if (!avatarView.url.nonempty) {
             avatarView.image = [UIImage imageNamed:@"default-small-avatar"];
         }
-        self.nameLabel.text = [message.contributor isCurrentUser] ? @"You" : message.contributor.name;
+        self.nameLabel.text = message.contributedByCurrentUser ? @"You" : message.contributor.name;
     }
 	
     self.timeLabel.text = [message.createdAt stringWithFormat:@"hh:mmaa"];

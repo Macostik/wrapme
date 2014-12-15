@@ -20,6 +20,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView* accessoryView;
 
+@property (strong, nonatomic) UIColor *spinnerColor;
+
 @property (nonatomic) BOOL loading;
 
 @property (nonatomic) BOOL animated;

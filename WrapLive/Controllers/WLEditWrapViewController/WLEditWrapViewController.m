@@ -87,23 +87,27 @@ static NSString *const WLLeave = @"Leave";
     [self.wrap update:success failure:success];
 }
 
-- (IBAction)deleteButtonClick:(id)sender {
+- (IBAction)deleteButtonClick:(WLButton*)sender {
     __weak typeof(self)weakSelf = self;
-    self.view.hidden = YES;
-     [self.view endEditing:YES];
+    sender.loading = YES;
     WLWrap *wrap = self.wrap;
     if ([self isMyWrap]) {
         [wrap remove:^(id object) {
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            sender.loading = NO;
         } failure:^(NSError *error) {
             [error show];
-            self.view.hidden = error != nil;
+            sender.loading = NO;
         }];
     } else {
         [wrap leave:^(id object) {
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            sender.loading = NO;
         } failure:^(NSError *error) {
             [error show];
+            sender.loading = NO;
         }];
     }
 }

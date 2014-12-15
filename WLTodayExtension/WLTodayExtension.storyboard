@@ -17,6 +17,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button hidden="YES" opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oeO-U1-5qB">
+                                <rect key="frame" x="10" y="10" width="300" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Omx-zn-b7o"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="You need sign up to wrapLive application">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="singUpClick:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="JWO-1O-xp8"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="62" sectionHeaderHeight="22" sectionFooterHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="036-cI-Swm">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -24,7 +44,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVx-oR-Cg7">
+                                        <button hidden="YES" opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVx-oR-Cg7">
                                             <rect key="frame" x="10" y="7" width="300" height="30"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -128,8 +148,11 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="036-cI-Swm" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="5vL-Kv-puY"/>
+                            <constraint firstAttribute="trailing" secondItem="oeO-U1-5qB" secondAttribute="trailing" constant="10" id="Epf-VI-hxi"/>
+                            <constraint firstItem="oeO-U1-5qB" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="10" id="FYs-FI-nnE"/>
                             <constraint firstAttribute="trailing" secondItem="036-cI-Swm" secondAttribute="trailing" id="M8B-Iq-rUe"/>
                             <constraint firstItem="036-cI-Swm" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="Tak-tV-wQj"/>
+                            <constraint firstItem="oeO-U1-5qB" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="10" id="l0X-Yx-JrZ"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="036-cI-Swm" secondAttribute="bottom" id="rWB-in-bxK"/>
                         </constraints>
                     </view>
@@ -140,7 +163,8 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="400"/>
                     <connections>
-                        <outlet property="moreButton" destination="HVx-oR-Cg7" id="7fF-T2-eH2"/>
+                        <outlet property="moreButton" destination="HVx-oR-Cg7" id="6zF-2S-3l0"/>
+                        <outlet property="signUpButton" destination="oeO-U1-5qB" id="ppK-Ji-hIt"/>
                         <outlet property="tableView" destination="036-cI-Swm" id="TP5-Uy-Mlr"/>
                     </connections>
                 </viewController>

@@ -17,11 +17,19 @@ static NSString *const WLExtensionScheme = @"WLExtensionScheme";
 static NSString *const WLCacheEntries = @"WLCacheEntries";
 static NSString *const WLLessButtonKey = @"Less wrapLive stories";
 static NSString *const WLMoreButtonKey = @"More wrapLive stories";
+static CGFloat  WLAuthorizedError = 401;
+static CGFloat WLSingUpError = 40;
+static CGFloat WLNoError = 0;
+static CGFloat WLIndent = 32.0f;
+static CGFloat WLMaxImageViewHeight = 50.0f;
+static CGFloat WLMaxRow = 6;
+static CGFloat WLMinRow = 3;
 
 @interface WLTodayViewController () <NCWidgetProviding>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
+@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @property (strong, nonatomic) NSOrderedSet *entries;
 @property (strong, nonatomic) NSUserDefaults *userDefaults;
 @property (assign, nonatomic) int errorCode;
@@ -65,14 +73,15 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
     [WLPost globalTimelinePostsWithBlock:^(NSArray *posts, NSError *error) {
         if (error && !posts.count) {
             NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
-            if (response && response.statusCode == 401)
+            if (response && response.statusCode == WLAuthorizedError)
             [WLExtensionManager signInHandlerBlock:^(NSURLSessionDataTask *task, id responseObject) {
                 int errorCode = [[responseObject valueForKey:@"return_code"] intValue];
-                if (errorCode == 0) {
+                if (errorCode == WLNoError) {
                     [weakSelf updateExtensionWithResult:result];
                 } else {
-                    [weakSelf.moreButton setTitle:@"You need sugn up in WrapLive application" forState:UIControlStateNormal];
-                    [weakSelf.moreButton setImage:[UIImage imageNamed:@"ic_alert_orange"] forState:UIControlStateNormal];
+                    [weakSelf.tableView removeFromSuperview];
+                    weakSelf.signUpButton.hidden = NO;
+                    [self setPreferredContentSize:CGSizeMake(0.0, WLMaxImageViewHeight)];
                     weakSelf.errorCode = errorCode;
                     if (result) {
                         result(NCUpdateResultFailed);
@@ -85,6 +94,7 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
             }];
         } else {
             NSOrderedSet *entries = [NSOrderedSet orderedSetWithArray:posts];
+            self.moreButton.hidden = NO;
             if ([weakSelf isTheSameEntries:entries]) {
                 if (result) {
                     result(NCUpdateResultNoData);
@@ -93,7 +103,7 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
                 weakSelf.entries = entries;
                 [weakSelf.userDefaults setObject:[weakSelf.entries archive] forKey:WLCacheEntries];
                 [weakSelf.userDefaults synchronize];
-                weakSelf.errorCode = 0;
+                weakSelf.errorCode = WLNoError;
                 if (result) {
                      result(NCUpdateResultNewData);
                 }
@@ -103,27 +113,28 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
 }
 
 - (IBAction)moreStories:(UIButton *)sender {
-    if (self.errorCode == 40) {
-        NSString *path = [[NSString stringWithFormat:@"/"]
-                          stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-        [self openUrlWithPath:path];
-        self.errorCode = 0;
-        return;
-    }
     self.isShowMore ^= 1;
     [sender setTitle:self.isShowMore? WLLessButtonKey : WLMoreButtonKey forState:UIControlStateNormal];
     [self.tableView reloadData];
     [self setPreferredContentSize:CGSizeMake(0.0, self.tableView.contentSize.height)];
-   
+}
+
+- (IBAction)singUpClick:(id)sender {
+    if (self.errorCode == WLSingUpError) {
+        NSString *path = [[NSString stringWithFormat:@"/"]
+                          stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+        [self openUrlWithPath:path];
+    }
+    self.errorCode = WLNoError;
 }
 
 #pragma mark - UITableViewDelegate methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([self.entries count] >= 6) {
-        return self.isShowMore ? 6 : 3;
-    } else if ([self.entries count] > 3) {
-        return self.isShowMore ? [self.entries count] : 3;
+    if ([self.entries count] >= WLMaxRow) {
+        return self.isShowMore ? WLMaxRow : WLMinRow;
+    } else if ([self.entries count] > WLMinRow) {
+        return self.isShowMore ? [self.entries count] : WLMinRow;
     } else  {
         return [self.entries count];
     }
@@ -153,19 +164,13 @@ static NSString *const WLMoreButtonKey = @"More wrapLive stories";
     [self.extensionContext openURL:url completionHandler:NULL];
 }
 
-static CGFloat WLIndent = 32.0f;
-static CGFloat WLMaxImageViewHeight = 50.0f;
-
 - (CGFloat)heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     WLPost* post = self.entries[indexPath.row];
     CGFloat widthLabel = self.tableView.frame.size.width - WLMaxImageViewHeight - 10.0f;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     CGFloat height = [post.event boundingRectWithSize:CGSizeMake(widthLabel, CGFLOAT_MAX)
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]}
                                               context:nil].size.height;
-#pragma clang diagnostic pop
     height += WLIndent;
     return MAX(height, WLMaxImageViewHeight);
 }

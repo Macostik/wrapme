@@ -258,8 +258,6 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 
 + (void)showPhotoDownloadingMessage {
     WLToastAppearance *appearance = [[WLToastAppearance alloc] init];
-    appearance.textColor = [UIColor WL_orangeColor];
-    appearance.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.9f];
     appearance.shouldShowIcon = NO;
     [self showWithMessage:[NSString stringWithFormat:@"Downloading the photo now. It will be in \"%@\" album momentarily.", WLAlbumName] appearance:appearance];
 }

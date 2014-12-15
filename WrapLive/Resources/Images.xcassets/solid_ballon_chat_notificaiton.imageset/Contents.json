@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "ic_chat_notification_chat-1.png"
+      "filename" : "solid_ballon_chat_notificaiton.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "ic_chat_notification_chat@2x.png"
+      "filename" : "solid_ballon_chat_notificaiton@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "ic_chat_notification_chat@3x.png"
+      "filename" : "solid_ballon_chat_notificaiton@3x.png"
     }
   ],
   "info" : {

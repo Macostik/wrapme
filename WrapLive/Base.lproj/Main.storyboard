@@ -787,7 +787,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Kg-Jf-uq1">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatNotification" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-4Z-sEV">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="solid_ballon_chat_notificaiton" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-4Z-sEV">
                                                             <rect key="frame" x="289" y="11" width="16" height="14"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -918,7 +918,7 @@
                                                         <outlet property="widthConstraint" destination="DaX-fs-JNF" id="iTy-LH-kyg"/>
                                                     </connections>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatNotification" translatesAutoresizingMaskIntoConstraints="NO" id="97a-tR-kcO">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="solid_ballon_chat_notificaiton" translatesAutoresizingMaskIntoConstraints="NO" id="97a-tR-kcO">
                                                     <rect key="frame" x="289" y="4" width="16" height="14"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -3533,7 +3533,6 @@ Check your internet connection and try again.</string>
         <image name="btn_wrap_camera_pressed" width="84" height="84"/>
         <image name="camera_medium" width="50" height="50"/>
         <image name="candy_in_the_circle" width="22" height="22"/>
-        <image name="chatNotification" width="32" height="28"/>
         <image name="chat_bubble_gray_left.png" width="5" height="44"/>
         <image name="chat_bubble_gray_right.png" width="5" height="44"/>
         <image name="chat_bubble_red_left.png" width="5" height="44"/>
@@ -3558,6 +3557,7 @@ Check your internet connection and try again.</string>
         <image name="ic_settings" width="20" height="20"/>
         <image name="ic_swipe_arrow_right" width="6" height="10"/>
         <image name="ic_today_enabled" width="32" height="32"/>
+        <image name="solid_ballon_chat_notificaiton" width="16" height="14"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

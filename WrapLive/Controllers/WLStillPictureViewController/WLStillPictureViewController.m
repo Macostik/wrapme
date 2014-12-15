@@ -150,7 +150,6 @@
 	});
 	AFPhotoEditorController* aviaryController = [[AFPhotoEditorController alloc] initWithImage:image];
 	aviaryController.delegate = self;
-	aviaryController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 	return aviaryController;
 }
 

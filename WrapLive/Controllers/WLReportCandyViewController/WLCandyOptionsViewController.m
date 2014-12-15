@@ -22,7 +22,6 @@ static NSString *const WLReport = @"Report";
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet WLPressButton *deleteButton;
-@property (weak, nonatomic) IBOutlet WLPressButton *cancelButton;
 @property (weak, nonatomic) IBOutlet WLPressButton *downloadButton;
 
 @end

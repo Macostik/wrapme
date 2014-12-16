@@ -8,148 +8,91 @@
 
 #import "UIFont+CustomFonts.h"
 
+/* 
+ Phone:
+ xsmall => 11pt
+ smaller => 13pt
+ small => 15pt
+ normal => 17pt
+ large => 19pt
+ larger => 21 pt
+ xlarge => 23 pt
+ Tablet:
+ xsmall => 13pt
+ smaller => 15pt
+ small => 17pt
+ normal => 19pt
+ large => 21pt
+ larger => 23 pt
+ xlarge => 25 pt
+ */
+
 @implementation UIFont (CustomFonts)
 
-+ (NSString*)fontNameWithType:(WLFontType)type {
-	switch (type) {
-		case WLFontTypeOpenSansRegular:
-			return WLFontNameOpenSansRegular;
-			break;
-		case WLFontTypeOpenSansLight:
-			return WLFontNameOpenSansLight;
-        case WLFontTypeOpenSansBold:
-            return WLFontNameOpenSansBold;
-			break;
-	}
-	return nil;
-}
-
-+ (UIFont*)cachedFontNamed:(NSString*)name size:(CGFloat)size {
-    static NSMutableDictionary* fonts = nil;
-    if (!fonts) {
-        fonts = [NSMutableDictionary dictionary];
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-            [fonts removeAllObjects];
-        }];
-    }
-    NSMutableDictionary* namedFonts = [fonts objectForKey:name];
-    if (!namedFonts) {
-        namedFonts = [NSMutableDictionary dictionary];
-        [fonts setObject:namedFonts forKey:name];
-    }
-    UIFont *font = [namedFonts objectForKey:@(size)];
-    if (!font) {
-        font = [UIFont fontWithName:name size:size];
-        [namedFonts setObject:font forKey:@(size)];
-    }
-    return font;
-}
-
-+ (UIFont*)fontWithType:(WLFontType)type size:(CGFloat)size {
-	NSString* fontName = [self fontNameWithType:type];
-	if (fontName) {
-		return [self cachedFontNamed:fontName size:size];
-	}
-	return nil;
-}
-
-- (UIFont*)fontWithType:(WLFontType)type {
-	UIFont* font = [UIFont fontWithType:type size:self.pointSize];
-	if (font) {
-		return font;
-	} else {
-		return self;
-	}
-}
-
-+ (UIFont*)lightFontOfSize:(CGFloat)size {
-	return [self fontWithType:WLFontTypeOpenSansLight size:size];
-}
-
-+ (UIFont*)lightMicroFont {
-	return [self lightFontOfSize:WLFontSizeMicro];
-}
-
-+ (UIFont*)lightSmallFont {
-	return [self lightFontOfSize:WLFontSizeSmall];
-}
-
-+ (UIFont*)lightNormalFont {
-	return [self lightFontOfSize:WLFontSizeNormal];
-}
-
-+ (UIFont*)lightLargeFont {
-	return [self lightFontOfSize:WLFontSizeLarge];
-}
-
-+ (UIFont*)regularFontOfSize:(CGFloat)size {
-	return [self fontWithType:WLFontTypeOpenSansRegular size:size];
-}
-
-+ (UIFont*)regularMicroFont {
-	return [self regularFontOfSize:WLFontSizeMicro];
-}
-
-+ (UIFont*)regularSmallFont {
-	return [self regularFontOfSize:WLFontSizeSmall];
-}
-
-+ (UIFont*)regularNormalFont {
-	return [self regularFontOfSize:WLFontSizeNormal];
-}
-
-+ (UIFont*)regularLargeFont {
-	return [self regularFontOfSize:WLFontSizeLarge];
-}
-
-@end
-
-@implementation UILabel (CustomFonts)
-
-- (void)awakeFromNib {
-    [self setCustomFontWithTag:self.tag];
-}
-
-- (void)setCustomFontWithTag:(NSUInteger)tag {
-    if (tag > 0) {
-        UIFont *font = [self.font fontWithType:tag];
-        if (self.font != font) self.font = font;
++ (CGFloat)sizeWithPreset:(WLFontPreset)preset {
+    UIScreen *screen = [UIScreen mainScreen];
+    if (screen.bounds.size.width * screen.scale < 1080) {
+        switch (preset) {
+            case WLFontPresetXSmall:    return 11;
+            case WLFontPresetSmaller:   return 13;
+            case WLFontPresetSmall:     return 15;
+            case WLFontPresetNormal:    return 17;
+            case WLFontPresetLarge:     return 19;
+            case WLFontPresetLarger:    return 21;
+            case WLFontPresetXLarge:    return 23;
+            default: return 17;
+        }
+    } else {
+        switch (preset) {
+            case WLFontPresetXSmall:    return 13;
+            case WLFontPresetSmaller:   return 15;
+            case WLFontPresetSmall:     return 17;
+            case WLFontPresetNormal:    return 19;
+            case WLFontPresetLarge:     return 21;
+            case WLFontPresetLarger:    return 23;
+            case WLFontPresetXLarge:    return 25;
+            default: return 19;
+        }
     }
 }
 
-@end
-
-@implementation UIButton (CustomFonts)
-
-- (void)awakeFromNib {
-    NSUInteger tag = self.tag;
-    if (tag > 0) {
-        [self.titleLabel setCustomFontWithTag:tag];
-    }
++ (UIFont*)fontWithName:(NSString *)fontName preset:(WLFontPreset)preset {
+	return [self fontWithName:fontName size:[self sizeWithPreset:preset]];
 }
 
-@end
-
-@implementation UITextField (CustomFonts)
-
-- (void)awakeFromNib {
-    NSUInteger tag = self.tag;
-    if (tag > 0) {
-        UIFont *font = [self.font fontWithType:tag];
-        if (self.font != font) self.font = font;
++ (CGFloat)preferredSizeWithPreset:(WLFontPreset)preset {
+    NSString *category = [UIApplication sharedApplication].preferredContentSizeCategory;
+    CGFloat difference = 0;
+    if ([category isEqualToString:UIContentSizeCategoryExtraSmall]) {
+        difference = -3;
+    } else if ([category isEqualToString:UIContentSizeCategorySmall]) {
+        difference = -2;
+    } else if ([category isEqualToString:UIContentSizeCategoryMedium]) {
+        difference = -1;
+    } else if ([category isEqualToString:UIContentSizeCategoryLarge]) {
+        difference = 0;
+    } else if ([category isEqualToString:UIContentSizeCategoryExtraLarge]) {
+        difference = 1;
+    } else if ([category isEqualToString:UIContentSizeCategoryExtraExtraLarge]) {
+        difference = 2;
+    } else if ([category isEqualToString:UIContentSizeCategoryExtraExtraExtraLarge]) {
+        difference = 3;
     }
+    return [self sizeWithPreset:preset] + difference;
 }
 
-@end
++ (UIFont*)preferredFontWithName:(NSString *)fontName preset:(WLFontPreset)preset {
+    return [self fontWithName:fontName size:[self preferredSizeWithPreset:preset]];
+}
 
-@implementation UITextView (CustomFonts)
+- (UIFont*)fontWithPreset:(WLFontPreset)preset {
+	UIFont* font = [UIFont fontWithName:self.fontName preset:preset];
+    return font ? : self;
+}
 
-- (void)awakeFromNib {
-    NSUInteger tag = self.tag;
-    if (tag > 0) {
-        UIFont *font = [self.font fontWithType:tag];
-        if (self.font != font) self.font = font;
-    }
+- (UIFont *)preferredFontWithPreset:(WLFontPreset)preset {
+    UIFont* font = [UIFont preferredFontWithName:self.fontName preset:preset];
+    return font ? : self;
 }
 
 @end

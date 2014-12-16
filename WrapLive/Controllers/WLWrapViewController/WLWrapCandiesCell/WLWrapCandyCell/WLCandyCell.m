@@ -23,6 +23,7 @@
 #import "WLAPIManager.h"
 #import "WLEntryManager.h"
 #import "WLMenu.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 
@@ -77,6 +78,7 @@
 	self.userInteractionEnabled = YES;
     if (self.commentLabel) {
         WLComment* comment = [candy.comments lastObject];
+        self.commentLabel.font = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller];
         self.commentLabel.text = comment.text;
         self.commentLabel.hidden = !self.commentLabel.text.nonempty;
     }

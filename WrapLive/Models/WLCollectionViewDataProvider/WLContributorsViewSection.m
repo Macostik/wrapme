@@ -16,7 +16,7 @@ const static CGFloat WLIndent = 36.0f;
 
 - (CGSize)size:(NSIndexPath *)indexPath {
     WLUser* user = self.entries.entries[indexPath.item];
-    CGSize size = [user.phones sizeWithAttributes:@{NSFontAttributeName : [UIFont lightFontOfSize:13.0f]}];
+    CGSize size = [user.phones sizeWithAttributes:@{NSFontAttributeName : [UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller]}];
     int height = size.height + WLIndent;
     return CGSizeMake(self.collectionView.width, height);
 }

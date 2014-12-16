@@ -264,7 +264,7 @@ static NSUInteger WLComposeBarMinHeight = 44;
         UILabel* placeholderLabel = [[UILabel alloc] init];
         placeholderLabel.backgroundColor = [UIColor clearColor];
         placeholderLabel.frame = CGRectMake(5, 0, 250, 30);
-        placeholderLabel.font = [UIFont lightMicroFont];
+        placeholderLabel.font = self.font;
         placeholderLabel.textColor = [UIColor WL_grayColor];
         placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
         [self addSubview:placeholderLabel];

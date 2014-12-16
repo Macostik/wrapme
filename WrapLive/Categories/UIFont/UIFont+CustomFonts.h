@@ -8,61 +8,32 @@
 
 #import <UIKit/UIKit.h>
 
-static NSString* WLFontNameOpenSansRegular = @"OpenSans";
-static NSString* WLFontNameOpenSansLight = @"OpenSans-Light";
-static NSString* WLFontNameOpenSansBold = @"OpenSans-Bold";
+static NSString* WLFontOpenSansRegular = @"OpenSans";
+static NSString* WLFontOpenSansLight = @"OpenSans-Light";
+static NSString* WLFontOpenSansBold = @"OpenSans-Bold";
 
-static CGFloat WLFontSizeMicro = 12.0f;
-static CGFloat WLFontSizeSmall = 14.0f;
-static CGFloat WLFontSizeNormal = 18.0f;
-static CGFloat WLFontSizeLarge = 22.0f;
-
-typedef NS_ENUM(NSUInteger, WLFontType) {
-	WLFontTypeOpenSansLight = 100,
-	WLFontTypeOpenSansRegular,
-    WLFontTypeOpenSansBold
+typedef NS_ENUM(NSUInteger, WLFontPreset) {
+    WLFontPresetXSmall,
+    WLFontPresetSmaller,
+    WLFontPresetSmall,
+    WLFontPresetNormal,
+    WLFontPresetLarge,
+    WLFontPresetLarger,
+    WLFontPresetXLarge,
 };
 
 @interface UIFont (CustomFonts)
 
-+ (UIFont*)fontWithType:(WLFontType)type size:(CGFloat)size;
++ (CGFloat)sizeWithPreset:(WLFontPreset)preset;
 
-- (UIFont*)fontWithType:(WLFontType)type;
++ (UIFont*)fontWithName:(NSString *)fontName preset:(WLFontPreset)preset;
 
-+ (UIFont*)lightFontOfSize:(CGFloat)size;
++ (CGFloat)preferredSizeWithPreset:(WLFontPreset)preset;
 
-+ (UIFont*)lightMicroFont;
++ (UIFont*)preferredFontWithName:(NSString *)fontName preset:(WLFontPreset)preset;
 
-+ (UIFont*)lightSmallFont;
+- (UIFont*)fontWithPreset:(WLFontPreset)preset;
 
-+ (UIFont*)lightNormalFont;
-
-+ (UIFont*)lightLargeFont;
-
-+ (UIFont*)regularFontOfSize:(CGFloat)size;
-
-+ (UIFont*)regularMicroFont;
-
-+ (UIFont*)regularSmallFont;
-
-+ (UIFont*)regularNormalFont;
-
-+ (UIFont*)regularLargeFont;
-
-@end
-
-@interface UILabel (CustomFonts)
-
-@end
-
-@interface UIButton (CustomFonts)
-
-@end
-
-@interface UITextField (CustomFonts)
-
-@end
-
-@interface UITextView (CustomFonts)
+- (UIFont*)preferredFontWithPreset:(WLFontPreset)preset;
 
 @end

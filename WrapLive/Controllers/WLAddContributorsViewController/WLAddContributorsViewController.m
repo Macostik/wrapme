@@ -231,7 +231,7 @@ const static CGFloat WLDefaultHeight = 36.0f;
         return WLDefaultHeight + [contact.persons count] * WLDefaultHeight;
     } else {
         NSString *phoneString = [WLContactCell collectionPersonsStringFromContact:contact];
-        height = [phoneString sizeWithAttributes:@{NSFontAttributeName : [UIFont lightFontOfSize:13.0f]}].height;
+        height = [phoneString sizeWithAttributes:@{NSFontAttributeName : [UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller]}].height;
         return height + WLIndent;
     }
     return WLDefaultHeight;

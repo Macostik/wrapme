@@ -24,6 +24,7 @@
 #import "WLSizeToFitLabel.h"
 #import "WLWrapCell.h"
 #import "TTTAttributedLabel.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLWrapCell ()
 
@@ -62,6 +63,7 @@
 }
 
 - (void)setup:(WLWrap*)wrap {
+    self.nameLabel.font = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetLarge];
 	self.nameLabel.superview.userInteractionEnabled = YES;
 	self.nameLabel.text = wrap.name;
     if (self.coverView) {
@@ -69,6 +71,7 @@
         self.coverView.url = url;
         if (!url) self.coverView.image = [UIImage imageNamed:@"default-small-cover"];
     }
+    self.dateLabel.font = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
     self.dateLabel.text = [NSString stringWithFormat:@"last updated %@", WLString(wrap.updatedAt.timeAgoStringAtAMPM)];
     
     if (self.candiesView) {

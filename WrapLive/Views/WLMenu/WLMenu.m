@@ -40,7 +40,7 @@
     if (item.title) {
         [button setTitle:item.title forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button.titleLabel setFont:[UIFont regularMicroFont]];
+        [button.titleLabel setFont:[UIFont fontWithName:WLFontOpenSansRegular preset:WLFontPresetXSmall]];
     }
     [button setBackgroundImage:[UIImage imageNamed:@"bg_menu_btn"] forState:UIControlStateNormal];
     [button setImage:item.image forState:UIControlStateNormal];

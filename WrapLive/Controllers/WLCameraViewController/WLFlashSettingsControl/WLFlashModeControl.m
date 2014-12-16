@@ -73,7 +73,7 @@ static inline NSString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
 	button.frame = frame;
 	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[button setTitle:title forState:UIControlStateNormal];
-	button.titleLabel.font = [UIFont regularSmallFont];
+	button.titleLabel.font = [UIFont fontWithName:WLFontOpenSansRegular preset:WLFontPresetSmall];
 	[self addSubview:button];
 	return button;
 }

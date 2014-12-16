@@ -108,7 +108,7 @@ CGFloat WLMaxTextViewWidth;
     
     collectionView.transform = CGAffineTransformMakeRotation(M_PI);
     
-    self.messageFont = [UIFont lightFontOfSize:15];
+    self.messageFont = [UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
     
     WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - WLAvatarWidth - 2*WLMessageHorizontalInset - 9;
     
@@ -430,7 +430,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (section != WLChatTypingSection || !self.chat.showTypingView) return CGSizeZero;
-    return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont regularFontOfSize:14] width:WLMaxTextViewWidth cachingKey:"typingViewHeight"]));
+    return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont fontWithName:WLFontOpenSansRegular preset:WLFontPresetSmall] width:WLMaxTextViewWidth cachingKey:"typingViewHeight"]));
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {

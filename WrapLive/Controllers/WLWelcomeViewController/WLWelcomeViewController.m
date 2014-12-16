@@ -108,7 +108,7 @@ typedef enum : NSUInteger {
 - (void)underlineLicenseButton {
 	NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:@"Terms and Conditions"];
 	NSDictionary * attributes = @{NSUnderlineStyleAttributeName : [NSNumber numberWithInteger:NSUnderlineStyleSingle],
-								  NSFontAttributeName : [UIFont lightFontOfSize:15],
+								  NSFontAttributeName : [UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmall],
 								  NSForegroundColorAttributeName : [UIColor WL_orangeColor]};
 	[titleString addAttributes:attributes range:NSMakeRange(0, [titleString length])];
 	[self.licenseButton setAttributedTitle: titleString forState:UIControlStateNormal];
@@ -154,11 +154,11 @@ typedef enum : NSUInteger {
             NSAttributedString *attrString = [[NSAttributedString alloc]
                                               initWithData:rtfData options:nil documentAttributes:nil error:nil];
             if ([attrString string].nonempty) {
-                NSDictionary * textAttributes = @{NSFontAttributeName : [UIFont lightFontOfSize:15],
+                NSDictionary * textAttributes = @{NSFontAttributeName : [UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmall],
                                                   NSForegroundColorAttributeName : [UIColor blackColor]};
                 NSMutableParagraphStyle *paragrapStyle = [NSMutableParagraphStyle new];
                 paragrapStyle.alignment = NSTextAlignmentCenter;
-                NSDictionary * titleAttributes = @{NSFontAttributeName : [UIFont lightFontOfSize:25],
+                NSDictionary * titleAttributes = @{NSFontAttributeName : [UIFont fontWithName:WLFontOpenSansLight size:25],
                                                    NSForegroundColorAttributeName : [UIColor WL_orangeColor],
                                                    NSParagraphStyleAttributeName : paragrapStyle};
                 

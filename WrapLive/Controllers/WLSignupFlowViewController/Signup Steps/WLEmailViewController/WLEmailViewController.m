@@ -14,6 +14,8 @@
 #import "WLTestUserPicker.h"
 #import "UIAlertView+Blocks.h"
 #import "WLNavigation.h"
+#import "NSObject+NibAdditions.h"
+#import "WLConfirmView.h"
 
 @interface WLEmailViewController ()
 
@@ -66,21 +68,21 @@
 
 - (IBAction)useTestAccount:(id)sender {
     [WLTestUserPicker showInView:self.view.window selection:^(WLAuthorization *authorization) {
-        NSString* confirmationMessage = [NSString stringWithFormat:@"%@\n%@\nIs this correct?",[authorization fullPhoneNumber], [authorization email]];
-        [UIAlertView showWithTitle:@"Confirm your details" message:confirmationMessage buttons:@[@"Edit",@"Yes"] completion:^(NSUInteger index) {
-            if (index == 1) {
-                if (authorization.password.nonempty) {
-                    [authorization signIn:^(WLUser *user) {
-                        [[UIStoryboard storyboardNamed:WLMainStoryboard] present:NO];
-                    } failure:^(NSError *error) {
-                        [error show];
-                    }];
-                } else {
-                    
-                }
-            } else {
-                
+        __weak WLConfirmView *confirmView = [WLConfirmView loadFromNib];
+        confirmView.frame = self.view.frame;
+        confirmView.emailLabel.text = [authorization email];
+        confirmView.phoneLabel.text = [authorization fullPhoneNumber];
+        [self.view addSubview:confirmView];
+        [confirmView confirmationSuccess:^{
+            if (authorization.password.nonempty) {
+                [authorization signIn:^(WLUser *user) {
+                    [[UIStoryboard storyboardNamed:WLMainStoryboard] present:NO];
+                } failure:^(NSError *error) {
+                    [error show];
+                }];
             }
+        } failure:^{
+            
         }];
     }];
 }

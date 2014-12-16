@@ -25,6 +25,7 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "WLAuthorizationRequest.h"
 #import "WLRemoteObjectHandler.h"
+#import "WLHomeViewController.h"
 
 @interface WLAppDelegate ()
 
@@ -98,10 +99,27 @@
             photoNotification.fireDate = [[NSDate date] dateByAddingTimeInterval:3];
             photoNotification.alertAction = @"Upload";
             photoNotification.repeatInterval = 0;
+            photoNotification.userInfo = @{@"type":@"new_photos"};
             [application scheduleLocalNotification:photoNotification];
         }
         completionHandler(hasChanges ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
     }];
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    if ([notification.userInfo[@"type"] isEqualToString:@"new_photos"]) {
+        UINavigationController *navigationController = [UINavigationController mainNavigationController];
+        WLHomeViewController *homeViewController = [navigationController.viewControllers firstObject];
+        if ([homeViewController isKindOfClass:[WLHomeViewController class]]) {
+            if (navigationController.topViewController != homeViewController) {
+                [navigationController popToViewController:homeViewController animated:NO];
+            }
+            if (navigationController.presentedViewController) {
+                [navigationController dismissViewControllerAnimated:NO completion:nil];
+            }
+            [homeViewController handleNewPhotosLocalNotification];
+        }
+    }
 }
 
 @end

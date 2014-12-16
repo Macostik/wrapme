@@ -19,6 +19,7 @@
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
 #import "UIAlertView+Blocks.h"
+#import "NSObject+NibAdditions.h"
 #import "WLSession.h"
 #import "WLAuthorization.h"
 #import "WLNavigation.h"
@@ -29,6 +30,7 @@
 #import "WLButton.h"
 #import "WLPhoneValidation.h"
 #import "RMPhoneFormat.h"
+#import "WLConfirmView.h"
 
 @interface WLPhoneViewController () <UITextFieldDelegate, WLKeyboardBroadcastReceiver>
 
@@ -63,6 +65,7 @@
 #pragma mark - Actions
 
 - (IBAction)next:(WLButton*)sender {
+    [self.view endEditing:YES];
     WLAuthorization *authorization = [WLAuthorization currentAuthorization];
     authorization.phone = phoneNumberClearing(self.phoneNumberTextField.text);
     authorization.formattedPhone = self.phoneNumberTextField.text;
@@ -79,14 +82,16 @@
 
 - (void)confirmAuthorization:(WLAuthorization*)authorization success:(void (^)(WLAuthorization *authorization))success {
     __weak typeof(self)weakSelf = self;
-	NSString* confirmationMessage = [NSString stringWithFormat:@"%@\n%@\nIs this correct?",[authorization fullPhoneNumber], [authorization email]];
-	[UIAlertView showWithTitle:@"Confirm your details" message:confirmationMessage buttons:@[@"Edit",@"Yes"] completion:^(NSUInteger index) {
-		if (index == 1) {
-			success(authorization);
-        } else {
-            [weakSelf setStatus:WLSignupStepStatusCancel animated:YES];
-        }
-	}];
+    __weak WLConfirmView *confirmView = [WLConfirmView loadFromNib];
+    confirmView.frame = self.view.frame;
+    confirmView.emailLabel.text = [authorization email];
+    confirmView.phoneLabel.text = [authorization fullPhoneNumber];
+    [self.view addSubview:confirmView];
+    [confirmView confirmationSuccess:^{
+        success(authorization);
+    } failure:^{
+        [weakSelf setStatus:WLSignupStepStatusCancel animated:YES];
+    }];
 }
 
 - (void)signUpAuthorization:(WLAuthorization*)authorization success:(WLBlock)success failure:(WLFailureBlock)failure {

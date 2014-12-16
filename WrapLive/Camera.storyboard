@@ -206,6 +206,7 @@
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sH4-Ri-VnB" customClass="WLImageView">
                                         <rect key="frame" x="8" y="1" width="34" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="34" id="RyU-5t-p9g"/>
                                             <constraint firstAttribute="height" constant="34" id="Xue-zU-dar"/>
@@ -252,6 +253,7 @@
                         <outlet property="wrapCoverView" destination="sH4-Ri-VnB" id="IXt-mo-AJg"/>
                         <outlet property="wrapNameLabel" destination="g5K-gw-F64" id="bNz-iB-5Zd"/>
                         <outlet property="wrapView" destination="qUY-JJ-yJl" id="4x8-GG-nOM"/>
+                        <outlet property="wrapViewBottomConstraint" destination="omR-CP-9CN" id="zPO-oj-7hI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xn2-PF-LkD" userLabel="First Responder" sceneMemberID="firstResponder"/>

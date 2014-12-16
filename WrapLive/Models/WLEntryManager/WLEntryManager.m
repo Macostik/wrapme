@@ -132,6 +132,11 @@
     }
 }
 
+- (void)clear {
+    [self.context reset];
+    [self.cachedEntries removeAllObjects];
+}
+
 - (NSArray *)executeFetchRequest:(NSFetchRequest *)request {
     return [[WLEntryManager manager].context executeFetchRequest:request error:NULL];
 }

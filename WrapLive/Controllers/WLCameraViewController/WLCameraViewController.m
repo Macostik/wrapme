@@ -114,6 +114,9 @@
 	[self captureImage:^(UIImage *image, NSMutableDictionary* metadata) {
 		[weakSelf finishWithImage:image metadata:metadata];
 		weakSelf.view.userInteractionEnabled = YES;
+        run_after(0.5f, ^{
+            sender.active = YES;
+        });
 	}];
 }
 

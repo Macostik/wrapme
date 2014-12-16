@@ -150,6 +150,14 @@
 		5B7E156C1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */; };
 		5B7E156D1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */; };
 		5B7E156E1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */; };
+		5BA4329E1A3F2B6A00B53BC7 /* WLConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA4329D1A3F2B6A00B53BC7 /* WLConfirmView.xib */; };
+		5BA4329F1A3F2B6A00B53BC7 /* WLConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA4329D1A3F2B6A00B53BC7 /* WLConfirmView.xib */; };
+		5BA432A01A3F2B6A00B53BC7 /* WLConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA4329D1A3F2B6A00B53BC7 /* WLConfirmView.xib */; };
+		5BA432A11A3F2B6A00B53BC7 /* WLConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA4329D1A3F2B6A00B53BC7 /* WLConfirmView.xib */; };
+		5BA432AA1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */; };
+		5BA432AB1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */; };
+		5BA432AC1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */; };
+		5BA432AD1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */; };
 		5BA470B91A2478AF0098EBE2 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewTimeline.xib */; };
 		5BA470BA1A2478B00098EBE2 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewTimeline.xib */; };
 		5BA470BB1A2478B00098EBE2 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewTimeline.xib */; };
@@ -1608,6 +1616,9 @@
 		5B787DB01A278914004AE459 /* WrapLive-Production.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WrapLive-Production.entitlements"; sourceTree = "<group>"; };
 		5B787DB11A27891C004AE459 /* WLTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WLTodayExtension.entitlements; sourceTree = "<group>"; };
 		5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCreateWrapCell.xib; path = WrapLive/Controllers/WLPickerViewContoller/WLCreateWrapCell.xib; sourceTree = "<group>"; };
+		5BA4329D1A3F2B6A00B53BC7 /* WLConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLConfirmView.xib; path = "../Controllers/WLSignupFlowViewController/Signup Steps/WLPhoneViewController/WLConfirmView.xib"; sourceTree = "<group>"; };
+		5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLConfirmView.h; path = WLConfirmView/WLConfirmView.h; sourceTree = "<group>"; };
+		5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLConfirmView.m; path = WLConfirmView/WLConfirmView.m; sourceTree = "<group>"; };
 		5BA470BC1A24BAA80098EBE2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		5BA470BD1A24BAA80098EBE2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		5BA470BE1A24BAA80098EBE2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -2478,6 +2489,7 @@
 				5BB3291819D44E5100E946B8 /* WLLabel */,
 				129654F018E1CACB00FF43F6 /* WLInputAccessoryView */,
 				12DCBA7E18DB18F400A4BC44 /* Reusing Views */,
+				5BA432AE1A3F3F5200B53BC7 /* WLConfirmView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3157,6 +3169,16 @@
 				5B787DA01A27876F004AE459 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5BA432AE1A3F3F5200B53BC7 /* WLConfirmView */ = {
+			isa = PBXGroup;
+			children = (
+				5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */,
+				5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */,
+				5BA4329D1A3F2B6A00B53BC7 /* WLConfirmView.xib */,
+			);
+			name = WLConfirmView;
 			sourceTree = "<group>";
 		};
 		5BA4CC161A08FAFA00D7F31C /* WLPickerViewController */ = {
@@ -4377,6 +4399,7 @@
 				5BA666B919FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				12D514FA192F5F15007A1520 /* AppIcon29x29@2x.png in Resources */,
 				5BA6CAF21A10E51B004AD41C /* s01.wav in Resources */,
+				5BA4329E1A3F2B6A00B53BC7 /* WLConfirmView.xib in Resources */,
 				12E8FF2118E9885F00BF1B96 /* WLComposeBar.xib in Resources */,
 				12D514FF192F5F15007A1520 /* AppIcon76x76@2x.png in Resources */,
 				5BA470C11A24BAA80098EBE2 /* Default-568h@2x.png in Resources */,
@@ -4478,6 +4501,7 @@
 				C54AF86D19B8C63A006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				5BA666BA19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				C54AF54419B8C437006F7EDB /* WLComposeBar.xib in Resources */,
+				5BA4329F1A3F2B6A00B53BC7 /* WLConfirmView.xib in Resources */,
 				C54AF86B19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5B7E156C1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF54619B8C437006F7EDB /* AppIcon76x76@2x.png in Resources */,
@@ -4570,6 +4594,7 @@
 				C54AF87119B8C63A006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				5BA666BB19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				C54AF64119B8C467006F7EDB /* WLComposeBar.xib in Resources */,
+				5BA432A01A3F2B6A00B53BC7 /* WLConfirmView.xib in Resources */,
 				C54AF86F19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5B7E156D1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF64319B8C467006F7EDB /* AppIcon76x76@2x.png in Resources */,
@@ -4662,6 +4687,7 @@
 				C54AF87519B8C63B006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				5BA666BC19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
 				C54AF73E19B8C491006F7EDB /* WLComposeBar.xib in Resources */,
+				5BA432A11A3F2B6A00B53BC7 /* WLConfirmView.xib in Resources */,
 				C54AF87319B8C63B006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5B7E156E1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				C54AF74019B8C491006F7EDB /* AppIcon76x76@2x.png in Resources */,
@@ -5043,6 +5069,7 @@
 				C54531201A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				C5FD0EE0194B4410004DAB1B /* NSOrderedSet+Additions.m in Sources */,
 				C54F1B221A2F1D4300F40372 /* WLVerificationCallRequest.m in Sources */,
+				5BA432AA1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */,
 				C500942A1998D353007EE33A /* WLCommentsCell.m in Sources */,
 				C50AF4271976B42500761F38 /* WLDeleteCandyRequest.m in Sources */,
 				C599F9D219AF5751008C7DFA /* NSObject+Extension.m in Sources */,
@@ -5296,6 +5323,7 @@
 				C54531211A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				C54AF4D619B8C437006F7EDB /* NSOrderedSet+Additions.m in Sources */,
 				C54F1B231A2F1D4300F40372 /* WLVerificationCallRequest.m in Sources */,
+				5BA432AB1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */,
 				C54AF4D719B8C437006F7EDB /* WLCommentsCell.m in Sources */,
 				C54AF4D919B8C437006F7EDB /* WLDeleteCandyRequest.m in Sources */,
 				C54AF4DA19B8C437006F7EDB /* NSObject+Extension.m in Sources */,
@@ -5534,6 +5562,7 @@
 				C54531221A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				C54AF5D319B8C467006F7EDB /* NSOrderedSet+Additions.m in Sources */,
 				C54F1B241A2F1D4300F40372 /* WLVerificationCallRequest.m in Sources */,
+				5BA432AC1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */,
 				C54AF5D419B8C467006F7EDB /* WLCommentsCell.m in Sources */,
 				C54AF5D619B8C467006F7EDB /* WLDeleteCandyRequest.m in Sources */,
 				C54AF5D719B8C467006F7EDB /* NSObject+Extension.m in Sources */,
@@ -5772,6 +5801,7 @@
 				C54531231A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				C54AF6D019B8C491006F7EDB /* NSOrderedSet+Additions.m in Sources */,
 				C54F1B251A2F1D4300F40372 /* WLVerificationCallRequest.m in Sources */,
+				5BA432AD1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */,
 				C54AF6D119B8C491006F7EDB /* WLCommentsCell.m in Sources */,
 				C54AF6D319B8C491006F7EDB /* WLDeleteCandyRequest.m in Sources */,
 				C54AF6D419B8C491006F7EDB /* NSObject+Extension.m in Sources */,
@@ -5987,7 +6017,7 @@
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "946028d5-fb39-4104-8048-bf20757b323f";
+				PROVISIONING_PROFILE = "7034ceea-d34d-4df4-8afa-4bed18a6bd9d";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6013,7 +6043,7 @@
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a3c4f783-b142-49bd-b4c7-def874e86190";
+				PROVISIONING_PROFILE = "99f25633-7bc6-495d-9017-0981d5f8b14e";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6079,7 +6109,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "946028d5-fb39-4104-8048-bf20757b323f";
+				PROVISIONING_PROFILE = "7034ceea-d34d-4df4-8afa-4bed18a6bd9d";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6105,7 +6135,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "a3c4f783-b142-49bd-b4c7-def874e86190";
+				PROVISIONING_PROFILE = "99f25633-7bc6-495d-9017-0981d5f8b14e";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6128,7 +6158,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "946028d5-fb39-4104-8048-bf20757b323f";
+				PROVISIONING_PROFILE = "7034ceea-d34d-4df4-8afa-4bed18a6bd9d";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6153,7 +6183,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "a3c4f783-b142-49bd-b4c7-def874e86190";
+				PROVISIONING_PROFILE = "99f25633-7bc6-495d-9017-0981d5f8b14e";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6177,7 +6207,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "d235a67e-2e22-402d-9b01-311fb45fa262";
+				PROVISIONING_PROFILE = "ab4d58a5-5e1b-4af1-9e85-5d8aa930e67d";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6203,7 +6233,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "93f834bf-b59c-46cc-80f5-a7a662ea777e";
+				PROVISIONING_PROFILE = "df12dfb6-2e80-48f0-aa60-f1b09427ce60";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

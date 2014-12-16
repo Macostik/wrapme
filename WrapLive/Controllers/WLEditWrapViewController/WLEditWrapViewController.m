@@ -25,7 +25,6 @@ static NSString *const WLLeave = @"Leave";
 
 @property (weak, nonatomic) IBOutlet UITextField *nameWrapTextField;
 @property (weak, nonatomic) IBOutlet WLPressButton *deleteButton;
-@property (weak, nonatomic) IBOutlet UILabel *deleteLabel;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
 @end
@@ -37,16 +36,11 @@ static NSString *const WLLeave = @"Leave";
     
     self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap stringProperties:@"name", nil];
     
-    self.nameWrapTextField.layer.borderColor = [UIColor WL_grayColor].CGColor;
-    self.deleteButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
     [self.nameWrapTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
 
-    BOOL isMyWrap = [self isMyWrap];
-    
-    self.deleteLabel.text = [NSString stringWithFormat:@"%@ this wrap", isMyWrap ? WLDelete : WLLeave];
+    BOOL isMyWrap = self.wrap.contributedByCurrentUser;
     [self.deleteButton setTitle:isMyWrap ? WLDelete : WLLeave forState:UIControlStateNormal];
     self.nameWrapTextField.enabled = isMyWrap;
-    [self setupEditableUserInterface];
 }
 
 + (BOOL)isEmbeddedDefaultValue {
@@ -55,10 +49,6 @@ static NSString *const WLLeave = @"Leave";
 
 - (void)setupEditableUserInterface {
     self.nameWrapTextField.text = self.wrap.name;
-}
-
-- (BOOL)isMyWrap {
-    return [self.wrap.contributor isCurrentUser];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -87,23 +77,27 @@ static NSString *const WLLeave = @"Leave";
     [self.wrap update:success failure:success];
 }
 
-- (IBAction)deleteButtonClick:(id)sender {
+- (IBAction)deleteButtonClick:(WLButton*)sender {
     __weak typeof(self)weakSelf = self;
-    self.view.hidden = YES;
-     [self.view endEditing:YES];
+    sender.loading = YES;
     WLWrap *wrap = self.wrap;
-    if ([self isMyWrap]) {
+    if (wrap.contributedByCurrentUser) {
         [wrap remove:^(id object) {
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            sender.loading = NO;
         } failure:^(NSError *error) {
             [error show];
-            self.view.hidden = error != nil;
+            sender.loading = NO;
         }];
     } else {
         [wrap leave:^(id object) {
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            sender.loading = NO;
         } failure:^(NSError *error) {
             [error show];
+            sender.loading = NO;
         }];
     }
 }

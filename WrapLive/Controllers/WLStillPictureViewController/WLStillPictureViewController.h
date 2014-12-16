@@ -38,4 +38,6 @@
 
 @property (strong, nonatomic) WLWrap* wrap;
 
+@property (nonatomic) BOOL startFromGallery;
+
 @end

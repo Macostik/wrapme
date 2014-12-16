@@ -44,6 +44,13 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     return self;
 }
 
+- (void)setGroup:(ALAssetsGroup *)group {
+    _group = group;
+    if (self.isViewLoaded) {
+        self.titleLabel.text = group.name;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
@@ -92,8 +99,7 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     }
 }
 
-- (void)assetsLibraryChanged:(NSNotification*)notifiection
-{
+- (void)assetsLibraryChanged:(NSNotification*)notifiection {
     __weak WLAssetsViewController* selfWeak = self;
     
     [[ALAssetsLibrary library] groups:^(NSArray *groups) {
@@ -111,14 +117,30 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     }];
 }
 
-- (void)loadAssets
-{
-    __weak WLAssetsViewController* selfWeak = self;
-    self.title = [self.group.name uppercaseString];
-    [self.group assets:^(NSArray *assets) {
-        selfWeak.assets = assets;
-        [selfWeak.collectionView reloadData];
-    }];
+- (void)loadAssets {
+    __weak typeof(self)weakSelf = self;
+    if (self.group) {
+        self.title = [self.group.name uppercaseString];
+        [self.group assets:^(NSArray *assets) {
+            weakSelf.assets = assets;
+            if (weakSelf.preselectFirstAsset && assets.count > 0) {
+                [weakSelf selectAsset:[assets firstObject]];
+                weakSelf.preselectFirstAsset = NO;
+            }
+            [weakSelf.collectionView reloadData];
+        }];
+    } else {
+        self.title = [self.group.name uppercaseString];
+        [[ALAssetsLibrary library] enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+            if (group) {
+                weakSelf.group = group;
+                [weakSelf loadAssets];
+                *stop = YES;
+            }
+        } failureBlock:^(NSError *error) {
+            
+        }];
+    }
 }
 
 - (IBAction)done:(id)sender {
@@ -161,15 +183,13 @@ static NSUInteger WLAssetNumberOfColumns = 4;
 
 #pragma mark - PGAssetCellDelegate
 
-- (void)assetCell:(WLAssetCell *)cell didSelectAsset:(ALAsset *)asset {
-	
-	CGSize size = asset.defaultRepresentation.dimensions;
-	
-	if (size.width == 0 && size.height == 0) {
-		[WLToast showWithMessage:@"Your image is invalid. Please, choose another one."];
-	} else if (size.width < 100 || size.height < 100) {
-		[WLToast showWithMessage:@"Your image is too small. Please, choose another one."];
-	} else {
+- (void)selectAsset:(ALAsset *)asset {
+    CGSize size = asset.defaultRepresentation.dimensions;
+    if (size.width == 0 && size.height == 0) {
+        [WLToast showWithMessage:@"Your image is invalid. Please, choose another one."];
+    } else if (size.width < 100 || size.height < 100) {
+        [WLToast showWithMessage:@"Your image is too small. Please, choose another one."];
+    } else {
         if (self.mode == WLStillPictureModeDefault) {
             if ([self.selectedAssets containsObject:asset]) {
                 [self.selectedAssets removeObject:asset];
@@ -178,13 +198,17 @@ static NSUInteger WLAssetNumberOfColumns = 4;
             }
             [UIView beginAnimations:nil context:nil];
             [UIView setAnimationBeginsFromCurrentState:YES];
-            [self.collectionView reloadItemsAtIndexPaths:@[[self.collectionView indexPathForCell:cell]]];
             self.doneButton.x = self.selectedAssets.nonempty ? self.view.width - self.doneButton.width : self.view.width;
             [UIView commitAnimations];
         } else if (self.selectionBlock) {
             self.selectionBlock(@[asset]);
         }
-	}
+    }
+}
+
+- (void)assetCell:(WLAssetCell *)cell didSelectAsset:(ALAsset *)asset {
+    [self selectAsset:asset];
+    [self.collectionView reloadItemsAtIndexPaths:@[[self.collectionView indexPathForCell:cell]]];
 }
 
 @end

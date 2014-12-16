@@ -43,7 +43,7 @@
     if (self.userInteractionEnabled) {
         self.menu = [WLMenu menuWithView:self configuration:^BOOL (WLMenu *menu) {
             WLCandy* candy = weakSelf.entry;
-            if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
+            if (candy.deletable) {
                 [menu addDeleteItem:^{
                     weakSelf.userInteractionEnabled = NO;
                     [candy remove:^(id object) {

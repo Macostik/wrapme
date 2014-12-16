@@ -22,4 +22,6 @@
 
 @property (nonatomic) WLStillPictureMode mode;
 
+@property (nonatomic) BOOL preselectFirstAsset;
+
 @end

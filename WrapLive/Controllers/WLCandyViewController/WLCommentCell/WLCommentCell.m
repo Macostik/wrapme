@@ -46,7 +46,7 @@
     __weak typeof(self)weakSelf = self;
     self.menu = [WLMenu menuWithView:self configuration:^BOOL(WLMenu *menu) {
         WLComment* comment = weakSelf.entry;
-        if ([comment.contributor isCurrentUser]) {
+        if (comment.deletable) {
             [menu addDeleteItem:^{
                 weakSelf.userInteractionEnabled = NO;
                 [weakSelf.entry remove:^(id object) {
@@ -82,7 +82,7 @@
     [self.authorImageView setFailure:^(NSError* error) {
         weakSelf.authorImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];
-    self.menu.vibrate = [entry.contributor isCurrentUser];
+    self.menu.vibrate = entry.deletable;
     
     if (entry.status != WLContributionStatusUploaded) {
         WLUploadingData* uploadingData = entry.uploading.data;

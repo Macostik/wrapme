@@ -130,6 +130,11 @@
             }
             UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
             spinner.center = center;
+            if (self.spinnerColor) {
+                spinner.color = self.spinnerColor;
+            } else {
+                spinner.color = [self titleColorForState:UIControlStateNormal];
+            }
             [self addSubview:spinner];
             [spinner startAnimating];
             self.spinner = spinner;

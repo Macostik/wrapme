@@ -116,6 +116,10 @@
     return self.wrap.uploading == nil;
 }
 
+- (BOOL)deletable {
+    return self.contributedByCurrentUser || self.wrap.contributedByCurrentUser;
+}
+
 - (WLEntry *)containingEntry {
     return self.wrap;
 }

@@ -161,6 +161,20 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self setEmailConfirmationViewHidden:YES animated:YES];
 }
 
+- (void)handleNewPhotosLocalNotification {
+    WLWrap *wrap = self.section.wrap;
+    if (wrap) {
+        WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
+        stillPictureViewController.wrap = wrap;
+        stillPictureViewController.mode = WLStillPictureModeDefault;
+        stillPictureViewController.delegate = self;
+        stillPictureViewController.startFromGallery = YES;
+        [self presentViewController:stillPictureViewController animated:YES completion:nil];
+    } else {
+        [self createWrap:nil];
+    }
+}
+
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {

@@ -200,7 +200,7 @@
 @implementation WLContribution (WLNotification)
 
 - (BOOL)notifiable {
-    return ![self.contributor isCurrentUser];
+    return !self.contributedByCurrentUser;
 }
 
 @end
@@ -250,13 +250,13 @@
 @implementation WLComment (WLNotification)
 
 - (BOOL)notifiable {
-    if ([self.contributor isCurrentUser]) return NO;
+    if (self.contributedByCurrentUser) return NO;
     WLCandy *candy = self.candy;
-    if ([candy.contributor isCurrentUser]) {
+    if (candy.contributedByCurrentUser) {
         return YES;
     } else {
-        NSUInteger index = [candy.comments indexOfObjectPassingTest:^BOOL(WLComment* _comment, NSUInteger idx, BOOL *stop) {
-            return [_comment.contributor isCurrentUser];
+        NSUInteger index = [candy.comments indexOfObjectPassingTest:^BOOL(WLComment* comment, NSUInteger idx, BOOL *stop) {
+            return comment.contributedByCurrentUser;
         }];
         if (index != NSNotFound && [candy.comments indexOfObject:self] > index) {
             return YES;

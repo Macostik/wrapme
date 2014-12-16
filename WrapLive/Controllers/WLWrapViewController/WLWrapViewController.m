@@ -205,7 +205,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-	[WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.",
+	[WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer available.",
                               WLString([self.nameLabel titleForState:UIControlStateNormal])]];
 	__weak typeof(self)weakSelf = self;
 	run_after(0.5f, ^{

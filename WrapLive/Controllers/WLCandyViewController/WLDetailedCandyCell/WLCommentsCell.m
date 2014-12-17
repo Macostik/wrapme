@@ -21,8 +21,9 @@
 #import "NSObject+AssociatedObjects.h"
 #import "NSString+Additions.h"
 #import "WLEntryNotifier.h"
+#import "WLFontPresetter.h"
 
-@interface WLCommentsCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WLEntryNotifyReceiver>
+@interface WLCommentsCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WLEntryNotifyReceiver, WLFontPresetterReceiver>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) WLRefresher *refresher;
@@ -39,6 +40,7 @@
     self.refresher = [WLRefresher refresher:self.collectionView target:self action:@selector(refresh:) style:WLRefresherStyleOrange];
     [[WLComment notifier] addReceiver:self];
     [[WLCandy notifier] addReceiver:self];
+    [[WLFontPresetter presetter] addReceiver:self];
 }
 
 - (void)refresh:(WLRefresher*)sender {
@@ -113,7 +115,7 @@
     if (!comment.valid) {
         return CGSizeMake(collectionView.width, WLMinimumCellHeight);
     }
-    CGFloat height = [comment.text heightWithFont:[UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmall] width:WLCommentLabelLenth cachingKey:"commentTextHeight"];
+    CGFloat height = [comment.text heightWithFont:[UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmall] width:WLCommentLabelLenth];
     return CGSizeMake(collectionView.width, MAX(WLMinimumCellHeight, height + WLAuthorLabelHeight + 10));
 }
 
@@ -128,6 +130,12 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     return CGSizeMake(collectionView.width, collectionView.width + 30);
+}
+
+#pragma mark - WLFontPresetterReceiver
+
+- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+    [self.collectionView reloadData];
 }
 
 @end

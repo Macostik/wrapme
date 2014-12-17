@@ -99,7 +99,7 @@
 }
 
 - (CGFloat)constraintForWidth:(CGFloat)width {
-    return self.width - WLAvatarWidth - MAX(WLMinBubbleWidth, width) - 2*WLMessageHorizontalInset;
+    return (WLMaxTextViewWidth - MAX(WLMinBubbleWidth, width)) + WLAvatarLeading;
 }
 
 #pragma mark - TTTAttributedLabelDelegate

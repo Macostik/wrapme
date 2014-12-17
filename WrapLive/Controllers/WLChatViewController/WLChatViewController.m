@@ -34,6 +34,7 @@
 #import "WLTypingViewCell.h"
 #import "WLUser.h"
 #import "WLWrap.h"
+#import "WLFontPresetter.h"
 
 static NSUInteger WLChatTypingSection = 0;
 static NSUInteger WLChatMessagesSection = 1;
@@ -41,7 +42,7 @@ static NSUInteger WLChatLoadingSection = 2;
 
 CGFloat WLMaxTextViewWidth;
 
-@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate>
+@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate, WLFontPresetterReceiver>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
@@ -110,7 +111,7 @@ CGFloat WLMaxTextViewWidth;
     
     self.messageFont = [UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
     
-    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - WLAvatarWidth - 2*WLMessageHorizontalInset - 9;
+    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - WLAvatarWidth - 2*WLMessageHorizontalInset - WLAvatarLeading;
     
 	__weak typeof(self)weakSelf = self;
     [self.wrap fetchIfNeeded:^(id object) {
@@ -133,6 +134,7 @@ CGFloat WLMaxTextViewWidth;
 	
     [[WLMessage notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
+    [[WLFontPresetter presetter] addReceiver:self];
 }
 
 - (void)updateEdgeInsets:(CGFloat)keyboardHeight {
@@ -397,7 +399,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGFloat)heightOfMessageCell:(WLMessage *)message containsName:(BOOL)containsName showDay:(BOOL)showDay {
-	CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth cachingKey:"messageCellHeight"];
+	CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth];
     CGFloat topInset = (containsName ? WLMessageNameInset : WLMessageVerticalInset);
     if (showDay) {
         topInset += WLMessageDayLabelHeight + WLMessageGroupSpacing;
@@ -430,11 +432,18 @@ CGFloat WLMaxTextViewWidth;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (section != WLChatTypingSection || !self.chat.showTypingView) return CGSizeZero;
-    return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont fontWithName:WLFontOpenSansRegular preset:WLFontPresetSmall] width:WLMaxTextViewWidth cachingKey:"typingViewHeight"]));
+    return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont fontWithName:WLFontOpenSansRegular preset:WLFontPresetSmall] width:WLMaxTextViewWidth]));
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     return 3;
+}
+
+#pragma mark - WLFontPresetterReceiver
+
+- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+    self.messageFont = [UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
+    [self.collectionView reloadData];
 }
 
 @end

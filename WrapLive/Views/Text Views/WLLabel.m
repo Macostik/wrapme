@@ -15,11 +15,10 @@
     UIViewContentMode contentMode = self.contentMode;
     switch (contentMode) {
         case UIViewContentModeTop:
-            rect.origin = bounds.origin;
+            rect.origin.y = 0;
             break;
         case UIViewContentModeBottom:
-            rect.origin.x = bounds.origin.x;
-            rect.origin.y = bounds.origin.y + (bounds.size.height - rect.size.height);
+            rect.origin.y = bounds.size.height - rect.size.height;
             break;
         default:
             break;
@@ -28,7 +27,12 @@
 }
 
 - (void)drawTextInRect:(CGRect)rect {
-    [super drawTextInRect:[self textRectForBounds:rect limitedToNumberOfLines:self.numberOfLines]];
+    UIViewContentMode contentMode = self.contentMode;
+    if (contentMode == UIViewContentModeTop || contentMode == UIViewContentModeBottom) {
+        [super drawTextInRect:[self textRectForBounds:rect limitedToNumberOfLines:self.numberOfLines]];
+    } else {
+        [super drawTextInRect:rect];
+    }
 }
 
 #pragma mark - WLFontCustomizing

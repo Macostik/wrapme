@@ -26,8 +26,9 @@
 #import "WLButton.h"
 #import "WLEntryNotifier.h"
 #import "WLUpdateContributorsRequest.h"
+#import "WLFontPresetter.h"
 
-@interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate>
+@interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate, WLFontPresetterReceiver>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
@@ -59,6 +60,7 @@
         [weakSelf.spinner stopAnimating];
 		[error show];
     }];
+    [[WLFontPresetter presetter] addReceiver:self];
 }
 
 - (NSError*)addContact:(WLContact*)contact {
@@ -356,6 +358,12 @@ const static CGFloat WLDefaultHeight = 36.0f;
                                       animated:YES];
     }
     return nil;
+}
+
+#pragma mark - WLFontPresetterReceiver
+
+- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+    [self.tableView reloadData];
 }
 
 @end

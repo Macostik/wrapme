@@ -82,6 +82,8 @@
     }
 	self.coverView.animatingPicture = candy.picture;
     self.coverView.url = candy.picture.small;
+
+    [WLMenu hide];
 }
 
 - (void)select:(WLCandy*)candy {

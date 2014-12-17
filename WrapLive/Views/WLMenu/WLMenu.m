@@ -252,14 +252,28 @@
 }
 
 - (void)drawRect:(CGRect)rect {
+    CGSize          myShadowOffset = CGSizeZero;
+    CGFloat         myColorValues[] = {0, 0, 0, .6};
+    CGColorRef      myColor;
+    CGColorSpaceRef myColorSpace;
+    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGColorSpaceRef cs = CGColorSpaceCreateDeviceRGB();
-    NSArray* colors = @[(id)[UIColor colorWithWhite:0.0f alpha:0.0f].CGColor, (id)[UIColor colorWithWhite:0.0f alpha:0.9f].CGColor];
-    CGFloat locations[2] = {0,1};
-    CGGradientRef gr = CGGradientCreateWithColors(cs, (__bridge CFArrayRef)colors, locations);
-    CGContextDrawRadialGradient(ctx, gr, self.centerPoint, 0, self.centerPoint, 80, kCGGradientDrawsAfterEndLocation);
-    CGColorSpaceRelease(cs);
-    CGGradientRelease(gr);
+    
+    CGContextSaveGState(ctx);
+    
+    myColorSpace = CGColorSpaceCreateDeviceRGB();
+    myColor = CGColorCreate (myColorSpace, myColorValues);
+    CGContextSetShadowWithColor (ctx, myShadowOffset, 15.0, myColor);
+    CGContextSetRGBFillColor (ctx, myColorValues[0], myColorValues[1], myColorValues[2], myColorValues[3]);
+    CGContextFillRect (ctx, rect);
+    
+    CGRect frame = [self convertRect:self.view.bounds fromView:self.view];
+    CGContextAddRect(ctx, frame);
+    CGContextClearRect(ctx, frame);
+    
+    CGColorRelease (myColor);
+    CGColorSpaceRelease (myColorSpace);
+    CGContextRestoreGState(ctx);
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

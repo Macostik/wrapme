@@ -188,13 +188,6 @@ static NSUInteger WLComposeBarMinHeight = 44;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-//	if ([text isEqualToString:@"\n"]) {
-//		CGFloat sizeAdjustment = textView.font.lineHeight * [UIScreen mainScreen].scale;
-//		[UIView animateWithDuration:0.2 animations:^{
-//			[textView setContentOffset:CGPointMake(textView.contentOffset.x, textView.contentOffset.y + sizeAdjustment)];
-//		}];
-//	}
-	
 	NSUInteger charactersLimit;
 	if ([self.delegate respondsToSelector:@selector(composeBarCharactersLimit:)] && self.height > 44) {
 		charactersLimit = [self.delegate composeBarCharactersLimit:self];
@@ -225,60 +218,6 @@ static NSUInteger WLComposeBarMinHeight = 44;
 
 - (BOOL)resignFirstResponder {
 	return [self.textView resignFirstResponder];
-}
-
-@end
-
-@interface WLTextView ()
-
-@property (weak, nonatomic) UILabel* placeholderLabel;
-
-@end
-
-@implementation WLTextView
-
-
-- (void)awakeFromNib {
-	[super awakeFromNib];
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(textDidChange)
-												 name:UITextViewTextDidChangeNotification
-											   object:self];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)setText:(NSString *)text {
-	[super setText:text];
-	[self textDidChange];
-}
-
-- (void)textDidChange {
-	self.placeholderLabel.hidden = self.text.length != 0;
-}
-
-- (UILabel *)placeholderLabel {
-    if (!_placeholderLabel) {
-        UILabel* placeholderLabel = [[UILabel alloc] init];
-        placeholderLabel.backgroundColor = [UIColor clearColor];
-        placeholderLabel.frame = CGRectMake(5, 0, 250, 30);
-        placeholderLabel.font = self.font;
-        placeholderLabel.textColor = [UIColor WL_grayColor];
-        placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
-        [self addSubview:placeholderLabel];
-        _placeholderLabel = placeholderLabel;
-    }
-    return _placeholderLabel;
-}
-
-- (void)setPlaceholder:(NSString *)placeHolder {
-	self.placeholderLabel.text = placeHolder;
-}
-
-- (NSString *)placeholder {
-	return self.placeholderLabel.text;
 }
 
 @end

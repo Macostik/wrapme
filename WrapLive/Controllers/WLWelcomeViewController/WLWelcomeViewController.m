@@ -19,7 +19,6 @@
 #import "WLNavigation.h"
 #import "WLSession.h"
 #import "WLSignupFlowViewController.h"
-#import "WLTermsAndConditionsKeys.h"
 #import "WLUser.h"
 #import "WLWelcomeViewController.h"
 #import "UIViewController+Additions.h"
@@ -147,37 +146,13 @@ typedef enum : NSUInteger {
 }
 
 - (void)wrapIntoAttributedString {
-    NSURL *url  = [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"Wraplive_TermsAndConditions" ofType:@"rtf"]];
-    if (url != nil) {
-        NSData *rtfData = [NSData dataWithContentsOfURL:url];
-        if (rtfData != nil) {
-            NSAttributedString *attrString = [[NSAttributedString alloc]
-                                              initWithData:rtfData options:nil documentAttributes:nil error:nil];
-            if ([attrString string].nonempty) {
-                NSDictionary * textAttributes = @{NSFontAttributeName : [UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmall],
-                                                  NSForegroundColorAttributeName : [UIColor blackColor]};
-                NSMutableParagraphStyle *paragrapStyle = [NSMutableParagraphStyle new];
-                paragrapStyle.alignment = NSTextAlignmentCenter;
-                NSDictionary * titleAttributes = @{NSFontAttributeName : [UIFont fontWithName:WLFontOpenSansLight size:25],
-                                                   NSForegroundColorAttributeName : [UIColor WL_orangeColor],
-                                                   NSParagraphStyleAttributeName : paragrapStyle};
-                
-                NSMutableAttributedString *attrText = attrString.mutableCopy;
-                [attrText addAttributes:textAttributes range:NSMakeRange(0 , [attrString length])];
-                
-                [titleKeyArray() all:^(id item) {
-                    NSRange range = [[attrText string] rangeOfString:item];
-                    if (range.location != NSNotFound) {
-                        [attrText setAttributes:titleAttributes range:range];
-                    }
-                }];
-                
-                self.termsAndConditionsTextView.attributedText = attrText;
-                self.termsAndConditionsTextView.editable = NO;
-                self.termsAndConditionsTextView.dataDetectorTypes = UIDataDetectorTypeAll;
-            }
-        }
-    }
+    __weak typeof(self)weakSelf = self;
+    run_getting_object(^id{
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"Wraplive_TermsAndConditions" withExtension:@"rtf"];
+        return [[NSAttributedString alloc] initWithFileURL:url options:nil documentAttributes:nil error:nil];
+    }, ^(id object) {
+        weakSelf.termsAndConditionsTextView.attributedText = object;
+    });
 }
 
 - (IBAction)agreeAndContinue:(id)sender {

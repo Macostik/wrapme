@@ -39,7 +39,7 @@
 #import "WLRefresher.h"
 #import "WLResendConfirmationRequest.h"
 #import "WLSession.h"
-#import "WLSizeToFitLabel.h"
+#import "WLBadgeLabel.h"
 #import "WLStillPictureViewController.h"
 #import "WLToast.h"
 #import "WLUserView.h"
@@ -60,7 +60,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
-@property (weak, nonatomic) IBOutlet WLSizeToFitLabel *notificationsLabel;
+@property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
 
 @end

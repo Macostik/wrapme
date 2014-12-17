@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIFont+CustomFonts.h"
 
-@interface WLButton : UIButton
+@interface WLButton : UIButton <WLFontCustomizing>
 
 @property (strong, nonatomic) UIColor *normalColor;
 

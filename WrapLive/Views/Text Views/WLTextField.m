@@ -28,4 +28,18 @@
     [self sendActionsForControlEvents:UIControlEventEditingChanged];
 }
 
+#pragma mark - WLFontCustomizing
+
+@synthesize preset = _preset;
+
+- (void)setPreset:(NSString *)preset {
+    _preset = preset;
+    self.font = [self.font preferredFontWithPreset:preset];
+    [[WLFontPresetter presetter] addReceiver:self];
+}
+
+- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+    self.font = [self.font preferredFontWithPreset:self.preset];
+}
+
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIFont+CustomFonts.h"
 
-@interface WLTextField : UITextField
+@interface WLTextField : UITextField <WLFontCustomizing>
 
 @end

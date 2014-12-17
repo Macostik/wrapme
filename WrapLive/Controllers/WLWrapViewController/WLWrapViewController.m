@@ -48,7 +48,7 @@
 #import "NSString+Additions.h"
 #import "WLContributorsViewController.h"
 #import "WLNotification.h"
-#import "WLSizeToFitLabel.h"
+#import "WLBadgeLabel.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLCreateWrapViewController.h"
 #import "WLPickerViewController.h"
@@ -76,7 +76,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
 @property (strong, nonatomic) IBOutlet WLTimelineViewDataProvider *timelineDataProvider;
 @property (weak, nonatomic) IBOutlet UIButton *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
-@property (weak, nonatomic) IBOutlet WLSizeToFitLabel *messageCountLabel;
+@property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewConstraint;
 
 @end

@@ -10,7 +10,7 @@
 
 @implementation WLLabel
 
--(CGRect)textRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines {
+- (CGRect)textRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines {
     CGRect rect = [super textRectForBounds:bounds limitedToNumberOfLines:numberOfLines];
     UIViewContentMode contentMode = self.contentMode;
     switch (contentMode) {
@@ -27,10 +27,22 @@
     return rect;
 }
 
--(void)drawTextInRect:(CGRect)rect {
-    CGRect r = [self textRectForBounds:rect
-                limitedToNumberOfLines:self.numberOfLines];
-    [super drawTextInRect:r];
+- (void)drawTextInRect:(CGRect)rect {
+    [super drawTextInRect:[self textRectForBounds:rect limitedToNumberOfLines:self.numberOfLines]];
+}
+
+#pragma mark - WLFontCustomizing
+
+@synthesize preset = _preset;
+
+- (void)setPreset:(NSString *)preset {
+    _preset = preset;
+    self.font = [self.font preferredFontWithPreset:preset];
+    [[WLFontPresetter presetter] addReceiver:self];
+}
+
+- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+    self.font = [self.font preferredFontWithPreset:self.preset];
 }
 
 @end

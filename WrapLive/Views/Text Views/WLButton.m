@@ -147,6 +147,20 @@
     }
 }
 
+#pragma mark - WLFontCustomizing
+
+@synthesize preset = _preset;
+
+- (void)setPreset:(NSString *)preset {
+    _preset = preset;
+    self.titleLabel.font = [self.titleLabel.font preferredFontWithPreset:preset];
+    [[WLFontPresetter presetter] addReceiver:self];
+}
+
+- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+    self.titleLabel.font = [self.titleLabel.font preferredFontWithPreset:self.preset];
+}
+
 @end
 
 @implementation WLSegmentButton

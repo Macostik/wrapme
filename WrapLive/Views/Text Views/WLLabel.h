@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIFont+CustomFonts.h"
 
-@interface WLLabel : UILabel
+@interface WLLabel : UILabel <WLFontCustomizing>
 
 @end

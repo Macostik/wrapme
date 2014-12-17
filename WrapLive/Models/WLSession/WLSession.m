@@ -61,8 +61,9 @@ static WLAuthorization* _authorization = nil;
 }
 
 + (void)clear {
+    [WLUser setCurrentUser:nil];
 	[self setAuthorization:nil];
-    [[WLEntryManager manager].context reset];
+    [[WLEntryManager manager] clear];
 }
 
 static NSData* _deviceToken = nil;

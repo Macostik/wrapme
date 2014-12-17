@@ -40,6 +40,8 @@
 
 - (NSArray*)executeFetchRequest:(NSFetchRequest*)request;
 
+- (void)clear;
+
 @end
 
 @interface WLEntry (WLEntryManager)

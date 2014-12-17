@@ -19,7 +19,6 @@
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
 #import "UIAlertView+Blocks.h"
-#import "NSObject+NibAdditions.h"
 #import "WLSession.h"
 #import "WLAuthorization.h"
 #import "WLNavigation.h"
@@ -67,6 +66,7 @@
 - (IBAction)next:(WLButton*)sender {
     [self.view endEditing:YES];
     WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+    authorization.countryCode = self.country.callingCode;
     authorization.phone = phoneNumberClearing(self.phoneNumberTextField.text);
     authorization.formattedPhone = self.phoneNumberTextField.text;
     __weak typeof(self)weakSelf = self;
@@ -82,14 +82,7 @@
 
 - (void)confirmAuthorization:(WLAuthorization*)authorization success:(void (^)(WLAuthorization *authorization))success {
     __weak typeof(self)weakSelf = self;
-    __weak WLConfirmView *confirmView = [WLConfirmView loadFromNib];
-    confirmView.frame = self.view.frame;
-    confirmView.emailLabel.text = [authorization email];
-    confirmView.phoneLabel.text = [authorization fullPhoneNumber];
-    [self.view addSubview:confirmView];
-    [confirmView confirmationSuccess:^{
-        success(authorization);
-    } failure:^{
+    [WLConfirmView showInView:self.view authorization:authorization success:success cancel:^{
         [weakSelf setStatus:WLSignupStepStatusCancel animated:YES];
     }];
 }

@@ -106,6 +106,12 @@ static NSString *const WLLeave = @"Leave";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - WLBaseViewController override
+
+- (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
     return keyboardHeight/2.0f;
 }

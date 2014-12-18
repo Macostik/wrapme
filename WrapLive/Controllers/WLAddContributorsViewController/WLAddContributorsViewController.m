@@ -223,12 +223,18 @@
 }
 
 const static CGFloat WLIndent = 36.0f;
-const static CGFloat WLDefaultHeight = 36.0f;
+const static CGFloat WLDefaultHeight = WLIndent;
+const static CGFloat WLOpenRowsIndent = 57.0f;
+const static CGFloat WLCloseRowsIndent = 17.0f;
 
 - (CGFloat)heightForRowWithContact:(WLContact *)contact {
     CGFloat height = .0f;
-    if ([contact.persons count] > 1 && [self.openedRows containsObject:contact]) {
-        return WLDefaultHeight + [contact.persons count] * WLDefaultHeight;
+    if ([contact.persons count] > 1) {
+        if ([self.openedRows containsObject:contact]) {
+            return WLDefaultHeight + [contact.persons count] * WLOpenRowsIndent;
+        } else {
+            return WLDefaultHeight + WLCloseRowsIndent;
+        }
     } else {
         NSString *phoneString = [WLContactCell collectionPersonsStringFromContact:contact];
         height = [phoneString sizeWithAttributes:@{NSFontAttributeName : [UIFont lightFontOfSize:13.0f]}].height;

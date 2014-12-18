@@ -115,7 +115,7 @@
     if (!comment.valid) {
         return CGSizeMake(collectionView.width, WLMinimumCellHeight);
     }
-    CGFloat height = [comment.text heightWithFont:[UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmall] width:WLCommentLabelLenth];
+    CGFloat height = [comment.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall] width:WLCommentLabelLenth];
     return CGSizeMake(collectionView.width, MAX(WLMinimumCellHeight, height + WLAuthorLabelHeight + 10));
 }
 

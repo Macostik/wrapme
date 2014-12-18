@@ -44,7 +44,7 @@ static CGFloat WLTimelineEventImageViewMaxHeightAndWidth;
     if (!comment.valid) {
         return WLTimelineEventCommentCellMinHeight;
     }
-    CGFloat height = [comment.text heightWithFont:[UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetNormal] width:WLTimelineEventCommentsMinWidth];
+    CGFloat height = [comment.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetNormal] width:WLTimelineEventCommentsMinWidth];
     return MAX(WLTimelineEventCommentCellMinHeight, height + 6);
 }
 

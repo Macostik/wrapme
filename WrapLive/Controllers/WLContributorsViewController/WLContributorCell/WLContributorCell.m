@@ -23,11 +23,6 @@
 
 @implementation WLContributorCell
 
-- (void)awakeFromNib {
-	[super awakeFromNib];
-	self.avatarView.circled = YES;
-}
-
 - (void)setup:(WLUser*)user {
 	NSString * userNameText = [user isCurrentUser] ? @"You" : user.name;
 	BOOL isCreator = NO;
@@ -38,7 +33,6 @@
     
     
     self.phoneLabel.text = user.phones;
-
     self.avatarView.url = user.picture.small;
     if (!self.avatarView.url.nonempty) {
         self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];

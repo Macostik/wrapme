@@ -208,7 +208,7 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 		messageLabel.textColor = [UIColor whiteColor];
 		messageLabel.numberOfLines = 0;
 		messageLabel.textAlignment = NSTextAlignmentCenter;
-		messageLabel.font = [UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
+		messageLabel.font = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
         messageLabel.preset = WLFontPresetSmall;
 		[self addSubview:messageLabel];
 		messageLabel.backgroundColor = [UIColor clearColor];

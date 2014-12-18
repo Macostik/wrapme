@@ -10,8 +10,10 @@
 #import "UIFont+CustomFonts.h"
 #import "UIView+Shorthand.h"
 #import "WLFontPresetter.h"
+#import "NSString+Additions.h"
 
-const static CGFloat WLIndent = 36.0f;
+const static CGFloat WLContributorsVerticalIndent = 30.0f;
+const static CGFloat WLContributorsHorizontalIndent = 100.0f;
 
 @interface WLContributorsViewSection () <WLFontPresetterReceiver>
 
@@ -26,9 +28,8 @@ const static CGFloat WLIndent = 36.0f;
 
 - (CGSize)size:(NSIndexPath *)indexPath {
     WLUser* user = self.entries.entries[indexPath.item];
-    CGSize size = [user.phones sizeWithAttributes:@{NSFontAttributeName : [UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller]}];
-    int height = size.height + WLIndent;
-    return CGSizeMake(self.collectionView.width, height);
+    CGFloat height = [user.phones heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller] width:self.collectionView.width - WLContributorsHorizontalIndent];
+    return CGSizeMake(self.collectionView.width, height + WLContributorsVerticalIndent);
 }
 
 #pragma mark - WLFontPresetterReceiver

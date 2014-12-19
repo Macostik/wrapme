@@ -16,6 +16,7 @@
 #import "WLAddressBook.h"
 #import "NSArray+Additions.h"
 #import "NSString+Additions.h"
+#import "UIView+Shorthand.h"
 #import "WLContactCell.h"
 #import "UIColor+CustomColors.h"
 #import "UIFont+CustomFonts.h"
@@ -222,20 +223,23 @@
     return [self heightForRowWithContact:contact];
 }
 
-const static CGFloat WLIndent = 36.0f;
-const static CGFloat WLDefaultHeight = 36.0f;
+const static CGFloat WLIndent = 31.0f;
+const static CGFloat WLDefaultHeight = 50.0f;
 
 - (CGFloat)heightForRowWithContact:(WLContact *)contact {
-    CGFloat height = .0f;
-    if ([contact.persons count] > 1 && [self.openedRows containsObject:contact]) {
-        return WLDefaultHeight + [contact.persons count] * WLDefaultHeight;
+    if ([contact.persons count] > 1) {
+        if ([self.openedRows containsObject:contact]) {
+            return WLDefaultHeight + [contact.persons count] * WLDefaultHeight;
+        } else {
+            return WLDefaultHeight;
+        }
     } else {
         NSString *phoneString = [WLContactCell collectionPersonsStringFromContact:contact];
-        height = [phoneString sizeWithAttributes:@{NSFontAttributeName : [UIFont lightFontOfSize:13.0f]}].height;
-        return height + WLIndent;
+        CGFloat height = [phoneString heightWithFont:[UIFont lightFontOfSize:13.0f]
+                                       width:self.tableView.width - 120.0f
+                                  cachingKey:"nameLabelWidth"];
+        return MAX(WLDefaultHeight, height + WLIndent);
     }
-    return WLDefaultHeight;
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

@@ -203,6 +203,10 @@
 		5BA666BA19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */; };
 		5BA666BB19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */; };
 		5BA666BC19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */; };
+		5BA678541A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA678531A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m */; };
+		5BA678551A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA678531A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m */; };
+		5BA678561A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA678531A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m */; };
+		5BA678571A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA678531A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m */; };
 		5BA685DC1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */; };
 		5BA685DD1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */; };
 		5BA685DE1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */; };
@@ -1616,7 +1620,7 @@
 		5B787DB01A278914004AE459 /* WrapLive-Production.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WrapLive-Production.entitlements"; sourceTree = "<group>"; };
 		5B787DB11A27891C004AE459 /* WLTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WLTodayExtension.entitlements; sourceTree = "<group>"; };
 		5B7E156A1A1A394000419CA8 /* WLCreateWrapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCreateWrapCell.xib; path = WrapLive/Controllers/WLPickerViewContoller/WLCreateWrapCell.xib; sourceTree = "<group>"; };
-		5BA4329D1A3F2B6A00B53BC7 /* WLConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLConfirmView.xib; path = "../Controllers/WLSignupFlowViewController/Signup Steps/WLPhoneViewController/WLConfirmView.xib"; sourceTree = "<group>"; };
+		5BA4329D1A3F2B6A00B53BC7 /* WLConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLConfirmView.xib; path = WLConfirmView/WLConfirmView.xib; sourceTree = "<group>"; };
 		5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLConfirmView.h; path = WLConfirmView/WLConfirmView.h; sourceTree = "<group>"; };
 		5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLConfirmView.m; path = WLConfirmView/WLConfirmView.m; sourceTree = "<group>"; };
 		5BA470BC1A24BAA80098EBE2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -1630,6 +1634,8 @@
 		5BA4F8861A1CD61900DB1A25 /* WLContributorsViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributorsViewSection.h; path = WLCollectionViewDataProvider/WLContributorsViewSection.h; sourceTree = "<group>"; };
 		5BA4F8871A1CD61900DB1A25 /* WLContributorsViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorsViewSection.m; path = WLCollectionViewDataProvider/WLContributorsViewSection.m; sourceTree = "<group>"; };
 		5BA666B819FFA7E8009B64E7 /* WLEditWrapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLEditWrapViewController.xib; path = WLEditWrapViewController/WLEditWrapViewController.xib; sourceTree = "<group>"; };
+		5BA678521A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+InterfaceOrientation.h"; path = "UINavigationController/UINavigationController+InterfaceOrientation.h"; sourceTree = "<group>"; };
+		5BA678531A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+InterfaceOrientation.m"; path = "UINavigationController/UINavigationController+InterfaceOrientation.m"; sourceTree = "<group>"; };
 		5BA685DB1A079CBD0013CD91 /* WLCreateWrapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCreateWrapViewController.xib; path = WLCreateWrapViewController/WLCreateWrapViewController.xib; sourceTree = "<group>"; };
 		5BA6CAEE1A10E51B004AD41C /* s01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s01.wav; path = Sounds/s01.wav; sourceTree = "<group>"; };
 		5BA6CAEF1A10E51B004AD41C /* s02.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s02.wav; path = Sounds/s02.wav; sourceTree = "<group>"; };
@@ -2870,6 +2876,7 @@
 				125D4A5018E069B3001B8E7C /* UIFont */,
 				125D4A4C18E068E6001B8E7C /* NSDate */,
 				12E3DA5D18E04CC400DBDB79 /* UIImage */,
+				5BA678581A4442E500ABCF4B /* UINavigationController */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -3151,7 +3158,6 @@
 			name = WLReportCandyViewController;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
 		5B787D9E1A27876F004AE459 /* WLTodayExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -3170,7 +3176,8 @@
 				5B787DA01A27876F004AE459 /* Info.plist */,
 			);
 			name = "Supporting Files";
-=======
+			sourceTree = "<group>";
+		};
 		5BA432AE1A3F3F5200B53BC7 /* WLConfirmView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3179,7 +3186,6 @@
 				5BA4329D1A3F2B6A00B53BC7 /* WLConfirmView.xib */,
 			);
 			name = WLConfirmView;
->>>>>>> master
 			sourceTree = "<group>";
 		};
 		5BA4CC161A08FAFA00D7F31C /* WLPickerViewController */ = {
@@ -3195,6 +3201,7 @@
 			path = ../..;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		5BA8D3871A3068EC00A877D3 /* WLComments */ = {
 			isa = PBXGroup;
 			children = (
@@ -3212,6 +3219,15 @@
 			);
 			name = WLRemoteObjectHandler;
 			path = ..;
+=======
+		5BA678581A4442E500ABCF4B /* UINavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				5BA678521A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.h */,
+				5BA678531A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m */,
+			);
+			name = UINavigationController;
+>>>>>>> master
 			sourceTree = "<group>";
 		};
 		5BB02FFA19F00BEC001E1D50 /* WLChatGroupSet */ = {
@@ -4915,6 +4931,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BA678541A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m in Sources */,
 				12DEC3F519211A48007BE6CC /* UIView+GestureRecognizing.m in Sources */,
 				C5FCC69A199A5C4B009A0DC6 /* WLNavigation.m in Sources */,
 				AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */,
@@ -5169,6 +5186,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BA678551A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m in Sources */,
 				C54AF45819B8C437006F7EDB /* UIView+GestureRecognizing.m in Sources */,
 				C54AF45A19B8C437006F7EDB /* WLNavigation.m in Sources */,
 				C54AF45B19B8C437006F7EDB /* WLChangeProfileViewController.m in Sources */,
@@ -5408,6 +5426,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BA678561A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m in Sources */,
 				C54AF55519B8C467006F7EDB /* UIView+GestureRecognizing.m in Sources */,
 				C54AF55719B8C467006F7EDB /* WLNavigation.m in Sources */,
 				C54AF55819B8C467006F7EDB /* WLChangeProfileViewController.m in Sources */,
@@ -5647,6 +5666,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BA678571A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m in Sources */,
 				C54AF65219B8C491006F7EDB /* UIView+GestureRecognizing.m in Sources */,
 				C54AF65419B8C491006F7EDB /* WLNavigation.m in Sources */,
 				C54AF65519B8C491006F7EDB /* WLChangeProfileViewController.m in Sources */,

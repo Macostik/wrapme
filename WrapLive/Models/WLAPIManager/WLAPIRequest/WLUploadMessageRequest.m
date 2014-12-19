@@ -36,7 +36,7 @@
     WLMessage* message = self.message;
     if (message.wrap.valid) {
         [message API_setup:[response.data dictionaryForKey:WLMessageKey]];
-        [message.wrap touch:message.createdAt];
+        [message notifyOnUpdate];
         return message;
     }
     return nil;

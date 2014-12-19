@@ -10,11 +10,11 @@
 
 @class WLMenu;
 
+typedef void (^WLMenuConfiguration)(WLMenu* menu, BOOL *vibrate);
+
 @interface WLMenuItem : NSObject
 
 @property (strong, nonatomic) UIImage* image;
-
-@property (strong, nonatomic) NSString* title;
 
 @property (strong, nonatomic) WLBlock block;
 
@@ -22,31 +22,15 @@
 
 @interface WLMenu : UIView
 
-@property (nonatomic) BOOL vibrate;
+@property (readonly, nonatomic) BOOL visible;
 
-@property (strong, nonatomic) BOOL (^configuration) (WLMenu *menu);
++ (instancetype)sharedMenu;
 
-@property (weak, nonatomic) UIView* view;
-
-+ (instancetype)menuWithView:(UIView*)view configuration:(BOOL (^)(WLMenu* menu))configuration;
-
-+ (instancetype)menuWithView:(UIView*)view title:(NSString*)title block:(WLBlock)block;
-
-+ (void)hide;
-
-- (instancetype)initWithView:(UIView*)view configuration:(BOOL (^)(WLMenu* menu))configuration;
-
-- (instancetype)initWithView:(UIView*)view title:(NSString*)title block:(WLBlock)block;
+- (void)addView:(UIView*)view configuration:(WLMenuConfiguration)configuration;
 
 - (void)hide;
 
-- (void)show;
-
-- (void)show:(CGPoint)point;
-
 - (WLMenuItem*)addItem:(WLBlock)block;
-
-- (void)addItemWithTitle:(NSString*)title block:(WLBlock)block;
 
 - (void)addItemWithImage:(UIImage*)image block:(WLBlock)block;
 

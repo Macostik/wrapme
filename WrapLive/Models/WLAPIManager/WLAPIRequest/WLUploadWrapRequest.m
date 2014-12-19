@@ -7,6 +7,7 @@
 //
 
 #import "WLUploadWrapRequest.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLUploadWrapRequest
 
@@ -16,6 +17,17 @@
 
 - (NSString *)path {
     return [NSString stringWithFormat:@"wraps/%@", self.wrap.identifier];
+}
+
+- (id)objectInResponse:(WLAPIResponse *)response {
+    WLWrap* wrap = self.wrap;
+    if (wrap.valid) {
+        wrap = [wrap API_setup:response.data[WLWrapKey]];
+        [wrap notifyOnUpdate];
+        return wrap;
+    } else {
+        return nil;
+    }
 }
 
 - (void)handleFailure:(NSError *)error {

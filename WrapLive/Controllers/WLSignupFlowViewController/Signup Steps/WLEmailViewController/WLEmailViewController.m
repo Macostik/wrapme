@@ -67,13 +67,9 @@
 }
 
 - (IBAction)useTestAccount:(id)sender {
+    __weak typeof(self)weakSelf = self;
     [WLTestUserPicker showInView:self.view.window selection:^(WLAuthorization *authorization) {
-        __weak WLConfirmView *confirmView = [WLConfirmView loadFromNib];
-        confirmView.frame = self.view.frame;
-        confirmView.emailLabel.text = [authorization email];
-        confirmView.phoneLabel.text = [authorization fullPhoneNumber];
-        [self.view addSubview:confirmView];
-        [confirmView confirmationSuccess:^{
+        [WLConfirmView showInView:weakSelf.view authorization:authorization success:^(WLAuthorization *authorization) {
             if (authorization.password.nonempty) {
                 [authorization signIn:^(WLUser *user) {
                     [[UIStoryboard storyboardNamed:WLMainStoryboard] present:NO];
@@ -81,9 +77,7 @@
                     [error show];
                 }];
             }
-        } failure:^{
-            
-        }];
+        } cancel:nil];
     }];
 }
 

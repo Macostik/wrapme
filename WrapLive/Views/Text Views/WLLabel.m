@@ -7,6 +7,8 @@
 //
 
 #import "WLLabel.h"
+#import "WLFontPresetter.h"
+#import "UIFont+CustomFonts.h"
 
 @implementation WLLabel
 
@@ -34,10 +36,6 @@
         [super drawTextInRect:rect];
     }
 }
-
-#pragma mark - WLFontCustomizing
-
-@synthesize preset = _preset;
 
 - (void)setPreset:(NSString *)preset {
     _preset = preset;

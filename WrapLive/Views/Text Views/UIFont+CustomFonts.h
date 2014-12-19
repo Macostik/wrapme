@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLFontPresetter.h"
 
 static NSString* WLFontOpenSansRegular = @"OpenSans";
 static NSString* WLFontOpenSansLight = @"OpenSans-Light";
@@ -34,11 +33,5 @@ static NSString *WLFontPresetXLarge = @"xlarge";
 - (UIFont*)fontWithPreset:(NSString *)preset;
 
 - (UIFont*)preferredFontWithPreset:(NSString *)preset;
-
-@end
-
-@protocol WLFontCustomizing <NSObject, WLFontPresetterReceiver>
-
-@property (nonatomic) NSString *preset;
 
 @end

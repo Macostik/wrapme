@@ -7,6 +7,8 @@
 //
 
 #import "WLTextField.h"
+#import "WLFontPresetter.h"
+#import "UIFont+CustomFonts.h"
 
 @implementation WLTextField
 
@@ -27,10 +29,6 @@
     [super setText:text];
     [self sendActionsForControlEvents:UIControlEventEditingChanged];
 }
-
-#pragma mark - WLFontCustomizing
-
-@synthesize preset = _preset;
 
 - (void)setPreset:(NSString *)preset {
     _preset = preset;

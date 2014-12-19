@@ -9,6 +9,8 @@
 #import "WLButton.h"
 #import "UIColor+CustomColors.h"
 #import "UIView+AnimationHelper.h"
+#import "WLFontPresetter.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLButton ()
 
@@ -146,10 +148,6 @@
         }
     }
 }
-
-#pragma mark - WLFontCustomizing
-
-@synthesize preset = _preset;
 
 - (void)setPreset:(NSString *)preset {
     _preset = preset;

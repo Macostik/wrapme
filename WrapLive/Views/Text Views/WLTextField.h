@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIFont+CustomFonts.h"
 
-@interface WLTextField : UITextField <WLFontCustomizing>
+IB_DESIGNABLE
+
+@interface WLTextField : UITextField
+
+@property (nonatomic) IBInspectable NSString *preset;
 
 @end

@@ -8,6 +8,8 @@
 
 #import "WLTextView.h"
 #import "UIColor+CustomColors.h"
+#import "WLFontPresetter.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLTextView ()
 
@@ -59,10 +61,6 @@
 - (NSString *)placeholder {
     return self.placeholderLabel.text;
 }
-
-#pragma mark - WLFontCustomizing
-
-@synthesize preset = _preset;
 
 - (void)setPreset:(NSString *)preset {
     _preset = preset;

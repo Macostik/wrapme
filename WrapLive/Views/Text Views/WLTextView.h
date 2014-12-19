@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIFont+CustomFonts.h"
 
-@interface WLTextView : UITextView <WLFontCustomizing>
+IB_DESIGNABLE
+
+@interface WLTextView : UITextView
+
+@property (nonatomic) IBInspectable NSString *preset;
 
 @property (strong, nonatomic) NSString *placeholder;
 

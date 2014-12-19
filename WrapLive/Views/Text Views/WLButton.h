@@ -7,21 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIFont+CustomFonts.h"
 
-@interface WLButton : UIButton <WLFontCustomizing>
+IB_DESIGNABLE
 
-@property (strong, nonatomic) UIColor *normalColor;
+@interface WLButton : UIButton
 
-@property (strong, nonatomic) UIColor *highlightedColor;
+@property (strong, nonatomic) IBInspectable UIColor *normalColor;
 
-@property (strong, nonatomic) UIColor *selectedColor;
+@property (strong, nonatomic) IBInspectable UIColor *highlightedColor;
 
-@property (strong, nonatomic) UIColor *disabledColor;
+@property (strong, nonatomic) IBInspectable UIColor *selectedColor;
+
+@property (strong, nonatomic) IBInspectable UIColor *disabledColor;
+
+@property (strong, nonatomic) IBInspectable NSString *preset;
+
+@property (strong, nonatomic) IBInspectable UIColor *spinnerColor;
 
 @property (weak, nonatomic) IBOutlet UIView* accessoryView;
-
-@property (strong, nonatomic) UIColor *spinnerColor;
 
 @property (nonatomic) BOOL loading;
 

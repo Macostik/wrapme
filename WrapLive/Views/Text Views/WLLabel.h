@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIFont+CustomFonts.h"
 
-@interface WLLabel : UILabel <WLFontCustomizing>
+IB_DESIGNABLE
+
+@interface WLLabel : UILabel
+
+@property (nonatomic) IBInspectable NSString *preset;
 
 @end

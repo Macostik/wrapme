@@ -21,8 +21,8 @@
 @interface WLNotificationCell () <TTTAttributedLabelDelegate>
 
 @property (weak, nonatomic) IBOutlet WLImageView *pictureView;
-@property (weak, nonatomic) IBOutlet TTTAttributedLabel *userNameLabel;
-@property (weak, nonatomic) IBOutlet TTTAttributedLabel *inWrapLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *inWrapLabel;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *commentTextView;
 @property (weak, nonatomic) IBOutlet WLImageView *wrapImageView;
 
@@ -33,8 +33,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.commentTextView.enabledTextCheckingTypes = NSTextCheckingTypeLink;
-    self.userNameLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
-    self.inWrapLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentBottom;
 }
 
 - (void)setup:(WLComment*)comment {

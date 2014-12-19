@@ -9,6 +9,14 @@
 #import "UIColor+CustomColors.h"
 #import "NSString+Additions.h"
 
+/*
+ gray-darker:  #222
+ gray-dark: #333
+ gray: #555
+ gray-light: #777
+ gray-lighter: #eee
+ */
+
 @implementation UIColor (CustomColors)
 
 + (UIColor*)r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b a:(CGFloat)a {
@@ -27,16 +35,28 @@
     return [self r:243 g:117 b:38];
 }
 
-+ (UIColor*)WL_grayColor {
-    return [self gray:153];
++ (UIColor*)WL_grayDarker {
+    return [UIColor colorWithWhite:0.101 alpha:1.000];
+}
+
++ (UIColor*)WL_grayDark {
+    return [UIColor colorWithWhite:0.151 alpha:1.000];
+}
+
++ (UIColor*)WL_gray {
+    return [UIColor colorWithWhite:0.264 alpha:1.000];
+}
+
++ (UIColor*)WL_grayLight {
+    return [UIColor colorWithWhite:0.391 alpha:1.000];
+}
+
++ (UIColor*)WL_grayLighter {
+    return [UIColor colorWithWhite:0.917 alpha:1.000];
 }
 
 + (UIColor *)WL_clearColor {
     return [[self r:.0f g:.0f b:.0f] colorWithAlphaComponent:.0f];
-}
-
-+ (UIColor*)WL_darkGrayColor {
-    return [self gray:51];
 }
 
 + (UIColor *)colorWithHexString:(NSString *)str {

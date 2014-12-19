@@ -44,7 +44,7 @@
         placeholderLabel.backgroundColor = [UIColor clearColor];
         placeholderLabel.frame = CGRectMake(5, 0, 250, 30);
         placeholderLabel.font = self.font;
-        placeholderLabel.textColor = [UIColor WL_grayColor];
+        placeholderLabel.textColor = [UIColor WL_grayLight];
         placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
         [self addSubview:placeholderLabel];
         _placeholderLabel = placeholderLabel;

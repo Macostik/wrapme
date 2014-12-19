@@ -134,10 +134,9 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 - (void)setEmailConfirmationViewHidden:(BOOL)hidden animated:(BOOL)animated {
-    UIView* view = self.emailConfirmationView;
-    if (view.hidden != hidden) {
-        view.hidden = hidden;
-        self.topConstraint.constant = (hidden ? self.navigationBar.height : self.navigationBar.height + view.height) - 20;
+    CGFloat constraint = hidden ? 0 : self.emailConfirmationView.height;
+    if (self.topConstraint.constant != constraint) {
+        self.topConstraint.constant = constraint;
         __weak typeof(self)weakSelf = self;
         [UIView performAnimated:animated animation:^{
             [weakSelf.view layoutIfNeeded];

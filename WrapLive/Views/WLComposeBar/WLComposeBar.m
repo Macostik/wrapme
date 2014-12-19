@@ -44,7 +44,7 @@ static NSUInteger WLComposeBarMinHeight = 44;
 	self.composeView.frame = self.bounds;
 	self.defaultHeight = self.bounds.size.height;
     [self addSubview:self.composeView];
-	self.textView.superview.layer.borderColor = [UIColor WL_grayColor].CGColor;
+	self.textView.superview.layer.borderColor = [UIColor WL_grayLight].CGColor;
     self.textView.superview.layer.borderWidth = IsRetinaSize()? 0.5f : 1.0f;
 	self.textView.textContainerInset = UIEdgeInsetsMake(5, 0, 0, 0);
     self.textView.contentInset = UIEdgeInsetsZero;

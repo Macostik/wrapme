@@ -17,7 +17,6 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "UIView+Shorthand.h"
 #import "WLAPIManager.h"
-#import "WLActionViewController.h"
 #import "WLCandiesRequest.h"
 #import "WLCandy.h"
 #import "WLCandyViewController.h"
@@ -32,7 +31,7 @@
 #import "WLKeyboard.h"
 #import "WLNavigation.h"
 #import "WLRefresher.h"
-#import "WLReportCandyViewController.h"
+#import "WLCandyOptionsViewController.h"
 #import "WLSession.h"
 #import "WLSoundPlayer.h"
 #import "WLToast.h"
@@ -282,9 +281,9 @@
 }
 
 - (IBAction)report:(UIButton *)sender {
-    [WLActionViewController addViewControllerByClass:[WLReportCandyViewController class]
-                                                     withEntry:self.candy
-                                        toParentViewController:self];
+    WLCandyOptionsViewController* editCandyViewController = [[WLCandyOptionsViewController alloc] init];
+    editCandyViewController.candy = self.candy;
+    [self presentViewController:editCandyViewController animated:YES completion:nil];
 }
 
 - (void)sendMessageWithText:(NSString*)text {

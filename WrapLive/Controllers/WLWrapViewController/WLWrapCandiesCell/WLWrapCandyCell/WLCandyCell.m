@@ -29,8 +29,6 @@
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 
-@property (strong, nonatomic) WLMenu* menu;
-
 @end
 
 @implementation WLCandyCell
@@ -41,10 +39,10 @@
 	[[WLCandy notifier] addReceiver:self];
     __weak typeof(self)weakSelf = self;
     if (self.userInteractionEnabled) {
-        self.menu = [WLMenu menuWithView:self configuration:^BOOL (WLMenu *menu) {
+        [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu, BOOL *vibrate) {
             WLCandy* candy = weakSelf.entry;
-            if ([candy.contributor isCurrentUser] || [candy.wrap.contributor isCurrentUser]) {
-                [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:^{
+            if (candy.deletable) {
+                [menu addDeleteItem:^{
                     weakSelf.userInteractionEnabled = NO;
                     [candy remove:^(id object) {
                         weakSelf.userInteractionEnabled = YES;
@@ -54,16 +52,19 @@
                     }];
                 }];
             } else {
-                [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_alert"] block:^{
+                [menu addReportItem:^{
                     [MFMailComposeViewController messageWithCandy:candy];
                 }];
             }
-            return YES;
+            [menu addDownloadItem:^{
+                [candy download:^{
+                } failure:^(NSError *error) {
+                    [error show];
+                }];
+                [WLToast showPhotoDownloadingMessage];
+            }];
         }];
-        self.menu.vibrate = YES;
     }
-    
-    [self.contentView setFullFlexible];
 }
 
 - (void)setup:(WLCandy*)candy {
@@ -75,6 +76,8 @@
     }
 	self.coverView.animatingPicture = candy.picture;
     self.coverView.url = candy.picture.small;
+
+    [[WLMenu sharedMenu] hide];
 }
 
 - (void)select:(WLCandy*)candy {

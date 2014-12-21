@@ -21,7 +21,6 @@
 #import "UIAlertView+Blocks.h"
 #import "WLSession.h"
 #import "WLAuthorization.h"
-#import "WLTestUserPicker.h"
 #import "WLNavigation.h"
 #import "WLToast.h"
 #import "WLHomeViewController.h"
@@ -30,6 +29,7 @@
 #import "WLButton.h"
 #import "WLPhoneValidation.h"
 #import "RMPhoneFormat.h"
+#import "WLConfirmView.h"
 
 @interface WLPhoneViewController () <UITextFieldDelegate, WLKeyboardBroadcastReceiver>
 
@@ -51,17 +51,6 @@
 	self.country = [WLCountry getCurrentCountry];
     
 	self.phoneNumberTextField.text = [WLAuthorization currentAuthorization].phone;
-	if ([WLAPIManager instance].environment.useTestUsers) {
-		__weak typeof(self)weakSelf = self;
-		run_after(0.1, ^{
-			UIButton* testUserButton = [UIButton buttonWithType:UIButtonTypeCustom];
-			testUserButton.frame = CGRectMake(0, weakSelf.view.height - 44, weakSelf.view.width, 44);
-			[testUserButton setTitle:@"Test user (for debug only)" forState:UIControlStateNormal];
-			[testUserButton setTitleColor:[UIColor WL_orangeColor] forState:UIControlStateNormal];
-			[testUserButton addTarget:weakSelf action:@selector(selectTestUser) forControlEvents:UIControlEventTouchUpInside];
-			[weakSelf.view addSubview:testUserButton];
-		});
-	}
 }
 
 - (void)setCountry:(WLCountry *)country {
@@ -75,7 +64,9 @@
 #pragma mark - Actions
 
 - (IBAction)next:(WLButton*)sender {
+    [self.view endEditing:YES];
     WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+    authorization.countryCode = self.country.callingCode;
     authorization.phone = phoneNumberClearing(self.phoneNumberTextField.text);
     authorization.formattedPhone = self.phoneNumberTextField.text;
     __weak typeof(self)weakSelf = self;
@@ -91,14 +82,9 @@
 
 - (void)confirmAuthorization:(WLAuthorization*)authorization success:(void (^)(WLAuthorization *authorization))success {
     __weak typeof(self)weakSelf = self;
-	NSString* confirmationMessage = [NSString stringWithFormat:@"%@\n%@\nIs this correct?",[authorization fullPhoneNumber], [authorization email]];
-	[UIAlertView showWithTitle:@"Confirm your details" message:confirmationMessage buttons:@[@"Edit",@"Yes"] completion:^(NSUInteger index) {
-		if (index == 1) {
-			success(authorization);
-        } else {
-            [weakSelf setStatus:WLSignupStepStatusCancel animated:YES];
-        }
-	}];
+    [WLConfirmView showInView:self.view authorization:authorization success:success cancel:^{
+        [weakSelf setStatus:WLSignupStepStatusCancel animated:YES];
+    }];
 }
 
 - (void)signUpAuthorization:(WLAuthorization*)authorization success:(WLBlock)success failure:(WLFailureBlock)failure {
@@ -124,19 +110,6 @@
     WLAuthorization *authorization = [WLAuthorization currentAuthorization];
     authorization.phone = phoneNumberClearing(sender.text);
     authorization.formattedPhone = sender.text;
-}
-
-- (void)selectTestUser {
-	__weak typeof(self)weakSelf = self;
-	[WLTestUserPicker showInView:self.view selection:^(WLAuthorization *authorization) {
-		[weakSelf confirmAuthorization:authorization success:^(WLAuthorization *authorization) {
-			if (authorization.password.nonempty) {
-				[weakSelf signInAuthorization:authorization];
-			} else {
-				[weakSelf signUpAuthorization:authorization success:nil failure:nil];
-			}
-		}];
-	}];
 }
 
 - (IBAction)countrySelected:(UIStoryboardSegue *)unwindSegue {

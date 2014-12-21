@@ -10,4 +10,6 @@
 
 @interface WLHomeViewController : WLShakeViewController
 
+- (void)handleNewPhotosLocalNotification;
+
 @end

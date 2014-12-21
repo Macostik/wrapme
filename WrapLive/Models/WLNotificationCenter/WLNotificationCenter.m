@@ -25,6 +25,8 @@
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
 
+#define WLPubNubInactiveStateDuration 20*60
+
 @interface WLNotificationCenter () <PNDelegate>
 
 @property (strong, nonatomic) WLNotificationChannel* userChannel;
@@ -44,6 +46,19 @@
 		instance = [[self alloc] init];
 	});
     return instance;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        __weak typeof(self)weakSelf = self;
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+            if (weakSelf.userChannel.subscribed) {
+                [weakSelf performSelector:@selector(requestHistory) withObject:nil afterDelay:0.5f];
+            }
+        }];
+    }
+    return self;
 }
 
 - (NSDate *)historyDate {
@@ -216,6 +231,10 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
     WLLog(@"PubNub",@"message received", message);
+}
+
+- (void)pubnubClient:(PubNub *)client didReceiveMessageHistory:(NSArray *)messages forChannel:(PNChannel *)channel startingFrom:(PNDate *)startDate to:(PNDate *)endDate {
+    WLLog(@"PubNub",@"messages history", messages);
 }
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {

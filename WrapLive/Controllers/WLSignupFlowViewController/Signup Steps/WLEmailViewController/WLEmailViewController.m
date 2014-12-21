@@ -11,10 +11,16 @@
 #import "WLAuthorizationRequest.h"
 #import "WLTelephony.h"
 #import "WLButton.h"
+#import "WLTestUserPicker.h"
+#import "UIAlertView+Blocks.h"
+#import "WLNavigation.h"
+#import "NSObject+NibAdditions.h"
+#import "WLConfirmView.h"
 
 @interface WLEmailViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
+@property (weak, nonatomic) IBOutlet UIButton *testAccountButton;
 
 @end
 
@@ -34,6 +40,8 @@
             
         }];
     }
+    
+    self.testAccountButton.hidden = ![WLAPIManager instance].environment.useTestUsers;
 }
 
 - (IBAction)next:(WLButton*)sender {
@@ -55,6 +63,21 @@
         }
     } failure:^(NSError *error) {
         sender.loading = NO;
+    }];
+}
+
+- (IBAction)useTestAccount:(id)sender {
+    __weak typeof(self)weakSelf = self;
+    [WLTestUserPicker showInView:self.view.window selection:^(WLAuthorization *authorization) {
+        [WLConfirmView showInView:weakSelf.view authorization:authorization success:^(WLAuthorization *authorization) {
+            if (authorization.password.nonempty) {
+                [authorization signIn:^(WLUser *user) {
+                    [[UIStoryboard storyboardNamed:WLMainStoryboard] present:NO];
+                } failure:^(NSError *error) {
+                    [error show];
+                }];
+            }
+        } cancel:nil];
     }];
 }
 

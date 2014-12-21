@@ -28,7 +28,7 @@
     self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap properties:[NSSet setWithObject:[WLOrderedSetEditSessionProperty property:@"removedContributors"]]];
     // Do any additional setup after loading the view.
     
-	if ([self.wrap.contributor isCurrentUser]) {
+	if (self.wrap.contributedByCurrentUser) {
 		[self.dataSection setConfigure:^(WLContributorCell *cell, WLUser* contributor) {
 			cell.deletable = ![contributor isCurrentUser];
 		}];

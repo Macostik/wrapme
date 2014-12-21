@@ -188,22 +188,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A3r-6X-iN0">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="unlockButtonClick:" destination="cKg-Y0-d6d" eventType="touchUpInside" id="dWS-bS-4MR"/>
-                                </connections>
-                            </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PXc-wK-33a">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="hwx-s0-l35"/>
-                                </constraints>
                                 <connections>
                                     <segue destination="owE-f8-xzI" kind="embed" id="UES-T5-0SO"/>
                                 </connections>
@@ -219,6 +206,7 @@
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sH4-Ri-VnB" customClass="WLImageView">
                                         <rect key="frame" x="8" y="1" width="34" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="34" id="RyU-5t-p9g"/>
                                             <constraint firstAttribute="height" constant="34" id="Xue-zU-dar"/>
@@ -252,25 +240,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="A3r-6X-iN0" firstAttribute="leading" secondItem="BhV-eV-kV4" secondAttribute="leading" id="5LT-O9-cuj"/>
                             <constraint firstItem="vCg-oN-dzS" firstAttribute="top" secondItem="PXc-wK-33a" secondAttribute="bottom" id="9xc-65-DvO"/>
                             <constraint firstItem="PXc-wK-33a" firstAttribute="leading" secondItem="BhV-eV-kV4" secondAttribute="leading" id="Md4-hR-a9y"/>
                             <constraint firstAttribute="trailing" secondItem="PXc-wK-33a" secondAttribute="trailing" id="VRu-z1-Zpi"/>
-                            <constraint firstItem="vCg-oN-dzS" firstAttribute="top" secondItem="A3r-6X-iN0" secondAttribute="bottom" id="VwE-cY-C6l"/>
-                            <constraint firstAttribute="trailing" secondItem="A3r-6X-iN0" secondAttribute="trailing" id="Yl7-Li-Ytu"/>
                             <constraint firstItem="PXc-wK-33a" firstAttribute="top" secondItem="Oez-Qa-hJq" secondAttribute="bottom" constant="-20" id="gWc-nz-ZoD"/>
                             <constraint firstItem="qUY-JJ-yJl" firstAttribute="leading" secondItem="BhV-eV-kV4" secondAttribute="leading" id="nfQ-9l-B0B"/>
                             <constraint firstAttribute="trailing" secondItem="qUY-JJ-yJl" secondAttribute="trailing" id="ob3-uj-nGW"/>
                             <constraint firstItem="vCg-oN-dzS" firstAttribute="top" secondItem="qUY-JJ-yJl" secondAttribute="bottom" constant="92" id="omR-CP-9CN"/>
-                            <constraint firstItem="A3r-6X-iN0" firstAttribute="top" secondItem="Oez-Qa-hJq" secondAttribute="bottom" constant="-20" id="z2x-AG-AWI"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomAlignment" destination="9xc-65-DvO" id="u6d-b8-4Bm"/>
-                        <outlet property="lockButton" destination="A3r-6X-iN0" id="Dhs-8k-yFH"/>
                         <outlet property="wrapCoverView" destination="sH4-Ri-VnB" id="IXt-mo-AJg"/>
                         <outlet property="wrapNameLabel" destination="g5K-gw-F64" id="bNz-iB-5Zd"/>
                         <outlet property="wrapView" destination="qUY-JJ-yJl" id="4x8-GG-nOM"/>
+                        <outlet property="wrapViewBottomConstraint" destination="omR-CP-9CN" id="zPO-oj-7hI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xn2-PF-LkD" userLabel="First Responder" sceneMemberID="firstResponder"/>

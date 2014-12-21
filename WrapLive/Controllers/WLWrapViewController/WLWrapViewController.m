@@ -50,7 +50,8 @@
 #import "WLNotification.h"
 #import "WLSizeToFitLabel.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "WLActionViewController.h"
+#import "WLCreateWrapViewController.h"
+#import "WLPickerViewController.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
     WLWrapViewModeTimeline,
@@ -188,9 +189,9 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
 }
 
 - (IBAction)editWrapClick:(id)sender {
-    [WLActionViewController addViewControllerByClass:[WLEditWrapViewController class]
-                                           withEntry:self.wrap
-                              toParentViewController:self];
+    WLEditWrapViewController* editWrapViewController = [WLEditWrapViewController new];
+    editWrapViewController.wrap = self.wrap;
+    [self presentViewController:editWrapViewController animated:YES completion:nil];
 }
 
 #pragma mark - WLEntryNotifyReceiver
@@ -204,7 +205,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-	[WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer avaliable.",
+	[WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer available.",
                               WLString([self.nameLabel titleForState:UIControlStateNormal])]];
 	__weak typeof(self)weakSelf = self;
 	run_after(0.5f, ^{
@@ -286,6 +287,37 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)stillPictureViewController:(WLStillPictureViewController *)controller didSelectWrap:(WLWrap *)wrap {
+    WLPickerViewController *pickerViewController = [[WLPickerViewController alloc] initWithWrap:wrap delegate:self];
+    [controller presentViewController:pickerViewController animated:YES completion:nil];
+}
+
+#pragma mark - WLPickerViewDelegate
+
+- (void)pickerViewControllerNewWrapClicked:(WLPickerViewController *)pickerViewController {
+    WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
+    [stillPictureViewController dismissViewControllerAnimated:YES completion:^{
+        WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
+        [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
+            stillPictureViewController.wrap = wrap;
+            [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+        }];
+        [createWrapViewController setCancelHandler:^{
+            [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+        }];
+        [stillPictureViewController presentViewController:createWrapViewController animated:YES completion:nil];
+    }];
+}
+
+- (void)pickerViewController:(WLPickerViewController *)pickerViewController didSelectWrap:(WLWrap *)wrap {
+    WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
+    stillPictureViewController.wrap = wrap;
+}
+
+- (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
+    [pickerViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Custom animation

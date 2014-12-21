@@ -12,6 +12,7 @@
 #import "UILabel+Additions.h"
 #import "UIView+Shorthand.h"
 #import "WLNavigation.h"
+#import "UIImage+Drawing.h"
 
 static CGFloat WLToastDefaultHeight = 64.0f;
 static CGFloat WLToastDefaultSpacing = 100.0f;
@@ -101,7 +102,7 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 }
 
 - (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance {
-    [self showWithMessage:message appearance:appearance inView:[UIWindow mainWindow]];
+    [self showWithMessage:message appearance:appearance inView:[UIWindow mainWindow].rootViewController.view];
 }
 
 - (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance inView:(UIView *)view {
@@ -164,10 +165,9 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
         self.alpha = 1.0f;
 		[UIView commitAnimations];
 	}
-	
 	[WLToast cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];
 	[WLToast cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeFromSuperview) object:nil];
-	[self performSelector:@selector(dismiss) withObject:nil afterDelay:3];
+	[self performSelector:@selector(dismiss) withObject:nil afterDelay:WLToastDismissalDelay];
 }
 
 - (void)removeFromSuperview {
@@ -249,6 +249,16 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 
 - (BOOL)toastAppearanceShouldShowIcon:(WLToast *)toast {
 	return YES;
+}
+
+@end
+
+@implementation WLToast (DefinedToasts)
+
++ (void)showPhotoDownloadingMessage {
+    WLToastAppearance *appearance = [[WLToastAppearance alloc] init];
+    appearance.shouldShowIcon = NO;
+    [self showWithMessage:[NSString stringWithFormat:@"Downloading the photo now. It will be in \"%@\" album momentarily.", WLAlbumName] appearance:appearance];
 }
 
 @end

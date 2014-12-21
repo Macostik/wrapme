@@ -58,7 +58,11 @@
         sender.loading = YES;
         [weakSelf.editSession apply];
         [weakSelf apply:^(id object){
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+            if (weakSelf.navigationController) {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            } else {
+                [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+            }
         } failure:^(NSError *error) {
             [weakSelf.editSession reset];
             [error show];

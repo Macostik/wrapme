@@ -20,6 +20,10 @@ typedef NS_ENUM (NSUInteger, WLContributionStatus) {
 
 @property (readonly, nonatomic) BOOL uploaded;
 
+@property (readonly, nonatomic) BOOL contributedByCurrentUser;
+
+@property (readonly, nonatomic) BOOL deletable;
+
 + (instancetype)contribution;
 
 + (NSNumber*)uploadingOrder;

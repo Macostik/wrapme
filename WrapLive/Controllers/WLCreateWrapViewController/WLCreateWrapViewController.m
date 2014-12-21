@@ -16,7 +16,6 @@
 #import "WLAPIManager.h"
 #import "WLAddContributorsViewController.h"
 #import "WLAddressBook.h"
-#import "WLActionViewController.h"
 #import "WLButton.h"
 #import "WLCameraViewController.h"
 #import "WLContributorCell.h"
@@ -45,33 +44,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.frame = self.contentView.frame;
-    [self.contentView bottomPushWithDuration:1.0 delegate:nil];
-
-    [self.nameField becomeFirstResponder];
+    [self.nameField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
 }
 
-- (void)createWrapWithName:(NSString *)name {
-    __weak typeof(self)weakSelf = self;
-    self.wrap = [WLWrap wrap];
-    self.wrap.name = name;
-    [self.wrap notifyOnAddition];
-    [[WLUploading uploading:self.wrap] upload:^(id object) {
-        [weakSelf removeAnimateViewFromSuperView];
-        if ([weakSelf.delegate respondsToSelector:@selector(wlCreateWrapViewController:didCreateWrap:)]) {
-            [weakSelf.delegate wlCreateWrapViewController:self didCreateWrap:object];
-        }
-    } failure:^(NSError *error) {
-        if ([error isNetworkError]) {
-            [weakSelf removeAnimateViewFromSuperView];
-            if ([weakSelf.delegate respondsToSelector:@selector(wlCreateWrapViewController:didCreateWrap:)]) {
-                [weakSelf.delegate wlCreateWrapViewController:self didCreateWrap:self.wrap];
-            }
-        } else {
-            [error show];
-            [weakSelf.wrap remove];
-        }
-    }];
++ (BOOL)isEmbeddedDefaultValue {
+    return YES;
+}
+
+- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
+    return keyboardHeight/2.0f;
 }
 
 #pragma mark - Actions
@@ -81,23 +62,28 @@
         self.cancelHandler();
 }
 
-- (void)removeAnimateViewFromSuperView {
-    id parentViewController = self.parentViewController;
-    if (parentViewController != nil && [parentViewController respondsToSelector:@selector(removeAnimateFinerOwnerView)]) {
-        [parentViewController performSelector:@selector(removeAnimateFinerOwnerView) withObject:nil];
-    } else {
-        [self.view removeFromSuperview];
-    }
-}
-
 - (IBAction)done:(WLButton*)sender {
     NSString* name = self.nameField.text;
-    if (name.nonempty) {
-        [self.view endEditing:YES];
-        sender.loading = YES;
-        self.view.userInteractionEnabled = NO;
-        [self createWrapWithName:name];
+    if (!name.nonempty) {
+        return;
     }
+    sender.loading = YES;
+    __weak typeof(self)weakSelf = self;
+    self.wrap = [WLWrap wrap];
+    self.wrap.name = name;
+    [self.wrap notifyOnAddition];
+    [[WLUploading uploading:self.wrap] upload:^(id object) {
+        sender.loading = NO;
+        if (weakSelf.createHandler) weakSelf.createHandler(weakSelf.wrap);
+    } failure:^(NSError *error) {
+        sender.loading = NO;
+        if ([error isNetworkError]) {
+            if (weakSelf.createHandler) weakSelf.createHandler(weakSelf.wrap);
+        } else {
+            [error show];
+            [weakSelf.wrap remove];
+        }
+    }];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -109,17 +95,9 @@
     self.createButton.enabled = sender.text.nonempty;
 }
 
-#pragma mark - WLStillPictureViewControllerDelegate
-
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-    if (pictures.nonempty) {
-        [self.wrap uploadPictures:pictures];
-    }
-    [controller dismissViewControllerAnimated:YES completion:NULL];
-}
-
-- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-     [controller dismissViewControllerAnimated:YES completion:NULL];
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+static NSTimeInterval WLToastDismissalDelay = 8.0f;
+
 @class WLToast;
 
 @protocol WLToastAppearance <NSObject>
@@ -71,5 +73,11 @@
 @end
 
 @interface UIViewController (WLToast) <WLToastAppearance>
+
+@end
+
+@interface WLToast (DefinedToasts)
+
++ (void)showPhotoDownloadingMessage;
 
 @end

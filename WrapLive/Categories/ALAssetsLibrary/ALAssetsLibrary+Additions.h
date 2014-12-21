@@ -15,15 +15,17 @@
 
 + (instancetype)library;
 
++ (void)addDemoImages:(NSUInteger)count;
+
 - (void)hasChanges:(void (^)(BOOL hasChanges))completion;
 
-- (void)enumerateGroups:(void(^)(ALAssetsGroup *group))finish failure:(ALAssetsLibraryAccessFailureBlock)failure;
-
 - (void)groups:(void(^)(NSArray *groups))finish failure:(ALAssetsLibraryAccessFailureBlock)failure;
-- (void)assets:(void(^)(NSArray *assets))finish failure:(ALAssetsLibraryAccessFailureBlock)failure;
-- (void)groups:(void(^)(NSArray *groups))groupsBlock assets:(void(^)(NSArray *assets))assetsBlock failure:(ALAssetsLibraryAccessFailureBlock)failure;
-- (void)group:(void(^)(ALAssetsGroup *group))groupBlock asset:(void(^)(ALAsset *asset))assetBlock finish:(void (^)(void))finish failure:(ALAssetsLibraryAccessFailureBlock)failure;
-- (void)groupWithUrl:(NSURL*)url finish:(void(^)(ALAssetsGroup *group))finish failure:(ALAssetsLibraryAccessFailureBlock)failure;
+
+- (void)saveImage:(UIImage *)image toAlbum:(NSString *)albumName completion:(ALAssetsLibraryWriteImageCompletionBlock)completion failure:(ALAssetsLibraryAccessFailureBlock)failure;
+
+- (void)saveImage:(UIImage *)image toAlbum:(NSString *)albumName metadata:(NSDictionary *)metadata completion:(ALAssetsLibraryWriteImageCompletionBlock)completion failure:(ALAssetsLibraryAccessFailureBlock)failure;
+
+- (void)saveImageData:(NSData *)imageData toAlbum:(NSString *)albumName metadata:(NSDictionary *)metadata completion:(ALAssetsLibraryWriteImageCompletionBlock)completion failure:(ALAssetsLibraryAccessFailureBlock)failure;
 
 @end
 

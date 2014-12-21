@@ -34,7 +34,6 @@
 @property (weak, nonatomic) IBOutlet WLImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) WLProgressBar *progressBar;
-@property (strong, nonatomic) WLMenu* menu;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *textLabel;
 
 @end
@@ -44,10 +43,11 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
     __weak typeof(self)weakSelf = self;
-    self.menu = [WLMenu menuWithView:self configuration:^BOOL(WLMenu *menu) {
+    
+    [[WLMenu sharedMenu] addView:self configuration:^void (WLMenu *menu, BOOL *vibrate) {
         WLComment* comment = weakSelf.entry;
-        if ([comment.contributor isCurrentUser]) {
-            [menu addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:^{
+        if (comment.deletable) {
+            [menu addDeleteItem:^{
                 weakSelf.userInteractionEnabled = NO;
                 [weakSelf.entry remove:^(id object) {
                     weakSelf.userInteractionEnabled = YES;
@@ -56,10 +56,9 @@
                     weakSelf.userInteractionEnabled = YES;
                 }];
             }];
-            return YES;
         } else {
+            *vibrate = NO;
             [WLToast showWithMessage:@"Cannot delete comment not posted by you."];
-            return NO;
         }
     }];
     self.textLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
@@ -82,7 +81,6 @@
     [self.authorImageView setFailure:^(NSError* error) {
         weakSelf.authorImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
     }];
-    self.menu.vibrate = [entry.contributor isCurrentUser];
     
     if (entry.status != WLContributionStatusUploaded) {
         WLUploadingData* uploadingData = entry.uploading.data;

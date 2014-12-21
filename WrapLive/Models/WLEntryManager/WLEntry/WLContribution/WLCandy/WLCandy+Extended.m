@@ -10,6 +10,8 @@
 #import "WLEntryManager.h"
 #import "WLEntryNotifier.h"
 #import "NSString+Additions.h"
+#import "WLImageCache.h"
+#import "UIImage+Drawing.h"
 
 @implementation WLCandy (Extended)
 
@@ -114,6 +116,10 @@
     return self.wrap.uploading == nil;
 }
 
+- (BOOL)deletable {
+    return self.contributedByCurrentUser || self.wrap.contributedByCurrentUser;
+}
+
 - (WLEntry *)containingEntry {
     return self.wrap;
 }
@@ -131,6 +137,27 @@
             *stop = YES;
         }
     }];
+}
+
+- (void)download:(WLBlock)success failure:(WLFailureBlock)failure {
+    NSString *url = self.picture.large;
+    if ([[WLImageCache cache] containsImageWithUrl:url]) {
+        [[[WLImageCache cache] imageWithUrl:url] save:nil];
+        if (success) success();
+    } else {
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+        [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        operation.responseSerializer = [AFImageResponseSerializer serializer];
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, UIImage* image) {
+            [image save:nil];
+            [[WLImageCache cache] setImage:image withUrl:url];
+            if (success) success();
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (failure) failure(error);
+        }];
+        [operation start];
+    }
 }
 
 @end

@@ -22,6 +22,8 @@
 
 - (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithPictures:(NSArray*)pictures;
 
+- (void)stillPictureViewController:(WLStillPictureViewController*)controller didSelectWrap:(WLWrap*)wrap;
+
 @end
 
 @interface WLStillPictureViewController : UIViewController
@@ -36,8 +38,6 @@
 
 @property (strong, nonatomic) WLWrap* wrap;
 
-@property (nonatomic) BOOL editable;
-
-- (void)willCreateWrapFromPicker:(BOOL)flag;
+@property (nonatomic) BOOL startFromGallery;
 
 @end

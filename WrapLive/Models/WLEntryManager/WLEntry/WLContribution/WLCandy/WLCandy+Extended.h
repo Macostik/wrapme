@@ -26,4 +26,6 @@ static NSInteger WLCandyTypeImage = 10;
 
 - (void)enqueueUnuploadedComments;
 
+- (void)download:(WLBlock)success failure:(WLFailureBlock)failure;
+
 @end

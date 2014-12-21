@@ -12,11 +12,6 @@
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
 
-static const NSTimeInterval WLTimeIntervalMinute = 60;
-static const NSTimeInterval WLTimeIntervalHour = 3600;
-static const NSTimeInterval WLTimeIntervalDay = 86400;
-static const NSTimeInterval WLTimeIntervalWeek = 604800;
-
 static NSString *WLTimeIntervalNameMinute = @"minute";
 static NSString *WLTimeIntervalNameHour = @"hour";
 static NSString *WLTimeIntervalNameDay = @"day";

@@ -62,6 +62,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
+@property (weak, nonatomic) IBOutlet UIView *squareView;
 
 @end
 
@@ -79,6 +80,7 @@
         [self.view layoutIfNeeded];
 	}
 	
+    self.position = self.defaultPosition;
 	self.flashMode = AVCaptureFlashModeOff;
 	self.flashModeControl.mode = self.flashMode;
     
@@ -89,12 +91,13 @@
     } else {
         self.takePhotoButton.active = NO;
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-    self.position = self.defaultPosition;
     
+    self.squareView.hidden = !self.showSqaureView;
+    
+    if (self.showSqaureView) {
+        self.squareView.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.squareView.layer.borderWidth = 0.5f;
+    }
 }
 
 #pragma mark - User Actions
@@ -296,8 +299,10 @@
 		}
 		completion(image, metadata);
 	};
-	self.connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
-    [self.output captureStillImageAsynchronouslyFromConnection:self.connection completionHandler:handler];
+    AVCaptureConnection *connection = self.connection;
+	connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
+    connection.videoScaleAndCropFactor = Smoothstep(1, connection.videoMaxScaleAndCropFactor, _zoomScale);
+    [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
 }
 
 - (AVCaptureDevicePosition)defaultPosition {
@@ -421,9 +426,7 @@
 }
 
 - (void)setZoomScale:(CGFloat)zoomScale {
-	AVCaptureConnection* connection = self.connection;
-	_zoomScale = Smoothstep(1, MIN(8, connection.videoMaxScaleAndCropFactor), zoomScale);
-	connection.videoScaleAndCropFactor = _zoomScale;
+	_zoomScale = Smoothstep(1, MIN(8, self.connection.videoMaxScaleAndCropFactor), zoomScale);
 	self.cameraView.layer.affineTransform = CGAffineTransformMakeScale(_zoomScale, _zoomScale);
 	[self showZoomLabel];
 }

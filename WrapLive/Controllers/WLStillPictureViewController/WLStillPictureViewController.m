@@ -58,6 +58,7 @@
     WLCameraViewController* cameraViewController = [self.cameraNavigationController.viewControllers lastObject];
     cameraViewController.delegate = self;
     cameraViewController.defaultPosition = self.defaultPosition;
+    cameraViewController.showSqaureView = self.mode == WLStillPictureModeSquare;
     self.cameraViewController = cameraViewController;
     [self setupWrapView:self.wrap];
     
@@ -119,7 +120,8 @@
         UIImage *result = image;
         CGFloat resultWidth = [self imageWidthForCurrentMode];
         if (useCameraAspectRatio) {
-            CGSize newSize = CGSizeThatFitsSize(result.size, weakSelf.view.size);
+            CGSize cropSize = weakSelf.mode == WLStillPictureModeSquare ? CGSizeMake(weakSelf.view.width, weakSelf.view.width) : weakSelf.view.size;
+            CGSize newSize = CGSizeThatFitsSize(result.size, cropSize);
             CGFloat scale = newSize.width / resultWidth;
             newSize = CGSizeMake(resultWidth, newSize.height / scale);
             result = [result resizedImageWithContentModeScaleAspectFill:CGSizeMake(result.size.width / scale, 1)];
@@ -138,7 +140,7 @@
 - (void)cropAsset:(ALAsset*)asset completion:(void (^)(UIImage *croppedImage))completion {
     ALAssetRepresentation* r = asset.defaultRepresentation;
     UIImage* image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:(UIImageOrientation)r.orientation];
-    [self cropImage:image useCameraAspectRatio:(self.mode != WLStillPictureModeDefault) completion:completion];
+    [self cropImage:image useCameraAspectRatio:NO completion:completion];
 }
 
 - (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {

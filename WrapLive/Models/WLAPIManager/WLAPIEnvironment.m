@@ -34,7 +34,7 @@
     environment.version = dictionary[@"version"];
     environment.testUsersPropertyListName = dictionary[@"testUsersPropertyListName"];
     environment.useTestUsers = [dictionary[@"useTestUsers"] boolValue];
-    environment.name = dictionary[@"name"];
+	environment.name = dictionary[@"environment"] ? : name;
     WLLog(environment.endpoint, @"API environment initialized", dictionary);
     return environment;
 }

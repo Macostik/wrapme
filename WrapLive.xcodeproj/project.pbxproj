@@ -219,6 +219,9 @@
 		5BA6CE981A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
 		5BA6CE991A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
 		5BA6CE9A1A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
+		5BA7AF2E1A481A9500C586CA /* WLTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5BA7AF321A481A9C00C586CA /* WLTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5BA7AF361A481AA200C586CA /* WLTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5BA8D3861A3068E600A877D3 /* WLComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA8D3851A3068E600A877D3 /* WLComments.m */; };
 		5BA8D3881A3076A900A877D3 /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */; };
 		5BA9DCE41A360771003ED90C /* WLRemoteObjectHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9DCE31A360771003ED90C /* WLRemoteObjectHandler.m */; };
@@ -1350,6 +1353,27 @@
 			remoteGlobalIDString = 5B787D9A1A27876F004AE459;
 			remoteInfo = WLTodayExtension;
 		};
+		5BA7AF2F1A481A9500C586CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B787D9A1A27876F004AE459;
+			remoteInfo = WLTodayExtension;
+		};
+		5BA7AF331A481A9C00C586CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B787D9A1A27876F004AE459;
+			remoteInfo = WLTodayExtension;
+		};
+		5BA7AF371A481AA200C586CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B787D9A1A27876F004AE459;
+			remoteInfo = WLTodayExtension;
+		};
 		C541A01319C84325003601F9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -1388,6 +1412,39 @@
 			dstSubfolderSpec = 13;
 			files = (
 				5B787DA81A27876F004AE459 /* WLTodayExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5BA7AF311A481A9500C586CA /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5BA7AF2E1A481A9500C586CA /* WLTodayExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5BA7AF351A481A9C00C586CA /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5BA7AF321A481A9C00C586CA /* WLTodayExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5BA7AF391A481AA200C586CA /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5BA7AF361A481AA200C586CA /* WLTodayExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4203,11 +4260,13 @@
 				C54AF52119B8C437006F7EDB /* Resources */,
 				C54AF54B19B8C437006F7EDB /* Copy Pods Resources */,
 				C54AF54C19B8C437006F7EDB /* ShellScript */,
+				5BA7AF311A481A9500C586CA /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				C541A01619C8432B003601F9 /* PBXTargetDependency */,
+				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
 			);
 			name = "WrapLive-QA";
 			productName = WrapLive;
@@ -4224,11 +4283,13 @@
 				C54AF61E19B8C467006F7EDB /* Resources */,
 				C54AF64819B8C467006F7EDB /* Copy Pods Resources */,
 				C54AF64919B8C467006F7EDB /* Run Script */,
+				5BA7AF351A481A9C00C586CA /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				C5953B6F19C839FC006DF1F3 /* PBXTargetDependency */,
+				5BA7AF341A481A9C00C586CA /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Beta";
 			productName = WrapLive;
@@ -4245,11 +4306,13 @@
 				C54AF71B19B8C491006F7EDB /* Resources */,
 				C54AF74519B8C491006F7EDB /* Copy Pods Resources */,
 				C54AF74619B8C491006F7EDB /* ShellScript */,
+				5BA7AF391A481AA200C586CA /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				C541A01419C84325003601F9 /* PBXTargetDependency */,
+				5BA7AF381A481AA200C586CA /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Production";
 			productName = WrapLive;
@@ -5908,6 +5971,21 @@
 			isa = PBXTargetDependency;
 			target = 5B787D9A1A27876F004AE459 /* WLTodayExtension */;
 			targetProxy = 5B787DA61A27876F004AE459 /* PBXContainerItemProxy */;
+		};
+		5BA7AF301A481A9500C586CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B787D9A1A27876F004AE459 /* WLTodayExtension */;
+			targetProxy = 5BA7AF2F1A481A9500C586CA /* PBXContainerItemProxy */;
+		};
+		5BA7AF341A481A9C00C586CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B787D9A1A27876F004AE459 /* WLTodayExtension */;
+			targetProxy = 5BA7AF331A481A9C00C586CA /* PBXContainerItemProxy */;
+		};
+		5BA7AF381A481AA200C586CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B787D9A1A27876F004AE459 /* WLTodayExtension */;
+			targetProxy = 5BA7AF371A481AA200C586CA /* PBXContainerItemProxy */;
 		};
 		C541A01419C84325003601F9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

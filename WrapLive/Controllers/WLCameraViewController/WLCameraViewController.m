@@ -301,7 +301,6 @@
 	};
     AVCaptureConnection *connection = self.connection;
 	connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
-    connection.videoScaleAndCropFactor = Smoothstep(1, connection.videoMaxScaleAndCropFactor, _zoomScale);
     [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
 }
 
@@ -426,8 +425,18 @@
 }
 
 - (void)setZoomScale:(CGFloat)zoomScale {
-	_zoomScale = Smoothstep(1, MIN(8, self.connection.videoMaxScaleAndCropFactor), zoomScale);
-	self.cameraView.layer.affineTransform = CGAffineTransformMakeScale(_zoomScale, _zoomScale);
+    AVCaptureDevice *device = self.input.device;
+	_zoomScale = Smoothstep(1, MIN(8, device.activeFormat.videoMaxZoomFactor), zoomScale);
+    
+    if (device.videoZoomFactor != _zoomScale) {
+        // iOS 7.x with compatible hardware
+        if ([device lockForConfiguration:nil]) {
+            [device setVideoZoomFactor:_zoomScale];
+            [device unlockForConfiguration];
+        }
+    }
+    
+//	self.cameraView.layer.affineTransform = CGAffineTransformMakeScale(_zoomScale, _zoomScale);
 	[self showZoomLabel];
 }
 

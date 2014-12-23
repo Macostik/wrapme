@@ -87,6 +87,8 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
     [attDictionary trySetObject:autorization.countryCode forKey:WLCountryCodeKey];
     [attDictionary trySetObject:autorization.phone forKey:WLPhoneKey];
     [attDictionary trySetObject:autorization.email forKey:WLEmailKey];
+    NSString *environmentName = [[[NSBundle mainBundle] infoDictionary] stringForKey:WLEnvironment];
+    [attDictionary trySetObject:environmentName forKey:WLEnvironment];
     NSData *passwordData = [WLCryptographer encrypt:autorization.password];
     [attDictionary setObject:passwordData forKey:WLPasswordKey];
     [userDefaults setObject:attDictionary forKey:WLExtensionWrapKey];

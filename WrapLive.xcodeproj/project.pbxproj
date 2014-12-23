@@ -222,6 +222,10 @@
 		5BA7AF2E1A481A9500C586CA /* WLTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5BA7AF321A481A9C00C586CA /* WLTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5BA7AF361A481AA200C586CA /* WLTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5BA7FD551A499A8000B7E66F /* WLAPIEnvironmentDevelopment.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85919B8C622006F7EDB /* WLAPIEnvironmentDevelopment.plist */; };
+		5BA7FD561A499A8200B7E66F /* WLAPIEnvironmentQA.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85B19B8C622006F7EDB /* WLAPIEnvironmentQA.plist */; };
+		5BA7FD571A499A8500B7E66F /* WLAPIEnvironmentBeta.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85819B8C622006F7EDB /* WLAPIEnvironmentBeta.plist */; };
+		5BA7FD581A499A8700B7E66F /* WLAPIEnvironmentProduction.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85A19B8C622006F7EDB /* WLAPIEnvironmentProduction.plist */; };
 		5BA8D3861A3068E600A877D3 /* WLComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA8D3851A3068E600A877D3 /* WLComments.m */; };
 		5BA8D3881A3076A900A877D3 /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D4A4E18E068E6001B8E7C /* NSDate+Formatting.m */; };
 		5BA9DCE41A360771003ED90C /* WLRemoteObjectHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9DCE31A360771003ED90C /* WLRemoteObjectHandler.m */; };
@@ -4496,7 +4500,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BA7FD581A499A8700B7E66F /* WLAPIEnvironmentProduction.plist in Resources */,
+				5BA7FD571A499A8500B7E66F /* WLAPIEnvironmentBeta.plist in Resources */,
 				5B787DA51A27876F004AE459 /* WLTodayExtension.storyboard in Resources */,
+				5BA7FD551A499A8000B7E66F /* WLAPIEnvironmentDevelopment.plist in Resources */,
+				5BA7FD561A499A8200B7E66F /* WLAPIEnvironmentQA.plist in Resources */,
 				5B0F81E81A30920900B42D7D /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

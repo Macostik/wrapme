@@ -79,7 +79,6 @@
     if (!NSNumberEqual(entry.unread, @NO)) entry.unread = @NO;
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", WLString(entry.contributor.name), WLString(entry.createdAt.timeAgoString)];
     self.textLabel.text = entry.text;
-    __weak typeof(self)weakSelf = self;
 	self.authorImageView.url = entry.contributor.picture.small;
     
     if (entry.status != WLContributionStatusUploaded) {

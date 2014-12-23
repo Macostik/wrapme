@@ -44,6 +44,9 @@
 	[super awakeFromNib];
     __weak typeof(self)weakSelf = self;
     
+    [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
+    [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+    
     [[WLMenu sharedMenu] addView:self configuration:^void (WLMenu *menu, BOOL *vibrate) {
         WLComment* comment = weakSelf.entry;
         if (comment.deletable) {
@@ -78,9 +81,6 @@
     self.textLabel.text = entry.text;
     __weak typeof(self)weakSelf = self;
 	self.authorImageView.url = entry.contributor.picture.small;
-    [self.authorImageView setFailure:^(NSError* error) {
-        weakSelf.authorImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
-    }];
     
     if (entry.status != WLContributionStatusUploaded) {
         WLUploadingData* uploadingData = entry.uploading.data;

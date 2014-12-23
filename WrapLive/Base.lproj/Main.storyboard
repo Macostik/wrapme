@@ -805,9 +805,6 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <gestureRecognizers/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholderName" value="ic_photo_placeholder"/>
-                                                                        </userDefinedRuntimeAttributes>
                                                                     </imageView>
                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAi-R7-bNq" customClass="WLLabel">
                                                                         <rect key="frame" x="0.0" y="66" width="106" height="40"/>
@@ -2239,9 +2236,6 @@
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fT9-Qs-qqx" customClass="WLImageView">
                                                                         <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholderName" value="ic_photo_placeholder"/>
-                                                                        </userDefinedRuntimeAttributes>
                                                                     </imageView>
                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekw-1F-iDF">
                                                                         <rect key="frame" x="0.0" y="66" width="106" height="40"/>
@@ -2737,9 +2731,6 @@
                                                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sn5-Ts-kUU" customClass="WLImageView">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholderName" value="ic_photo_placeholder"/>
-                                                                </userDefinedRuntimeAttributes>
                                                             </imageView>
                                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="lOt-XR-j24">
                                                                 <rect key="frame" x="150" y="150" width="20" height="20"/>

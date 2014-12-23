@@ -46,6 +46,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.imageView setImageName:@"default-large-avatar" forState:WLImageViewStateEmpty];
+    [self.imageView setImageName:@"default-large-avatar" forState:WLImageViewStateFailed];
     self.editSession = [[WLProfileEditSession alloc] initWithUser:[WLUser currentUser]];
     self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
     [self updateEmailConfirmationView];
@@ -60,9 +62,6 @@
     WLUser *user = [WLUser currentUser];
     self.nameTextField.text = user.name;
     self.imageView.url = user.picture.large;
-    if (!self.imageView.url.nonempty) {
-        self.imageView.image = [UIImage imageNamed:@"default-large-avatar"];
-    }
     self.emailTextField.text = [WLAuthorization priorityEmail];
 }
 

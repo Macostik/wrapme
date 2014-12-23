@@ -47,6 +47,8 @@
     self.textLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
     self.leftBubble.image = [self.leftBubble.image resizableImageWithCapInsets:UIEdgeInsetsMake(5, 0, 5, 0) resizingMode:UIImageResizingModeStretch];
     self.rightBubble.image = [self.rightBubble.image resizableImageWithCapInsets:UIEdgeInsetsMake(5, 0, 5, 0) resizingMode:UIImageResizingModeStretch];
+    [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateEmpty];
+    [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateFailed];
 }
 
 - (void)setShowName:(BOOL)showName {
@@ -69,14 +71,7 @@
 - (void)setup:(WLMessage*)message {
     
     if (_showName) {
-        __weak WLImageView* avatarView = self.avatarView;
-        avatarView.url = message.contributor.picture.small;
-        [avatarView setFailure:^(NSError* error) {
-            avatarView.image = [UIImage imageNamed:@"default-small-avatar"];
-        }];
-        if (!avatarView.url.nonempty) {
-            avatarView.image = [UIImage imageNamed:@"default-small-avatar"];
-        }
+        self.avatarView.url = message.contributor.picture.small;
         self.nameLabel.text = message.contributedByCurrentUser ? @"You" : message.contributor.name;
     }
 	

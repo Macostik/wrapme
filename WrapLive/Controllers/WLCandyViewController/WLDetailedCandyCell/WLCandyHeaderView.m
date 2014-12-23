@@ -28,6 +28,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [[WLNetwork network] addReceiver:self];
+    [self.imageView setContentMode:UIViewContentModeCenter forState:WLImageViewStateFailed];
+    [self.imageView setContentMode:UIViewContentModeCenter forState:WLImageViewStateEmpty];
+    [self.imageView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateFailed];
+    [self.imageView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateEmpty];
 }
 
 - (void)setCandy:(WLCandy *)candy {

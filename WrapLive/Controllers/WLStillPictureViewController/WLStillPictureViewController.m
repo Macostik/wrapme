@@ -51,6 +51,8 @@
     [super viewDidLoad];
     _wrapViewTranslucent = YES;
     self.wrapCoverView.circled = YES;
+    [self.wrapCoverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
+    [self.wrapCoverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
     self.cameraNavigationController = [self.childViewControllers lastObject];
     self.cameraNavigationController.delegate = self;
     WLCameraViewController* cameraViewController = [self.cameraNavigationController.viewControllers lastObject];
@@ -98,9 +100,6 @@
         self.wrapView.hidden = NO;
         self.wrapNameLabel.text = wrap.name;
         self.wrapCoverView.url = wrap.picture.small;
-        if (!self.wrapCoverView.url.nonempty) {
-            self.wrapCoverView.image = [UIImage imageNamed:@"default-small-cover"];
-        }
     } else {
         self.wrapView.hidden = YES;
     }

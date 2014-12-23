@@ -14,8 +14,7 @@
 
 @interface WLImageView () <WLImageFetching>
 
-@property (nonatomic) UIViewContentMode defaultContentMode;
-@property (nonatomic) CGFloat defaultAlpha;
+@property (strong, nonatomic) NSMutableDictionary* states;
 
 @end
 
@@ -23,9 +22,14 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.defaultContentMode = self.contentMode;
-    self.defaultAlpha = self.alpha;
     [[WLImageFetcher fetcher] addReceiver:self];
+}
+
+- (NSMutableDictionary *)states {
+    if (!_states) {
+        _states = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSMutableDictionary dictionary],@(WLImageViewStateEmpty),[NSMutableDictionary dictionary],@(WLImageViewStateEmpty), nil];
+    }
+    return _states;
 }
 
 - (void)setUrl:(NSString *)url {
@@ -35,14 +39,13 @@
 - (void)setUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure {
     self.image = nil;
     _url = url;
-    if (self.alpha != self.defaultAlpha) self.alpha = self.defaultAlpha;
-    if (self.contentMode != self.defaultContentMode) self.contentMode = self.defaultContentMode;
     self.success = success;
     self.failure = failure;
+    self.state = WLImageViewStateDefault;
     if (url.nonempty) {
         [[WLImageFetcher fetcher] enqueueImageWithUrl:url];
     } else {
-        [self fetcher:[WLImageFetcher fetcher] didFailWithError:[NSError errorWithDescription:@"Image URL is not valid."]];
+        self.state = WLImageViewStateEmpty;
     }
 }
 
@@ -61,6 +64,37 @@
 	self.image = image;
 }
 
+- (void)setState:(WLImageViewState)state {
+    if (_state != state) {
+        _state = state;
+        if (state == WLImageViewStateDefault) {
+            self.contentMode = UIViewContentModeScaleAspectFill;
+        } else {
+            NSMutableDictionary *stateInfo = self.states[@(state)];
+            if (stateInfo[@"contentMode"] != nil) {
+                self.contentMode = [stateInfo[@"contentMode"] integerValue];
+            }
+            if (stateInfo[@"imageName"] != nil) {
+                self.image = [UIImage imageNamed:stateInfo[@"imageName"]];
+            }
+        }
+    }
+}
+
+- (void)setContentMode:(UIViewContentMode)contentMode forState:(WLImageViewState)state {
+    NSMutableDictionary *stateInfo = self.states[@(state)];
+    stateInfo[@"contentMode"] = @(contentMode);
+}
+
+- (void)setImageName:(NSString *)imageName forState:(WLImageViewState)state {
+    NSMutableDictionary *stateInfo = self.states[@(state)];
+    if (imageName) {
+        stateInfo[@"imageName"] = imageName;
+    } else {
+        [stateInfo removeObjectForKey:@"imageName"];
+    }
+}
+
 #pragma mark - WLImageFetching
 
 - (NSString *)fetcherTargetUrl:(WLImageFetcher *)fetcher {
@@ -68,6 +102,7 @@
 }
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
+    self.state = WLImageViewStateDefault;
 	[self setImage:image animated:!cached];
 	WLImageFetcherBlock success = self.success;
 	if (success) {
@@ -78,17 +113,13 @@
 }
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
+    self.state = WLImageViewStateFailed;
 	WLFailureBlock failure = self.failure;
 	if (failure) {
 		failure(error);
 		self.failure = nil;
 	}
     self.success = nil;
-    NSString* placeholder = self.placeholderName;
-    if (placeholder.nonempty) {
-        self.contentMode = UIViewContentModeCenter;
-        self.image = [UIImage imageNamed:placeholder];
-    }
 }
 
 @end

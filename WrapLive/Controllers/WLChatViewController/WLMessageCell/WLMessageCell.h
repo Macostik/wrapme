@@ -19,6 +19,7 @@ static CGFloat WLMessageWithNameMinimumCellHeight = 48.0f;
 static CGFloat WLMessageWithoutNameMinimumCellHeight = 34.0f;
 static CGFloat WLMessageDayLabelHeight = 34.0f;
 static CGFloat WLAvatarWidth = 66.0f;
+static CGFloat WLAvatarLeading = 9.0f;
 static CGFloat WLMinBubbleWidth = 60.0f;
 static CGFloat WLMessageGroupSpacing = 14.0f;
 

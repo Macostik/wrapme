@@ -40,7 +40,7 @@
         
     }];
     [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        weakSelf.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5f];
+        weakSelf.backgroundColor = [UIColor colorWithWhite:0 alpha:0.75f];
         weakSelf.contentView.alpha = 1.0f;
     } completion:^(BOOL finished) {
     }];

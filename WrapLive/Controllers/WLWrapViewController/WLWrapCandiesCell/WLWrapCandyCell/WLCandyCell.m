@@ -23,6 +23,7 @@
 #import "WLAPIManager.h"
 #import "WLEntryManager.h"
 #import "WLMenu.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 

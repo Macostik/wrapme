@@ -9,6 +9,8 @@
 #import "WLButton.h"
 #import "UIColor+CustomColors.h"
 #import "UIView+AnimationHelper.h"
+#import "WLFontPresetter.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLButton ()
 
@@ -145,6 +147,16 @@
             self.userInteractionEnabled = YES;
         }
     }
+}
+
+- (void)setPreset:(NSString *)preset {
+    _preset = preset;
+    self.titleLabel.font = [self.titleLabel.font preferredFontWithPreset:preset];
+    [[WLFontPresetter presetter] addReceiver:self];
+}
+
+- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+    self.titleLabel.font = [self.titleLabel.font preferredFontWithPreset:self.preset];
 }
 
 @end

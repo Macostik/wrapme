@@ -21,9 +21,10 @@
 #import "WLImageFetcher.h"
 #import "WLNotification.h"
 #import "WLNotificationCenter.h"
-#import "WLSizeToFitLabel.h"
+#import "WLBadgeLabel.h"
 #import "WLWrapCell.h"
 #import "TTTAttributedLabel.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLWrapCell ()
 
@@ -31,7 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
-@property (weak, nonatomic) IBOutlet WLSizeToFitLabel *wrapNotificationLabel;
+@property (weak, nonatomic) IBOutlet WLBadgeLabel *wrapNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chatNotificationImageView;
 @property (strong, nonatomic) WLCollectionViewDataProvider* candiesDataProvider;
 @property (strong, nonatomic) WLHomeCandiesViewSection* candiesDataSection;

@@ -27,8 +27,9 @@
 #import "WLButton.h"
 #import "WLEntryNotifier.h"
 #import "WLUpdateContributorsRequest.h"
+#import "WLFontPresetter.h"
 
-@interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate>
+@interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate, WLFontPresetterReceiver>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
@@ -60,6 +61,7 @@
         [weakSelf.spinner stopAnimating];
 		[error show];
     }];
+    [[WLFontPresetter presetter] addReceiver:self];
 }
 
 - (NSError*)addContact:(WLContact*)contact {
@@ -235,9 +237,8 @@ const static CGFloat WLDefaultHeight = 50.0f;
         }
     } else {
         NSString *phoneString = [WLContactCell collectionPersonsStringFromContact:contact];
-        CGFloat height = [phoneString heightWithFont:[UIFont lightFontOfSize:13.0f]
-                                       width:self.tableView.width - 120.0f
-                                  cachingKey:"nameLabelWidth"];
+        CGFloat height = [phoneString heightWithFont:[UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller]
+                                       width:self.tableView.width - 120.0f];
         return MAX(WLDefaultHeight, height + WLIndent);
     }
 }
@@ -360,6 +361,12 @@ const static CGFloat WLDefaultHeight = 50.0f;
                                       animated:YES];
     }
     return nil;
+}
+
+#pragma mark - WLFontPresetterReceiver
+
+- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+    [self.tableView reloadData];
 }
 
 @end

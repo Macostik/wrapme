@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/PNChannelGroupNamespace.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/PNChannelGroupNamespace.h

@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Misc/PNMacro.h
+../../../PubNub/PubNub/PubNub/PubNub/Misc/PNMacro.h

@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Network/Packets/PNChannelGroupRemoveRequest+Protected.h
+../../../PubNub/PubNub/PubNub/PubNub/Network/Packets/PNChannelGroupRemoveRequest+Protected.h

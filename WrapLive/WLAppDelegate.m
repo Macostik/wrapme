@@ -25,14 +25,22 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "WLAuthorizationRequest.h"
 #import "WLHomeViewController.h"
+#import <iVersion/iVersion.h>
 
-@interface WLAppDelegate ()
+@interface WLAppDelegate () <iVersionDelegate>
 
 @end
 
 @implementation WLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    iVersion *version = [iVersion sharedInstance];
+    version.appStoreID = 879908578;
+    version.updateAvailableTitle = @"New version of wrapLive is available";
+    version.downloadButtonLabel = @"Update";
+    version.remindButtonLabel = @"Not now";
+    version.updatePriority = iVersionUpdatePriorityMedium;
     
     [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
     

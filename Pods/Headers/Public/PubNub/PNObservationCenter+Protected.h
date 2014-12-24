@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Core/PNObservationCenter+Protected.h
+../../../PubNub/PubNub/PubNub/PubNub/Core/PNObservationCenter+Protected.h

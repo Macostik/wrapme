@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Misc/PNConstants.h
+../../../PubNub/PubNub/PubNub/PubNub/Misc/PNConstants.h

@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Misc/PNNotifications.h
+../../../PubNub/PubNub/PubNub/PubNub/Misc/PNNotifications.h

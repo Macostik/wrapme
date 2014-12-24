@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/Buffers/PNWriteBuffer.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/Buffers/PNWriteBuffer.h

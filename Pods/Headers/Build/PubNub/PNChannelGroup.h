@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/PNChannelGroup.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/PNChannelGroup.h

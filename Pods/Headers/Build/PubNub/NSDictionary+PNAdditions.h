@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Misc/Categories/NSDictionary+PNAdditions.h
+../../../PubNub/PubNub/PubNub/PubNub/Misc/Categories/NSDictionary+PNAdditions.h

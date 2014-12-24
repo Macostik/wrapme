@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/Parsers/PNTimeTokenResponseParser.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/Parsers/PNTimeTokenResponseParser.h

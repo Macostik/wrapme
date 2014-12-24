@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Misc/PNErrorCodes.h
+../../../PubNub/PubNub/PubNub/PubNub/Misc/PNErrorCodes.h

@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/PNAccessRightsInformation+Protected.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/PNAccessRightsInformation+Protected.h

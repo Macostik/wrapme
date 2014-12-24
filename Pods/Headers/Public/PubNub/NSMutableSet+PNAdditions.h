@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Misc/Categories/NSMutableSet+PNAdditions.h
+../../../PubNub/PubNub/PubNub/PubNub/Misc/Categories/NSMutableSet+PNAdditions.h

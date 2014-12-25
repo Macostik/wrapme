@@ -18,9 +18,15 @@
 
 + (UIColor*)WL_orangeColor;
 
-+ (UIColor*)WL_grayColor;
++ (UIColor*)WL_grayDarker;
 
-+ (UIColor*)WL_darkGrayColor;
++ (UIColor*)WL_grayDark;
+
++ (UIColor*)WL_gray;
+
++ (UIColor*)WL_grayLight;
+
++ (UIColor*)WL_grayLighter;
 
 + (UIColor *)WL_clearColor;
 

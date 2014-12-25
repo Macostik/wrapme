@@ -44,11 +44,11 @@
 	self.user = [WLUser currentUser];
 	
 	self.nameTextField.text = self.user.name;
-	if (self.user.picture.medium.nonempty) {
-        self.profileImageView.url = self.user.picture.medium;
-	} else {
-        self.profileImageView.image = [UIImage imageNamed:@"default-medium-avatar"];
-	}
+    
+    [self.profileImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
+    [self.profileImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+    
+	self.profileImageView.url = self.user.picture.medium;
     
     self.editSession = [[WLProfileEditSession alloc] initWithUser:self.user];
 	

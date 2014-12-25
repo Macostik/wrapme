@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/PNConfiguration.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/PNConfiguration.h

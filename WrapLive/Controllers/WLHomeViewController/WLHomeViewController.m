@@ -39,7 +39,7 @@
 #import "WLRefresher.h"
 #import "WLResendConfirmationRequest.h"
 #import "WLSession.h"
-#import "WLSizeToFitLabel.h"
+#import "WLBadgeLabel.h"
 #import "WLStillPictureViewController.h"
 #import "WLToast.h"
 #import "WLUserView.h"
@@ -63,7 +63,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
-@property (weak, nonatomic) IBOutlet WLSizeToFitLabel *notificationsLabel;
+@property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet WLUserView *userView;
 
 @end
@@ -72,7 +72,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setPlaceholderNib:[UINib nibWithNibName:@"WLHomePlaceholderView" bundle:nil] forType:0];
 	[[WLUser notifier] addReceiver:self];
 	[[WLWrap notifier] addReceiver:self];
     [[WLComment notifier] addReceiver:self];
@@ -93,7 +93,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     __weak __typeof(self)weakSelf = self;
     [section setChange:^(WLPaginatedSet* entries) {
         WLUser *user = [WLUser currentUser];
-        weakSelf.showsPlaceholderView = entries.completed && ![entries.entries nonempty];
+        [weakSelf setPlaceholderVisible:entries.completed && ![entries.entries nonempty] forType:0];
         if (user.firstTimeUse && [user.wraps match:^BOOL(WLWrap *wrap) {
             return !wrap.isDefault.boolValue;
         }]) {
@@ -128,20 +128,15 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [WLRemoteObjectHandler sharedObject].isLoaded = [self isViewLoaded];
 }
 
-- (UINib *)placeholderViewNib {
-    return [UINib nibWithNibName:@"WLHomePlaceholderView" bundle:nil];
-}
-
 - (void)updateEmailConfirmationView:(BOOL)animated {
     BOOL hidden = ([[WLSession confirmationDate] isToday] || ![[WLAuthorization currentAuthorization] unconfirmed_email].nonempty);
     [self setEmailConfirmationViewHidden:hidden animated:animated];
 }
 
 - (void)setEmailConfirmationViewHidden:(BOOL)hidden animated:(BOOL)animated {
-    UIView* view = self.emailConfirmationView;
-    if (view.hidden != hidden) {
-        view.hidden = hidden;
-        self.topConstraint.constant = (hidden ? self.navigationBar.height : self.navigationBar.height + view.height) - 20;
+    CGFloat constraint = hidden ? 0 : self.emailConfirmationView.height;
+    if (self.topConstraint.constant != constraint) {
+        self.topConstraint.constant = constraint;
         __weak typeof(self)weakSelf = self;
         [UIView performAnimated:animated animation:^{
             [weakSelf.view layoutIfNeeded];
@@ -188,12 +183,12 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 - (void)notifier:(WLEntryNotifier *)notifier wrapAdded:(WLWrap *)wrap {
     [self.section.entries addEntry:wrap];
 	self.collectionView.contentOffset = CGPointZero;
-    self.showsPlaceholderView = ![self.section.entries.entries nonempty];
+    [self setPlaceholderVisible:!self.section.entries.entries.nonempty forType:0];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
     [self.section.entries removeEntry:wrap];
-    self.showsPlaceholderView = ![self.section.entries.entries nonempty];
+    [self setPlaceholderVisible:!self.section.entries.entries.nonempty forType:0];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {

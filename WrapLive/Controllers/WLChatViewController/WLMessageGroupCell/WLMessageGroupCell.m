@@ -7,7 +7,7 @@
 //
 
 #import "WLMessageGroupCell.h"
-#import "WLGroupedSet.h"
+#import "WLHistory.h"
 #import "NSDate+Formatting.h"
 #import "WLChat.h"
 

@@ -4,6 +4,16 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
+        </mutableArray>
+        <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+            <string>OpenSans</string>
+            <string>OpenSans</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLCreateWrapViewController">
             <connections>
@@ -15,23 +25,29 @@
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L80-x2-E1l" userLabel="Content View">
             <rect key="frame" x="0.0" y="0.0" width="240" height="140"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create wrap" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PX9-gc-cg2">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create wrap" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PX9-gc-cg2" customClass="WLLabel">
                     <rect key="frame" x="8" y="16" width="224" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="dRg-CL-qET"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                     <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                    </userDefinedRuntimeAttributes>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What is this wrap about?" textAlignment="center" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="RBE-2y-1QI" customClass="WLTextField">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What is this wrap about?" textAlignment="center" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="RBE-2y-1QI" customClass="WLTextField">
                     <rect key="frame" x="20" y="45" width="200" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="atl-uP-foV"/>
                         <constraint firstAttribute="width" constant="200" id="myu-fk-LYt"/>
                     </constraints>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="textFieldDidChange:" destination="-1" eventType="editingChanged" id="pl4-c7-xSM"/>
                         <outlet property="delegate" destination="-1" id="B58-58-8rN"/>
@@ -43,7 +59,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="wsN-U7-0OF"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                     <state key="normal" title="Cancel">
                         <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,6 +67,9 @@
                     <state key="highlighted">
                         <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.5" colorSpace="calibratedRGB"/>
                     </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="cancel:" destination="-1" eventType="touchUpInside" id="iRk-MS-dDR"/>
                     </connections>
@@ -61,7 +80,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="wVs-IY-4sq"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                     <state key="normal" title="OK">
                         <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -72,6 +91,9 @@
                     <state key="highlighted">
                         <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.5" colorSpace="calibratedRGB"/>
                     </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="done:" destination="-1" eventType="touchUpInside" id="D9b-lg-Sml"/>
                     </connections>

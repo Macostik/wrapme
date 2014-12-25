@@ -38,9 +38,3 @@
 - (void)setDoneButtonHidden:(BOOL)hidden animated:(BOOL)animated;
 
 @end
-
-@interface WLTextView : UITextView
-
-@property (strong, nonatomic) NSString *placeholder;
-
-@end

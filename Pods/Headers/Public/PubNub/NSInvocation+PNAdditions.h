@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Misc/Categories/NSInvocation+PNAdditions.h
+../../../PubNub/PubNub/PubNub/PubNub/Misc/Categories/NSInvocation+PNAdditions.h

@@ -9,7 +9,7 @@
 #import "WLCandiesViewSection.h"
 #import "UIScrollView+Additions.h"
 #import "WLCandyCell.h"
-#import "WLGroupedSet.h"
+#import "WLHistory.h"
 
 @implementation WLCandiesViewSection
 
@@ -24,7 +24,7 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    WLGroup* group = (id)self.entries;
+    WLHistoryItem* group = (id)self.entries;
     group.offset = scrollView.contentOffset;
 }
 

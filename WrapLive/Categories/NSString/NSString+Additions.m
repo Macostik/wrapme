@@ -59,6 +59,14 @@
     return [storedHeight floatValue];
 }
 
+- (CGFloat)heightWithFont:(UIFont *)font width:(CGFloat)width {
+    return ceilf([self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil].size.height);
+}
+
+- (CGFloat)widthWithFont:(UIFont *)font size:(CGSize)size {
+    return ceilf([self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil].size.width);
+}
+
 @end
 
 @implementation NSNumber (Additions)

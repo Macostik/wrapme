@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/PNWhereNow+Protected.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/PNWhereNow+Protected.h

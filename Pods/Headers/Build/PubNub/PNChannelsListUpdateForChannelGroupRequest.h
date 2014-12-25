@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Network/Packets/PNChannelsListUpdateForChannelGroupRequest.h
+../../../PubNub/PubNub/PubNub/PubNub/Network/Packets/PNChannelsListUpdateForChannelGroupRequest.h

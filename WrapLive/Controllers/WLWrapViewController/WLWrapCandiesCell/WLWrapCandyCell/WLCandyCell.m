@@ -23,6 +23,7 @@
 #import "WLAPIManager.h"
 #import "WLEntryManager.h"
 #import "WLMenu.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 
@@ -35,7 +36,11 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    self.coverView.placeholderName = @"ic_photo_placeholder";
+    [self.coverView setContentMode:UIViewContentModeCenter forState:WLImageViewStateFailed];
+    [self.coverView setContentMode:UIViewContentModeCenter forState:WLImageViewStateEmpty];
+    [self.coverView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateFailed];
+    [self.coverView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateEmpty];
+    
 	[[WLCandy notifier] addReceiver:self];
     __weak typeof(self)weakSelf = self;
     if (self.userInteractionEnabled) {

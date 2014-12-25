@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/Parsers/PNHereNowResponseParser.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/Parsers/PNHereNowResponseParser.h

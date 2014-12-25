@@ -13,6 +13,7 @@
 #import "UIView+Shorthand.h"
 #import "WLNavigation.h"
 #import "UIImage+Drawing.h"
+#import "WLLabel.h"
 
 static CGFloat WLToastDefaultHeight = 64.0f;
 static CGFloat WLToastDefaultSpacing = 100.0f;
@@ -202,11 +203,12 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 	if (!_messageLabel) {
 		CGRect labelFrame = CGRectMake(0, 0, self.width - WLToastDefaultSpacing, self.bounds.size.height);
 		
-		UILabel* messageLabel = [[UILabel alloc] initWithFrame:labelFrame];
+		WLLabel* messageLabel = [[WLLabel alloc] initWithFrame:labelFrame];
 		messageLabel.textColor = [UIColor whiteColor];
 		messageLabel.numberOfLines = 0;
 		messageLabel.textAlignment = NSTextAlignmentCenter;
-		messageLabel.font = [UIFont lightSmallFont];
+		messageLabel.font = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
+        messageLabel.preset = WLFontPresetSmall;
 		[self addSubview:messageLabel];
 		messageLabel.backgroundColor = [UIColor clearColor];
 		_messageLabel = messageLabel;

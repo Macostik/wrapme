@@ -24,8 +24,9 @@
 @implementation WLContributorCell
 
 - (void)awakeFromNib {
-	[super awakeFromNib];
-	self.avatarView.circled = YES;
+    [super awakeFromNib];
+    [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
+    [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
 }
 
 - (void)setup:(WLUser*)user {
@@ -36,13 +37,8 @@
 	}
 	self.nameLabel.text = isCreator ? [NSString stringWithFormat:@"%@ (Owner)", userNameText] : userNameText;
     
-    
     self.phoneLabel.text = user.phones;
-
     self.avatarView.url = user.picture.small;
-    if (!self.avatarView.url.nonempty) {
-        self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
-    }
 }
 
 - (void)setDeletable:(BOOL)deletable {

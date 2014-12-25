@@ -21,6 +21,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.avatarView.circled = YES;
+    [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateEmpty];
+    [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateFailed];
 }
 
 - (void)setUser:(WLUser *)user {
@@ -30,9 +32,6 @@
 
 - (void)update {
     self.avatarView.url = _user.picture.small;
-    if (!self.avatarView.url.nonempty) {
-        self.avatarView.image = [UIImage imageNamed:@"default-small-avatar"];
-    }
     self.nameLabel.text = _user.name;
 }
 

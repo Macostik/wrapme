@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/PNMessagesHistory+Protected.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/PNMessagesHistory+Protected.h

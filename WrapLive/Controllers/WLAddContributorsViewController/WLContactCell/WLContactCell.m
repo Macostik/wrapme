@@ -34,6 +34,8 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.avatarView.circled = YES;
+    [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
+    [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
 }
 
 + (instancetype)cellWithContact:(WLContact *)contact inTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
@@ -50,9 +52,6 @@
 - (void)setupItemData:(WLContact*)contact {
 	WLPerson* person = [contact.persons lastObject];
      self.avatarView.url = person.priorityPicture.small;
-    if (!self.avatarView.url.nonempty) {
-        self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
-    }
     self.signUpView.hidden = (person.user) ? NO : YES;
 	self.nameLabel.text = [person priorityName];
 	

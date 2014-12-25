@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Misc/PNStructures.h
+../../../PubNub/PubNub/PubNub/PubNub/Misc/PNStructures.h

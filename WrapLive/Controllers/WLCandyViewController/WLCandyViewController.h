@@ -10,16 +10,12 @@
 
 @class WLCandy;
 @class WLWrap;
-@class WLGroup;
-@class WLGroupedSet;
+@class WLHistoryItem;
+@class WLHistory;
 
 @interface WLCandyViewController : WLShakeViewController
 
 @property (strong, nonatomic) WLCandy *candy;
-
-@property (strong, nonatomic) WLGroup *group;
-
-@property (strong, nonatomic) WLGroupedSet *groups;
 
 @property (nonatomic) BOOL showCommentInputKeyboard;
 

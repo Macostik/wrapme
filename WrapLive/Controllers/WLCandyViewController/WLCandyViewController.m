@@ -172,12 +172,9 @@
 
 - (void)didSwipeLeft {
     if (self.historyItem.completed) {
-        NSUInteger (^increment)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
-            return index + 1;
-        };
-        if ([self swipeToHistoryItemAtIndex:increment([self.history.entries indexOfObject:self.historyItem]) operationBlock:increment]) {
+        if ([self swipeToHistoryItemAtIndex:[self.history.entries indexOfObject:self.historyItem] + 1]) {
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
             [self.collectionView leftPush];
-            [self onDateChanged];
         }
     } else {
         [self fetchOlder:self.candy];
@@ -185,13 +182,20 @@
 }
 
 - (void)didSwipeRight {
-    NSUInteger (^decrement)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
-        return index - 1;
-    };
-    if ([self swipeToHistoryItemAtIndex:decrement([self.history.entries indexOfObject:self.historyItem]) operationBlock:decrement]) {
+    if ([self swipeToHistoryItemAtIndex:[self.history.entries indexOfObject:self.historyItem] - 1]) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:[self.historyItem.entries count] - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
         [self.collectionView rightPush];
-        [self onDateChanged];
     }
+}
+
+- (BOOL)swipeToHistoryItemAtIndex:(NSUInteger)index {
+    if ([self.history.entries containsIndex:index]) {
+        WLHistoryItem* historyItem = [self.history.entries objectAtIndex:index];
+        self.historyItem = historyItem;
+        [self onDateChanged];
+        return YES;
+    }
+    return NO;
 }
 
 - (WLToast *)dateChangeToast {
@@ -220,16 +224,6 @@
         weakSelf.rightArrow.alpha = 1.0f;
         weakSelf.rightArrow.transform = CGAffineTransformIdentity;
     }];
-}
-
-- (BOOL)swipeToHistoryItemAtIndex:(NSUInteger)index operationBlock:(NSUInteger (^)(NSUInteger index))operationBlock {
-    if ([self.history.entries containsIndex:index]) {
-        WLHistoryItem* historyItem = [self.history.entries objectAtIndex:index];
-        self.historyItem = historyItem;
-        self.collectionView.contentOffset = CGPointZero;
-        return YES;
-    }
-    return NO;
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -346,8 +340,9 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    for (UICollectionViewCell* cell in [self.collectionView visibleCells]) {
-        cell.alpha = (cell.frame.size.width - ABS(cell.x - scrollView.contentOffset.x)) / cell.frame.size.width;
+    for (WLCommentsCell* cell in [self.collectionView visibleCells]) {
+        CGFloat alpha = (cell.width - ABS(cell.x - scrollView.contentOffset.x)) / cell.width;
+        cell.collectionView.alpha = cell.nameLabel.alpha = alpha;
     }
 }
 

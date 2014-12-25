@@ -18,10 +18,9 @@ static NSString *const WLCacheEntries = @"WLCacheEntries";
 static NSString *const WLLessButtonKey = @"Less wrapLive stories";
 static NSString *const WLMoreButtonKey = @"More wrapLive stories";
 static CGFloat  WLAuthorizedError = 401;
-static CGFloat WLSingUpError = 40;
 static CGFloat WLNoError = 0;
-static CGFloat WLIndent = 32.0f;
-static CGFloat WLMaxImageViewHeight = 50.0f;
+static CGFloat WLIndent = 31.0f;
+static CGFloat WLMaxImageViewAspectRatio = 50.0f;
 static CGFloat WLMaxRow = 6;
 static CGFloat WLMinRow = 3;
 
@@ -70,28 +69,37 @@ static CGFloat WLMinRow = 3;
 
 - (void)updateExtensionWithResult:(void(^)(NCUpdateResult))result {
     __weak __typeof(self)weakSelf = self;
+    if ([WLExtensionManager instance] == nil) {
+        [self.tableView removeFromSuperview];
+        self.signUpButton.hidden = NO;
+        [self setPreferredContentSize:CGSizeMake(0.0, WLMaxImageViewAspectRatio)];
+        if (result) {
+            result(NCUpdateResultNoData);
+        }
+        return;
+    }
     [WLPost globalTimelinePostsWithBlock:^(NSArray *posts, NSError *error) {
         if (error && !posts.count) {
             NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
             if (response && response.statusCode == WLAuthorizedError)
-            [WLExtensionManager signInHandlerBlock:^(NSURLSessionDataTask *task, id responseObject) {
-                int errorCode = [[responseObject valueForKey:@"return_code"] intValue];
-                if (errorCode == WLNoError) {
-                    [weakSelf updateExtensionWithResult:result];
-                } else {
-                    [weakSelf.tableView removeFromSuperview];
-                    weakSelf.signUpButton.hidden = NO;
-                    [self setPreferredContentSize:CGSizeMake(0.0, WLMaxImageViewHeight)];
-                    weakSelf.errorCode = errorCode;
+                [WLExtensionManager signInHandlerBlock:^(NSURLSessionDataTask *task, id responseObject) {
+                    int errorCode = [[responseObject valueForKey:@"return_code"] intValue];
+                    if (errorCode == WLNoError) {
+                        [weakSelf updateExtensionWithResult:result];
+                    } else {
+                        [weakSelf.tableView removeFromSuperview];
+                        weakSelf.signUpButton.hidden = NO;
+                        [self setPreferredContentSize:CGSizeMake(0.0, WLMaxImageViewAspectRatio)];
+                        weakSelf.errorCode = errorCode;
+                        if (result) {
+                            result(NCUpdateResultFailed);
+                        }
+                    }
+                } failure:^(NSURLSessionDataTask *task, NSError *error) {
                     if (result) {
                         result(NCUpdateResultFailed);
                     }
-                }
-            } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                if (result) {
-                    result(NCUpdateResultFailed);
-                }
-            }];
+                }];
         } else {
             NSOrderedSet *entries = [NSOrderedSet orderedSetWithArray:posts];
             self.moreButton.hidden = NO;
@@ -105,7 +113,7 @@ static CGFloat WLMinRow = 3;
                 [weakSelf.userDefaults synchronize];
                 weakSelf.errorCode = WLNoError;
                 if (result) {
-                     result(NCUpdateResultNewData);
+                    result(NCUpdateResultNewData);
                 }
             }
         }
@@ -120,11 +128,9 @@ static CGFloat WLMinRow = 3;
 }
 
 - (IBAction)singUpClick:(id)sender {
-    if (self.errorCode == WLSingUpError) {
-        NSString *path = [[NSString stringWithFormat:@"/"]
-                          stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-        [self openUrlWithPath:path];
-    }
+    NSString *path = [[NSString stringWithFormat:@"/"]
+                      stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    [self openUrlWithPath:path];
     self.errorCode = WLNoError;
 }
 
@@ -166,13 +172,13 @@ static CGFloat WLMinRow = 3;
 
 - (CGFloat)heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     WLPost* post = self.entries[indexPath.row];
-    CGFloat widthLabel = self.tableView.frame.size.width - WLMaxImageViewHeight - 10.0f;
+    CGFloat widthLabel = self.tableView.frame.size.width - WLMaxImageViewAspectRatio - 5.0f;
     CGFloat height = [post.event boundingRectWithSize:CGSizeMake(widthLabel, CGFLOAT_MAX)
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]}
                                               context:nil].size.height;
     height += WLIndent;
-    return MAX(height, WLMaxImageViewHeight);
+    return MAX(height, WLMaxImageViewAspectRatio);
 }
 
 - (BOOL)isTheSameEntries:(NSOrderedSet *)entries {
@@ -183,7 +189,7 @@ static CGFloat WLMinRow = 3;
             if ([lastTouches containsObject:post.lastTouch] ) {
                 flag = YES;
             } else {
-               return flag = NO;
+                return flag = NO;
             }
         }
         return flag;

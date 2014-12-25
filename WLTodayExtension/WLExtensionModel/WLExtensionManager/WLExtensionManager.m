@@ -10,11 +10,8 @@
 #import "WLPost.h"
 #import "WLEntryKeys.h"
 #import "WLCryptographer.h"
+#import "WLAPIEnvironment.h"
 
-static NSString* WLAPIEnvironmentDevelopment = @"development";
-static NSString* WLAPIEnvironmentQA = @"qa";
-static NSString* WLAPIEnvironmentBeta = @"beta";
-static NSString* WLAPIEnvironmentProduction = @"production";
 static NSString *const WLAPIVersion = @"5";
 static NSString *const WLUserDefaultsExtensionKey = @"group.com.ravenpod.wraplive";
 static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
@@ -29,33 +26,17 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
 + (instancetype)instance {
     static WLExtensionManager *manager = nil;
     static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *environmentString = [[self parseUserDefaults] valueForKey:WLEnvironment];
-        NSString *WLAPIBaseURLString = [self baseUrl:environmentString];
-        manager = [[WLExtensionManager alloc] initWithBaseURL:[NSURL URLWithString:WLAPIBaseURLString]];
-        manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
-        NSString* acceptHeader = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", WLAPIVersion];
-        [manager.requestSerializer setValue:acceptHeader forHTTPHeaderField:@"Accept"];
-    });
-    
-    return manager;
-}
-
-+ (NSString *)propertyListNameForEnvironment:(NSString*)environment {
-    if ([environment isEqualToString:WLAPIEnvironmentQA]) {
-        return @"WLAPIEnvironmentQA";
-    } else if ([environment isEqualToString:WLAPIEnvironmentBeta]) {
-        return @"WLAPIEnvironmentBeta";
-    } else if ([environment isEqualToString:WLAPIEnvironmentProduction]) {
-        return @"WLAPIEnvironmentProduction";
+    NSString *environmentString = [[self parseUserDefaults] valueForKey:WLEnvironment];
+    if (environmentString != nil) {
+        dispatch_once(&onceToken, ^{
+            NSString *WLAPIBaseURLString = [WLAPIEnvironment configuration:environmentString].endpoint;
+            manager = [[WLExtensionManager alloc] initWithBaseURL:[NSURL URLWithString:WLAPIBaseURLString]];
+            manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+            NSString* acceptHeader = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", WLAPIVersion];
+            [manager.requestSerializer setValue:acceptHeader forHTTPHeaderField:@"Accept"];
+        });
     }
-    return @"WLAPIEnvironmentDevelopment";
-}
-
-+ (NSString *)baseUrl:(NSString *)name {
-    NSString* path = [[NSBundle mainBundle] pathForResource:[self propertyListNameForEnvironment:name] ofType:@"plist"];
-    NSDictionary* dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
-    return dictionary[@"endpoint"];
+    return manager;
 }
 
 + (NSURLSessionDataTask *)postsHandlerBlock:(void (^)(NSArray *posts, NSError *error))block {

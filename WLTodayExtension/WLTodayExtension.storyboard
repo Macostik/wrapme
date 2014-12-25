@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Today View Controller-->
@@ -83,8 +82,8 @@
                                                         <constraint firstAttribute="height" constant="40" id="mRm-Bd-IJN"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMk-gY-TBT">
-                                                    <rect key="frame" x="50" y="6" width="265" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMk-gY-TBT">
+                                                    <rect key="frame" x="50" y="5" width="265" height="19"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -114,18 +113,17 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="QMk-gY-TBT" firstAttribute="leading" secondItem="eCa-GO-21K" secondAttribute="leadingMargin" constant="42" id="02g-kh-RD0"/>
                                                 <constraint firstItem="eUT-Wr-PzL" firstAttribute="top" secondItem="QMk-gY-TBT" secondAttribute="bottom" constant="2" id="2w5-5T-HEc"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0DV-rQ-oLq" secondAttribute="bottom" priority="999" constant="4" id="ECB-YS-Z96"/>
                                                 <constraint firstAttribute="trailing" secondItem="eUT-Wr-PzL" secondAttribute="trailing" constant="5" id="EGV-Lg-EAo"/>
                                                 <constraint firstAttribute="bottom" secondItem="eUT-Wr-PzL" secondAttribute="bottom" constant="5" id="NSX-Ob-5NI"/>
+                                                <constraint firstItem="0DV-rQ-oLq" firstAttribute="top" secondItem="QMk-gY-TBT" secondAttribute="top" id="QKe-BD-3Lc"/>
                                                 <constraint firstItem="ElV-2O-2hs" firstAttribute="leading" secondItem="eCa-GO-21K" secondAttribute="leading" constant="50" id="Ttj-3j-gBa"/>
                                                 <constraint firstItem="0DV-rQ-oLq" firstAttribute="leading" secondItem="eCa-GO-21K" secondAttribute="leading" constant="5" id="VMi-qI-Ed8"/>
+                                                <constraint firstItem="QMk-gY-TBT" firstAttribute="leading" secondItem="0DV-rQ-oLq" secondAttribute="trailing" constant="5" id="YrZ-yv-Jcs"/>
                                                 <constraint firstAttribute="bottom" secondItem="ElV-2O-2hs" secondAttribute="bottom" constant="5" id="Zho-Xh-cEn"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="QMk-gY-TBT" secondAttribute="trailing" constant="-3" id="xf6-WB-BbS"/>
+                                                <constraint firstAttribute="trailing" secondItem="QMk-gY-TBT" secondAttribute="trailing" constant="5" id="nEo-c3-dSi"/>
                                                 <constraint firstItem="0DV-rQ-oLq" firstAttribute="top" secondItem="eCa-GO-21K" secondAttribute="top" constant="5" id="yED-yI-BQW"/>
                                                 <constraint firstItem="eUT-Wr-PzL" firstAttribute="leading" secondItem="ElV-2O-2hs" secondAttribute="trailing" constant="3" id="yvV-3Y-rwH"/>
-                                                <constraint firstItem="QMk-gY-TBT" firstAttribute="top" secondItem="eCa-GO-21K" secondAttribute="topMargin" constant="-2" id="zw1-Vn-IkW"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

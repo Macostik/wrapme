@@ -52,6 +52,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
         NSString* environmentName = [[[NSBundle mainBundle] infoDictionary] stringForKey:@"WLAPIEnvironment"];
         if (!environmentName.nonempty) environmentName = WLAPIEnvironmentDefault;
         WLAPIEnvironment* environment = [WLAPIEnvironment configuration:environmentName];
+//         WLLog(environment.endpoint, @"API environment initialized", dictionary);
         instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:environment.endpoint]];
         instance.environment = environment;
 		instance.requestSerializer.timeoutInterval = 45;

@@ -47,15 +47,6 @@
 		12A9EFBB18F8026E002CBF75 /* WLCameraAdjustmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9EFB918F8026E002CBF75 /* WLCameraAdjustmentView.m */; };
 		12C4416618F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 12C4416518F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m */; };
 		12D4D3E1191938D60025CC18 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4D3E0191938D60025CC18 /* UIActionSheet+Blocks.m */; };
-		12D514F7192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EC192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png */; };
-		12D514F8192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514ED192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png */; };
-		12D514F9192F5F15007A1520 /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EE192F5F15007A1520 /* AppIcon29x29.png */; };
-		12D514FA192F5F15007A1520 /* AppIcon29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EF192F5F15007A1520 /* AppIcon29x29@2x.png */; };
-		12D514FB192F5F15007A1520 /* AppIcon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F0192F5F15007A1520 /* AppIcon40x40.png */; };
-		12D514FC192F5F15007A1520 /* AppIcon40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F1192F5F15007A1520 /* AppIcon40x40@2x.png */; };
-		12D514FD192F5F15007A1520 /* AppIcon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */; };
-		12D514FE192F5F15007A1520 /* AppIcon76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F3192F5F15007A1520 /* AppIcon76x76.png */; };
-		12D514FF192F5F15007A1520 /* AppIcon76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F4192F5F15007A1520 /* AppIcon76x76@2x.png */; };
 		12D578C719178C3400586995 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 12D578C619178C3400586995 /* iTunesArtwork */; };
 		12D578CA1917ACE200586995 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D578C91917ACE200586995 /* NSDate+Additions.m */; };
 		12D578CE1917E82100586995 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D578CD1917E82100586995 /* UIAlertView+Blocks.m */; };
@@ -148,26 +139,6 @@
 		5BA470B91A2478AF0098EBE2 /* WLWrapPlaceholderViewHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewHistory.xib */; };
 		5BA470BA1A2478B00098EBE2 /* WLWrapPlaceholderViewHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewHistory.xib */; };
 		5BA470BB1A2478B00098EBE2 /* WLWrapPlaceholderViewHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewHistory.xib */; };
-		5BA470C11A24BAA80098EBE2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BC1A24BAA80098EBE2 /* Default-568h@2x.png */; };
-		5BA470C21A24BAA80098EBE2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BC1A24BAA80098EBE2 /* Default-568h@2x.png */; };
-		5BA470C31A24BAA80098EBE2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BC1A24BAA80098EBE2 /* Default-568h@2x.png */; };
-		5BA470C41A24BAA80098EBE2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BC1A24BAA80098EBE2 /* Default-568h@2x.png */; };
-		5BA470C51A24BAA80098EBE2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BD1A24BAA80098EBE2 /* Default.png */; };
-		5BA470C61A24BAA80098EBE2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BD1A24BAA80098EBE2 /* Default.png */; };
-		5BA470C71A24BAA80098EBE2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BD1A24BAA80098EBE2 /* Default.png */; };
-		5BA470C81A24BAA80098EBE2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BD1A24BAA80098EBE2 /* Default.png */; };
-		5BA470C91A24BAA80098EBE2 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BE1A24BAA80098EBE2 /* Default@2x.png */; };
-		5BA470CA1A24BAA80098EBE2 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BE1A24BAA80098EBE2 /* Default@2x.png */; };
-		5BA470CB1A24BAA80098EBE2 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BE1A24BAA80098EBE2 /* Default@2x.png */; };
-		5BA470CC1A24BAA80098EBE2 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BE1A24BAA80098EBE2 /* Default@2x.png */; };
-		5BA470CD1A24BAA80098EBE2 /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BF1A24BAA80098EBE2 /* Default~ipad.png */; };
-		5BA470CE1A24BAA80098EBE2 /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BF1A24BAA80098EBE2 /* Default~ipad.png */; };
-		5BA470CF1A24BAA80098EBE2 /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BF1A24BAA80098EBE2 /* Default~ipad.png */; };
-		5BA470D01A24BAA80098EBE2 /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470BF1A24BAA80098EBE2 /* Default~ipad.png */; };
-		5BA470D11A24BAA80098EBE2 /* Default~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470C01A24BAA80098EBE2 /* Default~ipad@2x.png */; };
-		5BA470D21A24BAA80098EBE2 /* Default~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470C01A24BAA80098EBE2 /* Default~ipad@2x.png */; };
-		5BA470D31A24BAA80098EBE2 /* Default~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470C01A24BAA80098EBE2 /* Default~ipad@2x.png */; };
-		5BA470D41A24BAA80098EBE2 /* Default~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA470C01A24BAA80098EBE2 /* Default~ipad@2x.png */; };
 		5BA4CC121A08FAE700D7F31C /* WLPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */; };
 		5BA4CC131A08FAE700D7F31C /* WLPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */; };
 		5BA4CC141A08FAE700D7F31C /* WLPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */; };
@@ -661,9 +632,7 @@
 		C54AF52019B8C437006F7EDB /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5104940195C603800D7406E /* Crashlytics.framework */; };
 		C54AF52219B8C437006F7EDB /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 12DE698B192E4234007580AD /* AviarySDKResources.bundle */; };
 		C54AF52319B8C437006F7EDB /* WLAssetsGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED451934B183009C1DC3 /* WLAssetsGroupViewController.xib */; };
-		C54AF52619B8C437006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EC192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png */; };
 		C54AF52819B8C437006F7EDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
-		C54AF52A19B8C437006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514ED192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png */; };
 		C54AF52B19B8C437006F7EDB /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
 		C54AF52C19B8C437006F7EDB /* cars.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* cars.plist */; };
 		C54AF52D19B8C437006F7EDB /* flowers.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9131934B4460001E570 /* flowers.plist */; };
@@ -674,21 +643,14 @@
 		C54AF53419B8C437006F7EDB /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1409DA601949B24E00358BD4 /* PhoneFormats.dat */; };
 		C54AF53619B8C437006F7EDB /* WLEmojiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90D19347B9E0001E570 /* WLEmojiView.xib */; };
 		C54AF53719B8C437006F7EDB /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED551934B183009C1DC3 /* WLAssetCell.xib */; };
-		C54AF53819B8C437006F7EDB /* AppIcon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */; };
-		C54AF53919B8C437006F7EDB /* AppIcon40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F1192F5F15007A1520 /* AppIcon40x40@2x.png */; };
 		C54AF53B19B8C437006F7EDB /* WLAssetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED511934B183009C1DC3 /* WLAssetsViewController.xib */; };
-		C54AF53C19B8C437006F7EDB /* AppIcon76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F3192F5F15007A1520 /* AppIcon76x76.png */; };
 		C54AF53D19B8C437006F7EDB /* rings.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9151934B44D0001E570 /* rings.plist */; };
 		C54AF53E19B8C437006F7EDB /* smiles.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90F1934B4350001E570 /* smiles.plist */; };
-		C54AF53F19B8C437006F7EDB /* AppIcon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F0192F5F15007A1520 /* AppIcon40x40.png */; };
 		C54AF54019B8C437006F7EDB /* numbers.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9111934B4400001E570 /* numbers.plist */; };
 		C54AF54119B8C437006F7EDB /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B4418E08B7E001F585C /* CountryCodes.json */; };
 		C54AF54219B8C437006F7EDB /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
-		C54AF54319B8C437006F7EDB /* AppIcon29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EF192F5F15007A1520 /* AppIcon29x29@2x.png */; };
 		C54AF54419B8C437006F7EDB /* WLComposeBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E8FF2018E9885F00BF1B96 /* WLComposeBar.xib */; };
-		C54AF54619B8C437006F7EDB /* AppIcon76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F4192F5F15007A1520 /* AppIcon76x76@2x.png */; };
 		C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 12D578C619178C3400586995 /* iTunesArtwork */; };
-		C54AF54919B8C437006F7EDB /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EE192F5F15007A1520 /* AppIcon29x29.png */; };
 		C54AF54A19B8C437006F7EDB /* WLSplashLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */; };
 		C54AF55519B8C467006F7EDB /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3F419211A48007BE6CC /* UIView+GestureRecognizing.m */; };
 		C54AF55719B8C467006F7EDB /* WLNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FCC699199A5C4B009A0DC6 /* WLNavigation.m */; };
@@ -842,9 +804,7 @@
 		C54AF61D19B8C467006F7EDB /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5104940195C603800D7406E /* Crashlytics.framework */; };
 		C54AF61F19B8C467006F7EDB /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 12DE698B192E4234007580AD /* AviarySDKResources.bundle */; };
 		C54AF62019B8C467006F7EDB /* WLAssetsGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED451934B183009C1DC3 /* WLAssetsGroupViewController.xib */; };
-		C54AF62319B8C467006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EC192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png */; };
 		C54AF62519B8C467006F7EDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
-		C54AF62719B8C467006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514ED192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png */; };
 		C54AF62819B8C467006F7EDB /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
 		C54AF62919B8C467006F7EDB /* cars.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* cars.plist */; };
 		C54AF62A19B8C467006F7EDB /* flowers.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9131934B4460001E570 /* flowers.plist */; };
@@ -855,21 +815,14 @@
 		C54AF63119B8C467006F7EDB /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1409DA601949B24E00358BD4 /* PhoneFormats.dat */; };
 		C54AF63319B8C467006F7EDB /* WLEmojiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90D19347B9E0001E570 /* WLEmojiView.xib */; };
 		C54AF63419B8C467006F7EDB /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED551934B183009C1DC3 /* WLAssetCell.xib */; };
-		C54AF63519B8C467006F7EDB /* AppIcon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */; };
-		C54AF63619B8C467006F7EDB /* AppIcon40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F1192F5F15007A1520 /* AppIcon40x40@2x.png */; };
 		C54AF63819B8C467006F7EDB /* WLAssetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED511934B183009C1DC3 /* WLAssetsViewController.xib */; };
-		C54AF63919B8C467006F7EDB /* AppIcon76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F3192F5F15007A1520 /* AppIcon76x76.png */; };
 		C54AF63A19B8C467006F7EDB /* rings.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9151934B44D0001E570 /* rings.plist */; };
 		C54AF63B19B8C467006F7EDB /* smiles.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90F1934B4350001E570 /* smiles.plist */; };
-		C54AF63C19B8C467006F7EDB /* AppIcon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F0192F5F15007A1520 /* AppIcon40x40.png */; };
 		C54AF63D19B8C467006F7EDB /* numbers.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9111934B4400001E570 /* numbers.plist */; };
 		C54AF63E19B8C467006F7EDB /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B4418E08B7E001F585C /* CountryCodes.json */; };
 		C54AF63F19B8C467006F7EDB /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
-		C54AF64019B8C467006F7EDB /* AppIcon29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EF192F5F15007A1520 /* AppIcon29x29@2x.png */; };
 		C54AF64119B8C467006F7EDB /* WLComposeBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E8FF2018E9885F00BF1B96 /* WLComposeBar.xib */; };
-		C54AF64319B8C467006F7EDB /* AppIcon76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F4192F5F15007A1520 /* AppIcon76x76@2x.png */; };
 		C54AF64419B8C467006F7EDB /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 12D578C619178C3400586995 /* iTunesArtwork */; };
-		C54AF64619B8C467006F7EDB /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EE192F5F15007A1520 /* AppIcon29x29.png */; };
 		C54AF64719B8C467006F7EDB /* WLSplashLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */; };
 		C54AF65219B8C491006F7EDB /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3F419211A48007BE6CC /* UIView+GestureRecognizing.m */; };
 		C54AF65419B8C491006F7EDB /* WLNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FCC699199A5C4B009A0DC6 /* WLNavigation.m */; };
@@ -1023,9 +976,7 @@
 		C54AF71A19B8C491006F7EDB /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5104940195C603800D7406E /* Crashlytics.framework */; };
 		C54AF71C19B8C491006F7EDB /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 12DE698B192E4234007580AD /* AviarySDKResources.bundle */; };
 		C54AF71D19B8C491006F7EDB /* WLAssetsGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED451934B183009C1DC3 /* WLAssetsGroupViewController.xib */; };
-		C54AF72019B8C491006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EC192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png */; };
 		C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
-		C54AF72419B8C491006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514ED192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png */; };
 		C54AF72519B8C491006F7EDB /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
 		C54AF72619B8C491006F7EDB /* cars.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* cars.plist */; };
 		C54AF72719B8C491006F7EDB /* flowers.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9131934B4460001E570 /* flowers.plist */; };
@@ -1036,21 +987,14 @@
 		C54AF72E19B8C491006F7EDB /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1409DA601949B24E00358BD4 /* PhoneFormats.dat */; };
 		C54AF73019B8C491006F7EDB /* WLEmojiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90D19347B9E0001E570 /* WLEmojiView.xib */; };
 		C54AF73119B8C491006F7EDB /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED551934B183009C1DC3 /* WLAssetCell.xib */; };
-		C54AF73219B8C491006F7EDB /* AppIcon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */; };
-		C54AF73319B8C491006F7EDB /* AppIcon40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F1192F5F15007A1520 /* AppIcon40x40@2x.png */; };
 		C54AF73519B8C491006F7EDB /* WLAssetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F3ED511934B183009C1DC3 /* WLAssetsViewController.xib */; };
-		C54AF73619B8C491006F7EDB /* AppIcon76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F3192F5F15007A1520 /* AppIcon76x76.png */; };
 		C54AF73719B8C491006F7EDB /* rings.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9151934B44D0001E570 /* rings.plist */; };
 		C54AF73819B8C491006F7EDB /* smiles.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90F1934B4350001E570 /* smiles.plist */; };
-		C54AF73919B8C491006F7EDB /* AppIcon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F0192F5F15007A1520 /* AppIcon40x40.png */; };
 		C54AF73A19B8C491006F7EDB /* numbers.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9111934B4400001E570 /* numbers.plist */; };
 		C54AF73B19B8C491006F7EDB /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B4418E08B7E001F585C /* CountryCodes.json */; };
 		C54AF73C19B8C491006F7EDB /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
-		C54AF73D19B8C491006F7EDB /* AppIcon29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EF192F5F15007A1520 /* AppIcon29x29@2x.png */; };
 		C54AF73E19B8C491006F7EDB /* WLComposeBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E8FF2018E9885F00BF1B96 /* WLComposeBar.xib */; };
-		C54AF74019B8C491006F7EDB /* AppIcon76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514F4192F5F15007A1520 /* AppIcon76x76@2x.png */; };
 		C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 12D578C619178C3400586995 /* iTunesArtwork */; };
-		C54AF74319B8C491006F7EDB /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D514EE192F5F15007A1520 /* AppIcon29x29.png */; };
 		C54AF74419B8C491006F7EDB /* WLSplashLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */; };
 		C54AF85C19B8C622006F7EDB /* WLTestUsersBeta.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85419B8C622006F7EDB /* WLTestUsersBeta.plist */; };
 		C54AF85D19B8C622006F7EDB /* WLTestUsersDevelopment.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85519B8C622006F7EDB /* WLTestUsersDevelopment.plist */; };
@@ -1438,15 +1382,6 @@
 		12C4416518F80CEF005D8CA1 /* NSMutableDictionary+ImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+ImageMetadata.m"; sourceTree = "<group>"; };
 		12D4D3DF191938D60025CC18 /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIActionSheet+Blocks.h"; path = "UIActionSheet/UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
 		12D4D3E0191938D60025CC18 /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIActionSheet+Blocks.m"; path = "UIActionSheet/UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
-		12D514EC192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-Spotlight29x29@2x.png"; sourceTree = "<group>"; };
-		12D514ED192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-Spotlight40x40@2x.png"; sourceTree = "<group>"; };
-		12D514EE192F5F15007A1520 /* AppIcon29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon29x29.png; sourceTree = "<group>"; };
-		12D514EF192F5F15007A1520 /* AppIcon29x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon29x29@2x.png"; sourceTree = "<group>"; };
-		12D514F0192F5F15007A1520 /* AppIcon40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon40x40.png; sourceTree = "<group>"; };
-		12D514F1192F5F15007A1520 /* AppIcon40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon40x40@2x.png"; sourceTree = "<group>"; };
-		12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon60x60@2x.png"; sourceTree = "<group>"; };
-		12D514F3192F5F15007A1520 /* AppIcon76x76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon76x76.png; sourceTree = "<group>"; };
-		12D514F4192F5F15007A1520 /* AppIcon76x76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon76x76@2x.png"; sourceTree = "<group>"; };
 		12D578C619178C3400586995 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		12D578C81917ACE200586995 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
 		12D578C91917ACE200586995 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
@@ -1575,11 +1510,6 @@
 		5BA4329D1A3F2B6A00B53BC7 /* WLConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLConfirmView.xib; path = WLConfirmView/WLConfirmView.xib; sourceTree = "<group>"; };
 		5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLConfirmView.h; path = WLConfirmView/WLConfirmView.h; sourceTree = "<group>"; };
 		5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLConfirmView.m; path = WLConfirmView/WLConfirmView.m; sourceTree = "<group>"; };
-		5BA470BC1A24BAA80098EBE2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		5BA470BD1A24BAA80098EBE2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		5BA470BE1A24BAA80098EBE2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		5BA470BF1A24BAA80098EBE2 /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~ipad.png"; sourceTree = "<group>"; };
-		5BA470C01A24BAA80098EBE2 /* Default~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~ipad@2x.png"; sourceTree = "<group>"; };
 		5BA4CC101A08FAE700D7F31C /* WLPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPickerViewController.h; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.h; sourceTree = "<group>"; };
 		5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPickerViewController.m; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.m; sourceTree = "<group>"; };
 		5BA4CC171A08FB4300D7F31C /* WLPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPickerViewController.xib; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.xib; sourceTree = "<group>"; };
@@ -2731,20 +2661,6 @@
 		12E3DA4318E049C300DBDB79 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5BA470BC1A24BAA80098EBE2 /* Default-568h@2x.png */,
-				5BA470BD1A24BAA80098EBE2 /* Default.png */,
-				5BA470BE1A24BAA80098EBE2 /* Default@2x.png */,
-				5BA470BF1A24BAA80098EBE2 /* Default~ipad.png */,
-				5BA470C01A24BAA80098EBE2 /* Default~ipad@2x.png */,
-				12D514EC192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png */,
-				12D514ED192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png */,
-				12D514EE192F5F15007A1520 /* AppIcon29x29.png */,
-				12D514EF192F5F15007A1520 /* AppIcon29x29@2x.png */,
-				12D514F0192F5F15007A1520 /* AppIcon40x40.png */,
-				12D514F1192F5F15007A1520 /* AppIcon40x40@2x.png */,
-				12D514F2192F5F15007A1520 /* AppIcon60x60@2x.png */,
-				12D514F3192F5F15007A1520 /* AppIcon76x76.png */,
-				12D514F4192F5F15007A1520 /* AppIcon76x76@2x.png */,
 				C51E29511A1CE12E009786C7 /* OpaqueAssets */,
 				14AE4FEE19700B23002EEF3F /* Sounds */,
 				12D578C619178C3400586995 /* iTunesArtwork */,
@@ -4120,15 +4036,12 @@
 				C54F4B2F1A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */,
 				C54AF85F19B8C622006F7EDB /* WLTestUsersQA.plist in Resources */,
 				C54F4B331A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
-				12D514F7192F5F15007A1520 /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54FC7701A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
-				12D514F8192F5F15007A1520 /* AppIcon-Spotlight40x40@2x.png in Resources */,
 				129654F518E1CB3000FF43F6 /* WLInputAccessoryView.xib in Resources */,
 				C57005CA1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
 				C57005B61A1FA19C007257A6 /* chat_bubble_gray_left@2x.png in Resources */,
 				C57005BE1A1FA19C007257A6 /* chat_bubble_gray_right.png in Resources */,
-				5BA470D11A24BAA80098EBE2 /* Default~ipad@2x.png in Resources */,
 				ACF8D9181934B45C0001E570 /* cars.plist in Resources */,
 				C542BDE819FA554A00C3BD64 /* SignUp.storyboard in Resources */,
 				5BF583401A1F983B00922BD5 /* ic_quote@3x.png in Resources */,
@@ -4144,12 +4057,9 @@
 				C57005C21A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
 				5BA6CAF41A10E51B004AD41C /* s03.wav in Resources */,
 				C54FC7751A16557A00623FC1 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
-				5BA470C91A24BAA80098EBE2 /* Default@2x.png in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
-				5BA470CD1A24BAA80098EBE2 /* Default~ipad.png in Resources */,
 				C5C20BDD1A239D6F008B2E2E /* WLTestUserCell.xib in Resources */,
 				14ACAE0719421AE5006BD3B3 /* Main.storyboard in Resources */,
-				5BA470C51A24BAA80098EBE2 /* Default.png in Resources */,
 				1409DA631949B24E00358BD4 /* PhoneFormats.dat in Resources */,
 				5BF5833E1A1F983B00922BD5 /* ic_quote.png in Resources */,
 				5B3CD74A19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
@@ -4161,18 +4071,14 @@
 				C57005BA1A1FA19C007257A6 /* chat_bubble_gray_left@3x.png in Resources */,
 				5BF5833F1A1F983B00922BD5 /* ic_quote@2x.png in Resources */,
 				12F3ED5F1934B183009C1DC3 /* WLAssetCell.xib in Resources */,
-				12D514FD192F5F15007A1520 /* AppIcon60x60@2x.png in Resources */,
 				5BA6CAF31A10E51B004AD41C /* s02.wav in Resources */,
 				5B7E156B1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
-				12D514FC192F5F15007A1520 /* AppIcon40x40@2x.png in Resources */,
 				C57005D21A1FA19C007257A6 /* chat_bubble_red_left@3x.png in Resources */,
 				C54AF86019B8C622006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
 				12F3ED5D1934B183009C1DC3 /* WLAssetsViewController.xib in Resources */,
-				12D514FE192F5F15007A1520 /* AppIcon76x76.png in Resources */,
 				ACF8D9161934B44D0001E570 /* rings.plist in Resources */,
 				C54AF86319B8C622006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				ACF8D9101934B4350001E570 /* smiles.plist in Resources */,
-				12D514FB192F5F15007A1520 /* AppIcon40x40.png in Resources */,
 				ACF8D9121934B4400001E570 /* numbers.plist in Resources */,
 				C57005B21A1FA19C007257A6 /* chat_bubble_gray_left.png in Resources */,
 				121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */,
@@ -4182,18 +4088,14 @@
 				5BA685DC1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
 				5BA666B919FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
-				12D514FA192F5F15007A1520 /* AppIcon29x29@2x.png in Resources */,
 				5BA6CAF21A10E51B004AD41C /* s01.wav in Resources */,
 				5BA4329E1A3F2B6A00B53BC7 /* WLConfirmView.xib in Resources */,
 				12E8FF2118E9885F00BF1B96 /* WLComposeBar.xib in Resources */,
-				12D514FF192F5F15007A1520 /* AppIcon76x76@2x.png in Resources */,
-				5BA470C11A24BAA80098EBE2 /* Default-568h@2x.png in Resources */,
 				C54F4B1A1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */,
 				C57005DE1A1FA19C007257A6 /* chat_bubble_red_right@3x.png in Resources */,
 				C57005C61A1FA19C007257A6 /* chat_bubble_gray_right@3x.png in Resources */,
 				5B650FE71A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */,
 				12D578C719178C3400586995 /* iTunesArtwork in Resources */,
-				12D514F9192F5F15007A1520 /* AppIcon29x29.png in Resources */,
 				C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4216,14 +4118,11 @@
 				C54AF52319B8C437006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
 				C54F4B341A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				C54FC7711A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */,
-				C54AF52619B8C437006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54AF87719B8C63E006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
 				5BA470B91A2478AF0098EBE2 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				5BA4F87B1A1CA08900DB1A25 /* s02.wav in Resources */,
 				C54AF52819B8C437006F7EDB /* Images.xcassets in Resources */,
-				C54AF52A19B8C437006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */,
 				C54AF52B19B8C437006F7EDB /* WLInputAccessoryView.xib in Resources */,
-				5BA470D21A24BAA80098EBE2 /* Default~ipad@2x.png in Resources */,
 				C54AF52C19B8C437006F7EDB /* cars.plist in Resources */,
 				C54AF52D19B8C437006F7EDB /* flowers.plist in Resources */,
 				C542BDE919FA554A00C3BD64 /* SignUp.storyboard in Resources */,
@@ -4239,11 +4138,8 @@
 				C54AF53119B8C437006F7EDB /* OpenSans-Light.ttf in Resources */,
 				C54AF53219B8C437006F7EDB /* Main.storyboard in Resources */,
 				C54AF53419B8C437006F7EDB /* PhoneFormats.dat in Resources */,
-				5BA470CA1A24BAA80098EBE2 /* Default@2x.png in Resources */,
 				C57005CB1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
-				5BA470CE1A24BAA80098EBE2 /* Default~ipad.png in Resources */,
 				C57005C31A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
-				5BA470C61A24BAA80098EBE2 /* Default.png in Resources */,
 				5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF53619B8C437006F7EDB /* WLEmojiView.xib in Resources */,
 				C51E295A1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
@@ -4253,14 +4149,10 @@
 				C542BDEE19FA555C00C3BD64 /* Camera.storyboard in Resources */,
 				C54FC7761A16557A00623FC1 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
 				C57005C71A1FA19C007257A6 /* chat_bubble_gray_right@3x.png in Resources */,
-				C54AF53819B8C437006F7EDB /* AppIcon60x60@2x.png in Resources */,
-				C54AF53919B8C437006F7EDB /* AppIcon40x40@2x.png in Resources */,
 				C54AF86A19B8C63A006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
 				C54AF53B19B8C437006F7EDB /* WLAssetsViewController.xib in Resources */,
-				C54AF53C19B8C437006F7EDB /* AppIcon76x76.png in Resources */,
 				C54AF53D19B8C437006F7EDB /* rings.plist in Resources */,
 				C54AF53E19B8C437006F7EDB /* smiles.plist in Resources */,
-				C54AF53F19B8C437006F7EDB /* AppIcon40x40.png in Resources */,
 				5BF583431A1F984200922BD5 /* ic_quote@3x.png in Resources */,
 				C54AF54019B8C437006F7EDB /* numbers.plist in Resources */,
 				C54AF87919B8C63E006F7EDB /* WLTestUsersQA.plist in Resources */,
@@ -4272,7 +4164,6 @@
 				C57005DB1A1FA19C007257A6 /* chat_bubble_red_right@2x.png in Resources */,
 				C57005B71A1FA19C007257A6 /* chat_bubble_gray_left@2x.png in Resources */,
 				C57005CF1A1FA19C007257A6 /* chat_bubble_red_left@2x.png in Resources */,
-				C54AF54319B8C437006F7EDB /* AppIcon29x29@2x.png in Resources */,
 				5BA685DD1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */,
 				C54AF86D19B8C63A006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				5BA666BA19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
@@ -4280,12 +4171,9 @@
 				5BA4329F1A3F2B6A00B53BC7 /* WLConfirmView.xib in Resources */,
 				C54AF86B19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5B7E156C1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
-				C54AF54619B8C437006F7EDB /* AppIcon76x76@2x.png in Resources */,
-				5BA470C21A24BAA80098EBE2 /* Default-568h@2x.png in Resources */,
 				5B650FE81A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
 				5BF583421A1F984200922BD5 /* ic_quote@2x.png in Resources */,
-				C54AF54919B8C437006F7EDB /* AppIcon29x29.png in Resources */,
 				C54AF54A19B8C437006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C57005D71A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
 			);
@@ -4309,14 +4197,11 @@
 				C54AF62019B8C467006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
 				C54F4B351A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				C54FC7721A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */,
-				C54AF62319B8C467006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54AF87B19B8C63E006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
 				5BA470BA1A2478B00098EBE2 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				5BA4F87F1A1CA08900DB1A25 /* s02.wav in Resources */,
 				C54AF62519B8C467006F7EDB /* Images.xcassets in Resources */,
-				C54AF62719B8C467006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */,
 				C54AF62819B8C467006F7EDB /* WLInputAccessoryView.xib in Resources */,
-				5BA470D31A24BAA80098EBE2 /* Default~ipad@2x.png in Resources */,
 				C54AF62919B8C467006F7EDB /* cars.plist in Resources */,
 				C54AF62A19B8C467006F7EDB /* flowers.plist in Resources */,
 				C542BDEA19FA554A00C3BD64 /* SignUp.storyboard in Resources */,
@@ -4332,11 +4217,8 @@
 				C54AF62E19B8C467006F7EDB /* OpenSans-Light.ttf in Resources */,
 				C54AF62F19B8C467006F7EDB /* Main.storyboard in Resources */,
 				C54AF63119B8C467006F7EDB /* PhoneFormats.dat in Resources */,
-				5BA470CB1A24BAA80098EBE2 /* Default@2x.png in Resources */,
 				C57005CC1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
-				5BA470CF1A24BAA80098EBE2 /* Default~ipad.png in Resources */,
 				C57005C41A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
-				5BA470C71A24BAA80098EBE2 /* Default.png in Resources */,
 				5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF63319B8C467006F7EDB /* WLEmojiView.xib in Resources */,
 				C51E295B1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
@@ -4346,14 +4228,10 @@
 				C542BDEF19FA555C00C3BD64 /* Camera.storyboard in Resources */,
 				C54FC7771A16557A00623FC1 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
 				C57005C81A1FA19C007257A6 /* chat_bubble_gray_right@3x.png in Resources */,
-				C54AF63519B8C467006F7EDB /* AppIcon60x60@2x.png in Resources */,
-				C54AF63619B8C467006F7EDB /* AppIcon40x40@2x.png in Resources */,
 				C54AF86E19B8C63A006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
 				C54AF63819B8C467006F7EDB /* WLAssetsViewController.xib in Resources */,
-				C54AF63919B8C467006F7EDB /* AppIcon76x76.png in Resources */,
 				C54AF63A19B8C467006F7EDB /* rings.plist in Resources */,
 				C54AF63B19B8C467006F7EDB /* smiles.plist in Resources */,
-				C54AF63C19B8C467006F7EDB /* AppIcon40x40.png in Resources */,
 				5BF583461A1F984200922BD5 /* ic_quote@3x.png in Resources */,
 				C54AF63D19B8C467006F7EDB /* numbers.plist in Resources */,
 				C54AF87D19B8C63E006F7EDB /* WLTestUsersQA.plist in Resources */,
@@ -4365,7 +4243,6 @@
 				C57005DC1A1FA19C007257A6 /* chat_bubble_red_right@2x.png in Resources */,
 				C57005B81A1FA19C007257A6 /* chat_bubble_gray_left@2x.png in Resources */,
 				C57005D01A1FA19C007257A6 /* chat_bubble_red_left@2x.png in Resources */,
-				C54AF64019B8C467006F7EDB /* AppIcon29x29@2x.png in Resources */,
 				5BA685DE1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */,
 				C54AF87119B8C63A006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				5BA666BB19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
@@ -4373,12 +4250,9 @@
 				5BA432A01A3F2B6A00B53BC7 /* WLConfirmView.xib in Resources */,
 				C54AF86F19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5B7E156D1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
-				C54AF64319B8C467006F7EDB /* AppIcon76x76@2x.png in Resources */,
-				5BA470C31A24BAA80098EBE2 /* Default-568h@2x.png in Resources */,
 				5B650FE91A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */,
 				C54AF64419B8C467006F7EDB /* iTunesArtwork in Resources */,
 				5BF583451A1F984200922BD5 /* ic_quote@2x.png in Resources */,
-				C54AF64619B8C467006F7EDB /* AppIcon29x29.png in Resources */,
 				C54AF64719B8C467006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C57005D81A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
 			);
@@ -4402,14 +4276,11 @@
 				C54AF71D19B8C491006F7EDB /* WLAssetsGroupViewController.xib in Resources */,
 				C54F4B361A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				C54FC7731A1654C800623FC1 /* WLHomePlaceholderView.xib in Resources */,
-				C54AF72019B8C491006F7EDB /* AppIcon-Spotlight29x29@2x.png in Resources */,
 				C54AF87F19B8C63F006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
 				5BA470BB1A2478B00098EBE2 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */,
 				C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */,
-				C54AF72419B8C491006F7EDB /* AppIcon-Spotlight40x40@2x.png in Resources */,
 				C54AF72519B8C491006F7EDB /* WLInputAccessoryView.xib in Resources */,
-				5BA470D41A24BAA80098EBE2 /* Default~ipad@2x.png in Resources */,
 				C54AF72619B8C491006F7EDB /* cars.plist in Resources */,
 				C54AF72719B8C491006F7EDB /* flowers.plist in Resources */,
 				C542BDEB19FA554A00C3BD64 /* SignUp.storyboard in Resources */,
@@ -4425,11 +4296,8 @@
 				C54AF72B19B8C491006F7EDB /* OpenSans-Light.ttf in Resources */,
 				C54AF72C19B8C491006F7EDB /* Main.storyboard in Resources */,
 				C54AF72E19B8C491006F7EDB /* PhoneFormats.dat in Resources */,
-				5BA470CC1A24BAA80098EBE2 /* Default@2x.png in Resources */,
 				C57005CD1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
-				5BA470D01A24BAA80098EBE2 /* Default~ipad.png in Resources */,
 				C57005C51A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
-				5BA470C81A24BAA80098EBE2 /* Default.png in Resources */,
 				5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF73019B8C491006F7EDB /* WLEmojiView.xib in Resources */,
 				C51E295C1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
@@ -4439,14 +4307,10 @@
 				C542BDF019FA555C00C3BD64 /* Camera.storyboard in Resources */,
 				C54FC7781A16557A00623FC1 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
 				C57005C91A1FA19C007257A6 /* chat_bubble_gray_right@3x.png in Resources */,
-				C54AF73219B8C491006F7EDB /* AppIcon60x60@2x.png in Resources */,
-				C54AF73319B8C491006F7EDB /* AppIcon40x40@2x.png in Resources */,
 				C54AF87219B8C63B006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
 				C54AF73519B8C491006F7EDB /* WLAssetsViewController.xib in Resources */,
-				C54AF73619B8C491006F7EDB /* AppIcon76x76.png in Resources */,
 				C54AF73719B8C491006F7EDB /* rings.plist in Resources */,
 				C54AF73819B8C491006F7EDB /* smiles.plist in Resources */,
-				C54AF73919B8C491006F7EDB /* AppIcon40x40.png in Resources */,
 				5BF583491A1F984200922BD5 /* ic_quote@3x.png in Resources */,
 				C54AF73A19B8C491006F7EDB /* numbers.plist in Resources */,
 				C54AF88119B8C63F006F7EDB /* WLTestUsersQA.plist in Resources */,
@@ -4458,7 +4322,6 @@
 				C57005DD1A1FA19C007257A6 /* chat_bubble_red_right@2x.png in Resources */,
 				C57005B91A1FA19C007257A6 /* chat_bubble_gray_left@2x.png in Resources */,
 				C57005D11A1FA19C007257A6 /* chat_bubble_red_left@2x.png in Resources */,
-				C54AF73D19B8C491006F7EDB /* AppIcon29x29@2x.png in Resources */,
 				5BA685DF1A079CBD0013CD91 /* WLCreateWrapViewController.xib in Resources */,
 				C54AF87519B8C63B006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				5BA666BC19FFA7E8009B64E7 /* WLEditWrapViewController.xib in Resources */,
@@ -4466,12 +4329,9 @@
 				5BA432A11A3F2B6A00B53BC7 /* WLConfirmView.xib in Resources */,
 				C54AF87319B8C63B006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5B7E156E1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
-				C54AF74019B8C491006F7EDB /* AppIcon76x76@2x.png in Resources */,
-				5BA470C41A24BAA80098EBE2 /* Default-568h@2x.png in Resources */,
 				5B650FEA1A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
 				5BF583481A1F984200922BD5 /* ic_quote@2x.png in Resources */,
-				C54AF74319B8C491006F7EDB /* AppIcon29x29.png in Resources */,
 				C54AF74419B8C491006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C57005D91A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
 			);
@@ -5737,6 +5597,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5760,6 +5622,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -5785,6 +5649,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5808,6 +5674,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -5833,6 +5701,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5855,6 +5725,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -5879,6 +5751,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5902,6 +5776,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";

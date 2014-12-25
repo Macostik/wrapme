@@ -6,4 +6,3 @@ link_with ['WrapLive-Development', 'WrapLive-QA', 'WrapLive-Beta', 'WrapLive-Pro
 pod 'AFNetworking', '~> 2.0'
 pod 'OpenUDID'
 pod 'PubNub'
-pod 'iVersion'

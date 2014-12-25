@@ -60,9 +60,3 @@
 #define COCOAPODS_VERSION_MINOR_PubNub 7
 #define COCOAPODS_VERSION_PATCH_PubNub 6
 
-// iVersion
-#define COCOAPODS_POD_AVAILABLE_iVersion
-#define COCOAPODS_VERSION_MAJOR_iVersion 1
-#define COCOAPODS_VERSION_MINOR_iVersion 11
-#define COCOAPODS_VERSION_PATCH_iVersion 4
-

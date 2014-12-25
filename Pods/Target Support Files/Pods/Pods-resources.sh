@@ -48,7 +48,6 @@ install_resource()
   esac
 }
           install_resource "PubNub/PubNub/PubNub/PubNub/Resources/PNLoggerSymbols.plist"
-                    install_resource "iVersion/iVersion/iVersion.bundle"
           
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 if [[ "${ACTION}" == "install" ]]; then

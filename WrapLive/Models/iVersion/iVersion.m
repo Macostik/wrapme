@@ -1029,7 +1029,7 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
     else
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                        message:details
+                                                        message:nil
                                                        delegate:(id<UIAlertViewDelegate>)self
                                               cancelButtonTitle:nil
                                               otherButtonTitles:defaultButton, nil];

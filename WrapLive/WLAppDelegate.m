@@ -25,7 +25,7 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "WLAuthorizationRequest.h"
 #import "WLHomeViewController.h"
-#import <iVersion/iVersion.h>
+#import "iVersion.h"
 
 @interface WLAppDelegate () <iVersionDelegate>
 

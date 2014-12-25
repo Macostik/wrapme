@@ -30,7 +30,6 @@ typedef enum : NSUInteger {
 
 @interface WLWelcomeViewController () <UIGestureRecognizerDelegate>
 
-@property (weak, nonatomic) WLLoadingView *splash;
 @property (weak, nonatomic) IBOutlet UIButton *licenseButton;
 @property (strong, nonatomic) IBOutlet UIView *transparentView;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
@@ -45,49 +44,13 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.frame = [UIWindow mainWindow].bounds;
-    [self.view layoutIfNeeded];
+    [self underlineLicenseButton];
     
-    self.splash = [[WLLoadingView splash] showInView:self.view];
-	
-    NSString* storedVersion = [WLSession appVersion];
-    if (!storedVersion || [storedVersion compare:@"2.0" options:NSNumericSearch] == NSOrderedAscending) {
-        [WLSession clear];
-    }
-    [WLSession setCurrentAppVersion];
-    
-    WLAuthorization* authorization = [WLAuthorization currentAuthorization];
-	if ([authorization canAuthorize]) {
-		__weak typeof(self)weakSelf = self;
-        [authorization signIn:^(WLUser *user) {
-            [weakSelf presentHomeViewController];
-        } failure:^(NSError *error) {
-            if ([error isNetworkError]) {
-				[weakSelf presentHomeViewController];
-			} else {
-				[weakSelf unlockUI];
-			}
-        }];
-	} else {
-		[self unlockUI];
-	}
-}
-
-- (void)unlockUI {
-	[self underlineLicenseButton];
-	__weak typeof(self)weakSelf = self;
-	[UIView animateWithDuration:0.25f animations:^{
-		weakSelf.splash.alpha = 0.0f;
-	} completion:^(BOOL finished) {
-        [weakSelf.splash hide];
-    }];
-    self.splash.animating = NO;
-    [self animateBackgroundView:-(weakSelf.backgroundView.height - weakSelf.view.height + 20) nextOffset:-20];
+    [self animateBackgroundView:-(self.backgroundView.height - self.view.height + 20) nextOffset:-20];
     
     [self wrapIntoAttributedString];
-    
-    [self.termsAndConditionsTextView addTapGestureRecognizingDelegate:self
-                                                                block:^(UIGestureRecognizer *recognizer) {
+    __weak typeof(self)weakSelf = self;
+    [self.termsAndConditionsTextView addTapGestureRecognizingDelegate:self block:^(UIGestureRecognizer *recognizer) {
                                                                     [weakSelf flipAnimationView:WLFlipDirectionLeft];
                                                                 }];
 }

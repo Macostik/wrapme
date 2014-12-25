@@ -19,10 +19,6 @@
 
 @property (nonatomic) BOOL backSwipeGestureEnabled;
 
-@property (nonatomic) BOOL showsPlaceholderView;
-
-@property (weak, nonatomic) UIView *placeholderView;
-
 @property (weak, nonatomic, readonly) UIView *contentView;
 
 @property (nonatomic) BOOL isEmbedded;
@@ -35,10 +31,14 @@
 
 - (void)awakeAfterInit;
 
-- (UINib*)placeholderViewNib;
-
-- (void)showPlaceholderView;
-
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight;
+
+- (void)setPlaceholderNib:(UINib*)nib forType:(NSUInteger)type;
+
+- (void)setPlaceholderVisible:(BOOL)visible forType:(NSUInteger)type;
+
+- (void)updatePlaceholderVisibilityForType:(NSUInteger)type;
+
+- (BOOL)placeholderVisibleForType:(NSUInteger)type;
 
 @end

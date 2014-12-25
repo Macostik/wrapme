@@ -9,7 +9,7 @@
 #import "WLCandiesHistoryViewSection.h"
 #import "UIView+Shorthand.h"
 #import "WLWrapRequest.h"
-#import "WLGroupedSet.h"
+#import "WLHistory.h"
 
 @implementation WLCandiesHistoryViewSection
 

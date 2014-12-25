@@ -21,7 +21,7 @@
 #import "WLCollectionViewFlowLayout.h"
 #import "WLComposeBar.h"
 #import "WLEntryNotifier.h"
-#import "WLGroupedSet.h"
+#import "WLHistory.h"
 #import "WLNetwork.h"
 #import "WLKeyboard.h"
 #import "WLLoadingView.h"

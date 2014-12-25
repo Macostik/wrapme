@@ -31,7 +31,7 @@
 #import "WLWrapCell.h"
 #import "UIView+AnimationHelper.h"
 #import "NSDate+Additions.h"
-#import "WLGroupedSet.h"
+#import "WLHistory.h"
 #import "NSString+Additions.h"
 #import "WLWrapRequest.h"
 #import "SegmentedControl.h"
@@ -60,14 +60,14 @@ typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
 
 static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 static NSString* WLWrapPlaceholderViewTimeline = @"WLWrapPlaceholderViewTimeline";
-static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
+static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIButton *viewButton;
 
-@property (strong, nonatomic) WLGroupedSet *groups;
+@property (strong, nonatomic) WLHistory *history;
 
 @property (nonatomic) WLWrapViewMode mode;
 
@@ -89,6 +89,8 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self setPlaceholderNib:[UINib nibWithNibName:WLWrapPlaceholderViewTimeline bundle:nil] forType:WLWrapViewModeTimeline];
+    [self setPlaceholderNib:[UINib nibWithNibName:WLWrapPlaceholderViewHistory bundle:nil] forType:WLWrapViewModeHistory];
     
     self.nameLabel.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     
@@ -100,12 +102,8 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
     
     self.mode = [WLSession integer:WLWrapViewDefaultModeKey];
     
-    self.groups = [[WLGroupedSet alloc] init];
-    [self.groups addEntries:self.wrap.candies];
-    WLWrapRequest* wrapRequest = [WLWrapRequest request:self.wrap];
-    wrapRequest.contentType = WLWrapContentTypePaginated;
-    self.historyViewSection.entries = self.groups;
-    self.historyViewSection.entries.request = wrapRequest;
+    self.history = [WLHistory historyWithWrap:self.wrap];
+    self.historyViewSection.entries = self.history;
     self.timelineDataProvider.timeline = [WLTimeline timelineWithWrap:self.wrap];
     
     [self.dataProvider setRefreshableWithStyle:WLRefresherStyleOrange];
@@ -122,7 +120,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
     [self firstLoadRequest];
     
     self.dataProvider.animatableConstraints = self.timelineDataProvider.animatableConstraints;
-    if (self.wrap.candies.nonempty) {
+    if (![self placeholderVisibleForType:self.mode]) {
         [self dropDownCollectionView];
     }
 }
@@ -136,8 +134,8 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
     __weak typeof(self)weakSelf = self;
     WLWrapRequest* wrapRequest = [WLWrapRequest request:self.wrap];
     wrapRequest.contentType = WLWrapContentTypePaginated;
-    wrapRequest.type = [self.groups.entries count] > 10 ? WLPaginatedRequestTypeNewer : WLPaginatedRequestTypeFresh;
-    wrapRequest.newer = [[self.groups.entries firstObject] date];
+    wrapRequest.type = [self.history.entries count] > 10 ? WLPaginatedRequestTypeNewer : WLPaginatedRequestTypeFresh;
+    wrapRequest.newer = [[self.history.entries firstObject] date];
     [wrapRequest send:^(NSOrderedSet *orderedSet) {
         [weakSelf reloadData];
         if (weakSelf.mode == WLWrapViewModeTimeline && !weakSelf.timelineDataProvider.timeline.entries.nonempty) {
@@ -162,12 +160,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
     [self.dataProvider reload];
     [self updateNotificationCouter];
     [self updateWrapData];
-    self.showsPlaceholderView = !self.wrap.candies.nonempty;
-}
-
-- (UINib *)placeholderViewNib {
-    return [UINib nibWithNibName:self.mode == WLWrapViewModeTimeline ?
-                                 WLWrapPlaceholderViewToday : WLWrapPlaceholderViewTimeline bundle:nil];
+    [self updatePlaceholderVisibilityForType:self.mode];
 }
 
 - (void)updateNotificationCouter {
@@ -175,7 +168,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
 }
 
 - (void)reloadData {
-    [self.groups resetEntries:self.wrap.candies];
+    [self.history resetEntries:self.wrap.candies];
 }
 
 - (UIViewController *)shakePresentedViewController {
@@ -192,6 +185,14 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
     WLEditWrapViewController* editWrapViewController = [WLEditWrapViewController new];
     editWrapViewController.wrap = self.wrap;
     [self presentViewController:editWrapViewController animated:YES completion:nil];
+}
+
+- (BOOL)placeholderVisibleForType:(NSUInteger)type {
+    if (type == WLWrapViewModeTimeline) {
+        return !self.timelineDataProvider.timeline.entries.nonempty;
+    } else {
+        return !self.wrap.candies.nonempty;
+    }
 }
 
 #pragma mark - WLEntryNotifyReceiver
@@ -214,17 +215,11 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
-    [self.groups addEntry:candy];
-    self.showsPlaceholderView = !self.wrap.candies.nonempty;
+    [self updatePlaceholderVisibilityForType:self.mode];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
-    [self.groups removeEntry:candy];
-    self.showsPlaceholderView = !self.wrap.candies.nonempty;
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
-    [self.groups sort:candy];
+    [self updatePlaceholderVisibilityForType:self.mode];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier messageAdded:(WLMessage*)message {
@@ -246,10 +241,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
     }
     self.viewButton.selected = mode == WLWrapViewModeHistory;
     
-    self.showsPlaceholderView = !self.wrap.candies.nonempty;
-    if (mode == WLWrapViewModeTimeline) {
-        self.showsPlaceholderView = !self.timelineDataProvider.timeline.entries.nonempty;
-    }
+    [self updatePlaceholderVisibilityForType:self.mode];
 }
 
 - (IBAction)viewChanged:(UIButton*)sender {
@@ -264,7 +256,7 @@ static NSString* WLWrapPlaceholderViewToday = @"WLWrapPlaceholderViewToday";
         if (mode == WLWrapViewModeTimeline) {
             [self.timelineDataProvider.timeline update];
         } else {
-            [self.groups addEntries:self.wrap.candies];
+            [self.history addEntries:self.wrap.candies];
         }
         [WLSession setInteger:self.mode key:WLWrapViewDefaultModeKey];
         self.historyViewSection.completed = NO;

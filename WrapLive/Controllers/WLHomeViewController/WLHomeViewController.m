@@ -69,7 +69,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setPlaceholderNib:[UINib nibWithNibName:@"WLHomePlaceholderView" bundle:nil] forType:0];
 	[[WLUser notifier] addReceiver:self];
 	[[WLWrap notifier] addReceiver:self];
     [[WLComment notifier] addReceiver:self];
@@ -90,7 +90,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     __weak __typeof(self)weakSelf = self;
     [section setChange:^(WLPaginatedSet* entries) {
         WLUser *user = [WLUser currentUser];
-        weakSelf.showsPlaceholderView = entries.completed && ![entries.entries nonempty];
+        [weakSelf setPlaceholderVisible:entries.completed && ![entries.entries nonempty] forType:0];
         if (user.firstTimeUse && [user.wraps match:^BOOL(WLWrap *wrap) {
             return !wrap.isDefault.boolValue;
         }]) {
@@ -122,10 +122,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self.dataProvider reload];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];
-}
-
-- (UINib *)placeholderViewNib {
-    return [UINib nibWithNibName:@"WLHomePlaceholderView" bundle:nil];
 }
 
 - (void)updateEmailConfirmationView:(BOOL)animated {
@@ -183,12 +179,12 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 - (void)notifier:(WLEntryNotifier *)notifier wrapAdded:(WLWrap *)wrap {
     [self.section.entries addEntry:wrap];
 	self.collectionView.contentOffset = CGPointZero;
-    self.showsPlaceholderView = ![self.section.entries.entries nonempty];
+    [self setPlaceholderVisible:!self.section.entries.entries.nonempty forType:0];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
     [self.section.entries removeEntry:wrap];
-    self.showsPlaceholderView = ![self.section.entries.entries nonempty];
+    [self setPlaceholderVisible:!self.section.entries.entries.nonempty forType:0];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {

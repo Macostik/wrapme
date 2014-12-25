@@ -16,7 +16,7 @@
 #import "WLAPIManager.h"
 #import "WLWrap.h"
 #import "NSDate+Additions.h"
-#import "WLGroupedSet.h"
+#import "WLHistory.h"
 #import "UIScrollView+Additions.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLCandiesViewSection.h"
@@ -53,7 +53,7 @@
     self.dataSection.selection = selection;
 }
 
-- (void)setup:(WLGroup*)group {
+- (void)setup:(WLHistoryItem*)group {
     self.dataSection.entries = group;
 	self.dateLabel.text = [group.date string];
 	self.dataSection.completed = [group.entries count] < 3;

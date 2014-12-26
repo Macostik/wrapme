@@ -1,0 +1,42 @@
+/* 
+  Localizable.strings
+  WrapLive
+
+  Created by Oleg Vyshnivetsky on 5/21/14.
+  Copyright (c) 2014 Mobidev. All rights reserved.
+*/
+"Cannot delete photo not posted by you." = "Cannot delete photo not posted by you.";
+"Cannot delete chat message already posted." = "Cannot delete chat message already posted.";
+"%@ (Owner)" = "%@ (Owner)";
+"You" = "You";
+"Edit wrap" = "Edit wrap";
+"Write your comment ..." = "Write your comment ...";
+"Delete" = "Delete";
+"Cannot delete comment not posted by you." = "Cannot delete comment not posted by you.";
+"Write your message ..." = "Write your message ...";
+"Chat in %@" = "Chat in %@";
+"Exposure" = "Exposure";
+"Focus" = "Focus";
+"Leave" = "Leave";
+"%@\n%@\nIs this correct?" = "%@\n%@\nIs this correct?";
+"Confirm your details" = "Confirm your details";
+"Edit" = "Edit";
+"Yes" = "Yes";
+"By %@" = "By %@";
+"Posted %@" = "Posted %@";
+"%d %@%@ ago" = "%d %@%@ ago";
+"WLTimeIntervalNameHour" = "WLTimeIntervalNameHour";
+"WLTimeIntervalNameDay" = "WLTimeIntervalNameDay";
+"WLTimeIntervalNameMinute" = "WLTimeIntervalNameMinute";
+"WLTimeIntervalLessThanMinute" = "WLTimeIntervalLessThanMinute";
+"MMMM d, yyyy 'at' hh:mma" = "MMMM d, yyyy 'at' hh:mma";
+"Something went wrong..." = "Something went wrong...";
+"Connection was lost." = "Connection was lost.";
+"International roaming is off." = "International roaming is off.";
+"You don't have contacts with phone numbers on this device." = "You don't have contacts with phone numbers on this device.";
+"You don't have contacts on this device." = "You don't have contacts on this device.";
+"Access to your Address Book is not granted." = "Access to your Address Book is not granted.";
+"On" = "On";
+"Auto" = "Auto";
+"Off" = "Off";
+"Internet connection unavailable" = "Internet connection unavailable";

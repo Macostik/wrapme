@@ -1,0 +1,201 @@
+
+/* Class = "IBUILabel"; text = "10089969657"; ObjectID = "04J-8C-m9o"; */
+"04J-8C-m9o.text" = "10089969657";
+
+/* Class = "IBUILabel"; text = "Name"; ObjectID = "08S-52-GIh"; */
+"08S-52-GIh.text" = "Name";
+
+/* Class = "IBUILabel"; text = "last updated 3 days ago"; ObjectID = "1y3-CJ-RVW"; */
+"1y3-CJ-RVW.text" = "last updated 3 days ago";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "2HD-0Q-aOf"; */
+"2HD-0Q-aOf.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "4dB-kx-151"; */
+"4dB-kx-151.text" = "Label";
+
+/* Class = "IBUILabel"; text = "home:"; ObjectID = "6NA-Lj-jWd"; */
+"6NA-Lj-jWd.text" = "home:";
+
+/* Class = "IBUILabel"; text = "  sdf dfsa fsd fsdf sdjfh dsfjsd afjsd fjdsf jsdf sdjfdsfsadf sdfasdf sdf sadfsd"; ObjectID = "6dW-gY-pJQ"; */
+"6dW-gY-pJQ.text" = "  sdf dfsa fsd fsdf sdjfh dsfjsd afjsd fjdsf jsdf sdjfdsfsadf sdfasdf sdf sadfsd";
+
+/* Class = "IBUILabel"; text = "last updated 3 days ago"; ObjectID = "71z-7i-OMc"; */
+"71z-7i-OMc.text" = "last updated 3 days ago";
+
+/* Class = "IBUIButton"; normalTitle = "Continue"; ObjectID = "7Bf-ro-UFC"; */
+"7Bf-ro-UFC.normalTitle" = "Continue";
+
+/* Class = "IBUIButton"; normalTitle = "Sign Out"; ObjectID = "7C1-yc-O8X"; */
+"7C1-yc-O8X.normalTitle" = "Sign Out";
+
+/* Class = "IBUITextField"; placeholder = "Email address"; ObjectID = "82E-k4-0WJ"; */
+"82E-k4-0WJ.placeholder" = "Email address";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "90G-xG-qIL"; */
+"90G-xG-qIL.text" = "Label";
+
+/* Class = "IBUILabel"; text = "11:00"; ObjectID = "9ew-b0-PcB"; */
+"9ew-b0-PcB.text" = "11:00";
+
+/* Class = "IBUILabel"; text = "wrap name"; ObjectID = "AvF-XJ-7eQ"; */
+"AvF-XJ-7eQ.text" = "wrap name";
+
+/* Class = "IBUILabel"; text = "11:32 PM"; ObjectID = "BDu-zS-cNB"; */
+"BDu-zS-cNB.text" = "11:32 PM";
+
+/* Class = "IBUILabel"; text = "Nov 17, 2014"; ObjectID = "Bcm-eM-Zwh"; */
+"Bcm-eM-Zwh.text" = "Nov 17, 2014";
+
+/* Class = "IBUILabel"; text = "Invite your friends!"; ObjectID = "BgE-ku-qap"; */
+"BgE-ku-qap.text" = "Invite your friends!";
+
+/* Class = "IBUILabel"; text = "Add friends"; ObjectID = "Bop-dI-sMz"; */
+"Bop-dI-sMz.text" = "Add friends";
+
+/* Class = "IBUILabel"; text = "Email confirmation"; ObjectID = "CSs-OC-vDg"; */
+"CSs-OC-vDg.text" = "Email confirmation";
+
+/* Class = "IBUITextField"; placeholder = "Your name"; ObjectID = "D1N-1e-psu"; */
+"D1N-1e-psu.placeholder" = "Your name";
+
+/* Class = "IBUIButton"; normalTitle = "Comment"; ObjectID = "DNi-cn-kiB"; */
+"DNi-cn-kiB.normalTitle" = "Comment";
+
+/* Class = "IBUILabel"; text = "+380951383026"; ObjectID = "Dxm-Es-Lwk"; */
+"Dxm-Es-Lwk.text" = "+380951383026";
+
+/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "Efj-27-0UK"; */
+"Efj-27-0UK.normalTitle" = "Cancel";
+
+/* Class = "IBUILabel"; text = "in Wrap"; ObjectID = "FBj-ps-Q2W"; */
+"FBj-ps-Q2W.text" = "in Wrap";
+
+/* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "GkU-w3-rTK"; */
+"GkU-w3-rTK.normalTitle" = "Done";
+
+/* Class = "IBUILabel"; text = "name"; ObjectID = "HUe-Pv-h6W"; */
+"HUe-Pv-h6W.text" = "name";
+
+/* Class = "IBUILabel"; text = "Posted 3 days ago"; ObjectID = "JE5-jO-MER"; */
+"JE5-jO-MER.text" = "Posted 3 days ago";
+
+/* Class = "IBUITextField"; placeholder = "Search contacts"; ObjectID = "KDf-WU-v2H"; */
+"KDf-WU-v2H.placeholder" = "Search contacts";
+
+/* Class = "IBUITextField"; placeholder = "555-555-5555"; ObjectID = "KIX-5W-ASY"; */
+"KIX-5W-ASY.placeholder" = "555-555-5555";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "Kag-WO-QAb"; */
+"Kag-WO-QAb.text" = "Label";
+
+/* Class = "IBUILabel"; text = "11:32 PM"; ObjectID = "Lc4-Kr-oEr"; */
+"Lc4-Kr-oEr.text" = "11:32 PM";
+
+/* Class = "IBUIButton"; normalTitle = "About"; ObjectID = "Lq0-rh-5bS"; */
+"Lq0-rh-5bS.normalTitle" = "About";
+
+/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "MJV-nQ-gRy"; */
+"MJV-nQ-gRy.normalTitle" = "Cancel";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "N8I-t6-aKU"; */
+"N8I-t6-aKU.text" = "Label";
+
+/* Class = "IBUILabel"; text = "By Bartholome O'Connell II"; ObjectID = "N9a-4s-fUi"; */
+"N9a-4s-fUi.text" = "By Bartholome O'Connell II";
+
+/* Class = "IBUILabel"; text = "Email confirmation"; ObjectID = "Nim-LA-uPS"; */
+"Nim-LA-uPS.text" = "Email confirmation";
+
+/* Class = "IBUIButton"; normalTitle = "wrap name"; ObjectID = "PcB-Yh-hjT"; */
+"PcB-Yh-hjT.normalTitle" = "wrap name";
+
+/* Class = "IBUILabel"; text = "Edit your profile"; ObjectID = "QO2-SC-TvX"; */
+"QO2-SC-TvX.text" = "Edit your profile";
+
+/* Class = "IBUIButton"; normalTitle = "Change e-mail"; ObjectID = "R9i-Mn-k3a"; */
+"R9i-Mn-k3a.normalTitle" = "Change e-mail";
+
+/* Class = "IBUILabel"; text = "Notifications"; ObjectID = "Te3-A9-g3F"; */
+"Te3-A9-g3F.text" = "Notifications";
+
+/* Class = "IBUILabel"; text = "Enter your friend's name and phone number"; ObjectID = "TlS-f9-yyB"; */
+"TlS-f9-yyB.text" = "Enter your friend's name and phone number";
+
+/* Class = "IBUILabel"; text = "There was a problem connecting with wrapLive.\nCheck your internet connection and try again."; ObjectID = "TvM-gd-tcr"; */
+"TvM-gd-tcr.text" = "There was a problem connecting with wrapLive.\nCheck your internet connection and try again.";
+
+/* Class = "IBUILabel"; text = "Wrap Name"; ObjectID = "Twb-Mn-vNw"; */
+"Twb-Mn-vNw.text" = "Wrap Name";
+
+/* Class = "IBUILabel"; text = "You haven't confirmed your e-mail address yet. Please check your e-mail."; ObjectID = "UL6-dF-3Kj"; */
+"UL6-dF-3Kj.text" = "You haven't confirmed your e-mail address yet. Please check your e-mail.";
+
+/* Class = "IBUITextField"; placeholder = "Name"; ObjectID = "Xmt-yf-g7R"; */
+"Xmt-yf-g7R.placeholder" = "Name";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "Y3q-sy-dzY"; */
+"Y3q-sy-dzY.text" = "Label";
+
+/* Class = "IBUIButton"; normalTitle = "Resend"; ObjectID = "Yk6-tb-7gb"; */
+"Yk6-tb-7gb.normalTitle" = "Resend";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "ZaI-gM-W2F"; */
+"ZaI-gM-W2F.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "ZhB-Wt-rBP"; */
+"ZhB-Wt-rBP.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "b58-hK-T5O"; */
+"b58-hK-T5O.text" = "Label";
+
+/* Class = "IBUIButton"; normalTitle = "Account"; ObjectID = "co2-D4-XAH"; */
+"co2-D4-XAH.normalTitle" = "Account";
+
+/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "dYf-Sg-pHd"; */
+"dYf-Sg-pHd.normalTitle" = "Cancel";
+
+/* Class = "IBUILabel"; text = "You haven't confirmed your e-mail address yet. Please check your e-mail."; ObjectID = "eHd-9o-24J"; */
+"eHd-9o-24J.text" = "You haven't confirmed your e-mail address yet. Please check your e-mail.";
+
+/* Class = "IBUILabel"; text = "Comment text g"; ObjectID = "ek8-rH-Jsu"; */
+"ek8-rH-Jsu.text" = "Comment text g";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "ekw-1F-iDF"; */
+"ekw-1F-iDF.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Username is typing..."; ObjectID = "eqd-he-vyj"; */
+"eqd-he-vyj.text" = "Username is typing...";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "fw4-o4-768"; */
+"fw4-o4-768.text" = "Label";
+
+/* Class = "IBUIButton"; normalTitle = "Resend"; ObjectID = "gpG-be-cvC"; */
+"gpG-be-cvC.normalTitle" = "Resend";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "jAi-R7-bNq"; */
+"jAi-R7-bNq.text" = "Label";
+
+/* Class = "IBUIButton"; normalTitle = "Send invite"; ObjectID = "kdg-Ph-jY5"; */
+"kdg-Ph-jY5.normalTitle" = "Send invite";
+
+/* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "oMu-AF-YMH"; */
+"oMu-AF-YMH.normalTitle" = "Done";
+
+/* Class = "IBUILabel"; text = "Nov 17, 2014"; ObjectID = "qox-d6-2fj"; */
+"qox-d6-2fj.text" = "Nov 17, 2014";
+
+/* Class = "IBUILabel"; text = "Friends"; ObjectID = "s5o-k3-mbE"; */
+"s5o-k3-mbE.text" = "Friends";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "s8v-Pz-wMq"; */
+"s8v-Pz-wMq.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Settings"; ObjectID = "ueu-Q3-dgA"; */
+"ueu-Q3-dgA.text" = "Settings";
+
+/* Class = "IBUILabel"; text = "name"; ObjectID = "v2z-k0-EKs"; */
+"v2z-k0-EKs.text" = "name";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "zsc-qK-GNU"; */
+"zsc-qK-GNU.text" = "Label";

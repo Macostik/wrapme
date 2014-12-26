@@ -177,6 +177,10 @@
 		5BA6CE981A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
 		5BA6CE991A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
 		5BA6CE9A1A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
+		5BA7A1091A4D879A002B1D63 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
+		5BA7A10A1A4D879A002B1D63 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
+		5BA7A10B1A4D879A002B1D63 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
+		5BA7A10C1A4D879A002B1D63 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BB02FF619F00BCE001E1D50 /* WLChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB02FF519F00BCE001E1D50 /* WLChat.m */; };
 		5BB02FF719F00BCE001E1D50 /* WLChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB02FF519F00BCE001E1D50 /* WLChat.m */; };
 		5BB02FF819F00BCE001E1D50 /* WLChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB02FF519F00BCE001E1D50 /* WLChat.m */; };
@@ -1525,6 +1529,9 @@
 		5BA6CAF11A10E51B004AD41C /* s04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s04.wav; path = Sounds/s04.wav; sourceTree = "<group>"; };
 		5BA6CE951A160D4300C0DD95 /* UIDevice-Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice-Hardware.h"; sourceTree = "<group>"; };
 		5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice-Hardware.m"; sourceTree = "<group>"; };
+		5BA7A10D1A4D879A002B1D63 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5BA7A10F1A4D8862002B1D63 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		5BA7A1101A4D8863002B1D63 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5BB02FF419F00BCE001E1D50 /* WLChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChat.h; path = WLChatGroupSet/WLChat.h; sourceTree = "<group>"; };
 		5BB02FF519F00BCE001E1D50 /* WLChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChat.m; path = WLChatGroupSet/WLChat.m; sourceTree = "<group>"; };
 		5BB04F2619D9822300B5C6EE /* WLEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditViewController.h; path = WLEditViewController/WLEditViewController.h; sourceTree = "<group>"; };
@@ -2667,6 +2674,7 @@
 				121B1B2F18E0749F001F585C /* Property Lists */,
 				12E3DA4418E049C300DBDB79 /* Fonts */,
 				12E3DA5018E049C300DBDB79 /* Images.xcassets */,
+				5BA7A1081A4D8745002B1D63 /* Localizable */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2969,6 +2977,14 @@
 				5BA678531A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m */,
 			);
 			name = UINavigationController;
+			sourceTree = "<group>";
+		};
+		5BA7A1081A4D8745002B1D63 /* Localizable */ = {
+			isa = PBXGroup;
+			children = (
+				5BA7A10E1A4D879A002B1D63 /* Localizable.strings */,
+			);
+			name = Localizable;
 			sourceTree = "<group>";
 		};
 		5BB02FFA19F00BEC001E1D50 /* WLChatGroupSet */ = {
@@ -4005,6 +4021,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 12A7A6F618DA0945008FF6F0;
 			productRefGroup = 12A7A70018DA0945008FF6F0 /* Products */;
@@ -4094,6 +4111,7 @@
 				C54F4B1A1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */,
 				C57005DE1A1FA19C007257A6 /* chat_bubble_red_right@3x.png in Resources */,
 				C57005C61A1FA19C007257A6 /* chat_bubble_gray_right@3x.png in Resources */,
+				5BA7A1091A4D879A002B1D63 /* Localizable.strings in Resources */,
 				5B650FE71A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */,
 				12D578C719178C3400586995 /* iTunesArtwork in Resources */,
 				C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */,
@@ -4173,6 +4191,7 @@
 				5B7E156C1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				5B650FE81A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
+				5BA7A10A1A4D879A002B1D63 /* Localizable.strings in Resources */,
 				5BF583421A1F984200922BD5 /* ic_quote@2x.png in Resources */,
 				C54AF54A19B8C437006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C57005D71A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
@@ -4252,6 +4271,7 @@
 				5B7E156D1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				5B650FE91A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */,
 				C54AF64419B8C467006F7EDB /* iTunesArtwork in Resources */,
+				5BA7A10B1A4D879A002B1D63 /* Localizable.strings in Resources */,
 				5BF583451A1F984200922BD5 /* ic_quote@2x.png in Resources */,
 				C54AF64719B8C467006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C57005D81A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
@@ -4331,6 +4351,7 @@
 				5B7E156E1A1A394000419CA8 /* WLCreateWrapCell.xib in Resources */,
 				5B650FEA1A00094A00D6AD3D /* WLCandyOptionsViewController.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
+				5BA7A10C1A4D879A002B1D63 /* Localizable.strings in Resources */,
 				5BF583481A1F984200922BD5 /* ic_quote@2x.png in Resources */,
 				C54AF74419B8C491006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C57005D91A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
@@ -5510,8 +5531,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				12A7A71518DA0946008FF6F0 /* Base */,
+				5BA7A10F1A4D8862002B1D63 /* ru */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5BA7A10E1A4D879A002B1D63 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BA7A10D1A4D879A002B1D63 /* en */,
+				5BA7A1101A4D8863002B1D63 /* ru */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -1,0 +1,35 @@
+/* 
+  Localizable.strings
+  WrapLive
+
+  Created by Oleg Vyshnivetsky on 5/21/14.
+  Copyright (c) 2014 Mobidev. All rights reserved.
+*/
+
+"Cannot delete photo not posted by you." = "Нельзя удалить фото размещенное не тобой.";
+"Cannot delete chat message already posted." = "Отправленное сообщение нельзя удалить.";
+"You" = "Ты";
+"Edit wrap" = "Редактирование врапа";
+"Write your comment ..." = "Написанный тобой комментарий ...";
+"Delete" = "Удалить";
+"Write your message ..." = "Написанное тобой сообщение ...";
+"Chat in %@" = "Чат в %@";
+"Exposure" = "Exposure";
+"Focus" = "Сфокусироваться";
+"Leave" = "Покинуть";
+"Confirm your details" = "Подтвердить твои детали";
+"Edit" = "Редактирование";
+"Yes" = "Да";
+"By %@" = "По %@";
+"Posted %@" = "Размещен %@";
+"%d %@%@ ago" = "%d %@%@ назад";
+"Something went wrong..." = "Что-то пошло не так ...";
+"Connection was lost." = "Соединение было потеряно.";
+"International roaming is off." = "Интернаионалльный роуминг выключен.";
+"You don't have contacts with phone numbers on this device." = "Ты не имеешь контактов с этим номером на этом устройстве.";
+"You don't have contacts on this device." = "Ты не имеешь контактов на этом устройстве.";
+"Access to your Address Book is not granted." = "Доступ к твоей адрессной книги не предоставлен.";
+"On" = "Включено";
+"Auto" = "Автоматически";
+"Off" = "Выключено";
+"Internet connection unavailable" = "Интернет соединение не доступно";

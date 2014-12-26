@@ -1532,6 +1532,7 @@
 		5BA7A10D1A4D879A002B1D63 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5BA7A10F1A4D8862002B1D63 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		5BA7A1101A4D8863002B1D63 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5BA7A1111A4DB60B002B1D63 /* WLLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLocalization.h; path = WLAPIManager/WLLocalization.h; sourceTree = "<group>"; };
 		5BB02FF419F00BCE001E1D50 /* WLChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChat.h; path = WLChatGroupSet/WLChat.h; sourceTree = "<group>"; };
 		5BB02FF519F00BCE001E1D50 /* WLChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChat.m; path = WLChatGroupSet/WLChat.m; sourceTree = "<group>"; };
 		5BB04F2619D9822300B5C6EE /* WLEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditViewController.h; path = WLEditViewController/WLEditViewController.h; sourceTree = "<group>"; };
@@ -2508,6 +2509,7 @@
 				C54AF86419B8C632006F7EDB /* WLAPIEnvironment.h */,
 				C54AF86519B8C632006F7EDB /* WLAPIEnvironment.m */,
 				C53BC05F19F9315F0031249E /* WLLogger.h */,
+				5BA7A1111A4DB60B002B1D63 /* WLLocalization.h */,
 			);
 			name = WLAPIManager;
 			sourceTree = "<group>";

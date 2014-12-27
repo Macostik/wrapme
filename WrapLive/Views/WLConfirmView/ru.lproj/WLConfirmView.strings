@@ -1,0 +1,18 @@
+
+/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "76D-bl-W0K"; */
+"76D-bl-W0K.normalTitle" = "Отмена";
+
+/* Class = "IBUILabel"; text = "Is this correct?"; ObjectID = "CeK-FC-xMs"; */
+"CeK-FC-xMs.text" = "Данные правильные?";
+
+/* Class = "IBUILabel"; text = "+1 (925) 980 8866"; ObjectID = "MpF-fi-jIi"; */
+"MpF-fi-jIi.text" = "+1 (925) 980 8866";
+
+/* Class = "IBUILabel"; text = "Confirm your details"; ObjectID = "Yo3-sx-jNh"; */
+"Yo3-sx-jNh.text" = "Подтверждение Ваших данных";
+
+/* Class = "IBUIButton"; normalTitle = "OK"; ObjectID = "anc-0k-7cc"; */
+"anc-0k-7cc.normalTitle" = "OK";
+
+/* Class = "IBUILabel"; text = "calvin@ravenpod.com"; ObjectID = "edD-kw-Hyg"; */
+"edD-kw-Hyg.text" = "calvin@ravenpod.com";

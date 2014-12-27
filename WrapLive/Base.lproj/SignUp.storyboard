@@ -431,17 +431,10 @@
                                             <constraint firstAttribute="width" constant="122" id="hEf-wE-McZ"/>
                                         </constraints>
                                         <attributedString key="attributedText">
-                                            <fragment content="wrap">
+                                            <fragment content="wrapLive">
                                                 <attributes>
                                                     <color key="NSColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <font key="NSFont" size="19" name="OpenSans-Light"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                </attributes>
-                                            </fragment>
-                                            <fragment content="Live">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <font key="NSFont" size="19" name="OpenSans-Bold"/>
+                                                    <font key="NSFont" metaFont="system" size="19"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                                 </attributes>
                                             </fragment>

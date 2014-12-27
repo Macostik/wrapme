@@ -49,7 +49,7 @@
     WLResendConfirmationRequest* request = [WLResendConfirmationRequest request];
     request.email = [WLAuthorization currentAuthorization].email;
     [request send:^(id object) {
-        [UIAlertView showWithMessage:@"We are sending you an email for confirming your email address now."];
+        [UIAlertView showWithMessage:WLLS(@"We are sending you an email for confirming your email address now.")];
     } failure:^(NSError *error) {
         
     }];

@@ -144,8 +144,8 @@
 - (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		[AFPhotoEditorCustomization setLeftNavigationBarButtonTitle:@"Cancel"];
-		[AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Save"];
+		[AFPhotoEditorCustomization setLeftNavigationBarButtonTitle:WLLS(@"Cancel")];
+		[AFPhotoEditorCustomization setRightNavigationBarButtonTitle:WLLS(@"Save")];
 	});
 	AFPhotoEditorController* aviaryController = [[AFPhotoEditorController alloc] initWithImage:image];
 	aviaryController.delegate = self;

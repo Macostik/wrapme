@@ -30,7 +30,7 @@ static NSString *const WLReport = @"Report";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.deleteButton setTitle:self.candy.deletable ? WLDelete : WLReport forState:UIControlStateNormal];
+    [self.deleteButton setTitle:self.candy.deletable ? WLLS(WLDelete) : WLLS(WLReport) forState:UIControlStateNormal];
     self.downloadButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
 }
 
@@ -46,7 +46,7 @@ static NSString *const WLReport = @"Report";
     __weak __typeof(self)weakSelf = self;
     if (self.candy.deletable) {
         [self.candy remove:^(id object) {
-            [WLToast showWithMessage:@"Candy was deleted successfully."];
+            [WLToast showWithMessage:WLLS(@"Candy was deleted successfully.")];
             [weakSelf dismissViewControllerAnimated:YES completion:nil];
         } failure:^(NSError *error) {
             [error show];

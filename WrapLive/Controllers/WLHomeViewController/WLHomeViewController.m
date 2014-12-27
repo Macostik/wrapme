@@ -205,10 +205,10 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 	UIViewController* presentedViewController = self.navigationController.presentedViewController;
 	if (presentedViewController) {
 		__weak typeof(self)weakSelf = self;
-		[UIAlertView showWithTitle:@"View notification"
-						   message:@"Incompleted data can be lost. Do you want to continue?"
-							action:@"Continue"
-							cancel:@"Cancel"
+		[UIAlertView showWithTitle:WLLS(@"View notification")
+						   message:WLLS(@"Incompleted data can be lost. Do you want to continue?")
+							action:WLLS(@"Continue")
+							cancel:WLLS(@"Cancel")
 						completion:^{
 			[weakSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
 			[notification.targetEntry present];
@@ -234,7 +234,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
         WLToastAppearance* appearance = [WLToastAppearance appearance];
         appearance.shouldShowIcon = NO;
         appearance.contentMode = UIViewContentModeCenter;
-        [WLToast showWithMessage:@"Confirmation resend. Please, check you e-mail." appearance:appearance];
+        [WLToast showWithMessage:WLLS(@"Confirmation resend. Please, check you e-mail.") appearance:appearance];
     } failure:^(NSError *error) {
     }];
 }

@@ -80,10 +80,6 @@
 "Chat in %@" = "В чате %@";
 "We are sending you an email for confirming your email address now." = "Мы отправили Вам письмо, проверьте вашу почту, пожалуйста.";
 "save error" = "сохранение ошибки";
-"shake" = "потрясите";
-"rotate" = "поверните";
-"chats" = "чаты";
-"latest" = "самый последний";
 "in Wrap: \"%@\"" = "в врапе: \"%@\"";
 "Cannot handle remote notification when app is active." = "Нельзя управлять удаленными уведомдениями когда приложение активно.";
 "Data in remote notification is not valid (inactive)." = "Не правильные данные в удаленном уведомлении (неактивные).";
@@ -110,7 +106,6 @@
 "comments" = "комментарии";
 "a comment" = "комментарий";
 "Downloading the photo now. It will be in \"%@\" album momentarily." = "Идет загрузка фото. Они будут в \"%@\" альбоме сразу же.";
-"wraps/%@/%@" = "врапы/%@/%@";
 "This item is already uploaded." = "Это можно обновить.";
 "No registered devices" = "Зарегестрированных устройсв нету";
 "Terms and Conditions" = "Сроки и условия";

@@ -39,7 +39,7 @@ static NSString *const WLLeave = @"Leave";
     [self.nameWrapTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
 
     BOOL isMyWrap = self.wrap.contributedByCurrentUser;
-    [self.deleteButton setTitle:isMyWrap ? WLDelete : WLLeave forState:UIControlStateNormal];
+    [self.deleteButton setTitle:isMyWrap ? WLLS(WLDelete) : WLLS(WLLeave) forState:UIControlStateNormal];
     self.nameWrapTextField.enabled = isMyWrap;
 }
 
@@ -67,7 +67,7 @@ static NSString *const WLLeave = @"Leave";
 
 - (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (!self.nameWrapTextField.text.nonempty) {
-        if (failure) failure([NSError errorWithDescription:@"Wrap name cannot be blank."]);
+        if (failure) failure([NSError errorWithDescription:WLLS(@"Wrap name cannot be blank.")]);
     } else {
         if (success) success(nil);
     }

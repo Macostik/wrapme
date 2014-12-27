@@ -34,7 +34,7 @@ static NSDictionary *errorsToIgnore = nil;
 }
 
 - (void)show {
-	[self showWithTitle:@"Something went wrong..."];
+	[self showWithTitle:WLLS(@"Something went wrong...")];
 }
 
 - (void)showWithTitle:(NSString *)title {
@@ -80,8 +80,8 @@ static NSDictionary *customErrorMessages = nil;
 
 + (NSDictionary*)customErrorMessages {
 	if (!customErrorMessages) {
-		customErrorMessages = @{NSURLErrorDomain:@{@(NSURLErrorTimedOut):@"Connection was lost.",
-												   @(NSURLErrorInternationalRoamingOff):@"International roaming is off."}};
+		customErrorMessages = @{NSURLErrorDomain:@{@(NSURLErrorTimedOut):WLLS(@"Connection was lost."),
+												   @(NSURLErrorInternationalRoamingOff):WLLS(@"International roaming is off.")}};
 	}
 	return customErrorMessages;
 }
@@ -98,7 +98,7 @@ static NSDictionary *customErrorMessages = nil;
 }
 
 - (void)log {
-	[self log:@"Something went wrong..."];
+	[self log:WLLS(@"Something went wrong...")];
 }
 
 - (void)log:(NSString *)label {

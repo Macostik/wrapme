@@ -27,10 +27,6 @@
 "By %@" = "By %@";
 "Posted %@" = "Posted %@";
 "%d %@%@ ago" = "%d %@%@ ago";
-"WLTimeIntervalNameHour" = "WLTimeIntervalNameHour";
-"WLTimeIntervalNameDay" = "WLTimeIntervalNameDay";
-"WLTimeIntervalNameMinute" = "WLTimeIntervalNameMinute";
-"WLTimeIntervalLessThanMinute" = "WLTimeIntervalLessThanMinute";
 "Something went wrong..." = "Something went wrong...";
 "Connection was lost." = "Connection was lost.";
 "International roaming is off." = "International roaming is off.";
@@ -72,6 +68,8 @@
 "Delete photo" = "Delete photo";
 "Are you sure you want to delete this photo?" = "Are you sure you want to delete this photo?";
 "ERROR" = "ERROR";
+"API ERROR" = "API ERROR";
+"RESPONSE" = "RESPONSE";
 "PHOTOS" = "PHOTOS";
 "New version of wrapLive is available" = "New version of wrapLive is available";
 "Update" = "Update";
@@ -91,12 +89,7 @@
 " is typing..." = " is typing...";
 "Chat in %@" = "Chat in %@";
 "We are sending you an email for confirming your email address now." = "We are sending you an email for confirming your email address now.";
-"CoreData" = "CoreData";
 "save error" = "save error";
-"shake" = "shake";
-"rotate" = "rotate";
-"chats" = "chats";
-"latest" = "latest";
 "in Wrap: \"%@\"" = "in Wrap: \"%@\"";
 "Cannot handle remote notification when app is active." = "Cannot handle remote notification when app is active.";
 "Data in remote notification is not valid (inactive)." = "Data in remote notification is not valid (inactive).";
@@ -124,7 +117,6 @@
 "a comment" = "a comment";
 "s" = "s";
 "Downloading the photo now. It will be in \"%@\" album momentarily." = "Downloading the photo now. It will be in \"%@\" album momentarily.";
-"wraps/%@/%@" = "wraps/%@/%@";
 "This item is already uploaded." = "This item is already uploaded.";
 "No registered devices" = "No registered devices";
 "Terms and Conditions" = "Terms and Conditions";

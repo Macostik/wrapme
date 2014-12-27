@@ -70,14 +70,14 @@
     NSMutableArray *persons = [contact.persons mutableCopy];
     
     if (!persons.nonempty) {
-        return [NSError errorWithDescription:@"No contact data."];
+        return [NSError errorWithDescription:WLLS(@"No contact data.")];
     }
     
     BOOL currentUserRemoved = NO;
     [self willRemoveDoublePersons:persons currentUserRemoved:&currentUserRemoved];
     
     if (!persons.nonempty) {
-        return [NSError errorWithDescription:currentUserRemoved ? @"You cannot add yourself." : @"This contact is already added."];
+        return [NSError errorWithDescription:currentUserRemoved ? WLLS(@"You cannot add yourself.") : WLLS(@"This contact is already added.")];
     } else if ([persons count] == 1) {
         WLPerson* person = [persons lastObject];
         contact.persons = [persons copy];

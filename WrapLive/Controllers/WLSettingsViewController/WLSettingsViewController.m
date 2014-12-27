@@ -29,12 +29,12 @@
     NSDictionary* info = [[NSBundle mainBundle] infoDictionary];
     NSString* appName = [info objectForKey:@"CFBundleDisplayName"]?:@"wrapLive";
     NSString* version = [info objectForKey:(id)kCFBundleVersionKey];
-    NSString *message = [NSString stringWithFormat:@"You are using %@ v%@", appName,version];
+    NSString *message = [NSString stringWithFormat:WLLS(@"You are using %@ v%@"), appName,version];
     [UIAlertView showWithMessage:message];
 }
 
 - (IBAction)signOut:(id)sender {
-    [UIAlertView showWithTitle:@"Sign Out" message:@"Are you sure you want to sign out?" action:@"YES" cancel:@"NO" completion:^{
+    [UIAlertView showWithTitle:WLLS(@"Sign Out") message:WLLS(@"Are you sure you want to sign out?") action:WLLS(@"YES") cancel:WLLS(@"NO") completion:^{
         [WLSession clear];
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
     }];

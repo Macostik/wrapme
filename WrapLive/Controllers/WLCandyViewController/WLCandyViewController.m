@@ -79,7 +79,7 @@
         _historyItem = [self.history itemWithCandy:_candy];
     }
     
-	self.composeBarView.placeholder = @"Write your comment ...";
+	self.composeBarView.placeholder = WLLS(@"Write your comment ...");
 	
 	[[WLCandy notifier] addReceiver:self];
     [[WLComment notifier] addReceiver:self];
@@ -250,7 +250,7 @@
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
-    [WLToast showWithMessage:@"This candy is no longer avaliable."];
+    [WLToast showWithMessage:WLLS(@"This candy is no longer avaliable.")];
     NSMutableOrderedSet* candies = self.historyItem.entries;
     [candies removeObject:candy];
     if (candies.nonempty) {

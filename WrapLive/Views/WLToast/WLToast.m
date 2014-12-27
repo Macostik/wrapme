@@ -260,7 +260,7 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 + (void)showPhotoDownloadingMessage {
     WLToastAppearance *appearance = [[WLToastAppearance alloc] init];
     appearance.shouldShowIcon = NO;
-    [self showWithMessage:[NSString stringWithFormat:@"Downloading the photo now. It will be in \"%@\" album momentarily.", WLAlbumName] appearance:appearance];
+    [self showWithMessage:[NSString stringWithFormat:WLLS(@"Downloading the photo now. It will be in \"%@\" album momentarily."), WLAlbumName] appearance:appearance];
 }
 
 @end

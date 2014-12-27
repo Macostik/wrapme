@@ -61,7 +61,7 @@
             }];
         } else {
             *vibrate = NO;
-            [WLToast showWithMessage:@"Cannot delete comment not posted by you."];
+            [WLToast showWithMessage:WLLS(@"Cannot delete comment not posted by you.")];
         }
     }];
     self.textLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;

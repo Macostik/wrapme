@@ -186,9 +186,9 @@ static NSUInteger WLAssetNumberOfColumns = 4;
 - (void)selectAsset:(ALAsset *)asset {
     CGSize size = asset.defaultRepresentation.dimensions;
     if (size.width == 0 && size.height == 0) {
-        [WLToast showWithMessage:@"Your image is invalid. Please, choose another one."];
+        [WLToast showWithMessage:WLLS(@"Your image is invalid. Please, choose another one.")];
     } else if (size.width < 100 || size.height < 100) {
-        [WLToast showWithMessage:@"Your image is too small. Please, choose another one."];
+        [WLToast showWithMessage:WLLS(@"Your image is too small. Please, choose another one.")];
     } else {
         if (self.mode == WLStillPictureModeDefault) {
             if ([self.selectedAssets containsObject:asset]) {

@@ -37,9 +37,9 @@
     
     iVersion *version = [iVersion sharedInstance];
     version.appStoreID = 879908578;
-    version.updateAvailableTitle = @"New version of wrapLive is available";
-    version.downloadButtonLabel = @"Update";
-    version.remindButtonLabel = @"Not now";
+    version.updateAvailableTitle = WLLS(@"New version of wrapLive is available");
+    version.downloadButtonLabel = WLLS(@"Update");
+    version.remindButtonLabel = WLLS(@"Not now");
     version.updatePriority = iVersionUpdatePriorityMedium;
     
     [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
@@ -95,9 +95,9 @@
     [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
         if (hasChanges) {
             UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
-            photoNotification.alertBody = @"Got new photos? Upload them to your wraps now!";
+            photoNotification.alertBody = WLLS(@"Got new photos? Upload them to your wraps now!");
             photoNotification.fireDate = [[NSDate date] dateByAddingTimeInterval:3];
-            photoNotification.alertAction = @"Upload";
+            photoNotification.alertAction = WLLS(@"Upload");
             photoNotification.repeatInterval = 0;
             photoNotification.userInfo = @{@"type":@"new_photos"};
             [application scheduleLocalNotification:photoNotification];

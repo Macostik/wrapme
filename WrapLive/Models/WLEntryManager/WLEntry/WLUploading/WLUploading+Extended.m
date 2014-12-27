@@ -92,7 +92,7 @@
     } failure:^(NSError *error) {
         if (error.isDuplicatedUploading) {
             [weakSelf.contribution remove];
-            failure([NSError errorWithDescription:@"This item is already uploaded."]);
+            failure([NSError errorWithDescription:WLLS(@"This item is already uploaded.")]);
         } else {
             [weakSelf.contribution notifyOnUpdate];
             failure(error);

@@ -93,7 +93,7 @@
 
 - (NSString *)contributorNamesWithCount:(NSInteger)numberOfUsers {
     NSMutableOrderedSet *contributors = self.contributors;
-    if (contributors.count <= 1) return @"You";
+    if (contributors.count <= 1) return WLLS(@"You");
     NSMutableString* names = [NSMutableString string];
     NSUInteger i = 0;
     for (WLUser *contributor in contributors) {
@@ -103,11 +103,11 @@
                 ++i;
             }
         } else {
-            [names appendString:@"You ..."];
+            [names appendString:WLLS(@"You ...")];
             return names;
         }
     }
-    [names appendString:@"You"];
+    [names appendString:WLLS(@"You")];
     return names;
 }
 
@@ -203,7 +203,7 @@
 - (void)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
 	
 	if (![WLNetwork network].reachable) {
-		failure([NSError errorWithDescription:@"Internet connection is not reachable."]);
+		failure([NSError errorWithDescription:WLLS(@"Internet connection is not reachable.")]);
 		return;
 	}
 	

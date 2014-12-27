@@ -40,7 +40,7 @@
     self.wrapImageView.url = comment.candy.picture.small;
     self.userNameLabel.text = [NSString stringWithFormat:@"%@  %@",comment.contributor.name, comment.createdAt.timeAgoString];
     self.commentTextView.text = [NSString stringWithFormat:@"\"%@\"", comment.text];
-    self.inWrapLabel.text = [NSString stringWithFormat:@"in Wrap: \"%@\"", comment.candy.wrap.name];
+    self.inWrapLabel.text = [NSString stringWithFormat:WLLS(@"in Wrap: \"%@\""), comment.candy.wrap.name];
 }
 
 #pragma mark - TTTAttributedLabelDelegate

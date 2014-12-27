@@ -56,7 +56,7 @@
 - (void)showLostConnectionBannerIfNeeded {
     AFNetworkReachabilityStatus status = [AFNetworkReachabilityManager sharedManager].networkReachabilityStatus;
 	if (status == AFNetworkReachabilityStatusNotReachable) {
-		[WLToast showWithMessage:@"Internet connection unavailable"];
+		[WLToast showWithMessage:WLLS(@"Internet connection unavailable")];
 	}
 }
 

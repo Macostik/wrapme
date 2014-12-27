@@ -67,7 +67,7 @@
 
 - (void)setup:(WLWrap*)wrap {
 	self.nameLabel.text = wrap.name;
-    self.dateLabel.text = [NSString stringWithFormat:@"last updated %@", WLString(wrap.updatedAt.timeAgoStringAtAMPM)];
+    self.dateLabel.text = [NSString stringWithFormat:WLLS(@"last updated %@"), WLString(wrap.updatedAt.timeAgoStringAtAMPM)];
     
     if (self.candiesView) {
         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];

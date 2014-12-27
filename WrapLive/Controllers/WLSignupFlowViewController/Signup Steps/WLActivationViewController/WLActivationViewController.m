@@ -88,7 +88,7 @@
     sender.userInteractionEnabled = NO;
     [[WLVerificationCallRequest request] send:^(id object) {
         sender.userInteractionEnabled = YES;
-        [UIAlertView showWithMessage:[NSString stringWithFormat:@"Calling %@ now. Please wait.", weakSelf.phoneNumberLabel.text]];
+        [UIAlertView showWithMessage:[NSString stringWithFormat:WLLS(@"Calling %@ now. Please wait."), weakSelf.phoneNumberLabel.text]];
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;
         [error show];

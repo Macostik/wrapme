@@ -34,7 +34,7 @@
         if (phones.length > 0) {
             _phones = [phones copy];
         } else {
-            _phones = @"No registered devices";
+            _phones = WLLS(@"No registered devices");
         }
     }
     return _phones;

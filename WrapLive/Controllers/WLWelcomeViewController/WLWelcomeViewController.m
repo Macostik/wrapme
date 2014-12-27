@@ -105,7 +105,7 @@ typedef enum : NSUInteger {
 }
 
 - (void)underlineLicenseButton {
-	NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:@"Terms and Conditions"];
+	NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:WLLS(@"Terms and Conditions")];
 	NSDictionary * attributes = @{NSUnderlineStyleAttributeName : [NSNumber numberWithInteger:NSUnderlineStyleSingle],
 								  NSFontAttributeName : [UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmall],
 								  NSForegroundColorAttributeName : [UIColor WL_orangeColor]};

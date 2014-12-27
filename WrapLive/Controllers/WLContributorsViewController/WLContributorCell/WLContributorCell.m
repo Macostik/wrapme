@@ -30,12 +30,12 @@
 }
 
 - (void)setup:(WLUser*)user {
-	NSString * userNameText = [user isCurrentUser] ? @"You" : user.name;
+	NSString * userNameText = [user isCurrentUser] ? WLLS(@"You") : user.name;
 	BOOL isCreator = NO;
 	if ([self.delegate respondsToSelector:@selector(contributorCell:isCreator:)]) {
 		isCreator = [self.delegate contributorCell:self isCreator:user];
 	}
-	self.nameLabel.text = isCreator ? [NSString stringWithFormat:@"%@ (Owner)", userNameText] : userNameText;
+	self.nameLabel.text = isCreator ? [NSString stringWithFormat:WLLS(@"%@ (Owner)"), userNameText] : userNameText;
     
     self.phoneLabel.text = user.phones;
     self.avatarView.url = user.picture.small;

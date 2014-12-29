@@ -62,7 +62,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
-@property (weak, nonatomic) IBOutlet UIView *squareView;
 
 @end
 
@@ -90,13 +89,6 @@
         [self performSelector:@selector(start) withObject:nil afterDelay:0.0];
     } else {
         self.takePhotoButton.active = NO;
-    }
-    
-    self.squareView.hidden = !self.showSqaureView;
-    
-    if (self.showSqaureView) {
-        self.squareView.layer.borderColor = [UIColor whiteColor].CGColor;
-        self.squareView.layer.borderWidth = 0.5f;
     }
 }
 

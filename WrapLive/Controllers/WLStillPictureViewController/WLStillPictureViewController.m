@@ -58,7 +58,6 @@
     WLCameraViewController* cameraViewController = [self.cameraNavigationController.viewControllers lastObject];
     cameraViewController.delegate = self;
     cameraViewController.defaultPosition = self.defaultPosition;
-    cameraViewController.showSqaureView = self.mode == WLStillPictureModeSquare;
     self.cameraViewController = cameraViewController;
     [self setupWrapView:self.wrap];
     

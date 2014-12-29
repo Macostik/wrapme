@@ -28,8 +28,6 @@
 
 @property (nonatomic) AVCaptureDevicePosition position;
 
-@property (nonatomic) BOOL showSqaureView;
-
 - (void)setPosition:(AVCaptureDevicePosition)position animated:(BOOL)animated;
 
 @end

@@ -8,16 +8,12 @@
 		<key>users</key>
 		<array>
 			<dict>
-				<key>countryCode</key>
-				<string>380</string>
-				<key>phone</key>
-				<string>636467228</string>
 				<key>email</key>
 				<string>s.maximenko@mobidev.biz</string>
 				<key>password</key>
-				<string>eecd726854</string>
+				<string>db8c4332e3</string>
 				<key>deviceUID</key>
-				<string>9bab5366b095d7eab144151e40bb6f02c408d9c4</string>
+				<string>afa1e1170339a33bde53ee6bb7d3fe7a6478afad</string>
 			</dict>
 			<dict>
 				<key>countryCode</key>

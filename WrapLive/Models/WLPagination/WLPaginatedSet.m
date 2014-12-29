@@ -126,7 +126,7 @@
     } else if (!self.entries.nonempty) {
         self.completed = YES;
     } else {
-        [self.delegate paginatedSetChanged:self];
+        [self sort];
     }
 }
 

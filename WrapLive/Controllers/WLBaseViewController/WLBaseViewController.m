@@ -127,9 +127,10 @@
             weakSelf.view.backgroundColor = [UIColor colorWithWhite:.0 alpha:0.5];
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
+            fromViewController.view.userInteractionEnabled = YES;
         }];
     } else {
-        toViewController.view.userInteractionEnabled = YES;
+        
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
             weakSelf.contentView.transform = CGAffineTransformMakeTranslation(0, fromViewController.view.bounds.size.height);
             weakSelf.view.backgroundColor = [UIColor clearColor];

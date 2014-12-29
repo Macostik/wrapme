@@ -24,6 +24,7 @@
 #import "NSObject+NibAdditions.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "WLAuthorizationRequest.h"
+#import "WLRemoteObjectHandler.h"
 #import "WLHomeViewController.h"
 #import "iVersion.h"
 #import "WLLaunchScreenViewController.h"
@@ -104,8 +105,15 @@
     [WLUploading enqueueAutomaticUploading];
 }
 
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 	[WLNotificationCenter setDeviceToken:deviceToken];
+}
+
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    [url handleRemoteObject];
+    return YES;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {

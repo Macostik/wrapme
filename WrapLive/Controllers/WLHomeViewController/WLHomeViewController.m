@@ -47,12 +47,15 @@
 #import "WLWrapViewController.h"
 #import "WLWrapsRequest.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLRemoteObjectHandler.h"
 #import "WLPickerViewController.h"
+
+BOOL isPresentHomeViewController;
 
 static NSString *const WLTimeLineKey = @"WLTimeLineKey";
 static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLNotificationReceiver, WLPickerViewDelegate>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLPickerViewDelegate>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
@@ -122,6 +125,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self.dataProvider reload];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];
+    [WLRemoteObjectHandler sharedObject].isLoaded = [self isViewLoaded];
 }
 
 - (void)updateEmailConfirmationView:(BOOL)animated {
@@ -198,30 +202,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 #pragma mark - WLNotificationReceiver
-
-- (void)handleRemoteNotification:(WLNotification*)notification {
-    if (notification.event == WLEventDelete) return;
-    
-	UIViewController* presentedViewController = self.navigationController.presentedViewController;
-	if (presentedViewController) {
-		__weak typeof(self)weakSelf = self;
-		[UIAlertView showWithTitle:@"View notification"
-						   message:@"Incompleted data can be lost. Do you want to continue?"
-							action:@"Continue"
-							cancel:@"Cancel"
-						completion:^{
-			[weakSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
-			[notification.targetEntry present];
-		}];
-	} else {
-		[notification.targetEntry present:NO];
-	}
-}
-
-- (void)broadcaster:(WLNotificationCenter *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {
-    [self handleRemoteNotification:notification];
-	broadcaster.pendingRemoteNotification = nil;
-}
 
 - (void)updateNotificationsLabel {
     self.notificationsLabel.intValue = [[WLUser currentUser] unreadNotificationsCount];

@@ -24,6 +24,7 @@
 #import "NSDate+Additions.h"
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
+#import "WLRemoteObjectHandler.h"
 
 #define WLPubNubInactiveStateDuration 20*60
 
@@ -185,16 +186,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             break;
         case UIApplicationStateInactive: {
             WLNotification* notification = [WLNotification notificationWithData:data];
-            if (notification) {
-                self.pendingRemoteNotification = notification;
-                __weak typeof(self)weakSelf = self;
-                [notification fetch:^{
-                    [weakSelf broadcast:@selector(broadcaster:didReceiveRemoteNotification:) object:notification];
-                    if (success) success();
-                } failure:failure];
-            } else if (failure)  {
-                failure([NSError errorWithDescription:@"Data in remote notification is not valid (inactive)."]);
-            }
+            [notification handleRemoteObject];
         } break;
         case UIApplicationStateBackground: {
             WLNotification* notification = [WLNotification notificationWithData:data];

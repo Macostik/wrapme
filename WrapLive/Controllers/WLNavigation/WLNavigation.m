@@ -11,6 +11,7 @@
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"
 #import "NSArray+Additions.h"
+#import "UIAlertView+Blocks.h"
 
 @implementation UIStoryboard (WLNavigation)
 
@@ -157,6 +158,22 @@ static UIWindow* mainWindow = nil;
             }
         }
         [navigationController pushViewController:entryViewController animated:animated];
+    }
+}
+
+- (void)presentViewControllerWithoutLostData {
+    UINavigationController *navigationController = [UINavigationController mainNavigationController];
+    if ([navigationController presentedViewController]) {
+        [UIAlertView showWithTitle:@"View notification"
+                           message:@"Incompleted data can be lost. Do you want to continue?"
+                            action:@"Continue"
+                            cancel:@"Cancel"
+                        completion:^{
+                            [navigationController dismissViewControllerAnimated:YES completion:nil];
+                            [self present];
+                        }];
+    } else {
+        [self present:NO];
     }
 }
 

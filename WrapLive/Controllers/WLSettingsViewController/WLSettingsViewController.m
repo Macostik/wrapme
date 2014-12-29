@@ -11,6 +11,7 @@
 #import "WLSession.h"
 #import "WLNavigation.h"
 #import "UIAlertView+Blocks.h"
+#import "NSDate+Formatting.h"
 
 @interface WLSettingsViewController ()
 
@@ -29,7 +30,14 @@
     NSDictionary* info = [[NSBundle mainBundle] infoDictionary];
     NSString* appName = [info objectForKey:@"CFBundleDisplayName"]?:@"wrapLive";
     NSString* version = [info objectForKey:(id)kCFBundleVersionKey];
-    NSString *message = [NSString stringWithFormat:@"You are using %@ v%@", appName,version];
+    NSString *message;
+    if ([WLAPIManager instance].environment.isProduction) {
+        message = [NSString stringWithFormat:@"You are using %@ v%@", appName,version];
+    } else {
+        NSString *sourceFile = [[NSBundle mainBundle] pathForResource:@"WLAPIEnvironmentProduction" ofType:@"plist"];
+        NSDate *lastModif = [[[NSFileManager defaultManager] attributesOfItemAtPath:sourceFile error:NULL] objectForKey:NSFileModificationDate];
+        message = [NSString stringWithFormat:@"You are using %@ v%@\nInstalled %@", appName,version, [lastModif stringWithFormat:@"MMM d, yyyy hh:mm:ss"]];
+    }
     [UIAlertView showWithMessage:message];
 }
 

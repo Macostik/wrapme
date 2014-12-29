@@ -6162,6 +6162,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
 				CODE_SIGN_ENTITLEMENTS = "WrapLive-Development.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
@@ -6172,6 +6173,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -6188,6 +6194,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "WrapLive-Development.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -6200,6 +6207,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -6300,6 +6312,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
 				CODE_SIGN_ENTITLEMENTS = "WrapLive-QA.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
@@ -6310,6 +6323,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -6326,6 +6344,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "WrapLive-QA.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -6338,6 +6357,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -6354,6 +6378,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
 				CODE_SIGN_ENTITLEMENTS = "WrapLive-Beta.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
@@ -6364,6 +6389,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Beta";
@@ -6379,6 +6409,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "WrapLive-Beta.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -6391,6 +6422,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Beta";
@@ -6406,6 +6442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
 				CODE_SIGN_ENTITLEMENTS = "WrapLive-Production.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
@@ -6416,6 +6453,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -6432,6 +6474,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "WrapLive-Production.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -6444,6 +6487,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

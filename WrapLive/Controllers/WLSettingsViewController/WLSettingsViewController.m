@@ -34,9 +34,17 @@
     if ([WLAPIManager instance].environment.isProduction) {
         message = [NSString stringWithFormat:@"You are using %@ v%@", appName,version];
     } else {
+        NSMutableString *_message = [NSMutableString stringWithFormat:@"You are using %@ v%@", appName,version];
         NSString *sourceFile = [[NSBundle mainBundle] pathForResource:@"WLAPIEnvironmentProduction" ofType:@"plist"];
         NSDate *lastModif = [[[NSFileManager defaultManager] attributesOfItemAtPath:sourceFile error:NULL] objectForKey:NSFileModificationDate];
-        message = [NSString stringWithFormat:@"You are using %@ v%@\nInstalled %@", appName,version, [lastModif stringWithFormat:@"MMM d, yyyy hh:mm:ss"]];
+        if (lastModif) {
+            [_message appendFormat:@"\nInstalled %@", [lastModif stringWithFormat:@"MMM d, yyyy hh:mm:ss"]];
+        }
+
+#if CI_BUILD_NUMBER > 0
+        [_message appendFormat:@"\nJenkins build number %d", CI_BUILD_NUMBER];
+#endif
+        message = _message;
     }
     [UIAlertView showWithMessage:message];
 }

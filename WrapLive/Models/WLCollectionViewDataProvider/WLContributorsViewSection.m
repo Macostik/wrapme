@@ -12,7 +12,7 @@
 #import "WLFontPresetter.h"
 #import "NSString+Additions.h"
 
-const static CGFloat WLContributorsVerticalIndent = 30.0f;
+const static CGFloat WLContributorsVerticalIndent = 32.0f;
 const static CGFloat WLContributorsHorizontalIndent = 100.0f;
 
 @interface WLContributorsViewSection () <WLFontPresetterReceiver>

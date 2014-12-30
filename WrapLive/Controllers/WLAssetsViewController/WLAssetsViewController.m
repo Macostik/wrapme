@@ -165,21 +165,25 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     return self.assets.count;
 }
 
-static CGFloat WLAssetSpacing = 0.5f;
 static NSUInteger WLAssetNumberOfColumns = 4;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat size = (collectionView.width - WLAssetSpacing * (WLAssetNumberOfColumns + 1)) / WLAssetNumberOfColumns;
+    CGFloat size = (collectionView.width - minPixelSize() * (WLAssetNumberOfColumns + 1))/WLAssetNumberOfColumns;
     return CGSizeMake(size, size);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(WLAssetSpacing, WLAssetSpacing, WLAssetSpacing, WLAssetSpacing);
+    return UIEdgeInsetsMake(minPixelSize(), minPixelSize(), minPixelSize(), minPixelSize());
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return WLAssetSpacing;
+    return minPixelSize();
 }
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return minPixelSize();
+}
+
 
 #pragma mark - PGAssetCellDelegate
 

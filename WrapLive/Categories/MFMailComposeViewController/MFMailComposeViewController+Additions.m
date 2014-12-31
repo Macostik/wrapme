@@ -39,7 +39,7 @@
 
 #pragma mark - MFMailComposeViewControllerDelegate
 
-- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
 	if (result == MFMailComposeResultSent) {
 		WLToastAppearance* appearance = [WLToastAppearance appearance];
 		appearance.shouldShowIcon = NO;

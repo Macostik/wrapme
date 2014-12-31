@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/PNJSONSerialization.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/PNJSONSerialization.h

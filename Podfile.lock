@@ -21,7 +21,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - OpenUDID (1.0.0)
-  - PubNub (3.7.3)
+  - PubNub (3.7.6)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -31,6 +31,6 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   OpenUDID: 5a23b7477755efc2d7871b57aa79ba3089c40b74
-  PubNub: 73d25086df4bad8ffaa1484be30ce07d0defce9d
+  PubNub: 3f1be7f5eb0766af50d377c4a64d978acc826096
 
 COCOAPODS: 0.35.0

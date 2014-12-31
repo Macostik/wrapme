@@ -55,6 +55,10 @@ static inline NSString* phoneNumberClearing (NSString* phone) {
 
 - (CGFloat)heightWithFont:(UIFont*)font width:(CGFloat)width cachingKey:(char *)key;
 
+- (CGFloat)heightWithFont:(UIFont*)font width:(CGFloat)width;
+
+- (CGFloat)widthWithFont:(UIFont*)font size:(CGSize)size;
+
 @end
 
 @interface NSNumber (Additions)

@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Network/Transport/PNConnection+Protected.h
+../../../PubNub/PubNub/PubNub/PubNub/Network/Transport/PNConnection+Protected.h

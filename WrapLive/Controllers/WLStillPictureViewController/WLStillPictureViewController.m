@@ -51,6 +51,8 @@
     [super viewDidLoad];
     _wrapViewTranslucent = YES;
     self.wrapCoverView.circled = YES;
+    [self.wrapCoverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
+    [self.wrapCoverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
     self.cameraNavigationController = [self.childViewControllers lastObject];
     self.cameraNavigationController.delegate = self;
     WLCameraViewController* cameraViewController = [self.cameraNavigationController.viewControllers lastObject];
@@ -98,9 +100,6 @@
         self.wrapView.hidden = NO;
         self.wrapNameLabel.text = wrap.name;
         self.wrapCoverView.url = wrap.picture.small;
-        if (!self.wrapCoverView.url.nonempty) {
-            self.wrapCoverView.image = [UIImage imageNamed:@"default-small-cover"];
-        }
     } else {
         self.wrapView.hidden = YES;
     }
@@ -120,7 +119,8 @@
         UIImage *result = image;
         CGFloat resultWidth = [self imageWidthForCurrentMode];
         if (useCameraAspectRatio) {
-            CGSize newSize = CGSizeThatFitsSize(result.size, weakSelf.view.size);
+            CGSize cropSize = weakSelf.mode == WLStillPictureModeSquare ? CGSizeMake(weakSelf.view.width, weakSelf.view.width) : weakSelf.view.size;
+            CGSize newSize = CGSizeThatFitsSize(result.size, cropSize);
             CGFloat scale = newSize.width / resultWidth;
             newSize = CGSizeMake(resultWidth, newSize.height / scale);
             result = [result resizedImageWithContentModeScaleAspectFill:CGSizeMake(result.size.width / scale, 1)];
@@ -139,7 +139,7 @@
 - (void)cropAsset:(ALAsset*)asset completion:(void (^)(UIImage *croppedImage))completion {
     ALAssetRepresentation* r = asset.defaultRepresentation;
     UIImage* image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:(UIImageOrientation)r.orientation];
-    [self cropImage:image useCameraAspectRatio:(self.mode != WLStillPictureModeDefault) completion:completion];
+    [self cropImage:image useCameraAspectRatio:NO completion:completion];
 }
 
 - (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {

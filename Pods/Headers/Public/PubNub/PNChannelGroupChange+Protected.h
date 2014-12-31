@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/PNChannelGroupChange+Protected.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/PNChannelGroupChange+Protected.h

@@ -16,12 +16,18 @@
 #import "WLCandyCell.h"
 #import "WLLoadingView.h"
 #import "WLTimelineEventCommentCell.h"
+#import "WLFontPresetter.h"
 
-@interface WLTimelineViewDataProvider () <WLPaginatedSetDelegate>
+@interface WLTimelineViewDataProvider () <WLPaginatedSetDelegate, WLFontPresetterReceiver>
 
 @end
 
 @implementation WLTimelineViewDataProvider
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [[WLFontPresetter presetter] addReceiver:self];
+}
 
 - (void)setTimeline:(WLTimeline *)timeline {
     _timeline = timeline;
@@ -151,6 +157,12 @@ static NSString *WLDividerViewIdentifier = @"WLDividerView";
 #pragma mark - WLPaginatedSetDelegate
 
 - (void)paginatedSetChanged:(WLPaginatedSet *)group {
+    [self reload];
+}
+
+#pragma mark - WLFontPresetterReceiver
+
+- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
     [self reload];
 }
 

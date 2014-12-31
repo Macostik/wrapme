@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/Parsers/PNChannelEventsResponseParser.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/Parsers/PNChannelEventsResponseParser.h

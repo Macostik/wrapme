@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Core/PubNub+History.h
+../../../PubNub/PubNub/PubNub/PubNub/Core/PubNub+History.h

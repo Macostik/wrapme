@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Misc/PNServiceResponseCallbacks.h
+../../../PubNub/PubNub/PubNub/PubNub/Misc/PNServiceResponseCallbacks.h

@@ -4,21 +4,26 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Camera View Controller-->
         <scene sceneID="0PQ-rD-aRH">
             <objects>
-                <viewController storyboardIdentifier="WLFullSizeCameraViewController" automaticallyAdjustsScrollViewInsets="NO" id="gev-MF-K1G" customClass="WLCameraViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLCameraViewController" automaticallyAdjustsScrollViewInsets="NO" id="gev-MF-K1G" customClass="WLCameraViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="weq-bn-rHW"/>
                         <viewControllerLayoutGuide type="bottom" id="tIy-iw-Nju"/>
                     </layoutGuides>
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="WwV-lh-u8m">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJU-xo-V0A" customClass="WLCameraView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -27,7 +32,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqD-Jp-Gr1">
-                                <rect key="frame" x="0.0" y="476" width="320" height="92"/>
+                                <rect key="frame" x="0.0" y="388" width="320" height="92"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8x" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4z-2J-r1c">
                                         <rect key="frame" x="278" y="-21" width="42" height="21"/>
@@ -152,6 +157,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0aA-xQ-9Uu"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="bottomView" destination="oqD-Jp-Gr1" id="hri-Wv-Xvz"/>
                         <outlet property="cameraView" destination="QJU-xo-V0A" id="sRC-HM-yjt"/>
@@ -174,7 +180,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1657" y="-914"/>
+            <point key="canvasLocation" x="1658" y="-914"/>
         </scene>
         <!--Still Picture View Controller-->
         <scene sceneID="csT-Oz-pbk">
@@ -198,11 +204,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qUY-JJ-yJl">
                                 <rect key="frame" x="0.0" y="440" width="320" height="36"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5K-gw-F64">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5K-gw-F64" customClass="WLLabel">
                                         <rect key="frame" x="50" y="0.0" width="260" height="36"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sH4-Ri-VnB" customClass="WLImageView">
                                         <rect key="frame" x="8" y="1" width="34" height="34"/>
@@ -268,7 +277,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="gev-MF-K1G" kind="relationship" relationship="rootViewController" id="xvY-eC-vjw"/>
+                        <segue destination="gev-MF-K1G" kind="relationship" relationship="rootViewController" id="WWh-fn-3gJ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b5P-Oh-YUt" userLabel="First Responder" sceneMemberID="firstResponder"/>

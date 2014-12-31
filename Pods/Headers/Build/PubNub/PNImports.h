@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Misc/PNImports.h
+../../../PubNub/PubNub/PubNub/PubNub/Misc/PNImports.h

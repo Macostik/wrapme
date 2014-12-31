@@ -24,6 +24,7 @@
 #import "NSDate+Additions.h"
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
+#import "WLRemoteObjectHandler.h"
 
 #define WLPubNubInactiveStateDuration 20*60
 
@@ -105,14 +106,14 @@ static WLDataBlock deviceTokenCompletion = nil;
     
     if ([WLAPIManager instance].environment.isProduction) {
         origin = @"pubsub.pubnub.com";
-        publishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
-        subscribeKey = @"sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe";
-        secretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzgwYjdkNWNkMmFl";
-    } else {
-        origin = @"pubsub.pubnub.com";
         publishKey = @"pub-c-87bbbc30-fc43-4f6b-b1f4-cedd5f30d5e8";
         subscribeKey = @"sub-c-6562fe64-4270-11e4-aed8-02ee2ddab7fe";
         secretKey = @"sec-c-NGE5NWU0NDAtZWMxYS00ZjQzLWJmMWMtZDU5MTE3NWE0YzE0";
+    } else {
+        origin = @"pubsub.pubnub.com";
+        publishKey = @"pub-c-16ba2a90-9331-4472-b00a-83f01ff32089";
+        subscribeKey = @"sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe";
+        secretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzgwYjdkNWNkMmFl";
     }
     
 	return [PNConfiguration configurationForOrigin:origin publishKey:publishKey subscribeKey:subscribeKey secretKey:secretKey];
@@ -185,16 +186,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             break;
         case UIApplicationStateInactive: {
             WLNotification* notification = [WLNotification notificationWithData:data];
-            if (notification) {
-                self.pendingRemoteNotification = notification;
-                __weak typeof(self)weakSelf = self;
-                [notification fetch:^{
-                    [weakSelf broadcast:@selector(broadcaster:didReceiveRemoteNotification:) object:notification];
-                    if (success) success();
-                } failure:failure];
-            } else if (failure)  {
-                failure([NSError errorWithDescription:@"Data in remote notification is not valid (inactive)."]);
-            }
+            [notification handleRemoteObject];
         } break;
         case UIApplicationStateBackground: {
             WLNotification* notification = [WLNotification notificationWithData:data];

@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/Channels/PNChannel+Protected.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/Channels/PNChannel+Protected.h

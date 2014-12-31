@@ -21,9 +21,10 @@
 #import "WLImageFetcher.h"
 #import "WLNotification.h"
 #import "WLNotificationCenter.h"
-#import "WLSizeToFitLabel.h"
+#import "WLBadgeLabel.h"
 #import "WLWrapCell.h"
 #import "TTTAttributedLabel.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLWrapCell ()
 
@@ -31,7 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
-@property (weak, nonatomic) IBOutlet WLSizeToFitLabel *wrapNotificationLabel;
+@property (weak, nonatomic) IBOutlet WLBadgeLabel *wrapNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chatNotificationImageView;
 @property (strong, nonatomic) WLCollectionViewDataProvider* candiesDataProvider;
 @property (strong, nonatomic) WLHomeCandiesViewSection* candiesDataSection;
@@ -53,6 +54,9 @@
         section.selection = self.selection;
         self.candiesDataSection = section;
         self.candiesDataProvider = [WLCollectionViewDataProvider dataProvider:self.candiesView section:section];
+    } else {
+        [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
+        [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
     }
 }
 
@@ -62,18 +66,13 @@
 }
 
 - (void)setup:(WLWrap*)wrap {
-	self.nameLabel.superview.userInteractionEnabled = YES;
 	self.nameLabel.text = wrap.name;
-    if (self.coverView) {
-        NSString* url = [wrap.picture anyUrl];
-        self.coverView.url = url;
-        if (!url) self.coverView.image = [UIImage imageNamed:@"default-small-cover"];
-    }
     self.dateLabel.text = [NSString stringWithFormat:@"last updated %@", WLString(wrap.updatedAt.timeAgoStringAtAMPM)];
     
     if (self.candiesView) {
         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
     } else {
+        self.coverView.url = [wrap.picture anyUrl];
         self.wrapNotificationLabel.intValue = [wrap unreadNotificationsCandyCount];
     }
     self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;

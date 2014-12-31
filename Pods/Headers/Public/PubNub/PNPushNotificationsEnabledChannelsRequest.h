@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Network/Packets/PNPushNotificationsEnabledChannelsRequest.h
+../../../PubNub/PubNub/PubNub/PubNub/Network/Packets/PNPushNotificationsEnabledChannelsRequest.h

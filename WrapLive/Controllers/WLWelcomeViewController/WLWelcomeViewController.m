@@ -19,10 +19,10 @@
 #import "WLNavigation.h"
 #import "WLSession.h"
 #import "WLSignupFlowViewController.h"
-#import "WLTermsAndConditionsKeys.h"
 #import "WLUser.h"
 #import "WLWelcomeViewController.h"
 #import "UIViewController+Additions.h"
+#import "WLRemoteObjectHandler.h"
 
 typedef enum : NSUInteger {
     WLFlipDirectionLeft,
@@ -31,7 +31,6 @@ typedef enum : NSUInteger {
 
 @interface WLWelcomeViewController () <UIGestureRecognizerDelegate>
 
-@property (weak, nonatomic) WLLoadingView *splash;
 @property (weak, nonatomic) IBOutlet UIButton *licenseButton;
 @property (strong, nonatomic) IBOutlet UIView *transparentView;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
@@ -46,49 +45,13 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.frame = [UIWindow mainWindow].bounds;
-    [self.view layoutIfNeeded];
+    [self underlineLicenseButton];
     
-    self.splash = [[WLLoadingView splash] showInView:self.view];
-	
-    NSString* storedVersion = [WLSession appVersion];
-    if (!storedVersion || [storedVersion compare:@"2.0" options:NSNumericSearch] == NSOrderedAscending) {
-        [WLSession clear];
-    }
-    [WLSession setCurrentAppVersion];
-    
-    WLAuthorization* authorization = [WLAuthorization currentAuthorization];
-	if ([authorization canAuthorize]) {
-		__weak typeof(self)weakSelf = self;
-        [authorization signIn:^(WLUser *user) {
-            [weakSelf presentHomeViewController];
-        } failure:^(NSError *error) {
-            if ([error isNetworkError]) {
-				[weakSelf presentHomeViewController];
-			} else {
-				[weakSelf unlockUI];
-			}
-        }];
-	} else {
-		[self unlockUI];
-	}
-}
-
-- (void)unlockUI {
-	[self underlineLicenseButton];
-	__weak typeof(self)weakSelf = self;
-	[UIView animateWithDuration:0.25f animations:^{
-		weakSelf.splash.alpha = 0.0f;
-	} completion:^(BOOL finished) {
-        [weakSelf.splash hide];
-    }];
-    self.splash.animating = NO;
-    [self animateBackgroundView:-(weakSelf.backgroundView.height - weakSelf.view.height + 20) nextOffset:-20];
+    [self animateBackgroundView:-(self.backgroundView.height - self.view.height + 20) nextOffset:-20];
     
     [self wrapIntoAttributedString];
-    
-    [self.termsAndConditionsTextView addTapGestureRecognizingDelegate:self
-                                                                block:^(UIGestureRecognizer *recognizer) {
+    __weak typeof(self)weakSelf = self;
+    [self.termsAndConditionsTextView addTapGestureRecognizingDelegate:self block:^(UIGestureRecognizer *recognizer) {
                                                                     [weakSelf flipAnimationView:WLFlipDirectionLeft];
                                                                 }];
 }
@@ -108,7 +71,7 @@ typedef enum : NSUInteger {
 - (void)underlineLicenseButton {
 	NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:@"Terms and Conditions"];
 	NSDictionary * attributes = @{NSUnderlineStyleAttributeName : [NSNumber numberWithInteger:NSUnderlineStyleSingle],
-								  NSFontAttributeName : [UIFont lightFontOfSize:15],
+								  NSFontAttributeName : [UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmall],
 								  NSForegroundColorAttributeName : [UIColor WL_orangeColor]};
 	[titleString addAttributes:attributes range:NSMakeRange(0, [titleString length])];
 	[self.licenseButton setAttributedTitle: titleString forState:UIControlStateNormal];
@@ -147,37 +110,13 @@ typedef enum : NSUInteger {
 }
 
 - (void)wrapIntoAttributedString {
-    NSURL *url  = [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"Wraplive_TermsAndConditions" ofType:@"rtf"]];
-    if (url != nil) {
-        NSData *rtfData = [NSData dataWithContentsOfURL:url];
-        if (rtfData != nil) {
-            NSAttributedString *attrString = [[NSAttributedString alloc]
-                                              initWithData:rtfData options:nil documentAttributes:nil error:nil];
-            if ([attrString string].nonempty) {
-                NSDictionary * textAttributes = @{NSFontAttributeName : [UIFont lightFontOfSize:15],
-                                                  NSForegroundColorAttributeName : [UIColor blackColor]};
-                NSMutableParagraphStyle *paragrapStyle = [NSMutableParagraphStyle new];
-                paragrapStyle.alignment = NSTextAlignmentCenter;
-                NSDictionary * titleAttributes = @{NSFontAttributeName : [UIFont lightFontOfSize:25],
-                                                   NSForegroundColorAttributeName : [UIColor WL_orangeColor],
-                                                   NSParagraphStyleAttributeName : paragrapStyle};
-                
-                NSMutableAttributedString *attrText = attrString.mutableCopy;
-                [attrText addAttributes:textAttributes range:NSMakeRange(0 , [attrString length])];
-                
-                [titleKeyArray() all:^(id item) {
-                    NSRange range = [[attrText string] rangeOfString:item];
-                    if (range.location != NSNotFound) {
-                        [attrText setAttributes:titleAttributes range:range];
-                    }
-                }];
-                
-                self.termsAndConditionsTextView.attributedText = attrText;
-                self.termsAndConditionsTextView.editable = NO;
-                self.termsAndConditionsTextView.dataDetectorTypes = UIDataDetectorTypeAll;
-            }
-        }
-    }
+    __weak typeof(self)weakSelf = self;
+    run_getting_object(^id{
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"Wraplive_TermsAndConditions" withExtension:@"rtf"];
+        return [[NSAttributedString alloc] initWithFileURL:url options:nil documentAttributes:nil error:nil];
+    }, ^(id object) {
+        weakSelf.termsAndConditionsTextView.attributedText = object;
+    });
 }
 
 - (IBAction)agreeAndContinue:(id)sender {

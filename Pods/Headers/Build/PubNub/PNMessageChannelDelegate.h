@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Misc/Protocols/PNMessageChannelDelegate.h
+../../../PubNub/PubNub/PubNub/PubNub/Misc/Protocols/PNMessageChannelDelegate.h

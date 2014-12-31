@@ -24,7 +24,7 @@
 #import "WLCommentCell.h"
 #import "WLCommentsCell.h"
 #import "WLComposeBar.h"
-#import "WLGroupedSet.h"
+#import "WLHistory.h"
 #import "WLImageFetcher.h"
 #import "WLImageViewController.h"
 #import "WLNetwork.h"
@@ -41,8 +41,6 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIView+AnimationHelper.h"
 #import "NSOrderedSet+Additions.h"
-
-
 
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver>
 
@@ -62,6 +60,9 @@
 @property (weak, nonatomic) UISwipeGestureRecognizer* leftSwipeGestureRecognizer;
 @property (weak, nonatomic) UISwipeGestureRecognizer* rightSwipeGestureRecognizer;
 
+@property (strong, nonatomic) WLHistoryItem *historyItem;
+
+@property (strong, nonatomic) WLHistory *history;
 
 @end
 
@@ -72,10 +73,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
         
-    if (!self.groups) {
-        self.groups = [[WLGroupedSet alloc] init];
-        [self.groups addEntries:[_candy.wrap candies]];
-        _group = [self.groups groupWithCandy:_candy];
+    if (!self.history) {
+        self.history = [[WLHistory alloc] init];
+        [self.history addEntries:[_candy.wrap candies]];
+        _historyItem = [self.history itemWithCandy:_candy];
     }
     
 	self.composeBarView.placeholder = @"Write your comment ...";
@@ -126,14 +127,14 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 70, 0);
-    NSUInteger index = [self.group.entries indexOfObject:_candy];
+    NSUInteger index = [self.historyItem.entries indexOfObject:_candy];
     if (!self.scrolledToInitialItem && index != NSNotFound) {
         [self.collectionView setContentOffset:CGPointMake(index*self.collectionView.width, 0)];
     }
 }
 
-- (void)setGroup:(WLGroup *)group {
-    _group = group;
+- (void)setHistoryItem:(WLHistoryItem *)historyItem {
+    _historyItem = historyItem;
     [self.collectionView reloadData];
 }
 
@@ -143,7 +144,7 @@
         return cell.entry;
     }
     NSUInteger index = floorf(self.collectionView.contentOffset.x/self.collectionView.width);
-    return [self.group.entries tryObjectAtIndex:index];
+    return [self.historyItem.entries tryObjectAtIndex:index];
 }
 
 - (WLCommentsCell *)candyCell {
@@ -152,31 +153,28 @@
 }
 
 - (void)fetchOlder:(WLCandy*)candy {
-    WLGroup *group = self.group;
-    if (group.completed || !candy) return;
-    NSUInteger count = [group.entries count];
-    NSUInteger index = [group.entries indexOfObject:candy];
+    WLHistoryItem *historyItem = self.historyItem;
+    if (historyItem.completed || !candy) return;
+    NSUInteger count = [historyItem.entries count];
+    NSUInteger index = [historyItem.entries indexOfObject:candy];
     BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
     if (shouldAppendCandies) {
         __weak typeof(self)weakSelf = self;
-        [group older:^(NSOrderedSet *candies) {
+        [historyItem older:^(NSOrderedSet *candies) {
             if (candies.nonempty) [weakSelf.collectionView reloadData];
         } failure:^(NSError *error) {
             if (error.isNetworkError) {
-                group.completed = YES;
+                historyItem.completed = YES;
             }
         }];
     }
 }
 
 - (void)didSwipeLeft {
-    if (self.group.completed) {
-        NSUInteger (^increment)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
-            return index + 1;
-        };
-        if ([self swipeToGroupAtIndex:increment([self.groups.entries indexOfObject:self.group]) operationBlock:increment]) {
+    if (self.historyItem.completed) {
+        if ([self swipeToHistoryItemAtIndex:[self.history.entries indexOfObject:self.historyItem] + 1]) {
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
             [self.collectionView leftPush];
-            [self onDateChanged];
         }
     } else {
         [self fetchOlder:self.candy];
@@ -184,13 +182,20 @@
 }
 
 - (void)didSwipeRight {
-    NSUInteger (^decrement)(NSUInteger index) = ^NSUInteger (NSUInteger index) {
-        return index - 1;
-    };
-    if ([self swipeToGroupAtIndex:decrement([self.groups.entries indexOfObject:self.group]) operationBlock:decrement]) {
+    if ([self swipeToHistoryItemAtIndex:[self.history.entries indexOfObject:self.historyItem] - 1]) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:[self.historyItem.entries count] - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
         [self.collectionView rightPush];
-        [self onDateChanged];
     }
+}
+
+- (BOOL)swipeToHistoryItemAtIndex:(NSUInteger)index {
+    if ([self.history.entries containsIndex:index]) {
+        WLHistoryItem* historyItem = [self.history.entries objectAtIndex:index];
+        self.historyItem = historyItem;
+        [self onDateChanged];
+        return YES;
+    }
+    return NO;
 }
 
 - (WLToast *)dateChangeToast {
@@ -208,7 +213,7 @@
     appearance.backgroundColor = [UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:0.75];
 	appearance.endY = 64;
     appearance.startY = 64;
-    [self.dateChangeToast showWithMessage:[self.group.date string] appearance:appearance inView:self.view];
+    [self.dateChangeToast showWithMessage:[self.historyItem.date string] appearance:appearance inView:self.view];
     __weak typeof(self)weakSelf = self;
     self.rightArrow.hidden = NO;
     [UIView animateWithDuration:0.25f delay:1.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
@@ -219,16 +224,6 @@
         weakSelf.rightArrow.alpha = 1.0f;
         weakSelf.rightArrow.transform = CGAffineTransformIdentity;
     }];
-}
-
-- (BOOL)swipeToGroupAtIndex:(NSUInteger)index operationBlock:(NSUInteger (^)(NSUInteger index))operationBlock {
-    if ([self.groups.entries containsIndex:index]) {
-        WLGroup* group = [self.groups.entries objectAtIndex:index];
-        self.group = group;
-        self.collectionView.contentOffset = CGPointZero;
-        return YES;
-    }
-    return NO;
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -250,7 +245,7 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
     [WLToast showWithMessage:@"This candy is no longer avaliable."];
-    NSMutableOrderedSet* candies = self.group.entries;
+    NSMutableOrderedSet* candies = self.historyItem.entries;
     [candies removeObject:candy];
     if (candies.nonempty) {
         [self.collectionView reloadData];
@@ -311,12 +306,12 @@
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self.group.entries count];
+    return [self.historyItem.entries count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLCommentsCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCommentsCellIdentifier forIndexPath:indexPath];
-    WLCandy* candy = [self.group.entries tryObjectAtIndex:indexPath.item];
+    WLCandy* candy = [self.historyItem.entries tryObjectAtIndex:indexPath.item];
     if (candy.valid) {
         [self fetchOlder:candy];
         cell.entry = candy;
@@ -345,8 +340,9 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    for (UICollectionViewCell* cell in [self.collectionView visibleCells]) {
-        cell.alpha = (cell.frame.size.width - ABS(cell.x - scrollView.contentOffset.x)) / cell.frame.size.width;
+    for (WLCommentsCell* cell in [self.collectionView visibleCells]) {
+        CGFloat alpha = (cell.width - ABS(cell.x - scrollView.contentOffset.x)) / cell.width;
+        cell.collectionView.alpha = cell.nameLabel.alpha = alpha;
     }
 }
 

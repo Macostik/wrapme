@@ -11,6 +11,7 @@
 #import "WLSession.h"
 #import "WLNavigation.h"
 #import "UIAlertView+Blocks.h"
+#import "NSDate+Formatting.h"
 
 @interface WLSettingsViewController ()
 
@@ -29,7 +30,22 @@
     NSDictionary* info = [[NSBundle mainBundle] infoDictionary];
     NSString* appName = [info objectForKey:@"CFBundleDisplayName"]?:@"wrapLive";
     NSString* version = [info objectForKey:(id)kCFBundleVersionKey];
-    NSString *message = [NSString stringWithFormat:@"You are using %@ v%@", appName,version];
+    NSString *message;
+    if ([WLAPIManager instance].environment.isProduction) {
+        message = [NSString stringWithFormat:@"You are using %@ v%@", appName,version];
+    } else {
+        NSMutableString *_message = [NSMutableString stringWithFormat:@"You are using %@ v%@", appName,version];
+        NSString *sourceFile = [[NSBundle mainBundle] pathForResource:@"WLAPIEnvironmentProduction" ofType:@"plist"];
+        NSDate *lastModif = [[[NSFileManager defaultManager] attributesOfItemAtPath:sourceFile error:NULL] objectForKey:NSFileModificationDate];
+        if (lastModif) {
+            [_message appendFormat:@"\nInstalled %@", [lastModif stringWithFormat:@"MMM d, yyyy hh:mm:ss"]];
+        }
+
+#if CI_BUILD_NUMBER > 0
+        [_message appendFormat:@"\nJenkins build number %d", CI_BUILD_NUMBER];
+#endif
+        message = _message;
+    }
     [UIAlertView showWithMessage:message];
 }
 

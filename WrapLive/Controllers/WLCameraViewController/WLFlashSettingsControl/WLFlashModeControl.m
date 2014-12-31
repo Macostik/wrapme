@@ -10,6 +10,7 @@
 #import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
 #import "UIColor+CustomColors.h"
+#import "WLButton.h"
 
 @interface WLFlashModeControl ()
 
@@ -67,13 +68,14 @@ static inline NSString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
 
 - (UIButton*)initializeButton:(NSString*)title action:(SEL)action {
 	CGRect frame = CGRectMake(0, 0, self.width/3, self.height);
-	UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+	WLButton* button = [WLButton buttonWithType:UIButtonTypeCustom];
 	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 	[button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
 	button.frame = frame;
 	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[button setTitle:title forState:UIControlStateNormal];
-	button.titleLabel.font = [UIFont regularSmallFont];
+	button.titleLabel.font = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetSmall];
+    button.preset = WLFontPresetSmall;
 	[self addSubview:button];
 	return button;
 }

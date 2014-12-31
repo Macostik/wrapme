@@ -74,7 +74,8 @@
     NSError *error = nil;
     _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self model]];
     if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]) {
-        
+        [[NSFileManager defaultManager] removeItemAtURL:url error:NULL];
+        [_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error];
     }
     
     return _coordinator;
@@ -123,7 +124,7 @@
 }
 
 - (void)save {
-    if ([self.context hasChanges]) {
+    if ([self.context hasChanges] && self.coordinator.persistentStores.nonempty) {
          NSError* error = nil;
         [self.context save:&error];
         if (error) {

@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Data/Parsers/PNGroupChannelsListChangeParser.h
+../../../PubNub/PubNub/PubNub/PubNub/Data/Parsers/PNGroupChannelsListChangeParser.h

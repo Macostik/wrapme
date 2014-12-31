@@ -34,6 +34,8 @@
 
 @property (readonly, nonatomic) BOOL canAuthorize;
 
++ (NSArray *)archivableProperties;
+
 - (void)updateWithUserData:(NSDictionary*)userData;
 
 @end

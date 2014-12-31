@@ -20,6 +20,8 @@
 
 @property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *keyboardAdjustmentTopConstraints;
 
+@property (weak, nonatomic) UIView *placeholderView;
+
 @property (weak, nonatomic) IBOutlet UIView *placeholderContentView;
 
 @property (strong, nonatomic) NSMapTable* keyboardAdjustmentDefaultConstants;
@@ -27,6 +29,10 @@
 @property (weak, nonatomic) UISwipeGestureRecognizer* backSwipeGestureRecognizer;
 
 @property (weak, nonatomic) UIView *contentView;
+
+@property (strong, nonatomic) NSMutableDictionary* placeholders;
+
+@property (strong, nonatomic) NSNumber* currentPlaceholder;
 
 @end
 
@@ -49,6 +55,7 @@
 
 - (void)awakeAfterInit {
     self.isEmbedded = [[self class] isEmbeddedDefaultValue];
+    self.placeholders = [NSMutableDictionary dictionary];
 }
 
 - (void)setIsEmbedded:(BOOL)isEmbedded {
@@ -120,9 +127,10 @@
             weakSelf.view.backgroundColor = [UIColor colorWithWhite:.0 alpha:0.5];
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
+            fromViewController.view.userInteractionEnabled = YES;
         }];
     } else {
-        toViewController.view.userInteractionEnabled = YES;
+        
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
             weakSelf.contentView.transform = CGAffineTransformMakeTranslation(0, fromViewController.view.bounds.size.height);
             weakSelf.view.backgroundColor = [UIColor clearColor];
@@ -168,19 +176,32 @@
     self.viewAppeared = NO;
 }
 
-- (void)setShowsPlaceholderView:(BOOL)showsPlaceholderView {
-    _showsPlaceholderView = showsPlaceholderView;
-    if (showsPlaceholderView) {
-        [self.placeholderView removeFromSuperview];
-        self.placeholderView = nil;
-        [self showPlaceholderView];
-    } else {
-        [self.placeholderView removeFromSuperview];
+- (void)setPlaceholderNib:(UINib*)nib forType:(NSUInteger)type {
+    [self.placeholders setObject:nib forKey:@(type)];
+}
+
+- (void)setPlaceholderVisible:(BOOL)visible forType:(NSUInteger)type {
+    NSNumber *placeholder = @(type);
+    NSNumber *currentPlaceholder = self.currentPlaceholder;
+    if (visible) {
+        if (!currentPlaceholder || ![currentPlaceholder isEqualToNumber:placeholder]) {
+            self.currentPlaceholder = placeholder;
+        }
+    } else if (currentPlaceholder) {
+        self.currentPlaceholder = nil;
     }
 }
 
-- (void)showPlaceholderView {
-    UINib *nib = [self placeholderViewNib];
+- (void)setCurrentPlaceholder:(NSNumber *)currentPlaceholder {
+    _currentPlaceholder = currentPlaceholder;
+    [self.placeholderView removeFromSuperview];
+    if (currentPlaceholder) {
+        [self showPlaceholderForType:currentPlaceholder];
+    }
+}
+
+- (void)showPlaceholderForType:(NSNumber*)type {
+    UINib *nib = [self.placeholders objectForKey:type];
     if (nib) {
         UIView* placeholderView = [UIView loadFromNib:nib ownedBy:nil];
         placeholderView.frame = self.placeholderContentView.bounds;
@@ -189,8 +210,12 @@
     }
 }
 
-- (UINib *)placeholderViewNib {
-    return nil;
+- (void)updatePlaceholderVisibilityForType:(NSUInteger)type {
+    [self setPlaceholderVisible:[self placeholderVisibleForType:type] forType:type];
+}
+
+- (BOOL)placeholderVisibleForType:(NSUInteger)type {
+    return NO;
 }
 
 - (void)setBackSwipeGestureEnabled:(BOOL)backSwipeGestureEnabled {

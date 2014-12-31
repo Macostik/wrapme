@@ -24,9 +24,12 @@
 #import "NSObject+NibAdditions.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "WLAuthorizationRequest.h"
+#import "WLRemoteObjectHandler.h"
 #import "WLHomeViewController.h"
+#import "iVersion.h"
+#import "WLLaunchScreenViewController.h"
 
-@interface WLAppDelegate ()
+@interface WLAppDelegate () <iVersionDelegate>
 
 @end
 
@@ -36,8 +39,15 @@
     
     [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
     
-    [UIWindow setMainWindow:self.window];
-    [UIStoryboard setStoryboard:self.window.rootViewController.storyboard named:WLSignUpStoryboard];
+    [self presentInitialViewController];
+    
+    iVersion *version = [iVersion sharedInstance];
+    version.appStoreID = 879908578;
+    version.updateAvailableTitle = @"New version of wrapLive is available";
+    version.downloadButtonLabel = @"Update";
+    version.remindButtonLabel = @"Not now";
+    version.updatePriority = iVersionUpdatePriorityMedium;
+    
 	[[WLNetwork network] configure];
 	[[WLKeyboard keyboard] configure];
 	[[WLNotificationCenter defaultCenter] configure];
@@ -58,16 +68,52 @@
         [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
         }];
     });
-    
+        
 	return YES;
+}
+
+- (void)presentInitialViewController {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window makeKeyAndVisible];
+    
+    [UIWindow setMainWindow:self.window];
+    
+    self.window.rootViewController = [[WLLaunchScreenViewController alloc] init];
+    NSString* storedVersion = [WLSession appVersion];
+    if (!storedVersion || [storedVersion compare:@"2.0" options:NSNumericSearch] == NSOrderedAscending) {
+        [WLSession clear];
+    }
+    [WLSession setCurrentAppVersion];
+    
+    WLAuthorization* authorization = [WLAuthorization currentAuthorization];
+    if ([authorization canAuthorize]) {
+        [authorization signIn:^(WLUser *user) {
+            [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+        } failure:^(NSError *error) {
+            if ([error isNetworkError]) {
+                [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+            } else {
+                [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+            }
+        }];
+    } else {
+        [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [WLUploading enqueueAutomaticUploading];
 }
 
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 	[WLNotificationCenter setDeviceToken:deviceToken];
+}
+
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    [url handleRemoteObject];
+    return YES;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {

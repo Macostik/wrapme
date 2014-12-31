@@ -1,1 +1,1 @@
-../../../PubNub/iOS/iPadDemoApp/pubnub/libs/PubNub/Network/Transport/PNConnectionChannel.h
+../../../PubNub/PubNub/PubNub/PubNub/Network/Transport/PNConnectionChannel.h

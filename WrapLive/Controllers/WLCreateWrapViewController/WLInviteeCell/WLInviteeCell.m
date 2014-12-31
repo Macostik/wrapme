@@ -26,14 +26,13 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.avatarView.circled = YES;
+    [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
+    [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
 }
 
 - (void)setupItemData:(WLPerson*)person {
     self.nameLabel.text = person.priorityName;
     self.avatarView.url = person.priorityPicture.medium;
-    if(!self.avatarView.url.nonempty) {
-        self.avatarView.image = [UIImage imageNamed:@"default-medium-avatar"];
-    }
 }
 
 #pragma mark - Actions

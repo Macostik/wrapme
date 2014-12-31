@@ -14,6 +14,7 @@
 #import "UIColor+CustomColors.h"
 #import "WLTestUserCell.h"
 #import "NSObject+NibAdditions.h"
+#import "WLAPIEnvironment+TestUsers.h"
 
 @interface WLTestUserPicker () <UITableViewDataSource, UITableViewDelegate>
 

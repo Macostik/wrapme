@@ -144,9 +144,15 @@
 - (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
+        [AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
+        [AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
 		[AFPhotoEditorCustomization setLeftNavigationBarButtonTitle:@"Cancel"];
-		[AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Save"];
 	});
+    if (self.mode == WLStillPictureModeDefault) {
+        [AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Send"];
+    } else {
+        [AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Save"];
+    }
 	AFPhotoEditorController* aviaryController = [[AFPhotoEditorController alloc] initWithImage:image];
 	aviaryController.delegate = self;
 	return aviaryController;

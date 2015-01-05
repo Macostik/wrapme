@@ -11,7 +11,6 @@
 #import "WLSession.h"
 #import "WLNotificationCenter.h"
 #import "WLKeyboard.h"
-#import <AviarySDK/AviarySDK.h>
 #import "WLGestureBroadcaster.h"
 #import "WLUploading+Extended.h"
 #import "WLEntryManager.h"
@@ -54,9 +53,6 @@
 //    [[WLGestureBroadcaster broadcaster] configure];
 	
 	[[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] success:nil failure:nil];
-	
-	[AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
-	[AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
     
 #ifndef DEBUG
     [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];

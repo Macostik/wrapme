@@ -989,8 +989,8 @@
                                                         <action selector="select" destination="N5C-9U-WOe" eventType="touchUpInside" id="Ug9-aO-oGc"/>
                                                     </connections>
                                                 </button>
-                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8I-t6-aKU" customClass="WLLabel">
-                                                    <rect key="frame" x="70" y="-2" width="215" height="26"/>
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8I-t6-aKU" customClass="WLLabel">
+                                                    <rect key="frame" x="65" y="-2" width="215" height="26"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="WrE-ux-dBp"/>
@@ -3073,11 +3073,11 @@ Check your internet connection and try again.</string>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nCf-It-uXS" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="263" y="0.0" width="48" height="48"/>
+                                                    <rect key="frame" x="267" y="0.0" width="44" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="48" id="Hdk-cj-lSk"/>
-                                                        <constraint firstAttribute="width" constant="48" id="P0S-1X-Xlx"/>
+                                                        <constraint firstAttribute="height" constant="44" id="Hdk-cj-lSk"/>
+                                                        <constraint firstAttribute="width" constant="44" id="P0S-1X-Xlx"/>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPa-oY-X5B">
@@ -3158,7 +3158,7 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="chat_bubble_tail_gray.png" translatesAutoresizingMaskIntoConstraints="NO" id="cGF-9C-FfY">
-                                                    <rect key="frame" x="254" y="33" width="8" height="10"/>
+                                                    <rect key="frame" x="254" y="29" width="8" height="10"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="ODL-tk-jp8"/>
@@ -3217,11 +3217,11 @@ Check your internet connection and try again.</string>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YII-6v-9r6" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="9" y="0.0" width="48" height="48"/>
+                                                    <rect key="frame" x="9" y="0.0" width="44" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="48" id="Ykg-1P-C11"/>
-                                                        <constraint firstAttribute="width" constant="48" id="rOt-xb-fLK"/>
+                                                        <constraint firstAttribute="height" constant="44" id="Ykg-1P-C11"/>
+                                                        <constraint firstAttribute="width" constant="44" id="rOt-xb-fLK"/>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G61-oI-Ifc">
@@ -3302,7 +3302,7 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="chat_bubble_tail_red.png" translatesAutoresizingMaskIntoConstraints="NO" id="pMb-Ne-nj5">
-                                                    <rect key="frame" x="58" y="33" width="8" height="10"/>
+                                                    <rect key="frame" x="58" y="29" width="8" height="10"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="JBn-vp-QVa"/>

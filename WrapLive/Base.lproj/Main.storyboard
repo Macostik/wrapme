@@ -894,16 +894,18 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Kg-Jf-uq1">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="solid_ballon_chat_notificaiton" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-4Z-sEV">
-                                                            <rect key="frame" x="289" y="11" width="16" height="14"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="14" id="BpP-Kn-MiK"/>
-                                                                <constraint firstAttribute="width" constant="16" id="Fqg-VE-Wrf"/>
-                                                            </constraints>
-                                                        </imageView>
+                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Twb-Mn-vNw" customClass="WLLabel">
+                                                            <rect key="frame" x="70" y="3" width="210" height="26"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="20"/>
+                                                            <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
                                                         <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last updated 3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1y3-CJ-RVW" customClass="WLLabel">
-                                                            <rect key="frame" x="10" y="29" width="295" height="21"/>
+                                                            <rect key="frame" x="70" y="29" width="240" height="21"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="cUz-RM-GOU"/>
@@ -915,31 +917,57 @@
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Twb-Mn-vNw" customClass="WLLabel">
-                                                            <rect key="frame" x="10" y="3" width="270" height="30"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iT4-0e-Bul" customClass="WLCircleImageView">
+                                                            <rect key="frame" x="10" y="5" width="50" height="50"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="FbO-3e-IXv"/>
+                                                                <constraint firstAttribute="height" constant="50" id="b5C-lr-BVR"/>
+                                                                <constraint firstAttribute="width" constant="50" id="csX-ay-ama"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="20"/>
-                                                            <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </imageView>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T99-mA-uFU" customClass="WLBadgeLabel">
+                                                            <rect key="frame" x="41" y="5" width="22" height="22"/>
+                                                            <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="22" id="nuj-Gc-yvM"/>
+                                                                <constraint firstAttribute="width" constant="22" id="os7-nz-dsZ"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="14"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="11"/>
+                                                                </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <outlet property="widthConstraint" destination="os7-nz-dsZ" id="bIA-Yl-wDv"/>
+                                                            </connections>
                                                         </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="solid_ballon_chat_notificaiton" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-4Z-sEV">
+                                                            <rect key="frame" x="289" y="9" width="16" height="14"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="14" id="BpP-Kn-MiK"/>
+                                                                <constraint firstAttribute="width" constant="16" id="Fqg-VE-Wrf"/>
+                                                            </constraints>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="1y3-CJ-RVW" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" constant="10" id="3SZ-Fd-ufZ"/>
+                                                        <constraint firstItem="1y3-CJ-RVW" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" constant="70" id="3SZ-Fd-ufZ"/>
                                                         <constraint firstItem="Twb-Mn-vNw" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="3" id="6do-mm-ahx"/>
                                                         <constraint firstAttribute="trailing" secondItem="Mfp-4Z-sEV" secondAttribute="trailing" constant="15" id="7Qq-6c-n1m"/>
                                                         <constraint firstItem="1y3-CJ-RVW" firstAttribute="top" secondItem="Twb-Mn-vNw" secondAttribute="top" constant="26" id="7db-pI-KeP"/>
+                                                        <constraint firstItem="iT4-0e-Bul" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" constant="10" id="GTc-Sb-5lH"/>
                                                         <constraint firstAttribute="height" constant="60" id="KHS-lZ-CHy"/>
-                                                        <constraint firstAttribute="trailing" secondItem="1y3-CJ-RVW" secondAttribute="trailing" constant="15" id="YLj-0B-mhz"/>
+                                                        <constraint firstItem="Twb-Mn-vNw" firstAttribute="leading" secondItem="T99-mA-uFU" secondAttribute="trailing" constant="7" id="Ov4-c9-t8E"/>
+                                                        <constraint firstItem="T99-mA-uFU" firstAttribute="top" secondItem="iT4-0e-Bul" secondAttribute="top" id="Td9-aY-KAQ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="1y3-CJ-RVW" secondAttribute="trailing" constant="10" id="YLj-0B-mhz"/>
+                                                        <constraint firstItem="T99-mA-uFU" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" constant="41" id="pAl-ZS-8xV"/>
+                                                        <constraint firstItem="iT4-0e-Bul" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="5" id="qJN-nK-oD0"/>
                                                         <constraint firstAttribute="trailing" secondItem="Twb-Mn-vNw" secondAttribute="trailing" constant="40" id="rBw-l4-SNV"/>
                                                         <constraint firstItem="Twb-Mn-vNw" firstAttribute="centerY" secondItem="Mfp-4Z-sEV" secondAttribute="centerY" id="vNa-qT-GNJ"/>
-                                                        <constraint firstItem="Twb-Mn-vNw" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" constant="10" id="yC6-vx-gT6"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="rrl-ip-nxD" customClass="WLSeparatorView">
@@ -973,8 +1001,10 @@
                                         <connections>
                                             <outlet property="candiesView" destination="lRI-cr-Q4O" id="JVp-iF-OD6"/>
                                             <outlet property="chatNotificationImageView" destination="Mfp-4Z-sEV" id="w2r-4Q-Sth"/>
+                                            <outlet property="coverView" destination="iT4-0e-Bul" id="rxx-lb-38x"/>
                                             <outlet property="dateLabel" destination="1y3-CJ-RVW" id="MbX-LU-Dcj"/>
                                             <outlet property="nameLabel" destination="Twb-Mn-vNw" id="B8P-cH-kAv"/>
+                                            <outlet property="wrapNotificationLabel" destination="T99-mA-uFU" id="ZPh-xM-a0p"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLWrapCell" id="N5C-9U-WOe" customClass="WLWrapCell">
@@ -3790,7 +3820,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WjR-f7-d7j"/>
+        <segue reference="tUX-Tk-kxb"/>
         <segue reference="USb-FQ-HhL"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -71,10 +71,10 @@
     
     if (self.candiesView) {
         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
-    } else {
-        self.coverView.url = [wrap.picture anyUrl];
-        self.wrapNotificationLabel.intValue = [wrap unreadNotificationsCandyCount];
     }
+    
+    self.coverView.url = [wrap.picture anyUrl];
+    self.wrapNotificationLabel.intValue = [wrap unreadNotificationsCandyCount];
     self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;
 }
 

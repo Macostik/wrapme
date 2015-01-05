@@ -2200,7 +2200,7 @@
                                         <rect key="frame" x="0.0" y="208" width="320" height="156"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="156"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="158"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3q-sy-dzY" customClass="WLLabel">
@@ -2217,7 +2217,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xa9-c0-7Xl" customClass="WLCollectionView">
-                                                    <rect key="frame" x="0.0" y="28" width="320" height="128"/>
+                                                    <rect key="frame" x="0.0" y="30" width="320" height="128"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.5" id="XgF-G9-7Yg">
                                                         <size key="itemSize" width="128" height="128"/>
@@ -2293,15 +2293,15 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="xa9-c0-7Xl" secondAttribute="bottom" id="2p6-9J-nMy"/>
                                             <constraint firstAttribute="trailing" secondItem="xa9-c0-7Xl" secondAttribute="trailing" id="KWe-s2-4ot"/>
                                             <constraint firstItem="Y3q-sy-dzY" firstAttribute="leading" secondItem="Jzt-af-hox" secondAttribute="leading" id="Ld3-2U-gbz"/>
-                                            <constraint firstItem="xa9-c0-7Xl" firstAttribute="top" secondItem="Jzt-af-hox" secondAttribute="top" constant="28" id="bRk-fp-acc"/>
+                                            <constraint firstAttribute="bottom" secondItem="xa9-c0-7Xl" secondAttribute="bottom" id="Yfd-3L-swz"/>
+                                            <constraint firstItem="xa9-c0-7Xl" firstAttribute="top" secondItem="Jzt-af-hox" secondAttribute="top" constant="30" id="bRk-fp-acc"/>
                                             <constraint firstItem="xa9-c0-7Xl" firstAttribute="leading" secondItem="Jzt-af-hox" secondAttribute="leading" id="bVL-Yd-IHB"/>
                                             <constraint firstAttribute="trailing" secondItem="Y3q-sy-dzY" secondAttribute="trailing" id="bZ0-62-DWo"/>
                                             <constraint firstItem="Y3q-sy-dzY" firstAttribute="top" secondItem="Jzt-af-hox" secondAttribute="top" constant="10" id="sjX-D4-Plf"/>
                                         </constraints>
-                                        <size key="customSize" width="320" height="156"/>
+                                        <size key="customSize" width="320" height="158"/>
                                         <connections>
                                             <outlet property="collectionView" destination="xa9-c0-7Xl" id="8pa-Ns-ynl"/>
                                             <outlet property="dateLabel" destination="Y3q-sy-dzY" id="avu-gM-vJf"/>
@@ -2399,10 +2399,10 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aqT-yE-MER">
-                                <rect key="frame" x="0.0" y="64" width="320" height="54"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="43"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSv-FG-iwF">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2411,28 +2411,31 @@
                                             <segue destination="qRW-aK-Lk5" kind="custom" identifier="wrap-&gt;wrap" customClass="WLSetValueSegue" id="KzJ-t1-ugM"/>
                                         </connections>
                                     </button>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  sdf dfsa fsd fsdf sdjfh dsfjsd afjsd fjdsf jsdf sdjfdsfsadf sdfasdf sdf sadfsd" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dW-gY-pJQ" customClass="WLLabel">
-                                        <rect key="frame" x="5" y="8" width="304" height="38"/>
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friends name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dW-gY-pJQ" userLabel="sdf dfsa fsd fsdf sdjfh dsfjsd afjsd fjdsf jsdf sdjfdsfsadf sdfasdf sdf sadfsd" customClass="WLLabel">
+                                        <rect key="frame" x="12" y="12" width="296" height="19"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                        <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="horizontal_separator_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="4dW-aC-27b">
+                                        <rect key="frame" x="0.0" y="42" width="320" height="1"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="6dW-gY-pJQ" secondAttribute="trailing" constant="11" id="0RA-vu-KZf"/>
-                                    <constraint firstAttribute="bottom" secondItem="6dW-gY-pJQ" secondAttribute="bottom" constant="8" id="6le-td-1tt"/>
-                                    <constraint firstAttribute="bottom" secondItem="zSv-FG-iwF" secondAttribute="bottom" id="FlX-em-5Ie"/>
+                                    <constraint firstAttribute="trailing" secondItem="6dW-gY-pJQ" secondAttribute="trailing" constant="12" id="0RA-vu-KZf"/>
+                                    <constraint firstAttribute="bottom" secondItem="6dW-gY-pJQ" secondAttribute="bottom" constant="12" id="6le-td-1tt"/>
+                                    <constraint firstAttribute="bottom" secondItem="zSv-FG-iwF" secondAttribute="bottom" constant="1" id="FlX-em-5Ie"/>
                                     <constraint firstItem="zSv-FG-iwF" firstAttribute="leading" secondItem="aqT-yE-MER" secondAttribute="leading" id="NtL-FG-bO6"/>
                                     <constraint firstAttribute="trailing" secondItem="zSv-FG-iwF" secondAttribute="trailing" id="SO0-iB-hm7"/>
-                                    <constraint firstAttribute="height" constant="54" id="W9F-ez-KqY"/>
+                                    <constraint firstAttribute="height" constant="43" id="W9F-ez-KqY"/>
                                     <constraint firstItem="zSv-FG-iwF" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" id="g48-ZH-sWx"/>
-                                    <constraint firstItem="6dW-gY-pJQ" firstAttribute="leading" secondItem="aqT-yE-MER" secondAttribute="leading" constant="5" id="glD-AK-FNr"/>
-                                    <constraint firstItem="6dW-gY-pJQ" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" constant="8" id="xRR-Bp-zZS"/>
+                                    <constraint firstItem="6dW-gY-pJQ" firstAttribute="leading" secondItem="aqT-yE-MER" secondAttribute="leading" constant="12" id="glD-AK-FNr"/>
+                                    <constraint firstItem="6dW-gY-pJQ" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" constant="12" id="xRR-Bp-zZS"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b0w-IA-ZYu">
@@ -3754,6 +3757,7 @@ Check your internet connection and try again.</string>
         <image name="chat_bubble_tail_gray.png" width="8" height="10"/>
         <image name="chat_bubble_tail_red.png" width="8" height="10"/>
         <image name="horizontal_separator_gray" width="1" height="1"/>
+        <image name="horizontal_separator_gray_lighter" width="1" height="1"/>
         <image name="ic_arrow_down" width="14" height="8"/>
         <image name="ic_arrow_up" width="14" height="8"/>
         <image name="ic_back_in_circle_orange" width="30" height="30"/>
@@ -3779,7 +3783,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="WjR-f7-d7j"/>
         <segue reference="USb-FQ-HhL"/>
-        <segue reference="tUX-Tk-kxb"/>
     </inferredMetricsTieBreakers>
 </document>

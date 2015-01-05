@@ -28,7 +28,7 @@ const static CGFloat WLContributorsHorizontalIndent = 100.0f;
 
 - (CGSize)size:(NSIndexPath *)indexPath {
     WLUser* user = self.entries.entries[indexPath.item];
-    CGFloat height = [user.phones heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller] width:self.collectionView.width - WLContributorsHorizontalIndent];
+    CGFloat height = [user.securePhones heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller] width:self.collectionView.width - WLContributorsHorizontalIndent];
     return CGSizeMake(self.collectionView.width, height + WLContributorsVerticalIndent);
 }
 

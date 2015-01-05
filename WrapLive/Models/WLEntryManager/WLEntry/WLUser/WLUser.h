@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSMutableOrderedSet *wraps;
 @property (nonatomic, retain) NSMutableOrderedSet *devices;
 @property (strong, nonatomic) NSString *phones;
+@property (strong, nonatomic) NSString *securePhones;
 
 @end
 

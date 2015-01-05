@@ -169,15 +169,15 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NnN-ec-DhQ" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="15" y="8" width="32" height="32"/>
+                                                    <rect key="frame" x="10" y="4" width="44" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="KSj-UH-aUd"/>
-                                                        <constraint firstAttribute="height" constant="32" id="Uak-ZK-cZQ"/>
+                                                        <constraint firstAttribute="width" constant="44" id="KSj-UH-aUd"/>
+                                                        <constraint firstAttribute="height" constant="44" id="Uak-ZK-cZQ"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08S-52-GIh" customClass="WLLabel">
-                                                    <rect key="frame" x="55" y="8" width="203" height="15"/>
+                                                    <rect key="frame" x="64" y="4" width="196" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="RVB-zV-s3K"/>
                                                     </constraints>
@@ -189,7 +189,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZhB-Wt-rBP" customClass="TTTAttributedLabel">
-                                                    <rect key="frame" x="55" y="23" width="203" height="14"/>
+                                                    <rect key="frame" x="64" y="19" width="196" height="14"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
                                                     <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -200,8 +200,15 @@
                                                         <outlet property="delegate" destination="iF1-u8-BW0" id="h6Z-nt-Flw"/>
                                                     </connections>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sbj-Wd-1e2" customClass="WLImageView">
+                                                    <rect key="frame" x="270" y="6" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="EFO-nz-XMP"/>
+                                                        <constraint firstAttribute="height" constant="40" id="fnm-qB-6yO"/>
+                                                    </constraints>
+                                                </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="in Wrap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBj-ps-Q2W" customClass="WLLabel">
-                                                    <rect key="frame" x="55" y="37" width="203" height="15"/>
+                                                    <rect key="frame" x="64" y="33" width="196" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="mzc-LF-4gp"/>
                                                     </constraints>
@@ -212,32 +219,25 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sbj-Wd-1e2" customClass="WLImageView">
-                                                    <rect key="frame" x="266" y="8" width="40" height="40"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="EFO-nz-XMP"/>
-                                                        <constraint firstAttribute="height" constant="40" id="fnm-qB-6yO"/>
-                                                    </constraints>
-                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="NnN-ec-DhQ" firstAttribute="top" secondItem="iF1-u8-BW0" secondAttribute="top" constant="8" id="7Ix-N1-gHa"/>
-                                            <constraint firstItem="FBj-ps-Q2W" firstAttribute="top" secondItem="ZhB-Wt-rBP" secondAttribute="bottom" id="CkY-4G-9Br"/>
-                                            <constraint firstAttribute="trailing" secondItem="ZhB-Wt-rBP" secondAttribute="trailing" constant="62" id="Hyc-Zv-haq"/>
-                                            <constraint firstAttribute="bottom" secondItem="FBj-ps-Q2W" secondAttribute="bottom" id="LxE-ZD-JhS"/>
-                                            <constraint firstAttribute="trailing" secondItem="FBj-ps-Q2W" secondAttribute="trailing" constant="62" id="N7L-QZ-SdY"/>
-                                            <constraint firstItem="sbj-Wd-1e2" firstAttribute="top" secondItem="iF1-u8-BW0" secondAttribute="top" constant="8" id="OVX-zU-7Va"/>
-                                            <constraint firstItem="ZhB-Wt-rBP" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="55" id="aX2-IG-P1E"/>
-                                            <constraint firstAttribute="trailing" secondItem="sbj-Wd-1e2" secondAttribute="trailing" constant="14" id="fL5-Pt-dNB"/>
-                                            <constraint firstItem="FBj-ps-Q2W" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="55" id="fxO-R4-KP7"/>
-                                            <constraint firstItem="NnN-ec-DhQ" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="15" id="hB9-e0-uHw"/>
-                                            <constraint firstItem="08S-52-GIh" firstAttribute="top" secondItem="iF1-u8-BW0" secondAttribute="top" constant="8" id="oKb-iB-lH2"/>
-                                            <constraint firstAttribute="trailing" secondItem="08S-52-GIh" secondAttribute="trailing" constant="62" id="rYQ-mh-Qeb"/>
-                                            <constraint firstItem="08S-52-GIh" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="55" id="rsb-Ub-iKq"/>
-                                            <constraint firstItem="ZhB-Wt-rBP" firstAttribute="top" secondItem="08S-52-GIh" secondAttribute="bottom" id="vwC-53-nfB"/>
+                                            <constraint firstItem="NnN-ec-DhQ" firstAttribute="top" secondItem="iF1-u8-BW0" secondAttribute="top" constant="4" id="7Ix-N1-gHa"/>
+                                            <constraint firstItem="08S-52-GIh" firstAttribute="leading" secondItem="NnN-ec-DhQ" secondAttribute="trailing" constant="10" id="KJx-qL-2WF"/>
+                                            <constraint firstItem="sbj-Wd-1e2" firstAttribute="top" secondItem="iF1-u8-BW0" secondAttribute="top" constant="6" id="OVX-zU-7Va"/>
+                                            <constraint firstItem="NnN-ec-DhQ" firstAttribute="centerY" secondItem="ZhB-Wt-rBP" secondAttribute="centerY" constant="-0.5" id="PCj-YF-R1J"/>
+                                            <constraint firstItem="NnN-ec-DhQ" firstAttribute="bottom" secondItem="FBj-ps-Q2W" secondAttribute="bottom" id="Ray-uZ-vzn"/>
+                                            <constraint firstItem="08S-52-GIh" firstAttribute="trailing" secondItem="ZhB-Wt-rBP" secondAttribute="trailing" id="UXK-pW-8k8"/>
+                                            <constraint firstItem="sbj-Wd-1e2" firstAttribute="leading" secondItem="08S-52-GIh" secondAttribute="trailing" constant="10" id="WWq-rj-T7S"/>
+                                            <constraint firstItem="08S-52-GIh" firstAttribute="leading" secondItem="FBj-ps-Q2W" secondAttribute="leading" id="YRN-wu-hJl"/>
+                                            <constraint firstAttribute="trailing" secondItem="sbj-Wd-1e2" secondAttribute="trailing" constant="10" id="fL5-Pt-dNB"/>
+                                            <constraint firstItem="08S-52-GIh" firstAttribute="leading" secondItem="ZhB-Wt-rBP" secondAttribute="leading" id="gES-ZZ-kG8"/>
+                                            <constraint firstItem="08S-52-GIh" firstAttribute="trailing" secondItem="FBj-ps-Q2W" secondAttribute="trailing" id="gPK-1k-44w"/>
+                                            <constraint firstItem="NnN-ec-DhQ" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="10" id="hB9-e0-uHw"/>
+                                            <constraint firstItem="08S-52-GIh" firstAttribute="top" secondItem="iF1-u8-BW0" secondAttribute="top" constant="4" id="oKb-iB-lH2"/>
+                                            <constraint firstItem="ZhB-Wt-rBP" firstAttribute="top" secondItem="08S-52-GIh" secondAttribute="bottom" id="xEO-0Z-7lC"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="commentTextView" destination="ZhB-Wt-rBP" id="3ts-WV-rLL"/>
@@ -2670,11 +2670,11 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LiT-bh-wDT" customClass="WLCircleImageView">
-                                                                        <rect key="frame" x="7" y="2" width="40" height="40"/>
+                                                                        <rect key="frame" x="7" y="2" width="44" height="44"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="height" constant="40" id="9cx-2d-F2V"/>
-                                                                            <constraint firstAttribute="width" constant="40" id="Jvq-8l-oT5"/>
+                                                                            <constraint firstAttribute="height" constant="44" id="9cx-2d-F2V"/>
+                                                                            <constraint firstAttribute="width" constant="44" id="Jvq-8l-oT5"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8v-Pz-wMq" customClass="WLLabel">
@@ -3073,7 +3073,7 @@ Check your internet connection and try again.</string>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nCf-It-uXS" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="267" y="0.0" width="44" height="44"/>
+                                                    <rect key="frame" x="263" y="2" width="44" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="Hdk-cj-lSk"/>
@@ -3171,12 +3171,12 @@ Check your internet connection and try again.</string>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="WPa-oY-X5B" secondAttribute="trailing" constant="66" id="2bH-dA-dFp"/>
                                             <constraint firstItem="WPa-oY-X5B" firstAttribute="leading" secondItem="blg-MX-zu0" secondAttribute="leading" constant="160" id="He6-pr-Jey"/>
-                                            <constraint firstAttribute="trailing" secondItem="nCf-It-uXS" secondAttribute="trailing" constant="9" id="Vg9-TM-3jX"/>
-                                            <constraint firstItem="cGF-9C-FfY" firstAttribute="bottom" secondItem="nCf-It-uXS" secondAttribute="bottom" constant="-5" id="Vww-Dt-u6n"/>
+                                            <constraint firstAttribute="trailing" secondItem="nCf-It-uXS" secondAttribute="trailing" constant="13" id="Vg9-TM-3jX"/>
+                                            <constraint firstItem="cGF-9C-FfY" firstAttribute="bottom" secondItem="nCf-It-uXS" secondAttribute="bottom" constant="-3" id="Vww-Dt-u6n"/>
                                             <constraint firstAttribute="centerX" secondItem="Bcm-eM-Zwh" secondAttribute="centerX" id="YOg-ai-60R"/>
-                                            <constraint firstItem="WPa-oY-X5B" firstAttribute="top" secondItem="nCf-It-uXS" secondAttribute="top" id="aj9-mL-thH"/>
+                                            <constraint firstItem="WPa-oY-X5B" firstAttribute="top" secondItem="nCf-It-uXS" secondAttribute="top" constant="-2" id="aj9-mL-thH"/>
                                             <constraint firstItem="cGF-9C-FfY" firstAttribute="leading" secondItem="WPa-oY-X5B" secondAttribute="trailing" id="dHB-0R-xan"/>
-                                            <constraint firstItem="nCf-It-uXS" firstAttribute="top" secondItem="blg-MX-zu0" secondAttribute="top" id="gak-WX-KfC"/>
+                                            <constraint firstItem="nCf-It-uXS" firstAttribute="top" secondItem="blg-MX-zu0" secondAttribute="top" constant="2" id="gak-WX-KfC"/>
                                             <constraint firstAttribute="bottom" secondItem="WPa-oY-X5B" secondAttribute="bottom" id="lnZ-1Y-3bJ"/>
                                             <constraint firstItem="Bcm-eM-Zwh" firstAttribute="top" secondItem="blg-MX-zu0" secondAttribute="top" id="uzi-aa-lgM"/>
                                         </constraints>
@@ -3217,7 +3217,7 @@ Check your internet connection and try again.</string>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YII-6v-9r6" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="9" y="0.0" width="44" height="44"/>
+                                                    <rect key="frame" x="9" y="2" width="44" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="Ykg-1P-C11"/>
@@ -3225,7 +3225,7 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G61-oI-Ifc">
-                                                    <rect key="frame" x="66" y="0.0" width="94" height="48"/>
+                                                    <rect key="frame" x="66" y="2" width="94" height="46"/>
                                                     <subviews>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HUe-Pv-h6W" customClass="WLLabel">
                                                             <rect key="frame" x="5" y="0.0" width="84" height="18"/>
@@ -3241,7 +3241,7 @@ Check your internet connection and try again.</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDu-zS-cNB" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="30" width="84" height="18"/>
+                                                            <rect key="frame" x="5" y="28" width="84" height="18"/>
                                                             <color key="backgroundColor" red="1" green="0.86274509799999999" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="gl7-xO-GdU"/>
@@ -3254,7 +3254,7 @@ Check your internet connection and try again.</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90G-xG-qIL" customClass="TTTAttributedLabel">
-                                                            <rect key="frame" x="5" y="0.0" width="84" height="30"/>
+                                                            <rect key="frame" x="5" y="0.0" width="84" height="28"/>
                                                             <color key="backgroundColor" red="1" green="0.86274509803921573" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                             <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
@@ -3267,14 +3267,14 @@ Check your internet connection and try again.</string>
                                                             </connections>
                                                         </label>
                                                         <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chat_bubble_red_left.png" translatesAutoresizingMaskIntoConstraints="NO" id="9lL-9M-vAs">
-                                                            <rect key="frame" x="0.0" y="0.0" width="5" height="48"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="5" height="46"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="5" id="cCF-r1-ys9"/>
                                                             </constraints>
                                                         </imageView>
                                                         <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chat_bubble_red_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="kCd-6X-09D">
-                                                            <rect key="frame" x="89" y="0.0" width="5" height="48"/>
+                                                            <rect key="frame" x="89" y="0.0" width="5" height="46"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="5" id="xrH-gU-py0"/>
@@ -3302,7 +3302,7 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="chat_bubble_tail_red.png" translatesAutoresizingMaskIntoConstraints="NO" id="pMb-Ne-nj5">
-                                                    <rect key="frame" x="58" y="29" width="8" height="10"/>
+                                                    <rect key="frame" x="58" y="31" width="8" height="10"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="JBn-vp-QVa"/>
@@ -3321,7 +3321,7 @@ Check your internet connection and try again.</string>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="9" id="XTb-o9-EII"/>
                                             <constraint firstItem="G61-oI-Ifc" firstAttribute="leading" secondItem="pMb-Ne-nj5" secondAttribute="trailing" id="ZQ9-US-Pnc"/>
                                             <constraint firstAttribute="trailing" secondItem="G61-oI-Ifc" secondAttribute="trailing" constant="160" id="bkP-if-RMm"/>
-                                            <constraint firstItem="YII-6v-9r6" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" id="cox-Pp-syl"/>
+                                            <constraint firstItem="YII-6v-9r6" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" constant="2" id="cox-Pp-syl"/>
                                             <constraint firstItem="G61-oI-Ifc" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="66" id="fmO-B5-DX8"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="48"/>

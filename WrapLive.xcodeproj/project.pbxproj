@@ -6240,7 +6240,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "85774310-960e-40e4-8e02-21c9b306c96d";
+				PROVISIONING_PROFILE = "f8c9e998-e3f6-4931-9c1d-aafb6df51183";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -6259,7 +6259,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "301cd1ca-9084-4404-8184-8e364779fd63";
+				PROVISIONING_PROFILE = "4eb18574-2cf5-4f63-8166-879c145c78e6";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;

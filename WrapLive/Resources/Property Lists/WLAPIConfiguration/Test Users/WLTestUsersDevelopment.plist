@@ -8,12 +8,16 @@
 		<key>users</key>
 		<array>
 			<dict>
+				<key>phone</key>
+				<string>951383026</string>
+				<key>countryCode</key>
+				<string>380</string>
 				<key>email</key>
 				<string>s.maximenko@mobidev.biz</string>
 				<key>password</key>
-				<string>db8c4332e3</string>
+				<string>c73e4cf495</string>
 				<key>deviceUID</key>
-				<string>afa1e1170339a33bde53ee6bb7d3fe7a6478afad</string>
+				<string>f38941ece2b91cc369984fb78e98e1e5d8cda2c4</string>
 			</dict>
 			<dict>
 				<key>countryCode</key>
@@ -23,9 +27,9 @@
 				<key>email</key>
 				<string>s.maximenko.mobidev@gmail.com</string>
 				<key>password</key>
-				<string>c94713d719</string>
+				<string>93698788e7</string>
 				<key>deviceUID</key>
-				<string>efedbd3c2b53f22f389de174c868aa8a96d0f349</string>
+				<string>dfadbb71747cf144f4625fdededc093c75219ece</string>
 			</dict>
 			<dict>
 				<key>countryCode</key>

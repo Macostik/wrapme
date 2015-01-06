@@ -54,10 +54,9 @@
         section.selection = self.selection;
         self.candiesDataSection = section;
         self.candiesDataProvider = [WLCollectionViewDataProvider dataProvider:self.candiesView section:section];
-    } else {
-        [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
-        [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
     }
+    [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
+    [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
 }
 
 - (void)setSelection:(WLObjectBlock)selection {

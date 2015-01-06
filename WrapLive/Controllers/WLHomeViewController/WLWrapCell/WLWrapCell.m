@@ -77,11 +77,4 @@
     self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;
 }
 
-- (void)select:(WLWrap*)wrap {
-    [wrap.candies all:^(WLCandy *candy) {
-        if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
-    }];
-    [super select:wrap];
-}
-
 @end

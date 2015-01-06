@@ -43,7 +43,7 @@
     self.userNameLabel.text = comment.contributor.name;
     self.commentLabel.text = comment.text;
     self.inWrapLabel.text = comment.candy.wrap.name;
-    self.timeLabel.text = comment.candy.createdAt.timeAgoStringAtAMPM;
+    self.timeLabel.text = comment.createdAt.timeAgoStringAtAMPM;
     self.widthConstraint.constant = [self.timeLabel.text widthWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetSmall] size:CGSizeZero];
     [self.timeLabel layoutIfNeeded];
 }

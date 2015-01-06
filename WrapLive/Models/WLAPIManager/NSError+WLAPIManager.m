@@ -9,6 +9,7 @@
 #import "NSError+WLAPIManager.h"
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import "WLToast.h"
+#import "NSDictionary+Extended.h"
 
 @implementation NSError (WLAPIManager)
 
@@ -19,6 +20,13 @@ static NSDictionary *errorsToIgnore = nil;
 		errorsToIgnore = @{};
 	}
 	return errorsToIgnore;
+}
+
++ (NSError *)errorWithResponse:(WLAPIResponse *)response {
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    [userInfo trySetObject:response.message forKey:NSLocalizedDescriptionKey];
+    [userInfo trySetObject:response.data forKey:WLErrorResponseDataKey];
+    return [[NSError alloc] initWithDomain:WLErrorDomain code:response.code userInfo:[userInfo copy]];
 }
 
 + (NSError *)errorWithDescription:(NSString *)description code:(NSInteger)code {

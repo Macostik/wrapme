@@ -108,7 +108,7 @@ static NSTimeInterval _difference = 0;
             [strongSelf handleSuccess:[strongSelf objectInResponse:response]];
 		} else {
             WLLog(@"API ERROR",[operation.request.URL relativeString], responseObject);
-            [strongSelf handleFailure:[NSError errorWithDescription:response.message code:response.code]];
+            [strongSelf handleFailure:[NSError errorWithResponse:response]];
 		}
         [strongSelf trackServerTime:operation.response];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

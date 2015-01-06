@@ -52,6 +52,7 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLCreateWrapViewController.h"
 #import "WLPickerViewController.h"
+#import "UIFont+CustomFonts.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
     WLWrapViewModeTimeline,
@@ -61,6 +62,7 @@ typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
 static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 static NSString* WLWrapPlaceholderViewTimeline = @"WLWrapPlaceholderViewTimeline";
 static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
+static CGFloat const WLIndent = 12.0f;
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
@@ -78,6 +80,7 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightViewConstraint;
 
 @end
 
@@ -129,6 +132,9 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 - (void)updateWrapData {
     [self.nameLabel setTitle:WLString(self.wrap.name) forState:UIControlStateNormal];
     self.contributorsLabel.text = [self.wrap contributorNames];
+    CGFloat height = [self.contributorsLabel.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall] width:self.view.width - WLIndent * 2];
+    self.heightViewConstraint.constant = height + WLIndent * 2;
+    [self.contributorsLabel.superview layoutIfNeeded];
 }
 
 - (void)firstLoadRequest {

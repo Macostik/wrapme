@@ -168,20 +168,20 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 static NSUInteger WLAssetNumberOfColumns = 4;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat size = (collectionView.width - minPixelSize() * (WLAssetNumberOfColumns + 1))/WLAssetNumberOfColumns;
+    CGFloat size = (collectionView.width - WLConstants.pixelSize * (WLAssetNumberOfColumns + 1))/WLAssetNumberOfColumns;
     return CGSizeMake(size, size);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(minPixelSize(), minPixelSize(), minPixelSize(), minPixelSize());
+    return UIEdgeInsetsMake(WLConstants.pixelSize, WLConstants.pixelSize, WLConstants.pixelSize, WLConstants.pixelSize);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return minPixelSize();
+    return WLConstants.pixelSize;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return minPixelSize();
+    return WLConstants.pixelSize;
 }
 
 

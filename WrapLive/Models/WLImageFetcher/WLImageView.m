@@ -20,9 +20,20 @@
 
 @implementation WLImageView
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    [[WLImageFetcher fetcher] addReceiver:self];
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        [[WLImageFetcher fetcher] addReceiver:self];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [[WLImageFetcher fetcher] addReceiver:self];
+    }
+    return self;
 }
 
 - (NSMutableDictionary *)states {

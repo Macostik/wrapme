@@ -64,7 +64,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
-@property (weak, nonatomic) IBOutlet WLUserView *userView;
 
 @end
 
@@ -78,11 +77,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [[WLComment notifier] addReceiver:self];
 	
     [[WLNotificationCenter defaultCenter] addReceiver:self];
-    
-    WLUserView* userView = self.userView;
-    userView.avatarView.layer.borderWidth = IsRetinaSize()? 1.0f : 1.5f;
-    userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
-    userView.user = [WLUser currentUser];
     
     [self.dataProvider setRefreshable];
     
@@ -123,7 +117,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self.userView update];
     [self.dataProvider reload];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];

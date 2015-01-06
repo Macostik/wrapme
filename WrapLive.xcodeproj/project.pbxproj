@@ -1962,6 +1962,7 @@
 		C56091361A110C9500C48887 /* WLDevice+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLDevice+Extended.h"; sourceTree = "<group>"; };
 		C56091371A110C9500C48887 /* WLDevice+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLDevice+Extended.m"; sourceTree = "<group>"; };
 		C560913C1A110F4200C48887 /* CoreData 1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1.1.xcdatamodel"; sourceTree = "<group>"; };
+		C566D2911A5C30540081374B /* WLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLConstants.h; sourceTree = "<group>"; };
 		C56D3AD519F7C21700D85027 /* SupportHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportHeaders.h; sourceTree = "<group>"; };
 		C57005A01A1F9642007257A6 /* WLSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSettingsViewController.h; path = WLSettingsViewController/WLSettingsViewController.h; sourceTree = "<group>"; };
 		C57005A11A1F9642007257A6 /* WLSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSettingsViewController.m; path = WLSettingsViewController/WLSettingsViewController.m; sourceTree = "<group>"; };
@@ -4097,6 +4098,7 @@
 				C5C5A13F19F7BF1D00E1E033 /* DefinedBlocks.h */,
 				C5C5A14019F7BF4000E1E033 /* GCDHelper.h */,
 				C56D3AD519F7C21700D85027 /* SupportHeaders.h */,
+				C566D2911A5C30540081374B /* WLConstants.h */,
 			);
 			path = "Support Headers";
 			sourceTree = "<group>";

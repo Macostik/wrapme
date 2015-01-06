@@ -34,6 +34,10 @@
 
 @implementation WLAppDelegate
 
++ (void)initialize {
+    WLInitializeConstants();
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];

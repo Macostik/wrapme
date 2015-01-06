@@ -10,6 +10,6 @@
 
 @interface WLSeparatorView : UIView
 
-@property (strong, nonatomic) UIColor* fillColor;
+@property (strong, nonatomic) IBInspectable UIColor* color;
 
 @end

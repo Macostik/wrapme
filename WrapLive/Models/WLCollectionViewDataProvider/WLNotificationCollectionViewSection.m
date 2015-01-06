@@ -26,7 +26,9 @@
 
 - (CGSize)size:(NSIndexPath*)indexPath {
     WLComment *comment = [self.entries.entries objectAtIndex:indexPath.item];
-    CGFloat textHeight = [comment.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal] width:[UIScreen mainScreen].bounds.size.width - WLNotificationCommentHorizontalSpacing];
+    CGFloat textHeight = [comment.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular
+                                                                             preset:WLFontPresetNormal]
+                                                width:[UIScreen mainScreen].bounds.size.width - WLNotificationCommentHorizontalSpacing];
     return CGSizeMake(self.collectionView.bounds.size.width, textHeight + WLNotificationCommentVerticalSpacing);
 }
 

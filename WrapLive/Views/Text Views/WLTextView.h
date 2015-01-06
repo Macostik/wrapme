@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-IB_DESIGNABLE
-
 @interface WLTextView : UITextView
 
 @property (nonatomic) IBInspectable NSString *preset;

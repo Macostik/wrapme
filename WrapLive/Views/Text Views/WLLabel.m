@@ -12,6 +12,7 @@
 
 @implementation WLLabel
 
+#if !TARGET_INTERFACE_BUILDER
 - (CGRect)textRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines {
     CGRect rect = [super textRectForBounds:bounds limitedToNumberOfLines:numberOfLines];
     UIViewContentMode contentMode = self.contentMode;
@@ -36,6 +37,7 @@
         [super drawTextInRect:rect];
     }
 }
+#endif
 
 - (void)setPreset:(NSString *)preset {
     _preset = preset;

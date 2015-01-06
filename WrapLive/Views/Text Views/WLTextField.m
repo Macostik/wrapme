@@ -12,6 +12,7 @@
 
 @implementation WLTextField
 
+#if !TARGET_INTERFACE_BUILDER
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
     UIBezierPath* path = [UIBezierPath bezierPath];
@@ -24,6 +25,7 @@
     [placeholderColor setStroke];
     [path stroke];
 }
+#endif
 
 - (void)setText:(NSString *)text {
     [super setText:text];

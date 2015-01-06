@@ -100,7 +100,8 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
         return;
     }
     
-    self.mode = [WLSession integer:WLWrapViewDefaultModeKey];
+    // force set hostory mode to remove timeline from UI but keep it in code
+    self.mode = WLWrapViewModeHistory;
     
     self.history = [WLHistory historyWithWrap:self.wrap];
     self.historyViewSection.entries = self.history;
@@ -146,6 +147,7 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
         [error showIgnoringNetworkError];
     }];
 }
+
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     

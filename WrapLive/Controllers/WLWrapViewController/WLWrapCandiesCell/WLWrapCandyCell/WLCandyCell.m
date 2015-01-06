@@ -43,7 +43,7 @@
     
 	[[WLCandy notifier] addReceiver:self];
     __weak typeof(self)weakSelf = self;
-    if (self.userInteractionEnabled) {
+    if (!self.disableMenu) {
         [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu, BOOL *vibrate) {
             WLCandy* candy = weakSelf.entry;
             if (candy.deletable) {

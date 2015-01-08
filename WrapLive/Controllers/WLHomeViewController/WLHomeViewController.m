@@ -159,7 +159,10 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
         stillPictureViewController.mode = WLStillPictureModeDefault;
         stillPictureViewController.delegate = self;
         stillPictureViewController.startFromGallery = YES;
-        [self presentViewController:stillPictureViewController animated:YES completion:nil];
+        __weak typeof(self)weakSelf = self;
+        [self presentViewController:stillPictureViewController animated:NO completion:^{
+            [weakSelf stillPictureViewController:stillPictureViewController didSelectWrap:wrap];
+        }];
     } else {
         [self createWrap:nil];
     }

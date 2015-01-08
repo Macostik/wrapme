@@ -32,7 +32,7 @@
 	}
 	
 	CGContextSetStrokeColorWithColor(ctx, self.color.CGColor);
-	CGContextSetLineWidth(ctx, 1);
+	CGContextSetLineWidth(ctx, WLConstants.pixelSize * 2.0f);
 	CGContextStrokePath(ctx);
 }
 

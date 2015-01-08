@@ -131,7 +131,7 @@
         return;
     }
     [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
-        if (hasChanges) {
+        if (YES) {
             UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
             photoNotification.alertBody = @"Got new photos? Upload them to your wraps now!";
             photoNotification.fireDate = [[NSDate date] dateByAddingTimeInterval:3];

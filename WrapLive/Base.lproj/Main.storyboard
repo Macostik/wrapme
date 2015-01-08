@@ -3893,7 +3893,6 @@ Check your internet connection and try again.</string>
         <image name="chat_bubble_red_right.png" width="5" height="44"/>
         <image name="chat_bubble_tail_gray.png" width="8" height="10"/>
         <image name="chat_bubble_tail_red.png" width="8" height="10"/>
-        <image name="horizontal_separator_gray" width="1" height="1"/>
         <image name="horizontal_separator_gray_lighter" width="1" height="1"/>
         <image name="ic_arrow_down" width="14" height="8"/>
         <image name="ic_arrow_up" width="14" height="8"/>

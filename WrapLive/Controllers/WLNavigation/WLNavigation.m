@@ -193,6 +193,30 @@ static UIWindow* mainWindow = nil;
     return YES;
 }
 
+- (void)presentInNavigationController:(UINavigationController*)navigationController animated:(BOOL)animated {
+    WLCandyViewController* candyViewController = (id)[self viewController];
+    if (candyViewController) {
+        NSArray *viewControllers = navigationController.viewControllers;
+        for (UIViewController* _controller in viewControllers) {
+            if ([self isValidViewController:_controller]) {
+                if (_controller != navigationController.topViewController)
+                    [navigationController popToViewController:_controller animated:animated];
+                return;
+            }
+        }
+        WLWrapViewController* wrapViewController = [viewControllers lastObject];
+        if ([self.wrap isValidViewController:wrapViewController]) {
+            [navigationController pushViewController:candyViewController animated:animated];
+        } else {
+            wrapViewController = (id)[self.wrap viewController];
+            if (wrapViewController) {
+                viewControllers = [viewControllers arrayByAddingObjectsFromArray:@[wrapViewController, candyViewController]];
+                [navigationController setViewControllers:viewControllers animated:animated];
+            }
+        }
+    }
+}
+
 @end
 
 @implementation WLMessage (WLNavigation)

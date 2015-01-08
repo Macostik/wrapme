@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "NSDictionary+Extended.h"
+#import <Foundation/Foundation.h>
 
 @interface WLArchivingObject : NSObject <NSCoding, NSCopying>
 

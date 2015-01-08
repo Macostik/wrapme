@@ -52,7 +52,9 @@ static NSString *const WLReport = @"Report";
             [error show];
         }];
     } else {
-        [MFMailComposeViewController messageWithCandy:self.candy];
+        [self dismissViewControllerAnimated:NO completion:^{
+            [MFMailComposeViewController messageWithCandy:self.candy];
+        }];
     }
 }
 

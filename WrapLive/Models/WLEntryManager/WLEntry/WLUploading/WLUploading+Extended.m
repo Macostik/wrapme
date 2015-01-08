@@ -80,26 +80,47 @@
 - (id)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     WLContribution *contribution = self.contribution;
     if (contribution.status != WLContributionStatusReady || ![contribution canBeUploaded]) {
-        failure(nil);
+        if (failure) failure(nil);
         return nil;
     }
     __weak typeof(self)weakSelf = self;
-    self.data.operation = [self.contribution add:^(WLContribution *contribution) {
+    
+    WLObjectBlock uploadingSuccessBlock = ^(WLContribution *contribution) {
         [weakSelf removeProgressView];
         [weakSelf remove];
-        success(contribution);
+        if (success) success(contribution);
         [contribution notifyOnUpdate];
-    } failure:^(NSError *error) {
+    };
+    
+    self.data.operation = [self.contribution add:uploadingSuccessBlock failure:^(NSError *error) {
         if (error.isDuplicatedUploading) {
-            [weakSelf.contribution remove];
-            failure([NSError errorWithDescription:WLLS(@"This item is already uploaded.")]);
+            if ([weakSelf handleDuplicatedUploading:error]) {
+                uploadingSuccessBlock(weakSelf.contribution);
+            } else {
+                [weakSelf.contribution remove];
+                if (failure) failure(WLError(@"This item is already uploaded."));
+            }
         } else {
             [weakSelf.contribution notifyOnUpdate];
-            failure(error);
+            if (failure) failure(error);
         }
     }];
     [self.contribution notifyOnUpdate];
     return self.data.operation;
+}
+
+- (BOOL)handleDuplicatedUploading:(NSError*)error {
+    NSDictionary *data = [[error.userInfo dictionaryForKey:WLErrorResponseDataKey] objectForPossibleKeys:WLCandyKey, WLWrapKey, WLCommentKey, nil];
+    if (![data isKindOfClass:[NSDictionary class]]) return NO;
+    
+    NSOrderedSet *contributions = [[self.contribution class] entries:^(NSFetchRequest *request) {
+        request.predicate = [NSPredicate predicateWithFormat:@"uploadIdentifier == %@ AND SELF != %@", self.contribution.uploadIdentifier, self.contribution];
+    }];
+    for (WLContribution *contribution in contributions) {
+        [contribution remove];
+    }
+    [self.contribution API_setup:data];
+    return YES;
 }
 
 - (void)remove {

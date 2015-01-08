@@ -52,6 +52,7 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLCreateWrapViewController.h"
 #import "WLPickerViewController.h"
+#import "UIFont+CustomFonts.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
     WLWrapViewModeTimeline,
@@ -61,6 +62,7 @@ typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
 static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 static NSString* WLWrapPlaceholderViewTimeline = @"WLWrapPlaceholderViewTimeline";
 static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
+static CGFloat const WLIndent = 12.0f;
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
@@ -78,6 +80,7 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightViewConstraint;
 
 @end
 
@@ -100,7 +103,8 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
         return;
     }
     
-    self.mode = [WLSession integer:WLWrapViewDefaultModeKey];
+    // force set hostory mode to remove timeline from UI but keep it in code
+    self.mode = WLWrapViewModeHistory;
     
     self.history = [WLHistory historyWithWrap:self.wrap];
     self.historyViewSection.entries = self.history;
@@ -128,6 +132,17 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 - (void)updateWrapData {
     [self.nameLabel setTitle:WLString(self.wrap.name) forState:UIControlStateNormal];
     self.contributorsLabel.text = [self.wrap contributorNames];
+    CGFloat height = [self.contributorsLabel.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight
+                                                                                        preset:WLFontPresetSmall]
+                                                           width:self.view.width - WLIndent * 2];
+    if (height > self.contributorsLabel.height) {
+        CGFloat defaultHeight = self.contributorsLabel.height;
+        self.heightViewConstraint.constant = height + WLIndent * 2;
+        [self.contributorsLabel.superview layoutIfNeeded];
+        UIEdgeInsets inset = self.collectionView.contentInset;
+        inset.top = self.collectionView.contentInset.top + (height - defaultHeight);
+        self.collectionView.contentInset = inset;
+    }
 }
 
 - (void)firstLoadRequest {
@@ -146,6 +161,7 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
         [error showIgnoringNetworkError];
     }];
 }
+
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     

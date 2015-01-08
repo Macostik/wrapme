@@ -225,7 +225,7 @@
     return [self heightForRowWithContact:contact];
 }
 
-const static CGFloat WLIndent = 31.0f;
+const static CGFloat WLIndent = 32.0f;
 const static CGFloat WLDefaultHeight = 50.0f;
 
 - (CGFloat)heightForRowWithContact:(WLContact *)contact {

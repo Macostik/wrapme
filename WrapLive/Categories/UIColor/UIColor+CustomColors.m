@@ -55,10 +55,6 @@
     return [UIColor colorWithWhite:0.917 alpha:1.000];
 }
 
-+ (UIColor *)WL_clearColor {
-    return [[self r:.0f g:.0f b:.0f] colorWithAlphaComponent:.0f];
-}
-
 + (UIColor *)colorWithHexString:(NSString *)str {
     if (str.nonempty) {
         const char *cStr = [str cStringUsingEncoding:NSASCIIStringEncoding];

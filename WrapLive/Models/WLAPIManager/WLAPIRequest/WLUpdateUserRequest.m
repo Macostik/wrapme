@@ -7,6 +7,7 @@
 //
 
 #import "WLUpdateUserRequest.h"
+#import "WLEntryNotifier.h"
 
 @implementation WLUpdateUserRequest
 
@@ -39,6 +40,7 @@
     [authorization updateWithUserData:userData];
     [user API_setup:userData];
     [user setCurrent];
+    [user notifyOnUpdate];
     return user;
 }
 

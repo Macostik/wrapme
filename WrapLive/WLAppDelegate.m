@@ -11,7 +11,6 @@
 #import "WLSession.h"
 #import "WLNotificationCenter.h"
 #import "WLKeyboard.h"
-#import <AviarySDK/AviarySDK.h>
 #import "WLGestureBroadcaster.h"
 #import "WLUploading+Extended.h"
 #import "WLEntryManager.h"
@@ -24,8 +23,10 @@
 #import "NSObject+NibAdditions.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "WLAuthorizationRequest.h"
+#import "WLRemoteObjectHandler.h"
 #import "WLHomeViewController.h"
-#import <iVersion/iVersion.h>
+#import "iVersion.h"
+#import "WLLaunchScreenViewController.h"
 
 @interface WLAppDelegate () <iVersionDelegate>
 
@@ -33,7 +34,15 @@
 
 @implementation WLAppDelegate
 
++ (void)initialize {
+    WLInitializeConstants();
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
+    
+    [self presentInitialViewController];
     
     iVersion *version = [iVersion sharedInstance];
     version.appStoreID = 879908578;
@@ -42,19 +51,12 @@
     version.remindButtonLabel = WLLS(@"Not now");
     version.updatePriority = iVersionUpdatePriorityMedium;
     
-    [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
-    
-    [UIWindow setMainWindow:self.window];
-    [UIStoryboard setStoryboard:self.window.rootViewController.storyboard named:WLSignUpStoryboard];
 	[[WLNetwork network] configure];
 	[[WLKeyboard keyboard] configure];
 	[[WLNotificationCenter defaultCenter] configure];
 //    [[WLGestureBroadcaster broadcaster] configure];
 	
 	[[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] success:nil failure:nil];
-	
-	[AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
-	[AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
     
 #ifndef DEBUG
     [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
@@ -70,12 +72,48 @@
 	return YES;
 }
 
+- (void)presentInitialViewController {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window makeKeyAndVisible];
+    
+    [UIWindow setMainWindow:self.window];
+    
+    self.window.rootViewController = [[WLLaunchScreenViewController alloc] init];
+    NSString* storedVersion = [WLSession appVersion];
+    if (!storedVersion || [storedVersion compare:@"2.0" options:NSNumericSearch] == NSOrderedAscending) {
+        [WLSession clear];
+    }
+    [WLSession setCurrentAppVersion];
+    
+    WLAuthorization* authorization = [WLAuthorization currentAuthorization];
+    if ([authorization canAuthorize]) {
+        [authorization signIn:^(WLUser *user) {
+            [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+        } failure:^(NSError *error) {
+            if ([error isNetworkError]) {
+                [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+            } else {
+                [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+            }
+        }];
+    } else {
+        [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+    }
+}
+
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [WLUploading enqueueAutomaticUploading];
 }
 
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 	[WLNotificationCenter setDeviceToken:deviceToken];
+}
+
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    [url handleRemoteObject];
+    return YES;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {

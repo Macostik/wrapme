@@ -29,6 +29,4 @@ static NSString* WLAPIEnvironmentProduction = @"production";
 
 + (instancetype)configuration:(NSString*)name;
 
-- (void)testUsers:(void (^)(NSArray* testUsers))completion;
-
 @end

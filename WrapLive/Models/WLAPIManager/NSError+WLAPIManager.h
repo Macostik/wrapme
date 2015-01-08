@@ -11,6 +11,8 @@
 
 static NSString* WLErrorDomain = @"com.wraplive.error";
 
+static NSString* WLErrorResponseDataKey = @"com.wraplive.error.response.data";
+
 typedef NS_ENUM(NSInteger, WLErrorCode) {
     WLErrorUnknown = -1,
     WLErrorDuplicatedUploading = 10,
@@ -28,6 +30,8 @@ typedef NS_ENUM(NSInteger, WLErrorCode) {
 
 @property (readonly, nonatomic) BOOL isNetworkError;
 
++ (NSError*)errorWithResponse:(WLAPIResponse*)response;
+
 + (NSError*)errorWithDescription:(NSString*)description code:(NSInteger)code;
 + (NSError*)errorWithDescription:(NSString*)description;
 - (void)show;
@@ -41,3 +45,7 @@ typedef NS_ENUM(NSInteger, WLErrorCode) {
 - (BOOL)isError:(WLErrorCode)code;
 
 @end
+
+static inline NSError* WLError(NSString *description) {
+    return [NSError errorWithDescription:description];
+}

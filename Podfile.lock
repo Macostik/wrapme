@@ -20,20 +20,17 @@ PODS:
   - AFNetworking/UIKit (2.5.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - iVersion (1.11.4)
   - OpenUDID (1.0.0)
-  - PubNub (3.7.6)
+  - PubNub (3.7.7)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
-  - iVersion
   - OpenUDID
   - PubNub
 
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
-  iVersion: 17b7c7e40190e80008308eae2bb3197496cf485a
   OpenUDID: 5a23b7477755efc2d7871b57aa79ba3089c40b74
-  PubNub: 3f1be7f5eb0766af50d377c4a64d978acc826096
+  PubNub: e41b383a8e1096a57649ddbdd878fce20ae859ad
 
 COCOAPODS: 0.35.0

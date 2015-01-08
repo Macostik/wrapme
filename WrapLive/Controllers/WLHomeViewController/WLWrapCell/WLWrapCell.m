@@ -54,10 +54,9 @@
         section.selection = self.selection;
         self.candiesDataSection = section;
         self.candiesDataProvider = [WLCollectionViewDataProvider dataProvider:self.candiesView section:section];
-    } else {
-        [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
-        [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
     }
+    [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
+    [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
 }
 
 - (void)setSelection:(WLObjectBlock)selection {
@@ -71,18 +70,11 @@
     
     if (self.candiesView) {
         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
-    } else {
-        self.coverView.url = [wrap.picture anyUrl];
-        self.wrapNotificationLabel.intValue = [wrap unreadNotificationsCandyCount];
     }
+    
+    self.coverView.url = [wrap.picture anyUrl];
+    self.wrapNotificationLabel.intValue = [wrap unreadNotificationsCandyCount];
     self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;
-}
-
-- (void)select:(WLWrap*)wrap {
-    [wrap.candies all:^(WLCandy *candy) {
-        if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
-    }];
-    [super select:wrap];
 }
 
 @end

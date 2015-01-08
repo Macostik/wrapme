@@ -38,7 +38,7 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
     UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-    layout.minimumLineSpacing = IsRetinaSize()? WLCandyCellSpacing : WLCandyCellSpacingNotRetina;
+    layout.minimumLineSpacing = WLConstants.pixelSize;
     layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
     
     WLCandiesViewSection* section = [[WLCandiesViewSection alloc] initWithCollectionView:self.collectionView];

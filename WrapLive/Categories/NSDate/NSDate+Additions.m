@@ -175,7 +175,7 @@ static inline NSCalendar* NSCurrentCalendar() {
         if ((value = interval / WLTimeIntervalDay) >= 2) {
             return [NSString stringWithFormat:@"%.f %@s ago at %@", value, WLTimeIntervalNameDay, [self stringWithFormat:@"hh:mma"]];
         } else {
-            name = ((value = interval / WLTimeIntervalDay) >= 1) ? WLTimeIntervalNameYesterday : WLTimeIntervalNameToday;
+            name = [self isToday] ? WLTimeIntervalNameToday : WLTimeIntervalNameYesterday;
             return [NSString stringWithFormat:@"%@ at %@", name, [self stringWithFormat:@"hh:mma"]];
         }
     }

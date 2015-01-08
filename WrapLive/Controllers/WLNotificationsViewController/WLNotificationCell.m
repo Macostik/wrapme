@@ -23,8 +23,10 @@
 @property (weak, nonatomic) IBOutlet WLImageView *pictureView;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *inWrapLabel;
-@property (weak, nonatomic) IBOutlet TTTAttributedLabel *commentTextView;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *commentLabel;
 @property (weak, nonatomic) IBOutlet WLImageView *wrapImageView;
+@property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
 
 @end
 
@@ -32,15 +34,20 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.commentTextView.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    self.commentLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
 }
 
 - (void)setup:(WLComment*)comment {
     self.pictureView.url = comment.contributor.picture.small;
     self.wrapImageView.url = comment.candy.picture.small;
-    self.userNameLabel.text = [NSString stringWithFormat:@"%@  %@",comment.contributor.name, comment.createdAt.timeAgoString];
-    self.commentTextView.text = [NSString stringWithFormat:@"\"%@\"", comment.text];
-    self.inWrapLabel.text = [NSString stringWithFormat:WLLS(@"in Wrap: \"%@\""), comment.candy.wrap.name];
+    self.userNameLabel.text = comment.contributor.name;
+    self.commentLabel.text = comment.text;
+    self.inWrapLabel.text = comment.candy.wrap.name;
+    self.timeLabel.text = comment.createdAt.timeAgoStringAtAMPM;
+    self.widthConstraint.constant = [self.timeLabel.text widthWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular
+                                                                                              preset:WLFontPresetSmall]
+                                                                  size:CGSizeZero];
+    [self.timeLabel layoutIfNeeded];
 }
 
 #pragma mark - TTTAttributedLabelDelegate

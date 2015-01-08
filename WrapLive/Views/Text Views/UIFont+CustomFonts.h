@@ -17,7 +17,7 @@ static NSString *WLFontPresetSmaller = @"smaller";
 static NSString *WLFontPresetSmall = @"small";
 static NSString *WLFontPresetNormal = @"normal";
 static NSString *WLFontPresetLarge = @"large";
-static NSString *WLFontPresetLarger = @"largeer";
+static NSString *WLFontPresetLarger = @"larger";
 static NSString *WLFontPresetXLarge = @"xlarge";
 
 @interface UIFont (CustomFonts)

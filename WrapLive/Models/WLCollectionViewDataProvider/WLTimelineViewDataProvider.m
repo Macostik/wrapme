@@ -136,7 +136,7 @@ static NSString *WLDividerViewIdentifier = @"WLDividerView";
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     WLTimelineEvent* event = [self.timeline.entries tryObjectAtIndex:section];
     if (event.entryClass != [WLComment class]) {
-        return IsRetinaSize()? WLCandyCellSpacing : WLCandyCellSpacingNotRetina;
+        return WLConstants.pixelSize;
     } else {
         return 0;
     }

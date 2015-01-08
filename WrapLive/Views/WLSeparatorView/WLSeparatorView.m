@@ -14,22 +14,6 @@
 
 @implementation WLSeparatorView
 
-- (void)awakeFromNib {
-	[super awakeFromNib];
-	
-	self.fillColor = self.backgroundColor;
-	[super setBackgroundColor:[UIColor clearColor]];
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.backgroundColor = [UIColor clearColor];
-    }
-    return self;
-}
-
 - (void)drawRect:(CGRect)rect {
 	CGContextRef ctx = UIGraphicsGetCurrentContext();
 	
@@ -47,7 +31,7 @@
 		CGContextAddLineToPoint(ctx, self.frame.size.width, self.frame.size.height);
 	}
 	
-	CGContextSetStrokeColorWithColor(ctx, self.fillColor.CGColor);
+	CGContextSetStrokeColorWithColor(ctx, self.color.CGColor);
 	CGContextSetLineWidth(ctx, 1);
 	CGContextStrokePath(ctx);
 }

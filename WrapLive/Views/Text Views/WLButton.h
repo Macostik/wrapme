@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-IB_DESIGNABLE
-
 @interface WLButton : UIButton
 
 @property (strong, nonatomic) IBInspectable UIColor *normalColor;

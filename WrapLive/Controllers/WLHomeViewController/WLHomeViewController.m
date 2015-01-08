@@ -47,12 +47,15 @@
 #import "WLWrapViewController.h"
 #import "WLWrapsRequest.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLRemoteObjectHandler.h"
 #import "WLPickerViewController.h"
+
+BOOL isPresentHomeViewController;
 
 static NSString *const WLTimeLineKey = @"WLTimeLineKey";
 static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLNotificationReceiver, WLPickerViewDelegate>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLPickerViewDelegate>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
@@ -61,7 +64,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
-@property (weak, nonatomic) IBOutlet WLUserView *userView;
 
 @end
 
@@ -75,11 +77,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [[WLComment notifier] addReceiver:self];
 	
     [[WLNotificationCenter defaultCenter] addReceiver:self];
-    
-    WLUserView* userView = self.userView;
-    userView.avatarView.layer.borderWidth = IsRetinaSize()? 1.0f : 1.5f;
-    userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
-    userView.user = [WLUser currentUser];
     
     [self.dataProvider setRefreshable];
     
@@ -102,11 +99,13 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     }];
     
     [section setSelection:^(id entry) {
-        if ([entry isKindOfClass:[WLCandy class]]) {
-            [[entry wrap] present];
-        } else {
-            [entry present];
+        if ([entry respondsToSelector:@selector(candies)]) {
+            [[entry candies] all:^(WLCandy *candy) {
+                if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
+            }];
         }
+        
+        [entry present];
     }];
     
     NSMutableOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
@@ -118,10 +117,10 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self.userView update];
     [self.dataProvider reload];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];
+    [WLRemoteObjectHandler sharedObject].isLoaded = [self isViewLoaded];
 }
 
 - (void)updateEmailConfirmationView:(BOOL)animated {
@@ -198,30 +197,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 #pragma mark - WLNotificationReceiver
-
-- (void)handleRemoteNotification:(WLNotification*)notification {
-    if (notification.event == WLEventDelete) return;
-    
-	UIViewController* presentedViewController = self.navigationController.presentedViewController;
-	if (presentedViewController) {
-		__weak typeof(self)weakSelf = self;
-		[UIAlertView showWithTitle:WLLS(@"View notification")
-						   message:WLLS(@"Incompleted data can be lost. Do you want to continue?")
-							action:WLLS(@"Continue")
-							cancel:WLLS(@"Cancel")
-						completion:^{
-			[weakSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
-			[notification.targetEntry present];
-		}];
-	} else {
-		[notification.targetEntry present:NO];
-	}
-}
-
-- (void)broadcaster:(WLNotificationCenter *)broadcaster didReceiveRemoteNotification:(WLNotification *)notification {
-    [self handleRemoteNotification:notification];
-	broadcaster.pendingRemoteNotification = nil;
-}
 
 - (void)updateNotificationsLabel {
     self.notificationsLabel.intValue = [[WLUser currentUser] unreadNotificationsCount];

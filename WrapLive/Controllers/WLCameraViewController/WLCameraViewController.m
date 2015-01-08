@@ -79,6 +79,7 @@
         [self.view layoutIfNeeded];
 	}
 	
+    self.position = self.defaultPosition;
 	self.flashMode = AVCaptureFlashModeOff;
 	self.flashModeControl.mode = self.flashMode;
     
@@ -89,12 +90,6 @@
     } else {
         self.takePhotoButton.active = NO;
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-    self.position = self.defaultPosition;
-    
 }
 
 #pragma mark - User Actions
@@ -296,8 +291,9 @@
 		}
 		completion(image, metadata);
 	};
-	self.connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
-    [self.output captureStillImageAsynchronouslyFromConnection:self.connection completionHandler:handler];
+    AVCaptureConnection *connection = self.connection;
+	connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
+    [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
 }
 
 - (AVCaptureDevicePosition)defaultPosition {
@@ -421,10 +417,18 @@
 }
 
 - (void)setZoomScale:(CGFloat)zoomScale {
-	AVCaptureConnection* connection = self.connection;
-	_zoomScale = Smoothstep(1, MIN(8, connection.videoMaxScaleAndCropFactor), zoomScale);
-	connection.videoScaleAndCropFactor = _zoomScale;
-	self.cameraView.layer.affineTransform = CGAffineTransformMakeScale(_zoomScale, _zoomScale);
+    AVCaptureDevice *device = self.input.device;
+	_zoomScale = Smoothstep(1, MIN(8, device.activeFormat.videoMaxZoomFactor), zoomScale);
+    
+    if (device.videoZoomFactor != _zoomScale) {
+        // iOS 7.x with compatible hardware
+        if ([device lockForConfiguration:nil]) {
+            [device setVideoZoomFactor:_zoomScale];
+            [device unlockForConfiguration];
+        }
+    }
+    
+//	self.cameraView.layer.affineTransform = CGAffineTransformMakeScale(_zoomScale, _zoomScale);
 	[self showZoomLabel];
 }
 

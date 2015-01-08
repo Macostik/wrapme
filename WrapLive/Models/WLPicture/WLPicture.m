@@ -10,6 +10,7 @@
 #import "WLImageCache.h"
 #import "UIImage+Resize.h"
 #import "NSString+Additions.h"
+#import "NSDictionary+Extended.h"
 
 @implementation WLPicture
 

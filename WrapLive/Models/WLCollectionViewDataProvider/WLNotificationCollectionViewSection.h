@@ -8,8 +8,8 @@
 
 #import "WLCollectionViewSection.h"
 
-const static CGFloat WLNotificationCommentHorizontalSpacing = 117.0f;
-const static CGFloat WLNotificationCommentVerticalSpacing = 38.0f;
+const static CGFloat WLNotificationCommentHorizontalSpacing = 116.0f;
+const static CGFloat WLNotificationCommentVerticalSpacing = 48.0f;
 
 @interface WLNotificationCollectionViewSection : WLCollectionViewSection
 

@@ -91,13 +91,13 @@
     }
 }
 
-- (NSString *)contributorNamesWithCount:(NSInteger)numberOfUsers {
+- (NSString *)contributorNamesWithYouAndAmount:(NSInteger)numberOfUsers {
     NSMutableOrderedSet *contributors = self.contributors;
-    if (contributors.count <= 1) return WLLS(@"You");
+    if (contributors.count <= 1 || numberOfUsers == 0) return @"You";
     NSMutableString* names = [NSMutableString string];
     NSUInteger i = 0;
     for (WLUser *contributor in contributors) {
-        if (i <= numberOfUsers) {
+        if (i < numberOfUsers) {
             if (![contributor isCurrentUser]) {
                 [names appendFormat:@"%@, ", contributor.name];
                 ++i;
@@ -112,7 +112,7 @@
 }
 
 - (NSString *)contributorNames {
-    return [self contributorNamesWithCount:4];
+    return [self contributorNamesWithYouAndAmount:3];
 }
 
 - (void)addCandy:(WLCandy *)candy {

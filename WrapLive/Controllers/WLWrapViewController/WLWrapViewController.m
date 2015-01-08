@@ -132,9 +132,17 @@ static CGFloat const WLIndent = 12.0f;
 - (void)updateWrapData {
     [self.nameLabel setTitle:WLString(self.wrap.name) forState:UIControlStateNormal];
     self.contributorsLabel.text = [self.wrap contributorNames];
-    CGFloat height = [self.contributorsLabel.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall] width:self.view.width - WLIndent * 2];
-    self.heightViewConstraint.constant = height + WLIndent * 2;
-    [self.contributorsLabel.superview layoutIfNeeded];
+    CGFloat height = [self.contributorsLabel.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight
+                                                                                        preset:WLFontPresetSmall]
+                                                           width:self.view.width - WLIndent * 2];
+    if (height > self.contributorsLabel.height) {
+        CGFloat defaultHeight = self.contributorsLabel.height;
+        self.heightViewConstraint.constant = height + WLIndent * 2;
+        [self.contributorsLabel.superview layoutIfNeeded];
+        UIEdgeInsets inset = self.collectionView.contentInset;
+        inset.top = self.collectionView.contentInset.top + (height - defaultHeight);
+        self.collectionView.contentInset = inset;
+    }
 }
 
 - (void)firstLoadRequest {

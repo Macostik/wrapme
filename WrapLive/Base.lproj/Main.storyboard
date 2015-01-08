@@ -838,11 +838,11 @@
                                         <rect key="frame" x="0.0" y="108" width="320" height="290"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="171"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="181"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9wL-yW-Tpm">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="168"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="178"/>
                                                     <state key="normal">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -851,7 +851,7 @@
                                                     </connections>
                                                 </button>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lRI-cr-Q4O">
-                                                    <rect key="frame" x="0.0" y="60" width="320" height="106"/>
+                                                    <rect key="frame" x="0.0" y="70" width="320" height="106"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Ft6-GB-b11">
                                                         <size key="itemSize" width="106" height="106"/>
@@ -957,10 +957,10 @@
                                                     </cells>
                                                 </collectionView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Kg-Jf-uq1">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                                     <subviews>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Twb-Mn-vNw" customClass="WLLabel">
-                                                            <rect key="frame" x="70" y="3" width="210" height="28"/>
+                                                            <rect key="frame" x="70" y="8" width="210" height="28"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="20"/>
                                                             <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
@@ -970,7 +970,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last updated 3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1y3-CJ-RVW" customClass="WLLabel">
-                                                            <rect key="frame" x="70" y="29" width="240" height="21"/>
+                                                            <rect key="frame" x="70" y="34" width="240" height="21"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="cUz-RM-GOU"/>
@@ -983,7 +983,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iT4-0e-Bul" customClass="WLCircleImageView">
-                                                            <rect key="frame" x="10" y="5" width="50" height="50"/>
+                                                            <rect key="frame" x="10" y="10" width="50" height="50"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="b5C-lr-BVR"/>
@@ -991,7 +991,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T99-mA-uFU" customClass="WLBadgeLabel">
-                                                            <rect key="frame" x="41" y="5" width="22" height="22"/>
+                                                            <rect key="frame" x="41" y="10" width="22" height="22"/>
                                                             <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="22" id="nuj-Gc-yvM"/>
@@ -1010,7 +1010,7 @@
                                                             </connections>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="solid_ballon_chat_notificaiton" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-4Z-sEV">
-                                                            <rect key="frame" x="289" y="10" width="16" height="14"/>
+                                                            <rect key="frame" x="289" y="15" width="16" height="14"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="BpP-Kn-MiK"/>
@@ -1021,18 +1021,18 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="1y3-CJ-RVW" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" constant="70" id="3SZ-Fd-ufZ"/>
-                                                        <constraint firstItem="Twb-Mn-vNw" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="3" id="6do-mm-ahx"/>
                                                         <constraint firstAttribute="trailing" secondItem="Mfp-4Z-sEV" secondAttribute="trailing" constant="15" id="7Qq-6c-n1m"/>
                                                         <constraint firstItem="1y3-CJ-RVW" firstAttribute="top" secondItem="Twb-Mn-vNw" secondAttribute="top" constant="26" id="7db-pI-KeP"/>
                                                         <constraint firstItem="iT4-0e-Bul" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" constant="10" id="GTc-Sb-5lH"/>
-                                                        <constraint firstAttribute="height" constant="60" id="KHS-lZ-CHy"/>
+                                                        <constraint firstAttribute="height" constant="70" id="KHS-lZ-CHy"/>
                                                         <constraint firstItem="Twb-Mn-vNw" firstAttribute="leading" secondItem="T99-mA-uFU" secondAttribute="trailing" constant="7" id="Ov4-c9-t8E"/>
                                                         <constraint firstItem="T99-mA-uFU" firstAttribute="top" secondItem="iT4-0e-Bul" secondAttribute="top" id="Td9-aY-KAQ"/>
                                                         <constraint firstAttribute="trailing" secondItem="1y3-CJ-RVW" secondAttribute="trailing" constant="10" id="YLj-0B-mhz"/>
-                                                        <constraint firstItem="T99-mA-uFU" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" constant="41" id="pAl-ZS-8xV"/>
-                                                        <constraint firstItem="iT4-0e-Bul" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="5" id="qJN-nK-oD0"/>
+                                                        <constraint firstItem="Twb-Mn-vNw" firstAttribute="centerY" secondItem="iT4-0e-Bul" secondAttribute="centerY" constant="-13" id="jlf-vO-1EA"/>
+                                                        <constraint firstItem="iT4-0e-Bul" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="10" id="qJN-nK-oD0"/>
                                                         <constraint firstAttribute="trailing" secondItem="Twb-Mn-vNw" secondAttribute="trailing" constant="40" id="rBw-l4-SNV"/>
                                                         <constraint firstItem="Twb-Mn-vNw" firstAttribute="centerY" secondItem="Mfp-4Z-sEV" secondAttribute="centerY" id="vNa-qT-GNJ"/>
+                                                        <constraint firstItem="T99-mA-uFU" firstAttribute="leading" secondItem="iT4-0e-Bul" secondAttribute="trailing" constant="-19" id="yyF-y5-Atr"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="rrl-ip-nxD" customClass="WLSeparatorView">
@@ -1061,13 +1061,13 @@
                                             <constraint firstItem="9wL-yW-Tpm" firstAttribute="top" secondItem="Pq6-uP-780" secondAttribute="top" id="aAH-UW-0nV"/>
                                             <constraint firstAttribute="bottom" secondItem="9wL-yW-Tpm" secondAttribute="bottom" constant="3" id="dyg-mz-OZp"/>
                                             <constraint firstItem="rrl-ip-nxD" firstAttribute="leading" secondItem="Pq6-uP-780" secondAttribute="leading" id="fpn-Ph-hIF"/>
-                                            <constraint firstItem="lRI-cr-Q4O" firstAttribute="top" secondItem="Pq6-uP-780" secondAttribute="top" constant="60" id="hSJ-aw-fN7"/>
                                             <constraint firstItem="8Kg-Jf-uq1" firstAttribute="top" secondItem="Pq6-uP-780" secondAttribute="top" id="iLE-ZZ-sN3"/>
                                             <constraint firstAttribute="trailing" secondItem="9wL-yW-Tpm" secondAttribute="trailing" id="niz-82-M64"/>
+                                            <constraint firstItem="lRI-cr-Q4O" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="bottom" id="pDM-DI-wnH"/>
                                             <constraint firstAttribute="trailing" secondItem="8Kg-Jf-uq1" secondAttribute="trailing" id="sod-oT-QBr"/>
                                             <constraint firstItem="9wL-yW-Tpm" firstAttribute="leading" secondItem="Pq6-uP-780" secondAttribute="leading" id="v3v-jc-lEO"/>
                                         </constraints>
-                                        <size key="customSize" width="320" height="171"/>
+                                        <size key="customSize" width="320" height="181"/>
                                         <connections>
                                             <outlet property="candiesView" destination="lRI-cr-Q4O" id="JVp-iF-OD6"/>
                                             <outlet property="chatNotificationImageView" destination="Mfp-4Z-sEV" id="w2r-4Q-Sth"/>
@@ -3919,7 +3919,7 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="tUX-Tk-kxb"/>
         <segue reference="USb-FQ-HhL"/>
-        <segue reference="WjR-f7-d7j"/>
     </inferredMetricsTieBreakers>
 </document>

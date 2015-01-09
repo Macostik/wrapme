@@ -45,14 +45,14 @@
 }
 
 - (void)subscribe {
-    if (self.subscribed) {
+    if (self.subscribed || !self.channel) {
         return;
     }
     [PubNub subscribeOn:@[self.channel]];
 }
 
 - (void)unsubscribe {
-    if (!self.subscribed) {
+    if (!self.subscribed || !self.channel) {
         return;
     }
     [PubNub unsubscribeFrom:@[self.channel]];
@@ -105,7 +105,7 @@
 }
 
 - (void)participants:(WLArrayBlock)completion {
-    if (self.subscribed) {
+    if (self.subscribed && self.channel) {
         __weak typeof(self)weakSelf = self;
         [PubNub requestParticipantsListFor:@[self.channel] clientIdentifiersRequired:YES clientState:YES withCompletionBlock:^(PNHereNow *hereNow, NSArray *channels, PNError *error) {
             if (!error && completion) {

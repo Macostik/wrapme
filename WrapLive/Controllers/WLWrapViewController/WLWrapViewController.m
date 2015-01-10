@@ -63,6 +63,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 static NSString* WLWrapPlaceholderViewTimeline = @"WLWrapPlaceholderViewTimeline";
 static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 static CGFloat const WLIndent = 12.0f;
+static CGFloat const WLAddFriendButtonWidth = 54.0f;
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
@@ -134,7 +135,7 @@ static CGFloat const WLIndent = 12.0f;
     self.contributorsLabel.text = [self.wrap contributorNames];
     CGFloat height = [self.contributorsLabel.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight
                                                                                         preset:WLFontPresetSmall]
-                                                           width:self.view.width - WLIndent * 2];
+                                                           width:self.view.width - WLAddFriendButtonWidth - WLIndent * 2];
     self.heightViewConstraint.constant = height + WLIndent * 2;
     [self.contributorsLabel.superview layoutIfNeeded];
     UIEdgeInsets inset = self.collectionView.contentInset;

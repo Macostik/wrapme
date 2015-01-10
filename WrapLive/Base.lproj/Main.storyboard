@@ -957,30 +957,32 @@
                                                         </collectionViewCell>
                                                     </cells>
                                                 </collectionView>
+                                                <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="rrl-ip-nxD" customClass="WLSeparatorView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="wF6-PG-Ar0"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                            <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Kg-Jf-uq1">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                                     <subviews>
-                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Wrap Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Twb-Mn-vNw" customClass="WLLabel">
-                                                            <rect key="frame" x="70" y="10" width="210" height="24"/>
+                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Twb-Mn-vNw" customClass="WLLabel">
+                                                            <rect key="frame" x="70" y="8" width="206" height="26"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="26" id="f7P-u5-htS"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="20"/>
                                                             <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </label>
-                                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="last updated 3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1y3-CJ-RVW" customClass="WLLabel">
-                                                            <rect key="frame" x="70" y="36" width="240" height="21"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="21" id="cUz-RM-GOU"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                                            <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iT4-0e-Bul" customClass="WLCircleImageView">
@@ -1010,43 +1012,49 @@
                                                                 <outlet property="widthConstraint" destination="os7-nz-dsZ" id="bIA-Yl-wDv"/>
                                                             </connections>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="solid_ballon_chat_notificaiton" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-4Z-sEV">
-                                                            <rect key="frame" x="289" y="15" width="16" height="14"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kG4-jG-ZTm">
+                                                            <rect key="frame" x="273" y="0.0" width="44" height="70"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="14" id="BpP-Kn-MiK"/>
-                                                                <constraint firstAttribute="width" constant="16" id="Fqg-VE-Wrf"/>
+                                                                <constraint firstAttribute="width" constant="44" id="YFn-Dc-LYJ"/>
                                                             </constraints>
-                                                        </imageView>
+                                                            <state key="normal" image="btn_chat_enabled">
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <connections>
+                                                                <segue destination="ef1-h7-yay" kind="custom" identifier="currentWrap-&gt;wrap" customClass="WLSetValueSegue" id="dRY-M8-Jq1"/>
+                                                            </connections>
+                                                        </button>
+                                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1y3-CJ-RVW" customClass="WLLabel">
+                                                            <rect key="frame" x="70" y="31" width="206" height="21"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="cUz-RM-GOU"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                            <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="1y3-CJ-RVW" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" constant="70" id="3SZ-Fd-ufZ"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Mfp-4Z-sEV" secondAttribute="trailing" constant="15" id="7Qq-6c-n1m"/>
-                                                        <constraint firstItem="1y3-CJ-RVW" firstAttribute="top" secondItem="Twb-Mn-vNw" secondAttribute="top" constant="26" id="7db-pI-KeP"/>
+                                                        <constraint firstItem="kG4-jG-ZTm" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" id="533-pk-P52"/>
                                                         <constraint firstItem="iT4-0e-Bul" firstAttribute="leading" secondItem="8Kg-Jf-uq1" secondAttribute="leading" constant="10" id="GTc-Sb-5lH"/>
+                                                        <constraint firstAttribute="bottom" secondItem="kG4-jG-ZTm" secondAttribute="bottom" id="K2C-1i-tG4"/>
                                                         <constraint firstAttribute="height" constant="70" id="KHS-lZ-CHy"/>
+                                                        <constraint firstAttribute="trailing" secondItem="kG4-jG-ZTm" secondAttribute="trailing" constant="3" id="Kw9-B1-Ya9"/>
+                                                        <constraint firstItem="Twb-Mn-vNw" firstAttribute="centerY" secondItem="T99-mA-uFU" secondAttribute="centerY" id="L1R-gD-SAV"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Twb-Mn-vNw" secondAttribute="trailing" constant="44" id="LF8-CG-Yzw"/>
                                                         <constraint firstItem="Twb-Mn-vNw" firstAttribute="leading" secondItem="T99-mA-uFU" secondAttribute="trailing" constant="7" id="Ov4-c9-t8E"/>
                                                         <constraint firstItem="T99-mA-uFU" firstAttribute="top" secondItem="iT4-0e-Bul" secondAttribute="top" id="Td9-aY-KAQ"/>
-                                                        <constraint firstAttribute="trailing" secondItem="1y3-CJ-RVW" secondAttribute="trailing" constant="10" id="YLj-0B-mhz"/>
-                                                        <constraint firstItem="Twb-Mn-vNw" firstAttribute="centerY" secondItem="iT4-0e-Bul" secondAttribute="centerY" constant="-13" id="jlf-vO-1EA"/>
                                                         <constraint firstItem="iT4-0e-Bul" firstAttribute="top" secondItem="8Kg-Jf-uq1" secondAttribute="top" constant="10" id="qJN-nK-oD0"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Twb-Mn-vNw" secondAttribute="trailing" constant="40" id="rBw-l4-SNV"/>
-                                                        <constraint firstItem="Twb-Mn-vNw" firstAttribute="centerY" secondItem="Mfp-4Z-sEV" secondAttribute="centerY" id="vNa-qT-GNJ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="1y3-CJ-RVW" secondAttribute="trailing" constant="44" id="u9V-Y5-Nam"/>
+                                                        <constraint firstItem="1y3-CJ-RVW" firstAttribute="leading" secondItem="iT4-0e-Bul" secondAttribute="trailing" constant="10" id="vkC-7G-gUl"/>
                                                         <constraint firstItem="T99-mA-uFU" firstAttribute="leading" secondItem="iT4-0e-Bul" secondAttribute="trailing" constant="-19" id="yyF-y5-Atr"/>
+                                                        <constraint firstItem="1y3-CJ-RVW" firstAttribute="top" secondItem="Twb-Mn-vNw" secondAttribute="bottom" constant="-3" id="zfk-Dp-GnS"/>
                                                     </constraints>
-                                                </view>
-                                                <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="rrl-ip-nxD" customClass="WLSeparatorView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="wF6-PG-Ar0"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                            <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1071,7 +1079,7 @@
                                         <size key="customSize" width="320" height="181"/>
                                         <connections>
                                             <outlet property="candiesView" destination="lRI-cr-Q4O" id="JVp-iF-OD6"/>
-                                            <outlet property="chatNotificationImageView" destination="Mfp-4Z-sEV" id="w2r-4Q-Sth"/>
+                                            <outlet property="chatButton" destination="kG4-jG-ZTm" id="yeJ-GC-KIL"/>
                                             <outlet property="coverView" destination="iT4-0e-Bul" id="rxx-lb-38x"/>
                                             <outlet property="dateLabel" destination="1y3-CJ-RVW" id="MbX-LU-Dcj"/>
                                             <outlet property="nameLabel" destination="Twb-Mn-vNw" id="B8P-cH-kAv"/>
@@ -1095,7 +1103,7 @@
                                                     </connections>
                                                 </button>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8I-t6-aKU" customClass="WLLabel">
-                                                    <rect key="frame" x="70" y="-2" width="210" height="26"/>
+                                                    <rect key="frame" x="70" y="-2" width="206" height="26"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="26" id="WrE-ux-dBp"/>
@@ -1107,8 +1115,8 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last updated 3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71z-7i-OMc" customClass="WLLabel">
-                                                    <rect key="frame" x="70" y="21" width="240" height="21"/>
+                                                <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71z-7i-OMc" customClass="WLLabel">
+                                                    <rect key="frame" x="70" y="21" width="206" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="U0z-6s-qRe"/>
@@ -1148,38 +1156,43 @@
                                                         <outlet property="widthConstraint" destination="DaX-fs-JNF" id="iTy-LH-kyg"/>
                                                     </connections>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="solid_ballon_chat_notificaiton" translatesAutoresizingMaskIntoConstraints="NO" id="97a-tR-kcO">
-                                                    <rect key="frame" x="289" y="4" width="16" height="14"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uti-ws-yZf">
+                                                    <rect key="frame" x="273" y="0.0" width="44" height="50"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="14" id="F8a-BK-WaN"/>
-                                                        <constraint firstAttribute="width" constant="16" id="lj4-Mg-NE9"/>
+                                                        <constraint firstAttribute="width" constant="44" id="TW0-S6-ebK"/>
                                                     </constraints>
-                                                </imageView>
+                                                    <state key="normal" image="btn_chat_enabled">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="ef1-h7-yay" kind="custom" identifier="currentWrap-&gt;wrap" customClass="WLSetValueSegue" id="dZm-Zs-mzm"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="1g0-Jo-BE2" firstAttribute="centerY" secondItem="N8I-t6-aKU" secondAttribute="centerY" id="1Eq-Q4-IEG"/>
                                             <constraint firstItem="71z-7i-OMc" firstAttribute="leading" secondItem="HLY-EW-9Wa" secondAttribute="trailing" constant="10" id="6th-tK-nnt"/>
-                                            <constraint firstAttribute="trailing" secondItem="N8I-t6-aKU" secondAttribute="trailing" constant="40" id="8LN-fI-d4T"/>
+                                            <constraint firstAttribute="trailing" secondItem="N8I-t6-aKU" secondAttribute="trailing" constant="44" id="8LN-fI-d4T"/>
                                             <constraint firstItem="1g0-Jo-BE2" firstAttribute="top" secondItem="HLY-EW-9Wa" secondAttribute="top" id="A3C-dS-Lp2"/>
+                                            <constraint firstAttribute="trailing" secondItem="Uti-ws-yZf" secondAttribute="trailing" constant="3" id="C1b-A1-6vl"/>
                                             <constraint firstItem="HLY-EW-9Wa" firstAttribute="leading" secondItem="N5C-9U-WOe" secondAttribute="leading" constant="10" id="Fez-Tc-QHK"/>
-                                            <constraint firstItem="97a-tR-kcO" firstAttribute="centerY" secondItem="N8I-t6-aKU" secondAttribute="centerY" id="GE2-R1-fb5"/>
                                             <constraint firstItem="N8I-t6-aKU" firstAttribute="leading" secondItem="1g0-Jo-BE2" secondAttribute="trailing" constant="7" id="IMc-yb-ux9"/>
-                                            <constraint firstAttribute="trailing" secondItem="71z-7i-OMc" secondAttribute="trailing" constant="10" id="P5e-8o-nFy"/>
-                                            <constraint firstAttribute="trailing" secondItem="97a-tR-kcO" secondAttribute="trailing" constant="15" id="QdX-12-Zne"/>
+                                            <constraint firstAttribute="trailing" secondItem="71z-7i-OMc" secondAttribute="trailing" constant="44" id="P5e-8o-nFy"/>
                                             <constraint firstAttribute="trailing" secondItem="ctG-Sd-jmI" secondAttribute="trailing" id="R2b-5H-zUE"/>
-                                            <constraint firstItem="71z-7i-OMc" firstAttribute="top" secondItem="N8I-t6-aKU" secondAttribute="top" constant="23" id="T7e-04-cvF"/>
                                             <constraint firstItem="ctG-Sd-jmI" firstAttribute="leading" secondItem="N5C-9U-WOe" secondAttribute="leading" id="UoI-lU-XKl"/>
                                             <constraint firstItem="HLY-EW-9Wa" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" id="ciO-lq-nkZ"/>
                                             <constraint firstAttribute="bottom" secondItem="ctG-Sd-jmI" secondAttribute="bottom" id="fNs-v2-jFC"/>
                                             <constraint firstItem="ctG-Sd-jmI" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" id="jxK-dS-Wuy"/>
+                                            <constraint firstItem="Uti-ws-yZf" firstAttribute="top" secondItem="N5C-9U-WOe" secondAttribute="top" id="lCr-2Y-ca0"/>
+                                            <constraint firstItem="71z-7i-OMc" firstAttribute="top" secondItem="N8I-t6-aKU" secondAttribute="bottom" constant="-3" id="ns2-t9-Kg3"/>
                                             <constraint firstItem="1g0-Jo-BE2" firstAttribute="leading" secondItem="N5C-9U-WOe" secondAttribute="leading" constant="41" id="t4K-L0-WVb"/>
+                                            <constraint firstAttribute="bottom" secondItem="Uti-ws-yZf" secondAttribute="bottom" id="yQE-r9-qZk"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="50"/>
                                         <connections>
-                                            <outlet property="chatNotificationImageView" destination="97a-tR-kcO" id="K1e-V0-ccd"/>
+                                            <outlet property="chatButton" destination="Uti-ws-yZf" id="BqH-5q-bHn"/>
                                             <outlet property="coverView" destination="HLY-EW-9Wa" id="0pY-YZ-6FD"/>
                                             <outlet property="dateLabel" destination="71z-7i-OMc" id="lKc-Dh-Mcv"/>
                                             <outlet property="nameLabel" destination="N8I-t6-aKU" id="Kft-d5-zzj"/>
@@ -2568,9 +2581,10 @@
                                             <constraint firstAttribute="width" constant="54" id="9Pc-sY-bVS"/>
                                             <constraint firstAttribute="height" constant="44" id="k6Q-uv-lbn"/>
                                         </constraints>
-                                        <state key="normal" image="btn_add_peaples_enabled">
+                                        <state key="normal" image="add_contributor_enabled_gray_light">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="highlighted" image="add_contributor_pressed_gray_light"/>
                                         <connections>
                                             <segue destination="2bk-UF-zkR" kind="custom" identifier="wrap-&gt;wrap" customClass="WLSetValueSegue" id="Mzs-pA-rcu"/>
                                         </connections>
@@ -3597,6 +3611,7 @@ Check your internet connection and try again.</string>
                             <constraint firstItem="nir-Cb-3ne" firstAttribute="top" secondItem="ez0-f9-dHG" secondAttribute="bottom" id="tKy-hC-Tgh"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="aUD-yq-Ejy"/>
                     <connections>
                         <outlet property="collectionView" destination="ez0-f9-dHG" id="cd9-Q9-vcX"/>
                         <outlet property="composeBar" destination="dQp-Lx-kpC" id="cly-mG-GSx"/>
@@ -3888,7 +3903,9 @@ Check your internet connection and try again.</string>
     <resources>
         <image name="3dot_white" width="6" height="26"/>
         <image name="add_by_phone_white" width="30" height="30"/>
-        <image name="btn_add_peaples_enabled" width="30" height="30"/>
+        <image name="add_contributor_enabled_gray_light" width="30" height="30"/>
+        <image name="add_contributor_pressed_gray_light" width="30" height="30"/>
+        <image name="btn_chat_enabled" width="30" height="30"/>
         <image name="btn_chat_white_enabled" width="30" height="30"/>
         <image name="btn_wrap_camera_enabled" width="84" height="84"/>
         <image name="btn_wrap_camera_pressed" width="84" height="84"/>
@@ -3917,7 +3934,6 @@ Check your internet connection and try again.</string>
         <image name="ic_search" width="16" height="16"/>
         <image name="ic_swipe_arrow_right" width="6" height="10"/>
         <image name="ic_today_enabled" width="32" height="32"/>
-        <image name="solid_ballon_chat_notificaiton" width="16" height="14"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -3926,6 +3942,7 @@ Check your internet connection and try again.</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="USb-FQ-HhL"/>
+        <segue reference="OUd-KJ-euJ"/>
         <segue reference="WjR-f7-d7j"/>
     </inferredMetricsTieBreakers>
 </document>

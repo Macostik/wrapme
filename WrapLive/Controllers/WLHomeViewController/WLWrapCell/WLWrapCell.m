@@ -33,7 +33,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *wrapNotificationLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *chatNotificationImageView;
+@property (weak, nonatomic) IBOutlet UIButton *chatButton;
+
 @property (strong, nonatomic) WLCollectionViewDataProvider* candiesDataProvider;
 @property (strong, nonatomic) WLHomeCandiesViewSection* candiesDataSection;
 
@@ -66,7 +67,7 @@
 
 - (void)setup:(WLWrap*)wrap {
 	self.nameLabel.text = wrap.name;
-    self.dateLabel.text = [NSString stringWithFormat:@"last updated %@", WLString(wrap.updatedAt.timeAgoStringAtAMPM)];
+    self.dateLabel.text = WLString(wrap.updatedAt.timeAgoStringAtAMPM);
     
     if (self.candiesView) {
         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
@@ -74,7 +75,7 @@
     
     self.coverView.url = [wrap.picture anyUrl];
     self.wrapNotificationLabel.intValue = [wrap unreadNotificationsCandyCount];
-    self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;
+    self.chatButton.hidden = [wrap unreadNotificationsMessageCount] == 0;
 }
 
 @end

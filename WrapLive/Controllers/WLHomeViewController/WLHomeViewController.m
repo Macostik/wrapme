@@ -65,6 +65,8 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
 
+@property (strong, nonatomic) WLWrap* currentWrap;
+
 @end
 
 @implementation WLHomeViewController
@@ -104,7 +106,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
                 if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
             }];
         }
-        
         [entry present];
     }];
     
@@ -165,6 +166,19 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
         }];
     } else {
         [self createWrap:nil];
+    }
+}
+
+
+#pragma mark - SegueHelper for push to chat controller
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+#warning remake it
+    id cell = [[sender superview] superview];
+    if ([cell respondsToSelector:@selector(entry)]) {
+         self.currentWrap = [cell entry];
+    } else {
+        self.currentWrap = self.section.wrap;
     }
 }
 

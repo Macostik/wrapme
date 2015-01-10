@@ -920,6 +920,7 @@
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="disableMenu" value="YES"/>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
+                                                                <outlet property="commentHeightConstraint" destination="qWh-D1-wKc" id="cHr-XR-yGb"/>
                                                                 <outlet property="commentLabel" destination="jAi-R7-bNq" id="YFa-sv-GXs"/>
                                                                 <outlet property="coverView" destination="RBx-xX-iE6" id="Abt-oO-bGU"/>
                                                             </connections>
@@ -960,7 +961,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                                     <subviews>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Twb-Mn-vNw" customClass="WLLabel">
-                                                            <rect key="frame" x="70" y="8" width="210" height="28"/>
+                                                            <rect key="frame" x="70" y="10" width="210" height="24"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="20"/>
                                                             <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
@@ -970,7 +971,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last updated 3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1y3-CJ-RVW" customClass="WLLabel">
-                                                            <rect key="frame" x="70" y="34" width="240" height="21"/>
+                                                            <rect key="frame" x="70" y="36" width="240" height="21"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="cUz-RM-GOU"/>
@@ -2404,6 +2405,7 @@
                                                             </constraints>
                                                             <size key="customSize" width="106" height="106"/>
                                                             <connections>
+                                                                <outlet property="commentHeightConstraint" destination="2ZH-pU-6ly" id="6wt-Jb-rCG"/>
                                                                 <outlet property="commentLabel" destination="ekw-1F-iDF" id="E87-Ar-IsQ"/>
                                                                 <outlet property="coverView" destination="fT9-Qs-qqx" id="1eK-Lv-z6z"/>
                                                             </connections>

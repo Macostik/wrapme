@@ -29,6 +29,7 @@
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentHeightConstraint;
 
 @end
 
@@ -78,6 +79,8 @@
         WLComment* comment = [candy.comments lastObject];
         self.commentLabel.text = comment.text;
         self.commentLabel.hidden = !self.commentLabel.text.nonempty;
+        self.commentHeightConstraint.constant = self.coverView.height/(WLiSiPhoneConstants.iPhone ? 3 : 4);
+        [self.commentLabel layoutIfNeeded];
     }
 	self.coverView.animatingPicture = candy.picture;
     self.coverView.url = candy.picture.small;

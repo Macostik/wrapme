@@ -2554,11 +2554,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bsh-Ho-Ike">
-                                        <rect key="frame" x="267" y="0.0" width="54" height="44"/>
+                                        <rect key="frame" x="266" y="0.0" width="54" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="54" id="9Pc-sY-bVS"/>
-                                            <constraint firstAttribute="height" constant="44" id="k6Q-uv-lbn"/>
                                         </constraints>
                                         <state key="normal" image="add_contributor_enabled_gray_light">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2572,7 +2571,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="6dW-gY-pJQ" secondAttribute="trailing" constant="54" id="0RA-vu-KZf"/>
-                                    <constraint firstAttribute="trailing" secondItem="bsh-Ho-Ike" secondAttribute="trailing" constant="-1" id="2We-QK-onD"/>
+                                    <constraint firstAttribute="trailing" secondItem="bsh-Ho-Ike" secondAttribute="trailing" id="2We-QK-onD"/>
                                     <constraint firstAttribute="bottom" secondItem="6dW-gY-pJQ" secondAttribute="bottom" constant="12" id="6le-td-1tt"/>
                                     <constraint firstAttribute="bottom" secondItem="zSv-FG-iwF" secondAttribute="bottom" id="FlX-em-5Ie"/>
                                     <constraint firstAttribute="trailing" secondItem="4dW-aC-27b" secondAttribute="trailing" id="HgI-Hz-HlX"/>
@@ -2584,7 +2583,7 @@
                                     <constraint firstItem="zSv-FG-iwF" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" id="g48-ZH-sWx"/>
                                     <constraint firstItem="6dW-gY-pJQ" firstAttribute="leading" secondItem="aqT-yE-MER" secondAttribute="leading" constant="12" id="glD-AK-FNr"/>
                                     <constraint firstItem="bsh-Ho-Ike" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" id="kFQ-qI-346"/>
-                                    <constraint firstAttribute="bottom" secondItem="bsh-Ho-Ike" secondAttribute="bottom" constant="1" id="tZB-cm-BFd"/>
+                                    <constraint firstAttribute="bottom" secondItem="bsh-Ho-Ike" secondAttribute="bottom" id="tZB-cm-BFd"/>
                                     <constraint firstItem="6dW-gY-pJQ" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" constant="12" id="xRR-Bp-zZS"/>
                                 </constraints>
                             </view>

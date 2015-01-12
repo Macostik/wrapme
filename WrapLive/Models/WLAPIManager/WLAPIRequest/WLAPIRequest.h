@@ -32,6 +32,8 @@
 
 @property (nonatomic) NSTimeInterval timeout;
 
+@property (readonly, nonatomic) BOOL reauthorizationEnabled;
+
 + (instancetype)request;
 
 + (NSString*)defaultMethod;

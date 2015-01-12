@@ -58,8 +58,10 @@ static CGFloat WLComposeBarMinHeight = 44.0f;
     if (textView.text.nonempty) {
         height = [textView sizeThatFits:CGSizeMake(textView.width, CGFLOAT_MAX)].height;
         self.height =  Smoothstep(textView.font.lineHeight, textView.font.lineHeight * 2, height) + textView.superview.y*2 + textView.y*2;
-        CGPoint bottomOffset = CGPointMake(0, textView.contentSize.height - textView.height);
-        [textView setContentOffset:bottomOffset animated:YES];
+        if (textView.selectedRange.location == textView.text.length) {
+            CGPoint bottomOffset = CGPointMake(0, textView.contentSize.height - textView.height);
+            [textView setContentOffset:bottomOffset animated:YES];
+        }
     } else {
         self.height = height;
     }

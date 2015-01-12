@@ -1021,7 +1021,8 @@
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
-                                                                <segue destination="ef1-h7-yay" kind="custom" identifier="currentWrap-&gt;wrap" customClass="WLSetValueSegue" id="dRY-M8-Jq1"/>
+                                                                <action selector="notifyChatClick:" destination="Pq6-uP-780" eventType="touchUpInside" id="d6b-qr-0Mj"/>
+                                                                <segue destination="ef1-h7-yay" kind="custom" identifier="chatSegueWrap-&gt;wrap" customClass="WLSetValueSegue" id="dRY-M8-Jq1"/>
                                                             </connections>
                                                         </button>
                                                         <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1y3-CJ-RVW" customClass="WLLabel">
@@ -1082,6 +1083,7 @@
                                             <outlet property="chatButton" destination="kG4-jG-ZTm" id="yeJ-GC-KIL"/>
                                             <outlet property="coverView" destination="iT4-0e-Bul" id="rxx-lb-38x"/>
                                             <outlet property="dateLabel" destination="1y3-CJ-RVW" id="MbX-LU-Dcj"/>
+                                            <outlet property="delegate" destination="L91-fZ-J9O" id="kgF-b1-xuO"/>
                                             <outlet property="nameLabel" destination="Twb-Mn-vNw" id="B8P-cH-kAv"/>
                                             <outlet property="wrapNotificationLabel" destination="T99-mA-uFU" id="ZPh-xM-a0p"/>
                                         </connections>
@@ -1165,7 +1167,8 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="ef1-h7-yay" kind="custom" identifier="currentWrap-&gt;wrap" customClass="WLSetValueSegue" id="dZm-Zs-mzm"/>
+                                                        <action selector="notifyChatClick:" destination="N5C-9U-WOe" eventType="touchUpInside" id="pSN-7c-HHC"/>
+                                                        <segue destination="ef1-h7-yay" kind="custom" identifier="chatSegueWrap-&gt;wrap" customClass="WLSetValueSegue" id="dZm-Zs-mzm"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -1195,6 +1198,7 @@
                                             <outlet property="chatButton" destination="Uti-ws-yZf" id="BqH-5q-bHn"/>
                                             <outlet property="coverView" destination="HLY-EW-9Wa" id="0pY-YZ-6FD"/>
                                             <outlet property="dateLabel" destination="71z-7i-OMc" id="lKc-Dh-Mcv"/>
+                                            <outlet property="delegate" destination="L91-fZ-J9O" id="Psn-OF-Mcx"/>
                                             <outlet property="nameLabel" destination="N8I-t6-aKU" id="Kft-d5-zzj"/>
                                             <outlet property="wrapNotificationLabel" destination="1g0-Jo-BE2" id="QqL-Wa-ms3"/>
                                         </connections>
@@ -3921,7 +3925,7 @@ Check your internet connection and try again.</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="USb-FQ-HhL"/>
-        <segue reference="WjR-f7-d7j"/>
         <segue reference="OUd-KJ-euJ"/>
+        <segue reference="WjR-f7-d7j"/>
     </inferredMetricsTieBreakers>
 </document>

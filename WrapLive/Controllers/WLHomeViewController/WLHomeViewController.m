@@ -55,7 +55,7 @@ BOOL isPresentHomeViewController;
 static NSString *const WLTimeLineKey = @"WLTimeLineKey";
 static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLPickerViewDelegate>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
@@ -65,7 +65,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
 
-@property (strong, nonatomic) WLWrap* currentWrap;
+@property (strong, nonatomic) WLWrap* chatSegueWrap;
 
 @end
 
@@ -169,17 +169,10 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     }
 }
 
+#pragma mark - WLWrapCellDelegate 
 
-#pragma mark - SegueHelper for push to chat controller
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-#warning remake it
-    id cell = [[sender superview] superview];
-    if ([cell respondsToSelector:@selector(entry)]) {
-         self.currentWrap = [cell entry];
-    } else {
-        self.currentWrap = self.section.wrap;
-    }
+- (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap notifyChatButtonClicked:(id)sender {
+    self.chatSegueWrap = wrap;
 }
 
 #pragma mark - WLEntryNotifyReceiver

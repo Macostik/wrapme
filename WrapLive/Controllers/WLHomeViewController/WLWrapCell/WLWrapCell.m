@@ -78,4 +78,9 @@
     self.chatButton.hidden = [wrap unreadNotificationsMessageCount] == 0;
 }
 
+- (IBAction)notifyChatClick:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(wrapCell:forWrap:notifyChatButtonClicked:)])
+        [self.delegate wrapCell:self forWrap:self.entry notifyChatButtonClicked:sender];
+}
+
 @end

@@ -8,20 +8,14 @@
 
 struct WLConstantsStruct {
     CGFloat pixelSize;
-};
-
-struct WLIsIphoneConstantsStruct {
     BOOL iPhone;
 };
 
 struct WLConstantsStruct WLConstants;
-struct WLIsIphoneConstantsStruct WLiSiPhoneConstants;
 
 static inline void WLInitializeConstants (void) {
     WLConstants = (struct WLConstantsStruct) {
-        .pixelSize = 1.0f / [UIScreen mainScreen].scale
-    };
-    WLiSiPhoneConstants = (struct WLIsIphoneConstantsStruct) {
+        .pixelSize = 1.0f / [UIScreen mainScreen].scale,
         .iPhone = [[UIScreen mainScreen] bounds].size.width < 768.0
     };
 }

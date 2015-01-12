@@ -55,6 +55,11 @@
     [self.wrapCoverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
     self.cameraNavigationController = [self.childViewControllers lastObject];
     self.cameraNavigationController.delegate = self;
+    
+    if ([self.delegate respondsToSelector:@selector(stillPictureViewControllerMode:)]) {
+        self.mode = [self.delegate stillPictureViewControllerMode:self];
+    }
+    
     WLCameraViewController* cameraViewController = [self.cameraNavigationController.viewControllers lastObject];
     cameraViewController.delegate = self;
     cameraViewController.defaultPosition = self.defaultPosition;

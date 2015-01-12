@@ -135,6 +135,10 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (WLStillPictureMode)stillPictureViewControllerMode:(WLStillPictureViewController *)controller {
+    return WLStillPictureModeSquare;
+}
+
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {

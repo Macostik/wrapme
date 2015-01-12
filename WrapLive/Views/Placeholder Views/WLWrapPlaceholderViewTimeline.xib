@@ -23,7 +23,7 @@
                         <constraint firstAttribute="width" constant="158" id="Qob-FK-qeK"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No upload today" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93F-EJ-OT1" customClass="WLLabel">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No upload today" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="261" translatesAutoresizingMaskIntoConstraints="NO" id="93F-EJ-OT1" customClass="WLLabel">
                     <rect key="frame" x="30" y="346" width="261" height="66"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="66" id="Nh7-J3-Q4R"/>

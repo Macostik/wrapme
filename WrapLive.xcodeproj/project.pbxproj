@@ -1186,6 +1186,10 @@
 		C56091391A110C9500C48887 /* WLDevice+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091371A110C9500C48887 /* WLDevice+Extended.m */; };
 		C560913A1A110C9500C48887 /* WLDevice+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091371A110C9500C48887 /* WLDevice+Extended.m */; };
 		C560913B1A110C9500C48887 /* WLDevice+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C56091371A110C9500C48887 /* WLDevice+Extended.m */; };
+		C56A760E1A640F1900D1FBED /* WLStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = C56A760D1A640F1900D1FBED /* WLStoryboardTransition.m */; };
+		C56A760F1A640F1900D1FBED /* WLStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = C56A760D1A640F1900D1FBED /* WLStoryboardTransition.m */; };
+		C56A76101A640F1900D1FBED /* WLStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = C56A760D1A640F1900D1FBED /* WLStoryboardTransition.m */; };
+		C56A76111A640F1900D1FBED /* WLStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = C56A760D1A640F1900D1FBED /* WLStoryboardTransition.m */; };
 		C57005A21A1F9642007257A6 /* WLSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C57005A11A1F9642007257A6 /* WLSettingsViewController.m */; };
 		C57005A31A1F9642007257A6 /* WLSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C57005A11A1F9642007257A6 /* WLSettingsViewController.m */; };
 		C57005A41A1F9642007257A6 /* WLSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C57005A11A1F9642007257A6 /* WLSettingsViewController.m */; };
@@ -1963,6 +1967,8 @@
 		C56091371A110C9500C48887 /* WLDevice+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLDevice+Extended.m"; sourceTree = "<group>"; };
 		C560913C1A110F4200C48887 /* CoreData 1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1.1.xcdatamodel"; sourceTree = "<group>"; };
 		C566D2911A5C30540081374B /* WLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLConstants.h; sourceTree = "<group>"; };
+		C56A760C1A640F1900D1FBED /* WLStoryboardTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStoryboardTransition.h; path = WLStoryboardSegue/WLStoryboardTransition.h; sourceTree = "<group>"; };
+		C56A760D1A640F1900D1FBED /* WLStoryboardTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLStoryboardTransition.m; path = WLStoryboardSegue/WLStoryboardTransition.m; sourceTree = "<group>"; };
 		C56D3AD519F7C21700D85027 /* SupportHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportHeaders.h; sourceTree = "<group>"; };
 		C57005A01A1F9642007257A6 /* WLSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSettingsViewController.h; path = WLSettingsViewController/WLSettingsViewController.h; sourceTree = "<group>"; };
 		C57005A11A1F9642007257A6 /* WLSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSettingsViewController.m; path = WLSettingsViewController/WLSettingsViewController.m; sourceTree = "<group>"; };
@@ -3940,6 +3946,8 @@
 			children = (
 				C57BDDB519FA5ED3003593F1 /* WLStoryboardSegue.h */,
 				C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */,
+				C56A760C1A640F1900D1FBED /* WLStoryboardTransition.h */,
+				C56A760D1A640F1900D1FBED /* WLStoryboardTransition.m */,
 			);
 			name = WLStoryboardSegue;
 			sourceTree = "<group>";
@@ -5215,6 +5223,7 @@
 				C519104A1A078248003C78B2 /* WLComment+Extended.m in Sources */,
 				5BA9DCE41A360771003ED90C /* WLRemoteObjectHandler.m in Sources */,
 				12D4D3E1191938D60025CC18 /* UIActionSheet+Blocks.m in Sources */,
+				C56A760E1A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
 				C5C20BD11A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
 				12D578CA1917ACE200586995 /* NSDate+Additions.m in Sources */,
@@ -5493,6 +5502,7 @@
 				C519104B1A078248003C78B2 /* WLComment+Extended.m in Sources */,
 				5BA9DCE51A360771003ED90C /* WLRemoteObjectHandler.m in Sources */,
 				C54AF4F119B8C437006F7EDB /* UIActionSheet+Blocks.m in Sources */,
+				C56A760F1A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
 				C5C20BD21A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C54AF4F219B8C437006F7EDB /* WLAddressBook.m in Sources */,
 				C54AF4F319B8C437006F7EDB /* NSDate+Additions.m in Sources */,
@@ -5739,6 +5749,7 @@
 				C519104C1A078248003C78B2 /* WLComment+Extended.m in Sources */,
 				5BA9DCE61A360771003ED90C /* WLRemoteObjectHandler.m in Sources */,
 				C54AF5EE19B8C467006F7EDB /* UIActionSheet+Blocks.m in Sources */,
+				C56A76101A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
 				C5C20BD31A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C54AF5EF19B8C467006F7EDB /* WLAddressBook.m in Sources */,
 				C54AF5F019B8C467006F7EDB /* NSDate+Additions.m in Sources */,
@@ -5985,6 +5996,7 @@
 				C519104D1A078248003C78B2 /* WLComment+Extended.m in Sources */,
 				5BA9DCE71A360771003ED90C /* WLRemoteObjectHandler.m in Sources */,
 				C54AF6EB19B8C491006F7EDB /* UIActionSheet+Blocks.m in Sources */,
+				C56A76111A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
 				C5C20BD41A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C54AF6EC19B8C491006F7EDB /* WLAddressBook.m in Sources */,
 				C54AF6ED19B8C491006F7EDB /* NSDate+Additions.m in Sources */,

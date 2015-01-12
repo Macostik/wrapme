@@ -89,6 +89,7 @@ static inline NSCalendar* NSCurrentCalendar() {
 }
 
 - (BOOL)isSameDay:(NSDate *)date {
+    if (ABS([self timeIntervalSinceDate:date]) > WLTimeIntervalDay) return NO;
     if (SystemVersionGreaterThanOrEqualTo8()) {
         NSCalendar *calendar = NSCurrentCalendar();
         if ([calendar component:NSDayCalendarUnit fromDate:self] != [calendar component:NSDayCalendarUnit fromDate:date]) return NO;

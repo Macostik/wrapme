@@ -4,6 +4,11 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -11,25 +16,40 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" image="no_upload_wrap_today" translatesAutoresizingMaskIntoConstraints="NO" id="9qV-ji-O1z">
-                    <rect key="frame" x="39" y="150" width="242" height="276"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="no_photo_placeholder_big_gray_light" translatesAutoresizingMaskIntoConstraints="NO" id="8mq-39-xMk">
+                    <rect key="frame" x="81" y="167" width="158" height="167"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="242" id="GA7-Eo-LAB"/>
-                        <constraint firstAttribute="height" constant="276" id="fe5-2H-ZKh"/>
+                        <constraint firstAttribute="height" constant="167" id="3NK-hp-jsQ"/>
+                        <constraint firstAttribute="width" constant="158" id="Qob-FK-qeK"/>
                     </constraints>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No upload today" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93F-EJ-OT1" customClass="WLLabel">
+                    <rect key="frame" x="30" y="346" width="261" height="66"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="66" id="Nh7-J3-Q4R"/>
+                        <constraint firstAttribute="width" constant="261" id="b8G-tv-Hru"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="21"/>
+                    <color key="textColor" red="0.39101129769999998" green="0.39099958540000002" blue="0.39100623130000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="larger"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="9qV-ji-O1z" secondAttribute="centerX" id="8Qg-DR-Hdd"/>
-                <constraint firstAttribute="centerY" secondItem="9qV-ji-O1z" secondAttribute="centerY" constant="-4" id="e3E-aU-XDq"/>
+                <constraint firstAttribute="centerX" secondItem="93F-EJ-OT1" secondAttribute="centerX" constant="-0.5" id="0EO-OL-wOl"/>
+                <constraint firstAttribute="centerY" secondItem="93F-EJ-OT1" secondAttribute="centerY" constant="-95" id="OLg-nK-1pD"/>
+                <constraint firstAttribute="centerX" secondItem="8mq-39-xMk" secondAttribute="centerX" id="UeB-94-0CB"/>
+                <constraint firstAttribute="centerY" secondItem="8mq-39-xMk" secondAttribute="centerY" constant="33.5" id="rya-xS-FQu"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="377" y="439"/>
         </view>
     </objects>
     <resources>
-        <image name="no_upload_wrap_today" width="193" height="235"/>
+        <image name="no_photo_placeholder_big_gray_light" width="151" height="160"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

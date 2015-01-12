@@ -827,6 +827,7 @@
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y7O-GH-Q4Y" customClass="WLCollectionView">
                                 <rect key="frame" x="0.0" y="172" width="320" height="396"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="94"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="cRR-9g-HQh">
                                     <size key="itemSize" width="320" height="112"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1384,9 +1385,30 @@
                                     <constraint firstItem="2L6-nO-etl" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="top" constant="20" id="xKK-LE-RG9"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eam-qO-REB">
+                                <rect key="frame" x="118" y="480" width="84" height="84"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="OAp-oR-yaY"/>
+                                    <constraint firstAttribute="width" constant="84" id="qVT-Iz-4au"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="61"/>
+                                <state key="normal" backgroundImage="btn_wrap_camera_enabled">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
+                                <connections>
+                                    <segue destination="awg-6C-4hv" kind="custom" customClass="WLSwitchStoryboardSegue" id="yka-eh-5i8">
+                                        <string key="identifier">{"keypaths":[{"source":"self","destination":"delegate"},{"source":"section.wrap","destination":"wrap"}],"transition":"modal","storyboard":"Camera","attributes":{"mode":0}}</string>
+                                    </segue>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="eam-qO-REB" secondAttribute="centerX" id="3hQ-KI-JoY"/>
+                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="eam-qO-REB" secondAttribute="bottom" constant="4" id="EPw-hT-f3u"/>
                             <constraint firstItem="Qcq-LH-ZNY" firstAttribute="bottom" secondItem="9Rl-cW-5hv" secondAttribute="bottom" constant="108" id="ZK0-p3-ckA"/>
                             <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="y7O-GH-Q4Y" secondAttribute="bottom" id="ZdV-Xu-BQB"/>
                             <constraint firstAttribute="trailing" secondItem="9Rl-cW-5hv" secondAttribute="trailing" id="a0D-I9-wse"/>
@@ -1417,6 +1439,7 @@
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="hWo-I8-leU"/>
                         <outletCollection property="sections" destination="fHn-3G-fGW" collectionClass="NSMutableArray" id="c3o-N5-KR2"/>
+                        <outletCollection property="animatableConstraints" destination="EPw-hT-f3u" id="wW1-xl-i4Z"/>
                     </connections>
                 </customObject>
                 <customObject id="fHn-3G-fGW" customClass="WLHomeViewSection">

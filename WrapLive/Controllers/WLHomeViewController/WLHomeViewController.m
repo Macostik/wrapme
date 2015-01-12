@@ -73,6 +73,9 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
+    
     [self setPlaceholderNib:[UINib nibWithNibName:@"WLHomePlaceholderView" bundle:nil] forType:0];
 	[[WLUser notifier] addReceiver:self];
 	[[WLWrap notifier] addReceiver:self];

@@ -12,7 +12,7 @@ static NSString* WLCommentsCellIdentifier = @"WLCommentsCell";
 
 @interface WLCommentsCell : WLEntryCell
 
-@property (weak, nonatomic, readonly) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic, readonly) UILabel *nameLabel;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 

@@ -146,7 +146,6 @@ static WLDataBlock deviceTokenCompletion = nil;
             BOOL insertedEntry = notification.targetEntry.inserted;
             [notification fetch:^{
                 if (notification.playSound && insertedEntry) [WLSoundPlayer playSoundForNotification:notification];
-                [weakSelf broadcastNotification:notification];
             } failure:nil];
             weakSelf.historyDate = [[message.receiveDate date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
         }];
@@ -187,7 +186,14 @@ static WLDataBlock deviceTokenCompletion = nil;
             break;
         case UIApplicationStateInactive: {
             WLNotification* notification = [WLNotification notificationWithData:data];
-            [notification handleRemoteObject];
+            if (notification) {
+                [notification fetch:^{
+                    [notification handleRemoteObject];
+                    if (success) success();
+                } failure:failure];
+            } else if (failure)  {
+                failure([NSError errorWithDescription:@"Data in remote notification is not valid (inactive)."]);
+            }
         } break;
         case UIApplicationStateBackground: {
             WLNotification* notification = [WLNotification notificationWithData:data];
@@ -200,24 +206,6 @@ static WLDataBlock deviceTokenCompletion = nil;
         default:
             break;
     }
-}
-
-- (void)addReceiver:(id)receiver {
-	[super addReceiver:receiver];
-	if (self.pendingRemoteNotification.targetEntry.fetched && [receiver respondsToSelector:@selector(broadcaster:didReceiveRemoteNotification:)]) {
-		[receiver broadcaster:self didReceiveRemoteNotification:self.pendingRemoteNotification];
-	}
-}
-
-- (void)broadcastNotification:(WLNotification*)notification {
-    __weak typeof(self)weakSelf = self;
-    WLBroadcastSelectReceiver selectBlock = ^BOOL(NSObject<WLNotificationReceiver> *receiver, id object) {
-        if ([receiver respondsToSelector:@selector(broadcaster:shouldReceiveNotification:)]) {
-            return [receiver broadcaster:weakSelf shouldReceiveNotification:notification];
-        }
-        return YES;
-    };
-    [self broadcast:@selector(broadcaster:notificationReceived:) object:notification select:selectBlock];
 }
 
 #pragma mark - PNDelegate

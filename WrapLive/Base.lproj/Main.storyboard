@@ -3921,8 +3921,8 @@ Check your internet connection and try again.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="dZm-Zs-mzm"/>
         <segue reference="USb-FQ-HhL"/>
-        <segue reference="tUX-Tk-kxb"/>
+        <segue reference="WjR-f7-d7j"/>
+        <segue reference="OUd-KJ-euJ"/>
     </inferredMetricsTieBreakers>
 </document>

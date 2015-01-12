@@ -62,8 +62,6 @@ typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
 static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 static NSString* WLWrapPlaceholderViewTimeline = @"WLWrapPlaceholderViewTimeline";
 static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
-static CGFloat const WLIndent = 12.0f;
-static CGFloat const WLAddFriendButtonWidth = 54.0f;
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
@@ -133,10 +131,8 @@ static CGFloat const WLAddFriendButtonWidth = 54.0f;
 - (void)updateWrapData {
     [self.nameLabel setTitle:WLString(self.wrap.name) forState:UIControlStateNormal];
     self.contributorsLabel.text = [self.wrap contributorNames];
-    CGFloat height = [self.contributorsLabel.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight
-                                                                                        preset:WLFontPresetSmall]
-                                                           width:self.view.width - WLAddFriendButtonWidth - WLIndent * 2];
-    self.heightViewConstraint.constant = height + WLIndent * 2;
+    CGFloat height = [self.contributorsLabel.text heightWithFont:self.contributorsLabel.font width:self.contributorsLabel.width];
+    self.heightViewConstraint.constant = height + self.contributorsLabel.y * 2;
     [self.contributorsLabel.superview layoutIfNeeded];
     UIEdgeInsets inset = self.collectionView.contentInset;
     inset.top = self.contributorsLabel.superview.height + self.nameLabel.superview.height;

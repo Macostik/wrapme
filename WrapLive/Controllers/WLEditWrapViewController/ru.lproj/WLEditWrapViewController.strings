@@ -1,18 +1,18 @@
 
 /* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "eah-bZ-u4F"; */
-"eah-bZ-u4F.normalTitle" = "Отмена";
+"eah-bZ-u4F.normalTitle" = "Cancel";
 
 /* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "k07-Vf-o0j"; */
-"k07-Vf-o0j.normalTitle" = "Отмена";
+"k07-Vf-o0j.normalTitle" = "Cancel";
 
 /* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "lCC-nK-uve"; */
-"lCC-nK-uve.normalTitle" = "Готово";
+"lCC-nK-uve.normalTitle" = "Done";
 
 /* Class = "IBUIButton"; normalTitle = "Delete"; ObjectID = "neT-2w-zmC"; */
-"neT-2w-zmC.normalTitle" = "Удалить";
+"neT-2w-zmC.normalTitle" = "Delete";
 
 /* Class = "IBUITextField"; placeholder = "Name"; ObjectID = "pOO-IU-EKK"; */
-"pOO-IU-EKK.placeholder" = "Имя";
+"pOO-IU-EKK.placeholder" = "Name";
 
 /* Class = "IBUILabel"; text = "Settings"; ObjectID = "sH2-x6-ACT"; */
-"sH2-x6-ACT.text" = "Настройки";
+"sH2-x6-ACT.text" = "Settings";

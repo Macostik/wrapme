@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="no_photo_placeholder_big_999" translatesAutoresizingMaskIntoConstraints="NO" id="OOF-BY-Q18">
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="no_photo_placeholder_big_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="OOF-BY-Q18">
                     <rect key="frame" x="81" y="168" width="158" height="167"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="167" id="9Hu-p1-dxp"/>
@@ -30,7 +30,7 @@
                         <constraint firstAttribute="width" constant="261" id="Ygh-xd-eHP"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="21"/>
-                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="larger"/>
@@ -49,7 +49,7 @@
         </view>
     </objects>
     <resources>
-        <image name="no_photo_placeholder_big_999" width="151" height="160"/>
+        <image name="no_photo_placeholder_big_gray_lighter" width="151" height="160"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

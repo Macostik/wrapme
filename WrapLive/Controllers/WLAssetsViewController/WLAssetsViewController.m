@@ -212,7 +212,13 @@ static NSUInteger WLAssetNumberOfColumns = 4;
 
 - (void)assetCell:(WLAssetCell *)cell didSelectAsset:(ALAsset *)asset {
     [self selectAsset:asset];
-    [self.collectionView reloadItemsAtIndexPaths:@[[self.collectionView indexPathForCell:cell]]];
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    if (indexPath) {
+        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    } else {
+        [self.collectionView reloadData];
+    }
+    
 }
 
 @end

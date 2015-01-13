@@ -44,16 +44,13 @@
 
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver>
 
-@property (weak, nonatomic) IBOutlet UIButton *reportButton;
-@property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
-@property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 @property (nonatomic) BOOL shouldLoadMoreCandies;
 @property (nonatomic) BOOL scrolledToInitialItem;
-@property (strong, nonatomic) WLToast* dateChangeToast;
 
 @property (readonly, nonatomic) WLCommentsCell* candyCell;
 
@@ -192,38 +189,25 @@
     if ([self.history.entries containsIndex:index]) {
         WLHistoryItem* historyItem = [self.history.entries objectAtIndex:index];
         self.historyItem = historyItem;
-        [self onDateChanged];
+        [self showDateView];
         return YES;
     }
     return NO;
 }
 
-- (WLToast *)dateChangeToast {
-    if (!_dateChangeToast) {
-        _dateChangeToast = [[WLToast alloc] init];
-    }
-    return _dateChangeToast;
+- (void)showDateView {
+    self.dateLabel.text = [self.historyItem.date string];
+    [UIView beginAnimations:nil context:nil];
+    self.dateLabel.superview.alpha = 1.0f;
+    [UIView commitAnimations];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideDateView) object:nil];
+    [self performSelector:@selector(hideDateView) withObject:nil afterDelay:3];
 }
 
-- (void)onDateChanged {
-    WLToastAppearance* appearance = [WLToastAppearance appearance];
-    appearance.shouldShowIcon = NO;
-    appearance.height = 44;
-    appearance.contentMode = UIViewContentModeCenter;
-    appearance.backgroundColor = [UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:0.75];
-	appearance.endY = 64;
-    appearance.startY = 64;
-    [self.dateChangeToast showWithMessage:[self.historyItem.date string] appearance:appearance inView:self.view];
-    __weak typeof(self)weakSelf = self;
-    self.rightArrow.hidden = NO;
-    [UIView animateWithDuration:0.25f delay:1.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        weakSelf.rightArrow.alpha = 0.0f;
-        weakSelf.rightArrow.transform = CGAffineTransformMakeTranslation(44, 0);
-    } completion:^(BOOL finished) {
-        weakSelf.rightArrow.hidden = YES;
-        weakSelf.rightArrow.alpha = 1.0f;
-        weakSelf.rightArrow.transform = CGAffineTransformIdentity;
-    }];
+- (void)hideDateView {
+    [UIView beginAnimations:nil context:nil];
+    self.dateLabel.superview.alpha = 0.0f;
+    [UIView commitAnimations];
 }
 
 #pragma mark - UIGestureRecognizerDelegate

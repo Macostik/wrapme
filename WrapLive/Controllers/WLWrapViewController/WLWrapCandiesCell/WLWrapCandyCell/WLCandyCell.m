@@ -29,6 +29,8 @@
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentLabelHeightConstraint;
+
 
 @end
 
@@ -70,6 +72,19 @@
             }];
         }];
     }
+    if (!WLConstants.iPhone) {
+        NSLayoutConstraint *oldConstraint = self.commentLabelHeightConstraint;
+        [self.contentView removeConstraint:oldConstraint];
+        NSLayoutConstraint *heightConstraint =  [NSLayoutConstraint constraintWithItem:oldConstraint.firstItem
+                                                                             attribute:oldConstraint.firstAttribute
+                                                                             relatedBy:oldConstraint.relation
+                                                                                toItem:oldConstraint.secondItem
+                                                                             attribute:oldConstraint.secondAttribute
+                                                                            multiplier:.25
+                                                                              constant:oldConstraint.constant];
+        [self.contentView addConstraint:heightConstraint];
+        self.commentLabelHeightConstraint = nil;
+    }
 }
 
 - (void)setup:(WLCandy*)candy {
@@ -77,7 +92,7 @@
     if (self.commentLabel) {
         WLComment* comment = [candy.comments lastObject];
         self.commentLabel.text = comment.text;
-        self.commentLabel.hidden = !self.commentLabel.text.nonempty;
+        self.commentLabel.superview.hidden = !self.commentLabel.text.nonempty;
     }
 	self.coverView.animatingPicture = candy.picture;
     self.coverView.url = candy.picture.small;

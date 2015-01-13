@@ -55,7 +55,7 @@ BOOL isPresentHomeViewController;
 static NSString *const WLTimeLineKey = @"WLTimeLineKey";
 static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLPickerViewDelegate>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
@@ -65,12 +65,17 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
 
+@property (strong, nonatomic) WLWrap* chatSegueWrap;
+
 @end
 
 @implementation WLHomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
+    
     [self setPlaceholderNib:[UINib nibWithNibName:@"WLHomePlaceholderView" bundle:nil] forType:0];
 	[[WLUser notifier] addReceiver:self];
 	[[WLWrap notifier] addReceiver:self];
@@ -104,7 +109,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
                 if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
             }];
         }
-        
         [entry present];
     }];
     
@@ -159,10 +163,19 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
         stillPictureViewController.mode = WLStillPictureModeDefault;
         stillPictureViewController.delegate = self;
         stillPictureViewController.startFromGallery = YES;
-        [self presentViewController:stillPictureViewController animated:YES completion:nil];
+        __weak typeof(self)weakSelf = self;
+        [self presentViewController:stillPictureViewController animated:NO completion:^{
+            [weakSelf stillPictureViewController:stillPictureViewController didSelectWrap:wrap];
+        }];
     } else {
         [self createWrap:nil];
     }
+}
+
+#pragma mark - WLWrapCellDelegate 
+
+- (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap notifyChatButtonClicked:(id)sender {
+    self.chatSegueWrap = wrap;
 }
 
 #pragma mark - WLEntryNotifyReceiver

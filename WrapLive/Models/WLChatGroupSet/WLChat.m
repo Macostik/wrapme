@@ -40,8 +40,12 @@
 - (void)setWrap:(WLWrap *)wrap {
     _wrap = wrap;
     [self resetEntries:wrap.messages];
-    self.typingChannel = [WLChatTypingChannel channelWithWrap:wrap];
-    self.typingChannel.delegate = self;
+    if (wrap) {
+        self.typingChannel = [WLChatTypingChannel channelWithWrap:wrap];
+        self.typingChannel.delegate = self;
+    } else {
+        self.typingChannel = nil;
+    }
 }
 
 - (void)addTypingUser:(WLUser *)user {

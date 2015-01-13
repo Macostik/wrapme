@@ -55,6 +55,11 @@
     [self.wrapCoverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
     self.cameraNavigationController = [self.childViewControllers lastObject];
     self.cameraNavigationController.delegate = self;
+    
+    if ([self.delegate respondsToSelector:@selector(stillPictureViewControllerMode:)]) {
+        self.mode = [self.delegate stillPictureViewControllerMode:self];
+    }
+    
     WLCameraViewController* cameraViewController = [self.cameraNavigationController.viewControllers lastObject];
     cameraViewController.delegate = self;
     cameraViewController.defaultPosition = self.defaultPosition;
@@ -147,6 +152,8 @@
         [AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
         [AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
 		[AFPhotoEditorCustomization setLeftNavigationBarButtonTitle:@"Cancel"];
+        [AFPhotoEditorCustomization setToolOrder:@[kAFEnhance, kAFEffects, kAFFrames, kAFStickers, kAFFocus,
+                                                   kAFOrientation, kAFCrop, kAFDraw, kAFText, kAFBlemish, kAFMeme]];
 	});
     if (self.mode == WLStillPictureModeDefault) {
         [AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Send"];

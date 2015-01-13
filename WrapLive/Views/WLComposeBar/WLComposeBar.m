@@ -19,10 +19,10 @@
 #import "WLEmoji.h"
 #import "UIView+AnimationHelper.h"
 #import "GeometryHelper.h"
+#import "UIFont+CustomFonts.h"
 
-static NSUInteger WLComposeBarDefaultCharactersLimit = 360;
-static NSUInteger WLComposeBarMaxHeight = 100;
-static NSUInteger WLComposeBarMinHeight = 44;
+static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
+static CGFloat WLComposeBarMinHeight = 44.0f;
 
 @interface WLComposeBar () <UITextViewDelegate, UICollectionViewDelegate>
 
@@ -33,6 +33,7 @@ static NSUInteger WLComposeBarMinHeight = 44;
 @property (strong, nonatomic) WLEmojiView * emojiView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *horizontalSpaceDoneButtonContstraint;
 
 @end
 
@@ -44,9 +45,12 @@ static NSUInteger WLComposeBarMinHeight = 44;
 	self.composeView.frame = self.bounds;
 	self.defaultHeight = self.bounds.size.height;
     [self addSubview:self.composeView];
-	self.textView.superview.layer.borderColor = [UIColor colorWithHexString:@"#EEEEEE"].CGColor;
+    UIColor *color = [UIColor colorWithHexString:@"#EEEEEE"];
+	self.textView.superview.layer.borderColor = color.CGColor;
+    CGFloat r,g,b;
+    [color getRed:&r green:&g blue:&b alpha:NULL];
     self.textView.superview.layer.borderWidth = WLConstants.pixelSize;
-	self.textView.textContainerInset = UIEdgeInsetsMake(5, 0, 0, 0);
+	self.textView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.textView.contentInset = UIEdgeInsetsZero;
 	[self updateStateAnimated:NO];
 }
@@ -55,23 +59,18 @@ static NSUInteger WLComposeBarMinHeight = 44;
     CGFloat height = WLComposeBarMinHeight;
     UITextView* textView = self.textView;
     if (textView.text.nonempty) {
-        height = textView.contentSize.height + textView.superview.y*2;
-        height = Smoothstep(WLComposeBarMinHeight, WLComposeBarMaxHeight, height);
-    }
-    if (ABS(height - self.height) > 5) {
-        self.height = height;
-        if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
-            [self.delegate composeBarDidChangeHeight:self];
+        height = [textView sizeThatFits:CGSizeMake(textView.width, CGFLOAT_MAX)].height;
+        self.height =  Smoothstep(textView.font.lineHeight, textView.font.lineHeight * 2, height) + textView.superview.y*2 + textView.y*2;
+        if (textView.selectedRange.location == textView.text.length) {
+            CGPoint bottomOffset = CGPointMake(0, textView.contentSize.height - textView.height);
+            [textView setContentOffset:bottomOffset animated:YES];
         }
+    } else {
+        self.height = height;
     }
-//    CGFloat height = [self.textView sizeThatFits:CGSizeMake(self.textView.width, CGFLOAT_MAX)].height;
-//    height = Smoothstep(WLComposeBarMinHeight, WLComposeBarMaxHeight, height);
-//    if (ABS(height - self.height) > 5) {
-//        self.height = height;
-//        if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
-//            [self.delegate composeBarDidChangeHeight:self];
-//        }
-//    }
+    if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
+        [self.delegate composeBarDidChangeHeight:self];
+    }
 }
 
 - (void)setHeight:(CGFloat)height {
@@ -128,15 +127,12 @@ static NSUInteger WLComposeBarMinHeight = 44;
 }
 
 - (void)setDoneButtonHidden:(BOOL)hidden animated:(BOOL)animated {
-	CGFloat x = hidden ? self.width : (self.width - self.doneButton.width);
-	if (x != self.doneButton.x) {
-		_doneButtonHidden = hidden;
-		CGFloat width = (x - self.textView.superview.x - (hidden ? 10 : 0));
-        [UIView performAnimated:animated animation:^{
-            self.doneButton.x = x;
-            self.textView.superview.width = width;
-        }];
-	}
+    self.doneButton.userInteractionEnabled = !hidden;
+    self.doneButton.hidden = hidden;
+    [UIView performAnimated:animated animation:^{
+        self.horizontalSpaceDoneButtonContstraint.constant = hidden ? -self.doneButton.width : 0;
+        [self.textView.superview layoutIfNeeded];
+    }];
 }
 
 - (WLEmojiView *)emojiView {

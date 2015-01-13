@@ -17,6 +17,14 @@ static NSUInteger WLCandyCellHight = 212;
 @class WLWrap;
 @class SegmentedControl;
 
+@protocol WLWrapCellDelegate <NSObject>
+
+- (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap notifyChatButtonClicked:(id)sender;
+
+@end
+
 @interface WLWrapCell : WLEntryCell
+
+@property (strong, nonatomic) IBOutlet id <WLWrapCellDelegate> delegate;
 
 @end

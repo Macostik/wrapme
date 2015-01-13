@@ -62,7 +62,6 @@ typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
 static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 static NSString* WLWrapPlaceholderViewTimeline = @"WLWrapPlaceholderViewTimeline";
 static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
-static CGFloat const WLIndent = 12.0f;
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
@@ -132,17 +131,12 @@ static CGFloat const WLIndent = 12.0f;
 - (void)updateWrapData {
     [self.nameLabel setTitle:WLString(self.wrap.name) forState:UIControlStateNormal];
     self.contributorsLabel.text = [self.wrap contributorNames];
-    CGFloat height = [self.contributorsLabel.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight
-                                                                                        preset:WLFontPresetSmall]
-                                                           width:self.view.width - WLIndent * 2];
-    if (height > self.contributorsLabel.height) {
-        CGFloat defaultHeight = self.contributorsLabel.height;
-        self.heightViewConstraint.constant = height + WLIndent * 2;
-        [self.contributorsLabel.superview layoutIfNeeded];
-        UIEdgeInsets inset = self.collectionView.contentInset;
-        inset.top = self.collectionView.contentInset.top + (height - defaultHeight);
-        self.collectionView.contentInset = inset;
-    }
+    CGFloat height = [self.contributorsLabel.text heightWithFont:self.contributorsLabel.font width:self.contributorsLabel.width];
+    self.heightViewConstraint.constant = height + self.contributorsLabel.y * 2;
+    [self.contributorsLabel.superview layoutIfNeeded];
+    UIEdgeInsets inset = self.collectionView.contentInset;
+    inset.top = self.contributorsLabel.superview.height + self.nameLabel.superview.height;
+    self.collectionView.contentInset = inset;
 }
 
 - (void)firstLoadRequest {

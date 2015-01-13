@@ -145,7 +145,7 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    if ([notification.userInfo[@"type"] isEqualToString:@"new_photos"]) {
+    if ([notification.userInfo[@"type"] isEqualToString:@"new_photos"] && application.applicationState != UIApplicationStateActive) {
         UINavigationController *navigationController = [UINavigationController mainNavigationController];
         WLHomeViewController *homeViewController = [navigationController.viewControllers firstObject];
         if ([homeViewController isKindOfClass:[WLHomeViewController class]]) {

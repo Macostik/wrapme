@@ -19,18 +19,22 @@
         return;
     }
     __weak WLImageCache *imageCache = [WLImageCache cache];
-	[imageCache setImage:image completion:^(NSString *identifier) {
-		WLPicture* picture = [[self alloc] init];
-        picture.animate = YES;
-		picture.large = [imageCache pathWithIdentifier:identifier];
-		[imageCache setImage:[image thumbnailImage:320] completion:^(NSString *identifier) {
-			picture.medium = [imageCache pathWithIdentifier:identifier];
-			[imageCache setImage:[image thumbnailImage:160] completion:^(NSString *identifier) {
-				picture.small = [imageCache pathWithIdentifier:identifier];
-                completion(picture);
-			}];
-		}];
-	}];
+    run_in_background_queue(^{
+        __block NSData *metadataImage = UIImageJPEGRepresentation(image, .5f);
+        [imageCache setImageData:metadataImage completion:^(NSString *path) {
+            WLPicture* picture = [[self alloc] init];
+            picture.large = [imageCache pathWithIdentifier:path];
+            metadataImage =  UIImageJPEGRepresentation([image thumbnailImage:320.0f], 1.0f);
+            [imageCache setImageData:metadataImage completion:^(NSString *path) {
+                picture.medium = [imageCache pathWithIdentifier:path];
+                metadataImage = UIImageJPEGRepresentation([image thumbnailImage:160.0f], 1.0f);
+                [imageCache setImageData:metadataImage completion:^(NSString *path) {
+                    picture.small = [imageCache pathWithIdentifier:path];
+                    completion(picture);
+                }];
+            }];
+        }];
+    });
 }
 
 - (NSString *)anyUrl {

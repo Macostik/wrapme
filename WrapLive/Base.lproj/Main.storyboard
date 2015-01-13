@@ -434,7 +434,7 @@
                                     <action selector="about:" destination="zBt-TT-rM7" eventType="touchUpInside" id="8Xw-bI-pkr"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_middle_candy" translatesAutoresizingMaskIntoConstraints="NO" id="1jO-TY-W2q">
+                            <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sign_up_candy_small" translatesAutoresizingMaskIntoConstraints="NO" id="1jO-TY-W2q">
                                 <rect key="frame" x="15" y="108" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="FEK-mU-h9s"/>
@@ -4027,7 +4027,6 @@ Check your internet connection and try again.</string>
         <image name="ic_delete" width="16" height="16"/>
         <image name="ic_history_enabled" width="34" height="31"/>
         <image name="ic_logo_wo_candy" width="72" height="20"/>
-        <image name="ic_middle_candy" width="30" height="30"/>
         <image name="ic_new_wrap_def" width="30" height="30"/>
         <image name="ic_not_checked" width="22" height="22"/>
         <image name="ic_notifications_enabled" width="30" height="30"/>
@@ -4036,6 +4035,7 @@ Check your internet connection and try again.</string>
         <image name="ic_search" width="16" height="16"/>
         <image name="ic_swipe_arrow_right" width="6" height="10"/>
         <image name="ic_today_enabled" width="32" height="32"/>
+        <image name="sign_up_candy_small" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

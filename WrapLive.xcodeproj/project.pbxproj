@@ -1146,6 +1146,14 @@
 		C558E7CB1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */; };
 		C558E7CC1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */; };
 		C558E7CD1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */; };
+		C558E7D11A65266D00CC5706 /* WLGradientDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D01A65266D00CC5706 /* WLGradientDrawer.m */; };
+		C558E7D21A65266D00CC5706 /* WLGradientDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D01A65266D00CC5706 /* WLGradientDrawer.m */; };
+		C558E7D31A65266D00CC5706 /* WLGradientDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D01A65266D00CC5706 /* WLGradientDrawer.m */; };
+		C558E7D41A65266D00CC5706 /* WLGradientDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D01A65266D00CC5706 /* WLGradientDrawer.m */; };
+		C558E7D71A652A8A00CC5706 /* WLGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D61A652A8A00CC5706 /* WLGradientView.m */; };
+		C558E7D81A652A8A00CC5706 /* WLGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D61A652A8A00CC5706 /* WLGradientView.m */; };
+		C558E7D91A652A8A00CC5706 /* WLGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D61A652A8A00CC5706 /* WLGradientView.m */; };
+		C558E7DA1A652A8A00CC5706 /* WLGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D61A652A8A00CC5706 /* WLGradientView.m */; };
 		C55997491A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C559974A1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C559974B1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
@@ -1945,6 +1953,10 @@
 		C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLProgressBar+WLContribution.m"; sourceTree = "<group>"; };
 		C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLHomePlaceholderView.xib; sourceTree = "<group>"; };
 		C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLWrapPlaceholderViewTimeline.xib; sourceTree = "<group>"; };
+		C558E7CF1A65266D00CC5706 /* WLGradientDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLGradientDrawer.h; sourceTree = "<group>"; };
+		C558E7D01A65266D00CC5706 /* WLGradientDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLGradientDrawer.m; sourceTree = "<group>"; };
+		C558E7D51A652A8A00CC5706 /* WLGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLGradientView.h; sourceTree = "<group>"; };
+		C558E7D61A652A8A00CC5706 /* WLGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLGradientView.m; sourceTree = "<group>"; };
 		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
 		C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailConfirmationViewController.m; sourceTree = "<group>"; };
 		C559974E1A262BD8003D4B29 /* WLTelephony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTelephony.h; sourceTree = "<group>"; };
@@ -2495,6 +2507,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C558E7CE1A65266300CC5706 /* WLGradientDrawer */,
 				C577C2601A4C426300ECC7E5 /* iVersion */,
 				5BA9DCE81A360795003ED90C /* WLRemoteObjectHandler */,
 				5B2F71A21A2E01950019FC57 /* WLCryptographer */,
@@ -3879,6 +3892,17 @@
 			path = WLNavigationAnimator;
 			sourceTree = "<group>";
 		};
+		C558E7CE1A65266300CC5706 /* WLGradientDrawer */ = {
+			isa = PBXGroup;
+			children = (
+				C558E7CF1A65266D00CC5706 /* WLGradientDrawer.h */,
+				C558E7D01A65266D00CC5706 /* WLGradientDrawer.m */,
+				C558E7D51A652A8A00CC5706 /* WLGradientView.h */,
+				C558E7D61A652A8A00CC5706 /* WLGradientView.m */,
+			);
+			path = WLGradientDrawer;
+			sourceTree = "<group>";
+		};
 		C55997461A25EA9A003D4B29 /* WLEmailConfirmationViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -5152,6 +5176,7 @@
 				C50AF40C19768ADE00761F38 /* WLAuthorizationRequest.m in Sources */,
 				C5149644197586E4009F0743 /* WLWrapsRequest.m in Sources */,
 				14B134E11952FEB2004F86AC /* WLInviteeCell.m in Sources */,
+				C558E7D11A65266D00CC5706 /* WLGradientDrawer.m in Sources */,
 				12E0F066190927B800463FEC /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C5C20B951A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C504178219B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
@@ -5241,6 +5266,7 @@
 				AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */,
 				12F3ED621934B1E6009C1DC3 /* ALAssetsLibrary+Additions.m in Sources */,
 				12F3ED5A1934B183009C1DC3 /* WLAssetsGroupCell.m in Sources */,
+				C558E7D71A652A8A00CC5706 /* WLGradientView.m in Sources */,
 				12E3DA6418E04CC400DBDB79 /* UIImage+Alpha.m in Sources */,
 				129654EF18E1A79500FF43F6 /* UIColor+CustomColors.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
@@ -5431,6 +5457,7 @@
 				C54AF4BB19B8C437006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF4BD19B8C437006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF4BE19B8C437006F7EDB /* WLInviteeCell.m in Sources */,
+				C558E7D21A65266D00CC5706 /* WLGradientDrawer.m in Sources */,
 				C54AF4BF19B8C437006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C5C20B961A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C504178319B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
@@ -5520,6 +5547,7 @@
 				C54AF4FD19B8C437006F7EDB /* WLCollectionViewFlowLayout.m in Sources */,
 				C54AF4FE19B8C437006F7EDB /* ALAssetsLibrary+Additions.m in Sources */,
 				C54AF50019B8C437006F7EDB /* WLAssetsGroupCell.m in Sources */,
+				C558E7D81A652A8A00CC5706 /* WLGradientView.m in Sources */,
 				C54AF50219B8C437006F7EDB /* UIImage+Alpha.m in Sources */,
 				C54AF50319B8C437006F7EDB /* UIColor+CustomColors.m in Sources */,
 				C54AF50519B8C437006F7EDB /* WLItemCell.m in Sources */,
@@ -5678,6 +5706,7 @@
 				C54AF5B819B8C467006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF5BA19B8C467006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF5BB19B8C467006F7EDB /* WLInviteeCell.m in Sources */,
+				C558E7D31A65266D00CC5706 /* WLGradientDrawer.m in Sources */,
 				C54AF5BC19B8C467006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C5C20B971A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C504178419B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
@@ -5767,6 +5796,7 @@
 				C54AF5FA19B8C467006F7EDB /* WLCollectionViewFlowLayout.m in Sources */,
 				C54AF5FB19B8C467006F7EDB /* ALAssetsLibrary+Additions.m in Sources */,
 				C54AF5FD19B8C467006F7EDB /* WLAssetsGroupCell.m in Sources */,
+				C558E7D91A652A8A00CC5706 /* WLGradientView.m in Sources */,
 				C54AF5FF19B8C467006F7EDB /* UIImage+Alpha.m in Sources */,
 				C54AF60019B8C467006F7EDB /* UIColor+CustomColors.m in Sources */,
 				C54AF60219B8C467006F7EDB /* WLItemCell.m in Sources */,
@@ -5925,6 +5955,7 @@
 				C54AF6B519B8C491006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF6B719B8C491006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF6B819B8C491006F7EDB /* WLInviteeCell.m in Sources */,
+				C558E7D41A65266D00CC5706 /* WLGradientDrawer.m in Sources */,
 				C54AF6B919B8C491006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C5C20B981A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
@@ -6014,6 +6045,7 @@
 				C54AF6F719B8C491006F7EDB /* WLCollectionViewFlowLayout.m in Sources */,
 				C54AF6F819B8C491006F7EDB /* ALAssetsLibrary+Additions.m in Sources */,
 				C54AF6FA19B8C491006F7EDB /* WLAssetsGroupCell.m in Sources */,
+				C558E7DA1A652A8A00CC5706 /* WLGradientView.m in Sources */,
 				C54AF6FC19B8C491006F7EDB /* UIImage+Alpha.m in Sources */,
 				C54AF6FD19B8C491006F7EDB /* UIColor+CustomColors.m in Sources */,
 				C54AF6FF19B8C491006F7EDB /* WLItemCell.m in Sources */,

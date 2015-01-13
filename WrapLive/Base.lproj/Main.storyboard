@@ -51,6 +51,7 @@
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
@@ -3154,6 +3155,29 @@
                                     <constraint firstItem="0rM-Ee-8of" firstAttribute="leading" secondItem="Wbg-W9-8Ie" secondAttribute="leading" id="rw6-ky-DHO"/>
                                 </constraints>
                             </view>
+                            <view alpha="0.0" contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="UZa-6k-iNP" customClass="WLGradientView">
+                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10, Jan, 2014" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAQ-Aj-DW4" customClass="WLLabel">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="d0s-1g-kaS"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5m-hD-Eet" customClass="WLComposeBar">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3165,24 +3189,18 @@
                                     <outlet property="heightConstraint" destination="9Fv-zW-20Z" id="CAN-k9-O15"/>
                                 </connections>
                             </view>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_swipe_arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="kR2-wp-una">
-                                <rect key="frame" x="298" y="212" width="16" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="16" id="42K-fg-Wte"/>
-                                    <constraint firstAttribute="height" constant="24" id="q4Z-Sh-xxi"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="0bz-V3-1nu"/>
-                            <constraint firstItem="kR2-wp-una" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="192" id="6Ae-I1-8ai"/>
+                            <constraint firstAttribute="trailing" secondItem="UZa-6k-iNP" secondAttribute="trailing" id="3xK-lh-kmq"/>
+                            <constraint firstItem="UZa-6k-iNP" firstAttribute="top" secondItem="Wbg-W9-8Ie" secondAttribute="bottom" id="5Fq-Bb-Itl"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="H5m-hD-Eet" secondAttribute="bottom" id="7Hc-du-E5Y"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="jyK-17-cAD" secondAttribute="bottom" id="NgB-RI-d7R"/>
+                            <constraint firstItem="UZa-6k-iNP" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="VjW-m8-4d3"/>
                             <constraint firstItem="jyK-17-cAD" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="bPW-BY-6Fp"/>
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="-20" id="eku-Sv-U5Q"/>
                             <constraint firstAttribute="trailing" secondItem="jyK-17-cAD" secondAttribute="trailing" id="h8k-it-8fu"/>
-                            <constraint firstAttribute="trailing" secondItem="kR2-wp-una" secondAttribute="trailing" constant="6" id="hI1-OZ-Il4"/>
                             <constraint firstItem="jyK-17-cAD" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="-20" id="hPI-OJ-Hy4"/>
                             <constraint firstAttribute="trailing" secondItem="H5m-hD-Eet" secondAttribute="trailing" id="to1-5H-Mhc"/>
                             <constraint firstAttribute="trailing" secondItem="Wbg-W9-8Ie" secondAttribute="trailing" id="vU4-de-bcZ"/>
@@ -3192,10 +3210,8 @@
                     <connections>
                         <outlet property="collectionView" destination="jyK-17-cAD" id="BfX-xF-M1l"/>
                         <outlet property="composeBarView" destination="H5m-hD-Eet" id="Fox-fh-5fg"/>
+                        <outlet property="dateLabel" destination="bAQ-Aj-DW4" id="k2S-h0-6NV"/>
                         <outlet property="navigationBar" destination="Wbg-W9-8Ie" id="rqy-nr-XQo"/>
-                        <outlet property="reportButton" destination="sPd-Ai-V8F" id="zJ7-te-f2i"/>
-                        <outlet property="rightArrow" destination="kR2-wp-una" id="oOr-gf-dnD"/>
-                        <outlet property="topView" destination="Wbg-W9-8Ie" id="GFY-S2-eYl"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="7Hc-du-E5Y" id="909-ij-QhE"/>
                         <outletCollection property="keyboardAdjustmentLayoutViews" destination="jyK-17-cAD" id="lnf-D1-hsN"/>
                         <outletCollection property="keyboardAdjustmentLayoutViews" destination="H5m-hD-Eet" id="3D4-Op-5dO"/>
@@ -4033,7 +4049,6 @@ Check your internet connection and try again.</string>
         <image name="ic_photo_placeholder" width="60" height="48"/>
         <image name="ic_quote.png" width="16" height="11"/>
         <image name="ic_search" width="16" height="16"/>
-        <image name="ic_swipe_arrow_right" width="6" height="10"/>
         <image name="ic_today_enabled" width="32" height="32"/>
         <image name="sign_up_candy_small" width="30" height="30"/>
     </resources>

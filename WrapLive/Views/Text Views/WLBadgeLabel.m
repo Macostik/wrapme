@@ -57,7 +57,7 @@ static CGFloat WLConstantPadding = 12.0f;
 }
 
 - (void)setIntValue:(NSUInteger)intValue {
-    [self setText:[NSString stringWithFormat:@"%d", intValue]];
+    [self setText:[NSString stringWithFormat:@"%lu", (unsigned long)intValue]];
 }
 
 @end

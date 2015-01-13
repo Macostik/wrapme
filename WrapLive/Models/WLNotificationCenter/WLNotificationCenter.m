@@ -25,6 +25,7 @@
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
 #import "WLRemoteObjectHandler.h"
+#import "WLImageFetcher.h"
 
 #define WLPubNubInactiveStateDuration 20*60
 
@@ -198,7 +199,16 @@ static WLDataBlock deviceTokenCompletion = nil;
         case UIApplicationStateBackground: {
             WLNotification* notification = [WLNotification notificationWithData:data];
             if (notification) {
-                [notification fetch:success failure:failure];
+                [notification fetch:^{
+                    if (notification.type == WLNotificationCandyAdd) {
+                        WLCandy* candy = (id)notification.targetEntry;
+                        [[WLImageFetcher fetcher] enqueueImageWithUrl:candy.picture.medium completion:^(UIImage *image){
+                            if (success) success();
+                        }];
+                    } else {
+                        if (success) success();
+                    }
+                } failure:failure];
             } else if (failure)  {
                 failure([NSError errorWithDescription:@"Data in remote notification is not valid (background)."]);
             }

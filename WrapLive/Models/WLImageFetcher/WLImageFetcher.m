@@ -55,7 +55,12 @@
 }
 
 - (void)enqueueImageWithUrl:(NSString *)url {
+    [self enqueueImageWithUrl:url completion:nil];
+}
+
+- (void)enqueueImageWithUrl:(NSString *)url completion:(WLImageBlock)completion {
 	if (!url.nonempty || [self.urls containsObject:url]) {
+        if (completion) completion(nil);
 		return;
 	}
 	
@@ -70,6 +75,7 @@
                 }
             }
         }
+        if (completion) completion(image);
     };
     
     if ([[WLImageCache cache] containsImageWithUrl:url]) {
@@ -82,6 +88,7 @@
             [weakSelf broadcast:@selector(fetcher:didFailWithError:) object:error select:^BOOL(id receiver, id object) {
                 return ([receiver respondsToSelector:@selector(fetcherTargetUrl:)] && [[receiver fetcherTargetUrl:weakSelf] isEqualToString:url]);
             }];
+            if (completion) completion(nil);
         }];
     }
 }

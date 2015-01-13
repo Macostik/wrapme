@@ -29,6 +29,8 @@
 
 - (void)enqueueImageWithUrl:(NSString*)url;
 
+- (void)enqueueImageWithUrl:(NSString*)url completion:(WLImageBlock)completion;
+
 - (void)addReceiver:(id<WLImageFetching>)receiver;
 
 @end

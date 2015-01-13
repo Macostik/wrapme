@@ -92,7 +92,7 @@
     if (self.commentLabel) {
         WLComment* comment = [candy.comments lastObject];
         self.commentLabel.text = comment.text;
-        self.commentLabel.hidden = !self.commentLabel.text.nonempty;
+        self.commentLabel.superview.hidden = !self.commentLabel.text.nonempty;
     }
 	self.coverView.animatingPicture = candy.picture;
     self.coverView.url = candy.picture.small;

@@ -1146,10 +1146,6 @@
 		C558E7CB1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */; };
 		C558E7CC1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */; };
 		C558E7CD1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */; };
-		C558E7D11A65266D00CC5706 /* WLGradientDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D01A65266D00CC5706 /* WLGradientDrawer.m */; };
-		C558E7D21A65266D00CC5706 /* WLGradientDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D01A65266D00CC5706 /* WLGradientDrawer.m */; };
-		C558E7D31A65266D00CC5706 /* WLGradientDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D01A65266D00CC5706 /* WLGradientDrawer.m */; };
-		C558E7D41A65266D00CC5706 /* WLGradientDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D01A65266D00CC5706 /* WLGradientDrawer.m */; };
 		C558E7D71A652A8A00CC5706 /* WLGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D61A652A8A00CC5706 /* WLGradientView.m */; };
 		C558E7D81A652A8A00CC5706 /* WLGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D61A652A8A00CC5706 /* WLGradientView.m */; };
 		C558E7D91A652A8A00CC5706 /* WLGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D61A652A8A00CC5706 /* WLGradientView.m */; };
@@ -1953,8 +1949,6 @@
 		C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLProgressBar+WLContribution.m"; sourceTree = "<group>"; };
 		C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLHomePlaceholderView.xib; sourceTree = "<group>"; };
 		C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLWrapPlaceholderViewTimeline.xib; sourceTree = "<group>"; };
-		C558E7CF1A65266D00CC5706 /* WLGradientDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLGradientDrawer.h; sourceTree = "<group>"; };
-		C558E7D01A65266D00CC5706 /* WLGradientDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLGradientDrawer.m; sourceTree = "<group>"; };
 		C558E7D51A652A8A00CC5706 /* WLGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLGradientView.h; sourceTree = "<group>"; };
 		C558E7D61A652A8A00CC5706 /* WLGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLGradientView.m; sourceTree = "<group>"; };
 		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
@@ -3895,8 +3889,6 @@
 		C558E7CE1A65266300CC5706 /* WLGradientDrawer */ = {
 			isa = PBXGroup;
 			children = (
-				C558E7CF1A65266D00CC5706 /* WLGradientDrawer.h */,
-				C558E7D01A65266D00CC5706 /* WLGradientDrawer.m */,
 				C558E7D51A652A8A00CC5706 /* WLGradientView.h */,
 				C558E7D61A652A8A00CC5706 /* WLGradientView.m */,
 			);
@@ -5176,7 +5168,6 @@
 				C50AF40C19768ADE00761F38 /* WLAuthorizationRequest.m in Sources */,
 				C5149644197586E4009F0743 /* WLWrapsRequest.m in Sources */,
 				14B134E11952FEB2004F86AC /* WLInviteeCell.m in Sources */,
-				C558E7D11A65266D00CC5706 /* WLGradientDrawer.m in Sources */,
 				12E0F066190927B800463FEC /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C5C20B951A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C504178219B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
@@ -5457,7 +5448,6 @@
 				C54AF4BB19B8C437006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF4BD19B8C437006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF4BE19B8C437006F7EDB /* WLInviteeCell.m in Sources */,
-				C558E7D21A65266D00CC5706 /* WLGradientDrawer.m in Sources */,
 				C54AF4BF19B8C437006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C5C20B961A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C504178319B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
@@ -5706,7 +5696,6 @@
 				C54AF5B819B8C467006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF5BA19B8C467006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF5BB19B8C467006F7EDB /* WLInviteeCell.m in Sources */,
-				C558E7D31A65266D00CC5706 /* WLGradientDrawer.m in Sources */,
 				C54AF5BC19B8C467006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C5C20B971A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C504178419B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
@@ -5955,7 +5944,6 @@
 				C54AF6B519B8C491006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF6B719B8C491006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF6B819B8C491006F7EDB /* WLInviteeCell.m in Sources */,
-				C558E7D41A65266D00CC5706 /* WLGradientDrawer.m in Sources */,
 				C54AF6B919B8C491006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C5C20B981A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,

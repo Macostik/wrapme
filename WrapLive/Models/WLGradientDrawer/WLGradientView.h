@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WLGradientView : UIImageView
+@interface WLGradientView : UIView
 
 @property (strong, nonatomic) IBInspectable UIColor* color;
 

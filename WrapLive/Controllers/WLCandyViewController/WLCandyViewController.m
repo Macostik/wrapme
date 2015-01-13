@@ -41,7 +41,6 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIView+AnimationHelper.h"
 #import "NSOrderedSet+Additions.h"
-#import "WLGradientDrawer.h"
 
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver>
 

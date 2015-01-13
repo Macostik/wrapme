@@ -152,6 +152,8 @@
         [AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
         [AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
 		[AFPhotoEditorCustomization setLeftNavigationBarButtonTitle:@"Cancel"];
+        [AFPhotoEditorCustomization setToolOrder:@[kAFEnhance, kAFEffects, kAFFrames, kAFStickers, kAFFocus,
+                                                   kAFOrientation, kAFCrop, kAFDraw, kAFText, kAFBlemish, kAFMeme]];
 	});
     if (self.mode == WLStillPictureModeDefault) {
         [AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Send"];

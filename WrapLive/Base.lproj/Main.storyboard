@@ -890,11 +890,8 @@
                                                                         <gestureRecognizers/>
                                                                     </imageView>
                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="106" translatesAutoresizingMaskIntoConstraints="NO" id="jAi-R7-bNq" customClass="WLLabel">
-                                                                        <rect key="frame" x="0.0" y="66" width="106" height="40"/>
+                                                                        <rect key="frame" x="0.0" y="71" width="106" height="35"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="40" id="qWh-D1-wKc"/>
-                                                                        </constraints>
                                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
@@ -925,6 +922,7 @@
                                                                 <constraint firstAttribute="trailing" secondItem="jAi-R7-bNq" secondAttribute="trailing" id="Gdz-bK-5xT"/>
                                                                 <constraint firstItem="RBx-xX-iE6" firstAttribute="top" secondItem="diy-TW-VIF" secondAttribute="top" id="GkK-br-NmC"/>
                                                                 <constraint firstAttribute="trailing" secondItem="nDR-la-Dfn" secondAttribute="trailing" id="OAt-3A-LZv"/>
+                                                                <constraint firstItem="jAi-R7-bNq" firstAttribute="height" secondItem="RBx-xX-iE6" secondAttribute="height" multiplier="0.333" id="SMx-dD-R89"/>
                                                                 <constraint firstAttribute="bottom" secondItem="nDR-la-Dfn" secondAttribute="bottom" id="Sst-qt-RDx"/>
                                                                 <constraint firstAttribute="bottom" secondItem="jAi-R7-bNq" secondAttribute="bottom" id="bD6-WH-Teq"/>
                                                                 <constraint firstItem="jAi-R7-bNq" firstAttribute="leading" secondItem="diy-TW-VIF" secondAttribute="leading" id="jJs-oP-UKX"/>
@@ -937,8 +935,8 @@
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="disableMenu" value="YES"/>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
-                                                                <outlet property="commentHeightConstraint" destination="qWh-D1-wKc" id="cHr-XR-yGb"/>
                                                                 <outlet property="commentLabel" destination="jAi-R7-bNq" id="YFa-sv-GXs"/>
+                                                                <outlet property="commentLabelHeightConstraint" destination="SMx-dD-R89" id="O25-sa-RSF"/>
                                                                 <outlet property="coverView" destination="RBx-xX-iE6" id="Abt-oO-bGU"/>
                                                             </connections>
                                                         </collectionViewCell>
@@ -2429,11 +2427,8 @@
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     </imageView>
                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="106" translatesAutoresizingMaskIntoConstraints="NO" id="ekw-1F-iDF" customClass="WLLabel">
-                                                                        <rect key="frame" x="0.0" y="66" width="106" height="40"/>
+                                                                        <rect key="frame" x="0.0" y="71" width="106" height="35"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="40" id="2ZH-pU-6ly"/>
-                                                                        </constraints>
                                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
@@ -2469,11 +2464,12 @@
                                                                 <constraint firstAttribute="trailing" secondItem="pSp-PN-fbN" secondAttribute="trailing" id="Wxg-2A-Qcz"/>
                                                                 <constraint firstItem="pSp-PN-fbN" firstAttribute="top" secondItem="ETD-JU-9CA" secondAttribute="top" id="ax3-ec-KLv"/>
                                                                 <constraint firstItem="pSp-PN-fbN" firstAttribute="leading" secondItem="ETD-JU-9CA" secondAttribute="leading" id="lLu-ot-hIM"/>
+                                                                <constraint firstItem="ekw-1F-iDF" firstAttribute="height" secondItem="fT9-Qs-qqx" secondAttribute="height" multiplier="0.333" id="p9G-UT-0xc"/>
                                                             </constraints>
                                                             <size key="customSize" width="106" height="106"/>
                                                             <connections>
-                                                                <outlet property="commentHeightConstraint" destination="2ZH-pU-6ly" id="6wt-Jb-rCG"/>
                                                                 <outlet property="commentLabel" destination="ekw-1F-iDF" id="E87-Ar-IsQ"/>
+                                                                <outlet property="commentLabelHeightConstraint" destination="p9G-UT-0xc" id="70G-eK-Stk"/>
                                                                 <outlet property="coverView" destination="fT9-Qs-qqx" id="1eK-Lv-z6z"/>
                                                             </connections>
                                                         </collectionViewCell>

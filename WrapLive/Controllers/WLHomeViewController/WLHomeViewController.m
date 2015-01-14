@@ -49,6 +49,7 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLRemoteObjectHandler.h"
 #import "WLPickerViewController.h"
+#import "WLWrapOptionsViewController.h"
 
 BOOL isPresentHomeViewController;
 
@@ -173,6 +174,14 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 #pragma mark - WLWrapCellDelegate 
+
+- (void)wrapCell:(WLWrapCell *)wrapCell didDeleteWrap:(WLWrap *)wrap {
+    if (wrap.valid) {
+        WLWrapOptionsViewController* wrapOptionsViewController = [[WLWrapOptionsViewController alloc] init];
+        wrapOptionsViewController.entry = wrap;
+        [self presentViewController:wrapOptionsViewController animated:YES completion:nil];
+    }
+}
 
 - (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap notifyChatButtonClicked:(id)sender {
     self.chatSegueWrap = wrap;

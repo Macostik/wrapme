@@ -166,10 +166,10 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin commented:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="08S-52-GIh" customClass="WLLabel">
-                                                    <rect key="frame" x="68" y="6" width="188" height="21"/>
+                                                    <rect key="frame" x="68" y="4" width="188" height="23"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="RVB-zV-s3K"/>
+                                                        <constraint firstAttribute="height" constant="23" id="RVB-zV-s3K"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -193,10 +193,10 @@
                                                     </connections>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="61" translatesAutoresizingMaskIntoConstraints="NO" id="FBj-ps-Q2W" customClass="WLLabel">
-                                                    <rect key="frame" x="68" y="37" width="61" height="19"/>
+                                                    <rect key="frame" x="68" y="37" width="61" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="19" id="mzc-LF-4gp"/>
+                                                        <constraint firstAttribute="height" constant="21" id="mzc-LF-4gp"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                     <color key="textColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -205,12 +205,12 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yestarday 1:34pm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="7nH-rK-CBH" customClass="WLLabel">
-                                                    <rect key="frame" x="131" y="37" width="125" height="19"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yestarday 1:34pm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="7nH-rK-CBH" customClass="WLLabel">
+                                                    <rect key="frame" x="131" y="37" width="125" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="125" id="ZqB-Td-GGe"/>
-                                                        <constraint firstAttribute="height" constant="19" id="otw-K5-SkG"/>
+                                                        <constraint firstAttribute="height" constant="21" id="otw-K5-SkG"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                     <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -237,7 +237,7 @@
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="FBj-ps-Q2W" secondAttribute="bottom" constant="10" id="AYD-P6-tj0"/>
+                                            <constraint firstAttribute="bottom" secondItem="FBj-ps-Q2W" secondAttribute="bottom" constant="8" id="AYD-P6-tj0"/>
                                             <constraint firstAttribute="centerY" secondItem="sbj-Wd-1e2" secondAttribute="centerY" constant="0.5" id="AsT-Lv-sy9"/>
                                             <constraint firstItem="sbj-Wd-1e2" firstAttribute="leading" secondItem="ZhB-Wt-rBP" secondAttribute="trailing" constant="12" id="F8Q-1B-wsL"/>
                                             <constraint firstItem="sbj-Wd-1e2" firstAttribute="leading" secondItem="7nH-rK-CBH" secondAttribute="trailing" constant="12" id="Ix7-Tq-tzs"/>
@@ -253,7 +253,7 @@
                                             <constraint firstItem="NnN-ec-DhQ" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="12" id="hB9-e0-uHw"/>
                                             <constraint firstItem="Ges-BB-Uma" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="12" id="hqy-U0-hzb"/>
                                             <constraint firstItem="ZhB-Wt-rBP" firstAttribute="top" secondItem="08S-52-GIh" secondAttribute="bottom" constant="-2" id="j7y-ap-Vew"/>
-                                            <constraint firstItem="08S-52-GIh" firstAttribute="top" secondItem="iF1-u8-BW0" secondAttribute="top" constant="6" id="oKb-iB-lH2"/>
+                                            <constraint firstItem="08S-52-GIh" firstAttribute="top" secondItem="iF1-u8-BW0" secondAttribute="top" constant="4" id="oKb-iB-lH2"/>
                                             <constraint firstItem="7nH-rK-CBH" firstAttribute="centerY" secondItem="FBj-ps-Q2W" secondAttribute="centerY" id="pBN-9H-3Mv"/>
                                             <constraint firstAttribute="centerY" secondItem="NnN-ec-DhQ" secondAttribute="centerY" constant="0.5" id="ysS-HN-JvW"/>
                                         </constraints>
@@ -365,7 +365,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="co2-D4-XAH" customClass="WLButton">
-                                <rect key="frame" x="15" y="64" width="290" height="44"/>
+                                <rect key="frame" x="12" y="64" width="296" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="XW0-za-2Mo"/>
                                 </constraints>
@@ -383,7 +383,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R6h-Ul-Nr0" customClass="WLUserView">
-                                <rect key="frame" x="15" y="64" width="44" height="44"/>
+                                <rect key="frame" x="12" y="64" width="44" height="44"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ue4-Hz-yEA" customClass="WLImageView">
                                         <rect key="frame" x="0.0" y="6" width="32" height="32"/>
@@ -418,7 +418,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lq0-rh-5bS" customClass="WLButton">
-                                <rect key="frame" x="15" y="108" width="290" height="44"/>
+                                <rect key="frame" x="12" y="108" width="296" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="NYv-6H-t4c"/>
                                 </constraints>
@@ -436,7 +436,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sign_up_candy_small" translatesAutoresizingMaskIntoConstraints="NO" id="1jO-TY-W2q">
-                                <rect key="frame" x="15" y="108" width="44" height="44"/>
+                                <rect key="frame" x="12" y="108" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="FEK-mU-h9s"/>
                                     <constraint firstAttribute="width" constant="44" id="GSA-yZ-iAA"/>
@@ -487,13 +487,13 @@
                             <constraint firstItem="co2-D4-XAH" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="44" id="AlN-iI-BoV"/>
                             <constraint firstItem="cRK-Tr-qQy" firstAttribute="top" secondItem="7C1-yc-O8X" secondAttribute="bottom" constant="15" id="Det-Z5-xqw"/>
                             <constraint firstItem="xod-QW-gum" firstAttribute="top" secondItem="Lq0-rh-5bS" secondAttribute="bottom" id="EIk-hi-aeH"/>
-                            <constraint firstItem="co2-D4-XAH" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="G9j-4K-lq1"/>
+                            <constraint firstItem="co2-D4-XAH" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="G9j-4K-lq1"/>
                             <constraint firstItem="MDJ-Nd-sbY" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="HA9-f5-7Ud"/>
-                            <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="HdV-Pv-jgs"/>
-                            <constraint firstAttribute="trailing" secondItem="Lq0-rh-5bS" secondAttribute="trailing" constant="15" id="NA3-Fi-lhu"/>
+                            <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="HdV-Pv-jgs"/>
+                            <constraint firstAttribute="trailing" secondItem="Lq0-rh-5bS" secondAttribute="trailing" constant="12" id="NA3-Fi-lhu"/>
                             <constraint firstItem="MDJ-Nd-sbY" firstAttribute="top" secondItem="co2-D4-XAH" secondAttribute="bottom" id="OnQ-99-3BE"/>
                             <constraint firstItem="R6h-Ul-Nr0" firstAttribute="leading" secondItem="co2-D4-XAH" secondAttribute="leading" id="SvJ-CX-7Vo"/>
-                            <constraint firstAttribute="trailing" secondItem="co2-D4-XAH" secondAttribute="trailing" constant="15" id="TqK-kg-CWd"/>
+                            <constraint firstAttribute="trailing" secondItem="co2-D4-XAH" secondAttribute="trailing" constant="12" id="TqK-kg-CWd"/>
                             <constraint firstAttribute="trailing" secondItem="7C1-yc-O8X" secondAttribute="trailing" constant="15" id="U4D-Jf-d24"/>
                             <constraint firstItem="7C1-yc-O8X" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="gFW-mt-V7Q"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="centerY" secondItem="1jO-TY-W2q" secondAttribute="centerY" id="jYK-sT-MmS"/>
@@ -3204,7 +3204,7 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>

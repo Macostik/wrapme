@@ -19,6 +19,7 @@ static NSUInteger WLCandyCellHight = 212;
 
 @protocol WLWrapCellDelegate <NSObject>
 
+- (void)wrapCell:(WLWrapCell *)wrapCell didDeleteWrap:(WLWrap *)wrap;
 - (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap notifyChatButtonClicked:(id)sender;
 
 @end

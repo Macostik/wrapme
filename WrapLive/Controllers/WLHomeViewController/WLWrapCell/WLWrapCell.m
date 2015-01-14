@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *wrapNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
+@property (assign, nonatomic) BOOL embeddedLongPress;
 
 @property (strong, nonatomic) WLCollectionViewDataProvider* candiesDataProvider;
 @property (strong, nonatomic) WLHomeCandiesViewSection* candiesDataSection;
@@ -41,6 +42,10 @@
 @end
 
 @implementation WLWrapCell
+
++ (BOOL)isEmbeddedLongPress {
+    return YES;
+}
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
@@ -58,6 +63,21 @@
     }
     [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
     [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
+    self.embeddedLongPress = [WLWrapCell isEmbeddedLongPress];
+}
+
+- (void)setEmbeddedLongPress:(BOOL)embeddedLongPress {
+    if(embeddedLongPress) {
+        __weak __typeof(self)weakSelf = self;
+        [self addLongPressGestureRecognizingDelegate:nil
+                               minimunPressDuratioin:2.0
+                                               block:^(UIGestureRecognizer *recognizer) {
+                                                   if (recognizer.state == UIGestureRecognizerStateBegan) {
+                                                       if  ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteWrap:)])
+                                                           [weakSelf.delegate wrapCell:weakSelf didDeleteWrap:weakSelf.entry];
+                                                   }
+        }];
+    }
 }
 
 - (void)setSelection:(WLObjectBlock)selection {

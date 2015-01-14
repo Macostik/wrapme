@@ -261,7 +261,7 @@
 
 - (IBAction)report:(UIButton *)sender {
     WLCandyOptionsViewController* editCandyViewController = [[WLCandyOptionsViewController alloc] init];
-    editCandyViewController.candy = self.candy;
+    editCandyViewController.entry = self.candy;
     [self presentViewController:editCandyViewController animated:YES completion:nil];
 }
 

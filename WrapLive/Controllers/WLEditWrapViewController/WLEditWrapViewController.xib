@@ -21,7 +21,7 @@
             <connections>
                 <outlet property="cancelButton" destination="eah-bZ-u4F" id="Rw5-Gi-Ysk"/>
                 <outlet property="closeButton" destination="k07-Vf-o0j" id="O3b-Z7-7Ax"/>
-                <outlet property="deleteButton" destination="neT-2w-zmC" id="m2k-rr-xl2"/>
+                <outlet property="deleteButton" destination="neT-2w-zmC" id="5dK-Kh-Ss4"/>
                 <outlet property="doneButton" destination="lCC-nK-uve" id="sEh-0g-Ka5"/>
                 <outlet property="nameWrapTextField" destination="pOO-IU-EKK" id="bWZ-dA-ZRl"/>
                 <outlet property="view" destination="Ydu-zw-k8N" id="6lq-In-yP2"/>
@@ -62,7 +62,7 @@
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neT-2w-zmC" customClass="WLPressButton">
                     <rect key="frame" x="8" y="81" width="224" height="30"/>
-                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.85098039215686272" green="0.32549019607843138" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="1tf-yV-C6e"/>
                     </constraints>
@@ -77,7 +77,7 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="deleteButtonClick:" destination="-1" eventType="touchUpInside" id="1qR-o1-CmI"/>
+                        <action selector="deleteEntry:" destination="-1" eventType="touchUpInside" id="mM1-1f-CxW"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k07-Vf-o0j" customClass="WLButton">

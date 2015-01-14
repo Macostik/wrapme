@@ -20,6 +20,8 @@
 
 + (CGFloat)size:(NSIndexPath*)indexPath entry:(id)entry defaultSize:(CGSize)defaultSize;
 
++ (BOOL)isEmbeddedLongPress;
+
 - (void)setup:(id)entry;
 
 - (void)resetup;

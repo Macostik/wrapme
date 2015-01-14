@@ -103,7 +103,8 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 }
 
 - (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance {
-    [self showWithMessage:message appearance:appearance inView:[UIWindow mainWindow].rootViewController.view];
+    UIViewController *rootViewController = [UIWindow mainWindow].rootViewController;
+    [self showWithMessage:message appearance:appearance inView:rootViewController.presentedViewController ? rootViewController.presentedViewController.view : rootViewController.view];
 }
 
 - (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance inView:(UIView *)view {

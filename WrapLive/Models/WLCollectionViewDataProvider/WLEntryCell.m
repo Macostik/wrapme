@@ -18,6 +18,10 @@
     return [self size:indexPath entry:entry defaultSize:CGSizeZero];
 }
 
++ (BOOL)isEmbeddedLongPress {
+    return NO;
+}
+
 - (void)setEntry:(id)entry {
     _entry = entry;
     [self setup:entry];

@@ -14,6 +14,12 @@
 
 - (void)addTapGestureRecognizing:(WLGestureBlock)block;
 
+- (void)addLongPressGestureRecognizingDelegate:(id)delegate
+                         minimunPressDuratioin:(CGFloat)duration
+                                         block:(WLGestureBlock)block;
+
+- (void)addLongPressGestureRecognizing:(WLGestureBlock)block;
+
 - (void)addSwipeGestureRecognizingDelegate:(id)delegate
                             direction:(UISwipeGestureRecognizerDirection)direction
                                 block:(WLGestureBlock)block;
@@ -23,5 +29,15 @@
 - (void)addSwipeGestureRecognizing:(WLGestureBlock)block;
 
 - (void)removeTapGestureRecognizing;
+
+- (void)removeLongPressGestureRecognizing;
+
+- (void)removeSwipeGestureRecognizing;
+
+@end
+
+@interface UIGestureRecognizer (Helper)
+
++ (id)recognizerWithBlock:(WLGestureBlock)block;
 
 @end

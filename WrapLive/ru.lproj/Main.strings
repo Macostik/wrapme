@@ -5,7 +5,7 @@
 /* Class = "IBUILabel"; text = "Name"; ObjectID = "08S-52-GIh"; */
 "08S-52-GIh.text" = "Имя";
 
-/* Class = "IBUILabel"; text = "last updated 3 days ago"; ObjectID = "1y3-CJ-RVW"; */
+/* Class = "IBUILabel"; text = "3 days ago"; ObjectID = "1y3-CJ-RVW"; */
 "1y3-CJ-RVW.text" = "Последнее обновление было 3 дня назад";
 
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "2HD-0Q-aOf"; */
@@ -75,7 +75,7 @@
 "GkU-w3-rTK.normalTitle" = "Готово";
 
 /* Class = "IBUILabel"; text = "name"; ObjectID = "HUe-Pv-h6W"; */
-"HUe-Pv-h6W.text" = "Имя";
+"HUe-Pv-h6W.text" = "имя";
 
 /* Class = "IBUILabel"; text = "Posted 3 days ago"; ObjectID = "JE5-jO-MER"; */
 "JE5-jO-MER.text" = "Размещено 3 дня назад";
@@ -129,7 +129,7 @@
 "Twb-Mn-vNw.text" = "Имя врапа";
 
 /* Class = "IBUILabel"; text = "You haven't confirmed your e-mail address yet. Please check your e-mail."; ObjectID = "UL6-dF-3Kj"; */
-"UL6-dF-3Kj.text" = "Вы не подтвердили Вашу адрес эл. почты. Пожалуйста, проверте почту.";
+"UL6-dF-3Kj.text" = "Вы не подтвердили Вашу почту еще. Пожалуйста, проверте ее.";
 
 /* Class = "IBUITextField"; placeholder = "Name"; ObjectID = "Xmt-yf-g7R"; */
 "Xmt-yf-g7R.placeholder" = "Имя";
@@ -156,7 +156,7 @@
 "dYf-Sg-pHd.normalTitle" = "Отмена";
 
 /* Class = "IBUILabel"; text = "You haven't confirmed your e-mail address yet. Please check your e-mail."; ObjectID = "eHd-9o-24J"; */
-"eHd-9o-24J.text" = "Вы не подтвердили Вашу адрес эл. почты. Пожалуйста, проверте почту.";
+"eHd-9o-24J.text" = "Вы не подтвердили Вашу почту еще. Пожалуйста, проверте ее.";
 
 /* Class = "IBUILabel"; text = "Comment text g"; ObjectID = "ek8-rH-Jsu"; */
 "ek8-rH-Jsu.text" = "Текст комментария";

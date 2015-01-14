@@ -143,9 +143,6 @@
 		5BA432AB1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */; };
 		5BA432AC1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */; };
 		5BA432AD1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */; };
-		5BA470B91A2478AF0098EBE2 /* WLWrapPlaceholderViewHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewHistory.xib */; };
-		5BA470BA1A2478B00098EBE2 /* WLWrapPlaceholderViewHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewHistory.xib */; };
-		5BA470BB1A2478B00098EBE2 /* WLWrapPlaceholderViewHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewHistory.xib */; };
 		5BA4CC121A08FAE700D7F31C /* WLPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */; };
 		5BA4CC131A08FAE700D7F31C /* WLPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */; };
 		5BA4CC141A08FAE700D7F31C /* WLPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */; };
@@ -168,6 +165,18 @@
 		5BA678551A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA678531A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m */; };
 		5BA678561A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA678531A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m */; };
 		5BA678571A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA678531A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m */; };
+		5BA6AA421A66779D00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
+		5BA6AA431A66779D00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
+		5BA6AA441A66779E00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
+		5BA6AA451A66779E00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
+		5BA6AA461A66801100493582 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6AA4B1A66801100493582 /* WLWrapPlaceholderViewTimeline.xib */; };
+		5BA6AA471A66801100493582 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6AA4B1A66801100493582 /* WLWrapPlaceholderViewTimeline.xib */; };
+		5BA6AA481A66801100493582 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6AA4B1A66801100493582 /* WLWrapPlaceholderViewTimeline.xib */; };
+		5BA6AA491A66801100493582 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6AA4B1A66801100493582 /* WLWrapPlaceholderViewTimeline.xib */; };
+		5BA6AA501A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6AA551A66805E00493582 /* WLWrapPlaceholderViewHistory.xib */; };
+		5BA6AA511A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6AA551A66805E00493582 /* WLWrapPlaceholderViewHistory.xib */; };
+		5BA6AA521A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6AA551A66805E00493582 /* WLWrapPlaceholderViewHistory.xib */; };
+		5BA6AA531A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6AA551A66805E00493582 /* WLWrapPlaceholderViewHistory.xib */; };
 		5BA6CAF21A10E51B004AD41C /* s01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* s01.wav */; };
 		5BA6CAF31A10E51B004AD41C /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
 		5BA6CAF41A10E51B004AD41C /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
@@ -289,7 +298,6 @@
 		5BF1B2421A49A683000BB2C1 /* WLAPIEnvironmentQA.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85B19B8C622006F7EDB /* WLAPIEnvironmentQA.plist */; };
 		5BF1B2431A49A683000BB2C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
 		5BF1B2521A49B63E000BB2C1 /* WLTodayExtension_Production.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* WLTodayExtension_Production.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		5BF5833A1A1F745600922BD5 /* WLWrapPlaceholderViewHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewHistory.xib */; };
 		5BF5833E1A1F983B00922BD5 /* ic_quote.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF5833B1A1F983B00922BD5 /* ic_quote.png */; };
 		5BF5833F1A1F983B00922BD5 /* ic_quote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF5833C1A1F983B00922BD5 /* ic_quote@2x.png */; };
 		5BF583401A1F983B00922BD5 /* ic_quote@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF5833D1A1F983B00922BD5 /* ic_quote@3x.png */; };
@@ -1142,10 +1150,6 @@
 		C558E7C71A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
 		C558E7C81A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
 		C558E7C91A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
-		C558E7CA1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */; };
-		C558E7CB1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */; };
-		C558E7CC1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */; };
-		C558E7CD1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */; };
 		C558E7D71A652A8A00CC5706 /* WLGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D61A652A8A00CC5706 /* WLGradientView.m */; };
 		C558E7D81A652A8A00CC5706 /* WLGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D61A652A8A00CC5706 /* WLGradientView.m */; };
 		C558E7D91A652A8A00CC5706 /* WLGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = C558E7D61A652A8A00CC5706 /* WLGradientView.m */; };
@@ -1673,6 +1677,12 @@
 		5BA4F8871A1CD61900DB1A25 /* WLContributorsViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorsViewSection.m; path = WLCollectionViewDataProvider/WLContributorsViewSection.m; sourceTree = "<group>"; };
 		5BA678521A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+InterfaceOrientation.h"; path = "UINavigationController/UINavigationController+InterfaceOrientation.h"; sourceTree = "<group>"; };
 		5BA678531A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+InterfaceOrientation.m"; path = "UINavigationController/UINavigationController+InterfaceOrientation.m"; sourceTree = "<group>"; };
+		5BA6AA4A1A66801100493582 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLWrapPlaceholderViewTimeline.xib; sourceTree = "<group>"; };
+		5BA6AA4D1A66801300493582 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLWrapPlaceholderViewTimeline.strings; sourceTree = "<group>"; };
+		5BA6AA4F1A66801900493582 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLWrapPlaceholderViewTimeline.strings; sourceTree = "<group>"; };
+		5BA6AA541A66805E00493582 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLWrapPlaceholderViewHistory.xib; sourceTree = "<group>"; };
+		5BA6AA571A66806200493582 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLWrapPlaceholderViewHistory.strings; sourceTree = "<group>"; };
+		5BA6AA591A66806400493582 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLWrapPlaceholderViewHistory.strings; sourceTree = "<group>"; };
 		5BA6CAEE1A10E51B004AD41C /* s01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s01.wav; path = Sounds/s01.wav; sourceTree = "<group>"; };
 		5BA6CAEF1A10E51B004AD41C /* s02.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s02.wav; path = Sounds/s02.wav; sourceTree = "<group>"; };
 		5BA6CAF01A10E51B004AD41C /* s03.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s03.wav; path = Sounds/s03.wav; sourceTree = "<group>"; };
@@ -1742,7 +1752,6 @@
 		5BF1B2481A49A683000BB2C1 /* WLTodayExtension_Production.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WLTodayExtension_Production.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF1B2491A49A684000BB2C1 /* WLTodayExtension_Production.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = WLTodayExtension_Production.plist; path = /Users/Yuriy/Documents/Wraplive/WLTodayExtension/WLTodayExtension_Production.plist; sourceTree = "<absolute>"; };
 		5BF1B24A1A49A758000BB2C1 /* WLTodayExtension_Production.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = WLTodayExtension_Production.entitlements; path = WLTodayExtension/WLTodayExtension_Production.entitlements; sourceTree = "<group>"; };
-		5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewHistory.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLWrapPlaceholderViewHistory.xib; sourceTree = "<group>"; };
 		5BF5833B1A1F983B00922BD5 /* ic_quote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_quote.png; sourceTree = "<group>"; };
 		5BF5833C1A1F983B00922BD5 /* ic_quote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_quote@2x.png"; sourceTree = "<group>"; };
 		5BF5833D1A1F983B00922BD5 /* ic_quote@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_quote@3x.png"; sourceTree = "<group>"; };
@@ -1970,7 +1979,6 @@
 		C5568BDB1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLProgressBar+WLContribution.h"; sourceTree = "<group>"; };
 		C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLProgressBar+WLContribution.m"; sourceTree = "<group>"; };
 		C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLHomePlaceholderView.xib; sourceTree = "<group>"; };
-		C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLWrapPlaceholderViewTimeline.xib; sourceTree = "<group>"; };
 		C558E7D51A652A8A00CC5706 /* WLGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLGradientView.h; sourceTree = "<group>"; };
 		C558E7D61A652A8A00CC5706 /* WLGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLGradientView.m; sourceTree = "<group>"; };
 		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
@@ -3903,8 +3911,8 @@
 			isa = PBXGroup;
 			children = (
 				C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */,
-				C558E7C51A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib */,
-				5BF583391A1F745600922BD5 /* WLWrapPlaceholderViewHistory.xib */,
+				5BA6AA4B1A66801100493582 /* WLWrapPlaceholderViewTimeline.xib */,
+				5BA6AA551A66805E00493582 /* WLWrapPlaceholderViewHistory.xib */,
 			);
 			path = "Placeholder Views";
 			sourceTree = "<group>";
@@ -4495,7 +4503,7 @@
 				C54AF85C19B8C622006F7EDB /* WLTestUsersBeta.plist in Resources */,
 				5BA6CAF51A10E51B004AD41C /* s04.wav in Resources */,
 				C54AF86119B8C622006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
-				5BF5833A1A1F745600922BD5 /* WLWrapPlaceholderViewHistory.xib in Resources */,
+				5BA6AA501A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				5BD7828C1A4EC0990094BEE5 /* WLAssetsGroupViewController.xib in Resources */,
 				C54F4B2F1A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */,
 				C54AF85F19B8C622006F7EDB /* WLTestUsersQA.plist in Resources */,
@@ -4518,7 +4526,7 @@
 				C57005DA1A1FA19C007257A6 /* chat_bubble_red_right@2x.png in Resources */,
 				C57005CE1A1FA19C007257A6 /* chat_bubble_red_left@2x.png in Resources */,
 				C558E7C61A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */,
-				C558E7CA1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
+				5BA6AA461A66801100493582 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
 				C57005C21A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
 				5BA6CAF41A10E51B004AD41C /* s03.wav in Resources */,
 				12E3DA5618E049C300DBDB79 /* OpenSans-Light.ttf in Resources */,
@@ -4558,6 +4566,7 @@
 				C54F4B1A1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */,
 				C57005DE1A1FA19C007257A6 /* chat_bubble_red_right@3x.png in Resources */,
 				C57005C61A1FA19C007257A6 /* chat_bubble_gray_right@3x.png in Resources */,
+				5BA6AA421A66779D00493582 /* Localizable.strings in Resources */,
 				5BD782B41A4EC4B30094BEE5 /* WLCandyOptionsViewController.xib in Resources */,
 				12D578C719178C3400586995 /* iTunesArtwork in Resources */,
 				C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */,
@@ -4608,7 +4617,7 @@
 				5BD7828D1A4EC0990094BEE5 /* WLAssetsGroupViewController.xib in Resources */,
 				C54F4B341A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				C54AF87719B8C63E006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
-				5BA470B91A2478AF0098EBE2 /* WLWrapPlaceholderViewHistory.xib in Resources */,
+				5BA6AA511A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				5BA4F87B1A1CA08900DB1A25 /* s02.wav in Resources */,
 				C54AF52819B8C437006F7EDB /* Images.xcassets in Resources */,
 				C54AF52B19B8C437006F7EDB /* WLInputAccessoryView.xib in Resources */,
@@ -4623,7 +4632,7 @@
 				C54AF53019B8C437006F7EDB /* WLAssetsGroupCell.xib in Resources */,
 				5BBBC0061A0A504E003781C4 /* WLPickerViewCell.xib in Resources */,
 				C558E7C71A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */,
-				C558E7CB1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
+				5BA6AA471A66801100493582 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
 				C57005BB1A1FA19C007257A6 /* chat_bubble_gray_left@3x.png in Resources */,
 				5BA4F87A1A1CA08900DB1A25 /* s01.wav in Resources */,
 				C54AF53119B8C437006F7EDB /* OpenSans-Light.ttf in Resources */,
@@ -4663,6 +4672,7 @@
 				5BD782AB1A4EC3E00094BEE5 /* WLCreateWrapCell.xib in Resources */,
 				5BD782B51A4EC4B30094BEE5 /* WLCandyOptionsViewController.xib in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
+				5BA6AA431A66779D00493582 /* Localizable.strings in Resources */,
 				5BF583421A1F984200922BD5 /* ic_quote@2x.png in Resources */,
 				C54AF54A19B8C437006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C57005D71A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
@@ -4687,7 +4697,7 @@
 				5BD7828E1A4EC0990094BEE5 /* WLAssetsGroupViewController.xib in Resources */,
 				C54F4B351A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				C54AF87B19B8C63E006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
-				5BA470BA1A2478B00098EBE2 /* WLWrapPlaceholderViewHistory.xib in Resources */,
+				5BA6AA521A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				5BA4F87F1A1CA08900DB1A25 /* s02.wav in Resources */,
 				C54AF62519B8C467006F7EDB /* Images.xcassets in Resources */,
 				C54AF62819B8C467006F7EDB /* WLInputAccessoryView.xib in Resources */,
@@ -4702,7 +4712,7 @@
 				C54AF62D19B8C467006F7EDB /* WLAssetsGroupCell.xib in Resources */,
 				5BBBC0071A0A504E003781C4 /* WLPickerViewCell.xib in Resources */,
 				C558E7C81A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */,
-				C558E7CC1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
+				5BA6AA481A66801100493582 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
 				C57005BC1A1FA19C007257A6 /* chat_bubble_gray_left@3x.png in Resources */,
 				5BA4F87E1A1CA08900DB1A25 /* s01.wav in Resources */,
 				C54AF62E19B8C467006F7EDB /* OpenSans-Light.ttf in Resources */,
@@ -4742,6 +4752,7 @@
 				5BD782AC1A4EC3E00094BEE5 /* WLCreateWrapCell.xib in Resources */,
 				5BD782B61A4EC4B30094BEE5 /* WLCandyOptionsViewController.xib in Resources */,
 				C54AF64419B8C467006F7EDB /* iTunesArtwork in Resources */,
+				5BA6AA441A66779E00493582 /* Localizable.strings in Resources */,
 				5BF583451A1F984200922BD5 /* ic_quote@2x.png in Resources */,
 				C54AF64719B8C467006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C57005D81A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
@@ -4766,7 +4777,7 @@
 				5BD7828F1A4EC0990094BEE5 /* WLAssetsGroupViewController.xib in Resources */,
 				C54F4B361A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				C54AF87F19B8C63F006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
-				5BA470BB1A2478B00098EBE2 /* WLWrapPlaceholderViewHistory.xib in Resources */,
+				5BA6AA531A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */,
 				C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */,
 				C54AF72519B8C491006F7EDB /* WLInputAccessoryView.xib in Resources */,
@@ -4781,7 +4792,7 @@
 				C54AF72A19B8C491006F7EDB /* WLAssetsGroupCell.xib in Resources */,
 				5BBBC0081A0A504E003781C4 /* WLPickerViewCell.xib in Resources */,
 				C558E7C91A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */,
-				C558E7CD1A65176100CC5706 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
+				5BA6AA491A66801100493582 /* WLWrapPlaceholderViewTimeline.xib in Resources */,
 				C57005BD1A1FA19C007257A6 /* chat_bubble_gray_left@3x.png in Resources */,
 				5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */,
 				C54AF72B19B8C491006F7EDB /* OpenSans-Light.ttf in Resources */,
@@ -4821,6 +4832,7 @@
 				5BD782AD1A4EC3E00094BEE5 /* WLCreateWrapCell.xib in Resources */,
 				5BD782B71A4EC4B30094BEE5 /* WLCandyOptionsViewController.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
+				5BA6AA451A66779E00493582 /* Localizable.strings in Resources */,
 				5BF583481A1F984200922BD5 /* ic_quote@2x.png in Resources */,
 				C54AF74419B8C491006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C57005D91A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
@@ -6154,6 +6166,26 @@
 				5B5A8C741A4EBBF000F84529 /* en */,
 			);
 			name = SignUp.storyboard;
+			sourceTree = "<group>";
+		};
+		5BA6AA4B1A66801100493582 /* WLWrapPlaceholderViewTimeline.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BA6AA4A1A66801100493582 /* Base */,
+				5BA6AA4D1A66801300493582 /* en */,
+				5BA6AA4F1A66801900493582 /* ru */,
+			);
+			name = WLWrapPlaceholderViewTimeline.xib;
+			sourceTree = "<group>";
+		};
+		5BA6AA551A66805E00493582 /* WLWrapPlaceholderViewHistory.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BA6AA541A66805E00493582 /* Base */,
+				5BA6AA571A66806200493582 /* en */,
+				5BA6AA591A66806400493582 /* ru */,
+			);
+			name = WLWrapPlaceholderViewHistory.xib;
 			sourceTree = "<group>";
 		};
 		5BA7A10E1A4D879A002B1D63 /* Localizable.strings */ = {

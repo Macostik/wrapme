@@ -48,7 +48,7 @@
 "Pla-to-4nx.normalTitle" = "Выбор страны";
 
 /* Class = "IBUILabel"; text = "wrapLive will send one time SMS message to verify your phone number. Carrier SMS charges may apply."; ObjectID = "RcF-WP-Qlr"; */
-"RcF-WP-Qlr.text" = "wrapLive одновременно будет отправлено SMS сообщение для проверки Вашего номера . SMS сообщение может быть прлатным.";
+"RcF-WP-Qlr.text" = "wrapLive будет отправлено SMS сообщение для проверки Вашего номера. SMS сообщение может быть платным.";
 
 /* Class = "IBUIButton"; normalTitle = "Use another phone number"; ObjectID = "T4H-t0-WgJ"; */
 "T4H-t0-WgJ.normalTitle" = "Используйте другой номер";
@@ -96,10 +96,10 @@
 "otQ-7a-PwI.text" = "Мы отравили Вам код на почту и телефон...";
 
 /* Class = "IBUILabel"; text = "What is your phone number?"; ObjectID = "pmp-Nw-u2O"; */
-"pmp-Nw-u2O.text" = "Какой у Вс номер?";
+"pmp-Nw-u2O.text" = "Какой у Вас номер телефона?";
 
 /* Class = "IBUILabel"; text = "The passcode is required to link this device to your wrapLive account. Enter it below when you receive it."; ObjectID = "q2s-IS-vfL"; */
-"q2s-IS-vfL.text" = "Код необхоим, чтобы подвязать это устройство к wrapLive аккаунту. Введите его ниже, когда получите.";
+"q2s-IS-vfL.text" = "Код необходим, чтобы подвязать это устройство к wrapLive аккаунту. Введите его ниже, когда получите.";
 
 /* Class = "IBUILabel"; text = "Successful!"; ObjectID = "qCY-vc-S18"; */
 "qCY-vc-S18.text" = "Успешно!";
@@ -114,7 +114,7 @@
 "rzT-No-Yli.normalTitle" = "Продолжить";
 
 /* Class = "IBUILabel"; text = "The verification code is not valid."; ObjectID = "sFh-WJ-4GR"; */
-"sFh-WJ-4GR.text" = "Проверочный код не правильный.";
+"sFh-WJ-4GR.text" = "Код проверки не правильный.";
 
 /* Class = "IBUIButton"; normalTitle = "Edit phone number"; ObjectID = "uIo-Dt-OO6"; */
 "uIo-Dt-OO6.normalTitle" = "Редактирование номера";
@@ -123,7 +123,7 @@
 "xPt-wX-3Db.placeholder" = "john@example.com";
 
 /* Class = "IBUIButton"; normalTitle = "Try again"; ObjectID = "xte-7W-F0S"; */
-"xte-7W-F0S.normalTitle" = "Попытатйтесь снова";
+"xte-7W-F0S.normalTitle" = "Попытатайтесь снова";
 
 /* Class = "IBUILabel"; text = "What is your email?"; ObjectID = "zgM-iC-MDR"; */
 "zgM-iC-MDR.text" = "Какая Ваша почта?";

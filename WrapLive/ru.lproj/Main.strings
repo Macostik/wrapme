@@ -17,8 +17,8 @@
 /* Class = "IBUILabel"; text = "home:"; ObjectID = "6NA-Lj-jWd"; */
 "6NA-Lj-jWd.text" = "домашний:";
 
-/* Class = "IBUILabel"; text = "  sdf dfsa fsd fsdf sdjfh dsfjsd afjsd fjdsf jsdf sdjfdsfsadf sdfasdf sdf sadfsd"; ObjectID = "6dW-gY-pJQ"; */
-"6dW-gY-pJQ.text" = "  sdf dfsa fsd fsdf sdjfh dsfjsd afjsd fjdsf jsdf sdjfdsfsadf sdfasdf sdf sadfsd";
+/* Class = "IBUILabel"; text = "Wrap name"; ObjectID = "6dW-gY-pJQ"; */
+"6dW-gY-pJQ.text" = "имя врапа";
 
 /* Class = "IBUILabel"; text = "last updated 3 days ago"; ObjectID = "71z-7i-OMc"; */
 "71z-7i-OMc.text" = "Последнее обновление было 3 дня назад";
@@ -93,7 +93,7 @@
 "Lc4-Kr-oEr.text" = "11:32 PM";
 
 /* Class = "IBUIButton"; normalTitle = "About"; ObjectID = "Lq0-rh-5bS"; */
-"Lq0-rh-5bS.normalTitle" = "Об";
+"Lq0-rh-5bS.normalTitle" = "О приложении";
 
 /* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "MJV-nQ-gRy"; */
 "MJV-nQ-gRy.normalTitle" = "Отмена";
@@ -111,7 +111,7 @@
 "PcB-Yh-hjT.normalTitle" = "Имя врапа";
 
 /* Class = "IBUILabel"; text = "Edit your profile"; ObjectID = "QO2-SC-TvX"; */
-"QO2-SC-TvX.text" = "Редактирование Ваших данных";
+"QO2-SC-TvX.text" = "Изменение данных";
 
 /* Class = "IBUIButton"; normalTitle = "Change e-mail"; ObjectID = "R9i-Mn-k3a"; */
 "R9i-Mn-k3a.normalTitle" = "Измен. почту";
@@ -156,7 +156,7 @@
 "dYf-Sg-pHd.normalTitle" = "Отмена";
 
 /* Class = "IBUILabel"; text = "You haven't confirmed your e-mail address yet. Please check your e-mail."; ObjectID = "eHd-9o-24J"; */
-"eHd-9o-24J.text" = "Вы не подтвердили Вашу почту еще. Пожалуйста, проверте ее.";
+"eHd-9o-24J.text" = "Вы не подтвердили Вашу почту еще. Пожалуйста, проверьте ее.";
 
 /* Class = "IBUILabel"; text = "Comment text g"; ObjectID = "ek8-rH-Jsu"; */
 "ek8-rH-Jsu.text" = "Текст комментария";
@@ -177,7 +177,7 @@
 "jAi-R7-bNq.text" = "Лейбочка";
 
 /* Class = "IBUIButton"; normalTitle = "Send invite"; ObjectID = "kdg-Ph-jY5"; */
-"kdg-Ph-jY5.normalTitle" = "Отправка приглашения";
+"kdg-Ph-jY5.normalTitle" = "Отправить приглошение";
 
 /* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "oMu-AF-YMH"; */
 "oMu-AF-YMH.normalTitle" = "Готово";

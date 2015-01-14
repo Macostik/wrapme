@@ -98,6 +98,7 @@
 "newer" = "новее";
 "older" = "старее";
 "You are using %@ v%@" = "Вы используете %@ v%@";
+"\nJenkins build number %d" = "\nJenkins сборка номер %d";
 "Sign Out" = "Выход";
 "Are you sure you want to sign out?" = "Вы уверены, что хотите выйти?";
 "Save" = "Сохранить";

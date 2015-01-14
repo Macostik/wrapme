@@ -108,6 +108,7 @@
 "newer" = "newer";
 "older" = "older";
 "You are using %@ v%@" = "You are using %@ v%@";
+"\nJenkins build number %d" = "\nJenkins build number %d";
 "Sign Out" = "Sign Out";
 "Are you sure you want to sign out?" = "Are you sure you want to sign out?";
 "Save" = "Save";

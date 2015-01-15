@@ -143,13 +143,19 @@ static WLDataBlock deviceTokenCompletion = nil;
         __weak typeof(self)weakSelf = self;
         [self.userChannel enableAPNS];
         [self.userChannel observeMessages:^(PNMessage *message) {
-            WLNotification *notification = [WLNotification notificationWithMessage:message];
-            BOOL insertedEntry = notification.targetEntry.inserted;
-            [notification fetch:^{
-                if (notification.playSound && insertedEntry) [WLSoundPlayer playSoundForNotification:notification];
-            } failure:nil];
-            weakSelf.historyDate = [[message.receiveDate date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
+            [weakSelf handleMessage:message saveHistoryDate:YES];
         }];
+    }
+}
+
+- (void)handleMessage:(PNMessage*)message saveHistoryDate:(BOOL)saveHistoryDate {
+    WLNotification *notification = [WLNotification notificationWithMessage:message];
+    BOOL insertedEntry = notification.targetEntry.inserted;
+    [notification fetch:^{
+        if (notification.playSound && insertedEntry) [WLSoundPlayer playSoundForNotification:notification];
+    } failure:nil];
+    if (saveHistoryDate) {
+        self.historyDate = [[message.receiveDate date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
     }
 }
 
@@ -160,8 +166,9 @@ static WLDataBlock deviceTokenCompletion = nil;
         [PubNub requestHistoryForChannel:self.userChannel.channel from:[PNDate dateWithDate:historyDate] to:[PNDate dateWithDate:[NSDate now]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, PNChannel *channel, PNDate *from, PNDate *to, PNError *error) {
             if (!error) {
                 if (messages.nonempty) {
-                    weakSelf.historyDate = [[[messages.lastObject receiveDate] date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
-                    [messages all:weakSelf.userChannel.messageHandler];
+                    for (PNMessage *message in messages) {
+                        [weakSelf handleMessage:message saveHistoryDate:message == [messages lastObject]];
+                    }
                 } else {
                     weakSelf.historyDate = [NSDate now];
                 }

@@ -68,7 +68,7 @@
         [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
         }];
     });
-        
+    
 	return YES;
 }
 

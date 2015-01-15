@@ -193,7 +193,7 @@
                                                     </connections>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="61" translatesAutoresizingMaskIntoConstraints="NO" id="FBj-ps-Q2W" customClass="WLLabel">
-                                                    <rect key="frame" x="68" y="37" width="61" height="21"/>
+                                                    <rect key="frame" x="68" y="37" width="43" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="mzc-LF-4gp"/>
@@ -205,12 +205,11 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yestarday 1:34pm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="7nH-rK-CBH" customClass="WLLabel">
-                                                    <rect key="frame" x="131" y="37" width="125" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Yestarday at 2:34pm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="7nH-rK-CBH" customClass="WLLabel">
+                                                    <rect key="frame" x="113" y="37" width="143" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="125" id="ZqB-Td-GGe"/>
-                                                        <constraint firstAttribute="height" constant="21" id="otw-K5-SkG"/>
+                                                        <constraint firstAttribute="height" constant="21" id="B1N-IV-szC"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                     <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -237,13 +236,13 @@
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="7nH-rK-CBH" firstAttribute="leading" secondItem="FBj-ps-Q2W" secondAttribute="trailing" constant="2" id="7iB-ty-06H"/>
                                             <constraint firstAttribute="bottom" secondItem="FBj-ps-Q2W" secondAttribute="bottom" constant="8" id="AYD-P6-tj0"/>
                                             <constraint firstAttribute="centerY" secondItem="sbj-Wd-1e2" secondAttribute="centerY" constant="0.5" id="AsT-Lv-sy9"/>
                                             <constraint firstItem="sbj-Wd-1e2" firstAttribute="leading" secondItem="ZhB-Wt-rBP" secondAttribute="trailing" constant="12" id="F8Q-1B-wsL"/>
                                             <constraint firstItem="sbj-Wd-1e2" firstAttribute="leading" secondItem="7nH-rK-CBH" secondAttribute="trailing" constant="12" id="Ix7-Tq-tzs"/>
                                             <constraint firstItem="08S-52-GIh" firstAttribute="leading" secondItem="NnN-ec-DhQ" secondAttribute="trailing" constant="12" id="KJx-qL-2WF"/>
                                             <constraint firstItem="FBj-ps-Q2W" firstAttribute="top" secondItem="ZhB-Wt-rBP" secondAttribute="bottom" constant="-2" id="Vcd-LI-Kt7"/>
-                                            <constraint firstItem="7nH-rK-CBH" firstAttribute="leading" secondItem="FBj-ps-Q2W" secondAttribute="trailing" constant="2" id="WDV-jS-54l"/>
                                             <constraint firstItem="sbj-Wd-1e2" firstAttribute="leading" secondItem="08S-52-GIh" secondAttribute="trailing" constant="12" id="WWq-rj-T7S"/>
                                             <constraint firstItem="08S-52-GIh" firstAttribute="leading" secondItem="FBj-ps-Q2W" secondAttribute="leading" id="YRN-wu-hJl"/>
                                             <constraint firstAttribute="trailing" secondItem="Ges-BB-Uma" secondAttribute="trailing" constant="12" id="Z3f-fx-v2R"/>
@@ -263,7 +262,6 @@
                                             <outlet property="pictureView" destination="NnN-ec-DhQ" id="R4C-Gl-Cm1"/>
                                             <outlet property="timeLabel" destination="7nH-rK-CBH" id="ldI-MY-JrI"/>
                                             <outlet property="userNameLabel" destination="08S-52-GIh" id="gZS-ei-gOV"/>
-                                            <outlet property="widthConstraint" destination="ZqB-Td-GGe" id="s43-ei-gZU"/>
                                             <outlet property="wrapImageView" destination="sbj-Wd-1e2" id="Bjx-9O-I1H"/>
                                         </connections>
                                     </collectionViewCell>

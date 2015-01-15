@@ -26,7 +26,6 @@
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *commentLabel;
 @property (weak, nonatomic) IBOutlet WLImageView *wrapImageView;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
 
 @end
 
@@ -44,10 +43,6 @@
     self.commentLabel.text = comment.text;
     self.inWrapLabel.text = comment.candy.wrap.name;
     self.timeLabel.text = comment.createdAt.timeAgoStringAtAMPM;
-    self.widthConstraint.constant = [self.timeLabel.text widthWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular
-                                                                                              preset:WLFontPresetSmall]
-                                                                  size:CGSizeZero];
-    [self.timeLabel layoutIfNeeded];
 }
 
 #pragma mark - TTTAttributedLabelDelegate

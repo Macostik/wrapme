@@ -6766,7 +6766,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "9bdc9f6d-2c73-4b0a-92e0-c2a694503ecf";
+				PROVISIONING_PROFILE = "05070950-7b03-4d5e-b99c-12f310322e49";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

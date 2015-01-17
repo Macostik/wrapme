@@ -6510,7 +6510,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "85774310-960e-40e4-8e02-21c9b306c96d";
+				PROVISIONING_PROFILE = "d991e487-3a33-4761-9264-6b08f58c7606";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -6529,7 +6529,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "301cd1ca-9084-4404-8184-8e364779fd63";
+				PROVISIONING_PROFILE = "6d39840d-fcb5-412b-a59c-67b54f7712f1";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6552,7 +6552,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = WLTodayExtension_Production;
-				PROVISIONING_PROFILE = "f8c9e998-e3f6-4931-9c1d-aafb6df51183";
+				PROVISIONING_PROFILE = "8b28d4a7-1f3c-4245-a473-12179d741380";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -6571,7 +6571,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = WLTodayExtension_Production;
-				PROVISIONING_PROFILE = "4eb18574-2cf5-4f63-8166-879c145c78e6";
+				PROVISIONING_PROFILE = "6006654a-3d75-4060-97d9-df3fea99dafe";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6602,7 +6602,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "222ab038-ab94-450d-b364-841cbf3d7127";
+				PROVISIONING_PROFILE = "a12c2bcc-b577-4b78-93c7-6f20f263ef1c";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6636,7 +6636,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "05070950-7b03-4d5e-b99c-12f310322e49";
+				PROVISIONING_PROFILE = "d862b3b5-b4c5-4c57-ace1-51d842086675";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

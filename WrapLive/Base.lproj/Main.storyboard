@@ -3207,15 +3207,11 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5m-hD-Eet" customClass="WLComposeBar">
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="H5m-hD-Eet" customClass="WLComposeBar">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="9Fv-zW-20Z"/>
-                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="eto-O4-OHy" id="zVp-Xw-Fgs"/>
-                                    <outlet property="heightConstraint" destination="9Fv-zW-20Z" id="CAN-k9-O15"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -3224,7 +3220,6 @@
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="0bz-V3-1nu"/>
                             <constraint firstAttribute="trailing" secondItem="UZa-6k-iNP" secondAttribute="trailing" id="3xK-lh-kmq"/>
                             <constraint firstItem="UZa-6k-iNP" firstAttribute="top" secondItem="Wbg-W9-8Ie" secondAttribute="bottom" id="5Fq-Bb-Itl"/>
-                            <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="H5m-hD-Eet" secondAttribute="bottom" id="7Hc-du-E5Y"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="jyK-17-cAD" secondAttribute="bottom" id="NgB-RI-d7R"/>
                             <constraint firstItem="UZa-6k-iNP" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="VjW-m8-4d3"/>
                             <constraint firstItem="jyK-17-cAD" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="bPW-BY-6Fp"/>
@@ -3234,6 +3229,7 @@
                             <constraint firstAttribute="trailing" secondItem="H5m-hD-Eet" secondAttribute="trailing" id="to1-5H-Mhc"/>
                             <constraint firstAttribute="trailing" secondItem="Wbg-W9-8Ie" secondAttribute="trailing" id="vU4-de-bcZ"/>
                             <constraint firstItem="H5m-hD-Eet" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="yQk-fZ-csK"/>
+                            <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="H5m-hD-Eet" secondAttribute="bottom" id="zkg-47-Wty"/>
                         </constraints>
                     </view>
                     <connections>
@@ -3241,9 +3237,9 @@
                         <outlet property="composeBarView" destination="H5m-hD-Eet" id="Fox-fh-5fg"/>
                         <outlet property="dateLabel" destination="bAQ-Aj-DW4" id="k2S-h0-6NV"/>
                         <outlet property="navigationBar" destination="Wbg-W9-8Ie" id="rqy-nr-XQo"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="7Hc-du-E5Y" id="909-ij-QhE"/>
                         <outletCollection property="keyboardAdjustmentLayoutViews" destination="jyK-17-cAD" id="lnf-D1-hsN"/>
-                        <outletCollection property="keyboardAdjustmentLayoutViews" destination="H5m-hD-Eet" id="3D4-Op-5dO"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="zkg-47-Wty" id="kKr-Hk-234"/>
+                        <outletCollection property="keyboardAdjustmentLayoutViews" destination="H5m-hD-Eet" id="wFW-1o-JXP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLM-ad-e36" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3731,30 +3727,26 @@ Check your internet connection and try again.</string>
                                     <constraint firstItem="AvF-XJ-7eQ" firstAttribute="leading" secondItem="L7B-3N-jdg" secondAttribute="leading" constant="44" id="x3d-hM-exY"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQp-Lx-kpC" customClass="WLComposeBar">
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="dQp-Lx-kpC" customClass="WLComposeBar">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="3dn-cZ-dWQ"/>
-                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="ef1-h7-yay" id="uwe-aK-54k"/>
-                                    <outlet property="heightConstraint" destination="3dn-cZ-dWQ" id="Q3h-5E-gQo"/>
                                 </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="dQp-Lx-kpC" secondAttribute="trailing" id="4kf-fC-hnd"/>
                             <constraint firstItem="L7B-3N-jdg" firstAttribute="top" secondItem="gG3-lt-ayC" secondAttribute="bottom" constant="-20" id="5pl-Ds-M0T"/>
                             <constraint firstItem="L7B-3N-jdg" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leading" id="7co-MS-pdF"/>
                             <constraint firstAttribute="trailing" secondItem="ez0-f9-dHG" secondAttribute="trailing" id="849-5l-I5b"/>
-                            <constraint firstItem="dQp-Lx-kpC" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leading" id="EeM-Zh-qsO"/>
                             <constraint firstItem="ez0-f9-dHG" firstAttribute="top" secondItem="gG3-lt-ayC" secondAttribute="bottom" constant="44" id="FCt-Lt-NzX"/>
-                            <constraint firstItem="nir-Cb-3ne" firstAttribute="top" secondItem="dQp-Lx-kpC" secondAttribute="bottom" id="SZx-HS-fPo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dQp-Lx-kpC" secondAttribute="trailing" constant="-16" id="GbZ-k6-ly2"/>
+                            <constraint firstItem="nir-Cb-3ne" firstAttribute="top" secondItem="dQp-Lx-kpC" secondAttribute="bottom" id="RiC-ww-QNg"/>
                             <constraint firstItem="ez0-f9-dHG" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leading" id="Ybf-l7-WYL"/>
                             <constraint firstAttribute="trailing" secondItem="L7B-3N-jdg" secondAttribute="trailing" id="fEW-6K-kyl"/>
                             <constraint firstItem="nir-Cb-3ne" firstAttribute="top" secondItem="ez0-f9-dHG" secondAttribute="bottom" id="tKy-hC-Tgh"/>
+                            <constraint firstItem="dQp-Lx-kpC" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leadingMargin" constant="-16" id="yTy-Zs-906"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="aUD-yq-Ejy"/>
@@ -3763,9 +3755,9 @@ Check your internet connection and try again.</string>
                         <outlet property="composeBar" destination="dQp-Lx-kpC" id="cly-mG-GSx"/>
                         <outlet property="titleLabel" destination="AvF-XJ-7eQ" id="VjQ-zZ-1TG"/>
                         <outlet property="topView" destination="L7B-3N-jdg" id="gR3-Tx-BoI"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="SZx-HS-fPo" id="SpX-85-qBQ"/>
                         <outletCollection property="keyboardAdjustmentLayoutViews" destination="ez0-f9-dHG" id="nkh-TB-hbr"/>
                         <outletCollection property="keyboardAdjustmentLayoutViews" destination="dQp-Lx-kpC" id="iKQ-Nq-Awr"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="RiC-ww-QNg" id="Agn-Oe-QGL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nVG-1G-xkC" userLabel="First Responder" sceneMemberID="firstResponder"/>

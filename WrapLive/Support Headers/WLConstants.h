@@ -15,7 +15,7 @@ struct WLConstantsStruct WLConstants;
 
 static inline void WLInitializeConstants (void) {
     WLConstants = (struct WLConstantsStruct) {
-        .pixelSize = 1.0f / [UIScreen mainScreen].scale,
+        .pixelSize = 1.0f / ([UIScreen mainScreen].scale < 2 ? : 2),
         .iPhone = [[UIScreen mainScreen] bounds].size.width < 768.0
     };
 }

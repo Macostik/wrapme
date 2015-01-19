@@ -22,14 +22,12 @@
 #import "UIFont+CustomFonts.h"
 
 static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
-static CGFloat WLComposeBarMinHeight = 44.0f;
 
 @interface WLComposeBar () <UITextViewDelegate, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) UIView *composeView;
-@property (nonatomic) CGFloat defaultHeight;
 @property (strong, nonatomic) WLEmojiView * emojiView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
@@ -43,44 +41,23 @@ static CGFloat WLComposeBarMinHeight = 44.0f;
 	[super awakeFromNib];
 	self.composeView = [UIView loadFromNibNamed:@"WLComposeBar" ownedBy:self];
 	self.composeView.frame = self.bounds;
-	self.defaultHeight = self.bounds.size.height;
     [self addSubview:self.composeView];
     UIColor *color = [UIColor colorWithHexString:@"#EEEEEE"];
 	self.textView.superview.layer.borderColor = color.CGColor;
-    CGFloat r,g,b;
-    [color getRed:&r green:&g blue:&b alpha:NULL];
     self.textView.superview.layer.borderWidth = WLConstants.pixelSize;
 	self.textView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.textView.contentInset = UIEdgeInsetsZero;
 	[self updateStateAnimated:NO];
 }
 
-- (void)checkHeight {
-    CGFloat height = WLComposeBarMinHeight;
-    UITextView* textView = self.textView;
-    if (textView.text.nonempty) {
-        height = [textView sizeThatFits:CGSizeMake(textView.width, CGFLOAT_MAX)].height;
-        self.height =  Smoothstep(textView.font.lineHeight, textView.font.lineHeight * 2, height) + textView.superview.y*2 + textView.y*2;
-        if (textView.selectedRange.location == textView.text.length) {
-            CGPoint bottomOffset = CGPointMake(0, textView.contentSize.height - textView.height);
-            [textView setContentOffset:bottomOffset animated:YES];
-        }
-    } else {
-        self.height = height;
+- (void)updateHeight {
+    BOOL scrollEnabled = [self.textView sizeThatFits:
+                          CGSizeMake(self.textView.width, CGFLOAT_MAX)].height >= self.heightConstraint.constant;
+    if (self.textView.scrollEnabled != scrollEnabled) {
+        self.textView.scrollEnabled = scrollEnabled;
     }
     if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
         [self.delegate composeBarDidChangeHeight:self];
-    }
-}
-
-- (void)setHeight:(CGFloat)height {
-    NSLayoutConstraint* constraint = self.heightConstraint;
-    if (constraint) {
-        constraint.constant = height;
-        [constraint.firstItem layoutIfNeeded];
-        [constraint.secondItem layoutIfNeeded];
-    } else {
-        [super setHeight:height];
     }
 }
 
@@ -91,7 +68,7 @@ static CGFloat WLComposeBarMinHeight = 44.0f;
 - (void)setText:(NSString *)text {
 	self.textView.text = text;
     self.placeholderLabel.hidden = text.nonempty;
-    [self checkHeight];
+    [self updateHeight];
     [self updateStateAnimated:YES];
 }
 
@@ -167,8 +144,8 @@ static CGFloat WLComposeBarMinHeight = 44.0f;
         [self.delegate composeBarDidChangeText:self];
     }
     self.placeholderLabel.hidden = textView.text.nonempty;
-    [self checkHeight];
-	[self updateStateAnimated:YES];
+    [self updateHeight];
+    [self updateStateAnimated:YES];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {

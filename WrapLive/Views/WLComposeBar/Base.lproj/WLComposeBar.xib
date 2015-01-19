@@ -14,6 +14,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLComposeBar">
             <connections>
                 <outlet property="doneButton" destination="YS0-3g-wEg" id="RnM-Da-891"/>
+                <outlet property="heightConstraint" destination="T4z-IO-i5N" id="Xjh-DI-Qn1"/>
                 <outlet property="horizontalSpaceDoneButtonContstraint" destination="GW8-hY-eVN" id="jxO-og-zZ0"/>
                 <outlet property="placeholderLabel" destination="GEw-xM-AHA" id="qvB-ZM-w4M"/>
                 <outlet property="textView" destination="ZgG-gu-HiH" id="7hY-w7-xs2"/>
@@ -24,9 +25,12 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tsn-CW-vvV">
+                <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tsn-CW-vvV">
                     <rect key="frame" x="0.0" y="0.0" width="45" height="44"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="45" id="w2y-wp-R3O"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="15"/>
                     <state key="normal" image="ic_emoji"/>
                     <state key="selected" image="ic_emoji_keyboard"/>
@@ -37,9 +41,12 @@
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Etu-eU-YXb">
                     <rect key="frame" x="45" y="7" width="225" height="30"/>
                     <subviews>
-                        <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZgG-gu-HiH" customClass="WLTextView">
+                        <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZgG-gu-HiH" customClass="WLTextView">
                             <rect key="frame" x="0.0" y="4" width="225" height="21"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="42" id="T4z-IO-i5N"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             <userDefinedRuntimeAttributes>
@@ -62,17 +69,16 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="GEw-xM-AHA" secondAttribute="bottom" constant="5" id="6M1-iV-hiw"/>
                         <constraint firstItem="ZgG-gu-HiH" firstAttribute="top" secondItem="Etu-eU-YXb" secondAttribute="top" constant="4" id="FR2-gx-GAe"/>
                         <constraint firstAttribute="trailing" secondItem="GEw-xM-AHA" secondAttribute="trailing" id="SSe-OY-L9e"/>
+                        <constraint firstItem="GEw-xM-AHA" firstAttribute="centerY" secondItem="ZgG-gu-HiH" secondAttribute="centerY" id="cFF-mO-1kp"/>
                         <constraint firstItem="GEw-xM-AHA" firstAttribute="leading" secondItem="Etu-eU-YXb" secondAttribute="leading" constant="5" id="fgr-FF-7YU"/>
-                        <constraint firstItem="GEw-xM-AHA" firstAttribute="top" secondItem="Etu-eU-YXb" secondAttribute="top" constant="4" id="hR0-hs-CU2"/>
                         <constraint firstItem="ZgG-gu-HiH" firstAttribute="leading" secondItem="Etu-eU-YXb" secondAttribute="leading" id="n9D-Ds-8aU"/>
                         <constraint firstAttribute="bottom" secondItem="ZgG-gu-HiH" secondAttribute="bottom" constant="5" id="njY-eT-H4Y"/>
                         <constraint firstAttribute="trailing" secondItem="ZgG-gu-HiH" secondAttribute="trailing" id="znI-fR-fxz"/>
                     </constraints>
                 </view>
-                <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YS0-3g-wEg">
+                <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YS0-3g-wEg">
                     <rect key="frame" x="275" y="0.0" width="45" height="44"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -99,13 +105,11 @@
                 <constraint firstItem="Etu-eU-YXb" firstAttribute="top" secondItem="6Di-Fo-9po" secondAttribute="top" constant="7" id="57j-zP-jeQ"/>
                 <constraint firstItem="Etu-eU-YXb" firstAttribute="leading" secondItem="6Di-Fo-9po" secondAttribute="leading" constant="45" id="EiZ-lc-6n3"/>
                 <constraint firstAttribute="trailing" secondItem="YS0-3g-wEg" secondAttribute="trailing" id="GW8-hY-eVN"/>
-                <constraint firstAttribute="bottom" secondItem="Tsn-CW-vvV" secondAttribute="bottom" id="ITi-KM-YuM"/>
                 <constraint firstItem="YS0-3g-wEg" firstAttribute="leading" secondItem="Etu-eU-YXb" secondAttribute="trailing" constant="5" id="LGF-Nq-a3i"/>
-                <constraint firstItem="YS0-3g-wEg" firstAttribute="top" secondItem="6Di-Fo-9po" secondAttribute="top" id="WMX-hk-pcM"/>
+                <constraint firstItem="YS0-3g-wEg" firstAttribute="centerY" secondItem="Etu-eU-YXb" secondAttribute="centerY" id="QDw-Yl-JJo"/>
                 <constraint firstItem="Tsn-CW-vvV" firstAttribute="leading" secondItem="6Di-Fo-9po" secondAttribute="leading" id="XcO-A5-k0B"/>
-                <constraint firstItem="Tsn-CW-vvV" firstAttribute="top" secondItem="6Di-Fo-9po" secondAttribute="top" id="gzp-c2-8eh"/>
-                <constraint firstAttribute="bottom" secondItem="YS0-3g-wEg" secondAttribute="bottom" id="jIW-3p-SaJ"/>
                 <constraint firstAttribute="bottom" secondItem="Etu-eU-YXb" secondAttribute="bottom" constant="7" id="mXU-kS-ogi"/>
+                <constraint firstItem="Etu-eU-YXb" firstAttribute="centerY" secondItem="Tsn-CW-vvV" secondAttribute="centerY" id="ugw-jS-jO7"/>
                 <constraint firstItem="Etu-eU-YXb" firstAttribute="leading" secondItem="Tsn-CW-vvV" secondAttribute="trailing" id="vgX-Yf-6WK"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

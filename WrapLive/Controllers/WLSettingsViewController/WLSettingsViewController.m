@@ -38,7 +38,7 @@
         NSString *sourceFile = [[NSBundle mainBundle] pathForResource:@"WLAPIEnvironmentProduction" ofType:@"plist"];
         NSDate *lastModif = [[[NSFileManager defaultManager] attributesOfItemAtPath:sourceFile error:NULL] objectForKey:NSFileModificationDate];
         if (lastModif) {
-            [_message appendFormat:@"\nInstalled %@", [lastModif stringWithFormat:@"MMM d, yyyy hh:mm:ss"]];
+            [_message appendFormat:@"\nInstalled %@", [lastModif stringWithFormat:@"MMM d, yyyy h:mm:ss"]];
         }
 
 #if CI_BUILD_NUMBER > 0

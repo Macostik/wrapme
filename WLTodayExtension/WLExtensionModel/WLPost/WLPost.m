@@ -45,7 +45,7 @@
 @implementation NSDate (WLPost)
 
 - (NSString *)timeAgoStringAtAMPM {
-    return [NSString stringWithFormat:@"today at %@", [self stringWithFormat:@"hh:mma"]];
+    return [NSString stringWithFormat:@"today at %@", [self stringWithFormat:@"h:mma"]];
 }
 
 - (BOOL)isSameDay:(NSDate *)date {

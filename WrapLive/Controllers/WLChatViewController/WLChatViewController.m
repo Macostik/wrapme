@@ -96,10 +96,6 @@ CGFloat WLMaxTextViewWidth;
     self.itemsWithDay = [NSMutableIndexSet indexSet];
     self.itemsWithName = [NSMutableIndexSet indexSet];
     
-    NSDateFormatter *timeFormatter = [NSDate formatterWithDateFormat:@"hh:mmaa"];
-    [timeFormatter setAMSymbol:@"am"];
-    [timeFormatter setPMSymbol:@"pm"];
-    
     UICollectionView *collectionView = self.collectionView;
     
     [self updateEdgeInsets:0];

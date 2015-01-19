@@ -81,22 +81,18 @@
 	}
 	
     __weak typeof(self)weakSelf = self;
-    void (^initCameraBlock)(void) = ^ {
-        weakSelf.unauthorizedStatusView.hidden = YES;
-        weakSelf.position = weakSelf.defaultPosition;
-        weakSelf.flashMode = AVCaptureFlashModeOff;
-        weakSelf.flashModeControl.mode = weakSelf.flashMode;
-        weakSelf.cameraView.layer.session = weakSelf.session;
-        [weakSelf performSelector:@selector(start) withObject:nil afterDelay:0.0];
-    };
-    
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-        if (granted) {
-            initCameraBlock();
-        } else {
-            weakSelf.unauthorizedStatusView.hidden = NO;
-            weakSelf.takePhotoButton.active = NO;
-        }
+        run_in_main_queue(^{
+            weakSelf.unauthorizedStatusView.hidden = granted;
+            if (granted) {
+                weakSelf.position = weakSelf.defaultPosition;
+                weakSelf.flashMode = weakSelf.flashModeControl.mode = AVCaptureFlashModeOff;
+                weakSelf.cameraView.layer.session = weakSelf.session;
+                [weakSelf start];
+            } else {
+                weakSelf.takePhotoButton.active = NO;
+            }
+        });
     }];
 }
 

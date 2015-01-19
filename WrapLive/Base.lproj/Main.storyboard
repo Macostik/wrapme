@@ -814,13 +814,13 @@
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="1N0-Ju-AIq" id="Gey-vy-fpK"/>
                     </connections>
                 </viewController>
-                <customObject id="NSY-AX-h8F" customClass="WLStoryboardTransition">
+                <customObject id="NSY-AX-h8F" userLabel="Camera Transition" customClass="WLStoryboardTransition">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="storyboard" value="Camera"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="sourceIsDelegate" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="sourceViewController" destination="hUj-RK-zkg" id="tfD-kS-zCJ"/>
+                        <outlet property="sourceViewController" destination="7FG-gC-kPg" id="Spn-ib-Szr"/>
                     </connections>
                 </customObject>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j3e-xO-oCt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -922,7 +922,7 @@
                                                                             <constraint firstAttribute="bottom" secondItem="jAi-R7-bNq" secondAttribute="bottom" id="xBK-DA-8iX"/>
                                                                         </constraints>
                                                                         <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
                                                                                 <color key="value" white="0.10100000351667404" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
@@ -2476,8 +2476,8 @@
                                                                             <constraint firstAttribute="trailing" secondItem="eIp-Tc-hkV" secondAttribute="trailing" constant="4" id="xLU-df-buz"/>
                                                                         </constraints>
                                                                         <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                                                <color key="value" white="0.1010000035" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                                                <color key="value" white="0.10100000351667404" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
@@ -3202,8 +3202,8 @@
                                     <constraint firstAttribute="height" constant="44" id="d0s-1g-kaS"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>

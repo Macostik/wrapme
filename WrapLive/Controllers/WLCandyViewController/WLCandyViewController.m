@@ -41,6 +41,7 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIView+AnimationHelper.h"
 #import "NSOrderedSet+Additions.h"
+#import "WLHintView.h"
 
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver>
 
@@ -119,6 +120,7 @@
     if (self.showCommentInputKeyboard) {
         [self.composeBarView becomeFirstResponder];
     }
+    [WLHintView showHintViewFromNibNamed:@"WLCandySwipeHintView"];
 }
 
 - (void)viewDidLayoutSubviews {

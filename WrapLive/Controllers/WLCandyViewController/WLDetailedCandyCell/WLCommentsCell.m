@@ -85,6 +85,9 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
     self.headerView.candy = self.entry;
+    if (self.comments.count != candy.comments.count) {
+        [self.collectionView reloadData];
+    }
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier commentAdded:(WLComment *)comment {
@@ -99,7 +102,9 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     WLCandy* candy = self.entry;
-    self.comments = candy.comments;
+    self.comments = [candy.comments selectObjects:^BOOL(WLComment* comment) {
+        return comment.valid;
+    }];
 	return self.comments.count;
 }
 

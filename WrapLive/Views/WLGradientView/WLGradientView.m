@@ -16,6 +16,8 @@
 
 @implementation WLGradientView
 
+@synthesize endColor = _endColor;
+
 + (Class)layerClass {
     return [CAGradientLayer class];
 }
@@ -63,9 +65,19 @@
     }
 }
 
-- (void)setColor:(UIColor *)color {
-    _color = color;
-    self.layer.colors = @[(id)color.CGColor,(id)[color colorWithAlphaComponent:0].CGColor];
+- (void)setStartColor:(UIColor *)startColor {
+    _startColor = startColor;
+    self.layer.colors = @[(id)self.startColor.CGColor,(id)self.endColor.CGColor];
+}
+
+- (void)setEndColor:(UIColor *)endColor {
+    _endColor = endColor;
+    self.layer.colors = @[(id)self.startColor.CGColor,(id)self.endColor.CGColor];
+}
+
+- (UIColor *)endColor {
+    if (!_endColor) _endColor = [_startColor colorWithAlphaComponent:0];
+    return _endColor;
 }
 
 @end

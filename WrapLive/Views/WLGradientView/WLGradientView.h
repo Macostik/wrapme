@@ -10,6 +10,8 @@
 
 @interface WLGradientView : UIView
 
-@property (strong, nonatomic) IBInspectable UIColor* color;
+@property (strong, nonatomic) IBInspectable UIColor* startColor;
+
+@property (strong, nonatomic) IBInspectable UIColor* endColor;
 
 @end

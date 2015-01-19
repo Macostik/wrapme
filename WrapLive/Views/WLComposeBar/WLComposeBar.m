@@ -32,6 +32,7 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *horizontalSpaceDoneButtonContstraint;
+@property (assign, nonatomic) IBInspectable CGFloat maxLines;
 
 @end
 
@@ -48,6 +49,7 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
 	self.textView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.textView.contentInset = UIEdgeInsetsZero;
 	[self updateStateAnimated:NO];
+    self.heightConstraint.constant = self.textView.font.lineHeight * self.maxLines;
 }
 
 - (void)updateHeight {

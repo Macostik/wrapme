@@ -58,6 +58,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		instance.requestSerializer.timeoutInterval = 45;
         NSString* acceptHeader = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", environment.version];
 		[instance.requestSerializer setValue:acceptHeader forHTTPHeaderField:@"Accept"];
+        instance.securityPolicy.allowInvalidCertificates = YES;
 	});
     return instance;
 }

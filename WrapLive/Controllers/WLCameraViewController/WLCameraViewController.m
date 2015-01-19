@@ -55,6 +55,7 @@
 
 #pragma mark - UIKit interface
 
+@property (weak, nonatomic) IBOutlet UILabel *unauthorizedStatusView;
 @property (weak, nonatomic) IBOutlet WLCameraView *cameraView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -79,17 +80,24 @@
         [self.view layoutIfNeeded];
 	}
 	
-    self.position = self.defaultPosition;
-	self.flashMode = AVCaptureFlashModeOff;
-	self.flashModeControl.mode = self.flashMode;
+    __weak typeof(self)weakSelf = self;
+    void (^initCameraBlock)(void) = ^ {
+        weakSelf.unauthorizedStatusView.hidden = YES;
+        weakSelf.position = weakSelf.defaultPosition;
+        weakSelf.flashMode = AVCaptureFlashModeOff;
+        weakSelf.flashModeControl.mode = weakSelf.flashMode;
+        weakSelf.cameraView.layer.session = weakSelf.session;
+        [weakSelf performSelector:@selector(start) withObject:nil afterDelay:0.0];
+    };
     
-    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    if (status == AVAuthorizationStatusAuthorized) {
-        self.cameraView.layer.session = self.session;
-        [self performSelector:@selector(start) withObject:nil afterDelay:0.0];
-    } else {
-        self.takePhotoButton.active = NO;
-    }
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+        if (granted) {
+            initCameraBlock();
+        } else {
+            weakSelf.unauthorizedStatusView.hidden = NO;
+            weakSelf.takePhotoButton.active = NO;
+        }
+    }];
 }
 
 #pragma mark - User Actions

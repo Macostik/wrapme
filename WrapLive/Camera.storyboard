@@ -7,6 +7,7 @@
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Light.ttf">
             <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -31,6 +32,20 @@
                                     <outletCollection property="gestureRecognizers" destination="lNU-oZ-hbO" appends="YES" id="oC3-9S-ZMv"/>
                                 </connections>
                             </view>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To allow access to the camera go to the Settings → Privacy → Camera" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwv-dz-I8C" customClass="WLLabel">
+                                <rect key="frame" x="20" y="152" width="280" height="176"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="176" id="hsn-Uq-3x3"/>
+                                    <constraint firstAttribute="width" constant="280" id="j4E-9d-AXx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqD-Jp-Gr1">
                                 <rect key="frame" x="0.0" y="388" width="320" height="92"/>
                                 <subviews>
@@ -147,12 +162,14 @@
                             <constraint firstItem="QJU-xo-V0A" firstAttribute="top" secondItem="WwV-lh-u8m" secondAttribute="top" id="8bA-uj-3X0"/>
                             <constraint firstItem="QJU-xo-V0A" firstAttribute="leading" secondItem="WwV-lh-u8m" secondAttribute="leading" id="Fbd-4J-yhu"/>
                             <constraint firstItem="oqD-Jp-Gr1" firstAttribute="leading" secondItem="WwV-lh-u8m" secondAttribute="leading" id="Jt8-dp-CKN"/>
+                            <constraint firstItem="Jwv-dz-I8C" firstAttribute="centerX" secondItem="QJU-xo-V0A" secondAttribute="centerX" id="O7o-MP-9BF"/>
                             <constraint firstAttribute="trailing" secondItem="oqD-Jp-Gr1" secondAttribute="trailing" id="ObE-eP-JMG"/>
                             <constraint firstItem="qVG-Zp-cpa" firstAttribute="top" secondItem="WwV-lh-u8m" secondAttribute="top" id="UiX-x7-JqQ"/>
                             <constraint firstAttribute="trailing" secondItem="qVG-Zp-cpa" secondAttribute="trailing" id="c9L-pc-RYF"/>
                             <constraint firstItem="qVG-Zp-cpa" firstAttribute="leading" secondItem="WwV-lh-u8m" secondAttribute="leading" id="ePN-JT-Ot1"/>
                             <constraint firstAttribute="trailing" secondItem="QJU-xo-V0A" secondAttribute="trailing" id="ge5-YS-ezb"/>
                             <constraint firstAttribute="bottom" secondItem="QJU-xo-V0A" secondAttribute="bottom" id="n4j-Kn-HTF"/>
+                            <constraint firstItem="Jwv-dz-I8C" firstAttribute="centerY" secondItem="QJU-xo-V0A" secondAttribute="centerY" id="sXd-fP-mf2"/>
                             <constraint firstItem="tIy-iw-Nju" firstAttribute="top" secondItem="oqD-Jp-Gr1" secondAttribute="bottom" id="u6r-Aq-w9o"/>
                         </constraints>
                     </view>
@@ -165,6 +182,7 @@
                         <outlet property="rotateButton" destination="sV2-wR-LN3" id="t38-Si-ylZ"/>
                         <outlet property="takePhotoButton" destination="3gL-lu-fDr" id="gF4-Sa-A9c"/>
                         <outlet property="topView" destination="qVG-Zp-cpa" id="l3K-Wc-YYE"/>
+                        <outlet property="unauthorizedStatusView" destination="Jwv-dz-I8C" id="170-g2-CsF"/>
                         <outlet property="zoomLabel" destination="q4z-2J-r1c" id="Uik-Cf-q4W"/>
                     </connections>
                 </viewController>

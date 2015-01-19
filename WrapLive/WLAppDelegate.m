@@ -155,7 +155,7 @@
             if (navigationController.presentedViewController) {
                 [navigationController dismissViewControllerAnimated:NO completion:nil];
             }
-            [homeViewController handleNewPhotosLocalNotification];
+            [homeViewController openCameraAnimated:NO startFromGallery:YES];
         }
     }
 }

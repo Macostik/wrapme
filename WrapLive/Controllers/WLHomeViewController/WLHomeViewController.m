@@ -156,16 +156,16 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self setEmailConfirmationViewHidden:YES animated:YES];
 }
 
-- (void)handleNewPhotosLocalNotification {
+- (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery {
     WLWrap *wrap = self.section.wrap;
     if (wrap) {
         WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
         stillPictureViewController.wrap = wrap;
         stillPictureViewController.mode = WLStillPictureModeDefault;
         stillPictureViewController.delegate = self;
-        stillPictureViewController.startFromGallery = YES;
+        stillPictureViewController.startFromGallery = startFromGallery;
         __weak typeof(self)weakSelf = self;
-        [self presentViewController:stillPictureViewController animated:NO completion:^{
+        [self presentViewController:stillPictureViewController animated:animated completion:^{
             [weakSelf stillPictureViewController:stillPictureViewController didSelectWrap:wrap];
         }];
     } else {
@@ -255,6 +255,10 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self presentViewController:stillPictureViewController animated:YES completion:^{
         [stillPictureViewController presentViewController:createWrapViewController animated:YES completion:nil];
     }];
+}
+
+- (IBAction)addPhoto:(id)sender {
+    [self openCameraAnimated:YES startFromGallery:NO];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate

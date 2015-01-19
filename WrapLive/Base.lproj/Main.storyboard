@@ -1427,7 +1427,7 @@
                                 </state>
                                 <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
                                 <connections>
-                                    <action selector="present:" destination="AWA-hF-c2z" eventType="touchUpInside" id="voe-jC-8d9"/>
+                                    <action selector="addPhoto:" destination="L91-fZ-J9O" eventType="touchUpInside" id="3Ca-tV-RCv"/>
                                 </connections>
                             </button>
                         </subviews>

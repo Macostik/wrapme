@@ -25,12 +25,10 @@
 
 + (instancetype)fetcher;
 
-- (instancetype)initWithReceiver:(id<WLImageFetching>)receiver;
-
 - (void)enqueueImageWithUrl:(NSString*)url;
 
 - (void)enqueueImageWithUrl:(NSString*)url completion:(WLImageBlock)completion;
 
-- (void)addReceiver:(id<WLImageFetching>)receiver;
+- (void)enqueueImageWithUrl:(NSString*)url receiver:(id <WLImageFetching>)receiver;
 
 @end

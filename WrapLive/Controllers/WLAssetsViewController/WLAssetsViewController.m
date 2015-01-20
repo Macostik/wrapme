@@ -16,6 +16,7 @@
 #import "UIButton+Additions.h"
 #import "NSArray+Additions.h"
 #import "UIView+Shorthand.h"
+#import "WLHintView.h"
 
 static NSUInteger WLAssetsSelectionLimit = 10;
 
@@ -76,6 +77,11 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     [super viewWillAppear:animated];
     [self.spinner stopAnimating];
     self.doneButton.hidden = (self.mode != WLStillPictureModeDefault);
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [WLHintView showWrapPickerHintViewInView:self.navigationController.parentViewController.view];
 }
 
 - (NSMutableArray *)selectedAssets {

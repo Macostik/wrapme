@@ -4,6 +4,14 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
+        </mutableArray>
+        <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -11,20 +19,50 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="gallery_pic_hand" translatesAutoresizingMaskIntoConstraints="NO" id="5YT-CL-Vk5">
-                    <rect key="frame" x="92" y="199" width="120" height="174"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a wrap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="1zI-Zd-PEP" customClass="WLLabel">
+                    <rect key="frame" x="28" y="64" width="229" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="esM-Gn-c23"/>
+                        <constraint firstAttribute="width" constant="229" id="fB1-wp-a5f"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="23"/>
+                    <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To choose a different wrap for this upload, tap the wrap name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="INP-a4-pR4" customClass="WLLabel">
+                    <rect key="frame" x="28" y="96" width="229" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="229" id="5aL-d4-EeJ"/>
+                        <constraint firstAttribute="height" constant="40" id="jvM-FG-eEm"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="gallery_pic_hand" translatesAutoresizingMaskIntoConstraints="NO" id="5YT-CL-Vk5">
+                    <rect key="frame" x="127" y="269" width="120" height="174"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="RYf-2d-ADE"/>
+                        <constraint firstAttribute="height" constant="174" id="f2b-8G-fmd"/>
+                    </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                    <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                    <color key="value" white="0.0" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="5YT-CL-Vk5" secondAttribute="bottom" constant="125" id="PGh-dp-BeA"/>
+                <constraint firstItem="5YT-CL-Vk5" firstAttribute="leading" secondItem="i6P-xe-Lyn" secondAttribute="leading" constant="127" id="V7I-wU-twP"/>
+                <constraint firstItem="1zI-Zd-PEP" firstAttribute="top" secondItem="i6P-xe-Lyn" secondAttribute="top" constant="64" id="Vv3-Zt-wFo"/>
+                <constraint firstItem="INP-a4-pR4" firstAttribute="leading" secondItem="i6P-xe-Lyn" secondAttribute="leading" constant="28" id="ecz-a5-12I"/>
+                <constraint firstItem="INP-a4-pR4" firstAttribute="top" secondItem="i6P-xe-Lyn" secondAttribute="top" constant="96" id="fWg-n1-M9Y"/>
+                <constraint firstItem="1zI-Zd-PEP" firstAttribute="leading" secondItem="i6P-xe-Lyn" secondAttribute="leading" constant="28" id="qBy-TW-Oga"/>
+            </constraints>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="Oof-Pi-jKu" appends="YES" id="4ao-Dc-39c"/>
             </connections>

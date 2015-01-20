@@ -72,7 +72,7 @@
     self.nameLabel.text = [NSString stringWithFormat:WLLS(@"By %@"), WLString(candy.contributor.name)];
     
 	[self.collectionView reloadData];
-    if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
+    if (candy.unread) candy.unread = NO;
 }
 
 - (void)updateBottomInset:(CGFloat)bottomInset {

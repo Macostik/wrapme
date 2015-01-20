@@ -120,7 +120,7 @@
     if (self.showCommentInputKeyboard) {
         [self.composeBarView becomeFirstResponder];
     }
-    [WLHintView showHintViewFromNibNamed:@"WLCandySwipeHintView"];
+    [WLHintView showCandySwipeHintView];
 }
 
 - (void)viewDidLayoutSubviews {

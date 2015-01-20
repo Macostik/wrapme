@@ -105,11 +105,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     }];
     
     [section setSelection:^(id entry) {
-        if ([entry respondsToSelector:@selector(candies)]) {
-            [[entry candies] all:^(WLCandy *candy) {
-                if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
-            }];
-        }
         [entry present];
     }];
     

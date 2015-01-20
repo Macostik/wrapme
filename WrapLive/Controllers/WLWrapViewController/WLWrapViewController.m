@@ -165,6 +165,10 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
             [weakSelf.navigationController popViewControllerAnimated:YES];
         });
         return;
+    } else {
+        [self.wrap.candies all:^(WLCandy *candy) {
+            if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
+        }];
     }
     
     [self.dataProvider reload];

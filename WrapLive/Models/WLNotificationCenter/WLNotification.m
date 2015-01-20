@@ -137,11 +137,11 @@
         if (event == WLEventAdd) {
             switch (weakSelf.type) {
                 case WLNotificationCommentAdd:
-                    if (targetEntry.notifiable && !NSNumberEqual(targetEntry.unread, @YES)) targetEntry.unread = @YES;
+                    if (targetEntry.notifiable && !targetEntry.unread) targetEntry.unread = YES;
                     break;
                 case WLNotificationCandyAdd:
                 case WLNotificationMessageAdd:
-                    if (!NSNumberEqual(targetEntry.unread, @YES)) targetEntry.unread = @YES;
+                    if (!targetEntry.unread) targetEntry.unread = YES;
                     break;
                 default:
                     break;

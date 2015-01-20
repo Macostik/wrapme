@@ -95,7 +95,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
         WLUser *user = [WLUser currentUser];
         [weakSelf setPlaceholderVisible:entries.completed && ![entries.entries nonempty] forType:0];
         if (user.firstTimeUse && [user.wraps match:^BOOL(WLWrap *wrap) {
-            return !wrap.isDefault.boolValue;
+            return !wrap.isDefault;
         }]) {
             static dispatch_once_t onceToken;
             dispatch_once(&onceToken, ^{

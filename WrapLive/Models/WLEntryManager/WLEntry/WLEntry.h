@@ -16,6 +16,6 @@
 @property (nonatomic, retain) NSDate * updatedAt;
 @property (nonatomic, retain) WLPicture * picture;
 @property (nonatomic, retain) NSDate * createdAt;
-@property (nonatomic, retain) NSNumber * unread;
+@property (nonatomic) BOOL unread;
 
 @end

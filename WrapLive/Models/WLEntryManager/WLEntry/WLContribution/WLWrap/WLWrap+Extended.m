@@ -74,8 +74,8 @@
     if (candies.nonempty && ![candies isSubsetOfOrderedSet:self.candies]) {
         [self addCandies:candies];
     }
-    NSNumber* isDefault = [dictionary numberForKey:WLDefaultWrapKey];
-    if (!NSNumberEqual(self.isDefault, isDefault)) self.isDefault = isDefault;
+    BOOL isDefault = [dictionary boolForKey:WLDefaultWrapKey];
+    if (self.isDefault != isDefault) self.isDefault = isDefault;
     return self;
 }
 

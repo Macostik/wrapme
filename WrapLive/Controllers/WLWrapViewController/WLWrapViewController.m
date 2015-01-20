@@ -167,7 +167,7 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
         return;
     } else {
         [self.wrap.candies all:^(WLCandy *candy) {
-            if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
+            if (candy.unread) candy.unread = NO;
         }];
     }
     

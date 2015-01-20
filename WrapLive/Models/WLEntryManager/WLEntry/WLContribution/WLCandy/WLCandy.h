@@ -14,7 +14,7 @@
 
 @interface WLCandy : WLContribution
 
-@property (nonatomic, retain) NSNumber * type;
+@property (nonatomic) int16_t type;
 @property (nonatomic, retain) WLWrap *wrap;
 @property (nonatomic, retain) NSMutableOrderedSet *comments;
 @end

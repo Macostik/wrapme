@@ -3187,7 +3187,7 @@
                             <view alpha="0.0" contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="UZa-6k-iNP" customClass="WLGradientView">
                                 <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10, Jan, 2014" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAQ-Aj-DW4" customClass="WLLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10, Jan, 2014" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAQ-Aj-DW4" customClass="WLLabel">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3199,7 +3199,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="bAQ-Aj-DW4" firstAttribute="leading" secondItem="UZa-6k-iNP" secondAttribute="leading" id="Q2z-ZA-RNp"/>
+                                    <constraint firstItem="bAQ-Aj-DW4" firstAttribute="top" secondItem="UZa-6k-iNP" secondAttribute="top" id="cdr-5a-zeb"/>
                                     <constraint firstAttribute="height" constant="44" id="d0s-1g-kaS"/>
+                                    <constraint firstAttribute="bottom" secondItem="bAQ-Aj-DW4" secondAttribute="bottom" id="vyn-YC-Nrn"/>
+                                    <constraint firstAttribute="trailing" secondItem="bAQ-Aj-DW4" secondAttribute="trailing" id="yPk-vz-6be"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">

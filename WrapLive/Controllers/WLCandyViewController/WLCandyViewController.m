@@ -240,12 +240,6 @@
     }
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier commentAdded:(WLComment *)comment {
-    run_after(0.1,^{
-        [self.candyCell.collectionView setMaximumContentOffsetAnimated:YES];
-    });
-}
-
 - (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
     return self.candy;
 }

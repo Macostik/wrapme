@@ -22,6 +22,7 @@
 #import "NSString+Additions.h"
 #import "WLEntryNotifier.h"
 #import "WLFontPresetter.h"
+#import "UIScrollView+Additions.h"
 
 @interface WLCommentsCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WLEntryNotifyReceiver, WLFontPresetterReceiver>
 
@@ -92,10 +93,18 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier commentAdded:(WLComment *)comment {
     [self.collectionView reloadData];
+    __weak typeof(self)weakSelf = self;
+    run_after(0.1,^{
+        [weakSelf.collectionView setMaximumContentOffsetAnimated:YES];
+    });
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier commentDeleted:(WLComment *)comment {
     [self.collectionView reloadData];
+}
+
+- (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
+    return self.entry;
 }
 
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>

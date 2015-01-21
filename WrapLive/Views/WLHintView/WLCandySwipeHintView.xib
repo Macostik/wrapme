@@ -23,10 +23,9 @@
                         <constraint firstAttribute="width" constant="178" id="l9T-AN-YWa"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to see next photo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="LpS-0e-hFu" customClass="WLLabel">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="229" placeholderIntrinsicHeight="32" text="Swipe to see next photo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="LpS-0e-hFu" customClass="WLLabel">
                     <rect key="frame" x="28" y="54" width="229" height="32"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="229" id="ErG-CP-ELJ"/>
                         <constraint firstAttribute="height" constant="32" id="ugQ-Sb-22Q"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>

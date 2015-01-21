@@ -19,23 +19,9 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a wrap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="1zI-Zd-PEP" customClass="WLLabel">
-                    <rect key="frame" x="28" y="64" width="229" height="32"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="32" id="esM-Gn-c23"/>
-                        <constraint firstAttribute="width" constant="229" id="fB1-wp-a5f"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="23"/>
-                    <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To choose a different wrap for this upload, tap the wrap name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="INP-a4-pR4" customClass="WLLabel">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="229" placeholderIntrinsicHeight="40" text="To choose a different wrap for this upload, tap the wrap name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="INP-a4-pR4" customClass="WLLabel">
                     <rect key="frame" x="28" y="96" width="229" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="229" id="5aL-d4-EeJ"/>
                         <constraint firstAttribute="height" constant="40" id="jvM-FG-eEm"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
@@ -52,6 +38,18 @@
                         <constraint firstAttribute="height" constant="174" id="f2b-8G-fmd"/>
                     </constraints>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="229" placeholderIntrinsicHeight="32" text="Choose a wrap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="1zI-Zd-PEP" customClass="WLLabel">
+                    <rect key="frame" x="28" y="64" width="229" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="esM-Gn-c23"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="23"/>
+                    <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>

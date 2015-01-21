@@ -63,7 +63,9 @@ static NSString *WLCameraStoryboard = @"Camera";
 
 @interface WLEntry (WLNavigation)
 
-- (UIViewController*)viewController;
+- (UIViewController *)viewController;
+
+- (NSMutableArray *)newStackViewControllersWithNavigationController:(UINavigationController*)navigationController;
 
 - (BOOL)isValidViewController:(UIViewController*)controller;
 
@@ -84,5 +86,3 @@ static NSString *WLCameraStoryboard = @"Camera";
 @interface WLMessage (WLNavigation) @end
 
 @interface WLWrap (WLNavigation) @end
-
-@interface WLComment (WLNavigation) @end

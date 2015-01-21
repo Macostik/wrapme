@@ -17,6 +17,8 @@
 
 @interface WLHistory () <WLEntryNotifyReceiver>
 
+@property (weak, nonatomic) WLWrap* wrap;
+
 @end
 
 @implementation WLHistory
@@ -27,6 +29,7 @@
     WLWrapRequest* wrapRequest = [WLWrapRequest request:wrap];
     wrapRequest.contentType = WLWrapContentTypePaginated;
     history.request = wrapRequest;
+    history.wrap = wrap;
     return history;
 }
 
@@ -162,6 +165,10 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
     [self sort:candy];
+}
+
+- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
+    return self.wrap;
 }
 
 @end

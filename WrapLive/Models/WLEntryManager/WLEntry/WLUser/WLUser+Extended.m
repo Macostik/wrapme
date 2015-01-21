@@ -97,11 +97,11 @@ static WLUser *currentUser = nil;
 	if (!user.current) user.current = YES;
     if (user) {
         [[WLNotificationCenter defaultCenter] subscribe];
-#ifndef DEBUG
-        [Crashlytics setUserEmail:[WLAuthorization currentAuthorization].email];
-        [Crashlytics setUserIdentifier:user.identifier];
-        [Crashlytics setUserName:user.name];
-#endif
+        run_release(^{
+            [Crashlytics setUserEmail:[WLAuthorization currentAuthorization].email];
+            [Crashlytics setUserIdentifier:user.identifier];
+            [Crashlytics setUserName:user.name];
+        });
     }
 }
 

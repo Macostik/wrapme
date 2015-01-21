@@ -64,3 +64,15 @@ static inline void run_loop(NSUInteger count, void (^block) (NSUInteger i)) {
         --i;
     }
 }
+
+static inline void run_release(dispatch_block_t block) {
+#ifndef DEBUG
+    if (block) block();
+#endif
+}
+
+static inline void run_debug(dispatch_block_t block) {
+#ifdef DEBUG
+    if (block) block();
+#endif
+}

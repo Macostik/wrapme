@@ -40,29 +40,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [LELog sharedInstance].token = @"e9e259b1-98e6-41b5-b530-d89d1f5af01d";
+    [self initializeCrashlyticsAndLogging];
     
     [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
     
     [self presentInitialViewController];
     
-    iVersion *version = [iVersion sharedInstance];
-    version.appStoreID = 879908578;
-    version.updateAvailableTitle = WLLS(@"New version of wrapLive is available");
-    version.downloadButtonLabel = WLLS(@"Update");
-    version.remindButtonLabel = WLLS(@"Not now");
-    version.updatePriority = iVersionUpdatePriorityMedium;
+    [self initializeVersionTool];
     
 	[[WLNetwork network] configure];
 	[[WLKeyboard keyboard] configure];
 	[[WLNotificationCenter defaultCenter] configure];
-//    [[WLGestureBroadcaster broadcaster] configure];
-	
 	[[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] success:nil failure:nil];
-    
-#ifndef DEBUG
-    [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
-#endif
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
@@ -72,6 +61,32 @@
     });
     
 	return YES;
+}
+
+- (void)initializeCrashlyticsAndLogging {
+    [LELog sharedInstance].token = @"e9e259b1-98e6-41b5-b530-d89d1f5af01d";
+    run_release(^{
+        [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
+        
+        void (^notificationBlock) (NSNotification *n) = ^ (NSNotification *n) {
+            [Crashlytics setIntValue:[UIApplication sharedApplication].applicationState forKey:@"applicationState"];
+        };
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:nil usingBlock:notificationBlock];
+        [center addObserverForName:UIApplicationWillResignActiveNotification object:nil queue:nil usingBlock:notificationBlock];
+        [center addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:nil usingBlock:notificationBlock];
+        [center addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil usingBlock:notificationBlock];
+    });
+}
+
+- (void)initializeVersionTool {
+    iVersion *version = [iVersion sharedInstance];
+    version.appStoreID = 879908578;
+    version.updateAvailableTitle = WLLS(@"New version of wrapLive is available");
+    version.downloadButtonLabel = WLLS(@"Update");
+    version.remindButtonLabel = WLLS(@"Not now");
+    version.updatePriority = iVersionUpdatePriorityMedium;
 }
 
 - (void)presentInitialViewController {

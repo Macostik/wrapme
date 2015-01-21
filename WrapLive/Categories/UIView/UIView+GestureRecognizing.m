@@ -120,12 +120,13 @@
 @implementation UIGestureRecognizer (Helper)
 
 + (id)recognizerWithBlock:(WLGestureBlock)block  {
-    id gestureRecognizer = [[self alloc] initWithTarget:self action:@selector(action:)];
+    id gestureRecognizer = [self new];
+    [gestureRecognizer addTarget:gestureRecognizer action:@selector(action:)];
     [gestureRecognizer setAssociatedObject:block forKey:"gestureBlock"];
     return gestureRecognizer;
 }
 
-+ (void)action:(UIGestureRecognizer*)sender {
+- (void)action:(UIGestureRecognizer*)sender {
     WLGestureBlock gestureBlock = [sender associatedObjectForKey:"gestureBlock"];
     if (gestureBlock) {
         gestureBlock(sender);

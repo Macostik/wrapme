@@ -49,7 +49,7 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLRemoteObjectHandler.h"
 #import "WLPickerViewController.h"
-#import "WLWrapOptionsViewController.h"
+#import "WLEditWrapViewController.h"
 
 BOOL isPresentHomeViewController;
 
@@ -172,9 +172,10 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (void)wrapCell:(WLWrapCell *)wrapCell didDeleteWrap:(WLWrap *)wrap {
     if (wrap.valid) {
-        WLWrapOptionsViewController* wrapOptionsViewController = [[WLWrapOptionsViewController alloc] init];
-        wrapOptionsViewController.entry = wrap;
-        [self presentViewController:wrapOptionsViewController animated:YES completion:nil];
+        WLEditWrapViewController *editWrapViewController = [[WLEditWrapViewController alloc] initWithNibName:@"WLWrapOptionsViewController"
+                                                                                                      bundle:nil];
+        editWrapViewController.entry = wrap;
+        [self presentViewController:editWrapViewController animated:YES completion:nil];
     }
 }
 

@@ -11,10 +11,10 @@
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLWrapOptionsViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLEditWrapViewController">
             <connections>
-                <outlet property="deleteButton" destination="URZ-cA-PMb" id="xH0-Kd-YW0"/>
-                <outlet property="view" destination="Lh7-iN-hRd" id="EOb-K5-To4"/>
+                <outlet property="deleteButton" destination="URZ-cA-PMb" id="mRF-jR-bOb"/>
+                <outlet property="view" destination="Lh7-iN-hRd" id="o6R-ZH-3La"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -52,7 +52,7 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="deleteEntry:" destination="-1" eventType="touchUpInside" id="s1y-fZ-Rnf"/>
+                        <action selector="deleteEntry:" destination="-1" eventType="touchUpInside" id="bS2-gY-M8z"/>
                     </connections>
                 </button>
             </subviews>

@@ -15,7 +15,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.deleteButton setTitle:self.entry.deletable ? WLLS(WLDelete) : WLLS(WLReport) forState:UIControlStateNormal];
     self.downloadButton.layer.borderColor = [UIColor WL_orangeColor].CGColor;
 }
 
@@ -28,7 +27,11 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)sendReportOrLeaveEntry {
+- (void)setButtonTitle {
+    [self.deleteButton setTitle:self.entry.deletable ? WLLS(WLDelete) : WLLS(WLReport) forState:UIControlStateNormal];
+}
+
+- (void)performSelectorByTitle {
     [self dismissViewControllerAnimated:NO completion:^{
         [MFMailComposeViewController messageWithCandy:self.entry];
     }];

@@ -12,7 +12,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.deleteButton setTitle:self.entry.deletable ? WLLS(WLDelete) : WLLS(WLLeave) forState:UIControlStateNormal];
+    [self setButtonTitle];
 }
 
 + (BOOL)isEmbeddedDefaultValue {
@@ -33,11 +33,13 @@
             [error show];
         }];
     } else {
-        [self sendReportOrLeaveEntry];
+        [self performSelectorByTitle];
     }
 }
 
-- (void)sendReportOrLeaveEntry {}
+- (void)setButtonTitle {}
+
+- (void)performSelectorByTitle {}
 
 - (void)showToast {}
 

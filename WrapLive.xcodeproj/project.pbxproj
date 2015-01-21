@@ -185,10 +185,6 @@
 		5BA6CE981A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
 		5BA6CE991A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
 		5BA6CE9A1A160D4300C0DD95 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */; };
-		5BA6EFAB1A64058B0010B47C /* WLWrapOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6EFAA1A64058B0010B47C /* WLWrapOptionsViewController.m */; };
-		5BA6EFAC1A64058B0010B47C /* WLWrapOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6EFAA1A64058B0010B47C /* WLWrapOptionsViewController.m */; };
-		5BA6EFAD1A64058B0010B47C /* WLWrapOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6EFAA1A64058B0010B47C /* WLWrapOptionsViewController.m */; };
-		5BA6EFAE1A64058B0010B47C /* WLWrapOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6EFAA1A64058B0010B47C /* WLWrapOptionsViewController.m */; };
 		5BA6EFB71A64075A0010B47C /* WLBaseOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6EFB61A64075A0010B47C /* WLBaseOptionsViewController.m */; };
 		5BA6EFB81A64075A0010B47C /* WLBaseOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6EFB61A64075A0010B47C /* WLBaseOptionsViewController.m */; };
 		5BA6EFB91A64075A0010B47C /* WLBaseOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6EFB61A64075A0010B47C /* WLBaseOptionsViewController.m */; };
@@ -1736,8 +1732,6 @@
 		5BA6CAF11A10E51B004AD41C /* s04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s04.wav; path = Sounds/s04.wav; sourceTree = "<group>"; };
 		5BA6CE951A160D4300C0DD95 /* UIDevice-Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice-Hardware.h"; sourceTree = "<group>"; };
 		5BA6CE961A160D4300C0DD95 /* UIDevice-Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice-Hardware.m"; sourceTree = "<group>"; };
-		5BA6EFA91A64058B0010B47C /* WLWrapOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapOptionsViewController.h; path = WLWrapOptionsViewController/WLWrapOptionsViewController.h; sourceTree = "<group>"; };
-		5BA6EFAA1A64058B0010B47C /* WLWrapOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapOptionsViewController.m; path = WLWrapOptionsViewController/WLWrapOptionsViewController.m; sourceTree = "<group>"; };
 		5BA6EFB51A64075A0010B47C /* WLBaseOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBaseOptionsViewController.h; path = WLBaseOptionsViewController/WLBaseOptionsViewController.h; sourceTree = "<group>"; };
 		5BA6EFB61A64075A0010B47C /* WLBaseOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBaseOptionsViewController.m; path = WLBaseOptionsViewController/WLBaseOptionsViewController.m; sourceTree = "<group>"; };
 		5BA7A10D1A4D879A002B1D63 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2598,7 +2592,6 @@
 				C5C20BB21A239D6F008B2E2E /* WLSignupFlowViewController */,
 				12A7A73A18DA0A06008FF6F0 /* WLWelcomeViewController */,
 				5B650FE51A00091E00D6AD3D /* WLReportCandyViewController */,
-				5BA6EFAF1A64059E0010B47C /* WLWrapOptionsViewContoller */,
 				5BA4CC161A08FAFA00D7F31C /* WLPickerViewController */,
 			);
 			path = Controllers;
@@ -3206,6 +3199,7 @@
 		5B11019719BF337600688C9D /* WLEditWrapViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5B219A041A66C94600D131C3 /* WLWrapOptionsViewController.xib */,
 				5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */,
 				5BB04F2C19D9824500B5C6EE /* WLEditWrapViewController.h */,
 				5BB04F2D19D9824500B5C6EE /* WLEditWrapViewController.m */,
@@ -3347,16 +3341,6 @@
 				5BA678531A4442AE00ABCF4B /* UINavigationController+InterfaceOrientation.m */,
 			);
 			name = UINavigationController;
-			sourceTree = "<group>";
-		};
-		5BA6EFAF1A64059E0010B47C /* WLWrapOptionsViewContoller */ = {
-			isa = PBXGroup;
-			children = (
-				5BA6EFA91A64058B0010B47C /* WLWrapOptionsViewController.h */,
-				5BA6EFAA1A64058B0010B47C /* WLWrapOptionsViewController.m */,
-				5B219A041A66C94600D131C3 /* WLWrapOptionsViewController.xib */,
-			);
-			name = WLWrapOptionsViewContoller;
 			sourceTree = "<group>";
 		};
 		5BA6EFBB1A64075D0010B47C /* WLBaseOptionsViewController */ = {
@@ -5242,7 +5226,6 @@
 				12A8AA6D18F5919700F67113 /* WLLoadingView.m in Sources */,
 				C54E4ADE1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
 				C50AF42A1976B43A00761F38 /* WLPostCommentRequest.m in Sources */,
-				5BA6EFAB1A64058B0010B47C /* WLWrapOptionsViewController.m in Sources */,
 				C50AF40F197692E400761F38 /* WLUpdateUserRequest.m in Sources */,
 				C5FFB03119AC8956006F27A7 /* WLTimeline.m in Sources */,
 				5BB1F47119EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
@@ -5531,7 +5514,6 @@
 				C54AF46319B8C437006F7EDB /* WLLoadingView.m in Sources */,
 				C54E4ADF1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
 				C54AF46419B8C437006F7EDB /* WLPostCommentRequest.m in Sources */,
-				5BA6EFAC1A64058B0010B47C /* WLWrapOptionsViewController.m in Sources */,
 				C54AF46619B8C437006F7EDB /* WLUpdateUserRequest.m in Sources */,
 				C54AF46719B8C437006F7EDB /* WLTimeline.m in Sources */,
 				5BB1F47219EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
@@ -5788,7 +5770,6 @@
 				C54AF56019B8C467006F7EDB /* WLLoadingView.m in Sources */,
 				C54E4AE01A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
 				C54AF56119B8C467006F7EDB /* WLPostCommentRequest.m in Sources */,
-				5BA6EFAD1A64058B0010B47C /* WLWrapOptionsViewController.m in Sources */,
 				C54AF56319B8C467006F7EDB /* WLUpdateUserRequest.m in Sources */,
 				C54AF56419B8C467006F7EDB /* WLTimeline.m in Sources */,
 				5BB1F47319EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
@@ -6045,7 +6026,6 @@
 				C54AF65D19B8C491006F7EDB /* WLLoadingView.m in Sources */,
 				C54E4AE11A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
 				C54AF65E19B8C491006F7EDB /* WLPostCommentRequest.m in Sources */,
-				5BA6EFAE1A64058B0010B47C /* WLWrapOptionsViewController.m in Sources */,
 				C54AF66019B8C491006F7EDB /* WLUpdateUserRequest.m in Sources */,
 				C54AF66119B8C491006F7EDB /* WLTimeline.m in Sources */,
 				5BB1F47419EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
@@ -6345,7 +6325,7 @@
 				5B219A081A66C94900D131C3 /* ru */,
 			);
 			name = WLWrapOptionsViewController.xib;
-			path = WLWrapOptionsViewController;
+			path = WLEditWrapViewController;
 			sourceTree = "<group>";
 		};
 		5B5A8C701A4EB62F00F84529 /* SignUp.storyboard */ = {

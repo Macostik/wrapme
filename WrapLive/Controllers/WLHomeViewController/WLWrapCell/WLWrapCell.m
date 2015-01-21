@@ -43,10 +43,6 @@
 
 @implementation WLWrapCell
 
-+ (BOOL)isEmbeddedLongPress {
-    return YES;
-}
-
 - (void)awakeFromNib {
 	[super awakeFromNib];
     
@@ -63,21 +59,16 @@
     }
     [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
     [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
-    self.embeddedLongPress = [WLWrapCell isEmbeddedLongPress];
-}
-
-- (void)setEmbeddedLongPress:(BOOL)embeddedLongPress {
-    if(embeddedLongPress) {
-        __weak __typeof(self)weakSelf = self;
-        [self addLongPressGestureRecognizingDelegate:nil
-                               minimunPressDuratioin:2.0
-                                               block:^(UIGestureRecognizer *recognizer) {
-                                                   if (recognizer.state == UIGestureRecognizerStateBegan) {
-                                                       if  ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteWrap:)])
-                                                           [weakSelf.delegate wrapCell:weakSelf didDeleteWrap:weakSelf.entry];
-                                                   }
-        }];
-    }
+    
+    __weak __typeof(self)weakSelf = self;
+    [self addLongPressGestureRecognizingDelegate:nil
+                           minimunPressDuratioin:2.0
+                                           block:^(UIGestureRecognizer *recognizer) {
+                                               if (recognizer.state == UIGestureRecognizerStateBegan) {
+                                                   if  ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteWrap:)])
+                                                       [weakSelf.delegate wrapCell:weakSelf didDeleteWrap:weakSelf.entry];
+                                               }
+                                           }];
 }
 
 - (void)setSelection:(WLObjectBlock)selection {

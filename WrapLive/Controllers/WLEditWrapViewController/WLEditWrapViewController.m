@@ -41,14 +41,19 @@
     self.nameWrapTextField.text = self.entry.name;
 }
 
-- (void)sendReportOrLeaveEntry {
-    [self dismissViewControllerAnimated:NO completion:^{
-        [self.entry leave:^(id object) {
-            self.deleteButton.loading = NO;
-        } failure:^(NSError *error) {
-            [error show];
-            self.deleteButton.loading = NO;
-        }];
+- (void)setButtonTitle {
+       [self.deleteButton setTitle:self.entry.deletable ? WLLS(WLDelete) : WLLS(WLLeave) forState:UIControlStateNormal];
+}
+
+- (void)performSelectorByTitle {
+    __weak __typeof(self)weakSelf = self;
+    [self.entry leave:^(id object) {
+        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        weakSelf.deleteButton.loading = NO;
+    } failure:^(NSError *error) {
+        [error show];
+        weakSelf.deleteButton.loading = NO;
     }];
 }
 

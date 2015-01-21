@@ -24,7 +24,8 @@ static NSString *const WLLeave = @"Leave";
 
 @property (strong, nonatomic) WLContribution *entry;
 
-- (void)sendReportOrLeaveEntry;
+- (void)setButtonTitle;
+- (void)performSelectorByTitle;
 - (void)showToast;
 
 @end

@@ -119,6 +119,7 @@
 
 - (void)deleteEntry:(WLEntry *)entry {
     if (entry) {
+        [self.cachedEntries removeObjectForKey:entry.identifier];
         [self.context deleteObject:entry];
     }
 }

@@ -1001,8 +1001,16 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Kg-Jf-uq1">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                                     <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iT4-0e-Bul" customClass="WLCircleImageView">
+                                                            <rect key="frame" x="10" y="10" width="50" height="50"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="50" id="b5C-lr-BVR"/>
+                                                                <constraint firstAttribute="width" constant="50" id="csX-ay-ama"/>
+                                                            </constraints>
+                                                        </imageView>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="206" translatesAutoresizingMaskIntoConstraints="NO" id="Twb-Mn-vNw" customClass="WLLabel">
-                                                            <rect key="frame" x="70" y="8" width="206" height="26"/>
+                                                            <rect key="frame" x="70" y="11" width="206" height="26"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="26" id="f7P-u5-htS"/>
@@ -1014,14 +1022,19 @@
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iT4-0e-Bul" customClass="WLCircleImageView">
-                                                            <rect key="frame" x="10" y="10" width="50" height="50"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="206" translatesAutoresizingMaskIntoConstraints="NO" id="1y3-CJ-RVW" customClass="WLLabel">
+                                                            <rect key="frame" x="70" y="34" width="206" height="21"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="50" id="b5C-lr-BVR"/>
-                                                                <constraint firstAttribute="width" constant="50" id="csX-ay-ama"/>
+                                                                <constraint firstAttribute="height" constant="21" id="cUz-RM-GOU"/>
                                                             </constraints>
-                                                        </imageView>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                            <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="22" translatesAutoresizingMaskIntoConstraints="NO" id="T99-mA-uFU" customClass="WLBadgeLabel">
                                                             <rect key="frame" x="41" y="10" width="22" height="22"/>
                                                             <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1054,19 +1067,6 @@
                                                                 <action selector="push:" destination="1N8-fd-Qyt" eventType="touchUpInside" id="yra-3v-4Lb"/>
                                                             </connections>
                                                         </button>
-                                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="206" translatesAutoresizingMaskIntoConstraints="NO" id="1y3-CJ-RVW" customClass="WLLabel">
-                                                            <rect key="frame" x="70" y="31" width="206" height="21"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="21" id="cUz-RM-GOU"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                                            <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -1075,7 +1075,7 @@
                                                         <constraint firstAttribute="bottom" secondItem="kG4-jG-ZTm" secondAttribute="bottom" id="K2C-1i-tG4"/>
                                                         <constraint firstAttribute="height" constant="70" id="KHS-lZ-CHy"/>
                                                         <constraint firstAttribute="trailing" secondItem="kG4-jG-ZTm" secondAttribute="trailing" constant="3" id="Kw9-B1-Ya9"/>
-                                                        <constraint firstItem="Twb-Mn-vNw" firstAttribute="centerY" secondItem="T99-mA-uFU" secondAttribute="centerY" id="L1R-gD-SAV"/>
+                                                        <constraint firstItem="Twb-Mn-vNw" firstAttribute="centerY" secondItem="T99-mA-uFU" secondAttribute="centerY" constant="3" id="L1R-gD-SAV"/>
                                                         <constraint firstAttribute="trailing" secondItem="Twb-Mn-vNw" secondAttribute="trailing" constant="44" id="LF8-CG-Yzw"/>
                                                         <constraint firstItem="Twb-Mn-vNw" firstAttribute="leading" secondItem="T99-mA-uFU" secondAttribute="trailing" constant="7" id="Ov4-c9-t8E"/>
                                                         <constraint firstItem="T99-mA-uFU" firstAttribute="top" secondItem="iT4-0e-Bul" secondAttribute="top" id="Td9-aY-KAQ"/>
@@ -1133,8 +1133,16 @@
                                                         <action selector="select" destination="N5C-9U-WOe" eventType="touchUpInside" id="Ug9-aO-oGc"/>
                                                     </connections>
                                                 </button>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HLY-EW-9Wa" customClass="WLCircleImageView">
+                                                    <rect key="frame" x="10" y="0.0" width="50" height="50"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="bN0-F8-DiZ"/>
+                                                        <constraint firstAttribute="width" constant="50" id="fw7-Ys-M5O"/>
+                                                    </constraints>
+                                                </imageView>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="206" translatesAutoresizingMaskIntoConstraints="NO" id="N8I-t6-aKU" customClass="WLLabel">
-                                                    <rect key="frame" x="70" y="-2" width="206" height="26"/>
+                                                    <rect key="frame" x="70" y="1" width="206" height="26"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="26" id="WrE-ux-dBp"/>
@@ -1147,7 +1155,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="206" translatesAutoresizingMaskIntoConstraints="NO" id="71z-7i-OMc" customClass="WLLabel">
-                                                    <rect key="frame" x="70" y="21" width="206" height="21"/>
+                                                    <rect key="frame" x="70" y="24" width="206" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="U0z-6s-qRe"/>
@@ -1159,14 +1167,6 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HLY-EW-9Wa" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="10" y="0.0" width="50" height="50"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="bN0-F8-DiZ"/>
-                                                        <constraint firstAttribute="width" constant="50" id="fw7-Ys-M5O"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="22" translatesAutoresizingMaskIntoConstraints="NO" id="1g0-Jo-BE2" customClass="WLBadgeLabel">
                                                     <rect key="frame" x="41" y="0.0" width="22" height="22"/>
                                                     <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1204,7 +1204,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="1g0-Jo-BE2" firstAttribute="centerY" secondItem="N8I-t6-aKU" secondAttribute="centerY" id="1Eq-Q4-IEG"/>
+                                            <constraint firstItem="1g0-Jo-BE2" firstAttribute="centerY" secondItem="N8I-t6-aKU" secondAttribute="centerY" constant="-3" id="1Eq-Q4-IEG"/>
                                             <constraint firstItem="71z-7i-OMc" firstAttribute="leading" secondItem="HLY-EW-9Wa" secondAttribute="trailing" constant="10" id="6th-tK-nnt"/>
                                             <constraint firstAttribute="trailing" secondItem="N8I-t6-aKU" secondAttribute="trailing" constant="44" id="8LN-fI-d4T"/>
                                             <constraint firstItem="1g0-Jo-BE2" firstAttribute="top" secondItem="HLY-EW-9Wa" secondAttribute="top" id="A3C-dS-Lp2"/>

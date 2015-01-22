@@ -51,9 +51,9 @@ typedef enum : NSUInteger {
     
     [self wrapIntoAttributedString];
     __weak typeof(self)weakSelf = self;
-    [self.termsAndConditionsTextView addTapGestureRecognizingDelegate:self block:^(UIGestureRecognizer *recognizer) {
-                                                                    [weakSelf flipAnimationView:WLFlipDirectionLeft];
-                                                                }];
+    [UITapGestureRecognizer recognizerWithView:self.termsAndConditionsTextView block:^(UIGestureRecognizer *recognizer) {
+        [weakSelf flipAnimationView:WLFlipDirectionLeft];
+    }];
 }
 
 - (void)animateBackgroundView:(CGFloat)offset nextOffset:(CGFloat)nextOffset {

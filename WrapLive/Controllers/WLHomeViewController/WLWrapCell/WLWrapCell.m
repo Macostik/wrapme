@@ -61,14 +61,12 @@
     [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
     
     __weak __typeof(self)weakSelf = self;
-    [self addLongPressGestureRecognizingDelegate:nil
-                           minimunPressDuratioin:2.0
-                                           block:^(UIGestureRecognizer *recognizer) {
-                                               if (recognizer.state == UIGestureRecognizerStateBegan) {
-                                                   if  ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteWrap:)])
-                                                       [weakSelf.delegate wrapCell:weakSelf didDeleteWrap:weakSelf.entry];
-                                               }
-                                           }];
+    [UILongPressGestureRecognizer recognizerWithView:self block:^(UIGestureRecognizer *recognizer) {
+        if (recognizer.state == UIGestureRecognizerStateBegan) {
+            if  ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteWrap:)])
+                [weakSelf.delegate wrapCell:weakSelf didDeleteWrap:weakSelf.entry];
+        }
+    }];
 }
 
 - (void)setSelection:(WLObjectBlock)selection {

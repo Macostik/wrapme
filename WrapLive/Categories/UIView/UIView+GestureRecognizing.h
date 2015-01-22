@@ -10,34 +10,22 @@
 
 @interface UIView (GestureRecognizing)
 
-- (void)addTapGestureRecognizingDelegate:(id)delegate block:(WLGestureBlock)bloc;
-
-- (void)addTapGestureRecognizing:(WLGestureBlock)block;
-
-- (void)addLongPressGestureRecognizingDelegate:(id)delegate
-                         minimunPressDuratioin:(CGFloat)duration
-                                         block:(WLGestureBlock)block;
-
-- (void)addLongPressGestureRecognizing:(WLGestureBlock)block;
-
-- (void)addSwipeGestureRecognizingDelegate:(id)delegate
-                            direction:(UISwipeGestureRecognizerDirection)direction
-                                block:(WLGestureBlock)block;
-
-- (void)addSwipeGestureRecognizingDelegate:(id)delegate block:(WLGestureBlock)block;
-
-- (void)addSwipeGestureRecognizing:(WLGestureBlock)block;
-
-- (void)removeTapGestureRecognizing;
-
-- (void)removeLongPressGestureRecognizing;
-
-- (void)removeSwipeGestureRecognizing;
+- (void)removeGestureRecognizerWithIdentifier:(NSString*)identifier;
 
 @end
 
 @interface UIGestureRecognizer (Helper)
 
-+ (id)recognizerWithBlock:(WLGestureBlock)block;
+@property (strong, nonatomic) WLGestureBlock gestureBlock;
+
+@property (strong, nonatomic) NSString* identifier;
+
++ (instancetype)recognizerWithView:(UIView*)view block:(WLGestureBlock)block;
+
++ (instancetype)recognizerWithView:(UIView*)view identifier:(NSString*)identifier block:(WLGestureBlock)block;
+
+- (instancetype)initWithView:(UIView*)view block:(WLGestureBlock)block;
+
+- (instancetype)initWithView:(UIView*)view identifier:(NSString*)identifier block:(WLGestureBlock)block;
 
 @end

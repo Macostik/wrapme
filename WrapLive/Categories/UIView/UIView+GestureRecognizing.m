@@ -8,129 +8,65 @@
 
 #import "UIView+GestureRecognizing.h"
 #import "NSObject+AssociatedObjects.h"
-#import <AudioToolbox/AudioServices.h>
-
-@interface UIView ()
-
-@property (strong, nonatomic) UITapGestureRecognizer* wl_tapGestureRecognizer;
-
-@property (strong, nonatomic) UISwipeGestureRecognizer *wl_swipeGestureRecognizer;
-
-@property (strong, nonatomic) UILongPressGestureRecognizer *wl_longGestureRecognizer;
-
-@end
 
 @implementation UIView (GestureRecognizing)
 
-- (void)setWl_tapGestureRecognizer:(UITapGestureRecognizer *)wl_tapGestureRecognizer {
-	[self setAssociatedObject:wl_tapGestureRecognizer forKey:"wl_tapGestureRecognizer"];
-}
-
-- (UITapGestureRecognizer *)wl_tapGestureRecognizer {
-	return [self associatedObjectForKey:"wl_tapGestureRecognizer"];
-}
-
-- (void)setWl_longGestureRecognizer:(UILongPressGestureRecognizer *)wl_longGestureRecognizer {
-    [self setAssociatedObject:wl_longGestureRecognizer forKey:"wl_longGestureRecognizer"];
-}
-
-- (UILongPressGestureRecognizer *)wl_longGestureRecognizer {
-    return [self associatedObjectForKey:"wl_longGestureRecognizer"];
-}
-
-- (void)setWl_swipeGestureRecognizer:(UISwipeGestureRecognizer *)wl_swipeGestureRecognizer {
-    [self setAssociatedObject:wl_swipeGestureRecognizer forKey:"wl_swipeGestureRecognizer"];
-}
-
-- (UISwipeGestureRecognizer *)wl_swipeGestureRecognizer {
-    return [self associatedObjectForKey:"wl_swipeGestureRecognizer"];
-}
-
-- (void)addTapGestureRecognizing:(WLGestureBlock)block {
-    [self addTapGestureRecognizingDelegate:nil block:block];
-}
-
-- (void)addTapGestureRecognizingDelegate:(id)delegate block:(WLGestureBlock)block {
-	if (self.wl_tapGestureRecognizer == nil) {
-        UITapGestureRecognizer *tapGestureRecognizer = [UITapGestureRecognizer recognizerWithBlock:block];
-		self.wl_tapGestureRecognizer = tapGestureRecognizer;
-        self.wl_tapGestureRecognizer.delegate = delegate;
-        [self addGestureRecognizer:tapGestureRecognizer];
-	}
-}
-
-- (void)addLongPressGestureRecognizing:(WLGestureBlock)block {
-    UILongPressGestureRecognizer *longGestureRecognizer = [UILongPressGestureRecognizer recognizerWithBlock:block];
-    [self addLongPressGestureRecognizingDelegate:nil minimunPressDuratioin:longGestureRecognizer.minimumPressDuration block:block];
-}
-
-- (void)addLongPressGestureRecognizingDelegate:(id)delegate minimunPressDuratioin:(CGFloat)duration block:(WLGestureBlock)block {
-    if (self.wl_longGestureRecognizer == nil) {
-        UILongPressGestureRecognizer *longGestureRecognizer = [UILongPressGestureRecognizer recognizerWithBlock:block];
-        self.wl_longGestureRecognizer.minimumPressDuration = duration;
-        self.wl_longGestureRecognizer = longGestureRecognizer;
-        self.wl_longGestureRecognizer.delegate = delegate;
-        [self addGestureRecognizer:longGestureRecognizer];
+- (void)removeGestureRecognizerWithIdentifier:(NSString*)identifier {
+    for (UIGestureRecognizer *recognizer in [self.gestureRecognizers copy]) {
+        if ([recognizer.identifier isEqualToString:identifier]) {
+            [self removeGestureRecognizer:recognizer];
+        }
     }
-}
-
-- (void)addSwipeGestureRecognizing:(WLGestureBlock)block {
-    [self addSwipeGestureRecognizingDelegate:nil block:block];
-}
-
-- (void)addSwipeGestureRecognizingDelegate:(id)delegate block:(WLGestureBlock)block {
-    [self addSwipeGestureRecognizingDelegate:delegate
-                                   direction:kNilOptions
-                                       block:block];
-}
-
-- (void)addSwipeGestureRecognizingDelegate:(id)delegate
-                            direction:(UISwipeGestureRecognizerDirection)direction
-                                block:(WLGestureBlock)block {
-    if (self.wl_swipeGestureRecognizer == nil) {
-        UISwipeGestureRecognizer *swipeGestureRecognizer = [UISwipeGestureRecognizer recognizerWithBlock:block];
-        swipeGestureRecognizer.direction = direction;
-        self.wl_swipeGestureRecognizer = swipeGestureRecognizer;
-        self.wl_swipeGestureRecognizer.delegate = delegate;
-        [self addGestureRecognizer:swipeGestureRecognizer];
-    }
-}
-
-- (void)removeGestureRecognizing:(UIGestureRecognizer *)recognizer {
-    if (recognizer) {
-        [self removeGestureRecognizer:recognizer];
-        recognizer = nil;
-    }
-}
-
-- (void)removeTapGestureRecognizing {
-    [self removeGestureRecognizer:self.wl_tapGestureRecognizer];
-}
-
-- (void)removeLongPressGestureRecognizing {
-    [self removeGestureRecognizer:self.wl_longGestureRecognizer];
-}
-
-- (void)removeSwipeGestureRecognizing {
-    [self removeGestureRecognizer:self.wl_swipeGestureRecognizer];
 }
 
 @end
 
 @implementation UIGestureRecognizer (Helper)
 
-+ (id)recognizerWithBlock:(WLGestureBlock)block  {
-    id gestureRecognizer = [self new];
-    [gestureRecognizer addTarget:gestureRecognizer action:@selector(action:)];
-    [gestureRecognizer setAssociatedObject:block forKey:"gestureBlock"];
-    return gestureRecognizer;
++ (instancetype)recognizerWithView:(UIView*)view block:(WLGestureBlock)block {
+    return [self recognizerWithView:view identifier:nil block:block];
+}
+
++ (instancetype)recognizerWithView:(UIView*)view identifier:(NSString *)identifier block:(WLGestureBlock)block {
+    return [[self alloc] initWithView:view identifier:identifier block:block];
+}
+
+- (instancetype)initWithView:(UIView*)view block:(WLGestureBlock)block {
+    return [self initWithView:view identifier:nil block:block];
+}
+
+- (instancetype)initWithView:(UIView*)view identifier:(NSString *)identifier block:(WLGestureBlock)block {
+    self = [self init];
+    if (self) {
+        [self addTarget:self action:@selector(action:)];
+        self.gestureBlock = block;
+        self.identifier = identifier;
+        [view addGestureRecognizer:self];
+    }
+    return self;
 }
 
 - (void)action:(UIGestureRecognizer*)sender {
-    WLGestureBlock gestureBlock = [sender associatedObjectForKey:"gestureBlock"];
+    WLGestureBlock gestureBlock = sender.gestureBlock;
     if (gestureBlock) {
         gestureBlock(sender);
     }
+}
+
+- (void)setGestureBlock:(WLGestureBlock)gestureBlock {
+    [self setAssociatedObject:gestureBlock forKey:"wl_gestureBlock"];
+}
+
+- (WLGestureBlock)gestureBlock {
+    return [self associatedObjectForKey:"wl_gestureBlock"];
+}
+
+- (void)setIdentifier:(NSString *)identifier {
+    [self setAssociatedObject:identifier forKey:"wl_identifier"];
+}
+
+- (NSString *)identifier {
+    return [self associatedObjectForKey:"wl_identifier"];
 }
 
 @end

@@ -137,7 +137,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
 @implementation WLWrap (WLAPIManager)
 
 - (BOOL)fetched {
-    return self.name.nonempty;
+    return self.name.nonempty && self.contributor;
 }
 
 - (id)add:(WLWrapBlock)success failure:(WLFailureBlock)failure {

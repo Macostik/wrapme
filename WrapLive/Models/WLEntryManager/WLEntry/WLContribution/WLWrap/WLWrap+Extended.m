@@ -70,6 +70,9 @@
         self.contributors = contributors;
     }
     NSArray* candiesArray = [dictionary arrayForKey:WLCandiesKey];
+    if (candiesArray.nonempty) {
+        candiesArray = [self arrayByRemovingDuplicatedCandies:candiesArray];
+    }
     NSMutableOrderedSet* candies = [WLCandy API_entries:candiesArray relatedEntry:self container:[NSMutableOrderedSet orderedSetWithCapacity:[candiesArray count]]];
     if (candies.nonempty && ![candies isSubsetOfOrderedSet:self.candies]) {
         [self addCandies:candies];
@@ -77,6 +80,20 @@
     BOOL isDefault = [dictionary boolForKey:WLDefaultWrapKey];
     if (self.isDefault != isDefault) self.isDefault = isDefault;
     return self;
+}
+
+- (NSArray*)arrayByRemovingDuplicatedCandies:(NSArray*)candiesArray {
+    NSOrderedSet *uploadings = [self.candies filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"identifier == uploadIdentifier"]];
+    if (uploadings.count == 0) {
+        return candiesArray;
+    }
+    uploadings = [uploadings valueForKey:@"uploadIdentifier"];
+    return [candiesArray map:^id(NSDictionary* candyData) {
+        if ([uploadings containsObject:candyData[WLUploadUIDKey]]) {
+            return nil;
+        }
+        return candyData;
+    }];
 }
 
 - (void)addCandies:(NSOrderedSet *)candies {

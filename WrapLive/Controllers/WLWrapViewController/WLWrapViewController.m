@@ -159,22 +159,20 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     
-    if (!self.wrap.valid) {
+    if (self.wrap.valid) {
+        [self.wrap.candies all:^(WLCandy *candy) {
+            if (candy.unread) candy.unread = NO;
+        }];
+        [self.dataProvider reload];
+        [self updateNotificationCouter];
+        [self updateWrapData];
+        [self updatePlaceholderVisibilityForType:self.mode];
+    } else {
         __weak typeof(self)weakSelf = self;
         run_after(0.5f, ^{
             [weakSelf.navigationController popViewControllerAnimated:YES];
         });
-        return;
-    } else {
-        [self.wrap.candies all:^(WLCandy *candy) {
-            if (candy.unread) candy.unread = NO;
-        }];
     }
-    
-    [self.dataProvider reload];
-    [self updateNotificationCouter];
-    [self updateWrapData];
-    [self updatePlaceholderVisibilityForType:self.mode];
 }
 
 - (void)updateNotificationCouter {
@@ -220,7 +218,7 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-        [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."),
+    [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."),
                                   WLString([self.nameLabel titleForState:UIControlStateNormal])]];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -256,9 +254,8 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 }
 
 - (IBAction)viewChanged:(UIButton*)sender {
-      [self dropUpCollectionView];
+    [self dropUpCollectionView];
     [self changeMode:sender.selected ? WLWrapViewModeTimeline : WLWrapViewModeHistory];
-  
 }
 
 - (void)changeMode:(WLWrapViewMode)mode {

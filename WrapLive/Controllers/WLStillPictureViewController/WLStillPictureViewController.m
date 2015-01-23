@@ -26,8 +26,9 @@
 #import "WLWrapViewController.h"
 #import "WLCameraViewController.h"
 #import "UIImage+Drawing.h"
+#import "WLEntryNotifier.h"
 
-@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate>
+@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) UINavigationController* cameraNavigationController;
 @property (weak, nonatomic) AFPhotoEditorController* aviaryController;
@@ -69,6 +70,8 @@
     if (self.startFromGallery) {
         [self openGallery:YES animated:NO];
     }
+    
+    [[WLWrap notifier] addReceiver:self];
 }
 
 - (void)setWrap:(WLWrap *)wrap {
@@ -200,7 +203,11 @@
 }
 
 - (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
-	[self.delegate stillPictureViewControllerDidCancel:self];
+    if (self.delegate) {
+        [self.delegate stillPictureViewControllerDidCancel:self];
+    } else {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)cameraViewControllerDidSelectGallery:(WLCameraViewController *)controller {
@@ -284,9 +291,30 @@
 #pragma mark - PickerViewController action
 
 - (IBAction)chooseWrap:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
+    if (self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
+            [self.delegate stillPictureViewController:self didSelectWrap:self.wrap];
+        }
+    } else {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+// MARK: - WLEntryNotifyReceiver
+
+- (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
+    [self setupWrapView:wrap];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
+    self.wrap = [[[WLUser currentUser] sortedWraps] firstObject];
+    if (!self.presentedViewController && [self.delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
         [self.delegate stillPictureViewController:self didSelectWrap:self.wrap];
     }
+}
+
+- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
+    return self.wrap;
 }
 
 @end

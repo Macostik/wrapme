@@ -26,7 +26,7 @@
 
 @property (strong, nonatomic) WLWrap *wrap;
 
-@property (assign, nonatomic) id <WLPickerViewDelegate> delegate;
+@property (weak, nonatomic) id <WLPickerViewDelegate> delegate;
 
 - (instancetype)initWithWrap:(WLWrap *)wrap delegate:(id)delegate;
 

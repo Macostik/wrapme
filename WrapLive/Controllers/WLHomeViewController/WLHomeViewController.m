@@ -272,24 +272,33 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didSelectWrap:(WLWrap *)wrap {
-    WLPickerViewController *pickerViewController = [[WLPickerViewController alloc] initWithWrap:wrap delegate:self];
-    [controller presentViewController:pickerViewController animated:YES completion:nil];
+    if (wrap) {
+        WLPickerViewController *pickerViewController = [[WLPickerViewController alloc] initWithWrap:wrap delegate:self];
+        [controller presentViewController:pickerViewController animated:YES completion:nil];
+    } else {
+        [self createWrapWithStillPictureViewController:controller];
+    }
 }
 
 #pragma mark - WLPickerViewDelegate
 
+- (void)createWrapWithStillPictureViewController:(WLStillPictureViewController*)stillPictureViewController {
+    WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
+    [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
+        stillPictureViewController.wrap = wrap;
+        [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+    }];
+    [createWrapViewController setCancelHandler:^{
+        [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+    }];
+    [stillPictureViewController presentViewController:createWrapViewController animated:YES completion:nil];
+}
+
 - (void)pickerViewControllerNewWrapClicked:(WLPickerViewController *)pickerViewController {
     WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
+    __weak typeof(self)weakSelf = self;
     [stillPictureViewController dismissViewControllerAnimated:YES completion:^{
-        WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
-        [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
-            stillPictureViewController.wrap = wrap;
-            [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
-        }];
-        [createWrapViewController setCancelHandler:^{
-            [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
-        }];
-        [stillPictureViewController presentViewController:createWrapViewController animated:YES completion:nil];
+        [weakSelf createWrapWithStillPictureViewController:stillPictureViewController];
     }];
 }
 

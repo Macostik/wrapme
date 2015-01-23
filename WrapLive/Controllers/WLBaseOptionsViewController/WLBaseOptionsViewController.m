@@ -23,14 +23,17 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)deleteEntry:(id)sender {
+- (IBAction)deleteEntry:(WLButton *)sender {
     __weak __typeof(self)weakSelf = self;
     if (self.entry.deletable) {
+        sender.loading = YES;
         [self.entry remove:^(id object) {
-            [self showToast];
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf showToast];
+            sender.loading = NO;
+            [weakSelf dismissViewControllerAnimated:NO completion:nil];
         } failure:^(NSError *error) {
             [error show];
+            sender.loading = NO;
         }];
     } else {
         [self performSelectorByTitle];

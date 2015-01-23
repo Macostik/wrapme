@@ -220,12 +220,9 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-	[WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."),
-                              WLString([self.nameLabel titleForState:UIControlStateNormal])]];
-	__weak typeof(self)weakSelf = self;
-	run_after(0.5f, ^{
-		[weakSelf.navigationController popToRootViewControllerAnimated:YES];
-	});
+        [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."),
+                                  WLString([self.nameLabel titleForState:UIControlStateNormal])]];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {

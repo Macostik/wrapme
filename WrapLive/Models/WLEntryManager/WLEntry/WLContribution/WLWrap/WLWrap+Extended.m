@@ -54,21 +54,24 @@
     if (!NSStringEqual(self.name, name)) self.name = name;
     if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
     NSArray* contributorsArray = [dictionary arrayForKey:WLContributorsKey];
-    NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSetWithCapacity:[contributorsArray count]];
-    for (NSDictionary* contributor in contributorsArray) {
-        WLUser* user = [WLUser API_entry:contributor];
-        if (user) {
-            [contributors addObject:user];
+    if (contributorsArray.nonempty) {
+        NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSetWithCapacity:[contributorsArray count]];
+        for (NSDictionary* contributor in contributorsArray) {
+            WLUser* user = [WLUser API_entry:contributor];
+            if (user) {
+                [contributors addObject:user];
+            }
+            if ([contributor boolForKey:WLIsCreatorKey] && self.contributor != user) {
+                self.contributor = user;
+            }
         }
-        if ([contributor boolForKey:WLIsCreatorKey] && self.contributor != user) {
-            self.contributor = user;
+        
+        if (contributors.count != self.contributors.count || ![contributors isSubsetOfOrderedSet:self.contributors]) {
+            [contributors sort:comparatorByName];
+            self.contributors = contributors;
         }
     }
     
-    if (contributors.count != self.contributors.count || ![contributors isSubsetOfOrderedSet:self.contributors]) {
-        [contributors sort:comparatorByName];
-        self.contributors = contributors;
-    }
     NSArray* candiesArray = [dictionary arrayForKey:WLCandiesKey];
     if (candiesArray.nonempty) {
         candiesArray = [self arrayByRemovingDuplicatedCandies:candiesArray];

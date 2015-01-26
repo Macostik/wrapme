@@ -47,9 +47,10 @@
 
 - (void)performSelectorByTitle {
     __weak __typeof(self)weakSelf = self;
+    self.deleteButton.loading = YES;
     [self.entry leave:^(id object) {
         [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        [weakSelf dismissViewControllerAnimated:NO completion:nil];
         weakSelf.deleteButton.loading = NO;
     } failure:^(NSError *error) {
         [error show];

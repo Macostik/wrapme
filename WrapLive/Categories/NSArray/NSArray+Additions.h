@@ -70,6 +70,8 @@
 
 - (NSArray*)arrayByRemovingObjectsWhileEnumerating:(SelectBlock)enumerator;
 
+- (instancetype)objectsWhere:(NSString *)predicateFormat, ...;
+
 @end
 
 @interface NSMutableArray (Additions)

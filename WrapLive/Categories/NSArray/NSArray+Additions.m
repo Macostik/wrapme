@@ -199,6 +199,17 @@
 	}];
 }
 
+- (instancetype)objectsWhere:(NSString *)predicateFormat, ... {
+    va_list args;
+    va_start(args, predicateFormat);
+    va_end(args);
+    if (predicateFormat && ![predicateFormat isKindOfClass:[NSString class]]) {
+        NSString *reason = @"predicate must be an NSString with optional format va_list";
+        [NSException exceptionWithName:@"WLException" reason:reason userInfo:nil];
+    }
+    return [self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
+}
+
 @end
 
 @implementation NSMutableArray (Additions)

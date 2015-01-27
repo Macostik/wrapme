@@ -29,7 +29,9 @@
 }
 
 + (instancetype)notificationWithMessage:(PNMessage*)message {
-	return [self notificationWithData:message.message];
+    WLNotification *notification = [self notificationWithData:message.message];
+    notification.date = [message.receiveDate date];
+	return notification;
 }
 
 + (instancetype)notificationWithData:(NSDictionary *)data {
@@ -129,6 +131,11 @@
 - (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure {
     
     WLEntry* targetEntry = [self targetEntry];
+    
+    if (!targetEntry.valid) {
+        if (success) success();
+        return;
+    }
     
     WLEvent event = self.event;
     

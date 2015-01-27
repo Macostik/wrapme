@@ -242,6 +242,36 @@ static WLDataBlock deviceTokenCompletion = nil;
     return [notifications copy];
 }
 
+- (NSArray*)notificationsFromMessages:(NSArray*)messages {
+    if (!messages.nonempty) return nil;
+    NSMutableArray *notifications = [[messages map:^id(PNMessage *message) {
+        return [WLNotification notificationWithMessage:message];
+    }] mutableCopy];
+    
+    NSArray *deleteNotifications = [notifications objectsWhere:@"event == %d", WLEventDelete];
+    
+    deleteNotifications = [deleteNotifications sortedArrayUsingComparator:^NSComparisonResult(WLNotification* n1, WLNotification* n2) {
+        return [[[n1.targetEntry class] uploadingOrder] compare:[[n2.targetEntry class] uploadingOrder]];
+    }];
+    
+    for (WLNotification *deleteNotification in deleteNotifications) {
+        WLEntry *targetEntry = deleteNotification.targetEntry;
+        if (targetEntry.valid) {
+            NSArray *discardedNotifications = [notifications objectsWhere:@"SELF != %@ AND (targetEntry == %@ OR targetEntry.containingEntry == %@)",deleteNotification,targetEntry, targetEntry];
+            [notifications removeObjectsInArray:discardedNotifications];
+            if (targetEntry.inserted) {
+                [[WLEntryManager manager] deleteEntry:targetEntry];
+                [notifications removeObject:deleteNotification];
+            }
+        } else {
+            [notifications removeObject:deleteNotification];
+        }
+    }
+    
+    return [notifications copy];
+    
+}
+
 - (void)connect {
 	[PubNub connect];
 }

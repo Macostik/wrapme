@@ -1689,8 +1689,8 @@
 		5B219A031A66C94600D131C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLWrapOptionsViewController.xib; sourceTree = "<group>"; };
 		5B219A061A66C94700D131C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLWrapOptionsViewController.strings; sourceTree = "<group>"; };
 		5B219A081A66C94900D131C3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLWrapOptionsViewController.strings; sourceTree = "<group>"; };
-		5B2B0C1A1A77A83900DADC9D /* WLIconButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIconButton.h; path = WrapLive/Views/WLButton/WLIconButton.h; sourceTree = "<group>"; };
-		5B2B0C1B1A77A83900DADC9D /* WLIconButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIconButton.m; path = WrapLive/Views/WLButton/WLIconButton.m; sourceTree = "<group>"; };
+		5B2B0C1A1A77A83900DADC9D /* WLIconButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIconButton.h; path = WLButton/WLIconButton.h; sourceTree = "<group>"; };
+		5B2B0C1B1A77A83900DADC9D /* WLIconButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIconButton.m; path = WLButton/WLIconButton.m; sourceTree = "<group>"; };
 		5B2F719C1A2E017F0019FC57 /* WLCryptographer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCryptographer.h; path = WLCryptographer/WLCryptographer.h; sourceTree = "<group>"; };
 		5B2F719D1A2E017F0019FC57 /* WLCryptographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCryptographer.m; path = WLCryptographer/WLCryptographer.m; sourceTree = "<group>"; };
 		5B2F71A41A2E03C70019FC57 /* WLExtensionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLExtensionManager.h; path = WLExtensionModel/WLExtensionManager/WLExtensionManager.h; sourceTree = "<group>"; };
@@ -1957,8 +1957,8 @@
 		C521FB081989382300576281 /* WLPaginatedViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPaginatedViewSection.m; path = WLCollectionViewDataProvider/WLPaginatedViewSection.m; sourceTree = "<group>"; };
 		C521FB0A19893D2000576281 /* WLEntriesCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntriesCollection.h; path = WLCollectionViewDataProvider/WLEntriesCollection.h; sourceTree = "<group>"; };
 		C5262C5019E594DB0029E9B6 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
-		C52E1FC81A41951300A2C370 /* WLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLButton.h; path = ../WLButton/WLButton.h; sourceTree = "<group>"; };
-		C52E1FC91A41951300A2C370 /* WLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLButton.m; path = ../WLButton/WLButton.m; sourceTree = "<group>"; };
+		C52E1FC81A41951300A2C370 /* WLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLButton.h; path = WLButton/WLButton.h; sourceTree = "<group>"; };
+		C52E1FC91A41951300A2C370 /* WLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLButton.m; path = WLButton/WLButton.m; sourceTree = "<group>"; };
 		C52E1FCA1A41951300A2C370 /* WLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLabel.h; sourceTree = "<group>"; };
 		C52E1FCB1A41951300A2C370 /* WLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLLabel.m; sourceTree = "<group>"; };
 		C52E1FCC1A41951300A2C370 /* WLBadgeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBadgeLabel.h; sourceTree = "<group>"; };
@@ -2474,8 +2474,6 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
-				5B2B0C1A1A77A83900DADC9D /* WLIconButton.h */,
-				5B2B0C1B1A77A83900DADC9D /* WLIconButton.m */,
 				5BF1B24A1A49A758000BB2C1 /* WLTodayExtension_Production.entitlements */,
 				5B787DB01A278914004AE459 /* WrapLive-Production.entitlements */,
 				5B787DAF1A27890C004AE459 /* WrapLive-Beta.entitlements */,
@@ -2637,6 +2635,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5B2B0C201A77DDC400DADC9D /* WLButton */,
 				C514AA5E1A6D624900A562CE /* WLGradientView */,
 				C568D8D31A6D490500C2333B /* WLHintView */,
 				C52E1FC71A41947D00A2C370 /* Text Views */,
@@ -3203,6 +3202,17 @@
 				5BB04F2D19D9824500B5C6EE /* WLEditWrapViewController.m */,
 			);
 			name = WLEditWrapViewController;
+			sourceTree = "<group>";
+		};
+		5B2B0C201A77DDC400DADC9D /* WLButton */ = {
+			isa = PBXGroup;
+			children = (
+				5B2B0C1A1A77A83900DADC9D /* WLIconButton.h */,
+				5B2B0C1B1A77A83900DADC9D /* WLIconButton.m */,
+				C52E1FC81A41951300A2C370 /* WLButton.h */,
+				C52E1FC91A41951300A2C370 /* WLButton.m */,
+			);
+			name = WLButton;
 			sourceTree = "<group>";
 		};
 		5B2F71931A2DB2E40019FC57 /* WLTodayViewController */ = {
@@ -3853,8 +3863,6 @@
 				C52E1FEC1A41ABBC00A2C370 /* TTTAttributedLabel */,
 				C52E1FE61A41957800A2C370 /* UIFont+CustomFonts.h */,
 				C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */,
-				C52E1FC81A41951300A2C370 /* WLButton.h */,
-				C52E1FC91A41951300A2C370 /* WLButton.m */,
 				C52E1FCA1A41951300A2C370 /* WLLabel.h */,
 				C52E1FCB1A41951300A2C370 /* WLLabel.m */,
 				C52E1FCC1A41951300A2C370 /* WLBadgeLabel.h */,
@@ -6572,7 +6580,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "27e478aa-ff9e-4a11-84ac-c57751ded8ef";
+				PROVISIONING_PROFILE = "5abdd8c5-237c-45af-99af-494fbcd73303";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6611,7 +6619,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "16f5ac03-80af-4eed-8837-0115e9d90e55";
+				PROVISIONING_PROFILE = "2a47cef9-3068-41ab-b483-4c94e1459bfc";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6732,7 +6740,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "27e478aa-ff9e-4a11-84ac-c57751ded8ef";
+				PROVISIONING_PROFILE = "5abdd8c5-237c-45af-99af-494fbcd73303";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6771,7 +6779,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "16f5ac03-80af-4eed-8837-0115e9d90e55";
+				PROVISIONING_PROFILE = "2a47cef9-3068-41ab-b483-4c94e1459bfc";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6807,7 +6815,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "27e478aa-ff9e-4a11-84ac-c57751ded8ef";
+				PROVISIONING_PROFILE = "5abdd8c5-237c-45af-99af-494fbcd73303";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6845,7 +6853,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "16f5ac03-80af-4eed-8837-0115e9d90e55";
+				PROVISIONING_PROFILE = "2a47cef9-3068-41ab-b483-4c94e1459bfc";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6882,7 +6890,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "772d62e6-f355-4431-9cd7-bd744476e4a0";
+				PROVISIONING_PROFILE = "f1daeb20-1826-4e00-992a-66ab74d97aae";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6921,7 +6929,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "41974e24-170a-4494-b991-c2675ef1643c";
+				PROVISIONING_PROFILE = "c97e9f04-76f0-4125-934c-03385212b255";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

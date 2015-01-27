@@ -188,6 +188,11 @@
         return;
     }
     
+    if (!targetEntry.valid) {
+        if (success) success();
+        return;
+    }
+    
     WLEvent event = self.event;
     
     WLObjectBlock block = ^(id object) {

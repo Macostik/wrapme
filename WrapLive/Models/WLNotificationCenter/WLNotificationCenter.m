@@ -143,19 +143,19 @@ static WLDataBlock deviceTokenCompletion = nil;
         __weak typeof(self)weakSelf = self;
         [self.userChannel enableAPNS];
         [self.userChannel observeMessages:^(PNMessage *message) {
-            [weakSelf handleMessage:message saveHistoryDate:YES];
+            WLNotification *notification = [WLNotification notificationWithMessage:message];
+            [weakSelf handleNotification:notification saveHistoryDate:YES];
         }];
     }
 }
 
-- (void)handleMessage:(PNMessage*)message saveHistoryDate:(BOOL)saveHistoryDate {
-    WLNotification *notification = [WLNotification notificationWithMessage:message];
+- (void)handleNotification:(WLNotification*)notification saveHistoryDate:(BOOL)saveHistoryDate {
     BOOL insertedEntry = notification.targetEntry.inserted;
     [notification fetch:^{
         if (notification.playSound && insertedEntry) [WLSoundPlayer playSoundForNotification:notification];
     } failure:nil];
     if (saveHistoryDate) {
-        self.historyDate = [[message.receiveDate date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
+        self.historyDate = [notification.date dateByAddingTimeInterval:NSINTEGER_DEFINED];
     }
 }
 
@@ -165,9 +165,10 @@ static WLDataBlock deviceTokenCompletion = nil;
         __weak typeof(self)weakSelf = self;
         [PubNub requestHistoryForChannel:self.userChannel.channel from:[PNDate dateWithDate:historyDate] to:[PNDate dateWithDate:[NSDate now]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, PNChannel *channel, PNDate *from, PNDate *to, PNError *error) {
             if (!error) {
-                if (messages.nonempty) {
-                    for (PNMessage *message in messages) {
-                        [weakSelf handleMessage:message saveHistoryDate:message == [messages lastObject]];
+                NSArray *notifications = [weakSelf notificationsFromMessages:messages];
+                if (notifications.nonempty) {
+                    for (WLNotification *notification in notifications) {
+                        [weakSelf handleNotification:notification saveHistoryDate:notification == [notifications lastObject]];
                     }
                 } else {
                     weakSelf.historyDate = [NSDate now];
@@ -177,6 +178,36 @@ static WLDataBlock deviceTokenCompletion = nil;
     } else {
         self.historyDate = [NSDate now];
     }
+}
+
+- (NSArray*)notificationsFromMessages:(NSArray*)messages {
+    if (!messages.nonempty) return nil;
+    NSMutableArray *notifications = [[messages map:^id(PNMessage *message) {
+        return [WLNotification notificationWithMessage:message];
+    }] mutableCopy];
+    
+    NSArray *deleteNotifications = [notifications objectsWhere:@"event == %d", WLEventDelete];
+    
+    deleteNotifications = [deleteNotifications sortedArrayUsingComparator:^NSComparisonResult(WLNotification* n1, WLNotification* n2) {
+        return [[[n1.targetEntry class] uploadingOrder] compare:[[n2.targetEntry class] uploadingOrder]];
+    }];
+    
+    for (WLNotification *deleteNotification in deleteNotifications) {
+        WLEntry *targetEntry = deleteNotification.targetEntry;
+        if (targetEntry.valid) {
+            NSArray *discardedNotifications = [notifications objectsWhere:@"SELF != %@ AND (targetEntry == %@ OR targetEntry.containingEntry == %@)",deleteNotification,targetEntry, targetEntry];
+            [notifications removeObjectsInArray:discardedNotifications];
+            if (targetEntry.inserted) {
+                [[WLEntryManager manager] deleteEntry:targetEntry];
+                [notifications removeObject:deleteNotification];
+            }
+        } else {
+            [notifications removeObject:deleteNotification];
+        }
+    }
+    
+    return [notifications copy];
+    
 }
 
 - (void)connect {

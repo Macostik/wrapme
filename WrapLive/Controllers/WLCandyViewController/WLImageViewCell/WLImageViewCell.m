@@ -13,6 +13,7 @@
 #import "UIView+Shorthand.h"
 #import "WLCandy+Extended.h"
 #import "NSError+WLAPIManager.h"
+#import "WLButton.h"
 
 @interface WLImageViewCell () <UIScrollViewDelegate, WLDeviceOrientationBroadcastReceiver>
 
@@ -29,7 +30,6 @@
     [super awakeFromNib];
     
     self.scrollView.userInteractionEnabled = NO;
-    
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
 //    [self applyDeviceOrientation:[UIDevice currentDevice].orientation animated:NO];
 }

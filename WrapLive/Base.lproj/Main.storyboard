@@ -2982,7 +2982,7 @@ Check your internet connection and try again.</string>
                                             <action selector="back:" destination="eto-O4-OHy" eventType="touchUpInside" id="aMp-QI-Uwl"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CyH-e0-t6h" userLabel="WarningButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CyH-e0-t6h" userLabel="WarningButton" customClass="WLIconButton">
                                         <rect key="frame" x="188" y="20" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="mMI-v1-LbX"/>
@@ -2991,11 +2991,20 @@ Check your internet connection and try again.</string>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="name" value="warning"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="size">
+                                                <real key="value" value="22"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="report:" destination="eto-O4-OHy" eventType="touchUpInside" id="zXQ-LU-9Gr"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3S-jS-mvs" userLabel="TrashButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3S-jS-mvs" userLabel="TrashButton" customClass="WLIconButton">
                                         <rect key="frame" x="232" y="20" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="8Gy-fW-4s6"/>
@@ -3004,11 +3013,20 @@ Check your internet connection and try again.</string>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="name" value="trash"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="size">
+                                                <real key="value" value="22"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="report:" destination="eto-O4-OHy" eventType="touchUpInside" id="2IC-2P-wi0"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPd-Ai-V8F" userLabel="ActionButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPd-Ai-V8F" userLabel="ActionButton" customClass="WLIconButton">
                                         <rect key="frame" x="276" y="20" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="MbQ-5A-NgN"/>
@@ -3017,6 +3035,15 @@ Check your internet connection and try again.</string>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="name" value="cloudDownload"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="size">
+                                                <real key="value" value="22"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="report:" destination="eto-O4-OHy" eventType="touchUpInside" id="xN8-Lx-BAe"/>
                                         </connections>
@@ -3064,8 +3091,11 @@ Check your internet connection and try again.</string>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="96" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ai-CO-qH0" customClass="WLButton">
-                                        <rect key="frame" x="212" y="78" width="96" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="110" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ai-CO-qH0" customClass="WLButton">
+                                        <rect key="frame" x="198" y="78" width="110" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="110" id="Gtz-LP-fDc"/>
+                                        </constraints>
                                         <state key="normal" title="Comment">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -3073,7 +3103,10 @@ Check your internet connection and try again.</string>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="3"/>
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -3113,6 +3146,8 @@ Check your internet connection and try again.</string>
                         <outlet property="actionButton" destination="sPd-Ai-V8F" id="dBp-Hq-sFL"/>
                         <outlet property="avatarImageView" destination="DKe-of-CwY" id="pwy-xB-Q7n"/>
                         <outlet property="collectionView" destination="jyK-17-cAD" id="BfX-xF-M1l"/>
+                        <outlet property="commentButton" destination="2ai-CO-qH0" id="gaJ-nC-R6A"/>
+                        <outlet property="commentView" destination="DOa-Ws-aK4" id="UCs-DW-0Me"/>
                         <outlet property="lastCommentLabel" destination="isn-QR-Jgl" id="B3Q-Yv-Gsh"/>
                         <outlet property="navigationBar" destination="Wbg-W9-8Ie" id="rqy-nr-XQo"/>
                         <outlet property="trashButton" destination="J3S-jS-mvs" id="Zt0-EG-SPa"/>

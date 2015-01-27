@@ -46,12 +46,15 @@
 #import <FAKFontAwesome.h>
 #import "WLDeviceOrientationBroadcaster.h"
 
-#define CGAffineTransformNotIdentity CGAffineTransformTranslate(self.navigationBar.transform, .0, -84.0)
+CGAffineTransform WLNavigationBarTransform;
+CGAffineTransform WLCommentViewTransform;
 
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver, WLDeviceOrientationBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
+@property (weak, nonatomic) IBOutlet UIView *commentView;
+@property (weak, nonatomic) IBOutlet WLButton *commentButton;
 
 @property (nonatomic) BOOL shouldLoadMoreCandies;
 @property (nonatomic) BOOL scrolledToInitialItem;
@@ -92,27 +95,10 @@
     [[WLNetwork network] addReceiver:self];
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
     
-    CGFloat WLIconSize = self.trashButton.width/2;
-    UIImage *image = nil;
-    FAKIcon *icon = nil;
-    
-    icon = [FAKFontAwesome warningIconWithSize:WLIconSize];
-    [icon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    image = [icon imageWithSize:CGSizeMake(WLIconSize, WLIconSize)];
-    [self.warningButton setImage:image forState:UIControlStateNormal];
-    
-    icon = [FAKFontAwesome trashIconWithSize:WLIconSize];
-    [icon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    image = [icon imageWithSize:CGSizeMake(WLIconSize, WLIconSize)];
-    [self.trashButton setImage:image forState:UIControlStateNormal];
-    
-    icon = self.candy.deletable ? [FAKFontAwesome cloudDownloadIconWithSize:WLIconSize] :
-                                  [FAKFontAwesome pencilSquareOIconWithSize:WLIconSize];
-    [icon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    image = [icon imageWithSize:CGSizeMake(WLIconSize, WLIconSize)];
-    [self.actionButton setImage:image forState:UIControlStateNormal];
-    
-    self.navigationBar.transform = CGAffineTransformNotIdentity;
+    WLNavigationBarTransform = CGAffineTransformTranslate(self.navigationBar.transform, .0, -self.navigationBar.height);
+    WLCommentViewTransform = CGAffineTransformTranslate(self.commentView.transform, .0, self.commentView.height);
+    self.navigationBar.transform = WLNavigationBarTransform;
+    self.commentView.transform = WLCommentViewTransform;
     
     UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -127,6 +113,8 @@
     [self.collectionView addGestureRecognizer:rightSwipe];
     self.rightSwipeGestureRecognizer = rightSwipe;
     [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:rightSwipe];
+    
+    self.commentButton.layer.borderColor = [UIColor whiteColor].CGColor;
     
     [self refresh:_candy];
 }
@@ -296,7 +284,8 @@
 - (IBAction)showNavigationBar:(id)sender {
     BOOL isShow = CGAffineTransformEqualToTransform(CGAffineTransformIdentity, self.navigationBar.transform);
     [UIView performAnimated:YES animation:^{
-        self.navigationBar.transform = isShow ? CGAffineTransformNotIdentity : CGAffineTransformIdentity;
+        self.navigationBar.transform = isShow ? WLNavigationBarTransform : CGAffineTransformIdentity;
+        self.commentView.transform = isShow? WLCommentViewTransform : CGAffineTransformIdentity;
     }];
 }
 
@@ -338,7 +327,7 @@
 #pragma mark - WLNetworkReceiver
 
 //- (void)networkDidChangeReachability:(WLNetwork *)network {
-//    [self.candyCell.collectionView reloadData];
+//    [self.collectionView reloadData];
 //}
 
 #pragma mark - WLKeyboardBroadcastReceiver
@@ -356,25 +345,19 @@
 
 
 #pragma mark - WLDeviceOrientationBroadcastReceiver
-
 - (void)applyDeviceOrientation:(UIDeviceOrientation)orientation animated:(BOOL)animated {
-    CGAffineTransform transform = self.collectionView.transform;
+    CGAffineTransform transform = self.view.transform;
     if (orientation == UIDeviceOrientationLandscapeLeft) {
         transform = CGAffineTransformMakeRotation(M_PI_2);
     } else if (orientation == UIDeviceOrientationLandscapeRight) {
         transform = CGAffineTransformMakeRotation(-M_PI_2);
-    } else if (orientation == UIDeviceOrientationPortrait) {
-        transform = CGAffineTransformIdentity;
-    } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
-        transform = CGAffineTransformIdentity;
     }
-    if (!CGAffineTransformEqualToTransform(self.collectionView.transform, transform)) {
-        __weak typeof(self)weakSelf = self;
-        [UIView performAnimated:animated animation:^{
-            weakSelf.collectionView.transform = transform;
-            [weakSelf.collectionView reloadData];
-        }];
-    }
+    __weak typeof(self)weakSelf = self;
+    [UIView performAnimated:animated animation:^{
+        weakSelf.view.frame = weakSelf.view.superview.bounds;
+        weakSelf.view.transform = transform;
+        [weakSelf.collectionView reloadData];
+    }];
 }
 
 - (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber*)orientation {

@@ -6563,7 +6563,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a12c2bcc-b577-4b78-93c7-6f20f263ef1c";
+				PROVISIONING_PROFILE = "27e478aa-ff9e-4a11-84ac-c57751ded8ef";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6602,7 +6602,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d862b3b5-b4c5-4c57-ace1-51d842086675";
+				PROVISIONING_PROFILE = "16f5ac03-80af-4eed-8837-0115e9d90e55";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6626,7 +6626,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d991e487-3a33-4761-9264-6b08f58c7606";
+				PROVISIONING_PROFILE = "5abdd8c5-237c-45af-99af-494fbcd73303";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -6645,7 +6645,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6d39840d-fcb5-412b-a59c-67b54f7712f1";
+				PROVISIONING_PROFILE = "2a47cef9-3068-41ab-b483-4c94e1459bfc";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6668,7 +6668,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = WLTodayExtension_Production;
-				PROVISIONING_PROFILE = "8b28d4a7-1f3c-4245-a473-12179d741380";
+				PROVISIONING_PROFILE = "f1daeb20-1826-4e00-992a-66ab74d97aae";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -6687,7 +6687,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = WLTodayExtension_Production;
-				PROVISIONING_PROFILE = "6006654a-3d75-4060-97d9-df3fea99dafe";
+				PROVISIONING_PROFILE = "c97e9f04-76f0-4125-934c-03385212b255";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6723,7 +6723,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "a12c2bcc-b577-4b78-93c7-6f20f263ef1c";
+				PROVISIONING_PROFILE = "27e478aa-ff9e-4a11-84ac-c57751ded8ef";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6762,7 +6762,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "d862b3b5-b4c5-4c57-ace1-51d842086675";
+				PROVISIONING_PROFILE = "16f5ac03-80af-4eed-8837-0115e9d90e55";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6798,7 +6798,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "a12c2bcc-b577-4b78-93c7-6f20f263ef1c";
+				PROVISIONING_PROFILE = "27e478aa-ff9e-4a11-84ac-c57751ded8ef";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6836,7 +6836,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "d862b3b5-b4c5-4c57-ace1-51d842086675";
+				PROVISIONING_PROFILE = "16f5ac03-80af-4eed-8837-0115e9d90e55";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6873,7 +6873,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "222ab038-ab94-450d-b364-841cbf3d7127";
+				PROVISIONING_PROFILE = "772d62e6-f355-4431-9cd7-bd744476e4a0";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6912,7 +6912,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "05070950-7b03-4d5e-b99c-12f310322e49";
+				PROVISIONING_PROFILE = "41974e24-170a-4494-b991-c2675ef1643c";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

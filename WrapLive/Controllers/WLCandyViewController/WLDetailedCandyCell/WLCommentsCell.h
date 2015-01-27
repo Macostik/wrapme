@@ -8,8 +8,6 @@
 
 #import "WLEntryCell.h"
 
-static NSString* WLCommentsCellIdentifier = @"WLCommentsCell";
-
 @interface WLCommentsCell : WLEntryCell
 
 @property (weak, nonatomic, readonly) UILabel *nameLabel;

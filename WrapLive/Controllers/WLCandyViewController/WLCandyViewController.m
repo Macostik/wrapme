@@ -22,11 +22,10 @@
 #import "WLCandyViewController.h"
 #import "WLComment.h"
 #import "WLCommentCell.h"
-#import "WLCommentsCell.h"
+#import "WLImageViewCell.h"
 #import "WLComposeBar.h"
 #import "WLHistory.h"
 #import "WLImageFetcher.h"
-#import "WLImageViewController.h"
 #import "WLNetwork.h"
 #import "WLKeyboard.h"
 #import "WLNavigation.h"
@@ -42,18 +41,29 @@
 #import "UIView+AnimationHelper.h"
 #import "NSOrderedSet+Additions.h"
 #import "WLHintView.h"
+#import "WLCircleImageView.h"
+#import "WLLabel.h"
+#import <FAKFontAwesome.h>
+#import "WLDeviceOrientationBroadcaster.h"
 
-@interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver>
+#define CGAffineTransformNotIdentity CGAffineTransformTranslate(self.navigationBar.transform, .0, -84.0)
 
-@property (weak, nonatomic) IBOutlet WLComposeBar *composeBarView;
+@interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver, WLDeviceOrientationBroadcastReceiver>
+
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 @property (nonatomic) BOOL shouldLoadMoreCandies;
 @property (nonatomic) BOOL scrolledToInitialItem;
 
-@property (readonly, nonatomic) WLCommentsCell* candyCell;
+@property (strong, nonatomic) WLImageViewCell* candyCell;
+
+@property (weak, nonatomic) IBOutlet UIButton *warningButton;
+@property (weak, nonatomic) IBOutlet UIButton *trashButton;
+@property (weak, nonatomic) IBOutlet UIButton *actionButton;
+
+@property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
+@property (weak, nonatomic) IBOutlet WLLabel *lastCommentLabel;
 
 @property (weak, nonatomic) UISwipeGestureRecognizer* leftSwipeGestureRecognizer;
 @property (weak, nonatomic) UISwipeGestureRecognizer* rightSwipeGestureRecognizer;
@@ -76,12 +86,33 @@
         [self.history addEntries:[_candy.wrap candies]];
         _historyItem = [self.history itemWithCandy:_candy];
     }
-    
-	self.composeBarView.placeholder = WLLS(@"Write your comment ...");
 	
 	[[WLCandy notifier] addReceiver:self];
     [[WLComment notifier] addReceiver:self];
     [[WLNetwork network] addReceiver:self];
+    [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
+    
+    CGFloat WLIconSize = self.trashButton.width/2;
+    UIImage *image = nil;
+    FAKIcon *icon = nil;
+    
+    icon = [FAKFontAwesome warningIconWithSize:WLIconSize];
+    [icon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    image = [icon imageWithSize:CGSizeMake(WLIconSize, WLIconSize)];
+    [self.warningButton setImage:image forState:UIControlStateNormal];
+    
+    icon = [FAKFontAwesome trashIconWithSize:WLIconSize];
+    [icon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    image = [icon imageWithSize:CGSizeMake(WLIconSize, WLIconSize)];
+    [self.trashButton setImage:image forState:UIControlStateNormal];
+    
+    icon = self.candy.deletable ? [FAKFontAwesome cloudDownloadIconWithSize:WLIconSize] :
+                                  [FAKFontAwesome pencilSquareOIconWithSize:WLIconSize];
+    [icon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    image = [icon imageWithSize:CGSizeMake(WLIconSize, WLIconSize)];
+    [self.actionButton setImage:image forState:UIControlStateNormal];
+    
+    self.navigationBar.transform = CGAffineTransformNotIdentity;
     
     UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -111,15 +142,19 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    self.avatarImageView.url = self.candy.contributor.picture.small;
+    WLComment *comment = self.candy.comments.lastObject;
+    if (comment.valid) {
+        self.lastCommentLabel.text = comment.text;
+    }
+    
     [self.collectionView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.scrolledToInitialItem = YES;
-    if (self.showCommentInputKeyboard) {
-        [self.composeBarView becomeFirstResponder];
-    }
     [WLHintView showCandySwipeHintView];
 }
 
@@ -138,7 +173,7 @@
 }
 
 - (WLCandy *)candy {
-    WLCommentsCell* cell = self.candyCell;
+    WLImageViewCell* cell = self.candyCell;
     if (cell) {
         return cell.entry;
     }
@@ -146,8 +181,8 @@
     return [self.historyItem.entries tryObjectAtIndex:index];
 }
 
-- (WLCommentsCell *)candyCell {
-    WLCommentsCell* candyCell = [[self.collectionView visibleCells] lastObject];
+- (WLImageViewCell *)candyCell {
+    WLImageViewCell* candyCell = [[self.collectionView visibleCells] lastObject];
     return candyCell;
 }
 
@@ -191,25 +226,9 @@
     if ([self.history.entries containsIndex:index]) {
         WLHistoryItem* historyItem = [self.history.entries objectAtIndex:index];
         self.historyItem = historyItem;
-        [self showDateView];
         return YES;
     }
     return NO;
-}
-
-- (void)showDateView {
-    self.dateLabel.text = [self.historyItem.date string];
-    [UIView beginAnimations:nil context:nil];
-    self.dateLabel.superview.alpha = 1.0f;
-    [UIView commitAnimations];
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideDateView) object:nil];
-    [self performSelector:@selector(hideDateView) withObject:nil afterDelay:3];
-}
-
-- (void)hideDateView {
-    [UIView beginAnimations:nil context:nil];
-    self.dateLabel.superview.alpha = 0.0f;
-    [UIView commitAnimations];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -268,15 +287,23 @@
     }];
 }
 
+- (IBAction)showPopupView:(id)sender {
+    
+}
+
+#pragma mark - UITapGestureRecognizer
+
+- (IBAction)showNavigationBar:(id)sender {
+    BOOL isShow = CGAffineTransformEqualToTransform(CGAffineTransformIdentity, self.navigationBar.transform);
+    [UIView performAnimated:YES animation:^{
+        self.navigationBar.transform = isShow ? CGAffineTransformNotIdentity : CGAffineTransformIdentity;
+    }];
+}
+
 #pragma mark - WLComposeBarDelegate
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
 	[self sendMessageWithText:text];
-}
-
-- (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
-    [self.candyCell updateBottomInset:[WLKeyboard keyboard].height + composeBar.height];
-    [self.candyCell.collectionView setMaximumContentOffsetAnimated:YES];
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
@@ -285,12 +312,13 @@
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [self.historyItem.entries count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLCommentsCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLCommentsCellIdentifier forIndexPath:indexPath];
+    WLImageViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLImageViewCellIdentifier forIndexPath:indexPath];
     WLCandy* candy = [self.historyItem.entries tryObjectAtIndex:indexPath.item];
     if (candy.valid) {
         [self fetchOlder:candy];
@@ -298,6 +326,7 @@
     } else {
         cell.entry = nil;
     }
+    
     return cell;
 }
 
@@ -305,44 +334,51 @@
     return collectionView.size;
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.5f];
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (!decelerate) {
-        [self performSelector:@selector(refresh) withObject:nil afterDelay:0.5f];
-    }
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refresh) object:nil];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    for (WLCommentsCell* cell in [self.collectionView visibleCells]) {
-        CGFloat alpha = (cell.width - ABS(cell.x - scrollView.contentOffset.x)) / cell.width;
-        cell.collectionView.alpha = cell.nameLabel.alpha = alpha;
-    }
-}
 
 #pragma mark - WLNetworkReceiver
 
-- (void)networkDidChangeReachability:(WLNetwork *)network {
-    [self.candyCell.collectionView reloadData];
-}
+//- (void)networkDidChangeReachability:(WLNetwork *)network {
+//    [self.candyCell.collectionView reloadData];
+//}
 
 #pragma mark - WLKeyboardBroadcastReceiver
 
-- (void)keyboardWillShow:(WLKeyboard *)keyboard {
-    [super keyboardWillShow:keyboard];
-    [self.candyCell updateBottomInset:keyboard.height + self.composeBarView.height];
-    [self.candyCell.collectionView setMaximumContentOffsetAnimated:YES];
+//- (void)keyboardWillShow:(WLKeyboard *)keyboard {
+//    [super keyboardWillShow:keyboard];
+//    [self.candyCell updateBottomInset:keyboard.height + self.composeBarView.height];
+//    [self.candyCell.collectionView setMaximumContentOffsetAnimated:YES];
+//}
+//
+//- (void)keyboardWillHide:(WLKeyboard *)broadcaster {
+//    [super keyboardWillHide:broadcaster];
+//    [self.candyCell updateBottomInset:self.composeBarView.height];
+//}
+
+
+#pragma mark - WLDeviceOrientationBroadcastReceiver
+
+- (void)applyDeviceOrientation:(UIDeviceOrientation)orientation animated:(BOOL)animated {
+    CGAffineTransform transform = self.collectionView.transform;
+    if (orientation == UIDeviceOrientationLandscapeLeft) {
+        transform = CGAffineTransformMakeRotation(M_PI_2);
+    } else if (orientation == UIDeviceOrientationLandscapeRight) {
+        transform = CGAffineTransformMakeRotation(-M_PI_2);
+    } else if (orientation == UIDeviceOrientationPortrait) {
+        transform = CGAffineTransformIdentity;
+    } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
+        transform = CGAffineTransformIdentity;
+    }
+    if (!CGAffineTransformEqualToTransform(self.collectionView.transform, transform)) {
+        __weak typeof(self)weakSelf = self;
+        [UIView performAnimated:animated animation:^{
+            weakSelf.collectionView.transform = transform;
+            [weakSelf.collectionView reloadData];
+        }];
+    }
 }
 
-- (void)keyboardWillHide:(WLKeyboard *)broadcaster {
-    [super keyboardWillHide:broadcaster];
-    [self.candyCell updateBottomInset:self.composeBarView.height];
+- (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber*)orientation {
+    [self applyDeviceOrientation:[orientation integerValue] animated:YES];
 }
 
 @end

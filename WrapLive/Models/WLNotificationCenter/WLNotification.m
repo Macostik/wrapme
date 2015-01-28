@@ -129,8 +129,8 @@
 }
 
 - (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure {
-    
-    WLEntry* targetEntry = [self targetEntry];
+    __weak __typeof(self)weakSelf = self;
+    WLEntry* targetEntry = [weakSelf targetEntry];
     
     if (!targetEntry.valid) {
         if (success) success();
@@ -139,7 +139,6 @@
     
     WLEvent event = self.event;
     
-    __weak __typeof(self)weakSelf = self;
     WLObjectBlock block = ^(id object) {
         if (event == WLEventAdd) {
             switch (weakSelf.type) {
@@ -159,7 +158,6 @@
         } else if (event == WLEventDelete) {
             [targetEntry remove];
         }
-
         if (success) success();
     };
     

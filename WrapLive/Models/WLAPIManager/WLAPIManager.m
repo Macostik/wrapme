@@ -35,6 +35,7 @@
 #import "WLEntityRequest.h"
 #import "WLLeaveWrapRequest.h"
 #import "UIAlertView+Blocks.h"
+#import "AsynchronousOperation.h"
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 
@@ -86,7 +87,17 @@ static BOOL signedIn = NO;
         if (success) success(self);
         return nil;
     } else {
-        return [self fetch:success failure:failure];
+        __weak typeof(self)weakSelf = self;
+        [[NSOperationQueue queueWithIdentifier:@"entry_fetching" count:3] addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+            [weakSelf fetch:^(id object) {
+                [operation finish];
+                if (success) success(object);
+            } failure:^(NSError *error) {
+                [operation finish];
+                if (failure) failure(error);
+            }];
+        }];
+        return nil;
     }
 }
 

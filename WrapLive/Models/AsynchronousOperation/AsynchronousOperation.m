@@ -101,6 +101,29 @@
 
 @implementation NSOperationQueue (PGAsynchronousOperation)
 
++ (instancetype)queueWithIdentifier:(NSString*)identifier count:(NSUInteger)count {
+    static NSMutableDictionary *queues = nil;
+    if (!queues) queues = [NSMutableDictionary dictionary];
+    NSOperationQueue *queue = [queues objectForKey:identifier];
+    if (!queue) {
+        queue = queues[identifier] = [[NSOperationQueue alloc] init];
+    }
+    queue.maxConcurrentOperationCount = count;
+    return queue;
+}
+
++ (instancetype)queueWithIdentifier:(NSString *)identifier {
+    return [self queueWithIdentifier:identifier count:NSOperationQueueDefaultMaxConcurrentOperationCount];
+}
+
++ (AsynchronousOperation*)addAsynchronousOperationToQueueWithIdentifier:(NSString*)queueIdentifier operationIdentifier:(NSString*)operationIdentifier block:(void (^)(AsynchronousOperation* operation))block {
+    return [[self queueWithIdentifier:queueIdentifier] addAsynchronousOperation:operationIdentifier block:block];
+}
+
++ (AsynchronousOperation*)addAsynchronousOperationToQueueWithIdentifier:(NSString*)queueIdentifier block:(void (^)(AsynchronousOperation* operation))block {
+    return [[self queueWithIdentifier:queueIdentifier] addAsynchronousOperationWithBlock:block];
+}
+
 - (AsynchronousOperation *)addAsynchronousOperation:(NSString *)identifier block:(void (^)(AsynchronousOperation *))block {
     AsynchronousOperation* operation = [[AsynchronousOperation alloc] initWithQueue:self block:block];
     operation.identifier = identifier;

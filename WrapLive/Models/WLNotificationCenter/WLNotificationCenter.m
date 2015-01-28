@@ -26,6 +26,7 @@
 #import "UIDevice+SystemVersion.h"
 #import "WLRemoteObjectHandler.h"
 #import "WLImageFetcher.h"
+#import "AsynchronousOperation.h"
 
 #define WLPubNubInactiveStateDuration 20*60
 
@@ -160,24 +161,28 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)requestHistory {
-    NSDate *historyDate = self.historyDate;
-    if (historyDate) {
-        __weak typeof(self)weakSelf = self;
-        [PubNub requestHistoryForChannel:self.userChannel.channel from:[PNDate dateWithDate:historyDate] to:[PNDate dateWithDate:[NSDate now]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, PNChannel *channel, PNDate *from, PNDate *to, PNError *error) {
-            if (!error) {
-                NSArray *notifications = [weakSelf notificationsFromMessages:messages];
-                if (notifications.nonempty) {
-                    for (WLNotification *notification in notifications) {
-                        [weakSelf handleNotification:notification saveHistoryDate:notification == [notifications lastObject]];
+    __weak typeof(self)weakSelf = self;
+    [[NSOperationQueue queueWithIdentifier:@"pn_history" count:1] addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+        NSDate *historyDate = weakSelf.historyDate;
+        if (historyDate) {
+            [PubNub requestHistoryForChannel:weakSelf.userChannel.channel from:[PNDate dateWithDate:historyDate] to:[PNDate dateWithDate:[NSDate now]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, id channel, id from, id to, id error) {
+                if (!error) {
+                    NSArray *notifications = [weakSelf notificationsFromMessages:messages];
+                    if (notifications.nonempty) {
+                        for (WLNotification *notification in notifications) {
+                            [weakSelf handleNotification:notification saveHistoryDate:notification == [notifications lastObject]];
+                        }
+                    } else {
+                        weakSelf.historyDate = [NSDate now];
                     }
-                } else {
-                    weakSelf.historyDate = [NSDate now];
                 }
-            }
-        }];
-    } else {
-        self.historyDate = [NSDate now];
-    }
+                [operation finish];
+            }];
+        } else {
+            weakSelf.historyDate = [NSDate now];
+            [operation finish];
+        }
+    }];
 }
 
 - (NSArray*)notificationsFromMessages:(NSArray*)messages {
@@ -259,11 +264,11 @@ static WLDataBlock deviceTokenCompletion = nil;
 #pragma mark - PNDelegate
 
 - (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
-    WLLog(@"PubNub",@"message received", message);
+    WLLog(@"PubNub",@"message received", message.message);
 }
 
 - (void)pubnubClient:(PubNub *)client didReceiveMessageHistory:(NSArray *)messages forChannel:(PNChannel *)channel startingFrom:(PNDate *)startDate to:(PNDate *)endDate {
-    WLLog(@"PubNub",@"messages history", messages);
+    WLLog(@"PubNub",@"messages history", [messages valueForKey:@"message"]);
 }
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {
@@ -275,11 +280,11 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)pubnubClient:(PubNub *)client didSubscribeOnChannels:(NSArray *)channels {
-    WLLog(@"PubNub",@"subscribed", channels);
+    WLLog(@"PubNub",@"subscribed", [channels valueForKey:@"name"]);
 }
 
 - (void)pubnubClient:(PubNub *)client didUnsubscribeOnChannels:(NSArray *)channels {
-    WLLog(@"PubNub",@"unsubscribed", channels);
+    WLLog(@"PubNub",@"unsubscribed", [channels valueForKey:@"name"]);
 }
 
 - (void)pubnubClient:(PubNub *)client didDisconnectFromOrigin:(NSString *)origin withError:(PNError *)error {
@@ -287,7 +292,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)pubnubClient:(PubNub *)client didEnablePushNotificationsOnChannels:(NSArray *)channels {
-    WLLog(@"PubNub", @"enabled APNS", channels);
+    WLLog(@"PubNub", @"enabled APNS", [channels valueForKey:@"name"]);
 }
 
 - (void)pubnubClientDidRemovePushNotifications:(PubNub *)client {
@@ -295,7 +300,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)pubnubClient:(PubNub *)client didReceivePresenceEvent:(PNPresenceEvent *)event {
-    WLLog(@"PubNub", @"presence event", event);
+    WLLog(@"PubNub", @"presence event", @(event.type));
 }
 
 @end

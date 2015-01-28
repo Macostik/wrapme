@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>endpoint</key>
-	<string>https://bta-api.wraplive.com/api</string>
+	<string>https://qa-api.wraplive.com/api</string>
 	<key>version</key>
 	<string>5</string>
 	<key>testUsersPropertyListName</key>

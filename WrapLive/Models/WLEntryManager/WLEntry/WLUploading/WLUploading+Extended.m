@@ -45,35 +45,31 @@
         return;
     }
     [[self automaticUploadingQueue] addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
-        run_in_main_queue(^{
-            NSOrderedSet* uploadings = [WLUploading entries];
-            if (uploadings.nonempty) {
-                uploadings = [uploadings mutate:^(NSMutableOrderedSet *mutableCopy) {
-                    [mutableCopy sortUsingComparator:^NSComparisonResult(WLUploading* obj1, WLUploading* obj2) {
-                        return [[[obj1.contribution class] uploadingOrder] compare:[[obj2.contribution class] uploadingOrder]];
+        NSOrderedSet* uploadings = [WLUploading entries];
+        if (uploadings.nonempty) {
+            uploadings = [uploadings mutate:^(NSMutableOrderedSet *mutableCopy) {
+                [mutableCopy sortUsingComparator:^NSComparisonResult(WLUploading* obj1, WLUploading* obj2) {
+                    return [[[obj1.contribution class] uploadingOrder] compare:[[obj2.contribution class] uploadingOrder]];
+                }];
+            }];
+            NSOperationQueue* uploadingQueue = [[NSOperationQueue alloc] init];
+            uploadingQueue.maxConcurrentOperationCount = 1;
+            for (WLUploading* uploading in uploadings) {
+                [uploadingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *_operation) {
+                    [uploading upload:^(id object) {
+                        [_operation finish:^{
+                            [operation finish:completion];
+                        }];
+                    } failure:^(NSError *error) {
+                        [_operation finish:^{
+                            [operation finish:completion];
+                        }];
                     }];
                 }];
-                NSOperationQueue* uploadingQueue = [[NSOperationQueue alloc] init];
-                uploadingQueue.maxConcurrentOperationCount = 1;
-                for (WLUploading* uploading in uploadings) {
-                    [uploadingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *_operation) {
-                        run_in_main_queue(^{
-                            [uploading upload:^(id object) {
-                                [_operation finish:^{
-                                    [operation finish:completion];
-                                }];
-                            } failure:^(NSError *error) {
-                                [_operation finish:^{
-                                    [operation finish:completion];
-                                }];
-                            }];
-                        });
-                    }];
-                }
-            } else {
-                [operation finish:completion];
             }
-        });
+        } else {
+            [operation finish:completion];
+        }
     }];
 }
 

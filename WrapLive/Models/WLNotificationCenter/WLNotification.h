@@ -40,6 +40,14 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 @property (strong, nonatomic) NSDate* date;
 
+@property (strong, nonatomic) Class entryClass;
+
+@property (strong, nonatomic) NSString* entryIdentifier;
+
+@property (strong, nonatomic) NSDictionary* entryData;
+
+@property (strong, nonatomic) NSString* containingEntryIdentifier;
+
 + (instancetype)notificationWithMessage:(PNMessage*)message;
 
 + (instancetype)notificationWithData:(NSDictionary*)data;

@@ -54,11 +54,14 @@
 	[self willChangeValueForKey:@"isExecuting"];
 	executing = YES;
 	[self didChangeValueForKey:@"isExecuting"];
-	
+    
 	if (self.operationBlock) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(finish) object:nil];
         [self performSelector:@selector(finish) withObject:nil afterDelay:45];
-		self.operationBlock(self);
+		__weak typeof(self)weakSelf = self;
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            weakSelf.operationBlock(weakSelf);
+        }];
 	} else {
 		[self finish];
 	}

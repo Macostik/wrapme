@@ -89,6 +89,7 @@ static inline NSCalendar* NSCurrentCalendar() {
 }
 
 - (BOOL)isSameDay:(NSDate *)date {
+    if (ABS([self timeIntervalSinceDate:date]) > WLTimeIntervalDay) return NO;
     if (SystemVersionGreaterThanOrEqualTo8()) {
         NSCalendar *calendar = NSCurrentCalendar();
         if ([calendar component:NSDayCalendarUnit fromDate:self] != [calendar component:NSDayCalendarUnit fromDate:date]) return NO;
@@ -147,7 +148,7 @@ static inline NSCalendar* NSCurrentCalendar() {
 - (NSString *)timeAgoString {
 	NSTimeInterval interval = ABS([self timeIntervalSinceNow]);
 	if (interval >= WLTimeIntervalWeek) {
-		return [self stringWithFormat:@"MMMM d, yyyy 'at' hh:mma"];
+		return [self stringWithFormat:@"MMMM d, yyyy 'at' h:mma"];
 	} else {
 		NSTimeInterval value = 0;
 		NSString* name = nil;
@@ -168,15 +169,15 @@ static inline NSCalendar* NSCurrentCalendar() {
 - (NSString *)timeAgoStringAtAMPM {
     NSTimeInterval interval = ABS([self timeIntervalSinceNow]);
     if (interval >= WLTimeIntervalWeek) {
-        return [self stringWithFormat:@"MMM d, yyyy 'at' hh:mma"];
+        return [self stringWithFormat:@"MMM d, yyyy 'at' h:mma"];
     } else {
         NSTimeInterval value = 0;
         NSString* name = nil;
         if ((value = interval / WLTimeIntervalDay) >= 2) {
-            return [NSString stringWithFormat:@"%.f %@s ago at %@", value, WLTimeIntervalNameDay, [self stringWithFormat:@"hh:mma"]];
+            return [NSString stringWithFormat:@"%.f %@s ago at %@", value, WLTimeIntervalNameDay, [self stringWithFormat:@"h:mma"]];
         } else {
-            name = ((value = interval / WLTimeIntervalDay) >= 1) ? WLTimeIntervalNameYesterday : WLTimeIntervalNameToday;
-            return [NSString stringWithFormat:@"%@ at %@", name, [self stringWithFormat:@"hh:mma"]];
+            name = [self isToday] ? WLTimeIntervalNameToday : WLTimeIntervalNameYesterday;
+            return [NSString stringWithFormat:@"%@ at %@", name, [self stringWithFormat:@"h:mma"]];
         }
     }
 }

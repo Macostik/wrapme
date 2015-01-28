@@ -114,9 +114,9 @@
 - (NSString *)text {
     if (!_text) {
         if (self.entryClass == [WLComment class]) {
-            _text = [NSString stringWithFormat:@"%@ made %@", WLString(_user.name), self.entries.count > 1 ? @"comments" : @"a comment"];
+            _text = [NSString stringWithFormat:WLLS(@"%@ made %@"), WLString(_user.name), self.entries.count > 1 ? WLLS(@"comments") : WLLS(@"a comment")];
         } else {
-            _text = [NSString stringWithFormat:@"%@ uploaded new photo%@", WLString(_user.name), self.entries.count > 1 ? @"s" : @""];
+            _text = [NSString stringWithFormat:WLLS(@"%@ uploaded new photo%@"), WLString(_user.name), self.entries.count > 1 ? @"s" : @""];
         }
     }
     return _text;

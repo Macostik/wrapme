@@ -16,4 +16,5 @@
 	#import "PNImports.h"
     #import "SupportHeaders.h"
     #import "WLLogger.h"
+    #import "WLLocalization.h"
 #endif

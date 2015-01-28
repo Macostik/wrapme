@@ -26,8 +26,9 @@
 #import "WLWrapViewController.h"
 #import "WLCameraViewController.h"
 #import "UIImage+Drawing.h"
+#import "WLEntryNotifier.h"
 
-@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate>
+@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) UINavigationController* cameraNavigationController;
 @property (weak, nonatomic) AFPhotoEditorController* aviaryController;
@@ -55,6 +56,11 @@
     [self.wrapCoverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
     self.cameraNavigationController = [self.childViewControllers lastObject];
     self.cameraNavigationController.delegate = self;
+    
+    if ([self.delegate respondsToSelector:@selector(stillPictureViewControllerMode:)]) {
+        self.mode = [self.delegate stillPictureViewControllerMode:self];
+    }
+    
     WLCameraViewController* cameraViewController = [self.cameraNavigationController.viewControllers lastObject];
     cameraViewController.delegate = self;
     cameraViewController.defaultPosition = self.defaultPosition;
@@ -64,6 +70,8 @@
     if (self.startFromGallery) {
         [self openGallery:YES animated:NO];
     }
+    
+    [[WLWrap notifier] addReceiver:self];
 }
 
 - (void)setWrap:(WLWrap *)wrap {
@@ -119,8 +127,7 @@
         UIImage *result = image;
         CGFloat resultWidth = [self imageWidthForCurrentMode];
         if (useCameraAspectRatio) {
-            CGSize cropSize = weakSelf.mode == WLStillPictureModeSquare ? CGSizeMake(weakSelf.view.width, weakSelf.view.width) : weakSelf.view.size;
-            CGSize newSize = CGSizeThatFitsSize(result.size, cropSize);
+            CGSize newSize = CGSizeThatFitsSize(result.size, weakSelf.view.size);
             CGFloat scale = newSize.width / resultWidth;
             newSize = CGSizeMake(resultWidth, newSize.height / scale);
             result = [result resizedImageWithContentModeScaleAspectFill:CGSizeMake(result.size.width / scale, 1)];
@@ -139,15 +146,23 @@
 - (void)cropAsset:(ALAsset*)asset completion:(void (^)(UIImage *croppedImage))completion {
     ALAssetRepresentation* r = asset.defaultRepresentation;
     UIImage* image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:(UIImageOrientation)r.orientation];
-    [self cropImage:image useCameraAspectRatio:NO completion:completion];
+    [self cropImage:image useCameraAspectRatio:(self.mode != WLStillPictureModeDefault) completion:completion];
 }
 
 - (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
+        [AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
+        [AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
 		[AFPhotoEditorCustomization setLeftNavigationBarButtonTitle:@"Cancel"];
-		[AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Save"];
+        [AFPhotoEditorCustomization setToolOrder:@[kAFEnhance, kAFEffects, kAFFrames, kAFStickers, kAFFocus,
+                                                   kAFOrientation, kAFCrop, kAFDraw, kAFText, kAFBlemish, kAFMeme]];
 	});
+    if (self.mode == WLStillPictureModeDefault) {
+        [AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Send"];
+    } else {
+        [AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Save"];
+    }
 	AFPhotoEditorController* aviaryController = [[AFPhotoEditorController alloc] initWithImage:image];
 	aviaryController.delegate = self;
 	return aviaryController;
@@ -188,7 +203,11 @@
 }
 
 - (void)cameraViewControllerDidCancel:(WLCameraViewController *)controller {
-	[self.delegate stillPictureViewControllerDidCancel:self];
+    if (self.delegate) {
+        [self.delegate stillPictureViewControllerDidCancel:self];
+    } else {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)cameraViewControllerDidSelectGallery:(WLCameraViewController *)controller {
@@ -272,9 +291,30 @@
 #pragma mark - PickerViewController action
 
 - (IBAction)chooseWrap:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
+    if (self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
+            [self.delegate stillPictureViewController:self didSelectWrap:self.wrap];
+        }
+    } else {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+// MARK: - WLEntryNotifyReceiver
+
+- (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
+    [self setupWrapView:wrap];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
+    self.wrap = [[[WLUser currentUser] sortedWraps] firstObject];
+    if (!self.presentedViewController && [self.delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
         [self.delegate stillPictureViewController:self didSelectWrap:self.wrap];
     }
+}
+
+- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
+    return self.wrap;
 }
 
 @end

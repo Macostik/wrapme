@@ -21,7 +21,7 @@
 
 + (instancetype)candyWithType:(NSInteger)type wrap:(WLWrap*)wrap {
     WLCandy* candy = [self contribution];
-    candy.type = @(type);
+    candy.type = type;
     [wrap addCandy:candy];
     return candy;
 }
@@ -32,8 +32,8 @@
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
     [super API_setup:dictionary relatedEntry:relatedEntry];
-    NSNumber* type = [dictionary numberForKey:WLCandyTypeKey];
-    if (!NSNumberEqual(self.type, type)) self.type = type;
+    NSInteger type = [dictionary integerForKey:WLCandyTypeKey];
+    if (self.type != type) self.type = type;
     NSArray *commentsArray = [dictionary arrayForKey:WLCommentsKey];
     NSMutableOrderedSet* comments = self.comments;
     if (!comments) {
@@ -68,7 +68,7 @@
 }
 
 - (BOOL)isCandyOfType:(NSInteger)type {
-    return [self.type isEqualToInteger:type];
+    return self.type == type;
 }
 
 - (BOOL)belongsToWrap:(WLWrap *)wrap {

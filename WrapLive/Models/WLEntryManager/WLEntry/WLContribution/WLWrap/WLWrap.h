@@ -18,7 +18,7 @@
 @property (nonatomic, retain) NSMutableOrderedSet *candies;
 @property (nonatomic, retain) NSMutableOrderedSet *messages;
 @property (nonatomic, retain) NSMutableOrderedSet *contributors;
-@property (nonatomic, retain) NSNumber *isDefault;
+@property (nonatomic) BOOL isDefault;
 
 @end
 

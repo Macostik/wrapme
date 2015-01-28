@@ -61,7 +61,7 @@
             }];
         } else {
             *vibrate = NO;
-            [WLToast showWithMessage:@"Cannot delete comment not posted by you."];
+            [WLToast showWithMessage:WLLS(@"Cannot delete comment not posted by you.")];
         }
     }];
     self.textLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
@@ -76,7 +76,7 @@
 
 - (void)setup:(WLComment *)entry {
 	self.userInteractionEnabled = YES;
-    if (!NSNumberEqual(entry.unread, @NO)) entry.unread = @NO;
+    if (entry.unread) entry.unread = NO;
 	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", WLString(entry.contributor.name), WLString(entry.createdAt.timeAgoString)];
     self.textLabel.text = entry.text;
 	self.authorImageView.url = entry.contributor.picture.small;

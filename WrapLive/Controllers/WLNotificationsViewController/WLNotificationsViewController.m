@@ -70,7 +70,7 @@
     if (self.readNotifications.nonempty) {
         [self.readNotifications all:^(WLComment *commment) {
             if (commment.valid) {
-                commment.unread = @(NO);
+                commment.unread = NO;
             }
         }];
     }

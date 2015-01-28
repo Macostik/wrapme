@@ -49,13 +49,14 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLRemoteObjectHandler.h"
 #import "WLPickerViewController.h"
+#import "WLEditWrapViewController.h"
 
 BOOL isPresentHomeViewController;
 
 static NSString *const WLTimeLineKey = @"WLTimeLineKey";
 static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLPickerViewDelegate>
+@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
@@ -64,7 +65,8 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
-@property (weak, nonatomic) IBOutlet WLUserView *userView;
+
+@property (strong, nonatomic) WLWrap* chatSegueWrap;
 
 @end
 
@@ -72,17 +74,15 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
+    
     [self setPlaceholderNib:[UINib nibWithNibName:@"WLHomePlaceholderView" bundle:nil] forType:0];
 	[[WLUser notifier] addReceiver:self];
 	[[WLWrap notifier] addReceiver:self];
     [[WLComment notifier] addReceiver:self];
 	
     [[WLNotificationCenter defaultCenter] addReceiver:self];
-    
-    WLUserView* userView = self.userView;
-    userView.avatarView.layer.borderWidth = IsRetinaSize()? 1.0f : 1.5f;
-    userView.avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
-    userView.user = [WLUser currentUser];
     
     [self.dataProvider setRefreshable];
     
@@ -95,7 +95,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
         WLUser *user = [WLUser currentUser];
         [weakSelf setPlaceholderVisible:entries.completed && ![entries.entries nonempty] forType:0];
         if (user.firstTimeUse && [user.wraps match:^BOOL(WLWrap *wrap) {
-            return !wrap.isDefault.boolValue;
+            return !wrap.isDefault;
         }]) {
             static dispatch_once_t onceToken;
             dispatch_once(&onceToken, ^{
@@ -105,11 +105,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     }];
     
     [section setSelection:^(id entry) {
-        if ([entry isKindOfClass:[WLCandy class]]) {
-            [[entry wrap] present];
-        } else {
-            [entry present];
-        }
+        [entry present];
     }];
     
     NSMutableOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
@@ -121,7 +117,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self.userView update];
     [self.dataProvider reload];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];
@@ -156,18 +151,36 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self setEmailConfirmationViewHidden:YES animated:YES];
 }
 
-- (void)handleNewPhotosLocalNotification {
+- (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery {
     WLWrap *wrap = self.section.wrap;
     if (wrap) {
         WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
         stillPictureViewController.wrap = wrap;
         stillPictureViewController.mode = WLStillPictureModeDefault;
         stillPictureViewController.delegate = self;
-        stillPictureViewController.startFromGallery = YES;
-        [self presentViewController:stillPictureViewController animated:YES completion:nil];
+        stillPictureViewController.startFromGallery = startFromGallery;
+        __weak typeof(self)weakSelf = self;
+        [self presentViewController:stillPictureViewController animated:animated completion:^{
+            [weakSelf stillPictureViewController:stillPictureViewController didSelectWrap:wrap];
+        }];
     } else {
         [self createWrap:nil];
     }
+}
+
+#pragma mark - WLWrapCellDelegate 
+
+- (void)wrapCell:(WLWrapCell *)wrapCell didDeleteWrap:(WLWrap *)wrap {
+    if (wrap.valid) {
+        WLEditWrapViewController *editWrapViewController = [[WLEditWrapViewController alloc] initWithNibName:@"WLWrapOptionsViewController"
+                                                                                                      bundle:nil];
+        editWrapViewController.entry = wrap;
+        [self presentViewController:editWrapViewController animated:YES completion:nil];
+    }
+}
+
+- (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap notifyChatButtonClicked:(id)sender {
+    self.chatSegueWrap = wrap;
 }
 
 #pragma mark - WLEntryNotifyReceiver
@@ -214,7 +227,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
         WLToastAppearance* appearance = [WLToastAppearance appearance];
         appearance.shouldShowIcon = NO;
         appearance.contentMode = UIViewContentModeCenter;
-        [WLToast showWithMessage:@"Confirmation resend. Please, check you e-mail." appearance:appearance];
+        [WLToast showWithMessage:WLLS(@"Confirmation resend. Please, check you e-mail.") appearance:appearance];
     } failure:^(NSError *error) {
     }];
 }
@@ -240,6 +253,10 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     }];
 }
 
+- (IBAction)addPhoto:(id)sender {
+    [self openCameraAnimated:YES startFromGallery:NO];
+}
+
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
@@ -255,24 +272,33 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didSelectWrap:(WLWrap *)wrap {
-    WLPickerViewController *pickerViewController = [[WLPickerViewController alloc] initWithWrap:wrap delegate:self];
-    [controller presentViewController:pickerViewController animated:YES completion:nil];
+    if (wrap) {
+        WLPickerViewController *pickerViewController = [[WLPickerViewController alloc] initWithWrap:wrap delegate:self];
+        [controller presentViewController:pickerViewController animated:YES completion:nil];
+    } else {
+        [self createWrapWithStillPictureViewController:controller];
+    }
 }
 
 #pragma mark - WLPickerViewDelegate
 
+- (void)createWrapWithStillPictureViewController:(WLStillPictureViewController*)stillPictureViewController {
+    WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
+    [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
+        stillPictureViewController.wrap = wrap;
+        [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+    }];
+    [createWrapViewController setCancelHandler:^{
+        [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+    }];
+    [stillPictureViewController presentViewController:createWrapViewController animated:YES completion:nil];
+}
+
 - (void)pickerViewControllerNewWrapClicked:(WLPickerViewController *)pickerViewController {
     WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
+    __weak typeof(self)weakSelf = self;
     [stillPictureViewController dismissViewControllerAnimated:YES completion:^{
-        WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
-        [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
-            stillPictureViewController.wrap = wrap;
-            [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
-        }];
-        [createWrapViewController setCancelHandler:^{
-            [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
-        }];
-        [stillPictureViewController presentViewController:createWrapViewController animated:YES completion:nil];
+        [weakSelf createWrapWithStillPictureViewController:stillPictureViewController];
     }];
 }
 

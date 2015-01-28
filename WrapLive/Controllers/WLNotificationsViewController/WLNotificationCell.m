@@ -23,8 +23,9 @@
 @property (weak, nonatomic) IBOutlet WLImageView *pictureView;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *inWrapLabel;
-@property (weak, nonatomic) IBOutlet TTTAttributedLabel *commentTextView;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *commentLabel;
 @property (weak, nonatomic) IBOutlet WLImageView *wrapImageView;
+@property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
 
 @end
 
@@ -32,15 +33,16 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.commentTextView.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    self.commentLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
 }
 
 - (void)setup:(WLComment*)comment {
     self.pictureView.url = comment.contributor.picture.small;
     self.wrapImageView.url = comment.candy.picture.small;
-    self.userNameLabel.text = [NSString stringWithFormat:@"%@  %@",comment.contributor.name, comment.createdAt.timeAgoString];
-    self.commentTextView.text = [NSString stringWithFormat:@"\"%@\"", comment.text];
-    self.inWrapLabel.text = [NSString stringWithFormat:@"in Wrap: \"%@\"", comment.candy.wrap.name];
+    self.userNameLabel.text = comment.contributor.name;
+    self.commentLabel.text = comment.text;
+    self.inWrapLabel.text = comment.candy.wrap.name;
+    self.timeLabel.text = comment.createdAt.timeAgoStringAtAMPM;
 }
 
 #pragma mark - TTTAttributedLabelDelegate

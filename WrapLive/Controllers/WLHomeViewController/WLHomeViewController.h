@@ -10,6 +10,6 @@
 
 @interface WLHomeViewController : WLShakeViewController
 
-- (void)handleNewPhotosLocalNotification;
+- (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery;
 
 @end

@@ -108,7 +108,7 @@ static NSTimeInterval _difference = 0;
             [strongSelf handleSuccess:[strongSelf objectInResponse:response]];
 		} else {
             WLLog(@"API ERROR",[operation.request.URL relativeString], responseObject);
-            [strongSelf handleFailure:[NSError errorWithDescription:response.message code:response.code]];
+            [strongSelf handleFailure:[NSError errorWithResponse:response]];
 		}
         [strongSelf trackServerTime:operation.response];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -135,7 +135,7 @@ static NSTimeInterval _difference = 0;
 
 - (void)handleFailure:(NSError *)error {
     NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
-    if (response && response.statusCode == 401) {
+    if (response && response.statusCode == 401 && self.reauthorizationEnabled) {
         __strong typeof(self)strongSelf = self;
         [[WLAuthorizationRequest signInRequest] send:^(id object) {
             [strongSelf send];
@@ -151,6 +151,10 @@ static NSTimeInterval _difference = 0;
             self.successBlock = nil;
         }
     }
+}
+
+- (BOOL)reauthorizationEnabled {
+    return YES;
 }
 
 - (void)cancel {

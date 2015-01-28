@@ -11,7 +11,6 @@
 #import "WLSession.h"
 #import "WLNotificationCenter.h"
 #import "WLKeyboard.h"
-#import <AviarySDK/AviarySDK.h>
 #import "WLGestureBroadcaster.h"
 #import "WLUploading+Extended.h"
 #import "WLEntryManager.h"
@@ -35,32 +34,24 @@
 
 @implementation WLAppDelegate
 
++ (void)initialize {
+    WLInitializeConstants();
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [self initializeCrashlyticsAndLogging];
     
     [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
     
     [self presentInitialViewController];
     
-    iVersion *version = [iVersion sharedInstance];
-    version.appStoreID = 879908578;
-    version.updateAvailableTitle = @"New version of wrapLive is available";
-    version.downloadButtonLabel = @"Update";
-    version.remindButtonLabel = @"Not now";
-    version.updatePriority = iVersionUpdatePriorityMedium;
+    [self initializeVersionTool];
     
 	[[WLNetwork network] configure];
 	[[WLKeyboard keyboard] configure];
 	[[WLNotificationCenter defaultCenter] configure];
-//    [[WLGestureBroadcaster broadcaster] configure];
-	
 	[[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] success:nil failure:nil];
-	
-	[AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
-	[AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
-    
-#ifndef DEBUG
-    [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
-#endif
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
@@ -68,8 +59,34 @@
         [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
         }];
     });
-        
+    
 	return YES;
+}
+
+- (void)initializeCrashlyticsAndLogging {
+    [LELog sharedInstance].token = @"e9e259b1-98e6-41b5-b530-d89d1f5af01d";
+    run_release(^{
+        [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
+        
+        void (^notificationBlock) (NSNotification *n) = ^ (NSNotification *n) {
+            [Crashlytics setIntValue:[UIApplication sharedApplication].applicationState forKey:@"applicationState"];
+        };
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:nil usingBlock:notificationBlock];
+        [center addObserverForName:UIApplicationWillResignActiveNotification object:nil queue:nil usingBlock:notificationBlock];
+        [center addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:nil usingBlock:notificationBlock];
+        [center addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil usingBlock:notificationBlock];
+    });
+}
+
+- (void)initializeVersionTool {
+    iVersion *version = [iVersion sharedInstance];
+    version.appStoreID = 879908578;
+    version.updateAvailableTitle = WLLS(@"New version of wrapLive is available");
+    version.downloadButtonLabel = WLLS(@"Update");
+    version.remindButtonLabel = WLLS(@"Not now");
+    version.updatePriority = iVersionUpdatePriorityMedium;
 }
 
 - (void)presentInitialViewController {
@@ -133,9 +150,9 @@
     [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
         if (hasChanges) {
             UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
-            photoNotification.alertBody = @"Got new photos? Upload them to your wraps now!";
+            photoNotification.alertBody = WLLS(@"Got new photos? Upload them to your wraps now!");
             photoNotification.fireDate = [[NSDate date] dateByAddingTimeInterval:3];
-            photoNotification.alertAction = @"Upload";
+            photoNotification.alertAction = WLLS(@"Upload");
             photoNotification.repeatInterval = 0;
             photoNotification.userInfo = @{@"type":@"new_photos"};
             [application scheduleLocalNotification:photoNotification];
@@ -145,7 +162,7 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    if ([notification.userInfo[@"type"] isEqualToString:@"new_photos"]) {
+    if ([notification.userInfo[@"type"] isEqualToString:@"new_photos"] && application.applicationState != UIApplicationStateActive) {
         UINavigationController *navigationController = [UINavigationController mainNavigationController];
         WLHomeViewController *homeViewController = [navigationController.viewControllers firstObject];
         if ([homeViewController isKindOfClass:[WLHomeViewController class]]) {
@@ -155,7 +172,7 @@
             if (navigationController.presentedViewController) {
                 [navigationController dismissViewControllerAnimated:NO completion:nil];
             }
-            [homeViewController handleNewPhotosLocalNotification];
+            [homeViewController openCameraAnimated:NO startFromGallery:YES];
         }
     }
 }

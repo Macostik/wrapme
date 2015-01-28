@@ -38,38 +38,55 @@
     self = [super init];
     if (self) {
         self.urls = [NSMutableSet set];
-        NSOperationQueue *fetchingQueue = [[NSOperationQueue alloc] init];
-        fetchingQueue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
-        self.fetchingQueue = fetchingQueue;
+        self.fetchingQueue = [[NSOperationQueue alloc] init];
         self.imageResponseSerializer = [AFImageResponseSerializer serializer];
     }
     return self;
 }
 
-- (instancetype)initWithReceiver:(id<WLImageFetching>)receiver {
-    return [super initWithReceiver:receiver];
-}
-
-- (void)addReceiver:(id<WLImageFetching>)receiver {
-	[super addReceiver:receiver];
+- (void)enqueueImageWithUrl:(NSString *)url receiver:(id<WLImageFetching>)receiver {
+    [self.receivers addObject:receiver];
+    [self enqueueImageWithUrl:url];
 }
 
 - (void)enqueueImageWithUrl:(NSString *)url {
+    [self enqueueImageWithUrl:url completion:nil];
+}
+
+- (void)handleResultForUrl:(NSString*)url block:(void (^)(NSObject <WLImageFetching> *receiver))block {
+    [self.urls removeObject:url];
+    NSHashTable *receivers = self.receivers;
+    if (receivers.count == 1) {
+        NSObject <WLImageFetching> *receiver = [receivers anyObject];
+        if ([[receiver fetcherTargetUrl:self] isEqualToString:url]) {
+            block(receiver);
+            [receivers removeObject:receiver];
+        }
+    } else {
+        NSHashTable *discardedReceivers = [NSHashTable weakObjectsHashTable];
+        for (NSObject <WLImageFetching> *receiver in self.receivers) {
+            if ([[receiver fetcherTargetUrl:self] isEqualToString:url]) {
+                block(receiver);
+                [discardedReceivers addObject:receiver];
+            }
+        }
+        [self.receivers minusHashTable:discardedReceivers];
+    }
+}
+
+- (void)enqueueImageWithUrl:(NSString *)url completion:(WLImageBlock)completion {
 	if (!url.nonempty || [self.urls containsObject:url]) {
+        if (completion) completion(nil);
 		return;
 	}
 	
 	[self.urls addObject:url];
     __weak typeof(self)weakSelf = self;
     WLImageFetcherBlock success = ^(UIImage *image, BOOL cached) {
-        [weakSelf.urls removeObject:url];
-        for (NSObject <WLImageFetching> *receiver in weakSelf.receivers) {
-            if ([receiver respondsToSelector:@selector(fetcherTargetUrl:)] && [[receiver fetcherTargetUrl:weakSelf] isEqualToString:url]) {
-                if ([receiver respondsToSelector:@selector(fetcher:didFinishWithImage:cached:)]) {
-                    [receiver fetcher:weakSelf didFinishWithImage:image cached:cached];
-                }
-            }
-        }
+        [weakSelf handleResultForUrl:url block:^(NSObject<WLImageFetching> *receiver) {
+            [receiver fetcher:weakSelf didFinishWithImage:image cached:cached];
+        }];
+        if (completion) completion(image);
     };
     
     if ([[WLImageCache cache] containsImageWithUrl:url]) {
@@ -78,10 +95,10 @@
         [self setFileSystemUrl:url completion:success];
     } else {
         [self setNetworkUrl:url success:success failure:^(NSError *error) {
-            [weakSelf.urls removeObject:url];
-            [weakSelf broadcast:@selector(fetcher:didFailWithError:) object:error select:^BOOL(id receiver, id object) {
-                return ([receiver respondsToSelector:@selector(fetcherTargetUrl:)] && [[receiver fetcherTargetUrl:weakSelf] isEqualToString:url]);
+            [weakSelf handleResultForUrl:url block:^(NSObject<WLImageFetching> *receiver) {
+                [receiver fetcher:weakSelf didFailWithError:error];
             }];
+            if (completion) completion(nil);
         }];
     }
 }

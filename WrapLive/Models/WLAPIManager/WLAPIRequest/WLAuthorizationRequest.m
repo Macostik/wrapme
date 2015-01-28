@@ -117,6 +117,10 @@ static BOOL authorized = NO;
     }
 }
 
+- (BOOL)reauthorizationEnabled {
+    return NO;
+}
+
 @end
 
 @implementation WLWhoIsRequest
@@ -163,6 +167,10 @@ static BOOL authorized = NO;
     return whoIs;
 }
 
+- (BOOL)reauthorizationEnabled {
+    return NO;
+}
+
 @end
 
 @implementation WLLinkDeviceRequest
@@ -187,6 +195,10 @@ static BOOL authorized = NO;
     authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
     [authorization setCurrent];
     return authorization;
+}
+
+- (BOOL)reauthorizationEnabled {
+    return NO;
 }
 
 @end

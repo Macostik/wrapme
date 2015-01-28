@@ -54,29 +54,49 @@
     if (!NSStringEqual(self.name, name)) self.name = name;
     if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
     NSArray* contributorsArray = [dictionary arrayForKey:WLContributorsKey];
-    NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSetWithCapacity:[contributorsArray count]];
-    for (NSDictionary* contributor in contributorsArray) {
-        WLUser* user = [WLUser API_entry:contributor];
-        if (user) {
-            [contributors addObject:user];
+    if (contributorsArray.nonempty) {
+        NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSetWithCapacity:[contributorsArray count]];
+        for (NSDictionary* contributor in contributorsArray) {
+            WLUser* user = [WLUser API_entry:contributor];
+            if (user) {
+                [contributors addObject:user];
+            }
+            if ([contributor boolForKey:WLIsCreatorKey] && self.contributor != user) {
+                self.contributor = user;
+            }
         }
-        if ([contributor boolForKey:WLIsCreatorKey] && self.contributor != user) {
-            self.contributor = user;
+        
+        if (contributors.count != self.contributors.count || ![contributors isSubsetOfOrderedSet:self.contributors]) {
+            [contributors sort:comparatorByName];
+            self.contributors = contributors;
         }
     }
     
-    if (contributors.count != self.contributors.count || ![contributors isSubsetOfOrderedSet:self.contributors]) {
-        [contributors sort:comparatorByName];
-        self.contributors = contributors;
-    }
     NSArray* candiesArray = [dictionary arrayForKey:WLCandiesKey];
+    if (candiesArray.nonempty) {
+        candiesArray = [self arrayByRemovingDuplicatedCandies:candiesArray];
+    }
     NSMutableOrderedSet* candies = [WLCandy API_entries:candiesArray relatedEntry:self container:[NSMutableOrderedSet orderedSetWithCapacity:[candiesArray count]]];
     if (candies.nonempty && ![candies isSubsetOfOrderedSet:self.candies]) {
         [self addCandies:candies];
     }
-    NSNumber* isDefault = [dictionary numberForKey:WLDefaultWrapKey];
-    if (!NSNumberEqual(self.isDefault, isDefault)) self.isDefault = isDefault;
+    BOOL isDefault = [dictionary boolForKey:WLDefaultWrapKey];
+    if (self.isDefault != isDefault) self.isDefault = isDefault;
     return self;
+}
+
+- (NSArray*)arrayByRemovingDuplicatedCandies:(NSArray*)candiesArray {
+    NSOrderedSet *uploadings = [self.candies filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"identifier == uploadIdentifier"]];
+    if (uploadings.count == 0) {
+        return candiesArray;
+    }
+    uploadings = [uploadings valueForKey:@"uploadIdentifier"];
+    return [candiesArray map:^id(NSDictionary* candyData) {
+        if ([uploadings containsObject:candyData[WLUploadUIDKey]]) {
+            return nil;
+        }
+        return candyData;
+    }];
 }
 
 - (void)addCandies:(NSOrderedSet *)candies {
@@ -91,28 +111,28 @@
     }
 }
 
-- (NSString *)contributorNamesWithCount:(NSInteger)numberOfUsers {
+- (NSString *)contributorNamesWithYouAndAmount:(NSInteger)numberOfUsers {
     NSMutableOrderedSet *contributors = self.contributors;
-    if (contributors.count <= 1) return @"You";
+    if (contributors.count <= 1 || numberOfUsers == 0) return WLLS(@"You");
     NSMutableString* names = [NSMutableString string];
     NSUInteger i = 0;
     for (WLUser *contributor in contributors) {
-        if (i <= numberOfUsers) {
+        if (i < numberOfUsers) {
             if (![contributor isCurrentUser]) {
                 [names appendFormat:@"%@, ", contributor.name];
                 ++i;
             }
         } else {
-            [names appendString:@"You ..."];
+            [names appendString:WLLS(@"You ...")];
             return names;
         }
     }
-    [names appendString:@"You"];
+    [names appendString:WLLS(@"You")];
     return names;
 }
 
 - (NSString *)contributorNames {
-    return [self contributorNamesWithCount:4];
+    return [self contributorNamesWithYouAndAmount:3];
 }
 
 - (void)addCandy:(WLCandy *)candy {
@@ -203,7 +223,7 @@
 - (void)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
 	
 	if (![WLNetwork network].reachable) {
-		failure([NSError errorWithDescription:@"Internet connection is not reachable."]);
+		failure([NSError errorWithDescription:WLLS(@"Internet connection is not reachable.")]);
 		return;
 	}
 	

@@ -143,7 +143,7 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 								if (contacts.nonempty) {
 									success([contacts copy]);
 								} else {
-									failure([NSError errorWithDescription:@"You don't have contacts with phone numbers on this device."]);
+									failure([NSError errorWithDescription:WLLS(@"You don't have contacts with phone numbers on this device.")]);
 								}
 							});
 						}
@@ -154,7 +154,7 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 			if (records != NULL) {
 				CFRelease(records);
 			}
-			failure([NSError errorWithDescription:@"You don't have contacts on this device."]);
+			failure([NSError errorWithDescription:WLLS(@"You don't have contacts on this device.")]);
 		}
 	} failure:failure];
 }
@@ -168,7 +168,7 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 			} else if (granted) {
 				success(addressBook);
 			} else {
-				failure([NSError errorWithDescription:@"Access to your Address Book is not granted."]);
+				failure([NSError errorWithDescription:WLLS(@"Access to your Address Book is not granted.")]);
 			}
 		});
 	});

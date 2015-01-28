@@ -16,6 +16,7 @@
 #import "UIButton+Additions.h"
 #import "NSArray+Additions.h"
 #import "UIView+Shorthand.h"
+#import "WLHintView.h"
 
 static NSUInteger WLAssetsSelectionLimit = 10;
 
@@ -76,6 +77,11 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     [super viewWillAppear:animated];
     [self.spinner stopAnimating];
     self.doneButton.hidden = (self.mode != WLStillPictureModeDefault);
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [WLHintView showWrapPickerHintViewInView:self.navigationController.parentViewController.view];
 }
 
 - (NSMutableArray *)selectedAssets {
@@ -165,30 +171,34 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     return self.assets.count;
 }
 
-static CGFloat WLAssetSpacing = 0.5f;
 static NSUInteger WLAssetNumberOfColumns = 4;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat size = (collectionView.width - WLAssetSpacing * (WLAssetNumberOfColumns + 1)) / WLAssetNumberOfColumns;
+    CGFloat size = (collectionView.width - WLConstants.pixelSize * (WLAssetNumberOfColumns + 1))/WLAssetNumberOfColumns;
     return CGSizeMake(size, size);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(WLAssetSpacing, WLAssetSpacing, WLAssetSpacing, WLAssetSpacing);
+    return UIEdgeInsetsMake(WLConstants.pixelSize, WLConstants.pixelSize, WLConstants.pixelSize, WLConstants.pixelSize);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return WLAssetSpacing;
+    return WLConstants.pixelSize;
 }
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return WLConstants.pixelSize;
+}
+
 
 #pragma mark - PGAssetCellDelegate
 
 - (void)selectAsset:(ALAsset *)asset {
     CGSize size = asset.defaultRepresentation.dimensions;
     if (size.width == 0 && size.height == 0) {
-        [WLToast showWithMessage:@"Your image is invalid. Please, choose another one."];
+        [WLToast showWithMessage:WLLS(@"Your image is invalid. Please, choose another one.")];
     } else if (size.width < 100 || size.height < 100) {
-        [WLToast showWithMessage:@"Your image is too small. Please, choose another one."];
+        [WLToast showWithMessage:WLLS(@"Your image is too small. Please, choose another one.")];
     } else {
         if (self.mode == WLStillPictureModeDefault) {
             if ([self.selectedAssets containsObject:asset]) {
@@ -208,7 +218,13 @@ static NSUInteger WLAssetNumberOfColumns = 4;
 
 - (void)assetCell:(WLAssetCell *)cell didSelectAsset:(ALAsset *)asset {
     [self selectAsset:asset];
-    [self.collectionView reloadItemsAtIndexPaths:@[[self.collectionView indexPathForCell:cell]]];
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    if (indexPath) {
+        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    } else {
+        [self.collectionView reloadData];
+    }
+    
 }
 
 @end

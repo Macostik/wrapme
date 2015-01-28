@@ -20,10 +20,25 @@
 
 @implementation WLImageView
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    [[WLImageFetcher fetcher] addReceiver:self];
-}
+//- (void)dealloc {
+//    [[WLImageFetcher fetcher] removeReceiver:self];
+//}
+//
+//- (instancetype)initWithCoder:(NSCoder *)coder {
+//    self = [super initWithCoder:coder];
+//    if (self) {
+//        [[WLImageFetcher fetcher] addReceiver:self];
+//    }
+//    return self;
+//}
+//
+//- (instancetype)initWithFrame:(CGRect)frame {
+//    self = [super initWithFrame:frame];
+//    if (self) {
+//        [[WLImageFetcher fetcher] addReceiver:self];
+//    }
+//    return self;
+//}
 
 - (NSMutableDictionary *)states {
     if (!_states) {
@@ -43,7 +58,7 @@
     self.failure = failure;
     self.state = WLImageViewStateDefault;
     if (url.nonempty) {
-        [[WLImageFetcher fetcher] enqueueImageWithUrl:url];
+        [[WLImageFetcher fetcher] enqueueImageWithUrl:url receiver:self];
     } else {
         self.state = WLImageViewStateEmpty;
     }

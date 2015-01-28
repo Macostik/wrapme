@@ -72,10 +72,10 @@
     
     if (_showName) {
         self.avatarView.url = message.contributor.picture.small;
-        self.nameLabel.text = message.contributedByCurrentUser ? @"You" : message.contributor.name;
+        self.nameLabel.text = message.contributedByCurrentUser ? WLLS(@"You") : message.contributor.name;
     }
 	
-    self.timeLabel.text = [message.createdAt stringWithFormat:@"hh:mmaa"];
+    self.timeLabel.text = [message.createdAt stringWithFormat:@"h:mmaa"];
     if (_showDay) {
         self.dayLabel.text = [message.createdAt stringWithFormat:@"MMM d, yyyy"];
     }

@@ -10,18 +10,22 @@
 
 @interface UIView (GestureRecognizing)
 
-- (void)addTapGestureRecognizingDelegate:(id)delegate block:(WLGestureBlock)bloc;
+- (void)removeGestureRecognizerWithIdentifier:(NSString*)identifier;
 
-- (void)addTapGestureRecognizing:(WLGestureBlock)block;
+@end
 
-- (void)addSwipeGestureRecognizingDelegate:(id)delegate
-                            direction:(UISwipeGestureRecognizerDirection)direction
-                                block:(WLGestureBlock)block;
+@interface UIGestureRecognizer (Helper)
 
-- (void)addSwipeGestureRecognizingDelegate:(id)delegate block:(WLGestureBlock)block;
+@property (strong, nonatomic) WLGestureBlock gestureBlock;
 
-- (void)addSwipeGestureRecognizing:(WLGestureBlock)block;
+@property (strong, nonatomic) NSString* identifier;
 
-- (void)removeTapGestureRecognizing;
++ (instancetype)recognizerWithView:(UIView*)view block:(WLGestureBlock)block;
+
++ (instancetype)recognizerWithView:(UIView*)view identifier:(NSString*)identifier block:(WLGestureBlock)block;
+
+- (instancetype)initWithView:(UIView*)view block:(WLGestureBlock)block;
+
+- (instancetype)initWithView:(UIView*)view identifier:(NSString*)identifier block:(WLGestureBlock)block;
 
 @end

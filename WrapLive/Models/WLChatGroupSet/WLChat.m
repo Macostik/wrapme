@@ -40,8 +40,12 @@
 - (void)setWrap:(WLWrap *)wrap {
     _wrap = wrap;
     [self resetEntries:wrap.messages];
-    self.typingChannel = [WLChatTypingChannel channelWithWrap:wrap];
-    self.typingChannel.delegate = self;
+    if (wrap) {
+        self.typingChannel = [WLChatTypingChannel channelWithWrap:wrap];
+        self.typingChannel.delegate = self;
+    } else {
+        self.typingChannel = nil;
+    }
 }
 
 - (void)addTypingUser:(WLUser *)user {
@@ -66,13 +70,13 @@
     if (users.count == 1) {
         names = [(WLUser*)[users lastObject] name];
     } else if (users.count == 2) {
-        names = [NSString stringWithFormat:@"%@ and %@", [(WLUser*)users[0] name], [(WLUser*)users[1] name]];
+        names = [NSString stringWithFormat:WLLS(@"%@ and %@"), [(WLUser*)users[0] name], [(WLUser*)users[1] name]];
     } else {
         WLUser* lastUser = [users lastObject];
         names = [[[[users array] arrayByRemovingObject:lastUser] valueForKey:@"name"] componentsJoinedByString:@", "];
-        names = [names stringByAppendingFormat:@" and %@", lastUser.name];
+        names = [names stringByAppendingFormat:WLLS(@" and %@"), lastUser.name];
     }
-    return [names stringByAppendingString:@" is typing..."];
+    return [names stringByAppendingString:WLLS(@" is typing...")];
 }
 
 - (BOOL)addEntry:(WLMessage*)message {

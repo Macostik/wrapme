@@ -7,11 +7,35 @@
 //
 
 #import <Crashlytics/Crashlytics.h>
+#import "lelib.h"
+#import "WLUser+Extended.h"
+#import "WLAuthorization.h"
 
 #define WL_LOG_DETAILED 1
 
 #if WL_LOG_DETAILED
-#define WLLog(LABEL,ACTION,OBJECT) CLS_LOG(@"%@ - %@: %@", (LABEL), (ACTION), (OBJECT))
+static inline void WLLog(NSString *label, NSString *action, id object) {
+    id str = [NSString stringWithFormat:@"%@ - %@",label, action];
+    CLS_LOG(@"%@: %@", str, object);
+    WLUser *user = [WLUser currentUser];
+    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+    if (user && authorization) {
+        [[LELog sharedInstance] log:[NSString stringWithFormat:@"%@-%@ >> %@", user.identifier, authorization.deviceUID, str]];
+    } else {
+        [[LELog sharedInstance] log:str];
+    }
+    
+}
 #else
-#define WLLog(LABEL,ACTION,OBJECT) CLS_LOG(@"%@ - %@", (LABEL), (ACTION))
+static inline void WLLog(NSString *label, NSString *action, id object) {
+    id str = [NSString stringWithFormat:@"%@ - %@",label, action];
+    CLS_LOG(@"%@", str);
+    WLUser *user = [WLUser currentUser];
+    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+    if (user && authorization) {
+        [[LELog sharedInstance] log:[NSString stringWithFormat:@"%@-%@ >> %@", user.identifier, authorization.deviceUID, str]];
+    } else {
+        [[LELog sharedInstance] log:str];
+    }
+}
 #endif

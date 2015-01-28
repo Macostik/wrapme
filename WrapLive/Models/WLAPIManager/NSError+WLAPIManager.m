@@ -9,6 +9,7 @@
 #import "NSError+WLAPIManager.h"
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import "WLToast.h"
+#import "NSDictionary+Extended.h"
 
 @implementation NSError (WLAPIManager)
 
@@ -19,6 +20,13 @@ static NSDictionary *errorsToIgnore = nil;
 		errorsToIgnore = @{};
 	}
 	return errorsToIgnore;
+}
+
++ (NSError *)errorWithResponse:(WLAPIResponse *)response {
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    [userInfo trySetObject:response.message forKey:NSLocalizedDescriptionKey];
+    [userInfo trySetObject:response.data forKey:WLErrorResponseDataKey];
+    return [[NSError alloc] initWithDomain:WLErrorDomain code:response.code userInfo:[userInfo copy]];
 }
 
 + (NSError *)errorWithDescription:(NSString *)description code:(NSInteger)code {
@@ -34,7 +42,7 @@ static NSDictionary *errorsToIgnore = nil;
 }
 
 - (void)show {
-	[self showWithTitle:@"Something went wrong..."];
+	[self showWithTitle:WLLS(@"Something went wrong...")];
 }
 
 - (void)showWithTitle:(NSString *)title {
@@ -80,8 +88,8 @@ static NSDictionary *customErrorMessages = nil;
 
 + (NSDictionary*)customErrorMessages {
 	if (!customErrorMessages) {
-		customErrorMessages = @{NSURLErrorDomain:@{@(NSURLErrorTimedOut):@"Connection was lost.",
-												   @(NSURLErrorInternationalRoamingOff):@"International roaming is off."}};
+		customErrorMessages = @{NSURLErrorDomain:@{@(NSURLErrorTimedOut):WLLS(@"Connection was lost."),
+												   @(NSURLErrorInternationalRoamingOff):WLLS(@"International roaming is off.")}};
 	}
 	return customErrorMessages;
 }
@@ -98,7 +106,7 @@ static NSDictionary *customErrorMessages = nil;
 }
 
 - (void)log {
-	[self log:@"Something went wrong..."];
+	[self log:WLLS(@"Something went wrong...")];
 }
 
 - (void)log:(NSString *)label {

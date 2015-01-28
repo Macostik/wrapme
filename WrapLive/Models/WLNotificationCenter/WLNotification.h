@@ -38,6 +38,8 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 @property (readonly, nonatomic) BOOL playSound;
 
+@property (strong, nonatomic) NSDate* date;
+
 + (instancetype)notificationWithMessage:(PNMessage*)message;
 
 + (instancetype)notificationWithData:(NSDictionary*)data;

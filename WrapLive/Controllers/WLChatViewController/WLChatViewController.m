@@ -96,10 +96,6 @@ CGFloat WLMaxTextViewWidth;
     self.itemsWithDay = [NSMutableIndexSet indexSet];
     self.itemsWithName = [NSMutableIndexSet indexSet];
     
-    NSDateFormatter *timeFormatter = [NSDate formatterWithDateFormat:@"hh:mmaa"];
-    [timeFormatter setAMSymbol:@"am"];
-    [timeFormatter setPMSymbol:@"pm"];
-    
     UICollectionView *collectionView = self.collectionView;
     
     [self updateEdgeInsets:0];
@@ -115,11 +111,11 @@ CGFloat WLMaxTextViewWidth;
     
 	__weak typeof(self)weakSelf = self;
     [self.wrap fetchIfNeeded:^(id object) {
-        weakSelf.titleLabel.text = [NSString stringWithFormat:@"Chat in %@", WLString(weakSelf.wrap.name)];
+        weakSelf.titleLabel.text = [NSString stringWithFormat:WLLS(@"Chat in %@"), WLString(weakSelf.wrap.name)];
     } failure:^(NSError *error) {
     }];
 	
-	self.composeBar.placeholder = @"Write your message ...";
+	self.composeBar.placeholder = WLLS(@"Write your message ...");
     self.chat = [WLChat chatWithWrap:self.wrap];
     self.chat.delegate = self;
 
@@ -155,7 +151,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.wrap.messages all:^(WLMessage *message) {
-        if(!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
+        if(message.unread) message.unread = NO;
     }];
 }
 
@@ -270,7 +266,7 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier messageAdded:(WLMessage *)message {
-    if (!NSNumberEqual(message.unread, @NO)) message.unread = @NO;
+    if (message.unread) message.unread = NO;
     [self insertMessage:message];
 }
 

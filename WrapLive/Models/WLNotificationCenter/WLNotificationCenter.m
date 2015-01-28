@@ -25,6 +25,7 @@
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
 #import "WLRemoteObjectHandler.h"
+#import "WLImageFetcher.h"
 
 #define WLPubNubInactiveStateDuration 20*60
 
@@ -143,12 +144,18 @@ static WLDataBlock deviceTokenCompletion = nil;
         [self.userChannel enableAPNS];
         [self.userChannel observeMessages:^(PNMessage *message) {
             WLNotification *notification = [WLNotification notificationWithMessage:message];
-            [notification fetch:^{
-                if (notification.playSound) [WLSoundPlayer playSoundForNotification:notification];
-                [weakSelf broadcastNotification:notification];
-            } failure:nil];
-            weakSelf.historyDate = [[message.receiveDate date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
+            [weakSelf handleNotification:notification saveHistoryDate:YES];
         }];
+    }
+}
+
+- (void)handleNotification:(WLNotification*)notification saveHistoryDate:(BOOL)saveHistoryDate {
+    BOOL insertedEntry = notification.targetEntry.inserted;
+    [notification fetch:^{
+        if (notification.playSound && insertedEntry) [WLSoundPlayer playSoundForNotification:notification];
+    } failure:nil];
+    if (saveHistoryDate) {
+        self.historyDate = [notification.date dateByAddingTimeInterval:NSINTEGER_DEFINED];
     }
 }
 
@@ -158,9 +165,11 @@ static WLDataBlock deviceTokenCompletion = nil;
         __weak typeof(self)weakSelf = self;
         [PubNub requestHistoryForChannel:self.userChannel.channel from:[PNDate dateWithDate:historyDate] to:[PNDate dateWithDate:[NSDate now]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, PNChannel *channel, PNDate *from, PNDate *to, PNError *error) {
             if (!error) {
-                if (messages.nonempty) {
-                    weakSelf.historyDate = [[[messages.lastObject receiveDate] date] dateByAddingTimeInterval:NSINTEGER_DEFINED];
-                    [messages all:weakSelf.userChannel.messageHandler];
+                NSArray *notifications = [weakSelf notificationsFromMessages:messages];
+                if (notifications.nonempty) {
+                    for (WLNotification *notification in notifications) {
+                        [weakSelf handleNotification:notification saveHistoryDate:notification == [notifications lastObject]];
+                    }
                 } else {
                     weakSelf.historyDate = [NSDate now];
                 }
@@ -169,6 +178,36 @@ static WLDataBlock deviceTokenCompletion = nil;
     } else {
         self.historyDate = [NSDate now];
     }
+}
+
+- (NSArray*)notificationsFromMessages:(NSArray*)messages {
+    if (!messages.nonempty) return nil;
+    NSMutableArray *notifications = [[messages map:^id(PNMessage *message) {
+        return [WLNotification notificationWithMessage:message];
+    }] mutableCopy];
+    
+    NSArray *deleteNotifications = [notifications objectsWhere:@"event == %d", WLEventDelete];
+    
+    deleteNotifications = [deleteNotifications sortedArrayUsingComparator:^NSComparisonResult(WLNotification* n1, WLNotification* n2) {
+        return [[[n1.targetEntry class] uploadingOrder] compare:[[n2.targetEntry class] uploadingOrder]];
+    }];
+    
+    for (WLNotification *deleteNotification in deleteNotifications) {
+        WLEntry *targetEntry = deleteNotification.targetEntry;
+        if (targetEntry.valid) {
+            NSArray *discardedNotifications = [notifications objectsWhere:@"SELF != %@ AND (targetEntry == %@ OR targetEntry.containingEntry == %@)",deleteNotification,targetEntry, targetEntry];
+            [notifications removeObjectsInArray:discardedNotifications];
+            if (targetEntry.inserted) {
+                [[WLEntryManager manager] deleteEntry:targetEntry];
+                [notifications removeObject:deleteNotification];
+            }
+        } else {
+            [notifications removeObject:deleteNotification];
+        }
+    }
+    
+    return [notifications copy];
+    
 }
 
 - (void)connect {
@@ -182,41 +221,39 @@ static WLDataBlock deviceTokenCompletion = nil;
     }
     switch ([UIApplication sharedApplication].applicationState) {
         case UIApplicationStateActive:
-            if (failure) failure([NSError errorWithDescription:@"Cannot handle remote notification when app is active."]);
+            if (failure) failure([NSError errorWithDescription:WLLS(@"Cannot handle remote notification when app is active.")]);
             break;
         case UIApplicationStateInactive: {
             WLNotification* notification = [WLNotification notificationWithData:data];
-            [notification handleRemoteObject];
+            if (notification) {
+                [notification fetch:^{
+                    [notification handleRemoteObject];
+                    if (success) success();
+                } failure:failure];
+            } else if (failure)  {
+                failure([NSError errorWithDescription:@"Data in remote notification is not valid (inactive)."]);
+            }
         } break;
         case UIApplicationStateBackground: {
             WLNotification* notification = [WLNotification notificationWithData:data];
             if (notification) {
-                [notification fetch:success failure:failure];
+                [notification fetch:^{
+                    if (notification.type == WLNotificationCandyAdd) {
+                        WLCandy* candy = (id)notification.targetEntry;
+                        [[WLImageFetcher fetcher] enqueueImageWithUrl:candy.picture.medium completion:^(UIImage *image){
+                            if (success) success();
+                        }];
+                    } else {
+                        if (success) success();
+                    }
+                } failure:failure];
             } else if (failure)  {
-                failure([NSError errorWithDescription:@"Data in remote notification is not valid (background)."]);
+                failure([NSError errorWithDescription:WLLS(@"Data in remote notification is not valid (background).")]);
             }
         } break;
         default:
             break;
     }
-}
-
-- (void)addReceiver:(id)receiver {
-	[super addReceiver:receiver];
-	if (self.pendingRemoteNotification.targetEntry.fetched && [receiver respondsToSelector:@selector(broadcaster:didReceiveRemoteNotification:)]) {
-		[receiver broadcaster:self didReceiveRemoteNotification:self.pendingRemoteNotification];
-	}
-}
-
-- (void)broadcastNotification:(WLNotification*)notification {
-    __weak typeof(self)weakSelf = self;
-    WLBroadcastSelectReceiver selectBlock = ^BOOL(NSObject<WLNotificationReceiver> *receiver, id object) {
-        if ([receiver respondsToSelector:@selector(broadcaster:shouldReceiveNotification:)]) {
-            return [receiver broadcaster:weakSelf shouldReceiveNotification:notification];
-        }
-        return YES;
-    };
-    [self broadcast:@selector(broadcaster:notificationReceived:) object:notification select:selectBlock];
 }
 
 #pragma mark - PNDelegate

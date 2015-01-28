@@ -22,6 +22,7 @@
 #import "NSString+Additions.h"
 #import "WLEntryNotifier.h"
 #import "WLFontPresetter.h"
+#import "UIScrollView+Additions.h"
 
 @interface WLCommentsCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WLEntryNotifyReceiver, WLFontPresetterReceiver>
 
@@ -69,10 +70,10 @@
         [self.refresher setRefreshing:NO animated:YES];
     }
 	
-    self.nameLabel.text = [NSString stringWithFormat:@"By %@", WLString(candy.contributor.name)];
+    self.nameLabel.text = [NSString stringWithFormat:WLLS(@"By %@"), WLString(candy.contributor.name)];
     
 	[self.collectionView reloadData];
-    if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
+    if (candy.unread) candy.unread = NO;
 }
 
 - (void)updateBottomInset:(CGFloat)bottomInset {
@@ -85,21 +86,34 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
     self.headerView.candy = self.entry;
+    if (self.comments.count != candy.comments.count) {
+        [self.collectionView reloadData];
+    }
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier commentAdded:(WLComment *)comment {
     [self.collectionView reloadData];
+    __weak typeof(self)weakSelf = self;
+    run_after(0.1,^{
+        [weakSelf.collectionView setMaximumContentOffsetAnimated:YES];
+    });
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier commentDeleted:(WLComment *)comment {
     [self.collectionView reloadData];
 }
 
+- (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
+    return self.entry;
+}
+
 #pragma mark - <UITableViewDataSource, UITableViewDelegate>
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     WLCandy* candy = self.entry;
-    self.comments = candy.comments;
+    self.comments = [candy.comments selectObjects:^BOOL(WLComment* comment) {
+        return comment.valid;
+    }];
 	return self.comments.count;
 }
 

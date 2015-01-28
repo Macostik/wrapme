@@ -91,7 +91,7 @@
         WLToastAppearance* appearance = [WLToastAppearance appearance];
         appearance.shouldShowIcon = NO;
         appearance.contentMode = UIViewContentModeCenter;
-        [WLToast showWithMessage:@"Confirmation resend. Please, check you e-mail." appearance:appearance];
+        [WLToast showWithMessage:WLLS(@"Confirmation resend. Please, check you e-mail.") appearance:appearance];
         sender.userInteractionEnabled = YES;
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;
@@ -103,9 +103,9 @@
 - (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     NSString* email = self.editSession.email;
     if (![email isValidEmail]) {
-        if (failure) failure([NSError errorWithDescription:@"Your email isn't correct."]);
+        if (failure) failure([NSError errorWithDescription:WLLS(@"Your email isn't correct.")]);
     } else if (!self.editSession.name.nonempty) {
-        if (failure) failure([NSError errorWithDescription:@"Name connot be blank."]);
+        if (failure) failure([NSError errorWithDescription:WLLS(@"Name connot be blank.")]);
     } else {
         if (success) success(nil);
     }
@@ -133,6 +133,10 @@
     self.imageView.url = picture.large;
     self.editSession.url = picture.large;
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (WLStillPictureMode)stillPictureViewControllerMode:(WLStillPictureViewController *)controller {
+    return WLStillPictureModeSquare;
 }
 
 #pragma mark - WLEntryNotifyReceiver

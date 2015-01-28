@@ -29,7 +29,9 @@
 }
 
 + (instancetype)notificationWithMessage:(PNMessage*)message {
-	return [self notificationWithData:message.message];
+    WLNotification *notification = [self notificationWithData:message.message];
+    notification.date = [message.receiveDate date];
+	return notification;
 }
 
 + (instancetype)notificationWithData:(NSDictionary *)data {
@@ -130,6 +132,11 @@
     
     WLEntry* targetEntry = [self targetEntry];
     
+    if (!targetEntry.valid) {
+        if (success) success();
+        return;
+    }
+    
     WLEvent event = self.event;
     
     __weak __typeof(self)weakSelf = self;
@@ -137,11 +144,11 @@
         if (event == WLEventAdd) {
             switch (weakSelf.type) {
                 case WLNotificationCommentAdd:
-                    if (targetEntry.notifiable && !NSNumberEqual(targetEntry.unread, @YES)) targetEntry.unread = @YES;
+                    if (targetEntry.notifiable && !targetEntry.unread) targetEntry.unread = YES;
                     break;
                 case WLNotificationCandyAdd:
                 case WLNotificationMessageAdd:
-                    if (!NSNumberEqual(targetEntry.unread, @YES)) targetEntry.unread = @YES;
+                    if (!targetEntry.unread) targetEntry.unread = YES;
                     break;
                 default:
                     break;

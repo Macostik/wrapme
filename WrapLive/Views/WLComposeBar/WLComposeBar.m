@@ -19,20 +19,20 @@
 #import "WLEmoji.h"
 #import "UIView+AnimationHelper.h"
 #import "GeometryHelper.h"
+#import "UIFont+CustomFonts.h"
 
-static NSUInteger WLComposeBarDefaultCharactersLimit = 360;
-static NSUInteger WLComposeBarMaxHeight = 100;
-static NSUInteger WLComposeBarMinHeight = 44;
+static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
 
 @interface WLComposeBar () <UITextViewDelegate, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) UIView *composeView;
-@property (nonatomic) CGFloat defaultHeight;
 @property (strong, nonatomic) WLEmojiView * emojiView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *horizontalSpaceDoneButtonContstraint;
+@property (assign, nonatomic) IBInspectable CGFloat maxLines;
 
 @end
 
@@ -42,46 +42,24 @@ static NSUInteger WLComposeBarMinHeight = 44;
 	[super awakeFromNib];
 	self.composeView = [UIView loadFromNibNamed:@"WLComposeBar" ownedBy:self];
 	self.composeView.frame = self.bounds;
-	self.defaultHeight = self.bounds.size.height;
     [self addSubview:self.composeView];
-	self.textView.superview.layer.borderColor = [UIColor WL_grayLight].CGColor;
-    self.textView.superview.layer.borderWidth = IsRetinaSize()? 0.5f : 1.0f;
-	self.textView.textContainerInset = UIEdgeInsetsMake(5, 0, 0, 0);
+    UIColor *color = [UIColor colorWithHexString:@"#EEEEEE"];
+	self.textView.superview.layer.borderColor = color.CGColor;
+    self.textView.superview.layer.borderWidth = WLConstants.pixelSize;
+	self.textView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.textView.contentInset = UIEdgeInsetsZero;
 	[self updateStateAnimated:NO];
+    self.heightConstraint.constant = self.textView.font.lineHeight * self.maxLines;
 }
 
-- (void)checkHeight {
-    CGFloat height = WLComposeBarMinHeight;
-    UITextView* textView = self.textView;
-    if (textView.text.nonempty) {
-        height = textView.contentSize.height + textView.superview.y*2;
-        height = Smoothstep(WLComposeBarMinHeight, WLComposeBarMaxHeight, height);
+- (void)updateHeight {
+    BOOL scrollEnabled = [self.textView sizeThatFits:
+                          CGSizeMake(self.textView.width, CGFLOAT_MAX)].height >= self.heightConstraint.constant;
+    if (self.textView.scrollEnabled != scrollEnabled) {
+        self.textView.scrollEnabled = scrollEnabled;
     }
-    if (ABS(height - self.height) > 5) {
-        self.height = height;
-        if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
-            [self.delegate composeBarDidChangeHeight:self];
-        }
-    }
-//    CGFloat height = [self.textView sizeThatFits:CGSizeMake(self.textView.width, CGFLOAT_MAX)].height;
-//    height = Smoothstep(WLComposeBarMinHeight, WLComposeBarMaxHeight, height);
-//    if (ABS(height - self.height) > 5) {
-//        self.height = height;
-//        if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
-//            [self.delegate composeBarDidChangeHeight:self];
-//        }
-//    }
-}
-
-- (void)setHeight:(CGFloat)height {
-    NSLayoutConstraint* constraint = self.heightConstraint;
-    if (constraint) {
-        constraint.constant = height;
-        [constraint.firstItem layoutIfNeeded];
-        [constraint.secondItem layoutIfNeeded];
-    } else {
-        [super setHeight:height];
+    if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
+        [self.delegate composeBarDidChangeHeight:self];
     }
 }
 
@@ -92,7 +70,7 @@ static NSUInteger WLComposeBarMinHeight = 44;
 - (void)setText:(NSString *)text {
 	self.textView.text = text;
     self.placeholderLabel.hidden = text.nonempty;
-    [self checkHeight];
+    [self updateHeight];
     [self updateStateAnimated:YES];
 }
 
@@ -128,15 +106,12 @@ static NSUInteger WLComposeBarMinHeight = 44;
 }
 
 - (void)setDoneButtonHidden:(BOOL)hidden animated:(BOOL)animated {
-	CGFloat x = hidden ? self.width : (self.width - self.doneButton.width);
-	if (x != self.doneButton.x) {
-		_doneButtonHidden = hidden;
-		CGFloat width = (x - self.textView.superview.x - (hidden ? 10 : 0));
-        [UIView performAnimated:animated animation:^{
-            self.doneButton.x = x;
-            self.textView.superview.width = width;
-        }];
-	}
+    self.doneButton.userInteractionEnabled = !hidden;
+    self.doneButton.hidden = hidden;
+    [UIView performAnimated:animated animation:^{
+        self.horizontalSpaceDoneButtonContstraint.constant = hidden ? -self.doneButton.width : 0;
+        [self.textView.superview layoutIfNeeded];
+    }];
 }
 
 - (WLEmojiView *)emojiView {
@@ -171,8 +146,8 @@ static NSUInteger WLComposeBarMinHeight = 44;
         [self.delegate composeBarDidChangeText:self];
     }
     self.placeholderLabel.hidden = textView.text.nonempty;
-    [self checkHeight];
-	[self updateStateAnimated:YES];
+    [self updateHeight];
+    [self updateStateAnimated:YES];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {

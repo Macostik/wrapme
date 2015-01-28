@@ -50,9 +50,9 @@
     self.curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
 	[self broadcast:@selector(keyboardDidShow:)];
 	__weak UIWindow* window = [UIWindow mainWindow];
-	[window addTapGestureRecognizing:^(UIGestureRecognizer *recognizer){
-		[window endEditing:YES];
-	}];
+    [UITapGestureRecognizer recognizerWithView:window identifier:@"WLKeyboardTapGestureRecognizer" block:^(UIGestureRecognizer *recognizer) {
+        [window endEditing:YES];
+    }];
 }
 
 - (void)keyboardWillHide:(NSNotification*)notification {
@@ -68,7 +68,7 @@
     self.duration = 0;
     self.curve = 0;
 	[self broadcast:@selector(keyboardDidHide:)];
-	[[UIWindow mainWindow] removeTapGestureRecognizing];
+    [[UIWindow mainWindow] removeGestureRecognizerWithIdentifier:@"WLKeyboardTapGestureRecognizer"];
 }
 
 - (void)performAnimation:(WLBlock)animation {

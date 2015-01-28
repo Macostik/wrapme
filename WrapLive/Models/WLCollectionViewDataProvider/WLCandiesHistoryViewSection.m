@@ -11,10 +11,12 @@
 #import "WLWrapRequest.h"
 #import "WLHistory.h"
 
+static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
+
 @implementation WLCandiesHistoryViewSection
 
 - (CGSize)size:(NSIndexPath *)indexPath {
-    return CGSizeMake(self.collectionView.width, (self.collectionView.width/2.5f + 28.0f));
+    return CGSizeMake(self.collectionView.width, (self.collectionView.width/2.5f + WLCandiesHistoryDateHeaderHeight));
 }
 
 - (void)select:(NSIndexPath *)indexPath {

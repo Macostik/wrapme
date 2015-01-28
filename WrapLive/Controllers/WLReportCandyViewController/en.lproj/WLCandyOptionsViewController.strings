@@ -1,0 +1,9 @@
+
+/* Class = "IBUIButton"; normalTitle = "Download"; ObjectID = "cre-ic-Q0A"; */
+"cre-ic-Q0A.normalTitle" = "Download";
+
+/* Class = "IBUILabel"; text = "Choose an action"; ObjectID = "eqx-TC-X8U"; */
+"eqx-TC-X8U.text" = "Choose an action";
+
+/* Class = "IBUIButton"; normalTitle = "Delete"; ObjectID = "vgS-hG-nic"; */
+"vgS-hG-nic.normalTitle" = "Delete";

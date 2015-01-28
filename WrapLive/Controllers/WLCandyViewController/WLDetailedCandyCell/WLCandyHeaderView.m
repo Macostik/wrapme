@@ -43,7 +43,7 @@
     } failure:^(NSError *error) {
         if (weakSelf.spinner.isAnimating) [weakSelf.spinner stopAnimating];
     }];
-    self.dateLabel.text = [NSString stringWithFormat:@"Posted %@", WLString(candy.createdAt.timeAgoString)];
+    self.dateLabel.text = [NSString stringWithFormat:WLLS(@"Posted %@"), WLString(candy.createdAt.timeAgoString)];
     self.progressBar.contribution = candy;
 }
 

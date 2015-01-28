@@ -24,6 +24,8 @@
 
 - (void)stillPictureViewController:(WLStillPictureViewController*)controller didSelectWrap:(WLWrap*)wrap;
 
+- (WLStillPictureMode)stillPictureViewControllerMode:(WLStillPictureViewController*)controller;
+
 @end
 
 @interface WLStillPictureViewController : UIViewController

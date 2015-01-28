@@ -33,7 +33,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *wrapNotificationLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *chatNotificationImageView;
+@property (weak, nonatomic) IBOutlet UIButton *chatButton;
+@property (assign, nonatomic) BOOL embeddedLongPress;
+
 @property (strong, nonatomic) WLCollectionViewDataProvider* candiesDataProvider;
 @property (strong, nonatomic) WLHomeCandiesViewSection* candiesDataSection;
 
@@ -54,10 +56,17 @@
         section.selection = self.selection;
         self.candiesDataSection = section;
         self.candiesDataProvider = [WLCollectionViewDataProvider dataProvider:self.candiesView section:section];
-    } else {
-        [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
-        [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
     }
+    [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
+    [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
+    
+    __weak __typeof(self)weakSelf = self;
+    [UILongPressGestureRecognizer recognizerWithView:self block:^(UIGestureRecognizer *recognizer) {
+        if (recognizer.state == UIGestureRecognizerStateBegan) {
+            if  ([weakSelf.delegate respondsToSelector:@selector(wrapCell:didDeleteWrap:)])
+                [weakSelf.delegate wrapCell:weakSelf didDeleteWrap:weakSelf.entry];
+        }
+    }];
 }
 
 - (void)setSelection:(WLObjectBlock)selection {
@@ -67,22 +76,20 @@
 
 - (void)setup:(WLWrap*)wrap {
 	self.nameLabel.text = wrap.name;
-    self.dateLabel.text = [NSString stringWithFormat:@"last updated %@", WLString(wrap.updatedAt.timeAgoStringAtAMPM)];
+    self.dateLabel.text = WLString(wrap.updatedAt.timeAgoStringAtAMPM);
     
     if (self.candiesView) {
         self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
-    } else {
-        self.coverView.url = [wrap.picture anyUrl];
-        self.wrapNotificationLabel.intValue = [wrap unreadNotificationsCandyCount];
     }
-    self.chatNotificationImageView.hidden = [wrap unreadNotificationsMessageCount] == 0;
+    
+    self.coverView.url = [wrap.picture anyUrl];
+    self.wrapNotificationLabel.intValue = [wrap unreadNotificationsCandyCount];
+    self.chatButton.hidden = [wrap unreadNotificationsMessageCount] == 0;
 }
 
-- (void)select:(WLWrap*)wrap {
-    [wrap.candies all:^(WLCandy *candy) {
-        if (!NSNumberEqual(candy.unread, @NO)) candy.unread = @NO;
-    }];
-    [super select:wrap];
+- (IBAction)notifyChatClick:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(wrapCell:forWrap:notifyChatButtonClicked:)])
+        [self.delegate wrapCell:self forWrap:self.entry notifyChatButtonClicked:sender];
 }
 
 @end

@@ -15,5 +15,6 @@ static CGFloat WLCandyCellSpacingNotRetina = 1.0f;
 
 @interface WLCandyCell : WLEntryCell
 
+@property (nonatomic) IBInspectable BOOL disableMenu;
 
 @end

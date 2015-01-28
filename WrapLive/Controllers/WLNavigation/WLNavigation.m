@@ -130,8 +130,15 @@ static UIWindow* mainWindow = nil;
     return nil;
 }
 
+- (UIViewController *)viewControllerWithNavigationController:(UINavigationController*)navigationController {
+    for (UIViewController *viewController in navigationController.viewControllers) {
+        if ([self isValidViewController:viewController]) return viewController;
+    }
+    return [self viewController];
+}
+
 - (BOOL)isValidViewController:(UIViewController *)controller {
-    return YES;
+    return NO;
 }
 
 - (void)present {
@@ -147,18 +154,23 @@ static UIWindow* mainWindow = nil;
 }
 
 - (void)presentInNavigationController:(UINavigationController*)navigationController animated:(BOOL)animated {
-    UIViewController* entryViewController = [self viewController];
-    if (entryViewController) {
-        for (UIViewController* _controller in navigationController.viewControllers) {
-            if ([self isValidViewController:_controller]) {
-                if (_controller != navigationController.topViewController) {
-                    [navigationController popToViewController:_controller animated:animated];
-                }
-                return;
-            }
+    NSMutableArray *viewControllers = [self newStackViewControllersWithNavigationController:navigationController];
+    [viewControllers insertObject:navigationController.viewControllers.firstObject atIndex:0];
+    [navigationController setViewControllers:viewControllers animated:animated];
+}
+
+- (NSMutableArray *)newStackViewControllersWithNavigationController:(UINavigationController*)navigationController {
+    WLEntry *entry = self;
+    NSMutableArray *viewControllers = [NSMutableArray array];
+    while (entry) {
+        UIViewController *viewController = [entry viewControllerWithNavigationController:navigationController];
+        if (viewController) {
+            [viewControllers addObject:viewController];
         }
-        [navigationController pushViewController:entryViewController animated:animated];
+        entry = entry.containingEntry;
     }
+    
+    return [[[viewControllers reverseObjectEnumerator] allObjects] mutableCopy];
 }
 
 - (void)presentViewControllerWithoutLostData {
@@ -223,19 +235,6 @@ static UIWindow* mainWindow = nil;
     if (![controller isKindOfClass:[WLWrapViewController class]]) return NO;
     if ([(WLWrapViewController*)controller wrap] != self) return NO;
     return YES;
-}
-
-@end
-
-@implementation WLComment (WLNavigation)
-
-- (UIViewController *)viewController {
-    WLCandyViewController* candyViewController = (id)[self.candy viewController];
-    return candyViewController;
-}
-
-- (BOOL)isValidViewController:(UIViewController *)controller {
-    return [self.candy isValidViewController:controller];
 }
 
 @end

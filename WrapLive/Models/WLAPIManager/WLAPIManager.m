@@ -58,6 +58,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 		instance.requestSerializer.timeoutInterval = 45;
         NSString* acceptHeader = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", environment.version];
 		[instance.requestSerializer setValue:acceptHeader forHTTPHeaderField:@"Accept"];
+        instance.securityPolicy.allowInvalidCertificates = YES;
 	});
     return instance;
 }
@@ -136,7 +137,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
 @implementation WLWrap (WLAPIManager)
 
 - (BOOL)fetched {
-    return self.name.nonempty;
+    return self.name.nonempty && self.contributor;
 }
 
 - (id)add:(WLWrapBlock)success failure:(WLFailureBlock)failure {
@@ -150,12 +151,12 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
             if (success) success(nil);
             break;
         case WLContributionStatusInProgress:
-            if (failure) failure([NSError errorWithDescription:@"Wrap is uploading, wait a moment..."]);
+            if (failure) failure([NSError errorWithDescription:WLLS(@"Wrap is uploading, wait a moment...")]);
             break;
         case WLContributionStatusUploaded: {
-            [UIAlertView showWithTitle:WLDeleteAlertTitle
-                               message:[NSString stringWithFormat:WLDeleteAlertMessage, self.name]
-                               buttons:@[@"Cancel",@"Delete"]
+            [UIAlertView showWithTitle:WLLS(WLDeleteAlertTitle)
+                               message:[NSString stringWithFormat:WLLS(WLDeleteAlertMessage), self.name]
+                               buttons:@[WLLS(@"Cancel"),WLLS(@"Delete")]
                             completion:^(NSUInteger index) {
                                 if (index == 1) {
                                     [[WLDeleteWrapRequest request:self] send:^(id object) {
@@ -225,9 +226,9 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
 
 - (id)leave:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     __weak __typeof(self)weakSelf = self;
-    [UIAlertView showWithTitle:WLLeaveAlertTitle
-                       message:WLLeaveAlertMessage
-                       buttons:@[@"YES",@"NO"]
+    [UIAlertView showWithTitle:WLLS(WLLeaveAlertTitle)
+                       message:WLLS(WLLeaveAlertMessage)
+                       buttons:@[WLLS(@"YES"),WLLS(@"NO")]
                     completion:^(NSUInteger index) {
                         if (!index) {
                              [[WLLeaveWrapRequest request:weakSelf] send:^(id object) {
@@ -260,12 +261,12 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
             if (success) success(nil);
             break;
         case WLContributionStatusInProgress:
-            if (failure) failure([NSError errorWithDescription:@"Photo is uploading, wait a moment..."]);
+            if (failure) failure([NSError errorWithDescription:WLLS(@"Photo is uploading, wait a moment...")]);
             break;
         case WLContributionStatusUploaded: {
-            [UIAlertView showWithTitle:@"Delete photo"
-                               message:@"Are you sure you want to delete this photo?"
-                               buttons:@[@"Cancel",@"OK"]
+            [UIAlertView showWithTitle:WLLS(@"Delete photo")
+                               message:WLLS(@"Are you sure you want to delete this photo?")
+                               buttons:@[WLLS(@"Cancel"),WLLS(@"OK")]
                             completion:^(NSUInteger index) {
                                 if (index == 1) {
                                     [[WLDeleteCandyRequest request:self] send:success failure:failure];
@@ -284,7 +285,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
     if (self.uploaded) {
         return [[WLCandyRequest request:self] send:success failure:failure];
     } else {
-        if (failure) failure([NSError errorWithDescription:@"Photo is uploading, wait a moment..."]);
+        if (failure) failure([NSError errorWithDescription:WLLS(@"Photo is uploading, wait a moment...")]);
         return nil;
     }
 }
@@ -325,7 +326,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
             if (success) success(nil);
             break;
         case WLContributionStatusInProgress:
-            if (failure) failure([NSError errorWithDescription:@"Comment is uploading, wait a moment..."]);
+            if (failure) failure([NSError errorWithDescription:WLLS(@"Comment is uploading, wait a moment...")]);
             break;
         case WLContributionStatusUploaded:
             return [[WLDeleteCommentRequest request:self] send:success failure:failure];

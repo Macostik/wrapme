@@ -124,3 +124,7 @@ static inline BOOL IsInBounds(CGFloat min, CGFloat max, CGFloat value) {
 static inline BOOL IsRetinaSize (void) {
     return ([UIScreen mainScreen].scale == 2.0f);
 }
+
+static inline CGFloat minPixelSize (void) {
+    return 1.0f/[UIScreen mainScreen].scale;
+}

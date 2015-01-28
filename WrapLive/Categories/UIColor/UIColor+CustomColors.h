@@ -28,8 +28,6 @@
 
 + (UIColor*)WL_grayLighter;
 
-+ (UIColor *)WL_clearColor;
-
 + (UIColor *)colorWithHexString:(NSString *)str;
 
 - (UIColor *)colorByAddingValue:(CGFloat)value;

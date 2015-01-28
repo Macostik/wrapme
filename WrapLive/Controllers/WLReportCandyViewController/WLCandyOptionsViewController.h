@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLBaseViewController.h"
+#import "WLBaseOptionsViewController.h"
 
-@interface WLCandyOptionsViewController : WLBaseViewController
+@interface WLCandyOptionsViewController : WLBaseOptionsViewController
 
-@property (strong, nonatomic) WLCandy *candy;
+@property (strong, nonatomic) WLCandy *entry;
 
 @end

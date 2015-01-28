@@ -52,6 +52,7 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLCreateWrapViewController.h"
 #import "WLPickerViewController.h"
+#import "UIFont+CustomFonts.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
     WLWrapViewModeTimeline,
@@ -78,6 +79,7 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightViewConstraint;
 
 @end
 
@@ -100,7 +102,8 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
         return;
     }
     
-    self.mode = [WLSession integer:WLWrapViewDefaultModeKey];
+    // force set hostory mode to remove timeline from UI but keep it in code
+    self.mode = WLWrapViewModeHistory;
     
     self.history = [WLHistory historyWithWrap:self.wrap];
     self.historyViewSection.entries = self.history;
@@ -128,6 +131,12 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 - (void)updateWrapData {
     [self.nameLabel setTitle:WLString(self.wrap.name) forState:UIControlStateNormal];
     self.contributorsLabel.text = [self.wrap contributorNames];
+    CGFloat height = [self.contributorsLabel.text heightWithFont:self.contributorsLabel.font width:self.contributorsLabel.width];
+    self.heightViewConstraint.constant = height + self.contributorsLabel.y * 2;
+    [self.contributorsLabel.superview layoutIfNeeded];
+    UIEdgeInsets inset = self.collectionView.contentInset;
+    inset.top = self.contributorsLabel.superview.height + self.nameLabel.superview.height;
+    self.collectionView.contentInset = inset;
 }
 
 - (void)firstLoadRequest {
@@ -146,21 +155,24 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
         [error showIgnoringNetworkError];
     }];
 }
+
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     
-    if (!self.wrap.valid) {
+    if (self.wrap.valid) {
+        [self.wrap.candies all:^(WLCandy *candy) {
+            if (candy.unread) candy.unread = NO;
+        }];
+        [self.dataProvider reload];
+        [self updateNotificationCouter];
+        [self updateWrapData];
+        [self updatePlaceholderVisibilityForType:self.mode];
+    } else {
         __weak typeof(self)weakSelf = self;
         run_after(0.5f, ^{
             [weakSelf.navigationController popViewControllerAnimated:YES];
         });
-        return;
     }
-    
-    [self.dataProvider reload];
-    [self updateNotificationCouter];
-    [self updateWrapData];
-    [self updatePlaceholderVisibilityForType:self.mode];
 }
 
 - (void)updateNotificationCouter {
@@ -183,7 +195,7 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 
 - (IBAction)editWrapClick:(id)sender {
     WLEditWrapViewController* editWrapViewController = [WLEditWrapViewController new];
-    editWrapViewController.wrap = self.wrap;
+    editWrapViewController.entry = self.wrap;
     [self presentViewController:editWrapViewController animated:YES completion:nil];
 }
 
@@ -206,12 +218,9 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-	[WLToast showWithMessage:[NSString stringWithFormat:@"Wrap %@ is no longer available.",
-                              WLString([self.nameLabel titleForState:UIControlStateNormal])]];
-	__weak typeof(self)weakSelf = self;
-	run_after(0.5f, ^{
-		[weakSelf.navigationController popToRootViewControllerAnimated:YES];
-	});
+    [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."),
+                                  WLString([self.nameLabel titleForState:UIControlStateNormal])]];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
@@ -245,9 +254,8 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 }
 
 - (IBAction)viewChanged:(UIButton*)sender {
-      [self dropUpCollectionView];
+    [self dropUpCollectionView];
     [self changeMode:sender.selected ? WLWrapViewModeTimeline : WLWrapViewModeHistory];
-  
 }
 
 - (void)changeMode:(WLWrapViewMode)mode {

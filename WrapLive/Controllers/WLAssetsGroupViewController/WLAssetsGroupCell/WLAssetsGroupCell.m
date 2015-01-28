@@ -21,7 +21,7 @@
 
 - (void)setupItemData:(ALAssetsGroup*)group {
     self.libraryNameLabel.text = group.name;
-    self.countLabel.text = [NSString stringWithFormat:@"%d", group.numberOfAssets];
+    self.countLabel.text = [NSString stringWithFormat:@"%ld", (long)group.numberOfAssets];
     self.thumbnailImageView.image = [UIImage imageWithCGImage:group.posterImage];
 }
 

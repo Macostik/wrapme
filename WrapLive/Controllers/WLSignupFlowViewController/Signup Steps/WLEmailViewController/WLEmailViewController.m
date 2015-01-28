@@ -63,6 +63,7 @@
         }
     } failure:^(NSError *error) {
         sender.loading = NO;
+        [error show];
     }];
 }
 

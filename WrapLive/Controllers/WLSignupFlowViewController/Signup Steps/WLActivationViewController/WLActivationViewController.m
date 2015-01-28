@@ -35,15 +35,11 @@
 
 @implementation WLActivationViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-	self.phoneNumberLabel.text = [[WLAuthorization currentAuthorization] fullPhoneNumber];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.progressBar.progress = 0;
+    self.phoneNumberLabel.text = [[WLAuthorization currentAuthorization] fullPhoneNumber];
+    self.activationTextField.text = @"";
 }
 
 - (void)activate:(WLBlock)completion failure:(WLFailureBlock)failure {
@@ -88,7 +84,7 @@
     sender.userInteractionEnabled = NO;
     [[WLVerificationCallRequest request] send:^(id object) {
         sender.userInteractionEnabled = YES;
-        [UIAlertView showWithMessage:[NSString stringWithFormat:@"Calling %@ now. Please wait.", weakSelf.phoneNumberLabel.text]];
+        [UIAlertView showWithMessage:[NSString stringWithFormat:WLLS(@"Calling %@ now. Please wait."), weakSelf.phoneNumberLabel.text]];
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;
         [error show];

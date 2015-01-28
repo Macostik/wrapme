@@ -28,8 +28,6 @@
 #import "WLImageFetcher.h"
 #import "AsynchronousOperation.h"
 
-#define WLPubNubInactiveStateDuration 20*60
-
 @interface WLNotificationCenter () <PNDelegate>
 
 @property (strong, nonatomic) WLNotificationChannel* userChannel;
@@ -165,6 +163,7 @@ static WLDataBlock deviceTokenCompletion = nil;
     [[NSOperationQueue queueWithIdentifier:@"pn_history" count:1] addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
         NSDate *historyDate = weakSelf.historyDate;
         if (historyDate) {
+            WLLog(@"PUBNUB", @"requesting history", historyDate);
             [PubNub requestHistoryForChannel:weakSelf.userChannel.channel from:[PNDate dateWithDate:historyDate] to:[PNDate dateWithDate:[NSDate now]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, id channel, id from, id to, id error) {
                 if (!error) {
                     NSArray *notifications = [weakSelf notificationsFromMessages:messages];
@@ -282,43 +281,43 @@ static WLDataBlock deviceTokenCompletion = nil;
 #pragma mark - PNDelegate
 
 - (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
-    WLLog(@"PubNub",@"message received", message.message);
+    WLLog(@"PUBNUB",@"message received", message.message);
 }
 
 - (void)pubnubClient:(PubNub *)client didReceiveMessageHistory:(NSArray *)messages forChannel:(PNChannel *)channel startingFrom:(PNDate *)startDate to:(PNDate *)endDate {
-    WLLog(@"PubNub",@"messages history", [messages valueForKey:@"message"]);
+    WLLog(@"PUBNUB",@"messages history", [messages valueForKey:@"message"]);
 }
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {
-    WLLog(@"PubNub",@"connected", origin);
+    WLLog(@"PUBNUB",@"connected", origin);
 }
 
 - (void)pubnubClient:(PubNub *)client connectionDidFailWithError:(PNError *)error {
-    WLLog(@"PubNub",@"connection failed", error);
+    WLLog(@"PUBNUB",@"connection failed", error);
 }
 
 - (void)pubnubClient:(PubNub *)client didSubscribeOnChannels:(NSArray *)channels {
-    WLLog(@"PubNub",@"subscribed", [channels valueForKey:@"name"]);
+    WLLog(@"PUBNUB",@"subscribed", [channels valueForKey:@"name"]);
 }
 
 - (void)pubnubClient:(PubNub *)client didUnsubscribeOnChannels:(NSArray *)channels {
-    WLLog(@"PubNub",@"unsubscribed", [channels valueForKey:@"name"]);
+    WLLog(@"PUBNUB",@"unsubscribed", [channels valueForKey:@"name"]);
 }
 
 - (void)pubnubClient:(PubNub *)client didDisconnectFromOrigin:(NSString *)origin withError:(PNError *)error {
-    WLLog(@"PubNub", @"disconnected", error);
+    WLLog(@"PUBNUB", @"disconnected", error);
 }
 
 - (void)pubnubClient:(PubNub *)client didEnablePushNotificationsOnChannels:(NSArray *)channels {
-    WLLog(@"PubNub", @"enabled APNS", [channels valueForKey:@"name"]);
+    WLLog(@"PUBNUB", @"enabled APNS", [channels valueForKey:@"name"]);
 }
 
 - (void)pubnubClientDidRemovePushNotifications:(PubNub *)client {
-    WLLog(@"PubNub", @"removed APNS", nil);
+    WLLog(@"PUBNUB", @"removed APNS", nil);
 }
 
 - (void)pubnubClient:(PubNub *)client didReceivePresenceEvent:(PNPresenceEvent *)event {
-    WLLog(@"PubNub", @"presence event", @(event.type));
+    WLLog(@"PUBNUB", @"presence event", @(event.type));
 }
 
 @end

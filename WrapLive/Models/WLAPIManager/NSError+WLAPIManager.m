@@ -111,8 +111,9 @@ static NSDictionary *customErrorMessages = nil;
 
 - (void)log:(NSString *)label {
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-	    if (![self ignore])
+        if (![self ignore]) {
             WLLog(@"ERROR",label, self);
+        }
 	});
 }
 

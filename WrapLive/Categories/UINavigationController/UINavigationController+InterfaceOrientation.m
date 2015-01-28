@@ -11,7 +11,7 @@
 @implementation UINavigationController (InterfaceOrientation)
 
 - (BOOL)shouldAutorotate {
-    return YES;
+    return [self.topViewController shouldAutorotate];
 }
 
 - (NSUInteger)supportedInterfaceOrientations {

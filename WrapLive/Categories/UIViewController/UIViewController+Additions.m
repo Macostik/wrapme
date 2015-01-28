@@ -44,6 +44,10 @@
 	[self.navigationController setViewControllers:[NSArray arrayWithArray:controllers] animated:animated];
 }
 
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
 - (IBAction)back:(UIButton *)sender {
 	[self.navigationController popViewControllerAnimated:YES];
 }

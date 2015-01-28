@@ -345,19 +345,13 @@ CGAffineTransform WLCommentViewTransform;
 
 
 #pragma mark - WLDeviceOrientationBroadcastReceiver
+
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
 - (void)applyDeviceOrientation:(UIDeviceOrientation)orientation animated:(BOOL)animated {
-    CGAffineTransform transform = self.view.transform;
-    if (orientation == UIDeviceOrientationLandscapeLeft) {
-        transform = CGAffineTransformMakeRotation(M_PI_2);
-    } else if (orientation == UIDeviceOrientationLandscapeRight) {
-        transform = CGAffineTransformMakeRotation(-M_PI_2);
-    }
-    __weak typeof(self)weakSelf = self;
-    [UIView performAnimated:animated animation:^{
-        weakSelf.view.frame = weakSelf.view.superview.bounds;
-        weakSelf.view.transform = transform;
-        [weakSelf.collectionView reloadData];
-    }];
+    [self.collectionView reloadData];
 }
 
 - (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber*)orientation {
@@ -365,4 +359,3 @@ CGAffineTransform WLCommentViewTransform;
 }
 
 @end
-

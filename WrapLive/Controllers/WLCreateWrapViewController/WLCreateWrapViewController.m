@@ -44,7 +44,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.nameField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
+//    [self.nameField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
 }
 
 + (BOOL)isEmbeddedDefaultValue {

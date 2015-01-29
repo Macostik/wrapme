@@ -55,7 +55,7 @@
         __weak typeof(self)weakSelf = self;
         [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
             if (weakSelf.userChannel.subscribed) {
-                [weakSelf performSelector:@selector(requestHistory) withObject:nil afterDelay:0.5f];
+                [weakSelf performSelector:@selector(requestHistory:) withObject:weakSelf.historyDate afterDelay:0.5f];
             }
         }];
     }
@@ -138,41 +138,49 @@ static WLDataBlock deviceTokenCompletion = nil;
     if (![[PubNub clientIdentifier] isEqualToString:userUID]) {
         [PubNub setClientIdentifier:userUID];
         self.userChannel = [WLNotificationChannel channelWithName:[NSString stringWithFormat:@"%@-%@", userUID, deviceUID]];
-        [self requestHistory];
+        [self requestHistory:self.historyDate];
         __weak typeof(self)weakSelf = self;
         [self.userChannel enableAPNS];
         [self.userChannel observeMessages:^(PNMessage *message) {
             WLNotification *notification = [WLNotification notificationWithMessage:message];
-            [weakSelf handleNotification:notification saveHistoryDate:YES];
+            [weakSelf handleNotification:notification];
+            self.historyDate = [notification.date dateByAddingTimeInterval:NSINTEGER_DEFINED];
         }];
     }
 }
 
-- (void)handleNotification:(WLNotification*)notification saveHistoryDate:(BOOL)saveHistoryDate {
+- (void)handleNotification:(WLNotification*)notification {
+    NSString *logMessage = [NSString stringWithFormat:@"message received %lu : %@", notification.type, notification.entryIdentifier];
+    WLLog(@"PUBNUB", logMessage, notification.entryData);
     BOOL insertedEntry = notification.targetEntry.inserted;
     [notification fetch:^{
         if (notification.playSound && insertedEntry) [WLSoundPlayer playSoundForNotification:notification];
     } failure:nil];
-    if (saveHistoryDate) {
-        self.historyDate = [notification.date dateByAddingTimeInterval:NSINTEGER_DEFINED];
-    }
 }
 
-- (void)requestHistory {
+- (void)requestHistory:(NSDate*)historyDate {
     __weak typeof(self)weakSelf = self;
     [[NSOperationQueue queueWithIdentifier:@"pn_history" count:1] addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
-        NSDate *historyDate = weakSelf.historyDate;
         if (historyDate) {
-            WLLog(@"PUBNUB", @"requesting history", historyDate);
-            [PubNub requestHistoryForChannel:weakSelf.userChannel.channel from:[PNDate dateWithDate:historyDate] to:[PNDate dateWithDate:[NSDate now]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, id channel, id from, id to, id error) {
+            NSDate *from = historyDate;
+            NSDate *to = [NSDate now];
+            NSString *logMessage = [NSString stringWithFormat:@"requesting history starting from: %@ to: %@", from, to];
+            WLLog(@"PUBNUB", logMessage, nil);
+            [PubNub requestHistoryForChannel:weakSelf.userChannel.channel from:[PNDate dateWithDate:from] to:[PNDate dateWithDate:to] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, id channel, id from, id to, id error) {
                 if (!error) {
                     NSArray *notifications = [weakSelf notificationsFromMessages:messages];
                     if (notifications.nonempty) {
+                        NSDate *historyDate = nil;
                         for (WLNotification *notification in notifications) {
-                            [weakSelf handleNotification:notification saveHistoryDate:notification == [notifications lastObject]];
+                            [weakSelf handleNotification:notification];
+                            if (notification == [notifications lastObject]) {
+                                historyDate = [notification.date dateByAddingTimeInterval:NSINTEGER_DEFINED];
+                            }
                         }
+                        [weakSelf performSelector:@selector(requestHistory:) withObject:historyDate afterDelay:0.0f];
+                        weakSelf.historyDate = historyDate;
                     } else {
-                        weakSelf.historyDate = [NSDate now];
+                        weakSelf.historyDate = to;
                     }
                 }
                 [operation finish];
@@ -229,6 +237,8 @@ static WLDataBlock deviceTokenCompletion = nil;
         }
     }
     
+    [notifications sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
+    
     return [notifications copy];
 }
 
@@ -280,12 +290,8 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 #pragma mark - PNDelegate
 
-- (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
-    WLLog(@"PUBNUB",@"message received", message.message);
-}
-
 - (void)pubnubClient:(PubNub *)client didReceiveMessageHistory:(NSArray *)messages forChannel:(PNChannel *)channel startingFrom:(PNDate *)startDate to:(PNDate *)endDate {
-    WLLog(@"PUBNUB",@"messages history", [messages valueForKey:@"message"]);
+    WLLog(@"PUBNUB",@"messages history with count", @([messages count]));
 }
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {

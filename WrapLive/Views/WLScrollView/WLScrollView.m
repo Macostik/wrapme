@@ -42,4 +42,10 @@
     return self.zoomingView;
 }
 
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
+    if ([self.scrollDelegate respondsToSelector:@selector(scrollViewWillBeginZooming:)]) {
+        [self.scrollDelegate scrollViewWillBeginZooming:self];
+    }
+}
+
 @end

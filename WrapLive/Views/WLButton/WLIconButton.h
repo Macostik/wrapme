@@ -10,10 +10,10 @@
 
 @interface WLIconButton : WLButton
 
-@property (strong, nonatomic) IBInspectable NSString *name;
+@property (strong, nonatomic) IBInspectable NSString *iconName;
 
-@property (strong, nonatomic) IBInspectable UIColor *color;
+@property (strong, nonatomic) IBInspectable UIColor *iconColor;
 
-@property (assign, nonatomic) IBInspectable CGFloat size;
+@property (assign, nonatomic) IBInspectable CGFloat iconSize;
 
 @end

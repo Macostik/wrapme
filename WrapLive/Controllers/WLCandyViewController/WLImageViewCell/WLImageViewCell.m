@@ -31,7 +31,6 @@
     
     self.scrollView.userInteractionEnabled = NO;
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
-//    [self applyDeviceOrientation:[UIDevice currentDevice].orientation animated:NO];
 }
 
 - (void)setup:(WLCandy *)candy {
@@ -39,7 +38,6 @@
     self.spinner.hidden = NO;
     [self.imageView setUrl:candy.picture.large success:^(UIImage *image, BOOL cached) {
         if (image) {
-//            [weakSelf applyDeviceOrientation:[UIDevice currentDevice].orientation animated:NO]
             [weakSelf calculateScaleValues];
         }
         weakSelf.scrollView.userInteractionEnabled = YES;
@@ -71,6 +69,8 @@
     if (self.imageView.image) {
         self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
         [self calculateScaleValues];
+        self.imageView.center = self.center;
+        [self layoutIfNeeded];
     }
 }
 

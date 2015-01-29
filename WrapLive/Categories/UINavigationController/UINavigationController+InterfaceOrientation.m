@@ -15,7 +15,7 @@
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskAll;
+    return [self.topViewController supportedInterfaceOrientations];
 }
 
 @end

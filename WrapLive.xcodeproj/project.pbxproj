@@ -200,6 +200,14 @@
 		5BA755FD1A7643A90037D51E /* WLImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA755FB1A7643A90037D51E /* WLImageViewCell.m */; };
 		5BA755FE1A7643A90037D51E /* WLImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA755FB1A7643A90037D51E /* WLImageViewCell.m */; };
 		5BA755FF1A7643A90037D51E /* WLImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA755FB1A7643A90037D51E /* WLImageViewCell.m */; };
+		5BA7AC211A7916AB00BB922E /* WLCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */; };
+		5BA7AC221A7916AB00BB922E /* WLCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */; };
+		5BA7AC231A7916AB00BB922E /* WLCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */; };
+		5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */; };
+		5BA7AC2C1A7939FB00BB922E /* WLTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC2B1A7939FA00BB922E /* WLTriangleView.m */; };
+		5BA7AC2D1A7939FB00BB922E /* WLTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC2B1A7939FA00BB922E /* WLTriangleView.m */; };
+		5BA7AC2E1A7939FB00BB922E /* WLTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC2B1A7939FA00BB922E /* WLTriangleView.m */; };
+		5BA7AC2F1A7939FB00BB922E /* WLTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC2B1A7939FA00BB922E /* WLTriangleView.m */; };
 		5BA7AF2E1A481A9500C586CA /* WLTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5BA7AF321A481A9C00C586CA /* WLTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5BA7FD551A499A8000B7E66F /* WLAPIEnvironmentDevelopment.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54AF85919B8C622006F7EDB /* WLAPIEnvironmentDevelopment.plist */; };
@@ -1745,6 +1753,10 @@
 		5BA7A10D1A4D879A002B1D63 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5BA7A1101A4D8863002B1D63 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5BA7A1111A4DB60B002B1D63 /* WLLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLocalization.h; path = WLAPIManager/WLLocalization.h; sourceTree = "<group>"; };
+		5BA7AC1F1A7916AB00BB922E /* WLCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCommentsViewController.h; path = Controllers/WLCommentsViewController/WLCommentsViewController.h; sourceTree = "<group>"; };
+		5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCommentsViewController.m; path = Controllers/WLCommentsViewController/WLCommentsViewController.m; sourceTree = "<group>"; };
+		5BA7AC2A1A7939FA00BB922E /* WLTriangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTriangleView.h; path = WLTriangleView/WLTriangleView.h; sourceTree = "<group>"; };
+		5BA7AC2B1A7939FA00BB922E /* WLTriangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTriangleView.m; path = WLTriangleView/WLTriangleView.m; sourceTree = "<group>"; };
 		5BA863C61A4EA4F300271636 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		5BA863C71A4EA4FA00271636 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		5BA8D3841A3068E600A877D3 /* WLComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComments.h; path = WLExtensionModel/WLComments/WLComments.h; sourceTree = "<group>"; };
@@ -2563,6 +2575,7 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5BA7AC1E1A79167B00BB922E /* WLCommentsViewController */,
 				C54E4ADB1A4C52B900C6B990 /* WLLaunchScreenViewController */,
 				C570059F1A1F9505007257A6 /* WLSettingsViewController */,
 				C58167FF19F169BD0081F350 /* WLBaseViewController */,
@@ -2635,6 +2648,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5BA7AC301A793A0B00BB922E /* WLTriangleView */,
 				5B2B0C201A77DDC400DADC9D /* WLButton */,
 				C514AA5E1A6D624900A562CE /* WLGradientView */,
 				C568D8D31A6D490500C2333B /* WLHintView */,
@@ -3384,6 +3398,25 @@
 				5BA7A10E1A4D879A002B1D63 /* Localizable.strings */,
 			);
 			name = Localizable;
+			sourceTree = "<group>";
+		};
+		5BA7AC1E1A79167B00BB922E /* WLCommentsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5BA7AC1F1A7916AB00BB922E /* WLCommentsViewController.h */,
+				5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */,
+			);
+			name = WLCommentsViewController;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		5BA7AC301A793A0B00BB922E /* WLTriangleView */ = {
+			isa = PBXGroup;
+			children = (
+				5BA7AC2A1A7939FA00BB922E /* WLTriangleView.h */,
+				5BA7AC2B1A7939FA00BB922E /* WLTriangleView.m */,
+			);
+			name = WLTriangleView;
 			sourceTree = "<group>";
 		};
 		5BA8D3871A3068EC00A877D3 /* WLComments */ = {
@@ -5322,6 +5355,7 @@
 				12EBF8D818F6A6D000EA3185 /* UIViewController+Additions.m in Sources */,
 				C54FC76A1A163CC400623FC1 /* WLNetwork.m in Sources */,
 				C5215DFB19C32CB80012AE10 /* WLEntityRequest.m in Sources */,
+				5BA7AC211A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD41A41951300A2C370 /* WLLabel.m in Sources */,
 				12A6BFA818F2A6C900AE3B62 /* WLShakeViewController.m in Sources */,
 				C514AA611A6D624900A562CE /* WLGradientView.m in Sources */,
@@ -5394,6 +5428,7 @@
 				5BBBEB3B19D9836D008CFE54 /* UITextView+Aditions.m in Sources */,
 				1293677F18E337D900527250 /* WLCandiesCell.m in Sources */,
 				129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */,
+				5BA7AC2C1A7939FB00BB922E /* WLTriangleView.m in Sources */,
 				5B2F719E1A2E017F0019FC57 /* WLCryptographer.m in Sources */,
 				AC79ED381934791600D7031F /* WLEmojiCell.m in Sources */,
 				C54531201A2497470048A677 /* WLPhoneValidation.m in Sources */,
@@ -5612,6 +5647,7 @@
 				C54AF49519B8C437006F7EDB /* UIViewController+Additions.m in Sources */,
 				C54FC76B1A163CC400623FC1 /* WLNetwork.m in Sources */,
 				C5215DFC19C32CB80012AE10 /* WLEntityRequest.m in Sources */,
+				5BA7AC221A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD51A41951300A2C370 /* WLLabel.m in Sources */,
 				C54AF49819B8C437006F7EDB /* WLShakeViewController.m in Sources */,
 				C514AA621A6D624900A562CE /* WLGradientView.m in Sources */,
@@ -5684,6 +5720,7 @@
 				5BBBEB3C19D9836D008CFE54 /* UITextView+Aditions.m in Sources */,
 				C54AF4D219B8C437006F7EDB /* WLCandiesCell.m in Sources */,
 				C54AF4D419B8C437006F7EDB /* WLCreateWrapViewController.m in Sources */,
+				5BA7AC2D1A7939FB00BB922E /* WLTriangleView.m in Sources */,
 				5B2F719F1A2E017F0019FC57 /* WLCryptographer.m in Sources */,
 				C54AF4D519B8C437006F7EDB /* WLEmojiCell.m in Sources */,
 				C54531211A2497470048A677 /* WLPhoneValidation.m in Sources */,
@@ -5870,6 +5907,7 @@
 				C54AF59219B8C467006F7EDB /* UIViewController+Additions.m in Sources */,
 				C54FC76C1A163CC400623FC1 /* WLNetwork.m in Sources */,
 				C5215DFD19C32CB80012AE10 /* WLEntityRequest.m in Sources */,
+				5BA7AC231A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD61A41951300A2C370 /* WLLabel.m in Sources */,
 				C54AF59519B8C467006F7EDB /* WLShakeViewController.m in Sources */,
 				C514AA631A6D624900A562CE /* WLGradientView.m in Sources */,
@@ -5942,6 +5980,7 @@
 				5BBBEB3D19D9836D008CFE54 /* UITextView+Aditions.m in Sources */,
 				C54AF5CF19B8C467006F7EDB /* WLCandiesCell.m in Sources */,
 				C54AF5D119B8C467006F7EDB /* WLCreateWrapViewController.m in Sources */,
+				5BA7AC2E1A7939FB00BB922E /* WLTriangleView.m in Sources */,
 				5B2F71A01A2E017F0019FC57 /* WLCryptographer.m in Sources */,
 				C54AF5D219B8C467006F7EDB /* WLEmojiCell.m in Sources */,
 				C54531221A2497470048A677 /* WLPhoneValidation.m in Sources */,
@@ -6128,6 +6167,7 @@
 				C54AF68F19B8C491006F7EDB /* UIViewController+Additions.m in Sources */,
 				C54FC76D1A163CC400623FC1 /* WLNetwork.m in Sources */,
 				C5215DFE19C32CB80012AE10 /* WLEntityRequest.m in Sources */,
+				5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */,
 				C54AF69219B8C491006F7EDB /* WLShakeViewController.m in Sources */,
 				C514AA641A6D624900A562CE /* WLGradientView.m in Sources */,
@@ -6200,6 +6240,7 @@
 				5BBBEB3E19D9836D008CFE54 /* UITextView+Aditions.m in Sources */,
 				C54AF6CC19B8C491006F7EDB /* WLCandiesCell.m in Sources */,
 				C54AF6CE19B8C491006F7EDB /* WLCreateWrapViewController.m in Sources */,
+				5BA7AC2F1A7939FB00BB922E /* WLTriangleView.m in Sources */,
 				5B2F71A11A2E017F0019FC57 /* WLCryptographer.m in Sources */,
 				C54AF6CF19B8C491006F7EDB /* WLEmojiCell.m in Sources */,
 				C54531231A2497470048A677 /* WLPhoneValidation.m in Sources */,

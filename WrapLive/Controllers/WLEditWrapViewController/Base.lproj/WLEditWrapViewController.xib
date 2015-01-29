@@ -162,7 +162,7 @@
                     <integer key="value" value="6"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="326" y="203.5"/>
+            <point key="canvasLocation" x="214" y="245.5"/>
         </view>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
     </objects>

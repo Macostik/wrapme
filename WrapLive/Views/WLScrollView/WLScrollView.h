@@ -8,8 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class WLScrollView;
+
+@protocol WLScrollViewDelegate <NSObject>
+
+- (void)scrollViewWillBeginZooming:(WLScrollView *)scrollView;
+
+@end
+
 @interface WLScrollView : UIScrollView <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView* zoomingView;
+
+@property (strong, nonatomic) IBOutlet id <WLScrollViewDelegate> scrollDelegate;
 
 @end

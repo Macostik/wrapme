@@ -44,8 +44,8 @@
 	[self.navigationController setViewControllers:[NSArray arrayWithArray:controllers] animated:animated];
 }
 
-- (BOOL)shouldAutorotate {
-    return YES;
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
 }
 
 - (IBAction)back:(UIButton *)sender {

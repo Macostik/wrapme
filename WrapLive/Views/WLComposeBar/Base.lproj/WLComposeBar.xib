@@ -27,7 +27,7 @@
             <subviews>
                 <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tsn-CW-vvV">
                     <rect key="frame" x="0.0" y="0.0" width="45" height="44"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="45" id="w2y-wp-R3O"/>
                     </constraints>
@@ -67,7 +67,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="ZgG-gu-HiH" firstAttribute="top" secondItem="Etu-eU-YXb" secondAttribute="top" constant="4" id="FR2-gx-GAe"/>
                         <constraint firstAttribute="trailing" secondItem="GEw-xM-AHA" secondAttribute="trailing" id="SSe-OY-L9e"/>
@@ -80,7 +80,7 @@
                 </view>
                 <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YS0-3g-wEg">
                     <rect key="frame" x="275" y="0.0" width="45" height="44"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="45" id="l9U-RI-K1u"/>
                     </constraints>
@@ -100,7 +100,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="Etu-eU-YXb" firstAttribute="top" secondItem="6Di-Fo-9po" secondAttribute="top" constant="7" id="57j-zP-jeQ"/>
                 <constraint firstItem="Etu-eU-YXb" firstAttribute="leading" secondItem="6Di-Fo-9po" secondAttribute="leading" constant="45" id="EiZ-lc-6n3"/>

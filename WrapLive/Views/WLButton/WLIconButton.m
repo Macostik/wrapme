@@ -8,6 +8,7 @@
 
 #import "WLIconButton.h"
 #import <FAKFontAwesome.h>
+#import <objc/message.h>
 
 @implementation WLIconButton
 
@@ -16,29 +17,17 @@
     
     SEL selector = [self selectorByNameWithSize];
     if ([FAKFontAwesome respondsToSelector:selector]) {
-        CGFloat first = self.size;
-        void *value = nil;
-        
-        NSMethodSignature *methSig = [FAKFontAwesome methodSignatureForSelector:selector];
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methSig];
-        
-        [invocation setSelector:selector];
-        [invocation setTarget:[FAKFontAwesome class]];
-        [invocation setArgument:&first atIndex:2];
-        [invocation invoke];
-        [invocation getReturnValue:&value];
-        
-        FAKIcon *icon = (__bridge FAKIcon *)(value);
-        [icon addAttribute:NSForegroundColorAttributeName value:self.color];
-        UIImage *image = [icon imageWithSize:CGSizeMake(self.size, self.size)];
+        FAKIcon *icon = ((FAKIcon* (*)(id, SEL, CGFloat))objc_msgSend)([FAKFontAwesome class], selector, self.iconSize);
+        [icon addAttribute:NSForegroundColorAttributeName value:self.iconColor];
+        UIImage *image = [icon imageWithSize:CGSizeMake(self.iconSize, self.iconSize)];
         [self setImage:image forState:UIControlStateNormal];
     }
 }
 
 - (SEL)selectorByNameWithSize {
     NSMutableString *selector = [NSMutableString string];
-    NSAssert(self.name, nil);
-    [selector appendFormat:@"%@IconWithSize:", self.name];
+    NSAssert(self.iconName, nil);
+    [selector appendFormat:@"%@IconWithSize:", self.iconName];
     return NSSelectorFromString(selector);
 }
 

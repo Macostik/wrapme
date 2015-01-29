@@ -43,7 +43,7 @@
 #import "WLHintView.h"
 #import "WLCircleImageView.h"
 #import "WLLabel.h"
-#import <FAKFontAwesome.h>
+#import "WLScrollView.h"
 #import "WLDeviceOrientationBroadcaster.h"
 
 CGAffineTransform WLNavigationBarTransform;
@@ -279,13 +279,15 @@ CGAffineTransform WLCommentViewTransform;
     
 }
 
-#pragma mark - UITapGestureRecognizer
+- (IBAction)onTapGestureRecognize:(id)sender {
+    BOOL hide = CGAffineTransformEqualToTransform(CGAffineTransformIdentity, self.navigationBar.transform);
+    [self hideDetailView:hide];
+}
 
-- (IBAction)showNavigationBar:(id)sender {
-    BOOL isShow = CGAffineTransformEqualToTransform(CGAffineTransformIdentity, self.navigationBar.transform);
+- (void)hideDetailView:(BOOL)hide {
     [UIView performAnimated:YES animation:^{
-        self.navigationBar.transform = isShow ? WLNavigationBarTransform : CGAffineTransformIdentity;
-        self.commentView.transform = isShow? WLCommentViewTransform : CGAffineTransformIdentity;
+        self.navigationBar.transform = hide ? WLNavigationBarTransform :CGAffineTransformIdentity;
+        self.commentView.transform = hide ? WLCommentViewTransform : CGAffineTransformIdentity;
     }];
 }
 
@@ -346,16 +348,18 @@ CGAffineTransform WLCommentViewTransform;
 
 #pragma mark - WLDeviceOrientationBroadcastReceiver
 
-- (BOOL)shouldAutorotate {
-    return NO;
-}
-
-- (void)applyDeviceOrientation:(UIDeviceOrientation)orientation animated:(BOOL)animated {
-    [self.collectionView reloadData];
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber*)orientation {
-    [self applyDeviceOrientation:[orientation integerValue] animated:YES];
+    [self.collectionView reloadData];
+}
+
+#pragma mark - WLScrollViewDelegate method
+
+- (void)scrollViewWillBeginZooming:(WLScrollView *)scrollView {
+    [self hideDetailView:YES];
 }
 
 @end

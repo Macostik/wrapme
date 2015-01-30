@@ -14,7 +14,29 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+    [self setup];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color iconSize:(CGFloat)size {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setupWithName:name color:color size:size];
+    }
+    return self;
+}
+
++ (instancetype)initWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color iconSize:(CGFloat)size {
+    return [[WLIconButton alloc] initWithFrame:frame iconName:name iconColor:color iconSize:size];
+}
+
+- (void)setupWithName:(NSString *)name color:(UIColor *)color size:(CGFloat)size {
+    _iconName = name;
+    _iconColor = color;
+    _iconSize = size;
+    [self setup];
+}
+
+- (void)setup {
     SEL selector = [self selectorByNameWithSize];
     if ([FAKFontAwesome respondsToSelector:selector]) {
         FAKIcon *icon = ((FAKIcon* (*)(id, SEL, CGFloat))objc_msgSend)([FAKFontAwesome class], selector, self.iconSize);
@@ -26,7 +48,6 @@
 
 - (SEL)selectorByNameWithSize {
     NSMutableString *selector = [NSMutableString string];
-    NSAssert(self.iconName, nil);
     [selector appendFormat:@"%@IconWithSize:", self.iconName];
     return NSSelectorFromString(selector);
 }

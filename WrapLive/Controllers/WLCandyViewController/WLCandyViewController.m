@@ -29,7 +29,6 @@
 #import "WLNetwork.h"
 #import "WLKeyboard.h"
 #import "WLNavigation.h"
-#import "WLRefresher.h"
 #import "WLCandyOptionsViewController.h"
 #import "WLSession.h"
 #import "WLSoundPlayer.h"
@@ -44,32 +43,30 @@
 #import "WLCircleImageView.h"
 #import "WLLabel.h"
 #import "WLScrollView.h"
+#import "WLIconButton.h"
 #import "WLDeviceOrientationBroadcaster.h"
 
-CGAffineTransform WLNavigationBarTransform;
-CGAffineTransform WLCommentViewTransform;
-
-@interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver, WLDeviceOrientationBroadcastReceiver>
+@interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver, WLDeviceOrientationBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
-@property (weak, nonatomic) IBOutlet UIView *navigationBar;
-@property (weak, nonatomic) IBOutlet UIView *commentView;
+@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet WLButton *commentButton;
+@property (weak, nonatomic) IBOutlet WLIconButton *actionButton;
+@property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 
 @property (nonatomic) BOOL shouldLoadMoreCandies;
 @property (nonatomic) BOOL scrolledToInitialItem;
 
 @property (strong, nonatomic) WLImageViewCell* candyCell;
 
-@property (weak, nonatomic) IBOutlet UIButton *warningButton;
-@property (weak, nonatomic) IBOutlet UIButton *trashButton;
-@property (weak, nonatomic) IBOutlet UIButton *actionButton;
-
 @property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLLabel *lastCommentLabel;
 
 @property (weak, nonatomic) UISwipeGestureRecognizer* leftSwipeGestureRecognizer;
 @property (weak, nonatomic) UISwipeGestureRecognizer* rightSwipeGestureRecognizer;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewConstrain;
 
 @property (strong, nonatomic) WLHistoryItem *historyItem;
 
@@ -80,6 +77,7 @@ CGAffineTransform WLCommentViewTransform;
 @implementation WLCandyViewController
 
 @synthesize candy = _candy;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -94,11 +92,6 @@ CGAffineTransform WLCommentViewTransform;
     [[WLComment notifier] addReceiver:self];
     [[WLNetwork network] addReceiver:self];
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
-    
-    WLNavigationBarTransform = CGAffineTransformTranslate(self.navigationBar.transform, .0, -self.navigationBar.height);
-    WLCommentViewTransform = CGAffineTransformTranslate(self.commentView.transform, .0, self.commentView.height);
-    self.navigationBar.transform = WLNavigationBarTransform;
-    self.commentView.transform = WLCommentViewTransform;
     
     UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -115,6 +108,9 @@ CGAffineTransform WLCommentViewTransform;
     [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:rightSwipe];
     
     self.commentButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    [self.actionButton setupWithName:self.candy.deletable ? @"trash" : @"warning"
+                               color:[UIColor whiteColor]
+                                size:self.actionButton.width/2];
     
     [self refresh:_candy];
 }
@@ -132,6 +128,8 @@ CGAffineTransform WLCommentViewTransform;
     [super viewWillAppear:animated];
     
     self.avatarImageView.url = self.candy.contributor.picture.small;
+    self.postLabel.text = [NSString stringWithFormat:@"Posted by %@,\n%@", self.candy.contributor.name,
+                                                                         self.candy.createdAt.timeAgoStringAtAMPM];
     WLComment *comment = self.candy.comments.lastObject;
     if (comment.valid) {
         self.lastCommentLabel.text = comment.text;
@@ -144,11 +142,11 @@ CGAffineTransform WLCommentViewTransform;
     [super viewDidAppear:animated];
     self.scrolledToInitialItem = YES;
     [WLHintView showCandySwipeHintView];
+    [self showDetailViewsAfterDelay:5.0f];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.collectionView.height - 70, 0);
     NSUInteger index = [self.historyItem.entries indexOfObject:_candy];
     if (!self.scrolledToInitialItem && index != NSNotFound) {
         [self.collectionView setContentOffset:CGPointMake(index*self.collectionView.width, 0)];
@@ -222,7 +220,7 @@ CGAffineTransform WLCommentViewTransform;
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return otherGestureRecognizer == self.collectionView.panGestureRecognizer;
+    return YES;
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -247,6 +245,13 @@ CGAffineTransform WLCommentViewTransform;
     }
 }
 
+- (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
+    WLComment *comment = self.candy.comments.lastObject;
+    if (comment.valid) {
+        self.lastCommentLabel.text = comment.text;
+    }
+}
+
 - (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
     return self.candy;
 }
@@ -262,43 +267,52 @@ CGAffineTransform WLCommentViewTransform;
     }
 }
 
-- (IBAction)report:(UIButton *)sender {
-    WLCandyOptionsViewController* editCandyViewController = [[WLCandyOptionsViewController alloc] init];
-    editCandyViewController.entry = self.candy;
-    [self presentViewController:editCandyViewController animated:YES completion:nil];
+- (IBAction)navigationButtonClick:(WLIconButton *)sender {
+    __weak __typeof(self)weakSelf = self;
+    if ([sender.iconName isEqualToString:@"cloudDownload"]) {
+        [self.candy download:^{
+        } failure:^(NSError *error) {
+            [error show];
+        }];
+        [WLToast showPhotoDownloadingMessage];
+    } else if ([sender.iconName isEqualToString:@"trash"]) {
+        if (self.candy.deletable) {
+            [self.candy remove:^(id object) {
+                [WLToast showWithMessage:WLLS(@"Candy was deleted successfully.")];;
+                sender.loading = NO;
+                [weakSelf dismissViewControllerAnimated:NO completion:nil];
+            } failure:^(NSError *error) {
+                [error show];
+                sender.loading = NO;
+            }];
+        }
+    } else {
+        [MFMailComposeViewController messageWithCandy:self.candy];
+    }
 }
 
-- (void)sendMessageWithText:(NSString*)text {
-    [WLSoundPlayer playSound:WLSound_s04];
-    [self.candy uploadComment:text success:^(WLComment *comment) {
-    } failure:^(NSError *error) {
-    }];
-}
-
-- (IBAction)showPopupView:(id)sender {
-    
-}
+static CGFloat WLTopContraintConstant = -20.0f;
 
 - (IBAction)onTapGestureRecognize:(id)sender {
-    BOOL hide = CGAffineTransformEqualToTransform(CGAffineTransformIdentity, self.navigationBar.transform);
-    [self hideDetailView:hide];
+    BOOL hide = self.topViewConstraint.constant == WLTopContraintConstant;
+    [self hideDetailViews:hide];
 }
 
-- (void)hideDetailView:(BOOL)hide {
+- (void)showDetailViewsAfterDelay:(CGFloat)sec {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showDetailViewsAfterDelay:) object:nil];
+    [self hideDetailViews:NO];
+    __weak __typeof(self)weakSelf = self;
+    run_after(sec, ^{
+        [weakSelf hideDetailViews:YES];
+    });
+}
+
+- (void)hideDetailViews:(BOOL)hide {
     [UIView performAnimated:YES animation:^{
-        self.navigationBar.transform = hide ? WLNavigationBarTransform :CGAffineTransformIdentity;
-        self.commentView.transform = hide ? WLCommentViewTransform : CGAffineTransformIdentity;
+        self.topViewConstraint.constant = hide ? -self.topView.height + WLTopContraintConstant : WLTopContraintConstant;
+        self.bottomViewConstrain.constant = hide ? -self.bottomView.height : .0f;
+        [self.view layoutIfNeeded];
     }];
-}
-
-#pragma mark - WLComposeBarDelegate
-
-- (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
-	[self sendMessageWithText:text];
-}
-
-- (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
-	return NO;
 }
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
@@ -317,7 +331,6 @@ CGAffineTransform WLCommentViewTransform;
     } else {
         cell.entry = nil;
     }
-    
     return cell;
 }
 
@@ -328,23 +341,9 @@ CGAffineTransform WLCommentViewTransform;
 
 #pragma mark - WLNetworkReceiver
 
-//- (void)networkDidChangeReachability:(WLNetwork *)network {
-//    [self.collectionView reloadData];
-//}
-
-#pragma mark - WLKeyboardBroadcastReceiver
-
-//- (void)keyboardWillShow:(WLKeyboard *)keyboard {
-//    [super keyboardWillShow:keyboard];
-//    [self.candyCell updateBottomInset:keyboard.height + self.composeBarView.height];
-//    [self.candyCell.collectionView setMaximumContentOffsetAnimated:YES];
-//}
-//
-//- (void)keyboardWillHide:(WLKeyboard *)broadcaster {
-//    [super keyboardWillHide:broadcaster];
-//    [self.candyCell updateBottomInset:self.composeBarView.height];
-//}
-
+- (void)networkDidChangeReachability:(WLNetwork *)network {
+    [self.collectionView reloadData];
+}
 
 #pragma mark - WLDeviceOrientationBroadcastReceiver
 
@@ -359,7 +358,7 @@ CGAffineTransform WLCommentViewTransform;
 #pragma mark - WLScrollViewDelegate method
 
 - (void)scrollViewWillBeginZooming:(WLScrollView *)scrollView {
-    [self hideDetailView:YES];
+    [self hideDetailViews:YES];
 }
 
 @end

@@ -900,11 +900,11 @@
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <gestureRecognizers/>
                                                                     </imageView>
-                                                                    <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="76t-8g-J7R" customClass="WLGradientView">
-                                                                        <rect key="frame" x="0.0" y="71" width="106" height="35"/>
+                                                                    <view contentMode="bottom" placeholderIntrinsicWidth="106" placeholderIntrinsicHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="76t-8g-J7R" customClass="WLGradientView">
+                                                                        <rect key="frame" x="0.0" y="61" width="106" height="45"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="106" translatesAutoresizingMaskIntoConstraints="NO" id="jAi-R7-bNq" customClass="WLLabel">
-                                                                                <rect key="frame" x="4" y="0.0" width="98" height="35"/>
+                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="98" placeholderIntrinsicHeight="35" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="106" translatesAutoresizingMaskIntoConstraints="NO" id="jAi-R7-bNq" customClass="WLLabel">
+                                                                                <rect key="frame" x="4" y="5" width="98" height="35"/>
                                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -917,9 +917,9 @@
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="trailing" secondItem="jAi-R7-bNq" secondAttribute="trailing" constant="4" id="TcQ-20-GTC"/>
-                                                                            <constraint firstItem="jAi-R7-bNq" firstAttribute="top" secondItem="76t-8g-J7R" secondAttribute="top" id="X4b-jF-Eg4"/>
+                                                                            <constraint firstAttribute="height" secondItem="jAi-R7-bNq" secondAttribute="height" constant="10" id="uRh-b8-MkG"/>
                                                                             <constraint firstItem="jAi-R7-bNq" firstAttribute="leading" secondItem="76t-8g-J7R" secondAttribute="leading" constant="4" id="x9o-Y6-qPQ"/>
-                                                                            <constraint firstAttribute="bottom" secondItem="jAi-R7-bNq" secondAttribute="bottom" id="xBK-DA-8iX"/>
+                                                                            <constraint firstAttribute="centerY" secondItem="jAi-R7-bNq" secondAttribute="centerY" id="zFA-7e-f8I"/>
                                                                         </constraints>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="color" keyPath="startColor">
@@ -936,7 +936,6 @@
                                                                 <constraint firstAttribute="trailing" secondItem="RBx-xX-iE6" secondAttribute="trailing" id="6YF-1P-fNS"/>
                                                                 <constraint firstItem="nDR-la-Dfn" firstAttribute="top" secondItem="diy-TW-VIF" secondAttribute="top" id="CTx-HJ-ktl"/>
                                                                 <constraint firstItem="RBx-xX-iE6" firstAttribute="top" secondItem="diy-TW-VIF" secondAttribute="top" id="GkK-br-NmC"/>
-                                                                <constraint firstItem="76t-8g-J7R" firstAttribute="height" secondItem="RBx-xX-iE6" secondAttribute="height" multiplier="0.3333" id="H6y-8G-y7X"/>
                                                                 <constraint firstAttribute="trailing" secondItem="76t-8g-J7R" secondAttribute="trailing" id="LyE-mQ-OBL"/>
                                                                 <constraint firstAttribute="trailing" secondItem="nDR-la-Dfn" secondAttribute="trailing" id="OAt-3A-LZv"/>
                                                                 <constraint firstAttribute="bottom" secondItem="nDR-la-Dfn" secondAttribute="bottom" id="Sst-qt-RDx"/>
@@ -952,7 +951,6 @@
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <outlet property="commentLabel" destination="jAi-R7-bNq" id="YFa-sv-GXs"/>
-                                                                <outlet property="commentLabelHeightConstraint" destination="H6y-8G-y7X" id="Tt3-yv-lr5"/>
                                                                 <outlet property="coverView" destination="RBx-xX-iE6" id="Abt-oO-bGU"/>
                                                             </connections>
                                                         </collectionViewCell>
@@ -2455,10 +2453,10 @@
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     </imageView>
                                                                     <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="cqB-Ml-49g" customClass="WLGradientView">
-                                                                        <rect key="frame" x="0.0" y="71" width="106" height="35"/>
+                                                                        <rect key="frame" x="0.0" y="61" width="106" height="45"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="106" translatesAutoresizingMaskIntoConstraints="NO" id="eIp-Tc-hkV" customClass="WLLabel">
-                                                                                <rect key="frame" x="4" y="0.0" width="98" height="35"/>
+                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="98" placeholderIntrinsicHeight="35" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="106" translatesAutoresizingMaskIntoConstraints="NO" id="eIp-Tc-hkV" customClass="WLLabel">
+                                                                                <rect key="frame" x="4" y="5" width="98" height="35"/>
                                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2470,9 +2468,9 @@
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <constraints>
-                                                                            <constraint firstItem="eIp-Tc-hkV" firstAttribute="top" secondItem="cqB-Ml-49g" secondAttribute="top" id="Lrl-p9-oVc"/>
                                                                             <constraint firstItem="eIp-Tc-hkV" firstAttribute="leading" secondItem="cqB-Ml-49g" secondAttribute="leading" constant="4" id="Urn-L1-j5X"/>
-                                                                            <constraint firstAttribute="bottom" secondItem="eIp-Tc-hkV" secondAttribute="bottom" id="lLg-dW-tg4"/>
+                                                                            <constraint firstAttribute="centerY" secondItem="eIp-Tc-hkV" secondAttribute="centerY" id="VFi-kb-VIu"/>
+                                                                            <constraint firstAttribute="height" secondItem="eIp-Tc-hkV" secondAttribute="height" constant="10" id="d7F-fP-3ob"/>
                                                                             <constraint firstAttribute="trailing" secondItem="eIp-Tc-hkV" secondAttribute="trailing" constant="4" id="xLU-df-buz"/>
                                                                         </constraints>
                                                                         <userDefinedRuntimeAttributes>
@@ -2490,7 +2488,6 @@
                                                                 <constraint firstItem="fT9-Qs-qqx" firstAttribute="leading" secondItem="ETD-JU-9CA" secondAttribute="leading" id="D9X-Lo-hjl"/>
                                                                 <constraint firstItem="fT9-Qs-qqx" firstAttribute="top" secondItem="ETD-JU-9CA" secondAttribute="top" id="DRA-wa-GRq"/>
                                                                 <constraint firstAttribute="trailing" secondItem="fT9-Qs-qqx" secondAttribute="trailing" id="JDH-JX-kE1"/>
-                                                                <constraint firstItem="cqB-Ml-49g" firstAttribute="height" secondItem="fT9-Qs-qqx" secondAttribute="height" multiplier="0.3333" id="Mfj-z0-r3h"/>
                                                                 <constraint firstAttribute="bottom" secondItem="pSp-PN-fbN" secondAttribute="bottom" id="O9g-C5-oHb"/>
                                                                 <constraint firstAttribute="trailing" secondItem="cqB-Ml-49g" secondAttribute="trailing" id="VfM-xW-8Uu"/>
                                                                 <constraint firstAttribute="trailing" secondItem="pSp-PN-fbN" secondAttribute="trailing" id="Wxg-2A-Qcz"/>
@@ -2502,7 +2499,6 @@
                                                             <size key="customSize" width="106" height="106"/>
                                                             <connections>
                                                                 <outlet property="commentLabel" destination="eIp-Tc-hkV" id="cnz-5b-IK9"/>
-                                                                <outlet property="commentLabelHeightConstraint" destination="Mfj-z0-r3h" id="AG6-9u-eMy"/>
                                                                 <outlet property="coverView" destination="fT9-Qs-qqx" id="1eK-Lv-z6z"/>
                                                             </connections>
                                                         </collectionViewCell>

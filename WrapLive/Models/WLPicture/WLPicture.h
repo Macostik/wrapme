@@ -22,6 +22,8 @@
 
 - (BOOL)edit:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
 
+- (void)fetch:(WLBlock)completion;
+
 @end
 
 @interface WLPicture (JSONValue)

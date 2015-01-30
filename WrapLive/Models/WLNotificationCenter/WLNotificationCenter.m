@@ -272,9 +272,7 @@ static WLDataBlock deviceTokenCompletion = nil;
                 [notification fetch:^{
                     if (notification.type == WLNotificationCandyAdd) {
                         WLCandy* candy = (id)notification.targetEntry;
-                        [[WLImageFetcher fetcher] enqueueImageWithUrl:candy.picture.medium completion:^(UIImage *image){
-                            if (success) success();
-                        }];
+                        [candy.picture fetch:success];
                     } else {
                         if (success) success();
                     }

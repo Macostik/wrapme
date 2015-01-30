@@ -11,6 +11,7 @@
 #import "UIImage+Resize.h"
 #import "NSString+Additions.h"
 #import "NSDictionary+Extended.h"
+#import "WLImageFetcher.h"
 
 @implementation WLPicture
 
@@ -56,6 +57,27 @@
         self.small = small;
     }
     return changed;
+}
+
+- (void)fetch:(WLBlock)completion {
+    NSMutableSet *urls = [NSMutableSet set];
+    
+    if (self.small) [urls addObject:self.small];
+    if (self.medium) [urls addObject:self.medium];
+    if (self.large) [urls addObject:self.large];
+    
+    if (urls.count > 0) {
+        for (NSString *url in urls) {
+            [[WLImageFetcher fetcher] enqueueImageWithUrl:url completion:^(UIImage *image){
+                [urls removeObject:url];
+                if (urls.count == 0) {
+                    if (completion) completion();
+                }
+            }];
+        }
+    } else {
+        if (completion) completion();
+    }
 }
 
 - (NSString *)description {

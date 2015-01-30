@@ -27,6 +27,7 @@
 #import "WLCameraViewController.h"
 #import "UIImage+Drawing.h"
 #import "WLEntryNotifier.h"
+#import "WLHintView.h"
 
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver>
 
@@ -72,6 +73,26 @@
     }
     
     [[WLWrap notifier] addReceiver:self];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    __weak typeof(self)weakSelf = self;
+    run_after(0.0f, ^{
+        if (!weakSelf.presentedViewController) {
+            [weakSelf showHintView];
+        }
+    });
+}
+
+- (void)showHintView {
+    CGPoint wrapNameCenter = [self.view convertPoint:self.wrapNameLabel.center fromView:self.wrapView];
+    [WLHintView showWrapPickerHintViewInView:[UIWindow mainWindow] withFocusPoint:CGPointMake(74, wrapNameCenter.y)];
+}
+
+- (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
+    [super dismissViewControllerAnimated:flag completion:completion];
+    [self showHintView];
 }
 
 - (void)setWrap:(WLWrap *)wrap {

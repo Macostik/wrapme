@@ -14,7 +14,6 @@
 #import "UIViewController+Additions.h"
 #import "SegmentedControl.h"
 #import "NSDate+Formatting.h"
-#import "WLHintView.h"
 
 @interface WLAssetsGroupViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLAssetsGroupCellDelegate>
 
@@ -51,11 +50,6 @@
         controller.preselectFirstAsset = YES;
         [self.navigationController pushViewController:controller animated:NO];
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [WLHintView showWrapPickerHintViewInView:self.navigationController.parentViewController.view];
 }
 
 - (void)loadGroups {

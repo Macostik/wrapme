@@ -317,7 +317,7 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 }
 
 - (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
-    [pickerViewController dismissViewControllerAnimated:YES completion:nil];
+    [pickerViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Custom animation

@@ -98,13 +98,17 @@
     return [self showHintViewFromNibNamed:@"WLCandySwipeHintView"];
 }
 
-+ (BOOL)showWrapPickerHintViewInView:(UIView *)view {
++ (BOOL)showWrapPickerHintViewInView:(UIView *)view withFocusPoint:(CGPoint)focusPoint {
     return [self showHintViewFromNibNamed:@"WLWrapPickerHintView" inView:view drawing:^(CGContextRef ctx, CGRect rect) {
-        UIBezierPath *transparentPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(-24, rect.size.height - 120, 196, 196)];
+        CGFloat size = 196;
+        CGRect ovalRect = CGRectMake(focusPoint.x - size/2.0f, focusPoint.y - size/2.0f, size, size);
+        UIBezierPath *transparentPath = [UIBezierPath bezierPathWithOvalInRect:ovalRect];
         [[UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:1.000] setStroke];
         transparentPath.lineWidth = 8;
         [transparentPath stroke];
         [transparentPath fillWithBlendMode:kCGBlendModeClear alpha:1.0f];
+        UIImage *image = [UIImage imageNamed:@"gallery_pic_hand"];
+        [image drawInRect:CGRectMake(CGRectGetMaxX(ovalRect), ovalRect.origin.y - image.size.height, image.size.width, image.size.height)];
     }];
 }
 

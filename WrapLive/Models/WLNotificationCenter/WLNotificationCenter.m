@@ -162,11 +162,11 @@ static WLDataBlock deviceTokenCompletion = nil;
     __weak typeof(self)weakSelf = self;
     [[NSOperationQueue queueWithIdentifier:@"pn_history" count:1] addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
         if (historyDate) {
-            NSDate *from = historyDate;
-            NSDate *to = [NSDate now];
-            NSString *logMessage = [NSString stringWithFormat:@"requesting history starting from: %@ to: %@", from, to];
+            NSDate *fromDate = historyDate;
+            NSDate *toDate = [NSDate now];
+            NSString *logMessage = [NSString stringWithFormat:@"requesting history starting from: %@ to: %@", fromDate, toDate];
             WLLog(@"PUBNUB", logMessage, nil);
-            [PubNub requestHistoryForChannel:weakSelf.userChannel.channel from:[PNDate dateWithDate:from] to:[PNDate dateWithDate:to] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, id channel, id from, id to, id error) {
+            [PubNub requestHistoryForChannel:weakSelf.userChannel.channel from:[PNDate dateWithDate:fromDate] to:[PNDate dateWithDate:toDate] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, id channel, id from, id to, id error) {
                 if (!error) {
                     NSArray *notifications = [weakSelf notificationsFromMessages:messages];
                     if (notifications.nonempty) {
@@ -180,7 +180,7 @@ static WLDataBlock deviceTokenCompletion = nil;
                         [weakSelf performSelector:@selector(requestHistory:) withObject:historyDate afterDelay:0.0f];
                         weakSelf.historyDate = historyDate;
                     } else {
-                        weakSelf.historyDate = to;
+                        weakSelf.historyDate = toDate;
                     }
                 }
                 [operation finish];

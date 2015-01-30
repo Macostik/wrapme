@@ -16,4 +16,10 @@
 
 @property (assign, nonatomic) IBInspectable CGFloat iconSize;
 
++ (instancetype)initWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color iconSize:(CGFloat)size;
+
+- (instancetype)initWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color iconSize:(CGFloat)size;
+
+- (void)setupWithName:(NSString *)name color:(UIColor *)color size:(CGFloat)size;
+
 @end

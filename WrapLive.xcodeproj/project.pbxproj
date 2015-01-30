@@ -146,6 +146,10 @@
 		5BA432AB1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */; };
 		5BA432AC1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */; };
 		5BA432AD1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */; };
+		5BA44F201A7A4A9800E8ACA5 /* WLCommentsViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA44F1F1A7A4A9800E8ACA5 /* WLCommentsViewSection.m */; };
+		5BA44F211A7A4A9800E8ACA5 /* WLCommentsViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA44F1F1A7A4A9800E8ACA5 /* WLCommentsViewSection.m */; };
+		5BA44F221A7A4A9800E8ACA5 /* WLCommentsViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA44F1F1A7A4A9800E8ACA5 /* WLCommentsViewSection.m */; };
+		5BA44F231A7A4A9800E8ACA5 /* WLCommentsViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA44F1F1A7A4A9800E8ACA5 /* WLCommentsViewSection.m */; };
 		5BA4CC121A08FAE700D7F31C /* WLPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */; };
 		5BA4CC131A08FAE700D7F31C /* WLPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */; };
 		5BA4CC141A08FAE700D7F31C /* WLPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */; };
@@ -1729,6 +1733,8 @@
 		5B787DB11A27891C004AE459 /* WLTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WLTodayExtension.entitlements; sourceTree = "<group>"; };
 		5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLConfirmView.h; path = WLConfirmView/WLConfirmView.h; sourceTree = "<group>"; };
 		5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLConfirmView.m; path = WLConfirmView/WLConfirmView.m; sourceTree = "<group>"; };
+		5BA44F1E1A7A4A9800E8ACA5 /* WLCommentsViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCommentsViewSection.h; path = WLCollectionViewDataProvider/WLCommentsViewSection.h; sourceTree = "<group>"; };
+		5BA44F1F1A7A4A9800E8ACA5 /* WLCommentsViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCommentsViewSection.m; path = WLCollectionViewDataProvider/WLCommentsViewSection.m; sourceTree = "<group>"; };
 		5BA4CC101A08FAE700D7F31C /* WLPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPickerViewController.h; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.h; sourceTree = "<group>"; };
 		5BA4CC111A08FAE700D7F31C /* WLPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPickerViewController.m; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.m; sourceTree = "<group>"; };
 		5BA4CC171A08FB4300D7F31C /* WLPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPickerViewController.xib; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.xib; sourceTree = "<group>"; };
@@ -3634,6 +3640,8 @@
 				5BBBEB4019D983B4008CFE54 /* WLNotificationCollectionViewSection.m */,
 				5BA4F8861A1CD61900DB1A25 /* WLContributorsViewSection.h */,
 				5BA4F8871A1CD61900DB1A25 /* WLContributorsViewSection.m */,
+				5BA44F1E1A7A4A9800E8ACA5 /* WLCommentsViewSection.h */,
+				5BA44F1F1A7A4A9800E8ACA5 /* WLCommentsViewSection.m */,
 			);
 			name = WLCollectionViewDataProvider;
 			sourceTree = "<group>";
@@ -5281,6 +5289,7 @@
 				C577C25C1A4C122700ECC7E5 /* WLHistoryItem.m in Sources */,
 				12A6BFAC18F2AE7700AE3B62 /* WLRefresher.m in Sources */,
 				C516875019BDCA4B005BA034 /* WLUploadMessageRequest.m in Sources */,
+				5BA44F201A7A4A9800E8ACA5 /* WLCommentsViewSection.m in Sources */,
 				C53F2CCC1A6EB5FB00D99741 /* lecore.m in Sources */,
 				12A8AA7418F59CE000F67113 /* WLMessageGroupCell.m in Sources */,
 				C55C8D6E19C98A9400199245 /* WLNotificationCenter.m in Sources */,
@@ -5573,6 +5582,7 @@
 				C577C25D1A4C122700ECC7E5 /* WLHistoryItem.m in Sources */,
 				C54AF45C19B8C437006F7EDB /* WLRefresher.m in Sources */,
 				C516875119BDCA4B005BA034 /* WLUploadMessageRequest.m in Sources */,
+				5BA44F211A7A4A9800E8ACA5 /* WLCommentsViewSection.m in Sources */,
 				C53F2CCD1A6EB5FB00D99741 /* lecore.m in Sources */,
 				C54AF45D19B8C437006F7EDB /* WLMessageGroupCell.m in Sources */,
 				C55C8D6F19C98A9400199245 /* WLNotificationCenter.m in Sources */,
@@ -5833,6 +5843,7 @@
 				C577C25E1A4C122700ECC7E5 /* WLHistoryItem.m in Sources */,
 				C54AF55919B8C467006F7EDB /* WLRefresher.m in Sources */,
 				C516875219BDCA4B005BA034 /* WLUploadMessageRequest.m in Sources */,
+				5BA44F221A7A4A9800E8ACA5 /* WLCommentsViewSection.m in Sources */,
 				C53F2CCE1A6EB5FB00D99741 /* lecore.m in Sources */,
 				C54AF55A19B8C467006F7EDB /* WLMessageGroupCell.m in Sources */,
 				C55C8D7019C98A9400199245 /* WLNotificationCenter.m in Sources */,
@@ -6093,6 +6104,7 @@
 				C577C25F1A4C122700ECC7E5 /* WLHistoryItem.m in Sources */,
 				C54AF65619B8C491006F7EDB /* WLRefresher.m in Sources */,
 				C516875319BDCA4B005BA034 /* WLUploadMessageRequest.m in Sources */,
+				5BA44F231A7A4A9800E8ACA5 /* WLCommentsViewSection.m in Sources */,
 				C53F2CCF1A6EB5FB00D99741 /* lecore.m in Sources */,
 				C54AF65719B8C491006F7EDB /* WLMessageGroupCell.m in Sources */,
 				C55C8D7119C98A9400199245 /* WLNotificationCenter.m in Sources */,

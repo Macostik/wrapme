@@ -19,11 +19,7 @@
 }
 
 - (IBAction)downloadCandy:(id)sender {
-    [self.entry download:^{
-    } failure:^(NSError *error) {
-        [error show];
-    }];
-    [WLToast showPhotoDownloadingMessage];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLBlurredView.h"
 
-@interface WLTriangleView : WLBlurredView
+@interface WLTriangleView : UIView
 
 @end

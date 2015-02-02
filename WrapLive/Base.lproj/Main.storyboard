@@ -2620,7 +2620,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSv-FG-iwF">
-                                        <rect key="frame" x="0.0" y="0.0" width="266" height="45"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2646,37 +2646,20 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bsh-Ho-Ike">
-                                        <rect key="frame" x="266" y="0.0" width="54" height="45"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="54" id="9Pc-sY-bVS"/>
-                                        </constraints>
-                                        <state key="normal" image="add_contributor_enabled_gray_light">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" image="add_contributor_pressed_gray_light"/>
-                                        <connections>
-                                            <action selector="push:" destination="LJu-Nb-i29" eventType="touchUpInside" id="hsP-1F-VNe"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="6dW-gY-pJQ" secondAttribute="trailing" constant="54" id="0RA-vu-KZf"/>
-                                    <constraint firstAttribute="trailing" secondItem="bsh-Ho-Ike" secondAttribute="trailing" id="2We-QK-onD"/>
                                     <constraint firstAttribute="bottom" secondItem="6dW-gY-pJQ" secondAttribute="bottom" constant="12" id="6le-td-1tt"/>
                                     <constraint firstAttribute="bottom" secondItem="zSv-FG-iwF" secondAttribute="bottom" id="FlX-em-5Ie"/>
                                     <constraint firstAttribute="trailing" secondItem="4dW-aC-27b" secondAttribute="trailing" id="HgI-Hz-HlX"/>
                                     <constraint firstItem="zSv-FG-iwF" firstAttribute="leading" secondItem="aqT-yE-MER" secondAttribute="leading" id="NtL-FG-bO6"/>
-                                    <constraint firstAttribute="trailing" secondItem="zSv-FG-iwF" secondAttribute="trailing" constant="54" id="SO0-iB-hm7"/>
+                                    <constraint firstAttribute="trailing" secondItem="zSv-FG-iwF" secondAttribute="trailing" id="SO0-iB-hm7"/>
                                     <constraint firstAttribute="height" constant="45" id="W9F-ez-KqY"/>
                                     <constraint firstItem="4dW-aC-27b" firstAttribute="leading" secondItem="aqT-yE-MER" secondAttribute="leading" id="X1I-CX-AFj"/>
                                     <constraint firstAttribute="bottom" secondItem="4dW-aC-27b" secondAttribute="bottom" id="bK9-b1-Gxk"/>
                                     <constraint firstItem="zSv-FG-iwF" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" id="g48-ZH-sWx"/>
                                     <constraint firstItem="6dW-gY-pJQ" firstAttribute="leading" secondItem="aqT-yE-MER" secondAttribute="leading" constant="12" id="glD-AK-FNr"/>
-                                    <constraint firstItem="bsh-Ho-Ike" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" id="kFQ-qI-346"/>
-                                    <constraint firstAttribute="bottom" secondItem="bsh-Ho-Ike" secondAttribute="bottom" id="tZB-cm-BFd"/>
                                     <constraint firstItem="6dW-gY-pJQ" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" constant="12" id="xRR-Bp-zZS"/>
                                 </constraints>
                             </view>
@@ -2881,16 +2864,6 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="hUj-RK-zkg" id="9HW-wE-Oah"/>
-                    </connections>
-                </customObject>
-                <customObject id="LJu-Nb-i29" userLabel="Add Contributors Transition" customClass="WLStoryboardTransition">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLAddContributorsViewController"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="wrap"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="sourceViewController" destination="hUj-RK-zkg" id="kbI-Ai-MDh"/>
                     </connections>
                 </customObject>
                 <customObject id="ZQ7-eu-zrn" userLabel="Chat Transition" customClass="WLStoryboardTransition">
@@ -3829,15 +3802,32 @@ Check your internet connection and try again.</string>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UXi-oN-Lml">
+                                        <rect key="frame" x="266" y="20" width="54" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="54" id="BMI-a3-Lca"/>
+                                        </constraints>
+                                        <state key="normal" image="add_contributor_enabled_white">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" image="add_contributor_pressed_gray_light"/>
+                                        <connections>
+                                            <action selector="push:" destination="J7o-pO-jkz" eventType="touchUpInside" id="NTe-DP-klU"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="s5o-k3-mbE" secondAttribute="trailing" constant="75" id="3cL-8H-r8r"/>
                                     <constraint firstItem="s5o-k3-mbE" firstAttribute="top" secondItem="2R6-MR-eF4" secondAttribute="top" constant="20" id="41m-33-4RF"/>
+                                    <constraint firstAttribute="trailing" secondItem="UXi-oN-Lml" secondAttribute="trailing" id="QtX-cF-Wjj"/>
                                     <constraint firstItem="ShV-37-6kI" firstAttribute="leading" secondItem="2R6-MR-eF4" secondAttribute="leading" id="kkw-ga-QmZ"/>
                                     <constraint firstItem="ShV-37-6kI" firstAttribute="top" secondItem="2R6-MR-eF4" secondAttribute="top" constant="20" id="pEg-sm-MHu"/>
+                                    <constraint firstAttribute="bottom" secondItem="UXi-oN-Lml" secondAttribute="bottom" id="pYi-gC-fyo"/>
                                     <constraint firstAttribute="height" constant="64" id="uOJ-Jm-czg"/>
                                     <constraint firstItem="s5o-k3-mbE" firstAttribute="leading" secondItem="2R6-MR-eF4" secondAttribute="leading" constant="75" id="utf-r8-Xfu"/>
+                                    <constraint firstItem="UXi-oN-Lml" firstAttribute="top" secondItem="2R6-MR-eF4" secondAttribute="top" constant="20" id="zAk-MG-HvZ"/>
                                 </constraints>
                             </view>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DO8-0B-bff">
@@ -4029,6 +4019,16 @@ Check your internet connection and try again.</string>
                         <outletCollection property="sections" destination="zjC-7P-9tZ" collectionClass="NSMutableArray" id="v2r-fd-s4n"/>
                     </connections>
                 </customObject>
+                <customObject id="J7o-pO-jkz" userLabel="Add Contributors Transition" customClass="WLStoryboardTransition">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLAddContributorsViewController"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="wrap"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="sourceViewController" destination="qRW-aK-Lk5" id="DD7-V9-sE0"/>
+                    </connections>
+                </customObject>
                 <customObject id="zjC-7P-9tZ" customClass="WLContributorsViewSection">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLContributorCell"/>
@@ -4044,7 +4044,7 @@ Check your internet connection and try again.</string>
     <resources>
         <image name="3dot_white" width="6" height="26"/>
         <image name="add_by_phone_white" width="30" height="30"/>
-        <image name="add_contributor_enabled_gray_light" width="30" height="30"/>
+        <image name="add_contributor_enabled_white" width="30" height="30"/>
         <image name="add_contributor_pressed_gray_light" width="30" height="30"/>
         <image name="btn_chat_enabled" width="30" height="30"/>
         <image name="btn_chat_white_enabled" width="30" height="30"/>

@@ -145,7 +145,6 @@ CGFloat WLMaxTextViewWidth;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self reloadData];
-    [self.composeBar becomeFirstResponder];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

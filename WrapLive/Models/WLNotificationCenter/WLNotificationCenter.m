@@ -68,8 +68,10 @@
 }
 
 - (void)setHistoryDate:(NSDate *)historyDate {
-    _historyDate = historyDate;
-    [WLSession setObject:historyDate key:@"historyDate"];
+    if (historyDate) {
+        _historyDate = historyDate;
+        [WLSession setObject:historyDate key:@"historyDate"];
+    }
 }
 
 static WLDataBlock deviceTokenCompletion = nil;
@@ -170,22 +172,20 @@ static WLDataBlock deviceTokenCompletion = nil;
                 if (!error) {
                     NSArray *notifications = [weakSelf notificationsFromMessages:messages];
                     if (notifications.nonempty) {
-                        NSDate *historyDate = nil;
                         for (WLNotification *notification in notifications) {
                             [weakSelf handleNotification:notification];
-                            if (notification == [notifications lastObject]) {
-                                historyDate = [notification.date dateByAddingTimeInterval:NSINTEGER_DEFINED];
-                            }
                         }
-                        [weakSelf performSelector:@selector(requestHistory:) withObject:historyDate afterDelay:0.0f];
-                        weakSelf.historyDate = historyDate;
                     } else {
-                        weakSelf.historyDate = toDate;
+                        WLLog(@"PUBNUB", @"no missed messages in history", nil);
                     }
+                    weakSelf.historyDate = toDate;
+                } else {
+                    WLLog(@"PUBNUB", @"requesting history error", error);
                 }
                 [operation finish];
             }];
         } else {
+            WLLog(@"PUBNUB", @"history date is empty", nil);
             weakSelf.historyDate = [NSDate now];
             [operation finish];
         }

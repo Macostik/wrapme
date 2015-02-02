@@ -30,7 +30,7 @@
 
 + (instancetype)notificationWithMessage:(PNMessage*)message {
     WLNotification *notification = [self notificationWithData:message.message];
-    notification.date = [message.receiveDate date];
+    notification.date = [(message.date ? : message.receiveDate) date];
 	return notification;
 }
 

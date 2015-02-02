@@ -2636,7 +2636,7 @@
                                         </constraints>
                                     </imageView>
                                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frineds name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="254" translatesAutoresizingMaskIntoConstraints="NO" id="6dW-gY-pJQ" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="12" width="254" height="21"/>
+                                        <rect key="frame" x="12" y="12" width="308" height="21"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration" label=""/>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
@@ -2649,7 +2649,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="6dW-gY-pJQ" secondAttribute="trailing" constant="54" id="0RA-vu-KZf"/>
+                                    <constraint firstAttribute="trailing" secondItem="6dW-gY-pJQ" secondAttribute="trailing" id="0RA-vu-KZf"/>
                                     <constraint firstAttribute="bottom" secondItem="6dW-gY-pJQ" secondAttribute="bottom" constant="12" id="6le-td-1tt"/>
                                     <constraint firstAttribute="bottom" secondItem="zSv-FG-iwF" secondAttribute="bottom" id="FlX-em-5Ie"/>
                                     <constraint firstAttribute="trailing" secondItem="4dW-aC-27b" secondAttribute="trailing" id="HgI-Hz-HlX"/>

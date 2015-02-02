@@ -1,12 +1,12 @@
 
-/* Class = "IBUILabel"; text = "Create wrap"; ObjectID = "PX9-gc-cg2"; */
-"PX9-gc-cg2.text" = "Создать врап";
+/* Class = "IBUILabel"; text = "Name your wrap"; ObjectID = "PX9-gc-cg2"; */
+"PX9-gc-cg2.text" = "Назовите свой врап";
 
 /* Class = "IBUIButton"; normalTitle = "OK"; ObjectID = "QHe-8N-efP"; */
 "QHe-8N-efP.normalTitle" = "OK";
 
-/* Class = "IBUITextField"; placeholder = "What is this wrap about?"; ObjectID = "RBE-2y-1QI"; */
-"RBE-2y-1QI.placeholder" = "Как назвать этот врап?";
+/* Class = "IBUITextField"; placeholder = "What's your wrap about?"; ObjectID = "RBE-2y-1QI"; */
+"RBE-2y-1QI.placeholder" = "О чем этот врап?";
 
 /* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "xwp-kV-UHf"; */
 "xwp-kV-UHf.normalTitle" = "Отмена";

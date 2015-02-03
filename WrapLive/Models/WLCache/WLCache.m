@@ -37,8 +37,6 @@
 
 @implementation WLCache
 
-@synthesize directory = _directory;
-
 + (instancetype)cache {
 	return nil;
 }
@@ -54,11 +52,9 @@
 - (instancetype)initWithIdentifier:(NSString *)identifier relativeCache:(WLCache *)relativeCache {
     self = [super init];
     if (self) {
-        _manager = [[NSFileManager alloc] init];
         self.relativeCache = relativeCache;
         self.identifier = identifier;
         [self configure];
-        [_manager changeCurrentDirectoryPath:_directory];
     }
     return self;
 }
@@ -72,15 +68,15 @@
         } else {
             _directory = NSDocumentsDirectoryPath(identifier);
         }
-        if (![_manager fileExistsAtPath:_directory]) {
-            [_manager createDirectoryAtPath:_directory withIntermediateDirectories:YES attributes:nil error:NULL];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:_directory]) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:_directory withIntermediateDirectories:YES attributes:nil error:NULL];
         }
         [self fetchIdentifiers];
     }
 }
 
 - (void)fetchIdentifiers {
-    _identifiers = [NSMutableSet setWithArray:[_manager contentsOfDirectoryAtPath:_directory error:NULL]];
+    _identifiers = [NSMutableSet setWithArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:_directory error:NULL]];
 }
 
 - (void)setSize:(NSUInteger)size {
@@ -91,17 +87,13 @@
 }
 
 - (id)read:(NSString *)identifier {
-    return [NSKeyedUnarchiver unarchiveObjectWithData:[_manager contentsAtPath:identifier]];
+    return [NSKeyedUnarchiver unarchiveObjectWithData:[[NSFileManager defaultManager] contentsAtPath:[self pathWithIdentifier:identifier]]];
 }
 
 - (void)write:(NSString *)identifier object:(id)object {
     NSData* data = [NSKeyedArchiver archivedDataWithRootObject:object];
     if (data) {
-        if (SystemVersionGreaterThanOrEqualTo8()) {
-            [data writeToFile:[[_manager currentDirectoryPath] stringByAppendingPathComponent:identifier] atomically:YES];
-        } else {
-            [_manager createFileAtPath:identifier contents:data attributes:nil];
-        }
+        [data writeToFile:[self pathWithIdentifier:identifier] atomically:NO];
     }
 }
 
@@ -159,7 +151,7 @@
         run_in_background_queue(^{
             
             unsigned long long size = 0;
-            id items = [_manager contentsOfDirectoryAtURL:[NSURL fileURLWithPath:_directory isDirectory:YES] includingPropertiesForKeys:@[NSURLTotalFileAllocatedSizeKey] options:NSDirectoryEnumerationSkipsSubdirectoryDescendants error:NULL];
+            id items = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL fileURLWithPath:_directory isDirectory:YES] includingPropertiesForKeys:@[NSURLTotalFileAllocatedSizeKey] options:NSDirectoryEnumerationSkipsSubdirectoryDescendants error:NULL];
             for (NSURL *item in items) {
                 NSNumber *s = nil;
                 [item getResourceValue:&s forKey:NSURLTotalFileAllocatedSizeKey error:NULL];
@@ -184,7 +176,7 @@
                 NSURL* item = [items firstObject];
                 NSNumber *s = nil;
                 [item getResourceValue:&s forKey:NSURLTotalFileAllocatedSizeKey error:NULL];
-                [_manager removeItemAtURL:item error:NULL];
+                [[NSFileManager defaultManager] removeItemAtURL:item error:NULL];
                 size -= [s unsignedLongLongValue];
                 [items removeObject:item];
             }
@@ -200,7 +192,7 @@
 - (void)clear {
     NSMutableSet* identifiers = self.identifiers;
     for (NSString* identifier in identifiers) {
-        [_manager removeItemAtPath:identifier error:NULL];
+        [[NSFileManager defaultManager] removeItemAtPath:[self pathWithIdentifier:identifier] error:NULL];
     }
     [identifiers removeAllObjects];
 }

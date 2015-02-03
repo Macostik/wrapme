@@ -12,10 +12,6 @@ typedef void (^WLCacheReadCompletionBlock)(id object);
 typedef void (^WLCacheWriteCompletionBlock)(NSString* identifier);
 
 @interface WLCache : NSObject
-{
-@protected
-    NSFileManager *_manager;
-}
 
 @property (strong, nonatomic, readonly) NSString* identifier;
 

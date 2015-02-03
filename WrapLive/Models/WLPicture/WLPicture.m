@@ -16,10 +16,17 @@
 @implementation WLPicture
 
 + (void)picture:(UIImage *)image completion:(WLObjectBlock)completion {
+    [self picture:image cache:[WLImageCache uploadingCache] completion:completion];
+}
+
++ (void)picture:(UIImage *)image cache:(WLImageCache *)cache completion:(WLObjectBlock)completion {
     if (!completion) {
         return;
     }
-    __weak WLImageCache *imageCache = [WLImageCache cache];
+    if (!cache) {
+        cache = [WLImageCache cache];
+    }
+    __weak WLImageCache *imageCache = cache;
     run_in_background_queue(^{
         __block NSData *metadataImage = UIImageJPEGRepresentation(image, .5f);
         [imageCache setImageData:metadataImage completion:^(NSString *path) {

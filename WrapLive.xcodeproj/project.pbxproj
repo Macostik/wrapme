@@ -1775,7 +1775,6 @@
 		5BD782861A4EC02B0094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLEditWrapViewController.xib; sourceTree = "<group>"; };
 		5BD782901A4EC0990094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLAssetsGroupViewController.xib; sourceTree = "<group>"; };
 		5BD782931A4EC09E0094BEE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLAssetsGroupViewController.strings; sourceTree = "<group>"; };
-		5BD782951A4EC0A10094BEE5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLAssetsGroupViewController.strings; sourceTree = "<group>"; };
 		5BD7829A1A4EC18E0094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLAssetsViewController.xib; sourceTree = "<group>"; };
 		5BD7829D1A4EC1950094BEE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLAssetsViewController.strings; sourceTree = "<group>"; };
 		5BD7829F1A4EC1970094BEE5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLAssetsViewController.strings; sourceTree = "<group>"; };
@@ -2042,6 +2041,7 @@
 		C54FC7691A163CC400623FC1 /* WLNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNetwork.m; sourceTree = "<group>"; };
 		C55037831A2C828A007F2C2C /* WLNavigationAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNavigationAnimator.h; sourceTree = "<group>"; };
 		C55037841A2C828A007F2C2C /* WLNavigationAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNavigationAnimator.m; sourceTree = "<group>"; };
+		C55662171A8111CB00945771 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLAssetsGroupViewController.strings; sourceTree = "<group>"; };
 		C5568B9D1A03C2E300C4E6C2 /* WLCandyHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCandyHeaderView.h; path = WLDetailedCandyCell/WLCandyHeaderView.h; sourceTree = "<group>"; };
 		C5568B9E1A03C2E300C4E6C2 /* WLCandyHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCandyHeaderView.m; path = WLDetailedCandyCell/WLCandyHeaderView.m; sourceTree = "<group>"; };
 		C5568BDB1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLProgressBar+WLContribution.h"; sourceTree = "<group>"; };
@@ -6383,7 +6383,7 @@
 			children = (
 				5BD782901A4EC0990094BEE5 /* Base */,
 				5BD782931A4EC09E0094BEE5 /* en */,
-				5BD782951A4EC0A10094BEE5 /* ru */,
+				C55662171A8111CB00945771 /* ru */,
 			);
 			name = WLAssetsGroupViewController.xib;
 			sourceTree = "<group>";

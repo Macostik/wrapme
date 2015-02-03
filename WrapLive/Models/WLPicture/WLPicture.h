@@ -8,6 +8,8 @@
 
 #import "WLArchivingObject.h"
 
+@class WLImageCache;
+
 @interface WLPicture : WLArchivingObject
 
 @property (strong, nonatomic) NSString* large;
@@ -17,6 +19,8 @@
 @property (nonatomic) BOOL animate;
 
 + (void)picture:(UIImage *)image completion:(WLObjectBlock)completion;
+
++ (void)picture:(UIImage *)image cache:(WLImageCache*)cache completion:(WLObjectBlock)completion;
 
 - (NSString*)anyUrl;
 

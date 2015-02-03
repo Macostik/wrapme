@@ -8,9 +8,11 @@
 
 #import "WLCache.h"
 
-UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size);
-
 @interface WLImageCache : WLCache
+
+@property (nonatomic) CGFloat compressionQuality;
+
++ (instancetype)uploadingCache;
 
 - (UIImage*)imageWithIdentifier:(NSString*)identifier;
 

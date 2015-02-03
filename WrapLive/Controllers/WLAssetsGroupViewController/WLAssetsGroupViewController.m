@@ -31,9 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"PHOTOS";
-    
+        
     [self.collectionView registerNib:[WLAssetsGroupCell nib] forCellWithReuseIdentifier:[WLAssetsGroupCell reuseIdentifier]];
     
 	[self loadGroups];

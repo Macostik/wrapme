@@ -114,6 +114,7 @@
     self.comments = [candy.comments selectObjects:^BOOL(WLComment* comment) {
         return comment.valid;
     }];
+    [self.comments sortByCreatedAt:NO];
 	return self.comments.count;
 }
 

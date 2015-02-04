@@ -42,22 +42,23 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
 	[super awakeFromNib];
     
     UIColor *color = [UIColor colorWithHexString:@"#EEEEEE"];
-	self.textView.layer.borderColor = color.CGColor;
-    self.textView.layer.borderWidth = WLConstants.pixelSize;
+	self.textView.superview.layer.borderColor = color.CGColor;
+    self.textView.superview.layer.borderWidth = WLConstants.pixelSize;
     self.textView.layoutManager.allowsNonContiguousLayout = NO;
+    self.textView.textContainerInset = self.textView.contentInset = UIEdgeInsetsZero;
 	[self updateStateAnimated:NO];
 }
 
 - (void)updateHeight {
     UITextView *textView = self.textView;
-    CGFloat lineHeight = ceilf(textView.font.lineHeight);
-    CGFloat spacing = textView.textContainerInset.top + textView.textContainerInset.bottom;
-    CGFloat height = [textView sizeThatFits:CGSizeMake(textView.width, CGFLOAT_MAX)].height;
+    CGFloat lineHeight = floorf(textView.font.lineHeight);
+    CGFloat spacing = textView.y * 2;
+    CGFloat height = [textView sizeThatFits:CGSizeMake(textView.width, CGFLOAT_MAX)].height + spacing;
     NSInteger maxLines = self.maxLines > 0 ? self.maxLines : 2;
-    height = Smoothstep(lineHeight + spacing, maxLines*lineHeight + spacing, height);
+    height = Smoothstep(36, maxLines*lineHeight + spacing, height);
     if (self.heightConstraint.constant != height) {
-        self.height = self.heightConstraint.constant = height;
-        [textView layoutIfNeeded];
+        self.heightConstraint.constant = height;
+        [self layoutIfNeeded];
         if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
             [self.delegate composeBarDidChangeHeight:self];
         }

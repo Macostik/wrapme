@@ -20,6 +20,7 @@
 #import "UIView+AnimationHelper.h"
 #import "GeometryHelper.h"
 #import "UIFont+CustomFonts.h"
+#import "UIScrollView+Additions.h"
 
 static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
 
@@ -27,7 +28,6 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (strong, nonatomic) UIView *composeView;
 @property (strong, nonatomic) WLEmojiView * emojiView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
@@ -40,26 +40,27 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	self.composeView = [UIView loadFromNibNamed:@"WLComposeBar" ownedBy:self];
-	self.composeView.frame = self.bounds;
-    [self addSubview:self.composeView];
+    
     UIColor *color = [UIColor colorWithHexString:@"#EEEEEE"];
-	self.textView.superview.layer.borderColor = color.CGColor;
-    self.textView.superview.layer.borderWidth = WLConstants.pixelSize;
-	self.textView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.textView.contentInset = UIEdgeInsetsZero;
+	self.textView.layer.borderColor = color.CGColor;
+    self.textView.layer.borderWidth = WLConstants.pixelSize;
+    self.textView.layoutManager.allowsNonContiguousLayout = NO;
 	[self updateStateAnimated:NO];
-    self.heightConstraint.constant = self.textView.font.lineHeight * self.maxLines;
 }
 
 - (void)updateHeight {
-    BOOL scrollEnabled = [self.textView sizeThatFits:
-                          CGSizeMake(self.textView.width, CGFLOAT_MAX)].height >= self.heightConstraint.constant;
-    if (self.textView.scrollEnabled != scrollEnabled) {
-        self.textView.scrollEnabled = scrollEnabled;
-    }
-    if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
-        [self.delegate composeBarDidChangeHeight:self];
+    UITextView *textView = self.textView;
+    CGFloat lineHeight = ceilf(textView.font.lineHeight);
+    CGFloat spacing = textView.textContainerInset.top + textView.textContainerInset.bottom;
+    CGFloat height = [textView sizeThatFits:CGSizeMake(textView.width, CGFLOAT_MAX)].height;
+    NSInteger maxLines = self.maxLines > 0 ? self.maxLines : 2;
+    height = Smoothstep(lineHeight + spacing, maxLines*lineHeight + spacing, height);
+    if (self.heightConstraint.constant != height) {
+        self.height = self.heightConstraint.constant = height;
+        [textView layoutIfNeeded];
+        if ([self.delegate respondsToSelector:@selector(composeBarDidChangeHeight:)]) {
+            [self.delegate composeBarDidChangeHeight:self];
+        }
     }
 }
 
@@ -109,8 +110,8 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
     self.doneButton.userInteractionEnabled = !hidden;
     self.doneButton.hidden = hidden;
     [UIView performAnimated:animated animation:^{
-        self.horizontalSpaceDoneButtonContstraint.constant = hidden ? -self.doneButton.width : 0;
-        [self.textView.superview layoutIfNeeded];
+        self.horizontalSpaceDoneButtonContstraint.constant = hidden ? 0 : -self.doneButton.width;
+        [self layoutIfNeeded];
     }];
 }
 
@@ -171,6 +172,19 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
 	}
 	NSString* resultString = [textView.text stringByReplacingCharactersInRange:range withString:text];
 	return resultString.length <= charactersLimit;
+}
+
+- (void)textViewDidChangeSelection:(UITextView *)textView {
+    [textView scrollRangeToVisible:textView.selectedRange];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGPoint offset = scrollView.contentOffset;
+    CGFloat maxOffsetY = scrollView.maximumContentOffset.y;
+    if (offset.y > maxOffsetY) {
+        offset.y = maxOffsetY;
+        scrollView.contentOffset = offset;
+    }
 }
 
 #pragma mark - UIResponder

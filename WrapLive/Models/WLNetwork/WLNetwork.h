@@ -23,6 +23,4 @@
 
 + (instancetype)network;
 
-- (void)showLostConnectionBannerIfNeeded;
-
 @end

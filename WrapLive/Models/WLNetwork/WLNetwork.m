@@ -24,10 +24,6 @@
     return instance;
 }
 
-- (void)configure {
-	[self performSelector:@selector(showLostConnectionBannerIfNeeded) withObject:nil afterDelay:0.5f];
-}
-
 - (BOOL)reachable {
 	return [AFNetworkReachabilityManager sharedManager].reachable;
 }
@@ -40,7 +36,6 @@
     run_after(0.2, ^{
         [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
             [weakSelf broadcast:@selector(networkDidChangeReachability:)];
-            [weakSelf showLostConnectionBannerIfNeeded];
             if (weakSelf.reachable) {
                 if ([WLAuthorizationRequest authorized]) {
                     [WLUploading enqueueAutomaticUploading:^{
@@ -51,13 +46,6 @@
             }
         }];
     });
-}
-
-- (void)showLostConnectionBannerIfNeeded {
-    AFNetworkReachabilityStatus status = [AFNetworkReachabilityManager sharedManager].networkReachabilityStatus;
-	if (status == AFNetworkReachabilityStatusNotReachable) {
-		[WLToast showWithMessage:WLLS(@"Internet connection unavailable")];
-	}
 }
 
 @end

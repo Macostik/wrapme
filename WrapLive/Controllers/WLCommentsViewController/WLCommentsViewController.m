@@ -15,8 +15,10 @@
 #import "WLCollectionViewDataProvider.h"
 #import "WLCollectionViewFlowLayout.h"
 #import "WLSoundPlayer.h"
+#import "UIView+AnimationHelper.h"
+#import "WLNavigation.h"
 
-@interface WLCommentsViewController () <WLEntryNotifyReceiver>
+@interface WLCommentsViewController () <WLEntryNotifyReceiver, UIViewControllerTransitioningDelegate>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCommentsViewSection *dataSection;
@@ -24,18 +26,14 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 @property (strong, nonatomic) WLRefresher *refresher;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topCommentViewContstrain;
 
 @end
 
 @implementation WLCommentsViewController
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        self.modalPresentationStyle = UIModalPresentationCustom;
-    }
-    return self;
++ (BOOL)isEmbeddedDefaultValue {
+    return YES;
 }
 
 - (void)viewDidLoad {
@@ -75,9 +73,83 @@
     }];
 }
 
+#pragma mark - Base method override
+
+- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    __weak typeof(self)weakSelf = self;
+    if (self.isBeingPresented) {
+        fromViewController.view.userInteractionEnabled = NO;
+        toViewController.view.frame = fromViewController.view.frame;
+        [transitionContext.containerView addSubview:toViewController.view];
+        self.contentView.transform = CGAffineTransformMakeScale(0.5, 0.5);
+        self.view.backgroundColor = [UIColor clearColor];
+        [UIView animateWithDuration:0.5f
+                              delay:0
+             usingSpringWithDamping:0.5
+              initialSpringVelocity:0.5
+                            options:UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             weakSelf.contentView.transform = CGAffineTransformIdentity;
+                             weakSelf.view.backgroundColor = [UIColor colorWithWhite:.0 alpha:0.5];
+                         } completion:^(BOOL finished) {
+                             [transitionContext completeTransition:YES];
+                             fromViewController.view.userInteractionEnabled = YES;
+                         }];
+    } else {
+        [UIView animateWithDuration:0.5f
+                              delay:0
+             usingSpringWithDamping:1.0
+              initialSpringVelocity:0.5
+                            options:UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             weakSelf.contentView.alpha = .0f;
+                             weakSelf.view.backgroundColor = [UIColor clearColor];
+                         } completion:^(BOOL finished) {
+                             weakSelf.contentView.transform = CGAffineTransformIdentity;
+                             [transitionContext completeTransition:YES];
+                         }];
+    }
+}
+
+- (void)addEmbeddingConstraintsToContentView:(UIView *)contentView inView:(UIView *)view {
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:contentView
+                                                     attribute:NSLayoutAttributeTop
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:view
+                                                     attribute:NSLayoutAttributeTop
+                                                    multiplier:1
+                                                      constant:0]];
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:contentView
+                                                     attribute:NSLayoutAttributeLeading
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:view
+                                                     attribute:NSLayoutAttributeLeading
+                                                    multiplier:1
+                                                      constant:0]];
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:contentView
+                                                     attribute:NSLayoutAttributeTrailing
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:view
+                                                     attribute:NSLayoutAttributeTrailing
+                                                    multiplier:1
+                                                      constant:0]];
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:contentView
+                                                     attribute:NSLayoutAttributeBottom
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:view
+                                                     attribute:NSLayoutAttributeBottom
+                                                    multiplier:1
+                                                      constant:0]];
+}
 
 - (IBAction)onClose:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
+    [self.view endEditing:YES];
 }
 
 #pragma mark - WLEntryNotifyReceiver
@@ -110,13 +182,33 @@
     return NO;
 }
 
-#pragma mark - WLKeyboardBroadcastReceiver
-
-- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
-    return keyboardHeight - 45.0f;
+- (void)composeBarDidBeginEditing:(WLComposeBar*)composeBar {
+    [self hideTopView:YES];
 }
 
+- (void)composeBarDidEndEditing:(WLComposeBar*)composeBar {
+    [self hideTopView:NO];
+}
+
+- (void)hideTopView:(BOOL)hide {
+    [UIView performAnimated:YES animation:^{
+        self.topCommentViewContstrain.constant = hide ? 0 : WLContstraintOffset;
+        [self.view layoutIfNeeded];
+    }];
+}
+
+#pragma mark - WLKeyboardBroadcastReceiver
+
+static CGFloat WLContstraintOffset = 44.0;
+
+- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
+    return keyboardHeight - WLContstraintOffset;
+}
+
+#pragma mark - InterfaceOrientations
+
 - (NSUInteger)supportedInterfaceOrientations {
+    [self.collectionView.collectionViewLayout invalidateLayout];
     return UIInterfaceOrientationMaskAll;
 }
 

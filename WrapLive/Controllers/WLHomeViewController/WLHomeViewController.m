@@ -174,7 +174,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     if (wrap.valid) {
         WLEditWrapViewController *editWrapViewController = [[WLEditWrapViewController alloc] initWithNibName:@"WLWrapOptionsViewController"
                                                                                                       bundle:nil];
-        editWrapViewController.entry = wrap;
+        editWrapViewController.wrap = wrap;
         [self presentViewController:editWrapViewController animated:YES completion:nil];
     }
 }

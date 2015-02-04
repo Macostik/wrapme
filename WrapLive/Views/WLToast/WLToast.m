@@ -109,7 +109,7 @@ static CGFloat WLToastDefaultSpacing = 100.0f;
 
 - (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance inView:(UIView *)view {
     
-    self.width = view.width;
+    [self setFullFlexible];
     
 	self.height = [appearance respondsToSelector:@selector(toastAppearanceHeight:)] ? [appearance toastAppearanceHeight:self] : WLToastDefaultHeight;
 	

@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLBaseOptionsViewController.h"
+#import "WLEditViewController.h"
 
-@interface WLEditWrapViewController : WLBaseOptionsViewController
+@interface WLEditWrapViewController : WLEditViewController
 
-@property (strong, nonatomic) WLWrap *entry;
+@property (strong, nonatomic) WLWrap *wrap;
 
 @end

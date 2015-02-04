@@ -29,7 +29,6 @@
 #import "WLNetwork.h"
 #import "WLKeyboard.h"
 #import "WLNavigation.h"
-#import "WLCandyOptionsViewController.h"
 #import "WLSession.h"
 #import "WLSoundPlayer.h"
 #import "WLToast.h"
@@ -66,11 +65,11 @@
 @property (weak, nonatomic) UISwipeGestureRecognizer* leftSwipeGestureRecognizer;
 @property (weak, nonatomic) UISwipeGestureRecognizer* rightSwipeGestureRecognizer;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewConstrain;
 
 @property (strong, nonatomic) WLHistoryItem *historyItem;
 
 @property (strong, nonatomic) WLHistory *history;
+@property (assign, nonatomic) CGPoint scrollPositionBeforeRotation;
 
 @end
 
@@ -91,7 +90,6 @@
 	[[WLCandy notifier] addReceiver:self];
     [[WLComment notifier] addReceiver:self];
     [[WLNetwork network] addReceiver:self];
-    [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
     
     UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -108,9 +106,6 @@
     [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:rightSwipe];
     
     self.commentButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    [self.actionButton setupWithName:self.candy.deletable ? @"trash" : @"warning"
-                               color:[UIColor whiteColor]
-                                size:self.actionButton.width/2];
     
     [self refresh:_candy];
 }
@@ -127,14 +122,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.avatarImageView.url = self.candy.contributor.picture.small;
-    self.postLabel.text = [NSString stringWithFormat:@"Posted by %@,\n%@", self.candy.contributor.name,
-                                                                         self.candy.createdAt.timeAgoStringAtAMPM];
-    WLComment *comment = self.candy.comments.lastObject;
-    if (comment.valid) {
-        self.lastCommentLabel.text = comment.text;
-    }
-    
+    [self updateOwnerData:self.candy];
     [self.collectionView reloadData];
 }
 
@@ -193,7 +181,8 @@
 - (void)didSwipeLeft {
     if (self.historyItem.completed) {
         if ([self swipeToHistoryItemAtIndex:[self.history.entries indexOfObject:self.historyItem] + 1]) {
-            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
+                                        atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
             [self.collectionView leftPush];
         }
     } else {
@@ -203,9 +192,21 @@
 
 - (void)didSwipeRight {
     if ([self swipeToHistoryItemAtIndex:[self.history.entries indexOfObject:self.historyItem] - 1]) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:[self.historyItem.entries count] - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:[self.historyItem.entries count] - 1 inSection:0]
+                                    atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
         [self.collectionView rightPush];
     }
+}
+
+- (void)updateOwnerData:(WLCandy *)candy {
+    self.avatarImageView.url = candy.contributor.picture.small;
+    [self.actionButton setupWithName:candy.deletable ? @"trash" : @"warning"
+                               color:[UIColor whiteColor]
+                                size:self.actionButton.width/2];
+    self.postLabel.text = [NSString stringWithFormat:@"Posted by %@,\n%@", candy.contributor.name,
+                                                                           [candy.createdAt.timeAgoStringAtAMPM capitalizedString]];
+    WLComment *comment = candy.comments.lastObject;
+    self.lastCommentLabel.text = comment.valid ? comment.text :@"";
 }
 
 - (BOOL)swipeToHistoryItemAtIndex:(NSUInteger)index {
@@ -219,7 +220,8 @@
 
 #pragma mark - UIGestureRecognizerDelegate
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
 }
 
@@ -246,10 +248,7 @@
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
-    WLComment *comment = self.candy.comments.lastObject;
-    if (comment.valid) {
-        self.lastCommentLabel.text = comment.text;
-    }
+    [self updateOwnerData:candy];
 }
 
 - (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
@@ -260,10 +259,13 @@
 
 - (IBAction)back:(id)sender {
     WLCandy* candy = self.candy;
+    __weak __typeof(self)weakSelf = self;
     if (candy.valid && candy.wrap.valid) {
-        [self.navigationController popViewControllerAnimated:YES];
+        BOOL animate = self.interfaceOrientation == UIInterfaceOrientationPortrait ||
+                       self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown;
+        [weakSelf.navigationController popViewControllerAnimated:animate];
     } else {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 
@@ -277,7 +279,10 @@
         [WLToast showPhotoDownloadingMessage];
     } else if ([sender.iconName isEqualToString:@"trash"]) {
         if (self.candy.deletable) {
+            
+            
             [self.candy remove:^(id object) {
+                
                 [WLToast showWithMessage:WLLS(@"Candy was deleted successfully.")];;
                 sender.loading = NO;
                 [weakSelf dismissViewControllerAnimated:NO completion:nil];
@@ -310,13 +315,11 @@ static CGFloat WLTopContraintConstant = -20.0f;
 - (void)hideDetailViews:(BOOL)hide {
     [UIView performAnimated:YES animation:^{
         self.topViewConstraint.constant = hide ? -self.topView.height + WLTopContraintConstant : WLTopContraintConstant;
-        self.bottomViewConstrain.constant = hide ? -self.bottomView.height : .0f;
         [self.view layoutIfNeeded];
     }];
 }
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [self.historyItem.entries count];
@@ -331,6 +334,7 @@ static CGFloat WLTopContraintConstant = -20.0f;
     } else {
         cell.entry = nil;
     }
+   
     return cell;
 }
 
@@ -338,6 +342,11 @@ static CGFloat WLTopContraintConstant = -20.0f;
     return collectionView.size;
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSInteger indexPosition = self.collectionView.contentOffset.x / self.collectionView.width;
+    WLCandy *candy = [self.historyItem.entries objectAtIndex:indexPosition];
+    [self updateOwnerData:candy];
+}
 
 #pragma mark - WLNetworkReceiver
 
@@ -351,8 +360,20 @@ static CGFloat WLTopContraintConstant = -20.0f;
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber*)orientation {
-    [self.collectionView reloadData];
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    self.collectionView.alpha = 0;
+    [self.collectionView.collectionViewLayout invalidateLayout];
+    
+    self.scrollPositionBeforeRotation = CGPointMake(self.collectionView.contentOffset.x / self.collectionView.contentSize.width,
+                                                    self.collectionView.contentOffset.y / self.collectionView.contentSize.height);
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation; {
+    CGPoint newContentOffset = CGPointMake(self.scrollPositionBeforeRotation.x * self.collectionView.contentSize.width,
+                                           self.scrollPositionBeforeRotation.y * self.collectionView.contentSize.height);
+    
+    [self.collectionView setContentOffset:newContentOffset animated:NO];
+    self.collectionView.alpha = 1;
 }
 
 #pragma mark - WLScrollViewDelegate method

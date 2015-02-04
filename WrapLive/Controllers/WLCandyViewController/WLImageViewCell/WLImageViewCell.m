@@ -28,7 +28,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+    [self calculateScaleValues];
     self.scrollView.userInteractionEnabled = NO;
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
 }
@@ -71,8 +71,6 @@
     if (self.imageView.image) {
         self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
         [self calculateScaleValues];
-        self.imageView.center = self.center;
-        [self layoutIfNeeded];
     }
 }
 

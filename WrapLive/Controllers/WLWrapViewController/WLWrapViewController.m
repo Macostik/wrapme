@@ -195,7 +195,7 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 
 - (IBAction)editWrapClick:(id)sender {
     WLEditWrapViewController* editWrapViewController = [WLEditWrapViewController new];
-    editWrapViewController.entry = self.wrap;
+    editWrapViewController.wrap = self.wrap;
     [self presentViewController:editWrapViewController animated:YES completion:nil];
 }
 

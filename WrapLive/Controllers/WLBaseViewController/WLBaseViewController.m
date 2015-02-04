@@ -16,10 +16,6 @@
 
 @interface WLBaseViewController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
-@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *keyboardAdjustmentBottomConstraints;
-
-@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *keyboardAdjustmentTopConstraints;
-
 @property (weak, nonatomic) UIView *placeholderView;
 
 @property (weak, nonatomic) IBOutlet UIView *placeholderContentView;
@@ -68,6 +64,7 @@
     [super loadView];
     if (self.isEmbedded) {
         UIView *view = [[UIView alloc] initWithFrame:[UIWindow mainWindow].bounds];
+        [view setFullFlexible];
         view.backgroundColor = [UIColor colorWithWhite:.0 alpha:0.5];
         UIView *contentView = self.view;
         contentView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -130,7 +127,6 @@
             fromViewController.view.userInteractionEnabled = YES;
         }];
     } else {
-        
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
             weakSelf.contentView.transform = CGAffineTransformMakeTranslation(0, fromViewController.view.bounds.size.height);
             weakSelf.view.backgroundColor = [UIColor clearColor];

@@ -145,18 +145,18 @@ static WLDataBlock deviceTokenCompletion = nil;
         [self.userChannel enableAPNS];
         [self.userChannel observeMessages:^(PNMessage *message) {
             WLNotification *notification = [WLNotification notificationWithMessage:message];
-            [weakSelf handleNotification:notification];
+            [weakSelf handleNotification:notification allowSound:YES];
             self.historyDate = [notification.date dateByAddingTimeInterval:NSINTEGER_DEFINED];
         }];
     }
 }
 
-- (void)handleNotification:(WLNotification*)notification {
+- (void)handleNotification:(WLNotification*)notification allowSound:(BOOL)allowSound {
     NSString *logMessage = [NSString stringWithFormat:@"message received %lu : %@", notification.type, notification.entryIdentifier];
     WLLog(@"PUBNUB", logMessage, notification.entryData);
     BOOL insertedEntry = notification.targetEntry.inserted;
     [notification fetch:^{
-        if (notification.playSound && insertedEntry) [WLSoundPlayer playSoundForNotification:notification];
+        if (allowSound && notification.playSound && insertedEntry) [WLSoundPlayer playSoundForNotification:notification];
     } failure:nil];
 }
 
@@ -173,7 +173,7 @@ static WLDataBlock deviceTokenCompletion = nil;
                     NSArray *notifications = [weakSelf notificationsFromMessages:messages];
                     if (notifications.nonempty) {
                         for (WLNotification *notification in notifications) {
-                            [weakSelf handleNotification:notification];
+                            [weakSelf handleNotification:notification allowSound:NO];
                         }
                     } else {
                         WLLog(@"PUBNUB", @"no missed messages in history", nil);

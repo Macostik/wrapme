@@ -344,8 +344,10 @@ static CGFloat WLTopContraintConstant = -20.0f;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     NSInteger indexPosition = self.collectionView.contentOffset.x / self.collectionView.width;
-    WLCandy *candy = [self.historyItem.entries objectAtIndex:indexPosition];
-    [self updateOwnerData:candy];
+    if (indexPosition != NSNotFound) {
+        WLCandy *candy = [self.historyItem.entries objectAtIndex:indexPosition];
+        [self updateOwnerData:candy];
+    }
 }
 
 #pragma mark - WLNetworkReceiver

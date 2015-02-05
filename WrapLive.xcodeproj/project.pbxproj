@@ -294,6 +294,14 @@
 		5BA60CFC1A8257ED000F795C /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C5E1A8257ED000F795C /* UIViewController+Additions.m */; };
 		5BA60CFD1A8257ED000F795C /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C5E1A8257ED000F795C /* UIViewController+Additions.m */; };
 		5BA60CFE1A8257ED000F795C /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C5E1A8257ED000F795C /* UIViewController+Additions.m */; };
+		5BA60D021A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
+		5BA60D031A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
+		5BA60D041A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
+		5BA60D051A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
+		5BA60D091A8279FC000F795C /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D081A8279FC000F795C /* WLAlertView.m */; };
+		5BA60D0A1A8279FC000F795C /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D081A8279FC000F795C /* WLAlertView.m */; };
+		5BA60D0B1A8279FC000F795C /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D081A8279FC000F795C /* WLAlertView.m */; };
+		5BA60D0C1A8279FC000F795C /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D081A8279FC000F795C /* WLAlertView.m */; };
 		5BA6AA421A66779D00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BA6AA431A66779D00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BA6AA441A66779E00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
@@ -1741,6 +1749,10 @@
 		5BA60C5B1A8257ED000F795C /* UIView+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shorthand.m"; sourceTree = "<group>"; };
 		5BA60C5D1A8257ED000F795C /* UIViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Additions.h"; sourceTree = "<group>"; };
 		5BA60C5E1A8257ED000F795C /* UIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
+		5BA60D001A82613F000F795C /* UIAlertController+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertController+Blocks.h"; path = "UIAlertController/UIAlertController+Blocks.h"; sourceTree = "<group>"; };
+		5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertController+Blocks.m"; path = "UIAlertController/UIAlertController+Blocks.m"; sourceTree = "<group>"; };
+		5BA60D071A8279FC000F795C /* WLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAlertView.h; path = WrapLive/Views/WLAlertView/WLAlertView.h; sourceTree = "<group>"; };
+		5BA60D081A8279FC000F795C /* WLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAlertView.m; path = WrapLive/Views/WLAlertView/WLAlertView.m; sourceTree = "<group>"; };
 		5BA6AA4A1A66801100493582 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLWrapPlaceholderViewTimeline.xib; sourceTree = "<group>"; };
 		5BA6AA4D1A66801300493582 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLWrapPlaceholderViewTimeline.strings; sourceTree = "<group>"; };
 		5BA6AA4F1A66801900493582 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLWrapPlaceholderViewTimeline.strings; sourceTree = "<group>"; };
@@ -2393,6 +2405,8 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
+				5BA60D071A8279FC000F795C /* WLAlertView.h */,
+				5BA60D081A8279FC000F795C /* WLAlertView.m */,
 				5BF1B24A1A49A758000BB2C1 /* WLTodayExtension_Production.entitlements */,
 				5B787DB01A278914004AE459 /* WrapLive-Production.entitlements */,
 				5B787DAF1A27890C004AE459 /* WrapLive-Beta.entitlements */,
@@ -3127,6 +3141,7 @@
 				5BA60C1B1A8257ED000F795C /* NSString */,
 				5BA60C221A8257ED000F795C /* UIActionSheet */,
 				5BA60C281A8257ED000F795C /* UIAlertView */,
+				5BA60D061A826146000F795C /* UIAlertController */,
 				5BA60C2B1A8257ED000F795C /* UIButton */,
 				5BA60C2E1A8257ED000F795C /* UICollectionViewCell */,
 				5BA60C311A8257ED000F795C /* UIColor */,
@@ -3379,6 +3394,15 @@
 				5BA60C5E1A8257ED000F795C /* UIViewController+Additions.m */,
 			);
 			path = UIViewController;
+			sourceTree = "<group>";
+		};
+		5BA60D061A826146000F795C /* UIAlertController */ = {
+			isa = PBXGroup;
+			children = (
+				5BA60D001A82613F000F795C /* UIAlertController+Blocks.h */,
+				5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */,
+			);
+			name = UIAlertController;
 			sourceTree = "<group>";
 		};
 		5BA755F91A7641A90037D51E /* WLScrollView */ = {
@@ -5232,6 +5256,7 @@
 				C508E7D31987A396002998CE /* WLCollectionViewDataProvider.m in Sources */,
 				12A8AA6D18F5919700F67113 /* WLLoadingView.m in Sources */,
 				C54E4ADE1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
+				5BA60D091A8279FC000F795C /* WLAlertView.m in Sources */,
 				C50AF42A1976B43A00761F38 /* WLPostCommentRequest.m in Sources */,
 				C50AF40F197692E400761F38 /* WLUpdateUserRequest.m in Sources */,
 				C5FFB03119AC8956006F27A7 /* WLTimeline.m in Sources */,
@@ -5392,6 +5417,7 @@
 				C5F35CFE1930935200FB99D2 /* WLImageFetcher.m in Sources */,
 				5BA60C671A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,
+				5BA60D021A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C51910661A078248003C78B2 /* WLWrap.m in Sources */,
 				C5F9ACBE1989296C003A0FF2 /* WLEntryCell.m in Sources */,
 				C52E1FE21A41952400A2C370 /* WLTextView.m in Sources */,
@@ -5519,6 +5545,7 @@
 				C54AF46219B8C437006F7EDB /* WLCollectionViewDataProvider.m in Sources */,
 				C54AF46319B8C437006F7EDB /* WLLoadingView.m in Sources */,
 				C54E4ADF1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
+				5BA60D0A1A8279FC000F795C /* WLAlertView.m in Sources */,
 				C54AF46419B8C437006F7EDB /* WLPostCommentRequest.m in Sources */,
 				C54AF46619B8C437006F7EDB /* WLUpdateUserRequest.m in Sources */,
 				C54AF46719B8C437006F7EDB /* WLTimeline.m in Sources */,
@@ -5679,6 +5706,7 @@
 				C54AF4E019B8C437006F7EDB /* WLImageFetcher.m in Sources */,
 				5BA60C681A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C54AF4E119B8C437006F7EDB /* VerticalStreamLayout.m in Sources */,
+				5BA60D031A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C51910671A078248003C78B2 /* WLWrap.m in Sources */,
 				C54AF4E219B8C437006F7EDB /* WLEntryCell.m in Sources */,
 				C52E1FE31A41952400A2C370 /* WLTextView.m in Sources */,
@@ -5776,6 +5804,7 @@
 				C54AF55F19B8C467006F7EDB /* WLCollectionViewDataProvider.m in Sources */,
 				C54AF56019B8C467006F7EDB /* WLLoadingView.m in Sources */,
 				C54E4AE01A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
+				5BA60D0B1A8279FC000F795C /* WLAlertView.m in Sources */,
 				C54AF56119B8C467006F7EDB /* WLPostCommentRequest.m in Sources */,
 				C54AF56319B8C467006F7EDB /* WLUpdateUserRequest.m in Sources */,
 				C54AF56419B8C467006F7EDB /* WLTimeline.m in Sources */,
@@ -5936,6 +5965,7 @@
 				C54AF5DD19B8C467006F7EDB /* WLImageFetcher.m in Sources */,
 				5BA60C691A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C54AF5DE19B8C467006F7EDB /* VerticalStreamLayout.m in Sources */,
+				5BA60D041A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C51910681A078248003C78B2 /* WLWrap.m in Sources */,
 				C54AF5DF19B8C467006F7EDB /* WLEntryCell.m in Sources */,
 				C52E1FE41A41952400A2C370 /* WLTextView.m in Sources */,
@@ -6033,6 +6063,7 @@
 				C54AF65C19B8C491006F7EDB /* WLCollectionViewDataProvider.m in Sources */,
 				C54AF65D19B8C491006F7EDB /* WLLoadingView.m in Sources */,
 				C54E4AE11A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
+				5BA60D0C1A8279FC000F795C /* WLAlertView.m in Sources */,
 				C54AF65E19B8C491006F7EDB /* WLPostCommentRequest.m in Sources */,
 				C54AF66019B8C491006F7EDB /* WLUpdateUserRequest.m in Sources */,
 				C54AF66119B8C491006F7EDB /* WLTimeline.m in Sources */,
@@ -6193,6 +6224,7 @@
 				C54AF6DA19B8C491006F7EDB /* WLImageFetcher.m in Sources */,
 				5BA60C6A1A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C54AF6DB19B8C491006F7EDB /* VerticalStreamLayout.m in Sources */,
+				5BA60D051A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C51910691A078248003C78B2 /* WLWrap.m in Sources */,
 				C54AF6DC19B8C491006F7EDB /* WLEntryCell.m in Sources */,
 				C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */,

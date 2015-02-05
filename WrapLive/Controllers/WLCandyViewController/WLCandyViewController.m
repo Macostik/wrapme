@@ -338,8 +338,8 @@ static CGFloat WLTopContraintConstant = -20.0f;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSInteger indexPosition = self.collectionView.contentOffset.x / self.collectionView.width;
-    if (indexPosition != NSNotFound) {
+    CGFloat indexPosition = roundf(self.collectionView.contentOffset.x / self.collectionView.width);
+    if ([self.historyItem.entries containsIndex:indexPosition]) {
         WLCandy *candy = [self.historyItem.entries objectAtIndex:indexPosition];
         [self updateOwnerData:candy];
     }
@@ -375,7 +375,11 @@ static CGFloat WLTopContraintConstant = -20.0f;
 
 #pragma mark - WLScrollViewDelegate method
 
-- (void)scrollViewWillBeginZooming:(WLScrollView *)scrollView {
+- (UIView *)viewForZoomingInScrollView:(WLScrollView *)scrollView {
+    return [scrollView isKindOfClass:[WLScrollView class]] ? scrollView.zoomingView : nil;
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
     [self hideDetailViews:YES];
 }
 

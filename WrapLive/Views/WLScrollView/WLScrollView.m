@@ -10,11 +10,6 @@
 
 @implementation WLScrollView
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.delegate = self;
-}
-
 - (void)layoutSubviews {
     [super layoutSubviews];
     // center the image as it becomes smaller than the size of the screen
@@ -34,18 +29,6 @@
         frameToCenter.origin.y = 0;
     
     self.zoomingView.frame = frameToCenter;
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    return self.zoomingView;
-}
-
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
-    if ([self.scrollDelegate respondsToSelector:@selector(scrollViewWillBeginZooming:)]) {
-        [self.scrollDelegate scrollViewWillBeginZooming:self];
-    }
 }
 
 @end

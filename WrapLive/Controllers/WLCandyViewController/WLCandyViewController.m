@@ -70,6 +70,7 @@
 
 @property (strong, nonatomic) WLHistory *history;
 @property (assign, nonatomic) CGPoint scrollPositionBeforeRotation;
+@property (assign, nonatomic) BOOL isHide;
 
 @end
 
@@ -106,6 +107,7 @@
     [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:rightSwipe];
     
     self.commentButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.isHide = YES;
     
     [self refresh:_candy];
 }
@@ -270,6 +272,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 - (IBAction)navigationButtonClick:(WLIconButton *)sender {
+    self.isHide = NO;
     __weak __typeof(self)weakSelf = self;
     if ([sender.iconName isEqualToString:@"cloudDownload"]) {
         [self.candy download:^{
@@ -303,7 +306,7 @@ static CGFloat WLTopContraintConstant = -20.0f;
     [self hideDetailViews:NO];
     __weak __typeof(self)weakSelf = self;
     run_after(sec, ^{
-        [weakSelf hideDetailViews:YES];
+        [weakSelf hideDetailViews:weakSelf.isHide];
     });
 }
 

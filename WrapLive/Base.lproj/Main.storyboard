@@ -2922,7 +2922,7 @@
                                                         <constraint firstAttribute="bottom" secondItem="Cn8-Rl-m4g" secondAttribute="bottom" id="e6n-wn-rBj"/>
                                                     </constraints>
                                                     <connections>
-                                                        <outlet property="scrollDelegate" destination="eto-O4-OHy" id="m3q-9E-zvQ"/>
+                                                        <outlet property="delegate" destination="eto-O4-OHy" id="Xif-YM-HGM"/>
                                                         <outlet property="zoomingView" destination="Cn8-Rl-m4g" id="eUt-Ze-fqq"/>
                                                     </connections>
                                                 </scrollView>

@@ -50,4 +50,11 @@
     return nil;
 }
 
+- (void)handleFailure:(NSError *)error {
+    [super handleFailure:error];
+    if ([error isError:WLErrorUploadFileNotFound]) {
+        [self.candy remove];
+    }
+}
+
 @end

@@ -19,4 +19,6 @@
 
 - (void)apply:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
+- (void)didCompleteDoneAction;
+
 @end

@@ -19,7 +19,8 @@ typedef NS_ENUM(NSInteger, WLErrorCode) {
     WLErrorInvalidAttributes = 20,
     WLErrorContentUnavaliable = 30,
     WLErrorNotFoundEntry = 40,
-    WLErrorCredentialNotValid = 50
+    WLErrorCredentialNotValid = 50,
+    WLErrorUploadFileNotFound = 100
 };
 
 @interface NSError (WLAPIManager)

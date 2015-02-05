@@ -42,6 +42,7 @@
     self.refresher = [WLRefresher refresher:self.collectionView target:self
                                      action:@selector(refresh:)
                                       style:WLRefresherStyleWhite_Clear];
+    [self refresh:nil];
     NSArray *entries = [[self.candy.comments reverseObjectEnumerator] allObjects];
     self.dataSection.entries = [NSMutableOrderedSet orderedSetWithArray:entries];
     self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
@@ -154,10 +155,14 @@
 
 #pragma mark - WLEntryNotifyReceiver
 
+- (void)notifier:(WLEntryNotifier*)notifier candyUpdated:(WLComment *)comment {
+    NSArray *entries = [[self.candy.comments reverseObjectEnumerator] allObjects];
+    self.dataSection.entries = [NSMutableOrderedSet orderedSetWithArray:entries];
+}
+
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
     NSArray *entries = [[self.candy.comments reverseObjectEnumerator] allObjects];
     self.dataSection.entries = [NSMutableOrderedSet orderedSetWithArray:entries];
-    [self.dataSection reload];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentDeleted:(WLComment *)comment {

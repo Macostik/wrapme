@@ -58,11 +58,9 @@
         sender.loading = YES;
         [weakSelf.editSession apply];
         [weakSelf apply:^(id object){
-            if (weakSelf.navigationController) {
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-            } else {
-                [weakSelf dismissViewControllerAnimated:YES completion:NULL];
-            }
+            [weakSelf didCompleteDoneAction];
+            sender.loading = NO;
+            [weakSelf unlock];
         } failure:^(NSError *error) {
             [weakSelf.editSession reset];
             [error show];
@@ -72,6 +70,14 @@
     } failure:^(NSError *error) {
         [error show];
     }];
+}
+
+- (void)didCompleteDoneAction {
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    }
 }
 
 - (IBAction)cancel:(id)sender {

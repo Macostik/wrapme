@@ -279,16 +279,11 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         [WLToast showPhotoDownloadingMessage];
     } else if ([sender.iconName isEqualToString:@"trash"]) {
         if (self.candy.deletable) {
-            
-            
             [self.candy remove:^(id object) {
-                
                 [WLToast showWithMessage:WLLS(@"Candy was deleted successfully.")];;
-                sender.loading = NO;
                 [weakSelf dismissViewControllerAnimated:NO completion:nil];
             } failure:^(NSError *error) {
                 [error show];
-                sender.loading = NO;
             }];
         }
     } else {

@@ -28,7 +28,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self calculateScaleValues];
     self.scrollView.userInteractionEnabled = NO;
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
 }
@@ -56,11 +55,13 @@
 }
 
 - (void)calculateScaleValues {
-    CGFloat minimumZoomScale = CGSizeScaleToFitSize(self.size, self.imageView.image.size);
-    if (minimumZoomScale <= 0) minimumZoomScale = 0.01;
-    self.scrollView.maximumZoomScale = minimumZoomScale < 1 ? 2 : (minimumZoomScale + 2);
-    self.scrollView.minimumZoomScale = minimumZoomScale;
-    self.scrollView.zoomScale  = minimumZoomScale;
+    if (self.imageView.image) {
+        CGFloat minimumZoomScale = CGSizeScaleToFitSize(self.size, self.imageView.image.size);
+        if (minimumZoomScale <= 0) minimumZoomScale = 0.01;
+        self.scrollView.maximumZoomScale = minimumZoomScale < 1 ? 2 : (minimumZoomScale + 2);
+        self.scrollView.minimumZoomScale = minimumZoomScale;
+        self.scrollView.zoomScale  = minimumZoomScale;
+    }
 }
 
 #pragma mark - WLDeviceOrientationBroadcastReceiver

@@ -37,6 +37,8 @@
 "Internet connection unavailable" = "Интернет соединение не доступно";
 "View notification" = "Нотификация";
 "Incompleted data can be lost. Do you want to continue?" = "Незавершенные данные могут быть утеряны. Хотите продолжить?";
+"You are editing a photo and it is not saved yet. Are you sure you want to leave this screen?" = "Фото в режиме редактирования и еще не сохранено. Вы уверены, что хотите покинуть данный скрин?";
+"Unsaved photo" ="Не сохраненная фотография";
 "Continue" = "Продолжение";
 "Cancel" = "Отмена";
 "Confirmation resend. Please, check you e-mail." = "Подтверждение повторной отправки. Пожалуйста, проверьте ствою почту";

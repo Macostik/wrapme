@@ -39,6 +39,8 @@
 "Internet connection unavailable" = "Internet connection unavailable";
 "View notification" = "View notification";
 "Incompleted data can be lost. Do you want to continue?" = "Incompleted data can be lost. Do you want to continue?";
+"You are editing a photo and it is not saved yet. Are you sure you want to leave this screen?" = "You are editing a photo and it is not saved yet. Are you sure you want to leave this screen?";
+"Unsaved photo" = "Unsaved photo";
 "Continue" = "Continue";
 "Cancel" = "Cancel";
 "Confirmation resend. Please, check you e-mail." = "Confirmation resend. Please, check you e-mail.";

@@ -176,10 +176,10 @@ static UIWindow* mainWindow = nil;
 - (void)presentViewControllerWithoutLostData {
     UINavigationController *navigationController = [UINavigationController mainNavigationController];
     if ([navigationController presentedViewController]) {
-        [UIAlertView showWithTitle:@"View notification"
-                           message:@"Incompleted data can be lost. Do you want to continue?"
-                            action:@"Continue"
-                            cancel:@"Cancel"
+        [UIAlertView showWithTitle:WLLS(@"Unsaved photo")
+                           message:WLLS(@"You are editing a photo and it is not saved yet. Are you sure you want to leave this screen?")
+                            cancel:WLLS(@"Cancel")
+                            action:WLLS(@"Continue")
                         completion:^{
                             [navigationController dismissViewControllerAnimated:YES completion:nil];
                             [self present];

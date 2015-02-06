@@ -54,7 +54,7 @@
 @property (weak, nonatomic) IBOutlet WLIconButton *actionButton;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 
-@property (nonatomic) BOOL shouldLoadMoreCandies;
+@property (strong, nonatomic) WLComment *lastComment;
 @property (nonatomic) BOOL scrolledToInitialItem;
 
 @property (strong, nonatomic) WLImageViewCell* candyCell;
@@ -83,11 +83,11 @@
     [super viewDidLoad];
         
     if (!self.history) {
-        self.history = [[WLHistory alloc] init];
-        [self.history addEntries:[_candy.wrap candies]];
+        self.history = [WLHistory historyWithWrap:_candy.wrap];
         _historyItem = [self.history itemWithCandy:_candy];
     }
 	
+    [[WLWrap notifier] addReceiver:self];
 	[[WLCandy notifier] addReceiver:self];
     [[WLComment notifier] addReceiver:self];
     [[WLNetwork network] addReceiver:self];
@@ -123,8 +123,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self updateOwnerData:self.candy];
+
+    self.lastComment = nil;
+    [self updateOwnerData];
     [self.collectionView reloadData];
 }
 
@@ -148,14 +149,14 @@
     [self.collectionView reloadData];
 }
 
-- (WLCandy *)candy {
-    WLImageViewCell* cell = self.candyCell;
-    if (cell) {
-        return cell.entry;
-    }
-    NSUInteger index = floorf(self.collectionView.contentOffset.x/self.collectionView.width);
-    return [self.historyItem.entries tryObjectAtIndex:index];
-}
+//- (WLCandy *)candy {
+//    WLImageViewCell* cell = self.candyCell;
+//    if (cell) {
+//        return cell.entry;
+//    }
+//    NSUInteger index = floorf(self.collectionView.contentOffset.x/self.collectionView.width);
+//    return [self.historyItem.entries tryObjectAtIndex:index];
+//}
 
 - (WLImageViewCell *)candyCell {
     WLImageViewCell* candyCell = [[self.collectionView visibleCells] lastObject];
@@ -186,6 +187,7 @@
             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
                                         atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
             [self.collectionView leftPush];
+            self.candy = [self.historyItem.entries firstObject];
         }
     } else {
         [self fetchOlder:self.candy];
@@ -197,18 +199,33 @@
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:[self.historyItem.entries count] - 1 inSection:0]
                                     atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
         [self.collectionView rightPush];
+        self.candy = [self.historyItem.entries lastObject];
     }
 }
 
-- (void)updateOwnerData:(WLCandy *)candy {
-    self.avatarImageView.url = candy.contributor.picture.small;
-    [self.actionButton setupWithName:candy.deletable ? @"trash" : @"warning"
+- (void)setCandy:(WLCandy *)candy {
+    if (candy != _candy && candy.valid) {
+        _candy = candy;
+        [self updateOwnerData];
+    }
+}
+
+- (void)setLastComment:(WLComment *)lastComment {
+    if (lastComment != _lastComment) {
+        _lastComment = lastComment;
+        self.avatarImageView.url = _lastComment.contributor.picture.small;
+        self.lastCommentLabel.text = _lastComment.valid ? _lastComment.text :@"";
+    }
+}
+
+- (void)updateOwnerData {
+    [self.actionButton setupWithName:_candy.deletable ? @"trash" : @"warning"
                                color:[UIColor whiteColor]
                                 size:self.actionButton.width/2];
-    self.postLabel.text = [NSString stringWithFormat:@"Posted by %@,\n%@", candy.contributor.name,
-                                                                           [candy.createdAt.timeAgoStringAtAMPM capitalizedString]];
-    WLComment *comment = candy.comments.lastObject;
-    self.lastCommentLabel.text = comment.valid ? comment.text :@"";
+    NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByReplacingCharactersInRange:NSMakeRange(0,1)
+                                                                                           withString:[[_candy.createdAt.timeAgoStringAtAMPM substringToIndex:1] capitalizedString]];
+    self.postLabel.text = [NSString stringWithFormat:@"Posted by %@,\n%@", _candy.contributor.name, timeAgoString];
+    self.lastComment = _candy.comments.lastObject;
 }
 
 - (BOOL)swipeToHistoryItemAtIndex:(NSUInteger)index {
@@ -250,11 +267,24 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
-    [self updateOwnerData:candy];
+    [self updateOwnerData];
 }
 
 - (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
     return self.candy;
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
+    [self.collectionView reloadData];
+    NSUInteger index = [self.historyItem.entries indexOfObject:self.candy];
+    if (index != NSNotFound) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]
+                                    atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    }
+}
+
+- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
+    return self.candy.wrap;
 }
 
 #pragma mark - Actions
@@ -344,7 +374,7 @@ static CGFloat WLTopContraintConstant = -20.0f;
     CGFloat indexPosition = roundf(self.collectionView.contentOffset.x / self.collectionView.width);
     if ([self.historyItem.entries containsIndex:indexPosition]) {
         WLCandy *candy = [self.historyItem.entries objectAtIndex:indexPosition];
-        [self updateOwnerData:candy];
+        [self setCandy:candy];
     }
 }
 

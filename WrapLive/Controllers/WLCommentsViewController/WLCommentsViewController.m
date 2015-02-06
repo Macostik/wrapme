@@ -160,6 +160,10 @@
     self.dataSection.entries = [NSMutableOrderedSet orderedSetWithArray:entries];
 }
 
+- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
+    [self onClose:nil];
+}
+
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
     NSArray *entries = [[self.candy.comments reverseObjectEnumerator] allObjects];
     self.dataSection.entries = [NSMutableOrderedSet orderedSetWithArray:entries];

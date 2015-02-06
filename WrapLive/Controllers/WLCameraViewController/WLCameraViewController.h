@@ -6,13 +6,13 @@
 //
 //
 
-#import <UIKit/UIKit.h>
+#import "WLStillPictureBaseViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 @class WLCameraViewController;
 @class WLWrap;
 
-@protocol WLCameraViewControllerDelegate <NSObject>
+@protocol WLCameraViewControllerDelegate <WLStillPictureBaseViewControllerDelegate>
 
 - (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image metadata:(NSMutableDictionary*)metadata;
 - (void)cameraViewControllerDidCancel:(WLCameraViewController*)controller;
@@ -20,7 +20,7 @@
 
 @end
 
-@interface WLCameraViewController : UIViewController
+@interface WLCameraViewController : WLStillPictureBaseViewController
 
 @property (nonatomic, weak) id <WLCameraViewControllerDelegate> delegate;
 

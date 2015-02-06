@@ -6,19 +6,15 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLEntryView.h"
 
 @class WLUser;
 @class WLImageView;
 
-@interface WLUserView : UIView
+@interface WLUserView : WLEntryView
 
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-
-@property (weak, nonatomic) WLUser* user;
-
-- (void)update;
 
 @end

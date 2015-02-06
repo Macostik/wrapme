@@ -6,16 +6,14 @@
 //  Copyright (c) 2013 Nickolay Rybalko. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "WLStillPictureMode.h"
+#import "WLStillPictureBaseViewController.h"
+#import "WLAssetsViewController.h"
 
 @class ALAsset;
 
-@interface WLAssetsGroupViewController : UIViewController
+@interface WLAssetsGroupViewController : WLStillPictureBaseViewController
 
-@property (copy, nonatomic) WLArrayBlock selectionBlock;
-
-@property (nonatomic) WLStillPictureMode mode;
+@property (weak, nonatomic) id <WLAssetsViewControllerDelegate> delegate;
 
 @property (nonatomic) BOOL openCameraRoll;
 

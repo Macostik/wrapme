@@ -34,14 +34,24 @@
 }
 
 - (void)save:(NSMutableDictionary *)metadata {
+    [self save:metadata completion:nil failure:nil];
+}
+
+- (void)save:(NSMutableDictionary *)metadata completion:(void (^)(void))completion failure:(void (^)(NSError *))failure {
     [metadata setImageOrientation:self.imageOrientation];
     run_in_default_queue(^{
         ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
         [library saveImage:self
                    toAlbum:WLAlbumName
                   metadata:metadata
-                completion:^(NSURL *assetURL, NSError *error) { }
-                   failure:^(NSError *error) { }];
+                completion:^(NSURL *assetURL, NSError *error) {
+                    if (error) {
+                        if (failure) failure(error);
+                    } else {
+                        if (completion) completion();
+                    }
+                }
+                   failure:failure];
     });
 }
 

@@ -27,6 +27,7 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 @property (strong, nonatomic) NSMutableArray *selectedAssets;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *doneButtonTrailingConstraint;
 
 @end
 
@@ -55,9 +56,7 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     [super viewDidLoad];
 	
 	self.titleLabel.text = self.group.name;
-    
-    [self.collectionView registerNib:[WLAssetCell nib] forCellWithReuseIdentifier:[WLAssetCell reuseIdentifier]];
-    
+        
     [self loadAssets];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -68,7 +67,7 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     if (self.mode != WLStillPictureModeDefault) {
         self.doneButton.hidden = YES;
     } else {
-        self.doneButton.x = self.view.width;
+        self.doneButtonTrailingConstraint.constant = -self.doneButton.width;
     }
 }
 
@@ -146,9 +145,7 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 - (IBAction)done:(id)sender {
     self.doneButton.hidden = YES;
     [self.spinner startAnimating];
-    if (self.selectionBlock) {
-        self.selectionBlock(self.selectedAssets);
-    }
+    [self.delegate assetsViewController:self didSelectAssets:self.selectedAssets];
 }
 
 #pragma mark - PSTCollectionViewDelegate
@@ -202,10 +199,11 @@ static NSUInteger WLAssetNumberOfColumns = 4;
             }
             [UIView beginAnimations:nil context:nil];
             [UIView setAnimationBeginsFromCurrentState:YES];
-            self.doneButton.x = self.selectedAssets.nonempty ? self.view.width - self.doneButton.width : self.view.width;
+            self.doneButtonTrailingConstraint.constant = self.selectedAssets.nonempty ? 0 : -self.doneButton.width;
+            [self.doneButton layoutIfNeeded];
             [UIView commitAnimations];
-        } else if (self.selectionBlock) {
-            self.selectionBlock(@[asset]);
+        } else {
+            [self.delegate assetsViewController:self didSelectAssets:@[asset]];
         }
     }
 }

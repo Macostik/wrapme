@@ -6,22 +6,26 @@
 //  Copyright (c) 2013 Nickolay Rybalko. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "WLStillPictureMode.h"
+#import "WLStillPictureBaseViewController.h"
 
 @class ALAssetsGroup;
 @class ALAsset;
+@class WLAssetsViewController;
 
-@interface WLAssetsViewController : UIViewController
+@protocol WLAssetsViewControllerDelegate <WLStillPictureBaseViewControllerDelegate>
 
-- (id)initWithGroup:(ALAssetsGroup*)group;
+- (void)assetsViewController:(id)controller didSelectAssets:(NSArray*)assets;
+
+@end
+
+@interface WLAssetsViewController : WLStillPictureBaseViewController
+
+@property (weak, nonatomic) id <WLAssetsViewControllerDelegate> delegate;
 
 @property (strong, nonatomic) ALAssetsGroup* group;
 
-@property (copy, nonatomic) WLArrayBlock selectionBlock;
-
-@property (nonatomic) WLStillPictureMode mode;
-
 @property (nonatomic) BOOL preselectFirstAsset;
+
+- (id)initWithGroup:(ALAssetsGroup*)group;
 
 @end

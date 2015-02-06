@@ -7,13 +7,13 @@
 //
 
 #import "WLAssetsGroupViewController.h"
-#import "WLAssetsViewController.h"
 #import "WLAssetsGroupCell.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "NSObject+NibAdditions.h"
 #import "UIViewController+Additions.h"
 #import "SegmentedControl.h"
 #import "NSDate+Formatting.h"
+#import "WLNavigation.h"
 
 @interface WLAssetsGroupViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLAssetsGroupCellDelegate>
 
@@ -31,8 +31,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
-    [self.collectionView registerNib:[WLAssetsGroupCell nib] forCellWithReuseIdentifier:[WLAssetsGroupCell reuseIdentifier]];
     
 	[self loadGroups];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -42,10 +40,11 @@
                                                object:nil];
     
     if (self.openCameraRoll) {
-        WLAssetsViewController* controller = [[WLAssetsViewController alloc] initWithGroup:nil];
-        controller.selectionBlock = self.selectionBlock;
+        WLAssetsViewController* controller = [WLAssetsViewController instantiate:self.storyboard];
+        controller.delegate = self.delegate;
         controller.mode = self.mode;
         controller.preselectFirstAsset = YES;
+        controller.wrap = self.wrap;
         [self.navigationController pushViewController:controller animated:NO];
     }
 }
@@ -87,9 +86,10 @@
 #pragma mark - PGAssetsGroupCellDelegate
 
 - (void)assetsGroupCell:(WLAssetsGroupCell *)cell didSelectGroup:(ALAssetsGroup *)group {
-	WLAssetsViewController* controller = [[WLAssetsViewController alloc] initWithGroup:group];
-	controller.selectionBlock = self.selectionBlock;
+	WLAssetsViewController* controller = [WLAssetsViewController instantiate:self.storyboard];
+	controller.delegate = self.delegate;
     controller.mode = self.mode;
+    controller.wrap = self.wrap;
 	[self pushViewController:controller animated:YES];
 }
 

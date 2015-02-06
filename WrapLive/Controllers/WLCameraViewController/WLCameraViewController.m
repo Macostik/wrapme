@@ -22,6 +22,7 @@
 #import "WLImageFetcher.h"
 #import "WLWrap.h"
 #import "WLToast.h"
+#import "WLWrapView.h"
 
 @interface WLCameraView : UIView
 
@@ -55,8 +56,11 @@
 
 #pragma mark - UIKit interface
 
+@property (weak, nonatomic) IBOutlet WLWrapView *wrapView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topWrapViewConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *unauthorizedStatusView;
 @property (weak, nonatomic) IBOutlet WLCameraView *cameraView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet WLFlashModeControl *flashModeControl;
@@ -89,6 +93,11 @@
                 weakSelf.flashMode = weakSelf.flashModeControl.mode = AVCaptureFlashModeOff;
                 weakSelf.cameraView.layer.session = weakSelf.session;
                 [weakSelf start];
+                CGSize apertureSize = CMVideoFormatDescriptionGetCleanAperture([[weakSelf videoPort] formatDescription], YES).size;
+                if (apertureSize.width && apertureSize.height) {
+                    weakSelf.cameraViewHeightConstraint.constant = apertureSize.width / apertureSize.height;
+                    [weakSelf.cameraView layoutIfNeeded];
+                }
             } else {
                 weakSelf.takePhotoButton.active = NO;
             }
@@ -226,8 +235,8 @@
 - (AVCaptureSession *)session {
     if (!_session) {
         _session = [[AVCaptureSession alloc] init];
-        if ([_session canSetSessionPreset:AVCaptureSessionPresetHigh]) {
-            _session.sessionPreset = AVCaptureSessionPresetHigh;
+        if ([_session canSetSessionPreset:AVCaptureSessionPresetPhoto]) {
+            _session.sessionPreset = AVCaptureSessionPresetPhoto;
         } else {
             _session.sessionPreset = AVCaptureSessionPresetMedium;
         }

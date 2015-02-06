@@ -313,7 +313,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     } else if ([sender.iconName isEqualToString:@"trash"]) {
         if (self.candy.deletable) {
             [self.candy remove:^(id object) {
-                [WLToast showWithMessage:WLLS(@"Candy was deleted successfully.")];;
+                [WLToast showWithMessage:WLLS(@"Candy was deleted successfully.")];
                 [weakSelf dismissViewControllerAnimated:NO completion:nil];
             } failure:^(NSError *error) {
                 [error show];

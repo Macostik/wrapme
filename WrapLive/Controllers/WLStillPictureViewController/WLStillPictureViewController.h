@@ -6,15 +6,14 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "WLStillPictureMode.h"
+#import "WLStillPictureBaseViewController.h"
 #import <AVFoundation/AVCaptureDevice.h>
 
 @class WLStillPictureViewController;
 @class WLCameraViewController;
 @class WLWrap;
 
-@protocol WLStillPictureViewControllerDelegate <NSObject>
+@protocol WLStillPictureViewControllerDelegate <WLStillPictureBaseViewControllerDelegate>
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController*)controller;
 
@@ -22,23 +21,17 @@
 
 - (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithPictures:(NSArray*)pictures;
 
-- (void)stillPictureViewController:(WLStillPictureViewController*)controller didSelectWrap:(WLWrap*)wrap;
-
 - (WLStillPictureMode)stillPictureViewControllerMode:(WLStillPictureViewController*)controller;
 
 @end
 
-@interface WLStillPictureViewController : UIViewController
+@interface WLStillPictureViewController : WLStillPictureBaseViewController
 
 @property (weak, nonatomic, readonly) UINavigationController* cameraNavigationController;
 
 @property (nonatomic, weak) id <WLStillPictureViewControllerDelegate> delegate;
 
-@property (nonatomic) WLStillPictureMode mode;
-
 @property (nonatomic) AVCaptureDevicePosition defaultPosition;
-
-@property (strong, nonatomic) WLWrap* wrap;
 
 @property (nonatomic) BOOL startFromGallery;
 

@@ -44,7 +44,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self.nameField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
+    [self.nameField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.5f];
 }
 
 + (BOOL)isEmbeddedDefaultValue {
@@ -67,6 +67,7 @@
     if (!name.nonempty) {
         return;
     }
+    [self.nameField resignFirstResponder];
     sender.loading = YES;
     __weak typeof(self)weakSelf = self;
     self.wrap = [WLWrap wrap];

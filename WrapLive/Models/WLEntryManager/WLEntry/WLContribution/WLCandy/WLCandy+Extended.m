@@ -150,9 +150,8 @@
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         operation.responseSerializer = [AFImageResponseSerializer serializer];
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, UIImage* image) {
-            [image save:nil];
+            [image save:nil completion:success failure:failure];
             [[WLImageCache cache] setImage:image withUrl:url];
-            if (success) success();
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (failure) failure(error);
         }];

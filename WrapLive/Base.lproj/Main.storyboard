@@ -3322,7 +3322,7 @@ Check your internet connection and try again.</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray" translatesAutoresizingMaskIntoConstraints="NO" id="4K2-SA-FYq">
-                                                            <rect key="frame" x="12" y="99" width="275" height="1"/>
+                                                            <rect key="frame" x="12" y="99" width="272" height="1"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="1" id="IHU-Ba-od9"/>
                                                             </constraints>

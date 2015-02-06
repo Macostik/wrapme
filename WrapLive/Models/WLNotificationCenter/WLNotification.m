@@ -239,6 +239,9 @@
             break;
     }
 }
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%lu : %@", self.type, self.entryIdentifier];
+}
 
 @end
 

@@ -147,13 +147,13 @@ static WLDataBlock deviceTokenCompletion = nil;
             WLNotification *notification = [WLNotification notificationWithMessage:message];
             [weakSelf handleNotification:notification allowSound:YES];
             self.historyDate = [notification.date dateByAddingTimeInterval:NSINTEGER_DEFINED];
+            NSString *logMessage = [NSString stringWithFormat:@"direct message received %@", notification];
+            WLLog(@"PUBNUB", logMessage, notification.entryData);
         }];
     }
 }
 
 - (void)handleNotification:(WLNotification*)notification allowSound:(BOOL)allowSound {
-    NSString *logMessage = [NSString stringWithFormat:@"message received %lu : %@", notification.type, notification.entryIdentifier];
-    WLLog(@"PUBNUB", logMessage, notification.entryData);
     BOOL insertedEntry = notification.targetEntry.inserted;
     [notification fetch:^{
         if (allowSound && notification.playSound && insertedEntry) [WLSoundPlayer playSoundForNotification:notification];
@@ -168,12 +168,16 @@ static WLDataBlock deviceTokenCompletion = nil;
             NSDate *toDate = [NSDate now];
             NSString *logMessage = [NSString stringWithFormat:@"requesting history starting from: %@ to: %@", fromDate, toDate];
             WLLog(@"PUBNUB", logMessage, nil);
-            [PubNub requestHistoryForChannel:weakSelf.userChannel.channel from:[PNDate dateWithDate:fromDate] to:[PNDate dateWithDate:toDate] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, id channel, id from, id to, id error) {
+            [PubNub requestHistoryForChannel:weakSelf.userChannel.channel from:[PNDate dateWithDate:fromDate] to:[PNDate dateWithDate:toDate] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, id channel, PNDate* from, PNDate* to, id error) {
                 if (!error) {
+                    NSString *logMessage = [NSString stringWithFormat:@"received history starting from: %@ to: %@", from.date, to.date];
+                    WLLog(@"PUBNUB", logMessage, nil);
                     NSArray *notifications = [weakSelf notificationsFromMessages:messages];
                     if (notifications.nonempty) {
                         for (WLNotification *notification in notifications) {
                             [weakSelf handleNotification:notification allowSound:NO];
+                            NSString *logMessage = [NSString stringWithFormat:@"history message received %@", notification];
+                            WLLog(@"PUBNUB", logMessage, notification.entryData);
                         }
                     } else {
                         WLLog(@"PUBNUB", @"no missed messages in history", nil);

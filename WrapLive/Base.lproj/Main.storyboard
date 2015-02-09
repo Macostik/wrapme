@@ -2967,7 +2967,6 @@ Check your internet connection and try again.</string>
                                 <connections>
                                     <outlet property="dataSource" destination="eto-O4-OHy" id="9Ma-Cu-VGB"/>
                                     <outlet property="delegate" destination="eto-O4-OHy" id="Sry-Xj-CY6"/>
-                                    <outletCollection property="gestureRecognizers" destination="I40-bZ-MD6" appends="YES" id="QMI-Q7-QVm"/>
                                 </connections>
                             </collectionView>
                             <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="Wbg-W9-8Ie" customClass="WLGradientView">
@@ -3151,7 +3150,6 @@ Check your internet connection and try again.</string>
                         <outlet property="lastCommentLabel" destination="isn-QR-Jgl" id="B3Q-Yv-Gsh"/>
                         <outlet property="postLabel" destination="Dsh-mJ-NAQ" id="qz7-Tr-1Dc"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="6g0-cf-4Q4"/>
-                        <outlet property="topViewConstraint" destination="eku-Sv-U5Q" id="IEs-i0-sOl"/>
                         <outletCollection property="keyboardAdjustmentLayoutViews" destination="jyK-17-cAD" id="lnf-D1-hsN"/>
                     </connections>
                 </viewController>
@@ -3166,11 +3164,6 @@ Check your internet connection and try again.</string>
                         <outlet property="sourceViewController" destination="eto-O4-OHy" id="6eo-J0-dzX"/>
                     </connections>
                 </customObject>
-                <tapGestureRecognizer id="I40-bZ-MD6">
-                    <connections>
-                        <action selector="onTapGestureRecognize:" destination="eto-O4-OHy" id="Lga-LJ-cBK"/>
-                    </connections>
-                </tapGestureRecognizer>
                 <customObject id="vup-MX-RNo" customClass="WLStoryboardTransition">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLCommentsViewController"/>
@@ -3485,7 +3478,7 @@ Check your internet connection and try again.</string>
                         <outlet property="composeBar" destination="aG1-FG-zzH" id="h7O-SD-YJL"/>
                         <outlet property="dataProvider" destination="c4T-N6-79M" id="qMo-HE-9fg"/>
                         <outlet property="dataSection" destination="RbC-xy-dkj" id="Sot-Lw-F8A"/>
-                        <outlet property="topCommentViewContstrain" destination="rOF-bj-mRg" id="7Ap-ab-yvD"/>
+                        <outlet property="topCommentViewContstrain" destination="rOF-bj-mRg" id="Cbz-Et-h5w"/>
                         <outlet property="view" destination="Mb1-3b-t3s" id="EJk-Dv-pYy"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="RfD-Sk-oI1" id="6zi-zr-HXV"/>
                     </connections>

@@ -64,13 +64,11 @@
 
 @property (weak, nonatomic) UISwipeGestureRecognizer* leftSwipeGestureRecognizer;
 @property (weak, nonatomic) UISwipeGestureRecognizer* rightSwipeGestureRecognizer;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewConstraint;
 
 @property (strong, nonatomic) WLHistoryItem *historyItem;
 
 @property (strong, nonatomic) WLHistory *history;
 @property (assign, nonatomic) CGPoint scrollPositionBeforeRotation;
-@property (assign, nonatomic) BOOL isHide;
 
 @end
 
@@ -107,7 +105,6 @@
     [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:rightSwipe];
     
     self.commentButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.isHide = YES;
     
     [self refresh:_candy];
 }
@@ -133,7 +130,6 @@
     [super viewDidAppear:animated];
     self.scrolledToInitialItem = YES;
     [WLHintView showCandySwipeHintView];
-    [self showDetailViewsAfterDelay:5.0f];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -293,7 +289,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 - (IBAction)navigationButtonClick:(WLIconButton *)sender {
-    self.isHide = NO;
     __weak __typeof(self)weakSelf = self;
     if ([sender.iconName isEqualToString:@"cloudDownload"]) {
         [self.candy download:^{
@@ -313,29 +308,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     } else {
         [MFMailComposeViewController messageWithCandy:self.candy];
     }
-}
-
-static CGFloat WLTopContraintConstant = -20.0f;
-
-- (IBAction)onTapGestureRecognize:(id)sender {
-    BOOL hide = self.topViewConstraint.constant == WLTopContraintConstant;
-    [self hideDetailViews:hide];
-}
-
-- (void)showDetailViewsAfterDelay:(CGFloat)sec {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showDetailViewsAfterDelay:) object:nil];
-    [self hideDetailViews:NO];
-    __weak __typeof(self)weakSelf = self;
-    run_after(sec, ^{
-        [weakSelf hideDetailViews:weakSelf.isHide];
-    });
-}
-
-- (void)hideDetailViews:(BOOL)hide {
-    [UIView performAnimated:YES animation:^{
-        self.topViewConstraint.constant = hide ? -self.topView.height + WLTopContraintConstant : WLTopContraintConstant;
-        [self.view layoutIfNeeded];
-    }];
 }
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
@@ -401,10 +373,6 @@ static CGFloat WLTopContraintConstant = -20.0f;
 
 - (UIView *)viewForZoomingInScrollView:(WLScrollView *)scrollView {
     return [scrollView isKindOfClass:[WLScrollView class]] ? scrollView.zoomingView : nil;
-}
-
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
-    [self hideDetailViews:YES];
 }
 
 @end

@@ -90,6 +90,7 @@
             uploadingData.progressBar = progressBar = [[WLProgressBar alloc] initWithFrame:self.authorImageView.frame];
         }
         self.progressBar = progressBar;
+        progressBar.delegate = self.delegate;
     }
 }
 

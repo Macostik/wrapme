@@ -3325,6 +3325,7 @@ Check your internet connection and try again.</string>
                                                     <outlet property="authorImageView" destination="B1Y-FB-4KE" id="w6y-Kr-B0L"/>
                                                     <outlet property="authorNameLabel" destination="70w-oo-mtg" id="ZBK-5y-Hzx"/>
                                                     <outlet property="dateLabel" destination="641-7R-EdV" id="fH4-vi-Kn0"/>
+                                                    <outlet property="delegate" destination="M8n-42-KAe" id="Bzl-Yc-W13"/>
                                                     <outlet property="textLabel" destination="AW3-SZ-vpH" id="jxe-gr-TTl"/>
                                                 </connections>
                                             </collectionViewCell>

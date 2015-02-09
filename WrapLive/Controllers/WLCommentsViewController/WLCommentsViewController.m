@@ -221,4 +221,12 @@ static CGFloat WLContstraintOffset = 44.0;
     return UIInterfaceOrientationMaskAll;
 }
 
+#pragma mark - WLProgressBarDelegate 
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    if ([[(CABasicAnimation *)anim toValue] isEqualToNumber:@(1)]) {
+         [self onClose:nil];
+    }
+}
+
 @end

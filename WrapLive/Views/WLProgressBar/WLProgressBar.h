@@ -11,6 +11,7 @@
 @interface WLProgressBar : UIView
 
 @property (nonatomic) float progress;
+@property (assign, nonatomic) id delegate;
 
 - (void)setProgress:(float)progress animated:(BOOL)animated;
 

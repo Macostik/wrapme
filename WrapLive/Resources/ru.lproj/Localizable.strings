@@ -118,3 +118,6 @@
 "Internet connection is not reachable." = "Соединение интернета не дроступно.";
 "last updated %@" = "последнее обновление %@";
 "Wrap %@ is no longer available." = "Врап %@ больше не доступен.";
+"Posted by %@,\n%@" = "Разместил %@,\n%@";
+"Comment" = "Комментарий";
+"%i comments" = "%i комментариев";

@@ -127,3 +127,6 @@
 "Internet connection is not reachable." = "Internet connection is not reachable.";
 "last updated %@" = "last updated %@";
 "Wrap %@ is no longer available." = "Wrap %@ is no longer available.";
+"Posted by %@,\n%@" = "Posted by %@,\n%@";
+"Comment" = "Comment";
+"%i comments" = "%i comments";

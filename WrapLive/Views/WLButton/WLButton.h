@@ -22,6 +22,8 @@
 
 @property (strong, nonatomic) IBInspectable UIColor *spinnerColor;
 
+@property (assign, nonatomic) IBInspectable CGFloat horizontalInset;
+
 @property (weak, nonatomic) IBOutlet UIView* accessoryView;
 
 @property (nonatomic) BOOL loading;

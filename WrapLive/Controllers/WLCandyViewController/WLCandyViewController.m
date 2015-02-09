@@ -209,9 +209,11 @@
     [self.actionButton setupWithName:_candy.deletable ? @"trash" : @"warning"
                                color:[UIColor whiteColor]
                                 size:self.actionButton.width/2];
+    NSString *titleButton = _candy.comments.count <= 1 ? WLLS(@"Comment") : [NSString stringWithFormat:WLLS(@"%i comments"), (int)_candy.comments.count];
+    [self.commentButton setTitle:titleButton forState:UIControlStateNormal];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByReplacingCharactersInRange:NSMakeRange(0,1)
                                                                                            withString:[[_candy.createdAt.timeAgoStringAtAMPM substringToIndex:1] capitalizedString]];
-    self.postLabel.text = [NSString stringWithFormat:@"Posted by %@,\n%@", _candy.contributor.name, timeAgoString];
+    self.postLabel.text = [NSString stringWithFormat:WLLS(@"Posted by %@,\n%@"), _candy.contributor.name, timeAgoString];
     self.lastComment = _candy.comments.lastObject;
 }
 

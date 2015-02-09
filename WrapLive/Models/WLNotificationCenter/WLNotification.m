@@ -30,7 +30,7 @@
 
 + (instancetype)notificationWithMessage:(PNMessage*)message {
     WLNotification *notification = [self notificationWithData:message.message];
-    notification.date = [(message.date ? : message.receiveDate) date];
+    notification.date = [(message.receiveDate ? : message.date) date];
 	return notification;
 }
 
@@ -45,6 +45,13 @@
 		}
 	}
 	return nil;
+}
+
+- (NSString *)identifier {
+    if (!_identifier) {
+        _identifier = [NSString stringWithFormat:@"%lu_%@", self.type, self.entryIdentifier];
+    }
+    return _identifier;
 }
 
 - (void)setup:(NSDictionary*)data {

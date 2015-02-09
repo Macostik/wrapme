@@ -30,6 +30,8 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 @interface WLNotification : NSObject
 
+@property (strong, nonatomic) NSString* identifier;
+
 @property (nonatomic) WLNotificationType type;
 
 @property (nonatomic) WLEvent event;

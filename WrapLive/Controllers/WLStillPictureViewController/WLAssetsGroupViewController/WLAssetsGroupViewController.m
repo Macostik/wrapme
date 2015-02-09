@@ -87,6 +87,7 @@
 
 - (void)assetsGroupCell:(WLAssetsGroupCell *)cell didSelectGroup:(ALAssetsGroup *)group {
 	WLAssetsViewController* controller = [WLAssetsViewController instantiate:self.storyboard];
+    controller.group = group;
 	controller.delegate = self.delegate;
     controller.mode = self.mode;
     controller.wrap = self.wrap;

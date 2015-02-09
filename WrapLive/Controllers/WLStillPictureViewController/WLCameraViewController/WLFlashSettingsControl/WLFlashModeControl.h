@@ -10,8 +10,6 @@
 
 @interface WLFlashModeControl : UIControl
 
-@property (strong, nonatomic) UIColor* titleColor;
-
 @property (nonatomic) AVCaptureFlashMode mode;
 
 @property (nonatomic) BOOL selecting;

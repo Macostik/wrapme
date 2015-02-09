@@ -20,22 +20,36 @@
 }
 
 + (void)picture:(UIImage *)image cache:(WLImageCache *)cache completion:(WLObjectBlock)completion {
+    [self picture:image mode:WLStillPictureModeDefault cache:cache completion:completion];
+}
+
++ (void)picture:(UIImage *)image mode:(WLStillPictureMode)mode completion:(WLObjectBlock)completion {
+    [self picture:image mode:mode cache:[WLImageCache uploadingCache] completion:completion];
+}
+
++ (void)picture:(UIImage *)image mode:(WLStillPictureMode)mode cache:(WLImageCache *)cache completion:(WLObjectBlock)completion {
     if (!completion) {
         return;
     }
     if (!cache) {
         cache = [WLImageCache cache];
     }
+    
+    BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+    BOOL isCandy = mode == WLStillPictureModeDefault;
+    
     __weak WLImageCache *imageCache = cache;
     run_in_background_queue(^{
         __block NSData *metadataImage = UIImageJPEGRepresentation(image, .5f);
         [imageCache setImageData:metadataImage completion:^(NSString *path) {
             WLPicture* picture = [[self alloc] init];
             picture.large = [imageCache pathWithIdentifier:path];
-            metadataImage =  UIImageJPEGRepresentation([image thumbnailImage:320.0f], 1.0f);
+            CGFloat size = isPad ? (isCandy ? 720 : 320) : (isCandy ? 480 : 320);
+            metadataImage =  UIImageJPEGRepresentation([image thumbnailImage:size], 1.0f);
             [imageCache setImageData:metadataImage completion:^(NSString *path) {
                 picture.medium = [imageCache pathWithIdentifier:path];
-                metadataImage = UIImageJPEGRepresentation([image thumbnailImage:160.0f], 1.0f);
+                CGFloat size = isPad ? (isCandy ? 480 : 160) : (isCandy ? 240 : 160);
+                metadataImage = UIImageJPEGRepresentation([image thumbnailImage:size], 1.0f);
                 [imageCache setImageData:metadataImage completion:^(NSString *path) {
                     picture.small = [imageCache pathWithIdentifier:path];
                     completion(picture);

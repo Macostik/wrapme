@@ -56,7 +56,7 @@
 
 #pragma mark - UIKit interface
 
-@property (weak, nonatomic) IBOutlet WLWrapView *wrapView;
+@property (weak, nonatomic) IBOutlet UIView *cropAreaView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topWrapViewConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *unauthorizedStatusView;
 @property (weak, nonatomic) IBOutlet WLCameraView *cameraView;
@@ -83,6 +83,9 @@
 		self.view.frame = self.presentingViewController.view.bounds;
         [self.view layoutIfNeeded];
 	}
+    
+    self.cropAreaView.layer.borderWidth = 1;
+    self.cropAreaView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.75].CGColor;
 	
     __weak typeof(self)weakSelf = self;
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {

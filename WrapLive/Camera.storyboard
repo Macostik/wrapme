@@ -46,6 +46,13 @@
                                     <outletCollection property="gestureRecognizers" destination="lNU-oZ-hbO" appends="YES" id="oC3-9S-ZMv"/>
                                 </connections>
                             </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U2Z-fs-pUr">
+                                <rect key="frame" x="0.0" y="54" width="320" height="320"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="U2Z-fs-pUr" secondAttribute="height" id="apA-m5-6CG"/>
+                                </constraints>
+                            </view>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To allow access to the camera go to the Settings → Privacy → Camera" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwv-dz-I8C" customClass="WLLabel">
                                 <rect key="frame" x="20" y="126" width="280" height="176"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -197,21 +204,28 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qVG-Zp-cpa">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bka-bI-Ghh" customClass="WLFlashModeControl">
-                                        <rect key="frame" x="10" y="20" width="180" height="44"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="10" y="10" width="44" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="180" id="5la-U5-uAK"/>
+                                            <constraint firstAttribute="width" constant="44" id="5la-U5-uAK"/>
                                             <constraint firstAttribute="height" constant="44" id="KID-Dm-3fQ"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="22"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="flashModeChanged:" destination="gev-MF-K1G" eventType="valueChanged" id="2gc-db-Jqr"/>
+                                            <outlet property="widthConstraint" destination="5la-U5-uAK" id="ztE-Bm-aDA"/>
                                         </connections>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sV2-wR-LN3">
-                                        <rect key="frame" x="276" y="20" width="44" height="44"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sV2-wR-LN3">
+                                        <rect key="frame" x="266" y="10" width="44" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="Pnu-Ke-DME"/>
                                             <constraint firstAttribute="width" constant="44" id="kht-dS-DEW"/>
@@ -219,6 +233,11 @@
                                         <state key="normal" image="switch_to_front_cam">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="22"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="rotateCamera:" destination="gev-MF-K1G" eventType="touchUpInside" id="LuZ-j8-s26"/>
                                         </connections>
@@ -227,35 +246,39 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Bka-bI-Ghh" firstAttribute="leading" secondItem="qVG-Zp-cpa" secondAttribute="leading" constant="10" id="1u1-83-fna"/>
-                                    <constraint firstItem="Bka-bI-Ghh" firstAttribute="top" secondItem="qVG-Zp-cpa" secondAttribute="top" constant="20" id="4H8-Xu-VKh"/>
-                                    <constraint firstItem="sV2-wR-LN3" firstAttribute="top" secondItem="qVG-Zp-cpa" secondAttribute="top" constant="20" id="QbK-5I-SGi"/>
-                                    <constraint firstAttribute="trailing" secondItem="sV2-wR-LN3" secondAttribute="trailing" id="SsU-Ce-k8Q"/>
-                                    <constraint firstAttribute="height" constant="64" id="bqF-1A-1Dd"/>
+                                    <constraint firstItem="Bka-bI-Ghh" firstAttribute="top" secondItem="qVG-Zp-cpa" secondAttribute="top" constant="10" id="4H8-Xu-VKh"/>
+                                    <constraint firstItem="sV2-wR-LN3" firstAttribute="top" secondItem="qVG-Zp-cpa" secondAttribute="top" constant="10" id="QbK-5I-SGi"/>
+                                    <constraint firstAttribute="trailing" secondItem="sV2-wR-LN3" secondAttribute="trailing" constant="10" id="SsU-Ce-k8Q"/>
+                                    <constraint firstAttribute="height" constant="54" id="bqF-1A-1Dd"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="QJU-xo-V0A" firstAttribute="top" secondItem="WwV-lh-u8m" secondAttribute="top" id="8bA-uj-3X0"/>
+                            <constraint firstItem="QJU-xo-V0A" firstAttribute="centerX" secondItem="U2Z-fs-pUr" secondAttribute="centerX" id="BOx-1y-Pu4"/>
                             <constraint firstItem="oqD-Jp-Gr1" firstAttribute="top" secondItem="QJU-xo-V0A" secondAttribute="bottom" id="GaA-rh-Wk3"/>
                             <constraint firstItem="oqD-Jp-Gr1" firstAttribute="leading" secondItem="WwV-lh-u8m" secondAttribute="leading" id="Jt8-dp-CKN"/>
                             <constraint firstItem="Jwv-dz-I8C" firstAttribute="centerX" secondItem="QJU-xo-V0A" secondAttribute="centerX" id="O7o-MP-9BF"/>
                             <constraint firstAttribute="trailing" secondItem="oqD-Jp-Gr1" secondAttribute="trailing" id="ObE-eP-JMG"/>
                             <constraint firstItem="qVG-Zp-cpa" firstAttribute="top" secondItem="WwV-lh-u8m" secondAttribute="top" id="UiX-x7-JqQ"/>
+                            <constraint firstAttribute="width" secondItem="U2Z-fs-pUr" secondAttribute="width" id="Vie-ta-ivH"/>
                             <constraint firstAttribute="trailing" secondItem="qVG-Zp-cpa" secondAttribute="trailing" id="c9L-pc-RYF"/>
                             <constraint firstItem="qVG-Zp-cpa" firstAttribute="leading" secondItem="WwV-lh-u8m" secondAttribute="leading" id="ePN-JT-Ot1"/>
                             <constraint firstAttribute="width" secondItem="QJU-xo-V0A" secondAttribute="width" id="nMk-qg-Hyf"/>
                             <constraint firstAttribute="centerX" secondItem="QJU-xo-V0A" secondAttribute="centerX" id="p50-r9-wa3"/>
+                            <constraint firstItem="QJU-xo-V0A" firstAttribute="centerY" secondItem="U2Z-fs-pUr" secondAttribute="centerY" id="sKd-cU-XRv"/>
                             <constraint firstItem="Jwv-dz-I8C" firstAttribute="centerY" secondItem="QJU-xo-V0A" secondAttribute="centerY" id="sXd-fP-mf2"/>
                             <constraint firstItem="tIy-iw-Nju" firstAttribute="top" secondItem="oqD-Jp-Gr1" secondAttribute="bottom" id="u6r-Aq-w9o"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0aA-xQ-9Uu"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="bottomView" destination="oqD-Jp-Gr1" id="hri-Wv-Xvz"/>
                         <outlet property="cameraView" destination="QJU-xo-V0A" id="sRC-HM-yjt"/>
                         <outlet property="cameraViewHeightConstraint" destination="SK8-6Z-lsd" id="aW6-00-npi"/>
+                        <outlet property="cropAreaView" destination="U2Z-fs-pUr" id="Dvu-VS-pUs"/>
                         <outlet property="flashModeControl" destination="Bka-bI-Ghh" id="l4L-Ch-kIK"/>
                         <outlet property="rotateButton" destination="sV2-wR-LN3" id="t38-Si-ylZ"/>
                         <outlet property="takePhotoButton" destination="3gL-lu-fDr" id="gF4-Sa-A9c"/>
@@ -761,9 +784,10 @@
                             <constraint firstItem="vCg-oN-dzS" firstAttribute="top" secondItem="PXc-wK-33a" secondAttribute="bottom" id="9xc-65-DvO"/>
                             <constraint firstItem="PXc-wK-33a" firstAttribute="leading" secondItem="BhV-eV-kV4" secondAttribute="leading" id="Md4-hR-a9y"/>
                             <constraint firstAttribute="trailing" secondItem="PXc-wK-33a" secondAttribute="trailing" id="VRu-z1-Zpi"/>
-                            <constraint firstItem="PXc-wK-33a" firstAttribute="top" secondItem="Oez-Qa-hJq" secondAttribute="bottom" constant="-20" id="gWc-nz-ZoD"/>
+                            <constraint firstItem="PXc-wK-33a" firstAttribute="top" secondItem="Oez-Qa-hJq" secondAttribute="bottom" id="gWc-nz-ZoD"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xn2-PF-LkD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -773,6 +797,7 @@
         <scene sceneID="g5Y-fv-wW9">
             <objects>
                 <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="owE-f8-xzI" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="e7n-qu-DxN">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -791,7 +816,7 @@
         <image name="ic_back_white" width="12" height="22"/>
         <image name="ic_gallery_medium" width="50" height="50"/>
         <image name="ic_next_gray" width="8" height="14"/>
-        <image name="switch_to_front_cam" width="30" height="30"/>
+        <image name="switch_to_front_cam" width="23" height="18"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

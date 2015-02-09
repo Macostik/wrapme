@@ -36,7 +36,7 @@ PODS:
   - FontAwesomeKit/Zocial (2.1.8):
     - FontAwesomeKit/Core
   - OpenUDID (1.0.0)
-  - PubNub (3.7.7)
+  - PubNub (3.7.8)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -48,6 +48,6 @@ SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   FontAwesomeKit: a2edea3111dab107b4cc43b85881b404eb063385
   OpenUDID: 5a23b7477755efc2d7871b57aa79ba3089c40b74
-  PubNub: e41b383a8e1096a57649ddbdd878fce20ae859ad
+  PubNub: 45b79cfdbfb9268b06270c7bcbf8b9f55b91b5c7
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.36.0.beta.1

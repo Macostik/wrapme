@@ -64,6 +64,14 @@
     [[WLWrap notifier] addReceiver:self];
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     __weak typeof(self)weakSelf = self;
@@ -84,8 +92,11 @@
 }
 
 - (void)showHintView {
-    CGPoint wrapNameCenter = [self.view convertPoint:self.wrapView.nameLabel.center fromView:self.wrapView];
-    [WLHintView showWrapPickerHintViewInView:[UIWindow mainWindow] withFocusPoint:CGPointMake(74, wrapNameCenter.y)];
+    WLStillPictureBaseViewController *controller = (id)self.cameraNavigationController.topViewController;
+    if ([controller isKindOfClass:[WLStillPictureBaseViewController class]]) {
+        CGPoint wrapNameCenter = [self.view convertPoint:controller.wrapView.nameLabel.center fromView:controller.wrapView];
+        [WLHintView showWrapPickerHintViewInView:[UIWindow mainWindow] withFocusPoint:CGPointMake(74, wrapNameCenter.y)];
+    }
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
@@ -144,7 +155,7 @@
         if (save) [resultImage save:metadata];
         if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
             weakSelf.view.userInteractionEnabled = NO;
-            [WLPicture picture:resultImage completion:^(id object) {
+            [WLPicture picture:resultImage mode:weakSelf.mode completion:^(id object) {
                 [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithPictures:@[object]];
                 weakSelf.view.userInteractionEnabled = YES;
             }];
@@ -211,7 +222,7 @@
     for (ALAsset* asset in assets) {
         [queue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
             [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
-                [WLPicture picture:croppedImage completion:^(id object) {
+                [WLPicture picture:croppedImage mode:weakSelf.mode completion:^(id object) {
                     [pictures addObject:object];
                     [operation finish:^{
                         run_in_main_queue(^{

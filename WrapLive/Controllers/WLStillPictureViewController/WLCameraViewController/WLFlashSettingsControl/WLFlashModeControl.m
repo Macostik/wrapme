@@ -11,6 +11,7 @@
 #import "UIFont+CustomFonts.h"
 #import "UIColor+CustomColors.h"
 #import "WLButton.h"
+#import <FontAwesomeKit/FontAwesomeKit.h>
 
 @interface WLFlashModeControl ()
 
@@ -18,64 +19,54 @@
 @property (weak, nonatomic) UIButton* offButton;
 @property (weak, nonatomic) UIButton* autoButton;
 @property (weak, nonatomic) UIButton* currentModeButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
 
 @end
 
 @implementation WLFlashModeControl
 
-static inline NSString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
+static inline NSAttributedString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
+    FAKIcon *icon = nil;
 	switch (mode) {
 		case AVCaptureFlashModeOn:
-			return @"On";
+            icon = [FAKIonIcons flashIconWithSize:22];
 			break;
 		case AVCaptureFlashModeOff:
-			return @"Off";
+            icon = [FAKIonIcons flashOffIconWithSize:22];
 			break;
 		case AVCaptureFlashModeAuto:
-			return @"Auto";
+            icon = [FAKIonIcons flashOffIconWithSize:22];
 			break;
 		default:
-			return @"On";
+            icon = [FAKIonIcons flashIconWithSize:22];
 			break;
 	}
+    [icon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    return [icon attributedString];
 };
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	
 	self.currentModeButton = [self initializeButton:nil action:@selector(changeMode:)];
-	self.currentModeButton.width = self.width/2;
-	[self.currentModeButton setImage:[UIImage imageNamed:@"ic_flash"] forState:UIControlStateNormal];
+	self.currentModeButton.width = self.height;
 	self.onButton = [self initializeButton:WLFlashModeStringValue(AVCaptureFlashModeOn) action:@selector(selectOn:)];
-	[self.onButton setImage:[UIImage imageNamed:@"ic_flash"] forState:UIControlStateNormal];
 	self.offButton = [self initializeButton:WLFlashModeStringValue(AVCaptureFlashModeOff) action:@selector(selectOff:)];
 	self.autoButton = [self initializeButton:WLFlashModeStringValue(AVCaptureFlashModeAuto) action:@selector(selectAuto:)];
-	
+    
 	self.mode = AVCaptureFlashModeOn;
 	self.selecting = NO;
 }
 
-- (UIColor *)titleColor {
-	return [self.currentModeButton titleColorForState:UIControlStateNormal];
-}
-
-- (void)setTitleColor:(UIColor *)titleColor {
-	[self.currentModeButton setTitleColor:titleColor forState:UIControlStateNormal];
-	[self.onButton setTitleColor:titleColor forState:UIControlStateNormal];
-	[self.offButton setTitleColor:titleColor forState:UIControlStateNormal];
-	[self.autoButton setTitleColor:titleColor forState:UIControlStateNormal];
-}
-
-- (UIButton*)initializeButton:(NSString*)title action:(SEL)action {
-	CGRect frame = CGRectMake(0, 0, self.width/3, self.height);
+- (UIButton*)initializeButton:(NSAttributedString*)title action:(SEL)action {
+	CGRect frame = CGRectMake(0, 0, self.height, self.height);
 	WLButton* button = [WLButton buttonWithType:UIButtonTypeCustom];
-	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 	[button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
 	button.frame = frame;
 	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[button setTitle:title forState:UIControlStateNormal];
+	[button setAttributedTitle:title forState:UIControlStateNormal];
 	button.titleLabel.font = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetSmall];
-    button.preset = WLFontPresetSmall;
+    button.preset = WLFontPresetXSmall;
 	[self addSubview:button];
 	return button;
 }
@@ -86,7 +77,7 @@ static inline NSString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
 
 - (void)setMode:(AVCaptureFlashMode)mode animated:(BOOL)animated {
 	_mode = mode;
-	[self.currentModeButton setTitle:WLFlashModeStringValue(mode) forState:UIControlStateNormal];
+	[self.currentModeButton setAttributedTitle:WLFlashModeStringValue(mode) forState:UIControlStateNormal];
 }
 
 - (void)setSelecting:(BOOL)selecting {
@@ -103,9 +94,11 @@ static inline NSString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
 	self.onButton.alpha = selecting ? 1.0f : 0.0f;
 	self.offButton.alpha = selecting ? 1.0f : 0.0f;
 	self.autoButton.alpha = selecting ? 1.0f : 0.0f;
-	CGFloat width = (self.width / 3.0f);
-	self.offButton.x = selecting ? width : 0.0f;
-	self.autoButton.x = selecting ? (2.0f * width) : 0.0f;
+	CGFloat buttonWidth = self.height;
+	self.offButton.x = selecting ? buttonWidth : 0.0f;
+	self.autoButton.x = selecting ? (2.0f * buttonWidth) : 0.0f;
+    self.widthConstraint.constant = selecting ? buttonWidth * 3 : self.height;
+    [self layoutIfNeeded];
 	if (animated) {
 		[UIView commitAnimations];
 	}

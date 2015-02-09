@@ -201,7 +201,7 @@
 
 - (void)hideTopView:(BOOL)hide {
     [UIView performAnimated:YES animation:^{
-        self.topCommentViewContstrain.constant = hide ? 0 : WLContstraintOffset;
+        self.topCommentViewContstrain.constant = hide ? 20.0f : WLContstraintOffset;
         [self.view layoutIfNeeded];
     }];
 }

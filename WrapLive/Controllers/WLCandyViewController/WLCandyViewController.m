@@ -384,18 +384,16 @@ static CGFloat WLTopContraintConstant = -20.0f;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     self.collectionView.alpha = 0;
     [self.collectionView.collectionViewLayout invalidateLayout];
-    
-    self.scrollPositionBeforeRotation = CGPointMake(self.collectionView.contentOffset.x / self.collectionView.contentSize.width,
-                                                    self.collectionView.contentOffset.y / self.collectionView.contentSize.height);
+    CGFloat xPosition = Smoothstep(.0, 1.0, self.collectionView.contentOffset.x / self.collectionView.contentSize.width);
+    CGFloat yPosition = self.collectionView.contentOffset.y / self.collectionView.contentSize.height;
+    self.scrollPositionBeforeRotation = CGPointMake(xPosition, yPosition);
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation; {
     CGPoint newContentOffset = CGPointMake(self.scrollPositionBeforeRotation.x * self.collectionView.contentSize.width,
                                            self.scrollPositionBeforeRotation.y * self.collectionView.contentSize.height);
-    if (IsInBounds(self.collectionView.x, self.collectionView.contentSize.width, newContentOffset.x)) {
-        [self.collectionView setContentOffset:newContentOffset animated:NO];
-    }
-    
+ 
+    [self.collectionView trySetContentOffset:newContentOffset animated:NO];
     self.collectionView.alpha = 1;
 }
 

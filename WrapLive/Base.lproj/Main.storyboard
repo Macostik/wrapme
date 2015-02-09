@@ -2961,13 +2961,13 @@ Check your internet connection and try again.</string>
                                             <outlet property="imageView" destination="Cn8-Rl-m4g" id="1g9-nO-lLo"/>
                                             <outlet property="scrollView" destination="pry-wp-qRG" id="ogZ-4H-qOK"/>
                                             <outlet property="spinner" destination="bf0-24-ZKl" id="Chs-OZ-iJA"/>
-                                            <outletCollection property="gestureRecognizers" destination="I40-bZ-MD6" appends="YES" id="9bS-Fu-AC3"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="eto-O4-OHy" id="9Ma-Cu-VGB"/>
                                     <outlet property="delegate" destination="eto-O4-OHy" id="Sry-Xj-CY6"/>
+                                    <outletCollection property="gestureRecognizers" destination="I40-bZ-MD6" appends="YES" id="QMI-Q7-QVm"/>
                                 </connections>
                             </collectionView>
                             <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="Wbg-W9-8Ie" customClass="WLGradientView">
@@ -3232,29 +3232,17 @@ Check your internet connection and try again.</string>
                                                     <action selector="onClose:" destination="M8n-42-KAe" eventType="touchUpInside" id="9x9-e0-Cw3"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="85" placeholderIntrinsicHeight="23" text="Comments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lne-M9-gtD" customClass="WLLabel">
-                                                <rect key="frame" x="106" y="0.0" width="85" height="44"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="DMb-V4-f7d" firstAttribute="top" secondItem="HRF-S3-bc8" secondAttribute="top" id="Fu1-c0-5GE"/>
                                             <constraint firstItem="2nE-rT-l31" firstAttribute="top" secondItem="HRF-S3-bc8" secondAttribute="top" id="Lax-p8-Tj4"/>
-                                            <constraint firstAttribute="centerX" secondItem="lne-M9-gtD" secondAttribute="centerX" constant="-0.5" id="ThD-s2-7n6"/>
                                             <constraint firstAttribute="trailing" secondItem="DMb-V4-f7d" secondAttribute="trailing" id="Tle-Qq-CRM"/>
                                             <constraint firstAttribute="bottom" secondItem="DMb-V4-f7d" secondAttribute="bottom" id="ToV-HT-gwj"/>
                                             <constraint firstAttribute="bottom" secondItem="2nE-rT-l31" secondAttribute="bottom" id="Xb3-R1-TBh"/>
                                             <constraint firstAttribute="height" constant="44" id="Xyh-Mj-yRq"/>
                                             <constraint firstAttribute="trailing" secondItem="2nE-rT-l31" secondAttribute="trailing" id="YhM-bE-R7C"/>
                                             <constraint firstItem="2nE-rT-l31" firstAttribute="height" secondItem="HRF-S3-bc8" secondAttribute="height" id="aMA-pQ-Rna"/>
-                                            <constraint firstAttribute="centerY" secondItem="lne-M9-gtD" secondAttribute="centerY" id="hIT-rv-hYH"/>
-                                            <constraint firstAttribute="height" secondItem="lne-M9-gtD" secondAttribute="height" id="onr-eL-erd"/>
                                             <constraint firstAttribute="height" secondItem="DMb-V4-f7d" secondAttribute="height" id="sNh-Bn-Lsc"/>
                                         </constraints>
                                     </view>

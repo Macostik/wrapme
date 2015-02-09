@@ -86,7 +86,7 @@
         [transitionContext.containerView addSubview:toViewController.view];
         self.contentView.transform = CGAffineTransformMakeScale(0.5, 0.5);
         self.view.backgroundColor = [UIColor clearColor];
-        [UIView animateWithDuration:0.5f
+        [UIView animateWithDuration:1.f
                               delay:0
              usingSpringWithDamping:0.5
               initialSpringVelocity:0.5

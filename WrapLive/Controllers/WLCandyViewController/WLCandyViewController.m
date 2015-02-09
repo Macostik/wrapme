@@ -149,15 +149,6 @@
     [self.collectionView reloadData];
 }
 
-//- (WLCandy *)candy {
-//    WLImageViewCell* cell = self.candyCell;
-//    if (cell) {
-//        return cell.entry;
-//    }
-//    NSUInteger index = floorf(self.collectionView.contentOffset.x/self.collectionView.width);
-//    return [self.historyItem.entries tryObjectAtIndex:index];
-//}
-
 - (WLImageViewCell *)candyCell {
     WLImageViewCell* candyCell = [[self.collectionView visibleCells] lastObject];
     return candyCell;
@@ -401,8 +392,10 @@ static CGFloat WLTopContraintConstant = -20.0f;
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation; {
     CGPoint newContentOffset = CGPointMake(self.scrollPositionBeforeRotation.x * self.collectionView.contentSize.width,
                                            self.scrollPositionBeforeRotation.y * self.collectionView.contentSize.height);
+    if (IsInBounds(self.collectionView.x, self.collectionView.contentSize.width, newContentOffset.x)) {
+        [self.collectionView setContentOffset:newContentOffset animated:NO];
+    }
     
-    [self.collectionView setContentOffset:newContentOffset animated:NO];
     self.collectionView.alpha = 1;
 }
 

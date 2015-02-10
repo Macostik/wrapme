@@ -85,7 +85,7 @@
 	}
     
     self.cropAreaView.layer.borderWidth = 1;
-    self.cropAreaView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.75].CGColor;
+    self.cropAreaView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.25].CGColor;
 	
     __weak typeof(self)weakSelf = self;
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {

@@ -92,6 +92,7 @@
 }
 
 - (void)showHintView {
+    if (!self.wrap) return;
     WLStillPictureBaseViewController *controller = (id)self.cameraNavigationController.topViewController;
     if ([controller isKindOfClass:[WLStillPictureBaseViewController class]]) {
         CGPoint wrapNameCenter = [self.view convertPoint:controller.wrapView.nameLabel.center fromView:controller.wrapView];

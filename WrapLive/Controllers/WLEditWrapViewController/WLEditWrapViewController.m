@@ -99,7 +99,8 @@ static NSString *const WLLeave = @"Leave";
 #pragma mark - WLEditViewController override method
 
 - (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    if (!self.nameWrapTextField.text.nonempty) {
+    NSString *name = [self.nameWrapTextField.text trim];
+    if (!name.nonempty) {
         if (failure) failure([NSError errorWithDescription:WLLS(@"Wrap name cannot be blank.")]);
     } else {
         if (success) success(nil);

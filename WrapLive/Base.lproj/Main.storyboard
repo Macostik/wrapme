@@ -3018,7 +3018,7 @@ Check your internet connection and try again.</string>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="navigationButtonClick:" destination="eto-O4-OHy" eventType="touchUpInside" id="PPO-4M-gIe"/>
+                                            <action selector="downloadCandy:" destination="eto-O4-OHy" eventType="touchUpInside" id="aDG-lZ-NnF"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -3082,7 +3082,7 @@ Check your internet connection and try again.</string>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="QaK-uY-Rqe"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="3">
+                                        <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -3240,6 +3240,51 @@ Check your internet connection and try again.</string>
                                             <constraint firstAttribute="trailing" secondItem="2nE-rT-l31" secondAttribute="trailing" id="YhM-bE-R7C"/>
                                         </constraints>
                                     </view>
+                                    <view hidden="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="170" placeholderIntrinsicHeight="200" translatesAutoresizingMaskIntoConstraints="NO" id="oRp-1b-6LW" userLabel="PlaceholderView">
+                                        <rect key="frame" x="63" y="122" width="170" height="200"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yGq-TT-jtN" customClass="WLIconButton">
+                                                <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="170" id="WyT-5A-Tez"/>
+                                                </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                        <color key="value" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                        <real key="value" value="170"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="quoteLeft"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No comments yet." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pee-Id-Veb" customClass="WLLabel">
+                                                <rect key="frame" x="0.0" y="170" width="170" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="Jnd-3L-YTX"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <color key="textColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="larger"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="Pee-Id-Veb" firstAttribute="top" secondItem="yGq-TT-jtN" secondAttribute="bottom" id="BdE-N1-cyh"/>
+                                            <constraint firstItem="yGq-TT-jtN" firstAttribute="top" secondItem="oRp-1b-6LW" secondAttribute="top" id="OJt-Gy-PbI"/>
+                                            <constraint firstAttribute="bottom" secondItem="Pee-Id-Veb" secondAttribute="bottom" id="OuK-lF-hsf"/>
+                                            <constraint firstItem="Pee-Id-Veb" firstAttribute="leading" secondItem="oRp-1b-6LW" secondAttribute="leading" id="ovE-0A-Gwl"/>
+                                            <constraint firstAttribute="trailing" secondItem="Pee-Id-Veb" secondAttribute="trailing" id="t21-hE-2Ra"/>
+                                            <constraint firstItem="yGq-TT-jtN" firstAttribute="leading" secondItem="oRp-1b-6LW" secondAttribute="leading" id="ttc-Tg-y8m"/>
+                                        </constraints>
+                                    </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cwv-Gt-Vjm">
                                         <rect key="frame" x="0.0" y="30" width="296" height="384"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3258,7 +3303,7 @@ Check your internet connection and try again.</string>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B1Y-FB-4KE" customClass="WLImageView">
                                                             <rect key="frame" x="12" y="12" width="44" height="44"/>
-                                                            <color key="backgroundColor" red="0.089207175929999993" green="1" blue="0.72337962960000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="44" id="IN5-hd-Oq2"/>
                                                                 <constraint firstAttribute="height" constant="44" id="OFq-ki-vZc"/>
@@ -3454,13 +3499,16 @@ Check your internet connection and try again.</string>
                                 <color key="backgroundColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="HRF-S3-bc8" secondAttribute="trailing" id="Acp-H7-LMK"/>
+                                    <constraint firstAttribute="centerX" secondItem="oRp-1b-6LW" secondAttribute="centerX" id="CVb-Xm-ZVW"/>
                                     <constraint firstAttribute="trailing" secondItem="aG1-FG-zzH" secondAttribute="trailing" id="DKf-kV-K0l"/>
                                     <constraint firstItem="aG1-FG-zzH" firstAttribute="top" secondItem="Cwv-Gt-Vjm" secondAttribute="bottom" id="W7Z-dr-pyq"/>
                                     <constraint firstItem="Cwv-Gt-Vjm" firstAttribute="leading" secondItem="flS-sD-RYF" secondAttribute="leading" id="WUu-jR-Ctv"/>
                                     <constraint firstAttribute="trailing" secondItem="Cwv-Gt-Vjm" secondAttribute="trailing" id="aS3-iO-F8h"/>
+                                    <constraint firstItem="oRp-1b-6LW" firstAttribute="top" relation="lessThanOrEqual" secondItem="flS-sD-RYF" secondAttribute="top" constant="122" id="bgg-OA-q1C"/>
                                     <constraint firstItem="aG1-FG-zzH" firstAttribute="leading" secondItem="flS-sD-RYF" secondAttribute="leading" id="do7-LA-t1Q"/>
                                     <constraint firstItem="HRF-S3-bc8" firstAttribute="top" secondItem="flS-sD-RYF" secondAttribute="top" id="hyL-h1-plg"/>
                                     <constraint firstAttribute="bottom" secondItem="aG1-FG-zzH" secondAttribute="bottom" id="lIS-gM-CY9"/>
+                                    <constraint firstAttribute="bottom" secondItem="oRp-1b-6LW" secondAttribute="bottom" constant="136" id="m1d-nn-EY8"/>
                                     <constraint firstItem="Cwv-Gt-Vjm" firstAttribute="top" secondItem="HRF-S3-bc8" secondAttribute="bottom" id="v4C-PZ-djo"/>
                                     <constraint firstItem="HRF-S3-bc8" firstAttribute="leading" secondItem="flS-sD-RYF" secondAttribute="leading" id="wWJ-eR-usH"/>
                                 </constraints>
@@ -3494,6 +3542,7 @@ Check your internet connection and try again.</string>
                         <outlet property="composeBar" destination="aG1-FG-zzH" id="h7O-SD-YJL"/>
                         <outlet property="dataProvider" destination="c4T-N6-79M" id="qMo-HE-9fg"/>
                         <outlet property="dataSection" destination="RbC-xy-dkj" id="Sot-Lw-F8A"/>
+                        <outlet property="placeholderView" destination="oRp-1b-6LW" id="qOv-US-4k6"/>
                         <outlet property="topCommentViewContstrain" destination="rOF-bj-mRg" id="Cbz-Et-h5w"/>
                         <outlet property="view" destination="Mb1-3b-t3s" id="EJk-Dv-pYy"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="RfD-Sk-oI1" id="6zi-zr-HXV"/>

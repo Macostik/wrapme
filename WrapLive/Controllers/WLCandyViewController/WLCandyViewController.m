@@ -308,23 +308,21 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     }
 }
 
+- (IBAction)downloadCandy:(id)sender {
+    [self.candy download:^{
+    } failure:^(NSError *error) {
+        [error show];
+    }];
+    [WLToast showPhotoDownloadingMessage];
+}
+
 - (IBAction)navigationButtonClick:(WLIconButton *)sender {
-    __weak __typeof(self)weakSelf = self;
-    if ([sender.iconName isEqualToString:@"cloudDownload"]) {
-        [self.candy download:^{
+    if (self.candy.deletable) {
+        [self.candy remove:^(id object) {
+            [WLToast showWithMessage:WLLS(@"Candy was deleted successfully.")];
         } failure:^(NSError *error) {
             [error show];
         }];
-        [WLToast showPhotoDownloadingMessage];
-    } else if ([sender.iconName isEqualToString:@"trash"]) {
-        if (self.candy.deletable) {
-            [self.candy remove:^(id object) {
-                [WLToast showWithMessage:WLLS(@"Candy was deleted successfully.")];
-                [weakSelf dismissViewControllerAnimated:NO completion:nil];
-            } failure:^(NSError *error) {
-                [error show];
-            }];
-        }
     } else {
         [MFMailComposeViewController messageWithCandy:self.candy];
     }

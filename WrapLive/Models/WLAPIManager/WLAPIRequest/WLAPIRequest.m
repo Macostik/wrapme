@@ -166,12 +166,15 @@ static NSTimeInterval _difference = 0;
 }
 
 - (void)trackServerTime:(NSHTTPURLResponse*)response {
-    run_in_background_queue(^{
-        NSDictionary* headers = [response allHeaderFields];
-        NSString* serverTimeString = [headers objectForKey:@"Date"];
-        NSDate* serverTime = [serverTimeString GMTDateWithFormat:@"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"];
-        [NSDate trackServerTime:serverTime];
-    });
+    NSDictionary* headers = [response allHeaderFields];
+    NSString* serverTimeString = [headers objectForKey:@"Date"];
+    if (serverTimeString) {
+        static NSString *WLServerTimeFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'";
+        NSDate* serverTime = [serverTimeString GMTDateWithFormat:WLServerTimeFormat];
+        if (serverTime) {
+            [NSDate trackServerTime:serverTime];
+        }
+    }
 }
 
 @end

@@ -53,12 +53,13 @@
     self.dataSection.selection = selection;
 }
 
-- (void)setup:(WLHistoryItem*)group {
-    self.dataSection.entries = group;
-	self.dateLabel.text = [group.date string];
-	self.dataSection.completed = [group.entries count] < 3;
-    [self.collectionView trySetContentOffset:group.offset];
-    [group.request cancel];
+- (void)setup:(WLHistoryItem*)item {
+    self.dataSection.entries = item;
+	self.dateLabel.text = [item.date string];
+	self.dataSection.completed = [item.entries count] < 3;
+    [self.collectionView performBatchUpdates:nil completion:nil];
+    [self.collectionView trySetContentOffset:item.offset];
+    [item.request cancel];
 }
 
 @end

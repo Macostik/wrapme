@@ -264,7 +264,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
-    [self.collectionView reloadData];
+    [self.collectionView performBatchUpdates:nil completion:nil];
     NSUInteger index = [self.historyItem.entries indexOfObject:self.candy];
     if (index != NSNotFound) {
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]

@@ -16,6 +16,4 @@ static NSString* WLCommentCellIdentifier = @"WLCommentCell";
 
 @interface WLCommentCell : WLEntryCell
 
-@property (assign, nonatomic) IBOutlet id delegate;
-
 @end

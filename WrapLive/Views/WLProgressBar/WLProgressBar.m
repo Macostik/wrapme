@@ -86,7 +86,6 @@
     CAShapeLayer * layer = (id)self.layer;
     if (animated) {
         CABasicAnimation* animation = self.animation;
-        animation.delegate = self.delegate;
         CGFloat fromValue = [(layer.presentationLayer?:layer) strokeEnd];
         animation.duration = ABS(_progress - fromValue);
         [animation setFromValue:@(fromValue)];

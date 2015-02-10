@@ -72,6 +72,7 @@
     [self.candy uploadComment:text success:^(WLComment *comment) {
     } failure:^(NSError *error) {
     }];
+    [self onClose:nil];
 }
 
 #pragma mark - Base method override
@@ -219,14 +220,6 @@ static CGFloat WLContstraintOffset = 44.0;
 - (NSUInteger)supportedInterfaceOrientations {
     [self.collectionView.collectionViewLayout invalidateLayout];
     return UIInterfaceOrientationMaskAll;
-}
-
-#pragma mark - WLProgressBarDelegate 
-
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    if ([[(CABasicAnimation *)anim toValue] isEqualToNumber:@(1)]) {
-         [self onClose:nil];
-    }
 }
 
 @end

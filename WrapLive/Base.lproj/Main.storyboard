@@ -3082,7 +3082,7 @@ Check your internet connection and try again.</string>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="QaK-uY-Rqe"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="Comment">
+                                        <state key="normal" title="3">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -3335,7 +3335,6 @@ Check your internet connection and try again.</string>
                                                     <outlet property="authorImageView" destination="B1Y-FB-4KE" id="w6y-Kr-B0L"/>
                                                     <outlet property="authorNameLabel" destination="70w-oo-mtg" id="ZBK-5y-Hzx"/>
                                                     <outlet property="dateLabel" destination="641-7R-EdV" id="fH4-vi-Kn0"/>
-                                                    <outlet property="delegate" destination="M8n-42-KAe" id="Bzl-Yc-W13"/>
                                                     <outlet property="textLabel" destination="AW3-SZ-vpH" id="jxe-gr-TTl"/>
                                                 </connections>
                                             </collectionViewCell>

@@ -323,14 +323,7 @@ static WLDataBlock deviceTokenCompletion = nil;
         case UIApplicationStateBackground: {
             WLNotification* notification = [WLNotification notificationWithData:data];
             if (notification) {
-                [notification fetch:^{
-                    if (notification.type == WLNotificationCandyAdd) {
-                        WLCandy* candy = (id)notification.targetEntry;
-                        [candy.picture fetch:success];
-                    } else {
-                        if (success) success();
-                    }
-                } failure:failure];
+                [notification fetch:success failure:failure];
             } else if (failure)  {
                 failure([NSError errorWithDescription:WLLS(@"Data in remote notification is not valid (background).")]);
             }

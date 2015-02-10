@@ -57,8 +57,6 @@
 @property (strong, nonatomic) WLComment *lastComment;
 @property (nonatomic) BOOL scrolledToInitialItem;
 
-@property (strong, nonatomic) WLImageViewCell* candyCell;
-
 @property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLLabel *lastCommentLabel;
 
@@ -70,22 +68,28 @@
 @property (strong, nonatomic) WLHistory *history;
 @property (assign, nonatomic) CGPoint scrollPositionBeforeRotation;
 
+@property (strong, nonatomic) WLWrap* wrap;
+
 @end
 
 @implementation WLCandyViewController
 
 @synthesize candy = _candy;
 
+- (void)dealloc {
+    [self.collectionView removeObserver:self forKeyPath:@"contentOffset" context:NULL];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
+    
+    self.wrap = _candy.wrap;
+    
     if (!self.history) {
-        self.history = [WLHistory historyWithWrap:_candy.wrap];
+        self.history = [WLHistory historyWithWrap:self.wrap];
         _historyItem = [self.history itemWithCandy:_candy];
     }
 	
-    [[WLWrap notifier] addReceiver:self];
 	[[WLCandy notifier] addReceiver:self];
     [[WLComment notifier] addReceiver:self];
     [[WLNetwork network] addReceiver:self];
@@ -106,12 +110,21 @@
     
     self.commentButton.layer.borderColor = [UIColor whiteColor].CGColor;
     
-    [self refresh:_candy];
+    [self refresh:self.candy];
+    
+    [self.collectionView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (!self.scrolledToInitialItem) return;
+    CGFloat indexPosition = roundf(self.collectionView.contentOffset.x / self.collectionView.width);
+    if ([self.historyItem.entries containsIndex:indexPosition]) {
+        self.candy = [self.historyItem.entries objectAtIndex:indexPosition];
+    }
 }
 
 - (void)refresh {
-    WLCandy* candy = self.candy ? : _candy;
-    [self refresh:candy];
+    [self refresh:self.candy];
 }
 
 - (void)refresh:(WLCandy*)candy {
@@ -143,11 +156,6 @@
 - (void)setHistoryItem:(WLHistoryItem *)historyItem {
     _historyItem = historyItem;
     [self.collectionView reloadData];
-}
-
-- (WLImageViewCell *)candyCell {
-    WLImageViewCell* candyCell = [[self.collectionView visibleCells] lastObject];
-    return candyCell;
 }
 
 - (void)fetchOlder:(WLCandy*)candy {
@@ -244,36 +252,46 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 #pragma mark - WLEntryNotifyReceiver
 
+- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
+    if ([self.historyItem.entries containsObject:candy]) {
+        [self performSelector:@selector(scrollToCurrentCandy) withObject:nil afterDelay:0.0f];
+    }
+}
+
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
-    [WLToast showWithMessage:WLLS(@"This candy is no longer avaliable.")];
-    NSMutableOrderedSet* candies = self.historyItem.entries;
-    [candies removeObject:candy];
-    if (candies.nonempty) {
-        [self.collectionView reloadData];
+    if (candy == self.candy) {
+        [WLToast showWithMessage:WLLS(@"This candy is no longer avaliable.")];
+        self.candy = nil;
+    }
+    
+    if (self.historyItem.entries.nonempty) {
+        [self performSelector:@selector(scrollToCurrentCandy) withObject:nil afterDelay:0.0f];
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
-    [self updateOwnerData];
-}
-
-- (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
-    return self.candy;
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
-    [self.collectionView performBatchUpdates:nil completion:nil];
-    NSUInteger index = [self.historyItem.entries indexOfObject:self.candy];
-    if (index != NSNotFound) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]
-                                    atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    if (candy == self.candy) {
+        [self updateOwnerData];
     }
 }
 
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
-    return self.candy.wrap;
+    return self.wrap;
+}
+
+- (void)scrollToCurrentCandy {
+    WLCandy *candy = self.candy;
+    [self.collectionView reloadData];
+    [self.collectionView performBatchUpdates:nil completion:nil];
+    if (candy.valid) {
+        NSUInteger index = [self.historyItem.entries indexOfObject:candy];
+        if (index != NSNotFound) {
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]
+                                        atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+        }
+    }
 }
 
 #pragma mark - Actions
@@ -333,14 +351,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return collectionView.size;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat indexPosition = roundf(self.collectionView.contentOffset.x / self.collectionView.width);
-    if ([self.historyItem.entries containsIndex:indexPosition]) {
-        WLCandy *candy = [self.historyItem.entries objectAtIndex:indexPosition];
-        [self setCandy:candy];
-    }
 }
 
 #pragma mark - WLNetworkReceiver

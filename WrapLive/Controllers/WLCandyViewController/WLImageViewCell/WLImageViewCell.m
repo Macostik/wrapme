@@ -41,13 +41,13 @@
         }
         weakSelf.scrollView.userInteractionEnabled = YES;
         weakSelf.errorLabel.hidden = YES;
-        self.spinner.hidden = YES;
+        weakSelf.spinner.hidden = YES;
     } failure:^(NSError *error) {
         if ([error isNetworkError]) {
             weakSelf.errorLabel.hidden = NO;
         } else {
             weakSelf.errorLabel.hidden = YES;
-            self.spinner.hidden = YES;
+            weakSelf.spinner.hidden = YES;
             weakSelf.imageView.contentMode = UIViewContentModeCenter;
             weakSelf.imageView.image = [UIImage imageNamed:@"ic_photo_placeholder"];
         }

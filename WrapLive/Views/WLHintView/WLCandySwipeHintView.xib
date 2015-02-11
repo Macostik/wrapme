@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -53,19 +53,19 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outletCollection property="gestureRecognizers" destination="J6N-OZ-Ek5" appends="YES" id="0GU-70-g3w"/>
                 <outletCollection property="gestureRecognizers" destination="I8o-ci-Onm" appends="YES" id="NWi-qM-p0D"/>
+                <outletCollection property="gestureRecognizers" destination="CWL-GB-AS1" appends="YES" id="r7j-8M-Dw3"/>
             </connections>
             <point key="canvasLocation" x="561" y="345"/>
         </view>
-        <tapGestureRecognizer id="J6N-OZ-Ek5">
-            <connections>
-                <action selector="hide" destination="kzF-Xz-cLA" id="WbR-Uv-P8F"/>
-            </connections>
-        </tapGestureRecognizer>
         <swipeGestureRecognizer direction="right" id="I8o-ci-Onm">
             <connections>
                 <action selector="hide" destination="kzF-Xz-cLA" id="jNv-jW-xeS"/>
+            </connections>
+        </swipeGestureRecognizer>
+        <swipeGestureRecognizer direction="left" id="CWL-GB-AS1">
+            <connections>
+                <action selector="hide" destination="kzF-Xz-cLA" id="OLc-8k-f7O"/>
             </connections>
         </swipeGestureRecognizer>
     </objects>

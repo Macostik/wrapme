@@ -10,4 +10,6 @@
 
 @interface WLCollectionView : UICollectionView
 
+@property (strong, nonatomic) IBInspectable NSString *placeholderXIBName;
+
 @end

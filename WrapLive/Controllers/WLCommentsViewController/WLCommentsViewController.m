@@ -27,7 +27,6 @@
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 @property (strong, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topCommentViewContstrain;
-@property (weak, nonatomic) IBOutlet UIView *placeholderView;
 
 @end
 
@@ -51,17 +50,10 @@
     [[WLCandy notifier] addReceiver:self];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    self.placeholderView.hidden = [self.candy.comments count];
-}
-
 - (void)refresh:(WLRefresher*)sender {
-    __weak __typeof(self)weakSelf = self;
     if (self.candy.uploaded) {
         [self.candy fetch:^(id object) {
             [sender setRefreshing:NO animated:YES];
-            weakSelf.placeholderView.hidden = [weakSelf.candy.comments count];
         } failure:^(NSError *error) {
             [error showIgnoringNetworkError];
             [sender setRefreshing:NO animated:YES];
@@ -174,7 +166,6 @@
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
     NSArray *entries = [[self.candy.comments reverseObjectEnumerator] allObjects];
     self.dataSection.entries = [NSMutableOrderedSet orderedSetWithArray:entries];
-    self.placeholderView.hidden = [self.candy.comments count];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentDeleted:(WLComment *)comment {
@@ -183,7 +174,6 @@
         [entries removeObject:comment];
         [self.dataSection reload];
     }
-    self.placeholderView.hidden = [self.candy.comments count];
 }
 
 - (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {

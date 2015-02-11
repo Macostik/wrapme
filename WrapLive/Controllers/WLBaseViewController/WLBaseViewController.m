@@ -16,19 +16,12 @@
 
 @interface WLBaseViewController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
-@property (weak, nonatomic) UIView *placeholderView;
-
-@property (weak, nonatomic) IBOutlet UIView *placeholderContentView;
-
 @property (strong, nonatomic) NSMapTable* keyboardAdjustmentDefaultConstants;
 
 @property (weak, nonatomic) UISwipeGestureRecognizer* backSwipeGestureRecognizer;
 
 @property (weak, nonatomic) UIView *contentView;
 
-@property (strong, nonatomic) NSMutableDictionary* placeholders;
-
-@property (strong, nonatomic) NSNumber* currentPlaceholder;
 
 @end
 
@@ -51,7 +44,6 @@
 
 - (void)awakeAfterInit {
     self.isEmbedded = [[self class] isEmbeddedDefaultValue];
-    self.placeholders = [NSMutableDictionary dictionary];
 }
 
 - (void)setIsEmbedded:(BOOL)isEmbedded {
@@ -170,48 +162,6 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     self.viewAppeared = NO;
-}
-
-- (void)setPlaceholderNib:(UINib*)nib forType:(NSUInteger)type {
-    [self.placeholders setObject:nib forKey:@(type)];
-}
-
-- (void)setPlaceholderVisible:(BOOL)visible forType:(NSUInteger)type {
-    NSNumber *placeholder = @(type);
-    NSNumber *currentPlaceholder = self.currentPlaceholder;
-    if (visible) {
-        if (!currentPlaceholder || ![currentPlaceholder isEqualToNumber:placeholder]) {
-            self.currentPlaceholder = placeholder;
-        }
-    } else if (currentPlaceholder) {
-        self.currentPlaceholder = nil;
-    }
-}
-
-- (void)setCurrentPlaceholder:(NSNumber *)currentPlaceholder {
-    _currentPlaceholder = currentPlaceholder;
-    [self.placeholderView removeFromSuperview];
-    if (currentPlaceholder) {
-        [self showPlaceholderForType:currentPlaceholder];
-    }
-}
-
-- (void)showPlaceholderForType:(NSNumber*)type {
-    UINib *nib = [self.placeholders objectForKey:type];
-    if (nib) {
-        UIView* placeholderView = [UIView loadFromNib:nib ownedBy:nil];
-        placeholderView.frame = self.placeholderContentView.bounds;
-        [self.placeholderContentView addSubview:placeholderView];
-        self.placeholderView = placeholderView;
-    }
-}
-
-- (void)updatePlaceholderVisibilityForType:(NSUInteger)type {
-    [self setPlaceholderVisible:[self placeholderVisibleForType:type] forType:type];
-}
-
-- (BOOL)placeholderVisibleForType:(NSUInteger)type {
-    return NO;
 }
 
 - (void)setBackSwipeGestureEnabled:(BOOL)backSwipeGestureEnabled {

@@ -41,12 +41,5 @@
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight;
 
-- (void)setPlaceholderNib:(UINib*)nib forType:(NSUInteger)type;
-
-- (void)setPlaceholderVisible:(BOOL)visible forType:(NSUInteger)type;
-
-- (void)updatePlaceholderVisibilityForType:(NSUInteger)type;
-
-- (BOOL)placeholderVisibleForType:(NSUInteger)type;
 
 @end

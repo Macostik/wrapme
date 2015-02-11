@@ -284,12 +284,12 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 - (void)scrollToCurrentCandy {
     WLCandy *candy = self.candy;
     [self.collectionView reloadData];
-    [self.collectionView performBatchUpdates:nil completion:nil];
+    [self.collectionView layoutIfNeeded];
     if (candy.valid) {
         NSUInteger index = [self.historyItem.entries indexOfObject:candy];
         if (index != NSNotFound) {
             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]
-                                        atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+                                            atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
         }
     }
 }

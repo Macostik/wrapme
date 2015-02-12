@@ -145,6 +145,7 @@
 }
 
 - (IBAction)onClose:(id)sender {
+    [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:^{
         id candyViewController = [UINavigationController topViewController];
         if ([candyViewController respondsToSelector:@selector(movingDetailViews)]) {

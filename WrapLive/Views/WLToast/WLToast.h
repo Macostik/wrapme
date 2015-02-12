@@ -16,8 +16,6 @@ static NSTimeInterval WLToastDismissalDelay = 8.0f;
 
 @optional
 
-- (CGFloat)toastAppearanceHeight:(WLToast*)toast;
-
 - (BOOL)toastAppearanceShouldShowIcon:(WLToast*)toast;
 
 - (UIColor*)toastAppearanceBackgroundColor:(WLToast*)toast;
@@ -26,21 +24,11 @@ static NSTimeInterval WLToastDismissalDelay = 8.0f;
 
 - (UIViewContentMode)toastAppearanceContentMode:(WLToast*)toast;
 
-- (CGFloat)toastAppearanceStartY:(WLToast*)toast;
-
-- (CGFloat)toastAppearanceEndY:(WLToast*)toast;
-
 @end
 
 @interface WLToastAppearance : NSObject <WLToastAppearance>
 
 + (instancetype)appearance;
-
-@property (nonatomic) CGFloat height;
-
-@property (nonatomic) CGFloat startY;
-
-@property (nonatomic) CGFloat endY;
 
 @property (nonatomic) BOOL shouldShowIcon;
 
@@ -67,8 +55,6 @@ static NSTimeInterval WLToastDismissalDelay = 8.0f;
 - (void)showWithMessage:(NSString*)message appearance:(id <WLToastAppearance>)appearance;
 
 - (void)showWithMessage:(NSString*)message appearance:(id <WLToastAppearance>)appearance inView:(UIView*)view;
-
-@property (nonatomic) NSString* message;
 
 @end
 

@@ -7,6 +7,7 @@
 //
 
 #import "WLCommentsViewController.h"
+#import "WLCandyViewController.h"
 #import "WLComposeBar.h"
 #import "WLRefresher.h"
 #import "WLEntryNotifier.h"
@@ -22,7 +23,6 @@
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCommentsViewSection *dataSection;
-@property (nonatomic, readonly) WLCollectionViewFlowLayout* layout;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 @property (strong, nonatomic) WLRefresher *refresher;
@@ -145,7 +145,12 @@
 }
 
 - (IBAction)onClose:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        id candyViewController = [UINavigationController topViewController];
+        if ([candyViewController respondsToSelector:@selector(movingDetailViews)]) {
+            [candyViewController movingDetailViews];
+        }
+    }];
 }
 
 - (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {

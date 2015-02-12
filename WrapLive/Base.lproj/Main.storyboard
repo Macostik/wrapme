@@ -3083,35 +3083,10 @@ Check your internet connection and try again.</string>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="110" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ai-CO-qH0" customClass="WLButton">
-                                        <rect key="frame" x="198" y="78" width="110" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsh-mJ-NAQ" customClass="WLLabel">
+                                        <rect key="frame" x="12" y="66" width="32" height="46"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="QaK-uY-Rqe"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="horizontalInset">
-                                                <real key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="present:" destination="vup-MX-RNo" eventType="touchUpInside" id="Pf8-8e-RRh"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="23" text="Post" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsh-mJ-NAQ" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="81" width="209" height="23"/>
-                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" id="HN9-VO-uom"/>
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="209" id="rnd-aY-fQK"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -3127,10 +3102,8 @@ Check your internet connection and try again.</string>
                                     <constraint firstItem="DKe-of-CwY" firstAttribute="leading" secondItem="DOa-Ws-aK4" secondAttribute="leading" constant="12" id="3X9-Yi-thp"/>
                                     <constraint firstItem="isn-QR-Jgl" firstAttribute="leading" secondItem="DKe-of-CwY" secondAttribute="trailing" constant="12" id="4II-fa-mOl"/>
                                     <constraint firstAttribute="height" constant="120" id="Q7b-Sa-Mcr"/>
-                                    <constraint firstAttribute="trailing" secondItem="2ai-CO-qH0" secondAttribute="trailing" constant="12" id="TmK-Vl-plr"/>
-                                    <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="centerY" secondItem="2ai-CO-qH0" secondAttribute="centerY" constant="-0.5" id="Voc-aY-z4A"/>
+                                    <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="top" secondItem="DKe-of-CwY" secondAttribute="bottom" constant="10" id="erp-MP-rQw"/>
                                     <constraint firstAttribute="trailing" secondItem="isn-QR-Jgl" secondAttribute="trailing" constant="12" id="fKM-Jc-Zmg"/>
-                                    <constraint firstAttribute="bottom" secondItem="2ai-CO-qH0" secondAttribute="bottom" constant="12" id="nVV-y4-MK0"/>
                                     <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="leading" secondItem="DOa-Ws-aK4" secondAttribute="leading" constant="12" id="otN-X2-WJ4"/>
                                     <constraint firstItem="isn-QR-Jgl" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="top" constant="6" id="uZz-l0-ti7"/>
                                     <constraint firstItem="DKe-of-CwY" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="top" constant="12" id="vs5-cV-Y5s"/>
@@ -3150,12 +3123,40 @@ Check your internet connection and try again.</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="110" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ai-CO-qH0" customClass="WLButton">
+                                <rect key="frame" x="198" y="526" width="110" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="QaK-uY-Rqe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="horizontalInset">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="movingDetailViews" destination="eto-O4-OHy" eventType="touchUpInside" id="QyJ-TG-exf"/>
+                                    <action selector="present:" destination="vup-MX-RNo" eventType="touchUpInside" id="Pf8-8e-RRh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="0bz-V3-1nu"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="bottom" id="3Zf-0D-3vD"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="jyK-17-cAD" secondAttribute="bottom" id="NgB-RI-d7R"/>
+                            <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="2ai-CO-qH0" secondAttribute="bottom" constant="12" id="R09-AS-8Qc"/>
                             <constraint firstAttribute="trailing" secondItem="DOa-Ws-aK4" secondAttribute="trailing" id="WMM-NN-L4t"/>
                             <constraint firstItem="jyK-17-cAD" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="bPW-BY-6Fp"/>
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="-20" id="eku-Sv-U5Q"/>
@@ -3163,17 +3164,20 @@ Check your internet connection and try again.</string>
                             <constraint firstItem="jyK-17-cAD" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="-20" id="hPI-OJ-Hy4"/>
                             <constraint firstItem="DOa-Ws-aK4" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="iM1-Ax-Ka6"/>
                             <constraint firstAttribute="trailing" secondItem="Wbg-W9-8Ie" secondAttribute="trailing" id="vU4-de-bcZ"/>
+                            <constraint firstAttribute="trailing" secondItem="2ai-CO-qH0" secondAttribute="trailing" constant="12" id="wvE-6N-KVl"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="actionButton" destination="J3S-jS-mvs" id="NRV-ah-tMy"/>
                         <outlet property="avatarImageView" destination="DKe-of-CwY" id="pwy-xB-Q7n"/>
                         <outlet property="bottomView" destination="DOa-Ws-aK4" id="oO2-CG-2mp"/>
+                        <outlet property="bottomViewContstraint" destination="3Zf-0D-3vD" id="QiP-TV-Uzp"/>
                         <outlet property="collectionView" destination="jyK-17-cAD" id="BfX-xF-M1l"/>
                         <outlet property="commentButton" destination="2ai-CO-qH0" id="gaJ-nC-R6A"/>
                         <outlet property="lastCommentLabel" destination="isn-QR-Jgl" id="B3Q-Yv-Gsh"/>
                         <outlet property="postLabel" destination="Dsh-mJ-NAQ" id="qz7-Tr-1Dc"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="6g0-cf-4Q4"/>
+                        <outlet property="topViewConstraint" destination="eku-Sv-U5Q" id="jNT-KU-Zs5"/>
                         <outletCollection property="keyboardAdjustmentLayoutViews" destination="jyK-17-cAD" id="lnf-D1-hsN"/>
                     </connections>
                 </viewController>

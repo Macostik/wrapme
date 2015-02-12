@@ -14,12 +14,12 @@
 
 @property (strong, nonatomic) IBInspectable UIColor *iconColor;
 
-@property (assign, nonatomic) IBInspectable CGFloat iconSize;
+@property (strong, nonatomic) IBInspectable NSString *iconPreset;
 
-+ (instancetype)initWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color iconSize:(CGFloat)size;
++ (instancetype)iconButtonWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color preset:(NSString*)preset;
 
-- (instancetype)initWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color iconSize:(CGFloat)size;
+- (instancetype)initWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color preset:(NSString*)preset;
 
-- (void)setupWithName:(NSString *)name color:(UIColor *)color size:(CGFloat)size;
+- (void)setupWithName:(NSString *)name color:(UIColor *)color preset:(NSString*)preset;
 
 @end

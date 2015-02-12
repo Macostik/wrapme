@@ -217,9 +217,7 @@
 }
 
 - (void)updateOwnerData {
-    [self.actionButton setupWithName:_candy.deletable ? @"trash" : @"warning"
-                               color:[UIColor whiteColor]
-                                size:self.actionButton.width/2];
+    self.actionButton.iconName = _candy.deletable ? @"trash" : @"warning";
     NSString *titleButton = _candy.comments.count <= 1 ? WLLS(@"Comment") : [NSString stringWithFormat:WLLS(@"%i comments"), (int)_candy.comments.count];
     [self.commentButton setTitle:titleButton forState:UIControlStateNormal];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByReplacingCharactersInRange:NSMakeRange(0,1)

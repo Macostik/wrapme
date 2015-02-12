@@ -7,49 +7,54 @@
 //
 
 #import "WLIconButton.h"
-#import <FAKFontAwesome.h>
-#import <objc/message.h>
+#import "WLIcon.h"
+#import "NSObject+Extension.h"
+#import "UIColor+CustomColors.h"
 
 @implementation WLIconButton
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    [self setup];
+- (void)setIconColor:(UIColor *)iconColor {
+    _iconColor = iconColor;
+    [self enqueueSelectorPerforming:@selector(setup) afterDelay:0.0f];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color iconSize:(CGFloat)size {
+- (void)setIconName:(NSString *)iconName {
+    _iconName = iconName;
+    [self enqueueSelectorPerforming:@selector(setup) afterDelay:0.0f];
+}
+
+- (void)setIconPreset:(NSString *)iconPreset {
+    _iconPreset = iconPreset;
+    [self enqueueSelectorPerforming:@selector(setup) afterDelay:0.0f];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color preset:(NSString *)preset {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setupWithName:name color:color size:size];
+        [self setupWithName:name color:color preset:preset];
     }
     return self;
 }
 
-+ (instancetype)initWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color iconSize:(CGFloat)size {
-    return [[WLIconButton alloc] initWithFrame:frame iconName:name iconColor:color iconSize:size];
++ (instancetype)iconButtonWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color preset:(NSString *)preset {
+    return [[self alloc] initWithFrame:frame iconName:name iconColor:color preset:preset];
 }
 
-- (void)setupWithName:(NSString *)name color:(UIColor *)color size:(CGFloat)size {
+- (void)setupWithName:(NSString *)name color:(UIColor *)color preset:(NSString *)preset {
     _iconName = name;
     _iconColor = color;
-    _iconSize = size;
+    _iconPreset = preset;
     [self setup];
 }
 
 - (void)setup {
-    SEL selector = [self selectorByNameWithSize];
-    if ([FAKFontAwesome respondsToSelector:selector]) {
-        FAKIcon *icon = ((FAKIcon* (*)(id, SEL, CGFloat))objc_msgSend)([FAKFontAwesome class], selector, self.iconSize);
-        [icon addAttribute:NSForegroundColorAttributeName value:self.iconColor];
-        UIImage *image = [icon imageWithSize:CGSizeMake(self.iconSize, self.iconSize)];
-        [self setImage:image forState:UIControlStateNormal];
+    UIColor *color = _iconColor ? : [UIColor whiteColor];
+    FAKIcon *icon = [WLIcon iconWithName:_iconName preset:_iconPreset color:color];
+    if (icon) {
+        [self setAttributedTitle:icon.attributedString forState:UIControlStateNormal];
+        [icon addAttribute:NSForegroundColorAttributeName value:[color darkerColor]];
+        [self setAttributedTitle:icon.attributedString forState:UIControlStateHighlighted];
     }
-}
-
-- (SEL)selectorByNameWithSize {
-    NSMutableString *selector = [NSMutableString string];
-    [selector appendFormat:@"%@IconWithSize:", self.iconName];
-    return NSSelectorFromString(selector);
 }
 
 @end

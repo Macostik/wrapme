@@ -161,7 +161,7 @@
 
 - (CGSize)intrinsicContentSize {
     CGSize intrinsicSize = super.intrinsicContentSize;
-    return self.horizontalInset == 0 ? intrinsicSize : CGSizeMake(intrinsicSize.width + self.horizontalInset, intrinsicSize.height);
+    return CGSizeMake(intrinsicSize.width + self.insets.width, intrinsicSize.height + self.insets.height);
 }
 
 @end

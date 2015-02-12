@@ -22,7 +22,7 @@
 
 @property (strong, nonatomic) IBInspectable UIColor *spinnerColor;
 
-@property (assign, nonatomic) IBInspectable CGFloat horizontalInset;
+@property (assign, nonatomic) IBInspectable CGSize insets;
 
 @property (weak, nonatomic) IBOutlet UIView* accessoryView;
 

@@ -76,3 +76,9 @@ static inline void run_debug(dispatch_block_t block) {
     if (block) block();
 #endif
 }
+
+static inline id didReceiveMemoryWarning(dispatch_block_t block) {
+    return [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        if (block) block();
+    }];
+}

@@ -37,7 +37,7 @@
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJU-xo-V0A" customClass="WLCameraView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="427"/>
-                                <color key="backgroundColor" red="0.0015622871264726723" green="0.60841444672131151" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="QJU-xo-V0A" secondAttribute="height" multiplier="3:4" id="SK8-6Z-lsd"/>

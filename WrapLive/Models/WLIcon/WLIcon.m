@@ -16,16 +16,16 @@
     if (!sizes) {
         if (WLConstants.iPhone) {
             sizes = @{WLIconPresetBase:@(32),
-                      WLIconPresetLarge:@(44),
-                      WLIconPresetLarger:@(66),
-                      WLIconPresetXLarge:@(88),
-                      WLIconPresetLargest:@(110)};
+                      WLIconPresetLarge:@(48),
+                      WLIconPresetLarger:@(72),
+                      WLIconPresetXLarge:@(108),
+                      WLIconPresetLargest:@(162)};
         } else {
-            sizes = @{WLIconPresetBase:@(44),
-                      WLIconPresetLarge:@(66),
-                      WLIconPresetLarger:@(88),
-                      WLIconPresetXLarge:@(110),
-                      WLIconPresetLargest:@(132)};
+            sizes = @{WLIconPresetBase:@(48),
+                      WLIconPresetLarge:@(72),
+                      WLIconPresetLarger:@(108),
+                      WLIconPresetXLarge:@(162),
+                      WLIconPresetLargest:@(243)};
         }
     }
     return [[sizes objectForKey:preset] floatValue];

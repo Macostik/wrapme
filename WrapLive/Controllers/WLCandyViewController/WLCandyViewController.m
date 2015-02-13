@@ -83,7 +83,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+        
     self.wrap = _candy.wrap;
     
     if (!self.history) {
@@ -214,7 +214,7 @@
 }
 
 - (void)updateOwnerData {
-    self.actionButton.iconName = _candy.deletable ? @"trash" : @"warning";
+    self.actionButton.iconName = _candy.deletable ? @"trash" : @"exclamationTriangle";
     NSString *titleButton = _candy.commentCount <= 1 ? WLLS(@"Comment") : [NSString stringWithFormat:WLLS(@"%i comments"), (int)_candy.commentCount];
     [self.commentButton setTitle:titleButton forState:UIControlStateNormal];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByReplacingCharactersInRange:NSMakeRange(0,1)

@@ -13,6 +13,7 @@
 
 @interface WLPicture : WLArchivingObject
 
+@property (strong, nonatomic) NSString* original;
 @property (strong, nonatomic) NSString* large;
 @property (strong, nonatomic) NSString* medium;
 @property (strong, nonatomic) NSString* small;
@@ -29,7 +30,7 @@
 
 - (NSString*)anyUrl;
 
-- (BOOL)edit:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
+- (BOOL)edit:(NSString*)original large:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
 
 - (void)fetch:(WLBlock)completion;
 

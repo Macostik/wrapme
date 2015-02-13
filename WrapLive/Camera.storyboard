@@ -35,41 +35,102 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJU-xo-V0A" customClass="WLCameraView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="427"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wih-RU-1lv">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="426"/>
+                                <subviews>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJU-xo-V0A" customClass="WLCameraView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="426"/>
+                                        <subviews>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U2Z-fs-pUr">
+                                                <rect key="frame" x="0.0" y="53" width="320" height="320"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="U2Z-fs-pUr" secondAttribute="height" id="apA-m5-6CG"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstItem="U2Z-fs-pUr" firstAttribute="width" relation="lessThanOrEqual" secondItem="QJU-xo-V0A" secondAttribute="width" id="8Nb-VK-C8A"/>
+                                            <constraint firstItem="U2Z-fs-pUr" firstAttribute="height" relation="lessThanOrEqual" secondItem="QJU-xo-V0A" secondAttribute="height" id="BXa-RN-pHr"/>
+                                            <constraint firstAttribute="width" secondItem="QJU-xo-V0A" secondAttribute="height" multiplier="3:4" id="SK8-6Z-lsd"/>
+                                            <constraint firstItem="U2Z-fs-pUr" firstAttribute="height" secondItem="QJU-xo-V0A" secondAttribute="height" priority="750" id="UfE-D0-VSy"/>
+                                            <constraint firstItem="U2Z-fs-pUr" firstAttribute="width" secondItem="QJU-xo-V0A" secondAttribute="width" priority="750" id="ea3-0C-ga6"/>
+                                            <constraint firstAttribute="centerX" secondItem="U2Z-fs-pUr" secondAttribute="centerX" id="fmv-ET-I2q"/>
+                                            <constraint firstAttribute="centerY" secondItem="U2Z-fs-pUr" secondAttribute="centerY" id="vvF-F2-gWh"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="J0e-Mc-Ydd" appends="YES" id="Iou-jd-r3g"/>
+                                            <outletCollection property="gestureRecognizers" destination="lNU-oZ-hbO" appends="YES" id="oC3-9S-ZMv"/>
+                                        </connections>
+                                    </view>
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To allow access to the camera go to the Settings → Privacy → Camera" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwv-dz-I8C" customClass="WLLabel">
+                                        <rect key="frame" x="10" y="193" width="300" height="41"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bka-bI-Ghh" customClass="WLFlashModeControl">
+                                        <rect key="frame" x="10" y="10" width="44" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="5la-U5-uAK"/>
+                                            <constraint firstAttribute="height" constant="44" id="KID-Dm-3fQ"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="22"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="flashModeChanged:" destination="gev-MF-K1G" eventType="valueChanged" id="2gc-db-Jqr"/>
+                                            <outlet property="widthConstraint" destination="5la-U5-uAK" id="ztE-Bm-aDA"/>
+                                        </connections>
+                                    </view>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sV2-wR-LN3">
+                                        <rect key="frame" x="266" y="10" width="44" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="Pnu-Ke-DME"/>
+                                            <constraint firstAttribute="width" constant="44" id="kht-dS-DEW"/>
+                                        </constraints>
+                                        <state key="normal" image="switch_to_front_cam">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="22"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="rotateCamera:" destination="gev-MF-K1G" eventType="touchUpInside" id="LuZ-j8-s26"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="QJU-xo-V0A" secondAttribute="height" multiplier="3:4" id="SK8-6Z-lsd"/>
+                                    <constraint firstAttribute="height" secondItem="QJU-xo-V0A" secondAttribute="height" priority="750" id="8G4-0q-Cuh"/>
+                                    <constraint firstItem="sV2-wR-LN3" firstAttribute="top" secondItem="QJU-xo-V0A" secondAttribute="top" constant="10" id="8LK-4l-Z5g"/>
+                                    <constraint firstAttribute="width" secondItem="QJU-xo-V0A" secondAttribute="width" priority="750" id="EUt-Mo-tdw"/>
+                                    <constraint firstItem="Bka-bI-Ghh" firstAttribute="leading" secondItem="QJU-xo-V0A" secondAttribute="leading" constant="10" id="SZJ-Mp-2Jo"/>
+                                    <constraint firstItem="sV2-wR-LN3" firstAttribute="trailing" secondItem="QJU-xo-V0A" secondAttribute="trailing" constant="-10" id="TcB-rQ-QW4"/>
+                                    <constraint firstAttribute="centerY" secondItem="QJU-xo-V0A" secondAttribute="centerY" id="WaE-ab-1ze"/>
+                                    <constraint firstItem="QJU-xo-V0A" firstAttribute="trailing" secondItem="Jwv-dz-I8C" secondAttribute="trailing" constant="10" id="YpW-YB-mWf"/>
+                                    <constraint firstAttribute="centerX" secondItem="QJU-xo-V0A" secondAttribute="centerX" id="aTv-7x-LSa"/>
+                                    <constraint firstItem="Jwv-dz-I8C" firstAttribute="leading" secondItem="QJU-xo-V0A" secondAttribute="leading" constant="10" id="fNF-QK-UjP"/>
+                                    <constraint firstItem="Bka-bI-Ghh" firstAttribute="top" secondItem="QJU-xo-V0A" secondAttribute="top" constant="10" id="fzV-hL-bRI"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="QJU-xo-V0A" secondAttribute="width" id="lZc-zn-mRt"/>
+                                    <constraint firstItem="Jwv-dz-I8C" firstAttribute="centerY" secondItem="QJU-xo-V0A" secondAttribute="centerY" id="o7u-hJ-8vY"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" secondItem="QJU-xo-V0A" secondAttribute="height" id="yQp-J1-Kql"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="J0e-Mc-Ydd" appends="YES" id="Iou-jd-r3g"/>
-                                    <outletCollection property="gestureRecognizers" destination="lNU-oZ-hbO" appends="YES" id="oC3-9S-ZMv"/>
-                                </connections>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U2Z-fs-pUr">
-                                <rect key="frame" x="0.0" y="54" width="320" height="320"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="U2Z-fs-pUr" secondAttribute="height" id="apA-m5-6CG"/>
-                                </constraints>
-                            </view>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To allow access to the camera go to the Settings → Privacy → Camera" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwv-dz-I8C" customClass="WLLabel">
-                                <rect key="frame" x="20" y="126" width="280" height="176"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="176" id="hsn-Uq-3x3"/>
-                                    <constraint firstAttribute="width" constant="280" id="j4E-9d-AXx"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqD-Jp-Gr1">
-                                <rect key="frame" x="0.0" y="425" width="320" height="143"/>
+                                <rect key="frame" x="0.0" y="426" width="320" height="142"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03H-AZ-M5I" customClass="WLWrapView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="36"/>
@@ -121,13 +182,13 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aC1-9L-Kao">
-                                        <rect key="frame" x="0.0" y="36" width="320" height="107"/>
+                                        <rect key="frame" x="0.0" y="36" width="320" height="106"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X3H-5w-amr">
-                                                <rect key="frame" x="0.0" y="32" width="44" height="44"/>
+                                                <rect key="frame" x="0.0" y="31" width="44" height="44"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="width" secondItem="X3H-5w-amr" secondAttribute="height" multiplier="1:1" id="Yjg-se-3lR"/>
                                                     <constraint firstAttribute="width" constant="44" id="jEj-og-JEY"/>
-                                                    <constraint firstAttribute="height" constant="44" id="uIe-rF-AiR"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
                                                 <state key="normal" image="ic_back_white">
@@ -139,7 +200,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3gL-lu-fDr">
-                                                <rect key="frame" x="114" y="8" width="92" height="92"/>
+                                                <rect key="frame" x="114" y="7" width="92" height="92"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="92" id="7Nb-5H-ElZ"/>
@@ -174,14 +235,10 @@
                                         <constraints>
                                             <constraint firstAttribute="centerY" secondItem="X3H-5w-amr" secondAttribute="centerY" id="0lF-1j-vgV"/>
                                             <constraint firstItem="xgX-et-eNe" firstAttribute="centerX" secondItem="aC1-9L-Kao" secondAttribute="trailing" constant="-32" id="5ZN-er-zhI"/>
-                                            <constraint firstItem="xgX-et-eNe" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aC1-9L-Kao" secondAttribute="top" constant="22" id="9nZ-Xp-kI0"/>
                                             <constraint firstItem="X3H-5w-amr" firstAttribute="leading" secondItem="aC1-9L-Kao" secondAttribute="leading" id="FUC-JF-N2b"/>
                                             <constraint firstAttribute="centerX" secondItem="3gL-lu-fDr" secondAttribute="centerX" id="SYW-q0-wUz"/>
-                                            <constraint firstItem="3gL-lu-fDr" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aC1-9L-Kao" secondAttribute="top" constant="7" id="dJa-Jj-qok"/>
                                             <constraint firstAttribute="centerY" secondItem="xgX-et-eNe" secondAttribute="centerY" id="iRU-rK-RZV"/>
                                             <constraint firstAttribute="centerY" secondItem="3gL-lu-fDr" secondAttribute="centerY" id="n0T-Uk-JNX"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xgX-et-eNe" secondAttribute="bottom" constant="20" id="s7T-xI-d16"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="3gL-lu-fDr" secondAttribute="bottom" constant="6" id="xCK-27-yNr"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8x" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4z-2J-r1c">
@@ -199,7 +256,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="03H-AZ-M5I" secondAttribute="trailing" id="Cgk-Pf-x8q"/>
                                     <constraint firstItem="aC1-9L-Kao" firstAttribute="leading" secondItem="oqD-Jp-Gr1" secondAttribute="leading" id="LY2-Df-byC"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="90" id="NRG-kw-ypV"/>
+                                    <constraint firstAttribute="height" constant="142" id="NRG-kw-ypV"/>
                                     <constraint firstAttribute="trailing" secondItem="q4z-2J-r1c" secondAttribute="trailing" id="R3b-SR-Hv5"/>
                                     <constraint firstItem="aC1-9L-Kao" firstAttribute="top" secondItem="03H-AZ-M5I" secondAttribute="bottom" id="jUk-eX-50x"/>
                                     <constraint firstAttribute="trailing" secondItem="aC1-9L-Kao" secondAttribute="trailing" id="jbe-yd-4tE"/>
@@ -209,87 +266,27 @@
                                     <constraint firstAttribute="bottom" secondItem="aC1-9L-Kao" secondAttribute="bottom" id="xD3-cp-I6O"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qVG-Zp-cpa">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bka-bI-Ghh" customClass="WLFlashModeControl">
-                                        <rect key="frame" x="10" y="10" width="44" height="44"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="44" id="5la-U5-uAK"/>
-                                            <constraint firstAttribute="height" constant="44" id="KID-Dm-3fQ"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="22"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="flashModeChanged:" destination="gev-MF-K1G" eventType="valueChanged" id="2gc-db-Jqr"/>
-                                            <outlet property="widthConstraint" destination="5la-U5-uAK" id="ztE-Bm-aDA"/>
-                                        </connections>
-                                    </view>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sV2-wR-LN3">
-                                        <rect key="frame" x="266" y="10" width="44" height="44"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="Pnu-Ke-DME"/>
-                                            <constraint firstAttribute="width" constant="44" id="kht-dS-DEW"/>
-                                        </constraints>
-                                        <state key="normal" image="switch_to_front_cam">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="22"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="rotateCamera:" destination="gev-MF-K1G" eventType="touchUpInside" id="LuZ-j8-s26"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="Bka-bI-Ghh" firstAttribute="leading" secondItem="qVG-Zp-cpa" secondAttribute="leading" constant="10" id="1u1-83-fna"/>
-                                    <constraint firstItem="Bka-bI-Ghh" firstAttribute="top" secondItem="qVG-Zp-cpa" secondAttribute="top" constant="10" id="4H8-Xu-VKh"/>
-                                    <constraint firstItem="sV2-wR-LN3" firstAttribute="top" secondItem="qVG-Zp-cpa" secondAttribute="top" constant="10" id="QbK-5I-SGi"/>
-                                    <constraint firstAttribute="trailing" secondItem="sV2-wR-LN3" secondAttribute="trailing" constant="10" id="SsU-Ce-k8Q"/>
-                                    <constraint firstAttribute="height" constant="54" id="bqF-1A-1Dd"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="QJU-xo-V0A" firstAttribute="top" secondItem="WwV-lh-u8m" secondAttribute="top" id="8bA-uj-3X0"/>
-                            <constraint firstItem="QJU-xo-V0A" firstAttribute="centerX" secondItem="U2Z-fs-pUr" secondAttribute="centerX" id="BOx-1y-Pu4"/>
-                            <constraint firstItem="oqD-Jp-Gr1" firstAttribute="top" secondItem="QJU-xo-V0A" secondAttribute="bottom" priority="250" id="GaA-rh-Wk3"/>
+                            <constraint firstItem="Wih-RU-1lv" firstAttribute="leading" secondItem="WwV-lh-u8m" secondAttribute="leading" id="239-Kw-k0f"/>
                             <constraint firstItem="oqD-Jp-Gr1" firstAttribute="leading" secondItem="WwV-lh-u8m" secondAttribute="leading" id="Jt8-dp-CKN"/>
-                            <constraint firstItem="Jwv-dz-I8C" firstAttribute="centerX" secondItem="QJU-xo-V0A" secondAttribute="centerX" id="O7o-MP-9BF"/>
                             <constraint firstAttribute="trailing" secondItem="oqD-Jp-Gr1" secondAttribute="trailing" id="ObE-eP-JMG"/>
-                            <constraint firstItem="qVG-Zp-cpa" firstAttribute="top" secondItem="WwV-lh-u8m" secondAttribute="top" id="UiX-x7-JqQ"/>
-                            <constraint firstAttribute="width" secondItem="U2Z-fs-pUr" secondAttribute="width" id="Vie-ta-ivH"/>
-                            <constraint firstAttribute="trailing" secondItem="qVG-Zp-cpa" secondAttribute="trailing" id="c9L-pc-RYF"/>
-                            <constraint firstItem="qVG-Zp-cpa" firstAttribute="leading" secondItem="WwV-lh-u8m" secondAttribute="leading" id="ePN-JT-Ot1"/>
-                            <constraint firstAttribute="width" secondItem="QJU-xo-V0A" secondAttribute="width" id="nMk-qg-Hyf"/>
-                            <constraint firstAttribute="centerX" secondItem="QJU-xo-V0A" secondAttribute="centerX" id="p50-r9-wa3"/>
-                            <constraint firstItem="QJU-xo-V0A" firstAttribute="centerY" secondItem="U2Z-fs-pUr" secondAttribute="centerY" id="sKd-cU-XRv"/>
-                            <constraint firstItem="Jwv-dz-I8C" firstAttribute="centerY" secondItem="QJU-xo-V0A" secondAttribute="centerY" id="sXd-fP-mf2"/>
+                            <constraint firstItem="oqD-Jp-Gr1" firstAttribute="top" secondItem="Wih-RU-1lv" secondAttribute="bottom" id="SfC-W0-ofg"/>
+                            <constraint firstItem="Wih-RU-1lv" firstAttribute="top" secondItem="weq-bn-rHW" secondAttribute="bottom" id="j0d-ht-eLF"/>
+                            <constraint firstAttribute="trailing" secondItem="Wih-RU-1lv" secondAttribute="trailing" id="n6t-pI-kt5"/>
                             <constraint firstItem="tIy-iw-Nju" firstAttribute="top" secondItem="oqD-Jp-Gr1" secondAttribute="bottom" id="u6r-Aq-w9o"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0aA-xQ-9Uu"/>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="bottomView" destination="oqD-Jp-Gr1" id="hri-Wv-Xvz"/>
                         <outlet property="cameraView" destination="QJU-xo-V0A" id="sRC-HM-yjt"/>
-                        <outlet property="cameraViewHeightConstraint" destination="SK8-6Z-lsd" id="aW6-00-npi"/>
                         <outlet property="cropAreaView" destination="U2Z-fs-pUr" id="Dvu-VS-pUs"/>
                         <outlet property="flashModeControl" destination="Bka-bI-Ghh" id="l4L-Ch-kIK"/>
                         <outlet property="rotateButton" destination="sV2-wR-LN3" id="t38-Si-ylZ"/>
                         <outlet property="takePhotoButton" destination="3gL-lu-fDr" id="gF4-Sa-A9c"/>
-                        <outlet property="topView" destination="qVG-Zp-cpa" id="l3K-Wc-YYE"/>
                         <outlet property="topWrapViewConstraint" destination="oB2-rm-QzJ" id="iba-rH-GdX"/>
                         <outlet property="unauthorizedStatusView" destination="Jwv-dz-I8C" id="170-g2-CsF"/>
                         <outlet property="wrapView" destination="03H-AZ-M5I" id="TRh-TU-T1r"/>

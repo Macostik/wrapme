@@ -43,7 +43,7 @@
         __block NSData *metadataImage = UIImageJPEGRepresentation(image, .5f);
         [imageCache setImageData:metadataImage completion:^(NSString *path) {
             WLPicture* picture = [[self alloc] init];
-            picture.large = [imageCache pathWithIdentifier:path];
+            picture.original = picture.large = [imageCache pathWithIdentifier:path];
             CGFloat size = isPad ? (isCandy ? 720 : 320) : (isCandy ? 480 : 320);
             metadataImage =  UIImageJPEGRepresentation([image thumbnailImage:size], 1.0f);
             [imageCache setImageData:metadataImage completion:^(NSString *path) {
@@ -63,8 +63,12 @@
     return self.small ? : (self.medium ? : self.large);
 }
 
-- (BOOL)edit:(NSString *)large medium:(NSString *)medium small:(NSString *)small {
+- (BOOL)edit:(NSString *)original large:(NSString *)large medium:(NSString *)medium small:(NSString *)small {
     BOOL changed = NO;
+    if (original.nonempty && !NSStringEqual(self.original, original)) {
+        changed = YES;
+        self.original = original;
+    }
     if (large.nonempty && !NSStringEqual(self.large, large)) {
         changed = YES;
         self.large = large;
@@ -78,6 +82,13 @@
         self.small = small;
     }
     return changed;
+}
+
+- (NSString *)original {
+    if (!_original) {
+        _original = self.large;
+    }
+    return _original;
 }
 
 - (void)fetch:(WLBlock)completion {
@@ -104,7 +115,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@:\nlarge: %@\nmedium: %@\nsmall: %@",[self class],self.large, self.medium, self.small];
+    return [NSString stringWithFormat:@"%@:\noriginal: %@\nlarge: %@\nmedium: %@\nsmall: %@",[self class],self.original,self.large, self.medium, self.small];
 }
 
 @end
@@ -115,6 +126,7 @@
     NSDictionary *data = [NSJSONSerialization JSONObjectWithData:value options:0 error:NULL];
     if (data) {
         WLPicture* picture = [[self alloc] init];
+        picture.original = data[@"original"];
         picture.large = data[@"large"];
         picture.medium = data[@"medium"];
         picture.small = data[@"small"];
@@ -125,6 +137,7 @@
 
 - (NSData*)JSONValue {
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    [data trySetObject:self.original forKey:@"original"];
     [data trySetObject:self.large forKey:@"large"];
     [data trySetObject:self.medium forKey:@"medium"];
     [data trySetObject:self.small forKey:@"small"];

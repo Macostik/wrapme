@@ -66,7 +66,7 @@
         if (self.relativeCache) {
             _directory = [self.relativeCache.directory stringByAppendingPathComponent:identifier];
         } else {
-            _directory = NSDocumentsDirectoryPath(identifier);
+            _directory = [@"Documents" stringByAppendingPathComponent:identifier];
         }
         if (![[NSFileManager defaultManager] fileExistsAtPath:_directory]) {
             [[NSFileManager defaultManager] createDirectoryAtPath:_directory withIntermediateDirectories:YES attributes:nil error:NULL];

@@ -12,6 +12,7 @@
 #import "NSString+Additions.h"
 #import "WLImageCache.h"
 #import "UIImage+Drawing.h"
+#import "WLImageFetcher.h"
 
 @implementation WLCandy (Extended)
 
@@ -45,11 +46,13 @@
         self.comments = comments;
     }
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [self editPicture:[dictionary stringForKey:WLCandyXLargeURLKey]
+        [self editPicture:[dictionary stringForKey:WLCandyOriginalURLKey]
+                    large:[dictionary stringForKey:WLCandyXLargeURLKey]
                    medium:[dictionary stringForKey:WLCandyXMediumURLKey]
                     small:[dictionary stringForKey:WLCandyXSmallURLKey]];
     } else {
-        [self editPicture:[dictionary stringForKey:WLCandyLargeURLKey]
+        [self editPicture:[dictionary stringForKey:WLCandyOriginalURLKey]
+                    large:[dictionary stringForKey:WLCandyLargeURLKey]
                    medium:[dictionary stringForKey:WLCandyMediumURLKey]
                     small:[dictionary stringForKey:WLCandySmallURLKey]];
     }
@@ -141,23 +144,37 @@
 }
 
 - (void)download:(WLBlock)success failure:(WLFailureBlock)failure {
-    NSString *url = self.picture.large;
-    if ([[WLImageCache cache] containsImageWithUrl:url]) {
-        [[[WLImageCache cache] imageWithUrl:url] save:nil];
-        if (success) success();
-    } else {
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-        [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        operation.responseSerializer = [AFImageResponseSerializer serializer];
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, UIImage* image) {
-            [image save:nil completion:success failure:failure];
-            [[WLImageCache cache] setImage:image withUrl:url];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if (failure) failure(error);
-        }];
-        [operation start];
+    
+    [self setDownloadSuccessBlock:^(UIImage *image) {
+        [image save:nil completion:success failure:failure];
+    }];
+    
+    [self setDownloadFailureBlock:failure];
+    
+    [[WLImageFetcher fetcher] addReceiver:self];
+    [[WLImageFetcher fetcher] enqueueImageWithUrl:self.picture.original];
+}
+
+// MARK: - WLImageFetching
+
+- (NSString*)fetcherTargetUrl:(WLImageFetcher*)fetcher {
+    return self.picture.original;
+}
+
+- (void)fetcher:(WLImageFetcher*)fetcher didFinishWithImage:(UIImage*)image cached:(BOOL)cached {
+    if (self.downloadSuccessBlock) {
+        self.downloadSuccessBlock(image);
+        self.downloadSuccessBlock = nil;
     }
+    self.downloadFailureBlock = nil;
+}
+
+- (void)fetcher:(WLImageFetcher*)fetcher didFailWithError:(NSError*)error {
+    if (self.downloadFailureBlock) {
+        self.downloadFailureBlock(error);
+        self.downloadFailureBlock = nil;
+    }
+    self.downloadSuccessBlock = nil;
 }
 
 @end

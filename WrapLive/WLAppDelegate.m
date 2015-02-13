@@ -41,6 +41,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath:NSHomeDirectory()];
+    
     [self initializeCrashlyticsAndLogging];
     
     [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];

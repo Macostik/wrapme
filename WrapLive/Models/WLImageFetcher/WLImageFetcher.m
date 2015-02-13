@@ -91,7 +91,7 @@
     
     if ([[WLImageCache cache] containsImageWithUrl:url]) {
         [[WLImageCache cache] imageWithUrl:url completion:success];
-    } else if (url.absolutePath) {
+    } else if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
         [self setFileSystemUrl:url completion:success];
     } else {
         [self setNetworkUrl:url success:success failure:^(NSError *error) {

@@ -18,4 +18,7 @@
 @dynamic wrap;
 @dynamic comments;
 
+@synthesize downloadSuccessBlock = _downloadSuccessBlock;
+@synthesize downloadFailureBlock = _downloadFailureBlock;
+
 @end

@@ -60,8 +60,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topWrapViewConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *unauthorizedStatusView;
 @property (weak, nonatomic) IBOutlet WLCameraView *cameraView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraViewHeightConstraint;
-@property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet WLFlashModeControl *flashModeControl;
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
@@ -96,11 +94,6 @@
                 weakSelf.flashMode = weakSelf.flashModeControl.mode = AVCaptureFlashModeOff;
                 weakSelf.cameraView.layer.session = weakSelf.session;
                 [weakSelf start];
-                CGSize apertureSize = CMVideoFormatDescriptionGetCleanAperture([[weakSelf videoPort] formatDescription], YES).size;
-                if (apertureSize.width && apertureSize.height) {
-                    weakSelf.cameraViewHeightConstraint.constant = apertureSize.width / apertureSize.height;
-                    [weakSelf.cameraView layoutIfNeeded];
-                }
             } else {
                 weakSelf.takePhotoButton.active = NO;
             }

@@ -108,6 +108,7 @@ static NSString *const WLLeave = @"Leave";
 }
 
 - (void)apply:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    self.wrap.name = [self.nameWrapTextField.text trim];
     [self.wrap update:success failure:success];
 }
 

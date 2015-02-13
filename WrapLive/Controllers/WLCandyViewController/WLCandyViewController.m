@@ -217,8 +217,7 @@
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"exclamationTriangle";
     NSString *titleButton = _candy.commentCount <= 1 ? WLLS(@"Comment") : [NSString stringWithFormat:WLLS(@"%i comments"), (int)_candy.commentCount];
     [self.commentButton setTitle:titleButton forState:UIControlStateNormal];
-    NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByReplacingCharactersInRange:NSMakeRange(0,1)
-                                                                                           withString:[[_candy.createdAt.timeAgoStringAtAMPM substringToIndex:1] capitalizedString]];
+    NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
     self.postLabel.text = [NSString stringWithFormat:WLLS(@"Posted by %@,\n%@"), _candy.contributor.name, timeAgoString];
     self.lastComment = _candy.comments.lastObject;
 }

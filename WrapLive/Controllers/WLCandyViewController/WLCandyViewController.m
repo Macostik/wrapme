@@ -21,7 +21,6 @@
 #import "WLCandy.h"
 #import "WLCandyViewController.h"
 #import "WLComment.h"
-#import "WLCommentCell.h"
 #import "WLImageViewCell.h"
 #import "WLComposeBar.h"
 #import "WLHistory.h"
@@ -30,7 +29,6 @@
 #import "WLKeyboard.h"
 #import "WLNavigation.h"
 #import "WLSession.h"
-#import "WLSoundPlayer.h"
 #import "WLToast.h"
 #import "WLUser.h"
 #import "WLWrap.h"
@@ -94,7 +92,6 @@
     }
 	
 	[[WLCandy notifier] addReceiver:self];
-    [[WLComment notifier] addReceiver:self];
     [[WLNetwork network] addReceiver:self];
     
     UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];

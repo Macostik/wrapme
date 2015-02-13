@@ -146,16 +146,21 @@
 
 - (IBAction)onClose:(id)sender {
     [self.view endEditing:YES];
-    [self dismissViewControllerAnimated:YES completion:^{
-        id candyViewController = [UINavigationController topViewController];
-        if ([candyViewController respondsToSelector:@selector(movingDetailViews)]) {
-            [candyViewController movingDetailViews];
-        }
-    }];
+    id candyViewController = [UINavigationController topViewController];
+    if ([candyViewController respondsToSelector:@selector(movingDetailViews)]) {
+        [candyViewController movingDetailViews];
+    }
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
-    [self.view endEditing:YES];
+    UICollectionView *collectionView = self.collectionView;
+    CGPoint touchPoint = [sender locationInView:collectionView];
+    if (!CGRectContainsPoint(collectionView.superview.bounds, touchPoint)) {
+        [self onClose:nil];
+    } else {
+        [self.view endEditing:YES];
+    }
 }
 
 #pragma mark - WLEntryNotifyReceiver

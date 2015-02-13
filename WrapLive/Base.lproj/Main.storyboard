@@ -3482,7 +3482,7 @@ Check your internet connection and try again.</string>
                             </view>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="20" placeholderIntrinsicHeight="12" translatesAutoresizingMaskIntoConstraints="NO" id="OVW-mQ-dry" customClass="WLTriangleView">
                                 <rect key="frame" x="257" y="512" width="20" height="11"/>
-                                <color key="backgroundColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="GXu-EH-9zV"/>
                                     <constraint firstAttribute="height" constant="11" id="b2g-gn-hbS"/>

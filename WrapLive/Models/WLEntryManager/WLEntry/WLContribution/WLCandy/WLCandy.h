@@ -15,6 +15,7 @@
 @interface WLCandy : WLContribution
 
 @property (nonatomic) int16_t type;
+@property (nonatomic) int16_t commentCount;
 @property (nonatomic, retain) WLWrap *wrap;
 @property (nonatomic, retain) NSMutableOrderedSet *comments;
 @end

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="1.1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A389" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="1.1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="WLCandy" representedClassName="WLCandy" parentEntity="WLContribution" syncable="YES">
+        <attribute name="commentCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="WLComment" inverseName="candy" inverseEntity="WLComment" syncable="YES"/>
         <relationship name="wrap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLWrap" inverseName="candies" inverseEntity="WLWrap" syncable="YES"/>
@@ -54,7 +55,7 @@
         <userInfo/>
     </entity>
     <elements>
-        <element name="WLCandy" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="WLCandy" positionX="0" positionY="0" width="128" height="105"/>
         <element name="WLComment" positionX="0" positionY="0" width="128" height="75"/>
         <element name="WLContribution" positionX="0" positionY="0" width="128" height="88"/>
         <element name="WLDevice" positionX="9" positionY="63" width="128" height="103"/>

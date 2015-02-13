@@ -14,6 +14,7 @@
 @implementation WLCandy
 
 @dynamic type;
+@dynamic commentCount;
 @dynamic wrap;
 @dynamic comments;
 

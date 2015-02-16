@@ -18,8 +18,8 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8q-pM-R7B" customClass="WLIconButton">
                     <rect key="frame" x="75" y="165" width="170" height="178"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="170" id="7PC-Ho-FCT"/>
-                        <constraint firstAttribute="height" constant="178" id="CGg-wh-Hec"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="170" id="7PC-Ho-FCT"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="178" id="CGg-wh-Hec"/>
                     </constraints>
                     <state key="normal">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

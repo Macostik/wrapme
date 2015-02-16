@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    WLDefaultPlaceholderMode,
+    WLManualPlaceholderMode,
+} WLPlacehoderMode;
+
 @interface WLCollectionView : UICollectionView
 
-@property (strong, nonatomic) IBInspectable NSString *placeholderXIBName;
+@property (strong, nonatomic) IBInspectable NSString *nibNamePlaceholder;
+@property (strong, nonatomic) IBInspectable NSString *modeNibNamePlaceholder;
+@property (assign, nonatomic) WLPlacehoderMode placeholderMode;
 
 @end

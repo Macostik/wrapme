@@ -16,6 +16,7 @@
 #import "WLLabel.h"
 #import "NSObject+NibAdditions.h"
 #import "UIView+AnimationHelper.h"
+#import "UIView+GestureRecognizing.h"
 
 @implementation WLToastAppearance
 
@@ -95,7 +96,7 @@
 }
 
 - (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance inView:(UIView *)view {
-	
+    
 	self.iconView.hidden = [appearance respondsToSelector:@selector(toastAppearanceShouldShowIcon:)] ? ![appearance toastAppearanceShouldShowIcon:self] : YES;
     
     if ([appearance respondsToSelector:@selector(toastAppearanceBackgroundColor:)]) {
@@ -126,6 +127,11 @@
         }];
     }
     
+    [UITapGestureRecognizer recognizerWithView:self block:^(UIGestureRecognizer *recognizer) {
+        [WLToast cancelPreviousPerformRequestsWithTarget:self];
+        [self dismiss];
+    }];
+    
 	[WLToast cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];
 	[WLToast cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeFromSuperview) object:nil];
 	[self performSelector:@selector(dismiss) withObject:nil afterDelay:WLToastDismissalDelay];
@@ -140,12 +146,6 @@
             [self removeFromSuperview];
         }];
     }
-}
-
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	[WLToast cancelPreviousPerformRequestsWithTarget:self];
-	[self dismiss];
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {

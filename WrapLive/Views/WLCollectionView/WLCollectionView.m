@@ -27,7 +27,7 @@ static NSString *const WLContentSize = @"contentSize";
 - (void)awakeFromNib {
     [super awakeFromNib];
     [WLLoadingView registerInCollectionView:self];
-    if (self.placeholderXIBName.nonempty) {
+    if (self.nibNamePlaceholder || self.modeNibNamePlaceholder) {
         [self addObserver:self forKeyPath:WLContentSize options:NSKeyValueObservingOptionNew context:NULL];
     }
 }
@@ -47,7 +47,16 @@ static NSString *const WLContentSize = @"contentSize";
 }
 
 - (void)setBackgroundPlaceholder {
-    UIView* placeholderView = [UIView loadFromNib:[UINib nibWithNibName:self.placeholderXIBName bundle:nil] ownedBy:nil];
+    NSString *currentPlaceholderString = nil;
+    switch (self.placeholderMode) {
+        case WLManualPlaceholderMode:
+            currentPlaceholderString = self.modeNibNamePlaceholder;
+            break;
+        default:
+            currentPlaceholderString = self.nibNamePlaceholder;
+            break;
+    }
+    UIView* placeholderView = [UIView loadFromNib:[UINib nibWithNibName:currentPlaceholderString bundle:nil] ownedBy:nil];
     placeholderView.frame = self.bounds;
     [self addSubview:placeholderView];
     if (!CGAffineTransformEqualToTransform(self.transform, CGAffineTransformIdentity)) {
@@ -57,7 +66,7 @@ static NSString *const WLContentSize = @"contentSize";
 }
 
 - (void)dealloc {
-    if (self.placeholderXIBName.nonempty) [self removeObserver:self forKeyPath:WLContentSize context:NULL];
+    if (self.nibNamePlaceholder || self.modeNibNamePlaceholder) [self removeObserver:self forKeyPath:WLContentSize context:NULL];
 }
 
 @end

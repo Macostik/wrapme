@@ -74,7 +74,7 @@
             }
         }];
     }
-    run_after(0, ^{
+    run_after(.3, ^{
         [self.navigationController popViewControllerAnimated:YES];
     });
     

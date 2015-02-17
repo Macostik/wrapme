@@ -2619,7 +2619,6 @@
                                     </constraints>
                                 </collectionReusableView>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholderXIBName" value="WLWrapPlaceholderViewHistory"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="nibNamePlaceholder" value="WLWrapPlaceholderViewHistory"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -3379,7 +3378,6 @@ Check your internet connection and try again.</string>
                                             </collectionViewCell>
                                         </cells>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholderXIBName" value="NoCommentsPlaceholderView"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="nibNamePlaceholder" value="NoCommentsPlaceholderView"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>

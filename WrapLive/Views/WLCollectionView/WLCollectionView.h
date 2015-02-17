@@ -10,6 +10,10 @@
 
 @interface WLCollectionView : UICollectionView
 
-@property (strong, nonatomic) IBInspectable NSString *placeholderXIBName;
+@property (strong, nonatomic) IBInspectable NSString *nibNamePlaceholder;
+
+- (BOOL)isDefaultPlaceholder;
+- (void)setDefaulPlaceholder;
+- (void)setPlaceholderWithName:(NSString *)placeholderName byType:(NSInteger)type;
 
 @end

@@ -38,7 +38,7 @@
 }
 
 - (UICollectionViewLayoutAttributes *)adjustAttributes:(UICollectionViewLayoutAttributes *)attributes inset:(CGFloat)inset {
-    CGAffineTransform transform = self.collectionView.transform;
+    CGAffineTransform transform = CGAffineTransformIdentity;
     if (inset > 0 && attributes.indexPath.section != 0) {
         transform = CGAffineTransformTranslate(transform, 0, -inset);
     }

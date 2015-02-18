@@ -94,14 +94,14 @@
 	[[WLCandy notifier] addReceiver:self];
     [[WLNetwork network] addReceiver:self];
     
-    UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];
+    UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToNextHistoryItem)];
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
     leftSwipe.delegate = self;
     [self.collectionView addGestureRecognizer:leftSwipe];
     self.leftSwipeGestureRecognizer = leftSwipe;
     [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:leftSwipe];
     
-    UISwipeGestureRecognizer* rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeRight)];
+    UISwipeGestureRecognizer* rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToPreviousHistoryItem)];
     rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
     rightSwipe.delegate = self;
     [self.collectionView addGestureRecognizer:rightSwipe];
@@ -176,20 +176,27 @@
     }
 }
 
-- (void)didSwipeLeft {
+- (void)swipeToNextHistoryItem {
     if (self.historyItem.completed) {
         if ([self swipeToHistoryItemAtIndex:[self.history.entries indexOfObject:self.historyItem] + 1]) {
             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
                                         atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
             [self.collectionView leftPush];
             self.candy = [self.historyItem.entries firstObject];
+        } else if (!self.history.completed) {
+            __weak typeof(self)weakSelf = self;
+            [self.history older:^(NSOrderedSet *orderedSet) {
+                [weakSelf swipeToNextHistoryItem];
+            } failure:^(NSError *error) {
+                
+            }];
         }
     } else {
         [self fetchOlder:self.candy];
     }
 }
 
-- (void)didSwipeRight {
+- (void)swipeToPreviousHistoryItem {
     if ([self swipeToHistoryItemAtIndex:[self.history.entries indexOfObject:self.historyItem] - 1]) {
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:[self.historyItem.entries count] - 1 inSection:0]
                                     atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
@@ -202,6 +209,7 @@
     if (candy != _candy && candy.valid) {
         _candy = candy;
         [self updateOwnerData];
+        [self refresh];
     }
 }
 
@@ -215,11 +223,20 @@
 
 - (void)updateOwnerData {
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"exclamationTriangle";
-    NSString *titleButton = _candy.commentCount <= 1 ? WLLS(@"Comment") : [NSString stringWithFormat:WLLS(@"%i comments"), (int)_candy.commentCount];
-    [self.commentButton setTitle:titleButton forState:UIControlStateNormal];
+    [self setCommentButtonTitle:_candy];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
     self.postLabel.text = [NSString stringWithFormat:WLLS(@"Posted by %@,\n%@"), _candy.contributor.name, timeAgoString];
     self.lastComment = _candy.comments.lastObject;
+}
+
+- (void)setCommentButtonTitle:(WLCandy *)candy {
+    NSString *title = WLLS(@"Comment");
+    if (candy.commentCount == 1) {
+        title = WLLS(@"1 comment");
+    } else if (candy.commentCount > 1){
+        title = [NSString stringWithFormat:WLLS(@"%i comments"), (int)candy.commentCount];
+    }
+    [self.commentButton setTitle:title forState:UIControlStateNormal];
 }
 
 - (BOOL)swipeToHistoryItemAtIndex:(NSUInteger)index {

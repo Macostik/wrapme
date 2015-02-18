@@ -43,6 +43,7 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
+    self.layer.geometryFlipped = YES;
     self.avatarView.hidden = self.nameLabel.hidden = self.dayLabel.hidden = YES;
     self.textLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
     self.leftBubble.image = [self.leftBubble.image resizableImageWithCapInsets:UIEdgeInsetsMake(5, 0, 5, 0) resizingMode:UIImageResizingModeStretch];
@@ -84,12 +85,13 @@
     
     CGSize maxSize = CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX);
     CGFloat textWidth = [self.textLabel sizeThatFits:maxSize].width;
+    CGFloat timeWidth = [self.timeLabel sizeThatFits:maxSize].width;
     CGFloat constraintValue = [self constraintForWidth:textWidth];
     if (_showName) {
         CGFloat nameWidth = [self.nameLabel sizeThatFits:maxSize].width;
         constraintValue = MIN(constraintValue, [self constraintForWidth:nameWidth]);
     }
-    self.textViewConstraint.constant = constraintValue;
+    self.textViewConstraint.constant = MIN(constraintValue, [self constraintForWidth:timeWidth]);
     [self setNeedsLayout];
 }
 

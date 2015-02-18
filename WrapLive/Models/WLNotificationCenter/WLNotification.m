@@ -205,9 +205,14 @@
     WLObjectBlock block = ^(id object) {
         if (event == WLEventAdd) {
             switch (weakSelf.type) {
-                case WLNotificationCommentAdd:
+                case WLNotificationCommentAdd: {
+                    WLCandy *candy = [(WLComment*)targetEntry candy];
+                    if (candy.valid && !targetEntry.unread) {
+                        candy.commentCount++;
+                    }
                     if (targetEntry.notifiable && !targetEntry.unread) targetEntry.unread = YES;
                     break;
+                }
                 case WLNotificationCandyAdd:
                 case WLNotificationMessageAdd:
                     if (!targetEntry.unread) targetEntry.unread = YES;

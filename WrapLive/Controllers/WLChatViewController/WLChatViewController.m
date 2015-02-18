@@ -26,7 +26,6 @@
 #import "WLKeyboard.h"
 #import "WLLoadingView.h"
 #import "WLMessageCell.h"
-#import "WLMessageGroupCell.h"
 #import "WLNotification.h"
 #import "WLRefresher.h"
 #import "WLSignificantTimeBroadcaster.h"
@@ -103,7 +102,7 @@ CGFloat WLMaxTextViewWidth;
     
     collectionView.contentOffset = CGPointMake(0, -self.composeBar.height);
     
-    collectionView.transform = CGAffineTransformMakeRotation(M_PI);
+    collectionView.layer.geometryFlipped = YES;
     
     self.messageFont = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
     

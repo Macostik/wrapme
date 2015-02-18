@@ -94,14 +94,14 @@
 	[[WLCandy notifier] addReceiver:self];
     [[WLNetwork network] addReceiver:self];
     
-    UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft)];
+    UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToNextHistoryItem)];
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
     leftSwipe.delegate = self;
     [self.collectionView addGestureRecognizer:leftSwipe];
     self.leftSwipeGestureRecognizer = leftSwipe;
     [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:leftSwipe];
     
-    UISwipeGestureRecognizer* rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeRight)];
+    UISwipeGestureRecognizer* rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToPreviousHistoryItem)];
     rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
     rightSwipe.delegate = self;
     [self.collectionView addGestureRecognizer:rightSwipe];
@@ -176,20 +176,27 @@
     }
 }
 
-- (void)didSwipeLeft {
+- (void)swipeToNextHistoryItem {
     if (self.historyItem.completed) {
         if ([self swipeToHistoryItemAtIndex:[self.history.entries indexOfObject:self.historyItem] + 1]) {
             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
                                         atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
             [self.collectionView leftPush];
             self.candy = [self.historyItem.entries firstObject];
+        } else if (!self.history.completed) {
+            __weak typeof(self)weakSelf = self;
+            [self.history older:^(NSOrderedSet *orderedSet) {
+                [weakSelf swipeToNextHistoryItem];
+            } failure:^(NSError *error) {
+                
+            }];
         }
     } else {
         [self fetchOlder:self.candy];
     }
 }
 
-- (void)didSwipeRight {
+- (void)swipeToPreviousHistoryItem {
     if ([self swipeToHistoryItemAtIndex:[self.history.entries indexOfObject:self.historyItem] - 1]) {
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:[self.historyItem.entries count] - 1 inSection:0]
                                     atScrollPosition:UICollectionViewScrollPositionNone animated:NO];

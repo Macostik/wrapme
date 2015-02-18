@@ -45,7 +45,7 @@
     [self refresh:nil];
     NSArray *entries = [[self.candy.comments reverseObjectEnumerator] allObjects];
     self.dataSection.entries = [NSMutableOrderedSet orderedSetWithArray:entries];
-    self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
+    self.collectionView.layer.geometryFlipped = YES;
     [[WLComment notifier] addReceiver:self];
     [[WLCandy notifier] addReceiver:self];
 }

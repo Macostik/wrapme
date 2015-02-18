@@ -3045,7 +3045,7 @@ Check your internet connection and try again.</string>
                                             <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="cloudDownload"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="download"/>
                                             <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                                 <size key="value" width="10" height="10"/>
                                             </userDefinedRuntimeAttribute>

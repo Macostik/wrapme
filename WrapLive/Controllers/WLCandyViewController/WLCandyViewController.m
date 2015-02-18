@@ -223,11 +223,20 @@
 
 - (void)updateOwnerData {
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"exclamationTriangle";
-    NSString *titleButton = _candy.commentCount <= 1 ? WLLS(@"Comment") : [NSString stringWithFormat:WLLS(@"%i comments"), (int)_candy.commentCount];
-    [self.commentButton setTitle:titleButton forState:UIControlStateNormal];
+    [self setCommentButtonTitle:_candy];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
     self.postLabel.text = [NSString stringWithFormat:WLLS(@"Posted by %@,\n%@"), _candy.contributor.name, timeAgoString];
     self.lastComment = _candy.comments.lastObject;
+}
+
+- (void)setCommentButtonTitle:(WLCandy *)candy {
+    NSString *title = WLLS(@"Comment");
+    if (candy.commentCount == 1) {
+        title = WLLS(@"1 comment");
+    } else if (candy.commentCount > 1){
+        title = [NSString stringWithFormat:WLLS(@"%i comments"), (int)candy.commentCount];
+    }
+    [self.commentButton setTitle:title forState:UIControlStateNormal];
 }
 
 - (BOOL)swipeToHistoryItemAtIndex:(NSUInteger)index {

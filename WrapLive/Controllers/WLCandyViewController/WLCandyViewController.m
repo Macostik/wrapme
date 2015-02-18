@@ -202,6 +202,7 @@
     if (candy != _candy && candy.valid) {
         _candy = candy;
         [self updateOwnerData];
+        [self refresh];
     }
 }
 

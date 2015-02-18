@@ -1744,8 +1744,8 @@
 		5BA60C5E1A8257ED000F795C /* UIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
 		5BA60D001A82613F000F795C /* UIAlertController+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertController+Blocks.h"; path = "UIAlertController/UIAlertController+Blocks.h"; sourceTree = "<group>"; };
 		5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertController+Blocks.m"; path = "UIAlertController/UIAlertController+Blocks.m"; sourceTree = "<group>"; };
-		5BA60D071A8279FC000F795C /* WLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAlertView.h; path = WrapLive/Views/WLAlertView/WLAlertView.h; sourceTree = "<group>"; };
-		5BA60D081A8279FC000F795C /* WLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAlertView.m; path = WrapLive/Views/WLAlertView/WLAlertView.m; sourceTree = "<group>"; };
+		5BA60D071A8279FC000F795C /* WLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAlertView.h; path = WLAlertView/WLAlertView.h; sourceTree = "<group>"; };
+		5BA60D081A8279FC000F795C /* WLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAlertView.m; path = WLAlertView/WLAlertView.m; sourceTree = "<group>"; };
 		5BA6AA4A1A66801100493582 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLWrapPlaceholderViewTimeline.xib; sourceTree = "<group>"; };
 		5BA6AA4D1A66801300493582 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLWrapPlaceholderViewTimeline.strings; sourceTree = "<group>"; };
 		5BA6AA4F1A66801900493582 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLWrapPlaceholderViewTimeline.strings; sourceTree = "<group>"; };
@@ -2414,8 +2414,6 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
-				5BA60D071A8279FC000F795C /* WLAlertView.h */,
-				5BA60D081A8279FC000F795C /* WLAlertView.m */,
 				5BF1B24A1A49A758000BB2C1 /* WLTodayExtension_Production.entitlements */,
 				5B787DB01A278914004AE459 /* WrapLive-Production.entitlements */,
 				5B787DAF1A27890C004AE459 /* WrapLive-Beta.entitlements */,
@@ -2575,6 +2573,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5BA659B91A94A6BF00138EF7 /* WLAlertView */,
 				C53E5CE51A84D84C004F61B0 /* WLEntry Views */,
 				5BA7AC301A793A0B00BB922E /* WLTriangleView */,
 				5B2B0C201A77DDC400DADC9D /* WLButton */,
@@ -3330,6 +3329,15 @@
 				5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */,
 			);
 			name = UIAlertController;
+			sourceTree = "<group>";
+		};
+		5BA659B91A94A6BF00138EF7 /* WLAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				5BA60D071A8279FC000F795C /* WLAlertView.h */,
+				5BA60D081A8279FC000F795C /* WLAlertView.m */,
+			);
+			name = WLAlertView;
 			sourceTree = "<group>";
 		};
 		5BA755F91A7641A90037D51E /* WLScrollView */ = {

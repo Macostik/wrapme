@@ -94,6 +94,7 @@
         return;
     }
     comment.candy = self;
+    self.commentCount++;
     [comments addObject:comment comparator:comparatorByCreatedAt descending:NO];
     [self touch];
     [comment notifyOnAddition];
@@ -103,6 +104,7 @@
     NSMutableOrderedSet* comments = self.comments;
     if ([comments containsObject:comment]) {
         [comments removeObject:comment];
+        self.commentCount--;
         self.comments = comments;
     }
 }

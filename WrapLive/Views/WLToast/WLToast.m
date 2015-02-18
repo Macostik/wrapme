@@ -142,14 +142,13 @@
     }
 }
 
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	[WLToast cancelPreviousPerformRequestsWithTarget:self];
-	[self dismiss];
-}
-
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    return CGRectContainsPoint(self.contentView.bounds, point);
+    if (CGRectContainsPoint(self.contentView.bounds, point)) {
+        [WLToast cancelPreviousPerformRequestsWithTarget:self];
+        [self dismiss];
+        return YES;
+    }
+    return NO;
 }
 
 @end

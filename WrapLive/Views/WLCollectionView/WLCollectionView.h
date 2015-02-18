@@ -16,7 +16,9 @@ typedef enum : NSUInteger {
 @interface WLCollectionView : UICollectionView
 
 @property (strong, nonatomic) IBInspectable NSString *nibNamePlaceholder;
-@property (strong, nonatomic) IBInspectable NSString *modeNibNamePlaceholder;
-@property (assign, nonatomic) WLPlacehoderMode placeholderMode;
+
+- (BOOL)isDefaultPlaceholder;
+- (void)setDefaulPlaceholder;
+- (void)setPlaceholderWithName:(NSString *)placeholderName byType:(NSInteger)type;
 
 @end

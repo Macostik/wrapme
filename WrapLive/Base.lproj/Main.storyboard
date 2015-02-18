@@ -3183,6 +3183,7 @@ Check your internet connection and try again.</string>
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="0bz-V3-1nu"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="bottom" id="3Zf-0D-3vD"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="jyK-17-cAD" secondAttribute="bottom" id="NgB-RI-d7R"/>
+                            <constraint firstItem="2ai-CO-qH0" firstAttribute="width" relation="lessThanOrEqual" secondItem="jyK-17-cAD" secondAttribute="width" multiplier="0.4" id="PG3-Xd-fDc"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="2ai-CO-qH0" secondAttribute="bottom" constant="12" id="R09-AS-8Qc"/>
                             <constraint firstAttribute="trailing" secondItem="DOa-Ws-aK4" secondAttribute="trailing" id="WMM-NN-L4t"/>
                             <constraint firstItem="jyK-17-cAD" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="bPW-BY-6Fp"/>

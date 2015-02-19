@@ -15,9 +15,9 @@
 + (UIFont *)iconFontWithSize:(CGFloat)size {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self registerIconFontWithURL:[[NSBundle mainBundle] URLForResource:@"iconFont" withExtension:@"ttf"]];
+        [self registerIconFontWithURL:[[NSBundle mainBundle] URLForResource:@"wrapLiveIcons" withExtension:@"ttf"]];
     });
-    return [UIFont fontWithName:@"iconFont" size:size];
+    return [UIFont fontWithName:@"wrapLiveIcons" size:size];
 }
 
 + (CGFloat)sizeWithPreset:(NSString *)preset {
@@ -78,7 +78,7 @@
 }
 
 + (NSDictionary *)allIcons {
-    return @{@"\ue600":@"wl-flashOn",@"\ue601":@"wl-flashAuto",@"\ue602":@"wl-flashOff"};
+    return @{@"\uf102":@"wl-flashOn",@"\uf100":@"wl-flashAuto",@"\uf101":@"wl-flashOff"};
 }
 
 @end

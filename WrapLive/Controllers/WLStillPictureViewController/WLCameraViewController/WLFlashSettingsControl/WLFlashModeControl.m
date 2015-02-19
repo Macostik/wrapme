@@ -28,20 +28,20 @@
 
 static inline NSAttributedString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
     FAKIcon *icon = nil;
-	switch (mode) {
-		case AVCaptureFlashModeOn:
-            icon = [WLIcon iconWithName:@"flash"];
-			break;
-		case AVCaptureFlashModeOff:
-            icon = [WLIcon iconWithName:@"flashOff"];
-			break;
-		case AVCaptureFlashModeAuto:
+    switch (mode) {
+        case AVCaptureFlashModeOn:
+            icon = [WLIcon iconWithName:@"wl-flashOn"];
+            break;
+        case AVCaptureFlashModeOff:
+            icon = [WLIcon iconWithName:@"wl-flashOff"];
+            break;
+        case AVCaptureFlashModeAuto:
             icon = [WLIcon iconWithName:@"wl-flashAuto"];
-			break;
-		default:
-            icon = [WLIcon iconWithName:@"flash"];
-			break;
-	}
+            break;
+        default:
+            icon = [WLIcon iconWithName:@"wl-flashOn"];
+            break;
+    }
     return [icon attributedString];
 };
 

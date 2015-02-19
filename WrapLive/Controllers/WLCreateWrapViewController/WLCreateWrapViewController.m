@@ -42,11 +42,6 @@
 
 @implementation WLCreateWrapViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self.nameField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.5f];
-}
-
 + (BOOL)isEmbeddedDefaultValue {
     return YES;
 }

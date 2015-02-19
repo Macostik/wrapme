@@ -15,7 +15,7 @@ static NSString *WLIconPresetLarger = @"larger";
 static NSString *WLIconPresetXLarge = @"xlarge";
 static NSString *WLIconPresetLargest = @"largest";
 
-@interface WLIcon : NSObject
+@interface WLIcon : FAKIcon
 
 + (FAKIcon*)iconWithName:(NSString*)name;
 

@@ -224,6 +224,12 @@
         } else if (event == WLEventUpdate) {
             [targetEntry notifyOnUpdate];
         } else if (event == WLEventDelete) {
+            if (weakSelf.type == WLNotificationCommentDelete) {
+                WLCandy *candy = [(WLComment*)targetEntry candy];
+                if (candy.valid) {
+                    candy.commentCount--;
+                }
+            }
             [targetEntry remove];
         }
         if (success) success();

@@ -121,6 +121,7 @@
     if ([self.historyItem.entries containsIndex:indexPosition]) {
         self.candy = [self.historyItem.entries objectAtIndex:indexPosition];
     }
+    [self applyFadeEffect];
 }
 
 - (void)refresh {
@@ -247,6 +248,14 @@
     }
     return NO;
 }
+
+- (void)applyFadeEffect {
+    for (WLImageViewCell* cell in [self.collectionView visibleCells]) {
+        CGFloat alpha = (cell.width - ABS(cell.x - self.collectionView.contentOffset.x)) / cell.width;
+        cell.alpha = alpha;
+    }
+}
+
 
 #pragma mark - UIGestureRecognizerDelegate
 

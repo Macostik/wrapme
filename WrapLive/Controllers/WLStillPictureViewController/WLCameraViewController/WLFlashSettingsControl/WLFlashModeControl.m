@@ -12,6 +12,7 @@
 #import "UIColor+CustomColors.h"
 #import "WLButton.h"
 #import <FontAwesomeKit/FontAwesomeKit.h>
+#import "WLIcon.h"
 
 @interface WLFlashModeControl ()
 
@@ -27,21 +28,20 @@
 
 static inline NSAttributedString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
     FAKIcon *icon = nil;
-	switch (mode) {
-		case AVCaptureFlashModeOn:
-            icon = [FAKIonIcons flashIconWithSize:22];
-			break;
-		case AVCaptureFlashModeOff:
-            icon = [FAKIonIcons flashOffIconWithSize:22];
-			break;
-		case AVCaptureFlashModeAuto:
-            icon = [FAKIonIcons flashOffIconWithSize:22];
-			break;
-		default:
-            icon = [FAKIonIcons flashIconWithSize:22];
-			break;
-	}
-    [icon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    switch (mode) {
+        case AVCaptureFlashModeOn:
+            icon = [WLIcon iconWithName:@"wl-flashOn"];
+            break;
+        case AVCaptureFlashModeOff:
+            icon = [WLIcon iconWithName:@"wl-flashOff"];
+            break;
+        case AVCaptureFlashModeAuto:
+            icon = [WLIcon iconWithName:@"wl-flashAuto"];
+            break;
+        default:
+            icon = [WLIcon iconWithName:@"wl-flashOn"];
+            break;
+    }
     return [icon attributedString];
 };
 
@@ -63,10 +63,7 @@ static inline NSAttributedString *WLFlashModeStringValue(AVCaptureFlashMode mode
 	WLButton* button = [WLButton buttonWithType:UIButtonTypeCustom];
 	[button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
 	button.frame = frame;
-	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[button setAttributedTitle:title forState:UIControlStateNormal];
-	button.titleLabel.font = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetSmall];
-    button.preset = WLFontPresetXSmall;
 	[self addSubview:button];
 	return button;
 }

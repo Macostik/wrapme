@@ -144,6 +144,10 @@
 	return [_dictionary copy];
 }
 
+- (instancetype)dictionaryBySwappingObjectsAndKeys {
+    return [[self class] dictionaryWithObjects:[self allKeys] forKeys:[self allValues]];
+}
+
 @end
 
 @implementation NSMutableDictionary (Extended)

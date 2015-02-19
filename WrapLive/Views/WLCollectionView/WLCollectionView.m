@@ -86,8 +86,8 @@ static CGFloat WLDefaultType = -1;
     UIView* placeholderView = [self placeholderViewByType:type];
     placeholderView.frame = self.bounds;
     [self addSubview:placeholderView];
-    if (!CGAffineTransformEqualToTransform(self.transform, CGAffineTransformIdentity)) {
-        placeholderView.transform = CGAffineTransformInvert(self.transform);
+    if (self.layer.geometryFlipped != placeholderView.layer.geometryFlipped) {
+        placeholderView.layer.geometryFlipped = self.layer.geometryFlipped;
     }
     self.placeholderView = placeholderView;
 }

@@ -33,6 +33,8 @@
 
 - (id)merge:(NSDictionary*)dictionary;
 
+- (instancetype)dictionaryBySwappingObjectsAndKeys;
+
 @end
 
 @interface NSMutableDictionary (Extended)

@@ -83,6 +83,10 @@
 		5B2F71A11A2E017F0019FC57 /* WLCryptographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F719D1A2E017F0019FC57 /* WLCryptographer.m */; };
 		5B2F71A31A2E03180019FC57 /* WLCryptographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F719D1A2E017F0019FC57 /* WLCryptographer.m */; };
 		5B2F71A61A2E03C70019FC57 /* WLExtensionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F71A51A2E03C70019FC57 /* WLExtensionManager.m */; };
+		5B330E0C1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
+		5B330E0D1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
+		5B330E0E1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
+		5B330E0F1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
 		5B3A69621A4AC9B8002C7749 /* WLAPIEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = C54AF86519B8C632006F7EDB /* WLAPIEnvironment.m */; };
 		5B3A69631A4AC9B8002C7749 /* WLAPIEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = C54AF86519B8C632006F7EDB /* WLAPIEnvironment.m */; };
 		5B3A69661A4AD10E002C7749 /* WLAPIEnvironment+TestUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A69651A4AD10E002C7749 /* WLAPIEnvironment+TestUsers.m */; };
@@ -1637,6 +1641,7 @@
 		5B2F719D1A2E017F0019FC57 /* WLCryptographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCryptographer.m; path = WLCryptographer/WLCryptographer.m; sourceTree = "<group>"; };
 		5B2F71A41A2E03C70019FC57 /* WLExtensionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLExtensionManager.h; path = WLExtensionModel/WLExtensionManager/WLExtensionManager.h; sourceTree = "<group>"; };
 		5B2F71A51A2E03C70019FC57 /* WLExtensionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLExtensionManager.m; path = WLExtensionModel/WLExtensionManager/WLExtensionManager.m; sourceTree = "<group>"; };
+		5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
 		5B3A69641A4AD10E002C7749 /* WLAPIEnvironment+TestUsers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WLAPIEnvironment+TestUsers.h"; path = "WLAPIManager/WLAPIEnvironment+TestUsers.h"; sourceTree = "<group>"; };
 		5B3A69651A4AD10E002C7749 /* WLAPIEnvironment+TestUsers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WLAPIEnvironment+TestUsers.m"; path = "WLAPIManager/WLAPIEnvironment+TestUsers.m"; sourceTree = "<group>"; };
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
@@ -2815,6 +2820,7 @@
 		12E3DA4518E049C300DBDB79 /* Open_Sans */ = {
 			isa = PBXGroup;
 			children = (
+				5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */,
 				12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */,
 				12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */,
 				C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */,
@@ -4744,6 +4750,7 @@
 				5BA6CAF21A10E51B004AD41C /* s01.wav in Resources */,
 				5BD782C81A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C54F4B1A1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */,
+				5B330E0C1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */,
 				C57005DE1A1FA19C007257A6 /* chat_bubble_red_right@3x.png in Resources */,
 				C57005C61A1FA19C007257A6 /* chat_bubble_gray_right@3x.png in Resources */,
 				5BA4C5861A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
@@ -4852,6 +4859,7 @@
 				5BD782C91A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C54AF86B19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5BD782AB1A4EC3E00094BEE5 /* WLCreateWrapCell.xib in Resources */,
+				5B330E0D1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
 				C514AA561A6D618700A562CE /* WLWrapPickerHintView.xib in Resources */,
 				5BA4C5871A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
@@ -4934,6 +4942,7 @@
 				5BD782CA1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C54AF86F19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5BD782AC1A4EC3E00094BEE5 /* WLCreateWrapCell.xib in Resources */,
+				5B330E0E1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */,
 				C54AF64419B8C467006F7EDB /* iTunesArtwork in Resources */,
 				C514AA571A6D618700A562CE /* WLWrapPickerHintView.xib in Resources */,
 				5BA4C5881A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
@@ -5016,6 +5025,7 @@
 				5BD782CB1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C54AF87319B8C63B006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5BD782AD1A4EC3E00094BEE5 /* WLCreateWrapCell.xib in Resources */,
+				5B330E0F1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
 				C514AA581A6D618700A562CE /* WLWrapPickerHintView.xib in Resources */,
 				5BA4C5891A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,

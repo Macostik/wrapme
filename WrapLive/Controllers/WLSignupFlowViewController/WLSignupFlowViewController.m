@@ -184,13 +184,7 @@
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
     WLNavigationAnimator *animator = [WLNavigationAnimator new];
-    if (operation == UINavigationControllerOperationPush) {
-        animator.presenting = YES;
-        animator.modal = ![toVC isKindOfClass:[WLSignupStepViewController class]];
-    } else {
-        animator.presenting = NO;
-        animator.modal = ![fromVC isKindOfClass:[WLSignupStepViewController class]];
-    }
+    animator.presenting = (operation == UINavigationControllerOperationPush);
     return animator;
 }
 

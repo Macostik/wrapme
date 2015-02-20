@@ -282,7 +282,9 @@
 - (void)captureImage:(void (^)(UIImage*image, NSMutableDictionary* metadata))completion {
 #if TARGET_IPHONE_SIMULATOR
 	run_getting_object(^id{
-		NSString* url = url = @"http://placeimg.com/720/720/any";
+        CGSize size = CGSizeMake(720, 720);
+        size = [UIScreen mainScreen].bounds.size;
+		NSString* url = url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
 		return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
 	}, ^ (UIImage* image) {
 		completion(image, nil);

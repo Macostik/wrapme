@@ -29,6 +29,8 @@
 #import "WLEntryNotifier.h"
 #import "WLHintView.h"
 #import "WLWrapView.h"
+#import "WLUploadPhotoViewController.h"
+#import "WLNavigationAnimator.h"
 
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
 
@@ -46,6 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.cameraNavigationController = [self.childViewControllers lastObject];
+    self.cameraNavigationController.delegate = self;
     
     if ([self.delegate respondsToSelector:@selector(stillPictureViewControllerMode:)]) {
         self.mode = [self.delegate stillPictureViewControllerMode:self];
@@ -169,10 +172,19 @@
 }
 
 - (void)editImage:(UIImage*)image completion:(WLImageBlock)completion {
-    AFPhotoEditorController* aviaryController = [self editControllerWithImage:image];
-    self.aviaryController = aviaryController;
-    [self.cameraNavigationController pushViewController:aviaryController animated:YES];
-    self.editBlock = completion;
+    if (self.mode == WLStillPictureModeDefault) {
+        WLUploadPhotoViewController *controller = [WLUploadPhotoViewController instantiate:self.storyboard];
+        controller.wrap = self.wrap;
+        controller.mode = self.mode;
+        controller.image = image;
+        controller.completionBlock = completion;
+        [self.cameraNavigationController pushViewController:controller animated:YES];
+    } else {
+        AFPhotoEditorController* aviaryController = [self editControllerWithImage:image];
+        self.aviaryController = aviaryController;
+        [self.cameraNavigationController pushViewController:aviaryController animated:YES];
+        self.editBlock = completion;
+    }
 }
 
 #pragma mark - WLCameraViewControllerDelegate
@@ -282,6 +294,14 @@
 
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
     return self.wrap;
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    WLNavigationAnimator *animator = [WLNavigationAnimator new];
+    animator.presenting = operation == UINavigationControllerOperationPush;
+    return animator;
 }
 
 @end

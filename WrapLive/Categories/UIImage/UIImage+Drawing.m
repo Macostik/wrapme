@@ -13,6 +13,21 @@
 
 @implementation UIImage (Drawing)
 
++ (UIImage *)draw:(CGSize)size opaque:(BOOL)opaque scale:(CGFloat)scale drawing:(void (^)(CGSize))drawing {
+    
+    if (!drawing) return nil;
+    
+    UIGraphicsBeginImageContextWithOptions(size, opaque, scale);
+    
+    drawing(size);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 + (void)drawAssetNamed:(NSString*)name directory:(NSString*)directory size:(CGSize)size opaque:(BOOL)opaque drawing:(void (^)(CGSize))drawing {
     NSArray* scales = @[@1,@2,@3];
     for (NSNumber* scale in scales) {
@@ -53,6 +68,10 @@
                 }
                    failure:failure];
     });
+}
+
+- (void)writeToPNGFile:(NSString *)path atomically:(BOOL)atomically {
+    [UIImagePNGRepresentation(self) writeToFile:path atomically:atomically];
 }
 
 @end

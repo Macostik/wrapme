@@ -24,6 +24,7 @@
 #import "WLUpdateUserRequest.h"
 #import "WLProfileEditSession.h"
 #import "WLButton.h"
+#import "WLNavigationAnimator.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
@@ -88,6 +89,7 @@
     cameraNavigation.delegate = self;
     cameraNavigation.defaultPosition = AVCaptureDevicePositionFront;
     cameraNavigation.mode = WLStillPictureModeSquare;
+    cameraNavigation.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
     [self.navigationController pushViewController:cameraNavigation animated:YES];
 }
 

@@ -13,7 +13,7 @@
 
 @interface WLTextView ()
 
-@property (weak, nonatomic) UILabel* placeholderLabel;
+@property (weak, nonatomic) IBOutlet UILabel* placeholderLabel;
 
 @end
 

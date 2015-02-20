@@ -57,4 +57,22 @@
     }
 }
 
+- (void)setCircled:(BOOL)circled {
+    _circled = circled;
+    if (circled) {
+        CAShapeLayer *mask = [CAShapeLayer layer];
+        mask.path = [UIBezierPath bezierPathWithOvalInRect:self.bounds].CGPath;
+        self.layer.mask = mask;
+    }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (_circled) {
+        CAShapeLayer *mask = [CAShapeLayer layer];
+        mask.path = [UIBezierPath bezierPathWithOvalInRect:self.bounds].CGPath;
+        self.layer.mask = mask;
+    }
+}
+
 @end

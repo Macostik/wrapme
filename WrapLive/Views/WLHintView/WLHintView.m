@@ -10,8 +10,9 @@
 #import "WLSession.h"
 #import "WLNavigation.h"
 #import "NSObject+NibAdditions.h"
+#import "UIView+Shorthand.h"
 
-@implementation WLHintView
+@implementation WLHintView 
 
 + (BOOL)showHintViewFromNibNamed:(NSString*)nibName {
     return [self showHintViewFromNibNamed:nibName drawing:nil];
@@ -44,6 +45,8 @@
     hintView.frame = view.frame;
     
     [view addSubview:hintView];
+    
+    [hintView setFullFlexible];
     
     hintView.alpha = 0.0f;
     [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -88,6 +91,10 @@
     if (self.drawing) {
         self.drawing(ctx, rect);
     }
+}
+
+- (void)setNeedsLayout {
+    [self setNeedsDisplay];
 }
 
 @end

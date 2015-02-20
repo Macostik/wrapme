@@ -111,7 +111,9 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
     if (!row) {
-        return [UIView loadFromNibNamed:WLCreateWrapCell ownedBy:self];
+        UIView *createCell = [UIView loadFromNibNamed:WLCreateWrapCell ownedBy:self];
+        createCell.width = self.pickerView.width;
+        return createCell;
     } else {
         WLWrapCell *pickerCell = [WLWrapCell loadFromNibNamed:WLPickerViewCell];
         pickerCell.entry = self.wraps[row - 1];

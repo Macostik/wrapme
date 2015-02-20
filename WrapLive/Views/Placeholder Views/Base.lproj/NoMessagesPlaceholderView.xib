@@ -27,7 +27,7 @@
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                            <color key="value" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" red="0.90588235855102539" green="0.90588235855102539" blue="0.90588235855102539" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="inbox"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="largest"/>
@@ -40,7 +40,7 @@
                         <constraint firstAttribute="height" constant="30" id="kOb-B3-oHN"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="21"/>
-                    <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" red="0.90588235855102539" green="0.90588235855102539" blue="0.90588235855102539" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="larger"/>

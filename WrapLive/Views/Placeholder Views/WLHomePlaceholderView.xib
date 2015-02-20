@@ -53,7 +53,7 @@
                     <string key="text">OOPS!!!
 There is empty now</string>
                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="21"/>
-                    <color key="textColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.90588235855102539" green="0.90588235855102539" blue="0.90588235855102539" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="larger"/>

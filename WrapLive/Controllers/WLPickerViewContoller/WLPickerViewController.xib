@@ -35,6 +35,7 @@
                         <constraint firstItem="wZP-A5-o9C" firstAttribute="top" secondItem="xLd-TM-5d3" secondAttribute="top" id="eUB-ht-RyX"/>
                         <constraint firstItem="wZP-A5-o9C" firstAttribute="leading" secondItem="xLd-TM-5d3" secondAttribute="leading" id="sUc-7q-nva"/>
                         <constraint firstAttribute="centerX" secondItem="wZP-A5-o9C" secondAttribute="centerX" id="yKh-IJ-ewr"/>
+                        <constraint firstAttribute="width" secondItem="wZP-A5-o9C" secondAttribute="width" id="ycJ-14-w0Z"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">

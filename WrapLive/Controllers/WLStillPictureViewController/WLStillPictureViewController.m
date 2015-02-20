@@ -172,19 +172,12 @@
 }
 
 - (void)editImage:(UIImage*)image completion:(WLImageBlock)completion {
-    if (self.mode == WLStillPictureModeDefault) {
-        WLUploadPhotoViewController *controller = [WLUploadPhotoViewController instantiate:self.storyboard];
-        controller.wrap = self.wrap;
-        controller.mode = self.mode;
-        controller.image = image;
-        controller.completionBlock = completion;
-        [self.cameraNavigationController pushViewController:controller animated:YES];
-    } else {
-        AFPhotoEditorController* aviaryController = [self editControllerWithImage:image];
-        self.aviaryController = aviaryController;
-        [self.cameraNavigationController pushViewController:aviaryController animated:YES];
-        self.editBlock = completion;
-    }
+    WLUploadPhotoViewController *controller = [WLUploadPhotoViewController instantiate:self.storyboard];
+    controller.wrap = self.wrap;
+    controller.mode = self.mode;
+    controller.image = image;
+    controller.completionBlock = completion;
+    [self.cameraNavigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - WLCameraViewControllerDelegate

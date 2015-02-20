@@ -27,6 +27,11 @@
                                                object:self];
 }
 
+- (void)setHidden:(BOOL)hidden {
+    [super setHidden:hidden];
+    self.placeholderLabel.hidden = hidden;
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

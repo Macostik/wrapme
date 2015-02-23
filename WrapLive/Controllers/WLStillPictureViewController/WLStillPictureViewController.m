@@ -61,7 +61,9 @@
         [self openGallery:YES animated:NO];
     }
     
-    [[WLWrap notifier] addReceiver:self];
+    if (self.mode == WLStillPictureModeDefault) {
+        [[WLWrap notifier] addReceiver:self];
+    }
 }
 
 - (BOOL)prefersStatusBarHidden {

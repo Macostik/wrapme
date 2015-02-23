@@ -19,6 +19,7 @@ typedef enum : NSUInteger {
 
 - (BOOL)isDefaultPlaceholder;
 - (void)setDefaulPlaceholder;
-- (void)setPlaceholderWithName:(NSString *)placeholderName byType:(NSInteger)type;
+- (void)addToCachePlaceholderWithName:(NSString *)placeholderName byType:(NSInteger)type;
+- (void)setPlaceholderByTupe:(NSInteger)type;
 
 @end

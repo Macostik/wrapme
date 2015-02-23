@@ -30,9 +30,9 @@ static CGFloat WLDefaultType = -1;
 - (void)awakeFromNib {
     [super awakeFromNib];
     [WLLoadingView registerInCollectionView:self];
-    self.placeholderMap = [NSMapTable strongToWeakObjectsMapTable];
-    self.currentType = WLDefaultType;
-    [self setPlaceholderWithName:self.nibNamePlaceholder byType:WLDefaultType];
+    self.placeholderMap = [NSMapTable strongToStrongObjectsMapTable];
+    [self addToCachePlaceholderWithName:self.nibNamePlaceholder byType:WLDefaultType];
+    [self setPlaceholderByTupe:WLDefaultType];
     [self addObserver:self forKeyPath:WLContentSize options:NSKeyValueObservingOptionNew context:NULL];
 }
 
@@ -50,6 +50,10 @@ static CGFloat WLDefaultType = -1;
     }
 }
 
+- (void)setPlaceholderByTupe:(NSInteger)type {
+    self.currentType = type;
+}
+
 - (BOOL)isDefaultPlaceholder {
     return self.currentType == WLDefaultType;
 }
@@ -58,15 +62,12 @@ static CGFloat WLDefaultType = -1;
     self.currentType = WLDefaultType;
 }
 
-- (void)setPlaceholderWithName:(NSString *)placeholderName byType:(NSInteger)type {
+- (void)addToCachePlaceholderWithName:(NSString *)placeholderName byType:(NSInteger)type {
     if (placeholderName.nonempty) {
         id object = [self.placeholderMap objectForKey:@(type)];
         if (object == nil) {
             [self.placeholderMap setObject:placeholderName forKey:@(type)];
-            self.currentType = type;
         }
-    } else {
-        [self setDefaulPlaceholder];
     }
 }
 
@@ -74,7 +75,7 @@ static CGFloat WLDefaultType = -1;
     NSString *nibName = [self.placeholderMap objectForKey:@(type)];
     if (nibName == nil) {
         if (self.nibNamePlaceholder.nonempty) {
-              nibName = [self.placeholderMap objectForKey:self.nibNamePlaceholder];
+            nibName = [self.placeholderMap objectForKey:@(WLDefaultType)];
         } else {
             return nil;
         }

@@ -51,6 +51,7 @@
 @property (weak, nonatomic) IBOutlet WLButton *commentButton;
 @property (weak, nonatomic) IBOutlet WLIconButton *actionButton;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
+@property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
 
 @property (strong, nonatomic) WLComment *lastComment;
 @property (nonatomic) BOOL scrolledToInitialItem;
@@ -225,8 +226,9 @@
 - (void)updateOwnerData {
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"exclamationTriangle";
     [self setCommentButtonTitle:_candy];
+    self.postLabel.text = [NSString stringWithFormat:WLLS(@"Posted by %@"), _candy.contributor.name];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
-    self.postLabel.text = [NSString stringWithFormat:WLLS(@"Posted by %@,\n%@"), _candy.contributor.name, timeAgoString];
+    self.timeLabel.text = timeAgoString;
     self.lastComment = _candy.comments.lastObject;
 }
 

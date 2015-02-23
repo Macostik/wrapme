@@ -78,7 +78,7 @@
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
+    return [self.cameraNavigationController.topViewController supportedInterfaceOrientations];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

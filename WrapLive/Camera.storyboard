@@ -664,6 +664,7 @@
                     <connections>
                         <outlet property="imageView" destination="PoG-ED-My6" id="ZAJ-M7-0af"/>
                         <outlet property="textView" destination="IYz-Fi-wfh" id="TSg-1q-h7U"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="HbT-Th-s6g" id="8yi-dI-Gng"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="son-Yx-b95" userLabel="First Responder" sceneMemberID="firstResponder"/>

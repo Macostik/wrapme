@@ -11,5 +11,5 @@ typedef NS_ENUM(NSInteger, WLStillPictureMode) {
     WLStillPictureModeSquare
 };
 
-static CGFloat WLStillPictureCameraBottomViewHeight = 92.0f;
-static CGFloat WLStillPictureBottomViewHeight = 128.0f;
+static CGFloat WLStillPictureCameraViewAspectRatio = 0.75f;
+static CGFloat WLStillPictureBottomViewHeight = 36.0f;

@@ -9,6 +9,7 @@
 static NSString* WLCandyTypeKey = @"candy_type";
 static NSString* WLCandyMessageKey = @"chat_message";
 static NSString* WLCommentsKey = @"comments";
+static NSString* WLCandyOriginalURLKey = @"original_image_attachment_url";
 static NSString* WLCandyLargeURLKey = @"large_image_attachment_url";
 static NSString* WLCandyMediumURLKey = @"medium_sq_image_attachment_url";
 static NSString* WLCandySmallURLKey = @"small_sq_image_attachment_url";
@@ -60,3 +61,4 @@ static NSString* WLCountryCodeKey = @"country_calling_code";
 static NSString* WLPhoneKey = @"phone_number";
 static NSString* WLPasswordKey = @"password";
 static NSString* WLEnvironment = @"WLAPIEnvironment";
+static NSString* WLCommentCountKey = @"comment_count";

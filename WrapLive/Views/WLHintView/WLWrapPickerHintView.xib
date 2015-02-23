@@ -31,13 +31,6 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="gallery_pic_hand" translatesAutoresizingMaskIntoConstraints="NO" id="5YT-CL-Vk5">
-                    <rect key="frame" x="127" y="269" width="120" height="174"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="120" id="RYf-2d-ADE"/>
-                        <constraint firstAttribute="height" constant="174" id="f2b-8G-fmd"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="229" placeholderIntrinsicHeight="32" text="Choose a wrap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="1zI-Zd-PEP" customClass="WLLabel">
                     <rect key="frame" x="28" y="64" width="229" height="32"/>
                     <constraints>
@@ -54,8 +47,6 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="5YT-CL-Vk5" secondAttribute="bottom" constant="125" id="PGh-dp-BeA"/>
-                <constraint firstItem="5YT-CL-Vk5" firstAttribute="leading" secondItem="i6P-xe-Lyn" secondAttribute="leading" constant="127" id="V7I-wU-twP"/>
                 <constraint firstItem="1zI-Zd-PEP" firstAttribute="top" secondItem="i6P-xe-Lyn" secondAttribute="top" constant="64" id="Vv3-Zt-wFo"/>
                 <constraint firstItem="INP-a4-pR4" firstAttribute="leading" secondItem="i6P-xe-Lyn" secondAttribute="leading" constant="28" id="ecz-a5-12I"/>
                 <constraint firstItem="INP-a4-pR4" firstAttribute="top" secondItem="i6P-xe-Lyn" secondAttribute="top" constant="96" id="fWg-n1-M9Y"/>
@@ -72,9 +63,6 @@
             </connections>
         </tapGestureRecognizer>
     </objects>
-    <resources>
-        <image name="gallery_pic_hand" width="120" height="174"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

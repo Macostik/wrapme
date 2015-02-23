@@ -42,11 +42,6 @@
 
 @implementation WLCreateWrapViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self.nameField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
-}
-
 + (BOOL)isEmbeddedDefaultValue {
     return YES;
 }
@@ -63,10 +58,12 @@
 }
 
 - (IBAction)done:(WLButton*)sender {
-    NSString* name = self.nameField.text;
+    NSString* name = [self.nameField.text trim];
     if (!name.nonempty) {
+        [WLToast showWithMessage:WLLS(@"Wrap name cannot be blank.")];
         return;
     }
+    [self.nameField resignFirstResponder];
     sender.loading = YES;
     __weak typeof(self)weakSelf = self;
     self.wrap = [WLWrap wrap];

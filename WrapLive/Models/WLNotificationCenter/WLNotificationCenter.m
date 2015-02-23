@@ -26,8 +26,7 @@
 #import "UIDevice+SystemVersion.h"
 #import "WLRemoteObjectHandler.h"
 #import "WLImageFetcher.h"
-
-#define WLPubNubInactiveStateDuration 20*60
+#import "AsynchronousOperation.h"
 
 @interface WLNotificationCenter () <PNDelegate>
 
@@ -35,11 +34,14 @@
 
 @property (strong, nonatomic) NSDate* historyDate;
 
+@property (strong, nonatomic) NSOrderedSet* handledNotifications;
+
 @end
 
 @implementation WLNotificationCenter
 
 @synthesize historyDate = _historyDate;
+@synthesize handledNotifications = _handledNotifications;
 
 + (instancetype)defaultCenter {
     static id instance = nil;
@@ -56,7 +58,7 @@
         __weak typeof(self)weakSelf = self;
         [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
             if (weakSelf.userChannel.subscribed) {
-                [weakSelf performSelector:@selector(requestHistory) withObject:nil afterDelay:0.5f];
+                [weakSelf performSelector:@selector(requestHistory:) withObject:weakSelf.historyDate afterDelay:0.5f];
             }
         }];
     }
@@ -69,8 +71,10 @@
 }
 
 - (void)setHistoryDate:(NSDate *)historyDate {
-    _historyDate = historyDate;
-    [WLSession setObject:historyDate key:@"historyDate"];
+    if (historyDate) {
+        _historyDate = historyDate;
+        [WLSession setObject:historyDate key:@"historyDate"];
+    }
 }
 
 static WLDataBlock deviceTokenCompletion = nil;
@@ -139,45 +143,99 @@ static WLDataBlock deviceTokenCompletion = nil;
     if (![[PubNub clientIdentifier] isEqualToString:userUID]) {
         [PubNub setClientIdentifier:userUID];
         self.userChannel = [WLNotificationChannel channelWithName:[NSString stringWithFormat:@"%@-%@", userUID, deviceUID]];
-        [self requestHistory];
+        [self requestHistory:self.historyDate];
         __weak typeof(self)weakSelf = self;
         [self.userChannel enableAPNS];
         [self.userChannel observeMessages:^(PNMessage *message) {
             WLNotification *notification = [WLNotification notificationWithMessage:message];
-            [weakSelf handleNotification:notification saveHistoryDate:YES];
+            
+            if (notification) {
+                [weakSelf handleNotification:notification allowSound:YES];
+                [weakSelf addHandledNotifications:@[notification]];
+            }
+            
+            NSString *logMessage = [NSString stringWithFormat:@"direct message received %@", notification];
+            WLLog(@"PUBNUB", logMessage, notification.entryData);
         }];
     }
 }
 
-- (void)handleNotification:(WLNotification*)notification saveHistoryDate:(BOOL)saveHistoryDate {
+- (BOOL)notificationHandled:(WLNotification*)notification {
+    return [self.handledNotifications containsObject:notification.identifier];
+}
+
+- (void)handleNotification:(WLNotification*)notification allowSound:(BOOL)allowSound {
     BOOL insertedEntry = notification.targetEntry.inserted;
     [notification fetch:^{
-        if (notification.playSound && insertedEntry) [WLSoundPlayer playSoundForNotification:notification];
+        if (allowSound && notification.playSound && insertedEntry) [WLSoundPlayer playSoundForNotification:notification];
     } failure:nil];
-    if (saveHistoryDate) {
-        self.historyDate = [notification.date dateByAddingTimeInterval:NSINTEGER_DEFINED];
+}
+
+- (void)addHandledNotifications:(NSArray*)notifications {
+    NSArray *identifiers = [notifications map:^id(WLNotification* notification) {
+        return notification.identifier;
+    }];
+    
+    if (identifiers.nonempty) {
+        NSMutableOrderedSet *handledNotifications = [self.handledNotifications mutableCopy];
+        if (handledNotifications.count > 100) {
+            [handledNotifications removeObjectsInRange:NSMakeRange(0, MIN(100, identifiers.count))];
+        }
+        [handledNotifications unionOrderedSet:[NSOrderedSet orderedSetWithArray:identifiers]];
+        self.handledNotifications = handledNotifications;
     }
 }
 
-- (void)requestHistory {
-    NSDate *historyDate = self.historyDate;
-    if (historyDate) {
-        __weak typeof(self)weakSelf = self;
-        [PubNub requestHistoryForChannel:self.userChannel.channel from:[PNDate dateWithDate:historyDate] to:[PNDate dateWithDate:[NSDate now]] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, PNChannel *channel, PNDate *from, PNDate *to, PNError *error) {
-            if (!error) {
-                NSArray *notifications = [weakSelf notificationsFromMessages:messages];
-                if (notifications.nonempty) {
-                    for (WLNotification *notification in notifications) {
-                        [weakSelf handleNotification:notification saveHistoryDate:notification == [notifications lastObject]];
+- (NSOrderedSet *)handledNotifications {
+    if (!_handledNotifications) {
+        _handledNotifications = [NSOrderedSet orderedSetWithArray:[WLSession object:@"handledNotifications"]];
+    }
+    return _handledNotifications;
+}
+
+- (void)setHandledNotifications:(NSOrderedSet *)handledNotifications {
+    _handledNotifications = handledNotifications;
+    [WLSession setObject:[_handledNotifications array] key:@"handledNotifications"];
+}
+
+- (void)requestHistory:(NSDate*)historyDate {
+    __weak typeof(self)weakSelf = self;
+    [[NSOperationQueue queueWithIdentifier:@"pn_history" count:1] addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+        if (historyDate) {
+            NSDate *fromDate = historyDate;
+            NSDate *toDate = [NSDate now];
+            NSString *logMessage = [NSString stringWithFormat:@"requesting history starting from: %@ to: %@", fromDate, toDate];
+            WLLog(@"PUBNUB", logMessage, nil);
+            [PubNub requestHistoryForChannel:weakSelf.userChannel.channel from:[PNDate dateWithDate:fromDate] to:[PNDate dateWithDate:toDate] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, id channel, PNDate* from, PNDate* to, id error) {
+                if (!error) {
+                    NSString *logMessage = [NSString stringWithFormat:@"received history starting from: %@ to: %@", from.date, to.date];
+                    WLLog(@"PUBNUB", logMessage, nil);
+                    NSArray *notifications = [weakSelf notificationsFromMessages:messages];
+                    if (notifications.nonempty) {
+                        for (WLNotification *notification in notifications) {
+                            [weakSelf handleNotification:notification allowSound:NO];
+                            NSString *logMessage = [NSString stringWithFormat:@"history message received %@", notification];
+                            WLLog(@"PUBNUB", logMessage, notification.entryData);
+                        }
+                        [weakSelf addHandledNotifications:notifications];
+                        WLNotification *notification = [notifications lastObject];
+                        NSDate *notificationDate = notification.date;
+                        weakSelf.historyDate = notificationDate ? [notificationDate dateByAddingTimeInterval:NSINTEGER_DEFINED] : toDate;
+                    } else {
+                        weakSelf.historyDate = toDate;
+                        WLLog(@"PUBNUB", @"no missed messages in history", nil);
                     }
                 } else {
-                    weakSelf.historyDate = [NSDate now];
+                    WLLog(@"PUBNUB", @"requesting history error", error);
                 }
-            }
-        }];
-    } else {
-        self.historyDate = [NSDate now];
-    }
+                [operation finish];
+            }];
+        } else {
+            WLLog(@"PUBNUB", @"history date is empty", nil);
+            weakSelf.historyDate = [NSDate now];
+            [operation finish];
+        }
+    }];
 }
 
 - (NSArray*)notificationsFromMessages:(NSArray*)messages {
@@ -186,19 +244,46 @@ static WLDataBlock deviceTokenCompletion = nil;
         return [WLNotification notificationWithMessage:message];
     }] mutableCopy];
     
+    // remove already handled notifications
+    __weak typeof(self)weakSelf = self;
+    [notifications removeObjectsWhileEnumerating:^BOOL(WLNotification* notification) {
+        return [weakSelf notificationHandled:notification];
+    }];
+    
+    if (!notifications.nonempty) return nil;
+    
     NSArray *deleteNotifications = [notifications objectsWhere:@"event == %d", WLEventDelete];
     
+    for (WLNotification *notification in deleteNotifications) {
+        if (![notifications containsObject:notification]) {
+            continue;
+        }
+        NSArray *deleted = [deleteNotifications objectsWhere:@"entryIdentifier == %@", notification.entryIdentifier];
+        NSArray *added = [notifications objectsWhere:@"event == %d AND entryIdentifier == %@", WLEventAdd, notification.entryIdentifier];
+        if (added.count > deleted.count) {
+            added = [added arrayByRemovingObject:[added lastObject]];
+        } else if (added.count < deleted.count) {
+            deleted = [deleted arrayByRemovingObject:[deleted lastObject]];
+        }
+        [notifications removeObjectsInArray:deleted];
+        [notifications removeObjectsInArray:added];
+    }
+    
+    deleteNotifications = [notifications objectsWhere:@"event == %d", WLEventDelete];
+    
     deleteNotifications = [deleteNotifications sortedArrayUsingComparator:^NSComparisonResult(WLNotification* n1, WLNotification* n2) {
-        return [[[n1.targetEntry class] uploadingOrder] compare:[[n2.targetEntry class] uploadingOrder]];
+        return [[n1.entryClass uploadingOrder] compare:[n2.entryClass uploadingOrder]];
     }];
     
     for (WLNotification *deleteNotification in deleteNotifications) {
-        WLEntry *targetEntry = deleteNotification.targetEntry;
-        if (targetEntry.valid) {
-            NSArray *discardedNotifications = [notifications objectsWhere:@"SELF != %@ AND (targetEntry == %@ OR targetEntry.containingEntry == %@)",deleteNotification,targetEntry, targetEntry];
+        if (![notifications containsObject:deleteNotification]) {
+            continue;
+        }
+        NSString *entryIdentifier = deleteNotification.entryIdentifier;
+        if (entryIdentifier.nonempty) {
+            NSArray *discardedNotifications = [notifications objectsWhere:@"SELF != %@ AND (entryIdentifier == %@ OR containingEntryIdentifier == %@)",deleteNotification, entryIdentifier, entryIdentifier];
             [notifications removeObjectsInArray:discardedNotifications];
-            if (targetEntry.inserted) {
-                [[WLEntryManager manager] deleteEntry:targetEntry];
+            if (![[WLEntryManager manager] entryExists:deleteNotification.entryClass identifier:entryIdentifier]) {
                 [notifications removeObject:deleteNotification];
             }
         } else {
@@ -206,8 +291,9 @@ static WLDataBlock deviceTokenCompletion = nil;
         }
     }
     
-    return [notifications copy];
+    [notifications sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
     
+    return [notifications copy];
 }
 
 - (void)connect {
@@ -237,16 +323,7 @@ static WLDataBlock deviceTokenCompletion = nil;
         case UIApplicationStateBackground: {
             WLNotification* notification = [WLNotification notificationWithData:data];
             if (notification) {
-                [notification fetch:^{
-                    if (notification.type == WLNotificationCandyAdd) {
-                        WLCandy* candy = (id)notification.targetEntry;
-                        [[WLImageFetcher fetcher] enqueueImageWithUrl:candy.picture.medium completion:^(UIImage *image){
-                            if (success) success();
-                        }];
-                    } else {
-                        if (success) success();
-                    }
-                } failure:failure];
+                [notification fetch:success failure:failure];
             } else if (failure)  {
                 failure([NSError errorWithDescription:WLLS(@"Data in remote notification is not valid (background).")]);
             }
@@ -258,44 +335,40 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 #pragma mark - PNDelegate
 
-- (void)pubnubClient:(PubNub *)client didReceiveMessage:(PNMessage *)message {
-    WLLog(@"PubNub",@"message received", message);
-}
-
 - (void)pubnubClient:(PubNub *)client didReceiveMessageHistory:(NSArray *)messages forChannel:(PNChannel *)channel startingFrom:(PNDate *)startDate to:(PNDate *)endDate {
-    WLLog(@"PubNub",@"messages history", messages);
+    WLLog(@"PUBNUB",@"messages history with count", @([messages count]));
 }
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {
-    WLLog(@"PubNub",@"connected", origin);
+    WLLog(@"PUBNUB",@"connected", origin);
 }
 
 - (void)pubnubClient:(PubNub *)client connectionDidFailWithError:(PNError *)error {
-    WLLog(@"PubNub",@"connection failed", error);
+    WLLog(@"PUBNUB",@"connection failed", error);
 }
 
 - (void)pubnubClient:(PubNub *)client didSubscribeOnChannels:(NSArray *)channels {
-    WLLog(@"PubNub",@"subscribed", channels);
+    WLLog(@"PUBNUB",@"subscribed", [channels valueForKey:@"name"]);
 }
 
 - (void)pubnubClient:(PubNub *)client didUnsubscribeOnChannels:(NSArray *)channels {
-    WLLog(@"PubNub",@"unsubscribed", channels);
+    WLLog(@"PUBNUB",@"unsubscribed", [channels valueForKey:@"name"]);
 }
 
 - (void)pubnubClient:(PubNub *)client didDisconnectFromOrigin:(NSString *)origin withError:(PNError *)error {
-    WLLog(@"PubNub", @"disconnected", error);
+    WLLog(@"PUBNUB", @"disconnected", error);
 }
 
 - (void)pubnubClient:(PubNub *)client didEnablePushNotificationsOnChannels:(NSArray *)channels {
-    WLLog(@"PubNub", @"enabled APNS", channels);
+    WLLog(@"PUBNUB", @"enabled APNS", [channels valueForKey:@"name"]);
 }
 
 - (void)pubnubClientDidRemovePushNotifications:(PubNub *)client {
-    WLLog(@"PubNub", @"removed APNS", nil);
+    WLLog(@"PUBNUB", @"removed APNS", nil);
 }
 
 - (void)pubnubClient:(PubNub *)client didReceivePresenceEvent:(PNPresenceEvent *)event {
-    WLLog(@"PubNub", @"presence event", event);
+    WLLog(@"PUBNUB", @"presence event", @(event.type));
 }
 
 @end

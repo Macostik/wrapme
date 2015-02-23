@@ -18,10 +18,15 @@
 #import "WLAPIManager.h"
 #import "WLToast.h"
 
+static NSString *const WLDelete = @"Delete";
+static NSString *const WLReport = @"Report";
+static NSString *const WLLeave = @"Leave";
+
 @interface WLEditWrapViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *nameWrapTextField;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
+@property (weak, nonatomic) IBOutlet WLPressButton *deleteButton;
 
 @end
 
@@ -30,36 +35,47 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.editSession = [[WLEditSession alloc] initWithEntry:self.entry stringProperties:@"name", nil];
+    self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap stringProperties:@"name", nil];
     
     [self.nameWrapTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
-    
-    self.nameWrapTextField.enabled = self.entry.deletable;
+    [self.deleteButton setTitle:self.wrap.deletable ? WLLS(WLDelete) : WLLS(WLLeave) forState:UIControlStateNormal];
+    self.nameWrapTextField.enabled = self.wrap.deletable;
 }
 
 - (void)setupEditableUserInterface {
-    self.nameWrapTextField.text = self.entry.name;
+    self.nameWrapTextField.text = self.wrap.name;
 }
 
-- (void)setButtonTitle {
-       [self.deleteButton setTitle:self.entry.deletable ? WLLS(WLDelete) : WLLS(WLLeave) forState:UIControlStateNormal];
++ (BOOL)isEmbeddedDefaultValue {
+    return YES;
 }
 
-- (void)performSelectorByTitle {
+- (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)performSelectorByTitle {
     __weak __typeof(self)weakSelf = self;
     self.deleteButton.loading = YES;
-    [self.entry leave:^(id object) {
-        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-        [weakSelf dismissViewControllerAnimated:NO completion:nil];
-        weakSelf.deleteButton.loading = NO;
-    } failure:^(NSError *error) {
-        [error show];
-        weakSelf.deleteButton.loading = NO;
-    }];
-}
-
-- (void)showToast {
-    [WLToast showWithMessage:WLLS(@"Wrap was deleted successfully.")];
+    if (self.wrap.deletable) {
+        [self.wrap remove:^(id object) {
+            weakSelf.deleteButton.loading = NO;
+             [WLToast showWithMessage:WLLS(@"Wrap was deleted successfully.")];
+            [weakSelf dismissViewControllerAnimated:NO completion:nil];
+        } failure:^(NSError *error) {
+            [error show];
+            weakSelf.deleteButton.loading = NO;
+        }];
+    } else {
+        [self.wrap leave:^(id object) {
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            [weakSelf dismissViewControllerAnimated:NO completion:nil];
+            weakSelf.deleteButton.loading = NO;
+        } failure:^(NSError *error) {
+            [error show];
+            weakSelf.deleteButton.loading = NO;
+        }];
+    }
 }
 
 - (IBAction)removeFromController:(id)sender {
@@ -83,7 +99,8 @@
 #pragma mark - WLEditViewController override method
 
 - (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    if (!self.nameWrapTextField.text.nonempty) {
+    NSString *name = [self.nameWrapTextField.text trim];
+    if (!name.nonempty) {
         if (failure) failure([NSError errorWithDescription:WLLS(@"Wrap name cannot be blank.")]);
     } else {
         if (success) success(nil);
@@ -91,7 +108,8 @@
 }
 
 - (void)apply:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    [self.entry update:success failure:success];
+    self.wrap.name = [self.nameWrapTextField.text trim];
+    [self.wrap update:success failure:success];
 }
 
 #pragma mark - WLBaseViewController override method

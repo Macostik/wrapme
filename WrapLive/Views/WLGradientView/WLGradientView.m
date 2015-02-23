@@ -25,6 +25,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        _endLocation = NSINTEGER_DEFINED;
         CAGradientLayer *layer = self.layer;
         [layer setShouldRasterize:YES];
         [layer setRasterizationScale:[UIScreen mainScreen].scale];
@@ -35,6 +36,7 @@
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
+        _endLocation = NSINTEGER_DEFINED;
         CAGradientLayer *layer = self.layer;
         [layer setShouldRasterize:YES];
         [layer setRasterizationScale:[UIScreen mainScreen].scale];
@@ -78,6 +80,16 @@
 - (UIColor *)endColor {
     if (!_endColor) _endColor = [_startColor colorWithAlphaComponent:0];
     return _endColor;
+}
+
+- (void)setStartLocation:(CGFloat)startLocation {
+    _startLocation = startLocation;
+    self.layer.locations = @[@(self.startLocation), @(self.endLocation)];
+}
+
+- (void)setEndLocation:(CGFloat)endLocation {
+    _endLocation = endLocation;
+    self.layer.locations = @[@(self.startLocation), @(self.endLocation)];
 }
 
 @end

@@ -12,7 +12,8 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "1st_screen_btn_agree_and_continue_enabled@3x.png"
     }
   ],
   "info" : {

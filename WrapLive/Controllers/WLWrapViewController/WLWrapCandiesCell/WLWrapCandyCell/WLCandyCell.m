@@ -29,7 +29,6 @@
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentLabelHeightConstraint;
 
 
 @end
@@ -71,19 +70,6 @@
                 [WLToast showPhotoDownloadingMessage];
             }];
         }];
-    }
-    if (!WLConstants.iPhone) {
-        NSLayoutConstraint *oldConstraint = self.commentLabelHeightConstraint;
-        [self.contentView removeConstraint:oldConstraint];
-        NSLayoutConstraint *heightConstraint =  [NSLayoutConstraint constraintWithItem:oldConstraint.firstItem
-                                                                             attribute:oldConstraint.firstAttribute
-                                                                             relatedBy:oldConstraint.relation
-                                                                                toItem:oldConstraint.secondItem
-                                                                             attribute:oldConstraint.secondAttribute
-                                                                            multiplier:.25
-                                                                              constant:oldConstraint.constant];
-        [self.contentView addConstraint:heightConstraint];
-        self.commentLabelHeightConstraint = nil;
     }
 }
 

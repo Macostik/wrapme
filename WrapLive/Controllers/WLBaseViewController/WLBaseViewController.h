@@ -21,11 +21,19 @@
 
 @property (weak, nonatomic, readonly) UIView *contentView;
 
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *keyboardAdjustmentBottomConstraints;
+
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *keyboardAdjustmentTopConstraints;
+
 @property (nonatomic) BOOL isEmbedded;
 
 + (BOOL)isEmbeddedDefaultValue;
 
 - (void)embeddingViewTapped:(UITapGestureRecognizer*)sender;
+
+- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext;
+
+- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext;
 
 - (void)addEmbeddingConstraintsToContentView:(UIView*)contentView inView:(UIView*)view;
 
@@ -33,12 +41,5 @@
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight;
 
-- (void)setPlaceholderNib:(UINib*)nib forType:(NSUInteger)type;
-
-- (void)setPlaceholderVisible:(BOOL)visible forType:(NSUInteger)type;
-
-- (void)updatePlaceholderVisibilityForType:(NSUInteger)type;
-
-- (BOOL)placeholderVisibleForType:(NSUInteger)type;
 
 @end

@@ -54,11 +54,14 @@
 	[self willChangeValueForKey:@"isExecuting"];
 	executing = YES;
 	[self didChangeValueForKey:@"isExecuting"];
-	
+    
 	if (self.operationBlock) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(finish) object:nil];
         [self performSelector:@selector(finish) withObject:nil afterDelay:45];
-		self.operationBlock(self);
+		__weak typeof(self)weakSelf = self;
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            weakSelf.operationBlock(weakSelf);
+        }];
 	} else {
 		[self finish];
 	}
@@ -100,6 +103,29 @@
 @end
 
 @implementation NSOperationQueue (PGAsynchronousOperation)
+
++ (instancetype)queueWithIdentifier:(NSString*)identifier count:(NSUInteger)count {
+    static NSMutableDictionary *queues = nil;
+    if (!queues) queues = [NSMutableDictionary dictionary];
+    NSOperationQueue *queue = [queues objectForKey:identifier];
+    if (!queue) {
+        queue = queues[identifier] = [[NSOperationQueue alloc] init];
+    }
+    queue.maxConcurrentOperationCount = count;
+    return queue;
+}
+
++ (instancetype)queueWithIdentifier:(NSString *)identifier {
+    return [self queueWithIdentifier:identifier count:NSOperationQueueDefaultMaxConcurrentOperationCount];
+}
+
++ (AsynchronousOperation*)addAsynchronousOperationToQueueWithIdentifier:(NSString*)queueIdentifier operationIdentifier:(NSString*)operationIdentifier block:(void (^)(AsynchronousOperation* operation))block {
+    return [[self queueWithIdentifier:queueIdentifier] addAsynchronousOperation:operationIdentifier block:block];
+}
+
++ (AsynchronousOperation*)addAsynchronousOperationToQueueWithIdentifier:(NSString*)queueIdentifier block:(void (^)(AsynchronousOperation* operation))block {
+    return [[self queueWithIdentifier:queueIdentifier] addAsynchronousOperationWithBlock:block];
+}
 
 - (AsynchronousOperation *)addAsynchronousOperation:(NSString *)identifier block:(void (^)(AsynchronousOperation *))block {
     AsynchronousOperation* operation = [[AsynchronousOperation alloc] initWithQueue:self block:block];

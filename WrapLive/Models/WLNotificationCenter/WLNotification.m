@@ -30,7 +30,7 @@
 
 + (instancetype)notificationWithMessage:(PNMessage*)message {
     WLNotification *notification = [self notificationWithData:message.message];
-    notification.date = [message.receiveDate date];
+    notification.date = [(message.receiveDate ? : message.date) date];
 	return notification;
 }
 
@@ -47,8 +47,15 @@
 	return nil;
 }
 
+- (NSString *)identifier {
+    if (!_identifier) {
+        _identifier = [NSString stringWithFormat:@"%lu_%@", self.type, self.entryIdentifier];
+    }
+    return _identifier;
+}
+
 - (void)setup:(NSDictionary*)data {
-    
+    self.entryData = data;
     WLNotificationType type = self.type;
     
     switch (type) {
@@ -72,65 +79,121 @@
             break;
     }
     
-    WLEntry *targetEntry = nil;
+    NSString *dataKey = nil;
     
     switch (type) {
         case WLNotificationContributorAdd:
         case WLNotificationContributorDelete:
         case WLNotificationWrapDelete:
         case WLNotificationWrapUpdate: {
-            NSDictionary* dictionary = [data dictionaryForKey:WLWrapKey];
-            targetEntry = dictionary ? [WLWrap API_entry:dictionary] : [WLWrap entry:[data stringForKey:WLWrapUIDKey]];
+            self.entryClass = [WLWrap class];
+            dataKey = WLWrapKey;
         } break;
         case WLNotificationCandyAdd:
         case WLNotificationCandyDelete: {
-            NSDictionary* dictionary = [data dictionaryForKey:WLCandyKey];
-            targetEntry = dictionary ? [WLCandy API_entry:dictionary] : [WLCandy entry:[data stringForKey:WLCandyUIDKey]];
+            self.entryClass = [WLCandy class];
+            dataKey = WLCandyKey;
         } break;
         case WLNotificationMessageAdd: {
-            NSDictionary* dictionary = [data dictionaryForKey:WLMessageKey];
-            targetEntry = dictionary ? [WLMessage API_entry:dictionary] : [WLMessage entry:[data stringForKey:WLMessageUIDKey]];
+            self.entryClass = [WLMessage class];
+            dataKey = WLMessageKey;
         } break;
         case WLNotificationCommentAdd:
         case WLNotificationCommentDelete: {
-            NSDictionary* dictionary = [data dictionaryForKey:WLCommentKey];
-            targetEntry = dictionary ? [WLComment API_entry:dictionary] : [WLComment entry:[data stringForKey:WLCommentUIDKey]];
+            self.entryClass = [WLComment class];
+            dataKey = WLCommentKey;
         } break;
         case WLNotificationUserUpdate: {
-            NSDictionary* dictionary = [data dictionaryForKey:WLUserKey];
-            if (dictionary) {
-                [[WLAuthorization currentAuthorization] updateWithUserData:dictionary];
-                targetEntry = [WLUser API_entry:dictionary];
-            } else {
-                targetEntry = [WLUser entry:[data stringForKey:WLUserUIDKey]];
-            }
+            self.entryClass = [WLUser class];
+            dataKey = WLUserKey;
         } break;
         default:
             break;
     }
     
-    if (targetEntry.containingEntry == nil) {
+    self.entryData = [data dictionaryForKey:dataKey];
+    self.entryIdentifier = [self.entryClass API_identifier:self.entryData ? : data];
+    
+    switch (type) {
+        case WLNotificationCandyAdd:
+        case WLNotificationCandyDelete:
+        case WLNotificationMessageAdd: {
+            self.containingEntryIdentifier = [data stringForKey:WLWrapUIDKey];
+        } break;
+        case WLNotificationCommentAdd:
+        case WLNotificationCommentDelete: {
+            self.containingEntryIdentifier = [data stringForKey:WLCandyUIDKey];
+        } break;
+        default:
+            break;
+    }
+}
+
+- (WLEntry *)targetEntry {
+    if (!_targetEntry) {
+        NSDictionary *dictionary = self.entryData;
+        WLNotificationType type = self.type;
+        WLEntry *targetEntry = nil;
+        
         switch (type) {
+            case WLNotificationContributorAdd:
+            case WLNotificationContributorDelete:
+            case WLNotificationWrapDelete:
+            case WLNotificationWrapUpdate: {
+                targetEntry = dictionary ? [WLWrap API_entry:dictionary] : [WLWrap entry:self.entryIdentifier];
+            } break;
             case WLNotificationCandyAdd:
-            case WLNotificationCandyDelete:
+            case WLNotificationCandyDelete: {
+                targetEntry = dictionary ? [WLCandy API_entry:dictionary] : [WLCandy entry:self.entryIdentifier];
+            } break;
             case WLNotificationMessageAdd: {
-                targetEntry.containingEntry = [WLWrap entry:[data stringForKey:WLWrapUIDKey]];
+                targetEntry = dictionary ? [WLMessage API_entry:dictionary] : [WLMessage entry:self.entryIdentifier];
             } break;
             case WLNotificationCommentAdd:
             case WLNotificationCommentDelete: {
-                targetEntry.containingEntry = [WLCandy entry:[data stringForKey:WLCandyUIDKey]];
+                targetEntry = dictionary ? [WLComment API_entry:dictionary] : [WLComment entry:self.entryIdentifier];
+            } break;
+            case WLNotificationUserUpdate: {
+                if (dictionary) {
+                    [[WLAuthorization currentAuthorization] updateWithUserData:dictionary];
+                    targetEntry = [WLUser API_entry:dictionary];
+                } else {
+                    targetEntry = [WLUser entry:self.entryIdentifier];
+                }
             } break;
             default:
                 break;
         }
+        
+        if (targetEntry.containingEntry == nil) {
+            switch (type) {
+                case WLNotificationCandyAdd:
+                case WLNotificationCandyDelete:
+                case WLNotificationMessageAdd: {
+                    targetEntry.containingEntry = [WLWrap entry:self.containingEntryIdentifier];
+                } break;
+                case WLNotificationCommentAdd:
+                case WLNotificationCommentDelete: {
+                    targetEntry.containingEntry = [WLCandy entry:self.containingEntryIdentifier];
+                } break;
+                default:
+                    break;
+            }
+        }
+        
+        _targetEntry = targetEntry;
     }
-    
-    self.targetEntry = targetEntry;
+    return _targetEntry;
 }
 
 - (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure {
+    __weak __typeof(self)weakSelf = self;
+    WLEntry* targetEntry = [weakSelf targetEntry];
     
-    WLEntry* targetEntry = [self targetEntry];
+    if (!targetEntry.valid) {
+        if (success) success();
+        return;
+    }
     
     if (!targetEntry.valid) {
         if (success) success();
@@ -139,13 +202,17 @@
     
     WLEvent event = self.event;
     
-    __weak __typeof(self)weakSelf = self;
     WLObjectBlock block = ^(id object) {
         if (event == WLEventAdd) {
             switch (weakSelf.type) {
-                case WLNotificationCommentAdd:
+                case WLNotificationCommentAdd: {
+                    WLCandy *candy = [(WLComment*)targetEntry candy];
+                    if (candy.valid && !targetEntry.unread) {
+                        candy.commentCount++;
+                    }
                     if (targetEntry.notifiable && !targetEntry.unread) targetEntry.unread = YES;
                     break;
+                }
                 case WLNotificationCandyAdd:
                 case WLNotificationMessageAdd:
                     if (!targetEntry.unread) targetEntry.unread = YES;
@@ -157,9 +224,14 @@
         } else if (event == WLEventUpdate) {
             [targetEntry notifyOnUpdate];
         } else if (event == WLEventDelete) {
+            if (weakSelf.type == WLNotificationCommentDelete) {
+                WLCandy *candy = [(WLComment*)targetEntry candy];
+                if (candy.valid) {
+                    candy.commentCount--;
+                }
+            }
             [targetEntry remove];
         }
-
         if (success) success();
     };
     
@@ -184,6 +256,9 @@
             return NO;
             break;
     }
+}
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%lu : %@", self.type, self.entryIdentifier];
 }
 
 @end

@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    WLDefaultPlaceholderMode,
+    WLManualPlaceholderMode,
+} WLPlacehoderMode;
+
 @interface WLCollectionView : UICollectionView
+
+@property (strong, nonatomic) IBInspectable NSString *nibNamePlaceholder;
+
+- (BOOL)isDefaultPlaceholder;
+- (void)setDefaulPlaceholder;
+- (void)addToCachePlaceholderWithName:(NSString *)placeholderName byType:(NSInteger)type;
+- (void)setPlaceholderByTupe:(NSInteger)type;
 
 @end

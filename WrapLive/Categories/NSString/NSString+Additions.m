@@ -67,6 +67,12 @@
     return ceilf([self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil].size.width);
 }
 
+- (NSString *)stringByCapitalizingFirstCharacter {
+    if (self.length == 0) return self;
+    NSRange range = NSMakeRange(0,1);
+    return [self stringByReplacingCharactersInRange:range withString:[[self substringWithRange:range] capitalizedString]];
+}
+
 @end
 
 @implementation NSNumber (Additions)

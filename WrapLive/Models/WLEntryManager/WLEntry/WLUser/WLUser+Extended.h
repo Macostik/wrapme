@@ -27,6 +27,8 @@ static NSUInteger WLPhoneNumberLimit = 20;
 
 + (void)setCurrentUser:(WLUser*)user;
 
++ (NSString*)combinedIdentifier;
+
 - (void)setCurrent;
 
 - (BOOL)isCurrentUser;

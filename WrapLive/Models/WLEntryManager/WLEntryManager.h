@@ -30,6 +30,8 @@
 
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier;
 
+- (BOOL)entryExists:(Class)entryClass identifier:(NSString*)identifier;
+
 - (NSMutableOrderedSet*)entriesOfClass:(Class)entryClass;
 
 - (NSMutableOrderedSet*)entriesOfClass:(Class)entryClass configure:(void (^)(NSFetchRequest* request))configure;

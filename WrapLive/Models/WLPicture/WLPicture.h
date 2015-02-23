@@ -7,9 +7,13 @@
 //
 
 #import "WLArchivingObject.h"
+#import "WLStillPictureMode.h"
+
+@class WLImageCache;
 
 @interface WLPicture : WLArchivingObject
 
+@property (strong, nonatomic) NSString* original;
 @property (strong, nonatomic) NSString* large;
 @property (strong, nonatomic) NSString* medium;
 @property (strong, nonatomic) NSString* small;
@@ -18,9 +22,17 @@
 
 + (void)picture:(UIImage *)image completion:(WLObjectBlock)completion;
 
++ (void)picture:(UIImage *)image cache:(WLImageCache*)cache completion:(WLObjectBlock)completion;
+
++ (void)picture:(UIImage *)image mode:(WLStillPictureMode)mode completion:(WLObjectBlock)completion;
+
++ (void)picture:(UIImage *)image mode:(WLStillPictureMode)mode cache:(WLImageCache*)cache completion:(WLObjectBlock)completion;
+
 - (NSString*)anyUrl;
 
-- (BOOL)edit:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
+- (BOOL)edit:(NSString*)original large:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
+
+- (void)fetch:(WLBlock)completion;
 
 @end
 

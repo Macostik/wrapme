@@ -95,6 +95,7 @@
         if (!identifier.nonempty) return nil;
         NSEntityDescription* entity = [entryClass entity];
         NSFetchRequest* request = [[NSFetchRequest alloc] init];
+        [request setFetchLimit:1];
         request.entity = entity;
         request.predicate = [NSPredicate predicateWithFormat:@"identifier == %@",identifier];
         entry = [[request execute] lastObject];
@@ -104,6 +105,17 @@
         }
     }
     return entry;
+}
+
+- (BOOL)entryExists:(Class)entryClass identifier:(NSString *)identifier {
+    if (!identifier.nonempty) return NO;
+    
+    NSEntityDescription* entity = [entryClass entity];
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    [request setFetchLimit:1];
+    request.entity = entity;
+    request.predicate = [NSPredicate predicateWithFormat:@"identifier == %@",identifier];
+    return [self.context countForFetchRequest:request error:NULL] > 0;
 }
 
 - (NSMutableOrderedSet *)entriesOfClass:(Class)entryClass {
@@ -125,8 +137,13 @@
 }
 
 - (void)save {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayedSave) object:nil];
+    [self performSelector:@selector(delayedSave) withObject:nil afterDelay:0.1];
+}
+
+- (void)delayedSave {
     if ([self.context hasChanges] && self.coordinator.persistentStores.nonempty) {
-         NSError* error = nil;
+        NSError* error = nil;
         [self.context save:&error];
         if (error) {
             WLLog(@"CoreData", @"save error", error);

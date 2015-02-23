@@ -17,30 +17,6 @@
 
 static NSUInteger WLImageCacheSize = 524288000;
 
-UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
-	if (size > 0) {
-		size *= [UIScreen mainScreen].scale;
-	}
-	UIImage* image = nil;
-	NSURL* url = [NSURL fileURLWithPath:imageUrl];
-	CGImageSourceRef source = CGImageSourceCreateWithURL((__bridge CFURLRef)(url), NULL);
-	if (source != NULL) {
-		NSMutableDictionary* options = [NSMutableDictionary dictionary];
-		[options trySetObject:@YES forKey:(id)kCGImageSourceShouldCache];
-		if (size > 0) {
-			[options trySetObject:@(size) forKey:(id)kCGImageSourceThumbnailMaxPixelSize];
-		}
-		[options trySetObject:@YES forKey:(id)kCGImageSourceCreateThumbnailFromImageIfAbsent];
-		[options trySetObject:@YES forKey:(id)kCGImageSourceCreateThumbnailWithTransform];
-		CGImageRef imageRef = CGImageSourceCreateThumbnailAtIndex(source, 0, (__bridge CFDictionaryRef)(options));
-		image = [UIImage imageWithCGImage:imageRef];
-		
-		CGImageRelease(imageRef);
-		CFRelease(source);
-	}
-	return image;
-}
-
 @interface WLImageCache ()
 
 @end
@@ -48,23 +24,34 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 @implementation WLImageCache
 
 + (instancetype)cache {
-    static id instance = nil;
+    static WLImageCache *instance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		instance = [self cacheWithIdentifier:@"wl_ImagesCache"];
+        instance.size = WLImageCacheSize;
 	});
     return instance;
 }
 
++ (instancetype)uploadingCache {
+    static WLImageCache *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [self cacheWithIdentifier:@"wl_UploadingImagesCache"];
+        instance.size = 0;
+    });
+    return instance;
+}
+
 - (void)configure {
-	self.size = WLImageCacheSize;
-	[super configure];
+    self.compressionQuality = 1.0f;
+    [super configure];
 }
 
 - (id)read:(NSString *)identifier {
     UIImage* image = [WLSystemImageCache imageWithIdentifier:identifier];
     if (image == nil) {
-        image = [UIImage imageWithData:[_manager contentsAtPath:identifier]];
+        image = [UIImage imageWithData:[[NSFileManager defaultManager] contentsAtPath:[self pathWithIdentifier:identifier]]];
         [WLSystemImageCache setImage:image withIdentifier:identifier];
     }
     return image;
@@ -72,13 +59,9 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 
 - (void)write:(NSString *)identifier object:(id)image {
     if (image && identifier.nonempty) {
-        NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+        NSData *imageData = UIImageJPEGRepresentation(image, self.compressionQuality);
         if ([imageData length] > 0) {
-            if (SystemVersionGreaterThanOrEqualTo8()) {
-                [imageData writeToFile:[[_manager currentDirectoryPath] stringByAppendingPathComponent:identifier] atomically:YES];
-            } else {
-                [_manager createFileAtPath:identifier contents:imageData attributes:nil];
-            }
+            [imageData writeToFile:[self pathWithIdentifier:identifier] atomically:NO];
             [WLSystemImageCache setImage:image withIdentifier:identifier];
         }
     }
@@ -117,13 +100,14 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 }
 
 - (void)setImageAtPath:(NSString *)path withIdentifier:(NSString *)identifier {
-	if (identifier.nonempty && path.nonempty && [_manager fileExistsAtPath:path]) {
-        [_manager moveItemAtPath:path toPath:identifier error:NULL];
-        UIImage* image = [WLSystemImageCache imageWithIdentifier:[path lastPathComponent]];
+	if (identifier.nonempty && path.nonempty && [[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        NSString *toPath = [self pathWithIdentifier:identifier];
+        [[NSFileManager defaultManager] moveItemAtPath:path toPath:toPath error:NULL];
+        UIImage* image = [WLSystemImageCache imageWithIdentifier:path];
         if (image == nil) {
-            image = [UIImage imageWithData:[_manager contentsAtPath:identifier]];
+            image = [UIImage imageWithData:[[NSFileManager defaultManager] contentsAtPath:toPath]];
         } else {
-            [WLSystemImageCache removeImageWithIdentifier:[path lastPathComponent]];
+            [WLSystemImageCache removeImageWithIdentifier:path];
         }
         [WLSystemImageCache setImage:image withIdentifier:identifier];
         [self.identifiers addObject:identifier];
@@ -135,19 +119,12 @@ UIImage* WLThumbnailFromUrl(NSString* imageUrl, CGFloat size) {
 		return;
 	}
 	dispatch_async(self.queue, ^{
-        if (SystemVersionGreaterThanOrEqualTo8()) {
-            [data writeToFile:[[_manager currentDirectoryPath] stringByAppendingPathComponent:identifier] atomically:YES];
-        } else {
-            [_manager createFileAtPath:identifier contents:data attributes:nil];
-        }
+        [data writeToFile:[self pathWithIdentifier:identifier] atomically:NO];
         [self.identifiers addObject:identifier];
 		run_in_main_queue(^{
-			if (completion) {
-				completion(identifier);
-			}
+			if (completion) completion(identifier);
             [self enqueueCheckSizePerforming];
 		});
-		
     });
 }
 

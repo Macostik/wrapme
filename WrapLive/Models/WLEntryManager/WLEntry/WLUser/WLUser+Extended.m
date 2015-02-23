@@ -72,6 +72,12 @@
 
 static WLUser *currentUser = nil;
 
+static NSString *_combinedIdentifier = nil;
+
++ (NSString *)combinedIdentifier {
+    return _combinedIdentifier;
+}
+
 + (WLUser*)currentUser {
 	if (!currentUser) {
 		currentUser = [[WLUser entries:^(NSFetchRequest *request) {
@@ -96,9 +102,11 @@ static WLUser *currentUser = nil;
 	currentUser = user;
 	if (!user.current) user.current = YES;
     if (user) {
+        WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+        _combinedIdentifier = [NSString stringWithFormat:@"%@-%@", user.identifier, authorization.deviceUID];
         [[WLNotificationCenter defaultCenter] subscribe];
         run_release(^{
-            [Crashlytics setUserEmail:[WLAuthorization currentAuthorization].email];
+            [Crashlytics setUserEmail:authorization.email];
             [Crashlytics setUserIdentifier:user.identifier];
             [Crashlytics setUserName:user.name];
         });

@@ -27,6 +27,7 @@
 #import "WLHomeViewController.h"
 #import "iVersion.h"
 #import "WLLaunchScreenViewController.h"
+#import "AsynchronousOperation.h"
 
 @interface WLAppDelegate () <iVersionDelegate>
 
@@ -39,6 +40,8 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath:NSHomeDirectory()];
     
     [self initializeCrashlyticsAndLogging];
     
@@ -147,17 +150,32 @@
         completionHandler(UIBackgroundFetchResultFailed);
         return;
     }
-    [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
-        if (hasChanges) {
-            UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
-            photoNotification.alertBody = WLLS(@"Got new photos? Upload them to your wraps now!");
-            photoNotification.fireDate = [[NSDate date] dateByAddingTimeInterval:3];
-            photoNotification.alertAction = WLLS(@"Upload");
-            photoNotification.repeatInterval = 0;
-            photoNotification.userInfo = @{@"type":@"new_photos"};
-            [application scheduleLocalNotification:photoNotification];
-        }
-        completionHandler(hasChanges ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
+    
+    NSOperationQueue *queue = [NSOperationQueue queueWithIdentifier:@"background_fetch"];
+    
+    [queue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+        [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
+            if (hasChanges) {
+                UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
+                photoNotification.alertBody = WLLS(@"Got new photos? Upload them to your wraps now!");
+                photoNotification.fireDate = [[NSDate date] dateByAddingTimeInterval:3];
+                photoNotification.alertAction = WLLS(@"Upload");
+                photoNotification.repeatInterval = 0;
+                photoNotification.userInfo = @{@"type":@"new_photos"};
+                [application scheduleLocalNotification:photoNotification];
+            }
+            [operation finish:^{
+                completionHandler(hasChanges ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
+            }];
+        }];
+    }];
+    
+    [queue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+        [WLUploading enqueueAutomaticUploading:^{
+            [operation finish:^{
+                completionHandler(UIBackgroundFetchResultNoData);
+            }];
+        }];
     }];
 }
 

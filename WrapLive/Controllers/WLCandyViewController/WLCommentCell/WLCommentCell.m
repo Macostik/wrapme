@@ -33,6 +33,7 @@
 
 @property (weak, nonatomic) IBOutlet WLImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) WLProgressBar *progressBar;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *textLabel;
 
@@ -43,6 +44,7 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
     __weak typeof(self)weakSelf = self;
+    self.layer.geometryFlipped = YES;
     
     [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
@@ -77,9 +79,10 @@
 - (void)setup:(WLComment *)entry {
 	self.userInteractionEnabled = YES;
     if (entry.unread) entry.unread = NO;
-	self.authorNameLabel.text = [NSString stringWithFormat:@"%@, %@", WLString(entry.contributor.name), WLString(entry.createdAt.timeAgoString)];
+	self.authorNameLabel.text = entry.contributor.name;
     self.textLabel.text = entry.text;
 	self.authorImageView.url = entry.contributor.picture.small;
+    self.dateLabel.text = entry.createdAt.timeAgoString;
     
     if (entry.status != WLContributionStatusUploaded) {
         WLUploadingData* uploadingData = entry.uploading.data;

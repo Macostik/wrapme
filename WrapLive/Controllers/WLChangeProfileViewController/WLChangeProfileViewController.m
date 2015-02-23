@@ -122,6 +122,11 @@
     [userRequest send:success failure:failure];
 }
 
+- (void)didCompleteDoneAction {
+    self.editSession = [[WLProfileEditSession alloc] initWithUser:[WLUser currentUser]];
+    [self editSession:self.editSession hasChanges:NO];
+}
+
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {

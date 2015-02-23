@@ -28,12 +28,11 @@
 
 - (id)send {
     if (!self.contacts.nonempty) {
-        __strong typeof(self)strongSelf = self;
         [WLAddressBook contacts:^(NSArray *contacts) {
-            strongSelf.contacts = contacts;
+            self.contacts = contacts;
             [super send];
         } failure:^(NSError *error) {
-            [strongSelf handleFailure:error];
+            [self handleFailure:error];
         }];
         return nil;
     } else {

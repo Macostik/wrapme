@@ -30,6 +30,8 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 @interface WLNotification : NSObject
 
+@property (strong, nonatomic) NSString* identifier;
+
 @property (nonatomic) WLNotificationType type;
 
 @property (nonatomic) WLEvent event;
@@ -39,6 +41,14 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 @property (readonly, nonatomic) BOOL playSound;
 
 @property (strong, nonatomic) NSDate* date;
+
+@property (strong, nonatomic) Class entryClass;
+
+@property (strong, nonatomic) NSString* entryIdentifier;
+
+@property (strong, nonatomic) NSDictionary* entryData;
+
+@property (strong, nonatomic) NSString* containingEntryIdentifier;
 
 + (instancetype)notificationWithMessage:(PNMessage*)message;
 

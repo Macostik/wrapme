@@ -18,4 +18,6 @@ static NSString *WLAlbumName = @"wrapLive";
 
 - (void)save:(NSMutableDictionary*)metadata;
 
+- (void)save:(NSMutableDictionary*)metadata completion:(void (^)(void))completion failure:(void (^)(NSError*))failure;
+
 @end

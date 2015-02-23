@@ -117,6 +117,10 @@ static inline CGFloat Smoothstep(CGFloat min, CGFloat max, CGFloat value) {
     return value;
 }
 
+static inline CGFloat NSmoothstep(CGFloat value) {
+    return Smoothstep(0.0, 1.0, value);
+}
+
 static inline BOOL IsInBounds(CGFloat min, CGFloat max, CGFloat value) {
     return (value >= min && value <= max);
 }

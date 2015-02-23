@@ -30,6 +30,6 @@ typedef void (^WLHintViewDrawing)(CGContextRef ctx, CGRect rect);
 
 + (BOOL)showCandySwipeHintView;
 
-+ (BOOL)showWrapPickerHintViewInView:(UIView*)view;
++ (BOOL)showWrapPickerHintViewInView:(UIView *)view withFocusPoint:(CGPoint)focusPoint;
 
 @end

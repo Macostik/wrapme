@@ -37,6 +37,8 @@
 "Internet connection unavailable" = "Интернет соединение не доступно";
 "View notification" = "Нотификация";
 "Incompleted data can be lost. Do you want to continue?" = "Незавершенные данные могут быть утеряны. Хотите продолжить?";
+"You are editing a photo and it is not saved yet. Are you sure you want to leave this screen?" = "Фото в режиме редактирования и еще не сохранено. Вы уверены, что хотите покинуть данный скрин?";
+"Unsaved photo" ="Не сохраненная фотография";
 "Continue" = "Продолжение";
 "Cancel" = "Отмена";
 "Confirmation resend. Please, check you e-mail." = "Подтверждение повторной отправки. Пожалуйста, проверьте ствою почту";
@@ -72,7 +74,7 @@
 "Your image is invalid. Please, choose another one." = "Ваше фотография не доступна. Пожалуйста, выберите другую.";
 "Your image is too small. Please, choose another one." = "Ваше фотография слишком маленькая. Пожалуйста, выберите другую.";
 "Report" = "Отчет";
-"Candy was deleted successfully." = "Фото был успешно удалено.";
+"Candy was deleted successfully." = "Фото было успешно удалено.";
 "This candy is no longer avaliable." = "Это фото больше не доступено.";
 "Your email isn't correct." = "Ваша почта не корректна.";
 "Name connot be blank." = "Имя не может быть пустым.";
@@ -116,3 +118,7 @@
 "Internet connection is not reachable." = "Соединение интернета не дроступно.";
 "last updated %@" = "последнее обновление %@";
 "Wrap %@ is no longer available." = "Врап %@ больше не доступен.";
+"Posted by %@" = "Разместил %@";
+"Comment" = "Комментарий";
+"1 comment" = "1 комментарий";
+"%i comments" = "%i комментариев";

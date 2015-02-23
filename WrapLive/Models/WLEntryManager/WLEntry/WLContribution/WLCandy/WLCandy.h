@@ -15,8 +15,13 @@
 @interface WLCandy : WLContribution
 
 @property (nonatomic) int16_t type;
+@property (nonatomic) int16_t commentCount;
 @property (nonatomic, retain) WLWrap *wrap;
 @property (nonatomic, retain) NSMutableOrderedSet *comments;
+
+@property (nonatomic, strong) WLImageBlock downloadSuccessBlock;
+@property (nonatomic, strong) WLFailureBlock downloadFailureBlock;
+
 @end
 
 @interface WLCandy (CoreDataGeneratedAccessors)

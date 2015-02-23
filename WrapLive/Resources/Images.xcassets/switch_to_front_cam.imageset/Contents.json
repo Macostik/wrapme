@@ -11,7 +11,8 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "15screen_switch_to_front_cam@3x.png"
     }
   ],
   "info" : {

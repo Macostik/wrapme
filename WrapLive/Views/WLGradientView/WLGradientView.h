@@ -14,4 +14,8 @@
 
 @property (strong, nonatomic) IBInspectable UIColor* endColor;
 
+@property (assign, nonatomic) IBInspectable CGFloat startLocation;
+
+@property (assign, nonatomic) IBInspectable CGFloat endLocation;
+
 @end

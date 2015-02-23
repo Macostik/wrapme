@@ -60,8 +60,6 @@ typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
 };
 
 static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
-static NSString* WLWrapPlaceholderViewTimeline = @"WLWrapPlaceholderViewTimeline";
-static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
@@ -90,9 +88,6 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
     self.historyViewSection.defaultHeaderSize = CGSizeZero;
     
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self setPlaceholderNib:[UINib nibWithNibName:WLWrapPlaceholderViewTimeline bundle:nil] forType:WLWrapViewModeTimeline];
-    [self setPlaceholderNib:[UINib nibWithNibName:WLWrapPlaceholderViewHistory bundle:nil] forType:WLWrapViewModeHistory];
     
     self.nameLabel.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     
@@ -166,7 +161,6 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
         [self.dataProvider reload];
         [self updateNotificationCouter];
         [self updateWrapData];
-        [self updatePlaceholderVisibilityForType:self.mode];
     } else {
         __weak typeof(self)weakSelf = self;
         run_after(0.5f, ^{
@@ -195,7 +189,7 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 
 - (IBAction)editWrapClick:(id)sender {
     WLEditWrapViewController* editWrapViewController = [WLEditWrapViewController new];
-    editWrapViewController.entry = self.wrap;
+    editWrapViewController.wrap = self.wrap;
     [self presentViewController:editWrapViewController animated:YES completion:nil];
 }
 
@@ -223,14 +217,6 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
-    [self updatePlaceholderVisibilityForType:self.mode];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
-    [self updatePlaceholderVisibilityForType:self.mode];
-}
-
 - (void)notifier:(WLEntryNotifier*)notifier messageAdded:(WLMessage*)message {
     [self updateNotificationCouter];
 }
@@ -249,8 +235,6 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
         [self.dataProvider connect];
     }
     self.viewButton.selected = mode == WLWrapViewModeHistory;
-    
-    [self updatePlaceholderVisibilityForType:self.mode];
 }
 
 - (IBAction)viewChanged:(UIButton*)sender {
@@ -317,7 +301,7 @@ static NSString* WLWrapPlaceholderViewHistory = @"WLWrapPlaceholderViewHistory";
 }
 
 - (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
-    [pickerViewController dismissViewControllerAnimated:YES completion:nil];
+    [pickerViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Custom animation

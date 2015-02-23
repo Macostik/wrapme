@@ -103,11 +103,15 @@
     return [NSString stringWithFormat:@"%@: %@", [self class], self.identifier];
 }
 
-- (void)editPicture:(NSString*)large medium:(NSString*)medium small:(NSString*)small {
+- (void)editPicture:(NSString*)original large:(NSString*)large medium:(NSString*)medium small:(NSString*)small {
     WLPicture* picture = self.picture;
-    if ([picture edit:large medium:medium small:small]) {
+    if ([picture edit:original large:large medium:medium small:small]) {
         self.picture = [picture copy];
     }
+}
+
+- (void)editPicture:(NSString *)large medium:(NSString *)medium small:(NSString *)small {
+    [self editPicture:large large:large medium:medium small:small];
 }
 
 - (WLEntry*)containingEntry {

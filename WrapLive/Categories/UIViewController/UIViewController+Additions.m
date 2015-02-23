@@ -44,6 +44,10 @@
 	[self.navigationController setViewControllers:[NSArray arrayWithArray:controllers] animated:animated];
 }
 
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
+}
+
 - (IBAction)back:(UIButton *)sender {
 	[self.navigationController popViewControllerAnimated:YES];
 }

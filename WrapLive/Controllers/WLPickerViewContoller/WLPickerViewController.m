@@ -17,7 +17,7 @@
 #import "WLWrapCell.h"
 #import "NSString+Additions.h"
 #import "UIView+GestureRecognizing.h"
-#import "WLStillPictureMode.h"
+#import "WLStillPictureViewController.h"
 #import "WLEntryNotifier.h"
 
 static NSString *const WLPickerViewCell = @"WLPickerViewCell";
@@ -50,7 +50,15 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
 - (void)addEmbeddingConstraintsToContentView:(UIView *)contentView inView:(UIView *)view {
     [view addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:contentView attribute:NSLayoutAttributeLeading multiplier:1 constant:0]];
     [view addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:contentView attribute:NSLayoutAttributeTrailing multiplier:1 constant:0]];
-    [view addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:WLStillPictureBottomViewHeight]];
+    WLStillPictureViewController *controller = (id)self.presentingViewController;
+    CGFloat bottomInset;
+    if ([controller isKindOfClass:[WLStillPictureViewController class]] && controller.cameraNavigationController.viewControllers.count == 1) {
+        CGSize screenSize = [UIScreen mainScreen].bounds.size;
+        bottomInset = screenSize.height - screenSize.width / WLStillPictureCameraViewAspectRatio;
+    } else {
+        bottomInset = WLStillPictureBottomViewHeight;
+    }
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:bottomInset]];
     [contentView addConstraint:[NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:contentView.bounds.size.height]];
 }
 
@@ -103,7 +111,9 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
     if (!row) {
-        return [UIView loadFromNibNamed:WLCreateWrapCell ownedBy:self];
+        UIView *createCell = [UIView loadFromNibNamed:WLCreateWrapCell ownedBy:self];
+        createCell.width = self.pickerView.width;
+        return createCell;
     } else {
         WLWrapCell *pickerCell = [WLWrapCell loadFromNibNamed:WLPickerViewCell];
         pickerCell.entry = self.wraps[row - 1];

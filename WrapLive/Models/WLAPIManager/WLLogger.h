@@ -14,28 +14,19 @@
 #define WL_LOG_DETAILED 1
 
 #if WL_LOG_DETAILED
-static inline void WLLog(NSString *label, NSString *action, id object) {
-    id str = [NSString stringWithFormat:@"%@ - %@",label, action];
-    CLS_LOG(@"%@: %@", str, object);
-    WLUser *user = [WLUser currentUser];
-    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
-    if (user && authorization) {
-        [[LELog sharedInstance] log:[NSString stringWithFormat:@"%@-%@ >> %@", user.identifier, authorization.deviceUID, str]];
-    } else {
-        [[LELog sharedInstance] log:str];
-    }
-    
-}
+
+#define WLLog(LABEL,ACTION,OBJECT)\
+NSString *str = [NSString stringWithFormat:@"%@ - %@",(LABEL), (ACTION)];\
+CLS_LOG(@"%@: %@", str, (OBJECT));\
+int state = (int)[UIApplication sharedApplication].applicationState;\
+[[LELog sharedInstance] log:[NSString stringWithFormat:@"%@ >> (app state: %d) >> %@: %@", [WLUser combinedIdentifier], state, str, (OBJECT)]];
+
 #else
-static inline void WLLog(NSString *label, NSString *action, id object) {
-    id str = [NSString stringWithFormat:@"%@ - %@",label, action];
-    CLS_LOG(@"%@", str);
-    WLUser *user = [WLUser currentUser];
-    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
-    if (user && authorization) {
-        [[LELog sharedInstance] log:[NSString stringWithFormat:@"%@-%@ >> %@", user.identifier, authorization.deviceUID, str]];
-    } else {
-        [[LELog sharedInstance] log:str];
-    }
-}
+
+#define WLLog(LABEL,ACTION,OBJECT)\
+NSString *str = [NSString stringWithFormat:@"%@ - %@",(LABEL), (ACTION)];\
+CLS_LOG(@"%@", str);\
+int state = (int)[UIApplication sharedApplication].applicationState;\
+[[LELog sharedInstance] log:[NSString stringWithFormat:@"%@ >> (app state: %d) >> %@", [WLUser combinedIdentifier], state, str]];
+
 #endif

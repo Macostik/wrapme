@@ -11,23 +11,45 @@
 #import "UIImage+Resize.h"
 #import "NSString+Additions.h"
 #import "NSDictionary+Extended.h"
+#import "WLImageFetcher.h"
 
 @implementation WLPicture
 
 + (void)picture:(UIImage *)image completion:(WLObjectBlock)completion {
+    [self picture:image cache:[WLImageCache uploadingCache] completion:completion];
+}
+
++ (void)picture:(UIImage *)image cache:(WLImageCache *)cache completion:(WLObjectBlock)completion {
+    [self picture:image mode:WLStillPictureModeDefault cache:cache completion:completion];
+}
+
++ (void)picture:(UIImage *)image mode:(WLStillPictureMode)mode completion:(WLObjectBlock)completion {
+    [self picture:image mode:mode cache:[WLImageCache uploadingCache] completion:completion];
+}
+
++ (void)picture:(UIImage *)image mode:(WLStillPictureMode)mode cache:(WLImageCache *)cache completion:(WLObjectBlock)completion {
     if (!completion) {
         return;
     }
-    __weak WLImageCache *imageCache = [WLImageCache cache];
+    if (!cache) {
+        cache = [WLImageCache cache];
+    }
+    
+    BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+    BOOL isCandy = mode == WLStillPictureModeDefault;
+    
+    __weak WLImageCache *imageCache = cache;
     run_in_background_queue(^{
         __block NSData *metadataImage = UIImageJPEGRepresentation(image, .5f);
         [imageCache setImageData:metadataImage completion:^(NSString *path) {
             WLPicture* picture = [[self alloc] init];
-            picture.large = [imageCache pathWithIdentifier:path];
-            metadataImage =  UIImageJPEGRepresentation([image thumbnailImage:320.0f], 1.0f);
+            picture.original = picture.large = [imageCache pathWithIdentifier:path];
+            CGFloat size = isPad ? (isCandy ? 720 : 320) : (isCandy ? 480 : 320);
+            metadataImage =  UIImageJPEGRepresentation([image thumbnailImage:size], 1.0f);
             [imageCache setImageData:metadataImage completion:^(NSString *path) {
                 picture.medium = [imageCache pathWithIdentifier:path];
-                metadataImage = UIImageJPEGRepresentation([image thumbnailImage:160.0f], 1.0f);
+                CGFloat size = isPad ? (isCandy ? 480 : 160) : (isCandy ? 240 : 160);
+                metadataImage = UIImageJPEGRepresentation([image thumbnailImage:size], 1.0f);
                 [imageCache setImageData:metadataImage completion:^(NSString *path) {
                     picture.small = [imageCache pathWithIdentifier:path];
                     completion(picture);
@@ -41,25 +63,59 @@
     return self.small ? : (self.medium ? : self.large);
 }
 
-- (BOOL)edit:(NSString *)large medium:(NSString *)medium small:(NSString *)small {
+- (BOOL)edit:(NSString *)original large:(NSString *)large medium:(NSString *)medium small:(NSString *)small {
     BOOL changed = NO;
-    if (!NSStringEqual(self.large, large)) {
+    if (original.nonempty && !NSStringEqual(self.original, original)) {
+        changed = YES;
+        self.original = original;
+    }
+    if (large.nonempty && !NSStringEqual(self.large, large)) {
         changed = YES;
         self.large = large;
     }
-    if (!NSStringEqual(self.medium, medium)) {
+    if (medium.nonempty && !NSStringEqual(self.medium, medium)) {
         changed = YES;
         self.medium = medium;
     }
-    if (!NSStringEqual(self.small, small)) {
+    if (small.nonempty && !NSStringEqual(self.small, small)) {
         changed = YES;
         self.small = small;
     }
     return changed;
 }
 
+- (NSString *)original {
+    if (!_original) {
+        _original = self.large;
+    }
+    return _original;
+}
+
+- (void)fetch:(WLBlock)completion {
+    NSMutableSet *urls = [NSMutableSet set];
+    
+    if (self.small) [urls addObject:self.small];
+    if (self.medium) [urls addObject:self.medium];
+    if (self.large) [urls addObject:self.large];
+    
+    if (urls.count > 0) {
+        for (NSString *url in urls) {
+            run_after_asap(^{
+                [[WLImageFetcher fetcher] enqueueImageWithUrl:url completion:^(UIImage *image){
+                    [urls removeObject:url];
+                    if (urls.count == 0) {
+                        if (completion) completion();
+                    }
+                }];
+            });
+        }
+    } else {
+        if (completion) completion();
+    }
+}
+
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@:\nlarge: %@\nmedium: %@\nsmall: %@",[self class],self.large, self.medium, self.small];
+    return [NSString stringWithFormat:@"%@:\noriginal: %@\nlarge: %@\nmedium: %@\nsmall: %@",[self class],self.original,self.large, self.medium, self.small];
 }
 
 @end
@@ -70,6 +126,7 @@
     NSDictionary *data = [NSJSONSerialization JSONObjectWithData:value options:0 error:NULL];
     if (data) {
         WLPicture* picture = [[self alloc] init];
+        picture.original = data[@"original"];
         picture.large = data[@"large"];
         picture.medium = data[@"medium"];
         picture.small = data[@"small"];
@@ -80,6 +137,7 @@
 
 - (NSData*)JSONValue {
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    [data trySetObject:self.original forKey:@"original"];
     [data trySetObject:self.large forKey:@"large"];
     [data trySetObject:self.medium forKey:@"medium"];
     [data trySetObject:self.small forKey:@"small"];

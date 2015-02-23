@@ -10,8 +10,9 @@
 #import "WLSession.h"
 #import "WLNavigation.h"
 #import "NSObject+NibAdditions.h"
+#import "UIView+Shorthand.h"
 
-@implementation WLHintView
+@implementation WLHintView 
 
 + (BOOL)showHintViewFromNibNamed:(NSString*)nibName {
     return [self showHintViewFromNibNamed:nibName drawing:nil];
@@ -44,6 +45,8 @@
     hintView.frame = view.frame;
     
     [view addSubview:hintView];
+    
+    [hintView setFullFlexible];
     
     hintView.alpha = 0.0f;
     [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -90,6 +93,10 @@
     }
 }
 
+- (void)setNeedsLayout {
+    [self setNeedsDisplay];
+}
+
 @end
 
 @implementation WLHintView (DefinedHintViews)
@@ -98,13 +105,17 @@
     return [self showHintViewFromNibNamed:@"WLCandySwipeHintView"];
 }
 
-+ (BOOL)showWrapPickerHintViewInView:(UIView *)view {
++ (BOOL)showWrapPickerHintViewInView:(UIView *)view withFocusPoint:(CGPoint)focusPoint {
     return [self showHintViewFromNibNamed:@"WLWrapPickerHintView" inView:view drawing:^(CGContextRef ctx, CGRect rect) {
-        UIBezierPath *transparentPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(-24, rect.size.height - 120, 196, 196)];
+        CGFloat size = 196;
+        CGRect ovalRect = CGRectMake(focusPoint.x - size/2.0f, focusPoint.y - size/2.0f, size, size);
+        UIBezierPath *transparentPath = [UIBezierPath bezierPathWithOvalInRect:ovalRect];
         [[UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:1.000] setStroke];
         transparentPath.lineWidth = 8;
         [transparentPath stroke];
         [transparentPath fillWithBlendMode:kCGBlendModeClear alpha:1.0f];
+        UIImage *image = [UIImage imageNamed:@"gallery_pic_hand"];
+        [image drawInRect:CGRectMake(CGRectGetMaxX(ovalRect), ovalRect.origin.y - image.size.height, image.size.width, image.size.height)];
     }];
 }
 

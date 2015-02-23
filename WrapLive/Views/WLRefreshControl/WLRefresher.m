@@ -212,18 +212,19 @@ static CGFloat WLRefresherContentSize = 44.0f;
 	_style = style;
 	if (style == WLRefresherStyleOrange) {
 		self.arrowView.image = [UIImage imageNamed:@"ic_middle_candy"];
-		self.backgroundColor = [UIColor whiteColor];
+		self.backgroundColor = [UIColor whiteColor];;
 		self.spinner.color = [UIColor WL_orangeColor];
         self.strokeLayer.strokeColor = [UIColor WL_orangeColor].CGColor;
         self.arrowView.layer.borderColor = [UIColor WL_orangeColor].CGColor;
 	} else {
-		self.arrowView.image = [UIImage imageNamed:@"ic_refresh_candy_white"];
-		self.backgroundColor = [UIColor WL_orangeColor];
-		self.spinner.color = [UIColor whiteColor];
+        self.arrowView.image = [UIImage imageNamed:@"ic_refresh_candy_white"];
+        self.backgroundColor = style == WLRefresherStyleWhite ? [UIColor WL_orangeColor] : [UIColor clearColor];
+        self.spinner.color = [UIColor whiteColor];
         self.strokeLayer.strokeColor = [UIColor whiteColor].CGColor;
         self.arrowView.layer.borderColor = [UIColor whiteColor].CGColor;
-	}
+    }
 }
+
 
 - (void)setOperation:(AFURLConnectionOperation *)operation {
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];

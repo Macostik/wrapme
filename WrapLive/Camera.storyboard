@@ -614,7 +614,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYz-Fi-wfh" customClass="WLTextView">
-                                <rect key="frame" x="10" y="264" width="300" height="40"/>
+                                <rect key="frame" x="10" y="362" width="300" height="40"/>
                                 <color key="backgroundColor" white="0.10100000351667404" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="JyZ-Vl-i4I"/>
@@ -632,8 +632,8 @@
                                     <outlet property="placeholderLabel" destination="Cz6-kF-O1v" id="trL-Bk-G0w"/>
                                 </connections>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's it about?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cz6-kF-O1v" customClass="WLLabel">
-                                <rect key="frame" x="15" y="272" width="290" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a comment..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cz6-kF-O1v" customClass="WLLabel">
+                                <rect key="frame" x="15" y="370" width="290" height="24"/>
                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                 <color key="textColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -647,13 +647,13 @@
                             <constraint firstItem="Cz6-kF-O1v" firstAttribute="centerY" secondItem="IYz-Fi-wfh" secondAttribute="centerY" id="5Wa-Tu-Z7i"/>
                             <constraint firstAttribute="trailing" secondItem="PoG-ED-My6" secondAttribute="trailing" id="8Uv-EH-PI3"/>
                             <constraint firstItem="WFI-ef-EyH" firstAttribute="top" secondItem="8mx-Ir-fiv" secondAttribute="bottom" constant="66" id="CzH-jx-nAX"/>
+                            <constraint firstItem="KhT-og-9O7" firstAttribute="top" secondItem="IYz-Fi-wfh" secondAttribute="bottom" constant="66" id="HbT-Th-s6g"/>
                             <constraint firstAttribute="centerX" secondItem="KhT-og-9O7" secondAttribute="centerX" constant="88" id="IfD-Ko-yLs"/>
                             <constraint firstItem="PoG-ED-My6" firstAttribute="top" secondItem="bNq-o4-O2V" secondAttribute="bottom" constant="-20" id="NSm-3c-7tT"/>
                             <constraint firstItem="IYz-Fi-wfh" firstAttribute="trailing" secondItem="Cz6-kF-O1v" secondAttribute="trailing" constant="5" id="RSN-aB-Zlf"/>
                             <constraint firstItem="PoG-ED-My6" firstAttribute="leading" secondItem="B8q-mw-gWZ" secondAttribute="leading" id="Rs5-iX-8j8"/>
                             <constraint firstItem="Cz6-kF-O1v" firstAttribute="leading" secondItem="IYz-Fi-wfh" secondAttribute="leading" constant="5" id="T9B-93-eNe"/>
                             <constraint firstAttribute="centerX" secondItem="IYz-Fi-wfh" secondAttribute="centerX" id="aPY-hY-a2x"/>
-                            <constraint firstAttribute="centerY" secondItem="IYz-Fi-wfh" secondAttribute="centerY" id="g2Z-hL-3RM"/>
                             <constraint firstItem="WFI-ef-EyH" firstAttribute="top" secondItem="KhT-og-9O7" secondAttribute="bottom" constant="66" id="hDm-2g-LhQ"/>
                             <constraint firstItem="Y8K-4d-qnf" firstAttribute="top" secondItem="bNq-o4-O2V" secondAttribute="bottom" constant="16" id="kKT-hc-NeX"/>
                             <constraint firstAttribute="centerX" secondItem="8mx-Ir-fiv" secondAttribute="centerX" constant="-88" id="pGS-RG-OSL"/>

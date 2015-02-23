@@ -116,10 +116,10 @@
                                                 </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_and_caption" translatesAutoresizingMaskIntoConstraints="NO" id="YpE-az-8rW">
-                                                <rect key="frame" x="0.0" y="35" width="280" height="220"/>
+                                                <rect key="frame" x="33" y="63" width="215" height="165"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="220" id="Nnw-QX-O7c"/>
-                                                    <constraint firstAttribute="width" constant="280" id="pU8-03-u1x"/>
+                                                    <constraint firstAttribute="height" constant="165" id="Nnw-QX-O7c"/>
+                                                    <constraint firstAttribute="width" constant="215" id="pU8-03-u1x"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>

@@ -785,10 +785,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="vCg-oN-dzS" firstAttribute="top" secondItem="PXc-wK-33a" secondAttribute="bottom" id="9xc-65-DvO"/>
+                            <constraint firstItem="vCg-oN-dzS" firstAttribute="bottom" secondItem="PXc-wK-33a" secondAttribute="bottom" id="9xc-65-DvO"/>
                             <constraint firstItem="PXc-wK-33a" firstAttribute="leading" secondItem="BhV-eV-kV4" secondAttribute="leading" id="Md4-hR-a9y"/>
                             <constraint firstAttribute="trailing" secondItem="PXc-wK-33a" secondAttribute="trailing" id="VRu-z1-Zpi"/>
-                            <constraint firstItem="PXc-wK-33a" firstAttribute="top" secondItem="Oez-Qa-hJq" secondAttribute="bottom" id="gWc-nz-ZoD"/>
+                            <constraint firstItem="PXc-wK-33a" firstAttribute="top" secondItem="Oez-Qa-hJq" secondAttribute="top" id="gWc-nz-ZoD"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>

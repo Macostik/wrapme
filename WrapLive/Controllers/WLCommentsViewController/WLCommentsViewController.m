@@ -157,9 +157,7 @@
 - (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
     UICollectionView *collectionView = self.collectionView;
     CGPoint touchPoint = [sender locationInView:collectionView];
-    if (!CGRectContainsPoint(collectionView.superview.bounds, touchPoint)) {
-        [self onClose:nil];
-    } else {
+    if (CGRectContainsPoint(collectionView.bounds, touchPoint)) {
         [self.view endEditing:YES];
     }
 }

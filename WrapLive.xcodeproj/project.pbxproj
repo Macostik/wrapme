@@ -4469,6 +4469,7 @@
 				635DA26797604B1F927001E0 /* Copy Pods Resources */,
 				C52C93AD1965AE470027EF46 /* ShellScript */,
 				5B787DAC1A27876F004AE459 /* Embed App Extensions */,
+				C551BF181A9B4D7700632552 /* Get build number from Jenkins */,
 			);
 			buildRules = (
 			);
@@ -4530,6 +4531,7 @@
 				C54AF54B19B8C437006F7EDB /* Copy Pods Resources */,
 				C54AF54C19B8C437006F7EDB /* ShellScript */,
 				5BA7AF311A481A9500C586CA /* Embed App Extensions */,
+				C551BF191A9B521300632552 /* Get build number from Jenkins */,
 			);
 			buildRules = (
 			);
@@ -5271,6 +5273,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Frameworks/Crashlytics.framework/run 69a3b8800317dbff68b803e0aea860a48c73d998";
+		};
+		C551BF181A9B4D7700632552 /* Get build number from Jenkins */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Get build number from Jenkins";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=$CI_BUILD_NUMBER\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist";
+		};
+		C551BF191A9B521300632552 /* Get build number from Jenkins */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Get build number from Jenkins";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=$CI_BUILD_NUMBER\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist";
 		};
 /* End PBXShellScriptBuildPhase section */
 

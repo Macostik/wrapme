@@ -77,6 +77,10 @@
     return UIStatusBarAnimationSlide;
 }
 
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     __weak typeof(self)weakSelf = self;

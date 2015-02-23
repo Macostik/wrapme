@@ -9,8 +9,10 @@
 #import "WLUploadPhotoViewController.h"
 #import <AviarySDK/AviarySDK.h>
 #import "WLNavigationAnimator.h"
+#import "WLDeviceOrientationBroadcaster.h"
+#import "UIView+AnimationHelper.h"
 
-@interface WLUploadPhotoViewController () <AFPhotoEditorControllerDelegate>
+@interface WLUploadPhotoViewController () <AFPhotoEditorControllerDelegate, WLDeviceOrientationBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -25,6 +27,18 @@
     self.imageView.image = self.image;
     
     self.textView.hidden = self.mode == WLStillPictureModeSquare;
+    
+    [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self applyOrientation:[UIDevice currentDevice].orientation animated:NO];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self applyOrientation:[UIDevice currentDevice].orientation animated:NO];
 }
 
 // MARK: - actions
@@ -65,6 +79,33 @@
 
 - (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+// MARK: - WLDeviceOrientationBroadcastReceiver
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (void)applyOrientation:(UIDeviceOrientation)orientation animated:(BOOL)animated {
+    CGAffineTransform transform = self.view.transform;
+    if (orientation == UIDeviceOrientationLandscapeLeft) {
+        transform = CGAffineTransformMakeRotation(M_PI_2);
+    } else if (orientation == UIDeviceOrientationLandscapeRight) {
+        transform = CGAffineTransformMakeRotation(-M_PI_2);
+    } else if (orientation == UIDeviceOrientationPortrait) {
+        transform = CGAffineTransformIdentity;
+    } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
+        transform = CGAffineTransformMakeRotation(M_PI);
+    }
+    if (!CGAffineTransformEqualToTransform(self.view.transform, transform)) {
+        [self.view setTransform:transform animated:animated];
+        self.view.frame = self.view.superview.bounds;
+    }
+}
+
+- (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber *)orientation {
+    [self applyOrientation:[orientation integerValue] animated:YES];
 }
 
 @end

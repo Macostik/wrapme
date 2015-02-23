@@ -11,7 +11,7 @@
 #import "WLCollectionViewDataProvider.h"
 
 static CGFloat WLNotificationCommentHorizontalSpacing = 80.0f;
-static CGFloat WLNotificationCommentVerticalSpacing = 66.0f;
+static CGFloat WLNotificationCommentVerticalSpacing = 68.0f;
 
 @implementation WLCommentsViewSection
 

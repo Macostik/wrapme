@@ -84,7 +84,7 @@
     
     WLSignupStepCompletionBlock profileStepBlock = ^WLSignupStepViewController *{
         WLUser *user = [WLUser currentUser];
-        if (user.name.nonempty && user.picture.medium.nonempty) {
+        if (user.isSignupCompleted) {
             return completeSignUp();
         } else {
             [profileStep setSuccessStatusBlock:completeSignUp];

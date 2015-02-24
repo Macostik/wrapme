@@ -66,6 +66,10 @@
     return self.wraps;
 }
 
+- (BOOL)isSignupCompleted {
+    return self.name.nonempty && self.picture.medium.nonempty;
+}
+
 @end
 
 @implementation WLUser (CurrentUser)

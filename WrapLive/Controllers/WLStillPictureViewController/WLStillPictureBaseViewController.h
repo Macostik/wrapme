@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLBaseViewController.h"
 #import "WLStillPictureMode.h"
 
 @class WLStillPictureBaseViewController;
@@ -21,7 +21,7 @@
 
 @end
 
-@interface WLStillPictureBaseViewController : UIViewController <WLStillPictureBaseViewControllerDelegate>
+@interface WLStillPictureBaseViewController : WLBaseViewController <WLStillPictureBaseViewControllerDelegate>
 
 @property (nonatomic) WLStillPictureMode mode;
 

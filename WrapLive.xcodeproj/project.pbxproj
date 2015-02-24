@@ -654,6 +654,10 @@
 		C537E9F31A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
 		C537F8241962BB1B00600B42 /* WLHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C537F8231962BB1B00600B42 /* WLHistory.m */; };
 		C53978C919AE2B21006BE8FD /* WLTimelineEventHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53978C819AE2B21006BE8FD /* WLTimelineEventHeaderView.m */; };
+		C53CA3C41A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
+		C53CA3C51A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
+		C53CA3C61A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
+		C53CA3C71A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
 		C53E5CE81A84D876004F61B0 /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5CE71A84D876004F61B0 /* WLUserView.m */; };
 		C53E5CE91A84D876004F61B0 /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5CE71A84D876004F61B0 /* WLUserView.m */; };
 		C53E5CEA1A84D876004F61B0 /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5CE71A84D876004F61B0 /* WLUserView.m */; };
@@ -1989,6 +1993,8 @@
 		C53978C719AE2B21006BE8FD /* WLTimelineEventHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTimelineEventHeaderView.h; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventHeaderView.h; sourceTree = "<group>"; };
 		C53978C819AE2B21006BE8FD /* WLTimelineEventHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTimelineEventHeaderView.m; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventHeaderView.m; sourceTree = "<group>"; };
 		C53BC05F19F9315F0031249E /* WLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLogger.h; path = WLAPIManager/WLLogger.h; sourceTree = "<group>"; };
+		C53CA3C21A97412C00E9234F /* WLUploadPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUploadPhotoViewController.h; sourceTree = "<group>"; };
+		C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploadPhotoViewController.m; sourceTree = "<group>"; };
 		C53E5CE61A84D876004F61B0 /* WLUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUserView.h; sourceTree = "<group>"; };
 		C53E5CE71A84D876004F61B0 /* WLUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUserView.m; sourceTree = "<group>"; };
 		C53E5CEC1A84D886004F61B0 /* WLWrapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapView.h; sourceTree = "<group>"; };
@@ -2325,6 +2331,7 @@
 		128156A81938A0BF00035F89 /* WLStillPictureViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C53CA3C11A97411900E9234F /* WLUploadPhotoViewController */,
 				C53E5D501A851F71004F61B0 /* WLCameraViewController */,
 				C53E5D441A851F71004F61B0 /* WLAssetsGroupViewController */,
 				C53E5D4A1A851F71004F61B0 /* WLAssetsViewController */,
@@ -3868,6 +3875,15 @@
 			path = WLHistory;
 			sourceTree = "<group>";
 		};
+		C53CA3C11A97411900E9234F /* WLUploadPhotoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C53CA3C21A97412C00E9234F /* WLUploadPhotoViewController.h */,
+				C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */,
+			);
+			path = WLUploadPhotoViewController;
+			sourceTree = "<group>";
+		};
 		C53E5CE51A84D84C004F61B0 /* WLEntry Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -4469,6 +4485,7 @@
 				635DA26797604B1F927001E0 /* Copy Pods Resources */,
 				C52C93AD1965AE470027EF46 /* ShellScript */,
 				5B787DAC1A27876F004AE459 /* Embed App Extensions */,
+				C551BF181A9B4D7700632552 /* Get build number from Jenkins */,
 			);
 			buildRules = (
 			);
@@ -4530,6 +4547,7 @@
 				C54AF54B19B8C437006F7EDB /* Copy Pods Resources */,
 				C54AF54C19B8C437006F7EDB /* ShellScript */,
 				5BA7AF311A481A9500C586CA /* Embed App Extensions */,
+				C551BF191A9B521300632552 /* Get build number from Jenkins */,
 			);
 			buildRules = (
 			);
@@ -5272,6 +5290,34 @@
 			shellPath = /bin/sh;
 			shellScript = "./Frameworks/Crashlytics.framework/run 69a3b8800317dbff68b803e0aea860a48c73d998";
 		};
+		C551BF181A9B4D7700632552 /* Get build number from Jenkins */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Get build number from Jenkins";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=$CI_BUILD_NUMBER\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist";
+		};
+		C551BF191A9B521300632552 /* Get build number from Jenkins */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Get build number from Jenkins";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=$CI_BUILD_NUMBER\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -5416,6 +5462,7 @@
 				C50AF40C19768ADE00761F38 /* WLAuthorizationRequest.m in Sources */,
 				C5149644197586E4009F0743 /* WLWrapsRequest.m in Sources */,
 				14B134E11952FEB2004F86AC /* WLInviteeCell.m in Sources */,
+				C53CA3C41A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */,
 				12E0F066190927B800463FEC /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C5C20B951A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				5BA755F51A7641890037D51E /* WLScrollView.m in Sources */,
@@ -5708,6 +5755,7 @@
 				C54AF4BB19B8C437006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF4BD19B8C437006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF4BE19B8C437006F7EDB /* WLInviteeCell.m in Sources */,
+				C53CA3C51A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */,
 				C54AF4BF19B8C437006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C5C20B961A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				5BA755F61A7641890037D51E /* WLScrollView.m in Sources */,
@@ -5970,6 +6018,7 @@
 				C54AF5B819B8C467006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF5BA19B8C467006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF5BB19B8C467006F7EDB /* WLInviteeCell.m in Sources */,
+				C53CA3C61A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */,
 				C54AF5BC19B8C467006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C5C20B971A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				5BA755F71A7641890037D51E /* WLScrollView.m in Sources */,
@@ -6232,6 +6281,7 @@
 				C54AF6B519B8C491006F7EDB /* WLAuthorizationRequest.m in Sources */,
 				C54AF6B719B8C491006F7EDB /* WLWrapsRequest.m in Sources */,
 				C54AF6B819B8C491006F7EDB /* WLInviteeCell.m in Sources */,
+				C53CA3C71A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */,
 				C54AF6B919B8C491006F7EDB /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C5C20B981A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				5BA755F81A7641890037D51E /* WLScrollView.m in Sources */,
@@ -6634,7 +6684,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "25853898-05e5-4b0f-b80e-f118eb4dc52c";
+				PROVISIONING_PROFILE = "4b8a8688-b094-4121-a2dd-8150beb4cf63";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6673,7 +6723,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a9d35e66-1d04-4aa9-90e6-8c349a7367fb";
+				PROVISIONING_PROFILE = "76f6b36b-6e2f-4ac6-8551-07cf33be434a";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6697,7 +6747,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5abdd8c5-237c-45af-99af-494fbcd73303";
+				PROVISIONING_PROFILE = "17b8a4eb-9f57-4ae3-b49a-587d2a874360";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -6716,7 +6766,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2a47cef9-3068-41ab-b483-4c94e1459bfc";
+				PROVISIONING_PROFILE = "c695da78-1c08-4bc5-8cc2-5afbd4bb28d5";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6739,7 +6789,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = WLTodayExtension_Production;
-				PROVISIONING_PROFILE = "f1daeb20-1826-4e00-992a-66ab74d97aae";
+				PROVISIONING_PROFILE = "aabbaac6-450c-4784-85d6-84ed5b0b882b";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -6758,7 +6808,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = WLTodayExtension_Production;
-				PROVISIONING_PROFILE = "c97e9f04-76f0-4125-934c-03385212b255";
+				PROVISIONING_PROFILE = "db55b54c-da02-43b4-a047-e4fc8f0a82c7";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6794,7 +6844,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "25853898-05e5-4b0f-b80e-f118eb4dc52c";
+				PROVISIONING_PROFILE = "4b8a8688-b094-4121-a2dd-8150beb4cf63";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6833,7 +6883,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "a9d35e66-1d04-4aa9-90e6-8c349a7367fb";
+				PROVISIONING_PROFILE = "76f6b36b-6e2f-4ac6-8551-07cf33be434a";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6869,7 +6919,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "25853898-05e5-4b0f-b80e-f118eb4dc52c";
+				PROVISIONING_PROFILE = "4b8a8688-b094-4121-a2dd-8150beb4cf63";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6907,7 +6957,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "a9d35e66-1d04-4aa9-90e6-8c349a7367fb";
+				PROVISIONING_PROFILE = "76f6b36b-6e2f-4ac6-8551-07cf33be434a";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6944,7 +6994,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "772d62e6-f355-4431-9cd7-bd744476e4a0";
+				PROVISIONING_PROFILE = "a06e55b9-589c-493a-8f61-75161c345f3f";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6983,7 +7033,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "41974e24-170a-4494-b991-c2675ef1643c";
+				PROVISIONING_PROFILE = "1ad7f0db-9612-4f51-80e0-e22dad9b7f66";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

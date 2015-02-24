@@ -29,6 +29,8 @@
 #import "WLEntryNotifier.h"
 #import "WLHintView.h"
 #import "WLWrapView.h"
+#import "WLUploadPhotoViewController.h"
+#import "WLNavigationAnimator.h"
 
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
 
@@ -46,6 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.cameraNavigationController = [self.childViewControllers lastObject];
+    self.cameraNavigationController.delegate = self;
     
     if ([self.delegate respondsToSelector:@selector(stillPictureViewControllerMode:)]) {
         self.mode = [self.delegate stillPictureViewControllerMode:self];
@@ -72,6 +75,10 @@
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
     return UIStatusBarAnimationSlide;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return [self.cameraNavigationController.topViewController supportedInterfaceOrientations];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -154,12 +161,13 @@
 
 - (void)handleImage:(UIImage*)image save:(BOOL)save metadata:(NSMutableDictionary *)metadata {
     __weak typeof(self)weakSelf = self;
-    WLImageBlock finishBlock = ^ (UIImage *resultImage) {
+    WLUploadPhotoCompletionBlock finishBlock = ^ (UIImage *resultImage, NSString *comment) {
         if (save) [resultImage save:metadata];
         if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
             weakSelf.view.userInteractionEnabled = NO;
-            [WLPicture picture:resultImage mode:weakSelf.mode completion:^(id object) {
-                [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithPictures:@[object]];
+            [WLPicture picture:resultImage mode:weakSelf.mode completion:^(WLPicture *picture) {
+                picture.comment = comment;
+                [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithPictures:@[picture]];
                 weakSelf.view.userInteractionEnabled = YES;
             }];
         }
@@ -168,11 +176,13 @@
     [self editImage:image completion:finishBlock];
 }
 
-- (void)editImage:(UIImage*)image completion:(WLImageBlock)completion {
-    AFPhotoEditorController* aviaryController = [self editControllerWithImage:image];
-    self.aviaryController = aviaryController;
-    [self.cameraNavigationController pushViewController:aviaryController animated:YES];
-    self.editBlock = completion;
+- (void)editImage:(UIImage*)image completion:(WLUploadPhotoCompletionBlock)completion {
+    WLUploadPhotoViewController *controller = [WLUploadPhotoViewController instantiate:self.storyboard];
+    controller.wrap = self.wrap;
+    controller.mode = self.mode;
+    controller.image = image;
+    controller.completionBlock = completion;
+    [self.cameraNavigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - WLCameraViewControllerDelegate
@@ -282,6 +292,14 @@
 
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
     return self.wrap;
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    WLNavigationAnimator *animator = [WLNavigationAnimator new];
+    animator.presenting = operation == UINavigationControllerOperationPush;
+    return animator;
 }
 
 @end

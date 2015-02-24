@@ -14,6 +14,8 @@
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
@@ -528,6 +530,147 @@
             </objects>
             <point key="canvasLocation" x="2405" y="-914"/>
         </scene>
+        <!--Upload Photo View Controller-->
+        <scene sceneID="bbN-NV-w14">
+            <objects>
+                <viewController storyboardIdentifier="WLUploadPhotoViewController" id="qIf-F1-lSO" customClass="WLUploadPhotoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bNq-o4-O2V"/>
+                        <viewControllerLayoutGuide type="bottom" id="WFI-ef-EyH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="B8q-mw-gWZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w6Q-y0-9tA">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PoG-ED-My6">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KhT-og-9O7" customClass="WLIconButton">
+                                <rect key="frame" x="55" y="468" width="34" height="34"/>
+                                <color key="backgroundColor" white="0.10100000351667404" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="KhT-og-9O7" secondAttribute="height" id="fTW-Br-kyc"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                                        <size key="value" width="16" height="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="close"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="larger"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="cancel:" destination="qIf-F1-lSO" eventType="touchUpInside" id="TNc-mD-oej"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8mx-Ir-fiv" customClass="WLIconButton">
+                                <rect key="frame" x="231" y="468" width="34" height="34"/>
+                                <color key="backgroundColor" white="0.10100000351667404" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="8mx-Ir-fiv" secondAttribute="height" id="kBt-6S-vo1"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                                        <size key="value" width="16" height="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="check"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="larger"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="done:" destination="qIf-F1-lSO" eventType="touchUpInside" id="3zp-zI-xni"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8K-4d-qnf" customClass="WLIconButton">
+                                <rect key="frame" x="270" y="36" width="34" height="34"/>
+                                <color key="backgroundColor" white="0.10100000351667404" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Y8K-4d-qnf" secondAttribute="height" id="Kbi-Lq-1SC"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                                        <size key="value" width="16" height="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="pencil"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="large"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="edit:" destination="qIf-F1-lSO" eventType="touchUpInside" id="hoQ-Jm-agv"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYz-Fi-wfh" customClass="WLTextView">
+                                <rect key="frame" x="10" y="362" width="300" height="40"/>
+                                <color key="backgroundColor" white="0.10100000351667404" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="JyZ-Vl-i4I"/>
+                                </constraints>
+                                <color key="textColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="placeholderLabel" destination="Cz6-kF-O1v" id="trL-Bk-G0w"/>
+                                </connections>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a comment..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cz6-kF-O1v" customClass="WLLabel">
+                                <rect key="frame" x="15" y="370" width="290" height="24"/>
+                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                <color key="textColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Cz6-kF-O1v" firstAttribute="centerY" secondItem="IYz-Fi-wfh" secondAttribute="centerY" id="5Wa-Tu-Z7i"/>
+                            <constraint firstAttribute="trailing" secondItem="PoG-ED-My6" secondAttribute="trailing" id="8Uv-EH-PI3"/>
+                            <constraint firstItem="WFI-ef-EyH" firstAttribute="top" secondItem="8mx-Ir-fiv" secondAttribute="bottom" constant="66" id="CzH-jx-nAX"/>
+                            <constraint firstItem="KhT-og-9O7" firstAttribute="top" secondItem="IYz-Fi-wfh" secondAttribute="bottom" constant="66" id="HbT-Th-s6g"/>
+                            <constraint firstAttribute="centerX" secondItem="KhT-og-9O7" secondAttribute="centerX" constant="88" id="IfD-Ko-yLs"/>
+                            <constraint firstItem="PoG-ED-My6" firstAttribute="top" secondItem="bNq-o4-O2V" secondAttribute="bottom" constant="-20" id="NSm-3c-7tT"/>
+                            <constraint firstItem="IYz-Fi-wfh" firstAttribute="trailing" secondItem="Cz6-kF-O1v" secondAttribute="trailing" constant="5" id="RSN-aB-Zlf"/>
+                            <constraint firstItem="PoG-ED-My6" firstAttribute="leading" secondItem="B8q-mw-gWZ" secondAttribute="leading" id="Rs5-iX-8j8"/>
+                            <constraint firstItem="Cz6-kF-O1v" firstAttribute="leading" secondItem="IYz-Fi-wfh" secondAttribute="leading" constant="5" id="T9B-93-eNe"/>
+                            <constraint firstAttribute="centerX" secondItem="IYz-Fi-wfh" secondAttribute="centerX" id="aPY-hY-a2x"/>
+                            <constraint firstItem="WFI-ef-EyH" firstAttribute="top" secondItem="KhT-og-9O7" secondAttribute="bottom" constant="66" id="hDm-2g-LhQ"/>
+                            <constraint firstItem="Y8K-4d-qnf" firstAttribute="top" secondItem="bNq-o4-O2V" secondAttribute="bottom" constant="16" id="kKT-hc-NeX"/>
+                            <constraint firstAttribute="centerX" secondItem="8mx-Ir-fiv" secondAttribute="centerX" constant="-88" id="pGS-RG-OSL"/>
+                            <constraint firstAttribute="trailing" secondItem="Y8K-4d-qnf" secondAttribute="trailing" constant="16" id="rSA-HK-YAx"/>
+                            <constraint firstItem="WFI-ef-EyH" firstAttribute="top" secondItem="PoG-ED-My6" secondAttribute="bottom" id="x7t-VE-E01"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="PoG-ED-My6" id="ZAJ-M7-0af"/>
+                        <outlet property="textView" destination="IYz-Fi-wfh" id="TSg-1q-h7U"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="HbT-Th-s6g" id="8yi-dI-Gng"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="son-Yx-b95" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2051" y="-1535"/>
+        </scene>
         <!--Assets Group View Controller-->
         <scene sceneID="kXr-kA-Aad">
             <objects>
@@ -777,7 +920,7 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PXc-wK-33a">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="owE-f8-xzI" kind="embed" id="UES-T5-0SO"/>
                                 </connections>

@@ -56,6 +56,8 @@
 
 - (NSOrderedSet*)orderedSetByRemovingObjectsWhileEnumerating:(SelectBlock)enumerator;
 
+- (instancetype)objectsWhere:(NSString *)predicateFormat, ...;
+
 @end
 
 @interface NSMutableOrderedSet (Additions)
@@ -79,5 +81,7 @@
 - (void)insertFirstObject:(id)object;
 
 - (void)removeObjectsWhileEnumerating:(SelectBlock)enumerator;
+
+- (instancetype)removeObjectsWhere:(NSString *)predicateFormat, ...;
 
 @end

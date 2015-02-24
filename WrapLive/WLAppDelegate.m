@@ -28,6 +28,7 @@
 #import "iVersion.h"
 #import "WLLaunchScreenViewController.h"
 #import "AsynchronousOperation.h"
+#import "WLSignupFlowViewController.h"
 
 @interface WLAppDelegate () <iVersionDelegate>
 
@@ -105,13 +106,23 @@
     }
     [WLSession setCurrentAppVersion];
     
+    void (^successBlock) (WLUser *user) = ^(WLUser *user) {
+        if (user.isSignupCompleted) {
+            [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+        } else {
+            UINavigationController *signupNavigationController = [[UIStoryboard storyboardNamed:WLSignUpStoryboard] instantiateInitialViewController];
+            WLSignupFlowViewController *signupFlowViewController = [WLSignupFlowViewController instantiate:signupNavigationController.storyboard];
+            signupFlowViewController.registrationNotCompleted = YES;
+            signupNavigationController.viewControllers = @[signupFlowViewController];
+            [UIWindow mainWindow].rootViewController = signupNavigationController;
+        }
+    };
+    
     WLAuthorization* authorization = [WLAuthorization currentAuthorization];
     if ([authorization canAuthorize]) {
-        [authorization signIn:^(WLUser *user) {
-            [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
-        } failure:^(NSError *error) {
+        [authorization signIn:successBlock failure:^(NSError *error) {
             if ([error isNetworkError]) {
-                [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+                successBlock([WLUser currentUser]);
             } else {
                 [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
             }

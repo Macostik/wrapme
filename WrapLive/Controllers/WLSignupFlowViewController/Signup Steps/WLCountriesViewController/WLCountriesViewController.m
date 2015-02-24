@@ -13,6 +13,7 @@
 #import "WLCollectionViewDataProvider.h"
 #import "WLCollectionViewSection.h"
 #import "UIColor+CustomColors.h"
+#import "WLNavigationAnimator.h"
 
 @interface WLCountriesViewController ()
 
@@ -22,6 +23,14 @@
 @end
 
 @implementation WLCountriesViewController
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
 	[super viewDidLoad];

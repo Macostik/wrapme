@@ -8,6 +8,7 @@
 
 #import "WLNavigationAnimator.h"
 #import "UIView+Shorthand.h"
+#import "NSObject+AssociatedObjects.h"
 
 @implementation WLNavigationAnimator
 
@@ -33,7 +34,7 @@
         
         [transitionContext.containerView addSubview:fromViewController.view];
         [transitionContext.containerView addSubview:toViewController.view];
-        if (self.modal) {
+        if (toViewController.animatorPresentationType == WLNavigationAnimatorPresentationTypeModal) {
             toStartTransform = CGAffineTransformMakeTranslation(0, toViewController.view.height);
             fromStartTransform = CGAffineTransformIdentity;
             toEndTransform = CGAffineTransformIdentity;
@@ -48,7 +49,7 @@
         toViewController.view.userInteractionEnabled = YES;
         [transitionContext.containerView addSubview:toViewController.view];
         [transitionContext.containerView addSubview:fromViewController.view];
-        if (self.modal) {
+        if (fromViewController.animatorPresentationType == WLNavigationAnimatorPresentationTypeModal) {
             toStartTransform = CGAffineTransformMakeScale(0.8, 0.8);
             fromStartTransform = CGAffineTransformIdentity;
             toEndTransform = CGAffineTransformIdentity;
@@ -71,6 +72,18 @@
         toViewController.view.transform = CGAffineTransformIdentity;
         [transitionContext completeTransition:YES];
     }];
+}
+
+@end
+
+@implementation UIViewController (WLNavigationAnimator)
+
+- (void)setAnimatorPresentationType:(WLNavigationAnimatorPresentationType)animatorPresentationType {
+    [self setAssociatedObject:@(animatorPresentationType) forKey:"animatorPresentationType"];
+}
+
+- (WLNavigationAnimatorPresentationType)animatorPresentationType {
+    return [[self associatedObjectForKey:"animatorPresentationType"] integerValue];
 }
 
 @end

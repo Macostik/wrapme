@@ -241,6 +241,11 @@
 - (void)uploadPicture:(WLPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     WLCandy* candy = [WLCandy candyWithType:WLCandyTypeImage wrap:self];
     candy.picture = picture;
+    if (picture.comment.nonempty) {
+        WLComment *comment = [WLComment comment:picture.comment];
+        comment.isFirst = YES;
+        candy.comments = [NSMutableOrderedSet orderedSetWithObject:comment];
+    }
     [[WLUploading uploading:candy] upload:success failure:failure];
 }
 

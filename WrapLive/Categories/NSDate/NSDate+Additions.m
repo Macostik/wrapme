@@ -146,7 +146,7 @@ static inline NSCalendar* NSCurrentCalendar() {
 }
 
 - (NSString *)timeAgoString {
-	NSTimeInterval interval = ABS([self timeIntervalSinceNow]);
+	NSTimeInterval interval = ABS([self timeIntervalSinceDate:[NSDate now]]);
 	if (interval >= WLTimeIntervalWeek) {
 		return [self stringWithFormat:@"MMMM d, yyyy 'at' h:mma"];
 	} else {
@@ -167,7 +167,7 @@ static inline NSCalendar* NSCurrentCalendar() {
 }
 
 - (NSString *)timeAgoStringAtAMPM {
-    NSTimeInterval interval = ABS([self timeIntervalSinceNow]);
+    NSTimeInterval interval = ABS([self timeIntervalSinceDate:[NSDate now]]);
     if (interval >= WLTimeIntervalWeek) {
         return [self stringWithFormat:@"MMM d, yyyy 'at' h:mma"];
     } else {

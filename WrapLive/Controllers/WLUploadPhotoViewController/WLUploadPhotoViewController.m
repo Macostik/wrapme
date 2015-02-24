@@ -53,7 +53,7 @@
 }
 
 - (IBAction)done:(id)sender {
-    if (self.completionBlock) self.completionBlock(self.image);
+    if (self.completionBlock) self.completionBlock(self.image, self.textView.text);
 }
 
 // MARK: - AFPhotoEditorControllerDelegate
@@ -67,7 +67,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-// MARK: - WLDeviceOrientationBroadcastReceiver
+// MARK: - rotation and keyboard
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;

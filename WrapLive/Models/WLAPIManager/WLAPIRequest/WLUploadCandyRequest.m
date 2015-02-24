@@ -29,8 +29,12 @@
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
     self.filePath = self.candy.picture.large;
     WLCandy* candy = self.candy;
-    [parameters trySetObject:candy.uploadIdentifier forKey:@"upload_uid"];
-	[parameters trySetObject:@([candy.updatedAt timestamp]) forKey:@"contributed_at_in_epoch"];
+    [parameters trySetObject:candy.uploadIdentifier forKey:WLUploadUIDKey];
+	[parameters trySetObject:@([candy.updatedAt timestamp]) forKey:WLContributedAtKey];
+    WLComment *firstComment = [candy.comments selectObject:^BOOL(WLComment *comment) {
+        return comment.isFirst;
+    }];
+    [parameters trySetObject:firstComment.text forKey:@"message"];
     return parameters;
 }
 
@@ -38,12 +42,13 @@
     if (self.candy.wrap.valid) {
         WLCandy* candy = self.candy;
         WLPicture* oldPicture = [candy.picture copy];
-        [candy API_setup:[response.data dictionaryForKey:@"candy"]];
+        [candy API_setup:[response.data dictionaryForKey:WLCandyKey]];
         WLPicture* newPicture = candy.picture;
         [[WLImageCache cache] setImageAtPath:oldPicture.medium withUrl:newPicture.medium];
         [[WLImageCache cache] setImageAtPath:oldPicture.small withUrl:newPicture.small];
         [[WLImageCache cache] setImageAtPath:oldPicture.large withUrl:newPicture.large];
         candy.wrap.updatedAt = candy.updatedAt;
+        
  		[candy performSelector:@selector(enqueueUnuploadedComments) withObject:nil afterDelay:0.0f];
         return candy;
     }

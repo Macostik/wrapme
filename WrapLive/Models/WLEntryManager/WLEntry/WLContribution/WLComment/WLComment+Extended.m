@@ -46,7 +46,7 @@
 }
 
 - (BOOL)canBeUploaded {
-    return self.candy.uploaded;
+    return self.candy.uploaded && !self.isFirst;
 }
 
 - (void)touch:(NSDate *)date {

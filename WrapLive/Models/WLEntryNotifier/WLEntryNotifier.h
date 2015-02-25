@@ -11,7 +11,7 @@
 
 @class WLEntryNotifier;
 
-@protocol WLEntryNotifyReceiver
+@protocol WLEntryNotifyReceiver <WLBroadcastReceiver>
 
 @optional
 

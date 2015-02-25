@@ -1607,10 +1607,10 @@
                                 <rect key="frame" x="0.0" y="80" width="320" height="276"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your photo and name to complete your profile" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="239" translatesAutoresizingMaskIntoConstraints="NO" id="LYr-tm-LJf" customClass="WLLabel">
-                                        <rect key="frame" x="41" y="3" width="239" height="60"/>
+                                        <rect key="frame" x="1" y="3" width="320" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="Ggv-QO-jcj"/>
-                                            <constraint firstAttribute="width" constant="239" id="JNG-Bh-Ab6"/>
+                                            <constraint firstAttribute="width" constant="320" id="JNG-Bh-Ab6"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="19"/>
                                         <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>

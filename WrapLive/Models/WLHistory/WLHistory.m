@@ -15,7 +15,7 @@
 #import "WLWrapRequest.h"
 #import "WLEntryNotifier.h"
 
-@interface WLHistory () <WLEntryNotifyReceiver>
+@interface WLHistory () <WLEntryNotifyReceiver, WLBroadcastReceiver>
 
 @property (weak, nonatomic) WLWrap* wrap;
 
@@ -169,6 +169,10 @@
 
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
     return self.wrap;
+}
+
+- (NSNumber *)peferedOrderEntry:(WLBroadcaster *)broadcaster {
+    return @(1);
 }
 
 @end

@@ -136,7 +136,7 @@ static NSDate *_confirmationDate = nil;
 }
 
 + (void)setCurrentAppVersion {
-    NSString* currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleVersionKey];
+    NSString* currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [self setAppVersion:currentVersion];
 }
 

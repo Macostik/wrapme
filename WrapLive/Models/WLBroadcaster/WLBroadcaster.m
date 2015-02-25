@@ -15,9 +15,7 @@
 
 @end
 
-@implementation WLBroadcaster {
-    BOOL broadcasting;
-}
+@implementation WLBroadcaster
 
 + (instancetype)broadcaster {
     return nil;

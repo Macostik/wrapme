@@ -54,6 +54,7 @@
 }
 
 - (void)handleResultForUrl:(NSString*)url block:(void (^)(NSObject <WLImageFetching> *receiver))block {
+    broadcasting = YES;
     [self.urls removeObject:url];
     NSHashTable *receivers = self.receivers;
     if (receivers.count == 1) {
@@ -72,6 +73,7 @@
         }
         [self.receivers minusHashTable:discardedReceivers];
     }
+    broadcasting = NO;
 }
 
 - (void)enqueueImageWithUrl:(NSString *)url completion:(WLImageBlock)completion {

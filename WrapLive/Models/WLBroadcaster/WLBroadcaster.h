@@ -11,7 +11,7 @@
 @class WLBroadcaster;
 
 @protocol WLBroadcastReceiver <NSObject>
-
+@optional
 - (NSNumber *)peferedOrderEntry:(WLBroadcaster *)broadcaster;
 
 @end

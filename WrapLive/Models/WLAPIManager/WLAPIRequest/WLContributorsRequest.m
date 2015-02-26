@@ -43,7 +43,7 @@
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
     NSArray* contacts = self.contacts;
     NSMutableArray* phones = [NSMutableArray array];
-	[contacts all:^(WLContact* contact) {
+	[contacts all:^(WLAddressBookRecord* contact) {
 		[contact.persons all:^(WLPerson* person) {
 			[phones addObject:person.phone];
 		}];
@@ -55,7 +55,7 @@
 - (id)objectInResponse:(WLAPIResponse *)response {
     NSArray* contacts = self.contacts;
     NSArray* users = response.data[@"users"];
-	[contacts all:^(WLContact* contact) {
+	[contacts all:^(WLAddressBookRecord* contact) {
         NSMutableArray* personsToRemove = [NSMutableArray array];
 		[contact.persons all:^(WLPerson* person) {
 			for (NSDictionary* userData in users) {

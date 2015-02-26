@@ -18,18 +18,18 @@
 #import "WLEntry+Extended.h"
 #import "WLPerson.h"
 
-@interface WLContact ()
+@interface WLAddressBookRecord ()
 
 + (void)contact:(ABRecordRef)record completion:(WLContactBlock)completion;
 
 @end
 
-@implementation WLContact
+@implementation WLAddressBookRecord
 
 + (void)contact:(ABRecordRef)record completion:(WLContactBlock)completion {
 	NSArray* phones = WLAddressBookGetPhones(record);
 	if (phones.nonempty) {
-		WLContact* contact = [WLContact new];
+		WLAddressBookRecord* contact = [WLAddressBookRecord new];
 		contact.name = WLAddressBookGetName(record);
 		contact.persons = phones;
         [contact.persons makeObjectsPerformSelector:@selector(setName:) withObject:contact.name];
@@ -132,7 +132,7 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 				__block CFIndex done = 0;
 				NSMutableArray* contacts = [NSMutableArray array];
 				for (CFIndex i = 0; i < count; i++) {
-					[WLContact contact:CFArrayGetValueAtIndex(records, i) completion:^(WLContact *contact) {
+					[WLAddressBookRecord contact:CFArrayGetValueAtIndex(records, i) completion:^(WLAddressBookRecord *contact) {
 						done++;
 						if (contact) {
 							[contacts addObject:contact];

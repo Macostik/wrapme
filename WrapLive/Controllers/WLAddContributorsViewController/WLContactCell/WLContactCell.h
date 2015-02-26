@@ -8,7 +8,7 @@
 
 #import "WLItemCell.h"
 
-@class WLContact;
+@class WLAddressBookRecord;
 @class WLContactCell;
 @class WLPerson;
 
@@ -24,7 +24,7 @@
 
 @interface WLContactCell : WLItemCell
 
-+ (instancetype)cellWithContact:(WLContact*)contact inTableView:(UITableView*)tableView indexPath:(NSIndexPath*)indexPath;
++ (instancetype)cellWithContact:(WLAddressBookRecord*)contact inTableView:(UITableView*)tableView indexPath:(NSIndexPath*)indexPath;
 
 @property (nonatomic, weak) IBOutlet id <WLContactCellDelegate> delegate;
 
@@ -32,6 +32,6 @@
 
 @property (nonatomic) BOOL opened;
 
-+ (NSString *)collectionPersonsStringFromContact:(WLContact *)contact;
++ (NSString *)collectionPersonsStringFromContact:(WLAddressBookRecord *)contact;
 
 @end

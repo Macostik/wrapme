@@ -64,7 +64,7 @@
     [[WLFontPresetter presetter] addReceiver:self];
 }
 
-- (NSError*)addContact:(WLContact*)contact {
+- (NSError*)addContact:(WLAddressBookRecord*)contact {
     NSMutableArray *registered = self.registeredContacts;
     NSMutableArray *unregistered = self.unregisteredContacts;
     NSMutableArray *persons = [contact.persons mutableCopy];
@@ -73,11 +73,10 @@
         return [NSError errorWithDescription:WLLS(@"No contact data.")];
     }
     
-    BOOL currentUserRemoved = NO;
-    [self willRemoveDoublePersons:persons currentUserRemoved:&currentUserRemoved];
+    [self removeCurrentUser:persons];
     
     if (!persons.nonempty) {
-        return [NSError errorWithDescription:currentUserRemoved ? WLLS(@"You cannot add yourself.") : WLLS(@"This contact is already added.")];
+        return [NSError errorWithDescription:WLLS(@"You cannot add yourself.")];
     } else if ([persons count] == 1) {
         WLPerson* person = [persons lastObject];
         contact.persons = [persons copy];
@@ -89,7 +88,7 @@
     } else {
         [persons removeObjectsWhileEnumerating:^BOOL(WLPerson *person) {
             if (person.user) {
-                WLContact* _contact = [[WLContact alloc] init];
+                WLAddressBookRecord* _contact = [[WLAddressBookRecord alloc] init];
                 _contact.persons = @[person];
                 [registered addObject:_contact];
                 return YES;
@@ -104,22 +103,17 @@
     return nil;
 }
 
-- (void)willRemoveDoublePersons:(NSMutableArray *)persons currentUserRemoved:(BOOL *)currentUserRemoved {
+- (void)removeCurrentUser:(NSMutableArray *)persons {
     [persons removeObjectsWhileEnumerating:^BOOL(WLPerson *person) {
-        if (person.user) {
-            if ([self.wrap.contributors containsObject:person.user]) {
-                if (currentUserRemoved != NULL && [person.user isCurrentUser]) {
-                    *currentUserRemoved = YES;
-                }
-                return YES;
-            }
+        if (person.user && [person.user isCurrentUser]) {
+            return YES;
         }
         return NO;
     }];
 }
 
 - (void)processContacts:(NSArray*)contacts {
-    for (WLContact* contact in contacts) {
+    for (WLAddressBookRecord* contact in contacts) {
         [self addContact:contact];
     }
     [self sortContacts];
@@ -127,7 +121,7 @@
 }
 
 - (void)sortContacts {
-    NSComparator comparator = ^NSComparisonResult(WLContact* contact1, WLContact* contact2) {
+    NSComparator comparator = ^NSComparisonResult(WLAddressBookRecord* contact1, WLAddressBookRecord* contact2) {
         return [[contact1 name] compare:[contact2 name]];
     };
     [self.registeredContacts sortUsingComparator:comparator];
@@ -209,7 +203,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLContact* contact = self.filteredContacts[indexPath.section][indexPath.row];
+	WLAddressBookRecord* contact = self.filteredContacts[indexPath.section][indexPath.row];
     WLContactCell* cell = [WLContactCell cellWithContact:contact inTableView:tableView indexPath:indexPath];
 	cell.opened = ([contact.persons count] > 1 && [self.openedRows containsObject:contact]);
     
@@ -221,14 +215,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLContact* contact = self.filteredContacts[indexPath.section][indexPath.row];
+	WLAddressBookRecord* contact = self.filteredContacts[indexPath.section][indexPath.row];
     return [self heightForRowWithContact:contact];
 }
 
 const static CGFloat WLIndent = 32.0f;
 const static CGFloat WLDefaultHeight = 50.0f;
 
-- (CGFloat)heightForRowWithContact:(WLContact *)contact {
+- (CGFloat)heightForRowWithContact:(WLAddressBookRecord *)contact {
     if ([contact.persons count] > 1) {
         if ([self.openedRows containsObject:contact]) {
             return WLDefaultHeight + [contact.persons count] * WLDefaultHeight;
@@ -315,10 +309,10 @@ const static CGFloat WLDefaultHeight = 50.0f;
 
 #pragma mark - WLInviteViewControllerDelegate
 
-- (NSError *)inviteViewController:(WLInviteViewController *)controller didInviteContact:(WLContact *)contact {
+- (NSError *)inviteViewController:(WLInviteViewController *)controller didInviteContact:(WLAddressBookRecord *)contact {
     WLPerson *person = [contact.persons lastObject];
     
-    SelectBlock selectBlock = ^BOOL(WLContact* item) {
+    SelectBlock selectBlock = ^BOOL(WLAddressBookRecord* item) {
         for (WLPerson* _person in item.persons) {
             if ([_person isEqualToPerson:person]) {
                 person.name = item.name;
@@ -328,7 +322,7 @@ const static CGFloat WLDefaultHeight = 50.0f;
         return NO;
     };
     
-    WLContact* existingContact = [self.registeredContacts selectObject:selectBlock] ? :
+    WLAddressBookRecord* existingContact = [self.registeredContacts selectObject:selectBlock] ? :
     [self.unregisteredContacts selectObject:selectBlock];
     
     if (!existingContact) {

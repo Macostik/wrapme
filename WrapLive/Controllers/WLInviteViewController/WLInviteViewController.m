@@ -47,7 +47,7 @@
 - (IBAction)addContact:(WLButton *)sender {
     self.view.userInteractionEnabled = NO;
     sender.loading = YES;
-	WLContact * contact = [WLContact new];
+	WLAddressBookRecord * contact = [WLAddressBookRecord new];
 	contact.name = self.userNameTextField.text;
 	WLPerson * person = [WLPerson new];
 	person.phone = self.phoneNumberTextField.text;

@@ -38,7 +38,7 @@
     [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
 }
 
-+ (instancetype)cellWithContact:(WLContact *)contact inTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
++ (instancetype)cellWithContact:(WLAddressBookRecord *)contact inTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
 	WLContactCell* cell = nil;
 	if ([contact.persons count] > 1) {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"WLMultipleContactCell" forIndexPath:indexPath];
@@ -49,7 +49,7 @@
 	return cell;
 }
 
-- (void)setupItemData:(WLContact*)contact {
+- (void)setupItemData:(WLAddressBookRecord*)contact {
 	WLPerson* person = [contact.persons lastObject];
      self.avatarView.url = person.priorityPicture.small;
     self.signUpView.hidden = (person.user) ? NO : YES;
@@ -63,7 +63,7 @@
 	}
 }
 
-+ (NSString *)collectionPersonsStringFromContact:(WLContact *)contact {
++ (NSString *)collectionPersonsStringFromContact:(WLAddressBookRecord *)contact {
     WLPerson *person = [contact.persons lastObject];
     if (person) {
         WLUser *user = person.user;
@@ -98,7 +98,7 @@
 #pragma mark - Actions
 
 - (IBAction)select:(id)sender {
-	WLContact* contact = self.item;
+	WLAddressBookRecord* contact = self.item;
     WLPerson *person = [contact.persons lastObject];
 	[self.delegate contactCell:self didSelectPerson:person];
 }
@@ -111,13 +111,13 @@
 #pragma mark - UITableViewDataSource, UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	WLContact* contact = self.item;
+	WLAddressBookRecord* contact = self.item;
 	return [contact.persons count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLPersonCell* cell = [tableView dequeueReusableCellWithIdentifier:@"WLPersonCell" forIndexPath:indexPath];
-	WLContact* contact = self.item;
+	WLAddressBookRecord* contact = self.item;
 	cell.item = contact.persons[indexPath.row];
 	cell.checked = [self personSelected:cell.item];
 	return cell;

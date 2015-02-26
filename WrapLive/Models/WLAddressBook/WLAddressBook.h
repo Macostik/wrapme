@@ -25,7 +25,7 @@ static NSInteger WLMinPhoneLenth = 6;
 
 @end
 
-@interface WLContact : NSObject
+@interface WLAddressBookRecord : NSObject
 
 @property (strong, nonatomic) NSString *name;
 

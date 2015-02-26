@@ -620,6 +620,12 @@
 		C5262C5219E594DB0029E9B6 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5262C4F19E594DB0029E9B6 /* CoreData.xcdatamodeld */; };
 		C5262C5319E594DB0029E9B6 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5262C4F19E594DB0029E9B6 /* CoreData.xcdatamodeld */; };
 		C5262C5419E594DB0029E9B6 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5262C4F19E594DB0029E9B6 /* CoreData.xcdatamodeld */; };
+		C52B91511A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C52B91501A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements */; };
+		C52B91521A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C52B91501A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements */; };
+		C52B91531A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C52B91501A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements */; };
+		C52B91541A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C52B91501A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements */; };
+		C52B91551A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C52B91501A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements */; };
+		C52B91561A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C52B91501A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements */; };
 		C52E1FD01A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
 		C52E1FD11A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
 		C52E1FD21A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
@@ -1252,6 +1258,12 @@
 		C55C8D7D19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */; };
 		C55C8D7E19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */; };
 		C55C8D7F19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */; };
+		C55EE76A1A9F529600EE0EA3 /* wrapLive.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 5B787DAF1A27890C004AE459 /* wrapLive.entitlements */; };
+		C55EE76B1A9F529700EE0EA3 /* wrapLive.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 5B787DAF1A27890C004AE459 /* wrapLive.entitlements */; };
+		C55EE76C1A9F529700EE0EA3 /* wrapLive.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 5B787DAF1A27890C004AE459 /* wrapLive.entitlements */; };
+		C55EE76D1A9F529700EE0EA3 /* wrapLive.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 5B787DAF1A27890C004AE459 /* wrapLive.entitlements */; };
+		C55EE76E1A9F529800EE0EA3 /* wrapLive.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 5B787DAF1A27890C004AE459 /* wrapLive.entitlements */; };
+		C55EE76F1A9F529800EE0EA3 /* wrapLive.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 5B787DAF1A27890C004AE459 /* wrapLive.entitlements */; };
 		C56091201A10CE8800C48887 /* WLDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C560911F1A10CE8800C48887 /* WLDevice.m */; };
 		C56091211A10CE8800C48887 /* WLDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C560911F1A10CE8800C48887 /* WLDevice.m */; };
 		C56091221A10CE8800C48887 /* WLDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C560911F1A10CE8800C48887 /* WLDevice.m */; };
@@ -1939,6 +1951,7 @@
 		C521FB081989382300576281 /* WLPaginatedViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPaginatedViewSection.m; path = WLCollectionViewDataProvider/WLPaginatedViewSection.m; sourceTree = "<group>"; };
 		C521FB0A19893D2000576281 /* WLEntriesCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntriesCollection.h; path = WLCollectionViewDataProvider/WLEntriesCollection.h; sourceTree = "<group>"; };
 		C5262C5019E594DB0029E9B6 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
+		C52B91501A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = wrapLiveDevelopment.entitlements; sourceTree = "<group>"; };
 		C52E1FC81A41951300A2C370 /* WLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLButton.h; path = WLButton/WLButton.h; sourceTree = "<group>"; };
 		C52E1FC91A41951300A2C370 /* WLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLButton.m; path = WLButton/WLButton.m; sourceTree = "<group>"; };
 		C52E1FCA1A41951300A2C370 /* WLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLabel.h; sourceTree = "<group>"; };
@@ -2399,6 +2412,7 @@
 			isa = PBXGroup;
 			children = (
 				5B787DAF1A27890C004AE459 /* wrapLive.entitlements */,
+				C52B91501A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements */,
 				12A7A70818DA0945008FF6F0 /* WrapLive */,
 				5B787D9E1A27876F004AE459 /* WLTodayExtension */,
 				12A7A70118DA0945008FF6F0 /* Frameworks */,
@@ -4694,6 +4708,7 @@
 				C54AF86019B8C622006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
 				ACF8D9161934B44D0001E570 /* rings.plist in Resources */,
 				C514AA5A1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
+				C55EE76A1A9F529600EE0EA3 /* wrapLive.entitlements in Resources */,
 				C54AF86319B8C622006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				ACF8D9101934B4350001E570 /* smiles.plist in Resources */,
 				ACF8D9121934B4400001E570 /* numbers.plist in Resources */,
@@ -4709,6 +4724,7 @@
 				5BD782C81A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C54F4B1A1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */,
 				5B330E0C1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */,
+				C52B91511A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements in Resources */,
 				C57005DE1A1FA19C007257A6 /* chat_bubble_red_right@3x.png in Resources */,
 				C57005C61A1FA19C007257A6 /* chat_bubble_gray_right@3x.png in Resources */,
 				5BA4C5861A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
@@ -4724,10 +4740,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BA7FD581A499A8700B7E66F /* WLAPIEnvironmentProduction.plist in Resources */,
+				C55EE76E1A9F529800EE0EA3 /* wrapLive.entitlements in Resources */,
 				5BA7FD571A499A8500B7E66F /* WLAPIEnvironmentBeta.plist in Resources */,
 				5B787DA51A27876F004AE459 /* WLTodayExtension.storyboard in Resources */,
 				5BA7FD551A499A8000B7E66F /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5BA7FD561A499A8200B7E66F /* WLAPIEnvironmentQA.plist in Resources */,
+				C52B91551A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements in Resources */,
 				5B0F81E81A30920900B42D7D /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4737,10 +4755,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BF1B23E1A49A683000BB2C1 /* WLAPIEnvironmentProduction.plist in Resources */,
+				C55EE76F1A9F529800EE0EA3 /* wrapLive.entitlements in Resources */,
 				5BF1B23F1A49A683000BB2C1 /* WLAPIEnvironmentBeta.plist in Resources */,
 				5BF1B2401A49A683000BB2C1 /* WLTodayExtension.storyboard in Resources */,
 				5BF1B2411A49A683000BB2C1 /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5BF1B2421A49A683000BB2C1 /* WLAPIEnvironmentQA.plist in Resources */,
+				C52B91561A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements in Resources */,
 				5BF1B2431A49A683000BB2C1 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4803,6 +4823,7 @@
 				C54AF54019B8C437006F7EDB /* numbers.plist in Resources */,
 				C54AF87919B8C63E006F7EDB /* WLTestUsersQA.plist in Resources */,
 				C514AA5B1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
+				C55EE76B1A9F529700EE0EA3 /* wrapLive.entitlements in Resources */,
 				C57005D31A1FA19C007257A6 /* chat_bubble_red_left@3x.png in Resources */,
 				C54AF54119B8C437006F7EDB /* CountryCodes.json in Resources */,
 				C57005BF1A1FA19C007257A6 /* chat_bubble_gray_right.png in Resources */,
@@ -4818,6 +4839,7 @@
 				C54AF86B19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5BD782AB1A4EC3E00094BEE5 /* WLCreateWrapCell.xib in Resources */,
 				5B330E0D1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */,
+				C52B91521A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
 				C514AA561A6D618700A562CE /* WLWrapPickerHintView.xib in Resources */,
 				5BA4C5871A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
@@ -4886,6 +4908,7 @@
 				C54AF63D19B8C467006F7EDB /* numbers.plist in Resources */,
 				C54AF87D19B8C63E006F7EDB /* WLTestUsersQA.plist in Resources */,
 				C514AA5C1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
+				C55EE76C1A9F529700EE0EA3 /* wrapLive.entitlements in Resources */,
 				C57005D41A1FA19C007257A6 /* chat_bubble_red_left@3x.png in Resources */,
 				C54AF63E19B8C467006F7EDB /* CountryCodes.json in Resources */,
 				C57005C01A1FA19C007257A6 /* chat_bubble_gray_right.png in Resources */,
@@ -4901,6 +4924,7 @@
 				C54AF86F19B8C63A006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5BD782AC1A4EC3E00094BEE5 /* WLCreateWrapCell.xib in Resources */,
 				5B330E0E1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */,
+				C52B91531A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements in Resources */,
 				C54AF64419B8C467006F7EDB /* iTunesArtwork in Resources */,
 				C514AA571A6D618700A562CE /* WLWrapPickerHintView.xib in Resources */,
 				5BA4C5881A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
@@ -4969,6 +4993,7 @@
 				C54AF73A19B8C491006F7EDB /* numbers.plist in Resources */,
 				C54AF88119B8C63F006F7EDB /* WLTestUsersQA.plist in Resources */,
 				C514AA5D1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
+				C55EE76D1A9F529700EE0EA3 /* wrapLive.entitlements in Resources */,
 				C57005D51A1FA19C007257A6 /* chat_bubble_red_left@3x.png in Resources */,
 				C54AF73B19B8C491006F7EDB /* CountryCodes.json in Resources */,
 				C57005C11A1FA19C007257A6 /* chat_bubble_gray_right.png in Resources */,
@@ -4984,6 +5009,7 @@
 				C54AF87319B8C63B006F7EDB /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				5BD782AD1A4EC3E00094BEE5 /* WLCreateWrapCell.xib in Resources */,
 				5B330E0F1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */,
+				C52B91541A9F5FFE009C1A83 /* wrapLiveDevelopment.entitlements in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
 				C514AA581A6D618700A562CE /* WLWrapPickerHintView.xib in Resources */,
 				5BA4C5891A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
@@ -6579,9 +6605,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CI_BUILD_NUMBER = 0;
-				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6604,7 +6630,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "62f571b3-35bf-435a-844c-9e684fbaed91";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6619,8 +6645,8 @@
 				CI_BUILD_NUMBER = 0;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6643,7 +6669,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7e94182a-5bfb-40e6-a09c-06d51f53af74";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6654,9 +6680,9 @@
 			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -6667,7 +6693,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "f7b9650f-5b23-4609-b37a-2c816a8122c1";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -6678,15 +6704,15 @@
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				INFOPLIST_FILE = WLTodayExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "39abbe48-e47f-4d88-b687-b1577ca48e49";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6696,9 +6722,9 @@
 			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -6709,7 +6735,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = WLTodayExtension_Production;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "aabbaac6-450c-4784-85d6-84ed5b0b882b";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -6720,15 +6746,15 @@
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				INFOPLIST_FILE = WLTodayExtension/WLTodayExtension_Production.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = WLTodayExtension_Production;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "725279e2-88fc-47bc-a579-c0ccba7c2956";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6740,9 +6766,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CI_BUILD_NUMBER = 0;
-				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6765,7 +6791,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "62f571b3-35bf-435a-844c-9e684fbaed91";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6780,8 +6806,8 @@
 				CI_BUILD_NUMBER = 0;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6804,7 +6830,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7e94182a-5bfb-40e6-a09c-06d51f53af74";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6817,9 +6843,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CI_BUILD_NUMBER = 0;
-				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6841,7 +6867,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "62f571b3-35bf-435a-844c-9e684fbaed91";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6856,8 +6882,8 @@
 				CI_BUILD_NUMBER = 0;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6879,7 +6905,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7e94182a-5bfb-40e6-a09c-06d51f53af74";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6892,9 +6918,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CI_BUILD_NUMBER = 0;
-				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6917,7 +6943,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cc404ebc-a376-43fe-ae71-b461858001ba";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6932,8 +6958,8 @@
 				CI_BUILD_NUMBER = 0;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6956,7 +6982,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5df3ad5b-636a-47bf-b94b-38e4c1c15f53";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

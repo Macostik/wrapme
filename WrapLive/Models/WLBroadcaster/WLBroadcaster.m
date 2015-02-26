@@ -71,15 +71,28 @@
 
 - (void)broadcast:(SEL)selector object:(id)object select:(WLBroadcastSelectReceiver)select {
     broadcasting = YES;
-    for (id receiver in self.receivers) {
-        if ((select ? select(receiver, object) : YES) && [receiver respondsToSelector:selector]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    NSArray *receivers = [[self.receivers allObjects] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        SEL selector = @selector(peferedOrderEntry:);
+        NSNumber *first = @(0);
+        NSNumber *second = first;
+        if ([obj1 respondsToSelector:selector]) {
+            first = [obj1 performSelector:selector withObject:self];
+            if ([obj2 respondsToSelector:selector]) {
+                second = [obj2 performSelector:selector withObject:self];
+            }
+        }
+        return [first compare:second];
+    }];
+
+    for (id receiver in receivers) {
+        if ((select ? select(receiver, object) : YES) && [receiver respondsToSelector:selector]) {
             [receiver performSelector:selector withObject:self withObject:object];
-#pragma clang diagnostic pop
         }
     }
     broadcasting = NO;
+#pragma clang diagnostic pop
 }
 
 - (void)broadcast:(SEL)selector {

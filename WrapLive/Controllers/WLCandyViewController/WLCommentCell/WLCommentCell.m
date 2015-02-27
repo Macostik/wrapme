@@ -28,14 +28,16 @@
 #import "UIColor+CustomColors.h"
 #import "TTTAttributedLabel.h"
 #import "UIImage+Drawing.h"
+#import "WLTextView.h"
 
-@interface WLCommentCell () <TTTAttributedLabelDelegate>
+
+@interface WLCommentCell ()
 
 @property (weak, nonatomic) IBOutlet WLImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) WLProgressBar *progressBar;
-@property (weak, nonatomic) IBOutlet TTTAttributedLabel *textLabel;
+@property (weak, nonatomic) IBOutlet WLTextView *commenttextView;
 
 @end
 
@@ -45,6 +47,7 @@
 	[super awakeFromNib];
     __weak typeof(self)weakSelf = self;
     self.layer.geometryFlipped = YES;
+    self.commenttextView.textContainerInset = UIEdgeInsetsZero;
     
     [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
@@ -66,7 +69,6 @@
             [WLToast showWithMessage:WLLS(@"Cannot delete comment not posted by you.")];
         }
     }];
-    self.textLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
 }
 
 - (void)setEntry:(id)entry {
@@ -80,7 +82,7 @@
 	self.userInteractionEnabled = YES;
     if (entry.unread) entry.unread = NO;
 	self.authorNameLabel.text = entry.contributor.name;
-    self.textLabel.text = entry.text;
+    [self.commenttextView determineHyperLink:entry.text];
 	self.authorImageView.url = entry.contributor.picture.small;
     self.dateLabel.text = entry.createdAt.timeAgoString;
     
@@ -101,14 +103,6 @@
             [self.authorImageView.superview addSubview:progressBar];
         }
         _progressBar = progressBar;
-    }
-}
-
-#pragma mark - TTTAttributedLabelDelegate
-
-- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
-    if ([[UIApplication sharedApplication] canOpenURL:url]) {
-        [[UIApplication sharedApplication] openURL:url];
     }
 }
 

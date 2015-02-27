@@ -52,6 +52,8 @@
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
@@ -85,6 +87,9 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+        </mutableArray>
+        <mutableArray key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -3361,32 +3366,39 @@ Check your internet connection and try again.</string>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="QNc-YT-dNe"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="15"/>
+                                                            <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AW3-SZ-vpH" customClass="TTTAttributedLabel">
-                                                            <rect key="frame" x="68" y="33" width="216" height="34"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
+                                                        <textView clipsSubviews="YES" contentMode="left" placeholderIntrinsicWidth="221" placeholderIntrinsicHeight="34" scrollEnabled="NO" editable="NO" text="Text" translatesAutoresizingMaskIntoConstraints="NO" id="H8X-L5-O9h" customClass="WLTextView">
+                                                            <rect key="frame" x="63" y="33" width="221" height="34"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="tintColor" red="0.93058806660000004" green="0.372343272" blue="0.1172502711" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <inset key="scrollIndicatorInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES"/>
+                                                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                             </userDefinedRuntimeAttributes>
-                                                        </label>
+                                                            <connections>
+                                                                <outlet property="delegate" destination="Qr8-ly-WYg" id="2uk-rv-leU"/>
+                                                            </connections>
+                                                        </textView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="641-7R-EdV" customClass="WLLabel">
                                                             <rect key="frame" x="68" y="67" width="216" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="cNP-bz-0aG"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                            <color key="textColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray" translatesAutoresizingMaskIntoConstraints="NO" id="4K2-SA-FYq">
@@ -3400,17 +3412,17 @@ Check your internet connection and try again.</string>
                                                 </view>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstItem="AW3-SZ-vpH" firstAttribute="top" secondItem="70w-oo-mtg" secondAttribute="bottom" id="3rr-vM-cPN"/>
                                                     <constraint firstItem="4K2-SA-FYq" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="12" id="5Gh-XL-j2K"/>
+                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="H8X-L5-O9h" secondAttribute="trailing" constant="12" id="CNV-oI-Sfh"/>
                                                     <constraint firstItem="B1Y-FB-4KE" firstAttribute="top" secondItem="Qr8-ly-WYg" secondAttribute="top" constant="12" id="EgV-ho-Zxa"/>
                                                     <constraint firstAttribute="trailing" secondItem="641-7R-EdV" secondAttribute="trailing" constant="12" id="FJY-eG-AFh"/>
                                                     <constraint firstItem="70w-oo-mtg" firstAttribute="top" secondItem="Qr8-ly-WYg" secondAttribute="top" constant="12" id="Img-6Q-XwW"/>
+                                                    <constraint firstItem="H8X-L5-O9h" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="63" id="K45-U1-frf"/>
+                                                    <constraint firstItem="641-7R-EdV" firstAttribute="top" secondItem="H8X-L5-O9h" secondAttribute="bottom" id="NPc-wH-8EA"/>
                                                     <constraint firstAttribute="trailing" secondItem="4K2-SA-FYq" secondAttribute="trailing" constant="12" id="WaU-1f-lXv"/>
                                                     <constraint firstAttribute="bottom" secondItem="4K2-SA-FYq" secondAttribute="bottom" id="Zo1-1J-4ds"/>
-                                                    <constraint firstItem="641-7R-EdV" firstAttribute="top" secondItem="AW3-SZ-vpH" secondAttribute="bottom" id="dKS-I9-j5X"/>
+                                                    <constraint firstItem="H8X-L5-O9h" firstAttribute="top" secondItem="70w-oo-mtg" secondAttribute="bottom" id="Zsw-c0-xVS"/>
                                                     <constraint firstAttribute="trailing" secondItem="70w-oo-mtg" secondAttribute="trailing" constant="12" id="e3g-Ha-fD3"/>
-                                                    <constraint firstItem="AW3-SZ-vpH" firstAttribute="leading" secondItem="70w-oo-mtg" secondAttribute="leading" id="eNa-3E-cjF"/>
-                                                    <constraint firstItem="AW3-SZ-vpH" firstAttribute="trailing" secondItem="70w-oo-mtg" secondAttribute="trailing" id="gJx-YR-StF"/>
                                                     <constraint firstItem="B1Y-FB-4KE" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="12" id="iPj-za-Rp2"/>
                                                     <constraint firstItem="70w-oo-mtg" firstAttribute="leading" secondItem="B1Y-FB-4KE" secondAttribute="trailing" constant="12" id="rZv-rQ-i2q"/>
                                                     <constraint firstAttribute="bottom" secondItem="641-7R-EdV" secondAttribute="bottom" constant="12" id="rlL-fj-Z6w"/>
@@ -3420,8 +3432,8 @@ Check your internet connection and try again.</string>
                                                 <connections>
                                                     <outlet property="authorImageView" destination="B1Y-FB-4KE" id="w6y-Kr-B0L"/>
                                                     <outlet property="authorNameLabel" destination="70w-oo-mtg" id="ZBK-5y-Hzx"/>
+                                                    <outlet property="commenttextView" destination="H8X-L5-O9h" id="Re3-2C-5Uy"/>
                                                     <outlet property="dateLabel" destination="641-7R-EdV" id="fH4-vi-Kn0"/>
-                                                    <outlet property="textLabel" destination="AW3-SZ-vpH" id="jxe-gr-TTl"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>

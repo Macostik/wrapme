@@ -16,9 +16,11 @@
 #import "NSArray+Additions.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLAPIManager.h"
+#import "UIColor+CustomColors.h"
 
 @interface WLContactCell () <UITableViewDataSource, UITableViewDelegate, WLAddressBookPhoneNumberCellDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *selectButton;
 @property (weak, nonatomic) IBOutlet UIImageView *selectionView;
 @property (weak, nonatomic) IBOutlet UIView *addedView;
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
@@ -53,7 +55,7 @@
 - (void)setupItemData:(WLAddressBookRecord*)contact {
 	WLAddressBookPhoneNumber* phoneNumber = [contact.phoneNumbers lastObject];
      self.avatarView.url = phoneNumber.priorityPicture.small;
-    self.signUpView.hidden = (phoneNumber.user) ? NO : YES;
+    self.signUpView.hidden = (phoneNumber.user && phoneNumber.activated) ? NO : YES;
 	self.nameLabel.text = [phoneNumber priorityName];
 	
 	if (self.tableView) {
@@ -82,10 +84,16 @@
     if (state == WLContactCellStateAdded) {
         self.addedView.hidden = NO;
         self.selectionView.hidden = YES;
+        self.selectButton.userInteractionEnabled = NO;
     } else {
         self.addedView.hidden = YES;
         self.selectionView.hidden = NO;
-        self.selectionView.highlighted = state == WLContactCellStateSelected;
+        self.selectButton.userInteractionEnabled = YES;
+        if (state == WLContactCellStateSelected) {
+            self.selectionView.highlighted = YES;
+        } else if (state == WLContactCellStateDefault) {
+            self.selectionView.highlighted = NO;
+        }
     }
 }
 

@@ -18,9 +18,10 @@
     return self;
 }
 
-- (instancetype)initWithAddingRule:(WLArrangedAddressBookGroupAddingRule)rule {
+- (instancetype)initWithTitle:(NSString *)title addingRule:(WLArrangedAddressBookGroupAddingRule)rule {
     self = [self init];
     if (self) {
+        self.title = title;
         self.addingRule = rule;
     }
     return self;

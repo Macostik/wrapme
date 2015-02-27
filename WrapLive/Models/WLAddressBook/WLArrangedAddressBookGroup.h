@@ -13,11 +13,13 @@ typedef BOOL (^WLArrangedAddressBookGroupAddingRule) (WLAddressBookRecord *recor
 
 @interface WLArrangedAddressBookGroup : NSObject
 
+@property (strong, nonatomic) NSString *title;
+
 @property (strong, nonatomic) NSMutableArray* records;
 
 @property (strong, nonatomic) WLArrangedAddressBookGroupAddingRule addingRule;
 
-- (instancetype)initWithAddingRule:(WLArrangedAddressBookGroupAddingRule)rule;
+- (instancetype)initWithTitle:(NSString*)title addingRule:(WLArrangedAddressBookGroupAddingRule)rule;
 
 - (BOOL)addRecord:(WLAddressBookRecord*)record;
 

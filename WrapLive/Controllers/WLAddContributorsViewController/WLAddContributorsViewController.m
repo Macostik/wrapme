@@ -24,6 +24,8 @@
 #import "WLUpdateContributorsRequest.h"
 #import "WLFontPresetter.h"
 #import "WLArrangedAddressBook.h"
+#import "WLAddressBookGroupView.h"
+#import "NSObject+NibAdditions.h"
 
 @interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate, WLFontPresetterReceiver>
 
@@ -135,14 +137,16 @@ const static CGFloat WLDefaultHeight = 50.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	return section ? 0.5f : 0;
+    WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups[section];
+    return group.title.nonempty && group.records.nonempty ? 32 : 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	if (section) {
-        UIView *view = [UIView new];
-        view.backgroundColor = [UIColor WL_orangeColor];
-        return view;
+    WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups[section];
+    if (group.title.nonempty && group.records.nonempty) {
+        WLAddressBookGroupView *header = [WLAddressBookGroupView loadFromNib];
+        header.group = group;
+        return header;
     }
     return nil;
 }

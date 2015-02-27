@@ -69,6 +69,7 @@
                     }];
                     if (!exists) {
                         person.user = user;
+                        person.activated = [userData integerForKey:WLSignInCountKey] > 0;
                     }
                     break;
 				}

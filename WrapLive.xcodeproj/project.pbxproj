@@ -649,6 +649,14 @@
 		C52E1FF01A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */; };
 		C52E1FF11A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */; };
 		C52E1FF21A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */; };
+		C535F9CA1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
+		C535F9CB1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
+		C535F9CC1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
+		C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
+		C535F9CF1AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
+		C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
+		C535F9D11AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
+		C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
 		C537E9F01A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
 		C537E9F11A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
 		C537E9F21A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
@@ -1974,6 +1982,9 @@
 		C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CustomFonts.m"; sourceTree = "<group>"; };
 		C52E1FED1A41ABBC00A2C370 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		C535F9C81AA0923D00FF641E /* WLAddressBookGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookGroupView.h; sourceTree = "<group>"; };
+		C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookGroupView.m; sourceTree = "<group>"; };
+		C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAddressBookGroupView.xib; sourceTree = "<group>"; };
 		C537E9EE1A8BBA8100EA450D /* WLIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIcon.h; sourceTree = "<group>"; };
 		C537E9EF1A8BBA8100EA450D /* WLIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIcon.m; sourceTree = "<group>"; };
 		C537F8221962BB1B00600B42 /* WLHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHistory.h; sourceTree = "<group>"; };
@@ -3491,6 +3502,7 @@
 			children = (
 				C504177A19B9EE15000E55F3 /* WLAddContributorsViewController.h */,
 				C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */,
+				C535F9C71AA0921C00FF641E /* WLAddressBookGroupView */,
 				C504177C19B9EE15000E55F3 /* WLContactCell */,
 			);
 			path = WLAddContributorsViewController;
@@ -3832,6 +3844,16 @@
 				C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */,
 			);
 			path = TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
+		C535F9C71AA0921C00FF641E /* WLAddressBookGroupView */ = {
+			isa = PBXGroup;
+			children = (
+				C535F9C81AA0923D00FF641E /* WLAddressBookGroupView.h */,
+				C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */,
+				C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */,
+			);
+			path = WLAddressBookGroupView;
 			sourceTree = "<group>";
 		};
 		C537E9ED1A8BBA7100EA450D /* WLIcon */ = {
@@ -4718,6 +4740,7 @@
 				C5C20BDD1A239D6F008B2E2E /* WLTestUserCell.xib in Resources */,
 				14ACAE0719421AE5006BD3B3 /* Main.storyboard in Resources */,
 				5BF5833E1A1F983B00922BD5 /* ic_quote.png in Resources */,
+				C535F9CF1AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74A19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF85E19B8C622006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				ACF8D90E19347B9E0001E570 /* WLEmojiView.xib in Resources */,
@@ -4833,6 +4856,7 @@
 				C54AF53219B8C437006F7EDB /* Main.storyboard in Resources */,
 				C57005CB1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
 				C57005C31A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
+				C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF53619B8C437006F7EDB /* WLEmojiView.xib in Resources */,
 				C51E295A1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
@@ -4918,6 +4942,7 @@
 				C54AF62F19B8C467006F7EDB /* Main.storyboard in Resources */,
 				C57005CC1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
 				C57005C41A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
+				C535F9D11AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF63319B8C467006F7EDB /* WLEmojiView.xib in Resources */,
 				C51E295B1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
@@ -5003,6 +5028,7 @@
 				C54AF72C19B8C491006F7EDB /* Main.storyboard in Resources */,
 				C57005CD1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
 				C57005C51A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
+				C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF73019B8C491006F7EDB /* WLEmojiView.xib in Resources */,
 				C51E295C1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
@@ -5379,6 +5405,7 @@
 				C5C20BA11A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
 				C54EFCDF1A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */,
 				C51383D019A4AB3300D23257 /* WLNotificationsViewController.m in Sources */,
+				C535F9CA1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
 				C5D051B41A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				5BA60C831A8257ED000F795C /* NSObject+Extension.m in Sources */,
 				C507B9E91948947D00CCB3FE /* WLGestureBroadcaster.m in Sources */,
@@ -5675,6 +5702,7 @@
 				C5C20BA21A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
 				C54EFCE01A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */,
 				C54AF48019B8C437006F7EDB /* WLNotificationsViewController.m in Sources */,
+				C535F9CB1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
 				C5D051B51A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				5BA60C841A8257ED000F795C /* NSObject+Extension.m in Sources */,
 				C54AF48119B8C437006F7EDB /* WLGestureBroadcaster.m in Sources */,
@@ -5941,6 +5969,7 @@
 				C5C20BA31A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
 				C54EFCE11A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */,
 				C54AF57D19B8C467006F7EDB /* WLNotificationsViewController.m in Sources */,
+				C535F9CC1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
 				C5D051B61A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				5BA60C851A8257ED000F795C /* NSObject+Extension.m in Sources */,
 				C54AF57E19B8C467006F7EDB /* WLGestureBroadcaster.m in Sources */,
@@ -6207,6 +6236,7 @@
 				C5C20BA41A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
 				C54EFCE21A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */,
 				C54AF67A19B8C491006F7EDB /* WLNotificationsViewController.m in Sources */,
+				C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
 				C5D051B71A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				5BA60C861A8257ED000F795C /* NSObject+Extension.m in Sources */,
 				C54AF67B19B8C491006F7EDB /* WLGestureBroadcaster.m in Sources */,

@@ -12,22 +12,35 @@
 #import "NSArray+Additions.h"
 #import "WLUser+Extended.h"
 #import "WLArrangedAddressBookGroup.h"
+#import "WLWrap.h"
 
 @implementation WLArrangedAddressBook
 
 - (instancetype)init {
     self = [super init];
     if (self) {
+        __weak typeof(self)weakSelf = self;
         self.groups = [NSArray arrayWithBlock:^(NSMutableArray *array) {
-            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithAddingRule:^BOOL(WLAddressBookRecord *record) {
-                return record.registered;
+            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:@"FRIENDS ON WRAPLIVE" addingRule:^BOOL(WLAddressBookRecord *record) {
+                WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
+                if (phoneNumber.user) {
+                    if (phoneNumber.activated) {
+                        return YES;
+                    } else {
+                        return [weakSelf.wrap.contributors containsObject:phoneNumber.user];
+                    }
+                } else {
+                    return NO;
+                }
             }]];
-            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithAddingRule:^BOOL(WLAddressBookRecord *record) {
-                return !record.registered;
+            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:@"INVITE TO WRAPLIVE" addingRule:^BOOL(WLAddressBookRecord *record) {
+                WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
+                return phoneNumber.user == nil;
             }]];
-//            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithAddingRule:^BOOL(WLAddressBookRecord *record) {
-//                
-//            }]];
+            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:@"..." addingRule:^BOOL(WLAddressBookRecord *record) {
+                WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
+                return (phoneNumber.user && !phoneNumber.activated && ![weakSelf.wrap.contributors containsObject:phoneNumber.user]);
+            }]];
         }];
         self.selectedPhoneNumbers = [NSMutableArray array];
     }
@@ -164,7 +177,7 @@
     if (text.nonempty) {
         WLArrangedAddressBook *addressBook = [[WLArrangedAddressBook alloc] init];
         addressBook.groups = [self.groups map:^id (WLArrangedAddressBookGroup *group) {
-            WLArrangedAddressBookGroup *_group = [[WLArrangedAddressBookGroup alloc] initWithAddingRule:group.addingRule];
+            WLArrangedAddressBookGroup *_group = [[WLArrangedAddressBookGroup alloc] initWithTitle:group.title addingRule:group.addingRule];
             _group.records = [group.records objectsWhere:@"name contains[c] %@", text];
             return _group;
         }];

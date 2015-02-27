@@ -7174,6 +7174,254 @@
 			};
 			name = Release;
 		};
+		C5BC48591AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "7ce875f8-5f53-4c6b-90af-2432f59d8a43";
+				SDKROOT = iphoneos;
+			};
+			name = AdHoc;
+		};
+		C5BC485A1AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks/AviarySDK",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "de189f85-14ea-4a8a-b017-f9ac69ddd663";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = AdHoc;
+		};
+		C5BC485B1AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks/AviarySDK",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_NAME = "WrapLive-QA";
+				PROVISIONING_PROFILE = "de189f85-14ea-4a8a-b017-f9ac69ddd663";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = AdHoc;
+		};
+		C5BC485C1AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks/AviarySDK",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_NAME = "WrapLive-Beta";
+				PROVISIONING_PROFILE = "de189f85-14ea-4a8a-b017-f9ac69ddd663";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = AdHoc;
+		};
+		C5BC485D1AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks/AviarySDK",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_NAME = "WrapLive-Production";
+				PROVISIONING_PROFILE = "b864a746-2498-41b3-aed5-70369809c1e4";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = AdHoc;
+		};
+		C5BC485E1AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = CopyProvisioningProfiles;
+			};
+			name = AdHoc;
+		};
+		C5BC485F1AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = WLTodayExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "6f04570b-2969-42c1-a5f0-8a974d266f4e";
+				SKIP_INSTALL = YES;
+			};
+			name = AdHoc;
+		};
+		C5BC48601AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = WLTodayExtension/WLTodayExtension_Production.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = WLTodayExtension_Production;
+				PROVISIONING_PROFILE = "db55b54c-da02-43b4-a047-e4fc8f0a82c7";
+				SKIP_INSTALL = YES;
+			};
+			name = AdHoc;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -7181,6 +7429,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,
+				C5BC48591AA0C9E500AC5EC8 /* AdHoc */,
 				12A7A73018DA0946008FF6F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -7190,6 +7439,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A73218DA0946008FF6F0 /* Debug */,
+				C5BC485A1AA0C9E500AC5EC8 /* AdHoc */,
 				12A7A73318DA0946008FF6F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -7199,6 +7449,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5B787DA91A27876F004AE459 /* Debug */,
+				C5BC485F1AA0C9E500AC5EC8 /* AdHoc */,
 				5B787DAA1A27876F004AE459 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -7208,6 +7459,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5BF1B2461A49A683000BB2C1 /* Debug */,
+				C5BC48601AA0C9E500AC5EC8 /* AdHoc */,
 				5BF1B2471A49A683000BB2C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -7217,6 +7469,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C54AF54E19B8C437006F7EDB /* Debug */,
+				C5BC485B1AA0C9E500AC5EC8 /* AdHoc */,
 				C54AF54F19B8C437006F7EDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -7226,6 +7479,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C54AF64B19B8C467006F7EDB /* Debug */,
+				C5BC485C1AA0C9E500AC5EC8 /* AdHoc */,
 				C54AF64C19B8C467006F7EDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -7235,6 +7489,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C54AF74819B8C491006F7EDB /* Debug */,
+				C5BC485D1AA0C9E500AC5EC8 /* AdHoc */,
 				C54AF74919B8C491006F7EDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -7244,6 +7499,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C559CB721AA0BB5D00100B2C /* Debug */,
+				C5BC485E1AA0C9E500AC5EC8 /* AdHoc */,
 				C559CB731AA0BB5D00100B2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

@@ -1478,6 +1478,34 @@
 			remoteGlobalIDString = 5BF1B22F1A49A683000BB2C1;
 			remoteInfo = WLTodayExtension_Production;
 		};
+		C559CB701AA0BB5D00100B2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
+			remoteInfo = CopyProvisioningProfiles;
+		};
+		C559CB741AA0BB6200100B2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
+			remoteInfo = CopyProvisioningProfiles;
+		};
+		C559CB761AA0BB6500100B2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
+			remoteInfo = CopyProvisioningProfiles;
+		};
+		C559CB781AA0BB6900100B2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
+			remoteInfo = CopyProvisioningProfiles;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -4479,6 +4507,23 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXLegacyTarget section */
+		C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "${SRCROOT}/cpprof.sh";
+			buildConfigurationList = C5953B6B19C8398C006DF1F3 /* Build configuration list for PBXLegacyTarget "CopyProvisioningProfiles" */;
+			buildPhases = (
+			);
+			buildToolPath = /bin/bash;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = CopyProvisioningProfiles;
+			passBuildSettingsInEnvironment = 1;
+			productName = CopyProvisioningProfiles;
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		12A7A6FE18DA0945008FF6F0 /* WrapLive-Development */ = {
 			isa = PBXNativeTarget;
@@ -4496,6 +4541,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C559CB711AA0BB5D00100B2C /* PBXTargetDependency */,
 				5B787DA71A27876F004AE459 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Development";
@@ -4557,6 +4603,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C559CB751AA0BB6200100B2C /* PBXTargetDependency */,
 				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
 			);
 			name = "WrapLive-QA";
@@ -4579,6 +4626,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C559CB771AA0BB6500100B2C /* PBXTargetDependency */,
 				5BA7AF341A481A9C00C586CA /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Beta";
@@ -4601,6 +4649,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C559CB791AA0BB6900100B2C /* PBXTargetDependency */,
 				5BF1B2541A49B63E000BB2C1 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Production";
@@ -4690,6 +4739,7 @@
 				C54AF45519B8C437006F7EDB /* WrapLive-QA */,
 				C54AF55219B8C467006F7EDB /* WrapLive-Beta */,
 				C54AF64F19B8C491006F7EDB /* WrapLive-Production */,
+				C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */,
 				5B787D9A1A27876F004AE459 /* WLTodayExtension */,
 				5BF1B22F1A49A683000BB2C1 /* WLTodayExtension_Production */,
 			);
@@ -6459,6 +6509,26 @@
 			target = 5BF1B22F1A49A683000BB2C1 /* WLTodayExtension_Production */;
 			targetProxy = 5BF1B2531A49B63E000BB2C1 /* PBXContainerItemProxy */;
 		};
+		C559CB711AA0BB5D00100B2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
+			targetProxy = C559CB701AA0BB5D00100B2C /* PBXContainerItemProxy */;
+		};
+		C559CB751AA0BB6200100B2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
+			targetProxy = C559CB741AA0BB6200100B2C /* PBXContainerItemProxy */;
+		};
+		C559CB771AA0BB6500100B2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
+			targetProxy = C559CB761AA0BB6500100B2C /* PBXContainerItemProxy */;
+		};
+		C559CB791AA0BB6900100B2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
+			targetProxy = C559CB781AA0BB6900100B2C /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -7055,6 +7125,25 @@
 			};
 			name = Release;
 		};
+		C559CB721AA0BB5D00100B2C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = CopyProvisioningProfiles;
+			};
+			name = Debug;
+		};
+		C559CB731AA0BB5D00100B2C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				PRODUCT_NAME = CopyProvisioningProfiles;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -7117,6 +7206,15 @@
 			buildConfigurations = (
 				C54AF74819B8C491006F7EDB /* Debug */,
 				C54AF74919B8C491006F7EDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5953B6B19C8398C006DF1F3 /* Build configuration list for PBXLegacyTarget "CopyProvisioningProfiles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C559CB721AA0BB5D00100B2C /* Debug */,
+				C559CB731AA0BB5D00100B2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

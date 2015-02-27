@@ -15,7 +15,7 @@
 @class WLAPIResponse;
 @class WLComment;
 @class WLAddressBookRecord;
-@class WLPerson;
+@class WLAddressBookPhoneNumber;
 @class WLAuthorization;
 @class WLEntry;
 @class WLMessage;
@@ -33,7 +33,7 @@ typedef void (^WLCandyBlock) (WLCandy *candy);
 typedef void (^WLMessageBlock) (WLMessage *message);
 typedef void (^WLCommentBlock) (WLComment *comment);
 typedef void (^WLContactBlock) (WLAddressBookRecord *contact);
-typedef void (^WLPersonBlock) (WLPerson *person);
+typedef void (^WLAddressBookPhoneNumberBlock) (WLAddressBookPhoneNumber *person);
 typedef void (^WLArrayBlock) (NSArray *array);
 typedef void (^WLOrderedSetBlock) (NSOrderedSet *orderedSet);
 typedef void (^WLDictionaryBlock) (NSDictionary *dictionary);

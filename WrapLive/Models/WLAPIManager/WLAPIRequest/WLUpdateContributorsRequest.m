@@ -7,7 +7,7 @@
 //
 
 #import "WLUpdateContributorsRequest.h"
-#import "WLPerson.h"
+#import "WLAddressBookPhoneNumber.h"
 #import "WLEntryNotifier.h"
 
 @implementation WLUpdateContributorsRequest
@@ -30,7 +30,7 @@
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
     NSMutableArray* contributors = [NSMutableArray array];
 	NSMutableArray* invitees = [NSMutableArray array];
-    for (WLPerson *_person in self.contributors) {
+    for (WLAddressBookPhoneNumber *_person in self.contributors) {
         if (_person.user) {
             [contributors addObject:_person.user.identifier];
         } else {

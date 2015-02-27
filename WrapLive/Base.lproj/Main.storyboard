@@ -1657,6 +1657,21 @@
                                                         <constraint firstAttribute="width" constant="22" id="xeq-fd-17h"/>
                                                     </constraints>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wfN-Ge-Kr6" customClass="WLIconButton">
+                                                    <rect key="frame" x="273" y="7" width="34" height="34"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="wfN-Ge-Kr6" secondAttribute="height" id="65o-f2-Qg6"/>
+                                                    </constraints>
+                                                    <state key="normal">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="check"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                            <color key="value" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Beb-Fv-Wfr">
                                                     <rect key="frame" x="263" y="0.0" width="57" height="48"/>
                                                     <constraints>
@@ -1681,6 +1696,7 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="wfN-Ge-Kr6" secondAttribute="centerY" id="5St-5e-m9L"/>
                                                 <constraint firstAttribute="centerY" secondItem="8Xw-ue-ifv" secondAttribute="centerY" constant="2" id="80h-1u-b3D"/>
                                                 <constraint firstAttribute="trailing" secondItem="8Xw-ue-ifv" secondAttribute="trailing" constant="45" id="CAD-z0-o8B"/>
                                                 <constraint firstItem="mJu-5P-GF6" firstAttribute="top" secondItem="ZaI-gM-W2F" secondAttribute="top" constant="1" id="CGY-24-ryA"/>
@@ -1696,11 +1712,13 @@
                                                 <constraint firstItem="Kag-WO-QAb" firstAttribute="leading" secondItem="nIE-uq-dVR" secondAttribute="leading" constant="56" id="cDm-SS-vNl"/>
                                                 <constraint firstItem="mJu-5P-GF6" firstAttribute="top" secondItem="nIE-uq-dVR" secondAttribute="top" constant="6" id="gdk-vF-ogM"/>
                                                 <constraint firstItem="Beb-Fv-Wfr" firstAttribute="top" secondItem="nIE-uq-dVR" secondAttribute="top" id="hFD-ur-5e6"/>
+                                                <constraint firstItem="Xmx-Zb-0Eq" firstAttribute="centerX" secondItem="wfN-Ge-Kr6" secondAttribute="centerX" constant="1" id="hhV-PR-gyg"/>
                                                 <constraint firstAttribute="bottom" secondItem="Kag-WO-QAb" secondAttribute="bottom" constant="7" id="yku-xX-GcY"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
+                                            <outlet property="addedView" destination="wfN-Ge-Kr6" id="z9F-W7-fe9"/>
                                             <outlet property="avatarView" destination="mJu-5P-GF6" id="zWI-Wr-TBl"/>
                                             <outlet property="delegate" destination="2bk-UF-zkR" id="mtv-Tb-JBe"/>
                                             <outlet property="nameLabel" destination="ZaI-gM-W2F" id="j9g-rE-8gb"/>
@@ -1768,7 +1786,7 @@
                                                     <rect key="frame" x="0.0" y="50" width="320" height="150"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <prototypes>
-                                                        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WLPersonCell" rowHeight="50" id="qZP-pH-519" customClass="WLPersonCell">
+                                                        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WLAddressBookPhoneNumberCell" rowHeight="50" id="qZP-pH-519" customClass="WLAddressBookPhoneNumberCell">
                                                             <rect key="frame" x="0.0" y="22" width="320" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qZP-pH-519" id="B25-Tb-dDs">

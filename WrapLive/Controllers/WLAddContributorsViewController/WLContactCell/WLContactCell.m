@@ -11,15 +11,16 @@
 #import "WLUser.h"
 #import "WLImageFetcher.h"
 #import "NSString+Additions.h"
-#import "WLPersonCell.h"
+#import "WLAddressBookPhoneNumberCell.h"
 #import "UIView+Shorthand.h"
 #import "NSArray+Additions.h"
-#import "WLPerson.h"
+#import "WLAddressBookPhoneNumber.h"
 #import "WLAPIManager.h"
 
-@interface WLContactCell () <UITableViewDataSource, UITableViewDelegate, WLPersonCellDelegate>
+@interface WLContactCell () <UITableViewDataSource, UITableViewDelegate, WLAddressBookPhoneNumberCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *selectionView;
+@property (weak, nonatomic) IBOutlet UIView *addedView;
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
 @property (nonatomic, weak) IBOutlet UILabel* nameLabel;
 @property (nonatomic, weak) IBOutlet WLImageView* avatarView;
@@ -40,7 +41,7 @@
 
 + (instancetype)cellWithContact:(WLAddressBookRecord *)contact inTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
 	WLContactCell* cell = nil;
-	if ([contact.persons count] > 1) {
+	if ([contact.phoneNumbers count] > 1) {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"WLMultipleContactCell" forIndexPath:indexPath];
 	} else {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"WLContactCell" forIndexPath:indexPath];
@@ -50,21 +51,21 @@
 }
 
 - (void)setupItemData:(WLAddressBookRecord*)contact {
-	WLPerson* person = [contact.persons lastObject];
-     self.avatarView.url = person.priorityPicture.small;
-    self.signUpView.hidden = (person.user) ? NO : YES;
-	self.nameLabel.text = [person priorityName];
+	WLAddressBookPhoneNumber* phoneNumber = [contact.phoneNumbers lastObject];
+     self.avatarView.url = phoneNumber.priorityPicture.small;
+    self.signUpView.hidden = (phoneNumber.user) ? NO : YES;
+	self.nameLabel.text = [phoneNumber priorityName];
 	
 	if (self.tableView) {
 		[self.tableView reloadData];
 	} else {
         self.phoneLabel.text = [WLContactCell collectionPersonsStringFromContact:contact];
-		self.checked = [self personSelected:person];
+		self.state = [self.delegate contactCell:self phoneNumberState:phoneNumber];
 	}
 }
 
 + (NSString *)collectionPersonsStringFromContact:(WLAddressBookRecord *)contact {
-    WLPerson *person = [contact.persons lastObject];
+    WLAddressBookPhoneNumber *person = [contact.phoneNumbers lastObject];
     if (person) {
         WLUser *user = person.user;
         if (user.valid) {
@@ -73,15 +74,19 @@
             return [person phone];
         }
     }
-   
     return nil;
 }
 
-- (void)setChecked:(BOOL)checked {
-	_checked = checked;
-	[UIView beginAnimations:nil context:nil];
-	self.selectionView.highlighted = checked;
-	[UIView commitAnimations];
+- (void)setState:(WLContactCellState)state {
+	_state = state;
+    if (state == WLContactCellStateAdded) {
+        self.addedView.hidden = NO;
+        self.selectionView.hidden = YES;
+    } else {
+        self.addedView.hidden = YES;
+        self.selectionView.hidden = NO;
+        self.selectionView.highlighted = state == WLContactCellStateSelected;
+    }
 }
 
 - (void)setOpened:(BOOL)opened {
@@ -91,15 +96,11 @@
 	[UIView commitAnimations];
 }
 
-- (BOOL)personSelected:(WLPerson*)person {
-	return [self.delegate contactCell:self personSelected:person];
-}
-
 #pragma mark - Actions
 
 - (IBAction)select:(id)sender {
 	WLAddressBookRecord* contact = self.item;
-    WLPerson *person = [contact.persons lastObject];
+    WLAddressBookPhoneNumber *person = [contact.phoneNumbers lastObject];
 	[self.delegate contactCell:self didSelectPerson:person];
 }
 
@@ -112,20 +113,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	WLAddressBookRecord* contact = self.item;
-	return [contact.persons count];
+	return [contact.phoneNumbers count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLPersonCell* cell = [tableView dequeueReusableCellWithIdentifier:@"WLPersonCell" forIndexPath:indexPath];
+	WLAddressBookPhoneNumberCell* cell = [tableView dequeueReusableCellWithIdentifier:@"WLAddressBookPhoneNumberCell" forIndexPath:indexPath];
 	WLAddressBookRecord* contact = self.item;
-	cell.item = contact.persons[indexPath.row];
-	cell.checked = [self personSelected:cell.item];
+	cell.item = contact.phoneNumbers[indexPath.row];
+	cell.checked = [self.delegate contactCell:self phoneNumberState:cell.item];
 	return cell;
 }
 
-#pragma mark - WLPersonCellDelegate
+#pragma mark - WLAddressBookPhoneNumberCellDelegate
 
-- (void)personCell:(WLPersonCell *)cell didSelectPerson:(WLPerson *)person {
+- (void)personCell:(WLAddressBookPhoneNumberCell *)cell didSelectPerson:(WLAddressBookPhoneNumber *)person {
 	[self.delegate contactCell:self didSelectPerson:person];
 }
 

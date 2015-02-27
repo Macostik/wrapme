@@ -7,7 +7,7 @@
 //
 
 #import "WLBaseOperationWrapRequest.h"
-#import "WLPerson.h"
+#import "WLAddressBookPhoneNumber.h"
 
 
 @implementation WLBaseOperationWrapRequest

@@ -11,7 +11,7 @@
 #import "WLContributorsViewSection.h"
 #import "WLContributorCell.h"
 #import "WLUpdateContributorsRequest.h"
-#import "WLPerson.h"
+#import "WLAddressBookPhoneNumber.h"
 #import "WLEntryNotifier.h"
 
 @interface WLContributorsViewController () <WLContributorCellDelegate>
@@ -48,7 +48,7 @@
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
-    WLPerson *person = [WLPerson new];
+    WLAddressBookPhoneNumber *person = [WLAddressBookPhoneNumber new];
     person.user = contributor;
     [self.editSession changeValueForProperty:@"removedContributors" valueBlock:^id(id changedValue) {
         return [changedValue orderedSetByAddingObject:person];
@@ -69,7 +69,7 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
     NSMutableOrderedSet* contributors = [self.wrap.contributors mutableCopy];
-    for (WLPerson* person in [self.editSession changedValueForProperty:@"removedContributors"]) {
+    for (WLAddressBookPhoneNumber* person in [self.editSession changedValueForProperty:@"removedContributors"]) {
         [contributors removeObject:person.user];
     }
     self.dataSection.entries = contributors;

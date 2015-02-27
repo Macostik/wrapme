@@ -18,7 +18,7 @@
 #import "NSDate+Additions.h"
 #import "WLWelcomeViewController.h"
 #import "WLImageCache.h"
-#import "WLPerson.h"
+#import "WLAddressBookPhoneNumber.h"
 #import "WLAddWrapRequest.h"
 #import "WLUploadWrapRequest.h"
 #import "WLAuthorizationRequest.h"

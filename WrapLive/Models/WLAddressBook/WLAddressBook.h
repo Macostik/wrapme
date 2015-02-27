@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WLAddressBookRecord.h"
+#import "WLAddressBookPhoneNumber.h"
 
 @class WLPicture;
-
-static NSInteger WLMinPhoneLenth = 6;
 
 @interface WLAddressBook : NSObject
 
@@ -22,19 +22,5 @@ static NSInteger WLMinPhoneLenth = 6;
  *  @param failure block for failed completion
  */
 + (void)contacts:(WLArrayBlock)success failure:(WLFailureBlock)failure;
-
-@end
-
-@interface WLAddressBookRecord : NSObject
-
-@property (strong, nonatomic) NSString *name;
-
-@property (strong, nonatomic) NSArray *persons;
-
-@end
-
-@interface NSString (WLAddressBook)
-
-@property (nonatomic, strong) NSString *label;
 
 @end

@@ -1,24 +1,25 @@
 //
-//  WLPerson.m
+//  WLAddressBookPhoneNumber.m
 //  WrapLive
 //
 //  Created by Oleg Vishnivetskiy on 7/14/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLPerson.h"
+#import "WLAddressBookPhoneNumber.h"
 #import "WLUser.h"
 #import "WLEntry+Extended.h"
 #import "NSString+Additions.h"
+#import "NSObject+AssociatedObjects.h"
 
-@implementation WLPerson
+@implementation WLAddressBookPhoneNumber
 
 @synthesize name = _name;
 @synthesize picture = _picture;
 @synthesize phone = _phone;
 @synthesize user = _user;
 
-- (BOOL)isEqualToPerson:(WLPerson*)person {
+- (BOOL)isEqualToPerson:(WLAddressBookPhoneNumber*)person {
     if (self.user) {
         return [self.user isEqualToEntry:person.user];
     } else {
@@ -42,6 +43,18 @@
     } else {
         return _picture;
     }
+}
+
+@end
+
+@implementation NSString (WLAddressBook)
+
+- (void)setLabel:(NSString *)label {
+    [self setAssociatedObject:label forKey:"wl_address_book_label"];
+}
+
+- (NSString *)label {
+    return [self associatedObjectForKey:"wl_address_book_label"];
 }
 
 @end

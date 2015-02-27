@@ -16,110 +16,8 @@
 #import <objc/runtime.h>
 #import "NSObject+AssociatedObjects.h"
 #import "WLEntry+Extended.h"
-#import "WLPerson.h"
-
-@interface WLAddressBookRecord ()
-
-+ (void)contact:(ABRecordRef)record completion:(WLContactBlock)completion;
-
-@end
-
-@implementation WLAddressBookRecord
-
-+ (void)contact:(ABRecordRef)record completion:(WLContactBlock)completion {
-	NSArray* phones = WLAddressBookGetPhones(record);
-	if (phones.nonempty) {
-		WLAddressBookRecord* contact = [WLAddressBookRecord new];
-		contact.name = WLAddressBookGetName(record);
-		contact.persons = phones;
-        [contact.persons makeObjectsPerformSelector:@selector(setName:) withObject:contact.name];
-		if (ABPersonHasImageData(record)) {
-			NSString* identifier = [NSString stringWithFormat:@"addressbook_%d", ABRecordGetRecordID(record)];
-			WLStringBlock complete = ^(NSString* path) {
-				WLPicture* picture = [WLPicture new];
-				picture.large = path;
-				picture.medium = path;
-				picture.small = path;
-				[contact.persons makeObjectsPerformSelector:@selector(setPicture:) withObject:picture];
-				completion(contact);
-			};
-			if ([[WLImageCache cache] containsObjectWithIdentifier:identifier]) {
-				complete([[WLImageCache cache] pathWithIdentifier:identifier]);
-			} else {
-				NSData* imageData = WLAddressBookGetImage(record);
-				if (imageData) {
-					[[WLImageCache cache] setImageData:imageData withIdentifier:identifier completion:complete];
-				} else {
-					completion(contact);
-				}
-			}
-		} else {
-			completion(contact);
-		}
-	} else {
-		completion(nil);
-	}
-}
-
-static inline NSArray* WLAddressBookGetPhones(ABRecordRef record) {
-	NSMutableArray* wlpersons = [NSMutableArray array];
-    ABMultiValueRef phones = ABRecordCopyValue(record,kABPersonPhoneProperty);
-	CFIndex count = ABMultiValueGetCount(phones);
-	for (CFIndex index = 0; index < count; ++index) {
-		WLPerson* person = [[WLPerson alloc] init];
-		person.phone = phoneNumberClearing((__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, index));
-		if (person.phone.length >= WLMinPhoneLenth) {
-			CFStringRef phoneLabel = ABMultiValueCopyLabelAtIndex(phones, index);
-			person.phone.label = (__bridge_transfer NSString*)ABAddressBookCopyLocalizedLabel(phoneLabel);
-			if (phoneLabel != NULL) {
-				CFRelease(phoneLabel);
-			}
-			[wlpersons addObject:person];
-		}
-    }
-	if (phones != NULL) {
-		CFRelease(phones);
-	}
-    return [wlpersons copy];
-}
-
-static inline NSString* WLAddressBookGetName(ABRecordRef record) {
-    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonFirstNameProperty);
-    NSString* lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonLastNameProperty);
-    return [[NSString stringWithFormat:@"%@ %@",WLString(firstName),WLString(lastName)] trim];
-}
-
-static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
-	return (__bridge_transfer NSData *)ABPersonCopyImageData(record);
-}
-
-- (NSString *)name {
-	if (!_name.nonempty) {
-		_name = [[self.persons selectObject:^BOOL(WLPerson* person) {
-			return person.user.name.nonempty;
-		}] name];
-	}
-	if (!_name.nonempty) {
-		_name = [[self.persons selectObject:^BOOL(WLPerson* person) {
-			return person.phone.nonempty;
-		}] phone];
-	}
-	return _name;
-}
-
-@end
-
-@implementation NSString (WLAddressBook)
-
-- (void)setLabel:(NSString *)label {
-	[self setAssociatedObject:label forKey:"wl_address_book_label"];
-}
-
-- (NSString *)label {
-	return [self associatedObjectForKey:"wl_address_book_label"];
-}
-
-@end
+#import "WLAddressBookPhoneNumber.h"
+#import "WLAddressBookRecord.h"
 
 @implementation WLAddressBook
 
@@ -132,7 +30,7 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 				__block CFIndex done = 0;
 				NSMutableArray* contacts = [NSMutableArray array];
 				for (CFIndex i = 0; i < count; i++) {
-					[WLAddressBookRecord contact:CFArrayGetValueAtIndex(records, i) completion:^(WLAddressBookRecord *contact) {
+					[WLAddressBookRecord record:CFArrayGetValueAtIndex(records, i) completion:^(WLAddressBookRecord *contact) {
 						done++;
 						if (contact) {
 							[contacts addObject:contact];

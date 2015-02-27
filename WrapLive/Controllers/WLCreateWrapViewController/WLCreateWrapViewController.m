@@ -25,7 +25,7 @@
 #import "WLImageFetcher.h"
 #import "WLInviteeCell.h"
 #import "WLNavigation.h"
-#import "WLPerson.h"
+#import "WLAddressBookPhoneNumber.h"
 #import "WLToast.h"
 #import "WLUser.h"
 #import "WLWrap.h"

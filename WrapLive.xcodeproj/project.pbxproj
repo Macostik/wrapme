@@ -4622,6 +4622,7 @@
 				C54AF64819B8C467006F7EDB /* Copy Pods Resources */,
 				C54AF64919B8C467006F7EDB /* Run Script */,
 				5BA7AF351A481A9C00C586CA /* Embed App Extensions */,
+				C5EE8A8F1AA0BEDD004D4910 /* Get build number from Jenkins */,
 			);
 			buildRules = (
 			);
@@ -4645,6 +4646,7 @@
 				C54AF74519B8C491006F7EDB /* Copy Pods Resources */,
 				C54AF74619B8C491006F7EDB /* ShellScript */,
 				5BF1B2551A49B63F000BB2C1 /* Embed App Extensions */,
+				C5EE8A901AA0BEFE004D4910 /* Get build number from Jenkins */,
 			);
 			buildRules = (
 			);
@@ -5369,7 +5371,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=$CI_BUILD_NUMBER\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist";
+			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=${CI_BUILD_NUMBER}\nif [ \"$CFBundleVersion\" > \"0\" ]\nthen\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist\nfi\n";
 		};
 		C551BF191A9B521300632552 /* Get build number from Jenkins */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5383,7 +5385,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=$CI_BUILD_NUMBER\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist";
+			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=${CI_BUILD_NUMBER}\nif [ \"$CFBundleVersion\" > \"0\" ]\nthen\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist\nfi\n";
+		};
+		C5EE8A8F1AA0BEDD004D4910 /* Get build number from Jenkins */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Get build number from Jenkins";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=${CI_BUILD_NUMBER}\nif [ \"$CFBundleVersion\" > \"0\" ]\nthen\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist\nfi\n";
+		};
+		C5EE8A901AA0BEFE004D4910 /* Get build number from Jenkins */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Get build number from Jenkins";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=${CI_BUILD_NUMBER}\nif [ \"$CFBundleVersion\" > \"0\" ]\nthen\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -26,10 +26,10 @@
 
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLCandy *candy = self.comment.candy;
+    [self.comment remove];
     if (candy.valid) {
         candy.commentCount = [response.data[WLCommentCountKey] intValue];
     }
-    [self.comment remove];
     return nil;
 }
 

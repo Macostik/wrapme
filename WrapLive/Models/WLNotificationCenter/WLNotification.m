@@ -208,7 +208,7 @@
                 case WLNotificationCommentAdd: {
                     WLCandy *candy = [(WLComment*)targetEntry candy];
                     if (candy.valid && !targetEntry.unread) {
-                        candy.commentCount++;
+                             candy.commentCount++;
                     }
                     if (targetEntry.notifiable && !targetEntry.unread) targetEntry.unread = YES;
                     break;
@@ -224,12 +224,6 @@
         } else if (event == WLEventUpdate) {
             [targetEntry notifyOnUpdate];
         } else if (event == WLEventDelete) {
-            if (weakSelf.type == WLNotificationCommentDelete) {
-                WLCandy *candy = [(WLComment*)targetEntry candy];
-                if (candy.valid) {
-                    candy.commentCount--;
-                }
-            }
             [targetEntry remove];
         }
         if (success) success();
@@ -258,7 +252,7 @@
     }
 }
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%lu : %@", self.type, self.entryIdentifier];
+    return [NSString stringWithFormat:@"%i : %@", (int)self.type, self.entryIdentifier];
 }
 
 @end

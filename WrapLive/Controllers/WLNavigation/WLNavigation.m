@@ -12,6 +12,7 @@
 #import "WLChatViewController.h"
 #import "NSArray+Additions.h"
 #import "UIAlertView+Blocks.h"
+#import "WLToast.h"
 
 @implementation UIStoryboard (WLNavigation)
 
@@ -162,7 +163,7 @@ static UIWindow* mainWindow = nil;
 - (NSMutableArray *)newStackViewControllersWithNavigationController:(UINavigationController*)navigationController {
     WLEntry *entry = self;
     NSMutableArray *viewControllers = [NSMutableArray array];
-    while (entry) {
+    while (entry.valid) {
         UIViewController *viewController = [entry viewControllerWithNavigationController:navigationController];
         if (viewController) {
             [viewControllers addObject:viewController];
@@ -170,10 +171,15 @@ static UIWindow* mainWindow = nil;
         entry = entry.containingEntry;
     }
     
+    if (![viewControllers count]) {
+        [WLToast showWithMessage:WLLS(@"Data is not valid.")];
+    }
+    
     return [[[viewControllers reverseObjectEnumerator] allObjects] mutableCopy];
 }
 
 - (void)presentViewControllerWithoutLostData {
+    __weak __typeof(self)weakSelf = self;
     UINavigationController *navigationController = [UINavigationController mainNavigationController];
     if ([navigationController presentedViewController]) {
         [UIAlertView showWithTitle:WLLS(@"Unsaved photo")
@@ -181,8 +187,9 @@ static UIWindow* mainWindow = nil;
                             cancel:WLLS(@"Cancel")
                             action:WLLS(@"Continue")
                         completion:^{
-                            [navigationController dismissViewControllerAnimated:YES completion:nil];
-                            [self present];
+                            [navigationController dismissViewControllerAnimated:YES completion:^{
+                                 [weakSelf present];
+                            }];
                         }];
     } else {
         [self present:NO];

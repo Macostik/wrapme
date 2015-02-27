@@ -215,7 +215,7 @@
                 }
                 case WLNotificationCandyAdd:
                 case WLNotificationMessageAdd:
-                    if (!targetEntry.unread) targetEntry.unread = YES;
+                    if (!targetEntry.unread && targetEntry.valid) targetEntry.unread = YES;
                     break;
                 default:
                     break;

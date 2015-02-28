@@ -8,7 +8,6 @@
 
 #import "WLContributorsRequest.h"
 #import "WLAddressBook.h"
-#import "WLPerson.h"
 
 @implementation WLContributorsRequest
 
@@ -43,8 +42,8 @@
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
     NSArray* contacts = self.contacts;
     NSMutableArray* phones = [NSMutableArray array];
-	[contacts all:^(WLContact* contact) {
-		[contact.persons all:^(WLPerson* person) {
+	[contacts all:^(WLAddressBookRecord* contact) {
+		[contact.phoneNumbers all:^(WLAddressBookPhoneNumber* person) {
 			[phones addObject:person.phone];
 		}];
 	}];
@@ -55,14 +54,14 @@
 - (id)objectInResponse:(WLAPIResponse *)response {
     NSArray* contacts = self.contacts;
     NSArray* users = response.data[@"users"];
-	[contacts all:^(WLContact* contact) {
+	[contacts all:^(WLAddressBookRecord* contact) {
         NSMutableArray* personsToRemove = [NSMutableArray array];
-		[contact.persons all:^(WLPerson* person) {
+		[contact.phoneNumbers all:^(WLAddressBookPhoneNumber* person) {
 			for (NSDictionary* userData in users) {
 				if ([userData[@"address_book_number"] isEqualToString:person.phone]) {
                     WLUser * user = [WLUser API_entry:userData];
                     __block BOOL exists = NO;
-                    [contact.persons all:^(WLPerson* _person) {
+                    [contact.phoneNumbers all:^(WLAddressBookPhoneNumber* _person) {
                         if (_person != person && _person.user == user) {
                             [personsToRemove addObject:person];
                             exists = YES;
@@ -70,12 +69,13 @@
                     }];
                     if (!exists) {
                         person.user = user;
+                        person.activated = [userData integerForKey:WLSignInCountKey] > 0;
                     }
                     break;
 				}
 			}
 		}];
-        contact.persons = [contact.persons arrayByRemovingObjectsFromArray:personsToRemove];
+        contact.phoneNumbers = [contact.phoneNumbers arrayByRemovingObjectsFromArray:personsToRemove];
 	}];
 	return contacts;
 }

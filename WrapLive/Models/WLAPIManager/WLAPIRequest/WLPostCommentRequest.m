@@ -36,14 +36,15 @@
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLComment* comment = self.comment;
     WLCandy *candy = comment.candy;
-    int commentCount = [response.data[WLCommentCountKey] intValue];
-    if (candy.commentCount != commentCount)
-        candy.commentCount = commentCount;
     if (candy.valid) {
         [comment API_setup:[response.data dictionaryForKey:@"comment"]];
         [candy touch:comment.createdAt];
         return comment;
     }
+    int commentCount = [response.data[WLCommentCountKey] intValue];
+    if (candy.commentCount != commentCount)
+        candy.commentCount = commentCount;
+    
     return nil;
 }
 

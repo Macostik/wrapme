@@ -13,7 +13,7 @@
 #import "NSString+Additions.h"
 #import "UIButton+Additions.h"
 #import "NSArray+Additions.h"
-#import "WLPerson.h"
+#import "WLAddressBookPhoneNumber.h"
 #import "WLContributorsRequest.h"
 #import "WLButton.h"
 
@@ -47,12 +47,12 @@
 - (IBAction)addContact:(WLButton *)sender {
     self.view.userInteractionEnabled = NO;
     sender.loading = YES;
-	WLContact * contact = [WLContact new];
+	WLAddressBookRecord * contact = [WLAddressBookRecord new];
 	contact.name = self.userNameTextField.text;
-	WLPerson * person = [WLPerson new];
+	WLAddressBookPhoneNumber * person = [WLAddressBookPhoneNumber new];
 	person.phone = self.phoneNumberTextField.text;
     person.name = self.userNameTextField.text;
-	contact.persons = @[person];
+	contact.phoneNumbers = @[person];
 	__weak typeof(self)weakSelf = self;
     [[WLContributorsRequest request:@[contact]] send:^(id object) {
         sender.loading = NO;
@@ -73,7 +73,7 @@
 }
 
 - (void)validateAddUserButton {
-    self.addUserButton.active = self.userNameTextField.text.nonempty && self.phoneNumberTextField.text.length >= WLMinPhoneLenth;
+    self.addUserButton.active = self.userNameTextField.text.nonempty && self.phoneNumberTextField.text.length >= WLAddressBookPhoneNumberMinimumLength;
 }
 
 - (IBAction)textChanged:(UITextField *)sender {

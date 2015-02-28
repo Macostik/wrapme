@@ -66,7 +66,6 @@
 		14B134E11952FEB2004F86AC /* WLInviteeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B134E01952FEB2004F86AC /* WLInviteeCell.m */; };
 		14B2429D195C4CEB00C5D208 /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
 		14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
-		14F668641973DDAA008D5081 /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
 		1E365B58F552C37B8AE835F8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		5B0F81E81A30920900B42D7D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
 		5B2199FF1A66C94600D131C3 /* WLWrapOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B219A041A66C94600D131C3 /* WLWrapOptionsViewController.xib */; };
@@ -464,10 +463,6 @@
 		C504178719B9EE15000E55F3 /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLContactCell.m */; };
 		C504178819B9EE15000E55F3 /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLContactCell.m */; };
 		C504178919B9EE15000E55F3 /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLContactCell.m */; };
-		C504178A19B9EE15000E55F3 /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504178119B9EE15000E55F3 /* WLPersonCell.m */; };
-		C504178B19B9EE15000E55F3 /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504178119B9EE15000E55F3 /* WLPersonCell.m */; };
-		C504178C19B9EE15000E55F3 /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504178119B9EE15000E55F3 /* WLPersonCell.m */; };
-		C504178D19B9EE15000E55F3 /* WLPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504178119B9EE15000E55F3 /* WLPersonCell.m */; };
 		C504179119B9EE42000E55F3 /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179019B9EE42000E55F3 /* WLContributorsViewController.m */; };
 		C504179219B9EE42000E55F3 /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179019B9EE42000E55F3 /* WLContributorsViewController.m */; };
 		C504179319B9EE42000E55F3 /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179019B9EE42000E55F3 /* WLContributorsViewController.m */; };
@@ -654,6 +649,14 @@
 		C52E1FF01A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */; };
 		C52E1FF11A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */; };
 		C52E1FF21A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */; };
+		C535F9CA1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
+		C535F9CB1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
+		C535F9CC1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
+		C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
+		C535F9CF1AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
+		C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
+		C535F9D11AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
+		C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
 		C537E9F01A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
 		C537E9F11A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
 		C537E9F21A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
@@ -764,6 +767,10 @@
 		C542BDEE19FA555C00C3BD64 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C542BDEC19FA555C00C3BD64 /* Camera.storyboard */; };
 		C542BDEF19FA555C00C3BD64 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C542BDEC19FA555C00C3BD64 /* Camera.storyboard */; };
 		C542BDF019FA555C00C3BD64 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C542BDEC19FA555C00C3BD64 /* Camera.storyboard */; };
+		C544E4FC1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C544E4FB1AA069F20025DB3F /* WLArrangedAddressBookGroup.m */; };
+		C544E4FD1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C544E4FB1AA069F20025DB3F /* WLArrangedAddressBookGroup.m */; };
+		C544E4FE1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C544E4FB1AA069F20025DB3F /* WLArrangedAddressBookGroup.m */; };
+		C544E4FF1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C544E4FB1AA069F20025DB3F /* WLArrangedAddressBookGroup.m */; };
 		C54531201A2497470048A677 /* WLPhoneValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C545311F1A2497470048A677 /* WLPhoneValidation.m */; };
 		C54531211A2497470048A677 /* WLPhoneValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C545311F1A2497470048A677 /* WLPhoneValidation.m */; };
 		C54531221A2497470048A677 /* WLPhoneValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C545311F1A2497470048A677 /* WLPhoneValidation.m */; };
@@ -822,7 +829,6 @@
 		C54AF49D19B8C437006F7EDB /* StreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1218E960E000BF1B96 /* StreamView.m */; };
 		C54AF4A019B8C437006F7EDB /* WLPaginatedViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C521FB081989382300576281 /* WLPaginatedViewSection.m */; };
 		C54AF4A319B8C437006F7EDB /* WLCandiesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF41D1976A71800761F38 /* WLCandiesRequest.m */; };
-		C54AF4A819B8C437006F7EDB /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
 		C54AF4A919B8C437006F7EDB /* WLCollectionViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C508E7D51987A696002998CE /* WLCollectionViewSection.m */; };
 		C54AF4AA19B8C437006F7EDB /* WLWrapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */; };
 		C54AF4AD19B8C437006F7EDB /* WLEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A04F8A1940CB5E005DA4CE /* WLEmoji.m */; };
@@ -940,7 +946,6 @@
 		C54AF59A19B8C467006F7EDB /* StreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1218E960E000BF1B96 /* StreamView.m */; };
 		C54AF59D19B8C467006F7EDB /* WLPaginatedViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C521FB081989382300576281 /* WLPaginatedViewSection.m */; };
 		C54AF5A019B8C467006F7EDB /* WLCandiesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF41D1976A71800761F38 /* WLCandiesRequest.m */; };
-		C54AF5A519B8C467006F7EDB /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
 		C54AF5A619B8C467006F7EDB /* WLCollectionViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C508E7D51987A696002998CE /* WLCollectionViewSection.m */; };
 		C54AF5A719B8C467006F7EDB /* WLWrapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */; };
 		C54AF5AA19B8C467006F7EDB /* WLEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A04F8A1940CB5E005DA4CE /* WLEmoji.m */; };
@@ -1058,7 +1063,6 @@
 		C54AF69719B8C491006F7EDB /* StreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1218E960E000BF1B96 /* StreamView.m */; };
 		C54AF69A19B8C491006F7EDB /* WLPaginatedViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C521FB081989382300576281 /* WLPaginatedViewSection.m */; };
 		C54AF69D19B8C491006F7EDB /* WLCandiesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF41D1976A71800761F38 /* WLCandiesRequest.m */; };
-		C54AF6A219B8C491006F7EDB /* WLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F668631973DDAA008D5081 /* WLPerson.m */; };
 		C54AF6A319B8C491006F7EDB /* WLCollectionViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C508E7D51987A696002998CE /* WLCollectionViewSection.m */; };
 		C54AF6A419B8C491006F7EDB /* WLWrapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */; };
 		C54AF6A719B8C491006F7EDB /* WLEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A04F8A1940CB5E005DA4CE /* WLEmoji.m */; };
@@ -1412,6 +1416,22 @@
 		C5C20BEB1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
 		C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
 		C5C6465519A6264300F8243A /* WLNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLNotificationCell.m */; };
+		C5D051B41A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */; };
+		C5D051B51A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */; };
+		C5D051B61A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */; };
+		C5D051B71A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */; };
+		C5D051BA1A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B91A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m */; };
+		C5D051BB1A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B91A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m */; };
+		C5D051BC1A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B91A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m */; };
+		C5D051BD1A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B91A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m */; };
+		C5D051C11A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */; };
+		C5D051C21A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */; };
+		C5D051C31A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */; };
+		C5D051C41A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */; };
+		C5D051C71A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */; };
+		C5D051C81A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */; };
+		C5D051C91A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */; };
+		C5D051CA1A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */; };
 		C5E4CCF61A1BA38800B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
 		C5E4CCF71A1BA38800B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
 		C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
@@ -1457,6 +1477,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5BF1B22F1A49A683000BB2C1;
 			remoteInfo = WLTodayExtension_Production;
+		};
+		C559CB701AA0BB5D00100B2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
+			remoteInfo = CopyProvisioningProfiles;
+		};
+		C559CB741AA0BB6200100B2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
+			remoteInfo = CopyProvisioningProfiles;
+		};
+		C559CB761AA0BB6500100B2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
+			remoteInfo = CopyProvisioningProfiles;
+		};
+		C559CB781AA0BB6900100B2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
+			remoteInfo = CopyProvisioningProfiles;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1614,8 +1662,6 @@
 		14B2429C195C4CEB00C5D208 /* WLEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditSession.m; path = WLEditSession/WLEditSession.m; sourceTree = "<group>"; };
 		14B242A2195C4D9200C5D208 /* WLProfileEditSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLProfileEditSession.h; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.h; sourceTree = "<group>"; };
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
-		14F668621973DDAA008D5081 /* WLPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPerson.h; path = Person/WLPerson.h; sourceTree = "<group>"; };
-		14F668631973DDAA008D5081 /* WLPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPerson.m; path = Person/WLPerson.m; sourceTree = "<group>"; };
 		21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		3272A1C39BD41FBFE03B2A92 /* libPods-WrapLive-Beta.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WrapLive-Beta.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		42CA3AF521263747CD1779EC /* Pods-WrapLive-QA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WrapLive-QA.release.xcconfig"; path = "Pods/Target Support Files/Pods-WrapLive-QA/Pods-WrapLive-QA.release.xcconfig"; sourceTree = "<group>"; };
@@ -1836,8 +1882,6 @@
 		C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddContributorsViewController.m; sourceTree = "<group>"; };
 		C504177D19B9EE15000E55F3 /* WLContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLContactCell.h; sourceTree = "<group>"; };
 		C504177E19B9EE15000E55F3 /* WLContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLContactCell.m; sourceTree = "<group>"; };
-		C504178019B9EE15000E55F3 /* WLPersonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPersonCell.h; sourceTree = "<group>"; };
-		C504178119B9EE15000E55F3 /* WLPersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPersonCell.m; sourceTree = "<group>"; };
 		C504178F19B9EE42000E55F3 /* WLContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributorsViewController.h; path = WLContributorsViewController/WLContributorsViewController.h; sourceTree = "<group>"; };
 		C504179019B9EE42000E55F3 /* WLContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorsViewController.m; path = WLContributorsViewController/WLContributorsViewController.m; sourceTree = "<group>"; };
 		C504179619B9EEB9000E55F3 /* WLContributorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLContributorCell.h; sourceTree = "<group>"; };
@@ -1966,6 +2010,9 @@
 		C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CustomFonts.m"; sourceTree = "<group>"; };
 		C52E1FED1A41ABBC00A2C370 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		C535F9C81AA0923D00FF641E /* WLAddressBookGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookGroupView.h; sourceTree = "<group>"; };
+		C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookGroupView.m; sourceTree = "<group>"; };
+		C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAddressBookGroupView.xib; sourceTree = "<group>"; };
 		C537E9EE1A8BBA8100EA450D /* WLIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIcon.h; sourceTree = "<group>"; };
 		C537E9EF1A8BBA8100EA450D /* WLIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIcon.m; sourceTree = "<group>"; };
 		C537F8221962BB1B00600B42 /* WLHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHistory.h; sourceTree = "<group>"; };
@@ -2021,6 +2068,8 @@
 		C53F2CBB1A6EB5FA00D99741 /* RMPhoneFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMPhoneFormat.m; sourceTree = "<group>"; };
 		C5415D2A1A9605B9001193B4 /* wrapLiveIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = wrapLiveIcons.ttf; sourceTree = "<group>"; };
 		C542BDEC19FA555C00C3BD64 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
+		C544E4FA1AA069F20025DB3F /* WLArrangedAddressBookGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArrangedAddressBookGroup.h; path = WLAddressBook/WLArrangedAddressBookGroup.h; sourceTree = "<group>"; };
+		C544E4FB1AA069F20025DB3F /* WLArrangedAddressBookGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArrangedAddressBookGroup.m; path = WLAddressBook/WLArrangedAddressBookGroup.m; sourceTree = "<group>"; };
 		C545311E1A2497470048A677 /* WLPhoneValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPhoneValidation.h; path = WLValidation/WLPhoneValidation.h; sourceTree = "<group>"; };
 		C545311F1A2497470048A677 /* WLPhoneValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPhoneValidation.m; path = WLValidation/WLPhoneValidation.m; sourceTree = "<group>"; };
 		C54531251A24A1F20048A677 /* WLCountriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCountriesViewController.h; sourceTree = "<group>"; };
@@ -2160,6 +2209,14 @@
 		C5C5A14019F7BF4000E1E033 /* GCDHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDHelper.h; sourceTree = "<group>"; };
 		C5C6465319A6264300F8243A /* WLNotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLNotificationCell.h; path = WLNotificationsViewController/WLNotificationCell.h; sourceTree = "<group>"; };
 		C5C6465419A6264300F8243A /* WLNotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLNotificationCell.m; path = WLNotificationsViewController/WLNotificationCell.m; sourceTree = "<group>"; };
+		C5D051B21A9F7D7B00855A01 /* WLAddressBookRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookRecord.h; sourceTree = "<group>"; };
+		C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookRecord.m; sourceTree = "<group>"; };
+		C5D051B81A9F7E6E00855A01 /* WLAddressBookPhoneNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookPhoneNumber.h; sourceTree = "<group>"; };
+		C5D051B91A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookPhoneNumber.m; sourceTree = "<group>"; };
+		C5D051BF1A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookPhoneNumberCell.h; sourceTree = "<group>"; };
+		C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookPhoneNumberCell.m; sourceTree = "<group>"; };
+		C5D051C51A9F829B00855A01 /* WLArrangedAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArrangedAddressBook.h; path = WLAddressBook/WLArrangedAddressBook.h; sourceTree = "<group>"; };
+		C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArrangedAddressBook.m; path = WLAddressBook/WLArrangedAddressBook.m; sourceTree = "<group>"; };
 		C5F35CFC1930935200FB99D2 /* WLImageFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLImageFetcher.h; path = WLImageFetcher/WLImageFetcher.h; sourceTree = "<group>"; };
 		C5F35CFD1930935200FB99D2 /* WLImageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLImageFetcher.m; path = WLImageFetcher/WLImageFetcher.m; sourceTree = "<group>"; };
 		C5F99B6D196BEB0C00A3FB19 /* WLMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMenu.h; sourceTree = "<group>"; };
@@ -2363,8 +2420,13 @@
 		129654E018E197D700FF43F6 /* WLAddressBook */ = {
 			isa = PBXGroup;
 			children = (
+				C5916E291A9E3BE800F1988B /* WLAddressBookRecord */,
 				129654E118E197ED00FF43F6 /* WLAddressBook.h */,
 				129654E218E197ED00FF43F6 /* WLAddressBook.m */,
+				C5D051C51A9F829B00855A01 /* WLArrangedAddressBook.h */,
+				C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */,
+				C544E4FA1AA069F20025DB3F /* WLArrangedAddressBookGroup.h */,
+				C544E4FB1AA069F20025DB3F /* WLArrangedAddressBookGroup.m */,
 			);
 			name = WLAddressBook;
 			sourceTree = "<group>";
@@ -2542,7 +2604,6 @@
 				C55C8D6119C98A9400199245 /* WLNotificationCenter */,
 				C5FFB02E19AC888D006F27A7 /* WLTimeline */,
 				C508E7D01987A37A002998CE /* WLCollectionViewDataProvider */,
-				14F668651973DDC6008D5081 /* WLPerson */,
 				C50F48361973EF6800929AA9 /* WLPagination */,
 				C537F8211962BADF00600B42 /* WLHistory */,
 				5BB02FFA19F00BEC001E1D50 /* WLChatGroupSet */,
@@ -2898,15 +2959,6 @@
 				14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */,
 			);
 			name = WLProfileEditSession;
-			sourceTree = "<group>";
-		};
-		14F668651973DDC6008D5081 /* WLPerson */ = {
-			isa = PBXGroup;
-			children = (
-				14F668621973DDAA008D5081 /* WLPerson.h */,
-				14F668631973DDAA008D5081 /* WLPerson.m */,
-			);
-			name = WLPerson;
 			sourceTree = "<group>";
 		};
 		5B11019719BF337600688C9D /* WLEditWrapViewController */ = {
@@ -3478,6 +3530,7 @@
 			children = (
 				C504177A19B9EE15000E55F3 /* WLAddContributorsViewController.h */,
 				C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */,
+				C535F9C71AA0921C00FF641E /* WLAddressBookGroupView */,
 				C504177C19B9EE15000E55F3 /* WLContactCell */,
 			);
 			path = WLAddContributorsViewController;
@@ -3488,18 +3541,9 @@
 			children = (
 				C504177D19B9EE15000E55F3 /* WLContactCell.h */,
 				C504177E19B9EE15000E55F3 /* WLContactCell.m */,
-				C504177F19B9EE15000E55F3 /* WLPersonCell */,
+				C5D051BE1A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell */,
 			);
 			path = WLContactCell;
-			sourceTree = "<group>";
-		};
-		C504177F19B9EE15000E55F3 /* WLPersonCell */ = {
-			isa = PBXGroup;
-			children = (
-				C504178019B9EE15000E55F3 /* WLPersonCell.h */,
-				C504178119B9EE15000E55F3 /* WLPersonCell.m */,
-			);
-			path = WLPersonCell;
 			sourceTree = "<group>";
 		};
 		C504178E19B9EE20000E55F3 /* WLContributorsViewController */ = {
@@ -3828,6 +3872,16 @@
 				C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */,
 			);
 			path = TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
+		C535F9C71AA0921C00FF641E /* WLAddressBookGroupView */ = {
+			isa = PBXGroup;
+			children = (
+				C535F9C81AA0923D00FF641E /* WLAddressBookGroupView.h */,
+				C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */,
+				C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */,
+			);
+			path = WLAddressBookGroupView;
 			sourceTree = "<group>";
 		};
 		C537E9ED1A8BBA7100EA450D /* WLIcon */ = {
@@ -4215,6 +4269,18 @@
 			name = WLBaseViewController;
 			sourceTree = "<group>";
 		};
+		C5916E291A9E3BE800F1988B /* WLAddressBookRecord */ = {
+			isa = PBXGroup;
+			children = (
+				C5D051B21A9F7D7B00855A01 /* WLAddressBookRecord.h */,
+				C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */,
+				C5D051B81A9F7E6E00855A01 /* WLAddressBookPhoneNumber.h */,
+				C5D051B91A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m */,
+			);
+			name = WLAddressBookRecord;
+			path = WLAddressBook/WLAddressBookRecord;
+			sourceTree = "<group>";
+		};
 		C5947E4E18F5264B00BDF038 /* WLChatViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -4355,6 +4421,15 @@
 			path = "Support Headers";
 			sourceTree = "<group>";
 		};
+		C5D051BE1A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell */ = {
+			isa = PBXGroup;
+			children = (
+				C5D051BF1A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.h */,
+				C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */,
+			);
+			path = WLAddressBookPhoneNumberCell;
+			sourceTree = "<group>";
+		};
 		C5F35CFB1930933500FB99D2 /* WLImageFetcher */ = {
 			isa = PBXGroup;
 			children = (
@@ -4432,6 +4507,23 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXLegacyTarget section */
+		C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "${SRCROOT}/cpprof.sh";
+			buildConfigurationList = C5953B6B19C8398C006DF1F3 /* Build configuration list for PBXLegacyTarget "CopyProvisioningProfiles" */;
+			buildPhases = (
+			);
+			buildToolPath = /bin/bash;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = CopyProvisioningProfiles;
+			passBuildSettingsInEnvironment = 1;
+			productName = CopyProvisioningProfiles;
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		12A7A6FE18DA0945008FF6F0 /* WrapLive-Development */ = {
 			isa = PBXNativeTarget;
@@ -4449,6 +4541,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C559CB711AA0BB5D00100B2C /* PBXTargetDependency */,
 				5B787DA71A27876F004AE459 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Development";
@@ -4510,6 +4603,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C559CB751AA0BB6200100B2C /* PBXTargetDependency */,
 				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
 			);
 			name = "WrapLive-QA";
@@ -4528,10 +4622,12 @@
 				C54AF64819B8C467006F7EDB /* Copy Pods Resources */,
 				C54AF64919B8C467006F7EDB /* Run Script */,
 				5BA7AF351A481A9C00C586CA /* Embed App Extensions */,
+				C5EE8A8F1AA0BEDD004D4910 /* Get build number from Jenkins */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C559CB771AA0BB6500100B2C /* PBXTargetDependency */,
 				5BA7AF341A481A9C00C586CA /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Beta";
@@ -4550,10 +4646,12 @@
 				C54AF74519B8C491006F7EDB /* Copy Pods Resources */,
 				C54AF74619B8C491006F7EDB /* ShellScript */,
 				5BF1B2551A49B63F000BB2C1 /* Embed App Extensions */,
+				C5EE8A901AA0BEFE004D4910 /* Get build number from Jenkins */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C559CB791AA0BB6900100B2C /* PBXTargetDependency */,
 				5BF1B2541A49B63E000BB2C1 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Production";
@@ -4643,6 +4741,7 @@
 				C54AF45519B8C437006F7EDB /* WrapLive-QA */,
 				C54AF55219B8C467006F7EDB /* WrapLive-Beta */,
 				C54AF64F19B8C491006F7EDB /* WrapLive-Production */,
+				C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */,
 				5B787D9A1A27876F004AE459 /* WLTodayExtension */,
 				5BF1B22F1A49A683000BB2C1 /* WLTodayExtension_Production */,
 			);
@@ -4693,6 +4792,7 @@
 				C5C20BDD1A239D6F008B2E2E /* WLTestUserCell.xib in Resources */,
 				14ACAE0719421AE5006BD3B3 /* Main.storyboard in Resources */,
 				5BF5833E1A1F983B00922BD5 /* ic_quote.png in Resources */,
+				C535F9CF1AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74A19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF85E19B8C622006F7EDB /* WLTestUsersProduction.plist in Resources */,
 				ACF8D90E19347B9E0001E570 /* WLEmojiView.xib in Resources */,
@@ -4808,6 +4908,7 @@
 				C54AF53219B8C437006F7EDB /* Main.storyboard in Resources */,
 				C57005CB1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
 				C57005C31A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
+				C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF53619B8C437006F7EDB /* WLEmojiView.xib in Resources */,
 				C51E295A1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
@@ -4893,6 +4994,7 @@
 				C54AF62F19B8C467006F7EDB /* Main.storyboard in Resources */,
 				C57005CC1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
 				C57005C41A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
+				C535F9D11AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF63319B8C467006F7EDB /* WLEmojiView.xib in Resources */,
 				C51E295B1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
@@ -4978,6 +5080,7 @@
 				C54AF72C19B8C491006F7EDB /* Main.storyboard in Resources */,
 				C57005CD1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
 				C57005C51A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
+				C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C54AF73019B8C491006F7EDB /* WLEmojiView.xib in Resources */,
 				C51E295C1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
@@ -5268,7 +5371,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=$CI_BUILD_NUMBER\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist";
+			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=${CI_BUILD_NUMBER}\nif [ \"$CFBundleVersion\" > \"0\" ]\nthen\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist\nfi\n";
 		};
 		C551BF191A9B521300632552 /* Get build number from Jenkins */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5282,7 +5385,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=$CI_BUILD_NUMBER\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist";
+			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=${CI_BUILD_NUMBER}\nif [ \"$CFBundleVersion\" > \"0\" ]\nthen\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist\nfi\n";
+		};
+		C5EE8A8F1AA0BEDD004D4910 /* Get build number from Jenkins */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Get build number from Jenkins";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=${CI_BUILD_NUMBER}\nif [ \"$CFBundleVersion\" > \"0\" ]\nthen\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist\nfi\n";
+		};
+		C5EE8A901AA0BEFE004D4910 /* Get build number from Jenkins */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Get build number from Jenkins";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=${CI_BUILD_NUMBER}\nif [ \"$CFBundleVersion\" > \"0\" ]\nthen\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -5354,6 +5485,8 @@
 				C5C20BA11A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
 				C54EFCDF1A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */,
 				C51383D019A4AB3300D23257 /* WLNotificationsViewController.m in Sources */,
+				C535F9CA1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
+				C5D051B41A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				5BA60C831A8257ED000F795C /* NSObject+Extension.m in Sources */,
 				C507B9E91948947D00CCB3FE /* WLGestureBroadcaster.m in Sources */,
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
@@ -5399,7 +5532,6 @@
 				C521FB091989382300576281 /* WLPaginatedViewSection.m in Sources */,
 				C50AF41E1976A71800761F38 /* WLCandiesRequest.m in Sources */,
 				C52E1FD01A41951300A2C370 /* WLButton.m in Sources */,
-				14F668641973DDAA008D5081 /* WLPerson.m in Sources */,
 				C508E7D61987A696002998CE /* WLCollectionViewSection.m in Sources */,
 				C51910421A078248003C78B2 /* WLCandy+Extended.m in Sources */,
 				C581680219F169D90081F350 /* WLBaseViewController.m in Sources */,
@@ -5407,6 +5539,7 @@
 				C51910561A078248003C78B2 /* WLContribution.m in Sources */,
 				C53E5CFA1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */,
 				5BA60CBF1A8257ED000F795C /* UIDevice-Hardware.m in Sources */,
+				C5D051C71A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
 				14A04F8B1940CB5E005DA4CE /* WLEmoji.m in Sources */,
 				12DCBA5818DAF98C00A4BC44 /* WLAPIManager.m in Sources */,
 				12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */,
@@ -5443,6 +5576,7 @@
 				C53E5CF41A84D8BD004F61B0 /* WLEntryView.m in Sources */,
 				C521FB061989352E00576281 /* WLHomeViewSection.m in Sources */,
 				C5947E5518F52AE000BDF038 /* WLMessageCell.m in Sources */,
+				C5D051BA1A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m in Sources */,
 				12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */,
 				C53E5D781A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
 				C504178619B9EE15000E55F3 /* WLContactCell.m in Sources */,
@@ -5479,7 +5613,6 @@
 				C51910661A078248003C78B2 /* WLWrap.m in Sources */,
 				C5F9ACBE1989296C003A0FF2 /* WLEntryCell.m in Sources */,
 				C52E1FE21A41952400A2C370 /* WLTextView.m in Sources */,
-				C504178A19B9EE15000E55F3 /* WLPersonCell.m in Sources */,
 				128156AB1938A1DA00035F89 /* WLStillPictureViewController.m in Sources */,
 				C504179119B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C519104E1A078248003C78B2 /* WLComment.m in Sources */,
@@ -5492,6 +5625,7 @@
 				C568D8D61A6D491800C2333B /* WLHintView.m in Sources */,
 				C53E5D641A851F71004F61B0 /* WLAssetCell.m in Sources */,
 				C50236141979032400996D07 /* WLImageView.m in Sources */,
+				C544E4FC1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */,
 				C53E5D701A851F71004F61B0 /* WLCameraInteractionView.m in Sources */,
 				12D9F6E318E18DAA001E8323 /* NSError+WLAPIManager.m in Sources */,
 				C55C8D7C19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
@@ -5514,6 +5648,7 @@
 				C515055719F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C50AF4151976982D00761F38 /* WLWrapRequest.m in Sources */,
 				C51496471975872D009F0743 /* WLPaginatedRequest.m in Sources */,
+				C5D051C11A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
 				5BB1FAF119E809B900C12DB3 /* WLAddWrapRequest.m in Sources */,
 				C50AF4181976A1F400761F38 /* WLDeleteWrapRequest.m in Sources */,
 				C5C20BD91A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
@@ -5647,6 +5782,8 @@
 				C5C20BA21A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
 				C54EFCE01A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */,
 				C54AF48019B8C437006F7EDB /* WLNotificationsViewController.m in Sources */,
+				C535F9CB1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
+				C5D051B51A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				5BA60C841A8257ED000F795C /* NSObject+Extension.m in Sources */,
 				C54AF48119B8C437006F7EDB /* WLGestureBroadcaster.m in Sources */,
 				C54AF48219B8C437006F7EDB /* main.m in Sources */,
@@ -5692,7 +5829,6 @@
 				C54AF4A019B8C437006F7EDB /* WLPaginatedViewSection.m in Sources */,
 				C54AF4A319B8C437006F7EDB /* WLCandiesRequest.m in Sources */,
 				C52E1FD11A41951300A2C370 /* WLButton.m in Sources */,
-				C54AF4A819B8C437006F7EDB /* WLPerson.m in Sources */,
 				C54AF4A919B8C437006F7EDB /* WLCollectionViewSection.m in Sources */,
 				C51910431A078248003C78B2 /* WLCandy+Extended.m in Sources */,
 				C581680319F169D90081F350 /* WLBaseViewController.m in Sources */,
@@ -5700,6 +5836,7 @@
 				C51910571A078248003C78B2 /* WLContribution.m in Sources */,
 				C53E5CFB1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */,
 				5BA60CC01A8257ED000F795C /* UIDevice-Hardware.m in Sources */,
+				C5D051C81A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
 				C54AF4AD19B8C437006F7EDB /* WLEmoji.m in Sources */,
 				C54AF4AE19B8C437006F7EDB /* WLAPIManager.m in Sources */,
 				C54AF4B119B8C437006F7EDB /* WLHomeViewController.m in Sources */,
@@ -5736,6 +5873,7 @@
 				C53E5CF51A84D8BD004F61B0 /* WLEntryView.m in Sources */,
 				C54AF4C619B8C437006F7EDB /* WLHomeViewSection.m in Sources */,
 				C54AF4C819B8C437006F7EDB /* WLMessageCell.m in Sources */,
+				C5D051BB1A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m in Sources */,
 				C54AF4CA19B8C437006F7EDB /* WLWrapViewController.m in Sources */,
 				C53E5D791A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
 				C504178719B9EE15000E55F3 /* WLContactCell.m in Sources */,
@@ -5772,7 +5910,6 @@
 				C51910671A078248003C78B2 /* WLWrap.m in Sources */,
 				C54AF4E219B8C437006F7EDB /* WLEntryCell.m in Sources */,
 				C52E1FE31A41952400A2C370 /* WLTextView.m in Sources */,
-				C504178B19B9EE15000E55F3 /* WLPersonCell.m in Sources */,
 				C54AF4E319B8C437006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C504179219B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C519104F1A078248003C78B2 /* WLComment.m in Sources */,
@@ -5785,6 +5922,7 @@
 				C568D8D71A6D491800C2333B /* WLHintView.m in Sources */,
 				C53E5D651A851F71004F61B0 /* WLAssetCell.m in Sources */,
 				C54AF4E719B8C437006F7EDB /* WLImageView.m in Sources */,
+				C544E4FD1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */,
 				C53E5D711A851F71004F61B0 /* WLCameraInteractionView.m in Sources */,
 				C54AF4E819B8C437006F7EDB /* NSError+WLAPIManager.m in Sources */,
 				C55C8D7D19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
@@ -5807,6 +5945,7 @@
 				C515055819F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C54AF4F719B8C437006F7EDB /* WLWrapRequest.m in Sources */,
 				C54AF4F819B8C437006F7EDB /* WLPaginatedRequest.m in Sources */,
+				C5D051C21A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
 				5BB1FAF219E809B900C12DB3 /* WLAddWrapRequest.m in Sources */,
 				C54AF4F919B8C437006F7EDB /* WLDeleteWrapRequest.m in Sources */,
 				C5C20BDA1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
@@ -5910,6 +6049,8 @@
 				C5C20BA31A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
 				C54EFCE11A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */,
 				C54AF57D19B8C467006F7EDB /* WLNotificationsViewController.m in Sources */,
+				C535F9CC1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
+				C5D051B61A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				5BA60C851A8257ED000F795C /* NSObject+Extension.m in Sources */,
 				C54AF57E19B8C467006F7EDB /* WLGestureBroadcaster.m in Sources */,
 				C54AF57F19B8C467006F7EDB /* main.m in Sources */,
@@ -5955,7 +6096,6 @@
 				C54AF59D19B8C467006F7EDB /* WLPaginatedViewSection.m in Sources */,
 				C54AF5A019B8C467006F7EDB /* WLCandiesRequest.m in Sources */,
 				C52E1FD21A41951300A2C370 /* WLButton.m in Sources */,
-				C54AF5A519B8C467006F7EDB /* WLPerson.m in Sources */,
 				C54AF5A619B8C467006F7EDB /* WLCollectionViewSection.m in Sources */,
 				C51910441A078248003C78B2 /* WLCandy+Extended.m in Sources */,
 				C581680419F169D90081F350 /* WLBaseViewController.m in Sources */,
@@ -5963,6 +6103,7 @@
 				C51910581A078248003C78B2 /* WLContribution.m in Sources */,
 				C53E5CFC1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */,
 				5BA60CC11A8257ED000F795C /* UIDevice-Hardware.m in Sources */,
+				C5D051C91A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
 				C54AF5AA19B8C467006F7EDB /* WLEmoji.m in Sources */,
 				C54AF5AB19B8C467006F7EDB /* WLAPIManager.m in Sources */,
 				C54AF5AE19B8C467006F7EDB /* WLHomeViewController.m in Sources */,
@@ -5999,6 +6140,7 @@
 				C53E5CF61A84D8BD004F61B0 /* WLEntryView.m in Sources */,
 				C54AF5C319B8C467006F7EDB /* WLHomeViewSection.m in Sources */,
 				C54AF5C519B8C467006F7EDB /* WLMessageCell.m in Sources */,
+				C5D051BC1A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m in Sources */,
 				C54AF5C719B8C467006F7EDB /* WLWrapViewController.m in Sources */,
 				C53E5D7A1A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
 				C504178819B9EE15000E55F3 /* WLContactCell.m in Sources */,
@@ -6035,7 +6177,6 @@
 				C51910681A078248003C78B2 /* WLWrap.m in Sources */,
 				C54AF5DF19B8C467006F7EDB /* WLEntryCell.m in Sources */,
 				C52E1FE41A41952400A2C370 /* WLTextView.m in Sources */,
-				C504178C19B9EE15000E55F3 /* WLPersonCell.m in Sources */,
 				C54AF5E019B8C467006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C504179319B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C51910501A078248003C78B2 /* WLComment.m in Sources */,
@@ -6048,6 +6189,7 @@
 				C568D8D81A6D491800C2333B /* WLHintView.m in Sources */,
 				C53E5D661A851F71004F61B0 /* WLAssetCell.m in Sources */,
 				C54AF5E419B8C467006F7EDB /* WLImageView.m in Sources */,
+				C544E4FE1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */,
 				C53E5D721A851F71004F61B0 /* WLCameraInteractionView.m in Sources */,
 				C54AF5E519B8C467006F7EDB /* NSError+WLAPIManager.m in Sources */,
 				C55C8D7E19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
@@ -6070,6 +6212,7 @@
 				C515055919F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C54AF5F419B8C467006F7EDB /* WLWrapRequest.m in Sources */,
 				C54AF5F519B8C467006F7EDB /* WLPaginatedRequest.m in Sources */,
+				C5D051C31A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
 				5BB1FAF319E809B900C12DB3 /* WLAddWrapRequest.m in Sources */,
 				C54AF5F619B8C467006F7EDB /* WLDeleteWrapRequest.m in Sources */,
 				C5C20BDB1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
@@ -6173,6 +6316,8 @@
 				C5C20BA41A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
 				C54EFCE21A0D0D06005BC506 /* WLChatTypingChannel.m in Sources */,
 				C54AF67A19B8C491006F7EDB /* WLNotificationsViewController.m in Sources */,
+				C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
+				C5D051B71A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				5BA60C861A8257ED000F795C /* NSObject+Extension.m in Sources */,
 				C54AF67B19B8C491006F7EDB /* WLGestureBroadcaster.m in Sources */,
 				C54AF67C19B8C491006F7EDB /* main.m in Sources */,
@@ -6218,7 +6363,6 @@
 				C54AF69A19B8C491006F7EDB /* WLPaginatedViewSection.m in Sources */,
 				C54AF69D19B8C491006F7EDB /* WLCandiesRequest.m in Sources */,
 				C52E1FD31A41951300A2C370 /* WLButton.m in Sources */,
-				C54AF6A219B8C491006F7EDB /* WLPerson.m in Sources */,
 				C54AF6A319B8C491006F7EDB /* WLCollectionViewSection.m in Sources */,
 				C51910451A078248003C78B2 /* WLCandy+Extended.m in Sources */,
 				C581680519F169D90081F350 /* WLBaseViewController.m in Sources */,
@@ -6226,6 +6370,7 @@
 				C51910591A078248003C78B2 /* WLContribution.m in Sources */,
 				C53E5CFD1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */,
 				5BA60CC21A8257ED000F795C /* UIDevice-Hardware.m in Sources */,
+				C5D051CA1A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
 				C54AF6A719B8C491006F7EDB /* WLEmoji.m in Sources */,
 				C54AF6A819B8C491006F7EDB /* WLAPIManager.m in Sources */,
 				C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */,
@@ -6262,6 +6407,7 @@
 				C53E5CF71A84D8BD004F61B0 /* WLEntryView.m in Sources */,
 				C54AF6C019B8C491006F7EDB /* WLHomeViewSection.m in Sources */,
 				C54AF6C219B8C491006F7EDB /* WLMessageCell.m in Sources */,
+				C5D051BD1A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m in Sources */,
 				C54AF6C419B8C491006F7EDB /* WLWrapViewController.m in Sources */,
 				C53E5D7B1A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
 				C504178919B9EE15000E55F3 /* WLContactCell.m in Sources */,
@@ -6298,7 +6444,6 @@
 				C51910691A078248003C78B2 /* WLWrap.m in Sources */,
 				C54AF6DC19B8C491006F7EDB /* WLEntryCell.m in Sources */,
 				C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */,
-				C504178D19B9EE15000E55F3 /* WLPersonCell.m in Sources */,
 				C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C504179419B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C51910511A078248003C78B2 /* WLComment.m in Sources */,
@@ -6311,6 +6456,7 @@
 				C568D8D91A6D491800C2333B /* WLHintView.m in Sources */,
 				C53E5D671A851F71004F61B0 /* WLAssetCell.m in Sources */,
 				C54AF6E119B8C491006F7EDB /* WLImageView.m in Sources */,
+				C544E4FF1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */,
 				C53E5D731A851F71004F61B0 /* WLCameraInteractionView.m in Sources */,
 				C54AF6E219B8C491006F7EDB /* NSError+WLAPIManager.m in Sources */,
 				C55C8D7F19C9A56400199245 /* WLResendConfirmationRequest.m in Sources */,
@@ -6333,6 +6479,7 @@
 				C515055A19F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C54AF6F119B8C491006F7EDB /* WLWrapRequest.m in Sources */,
 				C54AF6F219B8C491006F7EDB /* WLPaginatedRequest.m in Sources */,
+				C5D051C41A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
 				5BB1FAF419E809B900C12DB3 /* WLAddWrapRequest.m in Sources */,
 				C54AF6F319B8C491006F7EDB /* WLDeleteWrapRequest.m in Sources */,
 				C5C20BDC1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
@@ -6391,6 +6538,26 @@
 			isa = PBXTargetDependency;
 			target = 5BF1B22F1A49A683000BB2C1 /* WLTodayExtension_Production */;
 			targetProxy = 5BF1B2531A49B63E000BB2C1 /* PBXContainerItemProxy */;
+		};
+		C559CB711AA0BB5D00100B2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
+			targetProxy = C559CB701AA0BB5D00100B2C /* PBXContainerItemProxy */;
+		};
+		C559CB751AA0BB6200100B2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
+			targetProxy = C559CB741AA0BB6200100B2C /* PBXContainerItemProxy */;
+		};
+		C559CB771AA0BB6500100B2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
+			targetProxy = C559CB761AA0BB6500100B2C /* PBXContainerItemProxy */;
+		};
+		C559CB791AA0BB6900100B2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
+			targetProxy = C559CB781AA0BB6900100B2C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -6988,6 +7155,273 @@
 			};
 			name = Release;
 		};
+		C559CB721AA0BB5D00100B2C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = CopyProvisioningProfiles;
+			};
+			name = Debug;
+		};
+		C559CB731AA0BB5D00100B2C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				PRODUCT_NAME = CopyProvisioningProfiles;
+			};
+			name = Release;
+		};
+		C5BC48591AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "7ce875f8-5f53-4c6b-90af-2432f59d8a43";
+				SDKROOT = iphoneos;
+			};
+			name = AdHoc;
+		};
+		C5BC485A1AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks/AviarySDK",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "de189f85-14ea-4a8a-b017-f9ac69ddd663";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = AdHoc;
+		};
+		C5BC485B1AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks/AviarySDK",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_NAME = "WrapLive-QA";
+				PROVISIONING_PROFILE = "de189f85-14ea-4a8a-b017-f9ac69ddd663";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = AdHoc;
+		};
+		C5BC485C1AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks/AviarySDK",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_NAME = "WrapLive-Beta";
+				PROVISIONING_PROFILE = "de189f85-14ea-4a8a-b017-f9ac69ddd663";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = AdHoc;
+		};
+		C5BC485D1AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 0;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks/AviarySDK",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_NAME = "WrapLive-Production";
+				PROVISIONING_PROFILE = "b864a746-2498-41b3-aed5-70369809c1e4";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = AdHoc;
+		};
+		C5BC485E1AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = CopyProvisioningProfiles;
+			};
+			name = AdHoc;
+		};
+		C5BC485F1AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = WLTodayExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "6f04570b-2969-42c1-a5f0-8a974d266f4e";
+				SKIP_INSTALL = YES;
+			};
+			name = AdHoc;
+		};
+		C5BC48601AA0C9E500AC5EC8 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = WLTodayExtension/WLTodayExtension_Production.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = WLTodayExtension_Production;
+				PROVISIONING_PROFILE = "db55b54c-da02-43b4-a047-e4fc8f0a82c7";
+				SKIP_INSTALL = YES;
+			};
+			name = AdHoc;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -6995,6 +7429,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,
+				C5BC48591AA0C9E500AC5EC8 /* AdHoc */,
 				12A7A73018DA0946008FF6F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -7004,6 +7439,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A73218DA0946008FF6F0 /* Debug */,
+				C5BC485A1AA0C9E500AC5EC8 /* AdHoc */,
 				12A7A73318DA0946008FF6F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -7013,6 +7449,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5B787DA91A27876F004AE459 /* Debug */,
+				C5BC485F1AA0C9E500AC5EC8 /* AdHoc */,
 				5B787DAA1A27876F004AE459 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -7022,6 +7459,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5BF1B2461A49A683000BB2C1 /* Debug */,
+				C5BC48601AA0C9E500AC5EC8 /* AdHoc */,
 				5BF1B2471A49A683000BB2C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -7031,6 +7469,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C54AF54E19B8C437006F7EDB /* Debug */,
+				C5BC485B1AA0C9E500AC5EC8 /* AdHoc */,
 				C54AF54F19B8C437006F7EDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -7040,6 +7479,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C54AF64B19B8C467006F7EDB /* Debug */,
+				C5BC485C1AA0C9E500AC5EC8 /* AdHoc */,
 				C54AF64C19B8C467006F7EDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -7049,7 +7489,18 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C54AF74819B8C491006F7EDB /* Debug */,
+				C5BC485D1AA0C9E500AC5EC8 /* AdHoc */,
 				C54AF74919B8C491006F7EDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5953B6B19C8398C006DF1F3 /* Build configuration list for PBXLegacyTarget "CopyProvisioningProfiles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C559CB721AA0BB5D00100B2C /* Debug */,
+				C5BC485E1AA0C9E500AC5EC8 /* AdHoc */,
+				C559CB731AA0BB5D00100B2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

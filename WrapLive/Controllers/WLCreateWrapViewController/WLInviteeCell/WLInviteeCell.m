@@ -11,7 +11,7 @@
 #import "NSString+Additions.h"
 #import "WLImageFetcher.h"
 #import "WLPicture.h"
-#import "WLPerson.h"
+#import "WLAddressBookPhoneNumber.h"
 #import "WLUser.h"
 
 @interface WLInviteeCell ()
@@ -30,7 +30,7 @@
     [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
 }
 
-- (void)setupItemData:(WLPerson*)person {
+- (void)setupItemData:(WLAddressBookPhoneNumber*)person {
     self.nameLabel.text = person.priorityName;
     self.avatarView.url = person.priorityPicture.medium;
 }

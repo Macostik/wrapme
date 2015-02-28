@@ -279,7 +279,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
     if ([self.historyItem.entries containsObject:candy]) {
-        [self setCandy:candy];
         [self performSelector:@selector(scrollToCurrentCandy) withObject:nil afterDelay:0.0f];
     }
 }
@@ -319,7 +318,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         NSUInteger index = [self.historyItem.entries indexOfObject:candy];
         if (index != NSNotFound) {
             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]
-                                            atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+                                            atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
         }
     }
 }

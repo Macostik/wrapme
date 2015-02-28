@@ -26,4 +26,6 @@
 
 - (UIImage *)resizedImageWithContentModeScaleAspectFit:(CGSize)bounds;
 
++ (void)allImagesSizeOfLaunchScreen;
+
 @end

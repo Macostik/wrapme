@@ -8,15 +8,21 @@
 
 #import "WLItemCell.h"
 
-@class WLContact;
+@class WLAddressBookRecord;
 @class WLContactCell;
-@class WLPerson;
+@class WLAddressBookPhoneNumber;
+
+typedef NS_ENUM(NSUInteger, WLContactCellState) {
+    WLContactCellStateDefault,
+    WLContactCellStateSelected,
+    WLContactCellStateAdded
+};
 
 @protocol WLContactCellDelegate <NSObject>
 
-- (void)contactCell:(WLContactCell*)cell didSelectPerson:(WLPerson*)person;
+- (void)contactCell:(WLContactCell*)cell didSelectPerson:(WLAddressBookPhoneNumber*)person;
 
-- (BOOL)contactCell:(WLContactCell*)cell personSelected:(WLPerson*)person;
+- (WLContactCellState)contactCell:(WLContactCell*)cell phoneNumberState:(WLAddressBookPhoneNumber*)phoneNumber;
 
 - (void)contactCellDidToggle:(WLContactCell*)cell;
 
@@ -24,14 +30,14 @@
 
 @interface WLContactCell : WLItemCell
 
-+ (instancetype)cellWithContact:(WLContact*)contact inTableView:(UITableView*)tableView indexPath:(NSIndexPath*)indexPath;
++ (instancetype)cellWithContact:(WLAddressBookRecord*)contact inTableView:(UITableView*)tableView indexPath:(NSIndexPath*)indexPath;
 
 @property (nonatomic, weak) IBOutlet id <WLContactCellDelegate> delegate;
 
-@property (nonatomic) BOOL checked;
+@property (nonatomic) WLContactCellState state;
 
 @property (nonatomic) BOOL opened;
 
-+ (NSString *)collectionPersonsStringFromContact:(WLContact *)contact;
++ (NSString *)collectionPersonsStringFromContact:(WLAddressBookRecord *)contact;
 
 @end

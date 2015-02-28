@@ -1,5 +1,5 @@
 //
-//  WLPerson.h
+//  WLAddressBookPhoneNumber.h
 //  WrapLive
 //
 //  Created by Oleg Vishnivetskiy on 7/14/14.
@@ -11,7 +11,9 @@
 @class WLPicture;
 @class WLUser;
 
-@interface WLPerson : NSObject 
+static NSInteger WLAddressBookPhoneNumberMinimumLength = 6;
+
+@interface WLAddressBookPhoneNumber : NSObject 
 
 @property (strong, nonatomic) NSString *phone;
 
@@ -21,7 +23,9 @@
 
 @property (strong, nonatomic) WLPicture *picture;
 
-- (BOOL)isEqualToPerson:(WLPerson*)person;
+@property (nonatomic) BOOL activated;
+
+- (BOOL)isEqualToPerson:(WLAddressBookPhoneNumber*)person;
 - (NSString *)priorityName;
 - (WLPicture *)priorityPicture;
 

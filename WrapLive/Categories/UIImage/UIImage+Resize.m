@@ -6,6 +6,8 @@
 #import "UIImage+Resize.h"
 #import "UIImage+RoundedCorner.h"
 #import "UIImage+Alpha.h"
+#import "NSObject+NibAdditions.h"
+#import "UIView+Shorthand.h"
 
 @implementation UIImage (Resize)
 

@@ -34,10 +34,9 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="largest"/>
                     </userDefinedRuntimeAttributes>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No comments yet." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1h-W3-cED" customClass="WLLabel">
-                    <rect key="frame" x="25" y="343" width="270" height="30"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No comments yet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1h-W3-cED" customClass="WLLabel">
+                    <rect key="frame" x="25" y="344" width="270" height="29"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="sV0-Rp-LKq"/>
                         <constraint firstAttribute="width" constant="270" id="u3c-tL-bhx"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="21"/>

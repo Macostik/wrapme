@@ -222,8 +222,10 @@
 
 - (void)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
 	
+    NSError *internetConnectionError = [NSError errorWithDescription:
+                                        WLLS(@"Sorry you can't chat when internet connection is unavailable. Please try again later.")];
 	if (![WLNetwork network].reachable) {
-		failure([NSError errorWithDescription:WLLS(@"Internet connection is not reachable.")]);
+		failure(internetConnectionError);
 		return;
 	}
 	
@@ -234,7 +236,7 @@
     [message notifyOnAddition];
 	[message add:success failure:^(NSError *error) {
 		[message remove];
-        failure(error);
+        failure(error.isNetworkError ? internetConnectionError : error);
 	}];
 }
 

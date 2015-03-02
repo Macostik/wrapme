@@ -37,7 +37,7 @@
                 WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
                 return phoneNumber.user == nil;
             }]];
-            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:@"..." addingRule:^BOOL(WLAddressBookRecord *record) {
+            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:nil addingRule:^BOOL(WLAddressBookRecord *record) {
                 WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
                 return (phoneNumber.user && !phoneNumber.activated && ![weakSelf.wrap.contributors containsObject:phoneNumber.user]);
             }]];

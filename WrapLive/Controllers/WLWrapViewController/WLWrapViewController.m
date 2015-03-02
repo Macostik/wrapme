@@ -102,7 +102,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     
     self.history = [WLHistory historyWithWrap:self.wrap];
     self.historyViewSection.entries = self.history;
-    self.timelineDataProvider.timeline = [WLTimeline timelineWithWrap:self.wrap];
     
     [self.dataProvider setRefreshableWithStyle:WLRefresherStyleOrange];
     

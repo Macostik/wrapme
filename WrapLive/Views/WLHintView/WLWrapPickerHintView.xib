@@ -43,6 +43,26 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
                     </userDefinedRuntimeAttributes>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ite-5o-2Vr" customClass="WLButton">
+                    <rect key="frame" x="213" y="143" width="95" height="30"/>
+                    <color key="backgroundColor" red="0.95294117647058818" green="0.45882352941176469" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="95" id="0KO-A2-EPX"/>
+                    </constraints>
+                    <state key="normal" title="Got it">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="hide" destination="i6P-xe-Lyn" eventType="touchUpInside" id="F2n-hO-GQJ"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
@@ -50,18 +70,15 @@
                 <constraint firstItem="1zI-Zd-PEP" firstAttribute="top" secondItem="i6P-xe-Lyn" secondAttribute="top" constant="64" id="Vv3-Zt-wFo"/>
                 <constraint firstItem="INP-a4-pR4" firstAttribute="leading" secondItem="i6P-xe-Lyn" secondAttribute="leading" constant="28" id="ecz-a5-12I"/>
                 <constraint firstItem="INP-a4-pR4" firstAttribute="top" secondItem="i6P-xe-Lyn" secondAttribute="top" constant="96" id="fWg-n1-M9Y"/>
+                <constraint firstItem="ite-5o-2Vr" firstAttribute="leading" secondItem="i6P-xe-Lyn" secondAttribute="leading" constant="213" id="g2c-t8-iG4"/>
+                <constraint firstItem="ite-5o-2Vr" firstAttribute="top" secondItem="i6P-xe-Lyn" secondAttribute="top" constant="143" id="oEG-9v-ZbJ"/>
                 <constraint firstItem="1zI-Zd-PEP" firstAttribute="leading" secondItem="i6P-xe-Lyn" secondAttribute="leading" constant="28" id="qBy-TW-Oga"/>
             </constraints>
             <connections>
-                <outletCollection property="gestureRecognizers" destination="Oof-Pi-jKu" appends="YES" id="4ao-Dc-39c"/>
+                <outlet property="gotItButton" destination="ite-5o-2Vr" id="z9Q-RC-kZW"/>
             </connections>
             <point key="canvasLocation" x="561" y="345"/>
         </view>
-        <tapGestureRecognizer id="Oof-Pi-jKu">
-            <connections>
-                <action selector="hide" destination="i6P-xe-Lyn" id="q1b-1u-JiP"/>
-            </connections>
-        </tapGestureRecognizer>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

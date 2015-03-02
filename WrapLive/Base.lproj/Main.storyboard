@@ -3115,6 +3115,10 @@ Check your internet connection and try again.</string>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bnz-8z-kg3" customClass="WLProgressBar">
+                                        <rect key="frame" x="12" y="12" width="44" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="23" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isn-QR-Jgl" customClass="WLLabel">
                                         <rect key="frame" x="68" y="6" width="240" height="23"/>
                                         <constraints>
@@ -3157,13 +3161,17 @@ Check your internet connection and try again.</string>
                                     <constraint firstItem="DKe-of-CwY" firstAttribute="leading" secondItem="DOa-Ws-aK4" secondAttribute="leading" constant="12" id="3X9-Yi-thp"/>
                                     <constraint firstItem="isn-QR-Jgl" firstAttribute="leading" secondItem="DKe-of-CwY" secondAttribute="trailing" constant="12" id="4II-fa-mOl"/>
                                     <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="width" secondItem="9aV-O1-sMk" secondAttribute="width" id="8Xe-aq-vGl"/>
+                                    <constraint firstItem="DKe-of-CwY" firstAttribute="width" secondItem="Bnz-8z-kg3" secondAttribute="width" id="C5G-mj-DFu"/>
                                     <constraint firstItem="9aV-O1-sMk" firstAttribute="top" secondItem="Dsh-mJ-NAQ" secondAttribute="bottom" id="IS4-fz-gbx"/>
+                                    <constraint firstItem="DKe-of-CwY" firstAttribute="centerX" secondItem="Bnz-8z-kg3" secondAttribute="centerX" id="O9c-Id-0WG"/>
+                                    <constraint firstItem="DKe-of-CwY" firstAttribute="centerY" secondItem="Bnz-8z-kg3" secondAttribute="centerY" id="PxD-HW-fBS"/>
                                     <constraint firstAttribute="height" constant="120" id="Q7b-Sa-Mcr"/>
                                     <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="leading" secondItem="9aV-O1-sMk" secondAttribute="leading" id="cSh-hh-6Zj"/>
                                     <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="top" secondItem="DKe-of-CwY" secondAttribute="bottom" constant="10" id="erp-MP-rQw"/>
                                     <constraint firstAttribute="trailing" secondItem="isn-QR-Jgl" secondAttribute="trailing" constant="12" id="fKM-Jc-Zmg"/>
                                     <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="leading" secondItem="DOa-Ws-aK4" secondAttribute="leading" constant="12" id="otN-X2-WJ4"/>
                                     <constraint firstItem="isn-QR-Jgl" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="top" constant="6" id="uZz-l0-ti7"/>
+                                    <constraint firstItem="DKe-of-CwY" firstAttribute="height" secondItem="Bnz-8z-kg3" secondAttribute="height" id="uw9-1N-uNz"/>
                                     <constraint firstItem="DKe-of-CwY" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="top" constant="12" id="vs5-cV-Y5s"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -3238,6 +3246,7 @@ Check your internet connection and try again.</string>
                         <outlet property="commentButton" destination="2ai-CO-qH0" id="gaJ-nC-R6A"/>
                         <outlet property="lastCommentLabel" destination="isn-QR-Jgl" id="B3Q-Yv-Gsh"/>
                         <outlet property="postLabel" destination="Dsh-mJ-NAQ" id="qz7-Tr-1Dc"/>
+                        <outlet property="progressBar" destination="Bnz-8z-kg3" id="391-Ss-HRL"/>
                         <outlet property="timeLabel" destination="9aV-O1-sMk" id="Q2A-nt-7Se"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="6g0-cf-4Q4"/>
                         <outlet property="topViewConstraint" destination="eku-Sv-U5Q" id="jNT-KU-Zs5"/>

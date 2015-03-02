@@ -29,7 +29,8 @@
 - (IBAction)about:(id)sender {
     NSDictionary* info = [[NSBundle mainBundle] infoDictionary];
     NSString* appName = [info objectForKey:@"CFBundleDisplayName"]?:@"wrapLive";
-    NSString* version = [info objectForKey:(id)kCFBundleVersionKey];
+    NSString* version = [info objectForKey:@"CFBundleShortVersionString"];
+    NSString* build = [info objectForKey:(id)kCFBundleVersionKey];
     NSString *message;
     if ([WLAPIManager instance].environment.isProduction) {
         message = [NSString stringWithFormat:WLLS(@"You are using %@ v%@"), appName,version];
@@ -41,9 +42,7 @@
             [_message appendFormat:@"\nInstalled %@", [lastModif stringWithFormat:@"MMM d, yyyy h:mm:ss"]];
         }
 
-#if CI_BUILD_NUMBER > 0
-        [_message appendFormat:WLLS(@"\nJenkins build number %d"), CI_BUILD_NUMBER];
-#endif
+        [_message appendFormat:WLLS(@"\nJenkins build number %@"), build];
         message = _message;
     }
     [UIAlertView showWithMessage:message];

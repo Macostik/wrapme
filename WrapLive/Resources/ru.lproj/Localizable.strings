@@ -123,3 +123,4 @@
 "1 comment" = "1 комментарий";
 "%i comments" = "%i комментариев";
 "Data is not valid." = "Данные не валидны.";
+"Sorry you can't chat when internet connection is unavailable. Please try again later." = "К сожалению, Вы не можете отправлять сообщения когда нету интернета. Попробуйте немного позже.";

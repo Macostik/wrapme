@@ -11,6 +11,9 @@
 #import "WLNavigation.h"
 #import "NSObject+NibAdditions.h"
 #import "UIView+Shorthand.h"
+#import "WLButton.h"
+#import "UIFont+CustomFonts.h"
+#import "UIColor+CustomColors.h"
 
 @implementation WLHintView 
 
@@ -43,6 +46,8 @@
     hintView.drawing = drawing;
     
     hintView.frame = view.frame;
+    
+    hintView.gotItButton.layer.borderColor = [UIColor WL_grayDark].CGColor;
     
     [view addSubview:hintView];
     
@@ -114,8 +119,6 @@
         transparentPath.lineWidth = 8;
         [transparentPath stroke];
         [transparentPath fillWithBlendMode:kCGBlendModeClear alpha:1.0f];
-        UIImage *image = [UIImage imageNamed:@"gallery_pic_hand"];
-        [image drawInRect:CGRectMake(CGRectGetMaxX(ovalRect), ovalRect.origin.y - image.size.height, image.size.width, image.size.height)];
     }];
 }
 

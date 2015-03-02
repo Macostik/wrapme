@@ -4536,7 +4536,6 @@
 				635DA26797604B1F927001E0 /* Copy Pods Resources */,
 				C52C93AD1965AE470027EF46 /* ShellScript */,
 				5B787DAC1A27876F004AE459 /* Embed App Extensions */,
-				C551BF181A9B4D7700632552 /* Get build number from Jenkins */,
 			);
 			buildRules = (
 			);
@@ -4598,7 +4597,6 @@
 				C54AF54B19B8C437006F7EDB /* Copy Pods Resources */,
 				C54AF54C19B8C437006F7EDB /* ShellScript */,
 				5BA7AF311A481A9500C586CA /* Embed App Extensions */,
-				C551BF191A9B521300632552 /* Get build number from Jenkins */,
 			);
 			buildRules = (
 			);
@@ -4622,7 +4620,6 @@
 				C54AF64819B8C467006F7EDB /* Copy Pods Resources */,
 				C54AF64919B8C467006F7EDB /* Run Script */,
 				5BA7AF351A481A9C00C586CA /* Embed App Extensions */,
-				C5EE8A8F1AA0BEDD004D4910 /* Get build number from Jenkins */,
 			);
 			buildRules = (
 			);
@@ -4646,7 +4643,6 @@
 				C54AF74519B8C491006F7EDB /* Copy Pods Resources */,
 				C54AF74619B8C491006F7EDB /* ShellScript */,
 				5BF1B2551A49B63F000BB2C1 /* Embed App Extensions */,
-				C5EE8A901AA0BEFE004D4910 /* Get build number from Jenkins */,
 			);
 			buildRules = (
 			);
@@ -5358,62 +5354,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Frameworks/Crashlytics.framework/run 69a3b8800317dbff68b803e0aea860a48c73d998";
-		};
-		C551BF181A9B4D7700632552 /* Get build number from Jenkins */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Get build number from Jenkins";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=${CI_BUILD_NUMBER}\nif [ \"$CFBundleVersion\" > \"0\" ]\nthen\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist\nfi\n";
-		};
-		C551BF191A9B521300632552 /* Get build number from Jenkins */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Get build number from Jenkins";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=${CI_BUILD_NUMBER}\nif [ \"$CFBundleVersion\" > \"0\" ]\nthen\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist\nfi\n";
-		};
-		C5EE8A8F1AA0BEDD004D4910 /* Get build number from Jenkins */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Get build number from Jenkins";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=${CI_BUILD_NUMBER}\nif [ \"$CFBundleVersion\" > \"0\" ]\nthen\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist\nfi\n";
-		};
-		C5EE8A901AA0BEFE004D4910 /* Get build number from Jenkins */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Get build number from Jenkins";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "buildPlist=${INFOPLIST_FILE}\nCFBundleVersion=${CI_BUILD_NUMBER}\nif [ \"$CFBundleVersion\" > \"0\" ]\nthen\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" $buildPlist\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -6771,7 +6711,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CI_BUILD_NUMBER = 0;
 				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -6787,7 +6726,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
@@ -6809,7 +6747,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CI_BUILD_NUMBER = 0;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -6826,7 +6763,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
@@ -6932,7 +6868,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CI_BUILD_NUMBER = 0;
 				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -6948,10 +6883,9 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6970,7 +6904,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CI_BUILD_NUMBER = 0;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -6987,10 +6920,9 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7009,7 +6941,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CI_BUILD_NUMBER = 0;
 				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -7025,9 +6956,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7046,7 +6976,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CI_BUILD_NUMBER = 0;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -7063,9 +6992,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7084,7 +7012,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CI_BUILD_NUMBER = 0;
 				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -7100,10 +7027,9 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7122,7 +7048,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CI_BUILD_NUMBER = 0;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -7139,10 +7064,9 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7221,7 +7145,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CI_BUILD_NUMBER = 0;
 				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -7237,7 +7160,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
@@ -7259,7 +7181,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CI_BUILD_NUMBER = 0;
 				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -7275,10 +7196,9 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7297,7 +7217,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CI_BUILD_NUMBER = 0;
 				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -7313,9 +7232,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7334,7 +7252,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CI_BUILD_NUMBER = 0;
 				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -7350,10 +7267,9 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"CI_BUILD_NUMBER=$(CI_BUILD_NUMBER)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

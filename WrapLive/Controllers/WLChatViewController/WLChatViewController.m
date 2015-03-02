@@ -121,7 +121,7 @@ CGFloat WLMaxTextViewWidth;
     if (self.wrap.messages.nonempty) {
         [self refreshMessages:^{
         } failure:^(NSError *error) {
-            [error show];
+            [error showIgnoringNetworkError];
         }];
     }
 	
@@ -204,7 +204,7 @@ CGFloat WLMaxTextViewWidth;
     [self refreshMessages:^{
         [sender setRefreshing:NO animated:YES];
     } failure:^(NSError *error) {
-        [error show];
+        [error showIgnoringNetworkError];
         [sender setRefreshing:NO animated:YES];
     }];
 }
@@ -384,8 +384,12 @@ CGFloat WLMaxTextViewWidth;
             loadingView.error = NO;
             [self appendMessages:^{
             } failure:^(NSError *error) {
-                [error show];
-                loadingView.error = YES;
+                if (!error.isNetworkError) {
+                    [error show];
+                    loadingView.error = YES;
+                } else {
+                    [loadingView hide];
+                }
             }];
         }
         return loadingView;

@@ -6885,7 +6885,7 @@
 					"COCOAPODS=1",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6922,7 +6922,7 @@
 					"COCOAPODS=1",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6957,7 +6957,7 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6993,7 +6993,7 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7029,7 +7029,7 @@
 					"COCOAPODS=1",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7066,7 +7066,7 @@
 					"COCOAPODS=1",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7198,7 +7198,7 @@
 					"COCOAPODS=1",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-QA-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7233,7 +7233,7 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Beta-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7269,7 +7269,7 @@
 					"COCOAPODS=1",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/WrapLive/WrapLive-Production-Info.plist";
+				INFOPLIST_FILE = "WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

@@ -32,7 +32,6 @@
 
 - (void)setProgressBlock:(void (^)(float))progressBlock {
     _progressBlock = progressBlock;
-    if (progressBlock) progressBlock(self.progress);
 }
 
 - (void)setProgressBar:(WLProgressBar *)progressBar {

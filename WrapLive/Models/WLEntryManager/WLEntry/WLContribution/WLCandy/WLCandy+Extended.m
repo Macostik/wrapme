@@ -112,8 +112,8 @@
 
 - (void)uploadComment:(NSString *)text success:(WLCommentBlock)success failure:(WLFailureBlock)failure {
     WLComment* comment = [WLComment comment:text];
-    [self addComment:comment];
     WLUploading* uploading = [WLUploading uploading:comment];
+    [self addComment:comment];
     run_after(0.3f,^{
         [uploading upload:success failure:failure];
     });

@@ -20,19 +20,27 @@ static inline float progressValue(float progress) {
 };
 
 - (void)setContribution:(WLContribution *)contribution {
+    if (!contribution) {
+        self.hidden = YES;
+        return;
+    }
     switch (contribution.status) {
         case WLContributionStatusReady:
         case WLContributionStatusInProgress: {
             self.hidden = NO;
             __weak typeof(self)weakSelf = self;
-            [contribution.uploading.data setProgressBlock:^(float progress) {
+            void (^progressBlock)(float, BOOL) = ^ (float progress, BOOL animated) {
                 progress = progressValue(progress);
-                [weakSelf setProgress:progress animated:YES];
+                [weakSelf setProgress:progress animated:animated];
                 if (progress == 1) {
                     run_after(1.0f, ^{
                         weakSelf.hidden = YES;
                     });
                 }
+            };
+            progressBlock(contribution.uploading.data.progress, NO);
+            [contribution.uploading.data setProgressBlock:^(float progress) {
+                progressBlock(progress, YES);
             }];
         } break;
         case WLContributionStatusUploaded:

@@ -42,6 +42,7 @@
 #import "WLScrollView.h"
 #import "WLIconButton.h"
 #import "WLDeviceOrientationBroadcaster.h"
+#import "WLProgressBar+WLContribution.h"
 
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver, WLDeviceOrientationBroadcastReceiver, WLBroadcastReceiver>
 
@@ -52,6 +53,7 @@
 @property (weak, nonatomic) IBOutlet WLIconButton *actionButton;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
+@property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 
 @property (strong, nonatomic) WLComment *lastComment;
 @property (nonatomic) BOOL scrolledToInitialItem;
@@ -220,6 +222,7 @@
         _lastComment = lastComment;
         self.avatarImageView.url = _lastComment.contributor.picture.small;
         self.lastCommentLabel.text = _lastComment.valid ? _lastComment.text :@"";
+        [self.progressBar setContribution:lastComment];
     }
 }
 

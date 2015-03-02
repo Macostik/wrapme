@@ -21,7 +21,6 @@
 #import "WLEntryManager.h"
 #import "WLMenu.h"
 #import "NSString+Additions.h"
-#import "WLProgressBar+WLContribution.h"
 #import "WLNetwork.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
@@ -36,7 +35,6 @@
 @property (weak, nonatomic) IBOutlet WLImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) WLProgressBar *progressBar;
 @property (weak, nonatomic) IBOutlet WLTextView *commenttextView;
 
 @end
@@ -71,13 +69,6 @@
     }];
 }
 
-- (void)setEntry:(id)entry {
-    if (self.entry != entry) {
-        self.progressBar = nil;
-    }
-    [super setEntry:entry];
-}
-
 - (void)setup:(WLComment *)entry {
 	self.userInteractionEnabled = YES;
     if (entry.unread) entry.unread = NO;
@@ -85,25 +76,6 @@
     [self.commenttextView determineHyperLink:entry.text];
 	self.authorImageView.url = entry.contributor.picture.small;
     self.dateLabel.text = entry.createdAt.timeAgoString;
-    
-    if (entry.status != WLContributionStatusUploaded) {
-        WLUploadingData* uploadingData = entry.uploading.data;
-        WLProgressBar* progressBar = (id)uploadingData.progressBar;
-        if (!progressBar) {
-            uploadingData.progressBar = progressBar = [[WLProgressBar alloc] initWithFrame:self.authorImageView.frame];
-        }
-        self.progressBar = progressBar;
-    }
-}
-
-- (void)setProgressBar:(WLProgressBar *)progressBar {
-    if (progressBar != _progressBar) {
-        [_progressBar removeFromSuperview];
-        if (progressBar) {
-            [self.authorImageView.superview addSubview:progressBar];
-        }
-        _progressBar = progressBar;
-    }
 }
 
 @end

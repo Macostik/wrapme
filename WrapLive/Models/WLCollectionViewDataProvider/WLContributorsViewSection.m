@@ -34,7 +34,7 @@ const static CGFloat WLContributorsHorizontalIndent = 100.0f;
     }];
     CGFloat height = [user.securePhones heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller] width:self.collectionView.width - WLContributorsHorizontalIndent];
     if (self.wrap.contributedByCurrentUser && ![user isCurrentUser] && !activated) {
-        return CGSizeMake(self.collectionView.width, height + WLContributorsVerticalIndent * 2);
+        return CGSizeMake(self.collectionView.width, MAX(height + WLContributorsVerticalIndent, 83));
     } else {
         return CGSizeMake(self.collectionView.width, height + WLContributorsVerticalIndent);
     }

@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *removeButton;
 @property (weak, nonatomic) IBOutlet UIButton *resendInviteButton;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *removeButtonTop;
 
 @end
 
@@ -50,6 +51,7 @@
 - (void)setDeletable:(BOOL)deletable {
 	_deletable = deletable;
     self.removeButton.hidden = !deletable;
+    self.removeButtonTop.constant = deletable ? self.avatarView.y : -self.removeButton.height;
     if (deletable) {
         WLUser *user = self.entry;
         self.resendInviteButton.hidden = [user.devices match:^BOOL(WLDevice *device) {

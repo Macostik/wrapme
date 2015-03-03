@@ -4233,7 +4233,7 @@ Check your internet connection and try again.</string>
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dN-Y5-4Ue" customClass="WLButton">
@@ -4256,7 +4256,7 @@ Check your internet connection and try again.</string>
                                                     </connections>
                                                 </button>
                                                 <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phJ-P1-MdW" customClass="WLButton">
-                                                    <rect key="frame" x="174" y="43" width="136" height="32"/>
+                                                    <rect key="frame" x="174" y="44" width="136" height="32"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                     <state key="normal" title="RESEND INVITE">
@@ -4271,7 +4271,7 @@ Check your internet connection and try again.</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="74C-dE-IMx">
-                                                    <rect key="frame" x="0.0" y="0.0" width="169" height="99"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="169" height="81"/>
                                                     <state key="normal">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -4288,7 +4288,7 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10089969657" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="04J-8C-m9o" customClass="WLLabel">
-                                                    <rect key="frame" x="56" y="24" width="113" height="68"/>
+                                                    <rect key="frame" x="56" y="24" width="113" height="50"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
                                                     <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4311,7 +4311,7 @@ Check your internet connection and try again.</string>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="cOS-kT-Nce">
-                                                    <rect key="frame" x="0.0" y="99" width="320" height="1"/>
+                                                    <rect key="frame" x="0.0" y="81" width="320" height="1"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="8F0-Qe-aRW"/>
                                                         <constraint firstAttribute="width" constant="320" id="c7H-5p-sIr"/>
@@ -4328,7 +4328,7 @@ Check your internet connection and try again.</string>
                                             <constraint firstItem="7dN-Y5-4Ue" firstAttribute="height" secondItem="phJ-P1-MdW" secondAttribute="height" id="6b5-Ef-4A2"/>
                                             <constraint firstItem="7dN-Y5-4Ue" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" constant="6" id="CGt-WC-ngU"/>
                                             <constraint firstItem="74C-dE-IMx" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" id="FLC-6j-jxr"/>
-                                            <constraint firstItem="phJ-P1-MdW" firstAttribute="top" secondItem="7dN-Y5-4Ue" secondAttribute="bottom" constant="5" id="GvJ-lP-pue"/>
+                                            <constraint firstItem="phJ-P1-MdW" firstAttribute="top" secondItem="7dN-Y5-4Ue" secondAttribute="bottom" constant="6" id="GvJ-lP-pue"/>
                                             <constraint firstAttribute="trailing" secondItem="cOS-kT-Nce" secondAttribute="trailing" id="MUo-S0-wk2"/>
                                             <constraint firstItem="04J-8C-m9o" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" constant="56" id="UUr-4f-uic"/>
                                             <constraint firstItem="0uu-KS-up8" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" constant="10" id="V0Q-pE-gUa"/>
@@ -4345,13 +4345,14 @@ Check your internet connection and try again.</string>
                                             <constraint firstAttribute="bottom" secondItem="04J-8C-m9o" secondAttribute="bottom" constant="8" id="ujA-gJ-s8x"/>
                                             <constraint firstItem="4dB-kx-151" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" constant="56" id="yFc-OP-gA6"/>
                                         </constraints>
-                                        <size key="customSize" width="320" height="100"/>
+                                        <size key="customSize" width="320" height="82"/>
                                         <connections>
                                             <outlet property="avatarView" destination="0uu-KS-up8" id="ppX-kF-1t9"/>
                                             <outlet property="delegate" destination="qRW-aK-Lk5" id="XrB-4Q-IO4"/>
                                             <outlet property="nameLabel" destination="4dB-kx-151" id="bZm-jK-3aM"/>
                                             <outlet property="phoneLabel" destination="04J-8C-m9o" id="sHs-rX-2oi"/>
                                             <outlet property="removeButton" destination="7dN-Y5-4Ue" id="vtU-vi-3lO"/>
+                                            <outlet property="removeButtonTop" destination="CGt-WC-ngU" id="Tzs-w7-Lg7"/>
                                             <outlet property="resendInviteButton" destination="phJ-P1-MdW" id="0sR-7l-yCZ"/>
                                         </connections>
                                     </collectionViewCell>

@@ -13,7 +13,7 @@
 #import "WLUpdateContributorsRequest.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLEntryNotifier.h"
-#import "WLUpdateContributorsRequest.h"
+#import "WLResendInviteRequest.h"
 
 @interface WLContributorsViewController () <WLContributorCellDelegate>
 
@@ -33,7 +33,11 @@
 		[self.dataSection setConfigure:^(WLContributorCell *cell, WLUser* contributor) {
 			cell.deletable = ![contributor isCurrentUser];
 		}];
-	}
+    } else {
+        [self.dataSection setConfigure:^(WLContributorCell *cell, WLUser* contributor) {
+            cell.deletable = NO;
+        }];
+    }
     
     UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 44, 0);
     self.dataProvider.collectionView.contentInset = insets;
@@ -59,11 +63,8 @@
 }
 
 - (void)contributorCell:(WLContributorCell *)cell didInviteContributor:(WLUser *)contributor {
-    WLUpdateContributorsRequest *request = [WLUpdateContributorsRequest request:self.wrap];
-    request.isAddContirbutor = YES;
-    WLAddressBookPhoneNumber *phoneNumber = [[WLAddressBookPhoneNumber alloc] init];
-    phoneNumber.phone = [[contributor.devices lastObject] phone];
-    request.contributors = @[phoneNumber];
+    WLResendInviteRequest *request = [WLResendInviteRequest request:self.wrap];
+    request.user = contributor;
     __weak typeof(self)weakSelf = self;
     [request send:^(id object) {
         [weakSelf.dataProvider reload];

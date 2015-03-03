@@ -15,6 +15,7 @@
 
 @optional
 - (void)contributorCell:(WLContributorCell*)cell didRemoveContributor:(WLUser*)contributor;
+- (void)contributorCell:(WLContributorCell*)cell didInviteContributor:(WLUser*)contributor;
 - (BOOL)contributorCell:(WLContributorCell*)cell isCreator:(WLUser*)contributor;
 
 @end

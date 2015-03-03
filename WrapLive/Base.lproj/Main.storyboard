@@ -54,6 +54,8 @@
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
@@ -3437,7 +3439,7 @@ Check your internet connection and try again.</string>
                                             <outlet property="delegate" destination="c4T-N6-79M" id="d0C-46-iAc"/>
                                         </connections>
                                     </collectionView>
-                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="aG1-FG-zzH" customClass="WLComposeBar">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="aG1-FG-zzH" customClass="WLComposeBar">
                                         <rect key="frame" x="0.0" y="414" width="296" height="44"/>
                                         <subviews>
                                             <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdC-me-inT">
@@ -3532,6 +3534,9 @@ Check your internet connection and try again.</string>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="maxLines">
                                                 <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.90588235855102539" green="0.90588235855102539" blue="0.90588235855102539" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -3992,7 +3997,7 @@ Check your internet connection and try again.</string>
                                     <constraint firstItem="AvF-XJ-7eQ" firstAttribute="leading" secondItem="L7B-3N-jdg" secondAttribute="leading" constant="44" id="x3d-hM-exY"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="dQp-Lx-kpC" customClass="WLComposeBar">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="dQp-Lx-kpC" customClass="WLComposeBar">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <subviews>
                                     <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2G-E9-yFD">
@@ -4087,6 +4092,9 @@ Check your internet connection and try again.</string>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="maxLines">
                                         <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.90588235855102539" green="0.90588235855102539" blue="0.90588235855102539" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -4232,24 +4240,45 @@ Check your internet connection and try again.</string>
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dN-Y5-4Ue">
-                                                    <rect key="frame" x="270" y="0.0" width="50" height="49"/>
+                                                <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dN-Y5-4Ue" customClass="WLButton">
+                                                    <rect key="frame" x="174" y="6" width="136" height="32"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="PGv-iX-9Kn"/>
+                                                        <constraint firstAttribute="width" constant="136" id="PGv-iX-9Kn"/>
+                                                        <constraint firstAttribute="height" constant="32" id="gYM-cb-Ohs"/>
                                                     </constraints>
-                                                    <state key="normal" image="ic_delete">
+                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                    <state key="normal" title="REMOVE">
+                                                        <color key="titleColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="remove:" destination="XAQ-cw-yjZ" eventType="touchUpInside" id="FPq-cc-MyL"/>
                                                     </connections>
                                                 </button>
+                                                <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phJ-P1-MdW" customClass="WLButton">
+                                                    <rect key="frame" x="174" y="44" width="136" height="32"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                    <state key="normal" title="RESEND INVITE">
+                                                        <color key="titleColor" red="0.39101129769999998" green="0.39099958540000002" blue="0.39100623130000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="resendInvite:" destination="XAQ-cw-yjZ" eventType="touchUpInside" id="P21-U8-d2O"/>
+                                                    </connections>
+                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="74C-dE-IMx">
-                                                    <rect key="frame" x="0.0" y="0.0" width="270" height="49"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="169" height="81"/>
                                                     <state key="normal">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -4265,8 +4294,8 @@ Check your internet connection and try again.</string>
                                                         <constraint firstAttribute="height" constant="36" id="7p1-G0-BRY"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10089969657" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="04J-8C-m9o" customClass="WLLabel">
-                                                    <rect key="frame" x="56" y="24" width="222" height="18"/>
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10089969657" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="04J-8C-m9o" customClass="WLLabel">
+                                                    <rect key="frame" x="56" y="24" width="113" height="50"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
                                                     <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4276,7 +4305,7 @@ Check your internet connection and try again.</string>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="4dB-kx-151" customClass="WLLabel">
-                                                    <rect key="frame" x="56" y="5" width="222" height="19"/>
+                                                    <rect key="frame" x="56" y="5" width="113" height="19"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="19" id="Rew-H1-gZa"/>
@@ -4289,7 +4318,7 @@ Check your internet connection and try again.</string>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="cOS-kT-Nce">
-                                                    <rect key="frame" x="0.0" y="49" width="320" height="1"/>
+                                                    <rect key="frame" x="0.0" y="81" width="320" height="1"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="8F0-Qe-aRW"/>
                                                         <constraint firstAttribute="width" constant="320" id="c7H-5p-sIr"/>
@@ -4298,34 +4327,40 @@ Check your internet connection and try again.</string>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="0uu-KS-up8" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" constant="6" id="2Nd-B9-axd"/>
                                             <constraint firstAttribute="bottom" secondItem="74C-dE-IMx" secondAttribute="bottom" constant="1" id="2tG-ez-7fv"/>
                                             <constraint firstAttribute="bottom" secondItem="cOS-kT-Nce" secondAttribute="bottom" id="5xb-Gs-cIa"/>
-                                            <constraint firstAttribute="bottom" secondItem="7dN-Y5-4Ue" secondAttribute="bottom" constant="1" id="6jU-wT-cnY"/>
-                                            <constraint firstAttribute="trailing" secondItem="4dB-kx-151" secondAttribute="trailing" constant="42" id="74g-Lq-9Dw"/>
-                                            <constraint firstAttribute="trailing" secondItem="74C-dE-IMx" secondAttribute="trailing" constant="50" id="Ak3-Mi-3eT"/>
-                                            <constraint firstItem="7dN-Y5-4Ue" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" id="CGt-WC-ngU"/>
+                                            <constraint firstItem="7dN-Y5-4Ue" firstAttribute="height" secondItem="phJ-P1-MdW" secondAttribute="height" id="6b5-Ef-4A2"/>
+                                            <constraint firstItem="7dN-Y5-4Ue" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" constant="6" id="CGt-WC-ngU"/>
                                             <constraint firstItem="74C-dE-IMx" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" id="FLC-6j-jxr"/>
+                                            <constraint firstItem="phJ-P1-MdW" firstAttribute="top" secondItem="7dN-Y5-4Ue" secondAttribute="bottom" constant="6" id="GvJ-lP-pue"/>
                                             <constraint firstAttribute="trailing" secondItem="cOS-kT-Nce" secondAttribute="trailing" id="MUo-S0-wk2"/>
                                             <constraint firstItem="04J-8C-m9o" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" constant="56" id="UUr-4f-uic"/>
                                             <constraint firstItem="0uu-KS-up8" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" constant="10" id="V0Q-pE-gUa"/>
+                                            <constraint firstItem="7dN-Y5-4Ue" firstAttribute="trailing" secondItem="phJ-P1-MdW" secondAttribute="trailing" id="WZd-ku-MH2"/>
+                                            <constraint firstItem="7dN-Y5-4Ue" firstAttribute="width" secondItem="phJ-P1-MdW" secondAttribute="width" id="bZr-AF-5xT"/>
+                                            <constraint firstItem="7dN-Y5-4Ue" firstAttribute="leading" secondItem="4dB-kx-151" secondAttribute="trailing" constant="5" id="btU-3g-QXL"/>
                                             <constraint firstItem="04J-8C-m9o" firstAttribute="top" secondItem="4dB-kx-151" secondAttribute="bottom" id="d98-lz-Ez6"/>
-                                            <constraint firstAttribute="trailing" secondItem="04J-8C-m9o" secondAttribute="trailing" constant="42" id="dbf-yh-NXy"/>
-                                            <constraint firstAttribute="trailing" secondItem="7dN-Y5-4Ue" secondAttribute="trailing" id="gF2-6O-ZkD"/>
+                                            <constraint firstAttribute="trailing" secondItem="7dN-Y5-4Ue" secondAttribute="trailing" constant="10" id="gF2-6O-ZkD"/>
+                                            <constraint firstItem="7dN-Y5-4Ue" firstAttribute="leading" secondItem="74C-dE-IMx" secondAttribute="trailing" constant="5" id="o6I-AI-xDd"/>
+                                            <constraint firstItem="7dN-Y5-4Ue" firstAttribute="leading" secondItem="04J-8C-m9o" secondAttribute="trailing" constant="5" id="oRr-Y1-2A5"/>
                                             <constraint firstItem="0uu-KS-up8" firstAttribute="top" secondItem="4dB-kx-151" secondAttribute="top" constant="1" id="pAr-yT-Ncu"/>
                                             <constraint firstItem="cOS-kT-Nce" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="pee-xE-MGh"/>
                                             <constraint firstItem="74C-dE-IMx" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="qao-xV-BA4"/>
                                             <constraint firstAttribute="bottom" secondItem="04J-8C-m9o" secondAttribute="bottom" constant="8" id="ujA-gJ-s8x"/>
                                             <constraint firstItem="4dB-kx-151" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" constant="56" id="yFc-OP-gA6"/>
                                         </constraints>
-                                        <size key="customSize" width="320" height="50"/>
+                                        <size key="customSize" width="320" height="82"/>
                                         <connections>
                                             <outlet property="avatarView" destination="0uu-KS-up8" id="ppX-kF-1t9"/>
                                             <outlet property="delegate" destination="qRW-aK-Lk5" id="XrB-4Q-IO4"/>
                                             <outlet property="nameLabel" destination="4dB-kx-151" id="bZm-jK-3aM"/>
                                             <outlet property="phoneLabel" destination="04J-8C-m9o" id="sHs-rX-2oi"/>
                                             <outlet property="removeButton" destination="7dN-Y5-4Ue" id="vtU-vi-3lO"/>
+                                            <outlet property="removeButtonTop" destination="CGt-WC-ngU" id="Tzs-w7-Lg7"/>
+                                            <outlet property="resendInviteButton" destination="phJ-P1-MdW" id="0sR-7l-yCZ"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -4453,7 +4488,6 @@ Check your internet connection and try again.</string>
         <image name="ic_back_in_circle_white" width="30" height="30"/>
         <image name="ic_check" width="22" height="22"/>
         <image name="ic_default_profile" width="148" height="148"/>
-        <image name="ic_delete" width="16" height="16"/>
         <image name="ic_emoji" width="26" height="26"/>
         <image name="ic_emoji_keyboard" width="30" height="18"/>
         <image name="ic_history_enabled" width="34" height="31"/>

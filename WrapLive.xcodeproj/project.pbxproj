@@ -667,6 +667,10 @@
 		C53CA3C51A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
 		C53CA3C61A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
 		C53CA3C71A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
+		C53E49031AA5C3C7003BA073 /* WLResendInviteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E49021AA5C3C7003BA073 /* WLResendInviteRequest.m */; };
+		C53E49041AA5C3CB003BA073 /* WLResendInviteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E49021AA5C3C7003BA073 /* WLResendInviteRequest.m */; };
+		C53E49051AA5C3CC003BA073 /* WLResendInviteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E49021AA5C3C7003BA073 /* WLResendInviteRequest.m */; };
+		C53E49061AA5C3CC003BA073 /* WLResendInviteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E49021AA5C3C7003BA073 /* WLResendInviteRequest.m */; };
 		C53E5CE81A84D876004F61B0 /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5CE71A84D876004F61B0 /* WLUserView.m */; };
 		C53E5CE91A84D876004F61B0 /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5CE71A84D876004F61B0 /* WLUserView.m */; };
 		C53E5CEA1A84D876004F61B0 /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5CE71A84D876004F61B0 /* WLUserView.m */; };
@@ -2022,6 +2026,8 @@
 		C53BC05F19F9315F0031249E /* WLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLogger.h; path = WLAPIManager/WLLogger.h; sourceTree = "<group>"; };
 		C53CA3C21A97412C00E9234F /* WLUploadPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUploadPhotoViewController.h; sourceTree = "<group>"; };
 		C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploadPhotoViewController.m; sourceTree = "<group>"; };
+		C53E49011AA5C3C7003BA073 /* WLResendInviteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLResendInviteRequest.h; path = WLAPIManager/WLAPIRequest/WLResendInviteRequest.h; sourceTree = "<group>"; };
+		C53E49021AA5C3C7003BA073 /* WLResendInviteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLResendInviteRequest.m; path = WLAPIManager/WLAPIRequest/WLResendInviteRequest.m; sourceTree = "<group>"; };
 		C53E5CE61A84D876004F61B0 /* WLUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUserView.h; sourceTree = "<group>"; };
 		C53E5CE71A84D876004F61B0 /* WLUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUserView.m; sourceTree = "<group>"; };
 		C53E5CEC1A84D886004F61B0 /* WLWrapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapView.h; sourceTree = "<group>"; };
@@ -3693,6 +3699,8 @@
 				C5215DFA19C32CB80012AE10 /* WLEntityRequest.m */,
 				C55C8D7A19C9A56400199245 /* WLResendConfirmationRequest.h */,
 				C55C8D7B19C9A56400199245 /* WLResendConfirmationRequest.m */,
+				C53E49011AA5C3C7003BA073 /* WLResendInviteRequest.h */,
+				C53E49021AA5C3C7003BA073 /* WLResendInviteRequest.m */,
 				5BBBEB4B19D983FA008CFE54 /* WLLeaveWrapRequest.h */,
 				5BBBEB4C19D983FA008CFE54 /* WLLeaveWrapRequest.m */,
 				C54F1B201A2F1D4300F40372 /* WLVerificationCallRequest.h */,
@@ -5496,6 +5504,7 @@
 				121907B6192CFF3F00E7C22D /* WLAuthorization.m in Sources */,
 				5BA60CEF1A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */,
 				5BA60C7F1A8257ED000F795C /* NSObject+AssociatedObjects.m in Sources */,
+				C53E49031AA5C3C7003BA073 /* WLResendInviteRequest.m in Sources */,
 				C5C20BCD1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
 				128886B118DC90E000957B22 /* WLArchivingObject.m in Sources */,
 				C50AF40C19768ADE00761F38 /* WLAuthorizationRequest.m in Sources */,
@@ -5793,6 +5802,7 @@
 				C54AF4B819B8C437006F7EDB /* WLAuthorization.m in Sources */,
 				5BA60CF01A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */,
 				5BA60C801A8257ED000F795C /* NSObject+AssociatedObjects.m in Sources */,
+				C53E49041AA5C3CB003BA073 /* WLResendInviteRequest.m in Sources */,
 				C5C20BCE1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
 				C54AF4BA19B8C437006F7EDB /* WLArchivingObject.m in Sources */,
 				C54AF4BB19B8C437006F7EDB /* WLAuthorizationRequest.m in Sources */,
@@ -6060,6 +6070,7 @@
 				C54AF5B519B8C467006F7EDB /* WLAuthorization.m in Sources */,
 				5BA60CF11A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */,
 				5BA60C811A8257ED000F795C /* NSObject+AssociatedObjects.m in Sources */,
+				C53E49051AA5C3CC003BA073 /* WLResendInviteRequest.m in Sources */,
 				C5C20BCF1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
 				C54AF5B719B8C467006F7EDB /* WLArchivingObject.m in Sources */,
 				C54AF5B819B8C467006F7EDB /* WLAuthorizationRequest.m in Sources */,
@@ -6327,6 +6338,7 @@
 				C54AF6B219B8C491006F7EDB /* WLAuthorization.m in Sources */,
 				5BA60CF21A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */,
 				5BA60C821A8257ED000F795C /* NSObject+AssociatedObjects.m in Sources */,
+				C53E49061AA5C3CC003BA073 /* WLResendInviteRequest.m in Sources */,
 				C5C20BD01A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
 				C54AF6B419B8C491006F7EDB /* WLArchivingObject.m in Sources */,
 				C54AF6B519B8C491006F7EDB /* WLAuthorizationRequest.m in Sources */,

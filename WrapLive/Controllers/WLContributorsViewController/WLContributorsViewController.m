@@ -13,6 +13,7 @@
 #import "WLUpdateContributorsRequest.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLEntryNotifier.h"
+#import "WLResendInviteRequest.h"
 
 @interface WLContributorsViewController () <WLContributorCellDelegate>
 
@@ -27,12 +28,16 @@
     [super viewDidLoad];
     self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap properties:[NSSet setWithObject:[WLOrderedSetEditSessionProperty property:@"removedContributors"]]];
     // Do any additional setup after loading the view.
-    
+    self.dataSection.wrap = self.wrap;
 	if (self.wrap.contributedByCurrentUser) {
 		[self.dataSection setConfigure:^(WLContributorCell *cell, WLUser* contributor) {
 			cell.deletable = ![contributor isCurrentUser];
 		}];
-	}
+    } else {
+        [self.dataSection setConfigure:^(WLContributorCell *cell, WLUser* contributor) {
+            cell.deletable = NO;
+        }];
+    }
     
     UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 44, 0);
     self.dataProvider.collectionView.contentInset = insets;
@@ -55,6 +60,17 @@
     }];
     [[self.dataSection.entries entries] removeObject:contributor];
     [self.dataSection reload];
+}
+
+- (void)contributorCell:(WLContributorCell *)cell didInviteContributor:(WLUser *)contributor {
+    WLResendInviteRequest *request = [WLResendInviteRequest request:self.wrap];
+    request.user = contributor;
+    __weak typeof(self)weakSelf = self;
+    [request send:^(id object) {
+        [weakSelf.dataProvider reload];
+    } failure:^(NSError *error) {
+        [error show];
+    }];
 }
 
 - (BOOL)contributorCell:(WLContributorCell *)cell isCreator:(WLUser *)contributor {

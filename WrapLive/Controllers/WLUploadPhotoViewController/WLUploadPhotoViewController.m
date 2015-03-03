@@ -9,6 +9,9 @@
 #import "WLUploadPhotoViewController.h"
 #import <AviarySDK/AviarySDK.h>
 #import "WLNavigationAnimator.h"
+#import "NSString+Additions.h"
+#import "UIView+Shorthand.h"
+#import "UIView+AnimationHelper.h"
 
 @interface WLUploadPhotoViewController () <AFPhotoEditorControllerDelegate>
 
@@ -53,6 +56,7 @@
 }
 
 - (IBAction)done:(id)sender {
+    [self.view endEditing:YES];
     if (self.completionBlock) self.completionBlock(self.image, self.textView.text);
 }
 
@@ -74,7 +78,7 @@
 }
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
-    return keyboardHeight/2;
+    return keyboardHeight/4;
 }
 
 @end

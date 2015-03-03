@@ -3438,7 +3438,7 @@ Check your internet connection and try again.</string>
                                             <outlet property="delegate" destination="c4T-N6-79M" id="d0C-46-iAc"/>
                                         </connections>
                                     </collectionView>
-                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="aG1-FG-zzH" customClass="WLComposeBar">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="aG1-FG-zzH" customClass="WLComposeBar">
                                         <rect key="frame" x="0.0" y="414" width="296" height="44"/>
                                         <subviews>
                                             <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdC-me-inT">
@@ -3533,6 +3533,9 @@ Check your internet connection and try again.</string>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="maxLines">
                                                 <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.90588235855102539" green="0.90588235855102539" blue="0.90588235855102539" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -3993,7 +3996,7 @@ Check your internet connection and try again.</string>
                                     <constraint firstItem="AvF-XJ-7eQ" firstAttribute="leading" secondItem="L7B-3N-jdg" secondAttribute="leading" constant="44" id="x3d-hM-exY"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="dQp-Lx-kpC" customClass="WLComposeBar">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="dQp-Lx-kpC" customClass="WLComposeBar">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <subviews>
                                     <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2G-E9-yFD">
@@ -4088,6 +4091,9 @@ Check your internet connection and try again.</string>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="maxLines">
                                         <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.90588235855102539" green="0.90588235855102539" blue="0.90588235855102539" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>

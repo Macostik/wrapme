@@ -27,11 +27,10 @@
     CGAffineTransform toStartTransform;
     CGAffineTransform fromEndTransform;
     CGAffineTransform toEndTransform;
-    
+    fromViewController.view.userInteractionEnabled = toViewController.view.userInteractionEnabled = NO;
     if (self.presenting) {
-        fromViewController.view.userInteractionEnabled = NO;
-        toViewController.view.frame = fromViewController.view.frame;
         
+        toViewController.view.frame = fromViewController.view.frame;
         [transitionContext.containerView addSubview:fromViewController.view];
         [transitionContext.containerView addSubview:toViewController.view];
         if (toViewController.animatorPresentationType == WLNavigationAnimatorPresentationTypeModal) {
@@ -46,7 +45,6 @@
             fromEndTransform = CGAffineTransformMakeScale(0.8, 0.8);
         }
     } else {
-        toViewController.view.userInteractionEnabled = YES;
         [transitionContext.containerView addSubview:toViewController.view];
         [transitionContext.containerView addSubview:fromViewController.view];
         if (fromViewController.animatorPresentationType == WLNavigationAnimatorPresentationTypeModal) {
@@ -71,6 +69,7 @@
         fromViewController.view.transform = CGAffineTransformIdentity;
         toViewController.view.transform = CGAffineTransformIdentity;
         [transitionContext completeTransition:YES];
+        fromViewController.view.userInteractionEnabled = toViewController.view.userInteractionEnabled = YES;
     }];
 }
 

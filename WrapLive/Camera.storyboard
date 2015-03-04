@@ -67,7 +67,7 @@
                                             <outletCollection property="gestureRecognizers" destination="lNU-oZ-hbO" appends="YES" id="oC3-9S-ZMv"/>
                                         </connections>
                                     </view>
-                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To allow access to the camera go to the Settings → Privacy → Camera" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwv-dz-I8C" customClass="WLLabel">
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="To allow access to the camera go to the Settings → Privacy → Camera" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwv-dz-I8C" customClass="WLLabel">
                                         <rect key="frame" x="10" y="193" width="300" height="41"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
@@ -689,8 +689,8 @@
                                     <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                         <size key="value" width="16" height="16"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="close"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="larger"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="ios7CloseEmpty"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="large"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -710,8 +710,8 @@
                                     <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                         <size key="value" width="16" height="16"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="check"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="larger"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="ios7CheckmarkEmpty"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="large"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>

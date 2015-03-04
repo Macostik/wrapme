@@ -29,6 +29,7 @@
 #import "WLLaunchScreenViewController.h"
 #import "AsynchronousOperation.h"
 #import "WLSignupFlowViewController.h"
+#import "WLUploadingQueue.h"
 
 @interface WLAppDelegate () <iVersionDelegate>
 
@@ -133,7 +134,7 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [WLUploading enqueueAutomaticUploading];
+    [WLUploadingQueue start];
 }
 
 
@@ -182,7 +183,7 @@
     }];
     
     [queue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
-        [WLUploading enqueueAutomaticUploading:^{
+        [WLUploadingQueue start:^{
             [operation finish:^{
                 completionHandler(UIBackgroundFetchResultNoData);
             }];

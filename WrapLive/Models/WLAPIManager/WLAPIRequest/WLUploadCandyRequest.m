@@ -9,6 +9,7 @@
 #import "WLUploadCandyRequest.h"
 #import "WLImageCache.h"
 #import "WLEntryNotifier.h"
+#import "WLUploadingQueue.h"
 
 @implementation WLUploadCandyRequest
 
@@ -48,8 +49,11 @@
         [[WLImageCache cache] setImageAtPath:oldPicture.small withUrl:newPicture.small];
         [[WLImageCache cache] setImageAtPath:oldPicture.large withUrl:newPicture.large];
         candy.wrap.updatedAt = candy.updatedAt;
-        
- 		[candy performSelector:@selector(enqueueUnuploadedComments) withObject:nil afterDelay:0.0f];
+        if ([candy.comments match:^BOOL(WLComment *comment) {
+            return comment.status == WLContributionStatusReady;
+        }]) {
+            [[WLUploadingQueue queueForEntriesOfClass:[WLComment class]] prepareAndStart];
+        }
         return candy;
     }
     return nil;

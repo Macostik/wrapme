@@ -12,10 +12,6 @@
 
 + (instancetype)uploading:(WLContribution*)contribution;
 
-+ (void)enqueueAutomaticUploading:(WLBlock)completion;
-
-+ (void)enqueueAutomaticUploading;
-
 - (id)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 @end

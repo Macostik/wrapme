@@ -9,6 +9,7 @@
 #import "WLAuthorizationRequest.h"
 #import "WLWelcomeViewController.h"
 #import "WLNavigation.h"
+#import "WLUploadingQueue.h"
 
 @implementation WLAuthorizationRequest
 
@@ -91,7 +92,7 @@ static BOOL authorized = NO;
     } else if (self.step == WLAuthorizationStepSignIn) {
         if (!authorized) {
             authorized = YES;
-            [WLUploading enqueueAutomaticUploading:^{ }];
+            [WLUploadingQueue start];
         }
         id pageSize = [response.data objectForKey:@"pagination_fetch_size"];
         if (pageSize) {

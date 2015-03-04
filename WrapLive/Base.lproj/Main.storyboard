@@ -92,6 +92,7 @@
         </mutableArray>
         <mutableArray key="OpenSans-Semibold.ttf">
             <string>OpenSans-Semibold</string>
+            <string>OpenSans-Semibold</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1448,11 +1449,60 @@
                                     <action selector="addPhoto:" destination="L91-fZ-J9O" eventType="touchUpInside" id="3Ca-tV-RCv"/>
                                 </connections>
                             </button>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IWZ-KR-48g" customClass="WLUploadingView">
+                                <rect key="frame" x="268" y="519" width="44" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1RC-4W-wDl" customClass="WLIconButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="arrowUpA"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hw2-sP-LBk" customClass="WLLabel">
+                                        <rect key="frame" x="3" y="24" width="38" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="ufx-u4-PEc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="11"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xsmall"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="1RC-4W-wDl" firstAttribute="top" secondItem="IWZ-KR-48g" secondAttribute="top" id="0VU-Nk-dRo"/>
+                                    <constraint firstAttribute="trailing" secondItem="hw2-sP-LBk" secondAttribute="trailing" constant="3" id="2KQ-NJ-g2U"/>
+                                    <constraint firstItem="1RC-4W-wDl" firstAttribute="leading" secondItem="IWZ-KR-48g" secondAttribute="leading" id="Guu-SP-DZx"/>
+                                    <constraint firstAttribute="width" constant="44" id="Jnn-C4-ulg"/>
+                                    <constraint firstAttribute="height" constant="44" id="VKN-nF-MQD"/>
+                                    <constraint firstAttribute="trailing" secondItem="1RC-4W-wDl" secondAttribute="trailing" id="hU7-yv-fz6"/>
+                                    <constraint firstItem="hw2-sP-LBk" firstAttribute="leading" secondItem="IWZ-KR-48g" secondAttribute="leading" constant="3" id="wXa-QL-tGp"/>
+                                    <constraint firstAttribute="bottom" secondItem="1RC-4W-wDl" secondAttribute="bottom" id="yrv-aB-EjN"/>
+                                    <constraint firstAttribute="bottom" secondItem="hw2-sP-LBk" secondAttribute="bottom" id="zfA-tW-9Pa"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="arrowIcon" destination="1RC-4W-wDl" id="70b-gW-9dJ"/>
+                                    <outlet property="countLabel" destination="hw2-sP-LBk" id="DNE-Ow-uoV"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="IWZ-KR-48g" secondAttribute="trailing" constant="8" id="2IU-L1-Bv1"/>
                             <constraint firstAttribute="centerX" secondItem="eam-qO-REB" secondAttribute="centerX" id="3hQ-KI-JoY"/>
                             <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="eam-qO-REB" secondAttribute="bottom" constant="4" id="EPw-hT-f3u"/>
+                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="IWZ-KR-48g" secondAttribute="bottom" constant="5" id="OXa-QZ-kTi"/>
                             <constraint firstItem="Qcq-LH-ZNY" firstAttribute="bottom" secondItem="9Rl-cW-5hv" secondAttribute="bottom" constant="108" id="ZK0-p3-ckA"/>
                             <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="y7O-GH-Q4Y" secondAttribute="bottom" id="ZdV-Xu-BQB"/>
                             <constraint firstAttribute="trailing" secondItem="9Rl-cW-5hv" secondAttribute="trailing" id="a0D-I9-wse"/>
@@ -1475,6 +1525,7 @@
                         <outlet property="notificationsLabel" destination="2L6-nO-etl" id="5XW-mo-EXZ"/>
                         <outlet property="section" destination="fHn-3G-fGW" id="Wch-lJ-dd2"/>
                         <outlet property="topConstraint" destination="ZK0-p3-ckA" id="XgM-Tn-Wqx"/>
+                        <outlet property="uploadingView" destination="IWZ-KR-48g" id="KrJ-sE-ftu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfT-C3-6mj" userLabel="First Responder" sceneMemberID="firstResponder"/>

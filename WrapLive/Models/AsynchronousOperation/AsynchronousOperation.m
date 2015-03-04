@@ -110,6 +110,7 @@
     NSOperationQueue *queue = [queues objectForKey:identifier];
     if (!queue) {
         queue = queues[identifier] = [[NSOperationQueue alloc] init];
+        queue.name = identifier;
     }
     queue.maxConcurrentOperationCount = count;
     return queue;
@@ -119,17 +120,9 @@
     return [self queueWithIdentifier:identifier count:NSOperationQueueDefaultMaxConcurrentOperationCount];
 }
 
-+ (AsynchronousOperation*)addAsynchronousOperationToQueueWithIdentifier:(NSString*)queueIdentifier operationIdentifier:(NSString*)operationIdentifier block:(void (^)(AsynchronousOperation* operation))block {
-    return [[self queueWithIdentifier:queueIdentifier] addAsynchronousOperation:operationIdentifier block:block];
-}
-
-+ (AsynchronousOperation*)addAsynchronousOperationToQueueWithIdentifier:(NSString*)queueIdentifier block:(void (^)(AsynchronousOperation* operation))block {
-    return [[self queueWithIdentifier:queueIdentifier] addAsynchronousOperationWithBlock:block];
-}
-
 - (AsynchronousOperation *)addAsynchronousOperation:(NSString *)identifier block:(void (^)(AsynchronousOperation *))block {
     AsynchronousOperation* operation = [[AsynchronousOperation alloc] initWithQueue:self block:block];
-    operation.identifier = identifier;
+    operation.name = identifier;
     [self addOperation:operation];
     return operation;
 }
@@ -138,9 +131,9 @@
 	return [self addAsynchronousOperation:nil block:block];
 }
 
-- (BOOL)containsAsynchronousOperation:(NSString *)identifier {
+- (BOOL)containsOperationNamed:(NSString *)name {
     for (AsynchronousOperation* operation in self.operations) {
-        if ([operation isKindOfClass:[AsynchronousOperation class]] && [[operation identifier] isEqualToString:identifier]) {
+        if ([[operation name] isEqualToString:name]) {
             return YES;
         }
     }

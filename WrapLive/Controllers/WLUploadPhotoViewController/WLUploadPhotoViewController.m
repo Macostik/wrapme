@@ -78,7 +78,7 @@
 }
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
-    return keyboardHeight/4;
+    return (self.view.height - keyboardHeight)/2 + keyboardHeight - 230;
 }
 
 @end

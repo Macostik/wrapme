@@ -32,11 +32,7 @@ typedef void (^AsynchronousOperationBlock)(AsynchronousOperation* operation);
 
 + (instancetype)queueNamed:(NSString*)name count:(NSUInteger)count;
 
-- (AsynchronousOperation*)addAsynchronousOperation:(NSString*)name block:(AsynchronousOperationBlock)block;
-
 - (AsynchronousOperation*)addAsynchronousOperationWithBlock:(AsynchronousOperationBlock)block;
-
-- (BOOL)containsOperationNamed:(NSString*)name;
 
 @end
 

@@ -129,24 +129,10 @@
     return [self queueNamed:name count:NSOperationQueueDefaultMaxConcurrentOperationCount];
 }
 
-- (AsynchronousOperation *)addAsynchronousOperation:(NSString *)identifier block:(void (^)(AsynchronousOperation *))block {
+- (AsynchronousOperation *)addAsynchronousOperationWithBlock:(AsynchronousOperationBlock)block {
     AsynchronousOperation* operation = [[AsynchronousOperation alloc] initWithQueue:self block:block];
-    operation.name = identifier;
     [self addOperation:operation];
     return operation;
-}
-
-- (AsynchronousOperation*)addAsynchronousOperationWithBlock:(void (^)(AsynchronousOperation *operation))block {
-	return [self addAsynchronousOperation:nil block:block];
-}
-
-- (BOOL)containsOperationNamed:(NSString *)name {
-    for (AsynchronousOperation* operation in self.operations) {
-        if ([[operation name] isEqualToString:name]) {
-            return YES;
-        }
-    }
-    return NO;
 }
 
 @end

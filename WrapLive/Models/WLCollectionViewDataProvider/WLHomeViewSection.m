@@ -14,8 +14,6 @@
 
 @interface WLHomeViewSection ()
 
-@property (strong, nonatomic) NSOperationQueue *loadingQueue;
-
 @end
 
 @implementation WLHomeViewSection
@@ -32,25 +30,15 @@
     }
 }
 
-- (NSOperationQueue *)loadingQueue {
-    if (!_loadingQueue) {
-        _loadingQueue = [[NSOperationQueue alloc] init];
-        _loadingQueue.maxConcurrentOperationCount = 1;
-    }
-    return _loadingQueue;
-}
-
 - (void)fetchTopWrapIfNeeded:(WLWrap*)wrap {
     if ([wrap.candies count] < WLHomeTopWrapCandiesLimit) {
-        [self.loadingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
-            run_in_main_queue(^{
-                [wrap fetch:WLWrapContentTypeRecent success:^(NSOrderedSet* candies) {
-                    [operation finish];
-                } failure:^(NSError *error) {
-                    [operation finish];
-                }];
-            });
-        }];
+        runUnaryAsynchronousOperation(@"wl_top_wrap_fetch_queue",^(AsynchronousOperation *operation) {
+            [wrap fetch:WLWrapContentTypeRecent success:^(NSOrderedSet* candies) {
+                [operation finish];
+            } failure:^(NSError *error) {
+                [operation finish];
+            }];
+        });
     }
 }
 

@@ -12,12 +12,21 @@
 
 @property (copy, nonatomic) void (^operationBlock) (AsynchronousOperation *operation);
 
+@property (strong, nonatomic) NSTimer* timer;
+
 @end
 
 @implementation AsynchronousOperation
 {
 	BOOL executing;
 	BOOL finished;
+}
+
+- (void)setTimer:(NSTimer *)timer {
+    if (_timer) {
+        [_timer invalidate];
+    }
+    _timer = timer;
 }
 
 - (id)initWithQueue:(NSOperationQueue *)queue block:(void (^)(AsynchronousOperation *))block {
@@ -56,11 +65,11 @@
 	[self didChangeValueForKey:@"isExecuting"];
     
 	if (self.operationBlock) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(finish) object:nil];
-        [self performSelector:@selector(finish) withObject:nil afterDelay:45];
 		__weak typeof(self)weakSelf = self;
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            weakSelf.timer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(finish) userInfo:nil repeats:NO];
             weakSelf.operationBlock(weakSelf);
+            weakSelf.operationBlock = nil;
         }];
 	} else {
 		[self finish];
@@ -76,7 +85,7 @@
 }
 
 - (void)finish {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(finish) object:nil];
+    [self.timer invalidate];
     
 	[self willChangeValueForKey:@"isExecuting"];
 	[self willChangeValueForKey:@"isFinished"];
@@ -104,20 +113,20 @@
 
 @implementation NSOperationQueue (PGAsynchronousOperation)
 
-+ (instancetype)queueWithIdentifier:(NSString*)identifier count:(NSUInteger)count {
++ (instancetype)queueNamed:(NSString*)name count:(NSUInteger)count {
     static NSMutableDictionary *queues = nil;
     if (!queues) queues = [NSMutableDictionary dictionary];
-    NSOperationQueue *queue = [queues objectForKey:identifier];
+    NSOperationQueue *queue = [queues objectForKey:name];
     if (!queue) {
-        queue = queues[identifier] = [[NSOperationQueue alloc] init];
-        queue.name = identifier;
+        queue = queues[name] = [[NSOperationQueue alloc] init];
+        queue.name = name;
     }
     queue.maxConcurrentOperationCount = count;
     return queue;
 }
 
-+ (instancetype)queueWithIdentifier:(NSString *)identifier {
-    return [self queueWithIdentifier:identifier count:NSOperationQueueDefaultMaxConcurrentOperationCount];
++ (instancetype)queueNamed:(NSString *)name {
+    return [self queueNamed:name count:NSOperationQueueDefaultMaxConcurrentOperationCount];
 }
 
 - (AsynchronousOperation *)addAsynchronousOperation:(NSString *)identifier block:(void (^)(AsynchronousOperation *))block {

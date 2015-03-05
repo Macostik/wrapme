@@ -137,11 +137,6 @@
 }
 
 - (void)save {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayedSave) object:nil];
-    [self performSelector:@selector(delayedSave) withObject:nil afterDelay:0.1];
-}
-
-- (void)delayedSave {
     if ([self.context hasChanges] && self.coordinator.persistentStores.nonempty) {
         NSError* error = nil;
         [self.context save:&error];

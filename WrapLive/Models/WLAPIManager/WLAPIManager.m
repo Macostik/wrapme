@@ -174,7 +174,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
                                         if (success) success(object);
                                     } failure:failure];
                                 } else if (failure) {
-                                    failure(nil);
+                                    failure([NSError errorWithDescription:@"Action cancelled" code:WLErrorActionCancelled]);
                                 }
                             }];
             

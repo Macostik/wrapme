@@ -54,6 +54,7 @@
 #import "WLPickerViewController.h"
 #import "UIFont+CustomFonts.h"
 #import "WLHintView.h"
+#import "WLNetwork.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
     WLWrapViewModeTimeline,
@@ -110,6 +111,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [[WLWrap notifier] addReceiver:self];
 	[[WLCandy notifier] addReceiver:self];
 	[[WLMessage notifier] addReceiver:self];
+    [[WLNetwork network] addReceiver:self];
     
     [self.historyViewSection setSelection:^ (id entry) {
         [entry present];
@@ -324,6 +326,12 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
         } completion:^(BOOL finished) {
         }];
     }
+}
+
+#pragma mark - WLNetwork 
+
+- (void)networkDidChangeReachability:(WLNetwork *)network {
+    [self.historyViewSection reload];
 }
 
 @end

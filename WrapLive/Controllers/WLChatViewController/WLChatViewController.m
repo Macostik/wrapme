@@ -384,12 +384,7 @@ CGFloat WLMaxTextViewWidth;
             loadingView.error = NO;
             [self appendMessages:^{
             } failure:^(NSError *error) {
-                if (!error.isNetworkError) {
-                    [error show];
-                    loadingView.error = YES;
-                } else {
-                    [loadingView hide];
-                }
+                [error showIgnoringNetworkError];
             }];
         }
         return loadingView;
@@ -424,7 +419,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    if (section != WLChatLoadingSection || self.chat.completed) return CGSizeZero;
+    if (section != WLChatLoadingSection || self.chat.completed || ![WLNetwork network].reachable) return CGSizeZero;
     return CGSizeMake(collectionView.width, WLLoadingViewDefaultSize);
 }
 

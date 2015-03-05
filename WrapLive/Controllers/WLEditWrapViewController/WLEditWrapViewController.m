@@ -60,11 +60,16 @@ static NSString *const WLLeave = @"Leave";
     if (self.wrap.deletable) {
         [self.wrap remove:^(id object) {
             weakSelf.deleteButton.loading = NO;
-             [WLToast showWithMessage:WLLS(@"Wrap was deleted successfully.")];
+            [WLToast showWithMessage:WLLS(@"Wrap was deleted successfully.")];
             [weakSelf dismissViewControllerAnimated:NO completion:nil];
         } failure:^(NSError *error) {
-            [error show];
-            weakSelf.deleteButton.loading = NO;
+            if ([error isError:WLErrorActionCancelled]) {
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                weakSelf.deleteButton.loading = NO;
+            } else {
+                [error show];
+                weakSelf.deleteButton.loading = NO;
+            }
         }];
     } else {
         [self.wrap leave:^(id object) {
@@ -72,8 +77,13 @@ static NSString *const WLLeave = @"Leave";
             [weakSelf dismissViewControllerAnimated:NO completion:nil];
             weakSelf.deleteButton.loading = NO;
         } failure:^(NSError *error) {
-            [error show];
-            weakSelf.deleteButton.loading = NO;
+            if ([error isError:WLErrorActionCancelled]) {
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                weakSelf.deleteButton.loading = NO;
+            } else {
+                [error show];
+                weakSelf.deleteButton.loading = NO;
+            }
         }];
     }
 }

@@ -70,7 +70,7 @@
         </swipeGestureRecognizer>
     </objects>
     <resources>
-        <image name="candy_screen_pic_hand_swipe" width="178" height="194"/>
+        <image name="candy_screen_pic_hand_swipe" width="119" height="192"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

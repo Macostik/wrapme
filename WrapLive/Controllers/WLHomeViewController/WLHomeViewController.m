@@ -50,11 +50,8 @@
 #import "WLRemoteObjectHandler.h"
 #import "WLPickerViewController.h"
 #import "WLEditWrapViewController.h"
-
-BOOL isPresentHomeViewController;
-
-static NSString *const WLTimeLineKey = @"WLTimeLineKey";
-static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
+#import "WLUploadingView.h"
+#import "WLUploadingQueue.h"
 
 @interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate>
 
@@ -65,6 +62,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
+@property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
 
 @property (strong, nonatomic) WLWrap* chatSegueWrap;
 
@@ -110,6 +108,8 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     if (wraps.nonempty) {
         [section refresh];
     }
+    
+    self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -118,6 +118,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];
     [WLRemoteObjectHandler sharedObject].isLoaded = [self isViewLoaded];
+    [self.uploadingView update];
 }
 
 - (void)updateEmailConfirmationView:(BOOL)animated {

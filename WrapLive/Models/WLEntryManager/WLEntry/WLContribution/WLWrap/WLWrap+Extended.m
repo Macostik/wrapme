@@ -17,6 +17,7 @@
 #import "WLAPIResponse.h"
 #import "WLNetwork.h"
 #import "NSDate+Additions.h"
+#import "WLUploadingQueue.h"
 
 @implementation WLWrap (Extended)
 
@@ -248,7 +249,7 @@
         comment.isFirst = YES;
         candy.comments = [NSMutableOrderedSet orderedSetWithObject:comment];
     }
-    [[WLUploading uploading:candy] upload:success failure:failure];
+    [WLUploadingQueue upload:[WLUploading uploading:candy] success:success failure:failure];
 }
 
 - (void)uploadPicture:(WLPicture *)picture {

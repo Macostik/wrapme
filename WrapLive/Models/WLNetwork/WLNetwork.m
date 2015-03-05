@@ -12,6 +12,7 @@
 #import "WLAPIManager.h"
 #import "WLAuthorizationRequest.h"
 #import <AFNetworking/AFNetworkReachabilityManager.h>
+#import "WLUploadingQueue.h"
 
 @implementation WLNetwork
 
@@ -38,8 +39,7 @@
             [weakSelf broadcast:@selector(networkDidChangeReachability:)];
             if (weakSelf.reachable) {
                 if ([WLAuthorizationRequest authorized]) {
-                    [WLUploading enqueueAutomaticUploading:^{
-                    }];
+                    [WLUploadingQueue start];
                 } else {
                     [[WLAuthorizationRequest signInRequest] send];
                 }

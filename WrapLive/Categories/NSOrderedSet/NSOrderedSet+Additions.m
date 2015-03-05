@@ -110,7 +110,7 @@
 	return nil;
 }
 
-- (NSOrderedSet *)selectObjects:(SelectBlock)block {
+- (instancetype)selectObjects:(SelectBlock)block {
 	return [self map:^id(id item) {
 		return block(item) ? item : nil;
 	}];

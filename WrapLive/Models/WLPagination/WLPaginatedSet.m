@@ -56,7 +56,7 @@
 
 - (void)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
-    if ([self.loadingQueue containsAsynchronousOperation:@"fresh"]) return;
+    if ([self.loadingQueue containsOperationNamed:@"fresh"]) return;
     [self.loadingQueue addAsynchronousOperation:@"fresh" block:^(AsynchronousOperation *operation) {
         weakSelf.request.type = WLPaginatedRequestTypeFresh;
         [weakSelf send:operation success:success failure:failure];
@@ -65,7 +65,7 @@
 
 - (void)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
-    if ([self.loadingQueue containsAsynchronousOperation:@"newer"]) return;
+    if ([self.loadingQueue containsOperationNamed:@"newer"]) return;
     [self.loadingQueue addAsynchronousOperation:@"newer" block:^(AsynchronousOperation *operation) {
         weakSelf.request.type = WLPaginatedRequestTypeNewer;
         [weakSelf send:operation success:success failure:failure];
@@ -74,7 +74,7 @@
 
 - (void)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
-    if ([self.loadingQueue containsAsynchronousOperation:@"older"]) return;
+    if ([self.loadingQueue containsOperationNamed:@"older"]) return;
     [self.loadingQueue addAsynchronousOperation:@"older" block:^(AsynchronousOperation *operation) {
         weakSelf.request.type = WLPaginatedRequestTypeOlder;
         [weakSelf send:operation success:success failure:failure];

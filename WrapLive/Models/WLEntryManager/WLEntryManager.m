@@ -166,7 +166,7 @@
 
 + (NSEntityDescription *)entity {
     static char *WLEntityDescriptionKey = "WLEntityDescriptionKey";
-    NSEntityDescription* entity = objc_getAssociatedObject(self, WLEntityDescriptionKey);
+    NSEntityDescription *entity = objc_getAssociatedObject(self, WLEntityDescriptionKey);
     if (!entity) {
         entity = [NSEntityDescription entityForName:NSStringFromClass(self) inManagedObjectContext:[WLEntryManager manager].context];
         objc_setAssociatedObject(self, WLEntityDescriptionKey, entity, OBJC_ASSOCIATION_RETAIN);

@@ -24,8 +24,6 @@ static NSInteger WLCandyTypeImage = 10;
 
 - (void)uploadComment:(NSString *)text success:(WLCommentBlock)success failure:(WLFailureBlock)failure;
 
-- (void)enqueueUnuploadedComments;
-
 - (void)download:(WLBlock)success failure:(WLFailureBlock)failure;
 
 @end

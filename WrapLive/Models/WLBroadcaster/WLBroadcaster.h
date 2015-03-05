@@ -18,16 +18,15 @@
 
 typedef BOOL (^WLBroadcastSelectReceiver)(id receiver, id object);
 
-@interface WLBroadcaster : NSObject {
-@protected
-    BOOL broadcasting;
-}
+@interface WLBroadcaster : NSObject
 
 @property (strong, nonatomic, readonly) NSHashTable* receivers;
 
 + (instancetype)broadcaster;
 
 - (instancetype)initWithReceiver:(id)receiver;
+
+- (NSArray*)sortedReceivers;
 
 - (void)setup;
 

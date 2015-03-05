@@ -13,6 +13,7 @@
 #import "WLImageCache.h"
 #import "UIImage+Drawing.h"
 #import "WLImageFetcher.h"
+#import "WLUploadingQueue.h"
 
 @implementation WLCandy (Extended)
 
@@ -115,7 +116,7 @@
     WLUploading* uploading = [WLUploading uploading:comment];
     [self addComment:comment];
     run_after(0.3f,^{
-        [uploading upload:success failure:failure];
+        [WLUploadingQueue upload:uploading success:success failure:failure];
     });
 }
 
@@ -135,15 +136,6 @@
     if (containingEntry && self.wrap != containingEntry) {
         self.wrap = (id)containingEntry;
     }
-}
-
-- (void)enqueueUnuploadedComments {
-    [self.comments enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(WLComment* comment, NSUInteger idx, BOOL *stop) {
-        if (comment.status == WLContributionStatusReady) {
-            [WLUploading enqueueAutomaticUploading];
-            *stop = YES;
-        }
-    }];
 }
 
 - (void)download:(WLBlock)success failure:(WLFailureBlock)failure {

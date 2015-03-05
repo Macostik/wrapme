@@ -46,7 +46,7 @@
 
 - (void)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
-    runUnaryAsynchronousOperation(@"wl_pagination_queue",^(AsynchronousOperation *operation) {
+    runUnaryAsynchronousOperation(@"wl_fetching_data_queue",^(AsynchronousOperation *operation) {
         if (weakSelf) {
             weakSelf.request.type = WLPaginatedRequestTypeFresh;
             [weakSelf send:operation success:success failure:failure];
@@ -58,7 +58,7 @@
 
 - (void)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
-    runUnaryAsynchronousOperation(@"wl_pagination_queue",^(AsynchronousOperation *operation) {
+    runUnaryAsynchronousOperation(@"wl_fetching_data_queue",^(AsynchronousOperation *operation) {
         if (weakSelf) {
             weakSelf.request.type = WLPaginatedRequestTypeNewer;
             [weakSelf send:operation success:success failure:failure];
@@ -70,7 +70,7 @@
 
 - (void)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
-    runUnaryAsynchronousOperation(@"wl_pagination_queue",^(AsynchronousOperation *operation) {
+    runUnaryAsynchronousOperation(@"wl_fetching_data_queue",^(AsynchronousOperation *operation) {
         if (weakSelf) {
             weakSelf.request.type = WLPaginatedRequestTypeOlder;
             [weakSelf send:operation success:success failure:failure];

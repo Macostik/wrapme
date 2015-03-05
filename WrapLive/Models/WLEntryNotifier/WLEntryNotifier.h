@@ -63,6 +63,14 @@
 
 + (instancetype)notifier:(Class)entryClass;
 
++ (void)beginBatchUpdates;
+
++ (void)commitBatchUpdates;
+
+- (void)beginBatchUpdates;
+
+- (void)commitBatchUpdates;
+
 - (void)notifyOnAddition:(WLEntry*)entry;
 
 - (void)notifyOnUpdate:(WLEntry*)entry;

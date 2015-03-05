@@ -16,6 +16,8 @@
 #import "WLUser+Extended.h"
 #import "WLComposeBar.h"
 
+static CGFloat WLHeightCoposeBarConstrain = 132.0;
+
 @interface WLUploadPhotoViewController () <AFPhotoEditorControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -32,7 +34,9 @@
     // Do any additional setup after loading the view.
     self.imageView.image = self.image;
     
-    self.textView.hidden = self.mode == WLStillPictureModeSquare;
+    if (self.mode == WLStillPictureModeSquare) {
+        [self.composeBar removeFromSuperview];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -88,7 +92,7 @@
 }
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
-    return CGRectGetMidY(self.composeBar.frame) - (self.view.height - keyboardHeight)/2;
+    return self.view.height - WLHeightCoposeBarConstrain - CGRectGetMaxY(self.editButton.frame) - (self.view.height - keyboardHeight)/2;
 }
 
 @end

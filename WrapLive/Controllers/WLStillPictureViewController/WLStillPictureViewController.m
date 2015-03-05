@@ -233,7 +233,7 @@
     queue.maxConcurrentOperationCount = 3;
     NSMutableArray* pictures = [NSMutableArray array];
     for (ALAsset* asset in assets) {
-        [queue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+        runAsynchronousOperation(@"wl_still_picture_queue",3,^(AsynchronousOperation *operation) {
             [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
                 [WLPicture picture:croppedImage mode:weakSelf.mode completion:^(id object) {
                     [pictures addObject:object];
@@ -247,7 +247,7 @@
                     }];
                 }];
             }];
-        }];
+        });
     }
 }
 

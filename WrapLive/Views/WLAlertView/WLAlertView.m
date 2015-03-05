@@ -7,13 +7,11 @@
 //
 
 #import "WLAlertView.h"
-#import "UIAlertController+Blocks.h"
-#import "UIAlertView+Blocks.h"
 #import "UIDevice+SystemVersion.h"
 
 @implementation WLAlertView
 
-+ (void)showWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons completion:(id)completion {
++ (void)showWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons completion:(WLAlertViewCompletion)completion {
     Class alertClass = SystemVersionGreaterThanOrEqualTo8() ? [UIAlertController class] : [UIAlertView class];
     [alertClass showWithTitle:title message:message buttons:buttons completion:completion];
 }

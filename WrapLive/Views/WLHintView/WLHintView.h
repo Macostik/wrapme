@@ -35,4 +35,8 @@ typedef void (^WLHintViewDrawing)(CGContextRef ctx, CGRect rect);
 
 + (BOOL)showWrapPickerHintViewInView:(UIView *)view withFocusPoint:(CGPoint)focusPoint;
 
++ (BOOL)showInviteHintViewInView:(UIView *)view withFocusToView:(UIView *)target;
+
++ (BOOL)showEditWrapHintViewInView:(UIView *)view withFocusToView:(UIView *)target;
+
 @end

@@ -88,7 +88,7 @@ static BOOL signedIn = NO;
         return nil;
     } else {
         __weak typeof(self)weakSelf = self;
-        [[NSOperationQueue queueWithIdentifier:@"entry_fetching" count:3] addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+        runAsynchronousOperation(@"entry_fetching", 3, ^(AsynchronousOperation *operation) {
             [weakSelf fetch:^(id object) {
                 [operation finish];
                 if (success) success(object);
@@ -96,7 +96,7 @@ static BOOL signedIn = NO;
                 [operation finish];
                 if (failure) failure(error);
             }];
-        }];
+        });
         return nil;
     }
 }

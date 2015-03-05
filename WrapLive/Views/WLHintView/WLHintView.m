@@ -113,13 +113,30 @@
 + (BOOL)showWrapPickerHintViewInView:(UIView *)view withFocusPoint:(CGPoint)focusPoint {
     return [self showHintViewFromNibNamed:@"WLWrapPickerHintView" inView:view drawing:^(CGContextRef ctx, CGRect rect) {
         CGFloat size = 196;
-        CGRect ovalRect = CGRectMake(focusPoint.x - size/2.0f, focusPoint.y - size/2.0f, size, size);
-        UIBezierPath *transparentPath = [UIBezierPath bezierPathWithOvalInRect:ovalRect];
-        [[UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:1.000] setStroke];
-        transparentPath.lineWidth = 8;
-        [transparentPath stroke];
-        [transparentPath fillWithBlendMode:kCGBlendModeClear alpha:1.0f];
+        [self toDrawOvalInRect:CGRectMake(focusPoint.x - size/2.0f, focusPoint.y - size/2.0f, size, size)];
     }];
+}
+
++ (BOOL)showInviteHintViewInView:(UIView *)view withFocusToView:(UIView *)target {
+    return [self showHintViewFromNibNamed:@"WLInviteHintView" inView:view drawing:^(CGContextRef ctx, CGRect rect) {
+        CGFloat size = MAX(target.width, target.height);
+        [self toDrawOvalInRect:CGRectMake(target.center.x - size/2.0f, 86 - size/2.0f, size, size)];
+    }];
+}
+
++ (BOOL)showEditWrapHintViewInView:(UIView *)view withFocusToView:(UIView *)target {
+    return [self showHintViewFromNibNamed:@"WLEditWrapHintView" inView:view drawing:^(CGContextRef ctx, CGRect rect) {
+        CGFloat size = MAX(target.width, target.height) + 20;
+        [self toDrawOvalInRect:CGRectMake(target.center.x - size/2.0f, target.center.y - size/2.0f, size, size)];
+    }];
+}
+
++ (void)toDrawOvalInRect:(CGRect)bounds {
+    UIBezierPath *transparentPath = [UIBezierPath bezierPathWithOvalInRect:bounds];
+    [[UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:1.000] setStroke];
+    transparentPath.lineWidth = 8;
+    [transparentPath stroke];
+    [transparentPath fillWithBlendMode:kCGBlendModeClear alpha:1.0f];
 }
 
 @end

@@ -67,7 +67,7 @@
                                             <outletCollection property="gestureRecognizers" destination="lNU-oZ-hbO" appends="YES" id="oC3-9S-ZMv"/>
                                         </connections>
                                     </view>
-                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="To allow access to the camera go to the Settings → Privacy → Camera" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwv-dz-I8C" customClass="WLLabel">
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To allow access to the camera go to the Settings → Privacy → Camera" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwv-dz-I8C" customClass="WLLabel">
                                         <rect key="frame" x="10" y="193" width="300" height="41"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
@@ -736,6 +736,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="composeBar" destination="1eI-Kn-Fei" id="s01-yU-gnO"/>
+                        <outlet property="editButton" destination="Y8K-4d-qnf" id="oTP-XH-rNh"/>
                         <outlet property="imageView" destination="PoG-ED-My6" id="ZAJ-M7-0af"/>
                         <outlet property="textView" destination="zXf-UJ-Qz9" id="Jgp-Fp-GtZ"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="qod-dd-RRF" id="5ZN-xX-6LC"/>

@@ -96,9 +96,8 @@
 }
 
 - (void)refresh:(WLRefresher*)sender {
-    NSOperationQueue *refreshingQueue = [[NSOperationQueue alloc] init];
     for (WLCollectionViewSection* section in _sections) {
-        [refreshingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+        runAsynchronousOperation(@"wl_refreshing_queue", 3, ^(AsynchronousOperation *operation) {
             [section refresh:^(NSOrderedSet *orderedSet) {
                 [operation finish:^{
                     [sender setRefreshing:NO animated:YES];
@@ -109,7 +108,7 @@
                     [error showIgnoringNetworkError];
                 }];
             }];
-        }];
+        });
     }
 }
 

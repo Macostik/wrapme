@@ -142,14 +142,18 @@
 		5BA4F8891A1CD61900DB1A25 /* WLContributorsViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4F8871A1CD61900DB1A25 /* WLContributorsViewSection.m */; };
 		5BA4F88A1A1CD61900DB1A25 /* WLContributorsViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4F8871A1CD61900DB1A25 /* WLContributorsViewSection.m */; };
 		5BA4F88B1A1CD61900DB1A25 /* WLContributorsViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA4F8871A1CD61900DB1A25 /* WLContributorsViewSection.m */; };
+		5BA51C961AA495C200B9714A /* WLInviteHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA51C951AA495C100B9714A /* WLInviteHintView.xib */; };
+		5BA51C971AA495C200B9714A /* WLInviteHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA51C951AA495C100B9714A /* WLInviteHintView.xib */; };
+		5BA51C981AA495C200B9714A /* WLInviteHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA51C951AA495C100B9714A /* WLInviteHintView.xib */; };
+		5BA51C991AA495C200B9714A /* WLInviteHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA51C951AA495C100B9714A /* WLInviteHintView.xib */; };
+		5BA51C9B1AA49F0200B9714A /* WLEditWrapHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA51C9A1AA49F0200B9714A /* WLEditWrapHintView.xib */; };
+		5BA51C9C1AA49F0200B9714A /* WLEditWrapHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA51C9A1AA49F0200B9714A /* WLEditWrapHintView.xib */; };
+		5BA51C9D1AA49F0200B9714A /* WLEditWrapHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA51C9A1AA49F0200B9714A /* WLEditWrapHintView.xib */; };
+		5BA51C9E1AA49F0200B9714A /* WLEditWrapHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA51C9A1AA49F0200B9714A /* WLEditWrapHintView.xib */; };
 		5BA60C5F1A8257ED000F795C /* ALAssetsLibrary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFA1A8257ED000F795C /* ALAssetsLibrary+Additions.m */; };
 		5BA60C601A8257ED000F795C /* ALAssetsLibrary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFA1A8257ED000F795C /* ALAssetsLibrary+Additions.m */; };
 		5BA60C611A8257ED000F795C /* ALAssetsLibrary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFA1A8257ED000F795C /* ALAssetsLibrary+Additions.m */; };
 		5BA60C621A8257ED000F795C /* ALAssetsLibrary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFA1A8257ED000F795C /* ALAssetsLibrary+Additions.m */; };
-		5BA60C631A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig in Resources */ = {isa = PBXBuildFile; fileRef = 5BA60BFB1A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig */; };
-		5BA60C641A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig in Resources */ = {isa = PBXBuildFile; fileRef = 5BA60BFB1A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig */; };
-		5BA60C651A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig in Resources */ = {isa = PBXBuildFile; fileRef = 5BA60BFB1A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig */; };
-		5BA60C661A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig in Resources */ = {isa = PBXBuildFile; fileRef = 5BA60BFB1A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig */; };
 		5BA60C671A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */; };
 		5BA60C681A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */; };
 		5BA60C691A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */; };
@@ -1716,9 +1720,10 @@
 		5BA4CC171A08FB4300D7F31C /* WLPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPickerViewController.xib; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewController.xib; sourceTree = "<group>"; };
 		5BA4F8861A1CD61900DB1A25 /* WLContributorsViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLContributorsViewSection.h; path = WLCollectionViewDataProvider/WLContributorsViewSection.h; sourceTree = "<group>"; };
 		5BA4F8871A1CD61900DB1A25 /* WLContributorsViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLContributorsViewSection.m; path = WLCollectionViewDataProvider/WLContributorsViewSection.m; sourceTree = "<group>"; };
+		5BA51C951AA495C100B9714A /* WLInviteHintView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLInviteHintView.xib; sourceTree = "<group>"; };
+		5BA51C9A1AA49F0200B9714A /* WLEditWrapHintView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLEditWrapHintView.xib; sourceTree = "<group>"; };
 		5BA60BF91A8257ED000F795C /* ALAssetsLibrary+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+Additions.h"; sourceTree = "<group>"; };
 		5BA60BFA1A8257ED000F795C /* ALAssetsLibrary+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+Additions.m"; sourceTree = "<group>"; };
-		5BA60BFB1A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ALAssetsLibrary+Additions.m.orig"; sourceTree = "<group>"; };
 		5BA60BFD1A8257ED000F795C /* MFMailComposeViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MFMailComposeViewController+Additions.h"; sourceTree = "<group>"; };
 		5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MFMailComposeViewController+Additions.m"; sourceTree = "<group>"; };
 		5BA60C001A8257ED000F795C /* NSArray+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Additions.h"; sourceTree = "<group>"; };
@@ -3155,7 +3160,6 @@
 			children = (
 				5BA60BF91A8257ED000F795C /* ALAssetsLibrary+Additions.h */,
 				5BA60BFA1A8257ED000F795C /* ALAssetsLibrary+Additions.m */,
-				5BA60BFB1A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig */,
 			);
 			path = ALAssetsLibrary;
 			sourceTree = "<group>";
@@ -4266,6 +4270,8 @@
 				C568D8D41A6D491800C2333B /* WLHintView.h */,
 				C568D8D51A6D491800C2333B /* WLHintView.m */,
 				C514AA541A6D618700A562CE /* WLWrapPickerHintView.xib */,
+				5BA51C951AA495C100B9714A /* WLInviteHintView.xib */,
+				5BA51C9A1AA49F0200B9714A /* WLEditWrapHintView.xib */,
 				C514AA591A6D61DF00A562CE /* WLCandySwipeHintView.xib */,
 			);
 			path = WLHintView;
@@ -4799,7 +4805,6 @@
 				5BA6AA501A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				C54F4B2F1A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */,
 				C54AF85F19B8C622006F7EDB /* WLTestUsersQA.plist in Resources */,
-				5BA60C631A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig in Resources */,
 				C54F4B331A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
 				129654F518E1CB3000FF43F6 /* WLInputAccessoryView.xib in Resources */,
@@ -4842,6 +4847,7 @@
 				C57005D21A1FA19C007257A6 /* chat_bubble_red_left@3x.png in Resources */,
 				5B2199FF1A66C94600D131C3 /* WLWrapOptionsViewController.xib in Resources */,
 				C54AF86019B8C622006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
+				5BA51C961AA495C200B9714A /* WLInviteHintView.xib in Resources */,
 				ACF8D9161934B44D0001E570 /* rings.plist in Resources */,
 				C514AA5A1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
 				C55EE76A1A9F529600EE0EA3 /* wrapLive.entitlements in Resources */,
@@ -4867,6 +4873,7 @@
 				C514AA551A6D618700A562CE /* WLWrapPickerHintView.xib in Resources */,
 				5BA6AA421A66779D00493582 /* Localizable.strings in Resources */,
 				12D578C719178C3400586995 /* iTunesArtwork in Resources */,
+				5BA51C9B1AA49F0200B9714A /* WLEditWrapHintView.xib in Resources */,
 				C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4916,7 +4923,6 @@
 				C5E4CCF61A1BA38800B449F8 /* s03.wav in Resources */,
 				5BF583411A1F984200922BD5 /* ic_quote.png in Resources */,
 				C54AF87819B8C63E006F7EDB /* WLTestUsersProduction.plist in Resources */,
-				5BA60C641A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig in Resources */,
 				C54F4B301A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */,
 				C54F4B341A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				5BA406851A8CC52B00C1749F /* WLToast.xib in Resources */,
@@ -4958,6 +4964,7 @@
 				5B219A001A66C94600D131C3 /* WLWrapOptionsViewController.xib in Resources */,
 				5BF583431A1F984200922BD5 /* ic_quote@3x.png in Resources */,
 				C54AF54019B8C437006F7EDB /* numbers.plist in Resources */,
+				5BA51C971AA495C200B9714A /* WLInviteHintView.xib in Resources */,
 				C54AF87919B8C63E006F7EDB /* WLTestUsersQA.plist in Resources */,
 				C514AA5B1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
 				C55EE76B1A9F529700EE0EA3 /* wrapLive.entitlements in Resources */,
@@ -4983,6 +4990,7 @@
 				5BA6AA431A66779D00493582 /* Localizable.strings in Resources */,
 				5BF583421A1F984200922BD5 /* ic_quote@2x.png in Resources */,
 				C54AF54A19B8C437006F7EDB /* WLSplashLoadingView.xib in Resources */,
+				5BA51C9C1AA49F0200B9714A /* WLEditWrapHintView.xib in Resources */,
 				C57005D71A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5002,7 +5010,6 @@
 				C5E4CCF71A1BA38800B449F8 /* s03.wav in Resources */,
 				5BF583441A1F984200922BD5 /* ic_quote.png in Resources */,
 				C54AF87C19B8C63E006F7EDB /* WLTestUsersProduction.plist in Resources */,
-				5BA60C651A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig in Resources */,
 				C54F4B311A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */,
 				C54F4B351A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				5BA406861A8CC52B00C1749F /* WLToast.xib in Resources */,
@@ -5044,6 +5051,7 @@
 				5B219A011A66C94600D131C3 /* WLWrapOptionsViewController.xib in Resources */,
 				5BF583461A1F984200922BD5 /* ic_quote@3x.png in Resources */,
 				C54AF63D19B8C467006F7EDB /* numbers.plist in Resources */,
+				5BA51C981AA495C200B9714A /* WLInviteHintView.xib in Resources */,
 				C54AF87D19B8C63E006F7EDB /* WLTestUsersQA.plist in Resources */,
 				C514AA5C1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
 				C55EE76C1A9F529700EE0EA3 /* wrapLive.entitlements in Resources */,
@@ -5069,6 +5077,7 @@
 				5BA6AA441A66779E00493582 /* Localizable.strings in Resources */,
 				5BF583451A1F984200922BD5 /* ic_quote@2x.png in Resources */,
 				C54AF64719B8C467006F7EDB /* WLSplashLoadingView.xib in Resources */,
+				5BA51C9D1AA49F0200B9714A /* WLEditWrapHintView.xib in Resources */,
 				C57005D81A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5088,7 +5097,6 @@
 				C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */,
 				5BF583471A1F984200922BD5 /* ic_quote.png in Resources */,
 				C54AF88019B8C63F006F7EDB /* WLTestUsersProduction.plist in Resources */,
-				5BA60C661A8257ED000F795C /* ALAssetsLibrary+Additions.m.orig in Resources */,
 				C54F4B321A28BC9E00B92982 /* chat_bubble_tail_red.png in Resources */,
 				C54F4B361A28BC9E00B92982 /* chat_bubble_tail_red@2x.png in Resources */,
 				5BA406871A8CC52B00C1749F /* WLToast.xib in Resources */,
@@ -5130,6 +5138,7 @@
 				5B219A021A66C94600D131C3 /* WLWrapOptionsViewController.xib in Resources */,
 				5BF583491A1F984200922BD5 /* ic_quote@3x.png in Resources */,
 				C54AF73A19B8C491006F7EDB /* numbers.plist in Resources */,
+				5BA51C991AA495C200B9714A /* WLInviteHintView.xib in Resources */,
 				C54AF88119B8C63F006F7EDB /* WLTestUsersQA.plist in Resources */,
 				C514AA5D1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
 				C55EE76D1A9F529700EE0EA3 /* wrapLive.entitlements in Resources */,
@@ -5155,6 +5164,7 @@
 				5BA6AA451A66779E00493582 /* Localizable.strings in Resources */,
 				5BF583481A1F984200922BD5 /* ic_quote@2x.png in Resources */,
 				C54AF74419B8C491006F7EDB /* WLSplashLoadingView.xib in Resources */,
+				5BA51C9E1AA49F0200B9714A /* WLEditWrapHintView.xib in Resources */,
 				C57005D91A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

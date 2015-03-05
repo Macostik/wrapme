@@ -146,6 +146,8 @@ static NSTimeInterval _difference = 0;
         if (self.failureBlock) {
             if (error.code != NSURLErrorCancelled) {
                 self.failureBlock(error);
+            } else {
+                NSLog(@"sdfdsf");
             }
             self.failureBlock = nil;
             self.successBlock = nil;

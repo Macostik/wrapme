@@ -196,6 +196,8 @@ static NSUInteger WLAssetNumberOfColumns = 4;
                 [self.selectedAssets removeObject:asset];
             } else if (self.selectedAssets.count < WLAssetsSelectionLimit) {
                 [self.selectedAssets addObject:asset];
+            } else {
+                [WLToast showWithMessage:WLLS(@"Sorry, you cannot upload more than 10 pictures at a time")];
             }
             [UIView beginAnimations:nil context:nil];
             [UIView setAnimationBeginsFromCurrentState:YES];

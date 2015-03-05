@@ -54,14 +54,13 @@
 
 + (void)start:(WLBlock)completion {
     NSArray *queues = [self allQueues];
-    NSOperationQueue *mainUploadingQueue = [NSOperationQueue queueWithIdentifier:@"wl_main_uploading_queue" count:1];
     for (WLUploadingQueue *queue in queues) {
         [queue prepare];
-        [mainUploadingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+        runUnaryAsynchronousOperation(@"wl_main_uploading_queue", ^(AsynchronousOperation *operation) {
             [queue start:^{
                 [operation finish:completion];
             }];
-        }];
+        });
     }
 }
 
@@ -98,13 +97,13 @@
     } else {
         __weak typeof(self)weakSelf = self;
         for (WLUploading* uploading in self.uploadings) {
-            [[NSOperationQueue queueWithIdentifier:self.queueName count:3] addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+            runAsynchronousOperation(self.queueName, 3, ^(AsynchronousOperation *operation) {
                 [weakSelf internalUpload:uploading success:^(id object) {
                     [operation finish:completion];
                 } failure:^(NSError *error) {
                     [operation finish:completion];
                 }];
-            }];
+            });
         }
     }
 }
@@ -146,13 +145,15 @@
 - (void)upload:(WLUploading*)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [self addUploading:uploading];
-    [[NSOperationQueue queueWithIdentifier:self.queueName count:3] addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+    runAsynchronousOperation(self.queueName, 3, ^(AsynchronousOperation *operation) {
         [weakSelf internalUpload:uploading success:^(id object) {
             [operation finish];
+            if (success) success(object);
         } failure:^(NSError *error) {
             [operation finish];
+            if (failure) failure(error);
         }];
-    }];
+    });
 }
 
 - (BOOL)isEmpty {

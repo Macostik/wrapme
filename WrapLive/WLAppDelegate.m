@@ -163,9 +163,7 @@
         return;
     }
     
-    NSOperationQueue *queue = [NSOperationQueue queueWithIdentifier:@"background_fetch"];
-    
-    [queue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+    runDefaultAsynchronousOperations (@"background_fetch", ^(AsynchronousOperation *operation) {
         [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
             if (hasChanges) {
                 UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
@@ -180,15 +178,13 @@
                 completionHandler(hasChanges ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
             }];
         }];
-    }];
-    
-    [queue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+    }, ^(AsynchronousOperation *operation) {
         [WLUploadingQueue start:^{
             [operation finish:^{
                 completionHandler(UIBackgroundFetchResultNoData);
             }];
         }];
-    }];
+    }, nil);
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {

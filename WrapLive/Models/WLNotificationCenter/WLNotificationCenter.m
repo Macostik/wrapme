@@ -200,7 +200,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)requestHistory:(NSDate*)historyDate {
     __weak typeof(self)weakSelf = self;
-    [[NSOperationQueue queueWithIdentifier:@"pn_history" count:1] addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+    runUnaryAsynchronousOperation(@"pn_history", ^(AsynchronousOperation *operation) {
         if (historyDate) {
             NSDate *fromDate = historyDate;
             NSDate *toDate = [NSDate now];
@@ -235,7 +235,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             weakSelf.historyDate = [NSDate now];
             [operation finish];
         }
-    }];
+    });
 }
 
 - (NSArray*)notificationsFromMessages:(NSArray*)messages {

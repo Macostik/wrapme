@@ -34,7 +34,9 @@ static CGFloat WLHeightCoposeBarConstrain = 132.0;
     // Do any additional setup after loading the view.
     self.imageView.image = self.image;
     
-    self.textView.hidden = self.mode == WLStillPictureModeSquare;
+    if (self.mode == WLStillPictureModeSquare) {
+        [self.composeBar removeFromSuperview];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
+        </mutableArray>
+        <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="WN1-Kk-qr7" customClass="WLHintView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="280" placeholderIntrinsicHeight="32" text="Great! Your wrap is live." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="H0z-j3-IR4" customClass="WLLabel">
+                    <rect key="frame" x="28" y="64" width="280" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="tkq-pW-WD9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
+                    <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="229" placeholderIntrinsicHeight="40" text="Invite your friends to see this wrap now!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="alp-kS-BQe" customClass="WLLabel">
+                    <rect key="frame" x="28" y="96" width="229" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="byV-1N-eXt"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="19"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wy3-57-sV0" customClass="WLButton">
+                    <rect key="frame" x="213" y="160" width="95" height="28"/>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="95" id="b33-h0-AXs"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="Got it">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="hide" destination="WN1-Kk-qr7" eventType="touchUpInside" id="nJD-Wu-WLo"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="H0z-j3-IR4" firstAttribute="top" secondItem="WN1-Kk-qr7" secondAttribute="top" constant="64" id="4do-LF-Cfn"/>
+                <constraint firstItem="wy3-57-sV0" firstAttribute="top" secondItem="WN1-Kk-qr7" secondAttribute="top" constant="160" id="BS5-EY-uKo"/>
+                <constraint firstItem="wy3-57-sV0" firstAttribute="leading" secondItem="WN1-Kk-qr7" secondAttribute="leading" constant="213" id="aRZ-BD-zZn"/>
+                <constraint firstItem="H0z-j3-IR4" firstAttribute="leading" secondItem="WN1-Kk-qr7" secondAttribute="leading" constant="28" id="eLu-qF-JKE"/>
+                <constraint firstItem="alp-kS-BQe" firstAttribute="leading" secondItem="WN1-Kk-qr7" secondAttribute="leading" constant="28" id="vRZ-8f-AID"/>
+                <constraint firstItem="alp-kS-BQe" firstAttribute="top" secondItem="WN1-Kk-qr7" secondAttribute="top" constant="96" id="yMU-5u-E3h"/>
+            </constraints>
+            <point key="canvasLocation" x="561" y="345"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

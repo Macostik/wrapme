@@ -39,11 +39,11 @@
     if (candy.valid) {
         [comment API_setup:[response.data dictionaryForKey:@"comment"]];
         [candy touch:comment.createdAt];
+        int commentCount = [response.data[WLCommentCountKey] intValue];
+        if (candy.commentCount != commentCount)
+            candy.commentCount = commentCount;
         return comment;
     }
-    int commentCount = [response.data[WLCommentCountKey] intValue];
-    if (candy.commentCount != commentCount)
-        candy.commentCount = commentCount;
     
     return nil;
 }

@@ -9,14 +9,19 @@
 #import "WLUploadPhotoViewController.h"
 #import <AviarySDK/AviarySDK.h>
 #import "WLNavigationAnimator.h"
-#import "NSString+Additions.h"
+#import "WLHintView.h"
+#import "WLNavigation.h"
 #import "UIView+Shorthand.h"
-#import "UIView+AnimationHelper.h"
+#import "WLIconButton.h"
+#import "WLUser+Extended.h"
+#import "WLComposeBar.h"
 
 @interface WLUploadPhotoViewController () <AFPhotoEditorControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet WLIconButton *editButton;
+@property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 
 @end
 
@@ -28,6 +33,11 @@
     self.imageView.image = self.image;
     
     self.textView.hidden = self.mode == WLStillPictureModeSquare;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [WLHintView showEditWrapHintViewInView:[UIWindow mainWindow] withFocusToView:self.editButton];
 }
 
 // MARK: - actions
@@ -78,7 +88,7 @@
 }
 
 - (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
-    return (self.view.height - keyboardHeight)/2 + keyboardHeight - 230;
+    return CGRectGetMidY(self.composeBar.frame) - (self.view.height - keyboardHeight)/2;
 }
 
 @end

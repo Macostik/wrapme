@@ -2727,7 +2727,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppT-EU-1XX">
-                                        <rect key="frame" x="266" y="1" width="54" height="44"/>
+                                        <rect key="frame" x="266" y="0.0" width="54" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="54" id="Zxj-SX-vJs"/>
@@ -2745,7 +2745,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="6dW-gY-pJQ" secondAttribute="trailing" constant="54" id="0RA-vu-KZf"/>
                                     <constraint firstAttribute="bottom" secondItem="6dW-gY-pJQ" secondAttribute="bottom" constant="12" id="6le-td-1tt"/>
-                                    <constraint firstItem="ppT-EU-1XX" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" constant="1" id="Dmp-Zy-GzD"/>
+                                    <constraint firstItem="ppT-EU-1XX" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" id="Dmp-Zy-GzD"/>
                                     <constraint firstAttribute="bottom" secondItem="zSv-FG-iwF" secondAttribute="bottom" id="FlX-em-5Ie"/>
                                     <constraint firstAttribute="trailing" secondItem="4dW-aC-27b" secondAttribute="trailing" id="HgI-Hz-HlX"/>
                                     <constraint firstItem="zSv-FG-iwF" firstAttribute="leading" secondItem="aqT-yE-MER" secondAttribute="leading" id="NtL-FG-bO6"/>
@@ -2912,6 +2912,7 @@
                         <outlet property="dataProvider" destination="6Bj-MV-XWG" id="Xhg-9l-P7S"/>
                         <outlet property="heightViewConstraint" destination="W9F-ez-KqY" id="jte-nc-6op"/>
                         <outlet property="historyViewSection" destination="u9r-1x-r06" id="nZ4-U4-0Zk"/>
+                        <outlet property="inviteButton" destination="ppT-EU-1XX" id="cVV-qJ-qHZ"/>
                         <outlet property="messageCountLabel" destination="O8y-Vm-wNu" id="VWt-m0-xX0"/>
                         <outlet property="nameLabel" destination="PcB-Yh-hjT" id="Wm5-Y3-if8"/>
                         <outlet property="timelineDataProvider" destination="wR6-YI-40M" id="ddf-Cb-0Va"/>

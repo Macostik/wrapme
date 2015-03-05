@@ -106,7 +106,7 @@
     NSMutableOrderedSet* comments = self.comments;
     if ([comments containsObject:comment]) {
         [comments removeObject:comment];
-        self.commentCount--;
+        if (self.commentCount > 0)  self.commentCount--;
         self.comments = comments;
     }
 }

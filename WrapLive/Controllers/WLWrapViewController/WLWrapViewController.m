@@ -53,6 +53,7 @@
 #import "WLCreateWrapViewController.h"
 #import "WLPickerViewController.h"
 #import "UIFont+CustomFonts.h"
+#import "WLHintView.h"
 
 typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
     WLWrapViewModeTimeline,
@@ -78,6 +79,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightViewConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *inviteButton;
 
 @end
 
@@ -165,6 +167,9 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
         run_after(0.5f, ^{
             [weakSelf.navigationController popViewControllerAnimated:YES];
         });
+    }
+    if ([self.wrap.contributor isCurrentUser] && !self.wrap.isDefault) {
+           [WLHintView showInviteHintViewInView:[UIWindow mainWindow] withFocusToView:self.inviteButton];
     }
 }
 

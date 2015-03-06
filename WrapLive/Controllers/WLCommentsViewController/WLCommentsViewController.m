@@ -18,6 +18,7 @@
 #import "WLSoundPlayer.h"
 #import "UIView+AnimationHelper.h"
 #import "WLNavigation.h"
+#import "NSString+Additions.h"
 
 @interface WLCommentsViewController () <WLEntryNotifyReceiver, UIViewControllerTransitioningDelegate>
 
@@ -65,7 +66,7 @@
 
 - (void)sendMessageWithText:(NSString*)text {
     [WLSoundPlayer playSound:WLSound_s04];
-    [self.candy uploadComment:text success:^(WLComment *comment) {
+    [self.candy uploadComment:[text trim] success:^(WLComment *comment) {
     } failure:^(NSError *error) {
     }];
     run_after(.0, ^{

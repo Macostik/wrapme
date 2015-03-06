@@ -226,6 +226,7 @@
         } else if (event == WLEventDelete) {
             [targetEntry remove];
         }
+        [[WLEntryManager manager].context processPendingChanges];
         if (success) success();
     };
     

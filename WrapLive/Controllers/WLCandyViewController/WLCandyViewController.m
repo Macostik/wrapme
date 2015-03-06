@@ -141,6 +141,9 @@
     self.lastComment = nil;
     [self updateOwnerData];
     [self.collectionView reloadData];
+    if (self.showCommentViewController) {
+        [self.commentButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

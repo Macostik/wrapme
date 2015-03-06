@@ -167,6 +167,9 @@ static UIWindow* mainWindow = nil;
         UIViewController *viewController = [entry viewControllerWithNavigationController:navigationController];
         if (viewController) {
             [viewControllers addObject:viewController];
+            if (entry != self) {
+                [self configureViewController:viewController fromContainingEntry:entry];
+            }
         }
         entry = entry.containingEntry;
     }
@@ -195,6 +198,8 @@ static UIWindow* mainWindow = nil;
         [self present:NO];
     }
 }
+
+- (void)configureViewController:(UIViewController*)controller fromContainingEntry:(WLEntry*)containingEntry {}
 
 @end
 
@@ -242,6 +247,17 @@ static UIWindow* mainWindow = nil;
     if (![controller isKindOfClass:[WLWrapViewController class]]) return NO;
     if ([(WLWrapViewController*)controller wrap] != self) return NO;
     return YES;
+}
+
+@end
+
+@implementation WLComment (WLNavigation)
+
+- (void)configureViewController:(UIViewController *)controller fromContainingEntry:(WLEntry *)containingEntry {
+    if (containingEntry == self.candy) {
+        WLCandyViewController *candyViewController = (WLCandyViewController *)controller;
+        candyViewController.showCommentViewController = YES;
+    }
 }
 
 @end

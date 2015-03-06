@@ -69,6 +69,8 @@ static NSString *WLCameraStoryboard = @"Camera";
 
 - (BOOL)isValidViewController:(UIViewController*)controller;
 
+- (void)configureViewController:(UIViewController*)controller fromContainingEntry:(WLEntry*)containingEntry;
+
 - (void)present;
 
 - (void)present:(BOOL)animated;
@@ -86,3 +88,5 @@ static NSString *WLCameraStoryboard = @"Camera";
 @interface WLMessage (WLNavigation) @end
 
 @interface WLWrap (WLNavigation) @end
+
+@interface WLComment (WLNavigation) @end

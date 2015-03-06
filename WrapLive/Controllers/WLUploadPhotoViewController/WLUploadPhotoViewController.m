@@ -25,6 +25,8 @@ static CGFloat WLHeightCoposeBarConstrain = 132.0;
 @property (weak, nonatomic) IBOutlet WLIconButton *editButton;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 
+@property (nonatomic) BOOL edited;
+
 @end
 
 @implementation WLUploadPhotoViewController
@@ -71,12 +73,13 @@ static CGFloat WLHeightCoposeBarConstrain = 132.0;
 
 - (IBAction)done:(id)sender {
     [self.view endEditing:YES];
-    if (self.completionBlock) self.completionBlock(self.image, self.textView.text);
+    if (self.completionBlock) self.completionBlock(self.image, self.textView.text, self.edited);
 }
 
 // MARK: - AFPhotoEditorControllerDelegate
 
 - (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
+    self.edited = YES;
     self.image = self.imageView.image = image;
     [self.navigationController popViewControllerAnimated:YES];
 }

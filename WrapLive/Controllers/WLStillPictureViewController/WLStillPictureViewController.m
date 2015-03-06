@@ -194,10 +194,10 @@
 	return aviaryController;
 }
 
-- (void)handleImage:(UIImage*)image save:(BOOL)save metadata:(NSMutableDictionary *)metadata {
+- (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata {
     __weak typeof(self)weakSelf = self;
-    WLUploadPhotoCompletionBlock finishBlock = ^ (UIImage *resultImage, NSString *comment) {
-        if (save) [resultImage save:metadata];
+    WLUploadPhotoCompletionBlock finishBlock = ^ (UIImage *resultImage, NSString *comment, BOOL saveToAlbum) {
+        if (saveToAlbum) [resultImage save:metadata];
         id <WLStillPictureViewControllerDelegate> delegate = [weakSelf getValidDelegate];
         if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
             weakSelf.view.userInteractionEnabled = NO;
@@ -227,7 +227,7 @@
 	self.view.userInteractionEnabled = NO;
 	__weak typeof(self)weakSelf = self;
 	[self cropImage:image completion:^(UIImage *croppedImage) {
-        [weakSelf handleImage:croppedImage save:YES metadata:metadata];
+        [weakSelf handleImage:croppedImage metadata:metadata];
 		weakSelf.view.userInteractionEnabled = YES;
 	}];
 }
@@ -257,7 +257,7 @@
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
     [self cropAsset:asset completion:^(UIImage *croppedImage) {
-        [weakSelf handleImage:croppedImage save:NO metadata:nil];
+        [weakSelf handleImage:croppedImage metadata:nil];
         weakSelf.view.userInteractionEnabled = YES;
     }];
 }

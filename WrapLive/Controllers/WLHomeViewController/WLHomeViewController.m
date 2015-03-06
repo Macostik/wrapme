@@ -52,6 +52,7 @@
 #import "WLEditWrapViewController.h"
 #import "WLUploadingView.h"
 #import "WLUploadingQueue.h"
+#import "WLAddressBook.h"
 
 @interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate>
 
@@ -70,8 +71,14 @@
 
 @implementation WLHomeViewController
 
+- (void)dealloc {
+    [WLAddressBook endCaching];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [WLAddressBook beginCaching];
     
     self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
     

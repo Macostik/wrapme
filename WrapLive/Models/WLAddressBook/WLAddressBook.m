@@ -26,6 +26,14 @@
 static NSArray *cachedRecords = nil;
 
 + (void)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+    for (WLAddressBookRecord *record in cachedRecords) {
+        for (WLAddressBookPhoneNumber *phoneNumber in record.phoneNumbers) {
+            if (phoneNumber.user && !phoneNumber.user.valid) {
+                cachedRecords = nil;
+                break;
+            }
+        }
+    }
     if (cachedRecords) {
         if (success) success(cachedRecords);
     } else {

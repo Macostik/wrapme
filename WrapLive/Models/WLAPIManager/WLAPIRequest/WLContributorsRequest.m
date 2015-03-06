@@ -52,32 +52,36 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    NSArray* contacts = self.contacts;
+    NSMutableArray* contacts = [self.contacts mutableCopy];
     NSArray* users = response.data[@"users"];
-	[contacts all:^(WLAddressBookRecord* contact) {
-        NSMutableArray* personsToRemove = [NSMutableArray array];
-		[contact.phoneNumbers all:^(WLAddressBookPhoneNumber* person) {
-			for (NSDictionary* userData in users) {
-				if ([userData[@"address_book_number"] isEqualToString:person.phone]) {
-                    WLUser * user = [WLUser API_entry:userData];
-                    __block BOOL exists = NO;
-                    [contact.phoneNumbers all:^(WLAddressBookPhoneNumber* _person) {
-                        if (_person != person && _person.user == user) {
-                            [personsToRemove addObject:person];
-                            exists = YES;
+	[contacts removeObjectsWhileEnumerating:^BOOL (WLAddressBookRecord* contact) {
+        NSMutableArray *phoneNumbers = [contact.phoneNumbers mutableCopy];
+        [phoneNumbers removeObjectsWhileEnumerating:^BOOL (WLAddressBookPhoneNumber *phoneNumber) {
+            NSDictionary *userData = [[users objectsWhere:@"address_book_number == %@", phoneNumber.phone] lastObject];
+            if (userData) {
+                WLUser *user = [WLUser API_entry:userData];
+                if ([user isCurrentUser]) {
+                    return YES;
+                } else {
+                    for (WLAddressBookPhoneNumber* _phoneNumber in contact.phoneNumbers) {
+                        if (_phoneNumber != phoneNumber && _phoneNumber.user == user) {
+                            return YES;
                         }
-                    }];
-                    if (!exists) {
-                        person.user = user;
-                        person.activated = [userData integerForKey:WLSignInCountKey] > 0;
                     }
-                    break;
-				}
-			}
-		}];
-        contact.phoneNumbers = [contact.phoneNumbers arrayByRemovingObjectsFromArray:personsToRemove];
+                    phoneNumber.user = user;
+                    phoneNumber.activated = [userData integerForKey:WLSignInCountKey] > 0;
+                }
+            }
+            return NO;
+        }];
+        if (phoneNumbers.nonempty) {
+            contact.phoneNumbers = [phoneNumbers copy];
+            return NO;
+        } else {
+            return YES;
+        }
 	}];
-	return contacts;
+	return [contacts copy];
 }
 
 @end

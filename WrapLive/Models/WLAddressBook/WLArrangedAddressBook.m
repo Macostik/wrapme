@@ -69,20 +69,21 @@
 }
 
 - (NSError *)baseAddRecord:(WLAddressBookRecord*)record {
-    NSMutableArray *persons = [record.phoneNumbers mutableCopy];
     
-    if (!persons.nonempty) {
-        return [NSError errorWithDescription:WLLS(@"No contact data.")];
-    }
+    record = [WLAddressBookRecord record:record.phoneNumbers];
     
-    [self removeCurrentUser:persons];
-    
-    if (!persons.nonempty) {
+    if (!record.phoneNumbers.nonempty) {
+        
         return [NSError errorWithDescription:WLLS(@"You cannot add yourself.")];
-    } else if ([persons count] == 1) {
-        record.phoneNumbers = [persons copy];
+        
+    } else if ([record.phoneNumbers count] == 1) {
+        
         [self addRecordToGroup:record];
+        
     } else {
+        
+        NSMutableArray *persons = [record.phoneNumbers mutableCopy];
+        
         [persons removeObjectsWhileEnumerating:^BOOL(WLAddressBookPhoneNumber *person) {
             if (person.user) {
                 [self addRecordToGroup:[WLAddressBookRecord record:@[person]]];
@@ -90,9 +91,12 @@
             }
             return NO;
         }];
+        
         if (persons.nonempty) {
             record.phoneNumbers = [persons copy];
             [self addRecordToGroup:record];
+        } else {
+            return [NSError errorWithDescription:WLLS(@"No contact data.")];
         }
     }
     
@@ -112,15 +116,6 @@
     for (WLArrangedAddressBookGroup *group in self.groups) {
         [group.records sortUsingComparator:comparator];
     }
-}
-
-- (void)removeCurrentUser:(NSMutableArray *)persons {
-    [persons removeObjectsWhileEnumerating:^BOOL(WLAddressBookPhoneNumber *person) {
-        if (person.user && [person.user isCurrentUser]) {
-            return YES;
-        }
-        return NO;
-    }];
 }
 
 - (NSError *)addUniqueRecord:(WLAddressBookRecord *)record completion:(WLArrangedAddressBookRecordHandler)completion {

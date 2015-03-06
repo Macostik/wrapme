@@ -57,7 +57,6 @@
 #pragma mark - UIKit interface
 
 @property (weak, nonatomic) IBOutlet UIView *cropAreaView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topWrapViewConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *unauthorizedStatusView;
 @property (weak, nonatomic) IBOutlet WLCameraView *cameraView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;

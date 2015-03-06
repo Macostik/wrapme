@@ -40,7 +40,6 @@
 #import "WLResendConfirmationRequest.h"
 #import "WLSession.h"
 #import "WLBadgeLabel.h"
-#import "WLStillPictureViewController.h"
 #import "WLToast.h"
 #import "WLUserView.h"
 #import "WLWrapCell.h"
@@ -54,7 +53,7 @@
 #import "WLUploadingQueue.h"
 #import "WLAddressBook.h"
 
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate>
+@interface WLHomeViewController () <WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;

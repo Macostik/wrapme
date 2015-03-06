@@ -31,6 +31,7 @@
 #import "WLWrapView.h"
 #import "WLUploadPhotoViewController.h"
 #import "WLNavigationAnimator.h"
+#import "WLHomeViewController.h"
 
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
 
@@ -50,8 +51,9 @@
     self.cameraNavigationController = [self.childViewControllers lastObject];
     self.cameraNavigationController.delegate = self;
     
-    if ([self.delegate respondsToSelector:@selector(stillPictureViewControllerMode:)]) {
-        self.mode = [self.delegate stillPictureViewControllerMode:self];
+    id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
+    if ([delegate respondsToSelector:@selector(stillPictureViewControllerMode:)]) {
+        self.mode = [delegate stillPictureViewControllerMode:self];
     }
     
     WLCameraViewController* cameraViewController = [self.cameraNavigationController.viewControllers lastObject];
@@ -67,6 +69,18 @@
     if (self.mode == WLStillPictureModeDefault) {
         [[WLWrap notifier] addReceiver:self];
     }
+}
+
+- (id<WLStillPictureViewControllerDelegate>)getValidDelegate {
+    id delegate = self.delegate;
+    if (!delegate) {
+        UINavigationController *navigationController = [UINavigationController mainNavigationController];
+        WLHomeViewController *homeViewController = [navigationController.viewControllers firstObject];
+        if ([homeViewController isKindOfClass:[WLHomeViewController class]]) {
+            delegate = self.delegate = homeViewController;
+        }
+    }
+    return delegate;
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -114,23 +128,44 @@
     [self showHintView];
 }
 
-- (CGFloat)imageWidthForCurrentMode {
+- (CGSize)imageSizeForCurrentMode {
     if (self.mode == WLStillPictureModeDefault) {
-        return 1200;
+        return CGSizeMake(1200, 1600);
     } else {
-        return 600;
+        return CGSizeMake(600, 800);
     }
 }
 
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
     __weak typeof(self)weakSelf = self;
 	run_getting_object(^id{
-        CGFloat resultWidth = [weakSelf imageWidthForCurrentMode];
+        CGSize resultSize = [weakSelf imageSizeForCurrentMode];
+        CGFloat resultAspectRatio = 0.75;
+        UIImage *result = nil;
         if (image.size.width > image.size.height) {
-            return [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(1, resultWidth)];
+            CGFloat aspectRatio = image.size.height / image.size.width;
+            if (aspectRatio == resultAspectRatio) {
+                result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(1, resultSize.width)];
+            } else if (aspectRatio < resultAspectRatio) {
+                result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(1, resultSize.width)];
+                result = [result croppedImage:CGRectThatFitsSize(result.size, CGSizeMake(resultSize.height, resultSize.width))];
+            } else {
+                result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(resultSize.width, 1)];
+                result = [result croppedImage:CGRectThatFitsSize(result.size, CGSizeMake(resultSize.height, resultSize.width))];
+            }
         } else {
-            return [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(resultWidth, 1)];
+            CGFloat aspectRatio = image.size.width / image.size.height;
+            if (aspectRatio == resultAspectRatio) {
+                result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(resultSize.width, 1)];
+            } else if (aspectRatio < resultAspectRatio) {
+                result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(resultSize.width, 1)];
+                result = [result croppedImage:CGRectThatFitsSize(result.size, resultSize)];
+            } else {
+                result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(1, resultSize.width)];
+                result = [result croppedImage:CGRectThatFitsSize(result.size, resultSize)];
+            }
         }
+        return result;
 	}, completion);
 }
 
@@ -163,11 +198,12 @@
     __weak typeof(self)weakSelf = self;
     WLUploadPhotoCompletionBlock finishBlock = ^ (UIImage *resultImage, NSString *comment) {
         if (save) [resultImage save:metadata];
-        if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
+        id <WLStillPictureViewControllerDelegate> delegate = [weakSelf getValidDelegate];
+        if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
             weakSelf.view.userInteractionEnabled = NO;
             [WLPicture picture:resultImage mode:weakSelf.mode completion:^(WLPicture *picture) {
                 picture.comment = comment;
-                [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithPictures:@[picture]];
+                [delegate stillPictureViewController:weakSelf didFinishWithPictures:@[picture]];
                 weakSelf.view.userInteractionEnabled = YES;
             }];
         }
@@ -240,8 +276,9 @@
                     [operation finish:^{
                         run_in_main_queue(^{
                             weakSelf.view.userInteractionEnabled = YES;
-                            if ([weakSelf.delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
-                                [weakSelf.delegate stillPictureViewController:weakSelf didFinishWithPictures:pictures];
+                            id <WLStillPictureViewControllerDelegate> delegate = [weakSelf getValidDelegate];
+                            if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
+                                [delegate stillPictureViewController:weakSelf didFinishWithPictures:pictures];
                             }
                         });
                     }];
@@ -285,8 +322,9 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
     self.wrap = [[[WLUser currentUser] sortedWraps] firstObject];
-    if (!self.presentedViewController && [self.delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
-        [self.delegate stillPictureViewController:self didSelectWrap:self.wrap];
+    id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
+    if (!self.presentedViewController && [delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
+        [delegate stillPictureViewController:self didSelectWrap:self.wrap];
     }
 }
 

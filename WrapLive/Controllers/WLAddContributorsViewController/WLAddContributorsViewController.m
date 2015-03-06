@@ -50,13 +50,13 @@
     self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
     [self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
-    [[WLContributorsRequest request] send:^(id object) {
-        [weakSelf.addressBook addRecords:object];
+    [WLAddressBook cachedRecords:^(NSArray *array) {
+        [weakSelf.addressBook addRecords:array];
         [weakSelf filterContacts];
-		[weakSelf.spinner stopAnimating];
+        [weakSelf.spinner stopAnimating];
     } failure:^(NSError *error) {
         [weakSelf.spinner stopAnimating];
-		[error show];
+        [error show];
     }];
     [[WLFontPresetter presetter] addReceiver:self];
 }

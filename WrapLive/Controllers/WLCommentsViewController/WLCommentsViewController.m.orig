@@ -18,8 +18,11 @@
 #import "WLSoundPlayer.h"
 #import "UIView+AnimationHelper.h"
 #import "WLNavigation.h"
+<<<<<<< HEAD
 #import "WLCollectionView.h"
+=======
 #import "NSString+Additions.h"
+>>>>>>> master
 
 @interface WLCommentsViewController () <WLEntryNotifyReceiver, UIViewControllerTransitioningDelegate>
 

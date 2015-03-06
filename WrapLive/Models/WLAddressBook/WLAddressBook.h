@@ -14,6 +14,12 @@
 
 @interface WLAddressBook : NSObject
 
++ (void)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
++ (void)beginCaching;
+
++ (void)endCaching;
+
 /**
  *  Get the list of records from Address Book.
  *  If record doesn't have at least one specified phone number it will be ignored.

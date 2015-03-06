@@ -303,7 +303,6 @@
                         <outlet property="flashModeControl" destination="Bka-bI-Ghh" id="l4L-Ch-kIK"/>
                         <outlet property="rotateButton" destination="sV2-wR-LN3" id="t38-Si-ylZ"/>
                         <outlet property="takePhotoButton" destination="3gL-lu-fDr" id="gF4-Sa-A9c"/>
-                        <outlet property="topWrapViewConstraint" destination="oB2-rm-QzJ" id="iba-rH-GdX"/>
                         <outlet property="unauthorizedStatusView" destination="Jwv-dz-I8C" id="170-g2-CsF"/>
                         <outlet property="wrapView" destination="03H-AZ-M5I" id="TRh-TU-T1r"/>
                         <outlet property="zoomLabel" destination="q4z-2J-r1c" id="Uik-Cf-q4W"/>

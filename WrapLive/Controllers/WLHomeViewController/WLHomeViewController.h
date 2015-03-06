@@ -7,8 +7,9 @@
 //
 
 #import "WLShakeViewController.h"
+#import "WLStillPictureViewController.h"
 
-@interface WLHomeViewController : WLShakeViewController
+@interface WLHomeViewController : WLShakeViewController <WLStillPictureViewControllerDelegate>
 
 - (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery;
 

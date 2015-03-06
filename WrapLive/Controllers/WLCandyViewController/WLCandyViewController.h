@@ -19,6 +19,8 @@
 
 @property (nonatomic) BOOL showCommentInputKeyboard;
 
+@property (nonatomic) BOOL showCommentViewController;
+
 - (IBAction)movingDetailViews;
 
 @end

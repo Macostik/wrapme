@@ -379,6 +379,10 @@
 		5BB1FAF219E809B900C12DB3 /* WLAddWrapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1FAF019E809B900C12DB3 /* WLAddWrapRequest.m */; };
 		5BB1FAF319E809B900C12DB3 /* WLAddWrapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1FAF019E809B900C12DB3 /* WLAddWrapRequest.m */; };
 		5BB1FAF419E809B900C12DB3 /* WLAddWrapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1FAF019E809B900C12DB3 /* WLAddWrapRequest.m */; };
+		5BBAB3A61AAA002400CE6252 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */; };
+		5BBAB3A71AAA002400CE6252 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */; };
+		5BBAB3A81AAA002400CE6252 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */; };
+		5BBAB3A91AAA002400CE6252 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */; };
 		5BBBC0051A0A504E003781C4 /* WLPickerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBBC0041A0A504E003781C4 /* WLPickerViewCell.xib */; };
 		5BBBC0061A0A504E003781C4 /* WLPickerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBBC0041A0A504E003781C4 /* WLPickerViewCell.xib */; };
 		5BBBC0071A0A504E003781C4 /* WLPickerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBBC0041A0A504E003781C4 /* WLPickerViewCell.xib */; };
@@ -775,10 +779,6 @@
 		C5415D2C1A9605B9001193B4 /* wrapLiveIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5415D2A1A9605B9001193B4 /* wrapLiveIcons.ttf */; };
 		C5415D2D1A9605B9001193B4 /* wrapLiveIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5415D2A1A9605B9001193B4 /* wrapLiveIcons.ttf */; };
 		C5415D2E1A9605B9001193B4 /* wrapLiveIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5415D2A1A9605B9001193B4 /* wrapLiveIcons.ttf */; };
-		C542BDED19FA555C00C3BD64 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C542BDEC19FA555C00C3BD64 /* Camera.storyboard */; };
-		C542BDEE19FA555C00C3BD64 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C542BDEC19FA555C00C3BD64 /* Camera.storyboard */; };
-		C542BDEF19FA555C00C3BD64 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C542BDEC19FA555C00C3BD64 /* Camera.storyboard */; };
-		C542BDF019FA555C00C3BD64 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C542BDEC19FA555C00C3BD64 /* Camera.storyboard */; };
 		C544E4FC1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C544E4FB1AA069F20025DB3F /* WLArrangedAddressBookGroup.m */; };
 		C544E4FD1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C544E4FB1AA069F20025DB3F /* WLArrangedAddressBookGroup.m */; };
 		C544E4FE1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C544E4FB1AA069F20025DB3F /* WLArrangedAddressBookGroup.m */; };
@@ -1823,7 +1823,6 @@
 		5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCommentsViewController.m; path = Controllers/WLCommentsViewController/WLCommentsViewController.m; sourceTree = "<group>"; };
 		5BA7AC2A1A7939FA00BB922E /* WLTriangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTriangleView.h; path = WLTriangleView/WLTriangleView.h; sourceTree = "<group>"; };
 		5BA7AC2B1A7939FA00BB922E /* WLTriangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTriangleView.m; path = WLTriangleView/WLTriangleView.m; sourceTree = "<group>"; };
-		5BA863C61A4EA4F300271636 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		5BA863C71A4EA4FA00271636 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		5BA8D3841A3068E600A877D3 /* WLComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComments.h; path = WLExtensionModel/WLComments/WLComments.h; sourceTree = "<group>"; };
 		5BA8D3851A3068E600A877D3 /* WLComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComments.m; path = WLExtensionModel/WLComments/WLComments.m; sourceTree = "<group>"; };
@@ -1845,6 +1844,10 @@
 		5BB1FAEA19E8084800C12DB3 /* WLUploadWrapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLUploadWrapRequest.m; path = WLAPIManager/WLAPIRequest/WLUploadWrapRequest.m; sourceTree = "<group>"; };
 		5BB1FAEF19E809B900C12DB3 /* WLAddWrapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAddWrapRequest.h; path = WLAPIManager/WLAPIRequest/WLAddWrapRequest.h; sourceTree = "<group>"; };
 		5BB1FAF019E809B900C12DB3 /* WLAddWrapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAddWrapRequest.m; path = WLAPIManager/WLAPIRequest/WLAddWrapRequest.m; sourceTree = "<group>"; };
+		5BBAB3A51AA9FFD500CE6252 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		5BBAB3AA1AAA002400CE6252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Camera.storyboard; sourceTree = "<group>"; };
+		5BBAB3AD1AAA002700CE6252 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Camera.strings; sourceTree = "<group>"; };
+		5BBAB3AF1AAA002900CE6252 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Camera.strings; sourceTree = "<group>"; };
 		5BBBC0041A0A504E003781C4 /* WLPickerViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPickerViewCell.xib; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewCell.xib; sourceTree = "<group>"; };
 		5BBBEB3F19D983B4008CFE54 /* WLNotificationCollectionViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLNotificationCollectionViewSection.h; path = WLCollectionViewDataProvider/WLNotificationCollectionViewSection.h; sourceTree = "<group>"; };
 		5BBBEB4019D983B4008CFE54 /* WLNotificationCollectionViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLNotificationCollectionViewSection.m; path = WLCollectionViewDataProvider/WLNotificationCollectionViewSection.m; sourceTree = "<group>"; };
@@ -2088,7 +2091,6 @@
 		C53F2CBA1A6EB5FA00D99741 /* RMPhoneFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPhoneFormat.h; sourceTree = "<group>"; };
 		C53F2CBB1A6EB5FA00D99741 /* RMPhoneFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMPhoneFormat.m; sourceTree = "<group>"; };
 		C5415D2A1A9605B9001193B4 /* wrapLiveIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = wrapLiveIcons.ttf; sourceTree = "<group>"; };
-		C542BDEC19FA555C00C3BD64 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		C544E4FA1AA069F20025DB3F /* WLArrangedAddressBookGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArrangedAddressBookGroup.h; path = WLAddressBook/WLArrangedAddressBookGroup.h; sourceTree = "<group>"; };
 		C544E4FB1AA069F20025DB3F /* WLArrangedAddressBookGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArrangedAddressBookGroup.m; path = WLAddressBook/WLArrangedAddressBookGroup.m; sourceTree = "<group>"; };
 		C545311E1A2497470048A677 /* WLPhoneValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPhoneValidation.h; path = WLValidation/WLPhoneValidation.h; sourceTree = "<group>"; };
@@ -2553,7 +2555,7 @@
 				12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */,
 				12A7A71418DA0946008FF6F0 /* Main.storyboard */,
 				5B5A8C701A4EB62F00F84529 /* SignUp.storyboard */,
-				C542BDEC19FA555C00C3BD64 /* Camera.storyboard */,
+				5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */,
 				C518D79219E7E480001A3F08 /* LaunchScreen.xib */,
 				C5C5A13C19F7BED600E1E033 /* Support Headers */,
 				5BA60BF71A8257ED000F795C /* Categories */,
@@ -4839,7 +4841,7 @@
 				ACF8D90E19347B9E0001E570 /* WLEmojiView.xib in Resources */,
 				C51E29591A1CE12E009786C7 /* ic_today_comment.png in Resources */,
 				5BA4CC181A08FB4300D7F31C /* WLPickerViewController.xib in Resources */,
-				C542BDED19FA555C00C3BD64 /* Camera.storyboard in Resources */,
+				5BBAB3A61AAA002400CE6252 /* Camera.storyboard in Resources */,
 				C57005BA1A1FA19C007257A6 /* chat_bubble_gray_left@3x.png in Resources */,
 				5BF5833F1A1F983B00922BD5 /* ic_quote@2x.png in Resources */,
 				5BA6CAF31A10E51B004AD41C /* s02.wav in Resources */,
@@ -4956,7 +4958,7 @@
 				C51E295A1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
 				5BA4CC191A08FB4300D7F31C /* WLPickerViewController.xib in Resources */,
 				C57005B31A1FA19C007257A6 /* chat_bubble_gray_left.png in Resources */,
-				C542BDEE19FA555C00C3BD64 /* Camera.storyboard in Resources */,
+				5BBAB3A71AAA002400CE6252 /* Camera.storyboard in Resources */,
 				C57005C71A1FA19C007257A6 /* chat_bubble_gray_right@3x.png in Resources */,
 				C54AF86A19B8C63A006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
 				C54AF53D19B8C437006F7EDB /* rings.plist in Resources */,
@@ -5043,7 +5045,7 @@
 				C51E295B1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
 				5BA4CC1A1A08FB4300D7F31C /* WLPickerViewController.xib in Resources */,
 				C57005B41A1FA19C007257A6 /* chat_bubble_gray_left.png in Resources */,
-				C542BDEF19FA555C00C3BD64 /* Camera.storyboard in Resources */,
+				5BBAB3A81AAA002400CE6252 /* Camera.storyboard in Resources */,
 				C57005C81A1FA19C007257A6 /* chat_bubble_gray_right@3x.png in Resources */,
 				C54AF86E19B8C63A006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
 				C54AF63A19B8C467006F7EDB /* rings.plist in Resources */,
@@ -5130,7 +5132,7 @@
 				C51E295C1A1CE12E009786C7 /* ic_today_comment.png in Resources */,
 				5BA4CC1B1A08FB4300D7F31C /* WLPickerViewController.xib in Resources */,
 				C57005B51A1FA19C007257A6 /* chat_bubble_gray_left.png in Resources */,
-				C542BDF019FA555C00C3BD64 /* Camera.storyboard in Resources */,
+				5BBAB3A91AAA002400CE6252 /* Camera.storyboard in Resources */,
 				C57005C91A1FA19C007257A6 /* chat_bubble_gray_right@3x.png in Resources */,
 				C54AF87219B8C63B006F7EDB /* WLAPIEnvironmentBeta.plist in Resources */,
 				C54AF73719B8C491006F7EDB /* rings.plist in Resources */,
@@ -6568,8 +6570,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				12A7A71518DA0946008FF6F0 /* Base */,
-				5BA863C61A4EA4F300271636 /* ru */,
 				5BA863C71A4EA4FA00271636 /* en */,
+				5BBAB3A51AA9FFD500CE6252 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -6642,6 +6644,16 @@
 				5BA7A1101A4D8863002B1D63 /* ru */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BBAB3AA1AAA002400CE6252 /* Base */,
+				5BBAB3AD1AAA002700CE6252 /* en */,
+				5BBAB3AF1AAA002900CE6252 /* ru */,
+			);
+			name = Camera.storyboard;
 			sourceTree = "<group>";
 		};
 		5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */ = {

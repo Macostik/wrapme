@@ -119,7 +119,9 @@
     WLStillPictureBaseViewController *controller = (id)self.cameraNavigationController.topViewController;
     if ([controller isKindOfClass:[WLStillPictureBaseViewController class]]) {
         CGPoint wrapNameCenter = [self.view convertPoint:controller.wrapView.nameLabel.center fromView:controller.wrapView];
-        [WLHintView showWrapPickerHintViewInView:[UIWindow mainWindow] withFocusPoint:CGPointMake(74, wrapNameCenter.y)];
+        if  ([self.wrap isFirstCreated]) {
+            [WLHintView showWrapPickerHintViewInView:[UIWindow mainWindow] withFocusPoint:CGPointMake(74, wrapNameCenter.y)];
+        }
     }
 }
 

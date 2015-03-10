@@ -43,7 +43,9 @@ static CGFloat WLHeightCoposeBarConstrain = 132.0;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [WLHintView showEditWrapHintViewInView:[UIWindow mainWindow] withFocusToView:self.editButton];
+    if ([self.wrap isFirstCreated]) {
+          [WLHintView showEditWrapHintViewInView:[UIWindow mainWindow] withFocusToView:self.editButton];
+    }
 }
 
 // MARK: - actions

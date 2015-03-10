@@ -56,6 +56,10 @@ static NSMapTable *storyboards = nil;
 	return [self instantiateWithIdentifier:NSStringFromClass(self) storyboard:storyboard];
 }
 
+- (void)requestAuthorizationForPresentingEntry:(WLBooleanBlock)completion {
+    if (completion) completion(YES);
+}
+
 @end
 
 @implementation UINavigationController (WLNavigation)
@@ -184,16 +188,15 @@ static UIWindow* mainWindow = nil;
 - (void)presentViewControllerWithoutLostData {
     __weak __typeof(self)weakSelf = self;
     UINavigationController *navigationController = [UINavigationController mainNavigationController];
-    if ([navigationController presentedViewController]) {
-        [UIAlertView showWithTitle:WLLS(@"Unsaved photo")
-                           message:WLLS(@"You are editing a photo and it is not saved yet. Are you sure you want to leave this screen?")
-                            cancel:WLLS(@"Cancel")
-                            action:WLLS(@"Continue")
-                        completion:^{
-                            [navigationController dismissViewControllerAnimated:YES completion:^{
-                                 [weakSelf present];
-                            }];
-                        }];
+    UIViewController *presentedViewController = [navigationController presentedViewController];
+    if (presentedViewController) {
+        [presentedViewController requestAuthorizationForPresentingEntry:^(BOOL flag) {
+            if (flag) {
+                [navigationController dismissViewControllerAnimated:YES completion:^{
+                    [weakSelf present];
+                }];
+            }
+        }];
     } else {
         [self present:NO];
     }

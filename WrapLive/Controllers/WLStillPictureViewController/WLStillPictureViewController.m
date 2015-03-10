@@ -130,6 +130,10 @@
     [self showHintView];
 }
 
+- (void)requestAuthorizationForPresentingEntry:(WLBooleanBlock)completion {
+    [self.cameraNavigationController.topViewController requestAuthorizationForPresentingEntry:completion];
+}
+
 - (CGSize)imageSizeForCurrentMode {
     if (self.mode == WLStillPictureModeDefault) {
         return CGSizeMake(1200, 1600);

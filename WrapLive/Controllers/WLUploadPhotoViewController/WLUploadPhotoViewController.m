@@ -15,6 +15,7 @@
 #import "WLIconButton.h"
 #import "WLUser+Extended.h"
 #import "WLComposeBar.h"
+#import "WLAlertView.h"
 
 static CGFloat WLHeightCoposeBarConstrain = 132.0;
 
@@ -46,6 +47,16 @@ static CGFloat WLHeightCoposeBarConstrain = 132.0;
     if ([self.wrap isFirstCreated]) {
           [WLHintView showEditWrapHintViewInView:[UIWindow mainWindow] withFocusToView:self.editButton];
     }
+}
+
+- (void)requestAuthorizationForPresentingEntry:(WLBooleanBlock)completion {
+    if (!completion) return;
+    [WLAlertView showWithTitle:WLLS(@"Unsaved photo")
+                       message:WLLS(@"You are editing a photo and it is not saved yet. Are you sure you want to leave this screen?")
+                       buttons:@[WLLS(@"Cancel"),WLLS(@"Continue")]
+                    completion:^(NSUInteger index) {
+                        completion(index == 1);
+                    }];
 }
 
 // MARK: - actions

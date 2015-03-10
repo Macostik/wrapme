@@ -10,7 +10,7 @@
 #import "WLNetwork.h"
 #import "WLUploading+Extended.h"
 #import "WLAuthorizationRequest.h"
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
 
 @interface WLUploadingQueue ()
 
@@ -56,7 +56,7 @@
     NSArray *queues = [self allQueues];
     for (WLUploadingQueue *queue in queues) {
         [queue prepare];
-        runUnaryAsynchronousOperation(@"wl_main_uploading_queue", ^(AsynchronousOperation *operation) {
+        runUnaryQueuedOperation(@"wl_main_uploading_queue", ^(WLOperation *operation) {
             [queue start:^{
                 [operation finish:completion];
             }];
@@ -97,7 +97,7 @@
     } else {
         __weak typeof(self)weakSelf = self;
         for (WLUploading* uploading in self.uploadings) {
-            runAsynchronousOperation(self.queueName, 3, ^(AsynchronousOperation *operation) {
+            runQueuedOperation(self.queueName, 3, ^(WLOperation *operation) {
                 [weakSelf internalUpload:uploading success:^(id object) {
                     [operation finish:completion];
                 } failure:^(NSError *error) {
@@ -145,7 +145,7 @@
 - (void)upload:(WLUploading*)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [self addUploading:uploading];
-    runAsynchronousOperation(self.queueName, 3, ^(AsynchronousOperation *operation) {
+    runQueuedOperation(self.queueName, 3, ^(WLOperation *operation) {
         [weakSelf internalUpload:uploading success:^(id object) {
             [operation finish];
             if (success) success(object);

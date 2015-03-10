@@ -53,9 +53,7 @@
     self.removeButton.hidden = !deletable;
     self.removeButtonTop.constant = deletable ? self.avatarView.y : -self.removeButton.height;
     WLUser *user = self.entry;
-    self.resendInviteButton.hidden = [user.devices match:^BOOL(WLDevice *device) {
-        return device.activated;
-    }];
+    self.resendInviteButton.hidden = !user.isInvited;
 }
 
 #pragma mark - Actions

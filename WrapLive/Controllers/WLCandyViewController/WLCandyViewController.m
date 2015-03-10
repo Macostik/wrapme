@@ -160,6 +160,17 @@
     }
 }
 
+static CGFloat WLTopContraintConstant = -20.0f;
+
+- (IBAction)movingDetailViews {
+    BOOL hide = self.topViewConstraint.constant == WLTopContraintConstant;
+    [UIView performAnimated:YES animation:^{
+        self.topViewConstraint.constant = hide ? -self.topView.height + WLTopContraintConstant : WLTopContraintConstant;
+        self.bottomViewContstraint.constant = hide ? -self.bottomView.height : .0f;
+        [self.view layoutIfNeeded];
+    }];
+}
+
 - (void)setHistoryItem:(WLHistoryItem *)historyItem {
     _historyItem = historyItem;
     [self.collectionView reloadData];
@@ -412,23 +423,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
  
     [self.collectionView trySetContentOffset:newContentOffset animated:NO];
     self.collectionView.alpha = 1;
-}
-
-#pragma mark - WLScrollViewDelegate method
-
-- (UIView *)viewForZoomingInScrollView:(WLScrollView *)scrollView {
-    return [scrollView isKindOfClass:[WLScrollView class]] ? scrollView.zoomingView : nil;
-}
-
-static CGFloat WLTopContraintConstant = -20.0f;
-
-- (IBAction)movingDetailViews {
-   BOOL hide = self.topViewConstraint.constant == WLTopContraintConstant;
-    [UIView performAnimated:YES animation:^{
-        self.topViewConstraint.constant = hide ? -self.topView.height + WLTopContraintConstant : WLTopContraintConstant;
-        self.bottomViewContstraint.constant = hide ? -self.bottomView.height : .0f;
-        [self.view layoutIfNeeded];
-    }];
 }
 
 @end

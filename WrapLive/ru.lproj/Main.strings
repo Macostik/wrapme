@@ -199,3 +199,6 @@
 
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "zsc-qK-GNU"; */
 "zsc-qK-GNU.text" = "Лейбочка";
+
+/* Class = "IBUIButton"; normalTitle = "Close"; ObjectID = "2nE-rT-l31"; */
+"2nE-rT-l31.normalTitle" = "Закрыть";

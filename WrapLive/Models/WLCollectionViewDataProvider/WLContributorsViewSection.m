@@ -29,11 +29,8 @@ const static CGFloat WLContributorsHorizontalIndent = 100.0f;
 
 - (CGSize)size:(NSIndexPath *)indexPath {
     WLUser* user = self.entries.entries[indexPath.item];
-    BOOL activated = [user.devices match:^BOOL(WLDevice *device) {
-        return device.activated;
-    }];
     CGFloat height = [user.securePhones heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller] width:self.collectionView.width - WLContributorsHorizontalIndent];
-    if (self.wrap.contributedByCurrentUser && ![user isCurrentUser] && !activated) {
+    if (self.wrap.contributedByCurrentUser && ![user isCurrentUser] && user.isInvited) {
         return CGSizeMake(self.collectionView.width, MAX(height + WLContributorsVerticalIndent, 83));
     } else {
         return CGSizeMake(self.collectionView.width, height + WLContributorsVerticalIndent);

@@ -15,6 +15,7 @@
 #import "WLIconButton.h"
 #import "WLUser+Extended.h"
 #import "WLComposeBar.h"
+#import "WLAlertView.h"
 
 static CGFloat WLHeightCoposeBarConstrain = 132.0;
 
@@ -43,7 +44,19 @@ static CGFloat WLHeightCoposeBarConstrain = 132.0;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [WLHintView showEditWrapHintViewInView:[UIWindow mainWindow] withFocusToView:self.editButton];
+    if ([self.wrap isFirstCreated]) {
+          [WLHintView showEditWrapHintViewInView:[UIWindow mainWindow] withFocusToView:self.editButton];
+    }
+}
+
+- (void)requestAuthorizationForPresentingEntry:(WLBooleanBlock)completion {
+    if (!completion) return;
+    [WLAlertView showWithTitle:WLLS(@"Unsaved photo")
+                       message:WLLS(@"You are editing a photo and it is not saved yet. Are you sure you want to leave this screen?")
+                       buttons:@[WLLS(@"Cancel"),WLLS(@"Continue")]
+                    completion:^(NSUInteger index) {
+                        completion(index == 1);
+                    }];
 }
 
 // MARK: - actions
@@ -52,7 +65,7 @@ static CGFloat WLHeightCoposeBarConstrain = 132.0;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
-        [AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
+        [AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel | AFPhotoEditorPremiumAddOnHiRes];
         [AFPhotoEditorCustomization setToolOrder:@[kAFEnhance, kAFEffects, kAFFrames, kAFStickers, kAFFocus,
                                                    kAFOrientation, kAFCrop, kAFDraw, kAFText, kAFBlemish, kAFMeme]];
     });

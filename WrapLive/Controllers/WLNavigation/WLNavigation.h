@@ -29,6 +29,8 @@ static NSString *WLCameraStoryboard = @"Camera";
 
 + (instancetype)instantiate:(UIStoryboard*)storyboard;
 
+- (void)requestAuthorizationForPresentingEntry:(WLBooleanBlock)completion;
+
 @end
 
 @interface UINavigationController (WLNavigation)

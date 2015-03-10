@@ -170,8 +170,8 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
             [weakSelf.navigationController popViewControllerAnimated:YES];
         });
     }
-    if ([self.wrap.contributor isCurrentUser] && !self.wrap.isDefault) {
-           [WLHintView showInviteHintViewInView:[UIWindow mainWindow] withFocusToView:self.inviteButton];
+    if ([self.wrap isFirstCreated]) {
+        [WLHintView showInviteHintViewInView:[UIWindow mainWindow] withFocusToView:self.inviteButton];
     }
 }
 

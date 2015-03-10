@@ -26,7 +26,7 @@
 #import "UIDevice+SystemVersion.h"
 #import "WLRemoteObjectHandler.h"
 #import "WLImageFetcher.h"
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
 #import "WLEntryNotifier.h"
 
 @interface WLNotificationCenter () <PNDelegate>
@@ -156,7 +156,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             
             if (notification) {
                 [WLEntryNotifier beginBatchUpdates];
-                runUnaryAsynchronousOperation(@"wl_fetching_data_queue", ^(AsynchronousOperation *operation) {
+                runUnaryQueuedOperation(@"wl_fetching_data_queue", ^(WLOperation *operation) {
                     [weakSelf handleNotification:notification completion:^{
                         [operation finish:^{
                             [WLEntryNotifier commitBatchUpdates];
@@ -218,7 +218,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)requestHistory:(NSDate*)historyDate {
     __weak typeof(self)weakSelf = self;
-    runUnaryAsynchronousOperation(@"wl_fetching_data_queue", ^(AsynchronousOperation *operation) {
+    runUnaryQueuedOperation(@"wl_fetching_data_queue", ^(WLOperation *operation) {
         if (historyDate) {
             NSDate *fromDate = historyDate;
             NSDate *toDate = [NSDate now];
@@ -247,7 +247,7 @@ static WLDataBlock deviceTokenCompletion = nil;
     if (notifications.nonempty) {
         [WLEntryNotifier beginBatchUpdates];
         for (WLNotification *notification in notifications) {
-            runUnaryAsynchronousOperation(@"wl_fetching_data_queue", ^(AsynchronousOperation *_operation) {
+            runUnaryQueuedOperation(@"wl_fetching_data_queue", ^(WLOperation *_operation) {
                 [notification fetch:^{
                     [_operation finish:^{
                         [WLEntryNotifier commitBatchUpdates];

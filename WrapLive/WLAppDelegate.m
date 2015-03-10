@@ -27,7 +27,7 @@
 #import "WLHomeViewController.h"
 #import "iVersion.h"
 #import "WLLaunchScreenViewController.h"
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
 #import "WLSignupFlowViewController.h"
 #import "WLUploadingQueue.h"
 
@@ -163,7 +163,7 @@
         return;
     }
     
-    runDefaultAsynchronousOperations (@"background_fetch", ^(AsynchronousOperation *operation) {
+    runDefaultQueuedOperations (@"background_fetch", ^(WLOperation *operation) {
         [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
             if (hasChanges) {
                 UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
@@ -178,7 +178,7 @@
                 completionHandler(hasChanges ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
             }];
         }];
-    }, ^(AsynchronousOperation *operation) {
+    }, ^(WLOperation *operation) {
         [WLUploadingQueue start:^{
             [operation finish:^{
                 completionHandler(UIBackgroundFetchResultNoData);

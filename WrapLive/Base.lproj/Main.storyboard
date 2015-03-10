@@ -3030,7 +3030,6 @@
                                                         <constraint firstAttribute="bottom" secondItem="Cn8-Rl-m4g" secondAttribute="bottom" id="e6n-wn-rBj"/>
                                                     </constraints>
                                                     <connections>
-                                                        <outlet property="delegate" destination="eto-O4-OHy" id="Xif-YM-HGM"/>
                                                         <outlet property="zoomingView" destination="Cn8-Rl-m4g" id="eUt-Ze-fqq"/>
                                                     </connections>
                                                 </scrollView>
@@ -3359,7 +3358,7 @@ Check your internet connection and try again.</string>
                                                     <color key="titleColor" red="0.95294117647058818" green="0.45882352941176469" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <state key="selected">
-                                                    <color key="titleColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                                    <color key="titleColor" red="0.12156862745098039" green="0.12941176470588237" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
@@ -4336,6 +4335,7 @@ Check your internet connection and try again.</string>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
                                                             <color key="value" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="resendInvite:" destination="XAQ-cw-yjZ" eventType="touchUpInside" id="P21-U8-d2O"/>

@@ -8,7 +8,7 @@
 
 #import "WLHomeViewSection.h"
 #import "WLWrapCell.h"
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
 #import "UIView+Shorthand.h"
 #import "WLWrapRequest.h"
 
@@ -32,7 +32,7 @@
 
 - (void)fetchTopWrapIfNeeded:(WLWrap*)wrap {
     if ([wrap.candies count] < WLHomeTopWrapCandiesLimit) {
-        runUnaryAsynchronousOperation(@"wl_fetching_data_queue",^(AsynchronousOperation *operation) {
+        runUnaryQueuedOperation(@"wl_fetching_data_queue",^(WLOperation *operation) {
             [wrap fetch:WLWrapContentTypeRecent success:^(NSOrderedSet* candies) {
                 [operation finish];
             } failure:^(NSError *error) {

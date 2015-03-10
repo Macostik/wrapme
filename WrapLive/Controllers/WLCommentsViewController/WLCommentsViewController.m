@@ -40,7 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.composeBar.placeholder = @"Write your comment ...";
+    self.composeBar.placeholder = WLLS(@"Write your comment ...");
     self.refresher = [WLRefresher refresher:self.collectionView target:self
                                      action:@selector(refresh:)
                                       style:WLRefresherStyleWhite_Clear];

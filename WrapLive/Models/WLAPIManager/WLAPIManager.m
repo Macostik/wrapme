@@ -34,8 +34,9 @@
 #import "WLUploadMessageRequest.h"
 #import "WLEntityRequest.h"
 #import "WLLeaveWrapRequest.h"
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
 #import "WLAlertView.h"
+#import "WLPaginatedSet.h"
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 
@@ -88,7 +89,7 @@ static BOOL signedIn = NO;
         return nil;
     } else {
         __weak typeof(self)weakSelf = self;
-        runAsynchronousOperation(@"entry_fetching", 3, ^(AsynchronousOperation *operation) {
+        runQueuedOperation(@"entry_fetching", 3, ^(WLOperation *operation) {
             [weakSelf fetch:^(id object) {
                 [operation finish];
                 if (success) success(object);
@@ -253,6 +254,17 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
                         }
                     }];
     return nil;
+}
+
+- (void)preload {
+    WLPaginatedSet *candies = [WLPaginatedSet new];
+    candies.request = [WLCandiesRequest request:self];
+    candies.sortComparator = comparatorByCreatedAt;
+    [candies recursiveOlder:^(NSOrderedSet *orderedSet) {
+        for (WLCandy *candy in orderedSet) {
+            [candy.picture fetch:nil];
+        }
+    } failure:nil];
 }
 
 @end

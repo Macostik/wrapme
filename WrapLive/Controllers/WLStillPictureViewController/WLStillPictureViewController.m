@@ -8,7 +8,7 @@
 
 #import "ALAssetsLibrary+Additions.h"
 #import "ALAssetsLibrary+Additions.h"
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIImage+Resize.h"
 #import "UIView+AnimationHelper.h"
@@ -119,13 +119,19 @@
     WLStillPictureBaseViewController *controller = (id)self.cameraNavigationController.topViewController;
     if ([controller isKindOfClass:[WLStillPictureBaseViewController class]]) {
         CGPoint wrapNameCenter = [self.view convertPoint:controller.wrapView.nameLabel.center fromView:controller.wrapView];
-        [WLHintView showWrapPickerHintViewInView:[UIWindow mainWindow] withFocusPoint:CGPointMake(74, wrapNameCenter.y)];
+        if  ([self.wrap isFirstCreated]) {
+            [WLHintView showWrapPickerHintViewInView:[UIWindow mainWindow] withFocusPoint:CGPointMake(74, wrapNameCenter.y)];
+        }
     }
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
     [super dismissViewControllerAnimated:flag completion:completion];
     [self showHintView];
+}
+
+- (void)requestAuthorizationForPresentingEntry:(WLBooleanBlock)completion {
+    [self.cameraNavigationController.topViewController requestAuthorizationForPresentingEntry:completion];
 }
 
 - (CGSize)imageSizeForCurrentMode {
@@ -269,7 +275,7 @@
     queue.maxConcurrentOperationCount = 3;
     NSMutableArray* pictures = [NSMutableArray array];
     for (ALAsset* asset in assets) {
-        runAsynchronousOperation(@"wl_still_picture_queue",3,^(AsynchronousOperation *operation) {
+        runQueuedOperation(@"wl_still_picture_queue",3,^(WLOperation *operation) {
             [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
                 [WLPicture picture:croppedImage mode:weakSelf.mode completion:^(id object) {
                     [pictures addObject:object];

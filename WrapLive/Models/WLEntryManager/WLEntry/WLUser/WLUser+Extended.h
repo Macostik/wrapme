@@ -15,6 +15,8 @@ static NSUInteger WLPhoneNumberLimit = 20;
 
 @property (nonatomic, readonly) BOOL isSignupCompleted;
 
+@property (nonatomic, readonly) BOOL isInvited;
+
 - (void)addWrap:(WLWrap*)wrap;
 - (void)addWraps:(NSOrderedSet*)wraps;
 - (void)removeWrap:(WLWrap*)wrap;

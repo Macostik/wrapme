@@ -26,10 +26,6 @@
 
 @implementation WLImageViewCell
 
-- (void)dealloc {
-    self.scrollView.delegate = nil;
-}
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.scrollView.userInteractionEnabled = NO;

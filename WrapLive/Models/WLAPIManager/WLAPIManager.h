@@ -60,6 +60,8 @@ static NSUInteger WLPageSize = 10;
 
 - (id)leave:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
+- (void)preload;
+
 @end
 
 @interface WLCandy (WLAPIManager)

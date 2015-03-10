@@ -10,7 +10,7 @@
 #import "WLAPIManager.h"
 #import "WLImageCache.h"
 #import "WLEntryNotifier.h"
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
 #import "WLAPIResponse.h"
 #import "WLAuthorizationRequest.h"
 #import "WLNetwork.h"

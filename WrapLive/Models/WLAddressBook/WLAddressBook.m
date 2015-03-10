@@ -19,7 +19,7 @@
 #import "WLAddressBookPhoneNumber.h"
 #import "WLAddressBookRecord.h"
 #import "WLContributorsRequest.h"
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
 
 @implementation WLAddressBook
 
@@ -49,7 +49,7 @@ static NSArray *cachedRecords = nil;
 
 + (void)records:(ABAddressBookRef)addressBook success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     [WLAddressBook contacts:addressBook success:^(NSArray *array) {
-        runUnaryAsynchronousOperation(@"wl_address_book_queue", ^(AsynchronousOperation *operation) {
+        runUnaryQueuedOperation(@"wl_address_book_queue", ^(WLOperation *operation) {
             [[WLContributorsRequest request:array] send:^(id object) {
                 cachedRecords = object;
                 if (success) success(object);
@@ -88,7 +88,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
 }
 
 + (void)contacts:(ABAddressBookRef)addressBook success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
-    runUnaryAsynchronousOperation(@"wl_address_book_queue", ^(AsynchronousOperation *operation) {
+    runUnaryQueuedOperation(@"wl_address_book_queue", ^(WLOperation *operation) {
         CFArrayRef records = ABAddressBookCopyArrayOfAllPeople(addressBook);
         CFIndex count = ABAddressBookGetPersonCount(addressBook);
         if (count > 0) {
@@ -136,7 +136,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
     if (addressBook == NULL) {
         addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
     }
-    runUnaryAsynchronousOperation(@"wl_address_book_queue", ^(AsynchronousOperation *operation) {
+    runUnaryQueuedOperation(@"wl_address_book_queue", ^(WLOperation *operation) {
         ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
             run_in_main_queue(^{
                 if (error) {

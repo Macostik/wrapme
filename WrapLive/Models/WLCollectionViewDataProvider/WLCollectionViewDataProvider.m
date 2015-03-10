@@ -8,7 +8,7 @@
 //
 
 #import "WLCollectionViewDataProvider.h"
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
 #import "UIView+Shorthand.h"
 #import "UIScrollView+Additions.h"
 
@@ -97,7 +97,7 @@
 
 - (void)refresh:(WLRefresher*)sender {
     for (WLCollectionViewSection* section in _sections) {
-        runAsynchronousOperation(@"wl_refreshing_queue", 3, ^(AsynchronousOperation *operation) {
+        runQueuedOperation(@"wl_refreshing_queue", 3, ^(WLOperation *operation) {
             [section refresh:^(NSOrderedSet *orderedSet) {
                 [operation finish:^{
                     [sender setRefreshing:NO animated:YES];

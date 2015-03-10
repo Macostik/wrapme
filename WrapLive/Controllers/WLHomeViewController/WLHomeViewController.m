@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
 #import "NSArray+Additions.h"
 #import "NSDate+Formatting.h"
 #import "NSString+Additions.h"
@@ -93,16 +93,9 @@
     section.entries.request = [WLWrapsRequest new];
     [section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
 
+    __weak typeof(self)weakSelf = self;
     [section setChange:^(WLPaginatedSet* entries) {
-        WLUser *user = [WLUser currentUser];
-        if (user.firstTimeUse && [user.wraps match:^BOOL(WLWrap *wrap) {
-            return !wrap.isDefault;
-        }]) {
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                [section.wrap present];
-            });
-        }
+        [weakSelf handleFirstUsage];
     }];
     
     [section setSelection:^(id entry) {
@@ -116,6 +109,26 @@
     }
     
     self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];
+}
+
+- (void)handleFirstUsage {
+    WLUser *user = [WLUser currentUser];
+    if (user.firstTimeUse) {
+        NSOrderedSet *wraps = [user.wraps objectsWhere:@"isDefault != YES"];
+        if (wraps.count > 0) {
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                WLWrap *wrap = [wraps firstObject];
+                [wrap present];
+                [wraps enumerateObjectsUsingBlock:^(WLWrap *wrap, NSUInteger idx, BOOL *stop) {
+                    [wrap preload];
+                    if (idx == 2) {
+                        *stop = YES;
+                    }
+                }];
+            });
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

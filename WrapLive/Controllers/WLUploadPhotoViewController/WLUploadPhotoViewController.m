@@ -54,7 +54,7 @@ static CGFloat WLHeightCoposeBarConstrain = 132.0;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
-        [AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
+        [AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel | AFPhotoEditorPremiumAddOnHiRes];
         [AFPhotoEditorCustomization setToolOrder:@[kAFEnhance, kAFEffects, kAFFrames, kAFStickers, kAFFocus,
                                                    kAFOrientation, kAFCrop, kAFDraw, kAFText, kAFBlemish, kAFMeme]];
     });

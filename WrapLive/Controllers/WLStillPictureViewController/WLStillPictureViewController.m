@@ -8,7 +8,7 @@
 
 #import "ALAssetsLibrary+Additions.h"
 #import "ALAssetsLibrary+Additions.h"
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIImage+Resize.h"
 #import "UIView+AnimationHelper.h"
@@ -271,7 +271,7 @@
     queue.maxConcurrentOperationCount = 3;
     NSMutableArray* pictures = [NSMutableArray array];
     for (ALAsset* asset in assets) {
-        runAsynchronousOperation(@"wl_still_picture_queue",3,^(AsynchronousOperation *operation) {
+        runQueuedOperation(@"wl_still_picture_queue",3,^(WLOperation *operation) {
             [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
                 [WLPicture picture:croppedImage mode:weakSelf.mode completion:^(id object) {
                     [pictures addObject:object];

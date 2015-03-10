@@ -70,6 +70,20 @@
     return self.name.nonempty && self.picture.medium.nonempty;
 }
 
+- (BOOL)isInvited {
+    NSOrderedSet *devices = self.devices;
+    if (devices.nonempty) {
+        for (WLDevice *device in devices) {
+            if (device.activated) {
+                return NO;
+            }
+        }
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end
 
 @implementation WLUser (CurrentUser)

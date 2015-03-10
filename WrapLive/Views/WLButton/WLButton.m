@@ -31,8 +31,23 @@
 }
 
 - (void)setHighlighted:(BOOL)highlighted {
-	[super setHighlighted:highlighted];
-	[self update];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(unhighlight) object:nil];
+    if (highlighted) {
+        [super setHighlighted:highlighted];
+        [self update];
+    } else {
+        if (self.highlighted) {
+            [self performSelector:@selector(unhighlight) withObject:nil afterDelay:0.1];
+        } else {
+            [super setHighlighted:highlighted];
+            [self update];
+        }
+    }
+}
+
+- (void)unhighlight {
+    [super setHighlighted:NO];
+    [self update];
 }
 
 - (void)setSelected:(BOOL)selected {

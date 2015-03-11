@@ -18,6 +18,8 @@
 
 @property (nonatomic) IBInspectable BOOL circled;
 
+@property (nonatomic) IBInspectable CGFloat borderWidth;
+
 + (instancetype)iconButtonWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color preset:(NSString*)preset;
 
 - (instancetype)initWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color preset:(NSString*)preset;

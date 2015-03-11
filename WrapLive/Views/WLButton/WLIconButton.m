@@ -57,21 +57,13 @@
     }
 }
 
-- (void)setCircled:(BOOL)circled {
-    _circled = circled;
-    if (circled) {
-        CAShapeLayer *mask = [CAShapeLayer layer];
-        mask.path = [UIBezierPath bezierPathWithOvalInRect:self.bounds].CGPath;
-        self.layer.mask = mask;
-    }
-}
-
 - (void)layoutSubviews {
     [super layoutSubviews];
-    if (_circled) {
-        CAShapeLayer *mask = [CAShapeLayer layer];
-        mask.path = [UIBezierPath bezierPathWithOvalInRect:self.bounds].CGPath;
-        self.layer.mask = mask;
+    self.layer.cornerRadius = self.bounds.size.width/2;
+    self.layer.masksToBounds = _circled;
+    if (_borderWidth) {
+        self.layer.borderWidth = _borderWidth;
+        self.layer.borderColor = _iconColor ? _iconColor.CGColor : [UIColor whiteColor].CGColor;
     }
 }
 

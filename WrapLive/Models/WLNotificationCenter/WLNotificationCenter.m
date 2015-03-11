@@ -59,7 +59,7 @@
         __weak typeof(self)weakSelf = self;
         [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
             if (weakSelf.userChannel.subscribed) {
-                [weakSelf performSelector:@selector(requestHistory:) withObject:weakSelf.historyDate afterDelay:0.5f];
+                [weakSelf performSelector:@selector(requestHistory) withObject:nil afterDelay:0.5f];
             } else {
                 [weakSelf subscribe];
             }
@@ -172,7 +172,7 @@ static WLDataBlock deviceTokenCompletion = nil;
     } else if (!self.userChannel.subscribed) {
         [self.userChannel subscribe];
     }
-    [self requestHistory:self.historyDate];
+    [self requestHistory];
 }
 
 - (BOOL)notificationHandled:(WLNotification*)notification {
@@ -216,9 +216,10 @@ static WLDataBlock deviceTokenCompletion = nil;
     [WLSession setObject:[_handledNotifications array] key:@"handledNotifications"];
 }
 
-- (void)requestHistory:(NSDate*)historyDate {
+- (void)requestHistory {
     __weak typeof(self)weakSelf = self;
     runUnaryQueuedOperation(@"wl_fetching_data_queue", ^(WLOperation *operation) {
+        NSDate *historyDate = weakSelf.historyDate;
         if (historyDate) {
             NSDate *fromDate = historyDate;
             NSDate *toDate = [NSDate now];
@@ -374,6 +375,9 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {
     WLLog(@"PUBNUB",@"connected", origin);
+    if (self.userChannel.subscribed) {
+        [self requestHistory];
+    }
 }
 
 - (void)pubnubClient:(PubNub *)client connectionDidFailWithError:(PNError *)error {

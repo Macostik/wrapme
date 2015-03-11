@@ -20,12 +20,17 @@
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLContributorsViewSection *dataSection;
 
+@property (strong, nonatomic) NSMutableSet* invitedContributors;
+
 @end
 
 @implementation WLContributorsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.invitedContributors = [NSMutableSet set];
+    
     self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap properties:[NSSet setWithObject:[WLOrderedSetEditSessionProperty property:@"removedContributors"]]];
     // Do any additional setup after loading the view.
     self.dataSection.wrap = self.wrap;
@@ -62,15 +67,22 @@
     [self.dataSection reload];
 }
 
-- (void)contributorCell:(WLContributorCell *)cell didInviteContributor:(WLUser *)contributor {
+- (void)contributorCell:(WLContributorCell *)cell didInviteContributor:(WLUser *)contributor completionHandler:(void (^)(BOOL))completionHandler {
     WLResendInviteRequest *request = [WLResendInviteRequest request:self.wrap];
     request.user = contributor;
     __weak typeof(self)weakSelf = self;
     [request send:^(id object) {
+        if (completionHandler) completionHandler(YES);
+        [weakSelf.invitedContributors addObject:contributor];
         [weakSelf.dataProvider reload];
     } failure:^(NSError *error) {
         [error show];
+        if (completionHandler) completionHandler(NO);
     }];
+}
+
+- (BOOL)contributorCell:(WLContributorCell *)cell isInvitedContributor:(WLUser *)contributor {
+    return [self.invitedContributors containsObject:contributor];
 }
 
 - (BOOL)contributorCell:(WLContributorCell *)cell isCreator:(WLUser *)contributor {

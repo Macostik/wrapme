@@ -56,7 +56,7 @@ static NSMapTable *storyboards = nil;
 	return [self instantiateWithIdentifier:NSStringFromClass(self) storyboard:storyboard];
 }
 
-- (void)requestAuthorizationForPresentingEntry:(WLBooleanBlock)completion {
+- (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
     if (completion) completion(YES);
 }
 
@@ -190,7 +190,7 @@ static UIWindow* mainWindow = nil;
     UINavigationController *navigationController = [UINavigationController mainNavigationController];
     UIViewController *presentedViewController = [navigationController presentedViewController];
     if (presentedViewController) {
-        [presentedViewController requestAuthorizationForPresentingEntry:^(BOOL flag) {
+        [presentedViewController requestAuthorizationForPresentingEntry:self completion:^(BOOL flag) {
             if (flag) {
                 [navigationController dismissViewControllerAnimated:YES completion:^{
                     [weakSelf present];
@@ -202,7 +202,8 @@ static UIWindow* mainWindow = nil;
     }
 }
 
-- (void)configureViewController:(UIViewController*)controller fromContainingEntry:(WLEntry*)containingEntry {}
+- (void)configureViewController:(UIViewController*)controller fromContainingEntry:(WLEntry*)containingEntry {
+}
 
 @end
 
@@ -259,7 +260,11 @@ static UIWindow* mainWindow = nil;
 - (void)configureViewController:(UIViewController *)controller fromContainingEntry:(WLEntry *)containingEntry {
     if (containingEntry == self.candy) {
         WLCandyViewController *candyViewController = (WLCandyViewController *)controller;
-        candyViewController.showCommentViewController = YES;
+        if (candyViewController.isViewLoaded) {
+            [candyViewController showCommentView];
+        } else {
+            candyViewController.showCommentViewController = YES;
+        }
     }
 }
 

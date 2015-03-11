@@ -30,33 +30,30 @@
     [super awakeFromNib];
     self.scrollView.userInteractionEnabled = NO;
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
+    [self.imageView setContentMode:UIViewContentModeCenter forState:WLImageViewStateFailed];
+    [self.imageView setContentMode:UIViewContentModeCenter forState:WLImageViewStateEmpty];
+    [self.imageView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateFailed];
+    [self.imageView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateEmpty];
 }
 
 - (void)setup:(WLCandy *)candy {
     __weak typeof(self)weakSelf = self;
     self.spinner.hidden = NO;
+    self.errorLabel.hidden = YES;
     [self.imageView setUrl:candy.picture.large success:^(UIImage *image, BOOL cached) {
-        if (image) {
-            [weakSelf calculateScaleValues];
-        }
+        [weakSelf calculateScaleValues];
         weakSelf.scrollView.userInteractionEnabled = YES;
-        weakSelf.errorLabel.hidden = YES;
-        weakSelf.spinner.hidden = YES;
+        weakSelf.spinner.hidden = weakSelf.errorLabel.hidden = YES;
     } failure:^(NSError *error) {
-        if ([error isNetworkError]) {
-            weakSelf.errorLabel.hidden = NO;
-        } else {
-            weakSelf.errorLabel.hidden = YES;
-            weakSelf.spinner.hidden = YES;
-            weakSelf.imageView.contentMode = UIViewContentModeCenter;
-            weakSelf.imageView.image = [UIImage imageNamed:@"ic_photo_placeholder"];
-        }
+        weakSelf.errorLabel.hidden = ![error isNetworkError];
+        weakSelf.spinner.hidden = YES;
     }];
 }
 
 - (void)calculateScaleValues {
-    if (self.imageView.image) {
-        CGFloat minimumZoomScale = CGSizeScaleToFitSize(self.size, self.imageView.image.size);
+    UIImage *image = self.imageView.image;
+    if (image) {
+        CGFloat minimumZoomScale = CGSizeScaleToFitSize(self.size, image.size);
         if (minimumZoomScale <= 0) minimumZoomScale = 0.01;
         self.scrollView.maximumZoomScale = minimumZoomScale < 1 ? 2 : (minimumZoomScale + 2);
         self.scrollView.minimumZoomScale = minimumZoomScale;

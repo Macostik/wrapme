@@ -29,7 +29,7 @@ static NSString *WLCameraStoryboard = @"Camera";
 
 + (instancetype)instantiate:(UIStoryboard*)storyboard;
 
-- (void)requestAuthorizationForPresentingEntry:(WLBooleanBlock)completion;
+- (void)requestAuthorizationForPresentingEntry:(WLEntry*)entry completion:(WLBooleanBlock)completion;
 
 @end
 

@@ -12,13 +12,14 @@
 #import "NSString+Additions.h"
 #import "WLEntryManager.h"
 #import "UIColor+CustomColors.h"
+#import "WLButton.h"
 
 @interface WLContributorCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UIButton *removeButton;
-@property (weak, nonatomic) IBOutlet UIButton *resendInviteButton;
+@property (weak, nonatomic) IBOutlet WLButton *resendInviteButton;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *removeButtonTop;
 
@@ -54,6 +55,14 @@
     self.removeButtonTop.constant = deletable ? self.avatarView.y : -self.removeButton.height;
     WLUser *user = self.entry;
     self.resendInviteButton.hidden = !user.isInvited;
+    
+    if (!self.resendInviteButton.hidden) {
+        BOOL invited = [self.delegate contributorCell:self isInvitedContributor:user];
+        self.resendInviteButton.userInteractionEnabled = !invited;
+        [self.resendInviteButton setTitle:WLLS(invited ? @"SENT" : @"RESEND INVITE") forState:UIControlStateNormal];
+        self.resendInviteButton.loading = NO;
+        self.resendInviteButton.titleEdgeInsets = UIEdgeInsetsZero;
+    }
 }
 
 #pragma mark - Actions
@@ -62,8 +71,13 @@
 	[self.delegate contributorCell:self didRemoveContributor:self.entry];
 }
 
-- (IBAction)resendInvite:(id)sender {
-    [self.delegate contributorCell:self didInviteContributor:self.entry];
+- (IBAction)resendInvite:(WLButton*)sender {
+    sender.loading = YES;
+    sender.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 18);
+    [self.delegate contributorCell:self didInviteContributor:self.entry completionHandler:^(BOOL success) {
+        sender.loading = NO;
+        sender.titleEdgeInsets = UIEdgeInsetsZero;
+    }];
 }
 
 @end

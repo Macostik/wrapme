@@ -105,9 +105,9 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
                             CFRelease(records);
                             run_in_main_queue(^{
                                 if (contacts.nonempty) {
-                                    success([contacts copy]);
+                                    if (success) success([contacts copy]);
                                 } else {
-                                    failure([NSError errorWithDescription:WLLS(@"You don't have contacts with phone numbers on this device.")]);
+                                    if (failure) failure([NSError errorWithDescription:WLLS(@"You don't have contacts with phone numbers on this device.")]);
                                 }
                                 [operation finish];
                             });
@@ -119,7 +119,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
             if (records != NULL) {
                 CFRelease(records);
             }
-            failure([NSError errorWithDescription:WLLS(@"You don't have contacts on this device.")]);
+            if (failure) failure([NSError errorWithDescription:WLLS(@"You don't have contacts on this device.")]);
             [operation finish];
         }
     });

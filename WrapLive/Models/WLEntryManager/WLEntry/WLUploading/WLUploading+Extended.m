@@ -49,6 +49,9 @@
                 [weakSelf.contribution remove];
                 if (failure) failure(WLError(@"This item is already uploaded."));
             }
+        } else if ([error isError:WLErrorContentUnavaliable]) {
+            [weakSelf.contribution remove];
+            if (failure) failure(error);
         } else {
             [weakSelf.contribution notifyOnUpdate];
             if (failure) failure(error);

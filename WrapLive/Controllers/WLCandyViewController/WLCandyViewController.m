@@ -137,12 +137,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
     self.lastComment = nil;
     [self updateOwnerData];
     [self.collectionView reloadData];
     if (self.showCommentViewController) {
-        [self.commentButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+        [self showCommentView];
+    } else {
+        [self setBarsHidden:NO animated:animated];
     }
 }
 
@@ -150,6 +151,11 @@
     [super viewDidAppear:animated];
     self.scrolledToInitialItem = YES;
     [WLHintView showCandySwipeHintView];
+}
+
+- (void)showCommentView {
+    [self.commentButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+    self.showCommentViewController = NO;
 }
 
 - (void)viewDidLayoutSubviews {
@@ -162,12 +168,16 @@
 
 static CGFloat WLTopContraintConstant = -20.0f;
 
-- (IBAction)movingDetailViews {
-    BOOL hide = self.topViewConstraint.constant == WLTopContraintConstant;
-    [UIView performAnimated:YES animation:^{
-        self.topViewConstraint.constant = hide ? -self.topView.height + WLTopContraintConstant : WLTopContraintConstant;
-        self.bottomViewContstraint.constant = hide ? -self.bottomView.height : .0f;
-        [self.view layoutIfNeeded];
+- (IBAction)hideBars {
+    [self setBarsHidden:YES animated:YES];
+}
+
+- (IBAction)setBarsHidden:(BOOL)hidden animated:(BOOL)animated {
+    __weak typeof(self)weakSelf = self;
+    [UIView performAnimated:animated animation:^{
+        weakSelf.topViewConstraint.constant = hidden ? -weakSelf.topView.height + WLTopContraintConstant : WLTopContraintConstant;
+        weakSelf.bottomViewContstraint.constant = hidden ? -weakSelf.bottomView.height : .0f;
+        [weakSelf.view layoutIfNeeded];
     }];
 }
 

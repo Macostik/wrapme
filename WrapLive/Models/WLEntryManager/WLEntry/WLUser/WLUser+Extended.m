@@ -71,6 +71,7 @@
 }
 
 - (BOOL)isInvited {
+    if ([self isCurrentUser]) return NO;
     NSOrderedSet *devices = self.devices;
     if (devices.nonempty) {
         for (WLDevice *device in devices) {

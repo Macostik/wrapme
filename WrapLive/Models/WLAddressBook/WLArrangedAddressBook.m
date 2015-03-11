@@ -19,27 +19,14 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        __weak typeof(self)weakSelf = self;
         self.groups = [NSArray arrayWithBlock:^(NSMutableArray *array) {
             [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:@"FRIENDS ON WRAPLIVE" addingRule:^BOOL(WLAddressBookRecord *record) {
                 WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
-                if (phoneNumber.user) {
-                    if (phoneNumber.activated) {
-                        return YES;
-                    } else {
-                        return [weakSelf.wrap.contributors containsObject:phoneNumber.user];
-                    }
-                } else {
-                    return NO;
-                }
+                return phoneNumber.user != nil;
             }]];
             [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:@"INVITE TO WRAPLIVE" addingRule:^BOOL(WLAddressBookRecord *record) {
                 WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
                 return phoneNumber.user == nil;
-            }]];
-            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:nil addingRule:^BOOL(WLAddressBookRecord *record) {
-                WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
-                return (phoneNumber.user && !phoneNumber.activated && ![weakSelf.wrap.contributors containsObject:phoneNumber.user]);
             }]];
         }];
         self.selectedPhoneNumbers = [NSMutableArray array];

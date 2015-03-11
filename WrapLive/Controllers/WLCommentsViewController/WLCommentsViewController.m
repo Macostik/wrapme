@@ -159,6 +159,8 @@
     CGPoint touchPoint = [sender locationInView:collectionView];
     if (CGRectContainsPoint(collectionView.bounds, touchPoint)) {
         [self.view endEditing:YES];
+    } else {
+        [self onClose:nil];
     }
 }
 

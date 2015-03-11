@@ -21,6 +21,8 @@
 
 @property (nonatomic) BOOL showCommentViewController;
 
-- (IBAction)movingDetailViews;
+- (IBAction)hideBars;
+
+- (IBAction)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
 
 @end

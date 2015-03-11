@@ -3037,8 +3037,11 @@
                                                     <rect key="frame" x="150" y="252" width="20" height="20"/>
                                                     <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </activityIndicatorView>
-                                                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="260" placeholderIntrinsicHeight="100" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="TvM-gd-tcr" customClass="WLLabel">
-                                                    <rect key="frame" x="30" y="212" width="260" height="100"/>
+                                                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="TvM-gd-tcr" customClass="WLLabel">
+                                                    <rect key="frame" x="32" y="80" width="256" height="82"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="256" id="0ZQ-Sa-W7T"/>
+                                                    </constraints>
                                                     <string key="text">There was a problem connecting with wrapLive.
 Check your internet connection and try again.</string>
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
@@ -3059,8 +3062,8 @@ Check your internet connection and try again.</string>
                                             <constraint firstAttribute="bottom" secondItem="pry-wp-qRG" secondAttribute="bottom" id="Js0-ca-jV2"/>
                                             <constraint firstItem="pry-wp-qRG" firstAttribute="leading" secondItem="YzT-ge-Jjl" secondAttribute="leading" id="PC6-zl-1Qr"/>
                                             <constraint firstAttribute="centerX" secondItem="TvM-gd-tcr" secondAttribute="centerX" id="bzF-ni-C8p"/>
-                                            <constraint firstAttribute="centerY" secondItem="TvM-gd-tcr" secondAttribute="centerY" constant="22" id="c5F-qZ-Mym"/>
                                             <constraint firstAttribute="centerX" secondItem="bf0-24-ZKl" secondAttribute="centerX" id="iIY-MV-jIi"/>
+                                            <constraint firstItem="TvM-gd-tcr" firstAttribute="top" secondItem="YzT-ge-Jjl" secondAttribute="top" constant="80" id="khs-Cw-nlX"/>
                                             <constraint firstAttribute="centerY" secondItem="bf0-24-ZKl" secondAttribute="centerY" constant="22" id="odz-Ui-H0l"/>
                                         </constraints>
                                         <connections>
@@ -3265,7 +3268,7 @@ Check your internet connection and try again.</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="movingDetailViews" destination="eto-O4-OHy" eventType="touchUpInside" id="QyJ-TG-exf"/>
+                                    <action selector="hideBars" destination="eto-O4-OHy" eventType="touchUpInside" id="gQm-Nb-Phs"/>
                                     <action selector="present:" destination="vup-MX-RNo" eventType="touchUpInside" id="Pf8-8e-RRh"/>
                                 </connections>
                             </button>

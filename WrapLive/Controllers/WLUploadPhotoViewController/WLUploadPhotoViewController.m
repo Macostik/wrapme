@@ -49,7 +49,7 @@ static CGFloat WLHeightCoposeBarConstrain = 132.0;
     }
 }
 
-- (void)requestAuthorizationForPresentingEntry:(WLBooleanBlock)completion {
+- (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
     if (!completion) return;
     [WLAlertView showWithTitle:WLLS(@"Unsaved photo")
                        message:WLLS(@"You are editing a photo and it is not saved yet. Are you sure you want to leave this screen?")

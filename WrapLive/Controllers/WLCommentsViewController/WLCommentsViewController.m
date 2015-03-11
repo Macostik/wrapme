@@ -51,6 +51,10 @@
     [[WLCandy notifier] addReceiver:self];
 }
 
+- (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
+    if (completion) completion(![self.candy.comments containsObject:entry]);
+}
+
 - (void)refresh:(WLRefresher*)sender {
     if (self.candy.uploaded) {
         [self.candy fetch:^(id object) {
@@ -79,9 +83,10 @@
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    [fromViewController viewWillDisappear:YES];
+    [toViewController viewWillAppear:YES];
     __weak typeof(self)weakSelf = self;
     if (self.isBeingPresented) {
-        fromViewController.view.userInteractionEnabled = NO;
         toViewController.view.frame = fromViewController.view.frame;
         [transitionContext.containerView addSubview:toViewController.view];
         self.contentView.transform = CGAffineTransformMakeScale(0.5, 0.5);
@@ -96,7 +101,8 @@
                              weakSelf.view.backgroundColor = [UIColor colorWithWhite:.0 alpha:0.5];
                          } completion:^(BOOL finished) {
                              [transitionContext completeTransition:YES];
-                             fromViewController.view.userInteractionEnabled = YES;
+                             [fromViewController viewDidDisappear:YES];
+                             [toViewController viewDidAppear:YES];
                          }];
     } else {
         [UIView animateWithDuration:0.5f
@@ -110,6 +116,8 @@
                          } completion:^(BOOL finished) {
                              weakSelf.contentView.transform = CGAffineTransformIdentity;
                              [transitionContext completeTransition:YES];
+                             [fromViewController viewDidDisappear:YES];
+                             [toViewController viewDidAppear:YES];
                          }];
     }
 }
@@ -147,11 +155,7 @@
 
 - (IBAction)onClose:(id)sender {
     [self.view endEditing:YES];
-    id candyViewController = [UINavigationController topViewController];
-    if ([candyViewController respondsToSelector:@selector(movingDetailViews)]) {
-        [candyViewController movingDetailViews];
-    }
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {

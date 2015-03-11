@@ -130,8 +130,8 @@
     [self showHintView];
 }
 
-- (void)requestAuthorizationForPresentingEntry:(WLBooleanBlock)completion {
-    [self.cameraNavigationController.topViewController requestAuthorizationForPresentingEntry:completion];
+- (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
+    [self.cameraNavigationController.topViewController requestAuthorizationForPresentingEntry:entry completion:completion];
 }
 
 - (CGSize)imageSizeForCurrentMode {

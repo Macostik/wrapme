@@ -28,9 +28,8 @@
 #import "WLImageFetcher.h"
 #import "WLOperationQueue.h"
 #import "WLEntryNotifier.h"
-#import "WLNetwork.h"
 
-@interface WLNotificationCenter () <PNDelegate, WLNetworkReceiver>
+@interface WLNotificationCenter () <PNDelegate>
 
 @property (strong, nonatomic) WLNotificationChannel* userChannel;
 
@@ -65,8 +64,6 @@
                 [weakSelf subscribe];
             }
         }];
-        
-        [[WLNetwork network] addReceiver:self];
     }
     return self;
 }
@@ -378,6 +375,9 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)pubnubClient:(PubNub *)client didConnectToOrigin:(NSString *)origin {
     WLLog(@"PUBNUB",@"connected", origin);
+    if (self.userChannel.subscribed) {
+        [self requestHistory];
+    }
 }
 
 - (void)pubnubClient:(PubNub *)client connectionDidFailWithError:(PNError *)error {
@@ -406,16 +406,6 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)pubnubClient:(PubNub *)client didReceivePresenceEvent:(PNPresenceEvent *)event {
     WLLog(@"PUBNUB", @"presence event", @(event.type));
-}
-
-// MARK: - WLNetworkReceiver
-
-- (void)networkDidChangeReachability:(WLNetwork *)network {
-    if (network.reachable) {
-        if (self.userChannel.subscribed) {
-            [self requestHistory];
-        }
-    }
 }
 
 @end

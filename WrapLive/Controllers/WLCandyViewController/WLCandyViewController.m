@@ -137,13 +137,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
     self.lastComment = nil;
     [self updateOwnerData];
     [self.collectionView reloadData];
     if (self.showCommentViewController) {
-        [self.commentButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-        self.showCommentViewController = NO;
+        [self showCommentView];
     } else {
         [self setBarsHidden:NO animated:animated];
     }
@@ -153,6 +151,11 @@
     [super viewDidAppear:animated];
     self.scrolledToInitialItem = YES;
     [WLHintView showCandySwipeHintView];
+}
+
+- (void)showCommentView {
+    [self.commentButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+    self.showCommentViewController = NO;
 }
 
 - (void)viewDidLayoutSubviews {

@@ -202,7 +202,8 @@ static UIWindow* mainWindow = nil;
     }
 }
 
-- (void)configureViewController:(UIViewController*)controller fromContainingEntry:(WLEntry*)containingEntry {}
+- (void)configureViewController:(UIViewController*)controller fromContainingEntry:(WLEntry*)containingEntry {
+}
 
 @end
 
@@ -259,7 +260,11 @@ static UIWindow* mainWindow = nil;
 - (void)configureViewController:(UIViewController *)controller fromContainingEntry:(WLEntry *)containingEntry {
     if (containingEntry == self.candy) {
         WLCandyViewController *candyViewController = (WLCandyViewController *)controller;
-        candyViewController.showCommentViewController = YES;
+        if (candyViewController.isViewLoaded) {
+            [candyViewController showCommentView];
+        } else {
+            candyViewController.showCommentViewController = YES;
+        }
     }
 }
 

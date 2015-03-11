@@ -25,4 +25,6 @@
 
 - (IBAction)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
 
+- (void)showCommentView;
+
 @end

@@ -22,7 +22,7 @@
 #import "UIFont+CustomFonts.h"
 #import "UIScrollView+Additions.h"
 
-static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
+static CGFloat WLComposeBarDefaultCharactersLimit = NSIntegerMax;
 
 @interface WLComposeBar () <UITextViewDelegate, UICollectionViewDelegate>
 

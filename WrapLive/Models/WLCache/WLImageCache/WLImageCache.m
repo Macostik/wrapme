@@ -51,7 +51,7 @@ static NSUInteger WLImageCacheSize = 524288000;
 - (id)read:(NSString *)identifier {
     UIImage* image = [WLSystemImageCache imageWithIdentifier:identifier];
     if (image == nil) {
-        image = [UIImage imageWithData:[[NSFileManager defaultManager] contentsAtPath:[self pathWithIdentifier:identifier]]];
+        image = [UIImage imageWithContentsOfFile:[self pathWithIdentifier:identifier]];
         [WLSystemImageCache setImage:image withIdentifier:identifier];
     }
     return image;

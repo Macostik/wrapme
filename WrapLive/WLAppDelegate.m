@@ -30,6 +30,7 @@
 #import "WLOperationQueue.h"
 #import "WLSignupFlowViewController.h"
 #import "WLUploadingQueue.h"
+#import "GAI.h"
 
 @interface WLAppDelegate () <iVersionDelegate>
 
@@ -69,8 +70,12 @@
 }
 
 - (void)initializeCrashlyticsAndLogging {
+    
     [LELog sharedInstance].token = @"e9e259b1-98e6-41b5-b530-d89d1f5af01d";
     run_release(^{
+        
+        [[GAI sharedInstance] trackerWithTrackingId:@"UA-60538241-1"];
+        
         [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
         
         void (^notificationBlock) (NSNotification *n) = ^ (NSNotification *n) {

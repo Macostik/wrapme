@@ -220,6 +220,7 @@
 	}
 	[session commitConfiguration];
 	self.flashModeControl.hidden = !self.input.device.hasFlash;
+    self.connection = nil;
 	[self applyDeviceOrientation:[UIDevice currentDevice].orientation];
 }
 
@@ -302,6 +303,7 @@
 		completion(image, metadata);
 	};
     AVCaptureConnection *connection = self.connection;
+    [self applyDeviceOrientation:[UIDevice currentDevice].orientation forConnection:connection];
 	connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
     [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
 }
@@ -438,7 +440,6 @@
         }
     }
     
-//	self.cameraView.layer.affineTransform = CGAffineTransformMakeScale(_zoomScale, _zoomScale);
 	[self showZoomLabel];
 }
 
@@ -458,15 +459,19 @@
 }
 
 - (void)applyDeviceOrientation:(UIDeviceOrientation)orientation {
-	if (orientation == UIDeviceOrientationLandscapeLeft) {
-		self.connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
-	} else if (orientation == UIDeviceOrientationLandscapeRight) {
-		self.connection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
-	} else if (orientation == UIDeviceOrientationPortrait) {
-		self.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
-	} else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
-		self.connection.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
-	}
+    [self applyDeviceOrientation:orientation forConnection:self.connection];
+}
+
+- (void)applyDeviceOrientation:(UIDeviceOrientation)orientation forConnection:(AVCaptureConnection*)connection {
+    if (orientation == UIDeviceOrientationLandscapeLeft) {
+        connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
+    } else if (orientation == UIDeviceOrientationLandscapeRight) {
+        connection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+    } else if (orientation == UIDeviceOrientationPortrait) {
+        connection.videoOrientation = AVCaptureVideoOrientationPortrait;
+    } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
+        connection.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
+    }
 }
 
 #pragma mark - WLDeviceOrientationBroadcastReceiver

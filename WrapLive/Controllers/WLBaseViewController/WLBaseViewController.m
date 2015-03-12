@@ -131,6 +131,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.screenName = NSStringFromClass([self class]);
     self.keyboardAdjustmentAnimated = YES;
     if (!self.isEmbedded) {
         self.view.frame = [UIWindow mainWindow].bounds;

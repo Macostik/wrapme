@@ -16,6 +16,7 @@
 
 #define WLLog(LABEL,ACTION,OBJECT)\
 NSString *str = [NSString stringWithFormat:@"%@ - %@",(LABEL), (ACTION)];\
+NSLog(@"%@: %@", str, (OBJECT));\
 int state = (int)[UIApplication sharedApplication].applicationState;\
 [[LELog sharedInstance] log:[NSString stringWithFormat:@"%@ >> (app state: %d) >> %@: %@", [WLUser combinedIdentifier], state, str, (OBJECT)]];
 
@@ -23,6 +24,7 @@ int state = (int)[UIApplication sharedApplication].applicationState;\
 
 #define WLLog(LABEL,ACTION,OBJECT)\
 NSString *str = [NSString stringWithFormat:@"%@ - %@",(LABEL), (ACTION)];\
+NSLog(@"%@", str);\
 int state = (int)[UIApplication sharedApplication].applicationState;\
 [[LELog sharedInstance] log:[NSString stringWithFormat:@"%@ >> (app state: %d) >> %@", [WLUser combinedIdentifier], state, str]];
 

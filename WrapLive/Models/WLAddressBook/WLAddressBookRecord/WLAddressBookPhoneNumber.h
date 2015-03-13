@@ -10,10 +10,13 @@
 
 @class WLPicture;
 @class WLUser;
+@class WLAddressBookRecord;
 
 static NSInteger WLAddressBookPhoneNumberMinimumLength = 6;
 
-@interface WLAddressBookPhoneNumber : NSObject 
+@interface WLAddressBookPhoneNumber : NSObject
+
+@property (weak, nonatomic) WLAddressBookRecord* record;
 
 @property (strong, nonatomic) NSString *phone;
 

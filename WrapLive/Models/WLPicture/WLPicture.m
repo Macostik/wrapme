@@ -92,6 +92,13 @@
 }
 
 - (void)fetch:(WLBlock)completion {
+    if (!completion) {
+        [[WLImageFetcher fetcher] enqueueImageWithUrl:self.small];
+        [[WLImageFetcher fetcher] enqueueImageWithUrl:self.medium];
+        [[WLImageFetcher fetcher] enqueueImageWithUrl:self.large];
+        return;
+    }
+    
     NSMutableSet *urls = [NSMutableSet set];
     
     if (self.small) [urls addObject:self.small];

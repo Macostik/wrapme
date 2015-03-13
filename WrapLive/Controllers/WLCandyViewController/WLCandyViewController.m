@@ -256,7 +256,7 @@ static CGFloat WLTopContraintConstant = -20.0f;
     self.postLabel.text = [NSString stringWithFormat:WLLS(@"Posted by %@"), _candy.contributor.name];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
     self.timeLabel.text = timeAgoString;
-    self.lastComment = _candy.comments.lastObject;
+    self.lastComment = [[_candy sortedComments] firstObject];
 }
 
 - (void)setCommentButtonTitle:(WLCandy *)candy {

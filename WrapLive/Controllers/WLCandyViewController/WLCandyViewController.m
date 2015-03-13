@@ -119,7 +119,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (!self.scrolledToInitialItem) return;
+    if (!self.scrolledToInitialItem || !CGPointEqualToPoint(self.scrollPositionBeforeRotation, CGPointZero)) return;
     CGFloat indexPosition = roundf(self.collectionView.contentOffset.x / self.collectionView.width);
     if ([self.historyItem.entries containsIndex:indexPosition]) {
         self.candy = [self.historyItem.entries objectAtIndex:indexPosition];
@@ -432,6 +432,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                                            self.scrollPositionBeforeRotation.y * self.collectionView.contentSize.height);
  
     [self.collectionView trySetContentOffset:newContentOffset animated:NO];
+    self.scrollPositionBeforeRotation = CGPointZero;
     self.collectionView.alpha = 1;
 }
 

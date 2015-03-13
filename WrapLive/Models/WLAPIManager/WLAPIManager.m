@@ -36,7 +36,7 @@
 #import "WLLeaveWrapRequest.h"
 #import "WLOperationQueue.h"
 #import "WLAlertView.h"
-#import "WLPaginatedSet.h"
+#import "WLHistory.h"
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 
@@ -268,13 +268,15 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
 }
 
 - (void)preload {
-    WLPaginatedSet *candies = [WLPaginatedSet new];
-    candies.request = [WLCandiesRequest request:self];
-    candies.sortComparator = comparatorByCreatedAt;
-    [candies recursiveOlder:^(NSOrderedSet *orderedSet) {
-        for (WLCandy *candy in orderedSet) {
-            [candy.picture fetch:nil];
-        }
+    WLHistory *history = [WLHistory historyWithWrap:self];
+    [history newer:^(NSOrderedSet *orderedSet) {
+        [history.entries enumerateObjectsUsingBlock:^(WLHistoryItem* item, NSUInteger idx, BOOL *stop) {
+            [item.entries enumerateObjectsUsingBlock:^(WLCandy* candy, NSUInteger idx, BOOL *stop) {
+                [candy.picture fetch:nil];
+                if (idx == 5) *stop = YES;
+            }];
+            if (idx == 4) *stop = YES;
+        }];
     } failure:nil];
 }
 

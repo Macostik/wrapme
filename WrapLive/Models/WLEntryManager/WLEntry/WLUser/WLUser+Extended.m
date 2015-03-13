@@ -124,11 +124,6 @@ static NSString *_combinedIdentifier = nil;
         WLAuthorization *authorization = [WLAuthorization currentAuthorization];
         _combinedIdentifier = [NSString stringWithFormat:@"%@-%@", user.identifier, authorization.deviceUID];
         [[WLNotificationCenter defaultCenter] subscribe];
-        run_release(^{
-            [Crashlytics setUserEmail:authorization.email];
-            [Crashlytics setUserIdentifier:user.identifier];
-            [Crashlytics setUserName:user.name];
-        });
     }
 }
 

@@ -45,8 +45,7 @@
                                      action:@selector(refresh:)
                                       style:WLRefresherStyleWhite_Clear];
     [self refresh:nil];
-    NSArray *entries = [[self.candy.comments reverseObjectEnumerator] allObjects];
-    self.dataSection.entries = [NSMutableOrderedSet orderedSetWithArray:entries];
+    self.dataSection.entries = [self.candy sortedComments];
     self.collectionView.layer.geometryFlipped = YES;
     [[WLComment notifier] addReceiver:self];
     [[WLCandy notifier] addReceiver:self];
@@ -172,8 +171,7 @@
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier*)notifier candyUpdated:(WLComment *)comment {
-    NSArray *entries = [[self.candy.comments reverseObjectEnumerator] allObjects];
-    self.dataSection.entries = [NSMutableOrderedSet orderedSetWithArray:entries];
+    self.dataSection.entries =  [self.candy sortedComments];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
@@ -181,8 +179,7 @@
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
-    NSArray *entries = [[self.candy.comments reverseObjectEnumerator] allObjects];
-    self.dataSection.entries = [NSMutableOrderedSet orderedSetWithArray:entries];
+    self.dataSection.entries = [self.candy sortedComments];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentDeleted:(WLComment *)comment {

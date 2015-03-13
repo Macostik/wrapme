@@ -92,6 +92,11 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
     return record;
 }
 
+- (void)setPhoneNumbers:(NSArray *)phoneNumbers {
+    _phoneNumbers = phoneNumbers;
+    [phoneNumbers makeObjectsPerformSelector:@selector(setRecord:) withObject:self];
+}
+
 - (NSString *)name {
     if (!_name.nonempty) {
         _name = [[self.phoneNumbers selectObject:^BOOL(WLAddressBookPhoneNumber* person) {

@@ -172,5 +172,12 @@
     self.downloadSuccessBlock = nil;
 }
 
+- (NSMutableOrderedSet *)sortedComments {
+    NSMutableOrderedSet* comments = self.comments;
+    [comments sortByCreatedAt];
+
+    return comments;
+}
+
 @end
 

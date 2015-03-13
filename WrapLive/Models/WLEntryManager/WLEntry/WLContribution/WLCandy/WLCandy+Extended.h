@@ -26,4 +26,5 @@ static NSInteger WLCandyTypeImage = 10;
 
 - (void)download:(WLBlock)success failure:(WLFailureBlock)failure;
 
+- (NSMutableOrderedSet *)sortedComments;
 @end

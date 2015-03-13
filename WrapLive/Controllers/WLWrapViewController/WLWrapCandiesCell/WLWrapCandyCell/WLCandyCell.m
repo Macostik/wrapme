@@ -76,7 +76,7 @@
 - (void)setup:(WLCandy*)candy {
 	self.userInteractionEnabled = YES;
     if (self.commentLabel) {
-        WLComment* comment = [candy.comments lastObject];
+        WLComment* comment = [[candy sortedComments] firstObject];
         self.commentLabel.text = comment.text;
         self.commentLabel.superview.hidden = !self.commentLabel.text.nonempty;
     }

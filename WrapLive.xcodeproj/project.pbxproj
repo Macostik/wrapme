@@ -66,7 +66,6 @@
 		14B134E11952FEB2004F86AC /* WLInviteeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B134E01952FEB2004F86AC /* WLInviteeCell.m */; };
 		14B2429D195C4CEB00C5D208 /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
 		14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
-		1E365B58F552C37B8AE835F8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46AAD6EA25A4C5DAA4B5C1C /* libPods.a */; };
 		5B0F81E81A30920900B42D7D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
 		5B2199FF1A66C94600D131C3 /* WLWrapOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B219A041A66C94600D131C3 /* WLWrapOptionsViewController.xib */; };
 		5B219A001A66C94600D131C3 /* WLWrapOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B219A041A66C94600D131C3 /* WLWrapOptionsViewController.xib */; };
@@ -503,6 +502,7 @@
 		C50AF42D1976B44D00761F38 /* WLDeleteCommentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AF42C1976B44D00761F38 /* WLDeleteCommentRequest.m */; };
 		C50F48391973EFCB00929AA9 /* WLPaginatedSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C50F48381973EFCB00929AA9 /* WLPaginatedSet.m */; };
 		C50FD422199B69FD00B52B33 /* WLCandiesHistoryViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C50FD421199B69FD00B52B33 /* WLCandiesHistoryViewSection.m */; };
+		C5111D331AB2E1060094275C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5111D321AB2E1060094275C /* libPods.a */; };
 		C51383D019A4AB3300D23257 /* WLNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLNotificationsViewController.m */; };
 		C51496411975736D009F0743 /* WLAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C51496401975736D009F0743 /* WLAPIRequest.m */; };
 		C5149644197586E4009F0743 /* WLWrapsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5149643197586E4009F0743 /* WLWrapsRequest.m */; };
@@ -738,10 +738,6 @@
 		C53F2CC11A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */; };
 		C53F2CC21A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */; };
 		C53F2CC31A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */; };
-		C53F2CC41A6EB5FB00D99741 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA81A6EB5FA00D99741 /* Crashlytics.framework */; };
-		C53F2CC51A6EB5FB00D99741 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA81A6EB5FA00D99741 /* Crashlytics.framework */; };
-		C53F2CC61A6EB5FB00D99741 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA81A6EB5FA00D99741 /* Crashlytics.framework */; };
-		C53F2CC71A6EB5FB00D99741 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA81A6EB5FA00D99741 /* Crashlytics.framework */; };
 		C53F2CC81A6EB5FB00D99741 /* LEBackgroundThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CAB1A6EB5FA00D99741 /* LEBackgroundThread.m */; };
 		C53F2CC91A6EB5FB00D99741 /* LEBackgroundThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CAB1A6EB5FA00D99741 /* LEBackgroundThread.m */; };
 		C53F2CCA1A6EB5FB00D99741 /* LEBackgroundThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CAB1A6EB5FA00D99741 /* LEBackgroundThread.m */; };
@@ -1474,13 +1470,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5B787DA61A27876F004AE459 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5B787D9A1A27876F004AE459;
-			remoteInfo = WLTodayExtension;
-		};
 		5BA7AF2F1A481A9500C586CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -1501,6 +1490,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5BF1B22F1A49A683000BB2C1;
 			remoteInfo = WLTodayExtension_Production;
+		};
+		C5111D341AB2E2880094275C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B787D9A1A27876F004AE459;
+			remoteInfo = WLTodayExtension;
 		};
 		C559CB701AA0BB5D00100B2C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1688,6 +1684,7 @@
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
 		21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		3272A1C39BD41FBFE03B2A92 /* libPods-WrapLive-Beta.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WrapLive-Beta.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3ED9551C829C0FE17DCF5E43 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
 		42CA3AF521263747CD1779EC /* Pods-WrapLive-QA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WrapLive-QA.release.xcconfig"; path = "Pods/Target Support Files/Pods-WrapLive-QA/Pods-WrapLive-QA.release.xcconfig"; sourceTree = "<group>"; };
 		5B2199FE1A66C8F400D131C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLEditWrapViewController.strings; sourceTree = "<group>"; };
 		5B219A031A66C94600D131C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLWrapOptionsViewController.xib; sourceTree = "<group>"; };
@@ -1956,6 +1953,7 @@
 		C50F48381973EFCB00929AA9 /* WLPaginatedSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPaginatedSet.m; path = WLPagination/WLPaginatedSet.m; sourceTree = "<group>"; };
 		C50FD420199B69FD00B52B33 /* WLCandiesHistoryViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCandiesHistoryViewSection.h; path = WLCollectionViewDataProvider/WLCandiesHistoryViewSection.h; sourceTree = "<group>"; };
 		C50FD421199B69FD00B52B33 /* WLCandiesHistoryViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCandiesHistoryViewSection.m; path = WLCollectionViewDataProvider/WLCandiesHistoryViewSection.m; sourceTree = "<group>"; };
+		C5111D321AB2E1060094275C /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		C51383CE19A4AB3300D23257 /* WLNotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLNotificationsViewController.h; path = WLNotificationsViewController/WLNotificationsViewController.h; sourceTree = "<group>"; };
 		C51383CF19A4AB3300D23257 /* WLNotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLNotificationsViewController.m; path = WLNotificationsViewController/WLNotificationsViewController.m; sourceTree = "<group>"; };
 		C514963F1975736D009F0743 /* WLAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAPIRequest.h; path = WLAPIManager/WLAPIRequest/WLAPIRequest.h; sourceTree = "<group>"; };
@@ -2078,7 +2076,6 @@
 		C53E5D5B1A851F71004F61B0 /* WLFlashModeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLFlashModeControl.m; sourceTree = "<group>"; };
 		C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
 		C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
-		C53F2CA81A6EB5FA00D99741 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		C53F2CAA1A6EB5FA00D99741 /* LEBackgroundThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEBackgroundThread.h; sourceTree = "<group>"; };
 		C53F2CAB1A6EB5FA00D99741 /* LEBackgroundThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEBackgroundThread.m; sourceTree = "<group>"; };
 		C53F2CAC1A6EB5FA00D99741 /* lecore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lecore.h; sourceTree = "<group>"; };
@@ -2300,7 +2297,6 @@
 				12A7A70718DA0945008FF6F0 /* UIKit.framework in Frameworks */,
 				12A7A70318DA0945008FF6F0 /* Foundation.framework in Frameworks */,
 				607AAB536152441CB1C4F352 /* libPods.a in Frameworks */,
-				C53F2CC41A6EB5FB00D99741 /* Crashlytics.framework in Frameworks */,
 				C5D41CF21AB1EE4600990944 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2310,7 +2306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B787D9D1A27876F004AE459 /* NotificationCenter.framework in Frameworks */,
-				1E365B58F552C37B8AE835F8 /* libPods.a in Frameworks */,
+				C5111D331AB2E1060094275C /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2337,7 +2333,6 @@
 				C54AF51C19B8C437006F7EDB /* UIKit.framework in Frameworks */,
 				C54AF51E19B8C437006F7EDB /* Foundation.framework in Frameworks */,
 				C54AF51F19B8C437006F7EDB /* libPods.a in Frameworks */,
-				C53F2CC51A6EB5FB00D99741 /* Crashlytics.framework in Frameworks */,
 				C5D41CF31AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2356,7 +2351,6 @@
 				C54AF61919B8C467006F7EDB /* UIKit.framework in Frameworks */,
 				C54AF61B19B8C467006F7EDB /* Foundation.framework in Frameworks */,
 				C54AF61C19B8C467006F7EDB /* libPods.a in Frameworks */,
-				C53F2CC61A6EB5FB00D99741 /* Crashlytics.framework in Frameworks */,
 				C5D41CF41AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2375,7 +2369,6 @@
 				C54AF71619B8C491006F7EDB /* UIKit.framework in Frameworks */,
 				C54AF71819B8C491006F7EDB /* Foundation.framework in Frameworks */,
 				C54AF71919B8C491006F7EDB /* libPods.a in Frameworks */,
-				C53F2CC71A6EB5FB00D99741 /* Crashlytics.framework in Frameworks */,
 				C5D41CF51AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2550,9 +2543,9 @@
 		12A7A70118DA0945008FF6F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5111D321AB2E1060094275C /* libPods.a */,
 				C5D41CE61AB1EE4600990944 /* GoogleAnalyticsServices */,
 				C53F2CA51A6EB5FA00D99741 /* AviarySDK */,
-				C53F2CA81A6EB5FA00D99741 /* Crashlytics.framework */,
 				C53F2CA91A6EB5FA00D99741 /* lelib */,
 				C53F2CB81A6EB5FA00D99741 /* RMPhoneFormat */,
 				AC1A179C1937694B002B3737 /* MessageUI.framework */,
@@ -4587,6 +4580,7 @@
 				6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */,
 				63802D691111B6CA45B3027C /* Pods-WrapLive-QA.debug.xcconfig */,
 				42CA3AF521263747CD1779EC /* Pods-WrapLive-QA.release.xcconfig */,
+				3ED9551C829C0FE17DCF5E43 /* Pods.adhoc.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -4629,14 +4623,14 @@
 				12A7A6FC18DA0945008FF6F0 /* Frameworks */,
 				12A7A6FD18DA0945008FF6F0 /* Resources */,
 				635DA26797604B1F927001E0 /* Copy Pods Resources */,
-				C52C93AD1965AE470027EF46 /* ShellScript */,
 				5B787DAC1A27876F004AE459 /* Embed App Extensions */,
+				C5D41CF61AB1FD2400990944 /* NewRelic upload dSym */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				C559CB711AA0BB5D00100B2C /* PBXTargetDependency */,
-				5B787DA71A27876F004AE459 /* PBXTargetDependency */,
+				C5111D351AB2E2880094275C /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Development";
 			productName = WrapLive;
@@ -4690,8 +4684,8 @@
 				C54AF51519B8C437006F7EDB /* Frameworks */,
 				C54AF52119B8C437006F7EDB /* Resources */,
 				C54AF54B19B8C437006F7EDB /* Copy Pods Resources */,
-				C54AF54C19B8C437006F7EDB /* ShellScript */,
 				5BA7AF311A481A9500C586CA /* Embed App Extensions */,
+				C5D41CF71AB1FD5800990944 /* NewRelic upload dSym */,
 			);
 			buildRules = (
 			);
@@ -4713,8 +4707,8 @@
 				C54AF61219B8C467006F7EDB /* Frameworks */,
 				C54AF61E19B8C467006F7EDB /* Resources */,
 				C54AF64819B8C467006F7EDB /* Copy Pods Resources */,
-				C54AF64919B8C467006F7EDB /* Run Script */,
 				5BA7AF351A481A9C00C586CA /* Embed App Extensions */,
+				C5D41CF81AB1FD5F00990944 /* NewRelic upload dSym */,
 			);
 			buildRules = (
 			);
@@ -4736,8 +4730,8 @@
 				C54AF70F19B8C491006F7EDB /* Frameworks */,
 				C54AF71B19B8C491006F7EDB /* Resources */,
 				C54AF74519B8C491006F7EDB /* Copy Pods Resources */,
-				C54AF74619B8C491006F7EDB /* ShellScript */,
 				5BF1B2551A49B63F000BB2C1 /* Embed App Extensions */,
+				C5D41CF91AB1FD6400990944 /* NewRelic upload dSym */,
 			);
 			buildRules = (
 			);
@@ -5311,19 +5305,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		C52C93AD1965AE470027EF46 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Frameworks/Crashlytics.framework/run 69a3b8800317dbff68b803e0aea860a48c73d998";
-		};
 		C54AF45619B8C437006F7EDB /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5353,19 +5334,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		C54AF54C19B8C437006F7EDB /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Frameworks/Crashlytics.framework/run 69a3b8800317dbff68b803e0aea860a48c73d998";
 		};
 		C54AF55319B8C467006F7EDB /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5397,20 +5365,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C54AF64919B8C467006F7EDB /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Frameworks/Crashlytics.framework/run 69a3b8800317dbff68b803e0aea860a48c73d998";
-		};
 		C54AF65019B8C491006F7EDB /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5441,18 +5395,61 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C54AF74619B8C491006F7EDB /* ShellScript */ = {
+		C5D41CF61AB1FD2400990944 /* NewRelic upload dSym */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "NewRelic upload dSym";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Frameworks/Crashlytics.framework/run 69a3b8800317dbff68b803e0aea860a48c73d998";
+			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c\"";
+		};
+		C5D41CF71AB1FD5800990944 /* NewRelic upload dSym */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "NewRelic upload dSym";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c\"";
+		};
+		C5D41CF81AB1FD5F00990944 /* NewRelic upload dSym */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "NewRelic upload dSym";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c\"";
+		};
+		C5D41CF91AB1FD6400990944 /* NewRelic upload dSym */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "NewRelic upload dSym";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -6574,11 +6571,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5B787DA71A27876F004AE459 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5B787D9A1A27876F004AE459 /* WLTodayExtension */;
-			targetProxy = 5B787DA61A27876F004AE459 /* PBXContainerItemProxy */;
-		};
 		5BA7AF301A481A9500C586CA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5B787D9A1A27876F004AE459 /* WLTodayExtension */;
@@ -6593,6 +6585,11 @@
 			isa = PBXTargetDependency;
 			target = 5BF1B22F1A49A683000BB2C1 /* WLTodayExtension_Production */;
 			targetProxy = 5BF1B2531A49B63E000BB2C1 /* PBXContainerItemProxy */;
+		};
+		C5111D351AB2E2880094275C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B787D9A1A27876F004AE459 /* WLTodayExtension */;
+			targetProxy = C5111D341AB2E2880094275C /* PBXContainerItemProxy */;
 		};
 		C559CB711AA0BB5D00100B2C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6919,10 +6916,12 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"AF_APP_EXTENSIONS=1",
 				);
 				INFOPLIST_FILE = WLTodayExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "f7b9650f-5b23-4609-b37a-2c816a8122c1";
@@ -6939,9 +6938,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"AF_APP_EXTENSIONS=1",
+				);
 				INFOPLIST_FILE = WLTodayExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "39abbe48-e47f-4d88-b687-b1577ca48e49";
@@ -6961,6 +6966,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"AF_APP_EXTENSIONS=1",
 				);
 				INFOPLIST_FILE = WLTodayExtension/WLTodayExtension_Production.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -6981,6 +6987,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"AF_APP_EXTENSIONS=1",
+				);
 				INFOPLIST_FILE = WLTodayExtension/WLTodayExtension_Production.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -7241,7 +7252,7 @@
 		};
 		C5BC48591AA0C9E500AC5EC8 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 3ED9551C829C0FE17DCF5E43 /* Pods.adhoc.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -7282,7 +7293,7 @@
 		};
 		C5BC485A1AA0C9E500AC5EC8 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 3ED9551C829C0FE17DCF5E43 /* Pods.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -7320,7 +7331,7 @@
 		};
 		C5BC485B1AA0C9E500AC5EC8 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 3ED9551C829C0FE17DCF5E43 /* Pods.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -7358,7 +7369,7 @@
 		};
 		C5BC485C1AA0C9E500AC5EC8 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 3ED9551C829C0FE17DCF5E43 /* Pods.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -7395,7 +7406,7 @@
 		};
 		C5BC485D1AA0C9E500AC5EC8 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 3ED9551C829C0FE17DCF5E43 /* Pods.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -7443,7 +7454,7 @@
 		};
 		C5BC485F1AA0C9E500AC5EC8 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 3ED9551C829C0FE17DCF5E43 /* Pods.adhoc.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
@@ -7453,10 +7464,12 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"AF_APP_EXTENSIONS=1",
 				);
 				INFOPLIST_FILE = WLTodayExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6f04570b-2969-42c1-a5f0-8a974d266f4e";
@@ -7466,7 +7479,7 @@
 		};
 		C5BC48601AA0C9E500AC5EC8 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 3ED9551C829C0FE17DCF5E43 /* Pods.adhoc.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
@@ -7476,6 +7489,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"AF_APP_EXTENSIONS=1",
 				);
 				INFOPLIST_FILE = WLTodayExtension/WLTodayExtension_Production.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

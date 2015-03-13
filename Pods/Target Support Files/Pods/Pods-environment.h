@@ -84,6 +84,12 @@
 #define COCOAPODS_VERSION_MINOR_FontAwesomeKit_Zocial 1
 #define COCOAPODS_VERSION_PATCH_FontAwesomeKit_Zocial 8
 
+// NewRelicAgent
+#define COCOAPODS_POD_AVAILABLE_NewRelicAgent
+#define COCOAPODS_VERSION_MAJOR_NewRelicAgent 4
+#define COCOAPODS_VERSION_MINOR_NewRelicAgent 186
+#define COCOAPODS_VERSION_PATCH_NewRelicAgent 0
+
 // OpenUDID
 #define COCOAPODS_POD_AVAILABLE_OpenUDID
 #define COCOAPODS_VERSION_MAJOR_OpenUDID 1

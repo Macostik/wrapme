@@ -35,19 +35,22 @@ PODS:
     - FontAwesomeKit/Core
   - FontAwesomeKit/Zocial (2.1.8):
     - FontAwesomeKit/Core
+  - NewRelicAgent (4.186)
   - OpenUDID (1.0.0)
   - PubNub (3.7.8)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - FontAwesomeKit (~> 2.1.0)
+  - NewRelicAgent
   - OpenUDID
   - PubNub
 
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   FontAwesomeKit: a2edea3111dab107b4cc43b85881b404eb063385
+  NewRelicAgent: 3ad10d9fe34dc0bffa1f2a1d50793d607b62823a
   OpenUDID: 5a23b7477755efc2d7871b57aa79ba3089c40b74
   PubNub: 45b79cfdbfb9268b06270c7bcbf8b9f55b91b5c7
 
-COCOAPODS: 0.36.0.beta.1
+COCOAPODS: 0.36.0

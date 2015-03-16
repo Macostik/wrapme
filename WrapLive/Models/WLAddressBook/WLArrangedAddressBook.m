@@ -13,6 +13,7 @@
 #import "WLUser+Extended.h"
 #import "WLArrangedAddressBookGroup.h"
 #import "WLWrap.h"
+#import "NSMutableOrderedSet+Sorting.h"
 
 @implementation WLArrangedAddressBook
 
@@ -97,11 +98,8 @@
 }
 
 - (void)sort {
-    NSComparator comparator = ^NSComparisonResult(WLAddressBookRecord* contact1, WLAddressBookRecord* contact2) {
-        return [[contact1 name] compare:[contact2 name]];
-    };
     for (WLArrangedAddressBookGroup *group in self.groups) {
-        [group.records sortUsingComparator:comparator];
+        [group sortByPriorityName];
     }
 }
 

@@ -33,7 +33,7 @@
     NSString* build = [info objectForKey:(id)kCFBundleVersionKey];
     NSString *message;
     if ([WLAPIManager instance].environment.isProduction) {
-        message = [NSString stringWithFormat:WLLS(@"You are using %@ v%@"), appName,version];
+        message = [NSString stringWithFormat:WLLS(@"You are using %@\nv%@\nBuild %@"), appName, version, build];
     } else {
         NSMutableString *_message = [NSMutableString stringWithFormat:WLLS(@"You are using %@ v%@"), appName,version];
         NSString *sourceFile = [[NSBundle mainBundle] pathForResource:@"WLAPIEnvironmentProduction" ofType:@"plist"];

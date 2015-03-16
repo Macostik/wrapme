@@ -269,7 +269,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
 
 - (void)preload {
     WLHistory *history = [WLHistory historyWithWrap:self];
-    [history newer:^(NSOrderedSet *orderedSet) {
+    [history fresh:^(NSOrderedSet *orderedSet) {
         [history.entries enumerateObjectsUsingBlock:^(WLHistoryItem* item, NSUInteger idx, BOOL *stop) {
             [item.entries enumerateObjectsUsingBlock:^(WLCandy* candy, NSUInteger idx, BOOL *stop) {
                 [candy.picture fetch:nil];

@@ -15,17 +15,17 @@
 
 - (void)setIconColor:(UIColor *)iconColor {
     _iconColor = iconColor;
-    [self enqueueSelectorPerforming:@selector(setup) afterDelay:0.0f];
+    [self setup];
 }
 
 - (void)setIconName:(NSString *)iconName {
     _iconName = iconName;
-    [self enqueueSelectorPerforming:@selector(setup) afterDelay:0.0f];
+    [self setup];
 }
 
 - (void)setIconPreset:(NSString *)iconPreset {
     _iconPreset = iconPreset;
-    [self enqueueSelectorPerforming:@selector(setup) afterDelay:0.0f];
+    [self setup];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color preset:(NSString *)preset {

@@ -52,8 +52,10 @@
 #import "WLUploadingView.h"
 #import "WLUploadingQueue.h"
 #import "WLAddressBook.h"
+#import "WLIntroductionViewController.h"
+#import "UIView+QuatzCoreAnimations.h"
 
-@interface WLHomeViewController () <WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate>
+@interface WLHomeViewController () <WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
@@ -63,8 +65,11 @@
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
+@property (weak, nonatomic) IBOutlet UIView *createWrapTipView;
 
 @property (strong, nonatomic) WLWrap* chatSegueWrap;
+
+@property (nonatomic) BOOL createWrapTipHidden;
 
 @end
 
@@ -76,6 +81,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.createWrapTipHidden = YES;
     
     [WLAddressBook beginCaching];
     
@@ -111,10 +118,40 @@
     self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];
 }
 
+- (void)setCreateWrapTipHidden:(BOOL)createWrapTipHidden {
+    _createWrapTipHidden = createWrapTipHidden;
+    if (self.createWrapTipView.hidden != createWrapTipHidden) {
+        [self.createWrapTipView fade];
+        self.createWrapTipView.hidden = createWrapTipHidden;
+        if (!createWrapTipHidden) {
+            [WLSession setObject:@(YES) key:@"WLCreateWrapTipAlreadyShown"];
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideCreateWrapTip) object:nil];
+            [self performSelector:@selector(hideCreateWrapTip) withObject:nil afterDelay:5.0f];
+        }
+    }
+}
+
+- (void)hideCreateWrapTip {
+    self.createWrapTipHidden = YES;
+}
+
 - (void)handleFirstUsage {
     WLUser *user = [WLUser currentUser];
-    if (user.firstTimeUse) {
-        NSOrderedSet *wraps = [user.wraps objectsWhere:@"isDefault != YES"];
+    NSOrderedSet *wraps = user.wraps;
+    BOOL firstTimeUse = user.firstTimeUse;
+    if (firstTimeUse) {
+        static BOOL introductionShown = NO;
+        if (!introductionShown) {
+            introductionShown = YES;
+            self.createWrapTipHidden = YES;
+            WLIntroductionViewController *introduction = [[UIStoryboard storyboardNamed:WLIntroductionStoryboard] instantiateInitialViewController];
+            introduction.modalPresentationStyle = UIModalPresentationCustom;
+            introduction.delegate = self;
+            [self presentViewController:introduction animated:YES completion:nil];
+        } else if (!self.presentedViewController) {
+            self.createWrapTipHidden = [[WLSession object:@"WLCreateWrapTipAlreadyShown"] boolValue] && wraps.count > 0;
+        }
+        
         if (wraps.count > 0) {
             static dispatch_once_t onceToken;
             dispatch_once(&onceToken, ^{
@@ -124,6 +161,9 @@
                 }];
             });
         }
+        
+    } else {
+        self.createWrapTipHidden = [[WLSession object:@"WLCreateWrapTipAlreadyShown"] boolValue] && wraps.count > 0;
     }
 }
 
@@ -320,6 +360,16 @@
 
 - (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
     [pickerViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+// MARK: - WLIntroductionViewControllerDelegate
+
+- (void)introductionViewControllerDidFinish:(WLIntroductionViewController *)controller {
+    __weak typeof(self)weakSelf = self;
+    [self dismissViewControllerAnimated:YES completion:^{
+        WLUser *user = [WLUser currentUser];
+        weakSelf.createWrapTipHidden = [[WLSession object:@"WLCreateWrapTipAlreadyShown"] boolValue] && user.wraps.count > 0;
+    }];
 }
 
 @end

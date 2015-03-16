@@ -493,7 +493,6 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="chooseWrap:" destination="cKg-Y0-d6d" eventType="touchUpInside" id="Nqz-jF-5KJ"/>
                                             <action selector="selectWrap:" destination="DHz-Jk-k8q" eventType="touchUpInside" id="Fex-jA-PSS"/>
                                         </connections>
                                     </button>
@@ -993,7 +992,6 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="chooseWrap:" destination="cKg-Y0-d6d" eventType="touchUpInside" id="NLT-AG-DXw"/>
                                             <action selector="selectWrap:" destination="wE1-al-3iO" eventType="touchUpInside" id="1TH-aO-4j5"/>
                                         </connections>
                                     </button>

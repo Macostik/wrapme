@@ -22,7 +22,7 @@
 
 - (NSArray*)arrayByReplacingObject:(id)object withObject:(id)replaceObject;
 
-- (id)safeObjectAtIndex:(NSInteger)index;
+- (id)tryObjectAtIndex:(NSInteger)index;
 
 - (NSArray*)arrayByAddingUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality;
 

@@ -4349,15 +4349,6 @@ Check your internet connection and try again.</string>
                                                         <action selector="resendInvite:" destination="XAQ-cw-yjZ" eventType="touchUpInside" id="P21-U8-d2O"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="74C-dE-IMx">
-                                                    <rect key="frame" x="0.0" y="0.0" width="145" height="81"/>
-                                                    <state key="normal">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="select" destination="XAQ-cw-yjZ" eventType="touchUpInside" id="fRz-0d-nYT"/>
-                                                    </connections>
-                                                </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0uu-KS-up8" customClass="WLCircleImageView">
                                                     <rect key="frame" x="10" y="6" width="36" height="36"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4402,12 +4393,10 @@ Check your internet connection and try again.</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="0uu-KS-up8" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" constant="6" id="2Nd-B9-axd"/>
-                                            <constraint firstAttribute="bottom" secondItem="74C-dE-IMx" secondAttribute="bottom" constant="1" id="2tG-ez-7fv"/>
                                             <constraint firstAttribute="bottom" secondItem="cOS-kT-Nce" secondAttribute="bottom" id="5xb-Gs-cIa"/>
                                             <constraint firstItem="7dN-Y5-4Ue" firstAttribute="height" secondItem="phJ-P1-MdW" secondAttribute="height" id="6b5-Ef-4A2"/>
                                             <constraint firstItem="7dN-Y5-4Ue" firstAttribute="leading" secondItem="4dB-kx-151" secondAttribute="trailing" constant="5" id="6xY-gd-taL"/>
                                             <constraint firstItem="7dN-Y5-4Ue" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" constant="6" id="CGt-WC-ngU"/>
-                                            <constraint firstItem="74C-dE-IMx" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" id="FLC-6j-jxr"/>
                                             <constraint firstItem="phJ-P1-MdW" firstAttribute="top" secondItem="7dN-Y5-4Ue" secondAttribute="bottom" constant="6" id="GvJ-lP-pue"/>
                                             <constraint firstAttribute="trailing" secondItem="cOS-kT-Nce" secondAttribute="trailing" id="MUo-S0-wk2"/>
                                             <constraint firstItem="04J-8C-m9o" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" constant="56" id="UUr-4f-uic"/>
@@ -4416,10 +4405,8 @@ Check your internet connection and try again.</string>
                                             <constraint firstItem="phJ-P1-MdW" firstAttribute="width" secondItem="7dN-Y5-4Ue" secondAttribute="width" id="bZr-AF-5xT"/>
                                             <constraint firstItem="04J-8C-m9o" firstAttribute="top" secondItem="4dB-kx-151" secondAttribute="bottom" id="d98-lz-Ez6"/>
                                             <constraint firstAttribute="trailing" secondItem="7dN-Y5-4Ue" secondAttribute="trailing" constant="10" id="gF2-6O-ZkD"/>
-                                            <constraint firstItem="7dN-Y5-4Ue" firstAttribute="leading" secondItem="74C-dE-IMx" secondAttribute="trailing" constant="5" id="o6I-AI-xDd"/>
                                             <constraint firstItem="0uu-KS-up8" firstAttribute="top" secondItem="4dB-kx-151" secondAttribute="top" constant="1" id="pAr-yT-Ncu"/>
                                             <constraint firstItem="cOS-kT-Nce" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="pee-xE-MGh"/>
-                                            <constraint firstItem="74C-dE-IMx" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="qao-xV-BA4"/>
                                             <constraint firstItem="phJ-P1-MdW" firstAttribute="leading" secondItem="04J-8C-m9o" secondAttribute="trailing" constant="5" id="t08-6r-Hk5"/>
                                             <constraint firstAttribute="bottom" secondItem="04J-8C-m9o" secondAttribute="bottom" constant="8" id="ujA-gJ-s8x"/>
                                             <constraint firstItem="4dB-kx-151" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" constant="56" id="yFc-OP-gA6"/>

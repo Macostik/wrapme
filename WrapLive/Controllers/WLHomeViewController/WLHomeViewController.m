@@ -125,8 +125,10 @@
         self.createWrapTipView.hidden = createWrapTipHidden;
         if (!createWrapTipHidden) {
             [WLSession setObject:@(YES) key:@"WLCreateWrapTipAlreadyShown"];
-            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideCreateWrapTip) object:nil];
-            [self performSelector:@selector(hideCreateWrapTip) withObject:nil afterDelay:5.0f];
+            if ([WLUser currentUser].wraps.nonempty) {
+                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideCreateWrapTip) object:nil];
+                [self performSelector:@selector(hideCreateWrapTip) withObject:nil afterDelay:5.0f];
+            }
         }
     }
 }

@@ -40,11 +40,11 @@
 
 - (NSArray*)arrayByRemovingUniqueObjects:(NSArray*)objects equality:(EqualityBlock)equality;
 
-- (NSArray*)map:(MapBlock)block;
+- (instancetype)map:(MapBlock)block;
 
 - (id)selectObject:(SelectBlock)block;
 
-- (NSArray*)selectObjects:(SelectBlock)block;
+- (instancetype)selectObjects:(SelectBlock)block;
 
 - (NSUInteger)indexOfObjectEqualToObject:(id)object equality:(EqualityBlock)equality;
 

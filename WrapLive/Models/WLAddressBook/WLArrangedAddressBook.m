@@ -157,8 +157,12 @@
     if (text.nonempty) {
         WLArrangedAddressBook *addressBook = [[WLArrangedAddressBook alloc] init];
         addressBook.groups = [self.groups map:^id (WLArrangedAddressBookGroup *group) {
-            WLArrangedAddressBookGroup *_group = [[WLArrangedAddressBookGroup alloc] initWithTitle:group.title addingRule:group.addingRule];
-            _group.records = [group.records objectsWhere:@"name contains[c] %@", text];
+            WLArrangedAddressBookGroup *_group = [[WLArrangedAddressBookGroup alloc] initWithTitle:group.title
+                                                                                        addingRule:group.addingRule];
+            _group.records = [group.records selectObjects:^BOOL(WLAddressBookRecord  *record) {
+                WLAddressBookPhoneNumber *phoneNumbler = record.phoneNumbers.lastObject;
+                return ([phoneNumbler.priorityName rangeOfString:text options:NSCaseInsensitiveSearch].location != NSNotFound);
+            }];
             return _group;
         }];
         return addressBook;

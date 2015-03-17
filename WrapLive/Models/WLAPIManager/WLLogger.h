@@ -10,7 +10,7 @@
 #import "WLUser+Extended.h"
 #import "WLAuthorization.h"
 
-#define WL_LOG_DETAILED 1
+#define WL_LOG_DETAILED 0
 
 #if WL_LOG_DETAILED
 

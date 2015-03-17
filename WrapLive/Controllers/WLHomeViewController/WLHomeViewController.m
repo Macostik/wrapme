@@ -173,16 +173,6 @@
             self.createWrapTipHidden = [self isCreateWrapTipHiddenWithWraps:wraps];
         }
         
-        if (wraps.count > 0) {
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                [wraps enumerateObjectsUsingBlock:^(WLWrap *wrap, NSUInteger idx, BOOL *stop) {
-                    [wrap preload];
-                    if (idx == 2) *stop = YES;
-                }];
-            });
-        }
-        
     } else {
         self.createWrapTipHidden = [self isCreateWrapTipHiddenWithWraps:wraps];
     }

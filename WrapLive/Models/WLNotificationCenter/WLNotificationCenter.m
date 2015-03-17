@@ -57,13 +57,15 @@
     self = [super init];
     if (self) {
         __weak typeof(self)weakSelf = self;
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-            if (weakSelf.userChannel.subscribed) {
-                [weakSelf performSelector:@selector(requestHistory) withObject:nil afterDelay:0.5f];
-            } else {
-                [weakSelf subscribe];
-            }
-        }];
+        run_after(0.2, ^{
+            [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+                if (weakSelf.userChannel.subscribed) {
+                    [weakSelf performSelector:@selector(requestHistory) withObject:nil afterDelay:0.5f];
+                } else {
+                    [weakSelf subscribe];
+                }
+            }];
+        });
     }
     return self;
 }
@@ -155,12 +157,9 @@ static WLDataBlock deviceTokenCompletion = nil;
             WLNotification *notification = [WLNotification notificationWithMessage:message];
             
             if (notification) {
-                [WLEntryNotifier beginBatchUpdates];
-                runUnaryQueuedOperation(@"wl_fetching_data_queue", ^(WLOperation *operation) {
+                runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
                     [weakSelf handleNotification:notification completion:^{
-                        [operation finish:^{
-                            [WLEntryNotifier commitBatchUpdates];
-                        }];
+                        [operation finish];
                     }];
                 });
                 [weakSelf addHandledNotifications:@[notification]];
@@ -218,7 +217,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)requestHistory {
     __weak typeof(self)weakSelf = self;
-    runUnaryQueuedOperation(@"wl_fetching_data_queue", ^(WLOperation *operation) {
+    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
         NSDate *historyDate = weakSelf.historyDate;
         if (historyDate) {
             NSDate *fromDate = historyDate;
@@ -246,17 +245,12 @@ static WLDataBlock deviceTokenCompletion = nil;
     WLLog(@"PUBNUB", logMessage, nil);
     NSArray *notifications = [self notificationsFromMessages:messages];
     if (notifications.nonempty) {
-        [WLEntryNotifier beginBatchUpdates];
         for (WLNotification *notification in notifications) {
-            runUnaryQueuedOperation(@"wl_fetching_data_queue", ^(WLOperation *_operation) {
+            runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
                 [notification fetch:^{
-                    [_operation finish:^{
-                        [WLEntryNotifier commitBatchUpdates];
-                    }];
+                    [operation finish];
                 } failure:^(NSError *error) {
-                    [_operation finish:^{
-                        [WLEntryNotifier commitBatchUpdates];
-                    }];
+                    [operation finish];
                 }];
             });
             NSString *logMessage = [NSString stringWithFormat:@"history message received %@", notification];

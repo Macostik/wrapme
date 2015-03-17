@@ -25,7 +25,7 @@
 
 static NSArray *cachedRecords = nil;
 
-+ (void)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure {
++ (BOOL)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     for (WLAddressBookRecord *record in cachedRecords) {
         for (WLAddressBookPhoneNumber *phoneNumber in record.phoneNumbers) {
             if (phoneNumber.user && !phoneNumber.user.valid) {
@@ -36,8 +36,10 @@ static NSArray *cachedRecords = nil;
     }
     if (cachedRecords) {
         if (success) success(cachedRecords);
+        return YES;
     } else {
         [self records:success failure:failure];
+        return NO;
     }
 }
 
@@ -62,8 +64,26 @@ static NSArray *cachedRecords = nil;
     } failure:failure];
 }
 
+static BOOL updateCachedRecordsFailed = NO;
+
++ (void)updateCachedRecordsAfterFailure {
+    if (updateCachedRecordsFailed) {
+        [self updateCachedRecords];
+    }
+}
+
++ (void)updateCachedRecords {
+    [self addressBook:^(ABAddressBookRef addressBook) {
+        [self updateCachedRecords:addressBook];
+    } failure:nil];
+}
+
 + (void)updateCachedRecords:(ABAddressBookRef)addressBook {
-    [WLAddressBook records:addressBook success:nil failure:nil];
+    [WLAddressBook records:addressBook success:^(NSArray *array) {
+        updateCachedRecordsFailed = NO;
+    } failure:^(NSError *error) {
+        updateCachedRecordsFailed = YES;
+    }];
 }
 
 void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, void *context) {
@@ -140,11 +160,11 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
         ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
             run_in_main_queue(^{
                 if (error) {
-                    failure((__bridge NSError *)(error));
+                    if (failure) failure((__bridge NSError *)(error));
                 } else if (granted) {
-                    success(addressBook);
+                    if (success) success(addressBook);
                 } else {
-                    failure([NSError errorWithDescription:WLLS(@"Access to your Address Book is not granted.")]);
+                    if (failure) failure([NSError errorWithDescription:WLLS(@"Access to your Address Book is not granted.")]);
                 }
                 [operation finish];
             });

@@ -1364,6 +1364,10 @@
 		C572AA101A1A15970079763D /* WLCircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA0E1A1A15970079763D /* WLCircleImageView.m */; };
 		C572AA111A1A15970079763D /* WLCircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA0E1A1A15970079763D /* WLCircleImageView.m */; };
 		C572AA121A1A15970079763D /* WLCircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C572AA0E1A1A15970079763D /* WLCircleImageView.m */; };
+		C573FB8D1AB84AF400F1098C /* WLTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C573FB8C1AB84AF400F1098C /* WLTouchView.m */; };
+		C573FB8E1AB84AF400F1098C /* WLTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C573FB8C1AB84AF400F1098C /* WLTouchView.m */; };
+		C573FB8F1AB84AF400F1098C /* WLTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C573FB8C1AB84AF400F1098C /* WLTouchView.m */; };
+		C573FB901AB84AF400F1098C /* WLTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C573FB8C1AB84AF400F1098C /* WLTouchView.m */; };
 		C577C25C1A4C122700ECC7E5 /* WLHistoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C25B1A4C122700ECC7E5 /* WLHistoryItem.m */; };
 		C577C25D1A4C122700ECC7E5 /* WLHistoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C25B1A4C122700ECC7E5 /* WLHistoryItem.m */; };
 		C577C25E1A4C122700ECC7E5 /* WLHistoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C25B1A4C122700ECC7E5 /* WLHistoryItem.m */; };
@@ -2208,6 +2212,8 @@
 		C57005B11A1FA19C007257A6 /* chat_bubble_red_right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bubble_red_right@3x.png"; sourceTree = "<group>"; };
 		C572AA0D1A1A15970079763D /* WLCircleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCircleImageView.h; path = WLImageFetcher/WLCircleImageView.h; sourceTree = "<group>"; };
 		C572AA0E1A1A15970079763D /* WLCircleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCircleImageView.m; path = WLImageFetcher/WLCircleImageView.m; sourceTree = "<group>"; };
+		C573FB8B1AB84AF400F1098C /* WLTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTouchView.h; sourceTree = "<group>"; };
+		C573FB8C1AB84AF400F1098C /* WLTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTouchView.m; sourceTree = "<group>"; };
 		C577C25A1A4C122700ECC7E5 /* WLHistoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHistoryItem.h; sourceTree = "<group>"; };
 		C577C25B1A4C122700ECC7E5 /* WLHistoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHistoryItem.m; sourceTree = "<group>"; };
 		C577C2611A4C427100ECC7E5 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
@@ -2692,6 +2698,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C573FB8A1AB84ADD00F1098C /* WLTouchView */,
 				C53DC2261AA7632600D2E4C0 /* WLUploadingView */,
 				5BA659B91A94A6BF00138EF7 /* WLAlertView */,
 				C53E5CE51A84D84C004F61B0 /* WLEntry Views */,
@@ -4328,6 +4335,15 @@
 			name = WLSettingsViewController;
 			sourceTree = "<group>";
 		};
+		C573FB8A1AB84ADD00F1098C /* WLTouchView */ = {
+			isa = PBXGroup;
+			children = (
+				C573FB8B1AB84AF400F1098C /* WLTouchView.h */,
+				C573FB8C1AB84AF400F1098C /* WLTouchView.m */,
+			);
+			path = WLTouchView;
+			sourceTree = "<group>";
+		};
 		C577C2601A4C426300ECC7E5 /* iVersion */ = {
 			isa = PBXGroup;
 			children = (
@@ -5599,6 +5615,7 @@
 				C54773131A41911F004C5826 /* WLFontPresetter.m in Sources */,
 				C51DAE3119B09E6100F40516 /* WLTimelineEventCommentCell.m in Sources */,
 				C519107A1A078248003C78B2 /* WLUser+Extended.m in Sources */,
+				C573FB8D1AB84AF400F1098C /* WLTouchView.m in Sources */,
 				12E8FF1718E960E000BF1B96 /* StreamView.m in Sources */,
 				5BA4CC121A08FAE700D7F31C /* WLPickerViewController.m in Sources */,
 				C521FB091989382300576281 /* WLPaginatedViewSection.m in Sources */,
@@ -5902,6 +5919,7 @@
 				C54773141A41911F004C5826 /* WLFontPresetter.m in Sources */,
 				C54AF49A19B8C437006F7EDB /* WLTimelineEventCommentCell.m in Sources */,
 				C519107B1A078248003C78B2 /* WLUser+Extended.m in Sources */,
+				C573FB8E1AB84AF400F1098C /* WLTouchView.m in Sources */,
 				C54AF49D19B8C437006F7EDB /* StreamView.m in Sources */,
 				5BA4CC131A08FAE700D7F31C /* WLPickerViewController.m in Sources */,
 				C54AF4A019B8C437006F7EDB /* WLPaginatedViewSection.m in Sources */,
@@ -6175,6 +6193,7 @@
 				C54773151A41911F004C5826 /* WLFontPresetter.m in Sources */,
 				C54AF59719B8C467006F7EDB /* WLTimelineEventCommentCell.m in Sources */,
 				C519107C1A078248003C78B2 /* WLUser+Extended.m in Sources */,
+				C573FB8F1AB84AF400F1098C /* WLTouchView.m in Sources */,
 				C54AF59A19B8C467006F7EDB /* StreamView.m in Sources */,
 				5BA4CC141A08FAE700D7F31C /* WLPickerViewController.m in Sources */,
 				C54AF59D19B8C467006F7EDB /* WLPaginatedViewSection.m in Sources */,
@@ -6448,6 +6467,7 @@
 				C54773161A41911F004C5826 /* WLFontPresetter.m in Sources */,
 				C54AF69419B8C491006F7EDB /* WLTimelineEventCommentCell.m in Sources */,
 				C519107D1A078248003C78B2 /* WLUser+Extended.m in Sources */,
+				C573FB901AB84AF400F1098C /* WLTouchView.m in Sources */,
 				C54AF69719B8C491006F7EDB /* StreamView.m in Sources */,
 				5BA4CC151A08FAE700D7F31C /* WLPickerViewController.m in Sources */,
 				C54AF69A19B8C491006F7EDB /* WLPaginatedViewSection.m in Sources */,

@@ -1513,7 +1513,7 @@
                                     <outlet property="countLabel" destination="hw2-sP-LBk" id="DNE-Ow-uoV"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh" customClass="WLTouchView">
                                 <rect key="frame" x="156" y="64" width="160" height="66"/>
                                 <subviews>
                                     <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-EK-LgH" customClass="WLTriangleView">
@@ -1563,6 +1563,9 @@ Tap here to start.</string>
                                     <constraint firstItem="lAF-EK-LgH" firstAttribute="top" secondItem="rgB-qi-Gbh" secondAttribute="top" constant="1" id="tXU-hm-Jcv"/>
                                     <constraint firstAttribute="trailing" secondItem="ohz-Ik-QZ1" secondAttribute="trailing" id="wFY-u9-Lwj"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="L91-fZ-J9O" id="5Ve-av-mgl"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1589,6 +1592,7 @@ Tap here to start.</string>
                     <keyCommands/>
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="5cB-EH-3pL"/>
+                        <outlet property="createWrapButton" destination="KxF-7g-Abs" id="DiP-hq-Kq1"/>
                         <outlet property="createWrapTipView" destination="rgB-qi-Gbh" id="lEh-RQ-itL"/>
                         <outlet property="dataProvider" destination="5hc-ZE-poP" id="TGs-fS-2pE"/>
                         <outlet property="emailConfirmationView" destination="Qcq-LH-ZNY" id="shZ-oR-vok"/>

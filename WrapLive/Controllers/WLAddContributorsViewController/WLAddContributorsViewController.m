@@ -50,7 +50,7 @@
     self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
     [self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
-    [WLAddressBook cachedRecords:^(NSArray *array) {
+    BOOL cached = [WLAddressBook cachedRecords:^(NSArray *array) {
         [weakSelf.addressBook addRecords:array];
         [weakSelf filterContacts];
         [weakSelf.spinner stopAnimating];
@@ -58,6 +58,9 @@
         [weakSelf.spinner stopAnimating];
         [error show];
     }];
+    if (cached) {
+        [WLAddressBook updateCachedRecords];
+    }
     [[WLFontPresetter presetter] addReceiver:self];
 }
 

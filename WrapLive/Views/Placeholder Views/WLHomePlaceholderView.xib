@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Light.ttf">
-            <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
         </mutableArray>
     </customFonts>
@@ -24,26 +23,6 @@
                         <constraint firstAttribute="width" constant="158" id="caQ-jT-TG2"/>
                     </constraints>
                 </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="create_wrap_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="EGK-Og-SaK">
-                    <rect key="frame" x="278" y="13" width="26" height="44"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="26" id="cTV-GU-lXV"/>
-                        <constraint firstAttribute="height" constant="44" id="wId-kP-dzq"/>
-                    </constraints>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap here create new wrap" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="261" translatesAutoresizingMaskIntoConstraints="NO" id="uEc-nG-BAW" customClass="WLLabel">
-                    <rect key="frame" x="11" y="20" width="261" height="66"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="261" id="CDW-nj-Noe"/>
-                        <constraint firstAttribute="height" constant="66" id="I7V-QJ-FIY"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="21"/>
-                    <color key="textColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="larger"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="255" translatesAutoresizingMaskIntoConstraints="NO" id="74c-ZS-mI5" customClass="WLLabel">
                     <rect key="frame" x="27" y="281" width="255" height="95"/>
                     <constraints>
@@ -62,13 +41,9 @@ There is empty now</string>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="EGK-Og-SaK" secondAttribute="trailing" constant="16" id="0rk-je-1fU"/>
-                <constraint firstAttribute="trailing" secondItem="uEc-nG-BAW" secondAttribute="trailing" constant="48" id="Ouo-vh-qYk"/>
-                <constraint firstItem="uEc-nG-BAW" firstAttribute="centerY" secondItem="EGK-Og-SaK" secondAttribute="centerY" constant="18" id="OyD-7m-3vU"/>
                 <constraint firstAttribute="centerX" secondItem="Ukb-a0-lga" secondAttribute="centerX" constant="3" id="ZKJ-c5-cbK"/>
                 <constraint firstAttribute="centerX" secondItem="74c-ZS-mI5" secondAttribute="centerX" constant="5.5" id="c2f-Ye-RbX"/>
                 <constraint firstAttribute="centerY" secondItem="74c-ZS-mI5" secondAttribute="centerY" constant="-88.5" id="oAF-z0-JwL"/>
-                <constraint firstItem="EGK-Og-SaK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="13" id="zGQ-SO-Kev"/>
                 <constraint firstAttribute="centerY" secondItem="Ukb-a0-lga" secondAttribute="centerY" constant="56.5" id="zfi-vL-SrA"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -76,7 +51,6 @@ There is empty now</string>
         </view>
     </objects>
     <resources>
-        <image name="create_wrap_arrow" width="26" height="44"/>
         <image name="no_photo_placeholder_big_gray_lighter" width="151" height="160"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

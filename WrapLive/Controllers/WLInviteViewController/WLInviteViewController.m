@@ -20,7 +20,6 @@
 @interface WLInviteViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
-@property (strong, nonatomic) NSMutableArray *contacts;
 @property (weak, nonatomic) IBOutlet UIButton *addUserButton;
 
 @end
@@ -33,13 +32,6 @@
     // Do any additional setup after loading the view.
 	[self.userNameTextField becomeFirstResponder];
     [self validateAddUserButton];
-}
-
-- (NSMutableArray *)contacts {
-	if (!_contacts) {
-		_contacts = [NSMutableArray new];
-	}
-	return _contacts;
 }
 
 #pragma mark - actions

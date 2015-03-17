@@ -12,6 +12,7 @@
 static NSString *WLMainStoryboard = @"Main";
 static NSString *WLSignUpStoryboard = @"SignUp";
 static NSString *WLCameraStoryboard = @"Camera";
+static NSString *WLIntroductionStoryboard = @"Introduction";
 
 @interface UIStoryboard (WLNavigation)
 

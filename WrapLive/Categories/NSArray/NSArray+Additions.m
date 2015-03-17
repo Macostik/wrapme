@@ -46,7 +46,7 @@
 	}];
 }
 
-- (id)safeObjectAtIndex:(NSInteger)index {
+- (id)tryObjectAtIndex:(NSInteger)index {
 	return [self containsIndex:index] ? self[index] : nil;
 }
 

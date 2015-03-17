@@ -23,4 +23,6 @@ typedef BOOL (^WLArrangedAddressBookGroupAddingRule) (WLAddressBookRecord *recor
 
 - (BOOL)addRecord:(WLAddressBookRecord*)record;
 
+- (void)sortByPriorityName;
+
 @end

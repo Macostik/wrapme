@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet WLButton *resendInviteButton;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *removeButtonTop;
+@property (weak, nonatomic) IBOutlet UIView *slideView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *slideViewConstraint;
+@property (weak, nonatomic) IBOutlet WLButton *slideMenuButton;
 
 @end
 
@@ -35,6 +38,13 @@
     self.resendInviteButton.layer.borderWidth = self.removeButton.layer.borderWidth = 1;
     self.resendInviteButton.layer.cornerRadius = self.removeButton.layer.cornerRadius = 6;
     self.resendInviteButton.clipsToBounds = self.removeButton.clipsToBounds = YES;
+    
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(toggleSideMenu:)];
+    swipe.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.slideMenuButton addGestureRecognizer:swipe];
+    swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(toggleSideMenu:)];
+    swipe.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.slideMenuButton addGestureRecognizer:swipe];
 }
 
 - (void)setup:(WLUser*)user {
@@ -47,6 +57,11 @@
     
     self.phoneLabel.text = user.securePhones;
     self.avatarView.url = user.picture.small;
+    
+    if (self.slideViewConstraint.constant != 0) {
+        self.slideViewConstraint.constant = 0;
+        [self.slideView setNeedsLayout];
+    }
 }
 
 - (void)setDeletable:(BOOL)deletable {
@@ -63,6 +78,21 @@
         self.resendInviteButton.loading = NO;
         self.resendInviteButton.titleEdgeInsets = UIEdgeInsetsZero;
     }
+    
+    self.slideMenuButton.hidden = self.removeButton.hidden && self.resendInviteButton.hidden;
+}
+
+- (IBAction)toggleSideMenu:(id)sender {
+    if (self.slideViewConstraint.constant != 0) {
+        self.slideViewConstraint.constant = 0;
+    } else {
+        self.slideViewConstraint.constant = MAX(self.resendInviteButton.width, self.removeButton.width) + 24;
+    }
+    __weak typeof(self)weakSelf = self;
+    [UIView animateWithDuration:0.5 delay:0.0f usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [weakSelf.slideView layoutIfNeeded];
+    } completion:^(BOOL finished) {
+    }];
 }
 
 #pragma mark - Actions

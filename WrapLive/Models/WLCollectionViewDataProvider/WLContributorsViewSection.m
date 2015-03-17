@@ -31,9 +31,9 @@ const static CGFloat WLContributorsHorizontalIndent = 100.0f;
     WLUser* user = self.entries.entries[indexPath.item];
     CGFloat height = [user.securePhones heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller] width:self.collectionView.width - WLContributorsHorizontalIndent];
     if (self.wrap.contributedByCurrentUser && ![user isCurrentUser] && user.isInvited) {
-        return CGSizeMake(self.collectionView.width, MAX(height + WLContributorsVerticalIndent, 83));
+        return CGSizeMake(self.collectionView.width, MAX(height + WLContributorsVerticalIndent, 101));
     } else {
-        return CGSizeMake(self.collectionView.width, height + WLContributorsVerticalIndent);
+        return CGSizeMake(self.collectionView.width, MAX(height + WLContributorsVerticalIndent, 67));
     }
 }
 

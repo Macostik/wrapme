@@ -4351,90 +4351,148 @@ Check your internet connection and try again.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dN-Y5-4Ue" customClass="WLPressButton">
-                                                    <rect key="frame" x="150" y="6" width="160" height="32"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dbg-xV-NRk">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
+                                                    <subviews>
+                                                        <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dN-Y5-4Ue" customClass="WLPressButton">
+                                                            <rect key="frame" x="148" y="12" width="160" height="32"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="160" id="PGv-iX-9Kn"/>
+                                                                <constraint firstAttribute="height" constant="32" id="gYM-cb-Ohs"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                            <state key="normal" title="REMOVE">
+                                                                <color key="titleColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <state key="highlighted">
+                                                                <color key="titleColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                                                    <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="remove:" destination="XAQ-cw-yjZ" eventType="touchUpInside" id="FPq-cc-MyL"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phJ-P1-MdW" customClass="WLButton">
+                                                            <rect key="frame" x="148" y="56" width="160" height="32"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="32" id="mUy-ST-Kei"/>
+                                                                <constraint firstAttribute="width" constant="160" id="qkQ-bi-kQQ"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                            <state key="normal" title="RESEND INVITE">
+                                                                <color key="titleColor" red="0.39101129769999998" green="0.39099958540000002" blue="0.39100623130000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <state key="highlighted">
+                                                                <color key="titleColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                                                    <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="" value="YES"/>
+                                                                <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                                                                    <size key="value" width="8" height="0.0"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="spinnerColor">
+                                                                    <color key="value" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="resendInvite:" destination="XAQ-cw-yjZ" eventType="touchUpInside" id="P21-U8-d2O"/>
+                                                            </connections>
+                                                        </button>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UoH-8q-1IN">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
+                                                            <subviews>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0uu-KS-up8" customClass="WLCircleImageView">
+                                                                    <rect key="frame" x="12" y="12" width="44" height="44"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="44" id="0PA-Bw-bZl"/>
+                                                                        <constraint firstAttribute="height" constant="44" id="7p1-G0-BRY"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="4dB-kx-151" customClass="WLLabel">
+                                                                    <rect key="frame" x="68" y="12" width="228" height="19"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="19" id="Rew-H1-gZa"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </label>
+                                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="04J-8C-m9o" customClass="WLLabel">
+                                                                    <rect key="frame" x="68" y="31" width="228" height="36"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <string key="text">10089969657
+2342342343</string>
+                                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
+                                                                    <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </label>
+                                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KyJ-lt-d5S" customClass="WLIconButton">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
+                                                                    <inset key="titleEdgeInsets" minX="0.0" minY="12" maxX="12" maxY="0.0"/>
+                                                                    <state key="normal">
+                                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    </state>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="ellipsisV"/>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                            <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="toggleSideMenu:" destination="XAQ-cw-yjZ" eventType="touchUpInside" id="nAs-Ko-Pdz"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstItem="KyJ-lt-d5S" firstAttribute="top" secondItem="UoH-8q-1IN" secondAttribute="top" id="3pe-q1-07i"/>
+                                                                <constraint firstAttribute="trailing" secondItem="4dB-kx-151" secondAttribute="trailing" constant="24" id="8JM-w4-OfC"/>
+                                                                <constraint firstItem="KyJ-lt-d5S" firstAttribute="leading" secondItem="UoH-8q-1IN" secondAttribute="leading" id="G52-TD-jFB"/>
+                                                                <constraint firstItem="0uu-KS-up8" firstAttribute="leading" secondItem="UoH-8q-1IN" secondAttribute="leading" constant="12" id="Gp0-eR-8jM"/>
+                                                                <constraint firstItem="04J-8C-m9o" firstAttribute="leading" secondItem="0uu-KS-up8" secondAttribute="trailing" constant="12" id="N5T-zd-evH"/>
+                                                                <constraint firstAttribute="trailing" secondItem="04J-8C-m9o" secondAttribute="trailing" constant="24" id="PYX-Qd-7Ry"/>
+                                                                <constraint firstItem="0uu-KS-up8" firstAttribute="top" secondItem="UoH-8q-1IN" secondAttribute="top" constant="12" id="XX2-5K-TSI"/>
+                                                                <constraint firstItem="4dB-kx-151" firstAttribute="top" secondItem="0uu-KS-up8" secondAttribute="top" id="Zmk-A3-eXo"/>
+                                                                <constraint firstItem="4dB-kx-151" firstAttribute="leading" secondItem="0uu-KS-up8" secondAttribute="trailing" constant="12" id="lym-3m-lgg"/>
+                                                                <constraint firstAttribute="bottom" secondItem="KyJ-lt-d5S" secondAttribute="bottom" id="njD-4S-VIG"/>
+                                                                <constraint firstItem="04J-8C-m9o" firstAttribute="top" secondItem="4dB-kx-151" secondAttribute="bottom" id="twx-hO-rU2"/>
+                                                                <constraint firstAttribute="trailing" secondItem="KyJ-lt-d5S" secondAttribute="trailing" id="yPY-jX-ga6"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="160" id="PGv-iX-9Kn"/>
-                                                        <constraint firstAttribute="height" constant="32" id="gYM-cb-Ohs"/>
+                                                        <constraint firstItem="UoH-8q-1IN" firstAttribute="width" secondItem="Dbg-xV-NRk" secondAttribute="width" id="2Go-Ot-4uK"/>
+                                                        <constraint firstAttribute="centerX" secondItem="UoH-8q-1IN" secondAttribute="centerX" id="4Gm-br-xfd"/>
+                                                        <constraint firstAttribute="trailing" secondItem="7dN-Y5-4Ue" secondAttribute="trailing" constant="12" id="Hci-IB-bdf"/>
+                                                        <constraint firstAttribute="centerY" secondItem="UoH-8q-1IN" secondAttribute="centerY" id="Qt5-O5-TRD"/>
+                                                        <constraint firstItem="phJ-P1-MdW" firstAttribute="top" secondItem="7dN-Y5-4Ue" secondAttribute="bottom" constant="12" id="TBj-xS-dwK"/>
+                                                        <constraint firstAttribute="trailing" secondItem="phJ-P1-MdW" secondAttribute="trailing" constant="12" id="dxg-zx-dzV"/>
+                                                        <constraint firstItem="UoH-8q-1IN" firstAttribute="height" secondItem="Dbg-xV-NRk" secondAttribute="height" id="peC-9V-LHi"/>
+                                                        <constraint firstItem="7dN-Y5-4Ue" firstAttribute="top" secondItem="Dbg-xV-NRk" secondAttribute="top" constant="12" id="yAF-fF-Pc8"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                                    <state key="normal" title="REMOVE">
-                                                        <color key="titleColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
-                                                            <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="remove:" destination="XAQ-cw-yjZ" eventType="touchUpInside" id="FPq-cc-MyL"/>
-                                                    </connections>
-                                                </button>
-                                                <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phJ-P1-MdW" customClass="WLButton">
-                                                    <rect key="frame" x="150" y="44" width="160" height="32"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                                    <state key="normal" title="RESEND INVITE">
-                                                        <color key="titleColor" red="0.39101129769999998" green="0.39099958540000002" blue="0.39100623130000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
-                                                            <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="" value="YES"/>
-                                                        <userDefinedRuntimeAttribute type="size" keyPath="insets">
-                                                            <size key="value" width="8" height="0.0"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="spinnerColor">
-                                                            <color key="value" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="resendInvite:" destination="XAQ-cw-yjZ" eventType="touchUpInside" id="P21-U8-d2O"/>
-                                                    </connections>
-                                                </button>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0uu-KS-up8" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="10" y="6" width="36" height="36"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="36" id="0PA-Bw-bZl"/>
-                                                        <constraint firstAttribute="height" constant="36" id="7p1-G0-BRY"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10089969657" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="04J-8C-m9o" customClass="WLLabel">
-                                                    <rect key="frame" x="56" y="24" width="89" height="50"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
-                                                    <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="4dB-kx-151" customClass="WLLabel">
-                                                    <rect key="frame" x="56" y="5" width="89" height="19"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="19" id="Rew-H1-gZa"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
+                                                </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="cOS-kT-Nce">
                                                     <rect key="frame" x="0.0" y="81" width="320" height="1"/>
                                                     <constraints>
@@ -4447,24 +4505,13 @@ Check your internet connection and try again.</string>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="0uu-KS-up8" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" constant="6" id="2Nd-B9-axd"/>
                                             <constraint firstAttribute="bottom" secondItem="cOS-kT-Nce" secondAttribute="bottom" id="5xb-Gs-cIa"/>
-                                            <constraint firstItem="7dN-Y5-4Ue" firstAttribute="height" secondItem="phJ-P1-MdW" secondAttribute="height" id="6b5-Ef-4A2"/>
-                                            <constraint firstItem="7dN-Y5-4Ue" firstAttribute="leading" secondItem="4dB-kx-151" secondAttribute="trailing" constant="5" id="6xY-gd-taL"/>
-                                            <constraint firstItem="7dN-Y5-4Ue" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" constant="6" id="CGt-WC-ngU"/>
-                                            <constraint firstItem="phJ-P1-MdW" firstAttribute="top" secondItem="7dN-Y5-4Ue" secondAttribute="bottom" constant="6" id="GvJ-lP-pue"/>
+                                            <constraint firstAttribute="trailing" secondItem="Dbg-xV-NRk" secondAttribute="trailing" id="COO-bV-kEt"/>
+                                            <constraint firstItem="Dbg-xV-NRk" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="Kl2-Pg-pLw"/>
                                             <constraint firstAttribute="trailing" secondItem="cOS-kT-Nce" secondAttribute="trailing" id="MUo-S0-wk2"/>
-                                            <constraint firstItem="04J-8C-m9o" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" constant="56" id="UUr-4f-uic"/>
-                                            <constraint firstItem="0uu-KS-up8" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" constant="10" id="V0Q-pE-gUa"/>
-                                            <constraint firstItem="7dN-Y5-4Ue" firstAttribute="trailing" secondItem="phJ-P1-MdW" secondAttribute="trailing" id="WZd-ku-MH2"/>
-                                            <constraint firstItem="phJ-P1-MdW" firstAttribute="width" secondItem="7dN-Y5-4Ue" secondAttribute="width" id="bZr-AF-5xT"/>
-                                            <constraint firstItem="04J-8C-m9o" firstAttribute="top" secondItem="4dB-kx-151" secondAttribute="bottom" id="d98-lz-Ez6"/>
-                                            <constraint firstAttribute="trailing" secondItem="7dN-Y5-4Ue" secondAttribute="trailing" constant="10" id="gF2-6O-ZkD"/>
-                                            <constraint firstItem="0uu-KS-up8" firstAttribute="top" secondItem="4dB-kx-151" secondAttribute="top" constant="1" id="pAr-yT-Ncu"/>
+                                            <constraint firstAttribute="bottom" secondItem="Dbg-xV-NRk" secondAttribute="bottom" id="PuR-bY-wLg"/>
+                                            <constraint firstItem="Dbg-xV-NRk" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" id="co2-FL-w5h"/>
                                             <constraint firstItem="cOS-kT-Nce" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="pee-xE-MGh"/>
-                                            <constraint firstItem="phJ-P1-MdW" firstAttribute="leading" secondItem="04J-8C-m9o" secondAttribute="trailing" constant="5" id="t08-6r-Hk5"/>
-                                            <constraint firstAttribute="bottom" secondItem="04J-8C-m9o" secondAttribute="bottom" constant="8" id="ujA-gJ-s8x"/>
-                                            <constraint firstItem="4dB-kx-151" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" constant="56" id="yFc-OP-gA6"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="82"/>
                                         <connections>
@@ -4473,8 +4520,11 @@ Check your internet connection and try again.</string>
                                             <outlet property="nameLabel" destination="4dB-kx-151" id="bZm-jK-3aM"/>
                                             <outlet property="phoneLabel" destination="04J-8C-m9o" id="sHs-rX-2oi"/>
                                             <outlet property="removeButton" destination="7dN-Y5-4Ue" id="vtU-vi-3lO"/>
-                                            <outlet property="removeButtonTop" destination="CGt-WC-ngU" id="Tzs-w7-Lg7"/>
+                                            <outlet property="removeButtonTop" destination="yAF-fF-Pc8" id="Ydw-29-gpL"/>
                                             <outlet property="resendInviteButton" destination="phJ-P1-MdW" id="0sR-7l-yCZ"/>
+                                            <outlet property="slideMenuButton" destination="KyJ-lt-d5S" id="1JA-qn-y0E"/>
+                                            <outlet property="slideView" destination="UoH-8q-1IN" id="g7z-a4-aFY"/>
+                                            <outlet property="slideViewConstraint" destination="4Gm-br-xfd" id="M9f-0A-xU2"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

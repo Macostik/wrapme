@@ -155,7 +155,6 @@
         }
     }];
     
-    
     [[WLImageFetcher fetcher] addReceiver:self];
     [[WLImageFetcher fetcher] enqueueImageWithUrl:self.picture.original];
 }

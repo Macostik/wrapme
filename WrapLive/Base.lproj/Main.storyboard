@@ -1317,7 +1317,7 @@
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yk6-tb-7gb" customClass="WLPressButton">
                                         <rect key="frame" x="248" y="68" width="62" height="32"/>
-                                        <color key="backgroundColor" red="0.95294117647058818" green="0.45882352941176469" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="X5I-V9-6Fr"/>
                                             <constraint firstAttribute="width" constant="62" id="m0c-gG-cse"/>
@@ -1513,7 +1513,7 @@
                                     <outlet property="countLabel" destination="hw2-sP-LBk" id="DNE-Ow-uoV"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh" customClass="WLTouchView">
                                 <rect key="frame" x="156" y="64" width="160" height="66"/>
                                 <subviews>
                                     <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-EK-LgH" customClass="WLTriangleView">
@@ -1563,6 +1563,9 @@ Tap here to start.</string>
                                     <constraint firstItem="lAF-EK-LgH" firstAttribute="top" secondItem="rgB-qi-Gbh" secondAttribute="top" constant="1" id="tXU-hm-Jcv"/>
                                     <constraint firstAttribute="trailing" secondItem="ohz-Ik-QZ1" secondAttribute="trailing" id="wFY-u9-Lwj"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="L91-fZ-J9O" id="5Ve-av-mgl"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1589,6 +1592,7 @@ Tap here to start.</string>
                     <keyCommands/>
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="5cB-EH-3pL"/>
+                        <outlet property="createWrapButton" destination="KxF-7g-Abs" id="DiP-hq-Kq1"/>
                         <outlet property="createWrapTipView" destination="rgB-qi-Gbh" id="lEh-RQ-itL"/>
                         <outlet property="dataProvider" destination="5hc-ZE-poP" id="TGs-fS-2pE"/>
                         <outlet property="emailConfirmationView" destination="Qcq-LH-ZNY" id="shZ-oR-vok"/>
@@ -1759,10 +1763,10 @@ Tap here to start.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="194" translatesAutoresizingMaskIntoConstraints="NO" id="ZaI-gM-W2F" customClass="WLLabel">
-                                                    <rect key="frame" x="56" y="5" width="194" height="19"/>
+                                                    <rect key="frame" x="56" y="5" width="194" height="23"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="19" id="5kG-j7-lzN"/>
+                                                        <constraint firstAttribute="height" constant="23" id="5kG-j7-lzN"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1817,8 +1821,8 @@ Tap here to start.</string>
                                                     </connections>
                                                 </button>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="194" translatesAutoresizingMaskIntoConstraints="NO" id="Kag-WO-QAb" customClass="WLLabel">
-                                                    <rect key="frame" x="56" y="24" width="194" height="18"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <rect key="frame" x="56" y="28" width="194" height="14"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
                                                     <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2918,7 +2922,7 @@ Tap here to start.</string>
                                     <constraint firstItem="PcB-Yh-hjT" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="top" constant="19" id="pJG-p9-4Lw"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LH6-5S-pun" customClass="WLSegmentButton">
+                            <button hidden="YES" opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LH6-5S-pun" userLabel="segmentButton" customClass="WLSegmentButton">
                                 <rect key="frame" x="249" y="497" width="50" height="50"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -4409,7 +4413,6 @@ Check your internet connection and try again.</string>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
                                                             <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                                             <size key="value" width="8" height="0.0"/>
                                                         </userDefinedRuntimeAttribute>

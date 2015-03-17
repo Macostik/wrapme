@@ -94,13 +94,13 @@
 	}];
 }
 
-- (NSArray *)map:(MapBlock)block {
+- (instancetype)map:(MapBlock)block {
 	NSMutableArray *result = [NSMutableArray array];
 	for (id element in self) {
 		id newElement = block(element);
 		if (newElement != nil) [result addObject:newElement];
 	}
-	return [NSArray arrayWithArray:result];
+    return [[self class] arrayWithArray:result];
 }
 
 - (id)selectObject:(SelectBlock)block {
@@ -112,7 +112,7 @@
 	return nil;
 }
 
-- (NSArray *)selectObjects:(SelectBlock)block {
+- (instancetype)selectObjects:(SelectBlock)block {
 	return [self map:^id(id item) {
 		return block(item) ? item : nil;
 	}];

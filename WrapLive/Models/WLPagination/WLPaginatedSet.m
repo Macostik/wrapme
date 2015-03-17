@@ -10,6 +10,7 @@
 #import "WLEntryManager.h"
 #import "WLAPIManager.h"
 #import "WLOperationQueue.h"
+#import "WLEntryNotifier.h"
 
 @interface WLPaginatedSet ()
 
@@ -69,7 +70,7 @@
     WLPaginatedRequest* request = self.request;
     if (request) {
         __weak typeof(self)weakSelf = self;
-        runUnaryQueuedOperation(@"wl_fetching_data_queue",^(WLOperation *operation) {
+        runUnaryQueuedOperation(WLOperationFetchingDataQueue,^(WLOperation *operation) {
             if (weakSelf) {
                 weakSelf.request.type = type;
                 [weakSelf configureRequest:request];

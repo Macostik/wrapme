@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "WLOperation.h"
 
+static NSString* WLOperationFetchingDataQueue = @"wl_fetching_data_queue";
+
 @interface WLOperationQueue : NSObject
 
 @property (strong, nonatomic) NSString *name;
@@ -18,6 +20,10 @@
 @property (readonly, nonatomic) NSArray* executingOperations;
 
 @property (nonatomic) NSUInteger capacity;
+
+@property (strong, nonatomic) void (^startQueueBlock) (void);
+
+@property (strong, nonatomic) void (^finishQueueBlock) (void);
 
 + (instancetype)queueNamed:(NSString*)name;
 

@@ -49,6 +49,9 @@
     if (!operation) return;
     NSMutableArray *operations = (id)self.operations;
     if (![operations containsObject:operation]) {
+        if (operations.count == 0 && self.startQueueBlock) {
+            self.startQueueBlock();
+        }
         operation.queue = self;
         [operations addObject:operation];
         if (self.capacity == 0 || self.executingOperations.count < self.capacity) {
@@ -78,6 +81,9 @@
                 [self performSelector:@selector(startOperation:) withObject:_operation afterDelay:0.0f];
                 break;
             }
+        }
+        if (operations.count == 0 && self.finishQueueBlock) {
+            self.finishQueueBlock();
         }
     }
 }

@@ -9,6 +9,7 @@
 #import "WLEntryNotifier.h"
 #import "WLEntryManager.h"
 #import "NSDate+Additions.h"
+#import "WLOperationQueue.h"
 
 @interface WLEntryNotifier ()
 
@@ -21,6 +22,16 @@
 @end
 
 @implementation WLEntryNotifier
+
++ (void)initialize {
+    WLOperationQueue *queue = [WLOperationQueue queueNamed:WLOperationFetchingDataQueue];
+    [queue setStartQueueBlock:^{
+        [self beginBatchUpdates];
+    }];
+    [queue setFinishQueueBlock:^{
+        [self commitBatchUpdates];
+    }];
+}
 
 + (instancetype)notifier {
     static id instance = nil;
@@ -95,6 +106,7 @@ static NSMapTable* notifiers = nil;
             NSString *selector = notify[@"selector"];
             [self broadcast:NSSelectorFromString(selector) object:entry select:self.selectBlock];
         }
+        [notifies removeAllObjects];
     }
 }
 

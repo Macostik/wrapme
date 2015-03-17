@@ -14,11 +14,15 @@
 
 @interface WLAddressBook : NSObject
 
-+ (void)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure;
++ (BOOL)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 + (void)beginCaching;
 
 + (void)endCaching;
+
++ (void)updateCachedRecords;
+
++ (void)updateCachedRecordsAfterFailure;
 
 /**
  *  Get the list of records from Address Book.

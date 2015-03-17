@@ -14,6 +14,7 @@
 #import "UIImage+Drawing.h"
 #import "WLImageFetcher.h"
 #import "WLUploadingQueue.h"
+#import "NSError+WLAPIManager.h"
 
 @implementation WLCandy (Extended)
 
@@ -143,8 +144,17 @@
     [self setDownloadSuccessBlock:^(UIImage *image) {
         [image save:nil completion:success failure:failure];
     }];
+   
+    [self setDownloadFailureBlock:^(NSError *error) {
+        if (error.isNetworkError) {
+            error = [NSError errorWithDescription:
+                     WLLS(@"No internet connections available. Please try downloading it later.")];
+        }
+        if (failure) {
+            failure(error);
+        }
+    }];
     
-    [self setDownloadFailureBlock:failure];
     
     [[WLImageFetcher fetcher] addReceiver:self];
     [[WLImageFetcher fetcher] enqueueImageWithUrl:self.picture.original];

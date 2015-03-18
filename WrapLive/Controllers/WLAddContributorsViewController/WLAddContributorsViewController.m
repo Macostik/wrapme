@@ -27,7 +27,7 @@
 #import "WLAddressBookGroupView.h"
 #import "NSObject+NibAdditions.h"
 
-@interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate, WLFontPresetterReceiver>
+@interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate, WLFontPresetterReceiver, WLAddressBookReceiver>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
@@ -53,7 +53,7 @@
     self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
     [self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
-    BOOL cached = [WLAddressBook cachedRecords:^(NSArray *array) {
+    BOOL cached = [[WLAddressBook addressBook] cachedRecords:^(NSArray *array) {
         [weakSelf.addressBook addRecords:array];
         [weakSelf filterContacts];
         [weakSelf.spinner stopAnimating];
@@ -61,31 +61,31 @@
         [weakSelf.spinner stopAnimating];
         [error show];
     }];
+    [[WLAddressBook addressBook] addReceiver:self];
     if (cached) {
-        [WLAddressBook updateCachedRecords];
+        [[WLAddressBook addressBook] updateCachedRecords];
     }
     [[WLFontPresetter presetter] addReceiver:self];
-}
-
-- (void)refresh {
-    __weak typeof(self)weakSelf = self;
-    [WLAddressBook records:^(NSArray *array) {
-        WLArrangedAddressBook *oldAddressBook = weakSelf.addressBook;
-        weakSelf.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:weakSelf.wrap];
-        [weakSelf.addressBook addRecords:array];
-        for (WLAddressBookRecord *record in weakSelf.invitedRecords) {
-            [weakSelf.addressBook addUniqueRecord:record completion:nil];
-        }
-        weakSelf.addressBook.selectedPhoneNumbers = [oldAddressBook.selectedPhoneNumbers map:^id (WLAddressBookPhoneNumber *phoneNumber) {
-            return [weakSelf.addressBook phoneNumberIdenticalTo:phoneNumber];
-        }];
-        [weakSelf filterContacts];
-    } failure:nil];
 }
 
 - (void)filterContacts {
     self.filteredAddressBook  = [self.addressBook filteredAddressBookWithText:self.searchField.text];
     [self.tableView reloadData];
+}
+
+// MARK: - WLAddressBookReceiver
+
+- (void)addressBook:(WLAddressBook *)addressBook didUpdateCachedRecords:(NSArray *)cachedRecords {
+    WLArrangedAddressBook *oldAddressBook = self.addressBook;
+    self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
+    [self.addressBook addRecords:cachedRecords];
+    for (WLAddressBookRecord *record in self.invitedRecords) {
+        [self.addressBook addUniqueRecord:record completion:nil];
+    }
+    self.addressBook.selectedPhoneNumbers = [oldAddressBook.selectedPhoneNumbers map:^id (WLAddressBookPhoneNumber *phoneNumber) {
+        return [self.addressBook phoneNumberIdenticalTo:phoneNumber];
+    }];
+    [self filterContacts];
 }
 
 #pragma mark - Actions

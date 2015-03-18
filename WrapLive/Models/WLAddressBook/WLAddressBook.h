@@ -11,20 +11,31 @@
 #import "WLAddressBookPhoneNumber.h"
 
 @class WLPicture;
+@class WLAddressBook;
 
-@interface WLAddressBook : NSObject
+@protocol WLAddressBookReceiver <NSObject>
 
-+ (BOOL)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+@optional
+- (void)addressBook:(WLAddressBook*)addressBook didUpdateCachedRecords:(NSArray*)cachedRecords;
 
-+ (void)records:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+@end
 
-+ (void)beginCaching;
 
-+ (void)endCaching;
+@interface WLAddressBook : WLBroadcaster
 
-+ (void)updateCachedRecords;
++ (instancetype)addressBook;
 
-+ (void)updateCachedRecordsAfterFailure;
+- (BOOL)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
+- (void)records:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
+- (void)beginCaching;
+
+- (void)endCaching;
+
+- (void)updateCachedRecords;
+
+- (void)updateCachedRecordsAfterFailure;
 
 /**
  *  Get the list of records from Address Book.
@@ -33,6 +44,6 @@
  *  @param success block for successful completion
  *  @param failure block for failed completion
  */
-+ (void)contacts:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+- (void)contacts:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 @end

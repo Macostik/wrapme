@@ -13,7 +13,5 @@ static NSString *WLImageViewCellIdentifier = @"WLImageViewCell";
 
 @interface WLImageViewCell : WLEntryCell
 
-@property (weak, nonatomic, readonly) IBOutlet UIScrollView *scrollView;
-
 @end
 

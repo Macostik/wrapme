@@ -21,10 +21,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *removeButton;
 @property (weak, nonatomic) IBOutlet WLButton *resendInviteButton;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *removeButtonTop;
 @property (weak, nonatomic) IBOutlet UIView *slideView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *slideViewConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *removeButtonLeadingConstraint;
 @property (weak, nonatomic) IBOutlet WLButton *slideMenuButton;
+@property (weak, nonatomic) IBOutlet WLButton *resendInviteDoneButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *resendInviteSpinner;
 
 @end
 
@@ -34,10 +36,6 @@
     [super awakeFromNib];
     [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
-    self.resendInviteButton.layer.borderColor = self.removeButton.layer.borderColor = [UIColor WL_grayLight].CGColor;
-    self.resendInviteButton.layer.borderWidth = self.removeButton.layer.borderWidth = 1;
-    self.resendInviteButton.layer.cornerRadius = self.removeButton.layer.cornerRadius = 6;
-    self.resendInviteButton.clipsToBounds = self.removeButton.clipsToBounds = YES;
     
     UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(toggleSideMenu:)];
     swipe.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -45,6 +43,8 @@
     swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(toggleSideMenu:)];
     swipe.direction = UISwipeGestureRecognizerDirectionRight;
     [self.slideMenuButton addGestureRecognizer:swipe];
+    self.resendInviteButton.titleLabel.numberOfLines = 2;
+    [self.resendInviteButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
 }
 
 - (void)setup:(WLUser*)user {
@@ -67,32 +67,50 @@
 - (void)setDeletable:(BOOL)deletable {
 	_deletable = deletable;
     self.removeButton.hidden = !deletable;
-    self.removeButtonTop.constant = deletable ? self.avatarView.y : -self.removeButton.height;
     WLUser *user = self.entry;
     self.resendInviteButton.hidden = !user.isInvited;
+    self.removeButtonLeadingConstraint.constant = deletable ? 0 : -self.removeButton.width;
     
-    if (!self.resendInviteButton.hidden) {
+    [self.resendInviteSpinner stopAnimating];
+    
+    if (self.resendInviteButton.hidden) {
+        self.resendInviteDoneButton.hidden = YES;
+    } else {
         BOOL invited = [self.delegate contributorCell:self isInvitedContributor:user];
-        self.resendInviteButton.userInteractionEnabled = !invited;
-        [self.resendInviteButton setTitle:WLLS(invited ? @"SENT" : @"RESEND INVITE") forState:UIControlStateNormal];
-        self.resendInviteButton.loading = NO;
-        self.resendInviteButton.titleEdgeInsets = UIEdgeInsetsZero;
+        [self setInvitedState:invited];
     }
+    
+    [self setMenuHidden:![self.delegate contributorCell:self showMenu:user] animated:NO];
     
     self.slideMenuButton.hidden = self.removeButton.hidden && self.resendInviteButton.hidden;
 }
 
+- (void)setInvitedState:(BOOL)invited {
+    self.resendInviteDoneButton.hidden = !invited;
+    [self.resendInviteButton setTitle:invited ? @"" : @"Resend\ninvite" forState:UIControlStateNormal];
+    self.resendInviteButton.userInteractionEnabled = !invited;
+}
+
 - (IBAction)toggleSideMenu:(id)sender {
-    if (self.slideViewConstraint.constant != 0) {
+    [self setMenuHidden:self.slideViewConstraint.constant != 0 animated:YES];
+    [self.delegate contributorCell:self didToggleMenu:self.entry];
+}
+
+- (void)setMenuHidden:(BOOL)hidden animated:(BOOL)animated {
+    if (hidden) {
         self.slideViewConstraint.constant = 0;
     } else {
-        self.slideViewConstraint.constant = MAX(self.resendInviteButton.width, self.removeButton.width) + 24;
+        self.slideViewConstraint.constant = (self.resendInviteButton.hidden ? 0 : self.resendInviteButton.width) + (self.removeButton.hidden ? 0 : self.removeButton.width);
     }
-    __weak typeof(self)weakSelf = self;
-    [UIView animateWithDuration:0.5 delay:0.0f usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [weakSelf.slideView layoutIfNeeded];
-    } completion:^(BOOL finished) {
-    }];
+    if (animated) {
+        __weak typeof(self)weakSelf = self;
+        [UIView animateWithDuration:0.5 delay:0.0f usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [weakSelf layoutIfNeeded];
+        } completion:^(BOOL finished) {
+        }];
+    } else {
+        [self layoutIfNeeded];
+    }
 }
 
 #pragma mark - Actions
@@ -102,11 +120,13 @@
 }
 
 - (IBAction)resendInvite:(WLButton*)sender {
-    sender.loading = YES;
-    sender.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 18);
+    [self.resendInviteSpinner startAnimating];
+    __weak typeof(self)weakSelf = self;
+    sender.userInteractionEnabled = NO;
+    [sender setTitle:@"" forState:UIControlStateNormal];
     [self.delegate contributorCell:self didInviteContributor:self.entry completionHandler:^(BOOL success) {
-        sender.loading = NO;
-        sender.titleEdgeInsets = UIEdgeInsetsZero;
+        [weakSelf.resendInviteSpinner stopAnimating];
+        [weakSelf setInvitedState:success];
     }];
 }
 

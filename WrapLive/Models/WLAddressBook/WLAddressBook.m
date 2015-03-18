@@ -21,37 +21,56 @@
 #import "WLContributorsRequest.h"
 #import "WLOperationQueue.h"
 
+@interface WLAddressBook ()
+
+@property (strong, nonatomic) NSArray *cachedRecords;
+
+@end
+
 @implementation WLAddressBook
 
-static NSArray *cachedRecords = nil;
++ (instancetype)addressBook {
+    static id instance = nil;
+    if (instance == nil) {
+        instance = [[self alloc] init];
+    }
+    return instance;
+}
 
-+ (void)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure {
-    for (WLAddressBookRecord *record in cachedRecords) {
+- (void)setCachedRecords:(NSArray *)cachedRecords {
+    _cachedRecords = cachedRecords;
+    [self broadcast:@selector(addressBook:didUpdateCachedRecords:) object:cachedRecords];
+}
+
+- (BOOL)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+    for (WLAddressBookRecord *record in self.cachedRecords) {
         for (WLAddressBookPhoneNumber *phoneNumber in record.phoneNumbers) {
             if (phoneNumber.user && !phoneNumber.user.valid) {
-                cachedRecords = nil;
+                self.cachedRecords = nil;
                 break;
             }
         }
     }
-    if (cachedRecords) {
-        if (success) success(cachedRecords);
+    if (self.cachedRecords) {
+        if (success) success(self.cachedRecords);
+        return YES;
     } else {
         [self records:success failure:failure];
+        return NO;
     }
 }
 
-+ (void)records:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (void)records:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     [self addressBook:^(ABAddressBookRef addressBook) {
         [self records:addressBook success:success failure:failure];
     } failure:failure];
 }
 
-+ (void)records:(ABAddressBookRef)addressBook success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
-    [WLAddressBook contacts:addressBook success:^(NSArray *array) {
+- (void)records:(ABAddressBookRef)addressBook success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+    [self contacts:addressBook success:^(NSArray *array) {
         runUnaryQueuedOperation(@"wl_address_book_queue", ^(WLOperation *operation) {
             [[WLContributorsRequest request:array] send:^(id object) {
-                cachedRecords = object;
+                self.cachedRecords = object;
                 if (success) success(object);
                 [operation finish];
             } failure:^(NSError *error) {
@@ -62,32 +81,52 @@ static NSArray *cachedRecords = nil;
     } failure:failure];
 }
 
-+ (void)updateCachedRecords:(ABAddressBookRef)addressBook {
-    [WLAddressBook records:addressBook success:nil failure:nil];
+static BOOL updateCachedRecordsFailed = NO;
+
+- (void)updateCachedRecordsAfterFailure {
+    if (updateCachedRecordsFailed) {
+        [self updateCachedRecords];
+    }
+}
+
+- (void)updateCachedRecords {
+    [self addressBook:^(ABAddressBookRef addressBook) {
+        [self updateCachedRecords:addressBook];
+    } failure:nil];
+}
+
+- (void)updateCachedRecords:(ABAddressBookRef)addressBook {
+    [self records:addressBook success:^(NSArray *array) {
+        updateCachedRecordsFailed = NO;
+    } failure:^(NSError *error) {
+        updateCachedRecordsFailed = YES;
+    }];
 }
 
 void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, void *context) {
-    Class class = [WLAddressBook class];
-    [NSObject cancelPreviousPerformRequestsWithTarget:class selector:@selector(updateCachedRecords:) object:(__bridge id)(addressBook)];
-    [class performSelector:@selector(updateCachedRecords:) withObject:(__bridge id)(addressBook) afterDelay:0.0f];
+    WLAddressBook *_addressBook = (__bridge WLAddressBook *)(context);
+    if (_addressBook) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:_addressBook selector:@selector(updateCachedRecords:) object:(__bridge id)(addressBook)];
+        [_addressBook performSelector:@selector(updateCachedRecords:) withObject:(__bridge id)(addressBook) afterDelay:0.0f];
+    }
 }
 
-+ (void)beginCaching {
+- (void)beginCaching {
     [self addressBook:^(ABAddressBookRef addressBook) {
-        [WLAddressBook records:addressBook success:nil failure:nil];
-        ABAddressBookRegisterExternalChangeCallback(addressBook, addressBookChanged, NULL);
+        [self records:addressBook success:nil failure:nil];
+        ABAddressBookRegisterExternalChangeCallback(addressBook, addressBookChanged, (__bridge void *)(self));
     } failure:^(NSError *error) {
     }];
 }
 
-+ (void)endCaching {
+- (void)endCaching {
     [self addressBook:^(ABAddressBookRef addressBook) {
         ABAddressBookUnregisterExternalChangeCallback(addressBook, addressBookChanged, NULL);
     } failure:^(NSError *error) {
     }];
 }
 
-+ (void)contacts:(ABAddressBookRef)addressBook success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (void)contacts:(ABAddressBookRef)addressBook success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     runUnaryQueuedOperation(@"wl_address_book_queue", ^(WLOperation *operation) {
         CFArrayRef records = ABAddressBookCopyArrayOfAllPeople(addressBook);
         CFIndex count = ABAddressBookGetPersonCount(addressBook);
@@ -125,13 +164,13 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
     });
 }
 
-+ (void)contacts:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (void)contacts:(WLArrayBlock)success failure:(WLFailureBlock)failure {
 	[self addressBook:^(ABAddressBookRef addressBook) {
         [self contacts:addressBook success:success failure:failure];
 	} failure:failure];
 }
 
-+ (void)addressBook:(void (^)(ABAddressBookRef addressBook))success failure:(WLFailureBlock)failure {
+- (void)addressBook:(void (^)(ABAddressBookRef addressBook))success failure:(WLFailureBlock)failure {
     static ABAddressBookRef addressBook = NULL;
     if (addressBook == NULL) {
         addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
@@ -140,11 +179,11 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
         ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
             run_in_main_queue(^{
                 if (error) {
-                    failure((__bridge NSError *)(error));
+                    if (failure) failure((__bridge NSError *)(error));
                 } else if (granted) {
-                    success(addressBook);
+                    if (success) success(addressBook);
                 } else {
-                    failure([NSError errorWithDescription:WLLS(@"Access to your Address Book is not granted.")]);
+                    if (failure) failure([NSError errorWithDescription:WLLS(@"Access to your Address Book is not granted.")]);
                 }
                 [operation finish];
             });

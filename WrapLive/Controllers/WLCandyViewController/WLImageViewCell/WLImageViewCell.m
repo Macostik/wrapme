@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *aspectRatioConstraint;
 
 @end
 
@@ -34,6 +35,11 @@
     [self.imageView setContentMode:UIViewContentModeCenter forState:WLImageViewStateEmpty];
     [self.imageView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateFailed];
     [self.imageView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateEmpty];
+    self.scrollView.minimumZoomScale = 1;
+    self.scrollView.maximumZoomScale = 2;
+    
+    [self.scrollView.superview addGestureRecognizer:self.scrollView.panGestureRecognizer];
+    [self.scrollView.superview addGestureRecognizer:self.scrollView.pinchGestureRecognizer];
 }
 
 - (void)setup:(WLCandy *)candy {
@@ -53,21 +59,24 @@
 - (void)calculateScaleValues {
     UIImage *image = self.imageView.image;
     if (image) {
-        CGFloat minimumZoomScale = CGSizeScaleToFitSize(self.size, image.size);
-        if (minimumZoomScale <= 0) minimumZoomScale = 0.01;
-        self.scrollView.maximumZoomScale = minimumZoomScale < 1 ? 2 : (minimumZoomScale + 2);
-        self.scrollView.minimumZoomScale = minimumZoomScale;
-        self.scrollView.zoomScale  = minimumZoomScale;
+        NSLayoutConstraint *constraint = self.aspectRatioConstraint;
+        constraint = [NSLayoutConstraint constraintWithItem:constraint.firstItem attribute:constraint.firstAttribute relatedBy:constraint.relation toItem:constraint.secondItem attribute:constraint.secondAttribute multiplier:image.size.width/image.size.height constant:0];
+        [self.scrollView removeConstraint:self.aspectRatioConstraint];
+        [self.scrollView addConstraint:constraint];
+        self.aspectRatioConstraint = constraint;
+        [self.scrollView layoutIfNeeded];
+        self.scrollView.zoomScale = 1;
     }
 }
 
 #pragma mark - WLDeviceOrientationBroadcastReceiver
 
 - (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber*)orientation {
-    if (self.imageView.image) {
-        self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
-        [self calculateScaleValues];
-    }
+    self.scrollView.zoomScale = 1;
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return self.imageView;
 }
 
 @end

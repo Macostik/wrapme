@@ -17,6 +17,10 @@
 
 @property (nonatomic, readonly) BOOL registered;
 
+@property (readonly, nonatomic) NSString* priorityName;
+
+@property (readonly, nonatomic) WLPicture* priorityPicture;
+
 + (void)record:(ABRecordRef)record completion:(WLContactBlock)completion;
 
 + (instancetype)record:(NSArray*)phoneNumbers;

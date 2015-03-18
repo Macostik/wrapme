@@ -117,13 +117,13 @@
     for (WLArrangedAddressBookGroup *group in self.groups) {
         WLAddressBookRecord *record = [group.records selectObject:selectBlock];
         if (record) {
-            if (completion) completion(record, group);
+            if (completion) completion(YES, record, group);
             return nil;
         }
     }
     NSError *error = [self addRecord:record];
     if (!error && completion) {
-        completion(record, [self groupWithRecord:record]);
+        completion(NO, record, [self groupWithRecord:record]);
     }
     return error;
 }
@@ -157,14 +157,31 @@
     if (text.nonempty) {
         WLArrangedAddressBook *addressBook = [[WLArrangedAddressBook alloc] init];
         addressBook.groups = [self.groups map:^id (WLArrangedAddressBookGroup *group) {
-            WLArrangedAddressBookGroup *_group = [[WLArrangedAddressBookGroup alloc] initWithTitle:group.title addingRule:group.addingRule];
-            _group.records = [group.records objectsWhere:@"name contains[c] %@", text];
+            WLArrangedAddressBookGroup *_group = [[WLArrangedAddressBookGroup alloc] initWithTitle:group.title
+                                                                                        addingRule:group.addingRule];
+            _group.records = [group.records selectObjects:^BOOL(WLAddressBookRecord  *record) {
+                WLAddressBookPhoneNumber *phoneNumbler = record.phoneNumbers.lastObject;
+                return ([phoneNumbler.priorityName rangeOfString:text options:NSCaseInsensitiveSearch].location != NSNotFound);
+            }];
             return _group;
         }];
         return addressBook;
     } else {
         return self;
     }
+}
+
+- (WLAddressBookPhoneNumber *)phoneNumberIdenticalTo:(WLAddressBookPhoneNumber *)phoneNumber {
+    for (WLArrangedAddressBookGroup *group in self.groups) {
+        for (WLAddressBookRecord *record in group.records) {
+            for (WLAddressBookPhoneNumber *_phoneNumber in record.phoneNumbers) {
+                if ([_phoneNumber isEqualToPerson:phoneNumber]) {
+                    return _phoneNumber;
+                }
+            }
+        }
+    }
+    return nil;
 }
 
 @end

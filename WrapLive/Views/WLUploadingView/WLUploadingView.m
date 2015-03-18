@@ -11,11 +11,12 @@
 #import "WLNetwork.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "UIColor+CustomColors.h"
+#import "WLIconButton.h"
 
 @interface WLUploadingView () <WLUploadingQueueReceiver, WLNetworkReceiver>
 
 @property (weak, nonatomic) IBOutlet UILabel* countLabel;
-@property (weak, nonatomic) IBOutlet UIButton* arrowIcon;
+@property (weak, nonatomic) IBOutlet WLIconButton* arrowIcon;
 
 @property (strong, nonatomic) CABasicAnimation* animation;
 
@@ -48,6 +49,7 @@
         self.countLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)queue.count];
         BOOL networkReachable = [WLNetwork network].reachable;
         self.backgroundColor = [(networkReachable ? [UIColor WL_orangeColor] : [UIColor WL_grayLight]) colorWithAlphaComponent:0.8f];
+        self.arrowIcon.iconColor = self.backgroundColor;
         [self startAnimating];
     } else {
         [self stopAnimating];
@@ -70,8 +72,8 @@
 - (CABasicAnimation *)animation {
     if (!_animation) {
         _animation = [CABasicAnimation animationWithKeyPath:@"transform"];
-        _animation.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeTranslation(0, 5, 0)];
-        _animation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeTranslation(0, -5, 0)];
+        _animation.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeTranslation(0, -3, 0)];
+        _animation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeTranslation(0, -12, 0)];
         _animation.duration = 1.0f;
         _animation.repeatCount = FLT_MAX;
     }

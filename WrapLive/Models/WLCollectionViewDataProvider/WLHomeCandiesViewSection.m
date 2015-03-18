@@ -9,6 +9,7 @@
 #import "WLHomeCandiesViewSection.h"
 #import "WLWrapCell.h"
 #import "WLCandyCell.h"
+#import "WLNavigation.h"
 
 @implementation WLHomeCandiesViewSection
 
@@ -17,7 +18,7 @@
 }
 
 - (CGSize)size:(NSIndexPath *)indexPath {
-    int size = (self.collectionView.bounds.size.width - 2.0f)/3.0f;
+    int size = ([UIWindow mainWindow].bounds.size.width - 2.0f)/3.0f;
     return CGSizeMake(size, size);
 }
 

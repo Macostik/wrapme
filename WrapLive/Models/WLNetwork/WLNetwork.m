@@ -13,6 +13,7 @@
 #import "WLAuthorizationRequest.h"
 #import <AFNetworking/AFNetworkReachabilityManager.h>
 #import "WLUploadingQueue.h"
+#import "WLAddressBook.h"
 
 @implementation WLNetwork
 
@@ -40,6 +41,7 @@
             if (weakSelf.reachable) {
                 if ([WLAuthorizationRequest authorized]) {
                     [WLUploadingQueue start];
+                    [[WLAddressBook addressBook] updateCachedRecordsAfterFailure];
                 } else {
                     [[WLAuthorizationRequest signInRequest] send];
                 }

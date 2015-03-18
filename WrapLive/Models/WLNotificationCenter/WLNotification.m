@@ -338,7 +338,7 @@
         NSUInteger index = [candy.comments indexOfObjectPassingTest:^BOOL(WLComment* comment, NSUInteger idx, BOOL *stop) {
             return comment.contributedByCurrentUser;
         }];
-        if (index != NSNotFound && [candy.comments indexOfObject:self] > index) {
+        if (index != NSNotFound && [candy.comments indexOfObject:self] < index) {
             return YES;
         }
     }

@@ -54,8 +54,9 @@
 #import "WLAddressBook.h"
 #import "WLIntroductionViewController.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLTouchView.h"
 
-@interface WLHomeViewController () <WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate>
+@interface WLHomeViewController () <WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
@@ -66,17 +67,20 @@
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
 @property (weak, nonatomic) IBOutlet UIView *createWrapTipView;
+@property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 
 @property (strong, nonatomic) WLWrap* chatSegueWrap;
 
 @property (nonatomic) BOOL createWrapTipHidden;
+
+@property (nonatomic) BOOL createWrapTipDelayedHiding;
 
 @end
 
 @implementation WLHomeViewController
 
 - (void)dealloc {
-    [WLAddressBook endCaching];
+    [[WLAddressBook addressBook] endCaching];
 }
 
 - (void)viewDidLoad {
@@ -84,7 +88,7 @@
     
     self.createWrapTipHidden = YES;
     
-    [WLAddressBook beginCaching];
+    [[WLAddressBook addressBook] beginCaching];
     
     self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
     
@@ -123,18 +127,33 @@
     if (self.createWrapTipView.hidden != createWrapTipHidden) {
         [self.createWrapTipView fade];
         self.createWrapTipView.hidden = createWrapTipHidden;
-        if (!createWrapTipHidden) {
-            [WLSession setObject:@(YES) key:@"WLCreateWrapTipAlreadyShown"];
-            if ([WLUser currentUser].wraps.nonempty) {
-                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideCreateWrapTip) object:nil];
-                [self performSelector:@selector(hideCreateWrapTip) withObject:nil afterDelay:5.0f];
-            }
+    }
+    if (!createWrapTipHidden && !self.createWrapTipDelayedHiding) {
+        [WLSession setObject:[NSDate date] key:@"WLCreateWrapTipShowDate"];
+        if ([WLUser currentUser].wraps.nonempty) {
+            self.createWrapTipDelayedHiding = YES;
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideCreateWrapTip) object:nil];
+            [self performSelector:@selector(hideCreateWrapTip) withObject:nil afterDelay:10.0f];
         }
     }
 }
 
 - (void)hideCreateWrapTip {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideCreateWrapTip) object:nil];
+    self.createWrapTipDelayedHiding = NO;
     self.createWrapTipHidden = YES;
+}
+
+- (BOOL)isCreateWrapTipHiddenWithWraps:(NSOrderedSet*)wraps {
+    if (self.createWrapTipDelayedHiding) return NO;
+    if (wraps.count == 0) return NO;
+    NSDate *createWrapTipShowDate = [WLSession object:@"WLCreateWrapTipShowDate"];
+    if (createWrapTipShowDate) {
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:createWrapTipShowDate toDate:[NSDate date] options:0];
+        return components.day < 7;
+    } else {
+        return NO;
+    }
 }
 
 - (void)handleFirstUsage {
@@ -151,21 +170,11 @@
             introduction.delegate = self;
             [self presentViewController:introduction animated:YES completion:nil];
         } else if (!self.presentedViewController) {
-            self.createWrapTipHidden = [[WLSession object:@"WLCreateWrapTipAlreadyShown"] boolValue] && wraps.count > 0;
-        }
-        
-        if (wraps.count > 0) {
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                [wraps enumerateObjectsUsingBlock:^(WLWrap *wrap, NSUInteger idx, BOOL *stop) {
-                    [wrap preload];
-                    if (idx == 2) *stop = YES;
-                }];
-            });
+            self.createWrapTipHidden = [self isCreateWrapTipHiddenWithWraps:wraps];
         }
         
     } else {
-        self.createWrapTipHidden = [[WLSession object:@"WLCreateWrapTipAlreadyShown"] boolValue] && wraps.count > 0;
+        self.createWrapTipHidden = [self isCreateWrapTipHiddenWithWraps:wraps];
     }
 }
 
@@ -176,6 +185,11 @@
     [self updateEmailConfirmationView:NO];
     [WLRemoteObjectHandler sharedObject].isLoaded = [self isViewLoaded];
     [self.uploadingView update];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self hideCreateWrapTip];
 }
 
 - (void)updateEmailConfirmationView:(BOOL)animated {
@@ -369,9 +383,18 @@
 - (void)introductionViewControllerDidFinish:(WLIntroductionViewController *)controller {
     __weak typeof(self)weakSelf = self;
     [self dismissViewControllerAnimated:YES completion:^{
-        WLUser *user = [WLUser currentUser];
-        weakSelf.createWrapTipHidden = [[WLSession object:@"WLCreateWrapTipAlreadyShown"] boolValue] && user.wraps.count > 0;
+        weakSelf.createWrapTipHidden = [self isCreateWrapTipHiddenWithWraps:[WLUser currentUser].wraps];
     }];
+}
+
+// MARK: - WLTouchViewDelegate
+
+- (void)touchViewDidReceiveTouch:(WLTouchView *)touchView {
+    [self hideCreateWrapTip];
+}
+
+- (NSSet *)touchViewExclusionRects:(WLTouchView *)touchView {
+    return [NSSet setWithObject:[NSValue valueWithCGRect:[touchView convertRect:self.createWrapButton.bounds fromView:self.createWrapButton]]];
 }
 
 @end

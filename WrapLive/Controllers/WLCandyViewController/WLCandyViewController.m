@@ -166,8 +166,6 @@
     }
 }
 
-static CGFloat WLTopContraintConstant = -20.0f;
-
 - (IBAction)hideBars {
     [self setBarsHidden:YES animated:YES];
 }
@@ -175,7 +173,7 @@ static CGFloat WLTopContraintConstant = -20.0f;
 - (IBAction)setBarsHidden:(BOOL)hidden animated:(BOOL)animated {
     __weak typeof(self)weakSelf = self;
     [UIView performAnimated:animated animation:^{
-        weakSelf.topViewConstraint.constant = hidden ? -weakSelf.topView.height + WLTopContraintConstant : WLTopContraintConstant;
+        weakSelf.topViewConstraint.constant = hidden ? -weakSelf.topView.height : .0f;
         weakSelf.bottomViewContstraint.constant = hidden ? -weakSelf.bottomView.height : .0f;
         [weakSelf.view layoutIfNeeded];
     }];
@@ -399,12 +397,16 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     } else {
         cell.entry = nil;
     }
-   
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return collectionView.size;
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    CGFloat x = targetContentOffset->x;
+    targetContentOffset->x = roundf(x / scrollView.width) * scrollView.width;
 }
 
 #pragma mark - WLNetworkReceiver
@@ -417,6 +419,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {

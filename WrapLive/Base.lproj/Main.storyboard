@@ -3090,24 +3090,41 @@ Tap here to start.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pry-wp-qRG" customClass="WLScrollView">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJR-KD-aWN">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="Cn8-Rl-m4g" customClass="WLImageView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                                        </imageView>
+                                                        <scrollView multipleTouchEnabled="YES" contentMode="center" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pry-wp-qRG">
+                                                            <rect key="frame" x="0.0" y="71" width="320" height="426"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Cn8-Rl-m4g" customClass="WLImageView">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="426"/>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="Cn8-Rl-m4g" secondAttribute="trailing" id="44m-d7-9z0"/>
+                                                                <constraint firstAttribute="bottom" secondItem="Cn8-Rl-m4g" secondAttribute="bottom" id="5dm-uE-l8h"/>
+                                                                <constraint firstItem="Cn8-Rl-m4g" firstAttribute="top" secondItem="pry-wp-qRG" secondAttribute="top" id="CLB-5R-ia5"/>
+                                                                <constraint firstAttribute="width" secondItem="pry-wp-qRG" secondAttribute="height" multiplier="3:4" id="Yhx-2Q-feM"/>
+                                                                <constraint firstItem="Cn8-Rl-m4g" firstAttribute="leading" secondItem="pry-wp-qRG" secondAttribute="leading" id="dO6-ha-JFB"/>
+                                                                <constraint firstItem="Cn8-Rl-m4g" firstAttribute="height" secondItem="pry-wp-qRG" secondAttribute="height" id="eVs-z7-xoc"/>
+                                                                <constraint firstItem="Cn8-Rl-m4g" firstAttribute="width" secondItem="pry-wp-qRG" secondAttribute="width" id="td5-wg-83q"/>
+                                                            </constraints>
+                                                            <connections>
+                                                                <outlet property="delegate" destination="YzT-ge-Jjl" id="nu3-13-oF5"/>
+                                                            </connections>
+                                                        </scrollView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="Cn8-Rl-m4g" firstAttribute="top" secondItem="pry-wp-qRG" secondAttribute="top" id="DxJ-ZT-bLB"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Cn8-Rl-m4g" secondAttribute="trailing" id="Rsn-ju-T58"/>
-                                                        <constraint firstItem="Cn8-Rl-m4g" firstAttribute="leading" secondItem="pry-wp-qRG" secondAttribute="leading" id="cXX-Ap-fa6"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Cn8-Rl-m4g" secondAttribute="bottom" id="e6n-wn-rBj"/>
+                                                        <constraint firstItem="pry-wp-qRG" firstAttribute="width" secondItem="mJR-KD-aWN" secondAttribute="width" priority="750" id="ES4-L4-yYn"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="pry-wp-qRG" secondAttribute="width" id="FeC-rr-afl"/>
+                                                        <constraint firstAttribute="centerX" secondItem="pry-wp-qRG" secondAttribute="centerX" id="QT0-GG-Hbd"/>
+                                                        <constraint firstAttribute="centerY" secondItem="pry-wp-qRG" secondAttribute="centerY" id="R33-jE-aXf"/>
+                                                        <constraint firstItem="pry-wp-qRG" firstAttribute="height" secondItem="mJR-KD-aWN" secondAttribute="height" priority="750" id="jaX-P2-Uas"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" secondItem="pry-wp-qRG" secondAttribute="height" id="pBD-R3-n9X"/>
                                                     </constraints>
-                                                    <connections>
-                                                        <outlet property="zoomingView" destination="Cn8-Rl-m4g" id="eUt-Ze-fqq"/>
-                                                    </connections>
-                                                </scrollView>
+                                                </view>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="bf0-24-ZKl">
                                                     <rect key="frame" x="150" y="252" width="20" height="20"/>
                                                     <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3132,16 +3149,17 @@ Check your internet connection and try again.</string>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstItem="pry-wp-qRG" firstAttribute="top" secondItem="YzT-ge-Jjl" secondAttribute="top" id="3R1-CN-DTQ"/>
-                                            <constraint firstAttribute="trailing" secondItem="pry-wp-qRG" secondAttribute="trailing" id="9YQ-Pw-F6B"/>
-                                            <constraint firstAttribute="bottom" secondItem="pry-wp-qRG" secondAttribute="bottom" id="Js0-ca-jV2"/>
-                                            <constraint firstItem="pry-wp-qRG" firstAttribute="leading" secondItem="YzT-ge-Jjl" secondAttribute="leading" id="PC6-zl-1Qr"/>
+                                            <constraint firstItem="mJR-KD-aWN" firstAttribute="leading" secondItem="YzT-ge-Jjl" secondAttribute="leading" id="5vC-Vh-CKI"/>
+                                            <constraint firstAttribute="trailing" secondItem="mJR-KD-aWN" secondAttribute="trailing" id="ZIA-Hg-nkA"/>
                                             <constraint firstAttribute="centerX" secondItem="TvM-gd-tcr" secondAttribute="centerX" id="bzF-ni-C8p"/>
                                             <constraint firstAttribute="centerX" secondItem="bf0-24-ZKl" secondAttribute="centerX" id="iIY-MV-jIi"/>
+                                            <constraint firstAttribute="bottom" secondItem="mJR-KD-aWN" secondAttribute="bottom" id="kaU-sS-TL9"/>
                                             <constraint firstItem="TvM-gd-tcr" firstAttribute="top" secondItem="YzT-ge-Jjl" secondAttribute="top" constant="80" id="khs-Cw-nlX"/>
                                             <constraint firstAttribute="centerY" secondItem="bf0-24-ZKl" secondAttribute="centerY" constant="22" id="odz-Ui-H0l"/>
+                                            <constraint firstItem="mJR-KD-aWN" firstAttribute="top" secondItem="YzT-ge-Jjl" secondAttribute="top" id="rfD-Zz-jtZ"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="aspectRatioConstraint" destination="Yhx-2Q-feM" id="jT2-mm-CNR"/>
                                             <outlet property="errorLabel" destination="TvM-gd-tcr" id="o88-ZC-dbw"/>
                                             <outlet property="imageView" destination="Cn8-Rl-m4g" id="1g9-nO-lLo"/>
                                             <outlet property="scrollView" destination="pry-wp-qRG" id="ogZ-4H-qOK"/>
@@ -3352,18 +3370,18 @@ Check your internet connection and try again.</string>
                         <constraints>
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="0bz-V3-1nu"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="bottom" id="3Zf-0D-3vD"/>
+                            <constraint firstItem="Wbg-W9-8Ie" firstAttribute="top" secondItem="FUv-v8-MyM" secondAttribute="top" id="9OU-iu-BTw"/>
                             <constraint firstItem="2ai-CO-qH0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Dsh-mJ-NAQ" secondAttribute="trailing" id="B1X-LI-aHq"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="jyK-17-cAD" secondAttribute="bottom" id="NgB-RI-d7R"/>
                             <constraint firstItem="2ai-CO-qH0" firstAttribute="width" relation="lessThanOrEqual" secondItem="jyK-17-cAD" secondAttribute="width" multiplier="0.4" id="PG3-Xd-fDc"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="2ai-CO-qH0" secondAttribute="bottom" constant="12" id="R09-AS-8Qc"/>
                             <constraint firstAttribute="trailing" secondItem="DOa-Ws-aK4" secondAttribute="trailing" id="WMM-NN-L4t"/>
                             <constraint firstItem="jyK-17-cAD" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="bPW-BY-6Fp"/>
-                            <constraint firstItem="Wbg-W9-8Ie" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="-20" id="eku-Sv-U5Q"/>
                             <constraint firstAttribute="trailing" secondItem="jyK-17-cAD" secondAttribute="trailing" id="h8k-it-8fu"/>
-                            <constraint firstItem="jyK-17-cAD" firstAttribute="top" secondItem="nXs-Hk-HCH" secondAttribute="bottom" constant="-20" id="hPI-OJ-Hy4"/>
                             <constraint firstItem="DOa-Ws-aK4" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="iM1-Ax-Ka6"/>
                             <constraint firstItem="2ai-CO-qH0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9aV-O1-sMk" secondAttribute="trailing" id="nW9-UK-iN0"/>
                             <constraint firstAttribute="trailing" secondItem="Wbg-W9-8Ie" secondAttribute="trailing" id="vU4-de-bcZ"/>
+                            <constraint firstItem="jyK-17-cAD" firstAttribute="top" secondItem="FUv-v8-MyM" secondAttribute="top" id="woh-yj-EXO"/>
                             <constraint firstAttribute="trailing" secondItem="2ai-CO-qH0" secondAttribute="trailing" constant="12" id="wvE-6N-KVl"/>
                         </constraints>
                     </view>
@@ -3379,7 +3397,7 @@ Check your internet connection and try again.</string>
                         <outlet property="progressBar" destination="Bnz-8z-kg3" id="391-Ss-HRL"/>
                         <outlet property="timeLabel" destination="9aV-O1-sMk" id="Q2A-nt-7Se"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="6g0-cf-4Q4"/>
-                        <outlet property="topViewConstraint" destination="eku-Sv-U5Q" id="jNT-KU-Zs5"/>
+                        <outlet property="topViewConstraint" destination="9OU-iu-BTw" id="suW-20-Wjy"/>
                         <outletCollection property="keyboardAdjustmentLayoutViews" destination="jyK-17-cAD" id="lnf-D1-hsN"/>
                     </connections>
                 </viewController>

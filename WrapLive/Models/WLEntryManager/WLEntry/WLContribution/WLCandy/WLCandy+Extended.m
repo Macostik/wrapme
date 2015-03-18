@@ -90,6 +90,7 @@
 
 - (void)addComment:(WLComment *)comment {
     NSMutableOrderedSet* comments = self.comments;
+    self.commentCount++;
     if (!comment || [comments containsObject:comment]) {
         if ([comments sortByCreatedAt:NO]) {
             self.comments = comments;
@@ -97,7 +98,6 @@
         return;
     }
     comment.candy = self;
-    self.commentCount++;
     [comments addObject:comment comparator:comparatorByCreatedAt descending:NO];
     [self touch];
     [comment notifyOnAddition];

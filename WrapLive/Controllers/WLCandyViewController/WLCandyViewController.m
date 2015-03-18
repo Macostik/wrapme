@@ -89,6 +89,9 @@
         
     self.wrap = _candy.wrap;
     
+    [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
+    [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+    
     if (!self.history) {
         self.history = [WLHistory historyWithWrap:self.wrap];
         _historyItem = [self.history itemWithCandy:_candy];

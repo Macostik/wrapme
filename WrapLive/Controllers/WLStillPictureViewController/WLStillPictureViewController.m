@@ -223,6 +223,7 @@
     controller.wrap = self.wrap;
     controller.mode = self.mode;
     controller.image = image;
+    controller.delegate = self;
     controller.completionBlock = completion;
     [self.cameraNavigationController pushViewController:controller animated:YES];
 }

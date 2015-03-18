@@ -656,7 +656,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="done:" destination="qIf-F1-lSO" eventType="touchUpInside" id="IhV-za-AvR"/>
+                                            <action selector="done:" destination="qIf-F1-lSO" eventType="touchUpInside" id="Jek-mb-xju"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -708,16 +708,32 @@
                                                     <constraint firstAttribute="width" constant="34" id="oh0-9H-nAL"/>
                                                 </constraints>
                                             </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lrk-XX-Uo3">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="34"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="selectWrap:" destination="qIf-F1-lSO" eventType="touchUpInside" id="C2P-bV-VzO"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="lrk-XX-Uo3" secondAttribute="bottom" constant="2" id="JU9-y9-60o"/>
+                                            <constraint firstItem="lrk-XX-Uo3" firstAttribute="top" secondItem="J38-cV-CNx" secondAttribute="top" id="LcR-Mi-3qV"/>
                                             <constraint firstItem="Yb6-XP-Viw" firstAttribute="leading" secondItem="J38-cV-CNx" secondAttribute="leading" constant="8" id="Pmc-Pn-Y9I"/>
                                             <constraint firstItem="3U9-GT-8sz" firstAttribute="top" secondItem="J38-cV-CNx" secondAttribute="top" id="SGU-8b-qcu"/>
                                             <constraint firstItem="3U9-GT-8sz" firstAttribute="leading" secondItem="J38-cV-CNx" secondAttribute="leading" constant="50" id="W4y-b9-Tui"/>
+                                            <constraint firstItem="lrk-XX-Uo3" firstAttribute="leading" secondItem="J38-cV-CNx" secondAttribute="leading" id="hv6-HJ-jwD"/>
                                             <constraint firstAttribute="height" constant="36" id="iLS-26-yY8"/>
                                             <constraint firstAttribute="trailing" secondItem="3U9-GT-8sz" secondAttribute="trailing" constant="10" id="kcM-1l-x4f"/>
                                             <constraint firstAttribute="centerY" secondItem="Yb6-XP-Viw" secondAttribute="centerY" id="m6o-hU-jRR"/>
                                             <constraint firstAttribute="bottom" secondItem="3U9-GT-8sz" secondAttribute="bottom" id="w2E-TU-Vll"/>
+                                            <constraint firstAttribute="trailing" secondItem="lrk-XX-Uo3" secondAttribute="trailing" id="ywT-3G-Gyu"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="coverView" destination="Yb6-XP-Viw" id="sYp-6G-3S0"/>

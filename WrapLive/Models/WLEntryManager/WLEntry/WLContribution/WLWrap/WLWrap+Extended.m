@@ -247,7 +247,9 @@
     if (picture.comment.nonempty) {
         WLComment *comment = [WLComment comment:picture.comment];
         comment.isFirst = YES;
-        candy.comments = [NSMutableOrderedSet orderedSetWithObject:comment];
+        [candy uploadComment:comment.text success:^(WLComment *comment) {
+        } failure:^(NSError *error) {
+        }];
     }
     [WLUploadingQueue upload:[WLUploading uploading:candy] success:success failure:failure];
 }

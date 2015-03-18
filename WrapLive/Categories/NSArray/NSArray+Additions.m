@@ -100,7 +100,7 @@
 		id newElement = block(element);
 		if (newElement != nil) [result addObject:newElement];
 	}
-    return [[self class] arrayWithArray:result];
+    return [self arrayWithArray:result];
 }
 
 - (id)selectObject:(SelectBlock)block {
@@ -208,6 +208,10 @@
         [NSException exceptionWithName:@"WLException" reason:reason userInfo:nil];
     }
     return [self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
+}
+
+- (instancetype)arrayWithArray:(NSArray *)array {
+    return [NSArray arrayWithArray:array];
 }
 
 @end
@@ -355,6 +359,10 @@
 			index++;
 		}
 	}
+}
+
+- (instancetype)arrayWithArray:(NSArray *)array {
+    return [NSMutableArray arrayWithArray:array];
 }
 
 @end

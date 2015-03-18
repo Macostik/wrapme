@@ -22,12 +22,16 @@
 
 @property (strong, nonatomic) NSMutableSet* invitedContributors;
 
+@property (strong, nonatomic) NSHashTable* usersWithOpenedMenu;
+
 @end
 
 @implementation WLContributorsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.usersWithOpenedMenu = [NSHashTable weakObjectsHashTable];
     
     self.invitedContributors = [NSMutableSet set];
     
@@ -74,7 +78,6 @@
     [request send:^(id object) {
         if (completionHandler) completionHandler(YES);
         [weakSelf.invitedContributors addObject:contributor];
-        [weakSelf.dataProvider reload];
     } failure:^(NSError *error) {
         [error show];
         if (completionHandler) completionHandler(NO);
@@ -87,6 +90,18 @@
 
 - (BOOL)contributorCell:(WLContributorCell *)cell isCreator:(WLUser *)contributor {
     return self.wrap.contributor == contributor;
+}
+
+- (void)contributorCell:(WLContributorCell *)cell didToggleMenu:(WLUser *)contributor {
+    if ([self.usersWithOpenedMenu containsObject:contributor]) {
+        [self.usersWithOpenedMenu removeObject:contributor];
+    } else {
+        [self.usersWithOpenedMenu addObject:contributor];
+    }
+}
+
+- (BOOL)contributorCell:(WLContributorCell *)cell showMenu:(WLUser *)contributor {
+    return [self.usersWithOpenedMenu containsObject:contributor];
 }
 
 #pragma mark - WLEntryNotifyReceiver

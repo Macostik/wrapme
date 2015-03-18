@@ -27,7 +27,7 @@
 
 - (id)send {
     if (!self.contacts.nonempty) {
-        [WLAddressBook contacts:^(NSArray *contacts) {
+        [[WLAddressBook addressBook] contacts:^(NSArray *contacts) {
             self.contacts = contacts;
             [super send];
         } failure:^(NSError *error) {

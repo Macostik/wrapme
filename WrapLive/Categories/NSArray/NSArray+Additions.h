@@ -72,6 +72,8 @@
 
 - (instancetype)objectsWhere:(NSString *)predicateFormat, ...;
 
+- (instancetype)arrayWithArray:(NSArray *)array;
+
 @end
 
 @interface NSMutableArray (Additions)

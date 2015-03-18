@@ -6,23 +6,36 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "WLBroadcaster.h"
 #import "WLAddressBookRecord.h"
 #import "WLAddressBookPhoneNumber.h"
 
 @class WLPicture;
+@class WLAddressBook;
 
-@interface WLAddressBook : NSObject
+@protocol WLAddressBookReceiver <NSObject>
 
-+ (BOOL)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+@optional
+- (void)addressBook:(WLAddressBook*)addressBook didUpdateCachedRecords:(NSArray*)cachedRecords;
 
-+ (void)beginCaching;
+@end
 
-+ (void)endCaching;
 
-+ (void)updateCachedRecords;
+@interface WLAddressBook : WLBroadcaster
 
-+ (void)updateCachedRecordsAfterFailure;
++ (instancetype)addressBook;
+
+- (BOOL)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
+- (void)records:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
+- (void)beginCaching;
+
+- (void)endCaching;
+
+- (void)updateCachedRecords;
+
+- (void)updateCachedRecordsAfterFailure;
 
 /**
  *  Get the list of records from Address Book.
@@ -31,6 +44,6 @@
  *  @param success block for successful completion
  *  @param failure block for failed completion
  */
-+ (void)contacts:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+- (void)contacts:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 @end

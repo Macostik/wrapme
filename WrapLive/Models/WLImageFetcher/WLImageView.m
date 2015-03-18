@@ -22,7 +22,7 @@
 
 - (NSMutableDictionary *)states {
     if (!_states) {
-        _states = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSMutableDictionary dictionary],@(WLImageViewStateEmpty),[NSMutableDictionary dictionary],@(WLImageViewStateEmpty), nil];
+        _states = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSMutableDictionary dictionary],@(WLImageViewStateFailed),[NSMutableDictionary dictionary],@(WLImageViewStateEmpty), nil];
     }
     return _states;
 }

@@ -19,7 +19,7 @@
         <!--Page View Controller-->
         <scene sceneID="JAM-hH-b1E">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Pcc-Db-v3n" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" extendedLayoutIncludesOpaqueBars="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Pcc-Db-v3n" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="83X-OB-DRD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="195" y="539"/>
@@ -33,11 +33,11 @@
                         <viewControllerLayoutGuide type="bottom" id="ANX-1w-914"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="XEn-9T-09t">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="280" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBR-r4-GbY" customClass="WLButton">
-                                <rect key="frame" x="0.0" y="256" width="280" height="44"/>
+                                <rect key="frame" x="0.0" y="276" width="280" height="44"/>
                                 <color key="backgroundColor" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="hka-2D-faX"/>
@@ -54,7 +54,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhD-va-KPT" customClass="WLIconButton">
-                                <rect key="frame" x="125" y="68" width="30" height="34"/>
+                                <rect key="frame" x="125" y="84" width="30" height="34"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -64,7 +64,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to wrapLive!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaE-LB-F5N" customClass="WLLabel">
-                                <rect key="frame" x="57" y="112" width="167" height="24"/>
+                                <rect key="frame" x="57" y="118" width="167" height="24"/>
                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -84,21 +84,21 @@
                         </subviews>
                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="iaE-LB-F5N" secondAttribute="centerY" constant="26" id="BA5-xF-9RS"/>
+                            <constraint firstAttribute="centerY" secondItem="iaE-LB-F5N" secondAttribute="centerY" constant="30" id="BA5-xF-9RS"/>
                             <constraint firstItem="tBR-r4-GbY" firstAttribute="leading" secondItem="XEn-9T-09t" secondAttribute="leading" id="BS6-cn-iVT"/>
                             <constraint firstAttribute="centerX" secondItem="duP-DA-GDK" secondAttribute="centerX" constant="0.5" id="BfC-BJ-hyr"/>
                             <constraint firstAttribute="trailing" secondItem="tBR-r4-GbY" secondAttribute="trailing" id="DOh-B3-GqY"/>
                             <constraint firstAttribute="centerX" secondItem="lhD-va-KPT" secondAttribute="centerX" id="DtE-dI-Y3D"/>
-                            <constraint firstItem="iaE-LB-F5N" firstAttribute="top" secondItem="lhD-va-KPT" secondAttribute="bottom" constant="10" id="Q91-xT-9cZ"/>
+                            <constraint firstItem="iaE-LB-F5N" firstAttribute="top" secondItem="lhD-va-KPT" secondAttribute="bottom" id="Q91-xT-9cZ"/>
                             <constraint firstItem="duP-DA-GDK" firstAttribute="width" relation="lessThanOrEqual" secondItem="XEn-9T-09t" secondAttribute="width" constant="-40" id="Zh3-JO-vCD"/>
                             <constraint firstItem="iaE-LB-F5N" firstAttribute="width" relation="lessThanOrEqual" secondItem="XEn-9T-09t" secondAttribute="width" constant="-40" id="bPw-VN-Lkv"/>
                             <constraint firstAttribute="centerX" secondItem="iaE-LB-F5N" secondAttribute="centerX" id="fRz-qM-raa"/>
                             <constraint firstItem="ANX-1w-914" firstAttribute="top" secondItem="tBR-r4-GbY" secondAttribute="bottom" id="fX3-Fz-AXf"/>
-                            <constraint firstItem="duP-DA-GDK" firstAttribute="top" secondItem="iaE-LB-F5N" secondAttribute="bottom" constant="16" id="wrz-OV-r92"/>
+                            <constraint firstItem="duP-DA-GDK" firstAttribute="top" secondItem="iaE-LB-F5N" secondAttribute="bottom" constant="10" id="wrz-OV-r92"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="280" height="300"/>
+                    <size key="freeformSize" width="280" height="320"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ItT-T9-Zde" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -117,9 +117,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apb-v1-V59">
-                                <rect key="frame" x="0.0" y="0.0" width="280" height="300"/>
+                                <rect key="frame" x="0.0" y="-10" width="280" height="320"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="JYh-gy-fnN"/>
+                                    <constraint firstAttribute="height" constant="320" id="JYh-gy-fnN"/>
                                     <constraint firstAttribute="width" constant="280" id="ihZ-7G-IUh"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -132,7 +132,7 @@
                                 </connections>
                             </containerView>
                             <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="7c1-IC-Zb4">
-                                <rect key="frame" x="129" y="219" width="23" height="37"/>
+                                <rect key="frame" x="129" y="229" width="23" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="KLA-Hd-dzp"/>
                                 </constraints>
@@ -165,11 +165,11 @@
                         <viewControllerLayoutGuide type="bottom" id="RZM-dC-3jP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="7sl-cW-zhf">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="280" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's a wrap?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNA-4e-bin" customClass="WLLabel">
-                                <rect key="frame" x="83" y="112" width="114" height="24"/>
+                                <rect key="frame" x="83" y="118" width="114" height="24"/>
                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -187,7 +187,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vow-Fx-tbk" customClass="WLButton">
-                                <rect key="frame" x="0.0" y="256" width="280" height="44"/>
+                                <rect key="frame" x="0.0" y="276" width="280" height="44"/>
                                 <color key="backgroundColor" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Snf-bN-frX"/>
@@ -204,7 +204,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PoY-WH-C7g" customClass="WLIconButton">
-                                <rect key="frame" x="125" y="68" width="30" height="34"/>
+                                <rect key="frame" x="125" y="84" width="30" height="34"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -221,20 +221,20 @@
                             <constraint firstItem="RZM-dC-3jP" firstAttribute="top" secondItem="vow-Fx-tbk" secondAttribute="bottom" id="8aR-KH-mSt"/>
                             <constraint firstItem="mNA-4e-bin" firstAttribute="width" relation="lessThanOrEqual" secondItem="7sl-cW-zhf" secondAttribute="width" constant="-40" id="D9d-83-0EN"/>
                             <constraint firstItem="vow-Fx-tbk" firstAttribute="leading" secondItem="7sl-cW-zhf" secondAttribute="leading" id="Fba-pt-nJX"/>
-                            <constraint firstAttribute="centerY" secondItem="mNA-4e-bin" secondAttribute="centerY" constant="26" id="QgY-3i-Hjf"/>
+                            <constraint firstAttribute="centerY" secondItem="mNA-4e-bin" secondAttribute="centerY" constant="30" id="QgY-3i-Hjf"/>
                             <constraint firstAttribute="centerX" secondItem="mNA-4e-bin" secondAttribute="centerX" constant="0.5" id="ZCW-bH-kHp"/>
                             <constraint firstItem="YFX-em-iVo" firstAttribute="width" relation="lessThanOrEqual" secondItem="7sl-cW-zhf" secondAttribute="width" constant="-40" id="a8T-9h-xZs"/>
-                            <constraint firstItem="mNA-4e-bin" firstAttribute="top" secondItem="PoY-WH-C7g" secondAttribute="bottom" constant="10" id="ctz-Sb-sLC"/>
-                            <constraint firstItem="YFX-em-iVo" firstAttribute="top" secondItem="mNA-4e-bin" secondAttribute="bottom" constant="16" id="jN8-cW-cMm"/>
+                            <constraint firstItem="mNA-4e-bin" firstAttribute="top" secondItem="PoY-WH-C7g" secondAttribute="bottom" id="ctz-Sb-sLC"/>
+                            <constraint firstItem="YFX-em-iVo" firstAttribute="top" secondItem="mNA-4e-bin" secondAttribute="bottom" constant="10" id="jN8-cW-cMm"/>
                             <constraint firstAttribute="centerXWithinMargins" secondItem="PoY-WH-C7g" secondAttribute="centerXWithinMargins" id="qYV-hC-2Dh"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="280" height="300"/>
+                    <size key="freeformSize" width="280" height="320"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4oP-NZ-HqW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="538" y="882"/>
+            <point key="canvasLocation" x="538" y="905"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

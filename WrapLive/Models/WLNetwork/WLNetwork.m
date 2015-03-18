@@ -41,7 +41,7 @@
             if (weakSelf.reachable) {
                 if ([WLAuthorizationRequest authorized]) {
                     [WLUploadingQueue start];
-                    [WLAddressBook updateCachedRecordsAfterFailure];
+                    [[WLAddressBook addressBook] updateCachedRecordsAfterFailure];
                 } else {
                     [[WLAuthorizationRequest signInRequest] send];
                 }

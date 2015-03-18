@@ -27,7 +27,7 @@
 #import "WLAddressBookGroupView.h"
 #import "NSObject+NibAdditions.h"
 
-@interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate, WLFontPresetterReceiver>
+@interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate, WLFontPresetterReceiver, WLAddressBookReceiver>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
@@ -39,6 +39,8 @@
 
 @property (strong, nonatomic) WLArrangedAddressBook* filteredAddressBook;
 
+@property (strong, nonatomic) NSMutableSet* invitedRecords;
+
 @end
 
 @implementation WLAddContributorsViewController
@@ -46,11 +48,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.invitedRecords = [NSMutableSet set];
     self.openedRows = [NSMutableSet set];
     self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
     [self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
-    BOOL cached = [WLAddressBook cachedRecords:^(NSArray *array) {
+    BOOL cached = [[WLAddressBook addressBook] cachedRecords:^(NSArray *array) {
         [weakSelf.addressBook addRecords:array];
         [weakSelf filterContacts];
         [weakSelf.spinner stopAnimating];
@@ -58,8 +61,9 @@
         [weakSelf.spinner stopAnimating];
         [error show];
     }];
+    [[WLAddressBook addressBook] addReceiver:self];
     if (cached) {
-        [WLAddressBook updateCachedRecords];
+        [[WLAddressBook addressBook] updateCachedRecords];
     }
     [[WLFontPresetter presetter] addReceiver:self];
 }
@@ -67,6 +71,21 @@
 - (void)filterContacts {
     self.filteredAddressBook  = [self.addressBook filteredAddressBookWithText:self.searchField.text];
     [self.tableView reloadData];
+}
+
+// MARK: - WLAddressBookReceiver
+
+- (void)addressBook:(WLAddressBook *)addressBook didUpdateCachedRecords:(NSArray *)cachedRecords {
+    WLArrangedAddressBook *oldAddressBook = self.addressBook;
+    self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
+    [self.addressBook addRecords:cachedRecords];
+    for (WLAddressBookRecord *record in self.invitedRecords) {
+        [self.addressBook addUniqueRecord:record completion:nil];
+    }
+    self.addressBook.selectedPhoneNumbers = [oldAddressBook.selectedPhoneNumbers map:^id (WLAddressBookPhoneNumber *phoneNumber) {
+        return [self.addressBook phoneNumberIdenticalTo:phoneNumber];
+    }];
+    [self filterContacts];
 }
 
 #pragma mark - Actions
@@ -199,7 +218,10 @@ const static CGFloat WLDefaultHeight = 50.0f;
 
 - (NSError *)inviteViewController:(WLInviteViewController *)controller didInviteContact:(WLAddressBookRecord *)contact {
     __weak typeof(self)weakSelf = self;
-    return [self.addressBook addUniqueRecord:contact completion:^(WLAddressBookRecord *record, WLArrangedAddressBookGroup *group) {
+    return [self.addressBook addUniqueRecord:contact completion:^(BOOL exists, WLAddressBookRecord *record, WLArrangedAddressBookGroup *group) {
+        if (!exists) {
+            [weakSelf.invitedRecords addObject:record];
+        }
         [weakSelf.addressBook selectPhoneNumber:[record.phoneNumbers firstObject]];
         [weakSelf filterContacts];
         NSUInteger section = [weakSelf.addressBook.groups indexOfObject:group];

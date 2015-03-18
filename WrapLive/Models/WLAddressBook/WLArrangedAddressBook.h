@@ -12,7 +12,7 @@
 
 @class WLWrap;
 
-typedef void (^WLArrangedAddressBookRecordHandler)(WLAddressBookRecord *record, WLArrangedAddressBookGroup *group);
+typedef void (^WLArrangedAddressBookRecordHandler)(BOOL exists, WLAddressBookRecord *record, WLArrangedAddressBookGroup *group);
 
 @interface WLArrangedAddressBook : NSObject
 
@@ -37,5 +37,7 @@ typedef void (^WLArrangedAddressBookRecordHandler)(WLAddressBookRecord *record, 
 - (WLAddressBookPhoneNumber*)selectedPhoneNumber:(WLAddressBookPhoneNumber*)phoneNumber;
 
 - (instancetype)filteredAddressBookWithText:(NSString*)text;
+
+- (WLAddressBookPhoneNumber*)phoneNumberIdenticalTo:(WLAddressBookPhoneNumber*)phoneNumber;
 
 @end

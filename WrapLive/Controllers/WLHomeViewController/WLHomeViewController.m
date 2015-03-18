@@ -80,7 +80,7 @@
 @implementation WLHomeViewController
 
 - (void)dealloc {
-    [WLAddressBook endCaching];
+    [[WLAddressBook addressBook] endCaching];
 }
 
 - (void)viewDidLoad {
@@ -88,7 +88,7 @@
     
     self.createWrapTipHidden = YES;
     
-    [WLAddressBook beginCaching];
+    [[WLAddressBook addressBook] beginCaching];
     
     self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
     

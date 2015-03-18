@@ -52,7 +52,10 @@
     FAKIcon *icon = [WLIcon iconWithName:_iconName preset:_iconPreset color:color];
     if (icon) {
         [self setAttributedTitle:icon.attributedString forState:UIControlStateNormal];
-        [icon addAttribute:NSForegroundColorAttributeName value:[color darkerColor]];
+        color = [color darkerColor];
+        if (color) {
+            [icon addAttribute:NSForegroundColorAttributeName value:color];
+        }
         [self setAttributedTitle:icon.attributedString forState:UIControlStateHighlighted];
     }
 }

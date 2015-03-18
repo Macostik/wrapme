@@ -39,6 +39,8 @@
 
 @property (strong, nonatomic) WLArrangedAddressBook* filteredAddressBook;
 
+@property (strong, nonatomic) NSMutableSet* invitedRecords;
+
 @end
 
 @implementation WLAddContributorsViewController
@@ -46,6 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.invitedRecords = [NSMutableSet set];
     self.openedRows = [NSMutableSet set];
     self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
     [self.spinner startAnimating];
@@ -62,6 +65,22 @@
         [WLAddressBook updateCachedRecords];
     }
     [[WLFontPresetter presetter] addReceiver:self];
+}
+
+- (void)refresh {
+    __weak typeof(self)weakSelf = self;
+    [WLAddressBook records:^(NSArray *array) {
+        WLArrangedAddressBook *oldAddressBook = weakSelf.addressBook;
+        weakSelf.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:weakSelf.wrap];
+        [weakSelf.addressBook addRecords:array];
+        for (WLAddressBookRecord *record in weakSelf.invitedRecords) {
+            [weakSelf.addressBook addUniqueRecord:record completion:nil];
+        }
+        weakSelf.addressBook.selectedPhoneNumbers = [oldAddressBook.selectedPhoneNumbers map:^id (WLAddressBookPhoneNumber *phoneNumber) {
+            return [weakSelf.addressBook phoneNumberIdenticalTo:phoneNumber];
+        }];
+        [weakSelf filterContacts];
+    } failure:nil];
 }
 
 - (void)filterContacts {
@@ -199,7 +218,10 @@ const static CGFloat WLDefaultHeight = 50.0f;
 
 - (NSError *)inviteViewController:(WLInviteViewController *)controller didInviteContact:(WLAddressBookRecord *)contact {
     __weak typeof(self)weakSelf = self;
-    return [self.addressBook addUniqueRecord:contact completion:^(WLAddressBookRecord *record, WLArrangedAddressBookGroup *group) {
+    return [self.addressBook addUniqueRecord:contact completion:^(BOOL exists, WLAddressBookRecord *record, WLArrangedAddressBookGroup *group) {
+        if (!exists) {
+            [weakSelf.invitedRecords addObject:record];
+        }
         [weakSelf.addressBook selectPhoneNumber:[record.phoneNumbers firstObject]];
         [weakSelf filterContacts];
         NSUInteger section = [weakSelf.addressBook.groups indexOfObject:group];

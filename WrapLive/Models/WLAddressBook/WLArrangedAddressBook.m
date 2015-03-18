@@ -117,13 +117,13 @@
     for (WLArrangedAddressBookGroup *group in self.groups) {
         WLAddressBookRecord *record = [group.records selectObject:selectBlock];
         if (record) {
-            if (completion) completion(record, group);
+            if (completion) completion(YES, record, group);
             return nil;
         }
     }
     NSError *error = [self addRecord:record];
     if (!error && completion) {
-        completion(record, [self groupWithRecord:record]);
+        completion(NO, record, [self groupWithRecord:record]);
     }
     return error;
 }
@@ -169,6 +169,19 @@
     } else {
         return self;
     }
+}
+
+- (WLAddressBookPhoneNumber *)phoneNumberIdenticalTo:(WLAddressBookPhoneNumber *)phoneNumber {
+    for (WLArrangedAddressBookGroup *group in self.groups) {
+        for (WLAddressBookRecord *record in group.records) {
+            for (WLAddressBookPhoneNumber *_phoneNumber in record.phoneNumbers) {
+                if ([_phoneNumber isEqualToPerson:phoneNumber]) {
+                    return _phoneNumber;
+                }
+            }
+        }
+    }
+    return nil;
 }
 
 @end

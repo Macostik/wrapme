@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "WLBroadcaster.h"
 #import "WLAddressBookRecord.h"
 #import "WLAddressBookPhoneNumber.h"
 
@@ -15,6 +15,8 @@
 @interface WLAddressBook : NSObject
 
 + (BOOL)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
++ (void)records:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 + (void)beginCaching;
 

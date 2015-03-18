@@ -116,4 +116,14 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
     return phoneNumber.user != nil;
 }
 
+- (NSString *)priorityName {
+    WLAddressBookPhoneNumber *phoneNumber = [self.phoneNumbers lastObject];
+    return phoneNumber.priorityName;
+}
+
+- (WLPicture *)priorityPicture {
+    WLAddressBookPhoneNumber *phoneNumber = [self.phoneNumbers lastObject];
+    return phoneNumber.priorityPicture;
+}
+
 @end

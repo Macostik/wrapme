@@ -89,7 +89,6 @@
         
     self.wrap = _candy.wrap;
     
-    [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
     
     if (!self.history) {
@@ -178,7 +177,7 @@
     [UIView performAnimated:animated animation:^{
         weakSelf.topViewConstraint.constant = hidden ? -weakSelf.topView.height : .0f;
         weakSelf.bottomViewContstraint.constant = hidden ? -weakSelf.bottomView.height : .0f;
-        [weakSelf.view layoutIfNeeded];
+        [weakSelf.view setNeedsLayout];
     }];
 }
 

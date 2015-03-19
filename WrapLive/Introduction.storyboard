@@ -24,10 +24,10 @@
             </objects>
             <point key="canvasLocation" x="195" y="539"/>
         </scene>
-        <!--Introduction Step View Controller-->
+        <!--View Controller-->
         <scene sceneID="YLO-D9-HGM">
             <objects>
-                <viewController storyboardIdentifier="introduction_step_1" id="erS-Rh-tGc" customClass="WLIntroductionStepViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="introduction_step_1" id="erS-Rh-tGc" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ibp-zP-aKK"/>
                         <viewControllerLayoutGuide type="bottom" id="ANX-1w-914"/>
@@ -38,7 +38,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBR-r4-GbY" customClass="WLButton">
                                 <rect key="frame" x="0.0" y="276" width="280" height="44"/>
-                                <color key="backgroundColor" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="hka-2D-faX"/>
                                 </constraints>
@@ -50,17 +50,17 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="continueIntroduction:" destination="erS-Rh-tGc" eventType="touchUpInside" id="Gyp-6C-LxC"/>
+                                    <segue destination="eQ9-M6-DUA" kind="unwind" identifier="continueIntroduction" unwindAction="continueIntroduction:" id="4D0-hY-dsx"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhD-va-KPT" customClass="WLIconButton">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhD-va-KPT" customClass="WLIconButton">
                                 <rect key="frame" x="125" y="84" width="30" height="34"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="smileO"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="xlarge"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="wl-circleCandy"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="largest"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to wrapLive!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaE-LB-F5N" customClass="WLLabel">
@@ -82,7 +82,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="iaE-LB-F5N" secondAttribute="centerY" constant="30" id="BA5-xF-9RS"/>
                             <constraint firstItem="tBR-r4-GbY" firstAttribute="leading" secondItem="XEn-9T-09t" secondAttribute="leading" id="BS6-cn-iVT"/>
@@ -101,65 +101,75 @@
                     <size key="freeformSize" width="280" height="320"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ItT-T9-Zde" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="eQ9-M6-DUA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="538" y="539"/>
         </scene>
         <!--Introduction View Controller-->
         <scene sceneID="2xe-lO-Cav">
             <objects>
-                <viewController storyboardIdentifier="WLIntroductionViewController" id="1ip-WU-dPb" customClass="WLIntroductionViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLIntroductionViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" id="1ip-WU-dPb" customClass="WLIntroductionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eWP-44-poM"/>
                         <viewControllerLayoutGuide type="bottom" id="PKR-QA-I9q"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8mK-FB-Tgj">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="300"/>
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="8mK-FB-Tgj">
+                        <rect key="frame" x="0.0" y="0.0" width="280" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apb-v1-V59">
-                                <rect key="frame" x="0.0" y="-10" width="280" height="320"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Jd-mB-7pd">
+                                <rect key="frame" x="0.0" y="276" width="280" height="44"/>
+                                <color key="backgroundColor" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="320" id="JYh-gy-fnN"/>
-                                    <constraint firstAttribute="width" constant="280" id="ihZ-7G-IUh"/>
+                                    <constraint firstAttribute="height" constant="44" id="m47-B8-x41"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apb-v1-V59">
+                                <rect key="frame" x="0.0" y="0.0" width="280" height="320"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="Pcc-Db-v3n" kind="embed" id="8aA-4g-foE"/>
                                 </connections>
                             </containerView>
                             <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="7c1-IC-Zb4">
-                                <rect key="frame" x="129" y="229" width="23" height="37"/>
+                                <rect key="frame" x="129" y="239" width="23" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="KLA-Hd-dzp"/>
                                 </constraints>
                             </pageControl>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="apb-v1-V59" firstAttribute="centerX" secondItem="7c1-IC-Zb4" secondAttribute="centerX" constant="-0.5" id="36z-d3-4qR"/>
-                            <constraint firstAttribute="centerY" secondItem="apb-v1-V59" secondAttribute="centerY" id="Sjv-Ic-tKN"/>
+                            <constraint firstItem="apb-v1-V59" firstAttribute="centerX" secondItem="7c1-IC-Zb4" secondAttribute="centerX" id="36z-d3-4qR"/>
+                            <constraint firstItem="apb-v1-V59" firstAttribute="top" secondItem="8mK-FB-Tgj" secondAttribute="top" id="6g3-hi-03v"/>
+                            <constraint firstItem="apb-v1-V59" firstAttribute="leading" secondItem="8mK-FB-Tgj" secondAttribute="leading" id="Ijp-6r-SdO"/>
+                            <constraint firstItem="apb-v1-V59" firstAttribute="leading" secondItem="7Jd-mB-7pd" secondAttribute="leading" id="K53-5k-pJm"/>
                             <constraint firstItem="apb-v1-V59" firstAttribute="bottom" secondItem="7c1-IC-Zb4" secondAttribute="bottom" constant="44" id="gKx-BE-XNx"/>
-                            <constraint firstAttribute="centerX" secondItem="apb-v1-V59" secondAttribute="centerX" id="tQN-Dl-A8F"/>
+                            <constraint firstItem="apb-v1-V59" firstAttribute="bottom" secondItem="7Jd-mB-7pd" secondAttribute="bottom" id="hAg-Lh-YIo"/>
+                            <constraint firstAttribute="bottom" secondItem="apb-v1-V59" secondAttribute="bottom" id="hIf-XS-aoo"/>
+                            <constraint firstItem="apb-v1-V59" firstAttribute="trailing" secondItem="7Jd-mB-7pd" secondAttribute="trailing" id="joX-zw-uFK"/>
+                            <constraint firstAttribute="trailing" secondItem="apb-v1-V59" secondAttribute="trailing" id="qw6-ac-nfU"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="280" height="300"/>
+                    <size key="freeformSize" width="280" height="320"/>
                     <connections>
                         <outlet property="pageControl" destination="7c1-IC-Zb4" id="Iqo-Qm-AQB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RQm-2r-1SZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-123" y="539"/>
+            <point key="canvasLocation" x="-172" y="556"/>
         </scene>
-        <!--Introduction Step View Controller-->
+        <!--View Controller-->
         <scene sceneID="5TA-8k-7o4">
             <objects>
-                <viewController storyboardIdentifier="introduction_step_2" id="CKX-v6-yfy" customClass="WLIntroductionStepViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="introduction_step_2" id="CKX-v6-yfy" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RJm-b2-wPi"/>
                         <viewControllerLayoutGuide type="bottom" id="RZM-dC-3jP"/>
@@ -188,7 +198,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vow-Fx-tbk" customClass="WLButton">
                                 <rect key="frame" x="0.0" y="276" width="280" height="44"/>
-                                <color key="backgroundColor" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Snf-bN-frX"/>
                                 </constraints>
@@ -200,10 +210,10 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="finishIntroduction:" destination="CKX-v6-yfy" eventType="touchUpInside" id="osH-ka-u6i"/>
+                                    <segue destination="rDW-8u-qgm" kind="unwind" identifier="finishIntroduction" unwindAction="finishIntroduction:" id="4Rz-Oe-mAt"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PoY-WH-C7g" customClass="WLIconButton">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PoY-WH-C7g" customClass="WLIconButton">
                                 <rect key="frame" x="125" y="84" width="30" height="34"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -214,7 +224,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="YFX-em-iVo" secondAttribute="centerX" id="4gl-h6-5sI"/>
                             <constraint firstAttribute="trailing" secondItem="vow-Fx-tbk" secondAttribute="trailing" id="5J8-h2-AZJ"/>
@@ -233,6 +243,7 @@
                     <size key="freeformSize" width="280" height="320"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4oP-NZ-HqW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="rDW-8u-qgm" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="538" y="905"/>
         </scene>

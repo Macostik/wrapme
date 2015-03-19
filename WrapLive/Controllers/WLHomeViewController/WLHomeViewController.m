@@ -321,11 +321,7 @@
 }
 
 - (IBAction)addPhoto:(id)sender {
-    WLIntroductionViewController *introduction = [[UIStoryboard storyboardNamed:WLIntroductionStoryboard] instantiateInitialViewController];
-    introduction.modalPresentationStyle = UIModalPresentationCustom;
-    introduction.delegate = self;
-    [self presentViewController:introduction animated:YES completion:nil];
-//    [self openCameraAnimated:YES startFromGallery:NO];
+    [self openCameraAnimated:YES startFromGallery:NO];
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate

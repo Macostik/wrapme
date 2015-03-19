@@ -31,20 +31,7 @@
     NSString* appName = [info objectForKey:@"CFBundleDisplayName"]?:@"wrapLive";
     NSString* version = [info objectForKey:@"CFBundleShortVersionString"];
     NSString* build = [info objectForKey:(id)kCFBundleVersionKey];
-    NSString *message;
-    if ([WLAPIManager instance].environment.isProduction) {
-        message = [NSString stringWithFormat:WLLS(@"You are using %@\nv%@\nBuild %@"), appName, version, build];
-    } else {
-        NSMutableString *_message = [NSMutableString stringWithFormat:WLLS(@"You are using %@ v%@"), appName,version];
-        NSString *sourceFile = [[NSBundle mainBundle] pathForResource:@"WLAPIEnvironmentProduction" ofType:@"plist"];
-        NSDate *lastModif = [[[NSFileManager defaultManager] attributesOfItemAtPath:sourceFile error:NULL] objectForKey:NSFileModificationDate];
-        if (lastModif) {
-            [_message appendFormat:@"\nInstalled %@", [lastModif stringWithFormat:@"MMM d, yyyy h:mm:ss"]];
-        }
-
-        [_message appendFormat:WLLS(@"\nJenkins build number %@"), build];
-        message = _message;
-    }
+    NSString *message = [NSString stringWithFormat:WLLS(@"You are using %@\nv%@\nBuild %@"), appName, version, build];
     [UIAlertView showWithMessage:message];
 }
 

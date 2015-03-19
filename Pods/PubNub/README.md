@@ -1,6 +1,6 @@
 # Please direct all Support Questions and Concerns to Support@PubNub.com
 
-This is Objective-C client (current version **3.7.6**) for the [PubNub.com](http://www.pubnub.com/) real-time messaging network which can be used for iOS 6.1+ and Mac OS 10.6+ projects.  
+This is Objective-C client (current version **3.7.9.3**) for the [PubNub.com](http://www.pubnub.com/) real-time messaging network which can be used for iOS 6.1+ and Mac OS 10.6+ projects.  
 
 Table of Contents
 =================
@@ -163,7 +163,7 @@ touch Podfile
 ```
 <a/>4. Using your favorite text editor add next line into **Podfile**:  
 ```bash
-pod 'PubNub', '3.7.6'
+pod 'PubNub', ‘3.7.9.1’
 ```
 <a/>5. Install dependencies using _Terminal_:  
 ```bash
@@ -1363,6 +1363,31 @@ PubNub *pubNub = [PubNub clientWithConfiguration:[PNConfiguration defaultConfigu
  googleCloudNotification:@{@"data":@"this is my data only for gcm devices"} 
                toChannel:[PNChannel channelWithName:@"push-test"]];
 ```
+There is also set of methods which allow to calculate size of message before it will be sent to __PubNub__ service:  
+```objc
+- (void)sizeOfMessage:(id)message toChannel:(PNChannel *)channel
+  withCompletionBlock:(void (^)(NSUInteger size))calculationCompletionBlock;
+- (void)sizeOfMessage:(id)message toChannel:(PNChannel *)channel compressed:(BOOL)compressedMessage
+  withCompletionBlock:(void (^)(NSUInteger size))calculationCompletionBlock;
+- (void)sizeOfMessage:(id)message toChannel:(PNChannel *)channel
+       storeInHistory:(BOOL)shouldStoreInHistory
+  withCompletionBlock:(void (^)(NSUInteger size))calculationCompletionBlock;
+- (void)sizeOfMessage:(id)message toChannel:(PNChannel *)channel compressed:(BOOL)compressedMessage
+       storeInHistory:(BOOL)shouldStoreInHistory
+  withCompletionBlock:(void (^)(NSUInteger size))calculationCompletionBlock;
+```
+  
+Here is example about how to get size of the message:  
+```objc
+PubNub *pubNub = [PubNub clientWithConfiguration:[PNConfiguration defaultConfiguration]];
+[pubNub sizeOfMessage:@{@"array": @[@"of", @"strings"], @"and": @16}
+            toChannel:[PNChannel channelWithName:@"channel-for-size"]
+  withCompletionBlock:^(NSUInteger size) {
+      
+    NSLog(@"Message size: %@", @(size));
+}];
+```
+**NOTE:** This methods work properly only after __PubNub__ client configuration completion (when all keys and identifiers will be set). 
               
 <a name="message-history" />
 ### History

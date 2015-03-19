@@ -106,8 +106,8 @@ static BOOL updateCachedRecordsFailed = NO;
 void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, void *context) {
     WLAddressBook *_addressBook = (__bridge WLAddressBook *)(context);
     if (_addressBook) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:_addressBook selector:@selector(updateCachedRecords:) object:(__bridge id)(addressBook)];
-        [_addressBook performSelector:@selector(updateCachedRecords:) withObject:(__bridge id)(addressBook) afterDelay:0.0f];
+        [NSObject cancelPreviousPerformRequestsWithTarget:_addressBook selector:@selector(updateCachedRecords:) object:nil];
+        [_addressBook performSelector:@selector(updateCachedRecords) withObject:nil afterDelay:0.0f];
     }
 }
 
@@ -171,11 +171,12 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
 }
 
 - (void)addressBook:(void (^)(ABAddressBookRef addressBook))success failure:(WLFailureBlock)failure {
-    static ABAddressBookRef addressBook = NULL;
-    if (addressBook == NULL) {
-        addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
-    }
+//    static ABAddressBookRef addressBook = NULL;
+//    if (addressBook == NULL) {
+//        addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+//    }
     runUnaryQueuedOperation(@"wl_address_book_queue", ^(WLOperation *operation) {
+        ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
         ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
             run_in_main_queue(^{
                 if (error) {

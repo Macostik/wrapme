@@ -33,7 +33,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-@property (nonatomic, strong) NSMutableSet* openedRows;
+@property (nonatomic, strong) NSMutableArray* openedRows;
 
 @property (strong, nonatomic) WLArrangedAddressBook* addressBook;
 
@@ -49,7 +49,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.invitedRecords = [NSMutableSet set];
-    self.openedRows = [NSMutableSet set];
+    self.openedRows = [NSMutableArray array];
     self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
     [self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
@@ -125,7 +125,7 @@
     WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups[indexPath.section];
     WLAddressBookRecord* contact = group.records[indexPath.row];
     WLContactCell* cell = [WLContactCell cellWithContact:contact inTableView:tableView indexPath:indexPath];
-	cell.opened = ([contact.phoneNumbers count] > 1 && [self.openedRows containsObject:contact]);
+	cell.opened = ([contact.phoneNumbers count] > 1 && [self.openedRows containsObject:indexPath]);
     
     if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
         cell.preservesSuperviewLayoutMargins = NO;
@@ -137,15 +137,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups[indexPath.section];
 	WLAddressBookRecord* contact = group.records[indexPath.row];
-    return [self heightForRowWithContact:contact];
+    return [self heightForRowWithContact:contact indexPath:indexPath];
 }
 
 const static CGFloat WLIndent = 32.0f;
 const static CGFloat WLDefaultHeight = 50.0f;
 
-- (CGFloat)heightForRowWithContact:(WLAddressBookRecord *)contact {
+- (CGFloat)heightForRowWithContact:(WLAddressBookRecord *)contact indexPath:(NSIndexPath*)indexPath {
     if ([contact.phoneNumbers count] > 1) {
-        if ([self.openedRows containsObject:contact]) {
+        if ([self.openedRows containsObject:indexPath]) {
             return WLDefaultHeight + [contact.phoneNumbers count] * WLDefaultHeight;
         } else {
             return WLDefaultHeight;
@@ -193,13 +193,16 @@ const static CGFloat WLDefaultHeight = 50.0f;
 }
 
 - (void)contactCellDidToggle:(WLContactCell *)cell {
-	if ([self.openedRows containsObject:cell.item]) {
-		[self.openedRows removeObject:cell.item];
-	} else {
-		[self.openedRows addObject:cell.item];
-	}
-	[self.tableView beginUpdates];
-	[self.tableView endUpdates];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    if (indexPath) {
+        if ([self.openedRows containsObject:indexPath]) {
+            [self.openedRows removeObject:indexPath];
+        } else {
+            [self.openedRows addObject:indexPath];
+        }
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }
 }
 
 #pragma mark - UITextFieldDelegate

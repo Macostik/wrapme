@@ -82,6 +82,14 @@
 @property (nonatomic, assign, getter = shouldAcceptCompressedResponse) BOOL acceptCompressedResponse;
 
 /**
+ @brief Stores property which allow to set whether in case of connection error to remote host,
+        client should try to "kill" system's DNS cache or not.
+ 
+ @since 3.7.9
+ */
+@property (nonatomic, assign, getter = isDNSCacheClearingEnabled) BOOL DNSCacheClearingEnabled;
+
+/**
  Stores timeout which is used by server to kick inactive clients (by UUID).
  
  @warning Property will be completely removed before feature release.

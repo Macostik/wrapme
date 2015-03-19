@@ -89,10 +89,7 @@
         
     self.wrap = _candy.wrap;
     
-    if (_candy.comments.nonempty) {
-        [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
-        [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
-    }
+    [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
     
     if (!self.history) {
         self.history = [WLHistory historyWithWrap:self.wrap];

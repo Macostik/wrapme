@@ -223,7 +223,7 @@
 }
 
 - (BOOL)valid {
-    return self.managedObjectContext != nil;
+    return self.managedObjectContext != nil && !self.deleted;
 }
 
 @end

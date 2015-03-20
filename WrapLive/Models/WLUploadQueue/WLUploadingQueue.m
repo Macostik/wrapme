@@ -129,6 +129,9 @@
         [weakSelf broadcast:@selector(uploadingQueueDidChange:)];
         weakSelf.isUploading = !weakSelf.isEmpty;
     } failure:^(NSError *error) {
+        if (!uploading.contribution.valid) {
+            [weakSelf.uploadings removeObject:uploading];
+        }
         if (failure) failure(error);
         [weakSelf broadcast:@selector(uploadingQueueDidChange:)];
         weakSelf.isUploading = !weakSelf.isEmpty;

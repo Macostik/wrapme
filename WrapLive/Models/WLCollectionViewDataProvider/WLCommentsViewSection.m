@@ -12,6 +12,7 @@
 
 static CGFloat WLNotificationCommentHorizontalSpacing = 80.0f;
 static CGFloat WLNotificationCommentVerticalSpacing = 67.0f;
+static CGFloat WLTextViewInsets = 10.0f;
 
 @implementation WLCommentsViewSection
 
@@ -24,7 +25,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 67.0f;
     WLComment *comment = [self.entries.entries objectAtIndex:indexPath.item];
     CGFloat textHeight = [comment.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight
                                                                              preset:WLFontPresetSmall]
-                                                width:self.collectionView.bounds.size.width - WLNotificationCommentHorizontalSpacing];
+                                                width:self.collectionView.bounds.size.width - WLNotificationCommentHorizontalSpacing - WLTextViewInsets];
     return CGSizeMake(self.collectionView.bounds.size.width, textHeight + WLNotificationCommentVerticalSpacing);
 }
 

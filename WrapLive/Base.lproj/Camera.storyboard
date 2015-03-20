@@ -585,10 +585,10 @@
                                 <rect key="frame" x="0.0" y="297" width="320" height="44"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="puy-LJ-3KJ">
-                                        <rect key="frame" x="0.0" y="4" width="275" height="36"/>
+                                        <rect key="frame" x="0.0" y="4" width="260" height="36"/>
                                         <subviews>
                                             <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zXf-UJ-Qz9" customClass="WLTextView">
-                                                <rect key="frame" x="4" y="8" width="271" height="20"/>
+                                                <rect key="frame" x="4" y="8" width="256" height="20"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
@@ -601,7 +601,7 @@
                                                 </connections>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a comment..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CtH-sR-dzA" customClass="WLLabel">
-                                                <rect key="frame" x="8" y="8" width="264" height="21"/>
+                                                <rect key="frame" x="8" y="8" width="249" height="21"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="7XN-bP-sq8"/>
@@ -632,10 +632,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPs-vA-Mlw" customClass="WLIconButton">
-                                        <rect key="frame" x="275" y="0.0" width="45" height="44"/>
+                                        <rect key="frame" x="260" y="0.0" width="60" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="1ak-Uq-uiU"/>
+                                            <constraint firstAttribute="width" constant="60" id="1ak-Uq-uiU"/>
                                             <constraint firstAttribute="height" constant="44" id="apf-0Q-91c"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -665,7 +665,7 @@
                                     <constraint firstAttribute="height" secondItem="puy-LJ-3KJ" secondAttribute="height" constant="8" id="5BU-gS-5WI"/>
                                     <constraint firstAttribute="centerY" secondItem="sPs-vA-Mlw" secondAttribute="centerY" id="Dax-08-Vcn"/>
                                     <constraint firstItem="puy-LJ-3KJ" firstAttribute="leading" secondItem="1eI-Kn-Fei" secondAttribute="leading" id="VN8-UW-XPA"/>
-                                    <constraint firstItem="sPs-vA-Mlw" firstAttribute="leading" secondItem="1eI-Kn-Fei" secondAttribute="trailing" constant="-45" id="bKW-UB-quO"/>
+                                    <constraint firstItem="sPs-vA-Mlw" firstAttribute="leading" secondItem="1eI-Kn-Fei" secondAttribute="trailing" constant="-60" id="bKW-UB-quO"/>
                                     <constraint firstItem="sPs-vA-Mlw" firstAttribute="leading" secondItem="puy-LJ-3KJ" secondAttribute="trailing" id="bmy-uK-AKY"/>
                                     <constraint firstAttribute="centerY" secondItem="puy-LJ-3KJ" secondAttribute="centerY" id="lAC-Vb-b8M"/>
                                 </constraints>

@@ -140,27 +140,26 @@
     return [self heightForRowWithContact:contact indexPath:indexPath];
 }
 
-const static CGFloat WLIndent = 32.0f;
-const static CGFloat WLDefaultHeight = 50.0f;
+const static CGFloat WLDefaultHeight = 72.0f;
 
 - (CGFloat)heightForRowWithContact:(WLAddressBookRecord *)contact indexPath:(NSIndexPath*)indexPath {
     if ([contact.phoneNumbers count] > 1) {
-        if ([self.openedRows containsObject:indexPath]) {
-            return WLDefaultHeight + [contact.phoneNumbers count] * WLDefaultHeight;
+        if ([self.openedRows containsObject:contact]) {
+            return WLDefaultHeight + [contact.phoneNumbers count] * 50.0f;
         } else {
             return WLDefaultHeight;
         }
     } else {
         NSString *phoneString = [WLContactCell collectionPersonsStringFromContact:contact];
         CGFloat height = [phoneString heightWithFont:[UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller]
-                                       width:self.tableView.width - 120.0f];
-        return MAX(WLDefaultHeight, height + WLIndent);
+                                       width:self.tableView.width - 142.0f];
+        return height + 54.0;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups[section];
-    return group.title.nonempty && group.records.nonempty ? 32 : 0;
+    return group.title.nonempty && group.records.nonempty ? 32.0 : 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

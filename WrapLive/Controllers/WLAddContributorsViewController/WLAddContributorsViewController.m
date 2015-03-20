@@ -125,7 +125,7 @@
     WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups[indexPath.section];
     WLAddressBookRecord* contact = group.records[indexPath.row];
     WLContactCell* cell = [WLContactCell cellWithContact:contact inTableView:tableView indexPath:indexPath];
-	cell.opened = ([contact.phoneNumbers count] > 1 && [self.openedRows containsObject:indexPath]);
+	cell.opened = ([contact.phoneNumbers count] > 1 && [self openedIndexPath:indexPath] != nil);
     
     if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
         cell.preservesSuperviewLayoutMargins = NO;
@@ -144,7 +144,7 @@ const static CGFloat WLDefaultHeight = 72.0f;
 
 - (CGFloat)heightForRowWithContact:(WLAddressBookRecord *)contact indexPath:(NSIndexPath*)indexPath {
     if ([contact.phoneNumbers count] > 1) {
-        if ([self.openedRows containsObject:contact]) {
+        if ([self openedIndexPath:indexPath] != nil) {
             return WLDefaultHeight + [contact.phoneNumbers count] * 50.0f;
         } else {
             return WLDefaultHeight;
@@ -191,11 +191,21 @@ const static CGFloat WLDefaultHeight = 72.0f;
 	}
 }
 
+- (NSIndexPath*)openedIndexPath:(NSIndexPath*)indexPath {
+    for (NSIndexPath* _indexPath in self.openedRows) {
+        if ([_indexPath compare:indexPath] == NSOrderedSame) {
+            return _indexPath;
+        }
+    }
+    return nil;
+}
+
 - (void)contactCellDidToggle:(WLContactCell *)cell {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (indexPath) {
-        if ([self.openedRows containsObject:indexPath]) {
-            [self.openedRows removeObject:indexPath];
+        NSIndexPath *existingIndexPath = [self openedIndexPath:indexPath];
+        if (existingIndexPath) {
+            [self.openedRows removeObject:existingIndexPath];
         } else {
             [self.openedRows addObject:indexPath];
         }

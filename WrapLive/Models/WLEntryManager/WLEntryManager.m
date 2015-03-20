@@ -148,7 +148,14 @@
 }
 
 - (void)clear {
-    [self.context reset];
+    for (NSPersistentStore* store in self.coordinator.persistentStores) {
+        NSError *error;
+        NSURL *storeURL = store.URL;
+        [self.coordinator removePersistentStore:store error:&error];
+        [[NSFileManager defaultManager] removeItemAtPath:storeURL.path error:&error];
+    }
+    self.coordinator = nil;
+    self.context = nil;
     [self.cachedEntries removeAllObjects];
 }
 

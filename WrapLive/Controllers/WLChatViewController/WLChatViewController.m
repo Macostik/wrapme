@@ -128,6 +128,7 @@ CGFloat WLMaxTextViewWidth;
 	self.backSwipeGestureEnabled = YES;
 	
     [[WLMessage notifier] addReceiver:self];
+    [[WLWrap notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLFontPresetter presetter] addReceiver:self];
 }
@@ -274,6 +275,10 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)notifier:(WLEntryNotifier *)notifier messageUpdated:(WLMessage *)message {
     [self.chat addEntry:message];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {

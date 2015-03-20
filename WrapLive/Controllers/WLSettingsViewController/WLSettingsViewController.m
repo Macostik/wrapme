@@ -12,6 +12,8 @@
 #import "WLNavigation.h"
 #import "UIAlertView+Blocks.h"
 #import "NSDate+Formatting.h"
+#import "ALAssetsLibrary+Additions.h"
+#import "WLAuthorizationRequest.h"
 
 @interface WLSettingsViewController ()
 
@@ -39,6 +41,20 @@
     [UIAlertView showWithTitle:WLLS(@"Sign Out") message:WLLS(@"Are you sure you want to sign out?") action:WLLS(@"YES") cancel:WLLS(@"NO") completion:^{
         [WLSession clear];
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+    }];
+}
+
+- (IBAction)addDemoImages:(id)sender {
+    [ALAssetsLibrary addDemoImages:10];
+}
+
+- (IBAction)cleanCache:(id)sender {
+    [WLUser setCurrentUser:nil];
+    [[WLEntryManager manager] clear];
+    [[WLAuthorization currentAuthorization] signIn:^(WLUser *user) {
+        [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+    } failure:^(NSError *error) {
+        [error show];
     }];
 }
 

@@ -90,6 +90,8 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
         <mutableArray key="OpenSans-Semibold.ttf">
             <string>OpenSans-Semibold</string>
@@ -447,6 +449,48 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNJ-iN-ANg" customClass="WLDebugButton">
+                                <rect key="frame" x="15" y="411" width="290" height="44"/>
+                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="7xI-Ze-VOt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
+                                <state key="normal" title="Clean Cache">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="cleanCache:" destination="zBt-TT-rM7" eventType="touchUpInside" id="Ovt-Zk-ALZ"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fos-MI-VJD" customClass="WLDebugButton">
+                                <rect key="frame" x="15" y="460" width="290" height="44"/>
+                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="bUk-8Q-850"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
+                                <state key="normal" title="Add Demo Images">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addDemoImages:" destination="zBt-TT-rM7" eventType="touchUpInside" id="oYR-oa-v7f"/>
+                                </connections>
+                            </button>
                             <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7C1-yc-O8X" customClass="WLPressButton">
                                 <rect key="frame" x="15" y="509" width="290" height="44"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -490,6 +534,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="1jO-TY-W2q" secondAttribute="leading" id="0nU-fs-ktk"/>
+                            <constraint firstAttribute="trailing" secondItem="hNJ-iN-ANg" secondAttribute="trailing" constant="15" id="1M1-kJ-RDv"/>
                             <constraint firstItem="xod-QW-gum" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="1db-kQ-aKh"/>
                             <constraint firstItem="qU7-Ez-lna" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="-20" id="1dk-As-dQf"/>
                             <constraint firstAttribute="trailing" secondItem="qU7-Ez-lna" secondAttribute="trailing" id="4mb-xu-6fX"/>
@@ -497,19 +542,24 @@
                             <constraint firstItem="qU7-Ez-lna" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="75y-ff-xZ5"/>
                             <constraint firstItem="co2-D4-XAH" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="44" id="AlN-iI-BoV"/>
                             <constraint firstItem="cRK-Tr-qQy" firstAttribute="top" secondItem="7C1-yc-O8X" secondAttribute="bottom" constant="15" id="Det-Z5-xqw"/>
+                            <constraint firstItem="hNJ-iN-ANg" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="DqZ-ak-FZI"/>
                             <constraint firstItem="xod-QW-gum" firstAttribute="top" secondItem="Lq0-rh-5bS" secondAttribute="bottom" id="EIk-hi-aeH"/>
                             <constraint firstItem="co2-D4-XAH" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="G9j-4K-lq1"/>
                             <constraint firstItem="MDJ-Nd-sbY" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="HA9-f5-7Ud"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="HdV-Pv-jgs"/>
+                            <constraint firstAttribute="trailing" secondItem="fos-MI-VJD" secondAttribute="trailing" constant="15" id="J03-jl-mne"/>
                             <constraint firstAttribute="trailing" secondItem="Lq0-rh-5bS" secondAttribute="trailing" constant="12" id="NA3-Fi-lhu"/>
                             <constraint firstItem="MDJ-Nd-sbY" firstAttribute="top" secondItem="co2-D4-XAH" secondAttribute="bottom" id="OnQ-99-3BE"/>
                             <constraint firstItem="R6h-Ul-Nr0" firstAttribute="leading" secondItem="co2-D4-XAH" secondAttribute="leading" id="SvJ-CX-7Vo"/>
                             <constraint firstAttribute="trailing" secondItem="co2-D4-XAH" secondAttribute="trailing" constant="12" id="TqK-kg-CWd"/>
                             <constraint firstAttribute="trailing" secondItem="7C1-yc-O8X" secondAttribute="trailing" constant="15" id="U4D-Jf-d24"/>
+                            <constraint firstItem="fos-MI-VJD" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="ZKd-f9-wPp"/>
+                            <constraint firstItem="fos-MI-VJD" firstAttribute="top" secondItem="hNJ-iN-ANg" secondAttribute="bottom" constant="5" id="f1e-0I-nj6"/>
                             <constraint firstItem="7C1-yc-O8X" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="gFW-mt-V7Q"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="centerY" secondItem="1jO-TY-W2q" secondAttribute="centerY" id="jYK-sT-MmS"/>
                             <constraint firstAttribute="trailing" secondItem="MDJ-Nd-sbY" secondAttribute="trailing" id="kWI-un-S07"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="88" id="nGi-ad-drO"/>
+                            <constraint firstItem="7C1-yc-O8X" firstAttribute="top" secondItem="fos-MI-VJD" secondAttribute="bottom" constant="5" id="rkS-9q-D9y"/>
                             <constraint firstAttribute="trailing" secondItem="xod-QW-gum" secondAttribute="trailing" id="xeE-i5-YAU"/>
                         </constraints>
                     </view>

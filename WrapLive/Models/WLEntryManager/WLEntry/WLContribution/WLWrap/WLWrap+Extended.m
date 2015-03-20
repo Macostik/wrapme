@@ -18,6 +18,7 @@
 #import "WLNetwork.h"
 #import "NSDate+Additions.h"
 #import "WLUploadingQueue.h"
+#import "WLOperationQueue.h"
 
 @implementation WLWrap (Extended)
 
@@ -259,15 +260,15 @@
 }
 
 - (void)uploadPictures:(NSArray *)pictures {
-    NSUInteger count = [pictures count];
-    NSTimeInterval time = count/2.0f;
     __weak typeof(self)weakSelf = self;
-    [pictures enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSTimeInterval delay = time*((CGFloat)idx/(CGFloat)(count - 1));
-        run_after(delay, ^{
-            [weakSelf uploadPicture:obj];
+    for (WLPicture *picture in pictures) {
+        runUnaryQueuedOperation(@"wl_upload_candies_queue", ^(WLOperation *operation) {
+            [weakSelf uploadPicture:picture];
+            run_after(0.6f, ^{
+                [operation finish];
+            });
         });
-    }];
+    }
 }
 
 - (void)uploadImage:(UIImage *)image success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
@@ -275,10 +276,6 @@
     [WLPicture picture:image completion:^(id object) {
         [weakSelf uploadPicture:object success:success failure:failure];
     }];
-}
-
-- (BOOL)shouldStartUploadingAutomatically {
-    return YES;
 }
 
 - (BOOL)isFirstCreated {

@@ -28,8 +28,6 @@ typedef NS_ENUM (NSUInteger, WLContributionStatus) {
 
 + (NSNumber*)uploadingOrder;
 
-- (BOOL)shouldStartUploadingAutomatically;
-
 - (BOOL)canBeUploaded;
 
 @end

@@ -40,4 +40,11 @@
     return nil;
 }
 
+- (void)handleFailure:(NSError *)error {
+    [super handleFailure:error];
+    if ([error isError:WLErrorContentUnavaliable]) {
+        [self.wrap remove];
+    }
+}
+
 @end

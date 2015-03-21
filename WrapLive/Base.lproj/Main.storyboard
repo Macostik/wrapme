@@ -90,6 +90,8 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
         <mutableArray key="OpenSans-Semibold.ttf">
             <string>OpenSans-Semibold</string>
@@ -152,7 +154,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="cJG-dT-H8J">
-                                    <size key="itemSize" width="320" height="75"/>
+                                    <size key="itemSize" width="320" height="80"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -162,22 +164,22 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NnN-ec-DhQ" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="12" y="16" width="44" height="44"/>
+                                                    <rect key="frame" x="12" y="12" width="48" height="48"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="44" id="fra-ny-yXO"/>
-                                                        <constraint firstAttribute="height" constant="44" id="hNf-jG-9I6"/>
+                                                        <constraint firstAttribute="width" constant="48" id="fra-ny-yXO"/>
+                                                        <constraint firstAttribute="height" constant="48" id="hNf-jG-9I6"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin commented:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="08S-52-GIh" customClass="WLLabel">
-                                                    <rect key="frame" x="68" y="-1" width="188" height="24"/>
+                                                    <rect key="frame" x="72" y="12" width="184" height="23"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="24" id="pJP-oT-v42"/>
+                                                        <constraint firstAttribute="height" constant="23" id="pJP-oT-v42"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -187,9 +189,9 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Awesome photo!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="ZhB-Wt-rBP" customClass="TTTAttributedLabel">
-                                                    <rect key="frame" x="68" y="18" width="188" height="20"/>
+                                                    <rect key="frame" x="72" y="35" width="184" height="22"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -201,7 +203,7 @@
                                                     </connections>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="61" translatesAutoresizingMaskIntoConstraints="NO" id="FBj-ps-Q2W" customClass="WLLabel">
-                                                    <rect key="frame" x="68" y="33" width="188" height="21"/>
+                                                    <rect key="frame" x="72" y="57" width="184" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="lVt-IB-ZMQ"/>
@@ -213,21 +215,8 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sbj-Wd-1e2" customClass="WLImageView">
-                                                    <rect key="frame" x="268" y="18" width="40" height="40"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="JJr-P1-muq"/>
-                                                        <constraint firstAttribute="height" constant="40" id="h71-jg-rne"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="Ges-BB-Uma">
-                                                    <rect key="frame" x="12" y="74" width="296" height="1"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="eoP-KW-fBE"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Yestarday at 2:34pm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="7nH-rK-CBH" customClass="WLLabel">
-                                                    <rect key="frame" x="68" y="51" width="188" height="21"/>
+                                                    <rect key="frame" x="72" y="78" width="184" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="oeZ-Ii-WzZ"/>
@@ -239,32 +228,46 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="Ges-BB-Uma">
+                                                    <rect key="frame" x="12" y="99" width="296" height="1"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="eoP-KW-fBE"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sbj-Wd-1e2" customClass="WLImageView">
+                                                    <rect key="frame" x="268" y="12" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="JJr-P1-muq"/>
+                                                        <constraint firstAttribute="height" constant="40" id="h71-jg-rne"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="FBj-ps-Q2W" firstAttribute="top" secondItem="ZhB-Wt-rBP" secondAttribute="bottom" constant="-5" id="4Jl-fP-a4F"/>
-                                            <constraint firstItem="NnN-ec-DhQ" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leadingMargin" constant="4" id="4gb-n4-Spr"/>
-                                            <constraint firstAttribute="centerY" secondItem="sbj-Wd-1e2" secondAttribute="centerY" constant="-0.5" id="6Pi-a3-60H"/>
                                             <constraint firstItem="Ges-BB-Uma" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="12" id="8pZ-k4-H4o"/>
-                                            <constraint firstItem="08S-52-GIh" firstAttribute="leading" secondItem="NnN-ec-DhQ" secondAttribute="trailing" constant="12" id="ASk-9f-RsM"/>
                                             <constraint firstItem="08S-52-GIh" firstAttribute="trailing" secondItem="ZhB-Wt-rBP" secondAttribute="trailing" id="BGg-Qd-WgD"/>
+                                            <constraint firstItem="sbj-Wd-1e2" firstAttribute="top" secondItem="iF1-u8-BW0" secondAttribute="top" constant="12" id="F30-gx-RnX"/>
                                             <constraint firstItem="08S-52-GIh" firstAttribute="leading" secondItem="ZhB-Wt-rBP" secondAttribute="leading" id="Fi7-Wo-y8m"/>
-                                            <constraint firstAttribute="trailing" secondItem="sbj-Wd-1e2" secondAttribute="trailing" constant="12" id="GfW-eV-Np3"/>
+                                            <constraint firstItem="Ges-BB-Uma" firstAttribute="top" secondItem="7nH-rK-CBH" secondAttribute="bottom" id="KfE-aq-Zm0"/>
                                             <constraint firstItem="FBj-ps-Q2W" firstAttribute="trailing" secondItem="7nH-rK-CBH" secondAttribute="trailing" id="N4e-Av-aoz"/>
                                             <constraint firstAttribute="trailing" secondItem="Ges-BB-Uma" secondAttribute="trailing" constant="12" id="Ou5-zc-v4Z"/>
-                                            <constraint firstItem="7nH-rK-CBH" firstAttribute="top" secondItem="FBj-ps-Q2W" secondAttribute="bottom" constant="-3" id="UDV-Ze-Ils"/>
+                                            <constraint firstItem="NnN-ec-DhQ" firstAttribute="top" secondItem="08S-52-GIh" secondAttribute="top" id="Rjg-0s-zib"/>
+                                            <constraint firstItem="7nH-rK-CBH" firstAttribute="top" secondItem="FBj-ps-Q2W" secondAttribute="bottom" id="UDV-Ze-Ils"/>
+                                            <constraint firstItem="NnN-ec-DhQ" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="12" id="UFU-3j-eIN"/>
+                                            <constraint firstItem="FBj-ps-Q2W" firstAttribute="top" secondItem="ZhB-Wt-rBP" secondAttribute="bottom" id="VLI-pI-jL4"/>
                                             <constraint firstAttribute="bottom" secondItem="Ges-BB-Uma" secondAttribute="bottom" id="ehz-un-lWk"/>
-                                            <constraint firstItem="ZhB-Wt-rBP" firstAttribute="top" secondItem="08S-52-GIh" secondAttribute="bottom" constant="-5" id="ifr-py-JDK"/>
+                                            <constraint firstItem="sbj-Wd-1e2" firstAttribute="leading" secondItem="08S-52-GIh" secondAttribute="trailing" constant="12" id="iYI-wM-gRv"/>
+                                            <constraint firstItem="ZhB-Wt-rBP" firstAttribute="top" secondItem="08S-52-GIh" secondAttribute="bottom" id="ifr-py-JDK"/>
+                                            <constraint firstItem="NnN-ec-DhQ" firstAttribute="top" secondItem="iF1-u8-BW0" secondAttribute="top" constant="12" id="keT-Yd-72L"/>
                                             <constraint firstItem="FBj-ps-Q2W" firstAttribute="leading" secondItem="ZhB-Wt-rBP" secondAttribute="leading" id="kfw-cD-d9B"/>
-                                            <constraint firstItem="08S-52-GIh" firstAttribute="top" secondItem="iF1-u8-BW0" secondAttribute="top" constant="-1" id="l9e-Bj-CHc"/>
                                             <constraint firstItem="FBj-ps-Q2W" firstAttribute="leading" secondItem="7nH-rK-CBH" secondAttribute="leading" id="nMN-IN-znJ"/>
-                                            <constraint firstAttribute="centerY" secondItem="NnN-ec-DhQ" secondAttribute="centerY" constant="-0.5" id="pk3-CR-NIU"/>
-                                            <constraint firstItem="Ges-BB-Uma" firstAttribute="top" secondItem="7nH-rK-CBH" secondAttribute="bottom" constant="2" id="q7l-tN-0N2"/>
                                             <constraint firstItem="FBj-ps-Q2W" firstAttribute="trailing" secondItem="ZhB-Wt-rBP" secondAttribute="trailing" id="r20-Hf-Bdc"/>
-                                            <constraint firstItem="sbj-Wd-1e2" firstAttribute="leading" secondItem="08S-52-GIh" secondAttribute="trailing" constant="12" id="reA-3e-400"/>
+                                            <constraint firstItem="08S-52-GIh" firstAttribute="leading" secondItem="NnN-ec-DhQ" secondAttribute="trailing" constant="12" id="rCQ-4K-idx"/>
+                                            <constraint firstAttribute="trailing" secondItem="sbj-Wd-1e2" secondAttribute="trailing" constant="12" id="umO-rv-Cw3"/>
                                         </constraints>
+                                        <size key="customSize" width="320" height="100"/>
                                         <connections>
                                             <outlet property="commentLabel" destination="ZhB-Wt-rBP" id="N1H-zl-aKE"/>
                                             <outlet property="inWrapLabel" destination="FBj-ps-Q2W" id="8nR-Un-Hzr"/>
@@ -427,24 +430,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lq0-rh-5bS" customClass="WLButton">
-                                <rect key="frame" x="12" y="108" width="296" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="NYv-6H-t4c"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
-                                <inset key="titleEdgeInsets" minX="44" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="About wrapLive">
-                                    <color key="titleColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="about:" destination="zBt-TT-rM7" eventType="touchUpInside" id="8Xw-bI-pkr"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sign_up_candy_small" translatesAutoresizingMaskIntoConstraints="NO" id="1jO-TY-W2q">
                                 <rect key="frame" x="12" y="108" width="44" height="44"/>
                                 <constraints>
@@ -464,6 +449,48 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNJ-iN-ANg" customClass="WLDebugButton">
+                                <rect key="frame" x="15" y="411" width="290" height="44"/>
+                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="7xI-Ze-VOt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
+                                <state key="normal" title="Clean Cache">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="cleanCache:" destination="zBt-TT-rM7" eventType="touchUpInside" id="Ovt-Zk-ALZ"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fos-MI-VJD" customClass="WLDebugButton">
+                                <rect key="frame" x="15" y="460" width="290" height="44"/>
+                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="bUk-8Q-850"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
+                                <state key="normal" title="Add Demo Images">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addDemoImages:" destination="zBt-TT-rM7" eventType="touchUpInside" id="oYR-oa-v7f"/>
+                                </connections>
+                            </button>
                             <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7C1-yc-O8X" customClass="WLPressButton">
                                 <rect key="frame" x="15" y="509" width="290" height="44"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -485,10 +512,29 @@
                                     <action selector="signOut:" destination="zBt-TT-rM7" eventType="touchUpInside" id="VNg-4k-xSD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lq0-rh-5bS" customClass="WLButton">
+                                <rect key="frame" x="12" y="108" width="296" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="NYv-6H-t4c"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
+                                <inset key="titleEdgeInsets" minX="44" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="About wrapLive">
+                                    <color key="titleColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="about:" destination="zBt-TT-rM7" eventType="touchUpInside" id="8Xw-bI-pkr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="1jO-TY-W2q" secondAttribute="leading" id="0nU-fs-ktk"/>
+                            <constraint firstAttribute="trailing" secondItem="hNJ-iN-ANg" secondAttribute="trailing" constant="15" id="1M1-kJ-RDv"/>
                             <constraint firstItem="xod-QW-gum" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="1db-kQ-aKh"/>
                             <constraint firstItem="qU7-Ez-lna" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="-20" id="1dk-As-dQf"/>
                             <constraint firstAttribute="trailing" secondItem="qU7-Ez-lna" secondAttribute="trailing" id="4mb-xu-6fX"/>
@@ -496,19 +542,24 @@
                             <constraint firstItem="qU7-Ez-lna" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="75y-ff-xZ5"/>
                             <constraint firstItem="co2-D4-XAH" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="44" id="AlN-iI-BoV"/>
                             <constraint firstItem="cRK-Tr-qQy" firstAttribute="top" secondItem="7C1-yc-O8X" secondAttribute="bottom" constant="15" id="Det-Z5-xqw"/>
+                            <constraint firstItem="hNJ-iN-ANg" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="DqZ-ak-FZI"/>
                             <constraint firstItem="xod-QW-gum" firstAttribute="top" secondItem="Lq0-rh-5bS" secondAttribute="bottom" id="EIk-hi-aeH"/>
                             <constraint firstItem="co2-D4-XAH" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="G9j-4K-lq1"/>
                             <constraint firstItem="MDJ-Nd-sbY" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="HA9-f5-7Ud"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="HdV-Pv-jgs"/>
+                            <constraint firstAttribute="trailing" secondItem="fos-MI-VJD" secondAttribute="trailing" constant="15" id="J03-jl-mne"/>
                             <constraint firstAttribute="trailing" secondItem="Lq0-rh-5bS" secondAttribute="trailing" constant="12" id="NA3-Fi-lhu"/>
                             <constraint firstItem="MDJ-Nd-sbY" firstAttribute="top" secondItem="co2-D4-XAH" secondAttribute="bottom" id="OnQ-99-3BE"/>
                             <constraint firstItem="R6h-Ul-Nr0" firstAttribute="leading" secondItem="co2-D4-XAH" secondAttribute="leading" id="SvJ-CX-7Vo"/>
                             <constraint firstAttribute="trailing" secondItem="co2-D4-XAH" secondAttribute="trailing" constant="12" id="TqK-kg-CWd"/>
                             <constraint firstAttribute="trailing" secondItem="7C1-yc-O8X" secondAttribute="trailing" constant="15" id="U4D-Jf-d24"/>
+                            <constraint firstItem="fos-MI-VJD" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="ZKd-f9-wPp"/>
+                            <constraint firstItem="fos-MI-VJD" firstAttribute="top" secondItem="hNJ-iN-ANg" secondAttribute="bottom" constant="5" id="f1e-0I-nj6"/>
                             <constraint firstItem="7C1-yc-O8X" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="gFW-mt-V7Q"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="centerY" secondItem="1jO-TY-W2q" secondAttribute="centerY" id="jYK-sT-MmS"/>
                             <constraint firstAttribute="trailing" secondItem="MDJ-Nd-sbY" secondAttribute="trailing" id="kWI-un-S07"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="88" id="nGi-ad-drO"/>
+                            <constraint firstItem="7C1-yc-O8X" firstAttribute="top" secondItem="fos-MI-VJD" secondAttribute="bottom" constant="5" id="rkS-9q-D9y"/>
                             <constraint firstAttribute="trailing" secondItem="xod-QW-gum" secondAttribute="trailing" id="xeE-i5-YAU"/>
                         </constraints>
                     </view>
@@ -1755,15 +1806,15 @@ Tap here to start.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mJu-5P-GF6" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="10" y="6" width="36" height="36"/>
+                                                    <rect key="frame" x="12" y="12" width="48" height="48"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="36" id="TEV-z3-RR4"/>
-                                                        <constraint firstAttribute="width" constant="36" id="Wyt-Xe-Qwg"/>
+                                                        <constraint firstAttribute="height" constant="48" id="TEV-z3-RR4"/>
+                                                        <constraint firstAttribute="width" constant="48" id="Wyt-Xe-Qwg"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="194" translatesAutoresizingMaskIntoConstraints="NO" id="ZaI-gM-W2F" customClass="WLLabel">
-                                                    <rect key="frame" x="56" y="5" width="194" height="23"/>
+                                                    <rect key="frame" x="72" y="12" width="178" height="23"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="23" id="5kG-j7-lzN"/>
@@ -1821,7 +1872,7 @@ Tap here to start.</string>
                                                     </connections>
                                                 </button>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="194" translatesAutoresizingMaskIntoConstraints="NO" id="Kag-WO-QAb" customClass="WLLabel">
-                                                    <rect key="frame" x="56" y="28" width="194" height="14"/>
+                                                    <rect key="frame" x="72" y="35" width="178" height="18"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
                                                     <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1835,21 +1886,20 @@ Tap here to start.</string>
                                                 <constraint firstAttribute="centerY" secondItem="wfN-Ge-Kr6" secondAttribute="centerY" id="5St-5e-m9L"/>
                                                 <constraint firstAttribute="centerY" secondItem="8Xw-ue-ifv" secondAttribute="centerY" id="80h-1u-b3D"/>
                                                 <constraint firstAttribute="trailing" secondItem="8Xw-ue-ifv" secondAttribute="trailing" constant="45" id="CAD-z0-o8B"/>
-                                                <constraint firstItem="mJu-5P-GF6" firstAttribute="top" secondItem="ZaI-gM-W2F" secondAttribute="top" constant="1" id="CGY-24-ryA"/>
+                                                <constraint firstItem="mJu-5P-GF6" firstAttribute="top" secondItem="ZaI-gM-W2F" secondAttribute="top" id="CGY-24-ryA"/>
                                                 <constraint firstAttribute="bottom" secondItem="Beb-Fv-Wfr" secondAttribute="bottom" constant="1" id="IIb-3O-Q5y"/>
                                                 <constraint firstAttribute="trailing" secondItem="Xmx-Zb-0Eq" secondAttribute="trailing" constant="18" id="Lja-K9-RMw"/>
                                                 <constraint firstAttribute="trailing" secondItem="Kag-WO-QAb" secondAttribute="trailing" constant="70" id="MrI-CN-eqK"/>
                                                 <constraint firstAttribute="trailing" secondItem="Beb-Fv-Wfr" secondAttribute="trailing" id="NxM-9F-iHd"/>
                                                 <constraint firstAttribute="centerY" secondItem="Xmx-Zb-0Eq" secondAttribute="centerY" id="Osi-EQ-uKU"/>
-                                                <constraint firstItem="mJu-5P-GF6" firstAttribute="leading" secondItem="nIE-uq-dVR" secondAttribute="leading" constant="10" id="RCm-5n-ofa"/>
-                                                <constraint firstItem="ZaI-gM-W2F" firstAttribute="leading" secondItem="nIE-uq-dVR" secondAttribute="leading" constant="56" id="RKv-XL-XbW"/>
+                                                <constraint firstItem="mJu-5P-GF6" firstAttribute="leading" secondItem="nIE-uq-dVR" secondAttribute="leading" constant="12" id="RCm-5n-ofa"/>
+                                                <constraint firstItem="ZaI-gM-W2F" firstAttribute="leading" secondItem="nIE-uq-dVR" secondAttribute="leading" constant="72" id="RKv-XL-XbW"/>
                                                 <constraint firstAttribute="trailing" secondItem="ZaI-gM-W2F" secondAttribute="trailing" constant="70" id="Wf1-42-dDl"/>
                                                 <constraint firstItem="Kag-WO-QAb" firstAttribute="top" secondItem="ZaI-gM-W2F" secondAttribute="bottom" id="btP-IJ-G2l"/>
-                                                <constraint firstItem="Kag-WO-QAb" firstAttribute="leading" secondItem="nIE-uq-dVR" secondAttribute="leading" constant="56" id="cDm-SS-vNl"/>
-                                                <constraint firstItem="mJu-5P-GF6" firstAttribute="top" secondItem="nIE-uq-dVR" secondAttribute="top" constant="6" id="gdk-vF-ogM"/>
+                                                <constraint firstItem="Kag-WO-QAb" firstAttribute="leading" secondItem="nIE-uq-dVR" secondAttribute="leading" constant="72" id="cDm-SS-vNl"/>
+                                                <constraint firstItem="mJu-5P-GF6" firstAttribute="top" secondItem="nIE-uq-dVR" secondAttribute="top" constant="12" id="gdk-vF-ogM"/>
                                                 <constraint firstItem="Beb-Fv-Wfr" firstAttribute="top" secondItem="nIE-uq-dVR" secondAttribute="top" id="hFD-ur-5e6"/>
                                                 <constraint firstItem="Xmx-Zb-0Eq" firstAttribute="centerX" secondItem="wfN-Ge-Kr6" secondAttribute="centerX" constant="1" id="hhV-PR-gyg"/>
-                                                <constraint firstAttribute="bottom" secondItem="Kag-WO-QAb" secondAttribute="bottom" constant="7" id="yku-xX-GcY"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1884,14 +1934,14 @@ Tap here to start.</string>
                                                     </connections>
                                                 </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="paU-Jw-S3c" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="10" y="6" width="36" height="36"/>
+                                                    <rect key="frame" x="12" y="12" width="48" height="48"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="36" id="SW3-6A-w4Q"/>
-                                                        <constraint firstAttribute="width" constant="36" id="YOP-Rh-kqV"/>
+                                                        <constraint firstAttribute="height" constant="48" id="SW3-6A-w4Q"/>
+                                                        <constraint firstAttribute="width" constant="48" id="YOP-Rh-kqV"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="194" translatesAutoresizingMaskIntoConstraints="NO" id="fw4-o4-768" customClass="WLLabel">
-                                                    <rect key="frame" x="56" y="0.0" width="194" height="50"/>
+                                                    <rect key="frame" x="72" y="12" width="178" height="50"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="8oS-xm-08j"/>
@@ -1904,7 +1954,7 @@ Tap here to start.</string>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_down" highlightedImage="ic_arrow_up" translatesAutoresizingMaskIntoConstraints="NO" id="GUv-kM-Cjd">
-                                                    <rect key="frame" x="280" y="14" width="22" height="22"/>
+                                                    <rect key="frame" x="280" y="25" width="22" height="22"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="22" id="KzD-8C-wJK"/>
@@ -1912,7 +1962,7 @@ Tap here to start.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4rx-1s-Mh5">
-                                                    <rect key="frame" x="0.0" y="50" width="320" height="150"/>
+                                                    <rect key="frame" x="0.0" y="62" width="320" height="138"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <prototypes>
                                                         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WLAddressBookPhoneNumberCell" rowHeight="50" id="qZP-pH-519" customClass="WLAddressBookPhoneNumberCell">
@@ -1996,20 +2046,20 @@ Tap here to start.</string>
                                                 </tableView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="4rx-1s-Mh5" firstAttribute="top" secondItem="spP-NH-cXb" secondAttribute="top" constant="50" id="0jA-zi-Uar"/>
+                                                <constraint firstItem="4rx-1s-Mh5" firstAttribute="top" secondItem="spP-NH-cXb" secondAttribute="top" constant="62" id="0jA-zi-Uar"/>
                                                 <constraint firstItem="4rx-1s-Mh5" firstAttribute="leading" secondItem="spP-NH-cXb" secondAttribute="leading" id="9yG-u0-0t2"/>
                                                 <constraint firstAttribute="trailing" secondItem="4rx-1s-Mh5" secondAttribute="trailing" id="FoM-wB-apG"/>
-                                                <constraint firstItem="fw4-o4-768" firstAttribute="top" secondItem="spP-NH-cXb" secondAttribute="top" id="TkP-Mu-5k3"/>
-                                                <constraint firstItem="paU-Jw-S3c" firstAttribute="leading" secondItem="spP-NH-cXb" secondAttribute="leading" constant="10" id="XPX-g0-ppE"/>
+                                                <constraint firstItem="paU-Jw-S3c" firstAttribute="leading" secondItem="spP-NH-cXb" secondAttribute="leading" constant="12" id="XPX-g0-ppE"/>
                                                 <constraint firstItem="kso-wd-VlQ" firstAttribute="top" secondItem="spP-NH-cXb" secondAttribute="top" id="YcR-42-0af"/>
                                                 <constraint firstAttribute="trailing" secondItem="GUv-kM-Cjd" secondAttribute="trailing" constant="18" id="Z53-hN-N0E"/>
-                                                <constraint firstItem="fw4-o4-768" firstAttribute="leading" secondItem="spP-NH-cXb" secondAttribute="leading" constant="56" id="c4W-TU-aWK"/>
-                                                <constraint firstItem="GUv-kM-Cjd" firstAttribute="top" secondItem="spP-NH-cXb" secondAttribute="top" constant="14" id="kaM-eP-Zde"/>
+                                                <constraint firstItem="paU-Jw-S3c" firstAttribute="top" secondItem="fw4-o4-768" secondAttribute="top" id="brZ-pa-hql"/>
+                                                <constraint firstItem="fw4-o4-768" firstAttribute="leading" secondItem="spP-NH-cXb" secondAttribute="leading" constant="72" id="c4W-TU-aWK"/>
                                                 <constraint firstAttribute="bottom" secondItem="4rx-1s-Mh5" secondAttribute="bottom" constant="-1" id="lbC-UA-WZ4"/>
                                                 <constraint firstItem="kso-wd-VlQ" firstAttribute="leading" secondItem="spP-NH-cXb" secondAttribute="leading" id="peq-E2-tUN"/>
                                                 <constraint firstAttribute="trailing" secondItem="kso-wd-VlQ" secondAttribute="trailing" id="sgA-KG-jKw"/>
                                                 <constraint firstAttribute="trailing" secondItem="fw4-o4-768" secondAttribute="trailing" constant="70" id="v42-E3-nLJ"/>
-                                                <constraint firstItem="paU-Jw-S3c" firstAttribute="top" secondItem="spP-NH-cXb" secondAttribute="top" constant="6" id="y7k-Pj-xNh"/>
+                                                <constraint firstItem="GUv-kM-Cjd" firstAttribute="top" secondItem="spP-NH-cXb" secondAttribute="top" constant="25" id="xKd-9n-Dqp"/>
+                                                <constraint firstItem="paU-Jw-S3c" firstAttribute="top" secondItem="spP-NH-cXb" secondAttribute="top" constant="12" id="y7k-Pj-xNh"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -3251,25 +3301,25 @@ Check your internet connection and try again.</string>
                                 <rect key="frame" x="0.0" y="448" width="320" height="120"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DKe-of-CwY" customClass="WLImageView">
-                                        <rect key="frame" x="12" y="12" width="44" height="44"/>
+                                        <rect key="frame" x="12" y="12" width="48" height="48"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="mNQ-3e-26M"/>
-                                            <constraint firstAttribute="width" constant="44" id="wem-SQ-nau"/>
+                                            <constraint firstAttribute="height" constant="48" id="mNQ-3e-26M"/>
+                                            <constraint firstAttribute="width" constant="48" id="wem-SQ-nau"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="22"/>
+                                                <integer key="value" value="24"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bnz-8z-kg3" customClass="WLProgressBar">
-                                        <rect key="frame" x="12" y="12" width="44" height="44"/>
+                                        <rect key="frame" x="12" y="12" width="48" height="48"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="23" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isn-QR-Jgl" customClass="WLLabel">
-                                        <rect key="frame" x="68" y="6" width="240" height="23"/>
+                                        <rect key="frame" x="72" y="6" width="236" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="70" id="auU-kM-fyN"/>
                                         </constraints>
@@ -3281,7 +3331,7 @@ Check your internet connection and try again.</string>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Post" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsh-mJ-NAQ" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="66" width="32" height="21"/>
+                                        <rect key="frame" x="12" y="70" width="32" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="HN9-VO-uom"/>
                                         </constraints>
@@ -3293,7 +3343,7 @@ Check your internet connection and try again.</string>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9aV-O1-sMk" userLabel="Time" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="87" width="32" height="21"/>
+                                        <rect key="frame" x="12" y="91" width="32" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="dDc-ZF-In2"/>
                                         </constraints>
@@ -3489,21 +3539,21 @@ Check your internet connection and try again.</string>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B1Y-FB-4KE" customClass="WLImageView">
-                                                            <rect key="frame" x="12" y="12" width="44" height="44"/>
+                                                            <rect key="frame" x="12" y="12" width="48" height="48"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="44" id="IN5-hd-Oq2"/>
-                                                                <constraint firstAttribute="height" constant="44" id="OFq-ki-vZc"/>
+                                                                <constraint firstAttribute="width" constant="48" id="IN5-hd-Oq2"/>
+                                                                <constraint firstAttribute="height" constant="48" id="OFq-ki-vZc"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                    <integer key="value" value="22"/>
+                                                                    <integer key="value" value="24"/>
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70w-oo-mtg" customClass="WLLabel">
-                                                            <rect key="frame" x="68" y="12" width="216" height="21"/>
+                                                            <rect key="frame" x="72" y="12" width="212" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="QNc-YT-dNe"/>
                                                             </constraints>
@@ -3515,7 +3565,7 @@ Check your internet connection and try again.</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <textView clipsSubviews="YES" contentMode="left" placeholderIntrinsicWidth="221" placeholderIntrinsicHeight="34" scrollEnabled="NO" editable="NO" text="Text" translatesAutoresizingMaskIntoConstraints="NO" id="H8X-L5-O9h" customClass="WLTextView">
-                                                            <rect key="frame" x="63" y="33" width="221" height="34"/>
+                                                            <rect key="frame" x="68" y="33" width="216" height="34"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <color key="tintColor" red="0.93058806660000004" green="0.372343272" blue="0.1172502711" alpha="1" colorSpace="calibratedRGB"/>
                                                             <inset key="scrollIndicatorInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -3531,7 +3581,7 @@ Check your internet connection and try again.</string>
                                                             </connections>
                                                         </textView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="641-7R-EdV" customClass="WLLabel">
-                                                            <rect key="frame" x="68" y="67" width="216" height="21"/>
+                                                            <rect key="frame" x="72" y="67" width="212" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="cNP-bz-0aG"/>
                                                             </constraints>
@@ -3558,7 +3608,7 @@ Check your internet connection and try again.</string>
                                                     <constraint firstItem="B1Y-FB-4KE" firstAttribute="top" secondItem="Qr8-ly-WYg" secondAttribute="top" constant="12" id="EgV-ho-Zxa"/>
                                                     <constraint firstAttribute="trailing" secondItem="641-7R-EdV" secondAttribute="trailing" constant="12" id="FJY-eG-AFh"/>
                                                     <constraint firstItem="70w-oo-mtg" firstAttribute="top" secondItem="Qr8-ly-WYg" secondAttribute="top" constant="12" id="Img-6Q-XwW"/>
-                                                    <constraint firstItem="H8X-L5-O9h" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="63" id="K45-U1-frf"/>
+                                                    <constraint firstItem="H8X-L5-O9h" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="68" id="K45-U1-frf"/>
                                                     <constraint firstItem="641-7R-EdV" firstAttribute="top" secondItem="H8X-L5-O9h" secondAttribute="bottom" id="NPc-wH-8EA"/>
                                                     <constraint firstAttribute="trailing" secondItem="4K2-SA-FYq" secondAttribute="trailing" constant="12" id="WaU-1f-lXv"/>
                                                     <constraint firstAttribute="bottom" secondItem="4K2-SA-FYq" secondAttribute="bottom" id="Zo1-1J-4ds"/>
@@ -3567,7 +3617,7 @@ Check your internet connection and try again.</string>
                                                     <constraint firstItem="B1Y-FB-4KE" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="12" id="iPj-za-Rp2"/>
                                                     <constraint firstItem="70w-oo-mtg" firstAttribute="leading" secondItem="B1Y-FB-4KE" secondAttribute="trailing" constant="12" id="rZv-rQ-i2q"/>
                                                     <constraint firstAttribute="bottom" secondItem="641-7R-EdV" secondAttribute="bottom" constant="12" id="rlL-fj-Z6w"/>
-                                                    <constraint firstItem="641-7R-EdV" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="68" id="rqn-ad-t4E"/>
+                                                    <constraint firstItem="641-7R-EdV" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="72" id="rqn-ad-t4E"/>
                                                 </constraints>
                                                 <size key="customSize" width="296" height="100"/>
                                                 <connections>
@@ -3604,10 +3654,10 @@ Check your internet connection and try again.</string>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B4a-CN-Vzs">
-                                                <rect key="frame" x="47" y="4" width="201" height="36"/>
+                                                <rect key="frame" x="47" y="4" width="186" height="36"/>
                                                 <subviews>
                                                     <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y8m-EE-ge2" customClass="WLTextView">
-                                                        <rect key="frame" x="0.0" y="8" width="201" height="20"/>
+                                                        <rect key="frame" x="0.0" y="8" width="186" height="20"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -3619,7 +3669,7 @@ Check your internet connection and try again.</string>
                                                         </connections>
                                                     </textView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write text..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sf0-Q1-mdw" customClass="WLLabel">
-                                                        <rect key="frame" x="3" y="8" width="195" height="21"/>
+                                                        <rect key="frame" x="3" y="8" width="180" height="21"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="21" id="udQ-vf-RDh"/>
@@ -3645,10 +3695,10 @@ Check your internet connection and try again.</string>
                                                 </constraints>
                                             </view>
                                             <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQY-Cq-aBP">
-                                                <rect key="frame" x="251" y="0.0" width="45" height="44"/>
+                                                <rect key="frame" x="236" y="0.0" width="60" height="44"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="45" id="PHf-CK-FV8"/>
+                                                    <constraint firstAttribute="width" constant="60" id="PHf-CK-FV8"/>
                                                     <constraint firstAttribute="height" constant="44" id="PzA-bE-Rf9"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -3674,7 +3724,7 @@ Check your internet connection and try again.</string>
                                             <constraint firstAttribute="centerY" secondItem="iQY-Cq-aBP" secondAttribute="centerY" id="Dck-cn-5lN"/>
                                             <constraint firstItem="iQY-Cq-aBP" firstAttribute="leading" secondItem="B4a-CN-Vzs" secondAttribute="trailing" constant="3" id="Nx8-gu-rua"/>
                                             <constraint firstAttribute="height" secondItem="B4a-CN-Vzs" secondAttribute="height" constant="8" id="Qxa-TG-Wwu"/>
-                                            <constraint firstItem="iQY-Cq-aBP" firstAttribute="leading" secondItem="aG1-FG-zzH" secondAttribute="trailing" constant="-45" id="qRV-YD-mY8"/>
+                                            <constraint firstItem="iQY-Cq-aBP" firstAttribute="leading" secondItem="aG1-FG-zzH" secondAttribute="trailing" constant="-60" id="qRV-YD-mY8"/>
                                             <constraint firstAttribute="centerY" secondItem="B4a-CN-Vzs" secondAttribute="centerY" id="uvU-k5-dfk"/>
                                             <constraint firstItem="B4a-CN-Vzs" firstAttribute="leading" secondItem="aG1-FG-zzH" secondAttribute="leading" constant="47" id="xMd-4A-f6s"/>
                                         </constraints>
@@ -3806,15 +3856,15 @@ Check your internet connection and try again.</string>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nCf-It-uXS" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="267" y="0.0" width="44" height="44"/>
+                                                    <rect key="frame" x="260" y="0.0" width="48" height="48"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="44" id="Hdk-cj-lSk"/>
-                                                        <constraint firstAttribute="width" constant="44" id="P0S-1X-Xlx"/>
+                                                        <constraint firstAttribute="height" constant="48" id="Hdk-cj-lSk"/>
+                                                        <constraint firstAttribute="width" constant="48" id="P0S-1X-Xlx"/>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPa-oY-X5B">
-                                                    <rect key="frame" x="160" y="0.0" width="94" height="48"/>
+                                                    <rect key="frame" x="154" y="0.0" width="94" height="48"/>
                                                     <subviews>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="v2z-k0-EKs" customClass="WLLabel">
                                                             <rect key="frame" x="5" y="0.0" width="84" height="18"/>
@@ -3891,7 +3941,7 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="chat_bubble_tail_gray.png" translatesAutoresizingMaskIntoConstraints="NO" id="cGF-9C-FfY">
-                                                    <rect key="frame" x="254" y="29" width="8" height="10"/>
+                                                    <rect key="frame" x="248" y="33" width="8" height="10"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="ODL-tk-jp8"/>
@@ -3902,9 +3952,9 @@ Check your internet connection and try again.</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="WPa-oY-X5B" secondAttribute="trailing" constant="66" id="2bH-dA-dFp"/>
-                                            <constraint firstItem="WPa-oY-X5B" firstAttribute="leading" secondItem="blg-MX-zu0" secondAttribute="leading" constant="160" id="He6-pr-Jey"/>
-                                            <constraint firstAttribute="trailing" secondItem="nCf-It-uXS" secondAttribute="trailing" constant="9" id="Vg9-TM-3jX"/>
+                                            <constraint firstAttribute="trailing" secondItem="WPa-oY-X5B" secondAttribute="trailing" constant="72" id="2bH-dA-dFp"/>
+                                            <constraint firstItem="WPa-oY-X5B" firstAttribute="leading" secondItem="blg-MX-zu0" secondAttribute="leading" constant="154" id="He6-pr-Jey"/>
+                                            <constraint firstAttribute="trailing" secondItem="nCf-It-uXS" secondAttribute="trailing" constant="12" id="Vg9-TM-3jX"/>
                                             <constraint firstItem="cGF-9C-FfY" firstAttribute="bottom" secondItem="nCf-It-uXS" secondAttribute="bottom" constant="-5" id="Vww-Dt-u6n"/>
                                             <constraint firstAttribute="centerX" secondItem="Bcm-eM-Zwh" secondAttribute="centerX" id="YOg-ai-60R"/>
                                             <constraint firstItem="WPa-oY-X5B" firstAttribute="top" secondItem="nCf-It-uXS" secondAttribute="top" id="aj9-mL-thH"/>
@@ -3950,15 +4000,15 @@ Check your internet connection and try again.</string>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YII-6v-9r6" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="9" y="0.0" width="44" height="44"/>
+                                                    <rect key="frame" x="12" y="0.0" width="48" height="48"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="44" id="Ykg-1P-C11"/>
-                                                        <constraint firstAttribute="width" constant="44" id="rOt-xb-fLK"/>
+                                                        <constraint firstAttribute="height" constant="48" id="Ykg-1P-C11"/>
+                                                        <constraint firstAttribute="width" constant="48" id="rOt-xb-fLK"/>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G61-oI-Ifc">
-                                                    <rect key="frame" x="66" y="0.0" width="94" height="48"/>
+                                                    <rect key="frame" x="72" y="0.0" width="94" height="48"/>
                                                     <subviews>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="HUe-Pv-h6W" customClass="WLLabel">
                                                             <rect key="frame" x="5" y="0.0" width="84" height="18"/>
@@ -4035,7 +4085,7 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="chat_bubble_tail_red.png" translatesAutoresizingMaskIntoConstraints="NO" id="pMb-Ne-nj5">
-                                                    <rect key="frame" x="58" y="29" width="8" height="10"/>
+                                                    <rect key="frame" x="64" y="33" width="8" height="10"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="JBn-vp-QVa"/>
@@ -4051,11 +4101,11 @@ Check your internet connection and try again.</string>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="top" secondItem="G61-oI-Ifc" secondAttribute="top" id="J0Z-DA-Dor"/>
                                             <constraint firstAttribute="centerX" secondItem="qox-d6-2fj" secondAttribute="centerX" id="K9x-X4-v8Z"/>
                                             <constraint firstItem="pMb-Ne-nj5" firstAttribute="bottom" secondItem="YII-6v-9r6" secondAttribute="bottom" constant="-5" id="NUN-iu-DGA"/>
-                                            <constraint firstItem="YII-6v-9r6" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="9" id="XTb-o9-EII"/>
+                                            <constraint firstItem="YII-6v-9r6" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="12" id="XTb-o9-EII"/>
                                             <constraint firstItem="G61-oI-Ifc" firstAttribute="leading" secondItem="pMb-Ne-nj5" secondAttribute="trailing" id="ZQ9-US-Pnc"/>
-                                            <constraint firstAttribute="trailing" secondItem="G61-oI-Ifc" secondAttribute="trailing" constant="160" id="bkP-if-RMm"/>
+                                            <constraint firstAttribute="trailing" secondItem="G61-oI-Ifc" secondAttribute="trailing" constant="154" id="bkP-if-RMm"/>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" id="cox-Pp-syl"/>
-                                            <constraint firstItem="G61-oI-Ifc" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="66" id="fmO-B5-DX8"/>
+                                            <constraint firstItem="G61-oI-Ifc" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="72" id="fmO-B5-DX8"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="48"/>
                                         <connections>
@@ -4162,10 +4212,10 @@ Check your internet connection and try again.</string>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDd-ic-aQG">
-                                        <rect key="frame" x="47" y="4" width="225" height="36"/>
+                                        <rect key="frame" x="47" y="4" width="210" height="36"/>
                                         <subviews>
                                             <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbf-xV-IYw" customClass="WLTextView">
-                                                <rect key="frame" x="0.0" y="8" width="225" height="20"/>
+                                                <rect key="frame" x="0.0" y="8" width="210" height="20"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -4177,7 +4227,7 @@ Check your internet connection and try again.</string>
                                                 </connections>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write text..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uda-Ra-Xj8" customClass="WLLabel">
-                                                <rect key="frame" x="3" y="8" width="219" height="21"/>
+                                                <rect key="frame" x="3" y="8" width="204" height="21"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="5e9-a0-Ybd"/>
@@ -4203,11 +4253,11 @@ Check your internet connection and try again.</string>
                                         </constraints>
                                     </view>
                                     <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKy-OZ-m8E">
-                                        <rect key="frame" x="275" y="0.0" width="45" height="44"/>
+                                        <rect key="frame" x="260" y="0.0" width="60" height="44"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="HtI-7M-m6U"/>
-                                            <constraint firstAttribute="width" constant="45" id="Kkq-Eh-ydn"/>
+                                            <constraint firstAttribute="width" constant="60" id="Kkq-Eh-ydn"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <state key="normal" image="send_btn">
@@ -4229,7 +4279,7 @@ Check your internet connection and try again.</string>
                                 <constraints>
                                     <constraint firstItem="tDd-ic-aQG" firstAttribute="leading" secondItem="dQp-Lx-kpC" secondAttribute="leading" constant="47" id="2UQ-9r-rdM"/>
                                     <constraint firstItem="W2G-E9-yFD" firstAttribute="leading" secondItem="dQp-Lx-kpC" secondAttribute="leading" id="F9d-tf-irg"/>
-                                    <constraint firstItem="cKy-OZ-m8E" firstAttribute="leading" secondItem="dQp-Lx-kpC" secondAttribute="trailing" constant="-45" id="MLS-gu-1cm"/>
+                                    <constraint firstItem="cKy-OZ-m8E" firstAttribute="leading" secondItem="dQp-Lx-kpC" secondAttribute="trailing" constant="-60" id="MLS-gu-1cm"/>
                                     <constraint firstAttribute="centerY" secondItem="tDd-ic-aQG" secondAttribute="centerY" id="Tqd-5a-ns2"/>
                                     <constraint firstAttribute="centerY" secondItem="cKy-OZ-m8E" secondAttribute="centerY" id="fY9-b9-CN4"/>
                                     <constraint firstAttribute="centerY" secondItem="W2G-E9-yFD" secondAttribute="centerY" id="g9Z-7X-5Rc"/>
@@ -4465,18 +4515,18 @@ Check your internet connection and try again.</string>
                                                             <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0uu-KS-up8" customClass="WLCircleImageView">
-                                                                    <rect key="frame" x="12" y="12" width="44" height="44"/>
+                                                                    <rect key="frame" x="12" y="12" width="48" height="48"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="44" id="0PA-Bw-bZl"/>
-                                                                        <constraint firstAttribute="height" constant="44" id="7p1-G0-BRY"/>
+                                                                        <constraint firstAttribute="width" constant="48" id="0PA-Bw-bZl"/>
+                                                                        <constraint firstAttribute="height" constant="48" id="7p1-G0-BRY"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="4dB-kx-151" customClass="WLLabel">
-                                                                    <rect key="frame" x="68" y="12" width="228" height="19"/>
+                                                                    <rect key="frame" x="72" y="12" width="224" height="23"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="19" id="Rew-H1-gZa"/>
+                                                                        <constraint firstAttribute="height" constant="23" id="Rew-H1-gZa"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4486,7 +4536,7 @@ Check your internet connection and try again.</string>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="04J-8C-m9o" userLabel="10089969657 2342342343" customClass="WLLabel">
-                                                                    <rect key="frame" x="68" y="31" width="228" height="36"/>
+                                                                    <rect key="frame" x="72" y="35" width="224" height="36"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <string key="text">10089969657
 2342342343</string>

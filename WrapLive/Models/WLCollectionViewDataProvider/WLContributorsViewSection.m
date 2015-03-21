@@ -13,9 +13,9 @@
 #import "NSString+Additions.h"
 #import "WLContribution+Extended.h"
 
-const static CGFloat WLContributorsVerticalIndent = 43.0f;
-const static CGFloat WLContributorsHorizontalIndent = 92.0f;
-const static CGFloat WLContributorsMinHeight = 68.0f;
+const static CGFloat WLContributorsVerticalIndent = 48.0f;
+const static CGFloat WLContributorsHorizontalIndent = 96.0f;
+const static CGFloat WLContributorsMinHeight = 72.0f;
 
 @interface WLContributorsViewSection () <WLFontPresetterReceiver>
 

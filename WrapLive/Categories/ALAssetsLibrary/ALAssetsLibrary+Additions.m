@@ -86,31 +86,19 @@ static NSDate *lastAssetCreationDate = nil;
 
 + (void)addDemoImages:(NSUInteger)count {
     
-    NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=820015ac2e234828d96157f682701da8&extras=url_m%2C+url_l&per_page=20&format=json&nojsoncallback=1"]];
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-    NSArray *photos = json[@"photos"][@"photo"];
-    for (NSDictionary *photo in photos) {
-        NSString *url = photo[@"url_m"]?:photo[@"url_l"];
-        if (url) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [[ALAssetsLibrary library] saveImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] toAlbum:@"for testing" completion:^(NSURL *assetURL, NSError *error) {
-                    [self addDemoImages:count - 1];
-                } failure:^(NSError *error) {
-
-                }];
-            });
-        }
-    }
+    if (count == 0) return;
     
-//    if (count == 0) return;
-//    NSString* url = count % 2 == 0 ? @"https://placeimg.com/640/1136/any" : @"https://placeimg.com/1136/640/any";
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        [[ALAssetsLibrary library] saveImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] toAlbum:@"for testing" completion:^(NSURL *assetURL, NSError *error) {
-//            [self addDemoImages:count - 1];
-//        } failure:^(NSError *error) {
-//            
-//        }];
-//    });
+    while (count > 0) {
+        NSString* url = count % 2 == 0 ? @"https://placeimg.com/640/1136/any" : @"https://placeimg.com/1136/640/any";
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[ALAssetsLibrary library] saveImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] toAlbum:@"for testing" completion:^(NSURL *assetURL, NSError *error) {
+                [self addDemoImages:count - 1];
+            } failure:^(NSError *error) {
+                
+            }];
+        });
+        count--;
+    }
 }
 
 #pragma mark - Public Methods

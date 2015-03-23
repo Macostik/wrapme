@@ -128,6 +128,7 @@
 "last updated %@" = "last updated %@";
 "Wrap %@ is no longer available." = "Wrap %@ is no longer available.";
 "Posted by %@" = "Posted by %@";
+"Photo by %@" = "Photo by %@";
 "Comment" = "Comment";
 "1 comment" = "1 comment";
 "%i comments" = "%i comments";

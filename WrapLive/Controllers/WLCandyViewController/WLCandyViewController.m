@@ -253,7 +253,7 @@
 - (void)updateOwnerData {
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"exclamationTriangle";
     [self setCommentButtonTitle:_candy];
-    self.postLabel.text = [NSString stringWithFormat:WLLS(@"Posted by %@"), _candy.contributor.name];
+    self.postLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), _candy.contributor.name];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
     self.timeLabel.text = timeAgoString;
     self.lastComment = [[_candy sortedComments] firstObject];

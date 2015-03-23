@@ -24,7 +24,8 @@
     static NSDictionary *sizes = nil;
     if (!sizes) {
         if (WLConstants.iPhone) {
-            sizes = @{WLIconPresetSmall:@(18),
+            sizes = @{WLIconPresetSmaller:@(14),
+                      WLIconPresetSmall:@(18),
                       WLIconPresetBase:@(24),
                       WLIconPresetLarge:@(36),
                       WLIconPresetNormal:@(40),
@@ -32,7 +33,8 @@
                       WLIconPresetXLarge:@(72),
                       WLIconPresetLargest:@(96)};
         } else {
-            sizes = @{WLIconPresetSmall:@(24),
+            sizes = @{WLIconPresetSmaller:@(14),
+                      WLIconPresetSmall:@(24),
                       WLIconPresetBase:@(36),
                       WLIconPresetNormal:@(46),
                       WLIconPresetLarge:@(54),

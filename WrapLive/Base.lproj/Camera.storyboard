@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="cKg-Y0-d6d">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="cKg-Y0-d6d">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -561,7 +561,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8K-4d-qnf" customClass="WLIconButton">
-                                <rect key="frame" x="270" y="36" width="34" height="34"/>
+                                <rect key="frame" x="270" y="16" width="34" height="34"/>
                                 <color key="backgroundColor" white="0.10100000351667404" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Y8K-4d-qnf" secondAttribute="height" id="Kbi-Lq-1SC"/>
@@ -574,7 +574,6 @@
                                         <size key="value" width="16" height="16"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="paintBrush"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="large"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -741,7 +740,7 @@
                                         </connections>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KhT-og-9O7" customClass="WLIconButton">
-                                        <rect key="frame" x="54" y="70" width="34" height="34"/>
+                                        <rect key="frame" x="65" y="70" width="34" height="34"/>
                                         <color key="backgroundColor" white="0.10100000351667404" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="KhT-og-9O7" secondAttribute="height" id="fTW-Br-kyc"/>
@@ -793,7 +792,7 @@
                                 <constraints>
                                     <constraint firstItem="J38-cV-CNx" firstAttribute="top" secondItem="rvH-xd-AOc" secondAttribute="top" id="MM3-kI-oTe"/>
                                     <constraint firstItem="J38-cV-CNx" firstAttribute="leading" secondItem="rvH-xd-AOc" secondAttribute="leading" id="WZh-0A-MS0"/>
-                                    <constraint firstAttribute="centerX" secondItem="KhT-og-9O7" secondAttribute="centerX" constant="89" id="YGS-kI-kgK"/>
+                                    <constraint firstAttribute="centerX" secondItem="KhT-og-9O7" secondAttribute="centerX" constant="78" id="YGS-kI-kgK"/>
                                     <constraint firstAttribute="trailing" secondItem="J38-cV-CNx" secondAttribute="trailing" id="YiX-cl-ice"/>
                                     <constraint firstAttribute="height" constant="142" id="mgq-aQ-y8e"/>
                                     <constraint firstAttribute="centerY" secondItem="KhT-og-9O7" secondAttribute="centerY" constant="-16" id="s76-vR-RCG"/>
@@ -814,7 +813,7 @@
                             <constraint firstAttribute="trailing" secondItem="1eI-Kn-Fei" secondAttribute="trailing" id="SDt-V3-WqB"/>
                             <constraint firstItem="PoG-ED-My6" firstAttribute="bottom" secondItem="1eI-Kn-Fei" secondAttribute="bottom" multiplier="1.25" id="Trf-kx-Bgu"/>
                             <constraint firstAttribute="trailing" secondItem="rvH-xd-AOc" secondAttribute="trailing" id="c9M-IM-vaF"/>
-                            <constraint firstItem="Y8K-4d-qnf" firstAttribute="top" secondItem="bNq-o4-O2V" secondAttribute="bottom" constant="36" id="kKT-hc-NeX"/>
+                            <constraint firstItem="Y8K-4d-qnf" firstAttribute="top" secondItem="bNq-o4-O2V" secondAttribute="bottom" constant="16" id="kKT-hc-NeX"/>
                             <constraint firstAttribute="trailing" secondItem="Y8K-4d-qnf" secondAttribute="trailing" constant="16" id="rSA-HK-YAx"/>
                             <constraint firstItem="WFI-ef-EyH" firstAttribute="top" secondItem="rvH-xd-AOc" secondAttribute="bottom" id="s0b-SF-Brc"/>
                         </constraints>

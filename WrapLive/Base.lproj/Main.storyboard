@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -1505,13 +1505,13 @@
                                 <rect key="frame" x="278" y="529" width="34" height="34"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zzu-qX-c4N" userLabel="iCloudButton" customClass="WLIconButton">
-                                        <rect key="frame" x="2" y="-5" width="30" height="34"/>
+                                        <rect key="frame" x="2" y="-3" width="30" height="34"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="cloud"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="normal"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1RC-4W-wDl" userLabel="PlaceholderButton" customClass="WLIconButton">
@@ -1524,11 +1524,11 @@
                                             <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
                                                 <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="small"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="smaller"/>
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hw2-sP-LBk" userLabel="countLabel" customClass="WLLabel">
-                                        <rect key="frame" x="3" y="14" width="28" height="20"/>
+                                        <rect key="frame" x="3" y="17" width="28" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="ufx-u4-PEc"/>
                                         </constraints>
@@ -1546,10 +1546,10 @@
                                     <constraint firstAttribute="width" secondItem="Zzu-qX-c4N" secondAttribute="width" constant="4" id="6Qg-FS-Ant"/>
                                     <constraint firstAttribute="trailing" secondItem="hw2-sP-LBk" secondAttribute="trailing" constant="3" id="QwG-w2-X10"/>
                                     <constraint firstAttribute="bottom" secondItem="1RC-4W-wDl" secondAttribute="bottom" id="Uyx-gw-lFq"/>
-                                    <constraint firstItem="hw2-sP-LBk" firstAttribute="top" secondItem="Zzu-qX-c4N" secondAttribute="bottom" constant="-15" id="XIl-Pn-Kdy"/>
+                                    <constraint firstItem="hw2-sP-LBk" firstAttribute="top" secondItem="Zzu-qX-c4N" secondAttribute="bottom" constant="-14" id="XIl-Pn-Kdy"/>
                                     <constraint firstAttribute="centerX" secondItem="Zzu-qX-c4N" secondAttribute="centerX" id="aWB-jT-sDl"/>
                                     <constraint firstItem="1RC-4W-wDl" firstAttribute="leading" secondItem="IWZ-KR-48g" secondAttribute="leading" id="c5C-8p-AqM"/>
-                                    <constraint firstAttribute="bottom" secondItem="Zzu-qX-c4N" secondAttribute="bottom" constant="5" id="mZU-b6-54m"/>
+                                    <constraint firstAttribute="bottom" secondItem="Zzu-qX-c4N" secondAttribute="bottom" constant="3" id="mZU-b6-54m"/>
                                     <constraint firstAttribute="height" secondItem="Zzu-qX-c4N" secondAttribute="height" id="r3t-Tc-3Ib"/>
                                     <constraint firstAttribute="trailing" secondItem="1RC-4W-wDl" secondAttribute="trailing" id="vpQ-fx-9Oz"/>
                                     <constraint firstItem="1RC-4W-wDl" firstAttribute="top" secondItem="IWZ-KR-48g" secondAttribute="top" id="zIW-4I-pNb"/>
@@ -3226,7 +3226,11 @@ Check your internet connection and try again.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
                                 <subviews>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0rM-Ee-8of" userLabel="BackButton" customClass="WLIconButton">
-                                        <rect key="frame" x="10" y="30" width="30" height="34"/>
+                                        <rect key="frame" x="12" y="25" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="J3i-Qn-TGN"/>
+                                            <constraint firstAttribute="height" constant="44" id="WvJ-qu-Ta2"/>
+                                        </constraints>
                                         <state key="highlighted">
                                             <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -3280,7 +3284,7 @@ Check your internet connection and try again.</string>
                                     <constraint firstAttribute="trailing" secondItem="sPd-Ai-V8F" secondAttribute="trailing" constant="10" id="bG6-qI-I2w"/>
                                     <constraint firstItem="sPd-Ai-V8F" firstAttribute="leading" secondItem="J3S-jS-mvs" secondAttribute="trailing" constant="10" id="fyR-Xa-pQR"/>
                                     <constraint firstAttribute="height" secondItem="sPd-Ai-V8F" secondAttribute="height" constant="40" id="jJj-ki-Nzl"/>
-                                    <constraint firstItem="0rM-Ee-8of" firstAttribute="leading" secondItem="Wbg-W9-8Ie" secondAttribute="leading" constant="10" id="rw6-ky-DHO"/>
+                                    <constraint firstItem="0rM-Ee-8of" firstAttribute="leading" secondItem="Wbg-W9-8Ie" secondAttribute="leading" constant="12" id="rw6-ky-DHO"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">

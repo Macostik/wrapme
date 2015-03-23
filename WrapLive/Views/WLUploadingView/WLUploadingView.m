@@ -73,7 +73,7 @@
     if (!_animation) {
         _animation = [CABasicAnimation animationWithKeyPath:@"transform"];
         _animation.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeTranslation(0, -3, 0)];
-        _animation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeTranslation(0, -12, 0)];
+        _animation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeTranslation(0, -7, 0)];
         _animation.duration = 1.0f;
         _animation.repeatCount = FLT_MAX;
     }

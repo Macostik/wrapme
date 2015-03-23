@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^PubNubMessageBlock)(PNMessage *message);
+
 @interface WLNotificationChannel : NSObject
 
 @property (strong, nonatomic) PNChannel* channel;

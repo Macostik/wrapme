@@ -24,7 +24,7 @@
 #import "NSDate+Additions.h"
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
-#import "WLRemoteObjectHandler.h"
+#import "WLRemoteEntryHandler.h"
 #import "WLImageFetcher.h"
 #import "WLOperationQueue.h"
 #import "WLEntryNotifier.h"
@@ -341,7 +341,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             WLNotification* notification = [WLNotification notificationWithData:data];
             if (notification) {
                 [notification fetch:^{
-                    [notification handleRemoteObject];
+                    [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:notification];
                     if (success) success();
                 } failure:failure];
             } else if (failure)  {

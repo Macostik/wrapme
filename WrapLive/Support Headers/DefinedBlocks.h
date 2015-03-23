@@ -49,5 +49,4 @@ typedef void(^EnumBlock)(id item);
 typedef BOOL(^EqualityBlock)(id first, id second);
 typedef void (^WLImageFetcherBlock)(UIImage* image, BOOL cached);
 typedef NSDate* (^WLDateFromEntryBlock)(WLEntry* entry);
-typedef void (^PubNubMessageBlock)(PNMessage *message);
 typedef void (^WLGestureBlock)(UIGestureRecognizer *recognizer);

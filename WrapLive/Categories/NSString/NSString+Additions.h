@@ -61,6 +61,8 @@ static inline NSString* phoneNumberClearing (NSString* phone) {
 
 - (NSString*)stringByCapitalizingFirstCharacter;
 
+- (NSDictionary *)URLQueryParameters;
+
 @end
 
 @interface NSNumber (Additions)

@@ -66,7 +66,6 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
 
 + (void)setCurrentAuthorization:(WLAuthorization*)authorization {
 	[WLSession setAuthorization:authorization];
-    [self parseExtensionAutorization:authorization];
 }
 
 + (NSString *)priorityEmail {
@@ -77,23 +76,5 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
 - (void)setCurrent {
 	[WLAuthorization setCurrentAuthorization:self];
 }
-
-#pragma mark - WLExtension halper
-
-+ (void)parseExtensionAutorization:(WLAuthorization *)autorization {
-    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:WLUserDefaultsExtensionKey];
-    NSMutableDictionary *attDictionary = [NSMutableDictionary dictionary];
-    [attDictionary trySetObject:autorization.deviceUID forKey:WLDeviceIDKey];
-    [attDictionary trySetObject:autorization.countryCode forKey:WLCountryCodeKey];
-    [attDictionary trySetObject:autorization.phone forKey:WLPhoneKey];
-    [attDictionary trySetObject:autorization.email forKey:WLEmailKey];
-    NSString *environmentName = [[[NSBundle mainBundle] infoDictionary] stringForKey:WLEnvironment];
-    [attDictionary trySetObject:environmentName forKey:WLEnvironment];
-    NSData *passwordData = [WLCryptographer encrypt:autorization.password];
-    [attDictionary setObject:passwordData forKey:WLPasswordKey];
-    [userDefaults setObject:attDictionary forKey:WLExtensionWrapKey];
-    [userDefaults synchronize];
-}
-
 
 @end

@@ -9,7 +9,6 @@
 #import "WLRefresher.h"
 #import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
-#import <AFNetworking/AFURLConnectionOperation.h>
 #import "UIView+AnimationHelper.h"
 #import "UIScrollView+Additions.h"
 
@@ -223,27 +222,6 @@ static CGFloat WLRefresherContentSize = 44.0f;
         self.strokeLayer.strokeColor = [UIColor whiteColor].CGColor;
         self.arrowView.layer.borderColor = [UIColor whiteColor].CGColor;
     }
-}
-
-
-- (void)setOperation:(AFURLConnectionOperation *)operation {
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter removeObserver:self name:AFNetworkingOperationDidFinishNotification object:nil];
-    
-    if (operation) {
-        if (![operation isFinished]) {
-            if (![operation isExecuting]) {
-                [self setRefreshing:NO animated:YES];
-            }
-            [notificationCenter addObserver:self selector:@selector(af_endRefreshing) name:AFNetworkingOperationDidFinishNotification object:operation];
-        }
-    }
-}
-
-- (void)af_endRefreshing {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self setRefreshing:NO animated:YES];
-    });
 }
 
 @end

@@ -62,3 +62,4 @@ static NSString* WLPhoneKey = @"phone_number";
 static NSString* WLPasswordKey = @"password";
 static NSString* WLEnvironment = @"WLAPIEnvironment";
 static NSString* WLCommentCountKey = @"comment_count";
+static NSString* WLUIDKey = @"uid";

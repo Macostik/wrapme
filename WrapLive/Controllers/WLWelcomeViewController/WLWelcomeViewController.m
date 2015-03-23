@@ -22,7 +22,7 @@
 #import "WLUser.h"
 #import "WLWelcomeViewController.h"
 #import "UIViewController+Additions.h"
-#import "WLRemoteObjectHandler.h"
+#import "WLRemoteEntryHandler.h"
 
 typedef enum : NSUInteger {
     WLFlipDirectionLeft,

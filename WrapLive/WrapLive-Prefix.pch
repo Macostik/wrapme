@@ -17,4 +17,5 @@
     #import "SupportHeaders.h"
     #import "WLLogger.h"
     #import "WLLocalization.h"
+    #import <WrapLiveKit/WrapLiveKit.h>
 #endif

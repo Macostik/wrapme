@@ -23,7 +23,7 @@
 #import "NSObject+NibAdditions.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "WLAuthorizationRequest.h"
-#import "WLRemoteObjectHandler.h"
+#import "WLRemoteEntryHandler.h"
 #import "WLHomeViewController.h"
 #import "iVersion.h"
 #import "WLLaunchScreenViewController.h"
@@ -147,7 +147,7 @@
 
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    [url handleRemoteObject];
+    [[WLRemoteEntryHandler sharedHandler] presentEntryFromURL:url];
     return YES;
 }
 

@@ -14,6 +14,8 @@
 #import "WLAuthorization.h"
 #import "WLNotificationCenter.h"
 #import "WLEntryManager.h"
+#import "WLCryptographer.h"
+#import "NSUserDefaults+WLAppGroup.h"
 
 static NSString* WLSessionServiceName = @"WrapLive";
 static NSString* WLSessionAccountName = @"WrapLiveAccount";
@@ -36,24 +38,26 @@ static NSString* WLSessionAppVersionKey = @"wrapLiveVersion";
 static WLAuthorization* _authorization = nil;
 
 + (WLAuthorization *)authorization {
-	if (!_authorization) {
-		_authorization = [WLAuthorization unarchive:[self object:WLSessionAuthorizationKey]];
-	}
+    if (!_authorization) {
+        _authorization = [WLAuthorization unarchive:[WLCryptographer decryptData:[[NSUserDefaults appGroupUserDefaults] objectForKey:WLAppGroupEncryptedAuthorization]]];
+    }
     if (!_authorization) {
         _authorization = [[WLAuthorization alloc] init];
     }
-	return _authorization;
+    return _authorization;
 }
 
 + (void)setAuthorization:(WLAuthorization *)authorization {
-	_authorization = authorization;
-	if (authorization) {
-		[authorization archive:^(NSData *data) {
-			[self setObject:data key:WLSessionAuthorizationKey];
-		}];
-	} else {
-		[self setObject:nil key:WLSessionAuthorizationKey];
-	}
+    _authorization = authorization;
+    if (authorization) {
+        [authorization archive:^(NSData *data) {
+            NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
+            [userDefaults setObject:[WLCryptographer encryptData:data] forKey:WLAppGroupEncryptedAuthorization];
+            [userDefaults synchronize];
+        }];
+    } else {
+        [self setObject:nil key:WLSessionAuthorizationKey];
+    }
 }
 
 + (NSString *)UDID {

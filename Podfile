@@ -3,7 +3,7 @@ platform :ios, '7.0'
 
 xcodeproj 'WrapLive.xcodeproj'
 
-link_with ['WrapLive-Development', 'WrapLive-QA', 'WrapLive-Beta', 'WrapLive-Production', 'WLTodayExtension']
+link_with ['WrapLiveKit', 'WrapLive-Development', 'WrapLive-QA', 'WrapLive-Beta', 'WrapLive-Production', 'WrapLiveToday-Development', 'WrapLiveToday-Production', 'WrapLiveWatchKitExtension-Development', 'WrapLiveWatchKitExtension-Production']
 
 pod 'AFNetworking', '~> 2.0'
 pod 'OpenUDID'

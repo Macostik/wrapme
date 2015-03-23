@@ -8,8 +8,10 @@
 
 #import "WLUser+Extended.h"
 #import "WLEntryManager.h"
-#import "WLNotificationCenter.h"
 #import "WLAuthorization.h"
+#ifndef WRAPLIVE_KIT_TARGET
+#import "WLNotificationCenter.h"
+#endif
 
 @implementation WLUser (Extended)
 
@@ -123,7 +125,10 @@ static NSString *_combinedIdentifier = nil;
     if (user) {
         WLAuthorization *authorization = [WLAuthorization currentAuthorization];
         _combinedIdentifier = [NSString stringWithFormat:@"%@-%@", user.identifier, authorization.deviceUID];
+#ifndef WRAPLIVE_KIT_TARGET
         [[WLNotificationCenter defaultCenter] subscribe];
+#endif
+        
     }
 }
 

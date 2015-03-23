@@ -73,6 +73,17 @@
     return [self stringByReplacingCharactersInRange:range withString:[[self substringWithRange:range] capitalizedString]];
 }
 
+- (NSDictionary *)URLQueryParameters {
+    NSString *query = [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in [query componentsSeparatedByString:@"&"]) {
+        NSArray *components = [pair componentsSeparatedByString:@"="];
+        if([components count] < 2) continue;
+        parameters[components[0]] = components[1];
+    }
+    return [parameters copy];
+}
+
 @end
 
 @implementation NSNumber (Additions)

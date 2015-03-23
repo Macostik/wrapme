@@ -46,7 +46,7 @@
 #import "WLWrapViewController.h"
 #import "WLWrapsRequest.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "WLRemoteObjectHandler.h"
+#import "WLRemoteEntryHandler.h"
 #import "WLPickerViewController.h"
 #import "WLEditWrapViewController.h"
 #import "WLUploadingView.h"
@@ -183,7 +183,7 @@
     [self.dataProvider reload];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];
-    [WLRemoteObjectHandler sharedObject].isLoaded = [self isViewLoaded];
+    [WLRemoteEntryHandler sharedHandler].isLoaded = [self isViewLoaded];
     [self.uploadingView update];
 }
 

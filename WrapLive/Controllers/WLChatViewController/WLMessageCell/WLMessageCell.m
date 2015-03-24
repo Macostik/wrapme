@@ -92,7 +92,7 @@
         constraintValue = MIN(constraintValue, [self constraintForWidth:nameWidth]);
     }
     self.textViewConstraint.constant = MIN(constraintValue, [self constraintForWidth:timeWidth]);
-    [self setNeedsLayout];
+    [self layoutIfNeeded];
 }
 
 - (CGFloat)constraintForWidth:(CGFloat)width {

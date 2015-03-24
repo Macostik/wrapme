@@ -69,7 +69,7 @@
     self.removeButton.hidden = !deletable;
     WLUser *user = self.entry;
     self.resendInviteButton.hidden = !user.isInvited;
-    
+    self.removeButtonLeadingConstraint.constant = deletable ? 0 : -self.removeButton.width;
     [self.resendInviteSpinner stopAnimating];
     
     if (self.resendInviteButton.hidden) {
@@ -85,9 +85,11 @@
 }
 
 - (void)setInvitedState:(BOOL)invited {
+    
     self.resendInviteDoneButton.hidden = !invited;
     [self.resendInviteButton setTitle:invited ? @"" : @"Resend\ninvite" forState:UIControlStateNormal];
     self.resendInviteButton.userInteractionEnabled = !invited;
+  
 }
 
 - (IBAction)toggleSideMenu:(id)sender {

@@ -307,6 +307,7 @@
     __weak __typeof(self)weakSelf = self;
     WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
     [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
+        if (wrap.isFirstCreated) [wrap present:NO];
         stillPictureViewController.wrap = wrap;
         [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
     }];
@@ -352,6 +353,7 @@
 - (void)createWrapWithStillPictureViewController:(WLStillPictureViewController*)stillPictureViewController {
     WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
     [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
+        if (wrap.isFirstCreated) [wrap present:NO];
         stillPictureViewController.wrap = wrap;
         [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
     }];

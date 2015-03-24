@@ -49,12 +49,7 @@
     [[WLContributorsRequest request:@[contact]] send:^(id object) {
         sender.loading = NO;
 		if ([object count]) {
-			NSError* error = [weakSelf.delegate inviteViewController:weakSelf didInviteContact:contact];
-            if (error) {
-                [error show];
-            } else {
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-            }
+			[weakSelf.delegate inviteViewController:weakSelf didInviteContact:contact];
 		}
         weakSelf.view.userInteractionEnabled = YES;
     } failure:^(NSError *error) {

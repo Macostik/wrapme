@@ -80,7 +80,7 @@
     self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
     [self.addressBook addRecords:cachedRecords];
     for (WLAddressBookRecord *record in self.invitedRecords) {
-        [self.addressBook addUniqueRecord:record completion:nil];
+        [self.addressBook addUniqueRecord:record success:nil failure:nil];
     }
     self.addressBook.selectedPhoneNumbers = [oldAddressBook.selectedPhoneNumbers map:^id (WLAddressBookPhoneNumber *phoneNumber) {
         return [self.addressBook phoneNumberIdenticalTo:phoneNumber];
@@ -228,9 +228,11 @@ const static CGFloat WLDefaultHeight = 72.0f;
 
 #pragma mark - WLInviteViewControllerDelegate
 
-- (NSError *)inviteViewController:(WLInviteViewController *)controller didInviteContact:(WLAddressBookRecord *)contact {
+- (void)inviteViewController:(WLInviteViewController *)controller didInviteContact:(WLAddressBookRecord *)contact {
     __weak typeof(self)weakSelf = self;
-    return [self.addressBook addUniqueRecord:contact completion:^(BOOL exists, WLAddressBookRecord *record, WLArrangedAddressBookGroup *group) {
+    [self.addressBook addUniqueRecord:contact success:^(BOOL exists, NSArray *records, NSArray *groups) {
+        WLAddressBookRecord *record = [records lastObject];
+        WLArrangedAddressBookGroup *group = [groups lastObject];
         if (!exists) {
             [weakSelf.invitedRecords addObject:record];
         }
@@ -240,9 +242,12 @@ const static CGFloat WLDefaultHeight = 72.0f;
         NSUInteger row = [group.records indexOfObject:record];
         if (row != NSNotFound && section != NSNotFound) {
             [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]
-                                  atScrollPosition:UITableViewScrollPositionMiddle
-                                          animated:YES];
+                                      atScrollPosition:UITableViewScrollPositionMiddle
+                                              animated:NO];
         }
+        [weakSelf.navigationController popToViewController:weakSelf animated:YES];
+    } failure:^(NSError *error) {
+        [error show];
     }];
 }
 

@@ -88,17 +88,14 @@ static NSDate *lastAssetCreationDate = nil;
     
     if (count == 0) return;
     
-    while (count > 0) {
-        NSString* url = count % 2 == 0 ? @"https://placeimg.com/640/1136/any" : @"https://placeimg.com/1136/640/any";
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [[ALAssetsLibrary library] saveImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] toAlbum:@"for testing" completion:^(NSURL *assetURL, NSError *error) {
-                [self addDemoImages:count - 1];
-            } failure:^(NSError *error) {
-                
-            }];
-        });
-        count--;
-    }
+    NSString* url = count % 2 == 0 ? @"https://placeimg.com/640/1136/any" : @"https://placeimg.com/1136/640/any";
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[ALAssetsLibrary library] saveImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] toAlbum:@"for testing" completion:^(NSURL *assetURL, NSError *error) {
+            [self addDemoImages:count - 1];
+        } failure:^(NSError *error) {
+            
+        }];
+    });
 }
 
 #pragma mark - Public Methods

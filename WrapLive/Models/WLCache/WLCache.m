@@ -123,8 +123,8 @@
     
 	dispatch_async(self.queue, ^{
         [self write:identifier object:object];
-        [self.identifiers addObject:identifier];
 		run_in_main_queue(^{
+            [self.identifiers addObject:identifier];
 			if (completion) {
 				completion(identifier);
 			}

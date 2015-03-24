@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -10,9 +10,9 @@
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Bold.ttf">
             <string>OpenSans-Bold</string>
-            <string>OpenSans-Bold</string>
         </mutableArray>
         <mutableArray key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
@@ -1565,27 +1565,27 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh" customClass="WLTouchView">
-                                <rect key="frame" x="156" y="64" width="160" height="66"/>
+                                <rect key="frame" x="126" y="64" width="190" height="66"/>
                                 <subviews>
                                     <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-EK-LgH" customClass="WLTriangleView">
-                                        <rect key="frame" x="132" y="1" width="16" height="9"/>
+                                        <rect key="frame" x="162" y="1" width="16" height="9"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="DYD-eK-tIS"/>
                                         </constraints>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohz-Ik-QZ1">
-                                        <rect key="frame" x="0.0" y="10" width="160" height="56"/>
+                                        <rect key="frame" x="0.0" y="10" width="190" height="56"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ka-0F-dc5" customClass="WLLabel">
-                                                <rect key="frame" x="10" y="10" width="140" height="36"/>
+                                                <rect key="frame" x="10" y="10" width="170" height="36"/>
                                                 <string key="text">Create wrap is easy!
 Tap here to start.</string>
-                                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="13"/>
+                                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
@@ -1608,7 +1608,7 @@ Tap here to start.</string>
                                     <constraint firstAttribute="height" secondItem="ohz-Ik-QZ1" secondAttribute="height" constant="10" id="1Zf-eI-94c"/>
                                     <constraint firstItem="ohz-Ik-QZ1" firstAttribute="top" secondItem="lAF-EK-LgH" secondAttribute="bottom" id="Uip-uu-OEh"/>
                                     <constraint firstAttribute="bottom" secondItem="ohz-Ik-QZ1" secondAttribute="bottom" id="a5I-H5-W7x"/>
-                                    <constraint firstAttribute="width" constant="160" id="d74-w6-AYe"/>
+                                    <constraint firstAttribute="width" constant="190" id="d74-w6-AYe"/>
                                     <constraint firstAttribute="trailing" secondItem="lAF-EK-LgH" secondAttribute="trailing" constant="12" id="fkb-Rv-alp"/>
                                     <constraint firstItem="ohz-Ik-QZ1" firstAttribute="leading" secondItem="rgB-qi-Gbh" secondAttribute="leading" id="g4n-37-sWy"/>
                                     <constraint firstItem="lAF-EK-LgH" firstAttribute="top" secondItem="rgB-qi-Gbh" secondAttribute="top" constant="1" id="tXU-hm-Jcv"/>
@@ -3226,18 +3226,14 @@ Check your internet connection and try again.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
                                 <subviews>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0rM-Ee-8of" userLabel="BackButton" customClass="WLIconButton">
-                                        <rect key="frame" x="12" y="25" width="44" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="44" id="J3i-Qn-TGN"/>
-                                            <constraint firstAttribute="height" constant="44" id="WvJ-qu-Ta2"/>
-                                        </constraints>
+                                        <rect key="frame" x="12" y="30" width="30" height="34"/>
                                         <state key="highlighted">
                                             <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="chevronCircleLeft"/>
                                             <userDefinedRuntimeAttribute type="size" keyPath="insets">
-                                                <size key="value" width="10" height="10"/>
+                                                <size key="value" width="0.0" height="0.0"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -4603,25 +4599,30 @@ Check your internet connection and try again.</string>
                                                         <constraint firstAttribute="bottom" secondItem="7dN-Y5-4Ue" secondAttribute="bottom" id="rmf-gL-5gd"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="cOS-kT-Nce">
+                                                <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="0Us-2v-GRV" customClass="WLSeparatorView">
                                                     <rect key="frame" x="0.0" y="81" width="320" height="1"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="8F0-Qe-aRW"/>
-                                                        <constraint firstAttribute="width" constant="320" id="c7H-5p-sIr"/>
+                                                        <constraint firstAttribute="height" constant="1" id="N9a-qm-fxw"/>
                                                     </constraints>
-                                                </imageView>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                            <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="cOS-kT-Nce" secondAttribute="bottom" id="5xb-Gs-cIa"/>
                                             <constraint firstAttribute="trailing" secondItem="Dbg-xV-NRk" secondAttribute="trailing" id="COO-bV-kEt"/>
                                             <constraint firstItem="Dbg-xV-NRk" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="Kl2-Pg-pLw"/>
-                                            <constraint firstAttribute="trailing" secondItem="cOS-kT-Nce" secondAttribute="trailing" id="MUo-S0-wk2"/>
                                             <constraint firstAttribute="bottom" secondItem="Dbg-xV-NRk" secondAttribute="bottom" id="PuR-bY-wLg"/>
+                                            <constraint firstAttribute="bottom" secondItem="0Us-2v-GRV" secondAttribute="bottom" id="c37-aS-GM0"/>
                                             <constraint firstItem="Dbg-xV-NRk" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" id="co2-FL-w5h"/>
-                                            <constraint firstItem="cOS-kT-Nce" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="pee-xE-MGh"/>
+                                            <constraint firstAttribute="trailing" secondItem="0Us-2v-GRV" secondAttribute="trailing" id="h4H-cl-ca7"/>
+                                            <constraint firstItem="0Us-2v-GRV" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="lph-pd-t43"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="82"/>
                                         <connections>

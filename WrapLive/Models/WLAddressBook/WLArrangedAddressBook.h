@@ -12,7 +12,8 @@
 
 @class WLWrap;
 
-typedef void (^WLArrangedAddressBookRecordHandler)(BOOL exists, WLAddressBookRecord *record, WLArrangedAddressBookGroup *group);
+typedef void (^WLArrangedAddressBookRecordHandler)(NSArray *records, NSArray *groups);
+typedef void (^WLArrangedAddressBookUniqueRecordHandler)(BOOL exists, NSArray *records, NSArray *groups);
 
 @interface WLArrangedAddressBook : NSObject
 
@@ -26,9 +27,11 @@ typedef void (^WLArrangedAddressBookRecordHandler)(BOOL exists, WLAddressBookRec
 
 - (void)addRecords:(NSArray*)records;
 
-- (NSError *)addRecord:(WLAddressBookRecord*)record;
+- (void)addRecord:(WLAddressBookRecord*)record;
 
-- (NSError *)addUniqueRecord:(WLAddressBookRecord*)record completion:(WLArrangedAddressBookRecordHandler)completion;
+- (void)addRecord:(WLAddressBookRecord*)record success:(WLArrangedAddressBookRecordHandler)success failure:(WLFailureBlock)failure;
+
+- (void)addUniqueRecord:(WLAddressBookRecord*)record success:(WLArrangedAddressBookUniqueRecordHandler)success failure:(WLFailureBlock)failure;
 
 - (WLArrangedAddressBookGroup*)groupWithRecord:(WLAddressBookRecord*)record;
 

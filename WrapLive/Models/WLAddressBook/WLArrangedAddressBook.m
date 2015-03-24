@@ -45,56 +45,76 @@
 
 - (void)addRecords:(NSArray *)records {
     for (WLAddressBookRecord* record in records) {
-        [self baseAddRecord:record];
+        [self baseAddRecord:record success:nil failure:nil];
     }
     [self sort];
 }
 
-- (NSError *)addRecord:(WLAddressBookRecord *)record {
-    NSError *error = [self baseAddRecord:record];
-    if (!error) [self sort];
-    return error;
+- (void)addRecord:(WLAddressBookRecord *)record {
+    [self addRecord:record success:nil failure:nil];
 }
 
-- (NSError *)baseAddRecord:(WLAddressBookRecord*)record {
+- (void)addRecord:(WLAddressBookRecord *)record success:(WLArrangedAddressBookRecordHandler)success failure:(WLFailureBlock)failure {
+    __weak typeof(self)weakSelf = self;
+    [self baseAddRecord:record success:^( NSArray *records, NSArray *groups) {
+        [weakSelf sort];
+        if (success) success(records, groups);
+    } failure:failure];
+}
+
+- (void)baseAddRecord:(WLAddressBookRecord*)record success:(WLArrangedAddressBookRecordHandler)success failure:(WLFailureBlock)failure {
     
     record = [WLAddressBookRecord record:record.phoneNumbers];
     
     if (!record.phoneNumbers.nonempty) {
         
-        return [NSError errorWithDescription:WLLS(@"You cannot add yourself.")];
+        if (failure) failure(WLError(WLLS(@"You cannot add yourself.")));
         
     } else if ([record.phoneNumbers count] == 1) {
         
-        [self addRecordToGroup:record];
+        WLArrangedAddressBookGroup *group = [self addRecordToGroup:record];
+        
+        if (success) success(@[record], group ? @[group] : nil);
         
     } else {
         
-        NSMutableArray *persons = [record.phoneNumbers mutableCopy];
+        NSMutableArray *groups = [NSMutableArray array];
+        NSMutableArray *records = [NSMutableArray array];
+        NSMutableArray *phoneNumbers = [record.phoneNumbers mutableCopy];
         
-        [persons removeObjectsWhileEnumerating:^BOOL(WLAddressBookPhoneNumber *person) {
-            if (person.user) {
-                [self addRecordToGroup:[WLAddressBookRecord record:@[person]]];
+        [phoneNumbers removeObjectsWhileEnumerating:^BOOL(WLAddressBookPhoneNumber *phoneNumber) {
+            if (phoneNumber.user) {
+                WLAddressBookRecord *newRecord = [WLAddressBookRecord record:@[phoneNumber]];
+                WLArrangedAddressBookGroup *group = [self addRecordToGroup:newRecord];
+                if (group) {
+                    [groups addObject:group];
+                    [records addObject:newRecord];
+                }
                 return YES;
             }
             return NO;
         }];
         
-        if (persons.nonempty) {
-            record.phoneNumbers = [persons copy];
-            [self addRecordToGroup:record];
-        } else {
-            return [NSError errorWithDescription:WLLS(@"No contact data.")];
+        if (phoneNumbers.nonempty) {
+            record.phoneNumbers = [phoneNumbers copy];
+            WLArrangedAddressBookGroup *group = [self addRecordToGroup:record];
+            if (group) {
+                [groups addObject:group];
+                [records addObject:record];
+            }
         }
+        
+        if (success) success(records, groups);
     }
-    
-    return nil;
 }
 
-- (void)addRecordToGroup:(WLAddressBookRecord *)record {
+- (WLArrangedAddressBookGroup*)addRecordToGroup:(WLAddressBookRecord *)record {
     for (WLArrangedAddressBookGroup *group in self.groups) {
-        if ([group addRecord:record]) break;
+        if ([group addRecord:record]) {
+            return group;
+        }
     }
+    return nil;
 }
 
 - (void)sort {
@@ -103,7 +123,7 @@
     }
 }
 
-- (NSError *)addUniqueRecord:(WLAddressBookRecord *)record completion:(WLArrangedAddressBookRecordHandler)completion {
+- (void)addUniqueRecord:(WLAddressBookRecord *)record success:(WLArrangedAddressBookUniqueRecordHandler)success failure:(WLFailureBlock)failure {
     WLAddressBookPhoneNumber *person = [record.phoneNumbers lastObject];
     SelectBlock selectBlock = ^BOOL(WLAddressBookRecord* item) {
         for (WLAddressBookPhoneNumber* _person in item.phoneNumbers) {
@@ -117,15 +137,13 @@
     for (WLArrangedAddressBookGroup *group in self.groups) {
         WLAddressBookRecord *record = [group.records selectObject:selectBlock];
         if (record) {
-            if (completion) completion(YES, record, group);
-            return nil;
+            if (success) success(YES, @[record], @[group]);
+            return;
         }
     }
-    NSError *error = [self addRecord:record];
-    if (!error && completion) {
-        completion(NO, record, [self groupWithRecord:record]);
-    }
-    return error;
+    [self addRecord:record success:^(NSArray *records, NSArray *groups) {
+        if (success) success(NO, records, groups);
+    } failure:failure];
 }
 
 - (WLArrangedAddressBookGroup *)groupWithRecord:(WLAddressBookRecord *)record {

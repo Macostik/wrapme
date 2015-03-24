@@ -10,9 +10,9 @@
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Bold.ttf">
             <string>OpenSans-Bold</string>
-            <string>OpenSans-Bold</string>
         </mutableArray>
         <mutableArray key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
@@ -1565,27 +1565,27 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh" customClass="WLTouchView">
-                                <rect key="frame" x="156" y="64" width="160" height="66"/>
+                                <rect key="frame" x="126" y="64" width="190" height="66"/>
                                 <subviews>
                                     <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-EK-LgH" customClass="WLTriangleView">
-                                        <rect key="frame" x="132" y="1" width="16" height="9"/>
+                                        <rect key="frame" x="162" y="1" width="16" height="9"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="DYD-eK-tIS"/>
                                         </constraints>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohz-Ik-QZ1">
-                                        <rect key="frame" x="0.0" y="10" width="160" height="56"/>
+                                        <rect key="frame" x="0.0" y="10" width="190" height="56"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ka-0F-dc5" customClass="WLLabel">
-                                                <rect key="frame" x="10" y="10" width="140" height="36"/>
+                                                <rect key="frame" x="10" y="10" width="170" height="36"/>
                                                 <string key="text">Create wrap is easy!
 Tap here to start.</string>
-                                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="13"/>
+                                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
@@ -1608,7 +1608,7 @@ Tap here to start.</string>
                                     <constraint firstAttribute="height" secondItem="ohz-Ik-QZ1" secondAttribute="height" constant="10" id="1Zf-eI-94c"/>
                                     <constraint firstItem="ohz-Ik-QZ1" firstAttribute="top" secondItem="lAF-EK-LgH" secondAttribute="bottom" id="Uip-uu-OEh"/>
                                     <constraint firstAttribute="bottom" secondItem="ohz-Ik-QZ1" secondAttribute="bottom" id="a5I-H5-W7x"/>
-                                    <constraint firstAttribute="width" constant="160" id="d74-w6-AYe"/>
+                                    <constraint firstAttribute="width" constant="190" id="d74-w6-AYe"/>
                                     <constraint firstAttribute="trailing" secondItem="lAF-EK-LgH" secondAttribute="trailing" constant="12" id="fkb-Rv-alp"/>
                                     <constraint firstItem="ohz-Ik-QZ1" firstAttribute="leading" secondItem="rgB-qi-Gbh" secondAttribute="leading" id="g4n-37-sWy"/>
                                     <constraint firstItem="lAF-EK-LgH" firstAttribute="top" secondItem="rgB-qi-Gbh" secondAttribute="top" constant="1" id="tXU-hm-Jcv"/>

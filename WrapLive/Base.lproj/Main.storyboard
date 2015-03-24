@@ -4598,25 +4598,30 @@ Check your internet connection and try again.</string>
                                                         <constraint firstAttribute="bottom" secondItem="7dN-Y5-4Ue" secondAttribute="bottom" id="rmf-gL-5gd"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="cOS-kT-Nce">
+                                                <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="0Us-2v-GRV" customClass="WLSeparatorView">
                                                     <rect key="frame" x="0.0" y="81" width="320" height="1"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="8F0-Qe-aRW"/>
-                                                        <constraint firstAttribute="width" constant="320" id="c7H-5p-sIr"/>
+                                                        <constraint firstAttribute="height" constant="1" id="N9a-qm-fxw"/>
                                                     </constraints>
-                                                </imageView>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                            <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="cOS-kT-Nce" secondAttribute="bottom" id="5xb-Gs-cIa"/>
                                             <constraint firstAttribute="trailing" secondItem="Dbg-xV-NRk" secondAttribute="trailing" id="COO-bV-kEt"/>
                                             <constraint firstItem="Dbg-xV-NRk" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="Kl2-Pg-pLw"/>
-                                            <constraint firstAttribute="trailing" secondItem="cOS-kT-Nce" secondAttribute="trailing" id="MUo-S0-wk2"/>
                                             <constraint firstAttribute="bottom" secondItem="Dbg-xV-NRk" secondAttribute="bottom" id="PuR-bY-wLg"/>
+                                            <constraint firstAttribute="bottom" secondItem="0Us-2v-GRV" secondAttribute="bottom" id="c37-aS-GM0"/>
                                             <constraint firstItem="Dbg-xV-NRk" firstAttribute="top" secondItem="XAQ-cw-yjZ" secondAttribute="top" id="co2-FL-w5h"/>
-                                            <constraint firstItem="cOS-kT-Nce" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="pee-xE-MGh"/>
+                                            <constraint firstAttribute="trailing" secondItem="0Us-2v-GRV" secondAttribute="trailing" id="h4H-cl-ca7"/>
+                                            <constraint firstItem="0Us-2v-GRV" firstAttribute="leading" secondItem="XAQ-cw-yjZ" secondAttribute="leading" id="lph-pd-t43"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="82"/>
                                         <connections>

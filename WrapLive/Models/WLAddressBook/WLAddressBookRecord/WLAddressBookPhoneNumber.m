@@ -38,7 +38,7 @@
 }
 
 - (WLPicture *)priorityPicture {
-    if (_user.picture) {
+    if (_user.picture.small.nonempty) {
         return _user.picture;
     } else {
         return _picture;

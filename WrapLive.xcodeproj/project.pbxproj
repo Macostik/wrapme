@@ -6921,7 +6921,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "62f571b3-35bf-435a-844c-9e684fbaed91";
+				PROVISIONING_PROFILE = "27e478aa-ff9e-4a11-84ac-c57751ded8ef";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6986,7 +6986,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f7b9650f-5b23-4609-b37a-2c816a8122c1";
+				PROVISIONING_PROFILE = "5abdd8c5-237c-45af-99af-494fbcd73303";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -7035,7 +7035,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = WLTodayExtension_Production;
-				PROVISIONING_PROFILE = "aabbaac6-450c-4784-85d6-84ed5b0b882b";
+				PROVISIONING_PROFILE = "f1daeb20-1826-4e00-992a-66ab74d97aae";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -7096,7 +7096,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "62f571b3-35bf-435a-844c-9e684fbaed91";
+				PROVISIONING_PROFILE = "27e478aa-ff9e-4a11-84ac-c57751ded8ef";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -7172,7 +7172,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "62f571b3-35bf-435a-844c-9e684fbaed91";
+				PROVISIONING_PROFILE = "27e478aa-ff9e-4a11-84ac-c57751ded8ef";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -7385,7 +7385,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "de189f85-14ea-4a8a-b017-f9ac69ddd663";
+				PROVISIONING_PROFILE = "16f5ac03-80af-4eed-8837-0115e9d90e55";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -7423,7 +7423,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "de189f85-14ea-4a8a-b017-f9ac69ddd663";
+				PROVISIONING_PROFILE = "16f5ac03-80af-4eed-8837-0115e9d90e55";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -7460,7 +7460,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "de189f85-14ea-4a8a-b017-f9ac69ddd663";
+				PROVISIONING_PROFILE = "16f5ac03-80af-4eed-8837-0115e9d90e55";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -7534,7 +7534,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6f04570b-2969-42c1-a5f0-8a974d266f4e";
+				PROVISIONING_PROFILE = "2a47cef9-3068-41ab-b483-4c94e1459bfc";
 				SKIP_INSTALL = YES;
 			};
 			name = AdHoc;
@@ -7558,7 +7558,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = WLTodayExtension_Production;
-				PROVISIONING_PROFILE = "db55b54c-da02-43b4-a047-e4fc8f0a82c7";
+				PROVISIONING_PROFILE = "c97e9f04-76f0-4125-934c-03385212b255";
 				SKIP_INSTALL = YES;
 			};
 			name = AdHoc;

@@ -106,7 +106,7 @@ CGFloat WLMaxTextViewWidth;
     
     self.messageFont = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
     
-    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - WLAvatarWidth - 2*WLMessageHorizontalInset - WLAvatarLeading;
+    WLMaxTextViewWidth = WLConstants.screenWidth - WLAvatarWidth - 2*WLMessageHorizontalInset - WLAvatarLeading;
     
 	__weak typeof(self)weakSelf = self;
     [self.wrap fetchIfNeeded:^(id object) {
@@ -420,7 +420,7 @@ CGFloat WLMaxTextViewWidth;
     if (showDay) {
         [self.itemsWithDay addIndex:indexPath.item];
     }
-    return CGSizeMake(collectionView.width, [self heightOfMessageCell:message containsName:containsName showDay:showDay]);
+    return CGSizeMake(WLConstants.screenWidth, [self heightOfMessageCell:message containsName:containsName showDay:showDay]);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {

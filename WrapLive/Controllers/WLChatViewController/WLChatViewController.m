@@ -440,7 +440,7 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - WLFontPresetterReceiver
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
-    self.messageFont = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
+    self.messageFont = [self.messageFont preferredFontWithPreset:WLFontPresetSmall];
     [self.collectionView reloadData];
 }
 

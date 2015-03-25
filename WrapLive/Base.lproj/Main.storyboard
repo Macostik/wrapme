@@ -3863,10 +3863,10 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPa-oY-X5B">
-                                                    <rect key="frame" x="154" y="0.0" width="94" height="48"/>
+                                                    <rect key="frame" x="149" y="0.0" width="99" height="48"/>
                                                     <subviews>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="v2z-k0-EKs" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="0.0" width="84" height="18"/>
+                                                            <rect key="frame" x="5" y="0.0" width="89" height="18"/>
                                                             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="0.95000000000000007" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="3ZA-16-ynZ"/>
@@ -3879,7 +3879,7 @@ Check your internet connection and try again.</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="Lc4-Kr-oEr" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="30" width="84" height="18"/>
+                                                            <rect key="frame" x="5" y="30" width="89" height="18"/>
                                                             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="0.95000000000000007" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="hyK-3z-Pv9"/>
@@ -3891,8 +3891,8 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="b58-hK-T5O" customClass="TTTAttributedLabel">
-                                                            <rect key="frame" x="5" y="0.0" width="84" height="30"/>
+                                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="message text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b58-hK-T5O" customClass="TTTAttributedLabel">
+                                                            <rect key="frame" x="5" y="0.0" width="89" height="30"/>
                                                             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="0.95000000000000007" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                             <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
@@ -3912,7 +3912,7 @@ Check your internet connection and try again.</string>
                                                             </constraints>
                                                         </imageView>
                                                         <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chat_bubble_gray_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="CWO-21-w70">
-                                                            <rect key="frame" x="89" y="0.0" width="5" height="48"/>
+                                                            <rect key="frame" x="94" y="0.0" width="5" height="48"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="5" id="3Nr-3j-f4c"/>
@@ -3952,7 +3952,7 @@ Check your internet connection and try again.</string>
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="WPa-oY-X5B" secondAttribute="trailing" constant="72" id="2bH-dA-dFp"/>
-                                            <constraint firstItem="WPa-oY-X5B" firstAttribute="leading" secondItem="blg-MX-zu0" secondAttribute="leading" constant="154" id="He6-pr-Jey"/>
+                                            <constraint firstItem="WPa-oY-X5B" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="blg-MX-zu0" secondAttribute="leading" constant="12" id="He6-pr-Jey"/>
                                             <constraint firstAttribute="trailing" secondItem="nCf-It-uXS" secondAttribute="trailing" constant="12" id="Vg9-TM-3jX"/>
                                             <constraint firstItem="cGF-9C-FfY" firstAttribute="bottom" secondItem="nCf-It-uXS" secondAttribute="bottom" constant="-5" id="Vww-Dt-u6n"/>
                                             <constraint firstAttribute="centerX" secondItem="Bcm-eM-Zwh" secondAttribute="centerX" id="YOg-ai-60R"/>
@@ -3971,7 +3971,6 @@ Check your internet connection and try again.</string>
                                             <outlet property="rightBubble" destination="CWO-21-w70" id="lHk-Fi-yjy"/>
                                             <outlet property="tailView" destination="cGF-9C-FfY" id="bKB-hH-Hr2"/>
                                             <outlet property="textLabel" destination="b58-hK-T5O" id="AdR-pc-D0X"/>
-                                            <outlet property="textViewConstraint" destination="He6-pr-Jey" id="aVf-Pm-ud5"/>
                                             <outlet property="timeLabel" destination="Lc4-Kr-oEr" id="2g9-Gw-WTT"/>
                                             <outlet property="topAvatarConstraint" destination="gak-WX-KfC" id="hd4-sX-9NL"/>
                                             <outlet property="topTextLabelConstraint" destination="fbp-LK-KLA" id="Bjy-nV-oC7"/>
@@ -4007,10 +4006,10 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G61-oI-Ifc">
-                                                    <rect key="frame" x="72" y="0.0" width="94" height="48"/>
+                                                    <rect key="frame" x="72" y="0.0" width="99" height="48"/>
                                                     <subviews>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="HUe-Pv-h6W" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="0.0" width="84" height="18"/>
+                                                            <rect key="frame" x="5" y="0.0" width="89" height="18"/>
                                                             <color key="backgroundColor" red="0.9882352941176471" green="0.60784313725490191" blue="0.35294117647058826" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="Hbg-Q9-5nW"/>
@@ -4022,8 +4021,8 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <label userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="90G-xG-qIL" customClass="TTTAttributedLabel">
-                                                            <rect key="frame" x="5" y="0.0" width="84" height="30"/>
+                                                        <label userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="message text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90G-xG-qIL" customClass="TTTAttributedLabel">
+                                                            <rect key="frame" x="5" y="0.0" width="89" height="30"/>
                                                             <color key="backgroundColor" red="0.9882352941176471" green="0.60784313725490191" blue="0.35294117647058826" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                             <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
@@ -4043,14 +4042,14 @@ Check your internet connection and try again.</string>
                                                             </constraints>
                                                         </imageView>
                                                         <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chat_bubble_red_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="kCd-6X-09D">
-                                                            <rect key="frame" x="89" y="0.0" width="5" height="48"/>
+                                                            <rect key="frame" x="94" y="0.0" width="5" height="48"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="5" id="xrH-gU-py0"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="BDu-zS-cNB" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="30" width="84" height="18"/>
+                                                            <rect key="frame" x="5" y="30" width="89" height="18"/>
                                                             <color key="backgroundColor" red="0.9882352941176471" green="0.60784313725490191" blue="0.35294117647058826" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="gl7-xO-GdU"/>
@@ -4102,7 +4101,7 @@ Check your internet connection and try again.</string>
                                             <constraint firstItem="pMb-Ne-nj5" firstAttribute="bottom" secondItem="YII-6v-9r6" secondAttribute="bottom" constant="-5" id="NUN-iu-DGA"/>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="12" id="XTb-o9-EII"/>
                                             <constraint firstItem="G61-oI-Ifc" firstAttribute="leading" secondItem="pMb-Ne-nj5" secondAttribute="trailing" id="ZQ9-US-Pnc"/>
-                                            <constraint firstAttribute="trailing" secondItem="G61-oI-Ifc" secondAttribute="trailing" constant="154" id="bkP-if-RMm"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="G61-oI-Ifc" secondAttribute="trailing" constant="12" id="bkP-if-RMm"/>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" id="cox-Pp-syl"/>
                                             <constraint firstItem="G61-oI-Ifc" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="72" id="fmO-B5-DX8"/>
                                         </constraints>
@@ -4115,7 +4114,6 @@ Check your internet connection and try again.</string>
                                             <outlet property="rightBubble" destination="kCd-6X-09D" id="Syh-WG-qOu"/>
                                             <outlet property="tailView" destination="pMb-Ne-nj5" id="RbX-EU-XKR"/>
                                             <outlet property="textLabel" destination="90G-xG-qIL" id="vs4-eF-9tl"/>
-                                            <outlet property="textViewConstraint" destination="bkP-if-RMm" id="N8k-RA-lrW"/>
                                             <outlet property="timeLabel" destination="BDu-zS-cNB" id="cbS-YG-Anp"/>
                                             <outlet property="topAvatarConstraint" destination="cox-Pp-syl" id="Ths-oC-0x2"/>
                                             <outlet property="topTextLabelConstraint" destination="lZq-j3-Mco" id="ANA-He-xWP"/>

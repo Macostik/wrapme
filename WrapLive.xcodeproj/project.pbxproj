@@ -4670,7 +4670,6 @@
 				12A7A6FD18DA0945008FF6F0 /* Resources */,
 				635DA26797604B1F927001E0 /* Copy Pods Resources */,
 				5B787DAC1A27876F004AE459 /* Embed App Extensions */,
-				C5D41CF61AB1FD2400990944 /* NewRelic upload dSym */,
 			);
 			buildRules = (
 			);
@@ -5444,20 +5443,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		C5D41CF61AB1FD2400990944 /* NewRelic upload dSym */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "NewRelic upload dSym";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AA55a96d2575ba2f5c16268eb56c94e91264d5236b\"";
 		};
 		C5D41CF71AB1FD5800990944 /* NewRelic upload dSym */ = {
 			isa = PBXShellScriptBuildPhase;

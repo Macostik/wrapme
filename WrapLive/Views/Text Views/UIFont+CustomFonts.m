@@ -78,6 +78,8 @@
 }
 
 + (UIFont*)preferredFontWithName:(NSString *)fontName preset:(NSString *)preset {
+    return [UIFont fontWithDescriptor:[UIFontDescriptor fontDescriptorWithFontAttributes:@{UIFontDescriptorNameAttribute:fontName,UIFontWeightTrait:@(UIFontWeightLight)}] size:[self preferredSizeWithPreset:preset]];
+    
     return [self fontWithName:fontName size:[self preferredSizeWithPreset:preset]];
 }
 

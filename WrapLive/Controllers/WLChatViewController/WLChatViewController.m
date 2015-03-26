@@ -128,7 +128,6 @@ CGFloat WLMaxTextViewWidth;
 	self.backSwipeGestureEnabled = YES;
 	
     [[WLMessage notifier] addReceiver:self];
-    [[WLWrap notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLFontPresetter presetter] addReceiver:self];
 }
@@ -277,10 +276,6 @@ CGFloat WLMaxTextViewWidth;
     [self.chat addEntry:message];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
     return self.wrap;
 }
@@ -306,16 +301,19 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - WLComposeBarDelegate
 
 - (void)sendMessageWithText:(NSString*)text {
-    if (self.wrap.invalid) return;
-    __weak typeof(self)weakSelf = self;
-    [self.wrap uploadMessage:text success:^(WLMessage *message) {
-		[weakSelf.collectionView setMinimumContentOffsetAnimated:YES];
-        [WLSoundPlayer playSound:WLSound_s04];
-    } failure:^(NSError *error) {
-		[error show];
-        [weakSelf.composeBar performSelector:@selector(setText:) withObject:text afterDelay:0.0f];
-    }];
-    [weakSelf.collectionView setMinimumContentOffsetAnimated:YES];
+    if (self.wrap.valid) {
+        __weak typeof(self)weakSelf = self;
+        [self.wrap uploadMessage:text success:^(WLMessage *message) {
+            [weakSelf.collectionView setMinimumContentOffsetAnimated:YES];
+            [WLSoundPlayer playSound:WLSound_s04];
+        } failure:^(NSError *error) {
+            [error show];
+            [weakSelf.composeBar performSelector:@selector(setText:) withObject:text afterDelay:0.0f];
+        }];
+        [self.collectionView setMinimumContentOffsetAnimated:YES];
+    } else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {

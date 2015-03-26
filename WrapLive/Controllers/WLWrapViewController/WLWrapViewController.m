@@ -86,6 +86,17 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
 
 @implementation WLWrapViewController
 
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        [[WLWrap notifier] addReceiver:self];
+        [[WLCandy notifier] addReceiver:self];
+        [[WLMessage notifier] addReceiver:self];
+        [[WLNetwork network] addReceiver:self];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     
     self.historyViewSection.defaultHeaderSize = CGSizeZero;
@@ -107,11 +118,6 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     self.historyViewSection.entries = self.history;
     
     [self.dataProvider setRefreshableWithStyle:WLRefresherStyleOrange];
-    
-    [[WLWrap notifier] addReceiver:self];
-	[[WLCandy notifier] addReceiver:self];
-	[[WLMessage notifier] addReceiver:self];
-    [[WLNetwork network] addReceiver:self];
     
     [self.historyViewSection setSelection:^ (id entry) {
         [entry present];

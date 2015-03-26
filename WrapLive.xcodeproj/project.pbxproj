@@ -734,6 +734,10 @@
 		C53E5D791A851F71004F61B0 /* WLFlashModeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5D5B1A851F71004F61B0 /* WLFlashModeControl.m */; };
 		C53E5D7A1A851F71004F61B0 /* WLFlashModeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5D5B1A851F71004F61B0 /* WLFlashModeControl.m */; };
 		C53E5D7B1A851F71004F61B0 /* WLFlashModeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5D5B1A851F71004F61B0 /* WLFlashModeControl.m */; };
+		C53E709A1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */; };
+		C53E709B1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */; };
+		C53E709C1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */; };
+		C53E709D1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */; };
 		C53F2CBC1A6EB5FA00D99741 /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */; };
 		C53F2CBD1A6EB5FB00D99741 /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */; };
 		C53F2CBE1A6EB5FB00D99741 /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */; };
@@ -2092,6 +2096,8 @@
 		C53E5D581A851F71004F61B0 /* WLCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCameraViewController.m; sourceTree = "<group>"; };
 		C53E5D5A1A851F71004F61B0 /* WLFlashModeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLFlashModeControl.h; sourceTree = "<group>"; };
 		C53E5D5B1A851F71004F61B0 /* WLFlashModeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLFlashModeControl.m; sourceTree = "<group>"; };
+		C53E70981AC3173500844F9F /* WLIntroductionBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIntroductionBaseViewController.h; sourceTree = "<group>"; };
+		C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIntroductionBaseViewController.m; sourceTree = "<group>"; };
 		C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
 		C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
 		C53F2CAA1A6EB5FA00D99741 /* LEBackgroundThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEBackgroundThread.h; sourceTree = "<group>"; };
@@ -3703,6 +3709,8 @@
 			children = (
 				C5111D371AB345D10094275C /* WLIntroductionViewController.h */,
 				C5111D381AB345D10094275C /* WLIntroductionViewController.m */,
+				C53E70981AC3173500844F9F /* WLIntroductionBaseViewController.h */,
+				C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */,
 			);
 			path = WLIntroductionViewController;
 			sourceTree = "<group>";
@@ -5541,6 +5549,7 @@
 				C5111D391AB345D10094275C /* WLIntroductionViewController.m in Sources */,
 				5BA60C8B1A8257ED000F795C /* NSMutableOrderedSet+Sorting.m in Sources */,
 				C51A521B1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
+				C53E709A1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */,
 				5BB04F2E19D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
 				C57005A21A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C50A677A19D978F700EC518F /* WLEntryNotifier.m in Sources */,
@@ -5845,6 +5854,7 @@
 				C5111D3A1AB345D10094275C /* WLIntroductionViewController.m in Sources */,
 				5BA60C8C1A8257ED000F795C /* NSMutableOrderedSet+Sorting.m in Sources */,
 				C51A521C1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
+				C53E709B1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */,
 				5BB04F2F19D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
 				C57005A31A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C50A677B19D978F700EC518F /* WLEntryNotifier.m in Sources */,
@@ -6119,6 +6129,7 @@
 				C5111D3B1AB345D10094275C /* WLIntroductionViewController.m in Sources */,
 				5BA60C8D1A8257ED000F795C /* NSMutableOrderedSet+Sorting.m in Sources */,
 				C51A521D1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
+				C53E709C1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */,
 				5BB04F3019D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
 				C57005A41A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C50A677C19D978F700EC518F /* WLEntryNotifier.m in Sources */,
@@ -6393,6 +6404,7 @@
 				C5111D3C1AB345D10094275C /* WLIntroductionViewController.m in Sources */,
 				5BA60C8E1A8257ED000F795C /* NSMutableOrderedSet+Sorting.m in Sources */,
 				C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
+				C53E709D1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */,
 				5BB04F3119D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
 				C57005A51A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C50A677D19D978F700EC518F /* WLEntryNotifier.m in Sources */,

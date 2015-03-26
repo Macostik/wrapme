@@ -24,10 +24,10 @@
             </objects>
             <point key="canvasLocation" x="178" y="539"/>
         </scene>
-        <!--View Controller-->
+        <!--Introduction Base View Controller-->
         <scene sceneID="YLO-D9-HGM">
             <objects>
-                <viewController storyboardIdentifier="introduction_step_1" id="erS-Rh-tGc" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="introduction_step_1" id="erS-Rh-tGc" customClass="WLIntroductionBaseViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ibp-zP-aKK"/>
                         <viewControllerLayoutGuide type="bottom" id="ANX-1w-914"/>
@@ -50,7 +50,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="eQ9-M6-DUA" kind="unwind" identifier="continueIntroduction" unwindAction="continueIntroduction:" id="4D0-hY-dsx"/>
+                                    <action selector="continueIntroduction:" destination="erS-Rh-tGc" eventType="touchUpInside" id="XhO-45-4eD"/>
                                 </connections>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhD-va-KPT" customClass="WLIconButton">
@@ -101,7 +101,6 @@
                     <size key="freeformSize" width="280" height="320"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ItT-T9-Zde" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="eQ9-M6-DUA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="538" y="539"/>
         </scene>
@@ -166,10 +165,10 @@
             </objects>
             <point key="canvasLocation" x="-178" y="539"/>
         </scene>
-        <!--View Controller-->
+        <!--Introduction Base View Controller-->
         <scene sceneID="5TA-8k-7o4">
             <objects>
-                <viewController storyboardIdentifier="introduction_step_2" id="CKX-v6-yfy" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="introduction_step_2" id="CKX-v6-yfy" customClass="WLIntroductionBaseViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RJm-b2-wPi"/>
                         <viewControllerLayoutGuide type="bottom" id="RZM-dC-3jP"/>
@@ -210,7 +209,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="rDW-8u-qgm" kind="unwind" identifier="finishIntroduction" unwindAction="finishIntroduction:" id="4Rz-Oe-mAt"/>
+                                    <action selector="finishIntroduction:" destination="CKX-v6-yfy" eventType="touchUpInside" id="quF-fT-4bS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PoY-WH-C7g" customClass="WLIconButton">
@@ -243,7 +242,6 @@
                     <size key="freeformSize" width="280" height="320"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4oP-NZ-HqW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="rDW-8u-qgm" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="538" y="905"/>
         </scene>

@@ -140,4 +140,12 @@ static NSDate *_confirmationDate = nil;
     [self setAppVersion:currentVersion];
 }
 
++ (NSUInteger)numberOfLaunches {
+    return [self integer:@"WLNumberOfLaucnhes"];
+}
+
++ (void)setNumberOfLaunches:(NSUInteger)numberOfLaunches {
+    [self setInteger:numberOfLaunches key:@"WLNumberOfLaucnhes"];
+}
+
 @end

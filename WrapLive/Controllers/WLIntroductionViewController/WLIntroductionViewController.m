@@ -8,8 +8,9 @@
 
 #import "WLIntroductionViewController.h"
 #import "NSArray+Additions.h"
+#import "WLIntroductionBaseViewController.h"
 
-@interface WLIntroductionViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface WLIntroductionViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate, WLIntroductionBaseViewControllerDelegate>
 
 @property (weak, nonatomic) UIPageViewController* pageViewController;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
@@ -25,6 +26,7 @@
     // Do any additional setup after loading the view.
     
     self.stepViewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"introduction_step_1"],[self.storyboard instantiateViewControllerWithIdentifier:@"introduction_step_2"]];
+    [self.stepViewControllers makeObjectsPerformSelector:@selector(setDelegate:) withObject:self];
     self.pageControl.numberOfPages = self.stepViewControllers.count;
     self.pageControl.currentPage = 0;
     self.pageViewController = [self.childViewControllers lastObject];
@@ -56,15 +58,10 @@
     self.pageControl.currentPage = [self.stepViewControllers indexOfObject:[pageViewController.viewControllers lastObject]];
 }
 
-// MARK: - Unwinds
+// MARK: - WLIntroductionBaseViewControllerInteractionDelegate
 
-- (UIViewController *)viewControllerForUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender {
-    [self performSelector:action withObject:sender afterDelay:0.0f];
-    return nil;
-}
-
-- (IBAction)continueIntroduction:(id)sender {
-    NSUInteger index = [self.stepViewControllers indexOfObject:[self.pageViewController.viewControllers lastObject]] + 1;
+- (void)introductionBaseViewControllerDidContinueIntroduction:(WLIntroductionBaseViewController *)controller {
+    NSUInteger index = [self.stepViewControllers indexOfObject:controller] + 1;
     UIViewController *nextController = [self.stepViewControllers tryObjectAtIndex:index];
     if (nextController) {
         [self.pageViewController setViewControllers:@[nextController] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
@@ -72,7 +69,7 @@
     }
 }
 
-- (IBAction)finishIntroduction:(id)sender {
+- (void)introductionBaseViewControllerDidFinishIntroduction:(WLIntroductionBaseViewController *)controller {
     [self.delegate introductionViewControllerDidFinish:self];
 }
 

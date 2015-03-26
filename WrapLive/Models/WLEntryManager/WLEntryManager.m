@@ -223,7 +223,11 @@
 }
 
 - (BOOL)valid {
-    return self.managedObjectContext != nil && !self.deleted;
+    return self.managedObjectContext != nil && !self.deleted && (self.containingEntry ? self.containingEntry.valid : YES);
+}
+
+- (BOOL)invalid {
+    return self.managedObjectContext == nil || self.deleted || (self.containingEntry ? self.containingEntry.invalid : NO);
 }
 
 @end

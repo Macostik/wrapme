@@ -73,8 +73,6 @@
 
 @property (nonatomic) BOOL createWrapTipHidden;
 
-@property (nonatomic) BOOL createWrapTipDelayedHiding;
-
 @end
 
 @implementation WLHomeViewController
@@ -103,11 +101,6 @@
     __weak WLHomeViewSection *section = self.section;
     section.entries.request = [WLWrapsRequest new];
     [section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
-
-    __weak typeof(self)weakSelf = self;
-    [section setChange:^(WLPaginatedSet* entries) {
-        [weakSelf handleFirstUsage];
-    }];
     
     [section setSelection:^(id entry) {
         [entry present];
@@ -120,6 +113,10 @@
     }
     
     self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];
+    
+    [WLSession setNumberOfLaunches:[WLSession numberOfLaunches] + 1];
+    
+    [self performSelector:@selector(showIntroductionIfNeeded) withObject:nil afterDelay:0.0];
 }
 
 - (void)setCreateWrapTipHidden:(BOOL)createWrapTipHidden {
@@ -128,54 +125,54 @@
         [self.createWrapTipView fade];
         self.createWrapTipView.hidden = createWrapTipHidden;
     }
-    if (!createWrapTipHidden && !self.createWrapTipDelayedHiding) {
-        [WLSession setObject:[NSDate date] key:@"WLCreateWrapTipShowDate"];
-        if ([WLUser currentUser].wraps.nonempty) {
-            self.createWrapTipDelayedHiding = YES;
-            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideCreateWrapTip) object:nil];
-            [self performSelector:@selector(hideCreateWrapTip) withObject:nil afterDelay:10.0f];
-        }
-    }
 }
 
 - (void)hideCreateWrapTip {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideCreateWrapTip) object:nil];
-    self.createWrapTipDelayedHiding = NO;
     self.createWrapTipHidden = YES;
 }
 
-- (BOOL)isCreateWrapTipHiddenWithWraps:(NSOrderedSet*)wraps {
-    if (self.createWrapTipDelayedHiding) return NO;
-    if (wraps.count == 0) return NO;
-    NSDate *createWrapTipShowDate = [WLSession object:@"WLCreateWrapTipShowDate"];
-    if (createWrapTipShowDate) {
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:createWrapTipShowDate toDate:[NSDate date] options:0];
-        return components.day < 7;
-    } else {
-        return NO;
+- (void)showCreateWrapTipIfNeeded {
+    WLUser *user = [WLUser currentUser];
+    NSOrderedSet *wraps = user.wraps;
+    NSUInteger numberOfLaunches = [WLSession numberOfLaunches];
+    
+    __weak typeof(self)weakSelf = self;
+    void (^showBlock)(void) = ^ {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            if (!weakSelf.createWrapTipHidden) return;
+            weakSelf.createWrapTipHidden = NO;
+            [weakSelf performSelector:@selector(hideCreateWrapTip) withObject:nil afterDelay:10.0f];
+        });
+    };
+    
+    if (numberOfLaunches == 1) {
+        if (!self.presentedViewController && wraps.count == 0) {
+            showBlock();
+        }
+    } else if (numberOfLaunches == 2) {
+        showBlock();
+    } else if (wraps.count == 0) {
+        showBlock();
     }
 }
 
-- (void)handleFirstUsage {
-    WLUser *user = [WLUser currentUser];
-    NSOrderedSet *wraps = user.wraps;
-    BOOL firstTimeUse = user.firstTimeUse;
-    if (firstTimeUse) {
-        static BOOL introductionShown = NO;
-        if (!introductionShown) {
-            introductionShown = YES;
-            self.createWrapTipHidden = YES;
+- (void)showIntroductionIfNeeded {
+    NSUInteger numberOfLaunches = [WLSession numberOfLaunches];
+    if (numberOfLaunches == 1) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
             WLIntroductionViewController *introduction = [[UIStoryboard storyboardNamed:WLIntroductionStoryboard] instantiateInitialViewController];
-            introduction.modalPresentationStyle = UIModalPresentationCustom;
             introduction.delegate = self;
             [self presentViewController:introduction animated:YES completion:nil];
-        } else if (!self.presentedViewController) {
-            self.createWrapTipHidden = [self isCreateWrapTipHiddenWithWraps:wraps];
-        }
-        
-    } else {
-        self.createWrapTipHidden = [self isCreateWrapTipHiddenWithWraps:wraps];
+        });
     }
+    
+    __weak typeof(self)weakSelf = self;
+    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+        [weakSelf showCreateWrapTipIfNeeded];
+        [operation finish];
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -237,7 +234,7 @@
     }
 }
 
-#pragma mark - WLWrapCellDelegate 
+// MARK: - WLWrapCellDelegate
 
 - (void)wrapCell:(WLWrapCell *)wrapCell didDeleteWrap:(WLWrap *)wrap {
     if (wrap.valid) {
@@ -252,7 +249,7 @@
     self.chatSegueWrap = wrap;
 }
 
-#pragma mark - WLEntryNotifyReceiver
+// MARK: - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
     [self updateEmailConfirmationView:YES];
@@ -281,13 +278,13 @@
 	});
 }
 
-#pragma mark - WLNotificationReceiver
+// MARK: - WLNotificationReceiver
 
 - (void)updateNotificationsLabel {
     self.notificationsLabel.intValue = [[WLUser currentUser] unreadNotificationsCount];
 }
 
-#pragma mark - Actions
+// MARK: - Actions
 
 - (IBAction)resendConfirmation:(id)sender {
     [[WLResendConfirmationRequest request] send:^(id object) {
@@ -325,7 +322,7 @@
     [self openCameraAnimated:YES startFromGallery:NO];
 }
 
-#pragma mark - WLStillPictureViewControllerDelegate
+// MARK: - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
     WLWrap* wrap = controller.wrap;
@@ -348,7 +345,7 @@
     }
 }
 
-#pragma mark - WLPickerViewDelegate
+// MARK: - WLPickerViewDelegate
 
 - (void)createWrapWithStillPictureViewController:(WLStillPictureViewController*)stillPictureViewController {
     WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
@@ -385,13 +382,17 @@
 - (void)introductionViewControllerDidFinish:(WLIntroductionViewController *)controller {
     __weak typeof(self)weakSelf = self;
     [self dismissViewControllerAnimated:YES completion:^{
-        weakSelf.createWrapTipHidden = [self isCreateWrapTipHiddenWithWraps:[WLUser currentUser].wraps];
+        runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+            [weakSelf showCreateWrapTipIfNeeded];
+            [operation finish];
+        });
     }];
 }
 
 // MARK: - WLTouchViewDelegate
 
 - (void)touchViewDidReceiveTouch:(WLTouchView *)touchView {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideCreateWrapTip) object:nil];
     [self hideCreateWrapTip];
 }
 

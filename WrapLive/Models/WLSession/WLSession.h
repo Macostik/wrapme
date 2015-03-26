@@ -66,4 +66,8 @@ static NSUserDefaults* WLUserDefaults = nil;
 
 + (void)setCurrentAppVersion;
 
++ (NSUInteger)numberOfLaunches;
+
++ (void)setNumberOfLaunches:(NSUInteger)numberOfLaunches;
+
 @end

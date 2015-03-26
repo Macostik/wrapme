@@ -50,6 +50,8 @@
 
 @property (readonly, nonatomic) BOOL valid;
 
+@property (readonly, nonatomic) BOOL invalid;
+
 + (NSEntityDescription*)entity;
 
 + (instancetype)entry:(NSString*)identifier;

@@ -70,7 +70,6 @@
     WLUser *user = self.entry;
     self.resendInviteButton.hidden = !user.isInvited;
     self.removeButtonLeadingConstraint.constant = deletable ? 0 : -self.removeButton.width;
-    
     [self.resendInviteSpinner stopAnimating];
     
     if (self.resendInviteButton.hidden) {
@@ -86,9 +85,11 @@
 }
 
 - (void)setInvitedState:(BOOL)invited {
+    
     self.resendInviteDoneButton.hidden = !invited;
     [self.resendInviteButton setTitle:invited ? @"" : @"Resend\ninvite" forState:UIControlStateNormal];
     self.resendInviteButton.userInteractionEnabled = !invited;
+  
 }
 
 - (IBAction)toggleSideMenu:(id)sender {
@@ -105,6 +106,7 @@
     if (animated) {
         __weak typeof(self)weakSelf = self;
         [UIView animateWithDuration:0.5 delay:0.0f usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            weakSelf.removeButtonLeadingConstraint.constant = weakSelf.deletable ? 0 : -self.removeButton.width;
             [weakSelf layoutIfNeeded];
         } completion:^(BOOL finished) {
         }];

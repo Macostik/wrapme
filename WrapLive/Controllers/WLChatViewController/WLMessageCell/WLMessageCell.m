@@ -25,7 +25,6 @@
 
 @interface WLMessageCell () <TTTAttributedLabelDelegate>
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewConstraint;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -82,21 +81,6 @@
     }
     
     self.textLabel.text = message.text;
-    
-    CGSize maxSize = CGSizeMake(WLMaxTextViewWidth, CGFLOAT_MAX);
-    CGFloat textWidth = [self.textLabel sizeThatFits:maxSize].width;
-    CGFloat timeWidth = [self.timeLabel sizeThatFits:maxSize].width;
-    CGFloat constraintValue = [self constraintForWidth:textWidth];
-    if (_showName) {
-        CGFloat nameWidth = [self.nameLabel sizeThatFits:maxSize].width;
-        constraintValue = MIN(constraintValue, [self constraintForWidth:nameWidth]);
-    }
-    self.textViewConstraint.constant = MIN(constraintValue, [self constraintForWidth:timeWidth]);
-    [self setNeedsLayout];
-}
-
-- (CGFloat)constraintForWidth:(CGFloat)width {
-    return (WLMaxTextViewWidth - MAX(WLMinBubbleWidth, width)) + WLAvatarLeading;
 }
 
 #pragma mark - TTTAttributedLabelDelegate

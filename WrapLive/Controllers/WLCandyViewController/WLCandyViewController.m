@@ -97,6 +97,7 @@
     }
 	
 	[[WLCandy notifier] addReceiver:self];
+    [[WLWrap notifier] addReceiver:self];
     [[WLNetwork network] addReceiver:self];
     
     UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToNextHistoryItem)];
@@ -253,7 +254,7 @@
 - (void)updateOwnerData {
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"exclamationTriangle";
     [self setCommentButtonTitle:_candy];
-    self.postLabel.text = [NSString stringWithFormat:WLLS(@"Posted by %@"), _candy.contributor.name];
+    self.postLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), _candy.contributor.name];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
     self.timeLabel.text = timeAgoString;
     self.lastComment = [[_candy sortedComments] firstObject];
@@ -329,6 +330,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     }
 }
 
+- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
     return self.wrap;
 }
@@ -355,7 +360,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 - (IBAction)back:(id)sender {
     WLCandy* candy = self.candy;
     __weak __typeof(self)weakSelf = self;
-    if (candy.valid && candy.wrap.valid) {
+    if (candy.valid) {
         BOOL animate = self.interfaceOrientation == UIInterfaceOrientationPortrait ||
                        self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown;
         [weakSelf.navigationController popViewControllerAnimated:animate];

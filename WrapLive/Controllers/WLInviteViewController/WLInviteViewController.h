@@ -13,7 +13,7 @@
 
 @protocol WLInviteViewControllerDelegate <NSObject>
 
-- (NSError*)inviteViewController:(WLInviteViewController*)controller didInviteContact:(WLAddressBookRecord*)contact;
+- (void)inviteViewController:(WLInviteViewController*)controller didInviteContact:(WLAddressBookRecord*)contact;
 
 @end
 

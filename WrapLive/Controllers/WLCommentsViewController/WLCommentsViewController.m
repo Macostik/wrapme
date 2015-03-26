@@ -48,6 +48,7 @@
     self.collectionView.layer.geometryFlipped = YES;
     [[WLComment notifier] addReceiver:self];
     [[WLCandy notifier] addReceiver:self];
+    [[WLWrap notifier] addReceiver:self];
 }
 
 - (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
@@ -68,6 +69,7 @@
 }
 
 - (void)sendMessageWithText:(NSString*)text {
+    if (self.candy.invalid) return;
     [WLSoundPlayer playSound:WLSound_s04];
     [self.candy uploadComment:[text trim] success:^(WLComment *comment) {
     } failure:^(NSError *error) {
@@ -189,8 +191,16 @@
     }
 }
 
+- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
+    [self onClose:nil];
+}
+
 - (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
     return self.candy;
+}
+
+- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
+    return self.candy.wrap;
 }
 
 #pragma mark - WLComposeBarDelegate

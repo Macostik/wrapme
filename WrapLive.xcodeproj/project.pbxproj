@@ -651,6 +651,8 @@
 		C537E9F11A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
 		C537E9F21A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
 		C537E9F31A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
+		C5394F5A1AC415FB007FFD84 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
+		C5394F5B1AC415FB007FFD84 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C53978C919AE2B21006BE8FD /* WLTimelineEventHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53978C819AE2B21006BE8FD /* WLTimelineEventHeaderView.m */; };
 		C53CA3C41A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
 		C53CA3C51A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
@@ -708,6 +710,10 @@
 		C53E5D791A851F71004F61B0 /* WLFlashModeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5D5B1A851F71004F61B0 /* WLFlashModeControl.m */; };
 		C53E5D7A1A851F71004F61B0 /* WLFlashModeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5D5B1A851F71004F61B0 /* WLFlashModeControl.m */; };
 		C53E5D7B1A851F71004F61B0 /* WLFlashModeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5D5B1A851F71004F61B0 /* WLFlashModeControl.m */; };
+		C53E709A1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */; };
+		C53E709B1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */; };
+		C53E709C1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */; };
+		C53E709D1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */; };
 		C53F2CBC1A6EB5FA00D99741 /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */; };
 		C53F2CBD1A6EB5FB00D99741 /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */; };
 		C53F2CBE1A6EB5FB00D99741 /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */; };
@@ -1119,8 +1125,6 @@
 		C55912691AC0383F00320483 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C211A8257ED000F795C /* NSString+MD5.m */; };
 		C559126A1AC0384200320483 /* NSString+Documents.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C1F1A8257ED000F795C /* NSString+Documents.m */; };
 		C559126C1AC038FE00320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
-		C55912711AC03C9F00320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
-		C55912721AC03C9F00320483 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C55912761AC03CB800320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
 		C55912771AC03CB800320483 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C559127B1AC03CBD00320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
@@ -1612,13 +1616,13 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C55912751AC03C9F00320483 /* Embed Frameworks */ = {
+		C5394F5C1AC415FC007FFD84 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C55912721AC03C9F00320483 /* WrapLiveKit.framework in Embed Frameworks */,
+				C5394F5B1AC415FB007FFD84 /* WrapLiveKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2240,6 +2244,8 @@
 		C53E5D581A851F71004F61B0 /* WLCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCameraViewController.m; sourceTree = "<group>"; };
 		C53E5D5A1A851F71004F61B0 /* WLFlashModeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLFlashModeControl.h; sourceTree = "<group>"; };
 		C53E5D5B1A851F71004F61B0 /* WLFlashModeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLFlashModeControl.m; sourceTree = "<group>"; };
+		C53E70981AC3173500844F9F /* WLIntroductionBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIntroductionBaseViewController.h; sourceTree = "<group>"; };
+		C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIntroductionBaseViewController.m; sourceTree = "<group>"; };
 		C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
 		C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
 		C53F2CAA1A6EB5FA00D99741 /* LEBackgroundThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEBackgroundThread.h; sourceTree = "<group>"; };
@@ -2464,7 +2470,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C55912711AC03C9F00320483 /* WrapLiveKit.framework in Frameworks */,
+				C5394F5A1AC415FB007FFD84 /* WrapLiveKit.framework in Frameworks */,
 				AC1A179D1937694B002B3737 /* MessageUI.framework in Frameworks */,
 				12DE698F192E4C6B007580AD /* libsqlite3.0.dylib in Frameworks */,
 				121FC9E7190A93EF0034486D /* libz.dylib in Frameworks */,
@@ -4001,6 +4007,8 @@
 			children = (
 				C5111D371AB345D10094275C /* WLIntroductionViewController.h */,
 				C5111D381AB345D10094275C /* WLIntroductionViewController.m */,
+				C53E70981AC3173500844F9F /* WLIntroductionBaseViewController.h */,
+				C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */,
 			);
 			path = WLIntroductionViewController;
 			sourceTree = "<group>";
@@ -5090,9 +5098,7 @@
 				12A7A6FC18DA0945008FF6F0 /* Frameworks */,
 				12A7A6FD18DA0945008FF6F0 /* Resources */,
 				5B787DAC1A27876F004AE459 /* Embed App Extensions */,
-				C5D41CF61AB1FD2400990944 /* NewRelic upload dSym */,
-				37968A23B09E91E9519BE583 /* Copy Pods Resources */,
-				C55912751AC03C9F00320483 /* Embed Frameworks */,
+				C5394F5C1AC415FC007FFD84 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -5923,21 +5929,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		37968A23B09E91E9519BE583 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5BF1B2301A49A683000BB2C1 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -6103,20 +6094,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C5D41CF61AB1FD2400990944 /* NewRelic upload dSym */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "NewRelic upload dSym";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AA55a96d2575ba2f5c16268eb56c94e91264d5236b\"";
-		};
 		C5D41CF71AB1FD5800990944 /* NewRelic upload dSym */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -6274,6 +6251,7 @@
 				12E1104D19067095007DB4AC /* WLCommentCell.m in Sources */,
 				C5111D391AB345D10094275C /* WLIntroductionViewController.m in Sources */,
 				C51A521B1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
+				C53E709A1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */,
 				5BB04F2E19D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
 				C57005A21A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C55C8D6A19C98A9400199245 /* WLNotification.m in Sources */,
@@ -6619,6 +6597,7 @@
 				C54AF47819B8C437006F7EDB /* WLCommentCell.m in Sources */,
 				C5111D3A1AB345D10094275C /* WLIntroductionViewController.m in Sources */,
 				C51A521C1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
+				C53E709B1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */,
 				5BB04F2F19D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
 				C57005A31A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C55C8D6B19C98A9400199245 /* WLNotification.m in Sources */,
@@ -6808,6 +6787,7 @@
 				C54AF57519B8C467006F7EDB /* WLCommentCell.m in Sources */,
 				C5111D3B1AB345D10094275C /* WLIntroductionViewController.m in Sources */,
 				C51A521D1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
+				C53E709C1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */,
 				5BB04F3019D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
 				C57005A41A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C55C8D6C19C98A9400199245 /* WLNotification.m in Sources */,
@@ -6997,6 +6977,7 @@
 				C54AF67219B8C491006F7EDB /* WLCommentCell.m in Sources */,
 				C5111D3C1AB345D10094275C /* WLIntroductionViewController.m in Sources */,
 				C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
+				C53E709D1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */,
 				5BB04F3119D9824500B5C6EE /* WLEditWrapViewController.m in Sources */,
 				C57005A51A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C55C8D6D19C98A9400199245 /* WLNotification.m in Sources */,

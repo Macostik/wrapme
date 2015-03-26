@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <FontAwesomeKit/FontAwesomeKit.h>
 
+static NSString *WLIconPresetSmaller = @"smaller";
 static NSString *WLIconPresetSmall = @"small";
 static NSString *WLIconPresetBase = @"base";
 static NSString *WLIconPresetNormal = @"normal";

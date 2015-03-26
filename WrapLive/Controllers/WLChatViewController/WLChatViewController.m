@@ -306,6 +306,7 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - WLComposeBarDelegate
 
 - (void)sendMessageWithText:(NSString*)text {
+    if (self.wrap.invalid) return;
     __weak typeof(self)weakSelf = self;
     [self.wrap uploadMessage:text success:^(WLMessage *message) {
 		[weakSelf.collectionView setMinimumContentOffsetAnimated:YES];

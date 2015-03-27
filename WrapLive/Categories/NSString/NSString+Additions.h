@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSObject+NibAdditions.h"
 
 static inline NSString* GUID() {
 	return [[NSProcessInfo processInfo] globallyUniqueString];
@@ -39,6 +40,13 @@ static inline NSString* phoneNumberClearing (NSString* phone) {
 		}
 	}
 	return [_phone copy];
+}
+
+static inline CGFloat WLCalculateHeightString(NSString *string, CGFloat width) {
+    UITextView *textView = [UIView loadFromNibNamed:@"WLContainerTextView" ownedBy:nil];
+    textView.textContainerInset = UIEdgeInsetsZero;
+    textView.text = string;
+    return [textView sizeThatFits:CGSizeMake(width, MAXFLOAT)].height;
 }
 
 @interface NSString (Additions)

@@ -12,6 +12,6 @@
 
 @interface WLChatViewController : WLShakeViewController
 
-@property (nonatomic, strong) WLWrap* wrap;
+@property (nonatomic, weak) WLWrap* wrap;
 
 @end

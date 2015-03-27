@@ -24,7 +24,7 @@
 
 @interface WLPickerViewController : WLBaseViewController
 
-@property (strong, nonatomic) WLWrap *wrap;
+@property (weak, nonatomic) WLWrap *wrap;
 
 @property (weak, nonatomic) id <WLPickerViewDelegate> delegate;
 

@@ -11,6 +11,6 @@
 
 @interface WLAddContributorsViewController : UIViewController
 
-@property (strong, nonatomic) WLWrap *wrap;
+@property (weak, nonatomic) WLWrap *wrap;
 
 @end

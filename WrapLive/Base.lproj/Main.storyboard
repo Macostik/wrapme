@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -3524,11 +3524,22 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPa-oY-X5B">
-                                                    <rect key="frame" x="149" y="0.0" width="99" height="48"/>
+                                                    <rect key="frame" x="139" y="0.0" width="109" height="48"/>
                                                     <subviews>
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="0OD-Cn-Lp6" customClass="WLTextView">
+                                                            <rect key="frame" x="5" y="0.0" width="99" height="30"/>
+                                                            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="tintColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </textView>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="v2z-k0-EKs" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="0.0" width="89" height="18"/>
-                                                            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="0.95000000000000007" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <rect key="frame" x="5" y="0.0" width="99" height="18"/>
+                                                            <color key="backgroundColor" red="0.90588235855102539" green="0.90588235855102539" blue="0.90588235855102539" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="3ZA-16-ynZ"/>
                                                             </constraints>
@@ -3540,7 +3551,7 @@ Check your internet connection and try again.</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="Lc4-Kr-oEr" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="30" width="89" height="18"/>
+                                                            <rect key="frame" x="5" y="30" width="99" height="18"/>
                                                             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="0.95000000000000007" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="hyK-3z-Pv9"/>
@@ -3552,19 +3563,6 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="message text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b58-hK-T5O" customClass="TTTAttributedLabel">
-                                                            <rect key="frame" x="5" y="0.0" width="89" height="30"/>
-                                                            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="0.95000000000000007" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                                            <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <nil key="highlightedColor"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                            <connections>
-                                                                <outlet property="delegate" destination="blg-MX-zu0" id="Wd2-BV-Zzo"/>
-                                                            </connections>
-                                                        </label>
                                                         <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chat_bubble_gray_left.png" translatesAutoresizingMaskIntoConstraints="NO" id="HaL-CV-dJX">
                                                             <rect key="frame" x="0.0" y="0.0" width="5" height="48"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3573,7 +3571,7 @@ Check your internet connection and try again.</string>
                                                             </constraints>
                                                         </imageView>
                                                         <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chat_bubble_gray_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="CWO-21-w70">
-                                                            <rect key="frame" x="94" y="0.0" width="5" height="48"/>
+                                                            <rect key="frame" x="104" y="0.0" width="5" height="48"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="5" id="3Nr-3j-f4c"/>
@@ -3582,18 +3580,18 @@ Check your internet connection and try again.</string>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="b58-hK-T5O" secondAttribute="bottom" constant="18" id="2nB-6S-uzE"/>
                                                         <constraint firstItem="CWO-21-w70" firstAttribute="top" secondItem="WPa-oY-X5B" secondAttribute="top" id="9Gh-sR-44e"/>
-                                                        <constraint firstAttribute="trailing" secondItem="b58-hK-T5O" secondAttribute="trailing" constant="5" id="Bcd-xy-Uix"/>
-                                                        <constraint firstItem="b58-hK-T5O" firstAttribute="leading" secondItem="WPa-oY-X5B" secondAttribute="leading" constant="5" id="J4W-ao-1VI"/>
+                                                        <constraint firstItem="0OD-Cn-Lp6" firstAttribute="top" secondItem="WPa-oY-X5B" secondAttribute="top" id="B1J-90-CTw"/>
+                                                        <constraint firstAttribute="bottom" secondItem="0OD-Cn-Lp6" secondAttribute="bottom" constant="18" id="GIp-R5-sib"/>
                                                         <constraint firstItem="v2z-k0-EKs" firstAttribute="top" secondItem="WPa-oY-X5B" secondAttribute="top" id="K69-lz-HLa"/>
+                                                        <constraint firstAttribute="trailing" secondItem="0OD-Cn-Lp6" secondAttribute="trailing" constant="5" id="OYS-Qb-7So"/>
                                                         <constraint firstItem="HaL-CV-dJX" firstAttribute="top" secondItem="WPa-oY-X5B" secondAttribute="top" id="Rw8-XN-qC7"/>
                                                         <constraint firstItem="v2z-k0-EKs" firstAttribute="leading" secondItem="WPa-oY-X5B" secondAttribute="leading" constant="5" id="T4i-gl-JjD"/>
+                                                        <constraint firstItem="0OD-Cn-Lp6" firstAttribute="leading" secondItem="WPa-oY-X5B" secondAttribute="leading" constant="5" id="T5k-2m-Qs6"/>
                                                         <constraint firstAttribute="trailing" secondItem="Lc4-Kr-oEr" secondAttribute="trailing" constant="5" id="UTg-mg-cHs"/>
                                                         <constraint firstAttribute="bottom" secondItem="Lc4-Kr-oEr" secondAttribute="bottom" id="bAl-Ah-aED"/>
                                                         <constraint firstItem="HaL-CV-dJX" firstAttribute="leading" secondItem="WPa-oY-X5B" secondAttribute="leading" id="dCR-iC-dUc"/>
                                                         <constraint firstAttribute="bottom" secondItem="CWO-21-w70" secondAttribute="bottom" id="ed8-XC-Xbi"/>
-                                                        <constraint firstItem="b58-hK-T5O" firstAttribute="top" secondItem="WPa-oY-X5B" secondAttribute="top" id="fbp-LK-KLA"/>
                                                         <constraint firstAttribute="bottom" secondItem="HaL-CV-dJX" secondAttribute="bottom" id="nY8-eJ-sy0"/>
                                                         <constraint firstAttribute="trailing" secondItem="v2z-k0-EKs" secondAttribute="trailing" constant="5" id="oKZ-4i-1bQ"/>
                                                         <constraint firstItem="Lc4-Kr-oEr" firstAttribute="leading" secondItem="WPa-oY-X5B" secondAttribute="leading" constant="5" id="zaA-TE-37o"/>
@@ -3631,10 +3629,10 @@ Check your internet connection and try again.</string>
                                             <outlet property="nameLabel" destination="v2z-k0-EKs" id="7D2-VF-DrS"/>
                                             <outlet property="rightBubble" destination="CWO-21-w70" id="lHk-Fi-yjy"/>
                                             <outlet property="tailView" destination="cGF-9C-FfY" id="bKB-hH-Hr2"/>
-                                            <outlet property="textLabel" destination="b58-hK-T5O" id="AdR-pc-D0X"/>
+                                            <outlet property="textView" destination="0OD-Cn-Lp6" id="pjO-sM-SfQ"/>
                                             <outlet property="timeLabel" destination="Lc4-Kr-oEr" id="2g9-Gw-WTT"/>
                                             <outlet property="topAvatarConstraint" destination="gak-WX-KfC" id="hd4-sX-9NL"/>
-                                            <outlet property="topTextLabelConstraint" destination="fbp-LK-KLA" id="Bjy-nV-oC7"/>
+                                            <outlet property="topTextLabelConstraint" destination="B1J-90-CTw" id="ag3-hF-XVV"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMessageCell" id="S2A-2d-E7B" customClass="WLMessageCell">
@@ -3667,10 +3665,21 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G61-oI-Ifc">
-                                                    <rect key="frame" x="72" y="0.0" width="99" height="48"/>
+                                                    <rect key="frame" x="72" y="0.0" width="109" height="48"/>
                                                     <subviews>
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="cMC-ND-b5t" customClass="WLTextView">
+                                                            <rect key="frame" x="5" y="0.0" width="99" height="30"/>
+                                                            <color key="backgroundColor" red="0.98823529409999999" green="0.60784313729999995" blue="0.35294117650000001" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="tintColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </textView>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="HUe-Pv-h6W" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="0.0" width="89" height="18"/>
+                                                            <rect key="frame" x="5" y="0.0" width="99" height="18"/>
                                                             <color key="backgroundColor" red="0.9882352941176471" green="0.60784313725490191" blue="0.35294117647058826" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="Hbg-Q9-5nW"/>
@@ -3682,35 +3691,8 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <label userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="message text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90G-xG-qIL" customClass="TTTAttributedLabel">
-                                                            <rect key="frame" x="5" y="0.0" width="89" height="30"/>
-                                                            <color key="backgroundColor" red="0.9882352941176471" green="0.60784313725490191" blue="0.35294117647058826" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                                            <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <nil key="highlightedColor"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                            <connections>
-                                                                <outlet property="delegate" destination="S2A-2d-E7B" id="gIg-i2-cPG"/>
-                                                            </connections>
-                                                        </label>
-                                                        <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chat_bubble_red_left.png" translatesAutoresizingMaskIntoConstraints="NO" id="9lL-9M-vAs">
-                                                            <rect key="frame" x="0.0" y="0.0" width="5" height="48"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="5" id="cCF-r1-ys9"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                        <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chat_bubble_red_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="kCd-6X-09D">
-                                                            <rect key="frame" x="94" y="0.0" width="5" height="48"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="5" id="xrH-gU-py0"/>
-                                                            </constraints>
-                                                        </imageView>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="BDu-zS-cNB" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="30" width="89" height="18"/>
+                                                            <rect key="frame" x="5" y="30" width="99" height="18"/>
                                                             <color key="backgroundColor" red="0.9882352941176471" green="0.60784313725490191" blue="0.35294117647058826" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="gl7-xO-GdU"/>
@@ -3722,22 +3704,36 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
+                                                        <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chat_bubble_red_left.png" translatesAutoresizingMaskIntoConstraints="NO" id="9lL-9M-vAs">
+                                                            <rect key="frame" x="0.0" y="0.0" width="5" height="48"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="5" id="cCF-r1-ys9"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chat_bubble_red_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="kCd-6X-09D">
+                                                            <rect key="frame" x="104" y="0.0" width="5" height="48"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="5" id="xrH-gU-py0"/>
+                                                            </constraints>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
+                                                        <constraint firstItem="cMC-ND-b5t" firstAttribute="top" secondItem="G61-oI-Ifc" secondAttribute="top" id="37T-1j-DiY"/>
                                                         <constraint firstAttribute="trailing" secondItem="BDu-zS-cNB" secondAttribute="trailing" constant="5" id="6HW-St-0lb"/>
-                                                        <constraint firstAttribute="bottom" secondItem="90G-xG-qIL" secondAttribute="bottom" constant="18" id="6s9-Fg-jNE"/>
+                                                        <constraint firstAttribute="trailing" secondItem="cMC-ND-b5t" secondAttribute="trailing" constant="5" id="7ei-yl-xMN"/>
                                                         <constraint firstAttribute="bottom" secondItem="kCd-6X-09D" secondAttribute="bottom" id="91w-KL-HvQ"/>
                                                         <constraint firstItem="HUe-Pv-h6W" firstAttribute="top" secondItem="G61-oI-Ifc" secondAttribute="top" id="AkM-hp-Gac"/>
+                                                        <constraint firstItem="cMC-ND-b5t" firstAttribute="leading" secondItem="G61-oI-Ifc" secondAttribute="leading" constant="5" id="BuW-Ji-XZv"/>
                                                         <constraint firstAttribute="trailing" secondItem="HUe-Pv-h6W" secondAttribute="trailing" constant="5" id="C8c-Tr-CY8"/>
-                                                        <constraint firstAttribute="trailing" secondItem="90G-xG-qIL" secondAttribute="trailing" constant="5" id="D6h-Bf-eAX"/>
                                                         <constraint firstItem="BDu-zS-cNB" firstAttribute="leading" secondItem="G61-oI-Ifc" secondAttribute="leading" constant="5" id="E2r-e3-vMz"/>
                                                         <constraint firstAttribute="bottom" secondItem="BDu-zS-cNB" secondAttribute="bottom" id="FYz-Q0-BEY"/>
-                                                        <constraint firstItem="90G-xG-qIL" firstAttribute="leading" secondItem="G61-oI-Ifc" secondAttribute="leading" constant="5" id="TL4-7m-oZe"/>
                                                         <constraint firstItem="kCd-6X-09D" firstAttribute="top" secondItem="G61-oI-Ifc" secondAttribute="top" id="UsF-ud-E1V"/>
+                                                        <constraint firstAttribute="bottom" secondItem="cMC-ND-b5t" secondAttribute="bottom" constant="18" id="XZJ-YK-Wh6"/>
                                                         <constraint firstItem="9lL-9M-vAs" firstAttribute="leading" secondItem="G61-oI-Ifc" secondAttribute="leading" id="YTX-yB-NpJ"/>
                                                         <constraint firstAttribute="trailing" secondItem="kCd-6X-09D" secondAttribute="trailing" id="Zdh-bZ-E5v"/>
-                                                        <constraint firstItem="90G-xG-qIL" firstAttribute="top" secondItem="G61-oI-Ifc" secondAttribute="top" id="lZq-j3-Mco"/>
                                                         <constraint firstItem="HUe-Pv-h6W" firstAttribute="leading" secondItem="G61-oI-Ifc" secondAttribute="leading" constant="5" id="nPE-aH-FMV"/>
                                                         <constraint firstItem="9lL-9M-vAs" firstAttribute="top" secondItem="G61-oI-Ifc" secondAttribute="top" id="qas-K5-SXC"/>
                                                         <constraint firstAttribute="bottom" secondItem="9lL-9M-vAs" secondAttribute="bottom" id="s4G-LK-bzV"/>
@@ -3774,10 +3770,10 @@ Check your internet connection and try again.</string>
                                             <outlet property="nameLabel" destination="HUe-Pv-h6W" id="IPI-RF-ny3"/>
                                             <outlet property="rightBubble" destination="kCd-6X-09D" id="Syh-WG-qOu"/>
                                             <outlet property="tailView" destination="pMb-Ne-nj5" id="RbX-EU-XKR"/>
-                                            <outlet property="textLabel" destination="90G-xG-qIL" id="vs4-eF-9tl"/>
+                                            <outlet property="textView" destination="cMC-ND-b5t" id="chq-Qa-Ah5"/>
                                             <outlet property="timeLabel" destination="BDu-zS-cNB" id="cbS-YG-Anp"/>
-                                            <outlet property="topAvatarConstraint" destination="cox-Pp-syl" id="Ths-oC-0x2"/>
-                                            <outlet property="topTextLabelConstraint" destination="lZq-j3-Mco" id="ANA-He-xWP"/>
+                                            <outlet property="topAvatarConstraint" destination="cox-Pp-syl" id="wof-51-rO9"/>
+                                            <outlet property="topTextLabelConstraint" destination="37T-1j-DiY" id="JRt-Yr-cSQ"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

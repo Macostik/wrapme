@@ -21,14 +21,14 @@
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
 #import "UIColor+CustomColors.h"
-#import "TTTAttributedLabel.h"
+#import "WLTextView.h"
 
-@interface WLMessageCell () <TTTAttributedLabelDelegate>
+@interface WLMessageCell ()
 
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet TTTAttributedLabel *textLabel;
+@property (weak, nonatomic) IBOutlet WLTextView *textView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topTextLabelConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *dayLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topAvatarConstraint;
@@ -44,11 +44,11 @@
 	[super awakeFromNib];
     self.layer.geometryFlipped = YES;
     self.avatarView.hidden = self.nameLabel.hidden = self.dayLabel.hidden = YES;
-    self.textLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
     self.leftBubble.image = [self.leftBubble.image resizableImageWithCapInsets:UIEdgeInsetsMake(5, 0, 5, 0) resizingMode:UIImageResizingModeStretch];
     self.rightBubble.image = [self.rightBubble.image resizableImageWithCapInsets:UIEdgeInsetsMake(5, 0, 5, 0) resizingMode:UIImageResizingModeStretch];
     [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateEmpty];
     [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateFailed];
+    self.textView.textContainerInset = UIEdgeInsetsZero;
 }
 
 - (void)setShowName:(BOOL)showName {
@@ -80,15 +80,7 @@
         self.dayLabel.text = [message.createdAt stringWithFormat:@"MMM d, yyyy"];
     }
     
-    self.textLabel.text = message.text;
-}
-
-#pragma mark - TTTAttributedLabelDelegate
-
-- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
-    if ([[UIApplication sharedApplication] canOpenURL:url]) {
-        [[UIApplication sharedApplication] openURL:url];
-    }
+    [self.textView determineHyperLink:message.text];
 }
 
 @end

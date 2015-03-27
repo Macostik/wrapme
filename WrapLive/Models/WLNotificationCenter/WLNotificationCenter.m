@@ -156,7 +156,7 @@ static WLDataBlock deviceTokenCompletion = nil;
         [self.userChannel observeMessages:^(PNMessage *message) {
             WLNotification *notification = [WLNotification notificationWithMessage:message];
             
-            if (notification) {
+            if (notification && ![weakSelf isAlreadyHandledNotification:notification]) {
                 runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
                     [weakSelf handleNotification:notification completion:^{
                         [operation finish];
@@ -174,7 +174,7 @@ static WLDataBlock deviceTokenCompletion = nil;
     [self requestHistory];
 }
 
-- (BOOL)notificationHandled:(WLNotification*)notification {
+- (BOOL)isAlreadyHandledNotification:(WLNotification*)notification {
     return [self.handledNotifications containsObject:notification.identifier];
 }
 
@@ -275,7 +275,7 @@ static WLDataBlock deviceTokenCompletion = nil;
     // remove already handled notifications
     __weak typeof(self)weakSelf = self;
     [notifications removeObjectsWhileEnumerating:^BOOL(WLNotification* notification) {
-        return [weakSelf notificationHandled:notification];
+        return [weakSelf isAlreadyHandledNotification:notification];
     }];
     
     if (!notifications.nonempty) return nil;

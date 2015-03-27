@@ -69,11 +69,12 @@
 }
 
 - (void)sendMessageWithText:(NSString*)text {
-    if (self.candy.invalid) return;
-    [WLSoundPlayer playSound:WLSound_s04];
-    [self.candy uploadComment:[text trim] success:^(WLComment *comment) {
-    } failure:^(NSError *error) {
-    }];
+    if (self.candy.valid) {
+        [WLSoundPlayer playSound:WLSound_s04];
+        [self.candy uploadComment:[text trim] success:^(WLComment *comment) {
+        } failure:^(NSError *error) {
+        }];
+    }
     run_after(.0, ^{
         [self onClose:nil];
     });

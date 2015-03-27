@@ -49,7 +49,7 @@
 
 - (NSString *)identifier {
     if (!_identifier) {
-        _identifier = [NSString stringWithFormat:@"%lu_%@", self.type, self.entryIdentifier];
+        _identifier = [NSString stringWithFormat:@"%lu_%@_%f", self.type, self.entryIdentifier, self.date.timestamp];
     }
     return _identifier;
 }

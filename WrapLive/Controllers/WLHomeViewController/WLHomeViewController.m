@@ -116,12 +116,6 @@
     
     [WLSession setNumberOfLaunches:[WLSession numberOfLaunches] + 1];
     
-    __weak typeof(self)weakSelf = self;
-    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
-        [weakSelf showCreateWrapTipIfNeeded];
-        [operation finish];
-    });
-    
     [self performSelector:@selector(showIntroductionIfNeeded) withObject:nil afterDelay:0.0];
 }
 
@@ -173,6 +167,12 @@
             [self presentViewController:introduction animated:YES completion:nil];
         });
     }
+    
+    __weak typeof(self)weakSelf = self;
+    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+        [weakSelf showCreateWrapTipIfNeeded];
+        [operation finish];
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {

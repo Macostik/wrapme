@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Light.ttf">
@@ -54,7 +53,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhD-va-KPT" customClass="WLIconButton">
-                                <rect key="frame" x="125" y="114" width="30" height="34"/>
+                                <rect key="frame" x="125" y="63" width="30" height="34"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -84,12 +83,12 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerY" secondItem="lhD-va-KPT" secondAttribute="centerY" constant="80" id="6qP-bW-Fms"/>
                             <constraint firstAttribute="centerY" secondItem="iaE-LB-F5N" secondAttribute="centerY" id="BA5-xF-9RS"/>
                             <constraint firstItem="tBR-r4-GbY" firstAttribute="leading" secondItem="XEn-9T-09t" secondAttribute="leading" id="BS6-cn-iVT"/>
                             <constraint firstAttribute="centerX" secondItem="duP-DA-GDK" secondAttribute="centerX" constant="0.5" id="BfC-BJ-hyr"/>
                             <constraint firstAttribute="trailing" secondItem="tBR-r4-GbY" secondAttribute="trailing" id="DOh-B3-GqY"/>
                             <constraint firstAttribute="centerX" secondItem="lhD-va-KPT" secondAttribute="centerX" id="DtE-dI-Y3D"/>
-                            <constraint firstItem="iaE-LB-F5N" firstAttribute="top" secondItem="lhD-va-KPT" secondAttribute="bottom" id="Q91-xT-9cZ"/>
                             <constraint firstItem="duP-DA-GDK" firstAttribute="width" relation="lessThanOrEqual" secondItem="XEn-9T-09t" secondAttribute="width" constant="-40" id="Zh3-JO-vCD"/>
                             <constraint firstItem="iaE-LB-F5N" firstAttribute="width" relation="lessThanOrEqual" secondItem="XEn-9T-09t" secondAttribute="width" constant="-40" id="bPw-VN-Lkv"/>
                             <constraint firstAttribute="centerX" secondItem="iaE-LB-F5N" secondAttribute="centerX" id="fRz-qM-raa"/>
@@ -212,30 +211,23 @@
                                     <action selector="finishIntroduction:" destination="CKX-v6-yfy" eventType="touchUpInside" id="quF-fT-4bS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PoY-WH-C7g" customClass="WLIconButton">
-                                <rect key="frame" x="125" y="99" width="30" height="34"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="image"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="xlarge"/>
-                                </userDefinedRuntimeAttributes>
-                            </button>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="introduction_candy" translatesAutoresizingMaskIntoConstraints="NO" id="vO8-T0-gU8">
+                                <rect key="frame" x="42" y="38" width="197" height="85"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerY" secondItem="vO8-T0-gU8" secondAttribute="centerY" constant="80" id="02V-oi-M1T"/>
                             <constraint firstAttribute="centerX" secondItem="YFX-em-iVo" secondAttribute="centerX" id="4gl-h6-5sI"/>
                             <constraint firstAttribute="trailing" secondItem="vow-Fx-tbk" secondAttribute="trailing" id="5J8-h2-AZJ"/>
                             <constraint firstItem="RZM-dC-3jP" firstAttribute="top" secondItem="vow-Fx-tbk" secondAttribute="bottom" id="8aR-KH-mSt"/>
+                            <constraint firstAttribute="centerX" secondItem="vO8-T0-gU8" secondAttribute="centerX" id="ChB-UV-kY2"/>
                             <constraint firstItem="mNA-4e-bin" firstAttribute="width" relation="lessThanOrEqual" secondItem="7sl-cW-zhf" secondAttribute="width" constant="-40" id="D9d-83-0EN"/>
                             <constraint firstItem="vow-Fx-tbk" firstAttribute="leading" secondItem="7sl-cW-zhf" secondAttribute="leading" id="Fba-pt-nJX"/>
                             <constraint firstAttribute="centerY" secondItem="mNA-4e-bin" secondAttribute="centerY" constant="15" id="QgY-3i-Hjf"/>
                             <constraint firstAttribute="centerX" secondItem="mNA-4e-bin" secondAttribute="centerX" id="ZCW-bH-kHp"/>
                             <constraint firstItem="YFX-em-iVo" firstAttribute="width" relation="lessThanOrEqual" secondItem="7sl-cW-zhf" secondAttribute="width" constant="-40" id="a8T-9h-xZs"/>
-                            <constraint firstItem="mNA-4e-bin" firstAttribute="top" secondItem="PoY-WH-C7g" secondAttribute="bottom" id="ctz-Sb-sLC"/>
                             <constraint firstItem="YFX-em-iVo" firstAttribute="top" secondItem="mNA-4e-bin" secondAttribute="bottom" constant="10" id="jN8-cW-cMm"/>
-                            <constraint firstAttribute="centerXWithinMargins" secondItem="PoY-WH-C7g" secondAttribute="centerXWithinMargins" id="qYV-hC-2Dh"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -246,6 +238,9 @@
             <point key="canvasLocation" x="538" y="905"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="introduction_candy" width="197" height="85"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

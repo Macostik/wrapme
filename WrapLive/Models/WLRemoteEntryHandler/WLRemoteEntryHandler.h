@@ -10,7 +10,6 @@
 
 @class WLEntry;
 @class WLNotification;
-@class WLExtensionEvent;
 
 @interface WLRemoteEntryHandler : NSObject
 
@@ -38,6 +37,6 @@
 
 @interface WLRemoteEntryHandler (WatchKit)
 
-- (void)presentEntryFromWatchKitEvent:(WLExtensionEvent*)event;
+- (void)presentEntryFromWatchKitEvent:(NSDictionary*)event;
 
 @end

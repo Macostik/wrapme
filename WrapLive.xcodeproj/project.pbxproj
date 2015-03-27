@@ -363,16 +363,8 @@
 		C50645E81ABD815200CB4BE3 /* NSUserDefaults+WLAppGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645AD1ABD815100CB4BE3 /* NSUserDefaults+WLAppGroup.m */; };
 		C50645E91ABD815200CB4BE3 /* NSUserDefaults+WLAppGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645AD1ABD815100CB4BE3 /* NSUserDefaults+WLAppGroup.m */; };
 		C50645EA1ABD815200CB4BE3 /* NSUserDefaults+WLAppGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645AD1ABD815100CB4BE3 /* NSUserDefaults+WLAppGroup.m */; };
-		C50645F21ABD815200CB4BE3 /* WLExtensionComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645B11ABD815100CB4BE3 /* WLExtensionComment.m */; };
-		C50645F31ABD815200CB4BE3 /* WLExtensionComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645B11ABD815100CB4BE3 /* WLExtensionComment.m */; };
-		C50645F41ABD815200CB4BE3 /* WLExtensionComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645B11ABD815100CB4BE3 /* WLExtensionComment.m */; };
-		C50646001ABD815200CB4BE3 /* WLExtensionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645B71ABD815100CB4BE3 /* WLExtensionEvent.m */; };
-		C50646011ABD815200CB4BE3 /* WLExtensionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645B71ABD815100CB4BE3 /* WLExtensionEvent.m */; };
-		C50646021ABD815200CB4BE3 /* WLExtensionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645B71ABD815100CB4BE3 /* WLExtensionEvent.m */; };
 		C506460F1ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */; };
 		C50646101ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */; };
-		C506461F1ABD815200CB4BE3 /* WLExtensionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645BF1ABD815100CB4BE3 /* WLExtensionCell.m */; };
-		C50646201ABD815200CB4BE3 /* WLExtensionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645BF1ABD815100CB4BE3 /* WLExtensionCell.m */; };
 		C50646261ABD815200CB4BE3 /* WLTodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */; };
 		C50646271ABD815200CB4BE3 /* WLTodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */; };
 		C506462F1ABD815200CB4BE3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645C31ABD815100CB4BE3 /* Interface.storyboard */; };
@@ -409,12 +401,6 @@
 		C506468D1ABD815200CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645E11ABD815200CB4BE3 /* Images.xcassets */; };
 		C506468E1ABD815200CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645E11ABD815200CB4BE3 /* Images.xcassets */; };
 		C506468F1ABD815200CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645E11ABD815200CB4BE3 /* Images.xcassets */; };
-		C50646901ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50645E21ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist */; };
-		C50646911ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50645E21ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist */; };
-		C50646921ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50645E21ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist */; };
-		C50646931ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50645E21ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist */; };
-		C50646941ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50645E21ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist */; };
-		C50646951ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50645E21ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist */; };
 		C50646971ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50645E21ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist */; };
 		C506469E1ABD815200CB4BE3 /* WLWKImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E51ABD815200CB4BE3 /* WLWKImageCache.m */; };
 		C506469F1ABD815200CB4BE3 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* PushNotificationPayload.apns */; };
@@ -425,10 +411,8 @@
 		C50646A41ABD815200CB4BE3 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* PushNotificationPayload.apns */; };
 		C50646A51ABD815200CB4BE3 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* PushNotificationPayload.apns */; };
 		C50646A61ABD815200CB4BE3 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* PushNotificationPayload.apns */; };
-		C50646A81ABD82D400CB4BE3 /* WrapLiveWatchKitExtension-Production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50646A71ABD82D400CB4BE3 /* WrapLiveWatchKitExtension-Production-Info.plist */; };
 		C50646AF1ABD831F00CB4BE3 /* WLWKEntryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */; };
 		C50646B11ABD831F00CB4BE3 /* WLWKCandyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D51ABD815200CB4BE3 /* WLWKCandyController.m */; };
-		C50646B21ABD831F00CB4BE3 /* WLExtensionComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645B11ABD815100CB4BE3 /* WLExtensionComment.m */; };
 		C50646B31ABD831F00CB4BE3 /* WLWKReplyPresetsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D21ABD815200CB4BE3 /* WLWKReplyPresetsController.m */; };
 		C50646B41ABD831F00CB4BE3 /* WLWKCommentEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DC1ABD815200CB4BE3 /* WLWKCommentEventRow.m */; };
 		C50646B51ABD831F00CB4BE3 /* WLWKEventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E01ABD815200CB4BE3 /* WLWKEventsController.m */; };
@@ -436,13 +420,11 @@
 		C50646B91ABD831F00CB4BE3 /* WLWKReplyPresetRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645CF1ABD815200CB4BE3 /* WLWKReplyPresetRow.m */; };
 		C50646BB1ABD831F00CB4BE3 /* WLWKCommentRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D71ABD815200CB4BE3 /* WLWKCommentRow.m */; };
 		C50646BC1ABD831F00CB4BE3 /* WLWKCommentNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645CC1ABD815100CB4BE3 /* WLWKCommentNotificationController.m */; };
-		C50646BE1ABD831F00CB4BE3 /* WLExtensionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645B71ABD815100CB4BE3 /* WLExtensionEvent.m */; };
 		C50646C21ABD831F00CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645E11ABD815200CB4BE3 /* Images.xcassets */; };
 		C50646C41ABD831F00CB4BE3 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* PushNotificationPayload.apns */; };
 		C50646C71ABD831F00CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
 		C50646C81ABD831F00CB4BE3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645C31ABD815100CB4BE3 /* Interface.storyboard */; };
 		C50646C91ABD831F00CB4BE3 /* WrapLiveWatchKitApp-Development.app in Resources */ = {isa = PBXBuildFile; fileRef = C50645931ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development.app */; };
-		C50646CB1ABD831F00CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50645E21ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist */; };
 		C50646CC1ABD831F00CB4BE3 /* WLWKReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50645D01ABD815200CB4BE3 /* WLWKReplyPresets.plist */; };
 		C50646D41ABD833000CB4BE3 /* WLWKReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50645D01ABD815200CB4BE3 /* WLWKReplyPresets.plist */; };
 		C50646D51ABD833000CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645E11ABD815200CB4BE3 /* Images.xcassets */; };
@@ -776,6 +758,12 @@
 		C54531361A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */; };
 		C54531371A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */; };
 		C54531381A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */; };
+		C5475B4F1AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B4E1AC596C500F9E8B3 /* WLTodayContributionCell.m */; };
+		C5475B501AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B4E1AC596C500F9E8B3 /* WLTodayContributionCell.m */; };
+		C5475B531AC59ABC00F9E8B3 /* WLTodayCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B521AC59ABC00F9E8B3 /* WLTodayCommentCell.m */; };
+		C5475B541AC59ABC00F9E8B3 /* WLTodayCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B521AC59ABC00F9E8B3 /* WLTodayCommentCell.m */; };
+		C5475B571AC59ACD00F9E8B3 /* WLTodayCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B561AC59ACD00F9E8B3 /* WLTodayCandyCell.m */; };
+		C5475B581AC59ACD00F9E8B3 /* WLTodayCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B561AC59ACD00F9E8B3 /* WLTodayCandyCell.m */; };
 		C54773131A41911F004C5826 /* WLFontPresetter.m in Sources */ = {isa = PBXBuildFile; fileRef = C54773121A41911F004C5826 /* WLFontPresetter.m */; };
 		C54773141A41911F004C5826 /* WLFontPresetter.m in Sources */ = {isa = PBXBuildFile; fileRef = C54773121A41911F004C5826 /* WLFontPresetter.m */; };
 		C54773151A41911F004C5826 /* WLFontPresetter.m in Sources */ = {isa = PBXBuildFile; fileRef = C54773121A41911F004C5826 /* WLFontPresetter.m */; };
@@ -2032,15 +2020,9 @@
 		C50645931ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLiveWatchKitApp-Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50645AC1ABD815100CB4BE3 /* NSUserDefaults+WLAppGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+WLAppGroup.h"; sourceTree = "<group>"; };
 		C50645AD1ABD815100CB4BE3 /* NSUserDefaults+WLAppGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+WLAppGroup.m"; sourceTree = "<group>"; };
-		C50645B01ABD815100CB4BE3 /* WLExtensionComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLExtensionComment.h; sourceTree = "<group>"; };
-		C50645B11ABD815100CB4BE3 /* WLExtensionComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLExtensionComment.m; sourceTree = "<group>"; };
-		C50645B61ABD815100CB4BE3 /* WLExtensionEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLExtensionEvent.h; sourceTree = "<group>"; };
-		C50645B71ABD815100CB4BE3 /* WLExtensionEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLExtensionEvent.m; sourceTree = "<group>"; };
 		C50645B91ABD815100CB4BE3 /* WrapLiveTodayExtension-Development-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLiveTodayExtension-Development-Info.plist"; sourceTree = "<group>"; };
 		C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WLTodayExtension.storyboard; sourceTree = "<group>"; };
 		C50645BB1ABD815100CB4BE3 /* WrapLiveTodayExtension-Production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLiveTodayExtension-Production-Info.plist"; sourceTree = "<group>"; };
-		C50645BE1ABD815100CB4BE3 /* WLExtensionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLExtensionCell.h; sourceTree = "<group>"; };
-		C50645BF1ABD815100CB4BE3 /* WLExtensionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLExtensionCell.m; sourceTree = "<group>"; };
 		C50645C01ABD815100CB4BE3 /* WLTodayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayViewController.h; sourceTree = "<group>"; };
 		C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayViewController.m; sourceTree = "<group>"; };
 		C50645C41ABD815100CB4BE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -2279,6 +2261,12 @@
 		C54531291A24A1F20048A677 /* WLCountryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCountryCell.m; sourceTree = "<group>"; };
 		C54531331A24D6750048A677 /* WLLinkDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLinkDeviceViewController.h; path = WLLinkDeviceViewController/WLLinkDeviceViewController.h; sourceTree = "<group>"; };
 		C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLinkDeviceViewController.m; path = WLLinkDeviceViewController/WLLinkDeviceViewController.m; sourceTree = "<group>"; };
+		C5475B4D1AC596C500F9E8B3 /* WLTodayContributionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayContributionCell.h; sourceTree = "<group>"; };
+		C5475B4E1AC596C500F9E8B3 /* WLTodayContributionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayContributionCell.m; sourceTree = "<group>"; };
+		C5475B511AC59ABC00F9E8B3 /* WLTodayCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayCommentCell.h; sourceTree = "<group>"; };
+		C5475B521AC59ABC00F9E8B3 /* WLTodayCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayCommentCell.m; sourceTree = "<group>"; };
+		C5475B551AC59ACD00F9E8B3 /* WLTodayCandyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayCandyCell.h; sourceTree = "<group>"; };
+		C5475B561AC59ACD00F9E8B3 /* WLTodayCandyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayCandyCell.m; sourceTree = "<group>"; };
 		C54773111A41911F004C5826 /* WLFontPresetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLFontPresetter.h; sourceTree = "<group>"; };
 		C54773121A41911F004C5826 /* WLFontPresetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLFontPresetter.m; sourceTree = "<group>"; };
 		C547A44F1A026B3E005061AB /* WLKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLKeyboard.h; sourceTree = "<group>"; };
@@ -3761,7 +3749,6 @@
 				C50647601ABD868800CB4BE3 /* ExtensionsPrefixHeader.pch */,
 				C50645AC1ABD815100CB4BE3 /* NSUserDefaults+WLAppGroup.h */,
 				C50645AD1ABD815100CB4BE3 /* NSUserDefaults+WLAppGroup.m */,
-				C50645AE1ABD815100CB4BE3 /* WLExtensionModel */,
 				C50645B81ABD815100CB4BE3 /* WrapLive Today Extension */,
 				C50645C21ABD815100CB4BE3 /* WrapLive WatchKit App */,
 				C50645C71ABD815100CB4BE3 /* WrapLive WatchKit Extension */,
@@ -3769,39 +3756,12 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		C50645AE1ABD815100CB4BE3 /* WLExtensionModel */ = {
-			isa = PBXGroup;
-			children = (
-				C50645AF1ABD815100CB4BE3 /* WLComments */,
-				C50645B51ABD815100CB4BE3 /* WLPost */,
-			);
-			path = WLExtensionModel;
-			sourceTree = "<group>";
-		};
-		C50645AF1ABD815100CB4BE3 /* WLComments */ = {
-			isa = PBXGroup;
-			children = (
-				C50645B01ABD815100CB4BE3 /* WLExtensionComment.h */,
-				C50645B11ABD815100CB4BE3 /* WLExtensionComment.m */,
-			);
-			path = WLComments;
-			sourceTree = "<group>";
-		};
-		C50645B51ABD815100CB4BE3 /* WLPost */ = {
-			isa = PBXGroup;
-			children = (
-				C50645B61ABD815100CB4BE3 /* WLExtensionEvent.h */,
-				C50645B71ABD815100CB4BE3 /* WLExtensionEvent.m */,
-			);
-			path = WLPost;
-			sourceTree = "<group>";
-		};
 		C50645B81ABD815100CB4BE3 /* WrapLive Today Extension */ = {
 			isa = PBXGroup;
 			children = (
 				C50645B91ABD815100CB4BE3 /* WrapLiveTodayExtension-Development-Info.plist */,
-				C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */,
 				C50645BB1ABD815100CB4BE3 /* WrapLiveTodayExtension-Production-Info.plist */,
+				C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */,
 				C50645BC1ABD815100CB4BE3 /* WLTodayViewController */,
 			);
 			path = "WrapLive Today Extension";
@@ -3810,20 +3770,11 @@
 		C50645BC1ABD815100CB4BE3 /* WLTodayViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C50645BD1ABD815100CB4BE3 /* WLExtensionCell */,
+				C5475B4C1AC596A800F9E8B3 /* WLTodayContributionCell */,
 				C50645C01ABD815100CB4BE3 /* WLTodayViewController.h */,
 				C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */,
 			);
 			path = WLTodayViewController;
-			sourceTree = "<group>";
-		};
-		C50645BD1ABD815100CB4BE3 /* WLExtensionCell */ = {
-			isa = PBXGroup;
-			children = (
-				C50645BE1ABD815100CB4BE3 /* WLExtensionCell.h */,
-				C50645BF1ABD815100CB4BE3 /* WLExtensionCell.m */,
-			);
-			path = WLExtensionCell;
 			sourceTree = "<group>";
 		};
 		C50645C21ABD815100CB4BE3 /* WrapLive WatchKit App */ = {
@@ -4479,6 +4430,19 @@
 				C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */,
 			);
 			name = WLLinkDeviceViewController;
+			sourceTree = "<group>";
+		};
+		C5475B4C1AC596A800F9E8B3 /* WLTodayContributionCell */ = {
+			isa = PBXGroup;
+			children = (
+				C5475B4D1AC596C500F9E8B3 /* WLTodayContributionCell.h */,
+				C5475B4E1AC596C500F9E8B3 /* WLTodayContributionCell.m */,
+				C5475B511AC59ABC00F9E8B3 /* WLTodayCommentCell.h */,
+				C5475B521AC59ABC00F9E8B3 /* WLTodayCommentCell.m */,
+				C5475B551AC59ACD00F9E8B3 /* WLTodayCandyCell.h */,
+				C5475B561AC59ACD00F9E8B3 /* WLTodayCandyCell.m */,
+			);
+			path = WLTodayContributionCell;
 			sourceTree = "<group>";
 		};
 		C54773101A41910E004C5826 /* WLFontPresetter */ = {
@@ -5480,7 +5444,6 @@
 				C506469F1ABD815200CB4BE3 /* PushNotificationPayload.apns in Resources */,
 				C5C20BDD1A239D6F008B2E2E /* WLTestUserCell.xib in Resources */,
 				14ACAE0719421AE5006BD3B3 /* Main.storyboard in Resources */,
-				C50646901ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */,
 				5BF5833E1A1F983B00922BD5 /* ic_quote.png in Resources */,
 				C55D6A751AB6D55200256CF3 /* Introduction.storyboard in Resources */,
 				C535F9CF1AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
@@ -5534,7 +5497,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C50646941ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */,
 				C506460F1ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */,
 				5BA7FD581A499A8700B7E66F /* WLAPIEnvironmentProduction.plist in Resources */,
 				C55EE76E1A9F529800EE0EA3 /* wrapLive.entitlements in Resources */,
@@ -5554,7 +5516,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C50646951ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */,
 				C50646101ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */,
 				5BF1B23E1A49A683000BB2C1 /* WLAPIEnvironmentProduction.plist in Resources */,
 				C55EE76F1A9F529800EE0EA3 /* wrapLive.entitlements in Resources */,
@@ -5574,7 +5535,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C50646A81ABD82D400CB4BE3 /* WrapLiveWatchKitExtension-Production-Info.plist in Resources */,
 				C506468E1ABD815200CB4BE3 /* Images.xcassets in Resources */,
 				C50646A51ABD815200CB4BE3 /* PushNotificationPayload.apns in Resources */,
 				C50646371ABD815200CB4BE3 /* Images.xcassets in Resources */,
@@ -5606,7 +5566,6 @@
 				C50646C71ABD831F00CB4BE3 /* Images.xcassets in Resources */,
 				C50646C81ABD831F00CB4BE3 /* Interface.storyboard in Resources */,
 				C50646C91ABD831F00CB4BE3 /* WrapLiveWatchKitApp-Development.app in Resources */,
-				C50646CB1ABD831F00CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */,
 				C50646CC1ABD831F00CB4BE3 /* WLWKReplyPresets.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5675,7 +5634,6 @@
 				C50646A01ABD815200CB4BE3 /* PushNotificationPayload.apns in Resources */,
 				C54AF53219B8C437006F7EDB /* Main.storyboard in Resources */,
 				C57005CB1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
-				C50646911ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */,
 				C57005C31A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
 				C55D6A761AB6D55200256CF3 /* Introduction.storyboard in Resources */,
 				C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
@@ -5768,7 +5726,6 @@
 				C50646A11ABD815200CB4BE3 /* PushNotificationPayload.apns in Resources */,
 				C54AF62F19B8C467006F7EDB /* Main.storyboard in Resources */,
 				C57005CC1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
-				C50646921ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */,
 				C57005C41A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
 				C55D6A771AB6D55200256CF3 /* Introduction.storyboard in Resources */,
 				C535F9D11AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
@@ -5861,7 +5818,6 @@
 				C50646A21ABD815200CB4BE3 /* PushNotificationPayload.apns in Resources */,
 				C54AF72C19B8C491006F7EDB /* Main.storyboard in Resources */,
 				C57005CD1A1FA19C007257A6 /* chat_bubble_red_left.png in Resources */,
-				C50646931ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */,
 				C57005C51A1FA19C007257A6 /* chat_bubble_gray_right@2x.png in Resources */,
 				C55D6A781AB6D55200256CF3 /* Introduction.storyboard in Resources */,
 				C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
@@ -6408,10 +6364,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C50646001ABD815200CB4BE3 /* WLExtensionEvent.m in Sources */,
-				C50645F21ABD815200CB4BE3 /* WLExtensionComment.m in Sources */,
+				C5475B4F1AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */,
 				C50646261ABD815200CB4BE3 /* WLTodayViewController.m in Sources */,
-				C506461F1ABD815200CB4BE3 /* WLExtensionCell.m in Sources */,
+				C5475B531AC59ABC00F9E8B3 /* WLTodayCommentCell.m in Sources */,
+				C5475B571AC59ACD00F9E8B3 /* WLTodayCandyCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6419,10 +6375,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C50646011ABD815200CB4BE3 /* WLExtensionEvent.m in Sources */,
-				C50645F31ABD815200CB4BE3 /* WLExtensionComment.m in Sources */,
+				C5475B501AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */,
 				C50646271ABD815200CB4BE3 /* WLTodayViewController.m in Sources */,
-				C50646201ABD815200CB4BE3 /* WLExtensionCell.m in Sources */,
+				C5475B541AC59ABC00F9E8B3 /* WLTodayCommentCell.m in Sources */,
+				C5475B581AC59ACD00F9E8B3 /* WLTodayCandyCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6432,7 +6388,6 @@
 			files = (
 				C50646801ABD815200CB4BE3 /* WLWKEntryRow.m in Sources */,
 				C50646641ABD815200CB4BE3 /* WLWKCandyController.m in Sources */,
-				C50645F41ABD815200CB4BE3 /* WLExtensionComment.m in Sources */,
 				C506465D1ABD815200CB4BE3 /* WLWKReplyPresetsController.m in Sources */,
 				C50646791ABD815200CB4BE3 /* WLWKCommentEventRow.m in Sources */,
 				C50646871ABD815200CB4BE3 /* WLWKEventsController.m in Sources */,
@@ -6441,7 +6396,6 @@
 				C506464E1ABD815200CB4BE3 /* WLWKReplyPresetRow.m in Sources */,
 				C506466B1ABD815200CB4BE3 /* WLWKCommentRow.m in Sources */,
 				C50646471ABD815200CB4BE3 /* WLWKCommentNotificationController.m in Sources */,
-				C50646021ABD815200CB4BE3 /* WLExtensionEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6451,7 +6405,6 @@
 			files = (
 				C50646AF1ABD831F00CB4BE3 /* WLWKEntryRow.m in Sources */,
 				C50646B11ABD831F00CB4BE3 /* WLWKCandyController.m in Sources */,
-				C50646B21ABD831F00CB4BE3 /* WLExtensionComment.m in Sources */,
 				C50646B31ABD831F00CB4BE3 /* WLWKReplyPresetsController.m in Sources */,
 				C50646B41ABD831F00CB4BE3 /* WLWKCommentEventRow.m in Sources */,
 				C50646B51ABD831F00CB4BE3 /* WLWKEventsController.m in Sources */,
@@ -6460,7 +6413,6 @@
 				C50646B91ABD831F00CB4BE3 /* WLWKReplyPresetRow.m in Sources */,
 				C50646BB1ABD831F00CB4BE3 /* WLWKCommentRow.m in Sources */,
 				C50646BC1ABD831F00CB4BE3 /* WLWKCommentNotificationController.m in Sources */,
-				C50646BE1ABD831F00CB4BE3 /* WLExtensionEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

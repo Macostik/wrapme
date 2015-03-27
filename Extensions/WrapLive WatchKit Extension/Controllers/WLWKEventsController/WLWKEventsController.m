@@ -9,7 +9,6 @@
 #import "WLWKEventsController.h"
 #import "WLWKCommentEventRow.h"
 #import "NSURL+WLRemoteEntryHandler.h"
-#import "WLExtensionEvent.h"
 #import "NSDate+Formatting.h"
 #import <WrapLiveKit/WLRecentContributionsRequest.h>
 #import <WrapLiveKit/WLEntry+Extended.h>
@@ -37,9 +36,9 @@
     NSMutableArray *rowTypes = [NSMutableArray array];
     for (WLEntry *entry in entries) {
         if ([entry isKindOfClass:[WLCandy class]]) {
-            [rowTypes addObject:WLExtensionEventTypeCandy];
+            [rowTypes addObject:@"candy"];
         } else {
-            [rowTypes addObject:WLExtensionEventTypeComment];
+            [rowTypes addObject:@"comment"];
         }
     }
     

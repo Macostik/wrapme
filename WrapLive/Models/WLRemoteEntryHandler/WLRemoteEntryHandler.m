@@ -11,7 +11,6 @@
 #import "WLNavigation.h"
 #import "WLNotification.h"
 #import "NSString+Additions.h"
-#import "WLExtensionEvent.h"
 
 @interface WLRemoteEntryHandler ()
 
@@ -78,10 +77,14 @@
 
 @implementation WLRemoteEntryHandler (WatchKit)
 
-- (void)presentEntryFromWatchKitEvent:(WLExtensionEvent*)event {
-    NSString *identifier = event.identifier;
-    if (identifier.nonempty) {
-        [self presentEntry:[WLCandy entry:identifier] animated:YES];
+- (void)presentEntryFromWatchKitEvent:(NSDictionary*)event {
+    NSString *identifier = event[@"identifier"];
+    NSString *entity = event[@"entity"];
+    if (identifier.nonempty && entity.nonempty) {
+        WLEntry *entry = [NSClassFromString(entity) entry:identifier];
+        if (entry) {
+            [self presentEntry:entry animated:YES];
+        }
     }
 }
 

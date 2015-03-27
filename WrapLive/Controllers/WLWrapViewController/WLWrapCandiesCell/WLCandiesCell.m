@@ -56,10 +56,8 @@
 - (void)setup:(WLHistoryItem*)item {
     self.dataSection.entries = item;
 	self.dateLabel.text = [item.date string];
-	self.dataSection.completed = [item.entries count] < 3;
     [self.collectionView layoutIfNeeded];
     [self.collectionView trySetContentOffset:item.offset];
-    [item.request cancel];
 }
 
 @end

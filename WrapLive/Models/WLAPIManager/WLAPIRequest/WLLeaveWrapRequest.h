@@ -12,6 +12,6 @@
 
 + (instancetype)request:(WLWrap *)wrap;
 
-@property(strong, nonatomic) WLWrap *wrap;
+@property(weak, nonatomic) WLWrap *wrap;
 
 @end

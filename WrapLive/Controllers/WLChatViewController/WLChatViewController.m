@@ -396,10 +396,10 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGFloat)heightOfMessageCell:(WLMessage *)message containsName:(BOOL)containsName showDay:(BOOL)showDay {
-	CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth];
+    CGFloat commentHeight = WLCalculateHeightString(message.text, WLMaxTextViewWidth);
     CGFloat topInset = (containsName ? WLMessageNameInset : WLMessageVerticalInset);
     if (showDay) {
-        topInset += WLMessageDayLabelHeight + WLMessageGroupSpacing;
+        topInset += WLMessageDayLabelHeight;
     } else if (containsName) {
         topInset += WLMessageGroupSpacing;
     }
@@ -411,8 +411,8 @@ CGFloat WLMaxTextViewWidth;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
     WLMessage* previousMessage = [self.chat.entries tryObjectAtIndex:indexPath.item + 1];
-    BOOL containsName = (previousMessage == nil || previousMessage.contributor != message.contributor);
     BOOL showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
+    BOOL containsName = (previousMessage == nil || previousMessage.contributor != message.contributor) || showDay;
     if (containsName) {
         [self.itemsWithName addIndex:indexPath.item];
     }

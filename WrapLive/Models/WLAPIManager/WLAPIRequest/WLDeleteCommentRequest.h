@@ -10,7 +10,7 @@
 
 @interface WLDeleteCommentRequest : WLAPIRequest
 
-@property (strong, nonatomic) WLComment* comment;
+@property (weak, nonatomic) WLComment* comment;
 
 + (instancetype)request:(WLComment*)comment;
 

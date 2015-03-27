@@ -10,7 +10,7 @@
 
 @interface WLEntityRequest : WLAPIRequest
 
-@property (strong, nonatomic) WLEntry* entry;
+@property (weak, nonatomic) WLEntry* entry;
 
 + (instancetype)request:(WLEntry *)entry;
 

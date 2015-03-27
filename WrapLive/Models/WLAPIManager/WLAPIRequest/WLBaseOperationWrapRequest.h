@@ -10,7 +10,7 @@
 
 @interface WLBaseOperationWrapRequest : WLAPIRequest
 
-@property (strong, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) WLWrap* wrap;
 
 + (instancetype)request:(WLWrap*)wrap;
 

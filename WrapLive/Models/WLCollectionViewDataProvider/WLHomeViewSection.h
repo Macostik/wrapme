@@ -12,6 +12,6 @@
 
 @interface WLHomeViewSection : WLPaginatedViewSection
 
-@property (strong, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) WLWrap* wrap;
 
 @end

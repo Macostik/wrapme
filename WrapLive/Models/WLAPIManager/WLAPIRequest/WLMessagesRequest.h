@@ -10,7 +10,7 @@
 
 @interface WLMessagesRequest : WLPaginatedRequest
 
-@property (strong, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) WLWrap* wrap;
 
 @property (nonatomic) BOOL latest;
 

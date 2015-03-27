@@ -12,6 +12,6 @@
 
 @interface WLContributorsViewController : WLEditViewController
 
-@property (strong, nonatomic) WLWrap *wrap;
+@property (weak, nonatomic) WLWrap *wrap;
 
 @end

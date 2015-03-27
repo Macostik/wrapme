@@ -25,7 +25,7 @@
 
 @property (nonatomic) WLStillPictureMode mode;
 
-@property (strong, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) WLWrap* wrap;
 
 @property (weak, nonatomic) IBOutlet WLWrapView *wrapView;
 

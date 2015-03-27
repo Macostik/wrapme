@@ -13,7 +13,7 @@ static NSString* WLCandiesOrderByUpdating = @"last_touched_at";
 
 @interface WLCandiesRequest : WLPaginatedRequest
 
-@property (strong, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) WLWrap* wrap;
 
 @property (strong, nonatomic) NSString* orderBy;
 

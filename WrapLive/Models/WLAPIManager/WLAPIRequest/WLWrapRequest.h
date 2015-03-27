@@ -13,7 +13,7 @@ static NSString* WLWrapContentTypePaginated = @"paginated_by_date";
 
 @interface WLWrapRequest : WLPaginatedRequest
 
-@property (strong, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) WLWrap* wrap;
 
 @property (nonatomic) NSString* contentType;
 

@@ -103,6 +103,10 @@
 		5B787DA31A27876F004AE459 /* WLTodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B787DA21A27876F004AE459 /* WLTodayViewController.m */; };
 		5B787DA51A27876F004AE459 /* WLTodayExtension.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B787DA41A27876F004AE459 /* WLTodayExtension.storyboard */; };
 		5B787DA81A27876F004AE459 /* WLTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* WLTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5B7DBD811AC5984700C6DC9E /* WLContainerTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7DBD801AC5984700C6DC9E /* WLContainerTextView.xib */; };
+		5B7DBD821AC5984700C6DC9E /* WLContainerTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7DBD801AC5984700C6DC9E /* WLContainerTextView.xib */; };
+		5B7DBD831AC5984700C6DC9E /* WLContainerTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7DBD801AC5984700C6DC9E /* WLContainerTextView.xib */; };
+		5B7DBD841AC5984700C6DC9E /* WLContainerTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7DBD801AC5984700C6DC9E /* WLContainerTextView.xib */; };
 		5BA406841A8CC52B00C1749F /* WLToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA406831A8CC52B00C1749F /* WLToast.xib */; };
 		5BA406851A8CC52B00C1749F /* WLToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA406831A8CC52B00C1749F /* WLToast.xib */; };
 		5BA406861A8CC52B00C1749F /* WLToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA406831A8CC52B00C1749F /* WLToast.xib */; };
@@ -1731,6 +1735,7 @@
 		5B787DA21A27876F004AE459 /* WLTodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WLTodayViewController.m; path = WLTodayViewController/WLTodayViewController.m; sourceTree = "<group>"; };
 		5B787DA41A27876F004AE459 /* WLTodayExtension.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WLTodayExtension.storyboard; sourceTree = "<group>"; };
 		5B787DAF1A27890C004AE459 /* wrapLive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = wrapLive.entitlements; sourceTree = "<group>"; };
+		5B7DBD801AC5984700C6DC9E /* WLContainerTextView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContainerTextView.xib; sourceTree = "<group>"; };
 		5BA406831A8CC52B00C1749F /* WLToast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLToast.xib; sourceTree = "<group>"; };
 		5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLConfirmView.h; path = WLConfirmView/WLConfirmView.h; sourceTree = "<group>"; };
 		5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLConfirmView.m; path = WLConfirmView/WLConfirmView.m; sourceTree = "<group>"; };
@@ -3295,6 +3300,7 @@
 		5BA60C1B1A8257ED000F795C /* NSString */ = {
 			isa = PBXGroup;
 			children = (
+				5B7DBD801AC5984700C6DC9E /* WLContainerTextView.xib */,
 				5BA60C1C1A8257ED000F795C /* NSString+Additions.h */,
 				5BA60C1D1A8257ED000F795C /* NSString+Additions.m */,
 				5BA60C1E1A8257ED000F795C /* NSString+Documents.h */,
@@ -4947,6 +4953,7 @@
 				5BA51C961AA495C200B9714A /* WLInviteHintView.xib in Resources */,
 				ACF8D9161934B44D0001E570 /* rings.plist in Resources */,
 				C514AA5A1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
+				5B7DBD811AC5984700C6DC9E /* WLContainerTextView.xib in Resources */,
 				C55EE76A1A9F529600EE0EA3 /* wrapLive.entitlements in Resources */,
 				C54AF86319B8C622006F7EDB /* WLAPIEnvironmentQA.plist in Resources */,
 				ACF8D9101934B4350001E570 /* smiles.plist in Resources */,
@@ -5065,6 +5072,7 @@
 				5BA51C971AA495C200B9714A /* WLInviteHintView.xib in Resources */,
 				C54AF87919B8C63E006F7EDB /* WLTestUsersQA.plist in Resources */,
 				C514AA5B1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
+				5B7DBD821AC5984700C6DC9E /* WLContainerTextView.xib in Resources */,
 				C55EE76B1A9F529700EE0EA3 /* wrapLive.entitlements in Resources */,
 				C57005D31A1FA19C007257A6 /* chat_bubble_red_left@3x.png in Resources */,
 				C54AF54119B8C437006F7EDB /* CountryCodes.json in Resources */,
@@ -5153,6 +5161,7 @@
 				5BA51C981AA495C200B9714A /* WLInviteHintView.xib in Resources */,
 				C54AF87D19B8C63E006F7EDB /* WLTestUsersQA.plist in Resources */,
 				C514AA5C1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
+				5B7DBD831AC5984700C6DC9E /* WLContainerTextView.xib in Resources */,
 				C55EE76C1A9F529700EE0EA3 /* wrapLive.entitlements in Resources */,
 				C57005D41A1FA19C007257A6 /* chat_bubble_red_left@3x.png in Resources */,
 				C54AF63E19B8C467006F7EDB /* CountryCodes.json in Resources */,
@@ -5241,6 +5250,7 @@
 				5BA51C991AA495C200B9714A /* WLInviteHintView.xib in Resources */,
 				C54AF88119B8C63F006F7EDB /* WLTestUsersQA.plist in Resources */,
 				C514AA5D1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
+				5B7DBD841AC5984700C6DC9E /* WLContainerTextView.xib in Resources */,
 				C55EE76D1A9F529700EE0EA3 /* wrapLive.entitlements in Resources */,
 				C57005D51A1FA19C007257A6 /* chat_bubble_red_left@3x.png in Resources */,
 				C54AF73B19B8C491006F7EDB /* CountryCodes.json in Resources */,

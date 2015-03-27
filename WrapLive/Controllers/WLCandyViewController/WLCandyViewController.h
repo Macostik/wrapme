@@ -15,7 +15,7 @@
 
 @interface WLCandyViewController : WLShakeViewController
 
-@property (strong, nonatomic) WLCandy *candy;
+@property (weak, nonatomic) WLCandy *candy;
 
 @property (nonatomic) BOOL showCommentInputKeyboard;
 

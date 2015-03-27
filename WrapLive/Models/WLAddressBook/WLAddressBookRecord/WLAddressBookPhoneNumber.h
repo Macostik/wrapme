@@ -22,7 +22,7 @@ static NSInteger WLAddressBookPhoneNumberMinimumLength = 6;
 
 @property (strong, nonatomic) NSString *name;
 
-@property (strong, nonatomic) WLUser *user;
+@property (weak, nonatomic) WLUser *user;
 
 @property (strong, nonatomic) WLPicture *picture;
 

@@ -21,7 +21,7 @@
 
 - (void)setup {
     [super setup];
-    [[WLWrap notifier] addReceiver:self];
+    [[WLCandy notifier] addReceiver:self];
 }
 
 - (void)didChangeEntries:(WLEntriesCollection)entries {

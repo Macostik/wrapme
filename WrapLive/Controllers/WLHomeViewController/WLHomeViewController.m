@@ -69,7 +69,7 @@
 @property (weak, nonatomic) IBOutlet UIView *createWrapTipView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 
-@property (strong, nonatomic) WLWrap* chatSegueWrap;
+@property (weak, nonatomic) WLWrap* chatSegueWrap;
 
 @property (nonatomic) BOOL createWrapTipHidden;
 

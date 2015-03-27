@@ -14,7 +14,7 @@
 
 @interface WLTimelineEvent : NSObject
 
-@property (strong, nonatomic) WLUser* user;
+@property (weak, nonatomic) WLUser* user;
 
 @property (strong, nonatomic) NSDate* date;
 

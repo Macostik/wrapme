@@ -10,7 +10,7 @@
 
 @interface WLUpdateContributorsRequest : WLAPIRequest
 
-@property (strong, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) WLWrap* wrap;
 
 @property (strong, nonatomic) NSArray *contributors;
 

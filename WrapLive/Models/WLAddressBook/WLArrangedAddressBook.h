@@ -17,7 +17,7 @@ typedef void (^WLArrangedAddressBookUniqueRecordHandler)(BOOL exists, NSArray *r
 
 @interface WLArrangedAddressBook : NSObject
 
-@property (strong, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) WLWrap* wrap;
 
 @property (strong, nonatomic) NSArray *groups;
 

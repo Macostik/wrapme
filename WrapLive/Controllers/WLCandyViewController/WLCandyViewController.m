@@ -55,7 +55,7 @@
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
 @property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 
-@property (strong, nonatomic) WLComment *lastComment;
+@property (weak, nonatomic) WLComment *lastComment;
 @property (nonatomic) BOOL scrolledToInitialItem;
 
 @property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
@@ -72,7 +72,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewContstraint;
 
-@property (strong, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) WLWrap* wrap;
 
 @end
 

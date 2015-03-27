@@ -11,12 +11,18 @@
 #import "WLOperationQueue.h"
 #import "UIView+Shorthand.h"
 #import "WLWrapRequest.h"
+#import "WLEntryNotifier.h"
 
-@interface WLHomeViewSection ()
+@interface WLHomeViewSection () <WLEntryNotifyReceiver>
 
 @end
 
 @implementation WLHomeViewSection
+
+- (void)setup {
+    [super setup];
+    [[WLWrap notifier] addReceiver:self];
+}
 
 - (void)didChangeEntries:(WLEntriesCollection)entries {
     self.wrap = [self.entries.entries firstObject];
@@ -33,11 +39,15 @@
 - (void)fetchTopWrapIfNeeded:(WLWrap*)wrap {
     if ([wrap.candies count] < WLHomeTopWrapCandiesLimit) {
         runUnaryQueuedOperation(WLOperationFetchingDataQueue,^(WLOperation *operation) {
-            [wrap fetch:WLWrapContentTypeRecent success:^(NSOrderedSet* candies) {
+            if ([wrap.candies count] < WLHomeTopWrapCandiesLimit) {
+                [wrap fetch:WLWrapContentTypeRecent success:^(NSOrderedSet* candies) {
+                    [operation finish];
+                } failure:^(NSError *error) {
+                    [operation finish];
+                }];
+            } else {
                 [operation finish];
-            } failure:^(NSError *error) {
-                [operation finish];
-            }];
+            }
         });
     }
 }
@@ -56,6 +66,16 @@
     static NSString* wrapCellIdentifier = @"WLWrapCell";
     NSString* identifier = indexPath.item == 0 ? topWrapCellIdentifier : wrapCellIdentifier;
 	return [self cellWithIdentifier:identifier indexPath:indexPath];
+}
+
+// MARK: - WLEntryNotifyReceiver
+
+- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
+    [self fetchTopWrapIfNeeded:self.wrap];
+}
+
+- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
+    return self.wrap;
 }
 
 @end

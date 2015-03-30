@@ -27,7 +27,7 @@
         </view>
     </objects>
     <resources>
-        <image name="first_time_sreen" width="320" height="416"/>
+        <image name="first_time_sreen" width="375" height="378"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
